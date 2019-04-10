@@ -33,11 +33,11 @@ There are two installations that you need to take note of. They are:
 * *Install JDK version `9` or later*
 +
 [WARNING]
-For Windows developers, JDK version `10` will fail to run tests in headless mode due to a https://github.com/javafxports/openjdk-jfx/issues/66[JavaFX bug]. Therefore, we strongly encourage all Windows developers to stick with JDK version `9`.
+For Windows developers, <<jdk, Java>> version `10` will fail to run tests in headless mode due to a https://github.com/javafxports/openjdk-jfx/issues/66[JavaFX bug]. Therefore, we strongly encourage all Windows developers to stick with JDK version `9`.
 
 * *Install IntelliJ IDE*
 [NOTE]
-By default, IntelliJ already has both Gradle and JavaFx plugins installed. As TravelBuddy will be making use of them, please do not disable them. If you have disabled them, go to `File` > `Settings` > `Plugins` to re-enable them.
+By default, <<ide, IntelliJ>> already has both Gradle and JavaFx plugins installed. As TravelBuddy will be making use of them, please do not disable them. If you have disabled them, go to `File` > `Settings` > `Plugins` to re-enable them.
 
 
 === Setting Up the Project in Your Computer
@@ -69,7 +69,7 @@ This will generate all resources required by the application and tests.
 
 ==== Configuring the Coding Style
 
-This project follows https://github.com/oss-generic/process/blob/master/docs/CodingStandards.adoc[oss-generic coding standards]. IntelliJ's default style is mostly compliant with ours but it uses a different import order from ours. To rectify,
+This project follows the https://github.com/oss-generic/process/blob/master/docs/CodingStandards.adoc[OSS-Generic Java Coding Standard]. IntelliJ's default style is mostly compliant with ours but it uses a different import order from ours. To rectify,
 
 . Go to `File` > `Settings...` (Windows/Linux), or `IntelliJ IDEA` > `Preferences...` (macOS)
 . Select `Editor` > `Code Style` > `Java`
@@ -96,10 +96,7 @@ Having both Travis and AppVeyor ensures your App works on both Unix-based platfo
 
 ==== Getting started with coding
 
-When you are ready to start coding,
-
-1. Get some sense of the overall design by reading <<Design-Architecture>>.
-2. Take a look at <<GetStartedProgramming>>.
+When you are ready to start coding, get some sense of the overall design by reading <<Design-Architecture>>.
 
 == Design
 
@@ -261,9 +258,13 @@ the UI automatically updates when the data in the list change.
 
 [NOTE]
 As a more OOP model, we can store a `Tag` list in `TravelBuddy`, which `Place` can reference. This would allow `TravelBuddy` to only require one `Tag` object per unique `Tag`, instead of each `Place` needing their own `Tag` object. An
- example of how such a model may look like is given below. +
+ example of how such a model may look like is seen in <<ModelClassBetterOopDiagram>>. +
  +
-image:ModelClassBetterOopDiagram.png[width="800"]
+[[ModelClassBetterOopDiagram]]
+[reftext="Figure 3.4.2"]
+[caption="Figure 3.4.2: "]
+.OOP Class Diagram
+image::ModelClassBetterOopDiagram.png[width="800"]
 
 [[Design-Storage]]
 === Storage Component
@@ -286,7 +287,9 @@ The `Storage` component,
 
 Classes used by multiple components are in the `seedu.travel.commons` package.
 
+// tag::implementation[]
 == Implementation
+// end::implementation[]
 
 This section describes some noteworthy details on how certain features are implemented.
 
@@ -736,7 +739,7 @@ The command `add` is in lower-case. Mixed-case or upper-case commands are not re
 ** Cons: Tedious process of typing out country codes in the data structure.
 // end::countrycode[]
 
-// tag::generate[]
+// tag::chartFeature[]
 === Chart Feature
 
 The Chart feature displays to users three different charts in TravelBuddy. They are:
@@ -752,29 +755,29 @@ Instead of typing `generate`, you can simply type the shortcut `g`.
 
 ==== Current Implementation
 
-*Logic:* :: The `generate` mechanism is executed by `GenerateCommand`, which extends from `Command`. A code snippet is shown below:
+*Logic:* The `generate` mechanism is executed by `GenerateCommand`, which extends from `Command`. A code snippet is shown below:
 
-// [source,java]
-// ----
-// include::{sourceDir}/seedu/travel/logic/commands/GenerateCommand.java[tags=execute,indent=5]
-// ----
+[source,java]
+----
+include::{sourceDir}/seedu/travel/logic/commands/GenerateCommand.java[tags=execute,indent=1]
+----
 
-:: The operations implemented are:
+The operations implemented are:
+
 * `GenerateCommand#setChartDisplayed(chartDisplayed)` - Signals to the UI to display the charts.
 * `GenerateCommand#commitTravelBuddy()` - Saves the current TravelBuddy state from its history.
 * `GenerateCommand#getFilteredPlaceList()` - Verifies if the list is empty.
 
-:: These operations are exposed in the `Model` interface as `Model#setChartDisplayed(chartDisplayed)`, `Model#commitTravelBuddy()` and `Model#getFilteredPlaceList()`.
+These operations are exposed in the `Model` interface as `Model#setChartDisplayed(chartDisplayed)`, `Model#commitTravelBuddy()` and `Model#getFilteredPlaceList()`.
 
-*Model:* :: The chart generation mechanism is facilitated by `VersionedTravelBuddy`, which extends from `TravelBuddy`, as seen in the Model Class Diagram in <<ModelClassDiagram>>.
+*Model:* The chart generation mechanism is facilitated by `VersionedTravelBuddy`, which extends from `TravelBuddy`, as seen in the Model Class Diagram in <<ModelClassDiagram>>.
 
 [[chartOopDiagramFigure]]
-[reftext="Figure 4.4.3"]
-[caption="Figure 4.4.3: "]
 .OOP Diagram
-image::Chart_ModelClassBetterOopDiagram.png[width="600"]
+image::Chart_ModelClassBetterOopDiagram.png[width="600", caption="Figure 4.4.1: ", reftext="Figure 4.4.1"]
 
-:: For this section on Charts, the focus is on the class diagram as seen in <<chartOopDiagramFigure>>. The step-by-step explanation of the class diagram can be found below:
+For this section on Charts, the focus is on the <<class-diagram, class diagram>> as seen in <<chartOopDiagramFigure>>. The step-by-step explanation of the class diagram can be found below:
+
 . The `ModelManager` is a container for a `VersionedTravelBuddy` object.
 . VersionedTravelBuddy consists of a `UniquePlaceList` object.
 . `UniquePlaceList` is a container for one or more `ChartBook` objects and for one or more `Place` object.
@@ -782,32 +785,43 @@ image::Chart_ModelClassBetterOopDiagram.png[width="600"]
 . `countryChartList` is a container for one or more `CountryChart` objects. Similarly, `ratingChartList` is a container for one or more `RatingChart` objects and `yearChartList` is a container for one or more `YearChart` objects.
 . `CountryChart` consists of a `CountryCode` object and a `Total` object. Similarly, `RatingChart` consists of a `Rating` object and a `Total` object and `YearChart` consists of a `Year` object and a `Total` object.
 
+*Logic & Model Interaction:* Having discussed Logic and Model, we can now model the workflow of the `generate` command. This can be accomplished using an <<activity-diagram, activity diagram>>, as seen in <<GenerateCommandActivityDiagram>>.
 
+Additionally, we want to be able to capture the interaction between multiple objects for the `generate` command. This can be accomplished using a <<sequence-diagram, sequence diagram>>, as seen in <<GenerateCommandSeqDiagramFigure>> below. The step-by-step explanation of the sequence diagram is as follows:
 
-*Storage:* :: It is stored internally
+. The user enters the command `generate` without any parameters.
+. The command is processed by the Logic component, which will then call `LogicManager#execute()`.
+. The `GenerateCommand#execute()` method is invoked.
+. The `Model#setChartDisplayed()` method is invoked with the argument `true`. The `Model#commitTravelBuddy()` method is also invoked.
+. The `TravelBuddy#commitTravelBuddy()` method is invoked by `Model`.
+. The `ChartBook#commitChart()` method is invoked by `TravelBuddy`.
+. A result object is returned.
 
-*UI:* ::
+[[GenerateCommandActivityDiagram]]
+.Activity Diagram for the `generate` command
+image::GenerateCommandActivityDiagram.png[width="400", caption="Figure 4.4.2: ", reftext="Figure 4.4.2"]
 
-[[chartSeqDiagramFigure]]
-[reftext="Figure 4.4.1"]
-[caption="Figure 4.4.1: "]
+[[GenerateCommandSeqDiagramFigure]]
 .Sequence Diagram for the `generate` command
-image::GenerateCommandSeqDiagram.png[width="600"]
+image::GenerateCommandSeqDiagram.png[width="700", caption="Figure 4.4.3: ", reftext="Figure 4.4.3"]
 
-<<chartSeqDiagramFigure>> is a sequence diagram which illustrates the interaction between various classes when the `generate` command is entered. The step-by-step explanation of the sequence diagram are:
+*Storage:* The Chart's storage is handled by `JsonChartBookStorage`, which implements from `ChartBookStorage`. The three main methods it implement are:
 
-*Step 1:* :: The user enters the command `generate` without any parameters.
-*Step 2:* :: The command is processed by the Logic component, which will then call `LogicManager#execute()`.
-*Step 3:* :: The `GenerateCommand#execute()` method s invoked.
-*Step 4:* :: The `Model#setChartDisplayed()` method is invoked with the argument `true`. The `Model#commitTravelBuddy()` method is also invoked.
-*Step 5:* :: The `TravelBuddy#commitTravelBuddy()` method is invoked by `Model`.
-*Step 6:* :: The `ChartBook#commitChart()` method is invoked by `TravelBuddy`.
-*Step 7:* :: A result object is returned.
+* `saveCountryChart(filePath)` - Saves the countries data into a JSON file.
+* `saveRatingChart(filePath)` - Saves the ratings data into a JSON file.
+* `saveYearChart(filePath)` - Saves the years data into a JSON file.
+
+A code snippet for `saveCountryChart(filePath)` is shown below. A third-party library called Gson was used to convert Java Objects into JSON and back. The Gson API can be found https://www.javadoc.io/doc/com.google.code.gson/gson/2.8.5[here].
+
+[source,java]
+----
+include::{sourceDir}/seedu/travel/storage/JsonChartBookStorage.java[tags=saveCountryChart,indent=1]
+----
 
 ==== Generate Command
 
-*Preconditions:* ::
-Given below is a list of preconditions that must be met for the `generate` command to work:
+*Preconditions:* Given below is a list of preconditions that must be met for the `generate` command to work:
+
 * By default, the charts are automatically generated each time TravelBuddy loads.
 * The `generate` command always triggers the display of all three charts.
 * The charts always update themselves in real-time. +
@@ -815,61 +829,52 @@ _Example:_ When a place is added via the `add` command, the charts are automatic
 * The chart will not display anything when the list is empty.
 * You can type in any parameters after the `generate` command, TravelBuddy will simply ignore them.
 
-*Example:* ::
-Given below is an example usage scenario and what the user will see in the GUI.
+*Example:* Given below is an example usage scenario and what the user will see in the GUI.
 
-:: *Step 1:* By default, the charts are displayed when TravelBuddy launches. To navigate away from the charts, type in `select 1`, as seen in <<generateCommand1>>. +
-*Outcome:* The first place in the place list will be selected and displayed on the right-hand side of the panel, as shown in <<generateCommand2>>.
+*Step 1:* By default, the charts are displayed when TravelBuddy launches. To navigate away from the charts, type in `select 1`.+
+*Outcome:* The first index in the place list will be selected and displayed on the right-hand side of the panel..
 
-[[generateCommand1]]
-[reftext="Figure 4.4.4"]
-[caption="Figure 4.4.4: "]
-.The user types in `select 1`
-image::generateCommand1.png[width="600"]
-
-:: *Step 2:* Type in `generate` to generate the charts, as seen in <<generateCommand2>>. +
-*Outcome:* The charts will be displayed on the right-hand side of the panel, as shown in <<generateCommand3>>.
-
-[[generateCommand2]]
-[reftext="Figure 4.4.5"]
-[caption="Figure 4.4.5: "]
-.The user types in `generate`
-image::generateCommand2.png[width="600"]
-
-[[generateCommand3]]
-[reftext="Figure 4.4.6"]
-[caption="Figure 4.4.6: "]
-.The charts are generated
-image::generateCommand3.png[width="600"]
+*Step 2:* Type in `generate` to generate the charts.. +
+*Outcome:* The charts will be displayed on the right-hand side of the panel..
 
 ==== Design Considerations
 
 ===== Aspect: How Chart Generation Executes
 
-*Alternative 1 (current choice):* :: Charts are updated in real-time.
-*Pros:* :: Ease-of-use. Users do not need to type an additional `generate` command after changes are made to the Place list.
-:: Accurate. The chart reflects the latest changes regardless of whether the user types the `generate` command.
-*Cons:* :: Computationally more intensive, especially when the Place list is huge, as all three charts need to be regenerated every time a change is detected.
-*Example:* :: <<generateCommand7>> shows the state of the bar charts before the command `edit 1 cc/USA` was executed, while <<generateCommand8>> shows the state of the bar chart, with USA included, after the `edit` command was executed.
-*Alternative 2:* :: Charts are updated only when the `generate` command is used.
-*Pros:* :: Computationally less intensive, as the charts are only generated when required.
-*Cons:* :: Less user-friendly. Users will need to type the `generate` command for the charts to reflect the changes made to the Place list.
-:: Less accurate. The chart does not reflect the latest changes until the user types the `generate` command.
-*Decision:* :: Alternative 1, which is to update the charts in real-time, was adopted as it promotes ease-of-use, so users are not required to type in an additional `generate` command whenever changes are made to the Place list. Moreover, Alternative 1 is the more accurate option of the two, as the chart reflects the latest changes even if the user forgets to type the `generate` command.
+[width="100%",cols="16%,<50%,<50%",options="header"]
+|=======================================================================
 
-[[generateCommand7]]
-[reftext="Figure 4.4.7"]
-[caption="Figure 4.4.7: "]
-.Before the `edit` command was executed
-image::generateCommand7.png[width="600"]
+|
+|*Alternative 1 (current choice)*
+|*Alternative 2*
 
-[[generateCommand8]]
-[reftext="Figure 4.4.8"]
-[caption="Figure 4.4.8: "]
-.After the `edit` command was executed
-image::generateCommand8.png[width="600"]
+|*Description*
+|Updates the charts both in real-time and when the `generate` command is used.
+|Updates the charts only when the `generate` command is used.
 
-// end::generate[]
+|*Pros*
+|*Ease-of-use*. This approach is more user-friendly, as users do not need to type an additional `generate` command after changes are made to the Place list. +
+*Accuracy*. This approach is more accurate as the charts reflect the latest changes regardless of whether the user types the `generate` command.
+
+|*Scalability*. This approach is computationally less intensive, as the charts are only generated when required.
+
+|*Cons*
+|*Scalability*. This approach is computationally more intensive, especially when the Place list is huge, as all three charts need to be regenerated every time a change is detected.
+|*Ease-of-use*. This approach is Less user-friendly as users will need to type the `generate` command for the charts to reflect the changes made to the Place list. +
+*Accuracy*. This approach is less accurate as the charts does not reflect the latest changes until the user types the `generate` command.
+
+|*Example*
+|As shown in <<Generate_BeforeEditAfterEdit>>, before the `edit 1 cc/USA` command was executed, the chart did not have a separate bar for USA. After the command was executed, the chart updated in real-time to include a bar for USA. All this was done without invoking the `generate` command.
+|N.A.
+|=======================================================================
+
+*Decision:* Alternative 1, which is to update the charts in real-time, was adopted as it promotes ease-of-use, so users are not required to type in an additional `generate` command whenever changes are made to the Place list. Moreover, Alternative 1 is the more accurate option of the two, as the chart reflects the latest changes even if the user forgets to type the `generate` command.
+
+[[Generate_BeforeEditAfterEdit]]
+.A comparison before and after the `edit` command was executed
+image::Generate_BeforeEditAfterEdit.png[width="800", caption="Figure 4.4.4: ", reftext="Figure 4.4.4"]
+//end::chartFeature[]
+
 === Logging
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and
@@ -1110,48 +1115,105 @@ A project often depends on third-party libraries. For example, TravelBuddy depen
 
 *Value proposition*: manage contacts faster than a typical mouse/GUI driven app
 
+// tag::user-stories[]
 [appendix]
 == User Stories
 
-Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
+The priority of <<user-stories, user stories>> are divided into three categories:
 
-[width="59%",cols="22%,<23%,<25%,<30%",options="header",]
+* High (must have) - `* * *`
+* Medium (nice to have) - `* *`
+* Low (unlikely to have) - `*`
+
+[width="100%", cols="8%,8%,<30%,<50%", options="header"]
+.User Stories
 |=======================================================================
-|Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
+|Priority
+|As a ...
+|I want to ...
+|So that ...
 
-|`* * *` |user |add a new place |
+|`* * *`
+|user
+|search places by their names
+|I can quickly retrieve information about that place
 
-|`* * *` |user |delete a place |remove entries that I no longer need
+|`* * *`
+|user
+|keep track of all the places I have visited
+|I can easily search for them in the future
 
-|`* * *` |user |find a place by name |locate details of places without having to go through the entire list
+|`* * *`
+|user
+|rate the places I have visited
+|I know which places I want to revisit
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else
-seeing them by accident
+|`* * *`
+|user
+|be able to search for places by ratings
+|I can recommend the highly-rated places to others and avoid the lowly-rated ones
 
-|`*` |user with many places in the TravelBuddy |sort places by name |locate a place easily
+|`* * *`
+|user
+|be able to search for places by countries
+|I can plan for future trips
+
+|`* * *`
+|user
+|search places by their tag(s)
+|I can quickly compile a list of places with related tags
+
+|`* *`
+|user
+|know the countries and continents that I have not visited
+|I may visit them in future
+
+|`* *`
+|user
+|see a graphical representation of the places I have visited
+|I can plan which country to visit next
+
+|`* *`
+|user
+|to know the number of times I have revisited a place
+|I know which places are popular for me
+
+|`* *`
+|user
+|search for the places I have visited by years
+|I am able to see which places I have visited in by year
+
+|`*`
+|user
+|have a map view indicating all of the places I have visited
+|I can quickly find out the places by countries I have visited in a user-friendly way
+
+|`*`
+|user
+|I want to get the locations of highly-rated places in my vicinity
+|find a place to visit
 |=======================================================================
+// end::user-stories[]
 
-_{More to be added}_
-
+// tag::use-cases[]
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `TravelBuddy` and the *Actor* is the `user`, unless specified otherwise)
+(For all <<use-cases, use cases>> below, the *System* is the `TravelBuddy` and the <<actor, *Actor*>> is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete place
+=== Use case: Deleting a place
 
-*MSS*
+<<mss, *MSS*>>
 
-1.  User requests to list places
-2.  TravelBuddy shows a list of places
-3.  User requests to delete a specific place in the list
-4.  TravelBuddy deletes the place
+. User requests to list places
+. TravelBuddy shows a list of places
+. User requests to delete a specific place in the list
+. TravelBuddy deletes the place
 +
 Use case ends.
 
-*Extensions*
+<<extension, *Extensions*>>
 
 [none]
 * 2a. The list is empty.
@@ -1161,16 +1223,102 @@ Use case ends.
 * 3a. The given index is invalid.
 +
 [none]
-** 3a1. TravelBuddy shows an error message.
+** 3a1. TravelBuddy shows an error message "The place index provided is invalid".
 +
 Use case resumes at step 2.
 
-_{More to be added}_
+* 3b. The given command is invalid.
++
+[none]
+** 3b1. TravelBuddy shows an error message "Unknown command".
++
+Use case resumes at step 2.
+
+[discrete]
+=== Use case: Search for a place
+
+<<mss, *MSS*>>
+
+. User requests to list places
+. TravelBuddy shows a list of places
+. User searches for a place with a specific word
+. TravelBuddy displays all places with the specified word.
++
+Use case ends.
+
+<<extension, *Extensions*>>
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+* 3a. The given word is not found.
++
+[none]
+** 3a1. TravelBuddy shows an error message "0 places listed!".
++
+Use case resumes at step 2.
+
+* 3b. The given command is invalid.
++
+[none]
+** 3b1. TravelBuddy shows an error message "Unknown command".
++
+Use case resumes at step 2.
+
+[discrete]
+=== Use case: Edits a place
+
+<<mss, *MSS*>>
+
+. User requests to list places
+. TravelBuddy shows a list of places
+. User edits a place with a specified index and a specified parameter.
+. TravelBuddy identifies the place and updates the changes on the specified parameter.
++
+Use case ends.
+
+<<extension, *Extensions*>>
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+* 3a. The given index is invalid.
++
+[none]
+** 3a1. TravelBuddy shows an error message "Invalid command format!".
++
+Use case resumes at step 2.
+
+* 3b. The given prefix is invalid.
++
+[none]
+** 3b1. TravelBuddy shows an error message "Invalid command format!".
++
+Use case resumes at step 2.
+
+* 3c. The given parameter is invalid.
++
+[none]
+** 3c1. TravelBuddy shows an error message depending on the parameter.
++
+Use case resumes at step 2.
+
+* 3d. The given command is invalid.
++
+[none]
+** 3d1. TravelBuddy shows an error message "Unknown command".
++
+Use case resumes at step 2.
+// end::use-cases[]
 
 [appendix]
 == Non Functional Requirements
 
-.  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
+.  Should work on any <<mainstream-os, mainstream OS>> as long as it has Java `9` or higher installed.
 .  Should be able to hold up to 1000 places without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 
@@ -1179,23 +1327,57 @@ _{More to be added}_
 [appendix]
 == Glossary
 
+[width="100%", cols="20%,<80%", options="header"]
 .A List of Terms Used in this Developer Guide
-|===
-|Terms |Definitions
+|=======================================================================
+|Terms
+|Definitions
 
-|[[mainstream-os]] *Mainstream OS*
+|[[activity-diagram]]
+*Activity Diagram*
+|Activity diagrams are diagrams that can model workflows. Activity diagrams are the UML equivalent of flow charts.
+
+|[[actor]]
+*Actor*
+|An actor (in a use case) is a role played by a user. An actor can be a human or another system. Actors are not part of the system; they reside outside the system.
+
+|[[class-diagram]]
+*Class Diagram*
+|Class diagrams describe the structure (but not the behavior) of an OOP solution.
+
+|[[extension]]
+*Extension*
+|Extensions are "add-on"s to the MSS that describe exceptional or alternative flow of events. They describe variations of the scenario that can happen if certain things are not as expected by the MSS.
+
+|[[ide]]
+*Integrated Development Environment*
+|Integrated Development Environment (IDE) is a software application that provides comprehensive facilities to computer programmers for software development.
+
+|[[jdk]]
+*Java Development Kit*
+|Java Development Kit (JDK) is a software development environment used for developing Java applications and applets.
+
+|[[mainstream-os]]
+*Mainstream OS*
 |Some mainstream operating systems include Windows, Linux, Unix and OS-X.
 
-|[[private-contact-detail]] *Private contact detail*
-|A contact detail that is not meant to be shared with others.
+|[[mss]]
+*MSS*
+|Main Success Scenario (MSS) describes the most straightforward interaction for a given use case, which assumes that nothing goes wrong.
 
-|[[jdk]] *Java Development Kit (JDK)*
-|A software development environment used for developing Java applications and applets.
+|[[sequence-diagram]]
+*Sequence Diagram*
+|Sequence diagrams capture the interactions between multiple objects for a given scenario.
 
-|[[ide]]*Integrated Development Environment (IDE)*
-|A software application that provides comprehensive facilities to computer programmers for software development.
+|[[use-cases]]
+*Use Case*
+|A use case is a description of a set of sequences of actions, including variants, that a system performs to yield an observable result of value to an actor.
 
-|===
+|[[user-stories]]
+*User Story*
+|User stories are short, simple descriptions of a feature told from the perspective of the person who desires the new capability, usually a user or customer of the system.
+
+|=======================================================================
 
 
 [appendix]

@@ -1,4 +1,4 @@
-= Arielyte Tsen Chung Ming - Project Portfolio
+= Goh Shau Cher, Shaun - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets

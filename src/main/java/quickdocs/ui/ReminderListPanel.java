@@ -26,6 +26,7 @@ public class ReminderListPanel extends UiPart<Region> {
     private static final String MEDICINE_BACKGROUND = "derive(firebrick, 90%)";
     private static final String OTHER_BACKGROUND = "derive(beige, 50%)";
     private final Logger logger = LogsCenter.getLogger(ReminderListPanel.class);
+    private final TextArea display;
 
     @FXML
     private ListView<Reminder> reminderListView;
@@ -33,6 +34,7 @@ public class ReminderListPanel extends UiPart<Region> {
     public ReminderListPanel(List<Reminder> reminderList, ObservableValue<Reminder> selectedReminder,
                              Consumer<Reminder> onSelectedReminderChange, TextArea display) {
         super(FXML);
+        this.display = display;
         reminderListView.setItems((ObservableList<Reminder>) reminderList);
         reminderListView.setCellFactory(listView -> new ReminderListViewCell());
         reminderListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
@@ -41,7 +43,6 @@ public class ReminderListPanel extends UiPart<Region> {
         });
         selectedReminder.addListener((observable, oldValue, newValue) -> {
             logger.fine("Selected reminder changed to: " + newValue);
-            listReminder(display, selectedReminder.getValue());
 
             // Don't modify selection if we are already selecting the selected reminder,
             // otherwise we would have an infinite loop.
@@ -66,7 +67,9 @@ public class ReminderListPanel extends UiPart<Region> {
      * @param reminder the selected {@code Reminder} by mouse click
      */
     private void listReminder(TextArea display, Reminder reminder) {
-        String reminderString = "Displaying selected reminder:"
+        String reminderString = "---------------------------------------------------------------------------\n"
+                        + "Displaying selected reminder:\n"
+                        + "============================================\n"
                         + reminder.toString()
                         + "\n";
         display.appendText(reminderString);
@@ -103,6 +106,8 @@ public class ReminderListPanel extends UiPart<Region> {
                 } else {
                     setStyle("-fx-control-inner-background: " + OTHER_BACKGROUND + ";");
                 }
+
+                setOnMouseClicked(event -> listReminder(display, reminder));
             }
         }
     }

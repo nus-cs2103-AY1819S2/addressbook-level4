@@ -134,6 +134,11 @@ public interface Logic {
     void setSelectedArchivedPerson(Person person);
 
     /**
+     * Removes the selection of non-pinned person in the filtered main or archived person list.
+     */
+    public void removeSelectedNonPinnedPerson();
+
+    /**
      * Checks if the valid list is shown, else throws INVALID_LIST_SHOWN CommandException.
      */
     void checkListShown(Command command) throws CommandException;

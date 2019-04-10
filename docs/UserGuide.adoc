@@ -476,7 +476,7 @@ Format: `exit`
 Address book data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
-=== Displaying location on Google Maps `[coming in v2.0]`
+=== Displaying location on Google Maps
 
 Double-clicking the contact will bring up the the address location of the associated property on the Google Maps window panel.
 

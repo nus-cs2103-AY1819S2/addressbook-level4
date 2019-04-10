@@ -13,6 +13,10 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PASTJOB;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_RACE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SCHOOL;
+import static seedu.address.model.job.JobListName.APPLICANT;
+import static seedu.address.model.job.JobListName.INTERVIEW;
+import static seedu.address.model.job.JobListName.KIV;
+import static seedu.address.model.job.JobListName.SHORTLIST;
 
 import java.util.ArrayList;
 import java.util.Optional;
@@ -105,7 +109,7 @@ public class FilterCommand extends Command {
         requireNonNull(listName);
         requireNonNull(predicatePersonDescriptor);
         this.predicatePersonDescriptor = new PredicatePersonDescriptor(predicatePersonDescriptor);
-        this.predicate = (Predicate<Person>) this.predicatePersonDescriptor.toPredicate();
+        this.predicate = this.predicatePersonDescriptor.toPredicate();
         this.listName = listName;
         this.commandName = commandName;
     }
@@ -117,28 +121,28 @@ public class FilterCommand extends Command {
         requireNonNull(model);
         switch (listName) {
         case APPLICANT:
-            model.updateJobAllApplicantsFilteredPersonList(predicate);
             model.addPredicateJobAllApplicants(commandName,predicate);
-            predicateList = model.getPredicateLists(0);
+            model.updateJobAllApplicantsFilteredPersonList();
+            predicateList = model.getPredicateLists(APPLICANT);
             break;
         case KIV:
-            model.updateJobKivFilteredPersonList(predicate);
             model.addPredicateJobKiv(commandName,predicate);
-            predicateList = model.getPredicateLists(1);
+            model.updateJobKivFilteredPersonList();
+            predicateList = model.getPredicateLists(KIV);
             break;
         case INTERVIEW:
-            model.updateJobInterviewFilteredPersonList(predicate);
             model.addPredicateJobInterview(commandName,predicate);
-            predicateList = model.getPredicateLists(2);
+            model.updateJobInterviewFilteredPersonList();
+            predicateList = model.getPredicateLists(INTERVIEW);
             break;
         case SHORTLIST:
-            model.updateJobShortlistFilteredPersonList(predicate);
             model.addPredicateJobShortlist(commandName,predicate);
-            predicateList = model.getPredicateLists(3);
+            model.updateJobShortlistFilteredPersonList();
+            predicateList = model.getPredicateLists(SHORTLIST);
             break;
         default:
             model.updateBaseFilteredPersonList(predicate);
-            predicateList = model.getPredicateLists(0);
+            predicateList = model.getPredicateLists(null);
         }
         return new CommandResult(
             String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, model.getFilteredPersonList().size()), listName,

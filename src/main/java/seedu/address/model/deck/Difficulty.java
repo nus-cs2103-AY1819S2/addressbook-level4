@@ -1,5 +1,7 @@
 package seedu.address.model.deck;
 
+import static java.util.Objects.requireNonNull;
+
 /**
  * Represents a card's difficulty.
  */
@@ -17,8 +19,8 @@ public class Difficulty {
     }
 
     public Difficulty(int numberOfAttempts, int totalRating) {
-        this.numberOfAttempts = numberOfAttempts;
         this.totalRating = totalRating;
+        this.numberOfAttempts = numberOfAttempts;
     }
 
     /**

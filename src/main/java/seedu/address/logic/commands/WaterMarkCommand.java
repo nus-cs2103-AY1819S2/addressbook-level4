@@ -1,3 +1,4 @@
+/* @@author kayheen */
 package seedu.address.logic.commands;
 
 import java.awt.AlphaComposite;
@@ -66,16 +67,20 @@ public class WaterMarkCommand extends Command {
         // add text overlay to the image
         w.drawString(text, centerX, centerY);
         w.dispose();
+
+
+
+        if (initialImage.hasWaterMark()) {
+            throw new CommandException(Messages.MESSAGE_HAS_WATERMARK);
+        }
+
+        initialImage.setWaterMark(true);
+
         if (this.isNewCommand) {
-            if (initialImage.hasWaterMark()) {
-                throw new CommandException(Messages.MESSAGE_HAS_WATERMARK);
-            } else {
-                this.isNewCommand = false;
-                initialImage.setWaterMark(true);
-                currentEdit.updateTempImage(watermarked);
-                currentEdit.addCommand(this);
-                currentEdit.displayTempImage();
-            }
+            this.isNewCommand = false;
+            currentEdit.updateTempImage(watermarked);
+            currentEdit.addCommand(this);
+            currentEdit.displayTempImage();
         } else {
             currentEdit.updateTempImage(watermarked);
             initialImage.setWaterMark(true);
@@ -90,6 +95,6 @@ public class WaterMarkCommand extends Command {
     }
 
     public String toString() {
-        return "WaterMark " + text;
+        return "wm " + text;
     }
 }

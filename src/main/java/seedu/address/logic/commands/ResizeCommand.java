@@ -1,3 +1,4 @@
+/* @@author kayheen */
 package seedu.address.logic.commands;
 
 import java.awt.image.BufferedImage;
@@ -80,4 +81,4 @@ public class ResizeCommand extends Command {
         return "resize " + width + " " + height;
     }
 }
-
+/* @@author*/

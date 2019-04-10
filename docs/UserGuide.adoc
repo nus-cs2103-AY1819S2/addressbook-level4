@@ -155,7 +155,7 @@ Examples:
 === Approve persons by employee name: `endorse`
 
 Endorses an existing candidate in RecruitMe. +
-Format: 'endorse INDEX [n/YOUR NAME]'
+Format: 'endorse INDEX n/YOUR NAME'
 
 ****
 * Endorses the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list.

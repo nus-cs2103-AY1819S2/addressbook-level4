@@ -122,6 +122,8 @@ public class FilterCommandTest {
                 null, null, null, null);
         assertEquals(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA), modelOr.getFilteredPersonList());
 
+        // TODO: Add Positions and Endorsement conditions after updating the person data
+
         // gpa condition - 1 person listed: FIONA
         modelAnd = new ModelManager(getTypicalAddressBook(), new UserPrefs());
         modelAnd.filterAnd(null, null, null, null, null,
@@ -167,6 +169,29 @@ public class FilterCommandTest {
     }
 
     @Test
+    public void execute_filterReverseAtOneFilterActive() {
+
+        // name condition - 2 peoples are listed: DANIEL, ELLE
+        modelAnd = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        modelAnd.filterAnd("el", null, null, null, null,
+                null, null, null, null);
+
+        // filter reversed, all persons will be shown except DANIEL and ELLE
+        modelAnd.reverseFilter();
+        assertEquals(Arrays.asList(ALICE, BENSON, CARL, FIONA, GEORGE),
+                modelAnd.getFilteredPersonList());
+
+        modelOr = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        modelOr.filterOr("el", null, null, null, null,
+                null, null, null, null);
+
+        // filter reversed, all persons will be shown except DANIEL and ELLE
+        modelOr.reverseFilter();
+        assertEquals(Arrays.asList(ALICE, BENSON, CARL, FIONA, GEORGE),
+                modelOr.getFilteredPersonList());
+    }
+
+    @Test
     public void execute_filterClearAtMultipleFiltersActive() {
 
         modelAnd = new ModelManager(getTypicalAddressBook(), new UserPrefs());
@@ -182,12 +207,12 @@ public class FilterCommandTest {
         // Filter Level 2: ALICE, BENSON will be remained
         modelAnd.filterOr(null, null, null, null, skillArr,
                 null, null, null, null);
-        modelAnd.filterAnd(null, null, null, null, skillArr,
+        modelOr.filterAnd(null, null, null, null, skillArr,
                 null, null, null, null);
 
 
         // Filter Level 3: ALICE will be remained
-        modelOr.filterAnd(null, null, "alice", null, null,
+        modelAnd.filterAnd(null, null, "alice", null, null,
                 null, null, null, null);
         modelOr.filterOr(null, null, "alice", null, null,
                 null, null, null, null);
@@ -199,6 +224,42 @@ public class FilterCommandTest {
 
         modelOr.clearFilter();
         assertEquals(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE),
+                modelOr.getFilteredPersonList());
+    }
+
+    @Test
+    public void execute_filterReverseAtMultipleFiltersActive() {
+
+        modelAnd = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        modelOr = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        String[] skillArr = {"friends"};
+
+        // Filter Level 1: ALICE, BENSON, CARL, FIONA will be remained
+        modelAnd.filterAnd(null, null, null, null, null,
+                null, null, "2.8", null);
+        modelOr.filterOr(null, null, null, null, null,
+                null, null, "2.8", null);
+
+        // Filter Level 2: ALICE, BENSON will be remained
+        modelAnd.filterOr(null, null, null, null, skillArr,
+                null, null, null, null);
+        modelOr.filterAnd(null, null, null, null, skillArr,
+                null, null, null, null);
+
+
+        // Filter Level 3: ALICE will be remained
+        modelAnd.filterAnd(null, null, "alice", null, null,
+                null, null, null, null);
+        modelOr.filterOr(null, null, "alice", null, null,
+                null, null, null, null);
+
+        // Filter Reverse Level: All persons will be restored excluding ALICE
+        modelAnd.reverseFilter();
+        assertEquals(Arrays.asList(BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE),
+                modelAnd.getFilteredPersonList());
+
+        modelOr.reverseFilter();
+        assertEquals(Arrays.asList(BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE),
                 modelOr.getFilteredPersonList());
     }
 
@@ -220,6 +281,7 @@ public class FilterCommandTest {
     public void execute_allConditionsAtOneFilter() {
         String[] skillArr = {"C++"};
 
+        // TODO: include also endorsement and positions data here
         modelAnd = new ModelManager(getTypicalAddressBook(), new UserPrefs());
         modelAnd.filterAnd("a", "5", "n", "street", skillArr,
                 null, null, "2.5", "nus");

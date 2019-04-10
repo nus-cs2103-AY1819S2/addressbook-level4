@@ -5,7 +5,6 @@ import static java.util.Objects.requireNonNull;
 import java.util.EnumSet;
 import java.util.List;
 
-import javafx.stage.Stage;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.battle.AttackResult;
 import seedu.address.logic.battle.state.BattleState;
@@ -13,7 +12,6 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.cell.Coordinates;
 import seedu.address.model.player.Player;
-import seedu.address.ui.StatisticView;
 
 /**
  * Attacks a cell on the board.
@@ -33,9 +31,9 @@ public class AttackCommand extends Command {
     public static final String MESSAGE_ANOTHER_TURN = "Take another turn.";
     public static final String MESSAGE_TRY_AGAIN = "Please select another cell to attack.";
     public static final String MESSAGE_PLAYER_WIN = "You won. Congratulations!\n"
-        + "Start another game with 'init', or enter 'exit' to quit.";
+        + "Start another game with 'init', view your statistics with 'stats', or enter 'exit' to quit.";
     public static final String MESSAGE_PLAYER_LOSE = "You lost... maybe you'll do better next time!\n"
-        + "Start another game with 'init', or enter 'exit' to quit.";
+        + "Start another game with 'init', view your statistics with 'stats' or enter 'exit' to quit.";
 
     private Coordinates coord;
 
@@ -73,7 +71,7 @@ public class AttackCommand extends Command {
             if (res.isWin()) {
                 // Player wins!
                 model.setBattleState(BattleState.PLAYER_WIN);
-                new StatisticView(new Stage(), model.getPlayerStats().generateData()).show();
+
                 return new CommandResult(MESSAGE_PLAYER_WIN + "\n"
                     + new SaveCommand().execute(model, history).getFeedbackToUser());
             } else {

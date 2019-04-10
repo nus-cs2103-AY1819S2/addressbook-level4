@@ -31,7 +31,7 @@ public class PrescriptionListPanel extends UiPart<Region> {
         prescriptionListView.setItems(prescriptionList);
         prescriptionListView.setCellFactory(listView -> new PrescriptionListViewCell());
         prescriptionListView.getSelectionModel().selectedItemProperty().addListener
-        ((observable, oldValue, newValue) -> {
+            ((observable, oldValue, newValue) -> {
             logger.fine("Selection in prescription list panel changed to : '" + newValue + "'");
             onSelectedPrescriptionChange.accept(newValue);
         });

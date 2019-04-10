@@ -33,8 +33,8 @@ public class EditPrescriptionCommandParser implements Parser<EditPrescriptionCom
         EditPrescriptionCommand.EditPrescriptionDescriptor editPrescriptionDescriptor =
                 new EditPrescriptionCommand.EditPrescriptionDescriptor();
         if (argMultimap.getValue(PREFIX_DESCRIPTION).isPresent()) {
-            editPrescriptionDescriptor.setDescription(ParserUtil.
-                    parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get()));
+            editPrescriptionDescriptor.setDescription(ParserUtil
+                    .parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get()));
         }
 
         if (!editPrescriptionDescriptor.isDescriptionEdited()) {

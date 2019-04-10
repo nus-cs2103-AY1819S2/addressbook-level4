@@ -25,6 +25,11 @@ public class AlbumTest {
         assertEquals(album.getImageList(), Collections.emptyList());
     }
 
+    @Test
+    public void a(){
+
+    }
+
     //    @Test
     //    public void resetData_null_throwsNullPointerException() {
     //        thrown.expect(NullPointerException.class);

@@ -26,7 +26,7 @@ public class ImportCommandParserTest {
     public void parse_validFiles_success() {
         String validBmpTest = "src/main/resources/imageTest/valid/validBMPTest.bmp";
         String validDuplicateTest = "src/main/resources/imageTest/valid/validDuplicateTest.jpg";
-        String validGifTest = "src/main/resources/imageTest/valid/validGIFtest.gif";
+        String validGifTest = "src/main/resources/imageTest/valid/validGIFTest.gif";
         String validJpgTest = "src/main/resources/imageTest/valid/validJPGTest.jpg";
         String validMimeTest = "src/main/resources/imageTest/valid/validMIMETest.png";
         String validNoMimeTest = "src/main/resources/imageTest/valid/validNOMIMETest.png";

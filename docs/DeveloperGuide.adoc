@@ -343,10 +343,13 @@ The user can tag a battleship using a `t/[TAG]` parameter in the `put` command. 
 [NOTE]
 The head of a battleship refers to the top-most and left-most cell of the battleship. When coordinates are specified in the `put` command, it specifies the coordinates of the head of the battleship, as shown in the figure below.
 
-image:BattleshipHeadExample.png[width=800]
+.The coordinates of the battleship head are the top-most and left-most.
+image::BattleshipHeadExample.png[width=800]
+
 
 .The coordinates of the `put` command refer to the coordinates of the battleship head.
-image:BattleshipHeadExample2.png[width=800]
+
+image::BattleshipHeadExample2.png[width=800]
 
 The following operations are called when the `put` command is called.
 
@@ -412,21 +415,21 @@ image::ListShipSequenceDiagram.png[width=1499][height=2249]
 
 ==== Design Considerations
 ===== Aspect: How a battleship is placed on the map
-* **Alternative 1 (current choice):** +
+* **Current choice:** +
  The same `Battleship` object is put in multiple cells. Each cell contains a reference to the same `Battleship` object. When a battleship on the `Cell` needs to be modified, the `Battleship` attribute in the `Cell` is accessed.
 ** Pros: This allows any cell that is hit to access the same `Battleship` object without having to separately find the `Battleship` object.
 ** Cons: Difficult to keep track of each `Battleship` position.
-* **Alternative 2:** +
+* **Alternative:** +
 Have two separate `Battleship` and `BattleshipPart` objects. The `BattleshipPart` object represents the "body" of the `Battleship` and contains an attribute that points to the `Battleship`. When a battleship on the `Cell` needs to be modified, the `BattleshipPart` is accessed, which then accesses the main `Battleship` object.
 ** Pros: Clearer separation between the "body" of the Battleship and the Battleship itself.
 ** Cons: Difficult to handle hit on the cell.
 
 ===== Aspect: Data structure to record battleships in player
-* **Alternative 1 (current choice):** +
+* **Current choice:** +
 `ArrayList` of `FleetEntry`, where `FleetEntry` contains a reference to the `Battleship`, its `Orientation` and `Coordinates` of the head. The `FleetEntry` subclass exists in `Fleet`. Whenever a `Fleet` method is called, it accesses the `ArrayList` of `FleetEntry` to obtain information about the `Battleship` and its position on the `MapGrid`.
 ** Pros: Can identify `Battleship` by position.
 ** Cons: Harder to implement.
-* **Alternative 2:** `ArrayList` of `Battleship`.
+* **Alternative:** `ArrayList` of `Battleship`.
 ** Pros: Easier to implement and provides a cleaner design.
 ** Cons: Harder check position of `Battleship` on the map grid. In order to do so, a separate data structure has to be initialised to store the coordinates and orientation of the battleship. This data structure then has to be aligned with the original `ArrayList` that stores the battleship.
 

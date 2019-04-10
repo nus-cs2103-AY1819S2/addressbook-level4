@@ -43,6 +43,6 @@ public class OpenCommandParserTest {
     @Test
     public void parse_invalidArgs_throwsParseException() {
         assertParseFailure(parser, " records.txt",
-            "Input file type is not a .json or .pdf." + "\n" + OpenCommand.MESSAGE_USAGE);
+            ParserUtil.MESSAGE_NOT_JSON_OR_PDF + "\n" + OpenCommand.MESSAGE_USAGE);
     }
 }

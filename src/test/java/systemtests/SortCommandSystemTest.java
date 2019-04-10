@@ -136,7 +136,7 @@ public class SortCommandSystemTest extends FinanceTrackerSystemTest {
 
         /* --------------------------------- Performing invalid delete operation ------------------------------------ */
 
-        
+
         /* Case: Clears the finance tracker then sort list -> show list is empty message */
         deleteAllRecords();
         Model emptyModel = new ModelManager();
@@ -158,6 +158,7 @@ public class SortCommandSystemTest extends FinanceTrackerSystemTest {
         command = SortCommand.COMMAND_WORD + " " + COMMAND_FLAG_NAME + " " + "-inc";
         assertCommandFailure(command, MESSAGE_INVALID_SORT_COMMAND_FORMAT);
 
+        
         /* Case: Invalid arguments (extra argument) -> rejected */
         command = SortCommand.COMMAND_WORD + " " + COMMAND_FLAG_NAME + " " + COMMAND_FLAG_ASCENDING
                 + " " + COMMAND_FLAG_DATE;

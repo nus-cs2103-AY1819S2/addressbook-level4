@@ -133,23 +133,26 @@ public class SortCommandSystemTest extends FinanceTrackerSystemTest {
         assertCommandSuccess(command, expectedResultMessage, expectedModel);
 
 
+
+        /* --------------------------------- Performing invalid delete operation ------------------------------------ */
+
+        
         /* Case: Clears the finance tracker then sort list -> show list is empty message */
         deleteAllRecords();
         Model emptyModel = new ModelManager();
-        assertCommandSuccess(SortCommand.COMMAND_WORD + " " + COMMAND_FLAG_NAME,
-                SortCommand.MESSAGE_EMPTY_LIST, emptyModel);
-
-
-        /* --------------------------------- Performing invalid delete operation ------------------------------------ */
+        assertCommandFailure(SortCommand.COMMAND_WORD + " " + COMMAND_FLAG_NAME,
+                SortCommand.MESSAGE_EMPTY_LIST);
 
 
         /* Case: Missing arguments -> rejected */
         command = SortCommand.COMMAND_WORD;
         assertCommandFailure(command, MESSAGE_INVALID_SORT_COMMAND_FORMAT);
 
+
         /* Case: Invalid flag -> rejected */
         command = SortCommand.COMMAND_WORD + " 123";
         assertCommandFailure(command, MESSAGE_INVALID_SORT_COMMAND_FORMAT);
+
 
         /* Case: Invalid order -> rejected */
         command = SortCommand.COMMAND_WORD + " " + COMMAND_FLAG_NAME + " " + "-inc";

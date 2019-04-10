@@ -58,7 +58,7 @@ public class SortCommand extends Command {
         requireNonNull(model);
 
         if (model.getFilteredRecordList().size() == 0) {
-            return new CommandResult(MESSAGE_EMPTY_LIST);
+            throw new CommandException(MESSAGE_EMPTY_LIST);
         }
 
         model.sortFilteredRecordList(comparator);

@@ -247,7 +247,7 @@ public abstract class CardFolderSystemTest {
      */
     protected void assertStatusBarIsInFolder() {
         StatusBarFooterHandle handle = getStatusBarFooter();
-        assertEquals(STATUS_IN_FOLDER, handle.getCurrentStatus());
+        assertEquals(String.format(STATUS_IN_FOLDER, TypicalCards.getTypicalFolderName()), handle.getCurrentStatus());
     }
 
     /**

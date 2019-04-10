@@ -41,7 +41,7 @@ public class Messages {
         + " Please use another preset name.";
     public static final String MESSAGE_SAVEPRESET_FAIL_EMPTY = "List of command in this preset is empty.";
     public static final String MESSAGE_SETPRESET_FAIL_NOTFOUND = "Preset is not found.";
-    public static final String MESSAGE_SETPRESET_SUCCESS = "Preset is successfully applied.";
+    public static final String MESSAGE_SETPRESET_SUCCESS = "Preset is successfully applied:";
     public static final String MESSAGE_INVALID_SAVE_TYPE = "Invalid save file type."
             + "\nNames must end with either of the following: %1$s";
     public static final String MESSAGE_INVALID_SAVE_NAME = "Unable to save. Save file name cannot be empty.";

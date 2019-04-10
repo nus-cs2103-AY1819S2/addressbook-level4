@@ -22,13 +22,11 @@ public class SavePresetCommandParser implements Parser<SavePresetCommand> {
     public SavePresetCommand parse(String args) throws ParseException {
         requireNonNull(args);
         args = args.trim();
-        String[] parsed = args.split(" ");
-        System.out.println("length is " + parsed.length);
-        if (parsed.length != 1) {
+        if (args.equals("")) {
             throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
-               SavePresetCommand.MESSAGE_USAGE));
+                SavePresetCommand.MESSAGE_USAGE));
         }
-        return new SavePresetCommand(parsed[0]);
+        return new SavePresetCommand(args);
     }
 }
 /* @@author*/

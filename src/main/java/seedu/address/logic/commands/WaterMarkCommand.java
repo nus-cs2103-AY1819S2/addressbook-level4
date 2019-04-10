@@ -82,8 +82,8 @@ public class WaterMarkCommand extends Command {
         } else { //for undo- redo commands
             //this is when undo redo or when preset and image has no watermark.
             if (!isPreset || !initialImage.hasWaterMark()) {
-                currentEdit.updateTempImage(watermarked);
                 initialImage.setWaterMark(true);
+                currentEdit.updateTempImage(watermarked);
             } else {
                 //this when preset and image already has a watermark.
                 throw new CommandException(Messages.MESSAGE_HAS_WATERMARK);
@@ -102,4 +102,5 @@ public class WaterMarkCommand extends Command {
     public String toString() {
         return "wm " + text;
     }
+
 }

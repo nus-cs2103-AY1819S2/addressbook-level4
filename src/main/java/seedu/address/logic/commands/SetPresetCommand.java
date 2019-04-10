@@ -72,5 +72,12 @@ public class SetPresetCommand extends Command {
     public boolean hasWaterMarkCommand() {
         return this.hasWaterMarkCommand;
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+            || (other instanceof SetPresetCommand // instanceof handles nulls
+            && (this.presetName.equals(((SetPresetCommand) other).presetName)));
+    }
 }
 /* @@author*/

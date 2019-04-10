@@ -14,6 +14,6 @@ public class Messages {
             "Grades before current semester must be finalized";
     public static final String MESSAGE_GRADES_OUT_OF_ORDER = "Grades are out of order";
     public static final String MESSAGE_MAX_GRADE_MUST_BE_COUNTED = "Max grade of module must be countable in CAP";
-    public static final String MESSAGE_MODULETAKEN_LISTED_OVERVIEW = "%1$d modules in GradTrak listed";
+    public static final String MESSAGE_MODULETAKEN_LISTED_OVERVIEW = "GradTrak modules found: %1$d";
 
 }

@@ -17,6 +17,9 @@ import seedu.address.model.moduleinfo.CodeContainsKeywordsPredicate;
  */
 public class DisplaymodCommandParser implements Parser<DisplaymodCommand> {
 
+    private static final String MODULECODE_REGEX = ".*?[a-zA-Z]{2,3}\\d{4}[a-zA-Z]{0,3}.*?";
+    private static final String MODULETITLE_REGX = ".*?[a-zA-Z].*?";
+
     /**
      * Parses the given {@code String} of arguments in the context of the DisplaymodCommand
      * and returns an DisplaymodCommand object for execution.
@@ -34,6 +37,15 @@ public class DisplaymodCommandParser implements Parser<DisplaymodCommand> {
 
         if (argumentMultimap.getValue(PREFIX_MODCODE).isPresent()) {
             String codes = argumentMultimap.getValue(PREFIX_MODCODE).get().trim();
+            String[] tester = codes.split(" ");
+            if (tester.length > 1) {
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                        DisplaymodCommand.MESSAGE_USAGE));
+            }
+            if (!codes.matches(MODULECODE_REGEX)) {
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                        DisplaymodCommand.MESSAGE_USAGE));
+            }
             String[] codesKeyword = codes.split(",");
 
             Stream.of(codesKeyword).forEach(code -> keywordsList.add(code));
@@ -42,7 +54,7 @@ public class DisplaymodCommandParser implements Parser<DisplaymodCommand> {
         if (argumentMultimap.getValue(PREFIX_MODNAME).isPresent()) {
             String names = argumentMultimap.getValue(PREFIX_MODNAME).get().trim();
             String [] tester = names.split(" ");
-            if (tester.length > 1) {
+            if (tester.length > 1 || !names.matches(MODULETITLE_REGX)) {
                 throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                         DisplaymodCommand.MESSAGE_USAGE));
             } else {

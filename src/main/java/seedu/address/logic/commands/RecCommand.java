@@ -19,18 +19,12 @@ public class RecCommand extends Command {
 
     public static final String MESSAGE_REC = "Recommended modules found: %d";
 
-    public static final String MESSAGE_NO_REC = "All course requirements fulfilled by your GradTrak";
-
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
         model.updateRecModuleList();
-        ObservableList<RecModule> sortedList = model.getRecModuleListSorted();
-        if (sortedList.isEmpty()) {
-            return new CommandResult(MESSAGE_NO_REC);
-        }
 
-        return new CommandResult(String.format(MESSAGE_REC, sortedList.size()));
+        return new CommandResult(String.format(MESSAGE_REC, model.getRecModuleListSorted().size()));
     }
 
     /**
@@ -43,6 +37,7 @@ public class RecCommand extends Command {
         for (RecModule recModule : sortedList) {
             assert (recModule.getCourseReqType().isPresent());
             sb.append(recModule.getModuleInfoCode().toString())
+                    .append(" ").append(recModule.getModuleInfoTitle())
                     .append(" [").append(recModule.getCourseReqType().get().name()).append("]")
                     .append("\n");
         }

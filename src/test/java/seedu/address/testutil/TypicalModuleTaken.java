@@ -179,9 +179,11 @@ public class TypicalModuleTaken {
         for (ModuleTaken moduleTaken : getTypicalModulesTaken()) {
             gt.addModuleTaken(moduleTaken);
         }
+        List<SemLimit> semList = new ArrayList<>();
         for (SemLimit semLimit : getTypicalSemesterLimits()) {
-            gt.addSemesterLimit(semLimit);
+            semList.add(semLimit);
         }
+        gt.setSemesterLimits(semList);
         gt.setCurrentSemester(Semester.Y1S1);
 
         return gt;

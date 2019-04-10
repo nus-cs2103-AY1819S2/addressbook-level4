@@ -13,6 +13,7 @@ public class CodeContainsKeywordsPredicate implements Predicate<ModuleInfo> {
 
     private static final String SPLITTER_REGEX = "\\+";
     private static final String COMBINATION_REGEX = ".*?\\+.*?";
+    private static final String MODULECODE_REGEX = ".*?[a-zA-Z]{2,3}\\d{4}[a-zA-Z]{0,3}.*?";
     private final List<String> keywords;
     private final List<String> defaultKeywords = new ArrayList<>();
 
@@ -58,9 +59,13 @@ public class CodeContainsKeywordsPredicate implements Predicate<ModuleInfo> {
                 .anyMatch(keyword -> {
                     if (keyword.matches(COMBINATION_REGEX)) {
                         return combinationSearch(splitPredicate(keyword), module);
+                    } else if (keyword.matches(MODULECODE_REGEX)) {
+                        //System.out.println("hereeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
+                        return StringUtil.containsWordIgnoreCase(module.getCodeString(), keyword);
+                    } else if (!keyword.matches(MODULECODE_REGEX)) {
+                        return StringUtil.containsWordIgnoreCase(module.getTitleString(), keyword);
                     } else {
-                        return StringUtil.containsWordIgnoreCase(module.getCodeString(), keyword)
-                                || StringUtil.containsWordIgnoreCase(module.getTitleString(), keyword);
+                        return false;
                     }
                 });
     }

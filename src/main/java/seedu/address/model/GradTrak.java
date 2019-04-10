@@ -127,25 +127,6 @@ public class GradTrak implements ReadOnlyGradTrak {
     }
 
     /**
-     * Adds  all the semester limits in the list to the SemesterLimitList.
-     */
-    public void addSemesterLimitList(ObservableList<SemLimit> s) {
-        for (int i = 0; i < s.size(); i++) {
-            this.semesterLimitList.add(s.get(i));
-        }
-        indicateModified();
-    }
-
-    /**
-     * Adds a moduleTaken to the address book.
-     * The moduleTaken must not already exist in the address book.
-     */
-    public void addSemesterLimit(SemLimit s) {
-        semesterLimitList.add(s);
-        indicateModified();
-    }
-
-    /**
      * Replaces the given index of semester limit with {@code editedSemesterLimit}.
      */
     public void setSemesterLimit(int index, SemLimit editedSemesterLimit) {

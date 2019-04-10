@@ -212,7 +212,11 @@ image:ModelClassBetterOopDiagram.png[width="800"]
 
 [[Design-Storage]]
 === Storage component
+Within the `Storage` component there are *2* types of storage classes: +
+1. read and write storage +
+2. read only storage
 
+==== Read and write storage
 .Structure of the Storage Component
 image::StorageClassDiagram.png[width="800"]
 
@@ -223,6 +227,17 @@ The `Storage` component,
 * can save `UserPref`, `UserInfo` objects in json format and read it back.
 * can save the GradTrak data in json format and read it back.
 * can load `ModuleInfo`, `Course` in json format into `Model`.
+
+==== Read only storage
+.Structure of read only storage component
+image::moduleinfostorage.png[width="800"]
+
+*API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage/ModuleInfoStorage.java[`ModuleInfoStorage.java`]
+
+The ModuleInfoStorage is a read-only form of storage as it is only reads the list of module information saved in a JSON
+file and coverts them into `ModuleInfo` and the stores all the `ModuleInfo` into list called `ModuleInfoList`.
+
+* can only read `ModuleInfo` objects in json format.
 
 [[Design-Commons]]
 === Common classes
@@ -369,25 +384,37 @@ image::UndoRedoActivityDiagram.png[width="650"]
 === Display Course Requirement feature
 ==== Current Implementation
 The `displayreq` command allows the users to see all their course requirements and also check if the modules they have
-taken fulfils them. This command is currently facilitated by 2 classes in `Model`:
+taken fulfils them. This command is currently facilitated by 2 classes in `Model`, `CourseRequirement` and
+`RequirementStatus`:
 
-1. `CourseRequirement` - an interface that represents course requirement data in model.
-2. `RequirementStatus` - an association class that links `CourseRequirement` with a list of `ModuleInfoCode` from `ModulesTakenList`. Each `RequirementStatus` class stores a copy of `ModuleInfoCode` from `ModulesTakenList`,
-a `CourseRequirement`, as well as each of the results when functions of `CourseRequirement` acts on the list of `ModuleInfoCode`.
+===== `CourseRequirement` Interface
+Some of the course requirements in NUS are made up of smaller course requirements.
+This can be seen in the requirement found below:
 
+image::nus_requirement.PNG[width ="800"]
 
-`CourseRequirement` interface follows a `Composite` design pattern. It is implemented by 2 classes,
-`PrimitiveRequirement` and `CompositeRequirement`. A `Composite` design pattern is favoured as it allows us to treat
-composition of `CourseRequirement` objects uniformly. This is achieved through the use of polymorphism.
+For this requirement, the student can choose to complete either CS3203 or
+CS3216 and CS3217 or CS3281 and CS3282. We observe that this requirement is composed of 3 distinct,
+simpler requirements.
 
-`PrimitiveRequirement` stores a list of `Condition` objects and each `Condition` stores a
-`Pattern` and an `int`, `minToSatisfy`. A `Condition` is satisfied if there are at least `minToSatisfy` distinct
-`ModuleInfoCode` that matches `Pattern` in `Condition`.
+Hence to model NUS course requirement accurately, the `CourseRequirement` interface follows a `Composite` design pattern. This is favoured as it allows
+us to treat individual and composition of `CourseRequirement` objects uniformly.
+//TODO class diagram
 
-`CompositeRequirement` contains two `CourseRequirement` interface objects as well as a `LogicalConnector` enumeration
-to combine two different `CourseRequirement` using logical operations.
+This interface is implemented by 2 subclasses - `PrimitiveRequirement` and `CompositeRequirement`.
+The `PrimitiveRequirement` is the simplest building block for `CourseRequirement`. Each `PrimitiveRequirement` stores a
+list of `Condition` objects and each `Condition` object stores a `Pattern` and an `int`, `minToSatisfy`. A `Condition`
+is satisfied if there are at least `minToSatisfy` many distinct
+`ModuleInfoCode` that matches `Pattern` in it. `PrimitiveRequirement` is satisfied only if all `Condition` objects in the list are
+fulfilled.
 
-There currently 3 ways that `CourseRequirement` provides information to the user:
+The `CompositeRequirement` can replicate the behaviour of more complex course requirements. Each `CompositeRequirement`
+object contains two `CourseRequirement` objects. It also contains a `LogicalConnector` enumeration
+that tells the object how two different `CourseRequirement` are composed using logical operations. For instance, for
+a list of `ModuleInfoCode` to satisfy a `CompositeRequirement` that has a `AND` `LogicalConnector`, the list must
+satisfy the both `CourseRequirement` objects contained in `CompositeRequirement`.
+
+There currently 3 methods that `CourseRequirement` provides information to the user:
 
 * `isFulfilled` -- a method that accepts a list of `ModuleInfoCode` and returns a `boolean` to indicate whether the list of
 `ModuleInfoCode` can satisfy the all the `CourseRequirement`
@@ -402,11 +429,18 @@ first `CourseRequirement#isFulfilled` `LogicalConnector` second `CourseRequireme
 percentage of completion of the `CourseRequirement`
 ** In `PrimitiveRequirement`, this is achieved by calculating the number of distinct modules that satisfy at least
 1 of the `Condition` in the list and divided by the sum of `minToSatisfy`.
-//type something here
+** This depends on the `LogicalConnector` in `CompositeRequirement`. If it is a `OR` connector, we return the maximum
+of the two.
+//TODO elaborate more on AND
 * `getUnfulfilled` -- a method that accepts a list of `ModuleInfoCode` and returns a list of RegExes that none of the
-`ModuleInfoCode` satisfies
+`ModuleInfoCode` satisfies. This method is used in the recommend feature.
 
-The results of above the 3 method is also stored in `RequirementStatus`.
+===== `RequirementStatus` Class
+The `RequirementStatus` is an association class that links a list of `ModuleInfoCode` and `CourseRequirement`.
+In addition to this two objects, the `RequirementStatus` class also stores the result when the `isFulfilled` and
+`percentageFulfilled` of the `CourseRequirement` it stores acts on its list of `ModuleInfoCode`.
+
+The `RequirementStatus` is also the class used to display the results when the `displayreq` command is called.
 
 When `displayreq` command is called by the user, the sequence of execution is as follows:
 
@@ -415,13 +449,14 @@ and fills it with new `RequirementStatusObject` based on current `Course` and `M
 
 2. `UI` calls `getRequirementStatusList` from `Logic` and retrieves the updated `RequirementStatusList`
 from `Model`. This list is displayed in the `ResultPanel`.
-
+//TODO sequence diagram
 
 ==== Design Considerations
-===== Aspect: How condition checks whether Course Requirement is fulfilled
-* **Current choice: Checking Requirement fulfilled by only using `ModuleInfoCode` of
+===== Aspect: How `Condition` class checks if it is fulfilled.
+* **Current choice: Checking `Condition` fulfilled by only using `ModuleInfoCode` of
 `ModuleTaken`**
-** Pros: Easier to implement since we are restricting scope to only checking of strings
+** Pros: Easier to implement since we are restricting scope to only checking whether strings match
+pattern in `Condition`
 ** Cons: There could be corner cases that we left out; actual course requirement that we check by
 only checking the module code.
 
@@ -430,10 +465,9 @@ only checking the module code.
 ** Cons: More Java classes/coding required also means that more tests
 and storage components for different classes.
 
-We chose the current method over the alternative because it is requires much fewer classes to implement
-and is sufficient to cover most cases. It is also more feasible to implement due to the limited amount of time we have.
+We chose the current method over the alternative because it is requires much fewer classes to implement.
 
-===== Aspect:
+===== Aspect:   
 
 ==== Possible Improvements
 
@@ -443,13 +477,19 @@ and is sufficient to cover most cases. It is also more feasible to implement due
 === Module recommendation feature
 
 The module recommendation feature displays modules which the user the recommended to take based on existing GradTrak modules
-and specific course requirements. It generates a list of module codes together with its corresponding title and requirement
-type satisfied. The entire list is displayed on the Result Panel upon entering the `rec` command.
+and specific course requirements. It generates a list of module codes together with their corresponding titles and requirement
+types satisfied. The entire list is displayed on the Result Panel upon entering the `rec` command.
 
 ==== Current implementation
 
 Each recommended module is represented by a `RecModule` which contains a unique `ModuleInfoCode`, `ModuleInfoTitle` and its corresponding
-`CourseReqType` satisfied. When `ModelManager` is initialised, `Model#getObservableRecModuleList` is called which generates an
+`CourseReqType` satisfied, as shown in the diagram below.
+
+.`RecModule` class diagram
+image::RecModuleClassDiagram.png[width="500"]
+
+
+When `ModelManager` is initialised, `Model#getObservableRecModuleList` is called which generates an
 `ObservableList` of `RecModule` , one for each module in the entire `ModuleInfoList`. This list is wrapped in a `FilteredList`,
 which is further wrapped in a `SortedList`, both stored in `ModelManager`. At this point, all `RecModule` in the list contain an empty `CourseReqType` field.
 
@@ -457,7 +497,7 @@ When the `rec` command is entered, the sequence of execution is as follows:
 
 .  `Model#updateRecModuleList` is called, which creates a `RecModulePredicate` given the user's `Course` and `GradTrak`, and a `RecModuleComparator`.
 .  The `RecModulePredicate` is applied to the `FilteredList` of `RecModule`.
-.. It first tests if the `ModuleInfoCode` in a `RecModule` (call it `codeToTest`) is eligible to be taken,
+.. It first tests if the `ModuleInfoCode` (call it `codeToTest`) in a `RecModule` is eligible to be taken,
 using an `EligibleModulePredicate` which takes in `GradTrak`. Those `RecModule` corresponding to `ModuleTaken` in `GradTrak`
 which are already passed or to be taken in a future semester (non-failed modules) are filtered out at this stage.
 .. The `codeToTest` is then passed into `Course#getCourseReqTypeOf`, which in turn calls `CourseRequirement#canFulfill` for each `CourseRequirement` listed in `Course`.
@@ -475,11 +515,15 @@ contribute to any of the `CourseRequirement` listed in `Course`, the `RecModule`
 . The `RecModuleComparator` is applied to the `SortedList` of `RecModule`. It sorts the list in decreasing priority of the
 `CourseReqType` satisfied by the `RecModule`. Those `RecModule` with equal priority are sorted by module level (the first numerical digit of its `ModuleInfoCode`),
 considering that lower level modules are usually taken first. In the case of equal priority and module level, lexicographical sorting is used.
-. The `SortedList` of `RecModule` is retrieved from the `ModelManager`. If it is empty, the user will be notified that all course requirements have been satisfied by the current GradTrak.
-Otherwise, it will be displayed to the user in the Result Panel.
+. The `SortedList` of `RecModule` is retrieved from `ModelManager` and displayed to the user in the Result Panel.
 
-If there are changes to `GradTrak` (adding, editing or deleting modules) or `Course` (changing the Course of study), the `rec` command
+If there are changes to `GradTrak` (adding, editing or deleting modules) or `Course` (changing the course of study), the `rec` command
 must be run again to reflect the updated recommendation list.
+
+The sequence diagram summarising the above execution is shown below. Details of `RecModulePredicate#test` and `RecModuleComparator#compare` are omitted.
+
+.`RecCommand` sequence diagram
+image::RecCommandSequenceDiagram.png[width="1000"]
 
 ==== Design Considerations
 ===== Aspect: Sorting of recommendation list

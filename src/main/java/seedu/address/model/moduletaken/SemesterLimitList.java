@@ -31,6 +31,9 @@ public class SemesterLimitList implements Iterable<SemLimit> {
 
     /**
      * Replaces the original semLimit in the list with {@code editedSemLimit}.
+     *
+     * @param index the index of the semester to set the limit.
+     * @param editedSemesterLimit the full SemLimit to replace the original semLimits of the given semester
      */
     public void setSemesterLimit(int index, SemLimit editedSemesterLimit) {
         requireAllNonNull(index, editedSemesterLimit);
@@ -45,6 +48,8 @@ public class SemesterLimitList implements Iterable<SemLimit> {
 
     /**
      * Replaces the contents of this list with {@code semLimit}.
+     *
+     * @param semesterLimits the list of SemLimits to replace with
      */
     public void setSemesterLimits(List<SemLimit> semesterLimits) {
         requireAllNonNull(semesterLimits);

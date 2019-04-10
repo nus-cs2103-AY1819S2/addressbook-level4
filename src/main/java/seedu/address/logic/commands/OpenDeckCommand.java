@@ -18,7 +18,6 @@ import seedu.address.model.deck.Deck;
 public class OpenDeckCommand extends Command {
 
     public static final String COMMAND_WORD = "open";
-    public static final String ALT_COMMAND_WORD = "deck";
 
     public static final String MESSAGE_USAGE =
             COMMAND_WORD + ": Opens the deck identified by the index number.\n"

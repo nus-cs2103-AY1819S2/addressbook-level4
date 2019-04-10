@@ -118,7 +118,7 @@
 
 .cell_huge_label {
     -fx-font-family: "Segoe UI Semibold";
-    -fx-font-size: 24px;
+    -fx-font-size: 20px;
     -fx-text-fill: #ffffff;
 }
 
@@ -145,6 +145,14 @@
     -fx-font-family: "Segoe UI Semibold";
     -fx-font-size: 20px;
     -fx-text-fill: #ffffff;
+    -fx-wrap-text: true;
+}
+
+.ratingLabel {
+    -fx-padding: 10px;
+    -fx-start-margin: 10px;
+    -fx-text-fill: white;
+    -fx-wrap-text: true;
 }
 
 .stack-pane {
@@ -381,7 +389,8 @@
 
 #sQuestion {
     -fx-alignment: center;
-    -fx-padding: 20px;
+    -fx-padding: 30px;
+    -fx-wrap-text: true;
 }
 
 #sQuestion:answer {

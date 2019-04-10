@@ -49,7 +49,7 @@ public class StudyView implements ViewState {
     @Override
     public Command parse(String commandWord, String arguments) throws ParseException {
         switch (commandWord) {
-            case OpenDeckCommand.ALT_COMMAND_WORD:
+            case OpenDeckCommand.COMMAND_WORD:
                 return new OpenDeckCommand(activeDeck);
             case BackCommand.COMMAND_WORD:
                 return new BackCommand();

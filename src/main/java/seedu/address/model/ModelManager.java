@@ -32,6 +32,8 @@ public class ModelManager implements Model {
     private final FilteredList<Person> filteredArchivedPersons;
     private final FilteredList<Person> filteredPinnedPersons;
     private final SimpleObjectProperty<Person> selectedPerson = new SimpleObjectProperty<>();
+    private final SimpleObjectProperty<Person> selectedPinPerson = new SimpleObjectProperty<>();
+    private final SimpleObjectProperty<Person> selectedArchivedPerson = new SimpleObjectProperty<>();
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -53,9 +55,9 @@ public class ModelManager implements Model {
         filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
         filteredPersons.addListener(this::ensureSelectedPersonIsValid);
         filteredArchivedPersons = new FilteredList<>(versionedArchiveBook.getPersonList());
-        filteredArchivedPersons.addListener(this::ensureSelectedPersonIsValid);
+        filteredArchivedPersons.addListener(this::ensureSelectedArchivedPersonIsValid);
         filteredPinnedPersons = new FilteredList<>(versionedPinBook.getPersonList());
-        filteredPinnedPersons.addListener(this::ensureSelectedPersonIsValid);
+        filteredPinnedPersons.addListener(this::ensureSelectedPinPersonIsValid);
     }
 
     public ModelManager() {
@@ -370,6 +372,107 @@ public class ModelManager implements Model {
         }
     }
 
+    //=========== Selected Pin person ===========================================================================
+
+    @Override
+    public ReadOnlyProperty<Person> selectedPinPersonProperty() {
+        return selectedPinPerson;
+    }
+
+    @Override
+    public Person getSelectedPinPerson() {
+        return selectedPinPerson.getValue();
+    }
+
+    @Override
+    public void setSelectedPinPerson(Person person) {
+        if (person != null && !filteredPinnedPersons.contains(person)) {
+            throw new PersonNotFoundException();
+        }
+        selectedPinPerson.setValue(person);
+    }
+
+    /**
+     * Ensures {@code selectedPinPerson} is a valid person in {@code filteredPinnedPersons}.
+     */
+    private void ensureSelectedPinPersonIsValid(ListChangeListener.Change<? extends Person> change) {
+        while (change.next()) {
+            if (selectedPinPerson.getValue() == null) {
+                // null is always a valid selected person, so we do not need to check that it is valid anymore.
+                return;
+            }
+
+            boolean wasSelectedPinPersonReplaced = change.wasReplaced()
+                && change.getAddedSize() == change.getRemovedSize()
+                && change.getRemoved().contains(selectedPinPerson.getValue());
+            if (wasSelectedPinPersonReplaced) {
+                // Update selectedPerson to its new value.
+                int index = change.getRemoved().indexOf(selectedPinPerson.getValue());
+                selectedPinPerson.setValue(change.getAddedSubList().get(index));
+                continue;
+            }
+
+            boolean wasSelectedPinPersonRemoved = change.getRemoved().stream()
+                    .anyMatch(removedPerson -> selectedPinPerson.getValue().isSamePerson(removedPerson));
+            if (wasSelectedPinPersonRemoved) {
+                // Select the person that came before it in the list,
+                // or clear the selection if there is no such person.
+                selectedPinPerson.setValue(change.getFrom() > 0 ? change.getList().get(change.getFrom() - 1) : null);
+            }
+        }
+    }
+
+    //=========== Selected archived person ===========================================================================
+
+    @Override
+    public ReadOnlyProperty<Person> selectedArchivedPersonProperty() {
+        return selectedArchivedPerson;
+    }
+
+    @Override
+    public Person getSelectedArchivedPerson() {
+        return selectedArchivedPerson.getValue();
+    }
+
+    @Override
+    public void setSelectedArchivedPerson(Person person) {
+        if (person != null && !filteredArchivedPersons.contains(person)) {
+            throw new PersonNotFoundException();
+        }
+        selectedArchivedPerson.setValue(person);
+    }
+
+    /**
+     * Ensures {@code selectedPerson} is a valid person in {@code filteredPersons}.
+     */
+    private void ensureSelectedArchivedPersonIsValid(ListChangeListener.Change<? extends Person> change) {
+        while (change.next()) {
+            if (selectedArchivedPerson.getValue() == null) {
+                // null is always a valid selected person, so we do not need to check that it is valid anymore.
+                return;
+            }
+
+            boolean wasSelectedArchivedPersonReplaced = change.wasReplaced()
+                    && change.getAddedSize() == change.getRemovedSize()
+                    && change.getRemoved().contains(selectedArchivedPerson.getValue());
+            if (wasSelectedArchivedPersonReplaced) {
+                // Update selectedPerson to its new value.
+                int index = change.getRemoved().indexOf(selectedArchivedPerson.getValue());
+                selectedArchivedPerson.setValue(change.getAddedSubList().get(index));
+                continue;
+            }
+
+            boolean wasSelectedArchivedPersonRemoved = change.getRemoved().stream()
+                    .anyMatch(removedPerson -> selectedArchivedPerson.getValue().isSamePerson(removedPerson));
+            if (wasSelectedArchivedPersonRemoved) {
+                // Select the person that came before it in the list,
+                // or clear the selection if there is no such person.
+                selectedArchivedPerson.setValue(change.getFrom() > 0
+                        ? change.getList().get(change.getFrom() - 1) : null);
+            }
+        }
+    }
+
     @Override
     public boolean equals(Object obj) {
         // short circuit if same object
@@ -390,7 +493,10 @@ public class ModelManager implements Model {
                 && userPrefs.equals(other.userPrefs)
                 && filteredPersons.equals(other.filteredPersons)
                 && filteredArchivedPersons.equals(other.filteredArchivedPersons)
-                && Objects.equals(selectedPerson.get(), other.selectedPerson.get());
+                && filteredPinnedPersons.equals(other.filteredPinnedPersons)
+                && Objects.equals(selectedPerson.get(), other.selectedPerson.get())
+                && Objects.equals(selectedPinPerson.get(), other.selectedPinPerson.get())
+                && Objects.equals(selectedArchivedPerson.get(), other.selectedArchivedPerson.get());
     }
 
 }

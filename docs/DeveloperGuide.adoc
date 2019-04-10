@@ -631,7 +631,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |efficient user |find a contact by using any details (e.g. name/phone/tags etc.) |locate details of contacts without having to go through the entire list
 
-|`* * *` |sloppy user |add and edit a contact in the app without having to specify all the contact information (i.e. all fields are optional) |add and edit a contact even if I do not have the complete contact information
+|`* * *` |sloppy user |add and edit a contact in the app without having to specify certain information (i.e. some fields are optional) |add and edit a contact even if I do not have the complete contact information
 
 |`* * *` |real estate agent |add property information to each contact |link my customers to the property that they buying/selling/renting
 

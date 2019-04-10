@@ -104,6 +104,41 @@ public interface Logic {
     void setSelectedPerson(Person person);
 
     /**
+     * Selected pin person in the filtered pin list.
+     * null if no person is selected.
+     *
+     * @see seedu.address.model.Model#selectedPinPersonProperty()
+     */
+    ReadOnlyProperty<Person> selectedPinPersonProperty();
+
+    /**
+     * Sets the selected person in the filtered pin list.
+     *
+     * @see seedu.address.model.Model#setSelectedPinPerson(Person)
+     */
+    void setSelectedPinPerson(Person person);
+
+    /**
+     * Selected archived person in the filtered archived person list.
+     * null if no archived person is selected.
+     *
+     * @see seedu.address.model.Model#selectedArchivedPersonProperty()
+     */
+    ReadOnlyProperty<Person> selectedArchivedPersonProperty();
+
+    /**
+     * Sets the selected archived person in the filtered archived person list.
+     *
+     * @see seedu.address.model.Model#setSelectedArchivedPerson(Person)
+     */
+    void setSelectedArchivedPerson(Person person);
+
+    /**
+     * Removes the selection of non-pinned person in the filtered main or archived person list.
+     */
+    public void removeSelectedNonPinnedPerson();
+
+    /**
      * Checks if the valid list is shown, else throws INVALID_LIST_SHOWN CommandException.
      */
     void checkListShown(Command command) throws CommandException;

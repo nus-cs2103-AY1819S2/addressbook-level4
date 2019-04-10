@@ -59,6 +59,7 @@ public class EditCommandTest {
         expectedModel.commitAddressBook();
         expectedModel.commitArchiveBook();
         expectedModel.commitPinBook();
+        expectedModel.setSelectedPerson(editedPerson);
 
         assertCommandSuccess(editCommand, model, commandHistory, expectedMessage, expectedModel);
     }
@@ -84,6 +85,7 @@ public class EditCommandTest {
         expectedModel.commitAddressBook();
         expectedModel.commitArchiveBook();
         expectedModel.commitPinBook();
+        expectedModel.setSelectedPerson(editedPerson);
 
         assertCommandSuccess(editCommand, model, commandHistory, expectedMessage, expectedModel);
     }
@@ -100,6 +102,7 @@ public class EditCommandTest {
         expectedModel.commitAddressBook();
         expectedModel.commitArchiveBook();
         expectedModel.commitPinBook();
+        expectedModel.setSelectedPerson(editedPerson);
 
         assertCommandSuccess(editCommand, model, commandHistory, expectedMessage, expectedModel);
     }
@@ -123,6 +126,7 @@ public class EditCommandTest {
         expectedModel.commitAddressBook();
         expectedModel.commitArchiveBook();
         expectedModel.commitPinBook();
+        expectedModel.setSelectedPerson(editedPerson);
 
         assertCommandSuccess(editCommand, model, commandHistory, expectedMessage, expectedModel);
     }
@@ -186,6 +190,7 @@ public class EditCommandTest {
         expectedModel.commitAddressBook();
         expectedModel.commitArchiveBook();
         expectedModel.commitPinBook();
+        expectedModel.setSelectedPerson(editedPerson);
 
         // edit -> first person edited
         editCommand.execute(model, commandHistory);
@@ -238,6 +243,7 @@ public class EditCommandTest {
         expectedModel.commitAddressBook();
         expectedModel.commitArchiveBook();
         expectedModel.commitPinBook();
+        expectedModel.setSelectedPerson(editedPerson);
 
         // edit -> edits second person in unfiltered person list / first person in filtered person list
         editCommand.execute(model, commandHistory);

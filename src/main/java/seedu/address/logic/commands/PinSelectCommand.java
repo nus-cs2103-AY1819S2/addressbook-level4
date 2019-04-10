@@ -12,46 +12,45 @@ import seedu.address.model.Model;
 import seedu.address.model.person.Person;
 
 /**
- * Deletes a person identified using it's displayed index from the address book.
+ * Selects a person identified using it's displayed index from the pin book.
  */
-public class DeleteCommand extends Command {
+public class PinSelectCommand extends Command {
 
-    public static final String COMMAND_WORD = "delete";
+    public static final String COMMAND_WORD = "pinselect";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes the person identified by the index number used in the displayed person list.\n"
+            + ": Selects the pinned person identified by the index number used in the displayed pin list.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted Person: %1$s";
+    public static final String MESSAGE_SELECT_PIN_PERSON_SUCCESS = "Selected Pin Person: %1$s\n"
+            + "Displaying main person list!";
 
     private final Index targetIndex;
 
-    public DeleteCommand(Index targetIndex) {
+    public PinSelectCommand(Index targetIndex) {
         this.targetIndex = targetIndex;
     }
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
-        List<Person> lastShownList = model.getFilteredPersonList();
 
-        if (targetIndex.getZeroBased() >= lastShownList.size()) {
+        List<Person> pinnedPersonList = model.getFilteredPinnedPersonList();
+
+        if (targetIndex.getZeroBased() >= pinnedPersonList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
-        Person personToDelete = lastShownList.get(targetIndex.getZeroBased());
-        model.deletePerson(personToDelete);
-        model.commitAddressBook();
-        model.commitArchiveBook();
-        model.commitPinBook();
         model.setSelectedPerson(null);
-        return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, personToDelete));
+        model.setSelectedArchivedPerson(null);
+        model.setSelectedPinPerson(pinnedPersonList.get(targetIndex.getZeroBased()));
+        return new CommandResult(String.format(MESSAGE_SELECT_PIN_PERSON_SUCCESS, targetIndex.getOneBased()));
     }
 
     @Override
     public boolean requiresMainList() {
-        return true;
+        return false;
     }
 
     @Override
@@ -62,7 +61,8 @@ public class DeleteCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof DeleteCommand // instanceof handles nulls
-                && targetIndex.equals(((DeleteCommand) other).targetIndex)); // state check
+                || (other instanceof PinSelectCommand // instanceof handles nulls
+                && targetIndex.equals(((PinSelectCommand) other).targetIndex)); // state check
     }
+
 }

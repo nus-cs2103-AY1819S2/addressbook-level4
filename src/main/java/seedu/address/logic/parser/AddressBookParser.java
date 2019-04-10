@@ -10,6 +10,7 @@ import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.ArchiveClearCommand;
 import seedu.address.logic.commands.ArchiveCommand;
 import seedu.address.logic.commands.ArchiveListCommand;
+import seedu.address.logic.commands.ArchiveSelectCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteCommand;
@@ -20,6 +21,7 @@ import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.PinCommand;
+import seedu.address.logic.commands.PinSelectCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.UnarchiveCommand;
@@ -84,6 +86,9 @@ public class AddressBookParser {
         case ArchiveListCommand.COMMAND_WORD:
             return new ArchiveListCommand();
 
+        case ArchiveSelectCommand.COMMAND_WORD:
+            return new ArchiveSelectCommandParser().parse(arguments);
+
         case ArchiveClearCommand.COMMAND_WORD:
             return new ArchiveClearCommand();
 
@@ -107,6 +112,9 @@ public class AddressBookParser {
 
         case RedoCommand.COMMAND_WORD:
             return new RedoCommand();
+
+        case PinSelectCommand.COMMAND_WORD:
+            return new PinSelectCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

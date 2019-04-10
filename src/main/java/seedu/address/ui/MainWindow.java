@@ -122,25 +122,26 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        browserPanel = new BrowserPanel(logic.selectedPersonProperty());
+        browserPanel = new BrowserPanel(logic.selectedPersonProperty(), logic.selectedArchivedPersonProperty(),
+                logic.selectedPinPersonProperty());
         browserPlaceholder.getChildren().add(browserPanel.getRoot());
+
+        pinListPanel = new PinListPanel(logic.getFilteredPinList(), logic.selectedPinPersonProperty(),
+                logic::setSelectedPinPerson);
+        pinListPanelPlaceholder.getChildren().add(pinListPanel.getRoot());
 
         personListPanel = new PersonListPanel(logic.getFilteredPersonList(), logic.selectedPersonProperty(),
                 logic::setSelectedPerson);
-        archiveListPanel = new ArchiveListPanel(logic.getFilteredArchivedPersonList());
-        personListPanelPlaceholder.getChildren().add(archiveListPanel.getRoot());
-        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+        archiveListPanel = new ArchiveListPanel(logic.getFilteredArchivedPersonList(),
+                logic.selectedArchivedPersonProperty(), logic::setSelectedArchivedPerson);
+        personListPanelPlaceholder.getChildren().addAll(archiveListPanel.getRoot(), personListPanel.getRoot());
         displayedList.setText(MAIN_LIST_DISPLAYED);
-
-        pinListPanel = new PinListPanel(logic.getFilteredPinList(), logic.selectedPersonProperty(),
-                logic::setSelectedPerson);
-        pinListPanelPlaceholder.getChildren().add(pinListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath(),
-                logic.getArchiveBookFilePath(), logic.getAddressBook());
+                logic.getArchiveBookFilePath(), logic.getPinBookFilePath(), logic.getAddressBook());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand, logic.getHistory());
@@ -221,6 +222,7 @@ public class MainWindow extends UiPart<Stage> {
             if (commandResult.isSwapList()) {
                 personListPanelPlaceholder.getChildren().get(0).toFront();
                 swapListTitle();
+                logic.removeSelectedNonPinnedPerson();
             }
 
             return commandResult;

@@ -32,7 +32,6 @@ public class PinListPanel extends UiPart<Region> {
         super(FXML);
         pinListView.setItems(pinList);
         pinListView.setCellFactory(listView -> new PinListViewCell());
-
         pinListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             logger.fine("Selection in pin list panel changed to : '" + newValue + "'");
             onPinnedPersonChange.accept(newValue);

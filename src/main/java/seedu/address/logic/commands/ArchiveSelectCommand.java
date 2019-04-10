@@ -12,57 +12,56 @@ import seedu.address.model.Model;
 import seedu.address.model.person.Person;
 
 /**
- * Deletes a person identified using it's displayed index from the address book.
+ * Selects an archived person identified using its displayed index from the archive book.
  */
-public class DeleteCommand extends Command {
+public class ArchiveSelectCommand extends Command {
 
-    public static final String COMMAND_WORD = "delete";
+    public static final String COMMAND_WORD = "archiveselect";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes the person identified by the index number used in the displayed person list.\n"
+            + ": Selects the archived person identified by the index number used in the displayed person list.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted Person: %1$s";
+    public static final String MESSAGE_SELECT_PERSON_SUCCESS = "Selected Archived Person: %1$s";
 
     private final Index targetIndex;
 
-    public DeleteCommand(Index targetIndex) {
+    public ArchiveSelectCommand(Index targetIndex) {
         this.targetIndex = targetIndex;
     }
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
-        List<Person> lastShownList = model.getFilteredPersonList();
 
-        if (targetIndex.getZeroBased() >= lastShownList.size()) {
+        List<Person> filteredArchivedPersonList = model.getFilteredArchivedPersonList();
+
+        if (targetIndex.getZeroBased() >= filteredArchivedPersonList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
-        Person personToDelete = lastShownList.get(targetIndex.getZeroBased());
-        model.deletePerson(personToDelete);
-        model.commitAddressBook();
-        model.commitArchiveBook();
-        model.commitPinBook();
-        model.setSelectedPerson(null);
-        return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, personToDelete));
+        model.setSelectedPinPerson(null);
+        model.setSelectedArchivedPerson(filteredArchivedPersonList.get(targetIndex.getZeroBased()));
+        return new CommandResult(String.format(MESSAGE_SELECT_PERSON_SUCCESS, targetIndex.getOneBased()),
+                false, false, true);
+
     }
 
     @Override
     public boolean requiresMainList() {
-        return true;
+        return false;
     }
 
     @Override
     public boolean requiresArchiveList() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof DeleteCommand // instanceof handles nulls
-                && targetIndex.equals(((DeleteCommand) other).targetIndex)); // state check
+                || (other instanceof ArchiveSelectCommand // instanceof handles nulls
+                && targetIndex.equals(((ArchiveSelectCommand) other).targetIndex)); // state check
     }
 }

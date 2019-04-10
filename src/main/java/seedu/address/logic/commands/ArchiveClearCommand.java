@@ -21,6 +21,7 @@ public class ArchiveClearCommand extends Command {
         model.setArchiveBook(new ArchiveBook());
         model.commitAddressBook();
         model.commitArchiveBook();
+        model.commitPinBook();
         return new CommandResult(MESSAGE_SUCCESS, false, false , true);
     }
 

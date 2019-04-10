@@ -1,12 +1,12 @@
 package seedu.address.logic.parser;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_JOBNAME;
 
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.AddListToJobCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.job.JobListName;
 import seedu.address.model.job.JobName;
 
 /**
@@ -24,15 +24,27 @@ public class AddListToJobCommandParser implements Parser<AddListToJobCommand> {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_JOBNAME);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_JOBNAME)
-                || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    AddListToJobCommand.MESSAGE_USAGE));
+        JobListName toListName;
+        JobListName fromListName;
+        JobName toAdd;
+        String preambleString = argMultimap.getPreamble();
+        String toListNameString = preambleString.split("\\s+")[0].trim();
+        try {
+            toListName = ParserUtil.parseJobListName(toListNameString);
+        } catch (ParseException pe) {
+            throw new ParseException(String.format(AddListToJobCommand.MESSAGE_NO_DESTINATION,
+                    AddListToJobCommand.MESSAGE_USAGE), pe);
+        }
+        try {
+            String fromListNameString = preambleString.split("\\s+")[1].trim();
+            fromListName = ParserUtil.parseJobListName(fromListNameString);
+            toAdd = ParserUtil.parseJobName(argMultimap.getValue(PREFIX_JOBNAME).get());
+        } catch (Exception e) {
+            fromListName = JobListName.STUB;
+            toAdd = ParserUtil.parseJobName(argMultimap.getValue(PREFIX_JOBNAME).get());
         }
 
-        JobName job = ParserUtil.parseJobName(argMultimap.getValue(PREFIX_JOBNAME).get());
-
-        return new AddListToJobCommand(job);
+        return new AddListToJobCommand(toAdd, toListName, fromListName);
     }
 
     /**

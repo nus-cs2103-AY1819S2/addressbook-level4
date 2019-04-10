@@ -28,6 +28,7 @@ import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.analytics.Analytics;
 import seedu.address.model.interviews.Interviews;
 import seedu.address.model.job.Job;
+import seedu.address.model.job.JobListName;
 import seedu.address.model.job.JobName;
 import seedu.address.model.person.Nric;
 import seedu.address.model.person.Person;
@@ -300,7 +301,7 @@ public class CreateJobCommandTest {
         }
 
         @Override
-        public void addFilteredPersonsToJob(JobName jobName) {
+        public void addFilteredPersonsToJob(JobName jobName, JobListName from, JobListName to) {
             throw new AssertionError("This method should not be called.");
         }
 

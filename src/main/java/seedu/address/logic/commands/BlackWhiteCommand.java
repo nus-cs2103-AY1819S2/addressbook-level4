@@ -78,5 +78,26 @@ public class BlackWhiteCommand extends Command {
         }
         return "bw";
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+            || (other instanceof BlackWhiteCommand) // instanceof handles nulls
+            && isValuesEqual(other);
+    }
+
+    /**
+     * Checks if the value in the contrast command is equal to the value in the other command.
+     *
+     * @param other command object to be compared
+     * */
+    private boolean isValuesEqual(Object other) {
+        BlackWhiteCommand otherCommand = (BlackWhiteCommand) other;
+        if (this.threshold.isPresent() && otherCommand.threshold.isPresent()) {
+            return this.threshold.getAsInt() == otherCommand.threshold.getAsInt();
+        } else {
+            return (!this.threshold.isPresent() && !otherCommand.threshold.isPresent());
+        }
+    }
 }
 /* @@author*/

@@ -14,7 +14,7 @@ public class SetPresetCommandParser implements Parser<SetPresetCommand> {
 
     /**
      * Parses the Preset Command.
-     * @param args
+     * @param args argument
      * @return a PresetCommand object
      * @throws ParseException is thrown if the value is not an integer or unspecified.
      */

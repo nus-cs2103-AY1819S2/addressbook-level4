@@ -204,15 +204,18 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public UniqueFilterList getPredicateLists(int listNumber) {
-        if (listNumber == 0) {
+    public UniqueFilterList getPredicateLists(JobListName listName) {
+        switch (listName) {
+        case APPLICANT:
             return filterListJobAllApplicants;
-        } else if (listNumber == 1) {
+        case KIV:
             return filterListJobKiv;
-        } else if (listNumber == 2) {
+        case INTERVIEW:
             return filterListJobInterview;
-        } else {
+        case SHORTLIST:
             return filterListJobShortlist;
+        default:
+            return null;
         }
     }
 
@@ -270,21 +273,39 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void updateJobAllApplicantsFilteredPersonList(Predicate<Person> predicate) {
-        requireNonNull(predicate);
-        activeJobAllApplicants.setPredicate(predicate);
+    public void updateJobAllApplicantsFilteredPersonList() {
+        Predicate<Person> predicater = new PredicateManager();
+        for(Filter filter:filterListJobAllApplicants){
+            predicater = predicater.and(filter.getPredicate());
+        }
+        activeJobAllApplicants.setPredicate(predicater);
     }
 
     @Override
-    public void updateJobKivFilteredPersonList(Predicate<Person> predicate) {
-        requireNonNull(predicate);
-        activeJobKiv.setPredicate(predicate);
+    public void updateJobKivFilteredPersonList() {
+        Predicate<Person> predicater = new PredicateManager();
+        for(Filter filter:filterListJobKiv){
+            predicater = predicater.and(filter.getPredicate());
+        }
+        activeJobKiv.setPredicate(predicater);
     }
 
     @Override
-    public void updateJobInterviewFilteredPersonList(Predicate<Person> predicate) {
-        requireNonNull(predicate);
-        activeJobInterview.setPredicate(predicate);
+    public void updateJobInterviewFilteredPersonList() {
+        Predicate<Person> predicater = new PredicateManager();
+        for(Filter filter:filterListJobInterview){
+            predicater = predicater.and(filter.getPredicate());
+        }
+        activeJobInterview.setPredicate(predicater);
+    }
+
+    @Override
+    public void updateJobShortlistFilteredPersonList() {
+        Predicate<Person> predicater = new PredicateManager();
+        for(Filter filter:filterListJobShortlist){
+            predicater = predicater.and(filter.getPredicate());
+        }
+        activeJobShortlist.setPredicate(predicater);
     }
 
     @Override
@@ -336,12 +357,6 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void updateJobShortlistFilteredPersonList(Predicate<Person> predicate) {
-        requireNonNull(predicate);
-        activeJobShortlist.setPredicate(predicate);
-    }
-
-    @Override
     public void updateFilteredPersonList(Predicate<Person> predicate) {
         requireNonNull(predicate);
         displayedFilteredPersons.setPredicate(predicate);
@@ -358,6 +373,7 @@ public class ModelManager implements Model {
     public void revertList() {
         this.displayedFilteredPersons = originalFilteredPersons;
     }
+
 
     //=========== Filtered Job List Accessors =============================================================
 

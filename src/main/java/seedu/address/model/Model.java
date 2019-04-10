@@ -196,7 +196,7 @@ public interface Model {
     /**
      * Returns an unmodifiable view of the filtered job list
      */
-    UniqueFilterList getPredicateLists(int listNumber);
+    UniqueFilterList getPredicateLists(JobListName listName);
 
     /**
      * Updates the filter of the filtered person list to filter by the given {@code predicate}.
@@ -210,28 +210,28 @@ public interface Model {
      *
      * @throws NullPointerException if {@code predicate} is null.
      */
-    void updateJobAllApplicantsFilteredPersonList(Predicate<Person> predicate);
+    void updateJobAllApplicantsFilteredPersonList();
 
     /**
      * Updates the filter of the JobKiv filtered person list to filter by the given {@code predicate}.
      *
      * @throws NullPointerException if {@code predicate} is null.
      */
-    void updateJobKivFilteredPersonList(Predicate<Person> predicate);
+    void updateJobKivFilteredPersonList();
 
     /**
      * Updates the filter of the JobInterview filtered person list to filter by the given {@code predicate}.
      *
      * @throws NullPointerException if {@code predicate} is null.
      */
-    void updateJobInterviewFilteredPersonList(Predicate<Person> predicate);
+    void updateJobInterviewFilteredPersonList();
 
     /**
      * Updates the filter of the JobShortlist filtered person list to filter by the given {@code predicate}.
      *
      * @throws NullPointerException if {@code predicate} is null.
      */
-    void updateJobShortlistFilteredPersonList(Predicate<Person> predicate);
+    void updateJobShortlistFilteredPersonList();
 
     /**
      * Updates the filter of the active filtered person list to filter by the given {@code predicate}.
@@ -247,7 +247,11 @@ public interface Model {
      */
     void changeFilteredPersonList(UniquePersonList list);
 
+    /**
+     * Revert the display list.
+     */
     void revertList();
+
 
     ObservableList<Job> getFilteredJobList();
 

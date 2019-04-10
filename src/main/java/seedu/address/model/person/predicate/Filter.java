@@ -1,6 +1,5 @@
 package seedu.address.model.person.predicate;
 
-import java.security.PublicKey;
 import java.util.function.Predicate;
 
 import seedu.address.model.person.Person;
@@ -32,5 +31,12 @@ public class Filter {
 
     public String getFilterName() {
         return filterName;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+            || (other instanceof Filter // instanceof handles nulls
+            && filterName.equals(((Filter) other).getFilterName())); // state check
     }
 }

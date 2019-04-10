@@ -2,8 +2,10 @@ package seedu.address.model.person;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -203,28 +205,62 @@ public class Person {
         return builder.toString();
     }
 
+    /**
+     *  returns the Person's tags as lower case strings
+     */
     public String tagsToString() {
-        return getTags().toString();
+        return getTags().toString().toLowerCase();
     }
 
-    public String namesToString() {
+    /**
+     *  returns the Person's name as a string
+     */
+    public String nameToString() {
         return getName().toString();
+    }
+
+    /**
+     *  returns the Person's first name as a string
+     */
+    public String firstNameToString() {
+        String fullName = nameToString();
+        int firstSpace = fullName.indexOf(" ");
+        return fullName.substring(0, firstSpace);
     }
 
     /**
      * Returns just the surname of the Persons name as a string
      */
-    public String surnamesToString() {
-        String fullName = namesToString();
+    public String surnameToString() {
+        String fullName = nameToString();
         int finalSpace = fullName.lastIndexOf(" ");
         return fullName.substring(finalSpace + 1);
     }
 
+    /**
+     *  returns the Person's GPA as a string
+     */
     public String gpaToString() {
         return getGpa().toString();
     }
 
+    /**
+     *  returns the Person's education as a string in lowercase
+     */
     public String educationToString() {
-        return getEducation().toString();
+        return getEducation().toString().toLowerCase();
+    }
+
+    /**
+     *  returns the Person's positions as a string in lowercase
+     */
+    public List<String> getPositionString() {
+        Set<SkillsTag> individualTags = getTags();
+        List<String> positionTagStrings = new ArrayList<>();
+        Set<SkillsTag> positionTags = PersonUtil.getTagsOfType(individualTags, "p");
+        for (SkillsTag tag : positionTags) {
+            positionTagStrings.add(tag.toString());
+        }
+        return positionTagStrings;
     }
 }

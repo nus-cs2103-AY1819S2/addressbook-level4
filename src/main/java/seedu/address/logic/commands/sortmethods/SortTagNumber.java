@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import seedu.address.model.person.Person;
 
@@ -19,17 +18,14 @@ public class SortTagNumber {
         String prefix = type.substring(0, 1);
         List<Person> sortedList = new ArrayList<>();
         if (prefix.equals("s")) {
-            sortedList =
-                    lastShownList.stream().sorted(Comparator.comparing(Person::getSkillsNumber))
-                            .collect(Collectors.toList());
+            Comparator<Person> personSkillsNumberComparator = Comparator.comparing(Person::getSkillsNumber);
+            sortedList = SortUtil.sortPersons(lastShownList, personSkillsNumberComparator);
         } else if (prefix.equals("p")) {
-            sortedList =
-                    lastShownList.stream().sorted(Comparator.comparing(Person::getPositionsNumber))
-                            .collect(Collectors.toList());
+            Comparator<Person> personPositionsNumberComparator = Comparator.comparing(Person::getPositionsNumber);
+            sortedList = SortUtil.sortPersons(lastShownList, personPositionsNumberComparator);
         } else if (prefix.equals("e")) {
-            sortedList =
-                    lastShownList.stream().sorted(Comparator.comparing(Person::getEndorsementsNumber))
-                            .collect(Collectors.toList());
+            Comparator<Person> personEndorsementsNumberComparator = Comparator.comparing(Person::getEndorsementsNumber);
+            sortedList = SortUtil.sortPersons(lastShownList, personEndorsementsNumberComparator);
         }
         Collections.reverse(sortedList);
         this.newList = sortedList;

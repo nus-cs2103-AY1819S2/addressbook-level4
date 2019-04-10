@@ -10,13 +10,14 @@ import seedu.address.logic.commands.EndorseCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
- *  Parser implementation for EndorseCommand
+ * Parser implementation for EndorseCommand
  */
 public class EndorseCommandParser implements Parser<EndorseCommand> {
 
     /**
      * Parses the given {@code String} of arguments in the context of the SelectCommand
      * and returns an SelectCommand object for execution.
+     *
      * @throws ParseException if the user input does not conform the expected format
      */
 
@@ -26,9 +27,19 @@ public class EndorseCommandParser implements Parser<EndorseCommand> {
 
         String endorseName = null;
         Index index;
+        int process;
+
+
+        if (args.contains("clear")) {
+            process = 1;
+        } else {
+            process = 0;
+        }
 
         try {
-            index = ParserUtil.parseIndex(argMultimap.getPreamble());
+            String prefix = argMultimap.getPreamble();
+            index = ParserUtil.parseIndex(prefix.substring(prefix.length() - 1));
+
         } catch (ParseException pe) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, EndorseCommand.MESSAGE_USAGE), pe);
@@ -37,6 +48,6 @@ public class EndorseCommandParser implements Parser<EndorseCommand> {
             endorseName = argMultimap.getValue(PREFIX_NAME).get();
         }
 
-        return new EndorseCommand(index, endorseName);
+        return new EndorseCommand(process, index, endorseName);
     }
 }

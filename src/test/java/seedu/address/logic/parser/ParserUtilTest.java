@@ -173,7 +173,7 @@ public class ParserUtilTest {
     @Test
     public void parseTag_validValueWithWhitespace_returnsTrimmedTag() throws Exception {
         String tagWithWhitespace = WHITESPACE + VALID_TAG_1 + WHITESPACE;
-        SkillsTag expectedTag = new SkillsTag(VALID_TAG_1);
+        SkillsTag expectedTag = new SkillsTag(VALID_TAG_1, "endorsement");
         assertEquals(expectedTag, ParserUtil.parseTag(tagWithWhitespace, VALID_COLOR));
     }
 
@@ -191,8 +191,8 @@ public class ParserUtilTest {
     @Test
     public void parseTags_collectionWithValidTags_returnsTagSet() throws Exception {
         Set<SkillsTag> actualTagSet = ParserUtil.parseTags(Arrays.asList(VALID_TAG_1, VALID_TAG_2), VALID_TYPE);
-        Set<SkillsTag> expectedTagSet = new HashSet<SkillsTag>(Arrays.asList(new SkillsTag(VALID_TAG_1),
-                new SkillsTag(VALID_TAG_2)));
+        Set<SkillsTag> expectedTagSet = new HashSet<SkillsTag>(Arrays.asList(new SkillsTag(VALID_TAG_1, "skill"),
+                new SkillsTag(VALID_TAG_2, "skill")));
         assertEquals(expectedTagSet, actualTagSet);
     }
 }

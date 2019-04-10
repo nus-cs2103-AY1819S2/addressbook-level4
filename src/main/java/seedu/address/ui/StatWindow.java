@@ -56,6 +56,8 @@ public class StatWindow extends UiPart<Stage> {
     @FXML
     private Label nric;
     @FXML
+    private Label sex;
+    @FXML
     private Label dateOfBirth;
     @FXML
     private Label phone;
@@ -63,6 +65,14 @@ public class StatWindow extends UiPart<Stage> {
     private Label address;
     @FXML
     private Label email;
+    @FXML
+    private Label kinRelation;
+    @FXML
+    private Label kinPhone;
+    @FXML
+    private Label kinAddress;
+    @FXML
+    private Label kinName;
     @FXML
     private TableView recordStatTable;
     @FXML
@@ -145,13 +155,23 @@ public class StatWindow extends UiPart<Stage> {
     private void populatePatientInfo() {
         Patient statPatient = StatWindow.toStat;
         this.patientTitle.setText("Statistics Report for " + statPatient.getName().toString());
-        nric.setText(statPatient.getNric().toString());
+        patientTitle.setWrapText(true);
+
+        sex.setText(statPatient.getSex().getSex() + "    ");
+        nric.setText(statPatient.getNric().toString() + "    ");
         dateOfBirth.setText(statPatient.getDateOfBirth().getDate());
         phone.setText(statPatient.getPhone().toString());
         address.setText(statPatient.getAddress().toString());
         address.setWrapText(true);
         email.setText(statPatient.getEmail().toString());
         email.setWrapText(true);
+
+        kinName.setText(statPatient.getNextOfKin().getName().toString());
+        kinName.setWrapText(true);
+        kinRelation.setText(statPatient.getNextOfKin().getKinRelation().toString());
+        kinAddress.setText(statPatient.getNextOfKin().getAddress().toString());
+        kinAddress.setWrapText(true);
+        kinPhone.setText(statPatient.getNextOfKin().getPhone().toString());
     }
 
     /**

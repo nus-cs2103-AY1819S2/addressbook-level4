@@ -79,6 +79,6 @@ public class GenerateBillForBookingCommand extends BillCommand {
             .bookingContainsPayerPredicate)
             && bookingWithTypePredicate.equals(((GenerateBillForBookingCommand) other).bookingWithTypePredicate)
             && bookingWithinTimePredicate.equals(((GenerateBillForBookingCommand) other).bookingWithinTimePredicate));
-            // state check
     }
 }
+

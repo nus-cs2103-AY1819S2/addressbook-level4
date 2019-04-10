@@ -21,7 +21,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.job.JobListName;
-import seedu.address.model.person.predicate.UniquePredicateList;
+import seedu.address.model.person.predicate.UniqueFilterList;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -239,19 +239,19 @@ public class MainWindow extends UiPart<Stage> {
      * stores and updates the filtered parameters for each list
      */
 
-    private void updateFilterTags(JobListName listName, UniquePredicateList list) {
+    private void updateFilterTags(JobListName listName, UniqueFilterList list) {
         switch (listName) {
             case APPLICANT:
-                list.forEach(filter -> allFilter.getChildren().add(new Label(filter.getPredicateName())));
+                list.forEach(filter -> allFilter.getChildren().add(new Label(filter.getFilterName())));
                 break;
             case KIV:
-                list.forEach(filter -> kivFilter.getChildren().add(new Label(filter.getPredicateName())));
+                list.forEach(filter -> kivFilter.getChildren().add(new Label(filter.getFilterName())));
                 break;
             case INTERVIEW:
-                list.forEach(filter -> interviewFilter.getChildren().add(new Label(filter.getPredicateName())));
+                list.forEach(filter -> interviewFilter.getChildren().add(new Label(filter.getFilterName())));
                 break;
             case SHORTLIST:
-                list.forEach(filter -> shortlistFilter.getChildren().add(new Label(filter.getPredicateName())));
+                list.forEach(filter -> shortlistFilter.getChildren().add(new Label(filter.getFilterName())));
                 break;
             default:
                 break;

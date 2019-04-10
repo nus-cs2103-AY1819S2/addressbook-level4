@@ -59,6 +59,9 @@ public class BrowserPanel extends UiPart<Region> {
         loadDefaultPage();
     }
 
+    /**
+     * Loads 1 of 5 URL options
+     */
     private void loadPersonPage(Person person) {
         String searchString = SEARCH_PAGE_URL + person.getName().fullName;
         List<String> positions = person.getPositionString();
@@ -66,16 +69,19 @@ public class BrowserPanel extends UiPart<Region> {
         for (String position : positions) {
             positionString += " " + position + ",";
         }
-        String trimmedPositionString_1 = trimToSearchFormat_1(positionString.substring(1, positionString.length() - 1)); //remove final comma
+        String trimmedPositionString_1 = trimToSearchFormat1(positionString
+                .substring(1, positionString.length() - 1)); //remove final comma
         String searchString1 = SEARCH_PAGE_URL_1 + MUST_INCLUDE + person.firstNameToString() + MUST_INCLUDE + DELIM_1
                 + MUST_INCLUDE + person.surnameToString() + MUST_INCLUDE + DELIM_1 + LINKED_IN + DELIM_1 +
                 trimmedPositionString_1 + FIRST_RESULT;
         String searchString2 = SEARCH_PAGE_URL_2 + person.firstNameToString() + DELIM_2 + person.surnameToString();
-        String searchString3 = SEARCH_PAGE_URL_3 + person.firstNameToString() + DELIM_3 + person.surnameToString() + DELIM_3 + trimToSearchFormat_2(positionString.substring(1, positionString.length() - 1));
+        String searchString3 = SEARCH_PAGE_URL_3 + person.firstNameToString() + DELIM_3 + person.surnameToString()
+                + DELIM_3 + trimToSearchFormat3(positionString.substring(1, positionString.length() - 1));
         String searchString4 = SEARCH_PAGE_URL_1 + MUST_INCLUDE + person.firstNameToString() + MUST_INCLUDE + DELIM_1
                 + MUST_INCLUDE + person.surnameToString() + MUST_INCLUDE + DELIM_1 + LINKED_IN + DELIM_1 +
-                trimToSearchFormat_1(positions.get(1) + FIRST_RESULT);
-        String searchString5 = SEARCH_PAGE_URL_3 + person.firstNameToString() + DELIM_3 + person.surnameToString() + DELIM_3 + trimToSearchFormat_2(positions.get(1));
+                trimToSearchFormat1(positions.get(1) + FIRST_RESULT);
+        String searchString5 = SEARCH_PAGE_URL_3 + person.firstNameToString() + DELIM_3 + person.surnameToString()
+                + DELIM_3 + trimToSearchFormat3(positions.get(1));
         System.out.println(searchString);
         System.out.println(searchString1);
         System.out.println(searchString2);
@@ -96,7 +102,10 @@ public class BrowserPanel extends UiPart<Region> {
         loadPage(DEFAULT_PAGE.toExternalForm());
     }
 
-    private String trimToSearchFormat_1(String input) {
+    /**
+     * removes p:, [, ] and , from string and replaces spaces with a certain delimiter
+     */
+    private String trimToSearchFormat1(String input) {
         String output = input.replace("p:", "")
                 .replace("[", "")
                 .replace("]", "")
@@ -105,7 +114,10 @@ public class BrowserPanel extends UiPart<Region> {
         return output;
     }
 
-    private String trimToSearchFormat_2(String input) {
+    /**
+     * removes p:, [, ] and , from string and replaces spaces with a certain delimiter
+     */
+    private String trimToSearchFormat3(String input) {
         String output = input.replace("p:", "")
                 .replace("[", "")
                 .replace("]", "")

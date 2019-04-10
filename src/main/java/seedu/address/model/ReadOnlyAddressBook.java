@@ -15,4 +15,6 @@ public interface ReadOnlyAddressBook extends Observable {
      */
     ObservableList<Person> getPersonList();
 
+    ObservableList<Person> getAllPersonsStorageList();
+
 }

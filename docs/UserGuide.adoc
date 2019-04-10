@@ -1,4 +1,4 @@
-= AddressBook Level 4 - User Guide
+= Recruit Me - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -12,22 +12,27 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level4
+:repoURL: https://github.com/cs2103-ay1819s2-w16-4/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `RecruitMe`      Since: `January 2019`      Licence: `MIT`
 
 == Introduction
 
-AddressBook Level 4 (AB4) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB4 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB4 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+Recruit Me is an application for keeping all your company's applicants in a concise and organized format for easy searching designed to help you find the best candidates.
 
 == Quick Start
 
-.  Ensure you have Java version `9` or later installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
+.  Ensure you have Java `9` (revision `9.01` or later) installed in your Computer.
++
+[NOTE]
+Only Java 9 is supported. +
+
++
 .  Copy the file to the folder you want to use as the home folder for your Address Book.
+.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
-image::Ui.png[width="790"]
+image::UI.png[width="790"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
@@ -47,8 +52,8 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 *Command Format*
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
+* Items in square brackets are optional e.g `n/NAME [skill/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
+* Items with `…`​ after them can be used multiple times including zero times e.g. `[skill/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `skill/Java`, `skill/Excel skill/leadership` etc.
 * Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 ====
 
@@ -58,41 +63,115 @@ Format: `help`
 
 === Adding a person: `add`
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+Adds a candidate to Recruit Me +
+Format: `add n/NAME p/PHONE_NUMBER e/EMAIL  d/EDUCATION g/GPA a/ADDRESS [skill/TAG]... [position/TAG]...`
 
-[TIP]
-A person can have any number of tags (including 0)
+****
+* Name can have any character from English alphabet and also it can have `space`
+* Phone Number has to be in 8 digits
+* Email should be in the format of `[ANY NUMBER OF ASCII CHARACTERS MORE THAN 0]@[EXTENSION1].[EXTENSION2]`
+* Education can take character from English alphabet and also it can have `space`
+* GPA can take any float value between 0.0 and 4.0
+* A candidate can have any number of skill/position tags (including 0)
+****
 
 Examples:
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* `add n/John Doe p/98765432 e/johnd@example.com d/NUS g/3.4 a/John street, block 123, #01-01`
+* `add n/Betsy Crowe skill/statistics e/betsycrowe@example.com d/NTU g/2.4 a/Newgate Prison p/1234567 skill/Java position/UIDeveloper`
 
 === Listing all persons : `list`
 
-Shows a list of all persons in the address book. +
+Shows a list of all candidates in Recruit Me. If there is a filtering available, it lists all the persons that passes all the filtering conditions. +
 Format: `list`
 
 === Editing a person : `edit`
 
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+Edits an existing candidate in Recruit Me. +
+Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [skill/TAG]... [position/TAG]...`
 
 ****
 * Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
+* When editing tags, the existing tags of the person will be removed(i.e adding of tags is not cumulative) except for
+existing endorsement tags.
+* You can remove all the person's tags by typing `skill/` or 'position/' without specifying any tags after it.
 ****
 
 Examples:
 
 * `edit 1 p/91234567 e/johndoe@example.com` +
 Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
+* `edit 2 n/Betsy Crower skill/` +
 Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+
+// tag::filter[]
+=== Clearing the filter in Recruit Me: `filter clear`
+It clears all the filters in the applicant pool. +
+Format: `filter clear`
+
+=== Reversing the filter in Recruit Me: `filter reverse`
+It reverses all the filtering conditions and show the eliminated ones. +
+Format: `filter reverse`
+
+=== Filtering Recruit Me: `filter`
+It filters the current applicant pool regarding the existing entities of every single person (name, phone, email, address or skills). +
+Format: `filter or/and [name<NAME>name] [phone<PHONE>phone] [email<EMAIL>email] [gpa<GPA>gpa] [edu<EDUCATION>edu] [addr<ADDRESS>addr] [skill<SKILL1, SKILL2, ... >skill][pos<POSITION1, POSITION2, ... >pos] [end<ENDORSEMENT>end]`
+
+[TIP]
+for every field, using `< or >` can cause false results. Please do not use them in filtering criterion texts. All the fields are optional but at least one field should be used
+
+****
+* For `GPA`, it prints the persons who have higher or equal amount of GPA from the given input
+* For `ENDORSEMENT`, a positive integer value is wanted, it prints the persons who have that much or higher amount of endorsements.
+* 'OR' Usage: According to the conditions written, if at least one of them passes with the regarding person in the applicant pool, the person is included in the filtered version.
+* 'AND' Usage: According to the conditions written, if every single one of them passes with the regarding person in the applicant pool, the person is included in the filtered version.
+* The filtering is case insensitive. e.g `hans` will match `Hans`
+* If more than one skills are added to the filter, they should be separated by ','
+* Filtering does not check if the written condition passes totally. It only checks, if the written condition is contained in the person properties.
+e.g if there is someone named Alex, in the filtering conditions `n/ale/n` or `n/le/n` or `n/lex/n`, Alex will be included.
+* All the people that are included in the filtering will be returned.
+* All the operations, that change the content of the address book also clears every single filter.
+* After one filtering, the filtered address book can be filtered again.
+* For every single criteria between the filtering prefixes, input check for the validity is made
+
+* Filtering is compatible with all the other commands:
+** 1- clear : since the persons list changes, the filtering is automatically cleared
+** 2- add : when filtering is active, adding a person also clears the filter along the addition. But addition takes place.
+** 3- sort / select / delete / edit / list / undo / redo / help / exit / history : can be used without clearing the filter
+
+****
+
+Examples:
+
+* filter or phone<91234567>phone email<johndoemail@example.com>email skill<C++, Java>skill end<2>end
+** Returns the people, whose numbers include 91234567 or whose email includes johndoe@example.com or who has (contains) at least C++ or Java in the skills or has at least 2 endorsements.
+* filter and name<ale>name addr<abcd>addr gpa<3.1>gpa skill<C++, Java>skill
+** Returns the people, whose name contains ale and whose address contains abcd and who has (contains) C++ and Java both in the skills and has a GPA higher than or equal to 3.1
+
+// end::filter[]
+
+=== Approve persons by employee name: `endorse`
+
+Endorses an existing candidate in RecruitMe. +
+Format: 'endorse INDEX n/YOUR NAME'
+
+****
+* Endorses the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list.
+* The index *must be a positive integer* 1, 2, 3, ...
+* All ASCII characters accepted, not limited to alphanumeric
+* Error will be thrown if an employee tries to endorse a candidate more than once
+* When editing tags, the existing tags of the person will be removed (i.e adding of tags is not cumulative) except for
+existing endorsement tags.
+* NOT COMPLETED
+****
+
+Examples:
+
+* 'endorse 1 n/Steve Jobs'
+Adds a blue tag to the candidate at the '1' index with the text 'Steve Jobs'
+
 
 === Locating persons by name: `find`
 
@@ -105,6 +184,7 @@ Format: `find KEYWORD [MORE_KEYWORDS]`
 * Only the name is searched.
 * Only full words will be matched e.g. `Han` will not match `Hans`
 * Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+
 ****
 
 Examples:
@@ -114,6 +194,67 @@ Returns `john` and `John Doe`
 * `find Betsy Tim John` +
 Returns any person having names `Betsy`, `Tim`, or `John`
 
+=== Sorting persons: `sort`
+
+Sorts persons by method described by the given keywords. +
+Format: `sort [reverse] KEYWORD`
+
+Accepted KEYWORDs:
+        `name`; `surname`; `education`; `gpa`; `skills`; `positions`; `endorsements`; `skill number`;  +
+        `position number`;  `endorsement number`
+
+Examples:
+
+* `sort education` +
+Returns the persons, with new index numbers, in alphabetical order of their education.
+* `sort reverse skills` +
+Returns the persons, with new index numbers, in reverse alphabetical order of their first skill. Their first +
+skill is that which appears first when the person's skills have been ordered alphabetically.
+
+Methodology:
+****
+* The `sort name` command compares the Christian name first and then the surname. +
+_e.g. `Adam Smith` shall come before `Shaun Adams` and `Adam Blacksmith` shall come before `Adam Smith`._
+* The `sort surname` command compares the surname only. +
+If two surnames match, then the previous relative ordering of the two shall be kept. +
+_e.g. `Ben Adams` shall come before `Adam Black`._
+* The `sort education` command sorts the persons by the alphabetical ordering of their education. +
+_e.g. `Charlotte Green (NTU)` shall come before `Adam Smith (NUS)`._
+* The `sort gpa` command sorts the persons by increasing gpa numeric value. +
+_e.g. `Adam Smith (3.1)` shall come before `Charlotte Green (3.9)`._
+* The `sort skills` arranges each person's skills alphabetically and then arranges the people based on their skills in alphabetical order. +
+_e.g. `Peter Parker (Python, Debugging)` shall come before `Charlotte Oliveiro (Java)` +
+since `Debugging` comes before `Java`._
+* The `sort positions` arranges each person's positions alphabetically and then arranges the people based on their positions in alphabetical order. +
+_e.g. `Charlotte Oliveiro (Project Consultant, Crime Analyst)` shall come before `Peter Parker (Databases)` +
+since `Crime Analyst` comes before `Databases`._
+* The `sort endorsements` arranges each person's endorsements alphabetically and then arranges the people based on their endorsements in alphabetical order. +
+_e.g. `Irfan Ibrahim (Warren Buffett, Jeff Bezos)` shall come before `Alex Yeoh (Mark Cuban, Steve Jobs)` +
+since `Jeff Bezos` comes before `Mark Cuban`._
+* The `sort skill number` arranges persons based on the number of skills they have from most to fewest.+
+_e.g. `Peter Parker (Python, Debugging)` shall come before `Charlotte Oliveiro (Java)` +
+since `Peter Parker` has two skills where as `Charlotte Oliveiro` only has one._
+* The `sort position number` arranges persons based on the number of positions they have from most to fewest.+
+_e.g. `Charlotte Oliveiro (Project Consultant, Crime Analyst)` shall come before `Peter Parker (Databases)` +
+since `Charlotte Oliveiro` has had two positions where as `Peter Parker` only has one._
+* The `sort endorsement number` arranges persons based on the number of endorsements they have from most to fewest. +
+_e.g. `Irfan Ibrahim (Warren Buffett, Jeff Bezos)` shall come before `Bruce Wayne (Thomas Wayne)` +
+since `Irfan Ibrahim` has two endorsements where as `Bruce Wayne` only has one._
+* The `reverse` keyword can be used in conjunction with any of the above keywords and it shall reverse the ordering. +
+_e.g. The `sort reverse surname` command shall result in `Adam Black` coming before `Ben Adams`._
+* If the sorting method has two persons with the same value _(e.g. both persons have two endorsements in the 'sort +
+endorsement number' command)_, then the previous relative ordering of the two shall be kept.
+* The `sort` command is compatible with the `filter` command. +
+If the Address Book contains ten persons, but the filter has selected just three persons, then only the three persons shall be ordered and returned with the new index numbers. +
+Additional filters can be applied within the sort.
+* The `sort` command is partially compatible with the `find` command. +
+If the Address Book is currently sorted according to a certain method, the `find` command shall return the persons, according to the specified find keyword, ordered by the previous sort method. +
+If the Address Book has currently _found_ certain persons from the `find` command, an additional sort shall sort all those in the address book and not just those that have been _found_.
+Should the user wish to just sort a few people, the `filter` command should be used as outlined above.
+* The `sort` command is compatible with all other commands (add/clear/delete/edit/exit/help/history/list/redo/select/undo). +
+It shall not automatically update the returned list of persons. For example adding a person shall simply add them to the end of the list of persons.
+****
+
 === Deleting a person : `delete`
 
 Deletes the specified person from the address book. +
@@ -121,28 +262,31 @@ Format: `delete INDEX`
 
 ****
 * Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
+* The index refers to the index number shown in the displayed applicant pool.
 * The index *must be a positive integer* 1, 2, 3, ...
+
 ****
 
 Examples:
 
 * `list` +
 `delete 2` +
-Deletes the 2nd person in the address book.
+Deletes the 2nd person in the applicant pool.
 * `find Betsy` +
 `delete 1` +
 Deletes the 1st person in the results of the `find` command.
 
 === Selecting a person : `select`
 
-Selects the person identified by the index number used in the displayed person list. +
+Selects the person identified by the index number used in the displayed applicant pool. +
 Format: `select INDEX`
 
 ****
+
 * Selects the person and loads the Google search page the person at the specified `INDEX`.
 * The index refers to the index number shown in the displayed person list.
 * The index *must be a positive integer* `1, 2, 3, ...`
+
 ****
 
 Examples:
@@ -167,12 +311,12 @@ Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and 
 // tag::undoredo[]
 === Undoing previous command : `undo`
 
-Restores the address book to the state before the previous _undoable_ command was executed. +
+Restores the applicant pool to the state before the previous _undoable_ command was executed. +
 Format: `undo`
 
 [NOTE]
 ====
-Undoable commands: those commands that modify the address book's content (`add`, `delete`, `edit` and `clear`).
+Undoable commands: those commands that modify the applicant pool's content (`add`, `delete`, `edit` and `clear`).
 ====
 
 Examples:
@@ -216,7 +360,7 @@ The `redo` command fails as there are no `undo` commands executed previously.
 
 === Clearing all entries : `clear`
 
-Clears all entries from the address book. +
+Clears all entries from the applicant pool. +
 Format: `clear`
 
 === Exiting the program : `exit`
@@ -226,7 +370,7 @@ Format: `exit`
 
 === Saving the data
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
+Applicant data is saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
 // tag::dataencryption[]
@@ -238,19 +382,22 @@ _{explain how the user can enable/disable data encryption}_
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous application folder.
 
 == Command Summary
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
+* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [skill/TAG]...` +
+e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 skill/Java skill/leadership`
 * *Clear* : `clear`
 * *Delete* : `delete INDEX` +
 e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
+* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [skill/TAG]...` +
 e.g. `edit 2 n/James Lee e/jameslee@example.com`
 * *Find* : `find KEYWORD [MORE_KEYWORDS]` +
 e.g. `find James Jake`
+* *Sort* : `sort [reverse] KEYWORD` +
+e.g. `sort name` +
+e.g. `sort reverse education`
 * *List* : `list`
 * *Help* : `help`
 * *Select* : `select INDEX` +

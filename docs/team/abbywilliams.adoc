@@ -1,0 +1,55 @@
+= Abby Williams- Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: Recruit Me
+
+---
+
+== Overview
+
+Recruit Me is a desktop application designed for . It is an adaptation of AddressBook - Level 4 is a desktop address book application used for teaching Software Engineering principles. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+
+== Summary of contributions
+
+* *Major enhancement*: Endorse Command
+** What it does: allows any current employees with access to the platform the opportunity to personally endorse candidates of their choice
+** Justification: Tags are critical elements that shape a candidate and this color-coded system allows managers to better view these applicants and allows employees to interact with the recruiting process.
+** Highlights:
+    - command allows an employee to add their name as a special blue tag to a candidate's profile
+    - accepts all ASCII input, not just limited to alphanumeric
+    - if a candidate edits his or her tags the employee endorsement will not be deleted
+    - command accepts all characters and is not limited to alphanumeric input
+    - works with filtering command so a manager can filter by a specific employee to see which candidate's he or she has      endorsed
+
+* *Minor enhancement*: Diverse Tag Functionality
+    - Refactoring Tag to distinguish between their skills and positions when they add and edit their profile
+    - Present skills and position tags in different colors for recruiters to get a better view of the candidate
+    - Allow more than just alphanumeric input for the skill/position options
+
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc
+
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc
+
+
+== PROJECT: PowerPointLabs
+
+---
+
+_{Optionally, you may include other projects in your portfolio.}_

@@ -71,5 +71,4 @@ public class StatusBarFooterTest extends GuiUnitTest {
         assertEquals(expectedSyncStatus, statusBarFooterHandle.getSyncStatus());
         guiRobot.pauseForHuman();
     }
-
 }

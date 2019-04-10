@@ -107,8 +107,19 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void deleteAllPerson() {
+        versionedAddressBook.removeAllPerson();
+    }
+
+    @Override
     public void addPerson(Person person) {
         versionedAddressBook.addPerson(person);
+        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+    }
+
+    @Override
+    public void addPersonWithFilter(Person person) {
+        versionedAddressBook.addPersonWithFilter(person);
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
     }
 
@@ -134,6 +145,54 @@ public class ModelManager implements Model {
     public void updateFilteredPersonList(Predicate<Person> predicate) {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
+    }
+
+    //=========== Filtering Processes =======================================================================
+
+    @Override
+    public void clearFilter() {
+        versionedAddressBook.clearFilter();
+        logger.info("All the filters are cleared.");
+    }
+
+    @Override
+    public void reverseFilter() {
+        versionedAddressBook.reverseFilter();
+        logger.info("All the filters are reversed.");
+    }
+
+    @Override
+    public void filterAnd(String name, String phone, String email, String address, String[] skillList,
+                          String[] posList, String endorseCount, String gpa, String education) {
+        versionedAddressBook.filterAnd(name, phone, email, address, skillList, posList, endorseCount, gpa, education);
+        logger.info("Persons are filtered according to 'AND' condition.");
+    }
+
+    @Override
+    public void filterOr(String name, String phone, String email, String address, String[] skillList,
+                         String[] posList, String endorseCount, String gpa, String education) {
+        versionedAddressBook.filterOr(name, phone, email, address, skillList, posList, endorseCount, gpa, education);
+        logger.info("Persons are filtered according to 'OR' condition.");
+    }
+
+    @Override
+    public boolean getFilterInfo() {
+        return versionedAddressBook.getFilterInfo();
+    }
+
+    @Override
+    public void setFilterInfo(boolean status) {
+        versionedAddressBook.setFilterInfo(status);
+    }
+
+    @Override
+    public boolean getSortInfo() {
+        return versionedAddressBook.getSortInfo();
+    }
+
+    @Override
+    public void setSortInfo(boolean status) {
+        versionedAddressBook.setSortInfo(status);
     }
 
     //=========== Undo/Redo =================================================================================

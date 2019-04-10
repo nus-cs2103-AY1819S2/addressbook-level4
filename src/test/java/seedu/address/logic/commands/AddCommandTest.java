@@ -128,7 +128,49 @@ public class AddCommandTest {
         }
 
         @Override
+        public void addPersonWithFilter(Person person) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void setAddressBook(ReadOnlyAddressBook newData) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void filterAnd(String name, String phone, String email, String address, String[] skillList,
+                              String[] posList, String endorseCount, String gpa, String education) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void filterOr(String name, String phone, String email, String address, String[] skillList,
+                              String[] posList, String endorseCount, String gpa, String education) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void reverseFilter() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean getFilterInfo() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setFilterInfo(boolean status) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean getSortInfo() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setSortInfo(boolean status) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -144,6 +186,11 @@ public class AddCommandTest {
 
         @Override
         public void deletePerson(Person target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteAllPerson() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -184,6 +231,11 @@ public class AddCommandTest {
 
         @Override
         public void commitAddressBook() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void clearFilter() {
             throw new AssertionError("This method should not be called.");
         }
 

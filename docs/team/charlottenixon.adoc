@@ -1,0 +1,51 @@
+= Charlotte Nixon- Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: Recruit Me
+
+---
+
+== Overview
+
+Recruit Me is a desktop application designed for . It is an adaptation of AddressBook - Level 4 is a desktop address book application used for teaching Software Engineering principles. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+
+== Summary of contributions
+
+* *Major enhancement*: added *GPA and Education Parameter*
+** What it does: _{Allows users to input their GPA and Education attributs}_.
+** Justification: _{It is important for the employeers to be able to know the protential employees GPA and education}_.
+** Highlights: _{Employees can see on the contact this information}_.
+
+* *Minor enhancement*: _{CV}_.
+
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+
+The V1.1 and V1.2 information
+|===
+
+include::../UserGuide.adoc
+
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+
+Education and GPA
+|===
+
+include::../DeveloperGuide.adoc
+
+
+== PROJECT: PowerPointLabs
+
+---
+
+_{Optionally, you may include other projects in your portfolio.}_

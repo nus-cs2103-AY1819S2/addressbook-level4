@@ -14,17 +14,17 @@ import seedu.travel.model.ChartBook;
 import seedu.travel.model.place.Place;
 
 /**
- * Panel containing the list of places.
+ * Panel containing the list of charts.
  */
-public class DisplayListPanel extends UiPart<Region> {
-    private static final String FXML = "DisplayListPanel.fxml";
-    private final Logger logger = LogsCenter.getLogger(DisplayListPanel.class);
+public class ChartListPanel extends UiPart<Region> {
+    private static final String FXML = "ChartListPanel.fxml";
+    private final Logger logger = LogsCenter.getLogger(ChartListPanel.class);
     private ObservableList<Place> placeList;
 
     @FXML
     private ListView<ChartBook> displayListView;
 
-    public DisplayListPanel(ObservableList<Place> placeList) {
+    public ChartListPanel(ObservableList<Place> placeList) {
         super(FXML);
         this.placeList = placeList;
         ObservableList<ChartBook> chartBooks = FXCollections.observableArrayList();
@@ -35,7 +35,7 @@ public class DisplayListPanel extends UiPart<Region> {
         placeList.addListener(new ListChangeListener<Place>() {
             @Override
             public void onChanged(Change<? extends Place> c) {
-                System.out.println("placeList changes detected");
+                logger.info("Chart detected changes to the place list");
                 ObservableList<ChartBook> chartBooks = FXCollections.observableArrayList();
                 chartBooks.add(new ChartBook(placeList));
                 displayListView.setItems(chartBooks);
@@ -45,7 +45,7 @@ public class DisplayListPanel extends UiPart<Region> {
     }
 
     /**
-     * Custom {@code ListCell} that displays the graphics of a {@code Place} using a {@code DisplayCard}.
+     * Custom {@code ListCell} that displays the graphics of a {@code Place} using a {@code ChartCard}.
      */
     class DisplayListViewCell extends ListCell<ChartBook> {
         @Override
@@ -56,7 +56,7 @@ public class DisplayListPanel extends UiPart<Region> {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new DisplayCard(chartBook).getRoot());
+                setGraphic(new ChartCard(chartBook).getRoot());
             }
         }
     }

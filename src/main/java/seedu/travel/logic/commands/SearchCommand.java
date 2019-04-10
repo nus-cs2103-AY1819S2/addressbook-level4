@@ -14,7 +14,7 @@ import seedu.travel.model.place.NameContainsKeywordsPredicate;
 public class SearchCommand extends Command {
 
     public static final String COMMAND_WORD = "search";
-    public static final String COMMAND_ALIAS = "f";
+    public static final String COMMAND_ALIAS = "se";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all places whose names contain any of "
             + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
             + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"

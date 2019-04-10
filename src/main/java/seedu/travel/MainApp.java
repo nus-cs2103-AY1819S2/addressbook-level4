@@ -38,7 +38,7 @@ import seedu.travel.ui.UiManager;
  */
 public class MainApp extends Application {
 
-    private static final Version VERSION = new Version(1, 3, 1, true);
+    private static final Version VERSION = new Version(1, 4, 0, true);
     private static final Logger logger = LogsCenter.getLogger(MainApp.class);
 
     protected Ui ui;

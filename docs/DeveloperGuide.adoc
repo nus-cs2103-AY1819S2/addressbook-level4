@@ -290,7 +290,7 @@ image::InitialiseMapCommandSequenceDiagram.png[width=800]
 {empty} +
 
 ==== Design Considerations
-===== Aspect: How initialise map works
+===== Aspect: How the maps are initialised
 * **Alternative 1 (current choice):** `MapGrid` will have an initialise method that takes in a 2D array of `Cell` objects.
 The initialise method in `MapGrid` will then do a deep copy of the passed in 2D array to initialise the internal 2D array of `Cell`.
 

@@ -1,10 +1,5 @@
 package seedu.address.storage;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_RENTALPRICE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_SELLINGPRICE;
-
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -15,9 +10,6 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.logic.commands.AddCommand;
-import seedu.address.logic.parser.ParserUtil;
-import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Buyer;
 import seedu.address.model.person.Email;
@@ -160,66 +152,61 @@ class JsonAdaptedPerson {
         }
 
         switch (customer) {
-            case "buyer":
-                return new Buyer(modelName, modelPhone, modelEmail, modelRemark);
-            case "seller": {
-                if (address == null) {
-                    throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                            Address.class.getSimpleName()));
-                }
-                if (!Address.isValidAddress(address)) {
-                    throw new IllegalValueException(Address.MESSAGE_CONSTRAINTS);
-                }
-                final Address modelAddress = new Address(address);
-
-                if (sellingPrice == null) {
-                    throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                            Price.class.getSimpleName()));
-                }
-                if (!Price.isValidPrice(sellingPrice)) {
-                    throw new IllegalValueException(Price.MESSAGE_CONSTRAINTS);
-                }
-                final Price modelSellingPrice = new Price(sellingPrice);
-
-                final List<Tag> personTags = new ArrayList<>();
-                for (JsonAdaptedTag tag : tagged) {
-                    personTags.add(tag.toModelType());
-                }
-                final Set<Tag> modelTags = new HashSet<>(personTags);
-                return new Seller(modelName, modelPhone, modelEmail, modelRemark,
-                        new Property(Property.PROPERTY_TYPE_SELL, modelAddress, modelSellingPrice, modelTags));
+        case "buyer":
+            return new Buyer(modelName, modelPhone, modelEmail, modelRemark);
+        case "seller": {
+            if (address == null) {
+                throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                        Address.class.getSimpleName()));
             }
-            case "landlord": {
-                if (address == null) {
-                    throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                            Address.class.getSimpleName()));
-                }
-                if (!Address.isValidAddress(address)) {
-                    throw new IllegalValueException(Address.MESSAGE_CONSTRAINTS);
-                }
-                final Address modelAddress = new Address(address);
-
-                if (rentalPrice == null) {
-                    throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                            Price.class.getSimpleName()));
-                }
-                if (!Price.isValidPrice(rentalPrice)) {
-                    throw new IllegalValueException(Price.MESSAGE_CONSTRAINTS);
-                }
-                final Price modelRentalPrice = new Price(rentalPrice);
-
-                final List<Tag> personTags = new ArrayList<>();
-                for (JsonAdaptedTag tag : tagged) {
-                    personTags.add(tag.toModelType());
-                }
-                final Set<Tag> modelTags = new HashSet<>(personTags);
-                return new Landlord(modelName, modelPhone, modelEmail, modelRemark,
-                        new Property(Property.PROPERTY_TYPE_RENT, modelAddress, modelRentalPrice, modelTags));
+            if (!Address.isValidAddress(address)) {
+                throw new IllegalValueException(Address.MESSAGE_CONSTRAINTS);
             }
-            case "tenant":
-                return new Tenant(modelName, modelPhone, modelEmail, modelRemark);
-            default:
-                return new Person(modelName, modelPhone, modelEmail, modelRemark);
+            final Address modelAddress = new Address(address);
+            if (sellingPrice == null) {
+                throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                        Price.class.getSimpleName()));
+            }
+            if (!Price.isValidPrice(sellingPrice)) {
+                throw new IllegalValueException(Price.MESSAGE_CONSTRAINTS);
+            }
+            final Price modelSellingPrice = new Price(sellingPrice);
+            final List<Tag> personTags = new ArrayList<>();
+            for (JsonAdaptedTag tag : tagged) {
+                personTags.add(tag.toModelType());
+            }
+            final Set<Tag> modelTags = new HashSet<>(personTags);
+            return new Seller(modelName, modelPhone, modelEmail, modelRemark,
+                    new Property(Property.PROPERTY_TYPE_SELL, modelAddress, modelSellingPrice, modelTags)); }
+        case "landlord": {
+            if (address == null) {
+                throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                        Address.class.getSimpleName()));
+            }
+            if (!Address.isValidAddress(address)) {
+                throw new IllegalValueException(Address.MESSAGE_CONSTRAINTS);
+            }
+            final Address modelAddress = new Address(address);
+            if (rentalPrice == null) {
+                throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                        Price.class.getSimpleName()));
+            }
+            if (!Price.isValidPrice(rentalPrice)) {
+                throw new IllegalValueException(Price.MESSAGE_CONSTRAINTS);
+            }
+            final Price modelRentalPrice = new Price(rentalPrice);
+            final List<Tag> personTags = new ArrayList<>();
+            for (JsonAdaptedTag tag : tagged) {
+                personTags.add(tag.toModelType());
+            }
+            final Set<Tag> modelTags = new HashSet<>(personTags);
+            return new Landlord(modelName, modelPhone, modelEmail, modelRemark,
+                    new Property(Property.PROPERTY_TYPE_RENT, modelAddress, modelRentalPrice, modelTags));
+        }
+        case "tenant":
+            return new Tenant(modelName, modelPhone, modelEmail, modelRemark);
+        default:
+            return new Person(modelName, modelPhone, modelEmail, modelRemark);
         }
     }
 

@@ -152,7 +152,8 @@ public class EditCommand extends Command {
             final Seller referenceSeller = (Seller) personToEdit;
             Address updatedAddress = editPersonDescriptor.getAddress().orElse(referenceSeller.getAddress());
             Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(referenceSeller.getTags());
-            Price updatedSellingPrice = editPersonDescriptor.getSellingPrice().orElse(referenceSeller.getSellingPrice());
+            Price updatedSellingPrice = editPersonDescriptor.getSellingPrice()
+                    .orElse(referenceSeller.getSellingPrice());
             return new Seller(updatedName, updatedPhone, updatedEmail, updatedRemark,
                     new Property(Property.PROPERTY_TYPE_SELL, updatedAddress, updatedSellingPrice, updatedTags));
         }

@@ -431,22 +431,6 @@
     -fx-background-color: turquoise;
 }
 
-.default-color0.chart-pie {
-    -fx-pie-color: black;
-}
-
-.default-color1.chart-pie {
-    -fx-pie-color: pink;
-}
-
-.default-color2.chart-pie {
-    -fx-pie-color: blue;
-}
-
-.default-color3.chart-pie {
-    -fx-pie-color: brown;
-}
-
 .chart-pie-label-line {
     -fx-stroke: white;
     -fx-fill: white;

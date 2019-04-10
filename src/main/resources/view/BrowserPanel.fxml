@@ -11,9 +11,9 @@
   </Label>
   <Label fx:id="hint" styleClass="label-card" GridPane.columnIndex="0" GridPane.rowIndex="1" GridPane.halignment="CENTER">
   </Label>
-  <Label fx:id="answer" styleClass="label-card" GridPane.columnIndex="0" GridPane.rowIndex="4" GridPane.halignment="CENTER" wrapText="true">
+  <Label fx:id="answer" styleClass="label-card" GridPane.columnIndex="0" GridPane.rowIndex="4" GridPane.halignment="CENTER">
   </Label>
-  <Label fx:id="options" styleClass="label-card" GridPane.columnIndex="0" GridPane.rowIndex="5" GridPane.halignment="LEFT">
+  <Label fx:id="options" styleClass="label-card" GridPane.columnIndex="0" GridPane.rowIndex="5" GridPane.halignment="CENTER">
   </Label>
   <Label fx:id="score" GridPane.columnIndex="0" GridPane.rowIndex="6" GridPane.halignment="CENTER">
   </Label>

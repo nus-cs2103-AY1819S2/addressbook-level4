@@ -11,9 +11,7 @@ import java.util.Set;
 
 import org.junit.Test;
 
-import seedu.address.model.cell.Address;
 import seedu.address.model.tag.Tag;
-import seedu.address.testutil.Assert;
 
 public class BattleshipTest {
 

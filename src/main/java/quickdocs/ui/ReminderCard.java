@@ -70,7 +70,16 @@ public class ReminderCard extends UiPart<Region> {
      */
     private void setTitle(Reminder reminder) {
         String title = reminder.getTitle();
-        title = title.replace("Appointment", "Apt");
+
+        // Shorten title for appointment reminders
+        if (title.startsWith("Appointment with ")) {
+            int commaIndex = title.indexOf(",");
+            if (commaIndex > 0) {
+                title = title.substring(0, commaIndex);
+            }
+            title = title.replace("Appointment", "Apt");
+        }
+
         this.title.setText(title);
     }
 

@@ -476,9 +476,7 @@ public class ModelManager implements Model {
      */
     public void deleteAppointment(Appointment appointment) {
         Optional<Reminder> reminder = reminderManager.getReminder(appointment);
-        if (reminder.isPresent()) {
-            reminderManager.delete(reminder.get());
-        }
+        reminder.ifPresent(r -> reminderManager.delete(reminder.get()));
         appointmentManager.delete(appointment);
         quickDocs.indicateModification(true);
     }

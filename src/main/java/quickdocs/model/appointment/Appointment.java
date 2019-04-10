@@ -33,7 +33,7 @@ public class Appointment extends Slot {
     }
 
     public String createTitle() {
-        return "Appointment with " + this.getPatient().getName();
+        return "Appointment with " + this.getPatient().getName() + ", " + this.getPatient().getNric();
     }
 
     /**

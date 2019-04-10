@@ -81,11 +81,14 @@ public class Reminder extends Slot {
         builder.append(getTitle()).append(":\n")
                 .append("Date: ")
                 .append(getDate()).append("\n")
-                .append("Start Time: ")
-                .append(getStart()).append("\n");
+                .append("Time: ")
+                .append(getStart());
+
         if (getEnd() != null) {
-            builder.append("End Time: ").append(getEnd()).append("\n");
+            builder.append(" to ").append(getEnd());
         }
+        builder.append("\n");
+
         if (comment != null) {
             builder.append("Comments: ").append(getComment()).append("\n");
         }

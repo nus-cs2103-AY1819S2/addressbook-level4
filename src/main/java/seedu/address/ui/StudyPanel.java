@@ -31,10 +31,10 @@ public class StudyPanel extends UiPart<Region> {
     private HBox studyPane;
 
     @FXML
-    private HBox card;
+    private HBox sCard;
 
     @FXML
-    private Label question;
+    private Label sQuestion;
 
     @FXML
     private Label id;
@@ -50,10 +50,10 @@ public class StudyPanel extends UiPart<Region> {
                       ObservableValue<String> userAnswer) {
         super(FXML);
 
-        question.setText(textShown.getValue());
+        sQuestion.setText(textShown.getValue());
         userAnswerLabel.setVisible(false);
         rateDifficulty.setVisible(false);
-        card.pseudoClassStateChanged(ANSWER, false);
+        sCard.pseudoClassStateChanged(ANSWER, false);
         userAnswerLabel.setWrapText(true);
         userAnswerLabel.setMaxWidth(500);
 
@@ -61,13 +61,13 @@ public class StudyPanel extends UiPart<Region> {
 
         textShown.addListener((observable, oldValue, newValue) -> {
             logger.info("textShown changed to: " + newValue);
-            question.setText(textShown.getValue());
+            sQuestion.setText(textShown.getValue());
         });
 
         studyState.addListener((observable, oldValue, newValue) -> {
             logger.info("color changed for: " + newValue);
-            card.pseudoClassStateChanged(ANSWER, studyState.getValue() == StudyView.StudyState.ANSWER);
-            question.pseudoClassStateChanged(ANSWER, studyState.getValue() == StudyView.StudyState.ANSWER);
+            sCard.pseudoClassStateChanged(ANSWER, studyState.getValue() == StudyView.StudyState.ANSWER);
+            sQuestion.pseudoClassStateChanged(ANSWER, studyState.getValue() == StudyView.StudyState.ANSWER);
             userAnswerLabel.setVisible(studyState.getValue() == StudyView.StudyState.ANSWER);
             rateDifficulty.setVisible(studyState.getValue() == StudyView.StudyState.ANSWER);
             rateDifficulty.setText(DIFFICULTY_QUESTION);

@@ -1,17 +1,8 @@
 package seedu.address.model.deck;
 
-import static junit.framework.TestCase.assertTrue;
-import static org.junit.Assert.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static seedu.address.testutil.TypicalCards.ADDITION;
-import static seedu.address.testutil.TypicalCards.SUBTRACTION;
 
-import org.assertj.core.internal.Diff;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
-
-import seedu.address.testutil.CardBuilder;
 
 public class DifficultyTest {
 

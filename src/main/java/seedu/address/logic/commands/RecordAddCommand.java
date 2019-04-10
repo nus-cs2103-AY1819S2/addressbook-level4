@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESC;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PROCEDURE;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -20,9 +21,9 @@ public class RecordAddCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + " or " + COMMAND_WORD2
             + ": Adds a new dental record to a patient. "
-            + "Parameters: "
-            + PREFIX_DESC + "Description \n"
-            + "Example: " + COMMAND_WORD + " "
+            + "Parameters: " + PREFIX_PROCEDURE + "PROCEDURE "
+            + PREFIX_DESC + "DESCRIPTION \n"
+            + "Example: " + COMMAND_WORD + " " + PREFIX_PROCEDURE + "Other-Checkup "
             + PREFIX_DESC + "Patient went through all four wisdom tooth extraction today ";
 
     public static final String MESSAGE_SUCCESS = "New record added to %1$s";
@@ -81,6 +82,12 @@ public class RecordAddCommand extends Command {
      */
     @Override
     public boolean equals(Object other) {
-        return other == this;
+        if (other == null) {
+            return false;
+        } else {
+            return other == this // short circuit if same object
+                    || (other instanceof RecordAddCommand // instanceof handles nulls
+                    && addRecord.equals(((RecordAddCommand) other).addRecord));
+        }
     }
 }

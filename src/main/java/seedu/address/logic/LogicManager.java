@@ -149,4 +149,9 @@ public class LogicManager implements Logic {
     public void setMainWindow(MainWindow mainWindow) {
         this.mainWindow = mainWindow;
     }
+
+    @Override
+    public void displayAllTasks() {
+        this.model.updateFilteredTaskList(Model.PREDICATE_SHOW_ALL_TASKS);
+    }
 }

@@ -16,7 +16,8 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 
 image::kylerwsm.png[width="150", align="left"]
 {nbsp} +
-*Kyler Wong Shen Meng*,{nbsp} _Developer / Tester_ {nbsp}{nbsp}{nbsp}{nbsp}{nbsp}``https://github.com/kylerwsm[GitHub]``{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}``<<johndoe#, Portfolio>>``
+*Kyler Wong Shen Meng*,{nbsp} _Developer / Tester_ {nbsp}{nbsp}{nbsp}{nbsp}{nbsp}``https://github
+.com/kylerwsm[GitHub]``{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}``<<kylerwsm#, Portfolio>>``
 {nbsp} +
 {nbsp} +
 
@@ -30,16 +31,16 @@ Responsibilities::
 
 === Keith Sim
 image::kthsim.png[width="150", align="left"]
-{empty}[https://github.com/kthSim[github]] [<<johndoe#, portfolio>>]
+{empty}[https://github.com/kthSim[github]] [<<kthsim#, portfolio>>]
 
-Role: Developer +
-Responsibilities: Records Managament
+Role: Chief Developer +
+Responsibilities: Viewing of stored Data
 
 '''
 
 === Lim Jia Hao
 image::jiahaolim.png[width="150", align="left"]
-{empty}[https://github.com/JiaHaoLim[github]] [<<johndoe#, portfolio>>]
+{empty}[https://github.com/JiaHaoLim[github]] [<<limjiahao#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Records IO
@@ -48,7 +49,7 @@ Responsibilities: Records IO
 
 === Jonathan Choo
 image::cchj1995.png[width="150", align="left"]
-{empty}[http://github.com/cchj1995[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/cchj1995[github]] [<<cchj1995#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Login
@@ -57,7 +58,7 @@ Responsibilities: Login
 
 === Wang Debang
 image::wsemis.png[width="150", aligh="left"]
-{empty}[https://github.com/wSemis[github]] [<<johndoe#, portfolio>>]
+{empty}[https://github.com/wSemis[github]] [<<wsemis#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Record processing

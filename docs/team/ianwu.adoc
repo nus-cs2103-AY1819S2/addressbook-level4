@@ -7,26 +7,26 @@ Hello there! My name is Ian and I am one of the developers of the Battleship Com
 
 == Project Overview
 
-Battleship CLI is the product of a semester long project, in which our team was tasked with adapting an existing phone addressbook application into an application of our choice. It is a revival of the classic retro game Battleships, where players try to destroy each other's battleships by guessing the positions.
+Battleship CLI is the product of a semester long project, in which our team was tasked with adapting an existing phone addressbook application into an application of our choice. It is a revival of the classic retro game Battleships, where players try to destroy each other's ships by guessing the positions.
 
 In Battleship CLI, however, players have the opportunity to use both a Command Line Interface (CLI) and a Graphical User Interface (GUI) to play the game. The GUI was created with JavaFX and the application code is rigorously tested to ensure high quality code.
 
-My role in the team was to design and implement the Battleship Manager feature. The feature allows players to manage their battleships during the game. The Battleship Manager feature consists of the following commands: `put`, `list` and `listTags`. Together, these three commands provide an intuitive way for players to interact with their own battleships.
+My role in the team was to design and implement the Ship Manager feature. The feature allows players to manage their ships during the game. The Ship Manager feature consists of the following commands: `put`, `list` and `listTags`. Together, these three commands provide an intuitive way for players to interact with their own ships.
 
 The following sections illustrate the feature in more detail, as well as the relevant sections I have added to the user and developer guides in relation to this feature.
 
 == Summary of contributions
 
-* *Major enhancement*: I added the Battleship Manager feature of the game
-** What it does: The Battleship Manager feature consists of three commands, `put`, `list`, and `listTags`.
-*** The `put` command allows the user to place a battleship on the map grid. The user is also given the option of tagging the battleships. The battleship can be a `cruiser` of length 2, a `cruiser` of length 3, or an `aircraft carrier` of length 5.
-*** The `list` command allows the user to list down the battleships that have been placed on the map grid. The user can filter the list by the `name` of the battleship or by specific `tags`.
-*** The `listTags` command allows the user to list down all the tags that have been used on battleships.
-** Justification: The Battleship Manager feature is crucial to the game as it works together with the map grid to allow both the human player and the computer player to interact in a turn-taking game. Furthermore, behind the scenes, the  feature also implements the `Coordinates` and `Orientation` classes for the other features to work. Finally, the feature also implements code for boundary value checking, which is used by the Battle Manager feature and Computer Enemy feature.
+* *Major enhancement*: I added the Ship Manager feature of the game
+** What it does: The Ship Manager feature consists of three commands, `put`, `list`, and `listTags`.
+*** The `put` command allows the user to place a ship on the map grid. The user is also given the option of tagging the ships. The ship can be a `cruiser` of length 2, a `cruiser` of length 3, or an `aircraft carrier` of length 5.
+*** The `list` command allows the user to list down the ships that have been placed on the map grid. The user can filter the list by the `name` of the ship or by specific `tags`.
+*** The `listTags` command allows the user to list down all the tags that have been used on ships.
+** Justification: The Ship Manager feature is crucial to the game as it works together with the map grid to allow both the human player and the computer player to interact in a turn-taking game. Furthermore, behind the scenes, the  feature also implements the `Coordinates` and `Orientation` classes for the other features to work. Finally, the feature also implements code for boundary value checking, which is used by the Battle Manager feature and Computer Enemy feature.
 
 ** Highlights:
 *** Implements coordinates and orientation: Behind the scenes, the feature implements the `Coordinates` and `Orientation` classes that are used by the Battle Manager feature and the Computer Enemy feature.
-*** Implements boundary-value checking of the map grid: The feature implements code for checking the boundaries of the map grid for a given battleship, which is used by the Battle Manager feature and the Computer Enemy feature to implement turn-taking in the game.
+*** Implements boundary-value checking of the map grid: The feature implements code for checking the boundaries of the map grid for a given ship, which is used by the Battle Manager feature and the Computer Enemy feature to implement turn-taking in the game.
 
 * *Code contributed*: Here are my https://github.com/CS2103-AY1819S2-W14-3/main/commits/master?author=iwle[code commits].
 
@@ -39,7 +39,7 @@ The following sections illustrate the feature in more detail, as well as the rel
 https://github.com/CS2103-AY1819S2-W14-3/main/pull/96[#96],
 https://github.com/CS2103-AY1819S2-W14-3/main/pull/100[#100],
 https://github.com/CS2103-AY1819S2-W14-3/main/pull/114[#114]
-*** Morph `ListCommand` to list and filter battleships: https://github.com/CS2103-AY1819S2-W14-3/main/pull/161[#161],
+*** Morph `ListCommand` to list and filter ships: https://github.com/CS2103-AY1819S2-W14-3/main/pull/161[#161],
 https://github.com/CS2103-AY1819S2-W14-3/main/pull/193[#193],
 https://github.com/CS2103-AY1819S2-W14-3/main/pull/214[#214]
 *** Add `ListTagsCommand`: https://github.com/CS2103-AY1819S2-W14-3/main/pull/2[#2],
@@ -71,6 +71,6 @@ include::../UserGuide.adoc[tag=ship]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=battleship]
+include::../DeveloperGuide.adoc[tag=ship]
 
 ---

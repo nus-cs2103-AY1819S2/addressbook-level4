@@ -68,8 +68,6 @@ public class WaterMarkCommand extends Command {
         w.drawString(text, centerX, centerY);
         w.dispose();
 
-
-
         if (initialImage.hasWaterMark()) {
             throw new CommandException(Messages.MESSAGE_HAS_WATERMARK);
         }

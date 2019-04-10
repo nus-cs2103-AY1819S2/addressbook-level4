@@ -80,5 +80,26 @@ public class ContrastCommand extends Command {
         }
         return "contrast";
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+            || (other instanceof ContrastCommand) // instanceof handles nulls
+            && isValuesEqual(other);
+    }
+
+    /**
+     * Checks if the value in the contrast command is equal to the value in the other command.
+     *
+     * @param other command object to be compared
+     * */
+    private boolean isValuesEqual(Object other) {
+        ContrastCommand otherCommand = (ContrastCommand) other;
+        if (this.contrastValue.isPresent() && otherCommand.contrastValue.isPresent()) {
+            return this.contrastValue.getAsDouble() == otherCommand.contrastValue.getAsDouble();
+        } else {
+            return (!this.contrastValue.isPresent() && !otherCommand.contrastValue.isPresent());
+        }
+    }
 }
 /* @@author */

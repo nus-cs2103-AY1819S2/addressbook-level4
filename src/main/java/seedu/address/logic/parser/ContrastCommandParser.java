@@ -22,6 +22,7 @@ public class ContrastCommandParser implements Parser<ContrastCommand> {
         OptionalDouble contrastValue;
 
         if (args.isEmpty()) {
+            System.out.println("empty");
             contrastValue = OptionalDouble.empty();
         } else {
             args = args.trim();
@@ -36,15 +37,18 @@ public class ContrastCommandParser implements Parser<ContrastCommand> {
                 try {
                     contrastValue = OptionalDouble.of(Double.parseDouble(parsed[0]));
                 } catch (NumberFormatException e) {
-                    throw new ParseException(Messages.MESSAGE_CONTRAST_DOUBLE_ERROR);
+                    throw new ParseException(String.format(Messages.MESSAGE_CONTRAST_DOUBLE_ERROR,
+                        ContrastCommand.MESSAGE_USAGE));
                 }
                 Character lastletter = parsed[0].charAt(parsed[0].length() - 1);
                 if (lastletter.equals('f') || lastletter.equals('F') || lastletter.equals('d')
                     || lastletter.equals('D')) {
-                    throw new ParseException(Messages.MESSAGE_CONTRAST_DOUBLE_ERROR);
+                    throw new ParseException(String.format(Messages.MESSAGE_CONTRAST_DOUBLE_ERROR,
+                        ContrastCommand.MESSAGE_USAGE));
                 }
                 if (contrastValue.getAsDouble() < 0) {
-                    throw new ParseException(Messages.MESSAGE_NEGATIVE_ERROR);
+                    throw new ParseException(String.format(Messages.MESSAGE_NEGATIVE_ERROR,
+                        ContrastCommand.MESSAGE_USAGE));
                 }
             } else {
                 contrastValue = OptionalDouble.empty();

@@ -38,11 +38,9 @@
                     <padding>
                         <Insets top="5" right="10" bottom="5" left="10" />
                     </padding>
-                    <Label fx:id="patientTitle" styleClass="cell_title_label" text="Statistic report for \$name"
+                    <Label fx:id="patientTitle" styleClass="cell_title" text="Statistic report for \$name"
                            GridPane.columnIndex="2" GridPane.rowIndex="2" >
-                        <!--<minWidth>-->
-                            <!--<Region fx:constant="USE_PREF_SIZE" />-->
-                        <!--</minWidth>-->
+
                     </Label>
                 </GridPane>
 
@@ -53,13 +51,13 @@
                             <padding>
                                 <Insets top="5" right="10" bottom="5" left="10" />
                             </padding>
-                            <Label fx:id="detailsTitle" text="Personal Details." styleClass="cell_big_label" />
+                            <Label fx:id="detailsTitle" text="Personal Details." styleClass="cell_big_label_bright" />
 
-                            <Label fx:id="nric" styleClass="cell_small_label" text="Tes: \$nric"/>
-                            <Label fx:id="dateOfBirth" styleClass="cell_small_label" text="\$dateOfBirth" />
-                            <Label fx:id="phone" styleClass="cell_small_label" text="\$phone" />
-                            <Label fx:id="address" styleClass="cell_small_label" text="\$address" />
-                            <Label fx:id="email" styleClass="cell_small_label" text="\$email" />
+                            <Label fx:id="nric" styleClass="cell_small_label_bright" text="Tes: \$nric"/>
+                            <Label fx:id="dateOfBirth" styleClass="cell_small_label_bright" text="\$dateOfBirth" />
+                            <Label fx:id="phone" styleClass="cell_small_label_bright" text="\$phone" />
+                            <Label fx:id="address" styleClass="cell_small_label_bright" text="\$address" />
+                            <Label fx:id="email" styleClass="cell_small_label_bright" text="\$email" />
                         </VBox>
 
                         <VBox VBox.vgrow="ALWAYS" fx:id="recordsBox" alignment="CENTER" minWidth="200" maxHeight="300"
@@ -67,43 +65,42 @@
                             <padding>
                                 <Insets top="5" right="10" bottom="5" left="10" />
                             </padding>
-                            <Label fx:id="recordTitle" text="Latest Record stats" styleClass="cell_big_label" />
+                            <Label fx:id="recordTitle" text="Latest Record stats" styleClass="cell_big_label_bright" />
 
                             <TableView fx:id="recordStatTable" maxWidth="200" minWidth="200" />
 
                         </VBox>
 
-                        <VBox VBox.vgrow="ALWAYS" fx:id="teethBox" alignment="CENTER" minWidth="100" minHeight="200"
+                        <StackPane  fx:id="teethBox" minWidth="200" minHeight="200"
                               styleClass="pane-with-border">
                             <padding>
-                                <Insets top="5" right="10" bottom="5" left="10" />
+                                <Insets right="10" bottom="5" left="10" />
                             </padding>
-                            <Label fx:id="teethTitle" text="Latest Teeth View" styleClass="cell_big_label" />
 
-                            <StackPane fx:id="teethHolder" prefWidth="200" minHeight="200">
-                                <padding>
-                                    <Insets top="10" right="10" bottom="10" left="10" />
-                                </padding>
-                            </StackPane>
+                            <VBox fx:id="teethHolder" minWidth="200" minHeight="300">
+                                <Label fx:id="teethTitle" text="Latest Teeth View" styleClass="cell_big_label_bright" />
+                            </VBox>
 
-                        </VBox>
+                        </StackPane>
+
                     </SplitPane>
                 </HBox>
 
-                <HBox HBox.hgrow="ALWAYS" fx:id="chartsBox" minHeight="100" maxHeight="300" alignment="CENTER">
+                <HBox HBox.hgrow="ALWAYS" fx:id="chartsBox" minHeight="100" maxHeight="300"
+                      alignment="CENTER">
                     <padding>
                         <Insets top="20" right="10" bottom="5" left="10" />
                     </padding>
-                    <SplitPane>
+                    <SplitPane maxWidth="800">
                         <padding>
                             <Insets top="5" right="10" bottom="5" left="10" />
                         </padding>
 
                         <VBox styleClass="pane-with-border" fx:id="barChartBox" />
 
-                        <HBox styleClass="pane-with-border">
-                            <Label text="Pie Chat Placeholder" styleClass="cell_big_label" />
-                        </HBox>
+                        <VBox styleClass="pane-with-border" fx:id="pieChartBox">
+                            <!-- <Label text="Pie Chart Placeholder" styleClass="cell_big_label" /> -->
+                        </VBox>
                     </SplitPane>
                 </HBox>
             </VBox>

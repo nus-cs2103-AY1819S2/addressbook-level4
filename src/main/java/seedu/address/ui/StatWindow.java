@@ -10,9 +10,11 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -65,7 +67,11 @@ public class StatWindow extends UiPart<Stage> {
     @FXML
     private VBox barChartBox;
     @FXML
-    private StackPane teethHolder;
+    private VBox pieChartBox;
+    @FXML
+    private StackPane teethBox;
+    @FXML
+    private VBox teethHolder;
 
 
     public StatWindow(Stage root, Logic logic) {
@@ -82,8 +88,8 @@ public class StatWindow extends UiPart<Stage> {
         primaryStage.setWidth(guiSettings.getWindowWidth());
 
         if (guiSettings.getWindowCoordinates() != null) {
-            primaryStage.setX(guiSettings.getWindowCoordinates().getX() + 50);
-            primaryStage.setY(guiSettings.getWindowCoordinates().getY() - 50);
+            primaryStage.setX(guiSettings.getWindowCoordinates().getX());
+            primaryStage.setY(guiSettings.getWindowCoordinates().getY());
         }
     }
 
@@ -119,12 +125,18 @@ public class StatWindow extends UiPart<Stage> {
         selectedPerson.setValue(toStat);
         ObservableValue<Person> localPatient = selectedPerson;
 
-        //this.teethPanel = new TeethPanel(localPatient, true);
-        //teethHolder.getChildren().add(teethPanel.getRoot());
+
+        this.teethPanel = new TeethPanel(localPatient, true, 280.0);
+        // teethPanel.getRoot().setSnapToPixel(true);
+
+        teethBox.setAlignment(Pos.TOP_CENTER);
+
+        teethHolder.getChildren().add(teethPanel.getRoot());
+
 
         populateStatTable();
         populateBarChart();
-
+        populatePieChart();
     }
 
     void show() {
@@ -173,6 +185,22 @@ public class StatWindow extends UiPart<Stage> {
         recordBarChart.getData().add(series);
 
         barChartBox.getChildren().add(recordBarChart);
+    }
+
+    /**
+     * Populates the pie chart
+     */
+    private void populatePieChart() {
+        PieChart pieChart = new PieChart();
+
+        for (String procType: Procedure.PROCEDURE_LIST) {
+            int tempValue = recordNumbers.get(procType);
+            if (tempValue != 0) {
+                pieChart.getData().add(new PieChart.Data(procType, tempValue));
+            }
+        }
+        pieChart.setStyle("-fx-text-fill: white");
+        pieChartBox.getChildren().add(pieChart);
     }
 
     /**

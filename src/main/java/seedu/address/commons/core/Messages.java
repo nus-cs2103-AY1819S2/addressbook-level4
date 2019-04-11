@@ -18,4 +18,5 @@ public class Messages {
     public static final String MESSAGE_DOCTORS_LISTED_OVERVIEW = "%1$d doctors listed!";
     public static final String MESSAGE_PATIENTS_LISTED_OVERVIEW = "%1$d patients listed!";
     public static final String MESSAGE_MEDHISTS_LISTED_OVERVIEW = "%1$d medical histories listed!";
+    public static final String MESSAGE_PRESCRIPTIONS_LISTED_OVERVIEW = "%1$d prescriptions listed!";
 }

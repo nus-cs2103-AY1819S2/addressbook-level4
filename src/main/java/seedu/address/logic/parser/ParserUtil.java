@@ -397,8 +397,8 @@ public class ParserUtil {
                     fileType = splitMatcher.group(2);
                     return new ParsedInOut(new File(filepath), fileType);
                 } else {
-                    // This shouldn't be possible after validationRegex
-                    throw new ParseException(MESSAGE_NOT_JSON_OR_PDF);
+                    throw new ParseException("Invalid index range!"
+                                            + " Please input a non-zero unsigned index range, or \"all\"");
                 }
             } else {
                 throw new ParseException(MESSAGE_NOT_JSON_OR_PDF);
@@ -439,7 +439,8 @@ public class ParserUtil {
                     parsedIndex.add(i - 1);
                 }
             } else {
-                throw new ParseException("Invalid index range! Please input a non-zero unsigned index range.");
+                throw new ParseException("Invalid index range!"
+                                            + " Please input a non-zero unsigned index range, or \"all\"");
             }
         }
 

@@ -31,7 +31,6 @@ import seedu.address.model.person.Person;
 import seedu.address.model.record.Record;
 import seedu.address.model.task.Task;
 
-import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.TaskBuilder;
 
 public class TaskAddCommandTest {

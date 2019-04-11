@@ -18,7 +18,7 @@ public class EditTaskDescriptorBuilder {
 
     private EditTaskDescriptor descriptor;
 
-    public  EditTaskDescriptorBuilder() {
+    public EditTaskDescriptorBuilder() {
         descriptor = new EditTaskDescriptor();
     }
 
@@ -85,6 +85,9 @@ public class EditTaskDescriptorBuilder {
         return this;
     }
 
+    /**
+     * Sets the {@code PatientIndex} of the {@code EditTaskDescriptor} that we are building.
+     */
     public EditTaskDescriptorBuilder withPatientIndex(Index index) {
         descriptor.setPatientIndex(index);
         return this;

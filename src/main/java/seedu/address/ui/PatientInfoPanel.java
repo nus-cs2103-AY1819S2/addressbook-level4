@@ -181,7 +181,7 @@ public class PatientInfoPanel extends UiPart<Region> {
         placeholder.setStyle("-fx-text-fill: white");
         patientRecords.setContent(placeholder);
         if (tabManger.getTabs().size() > 1) {
-            tabManger.getTabs().set(1,patientRecords);
+            tabManger.getTabs().set(1, patientRecords);
         } else {
             tabManger.getTabs().add(patientRecords);
         }

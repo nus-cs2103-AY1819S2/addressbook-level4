@@ -70,7 +70,7 @@ public class TeethPanel extends UiPart<Region> {
             ImageView test = new ImageView(fin);
             test.xProperty().bind(space.widthProperty().subtract(test.fitWidthProperty()).divide(2));
             test.setPreserveRatio(true);
-            test.setFitWidth(space.getWidth()/1.35);
+            test.setFitWidth(space.getWidth() / 1.35);
             test.fitHeightProperty().bind(space.heightProperty());
             space.getChildren().add(test);
 

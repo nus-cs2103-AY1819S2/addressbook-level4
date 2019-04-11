@@ -30,6 +30,9 @@ import seedu.address.model.patient.Patient;
 import seedu.address.model.person.Person;
 import seedu.address.model.task.Task;
 
+/**
+ * A utility class containing a list of {@code Task} objects to be used in tests.
+ */
 public class TypicalTasks {
 
     //Adds some persons in addition to task to test linking of patients to task

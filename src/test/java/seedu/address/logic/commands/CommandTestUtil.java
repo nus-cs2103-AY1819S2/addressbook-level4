@@ -72,7 +72,6 @@ public class CommandTestUtil {
 
     public static final PatientEditCommand.EditPersonDescriptor DESC_AMY;
     public static final PatientEditCommand.EditPersonDescriptor DESC_BOB;
-    
     //Strings for Task testing
     public static final String VALID_TITLE_NOPATIENT = "Patient Review";
     public static final String VALID_STARTDATE_NOPATIENT = "02-01-2020";

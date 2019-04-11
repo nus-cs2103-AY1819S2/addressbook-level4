@@ -177,6 +177,10 @@ public abstract class AddressBookSystemTest {
         assertListMatching(getPersonListPanel(), expectedModel.getFilteredPersonList());
     }
 
+    /**
+     * Asserts that the {@code CommandBox} displays {@code expectedCommandInput}, the {@code ResultDisplay} displays
+     * {@code expectedResultMessage},
+     */
     protected void assertApplicationRecordDisplaysExpected(String expectedCommandInput, String expectedResultMessage,
                                                            Model expectedModel) {
         assertEquals(expectedCommandInput, getCommandBox().getInput());

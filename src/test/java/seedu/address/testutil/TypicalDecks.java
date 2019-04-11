@@ -18,9 +18,9 @@ public class TypicalDecks {
     public static final Deck DECK_B = new DeckBuilder().withName("Bacon Salad Recipe").build();
     public static final Deck DECK_C = new DeckBuilder().withName("Calculus").build();
     public static final Deck DECK_D = new DeckBuilder().withName("Darwinian Studies")
-            .withCards(getTypicalCards()).build();
+                                                       .withCards(getTypicalCards()).build();
     public static final Deck DECK_E = new DeckBuilder().withName("Epistemology").withCards(getTypicalCards())
-            .build();
+                                                       .build();
 
 
     public static final Deck DECK_WITH_CARDS = TypicalCards.getTypicalDeck();
@@ -33,7 +33,7 @@ public class TypicalDecks {
 
 
     public static final Deck THERE = new DeckBuilder().withName("Baby there").withCards(getTypicalCards())
-            .build();
+                                                      .build();
     public static final Deck NOTHING = new DeckBuilder().withName("is nothing").build();
     public static final Deck HOLDING = new DeckBuilder().withName("holding me back").build();
     public static final String KEYWORD_MATCHING_JOHN = "John";
@@ -53,8 +53,8 @@ public class TypicalDecks {
     }
 
     public static List<Deck> getTypicalDecks() {
-        return new ArrayList<>(
-                Arrays.asList(DECK_WITH_CARDS, DECK_A, DECK_D, DECK_B, DECK_C, DECK_E, THERE, NOTHING, HOLDING));
+        return new ArrayList<>(Arrays.asList(DECK_WITH_CARDS, DECK_A, DECK_D));
+        //, DECK_B, DECK_C, DECK_E, THERE, NOTHING, HOLDING));
     }
 }
 

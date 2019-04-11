@@ -1,7 +1,9 @@
 package seedu.finance.logic.parser;
 
 import static seedu.finance.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.finance.logic.commands.CommandTestUtil.*;
+import static seedu.finance.logic.commands.CommandTestUtil.AMOUNT_DESC_BOB;
+import static seedu.finance.logic.commands.CommandTestUtil.INVALID_AMOUNT_DESC;
+import static seedu.finance.logic.commands.CommandTestUtil.VALID_AMOUNT_BOB;
 import static seedu.finance.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.finance.logic.parser.CommandParserTestUtil.assertParseSuccess;
 

@@ -4,10 +4,16 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ENDDATE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ENDTIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NRIC;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PRIORITY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SEX;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_STARTDATE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_STARTTIME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TITLE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_YEAR;
 
 import java.util.ArrayList;
@@ -88,6 +94,21 @@ public class CommandTestUtil {
     public static final String VALID_PRIORITY_WITHPATIENT = "med";
     public static final String VALID_LINKEDPATIENTNAME_WITHPATIENT = VALID_NAME_AMY;
     public static final String VALID_LINKEDPATIENTNRIC_WITHPATIENT = VALID_NRIC_AMY;
+
+    public static final String TITLE_DESC_NOPATIENT = " " + PREFIX_TITLE + VALID_TITLE_NOPATIENT;
+    public static final String STARTDATE_DESC_NOPATIENT = " " + PREFIX_STARTDATE+ VALID_STARTDATE_NOPATIENT;
+    public static final String ENDDATE__DESC_NOPATIENT = " " + PREFIX_ENDDATE + VALID_ENDDATE_NOPATIENT;
+    public static final String STARTTIME_DESC_NOPATIENT = " " + PREFIX_STARTTIME + VALID_STARTTIME_NOPATIENT;
+    public static final String ENDTIME_DESC_NOPATIENT = " " + PREFIX_ENDTIME + VALID_ENDTIME_NOPATIENT;
+    public static final String PRIORITY_DESC_NOPATIENT = " " + PREFIX_PRIORITY + VALID_PRIORITY_NOPATIENT;
+
+    public static final String TITLE_DESC_WITHPATIENT = " " + PREFIX_TITLE + VALID_TITLE_WITHPATIENT;
+    public static final String STARTDATE_DESC_WITHPATIENT = " " + PREFIX_STARTDATE+ VALID_STARTDATE_WITHPATIENT;
+    public static final String ENDDATE__DESC_WITHPATIENT = " " + PREFIX_ENDDATE + VALID_ENDDATE_WITHPATIENT;
+    public static final String STARTTIME_DESC_WITHPATIENT = " " + PREFIX_STARTTIME + VALID_STARTTIME_WITHPATIENT;
+    public static final String ENDTIME_DESC_WITHPATIENT = " " + PREFIX_ENDTIME + VALID_ENDTIME_WITHPATIENT;
+    public static final String PRIORITY_DESC_WITHPATIENT = " " + PREFIX_PRIORITY + VALID_PRIORITY_WITHPATIENT;
+
 
     public static final String INVALID_TITLE_DESC = "Close*"; // '*' not allowed in title;
     public static final String INVALID_DATEVALUE_DESC = "33-02-2020"; // 33rd of February is not a real and valid date

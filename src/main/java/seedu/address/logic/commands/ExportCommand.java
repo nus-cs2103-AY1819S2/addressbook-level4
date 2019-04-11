@@ -33,7 +33,7 @@ public class ExportCommand extends Command {
             + "Example: " + COMMAND_WORD + " data1.json + 1,3-5\n"
             + "Example: " + COMMAND_WORD + " data1.pdf + all";
 
-    public static final String MESSAGE_SUCCESS = "File exported!";
+    public static final String MESSAGE_SUCCESS = " exported!";
 
     private final ParsedInOut parsedInput;
 
@@ -54,7 +54,7 @@ public class ExportCommand extends Command {
             }
             model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         }
-        return new CommandResult(MESSAGE_SUCCESS);
+        return new CommandResult(parsedInput.getFile() + MESSAGE_SUCCESS);
     }
 
     /**

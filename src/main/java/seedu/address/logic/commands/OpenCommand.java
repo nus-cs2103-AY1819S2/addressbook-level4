@@ -71,9 +71,9 @@ public class OpenCommand extends Command {
             model.setAddressBook(openData);
             return MESSAGE_SUCCESS;
         } catch (DataConversionException e) {
-            return "Data file not in the correct format.";
+            return "Data file is not in the correct format.";
         } catch (IOException e) {
-            return "Problem while reading from the file.";
+            return e.getMessage();
         }
     }
 

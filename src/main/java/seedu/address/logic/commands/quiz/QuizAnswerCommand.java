@@ -47,11 +47,7 @@ public class QuizAnswerCommand extends QuizCommand {
             return new CommandResult("", true, false, false);
         }
 
-        if (card.isWrongTwice()) {
-            sb.append(handleCurrentCardAnswer());
-        }
-
-        if (card.getQuizMode() != QuizMode.PREVIEW) {
+        if (card.isWrongTwice() || card.getQuizMode() != QuizMode.PREVIEW) {
             sb.append(handleCurrentCardAnswer());
         }
 
@@ -110,13 +106,7 @@ public class QuizAnswerCommand extends QuizCommand {
     private void endQuiz() {
         quizModel.setResultDisplay(false);
 
-        if (card.isWrongTwice()) {
-            // preview mode in last question.
-            quizModel.updateUserProfile(quizModel.end());
-        } else if (card.getQuizMode() == QuizMode.PREVIEW) {
-            // don't need to update card of 0 attempts
-            quizModel.end();
-        } else {
+        if (card.isWrongTwice() || card.getQuizMode() != QuizMode.PREVIEW) {
             quizModel.updateUserProfile(quizModel.end());
         }
     }

@@ -69,6 +69,22 @@ public class TypicalRecords {
     private TypicalRecords() {} // prevents instantiation
 
     /**
+     * Returns an {@code FinanceTracker} with all the typical records.
+     */
+    public static FinanceTracker getTypicalFinanceTracker() {
+        FinanceTracker ft = new FinanceTracker();
+        try {
+            ft.addBudget(new TotalBudget(500.00));
+            for (Record record : getTypicalRecords()) {
+                ft.addRecord(record);
+            }
+            return ft;
+        } catch (CategoryBudgetExceedTotalBudgetException cte) {
+            return ft;
+        }
+    }
+
+    /**
      * Returns an {@code Finance Tracker} with typical records and allocated Food category budget
      */
     public static FinanceTracker getTypicalFinanceTrackerWithCatBudget() {

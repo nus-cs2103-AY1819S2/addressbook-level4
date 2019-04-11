@@ -22,7 +22,7 @@ import seedu.address.storage.StorageManager;
 /**
  * Imports data to a text file.
  */
-public class ImportCommand extends Command {
+public class ImportCommand extends InCommand {
 
     public static final String COMMAND_WORD = "import";
 
@@ -55,7 +55,14 @@ public class ImportCommand extends Command {
     /**
      * readFile() appends the current address book with the contents of the file.
      */
-    private String readFile(Model model) {
+    @Override
+    protected String readFile(Model model) {
+        try {
+            fileValidation(parsedInput);
+        } catch (IOException e) {
+            return e.getMessage();
+        }
+
         AddressBookStorage importStorage = new InOutAddressBookStorage(parsedInput.getFile().toPath());
 
         StorageManager importStorageManager = new StorageManager(importStorage, null);

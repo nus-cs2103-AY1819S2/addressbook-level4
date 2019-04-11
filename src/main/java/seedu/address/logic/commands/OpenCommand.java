@@ -17,12 +17,13 @@ import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.util.SampleDataUtil;
 import seedu.address.storage.AddressBookStorage;
 import seedu.address.storage.InOutAddressBookStorage;
+import seedu.address.storage.ParsedInOut;
 import seedu.address.storage.StorageManager;
 
 /**
  * Opens data from a text file.
  */
-public class OpenCommand extends Command {
+public class OpenCommand extends InCommand {
 
     public static final String COMMAND_WORD = "open";
 
@@ -33,10 +34,10 @@ public class OpenCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "File opened!";
 
-    private final File file;
+    private final ParsedInOut parsedInput;
 
-    public OpenCommand(File file) {
-        this.file = file;
+    public OpenCommand(ParsedInOut parsedInput) {
+        this.parsedInput = parsedInput;
     }
 
     @Override
@@ -51,8 +52,15 @@ public class OpenCommand extends Command {
     /**
      * readFile() overwrites the current address book with the contents of the file.
      */
-    private String readFile(Model model) {
-        AddressBookStorage openStorage = new InOutAddressBookStorage(file.toPath());
+    @Override
+    protected String readFile(Model model) {
+        try {
+            fileValidation(parsedInput);
+        } catch (IOException e) {
+            return e.getMessage();
+        }
+
+        AddressBookStorage openStorage = new InOutAddressBookStorage(parsedInput.getFile().toPath());
 
         StorageManager openStorageManager = new StorageManager(openStorage, null);
 
@@ -82,6 +90,6 @@ public class OpenCommand extends Command {
      * @return file
      */
     public File getFile() {
-        return file;
+        return parsedInput.getFile();
     }
 }

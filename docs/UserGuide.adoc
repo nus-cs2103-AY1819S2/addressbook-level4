@@ -333,7 +333,7 @@ This command is not undo-able and transformations on each layer do not affect ot
 
 === Ruler
 
-Format: `ruler [ON|OFF]` -> Toggles a ruler that surrounds the canvas. This will help you in estimating the number of pixels to move when using `layer position` or resizing objects.
+Format: `ruler [ON|OFF]` -> Toggles a ruler that surrounds the displayed image. This will help you in estimating the number of pixels to move when using `crop` or resizing objects.
 // end::UpcomingFeatures[]
 
 // tag::CommandSummary[]

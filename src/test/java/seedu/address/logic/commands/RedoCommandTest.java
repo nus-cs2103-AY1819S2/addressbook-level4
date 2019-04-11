@@ -2,20 +2,24 @@ package seedu.address.logic.commands;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.logic.commands.CommandTestUtil.deleteFirstPerson;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
+import seedu.address.commons.core.Messages;
 import seedu.address.logic.CommandHistory;
+import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.parser.BrightnessCommandParser;
+import seedu.address.logic.parser.ContrastCommandParser;
+import seedu.address.logic.parser.ImportCommandParser;
+import seedu.address.logic.parser.OpenCommandParser;
 import seedu.address.model.CurrentEdit;
 import seedu.address.model.CurrentEditManager;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
-@Ignore
+
 public class RedoCommandTest {
 
     private final Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
@@ -25,20 +29,48 @@ public class RedoCommandTest {
 
     @Before
     public void setUp() {
-        // set up of both models' undo/redo history
-        deleteFirstPerson(model);
-        deleteFirstPerson(model);
-        model.undoAddressBook();
-        model.undoAddressBook();
-
-        deleteFirstPerson(expectedModel);
-        deleteFirstPerson(expectedModel);
-        expectedModel.undoAddressBook();
-        expectedModel.undoAddressBook();
+        //Image not opened yet
+        try {
+            new RedoCommand().execute(currentEdit, model, commandHistory);
+            assertCommandFailure(new RedoCommand(), model, commandHistory, Messages.MESSAGE_DID_NOT_OPEN,
+                currentEdit);
+        } catch (CommandException e) {
+            System.out.println(e.toString());
+        }
+        //set up
+        try {
+            ImportCommandParser importParser = new ImportCommandParser();
+            importParser.parse("sample").execute(currentEdit, model, commandHistory);
+            OpenCommandParser openParser = new OpenCommandParser();
+            openParser.parse("iu.jpg").execute(currentEdit, model, commandHistory);
+        } catch (Exception e) {
+            System.out.println(e.toString());
+        }
     }
 
     @Test
     public void execute() {
+        //No Undoable states
+        try {
+            new RedoCommand().execute(currentEdit, model, commandHistory);
+            assertCommandFailure(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_FAILURE,
+                currentEdit);
+        } catch (Exception e) {
+            System.out.println(e.toString());
+        }
+        try {
+            ContrastCommandParser contrastParser = new ContrastCommandParser();
+            ContrastCommand command1 = contrastParser.parse(" 2.0");
+            BrightnessCommandParser brightnessParser = new BrightnessCommandParser();
+            BrightnessCommand command2 = brightnessParser.parse(" 2.0");
+            assertCommandSuccess(command1, model, commandHistory, Messages.MESSAGE_CONTRAST_SUCCESS, currentEdit);
+            assertCommandSuccess(command2, model, commandHistory, Messages.MESSAGE_BRIGHTNESS_SUCCESS, currentEdit);
+            assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, currentEdit);
+            assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, currentEdit);
+        } catch (Exception e) {
+            System.out.println(e.toString());
+        }
+        /*
         // multiple redoable states in model
         expectedModel.redoAddressBook();
         assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel,
@@ -51,5 +83,6 @@ public class RedoCommandTest {
 
         // no redoable state in model
         assertCommandFailure(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_FAILURE, currentEdit);
+    }*/
     }
 }

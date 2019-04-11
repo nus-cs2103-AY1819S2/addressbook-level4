@@ -76,13 +76,12 @@ public class AddCommandSystemTest extends CardFolderSystemTest {
         deleteAllCards();
         assertCommandSuccess(ALICE);
 
-        /* Case: add a card with hints, command with parameters in random order -> added */
+        /* Case: add a card with a hint, command with parameters in random order -> added */
         toAdd = CARD_2;
-        command = AddCommand.COMMAND_WORD + HINT_DESC_FRIEND + ANSWER_DESC_SAMPLE_2 + QUESTION_DESC_SAMPLE_2
-                + HINT_DESC_HUSBAND;
+        command = AddCommand.COMMAND_WORD + HINT_DESC_HUSBAND + ANSWER_DESC_SAMPLE_2 + QUESTION_DESC_SAMPLE_2;
         assertCommandSuccess(command, toAdd);
 
-        /* Case: add a card, missing hints -> added */
+        /* Case: add a card, missing hint -> added */
         assertCommandSuccess(HOON);
 
         /* -------------------------- Perform add operation on the shown filtered list ------------------------------ */

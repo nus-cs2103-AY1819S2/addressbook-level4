@@ -68,7 +68,7 @@ public class EditCommandSystemTest extends CardFolderSystemTest {
         /* Case: edit a card with new values same as existing values -> edited */
         command =
                 EditCommand.COMMAND_WORD + " " + index.getOneBased() + QUESTION_DESC_SAMPLE_2 + ANSWER_DESC_SAMPLE_2
-                       + HINT_DESC_FRIEND + HINT_DESC_HUSBAND;
+                       + HINT_DESC_HUSBAND;
         assertCommandSuccess(command, index, CARD_2);
 
         /* Case: edit a card with new values same as another card's values but with different question -> edited */
@@ -77,7 +77,7 @@ public class EditCommandSystemTest extends CardFolderSystemTest {
         assertNotEquals(getModel().getFilteredCards().get(index.getZeroBased()), CARD_2);
         command =
                 EditCommand.COMMAND_WORD + " " + index.getOneBased() + QUESTION_DESC_SAMPLE_1 + ANSWER_DESC_SAMPLE_2
-                       + HINT_DESC_FRIEND + HINT_DESC_HUSBAND;
+                       + HINT_DESC_HUSBAND;
         editedCard = new CardBuilder(CARD_2).withQuestion(VALID_QUESTION_1).build();
         assertCommandSuccess(command, index, editedCard);
 
@@ -85,7 +85,7 @@ public class EditCommandSystemTest extends CardFolderSystemTest {
         index = INDEX_SECOND_CARD;
         command =
                 EditCommand.COMMAND_WORD + " " + index.getOneBased() + QUESTION_DESC_SAMPLE_2 + ANSWER_DESC_SAMPLE_1
-                        + HINT_DESC_FRIEND + HINT_DESC_HUSBAND;
+                        + HINT_DESC_HUSBAND;
         editedCard = new CardBuilder(CARD_2).withAnswer(VALID_ANSWER_1).build();
         assertCommandSuccess(command, index, editedCard);
 
@@ -168,7 +168,7 @@ public class EditCommandSystemTest extends CardFolderSystemTest {
         assertFalse(getModel().getFilteredCards().get(index.getZeroBased()).equals(CARD_2));
         command =
                 EditCommand.COMMAND_WORD + " " + index.getOneBased() + QUESTION_DESC_SAMPLE_2 + ANSWER_DESC_SAMPLE_2
-                       + HINT_DESC_FRIEND + HINT_DESC_HUSBAND;
+                       + HINT_DESC_HUSBAND;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_CARD);
 
         /* Case: edit a card with new values same as another card's values but with different hints -> rejected */
@@ -180,7 +180,7 @@ public class EditCommandSystemTest extends CardFolderSystemTest {
         /* Case: edit a card with new values same as another card's values but with different answer -> rejected */
         command =
                 EditCommand.COMMAND_WORD + " " + index.getOneBased() + QUESTION_DESC_SAMPLE_2 + ANSWER_DESC_SAMPLE_1
-                       + HINT_DESC_FRIEND + HINT_DESC_HUSBAND;
+                       + HINT_DESC_HUSBAND;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_CARD);
     }
 

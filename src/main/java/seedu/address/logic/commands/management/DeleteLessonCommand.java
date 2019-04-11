@@ -94,6 +94,7 @@ public class DeleteLessonCommand extends ManagementCommand {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof DeleteLessonCommand // instanceof handles nulls
-                && targetIndex.getZeroBased() == ((DeleteLessonCommand) other).targetIndex.getZeroBased());
+                && targetIndex.getZeroBased()
+                == ((DeleteLessonCommand) other).targetIndex.getZeroBased());
     }
 }

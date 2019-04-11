@@ -156,6 +156,11 @@ public class ManagementModelManager implements ManagementModel {
     }
 
     @Override
+    public void setOpenedLessonQuestionAnswer(int questionIndex, int answerIndex) {
+        lessonList.setOpenedLessonQuestionAnswer(questionIndex, answerIndex);
+    }
+
+    @Override
     public void addCardToOpenedLesson(Card card) {
         lessonList.addCardToOpenedLesson(card);
     }

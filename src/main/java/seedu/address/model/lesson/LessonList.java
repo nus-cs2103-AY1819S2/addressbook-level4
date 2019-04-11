@@ -169,6 +169,15 @@ public class LessonList {
     }
 
     /**
+     * @param questionCoreIndex the index of the question in the {link Card} objects' list of cores.
+     * @param answerCodeIndex the index of the answer in the {link Card} objects' list of cores.
+     */
+    public void setOpenedLessonQuestionAnswer(int questionCoreIndex, int answerCodeIndex) {
+        requireNonNull(openedLesson);
+        openedLesson.setQuestionAnswerIndices(questionCoreIndex, answerCodeIndex);
+    }
+
+    /**
      * Adds a {@link Card} to the {@link #openedLesson}.
      *
      * @param card {@link Card} to be added to the {@link #openedLesson}

@@ -391,17 +391,21 @@ taken fulfils them. This command is currently facilitated by 2 classes in `Model
 
 ===== `CourseRequirement` Interface
 Some of the course requirements in NUS are made up of smaller course requirements.
-This can be seen in the requirement found below:
+This can be seen in the example found below:
 
+.Example of NUS Course Requirement
 image::nus_requirement.PNG[width ="800"]
 
 For this requirement, the student can choose to complete either CS3203 or
-CS3216 and CS3217 or CS3281 and CS3282. We observe that this requirement is composed of 3 distinct,
+CS3216 and CS3217 or CS3281 and CS3282. We observe that can be broken down into 3 distinct,
 simpler requirements.
 
 Hence to model NUS course requirement accurately, the `CourseRequirement` interface follows a `Composite` design pattern. This is favoured as it allows
-us to treat individual and composition of `CourseRequirement` objects uniformly.
-//TODO class diagram
+us to treat individual and composition of `CourseRequirement` objects uniformly. The diagram below gives an overview of
+how `CourseRequirement` is implemented.
+
+.`CourseRequirement` class diagram
+image::CompositeDesignPattern.png[width="800"]
 
 This interface is implemented by 2 subclasses - `PrimitiveRequirement` and `CompositeRequirement`.
 The `PrimitiveRequirement` is the simplest building block for `CourseRequirement`. Each `PrimitiveRequirement` stores a
@@ -410,9 +414,14 @@ is satisfied if there are at least `minToSatisfy` many distinct
 `ModuleInfoCode` that matches `Pattern` in it. `PrimitiveRequirement` is satisfied only if all `Condition` objects in the list are
 fulfilled.
 
+For instance in `Fig 9.`, a suitable `Condition` for completing CS3216 and CS3217 would be
+a `Pattern` that accepts only CS3216 or CS3217, and a `minToSatisfy` of 2.
+
+
+
 The `CompositeRequirement` can replicate the behaviour of more complex course requirements. Each `CompositeRequirement`
 object contains two `CourseRequirement` objects. It also contains a `LogicalConnector` enumeration
-that tells the object how two different `CourseRequirement` are composed using logical operations. For instance, for
+that tells the `CompositeRequirement` how two different `CourseRequirement` are composed using logical operations. For instance, for
 a list of `ModuleInfoCode` to satisfy a `CompositeRequirement` that has a `AND` `LogicalConnector`, the list must
 satisfy the both `CourseRequirement` objects contained in `CompositeRequirement`.
 
@@ -434,42 +443,59 @@ percentage of completion of the `CourseRequirement`
 ** This depends on the `LogicalConnector` in `CompositeRequirement`. If it is a `OR` connector, we return the maximum
 of the two.
 //TODO elaborate more on AND
-* `getUnfulfilled` -- a method that accepts a list of `ModuleInfoCode` and returns a list of RegExes that none of the
-`ModuleInfoCode` satisfies. This method is used in the recommend feature.
+* `getUnfulfilled` -- a method that accepts a list of `ModuleInfoCode` and returns a list of RegExes from where none of the
+`ModuleInfoCode` matches. This method is used in the recommend feature.
 
 ===== `RequirementStatus` Class
-The `RequirementStatus` is an association class that links a list of `ModuleInfoCode` and `CourseRequirement`.
-In addition to this two objects, the `RequirementStatus` class also stores the result when the `isFulfilled` and
-`percentageFulfilled` of the `CourseRequirement` it stores acts on its list of `ModuleInfoCode`.
+The `RequirementStatus` is an association class that links a `CourseRequirement` with `VersionedGradTrak` in `Model`,
+this can be seen in the class diagram below:
+
+.`RequirementStatus` class diagram
+image::RequirementStatusClassDiagram.png[width="800"]
+
+
+It also stores the result of the associated `CourseRequirement` object's `isFulfilled` and `percentageFulfilled`
+methods acting on the list of `ModuleInfoCode`.
 
 The `RequirementStatus` is also the class used to display the results when the `displayreq` command is called.
 
-When `displayreq` command is called by the user, the sequence of execution is as follows:
+When `displayreq` command is called by the user, the sequence of execution is outlined below:
 
 1. `Model#updateRequirementStatusList` is called. This clears the pre-existing `RequirementStatusList`
-and fills it with new `RequirementStatusObject` based on current `Course` and `ModulesTakenList`.
+and fills it with new `RequirementStatus` objects based on current `Course` and `ModulesTakenList`.
 
 2. `UI` calls `getRequirementStatusList` from `Logic` and retrieves the updated `RequirementStatusList`
 from `Model`. This list is displayed in the `ResultPanel`.
 //TODO sequence diagram
 
 ==== Design Considerations
+
 ===== Aspect: How `Condition` class checks if it is fulfilled.
 * **Current choice: Checking `Condition` fulfilled by only using `ModuleInfoCode` of
 `ModuleTaken`**
-** Pros: Easier to implement since we are restricting scope to only checking whether strings match
+** Pros: Easy to implement since we are restricting scope to only checking whether strings match
 pattern in `Condition`
-** Cons: There could be corner cases that we left out; actual course requirement that we check by
-only checking the module code.
+** Cons: Possibility that the `CourseRequirement` class fails to check requirements that does not
+ not depend on `ModuleInfoCode`
+
 
 * ** Alternative: Checking Requirement fulfilled by accessing any attribute of `ModuleTaken`**
-** Pros: Increased flexibility allows for more powerful expressions and increased usability for users side
-** Cons: More Java classes/coding required also means that more tests
-and storage components for different classes.
+** Pros: Increased flexibility and easier to replicate actual NUS requirements that does not depend
+on `ModuleInfoCode`
+** Cons: Increased complexity to implement `CourseRequirement` class properly.
 
-We chose the current method over the alternative because it is requires much fewer classes to implement.
+We chose the current choice over the alternative due to time constraints in the project. Moreover, our current choice
+is sufficient to replicate most NUS requirements accurately.
 
-===== Aspect:   
+===== Aspect: Choice of information stored in `Condition` class
+* **Current choice: `Condition` class stores a `Pattern` to check whether a requirement is satisfied**
+** Pros: Compact representation of which `ModuleInfoCode` fulfills the requirement
+** Cons: Can be difficult to find the correct regular expression for some `Condition`
+
+* **Alternative: `Condition` class stores a list of `String` to check whether a condition is satisfied**
+** Pros: Easy and interpretive to use.
+** Cons: Might need to store a long list of `String` if many modules can fulfil the `Condition` eg: General Education
+Modules
 
 ==== Possible Improvements
 

@@ -6,7 +6,6 @@ import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
-import java.util.List;
 import java.util.StringTokenizer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -49,11 +48,11 @@ public class AddressBookParser {
      */
     public void dealArguments(String arguments) throws ParseException {
 
-        String[] command_list = {"help", "add", "list", "select", "edit", "delete", "clear", "pin", "unpin",
-                "pinselect", "archive", "archivelist", "archiveselect", "unarchive", "archiveclear", "history",
-                "redo", "undo", "exit", "find"};
+        String[] commandList = {"help", "add", "list", "select", "edit", "delete", "clear", "pin", "unpin", "pinselect",
+                                "archive", "archivelist", "archiveselect", "unarchive", "archiveclear", "history",
+                                "redo", "undo", "exit", "find"};
 
-        ArrayList<String> command = new ArrayList<>(Arrays.asList(command_list));
+        ArrayList<String> command = new ArrayList<>(Arrays.asList(commandList));
         Iterator<String> iterator = command.iterator();
 
         StringTokenizer st = new StringTokenizer(arguments);
@@ -62,12 +61,11 @@ public class AddressBookParser {
             String t = st.nextToken();
             while (iterator.hasNext()) {
                 String s = iterator.next();
-                if(s.equals(t)) {
+                if (s.equals(t)) {
                     throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
                 }
             }
         }
-
     }
 
     /**

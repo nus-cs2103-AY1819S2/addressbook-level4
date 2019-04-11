@@ -66,13 +66,12 @@ public class JsonFinanceTrackerStorageTest {
         thrown.expect(DataConversionException.class);
         readFinanceTracker("invalidRecordFinanceTracker.json");
     }
-
-    // TODO: Failed Test; need to update
-    /*@Test
+    
+    @Test
     public void readFinanceTracker_invalidAndValidRecordFinanceTracker_throwDataConversionException() throws Exception {
         thrown.expect(DataConversionException.class);
         readFinanceTracker("invalidAndValidRecordFinanceTracker.json");
-    }*/
+    }
 
     @Test
     public void readAndSaveFinanceTracker_allInOrder_success() throws Exception {

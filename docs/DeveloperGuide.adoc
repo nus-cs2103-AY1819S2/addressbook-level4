@@ -478,15 +478,37 @@ image::card_dg_fig/card_fig_9.png[width="800", caption="Figure 8"]
 
 ==== Design considerations
 
+===== Aspect: Data structure of Cards
+* **Alternative 1(current choice):** Have a list of cards within each deck
+** Pros: Allows for decks features such as import and export. Also, any search operation is
+done within the deck only.
+** Cons: There is a need to implement an extra `Deck` data structure and makes
+the model more complicated.
+
+* **Alternative 2(current choice):** Have a global list of cards with tags.
+** Pros: Updating of UI will be easier as there is one global list only.
+** Cons: In order to study the cards, the application has to search through the
+global list to find the cards with the tags that we want to study. Organisation of
+cards will also be messy as the only form of organisation for cards is through tagging.
+
+* **Reason for choice 1:** Choice one was chosen as it would allow the user an extra layer of
+organisation(`Deck` and `Tag`) when managing cards.
+
 ===== Aspect: How CRUD operation should work
 * **Alternative 1 (current choice):** Recreate the CardViews after each operation
 ** Pros: Leverages on the current implementation of `VersionTopDeck` making it easier to
 implement.
-** Cons: Constantly creating `CardsView` even with a small change.
-* **Alternative 2:** CardView updates itself base on the chosen deck.
-** Pros: Only has to update the pointer to the current Deck.
+** Cons: There is a memory and operation overhead as a new `CardsView` is constantly being
+created. Also, there is a need to refresh the UI at every update as the UI needs to render
+the new `CardsView`.
+
+* **Alternative 2:** Alter the card list in `CardsView` and the model upon each operation
+** Pros: Only has to update the active Deck in CardsView and the model
 ** Cons: As `CardsView.activeDeck` can only reference to one deck only, the current Undo/Redo feature
-will have to be changed to store the previous commands and the object changed.
+will have to be re-implemented to store the previous commands and the object changed.
+
+* **Reason for choice 1:** Choice one was chosen in order to retain the Undo/Redo function and to
+leverage on the original architecture instead of changing it.
 
 // end::card[]
 

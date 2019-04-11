@@ -57,41 +57,41 @@ public class DeleteReservationCommandTest {
             Messages.MESSAGE_INVALID_RESERVATION_DISPLAYED_INDEX);
     }
 
-    //@Test
-    //public void execute_validIndexFilteredList_success() {
-    //    showReservationForPayer(model, ALICE);
+    @Test
+    public void execute_validIndexFilteredList_success() {
+        showReservationForPayer(model, ALICE);
 
-    //    Reservation reservationToDelete =
-    //        model.getFilteredReservationList().get(INDEX_FIRST_RESERVATION.getZeroBased());
-    //    DeleteReservationCommand deleteReservationCommand = new DeleteReservationCommand(INDEX_FIRST_RESERVATION);
+        Reservation reservationToDelete =
+            model.getFilteredReservationList().get(INDEX_FIRST_RESERVATION.getZeroBased());
+        DeleteReservationCommand deleteReservationCommand = new DeleteReservationCommand(INDEX_FIRST_RESERVATION);
 
-    //    String expectedMessage = String.format(DeleteReservationCommand.MESSAGE_DELETE_RESERVATION_SUCCESS,
-    //        reservationToDelete);
+        String expectedMessage = String.format(DeleteReservationCommand.MESSAGE_DELETE_RESERVATION_SUCCESS,
+            reservationToDelete);
 
-    //    ReservationModel expectedModel =
-    //        new ReservationManager(new VersionedHotelManagementSystem(model.getHotelManagementSystem()),
-    //            new UserPrefs());
-    //    expectedModel.deleteReservation(reservationToDelete);
-    //    expectedModel.commitHotelManagementSystem();
-    //   showNoReservation(expectedModel);
+        ReservationModel expectedModel =
+            new ReservationManager(new VersionedHotelManagementSystem(model.getHotelManagementSystem()),
+                new UserPrefs());
+        expectedModel.deleteReservation(reservationToDelete);
+        expectedModel.commitHotelManagementSystem();
+       showNoReservation(expectedModel);
 
-    //    assertReservationCommandSuccess(deleteReservationCommand, model, commandHistory, expectedMessage,
-    //        expectedModel);
-    //}
+        assertReservationCommandSuccess(deleteReservationCommand, model, commandHistory, expectedMessage,
+            expectedModel);
+    }
 
-    //@Test
-    //public void execute_invalidIndexFilteredList_throwsCommandException() {
-    //    showReservationForPayer(model, ALICE);
+    @Test
+    public void execute_invalidIndexFilteredList_throwsCommandException() {
+        showReservationForPayer(model, ALICE);
 
-    //    Index outOfBoundIndex = INDEX_SECOND_RESERVATION;
-    //    // ensures that outOfBoundIndex is still in bounds of hms book list
-    //    assertTrue(outOfBoundIndex.getZeroBased() < model.getHotelManagementSystem().getReservationList().size());
+        Index outOfBoundIndex = INDEX_SECOND_RESERVATION;
+        // ensures that outOfBoundIndex is still in bounds of hms book list
+        assertTrue(outOfBoundIndex.getZeroBased() < model.getHotelManagementSystem().getReservationList().size());
 
-    //    DeleteReservationCommand deleteReservationCommand = new DeleteReservationCommand(outOfBoundIndex);
+        DeleteReservationCommand deleteReservationCommand = new DeleteReservationCommand(outOfBoundIndex);
 
-    //    assertReservationCommandFailure(deleteReservationCommand, model, commandHistory,
-    //        Messages.MESSAGE_INVALID_RESERVATION_DISPLAYED_INDEX);
-    //}
+        assertReservationCommandFailure(deleteReservationCommand, model, commandHistory,
+            Messages.MESSAGE_INVALID_RESERVATION_DISPLAYED_INDEX);
+    }
 
     @Test
     public void executeUndoRedo_validIndexUnfilteredList_success() throws Exception {

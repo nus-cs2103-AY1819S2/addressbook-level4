@@ -1,5 +1,6 @@
 package seedu.address.model.util.predicate;
 
+import java.util.Arrays;
 import java.util.List;
 
 import seedu.address.model.patient.Patient;
@@ -28,9 +29,14 @@ public class MultipleContainsKeywordsPredicate extends ContainsKeywordsPredicate
     }
 
     @Override
+    public String toString() {
+        return String.format(Arrays.toString(predicateList.toArray()) + isAnd + isIgnoreCase).trim();
+    }
+
+    @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
             || (other instanceof MultipleContainsKeywordsPredicate // instanceof handles nulls
-            && predicateList.equals(((MultipleContainsKeywordsPredicate) other).predicateList)); // state check
+            && predicateList.equals(((MultipleContainsKeywordsPredicate) other).predicateList));
     }
 }

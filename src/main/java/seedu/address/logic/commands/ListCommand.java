@@ -9,10 +9,10 @@ import seedu.address.ui.MainWindow;
  */
 public class ListCommand extends Command {
     public static final String COMMAND_WORD = "list";
-    private static final String MAIN_USAGE = "Did you mean:\n"
+    public static final String MAIN_USAGE = "Did you mean:\n"
         + "Listing all patients: \"patientlist\" or \"plist\"\n"
         + "Listing all tasks: \"tasklist\" or \"tlist\"\n";
-    private static final String GOTO_USAGE = "Did you mean:\n"
+    public static final String GOTO_USAGE = "Did you mean:\n"
         + "Listing all tasks: \"tasklist\" or \"tlist\"\n";
 
     @Override

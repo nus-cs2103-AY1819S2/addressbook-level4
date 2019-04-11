@@ -9,9 +9,9 @@ import seedu.address.ui.MainWindow;
  */
 public class ClearCommand extends Command {
     public static final String COMMAND_WORD = "clear";
-    private static final String MAIN_USAGE = "Did you mean:\n"
+    public static final String MAIN_USAGE = "Did you mean:\n"
         + "Clearing the patients list: \"patientclear\" or \"pclear\"\n";
-    private static final String GOTO_USAGE = "Did you mean:\n"
+    public static final String GOTO_USAGE = "Did you mean:\n"
         + "Clearing the records list: \"recordclear\" or \"rclear\"\n";
 
     @Override

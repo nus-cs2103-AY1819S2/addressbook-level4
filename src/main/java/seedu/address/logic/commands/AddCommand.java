@@ -9,10 +9,10 @@ import seedu.address.ui.MainWindow;
  */
 public class AddCommand extends Command {
     public static final String COMMAND_WORD = "add";
-    private static final String MAIN_USAGE = "Did you mean:\n"
+    public static final String MAIN_USAGE = "Did you mean:\n"
         + "Adding a patient: \"patientadd\" or \"padd\"\n"
         + "Adding a task: \"taskadd\" or \"tadd\"\n";
-    private static final String GOTO_USAGE = "Did you mean:\n"
+    public static final String GOTO_USAGE = "Did you mean:\n"
         + "Adding a record: \"recordadd\" or \"radd\"\n"
         + "Adding a task: \"taskadd\" or \"tadd\"\n";
 

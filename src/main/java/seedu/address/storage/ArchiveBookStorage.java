@@ -5,10 +5,10 @@ import java.nio.file.Path;
 import java.util.Optional;
 
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.ReadOnlyArchiveBook;
+import seedu.address.model.ReadOnlyAddressBook;
 
 /**
- * Represents a storage for {@link seedu.address.model.ArchiveBook}.
+ * Represents a storage for ArchiveBook implementing {@link seedu.address.model.AddressBook}.
  */
 public interface ArchiveBookStorage {
 
@@ -18,29 +18,29 @@ public interface ArchiveBookStorage {
     Path getArchiveBookFilePath();
 
     /**
-     * Returns ArchiveBook data as a {@link ReadOnlyArchiveBook}.
+     * Returns ArchiveBook data as a {@link ReadOnlyAddressBook}.
      *   Returns {@code Optional.empty()} if storage file is not found.
      * @throws DataConversionException if the data in storage is not in the expected format.
      * @throws IOException if there was any problem when reading from the storage.
      */
-    Optional<ReadOnlyArchiveBook> readArchiveBook() throws DataConversionException, IOException;
+    Optional<ReadOnlyAddressBook> readArchiveBook() throws DataConversionException, IOException;
 
     /**
      * @see #getArchiveBookFilePath()
      */
-    Optional<ReadOnlyArchiveBook> readArchiveBook(Path filePath) throws DataConversionException, IOException;
+    Optional<ReadOnlyAddressBook> readArchiveBook(Path filePath) throws DataConversionException, IOException;
 
     /**
-     * Saves the given {@link ReadOnlyArchiveBook} to the storage.
+     * Saves the given {@link ReadOnlyAddressBook} to the storage.
      * @param archiveBook cannot be null.
      * @throws IOException if there was any problem writing to the file.
      */
-    void saveArchiveBook(ReadOnlyArchiveBook archiveBook) throws IOException;
+    void saveArchiveBook(ReadOnlyAddressBook archiveBook) throws IOException;
 
     /**
-     * @see #saveArchiveBook(ReadOnlyArchiveBook)
+     * @see #saveArchiveBook(ReadOnlyAddressBook)
      */
-    void saveArchiveBook(ReadOnlyArchiveBook archiveBook, Path filePath) throws IOException;
+    void saveArchiveBook(ReadOnlyAddressBook archiveBook, Path filePath) throws IOException;
 
 }
 

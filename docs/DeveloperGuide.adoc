@@ -197,7 +197,7 @@ image::ModelClassDiagram.png[width="800"]
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book, Archive Book and Pin Book data.
+* stores the Address Book, Archive Book and Pin Book data as 3 separate instances of the AddressBook class.
 * exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
@@ -220,6 +220,7 @@ The `Storage` component,
 * can save `UserPref` objects in json format and read it back.
 * can save the Address Book data in json format and read it back.
 * can save the Archive Book data in json format and read it back.
+* maintains separate data files for each of the books.
 
 [[Design-Commons]]
 === Common classes
@@ -245,7 +246,7 @@ Additionally, it implements the following operations:
 These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
 
 [NOTE]
-ArchiveBook and PinBook are similarly implemented to facilitate the undo/redo mechanism.
+The archiveBook and pinBook use the VersionedAddressBook as well to facilitate the undo/redo mechanism by running in parallel with Address Book.
 
 Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
 
@@ -386,6 +387,15 @@ image::PinUnpinActivityDiagram.png[width="1200"]
 ** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::pinunpinfeatures[]
+
+// tag::archive[]
+=== Archive feature
+
+==== Current Implementation
+This section explains the implementation of all archive related features.
+
+==== Design Considerations
+// end::archive[]
 
 === Logging
 
@@ -639,7 +649,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |organised user |categorise my contacts into different groups (i.e. buyers, sellers, landlords, tenants) |keep track of my customers better
 
-|`* * *` |clean user who wants to keep contacts for later use |hide or archive contacts when I currently do not need them |retrieve them when I need them again much later
+|`* * *` |clean user |archive contacts when I currently do not need them |keep contacts for later use
 
 |`* * *` |forgetful user |pin important contacts to the top of the lists |see which contacts are the most important for me to attend to
 
@@ -1169,10 +1179,14 @@ _{ more test cases ... }_
 
 _{ more test cases ... }_
 
-=== Saving data
+=== Selecting a person
 
-. Dealing with missing/corrupted data files
+_{ more test cases ... }_
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
+=== Archiving a person
+
+_{ more test cases ... }_
+
+=== Unarchiving a person
 
 _{ more test cases ... }_

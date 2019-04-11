@@ -6,7 +6,6 @@ import java.util.Optional;
 
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.ReadOnlyArchiveBook;
 import seedu.address.model.ReadOnlyPinBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
@@ -35,10 +34,10 @@ public interface Storage extends AddressBookStorage, ArchiveBookStorage, PinBook
     Path getArchiveBookFilePath();
 
     @Override
-    Optional<ReadOnlyArchiveBook> readArchiveBook() throws DataConversionException, IOException;
+    Optional<ReadOnlyAddressBook> readArchiveBook() throws DataConversionException, IOException;
 
     @Override
-    void saveArchiveBook(ReadOnlyArchiveBook archiveBook) throws IOException;
+    void saveArchiveBook(ReadOnlyAddressBook archiveBook) throws IOException;
 
     @Override
     Path getPinBookFilePath();

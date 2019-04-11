@@ -48,6 +48,60 @@ public class PatientFindCommandParserTest {
     }
 
     @Test
+    public void parseCaseSensitive_validNameArgs_returnsPatientFindCommand() {
+        // no leading and trailing whitespaces
+        MultipleContainsKeywordsPredicate tempPred = new MultipleContainsKeywordsPredicate(Collections.emptyList(),
+            false, false);
+        List<ContainsKeywordsPredicate> predicateList = new ArrayList<>();
+        predicateList.add(new NameContainsKeywordsPredicate(Arrays.asList("alice", "Bob")));
+        tempPred.setPredicateList(predicateList);
+
+        PatientFindCommand expectedPatientFindCommand = new PatientFindCommand(tempPred);
+        assertParseSuccess(parser, "CS n/alice Bob", expectedPatientFindCommand);
+
+        // multiple whitespaces between keywords
+        assertParseSuccess(parser, "CS n/ \n alice \n \t Bob  \t", expectedPatientFindCommand);
+    }
+
+    @Test
+    public void parseAndOperator_validNameArgs_returnsPatientFindCommand() {
+        // no leading and trailing whitespaces
+        MultipleContainsKeywordsPredicate tempPred = new MultipleContainsKeywordsPredicate(Collections.emptyList(),
+            true, true);
+        List<ContainsKeywordsPredicate> predicateList = new ArrayList<>();
+        predicateList.add(new NameContainsKeywordsPredicate(Arrays.asList("alice", "Bob")));
+        tempPred.setPredicateList(predicateList);
+
+        PatientFindCommand expectedPatientFindCommand = new PatientFindCommand(tempPred);
+        assertParseSuccess(parser, "AND n/alice Bob", expectedPatientFindCommand);
+
+        // multiple whitespaces between keywords
+        assertParseSuccess(parser, "AND n/ \n alice \n \t Bob  \t", expectedPatientFindCommand);
+    }
+
+    @Test
+    public void parseAndCaseSensitive_validNameArgs_returnsPatientFindCommand() {
+        // no leading and trailing whitespaces
+        MultipleContainsKeywordsPredicate tempPred = new MultipleContainsKeywordsPredicate(Collections.emptyList(),
+            false, true);
+        List<ContainsKeywordsPredicate> predicateList = new ArrayList<>();
+        predicateList.add(new NameContainsKeywordsPredicate(Arrays.asList("alice", "Bob")));
+        tempPred.setPredicateList(predicateList);
+
+        PatientFindCommand expectedPatientFindCommand = new PatientFindCommand(tempPred);
+        assertParseSuccess(parser, "CS AND n/alice Bob", expectedPatientFindCommand);
+
+        // multiple whitespaces between keywords
+        assertParseSuccess(parser, "AND CS n/ \n alice \n \t Bob  \t", expectedPatientFindCommand);
+    }
+
+    @Test
+    public void parseFailure_validNameArgs_throwsParseException() {
+        assertParseFailure(parser, "CS ASDASDSAFD n/alice Bob", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+            PatientFindCommand.MESSAGE_USAGE));
+    }
+
+    @Test
     public void parse_validPhoneArgs_returnsPatientFindCommand() {
         // no leading and trailing whitespaces
         MultipleContainsKeywordsPredicate tempPred = new MultipleContainsKeywordsPredicate(Collections.emptyList(),

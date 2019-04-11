@@ -36,9 +36,9 @@ This box will give you some tips to help you understand the feature or document 
 ====
 This box will provide you with more information about the section
 ====
-[WARNING]
+[IMPORTANT]
 ====
-This box will appear when there are warnings that you should take note of
+This box will appear when there are important caution that you should take note of
 ====
 ****
 This box will show you examples of how you can use the commands
@@ -150,7 +150,7 @@ https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#=undefined&search=jackim
 == Contributions to the User Guide
 |===
 |The next section will include my contribution to the User Guide. It will showcase my ability
-in documenting a reader-friendly User Guide that is aimed at the end-users of _In-Credit-Ble_.
+in documenting a reader-friendly User Guide that is designed for the new users of _In-Credit-Ble_.
 It is important to be able to write a user-friendly guide that will allow the users to quickly grasp
 how to use our application. +
 
@@ -160,20 +160,22 @@ link:https://github.com/CS2103-AY1819S2-W17-3/main/blob/master/docs/UserGuide.ad
 
 [NOTE]
 ====
-To allow users to start getting used to the application quickly, I've included a Quick Start and
-Graphical User Interface Introduction sections. These two sections shows how I am able to use diagrams
-to support my writing so that users can have visual aids to guide their understanding.
+To allow users to start getting used to the application quickly, I've created the `Quick Start` and
+`Graphical User Interface Introduction` (GUI) sections. These two extracted sections from
+the User Guide shows how I am able to use diagrams
+to support my writing so that users can have visual aids to guide their understanding. Head over to the User
+Guide to take a look at the Quick Start section
+link:https://github.com/CS2103-AY1819S2-W17-3/main/blob/master/docs/UserGuide.adoc[here] and the GUI introduction is
+given below.
 ====
-
-include::../UserGuide.adoc[tag=quickstart]
 
 include::../UserGuide.adoc[tag=userinterface]
 
 [NOTE]
 ====
-The following sections are the instructions to user on how to use the features that I have
+The following sections extracted from the User Guide are the instructions to users on how to use the features that I have
 implemented for this project. It includes the `allocate`, `show` and `theme` commands.
-These three sections show how I am able to describe the feature in simple terms that users are able to follow.
+These three sections show my ability to describe the feature in simple terms that new users are able to comprehend.
 In addition, examples on how to use the commands are also included so that the users are able to
 follow in a sequential manner.
 ====
@@ -188,8 +190,10 @@ include::../UserGuide.adoc[tag=theme]
 |===
 |The following section will include the sections of my contribution to the Developer Guide.
 It showcases my ability to write technical documentation and the technical depth of my code contributions.
-This is important as in real-world software engineering projects, we are expected to work in team and being able to
-document Developer Guide well will allow colleagues or other developers to understand what we have coded better. +
+This is important as in real-world software engineering projects where we are expected to work in team and being able to
+document the Developer Guide well will allow colleagues or other developers to understand what we have coded better.
+Due to page restrictions, I've only included the `allocate` feature which I've contributed to the Developer Guide. Other
+sections which I contributed include the `show` command. +
 
 To view the full Developer Guide, click
 link:https://github.com/CS2103-AY1819S2-W17-3/main/blob/master/docs/DeveloperGuide.adoc[here].

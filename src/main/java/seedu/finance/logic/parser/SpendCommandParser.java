@@ -49,7 +49,7 @@ public class SpendCommandParser implements Parser<SpendCommand> {
         }
         Description description = new Description("");
         if (arePrefixesPresent(argMultimap, PREFIX_DESCRIPTION)) {
-            description = new Description(argMultimap.getValue(PREFIX_DESCRIPTION).get().trim());
+            description = ParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get().trim());
         }
 
         Category category = ParserUtil.parseCategory(argMultimap.getValue(PREFIX_CATEGORY).get());

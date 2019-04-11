@@ -7,9 +7,12 @@ import static seedu.finance.logic.commands.CommandTestUtil.CATEGORY_DESC_FRIEND;
 import static seedu.finance.logic.commands.CommandTestUtil.CATEGORY_DESC_HUSBAND;
 import static seedu.finance.logic.commands.CommandTestUtil.DATE_DESC_AMY;
 import static seedu.finance.logic.commands.CommandTestUtil.DATE_DESC_BOB;
+import static seedu.finance.logic.commands.CommandTestUtil.DESCRIPTION_DESC_AMY;
+import static seedu.finance.logic.commands.CommandTestUtil.DESCRIPTION_DESC_BOB;
 import static seedu.finance.logic.commands.CommandTestUtil.INVALID_AMOUNT_DESC;
 import static seedu.finance.logic.commands.CommandTestUtil.INVALID_CATEGORY_DESC;
 import static seedu.finance.logic.commands.CommandTestUtil.INVALID_DATE_DESC;
+import static seedu.finance.logic.commands.CommandTestUtil.INVALID_DESCRIPTION_DESC;
 import static seedu.finance.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
 import static seedu.finance.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static seedu.finance.logic.commands.CommandTestUtil.NAME_DESC_BOB;
@@ -32,6 +35,7 @@ import seedu.finance.logic.commands.SpendCommand;
 import seedu.finance.model.category.Category;
 import seedu.finance.model.record.Amount;
 import seedu.finance.model.record.Date;
+import seedu.finance.model.record.Description;
 import seedu.finance.model.record.Name;
 import seedu.finance.model.record.Record;
 import seedu.finance.testutil.RecordBuilder;
@@ -45,23 +49,23 @@ public class SpendCommandParserTest {
 
         // whitespace only preamble
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + NAME_DESC_BOB + AMOUNT_DESC_BOB + DATE_DESC_BOB
-                + CATEGORY_DESC_FRIEND, new SpendCommand(expectedRecord));
+                + CATEGORY_DESC_FRIEND + DESCRIPTION_DESC_BOB, new SpendCommand(expectedRecord));
 
         // multiple names - last name accepted
         assertParseSuccess(parser, NAME_DESC_AMY + NAME_DESC_BOB + AMOUNT_DESC_BOB + DATE_DESC_BOB
-                + CATEGORY_DESC_FRIEND, new SpendCommand(expectedRecord));
+                + CATEGORY_DESC_FRIEND + DESCRIPTION_DESC_BOB, new SpendCommand(expectedRecord));
 
         // multiple amounts - last amount accepted
         assertParseSuccess(parser, NAME_DESC_BOB + AMOUNT_DESC_AMY + AMOUNT_DESC_BOB + DATE_DESC_BOB
-                + CATEGORY_DESC_FRIEND, new SpendCommand(expectedRecord));
+                + CATEGORY_DESC_FRIEND + DESCRIPTION_DESC_BOB, new SpendCommand(expectedRecord));
 
         // multiple dates - last date accepted
         assertParseSuccess(parser, NAME_DESC_BOB + AMOUNT_DESC_BOB + DATE_DESC_AMY + DATE_DESC_BOB
-                + CATEGORY_DESC_FRIEND, new SpendCommand(expectedRecord));
+                + CATEGORY_DESC_FRIEND + DESCRIPTION_DESC_BOB, new SpendCommand(expectedRecord));
 
         // multiple categories - last category accepted
         assertParseSuccess(parser, NAME_DESC_BOB + AMOUNT_DESC_BOB + DATE_DESC_BOB
-                        + CATEGORY_DESC_HUSBAND + CATEGORY_DESC_FRIEND,
+                        + CATEGORY_DESC_HUSBAND + DESCRIPTION_DESC_BOB + CATEGORY_DESC_FRIEND,
                 new SpendCommand(expectedRecord));
     }
 
@@ -69,11 +73,9 @@ public class SpendCommandParserTest {
     public void parse_optionalDateFieldMissing_success() {
         Date date = new Date(LocalDate.now());
         Record expectedRecord = new RecordBuilder(AMY).withDate(date.toString()).build();
-        assertParseSuccess(parser, NAME_DESC_AMY + AMOUNT_DESC_AMY + CATEGORY_DESC_FRIEND,
-                new SpendCommand(expectedRecord));
+        assertParseSuccess(parser, NAME_DESC_AMY + AMOUNT_DESC_AMY + CATEGORY_DESC_FRIEND
+                + DESCRIPTION_DESC_AMY, new SpendCommand(expectedRecord));
     }
-
-    // TODO: Failed Test; need to update
 
     @Test
     public void parse_compulsoryFieldMissing_failure() {
@@ -112,6 +114,10 @@ public class SpendCommandParserTest {
         // invalid category
         assertParseFailure(parser, NAME_DESC_BOB + AMOUNT_DESC_BOB + DATE_DESC_BOB
                 + INVALID_CATEGORY_DESC, Category.MESSAGE_CONSTRAINTS);
+
+        //invalid description
+        assertParseFailure(parser, NAME_DESC_BOB + AMOUNT_DESC_BOB + DATE_DESC_BOB
+                + CATEGORY_DESC_FRIEND + INVALID_DESCRIPTION_DESC, Description.MESSAGE_CONSTRAINTS);
 
         // two invalid values, only first invalid value reported
         assertParseFailure(parser, INVALID_NAME_DESC + AMOUNT_DESC_BOB + INVALID_AMOUNT_DESC

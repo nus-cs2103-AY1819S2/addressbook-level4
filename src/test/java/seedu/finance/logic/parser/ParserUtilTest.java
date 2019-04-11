@@ -18,6 +18,7 @@ import seedu.finance.logic.parser.exceptions.ParseException;
 import seedu.finance.model.category.Category;
 import seedu.finance.model.record.Amount;
 import seedu.finance.model.record.Date;
+import seedu.finance.model.record.Description;
 import seedu.finance.model.record.Name;
 import seedu.finance.testutil.Assert;
 
@@ -26,12 +27,14 @@ public class ParserUtilTest {
     private static final String INVALID_AMOUNT = "$1";
     private static final String INVALID_DATE = "1/30/5999";
     private static final String INVALID_CATEGORY = "#friend";
+    private static final String INVALID_DESCRIPTION = "12345678901234567890123456789012345678901";
 
     private static final String VALID_NAME = "Rachel Walker";
     private static final String VALID_AMOUNT = "123";
     private static final String VALID_DATE = "12/02/2009";
     private static final String VALID_CATEGORY_1 = "friend";
     private static final String VALID_CATEGORY_2 = "neighbour";
+    private static final String VALID_DESCRIPTION = "1234567890123456789012345678901234567890";
 
     private static final String WHITESPACE = " \t\r\n";
 
@@ -178,5 +181,28 @@ public class ParserUtilTest {
                                                                          new Category(VALID_CATEGORY_2)));
 
         assertEquals(expectedCategorySet, actualCategorySet);
+    }
+
+    @Test
+    public void parseDescription_null_throwsNullPointerException() {
+        Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parseDescription((String) null));
+    }
+
+    @Test
+    public void parseDescription_invalidValue_throwsParseException() {
+        Assert.assertThrows(ParseException.class, () -> ParserUtil.parseDescription(INVALID_DESCRIPTION));
+    }
+
+    @Test
+    public void parseDescription_validValueWithoutWhitespace_returnsDescription() throws Exception {
+        Description expectedDescription = new Description(VALID_DESCRIPTION);
+        assertEquals(expectedDescription, ParserUtil.parseDescription(VALID_DESCRIPTION));
+    }
+
+    @Test
+    public void parseDescription_validValueWithWhitespace_returnsTrimmedDescription() throws Exception {
+        String descriptionWithWhitespace = WHITESPACE + VALID_DESCRIPTION + WHITESPACE;
+        Description expectedDescription = new Description(VALID_DESCRIPTION);
+        assertEquals(expectedDescription, ParserUtil.parseDescription(descriptionWithWhitespace));
     }
 }

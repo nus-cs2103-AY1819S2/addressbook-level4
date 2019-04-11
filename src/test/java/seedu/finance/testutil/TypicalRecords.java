@@ -6,6 +6,8 @@ import static seedu.finance.logic.commands.CommandTestUtil.VALID_CATEGORY_FRIEND
 import static seedu.finance.logic.commands.CommandTestUtil.VALID_CATEGORY_HUSBAND;
 import static seedu.finance.logic.commands.CommandTestUtil.VALID_DATE_AMY;
 import static seedu.finance.logic.commands.CommandTestUtil.VALID_DATE_BOB;
+import static seedu.finance.logic.commands.CommandTestUtil.VALID_DESCRIPTION_AMY;
+import static seedu.finance.logic.commands.CommandTestUtil.VALID_DESCRIPTION_BOB;
 import static seedu.finance.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.finance.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 
@@ -53,10 +55,11 @@ public class TypicalRecords {
 
     // Manually added - Record's details found in {@code CommandTestUtil}
     public static final Record AMY = new RecordBuilder().withName(VALID_NAME_AMY).withAmount(VALID_AMOUNT_AMY)
-            .withDate(VALID_DATE_AMY).withCategory(VALID_CATEGORY_FRIEND).build();
+            .withDate(VALID_DATE_AMY).withCategory(VALID_CATEGORY_FRIEND)
+            .withDescription(new Description(VALID_DESCRIPTION_AMY)).build();
     public static final Record BOB = new RecordBuilder().withName(VALID_NAME_BOB).withAmount(VALID_AMOUNT_BOB)
             .withDate(VALID_DATE_BOB).withCategory(VALID_CATEGORY_HUSBAND)
-            .build();
+            .withDescription(new Description(VALID_DESCRIPTION_BOB)).build();
 
     public static final String KEYWORD_MATCHING_DONUT = "Donut"; // A keyword that matches DONUT
 

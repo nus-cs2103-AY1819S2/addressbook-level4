@@ -8,9 +8,9 @@ import static seedu.finance.testutil.TypicalRecords.getTypicalRecords;
 import static seedu.finance.ui.testutil.GuiTestAssert.assertCardDisplaysRecord;
 import static seedu.finance.ui.testutil.GuiTestAssert.assertCardEquals;
 
-import guitests.guihandles.RecordCardHandle;
 import org.junit.Test;
 
+import guitests.guihandles.RecordCardHandle;
 import guitests.guihandles.RecordListPanelHandle;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
@@ -21,6 +21,8 @@ import seedu.finance.model.record.Date;
 import seedu.finance.model.record.Description;
 import seedu.finance.model.record.Name;
 import seedu.finance.model.record.Record;
+
+
 
 public class RecordListPanelTest extends GuiUnitTest {
     private static final ObservableList<Record>TYPICAL_RECORDS =

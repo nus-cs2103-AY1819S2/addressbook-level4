@@ -5,11 +5,12 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.finance.ui.testutil.GuiTestAssert.assertCardDisplaysRecord;
 
-import guitests.guihandles.RecordCardHandle;
 import org.junit.Test;
 
+import guitests.guihandles.RecordCardHandle;
 import seedu.finance.model.record.Record;
 import seedu.finance.testutil.RecordBuilder;
+
 
 public class RecordCardTest extends GuiUnitTest {
 

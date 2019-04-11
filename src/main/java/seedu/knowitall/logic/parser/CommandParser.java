@@ -9,7 +9,7 @@ import java.util.regex.Pattern;
 import seedu.knowitall.logic.commands.AddCommand;
 import seedu.knowitall.logic.commands.AddFolderCommand;
 import seedu.knowitall.logic.commands.AnswerCommand;
-import seedu.knowitall.logic.commands.ChangeCommand;
+import seedu.knowitall.logic.commands.ChangeDirectoryCommand;
 import seedu.knowitall.logic.commands.ClearCommand;
 import seedu.knowitall.logic.commands.Command;
 import seedu.knowitall.logic.commands.DeleteCommand;
@@ -68,8 +68,8 @@ public class CommandParser {
         case AddFolderCommand.COMMAND_WORD:
             return new AddFolderCommandParser().parse(arguments);
 
-        case ChangeCommand.COMMAND_WORD:
-            return new ChangeCommandParser().parse(arguments);
+        case ChangeDirectoryCommand.COMMAND_WORD:
+            return new ChangeDirectoryCommandParser().parse(arguments);
 
         case EditCommand.COMMAND_WORD:
             return new EditCommandParser().parse(arguments);

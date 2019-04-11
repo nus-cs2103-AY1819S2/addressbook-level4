@@ -16,9 +16,9 @@ import seedu.knowitall.model.UserPrefs;
 import seedu.knowitall.testutil.TypicalIndexes;
 
 /**
- * Contains integration tests (interaction with the Model) and junit tests for {@code ChangeCommand}.
+ * Contains integration tests (interaction with the Model) and junit tests for {@code ChangeDirectoryCommand}.
  */
-public class ChangeCommandTest {
+public class ChangeDirectoryCommandTest {
     private Model model = new ModelManager(getTypicalCardFolders(), new UserPrefs());
     private Model expectedModel = new ModelManager(getTypicalCardFolders(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
@@ -27,70 +27,72 @@ public class ChangeCommandTest {
     public void execute_validChangeCommandIntoFolder_success() {
         expectedModel.enterFolder(TypicalIndexes.INDEX_FIRST_CARD.getZeroBased());
 
-        ChangeCommand changeCommand = new ChangeCommand(TypicalIndexes.INDEX_FIRST_CARD_FOLDER);
+        ChangeDirectoryCommand command = new ChangeDirectoryCommand(TypicalIndexes.INDEX_FIRST_CARD_FOLDER);
         CommandResult expectedCommandResult = new CommandResult(
                 String.format(
-                        ChangeCommand.MESSAGE_ENTER_FOLDER_SUCCESS,
+                        ChangeDirectoryCommand.MESSAGE_ENTER_FOLDER_SUCCESS,
                         TypicalIndexes.INDEX_FIRST_CARD_FOLDER.getOneBased()),
                 CommandResult.Type.ENTERED_FOLDER);
-        assertCommandSuccess(changeCommand, model, commandHistory, expectedCommandResult, expectedModel);
+        assertCommandSuccess(command, model, commandHistory, expectedCommandResult, expectedModel);
     }
 
     @Test
     public void execute_validChangeCommandExitFolder_success() {
         model.enterFolder(TypicalIndexes.INDEX_FIRST_CARD_FOLDER.getZeroBased());
 
-        ChangeCommand changeCommand = new ChangeCommand();
-        CommandResult expectedCommandResult = new CommandResult(ChangeCommand.MESSAGE_EXIT_FOLDER_SUCCESS,
+        ChangeDirectoryCommand command = new ChangeDirectoryCommand();
+        CommandResult expectedCommandResult = new CommandResult(ChangeDirectoryCommand.MESSAGE_EXIT_FOLDER_SUCCESS,
                 CommandResult.Type.EXITED_FOLDER);
-        assertCommandSuccess(changeCommand, model, commandHistory, expectedCommandResult, expectedModel);
+        assertCommandSuccess(command, model, commandHistory, expectedCommandResult, expectedModel);
     }
 
     @Test
     public void execute_invalidEnterFolderCommand_failure() {
         model.enterFolder(TypicalIndexes.INDEX_FIRST_CARD_FOLDER.getZeroBased());
 
-        ChangeCommand changeCommand = new ChangeCommand(TypicalIndexes.INDEX_FIRST_CARD_FOLDER);
+        ChangeDirectoryCommand command = new ChangeDirectoryCommand(TypicalIndexes.INDEX_FIRST_CARD_FOLDER);
         String expectedMessage = Messages.MESSAGE_INVALID_COMMAND_INSIDE_FOLDER;
-        assertCommandFailure(changeCommand, model, commandHistory, expectedMessage);
+        assertCommandFailure(command, model, commandHistory, expectedMessage);
 
         model.exitFolderToHome();
 
-        changeCommand = new ChangeCommand(TypicalIndexes.INDEX_SECOND_CARD_FOLDER);
+        command = new ChangeDirectoryCommand(TypicalIndexes.INDEX_SECOND_CARD_FOLDER);
         expectedMessage = Messages.MESSAGE_INVALID_FOLDER_DISPLAYED_INDEX;
-        assertCommandFailure(changeCommand, model, commandHistory, expectedMessage);
+        assertCommandFailure(command, model, commandHistory, expectedMessage);
     }
 
     @Test
     public void execute_invalidExitFolderCommand_failure() {
         model.exitFolderToHome();
 
-        ChangeCommand changeCommand = new ChangeCommand();
+        ChangeDirectoryCommand command = new ChangeDirectoryCommand();
         String expectedMessage = Messages.MESSAGE_INVALID_COMMAND_OUTSIDE_FOLDER;
-        assertCommandFailure(changeCommand, model, commandHistory, expectedMessage);
+        assertCommandFailure(command, model, commandHistory, expectedMessage);
     }
 
     @Test
     public void equals() {
-        ChangeCommand changeExitFolderCommand = new ChangeCommand();
+        ChangeDirectoryCommand exitFolderCommand = new ChangeDirectoryCommand();
 
-        ChangeCommand changeEnterFolderOneCommand = new ChangeCommand(TypicalIndexes.INDEX_FIRST_CARD_FOLDER);
-        ChangeCommand changeEnterFolderTwoCommand = new ChangeCommand(TypicalIndexes.INDEX_SECOND_CARD_FOLDER);
+        ChangeDirectoryCommand enterFolderOneCommand =
+                new ChangeDirectoryCommand(TypicalIndexes.INDEX_FIRST_CARD_FOLDER);
+        ChangeDirectoryCommand enterFolderTwoCommand =
+                new ChangeDirectoryCommand(TypicalIndexes.INDEX_SECOND_CARD_FOLDER);
 
         // same object -> returns true
-        assertTrue(changeExitFolderCommand.equals(changeExitFolderCommand));
+        assertTrue(exitFolderCommand.equals(exitFolderCommand));
 
         // same values -> returns true
-        assertTrue(changeExitFolderCommand.equals(new ChangeCommand()));
-        assertTrue(changeEnterFolderOneCommand.equals(new ChangeCommand(TypicalIndexes.INDEX_FIRST_CARD_FOLDER)));
+        assertTrue(exitFolderCommand.equals(new ChangeDirectoryCommand()));
+        assertTrue(enterFolderOneCommand.equals(new ChangeDirectoryCommand(TypicalIndexes.INDEX_FIRST_CARD_FOLDER)));
 
         // different types -> returns false
-        assertFalse(changeExitFolderCommand.equals(changeEnterFolderOneCommand));
+        assertFalse(exitFolderCommand.equals(enterFolderOneCommand));
 
         // different values -> returns false
-        assertFalse(changeEnterFolderOneCommand.equals(changeEnterFolderTwoCommand));
+        assertFalse(enterFolderOneCommand.equals(enterFolderTwoCommand));
 
         // null -> returns false
-        assertFalse(changeEnterFolderOneCommand.equals(null));
+        assertFalse(enterFolderOneCommand.equals(null));
     }
 }

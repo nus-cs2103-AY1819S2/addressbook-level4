@@ -677,18 +677,18 @@ Please refer to the User Guide for the full list of commands under both categori
 
 To keep track of navigation state, a boolean `inFolder` is maintained by the `ModelManager`. Other components may retrieve the current state with `ModelManager#isInFolder()`. This is also how the `Command` objects determines whether the command is executable in the present navigation state.
 
-===== Change Command
+===== Change Directory Command
 
 Folder navigation is achieved by the user through the use of the `change` command. As navigating folders do not actually modify folders and their cards, folder navigation does not involve the Storage Component.
 
-The change command has the following formats:
+The change directory command has the following formats:
 
-1. `change ..` - Returns the user to the home directory. This command can only be executed when the user is inside a folder.
-2. `change FOLDER_INDEX` - Enters the folder specified by `FOLDER_INDEX`. This command can only be executed from the home directory, when the user is not in any folder.
+1. `cd ..` - Returns the user to the home directory. This command can only be executed when the user is inside a folder.
+2. `cdFOLDER_INDEX` - Enters the folder specified by `FOLDER_INDEX`. This command can only be executed from the home directory, when the user is not in any folder.
 
-When a `change` command is executed, the Logic component parses the command and creates a `ChangeCommand` object. If the command is of the first format, `ChangeCommand()` is invoked without any arguments and the boolean `isExitingFolder` is set to `true`. If the command is of the second format, the overloaded constructor `ChangeCommand(FOLDER_INDEX)` is instead called and `isExitingFolder` is set to `false`.
+When a `cd` command is executed, the Logic component parses the command and creates a `ChangeDirectoryCommand` object. If the command is of the first format, `ChangeDirectoryCommand()` is invoked without any arguments and the boolean `isExitingFolder` is set to `true`. If the command is of the second format, the overloaded constructor `ChangeCommand(FOLDER_INDEX)` is instead called and `isExitingFolder` is set to `false`.
 
-`ChangeCommand#execute()` is then invoked. The value of `isExitingFolder` will determine the corresponding methods in `ModelManager` that are called (`exitFoldersToHome()` or `enterFolder()`). The sequence diagram in <<changecommandsequencediagram>> illustrates this conditional choice and the interactions involved with each option.
+`ChangeDirectoryCommand#execute()` is then invoked. The value of `isExitingFolder` will determine the corresponding methods in `ModelManager` that are called (`exitFoldersToHome()` or `enterFolder()`). The sequence diagram in <<changecommandsequencediagram>> illustrates this conditional choice and the interactions involved with each option.
 
 [[changecommandsequencediagram]]
 .Component interactions for `change` command
@@ -696,7 +696,7 @@ image::ChangeCommandSequenceDiagram.png[width="600"]
 
 ==== Design Considerations
 ===== Aspect: Command format to enter and exit folders
-* **Alternative 1 (current choice)**: Use variations of the same command (e.g. `change ..` and `change INDEX` )
+* **Alternative 1 (current choice)**: Use variations of the same command (e.g. `cd ..` and `cd INDEX` )
 ** Pros: More intuitive and akin to other Command Line applications.
 ** Cons: Harder to implement as the logic for parsing the command is different from that of existing commands.
 * **Alternative 2**: Use distinct commands (e.g. `home` and `enter INDEX`)

@@ -28,7 +28,7 @@ import guitests.guihandles.ResultDisplayHandle;
 import guitests.guihandles.StatusBarFooterHandle;
 import seedu.knowitall.TestApp;
 import seedu.knowitall.commons.core.index.Index;
-import seedu.knowitall.logic.commands.ChangeCommand;
+import seedu.knowitall.logic.commands.ChangeDirectoryCommand;
 import seedu.knowitall.logic.commands.ClearCommand;
 import seedu.knowitall.logic.commands.ListCommand;
 import seedu.knowitall.logic.commands.SearchCommand;
@@ -62,8 +62,8 @@ public abstract class CardFolderSystemTest {
         testApp = setupHelper.setupApplication(this::getInitialData, getDataFileLocation());
         mainWindowHandle = setupHelper.setupMainWindowHandle();
 
-        String command = ChangeCommand.COMMAND_WORD + " " + TEST_FOLDER_INDEX.getOneBased();
-        String resultDisplayString = String.format(ChangeCommand.MESSAGE_ENTER_FOLDER_SUCCESS,
+        String command = ChangeDirectoryCommand.COMMAND_WORD + " " + TEST_FOLDER_INDEX.getOneBased();
+        String resultDisplayString = String.format(ChangeDirectoryCommand.MESSAGE_ENTER_FOLDER_SUCCESS,
                 TEST_FOLDER_INDEX.getOneBased());
 
         mainWindowHandle.getCommandBox().run(command);

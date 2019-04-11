@@ -16,15 +16,16 @@ import seedu.knowitall.model.ReadOnlyCardFolder;
  * Selects a folder identified using it's displayed index in the home directory. Also used to navigate from
  * within a folder back to the home directory.
  */
-public class ChangeCommand extends Command {
+public class ChangeDirectoryCommand extends Command {
 
-    public static final String COMMAND_WORD = "change";
+    public static final String COMMAND_WORD = "cd";
 
-    // TODO: Include use case for changing to home directory
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Changes the card folder that the user is in.\n"
-            + "Parameters: INDEX (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " 1";
+            + ": Navigates in and out of folders.\n"
+            + "Parameters (at home directory): INDEX (must be a positive integer)\n"
+            + "Parameters (inside folder): ..\n"
+            + "Example (at home directory): " + COMMAND_WORD + " 1\n"
+            + "Example (inside directory): " + COMMAND_WORD + " ..";
 
     public static final String MESSAGE_EXIT_FOLDER_SUCCESS = "Returned to home";
     public static final String MESSAGE_ENTER_FOLDER_SUCCESS = "Entered Card Folder: %1$s";
@@ -32,12 +33,12 @@ public class ChangeCommand extends Command {
     private Index targetIndex;
     private final boolean isExitingFolder;
 
-    public ChangeCommand(Index targetIndex) {
+    public ChangeDirectoryCommand(Index targetIndex) {
         isExitingFolder = false;
         this.targetIndex = targetIndex;
     }
 
-    public ChangeCommand() {
+    public ChangeDirectoryCommand() {
         isExitingFolder = true;
     }
 
@@ -55,9 +56,9 @@ public class ChangeCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof ChangeCommand // instanceof handles nulls
-                && isExitingFolder == ((ChangeCommand) other).isExitingFolder
-                && sameTargetIndex((ChangeCommand) other));
+                || (other instanceof ChangeDirectoryCommand // instanceof handles nulls
+                && isExitingFolder == ((ChangeDirectoryCommand) other).isExitingFolder
+                && sameTargetIndex((ChangeDirectoryCommand) other));
     }
 
     /**
@@ -90,9 +91,9 @@ public class ChangeCommand extends Command {
     }
 
     /**
-     * Compares the {@code targetIndex} of two ChangeCommand objects, returning true if they are equal.
+     * Compares the {@code targetIndex} of two ChangeDirectoryCommand objects, returning true if they are equal.
      */
-    private boolean sameTargetIndex(ChangeCommand other) {
+    private boolean sameTargetIndex(ChangeDirectoryCommand other) {
         // if target indices exist, they must be the same
         if (targetIndex != null && other.targetIndex != null) {
             return targetIndex.equals(other.targetIndex);

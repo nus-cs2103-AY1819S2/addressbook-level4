@@ -52,7 +52,7 @@ image::Ui.png[width="790"]
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some commands you can try:
 
-* *`change`* `1` : enter the 1st flashcard folder
+* *`cd`* `1` : enter the 1st flashcard folder
 * *`list`* : lists all flashcards in the current folder
 * **`add`**`q/How many chambers are there in a heart? a/Four` : adds a new flashcard to the current folder.
 * **`delete`**`3` : deletes the 3rd flashcard shown in the current folder
@@ -83,15 +83,15 @@ The commands in this section can only be executed when you are at the home direc
  +
 image:StatusBarInHomeDirectory.png[width ="150"]
 
-==== Enter folder : `change`
+==== Enter folder : `cd`
 
 Enters the folder specified by index. Panel on the left will display the list of cards in that folder.
 
-Format: `change FOLDER_INDEX`
+Format: `cd FOLDER_INDEX`
 
 Examples:
 
-* `change 2` +
+* `cd 2` +
 Enters the second folder in the folder list on the home directory.
 
 [[addfolder]]
@@ -110,7 +110,7 @@ Format: `addfolder FOLDER_NAME`
 Examples:
 
 * `addfolder Nervous System` +
-Creates a folder with the name "Nervous System". The user can then enter the folder with the `change` command and begin adding cards.
+Creates a folder with the name "Nervous System". The user can then enter the folder with the `cd` command and begin adding cards.
 
 ==== Remove folder : `deletefolder`
 
@@ -341,16 +341,16 @@ The `redo` command fails as there are no `undo` commands executed previously.
 // end::undoredo[]
 
 
-==== Exit folder : `change ..`
+==== Exit folder : `cd ..`
 
 Return to the root directory (exit the current folder). A list of folders will be displayed
 
-Format: `change ..`
+Format: `cd ..`
 
 Examples:
 
-* `change 2` +
-`change ..` +
+* `cd 2` +
+`cd ..` +
 The first command enters the second folder in the folder list on the <<homedirectory, home directory>>. The second command then returns you back to the home directory by exiting the folder.
 
 //tag::advancedoperations[]
@@ -639,8 +639,8 @@ this number is automatically calculated and recorded.
 |`report` | Display a folder score report for the current folder
 |`undo` | Undoes the previous undoable command.
 |`redo` | Redoes the last `undo`.
-|`change ..` | Return to the root directory (exit the current folder). A list of folders will be displayed.
-|`change FOLDER_INDEX`|Enters the folder specified by index. Panel on the left will display the list of cards in that folder.
+|`cd ..` | Return to the root directory (exit the current folder). A list of folders will be displayed.
+|`cd FOLDER_INDEX`|Enters the folder specified by index. Panel on the left will display the list of cards in that folder.
 |`addfolder FOLDER_NAME` | Creates a new flashcard folder with the specified name.
 |`deletefolder FOLDER_INDEX` | Removes the flashcard folder specified by index.
 |`editfolder FOLDER_INDEX NEW_FOLDER_NAME`| Renames the flashcard folder specified by index to the new name specified.

@@ -24,6 +24,10 @@ import seedu.address.testutil.Assert;
 
 public class SizeTest {
 
+    private static final int CONVERSION_KILOBYTE = 10;
+    private static final int CONVERSION_MEGABYTE = 20;
+    private static final int CONVERSION_GIGABYTE = 30;
+
     @Test
     public void constructor() {
 
@@ -94,27 +98,27 @@ public class SizeTest {
 
         // size equal to kilobyte threshold -> expected PREFIX_KILOBYTE
         assertEquals(new Size(Integer.toString(THRESHOLD_KILOBYTE)).getReadableValue(),
-                Integer.toString(THRESHOLD_KILOBYTE / THRESHOLD_KILOBYTE) + " " + PREFIX_KILOBYTE);
+                Integer.toString(THRESHOLD_KILOBYTE >> CONVERSION_KILOBYTE) + " " + PREFIX_KILOBYTE);
 
         // size bigger than kilobyte threshold -> expected PREFIX_KILOBYTE
         assertEquals(new Size(Integer.toString(THRESHOLD_KILOBYTE + 1)).getReadableValue(),
-                Integer.toString((THRESHOLD_KILOBYTE + 1) / THRESHOLD_KILOBYTE) + " " + PREFIX_KILOBYTE);
+                Integer.toString((THRESHOLD_KILOBYTE + 1) >> CONVERSION_KILOBYTE) + " " + PREFIX_KILOBYTE);
 
         // size equal to megabyte threshold -> expected PREFIX_MEGABYTE
         assertEquals(new Size(Integer.toString(THRESHOLD_MEGABYTE)).getReadableValue(),
-                Integer.toString(THRESHOLD_MEGABYTE / THRESHOLD_MEGABYTE) + " " + PREFIX_MEGABYTE);
+                Integer.toString(THRESHOLD_MEGABYTE >> CONVERSION_MEGABYTE) + " " + PREFIX_MEGABYTE);
 
         // size bigger than megabyte threshold -> expected PREFIX_MEGABYTE
         assertEquals(new Size(Integer.toString(THRESHOLD_MEGABYTE + 1)).getReadableValue(),
-                Integer.toString((THRESHOLD_MEGABYTE + 1) / THRESHOLD_MEGABYTE) + " " + PREFIX_MEGABYTE);
+                Integer.toString((THRESHOLD_MEGABYTE + 1) >> CONVERSION_MEGABYTE) + " " + PREFIX_MEGABYTE);
 
         // size equal to gigabyte threshold -> expected PREFIX_GIGABYTE
         assertEquals(new Size(Integer.toString(THRESHOLD_GIGABYTE)).getReadableValue(),
-                Integer.toString(THRESHOLD_GIGABYTE / THRESHOLD_GIGABYTE) + " " + PREFIX_GIGABYTE);
+                Integer.toString(THRESHOLD_GIGABYTE >> CONVERSION_GIGABYTE) + " " + PREFIX_GIGABYTE);
 
         // size bigger than gigabyte threshold -> expected PREFIX_GIGABYTE
         assertEquals(new Size(Integer.toString(THRESHOLD_GIGABYTE + 1)).getReadableValue(),
-                Integer.toString((THRESHOLD_GIGABYTE + 1) / THRESHOLD_GIGABYTE) + " " + PREFIX_GIGABYTE);
+                Integer.toString((THRESHOLD_GIGABYTE + 1) >> CONVERSION_GIGABYTE) + " " + PREFIX_GIGABYTE);
     }
 
     @Test

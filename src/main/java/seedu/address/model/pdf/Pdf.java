@@ -174,6 +174,11 @@ public class Pdf {
         return builder.toString();
     }
 
+    /**
+     * Returns a string representation of the pdf file that is fit for
+     * user readability. Size parameter is converted to appropriate prefix.
+     * @return user-friendly string representation of pdf.
+     */
     public String toReadableString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())

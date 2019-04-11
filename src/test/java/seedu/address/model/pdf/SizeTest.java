@@ -10,6 +10,13 @@ import static seedu.address.logic.commands.CommandTestUtil.SIZE_2_VALID;
 import static seedu.address.logic.commands.CommandTestUtil.SIZE_3_VALID;
 import static seedu.address.logic.commands.CommandTestUtil.SIZE_INVALID_ALPHABET;
 import static seedu.address.logic.commands.CommandTestUtil.SIZE_INVALID_NEGATIVE;
+import static seedu.address.model.pdf.Size.PREFIX_BYTE;
+import static seedu.address.model.pdf.Size.PREFIX_GIGABYTE;
+import static seedu.address.model.pdf.Size.PREFIX_KILOBYTE;
+import static seedu.address.model.pdf.Size.PREFIX_MEGABYTE;
+import static seedu.address.model.pdf.Size.THRESHOLD_GIGABYTE;
+import static seedu.address.model.pdf.Size.THRESHOLD_KILOBYTE;
+import static seedu.address.model.pdf.Size.THRESHOLD_MEGABYTE;
 
 import org.junit.Test;
 
@@ -76,6 +83,38 @@ public class SizeTest {
 
         assertNotEquals(notExpected, new Size(SIZE_2_VALID).toString());
 
+    }
+
+    @Test
+    public void getReadableValue() {
+
+        // size smaller than kilobyte threshold -> expected PREFIX_BYTE
+        assertEquals(new Size(Integer.toString(THRESHOLD_KILOBYTE - 1)).getReadableValue(),
+                Integer.toString(THRESHOLD_KILOBYTE - 1) + " " + PREFIX_BYTE);
+
+        // size equal to kilobyte threshold -> expected PREFIX_KILOBYTE
+        assertEquals(new Size(Integer.toString(THRESHOLD_KILOBYTE)).getReadableValue(),
+                Integer.toString(THRESHOLD_KILOBYTE / THRESHOLD_KILOBYTE) + " " + PREFIX_KILOBYTE);
+
+        // size bigger than kilobyte threshold -> expected PREFIX_KILOBYTE
+        assertEquals(new Size(Integer.toString(THRESHOLD_KILOBYTE + 1)).getReadableValue(),
+                Integer.toString((THRESHOLD_KILOBYTE + 1) / THRESHOLD_KILOBYTE) + " " + PREFIX_KILOBYTE);
+
+        // size equal to megabyte threshold -> expected PREFIX_MEGABYTE
+        assertEquals(new Size(Integer.toString(THRESHOLD_MEGABYTE)).getReadableValue(),
+                Integer.toString(THRESHOLD_MEGABYTE / THRESHOLD_MEGABYTE) + " " + PREFIX_MEGABYTE);
+
+        // size bigger than megabyte threshold -> expected PREFIX_MEGABYTE
+        assertEquals(new Size(Integer.toString(THRESHOLD_MEGABYTE + 1)).getReadableValue(),
+                Integer.toString((THRESHOLD_MEGABYTE + 1) / THRESHOLD_MEGABYTE) + " " + PREFIX_MEGABYTE);
+
+        // size equal to gigabyte threshold -> expected PREFIX_GIGABYTE
+        assertEquals(new Size(Integer.toString(THRESHOLD_GIGABYTE)).getReadableValue(),
+                Integer.toString(THRESHOLD_GIGABYTE / THRESHOLD_GIGABYTE) + " " + PREFIX_GIGABYTE);
+
+        // size bigger than gigabyte threshold -> expected PREFIX_GIGABYTE
+        assertEquals(new Size(Integer.toString(THRESHOLD_GIGABYTE + 1)).getReadableValue(),
+                Integer.toString((THRESHOLD_GIGABYTE + 1) / THRESHOLD_GIGABYTE) + " " + PREFIX_GIGABYTE);
     }
 
     @Test

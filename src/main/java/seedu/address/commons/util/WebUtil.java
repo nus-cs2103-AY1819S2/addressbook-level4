@@ -95,7 +95,13 @@ public class WebUtil {
     public static String validateAndAppend(String urlString) throws NoInternetException, ParseException {
 
         boolean isValidUrl;
+
+        // Original form of Weblink for returning error message
+        String originalWeblink = urlString;
+
+        // To append https or http protocol and to be returned
         String trimmedWeblink = urlString;
+
         if (urlString.startsWith(HTTPS_PREFIX) || urlString.startsWith(HTTP_PREFIX)) {
             isValidUrl = isUrlValid(urlString);
         } else if (!isUrlValid(prependHttps(urlString))) {
@@ -107,7 +113,7 @@ public class WebUtil {
         }
 
         if (!isValidUrl) {
-            throw new ParseException(INVALID_URL_MESSAGE);
+            throw new ParseException(String.format(INVALID_URL_MESSAGE, originalWeblink));
         } else {
             return trimmedWeblink;
         }

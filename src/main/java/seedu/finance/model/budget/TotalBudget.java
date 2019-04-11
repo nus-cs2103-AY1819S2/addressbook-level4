@@ -158,6 +158,22 @@ public class TotalBudget extends Budget {
     }
 
     @Override
+    public void editRecord(Record target, Record editedRecord) {
+        super.editRecord(target, editedRecord);
+        for (CategoryBudget cb: this.categoryBudgets) {
+            if (cb.getCategory().equals(target.getCategory())) {
+                if (target.getCategory().equals(editedRecord.getCategory())) {
+                    cb.editRecord(target, editedRecord);
+                } else {
+                    cb.removeRecord(target);
+                }
+            } else if (cb.getCategory().equals(editedRecord.getCategory())) {
+                cb.addRecord(editedRecord);
+            }
+        }
+    }
+
+    @Override
     public void removeRecord(Record r) {
         super.removeRecord(r);
         Category c = r.getCategory();

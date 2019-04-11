@@ -100,7 +100,7 @@ public class FinanceTracker implements ReadOnlyFinanceTracker {
     public void setRecord(Record target, Record editedRecord) {
         requireNonNull(editedRecord);
         records.setRecord(target, editedRecord);
-        budget.updateBudget(this.records.asUnmodifiableObservableList());
+        budget.editRecord(target, editedRecord);
         indicateModified();
     }
 

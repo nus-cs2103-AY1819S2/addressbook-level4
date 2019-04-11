@@ -1,6 +1,5 @@
 package systemtests;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BENSON;
@@ -15,8 +14,9 @@ import org.junit.Test;
 import seedu.address.logic.commands.GoToCommand;
 import seedu.address.logic.commands.SortCommand;
 import seedu.address.model.Model;
+import seedu.address.model.patient.Patient;
+import seedu.address.testutil.TypicalRecords;
 import seedu.address.ui.MainWindow;
-
 
 
 public class SortCommandSystemTest extends AddressBookSystemTest {
@@ -39,14 +39,45 @@ public class SortCommandSystemTest extends AddressBookSystemTest {
         assertCommandSuccess(command, model, "name");
         assertSelectedCardUnchanged();
 
-        // Case: Enters patient 1
-        command = GoToCommand.COMMAND_WORD + " 1";
-        assertCommandSuccess(command, model);
+        // Populates first patient with record data
+        Patient currentPatient = (Patient) model.getFilteredPersonList().get(0);
+        currentPatient.setRecords(TypicalRecords.getTypicalRecords());
 
+        command = GoToCommand.COMMAND_WORD + " 1";
+        assertCommandResultSuccess(command, model);
+
+        // Case: Sort by procedure
+        testParameter = " proc";
+        command = SortCommand.COMMAND_WORD + testParameter;
+        assertCommandResultSuccess(command, model, "proc");
+
+        testParameter = " proc" + " desc";
+        command = SortCommand.COMMAND_WORD + testParameter;
+        assertCommandResultSuccess(command, model, "proc");
+
+        testParameter = " desc";
+        command = SortCommand.COMMAND_WORD + testParameter;
+        assertCommandResultSuccess(command, model, "desc");
+
+        testParameter = " desc" + " desc";
+        command = SortCommand.COMMAND_WORD + testParameter;
+        assertCommandResultSuccess(command, model, "desc");
+
+        testParameter = " date";
+        command = SortCommand.COMMAND_WORD + testParameter;
+        assertCommandResultSuccess(command, model, "date");
+
+        testParameter = " date" + " desc";
+        command = SortCommand.COMMAND_WORD + testParameter;
+        assertCommandResultSuccess(command, model, "date");
     }
 
-    private void assertCommandSuccess(String command, Model expectedModel) {
-        String expectedResultMessage = String.format(GoToCommand.MESSAGE_EXPAND_PERSON_SUCCESS, 1);
+
+    /**
+     * For use with patient sorting
+     */
+    private void assertCommandSuccess(String command, Model expectedModel, String para) {
+        String expectedResultMessage = String.format(SortCommand.MESSAGE_SUCCESS, para);
 
         executeCommand(command);
         assertApplicationDisplaysExpected("", expectedResultMessage, expectedModel);
@@ -54,11 +85,26 @@ public class SortCommandSystemTest extends AddressBookSystemTest {
         assertStatusBarUnchanged();
     }
 
-    private void assertCommandSuccess(String command, Model expectedModel, String para) {
+    /**
+     * For use with goto mode
+     */
+    private void assertCommandResultSuccess(String command, Model expectedModel) {
+        String expectedResultMessage = String.format(GoToCommand.MESSAGE_EXPAND_PERSON_SUCCESS, 1);
+
+        executeCommand(command);
+        assertApplicationRecordDisplaysExpected("", expectedResultMessage, expectedModel);
+        assertCommandBoxShowsDefaultStyle();
+        assertStatusBarUnchanged();
+    }
+
+    /**
+     * For use with record sorting
+     */
+    private void assertCommandResultSuccess(String command, Model expectedModel, String para) {
         String expectedResultMessage = String.format(SortCommand.MESSAGE_SUCCESS, para);
 
         executeCommand(command);
-        assertApplicationDisplaysExpected("", expectedResultMessage, expectedModel);
+        assertApplicationRecordDisplaysExpected("", expectedResultMessage, expectedModel);
         assertCommandBoxShowsDefaultStyle();
         assertStatusBarUnchanged();
     }

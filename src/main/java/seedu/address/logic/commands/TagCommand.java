@@ -68,7 +68,7 @@ public class TagCommand extends Command {
         model.updateFilteredPdfList(PREDICATE_SHOW_ALL_PDFS);
         model.commitPdfBook();
 
-        return new CommandResult(String.format(MESSAGE_EDIT_PDF_SUCCESS, nPdf.toReadableString()));
+        return new CommandResult(String.format(MESSAGE_EDIT_PDF_SUCCESS, nPdf.toString()));
     }
 
     public static Pdf getPdfWithNewTag(Pdf old, Set<Tag> tags) {

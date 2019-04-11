@@ -14,7 +14,6 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import seedu.hms.logic.commands.AddBookingCommand;
 import seedu.hms.logic.commands.AddCustomerCommand;
 import seedu.hms.logic.commands.AddRoomTypeCommand;
 import seedu.hms.logic.commands.AddServiceTypeCommand;
@@ -44,7 +43,6 @@ import seedu.hms.model.BillManager;
 import seedu.hms.model.BookingManager;
 import seedu.hms.model.CustomerManager;
 import seedu.hms.model.ReservationManager;
-import seedu.hms.model.booking.Booking;
 import seedu.hms.model.booking.BookingContainsPayerPredicate;
 import seedu.hms.model.booking.BookingWithTypePredicate;
 import seedu.hms.model.booking.BookingWithinTimePredicate;
@@ -53,14 +51,13 @@ import seedu.hms.model.customer.Customer;
 import seedu.hms.model.customer.NameContainsKeywordsPredicate;
 import seedu.hms.model.reservation.ReservationContainsPayerPredicate;
 import seedu.hms.model.reservation.ReservationWithTypePredicate;
+import seedu.hms.model.reservation.roomType.RoomType;
 import seedu.hms.model.util.TimeRange;
-import seedu.hms.testutil.BookingBuilder;
 import seedu.hms.testutil.CustomerBuilder;
 import seedu.hms.testutil.CustomerUtil;
 import seedu.hms.testutil.EditCustomerDescriptorBuilder;
 
 public class HotelManagementSystemParserTest {
-
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
@@ -75,12 +72,21 @@ public class HotelManagementSystemParserTest {
     }
 
     @Test
-    public void parseCommandAddRoomType() throws Exception {
+    public void parseCommandAddServiceType() throws Exception {
         ServiceType serviceType = new ServiceType(50, new TimeRange(8, 22), "Gym", 7.0);
         AddServiceTypeCommand command = (AddServiceTypeCommand) parser.parseCommand(
             AddServiceTypeCommand.COMMAND_WORD + " " + " n/GYM :/8-22 cap/50 rate/7.0",
             new CustomerManager(), new BookingManager(), new ReservationManager(), new BillManager());
         assertEquals(new AddServiceTypeCommand(serviceType), command);
+    }
+
+    @Test
+    public void parseCommandAddRoomType() throws Exception {
+        RoomType roomType = new RoomType(50, "DOUBLE ROOM", 400.0);
+        AddRoomTypeCommand command = (AddRoomTypeCommand) parser.parseCommand(
+            AddRoomTypeCommand.COMMAND_WORD + " " + " n/DOUBLE ROOM cap/50 rate/400.0",
+            new CustomerManager(), new BookingManager(), new ReservationManager(), new BillManager());
+        assertEquals(new AddRoomTypeCommand(roomType), command);
     }
 
     @Test
@@ -90,6 +96,24 @@ public class HotelManagementSystemParserTest {
             AddCustomerCommand.COMMAND_ALIAS + " " + CustomerUtil.getCustomerDetails(customer),
             new CustomerManager(), new BookingManager(), new ReservationManager(), new BillManager());
         assertEquals(new AddCustomerCommand(customer), commandAlias);
+    }
+
+    @Test
+    public void parseCommandAddServiceTypeAlias() throws Exception {
+        ServiceType serviceType = new ServiceType(50, new TimeRange(8, 22), "Gym", 7.0);
+        AddServiceTypeCommand command = (AddServiceTypeCommand) parser.parseCommand(
+            AddServiceTypeCommand.COMMAND_ALIAS + " " + " n/GYM :/8-22 cap/50 rate/7.0",
+            new CustomerManager(), new BookingManager(), new ReservationManager(), new BillManager());
+        assertEquals(new AddServiceTypeCommand(serviceType), command);
+    }
+
+    @Test
+    public void parseCommandAddRoomTypeAlias() throws Exception {
+        RoomType roomType = new RoomType(50, "DOUBLE ROOM", 400.0);
+        AddRoomTypeCommand command = (AddRoomTypeCommand) parser.parseCommand(
+            AddRoomTypeCommand.COMMAND_ALIAS + " " + " n/DOUBLE ROOM cap/50 rate/400.0",
+            new CustomerManager(), new BookingManager(), new ReservationManager(), new BillManager());
+        assertEquals(new AddRoomTypeCommand(roomType), command);
     }
 
     @Test

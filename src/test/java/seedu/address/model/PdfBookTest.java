@@ -1,29 +1,28 @@
 package seedu.address.model;
 
 import static org.junit.Assert.assertEquals;
-//import static org.junit.Assert.assertFalse;
-//import static org.junit.Assert.assertTrue;
-//import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
-//import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
-//import static seedu.address.testutil.TypicalPdfs.ALICE;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static seedu.address.testutil.TypicalPdfs.SAMPLE_PDF_7;
 import static seedu.address.testutil.TypicalPdfs.getTypicalPdfBook;
 
+import java.util.Arrays;
 import java.util.Collection;
-//import java.util.Arrays;
 import java.util.Collections;
-//import java.util.List;
+import java.util.List;
 
+import javafx.beans.property.SimpleIntegerProperty;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import javafx.beans.InvalidationListener;
-//import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+
 import seedu.address.model.pdf.Pdf;
-//import seedu.address.model.pdf.exceptions.DuplicatePdfException;
-//import seedu.address.testutil.PdfBuilder;
+import seedu.address.model.pdf.exceptions.DuplicatePdfException;
+import seedu.address.testutil.PdfBuilder;
 
 public class PdfBookTest {
 
@@ -49,13 +48,12 @@ public class PdfBookTest {
         pdfBook.resetData(newData);
         assertEquals(newData, pdfBook);
     }
-    /*
+
     @Test
-    public void resetData_withDuplicatePersons_throwsDuplicatePersonException() {
+    public void resetData_withDuplicatePdfs_throwsDuplicatePdfException() {
         // Two pdfs with the same identity fields
-        Pdf editedAlice = new PdfBuilder(ALICE).withDirectory(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
-                .build();
-        List<Pdf> newPdfs = Arrays.asList(ALICE, editedAlice);
+        Pdf editedPdf = new PdfBuilder(SAMPLE_PDF_7).build();
+        List<Pdf> newPdfs = Arrays.asList(SAMPLE_PDF_7, editedPdf);
         PdfBookStub newData = new PdfBookStub(newPdfs);
 
         thrown.expect(DuplicatePdfException.class);
@@ -63,42 +61,42 @@ public class PdfBookTest {
     }
 
     @Test
-    public void hasPerson_nullPerson_throwsNullPointerException() {
+    public void hasPdf_nullPdf_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
         pdfBook.hasPdf(null);
     }
 
     @Test
-    public void hasPerson_personNotInAddressBook_returnsFalse() {
-        assertFalse(pdfBook.hasPdf(ALICE));
+    public void hasPdf_pdfNotInPdfBook_returnsFalse() {
+        assertFalse(pdfBook.hasPdf(SAMPLE_PDF_7));
     }
 
     @Test
-    public void hasPerson_personInAddressBook_returnsTrue() {
-        pdfBook.addPdf(ALICE);
-        assertTrue(pdfBook.hasPdf(ALICE));
+    public void hasPdf_personInPdfBook_returnsTrue() {
+        pdfBook.addPdf(SAMPLE_PDF_7);
+        assertTrue(pdfBook.hasPdf(SAMPLE_PDF_7));
     }
 
     @Test
-    public void hasPerson_personWithSameIdentityFieldsInAddressBook_returnsTrue() {
-        pdfBook.addPdf(ALICE);
-        Pdf editedAlice = new PdfBuilder(ALICE).withDirectory(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
-                .build();
-        assertTrue(pdfBook.hasPdf(editedAlice));
+    public void hasPdf_personWithSameIdentityFieldsInPdfBook_returnsTrue() {
+        pdfBook.addPdf(SAMPLE_PDF_7);
+        Pdf editedPdf = new PdfBuilder(SAMPLE_PDF_7).build();
+        assertTrue(pdfBook.hasPdf(editedPdf));
     }
 
     @Test
-    public void getPersonList_modifyList_throwsUnsupportedOperationException() {
+    public void getPdfList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
         pdfBook.getPdfList().remove(0);
     }
+
 
     @Test
     public void addListener_withInvalidationListener_listenerAdded() {
         SimpleIntegerProperty counter = new SimpleIntegerProperty();
         InvalidationListener listener = observable -> counter.set(counter.get() + 1);
         pdfBook.addListener(listener);
-        pdfBook.addPdf(ALICE);
+        pdfBook.addPdf(SAMPLE_PDF_7);
         assertEquals(1, counter.get());
     }
 
@@ -108,9 +106,9 @@ public class PdfBookTest {
         InvalidationListener listener = observable -> counter.set(counter.get() + 1);
         pdfBook.addListener(listener);
         pdfBook.removeListener(listener);
-        pdfBook.addPdf(ALICE);
+        pdfBook.addPdf(SAMPLE_PDF_7);
         assertEquals(0, counter.get());
-    }*/
+    }
 
     /**
      * A stub ReadOnlyPdfBook whose pdfs list can violate interface constraints.

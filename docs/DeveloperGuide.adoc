@@ -426,18 +426,6 @@ Furthermore, every time any record of the specified patient is modified, a new i
 ** Pros: Simplest to implement.
 ** Cons: Can be hard to understand by other programmers as integers are used to represent teeth statuses. Additionally, this is violating object-oriented principles.
 
-===== Aspect: Patient Tags
-
-* **Alternative 1 (current choice):** Use a patient variable to store the patient specified by the command.
-** Pros: An intuitive solution, as the specified patient is stored as an exact same class as a patient.
-Additionally, attributes of the specified patient can be accessed just like any other patient class.
-Changes to the patient class does not significantly affect the goto command.
-** Cons: The patient class is mutable, and accidental changes to its attributes by other classes or methods can occur.
-* **Alternative 2:** Create a new immutable patient variable to store the specified patient.
-** Pros: Ensures the the specified patient cannot be edited by other classes or methods.
-** Cons: Major changes to the patient class would require the immutable patient class to be changed too.
-Furthermore, every time any record of the specified patient is modified, a new immutable patient needs to be created to update the currently stored immutable patient.
-
 ===== Aspect: Implementing the Dentist class
 
 * **Alternative 1 (current choice):** Use a patient variable to store the patient specified by the command.

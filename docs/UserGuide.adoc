@@ -69,18 +69,94 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 * Commands are written in monospaced font, e.g. `sort`
 * Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `addfolder FOLDER_NAME`, `FOLDER_NAME` is a parameter which can be used as `add Human Anatomy`.
-* Items in square brackets are optional e.g HINTS in `add q/QUESTION a/ANSWER [h/HINTS]`.
+* Items in square brackets are optional e.g `HINTS` in `add q/QUESTION a/ANSWER [h/HINTS]`.
+* Items with `…​` after them can be used multiple times including zero times e.g. in `add q/QUESTION a/ANSWER [i/INCORRECT_OPTION]...`, you can include zero or more `i/INCORRECT_OPTIONs`.
 * Parameters can be in any order e.g. if the command specifies `q/QUESTION a/ANSWER`, `a/ANSWER q/QUESTION` is also acceptable.
 ====
+
+//tag::folderoperations[]
+=== Folder Operations
+Commands listed in this section affect the application and not a single folder.
+
+[NOTE]
+The commands in this section can only be executed when you are at the home directory, outside of any folder. The commands are also not valid inside a test or report session. You can easily verify that you are at the home directory with the status bar at the bottom, which should display: +
+ +
+image:StatusBarInHomeDirectory.png[width ="150"]
+
+==== Enter folder : `change`
+
+Enters the folder specified by index. Panel on the left will display the list of cards in that folder.
+
+Format: `change FOLDER_INDEX`
+
+Examples:
+
+* `change 2` +
+Enters the second folder in the folder list on the home directory.
+
+[[addfolder]]
+==== Create new folder : `addfolder`
+
+Creates a new flashcard folder with the specified name.
+
+Format: `addfolder FOLDER_NAME`
+
+====
+* The newly created folder will not contain any cards.
+* Folder names must be unique, between 1 and 50 characters, and only contain letters, numbers and whitespace. Attempting to add a folder with any of the above rules violated will result in an error.
+* Each folder and its cards are stored independently in the directory specified in `preferences.json`. By default, this is the `data/` directory.
+====
+
+Examples:
+
+* `addfolder Nervous System` +
+Creates a folder with the name "Nervous System". The user can then enter the folder with the `change` command and begin adding cards.
+
+==== Remove folder : `deletefolder`
+
+Removes the flashcard folder specified by index.
+
+Format: `deletefolder FOLDER_INDEX`
+
+====
+* When a folder is deleted, all its cards are removed as well.
+====
+
+Examples:
+
+* `deletefolder 2` +
+Deletes the second folder in the folder list, along with its cards, on the home directory.
+
+==== Rename folder : `editfolder`
+
+Renames the flashcard folder specified by index.
+
+Format: `editfolder FOLDER_INDEX NEW_FOLDER_NAME`
+
+====
+* The new name of the folder cannot be the same as an existing folder, and must adhere to the rules specified in <<addfolder>>.
+====
+
+Examples:
+
+* `editfolder 2 Circulatory System` +
+Renames the second folder in the folder list to "Circulatory System".
+
+**Merge folders feature** `Coming in v2.0`
+
+This feature will enable users to join multiple folders together, reducing the number of folders and grouping two topics.
+
+Format: `merge FOLDER_INDEX_1 FOLDER_INDEX_1 NEW_FOLDER_NAME`
+
+//end::folderoperations[]
 
 === Card Operations
 Commands listed in this section affect the <<flashcard, flashcards>> within a single <<folder, folder>>.
 
 [NOTE]
-The commands in this section can only be executed when you are within a folder
-
-[NOTE]
-The commands in this section are also not valid inside a test or report session.
+The commands in this section can only be executed when you are within a folder. The commands are also not valid inside a test or report session. You can easily verify you are inside a folder with the status bar at the bottom, which should display: +
+ +
+image:StatusBarInFolder.png[width ="200"]
 
 // tag::add[]
 ==== Adding a flashcard : `add`
@@ -276,83 +352,6 @@ Examples:
 * `change 2` +
 `change ..` +
 The first command enters the second folder in the folder list on the <<homedirectory, home directory>>. The second command then returns you back to the home directory by exiting the folder.
-
-
-//tag::folderoperations[]
-=== Folder Operations
-Commands listed in this section affect the application and not a single folder.
-
-[NOTE]
-The commands in this section can only be executed when you are at the home directory, outside of any folder
-
-[NOTE]
-The commands in this section are also not valid inside a test or report session.
-
-==== Create new folder : `addfolder`
-
-Creates a new flashcard folder with the specified name.
-
-Format: `addfolder FOLDER_NAME`
-
-====
-* The newly created folder will not contain any cards.
-* Folder names must be unique and non-blank. Attempting to add a folder with the same name as an existing folder will result in an error.
-* Each folder and its cards are stored independently in the directory specified in `preferences.json`. By default, this is the `data/` directory.
-====
-
-Examples:
-
-* `addfolder Nervous System` +
-Creates a folder with the name "Nervous System". The user can then enter the folder with the `change` command and begin adding cards.
-
-==== Remove folder : `deletefolder`
-
-Removes the flashcard folder specified by index.
-
-Format: `deletefolder FOLDER_INDEX`
-
-====
-* When a folder is deleted, all its cards are removed as well.
-====
-
-Examples:
-
-* `deletefolder 2` +
-Deletes the second folder in the folder list, along with its cards, on the home directory.
-
-==== Rename folder : `editfolder`
-
-Renames the flashcard folder specified by index.
-
-Format: `editfolder FOLDER_INDEX NEW_FOLDER_NAME`
-
-====
-* The new name of the folder cannot be the same as an existing folder.
-====
-
-Examples:
-
-* `editfolder 2 Circulatory System` +
-Renames the second folder in the folder list to "Circulatory System".
-
-==== Enter folder : `change`
-
-Enters the folder specified by index. Panel on the left will display the list of cards in that folder.
-
-Format: `change FOLDER_INDEX`
-
-Examples:
-
-* `change 2` +
-Enters the second folder in the folder list on the home directory.
-
-**Merge folders feature** `Coming in v2.0`
-
-This feature will enable users to join multiple folders together, reducing the number of folders and grouping two topics.
-
-Format: `merge FOLDER_INDEX_1 FOLDER_INDEX_1 NEW_FOLDER_NAME`
-
-//end::folderoperations[]
 
 //tag::advancedoperations[]
 

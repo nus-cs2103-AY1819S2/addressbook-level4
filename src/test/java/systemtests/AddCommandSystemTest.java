@@ -183,7 +183,7 @@ public class AddCommandSystemTest extends CardFolderSystemTest {
         assertApplicationDisplaysExpected("", expectedResultMessage, expectedModel);
         assertSelectedCardUnchanged();
         assertCommandBoxShowsDefaultStyle();
-        assertStatusBarIsInFolder();
+        assertStatusBarIsInFolder(expectedModel.getActiveCardFolderName());
     }
 
     /**
@@ -204,6 +204,6 @@ public class AddCommandSystemTest extends CardFolderSystemTest {
         assertApplicationDisplaysExpected(command, expectedResultMessage, expectedModel);
         assertSelectedCardUnchanged();
         assertCommandBoxShowsErrorStyle();
-        assertStatusBarIsInFolder();
+        assertStatusBarIsInFolder(expectedModel.getActiveCardFolderName());
     }
 }

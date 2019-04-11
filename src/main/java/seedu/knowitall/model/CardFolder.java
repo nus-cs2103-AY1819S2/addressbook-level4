@@ -43,13 +43,28 @@ public class CardFolder implements ReadOnlyCardFolder {
      * Creates an {@code CardFolder} using the Cards in the {@code toBeCopied}
      */
     public CardFolder(ReadOnlyCardFolder toBeCopied) {
-        resetData(toBeCopied);
+        requireNonNull(toBeCopied);
+
+        setCards(toBeCopied.getCardList());
+        setFolderName(toBeCopied.getFolderName());
+        setFolderScores(toBeCopied.getFolderScores());
+    }
+
+    /**
+     * Returns true if folder name adheres to constraints as listed in {@code MESSAGE_CONSTRAINTS}.
+     */
+    public static boolean isValidFolderName(String folderName) {
+        if (folderName == null || folderName.isEmpty() || folderName.length() > 50) {
+            return false;
+        }
+        return folderName.chars().allMatch(
+            c -> Character.isLetter(c) || Character.isDigit(c) || Character.isWhitespace(c));
     }
 
     //// list overwrite operations
 
     /**
-     * Sets the name of the {@code CardFolder}
+     * Sets the name of the {@code CardFolder}.
      */
     public void rename(String newName) {
         folderName = newName;
@@ -74,12 +89,12 @@ public class CardFolder implements ReadOnlyCardFolder {
 
     /**
      * Resets the existing data of this {@code CardFolder} with {@code newData}.
+     * The folder of a name is not reset, since a folder rename operation is irreversible.
      */
     public void resetData(ReadOnlyCardFolder newData) {
         requireNonNull(newData);
 
         setCards(newData.getCardList());
-        setFolderName(newData.getFolderName());
         setFolderScores(newData.getFolderScores());
     }
 

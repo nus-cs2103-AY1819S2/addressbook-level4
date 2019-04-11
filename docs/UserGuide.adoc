@@ -182,11 +182,15 @@ image::ep_conflict.png[width="600"]
 To view a patient's detail, you can use the `listpat` command. You can search and filter patient records
 by their names, NRIC and even their tags.
 
-Suppose you are unsure of the patient's NRIC to start a command, you can always turn to `listpat` to help narrow down your search.
-`listpat` can present all patient records that matches a search sequence you entered. For example, you can enter `r/S92` and the list command
-will present all patient records with NRIC starting with S92.
+* Currently QuickDocs only support one filter per search.
+* If more than one filter is entered (i.e. `listpat n/NAME r/NRIC`, only the first search criteria will be used
+(in this case, name)
 
-You can then display a single patient's record by calling `listpat` with the full name or nric.
+For example, if you are unsure of the patient's NRIC to start a command, you can always turn to `listpat` to help narrow down your search.
+Entering listpat with `r/S92` and QuickDocs will present you with patient records whose NRIC starts with S92.
+
+* You can similarly filter down your search using tags or parts of a patient name in the same manner.
+* A specific patient's record can be displayed by calling `listpat` with the full name or full nric
 
 [NOTE]
 Each patient record stored within QuickDocs have a record number, known as an *INDEX*. The
@@ -239,7 +243,11 @@ image::lp_nric_specific.png[width="600"]
 * `listpat t/diabetes` +
 
 The tags you assigned to each patient can also be used to expedite the `listpat` command. For example, diabetic patients can be
-listed using the `listpat` command along with "t/diabetes" value.
+listed using the `listpat` command along with "t/diabetes" value.'
+
+[NOTE]
+Tags specified for the search must be full sequences (i.e. Diabetes, highbloodpressure/, etc). QuickDocs do not
+permit partial tag search as of v1.4.
 
 .Listing patients by specific tag
 image::lp_tag_after.png[width="600"]

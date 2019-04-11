@@ -6,10 +6,12 @@ import quickdocs.model.tag.Tag;
 
 /**
  * Parses arguments entered by user into a ListPatientCommand to list
- * single or a list of patient records
+ * single or a list of patient records.
+ * If multiple arguments are entered, only first argument will be used to list
  */
 public class ListPatientParser implements Parser<ListPatientCommand> {
 
+    public static final String INDEX_INVALID_RANGE = "Index is beyond the valid range";
     public static final String INDEX_NUMERIC = "Index should be numeric";
     public static final Prefix PREFIX_NAME = new Prefix("n/");
     public static final Prefix PREFIX_NRIC = new Prefix("r/");
@@ -22,8 +24,18 @@ public class ListPatientParser implements Parser<ListPatientCommand> {
 
         if (!argMultimap.getPreamble().isEmpty()) {
 
-            if (!argMultimap.getPreamble().trim().matches("\\d+")) {
+            String userInput = argMultimap.getPreamble().trim();
+
+            // prevent non integer input for indexes, also prevent negative values
+            if (!userInput.matches("\\d+")) {
                 throw new ParseException(INDEX_NUMERIC);
+            }
+
+            // prevent integer overflow, can only check up to Long's max value
+            // any value beyond that will have a NumberFormatException thrown when
+            // assigning value to a long variable
+            if (Long.valueOf(userInput) > Integer.MAX_VALUE) {
+                throw new ParseException(INDEX_INVALID_RANGE);
             }
 
             int index = Integer.valueOf(argMultimap.getPreamble());

@@ -112,6 +112,8 @@ public class RootLayoutController {
                 userInput.setText("");
 
                 fillReminderList();
+            } catch (NumberFormatException nfe) {
+                inputFeedback.setText("Index entered is beyond valid range");
             } catch (Exception e) {
                 inputFeedback.setText(e.getMessage());
             }

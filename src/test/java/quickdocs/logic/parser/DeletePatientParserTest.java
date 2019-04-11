@@ -22,14 +22,28 @@ public class DeletePatientParserTest {
     @Test
     public void invalidCommand() {
         // no prefixes
-        assertParseFailure(parser, "", DeletePatientParser.INVALID_DELETE_ARGUMENT);
+        assertParseFailure(parser, " S11111111A", DeletePatientParser.INVALID_DELETE_ARGUMENT);
 
         // invalid prefix
         assertParseFailure(parser, " A/S9123456A", DeletePatientParser.INVALID_DELETE_ARGUMENT);
 
         // invalid Nric
+        assertParseFailure(parser, "", DeletePatientParser.INVALID_DELETE_ARGUMENT);
+
+        assertParseFailure(parser, "    ", DeletePatientParser.INVALID_DELETE_ARGUMENT);
+
         Assert.assertThrows(IllegalArgumentException.class, ()->parser.parse(
                 " r/S11111111A"));
+
+        Assert.assertThrows(IllegalArgumentException.class, ()->parser.parse(
+                " r/@@@@@@@@@@"));
+
+        // wrong letterings
+        Assert.assertThrows(IllegalArgumentException.class, ()->parser.parse(
+                " r/S1234567M"));
+
+        Assert.assertThrows(IllegalArgumentException.class, ()->parser.parse(
+                " r/F1234567B"));
     }
 
     @Test

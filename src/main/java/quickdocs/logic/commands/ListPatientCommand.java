@@ -1,5 +1,8 @@
 package quickdocs.logic.commands;
 
+import java.util.logging.Logger;
+
+import quickdocs.commons.core.LogsCenter;
 import quickdocs.logic.CommandHistory;
 import quickdocs.logic.commands.exceptions.CommandException;
 import quickdocs.model.Model;
@@ -35,6 +38,7 @@ public class ListPatientCommand extends Command {
                     + COMMAND_WORD + "n/Tan Ah Kow" + "\n"
                     + COMMAND_WORD + "t/diabetes" + "\n";
 
+    private static final Logger logger = LogsCenter.getLogger(ListPatientCommand.class);
 
     // to indicate which constructor was used to create this command
     private int constructedBy;
@@ -43,29 +47,41 @@ public class ListPatientCommand extends Command {
     private String nric;
     private Tag tag;
 
+    /**
+     * Indicates that the search is conducted by an index during the
+     * command's execution
+     *
+     * @param index 1-based index to select the patient record in the PatientManager's
+     *              patientList
+     */
     public ListPatientCommand(int index) {
         // for user entry, index is always 1 indexed.
         // since patientmanager uses 0 indexing, index are adjusted here
+        logger.info("Listing patient by index");
         this.index = index - 1;
         constructedBy = 1;
     }
 
     public ListPatientCommand(String search, boolean byName) {
         if (byName == true) {
+            logger.info("ListPatientCommand: Listing patient by name");
             name = search;
             constructedBy = 2;
         } else {
+            logger.info("ListPatientCommand: Listing patient by nric");
             nric = search;
             constructedBy = 3;
         }
     }
 
     public ListPatientCommand(Tag tag) {
+        logger.info("ListPatientCommand: Listing patient by tag");
         this.tag = tag;
         constructedBy = 4;
     }
 
     public ListPatientCommand() {
+        logger.info("ListPatientCommand: Listing first 50 patients");
         constructedBy = 5;
     }
 

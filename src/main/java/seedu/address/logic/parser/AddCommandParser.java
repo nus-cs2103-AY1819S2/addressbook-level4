@@ -53,6 +53,7 @@ public class AddCommandParser implements Parser<AddCommand> {
         Postal postal = ParserUtil.parsePostal(argMultimap.getValue(PREFIX_POSTAL).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
+        // Optional fields
         Email email;
         Phone phone;
         OpeningHours openingHours;

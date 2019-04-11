@@ -31,11 +31,18 @@ The following sections illustrate the feature in more detail, as well as the rel
 * *Other contributions*:
 
 ** Project management:
-*** [placeholder]
+*** Removed elements from `addressbook-level4` that were not used in our project
+    (Pull requests
+        https://github.com/CS2103-AY1819S2-W14-3/main/pull/274[#274],
+        https://github.com/CS2103-AY1819S2-W14-3/main/pull/336[#336])
 ** Testing:
-*** Wrote tests for that increased coverage by 4% (Pull requests https://github.com/CS2103-AY1819S2-W14-3/main/pull/231[#231], https://github.com/CS2103-AY1819S2-W14-3/main/pull/269[#269])
+*** Wrote tests for that increased coverage by 4%
+    (Pull requests
+        https://github.com/CS2103-AY1819S2-W14-3/main/pull/231[#231],
+        https://github.com/CS2103-AY1819S2-W14-3/main/pull/269[#269])
 ** Documentation:
-*** Wrote the sections of the User Guide and Developer guide, as reproduced below
+*** Wrote the sections of the User Guide and Developer guide for the Battle Component,
+    as reproduced below
 ** Community:
 *** [placeholder]
 

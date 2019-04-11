@@ -232,7 +232,7 @@ The `Storage` component,
 === Battle component
 
 .Structure of the Battle Component
-image::StorageClassDiagram.png[width="800"]
+image::BattleClassDiagram.png[width="800"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/logic/battle/Battle.java[`Battle.java`]
 
@@ -242,7 +242,8 @@ The `Battle` component,
 * restricts the computer to place its ships at the correct time,
 * allows the user and the computer enemy to attack each other and maintain proper turn-taking while doing so.
 
-As the
+As the battle involves many different components (map, player, etc.),
+this component cannot be reduced to just one interface class of `Battle`.
 
 
 // end::battle[]

@@ -383,13 +383,13 @@ Example:
 `memberSort name` +
 Sorts the list by name.
 
-image::MemberSortCommand_sortby_name.png[width="790"]
+image::MemberSortCommand_sortby_name.png[width=100%]
 
 * `memberList` +
 `memberSort yearOfStudy` +
 Sorts the list by year of study.
 
-image::MemberSortCommand_sortby_yearofstudy.png[width="790"]
+image::MemberSortCommand_sortby_yearofstudy.png[width=100%]
 
 //end::membersort[]
 
@@ -717,6 +717,7 @@ Alias for command keywords can be used in place of full text commands.
 ** `memberAdd` or `mAdd`
 ** `memberDelete` or 'mDelete'
 ** `memberEdit` or `mEdit`
+** `memberFilter` or `mFilter`
 ** `memberFind` or `mFind`
 ** `memberList` or `mList`
 ** `memberSelect` or `mSelect`

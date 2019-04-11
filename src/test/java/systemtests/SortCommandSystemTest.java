@@ -2,6 +2,7 @@
 package systemtests;
 
 import static org.junit.Assert.assertFalse;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BENSON;
 import static seedu.address.testutil.TypicalPersons.CARL;
@@ -20,8 +21,6 @@ import seedu.address.model.Model;
 import seedu.address.model.patient.Patient;
 import seedu.address.testutil.TypicalRecords;
 import seedu.address.ui.MainWindow;
-
-
 
 
 public class SortCommandSystemTest extends AddressBookSystemTest {
@@ -76,6 +75,11 @@ public class SortCommandSystemTest extends AddressBookSystemTest {
         command = SortCommand.COMMAND_WORD + testParameter;
         assertCommandResultSuccess(command, model, "date");
 
+        testParameter = " gasdas";
+        command = SortCommand.COMMAND_WORD + testParameter;
+        assertCommandResultFailure(command, model, String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+            SortCommand.MESSAGE_USAGE));
+
         command = BackCommand.COMMAND_WORD;
         executeCommand(command);
         alertRobotClick();
@@ -119,8 +123,6 @@ public class SortCommandSystemTest extends AddressBookSystemTest {
     /**
      * For use with goto mode
      */
-
-
     private void assertCommandResultSuccess(String command, Model expectedModel) {
         String expectedResultMessage = String.format(GoToCommand.MESSAGE_EXPAND_PERSON_SUCCESS, 1);
 
@@ -133,13 +135,22 @@ public class SortCommandSystemTest extends AddressBookSystemTest {
     /**
      * For use with record sorting
      */
-
     private void assertCommandResultSuccess(String command, Model expectedModel, String para) {
         String expectedResultMessage = String.format(SortCommand.MESSAGE_SUCCESS, para);
 
         executeCommand(command);
         assertApplicationRecordDisplaysExpected("", expectedResultMessage, expectedModel);
         assertCommandBoxShowsDefaultStyle();
+        assertStatusBarUnchanged();
+    }
+
+    /**
+     * For record mode failure assertion
+     */
+    private void assertCommandResultFailure(String command, Model expectedModel, String expectedResultMessage) {
+        executeCommand(command);
+        assertApplicationRecordDisplaysExpected(command, expectedResultMessage, expectedModel);
+        assertCommandBoxShowsErrorStyle();
         assertStatusBarUnchanged();
     }
 

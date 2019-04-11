@@ -10,6 +10,8 @@ import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
  * Parses input arguments and creates a new CompleteRequestCommand object
+ *
+ * @@author daviddl9
  */
 public class CompleteRequestParser implements Parser<CompleteRequestCommand> {
 

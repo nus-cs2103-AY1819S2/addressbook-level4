@@ -6,12 +6,15 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NRIC;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_STATUS;
 
 import seedu.address.model.CommandType;
 import seedu.address.model.Model;
 
 /**
  * Interface that represents a command involving a request
+ *
+ * @@author daviddl9
  */
 public interface RequestCommand {
 
@@ -35,6 +38,8 @@ public interface RequestCommand {
             + "[" + PREFIX_PHONE + "PHONE] "
             + "[" + PREFIX_ADDRESS + "ADDRESS] "
             + "[" + PREFIX_DATE + "DATE] "
+            + "[" + PREFIX_STATUS + "STATUS] "
+            + "[" + PREFIX_NRIC + "NRIC] "
             + "[" + PREFIX_CONDITION + "CONDITION]...\n";
 
     String EDIT_COMMAND_EXAMPLE = PREFIX_PHONE + "91234567 "

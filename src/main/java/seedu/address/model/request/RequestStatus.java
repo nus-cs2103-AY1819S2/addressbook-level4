@@ -3,6 +3,8 @@ package seedu.address.model.request;
 /**
  * Represents an Request's status in the request book.
  * Guarantees: immutable
+ *
+ * @@author daviddl9
  */
 public class RequestStatus {
 

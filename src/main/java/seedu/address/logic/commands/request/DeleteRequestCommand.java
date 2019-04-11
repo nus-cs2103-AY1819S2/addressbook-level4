@@ -17,6 +17,8 @@ import seedu.address.model.tag.Condition;
 
 /**
  * Deletes a request identified using it's displayed index from the request book.
+ *
+ * @@author daviddl9
  */
 public class DeleteRequestCommand extends DeleteCommand implements RequestCommand {
 

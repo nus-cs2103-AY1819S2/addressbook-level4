@@ -38,7 +38,7 @@ public class Commands {
     public static final String HISTORY = "history";
     public static final String STATISTICS = "statistics";
     public static final String SET_REMINDER = "setreminder";
-    public static final String SET_REMINDER_FULL = "setreminder t/05:00 m/call patient John Doe for his appointment";
+    public static final String SET_REMINDER_FULL = "setreminder t/05:00:00 m/call patient John Doe for his appointment";
     public static final String UNDO = "undo";
     public static final String REDO = "redo";
     public static final String HELP = "help";

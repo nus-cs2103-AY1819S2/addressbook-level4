@@ -76,7 +76,7 @@ public class DateRange {
      *                    2.within in 1 year after current date
      * @return
      */
-    private boolean isValidDate(Calendar dateTested) {
+    public static boolean isValidDate(Calendar dateTested) {
         long diff = dateTested.getTimeInMillis() - Calendar.getInstance().getTimeInMillis();
         long diffDays = diff / 1000 / 60 / 60 / 24;
         return diffDays >= 0 && diffDays < 365;

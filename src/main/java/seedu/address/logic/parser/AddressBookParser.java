@@ -3,6 +3,11 @@ package seedu.address.logic.parser;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.List;
+import java.util.StringTokenizer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -42,10 +47,27 @@ public class AddressBookParser {
     /**
      * Used to test whether the arguments of a command is null
      */
-    public void dealNullArgument(String arguments) throws ParseException {
-        if (!arguments.equals("")) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
+    public void dealArguments(String arguments) throws ParseException {
+
+        String[] command_list = {"help", "add", "list", "select", "edit", "delete", "clear", "pin", "unpin",
+                "pinselect", "archive", "archivelist", "archiveselect", "unarchive", "archiveclear", "history",
+                "redo", "undo", "exit", "find"};
+
+        ArrayList<String> command = new ArrayList<>(Arrays.asList(command_list));
+        Iterator<String> iterator = command.iterator();
+
+        StringTokenizer st = new StringTokenizer(arguments);
+
+        while (st.hasMoreTokens()) {
+            String t = st.nextToken();
+            while (iterator.hasNext()) {
+                String s = iterator.next();
+                if(s.equals(t)) {
+                    throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
+                }
+            }
         }
+
     }
 
     /**
@@ -82,54 +104,54 @@ public class AddressBookParser {
             return new PinCommandParser().parse(arguments);
 
         case ClearCommand.COMMAND_WORD:
-            dealNullArgument(arguments);
+            dealArguments(arguments);
             return new ClearCommand();
 
         case FindCommand.COMMAND_WORD:
             return new FindCommandParser().parse(arguments);
 
         case ListCommand.COMMAND_WORD:
-            dealNullArgument(arguments);
+            dealArguments(arguments);
             return new ListCommand();
 
         case ArchiveCommand.COMMAND_WORD:
             return new ArchiveCommandParser().parse(arguments);
 
         case ArchiveListCommand.COMMAND_WORD:
-            dealNullArgument(arguments);
+            dealArguments(arguments);
             return new ArchiveListCommand();
 
         case ArchiveSelectCommand.COMMAND_WORD:
             return new ArchiveSelectCommandParser().parse(arguments);
 
         case ArchiveClearCommand.COMMAND_WORD:
-            dealNullArgument(arguments);
+            dealArguments(arguments);
             return new ArchiveClearCommand();
 
         case UnarchiveCommand.COMMAND_WORD:
             return new UnarchiveCommandParser().parse(arguments);
 
         case HistoryCommand.COMMAND_WORD:
-            dealNullArgument(arguments);
+            dealArguments(arguments);
             return new HistoryCommand();
 
         case ExitCommand.COMMAND_WORD:
-            dealNullArgument(arguments);
+            dealArguments(arguments);
             return new ExitCommand();
 
         case HelpCommand.COMMAND_WORD:
-            dealNullArgument(arguments);
+            dealArguments(arguments);
             return new HelpCommand();
 
         case UndoCommand.COMMAND_WORD:
-            dealNullArgument(arguments);
+            dealArguments(arguments);
             return new UndoCommand();
 
         case UnpinCommand.COMMAND_WORD:
             return new UnpinCommandParser().parse(arguments);
 
         case RedoCommand.COMMAND_WORD:
-            dealNullArgument(arguments);
+            dealArguments(arguments);
             return new RedoCommand();
 
         case PinSelectCommand.COMMAND_WORD:

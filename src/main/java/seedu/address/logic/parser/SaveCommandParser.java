@@ -7,7 +7,6 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_SAVE_TYPE;
 
 import java.util.Arrays;
 
-import seedu.address.commons.core.Config;
 import seedu.address.logic.commands.SaveCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 

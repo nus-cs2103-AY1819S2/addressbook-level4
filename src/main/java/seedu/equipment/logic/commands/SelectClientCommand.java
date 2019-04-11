@@ -46,7 +46,6 @@ public class SelectClientCommand extends Command {
 
         return new CommandResult(String.format(MESSAGE_SELECT_CLIENT_SUCCESS, targetIndex.getOneBased()),
                 false, false, false, false, null, true);
-
     }
 
     @Override

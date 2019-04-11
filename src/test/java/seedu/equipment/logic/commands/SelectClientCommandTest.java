@@ -4,11 +4,9 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.equipment.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.equipment.logic.commands.CommandTestUtil.assertCommandSuccess;
-//import static seedu.equipment.logic.commands.CommandTestUtil.showPersonAtIndex;
 import static seedu.equipment.testutil.TypicalEquipments.getTypicalAddressBook;
-import static seedu.equipment.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static seedu.equipment.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
-//import static seedu.equipment.testutil.TypicalIndexes.INDEX_THIRD_PERSON;
+import static seedu.equipment.testutil.TypicalIndexes.INDEX_FIRST_CLIENT;
+import static seedu.equipment.testutil.TypicalIndexes.INDEX_SECOND_CLIENT;
 
 import org.junit.Test;
 
@@ -29,11 +27,10 @@ public class SelectClientCommandTest {
 
 //    @Test
 //    public void execute_validIndexUnfilteredList_success() {
-//        Index lastPersonIndex = Index.fromOneBased(model.getFilteredClientList().size());
-//
-//        assertExecutionSuccess(INDEX_FIRST_PERSON);
-//        assertExecutionSuccess(INDEX_THIRD_PERSON);
-//        assertExecutionSuccess(lastPersonIndex);
+//        Index lastClientIndex = Index.fromZeroBased(model.getFilteredClientList().size());
+//        assertExecutionSuccess(INDEX_FIRST_CLIENT);
+//        assertExecutionSuccess(INDEX_SECOND_CLIENT);
+//        assertExecutionSuccess(lastClientIndex);
 //    }
 
     @Test
@@ -66,14 +63,14 @@ public class SelectClientCommandTest {
 
     @Test
     public void equals() {
-        SelectCommand selectFirstCommand = new SelectCommand(INDEX_FIRST_PERSON);
-        SelectCommand selectSecondCommand = new SelectCommand(INDEX_SECOND_PERSON);
+        SelectClientCommand selectFirstCommand = new SelectClientCommand(INDEX_FIRST_CLIENT);
+        SelectClientCommand selectSecondCommand = new SelectClientCommand(INDEX_SECOND_CLIENT);
 
         // same object -> returns true
         assertTrue(selectFirstCommand.equals(selectFirstCommand));
 
         // same values -> returns true
-        SelectCommand selectFirstCommandCopy = new SelectCommand(INDEX_FIRST_PERSON);
+        SelectClientCommand selectFirstCommandCopy = new SelectClientCommand(INDEX_FIRST_CLIENT);
         assertTrue(selectFirstCommand.equals(selectFirstCommandCopy));
 
         // different types -> returns false
@@ -93,9 +90,8 @@ public class SelectClientCommandTest {
      */
     private void assertExecutionSuccess(Index index) {
         SelectClientCommand selectClientCommand = new SelectClientCommand(index);
-        String expectedMessage = String.format(SelectCommand.MESSAGE_SELECT_EQUIPMENT_SUCCESS, index.getOneBased());
-        expectedModel.setSelectedClient(model.getFilteredPersonList().get(index.getZeroBased()).getName());
-
+        String expectedMessage = String.format(SelectClientCommand.MESSAGE_SELECT_CLIENT_SUCCESS, index.getOneBased());
+        expectedModel.setSelectedClient(model.getFilteredClientList().get(index.getZeroBased()));
         assertCommandSuccess(selectClientCommand, model, commandHistory, expectedMessage, expectedModel);
     }
 

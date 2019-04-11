@@ -3,12 +3,13 @@ package seedu.equipment.logic.parser;
 import seedu.equipment.commons.core.Messages;
 import seedu.equipment.commons.core.index.Index;
 import seedu.equipment.logic.commands.SelectClientCommand;
+import seedu.equipment.logic.commands.SelectCommand;
 import seedu.equipment.logic.parser.exceptions.ParseException;
 
 /**
  * Parses input arguments and creates a new SelectClientCommand object
  */
-public class SelectClientCommandParser {
+public class SelectClientCommandParser implements Parser<SelectClientCommand>{
     /**
      * Parses the given {@code String} of arguments in the context of the SelectClientCommand
      * and returns an SelectClientCommand object for execution.

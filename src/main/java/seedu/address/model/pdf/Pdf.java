@@ -160,26 +160,13 @@ public class Pdf {
         return Objects.hash(name, directory, size, tags);
     }
 
-    @Override
-    public String toString() {
-        final StringBuilder builder = new StringBuilder();
-        builder.append(getName())
-                .append(getDirectory())
-                .append(getSize())
-                .append(getDeadline());
-        if (getTags().size() > 0) {
-            builder.append("Tags: ");
-            getTags().forEach(builder::append);
-        }
-        return builder.toString();
-    }
-
     /**
      * Returns a string representation of the pdf file that is fit for
      * user readability. Size parameter is converted to appropriate prefix.
      * @return user-friendly string representation of pdf.
      */
-    public String toReadableString() {
+    @Override
+    public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
                 .append(getDirectory())

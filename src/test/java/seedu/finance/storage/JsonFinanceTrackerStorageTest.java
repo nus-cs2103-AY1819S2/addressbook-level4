@@ -66,7 +66,7 @@ public class JsonFinanceTrackerStorageTest {
         thrown.expect(DataConversionException.class);
         readFinanceTracker("invalidRecordFinanceTracker.json");
     }
-    
+
     @Test
     public void readFinanceTracker_invalidAndValidRecordFinanceTracker_throwDataConversionException() throws Exception {
         thrown.expect(DataConversionException.class);

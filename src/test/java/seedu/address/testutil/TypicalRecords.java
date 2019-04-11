@@ -36,7 +36,7 @@ public class TypicalRecords {
     /**
      * Returns a list of typical records
      */
-    public static List<Record> getTypicalRecords() {
+    public static ArrayList<Record> getTypicalRecords() {
         return new ArrayList<>(Arrays.asList(FIRST, SECOND, THIRD, FOURTH, FIFTH,
             SIXTH, SEVENTH, EIGHTH, NINTH, TENTH));
     }

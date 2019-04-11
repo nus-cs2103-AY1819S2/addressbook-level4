@@ -65,6 +65,6 @@ public class FindReservationCommand extends ReservationCommand {
             && reservationWithTypePredicate.equals(((FindReservationCommand) other)
             .reservationWithTypePredicate)
             && reservationWithDatePredicate.equals(((FindReservationCommand) other)
-            .reservationWithDatePredicate));// state check
+            .reservationWithDatePredicate)); // state check
     }
 }

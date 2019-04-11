@@ -13,7 +13,6 @@ import seedu.finance.testutil.RecordBuilder;
 
 public class RecordCardTest extends GuiUnitTest {
 
-    // TODO: Failed Test; need to update
 
     @Test
     public void display() {
@@ -56,7 +55,6 @@ public class RecordCardTest extends GuiUnitTest {
      * Asserts that {@code recordCard} displays the details of {@code expectedRecord} correctly and matches
      * {@code expectedId}.
      */
-    // TODO: Failed Test; need to update
 
     private void assertCardDisplay(RecordCard recordCard, Record expectedRecord, int expectedId) {
         guiRobot.pauseForHuman();

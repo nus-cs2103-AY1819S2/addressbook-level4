@@ -1,9 +1,14 @@
 package seedu.finance.ui;
 
 import static java.time.Duration.ofMillis;
+import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTimeoutPreemptively;
+import static seedu.finance.testutil.TypicalIndexes.INDEX_SECOND_RECORD;
 import static seedu.finance.testutil.TypicalRecords.getTypicalRecords;
+import static seedu.finance.ui.testutil.GuiTestAssert.assertCardDisplaysRecord;
+import static seedu.finance.ui.testutil.GuiTestAssert.assertCardEquals;
 
+import guitests.guihandles.RecordCardHandle;
 import org.junit.Test;
 
 import guitests.guihandles.RecordListPanelHandle;
@@ -26,8 +31,6 @@ public class RecordListPanelTest extends GuiUnitTest {
     private final SimpleObjectProperty<Record> selectedRecord = new SimpleObjectProperty<>();
     private RecordListPanelHandle recordListPanelHandle;
 
-    // TODO: Failed Test; need to update
-    /*
     @Test
     public void display() {
         initUi(TYPICAL_RECORDS);
@@ -40,10 +43,8 @@ public class RecordListPanelTest extends GuiUnitTest {
             assertCardDisplaysRecord(expectedRecord, actualCard);
             assertEquals(Integer.toString(i + 1) + ". ", actualCard.getId());
         }
-    }*/
+    }
 
-    // TODO: Failed Test; need to update
-    /*
     @Test
     public void selection_modelSelectedRecordChanged_selectionChanges() {
         initUi(TYPICAL_RECORDS);
@@ -54,7 +55,7 @@ public class RecordListPanelTest extends GuiUnitTest {
         RecordCardHandle expectedRecord = recordListPanelHandle.getRecordCardHandle(INDEX_SECOND_RECORD.getZeroBased());
         RecordCardHandle selectedRecord = recordListPanelHandle.getHandleToSelectedCard();
         assertCardEquals(expectedRecord, selectedRecord);
-    }*/
+    }
 
     /**
      * Verifies that creating and deleting large number of records in {@code RecordListPanel} requires lesser than

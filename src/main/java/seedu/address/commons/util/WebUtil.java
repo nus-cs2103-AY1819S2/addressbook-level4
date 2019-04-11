@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.net.URLConnection;
 
-import seedu.address.commons.core.Messages;
 import seedu.address.commons.exceptions.NoInternetException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.restaurant.Weblink;
@@ -21,6 +20,13 @@ public class WebUtil {
             + " Please check your connections.";
     private static final String DUMMY_WEBLINK = "https://www.google.com.sg";
 
+
+    /**
+     * This method checks if the Url string supplied to it is a valid link
+     * @param urlString must be a valid Url formatted string
+     * @return true if url is valid
+     * @throws NoInternetException if there's no internet connection
+     */
     public static boolean isUrlValid(String urlString) throws NoInternetException {
         // checks if there is internet connection
         if (!urlString.equals(DUMMY_WEBLINK) && !hasInternetConnection()) {
@@ -77,21 +83,30 @@ public class WebUtil {
         return HTTP_PREFIX.concat(url);
     }
 
+    /**
+     * This method validates the Url string supplied to it by calling isUrlValid on it.
+     * If the protocol of the Url is absent, test whether its https or http and append to it.
+     *
+     * @param urlString
+     * @return a proper Url a string that is valid and has either https/http protocol appended to it
+     * @throws NoInternetException if there's no internet connection
+     * @throws ParseException If Url is invalid even after appending the protocol
+     */
     public static String validateAndAppend(String urlString) throws NoInternetException, ParseException {
 
-        boolean invalidUrl;
+        boolean isValidUrl;
         String trimmedWeblink = urlString;
         if (urlString.startsWith(HTTPS_PREFIX) || urlString.startsWith(HTTP_PREFIX)) {
-            invalidUrl = isUrlValid(urlString);
+            isValidUrl = isUrlValid(urlString);
         } else if (!isUrlValid(prependHttps(urlString))) {
-            invalidUrl = isUrlValid(prependHttp(urlString));
+            isValidUrl = isUrlValid(prependHttp(urlString));
             trimmedWeblink = prependHttp(urlString);
         } else {
-            invalidUrl = isUrlValid(prependHttps(urlString));
+            isValidUrl = isUrlValid(prependHttps(urlString));
             trimmedWeblink = prependHttps(urlString);
         }
 
-        if (!invalidUrl) {
+        if (!isValidUrl) {
             throw new ParseException(INVALID_URL_MESSAGE);
         } else {
             return trimmedWeblink;

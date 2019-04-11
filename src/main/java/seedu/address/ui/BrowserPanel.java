@@ -9,7 +9,6 @@ import javafx.stage.Stage;
 
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.NoInternetException;
-import seedu.address.commons.util.WebUtil;
 import seedu.address.model.restaurant.Weblink;
 
 /**

@@ -18,7 +18,7 @@ import seedu.address.logic.commands.management.ListCardsCommand;
 import seedu.address.logic.commands.management.ListLessonsCommand;
 import seedu.address.logic.commands.management.OpenLessonCommand;
 import seedu.address.logic.commands.management.ReloadLessonsCommand;
-import seedu.address.logic.commands.management.SetQuestionAnswerCommand;
+import seedu.address.logic.commands.management.SetTestCommand;
 import seedu.address.logic.commands.quiz.QuizStartCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -79,8 +79,8 @@ public class ManagementModeParser implements Parser<Command> {
         case CloseLessonCommand.COMMAND_WORD:
             return new CloseLessonCommand();
 
-        case SetQuestionAnswerCommand.COMMAND_WORD:
-            return new SetQuestionAnswerParser().parse(arguments);
+        case SetTestCommand.COMMAND_WORD:
+            return new SetTestParser().parse(arguments);
 
         case AddCardCommand.COMMAND_WORD:
             return new AddCardParser().parse(arguments);

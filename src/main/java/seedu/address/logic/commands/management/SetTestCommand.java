@@ -23,11 +23,11 @@ import seedu.address.model.modelmanager.Model;
  * It requires a {@link ManagementModel} to be passed into the {@link #execute(Model, CommandHistory)}
  * command.
  */
-public class SetQuestionAnswerCommand extends ManagementCommand {
+public class SetTestCommand extends ManagementCommand {
     /**
      * The word a user must enter to call this command.
      */
-    public static final String COMMAND_WORD = "setQA";
+    public static final String COMMAND_WORD = "setTest";
     /**
      * Instructions on command usage and parameters.
      */
@@ -66,13 +66,13 @@ public class SetQuestionAnswerCommand extends ManagementCommand {
      */
     private final Index answerIndex;
     /**
-     * Creates an SetQuestionAnswerCommand to set the question and answer core indices of
+     * Creates an SetTestCommand to set the question and answer core indices of
      * the specified {@link Lesson}.
      *
      * @param questionIndex the index of the {@link Lesson} to be deleted
      * @param answerIndex ew
      */
-    public SetQuestionAnswerCommand(Index questionIndex, Index answerIndex) {
+    public SetTestCommand(Index questionIndex, Index answerIndex) {
         this.questionIndex = questionIndex;
         this.answerIndex = answerIndex;
     }
@@ -119,19 +119,19 @@ public class SetQuestionAnswerCommand extends ManagementCommand {
 
     /**
      * Returns true if {@code other} is the same object or if it is also a
-     * {@link SetQuestionAnswerCommand} attempting to set the same question and answer index.
+     * {@link SetTestCommand} attempting to set the same question and answer index.
      *
      * @param other the other object to compare this object to
      * @return true if {@code other} is the same object or if it is also a
-     * {@link SetQuestionAnswerCommand} attempting to set the same question and answer index.
+     * {@link SetTestCommand} attempting to set the same question and answer index.
      */
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || ((other instanceof SetQuestionAnswerCommand // instanceof handles nulls
+                || ((other instanceof SetTestCommand // instanceof handles nulls
                 && questionIndex.getZeroBased()
-                == ((SetQuestionAnswerCommand) other).questionIndex.getZeroBased()
+                == ((SetTestCommand) other).questionIndex.getZeroBased()
                 && answerIndex.getZeroBased()
-                == ((SetQuestionAnswerCommand) other).answerIndex.getZeroBased()));
+                == ((SetTestCommand) other).answerIndex.getZeroBased()));
     }
 }

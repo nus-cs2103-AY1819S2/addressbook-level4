@@ -7,22 +7,22 @@ import static seedu.address.logic.parser.Syntax.PREFIX_CORE_QUESTION;
 import java.util.Optional;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.management.SetQuestionAnswerCommand;
+import seedu.address.logic.commands.management.SetTestCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
- * Parses input arguments and creates a new {@link SetQuestionAnswerCommand} object.
+ * Parses input arguments and creates a new {@link SetTestCommand} object.
  */
-public class SetQuestionAnswerParser implements Parser<SetQuestionAnswerCommand> {
+public class SetTestParser implements Parser<SetTestCommand> {
 
     /**
      * Parses the given {@code String} of arguments in the context of the
-     * {@link SetQuestionAnswerCommand} and returns an {@link SetQuestionAnswerCommand} object
+     * {@link SetTestCommand} and returns an {@link SetTestCommand} object
      * for execution.
      *
      * @throws ParseException if the user input does not conform the expected format
      */
-    public SetQuestionAnswerCommand parse(String args) throws ParseException {
+    public SetTestCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_CORE_QUESTION, PREFIX_CORE_ANSWER);
 
@@ -33,14 +33,14 @@ public class SetQuestionAnswerParser implements Parser<SetQuestionAnswerCommand>
                 || !answer.isPresent()
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    SetQuestionAnswerCommand.MESSAGE_USAGE));
+                    SetTestCommand.MESSAGE_USAGE));
         } else {
             int qIndex = Integer.parseInt(question.get());
             int aIndex = Integer.parseInt(answer.get());
             Index questionIndex = Index.fromOneBased(qIndex);
             Index answerIndex = Index.fromOneBased(aIndex);
 
-            return new SetQuestionAnswerCommand(questionIndex, answerIndex);
+            return new SetTestCommand(questionIndex, answerIndex);
         }
     }
 }

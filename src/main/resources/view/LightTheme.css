@@ -178,7 +178,7 @@
 }
 
 .result-display .label {
-    -fx-text-fill: #383838 !important;
+    -fx-text-fill: #383838;
 }
 
 .main-panel {

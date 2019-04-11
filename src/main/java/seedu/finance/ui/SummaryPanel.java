@@ -25,7 +25,7 @@ public class SummaryPanel extends UiPart<Region> {
 
     private static final String[] PIE_CHART_COLOUR_STYLES =
         { "teal", "red", "yellow", "blue", "orange", "brown", "green", "pink", "black", "grey", "purple",
-            "coral", "tan", "turquoise" };
+            "coral", "tan", "turquoise", "lightGray", "lightSkyBlue", "hotPink", "peachPuff", "cadetBlue" };
 
     @FXML
     private StackPane chartArea;

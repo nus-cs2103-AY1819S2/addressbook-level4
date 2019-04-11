@@ -372,8 +372,8 @@
 }
 
 .yellow {
-    -fx-background-color: yellow !important;
-    -fx-text-fill: black;
+    -fx-background-color: yellow;
+    -fx-text-fill: black !important;
 }
 
 .blue {

@@ -333,6 +333,31 @@
     -fx-background-color: turquoise;
 }
 
+.lightGray {
+    -fx-text-fill: black !important;
+    -fx-background-color: lightGray;
+}
+
+.lightSkyBlue {
+    -fx-text-fill: black !important;
+    -fx-background-color: lightSkyBlue;
+}
+
+.hotPink {
+    -fx-text-fill: white !important;
+    -fx-background-color: hotPink;
+}
+
+.peachPuff {
+    -fx-text-fill: black !important;
+    -fx-background-color: peachPuff;
+}
+
+.cadetBlue {
+    -fx-text-fill: white !important;
+    -fx-background-color: cadetBlue;
+}
+
 .chart-pie-label-line {
     -fx-stroke: black;
     -fx-fill: black;

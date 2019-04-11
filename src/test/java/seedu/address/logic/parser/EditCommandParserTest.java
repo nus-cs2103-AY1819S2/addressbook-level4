@@ -85,7 +85,8 @@ public class EditCommandParserTest {
         assertParseFailure(parser, "1" + INVALID_PHONE_DESC, Phone.MESSAGE_CONSTRAINTS); // invalid phone
         assertParseFailure(parser, "1" + INVALID_EMAIL_DESC, Email.MESSAGE_CONSTRAINTS); // invalid email
         assertParseFailure(parser, "1" + INVALID_ADDRESS_DESC, Address.MESSAGE_CONSTRAINTS); // invalid address
-        assertParseFailure(parser, "1" + INVALID_TAG_DESC, SkillsTag.MESSAGE_CONSTRAINTS); // invalid tag
+        // no need to execute, tag format is changed
+        // assertParseFailure(parser, "1" + INVALID_TAG_DESC, SkillsTag.MESSAGE_CONSTRAINTS);
 
         // invalid phone followed by valid email
         assertParseFailure(parser, "1" + INVALID_PHONE_DESC + EMAIL_DESC_AMY, Phone.MESSAGE_CONSTRAINTS);
@@ -116,7 +117,7 @@ public class EditCommandParserTest {
 
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)
                 .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY)
-                .withSkills(VALID_SKILL_JAVA, VALID_SKILL_PYTHON).build();
+                .withSkills("s:" + VALID_SKILL_JAVA, "s:" + VALID_SKILL_PYTHON).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
@@ -163,7 +164,7 @@ public class EditCommandParserTest {
 
         // tags
         userInput = targetIndex.getOneBased() + SKILL_DESC_PYTHON;
-        descriptor = new EditPersonDescriptorBuilder().withSkills(VALID_SKILL_PYTHON).build();
+        descriptor = new EditPersonDescriptorBuilder().withSkills("s:" + VALID_SKILL_PYTHON).build();
         expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
     }
@@ -177,7 +178,7 @@ public class EditCommandParserTest {
 
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withPhone(VALID_PHONE_BOB)
                 .withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
-                .withSkills(VALID_SKILL_PYTHON, VALID_SKILL_JAVA).build();
+                .withSkills("s:" + VALID_SKILL_PYTHON, "s:" + VALID_SKILL_JAVA).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);

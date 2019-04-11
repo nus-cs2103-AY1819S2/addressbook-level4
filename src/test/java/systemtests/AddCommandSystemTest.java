@@ -262,6 +262,7 @@ public class AddCommandSystemTest extends HotelManagementSystemSystemTest {
     private void assertCommandSuccess(String command, CustomerModel expectedModel, String expectedResultMessage) {
         executeCommand(command);
         assertApplicationDisplaysExpected("", expectedResultMessage, expectedModel);
+
         assertSelectedCardUnchanged();
         assertCommandBoxShowsDefaultStyle();
         assertStatusBarUnchangedExceptSyncStatus();
@@ -269,7 +270,7 @@ public class AddCommandSystemTest extends HotelManagementSystemSystemTest {
 
 
     /**
-     * assertComman
+     * assertCommandFailure
      *
      * @param command
      * @param expectedResultMessage

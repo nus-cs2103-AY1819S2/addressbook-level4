@@ -17,8 +17,10 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteCardCommand;
 import seedu.address.logic.commands.EditCardCommand;
 import seedu.address.logic.commands.FindCardCommand;
+import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCardCommand;
 import seedu.address.logic.commands.StudyDeckCommand;
+import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.AddCardCommandParser;
 import seedu.address.logic.parser.DeleteCardCommandParser;
 import seedu.address.logic.parser.EditCardCommandParser;
@@ -67,6 +69,10 @@ public class CardsView implements ListViewState<Card> {
                 return new BackCommand();
             case StudyDeckCommand.COMMAND_WORD:
                 return new StudyDeckCommand(activeDeck);
+            case UndoCommand.COMMAND_WORD:
+                return new UndoCommand(this);
+            case RedoCommand.COMMAND_WORD:
+                return new RedoCommand(this);
             default:
                 throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }

@@ -21,8 +21,10 @@ import seedu.address.logic.commands.ExportDeckCommand;
 import seedu.address.logic.commands.FindDeckCommand;
 import seedu.address.logic.commands.ImportDeckCommand;
 import seedu.address.logic.commands.OpenDeckCommand;
+import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectDeckCommand;
 import seedu.address.logic.commands.StudyDeckCommand;
+import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.AddDeckCommandParser;
 import seedu.address.logic.parser.DeleteDeckCommandParser;
 import seedu.address.logic.parser.EditDeckCommandParser;
@@ -75,6 +77,10 @@ public class DecksView implements ListViewState<Deck> {
                 return new ExportDeckCommandParser().parse(arguments);
             case ImportDeckCommand.COMMAND_WORD:
                 return new ImportDeckCommandParser().parse(arguments);
+            case UndoCommand.COMMAND_WORD:
+                return new UndoCommand(this);
+            case RedoCommand.COMMAND_WORD:
+                return new RedoCommand(this);
             default:
                 throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }

@@ -10,8 +10,6 @@ import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.ListCommand;
-import seedu.address.logic.commands.RedoCommand;
-import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 
@@ -53,10 +51,6 @@ public class TopDeckParser {
                     return new ListCommand(model.getViewState());
                 case HistoryCommand.COMMAND_WORD:
                     return new HistoryCommand();
-                case UndoCommand.COMMAND_WORD:
-                    return new UndoCommand(model.getViewState());
-                case RedoCommand.COMMAND_WORD:
-                    return new RedoCommand(model.getViewState());
                 case ExitCommand.COMMAND_WORD:
                     return new ExitCommand();
                 case HelpCommand.COMMAND_WORD:

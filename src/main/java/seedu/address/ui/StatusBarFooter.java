@@ -24,13 +24,13 @@ public class StatusBarFooter extends UiPart<Region> {
      * Sets up all the legends in footer.
      */
     private void setUpLegend() {
-        Label questionAnswer = new Label("values to be tested");
+        Label questionAnswer = new Label("Tested");
         questionAnswer.getStyleClass().add("questionAnswer");
 
-        Label core = new Label("values won't be tested");
+        Label core = new Label("Not tested");
         core.getStyleClass().add("core");
 
-        Label hint = new Label("hints");
+        Label hint = new Label("Hint");
         hint.getStyleClass().add("opt");
 
         headers.getChildren().addAll(questionAnswer, core, hint);

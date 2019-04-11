@@ -59,7 +59,7 @@ This section highlights my documentation, coding and other noteworthy contributi
 *** Updated Storage component class diagram of Developer Guide to match our project: https://github.com/CS2103-AY1819S2-T12-3/main/pull/79[#79]
 ** Community:
 *** PRs reviewed (with non-trivial review comments): https://github.com/CS2103-AY1819S2-T12-3/main/pull/24[#24], https://github.com/CS2103-AY1819S2-T12-3/main/pull/27[#27], https://github.com/CS2103-AY1819S2-T12-3/main/pull/40[#40], https://github.com/CS2103-AY1819S2-T12-3/main/pull/42[#42]
-*** Contributed to forum discussions (examples:  https://github.com/nus-cs2103-AY1819S2/forum/issues/6[1], https://github.com/nus-cs2103-AY1819S2/forum/issues/9[2], https://github.com/nus-cs2103-AY1819S2/forum/issues/11[3])
+*** Contributed to forum discussions (examples:  https://github.com/nus-cs2103-AY1819S2/forum/issues/6[1], https://github.com/nus-cs2103-AY1819S2/forum/issues/9[2], https://github.com/nus-cs2103-AY1819S2/forum/issues/11[3], https://github.com/nus-cs2103-AY1819S2/forum/issues/73[4])
 *** Reported bugs and suggestions for other teams in the class (example: https://github.com/nus-cs2103-AY1819S2/addressbook-level4/pull/6[1])
 ** Tools:
 *** Integrated third party libraries (Opencsv and Apache Commons) to the project: https://github.com/CS2103-AY1819S2-T12-3/main/pull/57[#57], https://github.com/CS2103-AY1819S2-T12-3/main/pull/122[#122]

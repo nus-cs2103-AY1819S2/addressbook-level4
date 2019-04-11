@@ -35,10 +35,12 @@ public class BillPanel extends UiPart<Region> {
             if (newValue.getBookingCount() > 0) {
                 stringBuilder.append("Service Booking(s) :\n");
                 for (ServiceType st: newValue.getServiceTypes()) {
-                    stringBuilder.append(String.format("%14s", "[" + st.getName() + "]")
-                        + String.format("  Rate per hour:%2.1f", st.getRatePerHour()) + "\n"
-                        + String.format("  Number of hour(s):%2d", newValue.getServiceTypeBookingCount(st))
-                        + String.format("  Amount:%4.1f", newValue.getServiceTypeBill(st)) + "\n\n");
+                    if (newValue.getServiceTypeBookingCount(st) > 0) {
+                        stringBuilder.append(String.format("%14s", "[" + st.getName() + "]")
+                                + String.format("  Rate per hour:%2.1f", st.getRatePerHour()) + "\n"
+                                + String.format("  Number of hour(s):%2d", newValue.getServiceTypeBookingCount(st))
+                                + String.format("  Amount:%4.1f", newValue.getServiceTypeBill(st)) + "\n\n");
+                    }
                 }
                 stringBuilder.append(String.format("---------------------Sub-Total: %6.1f",
                         newValue.getAmountBooking()) + "\n");
@@ -49,10 +51,12 @@ public class BillPanel extends UiPart<Region> {
                 stringBuilder.append("Room Reservation(s):\n");
 
                 for (RoomType rt: newValue.getRoomTypes()) {
-                    stringBuilder.append(String.format("%14s", "[" + rt.getName() + "]")
-                        + String.format("  Rate per day:%2.1f", rt.getRatePerDay()) + "\n"
-                        + String.format("  Number of day(s):%2d", newValue.getRoomTypeCount(rt))
-                        + String.format("  Amount:%4.1f", newValue.getRoomTypeBill(rt)) + "\n\n");
+                    if (newValue.getRoomTypeCount(rt) > 0) {
+                        stringBuilder.append(String.format("%14s", "[" + rt.getName() + "]")
+                                + String.format("  Rate per day:%2.1f", rt.getRatePerDay()) + "\n"
+                                + String.format("  Number of day(s):%2d", newValue.getRoomTypeCount(rt))
+                                + String.format("  Amount:%4.1f", newValue.getRoomTypeBill(rt)) + "\n\n");
+                    }
                 }
                 stringBuilder.append(String.format("---------------------Sub-Total: %6.1f",
                         newValue.getAmountReservation()) + "\n");

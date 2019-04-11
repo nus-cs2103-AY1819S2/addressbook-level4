@@ -1,23 +1,5 @@
 package systemtests;
 
-import seedu.address.commons.core.Messages;
-import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.AddDoctorCommand;
-
-import seedu.address.logic.commands.RedoCommand;
-import seedu.address.logic.commands.UndoCommand;
-import seedu.address.model.Model;
-import seedu.address.model.person.Doctor;
-import seedu.address.model.person.Gender;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Phone;
-import seedu.address.model.person.Year;
-import seedu.address.model.tag.Specialisation;
-import seedu.address.testutil.DoctorBuilder;
-import seedu.address.testutil.DoctorUtil;
-
-import org.junit.Test;
-
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.commands.CommandTestUtil.GENDER_DESC_ALVINA;
 import static seedu.address.logic.commands.CommandTestUtil.GENDER_DESC_STEVEN;
@@ -42,10 +24,26 @@ import static seedu.address.logic.commands.CommandTestUtil.YEAR_DESC_STEVEN;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SPECIALISATION;
 import static seedu.address.testutil.TypicalDoctors.ALVINA;
 import static seedu.address.testutil.TypicalDoctors.CHARLIE;
-import static seedu.address.testutil.TypicalDoctors.HAN;
 import static seedu.address.testutil.TypicalDoctors.ILLIOT;
 import static seedu.address.testutil.TypicalDoctors.STEVEN;
 import static seedu.address.testutil.TypicalPatients.KEYWORD_MATCHING_MEIER;
+
+import org.junit.Test;
+
+import seedu.address.commons.core.Messages;
+import seedu.address.commons.core.index.Index;
+import seedu.address.logic.commands.AddDoctorCommand;
+import seedu.address.logic.commands.RedoCommand;
+import seedu.address.logic.commands.UndoCommand;
+import seedu.address.model.Model;
+import seedu.address.model.person.Doctor;
+import seedu.address.model.person.Gender;
+import seedu.address.model.person.Name;
+import seedu.address.model.person.Phone;
+import seedu.address.model.person.Year;
+import seedu.address.model.tag.Specialisation;
+import seedu.address.testutil.DoctorBuilder;
+import seedu.address.testutil.DoctorUtil;
 
 public class AddDoctorCommandSystemTest extends DocXSystemTest {
 

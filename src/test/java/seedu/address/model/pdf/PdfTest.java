@@ -14,11 +14,12 @@ import static seedu.address.testutil.TypicalPdfs.SAMPLE_PDF_1_DUPLICATE;
 import static seedu.address.testutil.TypicalPdfs.SAMPLE_PDF_2;
 import static seedu.address.testutil.TypicalPdfs.SAMPLE_PDF_3_ENCRYPTED;
 
+import java.nio.file.Paths;
+
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import java.nio.file.Paths;
 
 import seedu.address.testutil.PdfBuilder;
 

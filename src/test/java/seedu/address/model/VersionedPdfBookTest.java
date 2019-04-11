@@ -17,7 +17,7 @@ package seedu.address.model;
 //import seedu.address.testutil.PdfBookBuilder;
 
 public class VersionedPdfBookTest {
-    /*
+
     private final ReadOnlyPdfBook addressBookWithAmy = new PdfBookBuilder().withPerson(AMY).build();
     private final ReadOnlyPdfBook addressBookWithBob = new PdfBookBuilder().withPerson(BOB).build();
     private final ReadOnlyPdfBook addressBookWithCarl = new PdfBookBuilder().withPerson(CARL).build();

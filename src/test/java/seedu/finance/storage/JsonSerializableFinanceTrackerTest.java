@@ -35,7 +35,7 @@ public class JsonSerializableFinanceTrackerTest {
         FinanceTracker typicalRecordsFinanceTracker = TypicalRecords.getTypicalFinanceTracker();
         assertEquals(financeTrackerFromFile, typicalRecordsFinanceTracker);
     }
-    
+
     @Test
     public void toModelType_duplicateRecords_success() throws Exception {
         JsonSerializableFinanceTracker dataFromFile = JsonUtil.readJsonFile(DUPLICATE_RECORD_FILE,

@@ -1,8 +1,11 @@
 package seedu.finance.ui;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static seedu.finance.ui.testutil.GuiTestAssert.assertCardDisplaysRecord;
 
+import guitests.guihandles.RecordCardHandle;
 import org.junit.Test;
 
 import seedu.finance.model.record.Record;
@@ -11,7 +14,7 @@ import seedu.finance.testutil.RecordBuilder;
 public class RecordCardTest extends GuiUnitTest {
 
     // TODO: Failed Test; need to update
-    /*
+
     @Test
     public void display() {
         // The record must all have a tag to it (category)
@@ -20,7 +23,7 @@ public class RecordCardTest extends GuiUnitTest {
         RecordCard recordCard = new RecordCard(recordWithTags, 2);
         uiPartRule.setUiPart(recordCard);
         assertCardDisplay(recordCard, recordWithTags, 2);
-    }*/
+    }
 
     @Test
     public void equals() {
@@ -54,7 +57,7 @@ public class RecordCardTest extends GuiUnitTest {
      * {@code expectedId}.
      */
     // TODO: Failed Test; need to update
-    /*
+
     private void assertCardDisplay(RecordCard recordCard, Record expectedRecord, int expectedId) {
         guiRobot.pauseForHuman();
 
@@ -65,5 +68,5 @@ public class RecordCardTest extends GuiUnitTest {
 
         // verify record details are displayed correctly
         assertCardDisplaysRecord(expectedRecord, recordCardHandle);
-    }*/
+    }
 }

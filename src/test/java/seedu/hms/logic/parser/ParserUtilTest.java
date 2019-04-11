@@ -29,7 +29,6 @@ import seedu.hms.model.customer.Name;
 import seedu.hms.model.customer.Phone;
 import seedu.hms.model.reservation.roomType.RoomType;
 import seedu.hms.model.tag.Tag;
-import seedu.hms.model.util.DateRange;
 import seedu.hms.model.util.TimeRange;
 import seedu.hms.testutil.Assert;
 

@@ -12,6 +12,7 @@ import seedu.knowitall.logic.commands.UndoCommand;
 import seedu.knowitall.model.Model;
 import seedu.knowitall.model.ModelManager;
 import seedu.knowitall.testutil.TypicalCards;
+import seedu.knowitall.testutil.TypicalIndexes;
 
 public class ClearCommandSystemTest extends CardFolderSystemTest {
 
@@ -34,8 +35,9 @@ public class ClearCommandSystemTest extends CardFolderSystemTest {
         /* Case: redo clearing card folder -> cleared */
         command = RedoCommand.COMMAND_WORD;
         expectedResultMessage = RedoCommand.MESSAGE_SUCCESS;
-        assertCommandSuccess(command, expectedResultMessage,
-                new ModelManager(defaultModel.getActiveCardFolder().getFolderName()));
+        Model expectedModel = new ModelManager(defaultModel.getActiveCardFolder().getFolderName());
+        expectedModel.enterFolder(TypicalIndexes.INDEX_FIRST_CARD_FOLDER.getZeroBased());
+        assertCommandSuccess(command, expectedResultMessage, expectedModel);
         assertSelectedCardUnchanged();
 
         /* Case: selects first card in card list and clears card folder -> cleared and no card selected */
@@ -67,8 +69,10 @@ public class ClearCommandSystemTest extends CardFolderSystemTest {
      * @see CardFolderSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
     private void assertCommandSuccess(String command) {
-        assertCommandSuccess(command, ClearCommand.MESSAGE_SUCCESS,
-                new ModelManager(TypicalCards.getTypicalFolderName()));
+        Model expectedModel = new ModelManager(TypicalCards.getTypicalFolderOneName());
+        expectedModel.enterFolder(TypicalIndexes.INDEX_FIRST_CARD_FOLDER.getZeroBased());
+
+        assertCommandSuccess(command, ClearCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
     /**

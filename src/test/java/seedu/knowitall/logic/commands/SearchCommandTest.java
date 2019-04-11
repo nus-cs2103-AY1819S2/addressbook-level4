@@ -74,7 +74,7 @@ public class SearchCommandTest {
         SearchCommand command = new SearchCommand(predicate);
         expectedModel.updateFilteredCard(predicate);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
-        assertEquals(Collections.emptyList(), model.getFilteredCards());
+        assertEquals(Collections.emptyList(), model.getActiveFilteredCards());
     }
 
     @Test
@@ -84,7 +84,7 @@ public class SearchCommandTest {
         SearchCommand command = new SearchCommand(predicate);
         expectedModel.updateFilteredCard(predicate);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(CARL, ELLE, FIONA), model.getFilteredCards());
+        assertEquals(Arrays.asList(CARL, ELLE, FIONA), model.getActiveFilteredCards());
     }
 
     /**

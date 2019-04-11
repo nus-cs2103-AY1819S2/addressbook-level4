@@ -4,7 +4,7 @@ import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.knowitall.testutil.SampleBloodCards.getBloodFolder;
-import static seedu.knowitall.testutil.TypicalCards.getTypicalCardFolder;
+import static seedu.knowitall.testutil.TypicalCards.getTypicalCardFolderOne;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -35,8 +35,8 @@ import seedu.knowitall.storage.csvmanager.exceptions.CsvManagerNotInitialized;
 
 public class ImportCommandTest {
 
-    private static final String TYPICAL_CARD_FOLDER = "Typical Cards.csv";
-    private static final String TYPICAL_CARD_FOLDER_TEST = "Typical Cards test.csv";
+    private static final String TYPICAL_CARD_FOLDER = "Typical Folder 1.csv";
+    private static final String TYPICAL_CARD_FOLDER_TEST = "Typical Folder 1 test.csv";
     private static final String INVALID_FILE_NAME = "Fake Cards.csv";
     private static final String BLOOD_CARD_FOLDER = "Blood.csv";
     private static final String BLOOD_CARD_FOLDER_TEST = "Blood test.csv";
@@ -47,7 +47,7 @@ public class ImportCommandTest {
 
     private Model model = new ModelManager(new ArrayList<ReadOnlyCardFolder>(), new UserPrefs());
     private Model expectedModel = new ModelManager(new ArrayList<ReadOnlyCardFolder>(Arrays.asList(
-            getTypicalCardFolder(), getBloodFolder())) , new UserPrefs());
+            getTypicalCardFolderOne(), getBloodFolder())) , new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
 
@@ -59,7 +59,7 @@ public class ImportCommandTest {
 
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
 
         // set test paths for model
         model.setTestCsvPath(CsvUtils.DEFAULT_IMPORT_TEST_PATH);
@@ -67,10 +67,10 @@ public class ImportCommandTest {
 
         // initialize respective files
         String testDefaultPath = model.getDefaultPath();
-        typicalCardsFile = new File(testDefaultPath + "/" + TYPICAL_CARD_FOLDER);
-        typicalCardsFileTest = new File(testDefaultPath + "/" + TYPICAL_CARD_FOLDER_TEST);
-        bloodCardsFile = new File(testDefaultPath + "/" + BLOOD_CARD_FOLDER);
-        bloodCardsTestFile = new File(testDefaultPath + "/" + BLOOD_CARD_FOLDER_TEST);
+        typicalCardsFile = new File(Paths.get(testDefaultPath, TYPICAL_CARD_FOLDER).toString());
+        typicalCardsFileTest = new File(Paths.get(testDefaultPath, TYPICAL_CARD_FOLDER_TEST).toString());
+        bloodCardsFile = new File(Paths.get(testDefaultPath, BLOOD_CARD_FOLDER).toString());
+        bloodCardsTestFile = new File(Paths.get(testDefaultPath, BLOOD_CARD_FOLDER_TEST).toString());
 
 
         assert typicalCardsFile.exists();

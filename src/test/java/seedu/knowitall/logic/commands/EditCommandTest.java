@@ -58,7 +58,7 @@ public class EditCommandTest {
         Model expectedModel = new ModelManager(Collections.singletonList(new CardFolder(model.getActiveCardFolder())),
                 new UserPrefs());
         expectedModel.enterFolder(model.getActiveCardFolderIndex());
-        expectedModel.setCard(model.getFilteredCards().get(0), editedCard);
+        expectedModel.setCard(model.getActiveFilteredCards().get(0), editedCard);
         expectedModel.commitActiveCardFolder();
 
         assertCommandSuccess(editCommand, model, commandHistory, expectedMessage, expectedModel);
@@ -66,8 +66,8 @@ public class EditCommandTest {
 
     @Test
     public void execute_someFieldsSpecifiedUnfilteredList_success() {
-        Index indexLastCard = Index.fromOneBased(model.getFilteredCards().size());
-        Card lastCard = model.getFilteredCards().get(indexLastCard.getZeroBased());
+        Index indexLastCard = Index.fromOneBased(model.getActiveFilteredCards().size());
+        Card lastCard = model.getActiveFilteredCards().get(indexLastCard.getZeroBased());
 
         CardBuilder cardInList = new CardBuilder(lastCard);
         Card editedCard = cardInList.withQuestion(VALID_QUESTION_2).withAnswer(VALID_ANSWER_2)
@@ -91,7 +91,7 @@ public class EditCommandTest {
     @Test
     public void execute_noFieldSpecifiedUnfilteredList_success() {
         EditCommand editCommand = new EditCommand(INDEX_FIRST_CARD, new EditCommand.EditCardDescriptor());
-        Card editedCard = model.getFilteredCards().get(INDEX_FIRST_CARD.getZeroBased());
+        Card editedCard = model.getActiveFilteredCards().get(INDEX_FIRST_CARD.getZeroBased());
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_CARD_SUCCESS, editedCard);
 
@@ -107,7 +107,7 @@ public class EditCommandTest {
     public void execute_filteredList_success() {
         showCardAtIndex(model, INDEX_FIRST_CARD);
 
-        Card cardInFilteredList = model.getFilteredCards().get(INDEX_FIRST_CARD.getZeroBased());
+        Card cardInFilteredList = model.getActiveFilteredCards().get(INDEX_FIRST_CARD.getZeroBased());
         Card editedCard = new CardBuilder(cardInFilteredList).withQuestion(VALID_QUESTION_2).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_CARD,
                 new EditCardDescriptorBuilder().withQuestion(VALID_QUESTION_2).build());
@@ -117,7 +117,7 @@ public class EditCommandTest {
         Model expectedModel = new ModelManager(Collections.singletonList(new CardFolder(model.getActiveCardFolder())),
                 new UserPrefs());
         expectedModel.enterFolder(model.getActiveCardFolderIndex());
-        expectedModel.setCard(model.getFilteredCards().get(0), editedCard);
+        expectedModel.setCard(model.getActiveFilteredCards().get(0), editedCard);
         expectedModel.commitActiveCardFolder();
 
         assertCommandSuccess(editCommand, model, commandHistory, expectedMessage, expectedModel);
@@ -133,7 +133,7 @@ public class EditCommandTest {
 
     @Test
     public void execute_duplicateCardUnfilteredList_failure() {
-        Card firstCard = model.getFilteredCards().get(INDEX_FIRST_CARD.getZeroBased());
+        Card firstCard = model.getActiveFilteredCards().get(INDEX_FIRST_CARD.getZeroBased());
         EditCardDescriptor descriptor = new EditCardDescriptorBuilder(firstCard).build();
         EditCommand editCommand = new EditCommand(INDEX_SECOND_CARD, descriptor);
 
@@ -154,7 +154,7 @@ public class EditCommandTest {
 
     @Test
     public void execute_invalidCardIndexUnfilteredList_failure() {
-        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredCards().size() + 1);
+        Index outOfBoundIndex = Index.fromOneBased(model.getActiveFilteredCards().size() + 1);
         EditCommand.EditCardDescriptor descriptor =
                 new EditCardDescriptorBuilder().withQuestion(VALID_QUESTION_2).build();
         EditCommand editCommand = new EditCommand(outOfBoundIndex, descriptor);
@@ -182,7 +182,7 @@ public class EditCommandTest {
     @Test
     public void executeUndoRedo_validIndexUnfilteredList_success() throws Exception {
         Card editedCard = new CardBuilder().build();
-        Card cardToEdit = model.getFilteredCards().get(INDEX_FIRST_CARD.getZeroBased());
+        Card cardToEdit = model.getActiveFilteredCards().get(INDEX_FIRST_CARD.getZeroBased());
         EditCommand.EditCardDescriptor descriptor = new EditCardDescriptorBuilder(editedCard).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_CARD, descriptor);
         Model expectedModel = new ModelManager(Collections.singletonList(new CardFolder(model.getActiveCardFolder())),
@@ -205,7 +205,7 @@ public class EditCommandTest {
 
     @Test
     public void executeUndoRedo_invalidIndexUnfilteredList_failure() {
-        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredCards().size() + 1);
+        Index outOfBoundIndex = Index.fromOneBased(model.getActiveFilteredCards().size() + 1);
         EditCardDescriptor descriptor = new EditCardDescriptorBuilder()
                 .withQuestion(VALID_QUESTION_2).build();
         EditCommand editCommand = new EditCommand(outOfBoundIndex, descriptor);
@@ -235,7 +235,7 @@ public class EditCommandTest {
         expectedModel.enterFolder(model.getActiveCardFolderIndex());
 
         showCardAtIndex(model, INDEX_SECOND_CARD);
-        Card cardToEdit = model.getFilteredCards().get(INDEX_FIRST_CARD.getZeroBased());
+        Card cardToEdit = model.getActiveFilteredCards().get(INDEX_FIRST_CARD.getZeroBased());
         expectedModel.setCard(cardToEdit, editedCard);
         expectedModel.commitActiveCardFolder();
 
@@ -246,7 +246,7 @@ public class EditCommandTest {
         expectedModel.undoActiveCardFolder();
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
-        assertNotEquals(model.getFilteredCards().get(INDEX_FIRST_CARD.getZeroBased()), cardToEdit);
+        assertNotEquals(model.getActiveFilteredCards().get(INDEX_FIRST_CARD.getZeroBased()), cardToEdit);
         // redo -> edits same second card in unfiltered card list
         expectedModel.redoActiveCardFolder();
         assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);

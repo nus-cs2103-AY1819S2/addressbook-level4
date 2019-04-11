@@ -25,14 +25,14 @@ public class AddFolderCommand extends Command {
     public static final String MESSAGE_SUCCESS = "New card folder added: %1$s";
     public static final String MESSAGE_DUPLICATE_CARD_FOLDER = "This card folder already exists";
 
-    private final CardFolder toAdd;
+    private final String folderNameToAdd;
 
     /**
      * Creates an AddCommand to add the specified {@code Card}
      */
-    public AddFolderCommand(CardFolder cardFolder) {
-        requireNonNull(cardFolder);
-        toAdd = cardFolder;
+    public AddFolderCommand(String folderName) {
+        requireNonNull(folderName);
+        folderNameToAdd = folderName;
     }
 
     @Override
@@ -41,18 +41,18 @@ public class AddFolderCommand extends Command {
         if (model.getState() != State.IN_HOMEDIR) {
             throw new CommandException(Messages.MESSAGE_INVALID_COMMAND_INSIDE_FOLDER);
         }
-        if (model.hasFolder(toAdd)) {
+        if (model.hasFolder(folderNameToAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_CARD_FOLDER);
         }
 
-        model.addFolder(toAdd);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+        model.addFolder(new CardFolder(folderNameToAdd));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, folderNameToAdd));
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof AddFolderCommand // instanceof handles nulls
-                && toAdd.equals(((AddFolderCommand) other).toAdd));
+                && folderNameToAdd.equals(((AddFolderCommand) other).folderNameToAdd));
     }
 }

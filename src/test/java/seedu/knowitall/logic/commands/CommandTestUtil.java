@@ -9,14 +9,13 @@ import static seedu.knowitall.logic.parser.CliSyntax.PREFIX_HINT;
 import static seedu.knowitall.logic.parser.CliSyntax.PREFIX_OPTION;
 import static seedu.knowitall.logic.parser.CliSyntax.PREFIX_QUESTION;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import javafx.collections.transformation.FilteredList;
 import seedu.knowitall.commons.core.index.Index;
 import seedu.knowitall.logic.CommandHistory;
 import seedu.knowitall.logic.commands.exceptions.CommandException;
-import seedu.knowitall.model.CardFolder;
 import seedu.knowitall.model.Model;
 import seedu.knowitall.model.card.Card;
 import seedu.knowitall.model.card.QuestionContainsKeywordsPredicate;
@@ -121,9 +120,10 @@ public class CommandTestUtil {
             String expectedMessage) {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
-        CardFolder expectedCardFolder = new CardFolder(actualModel.getActiveCardFolder());
-        List<Card> expectedFilteredList = new ArrayList<>(actualModel.getFilteredCards());
+        int expectedActiveCardFolderIndex = actualModel.getActiveCardFolderIndex();
+        List<FilteredList<Card>> expectedFilteredCardsList = actualModel.getFilteredCardsList();
         Card expectedSelectedCard = actualModel.getSelectedCard();
+        Model.State expectedState = actualModel.getState();
 
         CommandHistory expectedCommandHistory = new CommandHistory(actualCommandHistory);
 
@@ -132,8 +132,9 @@ public class CommandTestUtil {
             throw new AssertionError("The expected CommandException was not thrown.");
         } catch (CommandException e) {
             assertEquals(expectedMessage, e.getMessage());
-            assertEquals(expectedCardFolder, actualModel.getActiveCardFolder());
-            assertEquals(expectedFilteredList, actualModel.getFilteredCards());
+            assertEquals(expectedState, actualModel.getState());
+            assertEquals(expectedActiveCardFolderIndex, actualModel.getActiveCardFolderIndex());
+            assertEquals(expectedFilteredCardsList, actualModel.getFilteredCardsList());
             assertEquals(expectedSelectedCard, actualModel.getSelectedCard());
             assertEquals(expectedCommandHistory, actualCommandHistory);
         }
@@ -144,20 +145,20 @@ public class CommandTestUtil {
      * {@code model}'s card folder.
      */
     public static void showCardAtIndex(Model model, Index targetIndex) {
-        assertTrue(targetIndex.getZeroBased() < model.getFilteredCards().size());
+        assertTrue(targetIndex.getZeroBased() < model.getActiveFilteredCards().size());
 
-        Card card = model.getFilteredCards().get(targetIndex.getZeroBased());
+        Card card = model.getActiveFilteredCards().get(targetIndex.getZeroBased());
         final String[] splitQuestion = card.getQuestion().fullQuestion.split("\\s+");
         model.updateFilteredCard(new QuestionContainsKeywordsPredicate(Arrays.asList(splitQuestion[0])));
 
-        assertEquals(1, model.getFilteredCards().size());
+        assertEquals(1, model.getActiveFilteredCards().size());
     }
 
     /**
      * Deletes the first card in {@code model}'s filtered list from {@code model}'s card folder.
      */
     public static void deleteFirstCard(Model model) {
-        Card firstCard = model.getFilteredCards().get(0);
+        Card firstCard = model.getActiveFilteredCards().get(0);
         model.deleteCard(firstCard);
         model.commitActiveCardFolder();
     }

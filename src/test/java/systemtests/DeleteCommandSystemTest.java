@@ -62,7 +62,7 @@ public class DeleteCommandSystemTest extends CardFolderSystemTest {
         /* Case: filtered card list, delete index within bounds of card folder and card list -> deleted */
         showCardsWithQuestion(KEYWORD_MATCHING_MEIER);
         Index index = INDEX_FIRST_CARD;
-        assertTrue(index.getZeroBased() < getModel().getFilteredCards().size());
+        assertTrue(index.getZeroBased() < getModel().getActiveFilteredCards().size());
         assertCommandSuccess(index);
 
         /* Case: filtered card list, delete index within bounds of card folder but out of bounds of card list

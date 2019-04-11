@@ -64,7 +64,7 @@ public class HelpCommandSystemTest extends CardFolderSystemTest {
         assertCommandBoxShowsDefaultStyle();
         assertNotEquals(HelpCommand.SHOWING_HELP_MESSAGE, getResultDisplay().getText());
         assertNotEquals(BrowserPanel.DEFAULT_CARD_PAGE, getBrowserPanel().getCurrentQuestion());
-        assertListMatching(getCardListPanel(), getModel().getFilteredCards());
+        assertListMatching(getCardListPanel(), getModel().getActiveFilteredCards());
 
         // note: the select command tested above does not update the status bar
         executeCommand(DeleteCommand.COMMAND_WORD + " " + INDEX_FIRST_CARD.getOneBased());

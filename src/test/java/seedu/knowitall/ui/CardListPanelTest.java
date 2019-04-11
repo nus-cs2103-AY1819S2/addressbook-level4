@@ -5,7 +5,7 @@ import static java.time.Duration.ofMillis;
 import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTimeoutPreemptively;
 
-import static seedu.knowitall.testutil.TypicalCards.getTypicalCards;
+import static seedu.knowitall.testutil.TypicalCards.getTypicalFolderOneCards;
 import static seedu.knowitall.testutil.TypicalIndexes.INDEX_SECOND_CARD;
 import static seedu.knowitall.ui.testutil.GuiTestAssert.assertCardDisplaysCard;
 import static seedu.knowitall.ui.testutil.GuiTestAssert.assertCardEquals;
@@ -28,7 +28,7 @@ import seedu.knowitall.model.card.Score;
 
 public class CardListPanelTest extends GuiUnitTest {
     private static final ObservableList<Card> TYPICAL_CARDS =
-            FXCollections.observableList(getTypicalCards());
+            FXCollections.observableList(getTypicalFolderOneCards());
 
     private static final long CARD_CREATION_AND_DELETION_TIMEOUT = 2500;
 

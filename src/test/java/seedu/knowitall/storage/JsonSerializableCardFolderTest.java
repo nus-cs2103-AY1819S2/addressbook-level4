@@ -29,7 +29,7 @@ public class JsonSerializableCardFolderTest {
         JsonSerializableCardFolder dataFromFile = JsonUtil.readJsonFile(TYPICAL_CARDS_FILE,
                 JsonSerializableCardFolder.class).get();
         CardFolder cardFolderFromFile = dataFromFile.toModelType();
-        CardFolder typicalCardsCardFolder = TypicalCards.getTypicalCardFolder();
+        CardFolder typicalCardsCardFolder = TypicalCards.getTypicalCardFolderOne();
         assertEquals(cardFolderFromFile, typicalCardsCardFolder);
     }
 

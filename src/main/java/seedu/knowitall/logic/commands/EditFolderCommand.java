@@ -60,7 +60,7 @@ public class EditFolderCommand extends Command {
 
         CardFolder folderToEdit = folderList.get(index.getZeroBased());
 
-        if (!folderToEdit.getFolderName().equals(newName) && model.hasFolderWithName(newName)) {
+        if (!folderToEdit.getFolderName().equals(newName) && model.hasFolder(newName)) {
             throw new CommandException(MESSAGE_DUPLICATE_FOLDER);
         }
 

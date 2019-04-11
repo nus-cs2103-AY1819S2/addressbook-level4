@@ -1,7 +1,7 @@
 package seedu.knowitall.storage;
 
 import static org.junit.Assert.assertEquals;
-import static seedu.knowitall.testutil.TypicalCards.getTypicalCardFolder;
+import static seedu.knowitall.testutil.TypicalCards.getTypicalCardFolderOne;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -59,7 +59,7 @@ public class StorageManagerTest {
          * {@link JsonCardFolderStorage} class.
          * More extensive testing of UserPref saving/reading is done in {@link JsonCardFolderStorageTest} class.
          */
-        CardFolder original = getTypicalCardFolder();
+        CardFolder original = getTypicalCardFolderOne();
         List<ReadOnlyCardFolder> savedFolders = new ArrayList<>();
         savedFolders.add(original);
         storageManager.saveCardFolders(savedFolders, testFolder.getRoot().toPath());

@@ -82,7 +82,7 @@ public abstract class CardFolderSystemTest {
      * Returns the data to be loaded into the file in {@link #getDataFileLocation()}.
      */
     protected CardFolder getInitialData() {
-        return TypicalCards.getTypicalCardFolder();
+        return TypicalCards.getTypicalCardFolderOne();
     }
 
     /**
@@ -137,7 +137,7 @@ public abstract class CardFolderSystemTest {
      */
     protected void showAllCards() {
         executeCommand(ListCommand.COMMAND_WORD);
-        assertEquals(getModel().getActiveCardFolder().getCardList().size(), getModel().getFilteredCards().size());
+        assertEquals(getModel().getActiveCardFolder().getCardList().size(), getModel().getActiveFilteredCards().size());
     }
 
     /**
@@ -145,7 +145,7 @@ public abstract class CardFolderSystemTest {
      */
     protected void showCardsWithQuestion(String keyword) {
         executeCommand(SearchCommand.COMMAND_WORD + " " + keyword);
-        assertTrue(getModel().getFilteredCards().size() < getModel().getActiveCardFolder().getCardList().size());
+        assertTrue(getModel().getActiveFilteredCards().size() < getModel().getActiveCardFolder().getCardList().size());
     }
 
     /**
@@ -174,7 +174,7 @@ public abstract class CardFolderSystemTest {
         assertEquals(expectedCommandInput, getCommandBox().getInput());
         assertEquals(expectedResultMessage, getResultDisplay().getText());
         assertEquals(new CardFolder(expectedModel.getActiveCardFolder()), testApp.readFirstStorageCardFolder());
-        assertListMatching(getCardListPanel(), expectedModel.getFilteredCards());
+        assertListMatching(getCardListPanel(), expectedModel.getActiveFilteredCards());
     }
 
     /**
@@ -273,7 +273,7 @@ public abstract class CardFolderSystemTest {
     private void assertApplicationStartingStateIsCorrect(String resultDisplayString) {
         assertEquals("", getCommandBox().getInput());
         assertEquals(resultDisplayString, getResultDisplay().getText());
-        assertListMatching(getCardListPanel(), getModel().getFilteredCards());
+        assertListMatching(getCardListPanel(), getModel().getActiveFilteredCards());
         assertEquals("", getBrowserPanel().getCurrentQuestion());
         assertStatusBarIsInFolder(getModel().getActiveCardFolderName());
     }

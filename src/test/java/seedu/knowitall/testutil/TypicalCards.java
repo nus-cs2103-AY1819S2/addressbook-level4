@@ -49,7 +49,11 @@ public class TypicalCards {
     public static final Card CARD_2 = new CardBuilder().withQuestion(VALID_QUESTION_2).withAnswer(VALID_ANSWER_2)
             .withScore("0/0").withHint(VALID_HINT_HUSBAND).build();
 
-    public static final String TYPICAL_FOLDER_NAME = "Typical Cards";
+    public static final String TYPICAL_FOLDER_ONE_NAME = "Typical Folder 1";
+
+    public static final String TYPICAL_FOLDER_TWO_NAME = "Typical Folder 2";
+
+    public static final String EMPTY_FOLDER_NAME = "Empty Folder";
 
     public static final List<Double> TYPICAL_FOLDER_SCORES = new ArrayList<>(Arrays.asList(0.5));
 
@@ -59,26 +63,51 @@ public class TypicalCards {
 
     // TODO: Add more folders
     public static List<ReadOnlyCardFolder> getTypicalCardFolders() {
-        return Collections.singletonList(getTypicalCardFolder());
+        return Collections.singletonList(getTypicalCardFolderOne());
     }
 
     /**
-     * Returns an {@code CardFolder} with all the typical cards.
+     * Returns a {@code CardFolder} with the cards from Typical Folder One.
      */
-    public static CardFolder getTypicalCardFolder() {
-        CardFolder folder = new CardFolder(getTypicalFolderName());
+    public static CardFolder getTypicalCardFolderOne() {
+        CardFolder folder = new CardFolder(getTypicalFolderOneName());
         folder.setFolderScores(TYPICAL_FOLDER_SCORES);
-        for (Card card : getTypicalCards()) {
+        for (Card card : getTypicalFolderOneCards()) {
             folder.addCard(card);
         }
         return folder;
     }
 
-    public static List<Card> getTypicalCards() {
+    /**
+     * Returns a {@code CardFolder} with the cards from Typical Folder Two.
+     */
+    public static CardFolder getTypicalCardFolderTwo() {
+        CardFolder folder = new CardFolder(getTypicalFolderTwoName());
+        folder.setFolderScores(TYPICAL_FOLDER_SCORES);
+        for (Card card : getTypicalFolderTwoCards()) {
+            folder.addCard(card);
+        }
+        return folder;
+    }
+
+    public static CardFolder getEmptyCardFolder() {
+        return new CardFolder(EMPTY_FOLDER_NAME);
+    }
+
+    public static List<Card> getTypicalFolderOneCards() {
         return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
     }
 
-    public static String getTypicalFolderName() {
-        return TYPICAL_FOLDER_NAME;
+    public static List<Card> getTypicalFolderTwoCards() {
+        return new ArrayList<>(Arrays.asList(ALICE, CARL, ELLE, GEORGE));
     }
+
+    public static String getTypicalFolderOneName() {
+        return TYPICAL_FOLDER_ONE_NAME;
+    }
+
+    public static String getTypicalFolderTwoName() {
+        return TYPICAL_FOLDER_TWO_NAME;
+    }
+
 }

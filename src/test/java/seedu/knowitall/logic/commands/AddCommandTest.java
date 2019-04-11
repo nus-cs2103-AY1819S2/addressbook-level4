@@ -20,6 +20,7 @@ import org.junit.rules.ExpectedException;
 import javafx.beans.InvalidationListener;
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import seedu.knowitall.commons.core.GuiSettings;
 import seedu.knowitall.logic.CommandHistory;
 import seedu.knowitall.logic.commands.exceptions.CommandException;
@@ -258,13 +259,8 @@ public class AddCommandTest {
         }
 
         @Override
-        public boolean hasFolder(CardFolder cardFolder) {
+        public boolean hasFolder(String folderName) {
             throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public boolean hasFolderWithName(String name) {
-            return false;
         }
 
         @Override
@@ -298,7 +294,12 @@ public class AddCommandTest {
         }
 
         @Override
-        public ObservableList<Card> getFilteredCards() {
+        public List<FilteredList<Card>> getFilteredCardsList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Card> getActiveFilteredCards() {
             throw new AssertionError("This method should not be called.");
         }
 

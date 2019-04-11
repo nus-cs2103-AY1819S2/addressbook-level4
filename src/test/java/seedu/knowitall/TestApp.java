@@ -132,7 +132,7 @@ public class TestApp extends MainApp {
         Model copy = new ModelManager(Collections.singletonList(model.getActiveCardFolder()),
                 new UserPrefs());
         copy.enterFolder(model.getActiveCardFolderIndex());
-        ModelHelper.setFilteredList(copy, model.getFilteredCards());
+        ModelHelper.setFilteredList(copy, model.getActiveFilteredCards());
         return copy;
     }
 

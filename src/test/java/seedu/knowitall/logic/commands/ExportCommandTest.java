@@ -2,7 +2,7 @@ package seedu.knowitall.logic.commands;
 
 import static org.junit.Assert.assertEquals;
 import static seedu.knowitall.testutil.SampleBloodCards.getBloodFolder;
-import static seedu.knowitall.testutil.TypicalCards.getTypicalCardFolder;
+import static seedu.knowitall.testutil.TypicalCards.getTypicalCardFolderOne;
 
 import java.io.File;
 
@@ -28,7 +28,7 @@ public class ExportCommandTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
-    private Model model = new ModelManager(Arrays.asList(getTypicalCardFolder(), getBloodFolder()),
+    private Model model = new ModelManager(Arrays.asList(getTypicalCardFolderOne(), getBloodFolder()),
             new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 

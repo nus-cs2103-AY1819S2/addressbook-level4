@@ -39,7 +39,7 @@ public class SearchCommand extends Command {
         requireNonNull(model);
         model.updateFilteredCard(predicate);
         return new CommandResult(
-                String.format(Messages.MESSAGE_CARDS_LISTED_OVERVIEW, model.getFilteredCards().size()));
+                String.format(Messages.MESSAGE_CARDS_LISTED_OVERVIEW, model.getActiveFilteredCards().size()));
     }
 
     @Override

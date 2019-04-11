@@ -201,7 +201,7 @@ public class MainWindow extends UiPart<Stage> {
      * Changes application mode.
      */
     @FXML
-    private void handleChangeMode(Mode mode) {
+    private void handleChangeMode(Mode mode, boolean isDaily, boolean isMonthly, boolean isYearly) {
         requireNonNull(mode);
         browserPlaceholder.getChildren().clear();
         listPanelPlaceholder.getChildren().clear();
@@ -238,8 +238,6 @@ public class MainWindow extends UiPart<Stage> {
 
         case MENU_MODE:
             // TODO: change to browser panel to app logo
-            // tableFlowPanel = new TableFlowPanel(logic.getFilteredTableList(), scrollPane);
-            // browserPlaceholder.getChildren().add(tableFlowPanel.getRoot());
 
             menuListPanel = new MenuListPanel(logic.getFilteredMenuItemList(), logic.selectedMenuItemProperty(),
                     logic::setSelectedMenuItem);
@@ -256,21 +254,28 @@ public class MainWindow extends UiPart<Stage> {
             billPanel = new BillPanel(logic.getRecentBill());
             browserPlaceholder.getChildren().add(billPanel.getRoot());
 
-            statusBarFooter.updateMode("Bill Mode");
+            statusBarFooter.updateMode("Table Mode");
             changeTheme(BILL_MODE_THEME);
             break;
 
         case STATISTICS_MODE:
-
-            //TODO: Bava, need to change the input list to menuItemList that is sorted according to popularity
-            popularMenuListPanel = new PopularMenuListPanel(logic.getFilteredMenuItemList(),
+            popularMenuListPanel = new PopularMenuListPanel(logic.getFilteredSortedMenuItemList(),
                     logic.selectedMenuItemProperty(), logic::setSelectedMenuItem);
             listPanelPlaceholder.getChildren().add(popularMenuListPanel.getRoot());
 
-            //TODO: add different cases for the monthly, yearly statistics
-            statisticsFlowPanel =
-                    new StatisticsFlowPanel(logic.getFilteredDailyRevenueList(), scrollPane, true, false, false);
-            browserPlaceholder.getChildren().add(statisticsFlowPanel.getRoot());
+            if (isYearly) {
+                statisticsFlowPanel =
+                        new StatisticsFlowPanel(logic.getFilteredRevenueList(), scrollPane, false, false, true);
+                browserPlaceholder.getChildren().add(statisticsFlowPanel.getRoot());
+            } else if (isMonthly) {
+                statisticsFlowPanel =
+                        new StatisticsFlowPanel(logic.getFilteredRevenueList(), scrollPane, false, true, false);
+                browserPlaceholder.getChildren().add(statisticsFlowPanel.getRoot());
+            } else {
+                statisticsFlowPanel =
+                        new StatisticsFlowPanel(logic.getFilteredRevenueList(), scrollPane, true, false, false);
+                browserPlaceholder.getChildren().add(statisticsFlowPanel.getRoot());
+            }
 
             statusBarFooter.updateMode("Statistics Mode");
             changeTheme(STATISTIC_MODE_THEME);
@@ -292,9 +297,12 @@ public class MainWindow extends UiPart<Stage> {
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
             Mode newMode = commandResult.newModeStatus();
+            boolean isDaily = commandResult.isDaily();
+            boolean isMonthly = commandResult.isMonthly();
+            boolean isYearly = commandResult.isYearly();
 
             if (newMode != null) {
-                handleChangeMode(newMode);
+                handleChangeMode(newMode, isDaily, isMonthly, isYearly);
             }
 
             if (commandResult.isShowHelp()) {

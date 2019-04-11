@@ -4,54 +4,54 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.statistics.DailyRevenue;
 import seedu.address.model.statistics.Day;
 import seedu.address.model.statistics.Month;
+import seedu.address.model.statistics.Revenue;
 import seedu.address.model.statistics.Statistics;
 import seedu.address.model.statistics.Year;
 
 /**
  * Jackson-friendly version of {@link Statistics}.
  */
-class JsonAdaptedDailyRevenue {
+class JsonAdaptedRevenue {
 
-    public static final String MISSING_FIELD_MESSAGE_FORMAT = "Daily Revenue item's %s field is missing!";
+    public static final String MISSING_FIELD_MESSAGE_FORMAT = "Revenue item's %s field is missing!";
 
     private final String day;
     private final String month;
     private final String year;
-    private final String totalDailyRevenue;
+    private final String totalRevenue;
 
     /**
-     * Constructs a {@code JsonAdaptedDailyRevenue} with the given daily revenue details.
+     * Constructs a {@code JsonAdaptedRevenue} with the given revenue details.
      */
     @JsonCreator
-    public JsonAdaptedDailyRevenue(@JsonProperty("day") String day,
-                                   @JsonProperty("month") String month,
-                                   @JsonProperty("year") String year,
-                                   @JsonProperty("totalDailyRevenue") String totalDailyRevenue) {
+    public JsonAdaptedRevenue(@JsonProperty("day") String day,
+                              @JsonProperty("month") String month,
+                              @JsonProperty("year") String year,
+                              @JsonProperty("totalRevenue") String totalRevenue) {
         this.day = day;
         this.month = month;
         this.year = year;
-        this.totalDailyRevenue = totalDailyRevenue;
+        this.totalRevenue = totalRevenue;
     }
 
     /**
      * Converts a given {@code Bill} into this class for Jackson use.
      */
-    public JsonAdaptedDailyRevenue(DailyRevenue source) {
+    public JsonAdaptedRevenue(Revenue source) {
         day = String.valueOf(source.getDay());
         month = String.valueOf(source.getMonth());
         year = String.valueOf(source.getYear());
-        totalDailyRevenue = String.valueOf(source.getTotalDailyRevenue());
+        totalRevenue = String.valueOf(source.getTotalRevenue());
     }
 
     /**
-     * Converts this Jackson-friendly adapted daily revenue object into the model's {@code DailyRevenue} object.
+     * Converts this Jackson-friendly adapted revenue object into the model's {@code Revenue} object.
      *
-     * @throws IllegalValueException if there were any data constraints violated in the adapted daily revenue.
+     * @throws IllegalValueException if there were any data constraints violated in the adapted revenue.
      */
-    public DailyRevenue toModelType() throws IllegalValueException {
+    public Revenue toModelType() throws IllegalValueException {
         if (day == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "Day"));
         }
@@ -76,12 +76,23 @@ class JsonAdaptedDailyRevenue {
             throw new IllegalValueException(Year.MESSAGE_CONSTRAINTS);
         }
 
+        if (totalRevenue == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "TotalRevenue"));
+        }
+
+        try {
+            Float.parseFloat(totalRevenue);
+        } catch (NumberFormatException nfe) {
+            throw new IllegalValueException("Total revenue should be a number.");
+        }
+
         final Day modelDay = new Day(day);
         final Month modelMonth = new Month(month);
         final Year modelYear = new Year(year);
-        final float modelTotalDailyRevenue = Float.parseFloat(totalDailyRevenue);
 
-        return new DailyRevenue(modelDay, modelMonth, modelYear, modelTotalDailyRevenue);
+        final float modelTotalRevenue = Float.parseFloat(totalRevenue);
+
+        return new Revenue(modelDay, modelMonth, modelYear, modelTotalRevenue);
     }
 
 }

@@ -10,7 +10,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.menu.MenuItem;
 import seedu.address.model.order.OrderItem;
 import seedu.address.model.statistics.Bill;
-import seedu.address.model.statistics.DailyRevenue;
+import seedu.address.model.statistics.Revenue;
 import seedu.address.model.table.Table;
 import seedu.address.model.table.TableNumber;
 import seedu.address.model.table.TableStatus;
@@ -25,7 +25,7 @@ public interface Model {
     Predicate<MenuItem> PREDICATE_SHOW_ALL_MENU_ITEMS = unused -> true;
     Predicate<OrderItem> PREDICATE_SHOW_ALL_ORDER_ITEMS = unused -> true;
     Predicate<Table> PREDICATE_SHOW_ALL_TABLES = unused -> true;
-    Predicate<DailyRevenue> PREDICATE_SHOW_ALL_DAILY_REVENUE = unused -> true;
+    Predicate<Revenue> PREDICATE_SHOW_ALL_REVENUE = unused -> true;
 
     /**
      * Returns the user prefs.
@@ -238,60 +238,60 @@ public interface Model {
     void updateOrders();
 
     /**
-     * Returns true if a daily revenue with the same identity as {@code dailyRevenue} exists in the statistics.
+     * Returns true if a revenue with the same identity as {@code revenue} exists in the statistics.
      */
-    boolean hasDailyRevenue(DailyRevenue dailyRevenue);
+    boolean hasRevenue(Revenue revenue);
 
     /**
-     * Deletes the given daily revenue item from Statistics.
-     * The daily revenue must exist in the RestOrRant's Statistics.
+     * Deletes the given revenue item from Statistics.
+     * The revenue must exist in the RestOrRant's Statistics.
      */
-    void deleteDailyRevenue(DailyRevenue target);
+    void deleteRevenue(Revenue target);
 
     /**
-     * Adds the given daily revenue to the daily revenue list.
+     * Adds the given revenue to the revenue list.
      */
-    void addDailyRevenue(DailyRevenue dailyRevenue);
+    void addRevenue(Revenue revenue);
 
     /**
-     * Replaces the given daily revenue {@code target} with {@code editedDailyRevenue}.
-     * {@code target} must exist in the daily revenue list.
+     * Replaces the given revenue {@code target} with {@code editedRevenue}.
+     * {@code target} must exist in the revenue list.
      */
-    void setDailyRevenue(DailyRevenue target, DailyRevenue editedDailyRevenue);
+    void setRevenue(Revenue target, Revenue editedRevenue);
 
     /**
-     * Returns an unmodifiable view of the filtered daily revenue list
+     * Returns an unmodifiable view of the filtered revenue list
      */
-    ObservableList<DailyRevenue> getFilteredDailyRevenueList();
+    ObservableList<Revenue> getFilteredRevenueList();
 
     /**
-     * Updates the filter of the filtered daily revenue list to filter by the given {@code predicate}
+     * Updates the filter of the filtered revenue list to filter by the given {@code predicate}
      *
      * @throws NullPointerException if {@code predicate} is null.
      */
-    void updateFilteredDailyRevenueList(Predicate<DailyRevenue> predicate);
+    void updateFilteredRevenueList(Predicate<Revenue> predicate);
 
     /**
-     * Selected daily revenue in the daily revenue list.
-     * null if no daily revenue is selected.
+     * Selected  revenue in the revenue list.
+     * null if no revenue is selected.
      */
-    ReadOnlyProperty<DailyRevenue> selectedDailyRevenueProperty();
+    ReadOnlyProperty<Revenue> selectedRevenueProperty();
 
     /**
-     * Returns the selected daily revenue in the filtered daily revenue list.
-     * null if no DailyRevenue is selected.
+     * Returns the selected revenue in the filtered revenue list.
+     * null if no Revenue is selected.
      */
-    DailyRevenue getSelectedDailyRevenue();
+    Revenue getSelectedRevenue();
 
     /**
-     * Sets the selected dailyRevenue in the filtered daily revenue list.
+     * Sets the selected revenue in the filtered revenue list.
      */
-    void setSelectedDailyRevenue(DailyRevenue dailyRevenue);
+    void setSelectedRevenue(Revenue revenue);
 
     /**
-     * Get the DailyRevenue list
+     * Get the Revenue list
      */
-    ObservableList<DailyRevenue> getDailyRevenueList();
+    ObservableList<Revenue> getRevenueList();
 
     /**
      * Recent bill.
@@ -347,6 +347,16 @@ public interface Model {
      * Returns an unmodifiable view of the filtered menu item list
      */
     ObservableList<MenuItem> getFilteredMenuItemList();
+
+    /**
+     * Returns an unmodifiable view of the filtered menu item list sorted by quantity ordered (decreasing)
+     */
+    ObservableList<MenuItem> getFilteredSortedMenuItemList();
+
+    /**
+     * Replaces all menu items with {@code menuItems}.
+     */
+    void setMenuItems(List<MenuItem> menuItems);
 
     /**
      * Updates the filter of the filtered menu item list to filter by the given {@code predicate}

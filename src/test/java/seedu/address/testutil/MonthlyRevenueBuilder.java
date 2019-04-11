@@ -29,7 +29,7 @@ public class MonthlyRevenueBuilder {
     public MonthlyRevenueBuilder(MonthlyRevenue itemToCopy) {
         month = itemToCopy.getMonth();
         year = itemToCopy.getYear();
-        totalMonthlyRevenue = itemToCopy.getTotalMonthlyRevenue();
+        totalMonthlyRevenue = itemToCopy.getTotalRevenue();
     }
 
     /**

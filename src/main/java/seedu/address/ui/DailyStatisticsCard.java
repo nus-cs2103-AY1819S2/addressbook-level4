@@ -1,5 +1,8 @@
 package seedu.address.ui;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
@@ -24,60 +27,29 @@ public class DailyStatisticsCard extends UiPart<Region> {
     public final DailyRevenue dailyRevenue;
 
     @FXML
-    private HBox cardPane;
+    private HBox dailyStatisticsCardPane;
     @FXML
     private Label date;
     @FXML
     private Label totalDailyRevenue;
 
+    private final ArrayList<String> monthsInWords = new
+            ArrayList<>(List.of("-Jan-", "-Feb-", "-Mar-", "-Apr-", "-May-", "-Jun-", "-Jul-", "-Aug-",
+            "-Sep-", "-Oct-", "-Nov-", "-Dec-"));
+
     public DailyStatisticsCard(DailyRevenue dailyRevenue) {
         super(FXML);
         this.dailyRevenue = dailyRevenue;
 
-        switch(Integer.parseInt(this.dailyRevenue.getMonth().toString())) {
+        date.setText(this.dailyRevenue.getDay().toString()
+                + monthsInWords.get(Integer.parseInt(this.dailyRevenue.getMonth().toString()) - 1)
+                + this.dailyRevenue.getYear().toString());
 
-        case 1:
-            date.setText(this.dailyRevenue.getDay().toString() + "-Jan-" + this.dailyRevenue.getYear().toString());
-            break;
-        case 2:
-            date.setText(this.dailyRevenue.getDay().toString() + "-Feb-" + this.dailyRevenue.getYear().toString());
-            break;
-        case 3:
-            date.setText(this.dailyRevenue.getDay().toString() + "-Mar-" + this.dailyRevenue.getYear().toString());
-            break;
-        case 4:
-            date.setText(this.dailyRevenue.getDay().toString() + "-Apr-" + this.dailyRevenue.getYear().toString());
-            break;
-        case 5:
-            date.setText(this.dailyRevenue.getDay().toString() + "-May-" + this.dailyRevenue.getYear().toString());
-            break;
-        case 6:
-            date.setText(this.dailyRevenue.getDay().toString() + "-Jun-" + this.dailyRevenue.getYear().toString());
-            break;
-        case 7:
-            date.setText(this.dailyRevenue.getDay().toString() + "-Jul-" + this.dailyRevenue.getYear().toString());
-            break;
-        case 8:
-            date.setText(this.dailyRevenue.getDay().toString() + "-Aug-" + this.dailyRevenue.getYear().toString());
-            break;
-        case 9:
-            date.setText(this.dailyRevenue.getDay().toString() + "-Sep-" + this.dailyRevenue.getYear().toString());
-            break;
-        case 10:
-            date.setText(this.dailyRevenue.getDay().toString() + "-Oct-" + this.dailyRevenue.getYear().toString());
-            break;
-        case 11:
-            date.setText(this.dailyRevenue.getDay().toString() + "-Nov-" + this.dailyRevenue.getYear().toString());
-            break;
-        case 12:
-            date.setText(this.dailyRevenue.getDay().toString() + "-Dec-" + this.dailyRevenue.getYear().toString());
-            break;
-        default:
-            date.setText(this.dailyRevenue.getDay().toString() + this.dailyRevenue.getMonth().toString()
-                    + this.dailyRevenue.getYear().toString());
+        totalDailyRevenue.setText("$" + String.format("%.2f", this.dailyRevenue.getTotalRevenue()));
+
+        if (dailyRevenue.getTotalRevenue() == 0) {
+            dailyStatisticsCardPane.setStyle("-fx-background-color: #1d1d1d;");
         }
-
-        totalDailyRevenue.setText("$" + String.format("%.2f", this.dailyRevenue.getTotalDailyRevenue()));
     }
 
     @Override

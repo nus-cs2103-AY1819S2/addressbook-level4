@@ -24,7 +24,7 @@ public class YearlyRevenueBuilder {
      */
     public YearlyRevenueBuilder(YearlyRevenue itemToCopy) {
         year = itemToCopy.getYear();
-        totalYearlyRevenue = itemToCopy.getTotalYearlyRevenue();
+        totalYearlyRevenue = itemToCopy.getTotalRevenue();
     }
     /**
      * Sets the {@code Year} of the {@code DailyRevenue} that we are building.

@@ -9,6 +9,7 @@ import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.AddTableCommand;
 import seedu.address.model.Model;
 import seedu.address.model.table.Table;
+import seedu.address.model.table.TableStatus;
 import seedu.address.testutil.RestOrRantUtil;
 import seedu.address.testutil.TableBuilder;
 
@@ -49,8 +50,7 @@ public class AddTableCommandSystemTest extends RestOrRantSystemTest {
 
         /* Case: invalid table status -> rejected */
         command = AddTableCommand.COMMAND_WORD + " " + INVALID_TABLE_STATUS;
-        assertCommandFailure(command,
-                String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, AddTableCommand.MESSAGE_USAGE));
+        assertCommandFailure(command, TableStatus.MESSAGE_CONSTRAINTS);
     }
 
     /**

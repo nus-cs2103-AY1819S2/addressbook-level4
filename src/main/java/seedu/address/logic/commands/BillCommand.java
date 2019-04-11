@@ -15,6 +15,7 @@ import seedu.address.model.menu.ReadOnlyMenu;
 import seedu.address.model.order.OrderItem;
 import seedu.address.model.statistics.Bill;
 import seedu.address.model.statistics.DailyRevenue;
+import seedu.address.model.statistics.Revenue;
 import seedu.address.model.table.Table;
 import seedu.address.model.table.TableStatus;
 
@@ -30,8 +31,8 @@ public class BillCommand extends Command {
     public static final String MESSAGE_SUCCESS = "%1$s";
     public static final String MESSAGE_TABLE_DOES_NOT_EXIST = "This table does not exist.";
     public static final String MESSAGE_MENU_ITEM_NOT_PRESENT = "MenuItem is not received.";
-    public static final String MESSAGE_INCORRECT_MODE = "Incorrect Mode, unable to execute command. Enter tableMode."
-            + "[TABLE_NUMBER]";
+    public static final String MESSAGE_ORDER_ITEM_NOT_SERVED = "Not all orders are served yet. Call bill only when "
+            + "all orders are served.";
 
     private Bill bill;
     private Table tableToBill;
@@ -55,14 +56,15 @@ public class BillCommand extends Command {
     public CommandResult execute(Mode mode, Model model, CommandHistory history) throws CommandException {
         requireAllNonNull(mode, model, history);
 
-        if (!mode.equals(Mode.TABLE_MODE)) {
-            throw new CommandException(MESSAGE_INCORRECT_MODE);
-        }
-
         tableToBill = model.getSelectedTable();
-
         if (!model.hasTable(tableToBill)) {
             throw new CommandException(MESSAGE_TABLE_DOES_NOT_EXIST);
+        }
+
+        for (OrderItem orderItem : model.getFilteredOrderItemList()) {
+            if (!orderItem.getOrderItemStatus().isAllServed()) {
+                throw new CommandException(MESSAGE_ORDER_ITEM_NOT_SERVED);
+            }
         }
 
         bill = calculateBill(model);
@@ -71,10 +73,10 @@ public class BillCommand extends Command {
         DailyRevenue dailyRevenue =
                 new DailyRevenue(bill.getDay(), bill.getMonth(), bill.getYear(), bill.getTotalBill());
 
-        if (model.hasDailyRevenue(dailyRevenue)) {
-            updateDailyRevenue(model, bill);
+        if (model.hasRevenue(dailyRevenue)) {
+            updateRevenue(model, bill);
         } else {
-            model.addDailyRevenue(dailyRevenue);
+            model.addRevenue(dailyRevenue);
         }
 
         updateStatusOfTable(model);
@@ -126,15 +128,15 @@ public class BillCommand extends Command {
     }
 
     /**
-     * Updates the daily revenue.
+     * Updates the revenue.
      */
-    private void updateDailyRevenue(Model model, Bill bill) {
-        ObservableList<DailyRevenue> dailyRevenuesList = model.getFilteredDailyRevenueList();
-        for (DailyRevenue dailyRevenue : dailyRevenuesList) {
+    private void updateRevenue(Model model, Bill bill) {
+        ObservableList<Revenue> dailyRevenuesList = model.getFilteredRevenueList();
+        for (Revenue dailyRevenue : dailyRevenuesList) {
             if (dailyRevenue.getYear().equals(bill.getYear())
                     && dailyRevenue.getMonth().equals(bill.getMonth())
                     && dailyRevenue.getDay().equals(bill.getDay())) {
-                dailyRevenue.addToRevenue(bill);
+                dailyRevenue.addToRevenue(bill.getTotalBill());
             }
         }
     }
@@ -143,8 +145,7 @@ public class BillCommand extends Command {
      * Updates the status of table.
      */
     private void updateStatusOfTable(Model model) throws CommandException {
-        String[] numberOfSeats = tableToBill.getTableStatus().toString().split("/");
-        TableStatus updatedTableStatus = new TableStatus("0/" + numberOfSeats[1]);
+        TableStatus updatedTableStatus = new TableStatus("0/" + tableToBill.getTableStatus().getNumberOfSeats());
         Table updatedTable = new Table(tableToBill.getTableNumber(), updatedTableStatus);
         model.setSelectedTable(null);
         model.setTable(tableToBill, updatedTable);

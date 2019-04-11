@@ -3,7 +3,7 @@ package seedu.address.testutil;
 import seedu.address.model.RestOrRant;
 import seedu.address.model.menu.MenuItem;
 import seedu.address.model.order.OrderItem;
-import seedu.address.model.statistics.DailyRevenue;
+import seedu.address.model.statistics.Revenue;
 import seedu.address.model.table.Table;
 
 /**
@@ -48,10 +48,10 @@ public class RestOrRantBuilder {
     }
 
     /**
-     * Adds a new {@code DailyRevenue} to the {@code RestOrRant} that we are building.
+     * Adds a new {@code Revenue} to the {@code RestOrRant} that we are building.
      */
-    public RestOrRantBuilder withDailyRevenue(DailyRevenue dailyRevenue) {
-        restOrRant.getStatistics().addDailyRevenue(dailyRevenue);
+    public RestOrRantBuilder withRevenue(Revenue revenue) {
+        restOrRant.getStatistics().addRevenue(revenue);
         return this;
     }
 

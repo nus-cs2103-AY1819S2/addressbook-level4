@@ -136,7 +136,7 @@ public class ParserUtil {
         requireNonNull(year);
         String trimmedYear = year.trim();
         if (!Year.isValidYear(trimmedYear)) {
-            throw new ParseException(Month.MESSAGE_CONSTRAINTS);
+            throw new ParseException(Year.MESSAGE_CONSTRAINTS);
         }
         return new Year(trimmedYear);
     }

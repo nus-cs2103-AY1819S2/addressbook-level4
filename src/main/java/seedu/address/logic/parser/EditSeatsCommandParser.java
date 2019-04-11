@@ -21,10 +21,15 @@ public class EditSeatsCommandParser implements Parser<EditSeatsCommand> {
     public EditSeatsCommand parse(String args) throws ParseException {
         String trimmedArgs = args.trim();
         String[] splitArgs = trimmedArgs.split("\\s+");
-        if (trimmedArgs.isEmpty() || splitArgs.length != 2 || !TableStatus.isValidTableStatus("0/" + splitArgs[1])
-                || !TableNumber.isValidTableNumber(splitArgs[0])) {
+        if (trimmedArgs.isEmpty() || splitArgs.length != 2) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditSeatsCommand.MESSAGE_USAGE));
+        }
+        if (!TableNumber.isValidTableNumber(splitArgs[0])) {
+            throw new ParseException(TableNumber.MESSAGE_CONSTRAINTS);
+        }
+        if (!TableStatus.isValidNumberOfSeats(splitArgs[1])) {
+            throw new ParseException(String.format(TableStatus.MESSAGE_CONSTRAINTS));
         }
 
         return new EditSeatsCommand(new TableNumber(splitArgs[0]), splitArgs[1]);

@@ -12,7 +12,11 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.statistics.DailyRevenue;
+import seedu.address.model.statistics.Day;
+import seedu.address.model.statistics.Month;
 import seedu.address.model.statistics.MonthlyRevenue;
+import seedu.address.model.statistics.Revenue;
+import seedu.address.model.statistics.Year;
 import seedu.address.model.statistics.YearlyRevenue;
 
 /**
@@ -34,7 +38,7 @@ public class StatisticsFlowPanel extends UiPart<Region> {
     @FXML
     private FlowPane statisticsFlowPane;
 
-    public StatisticsFlowPanel(ObservableList<DailyRevenue> dailyRevenueObservableList, ScrollPane scrollPane,
+    public StatisticsFlowPanel(ObservableList<Revenue> revenueObservableList, ScrollPane scrollPane,
                                boolean isDaily, boolean isMonthly, boolean isYearly) {
         super(FXML);
 
@@ -50,47 +54,101 @@ public class StatisticsFlowPanel extends UiPart<Region> {
         statisticsFlowPane.prefWidthProperty().bind(scrollPane.widthProperty());
         statisticsFlowPane.prefHeightProperty().bind(scrollPane.heightProperty());
 
-
+        int listSize = revenueObservableList.size();
         if (isDaily) {
             // Creates a DailyStatisticsCard for each DailyStatisticsCard and adds to FlowPane
-            int listSize = dailyRevenueObservableList.size();
-            int limit;
-            if (listSize <= 20) {
-                limit = 0;
-            } else {
-                limit = listSize - 20;
-            }
-            for (int i = listSize - 1; i >= limit; i--) {
-                DailyRevenue dailyRevenue = dailyRevenueObservableList.get(i);
-                statisticsFlowPane.getChildren().add(new DailyStatisticsCard(dailyRevenue).getRoot());
+            DailyRevenue dailyRevenue;
+            ObservableList<DailyRevenue> dailyRevenueList = FXCollections.observableArrayList();
+
+            while (dailyRevenueList.size() < 30 && listSize != 0) {
+                Revenue revenue = revenueObservableList.get(listSize - 1);
+
+                if (dailyRevenueList.isEmpty()) {
+                    dailyRevenue = new DailyRevenue(revenue.getDay(), revenue.getMonth(), revenue.getYear(),
+                            revenue.getTotalRevenue());
+                    dailyRevenueList.add(dailyRevenue);
+                    listSize--;
+                } else {
+                    DailyRevenue lastDailyRevenueAdded = dailyRevenueList.get(dailyRevenueList.size() - 1);
+                    int previousDay = Integer.parseInt(lastDailyRevenueAdded.getDay().toString()) - 1;
+                    int previousMonth = Integer.parseInt(lastDailyRevenueAdded.getMonth().toString());
+                    int previousYear = Integer.parseInt(lastDailyRevenueAdded.getYear().toString());
+                    if (previousDay < 1) { // going to previous month
+                        previousMonth -= 1;
+                        if (previousMonth < 1) { //going to previous year
+                            previousYear -= 1;
+                            previousMonth = 12;
+                        }
+
+                        if (previousMonth == 2) {
+                            if (Year.isLeapYear(lastDailyRevenueAdded.getYear().toString())) {
+                                previousDay = 29;
+                            } else {
+                                previousDay = 28;
+                            }
+                        } else if (previousMonth == 4 || previousMonth == 6 || previousMonth == 9
+                                || previousMonth == 11) {
+                            previousDay = 30;
+                        } else {
+                            previousDay = 31;
+                        }
+                    }
+
+                    dailyRevenue = new DailyRevenue(new Day(Integer.toString(previousDay)),
+                            new Month(Integer.toString(previousMonth)), new Year(Integer.toString(previousYear)), 0);
+
+                    if (revenue.isSameRevenue(dailyRevenue)) {
+                        dailyRevenue.addToRevenue(revenue.getTotalRevenue());
+                        listSize--;
+                    }
+
+                    dailyRevenueList.add(dailyRevenue);
+                }
             }
 
-            dailyRevenueObservableList.addListener((ListChangeListener<DailyRevenue>) c -> {
+            for (DailyRevenue revenue : dailyRevenueList) {
+                statisticsFlowPane.getChildren().add(new DailyStatisticsCard(revenue).getRoot());
+            }
+
+            dailyRevenueList.addListener((ListChangeListener<DailyRevenue>) c -> {
                 statisticsFlowPane.getChildren().clear();
-                for (int i = listSize; i > listSize - 20; i--) {
-                    DailyRevenue dailyRevenue = dailyRevenueObservableList.get(i);
-                    statisticsFlowPane.getChildren().add(new DailyStatisticsCard(dailyRevenue).getRoot());
-                }
+                for (DailyRevenue revenue : dailyRevenueList) {
+                    statisticsFlowPane.getChildren().add(new DailyStatisticsCard(revenue).getRoot()); }
             });
+
         } else if (isMonthly) {
+            MonthlyRevenue monthlyRevenue;
             ObservableList<MonthlyRevenue> monthlyRevenueList = FXCollections.observableArrayList();
 
-            //ArrayList<MonthlyRevenue> monthlyRevenueArrayList = new ArrayList<>();
-            MonthlyRevenue monthlyRevenue;
-            for (DailyRevenue dailyRevenue : dailyRevenueObservableList) {
+            while (monthlyRevenueList.size() < 30 && listSize != 0) {
+                Revenue revenue = revenueObservableList.get(listSize - 1);
+                MonthlyRevenue currentRevenueFromList = new MonthlyRevenue(revenue.getMonth(), revenue.getYear(),
+                        revenue.getTotalRevenue());
 
                 if (monthlyRevenueList.isEmpty()) {
-                    monthlyRevenue = new MonthlyRevenue(dailyRevenue.getMonth(), dailyRevenue.getYear(),
-                            dailyRevenue.getTotalDailyRevenue());
-                    monthlyRevenueList.add(monthlyRevenue);
+                    monthlyRevenueList.add(currentRevenueFromList);
+                    listSize--;
                 } else {
-                    monthlyRevenue = monthlyRevenueList.get(monthlyRevenueList.size() - 1);
-                    if (dailyRevenue.getYear().equals(monthlyRevenue.getYear()) && dailyRevenue.getMonth().equals
-                            (monthlyRevenue.getMonth())) {
-                        monthlyRevenue.addToRevenue(dailyRevenue.getTotalDailyRevenue());
+                    MonthlyRevenue lastMonthlyRevenueAdded = monthlyRevenueList.get(monthlyRevenueList.size() - 1);
+
+                    if (lastMonthlyRevenueAdded.isSameMonthlyRevenue(currentRevenueFromList)) {
+                        lastMonthlyRevenueAdded.addToRevenue(currentRevenueFromList.getTotalRevenue());
+                        listSize--;
                     } else {
-                        monthlyRevenue = new MonthlyRevenue(dailyRevenue.getMonth(), dailyRevenue.getYear(),
-                                dailyRevenue.getTotalDailyRevenue());
+                        int previousMonth = Integer.parseInt(lastMonthlyRevenueAdded.getMonth().toString()) - 1;
+                        int previousYear = Integer.parseInt(lastMonthlyRevenueAdded.getYear().toString());
+                        if (previousMonth < 1) { //going to previous year
+                            previousYear -= 1;
+                            previousMonth = 12;
+                        }
+
+                        monthlyRevenue = new MonthlyRevenue(new Month(Integer.toString(previousMonth)),
+                                new Year(Integer.toString(previousYear)), 0);
+
+                        if (currentRevenueFromList.isSameMonthlyRevenue(monthlyRevenue)) {
+                            monthlyRevenue.addToRevenue(currentRevenueFromList.getTotalRevenue());
+                            listSize--;
+                        }
                         monthlyRevenueList.add(monthlyRevenue);
                     }
                 }
@@ -109,21 +167,31 @@ public class StatisticsFlowPanel extends UiPart<Region> {
 
         } else if (isYearly) {
 
+            YearlyRevenue yearlyRevenue;
             ObservableList<YearlyRevenue> yearlyRevenueList = FXCollections.observableArrayList();
 
-            //ArrayList<MonthlyRevenue> monthlyRevenueArrayList = new ArrayList<>();
-            YearlyRevenue yearlyRevenue;
-            for (DailyRevenue dailyRevenue : dailyRevenueObservableList) {
+            while (yearlyRevenueList.size() < 30 && listSize != 0) {
+                Revenue revenue = revenueObservableList.get(listSize - 1);
+                YearlyRevenue currentRevenueFromList = new YearlyRevenue(revenue.getYear(), revenue.getTotalRevenue());
 
                 if (yearlyRevenueList.isEmpty()) {
-                    yearlyRevenue = new YearlyRevenue(dailyRevenue.getYear(), dailyRevenue.getTotalDailyRevenue());
-                    yearlyRevenueList.add(yearlyRevenue);
+                    yearlyRevenueList.add(currentRevenueFromList);
+                    listSize--;
                 } else {
-                    yearlyRevenue = yearlyRevenueList.get(yearlyRevenueList.size() - 1);
-                    if (yearlyRevenue.getYear().equals(dailyRevenue.getYear())) {
-                        yearlyRevenue.addToRevenue(dailyRevenue.getTotalDailyRevenue());
+                    YearlyRevenue lastYearlyRevenueAdded = yearlyRevenueList.get(yearlyRevenueList.size() - 1);
+
+                    if (lastYearlyRevenueAdded.isSameYearlyRevenue(currentRevenueFromList)) {
+                        lastYearlyRevenueAdded.addToRevenue(currentRevenueFromList.getTotalRevenue());
+                        listSize--;
                     } else {
-                        yearlyRevenue = new YearlyRevenue(dailyRevenue.getYear(), dailyRevenue.getTotalDailyRevenue());
+                        int previousYear = Integer.parseInt(lastYearlyRevenueAdded.getYear().toString()) - 1;
+
+                        yearlyRevenue = new YearlyRevenue(new Year(Integer.toString(previousYear)), 0);
+
+                        if (currentRevenueFromList.isSameYearlyRevenue(yearlyRevenue)) {
+                            yearlyRevenue.addToRevenue(currentRevenueFromList.getTotalRevenue());
+                            listSize--;
+                        }
                         yearlyRevenueList.add(yearlyRevenue);
                     }
                 }

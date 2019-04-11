@@ -24,8 +24,11 @@ public class RedoCommand extends Command {
         if (!model.canRedoFinanceTracker()) {
             throw new CommandException(MESSAGE_FAILURE);
         }
-
         model.redoFinanceTracker();
+        if (model.isSetFile()) {
+            model.addPreviousDataFile(model.getFinanceTrackerFilePath());
+            model.changeFinanceTrackerFile(model.removeUndoPreviousDataFile());
+        }
         model.updateFilteredRecordList(PREDICATE_SHOW_ALL_RECORD);
         return new CommandResult(MESSAGE_SUCCESS, true, false, false);
     }

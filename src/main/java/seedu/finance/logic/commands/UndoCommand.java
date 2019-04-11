@@ -25,6 +25,10 @@ public class UndoCommand extends Command {
             throw new CommandException(MESSAGE_FAILURE);
         }
 
+        if (model.isSetFile()) {
+            model.addUndoPreviousDataFile(model.getFinanceTrackerFilePath());
+            model.changeFinanceTrackerFile(model.removePreviousDataFile());
+        }
         model.undoFinanceTracker();
         model.updateFilteredRecordList(PREDICATE_SHOW_ALL_RECORD);
         return new CommandResult(MESSAGE_SUCCESS, true, false, false);

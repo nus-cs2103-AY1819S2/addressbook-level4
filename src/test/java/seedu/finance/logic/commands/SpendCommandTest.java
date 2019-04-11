@@ -186,12 +186,32 @@ public class SpendCommandTest {
         }
 
         @Override
-        public boolean hasBudget() {
+        public void addBudget(Budget budget) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void addBudget(Budget budget) {
+        public void addPreviousDataFile(Path path) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Path removePreviousDataFile() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addUndoPreviousDataFile(Path path) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Path removeUndoPreviousDataFile() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void changeFinanceTrackerFile(Path path) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -237,6 +257,16 @@ public class SpendCommandTest {
 
         @Override
         public void commitFinanceTracker() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void commitFinanceTracker(boolean isSetFile) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean isSetFile() {
             throw new AssertionError("This method should not be called.");
         }
 

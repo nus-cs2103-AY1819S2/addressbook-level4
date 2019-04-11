@@ -48,6 +48,12 @@ public class TotalBudget extends Budget {
         return categoryBudgets;
     }
 
+    /**
+     *
+     * @param budget
+     * @param records
+     * @throws CategoryBudgetExceedTotalBudgetException
+     */
     public void updateBudget(Budget budget, ObservableList<Record> records) throws
             CategoryBudgetExceedTotalBudgetException {
         Double totalCategoryBudget = 0.0;

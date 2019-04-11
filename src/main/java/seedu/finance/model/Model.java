@@ -87,11 +87,6 @@ public interface Model {
     void setRecord(Record target, Record editedRecord);
 
     /**
-     * Returns true if a {@code budget} exists in the finance tracker.
-     */
-    boolean hasBudget();
-
-    /**
      * Sets the given amount to budget.
      * {@code budget} must not already exist in the finance tracker.
      */
@@ -100,13 +95,13 @@ public interface Model {
     /**
      * Sets the given amount to the category budget
      */
-    public void addCategoryBudget(CategoryBudget budget) throws CategoryBudgetExceedTotalBudgetException,
+    void addCategoryBudget(CategoryBudget budget) throws CategoryBudgetExceedTotalBudgetException,
             SpendingInCategoryBudgetExceededException;
 
     /**
      * Returns the hashset of category budgets
      */
-    public HashSet<CategoryBudget> getCatBudget();
+    HashSet<CategoryBudget> getCatBudget();
     /**
      * Returns an unmodifiable view of the filtered record list in reverse order.
      */
@@ -135,6 +130,39 @@ public interface Model {
     void updateFilteredRecordList(Predicate<Record> predicate);
 
     /**
+     * Adds the path to the data file before it is switched out by {@code SetFileCommand}.
+     */
+    void addPreviousDataFile(Path path);
+
+    /**
+     * Removes the most recently used previous data file.
+     *
+     * @return Path of most recently used data file.
+     */
+    Path removePreviousDataFile();
+
+    /**
+     * Adds the path to the data file before it is switched out by {@code UndoCommand}.
+     *
+     * @param path the most recent data file before undo.
+     */
+    void addUndoPreviousDataFile(Path path);
+
+    /**
+     * Removes the most recently undo-ed previous data file.
+     *
+     * @return Path of most recently undo-ed data file.
+     */
+    Path removeUndoPreviousDataFile();
+
+    /**
+     * Changes the FinanceTracker data to the one stored in the specified path.
+     *
+     * @param path The path to the data file to revert to.
+     */
+    void changeFinanceTrackerFile(Path path);
+
+    /**
      * Returns true if the model has previous finance tracker states to restore.
      */
     boolean canUndoFinanceTracker();
@@ -158,6 +186,17 @@ public interface Model {
      * Saves the current finance tracker state for undo/redo.
      */
     void commitFinanceTracker();
+
+    /**
+     * Saves the current finance tracker state for undo/redo.
+     * Checks if command is a setFile command.
+     */
+    void commitFinanceTracker(boolean isSetFile);
+
+    /**
+     * Returns the boolean for whether the previous command is a {@code setFileCommand}.
+     */
+    boolean isSetFile();
 
     /**
      * Selected record in the filtered record list.

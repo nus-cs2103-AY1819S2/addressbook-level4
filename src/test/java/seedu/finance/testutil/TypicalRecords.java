@@ -15,6 +15,7 @@ import java.util.List;
 
 import seedu.finance.model.FinanceTracker;
 import seedu.finance.model.budget.TotalBudget;
+import seedu.finance.model.exceptions.CategoryBudgetExceedTotalBudgetException;
 import seedu.finance.model.record.Description;
 import seedu.finance.model.record.Record;
 
@@ -66,12 +67,16 @@ public class TypicalRecords {
      * Returns an {@code FinanceTracker} with all the typical records.
      */
     public static FinanceTracker getTypicalFinanceTracker() {
-        FinanceTracker ft = new FinanceTracker();
-        ft.addBudget(new TotalBudget(500.00));
-        for (Record record : getTypicalRecords()) {
-            ft.addRecord(record);
+        try {
+            FinanceTracker ft = new FinanceTracker();
+            ft.addBudget(new TotalBudget(500.00));
+            for (Record record : getTypicalRecords()) {
+                ft.addRecord(record);
+            }
+            return ft;
+        } catch (CategoryBudgetExceedTotalBudgetException cte) {
+            return new FinanceTracker();
         }
-        return ft;
     }
 
 

@@ -2,14 +2,18 @@ package seedu.address.logic.commands;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.logic.commands.CommandTestUtil.deleteFirstPerson;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
-import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
+import seedu.address.commons.core.Messages;
 import seedu.address.logic.CommandHistory;
+import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.parser.BrightnessCommandParser;
+import seedu.address.logic.parser.ContrastCommandParser;
+import seedu.address.logic.parser.ImportCommandParser;
+import seedu.address.logic.parser.OpenCommandParser;
 import seedu.address.model.CurrentEdit;
 import seedu.address.model.CurrentEditManager;
 import seedu.address.model.Model;
@@ -22,19 +26,40 @@ public class UndoCommandTest {
     private final Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
     private CurrentEdit currentEdit = new CurrentEditManager();
     private final CommandHistory commandHistory = new CommandHistory();
-
-    @Before
-    public void setUp() {
-        // set up of models' undo/redo history
-        deleteFirstPerson(model);
-        deleteFirstPerson(model);
-
-        deleteFirstPerson(expectedModel);
-        deleteFirstPerson(expectedModel);
-    }
-
     @Test
     public void execute() {
+        //Image not opened yet
+        try {
+            new UndoCommand().execute(currentEdit, model, commandHistory);
+            assertCommandFailure(new UndoCommand(), model, commandHistory, Messages.MESSAGE_DID_NOT_OPEN,
+                currentEdit);
+        } catch (CommandException e) {
+            System.out.println(e.toString());
+        }
+        //set up
+        try {
+            ImportCommandParser importParser = new ImportCommandParser();
+            importParser.parse("sample").execute(currentEdit, model, commandHistory);
+            OpenCommandParser openParser = new OpenCommandParser();
+            openParser.parse("iu.jpg").execute(currentEdit, model, commandHistory);
+        } catch (Exception e) {
+            System.out.println(e.toString());
+        }
+
+        //No Undoable states
+        try {
+            new UndoCommand().execute(currentEdit, model, commandHistory);
+            assertCommandFailure(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_FAILURE,
+                currentEdit);
+        } catch (Exception e) {
+            System.out.println(e.toString());
+        }
+        try {
+            ContrastCommandParser contrastParser = new ContrastCommandParser();
+            ContrastCommand command1 = contrastParser.parse(" 2.0");
+            BrightnessCommandParser brightnessParser = new BrightnessCommandParser();
+
+        }
         // multiple undoable states in model
         expectedModel.undoAddressBook();
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel,

@@ -50,6 +50,12 @@ public class ParserUtil {
         return new Name(trimmedName);
     }
 
+    public static String parseFilename(String filename) {
+        requireNonNull(filename);
+        String trimmedFilename = filename.trim();
+        return filename;
+    }
+
     /**
      * Parses a {@code String phone} into a {@code Phone}.
      * Leading and trailing whitespaces will be trimmed.

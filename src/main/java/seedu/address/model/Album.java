@@ -152,5 +152,20 @@ public class Album {
             System.out.println(e.toString());
         }
     }
+
+    /**
+     *
+     * @param imageName
+     * @return
+     */
+    public Image getImageFromList(String imageName) {
+        Image tempImage = null;
+        for (Image i : imageList) {
+            if (imageName.equals(i.getName().toString())) {
+                tempImage = i;
+            }
+        }
+        return tempImage;
+    }
     /* @@author*/
 }

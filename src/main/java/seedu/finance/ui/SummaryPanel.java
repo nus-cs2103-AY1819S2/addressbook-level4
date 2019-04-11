@@ -101,7 +101,7 @@ public class SummaryPanel extends UiPart<Region> {
         }
 
         pieChart.getData().forEach(data ->
-                data.getNode().setStyle("-fx-pie-color: " + getPieChartColorStyleFor(data.getName()) + ";")
+                data.getNode().getStyleClass().add(getPieChartColorStyleFor(data.getName()))
         );
 
         pieChart.getData().forEach(data ->

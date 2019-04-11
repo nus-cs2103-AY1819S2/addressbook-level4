@@ -13,7 +13,6 @@ import seedu.address.model.util.SampleDataUtil;
 import seedu.address.storage.AddressBookStorage;
 import seedu.address.storage.InOutAddressBookStorage;
 import seedu.address.storage.ParsedInOut;
-import seedu.address.storage.StorageManager;
 
 /**
  * Imports data to a text file.

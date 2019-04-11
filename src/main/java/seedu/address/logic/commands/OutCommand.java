@@ -7,7 +7,6 @@ import seedu.address.model.Model;
 import seedu.address.storage.AddressBookStorage;
 import seedu.address.storage.InOutAddressBookStorage;
 import seedu.address.storage.ParsedInOut;
-import seedu.address.storage.StorageManager;
 
 /**
  * Contains methods used by commands that write.

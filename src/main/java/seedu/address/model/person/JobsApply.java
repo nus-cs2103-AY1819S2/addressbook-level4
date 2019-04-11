@@ -15,7 +15,7 @@ public class JobsApply {
      * The first character of the job must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String VALIDATION_REGEX = "\\b\\S+";
+    public static final String VALIDATION_REGEX = "[\\w][\\w ]*";
 
     public final String value;
 

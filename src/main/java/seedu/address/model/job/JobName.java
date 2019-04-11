@@ -16,7 +16,7 @@ public class JobName {
      * The first character of the address must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String VALIDATION_REGEX = "\\b\\S+";
+    public static final String VALIDATION_REGEX = "\\b.+";
 
     public final String fullName;
 

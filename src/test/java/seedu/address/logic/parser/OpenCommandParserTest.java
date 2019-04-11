@@ -23,6 +23,6 @@ public class OpenCommandParserTest {
     public void parse_validString_success() {
         OpenCommandParser parser = new OpenCommandParser();
         String sampleString = "sample";
-        assertParseSuccess(parser, sampleString, new OpenCommand(sampleString));
+        assertParseSuccess(parser, sampleString, new OpenCommand("sample"));
     }
 }

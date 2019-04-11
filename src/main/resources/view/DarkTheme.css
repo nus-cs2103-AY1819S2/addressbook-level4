@@ -45,9 +45,9 @@
 }
 
 .table-view {
-    -fx-base: #1d1d1d;
-    -fx-control-inner-background: #1d1d1d;
-    -fx-background-color: #1d1d1d;
+    -fx-base: #555555;
+    -fx-control-inner-background: #555555;
+    -fx-background-color: #555555;
     -fx-table-cell-border-color: #1d1d1d;
     -fx-table-header-border-color: #1d1d1d;
     -fx-padding: 5;
@@ -62,10 +62,10 @@
     -fx-border-width: 0 0 1 0;
     -fx-background-color: transparent;
     -fx-border-color:
-            #1d1d1d
-            #1d1d1d
+            #555555
+            #555555
         derive(-fx-base, 80%)
-            #1d1d1d;
+            #555555;
     -fx-border-insets: 0 10 1 0;
 }
 
@@ -82,8 +82,8 @@
 }
 
 .split-pane:horizontal .split-pane-divider {
-    -fx-background-color: derive(#1d1d1d, 20%);
-    -fx-border-color: #1d1d1d #1d1d1d #1d1d1d #4d4d4d;
+    -fx-background-color: derive(#383838, 20%);
+    -fx-border-color: derive(#383838, 20%);
 }
 
 .split-pane {
@@ -105,11 +105,11 @@
 }
 
 .list-cell:filled:even {
-    -fx-background-color: #383838;
+    -fx-background-color: #3c3e3f;
 }
 
 .list-cell:filled:odd {
-    -fx-background-color: #3c3e3f;
+    -fx-background-color: #4a4a4a;
 }
 
 .list-cell:filled:selected {
@@ -118,7 +118,6 @@
 
 .list-cell:filled:selected #cardPane {
     -fx-border-color: #424d5f;
-    -fx-border-width: 1;
 }
 
 .list-cell:empty {
@@ -167,7 +166,7 @@
 
 .status-bar {
     -fx-padding: 5px 10px;
-    -fx-background-color: derive(#1d1d1d, 30%);
+    -fx-background-color: derive(#383838, 20%);
 }
 
 .result-display {

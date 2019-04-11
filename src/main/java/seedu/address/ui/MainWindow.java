@@ -133,6 +133,9 @@ public class MainWindow extends UiPart<Stage> {
         lessonListPanel = new LessonListPanel(logic.getLessons());
         lessonListPanelPlaceholder.getChildren().add(lessonListPanel.getRoot());
 
+        splitPane.lookupAll(".split-pane-divider").stream()
+                .forEach(div -> div.setMouseTransparent(true) );
+
         mainPanel = new MainPanel();
         mainPanelPlaceholder.getChildren().add(mainPanel.getRoot());
 
@@ -170,6 +173,7 @@ public class MainWindow extends UiPart<Stage> {
             splitPane.setDividerPosition(0, 0.1);
             sidePanel.setMinWidth(340);
             sidePanel.setPrefWidth(340);
+
             mainPanelPlaceholder.getChildren().clear();
             mainPanelPlaceholder.getChildren().add(flashcardPanel.getRoot());
             resultDisplay.setFeedbackToUser(MESSAGE_LESSON_COMMANDS);

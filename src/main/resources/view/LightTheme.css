@@ -83,7 +83,7 @@
 
 .split-pane:horizontal .split-pane-divider {
     -fx-background-color: derive(#e5e7ec, 20%);
-    -fx-border-color: #e5e7ec #e5e7ec #e5e7ec #e5e7ec;
+    -fx-border-color: derive(#e5e7ec, 20%);
 }
 
 .split-pane {
@@ -118,7 +118,6 @@
 
 .list-cell:filled:selected #cardPane {
     -fx-border-color: #19b4c5;
-    -fx-border-width: 1;
 }
 
 .list-cell:empty {

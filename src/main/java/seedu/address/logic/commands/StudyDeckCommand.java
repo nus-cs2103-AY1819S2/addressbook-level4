@@ -22,7 +22,7 @@ public class StudyDeckCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Enters the session using a deck.\n"
             + "Parameters: INDEX (must be a positive integer)\n" + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_STUDY_DECK_SUCCESS = "Entered study mode";
+    public static final String MESSAGE_STUDY_DECK_SUCCESS = "Studying: %s";
 
     private Index targetIndex;
     private DecksView decksView;

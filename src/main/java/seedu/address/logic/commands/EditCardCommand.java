@@ -111,7 +111,7 @@ public class EditCardCommand extends Command {
                 builder.append(" ").append(PREFIX_TAG).append(tag.tagName);
             }
             String updatedText = String
-                    .format("%s %d %s%s %s%s %s", COMMAND_WORD, index.getOneBased(), PREFIX_QUESTION,
+                    .format("%s %d %s%s %s%s%s", COMMAND_WORD, index.getOneBased(), PREFIX_QUESTION,
                             question, PREFIX_ANSWER, answer, builder.toString());
             return new PrefillCommandBoxCommandResult(MESSAGE_EDIT_CARD_AUTOCOMPLETE, updatedText);
         }

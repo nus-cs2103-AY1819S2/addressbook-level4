@@ -35,6 +35,8 @@ public class CommandTestUtil {
     public static final String NAME_1_VALID = "CS2103T_PDF++_UG_Intro.pdf";
     public static final String NAME_2_VALID = "CS2103T_Week9_Integration Approaches.pdf";
     public static final String NAME_3_VALID = "CS2103T_Schedule_AY1819S2.pdf";
+    public static final String NAME_1_DUPLICATE_VALID = "CS2103T_PDF++_UG_Intro.pdf";
+    public static final String NAME_2_DUPLICATE_VALID = "CS2103T_Week9_Integration Approaches.pdf";
     public static final String NAME_INVALID_EXTENSION = "InvalidName.invalid";
     public static final String NAME_INVALID_CHARACTERS = "abcd*.pdf";
 
@@ -52,6 +54,12 @@ public class CommandTestUtil {
     public static final String DIR_3_VALID =
             Paths.get("src", "test", "data", "SampleFiles", "NormalFiles")
             .toAbsolutePath().toString();
+    public static final String DIR_1_DUPLICATE_VALID =
+            Paths.get("src", "test", "data", "SampleFiles", "DuplicateFiles")
+                    .toAbsolutePath().toString();
+    public static final String DIR_2_DUPLICATE_VALID =
+            Paths.get("src", "test", "data", "SampleFiles", "DuplicateFiles")
+                    .toAbsolutePath().toString();
     public static final String DIR_INVALID_NONEXISTENT =
             Paths.get("definitelyNotARealDirectory").toAbsolutePath().toString();
 
@@ -64,6 +72,10 @@ public class CommandTestUtil {
             Paths.get(DIR_2_VALID, NAME_2_VALID).toAbsolutePath().toString();
     public static final String FILEPATH_3_VALID =
             Paths.get(DIR_3_VALID, NAME_3_VALID).toAbsolutePath().toString();
+    public static final String FILEPATH_1_DUPLICATE_VALID =
+            Paths.get(DIR_1_DUPLICATE_VALID, NAME_1_DUPLICATE_VALID).toAbsolutePath().toString();
+    public static final String FILEPATH_2_DUPLICATE_VALID =
+            Paths.get(DIR_2_DUPLICATE_VALID, NAME_2_DUPLICATE_VALID).toAbsolutePath().toString();
 
     public static final String FILE_DESC_1_PDF = " " + PREFIX_FILE + FILEPATH_1_VALID;
     public static final String FILE_DESC_2_PDF = " " + PREFIX_FILE + FILEPATH_2_VALID;

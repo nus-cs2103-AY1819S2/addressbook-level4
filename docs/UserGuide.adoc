@@ -12,6 +12,7 @@
 ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
+:important-caption: :heavy_exclamation_mark:
 endif::[]
 :repoURL: https://github.com/cs2103-ay1819s2-w17-3/main
 
@@ -40,7 +41,8 @@ Follow these steps to get _In-Credit-Ble_ up and running on your computer in no 
    The In-Credit-Ble finance tracker is loaded with example expense records and budget is still not set.
 
 +
-image::startUI.png[width="790"]
+.UI upon launching the application
+image::startUI.png[]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window and show the list of commands.
@@ -55,6 +57,122 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window and show
 
 .  Refer to <<Features>> for details of each command.
 // end::quickstart[]
+
+// tag::userinterface[]
+== Graphical User Interface Introdution
+This section will explain to you the Graphical User Interface (GUI) of _In-Credit-Ble_ Finance Tracker.
+
+.Graphical User Interface (When starting up)
+image::GUI_Diagram.png[]
+.Graphical User Interface (Upon using `summary` command)
+image::GUI_Diagram2.png[]
+
+There are a total of 7 elements in the Graphical User Interface in _In-Credit-Ble_ Finance Tracker
+as denoted by the different coloured boxes in Figures 2 and 3.
+
+=== Menu Bar
+.Menu Bar
+image::Menu_bar.png[]
+This element is denoted by the pink box in Figures 2 and 3.
+
+The menu bar can be used to:
+
+* Exit the program under `File` tab
+* Open the Help page to view commands available under `Help` tab
+* Change the colour theme of the application under `Theme` tab
+
+=== Records List Panel
+.Record List Panel: Shows a list of your expense records
+image::Record_List_Panel.png[]
+
+This element is denoted by the yellow box in Figures 2 and 3.
+
+In the Record List Panel, the list of all your expenditures are recorded here.
+This panel is scrollable to view all your expense records.
+
+To find specific records based on `name`, `category`, `amount` or `date`, use the `search` command.
+To list all your expense records again after searching for particular records,
+use the command `list`
+
+Each record is tagged with an *index number* before the record name.
+The index is used in command such as `delete`, `edit` and `select`
+
+=== Budget Panel
+.Budget Panel: Shows your total spending against your total budget so far
+image::BudgetPanel.png[]
+
+This element is denoted by the green box in Figures 2 and 3.
+
+The budget panel gives you a simple yet effective overview of the total
+expenses spent so far against the budget that you set for yourself.
+
+As you add more expense records into the finance tracker,
+the budget panel will change colour according to how close you are to your budget.
+
+See:
+
+* `set` command to see how to set a budget in the finance tracker
+* `spend` command to see how to add expense records into the finance tracker.
+
+
+.Budget progress bar turns orange to give warning
+image::BudgetPanel_Orange.png[]
+
+.Budget progress bar turns red to give warning
+image::BudgetPanel_red.png[]
+
+* The budget progress bar will be *green* if you are still within your budget as shown in Figure 6
+* The budget progress bar will turn *orange* if your expenditure is above 80% of your total budget
+as shown in Figure 7
+* The budget progress bar will turn *red* if your expenditure exceeded your budget as shown in Figure 8
+
+
+=== Browser Panel
+.Browser Panel: Shows the budget left, current spending and total budget
+image::browserpanel.png[]
+
+This element is denoted by the brown box in Figure 2.
+
+The browser panel gives you a numerical summary of your total budget.
+
+[NOTE]
+====
+The current budget will show a negative number should you exceed your budget to let you know
+the amount you exceeded the budget set for yourself.
+====
+
+=== Summary Panel
+.Summary Panel: Shows you a pie chart illustration of your current expenses
+image::summarypanel.png[]
+
+This element is denoted by the red box in Figure 3.
+
+The summary panel gives you a nice illustrated summary of your current spending so far in
+different categories. To change the browser panel to summary panel, use the `summary` command.
+To change back to the browser panel, simply type in the `summary` command once again.
+
+
+=== Command Box and Result Display
+.Command Box and Result Display
+image::commandbox_resultdisplay.png[]
+
+These elements are denoted by the black and blue boxes in Figures 2 and 3 respectively.
+
+The command box is the place for users to type in their commands.
+Refer to <<Features>> for details of each command.
+
+The result box displays the results after each command is executed.
+This is where the allocated category budgets will be shown when `show` command is executed.
+
+=== Status Footer Bar
+.Status Footer Bar
+image::statusfooterbar.png[]
+
+This element is denoted by the purple box in Figures 2 and 3.
+The left side of the status footer bar shows the time and date of the last update to the finance tracker.
+The right side of the status footer bar shows where the storage file for the updated data is saved to.
+
+// end::userinterface[]
 
 [[Features]]
 == Features
@@ -116,8 +234,55 @@ in lowercase (in the above example, it will be shown as `Clothes`)
 by the new `allocate` command
 * Category name supplied must be https://en.wikipedia.org/wiki/Alphanumeric[alphanumeric]
 and cannot contain special characters such as `:<>;\/|?~^%$#@`
+* For you to see the category budgets and the current spending in each of the allocated category budget, use the `show`
+command shown in the next command
+====
+
+[IMPORTANT]
+====
+Take note that you can still spend over the category budget set. The rationale is for you to be able to see
+how much you have exceeded your budget allocated in that category so that you will be able to better plan your
+expenditure in the future.
 ====
 // end::allocate[]
+
+// tag::show[]
+==== Showing allocated budget and spending in categories: `show`
+
+You can use this command to see the budget allocated to and spending in categories in _In-Credit-Ble_ Finance Tracker. +
+
+*Alias*: `showCatBudget`
+
+*Format*: `show`, `showCatBudget`
+
+****
+*Example*:
+
+* The following example will show what will be listed given the following budget allocation
+and expenditure in the following categories:
+** `set $/500`
+** `allocate $/100 c/CloThEs`
+** `allocate $/100.10 c/FOOD`
+** `allo $/123.10 c/GiRLfrIEND`
+** `spend n/Buffet $/50.00 c/Food`
+** `spend n/Versace Jacket $/95.00 c/Clothes`
+** `spend n/Girlfriend gift $/99.99 c/Girlfriend`
+** `show`
+* The following will be displayed on the *Result Display* +
+_(See Graphical User Interface Introduction (GUI) if you are
+unsure of the elements of the GUI):_
+
+.Example of `show` command
+image::show_example.png[]
+****
+
+[NOTE]
+====
+* The category budgets will be shown with the latest allocated category budget in the Result Display
+* If there are no category budgets allocated yet, the result display will display a message
+to let you know so
+====
+// end::show[]
 
 // tag::increase[]
 //==== Increasing the budget: `increase`
@@ -163,37 +328,11 @@ in lowercase (in the above example, it will be shown as `Clothes`)
 * Category name supplied must be https://en.wikipedia.org/wiki/Alphanumeric[alphanumeric]
 and cannot contain special characters such as `:<>;\/|?~^%$#@`
 * If no date is inputted, current local date will be used instead.
+* Description is limited to 40 characters.
 * Order of the different parameters does not matter.
 
 ====
 // end::spend[]
-
-// tag::description[]
-==== Adding a description to an entry: `description`
-
-You can add a description to an existing entry in the records to include details about that particular transactions.
-
-*Alias*: `descr`
-
-*Format*: `description INDEX [r/DESCRIPTION]`
-
-****
-*Examples*:
-
-* `description 1 r/Father's birthday present` +
-Changes the description of entry at index 1 to "Father's birthday present"
-
-* `description 1 r/` +
-Removes the description of entry at index 1
-****
-
-[NOTE]
-====
-* `INDEX` here refers to the index number shown in the displayed records.
-* `INDEX` *must be a positive integer* 1, 2, 3, ...
-* `INDEX` must be within the total number of records that are displayed.
-====
-// end::description[]
 
 // tag::edit[]
 ==== Editing an entry: `edit`
@@ -203,7 +342,7 @@ Index refers to the index number shown in the list.
 
 *Alias*: `e`
 
-*Format*: `edit INDEX [n/NAME] [$/AMOUNT] [d/DATE] [c/CATEGORY]`
+*Format*: `edit INDEX [n/NAME] [$/AMOUNT] [d/DATE] [c/CATEGORY] [r/DESCRIPTION]`
 
 ****
 *Examples*:
@@ -522,6 +661,7 @@ to `Blue`)
 the menu bar.
 * You *cannot* undo/redo this command.
 
+.Menu Bar with Theme tab
 image::themeMenuBar.png[]
 ====
 
@@ -598,6 +738,7 @@ _In-Credit-Ble_  aims to support multi-currency transactions in `v2.0`.
 | Command | Command Format | Alias | Example
 | Set Budget | `set $/AMOUNT` |- | `set $/500`
 | Allocate budgeting based on categories | `allocate $/AMOUNT c/CATEGORY` | `allo` | `allocate $/100 c/Shopping`
+| Show allocated category budget and spending | `show` | `showCatBudget` | -
 //| Increase budget | `increase $/AMOUNT` | - | `increase $/10.10`
 
 |=======================================================================
@@ -608,8 +749,7 @@ _In-Credit-Ble_  aims to support multi-currency transactions in `v2.0`.
 | Command | Command Format | Alias | Example
 | Add expense | `spend n/NAME $/AMOUNT [d/DATE] c/CATEGORY ... [r/Description]` | `add` | `spend n/movie $/10
   d/16/03/2019 c/Entertainment r/Avengers: Endgame`
-| Add a description to an entry | `description INDEX r/DESCRIPTION` | `descr` | `description 1 d/Father's birthday present`
-| Edit an entry | `edit INDEX [n/NAME] [$/AMOUNT] [d/DATE] [c/CATEGORY]` | `e` | `edit 1 n/burger c/Food`
+| Edit an entry | `edit INDEX [n/NAME] [$/AMOUNT] [d/DATE] [c/CATEGORY] [r/DESCRIPTION]` | `e` | `edit 1 n/burger c/Food`
 | Select an entry | `select INDEX` | `s`, `sel` | `select 3`
 | Delete an entry | `delete INDEX` | `d`, `del` | `delete 2`
 
@@ -623,7 +763,8 @@ _In-Credit-Ble_  aims to support multi-currency transactions in `v2.0`.
 | Locate entry based on name, category or date |`search -FLAG* KEYWORD [MORE_KEYWORDS]` | `find` | `search -cat Food`
 | Sort the entries based on name, category, date, amount | `sort -FLAG* [ORDER]**` | - | `sort -name`
 | Reverse all entries | `reverse` | `rev` | -
-| Show summary of records | `summary` | - | -
+| Show summary of records | `summary`[#/] [p/] | `overview` | `summary #/5 p/d` +
+Shows summary for past 5 days
 
 |=======================================================================
 *Valid flags: `name`-> Name; `cat` -> Category; `date` -> Date; `amount` -> Amount;

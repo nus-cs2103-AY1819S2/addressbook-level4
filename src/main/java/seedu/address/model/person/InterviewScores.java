@@ -48,7 +48,7 @@ public class InterviewScores {
     public String getInterviewScore(int questionNum) {
         assert (value.matches(VALIDATION_REGEX));
         String[] scores = value.split(",");
-        String score = scores[questionNum-1].trim();
+        String score = scores[questionNum - 1].trim();
         return score;
     }
 

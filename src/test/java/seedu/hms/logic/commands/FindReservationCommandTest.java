@@ -94,7 +94,7 @@ public class FindReservationCommandTest {
         ReservationWithTypePredicate reservationWithTypePredicate = preparePredicateOfType("");
         ReservationContainsPayerPredicate reservationContainsPayerPredicate = preparePredicateOfPayer("");
 
-        for(int i = 0; i < 15; i++) {
+        for (int i = 0; i < 15; i++) {
             afterOneYearCurrentDate.setTimeInMillis(
                 afterOneYearCurrentDate.getTimeInMillis() + 20 * 24 * 60 * 60 * 1000);
         }
@@ -117,7 +117,7 @@ public class FindReservationCommandTest {
         ReservationWithTypePredicate reservationWithTypePredicate = preparePredicateOfType("SINGLE ROOM");
         ReservationContainsPayerPredicate reservationContainsPayerPredicate = preparePredicateOfPayer("");
 
-        for(int i = 0; i < 15; i++) {
+        for (int i = 0; i < 15; i++) {
             afterOneYearCurrentDate.setTimeInMillis(
                 afterOneYearCurrentDate.getTimeInMillis() + 20 * 24 * 60 * 60 * 1000);
         }

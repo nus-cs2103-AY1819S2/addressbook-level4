@@ -11,9 +11,9 @@ public class InterviewScores {
 
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Interview Scores should only exactly 5 set of numbers, each number separated by a comma";
+        "Interview Scores should only exactly 5 set of numbers, each number separated by a comma";
     public static final String VALIDATION_REGEX = "\\d+" + "," + "\\d+" + "," + "\\d+" + "," + "\\d+"
-            + "," + "\\d+";
+        + "," + "\\d+";
     public static final String NO_RECORD = "No Record";
     public final String value;
 
@@ -33,7 +33,7 @@ public class InterviewScores {
      */
     public static boolean isValidInterviewScores(String test) {
         return
-                test.matches(VALIDATION_REGEX) || test.matches(NO_RECORD);
+            test.matches(VALIDATION_REGEX) || test.matches(NO_RECORD);
     }
 
     @Override
@@ -41,11 +41,22 @@ public class InterviewScores {
         return value;
     }
 
+    public boolean isNoRecord() {
+        return value.matches(NO_RECORD);
+    }
+
+    public String getInterviewScore(int questionNum) {
+        assert (value.matches(VALIDATION_REGEX));
+        String[] scores = value.split(",");
+        String score = scores[questionNum-1].trim();
+        return score;
+    }
+
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof InterviewScores // instanceof handles nulls
-                && value.equals(((InterviewScores) other).value)); // state check
+            || (other instanceof InterviewScores // instanceof handles nulls
+            && value.equals(((InterviewScores) other).value)); // state check
     }
 
     @Override

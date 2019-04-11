@@ -18,7 +18,10 @@ public class SwitchTabCommandParserTest {
             SwitchTabCommand.MESSAGE_USAGE));
         assertParseFailure(parser, "1", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
             SwitchTabCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, "", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+            SwitchTabCommand.MESSAGE_USAGE));
     }
+
 
     @Test
     public void parse_validArgs_newSwitchTabCommand() {

@@ -1,7 +1,6 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.commands.EditCommand.MESSAGE_EDIT_PDF_SUCCESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG_ADD;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG_REMOVE;
@@ -33,6 +32,7 @@ public class TagCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1 " + PREFIX_TAG_ADD + " "
             + PREFIX_TAG_NAME + "CS2103T " + PREFIX_TAG_NAME + "SE\n"
             + "Example: " + COMMAND_WORD + " 2 " + PREFIX_TAG_REMOVE + " " + PREFIX_TAG_NAME + "School\n";
+    public static final String MESSAGE_TAG_PDF_SUCCESS = "Edited tag for Pdf: %1$s";
 
     private final Index index;
     private final Set<Tag> tags;
@@ -68,7 +68,7 @@ public class TagCommand extends Command {
         model.updateFilteredPdfList(PREDICATE_SHOW_ALL_PDFS);
         model.commitPdfBook();
 
-        return new CommandResult(String.format(MESSAGE_EDIT_PDF_SUCCESS, nPdf.toString()));
+        return new CommandResult(String.format(MESSAGE_TAG_PDF_SUCCESS, nPdf.toString()));
     }
 
     public static Pdf getPdfWithNewTag(Pdf old, Set<Tag> tags) {

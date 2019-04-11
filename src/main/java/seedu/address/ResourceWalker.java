@@ -49,7 +49,9 @@ public class ResourceWalker {
                 return FileVisitResult.CONTINUE;
             }
         });
-        FileSystems.getFileSystem(uri).close();
+        if (uri.getScheme().equals("jar")) {
+            FileSystems.getFileSystem(uri).close();
+        }
     }
 
     /**

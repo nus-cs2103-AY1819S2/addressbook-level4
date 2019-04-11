@@ -1,5 +1,4 @@
 package seedu.address.commons.core;
-
 /**
  * Container for user visible messages.
  */
@@ -7,14 +6,14 @@ public class Messages {
 
     public static final String MESSAGE_UNKNOWN_COMMAND = "Unknown command";
     public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid command format! \n%1$s";
-    public static final String MESSAGE_INVALID_PERSON_DISPLAYED_INDEX = "The person index provided is invalid";
     public static final String MESSAGE_PERSONS_LISTED_OVERVIEW = "%1$d persons listed!";
     public static final String MESSAGE_INVALID_PATH = "Invalid file path given.";
     public static final String MESSAGE_UNABLE_TO_READ_FILE = "Unable to read file.";
     public static final String MESSAGE_INVALID_FORMAT = "File is not a valid type or is hidden.";
-    public static final String MESSAGE_INVALID_SIZE = "File is too large to be opened.";
+    public static final String MESSAGE_INVALID_SIZE = "File is larger than the 10mb limit.";
     public static final String MESSAGE_DUPLICATE_FILE = "Duplicate file name exists in assets folder. "
             + "Try using another name.";
+    public static final String MESSAGE_SAMPLE_IMPORT = "Import sample can only be called on an empty Album.";
     public static final String MESSAGE_FILE_NOT_FOUND = "File does not exist. "
             + "Use listfiles to view existing files.";
     public static final String MESSAGE_ROTATE_SUCCESS = "Rotated successfully.";

@@ -197,8 +197,9 @@ image::uioverview.png[width="800"]
 
 1. `Display` will reflect the results of the command entered
 2. `userInput` is where the user can enter their commands
-3. should the command fail due to erroneous command input, instructions to rectify the command will be displayed on the `InputFeedback`
-4. Appointments and Reminders are displayed on the `ReminderListPanel`
+3. Should the command fail due to erroneous command input, instructions to rectify the command will be displayed on the `InputFeedback`
+4. Appointments and Reminders are displayed on the `ReminderListPanel`. Appointments are coloured blue, medicine alarms are coloured red
+and other reminders are coloured beige.
 5. Current consultation sessions will be indicated on this `currentSession` label.
 
 The `UI` component uses JavaFx UI framework. RootLayout is defined in the matching `.fxml` file that are in link:{repoURL}/src/main/resources/view[src/main/resources/view] folder.
@@ -375,7 +376,7 @@ The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
 * can save all the QuickDocs data in json format into a single json file and read it back
-** this json file contains 6 different lists, with each list consisting of only one of the six main `JsonAdapted` Class objects.
+** this json file contains 8 different lists, with each list consisting of only one of the 8 main `JsonAdapted` Class objects.
 
 [[Design-Commons]]
 === Common classes

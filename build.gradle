@@ -146,10 +146,7 @@ test {
 
         if (runNonGuiTests) {
             //Initially Included
-            //test.exclude 'seedu/address/**'
-            test.include 'seedu/address/pdf/DirectoryTest.java'
-            test.include 'seedu/address/pdf/NameTest.java'
-            test.include 'seedu/address/pdf/SizeTest.java'
+            test.exclude 'seedu/address/**'
         }
 
         if (runGuiTests) {

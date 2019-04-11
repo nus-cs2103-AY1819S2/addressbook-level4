@@ -35,6 +35,7 @@ public class EditTaskDescriptorBuilder {
         descriptor.setEndTime(task.getEndTime());
         descriptor.setPriority(task.getPriority());
         descriptor.setPatientIndex(null);
+        descriptor.setLinkedPatient(task.getLinkedPatient());
     }
 
     /**

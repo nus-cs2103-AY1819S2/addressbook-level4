@@ -367,7 +367,7 @@ Upon every subtraction or addition of medicine quantity in the inventory, the `M
 === Storage component
 
 .Structure of the Storage Component
-image::StorageClassDiagram.PNG[width="800"]
+image::StorageClassDiagram.png[width="800"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
 
@@ -671,9 +671,6 @@ the doctor to make changes to his erroneous commands.
 
 Implementing the consultation session in this way will guarantee the flexibility and efficiency that
 QuickDocs aim to deliver for doctors in neighbourhood clinics.
-
-
-=== Listing free appointment slots
 
 === Free appointment slots feature
 

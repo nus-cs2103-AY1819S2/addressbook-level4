@@ -203,7 +203,7 @@ public abstract class DocXSystemTest {
      * Deletes all doctors in the address book.
      */
     protected void deleteAllDoctors() {
-        executeCommand(DeleteDoctorCommand.COMMAND_WORD);
+        executeCommand(ClearCommand.COMMAND_WORD);
         assertEquals(0, getModel().getDocX().getDoctorList().size());
     }
 

@@ -23,23 +23,23 @@ public class TypicalDoctors {
 
     public static final Doctor ALVINA = new DoctorBuilder().withName("Alvina Ong")
             .withYear("21").withGender("F").withPhone("82376447").withSpecs("acupuncture").build();
-    public static final Doctor BOND = new DoctorBuilder().withName("John Doe")
+    public static final Doctor BOND = new DoctorBuilder().withName("Bond Park")
             .withYear("10").withGender("M").withPhone("91612342").withSpecs("general", "acupuncture").build();
-    public static final Doctor CHARLIE = new DoctorBuilder().withName("Carl Kurz").withPhone("95352563")
+    public static final Doctor CHARLIE = new DoctorBuilder().withName("Charlie Cruzlei").withPhone("95352563")
             .withGender("M").withYear("33").build();
-    public static final Doctor DAM = new DoctorBuilder().withName("Daniel Meier").withPhone("87652533")
+    public static final Doctor DAM = new DoctorBuilder().withName("Dam Dong").withPhone("87652533")
             .withGender("M").withYear("11").withSpecs("massage").build();
-    public static final Doctor ELSIE = new DoctorBuilder().withName("Elle Meyer").withPhone("94822241")
+    public static final Doctor ELSIE = new DoctorBuilder().withName("Elsie Lim").withPhone("94822241")
             .withGender("F").withYear("5").build();
-    public static final Doctor FLORA = new DoctorBuilder().withName("Fiona Kunz").withPhone("94824271")
+    public static final Doctor FLORA = new DoctorBuilder().withName("Flora Winx").withPhone("94824271")
             .withGender("F").withYear("3").build();
-    public static final Doctor GAN = new DoctorBuilder().withName("George Best").withPhone("94824421")
+    public static final Doctor GAN = new DoctorBuilder().withName("Gan Chong").withPhone("94824421")
             .withGender("F").withYear("8").build();
 
     // Manually added
-    public static final Doctor HAN = new DoctorBuilder().withName("Hoon Meier").withPhone("84824241")
+    public static final Doctor HAN = new DoctorBuilder().withName("Han Meier").withPhone("84824241")
             .withGender("M").withYear("38").build();
-    public static final Doctor ILI = new DoctorBuilder().withName("Ida Mueller").withPhone("84821311")
+    public static final Doctor ILLIOT = new DoctorBuilder().withName("Illiot Mueller").withPhone("84821311")
             .withGender("F").withYear("18").build();
 
     // Manually added - Doctor's details found in {@code CommandTestUtil}

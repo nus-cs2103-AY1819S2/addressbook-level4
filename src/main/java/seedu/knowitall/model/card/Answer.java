@@ -9,9 +9,10 @@ import static seedu.knowitall.commons.util.AppUtil.checkArgument;
  */
 public class Answer {
 
-
     public static final String MESSAGE_CONSTRAINTS = "Answers can take any values, and should not be blank";
     public static final String VALIDATION_REGEX = "[^\\s].*";
+    private static final int MAX_LENGTH = 512;
+
     public final String fullAnswer;
 
     /**
@@ -29,7 +30,7 @@ public class Answer {
      * Returns true if a given string is a valid answer number.
      */
     public static boolean isValidAnswer(String test) {
-        return test.matches(VALIDATION_REGEX);
+        return test.matches(VALIDATION_REGEX) && test.length() <= MAX_LENGTH;
     }
 
     @Override

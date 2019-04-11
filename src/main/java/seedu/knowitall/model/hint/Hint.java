@@ -11,6 +11,7 @@ public class Hint {
 
     public static final String MESSAGE_CONSTRAINTS = "Hints can take any values, and should not be blank";
     public static final String VALIDATION_REGEX = "[^\\s].*";
+    private static final int MAX_LENGTH = 512;
 
     public final String hintName;
 
@@ -29,7 +30,7 @@ public class Hint {
      * Returns true if a given string is a valid hint name.
      */
     public static boolean isValidHintName(String test) {
-        return test.matches(VALIDATION_REGEX);
+        return test.matches(VALIDATION_REGEX) && test.length() <= MAX_LENGTH;
     }
 
     @Override

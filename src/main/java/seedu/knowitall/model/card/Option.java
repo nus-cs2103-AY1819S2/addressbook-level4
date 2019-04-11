@@ -11,6 +11,8 @@ public class Option {
 
     public static final String MESSAGE_CONSTRAINTS = "Options can take any values, and should not be blank";
     public static final String VALIDATION_INDEX = "[^\\s].*";
+    private static final int MAX_LENGTH = 512;
+
     public final String optionValue;
 
     /**
@@ -27,7 +29,7 @@ public class Option {
      * Returns true if a given string is a valid option value.
      */
     public static boolean isValidOption(String test) {
-        return test.matches(VALIDATION_INDEX);
+        return test.matches(VALIDATION_INDEX) && test.length() <= MAX_LENGTH;
     }
 
     @Override

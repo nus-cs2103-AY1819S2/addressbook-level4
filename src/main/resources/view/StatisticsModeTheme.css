@@ -321,7 +321,15 @@
     -fx-padding: 8 1 8 1;
 }
 
-#scrollPane {
+.scroll-pane .corner {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane > .viewport {
+    -fx-background-color: #1d1d1d;
+}
+
+.scroll-pane {
     -fx-background-color: #1d1d1d;
 }
 

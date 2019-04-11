@@ -2,7 +2,7 @@ package seedu.address.model.pdf;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.DEADLINE_JSON_COMPLETE;
+import static seedu.address.logic.commands.CommandTestUtil.DEADLINE_JSON_DONE;
 import static seedu.address.logic.commands.CommandTestUtil.DIR_1_VALID;
 
 import java.util.Arrays;
@@ -72,8 +72,8 @@ public class NameContainsKeywordsPredicateTest {
 
         // Keywords match phone, email and address, but does not match name
         predicate = new NameContainsKeywordsPredicate(Arrays.asList("12345", DIR_1_VALID,
-                "Transcript.pdf", DEADLINE_JSON_COMPLETE));
+                "Transcript.pdf", DEADLINE_JSON_DONE));
         assertFalse(predicate.test(new PdfBuilder().withName("Resume.pdf").withSize("12345")
-                .withDirectory(DIR_1_VALID).withDeadline(DEADLINE_JSON_COMPLETE).build()));
+                .withDirectory(DIR_1_VALID).withDeadline(DEADLINE_JSON_DONE).build()));
     }
 }

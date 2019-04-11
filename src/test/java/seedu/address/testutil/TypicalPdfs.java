@@ -1,7 +1,7 @@
 package seedu.address.testutil;
 
-import static seedu.address.logic.commands.CommandTestUtil.DEADLINE_JSON_COMPLETE;
-import static seedu.address.logic.commands.CommandTestUtil.DEADLINE_JSON_READY;
+import static seedu.address.logic.commands.CommandTestUtil.DEADLINE_JSON_DONE;
+import static seedu.address.logic.commands.CommandTestUtil.DEADLINE_JSON_NOTDONE;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -112,17 +112,17 @@ public class TypicalPdfs {
     public static final Pdf SAMPLE_PDF_1 = new PdfBuilder().withName(sample_pdf_1_path.toFile().getName())
             .withDirectory(sample_pdf_1_path.toAbsolutePath().getParent().toString())
             .withSize(Long.toString(sample_pdf_1_path.toFile().length()))
-            .withDeadline(DEADLINE_JSON_READY).build();
+            .withDeadline(DEADLINE_JSON_NOTDONE).build();
     public static final Pdf SAMPLE_PDF_2 = new PdfBuilder().withName(sample_pdf_2_path.toFile().getName())
             .withDirectory(sample_pdf_2_path.toAbsolutePath().getParent().toString())
             .withTags("CS2103T", "lecture", "w9")
             .withSize(Long.toString(sample_pdf_2_path.toFile().length()))
-            .withDeadline(DEADLINE_JSON_READY).build();
+            .withDeadline(DEADLINE_JSON_NOTDONE).build();
     public static final Pdf SAMPLE_PDF_3 = new PdfBuilder().withName(sample_pdf_3_path.toFile().getName())
             .withDirectory(sample_pdf_3_path.toAbsolutePath().getParent().toString())
             .withTags("CS3230", "lecture", "w9")
             .withSize(Long.toString(sample_pdf_3_path.toFile().length()))
-            .withDeadline(DEADLINE_JSON_READY).build();
+            .withDeadline(DEADLINE_JSON_NOTDONE).build();
     public static final Pdf SAMPLE_PDF_4 = new PdfBuilder().withName(sample_pdf_4_path.toFile().getName())
             .withDirectory(sample_pdf_4_path.toAbsolutePath().getParent().toString())
             .withTags("CS2103T", "lecture", "w3")
@@ -162,10 +162,10 @@ public class TypicalPdfs {
     public static final Pdf SAMPLE_EDITEDPDF = new PdfBuilder().withName(sample_EditedPdf_1_path.toFile().getName())
             .withDirectory(sample_invalidPdf_1_path.toAbsolutePath().getParent().toString())
             .withTags("invalid", "pdf")
-            .withDeadline(DEADLINE_JSON_COMPLETE)
+            .withDeadline(DEADLINE_JSON_DONE)
             .withSize(Long.toString(sample_invalidPdf_1_path.toFile().length())).build();
     public static final Pdf SAMPLE_PDF_WITH_DEADLINE = new PdfBuilder(SAMPLE_PDF_1)
-            .withDeadline(DEADLINE_JSON_COMPLETE).build();
+            .withDeadline(DEADLINE_JSON_DONE).build();
     public static final Pdf SAMPLE_PDF_1_ENCRYPTED = new PdfBuilder(SAMPLE_PDF_1)
             .withSize(Long.toString(sample_pdf_1_encrypted_path.toFile().length()))
             .withEncrypted(true).build();

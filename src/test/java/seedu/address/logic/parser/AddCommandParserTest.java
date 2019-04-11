@@ -2,7 +2,7 @@ package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.commands.CommandTestUtil.DEADLINE_DESC_VALID;
-import static seedu.address.logic.commands.CommandTestUtil.DEADLINE_JSON_READY;
+import static seedu.address.logic.commands.CommandTestUtil.DEADLINE_JSON_NOTDONE;
 import static seedu.address.logic.commands.CommandTestUtil.DIRECTORY_DESC_1;
 import static seedu.address.logic.commands.CommandTestUtil.DIR_1_VALID;
 import static seedu.address.logic.commands.CommandTestUtil.FILE_DESC_1_PDF;
@@ -43,7 +43,7 @@ public class AddCommandParserTest {
         assertParseFailure(parser, FILE_DESC_2_PDF + DEADLINE_DESC_VALID, expectedMessage);
         assertParseFailure(parser, FILE_DESC_1_PDF + NAME_DESC_1_VALID, expectedMessage);
         assertParseFailure(parser, FILE_DESC_2_PDF + DIRECTORY_DESC_1, expectedMessage);
-        assertParseFailure(parser, FILE_DESC_2_PDF + TAG_DESC_CS2103T + DEADLINE_JSON_READY + NAME_DESC_1_VALID
+        assertParseFailure(parser, FILE_DESC_2_PDF + TAG_DESC_CS2103T + DEADLINE_JSON_NOTDONE + NAME_DESC_1_VALID
                 + DIRECTORY_DESC_1, expectedMessage);
     }
 

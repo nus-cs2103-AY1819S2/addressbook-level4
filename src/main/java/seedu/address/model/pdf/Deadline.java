@@ -13,6 +13,10 @@ import java.util.MissingFormatArgumentException;
 public class Deadline implements Comparable<Deadline> {
     public static final String MESSAGE_CONSTRAINTS = "Deadline can take any valid date, "
             + "and it should not be blank";
+    public static final String TOSTRING_HEADER_PREFIX = "Deadline: ";
+    public static final String STATUS_DONE_PREFIX = " (Done)\n";
+    public static final String STATUS_ONGOING_PREFIX = " (Ongoing)\n";
+    public static final String STATUS_NONE_PREFIX = "None\n";
     private static final String PROPERTY_SEPARATOR_PREFIX = "/";
     private static final int PROPERTY_DATE_INDEX = 0;
     private static final int PROPERTY_IS_DONE_INDEX = 1;
@@ -41,6 +45,12 @@ public class Deadline implements Comparable<Deadline> {
             this.isDone = false;
         } else {
             try {
+
+                if (!jsonFormat.split(PROPERTY_SEPARATOR_PREFIX)[PROPERTY_IS_DONE_INDEX].equals("true")
+                        && !jsonFormat.split(PROPERTY_SEPARATOR_PREFIX)[PROPERTY_IS_DONE_INDEX].equals("false")) {
+                    throw new AssertionError();
+                }
+
                 this.date = LocalDate.parse(jsonFormat.split(PROPERTY_SEPARATOR_PREFIX)[PROPERTY_DATE_INDEX]);
                 this.isDone = Boolean.parseBoolean(jsonFormat.split(PROPERTY_SEPARATOR_PREFIX)[PROPERTY_IS_DONE_INDEX]);
             } catch (ArrayIndexOutOfBoundsException e) {
@@ -131,16 +141,16 @@ public class Deadline implements Comparable<Deadline> {
 
     @Override
     public String toString() {
-        StringBuilder builder = new StringBuilder("Deadline: ");
+        StringBuilder builder = new StringBuilder(TOSTRING_HEADER_PREFIX);
         if (this.exists()) {
             builder.append(this.date);
             if (this.isDone()) {
-                builder.append(" (Done)\n");
+                builder.append(STATUS_DONE_PREFIX);
             } else {
-                builder.append(" (Ongoing)\n");
+                builder.append(STATUS_ONGOING_PREFIX);
             }
         } else {
-            builder.append("None\n");
+            builder.append(STATUS_NONE_PREFIX);
         }
         return builder.toString();
     }

@@ -177,4 +177,70 @@ public class QuickDocsParser {
         }
     }
 
+    /**
+     * To judge whether suggestion mode should be turned on.
+     * @param rawArgs The user input
+     * @return whether suggestion mode should be turned on
+     */
+    public boolean isDirectoryFormat(String rawArgs) {
+        Matcher matcher = QuickDocsParser.BASIC_COMMAND_FORMAT.matcher(rawArgs);
+        if (!matcher.matches()) {
+            return false;
+        }
+        String commandWord = matcher.group("commandWord").trim();
+        String arguments = matcher.group("arguments").trim();
+        if (!arguments.contains("\\") || arguments.contains(" ")) {
+            return false;
+        }
+        switch (commandWord) {
+        case PurchaseMedicineCommand.COMMAND_WORD:
+        case PurchaseMedicineCommand.COMMAND_ALIAS:
+        case SetPriceCommand.COMMAND_WORD:
+        case SetPriceCommand.COMMAND_ALIAS:
+        case AlarmCommand.COMMAND_WORD:
+        case ViewStorageCommand.COMMAND_WORD:
+        case ViewStorageCommand.COMMAND_ALIAS:
+        case AddMedicineCommand.COMMAND_WORD:
+        case AddMedicineCommand.COMMAND_ALIAS:
+        case AddDirectoryCommand.COMMAND_WORD:
+        case AddDirectoryCommand.COMMAND_ALIAS:
+            return true;
+        default:
+            return false;
+        }
+    }
+
+    /**
+     * To judge whether medicine is allowed as input for the command entered.
+     * @param rawArgs The user input
+     * @return whether suggestion mode should be turned on
+     */
+    public boolean isMedicineAllowed(String rawArgs) {
+        Matcher matcher = QuickDocsParser.BASIC_COMMAND_FORMAT.matcher(rawArgs);
+        if (!matcher.matches()) {
+            return false;
+        }
+        String commandWord = matcher.group("commandWord").trim();
+        String arguments = matcher.group("arguments").trim();
+        if (!arguments.contains("\\") || arguments.contains(" ")) {
+            return false;
+        }
+        switch (commandWord) {
+        case PurchaseMedicineCommand.COMMAND_WORD:
+        case PurchaseMedicineCommand.COMMAND_ALIAS:
+        case SetPriceCommand.COMMAND_WORD:
+        case SetPriceCommand.COMMAND_ALIAS:
+        case AlarmCommand.COMMAND_WORD:
+        case ViewStorageCommand.COMMAND_WORD:
+        case ViewStorageCommand.COMMAND_ALIAS:
+            return true;
+        default:
+            return false;
+        }
+    }
+
+    public String getArgument(String rawArgs) {
+        final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(rawArgs.trim());
+        return matcher.group("arguments");
+    }
 }

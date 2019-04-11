@@ -48,4 +48,8 @@ public interface Logic {
     ArrayList<String> getDirectorySuggestions(String path);
 
     ArrayList<String> getMedicineSuggestions(String path);
+
+    boolean isDirectoryFormat(String rawArgs);
+
+    boolean isMedicineAllowed(String rawArgs);
 }

@@ -96,12 +96,24 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ArrayList<String> getDirectorySuggestions (String rawPath) {
+    public ArrayList<String> getDirectorySuggestions (String rawArgs) {
+        String rawPath = quickDocsParser.getArgument(rawArgs);
         return model.getDirectorySuggestions(rawPath);
     }
 
     @Override
-    public ArrayList<String> getMedicineSuggestions (String rawPath) {
+    public ArrayList<String> getMedicineSuggestions (String rawArgs) {
+        String rawPath = quickDocsParser.getArgument(rawArgs);
         return model.getMedicineSuggestions(rawPath);
+    }
+
+    @Override
+    public boolean isDirectoryFormat(String rawArgs) {
+        return quickDocsParser.isDirectoryFormat(rawArgs);
+    }
+
+    @Override
+    public boolean isMedicineAllowed(String rawArgs) {
+        return quickDocsParser.isMedicineAllowed(rawArgs);
     }
 }

@@ -46,10 +46,12 @@ public class FreeAppCommand extends Command {
 
         String result = model.freeApp(start, end);
         if (result.isEmpty()) {
-            return new CommandResult(String.format(MESSAGE_NO_FREE_SLOTS, start, end) + result, false, false);
+            return new CommandResult(String.format(MESSAGE_NO_FREE_SLOTS, start, end) + result + "\n",
+                    false, false);
         }
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, start, end) + result, false, false);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, start, end) + result + "\n",
+                false, false);
     }
 
     @Override

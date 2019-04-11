@@ -10,8 +10,6 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Size implements Comparable<Size> {
     public static final String MESSAGE_CONSTRAINTS = "File size should be a non-negative number";
 
-    private static final String VALIDATION_REGEX = "^\\d+$";
-
     static final int THRESHOLD_KILOBYTE = 1024;
     static final int THRESHOLD_MEGABYTE = 1048576;
     static final int THRESHOLD_GIGABYTE = 1073741824;
@@ -20,6 +18,8 @@ public class Size implements Comparable<Size> {
     static final String PREFIX_KILOBYTE = "kb";
     static final String PREFIX_MEGABYTE = "mb";
     static final String PREFIX_GIGABYTE = "gb";
+
+    private static final String VALIDATION_REGEX = "^\\d+$";
 
 
     private final String value;

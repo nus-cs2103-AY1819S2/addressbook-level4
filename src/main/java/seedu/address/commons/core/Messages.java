@@ -18,7 +18,7 @@ public class Messages {
      * Feedback message displayed to the user when management mode is first entered.
      */
     public static final String MESSAGE_LESSON_COMMANDS =
-            "Lesson Overview:\nYou can now use the following commands:\n"
+            "<< Lesson Overview >>\nYou can now use the following commands:\n"
                     + "1. " + AddLessonCommand.COMMAND_WORD
                     + ": Adds a lesson.\n"
                     + "2. " + DeleteLessonCommand.COMMAND_WORD
@@ -26,19 +26,19 @@ public class Messages {
                     + "3. " + OpenLessonCommand.COMMAND_WORD
                     + ": Opens a lesson for editing.\n"
                     + "4. " + ReloadLessonsCommand.COMMAND_WORD
-                    + ": Reloads all lessons from the data folder."
+                    + ": Reloads all lessons from the data folder.\n"
                     + "5. " + ListLessonsCommand.COMMAND_WORD
-                    + ": Lists all lessons in memory.\n";
+                    + ": Lists all lessons in memory.";
     public static final String MESSAGE_CARD_COMMANDS =
-            "Lesson Edit:\nYou can now use the following commands:"
+            "<< Lesson Edit >>\nYou can now use the following commands:\n"
                     + "1. " + AddCardCommand.COMMAND_WORD
                     + ": Adds a card to the opened lesson.\n"
                     + "2. " + DeleteCardCommand.COMMAND_WORD
                     + ": Deletes the card at the specified INDEX of the card list.\n"
                     + "3. " + CloseLessonCommand.COMMAND_WORD
-                    + ": Closes this lesson and saves all changes."
+                    + ": Closes this lesson and saves all changes.\n"
                     + "4. " + ListCardsCommand.COMMAND_WORD
-                    + ": Lists all cards in the opened lesson.\n";
+                    + ": Lists all cards in the opened lesson.";
     /**
      * Feedback message displayed to the user when the command does not match any command patterns.
      */

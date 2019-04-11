@@ -25,7 +25,7 @@ public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final VersionedAddressBook versionedAddressBook;
-    private final VersionedArchiveBook versionedArchiveBook;
+    private final VersionedAddressBook versionedArchiveBook;
     private final VersionedPinBook versionedPinBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
@@ -36,9 +36,9 @@ public class ModelManager implements Model {
     private final SimpleObjectProperty<Person> selectedArchivedPerson = new SimpleObjectProperty<>();
 
     /**
-     * Initializes a ModelManager with the given addressBook and userPrefs.
+     * Initializes a ModelManager with the given addressBook, archiveBook, pinBook and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyArchiveBook archiveBook,
+    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyAddressBook archiveBook,
                         ReadOnlyPinBook pinBook, ReadOnlyUserPrefs userPrefs) {
         super();
         requireAllNonNull(addressBook, archiveBook, pinBook, userPrefs);
@@ -49,7 +49,7 @@ public class ModelManager implements Model {
                 + "and user prefs " + userPrefs);
 
         versionedAddressBook = new VersionedAddressBook(addressBook);
-        versionedArchiveBook = new VersionedArchiveBook(archiveBook);
+        versionedArchiveBook = new VersionedAddressBook(archiveBook);
         versionedPinBook = new VersionedPinBook(pinBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
@@ -61,7 +61,7 @@ public class ModelManager implements Model {
     }
 
     public ModelManager() {
-        this(new AddressBook(), new ArchiveBook(), new PinBook(), new UserPrefs());
+        this(new AddressBook(), new AddressBook(), new PinBook(), new UserPrefs());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -166,12 +166,12 @@ public class ModelManager implements Model {
     //=========== ArchiveBook ================================================================================
 
     @Override
-    public void setArchiveBook(ReadOnlyArchiveBook archiveBook) {
+    public void setArchiveBook(ReadOnlyAddressBook archiveBook) {
         versionedArchiveBook.resetData(archiveBook);
     }
 
     @Override
-    public ReadOnlyArchiveBook getArchiveBook() {
+    public ReadOnlyAddressBook getArchiveBook() {
         return versionedArchiveBook;
     }
 

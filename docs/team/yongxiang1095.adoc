@@ -58,8 +58,6 @@
 
 include::../UserGuide.adoc[tag=archivefeatures]
 
-include::../UserGuide.adoc[tag=archiveclear]
-
 include::../UserGuide.adoc[tag=summary]
 
 == Contributions to the Developer Guide

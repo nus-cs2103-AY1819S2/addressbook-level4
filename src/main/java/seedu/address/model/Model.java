@@ -66,10 +66,10 @@ public interface Model {
     /**
      * Replaces archive book data with the data in {@code archiveBook}.
      */
-    void setArchiveBook(ReadOnlyArchiveBook archiveBook);
+    void setArchiveBook(ReadOnlyAddressBook archiveBook);
 
     /** Returns the ArchiveBook */
-    ReadOnlyArchiveBook getArchiveBook();
+    ReadOnlyAddressBook getArchiveBook();
 
     /**
      * Returns the user prefs' pin book file path.

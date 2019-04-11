@@ -62,7 +62,7 @@
                   </ImageView>
                 </graphic>
               </Label>
-              <VBox fx:id="pinList" minWidth="340" prefWidth="340" GridPane.vgrow="ALWAYS"
+              <VBox fx:id="pinList" minWidth="340" prefWidth="340" GridPane.vgrow="ALWAYS" GridPane.hgrow="ALWAYS"
                     GridPane.rowIndex="1">
                 <padding>
                   <Insets top="5" right="10" bottom="10" left="10" />
@@ -72,7 +72,8 @@
             </GridPane>
             <GridPane id="listPane" fx:id="listPane" SplitPane.resizableWithParent="false">
               <Label fx:id="displayedList" styleClass="list_title_label" GridPane.halignment="CENTER"/>
-              <VBox fx:id="personList" minWidth="340" prefWidth="340" GridPane.vgrow="ALWAYS" GridPane.rowIndex="1">
+              <VBox fx:id="personList" minWidth="340" prefWidth="340" GridPane.vgrow="ALWAYS" GridPane.hgrow="ALWAYS"
+                    GridPane.rowIndex="1">
                 <padding>
                   <Insets top="5" right="10" bottom="10" left="10" />
                 </padding>

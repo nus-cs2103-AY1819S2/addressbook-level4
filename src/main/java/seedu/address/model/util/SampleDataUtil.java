@@ -5,10 +5,8 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import seedu.address.model.AddressBook;
-import seedu.address.model.ArchiveBook;
 import seedu.address.model.PinBook;
 import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.ReadOnlyArchiveBook;
 import seedu.address.model.ReadOnlyPinBook;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Buyer;
@@ -89,8 +87,8 @@ public class SampleDataUtil {
         return sampleAb;
     }
 
-    public static ReadOnlyArchiveBook getSampleArchiveBook() {
-        ArchiveBook sampleAb = new ArchiveBook();
+    public static ReadOnlyAddressBook getSampleArchiveBook() {
+        AddressBook sampleAb = new AddressBook();
         for (Person sampleArchivedPerson : getSampleArchivedPersons()) {
             sampleAb.addPerson(sampleArchivedPerson);
         }

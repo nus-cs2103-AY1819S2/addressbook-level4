@@ -8,7 +8,6 @@ import java.util.logging.Logger;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.ReadOnlyArchiveBook;
 import seedu.address.model.ReadOnlyPinBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
@@ -89,23 +88,23 @@ public class StorageManager implements Storage {
     }
 
     @Override
-    public Optional<ReadOnlyArchiveBook> readArchiveBook() throws DataConversionException, IOException {
+    public Optional<ReadOnlyAddressBook> readArchiveBook() throws DataConversionException, IOException {
         return readArchiveBook(archiveBookStorage.getArchiveBookFilePath());
     }
 
     @Override
-    public Optional<ReadOnlyArchiveBook> readArchiveBook(Path filePath) throws DataConversionException, IOException {
+    public Optional<ReadOnlyAddressBook> readArchiveBook(Path filePath) throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
         return archiveBookStorage.readArchiveBook(filePath);
     }
 
     @Override
-    public void saveArchiveBook(ReadOnlyArchiveBook archiveBook) throws IOException {
+    public void saveArchiveBook(ReadOnlyAddressBook archiveBook) throws IOException {
         saveArchiveBook(archiveBook, archiveBookStorage.getArchiveBookFilePath());
     }
 
     @Override
-    public void saveArchiveBook(ReadOnlyArchiveBook archiveBook, Path filePath) throws IOException {
+    public void saveArchiveBook(ReadOnlyAddressBook archiveBook, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
         archiveBookStorage.saveArchiveBook(archiveBook, filePath);
     }

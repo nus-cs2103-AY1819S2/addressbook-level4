@@ -16,12 +16,10 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
 import seedu.address.model.AddressBook;
-import seedu.address.model.ArchiveBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.PinBook;
 import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.ReadOnlyArchiveBook;
 import seedu.address.model.ReadOnlyPinBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
@@ -86,8 +84,8 @@ public class MainApp extends Application {
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
         Optional<ReadOnlyAddressBook> addressBookOptional;
         ReadOnlyAddressBook initialData;
-        Optional<ReadOnlyArchiveBook> archiveBookOptional;
-        ReadOnlyArchiveBook initialArchiveData;
+        Optional<ReadOnlyAddressBook> archiveBookOptional;
+        ReadOnlyAddressBook initialArchiveData;
         Optional<ReadOnlyPinBook> pinBookOptional;
         ReadOnlyPinBook initialPinData;
 
@@ -113,10 +111,10 @@ public class MainApp extends Application {
             initialArchiveData = archiveBookOptional.orElseGet(SampleDataUtil::getSampleArchiveBook);
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty ArchiveBook");
-            initialArchiveData = new ArchiveBook();
+            initialArchiveData = new AddressBook();
         } catch (IOException e) {
             logger.warning("Problem while reading from the file. Will be starting with an empty ArchiveBook");
-            initialArchiveData = new ArchiveBook();
+            initialArchiveData = new AddressBook();
         }
 
         try {

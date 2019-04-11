@@ -20,7 +20,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import seedu.address.model.AddressBook;
-import seedu.address.model.ArchiveBook;
 import seedu.address.model.PinBook;
 import seedu.address.model.person.Buyer;
 import seedu.address.model.person.Landlord;
@@ -105,10 +104,10 @@ public class TypicalPersons {
     }
 
     /**
-     * Returns an {@code ArchiveBook} with all the typical persons.
+     * Returns an {@code AddressBook} with all the typical archived persons.
      */
-    public static ArchiveBook getTypicalArchiveBook() {
-        ArchiveBook ab = new ArchiveBook();
+    public static AddressBook getTypicalArchiveBook() {
+        AddressBook ab = new AddressBook();
         for (Person person : getTypicalArchivedPersons()) {
             ab.addPerson(person);
         }
@@ -116,7 +115,7 @@ public class TypicalPersons {
     }
 
     /**
-     * Returns an {@code PinBook} with all the typical persons.
+     * Returns an {@code PinBook} with all the typical pinned persons.
      */
     public static PinBook getTypicalPinBook() {
         PinBook ab = new PinBook();

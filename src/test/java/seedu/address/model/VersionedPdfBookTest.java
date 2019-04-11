@@ -14,14 +14,14 @@ package seedu.address.model;
 //
 //import org.junit.Test;
 //
-//import seedu.address.testutil.AddressBookBuilder;
+//import seedu.address.testutil.PdfBookBuilder;
 
 public class VersionedPdfBookTest {
-    /*
-    private final ReadOnlyPdfBook addressBookWithAmy = new AddressBookBuilder().withPerson(AMY).build();
-    private final ReadOnlyPdfBook addressBookWithBob = new AddressBookBuilder().withPerson(BOB).build();
-    private final ReadOnlyPdfBook addressBookWithCarl = new AddressBookBuilder().withPerson(CARL).build();
-    private final ReadOnlyPdfBook emptyAddressBook = new AddressBookBuilder().build();
+/*
+    private final ReadOnlyPdfBook addressBookWithAmy = new PdfBookBuilder().withPerson(AMY).build();
+    private final ReadOnlyPdfBook addressBookWithBob = new PdfBookBuilder().withPerson(BOB).build();
+    private final ReadOnlyPdfBook addressBookWithCarl = new PdfBookBuilder().withPerson(CARL).build();
+    private final ReadOnlyPdfBook emptyAddressBook = new PdfBookBuilder().build();
 
     @Test
     public void commit_singleAddressBook_noStatesRemovedCurrentStateSaved() {

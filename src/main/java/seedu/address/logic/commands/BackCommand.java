@@ -15,7 +15,7 @@ public class BackCommand extends Command {
 
     public static final String COMMAND_WORD = "back";
 
-    private static final String MESSAGE_BACK_ACKNOWLEDGEMENT = "Displaying the patient list";
+    public static final String MESSAGE_BACK_ACKNOWLEDGEMENT = "Displaying the patient list";
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {

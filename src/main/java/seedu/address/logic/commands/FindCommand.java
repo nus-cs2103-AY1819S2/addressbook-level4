@@ -9,9 +9,9 @@ import seedu.address.ui.MainWindow;
  */
 public class FindCommand extends Command {
     public static final String COMMAND_WORD = "find";
-    private static final String MAIN_USAGE = "Did you mean:\n"
+    public static final String MAIN_USAGE = "Did you mean:\n"
         + "Finding a patient: \"patientfind\" or \"pfind\"\n";
-    private static final String GOTO_USAGE = "No relevant find command in Records mode.\n";
+    public static final String GOTO_USAGE = "No relevant find command in Records mode.\n";
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) {

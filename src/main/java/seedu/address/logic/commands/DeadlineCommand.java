@@ -112,7 +112,7 @@ public class DeadlineCommand extends Command {
         model.updateFilteredPdfList(PREDICATE_SHOW_ALL_PDFS);
         model.commitPdfBook();
 
-        return new CommandResult(String.format(MESSAGE_EDIT_PDF_SUCCESS, nPdf));
+        return new CommandResult(String.format(MESSAGE_EDIT_PDF_SUCCESS, nPdf.toReadableString()));
     }
 
     public static Pdf getPdfWithNewDeadline(Pdf old, Deadline deadline) {

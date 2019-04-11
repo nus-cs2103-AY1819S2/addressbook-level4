@@ -147,7 +147,10 @@ test {
         if (runNonGuiTests) {
             //Initially Included
             //test.include 'seedu/address/**'
-            test.include 'seedu/address/model/pdf/NameTest.java'
+            test.include 'seedu/address/model/pdf/DirectoryTest**'
+            test.include 'seedu/address/model/pdf/SizeTest.java**'
+            test.include 'seedu/address/model/pdf/NameTest.java**'
+            test.include 'seedu/address/model/pdf/NameContainsKeywordsPredicateTest.java**'
         }
 
         if (runGuiTests) {

@@ -1,13 +1,13 @@
 package seedu.address.storage;
 
 import static org.junit.Assert.assertEquals;
-import static seedu.address.storage.JsonAdaptedCard.MISSING_FIELD_MESSAGE_FORMAT;
 import static seedu.address.testutil.TypicalDecks.DECK_A;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 import org.junit.Test;
+
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.deck.Name;
 import seedu.address.testutil.Assert;

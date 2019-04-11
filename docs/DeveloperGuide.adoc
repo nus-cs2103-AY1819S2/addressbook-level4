@@ -20,7 +20,7 @@ By: `Team T12-3`      Since: `Feb 2019`      Licence: `MIT`
 // tag::introduction[]
 == Introduction
 
-Welcome to the _MediTabs Developer Guide_. You can find step by step instructions on how to set up MediTabs project on your computer and modify the project to suit your needs. You can also find out more about the development process of MediTabs such as its design and implementation. Interested? You can jump to <<Setting Up>> to get started. Enjoy!
+Welcome to the _MediTabs Developer Guide_. You can find step by step instructions on how to set up MediTabs project on your computer and modify the project to suit your needs. You can also find out more about the development process of MediTabs such as its design and implementation. Interested? You can jump to <<Setting up>> to get started. Enjoy!
 
 === What is MediTabs
 

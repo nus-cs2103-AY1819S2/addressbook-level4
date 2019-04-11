@@ -23,7 +23,7 @@ public class ImportCommandParser implements Parser<ImportCommand> {
 
         // Filename imported will be the name of the card folder in application
         if (!CardFolder.isValidFolderName(filenameWithoutExt[0])) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, CsvFile.FILENAME_CONSTRAINTS);
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, CsvFile.FILENAME_CONSTRAINTS));
         }
         CsvFile csvFile = ParserUtil.parseFileName(filename);
         return new ImportCommand(csvFile);

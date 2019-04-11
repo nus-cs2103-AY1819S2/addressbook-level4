@@ -1,8 +1,5 @@
 package seedu.address.logic.commands;
 
-import static java.util.Objects.requireNonNull;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.Optional;
@@ -11,7 +8,6 @@ import java.util.logging.Logger;
 import seedu.address.MainApp;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.util.SampleDataUtil;
@@ -38,15 +34,6 @@ public class OpenCommand extends InCommand {
 
     public OpenCommand(ParsedInOut parsedInput) {
         this.parsedInput = parsedInput;
-    }
-
-    @Override
-    public CommandResult execute(Model model, CommandHistory history) {
-        requireNonNull(model);
-        String result = readFile(model);
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        model.commitAddressBook();
-        return new CommandResult(result);
     }
 
     /**

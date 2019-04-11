@@ -6,6 +6,7 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import java.io.IOException;
 
 import seedu.address.logic.CommandHistory;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.storage.ParsedInOut;
 
@@ -15,18 +16,22 @@ import seedu.address.storage.ParsedInOut;
 public abstract class InCommand extends Command {
 
     @Override
-    public CommandResult execute(Model model, CommandHistory history) {
+    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
-        String result = readFile(model);
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        model.commitAddressBook();
-        return new CommandResult(result);
+        try {
+            String result = readFile(model);
+            model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+            model.commitAddressBook();
+            return new CommandResult(result);
+        } catch (IOException e) {
+            throw new CommandException(e.getMessage());
+        }
     }
 
     /**
      * readFile() overwrites the current address book with the contents of the file.
      */
-    protected abstract String readFile(Model model);
+    protected abstract String readFile(Model model) throws IOException;
 
     /**
      * fileValidation() checks if the file exists, is a file and can be read.

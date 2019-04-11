@@ -37,7 +37,7 @@ public class ListFilesCommandTest {
     }
 
     @Test
-    public void execute_listFiles_sample_success() {
+    public void execute_listSampleFiles_success() {
         ListFilesCommand command = new ListFilesCommand();
         String expectedMessage = String.format(ListFilesCommand.MESSAGE_LIST_FILES_HEADER,
                 Arrays.toString(album.getFileNames()) + "\n" + ListFilesCommand.MESSAGE_SUCCESS);
@@ -45,14 +45,14 @@ public class ListFilesCommandTest {
     }
 
     @Test
-    public void execute_listFiles_empty_success() {
+    public void execute_listEmpty_success() {
         album.clearAlbum();
         ListFilesCommand command = new ListFilesCommand();
         assertCommandSuccess(command, model, commandHistory, ListFilesCommand.MESSAGE_ASSETS_EMPTY, currentEdit);
     }
 
     @Test
-    public void execute_listFiles_oneFile_success() {
+    public void execute_listOneFile_success() {
         try {
             album.clearAlbum();
             String validPngTest = "src/main/resources/imageTest/valid/validPNGTest.png";

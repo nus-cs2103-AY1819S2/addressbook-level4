@@ -21,11 +21,13 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 
 public class BlackWhiteCommandTest {
+    private Album album = Album.getInstance();
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
     private CurrentEdit currentEdit = new CurrentEditManager();
     private CommandHistory commandHistory = new CommandHistory();
     @Before
     public void createImagesInAlbum() {
+        album.clearAlbum();
         try {
             BlackWhiteCommandParser parserBlackWhite = new BlackWhiteCommandParser();
             BlackWhiteCommand blackwhite = parserBlackWhite.parse(" 123");
@@ -41,7 +43,7 @@ public class BlackWhiteCommandTest {
     }
 
     @Test
-    public void execute_validBrightnessCheckIsNewCommand_success() {
+    public void execute_validBlackWhiteCheckIsNewCommand_success() {
         try {
             BlackWhiteCommandParser parser = new BlackWhiteCommandParser();
             BlackWhiteCommand command = parser.parse(" 123");

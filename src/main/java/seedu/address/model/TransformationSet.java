@@ -65,5 +65,9 @@ public class TransformationSet {
         transformationMap.put(presetName, list);
     }
 
+    public void clear() {
+        transformationMap.clear();
+    }
+
 }
 /* @@author*/

@@ -21,11 +21,15 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 
 public class BrightnessCommandTest {
+    private Album album = Album.getInstance();
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
     private CurrentEdit currentEdit = new CurrentEditManager();
     private CommandHistory commandHistory = new CommandHistory();
+
+
     @Before
     public void createImagesInAlbum() {
+        album.clearAlbum();
         try {
             BrightnessCommandParser parserBrightness = new BrightnessCommandParser();
             BrightnessCommand brightness = parserBrightness.parse(" 1.3");

@@ -6,7 +6,6 @@ import static seedu.hms.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
 import org.junit.Test;
 
-import seedu.hms.logic.commands.GenerateBillForCustomerCommand;
 import seedu.hms.logic.commands.SwitchTabCommand;
 
 public class SwitchTabCommandParserTest {
@@ -23,7 +22,7 @@ public class SwitchTabCommandParserTest {
 
     @Test
     public void parse_validArgs_newSwitchTabCommand() {
-        assertParseSuccess(parser, "1 1", new SwitchTabCommand(1, 0 ) );
+        assertParseSuccess(parser, "1 1", new SwitchTabCommand(1, 0));
     }
 }
 

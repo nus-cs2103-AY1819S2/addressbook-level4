@@ -21,13 +21,13 @@ import javafx.util.Pair;
 import seedu.hms.logic.CommandHistory;
 import seedu.hms.model.BillManager;
 import seedu.hms.model.BillModel;
+import seedu.hms.model.CustomerManager;
+import seedu.hms.model.CustomerModel;
 import seedu.hms.model.UserPrefs;
 import seedu.hms.model.VersionedHotelManagementSystem;
 import seedu.hms.model.bill.Bill;
 import seedu.hms.model.booking.Booking;
 import seedu.hms.model.booking.BookingContainsPayerPredicate;
-import seedu.hms.model.booking.BookingWithTypePredicate;
-import seedu.hms.model.booking.BookingWithinTimePredicate;
 import seedu.hms.model.booking.serviceType.ServiceType;
 import seedu.hms.model.customer.Customer;
 import seedu.hms.model.reservation.Reservation;
@@ -46,6 +46,9 @@ public class GenerateBillForCustomerCommandTest {
     private BillModel billModel = new BillManager(
         new VersionedHotelManagementSystem(getTypicalHotelManagementSystem()), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
+    private CustomerModel customerModel =
+        new CustomerManager(new VersionedHotelManagementSystem(getTypicalHotelManagementSystem()),
+            new UserPrefs());
 
 
     @Test
@@ -162,7 +165,6 @@ public class GenerateBillForCustomerCommandTest {
         assertEquals(Arrays.asList(ALICE_GYM, ALICE_GAMES_WITH_CARL), model.getFilteredBookingList());
         assertEquals(Arrays.asList(ALICE_SINGLE_ROOM), model.getFilteredReservationList());
     }
-
 
     /**
      * Parses {@code userInput} into a {@code BookingContainsPayerPredicate}.

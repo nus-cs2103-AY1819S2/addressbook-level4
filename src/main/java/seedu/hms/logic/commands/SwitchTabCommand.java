@@ -48,4 +48,12 @@ public class SwitchTabCommand extends Command {
         }
         return new CommandResult(MESSAGE_SUCCESS);
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+            || (other instanceof SwitchTabCommand // instanceof handles nulls
+            && panelIndex.equals(((SwitchTabCommand) other).panelIndex)
+            && tabIndex.equals(((SwitchTabCommand) other).tabIndex)); // state check
+    }
 }

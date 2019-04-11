@@ -73,7 +73,7 @@ public class DeleteReservationCommandTest {
                 new UserPrefs());
         expectedModel.deleteReservation(reservationToDelete);
         expectedModel.commitHotelManagementSystem();
-       showNoReservation(expectedModel);
+        showNoReservation(expectedModel);
 
         assertReservationCommandSuccess(deleteReservationCommand, model, commandHistory, expectedMessage,
             expectedModel);

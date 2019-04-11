@@ -586,10 +586,15 @@ if the category was not previously allocated with a budget
 This feature allows user to list the category budgets and the current spending in these
 categories after category budgets are allocated.
 
-Given below is a sequence diagram and step by step explanation of how Finance Tracker
-executes when a user executes the `show` command.
+==== Implementation
+. User enters command `show` in Command Box.
+. `ShowCategoryBudgetCommand#execute()` is executed and the method first checks whether there are any allocated category
+budgets
+. If there are no allocated category budgets, a message will be printed in the ResultDisplay
+. If there are allocated category budgets, `Model#getCatBudget()` is called to obtain the set of `CategoryBudget`
+. An `Iterator` is then used to iterate through the set of `CategoryBudgets` and the `currentSpending` is printed with
+the `totalBudget` allocated to the `CategoryBudget`.g
 
-* TO BE UPDATED
 
 // end::show[]
 

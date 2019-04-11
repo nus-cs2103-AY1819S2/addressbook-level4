@@ -81,6 +81,8 @@ to find out more about our application before reading on about my contributions 
 of our User Guide for more information on how to do so.
 ====
 
+=== Features Contributed to Project
+
 * *Major enhancement*: added `CategoryBudget`
 ** *_What it does_*: Allows user to set a budget for categories so as to keep track
 of the expenses for each category (such as `Food`, `Travel`, `Clothes`).
@@ -107,9 +109,7 @@ Finance Tracker Application
 *** This feature can be triggered using the `theme` command. Triggering this command will result in
 the `UI` component changing its stylesheet to fit the pre-set themes indicated by the user.
 
-* *Code contributed*:
-link:https://tinyurl.com/Jackimaru96[Collated Code by RepoSense]
-
+=== Other Contributions
 * *Notable Contributions:*
 ** *_Project Management_*
 *** *Manging Issue Tracker*
@@ -132,7 +132,7 @@ https://github.com/CS2103-AY1819S2-W17-3/main/issues/97[#97],
 https://github.com/CS2103-AY1819S2-W17-3/main/issues/108[#108]
 
 ** *_Community_*
-*** PRs Reviews:
+*** Pull Requests Reviews:
 https://github.com/CS2103-AY1819S2-W17-3/main/pull/111[#111],
 https://github.com/CS2103-AY1819S2-W17-3/main/pull/58[#58],
 https://github.com/CS2103-AY1819S2-W17-3/main/pull/64[#64]
@@ -140,6 +140,12 @@ https://github.com/CS2103-AY1819S2-W17-3/main/pull/64[#64]
 https://github.com/nus-cs2103-AY1819S2/forum/issues/41[41]
 https://github.com/nus-cs2103-AY1819S2/forum/issues/54[54]
 https://github.com/nus-cs2103-AY1819S2/forum/issues/59[59]
+
+=== Code contributed
+
+To see the code I contributed to _In-Credit-Ble_, click
+https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#=undefined&search=jackimaru96[here]!
+(_Code kindly collated by Repo Sense_)
 
 == Contributions to the User Guide
 |===

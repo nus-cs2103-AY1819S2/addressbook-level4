@@ -178,6 +178,18 @@ public abstract class AddressBookSystemTest {
     }
 
     /**
+     * Asserts that the {@code CommandBox} displays {@code expectedCommandInput}, the {@code ResultDisplay} displays
+     * {@code expectedResultMessage},
+     */
+    protected void assertApplicationRecordDisplaysExpected(String expectedCommandInput, String expectedResultMessage,
+                                                           Model expectedModel) {
+        assertEquals(expectedCommandInput, getCommandBox().getInput());
+        assertEquals(expectedResultMessage.trim(), getResultDisplay().getText().trim());
+        assertEquals(new AddressBook(expectedModel.getAddressBook()), testApp.readStorageAddressBook());
+        // assertListMatching(, expectedModel.getFilteredRecordList());
+    }
+
+    /**
      * Calls {@code BrowserPanelHandle}, {@code PersonListPanelHandle} and {@code StatusBarFooterHandle} to remember
      * their current state.
      */

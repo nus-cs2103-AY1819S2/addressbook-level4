@@ -4,6 +4,7 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
+import org.junit.After;
 import org.junit.Test;
 
 import seedu.address.commons.core.Messages;
@@ -13,6 +14,7 @@ import seedu.address.logic.parser.BrightnessCommandParser;
 import seedu.address.logic.parser.ContrastCommandParser;
 import seedu.address.logic.parser.ImportCommandParser;
 import seedu.address.logic.parser.OpenCommandParser;
+import seedu.address.model.Album;
 import seedu.address.model.CurrentEdit;
 import seedu.address.model.CurrentEditManager;
 import seedu.address.model.Model;
@@ -77,5 +79,11 @@ public class UndoCommandTest {
 
         // no undoable states in model
         assertCommandFailure(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_FAILURE, currentEdit); */
+    }
+    @After
+    public void clearAlbum() {
+        Album album = Album.getInstance();
+        album.clearAlbum();
+        currentEdit.clearTemp();
     }
 }

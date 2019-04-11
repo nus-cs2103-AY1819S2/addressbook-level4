@@ -174,4 +174,17 @@ public class Pdf {
         return builder.toString();
     }
 
+    public String toReadableString() {
+        final StringBuilder builder = new StringBuilder();
+        builder.append(getName())
+                .append(getDirectory())
+                .append(getSize().toReadableString())
+                .append(getDeadline());
+        if (getTags().size() > 0) {
+            builder.append("Tags: ");
+            getTags().forEach(builder::append);
+        }
+        return builder.toString();
+    }
+
 }

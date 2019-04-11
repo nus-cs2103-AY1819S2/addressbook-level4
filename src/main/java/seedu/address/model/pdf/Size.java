@@ -12,6 +12,10 @@ public class Size implements Comparable<Size> {
 
     public static final String VALIDATION_REGEX = "^\\d+$";
 
+    private static final int THRESHOLD_KILOBYTE = 1024;
+    private static final int THRESHOLD_MEGABIYTE = 1048576;
+    private static final int THRESHOLD_GIGABYTE = 1073741824;
+
     private final String value;
 
     public Size(String size) {
@@ -29,6 +33,34 @@ public class Size implements Comparable<Size> {
 
     public String getValue() {
         return this.value;
+    }
+
+    public String getReadableValue() {
+        int actualValue = Integer.parseInt(this.value);
+        StringBuilder sb = new StringBuilder();
+
+        if (actualValue < THRESHOLD_KILOBYTE) {
+            return sb.append(this.value)
+                    .append(" b")
+                    .toString();
+
+        } else if (actualValue < THRESHOLD_MEGABIYTE) {
+            return sb.append(Integer.toString((actualValue / THRESHOLD_KILOBYTE)))
+                    .append(" kb")
+                    .toString();
+        } else if (actualValue < THRESHOLD_GIGABYTE) {
+            return sb.append(Integer.toString((actualValue / THRESHOLD_MEGABIYTE)))
+                    .append(" mb")
+                    .toString();
+        } else {
+            return sb.append(Integer.toString((actualValue / THRESHOLD_GIGABYTE)))
+                    .append(" gb")
+                    .toString();
+        }
+    }
+
+    public String toReadableString() {
+        return new StringBuilder("Size: ").append(this.getReadableValue()).append("\n").toString();
     }
 
     @Override

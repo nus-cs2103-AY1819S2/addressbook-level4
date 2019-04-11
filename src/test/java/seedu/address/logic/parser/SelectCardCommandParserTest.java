@@ -1,11 +1,14 @@
 package seedu.address.logic.parser;
 
+import static org.junit.Assert.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
+import static seedu.address.testutil.TypicalCards.getTypicalDeck;
 import static seedu.address.testutil.TypicalCards.getTypicalTopDeck;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_CARD;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import seedu.address.logic.commands.SelectCardCommand;
@@ -22,7 +25,14 @@ import seedu.address.model.UserPrefs;
 public class SelectCardCommandParserTest {
 
     private Model model = new ModelManager(getTypicalTopDeck(), new UserPrefs());
-    private SelectCardCommandParser parser = new SelectCardCommandParser((CardsView) model.getViewState());
+    private SelectCardCommandParser parser;
+
+    @Before
+    public void initialize() {
+        model.changeDeck(getTypicalDeck());
+        assertTrue(model.isAtCardsView());
+        parser = new SelectCardCommandParser((CardsView) model.getViewState());
+    }
 
     @Test
     public void parse_validArgs_returnsSelectCommand() {

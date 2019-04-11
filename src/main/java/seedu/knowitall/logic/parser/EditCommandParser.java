@@ -41,6 +41,7 @@ public class EditCommandParser implements Parser<EditCommand> {
         } catch (ParseException pe) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE), pe);
         }
+        CardOperationUtil.checkNumberOfValidArguments(argMultimap);
 
         EditCommand.EditCardDescriptor editCardDescriptor = new EditCommand.EditCardDescriptor();
         if (argMultimap.getValue(PREFIX_QUESTION).isPresent()) {

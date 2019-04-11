@@ -173,7 +173,6 @@ public class CurrentEditManager implements CurrentEdit {
     }
 
     /* @@author itszp */
-
     /**
      * Creates originalImage instance of {@code image} located in temp_folder.
      */

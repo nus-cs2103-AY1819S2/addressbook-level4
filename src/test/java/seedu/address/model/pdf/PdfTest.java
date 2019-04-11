@@ -3,7 +3,7 @@ package seedu.address.model.pdf;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.DEADLINE_JSON_DONE;
-import static seedu.address.logic.commands.CommandTestUtil.DIR_3_VALID;
+import static seedu.address.logic.commands.CommandTestUtil.DIR_1_DUPLICATE_VALID;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_2_VALID;
 import static seedu.address.logic.commands.CommandTestUtil.SIZE_3_VALID;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_VALID_CS2103T;
@@ -78,7 +78,7 @@ public class PdfTest {
         assertFalse(SAMPLE_PDF_1.equals(editedPdf));
 
         // different directory -> returns false
-        editedPdf = new PdfBuilder(SAMPLE_PDF_1).withDirectory(DIR_3_VALID).build();
+        editedPdf = new PdfBuilder(SAMPLE_PDF_1).withDirectory(DIR_1_DUPLICATE_VALID).build();
         assertFalse(SAMPLE_PDF_1.equals(editedPdf));
 
         // different size -> returns false

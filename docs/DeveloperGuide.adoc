@@ -233,6 +233,45 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
+// tag::patient[]
+=== Representing Patients
+==== Current Implementation
+
+The `Patient` object represents patients for our users on TeethHub.
+It extends `Person` with more patient-specific attributes, as well as methods.
+Various methods are also overridden in order for them to work appropriately with the new `Patient` object.
+
+The following class diagram summarizes the new `Patient` object, which extends from `Person`:
+
+image::PatientClassDiagram.png[width="800]
+
+==== Design Considerations
+
+===== Aspect: Creating the Patient class
+* **Alternative 1 (current choice):** Create the `Patient` class by extending it from `Person`.
+** Pros: It is intuitive, as it is logical that all patients are persons as well.
+The code from `Person` can be reused in `Patient` through inheritance, and all existing classes and methods which work with `Person` will also work with `Patient`.
+Most importantly, it allows us to make use of the object-oriented programming principles we learnt in class.
+We assume that the Open-Closed Principle is applied on the `Person` object.
+** Cons: Any changes to `Person` may affect `Patient`.
+* **Alternative 2:** Create the `Patient` class from the bottom-up.
+** Pros: As `Patient` will not be a subclass of any other object, it will be less affected by changes in other classes.
+** Cons: All existing classes and methods which current work with `Person` needs to be re-written to work with the new `Patient` object.
+Attributes and methods cannot be reused, and must be re-implemented.
+Lastly, polymorphism cannot be applied if there is a need to deal with both persons and patients.
+
+===== Aspect: Picking the appropriate data structure to store dental records
+* **Alternative 1 (current choice):** Store the records using a list.
+** Pros: It is easy to understand, which is crucial for collaborative programming as other programmers may require accessing the records in the list.
+It can also save new records in order of when they are added, from most recent to oldest, simply using `List.add(0, Record)`.
+** Cons: If the list get long over time, it might cause additional waiting time for our users when search for a specific record.
+This is because a linear search in a list is of O(n) time complexity.
+ * **Alternative 2:** Store the records using a hash table.
+ ** Pros: It gives the fastest time complexity if a record search is required. It runs in O(1) time.
+ ** Cons: It can be challenging for collaborators to understand, which is crucial for collaborative programming.
+ It also creates an extra layer of complexity in order to display records in the order they were stored in the application by our users.
+// end::patient[]
+
 // tag::undoredo[]
 === Undo/Redo feature
 ==== Current Implementation
@@ -319,13 +358,13 @@ image::UndoRedoActivityDiagram.png[width="650"]
 
 The current implementation to view a specified patient's dental records uses the `goto` command.
 
-The `GoToCommand` is facilitated by the `Command` abstract class.
+The `GoToCommand` extends the `Command` abstract class.
 The valid form of the command is `goto INDEX`.
 The `INDEX` of the command specifies the patient in the patient list, based to their denoted indexes.
 
 On the other hand, the current implementation to go back to the patient list uses the `back` command.
 
-It is also facilitated by the `Command` abstract class.
+It also extends the `Command` abstract class.
 Unlike the `GoToCommand`, the `BackCommand` does not take in any parameters.
 The valid form of the command is `back`.
 

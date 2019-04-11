@@ -65,53 +65,6 @@ public class TopDeckParser {
                     throw e;
             }
         }
-
-        /**
-         switch (commandWord) {
-
-         case AddCardCommand.COMMAND_WORD:
-         return new AddCardCommandParser().parse(arguments);
-
-         case EditCardCommand.COMMAND_WORD:
-         return new EditCommandParser().parse(arguments);
-
-         case SelectCommand.COMMAND_WORD:
-         return new SelectCommandParser().parse(arguments);
-
-         case DeleteCardCommand.COMMAND_WORD:
-         return new DeleteCommandParser().parse(arguments);
-
-         case ClearDeckCommand.COMMAND_WORD:
-         return new ClearDeckCommand();
-
-         case FindCardCommand.COMMAND_WORD:
-         return new FindCardCommandParser().parse(arguments);
-
-         case ListCommand.COMMAND_WORD:
-         return new ListCommand();
-
-         case HistoryCommand.COMMAND_WORD:
-         return new HistoryCommand();
-
-         case ExitCommand.COMMAND_WORD:
-         return new ExitCommand();
-
-         case HelpCommand.COMMAND_WORD:
-         return new HelpCommand();
-
-         case UndoCommand.COMMAND_WORD:
-         return new UndoCommand();
-
-         case RedoCommand.COMMAND_WORD:
-         return new RedoCommand();
-
-         case AddDeckCommand.COMMAND_WORD:
-         return new AddDeckCommandParser().parse(arguments);
-
-         default:
-         throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
-         }
-         **/
     }
 
 }

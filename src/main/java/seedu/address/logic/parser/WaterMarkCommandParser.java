@@ -9,9 +9,9 @@ import seedu.address.logic.parser.exceptions.ParseException;
  */
 public class WaterMarkCommandParser implements Parser<WaterMarkCommand> {
     /**
-     * Parses the Rotate Command.
-     * @param args
-     * @return a RotateCommand object
+     * Parses the WaterMark Command.
+     * @param args the watermark message to add.
+     * @return a WaterMark object
      * @throws ParseException is thrown if the value is not an integer or unspecified.
      */
     public WaterMarkCommand parse(String args) throws ParseException {

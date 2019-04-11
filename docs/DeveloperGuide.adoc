@@ -1039,7 +1039,7 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
 *Value proposition*: manage contacts faster than a typical mouse/GUI driven app
 
 [appendix]
-// tag::header_user_stories[]
+
 == User Stories
 
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
@@ -1047,7 +1047,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-// end::header_user_stories[]
+
 // tag::patient_user_stories[]
 |`* * *` |user |add a new patient's particulars | know about their situation
 

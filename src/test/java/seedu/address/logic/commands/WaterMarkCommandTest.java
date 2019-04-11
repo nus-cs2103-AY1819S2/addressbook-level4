@@ -23,6 +23,7 @@ import seedu.address.model.ModelManager;
 
 
 public class WaterMarkCommandTest {
+    private Album album = Album.getInstance();
     private Model model = new ModelManager();
     private CurrentEdit currentEdit = new CurrentEditManager();
     private CommandHistory commandHistory = new CommandHistory();
@@ -121,7 +122,7 @@ public class WaterMarkCommandTest {
             // imitates the case when a preset is added and a watermark command within a preset is created.
             new WaterMarkCommand("FomoFoto", true).execute(currentEdit, model, commandHistory);
             WaterMarkCommand command = new WaterMarkCommand("FomoFoto", false);
-            // opens a new image to edit on (new image opened does not have a watermark)
+            // opens a new image to edit on (new image opened does not have a watermark and hence should succeed)
             OpenCommandParser parser = new OpenCommandParser();
             parser.parse("validPNGTest.png").execute(currentEdit, model, commandHistory);
             String expectedMessage = Messages.MESSAGE_WATERMARK_SUCCESS;
@@ -134,10 +135,10 @@ public class WaterMarkCommandTest {
     @Test
     public void execute_addWaterMarkCommandPreset_failure() {
         try {
-            // adds a watermark command to the image.
+            // imitates the case when a preset is added and a watermark command within a preset is created.
             new WaterMarkCommand("FomoFoto", true).execute(currentEdit, model, commandHistory);
-            // imitates the case when a preset is added and a watermark command which indicates a preset is created.
             WaterMarkCommand command = new WaterMarkCommand("FomoFoto", false);
+            // the test should fail because the current image already has a watermark before the preset is added.
             String expectedMessage = Messages.MESSAGE_HAS_WATERMARK;
             assertCommandFailure(command, model, commandHistory, expectedMessage, currentEdit);
         } catch (Exception e) {
@@ -146,7 +147,6 @@ public class WaterMarkCommandTest {
     }
     @After
     public void clearAlbum() {
-        Album album = Album.getInstance();
         album.clearAlbum();
         currentEdit.clearTemp();
     }

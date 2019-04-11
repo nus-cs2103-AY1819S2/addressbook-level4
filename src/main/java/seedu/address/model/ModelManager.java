@@ -168,7 +168,11 @@ public class ModelManager implements Model {
             this.getJob(jobName);
         }
 
+<<<<<<< HEAD
         switch(from) {
+=======
+        switch (from) {
+>>>>>>> ca5f12248f88477233d431588f850ecfc723984c
             case APPLICANT:
                 versionedAddressBook.addFilteredListToJob(activeJobAllApplicants, jobName, to);
                 break;

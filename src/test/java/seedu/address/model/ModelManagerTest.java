@@ -182,6 +182,7 @@ public class ModelManagerTest {
     @Test
     public void equals() {
         PdfBook pdfBook = new PdfBookBuilder().withPdf(SAMPLE_PDF_1).withPdf(SAMPLE_PDF_2).build();
+
         PdfBook differentAddressBook = new PdfBook();
         UserPrefs userPrefs = new UserPrefs();
 

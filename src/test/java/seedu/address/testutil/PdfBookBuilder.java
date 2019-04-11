@@ -6,7 +6,7 @@ import seedu.address.model.pdf.Pdf;
 /**
  * A utility class to help with building Pdfbook objects.
  * Example usage: <br>
- *     {@code PdfBook ab = new PdfBookBuilder().withPerson("John", "Doe").build();}
+ *     {@code PdfBook ab = new PdfBookBuilder().withPdf(SAMPLE_PDF_1).build();}
  */
 public class PdfBookBuilder {
 

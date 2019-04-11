@@ -151,8 +151,8 @@ test {
 
         if (runGuiTests) {
             //Initially Included
-            test.include 'systemtests/**'
-            test.include 'seedu/address/ui/**'
+            test.exclude 'systemtests/**'
+            test.exclude 'seedu/address/ui/**'
         }
 
         if (!runGuiTests) {

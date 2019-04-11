@@ -2,36 +2,36 @@ add n/Jigokudani Monkey Park cc/JPN dv/21/12/2012 r/3 d/The name Jigokudani (mea
 
 add n/Universal Studios Singapore cc/SGP dv/23/12/2017 r/4 d/Movie amusement park with sets & rides on themes from Hollywood to sci-fi, plus live entertainment. a/8 Sentosa Gateway, 0982693 t/amusementPark t/recreation
 
-add n/Botanic Gardens cc/SGP dv/1/1/2017 r/4 d/UNESCO World Heritage Site a/1 Cluny Rd, Singapore 259569 t/nature
+add n/Botanic Gardens cc/SGP dv/01/01/2017 r/4 d/UNESCO World Heritage Site a/1 Cluny Rd, Singapore 259569 t/nature
 
-add n/Hong Kong Disneyland cc/HKG dv/21/7/2017 r/4 d/It is the largest theme park in Hong Kong. a/Hong Kong Disneyland, Lantau Island, Outlying Islands t/themePark
+add n/Hong Kong Disneyland cc/HKG dv/21/07/2017 r/4 d/It is the largest theme park in Hong Kong. a/Hong Kong Disneyland, Lantau Island, Outlying Islands t/themePark
 
-add n/Platinum Fashion Mall cc/THA dv/10/8/2018 r/3 d/Specializes in fashion clothes and accessories retail and wholesale. a/222 Phetchaburi Rd, Khwaeng Thanon Phetchaburi, Khet Ratchathewi, Krung Thep Maha Nakhon 10400, Thailand t/shopping
+add n/Platinum Fashion Mall cc/THA dv/10/08/2018 r/3 d/Specializes in fashion clothes and accessories retail and wholesale. a/222 Phetchaburi Rd, Khwaeng Thanon Phetchaburi, Khet Ratchathewi, Krung Thep Maha Nakhon 10400, Thailand t/shopping
 
-add n/National Palace Museum cc/TWN dv/12/2/2019 r/2 d/Has a permanent collection of nearly 700,000 pieces of ancient Chinese imperial artifacts and artworks. a/No. 221, Sec 2, Zhi Shan Rd, Shilin District, Taipei City, Taiwan 111 t/museum t/culture t/historic
+add n/National Palace Museum cc/TWN dv/12/02/2019 r/2 d/Has a permanent collection of nearly 700,000 pieces of ancient Chinese imperial artifacts and artworks. a/No. 221, Sec 2, Zhi Shan Rd, Shilin District, Taipei City, Taiwan 111 t/museum t/culture t/historic
 
 add n/Great Wall of China cc/CHN dv/16/11/2013 r/3 d/It was built to protect the Chinese states and empires against the raids and invasions of the various nomadic groups. a/Huairou, China t/landmark
 
-add n/Eiffel Tower cc/FRA dv/14/2/2013 r/5 d/It is named after the engineer Gustave Eiffel, whose company designed and built the tower. a/Champ de Mars, 5 Avenue Anatole France, 75007 Paris, France t/landmark
+add n/Eiffel Tower cc/FRA dv/14/02/2013 r/5 d/It is named after the engineer Gustave Eiffel, whose company designed and built the tower. a/Champ de Mars, 5 Avenue Anatole France, 75007 Paris, France t/landmark
 
-add n/Mount Fuji cc/JPN dv/15/1/2011 r/4 d/It is the 2nd-highest peak of an island (volcanic) in Asia. a/Kitayama, Fujinomiya, Shizuoka 418-0112, Japan t/nature
+add n/Mount Fuji cc/JPN dv/15/01/2011 r/4 d/It is the 2nd-highest peak of an island (volcanic) in Asia. a/Kitayama, Fujinomiya, Shizuoka 418-0112, Japan t/nature
 
-add n/Singapore Zoo cc/SGP dv/9/8/2018 r/3 d/Rainforest zoo with tram rides, trails & viewing platforms to see wildlife habitats & exhibits. a/80 Mandai Lake Rd, Singapore 729826 t/zoo t/animals
+add n/Singapore Zoo cc/SGP dv/09/08/2018 r/3 d/Rainforest zoo with tram rides, trails & viewing platforms to see wildlife habitats & exhibits. a/80 Mandai Lake Rd, Singapore 729826 t/zoo t/animals
 
-add n/Changi Airport Singapore cc/SGP dv/1/1/2019 r/5 d/Passenger & cargo hub with 4 modern terminals plus buses & trains to the city center a/Airport Boulevard t/airport t/shopping
+add n/Changi Airport Singapore cc/SGP dv/01/01/2019 r/5 d/Passenger & cargo hub with 4 modern terminals plus buses & trains to the city center a/Airport Boulevard t/airport t/shopping
 
 add n/Phi Phi Islands cc/THA dv/13/10/2014 r/2 d/An island group in Thailand, between the large island of Phuket and the west Strait of Malacca coast of the mainland. a/32/1 Moo 7, Ao Nang, Muang, Krabi t/island t/nature
 
 add n/Khlong Lad Mayom Floating Market cc/THA dv/20/10/2014 r/2 d/Experience rural Thai culture and explore the canal waterways outside the capital. a/30/1 Bang Ramat Rd, Bang Ramat, Taling Chan t/culture
 
-add n/Ko Samui cc/THA dv/5/10/2014 r/1 d/Thailand’s second largest island. a/9/123 Moo 5, Tambon Bophut Koh Samui, Surat Thani t/island t/nature
+add n/Ko Samui cc/THA dv/05/10/2014 r/1 d/Thailand’s second largest island. a/9/123 Moo 5, Tambon Bophut Koh Samui, Surat Thani t/island t/nature
 
-add n/Marina Bay Sands cc/SGP dv/1/4/2017 r/5 d/The world's most expensive standalone casino property. a/10 Bayfront Avenue t/luxury t/hotel t/landmark
+add n/Marina Bay Sands cc/SGP dv/01/04/2017 r/5 d/The world's most expensive standalone casino property. a/10 Bayfront Avenue t/luxury t/hotel t/landmark
 
-add n/Hiroshima Peace Memorial cc/JPN dv/1/5/2016 r/2 d/The memorial features Genbaku Dome, the only building left standing in the vicinity after the bomb dropped. a/1-2 Nakajima-cho, Naka-ku, Hiroshima-shi 730-0811 t/historic t/landmark
+add n/Hiroshima Peace Memorial cc/JPN dv/01/05/2016 r/2 d/The memorial features Genbaku Dome, the only building left standing in the vicinity after the bomb dropped. a/1-2 Nakajima-cho, Naka-ku, Hiroshima-shi 730-0811 t/historic t/landmark
 
-add n/Arc de Triomphe cc/FRA dv/31/1/2019 r/5 d/Formerly named Place de l'Étoile — the étoile or "star" of the juncture formed by its twelve radiating avenues. a/Place de l'Étoile, 75008 Paris t/landmark
+add n/Arc de Triomphe cc/FRA dv/31/01/2019 r/5 d/Formerly named Place de l'Étoile — the étoile or "star" of the juncture formed by its twelve radiating avenues. a/Place de l'Étoile, 75008 Paris t/landmark
 
-add n/Louvre cc/FRA dv/9/5/2018 r/4 d/The world's largest art museum. a/Musée du Louvre, 75001 Paris, France t/landmark t/museum t/art
+add n/Louvre cc/FRA dv/09/05/2018 r/4 d/The world's largest art museum. a/Musée du Louvre, 75001 Paris, France t/landmark t/museum t/art
 
 add n/Japanese Cemetery Park cc/SGP dv/11/09/2017 r/3 d/The Japanese Cemetery Park serves as the burial ground for Japanese soldiers and civilians who lived in the early 20th century. a/22 Chuan Hoe Ave, Singapore 549854 t/cemetery t/placeOfInterest t/historic

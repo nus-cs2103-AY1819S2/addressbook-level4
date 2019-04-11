@@ -38,7 +38,7 @@ public class DateVisitedTest {
         assertFalse(DateVisited.isCorrectDateFormat("10-10-2000")); // not correct format date
         assertFalse(DateVisited.isCorrectDateFormat("10/17/2000")); // not correct format date
         assertFalse(DateVisited.isCorrectDateFormat("99/08/2000")); // not correct format date
-
+        assertFalse(DateVisited.isCorrectDateFormat("1/1/2015")); // not correct format date
 
         // date that does not exist
         assertFalse(DateVisited.doesDateExist("29/02/2017")); // Not a leap year

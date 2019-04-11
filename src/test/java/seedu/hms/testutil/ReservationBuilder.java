@@ -71,13 +71,8 @@ public class ReservationBuilder {
      * Sets the {@code timing} of the {@code Reservation} that we are building.
      */
     public ReservationBuilder withDates(String start, String end) {
-        String[] sd = start.split("/");
-        String[] ed = end.split("/");
-        Calendar startDate = Calendar.getInstance();
-        startDate.set(Integer.parseInt(sd[2]), Integer.parseInt(sd[1]), Integer.parseInt(sd[0]));
-        Calendar endDate = Calendar.getInstance();
-        endDate.set(Integer.parseInt(ed[2]), Integer.parseInt(ed[1]), Integer.parseInt(ed[0]));
-
+        Calendar startDate = dateBuilder(start);
+        Calendar endDate = dateBuilder(end);
         this.dateRange = new DateRange(startDate, endDate);
         return this;
     }

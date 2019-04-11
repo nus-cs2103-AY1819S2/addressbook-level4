@@ -26,8 +26,8 @@ public class FindBookingCommandParser implements Parser<FindBookingCommand> {
      */
     public FindBookingCommand parse(String args, BookingModel bookingModel) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_IDENTIFICATION_NUMBER,
-                        PREFIX_SERVICE, PREFIX_TIMING);
+            ArgumentTokenizer.tokenize(args, PREFIX_IDENTIFICATION_NUMBER,
+                PREFIX_SERVICE, PREFIX_TIMING);
 
         if (!argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindBookingCommand.MESSAGE_USAGE));
@@ -36,7 +36,7 @@ public class FindBookingCommandParser implements Parser<FindBookingCommand> {
         BookingContainsPayerPredicate bookingContainsPayerPredicate;
         if (argMultimap.getValue(PREFIX_IDENTIFICATION_NUMBER).isPresent()) {
             bookingContainsPayerPredicate = new BookingContainsPayerPredicate(
-                    ParserUtil.parseIdNum(argMultimap.getValue(PREFIX_IDENTIFICATION_NUMBER).get()).toString());
+                ParserUtil.parseIdNum(argMultimap.getValue(PREFIX_IDENTIFICATION_NUMBER).get()).toString());
         } else {
             bookingContainsPayerPredicate = new BookingContainsPayerPredicate("");
         }
@@ -44,7 +44,7 @@ public class FindBookingCommandParser implements Parser<FindBookingCommand> {
         BookingWithTypePredicate bookingWithTypePredicate;
         if (argMultimap.getValue(PREFIX_SERVICE).isPresent()) {
             bookingWithTypePredicate = new BookingWithTypePredicate(
-                    ParserUtil.parseService(argMultimap.getValue(PREFIX_SERVICE).get(), bookingModel).getName());
+                ParserUtil.parseService(argMultimap.getValue(PREFIX_SERVICE).get(), bookingModel).getName());
         } else {
             bookingWithTypePredicate = new BookingWithTypePredicate("");
         }
@@ -54,8 +54,8 @@ public class FindBookingCommandParser implements Parser<FindBookingCommand> {
         BookingWithinTimePredicate bookingWithinTimePredicate = new BookingWithinTimePredicate(timeRange);
 
         return new FindBookingCommand(bookingContainsPayerPredicate,
-                bookingWithTypePredicate,
-                bookingWithinTimePredicate);
+            bookingWithTypePredicate,
+            bookingWithinTimePredicate);
     }
 
     @Override

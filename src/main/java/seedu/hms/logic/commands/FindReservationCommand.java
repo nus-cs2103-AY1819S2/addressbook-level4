@@ -31,6 +31,8 @@ public class FindReservationCommand extends ReservationCommand {
         + PREFIX_ROOM + "SINGLE ROOM ";
     //  + "[" + PREFIX_DATES + "12/12/2019 - 14/12/2019]";
     private final Predicate<Reservation> reservationPredicate;
+    private final ReservationContainsPayerPredicate reservationContainsPayerPredicate;
+    private final ReservationWithTypePredicate reservationWithTypePredicate;
 
     public FindReservationCommand(ReservationContainsPayerPredicate reservationContainsPayerPredicate,
                                   ReservationWithTypePredicate reservationWithTypePredicate) {
@@ -38,6 +40,8 @@ public class FindReservationCommand extends ReservationCommand {
         this.reservationPredicate = (reservationTested) -> reservationContainsPayerPredicate.test(reservationTested)
             && reservationWithTypePredicate.test(reservationTested);
         //  && reservationWithDatePredicate.test(reservationTested);
+        this.reservationContainsPayerPredicate = reservationContainsPayerPredicate;
+        this.reservationWithTypePredicate = reservationWithTypePredicate;
     }
 
     @Override
@@ -52,6 +56,9 @@ public class FindReservationCommand extends ReservationCommand {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
             || (other instanceof FindReservationCommand // instanceof handles nulls
-            && reservationPredicate.equals(((FindReservationCommand) other).reservationPredicate)); // state check
+            && reservationContainsPayerPredicate.equals(((FindReservationCommand) other)
+            .reservationContainsPayerPredicate)
+            && reservationWithTypePredicate.equals(((FindReservationCommand) other)
+            .reservationWithTypePredicate)); // state check
     }
 }

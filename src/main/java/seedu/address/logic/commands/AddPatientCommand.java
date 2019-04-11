@@ -38,6 +38,7 @@ public class AddPatientCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "New patient added: %1$s";
     public static final String MESSAGE_DUPLICATE_PATIENT = "This patient already exists in docX";
+    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the DocX";
 
     private final Patient toAdd;
 
@@ -52,6 +53,10 @@ public class AddPatientCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
+
+        if (model.hasPerson(toAdd)) {
+            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+        }
 
         if (model.hasPatient(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_PATIENT);

@@ -102,7 +102,6 @@ public class Patient extends Person {
         }
 
         return otherPatient != null
-                && otherPatient.getName().equals(getName())
                 && (otherPatient.getPhone().equals(getPhone()));
     }
 

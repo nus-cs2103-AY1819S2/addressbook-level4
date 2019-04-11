@@ -118,7 +118,7 @@ public class DocXParser {
             return new MarkAppointmentCommandParser().parse(arguments);
 
         case ListDoctorCommand.COMMAND_WORD:
-            return new ListDoctorCommand();
+            return new ListDoctorCommandParser().parse(arguments);
 
         case EditDoctorCommand.COMMAND_WORD:
             return new EditDoctorCommandParser().parse(arguments);

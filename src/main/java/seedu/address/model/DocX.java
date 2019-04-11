@@ -14,10 +14,12 @@ import seedu.address.model.medicalhistory.MedicalHistory;
 import seedu.address.model.medicalhistory.UniqueMedHistList;
 import seedu.address.model.person.Doctor;
 import seedu.address.model.person.Patient;
+import seedu.address.model.person.Person;
 import seedu.address.model.person.PersonId;
 import seedu.address.model.person.PersonIdCounter;
 import seedu.address.model.person.UniqueDoctorList;
 import seedu.address.model.person.UniquePatientList;
+import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.prescription.Prescription;
 import seedu.address.model.prescription.UniquePrescriptionList;
 
@@ -29,6 +31,7 @@ import seedu.address.model.prescription.UniquePrescriptionList;
  */
 public class DocX implements ReadOnlyDocX {
 
+    private final UniquePersonList persons;
     private final UniquePatientList patients;
     private final UniqueDoctorList doctors;
     private final UniqueMedHistList medHists;
@@ -45,6 +48,7 @@ public class DocX implements ReadOnlyDocX {
      * among constructors.
      */
     {
+        persons = new UniquePersonList();
         patients = new UniquePatientList();
         doctors = new UniqueDoctorList();
         medHists = new UniqueMedHistList();
@@ -165,6 +169,14 @@ public class DocX implements ReadOnlyDocX {
     public void addPatient(Patient p) {
         patients.add(p);
         indicateModified();
+    }
+
+    /**
+     * Returns true if a person with the same identity as {@code person} exists in the docX.
+     */
+    public boolean hasPerson(Person person) {
+        requireNonNull(person);
+        return persons.contains(person);
     }
 
     /**

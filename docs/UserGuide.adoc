@@ -3,6 +3,7 @@
 :toc:
 :toc-title:
 :toc-placement: preamble
+:toclevels: 5
 :sectnums:
 :imagesDir: images
 :stylesDir: stylesheets
@@ -135,19 +136,23 @@ A quick alternative way to seek help is to hit the kbd:[F1] key.
 *Shortcut:* `a`
 
 The table below shows the parameters that require a specific input format to be added.
-[width="100%",cols="20%,<70%"]
+[width="100%",cols="20%,20%,<60%"]
 |=======================================================================
 |*Parameter*
+|*Parameter Prefix*
 |*Specific Input Format*
 
 |`RATING`
+|`r/`
 |An integer ranging from `1` to `5`
 
 |`COUNTRY_CODE`
+|`cc/`
 |A valid ISO-3166 country code +
 e.g. `JPN` to represent `Japan`
 
 |`DATE_VISITED`
+|`dv/`
 |A valid date that follows the `DD/MM/YYYY` format ranging from `01/01/1900` to the current date
 |=======================================================================
 
@@ -170,6 +175,68 @@ image::addCommand.png[width="400"]
 
 [TIP]
 A place can have any number of tags (including 0 tags).
+
+==== Adding a photo to a place using `add p/`
+
+*Description:* The `add` command can also include attach a single photo
+when adding a new place to TravelBuddy.
+
+The photo must be a image file that already exists in your computer.
+
+*Format:*
+[width="100%",cols="20%,20%,<60%"]
+|=======================================================================
+|*Parameter*
+|*Parameter Prefix*
+|*Specific Input Format*
+
+|`PHOTO`
+|`p/`
+|The file path must be an *absolute file path* and include the *filename* and *file extension*.
+|=======================================================================
+
+[NOTE]
+A filepath specifies a unique location for a file.
+*Absolute file paths* are paths that start with a drive letter (eg. `C:\`)
+
+****
+*Examples:* Given below is an example that uses the add command to include
+ a photo with the `p/` parameter:
+
+`add n/Himeiji Castle cc/JPN dv/15/12/2017 r/5 d/Wow. a/Kyoto t/castle p/C:\Users\Michael\Pictures\castle-photo.jpg` +
+Adds Himeiji Castle as a place in TravelBuddy, and include the image `castle-photo.jpg` at the location specified by
+the filepath `C:\Users\Michael\Pictures\castle-photo.jpg`.
+****
+
+[TIP]
+If you are using Windows 10, below is a quick way to obtain the file path of the
+photo you would like to include:
+
+- *Step 1:* Open File Explorer.
+
+- *Step 2:* Navigate to the folder that contains the photo you would like to add.
+
+- *Step 3:* Select the Photo you would like to add.
+
+[reftext="Figure 4.3.3"]
+[caption="Figure 4.3.3: "]
+.Select the Photo you would like to add
+image::AddPhotoStep3.png[width="400"]
+
+- *Step 4:* Click on `Copy Path` at the top left corner of the File Explorer window.
+
+[reftext="Figure 4.3.4"]
+[caption="Figure 4.3.4: "]
+.Click on `Copy Path` at the top left corner File Explorer window
+image::AddPhotoStep4.png[width="400"]
+
+` *Step 5:* Open TravelBuddy and paste the filepath after the parameter prefix `p/`.
+
+Currently, TravelBuddy supports the following image *file formats/extensions*:
+
+* JPEG `.jpg`
+* PNG  `.png`
+* Bitmap `.bmp`
 
 === Listing all places: `list`
 
@@ -229,6 +296,23 @@ image::editCommandBefore.png[width="400"]
 [caption="Figure 4.5.2: "]
 .After the `edit` command is used
 image::editCommandAfter.png[width="400"]
+
+==== Replacing the photo of a place using `Edit p/`
+
+The `Edit` command can also be used to change the photo of a place by replacing
+the `FILE_PATH` of the current photo with the `FILE_PATH` of the new photo.
+
+****
+*Examples:* Given below is an example of using `Edit` to replace a photo:
+
+* `edit 3 p/C:\Users\Michael\Pictures\Wallpapers\Zion National Park 1.jpg` +
+Replaces the current photo of 3rd Place Entry with the photo named `Zion National Park 1.jpg`
+****
+
+[NOTE]
+The image FILE_PATH being replaced with the `edit` command must still follow the
+specifications laid out in <<Adding a photo to a place using `add p/`>>
+
 // end::crud[]
 
 // tag::search[]
@@ -848,7 +932,7 @@ Below is a summarized list of all the command formats that TravelBuddy supports:
 |*Format*
 
 |*Add*
-|`add n/NAME cc/COUNTRY_CODE dv/DATE_VISITED r/RATING d/DESCRIPTION a/ADDRESS [t/TAG]...` +
+|`add n/NAME cc/COUNTRY_CODE dv/DATE_VISITED r/RATING d/DESCRIPTION a/ADDRESS [t/TAG] p/FILE_PATH` +
 
 _Example:_ +
 `add n/NUS Computing cc/SGP dv/10/10/2017 r/5 d/No description a/NUS School of Computing, COM1, 13 Computing Drive, 117417 t/school`

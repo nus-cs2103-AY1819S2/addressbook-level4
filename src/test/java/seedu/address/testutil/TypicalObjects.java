@@ -52,41 +52,41 @@ public class TypicalObjects {
     public static final Person BENSON = new PersonBuilder().withName("Benson Meier").withRace("Chinese")
             .withAddress("311, Clementi Ave 2, #02-25").withEmail("johnd@example.com").withNric("S9421423F")
             .withGender("Male").withPhone("98765432").withSchool("NTU").withMajor("CS").withGrade("4.00")
-            .withKnownProgLangs("Python").withPastJobs("Lawyer", "SDE").withJobsApply("Data Analyst")
+            .withKnownProgLangs("Python").withPastJobs("Lawyer", "SDE").withJobsApply("Data-Analyst")
             .withInterviewScores("10,2,10,10,10").withTags("owesMoney", "friends").build();
     public static final Person CARL = new PersonBuilder().withName("Carl Kurz").withRace("Others")
             .withPhone("95352563").withEmail("heinz@example.com").withNric("S9123121F")
-            .withGender("Male").withAddress("wall street").withGrade("4.12").withJobsApply("Data Analyst")
+            .withGender("Male").withAddress("wall street").withGrade("4.12").withJobsApply("Data-Analyst")
             .withInterviewScores("1,2,1,1,1").withKnownProgLangs("Python").withPastJobs("Professor")
             .withSchool("SMU").withMajor("CS").build();
     public static final Person DANIEL = new PersonBuilder().withName("Daniel Meier").withRace("Chinese")
             .withPhone("87652533").withEmail("cornelia@example.com").withNric("S9098983R")
-            .withGender("Male").withAddress("10th street").withGrade("5.00").withJobsApply("Chief Financial Officer")
+            .withGender("Male").withAddress("10th street").withGrade("5.00").withJobsApply("Chief-Financial-Officer")
             .withInterviewScores("10,10,10,10,10").withSchool("SIM").withMajor("CS").withKnownProgLangs("Python")
             .withPastJobs("Professor").withTags("friends").build();
     public static final Person ELLE = new PersonBuilder().withName("Elle Meyer").withRace("Others")
             .withPhone("9482224").withEmail("werner@example.com").withNric("S9876523T")
             .withGender("Female").withAddress("michegan ave").withGrade("4.85")
             .withSchool("SUTD").withMajor("CS").withKnownProgLangs("Python")
-            .withPastJobs("SDE").withJobsApply("Chief Executive Officer").withInterviewScores("10,10,10,10,10").build();
+            .withPastJobs("SDE").withJobsApply("Chief-Executive-Officer").withInterviewScores("10,10,10,10,10").build();
     public static final Person FIONA = new PersonBuilder().withName("Fiona Kunz").withRace("Malay")
             .withPhone("9482427").withEmail("lydia@example.com").withNric("S7951769H")
-            .withGender("Female").withAddress("little tokyo").withGrade("5.00").withJobsApply("Chief Operating Officer")
+            .withGender("Female").withAddress("little tokyo").withGrade("5.00").withJobsApply("Chief-Operating-Officer")
             .withInterviewScores("9,9,9,10,10").withSchool("SIT").withMajor("CS")
             .withKnownProgLangs("Python").build();
     public static final Person GEORGE = new PersonBuilder().withName("George Best").withRace("Indian")
             .withPhone("9482442").withEmail("anna@example.com").withNric("S0101011Y")
-            .withGender("Male").withAddress("4th street").withGrade("2.10").withJobsApply("Human Resource Manager")
+            .withGender("Male").withAddress("4th street").withGrade("2.10").withJobsApply("Human-Resource-Manager")
             .withInterviewScores("1,3,4,10,4").withSchool("SUSS").withMajor("CS")
             .withKnownProgLangs("Python").build();
 
     // Manually added
     public static final Person HOON = new PersonBuilder().withName("Hoon Meier").withRace("Chinese")
             .withPhone("8482424").withEmail("stefan@example.com").withAddress("little india").withNric("S3344556O")
-            .withGender("Male").withGrade("4.10").withJobsApply("Security Manager")
+            .withGender("Male").withGrade("4.10").withJobsApply("Security-Manager")
             .withInterviewScores("2,3,4,10,10").withSchool("NUS").withMajor("CS").withKnownProgLangs("Python").build();
     public static final Person IDA = new PersonBuilder().withName("Ida Mueller").withRace("Others")
-            .withNric("S4867206C").withGender("Male").withGrade("3.00").withJobsApply("Business Development Intern")
+            .withNric("S4867206C").withGender("Male").withGrade("3.00").withJobsApply("Business-Development-Intern")
             .withInterviewScores("2,2,2,2,2").withPhone("8482131").withEmail("hans@example.com")
             .withAddress("chicago ave").withSchool("NTU").withMajor("CS").withKnownProgLangs("Python").build();
 

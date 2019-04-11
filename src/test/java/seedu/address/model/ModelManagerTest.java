@@ -22,7 +22,7 @@ import seedu.address.commons.core.GuiSettings;
 //import seedu.address.model.pdf.NameContainsKeywordsPredicate;
 //import seedu.address.model.pdf.Pdf;
 //import seedu.address.model.pdf.exceptions.PdfNotFoundException;
-//import seedu.address.testutil.AddressBookBuilder;
+//import seedu.address.testutil.PdfBookBuilder;
 //import seedu.address.testutil.PdfBuilder;
 
 public class ModelManagerTest {
@@ -151,7 +151,7 @@ public class ModelManagerTest {
 
     @Test
     public void equals() {
-        PdfBook addressBook = new AddressBookBuilder().withPerson(ALICE).withPerson(BENSON).build();
+        PdfBook addressBook = new PdfBookBuilder().withPdf(ALICE).withPdf(BENSON).build();
         PdfBook differentAddressBook = new PdfBook();
         UserPrefs userPrefs = new UserPrefs();
 

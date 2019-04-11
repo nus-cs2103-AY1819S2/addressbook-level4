@@ -11,12 +11,12 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
-import javafx.beans.property.SimpleIntegerProperty;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import javafx.beans.InvalidationListener;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 

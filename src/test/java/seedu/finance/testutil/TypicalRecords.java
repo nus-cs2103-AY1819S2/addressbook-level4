@@ -77,6 +77,17 @@ public class TypicalRecords {
         return ft;
     }
 
+    /**
+     * Returns an {@code FinanceTracker} without budget set but with all the typical records.
+     */
+    public static FinanceTracker getTypicalFinanceTrackerWithoutBudget() {
+        FinanceTracker ft = new FinanceTracker();
+        for (Record record : getTypicalRecords()) {
+            ft.addRecord(record);
+        }
+        return ft;
+    }
+
 
     /**
      * Returns an {@code FinanceTracker} with all the typical records.

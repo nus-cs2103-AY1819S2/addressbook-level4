@@ -231,6 +231,11 @@ public class AddWorkListCommandTest {
         }
 
         @Override
+        public void setSelectedClient(Name name) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void deleteTag(Tag tag) {
             throw new AssertionError("This method should not be called.");
         }
@@ -311,12 +316,23 @@ public class AddWorkListCommandTest {
         }
 
         @Override
+        public ReadOnlyProperty<Name> selectedClientProperty() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ReadOnlyProperty<WorkList> selectedWorkListProperty() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public Equipment getSelectedEquipment() {
+
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Name getSelectedClient() {
 
             throw new AssertionError("This method should not be called.");
         }

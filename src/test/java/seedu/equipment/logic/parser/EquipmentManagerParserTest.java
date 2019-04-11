@@ -126,13 +126,6 @@ public class EquipmentManagerParserTest {
     }
 
     @Test
-    public void parseCommand_listc() throws Exception {
-        assertTrue(parser.parseCommand(ListClientCommand.COMMAND_WORD) instanceof ListClientCommand);
-        assertTrue(parser.parseCommand(ListClientCommand.COMMAND_WORD + " 3")
-                instanceof ListClientCommand);
-    }
-
-    @Test
     public void parseCommand_select() throws Exception {
         SelectCommand command = (SelectCommand) parser.parseCommand(
                 SelectCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased());

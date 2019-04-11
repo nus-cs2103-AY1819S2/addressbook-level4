@@ -6,6 +6,7 @@ import static seedu.travel.logic.parser.CliSyntax.PREFIX_COUNTRY_CODE;
 import static seedu.travel.logic.parser.CliSyntax.PREFIX_DATE_VISITED;
 import static seedu.travel.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.travel.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.travel.logic.parser.CliSyntax.PREFIX_PHOTO;
 import static seedu.travel.logic.parser.CliSyntax.PREFIX_RATING;
 import static seedu.travel.logic.parser.CliSyntax.PREFIX_TAG;
 
@@ -39,7 +40,8 @@ public class AddCommand extends Command {
             + "The National University of Singapore is an autonomous research university in Singapore. "
             + PREFIX_ADDRESS + "21 Lower Kent Ridge Road, Singapore 119077 "
             + PREFIX_TAG + "school "
-            + PREFIX_TAG + "studiesHere";
+            + PREFIX_TAG + "studiesHere "
+            + PREFIX_PHOTO + "C:\\Users\\<your username>\\Pictures\\travel photos\\your-travel-photo.jpg";
 
     public static final String MESSAGE_SUCCESS = "New place added: %1$s";
     public static final String MESSAGE_DUPLICATE_PLACE = "This place already exists in the travel book";

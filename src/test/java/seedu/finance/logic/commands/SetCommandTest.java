@@ -16,6 +16,9 @@ import seedu.finance.model.ModelManager;
 import seedu.finance.model.UserPrefs;
 import seedu.finance.model.budget.Budget;
 
+/**
+ * Contains integration tests (interaction with Model) and unit test for SetCommand.
+ */
 public class SetCommandTest {
 
     private Model model = new ModelManager(getTypicalFinanceTrackerWithoutSetBudget(), new UserPrefs());

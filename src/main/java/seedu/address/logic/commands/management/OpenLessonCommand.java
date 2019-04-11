@@ -36,7 +36,7 @@ public class OpenLessonCommand extends ManagementCommand {
     /**
      * Feedback message displayed to the user upon successful execution of this command
      */
-    public static final String MESSAGE_SUCCESS = "Lesson View: %1$s\n" + MESSAGE_CARD_COMMANDS;
+    public static final String MESSAGE_SUCCESS = "Opened lesson: %1$s\n" + MESSAGE_CARD_COMMANDS;
     /**
      * The index of the lesson to be opened when {@link #execute(Model, CommandHistory)}
      * is called.

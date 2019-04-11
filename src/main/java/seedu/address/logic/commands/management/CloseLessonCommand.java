@@ -31,7 +31,7 @@ public class CloseLessonCommand extends ManagementCommand {
     /**
      * Feedback message displayed to the user upon successful execution of this command
      */
-    public static final String MESSAGE_SUCCESS = "Closed lesson and saved changes: %1$s"
+    public static final String MESSAGE_SUCCESS = "Closed lesson and saved changes: %1$s\n"
             + MESSAGE_LESSON_COMMANDS;
 
     /**

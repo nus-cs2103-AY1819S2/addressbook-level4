@@ -113,7 +113,7 @@ public class BrowserPanel extends UiPart<Region> {
 
         this.selectedName.setText("Name: " + pdf.getName().getFullName());
         this.selectedDirectory.setText("Directory: " + pdf.getDirectory().getDirectory());
-        this.selectedSize.setText("Size: " + pdf.getSize().getValue());
+        this.selectedSize.setText("Size: " + pdf.getSize().getReadableValue());
         if (pdf.getDeadline().exists()) {
             this.selectedDeadline.setText("Deadline: " + pdf.getDeadline().getValue().toString());
         } else {

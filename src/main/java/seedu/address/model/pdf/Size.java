@@ -10,7 +10,17 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Size implements Comparable<Size> {
     public static final String MESSAGE_CONSTRAINTS = "File size should be a non-negative number";
 
-    public static final String VALIDATION_REGEX = "^\\d+$";
+    static final int THRESHOLD_KILOBYTE = 1024;
+    static final int THRESHOLD_MEGABYTE = 1048576;
+    static final int THRESHOLD_GIGABYTE = 1073741824;
+
+    static final String PREFIX_BYTE = "b";
+    static final String PREFIX_KILOBYTE = "kb";
+    static final String PREFIX_MEGABYTE = "mb";
+    static final String PREFIX_GIGABYTE = "gb";
+
+    private static final String VALIDATION_REGEX = "^\\d+$";
+
 
     private final String value;
 
@@ -29,6 +39,38 @@ public class Size implements Comparable<Size> {
 
     public String getValue() {
         return this.value;
+    }
+
+    public String getReadableValue() {
+        int actualValue = Integer.parseInt(this.value);
+        StringBuilder sb = new StringBuilder();
+
+        if (actualValue < THRESHOLD_KILOBYTE) {
+            return sb.append(this.value)
+                    .append(" ")
+                    .append(PREFIX_BYTE)
+                    .toString();
+
+        } else if (actualValue < THRESHOLD_MEGABYTE) {
+            return sb.append(Integer.toString((actualValue / THRESHOLD_KILOBYTE)))
+                    .append(" ")
+                    .append(PREFIX_KILOBYTE)
+                    .toString();
+        } else if (actualValue < THRESHOLD_GIGABYTE) {
+            return sb.append(Integer.toString((actualValue / THRESHOLD_MEGABYTE)))
+                    .append(" ")
+                    .append(PREFIX_MEGABYTE)
+                    .toString();
+        } else {
+            return sb.append(Integer.toString((actualValue / THRESHOLD_GIGABYTE)))
+                    .append(" ")
+                    .append(PREFIX_GIGABYTE)
+                    .toString();
+        }
+    }
+
+    public String toReadableString() {
+        return new StringBuilder("Size: ").append(this.getReadableValue()).append("\n").toString();
     }
 
     @Override

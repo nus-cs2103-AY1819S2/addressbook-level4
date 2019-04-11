@@ -112,7 +112,7 @@ public class MergeCommand extends Command {
 
         model.addPdf(mergedPdf);
         model.commitPdfBook();
-        return new CommandResult(String.format(MESSAGE_MERGE_PDF_SUCCESS, mergedPdf));
+        return new CommandResult(String.format(MESSAGE_MERGE_PDF_SUCCESS, mergedPdf.toReadableString()));
     }
 
     @Override

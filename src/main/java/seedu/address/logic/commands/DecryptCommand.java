@@ -68,7 +68,7 @@ public class DecryptCommand extends Command {
         model.updateFilteredPdfList(PREDICATE_SHOW_ALL_PDFS);
         //model.commitPdfBook();
 
-        return new CommandResult(String.format(MESSAGE_DECRYPT_PDF_SUCCESS, decryptedPdf));
+        return new CommandResult(String.format(MESSAGE_DECRYPT_PDF_SUCCESS, decryptedPdf.toReadableString()));
     }
 
     /**

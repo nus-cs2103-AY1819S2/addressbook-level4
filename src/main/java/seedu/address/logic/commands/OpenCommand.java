@@ -59,6 +59,6 @@ public class OpenCommand extends Command {
             throw new CommandException(MESSAGE_OPEN_PDF_FAILIUE, e);
         }
 
-        return new CommandResult(String.format(MESSAGE_OPEN_PDF_SUCCESS, pdfToOpen));
+        return new CommandResult(String.format(MESSAGE_OPEN_PDF_SUCCESS, pdfToOpen.toReadableString()));
     }
 }

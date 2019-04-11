@@ -47,6 +47,9 @@ public class ImportCommandParser implements Parser<ImportCommand> {
             switch (validPath(args)) {
             // TODO - Pending refactor.
             case 2:
+                if (album.getImageList().size() > 0) {
+                    throw new ParseException(Messages.MESSAGE_SAMPLE_IMPORT);
+                }
                 isDirectory = true;
                 try {
                     ResourceWalker.walk(SAMPLE_FOLDER);

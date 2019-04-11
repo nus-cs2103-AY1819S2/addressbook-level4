@@ -232,7 +232,7 @@ public class FilterCommandTest {
 
         modelAnd = new ModelManager(getTypicalAddressBook(), new UserPrefs());
         modelOr = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-        String[] skillArr = {"friends"};
+        String[] skillArr = {"C++"};
 
         // Filter Level 1: ALICE, BENSON, CARL, FIONA will be remained
         modelAnd.filterAnd(null, null, null, null, null,

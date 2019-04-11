@@ -159,6 +159,25 @@ public class Person {
     }
 
     /**
+     * Checks if the object and the given tags are the same tags, order is not important
+     */
+    private boolean isTagsEqual(Set<SkillsTag> compare) {
+        for (SkillsTag tag : tags) {
+            if (!compare.contains(tag)) {
+                return false;
+            }
+        }
+
+        for (SkillsTag tag : compare) {
+            if (!tags.contains(tag)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    /**
      * Returns true if both persons have the same identity and data fields.
      * This defines a stronger notion of equality between two persons.
      */
@@ -177,7 +196,7 @@ public class Person {
                 && otherPerson.getPhone().equals(getPhone())
                 && otherPerson.getEmail().equals(getEmail())
                 && otherPerson.getAddress().equals(getAddress())
-                && otherPerson.getTags().equals(getTags());
+                && isTagsEqual(otherPerson.getTags());
     }
 
     @Override

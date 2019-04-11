@@ -49,15 +49,27 @@ public class AddCommandParser implements Parser<AddCommand> {
         }
 
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
-        Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
-        Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
         Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
         Postal postal = ParserUtil.parsePostal(argMultimap.getValue(PREFIX_POSTAL).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        Weblink weblink;
+        Email email;
+        Phone phone;
         OpeningHours openingHours;
+        Weblink weblink;
         Restaurant restaurant;
+
+        if (!arePrefixesPresent(argMultimap, PREFIX_EMAIL)) {
+            email = Email.makeDefaultEmail();
+        } else {
+            email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
+        }
+
+        if (!arePrefixesPresent(argMultimap, PREFIX_PHONE)) {
+            phone = Phone.makeDefaultPhone();
+        } else {
+            phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
+        }
 
         if (!arePrefixesPresent(argMultimap, PREFIX_OPENING_HOURS)) {
             openingHours = OpeningHours.makeDefaultOpening();

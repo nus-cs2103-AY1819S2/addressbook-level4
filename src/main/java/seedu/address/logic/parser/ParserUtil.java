@@ -39,8 +39,8 @@ public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
     public static final String MESSAGE_NOT_JSON_OR_PDF = "Input file type is not a .json or .pdf.";
-    public static final String MESSAGE_INVALID_INDEX_RANGE
-            = "Invalid index range! Please input a positive unsigned index range.";
+    public static final String MESSAGE_INVALID_INDEX_RANGE =
+            "Invalid index range! Please input a positive unsigned index range.";
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -393,16 +393,6 @@ public class ParserUtil {
         }
         input = String.valueOf(pathArr);
 
-        final String fileRegex = "^(.*)+\\.(json|pdf)+\\s(.*)$";
-        if (!input.matches(fileRegex)) {
-            throw new ParseException(MESSAGE_NOT_JSON_OR_PDF);
-        }
-
-        final String specialRegex = "^([><:\"|?*])+\\.(json|pdf)+\\s?([0-9,\\-]*|all)?$";
-        if (input.matches(specialRegex)) {
-            throw new ParseException("Special characters such as\n> < : \" | ? *\nare not allowed.");
-        }
-
         // Parse for "all" keyword
         final String allRegex = "^([\\w\\\\/\\s!@#$%^&()_+\\-={}\\[\\];',.]+)+\\.(json|pdf)+\\s(all)$";
         if (input.matches(allRegex)) {
@@ -436,65 +426,79 @@ public class ParserUtil {
         }
 
         // Parse for index range
-        final String indexRegex = "^([\\w\\\\/\\s!@#$%^&()_+\\-={}\\[\\];',.]+)+\\.(json|pdf)+\\s?([0-9,\\-]*)$";
+        final String indexRegex = "^([\\w\\\\/\\s!@#$%^&()_+\\-={}\\[\\];',.]+)+\\.(json|pdf)+\\s([0-9,\\-]*)$";
         final String emptyIndexRegex = "^\\.(json|pdf)+\\s([0-9,\\-]*)$";
         String indexRange;
-        if (input.matches(indexRegex)) {
-            final Pattern splitRegex = Pattern.compile(indexRegex);
-            Matcher splitMatcher = splitRegex.matcher(input);
+        if (input.matches(indexRegex) | input.matches(emptyIndexRegex)) {
+            if (input.matches(indexRegex)) {
+                final Pattern splitRegex = Pattern.compile(indexRegex);
+                Matcher splitMatcher = splitRegex.matcher(input);
 
-            if (splitMatcher.find()) {
-                filepath = splitMatcher.group(1).concat(".");
-                filepath = filepath.concat(splitMatcher.group(2));
-                filepath = newPath.concat(filepath);
-                fileType = splitMatcher.group(2);
-                indexRange = splitMatcher.group(3);
-            } else {
-                // This shouldn't be possible after indexRegex
-                throw new ParseException(MESSAGE_INVALID_INDEX_RANGE);
-            }
-        } else if (input.matches(emptyIndexRegex)) {
-            final Pattern splitRegex = Pattern.compile(emptyIndexRegex);
-            Matcher splitMatcher = splitRegex.matcher(input);
+                if (splitMatcher.find()) {
+                    filepath = splitMatcher.group(1).concat(".");
+                    filepath = filepath.concat(splitMatcher.group(2));
+                    filepath = newPath.concat(filepath);
+                    fileType = splitMatcher.group(2);
+                    indexRange = splitMatcher.group(3);
+                } else {
+                    // This shouldn't be possible after indexRegex
+                    throw new ParseException(MESSAGE_INVALID_INDEX_RANGE);
+                }
+            } else if (input.matches(emptyIndexRegex)) {
+                final Pattern splitRegex = Pattern.compile(emptyIndexRegex);
+                Matcher splitMatcher = splitRegex.matcher(input);
 
-            if (splitMatcher.find()) {
-                filepath = ".";
-                filepath = filepath.concat(splitMatcher.group(1));
-                filepath = newPath.concat(filepath);
-                fileType = splitMatcher.group(1);
-                indexRange = splitMatcher.group(2);
-            } else {
-                // This shouldn't be possible after emptyIndexRegex
-                throw new ParseException(MESSAGE_INVALID_INDEX_RANGE);
-            }
-        } else {
-            // This shouldn't be possible
-            throw new ParseException(MESSAGE_INVALID_INDEX_RANGE);
-        }
-
-        HashSet<Integer> parsedIndex = new HashSet<>();
-
-        String[] splitInput = indexRange.trim().split(",");
-        String[] splitRange;
-        final String singleNumberRegex = "^\\d+$";
-        final String rangeNumberRegex = "^(\\d+)-(\\d+)$";
-
-        for (String string : splitInput) {
-            if (string.matches(singleNumberRegex)) {
-                // -1 because indexes displayed to user starts with 1, not 0
-                parsedIndex.add(Integer.parseInt(string) - 1);
-            } else if (string.matches(rangeNumberRegex)) {
-                splitRange = string.split("-");
-                for (int i = Integer.parseInt(splitRange[0]); i < Integer.parseInt(splitRange[1]) + 1; i++) {
-                    // -1 because indexes displayed to user starts with 1, not 0
-                    parsedIndex.add(i - 1);
+                if (splitMatcher.find()) {
+                    filepath = ".";
+                    filepath = filepath.concat(splitMatcher.group(1));
+                    filepath = newPath.concat(filepath);
+                    fileType = splitMatcher.group(1);
+                    indexRange = splitMatcher.group(2);
+                } else {
+                    // This shouldn't be possible after emptyIndexRegex
+                    throw new ParseException(MESSAGE_INVALID_INDEX_RANGE);
                 }
             } else {
+                // This shouldn't be possible
                 throw new ParseException(MESSAGE_INVALID_INDEX_RANGE);
             }
+
+            HashSet<Integer> parsedIndex = new HashSet<>();
+
+            String[] splitInput = indexRange.trim().split(",");
+            String[] splitRange;
+            final String singleNumberRegex = "^\\d+$";
+            final String rangeNumberRegex = "^(\\d+)-(\\d+)$";
+
+            for (String string : splitInput) {
+                if (string.matches(singleNumberRegex)) {
+                    // -1 because indexes displayed to user starts with 1, not 0
+                    parsedIndex.add(Integer.parseInt(string) - 1);
+                } else if (string.matches(rangeNumberRegex)) {
+                    splitRange = string.split("-");
+                    for (int i = Integer.parseInt(splitRange[0]); i < Integer.parseInt(splitRange[1]) + 1; i++) {
+                        // -1 because indexes displayed to user starts with 1, not 0
+                        parsedIndex.add(i - 1);
+                    }
+                } else {
+                    throw new ParseException(MESSAGE_INVALID_INDEX_RANGE);
+                }
+            }
+
+            return new ParsedInOut(new File(filepath), fileType, parsedIndex);
         }
 
-        return new ParsedInOut(new File(filepath), fileType, parsedIndex);
+        final String specialRegex = "^(.*)+\\.(json|pdf)+\\s([0-9,\\-]*|all)$";
+        if (input.matches(specialRegex)) {
+            throw new ParseException("Special characters such as\n> < : \" | ? *\nare not allowed.");
+        }
+
+        final String fileRegex = "^(.*)+\\.(json|pdf)+(.*)$";
+        if (!input.matches(fileRegex)) {
+            throw new ParseException(MESSAGE_NOT_JSON_OR_PDF);
+        }
+
+        throw new ParseException("Invalid command format!");
     }
 
     /**

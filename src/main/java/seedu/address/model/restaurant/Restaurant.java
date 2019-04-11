@@ -226,10 +226,13 @@ public class Restaurant {
             builder.append(" Weblink: ")
                     .append(getWeblink());
         }
-        
+
+        if (!getCategories().isEmpty()) {
+            builder.append(" Categories: ")
+                    .append(categories.toString());
+        }
+
         getTags().forEach(builder::append);
-        builder.append(" Categories: ")
-                .append(categories.toString());
 
         return builder.toString();
     }

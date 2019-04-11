@@ -57,10 +57,10 @@ public class AddListToJobCommand extends Command {
         requireNonNull(model);
 
         if (toAdd == null) {
-           if (model.getActiveJob() == null) {
-               throw new CommandException(MESSAGE_NO_ACTIVE_JOB);
-           }
-           toAdd = model.getActiveJob().getName();
+            if (model.getActiveJob() == null) {
+                throw new CommandException(MESSAGE_NO_ACTIVE_JOB);
+            }
+            toAdd = model.getActiveJob().getName();
         }
 
         Job tempJob = new Job(toAdd);

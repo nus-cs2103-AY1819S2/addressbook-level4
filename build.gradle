@@ -149,7 +149,7 @@ test {
             //test.exclude 'seedu/address/**'
             test.include 'seedu/address/pdf/DirectoryTest.java'
             test.include 'seedu/address/pdf/NameTest.java'
-            test.include 'seedu/address/pdf/SizeTest.java' 
+            test.include 'seedu/address/pdf/SizeTest.java'
         }
 
         if (runGuiTests) {

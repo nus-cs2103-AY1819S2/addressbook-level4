@@ -263,8 +263,8 @@ Example:
 ****
 * The program will prevent you from attacking an invalid coordinate.
 * The program will prevent you from attacking a square that you have already attacked.
-* The program will prevent the you from making another attack when you have already taken your turn.
-After attacking, you should use `endturn` to allow the computer to make its move.
+* If you hit one of the opponent's ships, you may make another attack.
+  Otherwise, the enemy will take their turn(s), firing until they get a miss.
 ****
 
 // end::battle[]

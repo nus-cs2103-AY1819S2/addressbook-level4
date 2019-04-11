@@ -64,7 +64,6 @@ public class Photo {
             }
 
         } catch (IOException e) {
-            e.printStackTrace();
             return false;
         }
         return true;

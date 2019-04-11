@@ -176,6 +176,7 @@ image::addCommand.png[width="400"]
 [TIP]
 A place can have any number of tags (including 0 tags).
 
+// tag::addphoto[]
 ==== Adding a photo to a place using `add p/`
 
 *Description:* The `add` command can also include attach a single photo
@@ -203,7 +204,8 @@ A filepath specifies a unique location for a file.
 *Examples:* Given below is an example that uses the add command to include
  a photo with the `p/` parameter:
 
-`add n/Himeiji Castle cc/JPN dv/15/12/2017 r/5 d/Wow. a/Kyoto t/castle p/C:\Users\Michael\Pictures\castle-photo.jpg` +
+* `add n/Himeiji Castle cc/JPN dv/15/12/2017 r/5 d/Wow. a/Kyoto t/castle p/C:\Users\Michael\Pictures\castle-photo.jpg`
+
 Adds Himeiji Castle as a place in TravelBuddy, and include the image `castle-photo.jpg` at the location specified by
 the filepath `C:\Users\Michael\Pictures\castle-photo.jpg`.
 ****
@@ -231,12 +233,15 @@ image::AddPhotoStep3.png[width="400"]
 image::AddPhotoStep4.png[width="400"]
 
 ` *Step 5:* Open TravelBuddy and paste the filepath after the parameter prefix `p/`.
+*TravelBuddy allows for double quotation marks around the filepath, so there is no need to delete them.*
 
 Currently, TravelBuddy supports the following image *file formats/extensions*:
 
 * JPEG `.jpg`
 * PNG  `.png`
 * Bitmap `.bmp`
+
+// end::addphoto[]
 
 === Listing all places: `list`
 
@@ -261,7 +266,7 @@ image::listCommand.png[width="400"]
 
 *Shortcut:* `e`
 
-*Format:* `edit INDEX [n/NAME] [cc/COUNTRY_CODE] [dv/DATE_VISITED] [r/RATING] [d/DESCRIPTION] [a/ADDRESS] [t/TAG]...`
+*Format:* `edit INDEX [n/NAME] [cc/COUNTRY_CODE] [dv/DATE_VISITED] [r/RATING] [d/DESCRIPTION] [a/ADDRESS] [p/FILE_PATH] [t/TAG]...`
 
 *Preconditions:* Given below is a list of preconditions that must be met for the `edit` command to work:
 
@@ -271,6 +276,7 @@ image::listCommand.png[width="400"]
 * The adding of tags is not cumulative. Hence, when the tags are edited, the existing tags of the place will be removed.
 * The tags can all be removed by typing `t/` without specifying any tags after it.
 * Some parameters have a specific input format.
+* Preconditions for changing the photo file [FILE_PATH] are in <<Replacing the photo of a place using `Edit p/`>>
 
 ****
 *Examples:* Given below are some examples on how to utilize the `edit` command:
@@ -770,13 +776,6 @@ An alternative way to exit TravelBuddy is to click kbd:[FILE] > kbd:[EXIT], as s
 image::exit.png[width="400"]
 // end::exit[]
 
-// tag::addphoto[]
-=== Adding photos to places `[coming in v2.0]`
-
-TravelBuddy helps you save photos by adding photo files to places in TravelBuddy. +
-Format: `add p/`
-// end::addphoto[]
-
 === Saving of data
 
 TravelBuddy data is saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
@@ -816,12 +815,18 @@ Please do check the file that contains the data of your TravelBuddy.
 *Q*: What details do I need for the `add` command? +
 *A*: The following details are required for a valid `add` command:
 
-* Name of place (Prefix: `n/`)
-* Country code of place (Prefix: `cc/`)
+* Name of the place (Prefix: `n/`)
+* Country code of the place (Prefix: `cc/`)
 * Date the place was visited (Prefix: `dv/`)
-* Rating of place (Prefix: `r/`)
-* Description of place (Prefix: `d/`)
-* Address of place (Prefix: `a/`)
+* Rating of the place (Prefix: `r/`)
+* Description of the place (Prefix: `d/`)
+* Address of the place (Prefix: `a/`)
+
+*Q*: What details are optional for the `add` command? +
+*A*: The following details are optional for a valid `add` command:
+
+* Tags of the place (Prefix: `t/`)
+* Filepath of the photo file for the place (Prefix: `p/`)
 
 *Q*: Why does the `undo` command not work? +
 *A*: The `undo` command only reverses the commands `add`, `delete`, `deletem`, `edit` and `clear`.
@@ -932,10 +937,11 @@ Below is a summarized list of all the command formats that TravelBuddy supports:
 |*Format*
 
 |*Add*
-|`add n/NAME cc/COUNTRY_CODE dv/DATE_VISITED r/RATING d/DESCRIPTION a/ADDRESS [t/TAG] p/FILE_PATH` +
+|`add n/NAME cc/COUNTRY_CODE dv/DATE_VISITED r/RATING d/DESCRIPTION a/ADDRESS p/FILE_PATH [t/TAG]...` +
 
 _Example:_ +
-`add n/NUS Computing cc/SGP dv/10/10/2017 r/5 d/No description a/NUS School of Computing, COM1, 13 Computing Drive, 117417 t/school`
+`add n/NUS Computing cc/SGP dv/10/10/2017 r/5 d/No description a/NUS School of Computing,
+COM1, 13 Computing Drive, 117417 p/C:\Users\Michael\Pictures\nus-photo.jpg t/school`
 
 |*Clear*
 |`clear`
@@ -953,10 +959,11 @@ _Example:_ +
 `deletem 2 5`
 
 |*Edit*
-| `edit INDEX [n/NAME] [cc/COUNTRYCODE] [dv/DATE_VISITED] [r/RATING] [d/DESCRIPTION] [a/ADDRESS] [t/TAG]...` +
+| `edit INDEX [n/NAME] [cc/COUNTRYCODE] [dv/DATE_VISITED] [r/RATING] [d/DESCRIPTION] [a/ADDRESS] [p/FILE_PATH] [t/TAG]...` +
 
 _Example:_ +
-`edit 2 n/Starbucks d/I like the coffee here`
+`edit 2 n/Starbucks d/I like the coffee here` +
+`edit 4 p/C:\Users\Michael\Pictures\castle-photo.png`
 
 |*Exit*
 |`exit`

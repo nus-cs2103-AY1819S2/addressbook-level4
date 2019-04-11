@@ -49,15 +49,13 @@ public class OpenCommand extends InCommand {
 
         AddressBookStorage openStorage = new InOutAddressBookStorage(parsedInput.getFile().toPath());
 
-        StorageManager openStorageManager = new StorageManager(openStorage, null);
-
         final Logger logger = LogsCenter.getLogger(MainApp.class);
 
         Optional<ReadOnlyAddressBook> addressBookOptional;
         ReadOnlyAddressBook openData;
 
         try {
-            addressBookOptional = openStorageManager.readAddressBook();
+            addressBookOptional = openStorage.readAddressBook();
             // This should not happen after OpenCommandParser checks for file existence.
             if (!addressBookOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample AddressBook");

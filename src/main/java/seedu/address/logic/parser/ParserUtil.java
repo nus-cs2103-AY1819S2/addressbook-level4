@@ -404,31 +404,22 @@ public class ParserUtil {
         }
 
         // Parse for "all" keyword
-        final String allRegex = "^([\\w\\\\/\\s!@#$%^&()_+\\-={}\\[\\];',.]+)+\\.(json|pdf)+\\s(all)$";
-        if (input.matches(allRegex)) {
-            final Pattern splitRegex = Pattern.compile(allRegex);
-            Matcher splitMatcher = splitRegex.matcher(input);
+        final String allRegex = "^([\\w-\\\\/\\s.()]+)+\\.(json|pdf)+\\s(all)$";
+        if (!input.matches(validationRegex)) {
+            if (input.matches(allRegex)) {
+                final Pattern splitRegex = Pattern.compile("^([\\w-\\\\/\\s.()]+)+\\.(json|pdf)+\\s(all)$");
+                Matcher splitMatcher = splitRegex.matcher(input);
 
-            if (splitMatcher.find()) {
-                filepath = splitMatcher.group(1).concat(".");
-                filepath = filepath.concat(splitMatcher.group(2));
-                filepath = newPath.concat(filepath);
-                fileType = splitMatcher.group(2);
-                return new ParsedInOut(new File(filepath), fileType);
-            } else {
-                // This shouldn't be possible after allRegex
-                throw new ParseException(MESSAGE_NOT_JSON_OR_PDF);
-            }
-        }
-        final String emptyAllRegex = "^\\.(json|pdf)+\\s(all)$";
-        if (input.matches(emptyAllRegex)) {
-            final Pattern splitRegex = Pattern.compile(allRegex);
-            Matcher splitMatcher = splitRegex.matcher(input);
-            if (splitMatcher.find()) {
-                filepath = splitMatcher.group(0);
-                fileType = splitMatcher.group(1);
-                filepath = newPath.concat(filepath);
-                return new ParsedInOut(new File(filepath), fileType);
+                if (splitMatcher.find()) {
+                    filepath = splitMatcher.group(1).concat(".");
+                    filepath = filepath.concat(splitMatcher.group(2));
+                    filepath = newPath.concat(filepath);
+                    fileType = splitMatcher.group(2);
+                    return new ParsedInOut(new File(filepath), fileType);
+                } else {
+                    throw new ParseException("Invalid index range!"
+                                            + " Please input a non-zero unsigned index range, or \"all\"");
+                }
             } else {
                 // This shouldn't be possible after emptyAllRegex
                 throw new ParseException(MESSAGE_NOT_JSON_OR_PDF);
@@ -490,7 +481,8 @@ public class ParserUtil {
                     parsedIndex.add(i - 1);
                 }
             } else {
-                throw new ParseException(MESSAGE_INVALID_INDEX_RANGE);
+                throw new ParseException("Invalid index range!"
+                                            + " Please input a non-zero unsigned index range, or \"all\"");
             }
         }
 

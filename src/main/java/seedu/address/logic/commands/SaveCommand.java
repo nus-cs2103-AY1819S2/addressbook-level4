@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
+import java.io.File;
 import java.io.IOException;
 
 import seedu.address.logic.CommandHistory;
@@ -64,5 +65,13 @@ public class SaveCommand extends Command {
         } catch (IOException e) {
             throw new IOException(e.getMessage());
         }
+    }
+
+    /**
+     * For SaveCommandParserTest.
+     * @return file
+     */
+    public File getFile() {
+        return parsedInput.getFile();
     }
 }

@@ -76,4 +76,12 @@ public class OpenCommand extends Command {
             return "Problem while reading from the file.";
         }
     }
+
+    /**
+     * For OpenCommandParserTest.
+     * @return file
+     */
+    public File getFile() {
+        return file;
+    }
 }

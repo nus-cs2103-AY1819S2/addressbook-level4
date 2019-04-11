@@ -8,6 +8,7 @@ import seedu.travel.model.place.CountryCode;
 import seedu.travel.model.place.DateVisited;
 import seedu.travel.model.place.Description;
 import seedu.travel.model.place.Name;
+import seedu.travel.model.place.Photo;
 import seedu.travel.model.place.Place;
 import seedu.travel.model.place.Rating;
 import seedu.travel.model.tag.Tag;
@@ -33,6 +34,7 @@ public class PlaceBuilder {
     private Description description;
     private Address address;
     private Set<Tag> tags;
+    private Photo photo;
 
     public PlaceBuilder() {
         name = new Name(DEFAULT_NAME);
@@ -55,6 +57,7 @@ public class PlaceBuilder {
         description = placeToCopy.getDescription();
         address = placeToCopy.getAddress();
         tags = new HashSet<>(placeToCopy.getTags());
+        photo = placeToCopy.getPhoto();
     }
 
     /**
@@ -113,8 +116,20 @@ public class PlaceBuilder {
         return this;
     }
 
+    /**
+     * Sets the {@code Photo} of the {@code Place} that we are building.
+     */
+    public PlaceBuilder withPhoto(String filePath) {
+        this.photo = new Photo(filePath);
+        return this;
+    }
+
     public Place build() {
         return new Place(name, countryCode, dateVisited, rating, description, address, tags);
+    }
+
+    public Place buildWithPhoto() {
+        return new Place(name, countryCode, dateVisited, rating, description, address, photo, tags);
     }
 
 }

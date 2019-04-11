@@ -30,8 +30,9 @@ public class StatusBarFooterTest extends GuiUnitTest {
         assertStatusBarContent(STATUS_IN_HOME_DIRECTORY);
 
         // new status received
-        guiRobot.interact(() -> statusBarFooter.updateStatusBarInFolder());
-        assertStatusBarContent(STATUS_IN_FOLDER);
+        String testFolderName = "Test";
+        guiRobot.interact(() -> statusBarFooter.updateStatusBarInFolder(testFolderName));
+        assertStatusBarContent(String.format(STATUS_IN_FOLDER, testFolderName));
 
         guiRobot.interact(() -> statusBarFooter.updateStatusBarInTestSession());
         assertStatusBarContent(STATUS_IN_TEST_SESSION);

@@ -26,7 +26,7 @@ public class RevealCommandTest {
     @Test
     public void execute_validRevealCommand_success() {
         CommandResult expectedCommandResult = new CommandResult(RevealCommand.MESSAGE_REVEAL_SUCCESS,
-                CommandResult.Type.ANSWER_WRONG);
+                CommandResult.Type.ANSWER_REVEAL);
         model.enterFolder(TypicalIndexes.INDEX_FIRST_CARD_FOLDER.getZeroBased());
         expectedModel.enterFolder(TypicalIndexes.INDEX_FIRST_CARD_FOLDER.getZeroBased());
         model.testCardFolder();

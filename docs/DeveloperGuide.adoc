@@ -473,6 +473,29 @@ specified to be searched.
 
 // end::findimplement[]
 
+// tag::openimplement[]
+=== Open feature
+==== Current Implementation
+As TeethHub already has a built-in auto-load when starting the program, the implemented Open feature is simple.
+1. The OpenCommandParser calls ParserUtil to parse the user input.
+2. If the input is valid, ParserUtil creates a ParsedInOut object and returns it to OpenCommandParser.
+3. OpenCommandParser creates OpenCommand initialized with the ParsedInOut object.
+4. OpenCommand checks for if the requested file is a ".json" file, if the file exists, if it is a file, or if it can be read.
+5. OpenCommand calls the existing readAddressBook().
+
+image::OpenCommandSequenceDiagram.png[width="800"]
+
+==== Design Considerations
+
+* **Alternative 1:** Open file by calling JsonUtil or FileUtil.
+** Pros: Less overhead and faster runtime as there are less classes to go through.
+Alternative 1: OpenCommand -> Json Util -> FileUtil
+Alternative 1.1: OpenCommand -> FileUtil
+Current implementation: OpenCommand -> InOutAddressBookStorage -> JsonUtil -> FileUtil
+** Cons: InOutAddressBookStorage does some error handling. Bypassing InOutAddressBookStorage would require the same error handling in OpenCommand. Since OpenCommand is not called when the program starts, we cannot move the error handling from InOutAddressBookStorage to OpenCommand. Then we would have to copy the error handling instead, which means that we now have a duplicate logic.
+
+// end::openimplement[]
+
 === Logging
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.

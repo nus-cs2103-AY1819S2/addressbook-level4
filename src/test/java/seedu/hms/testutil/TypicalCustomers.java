@@ -91,10 +91,10 @@ public class TypicalCustomers {
     public static final RoomType DOUBLE = new RoomType(75, "Double Room", 750.0);
 
     public static final Reservation ALICE_SINGLE_ROOM =
-        new ReservationBuilder().withRoom(SINGLE).withDates("14/04/2010", "17/04/2010").withPayer(ALICE)
+        new ReservationBuilder().withRoom(SINGLE).withDates("18/10/2019", "20/10/2019").withPayer(ALICE)
             .build();
     public static final Reservation BENSON_DOUBLE_ROOM =
-        new ReservationBuilder().withRoom(DOUBLE).withDates("14/04/2010", "17/04/2010").withPayer(BENSON)
+        new ReservationBuilder().withRoom(DOUBLE).withDates("18/10/2019", "20/10/2010").withPayer(BENSON)
             .build();
 
     public static final Customer DANIEL =

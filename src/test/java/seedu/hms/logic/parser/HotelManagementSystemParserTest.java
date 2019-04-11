@@ -28,7 +28,6 @@ import seedu.hms.logic.commands.EditCustomerCommand.EditCustomerDescriptor;
 import seedu.hms.logic.commands.ExitCommand;
 import seedu.hms.logic.commands.FindBookingCommand;
 import seedu.hms.logic.commands.FindNameCommand;
-import seedu.hms.logic.commands.FindReservationCommand;
 import seedu.hms.logic.commands.HelpCommand;
 import seedu.hms.logic.commands.HistoryCommand;
 import seedu.hms.logic.commands.ListBookingCommand;
@@ -49,8 +48,6 @@ import seedu.hms.model.booking.BookingWithinTimePredicate;
 import seedu.hms.model.booking.serviceType.ServiceType;
 import seedu.hms.model.customer.Customer;
 import seedu.hms.model.customer.NameContainsKeywordsPredicate;
-import seedu.hms.model.reservation.ReservationContainsPayerPredicate;
-import seedu.hms.model.reservation.ReservationWithTypePredicate;
 import seedu.hms.model.reservation.roomType.RoomType;
 import seedu.hms.model.util.TimeRange;
 import seedu.hms.testutil.CustomerBuilder;
@@ -58,6 +55,7 @@ import seedu.hms.testutil.CustomerUtil;
 import seedu.hms.testutil.EditCustomerDescriptorBuilder;
 
 public class HotelManagementSystemParserTest {
+
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
@@ -276,26 +274,6 @@ public class HotelManagementSystemParserTest {
         assertEquals(new FindBookingCommand(new BookingContainsPayerPredicate("G1739843T"),
             new BookingWithTypePredicate(""),
             new BookingWithinTimePredicate(new TimeRange(14, 15))), command);
-    }
-
-    @Test
-    public void parseCommand_findReservation() throws Exception {
-
-        FindReservationCommand command = (FindReservationCommand) parser.parseCommand(
-            FindReservationCommand.COMMAND_WORD + " " + "id/G1739843T ",
-            new CustomerManager(), new BookingManager(), new ReservationManager(), new BillManager());
-        assertEquals(new FindReservationCommand(new ReservationContainsPayerPredicate("G1739843T"),
-            new ReservationWithTypePredicate("")), command);
-    }
-
-    @Test
-    public void parseCommand_findReservationAlias() throws Exception {
-
-        FindReservationCommand command = (FindReservationCommand) parser.parseCommand(
-            FindReservationCommand.COMMAND_ALIAS + " " + "id/G1739843T ",
-            new CustomerManager(), new BookingManager(), new ReservationManager(), new BillManager());
-        assertEquals(new FindReservationCommand(new ReservationContainsPayerPredicate("G1739843T"),
-            new ReservationWithTypePredicate("")), command);
     }
 
     @Test

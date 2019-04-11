@@ -11,18 +11,22 @@ import static seedu.hms.testutil.TypicalCustomers.BENSON_DOUBLE_ROOM;
 import static seedu.hms.testutil.TypicalCustomers.getTypicalHotelManagementSystem;
 
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.function.Predicate;
 
 import org.junit.Test;
 
 import seedu.hms.logic.CommandHistory;
+import seedu.hms.logic.parser.exceptions.ParseException;
 import seedu.hms.model.ReservationManager;
 import seedu.hms.model.ReservationModel;
 import seedu.hms.model.UserPrefs;
 import seedu.hms.model.VersionedHotelManagementSystem;
 import seedu.hms.model.reservation.Reservation;
 import seedu.hms.model.reservation.ReservationContainsPayerPredicate;
+import seedu.hms.model.reservation.ReservationWithDatePredicate;
 import seedu.hms.model.reservation.ReservationWithTypePredicate;
+import seedu.hms.model.util.DateRange;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code FindReservationCommand}.
@@ -34,40 +38,53 @@ public class FindReservationCommandTest {
         new VersionedHotelManagementSystem(getTypicalHotelManagementSystem()), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
     private Predicate<Reservation> reservationPredicate;
+    private Calendar currentDate = Calendar.getInstance();
+    private Calendar afterOneYearCurrentDate = Calendar.getInstance();
 
     @Test
-    public void equals() {
-        ReservationContainsPayerPredicate firstPredicateOfPayer =
-            new ReservationContainsPayerPredicate("Z4264533");
-        ReservationContainsPayerPredicate secondPredicateOfPayer =
-            new ReservationContainsPayerPredicate("G1739843T");
-        ReservationWithTypePredicate firstPredicateOfType =
-            new ReservationWithTypePredicate("SINGLE ROOM");
-        ReservationWithTypePredicate secondPredicateOfType =
-            new ReservationWithTypePredicate("DOUBLE ROOM");
+    public void equals() throws ParseException {
+        try {
+            ReservationContainsPayerPredicate firstPredicateOfPayer =
+                new ReservationContainsPayerPredicate("Z4264533");
+            ReservationContainsPayerPredicate secondPredicateOfPayer =
+                new ReservationContainsPayerPredicate("G1739843T");
+            ReservationWithTypePredicate firstPredicateOfType =
+                new ReservationWithTypePredicate("SINGLE ROOM");
+            ReservationWithTypePredicate secondPredicateOfType =
+                new ReservationWithTypePredicate("DOUBLE ROOM");
+            DateRange firstDateRange = new DateRange("14/05/2019", "17/05/2019");
+            DateRange secondDateRange = new DateRange("14/06/2019", "17/06/2019");
 
+            ReservationWithDatePredicate firstPredicateOfDate =
+                new ReservationWithDatePredicate(firstDateRange);
 
-        FindReservationCommand findFirstCommand = new FindReservationCommand(firstPredicateOfPayer,
-            firstPredicateOfType);
-        FindReservationCommand findSecondCommand = new FindReservationCommand(secondPredicateOfPayer,
-            secondPredicateOfType);
+            ReservationWithDatePredicate secondPredicateOfDate = new ReservationWithDatePredicate(secondDateRange);
 
-        // same object -> returns true
-        assertTrue(findFirstCommand.equals(findFirstCommand));
+            FindReservationCommand findFirstCommand = new FindReservationCommand(firstPredicateOfPayer,
+                firstPredicateOfType, firstPredicateOfDate);
+            FindReservationCommand findSecondCommand = new FindReservationCommand(secondPredicateOfPayer,
+                secondPredicateOfType, secondPredicateOfDate);
 
-        // same values -> returns true
-        FindReservationCommand findFirstCommandCopy = new FindReservationCommand(firstPredicateOfPayer,
-            firstPredicateOfType);
-        assertTrue(findFirstCommandCopy.equals(findFirstCommand));
+            // same object -> returns true
+            assertTrue(findFirstCommand.equals(findFirstCommand));
 
-        // different types -> returns false
-        assertFalse(findFirstCommand.equals(1));
+            // same values -> returns true
+            FindReservationCommand findFirstCommandCopy = new FindReservationCommand(firstPredicateOfPayer,
+                firstPredicateOfType, firstPredicateOfDate);
+            assertTrue(findFirstCommandCopy.equals(findFirstCommand));
 
-        // null -> returns false
-        assertNotEquals(findFirstCommand, null);
+            // different types -> returns false
+            assertFalse(findFirstCommand.equals(1));
 
-        // different reservation -> returns false
-        assertFalse(findFirstCommand.equals(findSecondCommand));
+            // null -> returns false
+            assertNotEquals(findFirstCommand, null);
+
+            // different reservation -> returns false
+            assertFalse(findFirstCommand.equals(findSecondCommand));
+        } catch (ParseException e) {
+            throw new ParseException("Date should be after current date and within one year after current date");
+        }
+
     }
 
     @Test
@@ -76,10 +93,19 @@ public class FindReservationCommandTest {
             model.getFilteredReservationList().size());
         ReservationWithTypePredicate reservationWithTypePredicate = preparePredicateOfType("");
         ReservationContainsPayerPredicate reservationContainsPayerPredicate = preparePredicateOfPayer("");
+
+        for(int i = 0; i < 15; i++) {
+            afterOneYearCurrentDate.setTimeInMillis(
+                afterOneYearCurrentDate.getTimeInMillis() + 20 * 24 * 60 * 60 * 1000);
+        }
+
+        ReservationWithDatePredicate reservationWithDatePredicate = preparePredicateOfDate(new DateRange(
+            currentDate, afterOneYearCurrentDate));
         FindReservationCommand command = new FindReservationCommand(reservationContainsPayerPredicate,
-            reservationWithTypePredicate);
+            reservationWithTypePredicate, reservationWithDatePredicate);
         reservationPredicate = (reservationTested) -> reservationContainsPayerPredicate.test(reservationTested)
-            && reservationWithTypePredicate.test(reservationTested);
+            && reservationWithTypePredicate.test(reservationTested)
+            && reservationWithDatePredicate.test(reservationTested);
         expectedModel.updateFilteredReservationList(reservationPredicate);
         assertReservationCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
         assertEquals(Arrays.asList(ALICE_SINGLE_ROOM, BENSON_DOUBLE_ROOM), model.getFilteredReservationList());
@@ -90,10 +116,19 @@ public class FindReservationCommandTest {
         String expectedMessage = String.format(MESSAGE_RESERVATIONS_LISTED_OVERVIEW, 1);
         ReservationWithTypePredicate reservationWithTypePredicate = preparePredicateOfType("SINGLE ROOM");
         ReservationContainsPayerPredicate reservationContainsPayerPredicate = preparePredicateOfPayer("");
+
+        for(int i = 0; i < 15; i++) {
+            afterOneYearCurrentDate.setTimeInMillis(
+                afterOneYearCurrentDate.getTimeInMillis() + 20 * 24 * 60 * 60 * 1000);
+        }
+
+        ReservationWithDatePredicate reservationWithDatePredicate = preparePredicateOfDate(new DateRange(
+            currentDate, afterOneYearCurrentDate));
         FindReservationCommand command = new FindReservationCommand(reservationContainsPayerPredicate,
-            reservationWithTypePredicate);
+            reservationWithTypePredicate, reservationWithDatePredicate);
         reservationPredicate = (reservationTested) -> reservationContainsPayerPredicate.test(reservationTested)
-            && reservationWithTypePredicate.test(reservationTested);
+            && reservationWithTypePredicate.test(reservationTested)
+            && reservationWithDatePredicate.test(reservationTested);
         expectedModel.updateFilteredReservationList(reservationPredicate);
         assertReservationCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
         assertEquals(Arrays.asList(ALICE_SINGLE_ROOM), model.getFilteredReservationList());
@@ -112,6 +147,13 @@ public class FindReservationCommandTest {
      */
     private ReservationWithTypePredicate preparePredicateOfType(String userInput) {
         return new ReservationWithTypePredicate(userInput);
+    }
+
+    /**
+     * Parses {@code userInput} into a {@code ReservationWithTypePredicate}.
+     */
+    private ReservationWithDatePredicate preparePredicateOfDate(DateRange dateRange) {
+        return new ReservationWithDatePredicate(dateRange);
     }
 
 }

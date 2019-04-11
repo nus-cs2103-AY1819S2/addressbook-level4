@@ -202,7 +202,7 @@ image::DeletePersonSdForLogic.png[width="800"]
 === Model component
 
 .Structure of the Model Component
-image::TopDeckModelComponentClassDiagram.png[width="800"]
+image::TopDeckClassDiagram.png[width="800"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
 
@@ -210,8 +210,8 @@ The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
 * stores the TopDeck data.
-* exposes an unmodifiable `ObservableList<Card>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
-* does not depend on any of the other three components.
+* stores a `ViewState` object which represents the current state of the application.
+* The `ViewState` object can either be a `DecksView`, `CardsView` or `StudyView`
 
 [[Design-Storage]]
 === Storage component
@@ -377,7 +377,7 @@ this approach.
 === Card management
 ==== Data structure
 
-A Card consists of a question, an answer and the respective tags associated with it.
+A Card consists of a question, an answer, its difficulty and the respective tags associated with it.
 Card's are deemed as equal if they have the same question to prevent the user from
 creating same question twice or to have 2 different answer for the same question.
 Cards are stored inside a `Deck` as a list of unique cards.
@@ -401,8 +401,8 @@ Card management is currently facilitated by `Model` which implements the followi
 * editCard(Card newCard, Deck deck)
 
 The CRUD operations are exposed in the Model interface as `Model#addCard(Card card, Deck deck)`,
-`Model#deleteCard(Card target, Deck deck)` and `Model#setCard(Card target, Card newCard, Deck deck)`. For each operation,
-there are 2 objects that need to be updated namely, `VersionedTopDeck` and `CardsView`.
+`Model#deleteCard(Card target, Deck deck)` and `Model#setCard(Card target, Card newCard, Deck deck)`.
+For each operation, there are 2 objects that need to be updated namely, `VersionedTopDeck` and `CardsView`.
 
 Each CRUD operation can be broken down into the following steps:
 
@@ -413,63 +413,68 @@ Each CRUD operation can be broken down into the following steps:
 3. Update the `CardsView` with the new editedDeck.
 4. Update the UI to reflect the new CardsView.
 
-Given below is an example usage scenario and how the CRUD operation works and how it
+Given below is an example usage scenario and how the add operation works and how it
 interacts with Undo/Redo:
-
-Step 1. The user starts up the application and is in the `DecksView`. The user then
-executes the `open 1` command to open the first deck(D1 in the figure). This should change the
-`ViewState` in the `ModelManager` from `DeckView` to `CardsView` and causes
-`CardsView.activeDeck` to point to the first deck as per figure 1. For more information, refer to
-Deck's feature.
-
-image::card_dg_diagrams/card_diag_1.png[width="800", caption="Figure 1"]
-
-Step 2. The user executes `add q/question a/answer` to add the new card into the current deck.
-The `add` command is parsed and calls `Model#addCard(Card card, Deck deck)`.
-`VersionedTopDeck(Card newCard, Deck deck)` is then called. D3 which is a copy
-of D1 is created and the new card is added to D3. `VersionedTopDeck` is then updated
-as per figure 2 by calling `UniqueDeckList.setDeck(Deck target, Deck editedDeck)`.
 
 [NOTE]
 All other CRUD operations works the same except for the model call. Instead of
 `Model#addCard(Card card, Deck deck)`, `Model#deleteCard(Card target, Deck deck)` or
 `Model#setCard(Card target, Card newCard, Deck deck)` is called instead.
 
-image::card_dg_diagrams/card_diag_2.png[width="800", caption="Figure 2"]
+Step 1. The user starts up the application and is in the `DecksView`. The user then
+executes the `open 1` command to open the first deck(D1 in the figure). This should change the
+`ViewState` in the `ModelManager` from `DeckView` to `CardsView` and causes
+`CardsView.activeDeck` to point to the first deck as per figure 4.3.1. For more information, refer to
+the Deck feature.
+
+image::card_dg_fig/card_fig_1.png[width="800", caption="Figure 1"]
+
+Step 2. The user executes `add q/question a/answer` to add the new card into the current deck.
+The `add` command is parsed and calls `Model#addCard(Card card, Deck deck)`.
+`VersionedTopDeck(Card newCard, Deck deck)` is then called. D3 which is a copy
+of D1 is created and the new card is added to D3. `VersionedTopDeck` is then updated
+as per figure 4.3.2 by calling `UniqueDeckList.setDeck(Deck target, Deck editedDeck)`.
+
+image::card_dg_fig/card_fig_2.png[width="800", caption="Figure 2"]
 
 Step 3. Next, the CardsView is updated creating a new `CardsView` that points to D3
-as in figure 3.
+as in figure 4.3.3
 
-image::card_dg_diagrams/card_diag_3.png[width="800", caption="Figure 3"]
+image::card_dg_fig/card_fig_3.png[width="800", caption="Figure 3"]
 
 Step 4. Once that is done, the `ModelManager.filteredItems` list and the UI is being updated to
 reflect the change.
 
-Step 5. Now the user executes `undo`. This results in the the CurrentStatePointer to point
-to the previous TopDeck as per figure 4.
+Step 5. Now the user executes `undo`. This results in the CurrentStatePointer to point
+to the previous TopDeck as per figure 4.3.4
 
-image::card_dg_diagrams/card_diag_4.png[width="800", caption="Figure 4"]
+image::card_dg_fig/card_fig_4.png[width="800", caption="Figure 4"]
 
-Step 6. Using D3, the application will get D1 in the TopDeck that is pointed to by CurrentStatePointer.
-A new CardsView(CardsView3) is then created and points to D1 as per figure 5. The application
+Step 6. Using D3, the application will get D1 in TopDeck that is pointed to by CurrentStatePointer.
+A new CardsView(CardsView3) is then created and points to D1 as per figure 4.3.5. The application
 then updates `ModelManager.filteredItems` and the UI is being updated.
 
-image::card_dg_diagrams/card_diag_5.png[width="800", caption="Figure 5"]
+image::card_dg_fig/card_fig_5.png[width="800", caption="Figure 5"]
 
 Step 7. Now, the user executes redo. This results in the the CurrentStatePointer to point
-to the next TopDeck as per figure 6.
+to the next TopDeck as per figure 4.3.6
 
-image::card_dg_diagrams/card_diag_6.png[width="800", caption="Figure 6"]
+image::card_dg_fig/card_fig_6.png[width="800", caption="Figure 6"]
 
-Step 8. Using D1, the application will get D3 in the TopDeck that is pointed to by CurrentStatePointer.
-   A new CardsView(CardsView4) is then created and points to D3 as per figure 7. The application
+Step 8. Using D1, the application will get D3 in TopDeck that is pointed to by CurrentStatePointer.
+   A new CardsView(CardsView4) is then created and points to D3 as per figure 4.3.7. The application
    then updates `ModelManager.filteredItems` and the UI is being updated.
 
-image::card_dg_diagrams/card_diag_7.png[width="800", caption="Figure 7"]
+image::card_dg_fig/card_fig_7.png[width="800", caption="Figure 7"]
 
 Step 9. Below is the final state of `ModelManager`:
 
-image::card_dg_diagrams/card_diag_8.png[width="800", caption="Figure 8"]
+image::card_dg_fig/card_fig_8.png[width="800", caption="Figure 8"]
+
+Below is a sequence diagram to illustrate the sequence of activities upon calling
+`Model#addCard(Card card, Deck deck)`:
+
+image::card_dg_fig/card_fig_9.png[width="800", caption="Figure 8"]
 
 ==== Design considerations
 
@@ -484,7 +489,6 @@ implement.
 will have to be changed to store the previous commands and the object changed.
 
 // end::card[]
-
 
 //tag::studysessions[]
 === Study view

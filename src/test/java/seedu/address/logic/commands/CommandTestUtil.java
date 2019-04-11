@@ -137,7 +137,6 @@ public class CommandTestUtil {
         try {
             CommandResult result = command.execute(actualModel, actualCommandHistory);
             assertEquals(expectedCommandResult, result);
-            actualModel.updateFilteredTaskList(Model.PREDICATE_SHOW_ALL_TASKS);
             assertEquals(expectedModel, actualModel);
             assertEquals(expectedCommandHistory, actualCommandHistory);
         } catch (CommandException ce) {

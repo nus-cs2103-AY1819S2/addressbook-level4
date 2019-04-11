@@ -4,19 +4,14 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_DUPLICATE_TASK;
-import static seedu.address.logic.commands.CommandTestUtil.DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_TASKWITHNOPATIENT;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_TASKWITHPATIENT;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PRIORITY_NOPATIENT;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PRIORITY_WITHPATIENT;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TITLE_NOPATIENT;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TITLE_WITHPATIENT;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showTaskAtIndex;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_TASKS;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_TASK;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
@@ -67,7 +62,8 @@ public class TaskEditCommandTest {
         Task lastTask = model.getFilteredTaskList().get(indexLastTask.getZeroBased());
 
         TaskBuilder taskInList = new TaskBuilder(lastTask);
-        Task editedTask = taskInList.withTitle(VALID_TITLE_WITHPATIENT).withPriority(VALID_PRIORITY_WITHPATIENT).build();
+        Task editedTask = taskInList.withTitle(VALID_TITLE_WITHPATIENT)
+                .withPriority(VALID_PRIORITY_WITHPATIENT).build();
 
         EditTaskDescriptor descriptor = new EditTaskDescriptorBuilder().withTitle(VALID_TITLE_WITHPATIENT)
                 .withPriority(VALID_PRIORITY_WITHPATIENT).build();
@@ -109,7 +105,7 @@ public class TaskEditCommandTest {
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.setTask(model.getFilteredTaskList().get(0), editedTask);
         expectedModel.commitAddressBook();
-
+        model.updateFilteredTaskList(PREDICATE_SHOW_ALL_TASKS);
         assertCommandSuccess(taskEditCommand, model, commandHistory, expectedMessage, expectedModel);
     }
 
@@ -130,7 +126,7 @@ public class TaskEditCommandTest {
         // edit task in filtered list into a duplicate in address book
         Task taskInList = model.getAddressBook().getTaskList().get(INDEX_SECOND_TASK.getZeroBased());
         EditTaskDescriptor descriptor = new EditTaskDescriptorBuilder(taskInList).build();
-        descriptor.setPatientIndex(INDEX_SECOND_PERSON);
+        descriptor.setPatientIndex(INDEX_SECOND_PERSON); //Will be read as index of first person in TaskEditCommand
         TaskEditCommand taskEditCommand = new TaskEditCommand(INDEX_FIRST_TASK, descriptor);
 
         assertCommandFailure(taskEditCommand, model, commandHistory, MESSAGE_DUPLICATE_TASK);

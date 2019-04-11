@@ -33,6 +33,7 @@ public class TaskDoneCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_TASK_DONE_SUCCESS = "Completed Task: \n%1$s";
+    public static final String MESSAGE_TASK_ALREADY_COMPLETED = "The task is already completed. ";
 
     private final Index targetIndex;
 
@@ -52,7 +53,7 @@ public class TaskDoneCommand extends Command {
 
         Task taskToComplete = lastShownList.get(targetIndex.getZeroBased());
         if (taskToComplete.getPriority() == Priority.COMPLETED) {
-            throw new CommandException("The task is already completed. ");
+            throw new CommandException(MESSAGE_TASK_ALREADY_COMPLETED);
         }
         Task completedTask = taskToComplete.isCopy() ? new Task(taskToComplete) : new Task(taskToComplete, true);
         completedTask.setPriorityComplete();

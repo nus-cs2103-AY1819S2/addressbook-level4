@@ -1,5 +1,6 @@
 package seedu.finance.logic.commands;
 
+import static seedu.finance.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.finance.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.finance.logic.commands.CommandTestUtil.showRecordAtIndex;
 import static seedu.finance.testutil.TypicalIndexes.INDEX_FIRST_RECORD;
@@ -20,6 +21,12 @@ import seedu.finance.model.UserPrefs;
 public class ReverseCommandTest {
     private Model model = new ModelManager(getTypicalFinanceTracker(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
+
+    @Test
+    public void execute_emptyList_showEmptyListMessage() {
+        Model expectedModel = new ModelManager();
+        assertCommandFailure(new ReverseCommand(), expectedModel, commandHistory, ReverseCommand.MESSAGE_EMPTY_LIST);
+    }
 
     @Test
     public void execute_unfilteredList_success() {
@@ -55,7 +62,8 @@ public class ReverseCommandTest {
 
         ReverseCommand reverseCommand = new ReverseCommand();
         // reverse -> list is reversed
-        reverseCommand.execute(model, commandHistory);
+        assertCommandSuccess(reverseCommand, model, commandHistory, ReverseCommand.MESSAGE_SUCCESS, expectedModel);
+
 
         // undo -> reverse finance tracker back to previous state
         expectedModel.undoFinanceTracker();

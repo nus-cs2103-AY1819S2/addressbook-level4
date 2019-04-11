@@ -146,15 +146,7 @@ public class Budget {
     }
 
     public double getCurrentSpendings() {
-        return currentSpendings;
-    }
-
-    /**
-     * Method to reset spending to 0
-     */
-    public void clearSpendings() {
-        this.currentSpendings = 0;
-        this.currentBudget = totalBudget;
+        return (totalBudget - currentBudget);
     }
 
     @Override

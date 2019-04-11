@@ -7,7 +7,6 @@ import static seedu.finance.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.finance.logic.parser.CliSyntax.COMMAND_FLAG_NAME;
 import static seedu.finance.logic.parser.CliSyntax.PREFIX_AMOUNT;
 import static seedu.finance.logic.parser.CliSyntax.PREFIX_CATEGORY;
-import static seedu.finance.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.finance.testutil.TypicalIndexes.INDEX_FIRST_RECORD;
 
 import java.util.Arrays;
@@ -21,7 +20,6 @@ import org.junit.rules.ExpectedException;
 import seedu.finance.logic.commands.AllocateCommand;
 import seedu.finance.logic.commands.ClearCommand;
 import seedu.finance.logic.commands.DeleteCommand;
-import seedu.finance.logic.commands.DescriptionCommand;
 import seedu.finance.logic.commands.EditCommand;
 import seedu.finance.logic.commands.ExitCommand;
 import seedu.finance.logic.commands.HelpCommand;
@@ -38,7 +36,6 @@ import seedu.finance.logic.commands.SummaryCommand;
 import seedu.finance.logic.commands.UndoCommand;
 import seedu.finance.logic.parser.comparator.RecordNameComparator;
 import seedu.finance.logic.parser.exceptions.ParseException;
-import seedu.finance.model.record.Description;
 import seedu.finance.model.record.NameContainsKeywordsPredicate;
 import seedu.finance.model.record.Record;
 import seedu.finance.testutil.EditRecordDescriptorBuilder;
@@ -110,21 +107,6 @@ public class FinanceTrackerParserTest {
         assertEquals(new DeleteCommand(INDEX_FIRST_RECORD), command);
     }
 
-    @Test
-    public void parseCommand_description() throws Exception {
-        final Description description = new Description("Some description.");
-        DescriptionCommand command = (DescriptionCommand) parser.parseCommand(DescriptionCommand.COMMAND_WORD + " "
-                + INDEX_FIRST_RECORD.getOneBased() + " " + PREFIX_DESCRIPTION + description.value);
-        assertEquals(new DescriptionCommand(INDEX_FIRST_RECORD, description), command);
-    }
-
-    @Test
-    public void parseCommand_descriptionAlias() throws Exception {
-        final Description description = new Description("Some description.");
-        DescriptionCommand command = (DescriptionCommand) parser.parseCommand(DescriptionCommand.COMMAND_ALIAS + " "
-                + INDEX_FIRST_RECORD.getOneBased() + " " + PREFIX_DESCRIPTION + description.value);
-        assertEquals(new DescriptionCommand(INDEX_FIRST_RECORD, description), command);
-    }
 
     @Test
     public void parseCommand_edit() throws Exception {

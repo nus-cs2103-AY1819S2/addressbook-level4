@@ -17,6 +17,7 @@ import seedu.finance.logic.parser.exceptions.ParseException;
 import seedu.finance.model.category.Category;
 import seedu.finance.model.record.Amount;
 import seedu.finance.model.record.Date;
+import seedu.finance.model.record.Description;
 import seedu.finance.model.record.Name;
 
 /**
@@ -127,6 +128,21 @@ public class ParserUtil {
             categorySet.add(parseCategory(categoryName));
         }
         return categorySet;
+    }
+
+    /**
+     * Parses a {@code String description} into a {@code Description}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code description} is invalid.
+     */
+    public static Description parseDescription(String description) throws ParseException {
+        requireNonNull(description);
+        String trimmedDescription = description.trim();
+        if (!Description.isValidDescription(trimmedDescription)) {
+            throw new ParseException(Description.MESSAGE_CONSTRAINTS);
+        }
+        return new Description(trimmedDescription);
     }
 
     /**

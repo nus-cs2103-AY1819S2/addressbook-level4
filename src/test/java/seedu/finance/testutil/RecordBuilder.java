@@ -15,7 +15,7 @@ public class RecordBuilder {
 
     public static final String DEFAULT_NAME = "Alice Pauline";
     public static final String DEFAULT_AMOUNT = "12";
-    public static final String DEFAULT_DATE = "12/12/2019";
+    public static final String DEFAULT_DATE = "12/02/2019";
     public static final String DEFAULT_DESCRIPTION = "";
     public static final String DEFAULT_CATEGORY = "friend";
 
@@ -81,7 +81,7 @@ public class RecordBuilder {
      * Sets the {@code Description} of the {@code Record} that we are building.
      */
     public RecordBuilder withDescription(Description description) {
-        this.description = new Description(description.value);
+        this.description = description;
         return this;
     }
 

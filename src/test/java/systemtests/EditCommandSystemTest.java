@@ -9,9 +9,12 @@ import static seedu.finance.logic.commands.CommandTestUtil.CATEGORY_DESC_FRIEND;
 import static seedu.finance.logic.commands.CommandTestUtil.CATEGORY_DESC_HUSBAND;
 import static seedu.finance.logic.commands.CommandTestUtil.DATE_DESC_AMY;
 import static seedu.finance.logic.commands.CommandTestUtil.DATE_DESC_BOB;
+import static seedu.finance.logic.commands.CommandTestUtil.DESCRIPTION_DESC_AMY;
+import static seedu.finance.logic.commands.CommandTestUtil.DESCRIPTION_DESC_BOB;
 import static seedu.finance.logic.commands.CommandTestUtil.INVALID_AMOUNT_DESC;
 import static seedu.finance.logic.commands.CommandTestUtil.INVALID_CATEGORY_DESC;
 import static seedu.finance.logic.commands.CommandTestUtil.INVALID_DATE_DESC;
+import static seedu.finance.logic.commands.CommandTestUtil.INVALID_DESCRIPTION_DESC;
 import static seedu.finance.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
 import static seedu.finance.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static seedu.finance.logic.commands.CommandTestUtil.NAME_DESC_BOB;
@@ -19,13 +22,14 @@ import static seedu.finance.logic.commands.CommandTestUtil.VALID_AMOUNT_AMY;
 import static seedu.finance.logic.commands.CommandTestUtil.VALID_CATEGORY_FRIEND;
 import static seedu.finance.logic.commands.CommandTestUtil.VALID_CATEGORY_HUSBAND;
 import static seedu.finance.logic.commands.CommandTestUtil.VALID_DATE_AMY;
+import static seedu.finance.logic.commands.CommandTestUtil.VALID_DESCRIPTION_AMY;
+import static seedu.finance.logic.commands.CommandTestUtil.VALID_DESCRIPTION_BOB;
 import static seedu.finance.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.finance.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.finance.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static seedu.finance.model.Model.PREDICATE_SHOW_ALL_RECORD;
 import static seedu.finance.testutil.TypicalIndexes.INDEX_FIRST_RECORD;
 import static seedu.finance.testutil.TypicalIndexes.INDEX_SECOND_RECORD;
-import static seedu.finance.testutil.TypicalRecords.AMY;
 import static seedu.finance.testutil.TypicalRecords.BOB;
 import static seedu.finance.testutil.TypicalRecords.KEYWORD_MATCHING_DONUT;
 
@@ -40,6 +44,7 @@ import seedu.finance.model.Model;
 import seedu.finance.model.category.Category;
 import seedu.finance.model.record.Amount;
 import seedu.finance.model.record.Date;
+import seedu.finance.model.record.Description;
 import seedu.finance.model.record.Name;
 import seedu.finance.model.record.Record;
 import seedu.finance.testutil.RecordBuilder;
@@ -62,8 +67,9 @@ public class EditCommandSystemTest extends FinanceTrackerSystemTest {
 
         Index index = INDEX_FIRST_RECORD;
         String command = " " + EditCommand.COMMAND_WORD + "  " + index.getOneBased() + "  " + NAME_DESC_BOB + "  "
-                + AMOUNT_DESC_BOB + " " + DATE_DESC_BOB + " " + CATEGORY_DESC_HUSBAND + " ";
-        Record editedRecord = new RecordBuilder(BOB).withCategory(VALID_CATEGORY_HUSBAND).build();
+                + AMOUNT_DESC_BOB + " " + DATE_DESC_BOB + " " + CATEGORY_DESC_HUSBAND + " " + DESCRIPTION_DESC_BOB;
+        Record editedRecord = new RecordBuilder(BOB).withCategory(VALID_CATEGORY_HUSBAND)
+                .withDescription(new Description(VALID_DESCRIPTION_BOB)).build();
         assertCommandSuccess(command, index, editedRecord);
 
 
@@ -85,14 +91,14 @@ public class EditCommandSystemTest extends FinanceTrackerSystemTest {
         /* Case: edit a record with new values same as existing values -> edited */
 
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + AMOUNT_DESC_BOB
-                + DATE_DESC_BOB + CATEGORY_DESC_HUSBAND;
+                + DATE_DESC_BOB + CATEGORY_DESC_HUSBAND + DESCRIPTION_DESC_BOB;
         assertCommandSuccess(command, index, BOB);
 
 
         /* Case: edit a record with new values same as existing values, but using command alias e -> edited */
 
         command = EditCommand.COMMAND_ALIAS + " " + index.getOneBased() + NAME_DESC_BOB + AMOUNT_DESC_BOB
-                + DATE_DESC_BOB + CATEGORY_DESC_HUSBAND;
+                + DATE_DESC_BOB + CATEGORY_DESC_HUSBAND + DESCRIPTION_DESC_BOB;
         assertCommandSuccess(command, index, BOB);
 
 
@@ -102,7 +108,7 @@ public class EditCommandSystemTest extends FinanceTrackerSystemTest {
         index = INDEX_SECOND_RECORD;
         assertNotEquals(getModel().getFilteredRecordList().get(index.getZeroBased()), BOB);
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_AMY
-                + AMOUNT_DESC_BOB + DATE_DESC_BOB + CATEGORY_DESC_HUSBAND;
+                + AMOUNT_DESC_BOB + DATE_DESC_BOB + CATEGORY_DESC_HUSBAND + DESCRIPTION_DESC_BOB;
         editedRecord = new RecordBuilder(BOB).withName(VALID_NAME_AMY).build();
         assertCommandSuccess(command, index, editedRecord);
 
@@ -114,14 +120,14 @@ public class EditCommandSystemTest extends FinanceTrackerSystemTest {
         index = INDEX_SECOND_RECORD;
         assertFalse(getModel().getFilteredRecordList().get(index.getZeroBased()).equals(BOB));
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB
-                + AMOUNT_DESC_BOB + DATE_DESC_BOB + CATEGORY_DESC_HUSBAND;
+                + AMOUNT_DESC_BOB + DATE_DESC_BOB + CATEGORY_DESC_HUSBAND + DESCRIPTION_DESC_BOB;
         assertCommandSuccess(command, index, BOB);
 
 
         /* Case: edit a record with new values same as another record's values but with different categories -> edited*/
 
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB
-                + AMOUNT_DESC_BOB + DATE_DESC_BOB + CATEGORY_DESC_FRIEND;
+                + AMOUNT_DESC_BOB + DATE_DESC_BOB + CATEGORY_DESC_FRIEND + DESCRIPTION_DESC_BOB;
         editedRecord = new RecordBuilder(BOB).withCategory(VALID_CATEGORY_FRIEND).build();
         assertCommandSuccess(command, index, editedRecord);
 
@@ -129,18 +135,25 @@ public class EditCommandSystemTest extends FinanceTrackerSystemTest {
         /* Case: edit a record with new values same as another record's values but with different amount -> edited */
 
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB
-                + AMOUNT_DESC_AMY + DATE_DESC_BOB + CATEGORY_DESC_HUSBAND;
+                + AMOUNT_DESC_AMY + DATE_DESC_BOB + CATEGORY_DESC_HUSBAND + DESCRIPTION_DESC_BOB;
         editedRecord = new RecordBuilder(BOB).withAmount(VALID_AMOUNT_AMY).build();
         assertCommandSuccess(command, index, editedRecord);
 
 
+        /* Case: edit a record with new values same as another record's values but with different description
+        -> edited */
+
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB
+                + AMOUNT_DESC_BOB + DATE_DESC_BOB + CATEGORY_DESC_HUSBAND + DESCRIPTION_DESC_AMY;
+        editedRecord = new RecordBuilder(BOB).withDescription(new Description(VALID_DESCRIPTION_AMY)).build();
+        assertCommandSuccess(command, index, editedRecord);
+
         /* Case: edit a record with new values same as another record's values but with different date -> edited */
 
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB
-                + AMOUNT_DESC_BOB + DATE_DESC_AMY + CATEGORY_DESC_HUSBAND;
+                + AMOUNT_DESC_BOB + DATE_DESC_AMY + CATEGORY_DESC_HUSBAND + DESCRIPTION_DESC_BOB;
         editedRecord = new RecordBuilder(BOB).withDate(VALID_DATE_AMY).build();
         assertCommandSuccess(command, index, editedRecord);
-
 
 
         /* ------------------ Performing edit operation while a filtered list is being shown ------------------------ */
@@ -176,14 +189,14 @@ public class EditCommandSystemTest extends FinanceTrackerSystemTest {
          * browser url changes
          */
 
-        showAllRecords();
+        /*showAllRecords();
         index = INDEX_FIRST_RECORD;
         selectRecord(index);
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_AMY
                 + AMOUNT_DESC_AMY + DATE_DESC_AMY + CATEGORY_DESC_FRIEND;
         // this can be misleading: card selection actually remains unchanged but the
         // browser's url is updated to reflect the new record's name
-        assertCommandSuccess(command, index, AMY, index);
+        assertCommandSuccess(command, index, AMY, index);*/
 
 
         /* --------------------------------- Performing invalid edit operation -------------------------------------- */
@@ -211,8 +224,8 @@ public class EditCommandSystemTest extends FinanceTrackerSystemTest {
 
         /* Case: missing index -> rejected */
 
-        /*assertCommandFailure(EditCommand.COMMAND_WORD + NAME_DESC_BOB,
-                String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));*/
+        assertCommandFailure(EditCommand.COMMAND_WORD + NAME_DESC_BOB,
+                String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
 
 
         /* Case: missing all fields -> rejected */
@@ -248,6 +261,9 @@ public class EditCommandSystemTest extends FinanceTrackerSystemTest {
         assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_RECORD.getOneBased() + " "
                 + PREFIX_CATEGORY.getPrefix(), Category.MESSAGE_CONSTRAINTS);
 
+        /* Case: invalid description -> rejected */
+        assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_RECORD.getOneBased() + " "
+                + INVALID_DESCRIPTION_DESC, Description.MESSAGE_CONSTRAINTS);
     }
 
 

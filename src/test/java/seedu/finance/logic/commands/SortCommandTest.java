@@ -1,6 +1,7 @@
 package seedu.finance.logic.commands;
 
 import static org.junit.Assert.assertEquals;
+import static seedu.finance.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.finance.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.finance.testutil.TypicalRecords.APPLE;
 import static seedu.finance.testutil.TypicalRecords.BANANA;
@@ -32,6 +33,13 @@ import seedu.finance.model.UserPrefs;
 public class SortCommandTest {
     private Model model = new ModelManager(getTypicalFinanceTracker(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
+
+    @Test
+    public void execute_emptyList_showEmptyListMessage() {
+        Model expectedModel = new ModelManager();
+        assertCommandFailure(new SortCommand(new RecordNameComparator()), expectedModel, commandHistory,
+                SortCommand.MESSAGE_EMPTY_LIST);
+    }
 
     @Test
     public void execute_sortByName_success() {
@@ -98,4 +106,5 @@ public class SortCommandTest {
         assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
         assertEquals(Arrays.asList(GIFT, FRUITS, CAP, EARRINGS, BANANA, APPLE, DONUT), model.getFilteredRecordList());
     }
+
 }

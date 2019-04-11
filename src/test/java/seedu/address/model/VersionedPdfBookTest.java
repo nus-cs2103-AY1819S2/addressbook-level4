@@ -23,7 +23,6 @@ public class VersionedPdfBookTest {
     private final ReadOnlyPdfBook pdfBookWithSample5 = new PdfBookBuilder().withPdf(SAMPLE_PDF_5).build();
     private final ReadOnlyPdfBook emptyPdfBook = new PdfBookBuilder().build();
 
-
     @Test
     public void commit_singlePdfBook_noStatesRemovedCurrentStateSaved() {
         VersionedPdfBook versionedPdfBook = preparePdfBookList(emptyPdfBook);

@@ -8,16 +8,21 @@ import static seedu.address.logic.commands.CommandTestUtil.NAME_2_VALID;
 import static seedu.address.logic.commands.CommandTestUtil.SIZE_3_VALID;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_VALID_CS2103T;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_VALID_LECTURE;
+import static seedu.address.testutil.TypicalPdfs.SAMPLE_INVALIDPDF_1;
 import static seedu.address.testutil.TypicalPdfs.SAMPLE_PDF_1;
 import static seedu.address.testutil.TypicalPdfs.SAMPLE_PDF_1_DUPLICATE;
 import static seedu.address.testutil.TypicalPdfs.SAMPLE_PDF_2;
 import static seedu.address.testutil.TypicalPdfs.SAMPLE_PDF_3_ENCRYPTED;
+
+import java.nio.file.Paths;
 
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.testutil.PdfBuilder;
+
+
 
 public class PdfTest {
     @Rule
@@ -53,6 +58,17 @@ public class PdfTest {
         // same name, same email, different attributes -> returns true
         comparisonPdf = new PdfBuilder(SAMPLE_PDF_2).withDeadline(DEADLINE_JSON_DONE).build();
         assertTrue(SAMPLE_PDF_2.isSamePdf(comparisonPdf));
+    }
+
+    @Test
+    public void isValidPdf() {
+        Pdf validPdf = SAMPLE_PDF_1;
+        assertTrue(Paths.get(validPdf.getDirectory().getDirectory(),
+                validPdf.getName().getFullName()).toAbsolutePath().toFile().exists());
+
+        Pdf invalidPdf = SAMPLE_INVALIDPDF_1;
+        assertFalse(Paths.get(invalidPdf.getDirectory().getDirectory(),
+                invalidPdf.getName().getFullName()).toAbsolutePath().toFile().exists());
     }
 
     @Test

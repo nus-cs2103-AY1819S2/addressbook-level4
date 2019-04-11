@@ -9,14 +9,14 @@ import static seedu.knowitall.commons.util.AppUtil.checkArgument;
  */
 public class Question implements Comparable<Question> {
 
-    public static final String MESSAGE_CONSTRAINTS = "Questions can take any values, and should not be blank";
+    public static final int MAX_LENGTH = 512;
+    public static final String MESSAGE_CONSTRAINTS = "Questions can take any values, should not be blank, and should"
+            + " be less than " + MAX_LENGTH + " characters";
     /*
      * The first character of the question must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
     public static final String VALIDATION_REGEX = "[^\\s].*";
-
-    private static final int MAX_LENGTH = 512;
 
     public final String fullQuestion;
 

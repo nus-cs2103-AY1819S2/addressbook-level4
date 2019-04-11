@@ -9,9 +9,10 @@ import static seedu.knowitall.commons.util.AppUtil.checkArgument;
  */
 public class Option {
 
-    public static final String MESSAGE_CONSTRAINTS = "Options can take any values, and should not be blank";
+    public static final int MAX_LENGTH = 512;
+    public static final String MESSAGE_CONSTRAINTS = "Options can take any values, should not be blank, and should"
+            + " be less than " + MAX_LENGTH + " characters";
     public static final String VALIDATION_INDEX = "[^\\s].*";
-    private static final int MAX_LENGTH = 512;
 
     public final String optionValue;
 

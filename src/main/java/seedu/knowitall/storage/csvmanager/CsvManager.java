@@ -235,13 +235,29 @@ public class CsvManager implements CsvCommands {
      */
     private void parseOptions(Set<Option> options, StringBuilder stringBuilder) {
         if (options.isEmpty()) {
-            return;
+            // include up to 3 options
+            stringBuilder.append(COMMA_DELIMITTER).append(COMMA_DELIMITTER);
         } else {
             Set<String> optionString = options.stream().map(x -> x.optionValue).collect(Collectors.toSet());
-            String toJoin = String.join(",", optionString);
+            String toJoin = String.join(COMMA_DELIMITTER, optionString);
+            toJoin = fillCommas(toJoin);
             stringBuilder.append(toJoin);
-
         }
+    }
+
+    private String fillCommas(String toJoin) {
+        // 3 options filled
+        long numCommas = toJoin.chars().mapToObj(c -> (char) c)
+                .filter(c -> String.valueOf(c).equals(COMMA_DELIMITTER))
+                .count();
+        if (numCommas == 0) {
+            toJoin += COMMA_DELIMITTER;
+            toJoin += COMMA_DELIMITTER;
+        }
+        if (numCommas == 1) {
+            toJoin += COMMA_DELIMITTER;
+        }
+        return toJoin;
     }
 
     /**

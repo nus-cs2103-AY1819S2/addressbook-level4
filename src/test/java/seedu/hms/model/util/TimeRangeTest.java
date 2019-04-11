@@ -42,6 +42,5 @@ public class TimeRangeTest {
         assertFalse(new TimeRange(0, 23).equals(new TimeRange(0, 22)));
         assertFalse(new TimeRange(0, 23).equals(new TimeRange(5, 23)));
         assertFalse(new TimeRange(0, 23).equals(new TimeRange(5, 13)));
-        assertFalse(new TimeRange(0, 23).equals(null));
     }
 }

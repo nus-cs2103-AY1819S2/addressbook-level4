@@ -2,11 +2,12 @@ package systemtests;
 
 import org.junit.Test;
 import org.testfx.api.FxRobot;
+
 import seedu.address.logic.commands.StatsCommand;
 import seedu.address.model.Model;
 import seedu.address.model.patient.Patient;
-import seedu.address.testutil.TypicalRecords;
 import seedu.address.testutil.TypicalPersons;
+import seedu.address.testutil.TypicalRecords;
 
 public class StatSystemTest extends AddressBookSystemTest {
 
@@ -40,6 +41,5 @@ public class StatSystemTest extends AddressBookSystemTest {
     private void alertRobotClick() {
         FxRobot clickBot = new FxRobot();
         clickBot.clickOn(840, 0);
-//        clickBot.clickOn("Yes");
     }
 }

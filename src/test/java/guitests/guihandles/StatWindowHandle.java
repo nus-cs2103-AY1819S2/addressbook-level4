@@ -3,6 +3,9 @@ package guitests.guihandles;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
+/**
+ * Handler for StatWindow
+ */
 public class StatWindowHandle extends StageHandle {
     private Stage statStage;
 

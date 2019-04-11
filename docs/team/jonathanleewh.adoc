@@ -48,7 +48,7 @@ This section highlights my documentation, coding and other noteworthy contributi
 
 ** Project management:
 *** Set up team project GitHub repository including setting up issue tracker, permissions, project page, milestones and labels.
-*** Managed releases `v1.1` - `v1.4` (7 releases) on GitHub
+*** Managed releases `v1.1` - `v1.4` (9 releases) on GitHub
 ** Documentation:
 *** Added Introduction sections to both User Guide and Developer Guide: https://github.com/CS2103-AY1819S2-T12-3/main/pull/115[#115], https://github.com/CS2103-AY1819S2-T12-3/main/pull/140[#140]
 *** Added Frequently Asked Question (FAQ) and File Naming Convention sections to User Guide: https://github.com/CS2103-AY1819S2-T12-3/main/pull/123[#123], https://github.com/CS2103-AY1819S2-T12-3/main/pull/135[#135]

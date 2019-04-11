@@ -171,7 +171,7 @@ Benefits of integration addon support are as follows:
 
 An example of an integration addon which would be supported by MediTabs:
 
-* Singapore's Health Science Authority (HSA) - To integrate the Singapore HSA's medical database with MediTabs which allows easy retrieval of important information such as when a medicine is requested to be recalled by the HSA.
+* Singapore's Health Science Authority (HSA) - To integrate the Singapore HSA's medical database with MediTabs which allows easy retrieval of important information such as when medicine is requested to be recalled by the HSA.
 
 [NOTE]
 This feature can be improved to support medical databases of different countries.
@@ -427,7 +427,7 @@ If a file with the specified file name already exists in the default `exported` 
 
 A sample image of how the medicine inventory data in the exported CSV file is organised:
 
-.Sample of exported CSV file
+.Sample of the exported CSV file
 image::SampleCSVFileImage.png[width="790"]
 
 [NOTE]

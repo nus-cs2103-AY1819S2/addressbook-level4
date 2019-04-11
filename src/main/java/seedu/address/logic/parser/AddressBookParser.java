@@ -54,6 +54,7 @@ public class AddressBookParser {
 
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
+
         switch (commandWord) {
 
         case AddCommand.COMMAND_WORD:
@@ -72,45 +73,72 @@ public class AddressBookParser {
             return new PinCommandParser().parse(arguments);
 
         case ClearCommand.COMMAND_WORD:
+            if(!arguments.equals("")){
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
+            }
             return new ClearCommand();
 
         case FindCommand.COMMAND_WORD:
             return new FindCommandParser().parse(arguments);
 
         case ListCommand.COMMAND_WORD:
+            if(!arguments.equals("")){
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
+            }
             return new ListCommand();
 
         case ArchiveCommand.COMMAND_WORD:
             return new ArchiveCommandParser().parse(arguments);
 
         case ArchiveListCommand.COMMAND_WORD:
+            if(!arguments.equals("")){
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
+            }
             return new ArchiveListCommand();
 
         case ArchiveSelectCommand.COMMAND_WORD:
             return new ArchiveSelectCommandParser().parse(arguments);
 
         case ArchiveClearCommand.COMMAND_WORD:
+            if(!arguments.equals("")){
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
+            }
             return new ArchiveClearCommand();
 
         case UnarchiveCommand.COMMAND_WORD:
             return new UnarchiveCommandParser().parse(arguments);
 
         case HistoryCommand.COMMAND_WORD:
+            if(!arguments.equals("")){
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
+            }
             return new HistoryCommand();
 
         case ExitCommand.COMMAND_WORD:
+            if(!arguments.equals("")){
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
+            }
             return new ExitCommand();
 
         case HelpCommand.COMMAND_WORD:
+            if(!arguments.equals("")){
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
+            }
             return new HelpCommand();
 
         case UndoCommand.COMMAND_WORD:
+            if(!arguments.equals("")){
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
+            }
             return new UndoCommand();
 
         case UnpinCommand.COMMAND_WORD:
             return new UnpinCommandParser().parse(arguments);
 
         case RedoCommand.COMMAND_WORD:
+            if(!arguments.equals("")){
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
+            }
             return new RedoCommand();
 
         case PinSelectCommand.COMMAND_WORD:

@@ -69,7 +69,8 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 * Commands are written in monospaced font, e.g. `sort`
 * Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `addfolder FOLDER_NAME`, `FOLDER_NAME` is a parameter which can be used as `add Human Anatomy`.
-* Items in square brackets are optional e.g HINTS in `add q/QUESTION a/ANSWER [h/HINTS]`.
+* Items in square brackets are optional e.g `HINTS` in `add q/QUESTION a/ANSWER [h/HINTS]`.
+* Items with `…​` after them can be used multiple times including zero times e.g. in `add q/QUESTION a/ANSWER [i/INCORRECT_OPTION]...`, you can include zero or more `i/INCORRECT_OPTIONs`.
 * Parameters can be in any order e.g. if the command specifies `q/QUESTION a/ANSWER`, `a/ANSWER q/QUESTION` is also acceptable.
 ====
 

@@ -33,6 +33,7 @@ public class TagCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1 " + PREFIX_TAG_ADD + " "
             + PREFIX_TAG_NAME + "CS2103T " + PREFIX_TAG_NAME + "SE\n"
             + "Example: " + COMMAND_WORD + " 2 " + PREFIX_TAG_REMOVE + " " + PREFIX_TAG_NAME + "School\n";
+    public static final String MESSAGE_TAG_PDF_SUCCESS = "Edited tag for Pdf: %1$s";
 
     private final Index index;
     private final Set<Tag> tags;
@@ -68,7 +69,7 @@ public class TagCommand extends Command {
         model.updateFilteredPdfList(PREDICATE_SHOW_ALL_PDFS);
         model.commitPdfBook();
 
-        return new CommandResult(String.format(MESSAGE_EDIT_PDF_SUCCESS, nPdf));
+        return new CommandResult(String.format(MESSAGE_TAG_PDF_SUCCESS, nPdf));
     }
 
     public static Pdf getPdfWithNewTag(Pdf old, Set<Tag> tags) {

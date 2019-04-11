@@ -580,14 +580,21 @@ if the category was not previously allocated with a budget
 ** Cons: User might be confused with too many commands and not intuitive.
 // end::categorybudget[]
 
+// tag::show[]
+// TODO: To be updated
+==== Listing Category Budgets allocated
+This feature allows user to list the category budgets and the current spending in these
+categories after category budgets are allocated.
+
+Given below is a sequence diagram and step by step explanation of how Finance Tracker
+executes when a user executes the `show` command.
+
+* TO BE UPDATED
+
+// end::show[]
 
 ==== To be implemented
-* Reflecting total budget and current budget on `BrowserPanel` portion of UI.
-* Implementing logic for `increase` command to allow for increasing the budget.
-* Modify `spend` and `edit` Command to deduct from total budget to get current budget.
 * Implement `reset` command to reset current budget expenditure and total budget.
-* Reflecting total budget and current budget for each category when selected in UI.
-* Expand `undo` and `redo` command to be able to work on `set`, `allocate` and `increase` command.
 
 //end::budgetmanagement[]
 

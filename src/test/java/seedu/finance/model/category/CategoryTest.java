@@ -5,7 +5,9 @@ import org.junit.Test;
 import seedu.finance.testutil.Assert;
 
 public class CategoryTest {
-
+    public static final String INVALID_CATEGORY_NAME_EMPTY = "";
+    public static final String INVALID_CATEGORY_NAME_NOT_ALPHANUM = "Food%";
+    public static final String VALID_CATEGORY_NAME = "Food";
     @Test
     public void constructor_null_throwsNullPointerException() {
         Assert.assertThrows(NullPointerException.class, () -> new Category(null));
@@ -13,8 +15,7 @@ public class CategoryTest {
 
     @Test
     public void constructor_invalidCategoryName_throwsIllegalArgumentException() {
-        String invalidCategoryName = "";
-        Assert.assertThrows(IllegalArgumentException.class, () -> new Category(invalidCategoryName));
+        Assert.assertThrows(IllegalArgumentException.class, () -> new Category(INVALID_CATEGORY_NAME_EMPTY));
     }
 
     @Test

@@ -824,7 +824,7 @@ image::GenerateCommandActivityDiagram.png[width="400", caption="Figure 4.4.2: ",
 .Sequence Diagram for the `generate` command
 image::GenerateCommandSeqDiagram.png[width="700", caption="Figure 4.4.3: ", reftext="Figure 4.4.3"]
 
-*Storage:* The Chart's storage is handled by `JsonChartBookStorage`, which implements from `ChartBookStorage`. The three main methods it implement are:
+*Storage:* The Chart's storage is handled by `JsonChartBookStorage`, which implements from `ChartBookStorage`. The three main methods it implements are:
 
 * `saveCountryChart(filePath)` - Saves the countries data into a JSON file.
 * `saveRatingChart(filePath)` - Saves the ratings data into a JSON file.

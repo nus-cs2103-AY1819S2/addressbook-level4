@@ -157,6 +157,7 @@ The `redo` command fails as there are no `undo` commands executed previously.
 `redo` (reapplies the `delete 1` command) +
 `redo` (reapplies the `clear` command) +
 // end::undoredo[]
+
 ==== Locating persons by name: `find`
 
 Finds persons whose names contain any of the given keywords. +
@@ -234,17 +235,42 @@ There is no need to save manually.
 
 === HR Related Features
 
-==== Import Resumes to slaveFinder() : `importResumes` `Coming in v1.4`
+==== Import Resumes to slaveFinder() : `importResumes`
 
-Given input resume txt files in placed in the resumes folder, reads all the resumes and saves them into slaveFinder().
-Format : `readAll`
+Given input resume txt files in placed in the specified folder, reads all the resumes and saves them into slaveFinder().
+Format : `importResumes path_to_folder`
 
 ****
-* All the resume documents should be txt files and strictly follow the format of Company Standard Resume Format.
+* All the resume documents should be txt files and strictly follow the below format.
+```
+Name
+Phone
+Email
+NRIC
+Gender
+Race
+Address
+School
+Major
+Grade
+Lang,Lang,Lang
+pastJob,pastJob,pastJob
+jobsApply,jobsApply,jobsApply
+interviewScore
+tag,tag,tag
+```
+* All fields are to be populated, except for Programming Languages, Past Jobs, Jobs Applied, and Tags
+** For these fields, specify any number of items (zero or more), separated by commas
 * All the resume documents should be stored in one folder.
 * If the new added people is a new person to our company, slaveFinder will crawl the data from resume and add him/her as ADD command.
 * If the new added people is a person already in our storage, slaveFinder will crawl the data from resume and change his/her data as EDIT command.
 ****
+
+Examples:
+
+* `importResumes C:\Users\MyName\Desktop\MyResumes` +
+Imports all resumes in the given path
+
 
 ==== Create a Job Hiring Process: `createjob`
 
@@ -252,7 +278,7 @@ Create a Job hiring process with four person lists: "All Applicants", "KIV", "In
 Format : `createJob jn/JOBNAME`
 
 ****
-* JOBNAME indicate the job name. For examle: `IOS-Developer`.
+* JOBNAME indicate the job name. For example: `IOS-Developer`.
 * All people in the storage who want to apply this job will automatically be added in "Applied" list. `Coming in v1.4`
 * All people in "Applied" list will show on the display list after this command. `Coming in v1.4`
 * A label with JOBNAME will show on the display board to indicate the current Job Hiring Process. `Coming in v1.4`

@@ -48,15 +48,13 @@ public class ImportCommand extends InCommand {
 
         AddressBookStorage importStorage = new InOutAddressBookStorage(parsedInput.getFile().toPath());
 
-        StorageManager importStorageManager = new StorageManager(importStorage, null);
-
         final Logger logger = LogsCenter.getLogger(MainApp.class);
 
         Optional<ReadOnlyAddressBook> importOptional;
         ReadOnlyAddressBook importData;
 
         try {
-            importOptional = importStorageManager.readAddressBook();
+            importOptional = importStorage.readAddressBook();
             // This should not happen after OpenCommandParser checks for file existence.
             if (!importOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample AddressBook");

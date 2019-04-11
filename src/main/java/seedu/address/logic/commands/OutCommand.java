@@ -26,13 +26,11 @@ abstract class OutCommand extends Command {
     void writeFile(Model model) throws IOException {
         AddressBookStorage addressBookStorage = new InOutAddressBookStorage(parsedInput.getFile().toPath());
 
-        StorageManager storage = new StorageManager(addressBookStorage, null);
-
         try {
             if (parsedInput.getType().equals("json")) {
-                storage.saveAddressBook(model.getAddressBook());
+                addressBookStorage.saveAddressBook(model.getAddressBook());
             } else if (parsedInput.getType().equals("pdf")) {
-                storage.saveAsPdf(model.getAddressBook());
+                addressBookStorage.saveAsPdf(model.getAddressBook());
             }
         } catch (IOException e) {
             throw new IOException(e.getMessage());

@@ -57,12 +57,12 @@ public class TypicalTasks {
             .withNoLinkedPatient().build();
 
     public static final Task EXTRACT = new TaskBuilder().withTitle("Tooth extraction for Alice")
-            .withStartDate("15-01-2020").withEndDate("20-01-2020").withStartTime("0900").withEndTime("0900")
+            .withStartDate("16-01-2020").withEndDate("20-01-2020").withStartTime("0900").withEndTime("0900")
             .withPriority("med").withLinkedPatient(ALICE.getName().fullName, ((Patient) ALICE).getNric().getNric())
             .build();
 
-    public static final Task REORG = new TaskBuilder().withTitle("Reorganize Documents").withStartDate("15-01-2020")
-            .withEndDate("20-01-2020").withStartTime("0900").withEndTime("0900").withPriority("low")
+    public static final Task REORG = new TaskBuilder().withTitle("Reorganize Documents").withStartDate("12-03-2020")
+            .withEndDate("12-03-2020").withStartTime("1500").withEndTime("1830").withPriority("low")
             .withNoLinkedPatient().build();
 
 

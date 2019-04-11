@@ -20,7 +20,9 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
+import seedu.address.model.task.Task;
 import seedu.address.model.util.predicate.NameContainsKeywordsPredicate;
+import seedu.address.model.util.predicate.TaskStartDateContainsKeywordsPredicate;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 import seedu.address.testutil.EditTaskDescriptorBuilder;
 
@@ -203,6 +205,20 @@ public class CommandTestUtil {
         Person firstPerson = model.getFilteredPersonList().get(0);
         model.deletePerson(firstPerson);
         model.commitAddressBook();
+    }
+
+    /**
+     * Updates {@code model}'s filtered list to show only the person at the given {@code targetIndex} in the
+     * {@code model}'s address book.
+     */
+    public static void showTaskAtIndex(Model model, Index targetIndex) {
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredTaskList().size());
+
+        Task task = model.getFilteredTaskList().get(targetIndex.getZeroBased());
+        final String[] date = new String[1];
+        date[0] = task.getStartDate().toString();
+        model.updateFilteredTaskList(new TaskStartDateContainsKeywordsPredicate(Arrays.asList(date)));
+        assertEquals(1, model.getFilteredTaskList().size());
     }
 
 }

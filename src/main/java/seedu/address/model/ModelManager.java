@@ -169,20 +169,20 @@ public class ModelManager implements Model {
         }
 
         switch (from) {
-            case APPLICANT:
-                versionedAddressBook.addFilteredListToJob(activeJobAllApplicants, jobName, to);
-                break;
-            case KIV:
-                versionedAddressBook.addFilteredListToJob(activeJobKiv, jobName, to);
-                break;
-            case INTERVIEW:
-                versionedAddressBook.addFilteredListToJob(activeJobInterview, jobName, to);
-                break;
-            case SHORTLIST:
-                versionedAddressBook.addFilteredListToJob(activeJobShortlist, jobName, to);
-                break;
-            default:
-                versionedAddressBook.addFilteredListToJob(displayedFilteredPersons, jobName, to);
+        case APPLICANT:
+            versionedAddressBook.addFilteredListToJob(activeJobAllApplicants, jobName, to);
+            break;
+        case KIV:
+            versionedAddressBook.addFilteredListToJob(activeJobKiv, jobName, to);
+            break;
+        case INTERVIEW:
+            versionedAddressBook.addFilteredListToJob(activeJobInterview, jobName, to);
+            break;
+        case SHORTLIST:
+            versionedAddressBook.addFilteredListToJob(activeJobShortlist, jobName, to);
+            break;
+        default:
+            versionedAddressBook.addFilteredListToJob(displayedFilteredPersons, jobName, to);
         }
     }
 

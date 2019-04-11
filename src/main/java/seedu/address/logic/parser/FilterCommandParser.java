@@ -7,6 +7,11 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FILTERNAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GENDER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GRADE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_INTERVIEWSCORESQ1;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_INTERVIEWSCORESQ2;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_INTERVIEWSCORESQ3;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_INTERVIEWSCORESQ4;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_INTERVIEWSCORESQ5;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_JOBSAPPLY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_KNOWNPROGLANG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MAJOR;
@@ -42,12 +47,12 @@ public class FilterCommandParser implements Parser<FilterCommand> {
         ArgumentMultimap argMultimap =
             ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_RACE, PREFIX_ADDRESS,
                 PREFIX_SCHOOL, PREFIX_MAJOR, PREFIX_PASTJOB, PREFIX_TAG, PREFIX_GENDER, PREFIX_GRADE,
-                PREFIX_NRIC, PREFIX_JOBSAPPLY, PREFIX_KNOWNPROGLANG, PREFIX_FILTERNAME);
+                PREFIX_NRIC, PREFIX_JOBSAPPLY, PREFIX_KNOWNPROGLANG, PREFIX_INTERVIEWSCORESQ1, PREFIX_INTERVIEWSCORESQ2,
+                PREFIX_INTERVIEWSCORESQ3, PREFIX_INTERVIEWSCORESQ4, PREFIX_INTERVIEWSCORESQ5, PREFIX_FILTERNAME);
         JobListName listName;
         String commandName;
         String preambleString = argMultimap.getPreamble();
         String listNameString = preambleString.trim();
-        //String commandName = preambleString.split("\\s+")[1].trim();
         try {
             listName = ParserUtil.parseJobListName(listNameString);
         } catch (ParseException pe) {
@@ -58,10 +63,8 @@ public class FilterCommandParser implements Parser<FilterCommand> {
         //predicatePersonDescriptor.setPredicateName(commandName);
         if (argMultimap.getValue(PREFIX_FILTERNAME).isPresent()) {
             commandName = argMultimap.getValue(PREFIX_FILTERNAME).get();
-            predicatePersonDescriptor.setPredicateName(commandName);
         } else {
             commandName = "";
-            predicatePersonDescriptor.setPredicateName(commandName);
         }
         if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
             predicatePersonDescriptor.setName(new HashSet<>((
@@ -97,7 +100,27 @@ public class FilterCommandParser implements Parser<FilterCommand> {
         }
         if (argMultimap.getValue(PREFIX_GRADE).isPresent()) {
             predicatePersonDescriptor.setGrade(new HashSet<>((
-                Arrays.asList(argMultimap.getValue(PREFIX_GRADE).get().split("\\s+")))));
+                Arrays.asList(argMultimap.getValue(PREFIX_GRADE).get().split(";")))));
+        }
+        if (argMultimap.getValue(PREFIX_INTERVIEWSCORESQ1).isPresent()) {
+            predicatePersonDescriptor.setInterviewScoreQ1(new HashSet<>((
+                Arrays.asList(argMultimap.getValue(PREFIX_INTERVIEWSCORESQ1).get().split(";")))));
+        }
+        if (argMultimap.getValue(PREFIX_INTERVIEWSCORESQ2).isPresent()) {
+            predicatePersonDescriptor.setInterviewScoreQ2(new HashSet<>((
+                Arrays.asList(argMultimap.getValue(PREFIX_INTERVIEWSCORESQ2).get().split(";")))));
+        }
+        if (argMultimap.getValue(PREFIX_INTERVIEWSCORESQ3).isPresent()) {
+            predicatePersonDescriptor.setInterviewScoreQ3(new HashSet<>((
+                Arrays.asList(argMultimap.getValue(PREFIX_INTERVIEWSCORESQ3).get().split(";")))));
+        }
+        if (argMultimap.getValue(PREFIX_INTERVIEWSCORESQ4).isPresent()) {
+            predicatePersonDescriptor.setInterviewScoreQ4(new HashSet<>((
+                Arrays.asList(argMultimap.getValue(PREFIX_INTERVIEWSCORESQ4).get().split(";")))));
+        }
+        if (argMultimap.getValue(PREFIX_INTERVIEWSCORESQ5).isPresent()) {
+            predicatePersonDescriptor.setInterviewScoreQ5(new HashSet<>((
+                Arrays.asList(argMultimap.getValue(PREFIX_INTERVIEWSCORESQ5).get().split(";")))));
         }
         if (argMultimap.getValue(PREFIX_NRIC).isPresent()) {
             predicatePersonDescriptor.setNric(new HashSet<>((

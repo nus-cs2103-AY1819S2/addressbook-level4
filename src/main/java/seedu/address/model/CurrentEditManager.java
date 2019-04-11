@@ -60,13 +60,13 @@ public class CurrentEditManager implements CurrentEdit {
         editFilePath = null;
     }
     /* @@author */
-    /* @@author itszp */
 
+    /* @@author itszp */
     /**
      * Opens an image in FomoFoto.
-     * This method makes two copies of the original image in temp folder.
+     * This method creates two copies of the original image in temp folder and instantiates them.
      *
-     * @param image Image to be edited.
+     * @param image is the image to be edited.
      */
     public void openImage(Image image) {
         this.originalImageName = image.getName().getFullName();
@@ -86,24 +86,6 @@ public class CurrentEditManager implements CurrentEdit {
         } catch (Exception e) {
             System.out.println(e);
         }
-    }
-
-    /**
-     * Saves a copy of {@code image} to temp folder as temp_img.png and instantiate it as tempImage .
-     */
-    public void saveAsTemp(Image image) {
-        saveIntoTempFolder(editFileName, image);
-        setTempImage();
-    }
-
-    /**
-     * Saves a copy of {@code image} to temp folder as ori_img.png and instantiate it as originalImage.
-     * Stores original name is originalImageName.
-     */
-    public void saveAsOriginal(Image image) {
-        saveIntoTempFolder(originalName, image);
-        this.originalImageName = image.getName().getFullName();
-        setOriginalImage(image);
     }
 
     /**
@@ -172,15 +154,6 @@ public class CurrentEditManager implements CurrentEdit {
         tempImage.setWaterMark(hasWaterMark);
     }
 
-    /* @@author itszp */
-    /**
-     * Creates originalImage instance of {@code image} located in temp_folder.
-     */
-    public void setOriginalImage(Image image) {
-        this.originalImage = new Image(editFileName);
-    }
-    /* @@author*/
-
     public void displayTempImage() {
         Notifier.firePropertyChangeListener("import", null, tempImage.getUrl());
     }
@@ -237,19 +210,17 @@ public class CurrentEditManager implements CurrentEdit {
         return tempImage.getCommand();
     }
 
-    /**
-     * Retrieves a list of all filenames in assets folder. Returns the list as String[].
-     */
-    public String[] getFileNames() {
-        File file = new File(Album.getInstance().getAssetsFilepath());
-        return file.list();
-    }
-
     public List<Command> getSubHistoryTemp() {
         return tempImage.getSubHistory();
     }
 
     /* @@author itszp */
+    /**
+     * Creates originalImage instance of {@code image} located in temp_folder.
+     */
+    public void setOriginalImage(Image image) {
+        this.originalImage = new Image(editFileName);
+    }
 
     /**
      * Overwrites ori_img.png with tempImage. Sets originalImageName as {@code name}.
@@ -261,26 +232,6 @@ public class CurrentEditManager implements CurrentEdit {
     }
 
     /**
-     * Saves tempImage to assetsFolder as {@code name} or original name if not specified.
-     */
-    public String saveToAssets(String name) {
-        try {
-            if (name.isEmpty()) {
-                name = this.originalImageName;
-            }
-            File outputFile = new File(name);
-            File saveDirectory = new File(Album.getInstance().getAssetsFilepath());
-            ImageIO.write(tempImage.getBufferedImage(), tempImage.getFileType(), outputFile);
-            FileUtils.copyFileToDirectory(outputFile, saveDirectory, false);
-            outputFile.delete();
-        } catch (IOException e) {
-            System.out.println(e.toString());
-        }
-        overwriteOriginal(name);
-        return name;
-    }
-
-    /**
      * Resets tempImage history.
      */
     public void deleteHistory() {
@@ -288,6 +239,9 @@ public class CurrentEditManager implements CurrentEdit {
         tempImage.setIndex(0);
     }
 
+    /**
+     * Returns the original name of the image.
+     */
     public String getOriginalImageName() {
         return this.originalImageName;
     }

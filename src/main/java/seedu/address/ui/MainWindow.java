@@ -43,6 +43,7 @@ public class MainWindow extends UiPart<Stage> {
     private HelpWindow helpWindow;
     private LessonListPanel lessonListPanel;
     private FlashcardPanel flashcardPanel;
+    private StatusBarFooter statusBarFooter;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -144,6 +145,9 @@ public class MainWindow extends UiPart<Stage> {
 
         CommandBox commandBox = new CommandBox(this::executeCommand, logic.getHistory());
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+
+        statusBarFooter = new StatusBarFooter();
+        statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
     }
 
     /**
@@ -169,12 +173,14 @@ public class MainWindow extends UiPart<Stage> {
             mainPanelPlaceholder.getChildren().clear();
             mainPanelPlaceholder.getChildren().add(flashcardPanel.getRoot());
             resultDisplay.setFeedbackToUser(MESSAGE_LESSON_COMMANDS);
+            statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
         } else {
             splitPane.setDividerPosition(0, 0);
             sidePanel.setMinWidth(0);
             sidePanel.setPrefWidth(0);
             mainPanelPlaceholder.getChildren().clear();
             mainPanelPlaceholder.getChildren().add(mainPanel.getRoot());
+            statusbarPlaceholder.getChildren().clear();
         }
     }
 

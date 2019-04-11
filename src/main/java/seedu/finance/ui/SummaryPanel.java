@@ -80,7 +80,7 @@ public class SummaryPanel extends UiPart<Region> {
                 }
             }
             text.setStyle("-fx-font-size: 18;");
-            text.setFill(Color.BLACK);
+            text.setFill(Color.GRAY);
             chartArea.getChildren().add(text);
         } else {
             setSummaryData(summaryData);

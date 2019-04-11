@@ -37,8 +37,7 @@ public class CategoryBudget extends Budget {
     @Override
     public String toString() {
         return categoryOfBudget + ":\n"
-                + "Total Budget: " + getTotalBudget() + "\n"
-                + "Current Budget: " + getCurrentBudget();
+                + String.format("$%.2f/ $%.2f\n", getCurrentSpendings(), getTotalBudget());
     }
 
     @Override

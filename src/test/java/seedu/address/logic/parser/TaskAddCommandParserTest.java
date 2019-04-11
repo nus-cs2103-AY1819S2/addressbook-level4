@@ -16,9 +16,10 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_STARTTIME_WITHP
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TITLE_WITHPATIENT;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.address.testutil.TypicalTasks.REVIEW;
+import static seedu.address.testutil.TypicalData.REVIEW;
 
 import org.junit.Test;
+import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.TaskAddCommand;
 import seedu.address.model.datetime.DateCustom;
 import seedu.address.model.task.Task;
@@ -48,6 +49,16 @@ public class TaskAddCommandParserTest {
                 + STARTDATE_DESC_NOPATIENT + ENDDATE__DESC_NOPATIENT + STARTTIME_DESC_NOPATIENT
                 + ENDTIME_DESC_NOPATIENT + PRIORITY_DESC_NOPATIENT, new TaskAddCommand(expectedTask, null));
 
+        //enddate not given
+        assertParseSuccess(parser, TITLE_DESC_NOPATIENT + STARTDATE_DESC_NOPATIENT
+                + STARTTIME_DESC_NOPATIENT + ENDTIME_DESC_NOPATIENT
+                + PRIORITY_DESC_NOPATIENT, new TaskAddCommand(expectedTask, null));
+
+        //patient index given
+        assertParseSuccess(parser, TITLE_DESC_NOPATIENT + STARTDATE_DESC_NOPATIENT
+                + STARTTIME_DESC_NOPATIENT + ENDTIME_DESC_NOPATIENT
+                + PRIORITY_DESC_NOPATIENT + " pat/1", new TaskAddCommand(expectedTask, Index.fromOneBased(1)));
+
         expectedTask = new TaskBuilder(REVIEW).withStartDate(DateCustom.getToday()).build();
 
         //today keyword accepted for startdate
@@ -63,10 +74,6 @@ public class TaskAddCommandParserTest {
                 + " ed/today" + STARTTIME_DESC_NOPATIENT
                 + ENDTIME_DESC_NOPATIENT + PRIORITY_DESC_NOPATIENT, new TaskAddCommand(expectedTask, null));
 
-        //enddate not given
-        assertParseSuccess(parser, TITLE_DESC_NOPATIENT + STARTDATE_DESC_NOPATIENT
-                + STARTTIME_DESC_NOPATIENT + ENDTIME_DESC_NOPATIENT
-                + PRIORITY_DESC_NOPATIENT, new TaskAddCommand(expectedTask, null));
 
     }
 

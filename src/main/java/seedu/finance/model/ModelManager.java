@@ -147,7 +147,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void addBudget(Budget budget) {
+    public void addBudget(Budget budget) throws CategoryBudgetExceedTotalBudgetException {
         requireNonNull(budget);
 
         versionedFinanceTracker.addBudget(budget);

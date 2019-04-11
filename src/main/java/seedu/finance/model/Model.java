@@ -95,7 +95,7 @@ public interface Model {
      * Sets the given amount to budget.
      * {@code budget} must not already exist in the finance tracker.
      */
-    void addBudget(Budget budget);
+    void addBudget(Budget budget) throws CategoryBudgetExceedTotalBudgetException;
 
     /**
      * Sets the given amount to the category budget

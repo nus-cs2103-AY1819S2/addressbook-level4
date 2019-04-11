@@ -123,11 +123,10 @@ public class FinanceTracker implements ReadOnlyFinanceTracker {
 
     /**
      * Adds a budget to the finance tracker.
-     * The budget must not already exist in the finance tracker.
+     * The budget must not be less than the allocated budgets.
      */
-    public void addBudget(Budget budget) {
-        this.budget.set(budget.getTotalBudget(), budget.getCurrentBudget());
-        this.budget.updateBudget(this.records.asUnmodifiableObservableList());
+    public void addBudget(Budget budget) throws CategoryBudgetExceedTotalBudgetException {
+        this.budget.updateBudget(budget, this.records.asUnmodifiableObservableList());
         indicateModified();
     }
 

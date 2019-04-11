@@ -48,6 +48,19 @@ public class TotalBudget extends Budget {
         return categoryBudgets;
     }
 
+    public void updateBudget(Budget budget, ObservableList<Record> records) throws
+            CategoryBudgetExceedTotalBudgetException {
+        Double totalCategoryBudget = 0.0;
+        for (CategoryBudget cb: this.categoryBudgets) {
+            totalCategoryBudget += cb.getTotalBudget();
+        }
+        if (budget.getTotalBudget() < totalCategoryBudget) {
+            throw new CategoryBudgetExceedTotalBudgetException(budget, totalCategoryBudget);
+        }
+        set(budget.getTotalBudget(), budget.getCurrentBudget());
+        updateBudget(records);
+    }
+
     //========================= Category Budgets ==========================//
     /**
      * Attempts to add a new category budget.
@@ -96,6 +109,7 @@ public class TotalBudget extends Budget {
                 catBudgetToAdd.currentSpendings += r.getAmount().getValue();
             }
         }
+        catBudgetToAdd.currentBudget = catBudgetToAdd.totalBudget - catBudgetToAdd.currentSpendings;
 
         if (catBudgetToAdd.currentSpendings > catBudgetToAdd.totalBudget) {
             throw new SpendingInCategoryBudgetExceededException(catBudgetToAdd);

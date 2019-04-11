@@ -266,6 +266,14 @@ public class MainWindow extends UiPart<Stage> {
         testSession.handleWrongAnswer();
     }
 
+    /**
+     * Show the page with revealed answer.
+     */
+    private void handleRevealAnswer() {
+        assert testSession != null;
+        testSession.handleRevealAnswer();
+    }
+
     private void updateCardListPanel() {
         fullScreenPlaceholder.getChildren();
     }
@@ -321,6 +329,9 @@ public class MainWindow extends UiPart<Stage> {
                 break;
             case ANSWER_WRONG:
                 handleWrongAnswer();
+                break;
+            case ANSWER_REVEAL:
+                handleRevealAnswer();
                 break;
             default:
             }

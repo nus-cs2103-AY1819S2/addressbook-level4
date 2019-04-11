@@ -16,6 +16,7 @@ public class TestSession extends UiPart<Region> {
     private static final String FXML = "TestSession.fxml";
     private static final String MESSAGE_CORRECT_ANSWER = "\"Correct answer, good job!\"";
     private static final String MESSAGE_WRONG_ANSWER = "\"Wrong answer, better luck next time!\"";
+    private static final String MESSAGE_REVEAL_ANSWER = "\"Answer revealed, you can do better!\"";
 
     private Card cardToTest; //final?
 
@@ -69,7 +70,7 @@ public class TestSession extends UiPart<Region> {
      * Updates the UI to show the answer for a correctly answered card.
      */
     public void handleCorrectAnswer() {
-        testSessionPage.setStyle("-fx-background-color: #90EE90;");
+        testSessionPage.setStyle("-fx-background-color: #90ee90;");
         testMessage.setText(MESSAGE_CORRECT_ANSWER);
         testSessionPage.getChildren().addAll(testCardAnswer, testMessage);
     }
@@ -80,6 +81,15 @@ public class TestSession extends UiPart<Region> {
     public void handleWrongAnswer() {
         testSessionPage.setStyle("-fx-background-color: #ef6262;");
         testMessage.setText(MESSAGE_WRONG_ANSWER);
+        testSessionPage.getChildren().addAll(testCardAnswer, testMessage);
+    }
+
+    /**
+     * Updates the UI to show the answer for a request to reveal the answer to the current card.
+     */
+    public void handleRevealAnswer() {
+        testSessionPage.setStyle("-fx-background-color: #ffde64 ;");
+        testMessage.setText(MESSAGE_REVEAL_ANSWER);
         testSessionPage.getChildren().addAll(testCardAnswer, testMessage);
     }
 }

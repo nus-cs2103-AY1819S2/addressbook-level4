@@ -37,7 +37,7 @@ public class PersonBuilder {
     public static final String DEFAULT_MAJOR = "CS";
     public static final String DEFAULT_GRADE = "3.00";
     public static final String DEFAULT_INTERVIEWSCORES = "1,2,3,4,5";
-    public static final String DEFAULT_JOBSAPPLY = "Software Engineer";
+    public static final String DEFAULT_JOBSAPPLY = "Software-Engineer";
 
 
     private Name name;

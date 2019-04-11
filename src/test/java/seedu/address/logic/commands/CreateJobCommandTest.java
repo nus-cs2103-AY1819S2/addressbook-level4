@@ -387,7 +387,7 @@ public class CreateJobCommandTest {
         }
 
         @Override
-        public void addFilteredPersonsToJob(JobName jobName) {
+        public void addFilteredPersonsToJob(JobName jobName, JobListName from, JobListName to) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -428,6 +428,11 @@ public class CreateJobCommandTest {
 
         @Override
         public ObservableList<Job> getFilteredJobList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Job getActiveJob() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -475,8 +480,8 @@ public class CreateJobCommandTest {
         }
 
         @Override
-        public void addFilteredPersonsToJob(JobName jobName) {
-            requireNonNull(jobName);
+        public void addFilteredPersonsToJob(JobName jobName, JobListName to, JobListName from) {
+
         }
 
         @Override

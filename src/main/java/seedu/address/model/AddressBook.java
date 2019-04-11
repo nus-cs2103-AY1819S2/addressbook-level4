@@ -11,6 +11,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.util.InvalidationListenerManager;
 import seedu.address.model.interviews.Interviews;
 import seedu.address.model.job.Job;
+import seedu.address.model.job.JobListName;
 import seedu.address.model.job.JobName;
 import seedu.address.model.job.UniqueJobList;
 import seedu.address.model.person.Nric;
@@ -120,7 +121,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     public boolean addPersonToJobByNric(Nric nric, JobName jobName) {
         Person person = persons.getPerson(nric);
         Job job = jobs.getJob(jobName);
-        boolean status = job.add(person);
+        boolean status = job.add(person, 0);
         this.jobs.setJob(job, job);
         indicateModified();
 
@@ -133,9 +134,25 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Adds to the first list
      * This version directly adds from job
      */
-    public void addFilteredListToJob(FilteredList<Person> filteredPersons, JobName jobName) {
+    public void addFilteredListToJob(FilteredList<Person> filteredPersons, JobName jobName, JobListName to) {
         Job job = jobs.getJob(jobName);
-        job.addFilteredList(filteredPersons);
+        switch(to) {
+        case APPLICANT:
+            job.addFilteredList(filteredPersons, 0);
+            break;
+        case KIV:
+            job.addFilteredList(filteredPersons, 1);
+            break;
+        case INTERVIEW:
+            job.addFilteredList(filteredPersons, 2);
+            break;
+        case SHORTLIST:
+            job.addFilteredList(filteredPersons, 3);
+            break;
+        default:
+            job.addFilteredList(filteredPersons, 0);
+            break;
+        }
         this.jobs.setJob(job, job);
         indicateModified();
     }
@@ -154,7 +171,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * This version directly adds from job
      */
     public void addPersonToJob(Person person, Job job) {
-        job.add(person);
+        job.add(person, 0);
         indicateModified();
     }
 

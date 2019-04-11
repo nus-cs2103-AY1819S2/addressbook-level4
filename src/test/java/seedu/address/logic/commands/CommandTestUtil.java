@@ -30,6 +30,7 @@ import seedu.address.model.person.Doctor;
 import seedu.address.model.person.DoctorNameContainsKeywordsPredicate;
 import seedu.address.model.person.Patient;
 import seedu.address.model.person.PatientNameContainsKeywordsPredicate;
+import seedu.address.testutil.EditDoctorDescriptorBuilder;
 import seedu.address.testutil.EditPatientDescriptorBuilder;
 
 //import javax.print.Doc;
@@ -66,6 +67,19 @@ public class CommandTestUtil {
             + VALID_SPECIALISATION_MASSAGE;
     public static final String SPECIALISATION_DESC_GENERAL = " " + PREFIX_SPECIALISATION
             + VALID_SPECIALISATION_GENERAL;
+
+    public static final EditDoctorCommand.EditDoctorDescriptor DESC_ALVINA;
+    public static final EditDoctorCommand.EditDoctorDescriptor DESC_STEVEN;
+
+    static {
+        DESC_ALVINA = new EditDoctorDescriptorBuilder().withName(VALID_NAME_ALVINA)
+                .withGender(VALID_GENDER_ALVINA).withYear(VALID_YEAR_ALVINA)
+                .withPhone(VALID_PHONE_ALVINA).withSpecs(VALID_SPECIALISATION_ACUPUNCTURE).build();
+        DESC_STEVEN = new EditDoctorDescriptorBuilder().withName(VALID_NAME_STEVEN)
+                .withGender(VALID_GENDER_STEVEN).withYear(VALID_YEAR_STEVEN).withPhone(VALID_PHONE_STEVEN)
+                .withSpecs(VALID_SPECIALISATION_ACUPUNCTURE, VALID_SPECIALISATION_GENERAL).build();
+    }
+
     // end of add-doctor testing
 
     // for testing appointment

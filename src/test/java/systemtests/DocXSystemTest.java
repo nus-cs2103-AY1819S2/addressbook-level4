@@ -31,7 +31,7 @@ import guitests.guihandles.StatusBarFooterHandle;
 import seedu.address.TestApp;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.ClearCommand;
-import seedu.address.logic.commands.DeleteDoctorCommand;
+//import seedu.address.logic.commands.DeleteDoctorCommand;
 import seedu.address.logic.commands.ListDoctorCommand;
 import seedu.address.logic.commands.ListPatientCommand;
 import seedu.address.logic.commands.SearchDoctorNameCommand;
@@ -203,7 +203,7 @@ public abstract class DocXSystemTest {
      * Deletes all doctors in the address book.
      */
     protected void deleteAllDoctors() {
-        executeCommand(DeleteDoctorCommand.COMMAND_WORD);
+        executeCommand(ClearCommand.COMMAND_WORD);
         assertEquals(0, getModel().getDocX().getDoctorList().size());
     }
 

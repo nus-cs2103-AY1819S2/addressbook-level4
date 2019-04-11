@@ -32,7 +32,6 @@ public class ExportCommandParser implements Parser<ExportCommand> {
     public ExportCommand parse(String args) throws ParseException {
 
         // Boolean value to indicate if FomoFoto should print directory or file return message.
-        boolean isDirectory = false;
         ArgumentMultimap map = ArgumentTokenizer.tokenize(args, PREFIX_FILENAME, PREFIX_DIRECTORY);
         if (!arePrefixesPresent(map, PREFIX_FILENAME, PREFIX_DIRECTORY)
             || !map.getPreamble().isEmpty()) {
@@ -40,8 +39,6 @@ public class ExportCommandParser implements Parser<ExportCommand> {
         }
         String filename = ParserUtil.parseFilename(map.getValue(PREFIX_FILENAME).get());
         String path = ParserUtil.parseFilename(map.getValue(PREFIX_DIRECTORY).get());
-        System.out.println(filename);
-        System.out.println(path);
         return new ExportCommand(path, filename);
 
     }

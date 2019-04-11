@@ -22,9 +22,9 @@ public class ExportCommand extends Command {
     public static final String COMMAND_WORD = "export";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-        + "Exports the current image to a specified directory in user PC.\n"
-        + "Parameters: [absolute path of file] "
-        + "Example: " + COMMAND_WORD + " C:/Users/Fomo/Pictures/sample.jpg";
+        + ": Exports an image in the album to a specified directory in user PC.\n"
+        + "Parameters: [f/FILENAME TO EXPORT] [d/DIRECTORY TO EXPORT TO]\n"
+        + "Example: " + COMMAND_WORD + " f/iu.jpg d/C:\\Users\\randy\\Desktop";
 
     private String filename;
     private String path;

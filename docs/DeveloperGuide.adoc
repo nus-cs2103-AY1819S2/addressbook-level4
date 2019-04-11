@@ -355,8 +355,6 @@ Step 5. The user can now add, edit, or delete patients or their personal informa
 [NOTE]
 If the `back` command is entered while the window is already showing patients, an error message will be displayed on the window.
 
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
-
 The following activity diagram summarizes what happens when a user executes the `goto` command:
 
 image::GotoActivityDiagram.png[width="800"]

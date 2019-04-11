@@ -40,45 +40,47 @@ The enhancement required an in-depth analysis of various design alternatives. Th
 
 === Minor Enhancement
 
-The minor enhancement I did was to convert the `add` command's Email parameter in the previous address book product to a Description parameter in the current product.
+The minor enhancement I did was converting the `add` command's Email parameter in the previous address book product to a Description parameter in the current product.
 
 *Code contributed to minor enhancement*: [link:{repoURL}/pulls?utf8=%E2%9C%93&q=is%3Apr+author%3Achung-ming+label%3Atype.MinorEnhancement[Functional code]]
 
 *Other contributions*:
 
 .Details of Other Contributions
-[width="100%",cols="16%,<75%"]
+[width="100%",cols="20%,<80%"]
 |=======================================================================
 
 |*Project management*
-|Managed releases of link:{repoURL}/releases/tag/v1.2[`v1.2`], link:{repoURL}/releases/tag/v1.2.1[`v1.2.1`], link:{repoURL}/releases/tag/v1.3.1[`v1.3.1`] and link:{repoURL}/releases/tag/1.4[`v1.4`] (4 releases) on GitHub
+|Managed releases on GitHub (Releases: link:{repoURL}/releases/tag/v1.2[`v1.2`], link:{repoURL}/releases/tag/v1.2.1[`v1.2.1`], link:{repoURL}/releases/tag/v1.3.1[`v1.3.1`] and link:{repoURL}/releases/tag/1.4[`v1.4`])
 
 |*Enhancements to existing features*
-|Updated the GUI color scheme to a `LightTheme.css` (Pull requests link:{repoURL}/pull/88[#88])
+a|* Updated the GUI color scheme to a `LightTheme.css` (Pull request: link:{repoURL}/pull/88[#88]) +
+* Added command aliases to both new and existing commands (Pull requests: link:{repoURL}/pull/5[#5] and link:{repoURL}/pull/163[#163])
 
 |*Documentation*
-|- Improved readability to existing contents of the User Guide: link:{repoURL}/pull/165[#165] +
-- Added user stories and use cases to Developer Guide: link:{repoURL}/pull/170[#170]
+a|* Improved readability to existing contents of the User Guide (Pull request: link:{repoURL}/pull/165[#165]) +
+* Added user stories and use cases to Developer Guide (Pull request: link:{repoURL}/pull/170[#170])
 
 |*Community*
-|- Reviewed PRs (with non-trivial review comments): link:{repoURL}/pull/115#discussion_r271991549[#115] +
-- Contributed to forum discussions (example: link:https://github.com/nus-cs2103-AY1819S2/forum/issues/37#issuecomment-474714683[1]) +
-- Reported bugs and suggestions for other teams (examples:
+a|* Reviewed PRs (with non-trivial review comments) (Pull request: link:{repoURL}/pull/115#discussion_r271991549[#115]) +
+* Contributed to forum discussions (Example: link:https://github.com/nus-cs2103-AY1819S2/forum/issues/37#issuecomment-474714683[1]) +
+* Reported bugs and suggestions for other teams (Examples:
 https://github.com/nus-cs2103-AY1819S2/pe-dry-run/issues/268[1],
 https://github.com/nus-cs2103-AY1819S2/pe-dry-run/issues/318[2],
 https://github.com/nus-cs2103-AY1819S2/pe-dry-run/issues/486[3],
 https://github.com/nus-cs2103-AY1819S2/pe-dry-run/issues/558[4],
 https://github.com/nus-cs2103-AY1819S2/pe-dry-run/issues/632[5],
 https://github.com/nus-cs2103-AY1819S2/pe-dry-run/issues/796[6],
-https://github.com/nus-cs2103-AY1819S2/pe-dry-run/issues/968[7],
+https://github.com/nus-cs2103-AY1819S2/pe-dry-run/issues/968[7] and
 https://github.com/nus-cs2103-AY1819S2/pe-dry-run/issues/18[8])
 
 |*Tools*
-|- Integrated a third-party library (Gson) to the project ({repoURL}/pull/80[#80]) +
-- Integrated a new GitHub plugin (Codacy) to the team repo ({repoURL}/pull/113[#113])
+a|* Integrated a third-party library (Gson) to the project (Pull request: {repoURL}/pull/80[#80]) +
+* Integrated a new GitHub plugin (Codacy) to the team repo (Pull request: {repoURL}/pull/113[#113])
 
 |=======================================================================
 
+<<<
 == Contributions to the User Guide
 
 |===
@@ -99,6 +101,7 @@ include::../UserGuide.adoc[tag=generate]
 |_This is the end of extract of the User Guide._
 |===
 
+<<<
 == Contributions to the Developer Guide
 
 |===

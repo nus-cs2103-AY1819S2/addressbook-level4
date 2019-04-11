@@ -12,6 +12,8 @@ import java.time.format.DateTimeFormatter;
 public class DateOfBirth extends DateBase {
     public static final String MESSAGE_CONSTRAINTS =
             "Date of birth is compulsory, denoted by " + PREFIX_YEAR + " and should be in dd-MM-yyyy format.";
+    public static final String MESSAGE_CONSTRAINTS_FUTURE_DAY =
+            "Date of birth cannot be after today!";
 
     /**
      * Default constructor that takes in a birth day.
@@ -29,7 +31,18 @@ public class DateOfBirth extends DateBase {
      */
     static boolean isDateBeforeToday(String test) {
         String currentDateString = LocalDate.now().format(DateTimeFormatter.ofPattern(DATE_FORMAT));
-        return dateCompare(test, currentDateString);
+        return isToday(test) || dateCompare(test, currentDateString);
+    }
+
+    /**
+     * Test if both date represents the same day.
+     * @param test the date to be tested.
+     * @return true if same day, false otherwise.
+     */
+    static boolean isToday(String test) {
+        DateBase today = DateOfBirth.getToday();
+        DateBase toTest = new DateBase(test);
+        return today.equals(toTest);
     }
 
     /**
@@ -38,7 +51,16 @@ public class DateOfBirth extends DateBase {
      * @param test the string to be tested.
      */
     public static boolean isValidDate(String test) {
-        return DateBase.isValidDate(test) && DateOfBirth.isDateBeforeToday(test);
+        return DateBase.isValidDate(test);
+    }
+
+    /**
+     * Returns true if the given dob is not after today.
+     * @param test the date to be tested.
+     * @return true if the date is before today, false otherwise.
+     */
+    public static boolean isNotFutureDay(String test) {
+        return DateOfBirth.isDateBeforeToday(test);
     }
 
     /**

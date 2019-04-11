@@ -158,6 +158,8 @@ class JsonAdaptedPerson {
         }
         if (!DateOfBirth.isValidDate(dateOfBirth)) {
             throw new IllegalValueException(DateOfBirth.MESSAGE_CONSTRAINTS);
+        } else if (!DateOfBirth.isNotFutureDay(dateOfBirth)) {
+            throw new IllegalValueException(DateOfBirth.MESSAGE_CONSTRAINTS_FUTURE_DAY);
         }
         final DateOfBirth modelDob = new DateOfBirth(dateOfBirth);
 

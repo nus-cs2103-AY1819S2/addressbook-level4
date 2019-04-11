@@ -1073,7 +1073,7 @@ teeth condition better
 
 |`* * *` |user |delete a task |remove tasks that I have already completed or no longer need to do
 
-|`* * *` |user |edit a task |change details of certains tasks that I have already added
+|`* * *` |user |edit a task |change details of certain tasks that I have already added
 
 |`* * *` |user |encrypt the imported/exported data | ensure patient information remains confidential
 

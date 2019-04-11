@@ -94,13 +94,13 @@ public class AddressBookParser {
             return new SelectCommandParser().parse(arguments);
 
         case DeleteFilterCommand.COMMAND_WORD:
-            return new DeleteCommandParser().parse(arguments);
+            return new DeleteFilterCommandParser().parse(arguments);
 
         case DeleteFilterCommand.COMMAND_ALIAS:
             return new DeleteFilterCommandParser().parse(arguments);
 
         case DeleteCommand.COMMAND_WORD:
-            return new DeleteFilterCommandParser().parse(arguments);
+            return new DeleteCommandParser().parse(arguments);
 
         case DeleteCommand.COMMAND_ALIAS:
             return new DeleteCommandParser().parse(arguments);

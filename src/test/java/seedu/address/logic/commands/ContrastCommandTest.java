@@ -24,6 +24,7 @@ public class ContrastCommandTest {
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
     private CurrentEdit currentEdit = new CurrentEditManager();
     private CommandHistory commandHistory = new CommandHistory();
+
     @Before
     public void createImagesInAlbum() {
         try {

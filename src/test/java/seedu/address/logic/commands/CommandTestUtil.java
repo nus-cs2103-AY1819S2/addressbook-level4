@@ -18,6 +18,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.CurrentEdit;
 import seedu.address.model.Model;
+import seedu.address.model.image.Image;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
 
@@ -123,6 +124,7 @@ public class CommandTestUtil {
         AddressBook expectedAddressBook = new AddressBook(actualModel.getAddressBook());
         List<Person> expectedFilteredList = new ArrayList<>(actualModel.getFilteredPersonList());
         Person expectedSelectedPerson = actualModel.getSelectedPerson();
+        Image expectedImage = currentEdit.getTempImage();
 
         CommandHistory expectedCommandHistory = new CommandHistory(actualCommandHistory);
 
@@ -134,6 +136,7 @@ public class CommandTestUtil {
             assertEquals(expectedAddressBook, actualModel.getAddressBook());
             assertEquals(expectedFilteredList, actualModel.getFilteredPersonList());
             assertEquals(expectedSelectedPerson, actualModel.getSelectedPerson());
+            assertEquals(expectedImage, currentEdit.getTempImage());
             assertEquals(expectedCommandHistory, actualCommandHistory);
         }
     }

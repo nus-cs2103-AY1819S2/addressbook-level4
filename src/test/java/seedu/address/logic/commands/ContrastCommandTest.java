@@ -21,12 +21,14 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 
 public class ContrastCommandTest {
+    private Album album = Album.getInstance();
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
     private CurrentEdit currentEdit = new CurrentEditManager();
     private CommandHistory commandHistory = new CommandHistory();
 
     @Before
     public void createImagesInAlbum() {
+        album.clearAlbum();
         try {
             ContrastCommandParser parserContrast = new ContrastCommandParser();
             ContrastCommand contrast = parserContrast.parse(" 1.3");

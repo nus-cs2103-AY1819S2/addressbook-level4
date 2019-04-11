@@ -279,26 +279,26 @@ public class ParserUtilTest {
     }
 
     @Test
-    public void parseType__throwsParseException() throws Exception {
+    public void parseTypeThrowsParseException() throws Exception {
         thrown.expect(ParseException.class);
         ParserUtil.parseType("QW ERTYUI O OPPY YTRR");
     }
 
     @Test
-    public void parseDates__throwsParseException() throws Exception {
+    public void parseDatesThrowsParseException() throws Exception {
         thrown.expect(ParseException.class);
         ParserUtil.parseDates("14/05/2019");
     }
 
     @Test
-    public void parseRoomType__throwsParseException() throws Exception {
+    public void parseRoomTypeThrowsParseException() throws Exception {
         thrown.expect(ParseException.class);
         ParserUtil.parseRoom("SQUARE ROOM", new ReservationManager(
             new VersionedHotelManagementSystem(getTypicalHotelManagementSystem()), new UserPrefs()));
     }
 
     @Test
-    public void parsesERVICEType__throwsParseException() throws Exception {
+    public void parseServiceTypeThrowsParseException() throws Exception {
         thrown.expect(ParseException.class);
         ParserUtil.parseService("SALOON", new BookingManager(
             new VersionedHotelManagementSystem(getTypicalHotelManagementSystem()), new UserPrefs()));

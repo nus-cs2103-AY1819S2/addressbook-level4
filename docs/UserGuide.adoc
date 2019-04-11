@@ -80,7 +80,7 @@ Commands listed in this section affect the application and not a single folder.
 [NOTE]
 The commands in this section can only be executed when you are at the home directory, outside of any folder. The commands are also not valid inside a test or report session. You can easily verify that you are at the home directory with the status bar at the bottom, which should display: +
  +
-image:StatusBarInHomeDirectory.png[width ="200"]
+image:StatusBarInHomeDirectory.png[width ="150"]
 
 ==== Enter folder : `change`
 
@@ -93,6 +93,7 @@ Examples:
 * `change 2` +
 Enters the second folder in the folder list on the home directory.
 
+[[addfolder]]
 ==== Create new folder : `addfolder`
 
 Creates a new flashcard folder with the specified name.
@@ -101,7 +102,7 @@ Format: `addfolder FOLDER_NAME`
 
 ====
 * The newly created folder will not contain any cards.
-* Folder names must be unique, non-blank and only contain letters and numbers. Attempting to add a folder with the same name as an existing folder will result in an error.
+* Folder names must be unique, between 1 and 50 characters, and only contain letters, numbers and whitespace. Attempting to add a folder with any of the above rules violated will result in an error.
 * Each folder and its cards are stored independently in the directory specified in `preferences.json`. By default, this is the `data/` directory.
 ====
 
@@ -132,7 +133,7 @@ Renames the flashcard folder specified by index.
 Format: `editfolder FOLDER_INDEX NEW_FOLDER_NAME`
 
 ====
-* The new name of the folder cannot be the same as an existing folder.
+* The new name of the folder cannot be the same as an existing folder, and must adhere to the rules specified in <<addfolder>>.
 ====
 
 Examples:

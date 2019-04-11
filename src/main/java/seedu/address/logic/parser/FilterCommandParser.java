@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_FILTERNAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GENDER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GRADE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_JOBSAPPLY;
@@ -41,26 +42,27 @@ public class FilterCommandParser implements Parser<FilterCommand> {
         ArgumentMultimap argMultimap =
             ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_RACE, PREFIX_ADDRESS,
                 PREFIX_SCHOOL, PREFIX_MAJOR, PREFIX_PASTJOB, PREFIX_TAG, PREFIX_GENDER, PREFIX_GRADE,
-                PREFIX_NRIC, PREFIX_JOBSAPPLY, PREFIX_KNOWNPROGLANG);
+                PREFIX_NRIC, PREFIX_JOBSAPPLY, PREFIX_KNOWNPROGLANG, PREFIX_FILTERNAME);
         JobListName listName;
+        String commandName;
         String preambleString = argMultimap.getPreamble();
-        String listNameString = preambleString.split("\\s+")[0].trim();
-        String commandName = preambleString.split("\\s+")[1].trim();
+        String listNameString = preambleString.trim();
+        //String commandName = preambleString.split("\\s+")[1].trim();
         try {
             listName = ParserUtil.parseJobListName(listNameString);
         } catch (ParseException pe) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                 FilterCommand.MESSAGE_USAGE), pe);
         }
-
-        String trimmedArgs = args.trim();
-        if (trimmedArgs.isEmpty()) {
-            throw new ParseException(
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, FilterCommand.MESSAGE_USAGE));
-        }
-
         PredicatePersonDescriptor predicatePersonDescriptor = new PredicatePersonDescriptor();
-        predicatePersonDescriptor.setPredicateName(commandName);
+        //predicatePersonDescriptor.setPredicateName(commandName);
+        if (argMultimap.getValue(PREFIX_FILTERNAME).isPresent()) {
+            commandName = argMultimap.getValue(PREFIX_FILTERNAME).get();
+            predicatePersonDescriptor.setPredicateName(commandName);
+        } else {
+            commandName = "";
+            predicatePersonDescriptor.setPredicateName(commandName);
+        }
         if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
             predicatePersonDescriptor.setName(new HashSet<>((
                 Arrays.asList(argMultimap.getValue(PREFIX_NAME).get().split("\\s+")))));

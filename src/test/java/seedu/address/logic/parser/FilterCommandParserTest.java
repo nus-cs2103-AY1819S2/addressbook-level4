@@ -62,7 +62,7 @@ public class FilterCommandParserTest {
         descriptorAmy.setGender(new HashSet<>(Arrays.asList(VALID_GENDER_AMY.split("\\s+"))));
         descriptorAmy.setGrade(new HashSet<>(Arrays.asList(VALID_GRADE_AMY.split("\\s+"))));
         descriptorAmy.setNric(new HashSet<>(Arrays.asList(VALID_NRIC_AMY.split("\\s+"))));
-        FilterCommand expectedFilterCommand = new FilterCommand(JobListName.APPLICANT, descriptorAmy);
+        FilterCommand expectedFilterCommand = new FilterCommand("", JobListName.EMPTY, descriptorAmy);
 
         assertParseSuccess(parser, APPLICANT_NAME + NAME_DESC_AMY + PHONE_DESC_AMY
             + EMAIL_DESC_AMY + NRIC_DESC_AMY + GENDER_DESC_AMY + RACE_DESC_AMY + ADDRESS_DESC_AMY
@@ -75,7 +75,7 @@ public class FilterCommandParserTest {
             Arrays.asList(VALID_JOBSAPPLY_ENGINEER.split("\\s+"))));
         descriptorOtherFields.setKnownProgLangs(
             new HashSet<>(Arrays.asList(VALID_KNOWNPROGLANG_JAVA.split("\\s+"))));
-        expectedFilterCommand = new FilterCommand(JobListName.APPLICANT, descriptorOtherFields);
+        expectedFilterCommand = new FilterCommand("", JobListName.EMPTY, descriptorOtherFields);
         assertParseSuccess(parser, APPLICANT_NAME + PASTJOB_DESC_PROFESSOR
             + JOBSAPPLY_DESC_ENGINEER + KNOWNPROGLANG_DESC_JAVA, expectedFilterCommand);
 

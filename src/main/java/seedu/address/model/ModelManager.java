@@ -44,6 +44,7 @@ public class ModelManager implements Model {
     private FilteredList<Person> displayedFilteredPersons;
     private FilteredList<Job> filteredJobs;
     private Job activeJob;
+    private boolean isAllJobScreen;
     private FilteredList<Person> activeJobAllApplicants;
     private FilteredList<Person> activeJobKiv;
     private FilteredList<Person> activeJobInterview;
@@ -71,6 +72,7 @@ public class ModelManager implements Model {
         originalFilteredPersons.addListener(this::ensureSelectedPersonIsValid);
         filteredJobs.addListener(this::ensureSelectedJobIsValid);
         displayedFilteredPersons = originalFilteredPersons;
+        isAllJobScreen = true;
 
         UniquePersonList fakeList = new UniquePersonList();
         activeJobAllApplicants = new FilteredList<>(fakeList.asUnmodifiableObservableList());
@@ -150,6 +152,16 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public boolean getIsAllJobScreen() {
+        return isAllJobScreen;
+    }
+
+    @Override
+    public void setIsAllJobScreen(boolean staus) {
+        this.isAllJobScreen = staus;
+    }
+
+    @Override
     public void addFilteredPersonsToJob(JobName jobName) {
         requireNonNull(jobName);
         versionedAddressBook.addFilteredListToJob(displayedFilteredPersons, jobName);
@@ -195,12 +207,6 @@ public class ModelManager implements Model {
         requireAllNonNull(target, editedPerson);
 
         versionedAddressBook.setPerson(target, editedPerson);
-    }
-
-    @Override
-    public UniqueFilterList getPredicateList(JobName name, Integer listNumber) {
-        Job job = getJob(name);
-        return job.getPredicateList(listNumber);
     }
 
     @Override
@@ -267,6 +273,12 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public UniqueFilterList getPredicateList(JobName name, Integer listNumber) {
+        Job job = getJob(name);
+        return job.getPredicateList(listNumber);
+    }
+
+    @Override
     public void updateBaseFilteredPersonList(Predicate<Person> predicate) {
         requireNonNull(predicate);
         originalFilteredPersons.setPredicate(predicate);
@@ -275,7 +287,7 @@ public class ModelManager implements Model {
     @Override
     public void updateJobAllApplicantsFilteredPersonList() {
         Predicate<Person> predicater = new PredicateManager();
-        for(Filter filter:filterListJobAllApplicants){
+        for (Filter filter : filterListJobAllApplicants) {
             predicater = predicater.and(filter.getPredicate());
         }
         activeJobAllApplicants.setPredicate(predicater);
@@ -284,7 +296,7 @@ public class ModelManager implements Model {
     @Override
     public void updateJobKivFilteredPersonList() {
         Predicate<Person> predicater = new PredicateManager();
-        for(Filter filter:filterListJobKiv){
+        for (Filter filter : filterListJobKiv) {
             predicater = predicater.and(filter.getPredicate());
         }
         activeJobKiv.setPredicate(predicater);
@@ -293,7 +305,7 @@ public class ModelManager implements Model {
     @Override
     public void updateJobInterviewFilteredPersonList() {
         Predicate<Person> predicater = new PredicateManager();
-        for(Filter filter:filterListJobInterview){
+        for (Filter filter : filterListJobInterview) {
             predicater = predicater.and(filter.getPredicate());
         }
         activeJobInterview.setPredicate(predicater);
@@ -302,10 +314,18 @@ public class ModelManager implements Model {
     @Override
     public void updateJobShortlistFilteredPersonList() {
         Predicate<Person> predicater = new PredicateManager();
-        for(Filter filter:filterListJobShortlist){
+        for (Filter filter : filterListJobShortlist) {
             predicater = predicater.and(filter.getPredicate());
         }
         activeJobShortlist.setPredicate(predicater);
+    }
+
+    @Override
+    public void clearJobFilteredLists() {
+        filterListJobAllApplicants = new UniqueFilterList();
+        filterListJobKiv = new UniqueFilterList();
+        filterListJobInterview = new UniqueFilterList();
+        filterListJobShortlist = new UniqueFilterList();
     }
 
     @Override
@@ -437,6 +457,7 @@ public class ModelManager implements Model {
         selectedPerson.setValue(person);
     }
 
+    @Override
     public void setSelectedAll(Person person) {
         if (person != null && !activeJobAllApplicants.contains(person)) {
             throw new PersonNotFoundException();
@@ -444,6 +465,7 @@ public class ModelManager implements Model {
         selectedPerson.setValue(person);
     }
 
+    @Override
     public void setSelectedKiv(Person person) {
         if (person != null && !activeJobKiv.contains(person)) {
             throw new PersonNotFoundException();
@@ -451,6 +473,7 @@ public class ModelManager implements Model {
         selectedPerson.setValue(person);
     }
 
+    @Override
     public void setSelectedInterviewed(Person person) {
         if (person != null && !activeJobInterview.contains(person)) {
             throw new PersonNotFoundException();
@@ -458,6 +481,7 @@ public class ModelManager implements Model {
         selectedPerson.setValue(person);
     }
 
+    @Override
     public void setSelectedSelected(Person person) {
         if (person != null && !activeJobShortlist.contains(person)) {
             throw new PersonNotFoundException();
@@ -465,6 +489,7 @@ public class ModelManager implements Model {
         selectedPerson.setValue(person);
     }
 
+    @Override
     public void setSelectedJob(Job job) {
         if (job != null && !allJobsList.contains(job)) {
             throw new PersonNotFoundException();
@@ -553,6 +578,7 @@ public class ModelManager implements Model {
     /**
      * Obtains current viewed list and generate analytics based on it
      */
+    @Override
     public Analytics generateAnalytics() {
         Analytics analytics = new Analytics(getFilteredPersonList());
         return analytics;

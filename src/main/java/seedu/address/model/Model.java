@@ -207,22 +207,17 @@ public interface Model {
 
     /**
      * Updates the filter of the JobAllApplcants filtered person list to filter by the given {@code predicate}.
-     *
-     * @throws NullPointerException if {@code predicate} is null.
      */
     void updateJobAllApplicantsFilteredPersonList();
 
     /**
      * Updates the filter of the JobKiv filtered person list to filter by the given {@code predicate}.
-     *
-     * @throws NullPointerException if {@code predicate} is null.
      */
     void updateJobKivFilteredPersonList();
 
     /**
      * Updates the filter of the JobInterview filtered person list to filter by the given {@code predicate}.
      *
-     * @throws NullPointerException if {@code predicate} is null.
      */
     void updateJobInterviewFilteredPersonList();
 
@@ -239,6 +234,11 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
+
+    /**
+     * Clear four filter list.
+     */
+    void clearJobFilteredLists();
 
     /**
      * Changes the filtered person list to the given {@code list}.
@@ -297,6 +297,18 @@ public interface Model {
      * null if no person is selected.
      */
     Person getSelectedPerson();
+
+    /**
+     *
+     * return whether it is at the all jobs screen ordisplay job screen
+     */
+    boolean getIsAllJobScreen();
+
+    /**
+     *
+     * set whether it is at the all jobs screen ordisplay job screen
+     */
+    void setIsAllJobScreen(boolean staus);
 
     /**
      * Sets the selected person in the filtered person list.

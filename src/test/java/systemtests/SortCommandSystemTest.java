@@ -11,7 +11,9 @@ import static seedu.address.testutil.TypicalPersons.FIONA;
 import static seedu.address.testutil.TypicalPersons.GEORGE;
 
 import org.junit.Test;
+import org.testfx.api.FxRobot;
 
+import seedu.address.logic.commands.BackCommand;
 import seedu.address.logic.commands.GoToCommand;
 import seedu.address.logic.commands.SortCommand;
 import seedu.address.model.Model;
@@ -73,14 +75,38 @@ public class SortCommandSystemTest extends AddressBookSystemTest {
         testParameter = " date" + " desc";
         command = SortCommand.COMMAND_WORD + testParameter;
         assertCommandResultSuccess(command, model, "date");
+
+        command = BackCommand.COMMAND_WORD;
+        executeCommand(command);
+        alertRobotClick();
+        // assertCommandSuccess(command, model);
+
+        // Case: Repeat previous command
+        /*
+        ModelHelper.setFilteredList(model, ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE);
+        testParameter = " name";
+        command = SortCommand.COMMAND_WORD + testParameter;
+        assertCommandSuccess(command, model, "name");
+        assertSelectedCardUnchanged(); */
     }
 
 
     /**
      * For use with patient sorting
      */
+    private void assertCommandPostSuccess(String command, Model expectedModel, String para) {
+        String expectedResultMessage = String.format(SortCommand.MESSAGE_SUCCESS, para);
 
+        executeCommand(command);
+        alertRobotClick();
+        assertApplicationDisplaysExpected("", expectedResultMessage, expectedModel);
+        assertCommandBoxShowsDefaultStyle();
+        assertStatusBarUnchanged();
+    }
 
+    /**
+     * For use with patient sorting
+     */
     private void assertCommandSuccess(String command, Model expectedModel, String para) {
         String expectedResultMessage = String.format(SortCommand.MESSAGE_SUCCESS, para);
 
@@ -115,5 +141,13 @@ public class SortCommandSystemTest extends AddressBookSystemTest {
         assertApplicationRecordDisplaysExpected("", expectedResultMessage, expectedModel);
         assertCommandBoxShowsDefaultStyle();
         assertStatusBarUnchanged();
+    }
+
+    /**
+     * To click on the generated AlertBox
+     */
+    private void alertRobotClick() {
+        FxRobot clickBot = new FxRobot();
+        clickBot.clickOn("Yes");
     }
 }

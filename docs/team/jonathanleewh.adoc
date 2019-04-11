@@ -53,14 +53,14 @@ This section highlights my documentation, coding and other noteworthy contributi
 *** Added Introduction sections to both User Guide and Developer Guide: https://github.com/CS2103-AY1819S2-T12-3/main/pull/115[#115], https://github.com/CS2103-AY1819S2-T12-3/main/pull/140[#140]
 *** Added Frequently Asked Question (FAQ) and File Naming Convention sections to User Guide: https://github.com/CS2103-AY1819S2-T12-3/main/pull/123[#123], https://github.com/CS2103-AY1819S2-T12-3/main/pull/135[#135]
 *** Added Validation of File Name section to Developer Guide which includes code snippet for reference on how to take advantage of the `FileName` class provided: https://github.com/CS2103-AY1819S2-T12-3/main/pull/140[#140]
-*** Update stylesheet to PDF printer friendly format: https://github.com/CS2103-AY1819S2-T12-3/main/pull/150[#150]
+*** Updated stylesheet to Portable Document Format (PDF) printer friendly format: https://github.com/CS2103-AY1819S2-T12-3/main/pull/150[#150]
 *** Updated User Guide's Quick Start section and Developer Guide's Setting Up section to only allow Java version `9` and JDK `9` including references to the reason for the change: https://github.com/CS2103-AY1819S2-T12-3/main/pull/117[#117], https://github.com/CS2103-AY1819S2-T12-3/main/pull/123[#123]
 *** Updated User Guide Quick Start section with an additional step on how users can seek assistance: https://github.com/CS2103-AY1819S2-T12-3/main/pull/115[#115]
 *** Updated Storage component class diagram of Developer Guide to match our project: https://github.com/CS2103-AY1819S2-T12-3/main/pull/79[#79]
 ** Community:
 *** PRs reviewed (with non-trivial review comments): https://github.com/CS2103-AY1819S2-T12-3/main/pull/24[#24], https://github.com/CS2103-AY1819S2-T12-3/main/pull/27[#27], https://github.com/CS2103-AY1819S2-T12-3/main/pull/40[#40], https://github.com/CS2103-AY1819S2-T12-3/main/pull/42[#42]
 *** Contributed to forum discussions (examples:  https://github.com/nus-cs2103-AY1819S2/forum/issues/6[1], https://github.com/nus-cs2103-AY1819S2/forum/issues/9[2], https://github.com/nus-cs2103-AY1819S2/forum/issues/11[3])
-*** Reported bugs and suggestions for other teams in the class (example: https://github.com/nus-cs2103-AY1819S2/addressbook-level4/pull/6[1])
+*** Reported bugs and suggestions for other teams in the class (example: https://github.com/nus-cs2103-AY1819S2/addressbook-level4/pull/6#issuecomment-475968922[1], https://github.com/nus-cs2103-AY1819S2/forum/issues/73[2])
 ** Tools:
 *** Integrated third party libraries (Opencsv and Apache Commons) to the project: https://github.com/CS2103-AY1819S2-T12-3/main/pull/57[#57], https://github.com/CS2103-AY1819S2-T12-3/main/pull/122[#122]
 *** Integrated GitHub plugins (Travis, Appveyor, Coveralls and Netlify) to the team repository: https://github.com/CS2103-AY1819S2-T12-3/main/pull/6[#6]

@@ -3,7 +3,6 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.io.File;
 import java.nio.file.Path;
 import java.util.Objects;
 import java.util.function.Predicate;
@@ -15,7 +14,6 @@ import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 
-import seedu.address.Notifier;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.person.Person;
@@ -225,27 +223,6 @@ public class ModelManager implements Model {
                 && filteredPersons.equals(other.filteredPersons)
                 && Objects.equals(selectedPerson.get(), other.selectedPerson.get());
     }
-
-    //=========== FomoFoto methods ===========================================================================
-
-    @Override
-    public void clearAssetFolder(File dir) {
-        for (File file : dir.listFiles()) {
-            // Boolean check for placeholder file in assets folder.
-            if (!file.getName().equals("README.adoc")) {
-                file.delete();
-            }
-        }
-    }
-
-    //=========== Filtered Person List Accessors =============================================================
-    /* @@author Carrein */
-
-    @Override
-    public void refreshAlbum() {
-        Notifier.firePropertyChangeListener("refreshAlbum", null, null);
-    }
-
 }
 
 

@@ -18,6 +18,8 @@ import com.drew.metadata.Metadata;
 import com.drew.metadata.Tag;
 
 import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.SetPresetCommand;
+import seedu.address.logic.commands.WaterMarkCommand;
 
 /**
  * Represents an Image in FomoFoto.
@@ -37,6 +39,7 @@ public class Image {
     private Metadata metadata;
     private List<Command> commandHistory;
     private int index;
+    private boolean hasWaterMark;
 
     /**
      * Every field must be present and not null.
@@ -60,7 +63,7 @@ public class Image {
         this.height = new Height(String.valueOf(buffer.getHeight()));
         commandHistory = new ArrayList<>();
         index = 0;
-        System.out.println(this.toString());
+        this.hasWaterMark = false;
     }
 
     public Image(File file) {
@@ -81,7 +84,7 @@ public class Image {
         this.height = new Height(String.valueOf(buffer.getHeight()));
         commandHistory = new ArrayList<>();
         index = 0;
-        System.out.println(this.toString());
+        this.hasWaterMark = false;
     }
 
     public Height getHeight() {
@@ -110,6 +113,19 @@ public class Image {
 
     public Size getSize() {
         return size;
+    }
+
+    public boolean hasWaterMark() {
+        return hasWaterMark;
+    }
+
+    /**
+     * This method changes the hasWaterMark field so that it reflects the current state of the tempImage.
+     *
+     * @param x the new value to set
+     */
+    public void setWaterMark(boolean x) {
+        hasWaterMark = x;
     }
 
     public List<Command> getCommandHistory() {
@@ -156,9 +172,29 @@ public class Image {
 
     public void setUndo() {
         index--;
+        if (commandHistory.get(index) instanceof WaterMarkCommand) {
+            setWaterMark(false);
+        }
+
+        if (commandHistory.get(index) instanceof SetPresetCommand) {
+            SetPresetCommand presetCommand = (SetPresetCommand) (commandHistory.get(index));
+            if (presetCommand.hasWaterMarkCommand()) {
+                setWaterMark(false);
+            }
+        }
     }
 
     public void setRedo() {
+        if (commandHistory.get(index) instanceof WaterMarkCommand) {
+            setWaterMark(true);
+        }
+
+        if (commandHistory.get(index) instanceof SetPresetCommand) {
+            SetPresetCommand presetCommand = (SetPresetCommand) (commandHistory.get(index));
+            if (presetCommand.hasWaterMarkCommand()) {
+                setWaterMark(true);
+            }
+        }
         index++;
     }
 
@@ -192,8 +228,6 @@ public class Image {
                 .append(getWidth())
                 .append("\nFormat: ")
                 .append(getFileType())
-                .append("\nURL: ")
-                .append(getUrl())
                 .append("\n====================");
         return builder.toString();
     }

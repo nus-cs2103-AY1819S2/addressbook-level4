@@ -24,8 +24,8 @@ public class ContrastCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Adjust the contrast of the image according to ratio value given.\n"
             + "If ratio is not given, default contrast ratio will be 1.1\n"
-            + "Parameters: [CONTRAST RATIO (double)] "
-            + "Example: " + COMMAND_WORD
+            + "Parameters: [CONTRAST RATIO (double)] \n"
+            + "Example: " + COMMAND_WORD + "\n"
             + "Example2: " + COMMAND_WORD + "1.3";
 
     private OptionalDouble contrastValue;
@@ -72,4 +72,34 @@ public class ContrastCommand extends Command {
         }
         return new CommandResult(Messages.MESSAGE_CONTRAST_SUCCESS);
     }
+
+    @Override
+    public String toString() {
+        if (contrastValue.isPresent()) {
+            return "contrast " + contrastValue.getAsDouble();
+        }
+        return "contrast";
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+            || (other instanceof ContrastCommand) // instanceof handles nulls
+            && isValuesEqual(other);
+    }
+
+    /**
+     * Checks if the value in the contrast command is equal to the value in the other command.
+     *
+     * @param other command object to be compared
+     * */
+    private boolean isValuesEqual(Object other) {
+        ContrastCommand otherCommand = (ContrastCommand) other;
+        if (this.contrastValue.isPresent() && otherCommand.contrastValue.isPresent()) {
+            return this.contrastValue.getAsDouble() == otherCommand.contrastValue.getAsDouble();
+        } else {
+            return (!this.contrastValue.isPresent() && !otherCommand.contrastValue.isPresent());
+        }
+    }
 }
+/* @@author */

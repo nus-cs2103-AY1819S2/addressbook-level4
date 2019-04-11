@@ -14,9 +14,9 @@ public class BlackWhiteCommandParser implements Parser<BlackWhiteCommand> {
 
     /**
      * Parses the BlackWhite Command.
-     * @param args
+     * @param args argument
      * @return a BlackWhiteCommand object
-     * @throws ParseException
+     * @throws ParseException is thrown if the value is not an integer or unspecified.
      */
     public BlackWhiteCommand parse(String args) throws ParseException {
         OptionalInt threshold;
@@ -34,15 +34,18 @@ public class BlackWhiteCommandParser implements Parser<BlackWhiteCommand> {
                 try {
                     threshold = OptionalInt.of(Integer.parseInt(parsed[0]));
                 } catch (NumberFormatException e) {
-                    throw new ParseException(Messages.MESSAGE_BLACKWHITE_INT_ERROR);
+                    throw new ParseException(String.format(Messages.MESSAGE_BLACKWHITE_INT_ERROR,
+                        BlackWhiteCommand.MESSAGE_USAGE));
                 }
                 Character lastletter = parsed[0].charAt(parsed[0].length() - 1);
                 if (lastletter.equals('f') || lastletter.equals('F') || lastletter.equals('d')
                     || lastletter.equals('D')) {
-                    throw new ParseException(Messages.MESSAGE_BLACKWHITE_INT_ERROR);
+                    throw new ParseException(String.format(Messages.MESSAGE_BLACKWHITE_INT_ERROR,
+                        BlackWhiteCommand.MESSAGE_USAGE));
                 }
-                if (threshold.getAsInt() < 0) {
-                    throw new ParseException(Messages.MESSAGE_NEGATIVE_ERROR);
+                if (threshold.isPresent() && (threshold.getAsInt() < 0)) {
+                    throw new ParseException(String.format(Messages.MESSAGE_NEGATIVE_ERROR,
+                        BlackWhiteCommand.MESSAGE_USAGE));
                 }
             } else {
                 threshold = OptionalInt.empty();
@@ -52,5 +55,6 @@ public class BlackWhiteCommandParser implements Parser<BlackWhiteCommand> {
     }
 
 }
+/* @@author*/
 
 

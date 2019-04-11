@@ -2,6 +2,7 @@
 package seedu.address.model.image;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Config.MAX_FILE_SIZE;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
@@ -11,7 +12,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Size {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Size should not be less than 0 or blank";
+            "Size should not be less than 0, blank or above configured max size.";
     public final String value;
 
     /**
@@ -29,7 +30,7 @@ public class Size {
      * Returns true if a given string is a valid height.
      */
     public static boolean isValidSize(String test) {
-        boolean check = Integer.parseInt(test) <= 0 ? false : true;
+        boolean check = Integer.parseInt(test) <= 0 && Integer.parseInt(test) <= MAX_FILE_SIZE ? false : true;
         return check;
     }
 

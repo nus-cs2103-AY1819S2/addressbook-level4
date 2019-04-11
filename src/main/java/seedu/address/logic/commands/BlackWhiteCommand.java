@@ -24,8 +24,8 @@ public class BlackWhiteCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
         + ": Apply the black and white filter on the image with threshold given.\n"
         + "If threshold is not given, default threshold value is 127.\n"
-        + "[THRESHOLD VALUE (int)] "
-        + "Example: " + COMMAND_WORD
+        + "Parameters: [THRESHOLD VALUE (int)] "
+        + "Example: " + COMMAND_WORD + "\n"
         + "Example2: " + COMMAND_WORD + "130";
     private OptionalInt threshold;
     private boolean isNewCommand;
@@ -70,4 +70,34 @@ public class BlackWhiteCommand extends Command {
         }
         return new CommandResult(Messages.MESSAGE_BLACKWHITE_SUCCESS);
     }
+
+    @Override
+    public String toString() {
+        if (threshold.isPresent()) {
+            return "bw " + threshold.getAsInt();
+        }
+        return "bw";
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+            || (other instanceof BlackWhiteCommand) // instanceof handles nulls
+            && isValuesEqual(other);
+    }
+
+    /**
+     * Checks if the value in the contrast command is equal to the value in the other command.
+     *
+     * @param other command object to be compared
+     * */
+    private boolean isValuesEqual(Object other) {
+        BlackWhiteCommand otherCommand = (BlackWhiteCommand) other;
+        if (this.threshold.isPresent() && otherCommand.threshold.isPresent()) {
+            return this.threshold.getAsInt() == otherCommand.threshold.getAsInt();
+        } else {
+            return (!this.threshold.isPresent() && !otherCommand.threshold.isPresent());
+        }
+    }
 }
+/* @@author*/

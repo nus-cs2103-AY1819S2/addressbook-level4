@@ -22,9 +22,11 @@ import seedu.address.model.image.Image;
  */
 public class Album {
     // Represents a singleton copy of the Album.
-    private static Album instance = null;
+    private static Album instance;
+
     // Represents the Storage path of assets folder for all raw images.
     private final String assetsFilepath;
+
     // Represents an ArrayList of image available in assets folder.
     private List<Image> imageList = new ArrayList<>();
 
@@ -32,7 +34,7 @@ public class Album {
      * Constructor for Album.
      * Checks if asset folder exists, creates it if it does not and populates the Album.
      */
-    public Album() {
+    private Album() {
         assetsFilepath = generateAssets();
         populateAlbum();
     }
@@ -58,8 +60,28 @@ public class Album {
         return imageList;
     }
 
+    /**
+     * Gets the filepath of assets folder.
+     *
+     * @return String of filepath location.
+     */
     public String getAssetsFilepath() {
         return assetsFilepath;
+    }
+
+    /**
+     * Checks if image exists in assets directory.
+     *
+     * @param imageName Image name to check for.
+     * @return True if image exist, false otherwise.
+     */
+    public boolean imageExist(String imageName) {
+        for (Image i : imageList) {
+            if (i.getName().fullName.equals(imageName)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
@@ -70,24 +92,39 @@ public class Album {
      */
     public String generateAssets() {
         String tempPath = null;
-        String tDir = System.getProperty("java.io.tmpdir") + ASSETS_FOLDER_TEMP_NAME;
-        File assetsFolder = new File(tDir);
-        tempPath = assetsFolder.getAbsolutePath() + File.separator;
-        if (!assetsFolder.exists()) {
-            assetsFolder.mkdir();
+        try {
+            String tDir = System.getProperty("user.dir") + File.separator + ASSETS_FOLDER_TEMP_NAME;
+            System.out.println(tDir);
+            File assetsFolder = new File(tDir);
+            tempPath = assetsFolder.getAbsolutePath() + File.separator;
+            if (!assetsFolder.exists()) {
+                assetsFolder.mkdir();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            return tempPath;
         }
-        return tempPath;
     }
+
 
     /**
      * For each image in assets folder, populate the Album with an Image object.
      */
     public void populateAlbum() {
-        clearAlbum();
-        File folder = new File(assetsFilepath);
-        for (File file : folder.listFiles()) {
-            imageList.add(new Image(file.getAbsolutePath()));
+        imageList.clear();
+        try {
+            File folder = new File(assetsFilepath);
+            for (File file : folder.listFiles()) {
+                addToImageList(file.getAbsolutePath());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+    }
+
+    public void addToImageList(String args) {
+        imageList.add(new Image(args));
     }
 
     /**
@@ -95,6 +132,11 @@ public class Album {
      */
     public void clearAlbum() {
         imageList.clear();
+        try {
+            FileUtils.cleanDirectory(new File(assetsFilepath));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void refreshAlbum() {
@@ -112,7 +154,7 @@ public class Album {
      * Check if file exists in assets folder.
      * Returns true if file name exists
      *
-     * @param args string of file name.
+     * @param args String of file name.
      */
     public boolean checkFileExist(String args) {
         File file = new File(assetsFilepath + args);

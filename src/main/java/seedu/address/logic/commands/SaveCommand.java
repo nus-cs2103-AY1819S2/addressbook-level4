@@ -48,9 +48,9 @@ public class SaveCommand extends Command {
         album.saveToAssets(image, toName);
         currentEdit.overwriteOriginal(toName);
         currentEdit.deleteHistory();
+        currentEdit.updateExif();
         album.populateAlbum();
-        model.refreshAlbum();
-
+        album.refreshAlbum();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toName));
     }
 }

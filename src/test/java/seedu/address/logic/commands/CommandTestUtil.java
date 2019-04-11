@@ -20,7 +20,6 @@ import seedu.address.model.CurrentEdit;
 import seedu.address.model.Model;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
-import seedu.address.testutil.EditPersonDescriptorBuilder;
 
 /**
  * Contains helper methods for testing commands.
@@ -58,18 +57,6 @@ public class CommandTestUtil {
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
-    public static final EditCommand.EditPersonDescriptor DESC_AMY;
-    public static final EditCommand.EditPersonDescriptor DESC_BOB;
-
-    static {
-        DESC_AMY = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)
-                .withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY)
-                .withTags(VALID_TAG_FRIEND).build();
-        DESC_BOB = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB)
-                .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
-                .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
-    }
-
     /**
      * Executes the given {@code command}, confirms that <br>
      * - the returned {@link CommandResult} matches {@code expectedCommandResult} <br>
@@ -90,6 +77,25 @@ public class CommandTestUtil {
         }
     }
 
+    /* @@kayheen */
+    /**
+     * Executes the given {@code command}, confirms that <br>
+     * the returned {@link CommandResult} matches {@code expectedCommandResult} <br>
+     *
+     */
+    public static void assertCommandSuccess(Command command, Model model, CommandHistory commandHistory,
+                                            String expectedMessage, CurrentEdit currentEdit) {
+        CommandResult expectedCommandResult = new CommandResult(expectedMessage);
+        try {
+            CommandResult result = command.execute(currentEdit, model, commandHistory);
+            assertEquals(expectedCommandResult, result);
+        } catch (CommandException e) {
+            throw new AssertionError("Execution of command should not fail.", e);
+        }
+
+    }
+    /* @@author */
+
     /**
      * Convenience wrapper to {@link #assertCommandSuccess(Command, Model, CommandHistory, CommandResult, Model,
      * CurrentEdit)}
@@ -101,6 +107,7 @@ public class CommandTestUtil {
         assertCommandSuccess(command, actualModel, actualCommandHistory, expectedCommandResult, expectedModel,
             currentEdit);
     }
+
 
     /**
      * Executes the given {@code command}, confirms that <br>

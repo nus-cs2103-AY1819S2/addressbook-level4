@@ -62,5 +62,5 @@ public class SetCommandTest {
         //different amount -> returns false
         assertFalse(standardCommand.equals(new SetCommand("200")));
     }
-    
 }
+

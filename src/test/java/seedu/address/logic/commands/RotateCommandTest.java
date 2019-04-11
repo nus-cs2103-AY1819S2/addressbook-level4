@@ -22,60 +22,60 @@
 //import seedu.address.model.UserPrefs;
 //
 //public class RotateCommandTest {
-//    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-//    private CurrentEdit currentEdit = new CurrentEditManager();
-//    private CommandHistory commandHistory = new CommandHistory();
-//    @Before
-//    public void createImagesInAlbum() {
-//        try {
-//            // when image is null, should throw an error
-//            RotateCommandParser parserRotate = new RotateCommandParser();
-//            RotateCommand rotate = parserRotate.parse(" 90");
-//            String expectedMessage = Messages.MESSAGE_DID_NOT_OPEN;
-//            assertCommandFailure(rotate, model, commandHistory, expectedMessage, currentEdit);
-//            ImportCommandParser parser = new ImportCommandParser();
-//            parser.parse("sample").execute(currentEdit, model, commandHistory);
-//            OpenCommandParser parser2 = new OpenCommandParser();
-//            parser2.parse("iu.jpg").execute(currentEdit, model, commandHistory);
-//        } catch (Exception e) {
-//            System.out.println(e.toString());
-//        }
-//    }
-//    @Test
-//    public void execute_validRotateCheckIsNewCommand_success() {
-//        try {
-//            RotateCommandParser parser = new RotateCommandParser();
-//            RotateCommand command = parser.parse(" 90");
-//            String expectedMessage = Messages.MESSAGE_ROTATE_SUCCESS;
-//            assertCommandSuccess(command, model, commandHistory, expectedMessage, currentEdit);
-//        } catch (Exception e) {
-//            System.out.println(e.toString());
-//        }
-//    }
-//
-//    @Test
-//    public void execute_invalidDegreeInRotate_failure() {
-//        try {
-//            RotateCommandParser parser = new RotateCommandParser();
-//            RotateCommand command = parser.parse(" 45");
-//            RotateCommand command1 = parser.parse(" 170");
-//            RotateCommand command2 = parser.parse(" 200");
-//            RotateCommand command3 = parser.parse(" 390");
-//            String expectedMessage = String.format(Messages.MESSAGE_ROTATE_DEGREE_ERROR,
-//                    RotateCommand.MESSAGE_USAGE);
-//            assertCommandFailure(command, model, commandHistory, expectedMessage, currentEdit);
-//            assertCommandFailure(command1, model, commandHistory, expectedMessage, currentEdit);
-//            assertCommandFailure(command2, model, commandHistory, expectedMessage, currentEdit);
-//            assertCommandFailure(command3, model, commandHistory, expectedMessage, currentEdit);
-//        } catch (Exception e) {
-//            System.out.println(e.toString());
-//        }
-//    }
-//
-//    @After
-//    public void clearAlbum() {
-//        Album album = Album.getInstance();
-//        album.clearAlbum();
-//        currentEdit.clearTemp();
-//    }
-//}
+////    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+////    private CurrentEdit currentEdit = new CurrentEditManager();
+////    private CommandHistory commandHistory = new CommandHistory();
+////    @Before
+////    public void createImagesInAlbum() {
+////        try {
+////            // when image is null, should throw an error
+////            RotateCommandParser parserRotate = new RotateCommandParser();
+////            RotateCommand rotate = parserRotate.parse(" 90");
+////            String expectedMessage = Messages.MESSAGE_DID_NOT_OPEN;
+////            assertCommandFailure(rotate, model, commandHistory, expectedMessage, currentEdit);
+////            ImportCommandParser parser = new ImportCommandParser();
+////            parser.parse("sample").execute(currentEdit, model, commandHistory);
+////            OpenCommandParser parser2 = new OpenCommandParser();
+////            parser2.parse("iu.jpg").execute(currentEdit, model, commandHistory);
+////        } catch (Exception e) {
+////            System.out.println(e.toString());
+////        }
+////    }
+////    @Test
+////    public void execute_validRotateCheckIsNewCommand_success() {
+////        try {
+////            RotateCommandParser parser = new RotateCommandParser();
+////            RotateCommand command = parser.parse(" 90");
+////            String expectedMessage = Messages.MESSAGE_ROTATE_SUCCESS;
+////            assertCommandSuccess(command, model, commandHistory, expectedMessage, currentEdit);
+////        } catch (Exception e) {
+////            System.out.println(e.toString());
+////        }
+////    }
+////
+////    @Test
+////    public void execute_invalidDegreeInRotate_failure() {
+////        try {
+////            RotateCommandParser parser = new RotateCommandParser();
+////            RotateCommand command = parser.parse(" 45");
+////            RotateCommand command1 = parser.parse(" 170");
+////            RotateCommand command2 = parser.parse(" 200");
+////            RotateCommand command3 = parser.parse(" 390");
+////            String expectedMessage = String.format(Messages.MESSAGE_ROTATE_DEGREE_ERROR,
+////                    RotateCommand.MESSAGE_USAGE);
+////            assertCommandFailure(command, model, commandHistory, expectedMessage, currentEdit);
+////            assertCommandFailure(command1, model, commandHistory, expectedMessage, currentEdit);
+////            assertCommandFailure(command2, model, commandHistory, expectedMessage, currentEdit);
+////            assertCommandFailure(command3, model, commandHistory, expectedMessage, currentEdit);
+////        } catch (Exception e) {
+////            System.out.println(e.toString());
+////        }
+////    }
+////
+////    @After
+////    public void clearAlbum() {
+////        Album album = Album.getInstance();
+////        album.clearAlbum();
+////        currentEdit.clearTemp();
+////    }
+////}

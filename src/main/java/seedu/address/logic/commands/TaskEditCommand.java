@@ -163,6 +163,7 @@ public class TaskEditCommand extends Command {
         private TimeCustom endTime;
         private Priority priority;
         private Index patientIndex;
+        private LinkedPatient linkedPatient;
 
         public EditTaskDescriptor() {}
 
@@ -245,6 +246,11 @@ public class TaskEditCommand extends Command {
 
         public void setPatientIndex(Index index) {
             this.patientIndex = index;
+        }
+
+        //For testing
+        public void setLinkedPatient(LinkedPatient linkedPatient) {
+            this.linkedPatient = linkedPatient;
         }
 
         @Override

@@ -109,6 +109,15 @@ public class TaskBuilder {
         return this;
     }
 
+    /**
+     * Sets the {@code LinkedPatient} of the {@code Task} that we are building to null;
+     */
+    public TaskBuilder withNoLinkedPatient() {
+        this.linkedPatient = null;
+        return this;
+    }
+
+
     public Task build() {
         return new Task(title, startDate, endDate, startTime, endTime, priority, linkedPatient);
     }

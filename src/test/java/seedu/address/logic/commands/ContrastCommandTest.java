@@ -57,7 +57,6 @@ public class ContrastCommandTest {
 
     @After
     public void clearAlbum() {
-        Album album = Album.getInstance();
         album.clearAlbum();
         currentEdit.clearTemp();
     }

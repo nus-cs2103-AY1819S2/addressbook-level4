@@ -22,12 +22,14 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 
 public class ResizeCommandTest {
+    private Album album = Album.getInstance();
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
     private CurrentEdit currentEdit = new CurrentEditManager();
     private CommandHistory commandHistory = new CommandHistory();
 
     @Before
     public void createImagesInAlbum() {
+        album.clearAlbum();
         try {
             // when image is null, should throw an error
             ResizeCommandParser parserResize = new ResizeCommandParser();
@@ -68,7 +70,6 @@ public class ResizeCommandTest {
     }
     @After
     public void clearAlbum() {
-        Album album = Album.getInstance();
         album.clearAlbum();
         currentEdit.clearTemp();
     }

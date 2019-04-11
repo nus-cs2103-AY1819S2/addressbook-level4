@@ -51,10 +51,6 @@ public class WaterMarkCommandTest {
             WaterMarkCommand command = parser.parse(" FomoFoto");
             String expectedMessage = Messages.MESSAGE_WATERMARK_SUCCESS;
             assertCommandSuccess(command, model, commandHistory, expectedMessage, currentEdit);
-            //WaterMarkCommandParser parser = new WaterMarkCommandParser();
-            command = parser.parse(" FomoFoto");
-            expectedMessage = Messages.MESSAGE_HAS_WATERMARK;
-            assertCommandFailure(command, model, commandHistory, expectedMessage, currentEdit);
         } catch (Exception e) {
             System.out.println(e.toString());
         }
@@ -118,9 +114,36 @@ public class WaterMarkCommandTest {
             System.out.println(e.toString());
         }
     }
-    // This tests for when a preset is set and applies on an image with a watermark
-
     // This tests for when a preset is set and applies on an image without a watermark (success)
+    @Test
+    public void execute_addWaterMarkCommandPreset_success() {
+        try {
+            // imitates the case when a preset is added and a watermark command within a preset is created.
+            new WaterMarkCommand("FomoFoto", true).execute(currentEdit, model, commandHistory);
+            WaterMarkCommand command = new WaterMarkCommand("FomoFoto", false);
+            // opens a new image to edit on (new image opened does not have a watermark)
+            OpenCommandParser parser = new OpenCommandParser();
+            parser.parse("validPNGTest.png").execute(currentEdit, model, commandHistory);
+            String expectedMessage = Messages.MESSAGE_WATERMARK_SUCCESS;
+            assertCommandSuccess(command, model, commandHistory, expectedMessage, currentEdit);
+        } catch (Exception e) {
+            System.out.println(e.toString());
+        }
+    }
+    // This tests for when a preset is set and applies on an image with a watermark (failure)
+    @Test
+    public void execute_addWaterMarkCommandPreset_failure() {
+        try {
+            // adds a watermark command to the image.
+            new WaterMarkCommand("FomoFoto", true).execute(currentEdit, model, commandHistory);
+            // imitates the case when a preset is added and a watermark command which indicates a preset is created.
+            WaterMarkCommand command = new WaterMarkCommand("FomoFoto", false);
+            String expectedMessage = Messages.MESSAGE_HAS_WATERMARK;
+            assertCommandFailure(command, model, commandHistory, expectedMessage, currentEdit);
+        } catch (Exception e) {
+            System.out.println(e.toString());
+        }
+    }
     @After
     public void clearAlbum() {
         Album album = Album.getInstance();

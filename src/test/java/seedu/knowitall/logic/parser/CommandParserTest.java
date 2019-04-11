@@ -3,11 +3,15 @@ package seedu.knowitall.logic.parser;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.knowitall.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.knowitall.commons.core.Messages.MESSAGE_MAX_COMMAND_LENGTH_EXCEEDED;
 import static seedu.knowitall.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.knowitall.logic.parser.CommandParser.MAX_COMMAND_LENGTH;
 import static seedu.knowitall.testutil.TypicalIndexes.INDEX_FIRST_CARD;
 
+import java.nio.charset.Charset;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 import org.junit.Rule;
@@ -177,5 +181,16 @@ public class CommandParserTest {
         thrown.expect(ParseException.class);
         thrown.expectMessage(MESSAGE_UNKNOWN_COMMAND);
         parser.parseCommand("unknownCommand");
+    }
+
+    @Test
+    public void parseCommand_commandTooLong_throwsParseException() throws Exception {
+        thrown.expect(ParseException.class);
+        thrown.expectMessage(String.format(MESSAGE_MAX_COMMAND_LENGTH_EXCEEDED, MAX_COMMAND_LENGTH));
+        // Generate random string of length 9000
+        byte[] byteArray = new byte[9000];
+        new Random().nextBytes(byteArray);
+        String longCommand = new String(byteArray, Charset.forName("UTF-8"));
+        parser.parseCommand(longCommand);
     }
 }

@@ -41,12 +41,12 @@ import seedu.knowitall.logic.parser.exceptions.ParseException;
  */
 public class CommandParser {
 
+    public static final int MAX_COMMAND_LENGTH = 8000;
+
     /**
      * Used for initial separation of command word and args.
      */
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
-
-    private static final int MAX_COMMAND_LENGTH = 10000;
 
     /**
      * Parses user input into command for execution.

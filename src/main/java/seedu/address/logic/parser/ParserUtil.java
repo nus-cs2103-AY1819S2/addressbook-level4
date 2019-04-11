@@ -320,14 +320,9 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String filePath} into a {@code ParsedIO}.
-     * @throws ParseException if the given {@code file} is invalid.
+     * Converts all slashes ( / or \ ) in the input {@code String filePath} to File.separator.
      */
-    static ParsedInOut parseOpenSave(String input) throws ParseException {
-        requireNonNull(input);
-        input = input.trim();
-        String newPath = "data" + File.separator;
-
+    private static String convertSlashes(String input) {
         char[] pathArr = input.toCharArray();
         for (int i = 0; i < input.length(); i++) {
             // Convert example\example.json to example/example.json if the system prefers /
@@ -340,7 +335,19 @@ public class ParserUtil {
                 pathArr[i] = File.separator.toCharArray()[0];
             }
         }
-        input = String.valueOf(pathArr);
+        return String.valueOf(pathArr);
+    }
+
+    /**
+     * Parses a {@code String filePath} into a {@code ParsedIO}.
+     * @throws ParseException if the given {@code file} is invalid.
+     */
+    static ParsedInOut parseOpenSave(String input) throws ParseException {
+        requireNonNull(input);
+        input = input.trim();
+        String newPath = "data" + File.separator;
+
+        input = convertSlashes(input);
 
         File file = new File(newPath.concat(input));
 
@@ -378,20 +385,7 @@ public class ParserUtil {
         String filepath;
         String fileType;
 
-        // Convert example/example.json to example\example.json
-        char[] pathArr = input.toCharArray();
-        for (int i = 0; i < input.length(); i++) {
-            // Convert example\example.json to example/example.json if the system prefers /
-            if (pathArr[i] == '\\') {
-                pathArr[i] = File.separator.toCharArray()[0];
-                continue;
-            }
-            // Convert example/example.json to example\example.json if the system prefers \
-            if (pathArr[i] == '/') {
-                pathArr[i] = File.separator.toCharArray()[0];
-            }
-        }
-        input = String.valueOf(pathArr);
+        input = convertSlashes(input);
 
         // Parse for "all" keyword
         final String allRegex = "^([\\w\\\\/\\s!@#$%^&()_+\\-={}\\[\\];',.]+)+\\.(json|pdf)+\\s(all)$";

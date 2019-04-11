@@ -20,8 +20,9 @@ public class SwitchTabCommandParserTest {
             SwitchTabCommand.MESSAGE_USAGE));
         assertParseFailure(parser, "", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
             SwitchTabCommand.MESSAGE_USAGE));
-        assertParseFailure(parser, "3 2", SwitchTabCommand.MESSAGE_INVALID_PANEL_NUMBER);
-        assertParseFailure(parser, "2 3", SwitchTabCommand.MESSAGE_INVALID_TAB_NUMBER);
+        assertParseFailure(parser, " 3 2", SwitchTabCommand.MESSAGE_INVALID_PANEL_NUMBER);
+        assertParseFailure(parser, " 2 3", SwitchTabCommand.MESSAGE_INVALID_TAB_NUMBER);
+        assertParseFailure(parser, " 1 4", SwitchTabCommand.MESSAGE_INVALID_TAB_NUMBER);
     }
 
 

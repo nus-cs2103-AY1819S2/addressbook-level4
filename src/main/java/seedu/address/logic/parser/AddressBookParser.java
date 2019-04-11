@@ -49,8 +49,13 @@ public class AddressBookParser {
     public void dealArguments(String arguments) throws ParseException {
 
         String[] commandList = {"help", "add", "list", "select", "edit", "delete", "clear", "pin", "unpin", "pinselect",
+<<<<<<< HEAD
                 "archive", "archivelist", "archiveselect", "unarchive", "archiveclear", "history",
                 "redo", "undo", "exit", "find"};
+=======
+                                "archive", "archivelist", "archiveselect", "unarchive", "archiveclear", "history",
+                                "redo", "undo", "exit", "find"};
+>>>>>>> b4f966b2452baa5320e04cb82b34d28af8b82fea
 
         ArrayList<String> command = new ArrayList<>(Arrays.asList(commandList));
         Iterator<String> iterator = command.iterator();
@@ -83,6 +88,7 @@ public class AddressBookParser {
 
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
+
         switch (commandWord) {
 
         case AddCommand.COMMAND_WORD:

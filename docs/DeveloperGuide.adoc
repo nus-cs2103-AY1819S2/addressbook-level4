@@ -256,20 +256,20 @@ We assume that the Open-Closed Principle is applied on the `Person` object.
 ** Cons: Any changes to `Person` may affect `Patient`.
 * **Alternative 2:** Create the `Patient` class from the bottom-up.
 ** Pros: As `Patient` will not be a subclass of any other object, it will be less affected by changes in other classes.
-** Cons: All existing classes and methods which current work with `Person` needs to be re-written to work with the new `Patient` object.
+** Cons: All existing classes and methods which currently work with `Person` needs to be re-written to work with the new `Patient` object.
 Attributes and methods cannot be reused, and must be re-implemented.
-Lastly, polymorphism cannot be applied if there is a need to deal with both persons and patients.
+Lastly, polymorphism cannot be applied in cases where there is a need to deal with both persons and patients.
 
 ===== Aspect: Picking the appropriate data structure to store dental records
 * **Alternative 1 (current choice):** Store the records using a list.
 ** Pros: It is easy to understand, which is crucial for collaborative programming as other programmers may require accessing the records in the list.
-It can also save new records in order of when they are added, from most recent to oldest, simply using `List.add(0, Record)`.
-** Cons: If the list get long over time, it might cause additional waiting time for our users when search for a specific record.
+It can also save new records in the order of when they are added, from most recent to oldest, simply using `List.add(0, Record)`.
+** Cons: If the list gets long over time, it might cause additional waiting time for our users when they would to search for a specific record.
 This is because a linear search in a list is of O(n) time complexity.
  * **Alternative 2:** Store the records using a hash table.
  ** Pros: It gives the fastest time complexity if a record search is required. It runs in O(1) time.
- ** Cons: It can be challenging for collaborators to understand, which is crucial for collaborative programming.
- It also creates an extra layer of complexity in order to display records in the order they were stored in the application by our users.
+ ** Cons: It can be challenging for collaborators to understand, which can be detrimental for collaborative programming.
+ It also creates an extra layer of complexity in order to display the stored records in the order they were first stored in the application by our users.
 // end::patient[]
 
 // tag::undoredo[]

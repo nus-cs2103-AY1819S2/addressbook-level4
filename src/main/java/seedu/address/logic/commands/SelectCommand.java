@@ -3,7 +3,7 @@ package seedu.address.logic.commands;
 import seedu.address.commons.core.index.Index;
 
 /**
- * Selects a card identified using it's displayed index.
+ * Selects a card identified using its displayed index.
  */
 public abstract class SelectCommand extends Command {
 

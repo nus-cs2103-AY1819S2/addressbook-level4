@@ -39,7 +39,9 @@ public class SelectDeckCommand extends SelectCommand {
         }
 
         decksView.setSelectedItem(filteredDeckList.get(targetIndex.getZeroBased()));
-        return new CommandResult(String.format(MESSAGE_SELECT_SUCCESS, targetIndex.getOneBased()));
+        Deck selectedDeck = decksView.getSelectedItem();
+
+        return new CommandResult(String.format(MESSAGE_SELECT_SUCCESS, selectedDeck.getName()));
     }
 
     @Override

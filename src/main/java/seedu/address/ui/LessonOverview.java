@@ -1,6 +1,7 @@
 package seedu.address.ui;
 
 import javafx.fxml.FXML;
+import javafx.geometry.Orientation;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Region;
@@ -38,18 +39,22 @@ public class LessonOverview extends UiPart<Region> {
         name.setText(lesson.getName());
 
         int cardCount = lesson.getCardCount();
+        StringBuilder sb = new StringBuilder("Contains ").append(cardCount);
         if (cardCount > 1) {
-            count.setText(cardCount + " cards");
+            sb.append(" cards");
         } else {
-            count.setText(cardCount + " card");
+            sb.append(" card");
         }
+
+        count.setText(sb.toString());
 
         int i = 0;
         int questionIndex = lesson.getQuestionCoreIndex();
         int answerIndex = lesson.getAnswerCoreIndex();
+
+        bigHeaders.setOrientation(Orientation.VERTICAL);
         for (String s: lesson.getCoreHeaders()) {
             Label label = new Label(s);
-
             if (i == questionIndex || i == answerIndex) {
                 label.getStyleClass().add("questionAnswer");
                 bigHeaders.getChildren().add(label);

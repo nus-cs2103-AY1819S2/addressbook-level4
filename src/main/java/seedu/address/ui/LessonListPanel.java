@@ -1,5 +1,6 @@
 package seedu.address.ui;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -15,7 +16,6 @@ import seedu.address.model.lesson.Lesson;
  */
 public class LessonListPanel extends UiPart<Region> {
     private static final String FXML = "LessonListPanel.fxml";
-    //private final Logger logger = LogsCenter.getLogger(LessonListPanel.class);
 
     @FXML
     private ListView<Lesson> lessonListView;

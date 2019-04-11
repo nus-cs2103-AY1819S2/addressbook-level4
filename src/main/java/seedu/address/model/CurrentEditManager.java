@@ -66,7 +66,7 @@ public class CurrentEditManager implements CurrentEdit {
      * Opens an image in FomoFoto.
      * This method creates two copies of the original image in temp folder and instantiates them.
      *
-     * @param image is the image to be edited.
+     * @param image is the image to be opened.
      */
     public void openImage(Image image) {
         this.originalImageName = image.getName().getFullName();

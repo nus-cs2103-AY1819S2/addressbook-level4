@@ -323,7 +323,7 @@ The `GoToCommand` is facilitated by the `Command` abstract class.
 The valid form of the command is `goto INDEX`.
 The `INDEX` of the command specifies the patient in the patient list, based to their denoted indexes.
 
-The current implementation to go back to the patient list uses the `back` command.
+On the other hand, the current implementation to go back to the patient list uses the `back` command.
 
 It is also facilitated by the `Command` abstract class.
 Unlike the `GoToCommand`, the `BackCommand` does not take in any parameters.
@@ -332,25 +332,25 @@ The valid form of the command is `back`.
 Given below is an example usage scenario and how the goto/back mechanism behaves at each step.
 
 Step 1. The user launches the application for the first time.
-All stored patients will be loaded and the user will be in the patient list by default.
+All stored patients will be loaded and the user will be shown the patient list by default.
 
 Step 2. The user executes `goto 1` command to view the dental records of the first patient in the dental book.
 The `goto` command sets the specified patient in the MainWindow as the first patient.
-The patient list is now replaced by the dental record list.
+The patient list is now replaced by the dental record list of the specified patient.
 
-Step 3. The user can now add, edit, or delete dental records, which will be tied to the specified patient.
+Step 3. The user can now add, edit, or delete dental records, which are tied to the specified patient.
 
 [NOTE]
 If the `goto` command is entered while the window is already showing dental records of a specified patient, an error message will be displayed on the window.
 
-Step 4. The user now decides that he wants to go back to the patient list.
+Step 4. The user now decides that he wants to view the patient list.
 He do so by executing the `back` command.
 After which, the record list is replaced by the patient list.
 
 [NOTE]
-The `back` command will work with parameters, but they will be ignored.
+The `back` command will still work with parameters, but those parameters will be ignored.
 
-Step 5. The user can now add, edit, or delete patients or their personal information.
+Step 5. The user can now add, edit, or delete patients' personal information.
 
 [NOTE]
 If the `back` command is entered while the window is already showing patients, an error message will be displayed on the window.
@@ -358,10 +358,12 @@ If the `back` command is entered while the window is already showing patients, a
 The following activity diagram summarizes what happens when a user executes the `goto` command:
 
 image::GotoActivityDiagram.png[width="800"]
+{nbsp}
 
 The following activity diagram summarizes what happens when a user executes the `back` command:
 
 image::BackActivityDiagram.png[width="800"]
+{nbsp}
 
 ==== Design Considerations
 

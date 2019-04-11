@@ -162,8 +162,9 @@ public class DocXParser {
         case AddPrescriptionCommand.COMMAND_WORD:
             return new AddPrescriptionCommandParser().parse(arguments);
 
+
         case ListPrescriptionCommand.COMMAND_WORD:
-            return new ListPrescriptionCommand();
+            return new ListPrescriptionCommandParser().parse(arguments);
 
         case EditPrescriptionCommand.COMMAND_WORD:
             return new EditPrescriptionCommandParser().parse(arguments);

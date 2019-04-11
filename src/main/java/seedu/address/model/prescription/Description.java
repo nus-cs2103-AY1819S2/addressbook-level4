@@ -21,6 +21,13 @@ public class Description {
         return this.description;
     }
 
+    /**
+     * Returns true if a given string is a valid description.
+     */
+    public static boolean isValidDescription(String test) {
+        return true;
+    }
+
     public String getDescription() {
 
         return description;

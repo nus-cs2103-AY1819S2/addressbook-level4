@@ -8,7 +8,6 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_CARD;
 
 import org.junit.Test;
 
-import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.SelectDeckCommand;
 import seedu.address.model.DecksView;
 import seedu.address.model.Model;
@@ -20,10 +19,10 @@ import seedu.address.model.UserPrefs;
  *
  * @see DeleteCardCommandParserTest
  */
-public class SelectCommandParserTest {
+public class SelectDeckCommandParserTest {
 
     private Model model = new ModelManager(getTypicalTopDeck(), new UserPrefs());
-    private SelectCommandParser parser = new SelectCommandParser(model.getViewState());
+    private SelectDeckCommandParser parser = new SelectDeckCommandParser((DecksView) model.getViewState());
 
     @Test
     public void parse_validArgs_returnsSelectCommand() {
@@ -34,6 +33,6 @@ public class SelectCommandParserTest {
     @Test
     public void parse_invalidArgs_throwsParseException() {
         assertParseFailure(parser, "a",
-                           String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE));
+                           String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectDeckCommand.MESSAGE_USAGE));
     }
 }

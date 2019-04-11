@@ -109,7 +109,7 @@ public class SelectCardCommandTest {
         SelectCommand selectCommand = new SelectCardCommand(cardsView, index);
 
         Card selectedCard = cardsView.filteredCards.get(index.getZeroBased());
-        String expectedMessage = String.format(SelectCommand.MESSAGE_SELECT_SUCCESS, selectedCard.toString());
+        String expectedMessage = String.format(SelectCommand.MESSAGE_SELECT_SUCCESS, selectedCard.getQuestion());
         CardsView cardsView = (CardsView) expectedModel.getViewState();
         cardsView.setSelectedItem(cardsView.getFilteredList().get(index.getZeroBased()));
 

@@ -21,15 +21,17 @@ import seedu.address.logic.commands.ExportDeckCommand;
 import seedu.address.logic.commands.FindDeckCommand;
 import seedu.address.logic.commands.ImportDeckCommand;
 import seedu.address.logic.commands.OpenDeckCommand;
-import seedu.address.logic.commands.SelectCommand;
+import seedu.address.logic.commands.RedoCommand;
+import seedu.address.logic.commands.SelectDeckCommand;
 import seedu.address.logic.commands.StudyDeckCommand;
+import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.AddDeckCommandParser;
 import seedu.address.logic.parser.DeleteDeckCommandParser;
 import seedu.address.logic.parser.EditDeckCommandParser;
 import seedu.address.logic.parser.ExportDeckCommandParser;
 import seedu.address.logic.parser.FindDeckCommandParser;
 import seedu.address.logic.parser.ImportDeckCommandParser;
-import seedu.address.logic.parser.SelectCommandParser;
+import seedu.address.logic.parser.SelectDeckCommandParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.deck.Deck;
 import seedu.address.ui.ListPanel;
@@ -59,8 +61,8 @@ public class DecksView implements ListViewState<Deck> {
                 return new AddDeckCommandParser(this).parse(arguments);
             case ClearDeckCommand.COMMAND_WORD:
                 return new ClearDeckCommand();
-            case SelectCommand.COMMAND_WORD:
-                return new SelectCommandParser(this).parse(arguments);
+            case SelectDeckCommand.COMMAND_WORD:
+                return new SelectDeckCommandParser(this).parse(arguments);
             case OpenDeckCommand.COMMAND_WORD:
                 return new OpenDeckCommandParser(this).parse(arguments);
             case StudyDeckCommand.COMMAND_WORD:
@@ -75,6 +77,10 @@ public class DecksView implements ListViewState<Deck> {
                 return new ExportDeckCommandParser().parse(arguments);
             case ImportDeckCommand.COMMAND_WORD:
                 return new ImportDeckCommandParser().parse(arguments);
+            case UndoCommand.COMMAND_WORD:
+                return new UndoCommand(this);
+            case RedoCommand.COMMAND_WORD:
+                return new RedoCommand(this);
             default:
                 throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }

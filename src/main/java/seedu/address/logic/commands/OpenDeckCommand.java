@@ -23,7 +23,7 @@ public class OpenDeckCommand extends Command {
             COMMAND_WORD + ": Opens the deck identified by the index number.\n"
                     + "Parameters: INDEX (must be a positive integer)\n" + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_OPEN_DECK_SUCCESS = "Opened deck";
+    public static final String MESSAGE_OPEN_DECK_SUCCESS = "Opened deck: %s";
 
     private Index targetIndex;
     private DecksView decksView;

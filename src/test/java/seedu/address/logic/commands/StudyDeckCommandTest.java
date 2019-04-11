@@ -23,6 +23,7 @@ import seedu.address.model.DecksView;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.deck.Deck;
 
 public class StudyDeckCommandTest {
 
@@ -127,7 +128,8 @@ public class StudyDeckCommandTest {
      */
     private void assertExecutionSuccessIndex(Index index) {
         StudyDeckCommand studyDeckCommand = new StudyDeckCommand(decksView, index);
-        String expectedMessage = String.format(StudyDeckCommand.MESSAGE_STUDY_DECK_SUCCESS);
+        Deck deckAtIndex = decksView.getFilteredList().get(index.getZeroBased());
+        String expectedMessage = String.format(StudyDeckCommand.MESSAGE_STUDY_DECK_SUCCESS, deckAtIndex);
         CommandResult expectedCommandResult = new UpdatePanelCommandResult(expectedMessage);
         expectedModelDeck.studyDeck(decksView.getFilteredList().get(index.getZeroBased()));
         assertCommandSuccess(studyDeckCommand, modelDeck, commandHistory, expectedCommandResult,

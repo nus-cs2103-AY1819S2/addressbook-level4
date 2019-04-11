@@ -109,7 +109,7 @@ public class EditCardCommandTest {
             builder.append(" ").append(PREFIX_TAG).append(tag.tagName);
         }
         String prefilledText = String
-                .format("%s %d %s%s %s%s %s", EditCardCommand.COMMAND_WORD, 1, PREFIX_QUESTION,
+                .format("%s %d %s%s %s%s%s", EditCardCommand.COMMAND_WORD, 1, PREFIX_QUESTION,
                         firstCard.getQuestion(), PREFIX_ANSWER, firstCard.getAnswer(), builder.toString());
         CommandResult expectedResult = new PrefillCommandBoxCommandResult(
                 EditCardCommand.MESSAGE_EDIT_CARD_AUTOCOMPLETE, prefilledText);

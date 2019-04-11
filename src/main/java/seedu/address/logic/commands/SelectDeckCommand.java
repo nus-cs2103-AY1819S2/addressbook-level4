@@ -17,6 +17,10 @@ import seedu.address.model.deck.Deck;
  */
 public class SelectDeckCommand extends SelectCommand {
 
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+            + ": Selects the deck identified by the index number used in the displayed deck list.\n"
+            + "Parameters: INDEX (must be a positive integer)\n" + "Example: " + COMMAND_WORD + " 1";
+
     private DecksView decksView;
 
     public SelectDeckCommand(DecksView decksView, Index targetIndex) {
@@ -35,7 +39,9 @@ public class SelectDeckCommand extends SelectCommand {
         }
 
         decksView.setSelectedItem(filteredDeckList.get(targetIndex.getZeroBased()));
-        return new CommandResult(String.format(MESSAGE_SELECT_SUCCESS, targetIndex.getOneBased()));
+        Deck selectedDeck = decksView.getSelectedItem();
+
+        return new CommandResult(String.format(MESSAGE_SELECT_SUCCESS, selectedDeck.getName()));
     }
 
     @Override

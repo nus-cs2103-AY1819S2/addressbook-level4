@@ -148,7 +148,7 @@ public class DateRangeTest {
         assertTrue(dateRange.equals(dateRange1));
         assertTrue(dateRange.toString().equals(dateRange1.toString()));
         assertTrue(dateRange.equals(dateRange));
-        assertFalse(dateRange.equals("string object"));
+        assertFalse(dateRange.equals(currentDate));
     }
 
     @Test

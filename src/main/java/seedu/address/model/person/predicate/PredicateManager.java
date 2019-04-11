@@ -1,6 +1,5 @@
 package seedu.address.model.person.predicate;
 
-import static java.util.Objects.requireNonNull;
 import java.util.function.Predicate;
 
 import seedu.address.model.person.Person;

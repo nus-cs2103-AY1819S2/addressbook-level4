@@ -7,7 +7,7 @@ import java.util.TreeSet;
  * Represents a JobListName in the address book.
  */
 public enum JobListName {
-    APPLICANT(), KIV(), INTERVIEW(), SHORTLIST(), STUB();
+    APPLICANT(), KIV(), INTERVIEW(), SHORTLIST(), STUB(), EMPTY();
 
     public static final String MESSAGE_CONSTRAINTS =
         "Names should only contain alphanumeric characters and spaces, and it should not be blank";
@@ -21,9 +21,10 @@ public enum JobListName {
     public static final String INTERVIEW_PREFIX = "i";
     public static final String SHORTLIST_PREFIX = "s";
     public static final String STUB_NAME = "stub";
+    public static final String EMPTY_STRING = "";
 
     private static final String[] POSSIBLE_ListName = {APPLICANT_NAME, KIV_NAME, INTERVIEW_NAME, SHORTLIST_NAME,
-        APPLICANT_PREFIX, KIV_PREFIX, INTERVIEW_PREFIX, SHORTLIST_PREFIX, STUB_NAME};
+        APPLICANT_PREFIX, KIV_PREFIX, INTERVIEW_PREFIX, SHORTLIST_PREFIX, STUB_NAME, EMPTY_STRING};
     private static final TreeSet<String> POSSIBLE_ListName_TREE = new TreeSet<>(Arrays.asList(POSSIBLE_ListName));
 
     /**

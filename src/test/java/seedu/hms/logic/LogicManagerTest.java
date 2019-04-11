@@ -108,6 +108,7 @@ public class LogicManagerTest {
         CustomerManager expectedModel = new CustomerManager();
         expectedModel.addCustomer(expectedCustomer);
         expectedModel.commitHotelManagementSystem();
+        expectedModel.setSelectedCustomer(expectedCustomer);
         String expectedMessage = LogicManager.FILE_OPS_ERROR_MESSAGE + DUMMY_IO_EXCEPTION;
         assertCommandBehavior(CommandException.class, addCommand, expectedMessage, expectedModel);
         assertHistoryCorrect(addCommand);

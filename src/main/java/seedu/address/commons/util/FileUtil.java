@@ -10,8 +10,9 @@ import java.nio.file.Paths;
  * Writes and reads files
  */
 public class FileUtil {
-
     private static final String CHARSET = "UTF-8";
+
+    private FileUtil() { }
 
     /**
      * Returns true if {@code path} can be converted into a {@code Path} via {@link Paths#get(String)},

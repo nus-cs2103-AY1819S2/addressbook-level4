@@ -69,10 +69,6 @@ public class LessonListPanel extends UiPart<Region> {
                 setGraphic(new LessonCard(lesson, getIndex() + 1).getRoot());
             }
         }
-
-        public int getViewItemCount() {
-            return lessonListView.getItems().size();
-        }
     }
 
     /**

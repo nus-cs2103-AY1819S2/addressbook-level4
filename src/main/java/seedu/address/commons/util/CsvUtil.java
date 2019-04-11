@@ -22,6 +22,8 @@ import seedu.address.commons.core.LogsCenter;
 public class CsvUtil {
     private static final Logger logger = LogsCenter.getLogger(CsvUtil.class);
 
+    private CsvUtil() { }
+
     /**
      * Returns a list of String arrays from the given file or null object if the file is not found.
      *

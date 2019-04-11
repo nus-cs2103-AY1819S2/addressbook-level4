@@ -16,16 +16,16 @@ import seedu.address.model.person.exceptions.FilterNotFoundException;
  * persons uses Person#isSamePerson(Person) for equality so as to ensure that the person being added or updated is
  * unique in terms of identity in the UniquePersonList. However, the removal of a person uses Person#equals(Object) so
  * as to ensure that the person with exactly the same fields will be removed.
- *
+ * <p>
  * Supports a minimal set of list operations.
  *
- * @see PredicateManager#isSamePredicateManager(PredicateManager)
+ * @see Filter#isSameFilter(Filter)
  */
 public class UniqueFilterList implements Iterable<Filter> {
 
     private final ObservableList<Filter> internalList = FXCollections.observableArrayList();
     private final ObservableList<Filter> internalUnmodifiableList =
-            FXCollections.unmodifiableObservableList(internalList);
+        FXCollections.unmodifiableObservableList(internalList);
 
     /**
      * Returns true if the list contains an equivalent person as the given argument.
@@ -37,7 +37,7 @@ public class UniqueFilterList implements Iterable<Filter> {
 
     public Filter getFilter(String predicateName) {
         requireAllNonNull(predicateName);
-        Filter predicateManager = new Filter(predicateName,null);
+        Filter predicateManager = new Filter(predicateName, null);
         for (int i = 0; i < internalList.size(); i++) {
             if (internalList.get(i).isSameFilter(predicateManager)) {
                 return internalList.get(i);
@@ -85,8 +85,8 @@ public class UniqueFilterList implements Iterable<Filter> {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof UniqueFilterList // instanceof handles nulls
-                        && internalList.equals(((UniqueFilterList) other).internalList));
+            || (other instanceof UniqueFilterList // instanceof handles nulls
+            && internalList.equals(((UniqueFilterList) other).internalList));
     }
 
     @Override

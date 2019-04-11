@@ -14,6 +14,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_RACE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SCHOOL;
 import static seedu.address.model.job.JobListName.APPLICANT;
+import static seedu.address.model.job.JobListName.EMPTY;
 import static seedu.address.model.job.JobListName.INTERVIEW;
 import static seedu.address.model.job.JobListName.KIV;
 import static seedu.address.model.job.JobListName.SHORTLIST;
@@ -25,6 +26,7 @@ import java.util.function.Predicate;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.CommandHistory;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.job.JobListName;
 import seedu.address.model.person.Person;
@@ -98,7 +100,7 @@ public class FilterCommand extends Command {
     private final String commandName;
 
     /**
-     * @param commandName                  command name
+     * @param commandName               command name
      * @param listName                  which job list to predicate the person with
      * @param predicatePersonDescriptor details to predicate the person with
      */
@@ -115,38 +117,58 @@ public class FilterCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model, CommandHistory history) {
+    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         UniqueFilterList predicateList;
-
         requireNonNull(model);
+        boolean isAllJobScreen = model.getIsAllJobScreen();
+        boolean hasFilterName = !commandName.equals("");
+        boolean hasListName = listName != EMPTY;
+        if (!isAllJobScreen && !hasFilterName) {
+            throw new CommandException(Messages.MESSAGE_LACK_FILTERNAME);
+        }
+        if (!isAllJobScreen && !hasListName) {
+            throw new CommandException(Messages.MESSAGE_LACK_LISTNAME);
+        }
+        if (isAllJobScreen && hasListName) {
+            throw new CommandException(Messages.MESSAGE_REDUNDANT_LISTNAME);
+        }
+        if (isAllJobScreen && hasFilterName) {
+            throw new CommandException(Messages.MESSAGE_REDUNDANT_FILTERNAME);
+        }
+        int size;
         switch (listName) {
         case APPLICANT:
-            model.addPredicateJobAllApplicants(commandName,predicate);
+            model.addPredicateJobAllApplicants(commandName, predicate);
             model.updateJobAllApplicantsFilteredPersonList();
+            size = model.getJobsList(0).size();
             predicateList = model.getPredicateLists(APPLICANT);
             break;
         case KIV:
-            model.addPredicateJobKiv(commandName,predicate);
+            model.addPredicateJobKiv(commandName, predicate);
             model.updateJobKivFilteredPersonList();
+            size = model.getJobsList(1).size();
             predicateList = model.getPredicateLists(KIV);
             break;
         case INTERVIEW:
-            model.addPredicateJobInterview(commandName,predicate);
+            model.addPredicateJobInterview(commandName, predicate);
             model.updateJobInterviewFilteredPersonList();
+            size = model.getJobsList(2).size();
             predicateList = model.getPredicateLists(INTERVIEW);
             break;
         case SHORTLIST:
-            model.addPredicateJobShortlist(commandName,predicate);
+            model.addPredicateJobShortlist(commandName, predicate);
             model.updateJobShortlistFilteredPersonList();
+            size = model.getJobsList(3).size();
             predicateList = model.getPredicateLists(SHORTLIST);
             break;
         default:
-            model.updateBaseFilteredPersonList(predicate);
-            predicateList = model.getPredicateLists(null);
+            model.updateFilteredPersonList(predicate);
+            size = model.getFilteredPersonList().size();
+            predicateList = null;
         }
         return new CommandResult(
-            String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, model.getFilteredPersonList().size()), listName,
-                predicateList);
+            String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, size), listName,
+            predicateList);
     }
 
     @Override
@@ -274,6 +296,7 @@ public class FilterCommand extends Command {
             }
             return predicator;
         }
+
         public void setPredicateName(String name) {
             this.predicateName = name;
         }

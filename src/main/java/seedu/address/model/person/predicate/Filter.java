@@ -4,19 +4,37 @@ import java.util.function.Predicate;
 
 import seedu.address.model.person.Person;
 
+/**
+ * Represents a filter in the address book job list.
+ */
 public class Filter {
     private String filterName;
-    Predicate<Person> predicate;
+    private Predicate<Person> predicate;
 
-    public Filter(String filterName){
+    /**
+     * Constructs a {@code Filter}.
+     *
+     * @param filterName A valid filter name.
+     */
+    public Filter(String filterName) {
         this.filterName = filterName;
         this.predicate = null;
     }
-    public Filter(String filterName, Predicate<Person> predicate){
+    /**
+     * Constructs a {@code Filter}.
+     *
+     * @param filterName A valid filter name.
+     * @param predicate A valid filter name.
+     */
+    public Filter(String filterName, Predicate<Person> predicate) {
         this.filterName = filterName;
         this.predicate = predicate;
     }
 
+    /**
+     * Returns true if both filters of the same name.
+     * This defines a weaker notion of equality between two filters.
+     */
     public boolean isSameFilter(Filter otherFilter) {
         if (otherFilter == this) {
             return true;
@@ -25,6 +43,7 @@ public class Filter {
         return otherFilter != null
             && otherFilter.getFilterName().equals(this.getFilterName());
     }
+
     public Predicate<Person> getPredicate() {
         return predicate;
     }

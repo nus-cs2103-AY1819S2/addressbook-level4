@@ -312,7 +312,7 @@ Format: `wm MESSAGE`
 
 [NOTE]
 ====
-A watermark can only be added once to an image. 
+A watermark can only be added once to an image.
 ====
 
 Example:
@@ -399,7 +399,7 @@ e.g. `save MyNewImage.png` +
 
 * *Undo* `undo` +
 
-* *WaterMark* `wm MESSAGE` + 
+* *WaterMark* `wm MESSAGE` +
 e.g. `wm FomoFoto`
 
 // end::CommandSummary[]

@@ -2,6 +2,7 @@ package seedu.address.logic;
 
 import java.util.Collections;
 import java.util.Iterator;
+import java.util.Objects;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.deck.Card;
@@ -15,12 +16,14 @@ public class DeckShuffler {
     private Deck deck;
     private Iterator<Card> it;
     private ObservableList<Card> cards;
+    private int itCounter;
 
     DeckShuffler(Deck deck) {
         this.deck = deck;
         Deck shuffledDeck = new Deck(deck);
         cards = shuffledDeck.getCards().internalList;
         shuffleCards();
+        itCounter = 0;
     }
 
     /**
@@ -49,6 +52,7 @@ public class DeckShuffler {
      * Returns a card from the shuffled deck.
      */
     public Card generateCard() {
+        itCounter++;
         if (it.hasNext()) {
             return it.next();
         } else {
@@ -57,4 +61,25 @@ public class DeckShuffler {
         }
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        // short circuit if same object
+        if (obj == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(obj instanceof DeckShuffler)) {
+            return false;
+        }
+        // state check
+        DeckShuffler other = (DeckShuffler) obj;
+        return Objects.equals(deck, other.deck)
+                && itCounter == other.itCounter;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(deck, itCounter);
+    }
 }

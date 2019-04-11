@@ -17,8 +17,8 @@ public class Difficulty {
     }
 
     public Difficulty(int numberOfAttempts, int totalRating) {
-        this.numberOfAttempts = numberOfAttempts;
         this.totalRating = totalRating;
+        this.numberOfAttempts = numberOfAttempts;
     }
 
     /**
@@ -32,7 +32,7 @@ public class Difficulty {
     }
 
     public double getDifficulty() {
-        return numberOfAttempts == 0 ? 0 : totalRating / numberOfAttempts;
+        return numberOfAttempts == 0 ? 0 : (double) totalRating / (double) numberOfAttempts;
     }
 
     public int getTotalRating() {

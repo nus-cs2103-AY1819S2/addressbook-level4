@@ -118,7 +118,7 @@
 
 .cell_huge_label {
     -fx-font-family: "Segoe UI Semibold";
-    -fx-font-size: 24px;
+    -fx-font-size: 20px;
     -fx-text-fill: #ffffff;
 }
 
@@ -126,6 +126,12 @@
     -fx-font-family: "Segoe UI Semibold";
     -fx-font-size: 16px;
     -fx-text-fill: #010504;
+}
+
+.cell_colour_label {
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-size: 16px;
+    -fx-text-fill: #ffeaa7;
 }
 
 .cell_small_label {
@@ -139,6 +145,14 @@
     -fx-font-family: "Segoe UI Semibold";
     -fx-font-size: 20px;
     -fx-text-fill: #ffffff;
+    -fx-wrap-text: true;
+}
+
+.ratingLabel {
+    -fx-padding: 10px;
+    -fx-start-margin: 10px;
+    -fx-text-fill: white;
+    -fx-wrap-text: true;
 }
 
 .stack-pane {
@@ -337,30 +351,49 @@
     -fx-text-fill: white;
 }
 
-#card {
+#id {
+    -fx-alignment: center;
+    -fx-padding: 5px;
+}
 
+
+#question {
+    -fx-padding: 5px;
+    -fx-font-weight: bold;
+    -fx-wrap-text: true;
+}
+
+#answer {
+    -fx-padding: 5px;
+    -fx-wrap-text: true;
+}
+
+
+#statistics {
+    -fx-padding: 5px;
+    -fx-wrap-text: true;
+}
+
+
+
+#sCard {
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.8), 10, 0, 0, 0);
     -fx-border-radius: 10 10 10 10;
     -fx-background-radius: 10 10 10 10;
     -fx-background-color: #223040;
-
 }
 
-
-#card:answer {
-
-
+#sCard:answer {
     -fx-background-color: #ffffff;
-
 }
 
-#question {
+#sQuestion {
     -fx-alignment: center;
-    -fx-padding: 20px;
+    -fx-padding: 30px;
+    -fx-wrap-text: true;
 }
 
-
-#question:answer {
+#sQuestion:answer {
     -fx-text-fill: #223040;
 }
 
@@ -388,37 +421,37 @@
 
 #tags .red {
     -fx-text-fill: black;
-    -fx-background-color: red;
+    -fx-background-color: #e17055;
 }
 
 #tags .yellow {
     -fx-text-fill: black;
-    -fx-background-color: yellow;
+    -fx-background-color: #fdcb6e;
 }
 
 #tags .blue {
-    -fx-text-fill: white;
-    -fx-background-color: skyblue;
+    -fx-text-fill: black;
+    -fx-background-color: #00cec9;
 }
 
 #tags .green {
     -fx-text-fill: black;
-    -fx-background-color: green;
+    -fx-background-color: #00b894;
 }
 
 #tags .grey {
-    -fx-text-fill: white;
-    -fx-background-color: grey;
+    -fx-text-fill: black;
+    -fx-background-color: #b2bec3;
 }
 
 #tags .magenta {
     -fx-text-fill: black;
-    -fx-background-color: magenta;
+    -fx-background-color: #a29bfe;
 }
 
 #tags .pink {
     -fx-text-fill: black;
-    -fx-background-color: pink;
+    -fx-background-color: #fab1a0;
 }
 
 

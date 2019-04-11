@@ -18,7 +18,7 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.deck.Card;
 import seedu.address.model.deck.Deck;
-
+import seedu.address.model.deck.exceptions.EmptyDeckException;
 
 
 /**
@@ -73,7 +73,13 @@ public class ModelManager implements Model {
         viewState = new CardsView(deck);
     }
 
-    public void studyDeck(Deck deck) {
+    /**
+     * Changes view state to show a single card at a time
+     */
+    public void studyDeck(Deck deck) throws EmptyDeckException {
+        if (deck.isEmpty()) {
+            throw new EmptyDeckException("Empty deck cannot be studied");
+        }
         viewState = new StudyView(deck);
     }
 

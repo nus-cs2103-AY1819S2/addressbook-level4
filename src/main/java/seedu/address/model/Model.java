@@ -11,6 +11,7 @@ import seedu.address.model.deck.Card;
 import seedu.address.model.deck.Deck;
 import seedu.address.model.deck.exceptions.DeckImportException;
 import seedu.address.model.deck.exceptions.DuplicateDeckException;
+import seedu.address.model.deck.exceptions.EmptyDeckException;
 
 /**
  * The API of the Model component.
@@ -153,7 +154,7 @@ public interface Model {
     /**
      * Changes view state to show a single card at a time
      */
-    void studyDeck(Deck deck);
+    void studyDeck(Deck deck) throws EmptyDeckException;
 
     void goToDecksView();
 

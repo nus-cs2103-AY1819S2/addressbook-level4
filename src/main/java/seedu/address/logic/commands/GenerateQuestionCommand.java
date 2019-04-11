@@ -10,9 +10,17 @@ import seedu.address.model.Model;
  */
 public class GenerateQuestionCommand extends Command {
 
+    private final int rating;
+    private final StudyView studyView;
+
+    public GenerateQuestionCommand(StudyView studyView, int rating) {
+        this.rating = rating;
+        this.studyView = studyView;
+    }
+
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
-        StudyView studyView = ((StudyView) model.getViewState());
+        studyView.addRating(rating);
         studyView.generateCard();
         studyView.setCurrentStudyState(StudyView.StudyState.QUESTION);
         studyView.updateTextShown();

@@ -4,38 +4,61 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.Region?>
 <HBox xmlns:fx="http://javafx.com/fxml/1" id="studyPane" xmlns="http://javafx.com/javafx/8.0.172-ea">
 
     <?import javafx.scene.layout.VBox?>
     <HBox id="studyPane" xmlns="http://javafx.com/javafx/8.0.172-ea"
           xmlns:fx="http://javafx.com/fxml/1">
 
-        <HBox fx:id="card" maxHeight="300" minHeight="300" minWidth="600">
+        <HBox fx:id="sCard" maxHeight="300" minHeight="300" prefWidth="600" maxWidth="600">
             <children>
-                <Label fx:id="question" prefHeight="300.0" prefWidth="600.0" styleClass="cell_huge_label"/>
+                <Label fx:id="sQuestion" prefHeight="300.0" prefWidth="600.0" styleClass="cell_huge_label"/>
             </children>
         </HBox>
 
-        <VBox fx:id="status">
+        <VBox fx:id="status" minWidth="100" prefWidth="600">
             <HBox>
                 <padding>
                     <Insets bottom="0" left="20" right="20" top="20"/>
                 </padding>
 
                 <children>
-                    <Label fx:id="userAnswerLabel" styleClass="userAnswer_label"/>
+                    <Label fx:id="userAnswerLabel" maxWidth="500" styleClass="userAnswer_label">
+                        <minHeight>
+                            <!-- Ensures that the label text is never truncated -->
+                            <Region fx:constant="USE_PREF_SIZE"/>
+                        </minHeight>
+                        <minWidth>
+                            <!-- Ensures that the label text is never truncated -->
+                            <Region fx:constant="USE_PREF_SIZE"/>
+                        </minWidth>
+                    </Label>
                 </children>
             </HBox>
-
-            <HBox>
+            <VBox maxWidth="400">
                 <padding>
                     <Insets bottom="20" left="20" right="20" top="20"/>
                 </padding>
+                <Region minHeight="10"/>
+                <Label fx:id="rateDifficulty" styleClass="ratingLabel"/>
+                <Region minHeight="10"/>
+                <HBox>
+                    <Label text="1" styleClass="ratingLabel"/><Region minWidth="10" HBox.hgrow="ALWAYS"/>
+                    <Label text="2" styleClass="ratingLabel"/><Region minWidth="10" HBox.hgrow="ALWAYS"/>
+                    <Label text="3" styleClass="ratingLabel"/><Region minWidth="10" HBox.hgrow="ALWAYS"/>
+                    <Label text="4" styleClass="ratingLabel"/><Region minWidth="10" HBox.hgrow="ALWAYS"/>
+                    <Label text="5" styleClass="ratingLabel"/>
+                </HBox>
+                <HBox>
+                    <Label text="Easy Peasy" styleClass="ratingLabel">
+                    <minWidth><Region fx:constant="USE_PREF_SIZE"/></minWidth></Label>
+                    <Region minWidth="10" HBox.hgrow="ALWAYS"/>
+                    <Label text="Very Tough" styleClass="ratingLabel">
+                    <minWidth><Region fx:constant="USE_PREF_SIZE"/></minWidth></Label>
+                </HBox>
 
-                <children>
-                    <Label fx:id="rateDifficulty" styleClass="userAnswer_label"/>
-                </children>
-            </HBox>
+            </VBox>
 
         </VBox>
 

@@ -55,7 +55,7 @@ class JsonAdaptedTag {
             throw new IllegalValueException(SkillsTag.MESSAGE_CONSTRAINTS);
         }
 
-        return new SkillsTag(tagName);
+        return new SkillsTag(tagName, tagType);
     }
 
 }

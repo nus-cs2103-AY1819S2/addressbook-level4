@@ -66,14 +66,6 @@ public class PersonBuilder {
     }
 
     /**
-     * Parses the {@code tags} into a {@code Set<SkillsTag>} and set it to the {@code Person} that we are building.
-     */
-    //public PersonBuilder withTags(String ... tags) {
-     //   this.tags = SampleDataUtil.getTagSet(Arrays.asList(tags), null, null);
-     //   return this;
-    //}
-
-    /**
      * Parses the {@code skills} into a {@code Set<SkillsTag>}, appends any other tags already present
      * and set it to the {@code Person} that we are building.
      */

@@ -99,6 +99,26 @@ public class TypicalPersons {
             .withEmail("hans@example.com")
             .withAddress("chicago ave").build();
 
+    // Persons without tags, used for some tests as a temporary work-around
+    public static final Person JOHN = new PersonBuilder().withName("John Peer")
+            .withAddress("123, Jurong West Ave 6, #08-111")
+            .withEmail("john@example.com")
+            .withPhone("94351253")
+            .withEducation("NUS")
+            .withGpa("3.4").build();
+    public static final Person KATIE = new PersonBuilder().withName("Katie Ming")
+            .withPhone("98765432")
+            .withEmail("katie@example.com")
+            .withEducation("NTU")
+            .withGpa("3.1")
+            .withAddress("311, Clementi Ave 2, #02-25").build();
+    public static final Person LARS = new PersonBuilder().withName("Lars Schaaf")
+            .withPhone("95352563")
+            .withEducation("NTU")
+            .withGpa("3.2")
+            .withEmail("heinz@example.com")
+            .withAddress("wall street").build();
+
     // Manually added - Person's details found in {@code CommandTestUtil}
     public static final Person AMY = new PersonBuilder().withName(VALID_NAME_AMY).withPhone(VALID_PHONE_AMY)
             .withEmail(VALID_EMAIL_AMY).withEducation(VALID_EDUCATION_AMY).withGpa(VALID_GPA_AMY)
@@ -124,5 +144,9 @@ public class TypicalPersons {
 
     public static List<Person> getTypicalPersons() {
         return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
+    }
+
+    public static List<Person> getTypicalPersonsNoTags() {
+        return new ArrayList<>(Arrays.asList(JOHN, KATIE, LARS));
     }
 }

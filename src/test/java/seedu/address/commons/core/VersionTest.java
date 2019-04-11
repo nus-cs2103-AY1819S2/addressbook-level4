@@ -143,7 +143,6 @@ public class VersionTest {
         Version one;
 
         one = new Version(0, 0, 0, false);
-        assertFalse(one.equals(null));
         assertFalse(one.equals(new Object()));
     }
 

@@ -114,7 +114,7 @@ These are commands only available in deck view.
 
 ==== Creating a deck: `add`
 
-**Format**: `add DECK_NAME`
+**Format**: `add n/DECK_NAME`
 
 **Outcome**: Creates a new deck called `DECK_NAME`.
 

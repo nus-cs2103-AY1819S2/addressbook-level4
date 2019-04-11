@@ -1,5 +1,6 @@
 package seedu.address.testutil;
 
+import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.TaskEditCommand.EditTaskDescriptor;
 import seedu.address.model.datetime.DateCustom;
 import seedu.address.model.datetime.TimeCustom;
@@ -81,6 +82,11 @@ public class EditTaskDescriptorBuilder {
      */
     public EditTaskDescriptorBuilder withPriority(String priority) {
         descriptor.setPriority(Priority.returnPriority(priority));
+        return this;
+    }
+
+    public EditTaskDescriptorBuilder withPatientIndex(Index index) {
+        descriptor.setPatientIndex(index);
         return this;
     }
 

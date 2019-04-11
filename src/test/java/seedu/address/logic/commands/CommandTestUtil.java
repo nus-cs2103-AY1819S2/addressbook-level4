@@ -72,13 +72,12 @@ public class CommandTestUtil {
     public static final PatientEditCommand.EditPersonDescriptor DESC_BOB;
     
     //Strings for Task testing
-    public static final String VALID_TITLE_NOPATIENT = "Equipment Cleaning";
+    public static final String VALID_TITLE_NOPATIENT = "Patient Review";
     public static final String VALID_STARTDATE_NOPATIENT = "02-01-2020";
     public static final String VALID_ENDDATE_NOPATIENT = "02-01-2020";
     public static final String VALID_STARTTIME_NOPATIENT = "1400";
     public static final String VALID_ENDTIME_NOPATIENT = "1500";
-    public static final String VALID_PRIORITY_NOPATIENT = "HIGH";
-    public static final String VALID_LINKEDPATIENT_NOPATIENT = null;
+    public static final String VALID_PRIORITY_NOPATIENT = "low";
 
     public static final String VALID_TITLE_WITHPATIENT = "Teeth cleaning for Amy";
     public static final String VALID_STARTDATE_WITHPATIENT = "02-02-2020";

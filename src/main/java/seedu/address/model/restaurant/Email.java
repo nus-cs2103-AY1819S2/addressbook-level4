@@ -27,7 +27,7 @@ public class Email {
     public static final String VALIDATION_REGEX = LOCAL_PART_REGEX + "@"
             + DOMAIN_FIRST_CHARACTER_REGEX + DOMAIN_MIDDLE_REGEX + DOMAIN_LAST_CHARACTER_REGEX;
     private static final String EMAIL_PLACEHOLDER = "No email added";
-
+    private static final String EMPTY_STRING = "";
     public final String value;
 
     /**
@@ -58,14 +58,18 @@ public class Email {
     /**
      * Returns if email is a dummy email
      */
-    public boolean isDummy() {
+    public boolean isDefault() {
         return value.equals(EMAIL_PLACEHOLDER);
     }
 
 
     @Override
     public String toString() {
-        return value;
+        if (this.isDefault()) {
+            return EMPTY_STRING;
+        } else {
+            return value;
+        }
     }
 
     @Override

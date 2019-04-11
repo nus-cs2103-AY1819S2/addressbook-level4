@@ -14,6 +14,7 @@ public class Phone {
             "Phone numbers should only contain numbers, and it should be at least 3 digits long";
     public static final String VALIDATION_REGEX = "\\d{3,}";
     private static final String PHONE_PLACEHOLDER = "No phone added";
+    private static final String EMPTY_STRING = "";
     public final String value;
 
     /**
@@ -43,13 +44,17 @@ public class Phone {
     /**
      * Returns if phone is a dummy phone
      */
-    public boolean isDummy() {
+    public boolean isDefault() {
         return value.equals(PHONE_PLACEHOLDER);
     }
 
     @Override
     public String toString() {
-        return value;
+        if (isDefault()) {
+            return EMPTY_STRING;
+        } else {
+            return value;
+        }
     }
 
     @Override

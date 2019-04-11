@@ -10,7 +10,6 @@ import static seedu.address.testutil.TypicalDecks.getTypicalTopDeck;
 import static seedu.address.testutil.TypicalIndexes.INDEX_EMPTY_DECK;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_DECK;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_DECK;
-import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_DECK;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -54,9 +53,6 @@ public class StudyDeckCommandTest {
     @Test
     public void execute_validIndexUnfilteredList_success() {
         assertExecutionSuccessIndex(INDEX_FIRST_DECK);
-        expectedModelDeck.goToDecksView();
-        modelDeck.goToDecksView();
-        assertExecutionSuccessIndex(INDEX_THIRD_DECK);
     }
 
     @Test

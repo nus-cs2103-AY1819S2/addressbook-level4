@@ -53,8 +53,8 @@ public class TypicalDecks {
     }
 
     public static List<Deck> getTypicalDecks() {
-        return new ArrayList<>(Arrays.asList(DECK_WITH_CARDS, DECK_A, DECK_D));
-        //, DECK_B, DECK_C, DECK_E, THERE, NOTHING, HOLDING));
+        return new ArrayList<>(Arrays.asList(DECK_WITH_CARDS, DECK_A));
+        //, DECK_B, DECK_C, DECK_D, DECK_E, THERE, NOTHING, HOLDING));
     }
 }
 

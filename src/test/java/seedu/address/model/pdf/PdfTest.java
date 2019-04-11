@@ -2,7 +2,7 @@ package seedu.address.model.pdf;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.DEADLINE_JSON_COMPLETE;
+import static seedu.address.logic.commands.CommandTestUtil.DEADLINE_JSON_DONE;
 import static seedu.address.logic.commands.CommandTestUtil.DIR_1_DUPLICATE_VALID;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_2_VALID;
 import static seedu.address.logic.commands.CommandTestUtil.SIZE_3_VALID;
@@ -54,7 +54,7 @@ public class PdfTest {
         assertTrue(SAMPLE_PDF_1.isSamePdf(comparisonPdf));
 
         // same name, same email, different attributes -> returns true
-        comparisonPdf = new PdfBuilder(SAMPLE_PDF_2).withDeadline(DEADLINE_JSON_COMPLETE).build();
+        comparisonPdf = new PdfBuilder(SAMPLE_PDF_2).withDeadline(DEADLINE_JSON_DONE).build();
         assertTrue(SAMPLE_PDF_2.isSamePdf(comparisonPdf));
     }
 
@@ -100,7 +100,7 @@ public class PdfTest {
         assertFalse(SAMPLE_PDF_1.equals(editedPdf));
 
         // different deaedline -> returns false
-        editedPdf = new PdfBuilder(SAMPLE_PDF_1).withDeadline(DEADLINE_JSON_COMPLETE).build();
+        editedPdf = new PdfBuilder(SAMPLE_PDF_1).withDeadline(DEADLINE_JSON_DONE).build();
         assertFalse(SAMPLE_PDF_1.equals(editedPdf));
 
         // different tags -> returns false

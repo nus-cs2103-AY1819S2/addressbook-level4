@@ -4,7 +4,7 @@ import static seedu.address.logic.commands.CommandTestUtil.DEADLINE_DESC_INVALID
 import static seedu.address.logic.commands.CommandTestUtil.DEADLINE_DESC_INVALID_FORMAT;
 import static seedu.address.logic.commands.CommandTestUtil.DEADLINE_DESC_INVALID_MISSING_STATUS;
 import static seedu.address.logic.commands.CommandTestUtil.DEADLINE_DESC_INVALID_WRONG_STATUS;
-import static seedu.address.logic.commands.CommandTestUtil.DEADLINE_JSON_COMPLETE;
+import static seedu.address.logic.commands.CommandTestUtil.DEADLINE_JSON_DONE;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PDF;
 import static seedu.address.testutil.TypicalPdfs.SAMPLE_PDF_1;
@@ -39,10 +39,10 @@ public class DeadlineCommandTest {
     public void constructor_invalidIndex_throwsIndexOutOfBoundsException() {
         thrown.expect(IndexOutOfBoundsException.class);
         new DeadlineCommand(Index.fromZeroBased(model.getFilteredPdfList().size() + 1),
-                new Deadline(DEADLINE_JSON_COMPLETE));
+                new Deadline(DEADLINE_JSON_DONE));
 
         thrown.expect(IndexOutOfBoundsException.class);
-        new DeadlineCommand(Index.fromZeroBased(-1), new Deadline(DEADLINE_JSON_COMPLETE));
+        new DeadlineCommand(Index.fromZeroBased(-1), new Deadline(DEADLINE_JSON_DONE));
     }
 
     @Test
@@ -77,10 +77,10 @@ public class DeadlineCommandTest {
 
     @Test
     public void execute_onlyCompulsoryFieldSpecifiedUnfilteredList_success() {
-        Deadline newDeadline = new Deadline(DEADLINE_JSON_COMPLETE);
+        Deadline newDeadline = new Deadline(DEADLINE_JSON_DONE);
 
         Pdf pdfToEdit = SAMPLE_PDF_1;
-        Pdf editedPdf = new PdfBuilder(pdfToEdit).withDeadline(DEADLINE_JSON_COMPLETE).build();
+        Pdf editedPdf = new PdfBuilder(pdfToEdit).withDeadline(DEADLINE_JSON_DONE).build();
         DeadlineCommand deadlineCommand = new DeadlineCommand(INDEX_FIRST_PDF, newDeadline);
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PDF_SUCCESS, editedPdf);

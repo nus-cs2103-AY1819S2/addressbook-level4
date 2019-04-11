@@ -39,6 +39,7 @@ If you’re confident in your computer set-up, jump to <<quick-start-guide>> to 
 Before downloading and installing TeethHub, you will need the following programs installed:
 
 * Java Runtime Environment version *9* or later.
+* Adobe Acrobat Reader DC or any PDF reader if you wish to save or export your TeethHub data to PDF.
 
 Once you have it installed, you can now proceed to <<quick-start-guide>>!
 

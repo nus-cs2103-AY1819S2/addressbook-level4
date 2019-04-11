@@ -12,7 +12,7 @@
 ---
 == Overview
 
-This document serves to highlight my contributions to *TravelBuddy*, a travel log application that lets users efficiently manage their travel records, i.e. the places that they have visited. Additional features built into TravelBuddy allows them to search through the records, attach photos and view statistical models. This project is part of the CS2103 Software Engineering module in NUS, in which link:https://cs2103-ay1819s2-w11-3.github.io/main/AboutUs.html[my team and I] were tasked to morph a given link:https://se-education.org/addressbook-level4/[addressbook] product into a new product -- TravelBuddy. The complete source code for TravelBuddy is available on link:{repoURL}[GitHub].
+This document serves to highlight my contributions to *TravelBuddy*, a travel log application that lets users efficiently manage their travel records, i.e. the places that they have visited. Additional features built into TravelBuddy allows them to search through the records, attach photos and view statistical models. This project is part of the CS2103 Software Engineering module in NUS, in which link:https://cs2103-ay1819s2-w11-3.github.io/main/AboutUs.html[my team and I] were tasked to morph a given link:https://se-education.org/addressbook-level4/[address book] product into a new product -- TravelBuddy. The complete source code for TravelBuddy is available on link:{repoURL}[GitHub].
 
 My role was to design the chart feature. The following sections describes these enhancements in more detail, as well as the relevant sections I have added to the user and developer guides in relation to these enhancements.
 
@@ -36,11 +36,11 @@ The enhancement required an in-depth analysis of various design alternatives. Th
 
 *Credits:* link:https://github.com/google/gson[Gson], a third-party library, was used in the enhancement of this product to convert Java Objects into JSON and back.
 
-*Code contributed to major enhancement*: [link:{repoURL}/pulls?utf8=%E2%9C%93&q=is%3Apr+author%3Achung-ming+-label%3Atype.MinorEnhancement+-label%3Atype.Testing[Functional code]] [link:{repoURL}/pulls?utf8=%E2%9C%93&q=is%3Apr+author%3Achung-ming+label%3Atype.Testing[Test code]]
+*Code contributed to major enhancement*: [link:https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#search=chung-ming&sort=displayName&since=2019-02-10&until=2019-04-10&timeframe=day&reverse=false&repoSort=true[RepoSense]] [link:{repoURL}/pulls?utf8=%E2%9C%93&q=is%3Apr+author%3Achung-ming+-label%3Atype.MinorEnhancement+-label%3Atype.Testing[Functional code]] [link:{repoURL}/pulls?utf8=%E2%9C%93&q=is%3Apr+author%3Achung-ming+label%3Atype.Testing[Test code]]
 
 === Minor Enhancement
 
-The minor enhancement I did was to convert the `add` command's Email parameter in the previous addressbook product to a Description parameter in the current product.
+The minor enhancement I did was to convert the `add` command's Email parameter in the previous address book product to a Description parameter in the current product.
 
 *Code contributed to minor enhancement*: [link:{repoURL}/pulls?utf8=%E2%9C%93&q=is%3Apr+author%3Achung-ming+label%3Atype.MinorEnhancement[Functional code]]
 
@@ -74,7 +74,7 @@ https://github.com/nus-cs2103-AY1819S2/pe-dry-run/issues/968[7],
 https://github.com/nus-cs2103-AY1819S2/pe-dry-run/issues/18[8])
 
 |*Tools*
-|- Integrated a third party library (Gson) to the project ({repoURL}/pull/80[#80]) +
+|- Integrated a third-party library (Gson) to the project ({repoURL}/pull/80[#80]) +
 - Integrated a new GitHub plugin (Codacy) to the team repo ({repoURL}/pull/113[#113])
 
 |=======================================================================

@@ -89,7 +89,10 @@ public class CurrentEditManager implements CurrentEdit {
     }
 
     /**
-     * Overwrites or creates an {@code image} named {@code filename} in temp folder.
+     * Saves the image into tempFolder.
+     *
+     * @param image is the new image.
+     * @param filename is the name of the new image file.
      */
     public void saveIntoTempFolder(String filename, Image image) {
         try {
@@ -103,6 +106,9 @@ public class CurrentEditManager implements CurrentEdit {
         }
     }
 
+    /**
+     * Returns the instance of the tempImage.
+     */
     public Image getTempImage() {
         return tempImage;
     }

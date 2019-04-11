@@ -148,13 +148,13 @@ public class Album {
     }
 
     /* @@author*/
-    /* @@author itszp*/
 
+    /* @@author itszp*/
     /**
      * Check if file exists in assets folder.
      * Returns true if file name exists
      *
-     * @param args String of file name.
+     * @param args is the string of the file name.
      */
     public boolean checkFileExist(String args) {
         File file = new File(assetsFilepath + args);
@@ -166,14 +166,14 @@ public class Album {
      * Uses assetsFilePath to retrieve file as specified by args.
      * Returns an Image object.
      *
-     * @param args string of file name.
+     * @param args is the string of the file name.
      */
     public Image retrieveImage(String args) {
         return new Image(assetsFilepath + args);
     }
 
     /**
-     * Retrieves a list of all filenames in assets folder. Returns the list as String[].
+     * Retrieves all the filenames in assets folder. Returns them in a string array.
      */
     public String[] getFileNames() {
         File file = new File(assetsFilepath);
@@ -181,7 +181,10 @@ public class Album {
     }
 
     /**
-     * Saves tempImage to assetsFolder as {@code name} or original name if not specified.
+     * Saves the image to assetsFolder.
+     *
+     * @param image is the new image.
+     * @param name is the name of the new image file.
      */
     public void saveToAssets(Image image, String name) {
         try {
@@ -194,6 +197,7 @@ public class Album {
             System.out.println(e.toString());
         }
     }
+    /* @@author*/
 
     /**
      *
@@ -209,5 +213,4 @@ public class Album {
         }
         return tempImage;
     }
-    /* @@author*/
 }

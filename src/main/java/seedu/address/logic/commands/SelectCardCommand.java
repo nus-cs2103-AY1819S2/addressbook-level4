@@ -17,6 +17,10 @@ import seedu.address.model.deck.Card;
  */
 public class SelectCardCommand extends SelectCommand {
 
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+            + ": Selects the card identified by the index number used in the displayed card list.\n"
+            + "Parameters: INDEX (must be a positive integer)\n" + "Example: " + COMMAND_WORD + " 1";
+
     private CardsView cardsView;
 
     public SelectCardCommand(CardsView cardsView, Index targetIndex) {

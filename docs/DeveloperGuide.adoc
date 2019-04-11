@@ -483,7 +483,7 @@ As TeethHub already has a built-in auto-load when starting the program, the impl
 4. OpenCommand checks for if the requested file is a ".json" file, if the file exists, if it is a file, or if it can be read.
 5. OpenCommand calls the existing readAddressBook().
 
-image::OpenCommandSequenceDiagram.png[width="800"]
+image::OpenCommandSequenceDiagram.jpg[width="800"]
 
 ==== Design Considerations
 

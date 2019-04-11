@@ -18,9 +18,11 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import java.nio.file.Paths;
+
 import seedu.address.testutil.PdfBuilder;
 
-import java.nio.file.Paths;
+
 
 public class PdfTest {
     @Rule

@@ -431,6 +431,11 @@ public class AddCommandTest {
         public ObservableList<Job> getFilteredJobList() {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public Job getActiveJob() {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
     /**

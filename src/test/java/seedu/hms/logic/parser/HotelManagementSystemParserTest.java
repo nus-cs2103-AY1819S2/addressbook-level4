@@ -31,8 +31,10 @@ import seedu.hms.logic.commands.HelpCommand;
 import seedu.hms.logic.commands.HistoryCommand;
 import seedu.hms.logic.commands.ListBookingCommand;
 import seedu.hms.logic.commands.ListCustomerCommand;
+import seedu.hms.logic.commands.ListReservationCommand;
 import seedu.hms.logic.commands.RedoCommand;
 import seedu.hms.logic.commands.SelectCustomerCommand;
+import seedu.hms.logic.commands.SwitchTabCommand;
 import seedu.hms.logic.commands.UndoCommand;
 import seedu.hms.logic.parser.exceptions.ParseException;
 import seedu.hms.model.BillManager;
@@ -343,6 +345,14 @@ public class HotelManagementSystemParserTest {
     }
 
     @Test
+    public void parseCommandListReservations() throws Exception {
+        assertTrue(parser.parseCommand(ListReservationCommand.COMMAND_WORD, new CustomerManager(), new BookingManager(),
+            new ReservationManager(), new BillManager()) instanceof ListReservationCommand);
+        assertTrue(parser.parseCommand(ListReservationCommand.COMMAND_WORD + " 3", new CustomerManager(),
+            new BookingManager(), new ReservationManager(), new BillManager()) instanceof ListReservationCommand);
+    }
+
+    @Test
     public void parseCommandListCustomersAlias() throws Exception {
         assertTrue(parser.parseCommand(ListCustomerCommand.COMMAND_ALIAS, new CustomerManager(), new BookingManager(),
             new ReservationManager(), new BillManager()) instanceof ListCustomerCommand);
@@ -360,11 +370,35 @@ public class HotelManagementSystemParserTest {
     }
 
     @Test
+    public void parseCommandListReservationsAlias() throws Exception {
+        assertTrue(parser.parseCommand(ListReservationCommand.COMMAND_ALIAS, new CustomerManager(),
+            new BookingManager(), new ReservationManager(), new BillManager()) instanceof ListReservationCommand);
+        assertTrue(parser.parseCommand(ListReservationCommand.COMMAND_WORD + " 3", new CustomerManager(),
+            new BookingManager(), new ReservationManager(), new BillManager()) instanceof ListReservationCommand);
+    }
+
+    @Test
     public void parseCommand_select() throws Exception {
         SelectCustomerCommand command = (SelectCustomerCommand) parser.parseCommand(
             SelectCustomerCommand.COMMAND_WORD + " " + INDEX_FIRST_CUSTOMER.getOneBased(),
             new CustomerManager(), new BookingManager(), new ReservationManager(), new BillManager());
         assertEquals(new SelectCustomerCommand(INDEX_FIRST_CUSTOMER), command);
+    }
+
+    @Test
+    public void parseCommandSwitchTab() throws Exception {
+        SwitchTabCommand command = (SwitchTabCommand) parser.parseCommand(
+            SwitchTabCommand.COMMAND_WORD + " " + "1 2",
+            new CustomerManager(), new BookingManager(), new ReservationManager(), new BillManager());
+        assertEquals(new SwitchTabCommand(1, 1), command);
+    }
+
+    @Test
+    public void parseCommandSwitchTabAlias() throws Exception {
+        SwitchTabCommand command = (SwitchTabCommand) parser.parseCommand(
+            SwitchTabCommand.COMMAND_ALIAS + " " + "1 2",
+            new CustomerManager(), new BookingManager(), new ReservationManager(), new BillManager());
+        assertEquals(new SwitchTabCommand(1, 1), command);
     }
 
     @Test

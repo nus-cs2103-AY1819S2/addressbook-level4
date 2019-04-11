@@ -269,7 +269,7 @@ public class AddCommandSystemTest extends HotelManagementSystemSystemTest {
 
 
     /**
-     * assertCommandFailure
+     * assertComman
      *
      * @param command
      * @param expectedResultMessage

@@ -49,15 +49,18 @@ public class StorageManager implements Storage {
     @Override
     public void readCardFolders(List<ReadOnlyCardFolder> readFolders) throws Exception {
         Exception exception = null;
+        List<CardFolderStorage> unavailableCardFolderStorages = new ArrayList<>();
         for (CardFolderStorage cardFolderStorage : cardFolderStorageList) {
             try {
                 Optional<ReadOnlyCardFolder> cardFolder = readCardFolder(cardFolderStorage);
                 cardFolder.ifPresent(readFolders::add);
             } catch (DataConversionException | IOException e) {
                 exception = e;
+                unavailableCardFolderStorages.add(cardFolderStorage);
             }
         }
         if (exception != null) {
+            cardFolderStorageList.removeAll(unavailableCardFolderStorages);
             throw exception;
         }
     }
@@ -69,7 +72,7 @@ public class StorageManager implements Storage {
     public Optional<ReadOnlyCardFolder> readCardFolder(CardFolderStorage cardFolderStorage)
             throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + cardFolderStorage.getcardFolderFilesPath());
-        return cardFolderStorage.readCardFolder(cardFolderStorage.getcardFolderFilesPath());
+        return cardFolderStorage.readCardFolder();
     }
 
     /**
@@ -101,16 +104,22 @@ public class StorageManager implements Storage {
     }
 
     /**
-     * Deletes every file at the specified {@code path}
-     * If {@code path} is a file, only the file will be deleted. If {@code path} is a folder, all files inside
-     * the folder (but not the folder itself) will be deleted.
+     * Deletes every folder data file at the specified {@code path}
+     * If {@code path} is a folder data file, only the file will be deleted.
+     * If {@code path} is a folder, all folder data files inside the folder (but not the folder itself) will be deleted.
      */
     private void clearDirectory(Path path) throws IOException {
+        // Obtain all files in directory
         List<Path> pathsToDelete = Files.walk(path)
                 .filter(Files::isRegularFile)
                 .collect(Collectors.toList());
+
+        // Process each file
         for (Path pathToDelete : pathsToDelete) {
-            Files.deleteIfExists(pathToDelete);
+            // Delete if file is indeed a folder data file
+            if (JsonCardFolderStorage.isCardFolderStorage(pathToDelete)) {
+                Files.deleteIfExists(pathToDelete);
+            }
         }
     }
 }

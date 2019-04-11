@@ -161,7 +161,7 @@ image::UiClassDiagram.png[width="800"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `Map`, `StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
@@ -275,7 +275,7 @@ The method `copy2dArray` copies the `map` parameter passed in to the internal `c
 Below is the code snippet for the `copy2dArray` method.
 [source,java]
 ----
-include::../src/main/java/seedu/address/model/MapGrid.java[lines=118..124]
+include::../src/main/java/seedu/address/model/MapGrid.java[lines=92..98]
 ----
 
 The `copy2dArray` method creates a new `Cell` object for each of the input `Cell` objects.
@@ -283,14 +283,14 @@ The copying is done using a constructor in `Cell` that takes in a parameter `Cel
 This constructor copies the private attributes of the given `Cell` parameter.
 
 {empty} +
-The following sequence diagram shows how a map is initialised:
+The following sequence diagram shows what happens when the initialise map command is used.:
 
 image::InitialiseMapCommandSequenceDiagram.png[width=800]
 
 {empty} +
 
 ==== Design Considerations
-===== Aspect: How initialise map works
+===== Aspect: How the maps are initialised
 * **Alternative 1 (current choice):** `MapGrid` will have an initialise method that takes in a 2D array of `Cell` objects.
 The initialise method in `MapGrid` will then do a deep copy of the passed in 2D array to initialise the internal 2D array of `Cell`.
 
@@ -322,6 +322,8 @@ Simpler implementation means the likelihood of bugs being introduced is less whe
 
 {empty} +
 
+// tag::ship[]
+
 === Battleship Feature
 ==== Current Implementation
 A battleship is a basic class representing a battleship that can be placed on the map grid. The length of the battleship varies, depending on the type of battleship. There are three types of battleships: +
@@ -341,10 +343,13 @@ The user can tag a battleship using a `t/[TAG]` parameter in the `put` command. 
 [NOTE]
 The head of a battleship refers to the top-most and left-most cell of the battleship. When coordinates are specified in the `put` command, it specifies the coordinates of the head of the battleship, as shown in the figure below.
 
-image:BattleshipHeadExample.png[width=800]
+.The coordinates of the battleship head are the top-most and left-most.
+image::BattleshipHeadExample.png[width=800]
+
 
 .The coordinates of the `put` command refer to the coordinates of the battleship head.
-image:BattleshipHeadExample2.png[width=800]
+
+image::BattleshipHeadExample2.png[width=800]
 
 The following operations are called when the `put` command is called.
 
@@ -410,23 +415,25 @@ image::ListShipSequenceDiagram.png[width=1499][height=2249]
 
 ==== Design Considerations
 ===== Aspect: How a battleship is placed on the map
-* **Alternative 1 (current choice):** +
+* **Current choice:** +
  The same `Battleship` object is put in multiple cells. Each cell contains a reference to the same `Battleship` object. When a battleship on the `Cell` needs to be modified, the `Battleship` attribute in the `Cell` is accessed.
 ** Pros: This allows any cell that is hit to access the same `Battleship` object without having to separately find the `Battleship` object.
 ** Cons: Difficult to keep track of each `Battleship` position.
-* **Alternative 2:** +
+* **Alternative:** +
 Have two separate `Battleship` and `BattleshipPart` objects. The `BattleshipPart` object represents the "body" of the `Battleship` and contains an attribute that points to the `Battleship`. When a battleship on the `Cell` needs to be modified, the `BattleshipPart` is accessed, which then accesses the main `Battleship` object.
 ** Pros: Clearer separation between the "body" of the Battleship and the Battleship itself.
 ** Cons: Difficult to handle hit on the cell.
 
 ===== Aspect: Data structure to record battleships in player
-* **Alternative 1 (current choice):** +
+* **Current choice:** +
 `ArrayList` of `FleetEntry`, where `FleetEntry` contains a reference to the `Battleship`, its `Orientation` and `Coordinates` of the head. The `FleetEntry` subclass exists in `Fleet`. Whenever a `Fleet` method is called, it accesses the `ArrayList` of `FleetEntry` to obtain information about the `Battleship` and its position on the `MapGrid`.
 ** Pros: Can identify `Battleship` by position.
 ** Cons: Harder to implement.
-* **Alternative 2:** `ArrayList` of `Battleship`.
+* **Alternative:** `ArrayList` of `Battleship`.
 ** Pros: Easier to implement and provides a cleaner design.
 ** Cons: Harder check position of `Battleship` on the map grid. In order to do so, a separate data structure has to be initialised to store the coordinates and orientation of the battleship. This data structure then has to be aligned with the original `ArrayList` that stores the battleship.
+
+// end::ship[]
 
 // tag::battle[]
 === Battle Feature
@@ -533,55 +540,101 @@ Thus, its behaviour will be different for every game session.__
 // tag::stats[]
 === Statistics Feature
 ==== Current Implementation
-The `stats` feature allows users to view their current gameplay information. This information will be displayed in a pop-up window and will include: Number of Attacks Made, Number of Successful Hits, Number of Misses, Number of Enemy Ships Destroyed and Accuracy of Shots made.
-This feature stems from a central abstract class that is extended to for a player. It is initialized with the main components upon the start of the application and is subsequently passed down as a parameter to the relevant methods which will invoke the corresponding updating methods to the statistical information.
+The statistics feature allows users to view their current gameplay information. This information will be displayed in a
+pop-up window that includes: Number of Attacks Made, Number of Successful Hits, Number of Misses and Number of Enemy Ships
+ Destroyed. The statistics command can be called at any juncture of the game.
+
+Upon a successful win game, the statistics feature also implements a save command that automatically saves the
+statistical data into the game's storage. At the same time, the command will retrieve the statistical data from the
+previous game and perform a comparison of game data.
 
 The following operations are invoked upon the calling of the `stats` command.
 
-** `getAttacksMade()` - Returns the number of attacks made by the User
-** `getMovesLeft()` - Returns the remaining number of moves left for the User
-** `getHitCount()` - Returns the number of successful hit on enemy ships
-** `getMissCount()` Returns the number of misses made
-** `getEnemyShipsDestroyed()` Returns the number of Enemy Ships Destroyed by the player
-** `getAccuracy()` Returns the current Hit-Miss Ratio of the User based on the game so far
+** `getAttacksMade()` - Returns the number of attacks made by the User.
+** `getMovesLeft()` - Returns the remaining number of moves left for the User.
+** `getHitCount()` - Returns the number of successful hit on enemy ships.
+** `getMissCount()` Returns the number of misses made.
+** `getEnemyShipsDestroyed()` Returns the number of Enemy Ships Destroyed by the player.
+** `getAccuracy()` Returns the current Hit-Miss Ratio of the User based on the game so far.
+** `generateData()` Formats the current statistical data into a json serializable format.
+
+==== Display Statistics
 
 Given below is an example usage scenario and how the `stats` command behaves at each step.
 
 Step 1. The User initializes the game with the `init 8` which will create a 8x8 map.
 
-! The Map can be initialized to any valid size (This is just a sample scenario)
+[Note]
+The Map can be initialized to any valid size (This is just a sample scenario)
 
-Step 2. Put the ships accordingly...
+Step 2. Put the ships onto the grid via the `put` ship command.
 
 Step 3. Input `stats` into the command-line and press enter to obtain the current statistical data.
 
+Inputting `stats` :
+
 image::inputStatsCommandSS.png[width=250]
-! Note, there should not be any valid data at the moment as the game as not started.
-! Include Screenshot explaining pop-up window and lack of data
+
+Pop-up window for `stats` :
 
 image::StatsWindowSS.png[width=600]
-Step 4. Now proceed with the game and perform an attack ....
 
-Step 5. Invoke the `stats` command again to view the updated statistics
+There should not be any valid data at the moment as the game as not started.
+
+Step 4. Now proceed with the game and perform an attack. Input `attack a1`.
+
+Step 5. Invoke the `stats` command again to view the updated statistics of the attack result.
 
 image::StatsWindowUpdatedSS.PNG[width=400]
+
+Besides the pop-up window, the data is also captured in the command-line result box.
+
+image::StatsCommandBox.PNG[width=400]
+
+End of Example Usage Scenario
 
 The following sequence diagram summarizes what happens when a User invokes the `stats` command.
 
 image::StatsSequenceDiagram.PNG[width=800]
 
-==== Output Statistical Data
-Besides the pop-up window, the data is also captured in the command-line result box.
+==== Save and Compare
+Given below is an example usage scenario of the automatic save and compare feature.
 
-image::StatsCommandBox.PNG[width=400]
+1. Upon winning a game, a user will be presented with the following screen.
+
+image::StatsWinScreen.png[width=650]
+Notice the displayed 'Statistics Analysis' section that displays a comparison of the player's accuracy in the current game and
+the previous game.
+
+2. By inputting `init 6` and press enter. The game will be restarted with a new map.
+
+3. Next, input the command `stats` to observe how the previous statistics data has also been cleared in preparation for the
+new game.
+
+End of Example Usage Scenario.
+
+The following sequence diagram summarizes what happens at the end of a game and an automatic save and comparison is
+performed.
+
+<To Include Sequence Diagram>
 
 ==== Design Considerations
-* **Alternative 1 (current choice):** Statistics class will have an initialise method that with a set of default configuration that are used by any Statistics Variant.
-** Pros: The underlying variables and values in Statistics is better protected from modification.
-** Cons: It does not accommodate changes in default settings.
-* **Alternative 2:** Statistics is stored entirely within StatsCommands
-** Pros: Easy to code and less lines of code.
-** Cons: Does not abide by Single Responsibility Principle as the `StatsCommand` will also contain filtering and analysis of data.
+* **Alternative 1:** The methods that are responsible for incrementing the relevant game data is placed
+in whichever command is required to be tracked. This meant that there would be a method call to the statistics class
+from within every method itself.
+** Pros: The methods are clearly visible within each command to be tracked and as a developer I can understand when each
+command is being tracked.
+** Cons: This implementation violates the ... principle (Duplicate code) and while the behaviour is unaltered, it is not
+good programming practice.
+* **Alternative 2:** The method responsible for incrementing the statistical data is placed only at the Command Result class.
+** Pros: The implementation abides by the ... principle (no duplicate code) and contains less dependencies on the respective
+class components.
+** Cons: This would mean that the method will have to filter for the corresponding commands only and perform the related
+         methods accordingly. Does not abide by Single Responsibility Principle as the `StatsCommand` will also contain
+         filtering and analysis of data
+** Chosen: Alternative 2. Even though the method violates the Single Responsibility Principle, this can be subverted by
+performing the analysis of data in the Storage component instead. By implementing the method calls at a central Command
+Result, will make ... more modular... less dependencies especially when working with other components..(Edit)
 // tag::stats[]
 
 === Logging
@@ -844,6 +897,8 @@ _{More to be added}_
 
 (For all use cases below, the *System* is the `Battleship` and the *Actor* is the `user`, unless specified otherwise)
 
+// tag::mapuse[]
+
 [discrete]
 === Use case: Initialise Maps
 
@@ -863,6 +918,8 @@ Use case ends.
 ** 2a1. Battleship shows an error message
 +
 Use case resumes at step 1.
+
+// end::mapuse[]
 
 === Use case: Put Battleship
 
@@ -1002,6 +1059,8 @@ These instructions only provide a starting point for testers to work on; testers
 
 _{ more test cases ... }_
 
+// tag::maptest[]
+
 === Initialising the maps
 . Initialising the maps after launching the game
 
@@ -1012,6 +1071,8 @@ _{ more test cases ... }_
    Error message will be displayed in the result display box.
 .. Other incorrect initialise commands to try: `init`, `init x` (where x is smaller or larger than the specified minimum or maximum map size respectively). +
    Expected: No map will be displayed if this is the first command ran. Otherwise, no changes will be made to the displayed map.
+
+// end::maptest[]
 
 === Putting a ship
 

@@ -12,11 +12,11 @@ public class AttackDestroyedShip extends AttackResult {
     public AttackDestroyedShip(Player attacker, Player target, Coordinates cell, String destroyedShipName) {
         super(attacker, target, cell);
         this.destroyedShipName = destroyedShipName;
-    }
 
-    @Override
-    public boolean isHit() {
-        return true;
+        succeeds = true;
+        hitsShip = true;
+        destroysShip = true;
+        winsGame = false;
     }
 
     @Override

@@ -7,22 +7,10 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.model.cell.Address;
 import seedu.address.model.cell.Coordinates;
 import seedu.address.testutil.Assert;
 
 public class CoordinatesTest {
-
-    @Test
-    public void constructor_null_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class, () -> new Address(null));
-    }
-
-    @Test
-    public void constructor_invalidAddress_throwsIllegalArgumentException() {
-        String invalidAddress = "";
-        Assert.assertThrows(IllegalArgumentException.class, () -> new Address(invalidAddress));
-    }
 
     @Test
     public void isValidCoordinates() {
@@ -33,8 +21,10 @@ public class CoordinatesTest {
         assertFalse(Coordinates.isValidCoordinates("")); // empty string
         assertFalse(Coordinates.isValidCoordinates(" ")); // spaces only
         assertFalse(Coordinates.isValidCoordinates("*9")); // symbols
-        assertFalse(Coordinates.isValidCoordinates("z9")); // out of bounds row
-        assertFalse(Coordinates.isValidCoordinates("a0")); // out of bounds column
+        assertFalse(Coordinates.isValidCoordinates("9")); // single digit
+        assertFalse(Coordinates.isValidCoordinates("z")); // single alphabet
+        assertFalse(Coordinates.isValidCoordinates("a0")); // invalid column
+        assertFalse(Coordinates.isValidCoordinates("00")); // double digits
 
         // valid addresses
         assertTrue(Coordinates.isValidCoordinates("a1")); // starting coordinate

@@ -13,6 +13,11 @@ public abstract class AttackResult {
     protected Player attacker;
     protected Player target;
     protected Coordinates coords;
+    // refactoring the way of handling attributes to enable a declarative style
+    protected boolean succeeds;
+    protected boolean hitsShip;
+    protected boolean destroysShip;
+    protected boolean winsGame;
 
     protected AttackResult(Player attacker, Player target, Coordinates coords) {
         this.attacker = attacker;
@@ -21,31 +26,33 @@ public abstract class AttackResult {
     }
 
     /**
-     * Returns the Player object of the attacker.
+     * Checks if this AttackResult actually succeeds in hitting a cell
      */
-    public Player getAttacker() {
-        return attacker;
-    }
-
-    /**
-     * Returns the Player object of the attacked.
-     */
-    public Player getTarget() {
-        return target;
-    }
-
-    /**
-     * Returns the coordinate of the cell which was attacked.
-     */
-    public Coordinates getCoords() {
-        return coords;
+    public final boolean isSuccessful() {
+        return succeeds;
     }
 
     /**
      * Checks if this AttackResult is a hit or a miss
      * (guess they never miss, huh?)
      */
-    public abstract boolean isHit();
+    public final boolean isHit() {
+        return hitsShip;
+    }
+
+    /**
+     * Checks if this AttackResult is of the destruction of a ship
+     */
+    public final boolean isDestroy() {
+        return destroysShip;
+    }
+
+    /**
+     * Checks if this AttackResult is of a winning attack
+     */
+    public final boolean isWin() {
+        return winsGame;
+    }
 
     public Status getStatus() {
         return attacker.getMapGrid().getCellStatus(coords);

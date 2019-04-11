@@ -273,7 +273,7 @@ _(See Graphical User Interface Introduction (GUI) if you are
 unsure of the elements of the GUI):_
 
 .Example of `show` command
-image::show_example.png[]
+image::show_example.png[width ="300"]
 ****
 
 [NOTE]

@@ -12,6 +12,7 @@ import java.util.function.Predicate;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import seedu.address.model.person.exceptions.DuplicateDoctorException;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 
@@ -80,7 +81,7 @@ public class UniqueDoctorList implements Iterable<Doctor> {
         }
 
         if (!target.isSameDoctor(editedDoctor) && contains(editedDoctor)) {
-            throw new DuplicatePersonException();
+            throw new DuplicateDoctorException();
         }
 
         internalList.set(index, editedDoctor);

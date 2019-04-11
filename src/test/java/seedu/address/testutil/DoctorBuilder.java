@@ -20,17 +20,16 @@ import seedu.address.model.util.SampleDataUtil;
  */
 public class DoctorBuilder {
 
-    public static final String DEFAULT_NAME = "Alvina Ong";
-    public static final String DEFAULT_PHONE = "85355255";
-    public static final String DEFAULT_GENDER = "F";
-    public static final String DEFAULT_YEAR = "21";
+    public static final String DEFAULT_NAME = "Zhang Jie";
+    public static final String DEFAULT_PHONE = "88734584";
+    public static final String DEFAULT_GENDER = "M";
+    public static final String DEFAULT_YEAR = "10";
 
     private Name name;
     private Phone phone;
     private Gender gender;
     private Year year;
     private Set<Specialisation> specialisations;
-    private List<Appointment> appointments;
 
     public DoctorBuilder() {
         name = new Name(DEFAULT_NAME);
@@ -39,7 +38,6 @@ public class DoctorBuilder {
         year = new Year(DEFAULT_YEAR);
         specialisations = new HashSet<>();
         specialisations.add(new Specialisation("acupuncture"));
-        appointments = new ArrayList<>();
     }
 
     /**
@@ -93,15 +91,6 @@ public class DoctorBuilder {
         this.gender = new Gender(gender);
         return this;
     }
-
-    /**
-     * Sets the {@code Appointment} of the {@code Doctor} that we are building.
-     */
-    public DoctorBuilder withAppointments() {
-        this.appointments = Arrays.asList(SampleDataUtil.getAppointments());
-        return this;
-    }
-
 
     public Doctor build() {
         return new Doctor(name, phone, gender, year, specialisations);

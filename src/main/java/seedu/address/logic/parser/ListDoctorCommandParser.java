@@ -9,15 +9,15 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.DoctorContainsKeywordsPredicate;
 
 /**
- * Parses the given {@code String} of arguments in the context of the DoctorMatchCommand
- * and returns a DoctorMatchCommand object for execution.
+ * Parses the given {@code String} of arguments in the context of the ListDoctorCommand
+ * and returns a ListDoctorCommand object for execution.
  * @throws ParseException if the user input does not conform the expected format
  */
 public class ListDoctorCommandParser implements Parser<ListDoctorCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the DoctorMatchCommand
-     * and returns a DoctorMatchCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the ListDoctorCommand
+     * and returns a ListDoctorCommand object for execution.
      * @param args
      * @return
      * @throws ParseException

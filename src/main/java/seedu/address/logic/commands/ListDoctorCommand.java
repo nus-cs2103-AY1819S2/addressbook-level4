@@ -1,11 +1,6 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_GENDER;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_SPECIALISATION;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_YEAR;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_DOCTORS;
 
 import seedu.address.commons.core.Messages;
@@ -22,13 +17,9 @@ public class ListDoctorCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Lists the doctors who match the user inputs "
             + "Parameters: "
-            + "[" + PREFIX_NAME + "NAME] "
-            + "[" + PREFIX_GENDER + "GENDER] "
-            + "[" + PREFIX_YEAR + "YEAR] "
-            + "[" + PREFIX_PHONE + "PHONE] "
-            + "[" + PREFIX_SPECIALISATION + "SPECIALISATION]...\n"
-            + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_PHONE + "91234567 ";
+            + "[ KEYWORD ] "
+            + "[ KEYWORD ] ..."
+            + "Example: " + COMMAND_WORD + " 1 ";
 
     public static final String MESSAGE_SUCCESS = "Listed all doctors";
 
@@ -52,5 +43,12 @@ public class ListDoctorCommand extends Command {
         }
         return new CommandResult(
                 String.format(Messages.MESSAGE_DOCTORS_LISTED_OVERVIEW, model.getFilteredDoctorList().size()));
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof ListDoctorCommand // instanceof handles nulls
+                && predicate.equals(((ListDoctorCommand) other).predicate)); // state check
     }
 }

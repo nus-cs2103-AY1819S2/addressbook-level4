@@ -29,6 +29,9 @@ import seedu.address.logic.commands.AddPatientCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.DeleteDoctorCommand;
 import seedu.address.logic.commands.DeletePatientCommand;
+import seedu.address.logic.commands.DoctorMatchCommand;
+import seedu.address.logic.commands.EditDoctorCommand;
+import seedu.address.logic.commands.EditDoctorCommand.EditDoctorDescriptor;
 import seedu.address.logic.commands.EditPatientCommand;
 import seedu.address.logic.commands.EditPatientCommand.EditPatientDescriptor;
 import seedu.address.logic.commands.ExitCommand;
@@ -51,11 +54,16 @@ import seedu.address.model.medicalhistory.MedicalHistory;
 import seedu.address.model.medicalhistory.ValidDate;
 import seedu.address.model.medicalhistory.WriteUp;
 import seedu.address.model.person.Doctor;
+import seedu.address.model.person.DoctorContainsKeywordsPredicate;
+import seedu.address.model.person.DoctorMatch;
+import seedu.address.model.person.DoctorSpecialisationMatchesPredicate;
 import seedu.address.model.person.Patient;
 import seedu.address.model.person.PatientNameContainsKeywordsPredicate;
 import seedu.address.model.person.PersonId;
+import seedu.address.model.tag.Specialisation;
 import seedu.address.testutil.DoctorBuilder;
 import seedu.address.testutil.DoctorUtil;
+import seedu.address.testutil.EditDoctorDescriptorBuilder;
 import seedu.address.testutil.EditPatientDescriptorBuilder;
 import seedu.address.testutil.PatientBuilder;
 import seedu.address.testutil.PatientUtil;
@@ -99,7 +107,7 @@ public class DocXParserTest {
     }
 
     @Test
-    public void parseCommand_add() throws Exception {
+    public void parseCommand_addPatient() throws Exception {
         Patient patient = new PatientBuilder().build();
         AddPatientCommand command = (AddPatientCommand) parser.parseCommand(PatientUtil.getAddPatientCommand(patient));
         assertEquals(new AddPatientCommand(patient), command);
@@ -112,7 +120,7 @@ public class DocXParserTest {
     }
 
     @Test
-    public void parseCommand_delete() throws Exception {
+    public void parseCommand_deletePatient() throws Exception {
         DeletePatientCommand command = (DeletePatientCommand) parser.parseCommand(
                 DeletePatientCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased());
         assertEquals(new DeletePatientCommand(INDEX_FIRST_PERSON), command);
@@ -126,12 +134,21 @@ public class DocXParserTest {
     }
 
     @Test
-    public void parseCommand_edit() throws Exception {
+    public void parseCommand_editPatient() throws Exception {
         Patient patient = new PatientBuilder().build();
         EditPatientDescriptor descriptor = new EditPatientDescriptorBuilder(patient).build();
         EditPatientCommand command = (EditPatientCommand) parser.parseCommand(EditPatientCommand.COMMAND_WORD + " "
                 + INDEX_FIRST_PERSON.getOneBased() + " " + PatientUtil.getEditPatientDescriptorDetails(descriptor));
         assertEquals(new EditPatientCommand(INDEX_FIRST_PERSON, descriptor), command);
+    }
+
+    @Test
+    public void parseCommand_editDoctor() throws Exception {
+        Doctor doctor = new DoctorBuilder().build();
+        EditDoctorDescriptor descriptor = new EditDoctorDescriptorBuilder(doctor).build();
+        EditDoctorCommand command = (EditDoctorCommand) parser.parseCommand(EditDoctorCommand.COMMAND_WORD + " "
+                + INDEX_FIRST_PERSON.getOneBased() + " " + DoctorUtil.getEditDoctorDescriptorDetails(descriptor));
+        assertEquals(new EditDoctorCommand(INDEX_FIRST_PERSON, descriptor), command);
     }
 
     @Test
@@ -141,7 +158,7 @@ public class DocXParserTest {
     }
 
     @Test
-    public void parseCommand_find() throws Exception {
+    public void parseCommand_findPatient() throws Exception {
         List<String> keywords = Arrays.asList("foo", "bar", "baz");
         SearchPatientCommand command = (SearchPatientCommand) parser.parseCommand(
                 SearchPatientCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
@@ -168,7 +185,7 @@ public class DocXParserTest {
     }
 
     @Test
-    public void parseCommand_list() throws Exception {
+    public void parseCommand_listPatient() throws Exception {
         assertTrue(parser.parseCommand(ListPatientCommand.COMMAND_WORD) instanceof ListPatientCommand);
         assertTrue(parser.parseCommand(ListPatientCommand.COMMAND_WORD + " 3") instanceof ListPatientCommand);
     }
@@ -177,10 +194,18 @@ public class DocXParserTest {
     public void parseCommand_listDoctor() throws Exception {
         assertTrue(parser.parseCommand(ListDoctorCommand.COMMAND_WORD) instanceof ListDoctorCommand);
         assertTrue(parser.parseCommand(ListDoctorCommand.COMMAND_WORD + " 3") instanceof ListDoctorCommand);
+        assertTrue(parser.parseCommand(ListDoctorCommand.COMMAND_WORD + " ong") instanceof ListDoctorCommand);
+
+        List<String> keywords = Arrays.asList("foo", "bar", "baz");
+        ListDoctorCommand command = (ListDoctorCommand) parser.parseCommand(
+                ListDoctorCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
+        DoctorContainsKeywordsPredicate predicate = new DoctorContainsKeywordsPredicate(
+                keywords);
+        assertEquals(new ListDoctorCommand(predicate), command);
     }
 
     @Test
-    public void parseCommand_select() throws Exception {
+    public void parseCommand_selectPatient() throws Exception {
         SelectPatientCommand command = (SelectPatientCommand) parser.parseCommand(
                 SelectPatientCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased());
         assertEquals(new SelectPatientCommand(INDEX_FIRST_PERSON), command);
@@ -217,5 +242,22 @@ public class DocXParserTest {
         thrown.expect(ParseException.class);
         thrown.expectMessage(MESSAGE_UNKNOWN_COMMAND);
         parser.parseCommand("unknownCommand");
+    }
+
+    @Test
+    public void parseCommand_doctorMatch() throws Exception {
+        Specialisation specialisation = new Specialisation("acupuncture");
+        AppointmentDate date = new AppointmentDate("2019-06-20");
+        AppointmentTime time = new AppointmentTime("09:00");
+        DoctorMatch dm = new DoctorMatch(specialisation, date, time);
+        DoctorSpecialisationMatchesPredicate pred = new DoctorSpecialisationMatchesPredicate(dm);
+        DoctorMatchCommand command = new DoctorMatchCommand(pred);
+
+        assertEquals(new DoctorMatchCommand(
+                new DoctorSpecialisationMatchesPredicate(
+                        new DoctorMatch(new Specialisation("acupuncture"),
+                                new AppointmentDate("2019-06-20"),
+                                new AppointmentTime("09:00")))),
+                command);
     }
 }

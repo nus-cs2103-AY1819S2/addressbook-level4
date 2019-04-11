@@ -50,6 +50,7 @@ public class OrdersGuiTestAssert {
      * in the correct order.
      */
     public static void assertListMatching(OrderItemListPanelHandle orderItemListPanelHandle, OrderItem... orderItems) {
+        System.out.println(orderItems.length);
         for (int i = 0; i < orderItems.length; i++) {
             orderItemListPanelHandle.navigateToCard(i);
             assertCardDisplaysOrderItem(orderItems[i], orderItemListPanelHandle.getOrderItemCardHandle(i));

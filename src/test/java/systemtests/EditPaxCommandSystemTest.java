@@ -105,7 +105,7 @@ public class EditPaxCommandSystemTest extends RestOrRantSystemTest {
         executeCommand(command);
         assertApplicationDisplaysExpected("", expectedResultMessage, expectedModel);
         assertCommandBoxShowsDefaultStyle();
-        assertStatusBarUnchangedExceptSyncStatus();
+        assertStatusBarUnchanged();
     }
 
     /**

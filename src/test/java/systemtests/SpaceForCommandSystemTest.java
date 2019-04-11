@@ -84,7 +84,7 @@ public class SpaceForCommandSystemTest extends RestOrRantSystemTest {
         executeCommand(command);
         assertApplicationDisplaysExpected("", expectedResultMessage, expectedModel);
         assertCommandBoxShowsDefaultStyle();
-        assertStatusBarUnchangedExceptSyncStatus();
+        assertStatusBarUnchanged();
     }
 
     /**

@@ -25,6 +25,7 @@ import seedu.address.TestApp;
 import seedu.address.logic.commands.AddTableCommand;
 import seedu.address.logic.commands.ClearTableCommand;
 import seedu.address.logic.commands.EditPaxCommand;
+import seedu.address.logic.commands.TableModeCommand;
 import seedu.address.model.Model;
 import seedu.address.model.RestOrRant;
 import seedu.address.model.table.Table;
@@ -62,8 +63,6 @@ public abstract class RestOrRantSystemTest {
                 getMenuFileLocation(), getStatsFileLocation());
 
         mainWindowHandle = setupHelper.setupMainWindowHandle();
-
-        //        waitUntilBrowserLoaded(getBrowserPanel());
         assertApplicationStartingStateIsCorrect();
     }
 
@@ -117,11 +116,7 @@ public abstract class RestOrRantSystemTest {
     public MainMenuHandle getMainMenu() {
         return mainWindowHandle.getMainMenu();
     }
-
-    //    public BrowserPanelHandle getBrowserPanel() {
-    //        return mainWindowHandle.getBrowserPanel();
-    //    }
-
+    
     public StatusBarFooterHandle getStatusBarFooter() {
         return mainWindowHandle.getStatusBarFooter();
     }
@@ -141,42 +136,7 @@ public abstract class RestOrRantSystemTest {
         clockRule.setInjectedClockToCurrentTime();
 
         mainWindowHandle.getCommandBox().run(command);
-
-        //        waitUntilBrowserLoaded(getBrowserPanel());
     }
-
-    //    /**
-    //     * Displays all persons in the address book.
-    //     */
-    //    protected void showAllPersons() {
-    //        executeCommand(ListCommand.COMMAND_WORD);
-    //        assertEquals(getModel().getRestOrRant().getPersonList().size(), getModel().getFilteredPersonList().size
-    //        ());
-    //    }
-    //
-    //    /**
-    //     * Displays all persons with any parts of their names matching {@code keyword} (case-insensitive).
-    //     */
-    //    protected void showPersonsWithName(String keyword) {
-    //        executeCommand(FindCommand.COMMAND_WORD + " " + keyword);
-    //        assertTrue(getModel().getFilteredPersonList().size() < getModel().getRestOrRant().getPersonList().size());
-    //    }
-    //
-    //    /**
-    //     * Selects the person at {@code index} of the displayed list.
-    //     */
-    //    protected void selectPerson(Index index) {
-    //        executeCommand(SelectCommand.COMMAND_WORD + " " + index.getOneBased());
-    //        assertEquals(index.getZeroBased(), getPersonListPanel().getSelectedCardIndex());
-    //    }
-    //
-    //    /**
-    //     * Deletes all persons in the address book.
-    //     */
-    //    protected void deleteAllPersons() {
-    //        executeCommand(ClearCommand.COMMAND_WORD);
-    //        assertEquals(0, getModel().getRestOrRant().getPersonList().size());
-    //    }
 
     /**
      * Deletes all tables in the restaurant.
@@ -211,9 +171,17 @@ public abstract class RestOrRantSystemTest {
     }
 
     /**
+     * Switches over to Table Mode after occupying the specified table.
+     */
+    protected void goToTableMode(String tableNumber) {
+        executeCommand(EditPaxCommand.COMMAND_WORD + " " + tableNumber + " 1");
+        executeCommand(TableModeCommand.COMMAND_WORD + " " + tableNumber);
+    }
+
+    /**
      * Asserts that the {@code CommandBox} displays {@code expectedCommandInput}, the {@code ResultDisplay} displays
-     * {@code expectedResultMessage}, the storage contains the same person objects as {@code expectedModel}
-     * and the order item list panel displays the order items in the model correctly.
+     * {@code expectedResultMessage}, the storage contains the same objects as {@code expectedModel}
+     * and the panel displays the items in the model correctly.
      */
     protected void assertApplicationDisplaysExpected(String expectedCommandInput, String expectedResultMessage,
                                                      Model expectedModel) {
@@ -232,51 +200,10 @@ public abstract class RestOrRantSystemTest {
      */
     private void rememberStates() {
         StatusBarFooterHandle statusBarFooterHandle = getStatusBarFooter();
-        //        getBrowserPanel().rememberUrl(); // TODO: update
         statusBarFooterHandle.rememberCurrentMode();
         statusBarFooterHandle.rememberSyncStatus();
         getOrderItemListPanel().rememberSelectedOrderItemCard();
     }
-
-    //    /**
-    //     * Asserts that the previously selected card is now deselected and the browser's url is now displaying the
-    //     * default page.
-    //     * @see BrowserPanelHandle#isUrlChanged()
-    //     */
-    //    protected void assertSelectedCardDeselected() {
-    //        assertEquals(BrowserPanel.DEFAULT_PAGE, getBrowserPanel().getLoadedUrl());
-    //        assertFalse(getPersonListPanel().isAnyCardSelected());
-    //    }
-
-    //    /**
-    //     * Asserts that the browser's url is changed to display the details of the person in the person list panel at
-    //     * {@code expectedSelectedCardIndex}, and only the card at {@code expectedSelectedCardIndex} is selected.
-    //     * @see BrowserPanelHandle#isUrlChanged()
-    //     * @see PersonListPanelHandle#isSelectedPersonCardChanged()
-    //     */
-    //    protected void assertSelectedCardChanged(Index expectedSelectedCardIndex) {
-    //        getPersonListPanel().navigateToCard(getPersonListPanel().getSelectedCardIndex());
-    //        String selectedCardName = getPersonListPanel().getHandleToSelectedCard().getName();
-    //        URL expectedUrl;
-    //        try {
-    //            expectedUrl = new URL(BrowserPanel.SEARCH_PAGE_URL + selectedCardName.replaceAll(" ", "%20"));
-    //        } catch (MalformedURLException mue) {
-    //            throw new AssertionError("URL expected to be valid.", mue);
-    //        }
-    //        assertEquals(expectedUrl, getBrowserPanel().getLoadedUrl());
-    //
-    //        assertEquals(expectedSelectedCardIndex.getZeroBased(), getPersonListPanel().getSelectedCardIndex());
-    //    }
-
-    //    /**
-    //     * Asserts that the browser's url and the selected card in the person list panel remain unchanged.
-    //     * @see BrowserPanelHandle#isUrlChanged()
-    //     * @see PersonListPanelHandle#isSelectedPersonCardChanged()
-    //     */
-    //    protected void assertSelectedCardUnchanged() {
-    //        assertFalse(getBrowserPanel().isUrlChanged());
-    //        assertFalse(getPersonListPanel().isSelectedPersonCardChanged());
-    //    }
 
     /**
      * Asserts that the command box's shows the default style.
@@ -302,15 +229,12 @@ public abstract class RestOrRantSystemTest {
     }
 
     /**
-     * Asserts that only the sync status in the status bar was changed to the timing of
-     * {@code ClockRule#getInjectedClock()}, while the save location remains the same.
+     * Asserts that only the current mode changed.
      */
-    protected void assertStatusBarUnchangedExceptSyncStatus() {
+    protected void assertStatusBarUnchangedExceptCurrentMode(String newMode) {
         StatusBarFooterHandle handle = getStatusBarFooter();
-        //        String timestamp = new Date(clockRule.getInjectedClock().millis()).toString();
-        //        String expectedSyncStatus = String.format(SYNC_STATUS_UPDATED, timestamp);
-        assertEquals("", handle.getSyncStatus());
-        assertFalse(handle.isCurrentModeChanged());
+        assertFalse(handle.isSyncStatusChanged());
+        assertEquals(newMode, handle.getCurrentMode());
     }
 
     /**
@@ -318,11 +242,10 @@ public abstract class RestOrRantSystemTest {
      */
     private void assertApplicationStartingStateIsCorrect() {
         assertEquals("", getCommandBox().getInput());
-        assertEquals("", getResultDisplay().getText());
+        assertEquals("Welcome to RestOrRant!", getResultDisplay().getText());
         OrdersGuiTestAssert.assertListMatching(getOrderItemListPanel(), getModel().getFilteredOrderItemList());
         // TODO: Check if we need this for tables
         // TablesGuiTestAssert.assertListMatching(getTablesFlowPanel(), getModel().getFilteredTableList());
-        // assertEquals(BrowserPanel.DEFAULT_PAGE, getBrowserPanel().getLoadedUrl());TODO: what does browser panel show?
         assertEquals("Restaurant Mode", getStatusBarFooter().getCurrentMode());
     }
 

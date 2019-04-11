@@ -93,7 +93,7 @@ image::brightnessCommand.PNG[width="915"]
 image::brightnessSuccess.PNG[width="917"]
 +
 
-.  Crop your photo by typing the following command: `crop 310 250 140 200 squirrel.jpg`. Press kbd:[Enter]. Your image should look similar as the figure below.
+.  Crop your photo by typing the following command: `crop 310 250 140 200`. Press kbd:[Enter]. Your image should look similar as the figure below.
 
 +
 .Crop Success
@@ -218,7 +218,7 @@ Example:
 * `open sample.jpg`
 // end::ListAndOpen[]
 
-//tag ::Redo[]
+//tag::Redo[]
 === Redo edit steps : `redo`
 
 Returns to a previously undone state. +

@@ -13,7 +13,7 @@ import java.time.format.DateTimeFormatter;
 public class Date {
 
     public static final String MESSAGE_CONSTRAINTS = "Dates should be of the format dd/mm/yyyy and be a valid date"
-            + " that is not later than is not after today's date in local time.";
+            + " that is not later than today's date in local time.";
 
     private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 

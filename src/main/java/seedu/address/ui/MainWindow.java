@@ -269,7 +269,7 @@ public class MainWindow extends UiPart<Stage> {
         if (calendarWindow.isShowing()) {
             calendarWindow.close();
         }
-        if(statWindow.isShowing()) {
+        if (statWindow.isShowing()) {
             statWindow.close();
         }
         if (!logic.checkNoCopy()) {

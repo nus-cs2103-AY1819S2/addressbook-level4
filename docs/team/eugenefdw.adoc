@@ -27,25 +27,28 @@ My role was to design and manage the storage of Lesson data in BrainTrain. The f
 
 * *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Code contributed*: [https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#search=eugenefdw[RepoSense]][https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
 
 * *Other contributions*:
 
 ** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
+*** Set up the repository.
+*** Set up branch protection, issue labels, milestones on the repository.
+*** Set up AppVeyor, Codacy, Coveralls, Travis on the repository.
+
+
 ** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
+*** Updated the GUI color scheme (Pull requests https://github.com/CS2103-AY1819S2-W14-1/main/pull/32[#32], https://github.com/CS2103-AY1819S2-W14-1/main/pull/129[#129])
 *** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
 ** Documentation:
 *** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
 ** Community:
 *** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
 *** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
+*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com/cs2103-ay1819s2-w09-1/main/issues/117[1], https://github.com/cs2103-ay1819s2-w09-1/main/issues/122[2], https://github.com/cs2103-ay1819s2-w09-1/main/issues/130[3])
 *** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
 ** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
+*** Integrated a third party library (opencsv) to the project (https://github.com/CS2103-AY1819S2-W14-1/main/pull/21[#21], https://github.com/CS2103-AY1819S2-W14-1/main/pull/28[#28])
 
 _{you can add/remove categories in the list above}_
 

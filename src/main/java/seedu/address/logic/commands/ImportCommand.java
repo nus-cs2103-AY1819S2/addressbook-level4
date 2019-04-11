@@ -73,9 +73,9 @@ public class ImportCommand extends Command {
             }
             importData = importOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
         } catch (DataConversionException e) {
-            return "Data file not in the correct format.";
+            return "Data file is not in the correct format.";
         } catch (IOException e) {
-            return "Problem while reading from the file.";
+            return e.getMessage();
         }
 
         for (int i = 0; i < importData.getPersonList().size(); i++) {

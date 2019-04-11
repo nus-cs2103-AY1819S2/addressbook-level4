@@ -28,7 +28,7 @@ public class SaveCommand extends Command {
             + "Example: " + COMMAND_WORD + " data1.json\n"
             + "Example: " + COMMAND_WORD + " folder/data1.pdf";
 
-    public static final String MESSAGE_SUCCESS = "File saved!";
+    public static final String MESSAGE_SUCCESS = " saved!";
 
     private final ParsedInOut parsedInput;
 
@@ -45,7 +45,7 @@ public class SaveCommand extends Command {
             throw new CommandException(e.getMessage());
         }
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        return new CommandResult(MESSAGE_SUCCESS);
+        return new CommandResult(parsedInput.getFile() + MESSAGE_SUCCESS);
     }
 
     /**

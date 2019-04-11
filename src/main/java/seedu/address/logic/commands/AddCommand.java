@@ -55,7 +55,7 @@ public class AddCommand extends Command {
 
         model.addPdf(toAdd);
         model.commitPdfBook();
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd.toReadableString()));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd.toString()));
     }
 
     /**
@@ -80,6 +80,6 @@ public class AddCommand extends Command {
     }
 
     public String toString() {
-        return "" + toAdd.toReadableString();
+        return "" + toAdd.toString();
     }
 }

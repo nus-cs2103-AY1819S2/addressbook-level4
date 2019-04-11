@@ -4,7 +4,6 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.DEADLINE_JSON_COMPLETE;
 import static seedu.address.logic.commands.CommandTestUtil.DIR_1_DUPLICATE_VALID;
-import static seedu.address.logic.commands.CommandTestUtil.DIR_3_VALID;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_2_VALID;
 import static seedu.address.logic.commands.CommandTestUtil.SIZE_3_VALID;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_VALID_CS2103T;

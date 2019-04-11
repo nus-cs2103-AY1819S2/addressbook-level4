@@ -76,7 +76,7 @@ public class DeleteCommand extends Command {
         }
 
         model.commitPdfBook();
-        return new CommandResult(String.format(MESSAGE_DELETE_PDF_SUCCESS, pdfToDelete.toReadableString()));
+        return new CommandResult(String.format(MESSAGE_DELETE_PDF_SUCCESS, pdfToDelete.toString()));
     }
 
     @Override

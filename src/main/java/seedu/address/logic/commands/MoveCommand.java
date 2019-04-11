@@ -85,7 +85,7 @@ public class MoveCommand extends Command {
         model.setPdf(pdfToEdit, editedPdf);
         model.updateFilteredPdfList(PREDICATE_SHOW_ALL_PDFS);
         model.commitPdfBook();
-        return new CommandResult(String.format(MESSAGE_MOVE_PDF_SUCCESS, editedPdf.toReadableString()));
+        return new CommandResult(String.format(MESSAGE_MOVE_PDF_SUCCESS, editedPdf.toString()));
     }
 
     @Override

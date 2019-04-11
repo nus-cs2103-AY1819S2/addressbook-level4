@@ -146,7 +146,8 @@ test {
 
         if (runNonGuiTests) {
             //Initially Included
-            test.include 'seedu/address/**'
+            //test.include 'seedu/address/**'
+            test.include 'seedu/address/model/pdf/NameTest.java'
         }
 
         if (runGuiTests) {

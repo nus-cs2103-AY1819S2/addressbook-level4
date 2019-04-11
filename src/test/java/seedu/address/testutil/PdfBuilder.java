@@ -107,6 +107,6 @@ public class PdfBuilder {
     }
 
     public Pdf build() {
-        return new Pdf(new Pdf(name, directory, size, tags, deadline), isEncrypted);
+        return new Pdf(name, directory, size, tags, deadline, isEncrypted);
     }
 }

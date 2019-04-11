@@ -40,6 +40,15 @@ public class AddressBookParser {
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 
     /**
+     * Used to test whether the arguments of a command is null
+     */
+    public void dealNullArgument(String arguments) throws ParseException {
+        if (!arguments.equals("")) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
+        }
+    }
+
+    /**
      * Parses user input into command for execution.
      *
      * @param userInput full user input string
@@ -73,72 +82,54 @@ public class AddressBookParser {
             return new PinCommandParser().parse(arguments);
 
         case ClearCommand.COMMAND_WORD:
-            if (!arguments.equals("")) {
-                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
-            }
+            dealNullArgument(arguments);
             return new ClearCommand();
 
         case FindCommand.COMMAND_WORD:
             return new FindCommandParser().parse(arguments);
 
         case ListCommand.COMMAND_WORD:
-            if (!arguments.equals("")) {
-                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
-            }
+            dealNullArgument(arguments);
             return new ListCommand();
 
         case ArchiveCommand.COMMAND_WORD:
             return new ArchiveCommandParser().parse(arguments);
 
         case ArchiveListCommand.COMMAND_WORD:
-            if (!arguments.equals("")) {
-                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
-            }
+            dealNullArgument(arguments);
             return new ArchiveListCommand();
 
         case ArchiveSelectCommand.COMMAND_WORD:
             return new ArchiveSelectCommandParser().parse(arguments);
 
         case ArchiveClearCommand.COMMAND_WORD:
-            if (!arguments.equals("")) {
-                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
-            }
+            dealNullArgument(arguments);
             return new ArchiveClearCommand();
 
         case UnarchiveCommand.COMMAND_WORD:
             return new UnarchiveCommandParser().parse(arguments);
 
         case HistoryCommand.COMMAND_WORD:
-            if (!arguments.equals("")) {
-                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
-            }
+            dealNullArgument(arguments);
             return new HistoryCommand();
 
         case ExitCommand.COMMAND_WORD:
-            if (!arguments.equals("")) {
-                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
-            }
+            dealNullArgument(arguments);
             return new ExitCommand();
 
         case HelpCommand.COMMAND_WORD:
-            if (!arguments.equals("")) {
-                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
-            }
+            dealNullArgument(arguments);
             return new HelpCommand();
 
         case UndoCommand.COMMAND_WORD:
-            if (!arguments.equals("")) {
-                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
-            }
+            dealNullArgument(arguments);
             return new UndoCommand();
 
         case UnpinCommand.COMMAND_WORD:
             return new UnpinCommandParser().parse(arguments);
 
         case RedoCommand.COMMAND_WORD:
-            if (!arguments.equals("")) {
-                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
-            }
+            dealNullArgument(arguments);
             return new RedoCommand();
 
         case PinSelectCommand.COMMAND_WORD:

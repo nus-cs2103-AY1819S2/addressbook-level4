@@ -42,35 +42,35 @@ public class AddPatientCommand extends Command {
             + PREFIX_TAG + "highbloodpressure\n";
     public static final String CONFLICTING_NRIC = "Patient with same NRIC already existed";
 
-    private Patient toAdd;
+    private Patient patientToAdd;
 
     public AddPatientCommand(Patient patient) {
-        toAdd = patient;
+        patientToAdd = patient;
     }
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
-        if (model.duplicatePatient(toAdd)) {
+        if (model.duplicatePatient(patientToAdd)) {
             throw new CommandException(CONFLICTING_NRIC);
         }
-        model.addPatient(toAdd);
+        model.addPatient(patientToAdd);
 
         StringBuilder sb = new StringBuilder();
         sb.append("Patient Added:\n");
         sb.append("==============================\n");
-        sb.append(toAdd.toString());
+        sb.append(patientToAdd.toString());
         CommandResult result = new CommandResult(sb.toString(), false, false);
         return result;
     }
 
-    public Patient getToAdd() {
-        return toAdd;
+    public Patient getPatientToAdd() {
+        return patientToAdd;
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this
                 || (other instanceof AddPatientCommand
-                && toAdd.equals(((AddPatientCommand) other).getToAdd()));
+                && patientToAdd.equals(((AddPatientCommand) other).getPatientToAdd()));
     }
 }

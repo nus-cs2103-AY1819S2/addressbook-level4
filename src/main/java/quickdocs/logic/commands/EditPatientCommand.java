@@ -48,13 +48,14 @@ public class EditPatientCommand extends Command {
             + EditPatientParser.PREFIX_GENDER + "M "
             + EditPatientParser.PREFIX_TAG + "highbloodpressure\n";
 
-    private Nric toEdit;
+    private Nric patientToEdit;
 
     // edited fields will only capture the details to be edited
     private PatientEditedFields editedFields;
 
-    public EditPatientCommand(Nric toEdit, PatientEditedFields editedFields) {
-        this.toEdit = toEdit;
+
+    public EditPatientCommand(Nric patientToEdit, PatientEditedFields editedFields) {
+        this.patientToEdit = patientToEdit;
         this.editedFields = editedFields;
     }
 
@@ -64,9 +65,9 @@ public class EditPatientCommand extends Command {
             throw new CommandException(NO_PATIENTS);
         }
 
-        int index = model.getIndexByNric(toEdit);
+        int index = model.getIndexByNric(patientToEdit);
         if (index == -1) {
-            throw new CommandException(String.format(NO_PATIENT_FOUND, toEdit.toString()));
+            throw new CommandException(String.format(NO_PATIENT_FOUND, patientToEdit.toString()));
         }
 
         Patient patient = model.getPatientAtIndex(index);
@@ -87,8 +88,8 @@ public class EditPatientCommand extends Command {
         return new CommandResult(sb.toString(), false, false);
     }
 
-    public Nric getToEdit() {
-        return toEdit;
+    public Nric getPatientToEdit() {
+        return patientToEdit;
     }
 
     public PatientEditedFields getEditedFields() {
@@ -96,7 +97,14 @@ public class EditPatientCommand extends Command {
     }
 
     /**
-     * Create a new patient object with the updated fields
+     * Using the editedFields, create a new patient object that will replace the existing one
+     * currently in the PatientManager's patientList
+     * If editedFields have a value present, the new patient object will set its field's value to the editedField's one
+     * else its will use the original value instead
+     *
+     * @param patient the original patient object to be edited
+     * @param editedFields the editedFields created after parsing the user's entered parameters
+     * @return the patient object with edited values for the fields specified to be edited
      */
     public Patient createEditedPatient(Patient patient, PatientEditedFields editedFields) {
 
@@ -116,7 +124,7 @@ public class EditPatientCommand extends Command {
     public boolean equals(Object other) {
         return other == this
                 || (other instanceof EditPatientCommand
-                && toEdit.toString().equals(((EditPatientCommand) other).getToEdit().toString())
+                && patientToEdit.toString().equals(((EditPatientCommand) other).getPatientToEdit().toString())
                 && editedFields.equals(((EditPatientCommand) other).getEditedFields()));
     }
 

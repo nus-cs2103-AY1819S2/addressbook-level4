@@ -16,9 +16,9 @@ import javax.imageio.ImageIO;
 public class Photo {
 
     public static final String MESSAGE_CONSTRAINTS = "FILE_PATH must be an absolute file path that points to an "
-            + "existing image file on your computer. "
-            + "Example: C:\\Users\\<your username>\\Pictures\\travel photos\\your-travel-photo.jpg"
-            + "Supported file formats are .jpg .png and .bmp";
+            + "existing image file on your computer. \"FILE_PATH\" can be surrounded by double quotes \n"
+            + "Example: C:\\Users\\<your username>\\Pictures\\travel photos\\your-travel-photo.jpg \n"
+            + "The supported file formats are .jpg .png and .bmp";
     public static final String EMPTY_PHOTO_PATH = "pBSgcMnA";
     private String filepath;
 

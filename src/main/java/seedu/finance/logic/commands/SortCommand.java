@@ -41,6 +41,7 @@ public class SortCommand extends Command {
             + "Tip: Use the reverse command to reverse the list!\n";
 
     public static final String MESSAGE_SUCCESS = "List is sorted.";
+    public static final String MESSAGE_EMPTY_LIST = "List is empty!";
 
     private final Comparator<Record> comparator;
 
@@ -55,6 +56,10 @@ public class SortCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
+
+        if (model.getFilteredRecordList().size() == 0) {
+            throw new CommandException(MESSAGE_EMPTY_LIST);
+        }
 
         model.sortFilteredRecordList(comparator);
 

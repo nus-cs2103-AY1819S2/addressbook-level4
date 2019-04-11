@@ -1,8 +1,10 @@
 package seedu.finance.storage;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.finance.commons.exceptions.IllegalValueException;
+
 import seedu.finance.model.budget.CategoryBudget;
 import seedu.finance.model.category.Category;
 
@@ -16,20 +18,31 @@ public class JsonAdaptedCategoryBudget {
     private final JsonAdaptedCategory category;
 
     private final String totalBudget;
-    private final String currentSpending;
+    private final String currentBudget;
 
     /**
-     * Converts a given {@code Budget} into this class for Jackson use.
+     * Constructs a {@code JsonAdaptedCategoryBudget} with the given record details.
      */
     @JsonCreator
+    public JsonAdaptedCategoryBudget(@JsonProperty("category") JsonAdaptedCategory category,
+                             @JsonProperty("totalBudget") String totalBudget,
+                             @JsonProperty("currentBudget") String currentBudget) {
+        this.category = category;
+        this.totalBudget = totalBudget;
+        this.currentBudget = currentBudget;
+    }
+
+    /**
+     * Converts a given {@code CategoryBudget} into this class for Jackson use.
+     */
     public JsonAdaptedCategoryBudget(CategoryBudget source) {
         totalBudget = Double.toString(source.getTotalBudget());
-        currentSpending = Double.toString(source.getCurrentSpendings());
+        currentBudget = Double.toString(source.getCurrentBudget());
         category = new JsonAdaptedCategory(source.getCategory());
     }
 
     /**
-     * Converts this Jackson-friendly adapted record object into the model's {@code Budget} object.
+     * Converts this Jackson-friendly adapted record object into the model's {@code CategoryBudget} object.
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted record.
      */
@@ -37,9 +50,8 @@ public class JsonAdaptedCategoryBudget {
         if (!Category.isValidCategoryName(category.getCategoryName())) {
             throw new IllegalValueException(Category.MESSAGE_CONSTRAINTS);
         }
-        Double currSpending = Double.parseDouble(currentSpending);
+        Double currBudget = Double.parseDouble(currentBudget);
         Double totBudget = Double.parseDouble(totalBudget);
-        Double currBudget = totBudget - currSpending;
         return new CategoryBudget(category.getCategoryName(), totBudget, currBudget);
 
     }

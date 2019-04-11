@@ -16,7 +16,10 @@ import java.util.Arrays;
 import java.util.List;
 
 import seedu.finance.model.FinanceTracker;
+import seedu.finance.model.budget.CategoryBudget;
 import seedu.finance.model.budget.TotalBudget;
+import seedu.finance.model.exceptions.CategoryBudgetExceedTotalBudgetException;
+import seedu.finance.model.exceptions.SpendingInCategoryBudgetExceededException;
 import seedu.finance.model.record.Description;
 import seedu.finance.model.record.Record;
 
@@ -78,9 +81,27 @@ public class TypicalRecords {
     }
 
     /**
+     * Returns an {@code Finance Tracker} with typical records and allocated Food category budget
+     */
+    public static FinanceTracker getTypicalFinanceTrackerWithCatBudget() {
+        FinanceTracker ft = new FinanceTracker();
+        ft.addBudget(new TotalBudget(500.00));
+        for (Record record : getTypicalRecords()) {
+            ft.addRecord(record);
+        }
+        try {
+            ft.addCategoryBudget(new CategoryBudget("Food", 60.00));
+        } catch (CategoryBudgetExceedTotalBudgetException e) {
+            return ft;
+        } catch (SpendingInCategoryBudgetExceededException f) {
+            return ft;
+        }
+        return ft;
+    }
+    /**
      * Returns an {@code FinanceTracker} without budget set but with all the typical records.
      */
-    public static FinanceTracker getTypicalFinanceTrackerWithoutBudget() {
+    public static FinanceTracker getTypicalFinanceTrackerWithoutSetBudget() {
         FinanceTracker ft = new FinanceTracker();
         for (Record record : getTypicalRecords()) {
             ft.addRecord(record);

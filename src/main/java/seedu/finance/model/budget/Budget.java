@@ -58,10 +58,10 @@ public class Budget {
     }
 
     /**
-     * Called to set the budget Amount value wrapped in a ObjectProperty.
+     * Called to set the total and current budget of the class.
      *
-     * @param totalBudget
-     * @param currentBudget
+     * @param totalBudget the totalBudget to set
+     * @param currentBudget the currentBudget to set
      */
     public void set(double totalBudget, double currentBudget) {
         this.totalBudget = totalBudget;
@@ -70,13 +70,14 @@ public class Budget {
     }
 
     /**
+     * Called to check whether the budget values are valid.
      *
-     * @param totalBudget
-     * @param currentBudget
-     * @return
+     * @param totalBudget the total budget to test.
+     * @param currentBudget the current budget left to test.
+     * @return true if total budget is more than current Budget and 0.
      */
     public static boolean isValidBudget(double totalBudget, double currentBudget) {
-        // Check for negative total budget
+        // Check that total budget is non-zero
         if (totalBudget < 0) {
             return false;
         }
@@ -133,15 +134,7 @@ public class Budget {
     }
 
     public double getCurrentSpendings() {
-        return currentSpendings;
-    }
-
-    /**
-     * Method to reset spendings to 0
-     */
-    public void clearSpendings() {
-        this.currentSpendings = 0;
-        this.currentBudget = totalBudget;
+        return (totalBudget - currentBudget);
     }
 
     @Override

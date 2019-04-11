@@ -133,6 +133,7 @@ public class FinanceTracker implements ReadOnlyFinanceTracker {
 
     // =============================== Category Budget =============================================================
     //@author Jackimaru96
+
     public TotalBudget getBudget() {
         return budget;
     }

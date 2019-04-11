@@ -5,7 +5,7 @@ import static org.junit.Assert.assertTrue;
 import static seedu.finance.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.finance.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.finance.testutil.TypicalRecords.getTypicalFinanceTracker;
-import static seedu.finance.testutil.TypicalRecords.getTypicalFinanceTrackerWithoutBudget;
+import static seedu.finance.testutil.TypicalRecords.getTypicalFinanceTrackerWithoutSetBudget;
 
 import org.junit.Test;
 
@@ -18,7 +18,7 @@ import seedu.finance.model.budget.Budget;
 
 public class SetCommandTest {
 
-    private Model model = new ModelManager(getTypicalFinanceTrackerWithoutBudget(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalFinanceTrackerWithoutSetBudget(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test

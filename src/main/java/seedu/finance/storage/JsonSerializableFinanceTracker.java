@@ -23,7 +23,7 @@ class JsonSerializableFinanceTracker {
 
     private final List<JsonAdaptedRecord> records = new ArrayList<>();
 
-    private final JsonAdaptedBudget budget;
+    private final JsonAdaptedTotalBudget budget;
     /*private final HashSet<JsonAdaptedCategoryBudget> categoryBudget = new HashSet<>();*/
 
 
@@ -32,7 +32,7 @@ class JsonSerializableFinanceTracker {
      */
     @JsonCreator
     public JsonSerializableFinanceTracker(@JsonProperty("records") List<JsonAdaptedRecord> records,
-                                          @JsonProperty("budget") JsonAdaptedBudget budget) {
+                                          @JsonProperty("budget") JsonAdaptedTotalBudget budget) {
         this.records.addAll(records);
         this.budget = budget;
     }
@@ -44,15 +44,7 @@ class JsonSerializableFinanceTracker {
      */
     public JsonSerializableFinanceTracker(ReadOnlyFinanceTracker source) {
         records.addAll(source.getRecordList().stream().map(JsonAdaptedRecord::new).collect(Collectors.toList()));
-        budget = new JsonAdaptedBudget(source.getBudget());
-        /*categoryBudget.addAll(source.getCategoryBudget().stream()
-                .map(JsonAdaptedCategoryBudget::new).collect(Collectors.toSet()));*/
-
-        /*categoryBudget = new HashSet<>();
-        for (CategoryBudget cb: source.getCategoryBudget()) {
-            categoryBudget.add(new JsonAdaptedCategoryBudget(cb));
-        }*/
-
+        budget = new JsonAdaptedTotalBudget(source.getBudget());
     }
 
     /**
@@ -66,19 +58,7 @@ class JsonSerializableFinanceTracker {
             Record record = jsonAdaptedRecord.toModelType();
             financeTracker.addRecord(record);
         }
-        financeTracker.addBudget(budget.toModelType());
-        /*for (JsonAdaptedCategoryBudget jsonAdaptedCatBudget: categoryBudget) {
-            CategoryBudget catBudget = jsonAdaptedCatBudget.toModelType();
-            try {
-                financeTracker.addCategoryBudget(catBudget);
-            }
-            catch (CategoryBudgetExceedTotalBudgetException e) {
-                 return financeTracker;
-            }
-            catch (SpendingInCategoryBudgetExceededException f) {
-                return financeTracker;
-            }
-        }*/
+        financeTracker.getBudget().set(budget.toModelType());
 
         return financeTracker;
     }

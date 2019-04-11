@@ -34,13 +34,9 @@ public class ShowCategoryBudgetCommand extends Command {
         sb.append(MESSAGE_SUCCESS + "\n");
         while (it.hasNext()) {
             cBudget = it.next();
-            String category = cBudget.getCategory().toString();
-            Double totalBudget = cBudget.getTotalBudget();
-            Double currentSpending = cBudget.getCurrentSpendings();
-            sb.append(category + ":\n");
-            sb.append(String.format("$%.2f/$%.2f\n", currentSpending, totalBudget));
+            String category = cBudget.toString();
+            sb.append(category);
         }
         return new CommandResult(sb.toString());
     }
-
 }

@@ -46,7 +46,7 @@ public class CommandParser {
      */
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 
-    private static final int MAX_COMMAND_LENGTH = 1024;
+    private static final int MAX_COMMAND_LENGTH = 10000;
 
     /**
      * Parses user input into command for execution.

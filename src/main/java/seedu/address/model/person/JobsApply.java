@@ -9,13 +9,13 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class JobsApply {
 
-    public static final String MESSAGE_CONSTRAINTS = "Job(s) Applying For should only contain alphanumeric"
-            + " characters, and it should not be blank";
+    public static final String MESSAGE_CONSTRAINTS = "Jobs applied should not start with a whitespace char"
+            + ", and it should not be blank. Multiple word jobs are to be seperated by '-'.";
     /*
      * The first character of the job must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String VALIDATION_REGEX = "[\\w][\\w ]*";
+    public static final String VALIDATION_REGEX = "\\b\\S+";
 
     public final String value;
 

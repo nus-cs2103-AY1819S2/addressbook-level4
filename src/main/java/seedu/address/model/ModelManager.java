@@ -151,8 +151,11 @@ public class ModelManager implements Model {
 
     @Override
     public void addFilteredPersonsToJob(JobName jobName, JobListName from, JobListName to) {
-        requireNonNull(jobName);
-        this.getJob(jobName);
+
+        if (activeJob == null || !activeJob.getName().equals(jobName)) {
+            this.getJob(jobName);
+        }
+
         switch(from) {
         case APPLICANT:
             versionedAddressBook.addFilteredListToJob(activeJobAllApplicants, jobName, to);
@@ -268,6 +271,10 @@ public class ModelManager implements Model {
             new FilteredList<>(activeJob.getList(2).asUnmodifiableObservableList());
         this.activeJobShortlist =
             new FilteredList<>(activeJob.getList(3).asUnmodifiableObservableList());
+        return activeJob;
+    }
+
+    public Job getActiveJob() {
         return activeJob;
     }
 

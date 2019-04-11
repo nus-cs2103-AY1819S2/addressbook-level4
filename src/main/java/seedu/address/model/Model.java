@@ -182,6 +182,11 @@ public interface Model {
     Job getJob(JobName name);
 
     /**
+     * Returns the current active Job.
+     */
+    Job getActiveJob();
+
+    /**
      * Returns an unmodifiable view of the filtered person list
      */
     ObservableList<Person> getFilteredPersonList();

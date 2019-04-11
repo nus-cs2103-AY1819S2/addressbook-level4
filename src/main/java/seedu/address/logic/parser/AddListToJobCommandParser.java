@@ -38,10 +38,18 @@ public class AddListToJobCommandParser implements Parser<AddListToJobCommand> {
         try {
             String fromListNameString = preambleString.split("\\s+")[1].trim();
             fromListName = ParserUtil.parseJobListName(fromListNameString);
-            toAdd = ParserUtil.parseJobName(argMultimap.getValue(PREFIX_JOBNAME).get());
-        } catch (Exception e) {
+            try {
+                toAdd = ParserUtil.parseJobName(argMultimap.getValue(PREFIX_JOBNAME).get());
+            } catch (Exception noJob) {
+                toAdd = null;
+            }
+        } catch (Exception noSource) {
             fromListName = JobListName.STUB;
-            toAdd = ParserUtil.parseJobName(argMultimap.getValue(PREFIX_JOBNAME).get());
+            try {
+                toAdd = ParserUtil.parseJobName(argMultimap.getValue(PREFIX_JOBNAME).get());
+            } catch (Exception noJob) {
+                toAdd = null;
+            }
         }
 
         return new AddListToJobCommand(toAdd, toListName, fromListName);

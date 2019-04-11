@@ -28,9 +28,10 @@ public class JobsApplyTest {
         // invalid jobs apply
         assertFalse(JobsApply.isValidJobsApply("")); // empty string
         assertFalse(JobsApply.isValidJobsApply(" ")); // spaces only
+        assertFalse(JobsApply.isValidJobsApply("Software Development Engineer")); //empty space in between
 
         // valid jobs apply
-        assertTrue(JobsApply.isValidJobsApply("Software Development Engineer"));
+        assertTrue(JobsApply.isValidJobsApply("Software-Development-Engineer"));
         assertTrue(JobsApply.isValidJobsApply("I")); // one character
         assertTrue(JobsApply.isValidJobsApply("SDE")); // short job title
     }

@@ -1,19 +1,21 @@
-= Niven Ang Jia Hao - Project Portfolio
+== Niven Ang Jia Hao - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
+:source-highlighter: rouge
+:repoURL: https://github.com/CS2103-AY1819S2-W11-3/main
 
 == PROJECT: TravelBuddy
-
+:sectnums:
 
 == Overview
 
 This project portfolio documents my contribution to TravelBuddy, a desktop application developed as a Software Engineering team project for CS2103T.
 The team is made up of 4 members, including myself, from the National University of Singapore.
 As part of the module objectives to prepare students for the working world, a brown-field approach was adopted where we were tasked to morph https://github.com/nus-cs2103-AY1819S2/addressbook-level4[AddressBook Level 4].
-The user interacts with it using a Command Line Interface, and it has a Graphical User Interface created with JavaFX. It is written in Java, and has about 10 kLoC.
+The user interacts with it using a Command Line Interface, and it has a Graphical User Interface (GUI) created with JavaFX. It is written in Java, and has about 10 kLoC.
 
-TravelBuddy is a desktop Travel Guide application for travel enthusiasts to record places previously visited.
+TravelBuddy is a desktop travel guide application for travel enthusiasts to record places previously visited.
 TravelBuddy enables travellers to record and store places that they have visited previously. With the recorded data, travellers can
 search for places according to the fields requested, analyse and provide statistics for places that they have been to so far.
 Travellers can also store their precious photos on TravelBuddy, which helps them remember and reminisce the places that wonderful places they have journeyed to.
@@ -23,52 +25,85 @@ as well as the documentation of these enhancements in the User Guide and Develop
 
 == Summary of Contributions
 
-* *Major enhancement*: added *the ability to perform search by name, rating, tags, country and year* on the places in TravelBuddy
-** What it does: allows the user to search TravelBuddy for places whose requested field (name, rating, tags, country or year) matches the user input.
-** Justification: TravelBuddy can get long and messy when more places are added. This feature improves TravelBuddy as it allows users to filter through the long place list to obtain what the users want.
-** Highlights: This feature helps users search for what they need. Multiple keywords can also be included in the search to obtain a wider scope of results.
-An in-depth analysis of design alternatives in keyword matching as well as the data structure used for the search feature was done to obtain the most optimal solution. The non-functional requirements were also taken into account while weighing the options.
+=== Major Enhancement
+The major enhancement I added was the ability to perform search by name, rating, tags, country and year on the places in TravelBuddy.
 
-* *Minor enhancement*:
-** added Rating class for Place object to track ratings of each place in TravelBuddy.
-** addded delete multiple feature to delete multiple entries in TravelBuddy with one command.
+*What it does:* The search feature allows the user to search TravelBuddy for places where the requested field (name, rating, tags, country or year) matches the user input.
 
-* *Code contributed*: https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#search=nivenang&sort=displayName&since=2019-02-10&until=2019-04-03&timeframe=day&reverse=false&repoSort=true[RepoSense]
+*Justification:* TravelBuddy can get long and cluttered when more places are added. This feature improves TravelBuddy as it allows users to filter through the long place list to obtain the relevant data that they need.
 
-* *Other contributions*:
+*Highlights:* This feature helps users search for what they need. Multiple keywords can also be included in the search to obtain a wider scope of results.
+The challenge lies in the parsing of the user input, which is tested against a predicate for matching keywords. As user input is taken in, defensive programming is adopted to restrict user input to a fixed regular expression depending on the parameter involved to prevent abuse. This verified input is then tested against a predicate that is tailored to suit the regular expression of each parameter.
 
-** Project management:
-*** Helped to streamline issue tracking using milestone labels and assignees on Github.
-*** Added user stories to help with implementation of features.
-** Enhancements to existing features:
-*** Updated tests and wrote additional tests to convert people in address book to places in TravelBuddy and improve coverage: https://github.com/cs2103-ay1819s2-w11-3/main/pull/50[#50], https://github.com/CS2103-AY1819S2-W11-3/main/pull/115[#115]
-** Documentation:
-*** Updated AboutUs with the responsbilities of team members: https://github.com/cs2103-ay1819s2-w11-3/main/pull/12[#12]
-*** Updated the User Guide with features I added and FAQ section: https://github.com/cs2103-ay1819s2-w11-3/main/pull/53[#53], https://github.com/cs2103-ay1819s2-w11-3/main/pull/63[#63], https://github.com/cs2103-ay1819s2-w11-3/main/pull/77[#77], https://github.com/cs2103-ay1819s2-w11-3/main/pull/85[#85]
-*** Updated the User Guide with a command cheatsheet: https://github.com/cs2103-ay1819s2-w11-3/main/pull/101[#101]
-*** Updated the Developer Guide with features I added and diagrams for illustration purposes: https://github.com/cs2103-ay1819s2-w11-3/main/pull/68[#68], https://github.com/cs2103-ay1819s2-w11-3/main/pull/85[#85], https://github.com/cs2103-ay1819s2-w11-3/main/pull/101[#101]
-** Community:
-*** Reviewed pull requests (with non-trivial review comments): https://github.com/cs2103-ay1819s2-w11-3/main/pull/84[#84]
-*** Reported bugs and helped to fix bugs: https://github.com/cs2103-ay1819s2-w11-3/main/pull/82[#82], https://github.com/CS2103-AY1819S2-W11-3/main/pull/118[#118], https://github.com/CS2103-AY1819S2-W11-3/main/pull/161[#161]
+The `search` command utilises classes from the `Logic`, `Model` and `User Interface` components of the existing architecture as described below:
+
+* *Logic:* The search feature is called through the `search` command, parsed from the user input. A parser is used to do so, which then executes the command through the `Command` class.
+* *Model:* Queries have to be made through the parameter predicate within the Model component, where testing for matching input is done. The displayed list is then updated and shown on the GUI.
+* *User Interface:* The updated filtered list is displayed on the UI for the users.
+
+An in-depth analysis of design alternatives in keyword matching as well as the data structure used for the search feature was done to obtain the most optimal solution. This involved balancing the goal of simplicity in contrast to the efficiency of the code. In addition, the non-functional requirements such as maintainability and re-usability were taken into account while designing the `search` mechanism.
+
+*Code contributed*: https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#search=nivenang&sort=displayName&since=2019-02-10&until=2019-04-10&timeframe=day&reverse=false&repoSort=true[RepoSense]
+
+=== Minor Enhancement
+The minor enhancement I did was to convert the `Phone` parameter in the previous addressbook to the `Rating` parameter for the `Place` class to track ratings of each place in TravelBuddy.
+
+In addition, I also added the `delete multiple` feature to delete multiple entries in TravelBuddy with one command.
+
+*Code contributed to minor enhancement:* https://github.com/CS2103-AY1819S2-W11-3/main/pull/49[Convert Phone to Rating], https://github.com/CS2103-AY1819S2-W11-3/main/pull/3[Deletem Feature]
+
+=== Other contributions
+
+The table below documents other contributions that I made to the project.
+
+[width="100%",cols="20%,<80%"]
+|=======================================================================
+|*Project management*
+a|Helped to streamline issue tracking using milestone labels and assignees on Github.
+Added user stories to help with implementation of features.
+
+|*Enhancements to existing features*
+a|Updated tests and wrote additional tests to convert people in address book to places in TravelBuddy and improve coverage: +
+https://github.com/cs2103-ay1819s2-w11-3/main/pull/50[#50], https://github.com/CS2103-AY1819S2-W11-3/main/pull/115[#115]
+
+|*Documentation*
+a|* Updated AboutUs with the responsibilities of team members: https://github.com/cs2103-ay1819s2-w11-3/main/pull/12[#12]
+* Updated the User Guide with features I added and FAQ section: https://github.com/cs2103-ay1819s2-w11-3/main/pull/53[#53], https://github.com/cs2103-ay1819s2-w11-3/main/pull/63[#63], https://github.com/cs2103-ay1819s2-w11-3/main/pull/77[#77], https://github.com/cs2103-ay1819s2-w11-3/main/pull/85[#85], https://github.com/CS2103-AY1819S2-W11-3/main/pull/174[#174]
+* Updated the User Guide with a command cheatsheet: https://github.com/cs2103-ay1819s2-w11-3/main/pull/101[#101]
+* Updated the Developer Guide with features I added and diagrams for illustration purposes: https://github.com/cs2103-ay1819s2-w11-3/main/pull/68[#68], https://github.com/cs2103-ay1819s2-w11-3/main/pull/85[#85], https://github.com/cs2103-ay1819s2-w11-3/main/pull/101[#101], https://github.com/CS2103-AY1819S2-W11-3/main/pull/162[#162], https://github.com/CS2103-AY1819S2-W11-3/main/pull/174[#174]
+* Fixed documentation errors found during testing: https://github.com/CS2103-AY1819S2-W11-3/main/pull/135[#135]
+
+|*Community*
+a|* Reviewed pull requests (with non-trivial review comments): https://github.com/cs2103-ay1819s2-w11-3/main/pull/84[#84]
+* Reported bugs and helped to fix bugs: https://github.com/cs2103-ay1819s2-w11-3/main/pull/82[#82], https://github.com/CS2103-AY1819S2-W11-3/main/pull/118[#118], https://github.com/CS2103-AY1819S2-W11-3/main/pull/161[#161]
+* Tested other projects and reported bugs: https://github.com/CS2103-AY1819S2-T12-4/main/issues/223[#223], https://github.com/CS2103-AY1819S2-T12-4/main/issues/225[#225], https://github.com/CS2103-AY1819S2-T12-4/main/issues/227[#227], https://github.com/CS2103-AY1819S2-T12-4/main/issues/231[#231], https://github.com/CS2103-AY1819S2-T12-4/main/issues/238[#238], https://github.com/CS2103-AY1819S2-T12-4/main/issues/240[#240], https://github.com/CS2103-AY1819S2-T12-4/main/issues/246[#246], https://github.com/CS2103-AY1819S2-T12-4/main/issues/248[#248]
+|=======================================================================
 
 == Contributions to the User Guide
 
 We had to update the User Guide of TravelBuddy with information on the use of the enhancements that we implemented.
 |===
-|_Given below is an excerpt from the User Guide, showing the additions that I made for the search feature. They showcase my ability to write documentation targeting end-users._
+|_Given below is the start of an excerpt from the User Guide, showing the additions that I made for the search feature. They showcase my ability to write documentation targeting end-users._
 |===
 
 include::../UserGuide.adoc[tag=search]
+
+|===
+|_This marks the end of the excerpt from the User Guide._
+|===
 
 == Contributions to the Developer Guide
 
 We had to update the Developer Guide of TravelBuddy with the logic behind the implementation of the enhancements that we implemented.
 
 |===
-|_Given below is excerpt from the Developer Guide, showing the additions that I made for the search feature. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|_Given below is the start of an excerpt from the Developer Guide, showing the additions that I made for the search feature. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
 include::../DeveloperGuide.adoc[tag=search]
 
+|===
+|_This marks the end of the excerpt from the Developer Guide._
+|===
 
 

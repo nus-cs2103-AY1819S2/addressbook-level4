@@ -1,6 +1,7 @@
 /* @@author itszp */
 package seedu.address.logic.parser;
 
+import static seedu.address.commons.core.Config.VALID_FILE_TYPES;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_SAVE_NAME;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_SAVE_TYPE;
 
@@ -13,8 +14,6 @@ import seedu.address.logic.parser.exceptions.ParseException;
  * Parses input arguments and creates a new OpenCommand object
  */
 public class SaveCommandParser implements Parser<SaveCommand> {
-    // Represents a string array of valid file types allowed in assets folder.
-    private String[] validFileTypes = new String[]{".jpg", ".png", ".gif", ".bmp", ".jpeg"};
 
     /**
      * Parses the given {@code String} of arguments in the context
@@ -29,7 +28,7 @@ public class SaveCommandParser implements Parser<SaveCommand> {
             return new SaveCommand(args);
         }
 
-        for (String x : validFileTypes) {
+        for (String x : VALID_FILE_TYPES) {
             if (args.endsWith(x)) {
                 String substring = args.substring(0, args.length() - x.length());
                 if (substring.isEmpty()) {
@@ -41,7 +40,7 @@ public class SaveCommandParser implements Parser<SaveCommand> {
         }
 
         if (!isValidName) {
-            throw new ParseException(String.format(MESSAGE_INVALID_SAVE_TYPE, Arrays.toString(validFileTypes)));
+            throw new ParseException(String.format(MESSAGE_INVALID_SAVE_TYPE, Arrays.toString(VALID_FILE_TYPES)));
         }
 
         return new SaveCommand(args);

@@ -14,6 +14,8 @@ public class Config {
     public static final String ASSETS_FOLDER_TEMP_NAME = "fomofoto.assets";
     public static final String SAMPLE_FOLDER = "/imageTest/valid";
     public static final int MAX_FILE_SIZE = 10000000;
+    // Represents a string array of valid file types allowed in assets folder.
+    public static final String[] VALID_FILE_TYPES = new String[]{".jpg", ".png", ".gif", ".bmp", ".jpeg", ".tif"};
 
     // Config values customizable through config file
     private Level logLevel = Level.INFO;

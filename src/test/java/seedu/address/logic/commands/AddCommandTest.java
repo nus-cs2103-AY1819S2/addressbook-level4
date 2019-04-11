@@ -480,6 +480,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public boolean addPersonToJob(JobName job, Nric nric) {
+            return true;
+        }
+
+        @Override
         public ReadOnlyAddressBook getAddressBook() {
             return new AddressBook();
         }

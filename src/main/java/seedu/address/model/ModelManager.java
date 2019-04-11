@@ -166,6 +166,7 @@ public class ModelManager implements Model {
 
         if (activeJob == null || !activeJob.getName().equals(jobName)) {
             this.getJob(jobName);
+            this.activeJob = null;
         }
 
         switch (from) {

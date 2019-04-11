@@ -26,7 +26,7 @@ Welcome to the _MediTabs Developer Guide_. You can find step by step instruction
 
 MediTabs is a desktop application, developed using Java, for managing medicine stock taking. You can use MediTabs in your clinics to easily keep track of your medicine inventory and take note of important information such as which medicines are low in stock, expiring soon or have expired.
 
-MediTabs supports Windows, Linux and MacOS operating systems.
+MediTabs supports Windows, Linux and macOS operating systems.
 
 === Who is this guide for?
 
@@ -621,11 +621,11 @@ File name *does not* include file extension such as `.csv` and `.pdf`.
 
 A list of reasons why we choose to create a `FileName` class for the validation of file name:
 
-* There are currently no third party libraries available for validating file name to ensure that the file name is platform independent. In other words, there are no public methods to validate the file name specified by the user to ensure that it is supported on Windows, Linux and MacOS operating systems.
+* There are currently no third party libraries available for validating file name to ensure that the file name is platform independent. In other words, there are no public methods to validate the file name specified by the user to ensure that it is supported on Windows, Linux and macOS operating systems.
 [IMPORTANT]
-There are certain naming conventions which have to be followed on Windows operating system which are not necessary on Linux and MacOS operating systems. You can read more about the naming conventions for Windows link:https://docs.microsoft.com/en-us/windows/desktop/FileIO/naming-a-file#naming-conventions[here]. You can also refer to link:https://en.wikipedia.org/wiki/Filename#Comparison_of_filename_limitations[this] Wikipedia article for a detailed comparison between different naming conventions for different operating systems.
+There are certain naming conventions which have to be followed on Windows operating system which are not necessary on Linux and macOS operating systems. You can read more about the naming conventions for Windows link:https://docs.microsoft.com/en-us/windows/desktop/FileIO/naming-a-file#naming-conventions[here]. You can also refer to link:https://en.wikipedia.org/wiki/Filename#Comparison_of_filename_limitations[this] Wikipedia article for a detailed comparison between different naming conventions for different operating systems.
 * Ensure consistency by creating a file naming convention.
-* Ensure that files created with file names specified by the user can be used on Windows, Linux and MacOS operating systems. This is to avoid potential bugs involving file names as MediTabs supports Windows, Linux and MacOS operating systems hence, the user might switch between these operating systems when using MediTabs.
+* Ensure that files created with file names specified by the user can be used on Windows, Linux and macOS operating systems. This is to avoid potential bugs involving file names as MediTabs supports Windows, Linux and macOS operating systems hence, the user might switch between these operating systems when using MediTabs.
 
 ==== Current Implementation
 
@@ -1043,7 +1043,7 @@ Use case resume at step 2.
 == Glossary
 
 [[mainstream-os]] Mainstream OS::
-Windows, Linux, Unix, OS-X
+Windows, Linux, Unix, macOS
 
 [[inventory]] Inventory::
 A complete list of goods in stock
@@ -1051,23 +1051,6 @@ A complete list of goods in stock
 [[batch]] Batch::
 A quantity or consignment of goods produced at one time
 
-
-[appendix]
-== Product Survey
-
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
 
 [appendix]
 == Instructions for Manual Testing

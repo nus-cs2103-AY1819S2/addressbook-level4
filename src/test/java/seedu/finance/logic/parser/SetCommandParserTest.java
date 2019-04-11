@@ -27,7 +27,6 @@ public class SetCommandParserTest {
         assertParseFailure(parser, " ", expectedMessage);
 
         //invalid amount
-        System.out.println(SetCommand.COMMAND_WORD + INVALID_AMOUNT_DESC);
         assertParseFailure(parser, INVALID_AMOUNT_DESC, Amount.MESSAGE_CONSTRAINTS);
     }
 }

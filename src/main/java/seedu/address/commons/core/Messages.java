@@ -1,8 +1,11 @@
 package seedu.address.commons.core;
 
+import seedu.address.logic.commands.management.AddCardCommand;
 import seedu.address.logic.commands.management.AddLessonCommand;
 import seedu.address.logic.commands.management.CloseLessonCommand;
+import seedu.address.logic.commands.management.DeleteCardCommand;
 import seedu.address.logic.commands.management.DeleteLessonCommand;
+import seedu.address.logic.commands.management.ListCardsCommand;
 import seedu.address.logic.commands.management.ListLessonsCommand;
 import seedu.address.logic.commands.management.OpenLessonCommand;
 import seedu.address.logic.commands.management.ReloadLessonsCommand;
@@ -15,17 +18,27 @@ public class Messages {
      * Feedback message displayed to the user when management mode is first entered.
      */
     public static final String MESSAGE_LESSON_COMMANDS =
-            "Lessons Overview: \nYou can now use the following commands:\n"
-                    + "1. " + ListLessonsCommand.COMMAND_WORD
-                    + ": Lists all lessons in memory.\n"
-                    + "2. " + AddLessonCommand.COMMAND_WORD
+            "Lesson Overview:\nYou can now use the following commands:\n"
+                    + "1. " + AddLessonCommand.COMMAND_WORD
                     + ": Adds a lesson.\n"
-                    + "3. " + DeleteLessonCommand.COMMAND_WORD
+                    + "2. " + DeleteLessonCommand.COMMAND_WORD
                     + ": Deletes a lesson.\n"
-                    + "4. " + OpenLessonCommand.COMMAND_WORD
+                    + "3. " + OpenLessonCommand.COMMAND_WORD
                     + ": Opens a lesson for editing.\n"
-                    + "5. " + ReloadLessonsCommand.COMMAND_WORD
-                    + ": Reloads all lessons from the data folder.";
+                    + "4. " + ReloadLessonsCommand.COMMAND_WORD
+                    + ": Reloads all lessons from the data folder."
+                    + "5. " + ListLessonsCommand.COMMAND_WORD
+                    + ": Lists all lessons in memory.\n";
+    public static final String MESSAGE_CARD_COMMANDS =
+            "Lesson Edit:\nYou can now use the following commands:"
+                    + "1. " + AddCardCommand.COMMAND_WORD
+                    + ": Adds a card to the opened lesson.\n"
+                    + "2. " + DeleteCardCommand.COMMAND_WORD
+                    + ": Deletes the card at the specified INDEX of the card list.\n"
+                    + "3. " + CloseLessonCommand.COMMAND_WORD
+                    + ": Closes this lesson and saves all changes."
+                    + "4. " + ListCardsCommand.COMMAND_WORD
+                    + ": Lists all cards in the opened lesson.\n";
     /**
      * Feedback message displayed to the user when the command does not match any command patterns.
      */

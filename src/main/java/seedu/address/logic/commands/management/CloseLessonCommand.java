@@ -1,6 +1,7 @@
 package seedu.address.logic.commands.management;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_LESSON_COMMANDS;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.CommandHistory;
@@ -30,7 +31,8 @@ public class CloseLessonCommand extends ManagementCommand {
     /**
      * Feedback message displayed to the user upon successful execution of this command
      */
-    public static final String MESSAGE_SUCCESS = "Closed lesson and saved changes: %1$s";
+    public static final String MESSAGE_SUCCESS = "Closed lesson and saved changes: %1$s"
+            + MESSAGE_LESSON_COMMANDS;
 
     /**
      * Executes the command which closes the opened {@link Lesson} in the {@code List<Lesson> lessons}

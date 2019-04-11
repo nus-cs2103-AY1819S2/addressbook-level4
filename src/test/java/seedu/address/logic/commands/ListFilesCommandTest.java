@@ -1,3 +1,4 @@
+/* @@author itszp */
 package seedu.address.logic.commands;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
@@ -37,7 +38,26 @@ public class ListFilesCommandTest {
 
     @Test
     public void execute_listFiles_sample_success() {
+        ListFilesCommand command = new ListFilesCommand();
+        String expectedMessage = String.format(ListFilesCommand.MESSAGE_LIST_FILES_HEADER,
+                Arrays.toString(album.getFileNames()) + "\n" + ListFilesCommand.MESSAGE_SUCCESS);
+        assertCommandSuccess(command, model, commandHistory, expectedMessage, currentEdit);
+    }
+
+    @Test
+    public void execute_listFiles_empty_success() {
+        album.clearAlbum();
+        ListFilesCommand command = new ListFilesCommand();
+        assertCommandSuccess(command, model, commandHistory, ListFilesCommand.MESSAGE_ASSETS_EMPTY, currentEdit);
+    }
+
+    @Test
+    public void execute_listFiles_oneFile_success() {
         try {
+            album.clearAlbum();
+            String validPngTest = "src/main/resources/imageTest/valid/validPNGTest.png";
+            ImportCommandParser parser = new ImportCommandParser();
+            parser.parse(validPngTest).execute(currentEdit, model, commandHistory);
             ListFilesCommand command = new ListFilesCommand();
             String expectedMessage = String.format(ListFilesCommand.MESSAGE_LIST_FILES_HEADER,
                     Arrays.toString(album.getFileNames()) + "\n" + ListFilesCommand.MESSAGE_SUCCESS);
@@ -47,19 +67,9 @@ public class ListFilesCommandTest {
         }
     }
 
-    @Test
-    public void execute_listFiles_empty_success() {
-        try {
-            album.clearAlbum();
-            ListFilesCommand command = new ListFilesCommand();
-            assertCommandSuccess(command, model, commandHistory, ListFilesCommand.MESSAGE_ASSETS_EMPTY, currentEdit);
-        } catch (Exception e) {
-            System.out.println(e.toString());
-        }
-    }
-
     @After
-    public void resetState() {
+    public void clearAlbum() {
+        album.clearAlbum();
         currentEdit.clearTemp();
     }
 }

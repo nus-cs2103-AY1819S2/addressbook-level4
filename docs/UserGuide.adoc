@@ -218,7 +218,7 @@ Example:
 * `open sample.jpg`
 // end::ListAndOpen[]
 
-//tag ::Redo[]
+//tag::Redo[]
 === Redo edit steps : `redo`
 
 Returns to a previously undone state. +

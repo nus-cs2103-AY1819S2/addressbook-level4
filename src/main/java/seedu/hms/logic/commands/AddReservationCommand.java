@@ -26,13 +26,13 @@ public class AddReservationCommand extends ReservationCommand {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a reservation to the hotel management system.\n"
         + "Parameters: "
         + PREFIX_ROOM + "ROOM NAME "
-        + PREFIX_DATES + "DATES(DD/MM/YY - DD/MM/YY) "
+        + PREFIX_DATES + "DATES(DD/MM/YYYY - DD/MM/YYYY) "
         + PREFIX_PAYER + "PAYER INDEX "
         + "[" + PREFIX_CUSTOMERS + "CUSTOMER INDEX]... "
         + "[" + PREFIX_COMMENT + "COMMENT]\n"
         + "Example: " + COMMAND_WORD + " "
         + PREFIX_ROOM + "SINGLE ROOM "
-        + PREFIX_DATES + "05/05/19 - 07/05/19 "
+        + PREFIX_DATES + "05/05/2019 - 07/05/2019 "
         + PREFIX_PAYER + "2 "
         + PREFIX_CUSTOMERS + "1 "
         + PREFIX_CUSTOMERS + "3 "
@@ -58,6 +58,7 @@ public class AddReservationCommand extends ReservationCommand {
         try {
             model.addReservation(toAdd);
             model.updateFilteredReservationList(Model.PREDICATE_SHOW_ALL_RESERVATIONS);
+            model.setSelectedReservation(toAdd);
         } catch (RoomUnavailableException e) {
             return new CommandResult(MESSAGE_ROOM_UNAVAILABLE);
         } catch (RoomFullException e) {

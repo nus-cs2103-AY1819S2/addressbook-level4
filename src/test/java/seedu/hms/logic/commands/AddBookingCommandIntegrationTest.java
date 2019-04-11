@@ -42,6 +42,7 @@ public class AddBookingCommandIntegrationTest {
             new VersionedHotelManagementSystem(model.getHotelManagementSystem()), new UserPrefs());
         expectedModel.addBooking(validBooking);
         expectedModel.commitHotelManagementSystem();
+        expectedModel.setSelectedBooking(validBooking);
 
         assertBookingCommandSuccess(new AddBookingCommand(validBooking), model, commandHistory,
             String.format(AddBookingCommand.MESSAGE_SUCCESS, validBooking), expectedModel);

@@ -57,6 +57,7 @@ public class AddBookingCommand extends BookingCommand {
         try {
             model.addBooking(toAdd);
             model.updateFilteredBookingList(Model.PREDICATE_SHOW_ALL_BOOKINGS);
+            model.setSelectedBooking(toAdd);
         } catch (ServiceUnavailableException e) {
             return new CommandResult(MESSAGE_SERVICE_UNAVAILABLE);
         } catch (ServiceFullException e) {

@@ -167,10 +167,9 @@ Format **(Single answer)**: `add q/QUESTION a/ANSWER [h/HINT]` +
 Format **(MCQ)**: `add q/QUESTION a/ANSWER [i/INCORRECT_OPTION]... [h/HINT]`
 
 ====
-* A card can have at most 1 hint (including 0)
-* If multiple hints are included in the command, only the last hint will be added to the card.
-* The question, answer, incorrect option, and hint fields can take any character.
-* A card can have any number of incorrect options to denote an MCQ card.
+* The question, answer, incorrect option, and hint fields can take any character, but cannot be blank.
+* A card can have at most 1 hint (including 0).
+* A card can have at most 3 incorrect options to denote an MCQ card.
 * A card with 0 incorrect options will automatically be denoted as a Single answer card.
 ====
 
@@ -179,8 +178,6 @@ Examples:
 * `add q/Hello? a/World`
 * `add q/The cat ___ on the mat a/sat h/poetry`
 * `add q/What is the powerhouse of the cell? a/mitochondria i/cell wall i/nucleus h/biology`
-* `add q/The Hippocrates Oath states to Do no ___? a/harm h/4 letters h/Rhymes with farm` +
-Creates a card with `hint` "Rhymes with farm".
 
 **Adding Fill-In-The-Blanks style card** `Coming in v2.0`
 
@@ -215,7 +212,7 @@ Format: `edit INDEX [q/QUESTION] [a/ANSWER] [h/HINT]`
 * Existing values will be updated to the input values.
 * **(MCQ cards)** When editing incorrect options, the existing incorrect options of the card will be removed i.e adding of options is not cumulative.
 * You can remove the card's hint by typing `h/` without specifying any hint after it.
-* If multiple hints are specified, only the last hint input will be selected to replace the existing hint.
+* You can remove the card's incorrect  options by typing `i/` without specifying any incorrect option after it.
 ====
 
 Examples:

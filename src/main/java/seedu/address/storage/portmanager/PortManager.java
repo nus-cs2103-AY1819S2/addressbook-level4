@@ -112,7 +112,7 @@ public class PortManager implements Porter {
      */
 
     private Path makeFilePath(String name) {
-        if (name.length() > 4 && name.substring(name.length() - 4).equals(".json")) {
+        if (name.length() > 5 && name.substring(name.length() - 5).equals(".json")) {
             return baseFilePath.resolve(name);
         } else {
             return baseFilePath.resolve(name + ".json");

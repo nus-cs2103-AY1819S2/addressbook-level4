@@ -1,0 +1,10 @@
+{
+  "name" : "InvalidDeck",
+  "cards" : [[[[[[[[[[[[[[[[]]]]]]]]]]]}{}]]]], {
+    "question" : "Solve 1 + 1.",
+    "answer" : "2",
+    "totalRating" : 0,
+    "numberOfAttempts" : 0,
+    "tags" : [ "Math" ]
+  }]
+}

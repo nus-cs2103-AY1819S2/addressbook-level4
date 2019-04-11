@@ -496,8 +496,8 @@ and serves as the opponent player since `Battleship` is a single-player game.
 The Enemy AI can automatically perform initialising actions similar to the human player.
 Mainly, the Enemy AI can randomly initialise its own mapGrid with randomly generated ships,
 which is invoked by the command `start game`.
-The Enemy AI also supports the ability for the enemy to intelligently shoot
-the player's map when the player inputs the `end turn` command.
+The Enemy AI also supports the ability for the enemy to automatically and intelligently shoot
+the player's map when the player ends their turn.
 
 Note that the Enemy AI feature does not contain any explicit commands to be
 entered by the Player. Its methods are called by other features instead, and does its
@@ -505,15 +505,41 @@ magic in the background.
 
 *Initialising Enemy MapGrid*
 
-The Enemy AI has the method `populateMapGrid` which is called by the method `prepEnemy()`,
+The Enemy AI has the method `populateMapGrid()` which is called by the method `prepEnemy()`,
 which is in turn called by the Battle Manager when the Player enters the command `start game`.
+
+
+image::PrepEnemySequenceDiagram.png[width=800]
+
+It can be seen from the above sequence diagram that `populateMapGrid()` goes on to call the methods
+`placeAirCraftCarrier()` and `placeMultipleDestroyerAndCruiser()`.
+
+`placeAirCraftCarrier()` is called once, and places only one `Aircraft Carrier` onto the map, since the game rules state that
+no matter the map size, every game will only feature a single `Aircraft Carrier`.
+
+On the other hand, `placeMultipleDestroyerAndCruiser()` is called twice consecutively. The first call takes in the parameters required
+to put as many `Destroyers` as available onto the enemy map, while the second call will do so for `Cruisers`.
+
+The reason why `placeMultipleDestroyerAndCruiser()` is called twice is because the implementation to place `Destroyers` and `Cruisers`
+are identical, but we still want to keep their placement separate for better abstraction and easier testing.
+
+The following two sequence diagrams illustrate how `placeAirCraftCarrier()` and `placeMultipleDestroyerAndCruiser()` prepare the
+enemy ships and put them on the enemy map grid.
+
+**Sequence Diagram for `placeAirCraftCarrier()`**
+
+image::PlaceAirCraftCarrierSequenceDiagram.png[width=800]
+
+**Sequence Diagram for `placeMultipleDestroyerAndCruiser()`**
+
+image::PlaceMultipleDestroyerAndCruiserSequenceDiagram.png[width=800]
+
 
 `populateMapGrid()` will generate randomised battleships based on the number of battleships
 available to it for the current game, as specified in its Parent class - Player.
 The number of battleships available to the Enemy AI is congruent to the number of battleships
 available to the Player. The exact number of the different types of battleships is decided from on
-a formula that is based on the map size specified by the player in the `init` command. Once these randomised
-battleships are generated, `populateMapGrid` will proceed to call `placeAirCraftCarrier()` and `placeMultipleDestroyerAndCruiser()`.
+a formula that is based on the map size specified by the player in the `init` command.
 
 *Calculating Cell to Attack*
 

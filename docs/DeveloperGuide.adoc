@@ -1175,7 +1175,48 @@ _{ more test cases ... }_
 .. Other incorrect recorddelete commands to try: `recorddelete`, `record delete`, `recorddelete x` (where x is larger than the list size), `recorddelete y` (where y is a negative number), `recorddelete z` (where z is not an integer) +
    Expected: Similar to previous.
 
-=== Saving data
+=== Exporting data
+. Exporting specific patients to a .json or .pdf file.
+
+.. Prerequisites: List all patients using the list command. At least one patient should be displayed in the list.
+.. Test case: `export test.json 1` +
+   Expected: A .json file named *test.json* is created/overwritten in the "data" folder. When opened in text viewer (like notepad), only the patient that corresponds to index 1 in TeethHub should be present, along with all tasks.
+.. Test case: `export test ! @ # $ % ^ & ( ) _ + - = { } [ ] ; ' , .json 1` +
+   Expected: Same as previous.
+.. Test case: `export test < > : " | ? *.json 1` +
+   Expected: Error message "Special characters such as
+> < : " | ? *
+are not allowed." is shown in message box. No file is created/overwritten.
+.. Test case: `export test.pdf 1` +
+   Expected: A .pdf file named *test.pdf* is created/overwritten in the "data" folder. When opened in PDF viewer (like Adobe Acrobat Reader DC), only the patient that corresponds to index 1 in TeethHub should be present, along with all tasks.
+.. Test case: `export test.json 0` or `export test.json x` where x is an index not present in the patient list +
+   Expected: A .json file named *test.json* is created in the "data" folder. When opened in text viewer (like notepad), no patient should be present, but all tasks are.
+.. Test case: `export test.txt 1` +
+   Expected: Error message "Input file type is not a .json or .pdf." is shown in message box. No file is created/overwritten.
+.. Test case: `export testfolder/test.json 1` +
+   Expected: A folder named "testfolder" is created in the "data" folder and a .json file named *test.json* is created/overwritten in the "testfolder" folder. When opened in text viewer (like notepad), only the patient that corresponds to index 1 in TeethHub should be present, along with all tasks.
+.. Test case: `export testfolder\test.json 1` +
+   Expected: A folder named "testfolder" is created in the "data" folder and a .json file named *test.json* is created/overwritten in the "testfolder" folder. When opened in text viewer (like notepad), only the patient that corresponds to index 1 in TeethHub should be present, along with all tasks.
+.. Test case: `export testfolder/test.json 1` +
+   Expected: Same as previous.
+.. Test case: `export testfolder\\\\\\\test.json 1` +
+   Expected: Same as previous.
+   
+.. Prerequisites: List all patients using the list command. At least 3 patients should be displayed in the list.
+.. Test case: `export test.json 1,3` +
+   Expected: A .json file named *test.json* is created/overwritten in the "data" folder. When opened in text viewer (like notepad), only the patients that correspond to index 1 *and* index 3 in TeethHub should be present, along with all tasks.
+.. Test case: `export test.json 1-3` +
+   Expected: A .json file named *test.json* is created/overwritten in the "data" folder. When opened in text viewer (like notepad), only the patient that corresponds to index 1 *to* index 3 in TeethHub should be present, along with all tasks.
+   
+.. Prerequisites: List all patients using the list command. At least 5 patients should be displayed in the list.
+.. Test case: `export test.json 1,3,5` +
+   Expected: A .json file named *test.json* is created/overwritten in the "data" folder. When opened in text viewer (like notepad), only the patients that correspond to index 1, index 3 *and* index 5 in TeethHub should be present, along with all tasks.
+.. Test case: `export test.json 1,3-5` +
+   Expected: A .json file named *test.json* is created/overwritten in the "data" folder. When opened in text viewer (like notepad), only the patient that corresponds to index 1 *and* index 3 *to* index 5 in TeethHub should be present, along with all tasks.
+.. Test case: `export test.json all` +
+   Expected: A .json file named *test.json* is created/overwritten in the "data" folder. When opened in text viewer (like notepad), all in TeethHub should be present, along with all tasks. Result should be the same as using `save test.json`.
+
+=== Opening data
 
 . Dealing with missing/corrupted data files
 

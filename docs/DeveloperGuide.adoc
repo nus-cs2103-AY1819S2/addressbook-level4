@@ -220,19 +220,13 @@ image::ModelClassDiagram.png[width="800"]
 
 *API* : link:{repoURL}/src/main/java/seedu/finance/model/Model.java[`Model.java`]
 
-The `Model`,
+The `Model` component,
 
 * stores a `UserPref` object that represents the user's preferences.
 * stores the Finance Tracker data.
-* exposes an unmodifiable `ObservableList<Record>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* exposes an unmodifiable `ObservableList<Record>` that can be 'observed' e.g. the UI can be bound to this list so
+that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
-
-[NOTE]
-As a more OOP model, we can store a `Category` list in `Finance Tracker`, which `Record` can reference.
-This would allow `Finance Tracker` to only require one `Category` object per unique `Category`, instead of each `Record` needing their own `Category` object.
-An example of how such a model may look like is given below. +
- +
-image:ModelClassBetterOopDiagram.png[width="800"]
 
 [[Design-Storage]]
 === Storage component

@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.CommandHistory;
-import seedu.address.logic.DecksView;
+import seedu.address.model.DecksView;
 import seedu.address.model.Model;
 import seedu.address.model.deck.DeckNameContainsKeywordsPredicate;
 

@@ -2,8 +2,8 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import seedu.address.logic.CardsView;
 import seedu.address.logic.CommandHistory;
+import seedu.address.model.CardsView;
 import seedu.address.model.Model;
 import seedu.address.model.deck.Deck;
 

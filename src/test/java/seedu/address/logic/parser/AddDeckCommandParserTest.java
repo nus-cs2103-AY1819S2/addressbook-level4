@@ -13,8 +13,8 @@ import static seedu.address.testutil.TypicalDecks.getTypicalTopDeck;
 
 import org.junit.Test;
 
-import seedu.address.logic.DecksView;
 import seedu.address.logic.commands.AddDeckCommand;
+import seedu.address.model.DecksView;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;

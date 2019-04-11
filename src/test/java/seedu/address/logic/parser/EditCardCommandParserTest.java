@@ -29,9 +29,9 @@ import org.junit.Before;
 import org.junit.Test;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.CardsView;
 import seedu.address.logic.commands.EditCardCommand;
 import seedu.address.logic.commands.EditCardCommand.EditCardDescriptor;
+import seedu.address.model.CardsView;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;

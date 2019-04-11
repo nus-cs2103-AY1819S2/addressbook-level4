@@ -2,9 +2,9 @@ package seedu.address.logic.parser;
 
 import static java.lang.Integer.parseInt;
 
-import seedu.address.logic.StudyView;
 import seedu.address.logic.commands.GenerateQuestionCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.StudyView;
 
 /**
  * Parses input arguments and creates a new GenerateQuestionCommand object

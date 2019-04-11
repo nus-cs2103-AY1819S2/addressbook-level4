@@ -15,9 +15,9 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_DECK;
 import org.junit.Test;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.DecksView;
 import seedu.address.logic.commands.EditDeckCommand;
 import seedu.address.logic.commands.EditDeckCommand.EditDeckDescriptor;
+import seedu.address.model.DecksView;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;

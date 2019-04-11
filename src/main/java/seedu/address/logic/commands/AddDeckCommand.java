@@ -5,8 +5,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_DECKS;
 
 import seedu.address.logic.CommandHistory;
-import seedu.address.logic.DecksView;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.DecksView;
 import seedu.address.model.Model;
 import seedu.address.model.deck.Deck;
 

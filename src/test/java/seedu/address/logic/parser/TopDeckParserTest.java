@@ -17,8 +17,6 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import seedu.address.logic.CardsView;
-import seedu.address.logic.DecksView;
 import seedu.address.logic.commands.AddCardCommand;
 import seedu.address.logic.commands.AddDeckCommand;
 import seedu.address.logic.commands.DeleteCardCommand;
@@ -33,6 +31,8 @@ import seedu.address.logic.commands.SelectCardCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.CardsView;
+import seedu.address.model.DecksView;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;

@@ -6,9 +6,9 @@ import static seedu.address.testutil.TypicalCards.getTypicalDeck;
 import org.junit.Before;
 
 import seedu.address.logic.CommandHistory;
-import seedu.address.logic.StudyView;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
+import seedu.address.model.StudyView;
 
 public class ShowAnswerCommandTest {
     private Model model = new ModelManager();

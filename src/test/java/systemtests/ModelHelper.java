@@ -5,9 +5,9 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
 
-import seedu.address.logic.DecksView;
 import seedu.address.logic.ListItem;
-import seedu.address.logic.ListViewState;
+import seedu.address.model.DecksView;
+import seedu.address.model.ListViewState;
 import seedu.address.model.Model;
 import seedu.address.model.deck.Deck;
 

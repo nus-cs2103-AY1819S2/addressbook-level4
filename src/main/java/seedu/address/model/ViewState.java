@@ -1,4 +1,4 @@
-package seedu.address.logic;
+package seedu.address.model;
 
 import javafx.scene.layout.Region;
 import seedu.address.logic.commands.Command;

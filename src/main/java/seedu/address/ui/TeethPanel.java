@@ -14,7 +14,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
-import javafx.scene.layout.StackPane;
 
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.util.DrawTeethUtil;

@@ -108,4 +108,8 @@ public class TaskBuilder {
         this.linkedPatient = new LinkedPatient(new Name(name), new Nric(nric));
         return this;
     }
+
+    public Task build() {
+        return new Task(title, startDate, endDate, startTime, endTime, priority, linkedPatient);
+    }
 }

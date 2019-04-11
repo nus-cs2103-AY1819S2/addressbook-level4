@@ -26,6 +26,8 @@ public class LogsCenter {
     private static FileHandler fileHandler;
     private static ConsoleHandler consoleHandler;
 
+    private LogsCenter() { }
+
     /**
      * Initializes with a custom log level (specified in the {@code config} object)
      * Loggers obtained *AFTER* this initialization will have their logging level changed<br>

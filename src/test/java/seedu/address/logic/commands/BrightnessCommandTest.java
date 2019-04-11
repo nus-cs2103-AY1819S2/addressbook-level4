@@ -58,7 +58,6 @@ public class BrightnessCommandTest {
 
     @After
     public void clearAlbum() {
-        Album album = Album.getInstance();
         album.clearAlbum();
         currentEdit.clearTemp();
     }

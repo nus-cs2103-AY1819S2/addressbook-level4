@@ -233,6 +233,45 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
+// tag::patient[]
+=== Representing Patients
+==== Current Implementation
+
+The `Patient` object represents patients for our users on TeethHub.
+It extends `Person` with more patient-specific attributes, as well as methods.
+Various methods are also overridden in order for them to work appropriately with the new `Patient` object.
+
+The following class diagram summarizes the new `Patient` object, which extends from `Person`:
+
+image::PatientClassDiagram.png[width="800]
+
+==== Design Considerations
+
+===== Aspect: Creating the Patient class
+* **Alternative 1 (current choice):** Create the `Patient` class by extending it from `Person`.
+** Pros: It is intuitive, as it is logical that all patients are persons as well.
+The code from `Person` can be reused in `Patient` through inheritance, and all existing classes and methods which work with `Person` will also work with `Patient`.
+Most importantly, it allows us to make use of the object-oriented programming principles we learnt in class.
+We assume that the Open-Closed Principle is applied on the `Person` object.
+** Cons: Any changes to `Person` may affect `Patient`.
+* **Alternative 2:** Create the `Patient` class from the bottom-up.
+** Pros: As `Patient` will not be a subclass of any other object, it will be less affected by changes in other classes.
+** Cons: All existing classes and methods which currently work with `Person` needs to be re-written to work with the new `Patient` object.
+Attributes and methods cannot be reused, and must be re-implemented.
+Lastly, polymorphism cannot be applied in cases where there is a need to deal with both persons and patients.
+
+===== Aspect: Picking the appropriate data structure to store dental records
+* **Alternative 1 (current choice):** Store the records using a list.
+** Pros: It is easy to understand, which is crucial for collaborative programming as other programmers may require accessing the records in the list.
+It can also save new records in the order of when they are added, from most recent to oldest, simply using `List.add(0, Record)`.
+** Cons: If the list gets long over time, it might cause additional waiting time for our users when they would to search for a specific record.
+This is because a linear search in a list is of O(n) time complexity.
+ * **Alternative 2:** Store the records using a hash table.
+ ** Pros: It gives the fastest time complexity if a record search is required. It runs in O(1) time.
+ ** Cons: It can be challenging for collaborators to understand, which can be detrimental for collaborative programming.
+ It also creates an extra layer of complexity in order to display the stored records in the order they were first stored in the application by our users.
+// end::patient[]
+
 // tag::undoredo[]
 === Undo/Redo feature
 ==== Current Implementation
@@ -312,6 +351,83 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
+
+// tag::goto[]
+=== View Patient's Dental Records
+==== Current Implementation
+
+The current implementation to view a specified patient's dental records uses the `goto` command.
+
+The `GoToCommand` extends the `Command` abstract class.
+The valid form of the command is `goto INDEX`.
+The `INDEX` of the command specifies the patient in the patient list, based to their denoted indexes.
+
+On the other hand, the current implementation to go back to the patient list uses the `back` command.
+
+It also extends the `Command` abstract class.
+Unlike the `GoToCommand`, the `BackCommand` does not take in any parameters.
+The valid form of the command is `back`.
+
+Given below is an example usage scenario and how the goto/back mechanism behaves at each step.
+
+Step 1. The user launches the application for the first time.
+All stored patients will be loaded and the user will be shown the patient list by default.
+
+Step 2. The user executes `goto 1` command to view the dental records of the first patient in the dental book.
+The `goto` command sets the specified patient in the MainWindow as the first patient.
+The patient list is now replaced by the dental record list of the specified patient.
+
+Step 3. The user can now add, edit, or delete dental records, which are tied to the specified patient.
+
+[NOTE]
+If the `goto` command is entered while the window is already showing dental records of a specified patient, an error message will be displayed on the window.
+
+Step 4. The user now decides that he wants to view the patient list.
+He do so by executing the `back` command.
+After which, the record list is replaced by the patient list.
+
+[NOTE]
+The `back` command will still work with parameters, but those parameters will be ignored.
+
+Step 5. The user can now add, edit, or delete patients' personal information.
+
+[NOTE]
+If the `back` command is entered while the window is already showing patients, an error message will be displayed on the window.
+
+The following activity diagram summarizes what happens when a user executes the `goto` command:
+
+image::GotoActivityDiagram.png[width="800"]
+{nbsp}
+
+The following activity diagram summarizes what happens when a user executes the `back` command:
+
+image::BackActivityDiagram.png[width="800"]
+{nbsp}
+
+==== Design Considerations
+
+===== Aspect: How the goto command executes
+
+* **Alternative 1 (current choice):** Use a static variable to store the specified patient, with a public getter method, and a static boolean that denotes the current list viewing mode.
+** Pros: This is relatively easy to implement and understand. Furthermore, other classes can easily access the current specified patient, and the current list viewing mode.
+** Cons: May cause complications if MainWindow is no longer a singleton class.
+* **Alternative 2:** Save the specified patient and list viewing mode as an instance variable of MainWindow.
+** Pros: Will work properly even if MainWindow is no longer a singleton class.
+** Cons: Challenging to implement as major revamp is required to most existing classes and tests.
+All new classes which wish to access the specified patient or list viewing mode will need to take in a reference to the MainWindow instance.
+
+===== Aspect: Data structure to support the goto command
+
+* **Alternative 1 (current choice):** Use a patient variable to store the patient specified by the command.
+** Pros: An intuitive solution, as the specified patient is stored as an exact same class as a patient.
+Additionally, attributes of the specified patient can be accessed just like any other patient class.
+Changes to the patient class does not significantly affect the goto command.
+** Cons: The patient class is mutable, and accidental changes to its attributes by other classes or methods can occur.
+* **Alternative 2:** Create a new immutable patient variable to store the specified patient.
+** Pros: Ensures the the specified patient cannot be edited by other classes or methods.
+** Cons: Major changes to the patient class would require the immutable patient class to be changed too.
+Furthermore, every time any record of the specified patient is modified, a new immutable patient needs to be created to update the currently stored immutable patient.
+// end::goto[]
 
 // tag::dataencryption[]
 === [Proposed] Data Encryption

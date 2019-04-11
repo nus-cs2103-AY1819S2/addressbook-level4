@@ -5,6 +5,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
+import static seedu.address.logic.commands.CommandTestUtil.MESSAGE_UNEXPECTEDEXCEPTION_VALIDINPUT;
 import static seedu.address.logic.commands.CommandTestUtil.SIZE_1_VALID;
 import static seedu.address.logic.commands.CommandTestUtil.SIZE_2_VALID;
 import static seedu.address.logic.commands.CommandTestUtil.SIZE_3_VALID;
@@ -50,21 +51,21 @@ public class SizeTest {
         try {
             Size s = new Size(SIZE_1_VALID);
         } catch (Exception e) {
-            fail("Should not fail valid inputs.");
+            fail(MESSAGE_UNEXPECTEDEXCEPTION_VALIDINPUT);
         }
 
         // single digit value -> expect no exceptions to be thrown.
         try {
             Size s = new Size("1");
         } catch (Exception e) {
-            fail("Should not fail valid inputs.");
+            fail(MESSAGE_UNEXPECTEDEXCEPTION_VALIDINPUT);
         }
 
         // long value -> expect no exceptions to be thrown.
         try {
             Size s = new Size("12345678910111213141516171819202122232425");
         } catch (Exception e) {
-            fail("Should not fail valid inputs.");
+            fail(MESSAGE_UNEXPECTEDEXCEPTION_VALIDINPUT);
         }
     }
 

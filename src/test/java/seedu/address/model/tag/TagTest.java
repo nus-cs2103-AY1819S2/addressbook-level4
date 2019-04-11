@@ -1,6 +1,7 @@
 package seedu.address.model.tag;
 
 import static org.junit.Assert.fail;
+import static seedu.address.logic.commands.CommandTestUtil.MESSAGE_UNEXPECTEDEXCEPTION_VALIDINPUT;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_VALID_LECTURE;
 
 import org.junit.Test;
@@ -31,7 +32,7 @@ public class TagTest {
         try {
             new Tag(TAG_VALID_LECTURE);
         } catch (Exception e) {
-            fail();
+            fail(MESSAGE_UNEXPECTEDEXCEPTION_VALIDINPUT);
         }
     }
 

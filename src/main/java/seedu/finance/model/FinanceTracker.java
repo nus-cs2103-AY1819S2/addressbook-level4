@@ -126,6 +126,7 @@ public class FinanceTracker implements ReadOnlyFinanceTracker {
     }
 
     // =============================== Set File Operations =========================================================
+
     public void setIsSetFile(boolean isSetFile) {
         this.isSetFile = isSetFile;
     }

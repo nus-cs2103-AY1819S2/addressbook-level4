@@ -36,8 +36,18 @@ public class TotalBudget extends Budget {
     }
 
     public void set(TotalBudget budget) {
+        if (budget.getTotalBudget() == 0) {
+            set(0, 0);
+            setCategoryBudgets(new HashSet<>());
+        }
         set(budget.getTotalBudget(), budget.getCurrentBudget());
-        this.categoryBudgets = new HashSet<>(budget.getCategoryBudgets());
+        this.categoryBudgets.clear();
+        this.categoryBudgets.addAll(
+                budget.getCategoryBudgets()
+                .stream()
+                .map(CategoryBudget::new)
+                .collect(Collectors.toSet())
+        );
     }
 
     public void setCategoryBudgets(HashSet<CategoryBudget> categoryBudgets) {
@@ -49,10 +59,14 @@ public class TotalBudget extends Budget {
     }
 
     /**
+     * Updates the budget of TotalBudget based on the budget given and current list of records.
+     * Throws an exception if the new budget to be set is less than the total amount allocated
+     * to the different budget categories.
      *
-     * @param budget
-     * @param records
-     * @throws CategoryBudgetExceedTotalBudgetException
+     * @param budget the budget to be set
+     * @param records the records in FinanceTracker to check spending and update budget
+     * @throws CategoryBudgetExceedTotalBudgetException thrown when the total amount allocated
+     * in the Set of {@code CategoryBudget} is more than budget to be set
      */
     public void updateBudget(Budget budget, ObservableList<Record> records) throws
             CategoryBudgetExceedTotalBudgetException {

@@ -26,6 +26,7 @@ public class CategoryBudget extends Budget {
 
     public CategoryBudget (CategoryBudget catBudget) {
         super(catBudget);
+        categoryOfBudget = catBudget.getCategory();
     }
 
     @Override

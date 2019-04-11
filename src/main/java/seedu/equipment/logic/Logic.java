@@ -105,6 +105,13 @@ public interface Logic {
 
 
     /**
+     * Gets the selected client in the filtered client list.
+     *
+     * @see Logic#getSelectedClient()
+     */
+    Name getSelectedClient();
+
+    /**
      * Sets the selected WorkList in the filtered WorkList list.
      *
      * @see Model#setSelectedWorkList(WorkList)

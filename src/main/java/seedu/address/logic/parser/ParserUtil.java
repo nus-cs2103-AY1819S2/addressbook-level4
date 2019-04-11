@@ -50,10 +50,15 @@ public class ParserUtil {
         return new Name(trimmedName);
     }
 
+    /**
+     * Trims the filename
+     * @param filename
+     * @return Filename without leading and trailing spaces
+     */
     public static String parseFilename(String filename) {
         requireNonNull(filename);
         String trimmedFilename = filename.trim();
-        return filename;
+        return trimmedFilename;
     }
 
     /**

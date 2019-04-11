@@ -177,12 +177,12 @@ Format: `exit`
 
 === Export edited image : `export`
 
-Exports the edited image into the specified filepath +
-Format: `export FILEPATH`
+Exports the edited image into the specified Directory +
+Format: `export f/FILENAME d/DIRECTORY`
 
 Example:
 
-* `export desktop/editedphotoalbum`
+* `export f/newImage.jpg d/C:\Users\randy\Desktop`
 
 === Help view: `help`
 Displays help view to user.
@@ -334,7 +334,7 @@ This command is not undo-able and transformations on each layer do not affect ot
 === Ruler
 
 Format: `ruler [ON|OFF]` -> Toggles a ruler that surrounds the canvas. This will help you in estimating the number of pixels to move when using `layer position` or resizing objects.
-
+// end::UpcomingFeatures[]
 
 // tag::CommandSummary[]
 == Command Summary
@@ -354,8 +354,8 @@ e.g. `crop 2 4 500 500`
 
 * *Exit* `exit` +
 
-* *Export* `export FILENAME` +
-e.g. `export MyNewImage.jpg`
+* *Export* `export f/FILENAME d/DIRECTORY` +
+e.g. `export f/newImage.jpg d/C:\Users\randy\Desktop`
 
 * *Help* `help` +
 

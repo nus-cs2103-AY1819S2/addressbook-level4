@@ -240,7 +240,9 @@ Format: `open FILE_PATH`
 `FILE_PATH`: +
 Any alphabet and numbers are allowed. +
 Allowed special characters are: +
-`! @ # $ % ^ & ( ) _ + - = { } [ ] ; ' , .`
+`! @ # $ % ^ & ( ) _ + - = { } [ ] ; ' , .` +
+Special characters *NOT* allowed are: +
+`< > : " | ? *`
 
 Examples:
 
@@ -265,7 +267,9 @@ Format: `save FILE_PATH`
 `FILE_PATH`: +
 Any alphabet and numbers are allowed. +
 Allowed special characters are: +
-`! @ # $ % ^ & ( ) _ + - = { } [ ] ; ' , .`
+`! @ # $ % ^ & ( ) _ + - = { } [ ] ; ' , .` +
+Special characters *NOT* allowed are: +
+`< > : " | ? *`
 
 Examples:
 
@@ -286,7 +290,9 @@ Format: `import FILE_PATH INDEX_RANGE`
 `FILE_PATH`: +
 Any alphabet and numbers are allowed. +
 Allowed special characters are: +
-`! @ # $ % ^ & ( ) _ + - = { } [ ] ; ' , .`
+`! @ # $ % ^ & ( ) _ + - = { } [ ] ; ' , .` +
+Special characters *NOT* allowed are: +
+`< > : " | ? *`
 
 `INDEX_RANGE`: +
 Any positive integers (no decimals, must be greater than 0) are allowed.
@@ -326,7 +332,9 @@ Format: `export FILE_PATH INDEX_RANGE`
 `FILE_PATH`: +
 Any alphabet and numbers are allowed. +
 Allowed special characters are: +
-`! @ # $ % ^ & ( ) _ + - = { } [ ] ; ' , .`
+`! @ # $ % ^ & ( ) _ + - = { } [ ] ; ' , .` +
+Special characters *NOT* allowed are: +
+`< > : " | ? *`
 
 `INDEX_RANGE`: +
 Any positive integers (no decimals, must be greater than 0) are allowed.

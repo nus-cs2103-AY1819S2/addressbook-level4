@@ -1,10 +1,12 @@
 package seedu.finance.logic.parser;
 
+import static java.time.temporal.ChronoUnit.DAYS;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.finance.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
 import static seedu.finance.testutil.TypicalIndexes.INDEX_FIRST_RECORD;
 
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
@@ -117,6 +119,12 @@ public class ParserUtilTest {
     @Test
     public void parseDate_invalidValue_throwsParseException() {
         Assert.assertThrows(ParseException.class, () -> ParserUtil.parseDate(INVALID_DATE));
+    }
+
+    @Test
+    public void parseTomorrowDate_invalidValue_throwsParseException() {
+        Date tomorrowDate = new Date(LocalDate.now().plus(1, DAYS));
+        Assert.assertThrows(ParseException.class, () -> ParserUtil.parseDate(tomorrowDate.toString()));
     }
 
     @Test

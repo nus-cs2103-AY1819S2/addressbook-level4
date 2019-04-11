@@ -1,11 +1,15 @@
 package seedu.finance.model.record;
 
+import static java.time.temporal.ChronoUnit.DAYS;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+
+import java.time.LocalDate;
 
 import org.junit.Test;
 
 import seedu.finance.testutil.Assert;
+
 
 public class DateTest {
 
@@ -39,6 +43,10 @@ public class DateTest {
         assertFalse(Date.isValidDate("99/01/2008")); // invalid date
         assertFalse(Date.isValidDate("03/30/2008")); // invalid month
         assertFalse(Date.isValidDate("30-03-2009")); // dashes instead of backslash
+
+        // future date
+        Date tomorrowDate = new Date(LocalDate.now().plus(1, DAYS));
+        assertFalse(Date.isValidDate(tomorrowDate.toString()));
 
         // valid date
         assertTrue(Date.isValidDate("30/03/2009"));

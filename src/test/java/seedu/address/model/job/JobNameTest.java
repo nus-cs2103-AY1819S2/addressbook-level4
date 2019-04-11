@@ -28,13 +28,14 @@ public class JobNameTest {
         // invalid name
         assertFalse(JobName.isValidName("")); // empty string
         assertFalse(JobName.isValidName(" ")); // space
+        assertFalse(JobName.isValidName("Elephant man ")); // space
 
         // valid name
         assertTrue(JobName.isValidName("engineer")); // alphabets only
         assertTrue(JobName.isValidName("12345")); // numbers only
-        assertTrue(JobName.isValidName("2nd Sergent")); // alphanumeric characters
-        assertTrue(JobName.isValidName("Capital Tan")); // with capital letters
-        assertTrue(JobName.isValidName("Her Royal Majesty the Queen of England")); // long names
+        assertTrue(JobName.isValidName("2nd-Sergent")); // alphanumeric characters
+        assertTrue(JobName.isValidName("Capital-Tan")); // with capital letters
+        assertTrue(JobName.isValidName("Her-Royal-Majesty-the-Queen-of-England")); // long names
         assertTrue(JobName.isValidName("IOS-Developer")); // name with symbols
     }
 }

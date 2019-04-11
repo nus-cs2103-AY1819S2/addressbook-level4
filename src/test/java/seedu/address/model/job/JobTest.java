@@ -36,7 +36,7 @@ public class JobTest {
         Person alice = new PersonBuilder(ALICE).build();
         Job Teacher = new JobBuilder(TEACHER).build();
 
-        Teacher.add(alice);
+        Teacher.add(alice, 0);
         UniquePersonList list = new UniquePersonList();
         list.add(alice);
         HashSet<Person> aList = new HashSet<>();

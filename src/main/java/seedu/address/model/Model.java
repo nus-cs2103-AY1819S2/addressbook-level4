@@ -80,7 +80,7 @@ public interface Model {
     /**
      * adds all persons in filtered personlist to {@code job}.
      */
-    void addFilteredPersonsToJob(JobName jobName);
+    void addFilteredPersonsToJob(JobName jobName, JobListName from, JobListName to);
 
     /**
      * adds person with {@code nric} to {@code job}.
@@ -180,6 +180,11 @@ public interface Model {
      * Returns the job and makes it the active job
      */
     Job getJob(JobName name);
+
+    /**
+     * Returns the current active Job.
+     */
+    Job getActiveJob();
 
     /**
      * Returns an unmodifiable view of the filtered person list

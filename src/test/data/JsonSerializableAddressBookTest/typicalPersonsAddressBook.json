@@ -29,7 +29,7 @@
     "grade" : "4.00",
     "knownProgLang" : [ "Python" ],
     "pastjobed" : [ "Lawyer", "SDE" ],
-    "jobsApply" : [ "Data Analyst" ],
+    "jobsApply" : [ "Data-Analyst" ],
     "interviewScores" : "10,2,10,10,10",
     "tagged" : [ "owesMoney", "friends" ]
   }, {
@@ -45,7 +45,7 @@
     "grade" : "4.12",
     "knownProgLang" : [ "Python" ],
     "pastjobed" : [ "Professor" ],
-    "jobsApply" : [ "Data Analyst" ],
+    "jobsApply" : [ "Data-Analyst" ],
     "interviewScores" : "1,2,1,1,1",
     "tagged" : [ ]
   }, {
@@ -61,7 +61,7 @@
     "grade" : "5.00",
     "knownProgLang" : [ "Python" ],
     "pastjobed" : [ "Professor" ],
-    "jobsApply" : [ "Chief Financial Officer" ],
+    "jobsApply" : [ "Chief-Financial-Officer" ],
     "interviewScores" : "10,10,10,10,10",
     "tagged" : [ "friends" ]
   }, {
@@ -77,7 +77,7 @@
     "grade" : "4.85",
     "knownProgLang" : [ "Python" ],
     "pastjobed" : [ "SDE" ],
-    "jobsApply" : [ "Chief Executive Officer" ],
+    "jobsApply" : [ "Chief-Executive-Officer" ],
     "interviewScores" : "10,10,10,10,10",
     "tagged" : [ ]
   }, {
@@ -93,7 +93,7 @@
     "grade" : "5.00",
     "knownProgLang" : [ "Python" ],
     "pastjobed": [ ],
-    "jobsApply" : [ "Chief Operating Officer" ],
+    "jobsApply" : [ "Chief-Operating-Officer" ],
     "interviewScores" : "9,9,9,10,10",
     "tagged" : [ ]
   }, {
@@ -109,7 +109,7 @@
     "grade" : "2.10",
     "knownProgLang" : [ "Python" ],
     "pastjobed": [ ],
-    "jobsApply" : [ "Human Resource Manager" ],
+    "jobsApply" : [ "Human-Resource-Manager" ],
     "interviewScores" : "1,3,4,10,4",
     "tagged" : [ ]
   } ]

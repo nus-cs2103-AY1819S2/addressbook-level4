@@ -99,7 +99,7 @@ public class PersonListPanelTest extends GuiUnitTest {
             School school = new School("n");
             Major major = new Major("ME");
             Grade grade = new Grade("4.32");
-            JobsApply jobsApply = new JobsApply("Software Engineer");
+            JobsApply jobsApply = new JobsApply("Software-Engineer");
             Set<JobsApply> jobsApplySet = new HashSet<>();
             jobsApplySet.add(jobsApply);
             InterviewScores interviewScores = new InterviewScores("4,5,6,7,1");

@@ -40,13 +40,14 @@ For the full list of commands, you can head to <<Command Summary>>
 image::ui_explanation.png[width="600"]
 
 .   This is the *command input* box , this is where you can type and execute the various commands
-QuickDocs possesses to perform clinical operations
+QuickDocs possesses to perform clinical operations.
 .   If you make mistakes and enter an invalid command, instructions on how you can rectify your commands
-will be shown in this *input feedback* box
-.   After the execution of your command, you can view the results on this *display* area
-.   You can view your upcoming appointments for the day, or urgent reminders that you made earlier in the
-*reminders and appointments* panel
-.   During a consultation session, QuickDocs will also indicate that an *ongoing consultation* session is happening
+will be shown in this *input feedback* box.
+.   After the execution of your command, you can view the results on this *display* area.
+.   You can view your upcoming appointments for the week, or urgent reminders that you made earlier in the
+*reminders and appointments* panel. Appointments are coloured blue, medicine alarms are coloured red
+and other reminders are coloured beige.
+.   During a consultation session, QuickDocs will also indicate that an *ongoing consultation* session is happening.
 
 
 [[Notation]]

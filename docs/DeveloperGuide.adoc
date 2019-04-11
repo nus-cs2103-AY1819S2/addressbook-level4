@@ -390,17 +390,28 @@ taken fulfils them. This command is currently facilitated by 2 classes in `Model
 `RequirementStatus`:
 
 ===== `CourseRequirement` Interface
-Some of the course requirements in NUS are made up of smaller course requirements.
-This can be seen in the example found below:
+As there are many different kinds of course requirements that can be found in NUS, it is difficult to iron down the common characteristic
+they all share. This can be seen in the examples found below:
 
-.Example of NUS Course Requirement
+
+.Computer Systems Team Project Requirement
 image::nus_requirement.PNG[width ="800"]
 
-For this requirement, the student can choose to complete either CS3203 or
-CS3216 and CS3217 or CS3281 and CS3282. We observe that can be broken down into 3 distinct,
-simpler requirements.
+.Focus Area Requirement
+image::nus_requirement2.PNG[width="800"]
 
-Hence to model NUS course requirement accurately, the `CourseRequirement` interface follows a `Composite` design pattern. This is favoured as it allows
+For the requirement shown in Figure 9, students just have to complete at least one of CS3203 or
+CS3216 and CS3217 or CS3281 and CS3282. Whereas for the requirement in Figure 10, students have to fulfill
+all of the conditions stated above. Even though these two conditions might seem quite different,
+we are still able to draw some key observations about what they have in common:
+
+. Each requirement is composed of conjunction or disjunction of condition and each condition can
+be composed by conjunction and disjunction of other simpler conditions.
+. Conditions that cannot be further broken down into simpler conditions usually contains information on the list of
+modules that can be used to satisfy the condition and how many of the modules should be completed to satisfy the
+condition.
+
+These observations gives us some insight as to how we should design the interface. As such, the `CourseRequirement` interface follows a `Composite` design pattern. This is favoured as it allows
 us to treat individual and composition of `CourseRequirement` objects uniformly. The diagram below gives an overview of
 how `CourseRequirement` is implemented.
 
@@ -409,12 +420,12 @@ image::CompositeDesignPattern.png[width="800"]
 
 This interface is implemented by 2 subclasses - `PrimitiveRequirement` and `CompositeRequirement`.
 The `PrimitiveRequirement` is the simplest building block for `CourseRequirement`. Each `PrimitiveRequirement` stores a
-list of `Condition` objects and each `Condition` object stores a `Pattern` and an `int`, `minToSatisfy`. A `Condition`
+list of `Condition` objects. A `Condition` object stores a `Java` `Pattern` and an `int`, `minToSatisfy`. A `Condition`
 is satisfied if there are at least `minToSatisfy` many distinct
 `ModuleInfoCode` that matches `Pattern` in it. `PrimitiveRequirement` is satisfied only if all `Condition` objects in the list are
 fulfilled.
 
-For instance in `Fig 9.`, a suitable `Condition` for completing CS3216 and CS3217 would be
+For instance in Figure 9, a suitable `Condition` for completing CS3216 and CS3217 would be
 a `Pattern` that accepts only CS3216 or CS3217, and a `minToSatisfy` of 2.
 
 
@@ -447,8 +458,8 @@ of the two.
 `ModuleInfoCode` matches. This method is used in the recommend feature.
 
 ===== `RequirementStatus` Class
-The `RequirementStatus` is an association class that links a `CourseRequirement` with `VersionedGradTrak` in `Model`,
-this can be seen in the class diagram below:
+The `RequirementStatus` is an association class that links a `CourseRequirement` with `VersionedGradTrak` in `Model`.
+This can be seen in the class diagram below:
 
 .`RequirementStatus` class diagram
 image::RequirementStatusClassDiagram.png[width="800"]
@@ -456,8 +467,6 @@ image::RequirementStatusClassDiagram.png[width="800"]
 
 It also stores the result of the associated `CourseRequirement` object's `isFulfilled` and `percentageFulfilled`
 methods acting on the list of `ModuleInfoCode`.
-
-The `RequirementStatus` is also the class used to display the results when the `displayreq` command is called.
 
 When `displayreq` command is called by the user, the sequence of execution is outlined below:
 
@@ -498,6 +507,8 @@ is sufficient to replicate most NUS requirements accurately.
 Modules
 
 ==== Possible Improvements
+. Allow users to create and export their own `Course` and `CourseRequirement` objects.
+. Allow `Condition` to check access other attributes of a `ModuleTaken` object in the future.
 
 //end::CourseRequirement[]
 

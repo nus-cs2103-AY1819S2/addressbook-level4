@@ -26,7 +26,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import seedu.address.model.AddressBook;
-import seedu.address.model.patient.Patient;
 import seedu.address.model.person.Person;
 import seedu.address.model.task.Task;
 
@@ -76,8 +75,8 @@ public class TypicalData {
     public static final Person GEORGE = new PersonBuilder().withName("George Best").withNric("S5234569A")
             .withDob("11-01-1991").withPhone("9482442").withEmail("anna@example.com").withAddress("4th street")
             .withSex("M").withDrugAllergy("naproxen").withDescription("Sensitive teeth, should use Sensodyn.")
-            .withNextOfKin(new PersonBuilder.NextOfKinBuilder().withKinName("Nimrod Worst").withKinRelation("Stepbrother")
-                    .withKinAddress("1st Avenue").withKinPhone("89894215").build())
+            .withNextOfKin(new PersonBuilder.NextOfKinBuilder().withKinName("Nimrod Worst")
+                    .withKinRelation("Stepbrother").withKinAddress("1st Avenue").withKinPhone("89894215").build())
             .build();
 
 
@@ -87,7 +86,7 @@ public class TypicalData {
 
     public static final Task EXTRACT = new TaskBuilder().withTitle("Tooth extraction for Alice")
             .withStartDate("16-01-2020").withEndDate("20-01-2020").withStartTime("0900").withEndTime("0900")
-            .withPriority("med").withLinkedPatient(ALICE.getName().fullName, ((Patient) ALICE).getNric().getNric())
+            .withPriority("med").withLinkedPatient(VALID_NAME_AMY, VALID_NRIC_AMY)
             .build();
 
     public static final Task REORG = new TaskBuilder().withTitle("Reorganize Documents").withStartDate("12-03-2020")
@@ -130,7 +129,8 @@ public class TypicalData {
     }
 
     public static List<Person> getTypicalPersons() {
-        return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL));
+        return new ArrayList<>(Arrays
+                .asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
     }
 
     public static List<Task> getTypicalTasks() {

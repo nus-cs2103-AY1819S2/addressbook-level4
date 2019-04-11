@@ -3,6 +3,9 @@ package guitests.guihandles;
 import guitests.GuiRobot;
 import javafx.stage.Stage;
 
+/**
+ * A handle to the {@code CalendarWindow} in the GUI.
+ */
 public class CalendarWindowHandle extends StageHandle {
 
     public static final String CALENDAR_WINDOW_TITLE = "Task Calendar";

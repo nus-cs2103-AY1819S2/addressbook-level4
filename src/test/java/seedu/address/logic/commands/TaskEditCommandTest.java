@@ -12,11 +12,11 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showTaskAtIndex;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_TASKS;
+import static seedu.address.testutil.TypicalData.AMY;
+import static seedu.address.testutil.TypicalData.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_TASK;
-import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_TASK;
-import static seedu.address.testutil.TypicalData.getTypicalAddressBook;
 
 import org.junit.Test;
 
@@ -122,11 +122,11 @@ public class TaskEditCommandTest {
     @Test
     public void execute_duplicateTaskFilteredList_failure() {
         showTaskAtIndex(model, INDEX_FIRST_TASK);
-
+        model.addPerson(AMY);
         // edit task in filtered list into a duplicate in address book
         Task taskInList = model.getAddressBook().getTaskList().get(INDEX_SECOND_TASK.getZeroBased());
         EditTaskDescriptor descriptor = new EditTaskDescriptorBuilder(taskInList).build();
-        descriptor.setPatientIndex(INDEX_SECOND_PERSON); //Will be read as index of first person in TaskEditCommand
+        descriptor.setPatientIndex(Index.fromZeroBased(model.getFilteredPersonList().size()));
         TaskEditCommand taskEditCommand = new TaskEditCommand(INDEX_FIRST_TASK, descriptor);
 
         assertCommandFailure(taskEditCommand, model, commandHistory, MESSAGE_DUPLICATE_TASK);

@@ -1,18 +1,20 @@
 package systemtests;
 
-import static seedu.address.commons.core.Messages.MESSAGE_CALENDAR_SHOWN;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import guitests.guihandles.CalendarWindowHandle;
+import static seedu.address.commons.core.Messages.MESSAGE_CALENDAR_SHOWN;
 
 import org.junit.Test;
+
+import guitests.guihandles.CalendarWindowHandle;
 
 import seedu.address.logic.commands.TaskCalendarCommand;
 import seedu.address.model.Model;
 import seedu.address.model.datetime.DateCustom;
+
+
 
 public class TaskCalendarCommandSystemTest extends AddressBookSystemTest {
 
@@ -30,7 +32,6 @@ public class TaskCalendarCommandSystemTest extends AddressBookSystemTest {
 
         //Checks case where taskcal is executed again
         getMainWindowHandle().focus();
-        assertFalse(CalendarWindowHandle.focused());
         assertCommandSuccess(TaskCalendarCommand.COMMAND_WORD + " 15-02-2019",
                 expectedModel, "15-02-2019");
         assertCalendarShowing();
@@ -39,6 +40,9 @@ public class TaskCalendarCommandSystemTest extends AddressBookSystemTest {
 
     }
 
+    /**
+     *  Verifies that the command is successful and the result shown in the display box is correct
+     */
     private void assertCommandSuccess(String command, Model expectedModel, String arg) {
         String expectedResultMessage = "";
         if (CalendarWindowHandle.isWindowPresent()) {
@@ -46,8 +50,8 @@ public class TaskCalendarCommandSystemTest extends AddressBookSystemTest {
         } else if (DateCustom.isValidDate(arg)) {
             expectedResultMessage = String.format(TaskCalendarCommand.MESSAGE_DISPLAY_CALENDAR_SUCCESS, arg);
         } else {
-            expectedResultMessage = String.format(String.format(TaskCalendarCommand.MESSAGE_USING_CURRENT_DATE
-                    + TaskCalendarCommand.MESSAGE_DISPLAY_CALENDAR_SUCCESS, DateCustom.getToday()));
+            expectedResultMessage = String.format(TaskCalendarCommand.MESSAGE_USING_CURRENT_DATE
+                    + TaskCalendarCommand.MESSAGE_DISPLAY_CALENDAR_SUCCESS, DateCustom.getToday());
         }
         executeCommand(command);
         assertApplicationDisplaysExpected("", expectedResultMessage, expectedModel);

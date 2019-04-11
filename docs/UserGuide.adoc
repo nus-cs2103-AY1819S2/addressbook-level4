@@ -99,7 +99,9 @@ In this view you can study a deck of cards.
 * Items with `…`​ after them can be used any number of times including zero. +
   Example: `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/Asia`, `t/trivia t/history` etc.
 * Parameters can be in any order. +
-  Example: If the command specifies `q/QUESTION a/ANSWER`, `q/QUESTION a/ANSWER` is also acceptable.
+  Example: If the command specifies `q/QUESTION a/ANSWER`, `a/ANSWER q/QUESTION` is also acceptable.
+* If you provide multiple parameters for fields that do not support multiple arguments, only the last argument
+  will be accepted. I.e. If you entered add n/nameOne n/nameTwo, the new deck will have the name "nameTwo".
 ====
 
 === Deck View
@@ -112,7 +114,7 @@ These are commands only available in deck view.
 
 ==== Creating a deck: `add`
 
-**Format**: `add DECK_NAME`
+**Format**: `add n/DECK_NAME`
 
 **Outcome**: Creates a new deck called `DECK_NAME`.
 

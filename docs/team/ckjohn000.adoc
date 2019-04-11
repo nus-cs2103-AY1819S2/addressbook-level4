@@ -25,19 +25,25 @@ field of Software Engineering over the semester.
 
 TopDeck is a general purpose flashcard application created to solve the inherent problems associated with physical
 flashcards. It aims to facilitate quick and intuitive management of virtual flashcards as well as having a study mode
-which allows for extra-efficient studying.
+which allows for extra-efficient studying. It comprises three management systems - 1) Deck, 2) Card, 3) Study, each
+of which plays an indispensable role in ensuring the application's success. They were meticulously designed to be
+simplistic and intuitive to use.
 
 == Summary of Contributions
 
 This section acts as a summary of my contributions to TopDeck.
 
-**Enhancement added:** I added the deck list to allow for the management of decks.
+**Enhancement added:** I added the deck list to allow for the management of decks and also the ability to import
+ and export decks.
 
-* What it does: The decklist allows users to better navigate and manage decks. It allows users to add, edit and
-find decks with ease.
+* What it does: The deck list allows users to better navigate and manage decks. It allows users to add, edit and
+ find decks with ease. The ability to import and export whole decks removes the resource-intensive way of having to
+ manually create decks and cards.
 
 * Justification: In order for a flash card application to work seamlessly, it needs the ability to manage and store
-cards easily. This deck management system allows the user to store related cards into decks.
+cards easily. This deck management system allows the user to store related cards into decks. Importing also allows
+users to download and import pre-made decks for quick and easy use. Exporting allows for portability and also the
+sharing of decks between different users.
 
 **Code Contributed:**
 https://github.com/cs2103-ay1819s2-w11-1/main/commits?author=ckjohn000[My GitHub commits],
@@ -46,15 +52,39 @@ https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#search=ckjohn000&sort=di
 **Other contributions**:
 
 * Project management:
- - Ensured loose coupling between deck and card management.
+ - Ensured https://en.wikipedia.org/wiki/Coupling_(computer_programming)[loose coupling] between deck and card management.
  - Ensured Storage component of TopDeck preserved functionality throughout.
 
 * Enhancements to existing features:
  - Added the ability to store a list of cards instead of just one card.
+ https://github.com/cs2103-ay1819s2-w11-1/main/pull/23[#23],
+ https://github.com/cs2103-ay1819s2-w11-1/main/pull/27[#27],
+ https://github.com/cs2103-ay1819s2-w11-1/main/pull/58[#58],
+ https://github.com/cs2103-ay1819s2-w11-1/main/pull/59[#59]
+ - Added the ability to import and export data sets. https://github.com/cs2103-ay1819s2-w11-1/main/pull/138[#138]
  - Wrote additional tests for existing features.
+ https://github.com/cs2103-ay1819s2-w11-1/main/pull/53[#53],
+ https://github.com/cs2103-ay1819s2-w11-1/main/pull/56[#56]
+
+* Quality Assurance:
+- Wrote unit, integration and system tests to help improve the overall code coverage.
+ https://github.com/cs2103-ay1819s2-w11-1/main/pull/53[#53],
+ https://github.com/cs2103-ay1819s2-w11-1/main/pull/56[#56],
+ https://github.com/cs2103-ay1819s2-w11-1/main/pull/58[#58],
+ https://github.com/cs2103-ay1819s2-w11-1/main/pull/59[#59],
+ https://github.com/cs2103-ay1819s2-w11-1/main/pull/98[#98],
+ https://github.com/cs2103-ay1819s2-w11-1/main/pull/111[#111],
+ https://github.com/cs2103-ay1819s2-w11-1/main/pull/144[#144],
+ https://github.com/cs2103-ay1819s2-w11-1/main/pull/146[#146]
 
 * Documentation:
- - Did changes to the user and developer guide to improve reader-friendliness of existing content.
+ - Added user-centric command descriptions to the user guide.
+ https://github.com/cs2103-ay1819s2-w11-1/main/pull/49/commits/2449efcbc5f3879bc1bd8d515c62c5071e244989[#49],
+ https://github.com/cs2103-ay1819s2-w11-1/main/pull/102[#102]
+ - Added changes to the developer guide to improve reader-friendliness of existing content.
+ https://github.com/cs2103-ay1819s2-w11-1/main/pull/84/commits/69025f4ce4b897aa54646e91ab6c4bff6a17ad85[#84],
+ https://github.com/cs2103-ay1819s2-w11-1/main/pull/100/commits/df37f68c4dcea36ef90e8840f9e62324a8fe7e87[#100],
+  https://github.com/cs2103-ay1819s2-w11-1/main/pull/102[#102]
 
 * Community:
  - I reviewed pull requests for decks and cards.
@@ -72,7 +102,7 @@ These are commands only available in deck view.
 
 ==== Creating a deck: `add`
 
-**Format**: `add DECK_NAME`
+**Format**: `add n/DECK_NAME`
 
 **Outcome**: Creates a new deck called `DECK_NAME`.
 
@@ -109,11 +139,11 @@ image::deck_ug_diagrams/delete_deck_2.png[width="800"]
 
 ==== Editing the name of a deck: `edit`
 
-**Format**: `edit INDEX NEW_DECK_NAME`
+**Format**: `edit INDEX n/NEW_DECK_NAME`
 
 **Outcome**: Changes the name of the deck at `INDEX` to `NEW_DECK_NAME`.
 
-**Example**: `edit 2 Addition`
+**Example**: `edit 2 n/Addition`
 
 Before:
 

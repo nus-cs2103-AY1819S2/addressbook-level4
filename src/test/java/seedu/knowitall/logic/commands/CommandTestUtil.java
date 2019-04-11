@@ -36,6 +36,8 @@ public class CommandTestUtil {
     public static final String VALID_SCORE_1 = "0/0";
     public static final String VALID_OPTION_1 = "Sample Option 1";
     public static final String VALID_OPTION_2 = "Sample Option 2";
+    public static final String VALID_OPTION_3 = "Sample Option 3";
+    public static final String VALID_OPTION_4 = "Sample Option 4";
     public static final String VALID_HINT_HUSBAND = "husband";
     public static final String VALID_HINT_FRIEND = "friend";
     public static final String VALID_FOLDER_NAME_1 = "Sample Folder 1";
@@ -49,6 +51,8 @@ public class CommandTestUtil {
     public static final String ANSWER_DESC_SAMPLE_2 = " " + PREFIX_ANSWER + VALID_ANSWER_2;
     public static final String OPTION_DESC_SAMPLE_1 = " " + PREFIX_OPTION + VALID_OPTION_1;
     public static final String OPTION_DESC_SAMPLE_2 = " " + PREFIX_OPTION + VALID_OPTION_2;
+    public static final String OPTION_DESC_SAMPLE_3 = " " + PREFIX_OPTION + VALID_OPTION_3;
+    public static final String OPTION_DESC_SAMPLE_4 = " " + PREFIX_OPTION + VALID_OPTION_4;
     public static final String HINT_DESC_FRIEND = " " + PREFIX_HINT + VALID_HINT_FRIEND;
     public static final String HINT_DESC_HUSBAND = " " + PREFIX_HINT + VALID_HINT_HUSBAND;
     public static final String FOLDER_DESC_SAMPLE_1 = " " + PREFIX_FOLDERNAME + VALID_FOLDER_NAME_1;

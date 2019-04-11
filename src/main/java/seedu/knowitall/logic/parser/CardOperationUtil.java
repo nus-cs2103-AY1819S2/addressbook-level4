@@ -17,10 +17,10 @@ import seedu.knowitall.logic.parser.exceptions.ParseException;
  */
 public class CardOperationUtil {
 
-    private static final String QUESTION = "question";
-    private static final String ANSWER = "answer";
-    private static final String HINT = "hint";
-    private static final String OPTION = "incorrect options";
+    public static final String QUESTION_STRING = "question";
+    public static final String ANSWER_STRING = "answer";
+    public static final String HINT_STRING = "hint";
+    public static final String OPTION_STRING = "incorrect options";
 
     /**
      * Checks if number of values mapped to each card field {@code Prefix} in the {@code ArgumentMultimap} exceeds the
@@ -29,10 +29,10 @@ public class CardOperationUtil {
      * @throws ParseException if the number of values exceeds the corresponding maximum number.
      */
     public static void checkNumberOfValidArguments(ArgumentMultimap argumentMultimap) throws ParseException {
-        checkNumberOfArguments(argumentMultimap, PREFIX_QUESTION, MAX_QUESTIONS, QUESTION);
-        checkNumberOfArguments(argumentMultimap, PREFIX_ANSWER, MAX_ANSWERS, ANSWER);
-        checkNumberOfArguments(argumentMultimap, PREFIX_HINT, MAX_HINTS, HINT);
-        checkNumberOfArguments(argumentMultimap, PREFIX_OPTION, MAX_OPTIONS, OPTION);
+        checkNumberOfArguments(argumentMultimap, PREFIX_QUESTION, MAX_QUESTIONS, QUESTION_STRING);
+        checkNumberOfArguments(argumentMultimap, PREFIX_ANSWER, MAX_ANSWERS, ANSWER_STRING);
+        checkNumberOfArguments(argumentMultimap, PREFIX_HINT, MAX_HINTS, HINT_STRING);
+        checkNumberOfArguments(argumentMultimap, PREFIX_OPTION, MAX_OPTIONS, OPTION_STRING);
     }
 
     private static void checkNumberOfArguments(ArgumentMultimap argMultimap, Prefix prefix, int limit, String field)

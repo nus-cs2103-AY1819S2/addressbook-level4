@@ -49,7 +49,7 @@ public class AddDeckCommandSystemTest extends TopDeckSystemTest {
 
         model.changeDeck(DECK_A);
         command = "open 3";
-        assertCommandSuccess(command, model, OpenDeckCommand.MESSAGE_OPEN_DECK_SUCCESS);
+        assertCommandSuccess(command, model, String.format(OpenDeckCommand.MESSAGE_OPEN_DECK_SUCCESS, toAdd));
 
         /* Case: undo adding DECK_A to the list -> Deck_A deleted */
         command = UndoCommand.COMMAND_WORD;

@@ -175,6 +175,7 @@ public class RestOrRantParser {
             }
             return new BillCommand();
 
+        // Commands that work in Statistics Mode
         case RevenueCommand.COMMAND_WORD: // Fallthrough
         case RevenueCommand.COMMAND_ALIAS:
             if (mode != Mode.STATISTICS_MODE) {

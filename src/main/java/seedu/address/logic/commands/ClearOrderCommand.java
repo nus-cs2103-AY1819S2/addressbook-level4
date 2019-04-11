@@ -27,7 +27,6 @@ public class ClearOrderCommand extends Command {
 
         TableNumber tableNumber = model.getSelectedTable().getTableNumber();
         model.clearOrderItemsFrom(tableNumber);
-        //model.updateFilteredOrderItemList(orderItem -> orderItem.getTableNumber().equals(tableNumber));
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, tableNumber), false, false);
     }

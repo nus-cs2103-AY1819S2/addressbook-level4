@@ -50,7 +50,7 @@ public class CommandTestUtil {
     public static final String VALID_TABLE_STATUS_2 = "3/5";
     public static final String VALID_QUANTITY_3 = "3";
     public static final String VALID_QUANTITY_2 = "2";
-    public static final String VALID_QUANTITY_ORDERED_8 = "8";
+    public static final String VALID_QUANTITY_8 = "8";
     public static final String VALID_DAY_1 = "01";
     public static final String VALID_DAY_29 = "29";
     public static final String VALID_MONTH_3 = "3";

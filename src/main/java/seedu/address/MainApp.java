@@ -88,7 +88,6 @@ public class MainApp extends Application {
      * Returns a {@code ModelManager} with the data from {@code storage}'s RestOrRant and {@code userPrefs}. <br>
      * Sample data will be used instead if any {@code storage} data file is not found,
      * or an empty RestOrRant will be used instead if errors occur when reading from any {@code storage} data file.
-     * TODO: Write the sample RestOrRant files.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
         Optional<ReadOnlyOrders> ordersOptional;
@@ -118,8 +117,6 @@ public class MainApp extends Application {
                 initialData = new RestOrRant(ordersOptional.get(), menuOptional.get(), tablesOptional.get(),
                         statisticsOptional.get());
             }
-
-            // initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty RestOrRant");
             initialData = new RestOrRant();

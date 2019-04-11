@@ -18,9 +18,6 @@ public class OrderItemStatus {
     public static final String MESSAGE_OVER_ORDERING =
             "Cannot add %1$s portion(s) to order as maximum quantity ordered is 2,000,000,000.";
 
-    public static final String MESSAGE_ALL_SERVED =
-            "All %1$s portions of this order item have been served.";
-
     // quantityUnserved is strictly lesser or equal to quantityOrdered
     private int quantityOrdered;
     private int quantityUnserved;

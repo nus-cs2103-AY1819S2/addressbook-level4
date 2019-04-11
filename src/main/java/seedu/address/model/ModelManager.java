@@ -218,9 +218,8 @@ public class ModelManager implements Model {
         requireNonNull(predicate);
         filteredTableList.setPredicate(predicate);
     }
-
-
-    //=========== Selected table =============================================================================
+    
+    //=========== Selected Table =============================================================================
 
     @Override
     public ReadOnlyProperty<Table> selectedTableProperty() {
@@ -323,7 +322,7 @@ public class ModelManager implements Model {
         filteredOrderItems.setPredicate(predicate);
     }
 
-    //=========== Selected order item ===========================================================================
+    //=========== Selected Order Item ===========================================================================
 
     @Override
     public ReadOnlyProperty<OrderItem> selectedOrderItemProperty() {
@@ -344,6 +343,7 @@ public class ModelManager implements Model {
     }
 
     //=========== Menu ======================================================================================
+
     @Override
     public boolean hasMenuItem(MenuItem menuItem) {
         requireNonNull(menuItem);
@@ -403,7 +403,7 @@ public class ModelManager implements Model {
         filteredMenuItems.setPredicate(predicate);
     }
 
-    //=========== Selected menu item ===========================================================================
+    //=========== Selected Menu Item ===========================================================================
 
     @Override
     public ReadOnlyProperty<MenuItem> selectedMenuItemProperty() {
@@ -485,7 +485,7 @@ public class ModelManager implements Model {
         }
     }
 
-    //=========== statistics =====================================================================================
+    //=========== Revenue =====================================================================================
 
     @Override
     public boolean hasRevenue(Revenue revenue) {
@@ -536,7 +536,7 @@ public class ModelManager implements Model {
         filteredRevenueList.setPredicate(predicate);
     }
 
-    //=========== Selected revenue =============================================================================
+    //=========== Selected Revenue =============================================================================
 
     @Override
     public ReadOnlyProperty<Revenue> selectedRevenueProperty() {
@@ -586,7 +586,7 @@ public class ModelManager implements Model {
         }
     }
 
-    //=========== Selected bill =============================================================================
+    //=========== Selected Bill =============================================================================
 
     @Override
     public ReadOnlyProperty<Bill> recentBillProperty() {

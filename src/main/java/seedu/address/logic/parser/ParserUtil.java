@@ -20,7 +20,6 @@ import seedu.address.model.table.TableNumber;
 public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index must be a non-zero unsigned integer.";
-    public static final String MESSAGE_INVALID_QUANTITY = "Quantity must be an unsigned integer.";
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be

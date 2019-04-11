@@ -1,10 +1,12 @@
-= Niven Ang Jia Hao - Project Portfolio
+== Niven Ang Jia Hao - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
-:sectnums:
+:source-highlighter: rouge
+:repoURL: https://github.com/CS2103-AY1819S2-W11-3/main
 
-= PROJECT: TravelBuddy
+== PROJECT: TravelBuddy
+:sectnums:
 
 == Overview
 

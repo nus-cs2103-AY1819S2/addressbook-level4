@@ -139,6 +139,8 @@ Each of the four components above:
 * Defines its Application Programming Interface (API) in an `interface` with the same name as the Component.
 * Exposes its functionality using a `{Component Name}Manager` class.
 
+For example, the `Logic` component (see class diagram in Section 2.3) defines its API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
+
 [discrete]
 ==== How the architecture components interact with each other
 
@@ -476,7 +478,7 @@ We chose the current method over the alternative because it is requires much few
 //tag::recommend[]
 === Module recommendation feature
 
-The module recommendation feature displays modules which the user the recommended to take based on existing GradTrak modules
+The module recommendation feature displays modules which the user is recommended to take based on existing GradTrak modules
 and specific course requirements. It generates a list of module codes together with their corresponding titles and requirement
 types satisfied. The entire list is displayed on the Result Panel upon entering the `rec` command.
 
@@ -499,7 +501,7 @@ When the `rec` command is entered, the sequence of execution is as follows:
 .  The `RecModulePredicate` is applied to the `FilteredList` of `RecModule`.
 .. It first tests if the `ModuleInfoCode` (call it `codeToTest`) in a `RecModule` is eligible to be taken,
 using an `EligibleModulePredicate` which takes in `GradTrak`. Those `RecModule` corresponding to `ModuleTaken` in `GradTrak`
-which are already passed or to be taken in a future semester (non-failed modules) are filtered out at this stage.
+which are already passed or to be taken in a future semester (collectively known as non-failed modules) are filtered out at this stage.
 .. The `codeToTest` is then passed into `Course#getCourseReqTypeOf`, which in turn calls `CourseRequirement#canFulfill` for each `CourseRequirement` listed in `Course`.
  A list of `CourseReqType` that the `codeToTest` can satisfy is returned.
 This `courseReqTypeList` is sorted by the priority of `CourseReqType` as defined in the `enum` class: `CORE`, `BD`, `IE`, `FAC`, `GE`, `UE`.
@@ -520,10 +522,16 @@ considering that lower level modules are usually taken first. In the case of equ
 If there are changes to `GradTrak` (adding, editing or deleting modules) or `Course` (changing the course of study), the `rec` command
 must be run again to reflect the updated recommendation list.
 
-The sequence diagram summarising the above execution is shown below. Details of `RecModulePredicate#test` and `RecModuleComparator#compare` are omitted.
+The sequence diagrams summarising the above execution are shown below.
 
 .`RecCommand` sequence diagram
 image::RecCommandSequenceDiagram.png[width="1000"]
+
+.`RecModulePredicate` sequence diagram
+image::RecModulePredicateSequenceDiagram.png[width="800"]
+
+.`RecModuleComparator` sequence diagram
+image::RecModuleComparatorSequenceDiagram.png[width="800"]
 
 ==== Design Considerations
 ===== Aspect: Sorting of recommendation list
@@ -546,9 +554,7 @@ image::RecCommandSequenceDiagram.png[width="1000"]
 ==== Possible Improvements
 . Allow the user to display a module's information (from displaymod command) using its index in the recommendation list
 . Allow the user to add a module to GradTrak using its index in the recommendation list
-
-
-
+//end::recommend[]
 
 // tag::semesterlimits[]
 === Semester CAP and workload management feature

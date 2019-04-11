@@ -31,14 +31,13 @@ public class DisplayRecModule extends UiPart<Region> {
     public DisplayRecModule(RecModule recModule, int id) {
         super(FXML);
         requireNonNull(recModule);
+        assert recModule.getCourseReqType().isPresent();
         this.recModule = recModule;
 
         index.setText(id + ". ");
         moduleInfoCode.setText(recModule.getModuleInfoCode().toString());
         moduleInfoTitle.setText(recModule.getModuleInfoTitle().toString());
-        if (recModule.getCourseReqType().isPresent()) {
-            courseReqType.setText(recModule.getCourseReqType().get().toString());
-        }
+        courseReqType.setText(recModule.getCourseReqType().get().toString());
     }
 
     @Override

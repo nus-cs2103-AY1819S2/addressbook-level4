@@ -5,6 +5,10 @@ import static seedu.knowitall.logic.parser.CliSyntax.PREFIX_ANSWER;
 import static seedu.knowitall.logic.parser.CliSyntax.PREFIX_HINT;
 import static seedu.knowitall.logic.parser.CliSyntax.PREFIX_OPTION;
 import static seedu.knowitall.logic.parser.CliSyntax.PREFIX_QUESTION;
+import static seedu.knowitall.model.card.Card.MAX_ANSWERS;
+import static seedu.knowitall.model.card.Card.MAX_HINTS;
+import static seedu.knowitall.model.card.Card.MAX_OPTIONS;
+import static seedu.knowitall.model.card.Card.MAX_QUESTIONS;
 
 import seedu.knowitall.logic.parser.exceptions.ParseException;
 
@@ -21,20 +25,20 @@ public class CardOperationUtil {
     /**
      * Checks if number of values mapped to each card field {@code Prefix} in the {@code ArgumentMultimap} exceeds the
      * corresponding maximum number.
+     *
      * @throws ParseException if the number of values exceeds the corresponding maximum number.
      */
     public static void checkNumberOfValidArguments(ArgumentMultimap argumentMultimap) throws ParseException {
-        if (argumentMultimap.getAllValues(PREFIX_QUESTION).size() > 1) {
-            throw new ParseException(String.format(MESSAGE_INVALID_NUMBER_OF_CARD_ARGUMENTS, 1, QUESTION));
-        }
-        if (argumentMultimap.getAllValues(PREFIX_ANSWER).size() > 1) {
-            throw new ParseException(String.format(MESSAGE_INVALID_NUMBER_OF_CARD_ARGUMENTS, 1, ANSWER));
-        }
-        if (argumentMultimap.getAllValues(PREFIX_HINT).size() > 1) {
-            throw new ParseException(String.format(MESSAGE_INVALID_NUMBER_OF_CARD_ARGUMENTS, 1, HINT));
-        }
-        if (argumentMultimap.getAllValues(PREFIX_OPTION).size() > 3) {
-            throw new ParseException(String.format(MESSAGE_INVALID_NUMBER_OF_CARD_ARGUMENTS, 1, OPTION));
+        checkNumberOfArguments(argumentMultimap, PREFIX_QUESTION, MAX_QUESTIONS, QUESTION);
+        checkNumberOfArguments(argumentMultimap, PREFIX_ANSWER, MAX_ANSWERS, ANSWER);
+        checkNumberOfArguments(argumentMultimap, PREFIX_HINT, MAX_HINTS, HINT);
+        checkNumberOfArguments(argumentMultimap, PREFIX_OPTION, MAX_OPTIONS, OPTION);
+    }
+
+    private static void checkNumberOfArguments(ArgumentMultimap argMultimap, Prefix prefix, int limit, String field)
+            throws ParseException {
+        if (argMultimap.getAllValues(prefix).size() > limit) {
+            throw new ParseException(String.format(MESSAGE_INVALID_NUMBER_OF_CARD_ARGUMENTS, limit, field));
         }
     }
 }

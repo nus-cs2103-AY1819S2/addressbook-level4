@@ -1,5 +1,6 @@
 package seedu.address.logic.commands.sortmethods;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
@@ -15,7 +16,44 @@ public class SortSurname {
 
     public SortSurname(List<Person> lastShownList) {
         Comparator<Person> personSurnameComparator = Comparator.comparing(Person::surnameToString);
-        this.newList = SortUtil.sortPersons(lastShownList, personSurnameComparator);
+        List<Person> firstSortedList = SortUtil.sortPersons(lastShownList, personSurnameComparator);
+        this.newList = duplicateValueListAlteration(firstSortedList);
+    }
+
+    /**
+     *  checks a List of Persons for duplicate surnames and returns a List of Persons subsequently ordered by first name
+     */
+    private static List<Person> duplicateValueListAlteration(List<Person> persons) {
+        Person prevPerson = persons.get(0);
+        List<Person> dupPersonList = new ArrayList<>();
+        List<Person> orderedPersonList = new ArrayList<>();
+        for (Person person : persons) {
+            if (person.surnameToString().equals(prevPerson.surnameToString())) {
+                dupPersonList.add(person);
+            } else {
+                orderedPersonList.addAll(sortDuplicateList(dupPersonList));
+                dupPersonList = new ArrayList<>();
+                dupPersonList.add(person);
+            }
+            prevPerson = person;
+        }
+        orderedPersonList.addAll(sortDuplicateList(dupPersonList));
+        return orderedPersonList;
+    }
+
+    /**
+     * Takes a list of persons and returns a list of persons ordered alphabetically by their first name
+     * If there is only one person in the list, then this person is returned
+     */
+    private static List<Person> sortDuplicateList(List<Person> dupPersonList) {
+        List<Person> orderedPersonDuplicateList = new ArrayList<>();
+        if (dupPersonList.size() == 1) {
+            orderedPersonDuplicateList.add(dupPersonList.get(0));
+        } else {
+            SortName sorted = new SortName(dupPersonList);
+            orderedPersonDuplicateList.addAll(sorted.getList());
+        }
+        return orderedPersonDuplicateList;
     }
 
     public List<Person> getList() {

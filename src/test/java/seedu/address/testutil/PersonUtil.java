@@ -2,10 +2,11 @@ package seedu.address.testutil;
 
 import static seedu.address.logic.commands.CommandTestUtil.PASSWORD_1_VALID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DEADLINE_NEW;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DIRECTORY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PASSWORD;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG_ADD;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG_REMOVE;
 
 import java.nio.file.Paths;
 import java.util.Set;
@@ -15,6 +16,7 @@ import seedu.address.logic.commands.DeadlineCommand;
 import seedu.address.logic.commands.DecryptCommand;
 import seedu.address.logic.commands.EditCommand.EditPdfDescriptor;
 import seedu.address.logic.commands.EncryptCommand;
+import seedu.address.logic.commands.FilterCommand;
 import seedu.address.model.pdf.Deadline;
 import seedu.address.model.pdf.Pdf;
 import seedu.address.model.tag.Tag;
@@ -70,13 +72,14 @@ public class PersonUtil {
     }
 
     /**
-     * Returns pdf password for decrypting the {@code pdf}.
+     * Returns a filter command string for returning a filtered list with that matches with {code tags}.
      */
-    public static String getDecryptPassword(Pdf pdf) {
-        final String DEADLINE_SEPARATOR_PREFIX = "-";
-        Deadline deadline = pdf.getDeadline();
-        String[] splitDeadline = deadline.toJsonString().split(DEADLINE_SEPARATOR_PREFIX);
-        return splitDeadline[2].substring(0, 2) + "-" + splitDeadline[1] + "-" + splitDeadline[0];
+    public static String getFilterCommand(Set<Tag> tags) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(FilterCommand.COMMAND_WORD);
+        tags.stream().forEach(tag -> sb.append(" ").append(PREFIX_TAG_NAME).append(tag.tagName));
+
+        return sb.toString();
     }
 
     /**
@@ -85,16 +88,28 @@ public class PersonUtil {
     public static String getRenamePdfDescriptorDetails(EditPdfDescriptor descriptor) {
         StringBuilder sb = new StringBuilder();
         descriptor.getName().ifPresent(name -> sb.append(PREFIX_NAME).append(name.getFullName()));
-        //descriptor.getDirectory().ifPresent(dir -> sb.append(PREFIX_DIRECTORY)
-        // .append(dir.getDirectory()).append(" "));
-        /*if (descriptor.getTags().isPresent()) {
-            Set<Tag> tags = descriptor.getTags().get();
-            if (tags.isEmpty()) {
-                sb.append(PREFIX_TAG_ADD);
-            } else {
-                tags.forEach(s -> sb.append(PREFIX_TAG_ADD).append(s.tagName).append(" "));
-            }
-        }*/
+        return sb.toString();
+    }
+
+    /**
+     * Returns the add tag command with {@code tags}.
+     */
+    public static String getAddTag(Set<Tag> tags) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(PREFIX_TAG_ADD).append(" ");
+        tags.stream().forEach(x -> sb.append(PREFIX_TAG_NAME).append(x.tagName).append(" "));
+
+        return sb.toString();
+    }
+
+    /**
+     * Returns the add tag command with {@code tags}.
+     */
+    public static String getRemoveTag(Set<Tag> tags) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(PREFIX_TAG_REMOVE).append(" ");
+        tags.stream().forEach(x -> sb.append(PREFIX_TAG_NAME).append(x.tagName).append(" "));
+
         return sb.toString();
     }
 }

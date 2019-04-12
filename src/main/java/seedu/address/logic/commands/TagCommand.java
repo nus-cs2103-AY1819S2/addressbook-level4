@@ -84,4 +84,21 @@ public class TagCommand extends Command {
         nTags.removeAll(tags);
         return new Pdf(old.getName(), old.getDirectory(), old.getSize(), nTags, old.getDeadline());
     }
+
+    @Override
+    public boolean equals(Object other) {
+        // short circuit if same object
+        if (other == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(other instanceof TagCommand)) {
+            return false;
+        }
+
+        // state check
+        TagCommand e = (TagCommand) other;
+        return index.equals(e.index) && tags.equals(e.tags) && isAddTag == e.isAddTag;
+    }
 }

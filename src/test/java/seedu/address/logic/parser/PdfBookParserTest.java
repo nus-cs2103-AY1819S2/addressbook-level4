@@ -4,16 +4,24 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.address.logic.commands.CommandTestUtil.NAME_1_VALID;
+import static seedu.address.logic.commands.CommandTestUtil.DIR_1_VALID;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_2_VALID;
 import static seedu.address.logic.commands.CommandTestUtil.PASSWORD_1_VALID;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DIRECTORY;
+import static seedu.address.model.Model.COMPARATOR_DEADLINE_ASCENDING_PDFS;
+import static seedu.address.model.Model.COMPARATOR_DEADLINE_DESCENDING_PDFS;
+import static seedu.address.model.Model.COMPARATOR_NAME_ASCENDING_PDFS;
+import static seedu.address.model.Model.COMPARATOR_NAME_DESCENDING_PDFS;
+import static seedu.address.model.Model.COMPARATOR_SIZE_ASCENDING_PDFS;
+import static seedu.address.model.Model.COMPARATOR_SIZE_DESCENDING_PDFS;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PDF;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PDF;
+import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_PDF;
 import static seedu.address.testutil.TypicalPdfs.SAMPLE_PDF_1;
-import static seedu.address.testutil.TypicalPdfs.SAMPLE_PDF_1_ENCRYPTED;
 import static seedu.address.testutil.TypicalPdfs.SAMPLE_PDF_2;
 
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -29,16 +37,21 @@ import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EncryptCommand;
 import seedu.address.logic.commands.ExitCommand;
+import seedu.address.logic.commands.FilterCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.ListCommand;
-import seedu.address.logic.commands.RedoCommand;
+import seedu.address.logic.commands.MergeCommand;
+import seedu.address.logic.commands.MoveCommand;
+import seedu.address.logic.commands.OpenCommand;
 import seedu.address.logic.commands.SelectCommand;
-import seedu.address.logic.commands.UndoCommand;
+import seedu.address.logic.commands.SortCommand;
+import seedu.address.logic.commands.TagCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.pdf.NameContainsKeywordsPredicate;
 import seedu.address.model.pdf.Pdf;
+import seedu.address.model.pdf.TagContainsKeywordsPredicate;
 import seedu.address.testutil.EditPdfDescriptorBuilder;
 import seedu.address.testutil.PdfBuilder;
 import seedu.address.testutil.PersonUtil;
@@ -110,7 +123,10 @@ public class PdfBookParserTest {
 
     @Test
     public void parseCommand_filter() throws Exception {
-        
+        System.out.println(PersonUtil.getFilterCommand(SAMPLE_PDF_2.getTags()));
+        FilterCommand command = (FilterCommand) parser.parseCommand(
+                PersonUtil.getFilterCommand(SAMPLE_PDF_2.getTags()));
+        assertEquals(new FilterCommand(new TagContainsKeywordsPredicate(Arrays.asList("w9", "CS2103T", "lecture"))), command);
     }
 
     @Test
@@ -147,13 +163,68 @@ public class PdfBookParserTest {
     }
 
     @Test
+    public void parseCommand_open() throws Exception {
+        OpenCommand command = (OpenCommand) parser.parseCommand(OpenCommand.COMMAND_WORD + " 1");
+        assertEquals(new OpenCommand(INDEX_FIRST_PDF), command);
+    }
+
+    @Test
+    public void parseCommand_move() throws Exception {
+        MoveCommand command = (MoveCommand) parser.parseCommand(MoveCommand.COMMAND_WORD + " 1 "
+                + PREFIX_DIRECTORY + DIR_1_VALID);
+        assertEquals(new MoveCommand(INDEX_FIRST_PDF, SAMPLE_PDF_1.getDirectory()), command);
+    }
+
+    @Test
+    public void parseCommand_tag() throws Exception {
+        TagCommand command = (TagCommand) parser.parseCommand(TagCommand.COMMAND_WORD + " 1 "
+                + PersonUtil.getAddTag(SAMPLE_PDF_2.getTags()));
+        assertEquals(new TagCommand(INDEX_FIRST_PDF, SAMPLE_PDF_2.getTags(), true), command);
+
+        command = (TagCommand) parser.parseCommand(TagCommand.COMMAND_WORD + " 1 "
+                + PersonUtil.getRemoveTag(SAMPLE_PDF_2.getTags()));
+        assertEquals(new TagCommand(INDEX_FIRST_PDF, SAMPLE_PDF_2.getTags(), false), command);
+    }
+
+    @Test
+    public void parseCommand_sort() throws Exception {
+        SortCommand command = (SortCommand) parser.parseCommand(
+                SortCommand.COMMAND_WORD + " name up");
+        assertEquals(new SortCommand(COMPARATOR_NAME_ASCENDING_PDFS), command);
+
+        command = (SortCommand) parser.parseCommand(
+                SortCommand.COMMAND_WORD + " name down");
+        assertEquals(new SortCommand(COMPARATOR_NAME_DESCENDING_PDFS), command);
+
+        command = (SortCommand) parser.parseCommand(
+                SortCommand.COMMAND_WORD + " deadline up");
+        assertEquals(new SortCommand(COMPARATOR_DEADLINE_ASCENDING_PDFS), command);
+
+        command = (SortCommand) parser.parseCommand(
+                SortCommand.COMMAND_WORD + " deadline down");
+        assertEquals(new SortCommand(COMPARATOR_DEADLINE_DESCENDING_PDFS), command);
+
+        command = (SortCommand) parser.parseCommand(
+                SortCommand.COMMAND_WORD + " size up");
+        assertEquals(new SortCommand(COMPARATOR_SIZE_ASCENDING_PDFS), command);
+
+        command = (SortCommand) parser.parseCommand(
+                SortCommand.COMMAND_WORD + " size down");
+        assertEquals(new SortCommand(COMPARATOR_SIZE_DESCENDING_PDFS), command);
+    }
+
+    @Test
     public void parseCommand_select() throws Exception {
         SelectCommand command = (SelectCommand) parser.parseCommand(
                 SelectCommand.COMMAND_WORD + " " + INDEX_FIRST_PDF.getOneBased());
         assertEquals(new SelectCommand(INDEX_FIRST_PDF), command);
     }
 
-
+    @Test
+    public void parseCommand_merge() throws Exception {
+        MergeCommand command = (MergeCommand) parser.parseCommand(MergeCommand.COMMAND_WORD + " " + "1 2 3");
+        assertEquals(new MergeCommand(INDEX_FIRST_PDF, INDEX_SECOND_PDF, INDEX_THIRD_PDF), command);
+    }
 
     @Test
     public void parseCommand_unrecognisedInput_throwsParseException() throws Exception {

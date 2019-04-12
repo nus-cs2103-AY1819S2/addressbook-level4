@@ -55,5 +55,9 @@ public class OpeningHoursTest {
         assertTrue(OpeningHours.isValidOpeningHours("0000 to 0001"));
         assertTrue(OpeningHours.isValidOpeningHours("2359 to 0000"));
         assertTrue(OpeningHours.isValidOpeningHours("2359 to 1200")); // Can be from 1159 pm to 12noon next day
+        assertTrue(OpeningHours.isValidOpeningHours("24hrs")); // to signify 24hrs
+
+        // Placeholder should be return true. This is to allow writing placeholder into json
+        assertTrue(OpeningHours.isValidOpeningHours("No opening hours added")); // should not
     }
 }

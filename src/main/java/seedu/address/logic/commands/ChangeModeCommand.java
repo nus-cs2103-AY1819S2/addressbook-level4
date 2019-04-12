@@ -12,7 +12,7 @@ import seedu.address.model.Model;
  * Represents a command with hidden internal logic and the ability to be executed.
  */
 public abstract class ChangeModeCommand extends Command {
-    
+
     public static final String MESSAGE_SUCCESS = "Mode changed to ___________";
 
     /**

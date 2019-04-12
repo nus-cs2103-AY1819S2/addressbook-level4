@@ -218,7 +218,7 @@ public class ModelManager implements Model {
         requireNonNull(predicate);
         filteredTableList.setPredicate(predicate);
     }
-    
+
     //=========== Selected Table =============================================================================
 
     @Override

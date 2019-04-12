@@ -30,8 +30,8 @@ public class ThresholdTest {
         assertFalse(Threshold.isValidThreshold("9011p041")); // alphabets within digits
         assertFalse(Threshold.isValidThreshold("9312 1534")); // spaces within digits
         assertFalse(Threshold.isValidThreshold("-19282")); // negative numbers
-        assertFalse(Threshold.isValidThreshold("124293842033123")); // long quantities
         assertFalse(Threshold.isValidThreshold(Integer.toString(Threshold.MIN_THRESHOLD - 1))); // less than min
+        assertFalse(Threshold.isValidThreshold(Integer.toString(Threshold.MAX_THRESHOLD + 1))); // more than max
 
         // valid thresholds
         assertTrue(Threshold.isValidThreshold("1")); // 1 number

@@ -22,9 +22,7 @@ public class WarningCardTest extends GuiUnitTest {
 
         // thresholds set high enough to view all medicines and batches
         WarningPanelPredicateAccessor predicateAccessor = new WarningPanelPredicateAccessor();
-        predicateAccessor.updateBatchExpiringThreshold(1000);
-        predicateAccessor.updateMedicineExpiringThreshold(1000);
-        predicateAccessor.updateMedicineLowStockThreshold(Quantity.MAX_QUANTITY + 1);
+        predicateAccessor.setMaxThresholds();
 
         // expiry list
         WarningCard warningCard = new WarningCard(medicine, 1, WarningPanelPredicateType.EXPIRY, predicateAccessor);

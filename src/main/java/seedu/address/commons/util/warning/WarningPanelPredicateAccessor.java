@@ -8,6 +8,7 @@ import seedu.address.model.medicine.BatchExpiryThresholdPredicate;
 import seedu.address.model.medicine.Medicine;
 import seedu.address.model.medicine.MedicineExpiryThresholdPredicate;
 import seedu.address.model.medicine.MedicineLowStockThresholdPredicate;
+import seedu.address.model.medicine.Quantity;
 import seedu.address.model.threshold.Threshold;
 
 /**
@@ -68,6 +69,15 @@ public class WarningPanelPredicateAccessor {
     public void updateMedicineLowStockThreshold(int threshold) {
         this.medicineLowStockPredicate = new MedicineLowStockThresholdPredicate(
             new Threshold(Integer.toString(threshold)));
+    }
+
+    /**
+     * Set max threshold such that all predicates always return true.
+     */
+    public void setMaxThresholds() {
+        updateBatchExpiringThreshold(Integer.MAX_VALUE);
+        updateMedicineExpiringThreshold(Integer.MAX_VALUE);
+        updateMedicineLowStockThreshold(Quantity.MAX_QUANTITY + 1);
     }
 
     private void setDefaultPredicates() {

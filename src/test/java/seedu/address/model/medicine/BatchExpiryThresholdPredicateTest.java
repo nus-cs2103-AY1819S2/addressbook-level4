@@ -50,22 +50,28 @@ public class BatchExpiryThresholdPredicateTest {
         BatchExpiryThresholdPredicate predicate;
 
         String today = formatDateToString(LocalDate.now());
-        String tomorrow = formatDateToString(LocalDate.now().plusDays(1));
+        String maxDate = formatDateToString(LocalDate.now().plusDays(Expiry.MAX_DAYS_TO_EXPIRY));
         String yesterday = formatDateToString(LocalDate.now().minusDays(1));
         String defaultDate = formatDateToString(LocalDate.now()
                 .plusDays(Model.DEFAULT_EXPIRY_THRESHOLD.getNumericValue()));
 
         // Minimum threshold for expiring and expired batch
-        predicate = new BatchExpiryThresholdPredicate(new Threshold("0"));
+        predicate = new BatchExpiryThresholdPredicate(new Threshold(Integer.toString(Threshold.MIN_THRESHOLD)));
         assertTrue(predicate.test(new BatchBuilder().withExpiry(today).build()));
         assertTrue(predicate.test(new BatchBuilder().withExpiry(yesterday).build()));
 
         // Default threshold
         predicate = new BatchExpiryThresholdPredicate(Model.DEFAULT_EXPIRY_THRESHOLD);
         assertTrue(predicate.test(new BatchBuilder().withExpiry(defaultDate).build()));
-        assertTrue(predicate.test(new BatchBuilder().withExpiry(tomorrow).build()));
         assertTrue(predicate.test(new BatchBuilder().withExpiry(today).build()));
         assertTrue(predicate.test(new BatchBuilder().withExpiry(yesterday).build()));
+
+        // Max threshold
+        predicate = new BatchExpiryThresholdPredicate(new Threshold(Integer.toString(Threshold.MAX_THRESHOLD)));
+        assertTrue(predicate.test(new BatchBuilder().withExpiry(defaultDate).build()));
+        assertTrue(predicate.test(new BatchBuilder().withExpiry(today).build()));
+        assertTrue(predicate.test(new BatchBuilder().withExpiry(yesterday).build()));
+        assertTrue(predicate.test(new BatchBuilder().withExpiry(maxDate).build()));
     }
 
     /**
@@ -78,16 +84,17 @@ public class BatchExpiryThresholdPredicateTest {
         String tomorrow = formatDateToString(LocalDate.now().plusDays(1));
         String defaultDate = formatDateToString(LocalDate.now()
                 .plusDays(Model.DEFAULT_EXPIRY_THRESHOLD.getNumericValue()));
-        String nextYear = formatDateToString(LocalDate.now().plusDays(365));
+        String maxDate = formatDateToString(LocalDate.now().plusDays(Expiry.MAX_DAYS_TO_EXPIRY));
 
         // Minimum threshold for expiring and expired batch
-        predicate = new BatchExpiryThresholdPredicate(new Threshold("0"));
+        predicate = new BatchExpiryThresholdPredicate(new Threshold(Integer.toString(Threshold.MIN_THRESHOLD)));
         assertFalse(predicate.test(new BatchBuilder().withExpiry(tomorrow).build()));
         assertFalse(predicate.test(new BatchBuilder().withExpiry(defaultDate).build()));
+        assertFalse(predicate.test(new BatchBuilder().withExpiry(maxDate).build()));
 
         // Default threshold
         predicate = new BatchExpiryThresholdPredicate(Model.DEFAULT_EXPIRY_THRESHOLD);
-        assertFalse(predicate.test(new BatchBuilder().withExpiry(nextYear).build()));
+        assertFalse(predicate.test(new BatchBuilder().withExpiry(maxDate).build()));
     }
 
     private String formatDateToString(LocalDate date) {

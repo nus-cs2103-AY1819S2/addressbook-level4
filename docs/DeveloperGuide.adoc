@@ -476,7 +476,32 @@ The Battle feature is split between several packages:
   * `BeginCommand`, and `AttackCommand` handle the player's interaction
     with this component.
 
-==== Implementation of player interaction
+==== Implementation of battle state
+
+In this program, there are certain commands that may only be executed at
+specific phases of the game (e.g. `attack` must only be used when battling,
+not while placing ships). To implement this, the battle state must be tracked.
+
+The battle state is implemented as a `BattleState` enumeration, and stored
+within the `Model`. When `LogicManager` executes a `Command` object, it checks
+whether that command is allowed to be executed in the current state using
+`Command#canExecuteIn(BattleState)`. Only if the command is allowed to execute
+does `LogicManager` then call `Command#execute` - if it is not, then execution
+is prevented and the user is notified.
+
+In addition, certain commands may change the battle state - for example, `start`
+changes the battle state from `PLAYER_PUT_SHIP` to `ENEMY_PUT_SHIP` then finally
+to `PLAYER_ATTACK`.
+
+Below can be found the state diagram of the application, and the sequence
+diagram showing the execution of a command.
+
+.State diagram of the application
+image::BattleStateDiagram.png[width=800]
+
+==== Implementation of the `BattleManager` class
+
+==== Implementation of player interaction via commands
 
 The player does battle by using the `begin` command to initiate the battle,
 then the `attack` command to attack the enemy.

@@ -21,6 +21,7 @@ import seedu.travel.model.place.CountryCode;
 import seedu.travel.model.place.DateVisited;
 import seedu.travel.model.place.Description;
 import seedu.travel.model.place.Name;
+import seedu.travel.model.place.Photo;
 import seedu.travel.model.place.Rating;
 import seedu.travel.model.tag.Tag;
 import seedu.travel.testutil.Assert;
@@ -34,6 +35,7 @@ public class ParserUtilTest {
     private static final String INVALID_TAG = "#friend";
     private static final String INVALID_DATE_VISITED_FORMAT = "5252345";
     private static final String INVALID_DATE_VISITED_YEAR = "02/11/1819";
+    private static final String INVALID_PHOTO = "/docs/images/wrongPhoto.png";
 
     private static final String VALID_NAME = "Rachel Walker";
     private static final String VALID_COUNTRY_CODE = "SGP";
@@ -43,8 +45,11 @@ public class ParserUtilTest {
     private static final String VALID_TAG_1 = "friend";
     private static final String VALID_TAG_2 = "neighbour";
     private static final String VALID_DATE_VISITED = "06/09/2018";
+    private static final String VALID_PHOTO = "docs/images/2zHnFAN.jpg";
 
+    private static final String APOSTROPHE = "\"";
     private static final String WHITESPACE = " \t\r\n";
+
 
     @Rule
     public final ExpectedException thrown = ExpectedException.none();
@@ -263,4 +268,41 @@ public class ParserUtilTest {
 
         assertEquals(expectedTagSet, actualTagSet);
     }
+
+    @Test
+    public void parsePhoto_null_throwsNullPointerException() {
+        Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parsePhoto(null));
+    }
+
+    @Test
+    public void parsePhoto_invalidFilePath_throwsParseException() {
+        Assert.assertThrows(ParseException.class, () -> ParserUtil.parsePhoto(INVALID_PHOTO));
+    }
+
+    @Test
+    public void parsePhoto_validValueWithoutWhitespace_returnsPhoto() throws Exception {
+        Photo expectedPhoto = new Photo(VALID_PHOTO);
+        assertEquals(expectedPhoto, ParserUtil.parsePhoto(VALID_PHOTO));
+    }
+
+    @Test
+    public void parsePhoto_validValueWithWhitespace_returnsTrimmedPhoto() throws Exception {
+        Photo expectedPhoto = new Photo(VALID_PHOTO);
+        String photoWithWhitespace = WHITESPACE + VALID_PHOTO + WHITESPACE;
+        assertEquals(expectedPhoto, ParserUtil.parsePhoto(photoWithWhitespace));
+    }
+
+    @Test
+    public void parsePhoto_validValueWithLeadingAndTrailingApostrophe_returnsTrimmedPhoto() throws Exception {
+        Photo expectedPhoto = new Photo(VALID_PHOTO);
+        String photoWithLeadingAndTrailingApostrophe = APOSTROPHE + VALID_PHOTO + APOSTROPHE;
+        assertEquals(expectedPhoto, ParserUtil.parsePhoto(photoWithLeadingAndTrailingApostrophe));
+    }
+
+    @Test
+    public void parsePhoto_emptyPhotoPath_returnsPlaceholderPhoto() throws Exception {
+        Photo expectedPhoto = new Photo(ParserUtil.EMPTY_PHOTO_PATH);
+        assertEquals(expectedPhoto, ParserUtil.parsePhoto(ParserUtil.EMPTY_PHOTO_PATH));
+    }
+
 }

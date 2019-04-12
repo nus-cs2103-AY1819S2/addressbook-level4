@@ -7,6 +7,7 @@ import static seedu.travel.logic.parser.CliSyntax.PREFIX_COUNTRY_CODE;
 import static seedu.travel.logic.parser.CliSyntax.PREFIX_DATE_VISITED;
 import static seedu.travel.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.travel.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.travel.logic.parser.CliSyntax.PREFIX_PHOTO;
 import static seedu.travel.logic.parser.CliSyntax.PREFIX_RATING;
 import static seedu.travel.logic.parser.CliSyntax.PREFIX_TAG;
 
@@ -56,6 +57,7 @@ public class CommandTestUtil {
     public static final String VALID_ADDRESS_DG = "11 Orchard Road, Singapore 238826";
     public static final String VALID_TAG_MRT = "mrt";
     public static final String VALID_TAG_EWL = "eastWestLine";
+    public static final String VALID_PHOTO_AMK = "docs/images/3u6lq6r4477z.jpg";
 
     public static final String NAME_DESC_AMK = " " + PREFIX_NAME + VALID_NAME_AMK;
     public static final String NAME_DESC_BEDOK = " " + PREFIX_NAME + VALID_NAME_BEDOK;
@@ -84,6 +86,7 @@ public class CommandTestUtil {
     public static final String ADDRESS_DESC_DG = " " + PREFIX_ADDRESS + VALID_ADDRESS_DG;
     public static final String TAG_DESC_MRT = " " + PREFIX_TAG + VALID_TAG_MRT;
     public static final String TAG_DESC_EWL = " " + PREFIX_TAG + VALID_TAG_EWL;
+    public static final String PHOTO_DESC_AMK = " " + PREFIX_PHOTO + VALID_PHOTO_AMK;
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_COUNTRY_CODE_DESC = " " + PREFIX_COUNTRY_CODE + "S1P"; // '1' not allowed in

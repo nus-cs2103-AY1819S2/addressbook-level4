@@ -2,6 +2,7 @@ package seedu.travel.storage;
 
 import static org.junit.Assert.assertNotEquals;
 
+import java.io.FileNotFoundException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -42,7 +43,7 @@ public class JsonChartBookStorageTest {
     }
 
     @Test
-    public void read_notJsonFormat_exceptionThrown() throws JsonSyntaxException {
+    public void read_notJsonFormat_exceptionThrown() throws JsonSyntaxException, FileNotFoundException {
         JsonChartBookStorage testChartBookStorage = new JsonChartBookStorage(TEST_DATA_FOLDER,
                 TEST_DATA_FOLDER, TEST_DATA_FOLDER);
         thrown.expect(JsonSyntaxException.class);
@@ -53,7 +54,7 @@ public class JsonChartBookStorageTest {
     }
 
     @Test
-    public void readCountryChart_nullFilePath_throwsNullPointerException() {
+    public void readCountryChart_nullFilePath_throwsNullPointerException() throws FileNotFoundException {
         JsonChartBookStorage testChartBookStorage = new JsonChartBookStorage(TEST_DATA_FOLDER,
                 TEST_DATA_FOLDER, TEST_DATA_FOLDER);
         thrown.expect(NullPointerException.class);
@@ -61,7 +62,8 @@ public class JsonChartBookStorageTest {
     }
 
     @Test
-    public void readCountryChart_invalidCountryChart_throwDataConversionException() throws JsonSyntaxException {
+    public void readCountryChart_invalidCountryChart_throwDataConversionException() throws JsonSyntaxException,
+            FileNotFoundException {
         JsonChartBookStorage testChartBookStorage = new JsonChartBookStorage(TEST_DATA_FOLDER,
                 TEST_DATA_FOLDER, TEST_DATA_FOLDER);
         thrown.expect(JsonSyntaxException.class);
@@ -70,7 +72,7 @@ public class JsonChartBookStorageTest {
 
     @Test
     public void readCountryChart_invalidAndValidCountryChart_throwDataConversionException()
-            throws JsonSyntaxException {
+            throws JsonSyntaxException, FileNotFoundException {
         JsonChartBookStorage testChartBookStorage = new JsonChartBookStorage(TEST_DATA_FOLDER,
                 TEST_DATA_FOLDER, TEST_DATA_FOLDER);
         thrown.expect(JsonSyntaxException.class);
@@ -79,14 +81,34 @@ public class JsonChartBookStorageTest {
     }
 
     @Test
-    public void readCountryChart_validCountryChart_readSuccess() {
+    public void readCountryChart_invalidFile_throwFileNotFoundException() throws FileNotFoundException {
+        JsonChartBookStorage testChartBookStorage = new JsonChartBookStorage(TEST_DATA_FOLDER,
+                TEST_DATA_FOLDER, TEST_DATA_FOLDER);
+
+        thrown.expect(FileNotFoundException.class);
+        testChartBookStorage.readCountryChart(
+                addToTestDataPathIfNotNull("invalidFile.json"));
+    }
+
+    @Test
+    public void readRatingChart_invalidFile_throwFileNotFoundException() throws FileNotFoundException {
+        JsonChartBookStorage testChartBookStorage = new JsonChartBookStorage(TEST_DATA_FOLDER,
+                TEST_DATA_FOLDER, TEST_DATA_FOLDER);
+
+        thrown.expect(FileNotFoundException.class);
+        testChartBookStorage.readRatingChart(
+                addToTestDataPathIfNotNull("invalidFile.json"));
+    }
+
+    @Test
+    public void readCountryChart_validCountryChart_readSuccess() throws FileNotFoundException {
         JsonChartBookStorage testChartBookStorage = new JsonChartBookStorage(validCountryPath,
                 TEST_DATA_FOLDER, TEST_DATA_FOLDER);
         assertNotEquals(testChartBookStorage.readCountryChart(), new ArrayList<ReadOnlyCountryChart>());
     }
 
     @Test
-    public void readRatingChart_nullFilePath_throwsNullPointerException() {
+    public void readRatingChart_nullFilePath_throwsNullPointerException() throws FileNotFoundException {
         JsonChartBookStorage testChartBookStorage = new JsonChartBookStorage(TEST_DATA_FOLDER,
                 TEST_DATA_FOLDER, TEST_DATA_FOLDER);
         thrown.expect(NullPointerException.class);
@@ -94,7 +116,8 @@ public class JsonChartBookStorageTest {
     }
 
     @Test
-    public void readRatingChart_invalidRatingChart_throwDataConversionException() throws JsonSyntaxException {
+    public void readRatingChart_invalidRatingChart_throwDataConversionException()
+            throws JsonSyntaxException, FileNotFoundException {
         JsonChartBookStorage testChartBookStorage = new JsonChartBookStorage(TEST_DATA_FOLDER,
                 TEST_DATA_FOLDER, TEST_DATA_FOLDER);
         thrown.expect(JsonSyntaxException.class);
@@ -103,7 +126,7 @@ public class JsonChartBookStorageTest {
 
     @Test
     public void readRatingChart_invalidAndValidRatingChart_throwDataConversionException()
-            throws JsonSyntaxException {
+            throws JsonSyntaxException, FileNotFoundException {
         JsonChartBookStorage testChartBookStorage = new JsonChartBookStorage(TEST_DATA_FOLDER,
                 TEST_DATA_FOLDER, TEST_DATA_FOLDER);
         thrown.expect(JsonSyntaxException.class);
@@ -112,14 +135,14 @@ public class JsonChartBookStorageTest {
     }
 
     @Test
-    public void readRatingChart_validRatingChart_readSuccess() {
+    public void readRatingChart_validRatingChart_readSuccess() throws FileNotFoundException {
         JsonChartBookStorage testChartBookStorage = new JsonChartBookStorage(TEST_DATA_FOLDER,
                 validRatingPath, TEST_DATA_FOLDER);
         assertNotEquals(testChartBookStorage.readRatingChart(), new ArrayList<ReadOnlyRatingChart>());
     }
 
     @Test
-    public void readYearChart_nullFilePath_throwsNullPointerException() {
+    public void readYearChart_nullFilePath_throwsNullPointerException() throws FileNotFoundException {
         JsonChartBookStorage testChartBookStorage = new JsonChartBookStorage(TEST_DATA_FOLDER,
                 TEST_DATA_FOLDER, TEST_DATA_FOLDER);
         thrown.expect(NullPointerException.class);
@@ -127,7 +150,8 @@ public class JsonChartBookStorageTest {
     }
 
     @Test
-    public void readYearChart_invalidYearChart_throwDataConversionException() throws JsonSyntaxException {
+    public void readYearChart_invalidYearChart_throwDataConversionException()
+            throws JsonSyntaxException, FileNotFoundException {
         JsonChartBookStorage testChartBookStorage = new JsonChartBookStorage(TEST_DATA_FOLDER,
                 TEST_DATA_FOLDER, TEST_DATA_FOLDER);
         thrown.expect(JsonSyntaxException.class);
@@ -136,7 +160,7 @@ public class JsonChartBookStorageTest {
 
     @Test
     public void readYearChart_invalidAndValidYearChart_throwDataConversionException()
-            throws JsonSyntaxException {
+            throws JsonSyntaxException, FileNotFoundException {
         JsonChartBookStorage testChartBookStorage = new JsonChartBookStorage(TEST_DATA_FOLDER,
                 TEST_DATA_FOLDER, TEST_DATA_FOLDER);
         thrown.expect(JsonSyntaxException.class);
@@ -145,7 +169,7 @@ public class JsonChartBookStorageTest {
     }
 
     @Test
-    public void readYearChart_validYearChart_readSuccess() {
+    public void readYearChart_validYearChart_readSuccess() throws FileNotFoundException {
         JsonChartBookStorage testChartBookStorage = new JsonChartBookStorage(TEST_DATA_FOLDER,
                 TEST_DATA_FOLDER, validYearPath);
         assertNotEquals(testChartBookStorage.readYearChart(), new ArrayList<ReadOnlyYearChart>());

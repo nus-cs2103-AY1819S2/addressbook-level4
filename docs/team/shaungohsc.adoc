@@ -1,67 +1,145 @@
 = Goh Shau Cher, Shaun - Project Portfolio
 :site-section: AboutUs
+:toc:
+:toc-title: Project Portfolio
+:toc-placement: preamble
+:sectnums:
 :imagesDir: ../images
 :stylesDir: ../stylesheets
+:sourceDir: ../src/main/java
+:xrefstyle: full
+:experimental:
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:important-caption: :heavy_exclamation_mark:
+:caution-caption: :fire:
+:warning-caption: :warning:
+endif::[]
+:repoURL: https://github.com/CS2103-AY1819S2-W11-3/main
+:source-highlighter: rouge
+:doctype: article
+:reproducible:
 
-== PROJECT: TravelBuddy
+= *PROJECT: TravelBuddy*
 
 ---
 
-== Overview
+== *Overview*
 
-TravelBuddy - Level 4 is a desktop address book application used for teaching Software Engineering principles. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+This document serves to highlight my contributions to *TravelBuddy*, a travel journalling application. TravelBuddy gives travelers
+simple tools to pen down their trip details, i.e. the places that they have visited, the address/location etc. As every journal entry
+in *TravelBuddy* is a *Place*, travelers can also include a photo, rate the place out of 5 stars, tag the Place with custom tags,
+and pen down other personal information about the place, breathing life into an otherwise lifeless application.
 
-== Summary of contributions
+TravelBuddy also gives travelers the means to make sense of their data, via simple data visualisation. Together with robust and intuitive search
+functionality, TravelBuddy not only serves as a digital journal, but also gives travelers fresh insights about their adventures.
+A traveller can then utilise the knowledge and experience gleaned from previous trips in planning for future trips.
 
-* *Major enhancement*: added *the ability to undo/redo previous commands*
-** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
-** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+*TravelBuddy* was built as part of the CS2103 Software Engineering module in NUS, in which link:https://cs2103-ay1819s2-w11-3.github.io/main/AboutUs.html[my team and I] were tasked to
+morph an existing link:https://se-education.org/addressbook-level4/[Address Book] software product, and turn it into a new product -- *TravelBuddy*. The full source code for *TravelBuddy* is available :{repoURL}[here].
 
-* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
+== *Summary of Contributions*
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Major Enhancement*: Photo Functionality
+* *Minor enhancement*: Added the ability to change from ExpandedPlace view to Chart view using the `generate` command
 
-* *Other contributions*:
+== *Major Enhancement*: Photo Functionality
+Photo functionality refers to the ability to include an image file with a user-defined Place. This functionality includes the ability to:
 
-** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
-** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
-** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
-** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
-** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
+* *Add a photo* to a Place +
+When using the `add` command to add a Place, users can specify the absolute file path of their desired photo with a `p/` prefix.
+The photo will then be displayed at the top of the ExpandedPlace view.
+
+* *Replace the existing photo* of a Place +
+Using the `edit` command, users can specify the file path of a new photo with the `p/` prefix.
+The existing photo will then be replaced with the new photo at the top of the ExpandedPlace view.
+
+*Justification:* Photographs spark memories and invoke feelings; they are an indispensable part of any travel journal. +
+
+Photos also serve to complement the existing textual information about a Place. A 5-star rating of a restaurant may not
+mean much on its own, but when paired with the mouth-watering photo of a juicy leg of lamb, its impact is enhanced.
+
+*Highlights:* The nature of this enhancement requires updates in and integration with multiple components, more below:
+
+* *Logic:* Photos are attached to Places via the `add` command and replaced via the `edit` method. +
+Hence, changes to addParser and ParserUtil were also needed to take into account the `p/` prefix.
+s
+* *Model:* Extensive changes to the Model was needed to include the Photo filepath string.
+
+* *Storage:* The filepath string must be stored in a new field within `TravelBuddy.json`.
+
+* *User Interface (UI):* If an included photo is present, it must be displayed in the ExpandedPlace view, otherwise, no image is displayed.
+
+*Credits:* Not Applicable.
+
+*Code contributed to major enhancement*: [link:https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#search=shaun&sort=displayName&since=2019-02-10&until=2019-04-10&timeframe=day&reverse=false&repoSort=true[RepoSense]] [link:{repoURL}/pulls?utf8=✓&q=is%3Apr+author%3Ashaungohsc+label%3Atype.Enhancement+[Functional code]]
+
+== *Minor Enhancement*: View Switching between Place view and Chart view
+
+On calling the `generate` command, the Chart view is displayed to the user. On calling the `select` command, the Expanded Place view is displayed to the user.
+
+*Justification:* Splitting the usable UI space into half, one for Chart and another for an Expanded Place details, reduces the screen real estate for both. +
+
+The use of `generate` and `select` commands to change views provides full real estate for both features. Chart view can subsequently accomodate more charts,
+while Expanded Place view can display more information without compromising on a pleasant User Experience.
+
+
+*Highlights:* A robust event-handling system like above requires updates to multiple components involved in the Model-View-Controller pattern:
+
+* *Model:* A Observable property is needed to reflect the view state.
+
+* *Logic:* The helper methods of the Observable property need implementation.
+
+* *User Interface (UI):* A parent panel is needed to house both the Chart view panel and the Expanded Place view panel.
+It also needs to be responsible for view switching.
+
+*Credits:* Not Applicable
+
+*Code Contributed*: [link:https://github.com/CS2103-AY1819S2-W11-3/main/pulls?utf8=%E2%9C%93&q=is%3Apr+author%3Ashaungohsc+label%3Atype.MinorEnhancement+label%3Apriority.High[Functional code]]
+
+== Other Contributions:
+
+* *Project management*:
+** Managed releases `v1.4.2` (1 release) on GitHub
+* *Enhancements to existing features*:
+** Update PlaceCard for new data fields (Pull requests https://github.com/CS2103-AY1819S2-W11-3/main/pull/71[#71], https://github.com/CS2103-AY1819S2-W11-3/main/pull/107[#107])
+** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
+* *Documentation*:
+** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+* *Community*:
+** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
+** Reported bugs (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
+* Tools:
+** Integrated a third party library (Natty) to the project (https://github.com[#42])
+** Integrated a new Github plugin (CircleCI) to the team repo
 
 _{you can add/remove categories in the list above}_
 
-== Contributions to the User Guide
+== *User Guide* Contributions
 
 
 |===
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=undoredo]
+=== Introduction
 
-== Contributions to the Developer Guide
+include::../UserGuide.adoc[tag=intro]
+
+=== Add a Photo Using `p/` Prefix
+
+include::../UserGuide.adoc[tag=addphoto]
+
+=== Replace the Photo Using `p/` Prefix
+
+include::../UserGuide.adoc[tag=editphoto]
+
+
+== *Developer Guide* Contributions
 
 |===
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=undoredo]
-
-== PROJECT: PowerPointLabs
-
----
-
-_{Optionally, you may include other projects in your portfolio.}_
+include::../DeveloperGuide.adoc[tag=addphoto]

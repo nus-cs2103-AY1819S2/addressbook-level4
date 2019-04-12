@@ -361,7 +361,7 @@ public class ModelManager implements Model {
     private static ObservableList<RecModule> getObservableRecModuleList(ObservableList<ModuleInfo> moduleInfoList) {
         ArrayList<RecModule> recModuleList = new ArrayList<>();
         for (ModuleInfo moduleInfo : moduleInfoList) {
-            recModuleList.add(new RecModule(moduleInfo.getModuleInfoCode(), moduleInfo.getModuleInfoTitle()));
+            recModuleList.add(new RecModule(moduleInfo));
         }
 
         return FXCollections.observableArrayList(recModuleList);

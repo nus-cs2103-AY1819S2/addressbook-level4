@@ -1,10 +1,15 @@
 package seedu.equipment.ui;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Objects;
 import java.util.function.Consumer;
 import java.util.logging.Logger;
 
+import org.w3c.dom.NameList;
+
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
@@ -22,6 +27,9 @@ public class ClientListPanel extends UiPart<Region> {
 
     private final Logger logger = LogsCenter.getLogger(ClientListPanel.class);
 
+    private ArrayList<Name> nameArrayList = new ArrayList<>();
+    private ObservableList<Name> nameObservableList = FXCollections.observableArrayList();
+
 
     @FXML
     private ListView<Name> clientListView;
@@ -29,7 +37,14 @@ public class ClientListPanel extends UiPart<Region> {
     public ClientListPanel(ObservableList<Name> nameList, ObservableValue<Name> selectedClient,
                            Consumer<Name> onSelectedClientChange) {
         super(FXML);
-        clientListView.setItems(nameList);
+        for (int i = 0; i < nameList.size(); i++) {
+            if (!nameArrayList.contains(nameList.get(i))) {
+                nameArrayList.add(nameList.get(i));
+            }
+        }
+        System.out.println("here " + nameArrayList);
+        nameObservableList.addAll(nameArrayList);
+        clientListView.setItems(nameObservableList);
         clientListView.setCellFactory(listView -> new ClientListViewCell());
 
         clientListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {

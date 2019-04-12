@@ -106,6 +106,7 @@ public class ModelManager implements Model {
         return versionedEquipmentManager;
     }
 
+
     @Override
     public boolean hasEquipment(Equipment equipment) {
         requireNonNull(equipment);

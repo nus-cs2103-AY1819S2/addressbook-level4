@@ -17,6 +17,7 @@ import seedu.address.model.person.Nric;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.healthworker.Organization;
 import seedu.address.model.request.RequestDate;
+import seedu.address.model.request.RequestStatus;
 import seedu.address.model.tag.Condition;
 import seedu.address.model.tag.Skills;
 import seedu.address.model.tag.Specialisation;
@@ -143,6 +144,22 @@ public class ParserUtil {
         }
 
         return new Condition(trimmedCondition);
+    }
+
+    /**
+     * Parses a {@code String status} into a {@code RequestStatus}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code status} is invalid.
+     */
+    public static RequestStatus parseRequestStatus(String status) throws ParseException {
+        requireNonNull(status);
+        String trimmedStatus = status.trim();
+        if (!RequestStatus.isValidStatus(trimmedStatus)) {
+            throw new ParseException(RequestStatus.MESSAGE_STATUS_CONSTRAINTS);
+        }
+
+        return new RequestStatus(trimmedStatus);
     }
 
     /**

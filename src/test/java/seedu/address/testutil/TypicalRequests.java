@@ -10,6 +10,8 @@ import seedu.address.model.util.SampleDataUtil;
 
 /**
  * A utility class containing {@code Request} objects to be used in tests.
+ *
+ * @@author daviddl9
  */
 public class TypicalRequests {
 
@@ -17,7 +19,7 @@ public class TypicalRequests {
         .withConditions(SampleDataUtil.getConditionSet("Physiotherapy"))
         .withDate("01-01-2019 10:00:00")
         .withHealthStaff(TypicalHealthWorkers.ANDY)
-        .withStatus("PENDING")
+        .withStatus("ONGOING")
         .withAddress("123, Jurong West Ave 6, #08-111")
         .withPhone("94351253")
         .withNric("S9670515H")
@@ -28,7 +30,7 @@ public class TypicalRequests {
         .withConditions(SampleDataUtil.getConditionSet("Palliative"))
         .withDate("02-01-2919 08:00:00")
         .withHealthStaff(TypicalHealthWorkers.BETTY)
-        .withStatus("PENDING")
+        .withStatus("ONGOING")
         .withName("Benson Meier")
         .withNric("S9274100D")
         .withAddress("311, Clementi Ave 2, #02-25")
@@ -39,7 +41,7 @@ public class TypicalRequests {
         .withConditions(SampleDataUtil.getConditionSet("Palliative"))
         .withDate("02-01-2919 14:00:00")
         .withHealthStaff(TypicalHealthWorkers.CARLIE)
-        .withStatus("PENDING")
+        .withStatus("ONGOING")
         .withNric("S9328723A")
         .withName("Carl Kurz")
         .withPhone("87652533")

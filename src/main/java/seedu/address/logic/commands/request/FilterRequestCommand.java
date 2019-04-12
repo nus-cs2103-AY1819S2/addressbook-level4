@@ -17,6 +17,8 @@ import seedu.address.model.request.Request;
 /**
  * Finds and lists all requests in request book whose name contains any of the argument keywords.
  * Keyword matching is case sensitive.
+ *
+ * @@author daviddl9
  */
 public class FilterRequestCommand extends FilterCommand implements RequestCommand {
 

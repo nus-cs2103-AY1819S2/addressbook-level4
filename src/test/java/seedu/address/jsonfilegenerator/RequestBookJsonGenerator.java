@@ -23,6 +23,7 @@ import seedu.address.testutil.TypicalRequests;
 /**
  * This is a executable program that generates a JSON file of typical Requests.
  * This can be modified to generate a JSON file of any kind of book.
+ * @@author daviddl9
 */
 public class RequestBookJsonGenerator {
 

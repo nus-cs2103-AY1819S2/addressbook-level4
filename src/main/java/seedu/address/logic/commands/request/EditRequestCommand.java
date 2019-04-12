@@ -28,6 +28,8 @@ import seedu.address.model.tag.Condition;
 
 /**
  * Edits an order in the request book.
+ *
+ * @@author daviddl9
  */
 public class EditRequestCommand extends EditCommand implements RequestCommand {
 
@@ -37,7 +39,7 @@ public class EditRequestCommand extends EditCommand implements RequestCommand {
         + "Existing values will be overwritten by the input values.\n"
         + "Parameters: INDEX (must be a positive integer) "
         + EDIT_COMMAND_PARAMETERS
-        + "Example: " + COMMAND_WORD + " " + COMMAND_OPTION
+        + "Example: " + COMMAND_WORD + " " + COMMAND_OPTION + " "
         + EDIT_COMMAND_EXAMPLE;
 
     public static final String MESSAGE_EDIT_REQUEST_SUCCESS = "Edited Request: %1$s";
@@ -67,11 +69,12 @@ public class EditRequestCommand extends EditCommand implements RequestCommand {
         Address updatedAddress = editRequestDescriptor.getAddress().orElse(requestToEdit.getAddress());
         RequestDate updatedRequestDate = editRequestDescriptor.getDate().orElse(requestToEdit.getRequestDate());
         Nric updatedNric = editRequestDescriptor.getNric().orElse(requestToEdit.getNric());
-        RequestStatus updatedRequestStatus = requestToEdit.getRequestStatus();
+        RequestStatus updatedRequestStatus =
+            editRequestDescriptor.getRequestStatus().orElse(requestToEdit.getRequestStatus());
         Set<Condition> updatedConditions = editRequestDescriptor.getConditions().orElse(requestToEdit
                 .getConditions());
         String updatedHealthWorker;
-        if (requestToEdit.getHealthStaff() != null) {
+        if (requestToEdit.getHealthStaff() != null && !updatedRequestStatus.equals(new RequestStatus("PENDING"))) {
             updatedHealthWorker = requestToEdit.getHealthStaff();
         } else {
             updatedHealthWorker = null;
@@ -143,6 +146,7 @@ public class EditRequestCommand extends EditCommand implements RequestCommand {
         private Nric nric;
         private Set<Condition> conditions;
         private String healthWorker;
+        private RequestStatus requestStatus;
 
         public EditRequestDescriptor() {}
 
@@ -158,13 +162,23 @@ public class EditRequestCommand extends EditCommand implements RequestCommand {
             setNric(toCopy.nric);
             setConditions(toCopy.conditions);
             setHealthWorker(toCopy.healthWorker);
+            setRequestStatus(toCopy.requestStatus);
         }
 
         /**
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, nric, phone, address, requestDate, conditions);
+            return CollectionUtil.isAnyNonNull(name, nric, phone, address, requestDate,
+                conditions, requestStatus);
+        }
+
+        public Optional<RequestStatus> getRequestStatus() {
+            return Optional.ofNullable(requestStatus);
+        }
+
+        public void setRequestStatus(RequestStatus requestStatus) {
+            this.requestStatus = requestStatus;
         }
 
         public Optional<Name> getName() {

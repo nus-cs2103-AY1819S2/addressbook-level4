@@ -20,6 +20,9 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.request.Request;
 import seedu.address.model.request.RequestNameContainsKeywordPredicate;
 
+/**
+ * @@author daviddl9
+ */
 public class RequestPredicateUtilTest {
     @Test
     public void test_emptyTags_throwsParseException() throws ParseException {

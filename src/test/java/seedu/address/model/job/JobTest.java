@@ -29,8 +29,8 @@ public class JobTest {
 
     @Test
     public void testToString() {
-        Job Teacher = new JobBuilder(TEACHER).build();
-        assertEquals(VALID_JOB_NAME_TEACHER, Teacher.toString());
+        Job teacher = new JobBuilder(TEACHER).build();
+        assertEquals(VALID_JOB_NAME_TEACHER, teacher.toString());
     }
 
     @Test

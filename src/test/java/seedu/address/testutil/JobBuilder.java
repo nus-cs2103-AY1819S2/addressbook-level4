@@ -17,8 +17,7 @@ import seedu.address.model.person.predicate.UniqueFilterList;
 public class JobBuilder {
 
     private static final int NUMBER_OF_LISTS = 4;
-    public static final String DEFAULT_JOBNAME = "HELPER";
-
+    private static final String DEFAULT_JOBNAME = "HELPER";
 
     private JobName name;
     private UniquePersonList personsInJob = new UniquePersonList();
@@ -53,8 +52,11 @@ public class JobBuilder {
         return this;
     }
 
+    /**
+     * Sets the {@code Person} in first list of the {@code Job} that we are building.
+     */
     public JobBuilder withPersonInList(Person person) {
-        if(!personsInJob.contains(person)) {
+        if (!personsInJob.contains(person)) {
             this.personsInJob.add(person);
         }
         this.personsList.get(0).add(person);

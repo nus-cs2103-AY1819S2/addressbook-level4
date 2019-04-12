@@ -87,7 +87,7 @@ public class Job {
             throw new PersonNotFoundException();
         }
         for (int i = 0; i < 4; i++) {
-            if(personsList.get(i).contains(toRemove)) {
+            if (personsList.get(i).contains(toRemove)) {
                 personsList.get(i).remove(toRemove);
                 personsNricList.get(i).remove(toRemove.getNric());
             }

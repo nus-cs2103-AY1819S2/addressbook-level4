@@ -95,7 +95,7 @@ class JsonAdaptedJob {
             if (tempPerson == null) {
                 continue;
             }
-            if(!personsInJob.contains(tempPerson)) {
+            if (!personsInJob.contains(tempPerson)) {
                 personsInJob.add(tempPerson);
             }
             firstPList.add(tempPerson);
@@ -111,7 +111,7 @@ class JsonAdaptedJob {
             if (tempPerson == null) {
                 continue;
             }
-            if(!personsInJob.contains(tempPerson)) {
+            if (!personsInJob.contains(tempPerson)) {
                 personsInJob.add(tempPerson);
             }
             secondPList.add(tempPerson);
@@ -127,7 +127,7 @@ class JsonAdaptedJob {
             if (tempPerson == null) {
                 continue;
             }
-            if(!personsInJob.contains(tempPerson)) {
+            if (!personsInJob.contains(tempPerson)) {
                 personsInJob.add(tempPerson);
             }
             thirdPList.add(tempPerson);
@@ -143,7 +143,7 @@ class JsonAdaptedJob {
             if (tempPerson == null) {
                 continue;
             }
-            if(!personsInJob.contains(tempPerson)) {
+            if (!personsInJob.contains(tempPerson)) {
                 personsInJob.add(tempPerson);
             }
             fourthPList.add(tempPerson);

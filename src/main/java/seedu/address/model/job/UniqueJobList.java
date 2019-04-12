@@ -53,8 +53,8 @@ public class UniqueJobList implements Iterable<Job> {
      * Removes Person from all jobs.
      */
     public void removePerson(Person toRemove) {
-        for (int i = 0; i < internalList.size(); i ++) {
-            if(internalList.get(i).contains(toRemove)) {
+        for (int i = 0; i < internalList.size(); i++) {
+            if (internalList.get(i).contains(toRemove)) {
                 internalList.get(i).remove(toRemove);
             }
         }

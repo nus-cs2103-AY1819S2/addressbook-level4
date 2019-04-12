@@ -107,7 +107,7 @@ public class AddCommand extends Command {
             try {
                 model.addPersonToJob(new JobName(job.toString()), toAdd.getNric());
             } catch (Exception e) {
-
+                continue;
             }
         }
         model.commitAddressBook();

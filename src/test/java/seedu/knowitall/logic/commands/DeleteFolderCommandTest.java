@@ -79,7 +79,7 @@ public class EditFolderCommandTest {
     public void execute_invalidIndex_failure() {
         String newName = TypicalCards.getTypicalFolderTwoName();
         EditFolderCommand command = new EditFolderCommand(TypicalIndexes.INDEX_SECOND_CARD_FOLDER, newName);
-        String expectedMessage = Messages.MESSAGE_INVALID_FOLDER_DISPLAYED_INDEX;
+        String expectedMessage = Messages.MESSAGE_INVALID_CARD_DISPLAYED_INDEX;
         assertCommandFailure(command, model, commandHistory, expectedMessage);
     }
 

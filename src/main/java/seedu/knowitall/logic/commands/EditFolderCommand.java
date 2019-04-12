@@ -55,7 +55,7 @@ public class EditFolderCommand extends Command {
         List<VersionedCardFolder> folderList = model.getFilteredFolders();
 
         if (index.getZeroBased() >= folderList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_CARD_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_FOLDER_DISPLAYED_INDEX);
         }
 
         CardFolder folderToEdit = folderList.get(index.getZeroBased());

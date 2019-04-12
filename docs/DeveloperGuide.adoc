@@ -114,7 +114,7 @@ image::Architecture.png[width="600"]
 The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
 
 [TIP]
-The `.pptx` files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder. To update a diagram, modify the diagram in the pptx file, select the objects of the diagram, and choose `Save as picture`.
+The `.pptx` or `.xml` files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder. To update a diagram, modify the diagram in the pptx or xml file, select the objects of the diagram, and choose `Save as picture`.
 
 `Main` has only one class called link:{repoURL}/src/main/java/seedu/pdf/MainApp.java[`MainApp`]. It is responsible for,
 
@@ -237,91 +237,50 @@ This section describes some noteworthy details on how certain features are imple
 * Items with `…`​ after them can be used multiple times including zero times e.g. `TAG...` can be used as `{nbsp}` (i.e. 0 times), `MyTag`, `TagA TagB TagC` etc.
 
 // tag::add[]
-=== Add feature
+=== Adding of files to application
 ==== Current Implementation
 
-The add feature is facilitated by both the *AddCommandParser* and *AddCommand*.
+This feature is facilitated by both the *AddCommandParser* and *AddCommand*.
 This feature adds the PDF file to the app using the path specified by your users.
-Your users can then perform multiple operations supported by PDF++ on the added files.
-Some examples of features supported include <<Edit feature>> and <<Open feature>>
+Other features such as the <<Edit feature>> and <<Open feature>> can only be performed on files that
+are added to the application.
 
-Currently PDF++ only supports PDF files, any other types of files will not be accepted.
+The *AddCommandParser* uses the prefixes defined in *CliSyntax* to identify the different types of arguments that are entered along with the
+`add` command. These arguments will then be used to construct a new Pdf which will represent the Pdf to be added.
 
-The Add feature has the following syntax:
-
-[.big]#`add`#
-
-[.big]#`add f/<PATH_TO_FILE> t/<TAG>...`#
-
-* `f/` refers to the command immediately following after this prefix is a file
-* `<PATH_TO_FILE>` refers to the path to the `Pdf` you wish to add
-* `<TAG>...` refers to the new `Tag` you wish to add. Leave this portion empty if you
-do not wish to tag this file.
-* Entering `add` without `<INDEX>` or  `<NEWDIRECTORY>` will open the default file
-selection GUI for the user to add the file directly.
-
-[NOTE]
-Please ensure that you have entered the full `PATH_TO_FILE`. Please refer to
-`Step-by-Step Guide -- add` below for detailed explanation.
-
-==== Feature breakdown
-Illustrated below is a sample usage scenario that provides a clear view to the inner
-workings of the Add feature.
-
-Step 1: The user launches the application with either an existing set of `Pdf` or a new
-sample set of `Pdf` stored within as shown below.
-
-image::AddFeatureStep1Default.png[width="600"]
-
-Step 2: The user navigates to the folder with the file and copy the directory.
-
-* __For Windows__
-Once the user has navigated to the folder, click on the address bar and copy
-
-image::AddFeatureStep2CopyDirectory.png[width="600"]
-
-* __For Mac__
-
-Step 3: The user enters the `add` command into the CLI interface, following the
-outlined syntax as illustrated below.
-
-[NOTE]
-Your users must type the file name **after** the directory copied at __Step 2__
-
-image::AddFeatureStep3UserInput.png[width="600"]
-
-[NOTE] you can enter `add` and hit enter, to open up a GUI for you to select the file you
-wish to add.
-
-Step 4: Upon hitting enter to execute the command, the *AddCommandParser* parses the input
-into several components that are required to be executed by the *AddCommand*.
-
-Upon parsing, the parser then creates a new *AddCommand* that will be executed according to
-the your input.
-
-Step 5: Upon receiving the necessary information from the parser, the `AddCommand` first
-begins by checking for validity as shown below.
-
-* Duplicate `Pdf` found in PDF++
-
-image::AddFeatureStep5DuplicateFound.png[width="600"]
-
-* `Pdf` does not exist in directory
-
-image::AddFeatureStep5PdfNotFound.png[width="600"]
-
-* `Pdf` found and no duplication in PDF++
-
-image::AddFeatureStep5Sucess.png[width="600"]
-
-Step 6: If the validity check and the individual property check passes, the file is then
-added to PDF++
-
-[NOTE]
-As of v1.2, the Add feature is only capable of adding 1 `Pdf` file at a time. By v1.4,
-the feature will support adding multiple files.
+The implementation of the *AddCommand* execution can be summarised in the following activity diagram:
 
 image::AddCommandActivityDiagram.png[width="600"]
+
+. The current PdfBook Model is checked to determine if identical Pdf has already been added.
+.. If such a Pdf already exists, a *CommandException* will be thrown and the execution will be ended.
+. The Pdf to be added is loaded as to check for errors.
+.. Pdf will be loaded as *PDDocument*, which is an indicator if the application can perform other operations on the Pdf that need it to be handled as a `.pdf` file.
+.. Created PDDocument will be closed after loading as it is unused.
+.. Errors in accessing Pdf would throw *IOException*. Errors would most likely be due to:
+... File not found at location
+... Lack of user permissions to open file
+... File has encryption
+... File corruption
+.. Thrown *IOException* is intercepted, a *CommandException* will be thrown and the execution will be ended.
+. The Pdf is recorded in the Model and the changes are committed.
+. *CommandResult* is returned upon successful execution.
+
+==== Considerations
+
+The implementation design of this feature was built upon the original implementation used by the
+https://github.com/se-edu/addressbook-level4[addressbook]. As the application is primarily meant to be operated through the CLI, it was decided to continue using the same prefix for the
+command input to keep its consistency.
+
+Due to handling of files, additional checks have to be added such as the use of
+https://pdfbox.apache.org/docs/2.0.1/javadocs/org/apache/pdfbox/pdmodel/PDDocument.html[_PDDocument_]
+to ascertain that it is a `.pdf` file and that it can be used with https://pdfbox.apache.org/download.cgi#20x[_Apache PDFBox® library_] API.
+
+==== Future Implementation
+
+Currently PDF++ only supports PDF files, any other types of files will not be accepted.
+As the goal of the application is to be the sole manager of files, the application will be upgraded to work
+with all files in v2.0.
 
 // end::add[]
 
@@ -380,58 +339,6 @@ For more information about the behavior of launching the Pdf, please refer to Ja
 The `edit` feature is facilitated by both the *EditCommandParser* and *EditCommand*.
 Essentially upon adding a Pdf to be tracked by the application, the user will be able to
 change certain attributes tied to the PDF such as the `Name` and `Tag` tied to a particular Pdf.
-
-The Edit feature has the following syntax:
-
-[.big]#`edit <INDEX> n/<NEWNAME> t/<NEWTAG1>...`#
-
-* `<INDEX>` refers to the index of the file that you wish to edit.
-* `n/` indicates that you are editing the name of the file
-* `<NEWNAME>` refers to the new value that you would like to set the file _Name_ to.
-* `<NEWTAG...>` refers to the new _Tag_ you wish to add. Leave this portion empty if you
-do not wish to tag this file.
-
-[NOTE]
-The index value can be referenced from the list in the main application, or from the
-result of the `Filter`, `Find` or `List` feature.
-
-==== Feature Breakdown
-Illustrated below is a sample usage scenario that provides a clear view to the inner
-workings of the Edit feature.
-
-Step 1: The user launches an application with either an existing set of `Pdf` or a
-new sample set of `Pdf` stored within as shown below.
-
-image::EdiFeatureStep1Default.png[width="600"]
-
-Step 2: The user chooses a `Pdf` that they wish to edit, in this case `g.pdf`, and
-enters the `edit` command into the CLI Interface, following the outlined Syntax as
-illustrated below.
-
-image::EditFeatureUserInput.png[width="600"]
-
-Step 3: Upon hitting enter to execute the command, the *EditCommandParser* parses
-the input into relevant objects that are required to be executed by the *EditCommand*
-object. Upon parsing, the parser then creates a new *EditCommand* that will execute the
-user's input.
-
-Step 4: Upon receiving the necessary information from the parser, the *EditCommand* first
-begins by checking for validity as shown below.
-
-image::EditFeatureNoDuplicate.png[width="700"]
-
-image::EditFeatureDuplicate.png[width="700"]
-
-Step 5: If the validity check and the individual property check passes, the file is then
-effectively renamed within PDF++ and in the actual directory, thus resulting in an output
-as shown below.
-
-image::EditFeatureFinalOutput.png[width="600"]
-
-[NOTE]
-As of V1.2, the Edit Feature removes any existing `Tag` s and replaces them with those
-input by the user (If any). By `V1.4` The user will be able to select tags he wishes
-to remove or add.
 
 image::EditCommandActivityDiagram.png[width="600"]
 

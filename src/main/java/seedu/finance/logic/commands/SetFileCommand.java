@@ -21,6 +21,8 @@ public class SetFileCommand extends Command {
 
     public static final String COMMAND_WORD = "setfile";
 
+    public static final int MAX_FILE_LENGTH = 250;
+
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Sets the file path to store data. "
             + "Parameters: "
             + PREFIX_FILE + "FILENAME (Without file extension or folder path) "
@@ -29,7 +31,8 @@ public class SetFileCommand extends Command {
     public static final String MESSAGE_SUCCESS = "File Set: %1$s";
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Filename should not contain special characters, '\\' character, or be blank.";
+            "Filename must be " + MAX_FILE_LENGTH + " or shorter " +
+                    "and should not contain special characters, '\\' character, or be blank.";
 
     private static final Logger logger = LogsCenter.getLogger(JsonFinanceTrackerStorage.class);
 

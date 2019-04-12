@@ -150,8 +150,9 @@ public class CommandTestUtil {
      * - the address book, filtered person list and selected person in {@code actualModel} remain unchanged <br>
      * - {@code actualCommandHistory} remains unchanged but tempimage in currentedit might change.
      */
-    public static void assertPresetCommandFailure(Command command, Model actualModel, CommandHistory actualCommandHistory,
-                                            String expectedMessage, CurrentEdit currentEdit) {
+    public static void assertPresetCommandFailure(Command command, Model actualModel,
+                                                  CommandHistory actualCommandHistory, String expectedMessage,
+                                                  CurrentEdit currentEdit) {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
         AddressBook expectedAddressBook = new AddressBook(actualModel.getAddressBook());

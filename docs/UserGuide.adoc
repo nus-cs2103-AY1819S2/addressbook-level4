@@ -194,7 +194,7 @@ step-by-step instructions on how to use the different commands.
 // tag::set[]
 ==== Setting a budget: `set`
 
-This command enables you to set a fixed budget for a month/week (Time limit to be implemented). The current budget will be modified based on the transaction records. The command format is as follows:
+You can use this command to set a budget for the current instance of _In-Credit-Ble_ Finance Tracker. +
 
 *Format*: `set $/AMOUNT`
 
@@ -204,6 +204,31 @@ This command enables you to set a fixed budget for a month/week (Time limit to b
 * `set $/500`
 * `set $/500.50`
 ****
+[NOTE]
+====
+* The budget set must contain a valid amount. A valid amount is a positive number with
+0 or 2 decimal places.
+* If you provide multiple amounts (e.g. `set $/30 $/50`), only the last amount you provided will
+be used to set the budget (`$/50` in the example). Only the last amount needs to be a valid
+amount (e.g. `set $/1a $/10` works while `set $/10 $/1a` does not).
+* If a budget was previously set, the old budget will be overwritten by the new budget specified
+by the `set` command.
+* The budget you set and current spending will be displayed in the <<Budget Panel>>.
+* Only one budget may be set for each instance of the Finance Tracker. The rationale is to keep the
+UI as clean as possible without extra panels for past budgets. You can either use `allocate` to set
+various category sub-budgets or create a new instance of he Finance Tracker with the `setfile` command
+detailed in <<Changing FinanceTracker data storage location: `setfile`>>.
+====
+
+[IMPORTANT]
+====
+* Take note that you can spend over the budget set and set a budget lower than current spending. The
+ratianole is for you to be able to see how much you have exceeded your budget set to better plan your
+expenditure in the future since the App is unable to stop you from spending.
+* The budget you set must be higher than or equal to the sum of the budgets allocated to individual
+category. The rationale is that it would be pointless to set an overall budget if individual category
+budgets are going to exceed it.
+====
 // end::set[]
 
 // tag::allocate[]
@@ -547,25 +572,38 @@ The implementation of this feature is still ongoing. It will be completed by v1.
 === Miscellaneous
 
 
-////
+
 // tag::setfile[]
 ==== Changing FinanceTracker data storage location: `setfile`
-Want to maintain multiple users of the FinanceTracker? You can use this command to load a finance tracker profile from another file.
-If the file name does not exist, a new file will be created with an empty finance tracker profile.
-
-File paths and extension should not be included in command.
+You can change the file used to store the data of the application. Essentially,
+you can maintain multiple sets of expenditure and budget data for multiple users
+or profiles.
 
 *Format*: `setfile f/FILENAME`
 
 ****
 *Examples*:
 
+* `setfile f/Daily Expenses`
 * `setfile f/JohnDoe`
+* `setfile f/Food.Groceries.Shopping`
 ****
 
+[NOTE]
+====
+* The filename should not contain any file paths (e.g. /data/file) or extensions
+(e.g. file.json). The filename must also be 250 characters or lesser and should not
+contain any special characters or be left blank.
+* If multiple filenames are provided (e.g. `setfile f/file1 f/file2`) only the last
+filename provided will be taken in as the filename (`file2` in this example).
+Only the last filename needs to be a valid filename
+(e.g. `setfile f/$file f/file` works while `set f/file f/$file` does not).
+* If the file specified by the filename does not already exist, a new blank file
+will be created with no data in the Finance Tracker. Otherwise, the data stored
+in the file will be loaded into the Finance Tracker.
+====
 
 //end::setfile[]
-////
 
 
 // tag::help[]
@@ -588,6 +626,7 @@ You can restore the program to the state before the previous _undoable_ command 
 
 ****
 *Examples*:
+
 * `delete 1` +
 `list` +
 `undo` (reverses the `delete 1` command) +
@@ -607,7 +646,8 @@ The `undo` command fails as there are no undoable commands executed previously.
 _Undoable_ commands:
 
 * commands that modify the finance tracker's content +
-(`set`, `spend`, `increase`, `allocate`, `edit`, `delete`, `clear`, `description).
+(`set`, `allocate`, `spend`, `edit`, `delete`,
+ `sort`, `reverse`, `setfile`, `clear`, `description`).
 ====
 
 ==== Redoing the previously undone command : `redo`

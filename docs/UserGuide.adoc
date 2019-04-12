@@ -635,7 +635,11 @@ Adds a prescription and the prescribing doctor under the patient involved. +
 Format: `add-presc pid/PATIENT_ID did/DOCTOR_ID rid/MED_ID w/SHORT_WRITEUP`
 
 ****
-* Medicines can only be added based on their unique identification number (ID).
+* Prescription with corresponding patient, doctor, medicine and a short description written by the doctor will be added to docX.
+* PATIENT_ID and DOCTOR_ID must be ids that correspond to existing patient and doctor.
+* Duplicate prescription cannot be added to the list.
+* Description is doctor's description about the prescription. Description can be edited by "edit-presc" command.
+
 ****
 
 Examples:
@@ -655,8 +659,7 @@ Format: `list-presc [pid/PATIENT_ID] [did/DOCTOR_ID]`
 ****
 * PATIENT_ID and DOCTOR_ID must be existing id in patient and doctor list.
 * If there is no prescription satisfying all specified requirements, an empty list will be shown.
-* Description of prescription may not be shown fully in the list. Can view more details of a particular
- prescription by using "select-presc" command.
+* Description of prescription may not be shown fully in the list. Can view more details of a particular prescription by using "select-presc" command.
 
 
 Examples:

@@ -25,20 +25,20 @@ endif::[]
 ---
 == Overview
 
-This document serves to highlight my contributions to *TravelBuddy*, a travel log application that lets users efficiently manage their travel records, i.e. the places that they have visited. Additional features built into TravelBuddy allows them to search through the records, attach photos and view statistical models. This project is part of the CS2103 Software Engineering module in NUS, in which link:https://cs2103-ay1819s2-w11-3.github.io/main/AboutUs.html[my team and I] were tasked to morph a given link:https://se-education.org/addressbook-level4/[address book] product into a new product -- TravelBuddy. The complete source code for TravelBuddy is available on link:{repoURL}[GitHub].
+This document serves to highlight my contributions to *TravelBuddy*, a travel log application that allows users to efficiently manage their travel records, i.e. the places that they have visited. Additional features built into TravelBuddy allows them to search through the records, attach photos and view statistical models. This  link:https://cs2103-ay1819s2-w11-3.github.io/main/AboutUs.html[team-based] project is part of the CS2103T Software Engineering module in National University of Singapore, in which my team and I were tasked to morph a given link:https://se-education.org/addressbook-level4/[address book] product into a new product -- TravelBuddy. The complete source code for TravelBuddy is available on link:{repoURL}[GitHub].
 
-My role was to design the chart feature. The following sections describes these enhancements in more detail, as well as the relevant sections I have added to the user and developer guides in relation to these enhancements.
+My role was to design the chart feature. The following sections describe the enhancements I made in greater detail. They also include relevant sections from the user and developer guide related to these enhancements.
 
 == Summary of Contributions
 
 === Major Enhancement
-The major enhancement I did was adding the ability to generate charts in real-time and via the `generate` command, details of which can be found below:
+The major enhancement I did was adding the ability to generate charts in real-time or via the `generate` command, the details of which are stated below:
 
-*What it does:* It allows users to generate charts based on their travel data that they have accumulated in the product.
+*What it does:* It allows users to generate charts based on their travel data that they have accumulated in TravelBuddy.
 
-*Justification:* This feature allows users to gather insights into their travel patterns. It improves the user-friendliness of the product, gives the product additional functionality and is the differentiating factor among other travel log products on the market.
+*Justification:* This feature allows users to gather insights into their travel patterns. It improves the user-friendliness of TravelBuddy while giving it additional functionality. As such, this feature is the differentiating factor for TravelBuddy among other travel log products on the market.
 
-*Highlights:* Due to the real-time update of the charts, this enhancement affects existing and future commands. Furthermore, the complexity of this enhancement is due to the fact that it links up with all the components of the existing architecture, as described below:
+*Highlights:* The complexity of this enhancement is due to the fact that it links up with all the components of the existing architecture, as described below:
 
 * *Logic:* The chart feature can be activated via the `generate` command. Hence, a parser is required to parse the command.
 * *Model:* Any changes made to the travel records has to be reflected in the charts. Hence, relevant data is extracted from the latest version of the travel records.
@@ -57,10 +57,12 @@ The minor enhancement I did was converting the `add` command's Email parameter i
 
 *Code contributed to minor enhancement*: [link:{repoURL}/pulls?utf8=%E2%9C%93&q=is%3Apr+author%3Achung-ming+label%3Atype.MinorEnhancement[Functional code]]
 
-*Other contributions*: The details of other contributions can be found in <<OtherContributions>> below:
+=== Other Contributions
+
+The details of other contributions can be found in <<OtherContributions>> below:
 
 [[OtherContributions]]
-[width="100%", cols="20%,<80%", reftext="Table 2.2.1", caption="Table 2.2.1: "]
+[width="100%", cols="20%,<80%", reftext="Table 2.3.1", caption="Table 2.3.1: "]
 .Details of Other Contributions
 |=======================================================================
 
@@ -98,7 +100,7 @@ a|* Integrated a third-party library (Gson) to the project (Pull request: {repoU
 == Contributions to the User Guide
 
 ****
-_Given below is the start of extract of sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+_Given below is the start of extract of sections I contributed to the link:https://cs2103-ay1819s2-w11-3.github.io/main/UserGuide.html[User Guide]. They showcase my ability to write documentation targeting end-users._
 ****
 
 //include::../UserGuide.adoc[tag=intro]
@@ -114,7 +116,7 @@ _This is the end of extract of the User Guide._
 == Contributions to the Developer Guide
 
 ****
-_Given below is the start of extract of sections I contributed to the Developer Guide. They showcase my ability to write documentation targeting end-users._
+_Given below is the start of extract of sections I contributed to the link:https://cs2103-ay1819s2-w11-3.github.io/main/UserGuide.html[Developer Guide]. They showcase my ability to write documentation targeting end-users._
 ****
 
 //include::../DeveloperGuide.adoc[tag=implementation]

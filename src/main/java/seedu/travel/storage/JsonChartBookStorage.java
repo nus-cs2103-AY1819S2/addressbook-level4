@@ -8,7 +8,6 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -53,7 +52,7 @@ public class JsonChartBookStorage implements ChartBookStorage {
     }
 
     @Override
-    public List<ReadOnlyCountryChart> readCountryChart() {
+    public List<ReadOnlyCountryChart> readCountryChart() throws FileNotFoundException {
         return readCountryChart(countryChartFilePath);
     }
 
@@ -64,23 +63,17 @@ public class JsonChartBookStorage implements ChartBookStorage {
      */
     @SuppressWarnings("unchecked")
     @Override
-    public List<ReadOnlyCountryChart> readCountryChart(Path filePath) {
+    public List<ReadOnlyCountryChart> readCountryChart(Path filePath) throws FileNotFoundException {
         requireNonNull(filePath);
-
         Gson gson = new Gson();
-        List<ReadOnlyCountryChart> countryList = new ArrayList<>();
-        try {
-            FileReader fileReader = new FileReader(String.valueOf(filePath));
-            countryList = gson.fromJson(fileReader, List.class);
-        } catch (FileNotFoundException fnfe) {
-            logger.warning(fnfe.getMessage());
-        }
-
+        List<ReadOnlyCountryChart> countryList;
+        FileReader fileReader = new FileReader(String.valueOf(filePath));
+        countryList = gson.fromJson(fileReader, List.class);
         return countryList;
     }
 
     @Override
-    public List<ReadOnlyRatingChart> readRatingChart() {
+    public List<ReadOnlyRatingChart> readRatingChart() throws FileNotFoundException {
         return readRatingChart(ratingChartFilePath);
     }
 
@@ -91,23 +84,17 @@ public class JsonChartBookStorage implements ChartBookStorage {
      */
     @SuppressWarnings("unchecked")
     @Override
-    public List<ReadOnlyRatingChart> readRatingChart(Path filePath) {
+    public List<ReadOnlyRatingChart> readRatingChart(Path filePath) throws FileNotFoundException {
         requireNonNull(filePath);
-
         Gson gson = new Gson();
-        List<ReadOnlyRatingChart> ratingList = new ArrayList<>();
-        try {
-            FileReader fileReader = new FileReader(String.valueOf(filePath));
-            ratingList = gson.fromJson(fileReader, List.class);
-        } catch (FileNotFoundException fnfe) {
-            logger.warning(fnfe.getMessage());
-        }
-
+        List<ReadOnlyRatingChart> ratingList;
+        FileReader fileReader = new FileReader(String.valueOf(filePath));
+        ratingList = gson.fromJson(fileReader, List.class);
         return ratingList;
     }
 
     @Override
-    public List<ReadOnlyYearChart> readYearChart() {
+    public List<ReadOnlyYearChart> readYearChart() throws FileNotFoundException {
         return readYearChart(yearChartFilePath);
     }
 
@@ -118,18 +105,12 @@ public class JsonChartBookStorage implements ChartBookStorage {
      */
     @SuppressWarnings("unchecked")
     @Override
-    public List<ReadOnlyYearChart> readYearChart(Path filePath) {
+    public List<ReadOnlyYearChart> readYearChart(Path filePath) throws FileNotFoundException {
         requireNonNull(filePath);
-
         Gson gson = new Gson();
-        List<ReadOnlyYearChart> yearList = new ArrayList<>();
-        try {
-            FileReader fileReader = new FileReader(String.valueOf(filePath));
-            yearList = gson.fromJson(fileReader, List.class);
-        } catch (FileNotFoundException fnfe) {
-            logger.warning(fnfe.getMessage());
-        }
-
+        List<ReadOnlyYearChart> yearList;
+        FileReader fileReader = new FileReader(String.valueOf(filePath));
+        yearList = gson.fromJson(fileReader, List.class);
         return yearList;
     }
 
@@ -147,7 +128,6 @@ public class JsonChartBookStorage implements ChartBookStorage {
     // tag::saveCountryChart[]
     public void saveCountryChart(ReadOnlyCountryChart countryChart, Path filePath) {
         requireAllNonNull(countryChart, filePath);
-
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         try {
             FileWriter fileWriter = new FileWriter(String.valueOf(filePath));
@@ -172,7 +152,6 @@ public class JsonChartBookStorage implements ChartBookStorage {
     @Override
     public void saveRatingChart(ReadOnlyRatingChart ratingChart, Path filePath) {
         requireAllNonNull(ratingChart, filePath);
-
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         try {
             FileWriter fileWriter = new FileWriter(String.valueOf(filePath));
@@ -196,7 +175,6 @@ public class JsonChartBookStorage implements ChartBookStorage {
     @Override
     public void saveYearChart(ReadOnlyYearChart yearChart, Path filePath) {
         requireAllNonNull(yearChart, filePath);
-
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         try {
             FileWriter fileWriter = new FileWriter(String.valueOf(filePath));

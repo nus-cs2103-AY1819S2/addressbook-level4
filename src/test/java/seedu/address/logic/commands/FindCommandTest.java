@@ -5,8 +5,6 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_PDFS_LISTED_OVERVIEW;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.TypicalPdfs.SAMPLE_PDF_1;
-import static seedu.address.testutil.TypicalPdfs.SAMPLE_PDF_2;
 import static seedu.address.testutil.TypicalPdfs.SAMPLE_PDF_3;
 import static seedu.address.testutil.TypicalPdfs.getTypicalPdfBook;
 
@@ -67,13 +65,13 @@ public class FindCommandTest {
     }
 
     @Test
-    public void execute_multipleKeywords_multiplePersonsFound() {
-        String expectedMessage = String.format(MESSAGE_PDFS_LISTED_OVERVIEW, 3);
-        NameContainsKeywordsPredicate predicate = preparePredicate("a.pdf b.pdf c.pdf");
+    public void execute_multipleKeywords_multiplePdfsFound() {
+        String expectedMessage = String.format(MESSAGE_PDFS_LISTED_OVERVIEW, 1);
+        NameContainsKeywordsPredicate predicate = preparePredicate("UG, Greedy");
         FindCommand command = new FindCommand(predicate);
         expectedModel.updateFilteredPdfList(predicate);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(SAMPLE_PDF_1, SAMPLE_PDF_2, SAMPLE_PDF_3), model.getFilteredPdfList());
+        assertEquals(Arrays.asList(SAMPLE_PDF_3), model.getFilteredPdfList());
     }
 
     /**

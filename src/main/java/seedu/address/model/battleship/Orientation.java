@@ -33,7 +33,7 @@ public class Orientation {
     public static final Pattern VALIDATION_PATTERN_VERTICAL = Pattern.compile(
             VALIDATION_VERTICAL_REGEX, Pattern.CASE_INSENSITIVE);
 
-    public final String orientation;
+    public final OrientationType orientation;
 
     private final Logger logger = LogsCenter.getLogger(Orientation.class);
 
@@ -48,12 +48,12 @@ public class Orientation {
 
         if (orientation.toLowerCase().equals("h")
                 || orientation.toLowerCase().equals("horizontal")) {
-            this.orientation = "horizontal";
+            this.orientation = OrientationType.HORIZONTAL;
         } else if (orientation.toLowerCase().equals("v")
                 || orientation.toLowerCase().equals("vertical")) {
-            this.orientation = "vertical";
+            this.orientation = OrientationType.VERTICAL;
         } else {
-            this.orientation = orientation;
+            this.orientation = OrientationType.ERROR;
         }
 
         logger.info("ORIENTATION INSTANCE CREATED.");
@@ -71,19 +71,19 @@ public class Orientation {
      * Checks if orientation is left
      */
     public boolean isHorizontal() {
-        return VALIDATION_PATTERN_HORIZONTAL.matcher(this.orientation).find();
+        return this.orientation == OrientationType.HORIZONTAL;
     }
 
     /**
      * Checks if orientation is right
      */
     public boolean isVertical() {
-        return VALIDATION_PATTERN_VERTICAL.matcher(this.orientation).find();
+        return this.orientation == OrientationType.VERTICAL;
     }
 
     @Override
     public String toString() {
-        return this.orientation;
+        return this.orientation.toString();
     }
 
     @Override
@@ -97,5 +97,26 @@ public class Orientation {
     public int hashCode() {
         return orientation.hashCode();
     }
+
+    /**
+     * Enumeration for internal use.
+     */
+    private enum OrientationType {
+        HORIZONTAL("horizontal"),
+        VERTICAL("vertical"),
+        ERROR("error");
+
+        private final String orientationDescription;
+
+        OrientationType(String value) {
+            orientationDescription = value;
+        }
+
+        @Override
+        public String toString() {
+            return this.orientationDescription;
+        }
+
+    };
 
 }

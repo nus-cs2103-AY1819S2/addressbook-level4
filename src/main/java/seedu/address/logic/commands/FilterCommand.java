@@ -136,30 +136,26 @@ public class FilterCommand extends Command {
         if (isAllJobScreen && hasFilterName) {
             throw new CommandException(Messages.MESSAGE_REDUNDANT_FILTERNAME);
         }
-        int size;
+        int size = model.getJobsList(listName).size();
         switch (listName) {
         case APPLICANT:
             model.addPredicateJobAllApplicants(commandName, predicate);
             model.updateJobAllApplicantsFilteredPersonList();
-            size = model.getJobsList(0).size();
             predicateList = model.getPredicateLists(APPLICANT);
             break;
         case KIV:
             model.addPredicateJobKiv(commandName, predicate);
             model.updateJobKivFilteredPersonList();
-            size = model.getJobsList(1).size();
             predicateList = model.getPredicateLists(KIV);
             break;
         case INTERVIEW:
             model.addPredicateJobInterview(commandName, predicate);
             model.updateJobInterviewFilteredPersonList();
-            size = model.getJobsList(2).size();
             predicateList = model.getPredicateLists(INTERVIEW);
             break;
         case SHORTLIST:
             model.addPredicateJobShortlist(commandName, predicate);
             model.updateJobShortlistFilteredPersonList();
-            size = model.getJobsList(3).size();
             predicateList = model.getPredicateLists(SHORTLIST);
             break;
         default:

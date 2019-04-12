@@ -20,6 +20,8 @@ import java.util.Iterator;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.job.Job;
+import seedu.address.model.job.JobListName;
 import seedu.address.model.job.JobName;
 import seedu.address.model.person.JobsApply;
 import seedu.address.model.person.Person;
@@ -105,7 +107,7 @@ public class AddCommand extends Command {
         while (itr.hasNext()) {
             JobsApply job = itr.next();
             try {
-                model.addPersonToJob(new JobName(job.toString()), toAdd.getNric());
+                model.addPersonToJob(new Job(new JobName(job.toString())), toAdd, JobListName.APPLICANT);
             } catch (Exception e) {
                 continue;
             }

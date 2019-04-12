@@ -628,9 +628,11 @@ Use a combination of commas and dashes to indicate a range as well. e.g. `1-3,5`
 === Open vs Import
 
 Suppose you have a `data.json` file with the following contents:
+
 image::OpenImportFeature1.png[width="870"]
 
 The following image illustrates the difference when you open or import `data.json`.
+
 image::OpenImportFeature2.png[width="870"]
 
 ==== Open feature

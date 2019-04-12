@@ -28,7 +28,6 @@ public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final VersionedHealthWorkerBook versionedHealthWorkerBook;
-
     private final VersionedRequestBook versionedRequestBook;
     private final ModifyCommandHistory modifyCommandHistory;
     private final UserPrefs userPrefs;
@@ -45,8 +44,7 @@ public class ModelManager implements Model {
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
-    public ModelManager(
-                        ReadOnlyHealthWorkerBook healthWorkerBook,
+    public ModelManager(ReadOnlyHealthWorkerBook healthWorkerBook,
                         ReadOnlyRequestBook requestBook,
                         ReadOnlyUserPrefs userPrefs) {
         super();
@@ -222,13 +220,11 @@ public class ModelManager implements Model {
         }
     }
 
-
-    //=========== Selected Person ===========================================================================
     //=========== Implemented methods for Request through the Model interface  ==============================
 
     @Override
     public ObservableList<Request> getFilteredRequestList() {
-        return filteredRequests;
+        return this.filteredRequests;
     }
 
     /**

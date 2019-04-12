@@ -25,6 +25,7 @@ public class FinanceTracker implements ReadOnlyFinanceTracker {
 
     private final UniqueRecordList records;
     private final TotalBudget budget;
+    private boolean isSetFile;
     private final InvalidationListenerManager invalidationListenerManager = new InvalidationListenerManager();
 
     /*
@@ -37,6 +38,7 @@ public class FinanceTracker implements ReadOnlyFinanceTracker {
     {
         records = new UniqueRecordList();
         budget = new TotalBudget();
+        isSetFile = false;
     }
 
     public FinanceTracker() {}
@@ -68,7 +70,7 @@ public class FinanceTracker implements ReadOnlyFinanceTracker {
 
         setRecords(newData.getRecordList());
         this.budget.set(newData.getBudget());
-        indicateModified();
+        setIsSetFile(newData.isSetFile());
     }
 
     //// record-level operations
@@ -98,7 +100,7 @@ public class FinanceTracker implements ReadOnlyFinanceTracker {
     public void setRecord(Record target, Record editedRecord) {
         requireNonNull(editedRecord);
         records.setRecord(target, editedRecord);
-        budget.updateBudget(this.records.asUnmodifiableObservableList());
+        budget.editRecord(target, editedRecord);
         indicateModified();
     }
 
@@ -115,20 +117,22 @@ public class FinanceTracker implements ReadOnlyFinanceTracker {
     /// budget-level operations
 
     /**
-     * Returns true if a {@code budget} exists in the finance tracker.
+     * Adds a budget to the finance tracker.
+     * The budget must not be less than the allocated budgets.
      */
-    public boolean hasBudget() {
-        return this.budget.isSet();
+    public void addBudget(Budget budget) throws CategoryBudgetExceedTotalBudgetException {
+        this.budget.updateBudget(budget, this.records.asUnmodifiableObservableList());
+        indicateModified();
     }
 
-    /**
-     * Adds a budget to the finance tracker.
-     * The budget must not already exist in the finance tracker.
-     */
-    public void addBudget(Budget budget) {
-        this.budget.set(budget.getTotalBudget(), budget.getCurrentBudget());
-        this.budget.updateBudget(this.records.asUnmodifiableObservableList());
-        indicateModified();
+    // =============================== Set File Operations =========================================================
+
+    public void setIsSetFile(boolean isSetFile) {
+        this.isSetFile = isSetFile;
+    }
+
+    public boolean isSetFile() {
+        return isSetFile;
     }
 
     // =============================== Category Budget =============================================================

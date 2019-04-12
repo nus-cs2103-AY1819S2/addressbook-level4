@@ -20,6 +20,7 @@ public class ClearCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
+
         model.setFinanceTracker(new FinanceTracker());
         model.commitFinanceTracker();
         return new CommandResult(MESSAGE_SUCCESS, true, false, false);

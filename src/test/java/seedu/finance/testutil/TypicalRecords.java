@@ -73,11 +73,15 @@ public class TypicalRecords {
      */
     public static FinanceTracker getTypicalFinanceTracker() {
         FinanceTracker ft = new FinanceTracker();
-        ft.addBudget(new TotalBudget(500.00));
-        for (Record record : getTypicalRecords()) {
-            ft.addRecord(record);
+        try {
+            ft.addBudget(new TotalBudget(500.00));
+            for (Record record : getTypicalRecords()) {
+                ft.addRecord(record);
+            }
+            return ft;
+        } catch (CategoryBudgetExceedTotalBudgetException cte) {
+            return ft;
         }
-        return ft;
     }
 
     /**
@@ -85,11 +89,12 @@ public class TypicalRecords {
      */
     public static FinanceTracker getTypicalFinanceTrackerWithCatBudget() {
         FinanceTracker ft = new FinanceTracker();
-        ft.addBudget(new TotalBudget(500.00));
-        for (Record record : getTypicalRecords()) {
-            ft.addRecord(record);
-        }
         try {
+            ft.addBudget(new TotalBudget(500.00));
+            for (Record record : getTypicalRecords()) {
+                ft.addRecord(record);
+            }
+
             ft.addCategoryBudget(new CategoryBudget("Food", 60.00));
         } catch (CategoryBudgetExceedTotalBudgetException e) {
             return ft;

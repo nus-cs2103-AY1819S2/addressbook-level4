@@ -2,19 +2,20 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static org.junit.Assert.assertEquals;
-import static seedu.address.commons.core.Messages.MESSAGE_PERSONS_LISTED_OVERVIEW;
+import static seedu.address.commons.core.Messages.MESSAGE_RECORDS_LISTED_OVERVIEW;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalRecords.FOURTH;
 import static seedu.address.testutil.TypicalRecords.getTypicalRecords;
 
 import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
 import java.util.function.Predicate;
 
 import org.junit.Before;
@@ -28,7 +29,6 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.RecordFindCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
@@ -40,7 +40,6 @@ import seedu.address.model.record.Record;
 import seedu.address.model.task.Task;
 import seedu.address.model.util.predicate.ContainsKeywordsPredicate;
 import seedu.address.model.util.predicate.DescriptionRecordContainsKeywordsPredicate;
-import seedu.address.model.util.predicate.MultipleContainsKeywordsPredicate;
 import seedu.address.model.util.predicate.ProcedureContainsKeywordsPredicate;
 
 
@@ -59,6 +58,17 @@ public class RecordFindCommandParserTest {
         expectedModel.getFilteredRecordList(testPatient);
     }
 
+    @Test
+    public void execute_procedureParameter() throws Exception {
+        //No user input
+        execute_parameterPredicate_test(0, " ", "procedure", true, false, Collections.emptyList());
+        //Single keyword, ignore case, record found.
+        execute_parameterPredicate_test(1, "CrOwN", "procedure",
+            true, false, Arrays.asList(FOURTH));
+        //Single keyword, case sensitive, no record found.
+        execute_parameterPredicate_test(0, "CrOwN", "procedure", false, false, Collections.emptyList());
+    }
+
 
 
     /**
@@ -72,13 +82,32 @@ public class RecordFindCommandParserTest {
      */
     private void execute_parameterPredicate_test(int expectedNum, String userInput, String parameter,
                                                  boolean isIgnoreCase, boolean isAnd,
-                                                 List<Person> expectedList) throws ParseException {
-        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, expectedNum);
+                                                 List<Record> expectedList) throws ParseException {
+        String expectedMessage = String.format(MESSAGE_RECORDS_LISTED_OVERVIEW, expectedNum);
         ContainsKeywordsPredicate predicate = prepareRecordPredicate(userInput, parameter, isIgnoreCase, isAnd);
         RecordFindCommand command = new RecordFindCommand(predicate);
         expectedModel.updateFilteredRecordList(predicate);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
-        assertEquals(expectedList, model.getFilteredPersonList());
+        assertEquals(expectedList, model.getFilteredRecordList());
+    }
+
+    /**
+     * Parses {@code userInput} into a {@code ContainsKeywordsPredicate}.
+     */
+    private ContainsKeywordsPredicate prepareRecordPredicate(String userInput, String parameter, boolean isIgnoreCase,
+                                                              boolean isAnd) throws ParseException {
+        switch(parameter) {
+        case "procedure":
+            return new ProcedureContainsKeywordsPredicate(Arrays.asList(userInput.split("\\s+")),
+                isIgnoreCase, isAnd);
+
+        case "desc":
+            return new DescriptionRecordContainsKeywordsPredicate(Arrays.asList(userInput.split("\\s+")),
+                isIgnoreCase, isAnd);
+
+        default:
+            throw new ParseException("Invalid Sort Attribute.");
+        }
     }
 
     /**
@@ -125,7 +154,7 @@ public class RecordFindCommandParserTest {
 
         @Override
         public ObservableList<Record> getFilteredRecordList() {
-            throw new AssertionError("This method should not be called.");
+            return filteredRecords;
         }
 
         @Override
@@ -335,6 +364,27 @@ public class RecordFindCommandParserTest {
         @Override
         public boolean checkNoCopy() {
             throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            // short circuit if same object
+            if (obj == this) {
+                return true;
+            }
+
+            // instanceof handles nulls
+            if (!(obj instanceof ModelRecordStub)) {
+                return false;
+            }
+
+            // state check
+            ModelRecordStub other = (ModelRecordStub) obj;
+            return versionedAddressBook.equals(other.versionedAddressBook)
+                && userPrefs.equals(other.userPrefs)
+                && filteredPersons.equals(other.filteredPersons)
+                && filteredTasks.equals(other.filteredTasks)
+                && Objects.equals(selectedPerson.get(), other.selectedPerson.get());
         }
     }
 }

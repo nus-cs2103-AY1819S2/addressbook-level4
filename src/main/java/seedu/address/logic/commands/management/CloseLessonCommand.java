@@ -26,7 +26,8 @@ public class CloseLessonCommand extends ManagementCommand {
     /**
      * Instructions on command usage and parameters.
      */
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Closes the opened lesson.\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+            + ": Closes this opened lesson with changes saved and return to Lesson View.\n"
             + "Example: " + COMMAND_WORD;
     /**
      * Feedback message displayed to the user upon successful execution of this command

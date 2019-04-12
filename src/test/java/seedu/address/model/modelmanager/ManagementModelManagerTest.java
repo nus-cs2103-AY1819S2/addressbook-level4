@@ -333,6 +333,8 @@ public class ManagementModelManagerTest {
 
         // Valid indices -> successful set
         modelManager.setOpenedLessonTestValues(1, 0);
+        assertEquals(modelManager.getOpenedLesson().getQuestionCoreIndex(), 1);
+        assertEquals(modelManager.getOpenedLesson().getAnswerCoreIndex(), 0);
     }
     @Test
     public void setTestForOpenedLesson_invalidIndex_throwsIllegalArgumentException() {

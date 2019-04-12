@@ -84,6 +84,9 @@ public class MainWindow extends UiPart<Stage> {
     private FlowPane shortlistFilter;
 
     @FXML
+    private FlowPane allAppFilter;
+
+    @FXML
     private StackPane allPlaceholder;
 
     @FXML
@@ -258,6 +261,8 @@ public class MainWindow extends UiPart<Stage> {
                 list.forEach(filter -> shortlistFilter.getChildren().add(new Label(filter.getFilterName())));
                 break;
             default:
+                allAppFilter.getChildren().clear();
+                list.forEach(filter -> allAppFilter.getChildren().add(new Label(filter.getFilterName())));
                 break;
         }
     }

@@ -63,12 +63,12 @@
                         <StackPane fx:id="jobsPlaceholder" maxHeight="1.7976931348623157E308" VBox.vgrow="ALWAYS" />
                      </children>
                   </VBox>
-                  <StackPane fx:id="statusbarPlaceholder" />
                </children>
                <padding>
                   <Insets left="5.0" top="5.0" />
                </padding>
             </HBox>
+            <StackPane fx:id="statusbarPlaceholder" />
          </children>
       </VBox>
    </root>

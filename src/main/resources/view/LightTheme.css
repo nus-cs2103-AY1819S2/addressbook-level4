@@ -198,7 +198,7 @@
 }
 
 .context-menu {
-    -fx-background-color: derive(#1d1d1d, 50%);
+    -fx-background-color: derive(#ace5ee, 50%);
 }
 
 .context-menu .label {

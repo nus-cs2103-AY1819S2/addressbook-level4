@@ -570,7 +570,9 @@ specified to be searched.
 Although TeethHub already has a built-in auto-load and auto-save, implementing file management would give the user more flexibility with managing data. +
 PDF export is also implemented so that the user would have an easier time making sense of the data when offline.
 
-The File Management features are: `Open`, `Import`, `Save`, `Export`
+The File Management features are: `Open`, `Import`, `Save`, `Export`.
+* If the file that is being opened/imported is corrupted, an error message is thrown and no change is made. +
+* If the user inputs an index range for import/export that does not exist, the current indexes that fall within the range are still imported/exported. This is because we want to make things easier on the user.
 
 [NOTE]
 ============================================================
@@ -592,7 +594,7 @@ Use a combination of commas and dashes to indicate a range as well. e.g. `1-3,5`
 ============================================================
 
 ==== Design Considerations
-
+===== Aspect: Reading or writing a file
 * **Current implementation:** (Open/Import/Save/Export)Command -> InOutAddressBookStorage -> JsonUtil -> FileUtil
 ** **Alternative 1a.1:** (Open/Import/Save/Export)Command -> Json Util -> FileUtil
 ** **Alternative 1a.2:** (Open/Import/Save/Export)Command -> FileUtil
@@ -607,8 +609,8 @@ Use a combination of commas and dashes to indicate a range as well. e.g. `1-3,5`
 *** Pros: Less overhead and faster runtime as there are less classes to go through.
 *** Cons: Same as *Alternative 1a* Cons above. In addition to that, passing the job to FileUtil would require implementing Pdf creation and saving that is already present in the third party library Apache PDFBox. Hence the job is passed to PdfUtil which calls the already present methods of Apache PDFBox.
 
-
-* **Current implementation:** The Import/Export featues accept index ranges that are larger than the actual index range of the content to be imported/exported.
+===== Aspect: Index ranges of Import and Export
+* **Current implementation:** The Import/Export features accept index ranges that are larger than the actual index range of the content to be imported/exported.
 ** **Alternative 2:** Don't allow indexes out of range for Import/Export.
 *** Pros: User cannot input a very large index range. This prevents a scenario where a very large range causes slow runtime and increased memory due to the amount of indexes to process.
 *** Cons: User may feel frustration of being denied due to minor mistakes. e.g. `export data.json 1-31` being rejected when there are only 30 entries. As our goal when designing TeethHub was to make things easier for the user, we decided to go with our current implementation.
@@ -629,7 +631,7 @@ Use a combination of commas and dashes to indicate a range as well. e.g. `1-3,5`
 
 Suppose you have a `data.json` file with the following contents:
 
-image::OpenImportFeature1.png[width="870"]
+image::OpenImportFeature1.png[width="174"]
 
 The following image illustrates the difference when you open or import `data.json`.
 
@@ -641,12 +643,12 @@ As TeethHub already has a built-in auto-load when starting the program, the impl
 *The Open feature opens the specified file and overwrites the current TeethHub data with the file data.* +
 The Open feature's format is: `open FILE_PATH`
 
-0. AddressBookParser creates OpenCommandParser. +
-1. The OpenCommandParser uses ParserUtil to parse the user input. +
-2. If the input is valid, ParserUtil creates a ParsedInOut object and returns it to OpenCommandParser. +
-3. OpenCommandParser creates OpenCommand initialized with the ParsedInOut object. +
-4. OpenCommand checks for if the requested file is a ".json" file, if the file exists, if it is a file, or if it can be read. +
-5. OpenCommand calls the existing readAddressBook().
+1. AddressBookParser creates OpenCommandParser. +
+2. The OpenCommandParser uses ParserUtil to parse the user input. +
+3. If the input is valid, ParserUtil creates a ParsedInOut object and returns it to OpenCommandParser. +
+4. OpenCommandParser creates OpenCommand initialized with the ParsedInOut object. +
+5. OpenCommand checks for if the requested file is a ".json" file, if the file exists, if it is a file, or if it can be read. +
+6. OpenCommand calls the existing readAddressBook().
 
 image::OpenCommandSequenceDiagram.jpg[width="870"]
 
@@ -656,12 +658,12 @@ As TeethHub already has a built-in auto-load when starting the program, the impl
 *The Import feature opens the specified file and adds the file data to the current TeethHub data.* +
 The Import feature's format is: `import FILE_PATH INDEX_RANGE`
 
-0. AddressBookParser creates ImportCommandParser. +
-1. The ImportCommandParser uses ParserUtil to parse the user input. +
-2. If the input is valid, ParserUtil creates a ParsedInOut object and returns it to ImportCommandParser. +
-3. ImportCommandParser creates ImportCommand initialized with the ParsedInOut object. +
-4. ImportCommand checks for if the requested file is a ".json" file, if the file exists, if it is a file, or if it can be read. +
-5. ImportCommand calls the existing readAddressBook() on a temporary storage. +
+1. AddressBookParser creates ImportCommandParser. +
+2. The ImportCommandParser uses ParserUtil to parse the user input. +
+3. If the input is valid, ParserUtil creates a ParsedInOut object and returns it to ImportCommandParser. +
+4. ImportCommandParser creates ImportCommand initialized with the ParsedInOut object. +
+5. ImportCommand checks for if the requested file is a ".json" file, if the file exists, if it is a file, or if it can be read. +
+6. ImportCommand calls the existing readAddressBook() on a temporary storage. +
 6a. ImportCommand adds contents from the temporary storage to the current storage based on the input INDEX_RANGE. +
 6b. ImportCommand adds all contents from the temporary storage to the current storage if INDEX_RANGE is `all`.
 
@@ -673,11 +675,11 @@ In addition to that, the Save can also save to PDF, using the Apache PDFBox. +
 In the Open Command Sequence Diagram above, you can see that OpenCommand creates an InOutAddressBookStorage. The InOutAddressBookStorage has the capability to call the existing saveAddressBook() and also a new saveAsPdf(). +
 The Save feature's format is: `save FILE_PATH`
 
-0. AddressBookParser creates SaveCommandParser. +
-1. The SaveCommandParser uses ParserUtil to parse the user input. +
-2. If the input is valid, ParserUtil creates a ParsedInOut object and returns it to SaveCommandParser. +
-3. SaveCommandParser creates SaveCommand initialized with the ParsedInOut object. +
-4. SaveCommand checks for if the requested file is a ".json" file or ".pdf" file. It also checks if the file is Read-only. +
+1. AddressBookParser creates SaveCommandParser. +
+2. The SaveCommandParser uses ParserUtil to parse the user input. +
+3. If the input is valid, ParserUtil creates a ParsedInOut object and returns it to SaveCommandParser. +
+4. SaveCommandParser creates SaveCommand initialized with the ParsedInOut object. +
+5. SaveCommand checks for if the requested file is a ".json" file or ".pdf" file. It also checks if the file is Read-only. +
 5a. SaveCommand calls the existing saveAddressBook() if the requested file is a ".json" file. +
 5b. SaveCommand calls the new saveAsPdf() if the requested file is a ".pdf" file.
 
@@ -689,23 +691,32 @@ The Export feature's format is: `export FILE_PATH INDEX_RANGE`
 
 image::ExportCommandActivityDiagram.png[width="870"]
 
-0. AddressBookParser creates ExportCommandParser. +
-1. The ExportCommandParser uses ParserUtil to parse the user input. +
-2. If the input is valid, ParserUtil creates a ParsedInOut object and returns it to ExportCommandParser. +
-3. ExportCommandParser creates ImportCommand initialized with the ParsedInOut object. +
-4. ExportCommand checks for if the requested file is a ".json" file, if the file exists, if it is a file, or if it can be read. +
-5a. ExportCommand add contents from the current storage to the temporary storage based on the input INDEX_RANGE. +
-    5b. ExportCommand calls SaveCommand if INDEX_RANGE is `all`. Refer to Save feature. +
+1. AddressBookParser creates ExportCommandParser. +
+2. The ExportCommandParser uses ParserUtil to parse the user input. +
+3. If the input is valid, ParserUtil creates a ParsedInOut object and returns it to ExportCommandParser. +
+4. ExportCommandParser creates ImportCommand initialized with the ParsedInOut object. +
+5. ExportCommand checks if INDEX_RANGE is `all`. +
+5a. ExportCommand calls SaveCommand if INDEX_RANGE is `all`. Refer to Save feature. +
+5b. Otherwise, ExportCommand add contents from the current storage to the temporary storage based on the input INDEX_RANGE. +
+6. ExportCommand checks for if the requested file is a ".json" file or ".pdf" file. It also checks if the file is Read-only. +
 6a. ExportCommand calls the existing saveAddressBook() if the requested file is a ".json" file. +
 6b. ExportCommand calls the new saveAsPdf() if the requested file is a ".pdf" file.
 
 === Suggestion feature
-===== Design Considerations
+==== Current Implementation
+As TeethHub contains commands that are similar, we decided to implement a Suggestion feature. +
+When the user types a Common command, a suggestion will be displayed asking the user if they meant to type something else. +
+We define a Common command as a command whose name is used by the Patient commands, Record commands and/or Task commands. +
+For example, as there are `patientadd`, `recordadd` and `taskadd`, the Common command would be `add`. +
+As TeethHub has a Patient Mode and a Record Mode, only commands that can be used in the user's current mode will be displayed.
 
-Current implementation: When the user makes multiple typing mistakes, Help window does not show automatically. +
-* **Alternative 2:** Show Help window if the user inputs invalid commands `N` times in a row.
-** Pros: Provide help to the user if the user needs it. +
-** Cons: Might be rude.
+image::SuggestionFeatureAdd.png[width="157"]
+
+==== Design Considerations
+* **Current implementation:** When the user types a Common command, suggestions are displayed. +
+** **Alternative 1:** Show Help window if the user inputs invalid commands `N` times in a row.
+*** Pros: Only 1 implementation, as opposed to an implementation for each Common command. +
+*** Cons: Might be rude.
 
 === Logging
 

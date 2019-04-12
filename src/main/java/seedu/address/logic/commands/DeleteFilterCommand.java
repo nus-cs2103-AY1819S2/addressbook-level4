@@ -12,6 +12,7 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.job.JobListName;
+import seedu.address.model.person.exceptions.FilterNotFoundException;
 import seedu.address.model.person.predicate.UniqueFilterList;
 
 /**
@@ -23,11 +24,11 @@ public class DeleteFilterCommand extends Command {
     public static final String COMMAND_ALIAS = "df";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-        + ": Deletes the filter identified by the filter name used in the displayed person list.\n"
-        + "Parameters: FilterList NameFilterName \n"
-        + "Example: " + COMMAND_WORD + " Applicant Chinese\n"
-        + "The alias \"d\" can be used instead.\n"
-        + "Example: " + COMMAND_ALIAS + "Applicant Chinese";
+            + ": Deletes the filter identified by the filter name used in the displayed person list.\n"
+            + "Parameters: FilterList NameFilterName \n"
+            + "Example: " + COMMAND_WORD + " Applicant Chinese\n"
+            + "The alias \"d\" can be used instead.\n"
+            + "Example: " + COMMAND_ALIAS + "Applicant Chinese";
 
     public static final String MESSAGE_DELETE_FILTER_SUCCESS = "Deleted Filter: %1$s";
     public static final String MESSAGE_DELETE_FILTER_FAIL = "Deleted Filter Fail";
@@ -51,27 +52,47 @@ public class DeleteFilterCommand extends Command {
         requireNonNull(model);
         switch (filterListName) {
         case APPLICANT:
-            model.removePredicateJobAllApplicants(targetName);
+            try {
+                model.removePredicateJobAllApplicants(targetName);
+            } catch (FilterNotFoundException ex) {
+                throw new CommandException(Messages.MESSAGE_CANOT_FOUND_TARGET_FILTER);
+            }
             model.updateJobAllApplicantsFilteredPersonList();
             predicateList = model.getPredicateLists(APPLICANT);
             break;
         case KIV:
-            model.removePredicateJobKiv(targetName);
+            try {
+                model.removePredicateJobKiv(targetName);
+            } catch (FilterNotFoundException ex) {
+                throw new CommandException(Messages.MESSAGE_CANOT_FOUND_TARGET_FILTER);
+            }
             model.updateJobKivFilteredPersonList();
             predicateList = model.getPredicateLists(KIV);
             break;
         case INTERVIEW:
-            model.removePredicateJobInterview(targetName);
+            try {
+                model.removePredicateJobInterview(targetName);
+            } catch (FilterNotFoundException ex) {
+                throw new CommandException(Messages.MESSAGE_CANOT_FOUND_TARGET_FILTER);
+            }
             model.updateJobInterviewFilteredPersonList();
             predicateList = model.getPredicateLists(INTERVIEW);
             break;
         case SHORTLIST:
-            model.removePredicateJobShortlist(targetName);
+            try {
+                model.removePredicateJobShortlist(targetName);
+            } catch (FilterNotFoundException ex) {
+                throw new CommandException(Messages.MESSAGE_CANOT_FOUND_TARGET_FILTER);
+            }
             model.updateJobShortlistFilteredPersonList();
             predicateList = model.getPredicateLists(SHORTLIST);
             break;
         default:
-            model.removePredicateAllPersons(targetName);
+            try {
+                model.removePredicateAllPersons(targetName);
+            } catch (FilterNotFoundException ex) {
+                throw new CommandException(Messages.MESSAGE_CANOT_FOUND_TARGET_FILTER);
+            }
             model.updateFilteredPersonList();
             predicateList = model.getPredicateLists(EMPTY);
         }
@@ -82,8 +103,8 @@ public class DeleteFilterCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-            || (other instanceof DeleteFilterCommand // instanceof handles nulls
-            && (filterListName.equals(((DeleteFilterCommand) other).filterListName))
-            && (targetName.equals(((DeleteFilterCommand) other).targetName))); // state check
+                || (other instanceof DeleteFilterCommand // instanceof handles nulls
+                && (filterListName.equals(((DeleteFilterCommand) other).filterListName))
+                && (targetName.equals(((DeleteFilterCommand) other).targetName))); // state check
     }
 }

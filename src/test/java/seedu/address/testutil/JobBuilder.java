@@ -38,6 +38,10 @@ public class JobBuilder {
      */
     public JobBuilder(Job jobToCopy) {
         name = jobToCopy.getName();
+        for (int i = 0; i < 4; i++) {
+            this.personsList.add(new UniquePersonList());
+            this.personsNricList.add(new HashSet<>());
+        }
     }
 
     /**
@@ -45,10 +49,6 @@ public class JobBuilder {
      */
     public JobBuilder withName(String name) {
         this.name = new JobName(name);
-        for (int i = 0; i < 4; i++) {
-            this.personsList.add(new UniquePersonList());
-            this.personsNricList.add(new HashSet<>());
-        }
         return this;
     }
 

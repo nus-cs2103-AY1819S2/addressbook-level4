@@ -22,6 +22,8 @@ import seedu.address.model.lesson.LessonList;
  * A class to access LessonList stored in the hard disk as a csv file
  */
 public class CsvLessonListStorage implements LessonListStorage {
+    public static final String DEFAULT_FIELD_NAME = "Unnamed";
+
     private static final Logger logger = LogsCenter.getLogger(CsvLessonListStorage.class);
 
     private static final String FULL_HEADER_CORE_QA = "TESTED";
@@ -31,8 +33,6 @@ public class CsvLessonListStorage implements LessonListStorage {
     private static final String HEADER_CORE_QA = "t";
     private static final String HEADER_CORE_NOT_QA = "n";
     private static final String HEADER_OPTIONAL = "h";
-
-    private static final String DEFAULT_FIELD_NAME = "Unnamed";
 
     private Path folderPath;
 
@@ -140,6 +140,12 @@ public class CsvLessonListStorage implements LessonListStorage {
         Arrays.fill(returnValues, -1);
         int questionIndex = -1;
         int answerIndex = -1;
+
+        for (int i = 0; i < headerArray.length; i++) {
+            if (headerArray[i].isEmpty()) {
+                headerArray[i] = " ";
+            }
+        }
 
         int coreCount = 0;
         int index = 0;
@@ -282,7 +288,7 @@ public class CsvLessonListStorage implements LessonListStorage {
             Files.walk(folderPath, 1).filter(path ->
                 path.toString().endsWith(".csv")).forEach(paths::add);
         } catch (IOException e) {
-            return null;
+            return new ArrayList<>();
         }
         return paths;
     }
@@ -299,7 +305,7 @@ public class CsvLessonListStorage implements LessonListStorage {
 
         List<Path> paths = getFilePathsInFolder(folderPath);
 
-        if (paths == null) {
+        if (paths.isEmpty()) {
             return Optional.empty();
         }
 

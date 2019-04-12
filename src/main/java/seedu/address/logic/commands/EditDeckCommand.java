@@ -30,15 +30,12 @@ public class EditDeckCommand extends Command {
             + "by the index number used in the displayed deck list. " + "Changes its name to NAME.\n"
             + "Parameters: INDEX (must be a positive integer) " + "[" + PREFIX_NAME + "NAME]...\n"
             + "Example: " + COMMAND_WORD + " 1 " + PREFIX_NAME + "[NAME]";
-    public static final String DEFAULT_INDEX = "1";
-
-    public static final String AUTOCOMPLETE_TEXT = COMMAND_WORD + " " + DEFAULT_INDEX;
 
     public static final String MESSAGE_EDIT_DECK_SUCCESS = "Edited Deck: %1$s";
-
+    public static final String MESSAGE_EDIT_DECK_AUTOCOMPLETE = "";
 
     private final Index index;
-    private final EditDeckDescriptor editDeckDescriptor;
+    private final Optional<EditDeckDescriptor> editDeckDescriptor;
     private final DecksView decksView;
 
     /**
@@ -51,7 +48,15 @@ public class EditDeckCommand extends Command {
 
         this.decksView = decksView;
         this.index = index;
-        this.editDeckDescriptor = new EditDeckDescriptor(editDeckDescriptor);
+        this.editDeckDescriptor = Optional.of(new EditDeckDescriptor(editDeckDescriptor));
+    }
+
+    public EditDeckCommand(DecksView decksView, Index index) {
+        requireNonNull(index);
+
+        this.decksView = decksView;
+        this.index = index;
+        this.editDeckDescriptor = Optional.empty();
     }
 
     /**
@@ -75,17 +80,25 @@ public class EditDeckCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_DECK_DISPLAYED_INDEX);
         }
 
-        Deck deckToEdit = currentDeckList.get(index.getZeroBased());
-        Deck editedDeck = createEditedDeck(deckToEdit, editDeckDescriptor);
+        if (editDeckDescriptor.isPresent()) {
+            Deck deckToEdit = currentDeckList.get(index.getZeroBased());
+            Deck editedDeck = createEditedDeck(deckToEdit, editDeckDescriptor.get());
 
-        if (!deckToEdit.isSameDeck(editedDeck) && model.hasDeck(editedDeck)) {
-            throw new CommandException(MESSAGE_DUPLICATE_DECK);
+            if (!deckToEdit.isSameDeck(editedDeck) && model.hasDeck(editedDeck)) {
+                throw new CommandException(MESSAGE_DUPLICATE_DECK);
+            }
+
+            model.updateDeck(deckToEdit, editedDeck);
+            decksView.updateFilteredList(PREDICATE_SHOW_ALL_DECKS);
+            model.commitTopDeck();
+            return new CommandResult(String.format(MESSAGE_EDIT_DECK_SUCCESS, editedDeck));
+        } else {
+            Deck deckToEdit = currentDeckList.get(index.getZeroBased());
+            Name name = deckToEdit.getName();
+
+            String updatedText = String.format("%s %d %s%s", COMMAND_WORD, index.getOneBased(), PREFIX_NAME, name);
+            return new PrefillCommandBoxCommandResult(MESSAGE_EDIT_DECK_AUTOCOMPLETE, updatedText);
         }
-
-        model.updateDeck(deckToEdit, editedDeck);
-        decksView.updateFilteredList(PREDICATE_SHOW_ALL_DECKS);
-        model.commitTopDeck();
-        return new CommandResult(String.format(MESSAGE_EDIT_DECK_SUCCESS, editedDeck));
     }
 
     @Override

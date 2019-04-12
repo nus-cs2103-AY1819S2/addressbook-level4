@@ -1,7 +1,6 @@
 package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.core.Messages.MESSAGE_DECK_NOT_EDITED;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 
@@ -46,8 +45,9 @@ public class EditDeckCommandParser implements Parser<EditDeckCommand> {
             editDeckDescriptor.setName(ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get()));
         }
 
+        // Abbreviated version of the command is given, expand full command in the text box
         if (!editDeckDescriptor.isAnyFieldEdited()) {
-            throw new ParseException(MESSAGE_DECK_NOT_EDITED);
+            return new EditDeckCommand(decksView, index);
         }
 
         return new EditDeckCommand(decksView, index, editDeckDescriptor);

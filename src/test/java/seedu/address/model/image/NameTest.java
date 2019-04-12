@@ -1,5 +1,6 @@
 package seedu.address.model.image;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
@@ -8,6 +9,9 @@ import org.junit.Test;
 import seedu.address.testutil.Assert;
 
 public class NameTest {
+
+    private final Name name = new Name("sample", "jpg", "sample.jpg");
+    private final Name dup = new Name("sample", "jpg", "sample.jpg");
 
     @Test
     public void constructor_null_throwsNullPointerException() {
@@ -38,5 +42,26 @@ public class NameTest {
         assertTrue(Name.isValidExtension("sample.bmp")); // BMP format
         assertTrue(Name.isValidExtension("sample.gif")); // GIF format
         assertTrue(Name.isValidExtension("sample.png")); // PNG format
+    }
+
+    @Test
+    public void valid_getBaseName() {
+        assertEquals(name.getBaseName(), "sample");
+    }
+
+    @Test
+    public void valid_getExtName() {
+        assertEquals(name.getExtName(), "jpg");
+    }
+
+    @Test
+    public void valid_getFullName() {
+        assertEquals(name.getFullName(), "sample.jpg");
+
+    }
+
+    @Test
+    public void equality() {
+        assertTrue(name.equals(dup));
     }
 }

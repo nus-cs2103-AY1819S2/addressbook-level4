@@ -141,6 +141,18 @@ Examples:
 * `brightness 0.3` (reduces brightness)
 // end::BrightnessCommand[]
 
+// tag::ClearCommand[]
+=== Clear Album: `clear`
+
+Clear all images imported in to the Album. +
+Format: `clear`
+
+[NOTE]
+====
+Clear does not remove the image currently being edited i.e. Images opened with the `open` command.
+====
+// end::ClearCOmmand[]
+
 // tag::ContrastCommand[]
 === Contrast: `contrast`
 
@@ -280,7 +292,8 @@ Example:
 // tag::Tab[]
 === Tab switching: `tab`
 
-Cycle between available tabs in the side *Information Panel*.
+Cycle between available tabs in the side *Information Panel*. +
+Format: `tab`
 
 The three available tabs are listed below:
 

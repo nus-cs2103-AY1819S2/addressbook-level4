@@ -45,10 +45,4 @@ public class Width {
                 || (other instanceof Width // instanceof handles nulls
                 && value.equals(((Width) other).value)); // state check
     }
-
-    @Override
-    public int hashCode() {
-        return value.hashCode();
-    }
-
 }

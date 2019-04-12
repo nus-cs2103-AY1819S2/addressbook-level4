@@ -45,10 +45,4 @@ public class Height {
                 || (other instanceof Height // instanceof handles nulls
                 && value.equals(((Height) other).value)); // state check
     }
-
-    @Override
-    public int hashCode() {
-        return value.hashCode();
-    }
-
 }

@@ -993,6 +993,23 @@ These instructions only provide a starting point for testers to work on; testers
 .. Other incorrect delete commands to try: `deleteBook` +
    Expected: Similar to previous.
 
+=== Sorting the bookList
+
+. Sorting the current Booklist in a certain order.
+
+.. Prerequisites: List all book using the `listBook` command. Multiple books on the list.
+.. Test case: `SortBook st/rating` +
+   Expected: Booklist will be sorted with the rating in ascending order.
+.. Test case: `SortBook st/rating st/author o/asc o2/des` +
+   Expected: The Booklist will be sorted in ascending order, if they are having the same rating then it will be sorted in ascending order of author `o2/des` will be ignored as `o/asc` is specified.
+.. Test case: `SortBook st/rating st/author o2/des` +
+   Expected: The Booklist will be sorted in ascending order, if they are having the same rating then it will be sorted in descending order of author `.
+.. Some incorrect sort commands to try:
+... `sortBook` +
+   Error message: Sorting type is not provided.
+... `sortBook st/name o1/des o2/asc` +
+   Error message: Second sorting type does not exist.
+
 === Saving data
 
 . Dealing with missing/corrupted data files

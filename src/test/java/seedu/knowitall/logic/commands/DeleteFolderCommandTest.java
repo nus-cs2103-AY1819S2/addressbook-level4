@@ -4,9 +4,10 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.knowitall.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.knowitall.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.knowitall.logic.commands.EditFolderCommand.MESSAGE_DUPLICATE_FOLDER;
-import static seedu.knowitall.logic.commands.EditFolderCommand.MESSAGE_EDIT_FOLDER_SUCCESS;
+import static seedu.knowitall.logic.commands.DeleteFolderCommand.MESSAGE_DELETE_FOLDER_SUCCESS;
 import static seedu.knowitall.testutil.TypicalCards.getTypicalCardFolders;
+
+import java.util.ArrayList;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -20,100 +21,64 @@ import seedu.knowitall.model.UserPrefs;
 import seedu.knowitall.testutil.TypicalCards;
 import seedu.knowitall.testutil.TypicalIndexes;
 
-public class EditFolderCommandTest {
+public class DeleteFolderCommandTest {
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
     private CommandHistory commandHistory = new CommandHistory();
     private Model model = new ModelManager(getTypicalCardFolders(), new UserPrefs());
-    private Model expectedModel = new ModelManager(getTypicalCardFolders(), new UserPrefs());
 
     @Test
     public void constructor_nullIndex_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        new EditFolderCommand(null, "");
+        new DeleteFolderCommand(null);
     }
 
     @Test
-    public void constructor_nullFolderName_throwsNullPointerException() {
-        thrown.expect(NullPointerException.class);
-        new EditFolderCommand(TypicalIndexes.INDEX_FIRST_CARD_FOLDER, null);
-    }
+    public void execute_validDeleteCommand_success() {
+        Model expectedModel = new ModelManager(new ArrayList<>(), new UserPrefs());;
 
-    @Test
-    public void execute_validEditCommandDifferentName_success() {
-        String newName = TypicalCards.getTypicalFolderTwoName();
-
-        expectedModel.renameFolder(TypicalIndexes.INDEX_FIRST_CARD_FOLDER.getZeroBased(), newName);
-
-        EditFolderCommand command = new EditFolderCommand(TypicalIndexes.INDEX_FIRST_CARD_FOLDER, newName);
-        CommandResult expectedCommandResult = new CommandResult(String.format(MESSAGE_EDIT_FOLDER_SUCCESS, newName),
-                CommandResult.Type.EDITED_FOLDER);
+        DeleteFolderCommand command = new DeleteFolderCommand(TypicalIndexes.INDEX_FIRST_CARD_FOLDER);
+        CommandResult expectedCommandResult = new CommandResult(String.format(MESSAGE_DELETE_FOLDER_SUCCESS,
+                TypicalCards.getTypicalFolderOne()));
         assertCommandSuccess(command, model, commandHistory, expectedCommandResult, expectedModel);
     }
 
-    @Test
-    public void execute_validEditCommandSameName_success() {
-        String newName = TypicalCards.getTypicalFolderOneName();
-
-        expectedModel.renameFolder(TypicalIndexes.INDEX_FIRST_CARD_FOLDER.getZeroBased(), newName);
-
-        EditFolderCommand command = new EditFolderCommand(TypicalIndexes.INDEX_FIRST_CARD_FOLDER, newName);
-        CommandResult expectedCommandResult = new CommandResult(String.format(MESSAGE_EDIT_FOLDER_SUCCESS, newName),
-                CommandResult.Type.EDITED_FOLDER);
-        assertCommandSuccess(command, model, commandHistory, expectedCommandResult, expectedModel);
-    }
 
     @Test
     public void execute_invalidState_failure() {
         model.enterFolder(TypicalIndexes.INDEX_FIRST_CARD_FOLDER.getZeroBased());
 
-        String newName = TypicalCards.getTypicalFolderTwoName();
-        EditFolderCommand command = new EditFolderCommand(TypicalIndexes.INDEX_FIRST_CARD_FOLDER, newName);
+        DeleteFolderCommand command = new DeleteFolderCommand(TypicalIndexes.INDEX_FIRST_CARD_FOLDER);
         String expectedMessage = Messages.MESSAGE_INVALID_COMMAND_INSIDE_FOLDER;
         assertCommandFailure(command, model, commandHistory, expectedMessage);
     }
 
     @Test
     public void execute_invalidIndex_failure() {
-        String newName = TypicalCards.getTypicalFolderTwoName();
-        EditFolderCommand command = new EditFolderCommand(TypicalIndexes.INDEX_SECOND_CARD_FOLDER, newName);
-        String expectedMessage = Messages.MESSAGE_INVALID_CARD_DISPLAYED_INDEX;
+        DeleteFolderCommand command = new DeleteFolderCommand(TypicalIndexes.INDEX_SECOND_CARD_FOLDER);
+        String expectedMessage = Messages.MESSAGE_INVALID_FOLDER_DISPLAYED_INDEX;
         assertCommandFailure(command, model, commandHistory, expectedMessage);
     }
 
     @Test
-    public void execute_duplicateFolder_failure() {
-        model.addFolder(TypicalCards.getTypicalFolderTwo());
-
-        String newName = TypicalCards.getTypicalFolderTwoName();
-        EditFolderCommand command = new EditFolderCommand(TypicalIndexes.INDEX_FIRST_CARD_FOLDER, newName);
-        assertCommandFailure(command, model, commandHistory, MESSAGE_DUPLICATE_FOLDER);
-    }
-
-    @Test
     public void equals() {
-        EditFolderCommand editCommandOneOne =
-                new EditFolderCommand(TypicalIndexes.INDEX_FIRST_CARD_FOLDER, TypicalCards.getTypicalFolderOneName());
-        EditFolderCommand editCommandOneTwo =
-                new EditFolderCommand(TypicalIndexes.INDEX_FIRST_CARD_FOLDER, TypicalCards.getTypicalFolderTwoName());
-        EditFolderCommand editCommandTwoTwo =
-                new EditFolderCommand(TypicalIndexes.INDEX_SECOND_CARD_FOLDER, TypicalCards.getTypicalFolderTwoName());
+        DeleteFolderCommand deleteCommandOne =
+                new DeleteFolderCommand(TypicalIndexes.INDEX_FIRST_CARD_FOLDER);
+        DeleteFolderCommand deleteCommandTwo =
+                new DeleteFolderCommand(TypicalIndexes.INDEX_SECOND_CARD_FOLDER);
 
         // same object -> returns true
-        assertTrue(editCommandOneOne.equals(editCommandOneOne));
+        assertTrue(deleteCommandOne.equals(deleteCommandOne));
 
         // same values -> returns true
-        assertTrue(editCommandOneOne.equals(
-                new EditFolderCommand(TypicalIndexes.INDEX_FIRST_CARD_FOLDER, TypicalCards.getTypicalFolderOneName())));
+        assertTrue(deleteCommandOne.equals(new DeleteFolderCommand(TypicalIndexes.INDEX_FIRST_CARD_FOLDER)));
 
         // different values -> returns false
-        assertFalse(editCommandOneOne.equals(editCommandOneTwo)); // different indices
-        assertFalse(editCommandOneTwo.equals(editCommandTwoTwo)); // different names
-        assertFalse(editCommandOneOne.equals(editCommandTwoTwo)); // different indices and names
+        assertFalse(deleteCommandOne.equals(deleteCommandTwo));
 
         // null -> returns false
-        assertFalse(editCommandOneOne.equals(null));
+        assertFalse(deleteCommandOne.equals(null));
     }
 }

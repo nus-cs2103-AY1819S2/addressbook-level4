@@ -29,6 +29,8 @@ public class DeleteFolderCommand extends Command {
     private final Index targetIndex;
 
     public DeleteFolderCommand(Index targetIndex) {
+        requireNonNull(targetIndex);
+
         this.targetIndex = targetIndex;
     }
 

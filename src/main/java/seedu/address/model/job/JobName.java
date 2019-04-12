@@ -9,8 +9,8 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class JobName {
 
-    public static final String MESSAGE_CONSTRAINTS =
-            "Names should only contain alphanumeric characters and spaces, and it should not be blank";
+    public static final String MESSAGE_CONSTRAINTS = "Jobs applied should not start with a whitespace char"
+                    + ", and it should not be blank. Multiple word jobs are to be seperated by '-'.";
 
     /*
      * The first character of the address must not be a whitespace,

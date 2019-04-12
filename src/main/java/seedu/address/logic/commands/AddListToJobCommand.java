@@ -20,19 +20,19 @@ public class AddListToJobCommand extends Command {
     public static final String COMMAND_ALIAS = "aa";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": adds all shown people to job . "
-        + "Parameters: "
-        + "DESTINATION-LIST-NAME "
-        + "SOURCE-LIST-NAME"
-        + PREFIX_JOBNAME + "JobName "
-        + "Example: " + COMMAND_WORD + " "
-        + "kiv "
-        + "applicant "
-        + PREFIX_JOBNAME + "Helper "
-        + "The alias \"aa\" can be used instead.\n"
-        + "Example: " + COMMAND_ALIAS + " "
-        + "kiv "
-        + "applicant "
-        + PREFIX_JOBNAME + "Helper ";
+            + "Parameters: "
+            + "DESTINATION-LIST-NAME "
+            + "SOURCE-LIST-NAME (Optional. Entire database if omitted.)"
+            + PREFIX_JOBNAME + "JobName (Optional. Uses activeDisplayedJob if omitted.)"
+            + "Example: " + COMMAND_WORD + " "
+            + "kiv "
+            + "applicant "
+            + PREFIX_JOBNAME + "Helper "
+            + "The alias \"aa\" can be used instead.\n"
+            + "Example: " + COMMAND_ALIAS + " "
+            + "kiv "
+            + "applicant "
+            + PREFIX_JOBNAME + "Helper ";
 
     public static final String MESSAGE_SUCCESS = "All people added to job: %1$s. Displaying the job";
     public static final String MESSAGE_MISSING_JOB = "This job does not exist";

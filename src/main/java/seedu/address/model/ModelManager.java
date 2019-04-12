@@ -22,7 +22,6 @@ import seedu.address.model.interviews.Interviews;
 import seedu.address.model.job.Job;
 import seedu.address.model.job.JobListName;
 import seedu.address.model.job.JobName;
-import seedu.address.model.person.Nric;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
@@ -168,6 +167,7 @@ public class ModelManager implements Model {
 
         if (activeJob == null || !activeJob.getName().equals(jobName)) {
             this.getJob(jobName);
+            this.activeJob = null;
         }
 
         switch (from) {
@@ -189,10 +189,10 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public boolean addPersonToJob(JobName job, Nric nric) {
-        requireAllNonNull(job, nric);
+    public void addPersonToJob(Job job, Person person, JobListName list) {
+        requireAllNonNull(job, person);
 
-        return versionedAddressBook.addPersonToJobByNric(nric, job);
+        versionedAddressBook.addPersonToJob(person, job, list);
     }
 
     @Override
@@ -218,8 +218,8 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Integer movePerson(JobName jobName, Nric nric, Integer source, Integer dest) {
-        return versionedAddressBook.movePerson(jobName, nric, source, dest);
+    public Integer movePerson(Job job, Person person, Integer source, Integer dest) {
+        return versionedAddressBook.movePerson(job, person, source, dest);
     }
 
     @Override
@@ -255,15 +255,19 @@ public class ModelManager implements Model {
         return allJobsList;
     }
 
-    public ObservableList<Person> getJobsList(int listNumber) {
-        if (listNumber == 0) {
+    public ObservableList<Person> getJobsList(JobListName list) {
+
+        switch (list) {
+        case APPLICANT:
             return activeJobAllApplicants;
-        } else if (listNumber == 1) {
+        case KIV:
             return activeJobKiv;
-        } else if (listNumber == 2) {
+        case INTERVIEW:
             return activeJobInterview;
-        } else {
+        case SHORTLIST:
             return activeJobShortlist;
+        default:
+            return displayedFilteredPersons;
         }
     }
 
@@ -271,13 +275,13 @@ public class ModelManager implements Model {
     public Job getJob(JobName name) {
         this.activeJob = versionedAddressBook.getJob(name);
         this.activeJobAllApplicants =
-            new FilteredList<>(activeJob.getList(0).asUnmodifiableObservableList());
+                new FilteredList<>(activeJob.getList(0).asUnmodifiableObservableList());
         this.activeJobKiv =
-            new FilteredList<>(activeJob.getList(1).asUnmodifiableObservableList());
+                new FilteredList<>(activeJob.getList(1).asUnmodifiableObservableList());
         this.activeJobInterview =
-            new FilteredList<>(activeJob.getList(2).asUnmodifiableObservableList());
+                new FilteredList<>(activeJob.getList(2).asUnmodifiableObservableList());
         this.activeJobShortlist =
-            new FilteredList<>(activeJob.getList(3).asUnmodifiableObservableList());
+                new FilteredList<>(activeJob.getList(3).asUnmodifiableObservableList());
         return activeJob;
     }
 
@@ -367,8 +371,9 @@ public class ModelManager implements Model {
         filterListJobInterview = new UniqueFilterList();
         filterListJobShortlist = new UniqueFilterList();
     }
+
     @Override
-    public void clearPredicateAllPersons(){
+    public void clearPredicateAllPersons() {
         filterListAllPersons = new UniqueFilterList();
     }
 
@@ -558,7 +563,7 @@ public class ModelManager implements Model {
             }
 
             boolean wasSelectedPersonReplaced = change.wasReplaced() && change.getAddedSize() == change.getRemovedSize()
-                && change.getRemoved().contains(selectedPerson.getValue());
+                    && change.getRemoved().contains(selectedPerson.getValue());
             if (wasSelectedPersonReplaced) {
                 // Update selectedPerson to its new value.
                 int index = change.getRemoved().indexOf(selectedPerson.getValue());
@@ -567,7 +572,7 @@ public class ModelManager implements Model {
             }
 
             boolean wasSelectedPersonRemoved = change.getRemoved().stream()
-                .anyMatch(removedPerson -> selectedPerson.getValue().isSamePerson(removedPerson));
+                    .anyMatch(removedPerson -> selectedPerson.getValue().isSamePerson(removedPerson));
             if (wasSelectedPersonRemoved) {
                 // Select the person that came before it in the list,
                 // or clear the selection if there is no such person.
@@ -587,7 +592,7 @@ public class ModelManager implements Model {
             }
 
             boolean wasSelectedJobChanged = change.wasReplaced() && change.getAddedSize() == change.getRemovedSize()
-                && change.getRemoved().contains(selectedJob.getValue());
+                    && change.getRemoved().contains(selectedJob.getValue());
             if (wasSelectedJobChanged) {
                 // Update selectedJob to its new value.
                 int index = change.getRemoved().indexOf(selectedJob.getValue());
@@ -596,7 +601,7 @@ public class ModelManager implements Model {
             }
 
             boolean wasSelectedJobRemoved = change.getRemoved().stream()
-                .anyMatch(removedJob -> selectedJob.getValue().isSameJob(removedJob));
+                    .anyMatch(removedJob -> selectedJob.getValue().isSameJob(removedJob));
             if (wasSelectedJobChanged) {
                 // Select the job that came before it in the list,
                 // or clear the selection if there is no such job.
@@ -676,9 +681,9 @@ public class ModelManager implements Model {
         // state check
         ModelManager other = (ModelManager) obj;
         return versionedAddressBook.equals(other.versionedAddressBook)
-            && userPrefs.equals(other.userPrefs)
-            && originalFilteredPersons.equals(other.originalFilteredPersons)
-            && Objects.equals(selectedPerson.get(), other.selectedPerson.get());
+                && userPrefs.equals(other.userPrefs)
+                && originalFilteredPersons.equals(other.originalFilteredPersons)
+                && Objects.equals(selectedPerson.get(), other.selectedPerson.get());
     }
 
 }

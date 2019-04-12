@@ -51,7 +51,7 @@ public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
     public static final String MESSAGE_INVALID_MAX_INTERVIEWS_A_DAY =
-        "Maximum number of interviews a day is not a non-zero unsigned integer.";
+            "Maximum number of interviews a day is not a non-zero unsigned integer.";
     public static final String MESSAGE_INVALID_DATE = "Not a valid date.";
 
     /**
@@ -507,14 +507,18 @@ public class ParserUtil {
         return isValidLower && isValidUpper;
     }
 
-    protected static boolean isValidValueRange(List<String> rangeList){
-        for (String range:rangeList){
-            if(!isValidValueRange(range)){
+    /**
+     * Check if the date range provided is valid. Takes a list of string
+     */
+    protected static boolean isValidValueRange(List<String> rangeList) {
+        for (String range : rangeList) {
+            if (!isValidValueRange(range)) {
                 return false;
             }
         }
         return true;
     }
+
     /**
      * Check if the date range provided is valid.
      */

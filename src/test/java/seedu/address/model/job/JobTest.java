@@ -11,11 +11,13 @@ import static seedu.address.testutil.TypicalObjects.PROFESSOR;
 import static seedu.address.testutil.TypicalObjects.TEACHER;
 
 import java.util.HashSet;
+import java.util.Set;
 
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import seedu.address.model.person.Nric;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.testutil.JobBuilder;
@@ -27,23 +29,39 @@ public class JobTest {
 
     @Test
     public void testToString() {
-        Job Teacher = new JobBuilder(TEACHER).build();
-        assertEquals(VALID_JOB_NAME_TEACHER, Teacher.toString());
+        Job teacher = new JobBuilder(TEACHER).build();
+        assertEquals(VALID_JOB_NAME_TEACHER, teacher.toString());
     }
 
     @Test
     public void testAddPerson() {
         Person alice = new PersonBuilder(ALICE).build();
-        Job Teacher = new JobBuilder(TEACHER).build();
+        Job teacher = new JobBuilder(TEACHER).withName(VALID_JOB_NAME_TEACHER).build();
 
-        Teacher.add(alice, 0);
+        teacher.add(alice, 0);
         UniquePersonList list = new UniquePersonList();
         list.add(alice);
         HashSet<Person> aList = new HashSet<>();
         aList.add(alice);
+        Set<Nric> nrics = teacher.getPersonsNric(0);
 
-        assertEquals(list, Teacher.getPeople(0));
+        assertEquals(list, teacher.getPeople(0));
         assertTrue(aList.contains(alice));
+        assertTrue(teacher.contains(alice));
+        assertEquals(1, nrics.size());
+    }
+
+    @Test
+    public void testRemovePerson() {
+        Person alice = new PersonBuilder(ALICE).build();
+        Job teacher = new JobBuilder(TEACHER).withName(VALID_JOB_NAME_TEACHER).build();
+
+        teacher.add(alice, 0);
+        teacher.remove(alice);
+        Set<Nric> nrics = teacher.getPersonsNric(0);
+
+        assertFalse(teacher.contains(alice));
+        assertEquals(0, nrics.size());
     }
 
     @Test

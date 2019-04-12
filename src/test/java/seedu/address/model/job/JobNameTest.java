@@ -37,5 +37,6 @@ public class JobNameTest {
         assertTrue(JobName.isValidName("Capital-Tan")); // with capital letters
         assertTrue(JobName.isValidName("Her-Royal-Majesty-the-Queen-of-England")); // long names
         assertTrue(JobName.isValidName("IOS-Developer")); // name with symbols
+        assertTrue(JobName.isValidName("hello")); // name with symbols
     }
 }

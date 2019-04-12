@@ -16,6 +16,7 @@ endif::[]
 
 By: `Team T12-1`      Since: `Feb 2019`      Licence: `MIT`
 
+// tag::introduction[]
 == Introducing HMS+
 
 You need a world-class property management system to run your hotel’s front desk and back office. We’ve spent years listening to what independent hoteliers need to take their business to the next level. From before check-in to post check out, we have everything you need to get your customers moving and your hotel running.
@@ -23,6 +24,8 @@ You need a world-class property management system to run your hotel’s front de
 HMS+ is for hotels that want to use a *single, integrated system to manage all aspects of their requirements*.
 
 This user guide provides in-depth documentation on the HMS+ installation process, system configuration and management, monitoring and troubleshooting problems. In addition, the <<Getting Started>> will provide the basic knowledge of the setup process and how you can get started.
+
+// end::introduction[]
 
 == Getting Started
 
@@ -87,8 +90,8 @@ A person can have any number of tags (including 0)
 
 Examples:
 
-* `ac n/John Doe p/98765432 dob/28/05/1999 e/johnd@example.com id/552526 a/John street, block 123, #01-01`
-* `ac n/Betsy Crowe e/betsy.crowe@example.com p/123456 id/345252`
+* `ac n/John Doe p/98765432 dob/28/05/1999 e/johnd@example.com id/A5525261 a/John street, block 123, #01-01`
+* `ac n/Betsy Crowe e/betsy.crowe@example.com p/123456 id/A3452521Q`
 
 ==== Listing all customers : `list-customers`, `lc`
 
@@ -217,9 +220,10 @@ Format: `{[aqua]#add-reservation#/[aqua]#ar#} [blue]#r/# [lime]#ROOM_TYPE# [blue
 * We allow different people to reserve the same room for the same date as someone else already has.
 ====
 
-Examples:
 
-* `list-customers`, then `ar r/SINGLE ROOM d/20/5/19-25/5/19 $/15` +
+Examples: +
+Assume current date is 10 May, 2019. +
+* `list-customers`, then `ar r/SINGLE ROOM d/20/5/2019-25/5/2019 $/15` +
 Adds a reservation of Single Room in the name of the 15th customer from 20 May 2019 to 25 May 2019.
 * `find-name Jack Rose`, then `add-reservation r/DELUXE ROOM d/14/2/2019-15/2/2019 $/1 c/2` +
 =======
@@ -230,6 +234,7 @@ Adds a reservation of Single Room in the name of the 5th customer from 20 May 20
 * `find-name Jack Rose`, then `add-reservation r/DELUXE ROOM d/14/05/2019-15/05/2019 $/1 c/2` +
 >>>>>>> Stashed changes
 Adds a reservation of Deluxe Room, in the name of the first customer for both him/her and the second customer, from 14 Feb 2019 to 15 Feb 2019.
+
 
 ==== Listing all reservations : `list-reservations`, `lr`
 Effect: Displays a reservation list, which lists all the reservations. +
@@ -450,6 +455,7 @@ Returns all gym bookings for customer with identification number, A0124422.
 
 // end::booking-commands[]
 
+// tag::generation-bill-commands[]
 === [underline]#Bill Generation commands#
 
 ==== Generate bill for specific booking: `generate-bill-booking`, `gb-b`
@@ -498,6 +504,8 @@ Example:
 
 *  `lc, then `gb-c 2` +
 Returns the total bill (includes all bookings and reservations) for the customer at index 2
+
+// end::generation-bill-commands[]
 
 === [underline]#Switch tab command# : `switch-tab`, `st`
 

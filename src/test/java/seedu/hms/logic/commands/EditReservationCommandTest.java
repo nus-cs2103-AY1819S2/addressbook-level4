@@ -18,6 +18,7 @@ import org.junit.Test;
 import seedu.hms.commons.core.Messages;
 import seedu.hms.commons.core.index.Index;
 import seedu.hms.logic.CommandHistory;
+import seedu.hms.logic.commands.EditReservationCommand;
 import seedu.hms.model.ReservationManager;
 import seedu.hms.model.ReservationModel;
 import seedu.hms.model.UserPrefs;

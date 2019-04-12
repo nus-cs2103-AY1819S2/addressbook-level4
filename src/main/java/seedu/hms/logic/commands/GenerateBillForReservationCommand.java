@@ -12,6 +12,7 @@ import seedu.hms.model.BillModel;
 import seedu.hms.model.bill.Bill;
 import seedu.hms.model.reservation.Reservation;
 import seedu.hms.model.reservation.ReservationContainsPayerPredicate;
+import seedu.hms.model.reservation.ReservationWithDatePredicate;
 import seedu.hms.model.reservation.ReservationWithTypePredicate;
 
 /**
@@ -37,17 +38,23 @@ public class GenerateBillForReservationCommand extends BillCommand {
 
     private final Predicate<Reservation> reservationPredicate;
     private final Bill bill;
+    private final ReservationContainsPayerPredicate reservationContainsPayerPredicate;
+    private final ReservationWithTypePredicate reservationWithTypePredicate;
+    private final ReservationWithDatePredicate reservationWithDatePredicate;
 
 
     public GenerateBillForReservationCommand(ReservationContainsPayerPredicate reservationContainsPayerPredicate,
                                              ReservationWithTypePredicate reservationWithTypePredicate,
-                                             //       ReservationWithDatePredicate reservationWithDatePredicate,
+                                             ReservationWithDatePredicate reservationWithDatePredicate,
                                              Bill bill) {
 
         this.reservationPredicate = (reservationTested) -> reservationContainsPayerPredicate.test(reservationTested)
-            && reservationWithTypePredicate.test(reservationTested);
-        //   && reservationWithDatePredicate.test(reservationTested);
+            && reservationWithTypePredicate.test(reservationTested)
+            && reservationWithDatePredicate.test(reservationTested);
         this.bill = bill;
+        this.reservationContainsPayerPredicate = reservationContainsPayerPredicate;
+        this.reservationWithTypePredicate = reservationWithTypePredicate;
+        this.reservationWithDatePredicate = reservationWithDatePredicate;
     }
 
 
@@ -70,6 +77,11 @@ public class GenerateBillForReservationCommand extends BillCommand {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
             || (other instanceof GenerateBillForReservationCommand // instanceof handles nulls
-            && reservationPredicate.equals(((GenerateBillForReservationCommand) other).reservationPredicate));
+            && reservationContainsPayerPredicate.equals(((GenerateBillForReservationCommand) other)
+            .reservationContainsPayerPredicate)
+            && reservationWithTypePredicate.equals(((GenerateBillForReservationCommand) other)
+            .reservationWithTypePredicate)
+            && reservationWithDatePredicate.equals(((GenerateBillForReservationCommand) other)
+            .reservationWithDatePredicate));
     }
 }

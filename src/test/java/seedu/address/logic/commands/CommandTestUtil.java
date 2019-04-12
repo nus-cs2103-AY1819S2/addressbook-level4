@@ -123,6 +123,7 @@ public class CommandTestUtil {
     public static final String INVALID_KNOWNPROGLANG_DESC = " " + PREFIX_KNOWNPROGLANG + "  "; //blank not allowed
     public static final String INVALID_JOBSAPPLY_DESC = " " + PREFIX_JOBSAPPLY + " "; //blank not allowed
     public static final String INVALID_INTERVIEWSCORES_DESC = " " + PREFIX_INTERVIEWSCORES + " ";
+    public static final String INVALID_FILTERNAME = "";
     // empty string not allowed for interview scores
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
     public static final String INVALID_JOBNAME = " " + PREFIX_JOBNAME + "$#@#@$*"; // only letters allowed
@@ -165,6 +166,17 @@ public class CommandTestUtil {
             assertEquals(expectedCommandResult, result);
             assertEquals(expectedModel, actualModel);
             assertEquals(expectedCommandHistory, actualCommandHistory);
+        } catch (CommandException ce) {
+            throw new AssertionError("Execution of command should not fail.", ce);
+        }
+    }
+
+    /**
+     * Executes the given {@code command}
+     */
+    public static void commandExecute(Command command, Model actualModel, CommandHistory actualCommandHistory) {
+        try {
+            command.execute(actualModel, actualCommandHistory);
         } catch (CommandException ce) {
             throw new AssertionError("Execution of command should not fail.", ce);
         }

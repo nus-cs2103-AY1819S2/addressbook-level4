@@ -1,11 +1,9 @@
 package seedu.address.logic.parser;
 
-import static seedu.address.commons.core.Messages.MESSAGE_LACK_FILTERNAME;
 import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.FILTERNAME_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.GENDER_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.GRADE_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.GRADE_RANGE_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.JOBSAPPLY_DESC_ENGINEER;
 import static seedu.address.logic.commands.CommandTestUtil.KNOWNPROGLANG_DESC_JAVA;
@@ -20,7 +18,6 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_FILTERNAME;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_GENDER_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_GRADE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_GRADE_RANGE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_JOBSAPPLY_ENGINEER;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_KNOWNPROGLANG_JAVA;
@@ -31,9 +28,9 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_PASTJOB_PROFESS
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_RACE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_SCHOOL_AMY;
+import static seedu.address.logic.commands.FilterCommand.MESSAGE_LACK_FILTERNAME;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.address.model.job.JobListName.APPLICANT_NAME;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -49,7 +46,8 @@ public class FilterCommandParserTest {
 
     @Test
     public void parse_emptyArg_throwsParseException() {
-        assertParseFailure(parser, "     ", String.format(MESSAGE_LACK_FILTERNAME, FilterCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, "     ",
+            String.format(MESSAGE_LACK_FILTERNAME, FilterCommand.MESSAGE_USAGE_ALLJOB_SCREEN));
     }
 
     @Test

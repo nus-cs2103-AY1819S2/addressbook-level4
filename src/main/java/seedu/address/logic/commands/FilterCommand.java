@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_FILTERNAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GENDER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_JOBSAPPLY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_KNOWNPROGLANG;
@@ -58,9 +59,52 @@ public class FilterCommand extends Command {
     public static final String COMMAND_WORD = "filter";
     public static final String COMMAND_ALIAS = "f";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Filter all persons whose informations contain any of "
-        + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
-        + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
+    public static final String MESSAGE_USAGE_ALLJOB_SCREEN = COMMAND_WORD + ": (In All Jobs shows mode)\n"
+        +"Filter all persons whose informations contain any of the specified keywords (case-insensitive) "
+        + "and displays them as a list with index numbers.\n"
+        + "Parameters: FILTERNAME [KEYWORDS]...\n"
+        + "[" + PREFIX_FILTERNAME + "FILTERNAME] "
+        + "[" + PREFIX_NAME + "NAME KEYWORD] "
+        + "[" + PREFIX_PHONE + "PHONE KEYWORD] "
+        + "[" + PREFIX_EMAIL + "EMAIL KEYWORD] "
+        + "[" + PREFIX_NRIC + "NRIC KEYWORD] "
+        + "[" + PREFIX_GENDER + "GENDER KEYWORD] "
+        + "[" + PREFIX_RACE + "RACE KEYWORD] "
+        + "[" + PREFIX_ADDRESS + "ADDRESS KEYWORD] "
+        + "[" + PREFIX_SCHOOL + "SCHOOL KEYWORD] "
+        + "[" + PREFIX_MAJOR + "MAJOR KEYWORD] "
+        + "[" + PREFIX_SCHOOL + "SCHOOL KEYWORD] "
+        + "[" + PREFIX_KNOWNPROGLANG + "KNOWNPROGLANG KEYWORD] "
+        + "[" + PREFIX_PASTJOB + "PASTJOB KEYWORD] "
+        + "[" + PREFIX_JOBSAPPLY + "JOBSAPPLY KEYWORD] "
+        + "Example: " + COMMAND_WORD
+        + PREFIX_PHONE + "91234567 "
+        + PREFIX_EMAIL + "johndoe@example.com "
+        + PREFIX_NRIC + "S9671597H "
+        + PREFIX_GENDER + "Male "
+        + PREFIX_RACE + "Indian "
+        + PREFIX_ADDRESS + "311, Clementi Ave 2, #02-25 "
+        + PREFIX_SCHOOL + "NUS "
+        + PREFIX_MAJOR + "Computer Science "
+        + "The alias \"sh \" can be used instead.\n"
+        + "Example: " + COMMAND_ALIAS
+        + PREFIX_PHONE + "91234567 "
+        + PREFIX_EMAIL + "johndoe@example.com "
+        + PREFIX_NRIC + "S9671597H "
+        + PREFIX_GENDER + "Male "
+        + PREFIX_RACE + "Indian "
+        + PREFIX_ADDRESS + "311, Clementi Ave 2, #02-25 "
+        + PREFIX_SCHOOL + "NUS "
+        + PREFIX_MAJOR + "Computer Science "
+        + PREFIX_JOBSAPPLY + "Software Engineer ";
+
+
+    public static final String MESSAGE_USAGE_JOB_DETAIL_SCREEN = COMMAND_WORD + ": (In Job Detail mode)\n"
+        +"Filter indicated job list whose informations contain any of the specified keywords (case-insensitive) "
+        + "and displays them as a list with index numbers.\n"
+        + "Parameters: LISTNAME FILTERNAME [KEYWORDS]...\n"
+        + "LISTNAME "
+        + "[" + PREFIX_FILTERNAME + "FILTERNAME] "
         + "[" + PREFIX_NAME + "NAME KEYWORD] "
         + "[" + PREFIX_PHONE + "PHONE KEYWORD] "
         + "[" + PREFIX_EMAIL + "EMAIL KEYWORD] "
@@ -99,7 +143,7 @@ public class FilterCommand extends Command {
     public static final String MESSAGE_LACK_LISTNAME =
         "Filter Command in Display Job page need indicate job list\n%1$s";
     public static final String MESSAGE_REDUNDANT_LISTNAME =
-        "Filter Command in All Jobs page no need indicate job list";
+        "Filter Command in All Jobs page no need indicate job list\n%1$s";
     public static final String MESSAGE_INVALID_RANGE =
         "Not a valid range, the right format should be value-value;value-value..." + "\n"
             + "For example: 1.2-1.3; 1.3-1.4";
@@ -115,7 +159,6 @@ public class FilterCommand extends Command {
      * @param listName                  which job list to predicate the person with
      * @param predicatePersonDescriptor details to predicate the person with
      */
-    @SuppressWarnings("unchecked")
     public FilterCommand(String commandName, JobListName listName,
                          PredicatePersonDescriptor predicatePersonDescriptor) {
         requireNonNull(commandName);
@@ -134,14 +177,17 @@ public class FilterCommand extends Command {
         boolean isAllJobScreen = model.getIsAllJobScreen();
         boolean hasFilterName = !commandName.equals("");
         boolean hasListName = listName != EMPTY;
-        if (!hasFilterName) {
-            throw new CommandException(String.format(MESSAGE_LACK_FILTERNAME, MESSAGE_USAGE));
+        if (isAllJobScreen && !hasFilterName) {
+            throw new CommandException(String.format(MESSAGE_LACK_FILTERNAME, MESSAGE_USAGE_ALLJOB_SCREEN));
+        }
+        if (!isAllJobScreen && !hasFilterName) {
+            throw new CommandException(String.format(MESSAGE_LACK_FILTERNAME, MESSAGE_USAGE_JOB_DETAIL_SCREEN));
         }
         if (!isAllJobScreen && !hasListName) {
-            throw new CommandException(MESSAGE_LACK_LISTNAME);
+            throw new CommandException(String.format(MESSAGE_LACK_LISTNAME, MESSAGE_USAGE_JOB_DETAIL_SCREEN));
         }
         if (isAllJobScreen && hasListName) {
-            throw new CommandException(MESSAGE_REDUNDANT_LISTNAME);
+            throw new CommandException(String.format(MESSAGE_REDUNDANT_LISTNAME, MESSAGE_USAGE_ALLJOB_SCREEN));
         }
 
         int size = model.getJobsList(listName).size();

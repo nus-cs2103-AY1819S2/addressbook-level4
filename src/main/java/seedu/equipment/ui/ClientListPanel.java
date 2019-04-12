@@ -42,7 +42,6 @@ public class ClientListPanel extends UiPart<Region> {
                 nameArrayList.add(nameList.get(i));
             }
         }
-        System.out.println("here " + nameArrayList);
         nameObservableList.addAll(nameArrayList);
         clientListView.setItems(nameObservableList);
         clientListView.setCellFactory(listView -> new ClientListViewCell());

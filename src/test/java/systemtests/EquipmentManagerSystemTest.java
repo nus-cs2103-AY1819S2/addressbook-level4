@@ -47,6 +47,7 @@ import seedu.equipment.model.EquipmentManager;
 import seedu.equipment.model.Model;
 import seedu.equipment.testutil.TypicalEquipments;
 import seedu.equipment.ui.BrowserPanel;
+import seedu.equipment.ui.ClientListPanel;
 import seedu.equipment.ui.CommandBox;
 
 /**

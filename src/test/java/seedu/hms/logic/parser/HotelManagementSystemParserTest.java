@@ -15,34 +15,47 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.hms.logic.commands.AddCustomerCommand;
+import seedu.hms.logic.commands.AddRoomTypeCommand;
+import seedu.hms.logic.commands.AddServiceTypeCommand;
 import seedu.hms.logic.commands.ClearBookingCommand;
 import seedu.hms.logic.commands.ClearHotelManagementSystemCommand;
 import seedu.hms.logic.commands.ClearReservationCommand;
 import seedu.hms.logic.commands.DeleteBookingCommand;
 import seedu.hms.logic.commands.DeleteCustomerCommand;
+import seedu.hms.logic.commands.DeleteReservationCommand;
 import seedu.hms.logic.commands.EditCustomerCommand;
 import seedu.hms.logic.commands.EditCustomerCommand.EditCustomerDescriptor;
 import seedu.hms.logic.commands.ExitCommand;
+import seedu.hms.logic.commands.FindBookingCommand;
 import seedu.hms.logic.commands.FindNameCommand;
 import seedu.hms.logic.commands.HelpCommand;
 import seedu.hms.logic.commands.HistoryCommand;
 import seedu.hms.logic.commands.ListBookingCommand;
 import seedu.hms.logic.commands.ListCustomerCommand;
+import seedu.hms.logic.commands.ListReservationCommand;
 import seedu.hms.logic.commands.RedoCommand;
 import seedu.hms.logic.commands.SelectCustomerCommand;
+import seedu.hms.logic.commands.SwitchTabCommand;
 import seedu.hms.logic.commands.UndoCommand;
 import seedu.hms.logic.parser.exceptions.ParseException;
 import seedu.hms.model.BillManager;
 import seedu.hms.model.BookingManager;
 import seedu.hms.model.CustomerManager;
 import seedu.hms.model.ReservationManager;
+import seedu.hms.model.booking.BookingContainsPayerPredicate;
+import seedu.hms.model.booking.BookingWithTypePredicate;
+import seedu.hms.model.booking.BookingWithinTimePredicate;
+import seedu.hms.model.booking.serviceType.ServiceType;
 import seedu.hms.model.customer.Customer;
 import seedu.hms.model.customer.NameContainsKeywordsPredicate;
+import seedu.hms.model.reservation.roomType.RoomType;
+import seedu.hms.model.util.TimeRange;
 import seedu.hms.testutil.CustomerBuilder;
 import seedu.hms.testutil.CustomerUtil;
 import seedu.hms.testutil.EditCustomerDescriptorBuilder;
 
 public class HotelManagementSystemParserTest {
+
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
@@ -57,12 +70,48 @@ public class HotelManagementSystemParserTest {
     }
 
     @Test
+    public void parseCommandAddServiceType() throws Exception {
+        ServiceType serviceType = new ServiceType(50, new TimeRange(8, 22), "Gym", 7.0);
+        AddServiceTypeCommand command = (AddServiceTypeCommand) parser.parseCommand(
+            AddServiceTypeCommand.COMMAND_WORD + " " + " n/GYM :/8-22 cap/50 rate/7.0",
+            new CustomerManager(), new BookingManager(), new ReservationManager(), new BillManager());
+        assertEquals(new AddServiceTypeCommand(serviceType), command);
+    }
+
+    @Test
+    public void parseCommandAddRoomType() throws Exception {
+        RoomType roomType = new RoomType(50, "DOUBLE ROOM", 400.0);
+        AddRoomTypeCommand command = (AddRoomTypeCommand) parser.parseCommand(
+            AddRoomTypeCommand.COMMAND_WORD + " " + " n/DOUBLE ROOM cap/50 rate/400.0",
+            new CustomerManager(), new BookingManager(), new ReservationManager(), new BillManager());
+        assertEquals(new AddRoomTypeCommand(roomType), command);
+    }
+
+    @Test
     public void parseCommandAddCustomerAlias() throws Exception {
         Customer customer = new CustomerBuilder().build();
         AddCustomerCommand commandAlias = (AddCustomerCommand) parser.parseCommand(
             AddCustomerCommand.COMMAND_ALIAS + " " + CustomerUtil.getCustomerDetails(customer),
             new CustomerManager(), new BookingManager(), new ReservationManager(), new BillManager());
         assertEquals(new AddCustomerCommand(customer), commandAlias);
+    }
+
+    @Test
+    public void parseCommandAddServiceTypeAlias() throws Exception {
+        ServiceType serviceType = new ServiceType(50, new TimeRange(8, 22), "Gym", 7.0);
+        AddServiceTypeCommand command = (AddServiceTypeCommand) parser.parseCommand(
+            AddServiceTypeCommand.COMMAND_ALIAS + " " + " n/GYM :/8-22 cap/50 rate/7.0",
+            new CustomerManager(), new BookingManager(), new ReservationManager(), new BillManager());
+        assertEquals(new AddServiceTypeCommand(serviceType), command);
+    }
+
+    @Test
+    public void parseCommandAddRoomTypeAlias() throws Exception {
+        RoomType roomType = new RoomType(50, "DOUBLE ROOM", 400.0);
+        AddRoomTypeCommand command = (AddRoomTypeCommand) parser.parseCommand(
+            AddRoomTypeCommand.COMMAND_ALIAS + " " + " n/DOUBLE ROOM cap/50 rate/400.0",
+            new CustomerManager(), new BookingManager(), new ReservationManager(), new BillManager());
+        assertEquals(new AddRoomTypeCommand(roomType), command);
     }
 
     @Test
@@ -138,6 +187,14 @@ public class HotelManagementSystemParserTest {
     }
 
     @Test
+    public void parseCommandDeleteReservation() throws Exception {
+        DeleteReservationCommand command = (DeleteReservationCommand) parser.parseCommand(
+            DeleteReservationCommand.COMMAND_WORD + " " + INDEX_FIRST_CUSTOMER.getOneBased(),
+            new CustomerManager(), new BookingManager(), new ReservationManager(), new BillManager());
+        assertEquals(new DeleteReservationCommand(INDEX_FIRST_CUSTOMER), command);
+    }
+
+    @Test
     public void parseCommandDeleteCustomerAlias() throws Exception {
         DeleteCustomerCommand commandAlias = (DeleteCustomerCommand) parser.parseCommand(
             DeleteCustomerCommand.COMMAND_ALIAS + " " + INDEX_FIRST_CUSTOMER.getOneBased(),
@@ -151,6 +208,14 @@ public class HotelManagementSystemParserTest {
             DeleteBookingCommand.COMMAND_ALIAS + " " + INDEX_FIRST_CUSTOMER.getOneBased(),
             new CustomerManager(), new BookingManager(), new ReservationManager(), new BillManager());
         assertEquals(new DeleteBookingCommand(INDEX_FIRST_CUSTOMER), commandAlias);
+    }
+
+    @Test
+    public void parseCommandDeleteReservationAlias() throws Exception {
+        DeleteReservationCommand commandAlias = (DeleteReservationCommand) parser.parseCommand(
+            DeleteReservationCommand.COMMAND_ALIAS + " " + INDEX_FIRST_CUSTOMER.getOneBased(),
+            new CustomerManager(), new BookingManager(), new ReservationManager(), new BillManager());
+        assertEquals(new DeleteReservationCommand(INDEX_FIRST_CUSTOMER), commandAlias);
     }
 
     @Test
@@ -201,6 +266,28 @@ public class HotelManagementSystemParserTest {
     }
 
     @Test
+    public void parseCommand_findBooking() throws Exception {
+
+        FindBookingCommand command = (FindBookingCommand) parser.parseCommand(
+            FindBookingCommand.COMMAND_WORD + " " + "id/G1739843T " + ":/14-15",
+            new CustomerManager(), new BookingManager(), new ReservationManager(), new BillManager());
+        assertEquals(new FindBookingCommand(new BookingContainsPayerPredicate("G1739843T"),
+            new BookingWithTypePredicate(""),
+            new BookingWithinTimePredicate(new TimeRange(14, 15))), command);
+    }
+
+    @Test
+    public void parseCommand_findBookingAlias() throws Exception {
+
+        FindBookingCommand command = (FindBookingCommand) parser.parseCommand(
+            FindBookingCommand.COMMAND_ALIAS + " " + "id/G1739843T " + ":/14-15",
+            new CustomerManager(), new BookingManager(), new ReservationManager(), new BillManager());
+        assertEquals(new FindBookingCommand(new BookingContainsPayerPredicate("G1739843T"),
+            new BookingWithTypePredicate(""),
+            new BookingWithinTimePredicate(new TimeRange(14, 15))), command);
+    }
+
+    @Test
     public void parseCommand_findAlias() throws Exception {
         List<String> keywords = Arrays.asList("foo", "bar", "baz");
         FindNameCommand commandAlias = (FindNameCommand) parser.parseCommand(
@@ -208,6 +295,7 @@ public class HotelManagementSystemParserTest {
             new CustomerManager(), new BookingManager(), new ReservationManager(), new BillManager());
         assertEquals(new FindNameCommand(new NameContainsKeywordsPredicate(keywords)), commandAlias);
     }
+
 
     @Test
     public void parseCommand_help() throws Exception {
@@ -274,6 +362,14 @@ public class HotelManagementSystemParserTest {
     }
 
     @Test
+    public void parseCommandListReservations() throws Exception {
+        assertTrue(parser.parseCommand(ListReservationCommand.COMMAND_WORD, new CustomerManager(), new BookingManager(),
+            new ReservationManager(), new BillManager()) instanceof ListReservationCommand);
+        assertTrue(parser.parseCommand(ListReservationCommand.COMMAND_WORD + " 3", new CustomerManager(),
+            new BookingManager(), new ReservationManager(), new BillManager()) instanceof ListReservationCommand);
+    }
+
+    @Test
     public void parseCommandListCustomersAlias() throws Exception {
         assertTrue(parser.parseCommand(ListCustomerCommand.COMMAND_ALIAS, new CustomerManager(), new BookingManager(),
             new ReservationManager(), new BillManager()) instanceof ListCustomerCommand);
@@ -291,11 +387,35 @@ public class HotelManagementSystemParserTest {
     }
 
     @Test
+    public void parseCommandListReservationsAlias() throws Exception {
+        assertTrue(parser.parseCommand(ListReservationCommand.COMMAND_ALIAS, new CustomerManager(),
+            new BookingManager(), new ReservationManager(), new BillManager()) instanceof ListReservationCommand);
+        assertTrue(parser.parseCommand(ListReservationCommand.COMMAND_WORD + " 3", new CustomerManager(),
+            new BookingManager(), new ReservationManager(), new BillManager()) instanceof ListReservationCommand);
+    }
+
+    @Test
     public void parseCommand_select() throws Exception {
         SelectCustomerCommand command = (SelectCustomerCommand) parser.parseCommand(
             SelectCustomerCommand.COMMAND_WORD + " " + INDEX_FIRST_CUSTOMER.getOneBased(),
             new CustomerManager(), new BookingManager(), new ReservationManager(), new BillManager());
         assertEquals(new SelectCustomerCommand(INDEX_FIRST_CUSTOMER), command);
+    }
+
+    @Test
+    public void parseCommandSwitchTab() throws Exception {
+        SwitchTabCommand command = (SwitchTabCommand) parser.parseCommand(
+            SwitchTabCommand.COMMAND_WORD + " " + "1 2",
+            new CustomerManager(), new BookingManager(), new ReservationManager(), new BillManager());
+        assertEquals(new SwitchTabCommand(1, 1), command);
+    }
+
+    @Test
+    public void parseCommandSwitchTabAlias() throws Exception {
+        SwitchTabCommand command = (SwitchTabCommand) parser.parseCommand(
+            SwitchTabCommand.COMMAND_ALIAS + " " + "1 2",
+            new CustomerManager(), new BookingManager(), new ReservationManager(), new BillManager());
+        assertEquals(new SwitchTabCommand(1, 1), command);
     }
 
     @Test

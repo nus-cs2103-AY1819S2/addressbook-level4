@@ -88,8 +88,8 @@ public class ParserUtil {
     public static DateOfBirth parseDateOfBirth(String dob) throws ParseException {
         requireNonNull(dob);
         String trimmedDob = dob.trim();
-        if (!DateOfBirth.isValidDob(trimmedDob)) {
-            throw new ParseException(DateOfBirth.MESSAGE_CONSTRAINTS);
+        if (!(DateOfBirth.isValidDob(trimmedDob).getKey())) {
+            throw new ParseException(DateOfBirth.isValidDob(trimmedDob).getValue());
         }
         return new DateOfBirth(trimmedDob);
     }
@@ -253,7 +253,8 @@ public class ParserUtil {
         requireNonNull(customerIndices);
         final List<Customer> result = new ArrayList<>();
         for (String customerIndex : customerIndices) {
-            result.add(customers.get(Integer.parseInt(customerIndex) - 1));
+            Customer customer = parseOtherCustomer(customerIndex, customers);
+            result.add(customer);
         }
         return Optional.of(result);
     }
@@ -268,6 +269,20 @@ public class ParserUtil {
             tagSet.add(parseTag(tagName));
         }
         return tagSet;
+    }
+
+    /**
+     * Parses a {@code String customerIndex} into a {@code Customer} using the {@code customers}.
+     * Leading and trailing whitespaces will be trimmed.
+     */
+    public static Customer parseOtherCustomer(String customerIndex, List<Customer> customers) throws ParseException {
+        requireNonNull(customerIndex);
+        try {
+            int index = Integer.parseInt(customerIndex);
+            return customers.get(index - 1);
+        } catch (Exception e) {
+            throw new ParseException(String.format("Invalid customer index for other users: %s", customerIndex));
+        }
     }
 
     /**
@@ -290,5 +305,21 @@ public class ParserUtil {
             throw new ParseException("Rate must be positive");
         }
         return r;
+    }
+
+    /**
+     * Parses a {@code String type} into a {@code Name}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code name} is invalid.
+     */
+    public static String parseType(String name) throws ParseException {
+        requireNonNull(name);
+        String trimmedName = name.trim();
+        if ((name.length() >= 20) || !Name.isValidName(trimmedName)) {
+            throw new ParseException("Names should only contain alphanumeric characters and spaces, and it "
+                + "should not be blank. The length should be less than 15.");
+        }
+        return name;
     }
 }

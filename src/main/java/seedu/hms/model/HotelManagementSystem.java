@@ -374,7 +374,7 @@ public class HotelManagementSystem implements ReadOnlyHotelManagementSystem {
             .collect(Collectors.groupingBy(Booking::getService, Collectors.counting()))
             .entrySet().stream().sorted(Collections.reverseOrder(Map.Entry.comparingByValue()))
             .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e2,
-                    LinkedHashMap::new));
+                LinkedHashMap::new));
     }
 
     public Map<RoomType, Long> getPopularRoomTypes() {

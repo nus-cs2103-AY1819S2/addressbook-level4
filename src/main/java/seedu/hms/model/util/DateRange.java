@@ -30,9 +30,16 @@ public class DateRange {
             throw new seedu.hms.logic.parser.exceptions.ParseException("You have entered an invalid date");
         }
         this.startDate = Calendar.getInstance();
-        this.startDate.set(Integer.parseInt(sd[2]), Integer.parseInt(sd[1]), Integer.parseInt(sd[0]));
+        this.startDate.set(Integer.parseInt(sd[2]), Integer.parseInt(sd[1]) - 1, Integer.parseInt(sd[0]));
         this.endDate = Calendar.getInstance();
-        this.endDate.set(Integer.parseInt(ed[2]), Integer.parseInt(ed[1]), Integer.parseInt(ed[0]));
+        this.endDate.set(Integer.parseInt(ed[2]), Integer.parseInt(ed[1]) - 1, Integer.parseInt(ed[0]));
+        if (!isValidDate(this.startDate) || !isValidDate(this.endDate)) {
+            throw new seedu.hms.logic.parser.exceptions.ParseException(
+                "Date should be after current date and within one year after current date\n"
+                    + "Invalid date:" + (!isValidDate(this.startDate)
+                    ? this.startDate.getTime() : this.endDate.getTime()) + "\n"
+                    + "Current date:" + Calendar.getInstance().getTime());
+        }
         if (this.numOfDays() < 0) {
             throw new seedu.hms.logic.parser.exceptions.ParseException("Your end date should be after the start date");
         }
@@ -63,11 +70,24 @@ public class DateRange {
         return endDate;
     }
 
+    /**
+     * Returns whether the date is valid
+     * The date should be 1.after current date
+     * 2.within in 1 year after current date
+     *
+     * @return
+     */
+    public static boolean isValidDate(Calendar dateTested) {
+        long diff = dateTested.getTimeInMillis() - Calendar.getInstance().getTimeInMillis();
+        long diffDays = diff / 1000 / 60 / 60 / 24;
+        return diffDays >= 0 && diffDays < 365;
+    }
+
     @Override
     public String toString() {
-        return startDate.get(Calendar.DATE) + "/" + startDate.get(Calendar.MONTH) + "/"
+        return startDate.get(Calendar.DATE) + "/" + (startDate.get(Calendar.MONTH) + 1) + "/"
             + startDate.get(Calendar.YEAR) + " - "
-            + endDate.get(Calendar.DATE) + "/" + endDate.get(Calendar.MONTH) + "/" + endDate.get(Calendar.YEAR);
+            + endDate.get(Calendar.DATE) + "/" + (endDate.get(Calendar.MONTH) + 1) + "/" + endDate.get(Calendar.YEAR);
     }
 
     @Override

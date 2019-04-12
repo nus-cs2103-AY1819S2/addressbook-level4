@@ -151,7 +151,7 @@ Format: `clear`
 ====
 Clear does not remove the image currently being edited i.e. Images opened with the `open` command.
 ====
-// end::ClearCOmmand[]
+// end::ClearCommand[]
 
 // tag::ContrastCommand[]
 === Contrast: `contrast`

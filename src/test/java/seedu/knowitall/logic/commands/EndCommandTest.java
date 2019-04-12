@@ -3,6 +3,7 @@ package seedu.knowitall.logic.commands;
 import static seedu.knowitall.commons.core.Messages.MESSAGE_INVALID_COMMAND_OUTSIDE_FULLSCREEN;
 import static seedu.knowitall.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.knowitall.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.knowitall.logic.commands.EndCommand.MESSAGE_END_REPORT_DISPLAY_SUCCESS;
 import static seedu.knowitall.logic.commands.EndCommand.MESSAGE_END_TEST_SESSION_SUCCESS;
 import static seedu.knowitall.testutil.TypicalCards.getTypicalCardFolders;
 
@@ -39,5 +40,18 @@ public class EndCommandTest {
     public void execute_endTestSession_fail() {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_OUTSIDE_FULLSCREEN);
         assertCommandFailure(new EndCommand(), model, commandHistory, expectedMessage);
+    }
+
+    @Test
+    public void execute_endReportDisplay_success() {
+        model.enterFolder(TypicalIndexes.INDEX_FIRST_CARD_FOLDER.getZeroBased());
+        expectedModel.enterFolder(TypicalIndexes.INDEX_FIRST_CARD_FOLDER.getZeroBased());
+        model.enterReportDisplay();
+        expectedModel.enterReportDisplay();
+
+        expectedModel.exitReportDisplay();
+        CommandResult expectedCommandResult = new CommandResult(MESSAGE_END_REPORT_DISPLAY_SUCCESS,
+                CommandResult.Type.EXITED_REPORT);
+        assertCommandSuccess(new EndCommand(), model, commandHistory, expectedCommandResult, expectedModel);
     }
 }

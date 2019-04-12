@@ -27,7 +27,7 @@ public class GenerateQuestionCommandTest {
     }
 
     @Test
-    public void execute_showAnswer_success() {
+    public void execute_generateQuestion_success() {
         CommandResult expectedCommandResult = new CommandResult("");
         StudyView studyView = (StudyView) expectedModel.getViewState();
         studyView.generateCard();

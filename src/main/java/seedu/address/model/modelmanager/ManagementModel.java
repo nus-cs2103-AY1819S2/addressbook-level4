@@ -88,7 +88,7 @@ public interface ManagementModel extends Model {
      * @param questionIndex the index of the core to set as question
      * @param answerIndex the index of the core to set as answer
      */
-    void setOpenedLessonQuestionAnswer(int questionIndex, int answerIndex);
+    void setOpenedLessonTestValues(int questionIndex, int answerIndex);
 
     /**
      * Adds a {@link Card} to the opened {@link Lesson} object.

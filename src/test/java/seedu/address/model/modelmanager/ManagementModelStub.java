@@ -73,7 +73,7 @@ public class ManagementModelStub implements ManagementModel {
     }
 
     @Override
-    public void setOpenedLessonQuestionAnswer(int questionIndex, int answerIndex) {
+    public void setOpenedLessonTestValues(int questionIndex, int answerIndex) {
         throw new AssertionError(MESSAGE_ASSERT_ERROR);
     }
 

@@ -14,8 +14,8 @@ import seedu.address.model.modelmanager.ManagementModel;
 import seedu.address.model.modelmanager.Model;
 
 /**
- * This implements a {@link ManagementCommand} which sets the question and answer core indices of
- * a {@link Lesson} in the {@code List<Lesson> lessons} loaded in memory.
+ * This implements a {@link ManagementCommand} which sets the 2 test values to be tested for
+ * the opened {@link Lesson} in the {@code List<Lesson> lessons} loaded in memory.
  *
  * It requires a {@link ManagementModel} to be passed into the {@link #execute(Model, CommandHistory)}
  * command.
@@ -29,17 +29,15 @@ public class SetTestCommand extends ManagementCommand {
      * Instructions on command usage and parameters.
      */
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Sets the 2 test values to be tested for the opened lesson's flashcards.\n"
-            + "By default, the first 2 test values are tested as a question-answer pair.\n"
-            + "Use this command to change the test values to be tested.\n"
-            + "Parameters: INDEX INDEX (starting from 1)\n"
-            + "Example: " + COMMAND_WORD + "1 3\n"
-            + "Note: The example sets the 1st and 3rd test values as the 2 values to be tested.";
+            + ": Sets the 2 test values to be tested for the opened lesson's flashcards when"
+            + "the lesson is started in quiz mode.\n"
+            + "Parameters: INDEX INDEX (both starting from 1)\n"
+            + "Example: " + COMMAND_WORD + " 1 3\n";
     /**
      * Feedback message displayed to the user upon successful execution of this command
      */
     public static final String MESSAGE_SUCCESS =
-            "Updated lesson's question and answer.\nQuestion: %1$s\nAnswer: %2$s";
+            "Updated lesson's tested values.\nTested value #1: %1$s\nTested value #2: %2$s";
     /**
      * The question index to be set when {@link #execute(Model, CommandHistory)}
      * is called.
@@ -86,7 +84,7 @@ public class SetTestCommand extends ManagementCommand {
         try {
             int qIndex = questionIndex.getZeroBased();
             int aIndex = answerIndex.getZeroBased();
-            mgtModel.setOpenedLessonQuestionAnswer(qIndex, aIndex);
+            mgtModel.setOpenedLessonTestValues(qIndex, aIndex);
             List<String> cores = mgtModel.getOpenedLessonCoreHeaders();
             String question = cores.get(qIndex);
             String answer = cores.get(aIndex);
@@ -98,19 +96,25 @@ public class SetTestCommand extends ManagementCommand {
 
     /**
      * Returns true if {@code other} is the same object or if it is also a
-     * {@link SetTestCommand} attempting to set the same question and answer index.
+     * {@link SetTestCommand} attempting to set the same 2 test values as question and answer.
      *
      * @param other the other object to compare this object to
      * @return true if {@code other} is the same object or if it is also a
-     * {@link SetTestCommand} attempting to set the same question and answer index.
+     * {@link SetTestCommand} attempting to set the same 2 test values as question and answer.
      */
     @Override
     public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || ((other instanceof SetTestCommand // instanceof handles nulls
-                && questionIndex.getZeroBased()
-                == ((SetTestCommand) other).questionIndex.getZeroBased()
-                && answerIndex.getZeroBased()
-                == ((SetTestCommand) other).answerIndex.getZeroBased()));
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof SetTestCommand)) {
+            return false;
+        }
+
+        SetTestCommand otherCommand = (SetTestCommand) other;
+
+        return (otherCommand.answerIndex.getZeroBased() + otherCommand.questionIndex.getZeroBased()
+            == questionIndex.getZeroBased() + answerIndex.getZeroBased());
     }
 }

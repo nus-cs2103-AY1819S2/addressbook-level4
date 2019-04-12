@@ -156,7 +156,7 @@ public class ManagementModelManager implements ManagementModel {
     }
 
     @Override
-    public void setOpenedLessonQuestionAnswer(int questionIndex, int answerIndex) {
+    public void setOpenedLessonTestValues(int questionIndex, int answerIndex) {
         lessonList.setOpenedLessonQuestionAnswer(questionIndex, answerIndex);
     }
 

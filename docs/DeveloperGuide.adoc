@@ -709,7 +709,7 @@ This feature was designed to help users who are familiar with older versions of 
 When the user types a Common command, a suggestion will be displayed asking the user if they meant to type something else. +
 We define a Common command as a command whose name is used by the Patient commands, Record commands and/or Task commands. +
 For example, as there are `patientadd`, `recordadd` and `taskadd`, the Common command would be `add`. +
-As TeethHub has a Patient Mode and a Record Mode, only commands that can be used in the user's current mode will be displayed. 
+As TeethHub has a Patient Mode and a Record Mode, only commands that can be used in the user's current mode will be displayed.
 
 image::SuggestionFeatureAddPatientMode.png[width="236"]
 
@@ -1573,15 +1573,13 @@ are not allowed." is shown in message box. No file is created/overwritten.
    Expected: Same as previous.
 ... Test case: `export testfolder\\\\\\\test.json 1` +
    Expected: Same as previous.
-   
-   
+
 .. Prerequisites: List all patients using the list command. At least 3 patients should be displayed in the list.
 ... Test case: `export test.json 1,3` +
    Expected: A .json file named *test.json* is created/overwritten in the "data" folder. When opened in text viewer (like Notepad), only the patients that correspond to index 1 *and* index 3 in TeethHub should be present, along with all tasks.
 ... Test case: `export test.json 1-3` +
    Expected: A .json file named *test.json* is created/overwritten in the "data" folder. When opened in text viewer (like Notepad), only the patient that corresponds to index 1 *to* index 3 in TeethHub should be present, along with all tasks.
-   
-   
+
 .. Prerequisites: List all patients using the list command. At least 5 patients should be displayed in the list.
 ... Test case: `export test.json 1,3,5` +
    Expected: A .json file named *test.json* is created/overwritten in the "data" folder. When opened in text viewer (like Notepad), only the patients that correspond to index 1, index 3 *and* index 5 in TeethHub should be present, along with all tasks.
@@ -1597,7 +1595,6 @@ are not allowed." is shown in message box. No file is created/overwritten.
 .. Prerequisites: Save or Export a .json file with `save test.json`. Open the .json file in the "data" folder with a text editor (like Notepad). Delete the first line and save.
 ... Test case: `open test.json` +
    Expected: Error message "Data file is not in the correct format." is shown in message box.
-   
 .. Prerequisites: Make sure there is no file in the "data" folder named "test.json".
 ... Test case: `open test.json` +
    Expected: Error message "File not found!" is shown in message box.

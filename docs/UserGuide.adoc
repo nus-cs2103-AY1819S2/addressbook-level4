@@ -39,6 +39,7 @@ If you’re confident in your computer set-up, jump to <<quick-start-guide>> to 
 Before downloading and installing TeethHub, you will need the following programs installed:
 
 * Java Runtime Environment version *9* or later.
+* Adobe Acrobat Reader DC or any PDF reader if you wish to save or export your TeethHub data to PDF.
 
 Once you have it installed, you can now proceed to <<quick-start-guide>>!
 
@@ -236,6 +237,13 @@ Opens the file in the specified file path and overwrites the current data. +
 
 Format: `open FILE_PATH`
 
+`FILE_PATH`: +
+Any alphabet and numbers are allowed. +
+Allowed special characters are: +
+`! @ # $ % ^ & ( ) _ + - = { } [ ] ; ' , .` +
+Special characters *NOT* allowed are: +
+`< > : " | ? *`
+
 Examples:
 
 * `open data1.json` +
@@ -256,6 +264,13 @@ Otherwise, it will overwrite the existing file.** +
 
 Format: `save FILE_PATH`
 
+`FILE_PATH`: +
+Any alphabet and numbers are allowed. +
+Allowed special characters are: +
+`! @ # $ % ^ & ( ) _ + - = { } [ ] ; ' , .` +
+Special characters *NOT* allowed are: +
+`< > : " | ? *`
+
 Examples:
 
 * `save data1.json` +
@@ -271,6 +286,19 @@ Opens the file in the specified file path and adds the specified patients to the
 ** You can only import .json files. **
 
 Format: `import FILE_PATH INDEX_RANGE`
+
+`FILE_PATH`: +
+Any alphabet and numbers are allowed. +
+Allowed special characters are: +
+`! @ # $ % ^ & ( ) _ + - = { } [ ] ; ' , .` +
+Special characters *NOT* allowed are: +
+`< > : " | ? *`
+
+`INDEX_RANGE`: +
+Any positive integers (no decimals, must be greater than 0) are allowed.
+You can use commas (no space) to indicate a break. e.g. `1,3,5` for 1 and 3 and 5 +
+You can use dash (no space) to indicate a range. e.g. `3-5` for 3 to 5. `1-3-5` is not allowed, just use `1-5`. +
+You can use a combination of commas and dashes to indicate a range as well. e.g. `1-3,5` for 1 to 3 and 5.
 
 Examples:
 
@@ -300,6 +328,19 @@ Otherwise, it will overwrite the existing file.** +
 .pdf files are easier to read, but you cannot open or import them with TeethHub.
 
 Format: `export FILE_PATH INDEX_RANGE`
+
+`FILE_PATH`: +
+Any alphabet and numbers are allowed. +
+Allowed special characters are: +
+`! @ # $ % ^ & ( ) _ + - = { } [ ] ; ' , .` +
+Special characters *NOT* allowed are: +
+`< > : " | ? *`
+
+`INDEX_RANGE`: +
+Any positive integers (no decimals, must be greater than 0) are allowed.
+You can use commas (no space) to indicate a break. e.g. `1,3,5` for 1 and 3 and 5 +
+You can use dash (no space) to indicate a range. e.g. `3-5` for 3 to 5. `1-3-5` is not allowed, just use `1-5`. +
+You can use a combination of commas and dashes to indicate a range as well. e.g. `1-3,5` for 1 to 3 and 5.
 
 Examples:
 

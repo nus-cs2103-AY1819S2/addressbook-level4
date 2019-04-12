@@ -46,6 +46,10 @@ public class JobBuilder {
      */
     public JobBuilder withName(String name) {
         this.name = new JobName(name);
+        for (int i = 0; i < 4; i++) {
+            this.personsList.add(new UniquePersonList());
+            this.personsNricList.add(new HashSet<>());
+        }
         return this;
     }
 
@@ -53,12 +57,8 @@ public class JobBuilder {
         if(!personsInJob.contains(person)) {
             this.personsInJob.add(person);
         }
-        for (int i = 0; i < 4; i++) {
-            personsList.add(new UniquePersonList());
-            personsNricList.add(new HashSet<>());
-        }
-        personsList.get(0).add(person);
-        personsNricList.get(0).add(person.getNric());
+        this.personsList.get(0).add(person);
+        this.personsNricList.get(0).add(person.getNric());
         return this;
     }
 

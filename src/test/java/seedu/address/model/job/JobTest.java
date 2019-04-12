@@ -36,7 +36,7 @@ public class JobTest {
     @Test
     public void testAddPerson() {
         Person alice = new PersonBuilder(ALICE).build();
-        Job teacher = new JobBuilder(TEACHER).build();
+        Job teacher = new JobBuilder(TEACHER).withName(VALID_JOB_NAME_TEACHER).build();
 
         teacher.add(alice, 0);
         UniquePersonList list = new UniquePersonList();
@@ -54,7 +54,7 @@ public class JobTest {
     @Test
     public void testRemovePerson() {
         Person alice = new PersonBuilder(ALICE).build();
-        Job teacher = new JobBuilder(TEACHER).build();
+        Job teacher = new JobBuilder(TEACHER).withName(VALID_JOB_NAME_TEACHER).build();
 
         teacher.add(alice, 0);
         teacher.remove(alice);

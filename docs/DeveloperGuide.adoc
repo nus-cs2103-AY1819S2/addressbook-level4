@@ -663,6 +663,9 @@ image::SaveCommandSequenceDiagram.png[width=800]
 === WaterMark Feature 
 This command allows the user to add a watermark to their image. Upon receiving an input message by the user, the message will be checked for its validity and will throw an error if it is empty or contains only spaces. The message can contain spaces in between the words or numbers. The command will then be added to the `List<Commands>` belonging to `tempImage` found in `currentEdit` which saves the editing history of the targetted image.
 
+[NOTE]
+Each image can only have 1 watermark at a time. 
+
 Given below is an example usage scenario and how the command should behave at each step:
 
 Step 1. When the user runs an open command to edit an image, it invokes a method which creates an instance of an `Image` that stores the filepath of the image, its history of edits `List<Command>` and its metadata. This `Image` object is saved under the variable name `tempImage` in `currentEdit` for editing.
@@ -674,13 +677,24 @@ If an invalid command is provided, a reminder of how to use the command will be 
 
 Step 3. During execution, the `execute` method in the `WaterMarkCommand` class invokes `currentEdit#getTempIMage()` to get the `tempImage` from the `currentEdit`.
 
-Step 4. Upon retrieving the `tempImage`, the `execute` method in `WaterMarkCommand` creates a `Graphics 2D` object from the Java API and overlays a 
+Step 4. Upon retrieving the `tempImage`, the `execute` method in the `WaterMarkCommand` gets the  `BufferedImage` instance of the `tempImage` object and copies the `BufferedImage` object to a temporary `BufferedImage` object with the same width, height and image type. The `execute` method then initialises the necessary graphic properties using the `Graphics2D` Java class. The message is centralised and overlayed on the temporary `BufferedImage` object.
 
-Step 5. A `BufferedImage` object is returned from the external library and `currentEdit#updateTempImage()` is invoked to overwrite the current image in the filepath: "src/main/resources/temp/" + `tempImage#getUrl` with a new `BufferedImage` object.
+Step 5. The `execute` method then checks for a few conditions listed below:
 
-Step 6. The `execute` method then checks if the boolean `isNewCommand` is true. If it is true, it indicates that the command is a new rotate command called directly from the user and not through an undo/redo command which triggers Step 7 in the line below. Otherwise, the command’s execution ends in this step.
+* `isNewCommand`: Checks if the `WaterMark` command is from an input by the user, from an `Undo` or `Redo` command or from a `SetPreset` command.
+* `isPreset`: Checks if the `WaterMark` command is from a Preset.
+* `initialImage#hasWaterMark()`: Checks if the `tempImage` already has a watermark.
 
-Step 7. `isNewCommand` is set to false to signal that this command is not a new rotate command if it is executed again through the `undo/redo` function. `currentEdit#addCommand(this)` is invoked to add this command to the `List<Command>` in `tempImage` for the `undo/redo` function and `currentEdit#displayTempImage()` is used to display the edited image on the graphical user interface.
+
+Step 6. According to the above 3 conditions, the following combinations will result in different actions:
+
+* `isNewCommand` = `True` and `initialImage#hasWaterMark()` = `False`: invokes `initialImage#setWaterMark(True)` to indicate that the image has a watermark and invokes `currentEdit#updateTempImage()` to overwrite the current image in filepath: "src/main/resources/temp/" + `tempImage#getUrl` with a new `BufferedImage` object. `isNewCommand` is set to false to signal that this command is not a new rotate command if it is executed again through the `undo/redo` function. `currentEdit#addCommand(this)` is invoked to add this command to the `List<Command>` in `tempImage` for the `undo/redo` function and `currentEdit#displayTempImage()` is used to display the edited image on the graphical user interface.
+* `isNewCommand` = `True` and `initialImage#hasWaterMark()` = `True`: 
+throws an exception as there is already a watermark on `tempImage`.
+* `isNewCommand` = `False` and `isPreset` = `False`: indicates that it is an `undo/redo` function and invokes `initialImage#setWaterMark(True)` to indicate that the image has a watermark and invokes `currentEdit#updateTempImage()` to overwrite the current image in filepath: "src/main/resources/temp/" + `tempImage#getUrl` with a new `BufferedImage` object.
+* `isNewCommand` = `False` and `isPreset` = `True` and `initialImage#hasWaterMark()` = `False`: indicates that a preset is added to a image with no watermark and invokes `initialImage#setWaterMark(True)` to indicate that the image has a watermark and invokes `currentEdit#updateTempImage()` to overwrite the current image in filepath: "src/main/resources/temp/" + `tempImage#getUrl` with a new `BufferedImage` object.
+* Anything else: throws an exception as there is already a watermark on `tempImage`.
+
 
 ==== Design Considerations
 

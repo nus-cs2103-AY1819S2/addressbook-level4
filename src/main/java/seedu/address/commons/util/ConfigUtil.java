@@ -14,15 +14,8 @@ public class ConfigUtil {
     /**
      * This is a static-methods-only (utility) class which should not be instantiated.
      * Note that this is not a singleton class given that not even a single instance is allowed.
-     *
-     * Throws an {@link InstantiationError} when accessed to prevent instantiation
-     * via new, clone(), reflection and serialization.
      */
-    private ConfigUtil() {
-        // Prevents instantiation via new, clone(), reflection and serialization.
-        throw new InstantiationError(
-                "This is a static-methods-only (utility) class which should not be instantiated.");
-    }
+    private ConfigUtil() { }
 
     public static Optional<Config> readConfig(Path configFilePath) throws DataConversionException {
         return JsonUtil.readJsonFile(configFilePath, Config.class);

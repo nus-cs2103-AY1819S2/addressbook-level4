@@ -14,15 +14,8 @@ public class CollectionUtil {
     /**
      * This is a static-methods-only (utility) class which should not be instantiated.
      * Note that this is not a singleton class given that not even a single instance is allowed.
-     *
-     * Throws an {@link InstantiationError} when accessed to prevent instantiation
-     * via new, clone(), reflection and serialization.
      */
-    private CollectionUtil() {
-        // Prevents instantiation via new, clone(), reflection and serialization.
-        throw new InstantiationError(
-                "This is a static-methods-only (utility) class which should not be instantiated.");
-    }
+    private CollectionUtil() { }
 
     /** @see #requireAllNonNull(Collection) */
     public static void requireAllNonNull(Object... items) {

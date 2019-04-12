@@ -19,11 +19,7 @@ public class StringUtil {
      * Throws an {@link InstantiationError} when accessed to prevent instantiation
      * via new, clone(), reflection and serialization.
      */
-    private StringUtil() {
-        // Prevents instantiation via new, clone(), reflection and serialization.
-        throw new InstantiationError(
-                "This is a static-methods-only (utility) class which should not be instantiated.");
-    }
+    private StringUtil() { }
 
 
     /**

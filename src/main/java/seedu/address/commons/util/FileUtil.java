@@ -19,11 +19,7 @@ public class FileUtil {
      * Throws an {@link InstantiationError} when accessed to prevent instantiation
      * via new, clone(), reflection and serialization.
      */
-    private FileUtil() {
-        // Prevents instantiation via new, clone(), reflection and serialization.
-        throw new InstantiationError(
-                "This is a static-methods-only (utility) class which should not be instantiated.");
-    }
+    private FileUtil() { }
 
     /**
      * Returns true if {@code path} can be converted into a {@code Path} via {@link Paths#get(String)},

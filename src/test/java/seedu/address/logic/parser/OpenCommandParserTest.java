@@ -22,7 +22,7 @@ public class OpenCommandParserTest {
     @Test
     public void parse_validString_success() {
         OpenCommandParser parser = new OpenCommandParser();
-        String sampleString = "sample";
-        assertParseSuccess(parser, sampleString, new OpenCommand("sample"));
+        String sampleString = "sample.png";
+        assertParseSuccess(parser, sampleString, new OpenCommand("sample.png"));
     }
 }

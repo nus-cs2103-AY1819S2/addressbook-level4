@@ -25,6 +25,13 @@ public class ExportCommandParserTest {
 
     private ExportCommandParser parser = new ExportCommandParser();
 
+    /**
+     * Parses the given filename, type and range, then compares them to the expected result.
+     * @param filename The file name
+     * @param type The file type
+     * @param range The index range to parse
+     * @param expectedHash The expected parsed index range
+     */
     private void parse_validArgs(String filename, String type, String range, HashSet<Integer> expectedHash) {
         File test = new File("data" + File.separator + filename + "." + type);
         try {
@@ -118,7 +125,7 @@ public class ExportCommandParserTest {
     @Test
     public void parse_validArgs_returnsExportCommandBothSlash() {
         File test = new File("data" + File.separator + File.separator
-            + "testfolder" + File.separator + "test.json");
+                + "testfolder" + File.separator + "test.json");
         try {
             HashSet<Integer> expectedHash = new HashSet<>();
             expectedHash.add(1 - 1);
@@ -139,9 +146,9 @@ public class ExportCommandParserTest {
     @Test
     public void parse_validArgs_returnsExportCommandMultipleSlash() {
         File test = new File("data" + File.separator + "testfolder" + File.separator + File.separator
-            + File.separator + File.separator + File.separator + File.separator + File.separator + File.separator
-            + File.separator + File.separator + File.separator + File.separator + File.separator + File.separator
-            + File.separator + File.separator + File.separator + File.separator + File.separator + "test.json");
+                + File.separator + File.separator + File.separator + File.separator + File.separator + File.separator
+                + File.separator + File.separator + File.separator + File.separator + File.separator + File.separator
+                + File.separator + File.separator + File.separator + File.separator + File.separator + "test.json");
         try {
             HashSet<Integer> expectedHash = new HashSet<>();
             expectedHash.add(1 - 1);
@@ -196,38 +203,38 @@ public class ExportCommandParserTest {
     }
 
     @Test
-    public void parse_invalidArgs_ExportCommandForbiddenSpecialCharacters() {
+    public void parse_invalidArgsExportCommandForbiddenSpecialCharacters() {
         assertParseFailure(parser, " test < > : \" | ? *.json 1",
                 "Special characters such as\n> < : \" | ? *\nare not allowed."
                         + "\n" + ExportCommand.MESSAGE_USAGE);
     }
 
     @Test
-    public void parse_invalidArgs_NotJsonOrPdf() {
+    public void parse_invalidArgsNotJsonOrPdf() {
         assertParseFailure(parser, " records.txt 1",
                 ParserUtil.MESSAGE_NOT_JSON_OR_PDF + "\n" + ExportCommand.MESSAGE_USAGE);
     }
 
     @Test
-    public void parse_invalidArgs_DoubleDash() {
+    public void parse_invalidArgsDoubleDash() {
         assertParseFailure(parser, " records.json 1--3",
                 ParserUtil.MESSAGE_INVALID_INDEX_RANGE + "\n" + ExportCommand.MESSAGE_USAGE);
     }
 
     @Test
-    public void parse_invalidArgs_DoubleComma() {
+    public void parse_invalidArgsDoubleComma() {
         assertParseFailure(parser, " records.json 1,,3",
                 ParserUtil.MESSAGE_INVALID_INDEX_RANGE + "\n" + ExportCommand.MESSAGE_USAGE);
     }
 
     @Test
-    public void parse_invalidArgs_CommaDashMash() {
+    public void parse_invalidArgsCommaDashMash() {
         assertParseFailure(parser, " records.json 1,-,3",
                 ParserUtil.MESSAGE_INVALID_INDEX_RANGE + "\n" + ExportCommand.MESSAGE_USAGE);
     }
 
     @Test
-    public void parse_invalidArgs_DashChain() {
+    public void parse_invalidArgsDashChain() {
         assertParseFailure(parser, " records.json 1-3-5",
                 ParserUtil.MESSAGE_INVALID_INDEX_RANGE + "\n" + ExportCommand.MESSAGE_USAGE);
     }

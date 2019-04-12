@@ -16,7 +16,7 @@ I am a software developer and second year computer science student at the Nation
 
 === About the project
 
-image::Healthhub.png[width=800]
+image::HealthHub.png[width=800]
 
 HealthHub is a https://en.wikipedia.org/wiki/Command-line_interface[command-line] desktop application built by my team and I, for our Software Engineering project.
 We chose to morph it to a home-care patient management system, because of our passion in the health care industry. This enhanced application allows Hospital Administrators and senior management to create, assign and organise patient records seamlessly. HealhHub also organises staff information and manages statistics to assist in the Hospital's planning and allocation of resources.
@@ -30,7 +30,12 @@ Note the following symbols and formatting used in this document:
 
 == Summary of contributions
 
-* *Major enhancement*: Created `add`, `edit`, `delete`, `list`, `clear` commands.
+* *Major enhancement*: Created the `Request` class to encapsulate a request.
+** What it odes: Encapsulates the necessary information to be stored in a patient request.
+** Justification: Laid the foundation to the entire project. All components of our project (UI, Storage, Logic and Model) required the creation of a `Request` class for further development of core functionality.
+** Highlights: This enhancement affecting all existing classes, requiring some overhaul of the existing code base and thorough interaction of the differing components.
+
+* *Major enhancement*: Created `add`, `edit`, `delete`, `list` and `clear` commands for the `Request` class.
 ** What it does: Lays the foundation to any `Request` based functionality. Allows the user to organise the requests made by the patients seamlessly.
 ** Justification: These enhancements provide necessary features to the admin so that the admin can create, edit or delete requests at any point of time.
 ** Highlights: This enhancement affects the existing existing classes, like the [blue]`Healthworker` class. It required an in-depth analysis of design alternatives. The implementation was also challenging as it required changes to existing commands and classes, during the integration-testing phase.
@@ -64,16 +69,19 @@ as knowledge of how information is cached in the application's memory was essent
 
 == Contributions to the User Guide
 
-
 ==== *Filter requests*:
 
-Format: `filter request/r/2 <keyword> [<more_keywords>]`
+Format: `filter request <keyword> [<more_keywords>]`
 
-After entering the command with valid inputs, searches the entire list of
-requests in Health Hub, and only displays the requests whose fields matches
- the parameters specified in the
-`filter` command. To filter requests, the user can specify any of the following filtering criteria:
-`dt/DATE`, `n/NAME`, `p/PHONE`, `st/STATUS`, `i/NRIC`, `c/CONDITION`. Note that you can chain multiple criteria together to get a more specific
+Shortcut(s): +
+1. `filter r <keyword> [<more_keywords>]` +
+2. `filter 2 <keyword> [<more_keywords>]`
+
+where `[<more_keywords]` refer to the fields you would like to search for.
+
+After entering the command with valid inputs, you will the entire list of requests whose fields match
+ the parameters specified in the command. To filter requests, you can specify any of the following filtering criteria:
+`dt/DATE`, `n/NAME`, `p/PHONE`, `st/STATUS`, `i/NRIC`, `c/CONDITION`. Note that you can also chain multiple criteria together to get a more specific
 filter result.
 
 For example, let's say you want to filter all the requests made by the patient with `NRIC` S9123456G that have been *completed*. You
@@ -82,14 +90,14 @@ show you all the requests you are looking for.
 
 Before:
 
-image::Healthhub.png[width=800]
-Figure 5.5.2.1 shows the application prior to executing the `filter request` command
+image::filterrequestbefore.png[width=400]
+Figure 5.5.2.1 shows the request list prior to executing the `filter request` command
 
 After:
 
-image::filterResult.png[width=800]
+image::filterrequestafter.png[width=400]
 
-Figure 5.5.2.2 shows the application after executing `filter request i/S9123456A st/COMPLETED`
+Figure 5.5.2.2 shows the request list after executing `filter request i/S9123456A st/COMPLETED`
 
 The request list panel on the left would filter to show just the requests queried by the user.
 
@@ -98,10 +106,6 @@ If there are no such requests that match the user's query, an empty list would b
 
 {nbsp}
 
-where `<more_keywords>` represents the fields and parameters that can be used to
-identify requests or personnel, using the same prefixes as in `add`, `edit` and
-`delete` commands. Some examples of keywords are shown below.
-
 *Notes*:
 
 * The search is *case insensitive* for all fields apart from specialisation(e.g
@@ -109,18 +113,14 @@ identify requests or personnel, using the same prefixes as in `add`, `edit` and
 `Hans Bo` will match `Bo Hans`).
 
 * Search using partial words will return all results with fields containing
-that subword. (e.g `filter 1 n/Tan` may return people with the surnames Tan or
+that subword. (e.g `filter request n/Tan` may return people with the surnames Tan or
 Tang)
-
-* Note that you can query all requests between a specific range, by specifying the the date range
-which you want to query. For example, to filter all requests between 1st Jan 2019 and 1st June 2019 (exclusive), you can run the following command:
-`filter request dt/01-01-2019 00:00:00 dt/02-06-2019 00:00:00`
 
 {nbsp}
 
 [TIP]
 ====
-Multiple conditions for filtering health workers and requests can be added
+Multiple conditions for filtering requests can be added
 simultaneously for more expressive search.
 
 Example:
@@ -132,21 +132,32 @@ specified name substring *and* the specified phone number.
 
 [TIP]
 ====
-To revert the view back to the original health worker/request list, enter the
-`list healthworker` or `list request` command respectively.
+To revert the view back to the original request list, enter the `list request` command.
 ====
 
 Examples:
 
-* `filter h s/GENERAL_PRACTICE s/GYNAECOLOGY` +
-Returns all health workers whose field of expertise include general practice
-or gynaecology.
 * `filter request n/alice` +
 Returns all patients whose name contains "alice".
 * `filter r p/9177` +
 Returns all requests with contacts numbers that have "9177" in it's field.
 * `filter 2 dt/30-01-2019 10:00:00` +
 Returns all requests scheduled on 30th Jan 2019, at 10 am sharp.
+
+=== Filtering requests within a specific date range
+Let's say you've grown to have an overwhelming number of requests, because you've been doing so successfully! Suppose you now would like to
+look back and take a look at the requests that you had over a specific date range. You can do so using the following command:
+
+Format: `filter request dt/start dt/end` +
+Shortcut(s): +
+1. `filter r dt/start dt/end` +
+2. `filter 2 dt/start dt/end`
+
+*Examples:*
+
+* `filter r dt/01-01-2019 00:00:00 dt/01-06-2019` 00:00:00 +
+filters the requests between 1st Jan 2019 (inclusive) and 1st June 2019 (exclusive).
+
 
 == Contributions to the Developer Guide
 

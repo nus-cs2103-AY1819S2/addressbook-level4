@@ -474,6 +474,24 @@ workers in Health Hub, and only displays the health workers whose fields
 contains the parameters specified in the
 `filter` command as a substring.
 
+// tag::filterExample[]
+[TIP]
+====
+* Multiple conditions for filtering health workers can be added
+simultaneously for more expressive search. Note that if multiple parameters
+are specified, HealthHub displays healthworkers that match *all*
+the criteria mentioned. +
+* To revert the view back to the original health worker list, enter the
+  `list healthworker` command.
+====
+
+Examples:
+
+* `filter h s/GENERAL_PRACTICE s/GYNAECOLOGY` +
+Returns all health workers whose field of expertise include general practice
+*and* gynaecology.
+// end::filterExample[]
+
 [NOTE]
 ====
 For specialisation fields, parameter values need not follow the exact format as
@@ -485,44 +503,57 @@ match to 'PHYSIOTHERAPY'.
 
 ==== *Filter requests*:
 
-*Format:*
+Format: `filter request <keyword> [<more_keywords>]`
 
-* `filter request <keyword> [<more_keywords>]`
+Shortcut(s): +
+1. `filter r <keyword> [<more_keywords>]` +
+2. `filter 2 <keyword> [<more_keywords>]`
 
-*Shortcuts:*
+where `[<more_keywords]` refer to the fields you would like to search for.
 
-* `filter r <keyword> [<more_keywords>]`
-* `filter 2 <keyword> [<more_keywords>]`
-After entering the command with valid inputs, searches the entire list of
-requests in Health Hub, and only displays the requests whose fields matches
- the parameters specified in the
-`filter` command.
+After entering the command with valid inputs, you will the entire list of requests whose fields match
+ the parameters specified in the command. To filter requests, you can specify any of the following filtering criteria:
+`dt/DATE`, `n/NAME`, `p/PHONE`, `st/STATUS`, `i/NRIC`, `c/CONDITION`. Note that you can also chain multiple criteria together to get a more specific
+filter result.
+
+For example, let's say you want to filter all the requests made by the patient with `NRIC` S9123456G that have been *completed*. You
+can simply enter the command: `filter request i/S9123456A st/COMPLETED`, and the request list panel to the left of the screen would update to
+show you all the requests you are looking for.
+
+Before:
+
+image::filterrequestbefore.png[width=400]
+Figure 5.5.2.1 shows the request list prior to executing the `filter request` command
+
+After:
+
+image::filterrequestafter.png[width=400]
+
+Figure 5.5.2.2 shows the request list after executing `filter request i/S9123456A st/COMPLETED`
+
+The request list panel on the left would filter to show just the requests queried by the user.
+
+[NOTE]
+If there are no such requests that match the user's query, an empty list would be show on the left panel.
 
 {nbsp}
 
-where `<more_keywords>` represents the fields and parameters that can be used to
-identify requests or personnel, using the same prefixes as in `add`, `edit` and
-`delete` commands. Some examples of keywords are shown below.
-
 *Notes*:
 
-* The search is *case insensitive* for all fields (e.g
+* The search is *case insensitive* for all fields apart from specialisation(e.g
 `hans` will match `Hans`), and the *order of the keywords* does not matter(e.g
 `Hans Bo` will match `Bo Hans`).
 
 * Search using partial words will return all results with fields containing
-that substring. (e.g `filter 1 n/Tan` may return people with the surnames Tan or
+that subword. (e.g `filter request n/Tan` may return people with the surnames Tan or
 Tang)
 
 {nbsp}
 
-// tag::filterExample[]
 [TIP]
 ====
-Multiple conditions for filtering health workers and requests can be added
-simultaneously for more expressive search. Note that if multiple parameters
-are specified, HealthHub displays healthworkers or requests that match *all*
-the criteria mentioned.
+Multiple conditions for filtering requests can be added
+simultaneously for more expressive search.
 
 Example:
 
@@ -533,16 +564,11 @@ specified name substring *and* the specified phone number.
 
 [TIP]
 ====
-To revert the view back to the original health worker/request list, enter the
-`list healthworker` or `list request` command respectively.
+To revert the view back to the original request list, enter the `list request` command.
 ====
 
 Examples:
 
-* `filter h s/GENERAL_PRACTICE s/GYNAECOLOGY` +
-Returns all health workers whose field of expertise include general practice
-*and* gynaecology.
-// end::filterExample[]
 * `filter request n/alice` +
 Returns all patients whose name contains "alice".
 * `filter r p/9177` +

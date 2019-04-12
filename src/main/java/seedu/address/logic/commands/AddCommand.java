@@ -7,9 +7,11 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_GENDER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GRADE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INTERVIEWSCORES;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_JOBSAPPLY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_KNOWNPROGLANG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MAJOR;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NRIC;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PASTJOB;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_RACE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SCHOOL;
@@ -28,7 +30,7 @@ public class AddCommand extends Command {
     public static final String COMMAND_WORD = "add";
     public static final String COMMAND_ALIAS = "a";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a person to the address book. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a person to the address book.\n"
             + "Parameters: "
             + PREFIX_NAME + "NAME "
             + PREFIX_PHONE + "PHONE "
@@ -40,9 +42,10 @@ public class AddCommand extends Command {
             + PREFIX_SCHOOL + "SCHOOL "
             + PREFIX_MAJOR + "MAJOR "
             + PREFIX_GRADE + "GRADE "
-            + PREFIX_JOBSAPPLY + "JOBSAPPLY "
             + PREFIX_INTERVIEWSCORES + "INTERVIEWSCORES "
-            + "[" + PREFIX_TAG + "TAG]...\n"
+            + PREFIX_JOBSAPPLY + "JOBSAPPLY..."
+            + "[" +  PREFIX_PASTJOB + "PASTJOB]..."
+            + "[" +  PREFIX_KNOWNPROGLANG + "KNOWNPROGLANG]...\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "John Doe "
             + PREFIX_PHONE + "98765432 "
@@ -56,24 +59,9 @@ public class AddCommand extends Command {
             + PREFIX_GRADE + "4.76 "
             + PREFIX_JOBSAPPLY + "Software Engineer "
             + PREFIX_INTERVIEWSCORES + "1,2,3,4,5 "
-            + PREFIX_TAG + "friends "
-            + PREFIX_TAG + "owesMoney\n"
-            + "The alias \"a\" can be used instead.\n"
-            + "Example: " + COMMAND_ALIAS + " "
-            + PREFIX_NAME + "John Doe "
-            + PREFIX_PHONE + "98765432 "
-            + PREFIX_EMAIL + "johnd@example.com "
-            + PREFIX_NRIC + "S9671597H "
-            + PREFIX_GENDER + "Male "
-            + PREFIX_RACE + "Indian "
-            + PREFIX_ADDRESS + "311, Clementi Ave 2, #02-25 "
-            + PREFIX_SCHOOL + "NUS "
-            + PREFIX_MAJOR + "Computer Science "
-            + PREFIX_GRADE + "4.76 "
-            + PREFIX_JOBSAPPLY + "Software Engineer "
-            + PREFIX_INTERVIEWSCORES + "1,2,3,4,5 "
-            + PREFIX_TAG + "friends "
-            + PREFIX_TAG + "owesMoney\n";
+            + PREFIX_KNOWNPROGLANG + "Python "
+            + PREFIX_PASTJOB + "Software Engineer "
+            + "The alias \"a\" can be used instead.\n";
 
     public static final String MESSAGE_SUCCESS = "New person added: %1$s";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book";

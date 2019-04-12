@@ -11,6 +11,7 @@ import static seedu.address.testutil.TypicalRecords.FOURTH;
 import static seedu.address.testutil.TypicalRecords.getTypicalRecords;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
@@ -18,6 +19,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.function.Predicate;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -56,6 +58,11 @@ public class RecordFindCommandParserTest {
         testPatient.setRecords(getTypicalRecords());
         model.getFilteredRecordList(testPatient);
         expectedModel.getFilteredRecordList(testPatient);
+    }
+
+    @After
+    public void cleanUp() {
+        testPatient.setRecords(new ArrayList<>());
     }
 
     @Test

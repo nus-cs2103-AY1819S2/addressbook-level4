@@ -54,11 +54,11 @@ Before continuing, it may be helpful to familiarize yourself these two symbols t
 This tells you there is important information that you should take note of.
 
 [TIP]
-The *TIP* symbol is used to alert you of some useful tips.
+This alerts you of useful tips and tricks that will improve your TravelBuddy experience.
 
 [WARNING]
-The *WARNING* symbol is used to alert you of something critical.
-This alerts you to useful tips and tricks that will improve your TravelBuddy experience.
+This *WARNING* symbol is used to alert you of something critical.
+
 // end::additionalInfo[]
 
 == Quick Start
@@ -144,7 +144,7 @@ around. This can be useful to refer to when using the app.
 [TIP]
 A quick alternative way to seek help is to hit the kbd:[F1] key.
 
-// tag::crud[]
+// tag::crudAdd[]
 === Adding a place: `add`
 
 *Description:* The `add` command adds a place to TravelBuddy.
@@ -191,6 +191,8 @@ image::addCommand.png[width="400"]
 [TIP]
 A place can have any number of tags (including 0 tags).
 
+// end::crudEdit[]
+
 // tag::addphoto[]
 ==== Including a photo when adding a place with `p/`
 
@@ -223,6 +225,24 @@ A filepath specifies a unique location for a file.
 
 Adds Himeiji Castle as a place in TravelBuddy, and include the image `castle-photo.jpg` at the location specified by
 the filepath `C:\Users\Michael\Pictures\castle-photo.jpg`.
+
+<<addPhotoBefore>> below shows TravelBuddy before the above example command is executed.
+
+[[addPhotoBefore]]
+[reftext="Figure 4.3.2.1"]
+[caption="Figure 4.3.2.1: "]
+.Before the `add` command is executed
+image::addPhotoBefore.png[width="400"]
+
+<<addPhotoAfter>> below shows TravelBuddy after the above example command is executed, and
+the newly added Place "Himeiji Castle" is selected
+
+[[addPhotoAfter]]
+[reftext="Figure 4.3.2.2"]
+[caption="Figure 4.3.2.2: "]
+.After the `add` command is executed and the newly added Place "Himeiji Castle" is selected
+image::addPhotoAfter.png[width="400"]
+
 ****
 
 [TIP]
@@ -247,8 +267,10 @@ image::AddPhotoStep3.png[width="400"]
 .Click on `Copy Path` at the top left corner File Explorer window
 image::AddPhotoStep4.png[width="400"]
 
-` *Step 5:* Open TravelBuddy and paste the filepath after the parameter prefix `p/`.
-*TravelBuddy allows for double quotation marks around the filepath, so there is no need to delete them.*
+- *Step 5:* Open TravelBuddy and paste the filepath after the parameter prefix `p/`.
+
+[NOTE]
+TravelBuddy allows for double quotation marks around the filepath, so there is no need to delete them.
 
 Currently, TravelBuddy supports the following image *file formats/extensions*:
 
@@ -257,6 +279,8 @@ Currently, TravelBuddy supports the following image *file formats/extensions*:
 * Bitmap `.bmp`
 
 // end::addphoto[]
+
+// tag::crudList[]
 
 === Listing all places: `list`
 
@@ -274,6 +298,10 @@ Calling the `list` command returns a list of all the places in TravelBuddy as sh
 [caption="Figure 4.4.1: "]
 .Listing all the places in TravelBuddy
 image::listCommand.png[width="400"]
+
+// end::crudList[]
+
+// tag::crudEdit[]
 
 === Editing a place: `edit`
 
@@ -316,12 +344,30 @@ image::editCommandBefore.png[width="400"]
 .After the `edit` command is used
 image::editCommandAfter.png[width="400"]
 
+// end::crudEdit[]
+
 // tag::editPhoto[]
 
 ==== Replacing the photo of a place with `edit p/`
 
 The `Edit` command can also be used to change the photo of a place by replacing
 the `FILE_PATH` of the current photo with the `FILE_PATH` of the new photo.
+
+<<replacePhotoBefore>> below shows TravelBuddy before `edit` command is used to replace the current photo.
+
+[[replacePhotoBefore]]
+[reftext="Figure 4.5.3"]
+[caption="Figure 4.5.3: "]
+.Before the `edit` command is used to replace a photo
+image::editPhotoBefore.png[width="400"]
+
+<<replacePhotoAfter>> below shows TravelBuddy after a new photo has been added to the place "Nanyang Technological University"
+
+[[replacePhotoAfter]]
+[reftext="Figure 4.5.4"]
+[caption="Figure 4.5.4: "]
+.After the `edit` command is used to replace a photo
+image::editPhotoAfter.png[width="400"]
 
 ****
 *Examples:* Given below is an example of using `Edit` to replace a photo:
@@ -335,8 +381,6 @@ The image FILE_PATH being replaced with the `edit` command must still follow the
 specifications laid out in <<Including a photo when adding a place with `p/`>>
 
 // end::editPhoto[]
-
-// end::crud[]
 
 // tag::search[]
 === Searching places by name: `search`
@@ -476,7 +520,7 @@ From <<searchYearFigure>> below, using `searchyear 2016` will return all places 
 image::UIsearchyearresults.png[width="400"]
 // end::search[]
 
-// tag::delete[]
+// tag::crudDelete[]
 === Deleting a place: `delete`
 
 *Description:* The `delete` command deletes the specified place from TravelBuddy.
@@ -517,7 +561,8 @@ Deletes the 2nd place in TravelBuddy.
 Searches for any places which has the word "Raffles" in it. +
 `delete 1` +
 Deletes the 1st place in the results of the `search` command.
-// end::delete[]
+
+// end::crudDelete[]
 
 // tag::deleteMultiple[]
 === Deleting multiple places: `deletem`

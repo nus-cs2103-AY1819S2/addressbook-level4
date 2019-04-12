@@ -56,10 +56,10 @@ import seedu.address.testutil.PdfBuilder;
 import seedu.address.testutil.PdfUtil;
 
 public class PdfBookParserTest {
+    private static final String DEADLINE_NEWLY_ADDED_FILE = "NEWLY ADDED";
+    
     @Rule
     public ExpectedException thrown = ExpectedException.none();
-
-    private static final String DEADLINE_NEWLY_ADDED_FILE = "NEWLY ADDED";
 
     private final PdfBookParser parser = new PdfBookParser();
 

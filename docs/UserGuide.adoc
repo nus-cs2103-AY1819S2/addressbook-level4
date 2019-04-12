@@ -243,10 +243,10 @@ Deletes the patient with current list ID of '3' in the docX.
 Deletes the patient with current list ID of '2' in the docX.
 
 tag::doctorcommands[]
-=== Adding a doctor: `add-doctor`
+=== Adding a doctor: `add-d`
 
 Adds a doctor to docX +
-Format: `add-doctor n/NAME g/GENDER y/YEAR_OF_EXPERIENCE p/PHONE_NUMBER s/SPECIALISATION`
+Format: `add-d n/NAME g/GENDER y/YEAR_OF_EXPERIENCE p/PHONE_NUMBER s/SPECIALISATION`
 
 ****
 * A doctor must have at least 1 specialisation.
@@ -254,34 +254,35 @@ Format: `add-doctor n/NAME g/GENDER y/YEAR_OF_EXPERIENCE p/PHONE_NUMBER s/SPECIA
 
 Examples:
 
-* `add-doctor n/John Doe g/M y/5 p/98765432 s/acupuncture s/general`
-* `add-doctor n/Betsy Crowe g/f p/1234567 y/22 s/general`
+* `add-d n/John Doe g/M y/5 p/98765432 s/acupuncture s/general`
+* `add-d n/Betsy Crowe g/f p/1234567 y/22 s/general`
 
-=== Listing all doctors : `list-doctor`
+=== Listing all doctors : `list-d`
 
 Shows a list of all doctors in docX. +
-Format: `list-doctor`
+Format: `list-d`
 
-=== Selecting a doctor : `select-doctor`
+=== Selecting a doctor : `select-d`
 
 Selects an existing doctor in docX to display all the information about this doctor in the browser panel. +
 Format: `select-doctor INDEX`
 
 ****
+* There has to be an initial `select-d INDEX` command executed, before the user can use the mouse to click on the other doctors to display their information.
 * Selects the doctor at the specified `INDEX`. The index refers to the relative ID of the doctor. The index *must be a positive integer* 1, 2, 3, ...
 ****
 
 Examples:
 
-* `select-doctor 1` +
+* `select-d 1` +
 Selects the doctor with ID of '1'.
-* `select-doctor 5` +
+* `select-d 5` +
 Selects the doctor with ID of '5'.
 
-=== Editing a doctor : `edit-doctor`
+=== Editing a doctor : `edit-d`
 
 Edits an existing doctor in docX. +
-Format: `edit-doctor INDEX [n/NAME] [g/GENDER] [y/YEAR_OF_EXPERIENCE] [p/PHONE] [s/SPECIALISATION]`
+Format: `edit-d INDEX [n/NAME] [g/GENDER] [y/YEAR_OF_EXPERIENCE] [p/PHONE] [s/SPECIALISATION]`
 
 ****
 * Edits the doctor at the specified `INDEX`. The index refers to the relative ID of the doctor. The index *must be a positive integer* 1, 2, 3, ...
@@ -292,53 +293,35 @@ Format: `edit-doctor INDEX [n/NAME] [g/GENDER] [y/YEAR_OF_EXPERIENCE] [p/PHONE] 
 
 Examples:
 
-* `edit-doctor 1 p/91234567` +
+* `edit-d 1 p/91234567` +
 Edits the phone number of the doctor with ID of '1' to be `91234567`.
-* `edit-doctor 2 s/acupuncture s/general` +
+* `edit-d 2 s/acupuncture s/general` +
 Edits the specialisations of the doctor with ID of '2' to be `acupuncture` and 'general'.
 
-=== Locating doctor by name: `search-doctor`
+=== Locating doctor by keywords: `list-d`
 
 Finds doctor(s) whose names contain any of the given keywords. +
-Format: `search-doctor KEYWORD` or
+Format: `list-d [KEYWORD] [KEYWORD]`
 
 ****
 * The search is case insensitive. e.g `hans` will match `Hans`
 * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only full words will be matched e.g. `Han` will not match `Hans`
+* Partial or full words will be matched e.g. `Han` will match `Hanry` and `Han`
 * Doctors matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+* If no keywords are given, you will list all the existing doctors in docX. (Section 3.12)
 ****
 
 Examples:
 
-* `search-doctor John` +
+* `list-d John` +
 Returns `john` and `John Doe`
-* `search-doctor Alvin` +
-Returns `Alvin` and `Alvin Tan`
+* `list-d 1` +
+Returns doctor with doctor ID of `1`, phone number containing `1` or year of specialisation containing `1`.
 
-=== Locating doctor by specialisation: `search-spec`
-
-Finds doctor(s) whose specialisation(s) contain any of the given keywords. +
-Format: `search-spec KEYWORD`
-
-****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Doctors matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-****
-
-Examples:
-
-* `search-spec general` +
-Returns any doctor(s) having `general` as one of their specialisation.
-* `search-spec general acupuncture` +
-Returns any doctor(s) having either `general` or `acupuncture` or both.
-
-=== Deleting an existing doctor : `delete-doctor`
+=== Deleting an existing doctor : `delete-d`
 
 Deletes the specified doctor from docX. +
-Format: `delete-doctor INDEX`
+Format: `delete-d INDEX`
 
 ****
 * Deletes the doctor of the specified `INDEX`.
@@ -348,16 +331,16 @@ Format: `delete-doctor INDEX`
 
 Examples:
 
-* `list-doctor` +
-`delete-doctor 1` +
+* `list-d` +
+`delete-d 1` +
 Deletes the doctor with ID of '1' in docX.
-* `delete-doctor 2` +
+* `delete-d 2` +
 Deletes the doctor with ID of '2' in docX.
 
-=== Finding a doctor for appointment : `match-doctor`
+=== Finding a doctor for appointment : `match-d`
 
 Lists the doctors whose specialisations match and are free for an appointment at the stated date and time. +
-Format: `match-doctor s/SPECIALISATION d/DESIRED_DATE_OF_APPT t/DESIRED_START_TIME_OF_APPT`
+Format: `match-d s/SPECIALISATION d/DESIRED_DATE_OF_APPT t/DESIRED_START_TIME_OF_APPT`
 
 ****
 * Search can only be done with 1 specialisation.
@@ -367,9 +350,9 @@ Format: `match-doctor s/SPECIALISATION d/DESIRED_DATE_OF_APPT t/DESIRED_START_TI
 
 Examples:
 
-* `match-doctor s/acupuncture d/2019-06-02 t/10:00` +
+* `match-d s/acupuncture d/2019-06-02 t/10:00` +
 Lists the doctors who has the specialisation of `acupuncture` and is free on 2nd June 2019 at 10am.
-* `match-doctor s/general d/2019-10-04 t/15:00` +
+* `match-d s/general d/2019-10-04 t/15:00` +
 Lists the doctors who has the specialisation of `general` and is free on 4th October 2019 at 3pm.
 
 end::doctorcommands[]
@@ -490,122 +473,74 @@ Examples:
 Returns full write up of the medical history with index 1 in medical history list.
 
 === Adding an appointment: `add-appt`
-
-{Validation of data input not completed yet} +
-Adds an appointment under the doctor and patient involved. +
+Adds an appointment between a patient and a doctor +
 Format: `add-appt pid/PATIENT_ID did/DOCTOR_ID d/DATE_OF_APPT t/START_TIME`
 
 ****
-* Doctors are assumed to be free from 9am to 12pm and 1pm to 5pm.
+* All of the fields must be provided.
+* Appointments can only be made in the future, as determined by system time.
+* New appointments default to the ACTIVE status. Appointments cannot be deleted once created,
+only marked as CANCELLED if required.
+* Doctors are free during office hours from 9am to 12pm and 1pm to 5pm. (12pm to 1pm not availabe)
 * Appointments are in 1-hour blocks.
-* Returns invalid if the doctor is not available during the specified block.
+* User is notified if the doctor is not available during the specified time.
 * `DATE_OF_APPT` must be in the format `YYYY-MM-DD`
-* `START_TIME` must be in the 24-hour format `HH` as timing for appointment is hourly, starting from 9am.
+* `START_TIME` must be in the 24-hour format HH:00 with no minutes specified as each appointment is 1 hour long.
 ****
 
 Examples:
 
-* `add-appt pid/1 did/1 d/2019-06-01 t/09:00` +
-Adds an appointment under patient with ID of '1' and doctor with ID of '1' on 1st June 2019 at 9am.
-* `add-appt pid/3 did/2 d/2019-06-01 t/13:00` +
-Adds an appointment under patient with ID of '3' and doctor with ID of '2' on 1st June 2019 at 1pm.
+* `add-appt pid/1 did/7 d/2019-06-01 t/09:00` +
+Adds an appointment with patient ID '1' and doctor ID '7' on 1st June 2019 at 9am.
+* `add-appt pid/3 did/9 d/2019-06-01 t/13:00` +
+Adds an appointment with patient ID '3' and doctor ID '9' on 1st June 2019 at 1pm.
 
-=== Listing of appointments : `list-appt`
-Shows a list of all appointments in the system. +
-Format: `list-appt`
+=== Listing appointments : `list-appt`
+Shows a list of appointments in the system. Can be used with or without optional keywords to filter the result. +
+Format: `list-appt [pid/PATIENT_ID] [did/DOCTOR_ID] [d/DATE_OF_APPT] [t/START_TIME]`
 
 ****
-* Completed or cancelled appointments will not be displayed.
+* If none of the optional fields are provided, all appointments are shown.
+* Appointments are filtered by patient ID, doctor ID, date of appointment, start time,
+and appointment status respectively.
+* All the optional filters can be mixed and matched independently to obtain the required output.
 ****
 
 Examples:
 
 * `list-appt` +
 Lists all appointments.
+* `list-appt pid/1` +
+Lists all appointments with patient ID 1.
+* `list-appt pid/1 did/7` +
+Lists all appointments with patient ID 1 and doctor ID 7.
+* `list-appt d/2018-06-01 t/09:00 ` +
+Lists all appointments with date 2018-06-01 and time 09:00.
+* `list-appt s/ACTIVE` +
+Lists all appointments that are marked as ACTIVE.
 
-=== Completing an appointment : `complete-appt`
-{Not available yet} +
-Complete the appointment when the patient and doctor finishes the appointment. +
-Format: `complete-appt INDEX`
+=== Changing an appointment status : `mark-appt`
+Mark an appointment as ACTIVE, CANCELLED, MISSED or COMPLETED +
+Format: `mark-appt INDEX s/NEW_STATUS`
 
 ****
-* Complete the appointment of the specified `INDEX`.
-* The index refers to the identification number (ID) of the appointment.
-* The index *must be a positive integer* 1, 2, 3, ...
-* Only appointments on the actual day or future dates can be completed.
+* All of the fields must be provided.
+* Appointment status is not cases sensitive. i.e. both ACTIVE and active is allowed.
+* Change appointment status of the appointment at the specified `INDEX`.
+* The index refers to the index number shown in the displayed appointment list.
+The index must be a positive integer 1, 2, 3, …​
+* Status meaning: ACTIVE - The appointment is scheduled and active. CANCELLED - The appointment has been cancelled.
+MISSED - The appointment was missed by the patient. COMPLETED - The patient successfully completed the appointment.
+* Only appointments in the past can be marked as MISSED or COMPLETED. Appointments in the future can only be marked
+ACTIVE or CANCELLED.
 ****
-
 Examples:
 
-* `complete-appt 1` +
-Completes the appointment with ID of '1' in docX.
-* `complete-appt 3` +
-Completes the appointment with ID of '3' in docX.
+* `mark-appt 1 s/CANCELLED` +
+The appointment with INDEX 1 is cancelled.
+* `mark-appt 3 s/MISSED` +
+The appointment with INDEX 3 was missed. Note that this can only be done to elapsed appointments.
 
-=== Cancelling an appointment : `cancel-appt`
-{Not available yet} +
-Cancel the appointment when the patient or doctor cannot attend the appointment. +
-Format: `cancel-appt INDEX`
-
-****
-* Cancel and delete the appointment of the specified `INDEX`.
-* The index refers to the identification number (ID) of the appointment.
-* The index *must be a positive integer* 1, 2, 3, ...
-* Only appointments on the actual day or future dates can be cancelled.
-****
-
-Examples:
-
-* `cancel-appt 1` +
-Cancels and deletes the appointment with ID of '1' in docX.
-* `complete-appt 3` +
-Cancels and delete the appointment with ID of '3' in docX.
-
-
-=== Listing appointments of a doctor : `list-appt`
-{Not available yet} +
-Shows a list of all incomplete appointments of a doctor in docX within a specified time period. +
-Format: `list-appt did/DOCTOR_ID sd/START_DATE ed/END_DATE`
-
-****
-* The start and end date specified are both inclusive in the search results.
-* Completed or cancelled appointments will not be displayed.
-****
-
-Examples:
-
-* `list-appt did/3 sd/30032019 ed/30042019` +
-Lists all appointments of the doctor with ID of '3' from 30th March 2019 to 30th April 2019.
-
-=== Listing available timings of a doctor : `list-doc-time`
-{Not available yet} +
-Shows a list of all available blocks of timing of the specified doctor. +
-Format: `list-doc-time did/DOCTOR_ID d/DATE`
-
-****
-* `DATE` must be in the format `DDMMYYYY`
-* Acceptable dates include the date today and future dates.
-****
-
-Examples:
-
-* `list-doc-time did/3 d/05032019` +
-Lists all available blocks of timing of the doctor with ID of '3' on 5th March 2019.
-
-=== Listing available timings of all doctors : `list-time`
-{Not available yet} +
-Shows a list of all available blocks of timings of all doctors on the specified date. +
-Format: `list-time DATE`
-
-****
-* `DATE` must be in the format `DDMMYYYY`
-* Acceptable dates include the date today and future dates.
-****
-
-Examples:
-
-* `list-time 26022019` +
-Lists all doctors' available blocks of timing for each 1-hour time slot on 26th February 2019.
 
 === Adding a medicine: `add-med`
 
@@ -740,7 +675,7 @@ _{explain how the user can enable/disable data encryption}_
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous DocX folder.
 
 == Command Summary
 
@@ -759,21 +694,19 @@ e.g. `delete-patient 3`
 
 DOCTOR COMMANDS
 
-* *Add a new doctor* `add-doctor n/NAME g/GENDER y/YEAR_OF_SPECIALISATION p/PHONE_NUMBER s/SPECIALISATION` +
-e.g. `add-doctor n/Aaron Doe g/Male y/3 p/98765432 s/`acupuncture' 'general'`
-* *List existing doctors* : `list-doctor`
-* *Select a doctor* : `select-doctor INDEX` +
-e.g. `select-doctor 3`
-* *Edit an existing doctor* : `edit-doctor INDEX [n/NAME] [g/GENDER] [a/AGE] [p/PHONE] [s/SPECIALISATION]` +
-e.g. `edit-doctor 2 n/Betsy Crower p/45678901`
-* *Locating a doctor by name* : `search-doctor KEYWORD` +
-e.g. `search-doctor john`
-* *Locating a doctor by specialisation* : `search-spec KEYWORD` +
-e.g. `search-spec acupuncture`
-* *Finding a doctor for an appointment* : `match-doctor s/SPECIALISATION d/DESIRED_DATE_OF_APPT t/DESIRED_TIME_OF_APPT` +
-e.g. `match-doctor s/acupuncture d/2019-06-02 t/09:00`
-* *Delete an existing doctor* : `delete-doctor INDEX` +
-eg. `delete-doctor 2`
+* *Add a new doctor* `add-d n/NAME g/GENDER y/YEAR_OF_SPECIALISATION p/PHONE_NUMBER s/SPECIALISATION` +
+e.g. `add-d n/Aaron Doe g/Male y/3 p/98765432 s/`acupuncture' 'general'`
+* *List all existing doctors* : `list-d`
+* *Select a doctor* : `select-d INDEX` +
+e.g. `select-d 3`
+* *Edit an existing doctor* : `edit-d INDEX [n/NAME] [g/GENDER] [a/AGE] [p/PHONE] [s/SPECIALISATION]` +
+e.g. `edit-d 2 n/Betsy Crower p/45678901`
+* *Locating doctor(s) by keywords* : `list-d KEYWORD [KEYWORD]` +
+e.g. `list-d john 8233`
+* *Finding a doctor for an appointment* : `match-d s/SPECIALISATION d/DESIRED_DATE_OF_APPT t/DESIRED_TIME_OF_APPT` +
+e.g. `match-d s/acupuncture d/2019-06-02 t/09:00`
+* *Delete an existing doctor* : `delete-d INDEX` +
+eg. `delete-d 2`
 
 MEDICAL HISTORY COMMANDS
 
@@ -794,14 +727,11 @@ APPOINTMENT COMMANDS
 
 * *Add a new appointment* `add-appt pid/PATIENT_ID did/DOCTOR_ID d/DATE_OF_APPT t/START_TIME` +
 e.g. `add-appt pid/1 did/1 d/2019-06-01 t/09:00`
-* *Completing an appointment* : `complete-appt INDEX`
-* *Cancelling an appointment* : `cancel-appt INDEX`
-* *List upcoming appointments of a doctor* : `list-appt did/DOCTOR_ID sd/START_DATE ed/END_DATE`
-e.g. `list-appt did/3 sd/30032019 ed/30042019`
-* *List available timings of a doctor* : `list-doc-time did/DOCTOR_ID d/DATE`
-e.g. `list-doc-time did/3 d/05032019`
-* *List available doctors during the specified time* : `list-time DATE`
-e.g. `list-time 26022019`
+* *Listing appointments* `list-appt [pid/PATIENT_ID] [did/DOCTOR_ID] [d/DATE_OF_APPT] [t/START_TIME]` +
+e.g. `list-appt`
+* *Changing an appointment status* : `mark-appt INDEX s/NEW_STATUS`
+e.g. `mark-appt 1 s/CANCELLED`
+
 
 PRESCRIPTION COMMANDS
 

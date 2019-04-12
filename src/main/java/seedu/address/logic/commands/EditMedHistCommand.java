@@ -74,8 +74,8 @@ public class EditMedHistCommand extends Command {
     }
 
     /**
-     * Creates and returns a {@code Patient} with the details of {@code patientToEdit}
-     * edited with {@code editPatientDescriptor}.
+     * Creates and returns a {@code Medical History} with the details of {@code medHistToEdit}
+     * edited with {@code editMedHistDescriptor}.
      */
     private static MedicalHistory createEditedMedHist(MedicalHistory medHistToEdit,
                                                EditMedHistCommand.EditMedHistDescriptor editMedHistDescriptor) {

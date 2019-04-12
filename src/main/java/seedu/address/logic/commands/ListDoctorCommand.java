@@ -13,9 +13,11 @@ import seedu.address.model.person.DoctorContainsKeywordsPredicate;
  */
 public class ListDoctorCommand extends Command {
 
-    public static final String COMMAND_WORD = "list-doctor";
+    public static final String COMMAND_WORD = "list-d";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Lists the doctors who match the user inputs "
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+            + ": Lists the doctors whose fields' "
+            + "values match the user inputs. If no inputs are given, all existing doctors will be listed.\n"
             + "Parameters: "
             + "[ KEYWORD ] "
             + "[ KEYWORD ] ..."
@@ -47,6 +49,9 @@ public class ListDoctorCommand extends Command {
 
     @Override
     public boolean equals(Object other) {
+        if (predicate == null) {
+            return other == this;
+        }
         return other == this // short circuit if same object
                 || (other instanceof ListDoctorCommand // instanceof handles nulls
                 && predicate.equals(((ListDoctorCommand) other).predicate)); // state check

@@ -17,15 +17,15 @@ import seedu.address.model.person.Doctor;
  */
 public class AddDoctorCommand extends Command {
 
-    public static final String COMMAND_WORD = "add-doctor";
+    public static final String COMMAND_WORD = "add-d";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a doctor to docX. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a doctor to docX.\n"
             + "Parameters: "
             + PREFIX_NAME + "NAME "
             + PREFIX_PHONE + "PHONE "
             + PREFIX_GENDER + "GENDER "
             + PREFIX_YEAR + "YEAR OF SPECIALISATION "
-            + "[" + PREFIX_SPECIALISATION + "SPECIALISATION]...\n"
+            + PREFIX_SPECIALISATION + "SPECIALISATION...\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "John Doe "
             + PREFIX_PHONE + "98765432 "
@@ -36,7 +36,6 @@ public class AddDoctorCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "New doctor added: %1$s";
     public static final String MESSAGE_DUPLICATE_DOCTOR = "This doctor already exists in the DocX";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the DocX";
 
     private final Doctor toAdd;
 

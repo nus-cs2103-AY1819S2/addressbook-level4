@@ -179,7 +179,7 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void setCurrentTestedCard_cardInFilteredCardList_setsSelectedCard() {
+    public void setCurrentTestedCard_cardInFilteredCardList_setsCurrentTestedCard() {
         modelManager.addCard(ALICE);
         assertEquals(Collections.singletonList(ALICE), modelManager.getFilteredCards());
         modelManager.setCurrentTestedCard(ALICE);

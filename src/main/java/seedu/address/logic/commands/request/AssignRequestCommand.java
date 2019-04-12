@@ -97,7 +97,7 @@ public class AssignRequestCommand extends Command implements RequestCommand {
         TreeSet<Date> dates = new TreeSet<>();
 
         for (Request req : lastShownRequestList) {
-            if (assignedHealthWorker.getNric().toString().equals(req.getHealthStaff())) {
+            if (assignedHealthWorker.getNric().toString().equals(req.getHealthStaff()) && req.isOngoingStatus()) {
                 dates.add(req.getRequestDate().getDate());
             }
         }

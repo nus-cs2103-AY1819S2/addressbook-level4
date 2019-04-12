@@ -79,8 +79,17 @@ public class EditRequestCommand extends EditCommand implements RequestCommand {
 
             TreeSet<Date> healthWorkerDates = new TreeSet<>();
 
+            String updatedHealthWorker;
+            if (editRequestDescriptor.getHealthWorker().isPresent()) {
+                updatedHealthWorker = editRequestDescriptor.getHealthWorker().toString();
+            } else {
+                updatedHealthWorker = requestToEdit.getHealthStaff();
+            }
+
             for (Request request : model.getFilteredRequestList()) {
-                healthWorkerDates.add(request.getRequestDate().getDate());
+                if (updatedHealthWorker.equals(request.getHealthStaff())) {
+                    healthWorkerDates.add(request.getRequestDate().getDate());
+                }
             }
 
             Date date = updatedRequestDate.getDate();

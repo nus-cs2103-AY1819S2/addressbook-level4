@@ -97,7 +97,7 @@ public class SortCommandTest {
         SortWord type = new SortWord("education");
         SortCommand command = new SortCommand(type);
         expectedModel.deleteAllPerson();
-        correctPersonOrder = Arrays.asList(ELLE, FIONA, BENSON, CARL, ALICE, DANIEL, GEORGE);
+        correctPersonOrder = Arrays.asList(FIONA, ELLE, CARL, BENSON, ALICE, DANIEL, GEORGE);
         for (Person newPerson : correctPersonOrder) {
             expectedModel.addPersonWithFilter(newPerson);
         }
@@ -111,7 +111,7 @@ public class SortCommandTest {
         SortWord type = new SortWord("reverse education");
         SortCommand command = new SortCommand(type);
         expectedModel.deleteAllPerson();
-        correctPersonOrder = Arrays.asList(GEORGE, DANIEL, ALICE, CARL, BENSON, FIONA, ELLE);
+        correctPersonOrder = Arrays.asList(GEORGE, DANIEL, ALICE, BENSON, CARL, ELLE, FIONA);
         for (Person newPerson : correctPersonOrder) {
             expectedModel.addPersonWithFilter(newPerson);
         }
@@ -125,7 +125,7 @@ public class SortCommandTest {
         SortWord type = new SortWord("gpa");
         SortCommand command = new SortCommand(type);
         expectedModel.deleteAllPerson();
-        correctPersonOrder = Arrays.asList(GEORGE, ELLE, DANIEL, BENSON, CARL, ALICE, FIONA);
+        correctPersonOrder = Arrays.asList(FIONA, ALICE, CARL, BENSON, DANIEL, ELLE, GEORGE);
         for (Person newPerson : correctPersonOrder) {
             expectedModel.addPersonWithFilter(newPerson);
         }
@@ -139,7 +139,7 @@ public class SortCommandTest {
         SortWord type = new SortWord("reverse gpa");
         SortCommand command = new SortCommand(type);
         expectedModel.deleteAllPerson();
-        correctPersonOrder = Arrays.asList(FIONA, ALICE, CARL, BENSON, DANIEL, ELLE, GEORGE);
+        correctPersonOrder = Arrays.asList(GEORGE, ELLE, DANIEL, BENSON, CARL, ALICE, FIONA);
         for (Person newPerson : correctPersonOrder) {
             expectedModel.addPersonWithFilter(newPerson);
         }
@@ -195,7 +195,7 @@ public class SortCommandTest {
         SortWord type = new SortWord("skill number");
         SortCommand command = new SortCommand(type);
         expectedModel.deleteAllPerson();
-        correctPersonOrder = Arrays.asList(CARL, ELLE, FIONA, DANIEL, BENSON, GEORGE, ALICE);
+        correctPersonOrder = Arrays.asList(CARL, ELLE, BENSON, DANIEL, FIONA, ALICE, GEORGE);
         for (Person newPerson : correctPersonOrder) {
             expectedModel.addPersonWithFilter(newPerson);
         }
@@ -209,7 +209,7 @@ public class SortCommandTest {
         SortWord type = new SortWord("position number");
         SortCommand command = new SortCommand(type);
         expectedModel.deleteAllPerson();
-        correctPersonOrder = Arrays.asList(FIONA, CARL, GEORGE, DANIEL, BENSON, ALICE, ELLE);
+        correctPersonOrder = Arrays.asList(FIONA, CARL, GEORGE, ALICE, DANIEL, BENSON, ELLE);
         for (Person newPerson : correctPersonOrder) {
             expectedModel.addPersonWithFilter(newPerson);
         }
@@ -223,7 +223,7 @@ public class SortCommandTest {
         SortWord type = new SortWord("endorsement number");
         SortCommand command = new SortCommand(type);
         expectedModel.deleteAllPerson();
-        correctPersonOrder = Arrays.asList(DANIEL, FIONA, ELLE, GEORGE, CARL, BENSON, ALICE);
+        correctPersonOrder = Arrays.asList(DANIEL, FIONA, ELLE, GEORGE, ALICE, BENSON, CARL);
         for (Person newPerson : correctPersonOrder) {
             expectedModel.addPersonWithFilter(newPerson);
         }

@@ -51,7 +51,7 @@ public class BoundaryValueChecker {
             if (!this.isBattleshipAbsent()) {
                 logger.info("BATTLESHIP ABSENT. Throwing BoundaryValueException.");
                 throw new BoundaryValueException(MESSAGE_BATTLESHIP_PRESENT);
-            } else if (!this.isBodyWithinHorizontalBounds()) {
+            } else if (!this.isBodyWithinBounds(coordinates.getColIndex())) {
                 logger.info("BATTLESHIP NOT WITHIN HORIZONTAL BOUNDS. Throwing BoundaryValueException.");
                 throw new BoundaryValueException(Messages.MESSAGE_BODY_LENGTH_TOO_LONG);
             } else if (!this.isHorizontalClear()) {
@@ -62,7 +62,7 @@ public class BoundaryValueChecker {
             if (!this.isBattleshipAbsent()) {
                 logger.info("BATTLESHIP ABSENT. Throwing BoundaryValueException.");
                 throw new BoundaryValueException(MESSAGE_BATTLESHIP_PRESENT);
-            } else if (!this.isBodyWithinVerticalBounds()) {
+            } else if (!this.isBodyWithinBounds(coordinates.getRowIndex())) {
                 logger.info("BATTLESHIP NOT WITHIN VERTICAL BOUNDS. Throwing BoundaryValueException.");
                 throw new BoundaryValueException(Messages.MESSAGE_BODY_LENGTH_TOO_LONG);
             } else if (!this.isVerticalClear()) {
@@ -87,38 +87,14 @@ public class BoundaryValueChecker {
         return true;
     }
 
-    /**
-     * Checks if the body length of a battleship is within bounds.
-     * Check is horizontal.
-     */
-    public boolean isBodyWithinHorizontalBounds() {
-        Index colIndex = coordinates.getColIndex();
-
-        int length = battleship.getLength();
-
-        if (colIndex.getZeroBased() + length > mapGrid.getMapSize()) {
+    public boolean isBodyWithinBounds(Index index) {
+        if (index.getZeroBased() + battleship.getLength() > mapGrid.getMapSize()) {
             return false;
         }
 
         return true;
     }
-
-    /**
-     * Checks if the body of a battleship is within bounds.
-     * Check is vertical.
-     */
-    public boolean isBodyWithinVerticalBounds() {
-        Index rowIndex = coordinates.getRowIndex();
-
-        int length = battleship.getLength();
-
-        if (rowIndex.getZeroBased() + length > mapGrid.getMapSize()) {
-            return false;
-        }
-
-        return true;
-    }
-
+    
     /**
      * Checks if there is no battleship on the grids.
      */

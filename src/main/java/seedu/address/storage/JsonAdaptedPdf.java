@@ -1,6 +1,5 @@
 package seedu.address.storage;
 
-import java.time.DateTimeException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -15,7 +14,6 @@ import seedu.address.model.pdf.Deadline;
 import seedu.address.model.pdf.Directory;
 import seedu.address.model.pdf.Name;
 import seedu.address.model.pdf.Pdf;
-import seedu.address.model.pdf.Phone;
 import seedu.address.model.pdf.Size;
 import seedu.address.model.tag.Tag;
 
@@ -87,7 +85,7 @@ class JsonAdaptedPdf {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Size.class.getSimpleName()));
         }
         if (!Size.isValidSize(size)) {
-            throw new IllegalValueException(Phone.MESSAGE_CONSTRAINTS);
+            throw new IllegalValueException(Size.MESSAGE_CONSTRAINTS);
         }
         Size modelSize = new Size(size);
 
@@ -100,10 +98,14 @@ class JsonAdaptedPdf {
         }
         final Directory modelDirectory = new Directory(directory);
 
+        if (deadline == null) {
+            throw new IllegalValueException(
+                    String.format(MISSING_FIELD_MESSAGE_FORMAT, Deadline.class.getSimpleName()));
+        }
         try {
             final Deadline modelDeadline = new Deadline(deadline);
             return new Pdf(modelName, modelDirectory, modelSize, modelTags, modelDeadline);
-        } catch (DateTimeException e) {
+        } catch (Exception e) {
             throw new IllegalValueException(Deadline.MESSAGE_CONSTRAINTS);
         }
 

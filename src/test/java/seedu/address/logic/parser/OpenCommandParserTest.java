@@ -10,6 +10,7 @@ import org.junit.Test;
 
 import seedu.address.logic.commands.OpenCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.storage.ParsedInOut;
 
 /**
  * As we are only doing white-box testing, our test cases do not cover path variations
@@ -33,7 +34,8 @@ public class OpenCommandParserTest {
             }
         }
         try {
-            assertEquals(parser.parse(" records.json").getFile(), new OpenCommand(test).getFile());
+            assertEquals(parser.parse(" records.json").getFile(),
+                            new OpenCommand(new ParsedInOut(test, ".json")).getFile());
         } catch (ParseException pe) {
             throw new IllegalArgumentException("Invalid userInput.", pe);
         }

@@ -71,7 +71,9 @@ public class DeleteFilterCommand extends Command {
             predicateList = model.getPredicateLists(SHORTLIST);
             break;
         default:
-            throw new CommandException(MESSAGE_DELETE_FILTER_FAIL);
+            model.removePredicateAllPersons(targetName);
+            model.updateFilteredPersonList();
+            predicateList = model.getPredicateLists(EMPTY);
         }
         return new CommandResult(String.format(MESSAGE_DELETE_FILTER_SUCCESS, targetName), filterListName,
                 predicateList);

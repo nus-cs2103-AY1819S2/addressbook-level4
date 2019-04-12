@@ -18,6 +18,9 @@ public interface ReservationModel extends Model {
      */
     ReadOnlyProperty<Reservation> selectedReservationProperty();
 
+    boolean hasRoomType(RoomType st);
+
+
     /**
      * Returns the selected reservation in the filtered reservation list.
      * null if no reservation is selected.

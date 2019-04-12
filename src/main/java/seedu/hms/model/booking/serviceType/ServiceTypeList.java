@@ -6,6 +6,7 @@ import java.util.Iterator;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.hms.model.booking.serviceType.exceptions.DuplicateServiceTypeException;
 import seedu.hms.model.booking.serviceType.exceptions.ServiceTypeNotFoundException;
 
 /**
@@ -20,10 +21,21 @@ public class ServiceTypeList implements Iterable<ServiceType> {
             FXCollections.unmodifiableObservableList(internalList);
 
     /**
+     * Returns true if the list contains an equivalent customer as the given argument.
+     */
+    public boolean contains(ServiceType toCheck) {
+        requireNonNull(toCheck);
+        return internalList.stream().anyMatch(toCheck::equals);
+    }
+
+    /**
      * Adds a ServiceType to the list.
      */
     public void add(ServiceType toAdd) {
         requireNonNull(toAdd);
+        if (contains(toAdd)) {
+            throw new DuplicateServiceTypeException();
+        }
         internalList.add(toAdd);
     }
 

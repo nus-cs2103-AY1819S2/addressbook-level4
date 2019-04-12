@@ -135,6 +135,11 @@ public class ReservationManager implements ReservationModel {
         versionedHotelManagementSystem.removeRoomType(b);
     }
 
+    @Override
+    public boolean hasRoomType(RoomType st) {
+        return versionedHotelManagementSystem.hasRoomType(st);
+    }
+
     /*
      * Adds a roomType
      */

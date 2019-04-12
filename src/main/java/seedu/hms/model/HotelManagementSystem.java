@@ -134,6 +134,22 @@ public class HotelManagementSystem implements ReadOnlyHotelManagementSystem {
     }
 
     /**
+     * Returns true if a customer with the same identity as {@code customer} exists in the hms book.
+     */
+    public boolean hasServiceType(ServiceType st) {
+        requireNonNull(st);
+        return serviceTypes.contains(st);
+    }
+
+    /**
+     * Returns true if a customer with the same identity as {@code customer} exists in the hms book.
+     */
+    public boolean hasRoomType(RoomType st) {
+        requireNonNull(st);
+        return roomTypes.contains(st);
+    }
+
+    /**
      * Adds a customer to the hms book.
      * The customer must not already exist in the hms book.
      */

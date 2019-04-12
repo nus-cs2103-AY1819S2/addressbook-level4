@@ -40,6 +40,7 @@ public class TagCommand extends Command {
 
     public TagCommand(Index index, Set<Tag> tags, Boolean isAddTag) {
         requireNonNull(index);
+        requireNonNull(tags);
         requireNonNull(isAddTag);
 
         this.index = index;
@@ -83,5 +84,14 @@ public class TagCommand extends Command {
         Set<Tag> nTags = new HashSet<>(oTags);
         nTags.removeAll(tags);
         return new Pdf(old.getName(), old.getDirectory(), old.getSize(), nTags, old.getDeadline());
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof TagCommand // instanceof handles nulls
+                && index.equals(((TagCommand) other).index)
+                && isAddTag.equals(((TagCommand) other).isAddTag)
+                && tags.equals(((TagCommand) other).tags));
     }
 }

@@ -33,7 +33,6 @@ public class SetPresetCommand extends Command {
         this.presetName = presetName;
         this.isNewCommand = true;
         this.hasWaterMarkCommand = false;
-        this.canRedo = true;
     }
 
     @Override

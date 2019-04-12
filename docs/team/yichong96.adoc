@@ -4,13 +4,23 @@
 :stylesDir: ../stylesheets
 
 == PROJECT: Know-It-All
-
 ---
 
+Hello ! I am Yi Chong, a year 2 Computer Science student. I have worked on a few projects in the past, of which I have
+developed an android application and built a machine learning model to classify e-commerce products. My current areas of interest
+include Artificial Intelligence (AI) and Software Engineering. This project portfolio serves to document my contributions
+to Know-It-All; including the code base, developer and user guide.
+
 == Overview
-My team and I were tasked with enhancing a basic command line interface addressbook for our
-Software Engineering project. We chose to morph it into an desktop flashcard application
-called Know-It-All. This enhanced application helps students organize their digital flashcards neatly.
+The motivation behind this project came from a problem faced by Wei Jie, a medical student and friend of my group mate.
+Wei Jie is an avid user of flashcards for study. However, the trouble of carrying physical flashcards and
+the sheer amount of content recorded on flashcards has caused major inconveniences to Wei Jie.
+
+As part of our Software Engineering project, we had the option to either enhance the existing address book software or
+morph it into another product. As such, our team decided to morph the existing product into a flashcard application for
+students like Wei Jie, who prefer flashcards as a study method but find using physical flashcards a major pain point.
+
+This enhanced application helps students organize their digital flashcards neatly.
 The application also comes with a test feature; allowing users to test themselves on the flashcards
 created, a report feature; allowing them to view their performance for each folder and a import and
 export feature; which allows for the sharing of flashcards.

@@ -10,12 +10,12 @@ import seedu.address.model.person.Person;
 /**
  * Sorts all persons by number of skills, positions or endorsements
  */
-public class SortTagNumber {
+public class SortTagNumber implements SortMethod {
 
     private List<Person> newList;
 
-    public SortTagNumber(List<Person> lastShownList, String type) {
-        String prefix = type.substring(0, 1);
+    public void execute(List<Person> lastShownList, String... type) {
+        String prefix = type[0].substring(0, 1);
         List<Person> sortedList = new ArrayList<>();
         if (prefix.equals("s")) {
             Comparator<Person> personSkillsNumberComparator = Comparator.comparing(Person::getSkillsNumber);

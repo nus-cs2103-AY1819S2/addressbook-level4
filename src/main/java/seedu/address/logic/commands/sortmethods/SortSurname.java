@@ -10,14 +10,16 @@ import seedu.address.model.person.Person;
 /**
  * Sorts all persons by age.
  */
-public class SortSurname {
+public class SortSurname implements SortMethod {
 
     private List<Person> newList;
 
-    public SortSurname(List<Person> lastShownList) {
+    public void execute(List<Person> lastShownList, String... type) {
         Comparator<Person> personSurnameComparator = Comparator.comparing(Person::surnameToString);
         List<Person> firstSortedList = SortUtil.sortPersons(lastShownList, personSurnameComparator);
-        this.newList = duplicateValueListAlteration(firstSortedList);
+        System.out.println(firstSortedList);
+        SortListWithDuplicates finalSortedList = new SortListWithDuplicates(firstSortedList, new SortName());
+        this.newList = finalSortedList.getList();
     }
 
     /**
@@ -31,6 +33,7 @@ public class SortSurname {
             if (person.surnameToString().equals(prevPerson.surnameToString())) {
                 dupPersonList.add(person);
             } else {
+
                 orderedPersonList.addAll(sortDuplicateList(dupPersonList));
                 dupPersonList = new ArrayList<>();
                 dupPersonList.add(person);
@@ -50,8 +53,8 @@ public class SortSurname {
         if (dupPersonList.size() == 1) {
             orderedPersonDuplicateList.add(dupPersonList.get(0));
         } else {
-            SortName sorted = new SortName(dupPersonList);
-            orderedPersonDuplicateList.addAll(sorted.getList());
+            //SortUtil.callSortMethod(SortName(), dupPersonList);
+            //orderedPersonDuplicateList.addAll(SortName.getList());
         }
         return orderedPersonDuplicateList;
     }

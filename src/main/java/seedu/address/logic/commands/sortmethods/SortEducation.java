@@ -9,11 +9,11 @@ import seedu.address.model.person.Person;
 /**
  * Sorts all persons by Education.
  */
-public class SortEducation {
+public class SortEducation implements SortMethod {
 
     private List<Person> newList;
 
-    public SortEducation(List<Person> lastShownList) {
+    public void execute(List<Person> lastShownList, String... type) {
         Comparator<Person> personEducationComparator = Comparator.comparing(Person::educationToString);
         this.newList = SortUtil.sortPersons(lastShownList, personEducationComparator);
     }

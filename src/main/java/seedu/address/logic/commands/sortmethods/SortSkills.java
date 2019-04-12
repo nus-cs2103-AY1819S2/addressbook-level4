@@ -18,12 +18,12 @@ import seedu.address.model.tag.SkillsTag;
  * Sorts all persons by skill (tag).
  * Currently only the first (alphabetically) is ordered.
  */
-public class SortSkills {
+public class SortSkills implements SortMethod {
 
     private List<Person> newList;
 
-    public SortSkills(List<Person> lastShownList, String type) {
-        String prefix = type.substring(0, 1);
+    public void execute(List<Person> lastShownList, String... type) {
+        String prefix = type[0].substring(0, 1);
         //Modify each Person to organise tags alphabetically
         List<Person> personsWithCorrectTagOrder = orderPersonsTags(lastShownList, prefix);
         //Sort Persons alphabetically by tags

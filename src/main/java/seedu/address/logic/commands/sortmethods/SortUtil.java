@@ -9,9 +9,6 @@ import java.util.stream.Collectors;
 import seedu.address.model.person.Person;
 import seedu.address.model.tag.SkillsTag;
 
-//SHOULD ANY OF THESE BE IN THE MODEL/PERSON/[] CLASS?
-//TODO: rewrite all those using comparator, to just take in whatever it is to be sorted (skillstag, education etc.)
-//Maybe remove the toString method in Person class
 /**
  * One of the sorting helper commands
  */

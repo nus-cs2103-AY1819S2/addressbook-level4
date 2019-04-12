@@ -9,6 +9,7 @@ import seedu.address.logic.commands.sortmethods.SortEducation;
 import seedu.address.logic.commands.sortmethods.SortGpa;
 import seedu.address.logic.commands.sortmethods.SortName;
 import seedu.address.logic.commands.sortmethods.SortSkills;
+import seedu.address.logic.commands.sortmethods.SortMethod;
 import seedu.address.logic.commands.sortmethods.SortSurname;
 import seedu.address.logic.commands.sortmethods.SortTagNumber;
 import seedu.address.logic.commands.sortmethods.SortUtil;
@@ -37,6 +38,7 @@ public class SortCommand extends Command {
     private List<Person> sortedPersons;
 
     private Boolean isReverseList;
+    private Boolean isNewListPresent;
 
     public SortCommand(SortWord method) {
         this.method = method;
@@ -58,6 +60,12 @@ public class SortCommand extends Command {
         return input;
     }
 
+    private void getSortedPersons(SortMethod command, List<Person> lastShownList, String... type) {
+        command.execute(lastShownList, type[0]);
+        this.sortedPersons = command.getList();
+        this.isNewListPresent = true;
+    }
+
     /**
      * Processes the sort command
      *
@@ -69,47 +77,34 @@ public class SortCommand extends Command {
         String commandInput = checkReverse();
 
         if (commandInput.equals("name")) {
-            SortName sorted = new SortName(lastShownList);
-            sortedPersons = sorted.getList();
-            model.deleteAllPerson();
+            getSortedPersons(new SortName(), lastShownList);
         } else if (commandInput.equals("surname")) {
-            SortSurname sorted = new SortSurname(lastShownList);
-            sortedPersons = sorted.getList();
-            model.deleteAllPerson();
-        } else if (commandInput.equals("skills")) {
-            SortSkills sorted = new SortSkills(lastShownList, commandInput);
-            sortedPersons = sorted.getList();
-            model.deleteAllPerson();
-        } else if (commandInput.equals("endorsements")) {
-            SortSkills sorted = new SortSkills(lastShownList, commandInput);
-            sortedPersons = sorted.getList();
-            model.deleteAllPerson();
-        } else if (commandInput.equals("positions")) {
-            SortSkills sorted = new SortSkills(lastShownList, commandInput);
-            sortedPersons = sorted.getList();
-            model.deleteAllPerson();
+            getSortedPersons(new SortSurname(), lastShownList);
+        } else if (commandInput.equals("skills") || commandInput.equals("endorsements")
+                || commandInput.equals("positions")) {
+            getSortedPersons(new SortSkills(), lastShownList, commandInput);
         } else if (commandInput.equals("gpa")) {
-            SortGpa sorted = new SortGpa(lastShownList);
-            sortedPersons = sorted.getList();
+            getSortedPersons(new SortGpa(), lastShownList);
             //TODO: remove this print statement
             //Temporarily add print statement here since the gpa is not being printed to the GUI
             //Note: this is performed before any reversal
             System.out.println(sortedPersons);
-            model.deleteAllPerson();
         } else if (commandInput.equals("education")) {
-            SortEducation sorted = new SortEducation(lastShownList);
-            sortedPersons = sorted.getList();
+            getSortedPersons(new SortEducation(), lastShownList);
             //TODO: remove this print statement
             //Temporarily add print statement here since the education is not being printed to the GUI
             System.out.println(sortedPersons);
-            model.deleteAllPerson();
         } else if (commandInput.substring(commandInput.lastIndexOf(" ") + 1).equals("number")) {
-            SortTagNumber sorted = new SortTagNumber(lastShownList, commandInput);
-            sortedPersons = sorted.getList();
-            model.deleteAllPerson();
+            getSortedPersons(new SortTagNumber(), lastShownList, commandInput);
+        } else {
+            // throw error
+            // ensure model cannot be deleted unless a list has been found
         }
         if (isReverseList) {
             sortedPersons = SortUtil.reversePersonList(sortedPersons);
+        }
+        if (isNewListPresent) {
+            model.deleteAllPerson();
         }
         for (Person newPerson : sortedPersons) {
             model.addPersonWithFilter(newPerson);

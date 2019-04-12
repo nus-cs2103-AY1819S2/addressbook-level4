@@ -9,11 +9,11 @@ import seedu.address.model.person.Person;
 /**
  * Sorts all persons by age.
  */
-public class SortName {
+public class SortName implements SortMethod {
 
     private List<Person> newList;
 
-    public SortName(List<Person> lastShownList) {
+    public void execute(List<Person> lastShownList, String... type) {
         Comparator<Person> personNameComparator = Comparator.comparing(Person::nameToString);
         this.newList = SortUtil.sortPersons(lastShownList, personNameComparator);
     }

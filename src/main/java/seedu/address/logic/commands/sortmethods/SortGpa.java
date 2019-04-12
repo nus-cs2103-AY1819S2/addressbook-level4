@@ -9,11 +9,11 @@ import seedu.address.model.person.Person;
 /**
  * Sorts all persons by GPA.
  */
-public class SortGpa {
+public class SortGpa implements SortMethod {
 
     private List<Person> newList;
 
-    public SortGpa(List<Person> lastShownList) {
+    public void execute(List<Person> lastShownList, String... type) {
         Comparator<Person> personGpaComparator = Comparator.comparing(Person::gpaToString);
         this.newList = SortUtil.sortPersons(lastShownList, personGpaComparator);
     }

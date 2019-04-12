@@ -149,6 +149,10 @@ test {
             //test.include 'seedu/address/**'
             test.include 'seedu/address/model/**'
             test.include 'seedu/address/commons/**'
+            test.include 'seedu/address/storage/**'
+            test.include 'seedu/address/logic/**'
+            //test.include 'seedu/address/logic/parser/**'
+            //test.include 'seedu/address/logic/command/**'
         }
 
         if (runGuiTests) {

@@ -17,10 +17,10 @@ public class SortCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Sorts all the PDFs based on certain criteria.\n"
             + "Parameters: CRITERIA (name/deadline) ORDER (up/down)\n"
-            + "CRITERIA can only be either name or date corresponding to alphabetical or deadline order\n"
+            + "CRITERIA can only be either name, deadline or size\n"
             + "ORDER can only be either up or down corresponding to ascending or descending order\n"
             + "Example: " + COMMAND_WORD + " name up\n"
-            + "Example: " + COMMAND_WORD + " date down\n"
+            + "Example: " + COMMAND_WORD + " deadline down\n"
             + "Example: " + COMMAND_WORD + " size up\n";
 
     public static final String MESSAGE_SUCCESS = "Sort success!";
@@ -39,4 +39,10 @@ public class SortCommand extends Command {
         return new CommandResult(MESSAGE_SUCCESS, false, false);
     }
 
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof SortCommand // instanceof handles nulls
+                && pdfComparator.equals(((SortCommand) other).pdfComparator));
+    }
 }

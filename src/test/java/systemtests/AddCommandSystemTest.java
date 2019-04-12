@@ -52,7 +52,7 @@ import seedu.address.model.pdf.Pdf;
 //import seedu.address.model.pdf.Phone;
 //import seedu.address.model.tag.Tag;
 import seedu.address.testutil.PdfBuilder;
-import seedu.address.testutil.PersonUtil;
+import seedu.address.testutil.PdfUtil;
 
 public class AddCommandSystemTest extends AddressBookSystemTest {
 
@@ -88,7 +88,7 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: add a pdf with the same name but different directory -> added*/
         toAdd = SAMPLE_PDF_2_DUPLICATE;
-        command = PersonUtil.getAddCommand(toAdd);
+        command = PdfUtil.getAddCommand(toAdd);
         assertCommandSuccess(command, toAdd);
 
         /* Case: add to empty address book -> added */
@@ -122,26 +122,26 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
         ------ *//*
 
         *//* Case: add a duplicate pdf -> rejected *//*
-        command = PersonUtil.getAddCommand(HOON);
+        command = PdfUtil.getAddCommand(HOON);
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_PDF);
 
         *//* Case: add a duplicate pdf except with different phone -> rejected *//*
         toAdd = new PdfBuilder(HOON).withSize(VALID_PHONE_BOB).build();
-        command = PersonUtil.getAddCommand(toAdd);
+        command = PdfUtil.getAddCommand(toAdd);
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_PDF);
 
         *//* Case: add a duplicate pdf except with different email -> rejected *//*
         toAdd = new PdfBuilder(HOON).withEmail(VALID_EMAIL_BOB).build();
-        command = PersonUtil.getAddCommand(toAdd);
+        command = PdfUtil.getAddCommand(toAdd);
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_PDF);
 
         *//* Case: add a duplicate pdf except with different address -> rejected *//*
         toAdd = new PdfBuilder(HOON).withDirectory(VALID_ADDRESS_BOB).build();
-        command = PersonUtil.getAddCommand(toAdd);
+        command = PdfUtil.getAddCommand(toAdd);
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_PDF);
 
         *//* Case: add a duplicate pdf except with different tags -> rejected *//*
-        command = PersonUtil.getAddCommand(HOON) + " " + PREFIX_TAG_ADD.getPrefix() + "friends";
+        command = PdfUtil.getAddCommand(HOON) + " " + PREFIX_TAG_ADD.getPrefix() + "friends";
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_PDF);
 
         *//* Case: missing name -> rejected *//*
@@ -161,7 +161,7 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 
         *//* Case: invalid keyword -> rejected *//*
-        command = "adds " + PersonUtil.getPdfDetails(toAdd);
+        command = "adds " + PdfUtil.getPdfDetails(toAdd);
         assertCommandFailure(command, Messages.MESSAGE_UNKNOWN_COMMAND);
 
         *//* Case: invalid name -> rejected *//*
@@ -201,7 +201,7 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
      * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
     private void assertCommandSuccess(Pdf toAdd) {
-        assertCommandSuccess(PersonUtil.getAddCommand(toAdd), toAdd);
+        assertCommandSuccess(PdfUtil.getAddCommand(toAdd), toAdd);
     }
 
     /**

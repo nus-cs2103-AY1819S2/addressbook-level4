@@ -122,6 +122,7 @@ public class ParserUtil {
     public static Deadline parseDeadline(String deadline) throws ParseException {
 
         requireNonNull(deadline);
+        String trimmedDeadline = deadline.trim();
 
         final int positionDay = 0;
         final int positionMonth = 1;
@@ -129,7 +130,7 @@ public class ParserUtil {
         final String parameterSeperator = "-";
         final String dateError = "Invalid Date Format/Value.\nPlease enter valid date of the format dd-mm-yyyy.";
 
-        String[] dates = deadline.split(parameterSeperator);
+        String[] dates = trimmedDeadline.split(parameterSeperator);
 
         for (String s : dates) {
             if (s.length() == 0 || s.length() > 4) {
@@ -148,6 +149,5 @@ public class ParserUtil {
         } catch (DateTimeException e) {
             throw new ParseException(dateError);
         }
-
     }
 }

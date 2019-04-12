@@ -117,9 +117,9 @@ public class RootLayoutController {
             if (!suggestionOn) {
                 break;
             }
-            suggestions = getDirectorySuggestions(userInput.getText());
+            suggestions = logicManager.getDirectorySuggestions(userInput.getText());
             if (isMedicineAllowed) {
-                suggestions.addAll(getMedicineSuggestions(userInput.getText()));
+                suggestions.addAll(logicManager.getMedicineSuggestions(userInput.getText()));
                 suggestions.sort(Comparator.comparing(String::toLowerCase));
             }
             int pointer = getIndex(userInput.getText(), suggestions);
@@ -137,9 +137,9 @@ public class RootLayoutController {
             if (!suggestionOn) {
                 break;
             }
-            suggestions = getDirectorySuggestions(userInput.getText());
+            suggestions = logicManager.getDirectorySuggestions(userInput.getText());
             if (isMedicineAllowed) {
-                suggestions.addAll(getMedicineSuggestions(userInput.getText()));
+                suggestions.addAll(logicManager.getMedicineSuggestions(userInput.getText()));
                 suggestions.sort(Comparator.comparing(String::toLowerCase));
             }
             pointer = getIndex(userInput.getText(), suggestions);
@@ -163,14 +163,6 @@ public class RootLayoutController {
         default:
             break;
         }
-    }
-
-    private ArrayList<String> getDirectorySuggestions(String rawArgs) {
-        return logicManager.getDirectorySuggestions(rawArgs);
-    }
-
-    private ArrayList<String> getMedicineSuggestions(String rawArgs) {
-        return logicManager.getMedicineSuggestions(rawArgs);
     }
 
     /**

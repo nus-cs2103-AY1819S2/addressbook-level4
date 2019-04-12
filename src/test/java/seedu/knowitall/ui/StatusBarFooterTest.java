@@ -42,7 +42,7 @@ public class StatusBarFooterTest extends GuiUnitTest {
     }
 
     /**
-     * Asserts that the save location matches that of {@code expectedCurrentStatus}.
+     * Asserts that the current status of user matches that of {@code expectedCurrentStatus}.
      */
     private void assertStatusBarContent(String expectedCurrentStatus) {
         assertEquals(expectedCurrentStatus, statusBarFooterHandle.getCurrentStatus());

@@ -84,18 +84,30 @@ public class UniqueMedHistList implements Iterable<MedicalHistory> {
     public void setPatientToNull(PersonId deleted) {
         requireAllNonNull(deleted);
         FilteredList<MedicalHistory> setToNull = internalList.filtered(x -> x.getPatientId().equals(deleted));
-        int size = setToNull.size();
-        for (int index = 0; index < size; index++) {
-            setToNull.get(index).setPatient(null);
+        MedicalHistory modifiedMedHist;
+
+        int numberOfOccurrence = setToNull.size();
+        for (int i = 0; i < numberOfOccurrence; i++) {
+            modifiedMedHist = setToNull.get(i);
+            int indexToReplace = internalList.indexOf(modifiedMedHist);
+            modifiedMedHist.setPatient(null);
+            // this approach forces the listeners to be notified.
+            internalList.set(indexToReplace, modifiedMedHist);
         }
     }
 
     public void setDoctorToNull(PersonId deleted) {
         requireAllNonNull(deleted);
         FilteredList<MedicalHistory> setToNull = internalList.filtered(x -> x.getDoctorId().equals(deleted));
-        int size = setToNull.size();
-        for (int index = 0; index < size; index++) {
-            setToNull.get(index).setDoctor(null);
+        MedicalHistory modifiedMedHist;
+
+        int numberOfOccurrence = setToNull.size();
+        for (int i = 0; i < numberOfOccurrence; i++) {
+            modifiedMedHist = setToNull.get(i);
+            int indexToReplace = internalList.indexOf(modifiedMedHist);
+            modifiedMedHist.setDoctor(null);
+            // this approach forces the listeners to be notified.
+            internalList.set(indexToReplace, modifiedMedHist);
         }
     }
 

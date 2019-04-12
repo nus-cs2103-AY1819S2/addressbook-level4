@@ -10,7 +10,8 @@ import seedu.address.model.appointment.Appointment;
  * An UI component that displays information of a {@code Appointment}.
  */
 public class AppointmentCard extends UiPart<Region> {
-
+    public static final String MESSAGE_PATIENT_DELETED = "Patient deleted.";
+    public static final String MESSAGE_DOCTOR_DELETED = "Doctor deleted.";
     private static final String FXML = "AppointmentListCard.fxml";
 
     /**
@@ -47,10 +48,22 @@ public class AppointmentCard extends UiPart<Region> {
         this.appointment = appointment;
         id.setText(displayedIndex + ". ");
         status.setText(appointment.getAppointmentStatus().name());
-        patientId.setText(String.valueOf(appointment.getPatientId()));
-        patientName.setText(appointment.getPatient().getName().fullName);
-        doctorId.setText(String.valueOf(appointment.getDoctorId()));
-        doctorName.setText(appointment.getDoctor().getName().fullName);
+        if (appointment.getPatient() == null) {
+            patientId.setText(MESSAGE_PATIENT_DELETED);
+            patientName.setText(MESSAGE_PATIENT_DELETED);
+        } else {
+            patientId.setText(String.valueOf(appointment.getPatientId()));
+            patientName.setText(appointment.getPatient().getName().fullName);
+        }
+
+        if (appointment.getDoctor() == null) {
+            doctorId.setText(MESSAGE_DOCTOR_DELETED);
+            doctorName.setText(MESSAGE_DOCTOR_DELETED);
+        } else {
+            doctorId.setText(String.valueOf(appointment.getDoctorId()));
+            doctorName.setText(appointment.getDoctor().getName().fullName);
+        }
+
         date.setText(appointment.getDate().toString());
         time.setText(appointment.getTime().toString());
     }
@@ -70,6 +83,10 @@ public class AppointmentCard extends UiPart<Region> {
         // state check
         AppointmentCard card = (AppointmentCard) other;
         return id.getText().equals(card.id.getText())
+                && patientId.equals(card.patientId)
+                && doctorId.equals(card.doctorId)
+                && date.equals(card.date)
+                && time.equals(card.time)
                 && appointment.equals(card.appointment);
     }
 }

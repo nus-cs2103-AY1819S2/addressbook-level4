@@ -1,8 +1,6 @@
 package seedu.address.logic.commands;
 
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.TypicalPdfs.SAMPLE_PDF_4;
 import static seedu.address.testutil.TypicalPdfs.getTypicalPdfBook;
 
 import org.junit.Before;
@@ -13,7 +11,6 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.PdfBook;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.pdf.Pdf;
 
 public class ClearCommandIntegrationTest {
     private Model model;

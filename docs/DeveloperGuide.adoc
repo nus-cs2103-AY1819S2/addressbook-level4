@@ -705,10 +705,11 @@ image::ExportCommandActivityDiagram.png[width="870"]
 === Suggestion feature
 ==== Current Implementation
 As TeethHub contains commands that are similar, we decided to implement a Suggestion feature. +
+This feature was designed to help users who are familiar with older versions of TeethHub or Address Book 4, as they have the names of old commands. +
 When the user types a Common command, a suggestion will be displayed asking the user if they meant to type something else. +
 We define a Common command as a command whose name is used by the Patient commands, Record commands and/or Task commands. +
 For example, as there are `patientadd`, `recordadd` and `taskadd`, the Common command would be `add`. +
-As TeethHub has a Patient Mode and a Record Mode, only commands that can be used in the user's current mode will be displayed.
+As TeethHub has a Patient Mode and a Record Mode, only commands that can be used in the user's current mode will be displayed. 
 
 image::SuggestionFeatureAdd.png[width="236"]
 

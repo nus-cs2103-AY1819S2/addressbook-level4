@@ -39,7 +39,8 @@ public class ParserUtilTest {
             "SampleFiles", "NormalFiles", "GitCheatSheet.pdf").toAbsolutePath().toString();
     private static final String VALID_DIRECTORY = Paths.get("src", "test", "data",
             "SampleFiles", "NormalFiles").toAbsolutePath().toString();
-    private static final String VALID_DEADLINE = "2020-11-11/NONE";
+    private static final String VALID_DEADLINE_JSON = "2020-11-11/false";
+    private static final String VALID_DEADLINE_INPUT = "11-11-2020";
     private static final String VALID_TAG_1 = "friend";
     private static final String VALID_TAG_2 = "neighbour";
 
@@ -201,14 +202,14 @@ public class ParserUtilTest {
 
     @Test
     public void parseDeadline_validValueWithoutWhitespace_returnsFile() throws Exception {
-        Deadline expectedDeadline = new Deadline(VALID_DEADLINE);
-        assertEquals(expectedDeadline, ParserUtil.parseDeadline(VALID_DEADLINE));
+        Deadline expectedDeadline = new Deadline(VALID_DEADLINE_JSON);
+        assertEquals(expectedDeadline, ParserUtil.parseDeadline(VALID_DEADLINE_INPUT));
     }
 
     @Test
     public void parseDeadline_validValueWithWhitespace_returnsTrimmedFile() throws Exception {
-        String directoryWithWhitespace = WHITESPACE + VALID_DIRECTORY + WHITESPACE;
-        Directory expectedDirectory = new Directory(VALID_DIRECTORY);
-        assertEquals(expectedDirectory, ParserUtil.parseDirectory(directoryWithWhitespace));
+        String deadlineWithWhitespace = WHITESPACE + VALID_DEADLINE_INPUT + WHITESPACE;
+        Deadline expectedDeadline = new Deadline(VALID_DEADLINE_JSON);
+        assertEquals(expectedDeadline, ParserUtil.parseDeadline(deadlineWithWhitespace));
     }
 }

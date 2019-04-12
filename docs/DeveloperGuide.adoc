@@ -808,56 +808,117 @@ The total time saved on executing `freeapp` a small number of times is therefore
 . QuickDocs already has plenty of data to be stored, such as appointments, consultations and medicine records.
 The minimal benefits that a permanent list of free slots provide does not justify its additional storage cost.
 
-=== Record & Statistics feature ===
-==== Current implementation ====
-The statistics command is started through the command `stats START_MMYY [END_MMYY]`.
-The two MMYY corresponds to a range of dates. The end range is optional,
+=== Administrative and Statistics Module
+The administrative and statistics module currently consists of 2 commands: +
+
+1. setting the consultation fee `setconsultfee` +
+2. querying the statistics `statistics` +
+
+This 2 commands makes use of the classes located in filepath `model\record`.
+
+==== Setting the consultation fee
+The consultation fee of the clinic is stored as a BigDecimal in the StatisticsManager of QuickDocs, which is loaded from the
+quickdocs.json file through the <<Design-Storage, storage>> component. The consultation fee is used for calculating
+financial statistics for any ConsultationRecord objects.
+
+==== Querying statistics
+The statistics command is started through the command `stats START_MMYYYY [END_MMYYYY]`.
+The two MMYYYY corresponds to a range of dates. The end range is optional,
 and is defaulted to the start range by the StatisticsCommandParser if it does not exist. +
+
+The start date is not allowed to be before January 2019, and the end date cannot be before the start date. Hence,
+QuickDocs currently does not support adding old records before January 2019 due to the implementation of the
+StatisticsManager. This will be explained in the section below. +
 [NOTE]
-MMYY is a string, e.g. "0119", which stands for January 2019. It is parsed by StatisticsCommandParser into a YearMonth
-object.
+MMYYYY is a string, e.g. "012019", which stands for January 2019. It is parsed by StatisticsCommandParser into a
+YearMonth object. +
 
-Currently, Record objects are being created when a command that processes useful information such as finances and
-consultations are executed. For example, a PurchaseMedicine command would create a PurchaseMedicineRecord object that
-stores information such as the name of the medicine, quantity of the medicine, and cost of the medicine. The command
-will then call ModelManager's addRecord(record) function, which will then result in ModelManager calling
-StatisticsManager's addRecord(record) function to add the record's statistics to the respective
-MonthStatistics.
+==== Statistics and Record - Current Implementation
 
-StatisticsManager holds an ArrayList of MonthStatistics. When the StatisticsCommand queries for the statistics for a range
-of months, Logic will call the ModelManager's getStatistics(FROM_YEARMONTH, TO_YEARMONTH), which then calls
-StatisticsManager's getStatistics() with the same arguments. StatisticsManager will convert the YearMonth objects to
-their respective indexes with the StatisticsManager's getYearMonthIndex(YearMonth) function.
+The statistics class stores 6 types of information: +
+
+1. Number of consultations +
+2. Medicines prescribed +
+3. Symptoms diagnosed +
+4. Revenue +
+5. Expenditure +
+6. Profit +
+
+Number of consultations is stored as an int, while the financial variables are stored using BigDecimals. The number of
+medicines prescribed and symptoms diagnosed are stored by using a HashMap. +
+
+[NOTE]
+Implementation of additional statistics will be done through adding additional relevant variable fields.
+
+The implementation of Statistics and Record has 3 parts: +
+
+1. Creation of the Record +
+2. Adding the Record +
+3. Retrieving the Statistics +
+
+===== 1. Creation of the Record
+In order for the statistics to be keep tracked of, Records objects are used to retrieve information that the
+StatisticsManager will make use of. The Record class is an abstract class that only has 1 abstract method,
+`toStatistics(StatisticsManager sm)`, which will generate a Statistics object.
+Each child class of Record is for a specific operation in QuickDocs, where the implementation
+`toStatistics(StatisticsManager sm)` will generate a Statistics object that stores relevant information pertaining to
+that specific operation. The StatisticsManager is passed in to retrieve the any variable that the Record might require
+to calculate the statistics, e.g., ConsultationRecord requires the consultationFee variable in StatisticsManager.
+
+Currently, there are only 2 child classes of Record, ConsultationRecord and MedicinePurchaseRecord. ConsultationRecords
+are created when the a consultation session ends from the EndConsultCommand, while MedicinePurchaseRecord are created
+when a medicine is purchased via the PurchaseMedicineCommand. The commands will create the Record, and call ModelManager's
+`addRecord(record, clock)` function, which will then result in ModelManager calling StatisticsManager's `record(record, clock)`
+function. The clock used is the system clock, to retrieve the current YearMonth of the Record created. The sequence diagram
+below illustrates an example ConsultationRecord being created.
+
+// TODO ADD SD HERE
+
+===== 2. Adding the record
+The StatisticsManager holds an ArrayList of MonthStatistics, where a MonthStatistics object contains the YearMonth, and
+the Statistics object of that YearMonth. Each MonthStatistics object will be initialised with the zero Statistics object,
+where all the variables are 0 or contains no elements (not null). The ArrayList starts with a MonthStatistics with the
+YearMonth 2019 January, and every subsequent index will contain the MonthStatistics with the subsequent month, e.g.,
+the 4th index contains the MonthStatistics with YearMonth 2019 May.
+
+When the StatisticsManager adds a new Record by the `record(record, clock)` function, it will first retrieve the
+YearMonth from the `clock` variable passed in. Next, StatisticsManager will find the correct index of the
+MonthStatistics ArrayList to add the record in. In the current implementation, the record is not actually stored. Instead,
+the record will be converted to a Statistics object which is then merged with the MonthStatistics's own Statistics
+object. The MonthStatistics's Statistics object will then be reassigned with the newly merged Statistics object.
+The sequence diagram below illustrates an example ConsultationRecord being added.
+
+// TODO ADD SD HERE
+
+===== 3. Retrieving the Statistics
+
+When the StatisticsCommand queries for the statistics for a range
+of months, Logic will call the ModelManager's `getStatistics(FROM_YEARMONTH, TO_YEARMONTH)`, which then calls
+StatisticsManager's `getStatistics(FROM_YEARMONTH, TO_YEARMONTH)`. StatisticsManager will convert the YearMonth objects to
+their respective indexes with the StatisticsManager's `getYearMonthIndex(YearMonth)` function.
 
 StatisticsManager will then obtain the statistics for each of the queried months, and merge them together into a new
 Statistics object. StatisticsManager will then return the Statistics back to the ModelManager, which would then return
 it to the StatisticsCommand, which would then return the CommandResult with the statistics converted to a String to the
 LogicManager.
 
-// TODO add sequence diagram for StatisticsCommand
+// TODO ADD SD HERE
 
-The Record class is an abstract class that is extended by more specialised classes such as PurchaseMedicineRecord and
-ConsultationRecord. All Record and Record subclasses should be able to be converted to a Statistics object.
+==== Statistics and Record - Design considerations
 
-The MonthStatistics class contains a YearMonth object and a Statistics object. The Statistics object of a
-MonthStatistics object is updated whenever there is a new Record object added. This Statistics object is reassigned to
-the combined Statistics of the record and the original statistics.
-// TODO add UML diagram here
+1. The statistics are stored in months as the design only allows the doctor to query within a minimum timespan of 1 month.
+Hence, it was decided that the statistics to be stored in months in a chronological order with an ArrayList for ease of
+retrieval. +
 
-The Statistics class is a class that holds all the information useful to the doctor. The Statistics objects aren't
-modifiable. In order to add 2 statistics object together, a new Statistics object will be created by merge().
-Current fields of a Statistics object are:  +
+2. Currently, as QuickDOcs is developed in 2019, and there are no plans to allow the doctor to add in past records,
+the first index in the array of MonthStatistics is allocated to January 2019. Any MMYYYY value before 012019 will not be
+allowed.
 
-* Number of consultations
-* Revenue
-* Expenditure
-* Profit
-* Symptoms
-* Medicines
+3. The MonthStatistics objects are stored in an ArrayList as it might be desirable for a MonthStatistics with the zero
+statistics to exist (all variables 0 or no elements). Such a case might happen when the doctor goes on vacation for the
+whole month. In addition, it would be easy to retrieve the MonthStatistics object of a specific MMYYYY by indexing.
 
-==== Design considerations ====
-////
-==== Alternatives Considered
+==== Statistics and Record - Alternatives Considered
 [cols="1,2a,1, 1", options="header"]
 |===
 |Alternative |Description |Pros | Cons
@@ -870,29 +931,9 @@ specific month is queried, update the latest statistics and return it.
 // row 2
 |*y*
 |y
-|y
+|RecordManager could store the MonthRecord objects in a LinkedList instead. However, that would slow down the access time.
 |y
 |===
-////
-* The records are stored in months as the design only allows the doctor to query with a minimum timespan of 1 month. Hence,
-it was decided to store the records in months for ease of access and calculation. +
-
-* Currently, as this application is developed in 2019, and there are no plans to allow the doctor to add in past records,
-the first index in the array of monthRecords is allocated to January 2019. Any MMYY value before 0119 will not be allowed.
-(TODO)
-
-* The MonthRecord objects are stored in an ArrayList as it might be desirable for a MonthRecord with no records to exist.
-Such a case might happen when the doctor goes on vacation for the whole month. Hence, it would be easy to retrieve the
-MonthRecord object of a specific MMYY by indexing.
-
-* The Statistics class was decided to be immutable as it would not make sense for past records to change.
-
-==== Alternatives Considered ====
-* RecordManager could store the MonthRecord objects in a LinkedList instead. However, that would slow down the access time.
-
-* The different Record classes could be stored in separate MonthRecords. This would reduce the amount of calculations
-needed when simply querying for a single topic. However, the current implementation was decided as the Statistics
-class currently holds all the information for all the topics.
 
 === Storing medicines in inventory
 ==== Current implementation
@@ -1441,58 +1482,23 @@ Use case resumes from step 1.
 
 *MSS*
 
-1. User requests to view statistics
-2. Quickdocs prompts the user for the topic
-3. User enters the topic
-4. Quickdocs prompts the user for the range of month and year
-5. User enters the months and years
-6. Quickdocs prompts the user whether the user wants it in graphical form (Y/N)
-7. User enters his preference
-8. Quickdocs displays the statistics
+1. User requests to view statistics, specifying the start and end YearMonths
+2. Quickdocs displays the statistics
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 1a. User requests to view statistics with valid optional arguments.
+* 1a. User requests to view statistics with valid arguments.
 +
-Use case resumes at step 8.
-* 1b. User requests to view statistics with invalid optional arguments.
+Use case resumes at step 2.
+* 1b. User requests to view statistics with invalid arguments.
 [none]
 ** 1b1. Quickdocs shows an error message.
 +
 Use case ends.
-[none]
-* 3a. User enters invalid topics.
-[none]
-** 3a1. Quickdocs shows an error message.
-+
-Use case resumes at step 2.
-[none]
-* 5a. User enters invalid range of months or years.
-[none]
-** 5a1. Quickdocs shows an error message.
-+
-Use case resumes at step 4.
-[none]
-* 5b. User enters only range of months.
-[none]
-** 5b1. Quickdocs defaults and displays year to current year.
-+
-Use case resumes at step 6.
-[none]
-* 5c. User enters only range of years.
-[none]
-** 5c1. Quickdocs defaults and displays month to current month.
-+
-Use case resumes at step 6.
-[none]
-* 7a. User enters invalid response (not Y or N).
-[none]
-** 7a1. Quickdocs shows an error message.
-+
-Use case resumes at step 6.
+
 
 [discrete]
 === Use case: Inquire about medicine storage
@@ -1695,3 +1701,19 @@ if there isn't any. You need at least 2 patients to perform this manual test.
    Expected: Assuming that there is no appointment on the given date and time, you will be informed through the error message shown.
 .. Other incorrect `deleteapp` commands to try: date without `-` between month and day, invalid start time (start time must be
    within office hours of 9am to 6pm), any missing prefixes, any missing parameters.
+
+=== Querying Statistics
+
+. Querying the statistics
+.. Prerequisites: Your system clock should be synchronised with the current internet time.
+.. Test case 1: `stats 012019` +
+    Expected: The statistics for the month January 2019 should be listed, regardless if there has been any records added.
+.. Test case 2: `stats 122018` +
+    Expected: An error message will be shown, indicating that the command format is wrong.
+.. Test case 3: `stats 012019 022019` +
+    Expected: The statistics for the range of month January 2019 to February 2019 should be listed, regardless if there has been any records added.
+.. Test case 4: `stats 012999` +
+    Expected: An error message will be shown, indicating that the command format is wrong.
+.. Other incorrect `stats` commands to try: end date before start date, invalid MMYYYY numbers (e.g., 000000, 132019).
+    All these commands should lead to an error message being shown.
+

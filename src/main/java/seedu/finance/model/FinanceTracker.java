@@ -3,6 +3,7 @@ package seedu.finance.model;
 import static java.util.Objects.requireNonNull;
 
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 
@@ -13,6 +14,7 @@ import seedu.finance.model.budget.Budget;
 import seedu.finance.model.budget.CategoryBudget;
 import seedu.finance.model.budget.TotalBudget;
 import seedu.finance.model.exceptions.CategoryBudgetExceedTotalBudgetException;
+import seedu.finance.model.exceptions.SpendingInCategoryBudgetExceededException;
 import seedu.finance.model.record.Record;
 import seedu.finance.model.record.UniqueRecordList;
 
@@ -23,6 +25,7 @@ public class FinanceTracker implements ReadOnlyFinanceTracker {
 
     private final UniqueRecordList records;
     private final TotalBudget budget;
+    private boolean isSetFile;
     private final InvalidationListenerManager invalidationListenerManager = new InvalidationListenerManager();
 
     /*
@@ -35,6 +38,7 @@ public class FinanceTracker implements ReadOnlyFinanceTracker {
     {
         records = new UniqueRecordList();
         budget = new TotalBudget();
+        isSetFile = false;
     }
 
     public FinanceTracker() {}
@@ -65,8 +69,8 @@ public class FinanceTracker implements ReadOnlyFinanceTracker {
         requireNonNull(newData);
 
         setRecords(newData.getRecordList());
-        this.budget.set(newData.getTotalBudget());
-        indicateModified();
+        this.budget.set(newData.getBudget());
+        setIsSetFile(newData.isSetFile());
     }
 
     //// record-level operations
@@ -96,7 +100,7 @@ public class FinanceTracker implements ReadOnlyFinanceTracker {
     public void setRecord(Record target, Record editedRecord) {
         requireNonNull(editedRecord);
         records.setRecord(target, editedRecord);
-        budget.updateBudget(this.records.asUnmodifiableObservableList());
+        budget.editRecord(target, editedRecord);
         indicateModified();
     }
 
@@ -113,34 +117,46 @@ public class FinanceTracker implements ReadOnlyFinanceTracker {
     /// budget-level operations
 
     /**
-     * Returns true if a {@code budget} exists in the finance tracker.
+     * Adds a budget to the finance tracker.
+     * The budget must not be less than the allocated budgets.
      */
-    public boolean hasBudget() {
-        return this.budget.isSet();
+    public void addBudget(Budget budget) throws CategoryBudgetExceedTotalBudgetException {
+        this.budget.updateBudget(budget, this.records.asUnmodifiableObservableList());
+        indicateModified();
     }
 
-    /**
-     * Adds a budget to the finance tracker.
-     * The budget must not already exist in the finance tracker.
-     */
-    public void addBudget(Budget budget) {
-        this.budget.set(budget.getTotalBudget(), budget.getCurrentBudget());
-        this.budget.updateBudget(this.records.asUnmodifiableObservableList());
-        indicateModified();
+    // =============================== Set File Operations =========================================================
+
+    public void setIsSetFile(boolean isSetFile) {
+        this.isSetFile = isSetFile;
+    }
+
+    public boolean isSetFile() {
+        return isSetFile;
     }
 
     // =============================== Category Budget =============================================================
     //@author Jackimaru96
-    public Budget getBudget() {
+
+    public TotalBudget getBudget() {
         return budget;
     }
 
-    public TotalBudget getTotalBudget() {
-        return budget;
+    public HashSet<CategoryBudget> getCategoryBudget() {
+        return this.budget.getCategoryBudgets();
     }
 
-    public void addCategoryBudget(CategoryBudget catBudget) throws CategoryBudgetExceedTotalBudgetException {
-        budget.setNewCategoryBudget(catBudget);
+    /**
+     * Adds category budget
+     * @param catBudget the category budget to be added
+     * @throws CategoryBudgetExceedTotalBudgetException if adding this cat budget will exceed total budget
+     * @throws SpendingInCategoryBudgetExceededException if the spending in this category is more than allocated
+     *                                                   cat budget
+     */
+    public void addCategoryBudget(CategoryBudget catBudget) throws CategoryBudgetExceedTotalBudgetException,
+            SpendingInCategoryBudgetExceededException {
+        this.budget.setNewCategoryBudget(catBudget, records);
+        indicateModified();
     }
 
     @Override

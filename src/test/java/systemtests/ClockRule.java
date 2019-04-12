@@ -1,5 +1,3 @@
-/*
-// TODO: Failed Test; need to update
 package systemtests;
 
 import java.time.Clock;
@@ -12,13 +10,14 @@ import org.junit.runners.model.Statement;
 
 import seedu.finance.ui.StatusBarFooter;
 
-*/
+
 /**
  * This rule makes the time stamp in the status bar predictable during a test.
  * Before the test starts, the rule replaces the clock in the status bar with a fixed clock.
  * At the end of the test, the rule restores the original clock.
+ *
  * @see Clock#fixed(Instant, ZoneId)
- *//*
+ */
 
 public class ClockRule implements TestRule {
     private Clock injectedClock;
@@ -51,14 +50,13 @@ public class ClockRule implements TestRule {
         return injectedClock;
     }
 
-    */
-/**
+
+    /**
      * Replaces the clock in the status bar with a fixed clock having the current time as its instance.
-     *//*
+     */
 
     public void setInjectedClockToCurrentTime() {
         injectedClock = Clock.fixed(Instant.now(), ZoneId.systemDefault());
         StatusBarFooter.setClock(injectedClock);
     }
 }
-*/

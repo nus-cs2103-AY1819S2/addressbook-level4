@@ -12,7 +12,8 @@ import java.time.format.DateTimeFormatter;
  */
 public class Date {
 
-    public static final String MESSAGE_CONSTRAINTS = "Dates should be of the format dd/mm/yyyy and be a valid date";
+    public static final String MESSAGE_CONSTRAINTS = "Dates should be of the format dd/mm/yyyy and be a valid date"
+            + " that is not later than today's date in local time.";
 
     private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
@@ -54,6 +55,9 @@ public class Date {
             int month = Integer.parseInt(parsedDate[1]);
             int day = Integer.parseInt(parsedDate[0]);
             LocalDate date = LocalDate.of(year, month, day);
+            if (date.isAfter(LocalDate.now())) {
+                return false;
+            }
         } catch (Exception e) {
             return false;
         }
@@ -105,6 +109,10 @@ public class Date {
     }
 
     //Not sure if this is correct...
+
+    /**
+     * Return true if this {@code Date} is later than given date.
+     */
     public boolean isAfter(LocalDate date) {
         return (this.getDate().compareTo(date) > 0);
     }

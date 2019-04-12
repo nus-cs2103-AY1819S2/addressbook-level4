@@ -7,14 +7,17 @@ import java.nio.file.Paths;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
 import seedu.finance.commons.core.index.Index;
 import seedu.finance.commons.util.StringUtil;
+import seedu.finance.logic.commands.SetFileCommand;
 import seedu.finance.logic.parser.exceptions.ParseException;
 import seedu.finance.model.category.Category;
 import seedu.finance.model.record.Amount;
 import seedu.finance.model.record.Date;
+import seedu.finance.model.record.Description;
 import seedu.finance.model.record.Name;
 
 /**
@@ -83,18 +86,21 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String date} into an {@code Date}.
+     * Parses a {@code String filename} into an {@code Path}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code date} is invalid.
+     * @throws ParseException if the given {@code path} is invalid.
      */
     public static Path parseFile(String filename) throws ParseException {
         requireNonNull(filename);
         String trimmedFilename = filename.trim();
-        if (trimmedFilename.indexOf('/') != -1) {
-            throw new ParseException("Filename should not contain '\\' character.");
+
+        Pattern special = Pattern.compile ("[!@#$%&*()_+=|<>?{}\\[\\]~-]");
+        if (special.matcher(trimmedFilename).find() || trimmedFilename.indexOf('\\') != -1
+                || trimmedFilename.equals("")) {
+            throw new ParseException(SetFileCommand.MESSAGE_CONSTRAINTS);
         }
-        return Paths.get(trimmedFilename);
+        return Paths.get("data\\" + trimmedFilename + ".json");
     }
 
     /**
@@ -122,6 +128,21 @@ public class ParserUtil {
             categorySet.add(parseCategory(categoryName));
         }
         return categorySet;
+    }
+
+    /**
+     * Parses a {@code String description} into a {@code Description}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code description} is invalid.
+     */
+    public static Description parseDescription(String description) throws ParseException {
+        requireNonNull(description);
+        String trimmedDescription = description.trim();
+        if (!Description.isValidDescription(trimmedDescription)) {
+            throw new ParseException(Description.MESSAGE_CONSTRAINTS);
+        }
+        return new Description(trimmedDescription);
     }
 
     /**

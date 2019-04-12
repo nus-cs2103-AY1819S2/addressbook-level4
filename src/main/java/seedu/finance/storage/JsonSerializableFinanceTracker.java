@@ -23,14 +23,16 @@ class JsonSerializableFinanceTracker {
 
     private final List<JsonAdaptedRecord> records = new ArrayList<>();
 
-    private final JsonAdaptedBudget budget;
+    private final JsonAdaptedTotalBudget budget;
+    /*private final HashSet<JsonAdaptedCategoryBudget> categoryBudget = new HashSet<>();*/
+
 
     /**
      * Constructs a {@code JsonSerializableFinanceTracker} with the given records.
      */
     @JsonCreator
     public JsonSerializableFinanceTracker(@JsonProperty("records") List<JsonAdaptedRecord> records,
-                                          @JsonProperty("budget") JsonAdaptedBudget budget) {
+                                          @JsonProperty("budget") JsonAdaptedTotalBudget budget) {
         this.records.addAll(records);
         this.budget = budget;
     }
@@ -42,7 +44,7 @@ class JsonSerializableFinanceTracker {
      */
     public JsonSerializableFinanceTracker(ReadOnlyFinanceTracker source) {
         records.addAll(source.getRecordList().stream().map(JsonAdaptedRecord::new).collect(Collectors.toList()));
-        budget = new JsonAdaptedBudget(source.getBudget());
+        budget = new JsonAdaptedTotalBudget(source.getBudget());
     }
 
     /**
@@ -56,7 +58,7 @@ class JsonSerializableFinanceTracker {
             Record record = jsonAdaptedRecord.toModelType();
             financeTracker.addRecord(record);
         }
-        financeTracker.addBudget(budget.toModelType());
+        financeTracker.getBudget().set(budget.toModelType());
 
         return financeTracker;
     }

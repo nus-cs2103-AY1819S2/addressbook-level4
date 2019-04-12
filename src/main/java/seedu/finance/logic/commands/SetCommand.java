@@ -7,6 +7,7 @@ import seedu.finance.logic.CommandHistory;
 import seedu.finance.logic.commands.exceptions.CommandException;
 import seedu.finance.model.Model;
 import seedu.finance.model.budget.Budget;
+import seedu.finance.model.exceptions.CategoryBudgetExceedTotalBudgetException;
 
 /**
  * Sets a budget in the finance tracker.
@@ -20,14 +21,13 @@ public class SetCommand extends Command {
             + "Parameters: "
             + PREFIX_AMOUNT + "AMOUNT "
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_AMOUNT + "$500.50";
+            + PREFIX_AMOUNT + "500.50";
     public static final String MESSAGE_SUCCESS = "Budget Set: %1$s";
-    public static final String MESSAGE_DUPLICATE_BUDGET = "A budget has already been set.";
 
     private final String amount;
 
     /**
-     * Creates a SetCommand to set the specificed {@code Amount} as budget
+     * Creates a SetCommand to set the specified {@code Amount} as budget
      */
     public SetCommand(String amount) {
         requireNonNull(amount);
@@ -39,13 +39,14 @@ public class SetCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
-        if (model.hasBudget()) {
-            throw new CommandException(MESSAGE_DUPLICATE_BUDGET);
+        try {
+            Budget budget = new Budget(Double.parseDouble(amount));
+            model.addBudget(budget);
+            model.commitFinanceTracker();
+            return new CommandResult(String.format(MESSAGE_SUCCESS, amount), true, false, false);
+        } catch (CategoryBudgetExceedTotalBudgetException cte) {
+            throw new CommandException(cte.getMessage());
         }
-        Budget budget = new Budget(Double.parseDouble(amount));
-        model.addBudget(budget);
-        model.commitFinanceTracker();
-        return new CommandResult(String.format(MESSAGE_SUCCESS, amount), true, false, false);
     }
 
     @Override
@@ -55,7 +56,7 @@ public class SetCommand extends Command {
             return true;
         }
 
-        // instaceof handles null
+        // instanceof handles null
         if (!(other instanceof SetCommand)) {
             return false;
         }

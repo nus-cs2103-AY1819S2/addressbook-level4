@@ -2,6 +2,7 @@ package seedu.finance.model;
 
 import java.nio.file.Path;
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.function.Predicate;
 
 import javafx.beans.property.ReadOnlyProperty;
@@ -10,7 +11,9 @@ import seedu.finance.commons.core.GuiSettings;
 import seedu.finance.logic.commands.SummaryCommand.SummaryPeriod;
 import seedu.finance.model.budget.Budget;
 import seedu.finance.model.budget.CategoryBudget;
+import seedu.finance.model.budget.TotalBudget;
 import seedu.finance.model.exceptions.CategoryBudgetExceedTotalBudgetException;
+import seedu.finance.model.exceptions.SpendingInCategoryBudgetExceededException;
 import seedu.finance.model.record.Record;
 
 /**
@@ -84,21 +87,21 @@ public interface Model {
     void setRecord(Record target, Record editedRecord);
 
     /**
-     * Returns true if a {@code budget} exists in the finance tracker.
-     */
-    boolean hasBudget();
-
-    /**
      * Sets the given amount to budget.
      * {@code budget} must not already exist in the finance tracker.
      */
-    void addBudget(Budget budget);
+    void addBudget(Budget budget) throws CategoryBudgetExceedTotalBudgetException;
 
     /**
      * Sets the given amount to the category budget
      */
-    public void addCategoryBudget(CategoryBudget budget) throws CategoryBudgetExceedTotalBudgetException;
+    void addCategoryBudget(CategoryBudget budget) throws CategoryBudgetExceedTotalBudgetException,
+            SpendingInCategoryBudgetExceededException;
 
+    /**
+     * Returns the hashset of category budgets
+     */
+    HashSet<CategoryBudget> getCatBudget();
     /**
      * Returns an unmodifiable view of the filtered record list in reverse order.
      */
@@ -112,7 +115,7 @@ public interface Model {
     /**
      * Returns the amount value of {@code budget} in a ObjectProperty wrapper
      */
-    Budget getBudget();
+    TotalBudget getBudget();
 
     /**
      * Returns an unmodifiable view of the filtered record list
@@ -125,6 +128,39 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredRecordList(Predicate<Record> predicate);
+
+    /**
+     * Adds the path to the data file before it is switched out by {@code SetFileCommand}.
+     */
+    void addPreviousDataFile(Path path);
+
+    /**
+     * Removes the most recently used previous data file.
+     *
+     * @return Path of most recently used data file.
+     */
+    Path removePreviousDataFile();
+
+    /**
+     * Adds the path to the data file before it is switched out by {@code UndoCommand}.
+     *
+     * @param path the most recent data file before undo.
+     */
+    void addUndoPreviousDataFile(Path path);
+
+    /**
+     * Removes the most recently undo-ed previous data file.
+     *
+     * @return Path of most recently undo-ed data file.
+     */
+    Path removeUndoPreviousDataFile();
+
+    /**
+     * Changes the FinanceTracker data to the one stored in the specified path.
+     *
+     * @param path The path to the data file to revert to.
+     */
+    void changeFinanceTrackerFile(Path path);
 
     /**
      * Returns true if the model has previous finance tracker states to restore.
@@ -150,6 +186,17 @@ public interface Model {
      * Saves the current finance tracker state for undo/redo.
      */
     void commitFinanceTracker();
+
+    /**
+     * Saves the current finance tracker state for undo/redo.
+     * Checks if command is a setFile command.
+     */
+    void commitFinanceTracker(boolean isSetFile);
+
+    /**
+     * Returns the boolean for whether the previous command is a {@code setFileCommand}.
+     */
+    boolean isSetFile();
 
     /**
      * Selected record in the filtered record list.

@@ -2,8 +2,6 @@ package seedu.finance.ui;
 
 import java.util.logging.Logger;
 
-import com.google.common.eventbus.Subscribe;
-
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
@@ -21,7 +19,6 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import seedu.finance.commons.core.GuiSettings;
 import seedu.finance.commons.core.LogsCenter;
-import seedu.finance.commons.events.SwapBrowserPanelEvent;
 import seedu.finance.logic.Logic;
 import seedu.finance.logic.commands.CommandResult;
 import seedu.finance.logic.commands.exceptions.CommandException;
@@ -34,7 +31,7 @@ import seedu.finance.logic.parser.exceptions.ParseException;
 public class MainWindow extends UiPart<Stage> {
 
     private static final String FXML = "MainWindow.fxml";
-    private static final double INITIALIZE_ANIMATION_TIME = 0.5;
+    private static final double INITIALIZE_ANIMATION_TIME = 1;
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
@@ -160,6 +157,8 @@ public class MainWindow extends UiPart<Stage> {
                 logic.getFinanceTracker());
         logic.getFinanceTracker().addListener(observable ->
                 statusBarFooter.updateFileLocation(logic.getFinanceTrackerFilePath()));
+
+
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand, logic.getHistory());
@@ -171,8 +170,8 @@ public class MainWindow extends UiPart<Stage> {
             budgetPanel.setLightThemes(theme);
         }
 
-        browserPanel.updateBudget(logic.getBudget());
         budgetPanel.update(logic.getBudget());
+        browserPanel.updateBudget(logic.getBudget());
 
         summaryPanel = new SummaryPanel(
                 logic.getRecordSummary(),
@@ -210,9 +209,13 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     public void handleChangeBudget() {
-        logger.info("Budget Info: " + logic.getBudget().getCurrentBudget());
         budgetPanel.update(logic.getBudget());
         browserPanel.updateBudget(logic.getBudget());
+        summaryPanel.setData(
+                logic.getRecordSummary(),
+                logic.getSummaryPeriod(),
+                logic.getPeriodAmount()
+        );
     }
 
     void show() {
@@ -277,62 +280,30 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     public void handleShowSummary() { //Need to think how to link to the D3 files
-
-        //logger.info(LogsCenter.getEventHandlingLogMessage(event));
-
-        summaryPanel.setData(
-                logic.getRecordSummary(),
-                logic.getSummaryPeriod(),
-                logic.getPeriodAmount()
-        );
-
-        summaryPane = new AnchorPane();
-        summaryPane.setTopAnchor(summaryPanel.getRoot(), 0.0);
-        summaryPane.getChildren().addAll(summaryPanel.getRoot());
-
-        swapToSummary();
+        handleChangeBudget();
+        handleBrowserPlaceholderSwap();
     }
 
-    @Subscribe
-    //May want to check how to switch from summary panel and no summary panel
-    public void handleSwapBrowserPanelEvent(SwapBrowserPanelEvent event) {
-        switch(event.getPanelType()) {
-        case BROWSER:
-            swapToBrowser();
-            break;
-        case SUMMARY:
-            swapToSummary();
-            break;
-        default:
+    /**
+     * Method to handle swap between browser and summary panel
+     */
+    private void handleBrowserPlaceholderSwap() {
+        Timeline timeline = new Timeline();
+
+        browserPlaceholder.setOpacity(0.0);
+        if (browserPlaceholder.getChildren().get(0).getId().equals("browser")) {
+            browserPlaceholder.getChildren().clear();
+            browserPlaceholder.getChildren().add(summaryPanel.getRoot());
+        } else if (browserPlaceholder.getChildren().get(0).getId().equals("summaryPanel")) {
+            browserPlaceholder.getChildren().clear();
+            browserPlaceholder.getChildren().add(browserPanel.getRoot());
         }
-    }
-
-    /**
-     * Swaps the panel from statistics to list
-     */
-    public void swapToBrowser() {
-        Timeline timeline = new Timeline();
-        browserPanelPlaceholder.setOpacity(0.0);
-        browserPanelPlaceholder.getChildren().clear();
-        browserPanelPlaceholder.getChildren().add(recordListPanel.getRoot());
-        addFadeInAnimation(browserPanelPlaceholder, 0.0, timeline);
+        addFadeInAnimation(browserPlaceholder, 0.0, timeline);
         timeline.playFromStart();
     }
 
     /**
-     * Swaps the panel from list to statistics
-     */
-    public void swapToSummary() {
-        Timeline timeline = new Timeline();
-        browserPanelPlaceholder.setOpacity(0.0);
-        browserPanelPlaceholder.getChildren().clear();
-        browserPanelPlaceholder.getChildren().add(summaryPane);
-        addFadeInAnimation(browserPanelPlaceholder, 0.0, timeline);
-        timeline.playFromStart();
-    }
-
-    /**
-     *
+     * Method to handle fading in animation when swapping panels
      */
     public void addFadeInAnimation(Pane pane, double startTime, Timeline timeline) {
         KeyFrame start = new KeyFrame(Duration.seconds(startTime), new KeyValue(pane.opacityProperty(),

@@ -1,10 +1,8 @@
-// TODO: Failed Test; need to update
-/*
 package systemtests;
 
 import java.nio.file.Path;
-import java.comparator.concurrent.TimeoutException;
-import java.comparator.function.Supplier;
+import java.util.concurrent.TimeoutException;
+import java.util.function.Supplier;
 
 import org.testfx.api.FxToolkit;
 
@@ -13,19 +11,19 @@ import javafx.stage.Stage;
 import seedu.finance.TestApp;
 import seedu.finance.model.ReadOnlyFinanceTracker;
 
-*/
+
 /**
  * Contains helper methods that system tests require.
- *//*
+ */
 
 public class SystemTestSetupHelper {
     private TestApp testApp;
     private MainWindowHandle mainWindowHandle;
 
-    */
-/**
+
+    /**
      * Sets up a new {@code TestApp} and returns it.
-     *//*
+     */
 
     public TestApp setupApplication(Supplier<ReadOnlyFinanceTracker> financeTracker, Path saveFileLocation) {
         try {
@@ -38,10 +36,10 @@ public class SystemTestSetupHelper {
         return testApp;
     }
 
-    */
-/**
+
+    /**
      * Initializes TestFX.
-     *//*
+     */
 
     public static void initialize() {
         try {
@@ -52,10 +50,10 @@ public class SystemTestSetupHelper {
         }
     }
 
-    */
-/**
+
+    /**
      * Encapsulates the primary stage of {@code TestApp} in a {@code MainWindowHandle} and returns it.
-     *//*
+     */
 
     public MainWindowHandle setupMainWindowHandle() {
         try {
@@ -71,10 +69,10 @@ public class SystemTestSetupHelper {
         return mainWindowHandle;
     }
 
-    */
-/**
+
+    /**
      * Tears down existing stages.
-     *//*
+     */
 
     public void tearDownStage() {
         try {
@@ -84,4 +82,3 @@ public class SystemTestSetupHelper {
         }
     }
 }
-*/

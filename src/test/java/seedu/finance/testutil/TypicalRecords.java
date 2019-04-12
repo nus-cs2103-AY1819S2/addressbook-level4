@@ -6,6 +6,8 @@ import static seedu.finance.logic.commands.CommandTestUtil.VALID_CATEGORY_FRIEND
 import static seedu.finance.logic.commands.CommandTestUtil.VALID_CATEGORY_HUSBAND;
 import static seedu.finance.logic.commands.CommandTestUtil.VALID_DATE_AMY;
 import static seedu.finance.logic.commands.CommandTestUtil.VALID_DATE_BOB;
+import static seedu.finance.logic.commands.CommandTestUtil.VALID_DESCRIPTION_AMY;
+import static seedu.finance.logic.commands.CommandTestUtil.VALID_DESCRIPTION_BOB;
 import static seedu.finance.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.finance.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 
@@ -14,7 +16,10 @@ import java.util.Arrays;
 import java.util.List;
 
 import seedu.finance.model.FinanceTracker;
+import seedu.finance.model.budget.CategoryBudget;
 import seedu.finance.model.budget.TotalBudget;
+import seedu.finance.model.exceptions.CategoryBudgetExceedTotalBudgetException;
+import seedu.finance.model.exceptions.SpendingInCategoryBudgetExceededException;
 import seedu.finance.model.record.Description;
 import seedu.finance.model.record.Record;
 
@@ -42,7 +47,7 @@ public class TypicalRecords {
             .withAmount("20.00").withDate("02/02/2017").withDescription(new Description(""))
             .withCategory("food").build();
     public static final Record GIFT = new RecordBuilder().withName("Gift")
-            .withAmount("24.90").withDate("12/02/2027").withDescription(new Description(""))
+            .withAmount("24.90").withDate("12/02/2019").withDescription(new Description(""))
             .withCategory("gift").build();
 
     // Manually added
@@ -53,10 +58,11 @@ public class TypicalRecords {
 
     // Manually added - Record's details found in {@code CommandTestUtil}
     public static final Record AMY = new RecordBuilder().withName(VALID_NAME_AMY).withAmount(VALID_AMOUNT_AMY)
-            .withDate(VALID_DATE_AMY).withCategory(VALID_CATEGORY_FRIEND).build();
+            .withDate(VALID_DATE_AMY).withCategory(VALID_CATEGORY_FRIEND)
+            .withDescription(new Description(VALID_DESCRIPTION_AMY)).build();
     public static final Record BOB = new RecordBuilder().withName(VALID_NAME_BOB).withAmount(VALID_AMOUNT_BOB)
             .withDate(VALID_DATE_BOB).withCategory(VALID_CATEGORY_HUSBAND)
-            .build();
+            .withDescription(new Description(VALID_DESCRIPTION_BOB)).build();
 
     public static final String KEYWORD_MATCHING_DONUT = "Donut"; // A keyword that matches DONUT
 
@@ -67,7 +73,41 @@ public class TypicalRecords {
      */
     public static FinanceTracker getTypicalFinanceTracker() {
         FinanceTracker ft = new FinanceTracker();
-        ft.addBudget(new TotalBudget(500.00));
+        try {
+            ft.addBudget(new TotalBudget(500.00));
+            for (Record record : getTypicalRecords()) {
+                ft.addRecord(record);
+            }
+            return ft;
+        } catch (CategoryBudgetExceedTotalBudgetException cte) {
+            return ft;
+        }
+    }
+
+    /**
+     * Returns an {@code Finance Tracker} with typical records and allocated Food category budget
+     */
+    public static FinanceTracker getTypicalFinanceTrackerWithCatBudget() {
+        FinanceTracker ft = new FinanceTracker();
+        try {
+            ft.addBudget(new TotalBudget(500.00));
+            for (Record record : getTypicalRecords()) {
+                ft.addRecord(record);
+            }
+
+            ft.addCategoryBudget(new CategoryBudget("Food", 60.00));
+        } catch (CategoryBudgetExceedTotalBudgetException e) {
+            return ft;
+        } catch (SpendingInCategoryBudgetExceededException f) {
+            return ft;
+        }
+        return ft;
+    }
+    /**
+     * Returns an {@code FinanceTracker} without budget set but with all the typical records.
+     */
+    public static FinanceTracker getTypicalFinanceTrackerWithoutSetBudget() {
+        FinanceTracker ft = new FinanceTracker();
         for (Record record : getTypicalRecords()) {
             ft.addRecord(record);
         }

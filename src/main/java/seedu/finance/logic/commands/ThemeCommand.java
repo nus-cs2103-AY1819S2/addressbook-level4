@@ -1,4 +1,5 @@
 package seedu.finance.logic.commands;
+//@@author Jackimaru96
 
 import seedu.finance.commons.core.Messages;
 import seedu.finance.logic.CommandHistory;
@@ -51,7 +52,7 @@ public class ThemeCommand extends Command {
      * @param theme the user input
      * @return true if the theme is in the library
      */
-    private boolean isValidTheme(String theme) {
+    public boolean isValidTheme(String theme) {
         return theme.equals("Dark") || theme.equals("Light")
                 || theme.equals("Blue") || theme.equals("Pink");
     }
@@ -67,6 +68,6 @@ public class ThemeCommand extends Command {
         }
 
         ThemeCommand e = (ThemeCommand) other;
-        return e.theme == this.theme;
+        return this.theme.equals(e.theme);
     }
 }

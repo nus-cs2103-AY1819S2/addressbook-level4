@@ -29,6 +29,23 @@ public class SearchCommandParser implements Parser<SearchCommand> {
         }
 
         String[] argsWithFlag = trimmedArgs.split("\\s+");
+
+        int noFlags = 0;
+
+        for (int i = 0; i < argsWithFlag.length; i++) {
+            if (argsWithFlag[i].charAt(0) == '-') {
+                noFlags++;
+            }
+        }
+
+        if (noFlags < 1) {
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, SearchCommand.NO_FLAG));
+        } else if (noFlags > 1) {
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, SearchCommand.ONE_FLAG_ONLY));
+        }
+
         String[] keywords = Arrays.copyOfRange(argsWithFlag, 1, argsWithFlag.length);
 
         switch (argsWithFlag[0]) {

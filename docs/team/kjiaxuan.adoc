@@ -29,7 +29,7 @@ This section shows a summary of my coding, documentation, and other helpful cont
 
 === Enhancement added
 
-* rephrase another day *
+* rephrase another day, add in -asc and -desc stuff *
 
 I added a reverse and sort feature into the software.
 
@@ -59,9 +59,49 @@ An in-depth analysis of design alternatives was necessary to … +
 The implementation was also challenging as it required changes to existing commands ….
 
 === Code contributed
+Click https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#=undefined&search=kjiaxuan[here] to see the code I contributed to the In-Credit-Ble project!
+
 
 === Other contributions
+* Enhancements:
+** Added aliases for the earlier commands and allowed commands entered to be case-insensitive so that the software
+becomes more user-friendly and convenient to use. +
+(Pull Requests: https://github.com/CS2103-AY1819S2-W17-3/main/pull/15[#15],
+https://github.com/CS2103-AY1819S2-W17-3/main/pull/22[#22],
+https://github.com/CS2103-AY1819S2-W17-3/main/pull/71[#71])
+** Imported DateTimeFormatter and LocalDate into the project to make management of dates easier. +
+(Pull Requests: https://github.com/CS2103-AY1819S2-W17-3/main/pull/90[#90])
+** Worked on debugging the system tests and increased code coverage. +
+(Pull Requests: https://github.com/CS2103-AY1819S2-W17-3/main/pull/177[#177])
+
+* Documentation:
+** Updated and formatted parts of User Guide and Developer Guide. +
+(Pull Requests: https://github.com/CS2103-AY1819S2-W17-3/main/pull/88[#88],
+https://github.com/CS2103-AY1819S2-W17-3/main/pull/106[#106],
+https://github.com/CS2103-AY1819S2-W17-3/main/pull/110[#110])
+
+* Community:
+** PRs reviewed: https://github.com/CS2103-AY1819S2-W17-3/main/pull/63[#63],
+https://github.com/CS2103-AY1819S2-W17-3/main/pull/64[#64],
+https://github.com/CS2103-AY1819S2-W17-3/main/pull/99[#99],
+https://github.com/CS2103-AY1819S2-W17-3/main/pull/121[#121]
+
+
 
 == Contributions to the User Guide
+|===
+|_These are additions I made to the In-Credit-Ble User Guide for the `reverse` and `sort` features._
+|===
+
+include::../UserGuide.adoc[tag=sort]
+
+include::../UserGuide.adoc[tag=reverse]
 
 == Contributions to the Developer Guide
+|===
+|_These are additions I made to the In-Credit-Ble Developer Guide for the `reverse` and `sort` features._
+|===
+
+include::../DeveloperGuide.adoc[tag=sort]
+
+include::../DeveloperGuide.adoc[tag=reverse]

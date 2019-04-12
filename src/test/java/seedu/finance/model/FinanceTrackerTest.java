@@ -11,6 +11,7 @@ import static seedu.finance.testutil.TypicalRecords.getTypicalFinanceTracker;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 
 import org.junit.Rule;
@@ -21,6 +22,7 @@ import javafx.beans.InvalidationListener;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.finance.model.budget.CategoryBudget;
 import seedu.finance.model.budget.TotalBudget;
 import seedu.finance.model.record.Record;
 import seedu.finance.testutil.RecordBuilder;
@@ -131,10 +133,11 @@ public class FinanceTrackerTest {
 
         @Override
         public void addListener(InvalidationListener listener) {
-            throw new AssertionError("This method should not be called.");
+            throw new AssertionError(
+                    "This method should not be called.");
         }
 
-        @Override
+
         public void removeListener(InvalidationListener listener) {
             throw new AssertionError("This method should not be called.");
         }
@@ -142,6 +145,17 @@ public class FinanceTrackerTest {
         @Override
         public TotalBudget getBudget() {
             return this.budget;
+        }
+
+        // Stub
+        @Override
+        public HashSet<CategoryBudget> getCategoryBudget() {
+            return null;
+        }
+
+        @Override
+        public boolean isSetFile() {
+            return false;
         }
     }
 

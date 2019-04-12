@@ -1,10 +1,8 @@
-// TODO: Failed Test; need to update
-/*
 package seedu.finance;
 
 import java.io.IOException;
 import java.nio.file.Path;
-import java.comparator.function.Supplier;
+import java.util.function.Supplier;
 
 import javafx.stage.Screen;
 import javafx.stage.Stage;
@@ -21,11 +19,10 @@ import seedu.finance.storage.UserPrefsStorage;
 import seedu.finance.testutil.TestUtil;
 import systemtests.ModelHelper;
 
-*/
 /**
  * This class is meant to override some properties of MainApp so that it will be suited for
  * testing
- *//*
+ */
 
 public class TestApp extends MainApp {
 
@@ -72,10 +69,10 @@ public class TestApp extends MainApp {
         return userPrefs;
     }
 
-    */
-/**
+
+    /**
      * Returns a defensive copy of the finance tracker data stored inside the storage file.
-     *//*
+     */
 
     public FinanceTracker readStorageFinanceTracker() {
         try {
@@ -87,19 +84,19 @@ public class TestApp extends MainApp {
         }
     }
 
-    */
-/**
+
+    /**
      * Returns the file path of the storage file.
-     *//*
+     */
 
     public Path getStorageSaveLocation() {
         return storage.getFinanceTrackerFilePath();
     }
 
-    */
-/**
+
+    /**
      * Returns a defensive copy of the model.
-     *//*
+     */
 
     public Model getModel() {
         Model copy = new ModelManager((model.getFinanceTracker()), new UserPrefs());
@@ -117,4 +114,3 @@ public class TestApp extends MainApp {
     }
 
 }
-*/

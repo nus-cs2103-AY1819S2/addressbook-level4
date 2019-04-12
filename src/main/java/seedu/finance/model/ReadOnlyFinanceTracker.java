@@ -1,8 +1,10 @@
 package seedu.finance.model;
 
+import java.util.HashSet;
+
 import javafx.beans.Observable;
 import javafx.collections.ObservableList;
-import seedu.finance.model.budget.Budget;
+import seedu.finance.model.budget.CategoryBudget;
 import seedu.finance.model.budget.TotalBudget;
 import seedu.finance.model.record.Record;
 
@@ -17,8 +19,10 @@ public interface ReadOnlyFinanceTracker extends Observable {
      */
     ObservableList<Record> getRecordList();
 
-    Budget getBudget();
+    TotalBudget getBudget();
 
-    TotalBudget getTotalBudget();
+    HashSet<CategoryBudget> getCategoryBudget();
+
+    boolean isSetFile();
 
 }

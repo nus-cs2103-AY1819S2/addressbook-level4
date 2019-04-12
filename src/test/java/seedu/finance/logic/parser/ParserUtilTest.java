@@ -1,10 +1,12 @@
 package seedu.finance.logic.parser;
 
+import static java.time.temporal.ChronoUnit.DAYS;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.finance.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
 import static seedu.finance.testutil.TypicalIndexes.INDEX_FIRST_RECORD;
 
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
@@ -18,6 +20,7 @@ import seedu.finance.logic.parser.exceptions.ParseException;
 import seedu.finance.model.category.Category;
 import seedu.finance.model.record.Amount;
 import seedu.finance.model.record.Date;
+import seedu.finance.model.record.Description;
 import seedu.finance.model.record.Name;
 import seedu.finance.testutil.Assert;
 
@@ -26,12 +29,14 @@ public class ParserUtilTest {
     private static final String INVALID_AMOUNT = "$1";
     private static final String INVALID_DATE = "1/30/5999";
     private static final String INVALID_CATEGORY = "#friend";
+    private static final String INVALID_DESCRIPTION = "12345678901234567890123456789012345678901";
 
     private static final String VALID_NAME = "Rachel Walker";
     private static final String VALID_AMOUNT = "123";
     private static final String VALID_DATE = "12/02/2009";
     private static final String VALID_CATEGORY_1 = "friend";
     private static final String VALID_CATEGORY_2 = "neighbour";
+    private static final String VALID_DESCRIPTION = "1234567890123456789012345678901234567890";
 
     private static final String WHITESPACE = " \t\r\n";
 
@@ -117,6 +122,12 @@ public class ParserUtilTest {
     }
 
     @Test
+    public void parseTomorrowDate_invalidValue_throwsParseException() {
+        Date tomorrowDate = new Date(LocalDate.now().plus(1, DAYS));
+        Assert.assertThrows(ParseException.class, () -> ParserUtil.parseDate(tomorrowDate.toString()));
+    }
+
+    @Test
     public void parseDate_validValueWithoutWhitespace_returnsDate() throws Exception {
         Date expectedDate = new Date(VALID_DATE);
         assertEquals(expectedDate, ParserUtil.parseDate(VALID_DATE));
@@ -178,5 +189,28 @@ public class ParserUtilTest {
                                                                          new Category(VALID_CATEGORY_2)));
 
         assertEquals(expectedCategorySet, actualCategorySet);
+    }
+
+    @Test
+    public void parseDescription_null_throwsNullPointerException() {
+        Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parseDescription((String) null));
+    }
+
+    @Test
+    public void parseDescription_invalidValue_throwsParseException() {
+        Assert.assertThrows(ParseException.class, () -> ParserUtil.parseDescription(INVALID_DESCRIPTION));
+    }
+
+    @Test
+    public void parseDescription_validValueWithoutWhitespace_returnsDescription() throws Exception {
+        Description expectedDescription = new Description(VALID_DESCRIPTION);
+        assertEquals(expectedDescription, ParserUtil.parseDescription(VALID_DESCRIPTION));
+    }
+
+    @Test
+    public void parseDescription_validValueWithWhitespace_returnsTrimmedDescription() throws Exception {
+        String descriptionWithWhitespace = WHITESPACE + VALID_DESCRIPTION + WHITESPACE;
+        Description expectedDescription = new Description(VALID_DESCRIPTION);
+        assertEquals(expectedDescription, ParserUtil.parseDescription(descriptionWithWhitespace));
     }
 }

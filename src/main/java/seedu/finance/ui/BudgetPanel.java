@@ -48,8 +48,6 @@ public class BudgetPanel extends UiPart<Region> {
         budgetDisplay.setFont(Font.font("Abel", SIZE_OF_FONT));
         spendingDisplay.setFont(Font.font("Abel", SIZE_OF_FONT));
         percentageDisplay.getChildren().addAll(spendingDisplay, budgetDisplay);
-        updateTotalBudgetTextDisplay(budget.getTotalBudget());
-        updateCurrentSpendingTextDisplay(budget.getCurrentSpendings());
 
         update(budget);
     }
@@ -141,8 +139,8 @@ public class BudgetPanel extends UiPart<Region> {
 
         // Close to exceeding budget; orange for warning
         if (percentage <= 1 && percentage >= 0.8) {
-            spendingDisplay.setStyle("-fx-fill: #ae6429;");
-            budgetBar.setStyle("-fx-accent: derive(#ae6429, 20%);");
+            spendingDisplay.setStyle("-fx-fill: #ff972d;");
+            budgetBar.setStyle("-fx-accent: derive(#ff972d, 20%);");
             return;
         }
         // default, within budget green

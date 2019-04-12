@@ -34,7 +34,7 @@ public class SpendCommandParser implements Parser<SpendCommand> {
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_AMOUNT, PREFIX_DATE, PREFIX_CATEGORY,
                         PREFIX_DESCRIPTION);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_AMOUNT)
+        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_AMOUNT, PREFIX_CATEGORY)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SpendCommand.MESSAGE_USAGE));
         }
@@ -49,7 +49,7 @@ public class SpendCommandParser implements Parser<SpendCommand> {
         }
         Description description = new Description("");
         if (arePrefixesPresent(argMultimap, PREFIX_DESCRIPTION)) {
-            description = new Description(argMultimap.getValue(PREFIX_DESCRIPTION).get().trim());
+            description = ParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get().trim());
         }
 
         Category category = ParserUtil.parseCategory(argMultimap.getValue(PREFIX_CATEGORY).get());

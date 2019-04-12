@@ -7,9 +7,11 @@ import static seedu.finance.logic.commands.CommandTestUtil.CATEGORY_DESC_FRIEND;
 import static seedu.finance.logic.commands.CommandTestUtil.CATEGORY_DESC_HUSBAND;
 import static seedu.finance.logic.commands.CommandTestUtil.DATE_DESC_AMY;
 import static seedu.finance.logic.commands.CommandTestUtil.DATE_DESC_BOB;
+import static seedu.finance.logic.commands.CommandTestUtil.DESCRIPTION_DESC_AMY;
 import static seedu.finance.logic.commands.CommandTestUtil.INVALID_AMOUNT_DESC;
 import static seedu.finance.logic.commands.CommandTestUtil.INVALID_CATEGORY_DESC;
 import static seedu.finance.logic.commands.CommandTestUtil.INVALID_DATE_DESC;
+import static seedu.finance.logic.commands.CommandTestUtil.INVALID_DESCRIPTION_DESC;
 import static seedu.finance.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
 import static seedu.finance.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static seedu.finance.logic.commands.CommandTestUtil.VALID_AMOUNT_AMY;
@@ -18,8 +20,10 @@ import static seedu.finance.logic.commands.CommandTestUtil.VALID_CATEGORY_FRIEND
 import static seedu.finance.logic.commands.CommandTestUtil.VALID_CATEGORY_HUSBAND;
 import static seedu.finance.logic.commands.CommandTestUtil.VALID_DATE_AMY;
 import static seedu.finance.logic.commands.CommandTestUtil.VALID_DATE_BOB;
+import static seedu.finance.logic.commands.CommandTestUtil.VALID_DESCRIPTION_AMY;
 import static seedu.finance.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.finance.logic.parser.CliSyntax.PREFIX_CATEGORY;
+import static seedu.finance.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.finance.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.finance.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.finance.testutil.TypicalIndexes.INDEX_FIRST_RECORD;
@@ -34,12 +38,15 @@ import seedu.finance.logic.commands.EditCommand.EditRecordDescriptor;
 import seedu.finance.model.category.Category;
 import seedu.finance.model.record.Amount;
 import seedu.finance.model.record.Date;
+import seedu.finance.model.record.Description;
 import seedu.finance.model.record.Name;
 import seedu.finance.testutil.EditRecordDescriptorBuilder;
 
 public class EditCommandParserTest {
 
     private static final String CATEGORY_EMPTY = " " + PREFIX_CATEGORY;
+
+    private static final String DESCRIPTION_EMPTY = PREFIX_DESCRIPTION + " ";
 
     private static final String MESSAGE_INVALID_FORMAT =
             String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE);
@@ -56,6 +63,14 @@ public class EditCommandParserTest {
 
         // no index and no field specified
         assertParseFailure(parser, "", MESSAGE_INVALID_FORMAT);
+    }
+
+    // Category is a compulsory field.
+    @Test
+    public void parse_resetCategories_failure() {
+        Index targetIndex = INDEX_THIRD_RECORD;
+        String userInput = targetIndex.getOneBased() + CATEGORY_EMPTY;
+        assertParseFailure(parser, userInput, Category.MESSAGE_CONSTRAINTS);
     }
 
     @Test
@@ -78,22 +93,21 @@ public class EditCommandParserTest {
         assertParseFailure(parser, "1" + INVALID_NAME_DESC, Name.MESSAGE_CONSTRAINTS); // invalid name
         assertParseFailure(parser, "1" + INVALID_AMOUNT_DESC, Amount.MESSAGE_CONSTRAINTS); // invalid amount
         assertParseFailure(parser, "1" + INVALID_DATE_DESC, Date.MESSAGE_CONSTRAINTS); // invalid date
-        // invalid category
-        assertParseFailure(parser, "1" + INVALID_CATEGORY_DESC, Category.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, "1" + INVALID_CATEGORY_DESC, Category.MESSAGE_CONSTRAINTS); // invalid category
+        assertParseFailure(parser, "1"
+                + INVALID_DESCRIPTION_DESC, Description.MESSAGE_CONSTRAINTS); // invalid description
 
-        // valid phone followed by invalid phone. The test case for invalid phone followed by valid phone
+        // valid amount followed by invalid amount. The test case for invalid amount followed by valid phone
         // is tested at {@code parse_invalidValueFollowedByValidValue_success()}
         assertParseFailure(parser, "1" + AMOUNT_DESC_BOB + INVALID_AMOUNT_DESC, Amount.MESSAGE_CONSTRAINTS);
 
-        // while parsing {@code PREFIX_CATEGORY} alone will reset the categories of the {@code Record} being edited,
-        // parsing it together with a valid category results in error
+        // parsing {@code PREFIX_CATEGORY} as the last argument will result in an error
         assertParseFailure(parser, "1" + CATEGORY_DESC_FRIEND + CATEGORY_DESC_HUSBAND
                             + CATEGORY_EMPTY, Category.MESSAGE_CONSTRAINTS);
-        // TODO: Failed Test; need to update
-        /*assertParseFailure(parser, "1" + CATEGORY_DESC_FRIEND + CATEGORY_EMPTY
-                            + CATEGORY_DESC_HUSBAND, Category.MESSAGE_CONSTRAINTS);*/
-        /*assertParseFailure(parser, "1" + CATEGORY_EMPTY + CATEGORY_DESC_FRIEND
-                            + CATEGORY_DESC_HUSBAND, Category.MESSAGE_CONSTRAINTS);*/
+
+        // parsing {@code PREFIX_CATEGORY} will result in an error
+        assertParseFailure(parser, "1" + CATEGORY_EMPTY, Category.MESSAGE_CONSTRAINTS);
+
 
         // multiple invalid values, but only the first invalid value is captured
         assertParseFailure(parser, "1" + INVALID_NAME_DESC + INVALID_AMOUNT_DESC + VALID_AMOUNT_AMY
@@ -153,6 +167,12 @@ public class EditCommandParserTest {
         descriptor = new EditRecordDescriptorBuilder().withCategory(VALID_CATEGORY_FRIEND).build();
         expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
+
+        //description
+        userInput = targetIndex.getOneBased() + DESCRIPTION_DESC_AMY;
+        descriptor = new EditRecordDescriptorBuilder().withDescription(VALID_DESCRIPTION_AMY).build();
+        expectedCommand = new EditCommand(targetIndex, descriptor);
+        assertParseSuccess(parser, userInput, expectedCommand);
     }
 
     @Test
@@ -185,17 +205,4 @@ public class EditCommandParserTest {
         expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
     }
-
-    // Category is a compulsory field.
-    /*
-    @Test
-    public void parse_resetCategories_success() {
-        Index targetIndex = INDEX_THIRD_RECORD;
-        String userInput = targetIndex.getOneBased() + CATEGORY_EMPTY;
-
-        EditCommand.EditRecordDescriptor descriptor = new EditRecordDescriptorBuilder().withCategories().build();
-        EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
-
-        assertParseSuccess(parser, userInput, expectedCommand);
-    }*/
 }

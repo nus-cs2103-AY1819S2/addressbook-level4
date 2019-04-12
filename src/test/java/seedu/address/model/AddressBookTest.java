@@ -131,7 +131,7 @@ public class AddressBookTest {
         addressBook.addJob(ENGINEER);
         addressBook.addPerson(ALICE);
 
-        assertTrue(addressBook.addPersonToJobByNric(ALICE.getNric(), ENGINEER.getName()));
+        assertTrue(addressBook.addPersonToJob(ALICE.getNric(), ENGINEER.getName()));
     }
 
     /**

@@ -22,7 +22,6 @@ import seedu.address.model.interviews.Interviews;
 import seedu.address.model.job.Job;
 import seedu.address.model.job.JobListName;
 import seedu.address.model.job.JobName;
-import seedu.address.model.person.Nric;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
@@ -188,10 +187,10 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public boolean addPersonToJob(JobName job, Nric nric) {
-        requireAllNonNull(job, nric);
+    public void addPersonToJob(Job job, Person person, JobListName list) {
+        requireAllNonNull(job, person);
 
-        return versionedAddressBook.addPersonToJobByNric(nric, job);
+        versionedAddressBook.addPersonToJob(person, job, list);
     }
 
     @Override
@@ -218,8 +217,8 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Integer movePerson(JobName jobName, Nric nric, Integer source, Integer dest) {
-        return versionedAddressBook.movePerson(jobName, nric, source, dest);
+    public Integer movePerson(Job job, Person person, Integer source, Integer dest) {
+        return versionedAddressBook.movePerson(job, person, source, dest);
     }
 
     @Override
@@ -255,15 +254,19 @@ public class ModelManager implements Model {
         return allJobsList;
     }
 
-    public ObservableList<Person> getJobsList(int listNumber) {
-        if (listNumber == 0) {
+    public ObservableList<Person> getJobsList(JobListName list) {
+
+        switch (list) {
+        case APPLICANT:
             return activeJobAllApplicants;
-        } else if (listNumber == 1) {
+        case KIV:
             return activeJobKiv;
-        } else if (listNumber == 2) {
+        case INTERVIEW:
             return activeJobInterview;
-        } else {
+        case SHORTLIST:
             return activeJobShortlist;
+        default:
+            return displayedFilteredPersons;
         }
     }
 

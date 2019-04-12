@@ -30,7 +30,6 @@ import seedu.address.model.interviews.Interviews;
 import seedu.address.model.job.Job;
 import seedu.address.model.job.JobListName;
 import seedu.address.model.job.JobName;
-import seedu.address.model.person.Nric;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.person.predicate.UniqueFilterList;
@@ -147,7 +146,7 @@ public class CreateJobCommandTest {
         }
 
         @Override
-        public ObservableList<Person> getJobsList(int listNumber) {
+        public ObservableList<Person> getJobsList(JobListName listNumber) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -392,7 +391,7 @@ public class CreateJobCommandTest {
         }
 
         @Override
-        public boolean addPersonToJob(JobName job, Nric nric) {
+        public void addPersonToJob(Job job, Person person, JobListName list) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -412,7 +411,7 @@ public class CreateJobCommandTest {
         }
 
         @Override
-        public Integer movePerson(JobName jobName, Nric nric, Integer source, Integer dest) {
+        public Integer movePerson(Job job, Person person, Integer source, Integer dest) {
             throw new AssertionError("This method should not be called.");
         }
 

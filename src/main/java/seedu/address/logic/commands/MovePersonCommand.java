@@ -5,12 +5,17 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_JOBNAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_LISTNUMBER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NRIC;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import seedu.address.commons.core.Messages;
+import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.job.Job;
+import seedu.address.model.job.JobListName;
 import seedu.address.model.job.JobName;
-import seedu.address.model.person.Nric;
 import seedu.address.model.person.Person;
 
 
@@ -19,93 +24,92 @@ import seedu.address.model.person.Person;
  */
 public class MovePersonCommand extends Command {
 
-    public static final String COMMAND_WORD = "movePerson";
+    public static final String COMMAND_WORD = "movePeople";
     public static final String COMMAND_ALIAS = "mp";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": copies person with NRIC from source list to dest list in job. "
+            + ": copies person to dest list from source list. "
+            + "Displayed job is used unless optional JobName is provided. \n"
             + "Parameters: "
-            + PREFIX_JOBNAME + "JobName "
-            + PREFIX_NRIC + "NRIC "
-            + PREFIX_LISTNUMBER + "source "
-            + PREFIX_LISTNUMBER + "destination "
+            + "DESTINATION_LIST_NAME "
+            + "SOURCE_LIST_NAME "
+            + "applicant indexes"
+            + PREFIX_JOBNAME + "JobName (OPTIONAL)\n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_JOBNAME + "Helper "
-            + PREFIX_NRIC + "S1234567U "
-            + PREFIX_LISTNUMBER + "0 "
-            + PREFIX_LISTNUMBER + "1 "
+            + "applicant "
+            + "kiv "
+            + "1, 2, 3 "
+            + PREFIX_JOBNAME + "King-Of-The-World \n"
             + "The alias \"mp\" can be used instead.\n"
             + "Example: " + COMMAND_ALIAS + " "
-            + PREFIX_JOBNAME + "Helper "
-            + PREFIX_NRIC + "S1234567U "
-            + PREFIX_LISTNUMBER + "0 "
-            + PREFIX_LISTNUMBER + "1 ";
+            + "applicant "
+            + "kiv "
+            + "1, 2, 3 "
+            + PREFIX_JOBNAME + "High-On-Drugs ";
 
-    public static final String MESSAGE_SUCCESS_1 = "Moved person with nric: %1$s ";
-    public static final String MESSAGE_SUCCESS_2 = "in job: %1$s";
+    public static final String MESSAGE_SUCCESS = "All selected people added to job: %1$s";
     public static final String MESSAGE_DUPLICATE_PERSON = "The dest list already has a person with this NRIC";
-    public static final String MESSAGE_MISSING_PERSON = "This Person with NRIC is not in the source list";
-    public static final String MESSAGE_MISSING_JOB = "This job does not exist";
-    public static final String MESSAGE_SOURCE_OUT_OF_RANGE = "Source is out of range (0-3)";
-    public static final String MESSAGE_DEST_OUT_OF_RANGE = "Dest is out of range (0-3)";
+    public static final String MESSAGE_NO_DISPLAYED_JOB = "No job is displayed. "
+            + "Please enter a jobName with jn/ prefixed";
+    public static final String MESSAGE_NO_DESTINATION = "Please provide a destination list";
+    public static final String MESSAGE_NO_SOURCE = "Please provide a source list";
+    public static final String MESSAGE_BAD_INDEX = "One of the indexes is bad";
+    public static final String MESSAGE_JOB_NOT_FOUND = "Given job does not exist in database";
 
+    private final JobListName to;
+    private final JobListName from;
+    private final ArrayList<Index> indexes;
     private final JobName toAdd;
-    private final Nric toAddNric;
-    private final Integer from;
-    private final Integer to;
 
     /**
      * Creates an AddCommand to add the specified {@code job}
      */
-    public MovePersonCommand(JobName name, Nric nric, Integer source, Integer dest) {
-        requireNonNull(name);
-        requireNonNull(nric);
-        requireNonNull(source);
-        requireNonNull(dest);
-        toAdd = name;
-        toAddNric = nric;
-        from = source;
-        to = dest;
+    public MovePersonCommand(JobListName to, JobListName from, ArrayList<Index> indexes, JobName jobName) {
+        requireNonNull(to);
+        requireNonNull(from);
+        requireNonNull(indexes);
+        this.to = to;
+        this.from = from;
+        this.indexes = indexes;
+        this.toAdd = jobName;
     }
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
-        Job tempJob = new Job(toAdd);
-        if (!model.hasJob(tempJob)) {
-            throw new CommandException(MESSAGE_MISSING_JOB);
+        Job tempJob;
+
+        if(toAdd == null) {
+            if (model.getIsAllJobScreen()) {
+                throw new CommandException(MESSAGE_NO_DISPLAYED_JOB);
+            }
+            tempJob = model.getActiveJob();
+        } else {
+            tempJob = new Job(toAdd);
+            try {
+                model.getJob(toAdd);
+            } catch (Exception e) {
+                throw new CommandException(MESSAGE_JOB_NOT_FOUND);
+            }
         }
 
-        Person tempPerson = new Person(toAddNric);
+        List<Person> fromList = model.getJobsList(from);
 
-        if (from > 3 || from < 0) {
-            throw new CommandException(MESSAGE_SOURCE_OUT_OF_RANGE);
-        }
-        if (to > 3 || to < 0) {
-            throw new CommandException(MESSAGE_DEST_OUT_OF_RANGE);
-        }
+        for (int i = 0; i < indexes.size(); i++) {
+            if (indexes.get(i).getZeroBased() >= fromList.size()) {
+                throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            }
 
-        int status = model.movePerson(toAdd, toAddNric, from, to);
+            Person toAdd = fromList.get(indexes.get(i).getZeroBased());
 
-        if (status == 0) {
-            throw new CommandException(MESSAGE_MISSING_PERSON);
-        }
-        if (status == 1) {
-            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+            model.addPersonToJob(tempJob, toAdd, to);
         }
 
 
         model.commitAddressBook();
-        String command1 = String.format(MESSAGE_SUCCESS_1, toAddNric);
-        String command2 = String.format(MESSAGE_SUCCESS_2, toAdd);
-        return new CommandResult(command1 + command2);
+        String command = String.format(MESSAGE_SUCCESS, tempJob);
+        return new CommandResult(command);
     }
 
-    @Override
-    public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof MovePersonCommand // instanceof handles nulls
-                && toAdd.equals(((MovePersonCommand) other).toAdd));
-    }
 }

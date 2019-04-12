@@ -15,6 +15,7 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.Nric;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
+import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.model.person.predicate.UniqueFilterList;
 
@@ -99,17 +100,15 @@ public class Job {
      * Adds a person to a job.
      * Goes to the first list
      */
-    public boolean add(Person person, Integer destination) {
+    public void add(Person person, Integer destination) {
         if (personsList.get(destination).contains(person)) {
-            return false;
+            throw new DuplicatePersonException();
         }
         if (!personsInJob.contains(person)) {
             personsInJob.add(person);
         }
         personsList.get(destination).add(person);
         personsNricList.get(destination).add(person.getNric());
-
-        return true;
     }
 
     /**

@@ -11,10 +11,8 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-
 import seedu.address.model.prescription.exceptions.DuplicatePrescriptionException;
 import seedu.address.model.prescription.exceptions.PrescriptionNotFoundException;
-import seedu.address.testutil.PrescriptionBuilder;
 
 public class UniquePrescriptionListTest {
     @Rule
@@ -55,7 +53,7 @@ public class UniquePrescriptionListTest {
     @Test
     public void setPrescription_nullTargetPrescription_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        uniquePrescriptionList.setPrescription(null,PRESC1);
+        uniquePrescriptionList.setPrescription(null, PRESC1);
     }
 
     @Test
@@ -86,7 +84,7 @@ public class UniquePrescriptionListTest {
     }
 
     @Test
-    public void remove_PrescriptionDoesNotExist_throwsPrescriptionNotFoundException() {
+    public void remove_prescriptionDoesNotExist_throwsPrescriptionNotFoundException() {
         thrown.expect(PrescriptionNotFoundException.class);
         uniquePrescriptionList.remove(PRESC1);
     }

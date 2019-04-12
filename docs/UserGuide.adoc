@@ -373,7 +373,7 @@ Examples:
 * `patientdelete 1` +
 Deletes the patient shown with index 1 from the displayed list.
 
-* `<<patientfind, patientfind>> John` +
+* `<<patientfind, patientfind>> n/John` +
 `patientdelete 2` +
 Deletes the patient shown with index 2 found using the find command.
 

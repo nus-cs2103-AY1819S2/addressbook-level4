@@ -857,7 +857,7 @@ The implementation of Statistics and Record has 3 parts: +
 3. Retrieving the Statistics +
 
 ===== 1. Creation of the Record
-In order for the statistics to be keep tracked of, Records objects are used to retrieve information that the
+In order for the statistics to be keep tracked of, Record objects are used to retrieve information that the
 StatisticsManager will make use of. The Record class is an abstract class that only has 1 abstract method,
 `toStatistics(StatisticsManager sm)`, which will generate a Statistics object.
 Each child class of Record is for a specific operation in QuickDocs, where the implementation

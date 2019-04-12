@@ -340,8 +340,6 @@ The `edit` feature is facilitated by both the *EditCommandParser* and *EditComma
 Essentially upon adding a Pdf to be tracked by the application, the user will be able to
 change certain attributes tied to the PDF such as the `Name` and `Tag` tied to a particular Pdf.
 
-
-
 image::EditCommandActivityDiagram.png[width="600"]
 
 // end::edit[]

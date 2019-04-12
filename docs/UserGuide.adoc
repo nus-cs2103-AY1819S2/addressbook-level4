@@ -218,10 +218,17 @@ Example:
 
 The rename command allows you to change the name of a file, specified by thr index of the file that is next to the name of the file in the Files Section, highlighted in green. +
 
-Format: `rename INDEX n/NAME` +
+The rename command has the following syntax:
+
+[.big]#`rename <INDEX> n/<NEWNAME> t/<NEWTAG1>...`#
+
+* `<INDEX>` refers to the index of the file that you wish to edit.
+* `n/` indicates that you are editing the name of the file
+* `<NEWNAME>` refers to the new value that you would like to set the file _Name_ to.
+* `<NEWTAG...>` refers to the new _Tag_ you wish to add. Leave this portion empty if you
+do not wish to tag this file.
 
 Example:
-
 * `rename 1 n/newname.pdf`
 
 ****
@@ -230,6 +237,45 @@ Example:
 * OUTPUT: If the rename is invalid, our application will notify you in the output area, +
 highlighted in blue.
 ****
+
+[NOTE]
+The index value can be referenced from the list in the main application, or from the
+result of the `Filter`, `Find` or `List` feature.
+
+==== Feature Breakdown
+Step 1: The user launches an application with either an existing set of `Pdf` or a
+new sample set of `Pdf` stored within as shown below.
+
+image::EdiFeatureStep1Default.png[width="600"]
+
+Step 2: The user chooses a `Pdf` that they wish to edit, in this case `g.pdf`, and
+enters the `rename` command into the CLI Interface, following the outlined Syntax as
+illustrated below.
+
+image::EditFeatureUserInput.png[width="600"]
+
+Step 3: Upon hitting enter to execute the command, the *EditCommandParser* parses
+the input into relevant objects that are required to be executed by the *EditCommand*
+object. Upon parsing, the parser then creates a new *EditCommand* that will execute the
+user's input.
+
+Step 4: Upon receiving the necessary information from the parser, the *EditCommand* first
+begins by checking for validity as shown below.
+
+image::EditFeatureNoDuplicate.png[width="700"]
+
+image::EditFeatureDuplicate.png[width="700"]
+
+Step 5: If the validity check and the individual property check passes, the file is then
+effectively renamed within PDF++ and in the actual directory, thus resulting in an output
+as shown below.
+
+image::EditFeatureFinalOutput.png[width="600"]
+
+[NOTE]
+As of V1.2, the Edit Feature removes any existing `Tag` s and replaces them with those
+input by the user (If any). By `V1.4` The user will be able to select tags he wishes
+to remove or add.
 
 === Tagging a file : `tag`
 

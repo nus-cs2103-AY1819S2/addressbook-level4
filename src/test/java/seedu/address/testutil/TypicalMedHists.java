@@ -20,8 +20,8 @@ public class TypicalMedHists {
     public static final MedicalHistory MED_HIST2 = new MedicalHistory(new PersonId("2"), new PersonId("7"),
                     new ValidDate("2019-03-03"), new WriteUp("The patient had a sneeze."));
     public static final MedicalHistory MED_HIST3 = new MedicalHistory(new PersonId("2"), new PersonId("8"),
-            new ValidDate("2019-01-30"), new WriteUp("The patient had a stomachache. " +
-            "I gave him some medicine to release the pain."));
+            new ValidDate("2019-01-30"), new WriteUp("The patient had a stomachache. "
+            + "I gave him some medicine to release the pain."));
     public static final MedicalHistory MED_HIST4 = new MedicalHistory(new PersonId("3"), new PersonId("9"),
             new ValidDate("2019-04-03"), new WriteUp("Had a fever with sore throat. Sleeps late."));
     public static final MedicalHistory MED_HIST5 = new MedicalHistory(new PersonId("4"), new PersonId("10"),

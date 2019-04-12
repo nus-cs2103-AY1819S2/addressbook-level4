@@ -5,6 +5,9 @@ import seedu.address.model.medicalhistory.ValidDate;
 import seedu.address.model.medicalhistory.WriteUp;
 import seedu.address.model.person.PersonId;
 
+/**
+ * A utility class to help with building Medical History objects.
+ */
 public class MedHistBuilder {
 
     public static final String DEFAULT_PATIENT_ID = "1";

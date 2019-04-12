@@ -44,7 +44,7 @@
                   <Insets bottom="5" left="10" right="10" top="5" />
                </padding>
             </StackPane>
-            <HBox fx:id="fourList" focusTraversable="true" maxHeight="1.7976931348623157E308" stylesheets="@DarkTheme.css" VBox.vgrow="ALWAYS">
+            <HBox fx:id="fourList" focusTraversable="true" maxHeight="590.0" stylesheets="@DarkTheme.css" VBox.vgrow="ALWAYS">
                <children>
                   <VBox fx:id="allList" maxHeight="1.7976931348623157E308" minWidth="350.0" prefWidth="350.0">
                      <children>

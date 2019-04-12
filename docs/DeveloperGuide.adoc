@@ -627,7 +627,7 @@ Use a combination of commas and dashes to indicate a range as well. e.g. `1-3,5`
 *** Pros: Less overhead and faster runtime as there the regex would not need to look for `all`
 *** Cons: In the current implementation, Import and Export share the same parser as Import and Export share the same format of `command FILE_PATH INDEX_RANGE`. Since Import uses the `all` keyword, not parsing `all` would require an additional parser for Export. Furthermore, as the accepted inputs of Open and Save are the same (except for .pdf), the user may expect the same accepted inputs for Import and Export as well.
 
-=== Open vs Import
+==== Open vs Import
 
 Suppose you have a `data.json` file with the following contents:
 

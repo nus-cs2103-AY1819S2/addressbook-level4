@@ -570,7 +570,9 @@ specified to be searched.
 Although TeethHub already has a built-in auto-load and auto-save, implementing file management would give the user more flexibility with managing data. +
 PDF export is also implemented so that the user would have an easier time making sense of the data when offline.
 
-The File Management features are: `Open`, `Import`, `Save`, `Export`. +
+The File Management features are: `Open`, `Import`, `Save`, `Export`.
+* If the file that is being opened/imported is corrupted, an error message is thrown and no change is made. +
+* If the user inputs an index range for import/export that does not exist, the current indexes that fall within the range are still imported/exported. This is because we want to make things easier on the user.
 
 [NOTE]
 ============================================================
@@ -591,11 +593,8 @@ Use a combination of commas and dashes to indicate a range as well. e.g. `1-3,5`
 `all` can be used instead to include everything. e.g. `import test.json all` or `export test.json all`
 ============================================================
 
-If the file that is being opened/imported is corrupted, an error message is thrown and no change is made. +
-If the user inputs an index range for import/export that does not exist, the current indexes that fall within the range are still imported/exported. This is because we want to make things easier on the user.
-
 ==== Design Considerations
-
+===== Aspect: Reading or writing a file
 * **Current implementation:** (Open/Import/Save/Export)Command -> InOutAddressBookStorage -> JsonUtil -> FileUtil
 ** **Alternative 1a.1:** (Open/Import/Save/Export)Command -> Json Util -> FileUtil
 ** **Alternative 1a.2:** (Open/Import/Save/Export)Command -> FileUtil
@@ -610,7 +609,7 @@ If the user inputs an index range for import/export that does not exist, the cur
 *** Pros: Less overhead and faster runtime as there are less classes to go through.
 *** Cons: Same as *Alternative 1a* Cons above. In addition to that, passing the job to FileUtil would require implementing Pdf creation and saving that is already present in the third party library Apache PDFBox. Hence the job is passed to PdfUtil which calls the already present methods of Apache PDFBox.
 
-
+===== Aspect: Index ranges of Import and Export
 * **Current implementation:** The Import/Export features accept index ranges that are larger than the actual index range of the content to be imported/exported.
 ** **Alternative 2:** Don't allow indexes out of range for Import/Export.
 *** Pros: User cannot input a very large index range. This prevents a scenario where a very large range causes slow runtime and increased memory due to the amount of indexes to process.
@@ -704,12 +703,19 @@ image::ExportCommandActivityDiagram.png[width="870"]
 6b. ExportCommand calls the new saveAsPdf() if the requested file is a ".pdf" file.
 
 === Suggestion feature
+==== Current Implementation
+As TeethHub contains commands that are similar, we decided to implement a Suggestion feature. +
+When the user types a Common command, a suggestion will be displayed asking the user if they meant to type something else. +
+We define a Common command as a command whose name is used by the Patient commands, Record commands and/or Task commands. +
+For example, as there are `patientadd`, `recordadd` and `taskadd`, the Common command would be `add`. +
+As TeethHub has a Patient Mode and a Record Mode, only commands that can be used in the user's current mode will be displayed.
 
+image::SuggestionFeatureAdd.png[width="157"]
 
-===== Design Considerations
-* **Current implementation:** When the user makes multiple typing mistakes, Help window does not show automatically. +
-** **Alternative 2:** Show Help window if the user inputs invalid commands `N` times in a row.
-*** Pros: Provide help to the user if the user needs it. +
+==== Design Considerations
+* **Current implementation:** When the user types a Common command, suggestions are displayed. +
+** **Alternative 1:** Show Help window if the user inputs invalid commands `N` times in a row.
+*** Pros: Only 1 implementation, as opposed to an implementation for each Common command. +
 *** Cons: Might be rude.
 
 === Logging

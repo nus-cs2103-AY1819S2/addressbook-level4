@@ -24,6 +24,7 @@ import seedu.address.model.menu.ReadOnlyMenu;
 import seedu.address.model.order.ReadOnlyOrders;
 import seedu.address.model.statistics.ReadOnlyStatistics;
 import seedu.address.model.table.ReadOnlyTables;
+import seedu.address.model.util.SampleDataUtil;
 import seedu.address.storage.JsonMenuStorage;
 import seedu.address.storage.JsonOrdersStorage;
 import seedu.address.storage.JsonStatisticsStorage;
@@ -44,7 +45,7 @@ import seedu.address.ui.UiManager;
  */
 public class MainApp extends Application {
 
-    public static final Version VERSION = new Version(1, 3, 0, true);
+    public static final Version VERSION = new Version(1, 4, 0, true);
 
     private static final Logger logger = LogsCenter.getLogger(MainApp.class);
 
@@ -101,21 +102,17 @@ public class MainApp extends Application {
             menuOptional = storage.readMenu();
             tablesOptional = storage.readTables();
             statisticsOptional = storage.readStatistics();
-            if (!ordersOptional.isPresent()) {
-                logger.info("Orders data file not found. Will be starting with an empty RestOrRant");
-                initialData = new RestOrRant();
-            } else if (!menuOptional.isPresent()) {
-                logger.info("Menu data file not found. Will be starting with an empty RestOrRant");
-                initialData = new RestOrRant();
-            } else if (!tablesOptional.isPresent()) {
-                logger.info("Tables data file not found. Will be starting with an empty RestOrRant");
-                initialData = new RestOrRant();
-            } else if (!statisticsOptional.isPresent()) {
-                logger.info("Statistics data file not found. Will be starting with an empty RestOrRant");
-                initialData = new RestOrRant();
-            } else {
+            if (ordersOptional.isPresent() && menuOptional.isPresent() && tablesOptional.isPresent()
+                    && statisticsOptional.isPresent()) {
                 initialData = new RestOrRant(ordersOptional.get(), menuOptional.get(), tablesOptional.get(),
                         statisticsOptional.get());
+            } else {
+                logger.info("One or more data file(s) not found. Will be starting with a sample RestOrRant");
+                initialData = new RestOrRant(SampleDataUtil.getSampleRestOrRant());
+                storage.saveOrders(initialData.getOrders());
+                storage.saveMenu(initialData.getMenu());
+                storage.saveTables(initialData.getTables());
+                storage.saveStatistics(initialData.getStatistics());
             }
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty RestOrRant");

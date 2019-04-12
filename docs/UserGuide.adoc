@@ -61,6 +61,9 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Refer to <<Features>> for details of each command.
 // end::quickstart[]
 
+[NOTE]
+Your data is saved in the `data/` folder by default. Like any other software application, you are not advised to modify any of the system created files located within the folder. If you do, Know-It-All may not perform right!
+
 [[Features]]
 == Features
 

@@ -34,6 +34,17 @@ public class SaveCommandParserTest {
     }
 
     @Test
+    public void parse_validArgs_returnsSaveCommandEmptyFilename() {
+        File test = new File("data" + File.separator + ".json");
+        try {
+            assertEquals(parser.parse(" .json").getFile(),
+                new SaveCommand(new ParsedInOut(test, ".json")).getFile());
+        } catch (ParseException pe) {
+            throw new IllegalArgumentException("Invalid userInput.", pe);
+        }
+    }
+
+    @Test
     public void parse_invalidArgs_throwsParseException() {
         assertParseFailure(parser, " records.txt",
             ParserUtil.MESSAGE_NOT_JSON_OR_PDF + "\n" + SaveCommand.MESSAGE_USAGE);

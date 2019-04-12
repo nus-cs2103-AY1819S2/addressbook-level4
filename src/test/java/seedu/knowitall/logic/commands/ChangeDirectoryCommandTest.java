@@ -88,6 +88,7 @@ public class ChangeDirectoryCommandTest {
 
         // different types -> returns false
         assertFalse(exitFolderCommand.equals(enterFolderOneCommand));
+        assertFalse(enterFolderTwoCommand.equals(exitFolderCommand));
 
         // different values -> returns false
         assertFalse(enterFolderOneCommand.equals(enterFolderTwoCommand));

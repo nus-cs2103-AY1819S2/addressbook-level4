@@ -8,7 +8,7 @@ import static org.junit.Assert.assertTrue;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.function.Predicate;
@@ -52,7 +52,7 @@ public class AddFolderCommandTest {
     }
 
     @Test
-    public void execute_folderNameAcceptedByModel_addFolderSuccessful() throws Exception {
+    public void execute_folderNameAcceptedByModel_addEmptyFolderSuccessful() throws Exception {
         ModelStubAcceptingFolderAdded modelStub = new ModelStubAcceptingFolderAdded();
         CardFolder cardFolder = new CardFolder(TypicalCards.getTypicalFolderOne());
 
@@ -60,7 +60,7 @@ public class AddFolderCommandTest {
         CommandResult commandResult = addFolderCommand.execute(modelStub, commandHistory);
 
         assertEquals(String.format(AddFolderCommand.MESSAGE_SUCCESS, cardFolder), commandResult.getFeedbackToUser());
-        assertEquals(Arrays.asList(cardFolder), modelStub.foldersAdded);
+        assertEquals(Collections.singletonList(cardFolder), modelStub.foldersAdded);
         assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
     }
 
@@ -444,6 +444,10 @@ public class AddFolderCommandTest {
         @Override
         public State getState() {
             return State.IN_HOMEDIR;
+        }
+
+        public ObservableList<Card> getFirstFolderCardList() {
+            return foldersAdded.get(0).getCardList();
         }
     }
 

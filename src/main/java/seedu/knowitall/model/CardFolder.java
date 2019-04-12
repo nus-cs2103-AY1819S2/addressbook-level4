@@ -68,7 +68,6 @@ public class CardFolder implements ReadOnlyCardFolder {
      */
     public void rename(String newName) {
         folderName = newName;
-        indicateModified();
     }
 
     /**

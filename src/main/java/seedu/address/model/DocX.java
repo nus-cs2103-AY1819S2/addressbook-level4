@@ -27,11 +27,11 @@ import seedu.address.model.prescription.UniquePrescriptionList;
  */
 public class DocX implements ReadOnlyDocX {
 
+    private final InvalidationListenerManager invalidationListenerManager = new InvalidationListenerManager();
     private final UniquePatientList patients;
     private final UniqueDoctorList doctors;
     private final UniqueMedHistList medHists;
     private final UniquePrescriptionList prescriptions;
-    private final InvalidationListenerManager invalidationListenerManager = new InvalidationListenerManager();
     private final UniqueAppointmentList appointments;
     private final PersonIdCounter personIdCounter;
 
@@ -195,6 +195,8 @@ public class DocX implements ReadOnlyDocX {
         indicateModified();
     }
 
+    // appointment operations
+
     /**
      * Returns true if a duplicate {@code appointment} exists in docX.
      */
@@ -234,6 +236,22 @@ public class DocX implements ReadOnlyDocX {
     }
 
     /**
+     * Set patient in appointments to null when the patient with the id is deleted
+     */
+    public void updateAppointmentWhenPatientDeleted(PersonId patientId) {
+        requireNonNull(patientId);
+        appointments.setPatientToNull(patientId);
+    }
+
+    /**
+     * Set doctor in appointments to null when the doctor with the id is deleted
+     */
+    public void updateAppointmentWhenDoctorDeleted(PersonId doctorId) {
+        requireNonNull(doctorId);
+        appointments.setDoctorToNull(doctorId);
+    }
+
+    /**
      * Replaces the given doctor {@code target} in the list with {@code editedDoctor}.
      * {@code target} must exist in the docX.
      * The doctor identity of {@code editedDoctor} must not be the same as another existing doctor in the docX.
@@ -252,6 +270,7 @@ public class DocX implements ReadOnlyDocX {
     public void removePatient(Patient key) {
         patients.remove(key);
         updateMedHistWhenPatientDeleted(key.getId());
+        updateAppointmentWhenPatientDeleted(key.getId());
         updatePrescriptionWhenPatientDeleted(key.getId());
         indicateModified();
     }
@@ -385,6 +404,7 @@ public class DocX implements ReadOnlyDocX {
     public void removeDoctor(Doctor key) {
         doctors.remove(key);
         updateMedHistWhenDoctorDeleted(key.getId());
+        updateAppointmentWhenDoctorDeleted(key.getId());
         updatePrescriptionWhenDoctorDeleted(key.getId());
         indicateModified();
     }
@@ -447,7 +467,8 @@ public class DocX implements ReadOnlyDocX {
                 || (other instanceof DocX // instanceof handles nulls
                 && patients.equals(((DocX) other).patients)
                 && doctors.equals(((DocX) other).doctors)
-                && medHists.equals(((DocX) other).medHists));
+                && medHists.equals(((DocX) other).medHists)
+                && appointments.equals(((DocX) other).appointments));
     }
 
     @Override

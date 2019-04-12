@@ -8,8 +8,10 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import seedu.address.model.appointment.exceptions.AppointmentNotFoundException;
 import seedu.address.model.appointment.exceptions.DuplicateAppointmentException;
+import seedu.address.model.person.PersonId;
 
 /**
  * Supports a minimal set of list operations.
@@ -63,6 +65,10 @@ public class UniqueAppointmentList implements Iterable<Appointment> {
         internalList.set(index, changedAppointment);
     }
 
+    /**
+     * Replace the content of the list with another list.
+     * @param replacement the new list to replace the current list
+     */
     public void setAppointments(UniqueAppointmentList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
@@ -79,6 +85,47 @@ public class UniqueAppointmentList implements Iterable<Appointment> {
         }
 
         internalList.setAll(appointments);
+    }
+
+    /**
+     * Set the underlying patient object of the appointments whose patient was deleted to null.
+     * @param deleted id of the deleted patient
+     */
+    public void setPatientToNull(PersonId deleted) {
+        requireAllNonNull(deleted);
+        FilteredList<Appointment> appointmentsToSet = internalList
+                .filtered(x -> x.getPatientId().patientId.equals(deleted));
+        Appointment modifiedAppointment;
+
+        int numberOfOccurrence = appointmentsToSet.size();
+        for (int i = 0; i < numberOfOccurrence; i++) {
+            System.out.println("TEST " + numberOfOccurrence);
+            modifiedAppointment = appointmentsToSet.get(i);
+            int indexToReplace = internalList.indexOf(modifiedAppointment);
+            modifiedAppointment.setPatient(null);
+            // this approach forces the listeners to be notified.
+            internalList.set(indexToReplace, modifiedAppointment);
+        }
+    }
+
+    /**
+     * Set the underlying doctor object of the appointments whose doctor was deleted to null.
+     * @param deleted id of the deleted doctor
+     */
+    public void setDoctorToNull(PersonId deleted) {
+        requireAllNonNull(deleted);
+        FilteredList<Appointment> appointmentsToSet = internalList
+                .filtered(x -> x.getDoctorId().doctorId.equals(deleted));
+        Appointment modifiedAppointment;
+
+        int numberOfOccurrence = appointmentsToSet.size();
+        for (int i = 0; i < numberOfOccurrence; i++) {
+            modifiedAppointment = appointmentsToSet.get(i);
+            int indexToReplace = internalList.indexOf(modifiedAppointment);
+            modifiedAppointment.setDoctor(null);
+            // this approach forces the listeners to be notified.
+            internalList.set(indexToReplace, modifiedAppointment);
+        }
     }
 
     /**

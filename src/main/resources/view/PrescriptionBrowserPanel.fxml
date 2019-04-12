@@ -13,6 +13,7 @@
     <Label fx:id="patientName" styleClass="label-bright" GridPane.rowIndex="2"  wrapText="true"/>
     <Label fx:id="doctorId" styleClass="label-bright" GridPane.rowIndex="3" wrapText="true"/>
     <Label fx:id="doctorName" styleClass="label-bright" GridPane.rowIndex="4" wrapText="true"/>
-    <Label fx:id="description" styleClass="label-bright" GridPane.rowIndex="5" wrapText="true"/>
+    <Label fx:id="date" styleClass="label-bright" GridPane.rowIndex="5" wrapText="true"/>
+    <Label fx:id="description" styleClass="label-bright" GridPane.rowIndex="6" wrapText="true"/>
 </GridPane>
 

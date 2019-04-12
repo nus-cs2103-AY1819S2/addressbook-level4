@@ -31,9 +31,9 @@ public class EditPrescriptionCommand extends Command {
 
     public static final String MESSAGE_EDIT_PRESCRIPTION_SUCCESS =
             "Edited description of the prescription specified: %1$s";
-    public static final String MESSAGE_NOT_EDITED = "WriteUp to edit must be provided.";
+    public static final String MESSAGE_NOT_EDITED = "Description to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_PRESCRIPTION =
-            "This medical history already exists in the docX.";
+            "This prescription already exists in the docX.";
 
     private final Index index;
     private final EditPrescriptionDescriptor editPrescriptionDescriptor;
@@ -89,7 +89,7 @@ public class EditPrescriptionCommand extends Command {
         Description updatedDescription = editPrescriptionDescriptor.getDescription();
 
         return new Prescription(prescriptionToEdit.getPatientId(), prescriptionToEdit.getDoctorId(),
-                prescriptionToEdit.getMedicine(), updatedDescription);
+                prescriptionToEdit.getDate(), prescriptionToEdit.getMedicine(), updatedDescription);
     }
 
     @Override

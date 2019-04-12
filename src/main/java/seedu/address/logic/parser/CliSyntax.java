@@ -28,4 +28,5 @@ public class CliSyntax {
     public static final Prefix PREFIX_APPT_STATUS = new Prefix("s/");
 
     public static final Prefix PREFIX_DATE_OF_MEDHIST = new Prefix("d/");
+    public static final Prefix PREFIX_DATE_OF_PRESC = new Prefix("dp/");
 }

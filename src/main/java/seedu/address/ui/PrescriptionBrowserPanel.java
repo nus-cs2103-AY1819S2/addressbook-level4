@@ -37,6 +37,8 @@ public class PrescriptionBrowserPanel extends UiPart<Region> {
     @FXML
     private Label doctorName;
     @FXML
+    private Label date;
+    @FXML
     private Label description;
 
     public PrescriptionBrowserPanel(ObservableValue<Prescription> selectedPrescription) {
@@ -81,10 +83,11 @@ public class PrescriptionBrowserPanel extends UiPart<Region> {
             doctorName.setText("Doctor Name: " + prescription.getDoctor().getName());
         }
 
+        date.setText("Date: " + prescription.getDate().toString());
         description.setText("Short description from Doctor: " + prescription.getDescription().toString());
 
         prescriptionPage.getChildren().addAll(patientId, patientName,
-                doctorId, doctorName, description);
+                doctorId, doctorName, date, description);
     }
 
     /**
@@ -97,9 +100,10 @@ public class PrescriptionBrowserPanel extends UiPart<Region> {
         patientName.setText("");
         doctorId.setText("");
         doctorName.setText("");
+        date.setText("");
         description.setText("");
         prescriptionPage.getChildren().addAll(patientId, patientName,
-                doctorId, doctorName, description);
+                doctorId, doctorName, date, description);
     }
 
 }

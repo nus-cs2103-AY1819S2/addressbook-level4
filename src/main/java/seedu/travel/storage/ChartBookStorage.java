@@ -92,10 +92,4 @@ public interface ChartBookStorage {
      * @see #saveYearChart(ReadOnlyYearChart)
      */
     void saveYearChart(ReadOnlyYearChart yearChart, Path filePath) throws IOException;
-
-    void backupCountryChart(ReadOnlyCountryChart countryChart) throws IOException;
-
-    void backupRatingChart(ReadOnlyRatingChart ratingChart) throws IOException;
-
-    void backupYearChart(ReadOnlyYearChart yearChart) throws IOException;
 }

@@ -246,7 +246,7 @@
 
 .menu-item:hover,
 .menu-bar > .container > .menu-button:hover {
-    -fx-background-color: #19b4c5;
+    -fx-background-color: #2196F3;
 }
 
 /*
@@ -356,7 +356,7 @@
 
 #commandTypeLabel {
     -fx-font-size: 11px;
-    -fx-text-fill: #F70D1A;
+    -fx-text-fill: #f44336;
 }
 
 #commandTextField {
@@ -419,11 +419,11 @@
 }
 
 #headers .questionAnswer, #bigHeaders .questionAnswer {
-    -fx-background-color: #1E71A2;
+    -fx-background-color: #009688;
 }
 
 #headers .core, #bigHeaders .core {
-     -fx-background-color: #15781B;
+     -fx-background-color: #4CAF50;
  }
 
 #headers .opt, #bigHeaders .opt  {

@@ -1,7 +1,9 @@
+/* @@author thamsimun */
 package seedu.address.logic.commands;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.logic.commands.CommandTestUtil.assertPresetCommandFailure;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import java.util.List;
@@ -35,7 +37,7 @@ public class SavePresetCommandTest {
     private CommandHistory commandHistory = new CommandHistory();
 
     @Before
-    public void init() {
+    public void createImagesInAlbum() {
         transformationSet.clear();
         try {
             SavePresetCommandParser parserSavePreset = new SavePresetCommandParser();
@@ -113,15 +115,16 @@ public class SavePresetCommandTest {
             SavePresetCommandParser savePresetCommandParser = new SavePresetCommandParser();
             SavePresetCommand savePresetCommand = savePresetCommandParser.parse("hi");
             String expectedMessage = Messages.MESSAGE_SAVEPRESET_FAIL_DUPLICATE;
-            assertCommandFailure(savePresetCommand, model, commandHistory, expectedMessage, currentEdit);
+            assertPresetCommandFailure(savePresetCommand, model, commandHistory, expectedMessage, currentEdit);
         } catch (Exception e) {
             System.out.println(e.toString());
         }
     }
 
     @After
-    public void end() {
+    public void clearTransformationAndAlbum() {
         transformationSet.clear();
         album.clearAlbum();
     }
 }
+/* @@author*/

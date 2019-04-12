@@ -23,6 +23,7 @@ public class SetPresetCommand extends Command {
     private String presetName;
     private boolean isNewCommand;
     private boolean hasWaterMarkCommand;
+    private boolean canRedo;
 
     /**
      * Creates a PresetCommand object.
@@ -48,17 +49,25 @@ public class SetPresetCommand extends Command {
         }
         List<Command> presetList = transformationSet.findTransformation(presetName);
         this.hasWaterMarkCommand = transformationSet.hasWaterMarkCommand(presetName);
+        initialImage.getUrl();
+
         System.out.print(presetList);
         StringBuilder toPrint = new StringBuilder();
         for (Command command: presetList) {
             try {
                 toPrint.append("[" + command.toString() + "]");
                 command.execute(currentEdit, model, history);
-            } catch (CommandException exception) {
-                String exceptionString = exception.toString().substring(58);
+            } catch (CommandException e) {
+                List<Command> listBefore = initialImage.getSubHistory();
+                currentEdit.replaceTempWithOriginal();
+                for (Command pastCommand: listBefore) {
+                    pastCommand.execute(currentEdit, model, history);
+                }
+                String exceptionString = e.toString().substring(58);
                 throw new CommandException("Error in [" + command.toString() + "]:\n" + exceptionString);
             }
         }
+
 
         if (this.isNewCommand) {
             this.isNewCommand = false;

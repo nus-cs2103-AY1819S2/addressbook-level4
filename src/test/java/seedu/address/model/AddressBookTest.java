@@ -126,14 +126,6 @@ public class AddressBookTest {
         assertEquals(0, counter.get());
     }
 
-    @Test
-    public void addPersonToAddressbook_returnsTrue() {
-        addressBook.addJob(ENGINEER);
-        addressBook.addPerson(ALICE);
-
-        assertTrue(addressBook.addPersonToJob(ALICE.getNric(), ENGINEER.getName()));
-    }
-
     /**
      * A stub ReadOnlyAddressBook whose persons list can violate interface constraints.
      */

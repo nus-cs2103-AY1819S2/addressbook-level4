@@ -480,7 +480,6 @@ public class AddCommandTest {
 
         @Override
         public void addPersonToJob(Job job, Person person, JobListName list) {
-            return true;
         }
 
         @Override

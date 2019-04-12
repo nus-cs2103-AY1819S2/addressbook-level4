@@ -1,5 +1,6 @@
 package seedu.travel.storage;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.List;
@@ -30,66 +31,66 @@ public interface ChartBookStorage {
     /**
      * Returns country chart data as a {@link ReadOnlyCountryChart}.
      */
-    List<ReadOnlyCountryChart> readCountryChart();
+    List<ReadOnlyCountryChart> readCountryChart() throws FileNotFoundException;
 
     /**
      * @see #readCountryChart()
      */
-    List<ReadOnlyCountryChart> readCountryChart(Path filePath);
+    List<ReadOnlyCountryChart> readCountryChart(Path filePath) throws FileNotFoundException;
 
     /**
      * Returns rating chart data as a {@link ReadOnlyRatingChart}.
      */
-    List<ReadOnlyRatingChart> readRatingChart();
+    List<ReadOnlyRatingChart> readRatingChart() throws FileNotFoundException;
 
     /**
      * @see #readRatingChart()
      */
-    List<ReadOnlyRatingChart> readRatingChart(Path filePath);
+    List<ReadOnlyRatingChart> readRatingChart(Path filePath) throws FileNotFoundException;
 
     /**
      * Returns year chart data as a {@link ReadOnlyYearChart}.
      */
-    List<ReadOnlyYearChart> readYearChart();
+    List<ReadOnlyYearChart> readYearChart() throws FileNotFoundException;
 
     /**
      * @see #readYearChart()
      */
-    List<ReadOnlyYearChart> readYearChart(Path filePath);
+    List<ReadOnlyYearChart> readYearChart(Path filePath) throws FileNotFoundException;
 
     /**
      * Saves the given {@link ReadOnlyCountryChart} to the storage.
      * @param countryChart cannot be null.
      * @throws IOException if there was any problem writing to the file.
      */
-    void saveCountryChart(ReadOnlyCountryChart countryChart) throws IOException;
+    void saveCountryChart(ReadOnlyCountryChart countryChart);
 
     /**
      * @see #saveCountryChart(ReadOnlyCountryChart)
      */
-    void saveCountryChart(ReadOnlyCountryChart countryChart, Path filePath) throws IOException;
+    void saveCountryChart(ReadOnlyCountryChart countryChart, Path filePath);
 
     /**
      * Saves the given {@link ReadOnlyCountryChart} to the storage.
      * @param ratingChart cannot be null.
      * @throws IOException if there was any problem writing to the file.
      */
-    void saveRatingChart(ReadOnlyRatingChart ratingChart) throws IOException;
+    void saveRatingChart(ReadOnlyRatingChart ratingChart);
 
     /**
      * @see #saveRatingChart(ReadOnlyRatingChart)
      */
-    void saveRatingChart(ReadOnlyRatingChart ratingChart, Path filePath) throws IOException;
+    void saveRatingChart(ReadOnlyRatingChart ratingChart, Path filePath);
 
     /**
      * Saves the given {@link ReadOnlyCountryChart} to the storage.
      * @param yearChart cannot be null.
      * @throws IOException if there was any problem writing to the file.
      */
-    void saveYearChart(ReadOnlyYearChart yearChart) throws IOException;
+    void saveYearChart(ReadOnlyYearChart yearChart);
 
     /**
      * @see #saveYearChart(ReadOnlyYearChart)
      */
-    void saveYearChart(ReadOnlyYearChart yearChart, Path filePath) throws IOException;
+    void saveYearChart(ReadOnlyYearChart yearChart, Path filePath);
 }

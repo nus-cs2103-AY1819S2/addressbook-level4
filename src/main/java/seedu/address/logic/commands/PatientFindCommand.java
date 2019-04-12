@@ -30,7 +30,6 @@ public class PatientFindCommand extends Command {
         this.predicate = predicate;
     }
 
-
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);

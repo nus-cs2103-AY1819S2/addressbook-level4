@@ -111,6 +111,9 @@ public class BoundaryValueChecker {
         return false;
     }
 
+    /**
+     * Check if the body of the battleship does not collide into another battleship.
+     */
     public boolean isClear(Orientation orientation) {
         int row = coordinates.getRowIndex().getZeroBased();
         int col = coordinates.getColIndex().getZeroBased();

@@ -34,7 +34,7 @@ Windows developers are highly recommended to use JDK `9`.
 . *IntelliJ* IDE
 +
 [NOTE]
-IntelliJ by default has Gradle and JavaFx plugins installed. +
+IntelliJ by default has Gradle and JavaFX plugins installed. +
 Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plugins` to re-enable them.
 
 
@@ -50,7 +50,7 @@ Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plu
 . Click `Open as Project`
 . Click `OK` to accept the default settings
 . Open a console and run the command `gradlew processResources` (Mac/Linux: `./gradlew processResources`). It should finish with the `BUILD SUCCESSFUL` message. +
-This will generate all resources required by the application and tests.
+This will generate all the resources required by the application and tests.
 . Open link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow.java`] and check for any code errors
 .. Due to an ongoing https://youtrack.jetbrains.com/issue/IDEA-189060[issue] with some of the newer versions of IntelliJ, code errors may be detected even if the project can be built and run successfully
 .. To resolve this, place your cursor over any of the code section highlighted in red. Press kbd:[ALT + ENTER], and select `Add '--add-modules=...' to module compiler options` for each error
@@ -224,11 +224,11 @@ image::StorageClassDiagram.png[width="800"]
 
 The `Storage` component,
 
-* can save `UserPref` objects in json format and read it back.
-* can save the Book Shelf data in json format and read it back.
+* can save `UserPref` objects in JSON format and read it back.
+* can save the Book Shelf data in JSON format and read it back.
 * both the data of books and reviews will be saved.
 * users are not supposed to touch the data file (file inside the `data` folder) directly. If the user insists on doing so, the data might be corrupted.
-* users are not supposed to add data files into the app manually. If the user accidentally corrupt the data file, he or she may have to reinstall the app and all data will get lost.
+* users are not supposed to add data files into the app manually. If the user accidentally corrupts the data file, he or she may have to reinstall the app and all data will get lost.
 
 [[Design-Commons]]
 === Common classes
@@ -243,13 +243,13 @@ This section describes some noteworthy details on how certain features are imple
 ==== Current Implementation
 
 The sortBook mechanism is facilitated by `VersionedBookShelf`.
-It extends `BookShelf` with the sort function which will sort the `UniqueBookList`. `UniqueBookList` implemented the Book list as `ObservableList<Book>`. sortBook command sort the book list in specify order by implementing the `Comaparator<Book>`.
+It extends `BookShelf` with the sort function which will sort the `UniqueBookList`. `UniqueBookList` implemented the Booklist as `ObservableList<Book>`. sortBook command sort the book list in specify order by implementing the `Comaparator<Book>`.
 
 Additionally, it uses/implements the following operations:
 
 * `VersionedBookShelf#sort()` -- It calls `UniqueBookList` sortBooks function and notifies the listeners.
 
-* `BookShelf#indicateModified()` -- Notifies listeners that the book shelf has been modified.
+* `BookShelf#indicateModified()` -- Notifies listeners that the bookshelf has been modified.
 
 * `UniqueBookList#sortBooks()` -- Implement the comparaotr, call `ObservableList<Book>` and pass in the comparator.
 
@@ -257,20 +257,20 @@ Additionally, it uses/implements the following operations:
 
 Given below is an example usage scenario and how the sortBook mechanism behaves at each step.
 
-Step 1. The user launches the application for the first time. The `VersionedBookShelf` will be initialized with the initial book shelf state, and the `currentStatePointer` pointing to that single book shelf state.
+Step 1. The user launches the application for the first time. The `VersionedBookShelf` will be initialized with the initial bookshelf state, and the `currentStatePointer` pointing to that single bookshelf state.
 
-Step 2. The user executes `sortBook st/rating` command to sort all the books in the book shelf in ascending order. The command will be pass to SortBookCommand Parser to convert it to SortBook command, the parser will checks the correctness of the command. If command is in incorrect format, parser will shows correct command instruction to user, otherwise parser will call the constructor of SortBook command.
+Step 2. The user executes `sortBook st/rating` command to sort all the books in the bookshelf in ascending order. The command will be pass to SortBookCommand Parser to convert it to SortBook command, the parser will check the correctness of the command. If the command is in an incorrect format, the parser will show correct command instruction to the user, otherwise, the parser will call the constructor of SortBook command.
 
 Step 3. `SortBookCommand#execute` will be call, it will check whether the book list is empty before proceed to call `ModelManager#sort()`.
 
 [NOTE]
 If the book list is empty, CommandException(MESSAGE_BOOK_LIST_EMPTY) will be thrown.
 
-Step 4. If everything is correct, `VersionedBookShelf#sort()` will be call. It will executes `UniqueBookList#sortBooks` and `BookShelf#indicateModified` will be called after the list is been sorted to notify listener that display data has been modify.
+Step 4. If everything is correct, `VersionedBookShelf#sort()` will be called. It will execute `UniqueBookList#sortBooks` and `BookShelf#indicateModified` will be called after the list is been sorted to notify the listener that display data has been modified.
 
 Step 5. `ObservableList<Book>` was implemented in `UniqueBookList` as internal list. `UniqueBookList#sortBooks` will call `ObservableList<Book>#sort` to sort the internal list by providing custom Comparator.
 
-Step 6. ` model#commitBookShelf()` will be execute to store current book list into `List<ReadOnlyBookShelf>` for support undo/redo command after the list is sorted and notify the listener.
+Step 6. ` model#commitBookShelf()` will be executed to store the current book list into `List<ReadOnlyBookShelf>` for support undo/redo command after the list is sorted and notify the listener.
 
 ==== Design Considerations
 
@@ -278,7 +278,7 @@ Step 6. ` model#commitBookShelf()` will be execute to store current book list in
 
 * **Alternative 1 (current choice):** Sorts using library sorting method.
 ** Pros: Easy to implement, easy to maintain.
-** Cons: The sorting method is too general, can have better sorting algorithm.
+** Cons: The sorting method is too general, can have a better sorting algorithm.
 
 * **Alternative 2:** Using custom sorting method.
 ** Pros: more custom, may improve performance.
@@ -288,11 +288,11 @@ Step 6. ` model#commitBookShelf()` will be execute to store current book list in
 
 * **Alternative 1 (current choice):** Sorts with the complete list.
 ** Pros: Easy to implement, as the list coming with sort function.
-** Cons: May have performance issues in terms of speed, as we need to sort whole list.
+** Cons: May have performance issues in terms of speed, as we need to sort the whole list.
 
-* **Alternative 2:** Sorts with sub-list that available to user.
-** Pros: It is faster than first choice as we only need to sort partial list.
-** Cons: The sub-list is not support sort function, its hard and time comsume to manipulate sorting and put it back to sub-list.
+* **Alternative 2:** Sorts with sub-list that available to the user.
+** Pros: It is faster than the first choice as we only need to sort a partial list.
+** Cons: The sub-list is not supported sort function, it's hard and time consumed to manipulate sorting and put it back to sub-list.
 
 === Undo/Redo feature
 ==== Current Implementation
@@ -301,19 +301,19 @@ The undo/redo mechanism is facilitated by `VersionedBookShelf`.
 It extends `BookShelf` with an undo/redo history, stored internally as an `BookStateList` and `currentStatePointer`.
 Additionally, it implements the following operations:
 
-* `VersionedBookShelf#commit()` -- Saves the current book shelf state in its history.
-* `VersionedBookShelf#undo()` -- Restores the previous book shelf state from its history.
-* `VersionedBookShelf#redo()` -- Restores a previously undone book shelf state from its history.
+* `VersionedBookShelf#commit()` -- Saves the current bookshelf state in its history.
+* `VersionedBookShelf#undo()` -- Restores the previous bookshelf state from its history.
+* `VersionedBookShelf#redo()` -- Restores a previously undone bookshelf state from its history.
 
 These operations are exposed in the `Model` interface as `Model#commitBookShelf()`, `Model#undoBookShelf()` and `Model#redoBookShelf()` respectively.
 
 Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
 
-Step 1. The user launches the application for the first time. The `VersionedBookShelf` will be initialized with the initial book shelf state, and the `currentStatePointer` pointing to that single book shelf state.
+Step 1. The user launches the application for the first time. The `VersionedBookShelf` will be initialized with the initial bookshelf state, and the `currentStatePointer` pointing to that single bookshelf state.
 
 image::UndoRedoStartingStateListDiagram.png[width="800"]
 
-Step 2. The user executes `deleteBook 1` command to delete the first book in the book shelf. The `deleteBook` command calls `Model#commitBookShelf()`, causing the modified state of the book list after the `deleteBook 1` command executes to be saved in the `BookShelfStateList`, and the `currentStatePointer` is shifted to the newly inserted book list state.
+Step 2. The user executes `deleteBook 1` command to delete the first book in the bookshelf. The `deleteBook` command calls `Model#commitBookShelf()`, causing the modified state of the book list after the `deleteBook 1` command executes to be saved in the `BookShelfStateList`, and the `currentStatePointer` is shifted to the newly inserted book list state.
 
 image::UndoRedoNewCommand1StateListDiagram.png[width="800"]
 
@@ -322,29 +322,29 @@ Step 3. The user executes `addBook n/David ...` to add a new book. The `addBook`
 image::UndoRedoNewCommand2StateListDiagram.png[width="800"]
 
 [NOTE]
-If a command fails its execution, it will not call `Model#commitBookShelf()`, so the book shelf state will not be saved into the `BookShelfStateList`.
+If a command fails its execution, it will not call `Model#commitBookShelf()`, so the bookshelf state will not be saved into the `BookShelfStateList`.
 
-Step 4. The user now decides that adding the book was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoBookShelf()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous book shelf state, and restores the book shelf to that state.
+Step 4. The user now decides that adding the book was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoBookShelf()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous bookshelf state, and restores the bookshelf to that state.
 
 image::UndoRedoExecuteUndoStateListDiagram.png[width="800"]
 
 [NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial book shelf state, then there are no previous book shelf states to restore. The `undo` command uses `Model#canundoBookShelf()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+If the `currentStatePointer` is at index 0, pointing to the initial bookshelf state, then there are no previous bookshelf states to restore. The `undo` command uses `Model#canundoBookShelf()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
 
-The following sequence diagram shows how the undo operation works:
+The following sequence diagram shows how to undo operation works:
 
 image::UndoRedoSequenceDiagram.png[width="800"]
 
-The `redo` command does the opposite -- it calls `Model#redoBookShelf()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the book shelf to that state.
+The `redo` command does the opposite -- it calls `Model#redoBookShelf()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the bookshelf to that state.
 
 [NOTE]
-If the `currentStatePointer` is at index `BookShelfStateList.size() - 1`, pointing to the latest book shelf state, then there are no undone book shelf states to restore. The `redo` command uses `Model#canredoBookShelf()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+If the `currentStatePointer` is at index `BookShelfStateList.size() - 1`, pointing to the latest bookshelf state, then there are no undone bookshelf states to restore. The `redo` command uses `Model#canredoBookShelf()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
 
 Step 5. The user then decides to execute the command `listBook`. Commands that do not modify the book shelf, such as `listBook`, will usually not call `Model#commitBookShelf()`, `Model#undoBookShelf()` or `Model#redoBookShelf()`. Thus, the `BookShelfStateList` remains unchanged.
 
 image::UndoRedoNewCommand3StateListDiagram.png[width="800"]
 
-Step 6. The user executes `clear`, which calls `Model#commitBookShelf()`. Since the `currentStatePointer` is not pointing at the end of the `BookShelfStateList`, all book shelf states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `addBook n/David ...` command. This is the behavior that most modern desktop applications follow.
+Step 6. The user executes `clear`, which calls `Model#commitBookShelf()`. Since the `currentStatePointer` is not pointing at the end of the `BookShelfStateList`, all bookshelf states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `addBook n/David ...` command. This is the behavior that most modern desktop applications follow.
 
 image::UndoRedoNewCommand4StateListDiagram.png[width="800"]
 
@@ -361,7 +361,7 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ** Cons: May have performance issues in terms of memory usage.
 * **Alternative 2:** Individual command knows how to undo/redo by itself.
 ** Pros: Will use less memory (e.g. for `deleteBook`, just save the book being deleted).
-** Cons: We must ensure that the implementation of each individual command are correct.
+** Cons: We must ensure that the implementation of each individual command is correct.
 
 ===== Aspect: Data structure to support the undo/redo commands
 
@@ -405,35 +405,35 @@ Additionally, it uses the following operations from `BookShelf`:
 * `model#addBook()` -- To add the new book into book shelf.
 * `model#commitBookShelf()` -- Saves the current book shelf state for undo/redo..
 
-These operations are exposed in the `Model` interface.
+These operations are exposed to the `Model` interface.
 
 Given below is an example usage scenario and how the addBook mechanism behaves at each step.
 
-Step 1. The user launches the application for the first time. The `VersionedBookShelf` will be initialized with the initial book shelf state, and the `currentStatePointer` pointing to that single book shelf state.
+Step 1. The user launches the application for the first time. The `VersionedBookShelf` will be initialized with the initial bookshelf state, and the `currentStatePointer` pointing to that single bookshelf state.
 
-Step 2. The user executes `addBook n/Alice a/HR m/5 tag/fantasy` command to add the book called Alice, written by HR, with rating of 5 and tag of fantasy in the book list. The `addBook` command calls `Model#hasBook()`, checking if the book already exists in the book shelf.
+Step 2. The user executes `addBook n/Alice a/HR m/5 tag/fantasy` command to add the book called Alice, written by HR, with a rating of 5 and tag of fantasy in the book list. The `addBook` command calls `Model#hasBook()`, checking if the book already exists in the bookshelf.
 
 [NOTE]
-If the book already exists, CommandException(MESSAGE_DUPLICATE_BOOK) will be thrown. It will not call `Model#commitBookShelf()`, so the book shelf state will not be saved into the `BookShelfStateList`.
+If the book already exists, CommandException(MESSAGE_DUPLICATE_BOOK) will be thrown. It will not call `Model#commitBookShelf()`, so the bookshelf state will not be saved into the `BookShelfStateList`.
 
-Step 4. The book shelf now adds the book to the book list after making sure there is no duplicates, and calls Model#commitBookShelf(), causing the modified state of the book list after the `addBook` command executes to be saved in the BookShelfStateList
+Step 4. The bookshelf now adds the book to the book list after making sure there are no duplicates, and calls Model#commitBookShelf(), causing the modified state of the book list after the `addBook` command executes to be saved in the BookShelfStateList
 
 ==== Design Considerations
 
 ===== Aspect: How duplicate of book is defined
 
 * **Alternative 1 (current choice):** Books with same book name are considered as duplicates.
-** Pros: Easy to support other command such as addReview which search for the book based on its name.
-** Cons: User may encounter trouble if they read two books with same name but written by different authors.
-* **Alternative 2:** Books with multiple identical fields (eg. book name and author, book name and rating, etc) are considered same book.
-** Pros: Able to store books with same same but different in other fields.
-** Cons: Causing trouble to executing other commands like addReview as more parameters must be provided to search for a certain book.
+** Pros: Easy to support other commands such as addReview which search for the book based on its name.
+** Cons: User may encounter trouble if they read two books with the same name but written by different authors.
+* **Alternative 2:** Books with multiple identical fields (eg. book name and author, book name and rating, etc) are considered as the same book.
+** Pros: Able to store books with same but different in other fields.
+** Cons: Causing trouble in executing other commands like addReview as more parameters must be provided to search for a certain book.
 
 ===== Aspect: Data structure to support the addBook command
 
 * **Alternative 1 (current choice):** Saves the entire book as one object contains different components such as author, rating, etc.
 ** Pros: Easy to implement delete and other features that change an entire book.
-** Cons: May be more difficult to implement the summary feature which needs to obtain statistics of all separate components, eg. find the most popular author.
+** Cons: Maybe more difficult to implement the summary feature which needs to obtain statistics of all separate components, eg. find the most popular author.
 * **Alternative 2:** Components stored as individual objects.
 ** Pros: Easier to obtain statistics regarding each component.
 ** Cons: It is hard to manage book object as we need to find a way to connect all components together.
@@ -449,29 +449,29 @@ Additionally, it uses the following operations from `BookShelf`:
 * `model#setBook()` -- To set a book with field values provided.
 * `model#commitBookShelf()` -- Saves the current book shelf state for undo/redo..
 
-These operations are exposed in the `Model` interface.
+These operations are exposed to the `Model` interface.
 
 Given below is an example usage scenario and how the addBook mechanism behaves at each step.
 
-Step 1. The user launches the application for the first time. The `VersionedBookShelf` will be initialized with the initial book shelf state, and the `currentStatePointer` pointing to that single book shelf state.
+Step 1. The user launches the application for the first time. The `VersionedBookShelf` will be initialized with the initial bookshelf state, and the `currentStatePointer` pointing to that single bookshelf state.
 
-Step 2. The user executes `editBook 1 n/Alice a/HR m/5 tag/fantasy` command to edit the first book present in the book list to be a book called Alice, written by HR, with rating of 5 and tag of fantasy in the book list. The `addBook` command calls `Model#hasBook()`, checking if the book already exists in the book shelf.
+Step 2. The user executes `editBook 1 n/Alice a/HR m/5 tag/fantasy` command to edit the first book present in the book list to be a book called Alice, written by HR, with a rating of 5 and tag of fantasy in the book list. The `addBook` command calls `Model#hasBook()`, checking if the book already exists in the bookshelf.
 
 [NOTE]
-If the new book name already exists, CommandException(MESSAGE_DUPLICATE_BOOK) will be thrown. It will not call `Model#commitBookShelf()`, so the book shelf state will not be saved into the `BookShelfStateList`.
+If the new book name already exists, CommandException(MESSAGE_DUPLICATE_BOOK) will be thrown. It will not call `Model#commitBookShelf()`, so the bookshelf state will not be saved into the `BookShelfStateList`.
 
-Step 4. The book shelf now set the fields of the first book to the new ones provided, and calls Model#commitBookShelf(), causing the modified state of the book list after the `addBook` command executes to be saved in the BookShelfStateList
+Step 4. The bookshelf now set the fields of the first book to the new ones provided, and calls Model#commitBookShelf(), causing the modified state of the book list after the `addBook` command executes to be saved in the BookShelfStateList
 
 ==== Design Considerations
 
 ===== Aspect: How editBook is executed
 
-* **Alternative 1 (current choice):** Use index to figure out the book user wishes to edit.
+* **Alternative 1 (current choice):** Use the index to figure out the book user wishes to edit.
 ** Pros: Easy to select the book user wish to edit with the support of our UI.
 ** Cons: A listBook command might be needed before executing editBook if the current filtered book list is empty
 * **Alternative 2:** Use exact book name to figure out the book user wishes to edit.
 ** Pros: No need to first filter out a non-empty book list.
-** Cons: Causing trouble for user to type in the full name of the book.
+** Cons: Causing trouble for the user to type in the full name of the book.
 // end::book[]
 
 // tag::listBook[]
@@ -481,17 +481,17 @@ Step 4. The book shelf now set the fields of the first book to the new ones prov
 
 The current version of listBook command works to help the user to search books that satisfy certain criteria. The user can look for books by giving keywords of book name, author, tag or rating.
 
-This would be handy when there are many books in the book shelf. It also makes the app more user-friendly as the user sometimes cannot remember the exact full name of a book but only know a few things about the book desired.
+This would be handy when there are many books on the bookshelf. It also makes the app more user-friendly as the user sometimes cannot remember the exact full name of a book but only know a few things about the book desired.
 
-Compared to to the `list` command in the address book app, our `listBookCommand` is an implementation of the combination of `list` and `find` and even more functionally helpful, as it accepts more filtering criteria than the original command does.
+Compared to the `list` command in the address book app, our `listBookCommand` is an implementation of the combination of `list` and `find` and even more functionally helpful, as it accepts more filtering criteria than the original command does.
 
 Given below is an example usage and how listBook feature behaves at each step.
 
-Step 1. The user launches the application for the first time. The `VersionedBookShelf` will be initialized with the initial book shelf state, and the `currentStatePointer` pointing to that single book shelf state.
+Step 1. The user launches the application for the first time. The `VersionedBookShelf` will be initialized with the initial bookshelf state, and the `currentStatePointer` pointing to that single bookshelf state.
 
 Step 2. The user executes `listBook n/Life`.
 
-Step 3. The `ListBookCommandParser` parses this command, and returns an `ListBookCommand`. Exception will be thrown if the command is invalid.
+Step 3. The `ListBookCommandParser` parses this command, and returns an `ListBookCommand`. The exception will be thrown if the command is invalid.
 
 Step 4. The `ListBookCommand` be executed. The command checks all the book in the `BookShelf`, selects out books whose name contain `Life` based on `BookNameContainsKeywordPredicate`.
 
@@ -499,12 +499,12 @@ Step 4. The `ListBookCommand` be executed. The command checks all the book in th
 
 ===== Aspect: How to select books.
 
-* **Alternative 1 (current choice):** Only books match all criteria provided will be selected. For example, if the user give 2 book name keywords and 2 ratings, only books matching at least 1 name keyword and at least 1 rating will be selected. Books match 1 name keyword but no ratings will not be considered.
+* **Alternative 1 (current choice):** Only books match all criteria provided will be selected. For example, if the user gives 2 book name keywords and 2 ratings, only books matching at least 1 name keyword and at least 1 rating will be selected. Books match 1 name keyword but no ratings will not be considered.
 ** Pros: Easy to test and manage.
-** Cons: Such searching technique may fail to provide the user with enough inforamtion.
-* **Alternative 2:** Books that match at least one criteria will be selected. For example, if the user give 2 book name keywords and 2 ratings, books that match 1 name keyword but no ratings will still be selected.
+** Cons: Such search techniques may fail to provide the user with enough information.
+* **Alternative 2:** Books that match at least one criteria will be selected. For example, if the user gives 2 book name keywords and 2 ratings, books that match 1 name keyword but no ratings will still be selected.
 ** Pros: More likely to provide the user with the book that the user is looking for.
-** Cons: Hard to test and manage. Such design also fails to narrow down search results when the user is providing more keywords for the targetd book.
+** Cons: Hard to test and manage. Such a design also fails to narrow down search results when the user is providing more keywords for the targeted book.
 
 // end::listBook[]
 
@@ -513,30 +513,30 @@ Step 4. The `ListBookCommand` be executed. The command checks all the book in th
 
 ==== Current Implementation
 
-The summary feature is a command works to summarize the books in the bookshlef. The user can have a rough overview of what he/she has read.
+The summary feature is a command works to summarize the books in the bookshelf. The user can have a rough overview of what he/she has read.
 
-Given below is an example usage and how summary feature works.
+Given below is an example of usage and how the summary feature works.
 
-Step 1. The user launches the application for the first time. The `VersionedBookShelf` will be initialized with the initial book shelf state, and the `currentStatePointer` pointing to that single book shelf state.
+Step 1. The user launches the application for the first time. The `VersionedBookShelf` will be initialized with the initial bookshelf state, and the `currentStatePointer` pointing to that single bookshelf state.
 
 Step 2. The user executes `summary`
 
 Step 3. The `SummaryCommandParser` parses this command.
 
-Step 4. The `SummaryCommandParser`returns an `SummaryCommand`. Exception will be thrown if the command is invalid.
+Step 4. The `SummaryCommandParser`returns an `SummaryCommand`. The exception will be thrown if the command is invalid.
 
-Step 5. The `SummaryCommand` executes. The command will traverse all books in the book shelf, checks if there are authors or tags appear more than once and give relative details. The command will also show the highest rating of books in the book shelf.
+Step 5. The `SummaryCommand` executes. The command will traverse all books in the bookshelf, checks, if there are authors or tags, appear more than once and give relative details. The command will also show the highest rating of books on the bookshelf.
 
 ==== Design Consideration
 
 ===== Aspect: Component to fetch the data
 
 * **Alternative 1 (current choice):** Model manager in charge of data processing, then return the result to the command.
-** Pros: This prevent the command from accessing data managed by the model manager, thus independency of different parts is guaranteed.
-** Cons: More methods are introduced into the model manager. To get include more information in the summary, not ony the summary command should be modified, but also more information query methodS should be added in THE `Model`.
+** Pros: This prevents the command from accessing data managed by the model manager, thus independency of different parts is guaranteed.
+** Cons: More methods are introduced into the model manager. To get include more information in the summary, not only the summary command should be modified, but also more information query methodS should be added in THE `Model`.
 * **Alternative 2:** Model manager pass the whole book list to the command, then command process the data according to this list.
 ** Pros: More flexible as the command can extract any information it desires.
-** Cons: This approach is unsafe and may leads to more bugs as it violates the principle of independency.
+** Cons: This approach is unsafe and may lead to more bugs as it violates the principle of independence.
 
 // end::summary[]
 
@@ -549,13 +549,13 @@ Step 5. The `SummaryCommand` executes. The command will traverse all books in th
 
 Given below is an example usage and how addReview feature behaves at each step.
 
-Step 1. The user launches the application for the first time. The `VersionedBookShelf` will be initialized with the initial book shelf state, and the `currentStatePointer` pointing to that single book shelf state.
+Step 1. The user launches the application for the first time. The `VersionedBookShelf` will be initialized with the initial bookshelf state, and the `currentStatePointer` pointing to that single bookshelf state.
 
 Step 2. The user executes `addReview n/Alice in Wonderland rt/Carroll has depicted a unique world I hadn't seen before r/Alice's Adventures in Wonderland by Lewis Carroll is a story about Alice who falls down a rabbit hole and lands into a fantasy world that is full of weird, wonderful people and animals.`
 
-Step 3. The `AddReviewCommandParser` parses this command, and creates a `Review` object based on the parameters in user input.
+Step 3. The `AddReviewCommandParser` parses this command and creates a `Review` object based on the parameters in user input.
 
-Step 4. The `AddReviewCommandParser`returns an `AddReviewCommand`. Exception will be thrown if the command is invalid.
+Step 4. The `AddReviewCommandParser`returns an `AddReviewCommand`. The exception will be thrown if the command is invalid.
 
 Step 5. The `AddReviewCommand` executes. The command checks if the book to which the review is added exists in the `BookShelf`, based on `BookNameContainsExactKeywordPredicate`. If the book does not exist, an exception is thrown.
 
@@ -574,7 +574,7 @@ Step 6. If the book exists, the review is added to the review list of the Book S
 
 ====== Aspect: Where to store Reviews
 
-* **Alternative 1 (current choice):** Have another independent list for reviews in the book shelf.
+* **Alternative 1 (current choice):** Have another independent list for reviews in the bookshelf.
 ** Pros: Much easier to implement.
 ** Cons: Reviews and Books now have exactly the same structure, which violates the DRY principle.
 * **Alternative 2:** Use a Set within a Book, just like tags.
@@ -584,10 +584,10 @@ Step 6. If the book exists, the review is added to the review list of the Book S
 ====== Aspect: Constraints on Review Parameters
 
 * ReviewTitle has the same constraints as BookName, less than 50 characters.
-* ReviewMessage should be less than or equal to 400 characters. This is because the
+* ReviewMessage should be less than or equal to 400 characters. This is because of the
 BookBrowserPanel used to display the ReviewMessage currently cannot hold more than 400 characters.
-Longer text also makes it more difficult to edit in the small CommandBox. Future releases would consider
-adding enhanced review input panel to make the review feature more user friendly.
+The longer text also makes it more difficult to edit in the small CommandBox. Future releases would consider
+adding enhanced review input panel to make the review feature more user-friendly.
 
 ====== Aspect: Auto-creation of Date for the Review
 
@@ -599,11 +599,11 @@ is available where the date can be passed in as a parameter, to be used in testi
 
 ===== Current Implementation
 
-Given below is an example usage and program behaviour:
+Given below are an example of usage and program behavior:
 
 Step 1. The user executes `listReview 1`
 
-Step 2. The ListReviewCommandParser parses this command, and returns a new ListReviewCommand with the specified index.
+Step 2. The ListReviewCommandParser parses this command and returns a new ListReviewCommand with the specified index.
 
 Step 3. The ListReviewCommand executes. The book with the specified index is selected.
 
@@ -629,7 +629,7 @@ Step 3. The ListAllReviewsCommand executes. Review list panel is updated to show
 ====== Aspect: Whether to combine ListAllReviews command with ListReview command
 
 * **Alternative 1 (current choice):** not to combine.
-** Pros: Command is more logical and user friendly because it is actually not intuitive to have two functions combined in one ListReview command.
+** Pros: Command is more logical and user-friendly because it is actually not intuitive to have two functions combined in one ListReview command.
 ** Cons: Inconsistency with the ListBook command may cause confusion.
 * **Alternative 2:** Combine.
 ** Pros: Consistency.
@@ -638,27 +638,27 @@ Step 3. The ListAllReviewsCommand executes. Review list panel is updated to show
 ==== SelectReview Feature
 ===== Current Implementation
 
-Selection of review is implemented the same way as selection of book.
+Selection of review is implemented the same way as the selection of a book.
 
-In addition, review message of selected review will be displayed in the book browser panel.
+In addition, review message of a selected review will be displayed in the book browser panel.
 
 Step 1. The user executes `selectReview 1`
 
-Step 2. The SelectReviewCommandParser parses this command, and returns a new SelectReviewCommand with index 1.
+Step 2. The SelectReviewCommandParser parses this command and returns a new SelectReviewCommand with index 1.
 
 Step 3. The SelectReviewCommand executes. The review with the specified index is selected.
 
-Step 4. The BookBrowserPanel listens to the change in selected review, and displays its review message.
+Step 4. The BookBrowserPanel listens to the change in the selected review and displays its review message.
 
 
 ==== DeleteReview Feature
 ===== Current Implementation
 
-Review is deleted based on index.
+The review is deleted based on the index.
 
 Step 1. The user executes `deleteReview 1`
 
-Step 2. The DeleteReviewCommandParser parses this command, and returns a new DeleteReviewCommand with index 1.
+Step 2. The DeleteReviewCommandParser parses this command and returns a new DeleteReviewCommand with index 1.
 
 Step 3. The DeleteReviewCommand executes. The review with the specified index is deleted.
 
@@ -693,7 +693,7 @@ See <<UsingTravis#deploying-github-pages, UsingTravis.adoc>> to learn how to dep
 
 === Converting Documentation to PDF format
 
-We use https://www.google.com/chrome/browser/desktop/[Google Chrome] for converting documentation to PDF format, as Chrome's PDF engine preserves hyperlinks used in webpages.
+We use https://www.google.com/chrome/browser/desktop/[Google Chrome] for converting the document to PDF format, as Chrome's PDF engine preserves hyperlinks used in webpages.
 
 Here are the steps to convert the project documentation files to PDF format.
 
@@ -708,10 +708,10 @@ image::chrome_save_as_pdf.png[width="300"]
 [[Docs-SiteWideDocSettings]]
 === Site-wide Documentation Settings
 
-The link:{repoURL}/build.gradle[`build.gradle`] file specifies some project-specific https://asciidoctor.org/docs/user-manual/#attributes[asciidoc attributes] which affects how all documentation files within this project are rendered.
+The link:{repoURL}/build.gradle[`build.gradle`]  file specifies some project-specific https://asciidoctor.org/docs/user-manual/#attributes[asciidoc attributes] which affects how all documentation files within this project are rendered.
 
 [TIP]
-Attributes left unset in the `build.gradle` file will use their *default value*, if any.
+Attributes left unset in the `build.gradle` file will use their *default value* if any.
 
 [cols="1,2a,1", options="header"]
 .List of site-wide attributes
@@ -738,7 +738,7 @@ This will render the SE-EDU navigation bar at the top of the page, and add some 
 [[Docs-PerFileDocSettings]]
 === Per-file Documentation Settings
 
-Each `.adoc` file may also specify some file-specific https://asciidoctor.org/docs/user-manual/#attributes[asciidoc attributes] which affects how the file is rendered.
+Each `.adoc`  file may also specify some file-specific https://asciidoctor.org/docs/user-manual/#attributes[asciidoc attributes] which affects how the file is rendered.
 
 Asciidoctor's https://asciidoctor.org/docs/user-manual/#builtin-attributes[built-in attributes] may be specified and used as well.
 
@@ -774,7 +774,7 @@ These template files are written in a mixture of https://www.ruby-lang.org[Ruby]
 
 [WARNING]
 ====
-Modifying the template files in link:{repoURL}/docs/templates[`docs/templates`] requires some knowledge and experience with Ruby and Asciidoctor's API.
+Modifying the template files in the link:{repoURL}/docs/templates[`docs/templates`] requires some knowledge and experience with Ruby and Asciidoctor's API.
 You should only modify them if you need greater control over the site's layout than what stylesheets can provide.
 The SE-EDU team does not provide support for modified template files.
 ====
@@ -819,7 +819,7 @@ We have two types of tests:
 e.g. `seedu.address.commons.StringUtilTest`
 ..  _Integration tests_ that are checking the integration of multiple code units (those code units are assumed to be working). +
 e.g. `seedu.address.storage.StorageManagerTest`
-..  Hybrids of unit and integration tests. These test are checking multiple code units as well as how the are connected together. +
+..  Hybrids of unit and integration tests. These tests are checking multiple code units as well as how they are connected together. +
 e.g. `seedu.address.logic.LogicManagerTest`
 
 
@@ -844,7 +844,7 @@ We use https://travis-ci.org/[Travis CI] and https://www.appveyor.com/[AppVeyor]
 We use https://coveralls.io/[Coveralls] to track the code coverage of our projects. See <<UsingCoveralls#, UsingCoveralls.adoc>> for more details.
 
 === Documentation Previews
-When a pull request has changes to asciidoc files, you can use https://www.netlify.com/[Netlify] to see a preview of how the HTML version of those asciidoc files will look like when the pull request is merged. See <<UsingNetlify#, UsingNetlify.adoc>> for more details.
+When a pull request has changed asciidoc files, you can use https://www.netlify.com/[Netlify] to see a preview of how the HTML version of those asciidoc files will look like when the pull request is merged. See <<UsingNetlify#, UsingNetlify.adoc>> for more details.
 
 === Making a Release
 
@@ -979,17 +979,17 @@ These instructions only provide a starting point for testers to work on; testers
 
 .. Resize the window to an optimum size. Move the window to a different location. Close the window.
 .. Re-launch the app by double-clicking the jar file. +
-   Expected: The most recent window size and location is retained.
+   Expected: The most recent window size and the location is retained.
 
 === Deleting a book
 
 . Deleting a book while all books are listed
 
-.. Prerequisites: List all book using the `listBook` command. Multiple books in the list.
+.. Prerequisites: List all book using the `listBook` command. Multiple books on the list.
 .. Test case: `deleteBook 1` +
    Expected: First book is deleted from the list. Details of the deleted book shown in the status message. Timestamp in the status bar is updated.
 .. Test case: `deleteBook 0` +
-   Expected: No book is deleted. Error details shown in the status message. Status bar remains the same.
+   Expected: No book is deleted. Error details are shown in the status message. Status bar remains the same.
 .. Other incorrect delete commands to try: `deleteBook` +
    Expected: Similar to previous.
 
@@ -998,7 +998,7 @@ These instructions only provide a starting point for testers to work on; testers
 . Dealing with missing/corrupted data files
 
 .. Data is saved in `bookshelf.json`, which is under the `data` directory.
-.. After the installation, `bookshelf.json` is not present. The file is initialized after main app runs for the first time. At this point the file is loaded with the sample data.
-.. The data will not be saved automatically. If the user does not exit the program using the `exit` command,the changes will not be kept.
+.. After the installation, `bookshelf.json` is not present. The file is initialized after the main app runs for the first time. At this point, the file is loaded with the sample data.
+.. The data will not be saved automatically. If the user does not exit the program using the `exit` command, the changes will not be kept.
 .. If the developer modifies the storage component, to make the data structure and content consistent with the newly updated code, The developer should delete the file before relaunching the app.
 .. If the file is corrupted, the developer or the user can manually fix the bookshelf.json to restore the data. However, he or she should stick to the format specified or the data will not be read properly. Therefore, modifying the `bookshelf.json` directly is not encouraged as such behavior will cause unexpected bugs.

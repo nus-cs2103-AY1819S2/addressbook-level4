@@ -24,7 +24,7 @@ public class OpenLessonCommand extends ManagementCommand {
     /**
      * The word a user must enter to call this command.
      */
-    public static final String COMMAND_WORD = "openLesson";
+    public static final String COMMAND_WORD = "open";
     /**
      * Instructions on command usage and parameters.
      */

@@ -70,6 +70,7 @@ public class AddLessonParserTest {
     public void parse_optionalFieldPrefixesMissing_success() {
         // zero optionals
         expectedLesson = new LessonBuilder(LESSON_DEFAULT).withNoOptionalHeaders().withNoCards().build();
+
         assertParseSuccess(addLessonParser, NAME + CORE_QUESTION + CORE_ANSWER,
                 new AddLessonCommand(expectedLesson));
     }

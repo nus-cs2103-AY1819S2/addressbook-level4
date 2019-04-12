@@ -236,7 +236,7 @@ This is also where TeethHub looks for your files when you use `open` or `import`
 
 [NOTE]
 ============================================================
-The File Management Commands may use the following keywords!
+The File Management Commands uses the following keywords!
 
 `FILE_PATH`: +
 Any letters in the English alphabet and numbers are allowed. +
@@ -255,7 +255,7 @@ You can also type `all` instead to import/export everything.
 
 ==== open
 
-image::OpenImportFeature3.png[width="348"]
+image::OpenImportFeature3.png[width="522"]
 
 Opens the file in the specified file path and overwrites the current data. +
 ** You can only open .json files.**
@@ -274,7 +274,7 @@ Replaces the current data with the data in "data2.json" found in the "february" 
 ==== save
 Saves the current data to the specified file path. +
 ** You can only save to .json and .pdf.** +
-.json files allow you to <<open, open>> or <<import, import>> them. +
+.json files allow you to `open` or `import` them. +
 .pdf files are easier to read, but you cannot open or import them with TeethHub.
 
 Format: `save FILE_PATH`
@@ -290,7 +290,7 @@ Saves the current data to "data2.json" found in the "february" folder.
 
 ==== import
 
-image::OpenImportFeature4.png[width="348"]
+image::OpenImportFeature4.png[width="522"]
 
 Opens the file in the specified file path and adds the specified patients to the current data. +
 ** You can only import .json files. **
@@ -320,7 +320,7 @@ Adds all patients from "data1.json" to the current data.
 ==== export
 Saves the specified patients in the current data to the specified file path. +
 ** You can only export to .json and .pdf.** +
-.json files allow you to <<open, open>> or <<import, import>> them. +
+.json files allow you to `open` or `import` them. +
 .pdf files are easier to read, but you cannot open or import them with TeethHub.
 
 Format: `export FILE_PATH INDEX_RANGE`

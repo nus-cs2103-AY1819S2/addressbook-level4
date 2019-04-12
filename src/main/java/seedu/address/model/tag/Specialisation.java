@@ -9,7 +9,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class Specialisation {
 
-    public static final String MESSAGE_CONSTRAINTS = "Specialisations should be alphanumeric";
+    public static final String MESSAGE_CONSTRAINTS = "Specialisations should be alphanumeric and cannot be empty";
     public static final String VALIDATION_REGEX = "\\p{Alnum}+";
 
     public final String specialisation;

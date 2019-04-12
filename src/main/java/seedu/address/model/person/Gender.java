@@ -10,7 +10,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Gender {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Gender should be male or female, and it should not be blank";
+            "Gender should be Male or Female, and it should not be blank";
 
     /*
      * The first character of the address must not be a whitespace,

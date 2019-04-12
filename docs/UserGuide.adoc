@@ -1,10 +1,9 @@
 = TravelBuddy - User Guide
 :site-section: UserGuide
+:sectnums:
 :toc:
-:toc-title:
 :toc-placement: preamble
 :toclevels: 5
-:sectnums:
 :imagesDir: images
 :stylesDir: stylesheets
 :sourceDir: ../src/main/java
@@ -59,7 +58,6 @@ The *TIP* symbol is used to alert you of some useful tips.
 
 [WARNING]
 The *WARNING* symbol is used to alert you of something critical.
-=======
 This alerts you to useful tips and tricks that will improve your TravelBuddy experience.
 // end::additionalInfo[]
 
@@ -166,8 +164,9 @@ The table below shows the parameters that require a specific input format to be 
 
 |`COUNTRY_CODE`
 |`cc/`
-|A valid ISO-3166 country code +
-e.g. `JPN` to represent `Japan`
+|A valid ISO-3166 three-letter country code +
+e.g. `JPN` to represent `Japan` +
+The full list of country codes can be found link:{repoURL}/docs/CountryCodes.html[here]
 
 |`DATE_VISITED`
 |`dv/`

@@ -212,7 +212,7 @@ contains helper methods for switching functionality, interacts with model and lo
 
 * `BrowserPanel`: *_Deprecated._* Opens on clicking the PlaceListCard, on the right of the PlaceListPanel.
 
-*All CSS code can be found in `DarkTheme.css` and `Extensions.css`
+*All CSS code can be found in `LightTheme.css` and `Extensions.css`
 
 [[Design-Logic]]
 === Logic Component

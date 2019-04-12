@@ -909,10 +909,6 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* *` |user |clear |clear all entires
 
-|`* *` |user |entrypt |entrypt your review
-
-|`* *` |user |detrypt |detrypt your entrypted review
-
 |`* *` |user |guideline |by typing help to show all commands
 
 |`*` |user |sort |sort the list in alphabetical order
@@ -985,7 +981,7 @@ These instructions only provide a starting point for testers to work on; testers
 
 . Deleting a book while all books are listed
 
-.. Prerequisites: List all book using the `listBook` command. Multiple books in the list.
+.. Prerequisites: List all book using the `listBook` command. All books present in the bookshelf are shown in the list.
 .. Test case: `deleteBook 1` +
    Expected: First book is deleted from the list. Details of the deleted book shown in the status message. Timestamp in the status bar is updated.
 .. Test case: `deleteBook 0` +

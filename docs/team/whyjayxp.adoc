@@ -40,7 +40,7 @@ a| icon:info-circle[role="icon-note", size="2x"] | A blue information symbol ind
 ** Highlights: -
 
 * *Other enhancement added (Modes feature)*: I conceptualised the Mode system and added features related to the changing of modes.
-** What it does: RestOrRant has four modes for each of the four features. Users can switch between modes using commands to use the other features, such as the `restaurantMode` and `tableMode` commands that I implemented.
+** What it does: RestOrRant has four modes for each of the four features. Users can switch between modes to use the other features by using commands, such as the `restaurantMode` and `tableMode` commands that I implemented.
 ** Justification: Translating our main features into different application modes provides a functional and visual distinction between the features and makes RestOrRant more organised and clear for its users. The Mode system also allows us to provide users with only the relevant displays for each feature instead of overwhelming users with all the information at one shot.
 ** Highlights: -
 

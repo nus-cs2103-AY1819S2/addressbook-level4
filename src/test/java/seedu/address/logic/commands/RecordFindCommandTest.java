@@ -29,7 +29,6 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.CommandHistory;
-import seedu.address.logic.commands.RecordFindCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
@@ -72,6 +71,17 @@ public class RecordFindCommandTest {
             true, false, Arrays.asList(FOURTH));
         //Single keyword, case sensitive, no record found.
         execute_parameterPredicate_test(0, "CrOwN", "procedure", false, false, Collections.emptyList());
+    }
+
+    @Test
+    public void execute_descParameter() throws Exception {
+        //No user input
+        execute_parameterPredicate_test(0, " ", "desc", true, false, Collections.emptyList());
+        //Single keyword, ignore case, record found.
+        execute_parameterPredicate_test(1, "ReCROWNED", "desc",
+            true, false, Arrays.asList(FOURTH));
+        //Single keyword, case sensitive, no record found.
+        execute_parameterPredicate_test(0, "ReCROWNED", "procedure", false, false, Collections.emptyList());
     }
 
 

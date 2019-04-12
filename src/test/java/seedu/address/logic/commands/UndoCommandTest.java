@@ -1,3 +1,4 @@
+/* @@author randytqw */
 package seedu.address.logic.commands;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
@@ -22,13 +23,14 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 
 public class UndoCommandTest {
-
+    private final Album album = Album.getInstance();
     private final Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
     private final Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
     private CurrentEdit currentEdit = new CurrentEditManager();
     private final CommandHistory commandHistory = new CommandHistory();
     @Test
     public void execute() {
+        album.clearAlbum();
         //Image not opened yet
         try {
             new UndoCommand().execute(currentEdit, model, commandHistory);

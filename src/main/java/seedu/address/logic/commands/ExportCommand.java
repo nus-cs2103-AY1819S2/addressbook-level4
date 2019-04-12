@@ -77,4 +77,12 @@ public class ExportCommand extends OutCommand {
 
         return tempModel;
     }
+
+    /**
+     * For ExportCommandParserTest.
+     * @return ParsedInOut
+     */
+    public ParsedInOut getParsedInOut() {
+        return parsedInput;
+    }
 }

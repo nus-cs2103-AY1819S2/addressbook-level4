@@ -687,7 +687,7 @@ On QuickDocs launch, existing appointments are read from the `quickdocs.json` fi
 
 [[app]]
 ==== Appointments
-An appointment has the following 5 compulsory fields as listed below.
+An `Appointment` is a subclass of the `Slot` class, and has the following 5 compulsory fields:
 
 * `Patient patient` - the patient who made this appointment
 * `LocalDate date` - the date of this appointment
@@ -695,6 +695,7 @@ An appointment has the following 5 compulsory fields as listed below.
 * `LocalTime end` - the time this appointment ends
 * `String comment` - any other details for this appointment
 
+[[addapp]]
 ==== Adding an appointment
 The user can add an appointment to his/her schedule to keep track of future meetings, by using the `addapp` command.
 All 5 fields of an appointment, as mentioned in the <<app, Appointments>> section, must be specified together with
@@ -737,6 +738,8 @@ Sequence Diagrams shown below:
 .Sequence diagram when `addapp` is called
 image::dg-appointment/addapp_SD.png[width="800"]
 
+{sp} +
+
 .Sequence diagram reference: add appointment to AppointmentManager
 image::dg-appointment/addapp_SD_ref.png[width="800"]
 
@@ -745,6 +748,10 @@ The user can list his/her past or future appointments using the `listapp` comman
 of dates to list out all appointments in those dates, or provide an NRIC to list out all appointments for the patient
 with the given NRIC.
 
+[NOTE]
+If the user does not provide any parameters together with `listapp`, the appointments for the current week will be listed.
+
+[[listapp]]
 ===== Listing by dates
 The user can specify the range of dates by providing a `FORMAT` (`day`, `week`, or `month`) and a `DATE`, meaning to
 list all appointments on the `FORMAT` (day/month/week) of `DATE`. The following steps will then be taken:
@@ -774,6 +781,7 @@ signatures based on their parameters. One implementation takes in two `LocalDate
 implementation takes in a single `Patient` object. This allows the same method name to be called, and list appointments
 by either providing a given range of dates or by providing a patient.
 
+[[deleteapp]]
 ==== Deleting appointments
 The user can delete any appointments created using the `deleteapp` command. Since there cannot be any clash in timings
 for appointments, any appointment can be identified uniquely by its date and start time. Hence the user can specify
@@ -788,7 +796,7 @@ these two fields.
 with `date` and `start`.
 * Finally, `Model#deleteAppointment()` is called, providing it with the appointment retrieved.
 . `Model#deleteAppointment()` then calls `AppointmentManager#deleteAppointment()`, providing it with the appointment.
-`AppointmentManager#deleteAppointment` will then remove the appointment from the `ArrayList` of appointments stored
+`AppointmentManager#deleteAppointment()` will then remove the appointment from the `ArrayList` of appointments stored
 in `AppointmentManager`.
 
 ==== Free appointment slots
@@ -936,6 +944,128 @@ The minimal benefits that a permanent list of free slots provide does not justif
 
 [[reminder-module]]
 === Reminder management module
+The Reminder module provides the user with a way to keep track of future tasks, to-dos, or appointments. The reminders
+will be displayed on the reminder side bar, and are colour coded as such:
+
+* [blue]#Blue#: Reminder for a scheduled appointment
+* [red]#Red#: Reminder to stock up on a medicine
+* [yellow]#Beige#: Any other personal reminders
+
+
+Listed below are the commands that the reminder module features:
+
+. adding a reminder `addrem`
+. listing reminders `listrem`
+. deleting a reminder `deleterem`
+
+These features are supported by the `ReminderManager` class, which stores all created reminders in an `ArrayList`.
+On QuickDocs launch, existing reminders are read from the `quickdocs.json` file through the
+<<Design-Storage, storage>> component.
+
+[[rem]]
+==== Reminders
+A `Reminder` is a subclass of the `Slot` class, and has the following 5 fields:
+
+* `String title` - the title/header for this reminder
+* `LocalDate date` - the date for this reminder
+* `LocalTime start` - the start time for this reminder
+* `LocalTime end` - the end time for this reminder
+* `String comment` - any other details for this reminder
+
+Only the `title`, `date` and `start` attributes are compulsory fields for a reminder.
+
+==== Adding a reminder
+The user can take note of a task to do by creating a reminder using the `addrem` command. As mentioned in the
+<<rem, Reminders>> section, only the `title`, `date` and `start` attributes are compulsory fields and must be
+specified together with the `addrem` command. Fields `end` and `comment` are optional. Below are the steps taken
+after the user executes the command.
+
+. The `AddRemCommandParser` class parses the user input into 3 to 5 `Reminder` fields.
+. The `Reminder` object is constructed by the parser with the given fields.
+. An `AddRemCommand` object is created, providing it with the reminder object to be added.
+. `AddRemCommand` executes
+* Firstly, it checks if there is a duplicate reminder using the `Model#duplicateRem()` method, which subsequently
+calls `ReminderManager#hasDuplicateReminder()`.
+* If there are no duplicates, `Model#addRem()` is called, providing it with the given reminder.
+. `Model#addRem()` then calls `ReminderManager#addReminder()`, providing it with the given reminder.
+`ReminderManager#addReminder()` will then add the reminder into the `ArrayList` of reminders stored
+in `ReminderManager`.
+
+[NOTE]
+The added reminder will only appear on the reminder sidebar if the date of the reminder is within the range of dates
+that the sidebar is currently displaying. More information can be found in the next section, <<listrem, Listing Reminders>>.
+
+===== Automatic generation of reminders
+Some reminders will be created and added automatically.
+
+. Appointment reminders
+* When an appointment is added, a reminder for this appointment will be generated automatically.
+More information can be found in the <<addapp, Adding an appointment>> section.
+. Low medicine alarm reminders
+* The user is able to set a threshold for each medicine in the inventory, using the `alarm` command. When the quantity
+of a medicine drops below its threshold, a reminder will be created to alert the user of the low medicine quantity. More
+information can be found in the <<med, Medicine implementation>> section.
+
+[[listrem]]
+==== Listing reminders
+The reminders displayed on the reminder sidebar can be filtered using the `listrem` command.
+
+===== Displaying reminders on the sidebar
+Similar to the <<listapp, `listapp`>> command, the user can specify a range of dates by providing a `FORMAT`
+(`day`, `week`, or `month`) and a `DATE`, which means to display all reminders on the `FORMAT` (day/month/week) of `DATE`.
+The following steps will then be taken:
+
+. The `ListRemCommandParser` class parses these two parameters into `LocalDate start` and `LocalDate end`, and creates a
+`ListRemCommand` object. `start` and `end` represents the start and end dates of the range of dates of reminders
+to be displayed on the sidebar.
+. `ListRemCommand` will then be executed
+* Firstly, a `ReminderWithinDatesPredicate` object will be created with the given `start` and `end` dates.
+This predicate is used to update the `FilteredList` of reminders contained in the `ModelManager` class.
+* Next, `Model#updateFilteredReminderList()` is called, providing it with the created predicate.
+. The `FilteredList` of reminders will be updated to match the range of dates given and the reminder sidebar is updated.
+
+[[listrem_single]]
+===== Display a single reminder
+The `listrem` command can also be used to display the details of a single reminder onto the main display. This is useful
+when the `title` or `comment` of a reminder is too long to be displayed fully on the sidebar. The user can do so by
+providing the index of the reminder, as shown in the sidebar, together with the `listrem` command.
+
+. The `ListRemCommandParser` class parses the user input into an `Index` object, and creates a `ListRemCommand` object
+consisting of the `Index` field.
+. `ListRemCommand` will then be executed
+* Firstly, it retrieves the currently displayed `List` of reminders by calling `Model#getFilteredReminderList()`.
+* Next, it checks if the given `Index` is valid, checking if the `Index` is present in the current `List`
+of reminders.
+* If the `Index` given is valid, the reminder to be displayed is retrieved using the `List#get()` method on the `List`
+of reminders.
+. The information of the selected reminder is then appended onto the main display of the UI.
+
+Displaying a single reminder can also be done by clicking on the reminder at the sidebar with a mouse. This feature
+is supported by the `ReminderListPanel` class which is a UI component for the reminder sidebar. It contains the
+`Node#setOnMouseClicked()` method that takes in an `EventHandler`, which is specified to display the reminder
+details when the reminder is clicked.
+
+==== Deleting a reminder
+Deleting a reminder is simple, as the user only needs to specify the index of the reminder shown on the sidebar,
+together with the `deleterem` command. The process, when `deleterem` is called, described below is similar to the
+process when `listrem` is called to <<listrem_single, display a single reminder>>.
+
+. The `DeleteRemCommandParser` class parses the user input into an `Index` object, and creates a `DeleteRemCommand`
+object consisting of the `Index` field.
+. `DeleteRemCommand` will then be executed
+* Firstly, it retrieves the currently displayed `List` of reminders by calling `Model#getFilteredReminderList()`.
+* Next, it checks if the given `Index` is valid, checking if the `Index` is present in the current `List`
+of reminders.
+* If the `Index` given is valid, the reminder to be deleted is retrieved using the `List#get()` method on the `List`
+of reminders.
+* `Model#deleteReminder()` is called, providing it with the reminder to be deleted.
+. `Model#deleteReminder()` subsequently calls `ReminderManager#delete()` to delete the given reminder from the
+`ArrayList` of reminders stored in `ReminderManager`.
+
+[NOTE]
+Reminders are automatically created when an appointment is added, as mentioned <<addapp, here>>. However, when the
+reminder of an appointment is deleted, the appointment will NOT be deleted. Use the <<deleteapp, `deleteapp`>> command
+to delete an appointment.
 
 === Record & Statistics feature ===
 ==== Current implementation ====
@@ -1023,6 +1153,7 @@ MonthRecord object of a specific MMYY by indexing.
 needed when simply querying for a single topic. However, the current implementation was decided as the Statistics
 class currently holds all the information for all the topics.
 
+[[med]]
 === Storing medicines in inventory
 ==== Current implementation
 

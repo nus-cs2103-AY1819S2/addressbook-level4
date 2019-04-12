@@ -7,14 +7,18 @@
 :sectnums:
 :imagesDir: images
 :stylesDir: stylesheets
+:sourceDir: ../src/main/java
 :xrefstyle: full
-:source-highlighter: rouge
 :experimental:
 ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
+:important-caption: :heavy_exclamation_mark:
+:caution-caption: :fire:
+:warning-caption: :warning:
 endif::[]
 :repoURL: https://github.com/CS2103-AY1819S2-W11-3/main
+:source-highlighter: rouge
 
 By: `CS2103T W11-3 Team`      Since: `Mar 2019`      Licence: `MIT`
 
@@ -51,8 +55,12 @@ Before continuing, it may be helpful to familiarize yourself these two symbols t
 This tells you there is important information that you should take note of.
 
 [TIP]
-This alerts you to useful tips and tricks that will improve your TravelBuddy experience.
+The *TIP* symbol is used to alert you of some useful tips.
 
+[WARNING]
+The *WARNING* symbol is used to alert you of something critical.
+=======
+This alerts you to useful tips and tricks that will improve your TravelBuddy experience.
 // end::additionalInfo[]
 
 == Quick Start
@@ -102,7 +110,7 @@ Below are other example commands you may try:
 
 The following covers the standard format to be used for all the commands in TravelBuddy and the syntax that follows:
 
-[NOTE]
+[WARNING]
 The code in this section is merely for illustrative purposes. It is kept brief to highlight the formatting standards for all the commands and not the actual commands themselves. Do not copy and paste the commands in this section.
 
 * _Some commands may have a shortcut, which you can use to execute the command._ +
@@ -166,14 +174,12 @@ e.g. `JPN` to represent `Japan`
 |A valid date that follows the `DD/MM/YYYY` format ranging from `01/01/1900` to the current date
 |=======================================================================
 
-****
 *Examples:* Given below are some examples on how to utilize the `add` command:
 
 * `add n/Botanic Gardens cc/SGP dv/01/01/2017 r/4 d/UNESCO World Heritage Site a/1 Cluny Rd, Singapore 259569 t/nature` +
 Adds Botanic Gardens to the list of places you have visited into TravelBuddy. +
 * `add n/Raffles Hotel cc/SGP dv/05/05/2016 t/hotel d/This place is lovely a/Raffles Road r/5 t/staycation` +
 Adds Raffles Hotel to the list of places you have visited into TravelBuddy.
-****
 
 <<addFigure>> below shows the outcome of a specific `add` command
 [[addFigure]]
@@ -288,14 +294,12 @@ image::listCommand.png[width="400"]
 * Some parameters have a specific input format.
 * Preconditions for changing the photo file [FILE_PATH] are in <<Replacing the photo of a place with `edit p/`>>
 
-****
 *Examples:* Given below are some examples on how to utilize the `edit` command:
 
 * `edit 1 r/3 d/No description` +
 Edits the rating and description of the 1st place entry in the list to be `3` and `No description` respectively.
 * `edit 2 n/Raffles Hotel t/` +
 Edits the name of the 2nd place entry in the list to be `Raffles Hotel` and clears all existing tags.
-****
 
 <<editFigureBefore>> below shows the list of places before the `edit` command was used.
 
@@ -355,7 +359,6 @@ e.g. `Nation` will not match `National`
 * Places matching at least one keyword will be returned (i.e. `OR` search). +
 e.g. `National Museum` will return `National Museum of Singapore` and `National University Hospital`.
 
-****
 *Example:* `search Singapore` +
 Executes a search for places that contain the keyword `Singapore` in its name. +
 From <<searchFigure>>, using `search Singapore` will return all places in your TravelBuddy that contain `Singapore` in its name. +
@@ -364,7 +367,6 @@ In this case, the following are returned as they contain `Singapore` in their na
 * Universal Studios *Singapore*
 * National University of *Singapore*
 * *Singapore* Zoo
-****
 
 [[searchFigure]]
 [reftext="Figure 4.6.1"]
@@ -387,11 +389,9 @@ e.g `searchr 5` will return places with 5-star ratings.
 * Only the rating of the places in TravelBuddy is searched.
 * Multiple indices can be included in the query, i.e. `searchr 4 5` will return places with `4` or `5` star ratings.
 
-****
 *Example:* `searchr 4` +
 Executes a search for places with a rating of `4`. +
 From <<searchRatingFigure>> below, using `searchr 4` will return all places in your TravelBuddy that have a rating of `4`.
-****
 
 [[searchRatingFigure]]
 [reftext="Figure 4.7.1"]
@@ -415,11 +415,9 @@ image::UIsearchratingresults.png[width="400"]
 * Places tagged with at least one matching keyword will be returned (i.e. `OR` search). e.g. `temple school` will return places tagged with `temple` or `school`.
 * Multiple keywords can be included in the query, i.e. `searcht distillery temple` will return places tagged with `distillery` or `temple`.
 
-****
 *Example:* `searcht distillery` +
 Executes a search for places that are tagged with `distillery`. +
 From <<searchTagFigure>> below, using `searcht distillery` will return all places in your TravelBuddy that are tagged with `distillery`.
-****
 
 [[searchTagFigure]]
 [reftext="Figure 4.8.1"]
@@ -442,11 +440,9 @@ image::UIsearchtagsresults.png[width="400"]
 * Only the country of the places in TravelBuddy is searched.
 * Multiple keywords can be included in the query, i.e. `searchc JPN CHN` will return places located in Japan or China.
 
-****
 *Example:* `searchc JPN` +
 Executes a search for places located in `JPN` (Japan). +
 From <<searchCountryFigure>> below, using `searchc JPN` will return all places in your TravelBuddy that are located in Japan.
-****
 
 [[searchCountryFigure]]
 [reftext="Figure 4.9.1"]
@@ -470,11 +466,9 @@ image::UIsearchcountryresults.png[width="400"]
 * The year keywords for `searchyear` can be entered as a range. e.g `2010-2017` will return all the places visited from `2010` to `2017`.
 * Only the year of visit of the places in TravelBuddy is searched.
 
-****
 *Example:* `searchyear 2016` +
 Executes a search for places visited in the year `2016`. +
 From <<searchYearFigure>> below, using `searchyear 2016` will return all places in your TravelBuddy you visited in the year `2016`.
-****
 
 [[searchYearFigure]]
 [reftext="Figure 4.10.1"]
@@ -514,7 +508,6 @@ image::deleteCommandBefore.png[width="400"]
 .After the `delete` command is used
 image::deleteCommandAfter.png[width="400"]
 
-****
 *Examples:* Given below are some examples on how to utilize the `delete` command:
 
 * `list` +
@@ -525,7 +518,6 @@ Deletes the 2nd place in TravelBuddy.
 Searches for any places which has the word "Raffles" in it. +
 `delete 1` +
 Deletes the 1st place in the results of the `search` command.
-****
 // end::delete[]
 
 // tag::deleteMultiple[]
@@ -552,7 +544,6 @@ Deletes the 1st place in the results of the `search` command.
 .An example of the `deletem` command
 image::deletemExample.png[width="400"]
 
-****
 *Examples:* Given below are some examples on how to utilize the `deletem` command:
 
 * `list` +
@@ -563,7 +554,6 @@ Deletes the 1st, 2nd, 3rd and 4th place in the currently displayed list on the l
 Searches for any places which has the word "Singapore" in it. +
 `deletem 1 3` +
 Deletes the 1st, 2nd and 3rd place in the results of the `search Singapore` command.
-****
 // end::deleteMultiple[]
 
 // tag::select[]
@@ -590,7 +580,6 @@ box and additional information is shown on the right side of the GUI.
 .An example of the `select` command
 image::selectCommand.png[width="400"]
 
-****
 *Examples:* Given below are some examples on how to utilize the `select` command:
 
 * `list` +
@@ -601,7 +590,6 @@ Selects the 2nd place in TravelBuddy.
 Searches for any places which has the word "Raffles" in it. +
 `select 1` +
 Selects the 1st place in the results of the `search` command.
-****
 // end::select[]
 
 // tag::history[]
@@ -641,7 +629,6 @@ Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and 
 Undoable commands: Commands that modify TravelBuddy's data (`add`, `delete`, `deletem`, `edit` , `generate` and `clear`).
 ====
 
-****
 *Examples:* Given below are some examples on how to utilize the `undo` command:
 
 * `delete 1` +
@@ -660,7 +647,6 @@ Clears all contents in the list +
 Reverses the `clear` command +
 `undo` +
 Reverses the `delete 1` command +
-****
 
 === Redoing the previously undone command: `redo`
 
@@ -670,7 +656,6 @@ Reverses the `delete 1` command +
 
 *Format:* `redo`
 
-****
 *Examples:* Given below are some examples on how to utilize the `redo` command:
 
 * `delete 1` +
@@ -695,7 +680,6 @@ Reverses the `delete 1` command +
 Reapplies the `delete 1` command +
 `redo` +
 Reapplies the `clear` command +
-****
 // end::undoredo[]
 
 // tag::generate[]
@@ -706,6 +690,10 @@ Reapplies the `clear` command +
 * The number of places visited for each country
 * The number of places visited for each rating category
 * The number of places visited for each year
+
+[[Chart_Combined]]
+.The number of places visited by country, rating category and year
+image::Chart_Combined.png[width="800", caption="Figure 4.17.1: ", reftext="Figure 4.17.1"]
 
 *Shortcut:* `g`
 
@@ -720,10 +708,6 @@ Reapplies the `clear` command +
 * If the list is empty, the `generate` command will not display any charts (<<Generate_ListIsEmpty>>).
 * You can type in any parameters after the `generate` command, TravelBuddy will simply ignore them (<<Generate_BeforeParamAfterParam>>).
 
-[[Chart_Combined]]
-.The number of places visited by country, rating category and year
-image::Chart_Combined.png[width="800", caption="Figure 4.17.1: ", reftext="Figure 4.17.1"]
-
 [[Generate_BeforeParamAfterParam]]
 .Before and after a parameter was used in the `generate` command
 image::Generate_BeforeParamAfterParam.png[width="800", caption="Figure 4.17.2: ", reftext="Figure 4.17.2"]
@@ -732,11 +716,6 @@ image::Generate_BeforeParamAfterParam.png[width="800", caption="Figure 4.17.2: "
 .The charts were successfully generated
 image::Generate_Successful.png[width="400", caption="Figure 4.17.3: ", reftext="Figure 4.17.3"]
 
-[[Generate_ListIsEmpty]]
-.Unable to generate the charts as the list is empty
-image::Generate_ListIsEmpty.png[width="400", caption="Figure 4.17.4: ", reftext="Figure 4.17.4"]
-
-****
 *Examples:* Given below are some examples on how to utilize the `generate` command:
 
 * `select 1` +
@@ -749,7 +728,10 @@ Clears all places in the list. +
 `generate` +
 Generates the charts.  +
 *_Outcome:_* Unable to generate the charts as the list is empty, as seen in <<Generate_ListIsEmpty>>
-****
+
+[[Generate_ListIsEmpty]]
+.Unable to generate the charts as the list is empty
+image::Generate_ListIsEmpty.png[width="400", caption="Figure 4.17.4: ", reftext="Figure 4.17.4"]
 
 // end::generate[]
 

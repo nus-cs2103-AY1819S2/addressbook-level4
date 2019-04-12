@@ -1,14 +1,27 @@
 = Arielyte Tsen Chung Ming - Project Portfolio
 :site-section: AboutUs
+:toc:
+:toc-title: Project Portfolio
+:toc-placement: preamble
+:sectnums:
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 :sourceDir: ../src/main/java
+:xrefstyle: full
+:experimental:
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:important-caption: :heavy_exclamation_mark:
+:caution-caption: :fire:
+:warning-caption: :warning:
+endif::[]
 :repoURL: https://github.com/CS2103-AY1819S2-W11-3/main
 :source-highlighter: rouge
 :doctype: article
 :reproducible:
 
-== PROJECT: TravelBuddy
+= PROJECT: TravelBuddy
 ---
 == Overview
 
@@ -44,10 +57,11 @@ The minor enhancement I did was converting the `add` command's Email parameter i
 
 *Code contributed to minor enhancement*: [link:{repoURL}/pulls?utf8=%E2%9C%93&q=is%3Apr+author%3Achung-ming+label%3Atype.MinorEnhancement[Functional code]]
 
-*Other contributions*:
+*Other contributions*: The details of other contributions can be found in <<OtherContributions>> below:
 
+[[OtherContributions]]
+[width="100%", cols="20%,<80%", reftext="Table 2.2.1", caption="Table 2.2.1: "]
 .Details of Other Contributions
-[width="100%",cols="20%,<80%"]
 |=======================================================================
 
 |*Project management*
@@ -59,7 +73,7 @@ a|* Updated the GUI color scheme to a `LightTheme.css` (Pull request: link:{repo
 
 |*Documentation*
 a|* Improved readability to existing contents of the User Guide (Pull request: link:{repoURL}/pull/165[#165]) +
-* Added user stories and use cases to Developer Guide (Pull request: link:{repoURL}/pull/170[#170])
+* Added user stories and use cases to the Developer Guide (Pull request: link:{repoURL}/pull/170[#170])
 
 |*Community*
 a|* Reviewed PRs (with non-trivial review comments) (Pull request: link:{repoURL}/pull/115#discussion_r271991549[#115]) +
@@ -83,40 +97,31 @@ a|* Integrated a third-party library (Gson) to the project (Pull request: {repoU
 <<<
 == Contributions to the User Guide
 
-|===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
-|===
-
-|===
-|_This is the start of extract of the User Guide._
-|===
+****
+_Given below is the start of extract of sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+****
 
 //include::../UserGuide.adoc[tag=intro]
-include::../UserGuide.adoc[tag=features]
+//include::../UserGuide.adoc[tag=features]
 include::../UserGuide.adoc[tag=generate]
 //include::../UserGuide.adoc[tag=cheatsheet]
 //include::../UserGuide.adoc[tag=commandFormats]
 
-|===
-|_This is the end of extract of the User Guide._
-|===
+****
+_This is the end of extract of the User Guide._
+****
 
-<<<
 == Contributions to the Developer Guide
 
-|===
-|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
-|===
+****
+_Given below is the start of extract of sections I contributed to the Developer Guide. They showcase my ability to write documentation targeting end-users._
+****
 
-|===
-|_This is the start of extract of the Developer Guide._
-|===
-
-include::../DeveloperGuide.adoc[tag=implementation]
+//include::../DeveloperGuide.adoc[tag=implementation]
 include::../DeveloperGuide.adoc[tag=chartFeature]
 //include::../DeveloperGuide.adoc[tag=user-stories]
 //include::../DeveloperGuide.adoc[tag=use-cases]
 
-|===
-|_This is the end of extract of the Developer Guide._
-|===
+****
+_This is the end of extract of the Developer Guide._
+****

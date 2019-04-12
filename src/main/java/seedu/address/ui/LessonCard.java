@@ -1,5 +1,7 @@
 package seedu.address.ui;
 
+import static seedu.address.commons.util.StringUtil.truncateString;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
@@ -11,8 +13,12 @@ import seedu.address.model.lesson.Lesson;
  * An UI component that displays information of a {@link Lesson}.
  */
 public class LessonCard extends UiPart<Region> {
-
     private static final String FXML = "LessonListCard.fxml";
+
+    /**
+     * Maximum length of label text before truncation occurs.
+     */
+    private static final int labelMaxLen = 14;
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -21,11 +27,6 @@ public class LessonCard extends UiPart<Region> {
      *
      * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on AddressBook level 4</a>
      */
-
-    private static final Tooltip TT_TESTED = new Tooltip("Tested");
-    private static final Tooltip TT_NOT_TESTED = new Tooltip("Not tested");
-    private static final Tooltip TT_HINT =
-            new Tooltip("Hint");
 
     public final Lesson lesson;
 
@@ -54,14 +55,14 @@ public class LessonCard extends UiPart<Region> {
         int questionIndex = lesson.getQuestionCoreIndex();
         int answerIndex = lesson.getAnswerCoreIndex();
         for (String s: lesson.getCoreHeaders()) {
-            Label label = new Label(s);
+            Label label = new Label(truncateString(s, labelMaxLen));
 
             if (i == questionIndex || i == answerIndex) {
                 label.getStyleClass().add("questionAnswer");
-                label.setTooltip(TT_TESTED);
+                label.setTooltip(new Tooltip("Tested: " + s));
             } else {
                 label.getStyleClass().add("core");
-                label.setTooltip(TT_NOT_TESTED);
+                label.setTooltip(new Tooltip("Not tested: " + s));
             }
 
             headers.getChildren().add(label);
@@ -69,9 +70,9 @@ public class LessonCard extends UiPart<Region> {
         }
 
         for (String s: lesson.getOptionalHeaders()) {
-            Label label = new Label(s);
+            Label label = new Label(truncateString(s, labelMaxLen));
             label.getStyleClass().add("opt");
-            label.setTooltip(TT_HINT);
+            label.setTooltip(new Tooltip("Hint: " + s));
             headers.getChildren().add(label);
         }
     }

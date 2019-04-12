@@ -13,6 +13,7 @@
     -fx-font-family: "Segoe UI Semibold";
     -fx-text-fill: #383838;
     -fx-opacity: 0.9;
+    -fx-wrap-text: true;
 }
 
 .label-bright {
@@ -392,7 +393,6 @@
 #headers {
     -fx-hgap: 7;
     -fx-vgap: 4;
-    -fx-padding: 10 0;
 }
 
 #bigHeaders {

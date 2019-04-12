@@ -22,7 +22,7 @@
         <Label fx:id="name" text="\$first" styleClass="cell_XXL_label" />
       </HBox>
       <Label fx:id="count" styleClass="cell_normal_label" text="0 card" />
-      <FlowPane fx:id="bigHeaders" />
+      <FlowPane fx:id="bigHeaders" orientation="VERTICAL"/>
     </VBox>
   </GridPane>
 </HBox>

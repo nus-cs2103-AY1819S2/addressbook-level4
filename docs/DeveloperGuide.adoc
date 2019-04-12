@@ -284,9 +284,6 @@ The following sequence diagram shows how the *add equipment* operation works:
 .Sequence diagram for `AddCommand`
 image::AddCommandSD.png[width="800"]
 
-Step 1
-
-
 Given below is an example usage scenario of how the adding of equipment details mechanism behaves at each step after carrying out `add-e`.
 
 Step 1. The user launches the application.
@@ -333,27 +330,38 @@ In Equipment Manager, there are `Name`, `Phone`, `Address` attributes stored und
 As mentioned in <<Current Usage of Equipment Details>>, the `Address` which belong to the client address, are used in features like `DisplayCommand` and `SelectCommand`.
 
 ==== Current implementation
-There is `AddClientCommand` that is supported by  `AddClientCommandParser`.
-This adding of client details mechanism is facilitated by `VersionedEquipmentManager` which extends the  `Equipment Manager`.
+There is `SelectClientCommand` that is supported by  `SelectClientCommandParser`.
+This selection of client details mechanism is facilitated by `VersionedEquipmentManager` which extends the  `Equipment Manager`.
 
-Given below is an example usage scenario of how the adding of client details mechanism behaves at each step after carrying out `add-c`.
+Given below is an example usage scenario of how the selection of client details mechanism behaves at each step after carrying out `select-c`.
 
 Step 1. The user launches the application.
 
-Step 2. The user executes `add-c n/Pending CC` command.
+Step 2. The user executes `select-c 1` command.
 
-Step 3. After `EquipmentManagerParser` detects `add-c` as the command word, a `AddClientCommandParser#parse()` is called.
+Step 3. After `EquipmentManagerParser` detects `select-c` as the command word, a `SelectClientCommandParser#parse()` is called.
 
-Step 4. `AddClientCommand#execute()` is then called.
+Step 4. `SelectClientCommand#execute()` is then called and set the selected client in the model with the filtered client list.
 
-Step 5. The parser will parse the `Name` attributes and add into client details in the model.
+Step 5. Using the `filter` feature, the model will use the `Name` attributes, filter the equipment list accordingly and displays the client's equipment in the *Equipment details* panel.
 
-Step 7. The model now contains additional client name and returns to GUI for display on *Client details* panels respectively.
+Step 7. The model now contains additional client name and returns to GUI for display on *Client details* panel respectively. The model also contains filtered client's equipments and returns the GUI for display on *Equipment details* panel.
 
-In addition, the figure in Current Implementation of <<Equipment feature>> also explains how `AddCommand` contributes to the results shown in *Client Details* panel.
+[NOTE]
+The figure in Current Implementation of <<Equipment feature>> also explains how `AddCommand` contributes to the results shown in *Client Details* panel.
 
 ==== Design Considerations
 Refer to the *Design Considerations* in <<Equipment feature>> as we went through the same design considerations to come out with equipment and client details separation.
+
+===== Aspects: With a list of client displayed in *Client details* panel, how should the client's equipment details be displayed?
+
+* *Alternative 1 (current choice)*: Making use of the `filter` command to show client's equipment
+** Pros: Making use of exisiting *Equipment details* panel. Easier to implement with lesser changes to the storage, logic, model and ui components within the time constraint.
+** Cons: select followed by a filter command is stored in the history even though user did not use filter command. This is the trade off.
+
+* *Alternative 2*: Add a new equipment panel and card for displaying client's equipment when selecting the client
+** Pros: Do not have the issue of filter command being tracked in history even though user did not use the filter command.
+** Cons: Too many different panels in one main window display may cause confusion and lower user's experience.
 //end::client[]
 
 //tag::filter[]

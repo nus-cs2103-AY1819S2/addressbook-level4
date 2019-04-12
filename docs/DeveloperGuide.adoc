@@ -816,7 +816,7 @@ The administrative and statistics module currently consists of 2 commands: +
 
 This 2 commands makes use of the classes located in filepath `model\record`.
 
-==== Setting the consultation fee
+==== Consultation fee
 The consultation fee of the clinic is stored as a BigDecimal in the StatisticsManager of QuickDocs, which is loaded from the
 quickdocs.json file through the <<Design-Storage, storage>> component. The consultation fee is used for calculating
 financial statistics for any ConsultationRecord objects.
@@ -919,20 +919,21 @@ statistics to exist (all variables 0 or no elements). Such a case might happen w
 whole month. In addition, it would be easy to retrieve the MonthStatistics object of a specific MMYYYY by indexing.
 
 ==== Statistics and Record - Alternatives Considered
+The following table lists out the alternatives designs considered for implementing the storage of the Records and Statistics.
 [cols="1,2a,1, 1", options="header"]
 |===
-|Alternative |Description |Pros | Cons
+|Alternative |Description |Pros |Cons
 // row 1
-|*Storage of Records*
-|Individual records are stored within the MonthStatistics, along with the latest Statistics. When the Statistics for a
+|*Storing of individual records for each month (Alternative chosen)*
+|Individual records are stored within the MonthStatistics, along with the Statistics. When the Statistics for a
 specific month is queried, update the latest statistics and return it.
-|x
-|x
+|Individual records are kept, which could potentially be used for other calculations or features.
+|Storing of individual records is extremely costly in terms of space
 // row 2
-|*y*
-|y
-|RecordManager could store the MonthRecord objects in a LinkedList instead. However, that would slow down the access time.
-|y
+|*Storing the merged statistics of all the records for each month*
+|When a new record is added, it is coverted to a Statistics object which is then merged with the current Statistics object stored.
+|Only one Statistics object needs to be stored, which saves a lot of storage space.
+|The individual records are unable to be retrieved. However, the current implementation has no need to retrieve individual records.
 |===
 
 === Storing medicines in inventory

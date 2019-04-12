@@ -38,7 +38,7 @@ To begin using BrainTrain, follow the following set of instructions: +
 . Create a folder to use as the home folder for BrainTrain (e.g. `braintrain/`).
 . Move the downloaded file to the created folder.
 . You can **optionally** download a sample lesson here: link:https://github.com/CS2103-AY1819S2-W14-1/main/blob/master/src/test/data/country-capitals-asia.csv[`country-capitals-asia.csv`]. +
-Put the sample lesson into a `data` sub-folder within the `braintrain` folder (i.e. `braintrain/data/`).
+Put the sample lesson into a `data` sub-folder within the `braintrain` folder (i.e. `braintrain/lessons/`).
 . Double-click the file to run BrainTrain. The GUI will appear in a few seconds.
 +
 .BrainTrain's GUI on first run
@@ -346,7 +346,6 @@ Format: `\quit`
 
 {empty} +
 
-// TODO
 == Troubleshooting
 
 *Q*: Why are my card values shown as `?????`? +
@@ -357,18 +356,23 @@ Format: `\quit`
 
 This can be fixed by opening the lesson file in your preferred spreadsheet application (e.g. Excel), and then saving it as `CSV UTF-8 (Comma delimited) (*.csv)`. +
 ****
-The default encoding setting is unable to process special characters. As a result, you will need to save it as a `UTF-8` encoded `.csv` file.
+The default encoding setting is unable to process special characters. As a result, you will need to save it as a `UTF-8` encoded file.
 
-Note that the lesson files have to be saved as a `UTF-8` encoded `.csv` file before the first save. +
-If the file is saved without `UTF-8` encoding, the data may be saved as `?????`, and all non-ASCII characters will be discarded.
+Note that externally created lesson files have to be saved with UTF-8 encoding before using them in BrainTrain. +
+If the files are saved without `UTF-8` encoding, any non-English data may be saved as `?????`, and the data will be lost.
 ****
+
+*Q*: Why are my lessons not loading? +
+*A*: Please verify if the location of BrainTrain is suitable. Depending on your computer's permissions and security settings, places such as the Desktop may not be usable, and your operating system may prevent BrainTrain from loading the lesson files.
+
+If BrainTrain still does not load lessons despite trying other locations, please contact Team BrainTrain at https://github.com/CS2103-AY1819S2-W14-1/main/issues[our issue tracker] or email us at eugenef@u.nus.edu, and attach any generated braintrain.log files.
 
 {empty} +
 
 == FAQ
 
 *Q*: How do I transfer my data to another computer? +
-*A*: Install the app in the other computer and transfer the lesson `.csv` files over to the `/data` directory.
+*A*: Install the app in the other computer and transfer the lesson `.csv` files over to the `lessons` directory, and userdata `.csv` files over to the `userdata` directory.
 
 {empty} +
 

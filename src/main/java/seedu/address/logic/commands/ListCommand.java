@@ -26,14 +26,14 @@ public class ListCommand extends Command {
     private Optional<Set<Tag>> optionalTagSet;
     private Optional<Set<Name>> optionalNameSet;
 
-    public ListCommand(Optional<Set<Tag>> optionalTagSet, Optional<Set<Name>> optionalNameSet) {
+    public ListCommand(Optional<Set<Name>> optionalNameSet, Optional<Set<Tag>> optionalTagSet) {
         this.optionalTagSet = optionalTagSet;
         this.optionalNameSet = optionalNameSet;
         setPermissibleStates(EnumSet.of(
-            BattleState.PLAYER_PUT_SHIP,
-            BattleState.ENEMY_PUT_SHIP,
-            BattleState.PLAYER_ATTACK,
-            BattleState.ENEMY_ATTACK));
+                BattleState.PLAYER_PUT_SHIP,
+                BattleState.ENEMY_PUT_SHIP,
+                BattleState.PLAYER_ATTACK,
+                BattleState.ENEMY_ATTACK));
     }
 
     @Override

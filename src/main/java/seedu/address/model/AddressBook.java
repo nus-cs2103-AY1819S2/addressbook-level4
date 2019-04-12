@@ -14,7 +14,6 @@ import seedu.address.model.job.Job;
 import seedu.address.model.job.JobListName;
 import seedu.address.model.job.JobName;
 import seedu.address.model.job.UniqueJobList;
-import seedu.address.model.person.Nric;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniqueNricMap;
 import seedu.address.model.person.UniquePersonList;
@@ -118,14 +117,28 @@ public class AddressBook implements ReadOnlyAddressBook {
      * The person must not already exist in the job.
      * Adds to the first list
      */
-    public boolean addPersonToJobByNric(Nric nric, JobName jobName) {
-        Person person = persons.getPerson(nric);
-        Job job = jobs.getJob(jobName);
-        boolean status = job.add(person, 0);
+    public void addPersonToJob(Person person, Job toAdd, JobListName list) {
+        Job job = getJob(toAdd.getName());
+        int destination;
+        switch (list) {
+        case APPLICANT:
+            destination = 0;
+            break;
+        case KIV:
+            destination = 1;
+            break;
+        case INTERVIEW:
+            destination = 2;
+            break;
+        case SHORTLIST:
+            destination = 3;
+            break;
+        default:
+            destination = 0;
+        }
+        job.add(person, destination);
         this.jobs.setJob(job, job);
         indicateModified();
-
-        return status;
     }
 
     /**
@@ -165,18 +178,6 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Adds a person to the job.
-     * The person must not already exist in the job.
-     * Adds to the first list
-     * This version directly adds from job
-     */
-    public void addPersonToJob(Person person, Job job) {
-        job.add(person, 0);
-        indicateModified();
-    }
-
-
-    /**
      * Adds a job to the address book.
      * The job must not already exist in the address book.
      */
@@ -197,14 +198,9 @@ public class AddressBook implements ReadOnlyAddressBook {
     /**
      * Returns true if a job with the same identity as {@code job} exists in the address book.
      */
-    public int movePerson(JobName jobName, Nric nric, int source, int dest) {
-        requireNonNull(jobName);
-        requireNonNull(nric);
-        requireNonNull(source);
-        requireNonNull(dest);
-
-        Person person = persons.getPerson(nric);
-        Job job = jobs.getJob(jobName);
+    public int movePerson(Job job, Person person, int source, int dest) {
+        requireNonNull(job);
+        requireNonNull(person);
 
         return job.move(person, source, dest);
     }
@@ -248,6 +244,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void removePerson(Person key) {
         persons.remove(key);
         nrics.remove(key.getNric());
+        jobs.removePerson(key);
         interviews.removePerson(key);
         indicateModified();
     }

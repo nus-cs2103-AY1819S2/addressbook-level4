@@ -15,9 +15,15 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_RACE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SCHOOL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
+import java.util.Iterator;
+
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.job.Job;
+import seedu.address.model.job.JobListName;
+import seedu.address.model.job.JobName;
+import seedu.address.model.person.JobsApply;
 import seedu.address.model.person.Person;
 
 /**
@@ -97,6 +103,15 @@ public class AddCommand extends Command {
         }
 
         model.addPerson(toAdd);
+        Iterator<JobsApply> itr = toAdd.getJobsApply().iterator();
+        while (itr.hasNext()) {
+            JobsApply job = itr.next();
+            try {
+                model.addPersonToJob(new Job(new JobName(job.toString())), toAdd, JobListName.APPLICANT);
+            } catch (Exception e) {
+                continue;
+            }
+        }
         model.commitAddressBook();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }

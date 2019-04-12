@@ -15,6 +15,8 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.Nric;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
+import seedu.address.model.person.exceptions.DuplicatePersonException;
+import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.model.person.predicate.UniqueFilterList;
 
 /**
@@ -28,6 +30,7 @@ public class Job {
     private final JobName name;
 
     // Data fields
+    private UniquePersonList personsInJob = new UniquePersonList();
     private ArrayList<UniquePersonList> personsList = new ArrayList<> (NUMBER_OF_LISTS);
     private ArrayList<Set<Nric>> personsNricList = new ArrayList<>(NUMBER_OF_LISTS);
     private ArrayList<UniqueFilterList> predicateList = new ArrayList<> (NUMBER_OF_LISTS);
@@ -46,12 +49,14 @@ public class Job {
         }
     }
 
-    public Job(JobName name, ArrayList<UniquePersonList> personList, ArrayList<Set<Nric>> nricList) {
-        requireAllNonNull(name, personList, nricList);
+    public Job(JobName name, ArrayList<UniquePersonList> personList, ArrayList<Set<Nric>> nricList,
+               UniquePersonList personsInJob) {
+        requireAllNonNull(name, personList, nricList, personsInJob);
 
         this.name = name;
         this.personsList = personList;
         this.personsNricList = nricList;
+        this.personsInJob = personsInJob;
     }
 
     public JobName getName() {
@@ -67,22 +72,43 @@ public class Job {
             if (personsList.get(to).contains(filteredPersons.get(i))) {
                 continue;
             }
+            if (!personsInJob.contains(filteredPersons.get(i))) {
+                personsInJob.add(filteredPersons.get(i));
+            }
             add(filteredPersons.get(i), to);
         }
+    }
+
+    /**
+     * Removes a person from a job
+     */
+    public void remove(Person toRemove) {
+        requireNonNull(toRemove);
+        if (!personsInJob.contains(toRemove)) {
+            throw new PersonNotFoundException();
+        }
+        for (int i = 0; i < 4; i++) {
+            if (personsList.get(i).contains(toRemove)) {
+                personsList.get(i).remove(toRemove);
+                personsNricList.get(i).remove(toRemove.getNric());
+            }
+        }
+        personsInJob.remove(toRemove);
     }
 
     /**
      * Adds a person to a job.
      * Goes to the first list
      */
-    public boolean add(Person person, Integer destination) {
+    public void add(Person person, Integer destination) {
         if (personsList.get(destination).contains(person)) {
-            return false;
+            throw new DuplicatePersonException();
+        }
+        if (!personsInJob.contains(person)) {
+            personsInJob.add(person);
         }
         personsList.get(destination).add(person);
         personsNricList.get(destination).add(person.getNric());
-
-        return true;
     }
 
     /**
@@ -123,6 +149,13 @@ public class Job {
      */
     public final UniquePersonList getPeople(Integer listNumber) {
         return personsList.get(listNumber);
+    }
+
+    /**
+     * Returns true if Job contains Person
+     */
+    public final boolean contains(Person person) {
+        return personsInJob.contains(person);
     }
 
     /**

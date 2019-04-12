@@ -13,7 +13,6 @@ import seedu.address.model.interviews.Interviews;
 import seedu.address.model.job.Job;
 import seedu.address.model.job.JobListName;
 import seedu.address.model.job.JobName;
-import seedu.address.model.person.Nric;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.person.predicate.UniqueFilterList;
@@ -85,7 +84,7 @@ public interface Model {
     /**
      * adds person with {@code nric} to {@code job}.
      */
-    boolean addPersonToJob(JobName job, Nric nric);
+    void addPersonToJob(Job job, Person person, JobListName list);
 
     /**
      * Deletes the given person.
@@ -116,7 +115,7 @@ public interface Model {
      * from list {@code source} to list {@code dest}
      * {@code job} must exist in the address book.
      */
-    Integer movePerson(JobName jobName, Nric nric, Integer source, Integer dest);
+    Integer movePerson(Job job, Person person, Integer source, Integer dest);
 
     /**
      * Replaces the given person {@code target} with {@code editedPerson}.
@@ -204,9 +203,10 @@ public interface Model {
      */
     ObservableList<Person> getFilteredPersonList();
 
-    /** Returns an unmodifiable view of the filtered  people list in job */
+    /** Returns an unmodifiable view of the filtered  people list in job
+     * @param list*/
 
-    ObservableList<Person> getJobsList(int listNum);
+    ObservableList<Person> getJobsList(JobListName list);
 
     /** Returns an unmodifiable view of the filtered job list */
     ObservableList<Job> getAllJobs();

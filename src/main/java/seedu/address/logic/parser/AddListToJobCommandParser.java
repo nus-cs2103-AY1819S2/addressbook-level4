@@ -31,6 +31,10 @@ public class AddListToJobCommandParser implements Parser<AddListToJobCommand> {
         String toListNameString = preambleString.split("\\s+")[0].trim();
         try {
             toListName = ParserUtil.parseJobListName(toListNameString);
+            if (toListName == JobListName.EMPTY) {
+                throw new ParseException(String.format(AddListToJobCommand.MESSAGE_NO_DESTINATION,
+                        AddListToJobCommand.MESSAGE_USAGE));
+            }
         } catch (ParseException pe) {
             throw new ParseException(String.format(AddListToJobCommand.MESSAGE_NO_DESTINATION,
                     AddListToJobCommand.MESSAGE_USAGE), pe);

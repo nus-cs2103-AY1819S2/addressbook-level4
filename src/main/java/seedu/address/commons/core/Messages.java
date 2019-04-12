@@ -19,4 +19,5 @@ public class Messages {
     public static final String MESSAGE_REDUNDANT_FILTERNAME = "Filter name has already been used." + "\n" +
         "Filter Command need a unique name";
 
+
 }

@@ -570,48 +570,48 @@ specified to be searched.
 === Open feature
 ==== Current Implementation
 As TeethHub already has a built-in auto-load when starting the program, the implemented Open feature is simple. +
-0. AddressBookParser creates OpenCommandParser.
-1. The OpenCommandParser uses ParserUtil to parse the user input.
-2. If the input is valid, ParserUtil creates a ParsedInOut object and returns it to OpenCommandParser.
-3. OpenCommandParser creates OpenCommand initialized with the ParsedInOut object.
-4. OpenCommand checks for if the requested file is a ".json" file, if the file exists, if it is a file, or if it can be read.
+0. AddressBookParser creates OpenCommandParser. +
+1. The OpenCommandParser uses ParserUtil to parse the user input. +
+2. If the input is valid, ParserUtil creates a ParsedInOut object and returns it to OpenCommandParser. +
+3. OpenCommandParser creates OpenCommand initialized with the ParsedInOut object. +
+4. OpenCommand checks for if the requested file is a ".json" file, if the file exists, if it is a file, or if it can be read. +
 5. OpenCommand calls the existing readAddressBook().
 
 image::OpenCommandSequenceDiagram.jpg[width="870"]
 
 ==== Design Considerations
 
-* **Alternative 1:** Open file by calling JsonUtil or FileUtil.
+* **Alternative 1:** Open file by calling JsonUtil or FileUtil. +
 Current implementation: OpenCommand -> InOutAddressBookStorage -> JsonUtil -> FileUtil
-** Pros: Less overhead and faster runtime as there are less classes to go through.
-Alternative 1.1: OpenCommand -> Json Util -> FileUtil
+** Pros: Less overhead and faster runtime as there are less classes to go through. +
+Alternative 1.1: OpenCommand -> Json Util -> FileUtil +
 Alternative 1.2: OpenCommand -> FileUtil
-** Cons: InOutAddressBookStorage does some error handling. Bypassing InOutAddressBookStorage would require the same error handling in OpenCommand. Since OpenCommand is not called when the program starts, we cannot move the error handling from InOutAddressBookStorage to OpenCommand. Then we would have to copy the error handling instead, which means that we now have a duplicate logic.
+** Cons: InOutAddressBookStorage does some error handling. Bypassing InOutAddressBookStorage would require the same error handling in OpenCommand. Since OpenCommand is not called when the program starts, we cannot move the error handling from InOutAddressBookStorage to OpenCommand. In that case, we would have to copy the error handling instead, which means that we now have a duplicate logic, which is also not ideal.
 
 // end::openimplementJH[]
 
 // tag::saveimplementJH[]
 === Save feature
 ==== Current Implementation
-As TeethHub already has a built-in auto-save when exiting the program, the implemented Save feature makes use of it.
+As TeethHub already has a built-in auto-save when exiting the program, the implemented Save feature makes use of it. +
 In addition to that, the Save can also save to PDF, using the Apache PDFBox. +
 In the Open Command Sequence Diagram above, you can see that OpenCommand creates an InOutAddressBookStorage. The InOutAddressBookStorage has the capability to call the existing saveAddressBook() and also a new saveAsPdf(). +
-0. AddressBookParser creates SaveCommandParser.
-1. The SaveCommandParser uses ParserUtil to parse the user input.
-2. If the input is valid, ParserUtil creates a ParsedInOut object and returns it to SaveCommandParser.
-3. SaveCommandParser creates SaveCommand initialized with the ParsedInOut object.
-4. SaveCommand checks for if the requested file is a ".json" file or ".pdf" file. It also checks if the file is Read-only.
-5a. SaveCommand calls the existing saveAddressBook() if the requested file is a ".json" file.
+0. AddressBookParser creates SaveCommandParser. +
+1. The SaveCommandParser uses ParserUtil to parse the user input. +
+2. If the input is valid, ParserUtil creates a ParsedInOut object and returns it to SaveCommandParser. +
+3. SaveCommandParser creates SaveCommand initialized with the ParsedInOut object. +
+4. SaveCommand checks for if the requested file is a ".json" file or ".pdf" file. It also checks if the file is Read-only. +
+5a. SaveCommand calls the existing saveAddressBook() if the requested file is a ".json" file. +
 5b. SaveCommand calls the new saveAsPdf() if the requested file is a ".pdf" file.
 
 ==== Design Considerations
 
-* **Alternative 1a:** Save .json file by calling JsonUtil or FileUtil.
+* **Alternative 1a:** Save .json file by calling JsonUtil or FileUtil. +
 Current implementation: SaveCommand -> InOutAddressBookStorage -> JsonUtil -> FileUtil
-** Pros: Less overhead and faster runtime as there are less classes to go through.
-Alternative 1a.1: SaveCommand -> Json Util -> FileUtil
+** Pros: Less overhead and faster runtime as there are less classes to go through. +
+Alternative 1a.1: SaveCommand -> Json Util -> FileUtil +
 Alternative 1a.2: SaveCommand -> FileUtil
-** Cons: InOutAddressBookStorage does some error handling. Bypassing InOutAddressBookStorage would require the same error handling in SaveCommand. Since SaveCommand is not called when the program starts, we cannot move the error handling from InOutAddressBookStorage to SaveCommand. Then we would have to copy the error handling instead, which means that we now have a duplicate logic.
+** Cons: InOutAddressBookStorage does some error handling. Bypassing InOutAddressBookStorage would require the same error handling in SaveCommand. Since SaveCommand is not called when the program starts, we cannot move the error handling from InOutAddressBookStorage to SaveCommand. In that case, we would have to copy the error handling instead, which means that we now have a duplicate logic, which is also not ideal.
 
 * **Alternative 1b:** Save .pdf file by calling PdfUtil or FileUtil.
 Current implementation: SaveCommand -> InOutAddressBookStorage -> PdfUtil

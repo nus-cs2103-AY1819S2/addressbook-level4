@@ -34,14 +34,14 @@ public class MovePersonCommandParser implements Parser<MovePersonCommand> {
         try {
             to = ParserUtil.parseJobListName(args.split("\\b\\s")[0].trim());
         } catch (Exception e) {
-            throw new ParseException(MovePersonCommand.MESSAGE_NO_DESTINATION + "\n" +
-                    MovePersonCommand.MESSAGE_USAGE);
+            throw new ParseException(MovePersonCommand.MESSAGE_NO_DESTINATION + "\n"
+                    + MovePersonCommand.MESSAGE_USAGE);
         }
         try {
             from = ParserUtil.parseJobListName(args.split("\\b\\s")[1].trim());
         } catch (Exception e) {
-            throw new ParseException(MovePersonCommand.MESSAGE_NO_SOURCE + "\n" +
-                    MovePersonCommand.MESSAGE_USAGE);
+            throw new ParseException(MovePersonCommand.MESSAGE_NO_SOURCE + "\n"
+                    + MovePersonCommand.MESSAGE_USAGE);
         }
 
         String indexString = args.split("\\b\\s")[2].trim();

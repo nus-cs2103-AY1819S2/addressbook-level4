@@ -14,7 +14,7 @@ public class Messages {
     public static final String MESSAGE_REDUNDANT_FILTERNAME = "Filter Command in All Jobs page don't need a name";
     public static final String MESSAGE_REDUNDANT_LISTNAME = "Filter Command in All Jobs page no need indicate job list";
     public static final String MESSAGE_INVALID_RANGE =
-        "Not a valid range, the right format should be value-value;value-value..."+"\n"+
-            "For example: 1.2-1.3; 1.3-1.4";
+        "Not a valid range, the right format should be value-value;value-value..." + "\n"
+                + "For example: 1.2-1.3; 1.3-1.4";
 
 }

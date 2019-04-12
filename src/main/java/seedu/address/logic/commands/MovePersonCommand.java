@@ -2,8 +2,6 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_JOBNAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_LISTNUMBER;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NRIC;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -80,7 +78,7 @@ public class MovePersonCommand extends Command {
 
         Job tempJob;
 
-        if(toAdd == null) {
+        if (toAdd == null) {
             if (model.getIsAllJobScreen()) {
                 throw new CommandException(MESSAGE_NO_DISPLAYED_JOB);
             }

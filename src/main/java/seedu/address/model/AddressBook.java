@@ -14,7 +14,6 @@ import seedu.address.model.job.Job;
 import seedu.address.model.job.JobListName;
 import seedu.address.model.job.JobName;
 import seedu.address.model.job.UniqueJobList;
-import seedu.address.model.person.Nric;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniqueNricMap;
 import seedu.address.model.person.UniquePersonList;
@@ -177,18 +176,6 @@ public class AddressBook implements ReadOnlyAddressBook {
     public Job getJob(JobName jobName) {
         return jobs.getJob(jobName);
     }
-
-    /**
-     * Adds a person to the job.
-     * The person must not already exist in the job.
-     * Adds to the first list
-     * This version directly adds from job
-     */
-    public void addPersonToJob(Person person, Job job) {
-        job.add(person, 0);
-        indicateModified();
-    }
-
 
     /**
      * Adds a job to the address book.

@@ -9,6 +9,7 @@ import seedu.address.logic.commands.management.ListCardsCommand;
 import seedu.address.logic.commands.management.ListLessonsCommand;
 import seedu.address.logic.commands.management.OpenLessonCommand;
 import seedu.address.logic.commands.management.ReloadLessonsCommand;
+import seedu.address.logic.commands.management.SetTestCommand;
 
 /**
  * Container for user visible messages.
@@ -18,7 +19,7 @@ public class Messages {
      * Feedback message displayed to the user when management mode is first entered.
      */
     public static final String MESSAGE_LESSON_COMMANDS =
-            "<< Lesson Overview >>\nYou can now use the following commands:\n"
+            "<< Lesson View >>\nYou can now use the following commands:\n"
                     + "1. " + AddLessonCommand.COMMAND_WORD
                     + ": Adds a lesson.\n"
                     + "2. " + DeleteLessonCommand.COMMAND_WORD
@@ -30,14 +31,16 @@ public class Messages {
                     + "5. " + ListLessonsCommand.COMMAND_WORD
                     + ": Lists all lessons in memory.";
     public static final String MESSAGE_CARD_COMMANDS =
-            "<< Lesson Edit >>\nYou can now use the following commands:\n"
-                    + "1. " + AddCardCommand.COMMAND_WORD
+            "<< Card View >>\nYou can now use the following commands:\n"
+                    + "1. " + SetTestCommand.COMMAND_WORD
+                    + ": Sets the 2 test values for the opened lesson's flashcards.\n"
+                    + "2. " + AddCardCommand.COMMAND_WORD
                     + ": Adds a card to the opened lesson.\n"
-                    + "2. " + DeleteCardCommand.COMMAND_WORD
+                    + "3. " + DeleteCardCommand.COMMAND_WORD
                     + ": Deletes the card at the specified INDEX of the card list.\n"
-                    + "3. " + CloseLessonCommand.COMMAND_WORD
+                    + "4. " + CloseLessonCommand.COMMAND_WORD
                     + ": Closes this lesson and saves all changes.\n"
-                    + "4. " + ListCardsCommand.COMMAND_WORD
+                    + "5. " + ListCardsCommand.COMMAND_WORD
                     + ": Lists all cards in the opened lesson.";
     /**
      * Feedback message displayed to the user when the command does not match any command patterns.
@@ -50,7 +53,7 @@ public class Messages {
     /**
      * Feedback message displayed to the user when an invalid index is supplied.
      */
-    public static final String MESSAGE_INVALID_INDEX = "Invalid index %1$d.";
+    public static final String MESSAGE_INVALID_INDEX = "Invalid index: %1$d.";
     /**
      * Feedback message displayed to the user when user does not supply exactly 1 input for a specific
      * parameter.

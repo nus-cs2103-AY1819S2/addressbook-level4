@@ -14,7 +14,7 @@ import seedu.address.model.card.Card;
  */
 public class LessonList {
     //Static fields
-    public static final String EXCEPTION_INVALID_INDEX = "Invalid index: %1$s";
+    public static final String EXCEPTION_INVALID_INDEX = "Invalid index: %1$s.";
 
     // Data fields
     /**

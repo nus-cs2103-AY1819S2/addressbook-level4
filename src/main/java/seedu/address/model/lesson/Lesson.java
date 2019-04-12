@@ -31,7 +31,7 @@ public class Lesson {
     public static final int DEFAULT_INDEX_ANSWER = 1;
 
     public static final String EXCEPTION_INVALID_NAME = "Invalid name supplied.";
-    public static final String EXCEPTION_INVALID_INDEX = "Invalid index: %1$s";
+    public static final String EXCEPTION_INVALID_INDEX = "Invalid index: %1$s.";
     public static final String EXCEPTION_INVALID_CORE_SIZE = "Invalid number of core headers supplied.";
     public static final String EXCEPTION_INVALID_CORE = "Invalid core header supplied.";
     public static final String EXCEPTION_INVALID_OPT = "Invalid optional header supplied.";

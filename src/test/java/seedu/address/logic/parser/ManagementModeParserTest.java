@@ -22,6 +22,8 @@ import seedu.address.logic.commands.management.ListCardsCommand;
 import seedu.address.logic.commands.management.ListLessonsCommand;
 import seedu.address.logic.commands.management.OpenLessonCommand;
 import seedu.address.logic.commands.management.ReloadLessonsCommand;
+import seedu.address.logic.commands.management.SetTestCommand;
+import seedu.address.logic.commands.quiz.QuizStartCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 public class ManagementModeParserTest {
@@ -109,6 +111,12 @@ public class ManagementModeParserTest {
     public void parseCommand_listCards() throws Exception {
         assertTrue(parser.parse(ListCardsCommand.COMMAND_WORD)
                 instanceof ListCardsCommand);
+    }
+
+    @Test
+    public void parseCommand_setTest() throws Exception {
+        String command = SetTestCommand.COMMAND_WORD + " 1 2";
+        assertTrue(parser.parse(command) instanceof SetTestCommand);
     }
 
     @Test

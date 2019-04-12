@@ -23,6 +23,7 @@ import seedu.address.model.lesson.LessonList;
 import seedu.address.model.user.CardSrsData;
 import seedu.address.model.user.User;
 import seedu.address.testutil.TypicalCards;
+import seedu.address.testutil.TypicalIndices;
 import seedu.address.testutil.TypicalLessonList;
 
 public class ManagementModelManagerTest {
@@ -324,5 +325,23 @@ public class ManagementModelManagerTest {
         // Delete card from opened lesson at invalid index -> illegal argument exception thrown
         thrown.expect(IllegalArgumentException.class);
         modelManager.deleteCardFromOpenedLesson(-1);
+    }
+
+    @Test
+    public void setTestForOpenedLesson_validIndices_setSuccessful() {
+        modelManager.addLesson(lesson);
+        modelManager.openLesson(0); // Open added lesson
+
+        // Valid indices -> successful set
+        modelManager.setOpenedLessonTestValues(1, 0);
+    }
+    @Test
+    public void setTestForOpenedLesson_invalidIndex_throwsIllegalArgumentException() {
+        modelManager.addLesson(lesson);
+        modelManager.openLesson(0); // Open added lesson
+
+        // Invalid index -> illegal argument exception thrown
+        thrown.expect(IllegalArgumentException.class);
+        modelManager.setOpenedLessonTestValues(5, 0);
     }
 }

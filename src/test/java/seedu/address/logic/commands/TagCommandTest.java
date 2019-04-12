@@ -63,7 +63,7 @@ public class TagCommandTest {
     }
 
     @Test
-    public void execute_invalidIndex_CommandException() throws CommandException {
+    public void execute_invalidIndex_throwsCommandException() throws CommandException {
         HashSet<Tag> validTags = new HashSet<>();
         validTags.add(new Tag(TAG_VALID_LECTURE));
 
@@ -73,7 +73,7 @@ public class TagCommandTest {
     }
 
     @Test
-    public void execute_invalidIndex_InvalidException() throws CommandException {
+    public void execute_invalidIndex_throwsInvalidException() throws CommandException {
         HashSet<Tag> validTags = new HashSet<>();
         validTags.add(new Tag(TAG_VALID_LECTURE));
 

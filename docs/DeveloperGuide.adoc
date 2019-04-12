@@ -179,7 +179,8 @@ image::UiClassDiagram.png[width="800"]
 *API* : link:{repoURL}/src/main/java/seedu/finance/ui/Ui.java[`Ui.java`]
 
 The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `RecordListPanel`,
-`StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+`StatusBarFooter`, `BrowserPanel`, `BudgetPanel`, `SummaryPanel` etc. All these, including the `MainWindow`,
+inherit from the abstract `UiPart` class.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder.
 For example, the layout of the link:{repoURL}/src/main/java/seedu/finance/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
@@ -203,7 +204,8 @@ link:{repoURL}/src/main/java/seedu/finance/logic/Logic.java[`Logic.java`]
 .  This results in a `Command` object which is executed by the `LogicManager`.
 .  The command execution can affect the `Model` (e.g. adding a record).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
-.  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
+.  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying
+help to the user.
 
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
 
@@ -218,19 +220,13 @@ image::ModelClassDiagram.png[width="800"]
 
 *API* : link:{repoURL}/src/main/java/seedu/finance/model/Model.java[`Model.java`]
 
-The `Model`,
+The `Model` component,
 
 * stores a `UserPref` object that represents the user's preferences.
 * stores the Finance Tracker data.
-* exposes an unmodifiable `ObservableList<Record>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* exposes an unmodifiable `ObservableList<Record>` that can be 'observed' e.g. the UI can be bound to this list so
+that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
-
-[NOTE]
-As a more OOP model, we can store a `Category` list in `Finance Tracker`, which `Record` can reference.
-This would allow `Finance Tracker` to only require one `Category` object per unique `Category`, instead of each `Record` needing their own `Category` object.
-An example of how such a model may look like is given below. +
- +
-image:ModelClassBetterOopDiagram.png[width="800"]
 
 [[Design-Storage]]
 === Storage component

@@ -4,7 +4,6 @@ import java.util.LinkedHashMap;
 import java.util.Set;
 
 import javafx.beans.binding.Bindings;
-
 import javafx.fxml.FXML;
 import javafx.geometry.Side;
 import javafx.scene.chart.PieChart;
@@ -24,20 +23,19 @@ public class SummaryPanel extends UiPart<Region> {
     private static final String FXML = "SummaryPanel.fxml";
 
     private static final String[] PIE_CHART_COLOUR_STYLES =
-        { "teal", "red", "yellow", "blue", "orange", "brown", "green", "pink", "black", "grey", "purple",
-            "coral", "tan", "turquoise" };
+        {"teal", "red", "yellow", "blue", "orange", "brown", "green", "pink", "black", "grey", "purple",
+            "coral", "tan", "turquoise"};
 
     @FXML
     private StackPane chartArea;
 
 
-
     /**
      * Constructs a {@code SummaryPanel} object with parameters.
      *
-     * @param summaryData a map with key and value pairs representing data for the charts.
+     * @param summaryData   a map with key and value pairs representing data for the charts.
      * @param summaryPeriod a {@code SummaryPeriod} enum representing the summary period
-     * @param periodAmount an int representing the period amount
+     * @param periodAmount  an int representing the period amount
      */
     public SummaryPanel(
             LinkedHashMap<String, Double> summaryData,
@@ -53,9 +51,9 @@ public class SummaryPanel extends UiPart<Region> {
      * If {@code summaryData} is empty, {@code chartArea} will be a message
      * saying that there are no expenditures.
      *
-     * @param summaryData a map with key and value pairs representing data for the charts.
+     * @param summaryData   a map with key and value pairs representing data for the charts.
      * @param summaryPeriod a {@code SummaryPeriod} enum representing the summary period
-     * @param periodAmount an int representing the period amount
+     * @param periodAmount  an int representing the period amount
      */
     public void setData(
             LinkedHashMap<String, Double> summaryData,
@@ -100,17 +98,14 @@ public class SummaryPanel extends UiPart<Region> {
             pieChart.getData().add(new PieChart.Data(s, summaryData.get(s)));
         }
 
-        pieChart.getData().forEach(data ->
-                data.getNode().setStyle("-fx-pie-color: " + getPieChartColorStyleFor(data.getName()) + ";")
-        );
 
-        pieChart.getData().forEach(data ->
-                data.nameProperty().bind(
-                        Bindings.concat(
-                                data.getName(), " - $", String.format("%.2f", data.getPieValue())
-                        )
-                )
-        );
+        for (int i = 0; i < pieChart.getData().size(); i++) {
+            PieChart.Data data = pieChart.getData().get(i);
+            data.getNode().getStyleClass().add(getPieChartColorStyleFor(data.getName()));
+            data.nameProperty().bind(Bindings.concat(data.getName(), " - $",
+                    String.format("%.2f", data.getPieValue())));
+        }
+
 
         pieChart.setLegendSide(Side.BOTTOM);
 

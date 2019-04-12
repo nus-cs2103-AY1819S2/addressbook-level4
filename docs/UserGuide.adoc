@@ -314,7 +314,7 @@ Format: `history`
 Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
 ====
 
-=== Listing all modules in module plan: `list`
+=== Listing all modules in GradTrak: `list`
 
 Shows a list of all modules in GradTrak. +
 Format: `list`
@@ -324,9 +324,10 @@ Format: `list`
 
 Recommends a list of modules that can be read based on GradTrak modules and course requirements, as shown above.
 Modules with unmet prerequisites or preclusions present in GradTrak as well as modules already added (unless they have been failed) will not be recommended. +
-Recommended modules are displayed in order of requirement satisfied: Core, Breadth & Depth, Industry Experience, Faculty, General Education, Unrestricted Electives.
-Modules with the same requirement satisfied are sorted by level. +
-Format: `rec`
+Recommended modules are displayed in order of requirement type satisfied: Core, Breadth & Depth, Industry Experience, Faculty, General Education, Unrestricted Electives.
+Modules with the same requirement type satisfied are sorted by level. +
+Format: `rec` +
+The figure below shows a sample recommendation list for a user studying Computer Science Algorithms.
 
 .Recommendation list for Computer Science Algorithms
 image::recommend.png[width="790"]

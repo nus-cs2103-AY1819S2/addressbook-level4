@@ -664,7 +664,7 @@ image::SaveCommandSequenceDiagram.png[width=800]
 This command allows the user to add a watermark to their image. Upon receiving an input message by the user, the message will be checked for its validity and will throw an error if it is empty or contains only spaces. The message can contain spaces in between the words or numbers. The command will then be added to the `List<Commands>` belonging to `tempImage` found in `currentEdit` which saves the editing history of the targetted image.
 
 [NOTE]
-Each image can only have 1 watermark at a time. 
+Each image can only have 1 watermark at a time.
 
 Given below is an example usage scenario and how the command should behave at each step:
 

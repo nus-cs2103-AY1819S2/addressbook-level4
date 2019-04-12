@@ -15,8 +15,8 @@ public class SearchPrescriptionCommand extends Command {
 
     public static final String COMMAND_WORD = "search-presc";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Searches all prescriptions whose " +
-            "description contains any of "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Searches all prescriptions whose "
+            + "description contains any of "
             + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
             + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
             + "Example: " + COMMAND_WORD + " fever";

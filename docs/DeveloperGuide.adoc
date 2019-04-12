@@ -543,11 +543,11 @@ a formula that is based on the map size specified by the player in the `init` co
 
 *Calculating Cell to Attack*
 
-The Enemy AI has the method `enemyShootAt()` that is invoked when the player ends their turn
-with the command `end turn`. The Enemy AI will attempt to generate a random Coordinate to attack,
+The Enemy AI has the method `enemyShootAt()` that is invoked when the player ends their turn upon a miss.
+The Enemy AI will attempt to generate a random Coordinate to attack,
 and pass this Coordinate to the `BattleManager`. The Enemy AI supports the ability to
-check that its generated coordinates are all valid, and has further algorithm that will
-increase its accuracy upon detecting a successful hit.
+check that its generated coordinates are all valid, and will perform certain calculations that will
+increase its accuracy upon detecting a successful hit on any part of a ship.
 
 
 __Note: All actions taken by the Enemy AI are seeded by a pseudo-random generator.

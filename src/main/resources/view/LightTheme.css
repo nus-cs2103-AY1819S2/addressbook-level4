@@ -110,11 +110,11 @@
 }
 
 .list-cell:filled:odd {
-    -fx-background-color: #ECEFF1;
+    -fx-background-color: #D5DBDF;
 }
 
 .list-cell:filled:selected {
-    -fx-background-color: #B0BEC5;
+    -fx-background-color: #8D9DA5;
 }
 
 .list-cell:filled:selected #cardPane {

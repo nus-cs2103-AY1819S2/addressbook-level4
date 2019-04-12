@@ -31,7 +31,6 @@ public class OpenCommandParser implements Parser<OpenCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, OpenCommand.MESSAGE_USAGE), pe);
         }
 
-
         return new OpenCommand(index);
     }
 }

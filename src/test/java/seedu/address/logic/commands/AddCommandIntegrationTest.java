@@ -28,7 +28,7 @@ public class AddCommandIntegrationTest {
     }
 
     @Test
-    public void execute_newPerson_success() {
+    public void execute_newPdf_success() {
         Pdf validPdf = SAMPLE_PDF_4;
 
         Model expectedModel = new ModelManager(model.getPdfBook(), new UserPrefs());
@@ -40,7 +40,7 @@ public class AddCommandIntegrationTest {
     }
 
     @Test
-    public void execute_duplicatePerson_throwsCommandException() {
+    public void execute_duplicatePdf_throwsCommandException() {
         Pdf pdfInList = model.getPdfBook().getPdfList().get(0);
         assertCommandFailure(new AddCommand(pdfInList), model, commandHistory,
                 AddCommand.MESSAGE_DUPLICATE_PDF);

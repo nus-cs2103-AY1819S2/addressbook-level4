@@ -45,7 +45,7 @@ import seedu.address.model.pdf.Pdf;
 //import seedu.address.model.pdf.Phone;
 //import seedu.address.model.tag.Tag;
 //import seedu.address.testutil.PdfBuilder;
-//import seedu.address.testutil.PersonUtil;
+//import seedu.address.testutil.PdfUtil;
 
 public class EditCommandSystemTest extends AddressBookSystemTest {
 
@@ -188,7 +188,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
                 Tag.MESSAGE_CONSTRAINTS);
 
         *//* Case: edit a pdf with new values same as another pdf's values -> rejected *//*
-        executeCommand(PersonUtil.getAddCommand(BOB));
+        executeCommand(PdfUtil.getAddCommand(BOB));
         assertTrue(getModel().getPdfBook().getPdfList().contains(BOB));
         index = INDEX_FIRST_PERSON;
         assertFalse(getModel().getFilteredPdfList().get(index.getZeroBased()).equals(BOB));

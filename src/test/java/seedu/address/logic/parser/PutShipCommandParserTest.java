@@ -9,8 +9,8 @@ import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_DESTROYER;
 import static seedu.address.logic.commands.CommandTestUtil.ORIENTATION_HORIZONTAL;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_COORDINATES_FIRST_ROW;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_COORDINATES_LAST_ROW;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_COORDINATES_A1;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_COORDINATES_J1;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_HORIZONTAL_ORIENTATION;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
@@ -51,7 +51,7 @@ public class PutShipCommandParserTest {
     @Test
     public void parse_invalidValue_failure() {
         // invalid name
-        assertParseFailure(parser, INVALID_NAME_DESC + VALID_COORDINATES_LAST_ROW,
+        assertParseFailure(parser, INVALID_NAME_DESC + VALID_COORDINATES_J1,
                 "Invalid command format! \n" + PutShipCommand.MESSAGE_USAGE);
 
         // invalid coordinates and missing name
@@ -82,7 +82,7 @@ public class PutShipCommandParserTest {
         String userInput = NAME_DESC_DESTROYER + COORDINATE_FIRST_ROW + ORIENTATION_HORIZONTAL;
 
         Battleship battleship = new DestroyerBattleship(emptySet);
-        Coordinates coordinates = new Coordinates(VALID_COORDINATES_FIRST_ROW);
+        Coordinates coordinates = new Coordinates(VALID_COORDINATES_A1);
         Orientation orientation = new Orientation(VALID_HORIZONTAL_ORIENTATION);
 
         PutShipCommand expectedCommand = new PutShipCommand(coordinates, battleship, orientation);

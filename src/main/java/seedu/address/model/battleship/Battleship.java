@@ -179,7 +179,7 @@ public class Battleship {
     /**
      * Enumeration of battleships for internal use.
      */
-    protected enum BattleshipType {
+    public enum BattleshipType {
         /**
          * The values for AIRCRAFT_CARRIER, DESTROYER AND CRUISER are fixed.
          * The DEFAULT value is a placeholder for user-created battleships (coming in v2.0).

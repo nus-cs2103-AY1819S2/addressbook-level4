@@ -21,8 +21,8 @@ public class SummaryCommandTest {
     public void execute_summary_success() throws CommandException {
         String expectedFeedBack = "You've read 8 books.\n"
             + MESSAGE_NO_AUTHOR_PREFERED
-            + "These book receive a rating of 10 from you: To Kill a Mocking Bird\n"
-            + "You preferred books that you labeled as fantasy(including The Hunger Games, Life of Pi)\n";
+            + "Book(s) receive a rating of 10 from you: To Kill a Mocking Bird\n"
+            + "You prefer books that you labeled as fantasy(including The Hunger Games, Life of Pi)\n";
         CommandResult expectedCommandResult = new CommandResult(expectedFeedBack, false, false);
         assertCommandSuccess(new SummaryCommand(), model, commandHistory, expectedCommandResult, expectedModel);
     }

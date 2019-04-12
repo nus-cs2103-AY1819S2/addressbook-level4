@@ -46,7 +46,7 @@ public class SummaryCommand extends Command {
     }
 
     private static String getAutorRelatedSummary(Model model, List<String> lovedAuthors) {
-        String feedback = "You prefered books by ";
+        String feedback = "You prefer books by ";
         int authorComma = lovedAuthors.size() - 1;
         for (String authorName : lovedAuthors) {
             feedback += authorName + ", as you've read: ";
@@ -69,7 +69,7 @@ public class SummaryCommand extends Command {
     }
 
     private static String getRatingRelatedSummary(Model model, String highestRating) {
-        String feedback = "These book receive a rating of " + highestRating + " from you: ";
+        String feedback = "Book(s) receive a rating of " + highestRating + " from you: ";
         List<String> bookHighestRated = model.getBooksWithHighestMark(highestRating);
         int bookComma = bookHighestRated.size() - 1;
         for (String bookName : bookHighestRated) {
@@ -84,7 +84,7 @@ public class SummaryCommand extends Command {
     }
 
     private static String getTagRelatedSummary(Model model, List<String> lovedTags) {
-        String feedback = "You preferred books that you labeled as ";
+        String feedback = "You prefer books that you labeled as ";
         int tagComma = lovedTags.size() - 1;
         for (String tagContent : lovedTags) {
             feedback += tagContent + "(including ";

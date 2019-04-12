@@ -1,397 +1,103 @@
 package seedu.address.logic.parser;
 
-import static java.util.Objects.requireNonNull;
-import static org.junit.Assert.assertEquals;
-import static seedu.address.commons.core.Messages.MESSAGE_RECORDS_LISTED_OVERVIEW;
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.TypicalPersons.ALICE;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
-import static seedu.address.testutil.TypicalRecords.FOURTH;
-import static seedu.address.testutil.TypicalRecords.getTypicalRecords;
+import static seedu.address.commons.core.Messages.MESSAGE_EMPTY_KEYWORD;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
+import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
-import java.util.Objects;
-import java.util.function.Predicate;
 
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 
-import javafx.beans.property.ReadOnlyProperty;
-import javafx.beans.property.SimpleObjectProperty;
-import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
-import seedu.address.commons.core.GuiSettings;
-import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.RecordFindCommand;
-import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.Model;
-import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.ReadOnlyUserPrefs;
-import seedu.address.model.UserPrefs;
-import seedu.address.model.VersionedAddressBook;
-import seedu.address.model.patient.Patient;
-import seedu.address.model.person.Person;
 import seedu.address.model.record.Record;
-import seedu.address.model.task.Task;
 import seedu.address.model.util.predicate.ContainsKeywordsPredicate;
 import seedu.address.model.util.predicate.DescriptionRecordContainsKeywordsPredicate;
+import seedu.address.model.util.predicate.MultipleContainsKeywordsPredicate;
 import seedu.address.model.util.predicate.ProcedureContainsKeywordsPredicate;
 
 
 public class RecordFindCommandParserTest {
-    private ModelRecordStub model = new ModelRecordStub(getTypicalAddressBook(), new UserPrefs());
-    private ModelRecordStub expectedModel = new ModelRecordStub(getTypicalAddressBook(), new UserPrefs());
-    private CommandHistory commandHistory = new CommandHistory();
+
     private RecordFindCommandParser parser = new RecordFindCommandParser();
 
-    private Patient testPatient = ((Patient) ALICE);
-
-    @Before
-    public void setUp() {
-        testPatient.setRecords(getTypicalRecords());
-        model.getFilteredRecordList(testPatient);
-        expectedModel.getFilteredRecordList(testPatient);
-    }
-
-    @After
-    public void cleanUp() {
-        testPatient.setRecords(new ArrayList<>());
+    @Test
+    public void parse_emptyArg_throwsParseException() {
+        assertParseFailure(parser, "     ", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+            RecordFindCommand.MESSAGE_USAGE));
     }
 
     @Test
-    public void execute_procedureParameter() throws Exception {
-        //No user input
-        execute_parameterPredicate_test(0, " ", "procedure", true, false, Collections.emptyList());
-        //Single keyword, ignore case, record found.
-        execute_parameterPredicate_test(1, "CrOwN", "procedure",
-            true, false, Arrays.asList(FOURTH));
-        //Single keyword, case sensitive, no record found.
-        execute_parameterPredicate_test(0, "CrOwN", "procedure", false, false, Collections.emptyList());
+    public void parse_validProcArgs_returnsPatientFindCommand() {
+        MultipleContainsKeywordsPredicate<Record> tempPred =
+            new MultipleContainsKeywordsPredicate<>(Collections.emptyList(), true, false);
+        List<ContainsKeywordsPredicate> predicateList = new ArrayList<>();
+        predicateList.add(new ProcedureContainsKeywordsPredicate(Arrays.asList("Other", "filling")));
+        tempPred.setPredicateList(predicateList);
+
+        RecordFindCommand expectedRecordFindCommand = new RecordFindCommand(tempPred);
+        assertParseSuccess(parser, " pro/Other filling", expectedRecordFindCommand);
+
+        // multiple whitespaces between keywords
+        assertParseSuccess(parser, " pro/ \n Other \t filling  \t", expectedRecordFindCommand);
     }
 
-
-
-    /**
-     * Wrapper function to test PatientFindCommand through each attribute
-     * @param expectedNum expected number of returned Persons after predicate
-     * @param userInput predicate to test
-     * @param parameter attribute to test
-     * @param isIgnoreCase flag for case sensitivity
-     * @param isAnd flag for AND operator
-     * @param expectedList expected list after predicate has been applied
-     */
-    private void execute_parameterPredicate_test(int expectedNum, String userInput, String parameter,
-                                                 boolean isIgnoreCase, boolean isAnd,
-                                                 List<Record> expectedList) throws ParseException {
-        String expectedMessage = String.format(MESSAGE_RECORDS_LISTED_OVERVIEW, expectedNum);
-        ContainsKeywordsPredicate predicate = prepareRecordPredicate(userInput, parameter, isIgnoreCase, isAnd);
-        RecordFindCommand command = new RecordFindCommand(predicate);
-        expectedModel.updateFilteredRecordList(predicate);
-        assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
-        assertEquals(expectedList, model.getFilteredRecordList());
+    @Test
+    public void parseFailure_validNameArgs_throwsParseException() {
+        assertParseFailure(parser, "CS ASDASDSAFD pro/Other filling", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+            RecordFindCommand.MESSAGE_USAGE));
     }
 
-    /**
-     * Parses {@code userInput} into a {@code ContainsKeywordsPredicate}.
-     */
-    private ContainsKeywordsPredicate prepareRecordPredicate(String userInput, String parameter, boolean isIgnoreCase,
-                                                              boolean isAnd) throws ParseException {
-        switch(parameter) {
-        case "procedure":
-            return new ProcedureContainsKeywordsPredicate(Arrays.asList(userInput.split("\\s+")),
-                isIgnoreCase, isAnd);
-
-        case "desc":
-            return new DescriptionRecordContainsKeywordsPredicate(Arrays.asList(userInput.split("\\s+")),
-                isIgnoreCase, isAnd);
-
-        default:
-            throw new ParseException("Invalid Sort Attribute.");
-        }
+    @Test
+    public void parseFailure_emptyKeyword_throwsParseException() {
+        assertParseFailure(parser, "CS pro/", MESSAGE_EMPTY_KEYWORD);
     }
 
-    /**
-     * A custom model stub for recordFind testing.
-     */
-    private class ModelRecordStub implements Model {
+    @Test
+    public void parse_validDescArgs_returnsPatientFindCommand() {
+        MultipleContainsKeywordsPredicate<Record> tempPred =
+            new MultipleContainsKeywordsPredicate<>(Collections.emptyList(), true, false);
+        List<ContainsKeywordsPredicate> predicateList = new ArrayList<>();
+        predicateList.add(new DescriptionRecordContainsKeywordsPredicate(Arrays.asList("today", "patient")));
+        tempPred.setPredicateList(predicateList);
 
-        private final VersionedAddressBook versionedAddressBook;
-        private final UserPrefs userPrefs;
-        private final FilteredList<Person> filteredPersons;
-        private final FilteredList<Task> filteredTasks;
-        private final SimpleObjectProperty<Person> selectedPerson = new SimpleObjectProperty<>();
-        private final SimpleObjectProperty<Record> selectedRecord = new SimpleObjectProperty<>();
-        private final SimpleObjectProperty<Task> selectedTask = new SimpleObjectProperty<>();
+        RecordFindCommand expectedRecordFindCommand = new RecordFindCommand(tempPred);
+        assertParseSuccess(parser, " desc/today patient", expectedRecordFindCommand);
 
-        private FilteredList<Record> filteredRecords;
+        // multiple whitespaces between keywords
+        assertParseSuccess(parser, " desc/ \n today \t patient  \t", expectedRecordFindCommand);
+    }
 
-        /**
-         * Initializes a ModelManager with the given addressBook and userPrefs.
-         */
-        private ModelRecordStub(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
-            super();
-            requireAllNonNull(addressBook, userPrefs);
+    @Test
+    public void parseAndOperator_validDescArgs_returnsPatientFindCommand() {
+        MultipleContainsKeywordsPredicate<Record> tempPred =
+            new MultipleContainsKeywordsPredicate<>(Collections.emptyList(), true, true);
+        List<ContainsKeywordsPredicate> predicateList = new ArrayList<>();
+        predicateList.add(new DescriptionRecordContainsKeywordsPredicate(Arrays.asList("today", "patient")));
+        tempPred.setPredicateList(predicateList);
 
-            versionedAddressBook = new VersionedAddressBook(addressBook);
-            this.userPrefs = new UserPrefs(userPrefs);
-            filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
-            filteredTasks = new FilteredList<>(versionedAddressBook.getTaskList());
-        }
+        RecordFindCommand expectedRecordFindCommand = new RecordFindCommand(tempPred);
+        assertParseSuccess(parser, " AND desc/today patient", expectedRecordFindCommand);
 
-        /**
-         * Returns an unmodifiable view of the filtered record list
-         */
-        public ObservableList<Record> getFilteredRecordList(Patient patient) {
-            if (patient != null) {
-                versionedAddressBook.setRecords(patient.getRecords());
-                if (filteredRecords == null) {
-                    filteredRecords = new FilteredList<>(versionedAddressBook.getRecordList());
-                }
-                return filteredRecords;
-            }
-            return null;
-        }
+        // multiple whitespaces between keywords
+        assertParseSuccess(parser, " AND desc/ \n today \t patient  \t", expectedRecordFindCommand);
+    }
 
-        @Override
-        public ObservableList<Record> getFilteredRecordList() {
-            return filteredRecords;
-        }
+    @Test
+    public void parseCaseSensitiveAndOperator_validDescArgs_returnsPatientFindCommand() {
+        MultipleContainsKeywordsPredicate<Record> tempPred =
+            new MultipleContainsKeywordsPredicate<>(Collections.emptyList(), false, true);
+        List<ContainsKeywordsPredicate> predicateList = new ArrayList<>();
+        predicateList.add(new DescriptionRecordContainsKeywordsPredicate(Arrays.asList("today", "patient")));
+        tempPred.setPredicateList(predicateList);
 
-        @Override
-        public void updateFilteredRecordList(Predicate<Record> predicate) {
-            requireNonNull(predicate);
-            filteredRecords.setPredicate(predicate);
-        }
+        RecordFindCommand expectedRecordFindCommand = new RecordFindCommand(tempPred);
+        assertParseSuccess(parser, " cs AND desc/today patient", expectedRecordFindCommand);
 
-        @Override
-        public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ReadOnlyUserPrefs getUserPrefs() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public GuiSettings getGuiSettings() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setGuiSettings(GuiSettings guiSettings) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public Path getAddressBookFilePath() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setAddressBookFilePath(Path addressBookFilePath) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void addPerson(Person person) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void addTask(Task task) {
-            throw new AssertionError("This method should not be called");
-        }
-
-        @Override
-        public void addRecord(Record record) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setPatientList(List<Person> persons) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setAddressBook(ReadOnlyAddressBook newData) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ReadOnlyAddressBook getAddressBook() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public boolean hasPerson(Person person) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public boolean hasTask(Task task) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public boolean hasRecord(Record record) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void deleteTask(Task task) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void deletePerson(Person target) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void deleteRecord(Record record) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setRecord(Record target, Record editedRecord) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setSelectedRecord(Record record) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public Record getSelectedRecord() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ReadOnlyProperty<Record> selectedRecordProperty() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void updateTags(Patient patient) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setPerson(Person target, Person editedPerson) {
-            throw new AssertionError("This method should not be called.");
-        }
-        @Override
-        public void setTask(Task task, Task editedTask) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ObservableList<Person> getFilteredPersonList() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ObservableList<Task> getFilteredTaskList() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void updateFilteredPersonList(Predicate<Person> predicate) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void sortAddressBook(Comparator<Patient> patientComparator, boolean isReverse) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void sortRecordsBook(Comparator<Record> recordComparator, boolean isReverse) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void sortTasks(Comparator<Task> c) {
-            throw new AssertionError("This method should not be called");
-        }
-
-        public void updateFilteredTaskList(Predicate<Task> predicate) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public boolean canUndoAddressBook() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public boolean canRedoAddressBook() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void undoAddressBook() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void redoAddressBook() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void commitAddressBook() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ReadOnlyProperty<Person> selectedPersonProperty() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public Person getSelectedPerson() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setSelectedPerson(Person person) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public boolean checkNoCopy() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public boolean equals(Object obj) {
-            // short circuit if same object
-            if (obj == this) {
-                return true;
-            }
-
-            // instanceof handles nulls
-            if (!(obj instanceof ModelRecordStub)) {
-                return false;
-            }
-
-            // state check
-            ModelRecordStub other = (ModelRecordStub) obj;
-            return versionedAddressBook.equals(other.versionedAddressBook)
-                && userPrefs.equals(other.userPrefs)
-                && filteredPersons.equals(other.filteredPersons)
-                && filteredTasks.equals(other.filteredTasks)
-                && Objects.equals(selectedPerson.get(), other.selectedPerson.get());
-        }
+        // multiple whitespaces between keywords
+        assertParseSuccess(parser, " cs AND desc/ \n today \t patient  \t", expectedRecordFindCommand);
     }
 }

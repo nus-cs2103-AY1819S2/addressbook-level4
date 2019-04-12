@@ -12,6 +12,7 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.job.JobListName;
+import seedu.address.model.person.exceptions.FilterNotFoundException;
 import seedu.address.model.person.predicate.UniqueFilterList;
 
 /**
@@ -51,27 +52,47 @@ public class DeleteFilterCommand extends Command {
         requireNonNull(model);
         switch (filterListName) {
         case APPLICANT:
-            model.removePredicateJobAllApplicants(targetName);
+            try {
+                model.removePredicateJobAllApplicants(targetName);
+            }catch (FilterNotFoundException ex){
+                throw new CommandException(Messages.MESSAGE_CANOT_FOUND_TARGET_FILTER);
+            }
             model.updateJobAllApplicantsFilteredPersonList();
             predicateList = model.getPredicateLists(APPLICANT);
             break;
         case KIV:
-            model.removePredicateJobKiv(targetName);
+            try {
+                model.removePredicateJobKiv(targetName);
+            }catch (FilterNotFoundException ex){
+                throw new CommandException(Messages.MESSAGE_CANOT_FOUND_TARGET_FILTER);
+            }
             model.updateJobKivFilteredPersonList();
             predicateList = model.getPredicateLists(KIV);
             break;
         case INTERVIEW:
-            model.removePredicateJobInterview(targetName);
+            try {
+                model.removePredicateJobInterview(targetName);
+            }catch (FilterNotFoundException ex){
+                throw new CommandException(Messages.MESSAGE_CANOT_FOUND_TARGET_FILTER);
+            }
             model.updateJobInterviewFilteredPersonList();
             predicateList = model.getPredicateLists(INTERVIEW);
             break;
         case SHORTLIST:
-            model.removePredicateJobShortlist(targetName);
+            try {
+                model.removePredicateJobShortlist(targetName);
+            }catch (FilterNotFoundException ex){
+                throw new CommandException(Messages.MESSAGE_CANOT_FOUND_TARGET_FILTER);
+            }
             model.updateJobShortlistFilteredPersonList();
             predicateList = model.getPredicateLists(SHORTLIST);
             break;
         default:
-            model.removePredicateAllPersons(targetName);
+            try {
+                model.removePredicateAllPersons(targetName);
+            }catch (FilterNotFoundException ex){
+                throw new CommandException(Messages.MESSAGE_CANOT_FOUND_TARGET_FILTER);
+            }
             model.updateFilteredPersonList();
             predicateList = model.getPredicateLists(EMPTY);
         }

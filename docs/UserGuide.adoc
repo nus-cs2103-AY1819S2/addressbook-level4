@@ -307,7 +307,7 @@ Any positive integers (no decimals, must be greater than 0) are allowed.
 You can use commas (no space) to indicate a break. e.g. `1,3,5` for 1 and 3 and 5 +
 You can use dash (no space) to indicate a range. e.g. `3-5` for 3 to 5. `1-3-5` is not allowed, just use `1-5`. +
 You can use a combination of commas and dashes to indicate a range as well. e.g. `1-3,5` for 1 to 3 and 5. +
-You can also type `all` instead to `import` everything.
+You can also type `all` instead to import everything.
 ============================================================
 
 Examples:
@@ -351,8 +351,8 @@ Special characters *NOT* allowed are: +
 Any positive integers (no decimals, must be greater than 0) are allowed.
 You can use commas (no space) to indicate a break. e.g. `1,3,5` for 1 and 3 and 5 +
 You can use dash (no space) to indicate a range. e.g. `3-5` for 3 to 5. `1-3-5` is not allowed, just use `1-5`. +
-You can use a combination of commas and dashes to indicate a range as well. e.g. `1-3,5` for 1 to 3 and 5.
-You can also type `all` instead to `export` everything.
+You can use a combination of commas and dashes to indicate a range as well. e.g. `1-3,5` for 1 to 3 and 5. +
+You can also type `all` instead to export everything.
 ============================================================
 
 Examples:

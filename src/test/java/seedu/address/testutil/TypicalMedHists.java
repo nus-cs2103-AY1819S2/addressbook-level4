@@ -1,18 +1,5 @@
 package seedu.address.testutil;
 
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_AGE_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_AGE_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_GENDER_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_GENDER_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HBP;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_STROKE;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -21,7 +8,6 @@ import seedu.address.model.DocX;
 import seedu.address.model.medicalhistory.MedicalHistory;
 import seedu.address.model.medicalhistory.ValidDate;
 import seedu.address.model.medicalhistory.WriteUp;
-import seedu.address.model.person.Patient;
 import seedu.address.model.person.PersonId;
 
 /**

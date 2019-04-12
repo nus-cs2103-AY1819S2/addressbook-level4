@@ -33,9 +33,9 @@ public class UniquePatientList implements Iterable<Patient> {
         return internalList.stream().anyMatch(toCheck::isSamePatient);
     }
     //@@author Liuyy99
-        /**
-         * Returns Patient with given PersonId.
-         */
+    /**
+     * Returns Patient with given PersonId.
+     */
     public Patient findPatientById(PersonId idToCheck) {
         requireNonNull(idToCheck);
         Predicate<Patient> predicate = new RecordContainsPatientIdPredicate(idToCheck);

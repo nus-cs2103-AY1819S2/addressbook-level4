@@ -78,8 +78,8 @@ public class SampleDataUtil {
             new MedicalHistory(new PersonId("2"), new PersonId("7"),
                     new ValidDate("2019-03-03"), new WriteUp("The patient had a sneeze.")),
             new MedicalHistory(new PersonId("2"), new PersonId("8"),
-                    new ValidDate("2019-01-30"), new WriteUp("The patient had a stomachache. " +
-                    "I gave him some medicine to release the pain.")),
+                    new ValidDate("2019-01-30"), new WriteUp("The patient had a stomachache. "
+                    + "I gave him some medicine to release the pain.")),
             new MedicalHistory(new PersonId("3"), new PersonId("9"),
                     new ValidDate("2019-04-03"), new WriteUp("Had a fever with sore throat. Sleeps late.")),
             new MedicalHistory(new PersonId("4"), new PersonId("10"),

@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -100,5 +101,13 @@ public class ExportCommand extends Command {
         }
 
         return tempModel;
+    }
+
+    /**
+     * For ExportCommandParserTest.
+     * @return file
+     */
+    public File getFile() {
+        return parsedInput.getFile();
     }
 }

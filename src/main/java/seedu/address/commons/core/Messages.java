@@ -74,5 +74,16 @@ public class Messages {
             "Close the opened lesson before using this command.\n"
             + "To close the opened use:\n" + CloseLessonCommand.MESSAGE_USAGE;
 
-    private Messages() {}
+    /**
+     * This is a constants-only (utility) class which should not be instantiated.
+     * Note that this is not a singleton class given that not even a single instance is allowed.
+     *
+     * Throws an {@link InstantiationError} when accessed to prevent instantiation
+     * via new, clone(), reflection and serialization.
+     */
+    private Messages() {
+        // Prevents instantiation via new, clone(), reflection and serialization.
+        throw new InstantiationError(
+                "This is a constants-only (utility) class which should not be instantiated.");
+    }
 }

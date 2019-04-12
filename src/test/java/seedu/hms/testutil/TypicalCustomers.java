@@ -91,17 +91,17 @@ public class TypicalCustomers {
     public static final RoomType DOUBLE = new RoomType(75, "Double Room", 750.0);
 
     public static final Reservation ALICE_SINGLE_ROOM =
-        new ReservationBuilder().withRoom(SINGLE).withDates("14/04/2010", "17/04/2010").withPayer(ALICE)
+        new ReservationBuilder().withRoom(SINGLE).withDates("18/10/2019", "20/10/2019").withPayer(ALICE)
             .build();
     public static final Reservation BENSON_DOUBLE_ROOM =
-        new ReservationBuilder().withRoom(DOUBLE).withDates("14/04/2010", "17/04/2010").withPayer(BENSON)
+        new ReservationBuilder().withRoom(DOUBLE).withDates("18/10/2019", "20/10/2010").withPayer(BENSON)
             .build();
 
-    private static final Customer DANIEL =
+    public static final Customer DANIEL =
         new CustomerBuilder().withName("Daniel Meier").withPhone("87652533").withDateOfBirth("30/12/2002")
             .withEmail("cornelia@example.com").withAddress("10th street").withIdNum("1200512A")
             .withTags("friends").build();
-    private static final Customer GEORGE = new CustomerBuilder().withName("George Best").withPhone("9482442")
+    public static final Customer GEORGE = new CustomerBuilder().withName("George Best").withPhone("9482442")
         .withEmail("anna@example.com").withAddress("4th street").withIdNum("1233912A").withDateOfBirth("30/12/2005")
         .build();
 

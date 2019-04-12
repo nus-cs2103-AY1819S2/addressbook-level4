@@ -21,6 +21,7 @@ import java.util.List;
 import seedu.hms.commons.core.index.Index;
 import seedu.hms.logic.CommandHistory;
 import seedu.hms.logic.commands.exceptions.CommandException;
+import seedu.hms.model.BillModel;
 import seedu.hms.model.BookingModel;
 import seedu.hms.model.CustomerModel;
 import seedu.hms.model.HotelManagementSystem;
@@ -353,4 +354,73 @@ public class CommandTestUtil {
         model.updateFilteredReservationList(new ReservationContainsPayerPredicate(id));
     }
 
+    /* ------------------------------------- GENERATE BILL-------------------------------------*/
+
+
+    /**
+     * Convenience wrapper to {@link #assertCommandSuccess(Command, Model, CommandHistory, String, CustomerModel)}
+     * that takes a string {@code expectedMessage}.
+     */
+    public static void assertGenerateBillCommandSuccess(Command command, BillModel actualModel,
+                                                        CommandHistory actualCommandHistory,
+                                                        String expectedMessage,
+                                                        BillModel expectedModel) {
+        CommandResult expectedCommandResult = new CommandResult(expectedMessage);
+        assertGenerateBillCommandSuccess(command, actualModel, actualCommandHistory, expectedCommandResult,
+            expectedModel);
+    }
+
+    /**
+     * Executes the given {@code command}, confirms that <br>
+     * - the returned {@link CommandResult} matches {@code expectedCommandResult} <br>
+     * - the {@code actualModel} matches {@code expectedModel} <br>
+     * - the {@code actualCommandHistory} remains unchanged.
+     */
+    public static void assertGenerateBillCommandSuccess(Command command, BillModel actualModel,
+                                                        CommandHistory actualCommandHistory,
+                                                        CommandResult expectedCommandResult,
+                                                        BillModel expectedModel) {
+        CommandHistory expectedCommandHistory = new CommandHistory(actualCommandHistory);
+        try {
+            CommandResult result = command.execute(actualModel, actualCommandHistory);
+            assertEquals(expectedCommandResult, result);
+            assertEquals(expectedCommandHistory, actualCommandHistory);
+        } catch (CommandException ce) {
+            throw new AssertionError("Execution of command should not fail.", ce);
+        }
+    }
+
+    /**
+     * Convenience wrapper to {@link #assertCommandSuccess(Command, Model, CommandHistory, String, CustomerModel)}
+     * that takes a string {@code expectedMessage}.
+     */
+    public static void assertGenerateBillForCustomerCommandSuccess(Command command, BillModel actualModel,
+                                                        CommandHistory actualCommandHistory,
+                                                        String expectedMessage,
+                                                        BillModel expectedModel) {
+        CommandResult expectedCommandResult = new CommandResult(expectedMessage);
+        assertGenerateBillForCustomerCommandSuccess(command, actualModel, actualCommandHistory, expectedCommandResult,
+            expectedModel);
+    }
+
+    /**
+     * Executes the given {@code command}, confirms that <br>
+     * - the returned {@link CommandResult} matches {@code expectedCommandResult} <br>
+     * - the {@code actualModel} matches {@code expectedModel} <br>
+     * - the {@code actualCommandHistory} remains unchanged.
+     */
+    public static void assertGenerateBillForCustomerCommandSuccess(Command command, BillModel actualModel,
+                                                        CommandHistory actualCommandHistory,
+                                                        CommandResult expectedCommandResult,
+                                                        BillModel expectedModel) {
+        CommandHistory expectedCommandHistory = new CommandHistory(actualCommandHistory);
+        try {
+            CommandResult result = command.execute(actualModel, actualCommandHistory);
+            assertEquals(expectedCommandResult, result);
+            assertEquals(expectedModel, actualModel);
+            assertEquals(expectedCommandHistory, actualCommandHistory);
+        } catch (CommandException ce) {
+            throw new AssertionError("Execution of command should not fail.", ce);
+        }
+    }
 }

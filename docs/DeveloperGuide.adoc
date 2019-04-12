@@ -452,8 +452,7 @@ percentage of completion of the `CourseRequirement`
 ** In `PrimitiveRequirement`, this is achieved by calculating the number of distinct modules that satisfy at least
 1 of the `Condition` in the list and divided by the sum of `minToSatisfy`.
 ** This depends on the `LogicalConnector` in `CompositeRequirement`. If it is a `OR` connector, we return the maximum
-of the two.
-//TODO elaborate more on AND
+of the two. The `AND` logical connector returns the average of the degree of completion for both requirements.
 * `getUnfulfilled` -- a method that accepts a list of `ModuleInfoCode` and returns a list of RegExes from where none of the
 `ModuleInfoCode` matches. This method is used in the recommend feature.
 
@@ -468,14 +467,17 @@ image::RequirementStatusClassDiagram.png[width="800"]
 It also stores the result of the associated `CourseRequirement` object's `isFulfilled` and `percentageFulfilled`
 methods acting on the list of `ModuleInfoCode`.
 
-When `displayreq` command is called by the user, the sequence of execution is outlined below:
+
+Below is a sequence of execution when `displayreq` command is executed by the user:
 
 1. `Model#updateRequirementStatusList` is called. This clears the pre-existing `RequirementStatusList`
 and fills it with new `RequirementStatus` objects based on current `Course` and `ModulesTakenList`.
 
 2. `UI` calls `getRequirementStatusList` from `Logic` and retrieves the updated `RequirementStatusList`
 from `Model`. This list is displayed in the `ResultPanel`.
-//TODO sequence diagram
+
+The sequence diagram below summarises the execution as described above.
+
 
 ==== Design Considerations
 
@@ -499,17 +501,20 @@ is sufficient to replicate most NUS requirements accurately.
 ===== Aspect: Choice of information stored in `Condition` class
 * **Current choice: `Condition` class stores a `Pattern` to check whether a requirement is satisfied**
 ** Pros: Compact representation of which `ModuleInfoCode` fulfills the requirement
-** Cons: Can be difficult to find the correct regular expression for some `Condition`
+** Cons: Difficult to find the correct regular expression for some `Condition.`
 
-* **Alternative: `Condition` class stores a list of `String` to check whether a condition is satisfied**
+* **Alternative: `Condition` class stores an exact list of `String` to check whether a condition is satisfied**
 ** Pros: Easy and interpretive to use.
 ** Cons: Might need to store a long list of `String` if many modules can fulfil the `Condition` eg: General Education
 Modules
 
+We chose our current choice over the alternative as it takes up much fewer space to store. Moreover, storing a pattern
+also improves performance time since each `ModuleInfoCode` is matched against a `Pattern` instead a list of `String`
+objects.
+
 ==== Possible Improvements
 . Allow users to create and export their own `Course` and `CourseRequirement` objects.
-. Allow `Condition` to check access other attributes of a `ModuleTaken` object in the future.
-
+. Allow `Condition` to check its fulfillment access other attributes of a `ModuleTaken` object in the future.
 //end::CourseRequirement[]
 
 //tag::recommend[]

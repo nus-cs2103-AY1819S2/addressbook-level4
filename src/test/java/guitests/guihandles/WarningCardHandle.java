@@ -51,14 +51,14 @@ public class WarningCardHandle extends NodeHandle<Node> {
         }
 
         if (type.equals(WarningPanelPredicateType.EXPIRY)) {
-            String actualDetail = "";
+            String expectedDetail = "";
             for (Batch batch: medicine.getBatches().values()) {
-                actualDetail += String.format("%s [Exp: %s]\n",
+                expectedDetail += String.format("%s [Exp: %s]\n",
                         batch.getBatchNumber().toString(),
                         batch.getExpiry().toString());
             }
 
-            return getDetail().equals(actualDetail);
+            return getDetail().equals(expectedDetail);
         } else {
             // List is for medicines with low stock
             return getDetail().equals(String.format("Qty: %s\n", medicine.getTotalQuantity().toString()));

@@ -65,7 +65,6 @@ public class MedicineExpiryThresholdPredicateTest {
         assertTrue(predicate.test(new MedicineBuilder().withExpiry(defaultDate).build()));
         assertTrue(predicate.test(new MedicineBuilder().withExpiry(today).build()));
         assertTrue(predicate.test(new MedicineBuilder().withExpiry(yesterday).build()));
-        assertTrue(predicate.test(new MedicineBuilder().withExpiry(maxDate).build()));
 
         // Max threshold
         predicate = new MedicineExpiryThresholdPredicate(new Threshold(Integer.toString(Threshold.MAX_THRESHOLD)));
@@ -85,10 +84,10 @@ public class MedicineExpiryThresholdPredicateTest {
         String tomorrow = formatDateToString(LocalDate.now().plusDays(1));
         String defaultDate = formatDateToString(LocalDate.now()
                 .plusDays(Model.DEFAULT_EXPIRY_THRESHOLD.getNumericValue()));
-        String maxDate = formatDateToString(LocalDate.now().plusDays(Threshold.MAX_THRESHOLD));
+        String maxDate = formatDateToString(LocalDate.now().plusDays(Expiry.MAX_DAYS_TO_EXPIRY));
 
         // Minimum threshold for expiring and expired medicine
-        predicate = new MedicineExpiryThresholdPredicate(new Threshold(Integer.toString(Threshold.MAX_THRESHOLD)));
+        predicate = new MedicineExpiryThresholdPredicate(new Threshold(Integer.toString(Threshold.MIN_THRESHOLD)));
         assertFalse(predicate.test(new MedicineBuilder().withExpiry(tomorrow).build()));
         assertFalse(predicate.test(new MedicineBuilder().withExpiry(defaultDate).build()));
         assertFalse(predicate.test(new MedicineBuilder().withExpiry(maxDate).build()));

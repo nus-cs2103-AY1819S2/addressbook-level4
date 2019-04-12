@@ -2,10 +2,13 @@ package seedu.address.ui;
 
 import guitests.guihandles.MedicineCardHandle;
 import guitests.guihandles.MedicineListPanelHandle;
+import guitests.guihandles.WarningCardHandle;
+import guitests.guihandles.WarningListViewHandle;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import org.junit.Test;
+import seedu.address.commons.util.warning.WarningPanelPredicateAccessor;
 import seedu.address.commons.util.warning.WarningPanelPredicateType;
 import seedu.address.model.medicine.Company;
 import seedu.address.model.medicine.Expiry;
@@ -29,17 +32,17 @@ public class WarningListViewTest extends GuiUnitTest {
 
     private static final long CARD_CREATION_AND_DELETION_TIMEOUT = 2500;
 
-    private final SimpleObjectProperty<Medicine> selectedMedicine = new SimpleObjectProperty<>();
-    private MedicineListPanelHandle medicineListPanelHandle;
+    private WarningListViewHandle warningListViewHandle;
 
     @Test
     public void display_expiryListView() {
         initUi(TYPICAL_MEDICINES, WarningPanelPredicateType.EXPIRY);
 
         for (int i = 0; i < TYPICAL_MEDICINES.size(); i++) {
-            medicineListPanelHandle.navigateToCard(TYPICAL_MEDICINES.get(i));
+            warningListViewHandle.navigateToCard(TYPICAL_MEDICINES.get(i));
             Medicine expectedMedicine = TYPICAL_MEDICINES.get(i);
-            MedicineCardHandle actualCard = medicineListPanelHandle.getMedicineCardHandle(i);
+            WarningCardHandle actualCard = warningListViewHandle
+                    .getWarningCardHandle(i, WarningPanelPredicateType.EXPIRY);
 
             assertCardDisplaysMedicine(expectedMedicine, actualCard);
             assertEquals(Integer.toString(i + 1) + ". ", actualCard.getId());
@@ -48,24 +51,21 @@ public class WarningListViewTest extends GuiUnitTest {
 
     @Test
     public void display_lowStockListView() {
+        initUi(TYPICAL_MEDICINES, WarningPanelPredicateType.LOW_STOCK);
 
-    }
+        for (int i = 0; i < TYPICAL_MEDICINES.size(); i++) {
+            warningListViewHandle.navigateToCard(TYPICAL_MEDICINES.get(i));
+            Medicine expectedMedicine = TYPICAL_MEDICINES.get(i);
+            WarningCardHandle actualCard = warningListViewHandle
+                    .getWarningCardHandle(i, WarningPanelPredicateType.LOW_STOCK);
 
-    @Test
-    public void selection_modelSelectedMedicineChanged_selectionChanges() {
-        initUi(TYPICAL_MEDICINES);
-        Medicine secondMedicine = TYPICAL_MEDICINES.get(INDEX_SECOND_MEDICINE.getZeroBased());
-        guiRobot.interact(() -> selectedMedicine.set(secondMedicine));
-        guiRobot.pauseForHuman();
-
-        MedicineCardHandle expectedMedicine = medicineListPanelHandle.getMedicineCardHandle(
-                INDEX_SECOND_MEDICINE.getZeroBased());
-        MedicineCardHandle selectedMedicine = medicineListPanelHandle.getHandleToSelectedCard();
-        assertCardEquals(expectedMedicine, selectedMedicine);
+            assertCardDisplaysMedicine(expectedMedicine, actualCard);
+            assertEquals(Integer.toString(i + 1) + ". ", actualCard.getId());
+        }
     }
 
     /**
-     * Verifies that creating and deleting large number of medicines in {@code MedicineListPanel} requires lesser than
+     * Verifies that creating and deleting large number of medicines in {@code WarningListView} requires lesser than
      * {@code CARD_CREATION_AND_DELETION_TIMEOUT} milliseconds to execute.
      */
     @Test
@@ -73,7 +73,12 @@ public class WarningListViewTest extends GuiUnitTest {
         ObservableList<Medicine> backingList = createBackingList(10000);
 
         assertTimeoutPreemptively(ofMillis(CARD_CREATION_AND_DELETION_TIMEOUT), () -> {
-            initUi(backingList);
+            initUi(backingList, WarningPanelPredicateType.EXPIRY);
+            guiRobot.interact(backingList::clear);
+        }, "Creation and deletion of medicine cards exceeded time limit");
+
+        assertTimeoutPreemptively(ofMillis(CARD_CREATION_AND_DELETION_TIMEOUT), () -> {
+            initUi(backingList, WarningPanelPredicateType.LOW_STOCK);
             guiRobot.interact(backingList::clear);
         }, "Creation and deletion of medicine cards exceeded time limit");
     }
@@ -101,11 +106,14 @@ public class WarningListViewTest extends GuiUnitTest {
      * Also shows the {@code Stage} that displays only {@code WarningListView}.
      */
     private void initUi(ObservableList<Medicine> backingList, WarningPanelPredicateType listType) {
-        WarningListView warningListView =
-                new WarningListView(backingList, listType, predicateAccesor);
-        uiPartRule.setUiPart(medicineListPanel);
+        WarningPanelPredicateAccessor predicateAccessor = new WarningPanelPredicateAccessor();
+        predicateAccessor.setMaxThresholds();
 
-        medicineListPanelHandle = new MedicineListPanelHandle(getChildNode(medicineListPanel.getRoot(),
-                MedicineListPanelHandle.MEDICINE_LIST_VIEW_ID));
+        WarningListView warningListView =
+                new WarningListView(backingList, listType, predicateAccessor);
+        uiPartRule.setUiPart(warningListView);
+
+        warningListViewHandle = new WarningListViewHandle(getChildNode(warningListView.getRoot(),
+                WarningListViewHandle.WARNING_LIST_VIEW_ID));
     }
 }

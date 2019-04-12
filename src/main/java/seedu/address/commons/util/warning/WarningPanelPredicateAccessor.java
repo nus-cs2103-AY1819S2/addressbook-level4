@@ -75,9 +75,9 @@ public class WarningPanelPredicateAccessor {
      * Set max threshold such that all predicates always return true.
      */
     public void setMaxThresholds() {
-        updateBatchExpiringThreshold(Integer.MAX_VALUE);
-        updateMedicineExpiringThreshold(Integer.MAX_VALUE);
-        updateMedicineLowStockThreshold(Quantity.MAX_QUANTITY + 1);
+        updateBatchExpiringThreshold(Threshold.MAX_THRESHOLD);
+        updateMedicineExpiringThreshold(Threshold.MAX_THRESHOLD);
+        updateMedicineLowStockThreshold(Threshold.MAX_THRESHOLD);
     }
 
     private void setDefaultPredicates() {

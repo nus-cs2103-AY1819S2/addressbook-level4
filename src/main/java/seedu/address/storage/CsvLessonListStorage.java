@@ -24,10 +24,6 @@ import seedu.address.model.lesson.LessonList;
 public class CsvLessonListStorage implements LessonListStorage {
     private static final Logger logger = LogsCenter.getLogger(CsvLessonListStorage.class);
 
-    private static final String CORE_ESCAPE = "*";
-    private static final String QUESTION_ESCAPE = "?";
-    private static final String ANSWER_ESCAPE = "@";
-
     private static final String FULL_HEADER_CORE_QA = "TESTED";
     private static final String FULL_HEADER_CORE_NOT_QA = "NOT TESTED";
     private static final String FULL_HEADER_OPTIONAL = "HINT";
@@ -37,10 +33,6 @@ public class CsvLessonListStorage implements LessonListStorage {
     private static final String HEADER_OPTIONAL = "h";
 
     private static final String DEFAULT_FIELD_NAME = "Unnamed";
-
-    private static final String READ_WARNING_CORE_LABEL = "Core escape character [ "
-            + CORE_ESCAPE
-            + " ] was found after non-core column.";
 
     private Path folderPath;
 
@@ -84,7 +76,7 @@ public class CsvLessonListStorage implements LessonListStorage {
             logger.warning("Unable to read lesson file at: " + filePath.toString());
             return Optional.empty();
         }
-        if (data == null) {
+        if (data == null || data.size() < 2) {
             logger.warning("Empty/invalid file at: " + filePath.toString());
             return Optional.empty();
         }
@@ -92,6 +84,7 @@ public class CsvLessonListStorage implements LessonListStorage {
         String lessonName = filePath.getFileName().toString();
         int extensionIndex = lessonName.lastIndexOf(".");
         lessonName = lessonName.substring(0, extensionIndex);
+
 
         String[] headerArray = data.get(0);
         String[] fieldNameArray = data.get(1);
@@ -125,65 +118,23 @@ public class CsvLessonListStorage implements LessonListStorage {
         Lesson newLesson = new Lesson(lessonName, coreCount, fieldNames);
         newLesson.setQuestionAnswerIndices(questionIndex, answerIndex);
 
-        System.out.println(newLesson.toString());
 
-        /*
-        String[] header = data.get(0);
-        int coreCount = 0;
-        int questionIndex = Lesson.DEFAULT_INDEX_QUESTION;
-        int answerIndex = Lesson.DEFAULT_INDEX_ANSWER;
-        boolean readingCores = true;
-
-        for (int i = 0; i < header.length; i++) {
-            String value = header[i];
-            if (value.startsWith(CORE_ESCAPE)) {
-                if (!readingCores) {
-                    logger.warning("File " + filePath.toString() + ": " + READ_WARNING_CORE_LABEL);
-                    continue;
-                }
-                coreCount++;
-                header[i] = value.substring(CORE_ESCAPE.length());
-
-                String substring = header[i];
-                if (substring.startsWith(QUESTION_ESCAPE)) {
-                    header[i] = substring.substring(QUESTION_ESCAPE.length());
-                    questionIndex = i;
-                } else if (substring.startsWith(ANSWER_ESCAPE)) {
-                    header[i] = substring.substring(ANSWER_ESCAPE.length());
-                    answerIndex = i;
-                }
-            } else {
-                readingCores = false;
-            }
-        }
-        if (coreCount < Card.MIN_CORE_COUNT) {
-            return Optional.empty();
-        }
-
-        String lessonName = filePath.getFileName().toString();
-        int extensionPos = lessonName.lastIndexOf(".");
-        lessonName = lessonName.substring(0, extensionPos);
-        List<String> fields = Arrays.asList(header);
-
-        Lesson newLesson = new Lesson(lessonName, coreCount, fields);
-
-        newLesson.setQuestionAnswerIndices(questionIndex, answerIndex);
-
-
-
-
-        for (int i = 1; i < data.size(); i++) {
+        for (int i = 2; i < data.size(); i++) {
             try {
                 newLesson.addCard(Arrays.asList(data.get(i)));
             } catch (IllegalArgumentException e) {
                 continue;
             }
         }
-        */
-        return Optional.empty();
-        //return Optional.of(newLesson);
+        return Optional.of(newLesson);
     }
 
+    /**
+     * Returns an int array containing core count, question and answer index.
+     *
+     * @param headerArray
+     * @return Header data values.
+     */
     private int[] parseStringArrayToHeaderData(String[] headerArray) {
         int[] returnValues = new int[3];
         Arrays.fill(returnValues, -1);
@@ -193,7 +144,7 @@ public class CsvLessonListStorage implements LessonListStorage {
         int coreCount = 0;
         int index = 0;
         while (index < headerArray.length) {
-            String headerChar = headerArray[index].toLowerCase().substring(0,1);
+            String headerChar = headerArray[index].toLowerCase().substring(0, 1);
             if (headerChar.equals(HEADER_CORE_QA)) {
                 if (questionIndex == -1) {
                     questionIndex = index;
@@ -203,7 +154,7 @@ public class CsvLessonListStorage implements LessonListStorage {
                 coreCount++;
             } else if (headerChar.equals(HEADER_CORE_NOT_QA)) {
                 coreCount++;
-            } else if (!headerChar.equals(HEADER_OPTIONAL)){
+            } else if (!headerChar.equals(HEADER_OPTIONAL)) {
                 return returnValues;
             }
 
@@ -216,10 +167,18 @@ public class CsvLessonListStorage implements LessonListStorage {
         return returnValues;
     }
 
+    /**
+     * Returns a list of Strings containing correctly formatted field names.
+     *
+     * If the field is empty, it is automatically renamed to DEFAULT_FIELD_NAME.
+     *
+     * @param fieldNameArray
+     * @return List of field names.
+     */
     private List<String> parseStringArrayToFieldNames(String[] fieldNameArray) {
         List<String> fieldNames;
         for (int i = 0; i < fieldNameArray.length; i++) {
-            if(fieldNameArray[i].isEmpty()) {
+            if (fieldNameArray[i].isEmpty()) {
                 fieldNameArray[i] = DEFAULT_FIELD_NAME;
             }
         }

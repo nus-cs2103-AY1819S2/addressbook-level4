@@ -1,8 +1,5 @@
 package seedu.address.logic.commands;
 
-import static java.util.Objects.requireNonNull;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
-
 import java.io.IOException;
 import java.util.Optional;
 import java.util.logging.Logger;
@@ -10,20 +7,17 @@ import java.util.logging.Logger;
 import seedu.address.MainApp;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.logic.CommandHistory;
-import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.util.SampleDataUtil;
 import seedu.address.storage.AddressBookStorage;
 import seedu.address.storage.InOutAddressBookStorage;
 import seedu.address.storage.ParsedInOut;
-import seedu.address.storage.StorageManager;
 
 /**
  * Imports data to a text file.
  */
-public class ImportCommand extends Command {
+public class ImportCommand extends InCommand {
 
     public static final String COMMAND_WORD = "import";
 
@@ -44,22 +38,14 @@ public class ImportCommand extends Command {
         this.parsedInput = parsedInput;
     }
 
-    @Override
-    public CommandResult execute(Model model, CommandHistory history) {
-        requireNonNull(model);
-        readFile(model);
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        model.commitAddressBook();
-        return new CommandResult(MESSAGE_SUCCESS);
-    }
-
     /**
      * readFile() appends the current address book with the contents of the file.
      */
-    private void readFile(Model model) {
-        AddressBookStorage importStorage = new InOutAddressBookStorage(parsedInput.getFile().toPath());
+    @Override
+    protected String readFile(Model model) throws IOException {
+        fileValidation(parsedInput);
 
-        StorageManager importStorageManager = new StorageManager(importStorage, null);
+        AddressBookStorage importStorage = new InOutAddressBookStorage(parsedInput.getFile().toPath());
 
         final Logger logger = LogsCenter.getLogger(MainApp.class);
 
@@ -67,19 +53,16 @@ public class ImportCommand extends Command {
         ReadOnlyAddressBook importData;
 
         try {
-            importOptional = importStorageManager.readAddressBook();
+            importOptional = importStorage.readAddressBook();
+            // This should not happen after OpenCommandParser checks for file existence.
             if (!importOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample AddressBook");
             }
             importData = importOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
         } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format."
-                                + "Will be starting with an empty AddressBook");
-            importData = new AddressBook();
+            return "Data file is not in the correct format.";
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file."
-                                + "Will be starting with an empty AddressBook");
-            importData = new AddressBook();
+            return e.getMessage();
         }
 
         for (int i = 0; i < importData.getPersonList().size(); i++) {
@@ -88,5 +71,6 @@ public class ImportCommand extends Command {
                 model.addPerson(importData.getPersonList().get(i));
             }
         }
+        return MESSAGE_SUCCESS;
     }
 }

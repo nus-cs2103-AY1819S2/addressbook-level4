@@ -2,6 +2,7 @@ package seedu.address.commons.util;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -24,7 +25,10 @@ public class DrawTeethUtil {
         String basepath = System.getProperty("user.dir");
         try {
             InputStream imageFile = MainApp.class.getClassLoader()
-                    .getResourceAsStream("images/teeth/BaseLayer.png");
+                    .getResourceAsStream("images" + File.separator + "teeth" + File.separator + "BaseLayer.png");
+            if (imageFile == null) {
+                throw new IOException();
+            }
             BufferedImage main = ImageIO.read(imageFile);
             for (int i = 0; i < teeth.length; i++) {
                 if (teeth[i] > 0) {
@@ -34,7 +38,11 @@ public class DrawTeethUtil {
                         type = "A_";
                     }
                     InputStream layerFile = MainApp.class.getClassLoader()
-                            .getResourceAsStream("images/teeth/" + type + (i + 1) + ".png");
+                            .getResourceAsStream("images" + File.separator + "teeth" + File.separator
+                                                    + type + (i + 1) + ".png");
+                    if (layerFile == null) {
+                        throw new IOException();
+                    }
                     BufferedImage layer = ImageIO.read(layerFile);
                     Graphics g = main.getGraphics();
                     g.drawImage(layer, 0, 0, null);

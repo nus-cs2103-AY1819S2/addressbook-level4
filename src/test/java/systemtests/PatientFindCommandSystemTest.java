@@ -164,7 +164,7 @@ public class PatientFindCommandSystemTest extends AddressBookSystemTest {
      * These verifications are done by
      * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
      * Also verifies that the status bar remains unchanged, and the command box has the default style class, and the
-     * selected card updated accordingly, depending on {@code cardStatus}.
+     * selected card updated accordingly, depending on {@code cardStatus}
      * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
     private void assertCommandSuccess(String command, Model expectedModel) {

@@ -8,6 +8,7 @@ import java.util.List;
 import javafx.beans.InvalidationListener;
 import javafx.collections.ObservableList;
 import seedu.address.commons.util.InvalidationListenerManager;
+import seedu.address.commons.util.ModuleTree;
 import seedu.address.model.moduleinfo.ModuleInfoCode;
 import seedu.address.model.moduletaken.CapAverage;
 import seedu.address.model.moduletaken.Hour;
@@ -168,6 +169,21 @@ public class GradTrak implements ReadOnlyGradTrak {
         }
 
         return codeList;
+    }
+
+    /**
+     * Generates an {@code ArrayList} of {@code String} of missing prerequisites in this {@code GradTrak},
+     * given the {@code ModuleTree} of the module.
+     * @param moduleTree The {@code ModuleTree} of the module whose missing prerequisites are being generated.
+     * @return an {@code ArrayList} of {@code String} of missing prerequisites.
+     */
+    public ArrayList<String> getMissingPrerequisites(ModuleTree moduleTree) {
+        ArrayList<String> codeStringList = new ArrayList<>();
+        for (ModuleInfoCode code : getNonFailedCodeList()) {
+            codeStringList.add(code.toString());
+        }
+
+        return moduleTree.checkPrerequisites(codeStringList);
     }
 
     @Override

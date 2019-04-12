@@ -8,7 +8,6 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
@@ -31,17 +30,11 @@ public class JsonChartBookStorage implements ChartBookStorage {
     private final Path countryChartFilePath;
     private final Path ratingChartFilePath;
     private final Path yearChartFilePath;
-    private final Path backupCountryChartFilePath;
-    private final Path backupRatingChartFilePath;
-    private final Path backupYearChartFilePath;
 
     public JsonChartBookStorage(Path countryChartFilePath, Path ratingChartFilePath, Path yearChartFilePath) {
         this.countryChartFilePath = countryChartFilePath;
         this.ratingChartFilePath = ratingChartFilePath;
         this.yearChartFilePath = yearChartFilePath;
-        this.backupCountryChartFilePath = Paths.get(countryChartFilePath.toString() + ".backup");
-        this.backupRatingChartFilePath = Paths.get(ratingChartFilePath.toString() + ".backup");
-        this.backupYearChartFilePath = Paths.get(yearChartFilePath.toString() + ".backup");
     }
 
     @Override
@@ -214,18 +207,4 @@ public class JsonChartBookStorage implements ChartBookStorage {
         }
     }
 
-    @Override
-    public void backupCountryChart(ReadOnlyCountryChart countryChart) {
-        saveCountryChart(countryChart, backupCountryChartFilePath);
-    }
-
-    @Override
-    public void backupRatingChart(ReadOnlyRatingChart ratingChart) {
-        saveRatingChart(ratingChart, backupRatingChartFilePath);
-    }
-
-    @Override
-    public void backupYearChart(ReadOnlyYearChart yearChart) {
-        saveYearChart(yearChart, backupYearChartFilePath);
-    }
 }

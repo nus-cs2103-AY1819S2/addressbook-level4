@@ -1,11 +1,9 @@
 = TravelBuddy - List of Country Codes
 :site-section: CountryCodes
-:toc:
-:toc-title:
-:toc-placement: preamble
 :sectnums:
 :imagesDir: images
 :stylesDir: stylesheets
+:sourceDir: ../src/main/java
 :xrefstyle: full
 ifdef::env-github[]
 :tip-caption: :bulb:
@@ -15,260 +13,409 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/CS2103-AY1819S2-W11-3/main
 
-By: `CS2103T W11-3 Team`      Since: `Feb 2019`      Licence: `MIT`
+[[TOP]]
 
-[width="80%",cols="20%,80%"]
+Find by Country Name: <<A,A>> <<B,B>> <<C,C>> <<D,D>> <<E,E>> <<F,F>> <<G,G>> <<H,H>> <<I,I>> <<J,J>> <<K,K>>
+<<L,L>>
+<<M,M>> <<N,N>> <<O,O>> <<P,P>> <<Q,Q>> <<R,R>> <<S,S>> <<T,T>> <<U,U>> <<V,V>> <<W,W>> <<Y,Y>> <<Z,Z>>
+[[A]]
+= A
+<<TOP,Back to top>>
+[width="60%",cols="40%,20%"]
+|=======================================================================
+|**Country Name** | *Country Code*
+|*Afghanistan* | AFG
+|*Albania* | ALB
+|*Algeria* | DZA
+|*American Samoa* | ASM
+|*Andorra* | AND
+|*Angola* | AGO
+|*Anguilla* | AIA
+|*Antarctica* | ATA
+|*Antigua and Barbuda* | ATG
+|*Argentina* | ARG
+|*Armenia* | ARM
+|*Aruba* | ABW
+|*Australia* | AUS
+|*Austria* | AUT
+|*Azerbaijan* | AZE
 |=======================================================================
 
-|*AND* |Andorra
-|*ARE* |United Arab Emirates
-|*AFG* |Afghanistan
-|*ATG* |Antigua and Barbuda
-|*AIA* |Anguilla
-|*ALB* |Albania
-|*ARM* |Armenia
-|*ANT* |Netherlands Antilles
-|*AGO* |Angola
-|*ATA* |Antarctica
-|*ARG* |Argentina
-|*ASM* |American Samoa
-|*AUT* |Austria
-|*AUS* |Australia
-|*ABW* |Aruba
-|*ALA* |Åland Islands
-|*AZE* |Azerbaijan
-|*BIH* |Bosnia and Herzegovina
-|*BRB* |Barbados
-|*BGD* |Bangladesh
-|*BEL* |Belgium
-|*BFA* |Burkina Faso
-|*BGR* |Bulgaria
-|*BHR* |Bahrain
-|*BDI* |Burundi
-|*BEN* |Benin
-|*BLM* |Saint Barthélemy
-|*BMU* |Bermuda
-|*BRN* |Brunei
-|*BOL* |Bolivia
-|*BES* |Bonaire, Sint Eustatius and Saba
-|*BRA* |Brazil
-|*BHS* |Bahamas
-|*BTN* |Bhutan
-|*BVT* |Bouvet Island
-|*BWA* |Botswana
-|*BLR* |Belarus
-|*BLZ* |Belize
-|*CAN* |Canada
-|*CCK* |Cocos Islands
-|*COD* |The Democratic Republic Of Congo
-|*CAF* |Central African Republic
-|*COG* |Congo
-|*CHE* |Switzerland
-|*CIV* |Côte d'Ivoire
-|*COK* |Cook Islands
-|*CHL* |Chile
-|*CMR* |Cameroon
-|*CHN* |China
-|*COL* |Colombia
-|*CRI* |Costa Rica
-|*CUB* |Cuba
-|*CPV* |Cape Verde
-|*CUW* |Curaçao
-|*CXR* |Christmas Island
-|*CYP* |Cyprus
-|*CZE* |Czech Republic
-|*DEU* |Germany
-|*DJI* |Djibouti
-|*DNK* |Denmark
-|*DMA* |Dominica
-|*DOM* |Dominican Republic
-|*DZA* |Algeria
-|*ECU* |Ecuador
-|*EST* |Estonia
-|*EGY* |Egypt
-|*ESH* |Western Sahara
-|*ERI* |Eritrea
-|*ESP* |Spain
-|*ETH* |Ethiopia
-|*FIN* |Finland
-|*FJI* |Fiji
-|*FLK* |Falkland Islands
-|*FSM* |Micronesia
-|*FRO* |Faroe Islands
-|*FRA* |France
-|*GAB* |Gabon
-|*GBR* |United Kingdom
-|*GRD* |Grenada
-|*GEO* |Georgia
-|*GUF* |French Guiana
-|*GGY* |Guernsey
-|*GHA* |Ghana
-|*GIB* |Gibraltar
-|*GRL* |Greenland
-|*GMB* |Gambia
-|*GIN* |Guinea
-|*GLP* |Guadeloupe
-|*GNQ* |Equatorial Guinea
-|*GRC* |Greece
-|*SGS* |South Georgia And The South Sandwich Islands
-|*GTM* |Guatemala
-|*GUM* |Guam
-|*GNB* |Guinea-Bissau
-|*GUY* |Guyana
-|*HKG* |Hong Kong
-|*HMD* |Heard Island And McDonald Islands
-|*HND* |Honduras
-|*HRV* |Croatia
-|*HTI* |Haiti
-|*HUN* |Hungary
-|*IDN* |Indonesia
-|*IRL* |Ireland
-|*ISR* |Israel
-|*IMN* |Isle Of Man
-|*IND* |India
-|*IOT* |British Indian Ocean Territory
-|*IRQ* |Iraq
-|*IRN* |Iran
-|*ISL* |Iceland
-|*ITA* |Italy
-|*JEY* |Jersey
-|*JAM* |Jamaica
-|*JOR* |Jordan
-|*JPN* |Japan
-|*KEN* |Kenya
-|*KGZ* |Kyrgyzstan
-|*KHM* |Cambodia
-|*KIR* |Kiribati
-|*COM* |Comoros
-|*KNA* |Saint Kitts And Nevis
-|*PRK* |North Korea
-|*KOR* |South Korea
-|*KWT* |Kuwait
-|*CYM* |Cayman Islands
-|*KAZ* |Kazakhstan
-|*LAO* |Laos
-|*LBN* |Lebanon
-|*LCA* |Saint Lucia
-|*LIE* |Liechtenstein
-|*LKA* |Sri Lanka
-|*LBR* |Liberia
-|*LSO* |Lesotho
-|*LTU* |Lithuania
-|*LUX* |Luxembourg
-|*LVA* |Latvia
-|*LBY* |Libya
-|*MAR* |Morocco
-|*MCO* |Monaco
-|*MDA* |Moldova
-|*MNE* |Montenegro
-|*MAF* |Saint Martin
-|*MDG* |Madagascar
-|*MHL* |Marshall Islands
-|*MKD* |Macedonia
-|*MLI* |Mali
-|*MMR* |Myanmar
-|*MNG* |Mongolia
-|*MAC* |Macao
-|*MNP* |Northern Mariana Islands
-|*MTQ* |Martinique
-|*MRT* |Mauritania
-|*MSR* |Montserrat
-|*MLT* |Malta
-|*MUS* |Mauritius
-|*MDV* |Maldives
-|*MWI* |Malawi
-|*MEX* |Mexico
-|*MYS* |Malaysia
-|*MOZ* |Mozambique
-|*NAM* |Namibia
-|*NCL* |New Caledonia
-|*NER* |Niger
-|*NFK* |Norfolk Island
-|*NGA* |Nigeria
-|*NIC* |Nicaragua
-|*NLD* |Netherlands
-|*NOR* |Norway
-|*NPL* |Nepal
-|*NRU* |Nauru
-|*NIU* |Niue
-|*NZL* |New Zealand
-|*OMN* |Oman
-|*PAN* |Panama
-|*PER* |Peru
-|*PYF* |French Polynesia
-|*PNG* |Papua New Guinea
-|*PHL* |Philippines
-|*PAK* |Pakistan
-|*POL* |Poland
-|*SPM* |Saint Pierre And Miquelon
-|*PCN* |Pitcairn
-|*PRI* |Puerto Rico
-|*PSE* |Palestine
-|*PRT* |Portugal
-|*PLW* |Palau
-|*PRY* |Paraguay
-|*QAT* |Qatar
-|*REU* |Reunion
-|*ROU* |Romania
-|*SRB* |Serbia
-|*RUS* |Russia
-|*RWA* |Rwanda
-|*SAU* |Saudi Arabia
-|*SLB* |Solomon Islands
-|*SYC* |Seychelles
-|*SDN* |Sudan
-|*SWE* |Sweden
-|*SGP* |Singapore
-|*SHN* |Saint Helena
-|*SVN* |Slovenia
-|*SJM* |Svalbard And Jan Mayen
-|*SVK* |Slovakia
-|*SLE* |Sierra Leone
-|*SMR* |San Marino
-|*SEN* |Senegal
-|*SOM* |Somalia
-|*SUR* |Suriname
-|*SSD* |South Sudan
-|*STP* |Sao Tome And Principe
-|*SLV* |El Salvador
-|*SXM* |Sint Maarten (Dutch part)
-|*SYR* |Syria
-|*SWZ* |Swaziland
-|*TCA* |Turks And Caicos Islands
-|*TCD* |Chad
-|*ATF* |French Southern Territories
-|*TGO* |Togo
-|*THA* |Thailand
-|*TJK* |Tajikistan
-|*TKL* |Tokelau
-|*TLS* |Timor-Leste
-|*TKM* |Turkmenistan
-|*TUN* |Tunisia
-|*TON* |Tonga
-|*TUR* |Turkey
-|*TTO* |Trinidad and Tobago
-|*TUV* |Tuvalu
-|*TWN* |Taiwan
-|*TZA* |Tanzania
-|*UKR* |Ukraine
-|*UGA* |Uganda
-|*UMI* |United States Minor Outlying Islands
-|*USA* |United States
-|*URY* |Uruguay
-|*UZB* |Uzbekistan
-|*VAT* |Vatican
-|*VCT* |Saint Vincent And The Grenadines
-|*VEN* |Venezuela
-|*VGB* |British Virgin Islands
-|*VIR* |U.S. Virgin Islands
-|*VNM* |Vietnam
-|*VUT* |Vanuatu
-|*WLF* |Wallis And Futuna
-|*WSM* |Samoa
-|*YEM* |Yemen
-|*MYT* |Mayotte
-|*ZAF* |South Africa
-|*ZMB* |Zambia
-|*ZWE* |Zimbabwe
-
+[[B]]
+= B
+<<TOP,Back to top>>
+[width="60%",cols="40%,20%"]
+|=======================================================================
+|*Bahamas* | BHS
+|*Bahrain* | BHR
+|*Bangladesh* | BGD
+|*Barbados* | BRB
+|*Belarus* | BLR
+|*Belgium* | BEL
+|*Belize* | BLZ
+|*Benin* | BEN
+|*Bermuda* | BMU
+|*Bhutan* | BTN
+|*Bolivia* | BOL
+|*Bonaire, Sint Eustatius and Saba* | BES
+|*Bosnia and Herzegovina* | BIH
+|*Botswana* | BWA
+|*Bouvet Island* | BVT
+|*Brazil* | BRA
+|*British Indian Ocean Territory* | IOT
+|*British Virgin Islands* | VGB
+|*Brunei* | BRN
+|*Bulgaria* | BGR
+|*Burkina Faso* | BFA
+|*Burundi* | BDI
+|=======================================================================
+[[C]]
+= C
+<<TOP,Back to top>>
+[width="60%",cols="40%,20%"]
+|=======================================================================
+|*Cambodia* | KHM
+|*Cameroon* | CMR
+|*Canada* | CAN
+|*Cape Verde* | CPV
+|*Cayman Islands* | CYM
+|*Central African Republic* | CAF
+|*Chad* | TCD
+|*Chile* | CHL
+|*China* | CHN
+|*Christmas Island* | CXR
+|*Cocos Islands* | CCK
+|*Colombia* | COL
+|*Comoros* | COM
+|*Congo* | COG
+|*Cook Islands* | COK
+|*Costa Rica* | CRI
+|*Croatia* | HRV
+|*Cuba* | CUB
+|*Curaçao* | CUW
+|*Cyprus* | CYP
+|*Czech Republic* | CZE
+|*Côte d'Ivoire* | CIV
+|=======================================================================
+[[D]]
+= D
+<<TOP,Back to top>>
+[width="60%",cols="40%,20%"]
+|=======================================================================
+|*Denmark* | DNK
+|*Djibouti* | DJI
+|*Dominica* | DMA
+|*Dominican Republic* | DOM
+|=======================================================================
+[[E]]
+= E
+<<TOP,Back to top>>
+[width="60%",cols="40%,20%"]
+|=======================================================================
+|*Ecuador* | ECU
+|*Egypt* | EGY
+|*El Salvador* | SLV
+|*Equatorial Guinea* | GNQ
+|*Eritrea* | ERI
+|*Estonia* | EST
+|*Ethiopia* | ETH
+|=======================================================================
+[[F]]
+= F
+<<TOP,Back to top>>
+[width="60%",cols="40%,20%"]
+|=======================================================================
+|*Falkland Islands* | FLK
+|*Faroe Islands* | FRO
+|*Fiji* | FJI
+|*Finland* | FIN
+|*France* | FRA
+|*French Guiana* | GUF
+|*French Polynesia* | PYF
+|*French Southern Territories* | ATF
+|=======================================================================
+[[G]]
+= G
+<<TOP,Back to top>>
+[width="60%",cols="40%,20%"]
+|=======================================================================
+|*Gabon* | GAB
+|*Gambia* | GMB
+|*Georgia* | GEO
+|*Germany* | DEU
+|*Ghana* | GHA
+|*Gibraltar* | GIB
+|*Greece* | GRC
+|*Greenland* | GRL
+|*Grenada* | GRD
+|*Guadeloupe* | GLP
+|*Guam* | GUM
+|*Guatemala* | GTM
+|*Guernsey* | GGY
+|*Guinea* | GIN
+|*Guinea-Bissau* | GNB
+|*Guyana* | GUY
+|=======================================================================
+[[H]]
+= H
+<<TOP,Back to top>>
+[width="60%",cols="40%,20%"]
+|=======================================================================
+|*Haiti* | HTI
+|*Heard Island And McDonald Islands* | HMD
+|*Honduras* | HND
+|*Hong Kong* | HKG
+|*Hungary* | HUN
+|=======================================================================
+[[I]]
+= I
+<<TOP,Back to top>>
+[width="60%",cols="40%,20%"]
+|=======================================================================
+|*Iceland* | ISL
+|*India* | IND
+|*Indonesia* | IDN
+|*Iran* | IRN
+|*Iraq* | IRQ
+|*Ireland* | IRL
+|*Isle Of Man* | IMN
+|*Israel* | ISR
+|*Italy* | ITA
+|=======================================================================
+[[J]]
+= J
+<<TOP,Back to top>>
+[width="60%",cols="40%,20%"]
+|=======================================================================
+|*Jamaica* | JAM
+|*Japan* | JPN
+|*Jersey* | JEY
+|*Jordan* | JOR
+|=======================================================================
+[[K]]
+= K
+<<TOP,Back to top>>
+[width="60%",cols="40%,20%"]
+|=======================================================================
+|*Kazakhstan* | KAZ
+|*Kenya* | KEN
+|*Kiribati* | KIR
+|*Kuwait* | KWT
+|*Kyrgyzstan* | KGZ
+|=======================================================================
+[[L]]
+= L
+<<TOP,Back to top>>
+[width="60%",cols="40%,20%"]
+|=======================================================================
+|*Laos* | LAO
+|*Latvia* | LVA
+|*Lebanon* | LBN
+|*Lesotho* | LSO
+|*Liberia* | LBR
+|*Libya* | LBY
+|*Liechtenstein* | LIE
+|*Lithuania* | LTU
+|*Luxembourg* | LUX
+|=======================================================================
+[[M]]
+= M
+<<TOP,Back to top>>
+[width="60%",cols="40%,20%"]
+|=======================================================================
+|*Macao* | MAC
+|*Macedonia* | MKD
+|*Madagascar* | MDG
+|*Malawi* | MWI
+|*Malaysia* | MYS
+|*Maldives* | MDV
+|*Mali* | MLI
+|*Malta* | MLT
+|*Marshall Islands* | MHL
+|*Martinique* | MTQ
+|*Mauritania* | MRT
+|*Mauritius* | MUS
+|*Mayotte* | MYT
+|*Mexico* | MEX
+|*Micronesia* | FSM
+|*Moldova* | MDA
+|*Monaco* | MCO
+|*Mongolia* | MNG
+|*Montenegro* | MNE
+|*Montserrat* | MSR
+|*Morocco* | MAR
+|*Mozambique* | MOZ
+|*Myanmar* | MMR
+|=======================================================================
+[[N]]
+= N
+<<TOP,Back to top>>
+[width="60%",cols="40%,20%"]
+|=======================================================================
+|*Namibia* | NAM
+|*Nauru* | NRU
+|*Nepal* | NPL
+|*Netherlands Antilles* | ANT
+|*Netherlands* | NLD
+|*New Caledonia* | NCL
+|*New Zealand* | NZL
+|*Nicaragua* | NIC
+|*Niger* | NER
+|*Nigeria* | NGA
+|*Niue* | NIU
+|*Norfolk Island* | NFK
+|*North Korea* | PRK
+|*Northern Mariana Islands* | MNP
+|*Norway* | NOR
+|=======================================================================
+[[O]]
+= O
+<<TOP,Back to top>>
+[width="60%",cols="40%,20%"]
+|=======================================================================
+|*Oman* | OMN
+|=======================================================================
+[[P]]
+= P
+<<TOP,Back to top>>
+[width="60%",cols="40%,20%"]
+|=======================================================================
+|*Pakistan* | PAK
+|*Palau* | PLW
+|*Palestine* | PSE
+|*Panama* | PAN
+|*Papua New Guinea* | PNG
+|*Paraguay* | PRY
+|*Peru* | PER
+|*Philippines* | PHL
+|*Pitcairn* | PCN
+|*Poland* | POL
+|*Portugal* | PRT
+|*Puerto Rico* | PRI
+|=======================================================================
+[[Q]]
+= Q
+<<TOP,Back to top>>
+[width="60%",cols="40%,20%"]
+|=======================================================================
+|*Qatar* | QAT
+|=======================================================================
+[[R]]
+= R
+<<TOP,Back to top>>
+[width="60%",cols="40%,20%"]
+|=======================================================================
+|*Reunion* | REU
+|*Romania* | ROU
+|*Russia* | RUS
+|*Rwanda* | RWA
+|=======================================================================
+[[S]]
+= S
+<<TOP,Back to top>>
+[width="60%",cols="40%,20%"]
+|=======================================================================
+|*Saint Barthélemy* | BLM
+|*Saint Helena* | SHN
+|*Saint Kitts And Nevis* | KNA
+|*Saint Lucia* | LCA
+|*Saint Martin* | MAF
+|*Saint Pierre And Miquelon* | SPM
+|*Saint Vincent And The Grenadines* | VCT
+|*Samoa* | WSM
+|*San Marino* | SMR
+|*Sao Tome And Principe* | STP
+|*Saudi Arabia* | SAU
+|*Senegal* | SEN
+|*Serbia* | SRB
+|*Seychelles* | SYC
+|*Sierra Leone* | SLE
+|*Singapore* | SGP
+|*Sint Maarten (Dutch part)* | SXM
+|*Slovakia* | SVK
+|*Slovenia* | SVN
+|*Solomon Islands* | SLB
+|*Somalia* | SOM
+|*South Africa* | ZAF
+|*South Georgia And The South Sandwich Islands* | SGS
+|*South Korea* | KOR
+|*South Sudan* | SSD
+|*Spain* | ESP
+|*Sri Lanka* | LKA
+|*Sudan* | SDN
+|*Suriname* | SUR
+|*Svalbard And Jan Mayen* | SJM
+|*Swaziland* | SWZ
+|*Sweden* | SWE
+|*Switzerland* | CHE
+|*Syria* | SYR
+|=======================================================================
+[[T]]
+= T
+<<TOP,Back to top>>
+[width="60%",cols="40%,20%"]
+|=======================================================================
+|*Taiwan* | TWN
+|*Tajikistan* | TJK
+|*Tanzania* | TZA
+|*Thailand* | THA
+|*The Democratic Republic Of Congo* | COD
+|*Timor-Leste* | TLS
+|*Togo* | TGO
+|*Tokelau* | TKL
+|*Tonga* | TON
+|*Trinidad and Tobago* | TTO
+|*Tunisia* | TUN
+|*Turkey* | TUR
+|*Turkmenistan* | TKM
+|*Turks And Caicos Islands* | TCA
+|*Tuvalu* | TUV
+|=======================================================================
+[[U]]
+= U
+<<TOP,Back to top>>
+[width="60%",cols="40%,20%"]
+|=======================================================================
+|*U.S. Virgin Islands* | VIR
+|*Uganda* | UGA
+|*Ukraine* | UKR
+|*United Arab Emirates* | ARE
+|*United Kingdom* | GBR
+|*United States Minor Outlying Islands* | UMI
+|*United States* | USA
+|*Uruguay* | URY
+|*Uzbekistan* | UZB
+|=======================================================================
+[[V]]
+= V
+<<TOP,Back to top>>
+[width="60%",cols="40%,20%"]
+|=======================================================================
+|*Vanuatu* | VUT
+|*Vatican* | VAT
+|*Venezuela* | VEN
+|*Vietnam* | VNM
+|=======================================================================
+[[W]]
+= W
+<<TOP,Back to top>>
+[width="60%",cols="40%,20%"]
+|=======================================================================
+|*Wallis And Futuna* | WLF
+|*Western Sahara* | ESH
+|=======================================================================
+[[Y]]
+= Y
+<<TOP,Back to top>>
+[width="60%",cols="40%,20%"]
+|=======================================================================
+|*Yemen* | YEM
+|=======================================================================
+[[Z]]
+= Z
+<<TOP,Back to top>>
+[width="60%",cols="40%,20%"]
+|=======================================================================
+|*Zambia* | ZMB
+|*Zimbabwe* | ZWE
 |=======================================================================

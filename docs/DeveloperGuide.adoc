@@ -8,13 +8,16 @@
 :stylesDir: stylesheets
 :sourceDir: ../src/main/java
 :xrefstyle: full
+:experimental:
 ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
+:important-caption: :heavy_exclamation_mark:
+:caution-caption: :fire:
 :warning-caption: :warning:
-:experimental:
 endif::[]
 :repoURL: https://github.com/CS2103-AY1819S2-W11-3/main
+:source-highlighter: rouge
 
 By: `CS2103T W11-3 Team`      Since: `Feb 2019`      Licence: `MIT`
 
@@ -781,7 +784,7 @@ Instead of typing `generate`, you can simply type the shortcut `g`.
 include::{sourceDir}/seedu/travel/logic/commands/GenerateCommand.java[tags=execute,indent=1]
 ----
 
-The operations implemented are:
+In the snippet, the operations implemented are:
 
 * `GenerateCommand#setChartDisplayed(chartDisplayed)` - Signals to the UI to display the charts.
 * `GenerateCommand#commitTravelBuddy()` - Saves the current TravelBuddy state from its history.
@@ -793,7 +796,7 @@ These operations are exposed in the `Model` interface as `Model#setChartDisplaye
 
 [[chartOopDiagramFigure]]
 .OOP Diagram
-image::Chart_ModelClassBetterOopDiagram.png[width="600", caption="Figure 4.4.1: ", reftext="Figure 4.4.1"]
+image::Chart_ModelClassBetterOopDiagram.png[width="590", caption="Figure 4.4.1: ", reftext="Figure 4.4.1"]
 
 For this section on Charts, the focus is on the <<class-diagram, class diagram>> as seen in <<chartOopDiagramFigure>>. The step-by-step explanation of the class diagram can be found below:
 
@@ -818,24 +821,33 @@ Additionally, we want to be able to capture the interaction between multiple obj
 
 [[GenerateCommandActivityDiagram]]
 .Activity Diagram for the `generate` command
-image::GenerateCommandActivityDiagram.png[width="400", caption="Figure 4.4.2: ", reftext="Figure 4.4.2"]
+image::GenerateCommandActivityDiagram.png[width="370", caption="Figure 4.4.2: ", reftext="Figure 4.4.2"]
 
 [[GenerateCommandSeqDiagramFigure]]
 .Sequence Diagram for the `generate` command
 image::GenerateCommandSeqDiagram.png[width="700", caption="Figure 4.4.3: ", reftext="Figure 4.4.3"]
 
-*Storage:* The Chart's storage is handled by `JsonChartBookStorage`, which implements from `ChartBookStorage`. The three main methods it implement are:
+*Storage:* The Chart's storage is handled by `JsonChartBookStorage`, which implements from `ChartBookStorage`. The three main methods it implements are:
 
 * `saveCountryChart(filePath)` - Saves the countries data into a JSON file.
 * `saveRatingChart(filePath)` - Saves the ratings data into a JSON file.
 * `saveYearChart(filePath)` - Saves the years data into a JSON file.
 
-A code snippet for `saveCountryChart(filePath)` is shown below. A third-party library called Gson was used to convert Java Objects into JSON and back. The Gson API can be found https://www.javadoc.io/doc/com.google.code.gson/gson/2.8.5[here].
+A code snippet for `saveCountryChart(filePath)` is shown below.
 
 [source,java]
 ----
 include::{sourceDir}/seedu/travel/storage/JsonChartBookStorage.java[tags=saveCountryChart,indent=1]
 ----
+
+In the snippet, a third-party library called Gson was used to convert Java Objects into JSON and back. The Gson API can be found https://www.javadoc.io/doc/com.google.code.gson/gson/2.8.5[here]. A step-by-step explanation is as follows:
+
+. The method accepts two parameters, namely a `ReadOnlyCountryChart` object, which supplies the data for the Country Chart, and a `Path` object, which specifies the file path for the `FileWriter` to write into.
+. Both parameters are checked by `requireAllNonNull` to make sure they are not empty.
+. A `Gson` object is instantiated using the `GsonBuilder` 's `create` method.
+. A `FileWriter` object is instantiated with the `Path` object as its parameter. If an `IOException` occurs, a warning message will be displayed by the `Logger` object.
+. Assuming there are no exceptions, `Gson#toJson()` will serialize the `ReadOnlyCountryChart` data as a `JsonObject` and places the stream on `FileWriter`.
+. The `FileWriter#flush()` flushes the stream.
 
 ==== Generate Command
 
@@ -850,7 +862,7 @@ _Example:_ When a place is added via the `add` command, the charts are automatic
 
 *Example:* Given below is an example usage scenario and what the user will see in the GUI.
 
-*Step 1:* By default, the charts are displayed when TravelBuddy launches. To navigate away from the charts, type in `select 1`.+
+*Step 1:* By default, the charts are displayed when TravelBuddy launches. To navigate away from the charts, type in `select 1`. +
 *Outcome:* The first index in the place list will be selected and displayed on the right-hand side of the panel..
 
 *Step 2:* Type in `generate` to generate the charts.. +

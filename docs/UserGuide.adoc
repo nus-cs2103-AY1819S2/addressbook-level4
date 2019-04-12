@@ -3,45 +3,64 @@
 :toc:
 :toc-title:
 :toc-placement: preamble
+:toclevels: 5
 :sectnums:
 :imagesDir: images
 :stylesDir: stylesheets
+:sourceDir: ../src/main/java
 :xrefstyle: full
-:source-highlighter: rouge
 :experimental:
 ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
+:important-caption: :heavy_exclamation_mark:
+:caution-caption: :fire:
+:warning-caption: :warning:
 endif::[]
 :repoURL: https://github.com/CS2103-AY1819S2-W11-3/main
+:source-highlighter: rouge
 
 By: `CS2103T W11-3 Team`      Since: `Mar 2019`      Licence: `MIT`
 
 // tag::intro[]
 == Introduction
 
-During your travels, have you ever wanted to curate all your travel moments, and wished there was an app to do just that? There were approximately 1.4 billion travelers in 2018 alone. That means 1 out of every 5 person on the planet is a traveler, you are certainly not alone in your struggles. Is there a solution to all your 21st century travel woes?
+During your travels, have you ever wanted to curate all your travel moments, and wished there was an app to do just that?
+There were approximately 1.4 billion travelers in 2018 alone. That means 1 out of every 5 person on the planet is a traveler,
+you are certainly not alone in your struggles. Is there a solution to all your 21st century travel woes?
 
-Introducing *TravelBuddy*. TravelBuddy is a desktop journal app that curates all your travel moments! Here are 4 reasons why you would want to use it:
+Introducing *TravelBuddy*. TravelBuddy is a desktop journal app that curates all your travel moments! Here are 4 ways to use TravelBuddy:
 
-* *_TravelBuddy Records_*: Helps you capture, store, organize and modify the places you want to curate.
-* *_TravelBuddy Search_*: Helps you search through your list of places quickly to pick out the specific place you were looking for.
-* *_TravelBuddy Photos_*: Helps you attach photos to your list of places.
-* *_TravelBuddy Analytics_*: Helps you gather insights into your travel patterns and behavior, based on the places you have visited.
+* *_TravelBuddy Records_*: Helps you capture, store, organize and edit info about the places you've been to. +
+More info here: <<Adding a place: `add`>>
 
-Best of all, you can accomplish any of these tasks with just _a single command line_. So, are you ready to _redefine traveling_?
+* *_TravelBuddy Search_*: Helps you search through your list of places quickly to find what you were looking for. +
+More info starting from here: <<Searching places by name: `search`>>
+
+* *_TravelBuddy Photos_*: Helps you attach photos to your list of places. +
+More info here: <<Including a photo when adding a place with `p/`>>
+
+* *_TravelBuddy Analytics_*: Helps you gather insights into your travel patterns and behavior. +
+More info here: <<Generating charts: `generate`>>
+
+Best of all, you can accomplish any of these tasks with just _a single command_. So, are you ready to _redefine traveling_?
 // end::intro[]
 
 // tag::additionalInfo[]
 == Additional Information
 
-Before going through the User Guide, it may be helpful to familiarize yourself with some of the symbols that you may encounter throughout this User Guide:
+Before continuing, it may be helpful to familiarize yourself these two symbols that you will encounter in this User Guide:
 
 [NOTE]
-The *NOTE* symbol is used to alert you of some things you should take note of.
+This tells you there is important information that you should take note of.
 
 [TIP]
 The *TIP* symbol is used to alert you of some useful tips.
+
+[WARNING]
+The *WARNING* symbol is used to alert you of something critical.
+=======
+This alerts you to useful tips and tricks that will improve your TravelBuddy experience.
 // end::additionalInfo[]
 
 == Quick Start
@@ -91,7 +110,7 @@ Below are other example commands you may try:
 
 The following covers the standard format to be used for all the commands in TravelBuddy and the syntax that follows:
 
-[NOTE]
+[WARNING]
 The code in this section is merely for illustrative purposes. It is kept brief to highlight the formatting standards for all the commands and not the actual commands themselves. Do not copy and paste the commands in this section.
 
 * _Some commands may have a shortcut, which you can use to execute the command._ +
@@ -135,30 +154,32 @@ A quick alternative way to seek help is to hit the kbd:[F1] key.
 *Shortcut:* `a`
 
 The table below shows the parameters that require a specific input format to be added.
-[width="100%",cols="20%,<70%"]
+[width="100%",cols="20%,20%,<60%"]
 |=======================================================================
 |*Parameter*
+|*Parameter Prefix*
 |*Specific Input Format*
 
 |`RATING`
+|`r/`
 |An integer ranging from `1` to `5`
 
 |`COUNTRY_CODE`
+|`cc/`
 |A valid ISO-3166 country code +
 e.g. `JPN` to represent `Japan`
 
 |`DATE_VISITED`
+|`dv/`
 |A valid date that follows the `DD/MM/YYYY` format ranging from `01/01/1900` to the current date
 |=======================================================================
 
-****
 *Examples:* Given below are some examples on how to utilize the `add` command:
 
 * `add n/Botanic Gardens cc/SGP dv/01/01/2017 r/4 d/UNESCO World Heritage Site a/1 Cluny Rd, Singapore 259569 t/nature` +
 Adds Botanic Gardens to the list of places you have visited into TravelBuddy. +
 * `add n/Raffles Hotel cc/SGP dv/05/05/2016 t/hotel d/This place is lovely a/Raffles Road r/5 t/staycation` +
 Adds Raffles Hotel to the list of places you have visited into TravelBuddy.
-****
 
 <<addFigure>> below shows the outcome of a specific `add` command
 [[addFigure]]
@@ -170,6 +191,73 @@ image::addCommand.png[width="400"]
 
 [TIP]
 A place can have any number of tags (including 0 tags).
+
+// tag::addphoto[]
+==== Including a photo when adding a place with `p/`
+
+*Description:* The `add` command can also include attach a single photo
+when adding a new place to TravelBuddy.
+
+The photo must be a image file that already exists in your computer.
+
+*Format:*
+[width="100%",cols="20%,20%,<60%"]
+|=======================================================================
+|*Parameter*
+|*Parameter Prefix*
+|*Specific Input Format*
+
+|`PHOTO`
+|`p/`
+|The file path must be an *absolute file path* and include the *filename* and *file extension*.
+|=======================================================================
+
+[NOTE]
+A filepath specifies a unique location for a file.
+*Absolute file paths* are paths that start with a drive letter (eg. `C:\`)
+
+****
+*Examples:* Given below is an example that uses the add command to include
+ a photo with the `p/` parameter:
+
+* `add n/Himeiji Castle cc/JPN dv/15/12/2017 r/5 d/Wow. a/Kyoto t/castle p/C:\Users\Michael\Pictures\castle-photo.jpg`
+
+Adds Himeiji Castle as a place in TravelBuddy, and include the image `castle-photo.jpg` at the location specified by
+the filepath `C:\Users\Michael\Pictures\castle-photo.jpg`.
+****
+
+[TIP]
+If you are using Windows 10, below is a quick way to obtain the file path of the
+photo you would like to include:
+
+- *Step 1:* Open File Explorer.
+
+- *Step 2:* Navigate to the folder that contains the photo you would like to add.
+
+- *Step 3:* Select the Photo you would like to add.
+
+[reftext="Figure 4.3.3"]
+[caption="Figure 4.3.3: "]
+.Select the Photo you would like to add
+image::AddPhotoStep3.png[width="400"]
+
+- *Step 4:* Click on `Copy Path` at the top left corner of the File Explorer window.
+
+[reftext="Figure 4.3.4"]
+[caption="Figure 4.3.4: "]
+.Click on `Copy Path` at the top left corner File Explorer window
+image::AddPhotoStep4.png[width="400"]
+
+` *Step 5:* Open TravelBuddy and paste the filepath after the parameter prefix `p/`.
+*TravelBuddy allows for double quotation marks around the filepath, so there is no need to delete them.*
+
+Currently, TravelBuddy supports the following image *file formats/extensions*:
+
+* JPEG `.jpg`
+* PNG  `.png`
+* Bitmap `.bmp`
+
+// end::addphoto[]
 
 === Listing all places: `list`
 
@@ -194,7 +282,7 @@ image::listCommand.png[width="400"]
 
 *Shortcut:* `e`
 
-*Format:* `edit INDEX [n/NAME] [cc/COUNTRY_CODE] [dv/DATE_VISITED] [r/RATING] [d/DESCRIPTION] [a/ADDRESS] [t/TAG]...`
+*Format:* `edit INDEX [n/NAME] [cc/COUNTRY_CODE] [dv/DATE_VISITED] [r/RATING] [d/DESCRIPTION] [a/ADDRESS] [p/FILE_PATH] [t/TAG]...`
 
 *Preconditions:* Given below is a list of preconditions that must be met for the `edit` command to work:
 
@@ -204,15 +292,14 @@ image::listCommand.png[width="400"]
 * The adding of tags is not cumulative. Hence, when the tags are edited, the existing tags of the place will be removed.
 * The tags can all be removed by typing `t/` without specifying any tags after it.
 * Some parameters have a specific input format.
+* Preconditions for changing the photo file [FILE_PATH] are in <<Replacing the photo of a place with `edit p/`>>
 
-****
 *Examples:* Given below are some examples on how to utilize the `edit` command:
 
 * `edit 1 r/3 d/No description` +
 Edits the rating and description of the 1st place entry in the list to be `3` and `No description` respectively.
 * `edit 2 n/Raffles Hotel t/` +
 Edits the name of the 2nd place entry in the list to be `Raffles Hotel` and clears all existing tags.
-****
 
 <<editFigureBefore>> below shows the list of places before the `edit` command was used.
 
@@ -229,6 +316,27 @@ image::editCommandBefore.png[width="400"]
 [caption="Figure 4.5.2: "]
 .After the `edit` command is used
 image::editCommandAfter.png[width="400"]
+
+// tag::editPhoto[]
+
+==== Replacing the photo of a place with `edit p/`
+
+The `Edit` command can also be used to change the photo of a place by replacing
+the `FILE_PATH` of the current photo with the `FILE_PATH` of the new photo.
+
+****
+*Examples:* Given below is an example of using `Edit` to replace a photo:
+
+* `edit 3 p/C:\Users\Michael\Pictures\Wallpapers\Zion National Park 1.jpg` +
+Replaces the current photo of 3rd Place Entry with the photo named `Zion National Park 1.jpg`
+****
+
+[NOTE]
+The image FILE_PATH being replaced with the `edit` command must still follow the
+specifications laid out in <<Including a photo when adding a place with `p/`>>
+
+// end::editPhoto[]
+
 // end::crud[]
 
 // tag::search[]
@@ -251,7 +359,6 @@ e.g. `Nation` will not match `National`
 * Places matching at least one keyword will be returned (i.e. `OR` search). +
 e.g. `National Museum` will return `National Museum of Singapore` and `National University Hospital`.
 
-****
 *Example:* `search Singapore` +
 Executes a search for places that contain the keyword `Singapore` in its name. +
 From <<searchFigure>>, using `search Singapore` will return all places in your TravelBuddy that contain `Singapore` in its name. +
@@ -260,7 +367,6 @@ In this case, the following are returned as they contain `Singapore` in their na
 * Universal Studios *Singapore*
 * National University of *Singapore*
 * *Singapore* Zoo
-****
 
 [[searchFigure]]
 [reftext="Figure 4.6.1"]
@@ -283,11 +389,9 @@ e.g `searchr 5` will return places with 5-star ratings.
 * Only the rating of the places in TravelBuddy is searched.
 * Multiple indices can be included in the query, i.e. `searchr 4 5` will return places with `4` or `5` star ratings.
 
-****
 *Example:* `searchr 4` +
 Executes a search for places with a rating of `4`. +
 From <<searchRatingFigure>> below, using `searchr 4` will return all places in your TravelBuddy that have a rating of `4`.
-****
 
 [[searchRatingFigure]]
 [reftext="Figure 4.7.1"]
@@ -311,11 +415,9 @@ image::UIsearchratingresults.png[width="400"]
 * Places tagged with at least one matching keyword will be returned (i.e. `OR` search). e.g. `temple school` will return places tagged with `temple` or `school`.
 * Multiple keywords can be included in the query, i.e. `searcht distillery temple` will return places tagged with `distillery` or `temple`.
 
-****
 *Example:* `searcht distillery` +
 Executes a search for places that are tagged with `distillery`. +
 From <<searchTagFigure>> below, using `searcht distillery` will return all places in your TravelBuddy that are tagged with `distillery`.
-****
 
 [[searchTagFigure]]
 [reftext="Figure 4.8.1"]
@@ -338,11 +440,9 @@ image::UIsearchtagsresults.png[width="400"]
 * Only the country of the places in TravelBuddy is searched.
 * Multiple keywords can be included in the query, i.e. `searchc JPN CHN` will return places located in Japan or China.
 
-****
 *Example:* `searchc JPN` +
 Executes a search for places located in `JPN` (Japan). +
 From <<searchCountryFigure>> below, using `searchc JPN` will return all places in your TravelBuddy that are located in Japan.
-****
 
 [[searchCountryFigure]]
 [reftext="Figure 4.9.1"]
@@ -366,11 +466,9 @@ image::UIsearchcountryresults.png[width="400"]
 * The year keywords for `searchyear` can be entered as a range. e.g `2010-2017` will return all the places visited from `2010` to `2017`.
 * Only the year of visit of the places in TravelBuddy is searched.
 
-****
 *Example:* `searchyear 2016` +
 Executes a search for places visited in the year `2016`. +
 From <<searchYearFigure>> below, using `searchyear 2016` will return all places in your TravelBuddy you visited in the year `2016`.
-****
 
 [[searchYearFigure]]
 [reftext="Figure 4.10.1"]
@@ -410,7 +508,6 @@ image::deleteCommandBefore.png[width="400"]
 .After the `delete` command is used
 image::deleteCommandAfter.png[width="400"]
 
-****
 *Examples:* Given below are some examples on how to utilize the `delete` command:
 
 * `list` +
@@ -421,7 +518,6 @@ Deletes the 2nd place in TravelBuddy.
 Searches for any places which has the word "Raffles" in it. +
 `delete 1` +
 Deletes the 1st place in the results of the `search` command.
-****
 // end::delete[]
 
 // tag::deleteMultiple[]
@@ -448,7 +544,6 @@ Deletes the 1st place in the results of the `search` command.
 .An example of the `deletem` command
 image::deletemExample.png[width="400"]
 
-****
 *Examples:* Given below are some examples on how to utilize the `deletem` command:
 
 * `list` +
@@ -459,7 +554,6 @@ Deletes the 1st, 2nd, 3rd and 4th place in the currently displayed list on the l
 Searches for any places which has the word "Singapore" in it. +
 `deletem 1 3` +
 Deletes the 1st, 2nd and 3rd place in the results of the `search Singapore` command.
-****
 // end::deleteMultiple[]
 
 // tag::select[]
@@ -486,7 +580,6 @@ box and additional information is shown on the right side of the GUI.
 .An example of the `select` command
 image::selectCommand.png[width="400"]
 
-****
 *Examples:* Given below are some examples on how to utilize the `select` command:
 
 * `list` +
@@ -497,7 +590,6 @@ Selects the 2nd place in TravelBuddy.
 Searches for any places which has the word "Raffles" in it. +
 `select 1` +
 Selects the 1st place in the results of the `search` command.
-****
 // end::select[]
 
 // tag::history[]
@@ -537,7 +629,6 @@ Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and 
 Undoable commands: Commands that modify TravelBuddy's data (`add`, `delete`, `deletem`, `edit` , `generate` and `clear`).
 ====
 
-****
 *Examples:* Given below are some examples on how to utilize the `undo` command:
 
 * `delete 1` +
@@ -556,7 +647,6 @@ Clears all contents in the list +
 Reverses the `clear` command +
 `undo` +
 Reverses the `delete 1` command +
-****
 
 === Redoing the previously undone command: `redo`
 
@@ -566,7 +656,6 @@ Reverses the `delete 1` command +
 
 *Format:* `redo`
 
-****
 *Examples:* Given below are some examples on how to utilize the `redo` command:
 
 * `delete 1` +
@@ -591,7 +680,6 @@ Reverses the `delete 1` command +
 Reapplies the `delete 1` command +
 `redo` +
 Reapplies the `clear` command +
-****
 // end::undoredo[]
 
 // tag::generate[]
@@ -602,6 +690,10 @@ Reapplies the `clear` command +
 * The number of places visited for each country
 * The number of places visited for each rating category
 * The number of places visited for each year
+
+[[Chart_Combined]]
+.The number of places visited by country, rating category and year
+image::Chart_Combined.png[width="800", caption="Figure 4.17.1: ", reftext="Figure 4.17.1"]
 
 *Shortcut:* `g`
 
@@ -616,10 +708,6 @@ Reapplies the `clear` command +
 * If the list is empty, the `generate` command will not display any charts (<<Generate_ListIsEmpty>>).
 * You can type in any parameters after the `generate` command, TravelBuddy will simply ignore them (<<Generate_BeforeParamAfterParam>>).
 
-[[Chart_Combined]]
-.The number of places visited by country, rating category and year
-image::Chart_Combined.png[width="800", caption="Figure 4.17.1: ", reftext="Figure 4.17.1"]
-
 [[Generate_BeforeParamAfterParam]]
 .Before and after a parameter was used in the `generate` command
 image::Generate_BeforeParamAfterParam.png[width="800", caption="Figure 4.17.2: ", reftext="Figure 4.17.2"]
@@ -628,11 +716,6 @@ image::Generate_BeforeParamAfterParam.png[width="800", caption="Figure 4.17.2: "
 .The charts were successfully generated
 image::Generate_Successful.png[width="400", caption="Figure 4.17.3: ", reftext="Figure 4.17.3"]
 
-[[Generate_ListIsEmpty]]
-.Unable to generate the charts as the list is empty
-image::Generate_ListIsEmpty.png[width="400", caption="Figure 4.17.4: ", reftext="Figure 4.17.4"]
-
-****
 *Examples:* Given below are some examples on how to utilize the `generate` command:
 
 * `select 1` +
@@ -645,7 +728,10 @@ Clears all places in the list. +
 `generate` +
 Generates the charts.  +
 *_Outcome:_* Unable to generate the charts as the list is empty, as seen in <<Generate_ListIsEmpty>>
-****
+
+[[Generate_ListIsEmpty]]
+.Unable to generate the charts as the list is empty
+image::Generate_ListIsEmpty.png[width="400", caption="Figure 4.17.4: ", reftext="Figure 4.17.4"]
 
 // end::generate[]
 
@@ -686,13 +772,6 @@ An alternative way to exit TravelBuddy is to click kbd:[FILE] > kbd:[EXIT], as s
 image::exit.png[width="400"]
 // end::exit[]
 
-// tag::addphoto[]
-=== Adding photos to places `[coming in v2.0]`
-
-TravelBuddy helps you save photos by adding photo files to places in TravelBuddy. +
-Format: `add p/`
-// end::addphoto[]
-
 === Saving of data
 
 TravelBuddy data is saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
@@ -732,12 +811,18 @@ Please do check the file that contains the data of your TravelBuddy.
 *Q*: What details do I need for the `add` command? +
 *A*: The following details are required for a valid `add` command:
 
-* Name of place (Prefix: `n/`)
-* Country code of place (Prefix: `cc/`)
+* Name of the place (Prefix: `n/`)
+* Country code of the place (Prefix: `cc/`)
 * Date the place was visited (Prefix: `dv/`)
-* Rating of place (Prefix: `r/`)
-* Description of place (Prefix: `d/`)
-* Address of place (Prefix: `a/`)
+* Rating of the place (Prefix: `r/`)
+* Description of the place (Prefix: `d/`)
+* Address of the place (Prefix: `a/`)
+
+*Q*: What details are optional for the `add` command? +
+*A*: The following details are optional for a valid `add` command:
+
+* Tags of the place (Prefix: `t/`)
+* Filepath of the photo file for the place (Prefix: `p/`)
 
 *Q*: Why does the `undo` command not work? +
 *A*: The `undo` command only reverses the commands `add`, `delete`, `deletem`, `edit` and `clear`.
@@ -848,10 +933,11 @@ Below is a summarized list of all the command formats that TravelBuddy supports:
 |*Format*
 
 |*Add*
-|`add n/NAME cc/COUNTRY_CODE dv/DATE_VISITED r/RATING d/DESCRIPTION a/ADDRESS [t/TAG]...` +
+|`add n/NAME cc/COUNTRY_CODE dv/DATE_VISITED r/RATING d/DESCRIPTION a/ADDRESS p/FILE_PATH [t/TAG]...` +
 
 _Example:_ +
-`add n/NUS Computing cc/SGP dv/10/10/2017 r/5 d/No description a/NUS School of Computing, COM1, 13 Computing Drive, 117417 t/school`
+`add n/NUS Computing cc/SGP dv/10/10/2017 r/5 d/No description a/NUS School of Computing,
+COM1, 13 Computing Drive, 117417 p/C:\Users\Michael\Pictures\nus-photo.jpg t/school`
 
 |*Clear*
 |`clear`
@@ -869,10 +955,11 @@ _Example:_ +
 `deletem 2 5`
 
 |*Edit*
-| `edit INDEX [n/NAME] [cc/COUNTRYCODE] [dv/DATE_VISITED] [r/RATING] [d/DESCRIPTION] [a/ADDRESS] [t/TAG]...` +
+| `edit INDEX [n/NAME] [cc/COUNTRYCODE] [dv/DATE_VISITED] [r/RATING] [d/DESCRIPTION] [a/ADDRESS] [p/FILE_PATH] [t/TAG]...` +
 
 _Example:_ +
-`edit 2 n/Starbucks d/I like the coffee here`
+`edit 2 n/Starbucks d/I like the coffee here` +
+`edit 4 p/C:\Users\Michael\Pictures\castle-photo.png`
 
 |*Exit*
 |`exit`

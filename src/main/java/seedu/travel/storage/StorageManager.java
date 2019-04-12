@@ -167,19 +167,4 @@ public class StorageManager implements Storage {
         travelBuddyStorage.backupTravelBuddy(travelBuddy);
     }
 
-    @Override
-    public void backupCountryChart(ReadOnlyCountryChart countryChart) throws IOException {
-        chartBookStorage.backupCountryChart(countryChart);
-    }
-
-    @Override
-    public void backupRatingChart(ReadOnlyRatingChart ratingChart) throws IOException {
-        chartBookStorage.backupRatingChart(ratingChart);
-    }
-
-    @Override
-    public void backupYearChart(ReadOnlyYearChart yearChart) throws IOException {
-        chartBookStorage.backupYearChart(yearChart);
-    }
-
 }

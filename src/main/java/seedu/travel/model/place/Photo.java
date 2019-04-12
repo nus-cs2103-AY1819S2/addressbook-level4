@@ -15,9 +15,10 @@ import javax.imageio.ImageIO;
  */
 public class Photo {
 
-    public static final String MESSAGE_CONSTRAINTS = "File path must be an absolute file path, and point to a photo."
-            + "Ensure that folder names and filenames are without spaces, eg. "
-            + " C:\\Users\\<your-username>\\Pictures\\your-travel-photo.jpg";
+    public static final String MESSAGE_CONSTRAINTS = "FILE_PATH must be an absolute file path that points to an "
+            + "existing image file on your computer. \"FILE_PATH\" can be surrounded by double quotes \n"
+            + "Example: C:\\Users\\<your username>\\Pictures\\travel photos\\your-travel-photo.jpg \n"
+            + "The supported file formats are .jpg .png and .bmp";
     public static final String EMPTY_PHOTO_PATH = "pBSgcMnA";
     private String filepath;
 
@@ -63,7 +64,6 @@ public class Photo {
             }
 
         } catch (IOException e) {
-            e.printStackTrace();
             return false;
         }
         return true;

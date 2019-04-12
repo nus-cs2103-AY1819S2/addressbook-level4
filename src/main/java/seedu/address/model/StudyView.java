@@ -2,7 +2,6 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.List;
 import java.util.Objects;
 
 import javafx.beans.property.ReadOnlyProperty;
@@ -27,7 +26,6 @@ import seedu.address.ui.UiPart;
  * ViewState of the Application during a Study session.
  */
 public class StudyView implements ViewState {
-    public final List<Card> listOfCards;
     private final Deck activeDeck;
     private final SimpleObjectProperty<StudyState> currentStudyState = new SimpleObjectProperty<>();
     private final SimpleObjectProperty<String> textShown = new SimpleObjectProperty<>();
@@ -37,16 +35,15 @@ public class StudyView implements ViewState {
 
     public StudyView(Deck deck) {
         this.activeDeck = deck;
-        listOfCards = deck.getCards().internalList;
-        setCurrentStudyState(StudyState.QUESTION);
         this.deckShuffler = new DeckShuffler(activeDeck);
         generateCard();
+        setCurrentStudyState(StudyState.QUESTION);
     }
 
     public StudyView(StudyView studyView) {
-        // TODO
-        activeDeck = null;
-        listOfCards = null;
+        this.activeDeck = studyView.getActiveDeck();
+        this.setCurrentStudyState(studyView.getCurrentStudyState());
+        this.deckShuffler = new DeckShuffler(studyView.getDeckShuffler());
     }
 
     @Override
@@ -69,6 +66,10 @@ public class StudyView implements ViewState {
                     return new GenerateQuestionCommandParser(this).parse(commandWord);
                 }
         }
+    }
+
+    public DeckShuffler getDeckShuffler() {
+        return deckShuffler;
     }
 
     public Deck getActiveDeck() {
@@ -107,6 +108,7 @@ public class StudyView implements ViewState {
     public void setCurrentStudyState(StudyState state) {
         requireNonNull(state);
         currentStudyState.setValue(state);
+        updateTextShown();
     }
 
     /**
@@ -164,8 +166,8 @@ public class StudyView implements ViewState {
         }
         // state check
         StudyView other = (StudyView) obj;
-        return Objects.equals(currentStudyState.getValue(), other.currentStudyState.getValue())
-                && Objects.equals(deckShuffler, other.deckShuffler);
+        return Objects.equals(currentStudyState.getValue(), other.currentStudyState.getValue()) && Objects
+                .equals(deckShuffler, other.deckShuffler);
     }
 
     @Override

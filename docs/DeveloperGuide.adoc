@@ -246,6 +246,8 @@ The `Storage` component,
 
 Classes used by multiple components are in the `seedu.financetracker.commons` package.
 // end::design[]
+
+
 == Implementation
 
 This section describes in detail the implementation of certain features in _In-Credit-Ble_.
@@ -314,7 +316,7 @@ The sort mechanism allows users to view their expense records in a different way
 
 ==== Current Implementation
 
-The sort command uses comparators that implement java.util.Comparator interface to provide the comparison functions.
+The sort command uses comparators that implement `java.util.Comparator` interface to provide the comparison functions.
 
 .Sort feature
 |===

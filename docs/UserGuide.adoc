@@ -473,122 +473,74 @@ Examples:
 Returns full write up of the medical history with index 1 in medical history list.
 
 === Adding an appointment: `add-appt`
-
-{Validation of data input not completed yet} +
-Adds an appointment under the doctor and patient involved. +
+Adds an appointment between a patient and a doctor +
 Format: `add-appt pid/PATIENT_ID did/DOCTOR_ID d/DATE_OF_APPT t/START_TIME`
 
 ****
-* Doctors are assumed to be free from 9am to 12pm and 1pm to 5pm.
+* All of the fields must be provided.
+* Appointments can only be made in the future, as determined by system time.
+* New appointments default to the ACTIVE status. Appointments cannot be deleted once created,
+only marked as CANCELLED if required.
+* Doctors are free during office hours from 9am to 12pm and 1pm to 5pm. (12pm to 1pm not availabe)
 * Appointments are in 1-hour blocks.
-* Returns invalid if the doctor is not available during the specified block.
+* User is notified if the doctor is not available during the specified time.
 * `DATE_OF_APPT` must be in the format `YYYY-MM-DD`
-* `START_TIME` must be in the 24-hour format `HH` as timing for appointment is hourly, starting from 9am.
+* `START_TIME` must be in the 24-hour format HH:00 with no minutes specified as each appointment is 1 hour long.
 ****
 
 Examples:
 
-* `add-appt pid/1 did/1 d/2019-06-01 t/09:00` +
-Adds an appointment under patient with ID of '1' and doctor with ID of '1' on 1st June 2019 at 9am.
-* `add-appt pid/3 did/2 d/2019-06-01 t/13:00` +
-Adds an appointment under patient with ID of '3' and doctor with ID of '2' on 1st June 2019 at 1pm.
+* `add-appt pid/1 did/7 d/2019-06-01 t/09:00` +
+Adds an appointment with patient ID '1' and doctor ID '7' on 1st June 2019 at 9am.
+* `add-appt pid/3 did/9 d/2019-06-01 t/13:00` +
+Adds an appointment with patient ID '3' and doctor ID '9' on 1st June 2019 at 1pm.
 
-=== Listing of appointments : `list-appt`
-Shows a list of all appointments in the system. +
-Format: `list-appt`
+=== Listing appointments : `list-appt`
+Shows a list of appointments in the system. Can be used with or without optional keywords to filter the result. +
+Format: `list-appt [pid/PATIENT_ID] [did/DOCTOR_ID] [d/DATE_OF_APPT] [t/START_TIME]`
 
 ****
-* Completed or cancelled appointments will not be displayed.
+* If none of the optional fields are provided, all appointments are shown.
+* Appointments are filtered by patient ID, doctor ID, date of appointment, start time,
+and appointment status respectively.
+* All the optional filters can be mixed and matched independently to obtain the required output.
 ****
 
 Examples:
 
 * `list-appt` +
 Lists all appointments.
+* `list-appt pid/1` +
+Lists all appointments with patient ID 1.
+* `list-appt pid/1 did/7` +
+Lists all appointments with patient ID 1 and doctor ID 7.
+* `list-appt d/2018-06-01 t/09:00 ` +
+Lists all appointments with date 2018-06-01 and time 09:00.
+* `list-appt s/ACTIVE` +
+Lists all appointments that are marked as ACTIVE.
 
-=== Completing an appointment : `complete-appt`
-{Not available yet} +
-Complete the appointment when the patient and doctor finishes the appointment. +
-Format: `complete-appt INDEX`
+=== Changing an appointment status : `mark-appt`
+Mark an appointment as ACTIVE, CANCELLED, MISSED or COMPLETED +
+Format: `mark-appt INDEX s/NEW_STATUS`
 
 ****
-* Complete the appointment of the specified `INDEX`.
-* The index refers to the identification number (ID) of the appointment.
-* The index *must be a positive integer* 1, 2, 3, ...
-* Only appointments on the actual day or future dates can be completed.
+* All of the fields must be provided.
+* Appointment status is not cases sensitive. i.e. both ACTIVE and active is allowed.
+* Change appointment status of the appointment at the specified `INDEX`.
+* The index refers to the index number shown in the displayed appointment list.
+The index must be a positive integer 1, 2, 3, …​
+* Status meaning: ACTIVE - The appointment is scheduled and active. CANCELLED - The appointment has been cancelled.
+MISSED - The appointment was missed by the patient. COMPLETED - The patient successfully completed the appointment.
+* Only appointments in the past can be marked as MISSED or COMPLETED. Appointments in the future can only be marked
+ACTIVE or CANCELLED.
 ****
-
 Examples:
 
-* `complete-appt 1` +
-Completes the appointment with ID of '1' in docX.
-* `complete-appt 3` +
-Completes the appointment with ID of '3' in docX.
+* `mark-appt 1 s/CANCELLED` +
+The appointment with INDEX 1 is cancelled.
+* `mark-appt 3 s/MISSED` +
+The appointment with INDEX 3 was missed. Note that this can only be done to elapsed appointments.
 
-=== Cancelling an appointment : `cancel-appt`
-{Not available yet} +
-Cancel the appointment when the patient or doctor cannot attend the appointment. +
-Format: `cancel-appt INDEX`
-
-****
-* Cancel and delete the appointment of the specified `INDEX`.
-* The index refers to the identification number (ID) of the appointment.
-* The index *must be a positive integer* 1, 2, 3, ...
-* Only appointments on the actual day or future dates can be cancelled.
-****
-
-Examples:
-
-* `cancel-appt 1` +
-Cancels and deletes the appointment with ID of '1' in docX.
-* `complete-appt 3` +
-Cancels and delete the appointment with ID of '3' in docX.
-
-
-=== Listing appointments of a doctor : `list-appt`
-{Not available yet} +
-Shows a list of all incomplete appointments of a doctor in docX within a specified time period. +
-Format: `list-appt did/DOCTOR_ID sd/START_DATE ed/END_DATE`
-
-****
-* The start and end date specified are both inclusive in the search results.
-* Completed or cancelled appointments will not be displayed.
-****
-
-Examples:
-
-* `list-appt did/3 sd/30032019 ed/30042019` +
-Lists all appointments of the doctor with ID of '3' from 30th March 2019 to 30th April 2019.
-
-=== Listing available timings of a doctor : `list-doc-time`
-{Not available yet} +
-Shows a list of all available blocks of timing of the specified doctor. +
-Format: `list-doc-time did/DOCTOR_ID d/DATE`
-
-****
-* `DATE` must be in the format `DDMMYYYY`
-* Acceptable dates include the date today and future dates.
-****
-
-Examples:
-
-* `list-doc-time did/3 d/05032019` +
-Lists all available blocks of timing of the doctor with ID of '3' on 5th March 2019.
-
-=== Listing available timings of all doctors : `list-time`
-{Not available yet} +
-Shows a list of all available blocks of timings of all doctors on the specified date. +
-Format: `list-time DATE`
-
-****
-* `DATE` must be in the format `DDMMYYYY`
-* Acceptable dates include the date today and future dates.
-****
-
-Examples:
-
-* `list-time 26022019` +
-Lists all doctors' available blocks of timing for each 1-hour time slot on 26th February 2019.
 
 === Adding a medicine: `add-med`
 
@@ -713,7 +665,7 @@ _{explain how the user can enable/disable data encryption}_
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous DocX folder.
 
 == Command Summary
 
@@ -765,14 +717,11 @@ APPOINTMENT COMMANDS
 
 * *Add a new appointment* `add-appt pid/PATIENT_ID did/DOCTOR_ID d/DATE_OF_APPT t/START_TIME` +
 e.g. `add-appt pid/1 did/1 d/2019-06-01 t/09:00`
-* *Completing an appointment* : `complete-appt INDEX`
-* *Cancelling an appointment* : `cancel-appt INDEX`
-* *List upcoming appointments of a doctor* : `list-appt did/DOCTOR_ID sd/START_DATE ed/END_DATE`
-e.g. `list-appt did/3 sd/30032019 ed/30042019`
-* *List available timings of a doctor* : `list-doc-time did/DOCTOR_ID d/DATE`
-e.g. `list-doc-time did/3 d/05032019`
-* *List available doctors during the specified time* : `list-time DATE`
-e.g. `list-time 26022019`
+* *Listing appointments* `list-appt [pid/PATIENT_ID] [did/DOCTOR_ID] [d/DATE_OF_APPT] [t/START_TIME]` +
+e.g. `list-appt`
+* *Changing an appointment status* : `mark-appt INDEX s/NEW_STATUS`
+e.g. `mark-appt 1 s/CANCELLED`
+
 
 PRESCRIPTION COMMANDS
 

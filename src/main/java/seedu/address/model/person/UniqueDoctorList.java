@@ -42,6 +42,7 @@ public class UniqueDoctorList implements Iterable<Doctor> {
         return internalList.stream().anyMatch(toCheck::isSameDoctor);
     }
 
+    //@@author amuletxheart
     /**
      * Returns Doctor with given PersonId.
      */
@@ -54,7 +55,7 @@ public class UniqueDoctorList implements Iterable<Doctor> {
         }
         return doctorWithId.get(0);
     }
-
+    //@@author siyingpoof
     /**
      * Adds a doctor to the list.
      * The doctor must not already exist in the list.

@@ -1,3 +1,4 @@
+/* @@author randytqw */
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
@@ -45,7 +46,6 @@ public class UndoCommand extends Command {
         current.displayTempImage();
 
         return new CommandResult(MESSAGE_SUCCESS);
-
-
     }
+
 }

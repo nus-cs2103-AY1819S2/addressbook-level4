@@ -22,4 +22,8 @@ public class Notifier {
     public static void firePropertyChangeListener(String propertyName, Object oldValue, Object newValue) {
         support.firePropertyChange(propertyName, oldValue, newValue);
     }
+
+    public static PropertyChangeSupport getSupport() {
+        return support;
+    }
 }

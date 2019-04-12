@@ -1,5 +1,6 @@
 package seedu.address.model.image;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
@@ -8,6 +9,9 @@ import org.junit.Test;
 import seedu.address.testutil.Assert;
 
 public class SizeTest {
+
+    private final Size size = new Size("10");
+    private final Size dup = new Size("10");
 
     @Test
     public void constructor_null_throwsNullPointerException() {
@@ -36,5 +40,15 @@ public class SizeTest {
         // valid size
         assertTrue(Size.isValidSize("1")); // minimum positive size
         assertTrue(Size.isValidSize("100000000")); // maximum positive size
+    }
+
+    @Test
+    public void equality() {
+        assertTrue(size.equals(dup));
+    }
+
+    @Test
+    public void stringify() {
+        assertEquals(size.toString(), "10");
     }
 }

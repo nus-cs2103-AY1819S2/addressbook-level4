@@ -28,7 +28,7 @@ public class Name {
      *
      * @param baseName A valid base name.
      * @param extName  A valid extension.
-     * @param fullName  A valid extension.
+     * @param fullName A valid extension.
      */
     public Name(String baseName, String extName, String fullName) {
         requireNonNull(baseName);
@@ -65,8 +65,9 @@ public class Name {
     }
 
     @Override
-    public int hashCode() {
-        return this.toString().hashCode();
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof Name // instanceof handles nulls
+                && fullName.equals(((Name) other).fullName)); // state check
     }
-
 }

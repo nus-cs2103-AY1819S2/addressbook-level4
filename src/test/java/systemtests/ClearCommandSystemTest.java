@@ -2,7 +2,6 @@ package systemtests;
 
 import static seedu.address.commons.core.Messages.MESSAGE_CLEAR_SUCCESS;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.address.testutil.TypicalPersons.KEYWORD_MATCHING_MEIER;
 
 import org.junit.Ignore;
 import org.junit.Test;
@@ -40,7 +39,6 @@ public class ClearCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: filters the person list before clearing -> entire address book cleared */
         executeCommand(UndoCommand.COMMAND_WORD); // restores the original address book
-        showPersonsWithName(KEYWORD_MATCHING_MEIER);
         assertCommandSuccess(ClearCommand.COMMAND_WORD);
         assertSelectedCardUnchanged();
 

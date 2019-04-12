@@ -13,6 +13,7 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.assertUpdateCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showDeckAtIndex;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.testutil.TypicalDecks.getTypicalTopDeck;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_DECK;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_DECK;
@@ -80,16 +81,16 @@ public class EditDeckCommandTest {
 
     @Test
     public void execute_noFieldSpecifiedUnfilteredList_success() {
-        EditDeckCommand editCommand = new EditDeckCommand(decksView, INDEX_FIRST_DECK,
-                                                          new EditDeckCommand.EditDeckDescriptor());
-        Deck editedDeck = decksView.getFilteredList().get(INDEX_FIRST_DECK.getZeroBased());
+        EditDeckCommand editCommand = new EditDeckCommand(decksView, INDEX_FIRST_DECK);
+        Deck firstDeck = decksView.getFilteredList().get(INDEX_FIRST_DECK.getZeroBased());
 
-        String expectedMessage = String.format(MESSAGE_EDIT_DECK_SUCCESS, editedDeck);
+        String prefilledText = String
+                .format("%s %d %s%s", EditDeckCommand.COMMAND_WORD, 1, PREFIX_NAME, firstDeck.getName());
 
-        ModelManager expectedModel = new ModelManager(model.getTopDeck(), new UserPrefs());
-        expectedModel.commitTopDeck();
+        CommandResult expectedResult = new PrefillCommandBoxCommandResult(
+                EditDeckCommand.MESSAGE_EDIT_DECK_AUTOCOMPLETE, prefilledText);
 
-        assertCommandSuccess(editCommand, model, commandHistory, expectedMessage, expectedModel);
+        assertCommandSuccess(editCommand, model, commandHistory, expectedResult, model);
     }
 
     @Test

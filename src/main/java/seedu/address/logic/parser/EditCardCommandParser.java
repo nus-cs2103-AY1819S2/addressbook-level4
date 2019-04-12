@@ -63,7 +63,6 @@ public class EditCardCommandParser implements Parser<EditCardCommand> {
         // Abbreviated version of the command is given, expand full command in the text box
         if (!editCardDescriptor.isAnyFieldEdited()) {
             return new EditCardCommand(cardsView, index);
-
         }
 
         return new EditCardCommand(cardsView, index, editCardDescriptor);

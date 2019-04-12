@@ -90,10 +90,6 @@ public class EditDeckCommandSystemTest extends TopDeckSystemTest {
         assertCommandFailure(EditDeckCommand.COMMAND_WORD + VALID_DECK_NAME_B_ARGS,
                 String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, EditDeckCommand.MESSAGE_USAGE));
 
-        /* Case: missing all fields -> rejected */
-        assertCommandFailure(EditDeckCommand.COMMAND_WORD + " " + INDEX_FIRST_DECK.getOneBased(),
-                Messages.MESSAGE_DECK_NOT_EDITED);
-
         /* Case: edit a deck with new values same as another deck's values -> rejected */
         executeCommand(DeckUtil.getAddDeckCommand(VALID_DECK_A));
         assertTrue(getModel().getTopDeck().getDeckList().contains(VALID_DECK_A));

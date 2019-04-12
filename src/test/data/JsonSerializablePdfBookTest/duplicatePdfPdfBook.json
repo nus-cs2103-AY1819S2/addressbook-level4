@@ -1,13 +1,15 @@
 {
   "pdfs": [ {
-    "name" : "b.pdf",
-    "location" : "/Users/prithiviraj/Repositories/CS2103T/main",
-    "size" : "500068036608",
-    "tagged" : [ "colleagues" ]
+    "name" : "CS2103T_Week9_Integration Approaches.pdf",
+    "directory" : "/Users/prithiviraj/Repositories/CS2103T/main/src/test/data/SampleFiles/NormalFiles",
+    "size" : "123456",
+    "tagged" : [ "colleagues" ],
+    "deadline" : ""
   }, {
-    "name" : "b.pdf",
-    "location" : "/Users/prithiviraj/Repositories/CS2103T/main",
-    "size" : "500068036608",
-    "tagged" : [ "colleagues" ]
+    "name" : "CS2103T_Week9_Integration Approaches.pdf",
+    "directory" : "/Users/prithiviraj/Repositories/CS2103T/main/src/test/data/SampleFiles/NormalFiles",
+    "size" : "123456",
+    "tagged" : [ "colleagues" ],
+    "deadline" : ""
   } ]
 }

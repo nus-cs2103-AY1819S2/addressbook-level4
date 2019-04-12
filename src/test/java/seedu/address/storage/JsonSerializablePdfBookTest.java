@@ -16,17 +16,18 @@ import seedu.address.testutil.TypicalPdfs;
 
 public class JsonSerializablePdfBookTest {
 
-    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonSerializablePdfBookTest");
-    private static final Path TYPICAL_PERSONS_FILE = TEST_DATA_FOLDER.resolve("typicalPdfPdfBook.json");
-    private static final Path INVALID_PERSON_FILE = TEST_DATA_FOLDER.resolve("invalidPdfPdfBook.json");
-    private static final Path DUPLICATE_PERSON_FILE = TEST_DATA_FOLDER.resolve("duplicatePdfPdfBook.json");
+    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data",
+            "JsonSerializablePdfBookTest");
+    private static final Path TYPICAL_PDF_FILE = TEST_DATA_FOLDER.resolve("typicalPdfPdfBook.json");
+    private static final Path INVALID_PDF_FILE = TEST_DATA_FOLDER.resolve("invalidPdfPdfBook.json");
+    private static final Path DUPLICATE_PDF_FILE = TEST_DATA_FOLDER.resolve("duplicatePdfPdfBook.json");
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
     @Test
     public void toModelType_typicalPersonsFile_success() throws Exception {
-        JsonSerializablePdfBook dataFromFile = JsonUtil.readJsonFile(TYPICAL_PERSONS_FILE,
+        JsonSerializablePdfBook dataFromFile = JsonUtil.readJsonFile(TYPICAL_PDF_FILE,
                 JsonSerializablePdfBook.class).get();
         PdfBook addressBookFromFile = dataFromFile.toModelType();
         PdfBook typicalPersonsAddressBook = TypicalPdfs.getTypicalPdfBook();
@@ -35,7 +36,7 @@ public class JsonSerializablePdfBookTest {
 
     @Test
     public void toModelType_invalidPersonFile_throwsIllegalValueException() throws Exception {
-        JsonSerializablePdfBook dataFromFile = JsonUtil.readJsonFile(INVALID_PERSON_FILE,
+        JsonSerializablePdfBook dataFromFile = JsonUtil.readJsonFile(INVALID_PDF_FILE,
                 JsonSerializablePdfBook.class).get();
         thrown.expect(IllegalValueException.class);
         dataFromFile.toModelType();
@@ -43,7 +44,7 @@ public class JsonSerializablePdfBookTest {
 
     @Test
     public void toModelType_duplicatePersons_throwsIllegalValueException() throws Exception {
-        JsonSerializablePdfBook dataFromFile = JsonUtil.readJsonFile(DUPLICATE_PERSON_FILE,
+        JsonSerializablePdfBook dataFromFile = JsonUtil.readJsonFile(DUPLICATE_PDF_FILE,
                 JsonSerializablePdfBook.class).get();
         thrown.expect(IllegalValueException.class);
         thrown.expectMessage(JsonSerializablePdfBook.MESSAGE_DUPLICATE_PDF);

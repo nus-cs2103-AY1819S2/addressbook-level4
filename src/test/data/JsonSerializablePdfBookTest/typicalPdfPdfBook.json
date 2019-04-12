@@ -1,19 +1,22 @@
 {
   "_comment": "PdfBook save file which contains the same Pdf values as in TypicalPdfss#getTypicalPdfBook()",
   "pdfs" : [ {
-    "name" : "a.pdf",
-    "location" : "/Users/prithiviraj/Repositories/CS2103T/main",
-    "size" : "500068036608",
-    "tagged" : [ "RandomTag1" ]
+    "name" : "CS2103T_PDF++_UG_Intro.pdf",
+    "directory" : "/Users/prithiviraj/Repositories/CS2103T/main/src/test/data/SampleFiles/NormalFiles",
+    "size" : "149511",
+    "tagged" : [ ],
+    "deadline" : "2019-10-03/false"
   }, {
-    "name" : "b.pdf",
-    "location" : "/Users/prithiviraj/Repositories/CS2103T/main",
-    "size" : "500068036608",
-    "tagged" : [ "colleagues" ]
+    "name" : "CS2103T_Week9_Integration Approaches.pdf",
+    "directory" : "/Users/prithiviraj/Repositories/CS2103T/main/src/test/data/SampleFiles/NormalFiles",
+    "size" : "325068",
+    "tagged" : [ "CS2103T", "lecture", "w9" ],
+    "deadline" : "2019-10-03/false"
   }, {
-    "name" : "c.pdf",
-    "location" : "/Users/prithiviraj/Repositories/CS2103T/main/src/test/data/JsonAdaptedPdfTest",
-    "size" : "500068036608",
-    "tagged" : [ ]
+    "name" : "CS3230_Lecture9_GreedyAlgorithm.pdf",
+    "directory" : "/Users/prithiviraj/Repositories/CS2103T/main/src/test/data/SampleFiles/NormalFiles",
+    "size" : "2457103",
+    "tagged" : [ "CS3230", "lecture", "w9" ],
+    "deadline" : "2019-10-03/false"
   } ]
 }

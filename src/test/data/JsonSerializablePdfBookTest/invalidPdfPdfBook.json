@@ -1,7 +1,7 @@
 {
   "pdfs": [ {
     "name": "Pdf with invalid location",
-    "location" : "/Users/prithiviraj/Repositories/CS2103T/main/src/test/data/JsonAdaptedPdfTester",
+    "directory" : "/Users/prithiviraj/Repositories/CS2103T/main/src/test/data/JsonAdaptedPdfTester",
     "size" : "500068036608",
     "tagged" : [ ]
   } ]

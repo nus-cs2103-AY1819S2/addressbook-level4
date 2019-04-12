@@ -1,12 +1,20 @@
 package seedu.address.logic.commands;
 
-import static seedu.address.logic.commands.CommandTestUtil.*;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_SKILL_JAVA;
+
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_PERSON;
-import static seedu.address.testutil.TypicalPersons.*;
+import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalPersons.HOON;
 
 import org.junit.Test;
+
+import java.util.List;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
@@ -14,7 +22,6 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.sortmethods.SortName;
 import seedu.address.logic.commands.sortmethods.SortUtil;
 import seedu.address.logic.parser.SortWord;
-import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -23,8 +30,7 @@ import seedu.address.model.tag.SkillsTag;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 import seedu.address.testutil.PersonBuilder;
 
-import java.util.Arrays;
-import java.util.List;
+
 
 /**
  * Contains integration tests for FilterCommand.
@@ -385,14 +391,14 @@ public class FilterCommandIntegrationTest {
                 divideTagsFromString(criterion3[4]), divideTagsFromString(criterion3[5]),
                 criterion3[8], criterion3[6], criterion3[7]);
         expectedModel.commitAddressBook();
-        assertCommandSuccess(commandFilter, model, commandHistory,
-                FilterCommand.MESSAGE_FILTER_PERSON_SUCCESS, expectedModel);
+        assertCommandSuccess(commandFilter, model, commandHistory, FilterCommand.MESSAGE_FILTER_PERSON_SUCCESS,
+                expectedModel);
 
         // sorting by names takes place - success
-        String expectedMessage = String.format("Sorted all persons by name");
+        String expectedMessage = "Sorted all persons by name";
         SortWord type = new SortWord("name");
         SortCommand commandSort = new SortCommand(type);
-        SortName sortName =  new SortName(expectedModel.getAddressBook().getPersonList());
+        SortName sortName = new SortName(expectedModel.getAddressBook().getPersonList());
         List<Person> sortedPersons = sortName.getList();
         expectedModel.deleteAllPerson();
         for (Person newPerson : sortedPersons) {
@@ -405,14 +411,14 @@ public class FilterCommandIntegrationTest {
         commandFilter = new FilterCommand(criterionClearAndReverse, TYPE_REVERSE);
         expectedModel.reverseFilter();
         expectedModel.commitAddressBook();
-        assertCommandSuccess(commandFilter, model, commandHistory,
-                FilterCommand.MESSAGE_FILTER_REVERSE_SUCCESS, expectedModel);
+        assertCommandSuccess(commandFilter, model, commandHistory, FilterCommand.MESSAGE_FILTER_REVERSE_SUCCESS,
+                expectedModel);
 
         // sorting by reverse names takes place - success
-        expectedMessage = String.format("Sorted all persons by reverse name");
+        expectedMessage = "Sorted all persons by reverse name";
         type = new SortWord("reverse name");
         commandSort = new SortCommand(type);
-        sortName =  new SortName(expectedModel.getAddressBook().getPersonList());
+        sortName = new SortName(expectedModel.getAddressBook().getPersonList());
         sortedPersons = SortUtil.reversePersonList(sortName.getList());
         expectedModel.deleteAllPerson();
         for (Person newPerson : sortedPersons) {
@@ -433,10 +439,10 @@ public class FilterCommandIntegrationTest {
         assertCommandFailure(commandFilter, model, commandHistory, FilterCommand.MESSAGE_NO_FILTER_TO_CLEAR);
 
         // sort by names takes place
-        expectedMessage = String.format("Sorted all persons by name");
+        expectedMessage = "Sorted all persons by name";
         type = new SortWord("name");
         commandSort = new SortCommand(type);
-        sortName =  new SortName(expectedModel.getAddressBook().getPersonList());
+        sortName = new SortName(expectedModel.getAddressBook().getPersonList());
         sortedPersons = sortName.getList();
         expectedModel.deleteAllPerson();
         for (Person newPerson : sortedPersons) {

@@ -17,8 +17,6 @@ import static seedu.address.logic.commands.CommandTestUtil.SPECIALISATION_DESC_G
 import static seedu.address.logic.commands.CommandTestUtil.SPECIALISATION_DESC_MASSAGE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_GENDER_ALVINA;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_ALVINA;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_STEVEN;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_ALVINA;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_STEVEN;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_YEAR_STEVEN;
 import static seedu.address.logic.commands.CommandTestUtil.YEAR_DESC_ALVINA;

@@ -27,7 +27,7 @@ import seedu.hms.model.booking.BookingWithinTimePredicate;
 import seedu.hms.model.util.TimeRange;
 
 /**
- * Contains integration tests (interaction with the Model) for {@code FindNameCommand}.
+ * Contains integration tests (interaction with the Model) for {@code FindBookingCommand}.
  */
 public class FindBookingCommandTest {
     private BookingModel model = new BookingManager(
@@ -71,12 +71,12 @@ public class FindBookingCommandTest {
         // null -> returns false
         assertNotEquals(findFirstCommand, null);
 
-        // different customer -> returns false
+        // different booking -> returns false
         assertFalse(findFirstCommand.equals(findSecondCommand));
     }
 
     @Test
-    public void execute_zeroKeywords_allCustomerFound() {
+    public void execute_zeroKeywords_allBookingsFound() {
         String expectedMessage = String.format(MESSAGE_BOOKINGS_LISTED_OVERVIEW, model.getFilteredBookingList().size());
         BookingWithTypePredicate bookingWithTypePredicate = preparePredicateOfType("");
         BookingWithinTimePredicate bookingWithinTimePredicate = preparePredicateOfTiming(" ");
@@ -92,7 +92,7 @@ public class FindBookingCommandTest {
     }
 
     @Test
-    public void execute_multipleKeywords_multipleCustomersFound() {
+    public void execute_multipleKeywords_particularBookingFound() {
         String expectedMessage = String.format(MESSAGE_BOOKINGS_LISTED_OVERVIEW, 1);
         BookingWithTypePredicate bookingWithTypePredicate = preparePredicateOfType("GYM");
         BookingWithinTimePredicate bookingWithinTimePredicate = preparePredicateOfTiming("14-15");

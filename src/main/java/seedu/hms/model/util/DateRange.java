@@ -35,10 +35,10 @@ public class DateRange {
         this.endDate.set(Integer.parseInt(ed[2]), Integer.parseInt(ed[1]) - 1, Integer.parseInt(ed[0]));
         if (!isValidDate(this.startDate) || !isValidDate(this.endDate)) {
             throw new seedu.hms.logic.parser.exceptions.ParseException(
-                    "Date should be after current date and within one year after current date\n"
-                            + "Invalid date:" + (!isValidDate(this.startDate)
-                            ? this.startDate.getTime() : this.endDate.getTime()) + "\n"
-                            + "Current date:" + Calendar.getInstance().getTime());
+                "Date should be after current date and within one year after current date\n"
+                    + "Invalid date:" + (!isValidDate(this.startDate)
+                    ? this.startDate.getTime() : this.endDate.getTime()) + "\n"
+                    + "Current date:" + Calendar.getInstance().getTime());
         }
         if (this.numOfDays() < 0) {
             throw new seedu.hms.logic.parser.exceptions.ParseException("Your end date should be after the start date");
@@ -73,7 +73,8 @@ public class DateRange {
     /**
      * Returns whether the date is valid
      * The date should be 1.after current date
-     *                    2.within in 1 year after current date
+     * 2.within in 1 year after current date
+     *
      * @return
      */
     private boolean isValidDate(Calendar dateTested) {

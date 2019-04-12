@@ -68,7 +68,7 @@ public class ReservationBuilder {
     }
 
     /**
-     * Sets the {@code timing} of the {@code Reservation} that we are building.
+     * Sets the {@code date} of the {@code Reservation} that we are building.
      */
     public ReservationBuilder withDates(String start, String end) {
         Calendar startDate = dateBuilder(start);

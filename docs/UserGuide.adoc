@@ -34,11 +34,12 @@ image::Ui.png[width="790"]
 E.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* **`addBook`**`n/Alice in Wonderland a/Lewis Carroll m/5 t/fantasy t/fairy tale` : adds a book named `Alice in Wonderland` to the record.
+* **`addBook`**`n/Alice in Wonderland a/Lewis Carroll m/5 t/fantasy t/fairy tale` : adds a book named `Alice in Wonderland` to the record. The book is written by `Lewis Carroll`, with a rating of 5, and labeled with tags `fairy tale` and `fantasy`.
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
 
+// tag::book[]
 [[Features]]
 == Features
 
@@ -52,30 +53,28 @@ E.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Items in square brackets are optional (can be supplied once or not at all) e.g `n/NAME [a/AUTHOR]` can be used as `n/Alice in Wonderland a/Jack` or as `n/Alice in Wonderland`.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/fantasy`, `t/fantasy t/textbook` etc.
 * Parameters can be in any order e.g. if the command specifies `n/NAME a/AUTHOR`, `a/AUTHOR n/NAME` is also acceptable.
-* While book names, review title and review content can contain any kinds of characters, tag and author names should only contain alpha-numeric characters.
+* Book name, review title and review content only accepts alphanumeric characters, space, `*`, `,`, `.`, `?`, `'`, `(`, `)` and `&`.
+* Author name and tag only accepts alphanumeric characters and spaces.
 * Book name and author name should not exceed 50 characters (space included).
 * Review title should not exceed 50 characters (space included).
 * Review content should not exceed 400 characters (space included).
 * Rating should be an integer from 0 to 10 inclusive and the input should be 1 or 2 digit number.
 * Tags should not exceed 20 characters (space included).
-* Book name and author name only accepts alphanumeric characters, space, '*', ',', '.', '?', ''' and '&'.
-* Author name only accepts alphanumeric characters and spaces.
 ====
 
-// tag::book[]
 === Book Commands
 
 ==== Adding a book: `addBook`
 
 Adds a book to the book shelf +
-Format: `addBook n/BOOKNAME a/author m/RATING(0-10) [t/TAG]…​`
+Format: `addBook n/BOOKNAME a/author m/RATING [t/TAG]…​`
 
 Examples:
 
 * `addBook n/Alice in Wonderland a/Lewis Carroll m/5 t/fantasy t/fairy tale` +
 Adds a book named Alice in Wonderland to the record. The book is written by Lewis Carroll, rated 5 stars, and labeled with tags ‘fantasy’ and ‘fairy tale’.
 * `addBook n/Structure and Interpretation of Computer Programs a/Jerry Sussman m/4 t/textbook` +
-Adds a book named Structure and Interpretation of Computer Programs to the record. The book is written by Hal Abelson Jerry Sussman, rated 4 stars, and labeled with tag ‘textbook’.
+Adds a book named Structure and Interpretation of Computer Programs to the record. The book is written by Jerry Sussman, rated 4 stars, and labeled with tag ‘textbook’.
 
 ****
 * The book name is case sensitive
@@ -86,7 +85,7 @@ Adds a book named Structure and Interpretation of Computer Programs to the recor
 
 ==== Editing book entry : `editBook`
 
-Edits an existing book entry (eg. edit the mark, author or tag). +
+Edits an existing book entry (eg. edit the book name, rating, author or tag). +
 Format: `editBook INDEX [n/BOOKNAME] [a/AUTHOR] [m/RATING] [t/TAG]...`
 
 ****

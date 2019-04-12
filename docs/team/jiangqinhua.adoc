@@ -1,46 +1,61 @@
-= jiang qinhua - Project Portfolio
-
-== PROJECT: BookSquirrel
-:sectnums:
+= Jiang Qinhua - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
+:sourceDir: ../src/main/java
+:sectnums:
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:warning-caption: :warning:
+:experimental:
+endif::[]
+:toc:
+:toc-title:
+:toc-placement: preamble
+:repoURL: https://github.com/CS2103-AY1819S2-W11-4/main
+:pullURL: https://github.com/CS2103-AY1819S2-W11-4/main/pull
+
+image::jiangqinhua.png[width=200px]
+{empty}[https://github.com/jiangqinhua[Github]][https://cs2103-ay1819s2-w11-4.github.io/main/team/jiangqinhua.html[Portfolio]]
+
+= PROJECT: BookSquirrel
 == Introduction
 
-This portfilo is to document my contribution to the project called BookSquirrel. BookSquirrel is a team project for our CS2103T Software Engneering.The aim of this project is to create a new application base on given project called AddressBook Level 4(AB4), make the new project runing without any bugs. In the project Most of the word documentments are writteen in asciidoc or markdown. +
+This portfolio is to document my contribution to the project called BookSquirrel. BookSquirrel is a team project for our CS2103T Software Engineering. The aim of this project is to create a new application base on a given project called AddressBook Level 4(AB4), make the new project running without any bugs. In the project, Most of the word documents are written in asciidoc or markdown. +
 There are some basic requirements for this project:
 
     1. Modifying base on an existing project instead of starting from scratch.
 
     2. Forming a team and collaborate with team members.
 
-    3. Using github to manage our project, knowing how to use git commands.
+    3. Using Github and Version Control System to manage our project, knowing how to use git commands.
 
     4. Must follow the coding standard.
 
-    5. Must write various tests for the project such like Unit test.
+    5. Must write various tests for the project such as the Unit test.
 
     6. Developer guide and User guide are compulsory.
 
     7. The project is base on Java 9.0, so Java is the only language you can use for this project.
 
-    8. Forbidden feathers such like login in, using network and using database.
+    8. Forbidden feathers such as login in, using network function and using database function.
 
-BookSquirrel is a desktop application for those who want to keep record of books they've read. You can write down multiple reviews for a single book.
-Before you write any reviews for a book, you need to add a book into our application first.The details include book name, author of the book, rating point that you would rate for this book and some optional tags.BookSquirrel is optimized for those who prefer to work with a *Command Line Interface* (CLI) while still having the benefits of a *Graphical User Interface* (GUI). +
+BookSquirrel is a desktop application for those who want to keep records of books they've read. You can write down multiple reviews for a single book.
+Before you write any reviews for a book, you need to add a book into our application first. The details include book name, author of the book, rating point that you would rate for this book and some optional tags.BookSquirrel is optimized for those who prefer to work with a *Command Line Interface* (CLI) while still having the benefits of a *Graphical User Interface* (GUI). +
 
-In order to meet the task requirement,I learned to consistently writing code contribute to my project to avoid last minus work.I will ask for help if I am stuck too long and I will communicate with team members frequently to avoid doing redundant or repeated works.
+In order to meet the task requirement, I learned to consistently write code contribute to my project to avoid last minus work. I will ask for help if I am stuck too long and I will communicate with team members frequently to avoid doing redundant or repeated works.
 
-== Summary of contributions
-My contribution to this project are include: +
+== Summary of Contributions
+My contribution to this project includes: +
 
 * *Major enhancement*: added the *ability to rearrange books in certain order*
 
 - What it does: allows the user to sort the books they added by book name, author or rating.
 
-- Justification: This feature improves the product significantly because user can eaiser arrange all books in the way they want, such as high rating  to low rating.
+- Justification: This feature improves the product significantly because users can easier arrange all books in the way they want, such as high rating to low rating.
 
-- Highlights: This enhancement is not simply rearrange by one attribute, it can be sort in different order at one commands.For example, you want sort the rating of books in descending, if they are tied you want them in ascending book name.
+- Highlights: This enhancement is not simply sorted by one attribute, it can be sorted with more than one attributes at the same time. For example, you want to sort the rating of books in descending, if they are tied you want them in ascending book name.
 
 
 * *Major enhancement*: added the ability to undo/redo previous commands
@@ -51,14 +66,14 @@ My contribution to this project are include: +
 
 - *Highlights*: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
 
-- *Credits*: The code are modify base on https://github.com/nus-cs2103-AY1819S2/addressbook-level4[se-edu/addressbook-level4]
+- *Credits*: The code is modified base on https://github.com/nus-cs2103-AY1819S2/addressbook-level4[se-edu/addressbook-level4]
 
 * *Minor enhancement*: modify the UI base on AddressBook- level 4.
 
 * *Code contributed*: https://github.com/cs2103-ay1819s2-w11-4/main/pull/78/files[Functional code] https://github.com/cs2103-ay1819s2-w11-4/main/pull/81/files[Test code]
 
 * *Other contributions*:
-- Update Tag color for project(Pull requests , https://github.com/cs2103-ay1819s2-w11-4/main/pull/10[#10])
+- Update Tag color for the project(Pull requests, https://github.com/cs2103-ay1819s2-w11-4/main/pull/10[#10])
 - Documentation:
 ** Did cosmetic tweaks to existing contents of the User Guide: https://github.com/cs2103-ay1819s2-w11-4/main/pull/82[#82],
 https://github.com/cs2103-ay1819s2-w11-4/main/pull/102[#102]
@@ -66,13 +81,13 @@ https://github.com/cs2103-ay1819s2-w11-4/main/pull/102[#102]
 - Community:
 ** PRs reviewed (with non-trivial review comments)
 - Tools:
-** Integrated a new Github plugin (CircleCI) to the team repo
+** Integrated a new Github plugin (CircleCI) to the team repols
 
 == Contributions to the User Guide
 
 === Sort books command : `sortBook`
 
-sort bookList in specify order. +
+sort books in the Bookshelf with specify order. +
 Format: `sortBook st/TYPE... [o/ORDER] [o1/ORDER] [o2/ORDER] [o3/ORDER]`
 
 ****
@@ -80,19 +95,19 @@ Format: `sortBook st/TYPE... [o/ORDER] [o1/ORDER] [o2/ORDER] [o3/ORDER]`
 * Able to sort more than one *TYPE* by writing down more than one *TYPE* after the *sortBook*.
 * ORDER can be either *ASC*(ascending) and *DES*(descending).
 * Omit o/ORDER, it will sort in *ASC*(ascending).
-* o1, o2, o3 is corresponding specify order for each *TYPE* that specify in front.
-* o/ORDER is the orderfor all *TYPEs*, it will overwrite order if both o and o1 appear at same time.
+* o1, o2, o3 is corresponding specify orders for each *TYPE* that specify in front.
+* o/ORDER is the order for all *TYPEs*, it will overwrite sub orders if both o and o1 appear at the same time.
 * *TYPE* and *ORDER* are all case-insensitive.
 ****
 
 Examples:
 
 * `sortBook st/name`
-sort bookList by book name in ascending order.
+sort books in the Bookshelf by book name in ascending order.
 * `sortBook st/rating st/name o1/des`
-sort bookList by rating of the book in descending order and if they having same rating it will sort them by book name is asc order.
+sort books in the Bookshelf by the rating of the book in descending order and if they having the same rating it will sort them by book name in ascending order.
 * `sortBook st/author st/rating o/des o2/asc`
-sort bookList by author in descending order and if they having same rating it will sort them by rating in des order.(o/des overwrite o2/asc)
+sort books in the Bookshelf by the author in descending order and if they having the same rating it will sort them by rating in des order. (o/des overwrite o2/asc)
 
 === Undoing previous command : `undo`
 
@@ -122,7 +137,7 @@ The `undo` command fails as there are no undoable commands executed previously.
 `undo` (reverses the `clear` command) +
 `undo` (reverses the `deleteBook 1` command) +
 
-=== Redoing the previously undone command : `redo`
+=== Redoing the previously undone command: `redo`
 
 Reverses the most recent `undo` command. +
 Format: `redo`
@@ -137,15 +152,6 @@ Examples:
 `redo` +
 The `redo` command fails as there are no `undo` commands executed previously.
 
-=== filter books [coming in v2.0]
-Filters the book list by given condition. +
-Format: `filterBook at/ATTRIBUTE c/CONDITION` +
-
-* simply provide *ATTRIBUTE* and *CONDITION* provided in the command to get the books desired.
-Examples:
-
-* `filterBook f/rating c/>8 ` show all books that rating greater than 8.
-
 == Contributions to the Developer Guide
 Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project.
 
@@ -153,42 +159,44 @@ Given below are sections I contributed to the Developer Guide. They showcase my 
 ==== Current Implementation
 
 The sortBook mechanism is facilitated by `VersionedBookShelf`.
-It extends `BookShelf` with the sort function which will sort the `UniqueBookList`. `UniqueBookList` implemented the Book list as `ObservableList<Book>`. sortBook command sort the book list in specify order by implementing the `Comaparator<Book>`.
+It extends `BookShelf` with the sort function which will sort the `UniqueBookList`. `UniqueBookList` implemented the Bookshelf as `ObservableList<Book>`. sortBook command sort books in the Bookshelf with specify order by implementing the `Comparator<Book>`.
 
 Additionally, it uses/implements the following operations:
 
 * `VersionedBookShelf#sort()` -- It calls `UniqueBookList` sortBooks function and notifies the listeners.
 
-* `BookShelf#indicateModified()` -- Notifies listeners that the book shelf has been modified.
+* `BookShelf#indicateModified()` -- Notifies listeners that the bookshelf has been modified.
 
-* `UniqueBookList#sortBooks()` -- Implement the comparaotr, call `ObservableList<Book>` and pass in the comparator.
+* `UniqueBookList#sortBooks()` -- Implement the comparator, call `ObservableList<Book>` and pass in the comparator.
 
 * `ObservableList<Book>#sort()` -- sort the internalList is specify order.
 
 Given below is an example usage scenario and how the sortBook mechanism behaves at each step.
 
-Step 1. The user launches the application for the first time. The `VersionedBookShelf` will be initialized with the initial book shelf state, and the `currentStatePointer` pointing to that single book shelf state.
+Step 1. The user launches the application for the first time. The `VersionedBookShelf` will be initialized with the initial bookshelf state, and the `currentStatePointer` pointing to that single bookshelf state.
 
-Step 2. The user executes `sortBook st/rating` command to sort all the books in the book shelf in ascending order. The command will be pass to SortBookCommand Parser to convert it to SortBook command, the parser will checks the correctness of the command. If command is in incorrect format, parser will shows correct command instruction to user, otherwise parser will call the constructor of SortBook command.
+Step 2. The user executes `sortBook st/rating` command to sort all the books in the bookshelf in ascending order. The command will be pass to SortBookCommand Parser to convert it to SortBook command, the parser will check the correctness of the command. If the command is in incorrect formats, the parser will show correct command instruction to the user, otherwise, the parser will call the constructor of SortBook command.
 
-Step 3. `SortBookCommand#execute` will be call, it will check whether the book list is empty before proceed to call `ModelManager#sort()`.
+Step 3. `SortBookCommand#execute` will be call, it will check whether the Bookshelf is empty before proceed to call `ModelManager#sort()`.
 
 [NOTE]
-If the book list is empty, CommandException(MESSAGE_BOOK_LIST_EMPTY) will be thrown.
+If the Bookshelf is empty, CommandException(MESSAGE_BOOK_LIST_EMPTY) will be thrown.
 
-Step 4. If everything is correct, `VersionedBookShelf#sort()` will be call. It will executes `UniqueBookList#sortBooks` and `BookShelf#indicateModified` will be called after the list is been sorted to notify listener that display data has been modify.
+Step 4. If everything is correct, `VersionedBookShelf#sort()` will be called. It will execute `UniqueBookList#sortBooks` and `BookShelf#indicateModified` will be called after the list is been sorted to notify the listener that display data has been modified.
 
 Step 5. `ObservableList<Book>` was implemented in `UniqueBookList` as internal list. `UniqueBookList#sortBooks` will call `ObservableList<Book>#sort` to sort the internal list by providing custom Comparator.
 
-Step 6. ` model#commitBookShelf()` will be execute to store current book list into `List<ReadOnlyBookShelf>` for support undo/redo command after the list is sorted and notify the listener.
+Step 6. ` model#commitBookShelf()` will be executed to store the current Bookshelf into `List<ReadOnlyBookShelf>` for support undo/redo command after the list is sorted and notify the listener.
 
 ==== Design Considerations
 
 ===== Aspect: Sorting algorithm implemented.
 
+Alternative 1 has been chosen as the default choice, as built-in sorting function is enough for the current project.
+
 * **Alternative 1 (current choice):** Sorts using library sorting method.
 ** Pros: Easy to implement, easy to maintain.
-** Cons: The sorting method is too general, can have better sorting algorithm.
+** Cons: The sorting method is too general, can have a better sorting algorithm.
 
 * **Alternative 2:** Using custom sorting method.
 ** Pros: more custom, may improve performance.
@@ -196,34 +204,36 @@ Step 6. ` model#commitBookShelf()` will be execute to store current book list in
 
 ===== Aspect: Data structure to support the sort commands
 
+Alternative 1 has been chosen as the default choice, as sub-list is not supporting sort function, it's very time consume to use alternative 2.
+
 * **Alternative 1 (current choice):** Sorts with the complete list.
 ** Pros: Easy to implement, as the list coming with sort function.
-** Cons: May have performance issues in terms of speed, as we need to sort whole list.
+** Cons: May have performance issues in terms of speed, as we need to sort the whole list.
 
-* **Alternative 2:** Sorts with sub-list that available to user.
-** Pros: It is faster than first choice as we only need to sort partial list.
-** Cons: The sub-list is not support sort function, its hard and time comsume to manipulate sorting and put it back to sub-list.
+* **Alternative 2:** Sorts with sub-list that available to the user.
+** Pros: It is faster than the first choice as we only need to sort a partial list.
+** Cons: The sub-list is not supporting sort function, it's hard and time-consuming to manipulate sorting and put it back to sub-list.
 
 === Undo/Redo feature
 ==== Current Implementation
 
 The undo/redo mechanism is facilitated by `VersionedBookShelf`.
-It extends `BookShelf` with an undo/redo history, stored internally as an `BookStateList` and `currentStatePointer`.
+It extends `BookShelf` with an undo/redo history, stored internally as a `BookStateList` and `currentStatePointer`.
 Additionally, it implements the following operations:
 
-* `VersionedBookShelf#commit()` -- Saves the current book shelf state in its history.
-* `VersionedBookShelf#undo()` -- Restores the previous book shelf state from its history.
-* `VersionedBookShelf#redo()` -- Restores a previously undone book shelf state from its history.
+* `VersionedBookShelf#commit()` -- Saves the current bookshelf state in its history.
+* `VersionedBookShelf#undo()` -- Restores the previous bookshelf state from its history.
+* `VersionedBookShelf#redo()` -- Restores a previously undone bookshelf state from its history.
 
 These operations are exposed in the `Model` interface as `Model#commitBookShelf()`, `Model#undoBookShelf()` and `Model#redoBookShelf()` respectively.
 
 Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
 
-Step 1. The user launches the application for the first time. The `VersionedBookShelf` will be initialized with the initial book shelf state, and the `currentStatePointer` pointing to that single book shelf state.
+Step 1. The user launches the application for the first time. The `VersionedBookShelf` will be initialized with the initial bookshelf state, and the `currentStatePointer` pointing to that single bookshelf state.
 
 image::UndoRedoStartingStateListDiagram.png[width="800"]
 
-Step 2. The user executes `deleteBook 1` command to delete the first book in the book shelf. The `deleteBook` command calls `Model#commitBookShelf()`, causing the modified state of the book list after the `deleteBook 1` command executes to be saved in the `BookShelfStateList`, and the `currentStatePointer` is shifted to the newly inserted book list state.
+Step 2. The user executes `deleteBook 1` command to delete the first book in the bookshelf. The `deleteBook` command calls `Model#commitBookShelf()`, causing the modified state of the Bookshelf after the `deleteBook 1` command executes to be saved in the `BookShelfStateList`, and the `currentStatePointer` is shifted to the newly inserted Bookshelf state.
 
 image::UndoRedoNewCommand1StateListDiagram.png[width="800"]
 
@@ -232,29 +242,29 @@ Step 3. The user executes `addBook n/David ...` to add a new book. The `addBook`
 image::UndoRedoNewCommand2StateListDiagram.png[width="800"]
 
 [NOTE]
-If a command fails its execution, it will not call `Model#commitBookShelf()`, so the book shelf state will not be saved into the `BookShelfStateList`.
+If a command fails its execution, it will not call `Model#commitBookShelf()`, so the bookshelf state will not be saved into the `BookShelfStateList`.
 
-Step 4. The user now decides that adding the book was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoBookShelf()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous book shelf state, and restores the book shelf to that state.
+Step 4. The user now decides that adding the book was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoBookShelf()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous bookshelf state, and restores the bookshelf to that state.
 
 image::UndoRedoExecuteUndoStateListDiagram.png[width="800"]
 
 [NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial book shelf state, then there are no previous book shelf states to restore. The `undo` command uses `Model#canundoBookShelf()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+If the `currentStatePointer` is at index 0, pointing to the initial bookshelf state, then there are no previous bookshelf states to restore. The `undo` command uses `Model#canundoBookShelf()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
 
-The following sequence diagram shows how the undo operation works:
+The following sequence diagram shows how the to undo operation works:
 
 image::UndoRedoSequenceDiagram.png[width="800"]
 
-The `redo` command does the opposite -- it calls `Model#redoBookShelf()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the book shelf to that state.
+The `redo` command does the opposite -- it calls `Model#redoBookShelf()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the bookshelf to that state.
 
 [NOTE]
-If the `currentStatePointer` is at index `BookShelfStateList.size() - 1`, pointing to the latest book shelf state, then there are no undone book shelf states to restore. The `redo` command uses `Model#canredoBookShelf()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+If the `currentStatePointer` is at index `BookShelfStateList.size() - 1`, pointing to the latest bookshelf state, then there are no undone bookshelf states to restore. The `redo` command uses `Model#canredoBookShelf()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
 
-Step 5. The user then decides to execute the command `listBook`. Commands that do not modify the book shelf, such as `listBook`, will usually not call `Model#commitBookShelf()`, `Model#undoBookShelf()` or `Model#redoBookShelf()`. Thus, the `BookShelfStateList` remains unchanged.
+Step 5. The user then decides to execute the command `listBook`. Commands that do not modify the Bookshelf, such as `listBook`, will usually not call `Model#commitBookShelf()`, `Model#undoBookShelf()` or `Model#redoBookShelf()`. Thus, the `BookShelfStateList` remains unchanged.
 
 image::UndoRedoNewCommand3StateListDiagram.png[width="800"]
 
-Step 6. The user executes `clear`, which calls `Model#commitBookShelf()`. Since the `currentStatePointer` is not pointing at the end of the `BookShelfStateList`, all book shelf states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `addBook n/David ...` command. This is the behavior that most modern desktop applications follow.
+Step 6. The user executes `clear`, which calls `Model#commitBookShelf()`. Since the `currentStatePointer` is not pointing at the end of the `BookShelfStateList`, all bookshelf states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `addBook n/David ...` command. This is the behavior that most modern desktop applications follow.
 
 image::UndoRedoNewCommand4StateListDiagram.png[width="800"]
 
@@ -266,61 +276,23 @@ image::UndoRedoActivityDiagram.png[width="650"]
 
 ===== Aspect: How undo & redo executes
 
-* **Alternative 1 (current choice):** Saves the entire book list.
+Alternative 1 has been chosen as the default choice, as it is easier than alternative 2 and less prone to error.
+
+* **Alternative 1 (current choice):** Saves the entire Bookshelf.
 ** Pros: Easy to implement.
 ** Cons: May have performance issues in terms of memory usage.
 * **Alternative 2:** Individual command knows how to undo/redo by itself.
 ** Pros: Will use less memory (e.g. for `deleteBook`, just save the book being deleted).
-** Cons: We must ensure that the implementation of each individual command are correct.
+** Cons: We must ensure that the implementation of each individual command is correct.
 
 ===== Aspect: Data structure to support the undo/redo commands
 
-* **Alternative 1 (current choice):** Use a list to store the history of book list states.
+Alternative 1 has been chosen as the default choice, as it is easier to implement than alternative 2 and less prone to error.
+
+* **Alternative 1 (current choice):** Use a list to store the history of Bookshelf states.
 ** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
 ** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedBookShelf`.
 * **Alternative 2:** Use `HistoryManager` for undo/redo
 ** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 
-=== [Proposed] Filter Book
-==== Current Implementation
-
-The filterBook mechanism is facilitated by `VersionedBookShelf`.
-It extends `BookShelf` with the filter function which will sort the `UniqueBookList`. `UniqueBookList` implemented the Book list as `ObservableList<Book>`.FilterBook command filter the book list in specify order by looping through every book in list to see whether the book is satisfy the condition.
-
-Additionally, it uses/implements the following operations:
-
-* `VersionedBookShelf#filter()` -- It calls `UniqueBookList` sortBooks function and notifies the listeners.
-
-* `BookShelf#indicateModified()` -- Notifies listeners that the book shelf has been modified.
-
-* `ObservableList<Book>#filter()` -- filter the internalList for given condition
-
-Given below is an example usage scenario and how the filterBook mechanism behaves at each step.
-
-Step 1. The user launches the application for the first time. The `VersionedBookShelf` will be initialized with the initial book shelf state, and the `currentStatePointer` pointing to that single book shelf state.
-
-Step 2. The user executes `filterBook at/rating c/>8` command to filter all the books in the book shelf with rating bigger than 8. The command will be pass to FilterBookCommand Parser to convert it to FilterBook command, the parser will checks the correctness of the command. If command is in incorrect format, parser will shows correct command instruction to user, otherwise parser will call the constructor of SortBook command.
-
-Step 3. `FilterBookCommand#execute` will be call, it will check whether the book list is empty before proceed to call `ModelManager#filter()`.
-
-[NOTE]
-If the book list is empty, CommandException(MESSAGE_BOOK_LIST_EMPTY) will be thrown.
-
-Step 4. If everything is correct, `VersionedBookShelf#filter()` will be call. It will executes `UniqueBookList#filterBooks` and `BookShelf#indicateModified` will be called after the list is been sorted to notify listener that display data has been modify.
-
-Step 5. `ObservableList<Book>` was implemented in `UniqueBookList` as internal list. `UniqueBookList#filterBooks` will loop through every element in the internal list and get all books that satisfy the condition.
-
-Step 6. ` model#commitBookShelf()` will be execute to store current book list into `List<ReadOnlyBookShelf>` for support undo/redo command after the list is sorted and notify the listener.
-
-==== Design Considerations
-
-===== Aspect: Filter algorithm implemented.
-
-* **Alternative 1 (current choice):** Filter the list using loop.
-** Pros: Easy to implement, easy to maintain.
-** Cons: If have to support more than one condition, need to write a lot of if condition inside the loop.
-
-* **Alternative 2:** Using custom sorting method like CollectionUtils.
-** Pros: more robust if want to support more conditions.
-** Cons: big overhead.

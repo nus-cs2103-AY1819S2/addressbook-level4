@@ -34,11 +34,12 @@ image::Ui.png[width="790"]
 E.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* **`addBook`**`n/Alice in Wonderland a/Lewis Carroll m/5 t/fantasy t/fairy tale` : adds a book named `Alice in Wonderland` to the record.
+* **`addBook`**`n/Alice in Wonderland a/Lewis Carroll m/5 t/fantasy t/fairy tale` : adds a book named `Alice in Wonderland` to the record. The book is written by `Lewis Carroll`, with a rating of 5, and labeled with tags `fairy tale` and `fantasy`.
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
 
+// tag::book[]
 [[Features]]
 == Features
 
@@ -52,46 +53,44 @@ E.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Items in square brackets are optional (can be supplied once or not at all) e.g `n/NAME [a/AUTHOR]` can be used as `n/Alice in Wonderland a/Jack` or as `n/Alice in Wonderland`.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/fantasy`, `t/fantasy t/textbook` etc.
 * Parameters can be in any order e.g. if the command specifies `n/NAME a/AUTHOR`, `a/AUTHOR n/NAME` is also acceptable.
-* While book names, review title and review content can contain any kinds of characters, tag and author names should only contain alpha-numeric characters.
-* Book name and author name should not exceed 50 characters (space included).
+* Book name, review title and review content should only contain alphanumeric characters, space, `*`, `,`, `.`, `?`, `'`, `(`, `)` and `&`.
+* Author and tag should only contain alphanumeric characters and spaces.
+* The Book name and author should not exceed 50 characters (space included).
 * Review title should not exceed 50 characters (space included).
 * Review content should not exceed 400 characters (space included).
-* Rating should be integer from 0 to 10 inclusive and the input should be 1 or 2 digit number.
+* Rating should be an integer from 0 to 10 inclusive and the input should be 1 or 2 digit number.
 * Tags should not exceed 20 characters (space included).
-* Book name and author name only accepts alphanumeric characters, space, '*', ',', '.', '?', ''' and '&'.
-* Author name only accepts alphanumeric characters and spaces.
 ====
 
-// tag::book[]
 === Book Commands
 
 ==== Adding a book: `addBook`
 
-Adds a book to the book shelf +
-Format: `addBook n/BOOKNAME a/author m/RATING(0-10) [t/TAG]…​`
+Adds a book to the Bookshelf +
+Format: `addBook n/BOOKNAME a/author m/RATING [t/TAG]…​`
 
 Examples:
 
 * `addBook n/Alice in Wonderland a/Lewis Carroll m/5 t/fantasy t/fairy tale` +
 Adds a book named Alice in Wonderland to the record. The book is written by Lewis Carroll, rated 5 stars, and labeled with tags ‘fantasy’ and ‘fairy tale’.
 * `addBook n/Structure and Interpretation of Computer Programs a/Jerry Sussman m/4 t/textbook` +
-Adds a book named Structure and Interpretation of Computer Programs to the record. The book is written by Hal Abelson Jerry Sussman, rated 4 stars, and labeled with tag ‘textbook’.
+Adds a book named Structure and Interpretation of Computer Programs to the record. The book is written by Jerry Sussman, rated 4 stars, and labeled with tag ‘textbook’.
 
 ****
 * The book name is case sensitive
-* Two books with same book name are considered same book
-* Trying to add a book which is already present in the book shelf will result in duplicate book error, and the addBook command will fail
+* Two books with same book name are considered the same book
+* Trying to add a book which is already present in the bookshelf will result in duplicate book error, and the addBook command will fail
 * Take a look at <<Command-Format>> to see the valid format for each parameter
 ****
 
 ==== Editing book entry : `editBook`
 
-Edits an existing book entry (eg. edit the mark, author or tag). +
+Edits an existing book entry (eg. edit the book name, rating, author or tag). +
 Format: `editBook INDEX [n/BOOKNAME] [a/AUTHOR] [m/RATING] [t/TAG]...`
 
 ****
-* Edit the book at the specified INDEX. The index refers to the index number shown in the displayed book list. The index must be a positive integer 1, 2, 3, …​
-* Edit a book with new name same as the name of other book which is already existing in book shelf is not allowed
+* Edit the book at the specified INDEX. The index refers to the index number shown in the displayed Bookshelf. The index must be a positive integer 1, 2, 3, …​
+* Edit a book with a new name that  already exists in the bookshelf is not allowed
 * At least one of the optional fields must be provided.
 * Take a look at <<Command Format>> to see the valid format for each parameter
 * Existing values will be updated to the input values
@@ -108,13 +107,13 @@ Clear all the existing tags of the second book in the result list.
 
 ==== Deleting a book : `deleteBook`
 
-Deletes the specified book from the book list. +
+Deletes the specified book from the Bookshelf. +
 Format: `deleteBook INDEX`
 
 ****
 * Deletes the book of the specified `INDEX`.
 * All the reviews of the deleted book will also be deleted.
-* The index refers to the index number shown in the displayed book list.
+* The index refers to the index number shown in the displayed Bookshelf.
 * The index must be a positive integer 1, 2, 3, …​
 ****
 
@@ -135,8 +134,8 @@ Format: `listBook [n/BOOKNAME] [a/AUTHOR] [t/TAG] [m/RATING]`
 * The search is case insensitive. e.g `hans` will match `Hans`
 * The order of the keywords does not matter. e.g. `Alice Wonderland` will match `Wonderland Alice`
 * Only full words will be matched e.g. `Han` will not match `Hans`
-* Only books match at least one criteria of each each kind will be returned. For example, if two book name keywords and two tag keywords are provided, book that matches at least one name keyword and at least one tag keyword will be displayed. Books only has name key word found but no tah key words matching will not be selected.
-* If no search criteria given, the command will give the complete list of the books
+* Only books match at least one criteria of each kind will be returned. For example, if two book name keywords and two tag keywords are provided, book that matches at least one name keyword and at least one tag keyword will be displayed. Books only have name keyword found but no tag keywords matching will not be selected.
+* If no search criteria are given, the command will give the complete list of the books
 * For book name searching, books matching at least one keyword will be returned. e.g. `Alice` will return `Alice in Wonderland`, `the Westminster Alice`
 * For author name searching, books whose author name matching at least one keyword will be returned. e.g. `James` will return books whose author name is `Henry James`
 * For tag searching, books containing at least one tag will be returned. e.g. `computer` will return `Computer Organisation`, `Computer Networks`
@@ -153,7 +152,7 @@ Examples:
 
 ==== Sort books command : `sortBook`
 
-sort bookList in specify order. +
+sort booklist in specify order. +
 Format: `sortBook st/TYPE... [o/ORDER] [o1/ORDER] [o2/ORDER] [o3/ORDER]`
 
 ****
@@ -161,8 +160,8 @@ Format: `sortBook st/TYPE... [o/ORDER] [o1/ORDER] [o2/ORDER] [o3/ORDER]`
 * Able to sort more than one *TYPE* by writing down more than one *TYPE* after the *sortBook*.
 * ORDER can be either *ASC*(ascending) and *DES*(descending).
 * Omit o/ORDER, it will sort in *ASC*(ascending).
-* o1, o2, o3 is corresponding specify order for each *TYPE* that specify in front.
-* o/ORDER is the orderfor all *TYPEs*, it will overwrite order if both o and o1 appear at same time.
+* o1, o2, o3 is corresponding order for each *TYPE* that specify in front.
+* o/ORDER is the order for all *TYPEs*, it will overwrite order if both o and o1 appear at the same time.
 * *TYPE* and *ORDER* are all case-insensitive.
 ****
 
@@ -171,20 +170,18 @@ Examples:
 * `sortBook st/name`
 sort bookList by book name in ascending order.
 * `sortBook st/rating st/name o1/des`
-sort bookList by rating of the book in descending order and if they having same rating it will sort them by book name is asc order.
+sort bookList by the rating of the book in descending order and if they having the same rating it will sort them by book name in ascending order.
 * `sortBook st/author st/rating o/des o2/asc`
-sort bookList by author in descending order and if they having same rating it will sort them by rating in des order.(o/des overwrite o2/asc)
+sort bookList by the author in descending order and if they having the same rating it will sort them by rating in des order. (o/des overwrite o2/asc)
 * `sortBook st/rating st/author st/name o1/des o3/asc`
-sort bookList by rating in descending order and since the o2 order is not specify, if same rating it will consider author as asc order.
-
+sort bookList by rating in descending order and since the o2 order is not specified, if the same rating it will consider author as ascending order.
 
 // tag::reviews[]
-
 === Review Commands
 
 ==== Adding a book review: `addReview`
 
-Adds a book review to a certain book in the book list +
+Adds a book review to a certain book in the Bookshelf +
 
 Format: `addReview n/BOOKNAME rt/REVIEW TITLE r/REVIEW MESSAGE`
 
@@ -194,7 +191,7 @@ Examples:
 * `addReview n/Structure and Interpretation of Computer Programs rt/Computing Bible r/A very difficult book:(`
 
 ****
-* The book having specified `BOOKNAME` must already exist in the Book Shelf.
+* The book has specified `BOOKNAME` must already exist in the BookShelf.
 * `BOOKNAME` and `REVIEW TITLE` should not contain more than 50 characters.
 * `REVIEW MESSAGE` should not contain more than 400 characters.
 ****
@@ -215,12 +212,12 @@ Example:
 ****
 
 ==== Listing all book reviews: `listAllReviews`
-Lists all the reviews in the Book Shelf. +
+Lists all the reviews in the BookShelf. +
 Format: `listAllReviews`
 
 ==== Listing book reviews of a certain book : `listReview`
 
-Lists the reviews of the book identified by the index number used in the displayed book list. +
+Lists the reviews of the book identified by the index number used in the displayed Bookshelf. +
 Format: `listReview INDEX`
 
 Example:
@@ -229,7 +226,7 @@ Example:
 
 ****
 * Lists the review of the book at the specified `INDEX`.
-* The index refers to the index number shown in the displayed book list.
+* The index refers to the index number shown in the displayed Bookshelf.
 * The index must be a positive integer 1, 2, 3, …​
 ****
 
@@ -320,9 +317,9 @@ Format: `summary`
 
 ****
 * The summary will list out how many books you've read.
-* The summary will also list out authors appear more than once in your book shelf.
+* The summary will also list out authors appear more than once in your bookshelf.
 * The summary will also list out books of the highest score.
-* The summary will also list out tags appear more than once in your book shelf.
+* The summary will also list out tags appear more than once in your bookshelf.
 ****
 
 Examples:
@@ -334,7 +331,7 @@ An example of a summary `You've read 9 books. You prefer books by Erika Leonard,
 
 ==== Clearing all entries : `clear`
 
-Clears all entries from the book shelf. +
+Clears all entries from the bookshelf. +
 Format: `clear`
 
 ==== Exiting the program : `exit`

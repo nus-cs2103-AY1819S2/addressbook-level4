@@ -3,6 +3,10 @@ package seedu.address.logic;
 import static org.junit.Assert.assertEquals;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_PDF_DISPLAYED_INDEX;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.address.logic.commands.CommandTestUtil.DIR_1_VALID;
+import static seedu.address.logic.commands.CommandTestUtil.FILEPATH_1_VALID;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_FILE;
+import static seedu.address.testutil.TypicalPdfs.SAMPLE_PDF_1;
 
 //import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
 //import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
@@ -19,6 +23,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.rules.TemporaryFolder;
 
+import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.CommandResult;
 //import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.HistoryCommand;
@@ -30,14 +35,17 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyPdfBook;
 import seedu.address.model.UserPrefs;
 //import seedu.address.model.pdf.Pdf;
+import seedu.address.model.pdf.Pdf;
 import seedu.address.storage.JsonPdfBookStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.StorageManager;
+import seedu.address.testutil.PdfBuilder;
 //import seedu.address.testutil.PdfBuilder;
 
 
 public class LogicManagerTest {
     private static final IOException DUMMY_IO_EXCEPTION = new IOException("dummy exception");
+    private static final String DEADLINE_NEWLY_ADDED_FILE = "NEWLY ADDED";
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
@@ -76,7 +84,7 @@ public class LogicManagerTest {
         assertCommandSuccess(listCommand, ListCommand.MESSAGE_SUCCESS, model);
         assertHistoryCorrect(listCommand);
     }
-    /*
+
     @Test
     public void execute_storageThrowsIoException_throwsCommandException() throws Exception {
         // Setup LogicManager with JsonPdfBookIoExceptionThrowingStub
@@ -87,16 +95,15 @@ public class LogicManagerTest {
         logic = new LogicManager(model, storage);
 
         // Execute add command
-        String addCommand = AddCommand.COMMAND_WORD + NAME_DESC_A + PHONE_DESC_AMY + EMAIL_DESC_AMY
-                + ADDRESS_DESC_AMY;
-        Pdf expectedPdf = new PdfBuilder(AMY).withTags().build();
+        String addCommand = AddCommand.COMMAND_WORD + " " + PREFIX_FILE + FILEPATH_1_VALID;
+        Pdf expectedPdf = new PdfBuilder(SAMPLE_PDF_1).withTags().withDeadline(DEADLINE_NEWLY_ADDED_FILE).build();
         ModelManager expectedModel = new ModelManager();
         expectedModel.addPdf(expectedPdf);
         expectedModel.commitPdfBook();
         String expectedMessage = LogicManager.FILE_OPS_ERROR_MESSAGE + DUMMY_IO_EXCEPTION;
         assertCommandBehavior(CommandException.class, addCommand, expectedMessage, expectedModel);
         assertHistoryCorrect(addCommand);
-    }*/
+    }
 
     @Test
     public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
@@ -155,7 +162,6 @@ public class LogicManagerTest {
             assertEquals(expectedException, e.getClass());
             assertEquals(expectedMessage, e.getMessage());
         }
-
         assertEquals(expectedModel, model);
     }
 

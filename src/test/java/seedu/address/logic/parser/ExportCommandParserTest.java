@@ -294,4 +294,20 @@ public class ExportCommandParserTest {
             throw new IllegalArgumentException("Invalid userInput.", pe);
         }
     }
+
+
+    @Test
+    public void parse_validArgs_returnsExportCommandEmptyFilename() {
+        File test = new File("data" + File.separator + ".json");
+        try {
+            ParsedInOut expected = new ParsedInOut(test, "json");
+            ParsedInOut actual = parser.parse(" .json all").getParsedInOut();
+            assertEquals(actual.getFile(), expected.getFile());
+            assertEquals(actual.getType(), expected.getType());
+            assertEquals(actual.getArgIsAll(), expected.getArgIsAll());
+            assertEquals(actual.getParsedIndex().isEmpty(), expected.getParsedIndex().isEmpty());
+        } catch (ParseException pe) {
+            throw new IllegalArgumentException("Invalid userInput.", pe);
+        }
+    }
 }

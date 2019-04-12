@@ -256,7 +256,7 @@ Selects the 1st worklist in the equipment manager.
 Selects the 1st equipment in the results of the find command.
 // end::select[]
 
-// tag::select[]
+// tag::select-c[]
 === Selecting a client: `select-c`
 Selects the client identified by the index number used in the displayed client list panel. All the equipments own by the client will be displayed under *Equipment details* panel. +
 Format: `select-c INDEX`
@@ -269,7 +269,7 @@ Examples:
 
 * `select 2` +
 Selects the 2nd client in the equipment manager.
-// end::select[]
+// end::select-c[]
 
 // tag::find[]
 === Locating equipment by location: `find`

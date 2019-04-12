@@ -90,7 +90,7 @@ image:tip.png[width="40"]
 
 include::../UserGuide.adoc[tag=quickstart]
 
-include::../UserGuide.adoc[tag=addclient]
+include::../UserGuide.adoc[tag=select-c]
 
 include::../UserGuide.adoc[tag=glossary]
 

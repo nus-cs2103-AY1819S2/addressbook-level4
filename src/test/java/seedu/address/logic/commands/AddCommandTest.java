@@ -297,11 +297,6 @@ public class AddCommandTest {
         }
 
         @Override
-        public void updateFilteredPersonList(Predicate<Person> predicate) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
         public boolean canUndoAddressBook() {
             throw new AssertionError("This method should not be called.");
         }
@@ -435,6 +430,32 @@ public class AddCommandTest {
         public Job getActiveJob() {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public void addPredicateAllPersons(String predicateName, Predicate<Person> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void removePredicateAllPersons(String predicateName) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void clearPredicateAllPersons() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredPersonList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Person> getBaseFilteredPersonList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
     }
 
     /**

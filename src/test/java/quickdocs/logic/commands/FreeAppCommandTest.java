@@ -26,7 +26,7 @@ public class FreeAppCommandTest {
         LocalDate end = start.plusDays(30);
         CommandResult result = new FreeAppCommand(start, end).execute(model, commandHistory);
         String expected = String.format(FreeAppCommand.MESSAGE_SUCCESS, start, end)
-                + model.freeApp(start, end);
+                + model.freeApp(start, end) + "\n";
 
         Assert.assertEquals(result.getFeedbackToUser(), expected);
     }
@@ -37,7 +37,7 @@ public class FreeAppCommandTest {
         LocalDate start = APP_E.getDate();
         CommandResult result = new FreeAppCommand(start, start).execute(model, commandHistory);
         String expected = String.format(FreeAppCommand.MESSAGE_NO_FREE_SLOTS, start, start)
-                + model.freeApp(start, start);
+                + model.freeApp(start, start) + "\n";
 
         Assert.assertEquals(result.getFeedbackToUser(), expected);
     }

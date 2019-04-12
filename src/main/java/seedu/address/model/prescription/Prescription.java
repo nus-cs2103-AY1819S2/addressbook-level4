@@ -12,8 +12,8 @@ import seedu.address.model.person.PersonId;
  */
 public class Prescription {
     // Identity field
-    private Patient patient;
-    private Doctor doctor;
+    private Patient patient = null;
+    private Doctor doctor = null;
     private Medicine medicine;
 
     // Id field
@@ -26,8 +26,6 @@ public class Prescription {
     //Constructor
     public Prescription (PersonId patientId, PersonId doctorId, Medicine medicine, Description description) {
 
-        //this.patient = patient;
-        //this.doctor = doctor;
         this.patientId = patientId;
         this.doctorId = doctorId;
         this.medicine = medicine;

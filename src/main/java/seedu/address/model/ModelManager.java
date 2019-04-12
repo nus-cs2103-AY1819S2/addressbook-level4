@@ -145,6 +145,7 @@ public class ModelManager implements Model {
     public void deletePatient(Patient target) {
         versionedDocX.removePatient(target);
         updateFilteredMedHistList(PREDICATE_SHOW_ALL_MEDHISTS);
+        updateFilteredPrescriptionList(PREDICATE_SHOW_ALL_PRESCRIPTIONS);
     }
 
     @Override

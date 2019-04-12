@@ -54,7 +54,7 @@ public class BoundaryValueChecker {
             } else if (!this.isBodyWithinBounds(coordinates.getColIndex())) {
                 logger.info("BATTLESHIP NOT WITHIN HORIZONTAL BOUNDS. Throwing BoundaryValueException.");
                 throw new BoundaryValueException(Messages.MESSAGE_BODY_LENGTH_TOO_LONG);
-            } else if (!this.isHorizontalClear()) {
+            } else if (!this.isClear(orientation)) {
                 logger.info("HORIZONTAL BOUNDS NOT CLEAR. Throwing BoundaryValueException.");
                 throw new BoundaryValueException(MESSAGE_BATTLESHIP_PRESENT_BODY_HORIZONTAL);
             }
@@ -65,7 +65,7 @@ public class BoundaryValueChecker {
             } else if (!this.isBodyWithinBounds(coordinates.getRowIndex())) {
                 logger.info("BATTLESHIP NOT WITHIN VERTICAL BOUNDS. Throwing BoundaryValueException.");
                 throw new BoundaryValueException(Messages.MESSAGE_BODY_LENGTH_TOO_LONG);
-            } else if (!this.isVerticalClear()) {
+            } else if (!this.isClear(orientation)) {
                 logger.info("BATTLESHIP NOT WITHIN VERTICAL BOUNDS. Throwing BoundaryValueException.");
                 throw new BoundaryValueException(MESSAGE_BATTLESHIP_PRESENT_BODY_VERTICAL);
             }
@@ -111,39 +111,19 @@ public class BoundaryValueChecker {
         return false;
     }
 
-    /**
-     * Checks if the vertical does not have any other battleships.
-     */
-    public boolean isVerticalClear() {
-        int length = battleship.getLength();
+    public boolean isClear(Orientation orientation) {
+        int row = coordinates.getRowIndex().getZeroBased();
+        int col = coordinates.getColIndex().getZeroBased();
 
-        for (int i = 1; i < length; i++) {
-            Coordinates cellCoords = new Coordinates(
-                    coordinates.getRowIndex().getZeroBased() + i,
-                    coordinates.getColIndex().getZeroBased());
-            Status status = mapGrid.getCellStatus(cellCoords);
-
-            if (status == Status.SHIP) {
-                return false;
+        for (int i = 1; i < battleship.getLength(); i++) {
+            if (orientation.isHorizontal()) {
+                col++;
+            } else {
+                row++;
             }
-        }
 
-        return true;
-    }
-
-    /**
-     * Checks if the horizontal does not have any other battleships.
-     */
-    public boolean isHorizontalClear() {
-        int length = battleship.getLength();
-
-        for (int i = 1; i < length; i++) {
-            Coordinates cellCoords = new Coordinates(
-                    coordinates.getRowIndex().getZeroBased(),
-                    coordinates.getColIndex().getZeroBased() + i);
-            Status status = mapGrid.getCellStatus(cellCoords);
-
-            if (status == Status.SHIP) {
+            Coordinates cellCoords = new Coordinates(row, col);
+            if (mapGrid.getCellStatus(cellCoords) == Status.SHIP) {
                 return false;
             }
         }

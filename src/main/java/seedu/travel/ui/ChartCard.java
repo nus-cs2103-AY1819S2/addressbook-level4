@@ -151,7 +151,7 @@ public class ChartCard extends UiPart<Region> {
         for (int i = 0; i < tempRatingList.size(); i++) {
             RatingChart rating = tempRatingList.get(i);
             String ratingName = rating.getChartRating().toString();
-            if (i == 0) {
+            if (ratingName.equals("1")) {
                 pieChartData.add(new PieChart.Data(ratingName + " Star", rating.getTotal()));
             } else {
                 pieChartData.add(new PieChart.Data(ratingName + " Stars", rating.getTotal()));

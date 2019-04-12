@@ -17,6 +17,7 @@ ifdef::env-github[]
 :warning-caption: :warning:
 endif::[]
 :repoURL: https://github.com/CS2103-AY1819S2-W11-3/main
+:websiteURL: https://cs2103-ay1819s2-w11-3.github.io/main
 :source-highlighter: rouge
 :doctype: article
 :reproducible:
@@ -25,7 +26,7 @@ endif::[]
 ---
 == Overview
 
-This document serves to highlight my contributions to *TravelBuddy*, a travel log application that allows users to efficiently manage their travel records, i.e. the places that they have visited. Additional features built into TravelBuddy allows them to search through the records, attach photos and view statistical models. This  link:https://cs2103-ay1819s2-w11-3.github.io/main/AboutUs.html[team-based] project is part of the CS2103T Software Engineering module in National University of Singapore, in which my team and I were tasked to morph a given link:https://se-education.org/addressbook-level4/[address book] product into a new product -- TravelBuddy. The complete source code for TravelBuddy is available on link:{repoURL}[GitHub].
+This document serves to highlight my contributions to *TravelBuddy*, a travel log application that allows users to efficiently manage their travel records, i.e. the places that they have visited. Additional features built into TravelBuddy allows them to search through the records, attach photos and view statistical models. This  link:{websiteURL}/AboutUs.html[team-based] project is part of the CS2103T Software Engineering module in National University of Singapore, in which my team and I were tasked to morph a given link:https://se-education.org/addressbook-level4/[address book] product into a new product -- TravelBuddy. The complete source code for TravelBuddy is available on link:{repoURL}[GitHub].
 
 My role was to design the chart feature. The following sections describe the enhancements I made in greater detail. They also include relevant sections from the user and developer guide related to these enhancements.
 
@@ -100,7 +101,7 @@ a|* Integrated a third-party library (Gson) to the project (Pull request: {repoU
 == Contributions to the User Guide
 
 ****
-_Given below is the start of extract of sections I contributed to the link:https://cs2103-ay1819s2-w11-3.github.io/main/UserGuide.html[User Guide]. They showcase my ability to write documentation targeting end-users._
+_Given below is the start of extract of sections I contributed to the link:{websiteURL}/UserGuide.html[User Guide]. They showcase my ability to write documentation targeting end-users._
 ****
 
 //include::../UserGuide.adoc[tag=intro]
@@ -110,13 +111,13 @@ include::../UserGuide.adoc[tag=generate]
 //include::../UserGuide.adoc[tag=commandFormats]
 
 ****
-_This is the end of extract of the User Guide._
+_This is the end of extract of the link:{websiteURL}/UserGuide.html[User Guide]._
 ****
 
 == Contributions to the Developer Guide
 
 ****
-_Given below is the start of extract of sections I contributed to the link:https://cs2103-ay1819s2-w11-3.github.io/main/UserGuide.html[Developer Guide]. They showcase my ability to write documentation targeting end-users._
+_Given below is the start of extract of sections I contributed to the link:{websiteURL}/DeveloperGuide.html[Developer Guide]. They showcase my ability to write documentation targeting end-users._
 ****
 
 //include::../DeveloperGuide.adoc[tag=implementation]
@@ -125,5 +126,5 @@ include::../DeveloperGuide.adoc[tag=chartFeature]
 //include::../DeveloperGuide.adoc[tag=use-cases]
 
 ****
-_This is the end of extract of the Developer Guide._
+_This is the end of extract of the link:{websiteURL}/DeveloperGuide.html[Developer Guide]._
 ****

@@ -95,7 +95,8 @@ public class CommandTestUtil {
     public static final String DATE_1_VALID = "2019-10-03";
     public static final String DATE_2_VALID = "2019-05-03";
     public static final String DATE_INVALID_DATE = "2019-10-32";
-    //public static final LocalDate LOCAL_DATE_INVALID_DATE = LocalDate.of(2019, 10, 32);
+    public static final String DATE_USER_INPUT_INVALID = "13/04/2019";
+    public static final String DATE_USER_INPUT_VALID = "13-04-2019";
 
     //Password Constant
     public static final String PASSWORD_1_VALID = "validPassword1";
@@ -118,14 +119,6 @@ public class CommandTestUtil {
             + DEADLINE_STATUS_NOTDONE;
 
     public static final String DEADLINE_DESC_VALID = " " + PREFIX_DEADLINE_NEW + DATE_1_VALID;
-    //public static final String DEADLINE_DESC_INVALID_MISSING_STATUS = " " + PREFIX_DEADLINE_NEW + DATE_1_VALID;
-    //public static final String DEADLINE_DESC_INVALID_WRONG_STATUS = " " + PREFIX_DEADLINE_NEW + DATE_2_VALID
-    //        + PROPERTY_SEPARATOR_PREFIX + DEADLINE_STATUS_INVALID;
-    //public static final String DEADLINE_DESC_INVALID_DATE = " " + PREFIX_DEADLINE_NEW + DATE_INVALID_DATE
-    //        + PROPERTY_SEPARATOR_PREFIX + DEADLINE_STATUS_NOTDONE;
-    //public static final String DEADLINE_DESC_INVALID_FORMAT = " " + PREFIX_DEADLINE_NEW + DATE_INVALID_FORMAT
-    //        + PROPERTY_SEPARATOR_PREFIX + DEADLINE_STATUS_NOTDONE;
-
     //Delete Constants
     public static final String DELETE_TYPE_SOFT = "soft";
     public static final String DELETE_TYPE_HARD = "hard";

@@ -710,7 +710,7 @@ We define a Common command as a command whose name is used by the Patient comman
 For example, as there are `patientadd`, `recordadd` and `taskadd`, the Common command would be `add`. +
 As TeethHub has a Patient Mode and a Record Mode, only commands that can be used in the user's current mode will be displayed.
 
-image::SuggestionFeatureAdd.png[width="157"]
+image::SuggestionFeatureAdd.png[width="236"]
 
 ==== Design Considerations
 * **Current implementation:** When the user types a Common command, suggestions are displayed. +

@@ -1,8 +1,17 @@
 package seedu.address.logic.commands;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+import static seedu.address.logic.commands.CommandTestUtil.TAG_VALID_LECTURE;
+import static seedu.address.testutil.TypicalPdfs.getTypicalPdfBook;
+
+import java.util.HashSet;
+
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -10,15 +19,6 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.tag.Tag;
-
-import java.util.HashSet;
-
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
-
-import static seedu.address.logic.commands.CommandTestUtil.TAG_VALID_LECTURE;
-import static seedu.address.testutil.TypicalPdfs.getTypicalPdfBook;
 
 public class TagCommandTest {
 
@@ -63,7 +63,7 @@ public class TagCommandTest {
     }
 
     @Test
-    public void execute_invalid_Index_CommandException() throws CommandException {
+    public void execute_invalidIndex_CommandException() throws CommandException {
         HashSet<Tag> validTags = new HashSet<>();
         validTags.add(new Tag(TAG_VALID_LECTURE));
 
@@ -73,7 +73,7 @@ public class TagCommandTest {
     }
 
     @Test
-    public void execute_invalid_Index_InvalidException() throws CommandException {
+    public void execute_invalidIndex_InvalidException() throws CommandException {
         HashSet<Tag> validTags = new HashSet<>();
         validTags.add(new Tag(TAG_VALID_LECTURE));
 

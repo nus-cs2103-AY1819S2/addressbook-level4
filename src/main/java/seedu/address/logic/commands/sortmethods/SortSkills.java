@@ -1,22 +1,18 @@
 package seedu.address.logic.commands.sortmethods;
 
-import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.LinkedHashSet;
 import java.util.List;
 
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Education;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Gpa;
-import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
-import seedu.address.model.tag.SkillsTag;
 
 /**
- * Sorts all persons by skill (tag).
- * Currently only the first (alphabetically) is ordered.
+ * Follows the SortMethod interface
+ * Sorts all persons by tag specified by {@code type} (skill, position, endorsement).
+ * Each persons specified tag type set is ordered alphabetically.
+ * Persons are then ordered alphabetically based on this ordered tag type.
+ * Should two people have matching sets of the specified tags, then they are subsequently ordered by the tags of
+ *     the other types (in their pre-existing ordering)
+ * Should two people have perfectly matching tags, they are then ordered alphabetically by name (first name first)
  */
 public class SortSkills implements SortMethod {
 
@@ -25,50 +21,13 @@ public class SortSkills implements SortMethod {
     public void execute(List<Person> lastShownList, String... type) {
         String prefix = type[0].substring(0, 1);
         //Modify each Person to organise tags alphabetically
-        List<Person> personsWithCorrectTagOrder = orderPersonsTags(lastShownList, prefix);
+        List<Person> personsWithCorrectTagOrder = SortUtil.orderPersonsTags(lastShownList, prefix);
         //Sort Persons alphabetically by tags
         Comparator<Person> personTagComparator = Comparator.comparing(Person::tagsToString);
-        List<Person> newList = SortUtil.sortPersons(personsWithCorrectTagOrder, personTagComparator);
-
-        this.newList = newList;
-    }
-
-    /**
-     * Gets from the list the information of person and processes
-     */
-    private List<Person> orderPersonsTags(List<Person> lastShownList, String prefix) {
-        List<Person> personsWithCorrectTagOrder = new ArrayList<>();
-        for (Person person : lastShownList) {
-            //Change Set to List to utilise stream sorting
-            List<SkillsTag> individualTags = new ArrayList<>();
-            List<SkillsTag> tagsToSort = new ArrayList<>();
-            List<SkillsTag> otherTags = new ArrayList<>();
-            individualTags.addAll(person.getTags());
-            for (SkillsTag tag : individualTags) {
-                String tagString = tag.toString();
-                //first element of string is "["
-                if (tagString.substring(1, 2).equals(prefix)) {
-                    tagsToSort.add(tag);
-                } else {
-                    otherTags.add(tag);
-                }
-            }
-            List<SkillsTag> individualSortedTags = SortUtil.sortSkillTags(tagsToSort);
-            individualSortedTags.addAll(otherTags);
-
-            Name name = person.getName();
-            Phone phone = person.getPhone();
-            Email email = person.getEmail();
-            Education education = person.getEducation();
-            Gpa gpa = person.getGpa();
-            Address address = person.getAddress();
-            //change list back to set
-            LinkedHashSet<SkillsTag> tagSet = SortUtil.toTags(individualSortedTags);
-
-            Person newPerson = new Person(name, phone, email, education, gpa, address, tagSet);
-            personsWithCorrectTagOrder.add(newPerson);
-        }
-        return personsWithCorrectTagOrder;
+        List<Person> initialSortedList = SortUtil.sortPersons(personsWithCorrectTagOrder, personTagComparator);
+        SortListWithDuplicates secondarySort = new SortListWithDuplicates(initialSortedList, new SortName(),
+                personTagComparator);
+        this.newList = secondarySort.getList();
     }
 
     public List<Person> getList() {

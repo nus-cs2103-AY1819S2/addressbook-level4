@@ -7,7 +7,8 @@ import seedu.address.model.person.Person;
 
 
 /**
- * Sorts all persons by Education.
+ * Follows the SortMethod interface
+ * Sorts all persons by Education and then subsequently by gpa
  */
 public class SortEducation implements SortMethod {
 
@@ -15,7 +16,10 @@ public class SortEducation implements SortMethod {
 
     public void execute(List<Person> lastShownList, String... type) {
         Comparator<Person> personEducationComparator = Comparator.comparing(Person::educationToString);
-        this.newList = SortUtil.sortPersons(lastShownList, personEducationComparator);
+        List<Person> initialSortedList = SortUtil.sortPersons(lastShownList, personEducationComparator);
+        SortListWithDuplicates secondarySort = new SortListWithDuplicates(initialSortedList, new SortGpa(),
+                personEducationComparator);
+        this.newList = secondarySort.getList();
     }
 
     public List<Person> getList() {

@@ -239,15 +239,6 @@ public class Person {
     }
 
     /**
-     *  returns the Person's first name as a string
-     */
-    public String firstNameToString() {
-        String fullName = nameToString();
-        int firstSpace = fullName.indexOf(" ");
-        return fullName.substring(0, firstSpace);
-    }
-
-    /**
      * Returns just the surname of the Persons name as a string
      */
     public String surnameToString() {

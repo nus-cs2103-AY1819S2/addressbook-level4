@@ -34,7 +34,7 @@ public class BrowserPanelTest extends GuiUnitTest {
         // associated web page of a person
         guiRobot.interact(() -> selectedPerson.set(ALICE));
         URL expectedPersonUrl = new URL(BrowserPanel.SEARCH_PAGE_URL + ALICE.getName()
-                .fullName.replaceAll(" ", "%20"));
+                .fullName.replaceAll(" ", "%20") + "Software%20Engineer");
         URL expectedPersonUrlLogin = new URL("https://www.linkedin.com/m/login/"); //Login Page returned first
 
         waitUntilBrowserLoaded(browserPanelHandle);

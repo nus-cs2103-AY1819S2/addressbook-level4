@@ -7,7 +7,9 @@ import seedu.address.model.person.Person;
 
 
 /**
- * Sorts all persons by age.
+ * Follows the SortMethod interface
+ * Sorts all persons by name, starting with first name.
+ * No secondary sorting is required since duplicate persons are not allowed in the address book.
  */
 public class SortName implements SortMethod {
 

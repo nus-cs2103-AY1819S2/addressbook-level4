@@ -61,7 +61,7 @@ public class SortCommand extends Command {
     }
 
     private void getSortedPersons(SortMethod command, List<Person> lastShownList, String... type) {
-        command.execute(lastShownList, type[0]);
+        command.execute(lastShownList, type);
         this.sortedPersons = command.getList();
         this.isNewListPresent = true;
     }

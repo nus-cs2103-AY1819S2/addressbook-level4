@@ -63,16 +63,12 @@ public class ExportCommand extends OutCommand {
         ModelManager tempModel = new ModelManager();
 
         tempModel.setAddressBook(model.getAddressBook());
-        ArrayList<Person> deleteList = new ArrayList<>();
+        tempModel.setPatientList(new ArrayList<>());
 
-        for (int i = 0; i < tempModel.getFilteredPersonList().size(); i++) {
-            if (!parsedIndex.contains(i)) {
-                deleteList.add(tempModel.getFilteredPersonList().get(i));
+        for (int i = 0; i < model.getFilteredPersonList().size(); i++) {
+            if (parsedIndex.contains(i)) {
+                tempModel.addPerson(model.getFilteredPersonList().get(i));
             }
-        }
-
-        for (Person personToDelete : deleteList) {
-            tempModel.deletePerson(personToDelete);
         }
 
         return tempModel;

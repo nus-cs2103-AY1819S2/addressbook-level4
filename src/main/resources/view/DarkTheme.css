@@ -479,3 +479,14 @@
     -fx-text-fill: white;
     -fx-opacity: 0.9;
 }
+
+#jobsApply .label {
+    -fx-font-size: 10pt;
+    -fx-font-weight: regular;
+    -fx-font-family: "Segoe";
+    -fx-text-fill: white;
+}
+
+#phoneL, #raceL, #genderL, #interviewScoresL, #gradeL, #schoolL, #emailL, #majorL, #jobApplyL, #pastJobsL {
+    -fx-font-size: 10pt;
+}

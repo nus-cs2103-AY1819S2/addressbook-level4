@@ -7,10 +7,10 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
-
 
 <Scene fx:id="mainJobScene" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <stylesheets>
@@ -49,6 +49,7 @@
                   <VBox fx:id="allList" maxHeight="1.7976931348623157E308" minWidth="400.0" prefWidth="400.0">
                      <children>
                         <Label fx:id="allLabel" prefHeight="31.0" prefWidth="413.0" text="All Applicants" />
+                        <FlowPane fx:id="allAppFilter" prefHeight="30.0" prefWidth="200.0" styleClass="cell_small_label" stylesheets="@DarkTheme.css" />
                         <StackPane fx:id="allPlaceholder" maxHeight="1.7976931348623157E308" VBox.vgrow="ALWAYS" />
                      </children>
                      <padding>
@@ -58,15 +59,16 @@
                   <VBox fx:id="kivList" maxHeight="1.7976931348623157E308" minWidth="400.0" prefWidth="400.0">
                      <children>
                         <Label fx:id="jobsLabel" prefHeight="31.0" prefWidth="407.0" text="Jobs Open" />
+                        <FlowPane fx:id="allJobFilter" prefHeight="30.0" prefWidth="200.0" styleClass="cell_small_label" stylesheets="@DarkTheme.css" />
                         <StackPane fx:id="jobsPlaceholder" maxHeight="1.7976931348623157E308" VBox.vgrow="ALWAYS" />
                      </children>
                   </VBox>
+                  <StackPane fx:id="statusbarPlaceholder" />
                </children>
                <padding>
                   <Insets left="5.0" top="5.0" />
                </padding>
             </HBox>
-            <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
          </children>
       </VBox>
    </root>

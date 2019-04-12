@@ -38,7 +38,17 @@ public class ListTagsCommand extends Command {
         if (tagSet.isEmpty()) {
             stringBuilder.append("no tags found");
         } else {
-            stringBuilder.append(tagSet);
+            int tagSetSize = tagSet.size();
+            int counter = 0;
+            stringBuilder.append(tagSetSize).append(" tags found\n");
+            for (Tag tag : tagSet) {
+                counter++;
+                stringBuilder.append(tag.getTagName());
+                if (counter < tagSetSize) {
+                    stringBuilder.append(", ");
+                }
+
+            }
         }
 
         return new CommandResult(MESSAGE_SUCCESS + stringBuilder.toString());

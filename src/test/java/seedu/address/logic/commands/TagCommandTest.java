@@ -21,10 +21,8 @@ import seedu.address.model.UserPrefs;
 import seedu.address.model.tag.Tag;
 
 public class TagCommandTest {
-
     @Rule
     public ExpectedException thrown = ExpectedException.none();
-
 
     private Model model = new ModelManager(getTypicalPdfBook(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();

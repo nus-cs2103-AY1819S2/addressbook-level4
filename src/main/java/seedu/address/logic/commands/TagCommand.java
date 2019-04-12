@@ -88,10 +88,18 @@ public class TagCommand extends Command {
 
     @Override
     public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof TagCommand // instanceof handles nulls
-                && index.equals(((TagCommand) other).index)
-                && isAddTag.equals(((TagCommand) other).isAddTag)
-                && tags.equals(((TagCommand) other).tags));
+        // short circuit if same object
+        if (other == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(other instanceof TagCommand)) {
+            return false;
+        }
+
+        // state check
+        TagCommand e = (TagCommand) other;
+        return index.equals(e.index) && tags.equals(e.tags) && isAddTag == e.isAddTag;
     }
 }

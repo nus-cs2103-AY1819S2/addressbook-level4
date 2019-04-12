@@ -624,10 +624,12 @@ e.g. `HTML workshop` will return `HTML camp`, `CSS workshop`
 
 Examples:
 
-* `activityFind l/ Hall` +
-Returns activities with location `University Hall` and `Eusoff Hall`
+* `activityFind de/ free` +
+Returns activities with description `Free food` and `Free giveaway`
 * `activityFind n/ HTML CSS Javascript` +
 Returns any activity having names `HTML`, `CSS`, or `Javascript`
+* `activityFind n/Workshop Lecture l/Auditorium` +
+Returns any activity having name `Workshop` or `Lecture`, and the location is `Auditorium`
 
 ==== Listing all activities : `activityList` or `aList`
 

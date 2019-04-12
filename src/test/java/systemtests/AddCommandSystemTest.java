@@ -1,5 +1,5 @@
-package systemtests;
-
+//package systemtests;
+//
 //import static seedu.hms.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 //import static seedu.hms.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
 //import static seedu.hms.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
@@ -52,8 +52,8 @@ package systemtests;
 //import seedu.hms.model.tag.Tag;
 //import seedu.hms.testutil.CustomerBuilder;
 //import seedu.hms.testutil.CustomerUtil;
-
-public class AddCommandSystemTest extends HotelManagementSystemSystemTest {
+//
+//public class AddCommandSystemTest extends HotelManagementSystemSystemTest {
 //    @Test
 //    public void add() {
 //        CustomerModel model = getModel();
@@ -262,6 +262,7 @@ public class AddCommandSystemTest extends HotelManagementSystemSystemTest {
 //    private void assertCommandSuccess(String command, CustomerModel expectedModel, String expectedResultMessage) {
 //        executeCommand(command);
 //        assertApplicationDisplaysExpected("", expectedResultMessage, expectedModel);
+//
 //        assertSelectedCardUnchanged();
 //        assertCommandBoxShowsDefaultStyle();
 //        assertStatusBarUnchangedExceptSyncStatus();
@@ -283,4 +284,4 @@ public class AddCommandSystemTest extends HotelManagementSystemSystemTest {
 //        assertCommandBoxShowsErrorStyle();
 //        assertStatusBarUnchanged();
 //    }
-}
+//}

@@ -28,6 +28,7 @@ public class DateOfBirthTest {
         assertFalse(DateOfBirth.isValidDob("30/02/2000").getKey()); // february is 28 days only
         assertFalse(DateOfBirth.isValidDob("01/11/2020").getKey()); // year can't be greater than current year
         assertFalse(DateOfBirth.isValidDob("01/11/11").getKey()); // yy not taken
+        assertFalse(DateOfBirth.isValidDob("31/04/11").getKey()); //this month can't have 31 days
 
 
         // valid dob
@@ -37,6 +38,7 @@ public class DateOfBirthTest {
         assertTrue(DateOfBirth.isValidDob("28/05/1999").getKey()); // exact order
         assertTrue(DateOfBirth.isValidDob("01/12/1999").getKey());
         assertTrue(DateOfBirth.isValidDob("12/10/1999").getKey());
+        assertTrue(DateOfBirth.isValidDob("").getKey());
     }
 
 

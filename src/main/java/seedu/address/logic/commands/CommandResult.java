@@ -24,7 +24,7 @@ public class CommandResult {
 
     /** Show a different browser panel to the user, depending on the command result */
     public enum ShowBrowser {
-        NO_CHANGE, MED_HIST_BROWSER, PATIENT_BROWSER, DOCTOR_BROWSER
+        NO_CHANGE, MED_HIST_BROWSER, PATIENT_BROWSER, DOCTOR_BROWSER, PRESCRIPTION_BROWSER
     }
 
     private ShowPanel showPanel = ShowPanel.NO_CHANGE;

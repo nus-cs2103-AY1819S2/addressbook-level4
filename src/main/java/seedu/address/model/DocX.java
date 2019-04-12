@@ -252,6 +252,7 @@ public class DocX implements ReadOnlyDocX {
     public void removePatient(Patient key) {
         patients.remove(key);
         updateMedHistWhenPatientDeleted(key.getId());
+        updatePrescriptionWhenPatientDeleted(key.getId());
         indicateModified();
     }
 
@@ -322,6 +323,21 @@ public class DocX implements ReadOnlyDocX {
         indicateModified();
     }
     //// prescription-level operations
+    /**
+     * Set Doctor in prescription to null if the patient is deleted
+     */
+    public void updatePrescriptionWhenDoctorDeleted(PersonId doctorId) {
+        requireNonNull(doctorId);
+        prescriptions.setDoctorToNull(doctorId);
+    }
+
+    /**
+     * Set Patient in prescription to null if the patient is deleted
+     */
+    public void updatePrescriptionWhenPatientDeleted(PersonId patientId) {
+        requireNonNull(patientId);
+        prescriptions.setPatientToNull(patientId);
+    }
 
     /**
      * Returns true if a prescription with the same identity as {@code prescription} exists in the docX.
@@ -337,13 +353,17 @@ public class DocX implements ReadOnlyDocX {
      */
     public void addPrescription(Prescription prescription) {
         prescriptions.addPrescription(prescription);
+        Patient patientWithId = getPatientById(prescription.getPatientId());
+        prescription.setPatient(patientWithId);
+        Doctor doctorWithId = getDoctorById(prescription.getDoctorId());
+        prescription.setDoctor(doctorWithId);
         indicateModified();
     }
 
     /**
-     * Replaces the given medical history {@code target} in the list with {@code editedMedHist}.
+     * Replaces the given prescription {@code target} in the list with {@code editedPrescription}.
      * {@code target} must exist in the docX.
-     * The medical history identity of {@code editedMedHist} must not be the same as another existing medical history
+     * The prescription identity of {@code editedPrescription} must not be the same as another existing prescription
      * in the docX.
      */
     public void setPrescription(Prescription target, Prescription editedPrescription) {
@@ -361,6 +381,7 @@ public class DocX implements ReadOnlyDocX {
     public void removeDoctor(Doctor key) {
         doctors.remove(key);
         updateMedHistWhenDoctorDeleted(key.getId());
+        updatePrescriptionWhenDoctorDeleted(key.getId());
         indicateModified();
     }
 

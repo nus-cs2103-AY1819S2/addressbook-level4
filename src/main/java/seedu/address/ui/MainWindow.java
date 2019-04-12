@@ -35,6 +35,7 @@ public class MainWindow extends UiPart<Stage> {
     private PatientInfoPanel patientInfoPanel;
     private MedHistBrowserPanel medHistBrowserPanel;
     private DoctorBrowserPanel doctorBrowserPanel;
+    private PrescriptionBrowserPanel prescriptionBrowserPanel;
     private PatientListPanel patientListPanel;
     private MedHistListPanel medHistListPanel;
     private AppointmentListPanel appointmentListPanel;
@@ -128,6 +129,7 @@ public class MainWindow extends UiPart<Stage> {
         browserPanel = new BrowserPanel(logic.selectedPatientProperty());
         patientInfoPanel = new PatientInfoPanel(logic.selectedPatientProperty());
         medHistBrowserPanel = new MedHistBrowserPanel(logic.selectedMedHistProperty());
+        prescriptionBrowserPanel = new PrescriptionBrowserPanel(logic.selectedPrescriptionProperty());
         browserPlaceholder.getChildren().add(browserPanel.getRoot());
 
         patientListPanel = new PatientListPanel(logic.getFilteredPatientList(), logic.selectedPatientProperty(),
@@ -171,6 +173,14 @@ public class MainWindow extends UiPart<Stage> {
     public void showMedHistBrowser() {
         browserPlaceholder.getChildren().clear();
         browserPlaceholder.getChildren().add(medHistBrowserPanel.getRoot());
+    }
+
+    /**
+     * Show the browser of prescription
+     */
+    public void showPrescriptionBrowser() {
+        browserPlaceholder.getChildren().clear();
+        browserPlaceholder.getChildren().add(prescriptionBrowserPanel.getRoot());
     }
 
     /**
@@ -304,6 +314,9 @@ public class MainWindow extends UiPart<Stage> {
                 break;
             case DOCTOR_BROWSER:
                 showDoctorBrowser();
+                break;
+            case PRESCRIPTION_BROWSER:
+                showPrescriptionBrowser();
                 break;
             default:
                 break;

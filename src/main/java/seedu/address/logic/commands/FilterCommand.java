@@ -26,6 +26,7 @@ public class FilterCommand extends Command {
     public static final String MESSAGE_FILTER_REVERSE_SUCCESS = "The filtering is reversed.";
     public static final String MESSAGE_NOT_FILTERED = "Filtering is not successful!";
     public static final String MESSAGE_NO_FILTER_TO_CLEAR = "There is no filter to clear.";
+    public static final String MESSAGE_NO_FILTER_TO_REVERSE = "There is no filter to reverse.";
     public static final String MESSAGE_USAGE =
             COMMAND_WORD + " or/and " + "prefix1<text>prefix1 [prefix2<text>prefix2] "
             + "--- OR --- " + COMMAND_WORD + " clear/reverse \n"
@@ -131,8 +132,12 @@ public class FilterCommand extends Command {
             } else if (processNum == 0 && !isFilterCleared) {
                 return new CommandResult(MESSAGE_NO_FILTER_TO_CLEAR);
             } else if (processNum == 3) {
-                model.commitAddressBook();
-                return new CommandResult(MESSAGE_FILTER_REVERSE_SUCCESS);
+                if (model.getFilterInfo()) {
+                    model.commitAddressBook();
+                    return new CommandResult(MESSAGE_FILTER_REVERSE_SUCCESS);
+                } else {
+                    return new CommandResult(MESSAGE_NO_FILTER_TO_REVERSE);
+                }
             } else {
                 model.commitAddressBook();
                 return new CommandResult(MESSAGE_FILTER_PERSON_SUCCESS);

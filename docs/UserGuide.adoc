@@ -483,7 +483,7 @@ Sorts the list of records by date with the latest at the top (descending order)
 Sorts the list of records by category in lexicographical order (ascending order)
 
 .Examples of `sort` command (default ordering)
-image::sortExamples.png[width ="800"]
+image::sortExamples.png[width ="900"]
 
 *More examples*:
 
@@ -513,6 +513,10 @@ You can also reverse the order of the list of entries in the records.
 *Alias*: `rev`
 
 *Format*: reverse
+
+.Name sorted in descending order
+image::reverseExample.png[width ="600"]
+
 // end::reverse[]
 
 // tag::summary[]
@@ -597,6 +601,7 @@ You can restore the program to the state before the previous _undoable_ command 
 
 ****
 *Examples*:
+
 * `delete 1` +
 `list` +
 `undo` (reverses the `delete 1` command) +
@@ -616,7 +621,7 @@ The `undo` command fails as there are no undoable commands executed previously.
 _Undoable_ commands:
 
 * commands that modify the finance tracker's content +
-(`set`, `spend`, `increase`, `allocate`, `edit`, `delete`, `clear`, `description).
+(`set`, `spend`, `increase`, `allocate`, `edit`, `delete`, `sort`, `clear`, `description`).
 ====
 
 ==== Redoing the previously undone command : `redo`
@@ -771,16 +776,16 @@ _In-Credit-Ble_  aims to support multi-currency transactions in `v2.0`.
 |=======================================================================
 | Command | Command Format | Alias | Example
 | List all entries | `list` | `l`, `ls` | -
-| Locate entry based on name, category or date |`search -FLAG* KEYWORD [MORE_KEYWORDS]` | `find` | `search -cat Food`
-| Sort the entries based on name, category, date, amount | `sort -FLAG* [ORDER]**` | - | `sort -name`
+| Locate entry based on name, category or date |`search FLAG* KEYWORD [MORE_KEYWORDS]` | `find` | `search -cat Food`
+| Sort the entries based on name, category, date, amount | `sort FLAG* [ORDER]**` | - | `sort -name`
 | Reverse all entries | `reverse` | `rev` | -
 | Show summary of records | `summary`[#/] [p/] | `overview` | `summary #/5 p/d` +
 Shows summary for past 5 days
 
 |=======================================================================
-*Valid flags: `name`-> Name; `cat` -> Category; `date` -> Date; `amount` -> Amount;
+*Valid flags: `-name`-> Name; `-cat` -> Category; `-date` -> Date; `-amount` (only for `sort` command) -> Amount;
 
-**Valid orders: `asc` -> ascending order; `desc` -> descending order
+**Valid orders: `-asc` -> ascending order; `-desc` -> descending order
 
 === Miscellaneous
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]

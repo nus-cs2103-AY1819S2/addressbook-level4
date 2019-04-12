@@ -11,6 +11,7 @@ import java.util.List;
 
 import seedu.address.logic.commands.RecordFindCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.record.Record;
 import seedu.address.model.util.predicate.ContainsKeywordsPredicate;
 import seedu.address.model.util.predicate.DescriptionRecordContainsKeywordsPredicate;
 import seedu.address.model.util.predicate.MultipleContainsKeywordsPredicate;
@@ -68,8 +69,8 @@ public class RecordFindCommandParser implements Parser<RecordFindCommand> {
 
         String[] keywords;
         ContainsKeywordsPredicate predicate;
-        MultipleContainsKeywordsPredicate multiPredicate =
-            new MultipleContainsKeywordsPredicate(Collections.emptyList(), isIgnoreCase, isAnd);
+        MultipleContainsKeywordsPredicate<Record> multiPredicate =
+            new MultipleContainsKeywordsPredicate<>(Collections.emptyList(), isIgnoreCase, isAnd);
 
         List<ContainsKeywordsPredicate> predicateList = new ArrayList<>();
 

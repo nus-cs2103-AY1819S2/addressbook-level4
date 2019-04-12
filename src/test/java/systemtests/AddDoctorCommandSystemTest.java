@@ -16,7 +16,9 @@ import static seedu.address.logic.commands.CommandTestUtil.SPECIALISATION_DESC_A
 import static seedu.address.logic.commands.CommandTestUtil.SPECIALISATION_DESC_GENERAL;
 import static seedu.address.logic.commands.CommandTestUtil.SPECIALISATION_DESC_MASSAGE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_GENDER_ALVINA;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_ALVINA;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_STEVEN;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_ALVINA;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_STEVEN;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_YEAR_STEVEN;
 import static seedu.address.logic.commands.CommandTestUtil.YEAR_DESC_ALVINA;
@@ -74,18 +76,11 @@ public class AddDoctorCommandSystemTest extends DocXSystemTest {
         expectedResultMessage = RedoCommand.MESSAGE_SUCCESS;
         assertCommandSuccess(command, model, expectedResultMessage);
 
-        /* Case: add a doctor with all fields same as another doctor in docX except name -> added */
-        toAdd = new DoctorBuilder(ALVINA).withName(VALID_NAME_STEVEN).build();
-        command = AddDoctorCommand.COMMAND_WORD + NAME_DESC_STEVEN
-                + GENDER_DESC_ALVINA + YEAR_DESC_ALVINA + PHONE_DESC_ALVINA
-                + SPECIALISATION_DESC_ACUPUNCTURE;
-        assertCommandSuccess(command, toAdd);
-
-        /* Case: add a doctor with all fields same as another doctor in docX except phone
-         * -> added
-         */
+        /* Case: add a doctor with all fields same as another doctor in docX except phone -> added */
         toAdd = new DoctorBuilder(ALVINA).withPhone(VALID_PHONE_STEVEN).build();
-        command = DoctorUtil.getAddDoctorCommand(toAdd);
+        command = AddDoctorCommand.COMMAND_WORD + NAME_DESC_ALVINA
+                + GENDER_DESC_ALVINA + YEAR_DESC_ALVINA + PHONE_DESC_STEVEN
+                + SPECIALISATION_DESC_ACUPUNCTURE;
         assertCommandSuccess(command, toAdd);
 
         /* Case: add to empty docX -> added */
@@ -114,6 +109,11 @@ public class AddDoctorCommandSystemTest extends DocXSystemTest {
 
         /* Case: add a duplicate doctor -> rejected */
         command = DoctorUtil.getAddDoctorCommand(ILLIOT);
+        assertCommandFailure(command, AddDoctorCommand.MESSAGE_DUPLICATE_DOCTOR);
+
+        /* Case: add a duplicate doctor except with different name -> rejected */
+        toAdd = new DoctorBuilder(ILLIOT).withName(VALID_NAME_ALVINA).build();
+        command = DoctorUtil.getAddDoctorCommand(toAdd);
         assertCommandFailure(command, AddDoctorCommand.MESSAGE_DUPLICATE_DOCTOR);
 
         /* Case: add a duplicate doctor except with different gender -> rejected */

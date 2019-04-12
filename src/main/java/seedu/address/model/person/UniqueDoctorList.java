@@ -62,7 +62,7 @@ public class UniqueDoctorList implements Iterable<Doctor> {
     public void add(Doctor toAdd) {
         requireNonNull(toAdd);
         if (contains(toAdd)) {
-            throw new DuplicatePersonException();
+            throw new DuplicateDoctorException();
         }
         internalList.add(toAdd);
     }

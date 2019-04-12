@@ -22,6 +22,7 @@ import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_AGE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_GENDER_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_ALVINA;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
@@ -79,14 +80,6 @@ public class AddPatientCommandSystemTest extends DocXSystemTest {
         expectedResultMessage = RedoCommand.MESSAGE_SUCCESS;
         assertCommandSuccess(command, model, expectedResultMessage);
 
-        /* Case: add a patient with all fields same as another patient in the DocX except name -> added */
-        toAdd = new PatientBuilder(AMY).withName(VALID_NAME_BOB).build();
-        command = AddPatientCommand.COMMAND_WORD + NAME_DESC_BOB
-                + GENDER_DESC_AMY + AGE_DESC_AMY + PHONE_DESC_AMY
-                + ADDRESS_DESC_AMY
-                + TAG_DESC_FRIEND;
-        assertCommandSuccess(command, toAdd);
-
         /* Case: add a patient with all fields same as another patient in the DocX except phone
          * -> added
          */
@@ -123,6 +116,11 @@ public class AddPatientCommandSystemTest extends DocXSystemTest {
 
         /* Case: add a duplicate patient -> rejected */
         command = PatientUtil.getAddPatientCommand(HOON);
+        assertCommandFailure(command, AddPatientCommand.MESSAGE_DUPLICATE_PATIENT);
+
+        /* Case: add a duplicate patient except with different name -> rejected */
+        toAdd = new PatientBuilder(HOON).withName(VALID_NAME_BOB).build();
+        command = PatientUtil.getAddPatientCommand(toAdd);
         assertCommandFailure(command, AddPatientCommand.MESSAGE_DUPLICATE_PATIENT);
 
         /* Case: add a duplicate patient except with different gender -> rejected */

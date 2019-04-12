@@ -14,16 +14,12 @@ import seedu.address.model.medicalhistory.MedicalHistory;
 import seedu.address.model.medicalhistory.UniqueMedHistList;
 import seedu.address.model.person.Doctor;
 import seedu.address.model.person.Patient;
-import seedu.address.model.person.Person;
 import seedu.address.model.person.PersonId;
 import seedu.address.model.person.PersonIdCounter;
 import seedu.address.model.person.UniqueDoctorList;
 import seedu.address.model.person.UniquePatientList;
-import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.prescription.Prescription;
 import seedu.address.model.prescription.UniquePrescriptionList;
-
-
 
 /**
  * Wraps all data at the docX level

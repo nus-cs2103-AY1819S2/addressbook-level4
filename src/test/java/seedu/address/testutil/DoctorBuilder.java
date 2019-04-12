@@ -1,12 +1,8 @@
 package seedu.address.testutil;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
-import seedu.address.model.appointment.Appointment;
 import seedu.address.model.person.Doctor;
 import seedu.address.model.person.Gender;
 import seedu.address.model.person.Name;

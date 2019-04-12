@@ -351,7 +351,7 @@ There are three types of ships and the number of each ship depends on the size o
 |Type of Ship   |Length |Number
 |Cruiser        |2      |`mapSize - 5`
 |Destroyer      |3      |`(mapSize + 2) / 5`
-|Aircraft carrier |5    |`1`  
+|Aircraft carrier |5    |`1`
 |============================================
 
 The management of ships can be carried out with three commands, namely `put`, `listTags` and `list`.
@@ -421,8 +421,8 @@ Ships that have been deployed can also be listed in four different ways:
 |====================
 |List|Example
 |All ships|`list`
-|Ships with certain tags| `list t/tag1 t/tag2`  
-|Certain ships| `list n/destroyer n/cruiser`  
+|Ships with certain tags| `list t/tag1 t/tag2`
+|Certain ships| `list n/destroyer n/cruiser`
 |Certain ships with certain tags| `list n/destroyer n/cruiser t/tag1 t/tag2`
 |====================
 

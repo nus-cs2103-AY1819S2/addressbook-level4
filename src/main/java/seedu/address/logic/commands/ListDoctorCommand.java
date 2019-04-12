@@ -15,8 +15,9 @@ public class ListDoctorCommand extends Command {
 
     public static final String COMMAND_WORD = "list-d";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Lists the doctors whose fields' " +
-            "values match the user inputs. If no inputs are given, all existing doctors will be listed.\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+            + ": Lists the doctors whose fields' "
+            + "values match the user inputs. If no inputs are given, all existing doctors will be listed.\n"
             + "Parameters: "
             + "[ KEYWORD ] "
             + "[ KEYWORD ] ..."

@@ -20,8 +20,8 @@ public class SelectDoctorCommand extends Command {
     public static final String COMMAND_WORD = "select-d";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Displays the information of the doctor identified by" +
-            " the index number used in the displayed doctor list.\n"
+            + ": Displays the information of the doctor identified by"
+            + " the index number used in the displayed doctor list.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 

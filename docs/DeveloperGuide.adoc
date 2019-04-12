@@ -883,13 +883,15 @@ YearMonth 2019 January, and every subsequent index will contain the MonthStatist
 the 4th index contains the MonthStatistics with YearMonth 2019 May.
 
 When the StatisticsManager adds a new Record by the `record(record, clock)` function, it will first retrieve the
-YearMonth from the `clock` variable passed in. Next, StatisticsManager will find the correct index of the
-MonthStatistics ArrayList to add the record in. In the current implementation, the record is not actually stored. Instead,
-the record will be converted to a Statistics object which is then merged with the MonthStatistics's own Statistics
-object. The MonthStatistics's Statistics object will then be reassigned with the newly merged Statistics object.
-The sequence diagram below illustrates an example ConsultationRecord being added.
+YearMonth from the `clock` variable passed in. Next, it will update the size of the ArrayList by calling its own method
+`updateListSize(clock)`, which is a wrapper for `updateListSize(YearMonth)`. Afterwards, StatisticsManager will find the
+correct index of the MonthStatistics ArrayList to add the record in. In the current implementation, the record is not
+actually stored. Instead, the record will be converted to a Statistics object which is then merged with the
+MonthStatistics's own Statistics object. The MonthStatistics's Statistics object will then be reassigned with the newly
+merged Statistics object. The sequence diagram below illustrates an example ConsultationRecord being added.
 
-// TODO ADD SD HERE
+.Sequence diagram for adding a sample ConsultationRecord
+image::SDForAddingRecords.png[width="800"]
 
 ===== 3. Retrieving the Statistics
 

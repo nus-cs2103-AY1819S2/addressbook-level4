@@ -10,6 +10,7 @@ import seedu.address.model.appointment.Appointment;
 import seedu.address.model.appointment.AppointmentDate;
 import seedu.address.model.appointment.AppointmentDoctorId;
 import seedu.address.model.appointment.AppointmentPatientId;
+import seedu.address.model.appointment.AppointmentStatus;
 import seedu.address.model.appointment.AppointmentTime;
 
 /**
@@ -93,8 +94,17 @@ class JsonAdaptedAppointment {
         }
         final AppointmentTime modelAppointmentTime = new AppointmentTime(timeOfAppt);
 
+        if (appointmentStatus == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    AppointmentStatus.class.getSimpleName()));
+        }
+        if (!AppointmentStatus.isValidAppointmentStatus(appointmentStatus)) {
+            throw new IllegalValueException(AppointmentStatus.MESSAGE_CONSTRAINTS);
+        }
+        final AppointmentStatus modelAppointmentStatus = AppointmentStatus.valueOf(appointmentStatus);
 
-        return new Appointment(modelPatientId, modelDoctorId, modelAppointmentDate, modelAppointmentTime);
+        return new Appointment(modelPatientId, modelDoctorId, modelAppointmentDate, modelAppointmentTime,
+                modelAppointmentStatus);
     }
 
 }

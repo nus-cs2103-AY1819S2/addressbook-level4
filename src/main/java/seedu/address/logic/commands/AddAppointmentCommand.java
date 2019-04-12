@@ -52,6 +52,13 @@ public class AddAppointmentCommand extends Command {
         appointment.setPatient(model.getPatientById(appointment.getPatientId()));
         appointment.setDoctor(model.getDoctorById(appointment.getDoctorId()));
 
+        if (appointment.getPatient() == null) {
+            throw new CommandException(MESSAGE_PATIENT_NOT_NOT_FOUND);
+        }
+        if (appointment.getDoctor() == null) {
+            throw new CommandException(MESSAGE_DOCTOR_NOT_NOT_FOUND);
+        }
+
         model.addAppointment(appointment);
         model.commitDocX();
         return new CommandResult(String.format(MESSAGE_SUCCESS, appointment));

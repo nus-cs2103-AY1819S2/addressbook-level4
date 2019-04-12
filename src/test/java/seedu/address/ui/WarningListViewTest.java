@@ -1,10 +1,7 @@
 package seedu.address.ui;
 
-import guitests.guihandles.MedicineCardHandle;
-import guitests.guihandles.MedicineListPanelHandle;
 import guitests.guihandles.WarningCardHandle;
 import guitests.guihandles.WarningListViewHandle;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import org.junit.Test;
@@ -21,10 +18,8 @@ import java.util.Collections;
 import static java.time.Duration.ofMillis;
 import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTimeoutPreemptively;
-import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_MEDICINE;
 import static seedu.address.testutil.TypicalMedicines.getTypicalMedicines;
 import static seedu.address.ui.testutil.GuiTestAssert.assertCardDisplaysMedicine;
-import static seedu.address.ui.testutil.GuiTestAssert.assertCardEquals;
 
 public class WarningListViewTest extends GuiUnitTest {
     private static final ObservableList<Medicine> TYPICAL_MEDICINES =

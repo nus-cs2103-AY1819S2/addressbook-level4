@@ -5,8 +5,6 @@ import javafx.scene.control.ListView;
 import seedu.address.commons.util.warning.WarningPanelPredicateType;
 import seedu.address.model.medicine.Medicine;
 
-import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 
 /**

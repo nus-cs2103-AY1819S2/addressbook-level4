@@ -6,7 +6,6 @@ import org.junit.Test;
 import seedu.address.commons.util.warning.WarningPanelPredicateAccessor;
 import seedu.address.commons.util.warning.WarningPanelPredicateType;
 import seedu.address.model.medicine.Medicine;
-import seedu.address.model.medicine.Quantity;
 import seedu.address.testutil.MedicineBuilder;
 
 import static org.junit.Assert.assertEquals;
@@ -39,9 +38,7 @@ public class WarningCardTest extends GuiUnitTest {
     public void equals() {
         Medicine medicine = new MedicineBuilder().withBatches("batch number", "1", "12/12/2019").build();
         WarningPanelPredicateAccessor predicateAccessor = new WarningPanelPredicateAccessor();
-        predicateAccessor.updateBatchExpiringThreshold(1000);
-        predicateAccessor.updateMedicineExpiringThreshold(1000);
-        predicateAccessor.updateMedicineLowStockThreshold(Quantity.MAX_QUANTITY + 1);
+        predicateAccessor.setMaxThresholds();
 
         WarningCard expiryWarningCard = new WarningCard(medicine, 0,
                 WarningPanelPredicateType.EXPIRY, predicateAccessor);

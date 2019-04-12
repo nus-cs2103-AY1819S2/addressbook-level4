@@ -10,6 +10,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PASSWORD;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG_ADD;
 
 import java.nio.file.Paths;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -95,7 +96,7 @@ public class CommandTestUtil {
     public static final String DATE_1_VALID = "2019-10-03";
     public static final String DATE_2_VALID = "2019-05-03";
     public static final String DATE_INVALID_DATE = "2019-10-32";
-    public static final String DATE_INVALID_FORMAT = "2019/10-03";
+    //public static final LocalDate LOCAL_DATE_INVALID_DATE = LocalDate.of(2019, 10, 32);
 
     //Password Constant
     public static final String PASSWORD_1_VALID = "validPassword1";
@@ -106,7 +107,7 @@ public class CommandTestUtil {
     public static final String DEADLINE_STATUS_DONE = "true";
     public static final String DEADLINE_STATUS_INVALID = "INVALID";
 
-    public static final String DEADLINE_JSON_NOTDONE = DATE_1_VALID + PROPERTY_SEPARATOR_PREFIX
+    public static final String DEADLINE_JSON_NOT_DONE = DATE_1_VALID + PROPERTY_SEPARATOR_PREFIX
             + DEADLINE_STATUS_NOTDONE;
     public static final String DEADLINE_JSON_DONE = DATE_2_VALID + PROPERTY_SEPARATOR_PREFIX
             + DEADLINE_STATUS_DONE;
@@ -114,17 +115,17 @@ public class CommandTestUtil {
     public static final String DEADLINE_JSON_INVALID_MISSINGSTATUS = DATE_2_VALID;
     public static final String DEADLINE_JSON_INVALID_INVALIDSTATUS = DATE_2_VALID + PROPERTY_SEPARATOR_PREFIX
             + DEADLINE_STATUS_INVALID;
-    public static final String DEADLINE_JSON_INVALID_INVALIDDATE = DATE_INVALID_DATE + PROPERTY_SEPARATOR_PREFIX
+    public static final String DEADLINE_JSON_INVALID_INVALID_DATE = DATE_INVALID_DATE + PROPERTY_SEPARATOR_PREFIX
             + DEADLINE_STATUS_NOTDONE;
 
     public static final String DEADLINE_DESC_VALID = " " + PREFIX_DEADLINE_NEW + DATE_1_VALID;
-    public static final String DEADLINE_DESC_INVALID_MISSING_STATUS = " " + PREFIX_DEADLINE_NEW + DATE_1_VALID;
-    public static final String DEADLINE_DESC_INVALID_WRONG_STATUS = " " + PREFIX_DEADLINE_NEW + DATE_2_VALID
-            + PROPERTY_SEPARATOR_PREFIX + DEADLINE_STATUS_INVALID;
-    public static final String DEADLINE_DESC_INVALID_DATE = " " + PREFIX_DEADLINE_NEW + DATE_INVALID_DATE
-            + PROPERTY_SEPARATOR_PREFIX + DEADLINE_STATUS_NOTDONE;
-    public static final String DEADLINE_DESC_INVALID_FORMAT = " " + PREFIX_DEADLINE_NEW + DATE_INVALID_FORMAT
-            + PROPERTY_SEPARATOR_PREFIX + DEADLINE_STATUS_NOTDONE;
+    //public static final String DEADLINE_DESC_INVALID_MISSING_STATUS = " " + PREFIX_DEADLINE_NEW + DATE_1_VALID;
+    //public static final String DEADLINE_DESC_INVALID_WRONG_STATUS = " " + PREFIX_DEADLINE_NEW + DATE_2_VALID
+    //        + PROPERTY_SEPARATOR_PREFIX + DEADLINE_STATUS_INVALID;
+    //public static final String DEADLINE_DESC_INVALID_DATE = " " + PREFIX_DEADLINE_NEW + DATE_INVALID_DATE
+    //        + PROPERTY_SEPARATOR_PREFIX + DEADLINE_STATUS_NOTDONE;
+    //public static final String DEADLINE_DESC_INVALID_FORMAT = " " + PREFIX_DEADLINE_NEW + DATE_INVALID_FORMAT
+    //        + PROPERTY_SEPARATOR_PREFIX + DEADLINE_STATUS_NOTDONE;
 
     //Delete Constants
     public static final String DELETE_TYPE_SOFT = "soft";

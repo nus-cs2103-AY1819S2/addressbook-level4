@@ -8,11 +8,11 @@ import static org.junit.Assert.fail;
 import static seedu.address.logic.commands.CommandTestUtil.DATE_1_VALID;
 import static seedu.address.logic.commands.CommandTestUtil.DATE_2_VALID;
 import static seedu.address.logic.commands.CommandTestUtil.DEADLINE_JSON_DONE;
-import static seedu.address.logic.commands.CommandTestUtil.DEADLINE_JSON_INVALID_INVALIDDATE;
+import static seedu.address.logic.commands.CommandTestUtil.DEADLINE_JSON_INVALID_INVALID_DATE;
 import static seedu.address.logic.commands.CommandTestUtil.DEADLINE_JSON_INVALID_INVALIDSTATUS;
 import static seedu.address.logic.commands.CommandTestUtil.DEADLINE_JSON_INVALID_MISSINGSEPERATORPREFIX;
 import static seedu.address.logic.commands.CommandTestUtil.DEADLINE_JSON_INVALID_MISSINGSTATUS;
-import static seedu.address.logic.commands.CommandTestUtil.DEADLINE_JSON_NOTDONE;
+import static seedu.address.logic.commands.CommandTestUtil.DEADLINE_JSON_NOT_DONE;
 import static seedu.address.logic.commands.CommandTestUtil.DEADLINE_STATUS_DONE;
 import static seedu.address.logic.commands.CommandTestUtil.DEADLINE_STATUS_NOTDONE;
 import static seedu.address.logic.commands.CommandTestUtil.MESSAGE_UNEXPECTEDEXCEPTION_VALIDINPUT;
@@ -48,7 +48,7 @@ public class DeadlineTest {
 
         // invalid date -> expected to throw dateTimeParseException
         Assert.assertThrows(
-                DateTimeParseException.class, () -> new Deadline(DEADLINE_JSON_INVALID_INVALIDDATE));
+                DateTimeParseException.class, () -> new Deadline(DEADLINE_JSON_INVALID_INVALID_DATE));
 
         // valid date -> expected to Not throw any Exceptions
         try {
@@ -86,7 +86,7 @@ public class DeadlineTest {
         assertTrue(new Deadline(DEADLINE_JSON_DONE).equals(new Deadline(DEADLINE_JSON_DONE)));
 
         // different values -> expected false
-        assertFalse(new Deadline(DEADLINE_JSON_DONE).equals(new Deadline(DEADLINE_JSON_NOTDONE)));
+        assertFalse(new Deadline(DEADLINE_JSON_DONE).equals(new Deadline(DEADLINE_JSON_NOT_DONE)));
 
         // same dates different status -> expected false
         assertFalse(new Deadline(DATE_1_VALID + PROPERTY_SEPARATOR_PREFIX + DEADLINE_STATUS_DONE)
@@ -108,7 +108,7 @@ public class DeadlineTest {
                 .append(String.format(DATE_2_VALID, "dd-mm-yyyy")).append(STATUS_DONE_PREFIX).toString());
 
         // existing deadline ongoing prefix
-        assertEquals(new Deadline(DEADLINE_JSON_NOTDONE).toString(), new StringBuilder(TOSTRING_HEADER_PREFIX)
+        assertEquals(new Deadline(DEADLINE_JSON_NOT_DONE).toString(), new StringBuilder(TOSTRING_HEADER_PREFIX)
                 .append(String.format(DATE_1_VALID, "dd-mm-yyyy")).append(STATUS_ONGOING_PREFIX).toString());
     }
 
@@ -116,14 +116,14 @@ public class DeadlineTest {
     public void toJsonString() {
 
         // input to output conversion -> expect same result
-        assertEquals(new Deadline(DEADLINE_JSON_NOTDONE).toJsonString(), DEADLINE_JSON_NOTDONE);
+        assertEquals(new Deadline(DEADLINE_JSON_NOT_DONE).toJsonString(), DEADLINE_JSON_NOT_DONE);
 
         // different date -> expected fail
-        assertNotEquals(new Deadline(DEADLINE_JSON_NOTDONE).toJsonString(), DATE_2_VALID
+        assertNotEquals(new Deadline(DEADLINE_JSON_NOT_DONE).toJsonString(), DATE_2_VALID
                 + PROPERTY_SEPARATOR_PREFIX + DEADLINE_STATUS_NOTDONE);
 
         // different status -> expected fail
-        assertNotEquals(new Deadline(DEADLINE_JSON_NOTDONE).toJsonString(), DATE_1_VALID
+        assertNotEquals(new Deadline(DEADLINE_JSON_NOT_DONE).toJsonString(), DATE_1_VALID
                 + PROPERTY_SEPARATOR_PREFIX + DEADLINE_STATUS_DONE);
     }
 
@@ -133,7 +133,7 @@ public class DeadlineTest {
         assertFalse(new Deadline().exists());
 
         //existing deadline value, status not done -> expected true
-        assertTrue(new Deadline(DEADLINE_JSON_NOTDONE).exists());
+        assertTrue(new Deadline(DEADLINE_JSON_NOT_DONE).exists());
 
         //existing deadline value, status done -> expected true
         assertTrue(new Deadline(DEADLINE_JSON_DONE).exists());
@@ -145,7 +145,7 @@ public class DeadlineTest {
         assertTrue(Deadline.setDone(new Deadline()).isDone());
 
         // set done expected to work on deadline that is not done
-        assertTrue(Deadline.setDone(new Deadline(DEADLINE_JSON_NOTDONE)).isDone());
+        assertTrue(Deadline.setDone(new Deadline(DEADLINE_JSON_NOT_DONE)).isDone());
 
         // set done expected to work on deadline that is already done
         assertTrue(Deadline.setDone(new Deadline(DEADLINE_JSON_DONE)).isDone());
@@ -160,7 +160,7 @@ public class DeadlineTest {
         assertFalse(Deadline.setRemove(new Deadline(DEADLINE_JSON_DONE)).exists());
 
         // set remove expected to work on deadline that is not done
-        assertFalse(Deadline.setRemove(new Deadline(DEADLINE_JSON_NOTDONE)).exists());
+        assertFalse(Deadline.setRemove(new Deadline(DEADLINE_JSON_NOT_DONE)).exists());
     }
 
 }

@@ -1272,40 +1272,40 @@ This is the summary of all the possible commands for QuickDocs. For detailed exp
 
 *Patient Management* +
 
-* *<<addpat>>* : `addpat` +
-* *<<editpat>>* : `editpat` +
-* *<<listpat>>* : `listpat` +
-* *<<deletepat>>* : `deletepat`
+* *<<addpat>>* : `addpat` or `ap` +
+* *<<editpat>>* : `editpat` or `ep` +
+* *<<listpat>>* : `listpat` or `lp` +
+* *<<deletepat>>* : `deletepat` or `dp` +
 
 *Consultation Management* +
 
-* *<<consult>>* : `consult` +
-* *<<diagnose>>* : `diagnose` +
-* *<<prescribe>>* : `prescribe` +
-* *<<endconsult>>* : `endconsult` +
-* *<<abort>>* : `abort` +
-* *<<listconsult>>* : `listconsult` +
+* *<<consult>>* : `consult` or `c` +
+* *<<diagnose>>* : `diagnose` or `d` +
+* *<<prescribe>>* : `prescribe` or `p` +
+* *<<endconsult>>* : `endconsult` or `ec` +
+* *<<abort>>* : `abort` or `ab` +
+* *<<listconsult>>* : `listconsult` or `lc` +
 
 *Medicine Management* +
 
-* *<<addmed>>* : `addmed` +
-* *<<adddirec>>* : `adddirec` +
-* *<<listmed>>* : `listmed` +
+* *<<adddirec>>* : `adddirec` or `ad` +
+* *<<addmed>>* : `addmed` or `am` +
+* *<<listmed>>* : `listmed` or `lm` +
 * *<<alarm>>* : `alarm` +
-* *<<buymed>>* : `buymed` +
-* *<<setprice>>* : `setprice` +
+* *<<buymed>>* : `buymed` or `bm` +
+* *<<setprice>>* : `setprice` or `sp` +
 
 *Appointment and Reminders* +
 
-* *<<addapp>>* : `appadd` +
-* *<<listapp>>* : `applist` +
-* *<<deleteapp>>* : `appdelete` +
-* *<<freeapp>>* : `appfree` +
-* *<<addrem>>* : `remadd` +
-* *<<listrem>>* : `remlist` +
-* *<<deleterem>>* : `remdelete` +
+* *<<addapp>>* : `addapp` or `aa` +
+* *<<listapp>>* : `listapp` or `la` +
+* *<<deleteapp>>* : `deleteapp` or `da` +
+* *<<freeapp>>* : `freeapp` or `fa` +
+* *<<addrem>>* : `addrem` or `ar` +
+* *<<listrem>>* : `listrem` or `lr` +
+* *<<deleterem>>* : `deleterem` or `dr` +
 * *<<ntime>>* : `ntime` +
-* *<<sendemail>>* : `sendemail` +
+* *<<sendemail>>* : `sendemail` or `se` *[coming in v2.0]* +
 
 *Administration and Statistics* +
 

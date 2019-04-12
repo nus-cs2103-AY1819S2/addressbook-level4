@@ -905,8 +905,6 @@ Statistics object. StatisticsManager will then return the Statistics back to the
 it to the StatisticsCommand, which would then return the CommandResult with the statistics converted to a String to the
 LogicManager.
 
-// TODO ADD SD HERE
-
 ==== Statistics and Record - Design considerations
 
 1. The statistics are stored in months as the design only allows the doctor to query within a minimum timespan of 1 month.

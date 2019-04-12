@@ -32,9 +32,9 @@ public class JsonSerializableHealthWorkerBookTest {
     public void toModelType_typicalHealthworkersFile_success() throws Exception {
         JsonSerializableHealthWorkerBook dataFromFile = JsonUtil.readJsonFile(TYPICAL_PERSONS_FILE,
                 JsonSerializableHealthWorkerBook.class).get();
-        HealthWorkerBook addressBookFromFile = dataFromFile.toModelType();
+        HealthWorkerBook healthWorkerBookFromFile = dataFromFile.toModelType();
         HealthWorkerBook typicalHealthWorkersHealthWorkerBook = TypicalHealthWorkers.getTypicalHealthWorkerBook();
-        assertEquals(addressBookFromFile, typicalHealthWorkersHealthWorkerBook);
+        assertEquals(healthWorkerBookFromFile, typicalHealthWorkersHealthWorkerBook);
     }
 
     @Test

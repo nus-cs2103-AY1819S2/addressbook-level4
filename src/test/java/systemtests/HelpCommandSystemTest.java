@@ -5,6 +5,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST;
+import static seedu.address.testutil.TypicalIndexes.INDEX_SIXTH;
 import static seedu.address.ui.testutil.GuiTestAssert.assertHealthWorkerListMatching;
 import static seedu.address.ui.testutil.GuiTestAssert.assertRequestListMatching;
 
@@ -12,7 +13,7 @@ import org.junit.Test;
 
 import guitests.GuiRobot;
 import guitests.guihandles.HelpWindowHandle;
-import seedu.address.logic.commands.DeleteCommand;
+import seedu.address.logic.commands.DeleteHealthWorkerCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.ui.StatusBarFooter;
@@ -68,8 +69,8 @@ public class HelpCommandSystemTest extends HealthHubSystemTest {
         assertHealthWorkerListMatching(getHealthWorkerListPanel(), getModel().getFilteredHealthWorkerList());
 
         // assert that the status bar too is updated correctly while the help window is open
-        // note: the select command tested above does not update the status bar
-        executeCommand(DeleteCommand.COMMAND_WORD + " healthworker " + INDEX_FIRST.getOneBased());
+        // note: the select command tested above does not update the status bar
+        executeCommand(DeleteHealthWorkerCommand.COMMAND_WORD + " healthworker " + INDEX_SIXTH.getOneBased());
         assertNotEquals(StatusBarFooter.SYNC_STATUS_INITIAL, getStatusBarFooter().getSyncStatus());
     }
 

@@ -93,7 +93,7 @@ image::brightnessCommand.PNG[width="915"]
 image::brightnessSuccess.PNG[width="917"]
 +
 
-.  Crop your photo by typing the following command: `crop 310 250 140 200 squirrel.jpg`. Press kbd:[Enter]. Your image should look similar as the figure below.
+.  Crop your photo by typing the following command: `crop 310 250 140 200`. Press kbd:[Enter]. Your image should look similar as the figure below.
 
 +
 .Crop Success
@@ -218,7 +218,7 @@ Example:
 * `open sample.jpg`
 // end::ListAndOpen[]
 
-//tag ::Redo[]
+//tag::Redo[]
 === Redo edit steps : `redo`
 
 Returns to a previously undone state. +
@@ -258,7 +258,7 @@ Example:
 // tag::ResizeCommand[]
 === Resize an image : `resize`
 
-Resizes the photo to a given width and height provided by the user. +
+Resizes the image to a given width and height provided by the user. +
 Format: `resize WIDTH HEIGHT`
 
 Example:
@@ -277,19 +277,8 @@ Example:
 * `save MyNewImage.png`
 // end::UserSave[]
 
-// tag::Undo[]
-=== Undo edit steps : `undo`
-
-Goes back to the previous state of the image. +
-Format: `undo`
-
-[NOTE]
-====
-Undoable commands: those commands that modify the image (`rotate`, `crop`, `resize`, `brightness`, `contrast` and `bw`).
-====
-
 // tag::Tab[]
-=== Cycle between tabs : `tab`
+=== Tab switching: `tab`
 
 Cycle between available tabs in the side *Information Panel*.
 
@@ -303,6 +292,34 @@ image such as metadata information like *Date and Time* and *Copyright informati
 . *Command History*
 - Display all *Image Transformation* and *Image Filters* applied to the currently opened image.
 // end::Tab[]
+
+// tag::Undo[]
+=== Undo edit steps : `undo`
+
+Goes back to the previous state of the image. +
+Format: `undo`
+
+[NOTE]
+====
+Undoable commands: those commands that modify the image (`rotate`, `crop`, `resize`, `brightness`, `contrast` and `bw`).
+====
+
+// tag::WaterMarkCommand[]
+=== WaterMark : `wm`
+
+Adds a watermark to the image with a (C) at the start of the input message. +
+Format: `wm MESSAGE`
+
+[NOTE]
+====
+A watermark can only be added once to an image.
+====
+
+Example:
+
+* `wm FomoFoto`
+* `wm Done By FomoFoto`
+// end::WaterMarkCommand[]
 
 // tag::UpcomingFeatures[]
 == Upcoming Features (in v2.0)
@@ -378,5 +395,11 @@ e.g. `resize 100 200` +
 * *Save* `save` or `save FILENAME` +
 e.g. `save MyNewImage.png` +
 
+* *Tab* `tab` +
+
 * *Undo* `undo` +
+
+* *WaterMark* `wm MESSAGE` +
+e.g. `wm FomoFoto`
+
 // end::CommandSummary[]

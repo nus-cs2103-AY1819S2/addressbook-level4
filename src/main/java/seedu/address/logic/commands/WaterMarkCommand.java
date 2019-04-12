@@ -62,7 +62,7 @@ public class WaterMarkCommand extends Command {
         FontMetrics fontMetrics = w.getFontMetrics();
         Rectangle2D rect = fontMetrics.getStringBounds(text, w);
 
-        // calculate center of the image
+        // calculate centre of the image
         int centerX = (bufferedImage.getWidth() - (int) rect.getWidth()) / 2;
         int centerY = bufferedImage.getHeight() / 2;
 

@@ -70,6 +70,8 @@ include::../UserGuide.adoc[tag=ResizeCommand]
 
 include::../UserGuide.adoc[tag=RotateCommand]
 
+include::../UserGuide.adoc[tag=WaterMarkCommand]
+
 == Contributions to the Developer Guide
 
 |===

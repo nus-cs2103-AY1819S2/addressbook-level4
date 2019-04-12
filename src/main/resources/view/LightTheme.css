@@ -401,6 +401,14 @@
     -fx-padding: 8 1 8 1;
 }
 
+.scroll-pane {
+    -fx-background-color: white;
+}
+
+VBox {
+    -fx-background-color: white;
+}
+
 #cardPane {
     -fx-background-color: transparent;
     -fx-border-width: 0;

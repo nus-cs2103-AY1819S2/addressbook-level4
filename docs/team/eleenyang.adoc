@@ -1,9 +1,9 @@
-= eleenyang - Project Portfolio for Book Squirrel
+= eleenyang - Project Portfolio for BookSquirrel
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-== PROJECT: Book Squirrel
+== PROJECT: BookSquirrel
 
 ---
 

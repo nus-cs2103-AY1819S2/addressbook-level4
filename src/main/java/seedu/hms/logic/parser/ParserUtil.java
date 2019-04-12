@@ -291,4 +291,20 @@ public class ParserUtil {
         }
         return r;
     }
+
+    /**
+     * Parses a {@code String type} into a {@code Name}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code name} is invalid.
+     */
+    public static String parseType(String name) throws ParseException {
+        requireNonNull(name);
+        String trimmedName = name.trim();
+        if ((name.length() > 20) || !Name.isValidName(trimmedName)) {
+            throw new ParseException("Names should only contain alphanumeric characters and spaces, and it "
+                + "should not be blank. The length should be less than 15.");
+        }
+        return name;
+    }
 }

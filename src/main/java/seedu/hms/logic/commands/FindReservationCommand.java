@@ -1,6 +1,7 @@
 package seedu.hms.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.hms.logic.parser.CliSyntax.PREFIX_DATES;
 import static seedu.hms.logic.parser.CliSyntax.PREFIX_IDENTIFICATION_NUMBER;
 import static seedu.hms.logic.parser.CliSyntax.PREFIX_ROOM;
 
@@ -23,9 +24,10 @@ public class FindReservationCommand extends ReservationCommand {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all reservations belonging to the selected "
         + "customer\n"
-        + "Parameters: CUSTOMER_IDENTIFICATION_NUMBER "
-        + "[" + PREFIX_ROOM + "ROOM TYPE]\n "
-        //   + "[" + PREFIX_DATES + "DATES(DD/MM/YYYY - DD/MM/YYYY)]\n"
+        + "Parameters: "
+        + "[" + PREFIX_IDENTIFICATION_NUMBER +"CUSTOMER_IDENTIFICATION_NUMBER] "
+        + "[" + PREFIX_ROOM + "ROOM TYPE]"
+        + "[" + PREFIX_DATES + "DATES(DD/MM/YYYY - DD/MM/YYYY)]\n"
         + "Example: " + COMMAND_WORD + " "
         + PREFIX_IDENTIFICATION_NUMBER + "1234567 "
         + PREFIX_ROOM + "SINGLE ROOM ";

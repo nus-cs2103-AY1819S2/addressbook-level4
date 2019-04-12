@@ -4,7 +4,11 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.hms.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.hms.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.hms.testutil.TypicalIndexes.INDEX_FIRST_BOOKING;
 import static seedu.hms.testutil.TypicalIndexes.INDEX_FIRST_CUSTOMER;
+import static seedu.hms.testutil.TypicalIndexes.INDEX_FIRST_RESERVATION;
+import static seedu.hms.testutil.TypicalIndexes.INDEX_FIRST_ROOM_TYPE;
+import static seedu.hms.testutil.TypicalIndexes.INDEX_FIRST_SERVICE_TYPE;
 
 import java.util.Arrays;
 import java.util.List;
@@ -20,6 +24,9 @@ import seedu.hms.logic.commands.ClearHotelManagementSystemCommand;
 import seedu.hms.logic.commands.ClearReservationCommand;
 import seedu.hms.logic.commands.DeleteBookingCommand;
 import seedu.hms.logic.commands.DeleteCustomerCommand;
+import seedu.hms.logic.commands.DeleteReservationCommand;
+import seedu.hms.logic.commands.DeleteRoomTypeCommand;
+import seedu.hms.logic.commands.DeleteServiceTypeCommand;
 import seedu.hms.logic.commands.EditCustomerCommand;
 import seedu.hms.logic.commands.EditCustomerCommand.EditCustomerDescriptor;
 import seedu.hms.logic.commands.ExitCommand;
@@ -132,9 +139,33 @@ public class HotelManagementSystemParserTest {
     @Test
     public void parseCommandDeleteBooking() throws Exception {
         DeleteBookingCommand command = (DeleteBookingCommand) parser.parseCommand(
-            DeleteBookingCommand.COMMAND_WORD + " " + INDEX_FIRST_CUSTOMER.getOneBased(),
+            DeleteBookingCommand.COMMAND_WORD + " " + INDEX_FIRST_BOOKING.getOneBased(),
             new CustomerManager(), new BookingManager(), new ReservationManager(), new BillManager());
-        assertEquals(new DeleteBookingCommand(INDEX_FIRST_CUSTOMER), command);
+        assertEquals(new DeleteBookingCommand(INDEX_FIRST_BOOKING), command);
+    }
+
+    @Test
+    public void parseCommandDeleteReservation() throws Exception {
+        DeleteReservationCommand command = (DeleteReservationCommand) parser.parseCommand(
+            DeleteReservationCommand.COMMAND_WORD + " " + INDEX_FIRST_RESERVATION.getOneBased(),
+            new CustomerManager(), new BookingManager(), new ReservationManager(), new BillManager());
+        assertEquals(new DeleteReservationCommand(INDEX_FIRST_RESERVATION), command);
+    }
+
+    @Test
+    public void parseCommandDeleteServiceType() throws Exception {
+        DeleteServiceTypeCommand command = (DeleteServiceTypeCommand) parser.parseCommand(
+            DeleteServiceTypeCommand.COMMAND_WORD + " " + INDEX_FIRST_SERVICE_TYPE.getOneBased(),
+            new CustomerManager(), new BookingManager(), new ReservationManager(), new BillManager());
+        assertEquals(new DeleteServiceTypeCommand(INDEX_FIRST_SERVICE_TYPE), command);
+    }
+
+    @Test
+    public void parseCommandDeleteRoomType() throws Exception {
+        DeleteRoomTypeCommand command = (DeleteRoomTypeCommand) parser.parseCommand(
+            DeleteRoomTypeCommand.COMMAND_WORD + " " + INDEX_FIRST_ROOM_TYPE.getOneBased(),
+            new CustomerManager(), new BookingManager(), new ReservationManager(), new BillManager());
+        assertEquals(new DeleteRoomTypeCommand(INDEX_FIRST_ROOM_TYPE), command);
     }
 
     @Test
@@ -151,6 +182,30 @@ public class HotelManagementSystemParserTest {
             DeleteBookingCommand.COMMAND_ALIAS + " " + INDEX_FIRST_CUSTOMER.getOneBased(),
             new CustomerManager(), new BookingManager(), new ReservationManager(), new BillManager());
         assertEquals(new DeleteBookingCommand(INDEX_FIRST_CUSTOMER), commandAlias);
+    }
+
+    @Test
+    public void parseCommandDeleteReservationAlias() throws Exception {
+        DeleteReservationCommand commandAlias = (DeleteReservationCommand) parser.parseCommand(
+            DeleteReservationCommand.COMMAND_ALIAS + " " + INDEX_FIRST_CUSTOMER.getOneBased(),
+            new CustomerManager(), new BookingManager(), new ReservationManager(), new BillManager());
+        assertEquals(new DeleteReservationCommand(INDEX_FIRST_CUSTOMER), commandAlias);
+    }
+
+    @Test
+    public void parseCommandDeleteServiceTypeAlias() throws Exception {
+        DeleteServiceTypeCommand command = (DeleteServiceTypeCommand) parser.parseCommand(
+            DeleteServiceTypeCommand.COMMAND_ALIAS + " " + INDEX_FIRST_SERVICE_TYPE.getOneBased(),
+            new CustomerManager(), new BookingManager(), new ReservationManager(), new BillManager());
+        assertEquals(new DeleteServiceTypeCommand(INDEX_FIRST_SERVICE_TYPE), command);
+    }
+
+    @Test
+    public void parseCommandDeleteRoomTypeAlias() throws Exception {
+        DeleteRoomTypeCommand command = (DeleteRoomTypeCommand) parser.parseCommand(
+            DeleteRoomTypeCommand.COMMAND_ALIAS + " " + INDEX_FIRST_ROOM_TYPE.getOneBased(),
+            new CustomerManager(), new BookingManager(), new ReservationManager(), new BillManager());
+        assertEquals(new DeleteRoomTypeCommand(INDEX_FIRST_ROOM_TYPE), command);
     }
 
     @Test

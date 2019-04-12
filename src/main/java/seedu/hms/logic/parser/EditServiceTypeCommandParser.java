@@ -40,7 +40,7 @@ public class EditServiceTypeCommandParser implements Parser<EditServiceTypeComma
         EditServiceTypeCommand.EditServiceTypeDescriptor editServiceTypeDescriptor =
             new EditServiceTypeCommand.EditServiceTypeDescriptor();
         if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
-            editServiceTypeDescriptor.setName(ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get()).toString());
+            editServiceTypeDescriptor.setName(ParserUtil.parseType(argMultimap.getValue(PREFIX_NAME).get()));
         }
         if (argMultimap.getValue(PREFIX_TIMING).isPresent()) {
             editServiceTypeDescriptor.setTiming(ParserUtil.parseTiming(argMultimap.getValue(PREFIX_TIMING).get()));

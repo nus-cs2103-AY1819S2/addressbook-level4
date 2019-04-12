@@ -38,7 +38,7 @@ public class EditRoomTypeCommandParser implements Parser<EditRoomTypeCommand> {
         EditRoomTypeCommand.EditRoomTypeDescriptor editRoomTypeDescriptor =
             new EditRoomTypeCommand.EditRoomTypeDescriptor();
         if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
-            editRoomTypeDescriptor.setName(ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get()).toString());
+            editRoomTypeDescriptor.setName(ParserUtil.parseType(argMultimap.getValue(PREFIX_NAME).get()).toString());
         }
         if (argMultimap.getValue(PREFIX_CAPACITY).isPresent()) {
             editRoomTypeDescriptor.setNumberOfRooms(ParserUtil.parseCapacity(argMultimap.getValue(PREFIX_CAPACITY)

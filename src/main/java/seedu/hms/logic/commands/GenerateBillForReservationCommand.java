@@ -1,6 +1,7 @@
 package seedu.hms.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.hms.logic.parser.CliSyntax.PREFIX_DATES;
 import static seedu.hms.logic.parser.CliSyntax.PREFIX_ROOM;
 
 import java.util.function.Predicate;
@@ -26,10 +27,10 @@ public class GenerateBillForReservationCommand extends BillCommand {
         + "customer list.\n"
         + "Parameters: INDEX "
         + "[" + PREFIX_ROOM + "ROOM TYPE] "
-        //   + "[" + PREFIX_DATES + "DATES(DD/MM/YYYY - DD/MM/YYYY)]\n"
+        + "[" + PREFIX_DATES + "DATES(DD/MM/YYYY - DD/MM/YYYY)]\n"
         + "Example: " + COMMAND_WORD + " 1 "
-        + PREFIX_ROOM + "SINGLE ROOM ";
-    //    + "[" + PREFIX_DATES + "12/12/2019 - 14/12/2019]";
+        + PREFIX_ROOM + "SINGLE ROOM "
+        + "[" + PREFIX_DATES + "12/12/2019 - 14/12/2019]";
 
     public static final String MESSAGE_GENERATE_BILL_FOR_RESERVATION_SUCCESS = "Reservation bill generated for "
         + "customer: %1$s";

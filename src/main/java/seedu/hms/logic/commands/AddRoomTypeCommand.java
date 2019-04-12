@@ -21,7 +21,7 @@ public class AddRoomTypeCommand extends ReservationCommand {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a room type to the hotel management system.\n"
         + "Parameters: "
         + PREFIX_NAME + "ROOM NAME "
-        + PREFIX_CAPACITY + "NUMBER OF ROOMS"
+        + PREFIX_CAPACITY + "NUMBER OF ROOMS "
         + PREFIX_RATE + "RATE PER DAY\n"
         + "Example: " + COMMAND_WORD + " "
         + PREFIX_NAME + "SHARING ROOM "

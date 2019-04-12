@@ -42,11 +42,11 @@ public class AddRoomTypeCommandParser implements Parser<AddRoomTypeCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddRoomTypeCommand.MESSAGE_USAGE));
         }
 
-        Name roomName = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
+        String roomName = ParserUtil.parseType(argMultimap.getValue(PREFIX_NAME).get());
         int capacity = ParserUtil.parseCapacity(argMultimap.getValue(PREFIX_CAPACITY).get());
         double rate = ParserUtil.parseRate(argMultimap.getValue(PREFIX_RATE).get());
 
-        RoomType roomType = new RoomType(capacity, roomName.toString(), rate);
+        RoomType roomType = new RoomType(capacity, roomName, rate);
         return new AddRoomTypeCommand(roomType);
     }
 

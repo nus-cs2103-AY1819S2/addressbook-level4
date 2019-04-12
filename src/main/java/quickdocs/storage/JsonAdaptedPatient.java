@@ -23,8 +23,6 @@ import quickdocs.model.tag.Tag;
  */
 public class JsonAdaptedPatient {
 
-    public static final String MISSING_FIELD_MESSAGE_FORMAT = "Person's %s field is missing!";
-
     private String name;
     private String nric;
     private String email;
@@ -73,6 +71,7 @@ public class JsonAdaptedPatient {
     /**
      * Converts this Jackson-friendly adapted person object into the model's {@code Person} object.
      *
+     * @return a Patient model object
      * @throws IllegalValueException if there were any data constraints violated in the tags.
      */
     public Patient toModelType() throws IllegalValueException {

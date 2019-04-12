@@ -293,18 +293,6 @@ Furthermore, every time any record of the specified patient is modified, a new i
 .. Test case: `goto` +
    Expected: No GUI elements changed. Error details shown in the status message. Status bar remains the same.
 
-==== Deleting a patient
-
-. Deleting a patient while all patients are listed
-
-.. Prerequisites: List all patients using the `list` command. Multiple patients should be displayed in the list.
-.. Test case: `delete 1` +
-   Expected: First patient is deleted from the list. Details of the deleted patient shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No patient is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size), `delete y` (where y is a negative number), `delete z` (where z is not an integer) +
-   Expected: Similar to previous.
-
 ==== Deleting a dental record
 
 . Deleting a record while all dental records of a patient are listed

@@ -28,6 +28,14 @@ public class CsvLessonListStorage implements LessonListStorage {
     private static final String QUESTION_ESCAPE = "?";
     private static final String ANSWER_ESCAPE = "@";
 
+    private static final String FULL_HEADER_CORE_QA = "TESTED";
+    private static final String FULL_HEADER_CORE_NOT_QA = "NOT TESTED";
+    private static final String FULL_HEADER_OPTIONAL = "HINT";
+
+    private static final String HEADER_CORE_QA = "t";
+    private static final String HEADER_CORE_NOT_QA = "n";
+    private static final String HEADER_OPTIONAL = "h";
+
     private static final String READ_WARNING_CORE_LABEL = "Core escape character [ "
             + CORE_ESCAPE
             + " ] was found after non-core column.";
@@ -140,21 +148,44 @@ public class CsvLessonListStorage implements LessonListStorage {
         String[] header;
 
         List<String> headerList = new ArrayList<>();
+        for (int i = 0; i < lesson.getCoreHeaders().size(); i++) {
+            if (i == lesson.getAnswerCoreIndex() || i == lesson.getQuestionCoreIndex()) {
+                headerList.add(FULL_HEADER_CORE_QA);
+            } else {
+                headerList.add(FULL_HEADER_CORE_NOT_QA);
+            }
+        }
+        for (int i = 0; i < lesson.getOptionalHeaders().size(); i++) {
+            headerList.add(FULL_HEADER_OPTIONAL);
+        }
 
-        headerList.addAll(lesson.getCoreHeaders());
-        headerList.addAll(lesson.getOptionalHeaders());
-        int headerSize = headerList.size();
-
-        header = new String[headerSize];
+        header = new String[headerList.size()];
         headerList.toArray(header);
 
-        header[lesson.getQuestionCoreIndex()] = QUESTION_ESCAPE + header[lesson.getQuestionCoreIndex()];
-        header[lesson.getAnswerCoreIndex()] = ANSWER_ESCAPE + header[lesson.getAnswerCoreIndex()];
-
-        for (int i = 0; i < lesson.getCoreHeaderSize(); i++) {
-            header[i] = CORE_ESCAPE + header[i];
-        }
         return header;
+    }
+
+    /**
+     * Returns a String[] containing correctly formatted strings for saving.
+     * Appends QUESTION_ESCAPE and ANSWER_ESCAPE chars to the headers, then appends CORE_ESCAPE to all remaining core
+     * values.
+     *
+     * @param lesson
+     * @return Header data with relevant escape characters.
+     */
+    private String[] parseFieldNamesToStringArray(Lesson lesson) {
+        String[] fieldNames;
+
+        List<String> fieldList = new ArrayList<>();
+
+        fieldList.addAll(lesson.getCoreHeaders());
+        fieldList.addAll(lesson.getOptionalHeaders());
+        int headerSize = fieldList.size();
+
+        fieldNames = new String[headerSize];
+        fieldList.toArray(fieldNames);
+
+        return fieldNames;
     }
 
     /**
@@ -185,6 +216,7 @@ public class CsvLessonListStorage implements LessonListStorage {
         Path filePath = Paths.get(folderPath.toString(), lesson.getName() + ".csv");
 
         data.add(parseHeaderDataToStringArray(lesson));
+        data.add(parseFieldNamesToStringArray(lesson));
 
         for (Card card : lesson.getCards()) {
             data.add(parseCardDataToStringArray(card));

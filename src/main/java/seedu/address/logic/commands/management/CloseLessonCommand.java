@@ -22,7 +22,7 @@ public class CloseLessonCommand extends ManagementCommand {
     /**
      * The word a user must enter to call this command.
      */
-    public static final String COMMAND_WORD = "closeLesson";
+    public static final String COMMAND_WORD = "close";
     /**
      * Instructions on command usage and parameters.
      */

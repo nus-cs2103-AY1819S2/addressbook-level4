@@ -18,7 +18,7 @@ By: `Team 15-3`      Since: `Feb 2019`      Licence: `MIT`
 
 == Introduction
 
-slaveFinder() is for those who *prefer to use a desktop app for managing contacts*. More importantly, social Circle is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, social Circle can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+slaveFinder() is for those who *prefer to use a desktop app for managing contacts*. More importantly, slaveFinder() is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, slaveFinder() can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
 
 == Quick Start
 
@@ -28,7 +28,7 @@ slaveFinder() is for those who *prefer to use a desktop app for managing contact
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
 image::DisplayJob.png[width="790"]
-image::displayAll.png[width="790"]
+image::Ui.png[width="790"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
@@ -355,7 +355,7 @@ Format: `deletefilter FILTERNAME1 FILTERNAME2...`
 * Display board always display people base on all undeleted filters.
 ****
 
-==== Display Analytics : `analytics` 
+==== Display Analytics : `analytics`
 
 Display the analytics of applicants for desired job list (applicant, kiv, interview, shortlist, all applicants)
 Format : `analytics LISTNAME` or  `analytics`
@@ -402,6 +402,7 @@ Format : `selectInterview [INDEX] [INDEX-INDEX] [all]`
 
 Generate interview dates for applicants in slaveFinder().
 Interview dates cannot be generated again if they are already present.
+Dates generated exclude weekends and block out dates(see below).
 Format : `generateInterviews`
 
 ==== Clear Interview Dates : `clearInterviews`

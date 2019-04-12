@@ -2,10 +2,12 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.model.job.JobListName.APPLICANT;
+import static seedu.address.model.job.JobListName.EMPTY;
 import static seedu.address.model.job.JobListName.INTERVIEW;
 import static seedu.address.model.job.JobListName.KIV;
 import static seedu.address.model.job.JobListName.SHORTLIST;
 
+import seedu.address.commons.core.Messages;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -41,7 +43,11 @@ public class DeleteFilterCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         UniqueFilterList predicateList;
-
+        boolean isAllJobScreen = model.getIsAllJobScreen();
+        boolean hasListName = filterListName != EMPTY;
+        if (!isAllJobScreen && !hasListName) {
+            throw new CommandException(Messages.MESSAGE_LACK_LISTNAME);
+        }
         requireNonNull(model);
         switch (filterListName) {
         case APPLICANT:
@@ -65,7 +71,9 @@ public class DeleteFilterCommand extends Command {
             predicateList = model.getPredicateLists(SHORTLIST);
             break;
         default:
-            throw new CommandException(MESSAGE_DELETE_FILTER_FAIL);
+            model.removePredicateAllPersons(targetName);
+            model.updateFilteredPersonList();
+            predicateList = model.getPredicateLists(EMPTY);
         }
         return new CommandResult(String.format(MESSAGE_DELETE_FILTER_SUCCESS, targetName), filterListName,
                 predicateList);

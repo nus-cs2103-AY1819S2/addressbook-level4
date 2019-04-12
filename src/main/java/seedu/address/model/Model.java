@@ -125,6 +125,11 @@ public interface Model {
     void setPerson(Person target, Person editedPerson);
 
     /**
+     * add Predicate to All persons list
+     */
+    void addPredicateAllPersons(String predicateName, Predicate<Person> predicate);
+
+    /**
      * add Predicate to JobShortlist
      */
     void addPredicateJobShortlist(String predicateName, Predicate<Person> predicate);
@@ -143,9 +148,17 @@ public interface Model {
      * add Predicate to JobAllApplicants
      */
     void addPredicateJobAllApplicants(String predicateName, Predicate<Person> predicate);
+
     /**
-     * Returns one of the UniqueFilterList in the job
+     * remove Predicate to All persons
      */
+    void removePredicateAllPersons(String predicateName);
+
+    /**
+     * remove Predicate to All persons
+     */
+    void clearPredicateAllPersons();
+
     /**
      * remove Predicate to JobShortlist
      */
@@ -234,11 +247,10 @@ public interface Model {
     void updateJobShortlistFilteredPersonList();
 
     /**
-     * Updates the filter of the active filtered person list to filter by the given {@code predicate}.
+     * Updates the filter of the active filtered person list to filter.
      *
-     * @throws NullPointerException if {@code predicate} is null.
      */
-    void updateFilteredPersonList(Predicate<Person> predicate);
+    void updateFilteredPersonList();
 
     /**
      * Clear four filter list.
@@ -257,8 +269,17 @@ public interface Model {
      */
     void revertList();
 
-
+    /**
+     * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
+     * {@code versionedAddressBook}
+     */
     ObservableList<Job> getFilteredJobList();
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
+     * {@code versionedAddressBook}
+     */
+    ObservableList<Person> getBaseFilteredPersonList();
 
     /**
      * Returns true if the model has previous address book states to restore.

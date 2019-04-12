@@ -2,6 +2,7 @@ package seedu.address.model.interviews;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
@@ -50,14 +51,14 @@ public class Interviews {
         int month = now.get(Calendar.MONTH);
         int day = now.get(Calendar.DATE);
         Calendar calendar = new GregorianCalendar(year, month, day);
-        calendar = nextAvailableday(calendar);
+        calendar = nextAvailableDay(calendar);
         interviewsHashMap.put(calendar, new ArrayList<>());
         for (Person person : persons) {
             List<Person> personList = interviewsHashMap.get(calendar);
             if (personList.size() < maxInterviewsADay) {
                 personList.add(person);
             } else {
-                calendar = nextAvailableday(calendar);
+                calendar = nextAvailableDay(calendar);
                 interviewsHashMap.put(calendar, new ArrayList<>());
                 interviewsHashMap.get(calendar).add(person);
             }
@@ -74,7 +75,7 @@ public class Interviews {
         this.maxInterviewsADay = other.maxInterviewsADay;
         this.interviewsHashMap.clear();
         other.interviewsHashMap.forEach(((calendar, personList) ->
-                this.interviewsHashMap.put(calendar, personList)));
+                this.interviewsHashMap.put(calendar, new ArrayList<>(personList))));
         this.blockOutDates.clear();
         for (Calendar calendar : other.blockOutDates) {
             this.blockOutDates.add(calendar);
@@ -107,6 +108,21 @@ public class Interviews {
         return result.trim();
     }
 
+    /**
+     * Removes the person from the interviewsHashMap.
+     * @param person to be removed from interviewsHashMap.
+     * @return true if person to be removed is present, else returns false.
+     */
+    public boolean removePerson(Person person) {
+        Collection<List<Person>> listOfPersonList = interviewsHashMap.values();
+        for (List<Person> personList : listOfPersonList) {
+            if (personList.remove(person)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     protected HashMap<Calendar, List<Person>> getInterviewsHashMap() {
         return interviewsHashMap;
     }
@@ -114,7 +130,7 @@ public class Interviews {
     /**
      * Returns a new instance of the next available day in calendar format.
      */
-    private Calendar nextAvailableday(Calendar calendar) {
+    private Calendar nextAvailableDay(Calendar calendar) {
         Calendar result = (Calendar) calendar.clone();
         result.add(Calendar.DATE, 1);
         while ((result.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY)

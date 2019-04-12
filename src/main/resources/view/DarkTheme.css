@@ -414,6 +414,15 @@
     -fx-font-size: 12;
 }
 
+#allAppFilter .label {
+    -fx-text-fill: white;
+    -fx-background-color: #B71C1C;
+    -fx-padding: 1 3 2 3;
+    -fx-border-radius: 2;
+    -fx-background-radius: 4;
+    -fx-font-size: 12;
+}
+
 #pastjobs {
     -fx-hgap: 7;
     -fx-vgap: 3;
@@ -478,4 +487,15 @@
     -fx-background-color: transparent, derive(#ad3c4d, 20%), transparent, derive(#ad3c4d, 20%);
     -fx-text-fill: white;
     -fx-opacity: 0.9;
+}
+
+#jobsApply .label {
+    -fx-font-size: 10pt;
+    -fx-font-weight: regular;
+    -fx-font-family: "Segoe";
+    -fx-text-fill: white;
+}
+
+#phoneL, #raceL, #genderL, #interviewScoresL, #gradeL, #schoolL, #emailL, #majorL, #jobApplyL, #pastJobsL {
+    -fx-font-size: 10pt;
 }

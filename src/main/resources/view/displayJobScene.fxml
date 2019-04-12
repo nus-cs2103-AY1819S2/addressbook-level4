@@ -46,7 +46,7 @@
             </StackPane>
             <HBox fx:id="fourList" focusTraversable="true" maxHeight="1.7976931348623157E308" stylesheets="@DarkTheme.css" VBox.vgrow="ALWAYS">
                <children>
-                  <VBox fx:id="allList" maxHeight="1.7976931348623157E308" minWidth="400.0" prefWidth="400.0">
+                  <VBox fx:id="allList" maxHeight="1.7976931348623157E308" minWidth="350.0" prefWidth="350.0">
                      <children>
                         <Label fx:id="applicantsLabel" text="Applicants" />
                         <FlowPane fx:id="allFilter" prefHeight="30.0" prefWidth="200.0" styleClass="cell_small_label" stylesheets="@DarkTheme.css" />
@@ -56,21 +56,21 @@
                         <Insets left="5.0" />
                      </padding>
                   </VBox>
-                  <VBox fx:id="kivList" maxHeight="1.7976931348623157E308" minWidth="400.0" prefWidth="400.0">
+                  <VBox fx:id="kivList" maxHeight="1.7976931348623157E308" minWidth="350.0" prefWidth="350.0">
                      <children>
                         <Label fx:id="kivLabel" text="KIV" />
                         <FlowPane fx:id="kivFilter" prefHeight="30.0" prefWidth="200.0" styleClass="column-header" />
                         <StackPane fx:id="kivPlaceholder" maxHeight="1.7976931348623157E308" VBox.vgrow="ALWAYS" />
                      </children>
                   </VBox>
-                  <VBox fx:id="interviewedList" maxHeight="1.7976931348623157E308" minWidth="400.0" prefWidth="400.0">
+                  <VBox fx:id="interviewedList" maxHeight="1.7976931348623157E308" minWidth="350.0" prefWidth="350.0">
                      <children>
                         <Label fx:id="interviewLabel" prefWidth="405.0" text="Interviewed" />
                         <FlowPane fx:id="interviewFilter" prefHeight="30.0" prefWidth="200.0" styleClass="cell_small_label" />
                         <StackPane fx:id="interviewedPlaceholder" maxHeight="1.7976931348623157E308" VBox.vgrow="ALWAYS" />
                      </children>
                   </VBox>
-                  <VBox fx:id="selectedList" maxHeight="1.7976931348623157E308" minWidth="400.0" prefWidth="400.0">
+                  <VBox fx:id="selectedList" maxHeight="1.7976931348623157E308" minWidth="350.0" prefWidth="350.0">
                      <children>
                         <Label fx:id="shortlistLabel" text="Shortlist" />
                         <FlowPane fx:id="shortlistFilter" prefHeight="30.0" prefWidth="200.0" styleClass="cell_small_label" />

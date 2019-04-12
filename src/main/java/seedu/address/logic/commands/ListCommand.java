@@ -23,7 +23,8 @@ public class ListCommand extends Command {
         model.revertList();
         model.clearJobFilteredLists();
         model.setIsAllJobScreen(true);
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        model.clearPredicateAllPersons();
+        model.updateFilteredPersonList();
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

@@ -490,6 +490,32 @@ public class ParserUtil {
     }
 
     /**
+     * Check if the date range provided is valid.value
+     */
+    protected static boolean isValidValueRange(String range) {
+        String trimedRange = range.trim();
+        String[] bounds = trimedRange.split("-");
+        if (bounds.length != 2) {
+            return false;
+        }
+        String trimedLower = bounds[0].trim();
+        String trimedUpper = bounds[1].trim();
+        String floatFarmat = "\\d+" + "." + "\\d+";
+        String integerFarmat = "\\d+";
+        boolean isValidLower = trimedLower.matches(floatFarmat) || trimedLower.matches(integerFarmat);
+        boolean isValidUpper = trimedUpper.matches(floatFarmat) || trimedLower.matches(integerFarmat);
+        return isValidLower && isValidUpper;
+    }
+
+    protected static boolean isValidValueRange(List<String> rangeList){
+        for (String range:rangeList){
+            if(!isValidValueRange(range)){
+                return false;
+            }
+        }
+        return true;
+    }
+    /**
      * Check if the date range provided is valid.
      */
     protected static boolean isValidDateRange(String dateRange) {

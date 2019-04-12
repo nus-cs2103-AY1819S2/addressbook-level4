@@ -48,6 +48,7 @@ public class ModelManager implements Model {
     private FilteredList<Person> activeJobKiv;
     private FilteredList<Person> activeJobInterview;
     private FilteredList<Person> activeJobShortlist;
+    private UniqueFilterList filterListAllPersons;
     private UniqueFilterList filterListJobAllApplicants;
     private UniqueFilterList filterListJobKiv;
     private UniqueFilterList filterListJobInterview;
@@ -83,6 +84,7 @@ public class ModelManager implements Model {
         filterListJobKiv = new UniqueFilterList();
         filterListJobInterview = new UniqueFilterList();
         filterListJobShortlist = new UniqueFilterList();
+        filterListAllPersons = new UniqueFilterList();
 
         allJobsList = new FilteredList<>(versionedAddressBook.getAllJobList());
     }
@@ -213,7 +215,6 @@ public class ModelManager implements Model {
     public void deleteJob(Job job) {
         versionedAddressBook.deleteJob(job);
         revertList();
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
     }
 
     @Override
@@ -240,7 +241,7 @@ public class ModelManager implements Model {
         case SHORTLIST:
             return filterListJobShortlist;
         default:
-            return null;
+            return filterListAllPersons;
         }
     }
 
@@ -290,13 +291,16 @@ public class ModelManager implements Model {
 
     //=========== Filtered Person List Accessors =============================================================
 
-    /**
-     * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
-     * {@code versionedAddressBook}
-     */
+
     @Override
     public ObservableList<Person> getFilteredPersonList() {
         return displayedFilteredPersons;
+    }
+
+
+    @Override
+    public ObservableList<Person> getBaseFilteredPersonList() {
+        return originalFilteredPersons;
     }
 
     @Override
@@ -348,11 +352,24 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void updateFilteredPersonList() {
+        Predicate<Person> predicater = new PredicateManager();
+        for (Filter filter : filterListAllPersons) {
+            predicater = predicater.and(filter.getPredicate());
+        }
+        displayedFilteredPersons.setPredicate(predicater);
+    }
+
+    @Override
     public void clearJobFilteredLists() {
         filterListJobAllApplicants = new UniqueFilterList();
         filterListJobKiv = new UniqueFilterList();
         filterListJobInterview = new UniqueFilterList();
         filterListJobShortlist = new UniqueFilterList();
+    }
+    @Override
+    public void clearPredicateAllPersons(){
+        filterListAllPersons = new UniqueFilterList();
     }
 
     @Override
@@ -380,6 +397,18 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void addPredicateAllPersons(String predicateName, Predicate<Person> predicate) {
+        requireNonNull(predicate);
+        filterListAllPersons.add(new Filter(predicateName, predicate));
+    }
+
+    @Override
+    public void removePredicateAllPersons(String predicateName) {
+        requireNonNull(predicateName);
+        filterListAllPersons.remove(new Filter(predicateName));
+    }
+
+    @Override
     public void removePredicateJobShortlist(String predicateName) {
         requireNonNull(predicateName);
         filterListJobAllApplicants.remove(new Filter(predicateName));
@@ -401,12 +430,6 @@ public class ModelManager implements Model {
     public void removePredicateJobAllApplicants(String predicateName) {
         requireNonNull(predicateName);
         filterListJobAllApplicants.remove(new Filter(predicateName));
-    }
-
-    @Override
-    public void updateFilteredPersonList(Predicate<Person> predicate) {
-        requireNonNull(predicate);
-        displayedFilteredPersons.setPredicate(predicate);
     }
 
     @Override

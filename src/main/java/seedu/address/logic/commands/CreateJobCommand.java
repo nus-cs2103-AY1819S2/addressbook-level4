@@ -7,6 +7,7 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import java.util.ArrayList;
 import java.util.function.Predicate;
 
+import javafx.collections.transformation.FilteredList;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -58,9 +59,9 @@ public class CreateJobCommand extends Command {
         ArrayList<String> jobNameCollection = new ArrayList<>();
         jobNameCollection.add(toAdd.getName().toString());
         Predicate<Person> predicator = new JobsApplyContainsKeywordsPredicate(jobNameCollection);
-        model.updateFilteredPersonList(predicator);
+        FilteredList<Person> personList = (FilteredList<Person>) model.getBaseFilteredPersonList();
+        personList.setPredicate(predicator);
         model.addFilteredPersonsToJob(toAdd.getName(), JobListName.STUB, JobListName.APPLICANT);
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         model.commitAddressBook();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }

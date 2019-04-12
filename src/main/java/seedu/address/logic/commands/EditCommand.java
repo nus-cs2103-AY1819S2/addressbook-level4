@@ -61,6 +61,7 @@ public class EditCommand extends Command {
         this.editPdfDescriptor = new EditPdfDescriptor(editPdfDescriptor);
     }
 
+    @SuppressWarnings("Duplicates")
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
@@ -86,6 +87,7 @@ public class EditCommand extends Command {
 
         File oldFile = Paths.get(pdfToEdit.getDirectory().getDirectory(), pdfToEdit.getName().getFullName()).toFile();
         File newFile = Paths.get(editedPdf.getDirectory().getDirectory(), editedPdf.getName().getFullName()).toFile();
+
         if (!oldFile.renameTo(newFile)) {
             throw new CommandException(MESSAGE_EDIT_PDF_FAILURE);
         }

@@ -833,7 +833,7 @@ image::GenerateCommandSeqDiagram.png[width="700", caption="Figure 4.4.3: ", reft
 * `saveRatingChart(filePath)` - Saves the ratings data into a JSON file.
 * `saveYearChart(filePath)` - Saves the years data into a JSON file.
 
-A code snippet for `saveCountryChart(filePath)` is shown below. 
+A code snippet for `saveCountryChart(filePath)` is shown below.
 
 [source,java]
 ----

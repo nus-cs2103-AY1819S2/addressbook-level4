@@ -26,6 +26,10 @@ public class DeckShuffler {
         itCounter = 0;
     }
 
+    public DeckShuffler(DeckShuffler deckShuffler) {
+        this.deck = deckShuffler.getDeck();
+    }
+
     /**
      * Gets the activeDeck in deckShuffler
      */

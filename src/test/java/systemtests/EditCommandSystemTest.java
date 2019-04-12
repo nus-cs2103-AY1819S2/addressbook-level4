@@ -6,11 +6,9 @@ import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.GENDER_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.GENDER_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.GRADE_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.GRADE_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.INTERVIEWSCORES_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.INTERVIEWSCORES_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
@@ -25,12 +23,9 @@ import static seedu.address.logic.commands.CommandTestUtil.INVALID_RACE_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_SCHOOL_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.JOBSAPPLY_DESC_ENGINEER;
-import static seedu.address.logic.commands.CommandTestUtil.JOBSAPPLY_DESC_TRADER;
 import static seedu.address.logic.commands.CommandTestUtil.MAJOR_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.MAJOR_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.NRIC_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.NRIC_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.PASTJOB_DESC_PROFESSOR;
 import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
@@ -47,7 +42,6 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static seedu.address.testutil.TypicalObjects.AMY;
 import static seedu.address.testutil.TypicalObjects.BOB;
 import static seedu.address.testutil.TypicalObjects.KEYWORD_MATCHING_MEIER;
 
@@ -140,22 +134,6 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         assertCommandFailure(EditCommand.COMMAND_WORD + " " + invalidIndex + NAME_DESC_BOB,
                 Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
 
-        /* --------------------- Performing edit operation while a person card is selected -------------------------- */
-
-        /* Case: selects first card in the person list, edit a person -> edited, card selection remains unchanged but
-         * browser url changes
-         */
-        showAllPersons();
-        index = INDEX_FIRST_PERSON;
-        selectPerson(index);
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY
-                + RACE_DESC_AMY + ADDRESS_DESC_AMY + SCHOOL_DESC_AMY + MAJOR_DESC_AMY + TAG_DESC_FRIEND
-                + GENDER_DESC_AMY + GRADE_DESC_AMY + NRIC_DESC_AMY + INTERVIEWSCORES_DESC_AMY
-                + JOBSAPPLY_DESC_TRADER;
-        // this can be misleading: card selection actually remains unchanged but the
-        // browser's url is updated to reflect the new person's name
-        editedPerson = new PersonBuilder(AMY).build();
-        assertCommandSuccess(command, index, editedPerson, index);
 
         /* --------------------------------- Performing invalid edit operation -------------------------------------- */
 
@@ -243,7 +221,6 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: edit a person with new values same as another person's values -> rejected */
         executeCommand(PersonUtil.getAddCommand(BOB));
-        assertTrue(getModel().getAddressBook().getPersonList().contains(BOB));
         index = INDEX_FIRST_PERSON;
         assertFalse(getModel().getFilteredPersonList().get(index.getZeroBased()).equals(BOB));
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
@@ -356,7 +333,6 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
      * Verifications 1 and 2 are performed by
      * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
      * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
-     * @see AddressBookSystemTest#assertSelectedCardChanged(Index)
      */
     private void assertCommandSuccess(String command, Model expectedModel, String expectedResultMessage,
             Index expectedSelectedCardIndex) {
@@ -364,11 +340,6 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         expectedModel.updateBaseFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         assertApplicationDisplaysExpected("", expectedResultMessage, expectedModel);
         assertCommandBoxShowsDefaultStyle();
-        if (expectedSelectedCardIndex != null) {
-            assertSelectedCardChanged(expectedSelectedCardIndex);
-        } else {
-            assertSelectedCardUnchanged();
-        }
         assertStatusBarUnchangedExceptSyncStatus();
     }
 
@@ -387,7 +358,6 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
 
         executeCommand(command);
         assertApplicationDisplaysExpected(command, expectedResultMessage, expectedModel);
-        assertSelectedCardUnchanged();
         assertCommandBoxShowsErrorStyle();
         assertStatusBarUnchanged();
     }

@@ -46,11 +46,10 @@ public class StringUtil {
 
     /**
      * Returns true if the {@code word} in the range of {@code sentence}.
-     * Ignores case, but a full word match is required.
      * <br>examples:<pre>
-     *       containsWordIgnoreCase("ABc def", "abc") == true
-     *       containsWordIgnoreCase("ABc def", "DEF") == true
-     *       containsWordIgnoreCase("ABc def", "AB") == false //not a full word match
+     *       valueInRange("1.5-2.0", "1.75") == true
+     *       valueInRange("1.5-2.0", "1.5") == true
+     *       valueInRange("1.5-2.0", "2.0") == true
      *       </pre>
      *
      * @param sentence cannot be null
@@ -59,26 +58,19 @@ public class StringUtil {
     public static boolean valueInRange(String sentence, String word) {
         requireNonNull(sentence);
         requireNonNull(word);
-
         float value = Float.parseFloat(word);
 
         String preppedSentence = sentence.trim();
         checkArgument(!preppedSentence.isEmpty(), "Range parameter cannot be empty");
-        String[] rangesInPreppedSentence = preppedSentence.split(";");
-        for (String range : rangesInPreppedSentence) {
-            checkArgument(range.split("-").length == 2, "Range parameter format wrong");
-            String[] values = range.split("-");
-            String preppedUpperBound = values[1].trim();
-            String preppedLowerBound = values[0].trim();
-            checkArgument(preppedLowerBound.matches(
-                "\\d" + "." + "\\d+"), "lower bound parameter format wrong");
-            checkArgument(preppedUpperBound.matches(
-                "\\d" + "." + "\\d+"), "upper bound parameter format wrong");
-            if (value >= Float.parseFloat(preppedLowerBound) && value <= Float.parseFloat(preppedUpperBound)) {
-                return true;
-            }
-        }
-        return false;
+
+        int rangeParaSize = preppedSentence.split("-").length;
+        checkArgument(rangeParaSize == 2, "Range parameter format wrong");
+        String[] values = preppedSentence.split("-");
+        String preppedUpperBound = values[1].trim();
+        String preppedLowerBound = values[0].trim();
+        Boolean isValueSmallerThanUpper = value <= Float.parseFloat(preppedUpperBound);
+        Boolean isValueBiggerThanLower = value >= Float.parseFloat(preppedLowerBound);
+        return isValueSmallerThanUpper && isValueBiggerThanLower;
     }
 
     /**

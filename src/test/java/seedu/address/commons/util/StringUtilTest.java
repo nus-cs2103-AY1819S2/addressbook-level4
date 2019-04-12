@@ -140,9 +140,8 @@ public class StringUtilTest {
     @Test
     public void valueInRange_validInputs_correctResult() {
         assertTrue(StringUtil.valueInRange(" 1.00-2.00 ", "1.5"));
-        assertTrue(StringUtil.valueInRange(" 1.00-2.00;2.00-3.00 ", "1.5"));
-        assertTrue(StringUtil.valueInRange(" 1.00-2.00;2.00-3.00 ", "2.5"));
-        assertTrue(StringUtil.valueInRange(" 1.00  - 2.00;   2.00 -3.00 ", "2.5"));
+        assertTrue(StringUtil.valueInRange("1.00 - 2.00", "1.5"));
+        assertTrue(StringUtil.valueInRange(" 1-2", "1.5"));
 
     }
 

@@ -20,6 +20,11 @@ public class CliSyntax {
     public static final Prefix PREFIX_PASTJOB = new Prefix("pj/");
     public static final Prefix PREFIX_JOBSAPPLY = new Prefix("j/");
     public static final Prefix PREFIX_INTERVIEWSCORES = new Prefix("is/");
+    public static final Prefix PREFIX_INTERVIEWSCORESQ1 = new Prefix("is1/");
+    public static final Prefix PREFIX_INTERVIEWSCORESQ2 = new Prefix("is2/");
+    public static final Prefix PREFIX_INTERVIEWSCORESQ3 = new Prefix("is3/");
+    public static final Prefix PREFIX_INTERVIEWSCORESQ4 = new Prefix("is4/");
+    public static final Prefix PREFIX_INTERVIEWSCORESQ5 = new Prefix("is5/");
     public static final Prefix PREFIX_SCHOOL = new Prefix("s/");
     public static final Prefix PREFIX_JOBNAME = new Prefix("jn/");
     public static final Prefix PREFIX_FILTERNAME = new Prefix("fn/");

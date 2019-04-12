@@ -119,6 +119,10 @@ public class Person {
         return interviewScores;
     }
 
+    public String getInterviewScores(int questionNum) {
+        return interviewScores.getInterviewScore(questionNum);
+    }
+
     /**
      * Returns an immutable known programming language set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.

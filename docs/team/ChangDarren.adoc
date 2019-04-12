@@ -15,38 +15,53 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/cs2103-ay1819s2-w11-1/main/tree/master
 
-== About the project
-My team and I were tasked to with morphing a basic commandline interface addressbook for our software
+== About the Project
+My team and I were tasked with morphing a basic commandline interface addressbook application(AB4) for our software
 engineering project. We decided to morph the application into a Flashcard management application called TopDeck
-TopDeck is a user-friendly tool that aims to help users better memorise any content that they desire. Users can use
-it to learn a language, remember a math formula or simply recall an answer to a question.
 
+**TopDeck** is a user-friendly flashcard management application that aims to help users better memorise any content
+that they desire.
 The main functionality of the application include managing a list of decks, managing the cards within
 each deck and having study sessions.
+Users can use it to learn a language, remember a math formula or simply recall an answer to a question.
 
 I was in-charge of the card's management feature within the application and these include creating,
-reading, updating and deleting (CRUD) a card within a deck. The following sections illustrate these
-enhancements as well as the relevant sections that I have included in the user and developer guides in relation
-to these enhancements.
+reading, updating and deleting (CRUD) a card within a deck as well as searching for cards that the user is interested in.
+The following sections illustrate these enhancements as well as the relevant sections that I have included in the user and
+developer guides.
 
-== Summary of contributions
+== Glossary
+The following symbols are used throughout the application and represent the following:
+
+[NOTE]
+NOTE
+
+[CAUTION]
+CAUTION
+
+
+== Summary of Contributions
 This section shows a summary of my coding, documentation, and
 other helpful contributions to the team project.
 
 Enhancement added: I added the ability for users to add, delete and edit cards.
-Along with the usual CRUD operation, I also added a find feature.
+Along with the usual CRUD operation, I also added a find and clear feature for the cards.
 
 * Justification: A user should be able to execute basic CRUD operations on a deck
 of cards to customize the study session that the user will experience. A find feature will help
 the user to locate the specific card especially when  they want to recall the question or
-answer to the specific question.
+answer to the specific question. A clear feature will allow the user to remove all the cards
+quickly in a deck when the user wants to recreate the whole deck.
 
 * Highlights: The CRUD operation has to work with the existing commands and
-data structure. This was challenging as the `Undo` and `Redo` methods in the
-original application leverages of the immutability of the data structure. As such,
-all commands have to implemented in a way that is immutable. Also, our application is
-stateful as such, there is also a need to ensure both the state of the application and
-the model is consistent with each other.
+data structure in AB4. This was challenging as the `Undo` and `Redo` methods in the
+original application leverages on the immutability of the data structure.
+The card list however is an object in a deck and all card related operation
+is a modification of the current deck. As such, there was a need to ensure that
+both requirements will be fulfilled.
+Also, our application maintains a state object which the UI is dependent on. As such, there is
+also a need to ensure both the state of the application and the model is consistent with each other
+after every command.
 
 * Credits: The edit command has an auto-complete feature which was implemented
 by my team mate  Wei Heng.
@@ -66,24 +81,28 @@ the whole project through the issue tracker on GitHub.
 
 Enhancements to existing feature:
 
-* Wrote Card System test to increase the coverage from 82% to 87% (Pull requests #96)
+* Wrote Card System test to increase the coverage from 82% to 87% (Pull request https://github.com/cs2103-ay1819s2-w11-1/main/pull/96[#96])
 
-* Enhance `find` command to allow for finding of cards using  phrases.
+* Enhance `find` command to allow for finding of cards using phrases. (Pull request https://github.com/cs2103-ay1819s2-w11-1/main/pull/60[#60])
 
-* Enhance UI test for ListPanelHandle so that it can take both Deck and Cards (Pull requests #94)
+* Enhance UI test for ListPanelHandle so that it can take both Deck and Cards (Examples: https://github.com/cs2103-ay1819s2-w11-1/main/pull/54[#54],
+https://github.com/cs2103-ay1819s2-w11-1/main/pull/94[#94])
 
 Community:
 
-* Reviewed Pull-Requests (Examples: #58, #28, #88)
+* Reviewed Pull-Requests (Examples: https://github.com/cs2103-ay1819s2-w11-1/main/pull/58[#58], https://github.com/cs2103-ay1819s2-w11-1/main/pull/28[#28],
+https://github.com/cs2103-ay1819s2-w11-1/main/pull/88[#88])
 
-* Reported bugs (Examples #34)
+* Reported bugs (Examples: https://github.com/cs2103-ay1819s2-w11-1/main/issues/34[#34], https://github.com/cs2103-ay1819s2-w11-1/main/issues/136[#136])
 
-* Updated Model Class diagram
+* Updated Class diagrams (Examples: https://github.com/cs2103-ay1819s2-w11-1/main/pull/16[#16],
+https://github.com/cs2103-ay1819s2-w11-1/main/pull/148[#148])
+
+* Refactored initial code from AB4 (Pull request https://github.com/cs2103-ay1819s2-w11-1/main/pull/8[#8])
 
 == Contributions to the User Guide
-We had to update the original User Guide with new instructions for the different enhancements that we
-have implemented. The following is an excerpt from **TopDeck User Guide**, showing the additions that I
-have made for Card Management.
+We had to update the original User Guide with new instructions for the different enhancements implemented.
+The following is an excerpt from that I have written for Card's Management from **TopDeck User Guide**.
 
 === Cards View
 
@@ -217,8 +236,14 @@ image::card_ug_diagrams/find_card_2.png[width="800"]
 
 **Outcome**: Returns to decks view.
 
+==== [To be implemented in V2.0] Adding a picture to a card
+
+**Format**: `addImg INDEX IMAGEPATH`
+
+**Outcome**: Adds the image as a question to the card at `INDEX`
+
 == Contributions to the Developer Guide
-The following section shows my additions to the TopDeck Developer Guide for the Card Management features.
+The following section shows my additions to the **TopDeck Developer Guide** for the Card Management features.
 
 === Card management
 ==== Data structure
@@ -250,22 +275,45 @@ The CRUD operations are exposed in the Model interface as `Model#addCard(Card ca
 `Model#deleteCard(Card target, Deck deck)` and `Model#setCard(Card target, Card newCard, Deck deck)`.
 For each operation, there are 2 objects that need to be updated namely, `VersionedTopDeck` and `CardsView`.
 
-Each CRUD operation can be broken down into the following steps:
+Each CRUD operation called by `ModelManager`can be broken down into the following steps:
 
 1. Find the chosen deck using `CardsView.activeDeck` and create a new deck from it.
-2. Execute `VersionedTopDeck#addCard(Card newCard, Deck deck)` or
-`VersionedTopDeck#removeCard(Card target, Deck deck)` or
-`VersionedTopDeck#setCard(Card target, Card editedCard, Deck deck)` using `CardsView.activeDeck`.
+2. Execute `VersionedTopDeck#addCard(Card newCard, Deck activeDeck)` or
+`VersionedTopDeck#removeCard(Card target, Deck activeDeck)` or
+`VersionedTopDeck#setCard(Card target, Card editedCard, Deck activeDeck)` using `CardsView.activeDeck`.
 3. Update the `CardsView` with the new editedDeck.
 4. Update the UI to reflect the new CardsView.
 
-Given below is an example usage scenario and how the add operation works and how it
-interacts with Undo/Redo:
+Here is a code snippet for `VersionedTopDeck#addCard(Card newCard, Deck deck)` which shows the sequence
+of functions carried out and returns the newly edited deck to `ModelManager`:
+
+    public Deck addCard(Card card, Deck activeDeck) throws DuplicateCardException, DeckNotFoundException {
+            requireAllNonNull(card, activeDeck);
+            if (!decks.contains(activeDeck)) {
+                throw new DeckNotFoundException();
+            }
+            if (activeDeck.hasCard(card)) {
+                throw new DuplicateCardException();
+            }
+            Deck editedDeck = new Deck(activeDeck);
+            editedDeck.addCard(card);
+            decks.setDeck(activeDeck, editedDeck);
+            .
+            .
+            .
+            return editedDeck;
+    }
 
 [NOTE]
-All other CRUD operations works the same except for the model call. Instead of
+All other CRUD operations works similarly except for the model call. Instead of
 `Model#addCard(Card card, Deck deck)`, `Model#deleteCard(Card target, Deck deck)` or
-`Model#setCard(Card target, Card newCard, Deck deck)` is called instead.
+`Model#setCard(Card target, Card newCard, Deck deck)` is called instead. Similarly,
+instead of `VersionedTopDeck.addCard(Card card, Deck activeDeck)`,
+`VersionedTopDeck.deleteCard(Card target, Deck activeDeck)` or
+`VersionedTopDeck.setCard(Card target, Card newCard, Deck activeDeck)` is called.
+
+Given below is an example usage scenario and how the add operation works and how it
+interacts with Undo/Redo:
 
 Step 1. The user starts up the application and is in the `DecksView`. The user then
 executes the `open 1` command to open the first deck(D1 in the figure). This should change the
@@ -324,7 +372,7 @@ image::card_dg_fig/card_fig_9.png[width="800", caption="Figure 8"]
 
 ==== Design considerations
 
-===== Aspect: Data structure of Cards
+===== Aspect: Data structure of cards
 * **Alternative 1(current choice):** Have a list of cards within each deck
 ** Pros: Allows for decks features such as import and export. Also, any search operation is
 done within the deck only.

@@ -404,22 +404,45 @@ The CRUD operations are exposed in the Model interface as `Model#addCard(Card ca
 `Model#deleteCard(Card target, Deck deck)` and `Model#setCard(Card target, Card newCard, Deck deck)`.
 For each operation, there are 2 objects that need to be updated namely, `VersionedTopDeck` and `CardsView`.
 
-Each CRUD operation can be broken down into the following steps:
+Each CRUD operation called by `ModelManager`can be broken down into the following steps:
 
 1. Find the chosen deck using `CardsView.activeDeck` and create a new deck from it.
-2. Execute `VersionedTopDeck#addCard(Card newCard, Deck deck)` or
-`VersionedTopDeck#removeCard(Card target, Deck deck)` or
-`VersionedTopDeck#setCard(Card target, Card editedCard, Deck deck)` using `CardsView.activeDeck`.
+2. Execute `VersionedTopDeck#addCard(Card newCard, Deck activeDeck)` or
+`VersionedTopDeck#removeCard(Card target, Deck activeDeck)` or
+`VersionedTopDeck#setCard(Card target, Card editedCard, Deck activeDeck)` using `CardsView.activeDeck`.
 3. Update the `CardsView` with the new editedDeck.
 4. Update the UI to reflect the new CardsView.
 
-Given below is an example usage scenario and how the add operation works and how it
-interacts with Undo/Redo:
+Here is a code snippet for `VersionedTopDeck#addCard(Card newCard, Deck deck)` which shows the sequence
+of functions carried out and returns the newly edited deck to `ModelManager`:
+
+    public Deck addCard(Card card, Deck activeDeck) throws DuplicateCardException, DeckNotFoundException {
+            requireAllNonNull(card, activeDeck);
+            if (!decks.contains(activeDeck)) {
+                throw new DeckNotFoundException();
+            }
+            if (activeDeck.hasCard(card)) {
+                throw new DuplicateCardException();
+            }
+            Deck editedDeck = new Deck(activeDeck);
+            editedDeck.addCard(card);
+            decks.setDeck(activeDeck, editedDeck);
+            .
+            .
+            .
+            return editedDeck;
+    }
 
 [NOTE]
-All other CRUD operations works the same except for the model call. Instead of
+All other CRUD operations works similarly except for the model call. Instead of
 `Model#addCard(Card card, Deck deck)`, `Model#deleteCard(Card target, Deck deck)` or
-`Model#setCard(Card target, Card newCard, Deck deck)` is called instead.
+`Model#setCard(Card target, Card newCard, Deck deck)` is called instead. Similarly,
+instead of `VersionedTopDeck.addCard(Card card, Deck activeDeck)`,
+`VersionedTopDeck.deleteCard(Card target, Deck activeDeck)` or
+`VersionedTopDeck.setCard(Card target, Card newCard, Deck activeDeck)` is called.
+
+Given below is an example usage scenario and how the add operation works and how it
+interacts with Undo/Redo:
 
 Step 1. The user starts up the application and is in the `DecksView`. The user then
 executes the `open 1` command to open the first deck(D1 in the figure). This should change the
@@ -478,7 +501,7 @@ image::card_dg_fig/card_fig_9.png[width="800", caption="Figure 8"]
 
 ==== Design considerations
 
-===== Aspect: Data structure of Cards
+===== Aspect: Data structure of cards
 * **Alternative 1(current choice):** Have a list of cards within each deck
 ** Pros: Allows for decks features such as import and export. Also, any search operation is
 done within the deck only.

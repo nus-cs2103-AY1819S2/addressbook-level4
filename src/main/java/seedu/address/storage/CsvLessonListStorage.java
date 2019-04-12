@@ -36,6 +36,8 @@ public class CsvLessonListStorage implements LessonListStorage {
     private static final String HEADER_CORE_NOT_QA = "n";
     private static final String HEADER_OPTIONAL = "h";
 
+    private static final String DEFAULT_FIELD_NAME = "Unnamed";
+
     private static final String READ_WARNING_CORE_LABEL = "Core escape character [ "
             + CORE_ESCAPE
             + " ] was found after non-core column.";
@@ -91,9 +93,21 @@ public class CsvLessonListStorage implements LessonListStorage {
         int extensionIndex = lessonName.lastIndexOf(".");
         lessonName = lessonName.substring(0, extensionIndex);
 
-        int[] headerData = parseStringArrayToHeaderData(data.get(0));
+        String[] headerArray = data.get(0);
+        String[] fieldNameArray = data.get(1);
+
+        if (headerArray.length != fieldNameArray.length) {
+            logger.warning("Lesson does not have matching number of fields and field types: " + lessonName);
+            return Optional.empty();
+        }
+
+        int[] headerData = parseStringArrayToHeaderData(headerArray);
 
         int coreCount = headerData[0];
+        if (coreCount == -1) {
+            logger.warning("Lesson has invalid header values: " + lessonName);
+            return Optional.empty();
+        }
         if (coreCount < Card.MIN_CORE_COUNT) {
             logger.warning("Lesson does not have enough testable sides: " + lessonName);
             return Optional.empty();
@@ -106,7 +120,12 @@ public class CsvLessonListStorage implements LessonListStorage {
             answerIndex = Lesson.DEFAULT_INDEX_ANSWER;
         }
 
-        List<String> fieldNames = parseStringArrayToFieldNames(data.get(1));
+        List<String> fieldNames = parseStringArrayToFieldNames(fieldNameArray);
+
+        Lesson newLesson = new Lesson(lessonName, coreCount, fieldNames);
+        newLesson.setQuestionAnswerIndices(questionIndex, answerIndex);
+
+        System.out.println(newLesson.toString());
 
         /*
         String[] header = data.get(0);
@@ -165,28 +184,30 @@ public class CsvLessonListStorage implements LessonListStorage {
         //return Optional.of(newLesson);
     }
 
-    private int[] parseStringArrayToHeaderData(String[] header) {
+    private int[] parseStringArrayToHeaderData(String[] headerArray) {
         int[] returnValues = new int[3];
         Arrays.fill(returnValues, -1);
         int questionIndex = -1;
         int answerIndex = -1;
 
         int coreCount = 0;
-        while (coreCount < header.length) {
-            String headerChar = header[coreCount].toLowerCase().substring(0,1);
-            if (headerChar.equals(HEADER_OPTIONAL)) {
-                System.out.println(headerChar);
-                break;
-            }
+        int index = 0;
+        while (index < headerArray.length) {
+            String headerChar = headerArray[index].toLowerCase().substring(0,1);
             if (headerChar.equals(HEADER_CORE_QA)) {
                 if (questionIndex == -1) {
-                    questionIndex = coreCount;
+                    questionIndex = index;
                 } else if (answerIndex == -1) {
-                    answerIndex = coreCount;
+                    answerIndex = index;
                 }
+                coreCount++;
+            } else if (headerChar.equals(HEADER_CORE_NOT_QA)) {
+                coreCount++;
+            } else if (!headerChar.equals(HEADER_OPTIONAL)){
+                return returnValues;
             }
 
-            coreCount++;
+            index++;
         }
 
         returnValues[0] = coreCount;
@@ -195,8 +216,16 @@ public class CsvLessonListStorage implements LessonListStorage {
         return returnValues;
     }
 
-    private List<String> parseStringArrayToFieldNames(String[] fieldNames) {
-        return null;
+    private List<String> parseStringArrayToFieldNames(String[] fieldNameArray) {
+        List<String> fieldNames;
+        for (int i = 0; i < fieldNameArray.length; i++) {
+            if(fieldNameArray[i].isEmpty()) {
+                fieldNameArray[i] = DEFAULT_FIELD_NAME;
+            }
+        }
+        fieldNames = Arrays.asList(fieldNameArray);
+
+        return fieldNames;
     }
 
     /**

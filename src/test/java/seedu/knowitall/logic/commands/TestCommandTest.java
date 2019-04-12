@@ -5,12 +5,17 @@ import static seedu.knowitall.logic.commands.CommandTestUtil.assertCommandFailur
 import static seedu.knowitall.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.knowitall.testutil.TypicalCards.getTypicalCardFolders;
 
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 import seedu.knowitall.logic.CommandHistory;
+import seedu.knowitall.model.CardFolder;
+import seedu.knowitall.model.EmptyCardFolderException;
 import seedu.knowitall.model.Model;
 import seedu.knowitall.model.ModelManager;
 import seedu.knowitall.model.UserPrefs;
+import seedu.knowitall.testutil.CardFolderBuilder;
 import seedu.knowitall.testutil.TypicalIndexes;
 
 /**
@@ -21,6 +26,9 @@ public class TestCommandTest {
     private Model expectedModel = new ModelManager(getTypicalCardFolders(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
+
     @Test
     public void execute_validTestCommand_success() {
         model.enterFolder(TypicalIndexes.INDEX_FIRST_CARD_FOLDER.getZeroBased());
@@ -30,6 +38,18 @@ public class TestCommandTest {
         CommandResult expectedCommandResult = new CommandResult(TestCommand.MESSAGE_ENTER_TEST_FOLDER_SUCCESS,
                 CommandResult.Type.START_TEST_SESSION);
         assertCommandSuccess(testCommand, model, commandHistory, expectedCommandResult, expectedModel);
+    }
+
+    @Test
+    public void execute_invalidTestCommandInEmptyFolder_throwsEmptyCardFolderException() {
+        CardFolder emptyFolder = new CardFolderBuilder().build();
+        model.addFolder(emptyFolder);
+        expectedModel.addFolder(emptyFolder);
+        model.enterFolder(model.getCardFolders().size() - 1);
+        expectedModel.enterFolder(model.getCardFolders().size() - 1);
+
+        thrown.expect(EmptyCardFolderException.class);
+        expectedModel.testCardFolder();
     }
 
     @Test

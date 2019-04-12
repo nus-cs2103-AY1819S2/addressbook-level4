@@ -859,13 +859,13 @@ The Suggestion commands are: `add`, `clear`, `copy`, `delete`, `edit`, `find`, `
 
 Suppose if you want to add something but you have forgotten the exact command. +
 Simply enter `add`, and TeethHub will ask you if you meant `patientadd` or `recordadd` or `taskadd`. +
-Don't worry about the commands not being able to be used in your current mode, for the Suggestion commands will only suggest commands that can be used in your current mode.
+Don't worry about the commands that cannot be used in your current mode; the Suggestion commands will only suggest commands that can be used in your current mode.
 
-For example, if you were to type `add` in Patient Mode, this is what you will see:
+For example, if you were to type `add` in Patient Mode, you will see `patientadd` and `taskadd`:
 
 image::SuggestionFeatureAddPatientMode.png[width="236"]
 
-If you were to type `add` in Record Mode, this is what you will see instead:
+If you were to type `add` in Record Mode, you will see `recordadd` and `taskadd` instead:
 
 image::SuggestionFeatureAddRecordMode.png[width="236"]
 

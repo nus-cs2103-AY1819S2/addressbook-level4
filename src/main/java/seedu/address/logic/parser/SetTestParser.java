@@ -2,6 +2,9 @@ package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
+import java.util.Arrays;
+import java.util.List;
+
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.management.SetTestCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -19,12 +22,19 @@ public class SetTestParser implements Parser<SetTestCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public SetTestCommand parse(String args) throws ParseException {
-        String[] testValues = args.split(" ");
-
+        List<String> testValues = Arrays.asList(args.trim().split(" "));
         try {
-            Index questionIndex = ParserUtil.parseIndex(testValues[0]);
-            Index answerIndex = ParserUtil.parseIndex(testValues[1]);
+            // Only allow 2 inputs - can only set 2 values to be tested
+            if (testValues.size() > 2) {
+                throw new ParseException("");
+            }
 
+            String testValue = testValues.get(0);
+            Index questionIndex = ParserUtil.parseIndex(testValue);
+            testValue = testValues.get(1);
+            Index answerIndex = ParserUtil.parseIndex(testValue);
+
+            // Only allow 2 distinct inputs - must set 2 values to be tested
             if (questionIndex.equals(answerIndex)) {
                 throw new ParseException("");
             }

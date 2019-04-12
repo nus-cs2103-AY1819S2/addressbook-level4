@@ -35,7 +35,9 @@ public class SampleDataUtil {
             new Book(new BookName("The Second Sex"), new Author("Beauvoir"), new Rating("9"),
                 getTagSet()),
             new Book(new BookName("The Master and Margaret"), new Author("Mikhail Bulgakov"), new Rating("8"),
-                getTagSet())
+                getTagSet()),
+            new Book(new BookName("Sense and Sensibility"), new Author("Jane Austen"), new Rating("7"),
+                getTagSet("novel", "romantic")),
         };
     }
 
@@ -53,6 +55,11 @@ public class SampleDataUtil {
                     "Most of the characters believe that nothing matters more than social class. Characters "
                             + "threaten, criticize, ostracize, flatter, marry, venerate and despise other characters, "
                             + "all for the sake of maintaining or elevating their status in society."),
+            new Review(new ReviewTitle("Book of a Lifetime"), new BookName("Madame Bovary"),
+                    "What leaves me reeling with each re-reading is the use of language."
+                            + " There can be no doubt as to the reason for Flaubert's brain popping at"
+                            + " the top of the stairs when he was 58. He broke it scouring for perfect sentences,"
+                            + " words, le mot juste.")
         };
     }
 

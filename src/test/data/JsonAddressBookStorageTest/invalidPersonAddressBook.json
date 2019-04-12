@@ -1,7 +1,0 @@
-{
-  "persons": [ {
-    "bookname": "Person with invalid name field: The K&d",
-    "author": "Lewis Carroll",
-    "rating": "5"
-  } ]
-}

@@ -213,6 +213,37 @@ public class CommandTestUtil {
     }
 
     /**
+     * Convenience wrapper to {@link #assertMergeCommandSuccess(Pdf, Pdf, Model, CommandHistory,
+     * CommandResult, Model, CommandResult)}
+     * that takes a string {@code expectedMessage} for MergeCommand.
+     */
+    public static void assertMergeCommandSuccess(Pdf pdfToTest, Pdf mergedPdf, Model actualModel,
+            CommandHistory actualCommandHistory, String expectedMessage,
+            Model expectedModel, CommandResult actualResult) {
+        CommandResult expectedCommandResult = new CommandResult(expectedMessage);
+        assertMergeCommandSuccess(pdfToTest, mergedPdf, actualModel,
+                actualCommandHistory, expectedCommandResult, expectedModel, actualResult);
+    }
+
+    /**
+     * Executes the given {@code command}, confirms that <br>
+     * - the returned {@link CommandResult} matches {@code expectedCommandResult} <br>
+     * - the {@code actualModel} matches {@code expectedModel} <br>
+     * - the {@code actualCommandHistory} remains unchanged.
+     */
+    public static void assertMergeCommandSuccess(Pdf pdfToTest, Pdf mergedPdf, Model actualModel,
+            CommandHistory actualCommandHistory, CommandResult expectedCommandResult,
+            Model expectedModel, CommandResult actualResult) {
+        CommandHistory expectedCommandHistory = new CommandHistory(actualCommandHistory);
+
+        assertEquals(pdfToTest, mergedPdf);
+        assertEquals(expectedCommandResult, actualResult);
+        assertEquals(expectedModel, actualModel);
+        assertEquals(expectedCommandHistory, actualCommandHistory);
+
+    }
+
+    /**
      * Updates {@code model}'s filtered list to show only the pdf at the given {@code targetIndex} in the
      * {@code model}'s address book.
      */

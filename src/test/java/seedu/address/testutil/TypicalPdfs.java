@@ -68,6 +68,9 @@ public class TypicalPdfs {
     private static final Path sample_pdf_3_encrypted_path =
             Paths.get("src", "test", "data", "SampleFiles", "EncryptedFiles",
                     "CS2101_Product_PW_123321.pdf");
+    private static final Path sample_pdf_merged_1_2_path =
+            Paths.get("src", "test", "data", "SampleFiles", "DuplicateFiles",
+                    "Merged_PDF.pdf");
 
 
     //Duplicates - Pdfs that have the same name but in a different location
@@ -182,6 +185,12 @@ public class TypicalPdfs {
             .withDirectory(sample_pdf_1_path.toAbsolutePath().getParent().toString())
             .withSize(Long.toString(sample_pdf_1_path.toFile().length()))
             .withDeadline("NEWLY ADDED").build();
+    public static final Pdf SAMPLE_PDF_MERGED_1_2 = new PdfBuilder()
+            .withName(sample_pdf_merged_1_2_path.toFile().getName())
+            .withDirectory(sample_pdf_1_path.toAbsolutePath().getParent().toString())
+            .withSize(Long.toString(sample_pdf_merged_1_2_path.toFile().length()))
+            .withDeadline("NEWLY ADDED")
+            .build();
 
     //Duplicates
     public static final Pdf SAMPLE_PDF_1_DUPLICATE = new PdfBuilder()

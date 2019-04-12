@@ -27,6 +27,10 @@ public class HistoryCommandTest {
         history.add(command2);
         history.add(command3);
 
+        // both encrypt and decrypt won't be added
+        history.add("encrypt");
+        history.add("decrypt");
+
         String expectedMessage = String.format(HistoryCommand.MESSAGE_SUCCESS,
                 String.join("\n", command3, command2, command1));
         assertCommandSuccess(new HistoryCommand(), model, history, expectedMessage, expectedModel);

@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static org.junit.Assert.assertTrue;
+import static seedu.address.logic.commands.CommandTestUtil.DIR_1_VALID;
 import static seedu.address.logic.commands.CommandTestUtil.PASSWORD_1_VALID;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
@@ -35,6 +36,7 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.PdfBook;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.pdf.Pdf;
+import seedu.address.testutil.PdfBuilder;
 
 public class EncryptCommandTest {
     @Rule
@@ -80,13 +82,13 @@ public class EncryptCommandTest {
 
     @Test
     public void execute_onlyCompulsoryFieldSpecifiedUnfilteredList_success() {
-        Pdf pdfToEncrypt = SAMPLE_PDF_1_ENCRYPTED;
+        Pdf pdfToEncrypt = new PdfBuilder(SAMPLE_PDF_1_ENCRYPTED).withDirectory(DIR_1_VALID).build();
         EncryptCommand encryptCommand = new EncryptCommand(INDEX_FIRST_PDF, PASSWORD_1_VALID);
 
         String expectedMessage = String.format(MESSAGE_ENCRYPT_PDF_SUCCESS, pdfToEncrypt);
 
         Model expectedModel = new ModelManager(new PdfBook(model.getPdfBook()), new UserPrefs());
-        //expectedModel.setPdf(model.getFilteredPdfList().get(0), pdfToEncrypt);
+        expectedModel.setPdf(SAMPLE_PDF_1, pdfToEncrypt);
 
         assertCommandSuccess(encryptCommand, model, commandHistory, expectedMessage, expectedModel);
     }

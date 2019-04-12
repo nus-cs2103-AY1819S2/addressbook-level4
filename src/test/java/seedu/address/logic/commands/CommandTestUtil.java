@@ -134,6 +134,7 @@ public class CommandTestUtil {
     //Tag Constants
     public static final String TAG_VALID_CS2103T = "CS2103T";
     public static final String TAG_VALID_LECTURE = "lecture";
+    public static final String TAG_INVALID_FRIEND = "#friend";
 
     public static final String TAG_DESC_LECTURE = " " + PREFIX_TAG_ADD + TAG_VALID_LECTURE;
     public static final String TAG_DESC_CS2103T = " " + PREFIX_TAG_ADD + TAG_VALID_CS2103T;

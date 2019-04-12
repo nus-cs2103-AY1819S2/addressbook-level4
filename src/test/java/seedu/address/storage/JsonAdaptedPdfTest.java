@@ -10,13 +10,13 @@ import static seedu.address.logic.commands.CommandTestUtil.NAME_1_VALID;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_INVALID_EXTENSION;
 import static seedu.address.logic.commands.CommandTestUtil.SIZE_1_VALID;
 import static seedu.address.logic.commands.CommandTestUtil.SIZE_INVALID_ALPHABET;
+import static seedu.address.logic.commands.CommandTestUtil.TAG_INVALID_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_VALID_LECTURE;
 import static seedu.address.storage.JsonAdaptedPdf.MISSING_FIELD_MESSAGE_FORMAT;
 import static seedu.address.testutil.TypicalPdfs.SAMPLE_PDF_1;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.junit.Test;
 
@@ -28,15 +28,6 @@ import seedu.address.model.pdf.Size;
 import seedu.address.testutil.Assert;
 
 public class JsonAdaptedPdfTest {
-    private static final String INVALID_LOCATION = "DefinitelyWrongLocation";
-    private static final String INVALID_TAG = "#friend";
-
-    private static final String VALID_NAME = SAMPLE_PDF_1.getName().getFullName();
-    private static final String VALID_LOCATION = SAMPLE_PDF_1.getName().getFullName();
-    private static final String VALID_SIZE = SAMPLE_PDF_1.getSize().getValue();
-    private static final List<JsonAdaptedTag> VALID_TAGS = SAMPLE_PDF_1.getTags().stream()
-            .map(JsonAdaptedTag::new)
-            .collect(Collectors.toList());
 
     @Test
     public void toModelType_validPdfDetails_returnsPdf() throws Exception {
@@ -46,7 +37,8 @@ public class JsonAdaptedPdfTest {
 
     @Test
     public void toModelType_invalidDirectorty_throwsIllegalValueException() {
-        JsonAdaptedPdf pdf = new JsonAdaptedPdf(SAMPLE_PDF_1.getName().getFullName(), DIR_INVALID_NONEXISTENT, SIZE_1_VALID,
+        JsonAdaptedPdf pdf =
+                new JsonAdaptedPdf(SAMPLE_PDF_1.getName().getFullName(), DIR_INVALID_NONEXISTENT, SIZE_1_VALID,
                 null, DEADLINE_JSON_NOTDONE);
         String expectedMessage = Directory.MESSAGE_CONSTRAINTS;
         Assert.assertThrows(IllegalValueException.class, expectedMessage, pdf::toModelType);
@@ -56,7 +48,7 @@ public class JsonAdaptedPdfTest {
     public void toModelType_invalidTags_throwsIllegalValueException() {
         List<JsonAdaptedTag> invalidTags = new ArrayList<>();
         invalidTags.add(new JsonAdaptedTag(TAG_VALID_LECTURE));
-        invalidTags.add(new JsonAdaptedTag(INVALID_TAG));
+        invalidTags.add(new JsonAdaptedTag(TAG_INVALID_FRIEND));
         JsonAdaptedPdf person =
                 new JsonAdaptedPdf(NAME_1_VALID, DIR_1_VALID, SIZE_1_VALID, invalidTags, DEADLINE_JSON_DONE);
         Assert.assertThrows(IllegalValueException.class, person::toModelType);

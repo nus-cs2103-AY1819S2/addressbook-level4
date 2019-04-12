@@ -47,7 +47,7 @@ public class DeleteHealthWorkerCommand extends DeleteCommand implements HealthWo
 
         HealthWorker toDelete = lastShownList.get(index.getZeroBased());
 
-        if (((ModelManager) model).isAssigned(toDelete.getName().toString())) {
+        if (((ModelManager) model).isAssigned(toDelete.getNric().toString())) {
             throw new CommandException(Messages.MESSAGE_HEALTHWORKER_ASSIGNED_CANNOT_DELETE);
         }
 

@@ -16,6 +16,11 @@ import static seedu.address.testutil.TypicalRequests.ALICE_REQUEST;
 import static seedu.address.testutil.TypicalRequests.BENSON_REQUEST;
 import static seedu.address.testutil.TypicalRequests.CARL_REQUEST;
 import static seedu.address.testutil.TypicalRequests.DANIEL_REQUEST;
+import static seedu.address.testutil.TypicalRequests.EMMANUEL_REQUEST;
+import static seedu.address.testutil.TypicalRequests.FRANCIS_REQUEST;
+import static seedu.address.testutil.TypicalRequests.GLADYS_REQUEST;
+import static seedu.address.testutil.TypicalRequests.HEPZHI_REQUEST;
+import static seedu.address.testutil.TypicalRequests.INDIANA_REQUEST;
 import static seedu.address.testutil.TypicalRequests.getTypicalRequestBook;
 
 import java.util.Arrays;
@@ -148,14 +153,14 @@ public class FilterRequestCommandTest {
     }
 
     @Test
-    public void execute_singlePrefixSingleKeyword_multipleOrdersFound() throws ParseException {
-        String expectedMessage = String.format(MESSAGE_REQUESTS_LISTED_OVERVIEW, 3);
+    public void execute_singlePrefixSingleKeyword_multipleRequestsFound() throws ParseException {
+        String expectedMessage = String.format(MESSAGE_REQUESTS_LISTED_OVERVIEW, 8);
         Predicate<Request> predicate = preparePredicate(" c/Palliative");
         FilterRequestCommand command = new FilterRequestCommand(predicate);
         expectedModel.updateFilteredRequestList(predicate);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(BENSON_REQUEST, CARL_REQUEST, DANIEL_REQUEST),
-            model.getFilteredRequestList());
+        assertEquals(Arrays.asList(BENSON_REQUEST, CARL_REQUEST, DANIEL_REQUEST, EMMANUEL_REQUEST,
+            FRANCIS_REQUEST, GLADYS_REQUEST, HEPZHI_REQUEST, INDIANA_REQUEST), model.getFilteredRequestList());
     }
 
     @Test

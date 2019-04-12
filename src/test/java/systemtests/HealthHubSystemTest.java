@@ -122,7 +122,9 @@ public abstract class HealthHubSystemTest {
         return mainWindowHandle.getCommandBox();
     }
 
-    public ResultDisplayHandle getResultDisplay() { return mainWindowHandle.getResultDisplay(); }
+    public ResultDisplayHandle getResultDisplay() {
+        return mainWindowHandle.getResultDisplay();
+    }
 
     public RequestListPanelHandle getRequestListPanel() {
         return mainWindowHandle.getRequestListPanel();

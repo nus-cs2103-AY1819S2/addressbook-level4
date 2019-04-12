@@ -163,10 +163,10 @@ public class ModelManager implements Model {
     }
 
     /**
-     * Checks if the provided HealthWorker name string as been assigned to any existing request.
+     * Checks if the provided HealthWorker nric string as been assigned to any existing request.
      */
-    public boolean isAssigned(String name) {
-        return this.versionedRequestBook.isAssigned(name);
+    public boolean isAssigned(String nric) {
+        return this.versionedRequestBook.isAssigned(nric);
     }
 
     //=========== Undo/Redo =================================================================================

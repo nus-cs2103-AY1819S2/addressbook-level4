@@ -3,11 +3,14 @@ package seedu.address.logic.commands.request;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.Calendar;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.TreeSet;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
@@ -44,6 +47,8 @@ public class EditRequestCommand extends EditCommand implements RequestCommand {
 
     public static final String MESSAGE_EDIT_REQUEST_SUCCESS = "Edited Request: %1$s";
 
+    public static final int MIN_REQUEST_DURATION = 2;
+
     private final EditRequestDescriptor editRequestDescriptor;
 
     /**
@@ -61,13 +66,36 @@ public class EditRequestCommand extends EditCommand implements RequestCommand {
      * Creates and returns a {@code Request} with the details of {@code requestToEdit}
      * edited with {@code editRequestDescriptor}.
      */
-    private static Request createEditedRequest(Request requestToEdit, EditRequestDescriptor editRequestDescriptor) {
+    private static Request createEditedRequest(Request requestToEdit,
+                                               EditRequestDescriptor editRequestDescriptor,
+                                               Model model) throws CommandException {
         assert requestToEdit != null;
-
         Name updatedName = editRequestDescriptor.getName().orElse(requestToEdit.getName());
         Phone updatedPhone = editRequestDescriptor.getPhone().orElse(requestToEdit.getPhone());
         Address updatedAddress = editRequestDescriptor.getAddress().orElse(requestToEdit.getAddress());
         RequestDate updatedRequestDate = editRequestDescriptor.getDate().orElse(requestToEdit.getRequestDate());
+        if (editRequestDescriptor.getDate().isPresent()) {
+            Calendar calendar = Calendar.getInstance();
+
+            TreeSet<Date> healthWorkerDates = new TreeSet<>();
+
+            for (Request request : model.getFilteredRequestList()) {
+                healthWorkerDates.add(request.getRequestDate().getDate());
+            }
+
+            Date date = updatedRequestDate.getDate();
+            calendar.setTime(date);
+            calendar.add(Calendar.HOUR_OF_DAY, -MIN_REQUEST_DURATION);
+            Date lowerLimit = calendar.getTime();
+            calendar.add(Calendar.HOUR_OF_DAY, 2 * MIN_REQUEST_DURATION);
+            Date upperLimit = calendar.getTime();
+
+            if (healthWorkerDates.contains(date) || (healthWorkerDates.lower(date) != null && healthWorkerDates
+                .lower(date).after(lowerLimit))
+                || (healthWorkerDates.higher(date) != null && healthWorkerDates.ceiling(date).before(upperLimit))) {
+                throw new CommandException(Messages.MESSAGE_EDITED_TIME_HEALTHWORKER_UNAVAILABLE);
+            }
+        }
         Nric updatedNric = editRequestDescriptor.getNric().orElse(requestToEdit.getNric());
         RequestStatus updatedRequestStatus =
             editRequestDescriptor.getRequestStatus().orElse(requestToEdit.getRequestStatus());
@@ -100,7 +128,7 @@ public class EditRequestCommand extends EditCommand implements RequestCommand {
         }
 
         Request requestToEdit = lastShownList.get(index.getZeroBased());
-        Request editedRequest = createEditedRequest(requestToEdit, editRequestDescriptor);
+        Request editedRequest = createEditedRequest(requestToEdit, editRequestDescriptor, model);
 
         if (!requestToEdit.isSameRequest(editedRequest) && model.hasRequest(editedRequest)) {
             throw new CommandException(MESSAGE_DUPLICATE_REQUEST);

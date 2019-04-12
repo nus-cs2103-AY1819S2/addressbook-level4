@@ -49,7 +49,7 @@ public class OpenCommand extends Command {
         currentEdit.openImage(toOpen);
         currentEdit.updateExif();
         currentEdit.displayTempImage();
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toOpen));
+        return new CommandResult(MESSAGE_SUCCESS);
     }
 
     @Override

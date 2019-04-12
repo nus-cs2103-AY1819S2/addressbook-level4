@@ -152,7 +152,7 @@ public class CsvLessonListStorageTest {
     @Test
     public void readLessonList_validMultipleFiles_successfullyRead() {
         CsvLessonListStorage csvLessonListStorage = new CsvLessonListStorage(MULTIPLE_FILES_FOLDER);
-        LessonList lessonList = csvLessonListStorage.readLessonList().get();
+        LessonList lessonList = csvLessonListStorage.readLessonList().orElse(new LessonList());
         assertTrue(lessonList.getLessons().size() > 1);
     }
 

@@ -24,7 +24,7 @@ import seedu.address.model.tag.Tag;
 /**
  * A utility class for Pdf.
  */
-public class PersonUtil {
+public class PdfUtil {
 
     /**
      * Returns an add command string for adding the {@code pdf}.
@@ -51,10 +51,11 @@ public class PersonUtil {
      * Returns pdf deadline for setting deadline the {@code pdf}.
      */
     public static String getPdfDeadline(Pdf pdf) {
-        final String DEADLINE_SEPARATOR_PREFIX = "-";
+        final String deadlineSeparatorPrefix = "-";
         Deadline deadline = pdf.getDeadline();
-        String[] splitDeadline = deadline.toJsonString().split(DEADLINE_SEPARATOR_PREFIX);
-        return splitDeadline[2].substring(0, 2) + "-" + splitDeadline[1] + "-" + splitDeadline[0];
+        String[] splitDeadline = deadline.toJsonString().split(deadlineSeparatorPrefix);
+        return splitDeadline[2].substring(0, 2) + deadlineSeparatorPrefix
+                + splitDeadline[1] + deadlineSeparatorPrefix + splitDeadline[0];
     }
 
     /**

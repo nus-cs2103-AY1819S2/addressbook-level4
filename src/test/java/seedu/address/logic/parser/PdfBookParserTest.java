@@ -21,7 +21,6 @@ import static seedu.address.testutil.TypicalPdfs.SAMPLE_PDF_1;
 import static seedu.address.testutil.TypicalPdfs.SAMPLE_PDF_2;
 
 import java.util.Arrays;
-import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -54,20 +53,20 @@ import seedu.address.model.pdf.Pdf;
 import seedu.address.model.pdf.TagContainsKeywordsPredicate;
 import seedu.address.testutil.EditPdfDescriptorBuilder;
 import seedu.address.testutil.PdfBuilder;
-import seedu.address.testutil.PersonUtil;
+import seedu.address.testutil.PdfUtil;
 
 public class PdfBookParserTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
-    private final PdfBookParser parser = new PdfBookParser();
-
     private static final String DEADLINE_NEWLY_ADDED_FILE = "NEWLY ADDED";
+
+    private final PdfBookParser parser = new PdfBookParser();
 
     @Test
     public void parseCommand_add() throws Exception {
         Pdf pdf = new PdfBuilder(SAMPLE_PDF_1).withDeadline(DEADLINE_NEWLY_ADDED_FILE).build();
-        AddCommand command = (AddCommand) parser.parseCommand(PersonUtil.getAddCommand(pdf));
+        AddCommand command = (AddCommand) parser.parseCommand(PdfUtil.getAddCommand(pdf));
         assertEquals(new AddCommand(pdf), command);
     }
 
@@ -80,14 +79,14 @@ public class PdfBookParserTest {
     @Test
     public void parseCommand_deadline() throws Exception {
         Pdf pdf = SAMPLE_PDF_2;
-        DeadlineCommand command = (DeadlineCommand) parser.parseCommand(PersonUtil.getDeadlineCommand(pdf, 2));
+        DeadlineCommand command = (DeadlineCommand) parser.parseCommand(PdfUtil.getDeadlineCommand(pdf, 2));
         assertEquals(new DeadlineCommand(INDEX_SECOND_PDF, pdf.getDeadline(),
                 DeadlineCommand.DeadlineAction.NEW), command);
     }
 
     @Test
     public void parseCommand_decrypt() throws Exception {
-        DecryptCommand command = (DecryptCommand) parser.parseCommand(PersonUtil.getDecryptCommand(1));
+        DecryptCommand command = (DecryptCommand) parser.parseCommand(PdfUtil.getDecryptCommand(1));
         assertEquals(new DecryptCommand(INDEX_FIRST_PDF, PASSWORD_1_VALID), command);
     }
 
@@ -105,13 +104,13 @@ public class PdfBookParserTest {
                 .withName(pdf.getName().getFullName()).build();
 
         EditCommand command = (EditCommand) parser.parseCommand(EditCommand.COMMAND_WORD + " "
-                + INDEX_FIRST_PDF.getOneBased() + " " + PersonUtil.getRenamePdfDescriptorDetails(descriptor));
+                + INDEX_FIRST_PDF.getOneBased() + " " + PdfUtil.getRenamePdfDescriptorDetails(descriptor));
         assertEquals(new EditCommand(INDEX_FIRST_PDF, descriptor), command);
     }
 
     @Test
     public void parseCommand_encrypt() throws Exception {
-        EncryptCommand command = (EncryptCommand) parser.parseCommand(PersonUtil.getEncryptCommand(1));
+        EncryptCommand command = (EncryptCommand) parser.parseCommand(PdfUtil.getEncryptCommand(1));
         assertEquals(new EncryptCommand(INDEX_FIRST_PDF, PASSWORD_1_VALID), command);
     }
 
@@ -123,10 +122,11 @@ public class PdfBookParserTest {
 
     @Test
     public void parseCommand_filter() throws Exception {
-        System.out.println(PersonUtil.getFilterCommand(SAMPLE_PDF_2.getTags()));
+        System.out.println(PdfUtil.getFilterCommand(SAMPLE_PDF_2.getTags()));
         FilterCommand command = (FilterCommand) parser.parseCommand(
-                PersonUtil.getFilterCommand(SAMPLE_PDF_2.getTags()));
-        assertEquals(new FilterCommand(new TagContainsKeywordsPredicate(Arrays.asList("w9", "CS2103T", "lecture"))), command);
+                PdfUtil.getFilterCommand(SAMPLE_PDF_2.getTags()));
+        assertEquals(new FilterCommand(new TagContainsKeywordsPredicate(
+                Arrays.asList("w9", "CS2103T", "lecture"))), command);
     }
 
     @Test
@@ -178,11 +178,11 @@ public class PdfBookParserTest {
     @Test
     public void parseCommand_tag() throws Exception {
         TagCommand command = (TagCommand) parser.parseCommand(TagCommand.COMMAND_WORD + " 1 "
-                + PersonUtil.getAddTag(SAMPLE_PDF_2.getTags()));
+                + PdfUtil.getAddTag(SAMPLE_PDF_2.getTags()));
         assertEquals(new TagCommand(INDEX_FIRST_PDF, SAMPLE_PDF_2.getTags(), true), command);
 
         command = (TagCommand) parser.parseCommand(TagCommand.COMMAND_WORD + " 1 "
-                + PersonUtil.getRemoveTag(SAMPLE_PDF_2.getTags()));
+                + PdfUtil.getRemoveTag(SAMPLE_PDF_2.getTags()));
         assertEquals(new TagCommand(INDEX_FIRST_PDF, SAMPLE_PDF_2.getTags(), false), command);
     }
 

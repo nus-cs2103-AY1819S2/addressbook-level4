@@ -82,7 +82,7 @@ public abstract class CardFolderSystemTest {
      * Returns the data to be loaded into the file in {@link #getDataFileLocation()}.
      */
     protected CardFolder getInitialData() {
-        return TypicalCards.getTypicalCardFolderOne();
+        return TypicalCards.getTypicalFolderOne();
     }
 
     /**
@@ -173,8 +173,12 @@ public abstract class CardFolderSystemTest {
             Model expectedModel) {
         assertEquals(expectedCommandInput, getCommandBox().getInput());
         assertEquals(expectedResultMessage, getResultDisplay().getText());
-        assertEquals(new CardFolder(expectedModel.getActiveCardFolder()), testApp.readFirstStorageCardFolder());
-        assertListMatching(getCardListPanel(), expectedModel.getActiveFilteredCards());
+        if (expectedModel.getState() == Model.State.IN_FOLDER) {
+            assertEquals(new CardFolder(expectedModel.getActiveCardFolder()), testApp.readFirstStorageCardFolder());
+            assertListMatching(getCardListPanel(), expectedModel.getActiveFilteredCards());
+        } else if (expectedModel.getState() == Model.State.IN_HOMEDIR) {
+            assertEquals(expectedModel.getCardFolders(), testApp.getModel().getCardFolders());
+        }
     }
 
     /**

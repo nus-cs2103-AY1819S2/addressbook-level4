@@ -20,12 +20,15 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import javafx.collections.transformation.FilteredList;
 import seedu.knowitall.commons.core.GuiSettings;
 import seedu.knowitall.model.card.Card;
 import seedu.knowitall.model.card.QuestionContainsKeywordsPredicate;
@@ -44,8 +47,8 @@ public class ModelManagerTest {
     @Before
     public void setUp() {
         List<ReadOnlyCardFolder> cardFolders = new ArrayList<>();
-        cardFolders.add(TypicalCards.getTypicalCardFolderOne());
-        cardFolders.add(TypicalCards.getTypicalCardFolderTwo());
+        cardFolders.add(TypicalCards.getTypicalFolderOne());
+        cardFolders.add(TypicalCards.getTypicalFolderTwo());
         cardFolders.add(TypicalCards.getEmptyCardFolder());
         model = new ModelManager(cardFolders);
         model.enterFolder(cardFolders.size() - 1);
@@ -123,7 +126,7 @@ public class ModelManagerTest {
 
     @Test
     public void deleteFolder_existingFolder_folderDeleted() {
-        List<ReadOnlyCardFolder> cardFolders = Arrays.asList(TypicalCards.getTypicalCardFolderOne(),
+        List<ReadOnlyCardFolder> cardFolders = Arrays.asList(TypicalCards.getTypicalFolderOne(),
                 TypicalCards.getEmptyCardFolder());
         Model expectedModel = new ModelManager(cardFolders);
 
@@ -137,6 +140,31 @@ public class ModelManagerTest {
         thrown.expect(AssertionError.class);
 
         model.deleteFolder(3);
+    }
+
+    @Test
+    public void addFolder_nonExistingFolder_folderAdded() {
+        List<ReadOnlyCardFolder> cardFolders = new ArrayList<>();
+        cardFolders.add(TypicalCards.getTypicalFolderOne());
+        model = new ModelManager(cardFolders);
+        model.exitFolderToHome();
+        model.addFolder(new CardFolder(TypicalCards.getTypicalFolderTwoName()));
+
+        cardFolders.add(new CardFolder(TypicalCards.getTypicalFolderTwoName()));
+        Model expectedModel = new ModelManager(cardFolders);
+        assertEquals(expectedModel, model);
+    }
+
+    @Test
+    public void addFolder_existingFolder_throwsDuplicateException() {
+        thrown.expect(DuplicateCardFolderException.class);
+        model.addFolder(new CardFolder(TypicalCards.getTypicalFolderOneName()));
+    }
+
+    @Test
+    public void addFolder_nullFolder_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
+        model.addFolder(null);
     }
 
     @Test
@@ -204,9 +232,22 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void getFilteredCardList_modifyList_throwsUnsupportedOperationException() {
+    public void getActiveFilteredCardList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
         model.getActiveFilteredCards().remove(0);
+    }
+
+    @Test
+    public void getFilteredCardsList_retrievesList() {
+        List<FilteredList<Card>> filteredCardsList =
+                Stream.of(TypicalCards.getTypicalFolderOne(),
+                        TypicalCards.getTypicalFolderTwo(),
+                        TypicalCards.getEmptyCardFolder())
+                        .map(VersionedCardFolder::new)
+                        .map(folder -> new FilteredList<>(folder.getCardList()))
+                        .collect(Collectors.toList());
+
+        assertEquals(filteredCardsList, model.getFilteredCardsList());
     }
 
     @Test

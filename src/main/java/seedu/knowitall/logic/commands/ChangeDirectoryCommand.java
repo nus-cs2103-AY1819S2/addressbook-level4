@@ -20,12 +20,14 @@ public class ChangeDirectoryCommand extends Command {
 
     public static final String COMMAND_WORD = "cd";
 
+    public static final String HOME_SYMBOL = "..";
+
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Navigates in and out of folders.\n"
             + "Parameters (at home directory): INDEX (must be a positive integer)\n"
             + "Parameters (inside folder): ..\n"
             + "Example (at home directory): " + COMMAND_WORD + " 1\n"
-            + "Example (inside directory): " + COMMAND_WORD + " ..";
+            + "Example (inside directory): " + COMMAND_WORD + " " + HOME_SYMBOL;
 
     public static final String MESSAGE_EXIT_FOLDER_SUCCESS = "Returned to home";
     public static final String MESSAGE_ENTER_FOLDER_SUCCESS = "Entered Card Folder: %1$s";

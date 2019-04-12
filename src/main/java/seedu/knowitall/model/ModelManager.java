@@ -93,8 +93,8 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
 
         filteredCardsList = new ArrayList<>();
-        for (int i = 0; i < filteredFolders.size(); i++) {
-            FilteredList<Card> filteredCards = new FilteredList<>(filteredFolders.get(i).getCardList());
+        for (VersionedCardFolder filteredFolder : filteredFolders) {
+            FilteredList<Card> filteredCards = new FilteredList<>(filteredFolder.getCardList());
             filteredCardsList.add(filteredCards);
             filteredCards.addListener(this::ensureSelectedCardIsValid);
         }
@@ -225,6 +225,12 @@ public class ModelManager implements Model {
 
     @Override
     public void addFolder(CardFolder cardFolder) {
+        requireNonNull(cardFolder);
+
+        if (hasFolder(cardFolder.getFolderName())) {
+            throw new DuplicateCardFolderException();
+        }
+
         VersionedCardFolder versionedCardFolder = new VersionedCardFolder(cardFolder);
         folders.add(versionedCardFolder);
         FilteredList<Card> filteredCards = new FilteredList<>(versionedCardFolder.getCardList());

@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static seedu.knowitall.testutil.TypicalCards.ALICE;
 import static seedu.knowitall.testutil.TypicalCards.HOON;
 import static seedu.knowitall.testutil.TypicalCards.IDA;
-import static seedu.knowitall.testutil.TypicalCards.getTypicalCardFolderOne;
+import static seedu.knowitall.testutil.TypicalCards.getTypicalFolderOne;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -75,7 +75,7 @@ public class JsonCardFolderStorageTest {
     @Test
     public void readAndSaveCardFolder_allInOrder_success() throws Exception {
         Path filePath = testFolder.getRoot().toPath().resolve("TempCardFolder.json");
-        CardFolder original = getTypicalCardFolderOne();
+        CardFolder original = getTypicalFolderOne();
         JsonCardFolderStorage jsonCardFolderStorage = new JsonCardFolderStorage(filePath);
 
         // Save in new file and read back

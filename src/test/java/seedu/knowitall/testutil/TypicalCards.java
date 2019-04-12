@@ -63,13 +63,13 @@ public class TypicalCards {
 
     // TODO: Add more folders
     public static List<ReadOnlyCardFolder> getTypicalCardFolders() {
-        return Collections.singletonList(getTypicalCardFolderOne());
+        return Collections.singletonList(getTypicalFolderOne());
     }
 
     /**
      * Returns a {@code CardFolder} with the cards from Typical Folder One.
      */
-    public static CardFolder getTypicalCardFolderOne() {
+    public static CardFolder getTypicalFolderOne() {
         CardFolder folder = new CardFolder(getTypicalFolderOneName());
         folder.setFolderScores(TYPICAL_FOLDER_SCORES);
         for (Card card : getTypicalFolderOneCards()) {
@@ -81,7 +81,7 @@ public class TypicalCards {
     /**
      * Returns a {@code CardFolder} with the cards from Typical Folder Two.
      */
-    public static CardFolder getTypicalCardFolderTwo() {
+    public static CardFolder getTypicalFolderTwo() {
         CardFolder folder = new CardFolder(getTypicalFolderTwoName());
         folder.setFolderScores(TYPICAL_FOLDER_SCORES);
         for (Card card : getTypicalFolderTwoCards()) {

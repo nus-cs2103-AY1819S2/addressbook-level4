@@ -7,7 +7,7 @@ import static org.junit.Assert.assertTrue;
 import static seedu.knowitall.logic.commands.CommandTestUtil.VALID_HINT_HUSBAND;
 import static seedu.knowitall.testutil.TypicalCards.ALICE;
 import static seedu.knowitall.testutil.TypicalCards.TYPICAL_FOLDER_SCORES;
-import static seedu.knowitall.testutil.TypicalCards.getTypicalCardFolderOne;
+import static seedu.knowitall.testutil.TypicalCards.getTypicalFolderOne;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -38,7 +38,7 @@ public class CardFolderTest {
     public void constructor() {
         assertEquals(Collections.emptyList(), cardFolder.getCardList());
 
-        CardFolder newData = getTypicalCardFolderOne();
+        CardFolder newData = getTypicalFolderOne();
         cardFolder.resetData(newData);
         assertEquals(newData.getCardList(), cardFolder.getCardList());
     }
@@ -51,14 +51,14 @@ public class CardFolderTest {
 
     @Test
     public void resetData_withValidReadOnlyCardFolder_replacesData() {
-        CardFolder newData = getTypicalCardFolderOne();
+        CardFolder newData = getTypicalFolderOne();
         cardFolder.resetData(newData);
         assertEquals(newData.getCardList(), cardFolder.getCardList());
     }
 
     @Test
     public void resetData_withValidReadOnlyCardFolder_doesNotReplaceName() {
-        CardFolder newData = getTypicalCardFolderOne();
+        CardFolder newData = getTypicalFolderOne();
         cardFolder.resetData(newData);
         assertNotEquals(newData, cardFolder);
     }

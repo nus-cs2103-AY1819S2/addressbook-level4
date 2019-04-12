@@ -4,7 +4,7 @@ import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.knowitall.testutil.SampleBloodCards.getBloodFolder;
-import static seedu.knowitall.testutil.TypicalCards.getTypicalCardFolderOne;
+import static seedu.knowitall.testutil.TypicalCards.getTypicalFolderOne;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -47,7 +47,7 @@ public class ImportCommandTest {
 
     private Model model = new ModelManager(new ArrayList<ReadOnlyCardFolder>(), new UserPrefs());
     private Model expectedModel = new ModelManager(new ArrayList<ReadOnlyCardFolder>(Arrays.asList(
-            getTypicalCardFolderOne(), getBloodFolder())) , new UserPrefs());
+            getTypicalFolderOne(), getBloodFolder())) , new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
 

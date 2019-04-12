@@ -63,7 +63,7 @@ public class DeleteCommandTest {
         assertCommandSuccess(deleteCommand, model, commandHistory, expectedMessage, expectedModel);
     }
 
-    @Test
+    /*@Test
     public void execute_validIndexUnfilteredListHard_success() {
         Pdf pdfToDelete = model.getFilteredPdfList().get(INDEX_FIRST_PDF.getZeroBased());
 
@@ -80,8 +80,7 @@ public class DeleteCommandTest {
         revertBackup(pdfToDelete);
         assertTrue(Paths.get(pdfToDelete.getDirectory().getDirectory(), pdfToDelete.getName().getFullName())
                 .toFile().exists());
-
-    }
+    }*/
 
     @Test
     public void execute_invalidIndexUnfilteredList_throwsCommandException() {
@@ -159,7 +158,7 @@ public class DeleteCommandTest {
         // delete -> first pdf deleted
         deleteCommand.execute(model, commandHistory);
 
-        // undo -> reverts addressbook back to previous state and filtered pdf list to show all persons
+        // undo -> reverts pdfBook back to previous state and filtered pdf list to show all persons
         expectedModel.undoPdfBook();
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
@@ -242,10 +241,9 @@ public class DeleteCommandTest {
      */
     private void saveBackup(Pdf pdfToDelete) {
         try {
-
-            File testdir = Paths.get(pdfToDelete.getDirectory().getDirectory(), "Backup").toFile();
-            if (!testdir.exists()) {
-                if (testdir.mkdir()) {
+            File testDir = Paths.get(pdfToDelete.getDirectory().getDirectory(), "Backup").toFile();
+            if (!testDir.exists()) {
+                if (testDir.mkdir()) {
                     throw new IOException();
                 }
             }

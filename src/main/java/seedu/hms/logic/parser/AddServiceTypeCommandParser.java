@@ -11,7 +11,6 @@ import java.util.stream.Stream;
 import seedu.hms.logic.commands.AddServiceTypeCommand;
 import seedu.hms.logic.parser.exceptions.ParseException;
 import seedu.hms.model.booking.serviceType.ServiceType;
-import seedu.hms.model.customer.Name;
 import seedu.hms.model.util.TimeRange;
 
 /**

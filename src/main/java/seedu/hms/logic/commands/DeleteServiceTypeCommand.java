@@ -9,9 +9,7 @@ import seedu.hms.commons.core.index.Index;
 import seedu.hms.logic.CommandHistory;
 import seedu.hms.logic.commands.exceptions.CommandException;
 import seedu.hms.model.BookingModel;
-import seedu.hms.model.CustomerModel;
 import seedu.hms.model.booking.serviceType.ServiceType;
-import seedu.hms.model.customer.Customer;
 
 /**
  * Deletes a service type identified using it's displayed index from the hms book.
@@ -43,7 +41,7 @@ public class DeleteServiceTypeCommand extends BookingCommand {
             throw new CommandException(Messages.MESSAGE_INVALID_SERVICE_TYPE_DISPLAYED_INDEX);
         }
 
-       ServiceType serviceType = lastShownList.get(targetIndex.getZeroBased());
+        ServiceType serviceType = lastShownList.get(targetIndex.getZeroBased());
         model.deleteServiceType(serviceType);
         model.commitHotelManagementSystem();
         return new CommandResult(String.format(MESSAGE_DELETE_SERVICE_TYPE_SUCCESS, serviceType));

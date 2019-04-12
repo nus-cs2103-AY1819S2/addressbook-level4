@@ -9,7 +9,6 @@ import java.util.stream.Stream;
 
 import seedu.hms.logic.commands.AddRoomTypeCommand;
 import seedu.hms.logic.parser.exceptions.ParseException;
-import seedu.hms.model.customer.Name;
 import seedu.hms.model.reservation.roomType.RoomType;
 
 /**

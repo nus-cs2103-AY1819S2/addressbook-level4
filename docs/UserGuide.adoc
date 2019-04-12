@@ -735,6 +735,7 @@ request closed.
 
 * The `request_index` *must be a positive integer* 1, 2, 3, ... and not greater
 than the number of requests in the current list.
+* The `complete` command can only be used on *ongoing* requests. To complete a pending request, use the `edit` command to change the status of the request.
 
 Examples:
 

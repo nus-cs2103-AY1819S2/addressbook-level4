@@ -25,7 +25,7 @@ public class DeleteRequestCommand extends DeleteCommand implements RequestComman
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Deletes the request identified "
         + "by the index number used in the displayed request list.\n"
         + "Parameters: INDEX (must be a positive integer)\n"
-        + "Example: " + COMMAND_WORD + " 1";
+        + "Example: " + COMMAND_WORD + " request 1";
 
     public static final String MESSAGE_DELETE_REQUEST_SUCCESS = "Deleted Request: %1$s";
 

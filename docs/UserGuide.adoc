@@ -72,19 +72,19 @@ In total, there are:
 
 ** <<#SSB, Sync Status Bar>>
 
-** Mode Status.
+** <<#Mode-Status, Mode Status>>
 
 * *3 Member Mode-specific Parts:*
 
-** List of Members
-** Member Information Display Panel
-** List of Activities Attended By Selected Member.
+** <<#Member-List, List of Members>>
+** <<#Member-Display, Member Information Display Panel>>
+** <<#Member-Activities, List of Activities Attended By Selected Member>>
 
 * *4 Activity Mode-specific Parts:*
-** List of Activities
-** Activity Information Display Panel
-** List of Members Attending Selected Activity
-** List of Members Not Attending Selected Activity.
+** <<#Activity-List, List of Activities>>
+** <<#Activity-Display, Activity Information Display Panel>>
+** <<#Activity-Members, List of Members Attending Selected Activity>>
+** <<#Activity-Nonmembers, List of Members Not Attending Selected Activity>>
 
 [[Menu-Bar]]
 === Menu Bar
@@ -109,6 +109,45 @@ The *Command Box* is the place where you can input the commands.
 === Result Display
 
 The *Result Display* shows information relating to the result of the command.
+
+[[SSB]]
+=== Sync Status Bar
+
+The *Sync Status Bar* displays the last updated date and time of any changes to the data.
+
+[[Member-List]]
+=== List of Members
+
+Displays latest list of all members in Club Manager.
+
+[[Member-Display]]
+=== Member Information Display Panel
+
+Displays the selected member's information.
+
+[[Member-Activities]]
+=== List of Activities Attended By Selected Member
+
+Displays the list of Activities attended by selected member. This include both completed and ongoing activities.
+
+[[Activity-List]]
+=== List of Activities
+
+Displays latest list of all activities in Club Manager.
+
+[[Activity-Display]]
+=== Activity Information Display Panel
+
+Displays the selected activity's information.
+
+[[Activity-Members]]
+=== List of Members Attending Selected Activity
+
+Displays the list of Members who is attending or have attended the selected activity.
+
+[[Activity-Nonmembers]]
+=== List of Members Not Attending Selected Activity
+Displays the list of Members who is not attending or have not attended the selected activity.
 
 [[Features]]
 == Features
@@ -289,8 +328,13 @@ Edits the phone number and email address of the 1st member to be `91234567` and 
 Edits the name of the 2nd member to be `Betsy Crower` and clears all existing tags.
 
 ==== Filtering member's list: `memberFilter or mFilter`
-Filter the member's list based on a filter criteria.
-
+****
+* Filter the member's list based on a filter criteria.
+* Keywords pertaining to the filter criteria have to be provided.
+* Criteria could be: Gender, Major and yearOfStudy.
+* Filter criteria and keywords are case-insensitive.
+* Keywords have to be an exact match.
+****
 Format: `memberFilter yearOfStudy`
 
 Examples:
@@ -325,10 +369,12 @@ Returns any member having names `Betsy`, `Tim`, or `John`
 * `memberFind matricnum A0` +
 Returns all members (matric num starts with A0)
 
-==== Listing members : `memberList` or mList`
+==== Listing members : `memberList` or `mList`
 
 Shows a list of all members in ClubManager. +
 Format: `memberList`
+
+image::MemberList.png[width=40%]
 
 ==== Selecting a member : `memberSelect`
 
@@ -343,7 +389,7 @@ Format: `memberSelect INDEX`
 
 Examples:
 
-* `list` +
+* `memberList` +
 `memberSelect 2` +
 Selects the 2nd person in the club manager.
 

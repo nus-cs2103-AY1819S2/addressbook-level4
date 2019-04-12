@@ -1,4 +1,4 @@
-= Yang Yiqing - Project Portfolio
++= Yang Yiqing - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets

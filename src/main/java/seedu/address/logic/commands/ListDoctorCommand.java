@@ -47,6 +47,9 @@ public class ListDoctorCommand extends Command {
 
     @Override
     public boolean equals(Object other) {
+        if (predicate == null) {
+            return other == this;
+        }
         return other == this // short circuit if same object
                 || (other instanceof ListDoctorCommand // instanceof handles nulls
                 && predicate.equals(((ListDoctorCommand) other).predicate)); // state check

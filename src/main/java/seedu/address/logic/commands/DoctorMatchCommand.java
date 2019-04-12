@@ -22,7 +22,7 @@ public class DoctorMatchCommand extends Command {
             + "contain the specified specialisation (case-insensitive) "
             + "and checks whether the doctor is available at the date and time\n"
             + "Parameters: s/SPECIALISATION d/DATE t/START_TIME\n"
-            + "Example: " + COMMAND_WORD + " s/general d/2019-05-20 t/9";
+            + "Example: " + COMMAND_WORD + " s/general d/2019-05-20 t/09:00";
 
     private final DoctorSpecialisationMatchesPredicate specPredicate;
 

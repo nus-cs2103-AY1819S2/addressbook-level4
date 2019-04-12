@@ -264,4 +264,14 @@ public interface Model {
      * removes member from all activities using matriculation number
      */
     void removeMemberFromAllAttendance(MatricNumber matricNumber);
+
+    /**
+     * Returns number of activities attended by member.
+     */
+    int getAttendedActivitiesCounter(Person person);
+
+    /**
+     * Returns participation rate of member.
+     */
+    int getParticipationRate(Person person);
 }

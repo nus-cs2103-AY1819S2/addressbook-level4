@@ -592,7 +592,7 @@ budgets
 . If there are no allocated category budgets, a message will be printed in the ResultDisplay
 . If there are allocated category budgets, `Model#getCatBudget()` is called to obtain the set of `CategoryBudget`
 . An `Iterator` is then used to iterate through the set of `CategoryBudgets` and the `currentSpending` is printed with
-the `totalBudget` allocated to the `CategoryBudget`.g
+the `totalBudget` allocated to the `CategoryBudget`.
 
 
 // end::show[]

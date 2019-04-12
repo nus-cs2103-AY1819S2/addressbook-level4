@@ -275,7 +275,7 @@ Format: `find [c/MODULE_CODE] [s/SEMESTER] [g/GRADE] [f/IS_FINISHED]`
 * Parameters can be in any order and are case-insensitive.
 * Module code can be entered partially, but semester and grade must be in the exact format.
 * For unfinished modules, searching by grade will display those whose grade range covers that grade.
-* Finished status is indicated by 'y' for finished module (i.e. semester read is before current semester) or any other value for unfinished.
+* Finished status is indicated by `y` for finished module (i.e. semester read is before current semester) or any other value for unfinished.
 ****
 
 Examples:
@@ -284,19 +284,19 @@ Examples:
 Lists all CS modules in GradTrak.
 
 .Finding CS modules
-image::find(c).png[width="790"]
+image::find(c).png[width="800"]
 
 * `find s/Y1S2` +
 Lists all modules in Y1S2 in GradTrak.
 
 .Finding modules in Y1S2
-image::find(s).png[width="790"]
+image::find(s).png[width="800"]
 
 * `find g/A f/y` +
 Lists all finished modules with grade A.
 
 .Finding finished modules with grade A (current semester: Y1S2)
-image::find(g,f).png[width="790"]
+image::find(g,f).png[width="800"]
 // end::find[]
 
 === View all other commands : `help`
@@ -330,7 +330,7 @@ Format: `rec` +
 The figure below shows a sample recommendation list for a user studying Computer Science Algorithms.
 
 .Recommendation list for Computer Science Algorithms
-image::recommend.png[width="790"]
+image::recommend.png[width="800"]
 // end::rec[]
 
 === Redo the previously undone command: `redo`

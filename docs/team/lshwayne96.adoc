@@ -12,7 +12,7 @@
 My team was tasked with enhancing a basic command line interface (CLI) AddressBook for our Software Engineering project.
 We decided to morph it into a school module tracker called GradTrak. +
 GradTrak is an application designed for students of National University of Singapore (NUS) to easily plan and track modules as well as check them against the graduation requirements. +
-The user interacts with GradTrak mainly through the CLI, but it also has a Graphical User Interface (GUI) created with JavaFX. It is written in Java and has more than 10 kLoC.
+The user interacts with GradTrak mainly through the CLI, but it also has a Graphical User Interface (GUI) created with JavaFX. It is written in Java and has more than ten thousand lines of code.
 
 My role was to design and write the codes for the module recommendation feature, and to enhance the existing module finding feature.
 The following sections illustrate these contributions in more detail, as well as the relevant sections I have added to the User Guide and Developer Guide.

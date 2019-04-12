@@ -1,24 +1,20 @@
 package seedu.address.logic.commands;
 
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_1;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_2;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_1_VALID;
-import static seedu.address.logic.commands.CommandTestUtil.PASSWORD_1_VALID;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 
 import static seedu.address.logic.commands.CommandTestUtil.showPdfAtIndex;
-import static seedu.address.logic.commands.DecryptCommand.MESSAGE_DECRYPT_PDF_FAILURE;
 import static seedu.address.logic.commands.EditCommand.MESSAGE_DUPLICATE_PDF_DIRECTORY;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PDF;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PDF;
 import static seedu.address.testutil.TypicalPdfs.SAMPLE_EDITEDPDF;
 import static seedu.address.testutil.TypicalPdfs.SAMPLE_PDF_1;
 import static seedu.address.testutil.TypicalPdfs.SAMPLE_PDF_2;
-import static seedu.address.testutil.TypicalPdfs.SAMPLE_PDF_3;
 import static seedu.address.testutil.TypicalPdfs.getTypicalPdfBook;
 
 import java.io.File;

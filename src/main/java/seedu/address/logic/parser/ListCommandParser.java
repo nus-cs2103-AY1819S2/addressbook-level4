@@ -19,7 +19,7 @@ import seedu.address.model.tag.Tag;
 public class ListCommandParser implements Parser<ListCommand> {
 
     private Optional<Set<Tag>> tagSet = Optional.empty();
-    private Optional<Name> name = Optional.empty();
+    private Optional<Set<Name>> name = Optional.empty();
 
     /**
      * Parses the given {@code String} of arguments in the context of the ListCommand
@@ -35,7 +35,7 @@ public class ListCommandParser implements Parser<ListCommand> {
         }
 
         if (arePrefixesPresent(argMultimap, PREFIX_NAME)) {
-            name = Optional.of(ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get()));
+            name = Optional.of(ParserUtil.parseNames(argMultimap.getAllValues(PREFIX_NAME)));
         }
 
         return (new ListCommand(this.tagSet, this.name));

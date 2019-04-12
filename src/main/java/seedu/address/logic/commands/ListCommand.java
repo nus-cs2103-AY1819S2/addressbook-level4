@@ -24,11 +24,11 @@ public class ListCommand extends Command {
     public static final String COMMAND_WORD = "list";
 
     private Optional<Set<Tag>> optionalTagSet;
-    private Optional<Name> optionalName;
+    private Optional<Set<Name>> optionalNameSet;
 
-    public ListCommand(Optional<Set<Tag>> optionalTagSet, Optional<Name> optionalName) {
+    public ListCommand(Optional<Set<Tag>> optionalTagSet, Optional<Set<Name>> optionalNameSet) {
         this.optionalTagSet = optionalTagSet;
-        this.optionalName = optionalName;
+        this.optionalNameSet = optionalNameSet;
         setPermissibleStates(EnumSet.of(
             BattleState.PLAYER_PUT_SHIP,
             BattleState.ENEMY_PUT_SHIP,
@@ -50,7 +50,7 @@ public class ListCommand extends Command {
         StringBuilder builder = new StringBuilder();
         Set<Fleet.FleetEntry> fleetResult = new HashSet<>();
 
-        if (!optionalTagSet.isPresent() && !optionalName.isPresent()) {
+        if (!optionalTagSet.isPresent() && !optionalNameSet.isPresent()) {
             // list all battleships
             for (int i = 0; i < fleet.getDeployedFleet().size(); i++) {
                 builder.append(fleet.getDeployedFleet().get(i))
@@ -58,15 +58,15 @@ public class ListCommand extends Command {
             }
             return new CommandResult(builder.toString());
 
-        } else if (optionalName.isPresent() && optionalTagSet.isPresent()) {
+        } else if (optionalNameSet.isPresent() && optionalTagSet.isPresent()) {
             fleetResult.addAll(fleet.getDeployedFleet().stream()
-                    .filter(fleetEntry -> fleetEntry.getBattleship().getName().equals(optionalName.get()))
+                    .filter(fleetEntry -> optionalNameSet.get().contains(fleetEntry.getBattleship().getName()))
                     .filter(fleetEntry -> fleetEntry.getBattleship().getTags().containsAll(optionalTagSet.get()))
                     .collect(Collectors.toList())
             );
 
-        } else if (optionalName.isPresent()) {
-            fleetResult.addAll(fleet.getByName(optionalName.get()));
+        } else if (optionalNameSet.isPresent()) {
+            fleetResult.addAll(fleet.getByNames(optionalNameSet.get()));
         } else {
             fleetResult.addAll(fleet.getByTags(optionalTagSet.get()));
         }
@@ -82,8 +82,8 @@ public class ListCommand extends Command {
         return new CommandResult(builder.toString());
     }
 
-    public Optional<Name> getOptionalName() {
-        return optionalName;
+    public Optional<Set<Name>> getOptionalNameSet() {
+        return optionalNameSet;
     }
 
     public Optional<Set<Tag>> getOptionalTagSet() {
@@ -94,7 +94,7 @@ public class ListCommand extends Command {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof ListCommand) // instanceof handles nulls
-                && this.getOptionalName().equals(((ListCommand) other).getOptionalName())
+                && this.getOptionalNameSet().equals(((ListCommand) other).getOptionalNameSet())
                 && this.getOptionalTagSet().equals(((ListCommand) other).getOptionalTagSet());
     }
 }

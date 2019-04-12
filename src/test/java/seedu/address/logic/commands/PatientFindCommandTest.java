@@ -407,7 +407,7 @@ public class PatientFindCommandTest {
     }
 
     /**
-     * Parses {@code userInput} into a {@code NameContainsKeywordsPredicate}.
+     * Parses {@code userInput} into a {@code ContainsKeywordsPredicate}.
      */
     private ContainsKeywordsPredicate preparePatientPredicate(String userInput, String parameter, boolean isIgnoreCase,
                                                               boolean isAnd) throws ParseException {

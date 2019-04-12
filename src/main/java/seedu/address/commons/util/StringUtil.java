@@ -94,4 +94,24 @@ public class StringUtil {
 
         return false;
     }
+
+
+    /**
+     * Truncates {@code s} if it exceed {@code maxLength} and returns it.
+     *
+     * @param s the string to truncate if exceeding {@code maxLength}
+     * @param maxLength the maximum length of the string to be returned, if {@code s} exceeds
+     * {@code maxLength}, return a {@code substring(0, maxLength -3)} of {@code s} with "..."
+     * appended.
+     *
+     * @return the string if s < maxLength, otherwise the substring of the string of maxLength length
+     */
+    public static String truncateString(String s, int maxLength) {
+        String output = s;
+        if (s.length() > maxLength) {
+            output = s.substring(0, maxLength - 3) + "...";
+        }
+
+        return output;
+    }
 }

@@ -15,19 +15,6 @@ public class ParserUtil {
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
 
     /**
-     * This is a static-methods-only (utility) class which should not be instantiated.
-     * Note that this is not a singleton class given that not even a single instance is allowed.
-     *
-     * Throws an {@link InstantiationError} when accessed to prevent instantiation
-     * via new, clone(), reflection and serialization.
-     */
-    private ParserUtil() {
-        // Prevents instantiation via new, clone(), reflection and serialization.
-        throw new InstantiationError(
-                "This is a static-methods-only (utility) class which should not be instantiated.");
-    }
-
-    /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
      * trimmed.
      * @throws ParseException if the specified index is invalid (not non-zero unsigned integer).

@@ -46,7 +46,7 @@ Code Quality, Image and Directory Navigation (Open, Save, ListFiles)
 image::thamsimun.png[width="150", align="left"]
 {empty}[https://github.com/thamsimun[github]] [<<thamsimun#, portfolio>>]
 
-*Role:* + 
+*Role:* +
 Developer +
 *Responsibilities:* +
 Testing, Image Filters

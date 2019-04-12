@@ -265,6 +265,7 @@ Changes the expected min grade of the second module in the most recently display
 Exits the program. +
 Format: `exit`
 
+// tag::find[]
 === Find module: `find`
 
 Finds modules in GradTrak matching all given module code, semester, grade or finished status. +
@@ -274,7 +275,7 @@ Format: `find [c/MODULE_CODE] [s/SEMESTER] [g/GRADE] [f/IS_FINISHED]`
 * Parameters can be in any order and are case-insensitive.
 * Module code can be entered partially, but semester and grade must be in the exact format.
 * For unfinished modules, searching by grade will display those whose grade range covers that grade.
-* Finished status is indicated by 'y' for finished module (i.e. semester taken is before current semester) or any other value for unfinished.
+* Finished status is indicated by 'y' for finished module (i.e. semester read is before current semester) or any other value for unfinished.
 ****
 
 Examples:
@@ -296,6 +297,7 @@ Lists all finished modules with grade A.
 
 .Finding finished modules with grade A (current semester: Y1S2)
 image::find(g,f).png[width="790"]
+// end::find[]
 
 === View all other commands : `help`
 
@@ -317,9 +319,10 @@ Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and 
 Shows a list of all modules in GradTrak. +
 Format: `list`
 
+// tag::rec[]
 === Recommend module: `rec`
 
-Recommends a list of modules that can be taken based on GradTrak modules and course requirements, as shown above.
+Recommends a list of modules that can be read based on GradTrak modules and course requirements, as shown above.
 Modules with unmet prerequisites or preclusions present in GradTrak as well as modules already added (unless they have been failed) will not be recommended. +
 Recommended modules are displayed in order of requirement satisfied: Core, Breadth & Depth, Industry Experience, Faculty, General Education, Unrestricted Electives.
 Modules with the same requirement satisfied are sorted by level. +
@@ -327,6 +330,7 @@ Format: `rec`
 
 .Recommendation list for Computer Science Algorithms
 image::recommend.png[width="790"]
+// end::rec[]
 
 === Redo the previously undone command: `redo`
 

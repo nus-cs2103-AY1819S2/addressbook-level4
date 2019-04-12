@@ -443,10 +443,10 @@ For most cases, alternative 1 seems to be sufficient.
 However, in the future, we might extend the Condition class to check for other attributes of `ModuleTaken`.
 //end::CourseRequirement[]
 
-//tag::recommend[]
+// tag::rec[]
 === Module recommendation feature
 
-The module recommendation feature displays modules which the user is recommended to take based on existing GradTrak modules
+The module recommendation feature displays modules which the user is recommended to read based on existing GradTrak modules
 and specific course requirements. It generates a list of module codes together with their corresponding titles and requirement
 types satisfied. The entire list is displayed on the Result Panel upon entering the `rec` command.
 
@@ -467,9 +467,9 @@ When the `rec` command is entered, the sequence of execution is as follows:
 
 .  `Model#updateRecModuleList` is called, which creates a `RecModulePredicate` given the user's `Course` and `GradTrak`, and a `RecModuleComparator`.
 .  The `RecModulePredicate` is applied to the `FilteredList` of `RecModule`.
-.. It first tests if the `ModuleInfoCode` (call it `codeToTest`) in a `RecModule` is eligible to be taken,
+.. It first tests if the `ModuleInfoCode` (call it `codeToTest`) in a `RecModule` is eligible to be read,
 using an `EligibleModulePredicate` which takes in `GradTrak`. Those `RecModule` corresponding to `ModuleTaken` in `GradTrak`
-which are already passed or to be taken in a future semester (collectively known as non-failed modules) are filtered out at this stage.
+which are already passed or to be read in a future semester (collectively known as non-failed modules) are filtered out at this stage.
 .. The `codeToTest` is then passed into `Course#getCourseReqTypeOf`, which in turn calls `CourseRequirement#canFulfill` for each `CourseRequirement` listed in `Course`.
  A list of `CourseReqType` that the `codeToTest` can satisfy is returned.
 This `courseReqTypeList` is sorted by the priority of `CourseReqType` as defined in the `enum` class: `CORE`, `BD`, `IE`, `FAC`, `GE`, `UE`.
@@ -484,7 +484,7 @@ is called which takes in the `nonFailedCodeList` and returns an `unfulfilledRege
 contribute to any of the `CourseRequirement` listed in `Course`, the `RecModule` is filtered out.
 . The `RecModuleComparator` is applied to the `SortedList` of `RecModule`. It sorts the list in decreasing priority of the
 `CourseReqType` satisfied by the `RecModule`. Those `RecModule` with equal priority are sorted by module level (the first numerical digit of its `ModuleInfoCode`),
-considering that lower level modules are usually taken first. In the case of equal priority and module level, lexicographical sorting is used.
+considering that lower level modules are usually read first. In the case of equal priority and module level, lexicographical sorting is used.
 . The `SortedList` of `RecModule` is retrieved from `ModelManager` and displayed to the user in the Result Panel.
 
 If there are changes to `GradTrak` (adding, editing or deleting modules) or `Course` (changing the course of study), the `rec` command
@@ -522,7 +522,7 @@ image::RecModuleComparatorSequenceDiagram.png[width="800"]
 ==== Possible Improvements
 . Allow the user to display a module's information (from displaymod command) using its index in the recommendation list
 . Allow the user to add a module to GradTrak using its index in the recommendation list
-//end::recommend[]
+// end::rec[]
 
 // tag::semesterlimits[]
 === Semester CAP and workload management feature

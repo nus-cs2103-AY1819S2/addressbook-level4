@@ -666,6 +666,23 @@ This command allows the user to add a watermark to their image. Upon receiving a
 [NOTE]
 Each image can only have 1 watermark at a time.
 
+==== Current Implementation
+
+The manipulation feature is facilitated by `CurrentEdit` and `Image`. It uses the following operations:
+
+ * `CurrentEdit#getTempImage()` - Retrieves the temporary image `tempImage` which stores the filepath of the temporary image in `temp` folder, its history of edits [`List<Command>`] and its metadata.
+
+ * `CurrenEdit#updateTempImage(BufferedImage)` - Replaces the temporary image in `temp` folder with the newly edited image and update the `tempImage` instance in the class.
+
+ * `CurrentEdit#addCommand(Command)` - add this command to the edit history [`List<Command>`] in `tempImage` for the undo/redo function
+
+ * `CurrenEdit#displayTempImage()` - Displays the temporary image stored in directory: "src/main/resources/temp/".
+ 
+ * `Image#hasWaterMark()` - Checks if the `Image` already has a watermark.
+ 
+ * `Image#setWaterMark(boolean)` - Sets the `Image` object's `hasWaterMark` field accordingly, if the `Image` has or does not have a watermark.
+ 
+
 Given below is an example usage scenario and how the command should behave at each step:
 
 Step 1. When the user runs an open command to edit an image, it invokes a method which creates an instance of an `Image` that stores the filepath of the image, its history of edits `List<Command>` and its metadata. This `Image` object is saved under the variable name `tempImage` in `currentEdit` for editing.
@@ -691,58 +708,58 @@ Step 6. According to the above 3 conditions, the following combinations will res
 . `isNewCommand` = `True` and `initialImage#hasWaterMark()` = `False`:
 
 +
-* invokes `initialImage#setWaterMark(True)` to indicate that the image has a watermark +
+* Invokes `initialImage#setWaterMark(True)` to indicate that the image has a watermark. +
 +
 
 +
-* invokes `currentEdit#updateTempImage()` to overwrite the current image in filepath: "src/main/resources/temp/" + `tempImage#getUrl` with a new `BufferedImage` object. 
+* Invokes `currentEdit#updateTempImage()` to overwrite the current image in filepath: "src/main/resources/temp/" + `tempImage#getUrl` with a new `BufferedImage` object. 
 +
 
 +
-* `isNewCommand` is set to false to signal that this command is not a new rotate command if it is executed again through the `undo/redo` function. 
+* Sets `isNewCommand` to false to signal that this command is not a new rotate command if it is executed again through the `undo/redo` function. 
 + 
 
 +
-* `currentEdit#addCommand(this)` is invoked to add this command to the `List<Command>` in `tempImage` for the `undo/redo` function and `currentEdit#displayTempImage()` is used to display the edited image on the graphical user interface.
+* Invokes `currentEdit#addCommand(this)` to add this command to the `List<Command>` in `tempImage` for the `undo/redo` function and `currentEdit#displayTempImage()` is used to display the edited image on the graphical user interface.
 +
 
 .  `isNewCommand` = `True` and `initialImage#hasWaterMark()` = `True`:
 
 +
-* throws an exception as there is already a watermark on `tempImage`.
+* Throws an exception as there is already a watermark on `tempImage`.
 +
 
 .  `isNewCommand` = `False` and `isPreset` = `False`: 
 
 +
-* indicates that it is an `undo/redo` function
+* Indicates that it is an `undo/redo` function.
 +
 
 +
-* invokes `initialImage#setWaterMark(True)` to indicate that the image has a watermark
+* Invokes `initialImage#setWaterMark(true)` to indicate that the image has a watermark.
 +
 
 +
-* invokes `currentEdit#updateTempImage()` to overwrite the current image in filepath: "src/main/resources/temp/" + `tempImage#getUrl` with a new `BufferedImage` object.
+* Invokes `currentEdit#updateTempImage()` to overwrite the current image in filepath: "src/main/resources/temp/" + `tempImage#getUrl` with a new `BufferedImage` object.
 +
 
 .  `isNewCommand` = `False` and `isPreset` = `True` and `initialImage#hasWaterMark()` = `False`: 
 +
-* indicates that a preset is added to a image with no watermark
+* Indicates that a preset is added to a image with no watermark.
 +
 
 +
-* invokes `initialImage#setWaterMark(True)` to indicate that the image has a watermark
+* Invokes `initialImage#setWaterMark(true)` to indicate that the image has a watermark.
 +
 
 +
-* invokes `currentEdit#updateTempImage()` to overwrite the current image in filepath: "src/main/resources/temp/" + `tempImage#getUrl` with a new `BufferedImage` object.
+* Invokes `currentEdit#updateTempImage()` to overwrite the current image in filepath: "src/main/resources/temp/" + `tempImage#getUrl` with a new `BufferedImage` object.
 +
 
 . Anything else: 
 
 +
-* throws an exception as there is already a watermark on `tempImage`
+* Throws an exception as there is already a watermark on `tempImage`
 +
 
 

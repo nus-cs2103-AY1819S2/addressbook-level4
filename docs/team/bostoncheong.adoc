@@ -44,7 +44,7 @@ highscore functionality in the game.
 
 ** Project management:
 *** Actively update issues and provide constructive comments and feedback to the team.
-(Pull requests #50 ,#80 ,#147)
+(Pull requests #50 ,#80 ,#147, #365)
 *** Managed the progress of the Developer Guide by delegating the required tasks and ensuring it is completed on time.
 (Issue #360)
 ** Enhancements to existing features:

@@ -54,7 +54,10 @@ public class CardFolder implements ReadOnlyCardFolder {
      * Returns true if folder name adheres to constraints as listed in {@code MESSAGE_CONSTRAINTS}.
      */
     public static boolean isValidFolderName(String folderName) {
-        if (folderName == null || folderName.isEmpty() || folderName.length() > 50) {
+        requireNonNull(folderName);
+
+        folderName = folderName.trim();
+        if (folderName.isEmpty() || folderName.length() > 50) {
             return false;
         }
         return folderName.chars().allMatch(

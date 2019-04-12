@@ -26,13 +26,14 @@ import javafx.collections.ObservableList;
 import seedu.knowitall.model.card.Card;
 import seedu.knowitall.model.card.exceptions.DuplicateCardException;
 import seedu.knowitall.testutil.CardBuilder;
+import seedu.knowitall.testutil.TypicalCards;
 
 public class CardFolderTest {
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
-    private final CardFolder cardFolder = new CardFolder(this.getClass().getName());
+    private final CardFolder cardFolder = new CardFolder(TypicalCards.getTypicalFolderOneName());
 
     @Test
     public void constructor() {
@@ -41,6 +42,31 @@ public class CardFolderTest {
         CardFolder newData = getTypicalFolderOne();
         cardFolder.resetData(newData);
         assertEquals(newData.getCardList(), cardFolder.getCardList());
+    }
+
+    @Test
+    public void isValidFolderName_null_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
+        CardFolder.isValidFolderName(null);
+    }
+
+    @Test
+    public void isValidFolderName_valid_returnsTrue() {
+        assertTrue(CardFolder.isValidFolderName("folder"));
+        assertTrue(CardFolder.isValidFolderName("folder1"));
+        assertTrue(CardFolder.isValidFolderName("folder 2"));
+        String padding = new String(new char[48]).replace('\0', ' ');
+        assertTrue(CardFolder.isValidFolderName("1" + padding + "2"));
+        assertTrue(CardFolder.isValidFolderName("  1" + padding + "2  "));
+    }
+
+    @Test
+    public void isInvalidFolderName_valid_returnsFalse() {
+        assertFalse(CardFolder.isValidFolderName(""));
+        String padding = new String(new char[48]).replace('\0', ' ');
+        assertFalse(CardFolder.isValidFolderName("1 " + padding + "2"));
+        assertFalse(CardFolder.isValidFolderName("folder/"));
+        assertFalse(CardFolder.isValidFolderName("folder :)"));
     }
 
     @Test
@@ -73,6 +99,11 @@ public class CardFolderTest {
 
         thrown.expect(DuplicateCardException.class);
         cardFolder.resetData(newData);
+    }
+
+    @Test
+    public void getFolderName() {
+        assertEquals(cardFolder.getFolderName(), TypicalCards.getTypicalFolderOneName());
     }
 
     @Test

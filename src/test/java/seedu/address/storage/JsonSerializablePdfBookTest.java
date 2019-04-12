@@ -16,11 +16,12 @@ import seedu.address.testutil.TypicalPdfs;
 
 public class JsonSerializablePdfBookTest {
 
-    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data",
-            "JsonSerializablePdfBookTest");
-    private static final Path TYPICAL_PDF_FILE = TEST_DATA_FOLDER.resolve("typicalPdfPdfBook.json");
-    private static final Path INVALID_PDF_FILE = TEST_DATA_FOLDER.resolve("invalidPdfPdfBook.json");
-    private static final Path DUPLICATE_PDF_FILE = TEST_DATA_FOLDER.resolve("duplicatePdfPdfBook.json");
+    private static final Path TYPICAL_PDF_FILE = Paths.get("src", "test", "data",
+            "JsonSerializablePdfBookTest", "typicalPdfPdfBook.json");
+    private static final Path INVALID_PDF_FILE = Paths.get("src", "test", "data",
+            "JsonSerializablePdfBookTest", "invalidPdfPdfBook.json");
+    private static final Path DUPLICATE_PDF_FILE = Paths.get("src", "test", "data",
+            "JsonSerializablePdfBookTest", "duplicatePdfPdfBook.json");
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();

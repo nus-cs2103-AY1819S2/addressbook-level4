@@ -65,7 +65,7 @@ public class TypicalRestOrRant {
     public static final OrderItem TABLE7_F11 =
             new OrderItemBuilder().withTableNumber("7").withCode("F11").withName("Crepes").withQuantity(4).build();
     public static final OrderItem TABLE8_K12 =
-            new OrderItemBuilder().withTableNumber("1").withCode("K12").withName("Kimchi Fried Rice")
+            new OrderItemBuilder().withTableNumber("8").withCode("K12").withName("Kimchi Fried Rice")
                     .withQuantity(1).build();
     public static final OrderItem TABLE8_W09 =
             new OrderItemBuilder().withTableNumber("8").withCode("W09").withName("Chicken Wings")

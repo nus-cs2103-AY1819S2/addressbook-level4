@@ -21,10 +21,9 @@ public class OrderItem {
 
     /**
      * Every field must be present and not null.
-     * TODO: create constructor with default status as unserved
      */
     public OrderItem(TableNumber tableNumber, Code menuItemCode, Name menuItemName, OrderItemStatus itemStatus) {
-        requireAllNonNull(tableNumber, menuItemCode, itemStatus);
+        requireAllNonNull(tableNumber, menuItemCode, menuItemName, itemStatus);
         this.tableNumber = tableNumber;
         this.menuItemCode = menuItemCode;
         this.menuItemName = menuItemName;

@@ -23,13 +23,6 @@ import seedu.address.model.table.Table;
  */
 public class RestOrRantUtil {
 
-    //    /**
-    //     * Returns an add command string for adding the {@code person}.
-    //     */
-    //    public static String getAddCommand(Person person) {
-    //        return AddCommand.COMMAND_WORD + " " + getPersonDetails(person);
-    //    }
-
     /**
      * Returns an add command string for adding the (@code table).
      */

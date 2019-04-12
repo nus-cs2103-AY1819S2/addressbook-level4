@@ -150,6 +150,8 @@ public class MainWindow extends UiPart<Stage> {
 
         CommandBox commandBox = new CommandBox(this::executeCommand, logic.getHistory());
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+
+        resultDisplay.setFeedbackToUser("Welcome to RestOrRant!");
     }
 
     /**

@@ -10,8 +10,6 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.appointment.FutureAppointment;
-import seedu.address.model.person.Doctor;
-import seedu.address.model.person.Patient;
 
 /**
  * Adds a new appointment between a patient and doctor.
@@ -51,8 +49,8 @@ public class AddAppointmentCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_APPOINTMENT);
         }
 
-        getPatientById(model);
-        getDoctorById(model);
+        appointment.setPatient(model.getPatientById(appointment.getPatientId()));
+        appointment.setDoctor(model.getDoctorById(appointment.getDoctorId()));
 
         model.addAppointment(appointment);
         model.commitDocX();
@@ -71,21 +69,5 @@ public class AddAppointmentCommand extends Command {
 
         AddAppointmentCommand that = (AddAppointmentCommand) o;
         return appointment.equals(that.appointment);
-    }
-
-    private void getPatientById(Model model) throws CommandException {
-        Patient patientWithId = model.getPatientById(appointment.getPatientId());
-        if (patientWithId == null) {
-            throw new CommandException(MESSAGE_PATIENT_NOT_NOT_FOUND);
-        }
-        this.appointment.setPatient(patientWithId);
-    }
-
-    private void getDoctorById(Model model) throws CommandException {
-        Doctor doctorWithId = model.getDoctorById(appointment.getDoctorId());
-        if (doctorWithId == null) {
-            throw new CommandException(MESSAGE_DOCTOR_NOT_NOT_FOUND);
-        }
-        this.appointment.setDoctor(doctorWithId);
     }
 }

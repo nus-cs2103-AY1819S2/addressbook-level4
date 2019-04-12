@@ -124,7 +124,7 @@ public class FilterCommand extends Command {
         boolean isAllJobScreen = model.getIsAllJobScreen();
         boolean hasFilterName = !commandName.equals("");
         boolean hasListName = listName != EMPTY;
-        if (!isAllJobScreen && !hasFilterName) {
+        if (!hasFilterName) {
             throw new CommandException(Messages.MESSAGE_LACK_FILTERNAME);
         }
         if (!isAllJobScreen && !hasListName) {
@@ -132,9 +132,6 @@ public class FilterCommand extends Command {
         }
         if (isAllJobScreen && hasListName) {
             throw new CommandException(Messages.MESSAGE_REDUNDANT_LISTNAME);
-        }
-        if (isAllJobScreen && hasFilterName) {
-            throw new CommandException(Messages.MESSAGE_REDUNDANT_FILTERNAME);
         }
         int size;
         switch (listName) {
@@ -163,9 +160,10 @@ public class FilterCommand extends Command {
             predicateList = model.getPredicateLists(SHORTLIST);
             break;
         default:
-            model.updateFilteredPersonList(predicate);
+            model.addPredicateAllPersons(commandName, predicate);
+            model.updateFilteredPersonList();
             size = model.getFilteredPersonList().size();
-            predicateList = null;
+            predicateList = model.getPredicateLists(EMPTY);
         }
         return new CommandResult(
             String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, size), listName,

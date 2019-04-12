@@ -488,7 +488,19 @@ public class ParserUtil {
             return false;
         }
     }
-
+    /**
+     * Check if the date range provided is valid.value
+     */
+    protected static boolean isValidValueRange(String range){
+        String trimedRange = range.trim();
+        String[] bounds = trimedRange.split("-");
+        if (bounds.length!=2){
+            return false;
+        }
+        String trimedLower = bounds[0].trim();
+        String trimedUpper = bounds[1].trim();
+        return true;
+    }
     /**
      * Check if the date range provided is valid.
      */

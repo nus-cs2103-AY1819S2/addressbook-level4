@@ -380,7 +380,7 @@ public class ModelManager implements Model {
     @Override
     public void addPredicateJobShortlist(String predicateName, Predicate<Person> predicate) {
         requireNonNull(predicate);
-        filterListJobAllApplicants.add(new Filter(predicateName, predicate));
+        filterListJobShortlist.add(new Filter(predicateName, predicate));
     }
 
     @Override

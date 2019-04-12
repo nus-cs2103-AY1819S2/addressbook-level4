@@ -69,6 +69,19 @@ public class AddCommand extends Command {
             + PREFIX_PASTJOB + "Software Engineer "
             + "The alias \"a\" can be used instead.\n";
 
+    public static final String MESSAGE_LACK_NAME = "Name field should not be empty.\n%1$s";
+    public static final String MESSAGE_LACK_ADDRESS = "Address field should not be empty.\n%1$s";
+    public static final String MESSAGE_LACK_EMAIL = "Email field should not be empty.\n%1$s";
+    public static final String MESSAGE_LACK_GENDER = "Gender field should not be empty.\n%1$s";
+    public static final String MESSAGE_LACK_GRADE = "Grade field should not be empty.\n%1$s";
+    public static final String MESSAGE_LACK_JOBSAPPLY = "Jobs Apply field should not be empty.\n%1$s";
+    public static final String MESSAGE_LACK_MAJOR = "Major field should not be empty.\n%1$s";
+    public static final String MESSAGE_LACK_NRIC = "Nric field should not be empty.\n%1$s";
+    public static final String MESSAGE_LACK_PHONE = "Phone field should not be empty.\n%1$s";
+    public static final String MESSAGE_LACK_RACE = "Race field should not be empty.\n%1$s";
+    public static final String MESSAGE_LACK_SCHOOL = "School field should not be empty.\n%1$s";
+    public static final String MESSAGE_INFORMATION_WITHOUT_PREFIX =
+        "All information need a prefix for this command. \n%1$s";
     public static final String MESSAGE_SUCCESS = "New person added: %1$s";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book";
 

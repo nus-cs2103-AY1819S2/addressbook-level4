@@ -40,6 +40,7 @@ public class TagCommand extends Command {
 
     public TagCommand(Index index, Set<Tag> tags, Boolean isAddTag) {
         requireNonNull(index);
+        requireNonNull(tags);
         requireNonNull(isAddTag);
 
         this.index = index;

@@ -11,7 +11,8 @@ public class FindCommand extends Command {
     public static final String COMMAND_WORD = "find";
     public static final String MAIN_USAGE = "Did you mean:\n"
         + "Finding a patient: \"patientfind\" or \"pfind\"\n";
-    public static final String GOTO_USAGE = "No relevant find command in Records mode.\n";
+    public static final String GOTO_USAGE = "Did you mean:\n"
+        + "Finding a patient: \"recordfind\" or \"rfind\"\n";
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) {

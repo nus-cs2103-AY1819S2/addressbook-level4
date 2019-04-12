@@ -886,17 +886,15 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |Priority |As a ... |I want to ... |So that I can...
 |`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
 
-|`* * *` |user |add a new book |
+|`* * *` |user |add a new book | record a book I have read
 
 |`* * *` |user |delete a book |remove entries that I no longer need
 
-|`* * *` |user |find a book by name |locate details of books without having to go through the entire list
-
-|`* * *` |user |update a book's review |edit base on current content
+|`* * *` |user |find books by certain criteria such as name |locate details and reviews of the books without having to go through the entire list
 
 |`* * *` |user |exist the program |
 
-|`* * *` |user |select a book |
+|`* * *` |user |select a review | so that I can view the review
 
 |`* * *` |user |save |able to save data in local
 
@@ -905,43 +903,44 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`* *` |user |undo |able to undo your operation
 
 |`* *` |user |redo |able to redo your undo
-
-|`* *` |user |clear |clear all entires
-
-|`* *` |user |entrypt |entrypt your review
-
-|`* *` |user |detrypt |detrypt your entrypted review
+r
+|`* *` |user |clear |clear all entries
 
 |`* *` |user |guideline |by typing help to show all commands
 
-|`*` |user |sort |sort the list in alphabetical order
+|`*` |user |sort |sort the book list in specified order
 |=======================================================================
 
-_{More to be added}_
 
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `Book Squirrel` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `BookSquirrel` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
+
+=== Use
+
 === Use case: Delete book
 
 *MSS*
 
-1.  User requests to delete a book and all its reviews by the book's index in the list
-2.  Book Squirrel deletes the book
+1.  User requests to list books
+2.  BookSquirrel shows a list of books
+3.  User requests to delete a specific book in the list
+4.  BookSquirrel deletes the book and all its reviews
 +
 Use case ends.
 
 *Extensions*
 
-[none]
 * 2a. The list is empty.
 +
 Use case ends.
 
-_{More to be added}_
+* 3a. The given index is invalid.
+** 3a1. BookSquirrel shows an error message.
+        Use case resumes at step 2.
 
 [appendix]
 == Non Functional Requirements
@@ -950,7 +949,6 @@ _{More to be added}_
 .  Should be able to hold up to 1000 books without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 
-_{More to be added}_
 
 [appendix]
 == Glossary

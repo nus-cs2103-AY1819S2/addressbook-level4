@@ -1,4 +1,4 @@
-= 0blivious - Project Portfolio for Book Squirrel
+= 0blivious - Project Portfolio for BookSquirrel
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
@@ -7,7 +7,7 @@
 
 My team and I were tasked with enhancing a application addressbook-level4 for our
 Software Engineering project. We chose to morph it into an book review recording application called
-Book Squirrel. This enhanced application enables readers to keep track of their reading, recording down their
+BookSquirrel. This enhanced application enables readers to keep track of their reading, recording down their
 reviews of books and obtain statistics of their past reading habits.
 
 My role was to design and write the codes to support the CRUD of books. The following sections
@@ -46,13 +46,13 @@ analysis of design alternatives. The implementation too was challenging as it re
 
 == Contributions to the User Guide
 We had to update the original addressbook User Guide with instructions for the enhancements that
-we had added. The following is an excerpt from our Book Squirrel User Guide, showing additions that I have
+we had added. The following is an excerpt from our BookSquirrel User Guide, showing additions that I have
 made for the CRUD features for book.
 
 include::../UserGuide.adoc[tag=book]
 
 == Contributions to the Developer Guide
-The following section shows my additions to the Book Squirrel Developer Guide for the addBook
+The following section shows my additions to the BookSquirrel Developer Guide for the addBook
 features.
 
 include::../DeveloperGuide.adoc[tag=book]

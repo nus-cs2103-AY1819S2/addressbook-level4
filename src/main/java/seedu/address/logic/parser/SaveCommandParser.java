@@ -18,7 +18,8 @@ public class SaveCommandParser implements Parser<SaveCommand> {
     /**
      * Parses the given {@code String} of arguments in the context
      * of the SaveCommand and returns an SaveCommand object for execution.
-     * @throws ParseException if args is not a valid file name.
+     *
+     * @throws ParseException if the string is not a valid file name.
      */
     public SaveCommand parse(String args) throws ParseException {
         boolean isValidName = false;

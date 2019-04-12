@@ -11,14 +11,11 @@ import org.junit.Test;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
+import seedu.address.model.PdfBook;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.pdf.Pdf;
 
-/**
- * Contains integration tests (interaction with the Model) for {@code AddCommand}.
- */
-public class AddCommandIntegrationTest {
-
+public class ClearCommandIntegrationTest {
     private Model model;
     private CommandHistory commandHistory = new CommandHistory();
 
@@ -28,22 +25,13 @@ public class AddCommandIntegrationTest {
     }
 
     @Test
-    public void execute_newPdf_success() {
-        Pdf validPdf = SAMPLE_PDF_4;
+    public void execute_clearModel_success() {
 
-        Model expectedModel = new ModelManager(model.getPdfBook(), new UserPrefs());
-        expectedModel.addPdf(validPdf);
+        Model expectedModel = new ModelManager(getTypicalPdfBook(), new UserPrefs());
+        expectedModel.setPdfBook(new PdfBook());
         expectedModel.commitPdfBook();
 
-        assertCommandSuccess(new AddCommand(validPdf), model, commandHistory,
-                String.format(AddCommand.MESSAGE_SUCCESS, validPdf), expectedModel);
+        assertCommandSuccess(new ClearCommand(), model, commandHistory,
+                ClearCommand.MESSAGE_SUCCESS, expectedModel);
     }
-
-    @Test
-    public void execute_duplicatePdf_throwsCommandException() {
-        Pdf pdfInList = model.getPdfBook().getPdfList().get(0);
-        assertCommandFailure(new AddCommand(pdfInList), model, commandHistory,
-                AddCommand.MESSAGE_DUPLICATE_PDF);
-    }
-
 }

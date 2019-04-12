@@ -87,6 +87,9 @@ public class BoundaryValueChecker {
         return true;
     }
 
+    /**
+     * Checks if the body of a battleship is within bounds.
+     */
     public boolean isBodyWithinBounds(Index index) {
         if (index.getZeroBased() + battleship.getLength() > mapGrid.getMapSize()) {
             return false;
@@ -94,7 +97,7 @@ public class BoundaryValueChecker {
 
         return true;
     }
-    
+
     /**
      * Checks if there is no battleship on the grids.
      */

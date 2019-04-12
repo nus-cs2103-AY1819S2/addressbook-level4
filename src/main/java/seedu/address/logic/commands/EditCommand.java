@@ -88,10 +88,6 @@ public class EditCommand extends Command {
         File oldFile = Paths.get(pdfToEdit.getDirectory().getDirectory(), pdfToEdit.getName().getFullName()).toFile();
         File newFile = Paths.get(editedPdf.getDirectory().getDirectory(), editedPdf.getName().getFullName()).toFile();
 
-        System.out.println(oldFile + "\n");
-
-        System.out.println(newFile + "\n\n");
-
         if (!oldFile.renameTo(newFile)) {
             throw new CommandException(MESSAGE_EDIT_PDF_FAILURE);
         }

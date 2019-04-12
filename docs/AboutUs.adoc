@@ -17,6 +17,7 @@ image::Carrein.png[width="150", align="left"]
 Team Lead +
 *Responsibilities:* +
 User Interface and Model design
+
 '''
 
 === Tan Qun Wei Randy

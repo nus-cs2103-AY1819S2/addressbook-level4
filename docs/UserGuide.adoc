@@ -115,6 +115,14 @@ The *Result Display* shows information relating to the result of the command.
 
 The *Sync Status Bar* displays the last updated date and time of any changes to the data.
 
+[[Mode-Status]]
+=== Mode Status
+
+Displays the current mode of Club Manager. There are only 2 modes, namely:
+
+* Member
+* Activity
+
 [[Member-List]]
 === List of Members
 

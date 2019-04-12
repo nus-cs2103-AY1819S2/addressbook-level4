@@ -501,7 +501,9 @@ the player's map when the player ends their turn.
 
 Note that the Enemy AI feature does not contain any explicit commands to be
 entered by the Player. Its methods are called by other features instead, and does its
-magic in the background.
+magic in the background, as shown in the following use case diagram:
+
+image::EnemyUseCaseDiagram.png[width=600]
 
 *Initialising Enemy MapGrid*
 

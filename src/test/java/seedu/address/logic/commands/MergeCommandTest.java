@@ -39,14 +39,15 @@ import seedu.address.model.pdf.Pdf;
 import seedu.address.testutil.PdfBuilder;
 
 public class MergeCommandTest {
+    private static final String MESSAGE_MERGE_PDF_SUCCESS = "Merged PDFs into new PDF: %1$s";
+    private static final String MESSAGE_MERGE_PDF_ENCRYPT = "One or more of selected PDFs is encrypted.";
+
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
     private Model model = new ModelManager(getTypicalPdfBook(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
-    private static final String MESSAGE_MERGE_PDF_SUCCESS = "Merged PDFs into new PDF: %1$s";
-    private static final String MESSAGE_MERGE_PDF_ENCRYPT = "One or more of selected PDFs is encrypted.";
 
     @Before
     public void before() throws CommandException {
@@ -67,7 +68,7 @@ public class MergeCommandTest {
     }
 
     @Test
-    public void execute_onlyCompulsoryFieldSpecifiedUnfilteredList_success() throws CommandException{
+    public void execute_onlyCompulsoryFieldSpecifiedUnfilteredList_success() throws CommandException {
         Model expectedModel = new ModelManager(new PdfBook(model.getPdfBook()), new UserPrefs());
         MergeCommand mergeCommand = new MergeCommand(INDEX_FIRST_PDF, INDEX_SECOND_PDF);
         CommandResult result = mergeCommand.execute(model, commandHistory);

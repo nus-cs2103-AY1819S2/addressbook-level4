@@ -32,10 +32,10 @@ public class UniquePatientList implements Iterable<Patient> {
         requireNonNull(toCheck);
         return internalList.stream().anyMatch(toCheck::isSamePatient);
     }
-
-    /**
-     * Returns Patient with given PersonId.
-     */
+    //@@author Liuyy99
+        /**
+         * Returns Patient with given PersonId.
+         */
     public Patient findPatientById(PersonId idToCheck) {
         requireNonNull(idToCheck);
         Predicate<Patient> predicate = new RecordContainsPatientIdPredicate(idToCheck);
@@ -45,7 +45,7 @@ public class UniquePatientList implements Iterable<Patient> {
         }
         return patientWithId.get(0);
     }
-
+    /* @@author wayneswq */
     /**
      * Adds a patient to the list.
      * The patient must not already exist in the list.

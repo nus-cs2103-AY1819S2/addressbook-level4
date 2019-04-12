@@ -55,7 +55,7 @@ E.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Parameters can be in any order e.g. if the command specifies `n/NAME a/AUTHOR`, `a/AUTHOR n/NAME` is also acceptable.
 * Book name, review title and review content should only contain alphanumeric characters, space, `*`, `,`, `.`, `?`, `'`, `(`, `)` and `&`.
 * Author and tag should only contain alphanumeric characters and spaces.
-* Book name and author should not exceed 50 characters (space included).
+* The Book name and author should not exceed 50 characters (space included).
 * Review title should not exceed 50 characters (space included).
 * Review content should not exceed 400 characters (space included).
 * Rating should be an integer from 0 to 10 inclusive and the input should be 1 or 2 digit number.
@@ -66,7 +66,7 @@ E.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 ==== Adding a book: `addBook`
 
-Adds a book to the book shelf +
+Adds a book to the Bookshelf +
 Format: `addBook n/BOOKNAME a/author m/RATING [t/TAG]…​`
 
 Examples:
@@ -89,7 +89,7 @@ Edits an existing book entry (eg. edit the book name, rating, author or tag). +
 Format: `editBook INDEX [n/BOOKNAME] [a/AUTHOR] [m/RATING] [t/TAG]...`
 
 ****
-* Edit the book at the specified INDEX. The index refers to the index number shown in the displayed book list. The index must be a positive integer 1, 2, 3, …​
+* Edit the book at the specified INDEX. The index refers to the index number shown in the displayed Bookshelf. The index must be a positive integer 1, 2, 3, …​
 * Edit a book with a new name that  already exists in the bookshelf is not allowed
 * At least one of the optional fields must be provided.
 * Take a look at <<Command Format>> to see the valid format for each parameter
@@ -107,13 +107,13 @@ Clear all the existing tags of the second book in the result list.
 
 ==== Deleting a book : `deleteBook`
 
-Deletes the specified book from the book list. +
+Deletes the specified book from the Bookshelf. +
 Format: `deleteBook INDEX`
 
 ****
 * Deletes the book of the specified `INDEX`.
 * All the reviews of the deleted book will also be deleted.
-* The index refers to the index number shown in the displayed book list.
+* The index refers to the index number shown in the displayed Bookshelf.
 * The index must be a positive integer 1, 2, 3, …​
 ****
 
@@ -152,7 +152,7 @@ Examples:
 
 ==== Sort books command : `sortBook`
 
-sort bookList in specify order. +
+sort booklist in specify order. +
 Format: `sortBook st/TYPE... [o/ORDER] [o1/ORDER] [o2/ORDER] [o3/ORDER]`
 
 ****
@@ -181,7 +181,7 @@ sort bookList by rating in descending order and since the o2 order is not specif
 
 ==== Adding a book review: `addReview`
 
-Adds a book review to a certain book in the book list +
+Adds a book review to a certain book in the Bookshelf +
 
 Format: `addReview n/BOOKNAME rt/REVIEW TITLE r/REVIEW MESSAGE`
 
@@ -191,7 +191,7 @@ Examples:
 * `addReview n/Structure and Interpretation of Computer Programs rt/Computing Bible r/A very difficult book:(`
 
 ****
-* The book has specified `BOOKNAME` must already exist in the Book Shelf.
+* The book has specified `BOOKNAME` must already exist in the BookShelf.
 * `BOOKNAME` and `REVIEW TITLE` should not contain more than 50 characters.
 * `REVIEW MESSAGE` should not contain more than 400 characters.
 ****
@@ -212,12 +212,12 @@ Example:
 ****
 
 ==== Listing all book reviews: `listAllReviews`
-Lists all the reviews in the Book Shelf. +
+Lists all the reviews in the BookShelf. +
 Format: `listAllReviews`
 
 ==== Listing book reviews of a certain book : `listReview`
 
-Lists the reviews of the book identified by the index number used in the displayed book list. +
+Lists the reviews of the book identified by the index number used in the displayed Bookshelf. +
 Format: `listReview INDEX`
 
 Example:
@@ -226,7 +226,7 @@ Example:
 
 ****
 * Lists the review of the book at the specified `INDEX`.
-* The index refers to the index number shown in the displayed book list.
+* The index refers to the index number shown in the displayed Bookshelf.
 * The index must be a positive integer 1, 2, 3, …​
 ****
 

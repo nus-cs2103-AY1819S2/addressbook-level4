@@ -243,7 +243,7 @@ This section describes some noteworthy details on how certain features are imple
 ==== Current Implementation
 
 The sortBook mechanism is facilitated by `VersionedBookShelf`.
-It extends `BookShelf` with the sort function which will sort the `UniqueBookList`. `UniqueBookList` implemented the Booklist as `ObservableList<Book>`. sortBook command sort the Booklist in specify order by implementing the `Comaparator<Book>`.
+It extends `BookShelf` with the sort function which will sort the `UniqueBookList`. `UniqueBookList` implemented the BookList as `ObservableList<Book>`. sortBook command sort the booklist in specify order by implementing the `Comparator<Book>`.
 
 Additionally, it uses/implements the following operations:
 
@@ -251,7 +251,7 @@ Additionally, it uses/implements the following operations:
 
 * `BookShelf#indicateModified()` -- Notifies listeners that the bookshelf has been modified.
 
-* `UniqueBookList#sortBooks()` -- Implement the comparaotr, call `ObservableList<Book>` and pass in the comparator.
+* `UniqueBookList#sortBooks()` -- Implement the comparator, call `ObservableList<Book>` and pass in the comparator.
 
 * `ObservableList<Book>#sort()` -- sort the internalList is specify order.
 
@@ -261,16 +261,16 @@ Step 1. The user launches the application for the first time. The `VersionedBook
 
 Step 2. The user executes `sortBook st/rating` command to sort all the books in the bookshelf in ascending order. The command will be pass to SortBookCommand Parser to convert it to SortBook command, the parser will check the correctness of the command. If the command is in an incorrect format, the parser will show correct command instruction to the user, otherwise, the parser will call the constructor of SortBook command.
 
-Step 3. `SortBookCommand#execute` will be call, it will check whether the Booklist is empty before proceed to call `ModelManager#sort()`.
+Step 3. `SortBookCommand#execute` will be call, it will check whether the Bookshelf is empty before proceed to call `ModelManager#sort()`.
 
 [NOTE]
-If the Booklist is empty, CommandException(MESSAGE_BOOK_LIST_EMPTY) will be thrown.
+If the Bookshelf is empty, CommandException(MESSAGE_BOOK_LIST_EMPTY) will be thrown.
 
 Step 4. If everything is correct, `VersionedBookShelf#sort()` will be called. It will execute `UniqueBookList#sortBooks` and `BookShelf#indicateModified` will be called after the list is been sorted to notify the listener that display data has been modified.
 
 Step 5. `ObservableList<Book>` was implemented in `UniqueBookList` as internal list. `UniqueBookList#sortBooks` will call `ObservableList<Book>#sort` to sort the internal list by providing custom Comparator.
 
-Step 6. ` model#commitBookShelf()` will be executed to store the current Booklist into `List<ReadOnlyBookShelf>` for support undo/redo command after the list is sorted and notify the listener.
+Step 6. ` model#commitBookShelf()` will be executed to store the current Bookshelf into `List<ReadOnlyBookShelf>` for support undo/redo command after the list is sorted and notify the listener.
 
 ==== Design Considerations
 
@@ -313,7 +313,7 @@ Step 1. The user launches the application for the first time. The `VersionedBook
 
 image::UndoRedoStartingStateListDiagram.png[width="800"]
 
-Step 2. The user executes `deleteBook 1` command to delete the first book in the bookshelf. The `deleteBook` command calls `Model#commitBookShelf()`, causing the modified state of the Booklist after the `deleteBook 1` command executes to be saved in the `BookShelfStateList`, and the `currentStatePointer` is shifted to the newly inserted Booklist state.
+Step 2. The user executes `deleteBook 1` command to delete the first book in the bookshelf. The `deleteBook` command calls `Model#commitBookShelf()`, causing the modified state of the Bookshelf after the `deleteBook 1` command executes to be saved in the `BookShelfStateList`, and the `currentStatePointer` is shifted to the newly inserted Bookshelf state.
 
 image::UndoRedoNewCommand1StateListDiagram.png[width="800"]
 
@@ -356,7 +356,7 @@ image::UndoRedoActivityDiagram.png[width="650"]
 
 ===== Aspect: How undo & redo executes
 
-* **Alternative 1 (current choice):** Saves the entire Booklist.
+* **Alternative 1 (current choice):** Saves the entire Bookshelf.
 ** Pros: Easy to implement.
 ** Cons: May have performance issues in terms of memory usage.
 * **Alternative 2:** Individual command knows how to undo/redo by itself.
@@ -365,7 +365,7 @@ image::UndoRedoActivityDiagram.png[width="650"]
 
 ===== Aspect: Data structure to support the undo/redo commands
 
-* **Alternative 1 (current choice):** Use a list to store the history of Booklist states.
+* **Alternative 1 (current choice):** Use a list to store the history of Bookshelf states.
 ** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
 ** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedBookShelf`.
 * **Alternative 2:** Use `HistoryManager` for undo/redo
@@ -411,12 +411,12 @@ Given below is an example usage scenario and how the addBook mechanism behaves a
 
 Step 1. The user launches the application for the first time. The `VersionedBookShelf` will be initialized with the initial bookshelf state, and the `currentStatePointer` pointing to that single bookshelf state.
 
-Step 2. The user executes `addBook n/Alice a/HR m/5 tag/fantasy` command to add the book called Alice, written by HR, with a rating of 5 and tag of fantasy in the Booklist. The `addBook` command calls `Model#hasBook()`, checking if the book already exists in the bookshelf.
+Step 2. The user executes `addBook n/Alice a/HR m/5 tag/fantasy` command to add the book called Alice, written by HR, with a rating of 5 and tag of fantasy in the Bookshelf. The `addBook` command calls `Model#hasBook()`, checking if the book already exists in the bookshelf.
 
 [NOTE]
 If the book already exists, CommandException(MESSAGE_DUPLICATE_BOOK) will be thrown. It will not call `Model#commitBookShelf()`, so the bookshelf state will not be saved into the `BookShelfStateList`.
 
-Step 4. The bookshelf now adds the book to the Booklist after making sure there are no duplicates, and calls Model#commitBookShelf(), causing the modified state of the Booklist after the `addBook` command executes to be saved in the BookShelfStateList
+Step 4. The bookshelf now adds the book to the Bookshelf after making sure there are no duplicates, and calls Model#commitBookShelf(), causing the modified state of the Bookshelf after the `addBook` command executes to be saved in the BookShelfStateList
 
 ==== Design Considerations
 
@@ -455,12 +455,12 @@ Given below is an example usage scenario and how the addBook mechanism behaves a
 
 Step 1. The user launches the application for the first time. The `VersionedBookShelf` will be initialized with the initial bookshelf state, and the `currentStatePointer` pointing to that single bookshelf state.
 
-Step 2. The user executes `editBook 1 n/Alice a/HR m/5 tag/fantasy` command to edit the first book present in the Booklist to be a book called Alice, written by HR, with a rating of 5 and tag of fantasy in the Booklist. The `addBook` command calls `Model#hasBook()`, checking if the book already exists in the bookshelf.
+Step 2. The user executes `editBook 1 n/Alice a/HR m/5 tag/fantasy` command to edit the first book present in the Bookshelf to be a book called Alice, written by HR, with a rating of 5 and tag of fantasy in the Bookshelf. The `addBook` command calls `Model#hasBook()`, checking if the book already exists in the bookshelf.
 
 [NOTE]
 If the new book name already exists, CommandException(MESSAGE_DUPLICATE_BOOK) will be thrown. It will not call `Model#commitBookShelf()`, so the bookshelf state will not be saved into the `BookShelfStateList`.
 
-Step 4. The bookshelf now set the fields of the first book to the new ones provided, and calls Model#commitBookShelf(), causing the modified state of the Booklist after the `addBook` command executes to be saved in the BookShelfStateList
+Step 4. The bookshelf now set the fields of the first book to the new ones provided, and calls Model#commitBookShelf(), causing the modified state of the Bookshelf after the `addBook` command executes to be saved in the BookShelfStateList
 
 ==== Design Considerations
 
@@ -468,9 +468,9 @@ Step 4. The bookshelf now set the fields of the first book to the new ones provi
 
 * **Alternative 1 (current choice):** Use the index to figure out the book user wishes to edit.
 ** Pros: Easy to select the book user wish to edit with the support of our UI.
-** Cons: A listBook command might be needed before executing editBook if the current filtered Booklist is empty
+** Cons: A listBook command might be needed before executing editBook if the current filtered Bookshelf is empty
 * **Alternative 2:** Use exact book name to figure out the book user wishes to edit.
-** Pros: No need to first filter out a non-empty Booklist.
+** Pros: No need to first filter out a non-empty Bookshelf.
 ** Cons: Causing trouble for the user to type in the full name of the book.
 // end::book[]
 
@@ -534,7 +534,7 @@ Step 5. The `SummaryCommand` executes. The command will traverse all books in th
 * **Alternative 1 (current choice):** Model manager in charge of data processing, then return the result to the command.
 ** Pros: This prevents the command from accessing data managed by the model manager, thus independency of different parts is guaranteed.
 ** Cons: More methods are introduced into the model manager. To get include more information in the summary, not only the summary command should be modified, but also more information query methodS should be added in THE `Model`.
-* **Alternative 2:** Model manager pass the whole Booklist to the command, then command process the data according to this list.
+* **Alternative 2:** Model manager pass the whole Bookshelf to the command, then command process the data according to this list.
 ** Pros: More flexible as the command can extract any information it desires.
 ** Cons: This approach is unsafe and may lead to more bugs as it violates the principle of independence.
 
@@ -988,17 +988,17 @@ These instructions only provide a starting point for testers to work on; testers
 .. Other incorrect delete commands to try: `deleteBook` +
    Expected: Similar to previous.
 
-=== Sorting the bookList
+=== Sorting the booklist
 
-. Sorting the current Booklist in a certain order.
+. Sorting the current booklist in a certain order.
 
 .. Prerequisites: List all book using the `listBook` command. Multiple books on the list.
 .. Test case: `SortBook st/rating` +
-   Expected: Booklist will be sorted with the rating in ascending order.
+   Expected: booklist will be sorted with the rating in ascending order.
 .. Test case: `SortBook st/rating st/author o/asc o2/des` +
-   Expected: The Booklist will be sorted in ascending order, if they are having the same rating then it will be sorted in ascending order of author `o2/des` will be ignored as `o/asc` is specified.
+   Expected: The booklist will be sorted in ascending order, if they are having the same rating then it will be sorted in ascending order of author `o2/des` will be ignored as `o/asc` is specified.
 .. Test case: `SortBook st/rating st/author o2/des` +
-   Expected: The Booklist will be sorted in ascending order, if they are having the same rating then it will be sorted in descending order of author `.
+   Expected: The booklist will be sorted in ascending order, if they are having the same rating then it will be sorted in descending order of author `.
 .. Some incorrect sort commands to try:
 ... `sortBook` +
    Error message: Sorting type is not provided.

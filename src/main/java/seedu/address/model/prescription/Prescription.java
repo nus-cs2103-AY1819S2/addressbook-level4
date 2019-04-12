@@ -2,9 +2,9 @@ package seedu.address.model.prescription;
 
 import java.util.Objects;
 
+import seedu.address.model.medicalhistory.ValidDate;
 import seedu.address.model.person.Doctor;
 import seedu.address.model.person.Patient;
-//import seedu.address.model.person.Person;
 import seedu.address.model.person.PersonId;
 
 /**
@@ -14,20 +14,24 @@ public class Prescription {
     // Identity field
     private Patient patient = null;
     private Doctor doctor = null;
-    private Medicine medicine;
+
 
     // Id field
     private PersonId patientId;
     private PersonId doctorId;
 
     // Data field
+    private ValidDate date;
     private Description description;
+    private Medicine medicine;
 
     //Constructor
-    public Prescription (PersonId patientId, PersonId doctorId, Medicine medicine, Description description) {
+    public Prescription (PersonId patientId, PersonId doctorId, ValidDate date,
+                         Medicine medicine, Description description) {
 
         this.patientId = patientId;
         this.doctorId = doctorId;
+        this.date = date;
         this.medicine = medicine;
         this.description = description;
 
@@ -65,6 +69,10 @@ public class Prescription {
         return this.patient;
     }
 
+    public ValidDate getDate() {
+        return this.date;
+    }
+
     /**
      * Returns true if both medicalHistory have the same identity and data fields.
      * This defines a stronger notion of equality between two medicalHistory.
@@ -78,6 +86,7 @@ public class Prescription {
         Prescription otherPrescription = (Prescription) other;
         return otherPrescription.getPatientId().equals(this.getPatientId())
                 && otherPrescription.getDoctorId().equals(this.getDoctorId())
+                && otherPrescription.getDate().equals(getDate())
                 && otherPrescription.getDescription().equals(this.getDescription())
                 && otherPrescription.getMedicine().getName().equals(this.getMedicine().getName());
     }
@@ -92,13 +101,14 @@ public class Prescription {
         return other != null
                 && other.getMedicine().getName().equals(this.getMedicine().getName())
                 && other.getDoctorId().equals(this.getDoctorId())
+                && other.getDate().equals(this.getDate())
                 && other.getPatientId().equals(this.getPatientId())
                 && other.getDescription().equals(this.getDescription());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(doctor, patient, description);
+        return Objects.hash(doctor, patient, date, medicine, description);
     }
 
     @Override
@@ -116,6 +126,8 @@ public class Prescription {
         sb.append(getDoctorId());
         sb.append(" Medicine name: ");
         sb.append(this.medicine.getName());
+        sb.append(" Date: ");
+        sb.append(getDate());
         sb.append(" Description: ");
         sb.append(this.description.toString());
         return sb.toString();

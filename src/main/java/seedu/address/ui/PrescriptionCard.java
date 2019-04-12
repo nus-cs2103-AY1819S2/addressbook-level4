@@ -21,6 +21,8 @@ public class PrescriptionCard extends UiPart<Region> {
     @FXML
     private Label doctorId;
     @FXML
+    private Label date;
+    @FXML
     private Label medicineName;
     @FXML
     private Label description;
@@ -31,8 +33,19 @@ public class PrescriptionCard extends UiPart<Region> {
         super(FXML);
         this.prescription = prescription;
         id.setText(displayedIndex + ". ");
-        patientId.setText("Patient ID: " + prescription.getPatientId());
-        doctorId.setText("Doctor ID: " + prescription.getDoctorId());
+        //patientId.setText("Patient ID: " + prescription.getPatientId());
+        //doctorId.setText("Doctor ID: " + prescription.getDoctorId());
+        if (prescription.getPatient() == null) {
+            patientId.setText("Patient ID: Patient Deleted");
+        } else {
+            patientId.setText("Patient ID: " + prescription.getPatientId());
+        }
+        if (prescription.getDoctor() == null) {
+            doctorId.setText("Doctor ID: Doctor Deleted");
+        } else {
+            doctorId.setText("Doctor ID: " + prescription.getDoctorId());
+        }
+        date.setText("Date: " + prescription.getDate().toString());
         medicineName.setText("Medicine Name: " + prescription.getMedicine().getName());
         description.setText("Description: " + prescription.getDescription().toString());
 
@@ -49,7 +62,10 @@ public class PrescriptionCard extends UiPart<Region> {
         }
 
         PrescriptionCard another = (PrescriptionCard) other;
-        return another.medicineName.equals(this.medicineName)
+        return patientId.equals(another.patientId)
+                && doctorId.equals(another.doctorId)
+                && date.equals(another.date)
+                && another.medicineName.equals(this.medicineName)
                 && another.description.equals(this.description)
                 && id.getText().equals(another.id.getText());
     }

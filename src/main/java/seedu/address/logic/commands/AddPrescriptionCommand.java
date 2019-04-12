@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE_OF_PRESC;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DOCTOR_ID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MEDICINE_NAME;
@@ -25,11 +26,13 @@ public class AddPrescriptionCommand extends Command {
             + "Parameters: "
             + PREFIX_PATIENT_ID + "PATIENT-ID "
             + PREFIX_DOCTOR_ID + "DOCTOR-ID "
-            + PREFIX_MEDICINE_NAME + "name of the medicine "
-            + PREFIX_DESCRIPTION + "description \n"
+            + PREFIX_DATE_OF_PRESC + "DATE "
+            + PREFIX_MEDICINE_NAME + "MEDICINE NAME "
+            + PREFIX_DESCRIPTION + "SHORT DESCRIPTION \n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_PATIENT_ID + "1 "
-            + PREFIX_DOCTOR_ID + "1 "
+            + PREFIX_DOCTOR_ID + "2 "
+            + PREFIX_DATE_OF_PRESC + "2018-05-13 "
             + PREFIX_MEDICINE_NAME + "Acetaminophen" + " "
             + PREFIX_DESCRIPTION + "500 mg for relieving pain";
     public static final String MESSAGE_SUCCESS = "New prescription added: %1$s";

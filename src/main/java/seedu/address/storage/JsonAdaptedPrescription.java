@@ -3,6 +3,7 @@ package seedu.address.storage;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import seedu.address.model.medicalhistory.ValidDate;
 import seedu.address.model.person.PersonId;
 import seedu.address.model.prescription.Description;
 import seedu.address.model.prescription.Medicine;
@@ -16,6 +17,7 @@ public class JsonAdaptedPrescription {
 
     private final int patientId;
     private final int doctorId;
+    private final String date;
     private final String medicineName;
     private final String description;
 
@@ -26,12 +28,13 @@ public class JsonAdaptedPrescription {
     @JsonCreator
     public JsonAdaptedPrescription(@JsonProperty("patientId") int patientId,
                                    @JsonProperty("doctorId") int doctorId,
+                                   @JsonProperty("date") String date,
                                    @JsonProperty("medicineName") String medicineName,
                                    @JsonProperty("description") String description) {
         this.patientId = patientId;
         this.doctorId = doctorId;
+        this.date = date;
         this.medicineName = medicineName;
-
         this.description = description;
     }
 
@@ -42,6 +45,7 @@ public class JsonAdaptedPrescription {
     public JsonAdaptedPrescription(Prescription source) {
         doctorId = source.getDoctorId().personId;
         patientId = source.getPatientId().personId;
+        date = source.getDate().toString();
         medicineName = source.getMedicine().getName();
         description = source.getDescription().toString();
 
@@ -53,9 +57,10 @@ public class JsonAdaptedPrescription {
     public Prescription toModelType() {
         final PersonId patientId = new PersonId(this.patientId);
         final PersonId doctorId = new PersonId(this.doctorId);
+        final ValidDate date = new ValidDate(this.date);
         final Medicine medicine = new Medicine(this.medicineName);
         final Description description = new Description(this.description);
-        return new Prescription(patientId, doctorId, medicine, description);
+        return new Prescription(patientId, doctorId, date, medicine, description);
     }
 
 }

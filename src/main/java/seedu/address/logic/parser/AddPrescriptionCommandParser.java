@@ -1,6 +1,7 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE_OF_PRESC;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DOCTOR_ID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MEDICINE_NAME;
@@ -12,6 +13,7 @@ import seedu.address.logic.commands.AddPrescriptionCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 //import seedu.address.model.person.Doctor;
 //import seedu.address.model.person.Patient;
+import seedu.address.model.medicalhistory.ValidDate;
 import seedu.address.model.person.PersonId;
 import seedu.address.model.prescription.Description;
 import seedu.address.model.prescription.Medicine;
@@ -31,7 +33,7 @@ public class AddPrescriptionCommandParser implements Parser<AddPrescriptionComma
     public AddPrescriptionCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_PATIENT_ID,
-                        PREFIX_DOCTOR_ID, PREFIX_MEDICINE_NAME, PREFIX_DESCRIPTION);
+                        PREFIX_DOCTOR_ID, PREFIX_DATE_OF_PRESC, PREFIX_MEDICINE_NAME, PREFIX_DESCRIPTION);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_PATIENT_ID,
                 PREFIX_DOCTOR_ID, PREFIX_MEDICINE_NAME, PREFIX_DESCRIPTION)
@@ -42,10 +44,11 @@ public class AddPrescriptionCommandParser implements Parser<AddPrescriptionComma
 
         PersonId patientId = ParserUtil.parsePersonId(argMultimap.getValue(PREFIX_PATIENT_ID).get());
         PersonId doctorId = ParserUtil.parsePersonId(argMultimap.getValue(PREFIX_DOCTOR_ID).get());
+        ValidDate validDate = ParserUtil.parseValidDate(argMultimap.getValue(PREFIX_DATE_OF_PRESC).get());
         Medicine medicine = ParserUtil.parseMedicineName(argMultimap.getValue(PREFIX_MEDICINE_NAME).get());
         Description description = ParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get());
 
-        Prescription prescription = new Prescription(patientId, doctorId, medicine, description);
+        Prescription prescription = new Prescription(patientId, doctorId, validDate, medicine, description);
 
         return new AddPrescriptionCommand(prescription);
     }

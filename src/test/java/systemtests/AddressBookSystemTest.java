@@ -35,7 +35,7 @@ import seedu.address.logic.commands.PatientListCommand;
 import seedu.address.logic.commands.PatientSelectCommand;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
-import seedu.address.testutil.TypicalPersons;
+import seedu.address.testutil.TypicalData;
 import seedu.address.ui.BrowserPanel;
 import seedu.address.ui.CommandBox;
 
@@ -79,7 +79,7 @@ public abstract class AddressBookSystemTest {
      * Returns the data to be loaded into the file in {@link #getDataFileLocation()}.
      */
     protected AddressBook getInitialData() {
-        return TypicalPersons.getTypicalAddressBook();
+        return TypicalData.getTypicalAddressBook();
     }
 
     /**
@@ -175,6 +175,18 @@ public abstract class AddressBookSystemTest {
         assertEquals(expectedResultMessage.trim(), getResultDisplay().getText().trim());
         assertEquals(new AddressBook(expectedModel.getAddressBook()), testApp.readStorageAddressBook());
         assertListMatching(getPersonListPanel(), expectedModel.getFilteredPersonList());
+    }
+
+    /**
+     * Asserts that the {@code CommandBox} displays {@code expectedCommandInput}, the {@code ResultDisplay} displays
+     * {@code expectedResultMessage},
+     */
+    protected void assertApplicationRecordDisplaysExpected(String expectedCommandInput, String expectedResultMessage,
+                                                           Model expectedModel) {
+        assertEquals(expectedCommandInput, getCommandBox().getInput());
+        assertEquals(expectedResultMessage.trim(), getResultDisplay().getText().trim());
+        assertEquals(new AddressBook(expectedModel.getAddressBook()), testApp.readStorageAddressBook());
+        // assertListMatching(, expectedModel.getFilteredRecordList());
     }
 
     /**

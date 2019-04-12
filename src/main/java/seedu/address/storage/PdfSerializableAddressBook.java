@@ -19,8 +19,9 @@ class PdfSerializableAddressBook {
      *
      * @param source future changes to this will not affect the created {@code JsonSerializableAddressBook}.
      */
-    public PdfSerializableAddressBook(ReadOnlyAddressBook source) {
-        persons.addAll(source.getPersonList().stream().map(PdfAdaptedPerson::new).collect(Collectors.toList()));
+    PdfSerializableAddressBook(ReadOnlyAddressBook source) {
+        persons.addAll(source.getPersonList().stream().filter(x -> !x.isCopy())
+                                .map(PdfAdaptedPerson::new).collect(Collectors.toList()));
         tasks.addAll(source.getTaskList().stream().map(PdfAdaptedTask::new).collect(Collectors.toList()));
     }
 

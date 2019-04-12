@@ -78,7 +78,7 @@
                             </Label>
                         </HBox>
 
-                        <Line fx:id="seperator" fill="black" stroke="black" strokeWidth="2"/>
+                        <Line fx:id="seperator" fill="black" stroke="white" strokeWidth="2"/>
 
                         <Label id="medicalInformation" text="Medical Information" styleClass="display_title">
                             <padding>
@@ -114,7 +114,7 @@
                             </Label>
                         </HBox>
 
-                        <Line fx:id="seperator2" fill="black" stroke="black" strokeWidth="2"/>
+                        <Line fx:id="seperator2" fill="black" stroke="white" strokeWidth="2"/>
 
                         <Label id="nokInformation" text="Next-of-Kin Information" styleClass="display_title">
                             <padding>

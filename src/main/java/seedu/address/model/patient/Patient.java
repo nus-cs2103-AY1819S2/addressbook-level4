@@ -86,7 +86,7 @@ public class Patient extends Person {
      */
     public Patient(Patient patientToCopy) {
         super(patientToCopy);
-        requireAllNonNull(patientToCopy.nric, patientToCopy.dateOfBirth, patientToCopy.records, patientToCopy.sex);
+        requireAllNonNull(patientToCopy);
         this.sex = patientToCopy.sex;
         this.nric = patientToCopy.nric;
         this.dateOfBirth = patientToCopy.dateOfBirth;
@@ -240,7 +240,6 @@ public class Patient extends Person {
             }
             return nric.equals(((Patient) otherPerson).getNric());
         } else {
-            System.out.println(otherPerson);
             throw new PersonIsNotPatient();
         }
     }

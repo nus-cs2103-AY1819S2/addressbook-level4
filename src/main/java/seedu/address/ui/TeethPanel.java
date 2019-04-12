@@ -14,7 +14,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
-import javafx.scene.layout.StackPane;
 
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.util.DrawTeethUtil;
@@ -49,11 +48,15 @@ public class TeethPanel extends UiPart<Region> {
         });
     }
 
-    public TeethPanel(ObservableValue<Person> givenPerson, boolean isStat) {
+    public TeethPanel(ObservableValue<Person> givenPerson, boolean isStat, Double size) {
         super(FXML);
         getRoot();
         try {
             loadTeeth(givenPerson.getValue());
+            ImageView temp = (ImageView) space.getChildren().get(space.getChildren().size() - 1);
+            temp.xProperty().unbind();
+            temp.fitHeightProperty().unbind();
+            temp.setFitHeight(size);
         } catch (IOException e) {
             logger.info(e.getMessage());
         }
@@ -63,16 +66,15 @@ public class TeethPanel extends UiPart<Region> {
      * Uses patient information to load teeth image
      */
     private void loadTeeth(Person person) throws IOException {
-        StackPane stack = new StackPane();
-        stack.setMaxWidth(Double.MAX_VALUE);
-        stack.setMaxHeight(Double.MAX_VALUE);
         try {
             BufferedImage main = DrawTeethUtil.drawTeeth(((Patient) person).getTeeth().exportTeeth());
             Image fin = SwingFXUtils.toFXImage(main, null);
-            ImageView test = new ImageView(fin);
-            test.setPreserveRatio(true);
-            test.setFitHeight(550);
-            space.getChildren().add(test);
+            ImageView teethImage = new ImageView(fin);
+            teethImage.xProperty().bind(space.widthProperty().subtract(teethImage.fitWidthProperty()).divide(2));
+            teethImage.setPreserveRatio(true);
+            teethImage.setFitWidth(space.getWidth() / 1.35);
+            teethImage.fitHeightProperty().bind(space.heightProperty());
+            space.getChildren().add(teethImage);
 
         } catch (IOException e) {
             logger.info("Error opening image file");

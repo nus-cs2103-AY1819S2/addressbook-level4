@@ -93,9 +93,8 @@ public class PatientEditCommand extends Command {
         Person editedPerson = createEditedPerson(personToEdit, editPersonDescriptor);
         if (editPersonDescriptor.getName().isPresent() || editPersonDescriptor.getNric().isPresent()) {
             model.getAddressBook().getTaskList().stream()
-                    .filter(y -> y.getLinkedPatient() != null)
-                    .filter(z -> z.getLinkedPatient().getLinkedPatientNric().equals(((Patient) personToEdit)
-                            .getNric().getNric()))
+                    .filter(z -> z.getLinkedPatient() != null && z.getLinkedPatient().getLinkedPatientNric()
+                            .equals(((Patient) personToEdit).getNric().getNric()))
                     .forEach(task -> {
                         Task replacement = task.isCopy() ? new Task(task) : new Task(task, true);
                         replacement.setLinkedPatient(editedPerson.getName(), ((Patient) editedPerson).getNric());
@@ -105,7 +104,6 @@ public class PatientEditCommand extends Command {
         if (!personToEdit.isSamePerson(editedPerson) && model.hasPerson(editedPerson)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
-
         model.setPerson(personToEdit, editedPerson);
 
         if (personToEdit.isCopy()) {

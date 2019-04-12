@@ -104,6 +104,7 @@ public class PatientInfoPanel extends UiPart<Region> {
 
         selectedRecord.addListener((observable, oldValue, newValue) -> {
             if (newValue == null) {
+                loadRecordTab();
                 return;
             }
             loadRecordPage(newValue);
@@ -122,6 +123,7 @@ public class PatientInfoPanel extends UiPart<Region> {
      */
     public void loadDefaultPage() {
         Label defaultPage = new Label(" No patient has been selected yet.");
+        defaultPage.setStyle("-fx-text-fill: white");
         this.patientParticulars.setContent(defaultPage);
     }
 
@@ -176,8 +178,13 @@ public class PatientInfoPanel extends UiPart<Region> {
      */
     public void loadRecordTab() {
         Label placeholder = new Label(" No record has been selected. ");
+        placeholder.setStyle("-fx-text-fill: white");
         patientRecords.setContent(placeholder);
-        tabManger.getTabs().add(patientRecords);
+        if (tabManger.getTabs().size() > 1) {
+            tabManger.getTabs().set(1, patientRecords);
+        } else {
+            tabManger.getTabs().add(patientRecords);
+        }
         tabManger.getSelectionModel().select(patientRecords);
     }
 

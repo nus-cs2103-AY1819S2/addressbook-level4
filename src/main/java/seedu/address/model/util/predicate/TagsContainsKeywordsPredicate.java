@@ -41,4 +41,11 @@ public class TagsContainsKeywordsPredicate extends ContainsKeywordsPredicate<Per
                     .anyMatch(tag -> StringUtil.containsWordIgnoreCase(tag.getTagName(), keyword)));
         }
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+            || (other instanceof TagsContainsKeywordsPredicate // instanceof handles nulls
+            && keywords.equals(((TagsContainsKeywordsPredicate) other).keywords)); // state check
+    }
 }

@@ -849,6 +849,26 @@ Examples:
 ////
 // end::viewingInfo[]
 
+=== Suggestion Commands
+Sometimes, you may forget the exact way to type some commands or you may get confused. +
+After all, Patient Management has `patientadd`, Records Management has `recordadd` and Task Management has `taskadd`! +
+Even worse, some commands cannot be used in certain modes. +
+If this ever happens, you can either open the <<help, help>> window again, or simply type out their common word due to our suggestion commands!
+
+The Suggestion commands are: `add`, `clear`, `copy`, `delete`, `edit`, `find`, `list`, `select` and `sort`
+
+Suppose if you want to add something but you have forgotten the exact command. +
+Simply enter `add`, and TeethHub will ask you if you meant `patientadd` or `recordadd` or `taskadd`. +
+Don't worry about the commands not being able to be used in your current mode, for the Suggestion commands will only suggest commands that can be used in your current mode.
+
+For example, if you were to type `add` in Patient Mode, this is what you will see:
+
+image::SuggestionFeatureAddPatientMode.png[width="236"]
+
+If you were to type `add` in Record Mode, this is what you will see instead:
+
+image::SuggestionFeatureAddRecordMode.png[width="236"]
+
 == Patient Teeth per record [Coming in v1.5]
 
 Currently, TeethHub stores and displays the latest teeth image of each patient.

@@ -479,6 +479,8 @@ Format: `add-appt pid/PATIENT_ID did/DOCTOR_ID d/DATE_OF_APPT t/START_TIME`
 ****
 * All of the fields must be provided.
 * Appointments can only be made in the future, as determined by system time.
+* New appointments default to the ACTIVE status. Appointments cannot be deleted once created,
+only marked as CANCELLED if required.
 * Doctors are free during office hours from 9am to 12pm and 1pm to 5pm. (12pm to 1pm not availabe)
 * Appointments are in 1-hour blocks.
 * User is notified if the doctor is not available during the specified time.

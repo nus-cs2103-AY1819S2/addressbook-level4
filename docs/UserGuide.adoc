@@ -28,7 +28,7 @@ slaveFinder() is for those who *prefer to use a desktop app for managing contact
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
 image::DisplayJob.png[width="790"]
-image::displayAll.png[width="790"]
+image::Ui.png[width="790"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.

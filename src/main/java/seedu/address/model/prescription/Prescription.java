@@ -26,7 +26,8 @@ public class Prescription {
     private Medicine medicine;
 
     //Constructor
-    public Prescription (PersonId patientId, PersonId doctorId, ValidDate date, Medicine medicine, Description description) {
+    public Prescription (PersonId patientId, PersonId doctorId, ValidDate date,
+                         Medicine medicine, Description description) {
 
         this.patientId = patientId;
         this.doctorId = doctorId;

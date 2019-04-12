@@ -92,6 +92,7 @@ public class SelectClientCommandTest {
         SelectClientCommand selectClientCommand = new SelectClientCommand(index);
         String expectedMessage = String.format(SelectClientCommand.MESSAGE_SELECT_CLIENT_SUCCESS, index.getOneBased());
         expectedModel.setSelectedClient(model.getFilteredClientList().get(index.getZeroBased()));
+
         assertCommandSuccess(selectClientCommand, model, commandHistory, expectedMessage, expectedModel);
     }
 

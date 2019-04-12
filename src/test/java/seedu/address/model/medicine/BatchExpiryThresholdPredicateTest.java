@@ -50,10 +50,10 @@ public class BatchExpiryThresholdPredicateTest {
         BatchExpiryThresholdPredicate predicate;
 
         String today = formatDateToString(LocalDate.now());
-        String maxDate = formatDateToString(LocalDate.now().plusDays(Expiry.MAX_DAYS_TO_EXPIRY));
         String yesterday = formatDateToString(LocalDate.now().minusDays(1));
         String defaultDate = formatDateToString(LocalDate.now()
                 .plusDays(Model.DEFAULT_EXPIRY_THRESHOLD.getNumericValue()));
+        String maxDate = formatDateToString(LocalDate.now().plusDays(Expiry.MAX_DAYS_TO_EXPIRY));
 
         // Minimum threshold for expiring and expired batch
         predicate = new BatchExpiryThresholdPredicate(new Threshold(Integer.toString(Threshold.MIN_THRESHOLD)));

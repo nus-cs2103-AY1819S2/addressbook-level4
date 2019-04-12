@@ -62,12 +62,6 @@ public class MergeCommandTest {
     }
 
     @Test
-    public void constructor_nullIndex_throwsIndexOutOfBoundsException() {
-        thrown.expect(NullPointerException.class);
-        new MergeCommand(null);
-    }
-
-    @Test
     public void execute_onlyCompulsoryFieldSpecifiedUnfilteredList_success() throws CommandException {
         Model expectedModel = new ModelManager(new PdfBook(model.getPdfBook()), new UserPrefs());
         MergeCommand mergeCommand = new MergeCommand(INDEX_FIRST_PDF, INDEX_SECOND_PDF);

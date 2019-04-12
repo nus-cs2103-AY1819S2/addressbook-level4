@@ -469,7 +469,7 @@ This manipulation feature mainly consists of:
 
 * `RotateCommand`: Allows user to rotate images by specifying a degree (90, 180 or 270 only).
 * `CropCommand`: Allows user to crop images by specifying the coordinates of the top left corner, the width and the height of the desired cropped image.
-* `resizeCommand`: Allows user to resize images to the desired width and height.
+* `ResizeCommand`: Allows user to resize images to the desired width and height.
 
 The follwing describes main operations and processes for each command stated above.
 
@@ -659,6 +659,37 @@ image::SaveCommandSequenceDiagram.png[width=800]
 ** Cons: User may unintentionally overwrite the opened image.
 // end::Save[]
 
+//tag::WaterMark[]
+=== WaterMark Feature 
+This command allows the user to add a watermark to their image. Upon receiving an input message by the user, the message will be checked for its validity and will throw an error if it is empty or contains only spaces. The message can contain spaces in between the words or numbers. The command will then be added to the `List<Commands>` belonging to `tempImage` found in `currentEdit` which saves the editing history of the targetted image.
+
+Given below is an example usage scenario and how the command should behave at each step:
+
+Step 1. When the user runs an open command to edit an image, it invokes a method which creates an instance of an `Image` that stores the filepath of the image, its history of edits `List<Command>` and its metadata. This `Image` object is saved under the variable name `tempImage` in `currentEdit` for editing.
+
+Step 2. When the user enters the command (e.g. `wm FomoFoto`), the entered command is parsed and the command will be executed.
+
+[NOTE]
+If an invalid command is provided, a reminder of how to use the command will be given to the user and no command will be run.
+
+Step 3. During execution, the `execute` method in the `WaterMarkCommand` class invokes `currentEdit#getTempIMage()` to get the `tempImage` from the `currentEdit`.
+
+Step 4. Upon retrieving the `tempImage`, the `execute` method in `WaterMarkCommand` creates a `Graphics 2D` object from the Java API and overlays a 
+
+Step 5. A `BufferedImage` object is returned from the external library and `currentEdit#updateTempImage()` is invoked to overwrite the current image in the filepath: "src/main/resources/temp/" + `tempImage#getUrl` with a new `BufferedImage` object.
+
+Step 6. The `execute` method then checks if the boolean `isNewCommand` is true. If it is true, it indicates that the command is a new rotate command called directly from the user and not through an undo/redo command which triggers Step 7 in the line below. Otherwise, the command’s execution ends in this step.
+
+Step 7. `isNewCommand` is set to false to signal that this command is not a new rotate command if it is executed again through the `undo/redo` function. `currentEdit#addCommand(this)` is invoked to add this command to the `List<Command>` in `tempImage` for the `undo/redo` function and `currentEdit#displayTempImage()` is used to display the edited image on the graphical user interface.
+
+==== Design Considerations
+
+* Intermediate images have to be stored and edited in a temp folder first due to our `undo/redo` implementation.
+
+.Sequence Diagram for Rotate Command
+image::RotateCommandSequenceDiagram.png[width="800"]
+
+//end::WaterMark[]
 === Logging
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.

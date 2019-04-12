@@ -355,7 +355,7 @@ Format: `deletefilter FILTERNAME1 FILTERNAME2...`
 * Display board always display people base on all undeleted filters.
 ****
 
-==== Display Analytics : `analytics` 
+==== Display Analytics : `analytics`
 
 Display the analytics of applicants for desired job list (applicant, kiv, interview, shortlist, all applicants)
 Format : `analytics LISTNAME` or  `analytics`

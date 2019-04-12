@@ -1,7 +1,7 @@
 package seedu.address.testutil;
 
 import static seedu.address.logic.commands.CommandTestUtil.DEADLINE_JSON_DONE;
-import static seedu.address.logic.commands.CommandTestUtil.DEADLINE_JSON_NOTDONE;
+import static seedu.address.logic.commands.CommandTestUtil.DEADLINE_JSON_NOT_DONE;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -115,17 +115,17 @@ public class TypicalPdfs {
     public static final Pdf SAMPLE_PDF_1 = new PdfBuilder().withName(sample_pdf_1_path.toFile().getName())
             .withDirectory(sample_pdf_1_path.toAbsolutePath().getParent().toString())
             .withSize(Long.toString(sample_pdf_1_path.toFile().length()))
-            .withDeadline(DEADLINE_JSON_NOTDONE).build();
+            .withDeadline(DEADLINE_JSON_NOT_DONE).build();
     public static final Pdf SAMPLE_PDF_2 = new PdfBuilder().withName(sample_pdf_2_path.toFile().getName())
             .withDirectory(sample_pdf_2_path.toAbsolutePath().getParent().toString())
             .withTags("CS2103T", "lecture", "w9")
             .withSize(Long.toString(sample_pdf_2_path.toFile().length()))
-            .withDeadline(DEADLINE_JSON_NOTDONE).build();
+            .withDeadline(DEADLINE_JSON_NOT_DONE).build();
     public static final Pdf SAMPLE_PDF_3 = new PdfBuilder().withName(sample_pdf_3_path.toFile().getName())
             .withDirectory(sample_pdf_3_path.toAbsolutePath().getParent().toString())
             .withTags("CS3230", "lecture", "w9")
             .withSize(Long.toString(sample_pdf_3_path.toFile().length()))
-            .withDeadline(DEADLINE_JSON_NOTDONE).build();
+            .withDeadline(DEADLINE_JSON_NOT_DONE).build();
     public static final Pdf SAMPLE_PDF_4 = new PdfBuilder().withName(sample_pdf_4_path.toFile().getName())
             .withDirectory(sample_pdf_4_path.toAbsolutePath().getParent().toString())
             .withTags("CS2103T", "lecture", "w3")

@@ -1,16 +1,11 @@
 package seedu.address.logic.commands;
-/*
-import static seedu.address.logic.commands.CommandTestUtil.DEADLINE_DESC_INVALID_DATE;
-import static seedu.address.logic.commands.CommandTestUtil.DEADLINE_DESC_INVALID_FORMAT;
-import static seedu.address.logic.commands.CommandTestUtil.DEADLINE_DESC_INVALID_MISSING_STATUS;
-import static seedu.address.logic.commands.CommandTestUtil.DEADLINE_DESC_INVALID_WRONG_STATUS;
-import static seedu.address.logic.commands.CommandTestUtil.DEADLINE_JSON_DONE;
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PDF;
-import static seedu.address.testutil.TypicalPdfs.SAMPLE_PDF_1;
+
+import static junit.framework.TestCase.assertTrue;
+import static junit.framework.TestCase.fail;
+import static org.junit.Assert.assertFalse;
 import static seedu.address.testutil.TypicalPdfs.getTypicalPdfBook;
 
-import java.time.format.DateTimeParseException;
+import java.time.LocalDate;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -20,15 +15,11 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
-import seedu.address.model.PdfBook;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.pdf.Deadline;
-import seedu.address.model.pdf.Pdf;
-import seedu.address.testutil.PdfBuilder;
-*/
 
 public class DeadlineCommandTest {
-    /*
+
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
@@ -39,78 +30,92 @@ public class DeadlineCommandTest {
     public void constructor_invalidIndex_throwsIndexOutOfBoundsException() {
         thrown.expect(IndexOutOfBoundsException.class);
         new DeadlineCommand(Index.fromZeroBased(model.getFilteredPdfList().size() + 1),
-                new Deadline(DEADLINE_JSON_DONE));
+                new Deadline(), DeadlineCommand.DeadlineAction.NEW);
 
         thrown.expect(IndexOutOfBoundsException.class);
-        new DeadlineCommand(Index.fromZeroBased(-1), new Deadline(DEADLINE_JSON_DONE));
+        new DeadlineCommand(Index.fromZeroBased(-1), new Deadline(), DeadlineCommand.DeadlineAction.NEW);
     }
 
     @Test
-    public void constructor_missingStatus_throwsDateTimeParseException() {
-        thrown.expect(DateTimeParseException.class);
-        new DeadlineCommand(Index.fromOneBased(1), new Deadline(DEADLINE_DESC_INVALID_MISSING_STATUS));
-    }
-
-    @Test
-    public void constructor_wrongStatus_throwsDateTimeParseException() {
-        thrown.expect(DateTimeParseException.class);
-        new DeadlineCommand(Index.fromOneBased(1), new Deadline(DEADLINE_DESC_INVALID_WRONG_STATUS));
-    }
-
-    @Test
-    public void constructor_invalidDateDeadline_throwsDateTimeParseException() {
-        thrown.expect(DateTimeParseException.class);
-        new DeadlineCommand(Index.fromOneBased(1), new Deadline(DEADLINE_DESC_INVALID_DATE));
-    }
-
-    @Test
-    public void constructor_invalidFormatDeadline_throwsDateTimeParseException() {
-        thrown.expect(DateTimeParseException.class);
-        new DeadlineCommand(Index.fromOneBased(1), new Deadline(DEADLINE_DESC_INVALID_FORMAT));
-    }
-
-    @Test
-    public void constructor_nullPdfDescriptorBuilder_throwsNullPointerException() {
+    public void constructor_nullIndex_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        new DeadlineCommand(Index.fromZeroBased(1), null);
+        new DeadlineCommand(null, new Deadline(), DeadlineCommand.DeadlineAction.NEW);
     }
 
     @Test
-    public void execute_onlyCompulsoryFieldSpecifiedUnfilteredList_success() {
-        Deadline newDeadline = new Deadline(DEADLINE_JSON_DONE);
-
-        Pdf pdfToEdit = SAMPLE_PDF_1;
-        Pdf editedPdf = new PdfBuilder(pdfToEdit).withDeadline(DEADLINE_JSON_DONE).build();
-        DeadlineCommand deadlineCommand = new DeadlineCommand(INDEX_FIRST_PDF, newDeadline);
-
-        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PDF_SUCCESS, editedPdf);
-
-        Model expectedModel = new ModelManager(new PdfBook(model.getPdfBook()), new UserPrefs());
-        expectedModel.setPdf(model.getFilteredPdfList().get(0), editedPdf);
-        expectedModel.commitPdfBook();
-
-        assertCommandSuccess(deadlineCommand, model, commandHistory, expectedMessage, expectedModel);
+    public void constructor_nullDeadline_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
+        new DeadlineCommand(Index.fromZeroBased(1), null, DeadlineCommand.DeadlineAction.NEW);
     }
 
     @Test
-    public void execute_someFieldsSpecifiedUnfilteredList_success() {
-        Index indexLastPerson = Index.fromOneBased(model.getFilteredPdfList().size());
-        Pdf lastPdf = model.getFilteredPdfList().get(indexLastPerson.getZeroBased());
+    public void constructor_nullDeadlineAction_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
+        new DeadlineCommand(Index.fromZeroBased(1), new Deadline(), null);
+    }
 
-        PdfBuilder personInList = new PdfBuilder(lastPdf);
-        Pdf editedPdf = personInList.withName(SAMPLE_EDITEDPDF.getName().getFullName()).build();
+    @Test
+    public void execute_validNew_success() {
+        try {
+            DeadlineCommand standardCommand = new DeadlineCommand(Index.fromOneBased(1), new Deadline(),
+                    DeadlineCommand.DeadlineAction.NEW);
+            standardCommand.execute(this.model, commandHistory);
+        } catch (Exception e) {
+            fail();
+        }
+    }
 
-        EditPdfDescriptor descriptor = new EditPdfDescriptorBuilder().withName(SAMPLE_EDITEDPDF.getName().getFullName())
-                .build();
-        EditCommand editCommand = new EditCommand(indexLastPerson, descriptor);
+    @Test
+    public void execute_validDone_success() {
+        try {
+            DeadlineCommand standardCommand = new DeadlineCommand(Index.fromOneBased(1), new Deadline(),
+                    DeadlineCommand.DeadlineAction.DONE);
+            standardCommand.execute(this.model, commandHistory);
+        } catch (Exception e) {
+            fail();
+        }
+    }
 
-        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PDF_SUCCESS, editedPdf);
+    @Test
+    public void execute_validRemove_success() {
+        try {
+            DeadlineCommand standardCommand = new DeadlineCommand(Index.fromOneBased(1), new Deadline(),
+                    DeadlineCommand.DeadlineAction.REMOVE);
+            standardCommand.execute(this.model, commandHistory);
+        } catch (Exception e) {
+            fail();
+        }
+    }
 
-        Model expectedModel = new ModelManager(new PdfBook(model.getPdfBook()), new UserPrefs());
-        expectedModel.setPdf(lastPdf, editedPdf);
-        expectedModel.commitPdfBook();
+    @Test
+    public void equals() {
+        final DeadlineCommand standardCommand = new DeadlineCommand(Index.fromOneBased(1), new Deadline(),
+                DeadlineCommand.DeadlineAction.NEW);
 
-        assertCommandSuccess(editCommand, model, commandHistory, expectedMessage, expectedModel);
-        revertBackup(lastPdf, editedPdf);
-    }*/
+        // same value -> returns true
+        DeadlineCommand standardCommandCopy = new DeadlineCommand(Index.fromOneBased(1), new Deadline(),
+                DeadlineCommand.DeadlineAction.NEW);
+        assertTrue(standardCommand.equals(standardCommandCopy));
+
+        // same object -> returns true
+        assertTrue(standardCommand.equals(standardCommand));
+
+        // null -> returns false
+        assertFalse(standardCommand.equals(null));
+
+        // different types -> returns false
+        assertFalse(standardCommand.equals(new ClearCommand()));
+
+        // different index -> returns false
+        assertFalse(standardCommand.equals(new DeadlineCommand(Index.fromOneBased(2), new Deadline(),
+                DeadlineCommand.DeadlineAction.NEW)));
+
+        // different deadline -> returns false
+        assertFalse(standardCommand.equals(new DeadlineCommand(Index.fromOneBased(1),
+                new Deadline(LocalDate.of(2019, 4, 12)), DeadlineCommand.DeadlineAction.NEW)));
+
+        // different action -> returns false
+        assertFalse(standardCommand.equals(new DeadlineCommand(Index.fromOneBased(1), new Deadline(),
+                DeadlineCommand.DeadlineAction.DONE)));
+    }
 }

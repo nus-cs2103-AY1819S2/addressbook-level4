@@ -2,7 +2,7 @@ package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
-import static seedu.address.logic.commands.CommandTestUtil.DEADLINE_JSON_NOTDONE;
+import static seedu.address.logic.commands.CommandTestUtil.DEADLINE_JSON_NOT_DONE;
 import static seedu.address.logic.commands.CommandTestUtil.FILE_DESC_1_PDF;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_1_VALID;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_2_VALID;
@@ -46,6 +46,7 @@ public class EditCommandParserTest {
         // no index and no field specified
         assertParseFailure(parser, "", MESSAGE_INVALID_FORMAT);
 
+
         assertParseFailure(parser, "1 " + PREFIX_NAME, Name.MESSAGE_CONSTRAINTS);
 
         assertParseFailure(parser, "-1 " + NAME_1_VALID, MESSAGE_INVALID_FORMAT);
@@ -53,7 +54,7 @@ public class EditCommandParserTest {
 
     @Test
     public void parse_containsIrrelevantParts_failure() {
-        assertParseFailure(parser, "1 " + NAME_DESC_1_VALID + DEADLINE_JSON_NOTDONE, Name.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, "1 " + NAME_DESC_1_VALID + DEADLINE_JSON_NOT_DONE, Name.MESSAGE_CONSTRAINTS);
         assertParseFailure(parser, "1 " + NAME_DESC_1_VALID + TAG_DESC_CS2103T, MESSAGE_INVALID_FORMAT);
         assertParseFailure(parser, "1 " + NAME_DESC_1_VALID + TAG_EMPTY, MESSAGE_INVALID_FORMAT);
         assertParseFailure(parser, "1 " + NAME_DESC_1_VALID + FILE_DESC_1_PDF, MESSAGE_INVALID_FORMAT);

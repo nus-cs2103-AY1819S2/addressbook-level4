@@ -1,5 +1,6 @@
 package seedu.knowitall.model.card;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
@@ -63,5 +64,18 @@ public class ScoreTest {
         assertTrue(Score.isValidScore(0, 10));
         assertTrue(Score.isValidScore(1, 10));
         assertTrue(Score.isValidScore(10, 10));
+    }
+
+    @Test
+    public void compareTo() {
+        Score noneScore = new Score(0, 0);
+        Score zeroScore = new Score(0, 2);
+        Score halfScore = new Score(1, 2);
+        Score fullScore = new Score(2, 2);
+
+        assertTrue(zeroScore.compareTo(noneScore) == 0);
+        assertTrue(halfScore.compareTo(zeroScore) > 1);
+        assertTrue(fullScore.compareTo(halfScore) > 1);
+        assertTrue(fullScore.compareTo(fullScore) == 0);
     }
 }

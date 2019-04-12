@@ -895,6 +895,9 @@ needed when simply querying for a single topic. However, the current implementat
 class currently holds all the information for all the topics.
 
 === Storing medicines in inventory
+
+One essential aspect of clinic management is about managing medicine storage of the clinic. QuickDocs' medicine management module supports customized medicine organization via a browser-like directory format.
+
 ==== Current implementation
 
 The current implementation takes a similar form as the Windows file browser. The user is free to determine for himself/herself how he/she wants the medicines to be arranged.
@@ -1037,19 +1040,30 @@ image::medicineModule_example8.png[width='800]
 
 3. By arranging the medicine by folders, it is then possible to support massive manipulation of medicine by directories.
 
-4. As it is impossible to expect the user to remember the name of all medicine, this data structure helps the user to find medicine when he/she cannot remember the full name correctly
+4. Additionally, it is impossible to expect the doctor to always remember the full name of medicines correctly. There is a need for an easier way to identify medicines to operate on besides requiring the user to type in full names every time.
+
+5. Considering that even a small private clinic may have a considerably large set of medicine available in their storage, massive operation on a large set of medicine should be made possible besides operations on single medicine.
 
 ==== Alternatives considered
 
-[cols="1, 1, 1", options="header"]
+The table illustrates some of the alternatives I considered during development of this medicine module, the relative advantages they have over the current implementation, and why they are not selected at the end.
+
+[cols="1, 2a, 2a, 2a", options="header"]
 |===
-|Alternative |Description |Reasons for not adopting
+|Alternative |Description |Comparative advantages |Reasons for not adopting
 // row 1
 |*Store medicines as a simple ArrayList*
-| When users add a new medicine, just append a new medicine to the ArrayList
-| When the number of medicines stored is large, search and manipulation is not time-efficient.
+|When users add a new medicine, just append a new medicine to the ArrayList. +
 
-There is no room for arrangements of medicine.
+During operations on medicines, use name of medicine as a key to select the wanted medicine.
+
+| * Simpler command format: The user could type in less arguments for the same commands.
+
+* No maintainability issue: There is no constraint to the data structure, therefore there is no need to cross check all modules to ensure the constraints are maintained. Less likely to occur bugs.
+
+| * The user must type in full name of medicines correctly to identify the correct medicine, This contradicts our belief that doctors are unlikely to know the full name of all his/her medicine.
+
+* There is no freedom for the user to organize his/her medicine. When the user wants to view or operate on all medicine that share some common traits, he/she is not able to do so.
 
 // row 2
 |*Use a hash map to store the medicines*

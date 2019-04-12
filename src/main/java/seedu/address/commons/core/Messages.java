@@ -20,5 +20,7 @@ public class Messages {
         + "ongoing request in the list, request list cannot be cleared.";
     public static final String MESSAGE_REQUEST_COMPLETED_CANNOT_ASSIGN = "Completed request "
         + "cannot be assigned. To make changes to a completed request, use edit instead.";
+    public static final String MESSAGE_HEALTHWORKER_ASSIGNED_CANNOT_DELETE = "Health Worker is currently assigned to "
+            + "one or more request. Please close or reassigned these requests before deleting this Health Worker.";
 
 }

@@ -215,8 +215,6 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
-=== Add/Edit/Delete feature
-
 The `add`, `edit` and `delete` command have been tweaked to include addition of and `Request` and `HealthWorker`.
 
 `CommandMode` Enum class was introduced in v1.1 to allow for `add`, `edit`
@@ -234,10 +232,45 @@ Each `CommandMode` enum is matched by it's own corresponding set of keywords,
 user contains the keyword `healthworker` after the `add` command word, which
 is mapped to it's `CommandMode` equivalent in `AddCommandParser`.
 
-The `CommandMode` to keyword mappings are as follows:
+The `CommandMode` enum also has a `Set<HealthWorker` field which contains
+mappings from a set of keywords to it's respective `CommandMode` values for
+translation of user input into it's corresponding `CommandMode` equivalents.
 
-* `CommandMode.HEALTHWORKER` : 'healthworker', 'h', '1'
-* `CommandMode.REQUEST` : 'request', 'r', '2'
+Then implementation for `CommandMode` is as follows:
+
+```
+public enum CommandMode {
+
+    HEALTH_WORKER,
+    PATIENT,
+    REQUEST,
+    OTHERS,
+    INVALID;
+
+    public static final String MODE_HEALTHWORKER = "1";
+    public static final String MODE_PATIENT = "3";
+    public static final String MODE_REQUEST = "2";
+    public static final String MODE_OTHERS = "4";
+    public static final String MODE_INVALID = "5";
+
+    private static final Set<String> healthWorkerModes = new HashSet<>(Arrays.asList("healthworker", "h", "1"));
+    private static final Set<String> requestModes = new HashSet<>(Arrays.asList("request", "r", "2"));
+
+    /**
+     * Method that checks for the corresponding CommandMode given a string input.
+     * Returns INVALID if input string does not match any of the given modes.
+     */
+    public static CommandMode checkMode(String input) {
+        if (healthWorkerModes.contains(input)) {
+            return CommandMode.HEALTH_WORKER;
+        } else if (requestModes.contains(input)) {
+            return CommandMode.REQUEST;
+        }
+
+        return CommandMode.INVALID;
+    }
+}
+```
 
 These `CommandModes` provide flexbility and functionality to switch between
  parsing of different `HealthWorker` and `Request` objects.
@@ -247,7 +280,7 @@ These `CommandModes` provide flexbility and functionality to switch between
  classes respectively, which returns an `AddCommand`, `EditCommand` and
  `DeleteCommand` object respectively.
 
-==== Add feature
+=== Add feature
 
 The `add` command allows for users to register new `HealthWorker` and
 `Request` objects into HealtHub.
@@ -323,117 +356,107 @@ constructed from the user entered fields will be added to the end of the `Unique
 
 ===== Valid Specialisations
 
-The valid `Specialisation` values that can be entered by the user are as
-mentioned below:
+The `Specialisation` field is an `Enum` type in Java, and supports only the
+enum fields that are specified in the `Specialisation` class itself.
 
-* GENERAL_PRACTICE
-* CARDIOLOGY
-* ENDOCRINOLOGY
-* NEUROLOGY
-* ORTHOPAEDIC
-* PAEDIATRIC
-* GYNAECOLOGY
-* UROLOGY
-* PATHOLOGY
-* HAEMATOLOGY
-* PHYSIOTHERAPY
-* OCCUPATIONAL_THERAPY
-* ANAESTHESIOLOGY
+The implementation of the `Specialisiation` class is as follows:
 
-==== Edit feature
+```
+public enum Specialisation {
 
-The `edit` command allows users to modify details of existing `HealthWorker`
-or `Request` objects should the information need to be updated.
+    GENERAL_PRACTICE,
+    CARDIOLOGY,
+    ENDOCRINOLOGY,
+    NEUROLOGY,
+    ORTHOPAEDIC,
+    PAEDIATRIC,
+    GYNAECOLOGY,
+    UROLOGY,
+    PATHOLOGY,
+    HAEMATOLOGY,
+    PHYSIOTHERAPY,
+    OCCUPATIONAL_THERAPY,
+    ANAESTHESIOLOGY;
 
-The format for the `edit` command is as follows:
+    public static final String MESSAGE_CONSTRAINTS = getMessageConstraints();
 
-`edit <keyword> <index> <parameter> [<parameter>]...` +
+    /**
+     * Displays a list of available specialisations.
+     * @return String describing all available specialisations.
+     */
+    public static String getSpecialisationList() {
+        StringBuilder stringBuilder = new StringBuilder();
+        for (Specialisation specialisation : Specialisation.values()) {
+            stringBuilder.append(specialisation.toString()).append("\n");
+        }
 
-Similar to the `add` command, the `edit` command arguments are first checked
-passed into the `EditCommandParser` class instance, where it evaluates for a
-valid first keyword and argument prefixes and values. Additionally, the
-`<index>` field is also checked against the existing list of `HealthWorker`
-or `Request` to ensure that the provided `<index>` is a valid `<index>` in
-the list.
+        return stringBuilder.toString();
+    }
 
-The argument field after the first keyword denoting the specified
-`CommandMode` must not be empty, and must contain at least one valid prefix
-and a valid value for the respective field to be edited. The prefixes and
-validity follows the same conditions as stated in the `add` command.
+    /**
+     * Checks if a given input string matches any of the available
+     * Specialisations
+     * @param input string to check for valid Specialisation.
+     * @return true if the input string has a matching Specialisation, else
+     * false.
+     */
+    public static boolean isValidSpecialisation(String input) {
+        try {
+            Specialisation.valueOf(input);
+        } catch (IllegalArgumentException | NullPointerException e) {
+            return false;
+        }
 
-[NOTE]
-=====
-Similar to the `add` command, only the last value will be accepted for fields
- with the same prefixes.
+        return true;
+    }
 
-If any `specialisation` fields are entered, the current `Skills` object of
-the `HealthWorker` object being edited will be entirely replaced by a new
-`Set` of `Specialisation` that corresponds to valid `specialisation` fields
-enteed by the user.
-=====
+    /**
+     * Returns the corresponding matching Specialisation given an input String
+     * @param input string to match Specialisations.
+     * @return Specialisation matching the given string.
+     */
+    public static Specialisation parseString(String input) {
+        return Specialisation.valueOf(input);
+    }
 
-===== Editing `HealthWorker`
+    /**
+     * Returns an Optional containing the matching Specialisation to the substring if any, else an empty Optional
+     * @param input the substring to match against the Specialisation names
+     * @return Optional containing the matching Specialisation, else an empty Optional
+     */
+    public static Optional<Specialisation> getSpecialisation (String input) {
+        if (input.isEmpty()) {
+            return Optional.empty();
+        }
 
-Upon parsing the argument string into `EditCommandParser`, it first checks
-that the `<index>` field provided is non-negative, and not greater than the
-size of the `UniqueHealthWorkerList`.
+        for (Specialisation specialisation : Specialisation.values()) {
+            if (specialisation.name().toLowerCase().contains(input.toLowerCase())) {
+                return Optional.of(specialisation);
+            }
+        }
 
-After checking for a valid `CommandMode.HEALTHWORKER` keyword after the
-`edit` command word, `EditCommandParser` then tokenizes the argument string
-after the keyword into a `ArgumentMultiMap` object that stores the prefix to
-values mapping for each field specified. If no prefixes, or invalid prefixes
-are specified, or if invalid values for any prefix is input, then
-`EditCommandParser` throws a `ParseException`, and displays an error message
-to the terminal.
+        return Optional.empty();
+    }
 
-If all values specified are valid and at least one field to specify is
-provided, the `EditCommandParser` parses the `ArgumentMultiMap` containing
-the values to be updated and it's respective prefixes into an
-`EditHealthWorkerDescriptor` object. `EditCommandParser` then passes the
-`EditHealthWorkerDescriptor` and the `HealthWorker` object fetched from the
-`HealthWorkerBook` using the specified valid `<index>` into a
-`EditHealthWorkerCommand` object and returned.
+    /**
+     * Formulates the String representing the valid specialisations and
+     * constraints.
+     * @return String containing the valid specialisations to be added.
+     */
+    private static String getMessageConstraints() {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("Valid specialisations: \n");
+        stringBuilder.append(getSpecialisationList());
 
-In the `EditHealthWorkerCommand`, each `HealthWorker` related field prefix is
-checked for it's value in `EditHealthWorkerDescriptor`, and if a value
-exists, it replaces the current value of the corresponding field in the
-`HealthWorker` object. Else, the field in `HealthWorker` is unchanged.
+        return stringBuilder.toString();
+    }
 
-Upon a successful `edit` command, the `HealthWorker` or `Request` object that
- has had it's fields edited will immediately reflect the changes in details on
-  the GUI.
+}
 
-==== Delete feature
+```
 
-Using the `delete` command, the user can remove `HealthWorker` and `Request`
-objects from the system.
+==== Adding a Request
 
-The format for the `delete` command is as follows:
-
-`delete <keyword> <index>` +
-
-The `delete` command takes in only two arguments after the `delete` command
-word: the `<keyword>` corresponding to the respective `CommandMode` enum, as
-well as the `<index>` of the `HealthWorker` or `Request` object to be
-deleted, as indicated in the `UniqueHealthWorkerList` or `UniqueRequestList`
-displayed in the GUI.
-
-The `<index>` entered by the user is one-based, while it is converted to it's
- zero-based format in HealthHub during the deletion process. This ensures
- that non-technical people who use HealthHub do not need to adjust to
- zero-based indexing, and can continue using one-based indexing which they
- are more familiar with.
-
-If the user enters an invalid `<index>` field, such as a negative index or an
- index that is greater than the size of the `UniqueHealthWorkerList` or
- `UniqueRequestList`, then a `ParseException` will be thrown, and an error
- message will be displayed to the user.
-
-Upon successful `delete` of a valid `HealthWorker` or `Request`, the removed
-entity will be immediately reflected on the GUI, and be removed from view.
-
-
-=== Add Request feature
 
 ==== Current Implementation
 The `add request` command allows the `LogicManager` to create a new request and add it to the list of requests. Adding a new request requires the
@@ -443,7 +466,7 @@ add request n/NAME p/PHONE i/NRIC a/ADDRESS dt/DATETIME c/CONDITION.
 The following sequence shows the sequence when the add command is execute by the LogicManager:
 
 image::addrequest.png[width=800]
-Figure 3.2.1.1 Sequence Diagram for `add request` command
+Figure 3.1.3.1 Sequence Diagram for `add request` command
 
 From the diagram above:
 
@@ -497,6 +520,99 @@ The implementation of the `RequestStatus` class is as follows:
 
 Through this, any user String that is passed in as an argument for the `RequestStatus` field is automatically type checked,
 ensuring that there are no invalid request statuses entered.
+
+
+=== Edit feature
+
+The `edit` command allows users to modify details of existing `HealthWorker`
+or `Request` objects should the information need to be updated.
+
+The format for the `edit` command is as follows:
+
+`edit <keyword> <index> <parameter> [<parameter>]...` +
+
+Similar to the `add` command, the `edit` command arguments are first checked
+passed into the `EditCommandParser` class instance, where it evaluates for a
+valid first keyword and argument prefixes and values. Additionally, the
+`<index>` field is also checked against the existing list of `HealthWorker`
+or `Request` to ensure that the provided `<index>` is a valid `<index>` in
+the list.
+
+The argument field after the first keyword denoting the specified
+`CommandMode` must not be empty, and must contain at least one valid prefix
+and a valid value for the respective field to be edited. The prefixes and
+validity follows the same conditions as stated in the `add` command.
+
+[NOTE]
+=====
+Similar to the `add` command, only the last value will be accepted for fields
+ with the same prefixes.
+
+If any `specialisation` fields are entered, the current `Skills` object of
+the `HealthWorker` object being edited will be entirely replaced by a new
+`Set` of `Specialisation` that corresponds to valid `specialisation` fields
+enteed by the user.
+=====
+
+==== Editing `HealthWorker`
+
+Upon parsing the argument string into `EditCommandParser`, it first checks
+that the `<index>` field provided is non-negative, and not greater than the
+size of the `UniqueHealthWorkerList`.
+
+After checking for a valid `CommandMode.HEALTHWORKER` keyword after the
+`edit` command word, `EditCommandParser` then tokenizes the argument string
+after the keyword into a `ArgumentMultiMap` object that stores the prefix to
+values mapping for each field specified. If no prefixes, or invalid prefixes
+are specified, or if invalid values for any prefix is input, then
+`EditCommandParser` throws a `ParseException`, and displays an error message
+to the terminal.
+
+If all values specified are valid and at least one field to specify is
+provided, the `EditCommandParser` parses the `ArgumentMultiMap` containing
+the values to be updated and it's respective prefixes into an
+`EditHealthWorkerDescriptor` object. `EditCommandParser` then passes the
+`EditHealthWorkerDescriptor` and the `HealthWorker` object fetched from the
+`HealthWorkerBook` using the specified valid `<index>` into a
+`EditHealthWorkerCommand` object and returned.
+
+In the `EditHealthWorkerCommand`, each `HealthWorker` related field prefix is
+checked for it's value in `EditHealthWorkerDescriptor`, and if a value
+exists, it replaces the current value of the corresponding field in the
+`HealthWorker` object. Else, the field in `HealthWorker` is unchanged.
+
+Upon a successful `edit` command, the `HealthWorker` or `Request` object that
+ has had it's fields edited will immediately reflect the changes in details on
+  the GUI.
+
+=== Delete feature
+
+Using the `delete` command, the user can remove `HealthWorker` and `Request`
+objects from the system.
+
+The format for the `delete` command is as follows:
+
+`delete <keyword> <index>` +
+
+The `delete` command takes in only two arguments after the `delete` command
+word: the `<keyword>` corresponding to the respective `CommandMode` enum, as
+well as the `<index>` of the `HealthWorker` or `Request` object to be
+deleted, as indicated in the `UniqueHealthWorkerList` or `UniqueRequestList`
+displayed in the GUI.
+
+The `<index>` entered by the user is one-based, while it is converted to it's
+ zero-based format in HealthHub during the deletion process. This ensures
+ that non-technical people who use HealthHub do not need to adjust to
+ zero-based indexing, and can continue using one-based indexing which they
+ are more familiar with.
+
+If the user enters an invalid `<index>` field, such as a negative index or an
+ index that is greater than the size of the `UniqueHealthWorkerList` or
+ `UniqueRequestList`, then a `ParseException` will be thrown, and an error
+ message will be displayed to the user.
+
+Upon successful `delete` of a valid `HealthWorker` or `Request`, the removed
+entity will be immediately reflected on the GUI, and be removed from view.
 
 
 // tag::assignrequest[]
@@ -703,6 +819,48 @@ In addition, by returning a single `Predicate` object, ease of implementation
  enhancements to `filter` reduces the complexity of code as the function
  needs only to depend on `Predicate` and not `List`, hence observing the Law
  of Demeter.
+
+===== Current Implementation
+
+The following sequence diagram shows the flow of events when the `filter h
+s/physio` command is entered by the user to display only `HealthWorker`
+objects that possess expertise in physiotherapy:
+
+image::FilterHealthWorkerSD.png[width=800]
+Figure 3.6.1.1: Sequence diagram illustrating the interactions between the
+`Logic` and `Model` components when `filter` command is called.
+
+. When the user inputs the full command `filter h s/physio`, the
+`LogicManager` object takes in the command string, and passes it into
+`HealthHubParser` using the `parseCommand` method.
+. `HealthHubParser` identifies the command word in the input string, which is
+ `filter`, and identifies the appropriate `CommandParser` object to parse the
+  user command.
+. `HealthHubParser` strips the `filter` command word off the user input, and
+passes the remaining argument string in to a new `FilterCommandParser` object
+ as corresponding to the `filter` command word.
+. `FilterCommandParser` then checks for a valid `CommandMode` that
+corresponds to the first keyword in the argument string. In this case, the
+keyword `h` corresponds to the `CommandMode.HEALTHWORKER` value.
+`FilterCommandParser` then creates a `FilterHealthWorkerCommand` with the
+`Predicate` constructed from the fields remaining in the argument string. For
+ full detail on the implementation of the `FilterCommandParser` logic, see
+ the sequence diagram in figure 3.6.1.2 below.
+. `FilterCommandParser` returns the `FilterHealthWorkerCommand` object to
+`HealthHubParser`, which calls the `execute` method of
+`FilterHealthWorkerCommand`.
+. `FilterHealthWorkerCommand` uses Java 8's `Predicate` and `Function`
+libraries to condense all the supplied `List<Predicate>` into a single
+`Predicate` using the `and`, `reduce` and `stream` method calls. After which,
+ it calls the `updateFilteredHealthWorker` method in `Model` to set the
+ condensed `Predicate` on the `UniqueHealthWorkerBook` in `Model`, displaying
+  only the `HealthWorker` that evaluates the set `Predicate` to true on the GUI.
+
+
+image::FilterCommandParserLogicSD.png[width=800]
+Figure 3.6.1.2 Sequence Diagram that details the interaction that happens
+within the `FilterCommandParser` class when it's `parse()` method is called.
+
 // end::filterHealthWorker[]
 
 // tag::undoredo[]

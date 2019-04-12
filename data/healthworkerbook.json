@@ -1,27 +1,75 @@
 {
   "healthWorkers" : [ {
-    "name" : "Ella Meyer",
-    "phone" : "94824524",
-    "nric" : "S9112942G",
-    "organization" : "NUH",
-    "skills" : "GENERAL_PRACTICE "
-  }, {
-    "name" : "Fione Kunz",
-    "phone" : "94822371",
-    "nric" : "S7812942G",
-    "organization" : "NUH",
-    "skills" : "GENERAL_PRACTICE "
-  }, {
-    "name" : "George Best",
-    "phone" : "94824422",
-    "nric" : "S8812942G",
-    "organization" : "NUH",
-    "skills" : "GENERAL_PRACTICE "
-  }, {
-    "name" : "Judy Hopps",
+    "name" : "Rohan Tay",
     "phone" : "98765432",
     "nric" : "S8974421C",
     "organization" : "SGH",
-    "skills" : "GENERAL_PRACTICE ORTHOPAEDIC "
+    "skills" : "ORTHOPAEDIC GENERAL_PRACTICE "
+  }, {
+    "name" : "Jing Hui Chun",
+    "phone" : "87654321",
+    "nric" : "S9975823K",
+    "organization" : "NUH",
+    "skills" : "PHYSIOTHERAPY ORTHOPAEDIC "
+  }, {
+    "name" : "David Dev",
+    "phone" : "89047389",
+    "nric" : "S8876901H",
+    "organization" : "NUH",
+    "skills" : "GYNAECOLOGY "
+  }, {
+    "name" : "Lukaz Livingston",
+    "phone" : "90098264",
+    "nric" : "S7491023J",
+    "organization" : "SGH",
+    "skills" : "PAEDIATRIC "
+  }, {
+    "name" : "Jin Stackoverflow",
+    "phone" : "88888888",
+    "nric" : "S9999999A",
+    "organization" : "Google",
+    "skills" : "NEUROLOGY "
+  }, {
+    "name" : "Algo Reedum",
+    "phone" : "89276458",
+    "nric" : "T2701994K",
+    "organization" : "NUS SOC",
+    "skills" : "CARDIOLOGY "
+  }, {
+    "name" : "Marie Kondo",
+    "phone" : "89571824",
+    "nric" : "F1234567A",
+    "organization" : "Japan",
+    "skills" : "PHYSIOTHERAPY "
+  }, {
+    "name" : "Toto",
+    "phone" : "98164782",
+    "nric" : "F9876543Z",
+    "organization" : "Africa",
+    "skills" : "ENDOCRINOLOGY PHYSIOTHERAPY "
+  }, {
+    "name" : "Terence Sim",
+    "phone" : "91238894",
+    "nric" : "S1874810J",
+    "organization" : "NUS",
+    "skills" : "CARDIOLOGY NEUROLOGY "
+  }, {
+    "name" : "Aaron Tan",
+    "phone" : "81940213",
+    "nric" : "S8917409P",
+    "organization" : "HAND",
+    "skills" : "PATHOLOGY "
+  }, {
+    "name" : "Adi Yoga",
+    "phone" : "88274819",
+    "nric" : "S9174920G",
+    "organization" : "COM2",
+    "skills" : "HAEMATOLOGY "
+  }, {
+    "name" : "Dog Terr",
+    "phone" : "93750182",
+    "nric" : "S1111222G",
+    "organization" : "NUH",
+    "skills" : "PHYSIOTHERAPY ORTHOPAEDIC "
   } ]
 }

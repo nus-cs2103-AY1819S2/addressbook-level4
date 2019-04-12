@@ -315,6 +315,14 @@ worker possesses. The list of valid specialisations are as follows:
 ** OCCUPATIONAL_THERAPY
 ** ANAESTHESIOLOGY
 
+[NOTE]
+====
+The NRIC field provided uniquely identifies the health worker. When entering
+the commands to add or edit a health worker, if the NRIC field matches an
+already existing health worker with the same NRIC field, an error message
+denoting a duplicate worker will be displayed.
+====
+
 // end::addHealthWorker[]
 
 ==== *Adding a request*
@@ -499,8 +507,22 @@ the valid specialisation values provided under the `add` command section.
 Valid parameters may include case insensitive substrings (E.g 'physio' will
 match to 'PHYSIOTHERAPY'.
 ====
-// end::filterHealthWorker[]
 
+For example, to display only health workers who specialise in physiotherapy,
+the `filter h s/physio` command can entered, using the shortcut `h` for
+health worker mode and the substring `physio` instead for brevity, as shown
+in the image below, in the Before section:
+
+image::filter_healthworker_UG.png[]
+
+When the command is keyed into the application, HealthHub will display the
+state shown by the After section on the right side on the image above. The
+command terminal displays a message denoting how many health workers are
+found that has `PHYSIOTHERAPY` as a specialisation, and the health worker
+list on the right side of the GUI displays only health workers who has
+expertise in physiotherapy.
+
+// end::filterHealthWorker[]
 ==== *Filter requests*:
 
 Format: `filter request <keyword> [<more_keywords>]`

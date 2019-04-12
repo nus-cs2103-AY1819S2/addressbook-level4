@@ -11,6 +11,8 @@ import seedu.address.model.medicalhistory.MedicalHistory;
  */
 public class MedHistCard extends UiPart<Region> {
     private static final String FXML = "MedHistListCard.fxml";
+    public static final String MESSAGE_PATIENT_DELETED = "Patient Deleted.";
+    public static final String MESSAGE_DOCTOR_DELETED = "Doctor Deleted.";
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
      * As a consequence, UI elements' variable names cannot be set to such keywords
@@ -39,12 +41,12 @@ public class MedHistCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         medicalHistoryId.setText("ID: " + medHist.getMedHistId());
         if (medHist.getPatient() == null) {
-            patientId.setText("Patient ID: Patient Deleted");
+            patientId.setText("Patient ID: " + MESSAGE_PATIENT_DELETED);
         } else {
             patientId.setText("Patient ID: " + medHist.getPatientId());
         }
         if (medHist.getDoctor() == null) {
-            doctorId.setText("Doctor ID: Doctor Deleted");
+            doctorId.setText("Doctor ID: " + MESSAGE_DOCTOR_DELETED);
         } else {
             doctorId.setText("Doctor ID: " + medHist.getDoctorId());
         }

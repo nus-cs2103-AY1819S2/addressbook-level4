@@ -7,6 +7,7 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalHealthWorkers.getTypicalHealthWorkerBook;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND;
+import static seedu.address.testutil.TypicalIndexes.INDEX_SIXTH;
 import static seedu.address.testutil.TypicalRequests.getTypicalRequestBook;
 
 import org.junit.Test;
@@ -28,8 +29,8 @@ public class DeleteHealthWorkerCommandTest {
 
     @Test
     public void execute_validIndex() {
-        HealthWorker toDelete = model.getFilteredHealthWorkerList().get(INDEX_FIRST.getZeroBased());
-        DeleteHealthWorkerCommand deleteHealthWorkerCommand = new DeleteHealthWorkerCommand(INDEX_FIRST);
+        HealthWorker toDelete = model.getFilteredHealthWorkerList().get(INDEX_SIXTH.getZeroBased());
+        DeleteHealthWorkerCommand deleteHealthWorkerCommand = new DeleteHealthWorkerCommand(INDEX_SIXTH);
 
         String expectedMessage = String.format(DeleteHealthWorkerCommand.MESSAGE_DELETE_HEALTHWORKER_SUCCESS, toDelete);
 
@@ -50,7 +51,13 @@ public class DeleteHealthWorkerCommandTest {
                 Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
 
-    // TODO: add tests for undo/redo after undo/redo addressbook methods are implemented
+    @Test
+    public void execute_assignedHealthWorker() {
+        DeleteHealthWorkerCommand deleteHealthWorkerCommand = new DeleteHealthWorkerCommand(INDEX_FIRST);
+
+        assertCommandFailure(deleteHealthWorkerCommand, model, commandHistory,
+                Messages.MESSAGE_HEALTHWORKER_ASSIGNED_CANNOT_DELETE);
+    }
 
     @Test
     public void equals() {
@@ -72,14 +79,5 @@ public class DeleteHealthWorkerCommandTest {
 
         // different person -> returns false
         assertFalse(deleteFirstCommand.equals(deleteSecondCommand));
-    }
-
-    /**
-     * Updates {@code model}'s filtered HealthWorker list to show no one.
-     */
-    private void showNoHealthWorker(Model model) {
-        model.updateFilteredHealthWorkerList(p -> false);
-
-        assertTrue(model.getFilteredHealthWorkerList().isEmpty());
     }
 }

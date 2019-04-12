@@ -5,6 +5,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.Objects;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -137,7 +138,7 @@ public class UniqueRequestList implements Iterable<Request> {
      * Checks if any Request in the UniqueRequestList contains the assigned HealthWorker name.
      */
     public boolean isAssigned(String name) {
-        return this.internalList.stream().anyMatch(x -> x.getHealthStaff().equals(name)
+        return this.internalList.stream().anyMatch(x -> Objects.equals(name, x.getHealthStaff())
                 && x.getRequestStatus().isOngoingStatus());
     }
 

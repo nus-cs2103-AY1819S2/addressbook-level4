@@ -4,7 +4,14 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.address.logic.commands.CommandTestUtil.NAME_1_VALID;
+import static seedu.address.logic.commands.CommandTestUtil.NAME_2_VALID;
+import static seedu.address.logic.commands.CommandTestUtil.PASSWORD_1_VALID;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PDF;
+import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PDF;
+import static seedu.address.testutil.TypicalPdfs.SAMPLE_PDF_1;
+import static seedu.address.testutil.TypicalPdfs.SAMPLE_PDF_1_ENCRYPTED;
+import static seedu.address.testutil.TypicalPdfs.SAMPLE_PDF_2;
 
 import java.util.Arrays;
 import java.util.List;
@@ -16,8 +23,11 @@ import org.junit.rules.ExpectedException;
 
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.ClearCommand;
+import seedu.address.logic.commands.DeadlineCommand;
+import seedu.address.logic.commands.DecryptCommand;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.EditCommand;
+import seedu.address.logic.commands.EncryptCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
@@ -39,9 +49,11 @@ public class PdfBookParserTest {
 
     private final PdfBookParser parser = new PdfBookParser();
 
+    private static final String DEADLINE_NEWLY_ADDED_FILE = "NEWLY ADDED";
+
     @Test
     public void parseCommand_add() throws Exception {
-        Pdf pdf = new PdfBuilder().build();
+        Pdf pdf = new PdfBuilder(SAMPLE_PDF_1).withDeadline(DEADLINE_NEWLY_ADDED_FILE).build();
         AddCommand command = (AddCommand) parser.parseCommand(PersonUtil.getAddCommand(pdf));
         assertEquals(new AddCommand(pdf), command);
     }
@@ -53,6 +65,20 @@ public class PdfBookParserTest {
     }
 
     @Test
+    public void parseCommand_deadline() throws Exception {
+        Pdf pdf = SAMPLE_PDF_2;
+        DeadlineCommand command = (DeadlineCommand) parser.parseCommand(PersonUtil.getDeadlineCommand(pdf, 2));
+        assertEquals(new DeadlineCommand(INDEX_SECOND_PDF, pdf.getDeadline(),
+                DeadlineCommand.DeadlineAction.NEW), command);
+    }
+
+    @Test
+    public void parseCommand_decrypt() throws Exception {
+        DecryptCommand command = (DecryptCommand) parser.parseCommand(PersonUtil.getDecryptCommand(1));
+        assertEquals(new DecryptCommand(INDEX_FIRST_PDF, PASSWORD_1_VALID), command);
+    }
+
+    @Test
     public void parseCommand_delete() throws Exception {
         DeleteCommand command = (DeleteCommand) parser.parseCommand(
                 DeleteCommand.COMMAND_WORD + " " + INDEX_FIRST_PDF.getOneBased());
@@ -61,17 +87,30 @@ public class PdfBookParserTest {
 
     @Test
     public void parseCommand_edit() throws Exception {
-        Pdf pdf = new PdfBuilder().build();
-        EditCommand.EditPdfDescriptor descriptor = new EditPdfDescriptorBuilder(pdf).build();
+        Pdf pdf = new PdfBuilder(SAMPLE_PDF_1).withName(NAME_2_VALID).build();
+        EditCommand.EditPdfDescriptor descriptor = new EditPdfDescriptorBuilder()
+                .withName(pdf.getName().getFullName()).build();
+
         EditCommand command = (EditCommand) parser.parseCommand(EditCommand.COMMAND_WORD + " "
-                + INDEX_FIRST_PDF.getOneBased() + " " + PersonUtil.getEditPersonDescriptorDetails(descriptor));
+                + INDEX_FIRST_PDF.getOneBased() + " " + PersonUtil.getRenamePdfDescriptorDetails(descriptor));
         assertEquals(new EditCommand(INDEX_FIRST_PDF, descriptor), command);
+    }
+
+    @Test
+    public void parseCommand_encrypt() throws Exception {
+        EncryptCommand command = (EncryptCommand) parser.parseCommand(PersonUtil.getEncryptCommand(1));
+        assertEquals(new EncryptCommand(INDEX_FIRST_PDF, PASSWORD_1_VALID), command);
     }
 
     @Test
     public void parseCommand_exit() throws Exception {
         assertTrue(parser.parseCommand(ExitCommand.COMMAND_WORD) instanceof ExitCommand);
         assertTrue(parser.parseCommand(ExitCommand.COMMAND_WORD + " 3") instanceof ExitCommand);
+    }
+
+    @Test
+    public void parseCommand_filter() throws Exception {
+        
     }
 
     @Test
@@ -114,17 +153,7 @@ public class PdfBookParserTest {
         assertEquals(new SelectCommand(INDEX_FIRST_PDF), command);
     }
 
-    @Test
-    public void parseCommand_redoCommandWord_returnsRedoCommand() throws Exception {
-        assertTrue(parser.parseCommand(RedoCommand.COMMAND_WORD) instanceof RedoCommand);
-        assertTrue(parser.parseCommand("redo 1") instanceof RedoCommand);
-    }
 
-    @Test
-    public void parseCommand_undoCommandWord_returnsUndoCommand() throws Exception {
-        assertTrue(parser.parseCommand(UndoCommand.COMMAND_WORD) instanceof UndoCommand);
-        assertTrue(parser.parseCommand("undo 3") instanceof UndoCommand);
-    }
 
     @Test
     public void parseCommand_unrecognisedInput_throwsParseException() throws Exception {

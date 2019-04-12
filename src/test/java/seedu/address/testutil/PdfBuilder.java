@@ -25,6 +25,7 @@ public class PdfBuilder {
     private static final String DEFAULT_DIRECTORY = DEFAULT_FILE.getParent();
     private static final String DEFAULT_SIZE = Long.toString(DEFAULT_FILE.length());
     private static final String DEFAULT_DEADLINE = CommandTestUtil.DEADLINE_JSON_NOTDONE;
+    private static final String DEADLINE_NEWLY_ADDED_FILE = "NEWLY ADDED";
 
     private Name name;
     private Directory directory;
@@ -98,7 +99,7 @@ public class PdfBuilder {
      * Sets the {@code Deadline} of the {@code Pdf} that we are building.
      */
     public PdfBuilder withDeadline(String date) {
-        if (date.equals("NEWLY ADDED")) {
+        if (date.equals(DEADLINE_NEWLY_ADDED_FILE)) {
             this.deadline = new Deadline();
         } else {
             this.deadline = new Deadline(date);

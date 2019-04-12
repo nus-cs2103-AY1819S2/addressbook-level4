@@ -6,6 +6,8 @@ import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PDF;
 
+import java.io.File;
+import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
@@ -18,22 +20,26 @@ import org.junit.rules.ExpectedException;
 import seedu.address.logic.parser.exceptions.ParseException;
 //import seedu.address.model.pdf.Address;
 //import seedu.address.model.pdf.Email;
+import seedu.address.model.pdf.Deadline;
+import seedu.address.model.pdf.Directory;
 import seedu.address.model.pdf.Name;
 //import seedu.address.model.pdf.Phone;
 import seedu.address.model.tag.Tag;
 import seedu.address.testutil.Assert;
 
 public class ParserUtilTest {
-    private static final String INVALID_NAME = "R@chel";
-    private static final String INVALID_PHONE = "+651234";
-    private static final String INVALID_ADDRESS = " ";
-    private static final String INVALID_EMAIL = "example.com";
+    private static final String INVALID_NAME = "invalidPdfName";
+    private static final String INVALID_FILE = "invalid\\path\\abc.pdf";
+    private static final String INVALID_DIRECTORY = "invalid\\path";
+    private static final String INVALID_DEADLINE = "22-22-2020";
     private static final String INVALID_TAG = "#friend";
 
-    private static final String VALID_NAME = "Rachel Walker";
-    private static final String VALID_PHONE = "123456";
-    private static final String VALID_ADDRESS = "123 Main Street #0505";
-    private static final String VALID_EMAIL = "rachel@example.com";
+    private static final String VALID_NAME = "validPdfName.pdf";
+    private static final String VALID_FILE = Paths.get("src", "test", "data",
+            "SampleFiles", "NormalFiles", "GitCheatSheet.pdf").toAbsolutePath().toString();
+    private static final String VALID_DIRECTORY = Paths.get("src", "test", "data",
+            "SampleFiles", "NormalFiles").toAbsolutePath().toString();
+    private static final String VALID_DEADLINE = "2020-11-11/NONE";
     private static final String VALID_TAG_1 = "friend";
     private static final String VALID_TAG_2 = "neighbour";
 
@@ -86,75 +92,52 @@ public class ParserUtilTest {
         Name expectedName = new Name(VALID_NAME);
         assertEquals(expectedName, ParserUtil.parseName(nameWithWhitespace));
     }
-    /*
+
     @Test
-    public void parsePhone_null_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parsePhone((String) null));
+    public void parseFile_invalidValue_throwsParserException() {
+        Assert.assertThrows(ParseException.class, () -> ParserUtil.parseFile(INVALID_FILE));
     }
 
     @Test
-    public void parsePhone_invalidValue_throwsParseException() {
-        Assert.assertThrows(ParseException.class, () -> ParserUtil.parsePhone(INVALID_PHONE));
+    public void parseFile_null_throwsNullPointerException() {
+        Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parseFile((String) null));
     }
 
     @Test
-    public void parsePhone_validValueWithoutWhitespace_returnsPhone() throws Exception {
-        Phone expectedPhone = new Phone(VALID_PHONE);
-        assertEquals(expectedPhone, ParserUtil.parsePhone(VALID_PHONE));
+    public void parseFile_validValueWithoutWhitespace_returnsFile() throws Exception {
+        File expectedFile = new File(VALID_FILE);
+        assertEquals(expectedFile, ParserUtil.parseFile(VALID_FILE));
     }
 
     @Test
-    public void parsePhone_validValueWithWhitespace_returnsTrimmedPhone() throws Exception {
-        String phoneWithWhitespace = WHITESPACE + VALID_PHONE + WHITESPACE;
-        Phone expectedPhone = new Phone(VALID_PHONE);
-        assertEquals(expectedPhone, ParserUtil.parsePhone(phoneWithWhitespace));
+    public void parseFile_validValueWithWhitespace_returnsTrimmedFile() throws Exception {
+        String fileWithWhitespace = WHITESPACE + VALID_FILE + WHITESPACE;
+        File expectedFile = new File(VALID_FILE);
+        assertEquals(expectedFile, ParserUtil.parseFile(fileWithWhitespace));
     }
 
     @Test
-    public void parseAddress_null_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parseAddress((String) null));
+    public void parseDirectory_invalidValue_throwsParserException() {
+        Assert.assertThrows(ParseException.class, () -> ParserUtil.parseDirectory(INVALID_DIRECTORY));
     }
 
     @Test
-    public void parseAddress_invalidValue_throwsParseException() {
-        Assert.assertThrows(ParseException.class, () -> ParserUtil.parseAddress(INVALID_ADDRESS));
+    public void parseDirectory_null_throwsNullPointerException() {
+        Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parseDirectory((String) null));
     }
 
     @Test
-    public void parseAddress_validValueWithoutWhitespace_returnsAddress() throws Exception {
-        Address expectedAddress = new Address(VALID_ADDRESS);
-        assertEquals(expectedAddress, ParserUtil.parseAddress(VALID_ADDRESS));
+    public void parseDirectory_validValueWithoutWhitespace_returnsFile() throws Exception {
+        Directory expectedFile = new Directory(VALID_DIRECTORY);
+        assertEquals(expectedFile, ParserUtil.parseDirectory(VALID_DIRECTORY));
     }
 
     @Test
-    public void parseAddress_validValueWithWhitespace_returnsTrimmedAddress() throws Exception {
-        String addressWithWhitespace = WHITESPACE + VALID_ADDRESS + WHITESPACE;
-        Address expectedAddress = new Address(VALID_ADDRESS);
-        assertEquals(expectedAddress, ParserUtil.parseAddress(addressWithWhitespace));
+    public void parseDirectory_validValueWithWhitespace_returnsTrimmedFile() throws Exception {
+        String directoryWithWhitespace = WHITESPACE + VALID_DIRECTORY + WHITESPACE;
+        Directory expectedDirectory = new Directory(VALID_DIRECTORY);
+        assertEquals(expectedDirectory, ParserUtil.parseDirectory(directoryWithWhitespace));
     }
-
-    @Test
-    public void parseEmail_null_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parseEmail((String) null));
-    }
-
-    @Test
-    public void parseEmail_invalidValue_throwsParseException() {
-        Assert.assertThrows(ParseException.class, () -> ParserUtil.parseEmail(INVALID_EMAIL));
-    }
-
-    @Test
-    public void parseEmail_validValueWithoutWhitespace_returnsEmail() throws Exception {
-        Email expectedEmail = new Email(VALID_EMAIL);
-        assertEquals(expectedEmail, ParserUtil.parseEmail(VALID_EMAIL));
-    }
-
-    @Test
-    public void parseEmail_validValueWithWhitespace_returnsTrimmedEmail() throws Exception {
-        String emailWithWhitespace = WHITESPACE + VALID_EMAIL + WHITESPACE;
-        Email expectedEmail = new Email(VALID_EMAIL);
-        assertEquals(expectedEmail, ParserUtil.parseEmail(emailWithWhitespace));
-    }*/
 
     @Test
     public void parseTag_null_throwsNullPointerException() throws Exception {
@@ -204,5 +187,28 @@ public class ParserUtilTest {
         Set<Tag> expectedTagSet = new HashSet<Tag>(Arrays.asList(new Tag(VALID_TAG_1), new Tag(VALID_TAG_2)));
 
         assertEquals(expectedTagSet, actualTagSet);
+    }
+
+    @Test
+    public void parseDeadline_invalidValue_throwsParserException() {
+        Assert.assertThrows(ParseException.class, () -> ParserUtil.parseDeadline(INVALID_DEADLINE));
+    }
+
+    @Test
+    public void parseDeadline_null_throwsNullPointerException() {
+        Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parseDeadline((String) null));
+    }
+
+    @Test
+    public void parseDeadline_validValueWithoutWhitespace_returnsFile() throws Exception {
+        Deadline expectedDeadline = new Deadline(VALID_DEADLINE);
+        assertEquals(expectedDeadline, ParserUtil.parseDeadline(VALID_DEADLINE));
+    }
+
+    @Test
+    public void parseDeadline_validValueWithWhitespace_returnsTrimmedFile() throws Exception {
+        String directoryWithWhitespace = WHITESPACE + VALID_DIRECTORY + WHITESPACE;
+        Directory expectedDirectory = new Directory(VALID_DIRECTORY);
+        assertEquals(expectedDirectory, ParserUtil.parseDirectory(directoryWithWhitespace));
     }
 }

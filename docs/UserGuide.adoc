@@ -41,10 +41,10 @@ To complement your reading experience, you may find it useful to refer to the ta
 |===
 a| `code` | Command that can be typed into the command box
 ifdef::env-github[]
-a| :white_check_mark: | Expected result after executing the command
-a| :bulb: | Tips and tricks that might be useful
-a| :information_source: | Additional information that is good to know
-a| :heavy_exclamation_mark: | Important pointers to take note
+| :white_check_mark: | Expected result after executing the command
+| :bulb: | Tips and tricks that might be useful
+| :information_source: | Additional information that is good to know
+| :heavy_exclamation_mark: | Important pointers to take note
 endif::[]
 ifndef::env-github[]
 a| icon:check[role="green", size="2x"] | Expected result after executing the command
@@ -199,7 +199,7 @@ You can also access the help window by clicking on menu:Help[Help] in the menu b
 
 [width="100%",cols="5%,95%", grid=none]
 |===
-ifdef::env-github[a| :white_check_mark: a| The help window will open.]
+ifdef::env-github[| :white_check_mark: a| The help window will open.]
 ifndef::env-github[a| icon:check[role="green", size="2x"] a| The help window will open.]
 |===
 
@@ -218,7 +218,7 @@ You can also use the kbd:[&uarr;] and kbd:[&darr;] keys to view past commands in
 
 [width="100%",cols="5%,95%", grid=none]
 |===
-ifdef::env-github[a| :white_check_mark: a| The list of past commands will be shown in the Results Display.]
+ifdef::env-github[| :white_check_mark: a| The list of past commands will be shown in the Results Display.]
 ifndef::env-github[a| icon:check[role="green", size="2x"] a| The list of past commands will be shown in the Results Display.]
 |===
 
@@ -239,7 +239,7 @@ No shortcut is provided and the command is intentionally long to prevent acciden
 
 [width="100%",cols="5%,95%", grid=none]
 |===
-ifdef::env-github[a| :white_check_mark: a| All data in RestOrRant will be deleted and the side and main panels will be empty.]
+ifdef::env-github[| :white_check_mark: a| All data in RestOrRant will be deleted and the side and main panels will be empty.]
 ifndef::env-github[a| icon:check[role="green", size="2x"] a| All data in RestOrRant will be deleted and the side and main panels will be empty.]
 |===
 
@@ -257,7 +257,7 @@ You can also exit RestOrRant by clicking on menu:File[Exit] in the menu bar.
 
 [width="100%",cols="5%,95%", grid=none]
 |===
-ifdef::env-github[a| :white_check_mark: a| RestOrRant exits and the application window closes.]
+ifdef::env-github[| :white_check_mark: a| RestOrRant exits and the application window closes.]
 ifndef::env-github[a| icon:check[role="green", size="2x"] a| RestOrRant exits and the application window closes.]
 |===
 
@@ -286,7 +286,7 @@ Restaurant Mode is the default application mode when first starting up RestOrRan
 
 [width="100%",cols="5%,95%", grid=none]
 |===
-ifdef::env-github[a| :white_check_mark: a| The user interface switches to <<Restaurant Mode, Restaurant Mode>>.]
+ifdef::env-github[| :white_check_mark: a| The user interface switches to <<Restaurant Mode, Restaurant Mode>>.]
 ifndef::env-github[a| icon:check[role="green", size="2x"] a| The user interface switches to <<Restaurant Mode, Restaurant Mode>>.]
 |===
 
@@ -308,7 +308,7 @@ You can use this command in Table Mode if you are switching to a different table
 
 [width="100%",cols="5%,95%", grid=none]
 |===
-ifdef::env-github[a| :white_check_mark: a| The user interface switches to <<Table Mode, Table Mode>>.]
+ifdef::env-github[| :white_check_mark: a| The user interface switches to <<Table Mode, Table Mode>>.]
 ifndef::env-github[a| icon:check[role="green", size="2x"] a| The user interface switches to <<Table Mode, Table Mode>>.]
 The specified table number is also indicated in the Results Display and as part of the Current Mode in the status bar.
 
@@ -332,7 +332,7 @@ You can use this command to switch over to Menu Mode to modify the menu stored i
 
 [width="100%",cols="5%,95%", grid=none]
 |===
-ifdef::env-github[a| :white_check_mark: a| The user interface switches to <<Menu Mode, Menu Mode>>.]
+ifdef::env-github[| :white_check_mark: a| The user interface switches to <<Menu Mode, Menu Mode>>.]
 ifndef::env-github[a| icon:check[role="green", size="2x"] a| The user interface switches to <<Menu Mode, Menu Mode>>.]
 |===
 
@@ -351,7 +351,7 @@ The default Revenue Panel view is Daily when you first switch over to Statistics
 
 [width="100%",cols="5%,95%", grid=none]
 |===
-ifdef::env-github[a| :white_check_mark: a| icon:check[role="green", size="2x"] a| The user interface switches to <<Statistics Mode, Statistics Mode>>.]
+ifdef::env-github[| :white_check_mark: a| icon:check[role="green", size="2x"] a| The user interface switches to <<Statistics Mode, Statistics Mode>>.]
 ifndef::env-github[a| icon:check[role="green", size="2x"] a| The user interface switches to <<Statistics Mode, Statistics Mode>>.]
 |===
 // end::changemode[]
@@ -477,7 +477,7 @@ You can add multiple or duplicate order items in a single command! If any of the
 
 [width="100%",cols="5%,95%", grid=none]
 |===
-ifdef::env-github[a| :white_check_mark: a|]
+ifdef::env-github[| :white_check_mark: a|]
 ifndef::env-github[a| icon:check[role="green", size="2x"] a|]
 You will see a success message in the Results Display and the updated order items will be displayed in the Order Panel.
 
@@ -508,7 +508,7 @@ You can only add notes to item codes that have already been ordered by the table
 
 [width="100%",cols="5%,95%", grid=none]
 |===
-ifdef::env-github[a| :white_check_mark: a|]
+ifdef::env-github[| :white_check_mark: a|]
 ifndef::env-github[a| icon:check[role="green", size="2x"] a|]
 You will see a success message in the Results Display and the note will appear in a tag beside the item name in the Order Panel.
 a| a| For example, after executing `addNote W09 Less spicy`, a "Less spicy" tag will appear beside "Chicken Wings" in the Order Panel.
@@ -529,7 +529,7 @@ You can only delete item codes that have already been ordered by the table.
 
 [width="100%",cols="5%,95%", grid=none]
 |===
-ifdef::env-github[a| :white_check_mark: a|]
+ifdef::env-github[| :white_check_mark: a|]
 ifndef::env-github[a| icon:check[role="green", size="2x"] a|]
 You will see a success message in the Results Display and the deleted order item will no longer be displayed in the Order Panel.
 
@@ -560,7 +560,7 @@ This command is irreversible and will not save the order under restaurant statis
 
 [width="100%",cols="5%,95%", grid=none]
 |===
-ifdef::env-github[a| :white_check_mark: a|]
+ifdef::env-github[| :white_check_mark: a|]
 ifndef::env-github[a| icon:check[role="green", size="2x"] a|]
 You will see a success message in the Results Display and the Order Panel will be empty.
 
@@ -594,7 +594,7 @@ If the quantity is not specified, the default quantity served is 1.
 
 [width="100%",cols="5%,95%", grid=none]
 |===
-ifdef::env-github[a| :white_check_mark: a|]
+ifdef::env-github[| :white_check_mark: a|]
 ifndef::env-github[a| icon:check[role="green", size="2x"] a|]
 You will see a success message in the Results Display and the order item's quantity to serve in the Order Panel will be updated. The background of the order item also turns dark once it is fully served.
 

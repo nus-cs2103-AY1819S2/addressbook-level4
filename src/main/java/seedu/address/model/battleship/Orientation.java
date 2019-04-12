@@ -14,7 +14,6 @@ import seedu.address.commons.core.LogsCenter;
  * Guarantees: immutable; is valid as declared in {@link #isValidOrientation(String)}
  */
 public class Orientation {
-
     public static final String MESSAGE_CONSTRAINTS =
             "Orientation should either be horizontal or vertical, case-insensitive";
 
@@ -22,18 +21,14 @@ public class Orientation {
      * The first character of the address must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String VALIDATION_REGEX = "^(horizontal|vertical|h|v)$";
+    private static final String VALIDATION_REGEX = "^(horizontal|vertical|h|v)$";
     private static final String VALIDATION_HORIZONTAL_REGEX = "horizontal|h";
     private static final String VALIDATION_VERTICAL_REGEX = "vertical|v";
 
-    public static final Pattern VALIDATION_PATTERN = Pattern.compile(
+    private static final Pattern VALIDATION_PATTERN = Pattern.compile(
             VALIDATION_REGEX, Pattern.CASE_INSENSITIVE);
-    public static final Pattern VALIDATION_PATTERN_HORIZONTAL = Pattern.compile(
-            VALIDATION_HORIZONTAL_REGEX, Pattern.CASE_INSENSITIVE);
-    public static final Pattern VALIDATION_PATTERN_VERTICAL = Pattern.compile(
-            VALIDATION_VERTICAL_REGEX, Pattern.CASE_INSENSITIVE);
 
-    public final String orientation;
+    public final OrientationType orientation;
 
     private final Logger logger = LogsCenter.getLogger(Orientation.class);
 
@@ -48,12 +43,12 @@ public class Orientation {
 
         if (orientation.toLowerCase().equals("h")
                 || orientation.toLowerCase().equals("horizontal")) {
-            this.orientation = "horizontal";
+            this.orientation = OrientationType.HORIZONTAL;
         } else if (orientation.toLowerCase().equals("v")
                 || orientation.toLowerCase().equals("vertical")) {
-            this.orientation = "vertical";
+            this.orientation = OrientationType.VERTICAL;
         } else {
-            this.orientation = orientation;
+            this.orientation = OrientationType.ERROR;
         }
 
         logger.info("ORIENTATION INSTANCE CREATED.");
@@ -68,24 +63,30 @@ public class Orientation {
     }
 
     /**
-     * Checks if orientation is left
+     * Checks if orientation is left.
      */
     public boolean isHorizontal() {
-        return VALIDATION_PATTERN_HORIZONTAL.matcher(this.orientation).find();
+        return this.orientation == OrientationType.HORIZONTAL;
     }
 
     /**
-     * Checks if orientation is right
+     * Checks if orientation is right.
      */
     public boolean isVertical() {
-        return VALIDATION_PATTERN_VERTICAL.matcher(this.orientation).find();
+        return this.orientation == OrientationType.VERTICAL;
     }
 
+    /**
+     * Returns string of orientation.
+     */
     @Override
     public String toString() {
-        return this.orientation;
+        return this.orientation.toString();
     }
 
+    /**
+     * Checks if two given Orientation objects are equal by checking the enum value.
+     */
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
@@ -93,9 +94,39 @@ public class Orientation {
                 && orientation.equals(((Orientation) other).orientation)); // state check
     }
 
+    /**
+     * Hashes the object.
+     */
     @Override
     public int hashCode() {
         return orientation.hashCode();
     }
+
+    /**
+     * Enumeration for internal use.
+     */
+    private enum OrientationType {
+        HORIZONTAL("horizontal"),
+        VERTICAL("vertical"),
+        ERROR("error");
+
+        private final String orientationDescription;
+
+        /**
+         * Constructor.
+         */
+        OrientationType(String value) {
+            orientationDescription = value;
+        }
+
+        /**
+         * Returns orientation as a lowercase string.
+         */
+        @Override
+        public String toString() {
+            return this.orientationDescription;
+        }
+
+    };
 
 }

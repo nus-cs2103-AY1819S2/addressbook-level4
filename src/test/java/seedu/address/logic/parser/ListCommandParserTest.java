@@ -9,6 +9,7 @@ import java.util.Set;
 import org.junit.Test;
 
 import seedu.address.logic.commands.ListCommand;
+import seedu.address.model.battleship.Battleship;
 import seedu.address.model.battleship.Name;
 import seedu.address.model.tag.Tag;
 
@@ -18,15 +19,16 @@ public class ListCommandParserTest {
     @Test
     public void parse_allFieldsPresent_success() {
         Set<Tag> tagSet = new HashSet<>();
-        Name name = new Name("destroyer");
+        Set<Name> nameSet = new HashSet<>();
 
         Optional optionalTagSet = Optional.of(tagSet);
-        Optional optionalName = Optional.of(name);
+        Optional optionalNameSet = Optional.of(nameSet);
 
         assertParseSuccess(parser, "list", new ListCommand(Optional.empty(), Optional.empty()));
         tagSet.add(new Tag("amazing"));
-        assertParseSuccess(parser, "listTags t/amazing", new ListCommand(optionalTagSet, Optional.empty()));
+        nameSet.add(Battleship.BattleshipType.DESTROYER.getName());
+        assertParseSuccess(parser, "listTags t/amazing", new ListCommand(Optional.empty(), optionalTagSet));
         assertParseSuccess(parser, "listTags t/amazing n/destroyer",
-                new ListCommand(optionalTagSet, optionalName));
+                new ListCommand(optionalNameSet, optionalTagSet));
     }
 }

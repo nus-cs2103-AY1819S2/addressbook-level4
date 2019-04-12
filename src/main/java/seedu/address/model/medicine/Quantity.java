@@ -7,7 +7,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  * Represents the quantity of a Medicine in the inventory.
  * Guarantees: immutable; is valid as declared in {@link #isValidQuantity(String)}
  */
-public class Quantity {
+public class Quantity implements Comparable<Quantity> {
 
     public static final int MAX_QUANTITY = 1000000000;
     public static final int MIN_QUANTITY = 0;
@@ -58,6 +58,11 @@ public class Quantity {
         return other == this // short circuit if same object
                 || (other instanceof Quantity // instanceof handles nulls
                 && value == ((Quantity) other).value); // state check
+    }
+
+    @Override
+    public int compareTo(Quantity other) {
+        return Integer.compare(getNumericValue(), other.getNumericValue());
     }
 
     @Override

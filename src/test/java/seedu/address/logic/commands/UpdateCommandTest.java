@@ -30,6 +30,7 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.medicine.Batch;
 import seedu.address.model.medicine.BatchNumber;
+import seedu.address.model.medicine.Expiry;
 import seedu.address.model.medicine.Medicine;
 import seedu.address.model.medicine.Quantity;
 import seedu.address.testutil.BatchBuilder;
@@ -201,16 +202,17 @@ public class UpdateCommandTest {
         Batch batchToRemove = iter.next();
 
         assertTrue(iter.hasNext()); // There is one more batch after removing
-        Batch batchRemaining = iter.next();
 
         batches.remove(batchToRemove.getBatchNumber());
 
         int newQuantity = medicineToUpdate.getTotalQuantity().getNumericValue()
                 - batchToRemove.getQuantity().getNumericValue();
 
+        Expiry newExpiry = batches.values().stream().min(Comparator.comparing(Batch::getExpiry)).get().getExpiry();
+
         Medicine updatedMedicine = new MedicineBuilder(medicineToUpdate)
                 .withQuantity(Integer.toString(newQuantity))
-                .withExpiry(batchRemaining.getExpiry().toString())
+                .withExpiry(newExpiry.toString())
                 .withBatches(batches).build();
 
         Batch inputBatch = new BatchBuilder(batchToRemove).withQuantity("0").build();

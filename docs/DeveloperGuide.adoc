@@ -20,13 +20,13 @@ By: `Team T12-3`      Since: `Feb 2019`      Licence: `MIT`
 // tag::introduction[]
 == Introduction
 
-Welcome to the _MediTabs Developer Guide_. You can find step by step instructions on how to set up MediTabs project on your computer and modify the project to suit your needs. You can also find out more about the development process of MediTabs such as its design and implementation. Interested? You can jump to <<Setting Up>> to get started. Enjoy!
+Welcome to the _MediTabs Developer Guide_. You can find step by step instructions on how to set up MediTabs project on your computer and modify the project to suit your needs. You can also find out more about the development process of MediTabs such as its design and implementation. Interested? You can jump to <<Setting up>> to get started. Enjoy!
 
 === What is MediTabs
 
 MediTabs is a desktop application, developed using Java, for managing medicine stock taking. You can use MediTabs in your clinics to easily keep track of your medicine inventory and take note of important information such as which medicines are low in stock, expiring soon or have expired.
 
-MediTabs supports Windows, Linux and MacOS operating systems.
+MediTabs supports Windows, Linux and macOS operating systems.
 
 === Who is this guide for?
 
@@ -327,7 +327,7 @@ If the default `exported` directory is not found, it will be automatically creat
 [NOTE]
 Out of the three key operations stated above, *only* `CsvWrapper#export()` is a _public_ operation available for use by other components. It acts as the main interface which other components use to interact with `CsvWrapper` in order to integrate exporting to CSV file format feature into their own implementation.
 
-Given below is a sequence diagram overview of how these 3 key operations behaves when the user executes the `export` command in order to export the current medicine inventory data shown in the GUI to CSV file format:
+Given below is a sequence diagram overview of how these 3 key operations behave when the user executes the `export` command in order to export the current medicine inventory data shown in the GUI to CSV file format:
 
 .Export Command Sequence Diagram Overview
 image::ExportCommandSequenceDiagramOverview.png[width="800"]
@@ -365,7 +365,7 @@ image::ExportCommandActivityDiagram.png[width="800"]
 * **Alternative 1 (current choice):** Exports the current medicine inventory data shown in the GUI to CSV file format using the `export` command.
 ** Pros: Easy to implement and users can preview the data before exporting.
 ** Cons: May have performance issues in terms of memory usage.
-* **Alternative 2:** Individual commands can add an additional `export` parameter to support exporting as CSV file.
+* **Alternative 2:** Individual commands can add an additional `export` parameter to support exporting as CSV file format.
 ** Pros: Users can export directly through individual commands which support the additional `export` parameter (e.g. The `find` command with its additional `export` parameter set to true, exports the filtered medicine inventory data immediately without having to retrieve from `Model#getFilteredMedicineList()` operation).
 ** Cons: We must ensure that the implementation and integration of the exporting to CSV file of each individual commands are correct. Furthermore, users are not able to preview the data before exporting.
 
@@ -375,7 +375,7 @@ image::ExportCommandActivityDiagram.png[width="800"]
 ** Pros: Easy for developers to understand, especially for those who want to modify the way in which the data is organised when exported to CSV file format but have no prior knowledge on `Opencsv` Java CSV parser library.
 ** Cons: The time complexity of the algorithm is O(n) and might not be as efficient especially when a large amount of data is involved. Furthermore, it does not take full advantage of the more advanced features provided by the `Opencsv` Java CSV parser library.
 * **Alternative 2:** Use `Opencsv` Java CSV parser library's `StatefulBeanToCsvBuilder` operation for building the structure in which the data is organised from the list retrieved using the `Model#getFilterMedicineList()` operation when exporting to CSV file format.
-** Pros: Does not require iterating through the list and convert it to a String Array as we can use the library's `StatefulBeanToCsvBuilder` operation to build the structure from the list by passing the list as a parameter to the operation. Furthermore, the formatting process can be automated using the operation. It is also more efficient in terms of performance according to the library's documentation if ordering of the data exported is not a concern to the developer.
+** Pros: Does not require iterating through the list and convert it to a String Array as we can use the library's `StatefulBeanToCsvBuilder` operation to build the structure from the list by passing the list as a parameter to the operation. Furthermore, the formatting process can be automated using the operation. It is also more efficient in terms of performance according to the library's documentation if the ordering of the data exported is not a concern to the developer.
 ** Cons: Requires prior knowledge on the way in which the library's `StatefulBeanToCsvBuilder` operation works. If a developer wants to modify the data exported to be ordered in a specific format, it requires knowledge on the library's `MappingStrategy` related operations which may be complicated for developers new to the library.
 [NOTE]
 More information on `Opencsv` library's `StatefulBeanToCsvBuilder` operation can be found in the library's link:http://opencsv.sourceforge.net/[documentation].
@@ -621,11 +621,11 @@ File name *does not* include file extension such as `.csv` and `.pdf`.
 
 A list of reasons why we choose to create a `FileName` class for the validation of file name:
 
-* There are currently no third party libraries available for validating file name to ensure that the file name is platform independent. In other words, there are no public methods to validate the file name specified by the user to ensure that it is supported on Windows, Linux and MacOS operating systems.
+* There are currently no third party libraries available for validating file name to ensure that the file name is platform independent. In other words, there are no public methods to validate the file name specified by the user to ensure that it is supported on Windows, Linux and macOS operating systems.
 [IMPORTANT]
-There are certain naming conventions which have to be followed on Windows operating system which are not necessary on Linux and MacOS operating systems. You can read more about the naming conventions for Windows link:https://docs.microsoft.com/en-us/windows/desktop/FileIO/naming-a-file#naming-conventions[here]. You can also refer to link:https://en.wikipedia.org/wiki/Filename#Comparison_of_filename_limitations[this] Wikipedia article for a detailed comparison between different naming conventions for different operating systems.
+There are certain naming conventions which have to be followed on Windows operating system which are not necessary on Linux and macOS operating systems. You can read more about the naming conventions for Windows link:https://docs.microsoft.com/en-us/windows/desktop/FileIO/naming-a-file#naming-conventions[here]. You can also refer to link:https://en.wikipedia.org/wiki/Filename#Comparison_of_filename_limitations[this] Wikipedia article for a detailed comparison between different naming conventions for different operating systems.
 * Ensure consistency by creating a file naming convention.
-* Ensure that files created with file names specified by the user can be used on Windows, Linux and MacOS operating systems. This is to avoid potential bugs involving file names as MediTabs supports Windows, Linux and MacOS operating systems hence, the user might switch between these operating systems when using MediTabs.
+* Ensure that files created with file names specified by the user can be used on Windows, Linux and macOS operating systems. This is to avoid potential bugs involving file names as MediTabs supports Windows, Linux and macOS operating systems hence, the user might switch between these operating systems when using MediTabs.
 
 ==== Current Implementation
 
@@ -1043,7 +1043,7 @@ Use case resume at step 2.
 == Glossary
 
 [[mainstream-os]] Mainstream OS::
-Windows, Linux, Unix, OS-X
+Windows, Linux, Unix, macOS
 
 [[inventory]] Inventory::
 A complete list of goods in stock
@@ -1051,23 +1051,6 @@ A complete list of goods in stock
 [[batch]] Batch::
 A quantity or consignment of goods produced at one time
 
-
-[appendix]
-== Product Survey
-
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
 
 [appendix]
 == Instructions for Manual Testing

@@ -7,21 +7,19 @@
 
 ---
 
-== Overview of the project
+== 1. Overview of the Project
 My team and I were tasked with enhancing a basic command line addressbook for our Software Engineering project. We decided to morph the project into a image editor. +
 
-FomoFoto is a robust yet simple image-editing tool. Users interact with the application through worded commands from their keyboard, and receive visual feedback from it through the displayed image on the application. +
-
-Unlike other heavy image editors, FomoFoto has a very gentle learning curve as it abstracts out clutter by providing the more essential features (complex editing can still be done with special commands). The features and implementations are well documented in guides for users and developers respectively. +
+FomoFoto is a robust yet simple image-editing tool. Users interact with the application through worded commands from their keyboard, and receive visual feedback from it through the displayed image on the application. Unlike other heavy image editors, FomoFoto has a very gentle learning curve as it abstracts out clutter by providing the more essential features (complex editing can still be done with special commands). The features and implementations are well documented in guides for users and developers respectively. +
 
 In addition, FomoFoto is well maintained with high reliability and code quality as it is covered by rigorous tests and checks.
 
-== Summary of contributions
+== 2. Summary of Contributions
 This section provides a summary of my coding, documentation and miscellaneous contributions to FomoFoto, our team project.
 
-* *Major enhancement*: I added *image manipulation commands*
+* *Major Enhancement*: I added *image manipulation commands*.
 
-** _What it does:_ This feature allows the user manipulate images on a physical level, such as rotating, cropping and resizing the target image. Users key in keywords like `rotate`, `crop` and `resize` to activate the respective commands.
+** _What it does:_ This feature allows the user to manipulate images on a physical level, such as rotating, cropping and resizing the target image. Users key in keywords like `rotate`, `crop` and `resize` to activate the respective commands.
 
 ** _Justification:_ This feature improves the product significantly because it is an essential feature of an image editor. Users might want to `rotate` their images because the position is wrong or `crop` out certain unwanted parts in the image. Should the image be too large, the user can `resize` it as well.
 
@@ -29,35 +27,44 @@ This section provides a summary of my coding, documentation and miscellaneous co
 
 ** _Credits:_ https://github.com/rkalla/imgscalr[`ImgScalr Library`]
 
-* *Minor enhancement*: I added a feature where the `Image` returns a file type (e.g. JPEG), because edits to images are affected by the file type.
+* *Major Enhancement*: I added a *watermark command*.
 
-* *Code contributed*: https://github.com/CS2103-AY1819S2-W14-2/main/commits?author=kayheen[List of commits]
+** _What it does:_ This feature allows the user to add a watermark (any text or numbers) with the (c) sign to the target image. Users key in the keyword `wm` to activate this command.
 
-* *Other contributions*:
+** _Justification:_ This feature improves the product significantly because it helps users such as professional photographers protect their images after editing it on our image editor. The copyright watermark prevents unauthorised third parties from using the images for their own private purposes.
 
-** Project management:
-*** Ensured that we are on task with our project documentation by allocating roles and ensuring consistency with our words and diagrams. (user guide and developer guide)
+** _Highlights:_ It was especially challenging to integrate this command with all other commands acting on the same image, because a watermark should only be allowed to be added once to an image. This implied that we had to ensure that the `Image` class contains a flag that indicates the presence of a watermark on the image, and this flag had to be constantly updated accurately in every command that can possibly add or remove a watermark from an image, which includes the watermark command, setpreset command and undo-redo commands.
 
-** Enhancements to existing features (to be updated):
+* *Minor Enhancement*: I added a feature where the `Image` returns a file type (e.g. JPEG, PNG), because edits to images are affected by the file type.
+
+* *Code Contributed*: https://github.com/CS2103-AY1819S2-W14-2/main/commits?author=kayheen[List of commits]
+
+* *Other Contributions*:
+
+** Project Management:
+*** Ensured that we are on task with our project documentation by allocating roles and ensuring consistency with our words and diagrams. (User Guide and Developer Guide)
+
+** Enhancements to Existing Features:
 *** EXAMPLE: Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** EXAMPLE: Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
+*** Wrote tests for image manipulation and watermark commands to increase coverage. (Pull requests https://github.com/CS2103-AY1819S2-W14-2/main/pull/188[#188], https://github.com/CS2103-AY1819S2-W14-2/main/pull/208[#208], https://github.com/CS2103-AY1819S2-W14-2/main/pull/222[#222])
 
 ** Documentation:
 *** Did architecture and sequence diagram for the overall App: https://github.com/CS2103-AY1819S2-W14-2/main/pull/118[#118]
 *** Did the documentation for image manipulation: https://github.com/CS2103-AY1819S2-W14-2/main/pull/123/files[#123]
+*** Did the documentation for the watermark command: https://github.com/CS2103-AY1819S2-W14-2/main/pull/229[#229]
 
-** Community (to be updated):
-*** EXAMPLE: PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** EXAMPLE: Contributed to forum discussions (to be updated) (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** EXAMPLE: Reported bugs and suggestions for other teams in the class (to be updated once we review other people's code) (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
+** Community:
+*** PRs reviewed (with non-trivial review comments):
+https://github.com/CS2103-AY1819S2-W14-2/main/pull/220[#220],
+https://github.com/CS2103-AY1819S2-W14-2/main/pull/225[#225], https://github.com/CS2103-AY1819S2-W14-2/main/pull/235[#235], https://github.com[#19], https://github.com[#42]
+*** Reported bugs and suggestions for other teams in the class:  https://github.com/CS2103-AY1819S2-W16-2/main/issues/102[#102], https://github.com/CS2103-AY1819S2-W16-2/main/issues/108[#108], https://github.com/CS2103-AY1819S2-W16-2/main/issues/112[#112],
+https://github.com/CS2103-AY1819S2-W16-2/main/issues/115[#115],
+https://github.com/CS2103-AY1819S2-W16-2/main/issues/117[#117],
 
 ** Tools:
 *** Integrated a third party library (ImgScalr) to the project (https://github.com/CS2103-AY1819S2-W14-2/main/pull/26[#26])
 
-_{to add/remove categories in the list above once our coding is completed}_
-
-== Contributions to the User Guide
-
+== 3. Contributions to the User Guide
 
 |===
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
@@ -81,6 +88,8 @@ include::../UserGuide.adoc[tag=WaterMarkCommand]
 include::../DeveloperGuide.adoc[tag=Architecture]
 
 include::../DeveloperGuide.adoc[tag=ImageManipulation]
+
+include::../DeveloperGuide.adoc[tag=WaterMark]
 
 
 == PROJECT: PowerPointLabs

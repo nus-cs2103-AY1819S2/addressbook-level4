@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static seedu.address.commons.core.Messages.MESSAGE_PERSONS_LISTED_OVERVIEW;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_FILTERNAME;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_FILTERNAME;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
@@ -210,6 +211,7 @@ public class FilterCommandTest {
      * Parses {@code userInput} into a {@code NameContainsKeywordsPredicate}.
      */
     private FilterCommand.PredicatePersonDescriptor preparePredicatePersonDescriptor(String userInput) {
+        requireAllNonNull(userInput);
         FilterCommand.PredicatePersonDescriptor descriptor = new FilterCommand.PredicatePersonDescriptor();
         descriptor.setName(new HashSet<>(Arrays.asList(userInput.split("\\s+"))));
         return descriptor;

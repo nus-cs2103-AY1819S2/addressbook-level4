@@ -416,7 +416,7 @@ public class ModelManager implements Model {
     @Override
     public void removePredicateJobShortlist(String predicateName) {
         requireNonNull(predicateName);
-        filterListJobAllApplicants.remove(new Filter(predicateName));
+        filterListJobShortlist.remove(new Filter(predicateName));
     }
 
     @Override

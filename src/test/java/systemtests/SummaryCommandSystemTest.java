@@ -22,8 +22,8 @@ public class SummaryCommandSystemTest extends BookShelfSystemTest {
         Model expectedModel = getModel();
         String expectedResultMessage = "You've read 8 books.\n"
             + MESSAGE_NO_AUTHOR_PREFERED
-            + "These book receive a rating of 10 from you: To Kill a Mocking Bird\n"
-            + "You preferred books that you labeled as fantasy(including The Hunger Games, Life of Pi)\n";
+            + "Book(s) receive a rating of 10 from you: To Kill a Mocking Bird\n"
+            + "You prefer books that you labeled as fantasy(including The Hunger Games, Life of Pi)\n";
         assertCommandSuccess(command, expectedResultMessage, expectedModel);
 
         /* Case: undo previous summary command -> rejected */
@@ -45,10 +45,10 @@ public class SummaryCommandSystemTest extends BookShelfSystemTest {
         expectedModel.addBook(toAdd);
         assert(expectedModel.getBookShelf().getBookList().size() == 9);
         expectedResultMessage = "You've read 9 books.\n"
-                + "You prefered books by Erika Leonard, as you've read: "
+                + "You prefer books by Erika Leonard, as you've read: "
                 + "Fifty Shades of Grey, Fifty Shades Darker\n"
-                + "These book receive a rating of 10 from you: To Kill a Mocking Bird\n"
-                + "You preferred books that you labeled as fantasy(including The Hunger Games, Life of Pi)\n";
+                + "Book(s) receive a rating of 10 from you: To Kill a Mocking Bird\n"
+                + "You prefer books that you labeled as fantasy(including The Hunger Games, Life of Pi)\n";
         assertCommandSuccess(command, expectedResultMessage, expectedModel);
     }
 

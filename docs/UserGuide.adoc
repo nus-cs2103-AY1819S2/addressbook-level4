@@ -328,7 +328,7 @@ Format: `summary`
 Examples:
 
 * `summary`
-An example of a summary `You've read 9 books. You prefered books by Erika Leonard, as you've read: Fifty Shades of Grey, Fifty Shades Darker. These book receive a rating of 10 from you: To Kill a Mocking Bird. You preferred books that you labeled as fantasy(including The Hunger Games, Life of Pi).`
+An example of a summary `You've read 9 books. You prefer books by Erika Leonard, as you've read: Fifty Shades of Grey, Fifty Shades Darker. Book(s) receive a rating of 10 from you: To Kill a Mocking Bird. You prefer books that you labeled as fantasy(including The Hunger Games, Life of Pi).`
 
 // end::summary[]
 

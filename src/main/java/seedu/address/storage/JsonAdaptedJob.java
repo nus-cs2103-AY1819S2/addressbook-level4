@@ -83,6 +83,7 @@ class JsonAdaptedJob {
         final List<Nric> secondList = new ArrayList<>();
         final List<Nric> thirdList = new ArrayList<>();
         final List<Nric> fourthList = new ArrayList<>();
+        UniquePersonList personsInJob = new UniquePersonList();
 
         for (JsonAdaptedJobPersonList nric : list1) {
             firstList.add(nric.toModelType());
@@ -93,6 +94,9 @@ class JsonAdaptedJob {
             Person tempPerson = ab.getPerson(firstList.get(i));
             if (tempPerson == null) {
                 continue;
+            }
+            if (!personsInJob.contains(tempPerson)) {
+                personsInJob.add(tempPerson);
             }
             firstPList.add(tempPerson);
         }
@@ -107,6 +111,9 @@ class JsonAdaptedJob {
             if (tempPerson == null) {
                 continue;
             }
+            if (!personsInJob.contains(tempPerson)) {
+                personsInJob.add(tempPerson);
+            }
             secondPList.add(tempPerson);
         }
 
@@ -120,6 +127,9 @@ class JsonAdaptedJob {
             if (tempPerson == null) {
                 continue;
             }
+            if (!personsInJob.contains(tempPerson)) {
+                personsInJob.add(tempPerson);
+            }
             thirdPList.add(tempPerson);
         }
 
@@ -132,6 +142,9 @@ class JsonAdaptedJob {
             Person tempPerson = ab.getPerson(fourthList.get(i));
             if (tempPerson == null) {
                 continue;
+            }
+            if (!personsInJob.contains(tempPerson)) {
+                personsInJob.add(tempPerson);
             }
             fourthPList.add(tempPerson);
         }
@@ -155,7 +168,7 @@ class JsonAdaptedJob {
         }
         final JobName modelName = new JobName(jobName);
 
-        return new Job(modelName, personsHash, personsNricList);
+        return new Job(modelName, personsHash, personsNricList, personsInJob);
     }
 
 }

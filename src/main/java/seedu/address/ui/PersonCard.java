@@ -63,10 +63,10 @@ public class PersonCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         name.setText(person.getName().fullName);
         phone.setText(person.getPhone().value);
-        nric.setText(person.getNric().value);
+        //nric.setText(person.getNric().value);
         gender.setText(person.getGender().value);
         race.setText(person.getRace().value);
-        address.setText(person.getAddress().value);
+        //address.setText(person.getAddress().value);
         email.setText(person.getEmail().value);
         school.setText(person.getSchool().value);
         major.setText(person.getMajor().value);
@@ -74,7 +74,7 @@ public class PersonCard extends UiPart<Region> {
         interviewScores.setText(person.getInterviewScores().value);
         person.getPastJobs().forEach(pastjob -> pastjobs.getChildren().add(new Label(pastjob.value)));
         person.getJobsApply().forEach(jobApply -> jobsApply.getChildren().add(new Label(jobApply.value)));
-        person.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+        //person.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
     }
 
     @Override

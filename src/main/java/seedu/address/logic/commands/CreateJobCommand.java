@@ -2,7 +2,6 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_JOBNAME;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.ArrayList;
 import java.util.function.Predicate;
@@ -60,8 +59,8 @@ public class CreateJobCommand extends Command {
         Predicate<Person> predicator = new JobsApplyContainsKeywordsPredicate(jobNameCollection);
         model.updateFilteredPersonList(predicator);
         model.addFilteredPersonsToJob(toAdd.getName(), JobListName.STUB, JobListName.APPLICANT);
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         model.commitAddressBook();
+        model.updateFilteredPersonList();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 

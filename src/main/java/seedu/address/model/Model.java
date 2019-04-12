@@ -13,7 +13,6 @@ import seedu.address.model.interviews.Interviews;
 import seedu.address.model.job.Job;
 import seedu.address.model.job.JobListName;
 import seedu.address.model.job.JobName;
-import seedu.address.model.person.Nric;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.person.predicate.UniqueFilterList;
@@ -85,7 +84,7 @@ public interface Model {
     /**
      * adds person with {@code nric} to {@code job}.
      */
-    boolean addPersonToJob(JobName job, Nric nric);
+    void addPersonToJob(Job job, Person person, JobListName list);
 
     /**
      * Deletes the given person.
@@ -116,7 +115,7 @@ public interface Model {
      * from list {@code source} to list {@code dest}
      * {@code job} must exist in the address book.
      */
-    Integer movePerson(JobName jobName, Nric nric, Integer source, Integer dest);
+    Integer movePerson(Job job, Person person, Integer source, Integer dest);
 
     /**
      * Replaces the given person {@code target} with {@code editedPerson}.
@@ -124,6 +123,11 @@ public interface Model {
      * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
      */
     void setPerson(Person target, Person editedPerson);
+
+    /**
+     * add Predicate to All persons list
+     */
+    void addPredicateAllPersons(String predicateName, Predicate<Person> predicate);
 
     /**
      * add Predicate to JobShortlist
@@ -144,9 +148,17 @@ public interface Model {
      * add Predicate to JobAllApplicants
      */
     void addPredicateJobAllApplicants(String predicateName, Predicate<Person> predicate);
+
     /**
-     * Returns one of the UniqueFilterList in the job
+     * remove Predicate to All persons
      */
+    void removePredicateAllPersons(String predicateName);
+
+    /**
+     * remove Predicate to All persons
+     */
+    void clearPredicateAllPersons();
+
     /**
      * remove Predicate to JobShortlist
      */
@@ -191,9 +203,10 @@ public interface Model {
      */
     ObservableList<Person> getFilteredPersonList();
 
-    /** Returns an unmodifiable view of the filtered  people list in job */
+    /** Returns an unmodifiable view of the filtered  people list in job
+     * @param list*/
 
-    ObservableList<Person> getJobsList(int listNum);
+    ObservableList<Person> getJobsList(JobListName list);
 
     /** Returns an unmodifiable view of the filtered job list */
     ObservableList<Job> getAllJobs();
@@ -209,6 +222,19 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateBaseFilteredPersonList(Predicate<Person> predicate);
+
+    /**
+     * Updates the filter of the filtered person list to filter by the given {@code predicate}.
+     *
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredPersonList(Predicate<Person> predicate);
+
+    /**
+     * Updates the filter of the active filtered person list to filter.
+     *
+     */
+    void updateFilteredPersonList();
 
     /**
      * Updates the filter of the JobAllApplcants filtered person list to filter by the given {@code predicate}.
@@ -234,13 +260,6 @@ public interface Model {
     void updateJobShortlistFilteredPersonList();
 
     /**
-     * Updates the filter of the active filtered person list to filter by the given {@code predicate}.
-     *
-     * @throws NullPointerException if {@code predicate} is null.
-     */
-    void updateFilteredPersonList(Predicate<Person> predicate);
-
-    /**
      * Clear four filter list.
      */
     void clearJobFilteredLists();
@@ -257,8 +276,17 @@ public interface Model {
      */
     void revertList();
 
-
+    /**
+     * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
+     * {@code versionedAddressBook}
+     */
     ObservableList<Job> getFilteredJobList();
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
+     * {@code versionedAddressBook}
+     */
+    ObservableList<Person> getBaseFilteredPersonList();
 
     /**
      * Returns true if the model has previous address book states to restore.

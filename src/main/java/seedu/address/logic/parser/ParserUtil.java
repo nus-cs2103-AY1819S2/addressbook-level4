@@ -51,7 +51,7 @@ public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
     public static final String MESSAGE_INVALID_MAX_INTERVIEWS_A_DAY =
-        "Maximum number of interviews a day is not a non-zero unsigned integer.";
+            "Maximum number of interviews a day is not a non-zero unsigned integer.";
     public static final String MESSAGE_INVALID_DATE = "Not a valid date.";
 
     /**
@@ -487,6 +487,36 @@ public class ParserUtil {
         } else {
             return false;
         }
+    }
+
+    /**
+     * Check if the date range provided is valid.value
+     */
+    protected static boolean isValidValueRange(String range) {
+        String trimedRange = range.trim();
+        String[] bounds = trimedRange.split("-");
+        if (bounds.length != 2) {
+            return false;
+        }
+        String trimedLower = bounds[0].trim();
+        String trimedUpper = bounds[1].trim();
+        String floatFarmat = "\\d+" + "." + "\\d+";
+        String integerFarmat = "\\d+";
+        boolean isValidLower = trimedLower.matches(floatFarmat) || trimedLower.matches(integerFarmat);
+        boolean isValidUpper = trimedUpper.matches(floatFarmat) || trimedLower.matches(integerFarmat);
+        return isValidLower && isValidUpper;
+    }
+
+    /**
+     * Check if the date range provided is valid. Takes a list of string
+     */
+    protected static boolean isValidValueRange(List<String> rangeList) {
+        for (String range : rangeList) {
+            if (!isValidValueRange(range)) {
+                return false;
+            }
+        }
+        return true;
     }
 
     /**

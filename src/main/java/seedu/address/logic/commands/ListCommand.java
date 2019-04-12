@@ -1,7 +1,6 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
@@ -23,7 +22,8 @@ public class ListCommand extends Command {
         model.revertList();
         model.clearJobFilteredLists();
         model.setIsAllJobScreen(true);
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        model.clearPredicateAllPersons();
+        model.updateFilteredPersonList();
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

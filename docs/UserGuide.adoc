@@ -53,9 +53,9 @@ E.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Items in square brackets are optional (can be supplied once or not at all) e.g `n/NAME [a/AUTHOR]` can be used as `n/Alice in Wonderland a/Jack` or as `n/Alice in Wonderland`.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/fantasy`, `t/fantasy t/textbook` etc.
 * Parameters can be in any order e.g. if the command specifies `n/NAME a/AUTHOR`, `a/AUTHOR n/NAME` is also acceptable.
-* Book name, review title and review content only accepts alphanumeric characters, space, `*`, `,`, `.`, `?`, `'`, `(`, `)` and `&`.
-* Author name and tag only accepts alphanumeric characters and spaces.
-* Book name and author name should not exceed 50 characters (space included).
+* Book name, review title and review content should only contain alphanumeric characters, space, `*`, `,`, `.`, `?`, `'`, `(`, `)` and `&`.
+* Author and tag should only contain alphanumeric characters and spaces.
+* Book name and author should not exceed 50 characters (space included).
 * Review title should not exceed 50 characters (space included).
 * Review content should not exceed 400 characters (space included).
 * Rating should be an integer from 0 to 10 inclusive and the input should be 1 or 2 digit number.

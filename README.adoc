@@ -15,9 +15,13 @@ endif::[]
 
 == What Is This?
 
-This is a simple restaurant management application intended to ease the management of front-end operations in restaurants.
+RestOrRant is a simple restaurant management application intended to increase the efficiency of front-end operations in restaurants.
+Our application is specifically targeted at restaurants that are still using traditional methods like pen and paper to run their front-end operations.
+This serves as a simple and affordable alternative for restaurants who do not require the comprehensive
+set of end-to-end features provided by other restaurant management systems in the market.
+
 This is a desktop application that has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
-Hence, our target users are restaurant waiters and managers who can type fast and prefer typing over clicking on GUI.
+Hence, our target users are restaurant managers, waiters and cashiers who can type fast and prefer typing over clicking on GUI.
 
 == What Can It Do?
 
@@ -25,12 +29,10 @@ It can...
 
 * Display the current status of the restaurant at any time.
 * Manage the use of tables in the restaurant.
-* Track all orders for all tables in the restaurant.
+* Track orders for individual tables and across all tables.
+* Calculate the bill for each order.
 * Update the availability of items on the restaurant's menu.
-* Consolidate statistics of the restaurant.
-** Total revenue
-** Total number of customers
-** Order frequency of menu items
+* Consolidate revenue and order statistics of the restaurant.
 
 == Site Map
 

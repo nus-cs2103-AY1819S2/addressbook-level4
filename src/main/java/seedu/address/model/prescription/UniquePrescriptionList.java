@@ -111,6 +111,13 @@ public class UniquePrescriptionList implements Iterable<Prescription> {
     }
 
     @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof UniquePrescriptionList // instanceof handles nulls
+                && internalList.equals(((UniquePrescriptionList) other).internalList));
+    }
+
+    @Override
     public int hashCode() {
         return internalList.hashCode();
     }

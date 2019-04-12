@@ -189,7 +189,7 @@
 }
 
 .status-bar .label {
-    -fx-font-family: "Segoe UI Light";
+    -fx-font-family: "Segoe UI Semibold";
     -fx-pref-height: 30px;
     -fx-text-fill: #f3f4f8;
     -fx-padding: 5 11 5 11;

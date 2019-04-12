@@ -402,6 +402,7 @@ Format : `selectInterview [INDEX] [INDEX-INDEX] [all]`
 
 Generate interview dates for applicants in slaveFinder().
 Interview dates cannot be generated again if they are already present.
+Dates generated exclude weekends and block out dates(see below).
 Format : `generateInterviews`
 
 ==== Clear Interview Dates : `clearInterviews`

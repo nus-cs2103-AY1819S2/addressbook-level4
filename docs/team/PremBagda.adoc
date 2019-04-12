@@ -2,63 +2,126 @@
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
+:sectnums:
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:warning-caption: :warning:
+:experimental:
+endif::[]
+:toc-placement: preamble
 
-== PROJECT: TravelBuddy
+image::prembagda.png[width="150", align="left"]
+{empty}[https://github.com/PremBagda[Github]] | [https://www.linkedin.com/in/prembagdawala/[LinkedIn]]
 
+= PROJECT: TravelBuddy
+
+This project portfolio serves to document my contribution to *TravelBuddy*, a desktop application developed as a
+Software Engineering team project for the National University of Singapore (NUS) module CS2103T. The
+link:https://cs2103-ay1819s2-w11-3.github.io/main/AboutUs.html[team] comprised of 4 NUS computer science students,
+including myself.
+
+The application was developed over the span of 8 weeks in Academic Year 18/19 Semester 2 using an iterative approach.
+During that time, we
+were
+asked to morph an existing desktop application link:https://se-education.org/addressbook-level4/[AddressBook Level 4],
+which is made up of 10KLoC in Java. One main user requirement was the preference of the user to interact with the
+application using Command Line Interface (CLI) rather than a Graphical User Interface (GUI). The final product we
+created is link:https://travelbuddy-cs2103.netlify.com/[TravelBuddy], which is detailed below.
+
+'''
 
 == Overview
 
-TravelBuddy - Level 4 is a desktop address book application used for teaching Software Engineering principles. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+TravelBuddy is a travel journal desktop application for travel enthusiasts to record places which they have previously
+visited. With the recorded data, travellers can search for places visited based on specified filters such as rating
+and tags. Using the data, the application can analyse travel history and generate statistics. Users
+can also store their
+travel photos on TravelBuddy, which can help them remember and reminisce the places they have visited before.
 
-== Summary of contributions
+My role in the project was to design and write the code for the Create, Read, Update and Delete (CRUD) feature. The
+following
+sections showcase, in
+greater detail, my contributions and enhancements added to TravelBuddy, as well as the documentation of these enhancements in the User Guide and Developer Guide.
 
-* *Major enhancement*: added *the ability to undo/redo previous commands*
-** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
-** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+== Summary of Contributions
 
-* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
+=== Major Enhancement
+The major enhancement I added was *the ability to add, list, edit and delete places in Travelbuddy*
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+*What it does*: It allows users to add, list, edit and delete places in TravelBuddy.
 
-* *Other contributions*:
+*Justification*: The user needs to be able to add the places into TravelBuddy. When the user applies some filters
+such as rating, a limited number of places would be shown. In order for the user to see all the places again, the
+list command would be used. The user may make some mistakes when adding a place, for which the edit command can be
+used to rectify the mistake. The user may have accidentally added a place, for which the delete command allows the user
+to remove the specific place.
 
-** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
-** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
-** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
-** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
-** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
+*Highlights*: This enhancement involved a large amount of refactoring and careful crafting of test cases to test
+thoroughly the Date Visited field.
 
-_{you can add/remove categories in the list above}_
+*Overall code contributed*: link:https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#search=Prem&sort=displayName&since=2019-02-10&until=2019-04-10&timeframe=day&reverse=false&repoSort=true[Commits]
+
+=== Minor Enhancement
+The minor enhancement I did was to convert the Person object from the original code base to a Place object.
+
+*Code contributed to minor enhancement*: link:https://github.com/CS2103-AY1819S2-W11-3/main/commit/436363babbf8fd7458afb5957bae481f4656fa58[Convert Place to Person]
+
+
+=== Other contributions
+
+The table below documents the various other contributions that I made to TravelBuddy.
+
+[width="100%",cols="20%,<80%"]
+|=======================================================================
+|*Project management*
+a|As the leader, I spearheaded project planning and managed the project scope. I conducted weekly meetings and
+managed the scheduling of tasks so as to prevent merge conflicts.
+
+|*Enhancements to existing features*
+a|Updated tests and wrote additional tests to convert people in address book to places in TravelBuddy and improve coverage: +
+https://github.com/cs2103-ay1819s2-w11-3/main/pull/50[#50], https://github.com/CS2103-AY1819S2-W11-3/main/pull/115[#115]
+
+|*Documentation*
+a|* Updated AboutUs with the responsibilities of team members: https://github.com/cs2103-ay1819s2-w11-3/main/pull/12[#12]
+* Updated the User Guide with features I added and FAQ section: https://github.com/cs2103-ay1819s2-w11-3/main/pull/53[#53], https://github.com/cs2103-ay1819s2-w11-3/main/pull/63[#63], https://github.com/cs2103-ay1819s2-w11-3/main/pull/77[#77], https://github.com/cs2103-ay1819s2-w11-3/main/pull/85[#85], https://github.com/CS2103-AY1819S2-W11-3/main/pull/174[#174]
+* Updated the User Guide with a command cheatsheet: https://github.com/cs2103-ay1819s2-w11-3/main/pull/101[#101]
+* Updated the Developer Guide with features I added and diagrams for illustration purposes: https://github.com/cs2103-ay1819s2-w11-3/main/pull/68[#68], https://github.com/cs2103-ay1819s2-w11-3/main/pull/85[#85], https://github.com/cs2103-ay1819s2-w11-3/main/pull/101[#101], https://github.com/CS2103-AY1819S2-W11-3/main/pull/162[#162], https://github.com/CS2103-AY1819S2-W11-3/main/pull/174[#174]
+* Fixed documentation errors found during testing: https://github.com/CS2103-AY1819S2-W11-3/main/pull/135[#135]
+
+|*Community*
+a|* Reviewed pull requests (with non-trivial review comments): https://github.com/cs2103-ay1819s2-w11-3/main/pull/84[#84]
+* Reported bugs and helped to fix bugs: https://github.com/cs2103-ay1819s2-w11-3/main/pull/82[#82], https://github.com/CS2103-AY1819S2-W11-3/main/pull/118[#118], https://github.com/CS2103-AY1819S2-W11-3/main/pull/161[#161]
+* Tested other projects and reported bugs: https://github.com/CS2103-AY1819S2-T12-4/main/issues/223[#223], https://github.com/CS2103-AY1819S2-T12-4/main/issues/225[#225], https://github.com/CS2103-AY1819S2-T12-4/main/issues/227[#227], https://github.com/CS2103-AY1819S2-T12-4/main/issues/231[#231], https://github.com/CS2103-AY1819S2-T12-4/main/issues/238[#238], https://github.com/CS2103-AY1819S2-T12-4/main/issues/240[#240], https://github.com/CS2103-AY1819S2-T12-4/main/issues/246[#246], https://github.com/CS2103-AY1819S2-T12-4/main/issues/248[#248]
+|=======================================================================
 
 == Contributions to the User Guide
 
+The original User Guide was updated to match the enhancements implemented in TravelBuddy.
 
 |===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|_Given below is the start of an excerpt from the User Guide which I had contributed. They demonstrate my ability to
+write easy-to-follow documentation targeting end-users._
 |===
 
 include::../UserGuide.adoc[tag=crud]
 
 include::../UserGuide.adoc[tag=delete]
 
-== Contributions to the Developer Guide
-
 |===
-|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|This marks the end of the excerpt from the User Guide.
+|===
+
+== Contributions to the Developer Guide
+The original Developer Guide was updated to match the logic of the enhancements implemented in TravelBuddy.
+|===
+|_Given below is the start of an excerpt from the Developer Guide which I had contributed. They demonstrate my ability to
+  write technical documentation and the technical depth of my contributions to the project._
 |===
 
 include::../DeveloperGuide.adoc[tag=countrycode]
 
+|===
+|This marks the end of the excerpt from the Developer Guide.
+|===
 

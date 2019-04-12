@@ -6,17 +6,13 @@ import java.util.function.Predicate;
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.person.Person;
 import seedu.address.model.person.healthworker.HealthWorker;
 import seedu.address.model.request.Request;
 
 /**
  * The API of the Model component.
- * TODO: Overhaul to only have components needed for HealthHub
  */
 public interface Model {
-    /** {@code Predicate} that always evaluate to true */
-    Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
 
     /** {@code Predicate} that always evaluate to true */
     Predicate<HealthWorker> PREDICATE_SHOW_ALL_HEALTHWORKERS = unused -> true;
@@ -102,6 +98,11 @@ public interface Model {
 
     void commitHealthWorkerBook();
 
+    /**
+     * Updates the healthStaff field in Request class upon editing the name of a HealthWorker
+     */
+    void updateRequestOnNameEdit(String oldName, String newName, String nric);
+
     // ================== Request related code =========================================
     // @author David, Hui Chun
 
@@ -162,6 +163,11 @@ public interface Model {
      * {@code request} must not already exist in the request book.
      */
     void addRequest(Request request);
+
+    /**
+     * Checks if the provide name string of a HealthWorker is assigned to any existing requests
+     */
+    boolean isAssigned(String name);
 
     /**
      * Clears existing backing model and replaces with the provided new data.

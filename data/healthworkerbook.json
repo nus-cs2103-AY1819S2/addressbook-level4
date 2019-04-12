@@ -10,7 +10,7 @@
     "phone" : "87654321",
     "nric" : "S9975823K",
     "organization" : "NUH",
-    "skills" : "PHYSIOTHERAPY ORTHOPAEDIC "
+    "skills" : "ORTHOPAEDIC PHYSIOTHERAPY "
   }, {
     "name" : "David Dev",
     "phone" : "89047389",
@@ -52,7 +52,7 @@
     "phone" : "91238894",
     "nric" : "S1874810J",
     "organization" : "NUS",
-    "skills" : "CARDIOLOGY NEUROLOGY "
+    "skills" : "NEUROLOGY CARDIOLOGY "
   }, {
     "name" : "Aaron Tan",
     "phone" : "81940213",
@@ -70,6 +70,6 @@
     "phone" : "93750182",
     "nric" : "S1111222G",
     "organization" : "NUH",
-    "skills" : "PHYSIOTHERAPY ORTHOPAEDIC "
+    "skills" : "ORTHOPAEDIC PHYSIOTHERAPY "
   } ]
 }

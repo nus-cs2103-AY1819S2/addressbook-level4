@@ -28,14 +28,12 @@ public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final VersionedHealthWorkerBook versionedHealthWorkerBook;
-
     private final VersionedRequestBook versionedRequestBook;
     private final ModifyCommandHistory modifyCommandHistory;
     private final UserPrefs userPrefs;
 
     private final FilteredList<HealthWorker> filteredHealthWorkers;
 
-    // TODO make the relevant changes to the model manager
     // TODO get versionedAddressBook tests to pass
     private final FilteredList<Request> filteredRequests;
     private final SimpleObjectProperty<Person> selectedPerson = new SimpleObjectProperty<>();
@@ -162,11 +160,14 @@ public class ModelManager implements Model {
         return userPrefs.getHealthWorkerBookFilePath();
     }
 
-    /**
-     * Checks if the provided HealthWorker name string as been assigned to any existing request.
-     */
+    @Override
     public boolean isAssigned(String name) {
         return this.versionedRequestBook.isAssigned(name);
+    }
+
+    @Override
+    public void updateRequestOnNameEdit(String oldName, String newName, String nric) {
+        this.versionedRequestBook.updateHealthWorker(oldName, newName, nric);
     }
 
     //=========== Undo/Redo =================================================================================

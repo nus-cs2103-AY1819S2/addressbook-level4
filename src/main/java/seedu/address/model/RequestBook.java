@@ -99,6 +99,13 @@ public class RequestBook implements ReadOnlyRequestBook {
     }
 
     /**
+     * Updates the names of existing healthstaff in Request when the name field is updated in the HealthWorker objects.
+     */
+    public void updateHealthWorker(String oldName, String newName, String nric) {
+        this.requests.updateHealthWorker(oldName, newName, nric);
+    }
+
+    /**
      * @return an unmodifiable view of the request list. This list will not contain any duplicate requests.
      */
     @Override

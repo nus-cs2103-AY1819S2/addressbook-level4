@@ -678,8 +678,8 @@ The Save feature's format is: `save FILE_PATH`
 2. If the input is valid, ParserUtil creates a ParsedInOut object and returns it to SaveCommandParser. +
 3. SaveCommandParser creates SaveCommand initialized with the ParsedInOut object. +
 4. SaveCommand checks for if the requested file is a ".json" file or ".pdf" file. It also checks if the file is Read-only. +
-5a. SaveCommand calls the existing saveAddressBook() if the requested file is a ".json" file. +
-5b. SaveCommand calls the new saveAsPdf() if the requested file is a ".pdf" file.
+4a. SaveCommand calls the existing saveAddressBook() if the requested file is a ".json" file. +
+4b. SaveCommand calls the new saveAsPdf() if the requested file is a ".pdf" file.
 
 ==== Export feature
 ===== Current Implementation
@@ -693,11 +693,12 @@ image::ExportCommandActivityDiagram.png[width="870"]
 1. The ExportCommandParser uses ParserUtil to parse the user input. +
 2. If the input is valid, ParserUtil creates a ParsedInOut object and returns it to ExportCommandParser. +
 3. ExportCommandParser creates ImportCommand initialized with the ParsedInOut object. +
-4. ExportCommand checks for if the requested file is a ".json" file, if the file exists, if it is a file, or if it can be read. +
-5a. ExportCommand add contents from the current storage to the temporary storage based on the input INDEX_RANGE. +
-    5b. ExportCommand calls SaveCommand if INDEX_RANGE is `all`. Refer to Save feature. +
-6a. ExportCommand calls the existing saveAddressBook() if the requested file is a ".json" file. +
-6b. ExportCommand calls the new saveAsPdf() if the requested file is a ".pdf" file.
+4. ExportCommand checks if INDEX_RANGE is `all`. +
+4a. ExportCommand calls SaveCommand if INDEX_RANGE is `all`. Refer to Save feature. +
+4b. Otherwise, ExportCommand add contents from the current storage to the temporary storage based on the input INDEX_RANGE. +
+5. ExportCommand checks for if the requested file is a ".json" file or ".pdf" file. It also checks if the file is Read-only. +
+5a. ExportCommand calls the existing saveAddressBook() if the requested file is a ".json" file. +
+5b. ExportCommand calls the new saveAsPdf() if the requested file is a ".pdf" file.
 
 === Suggestion feature
 ===== Design Considerations

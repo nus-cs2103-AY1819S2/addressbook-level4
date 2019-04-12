@@ -72,7 +72,7 @@ public class RecordFindCommandParserTest {
     }
 
     @Test
-    public void parseANDOperator_validDescArgs_returnsPatientFindCommand() {
+    public void parseAndOperator_validDescArgs_returnsPatientFindCommand() {
         MultipleContainsKeywordsPredicate<Record> tempPred =
             new MultipleContainsKeywordsPredicate<>(Collections.emptyList(), true, true);
         List<ContainsKeywordsPredicate> predicateList = new ArrayList<>();
@@ -87,7 +87,7 @@ public class RecordFindCommandParserTest {
     }
 
     @Test
-    public void parseCaseSensitiveANDOperator_validDescArgs_returnsPatientFindCommand() {
+    public void parseCaseSensitiveAndOperator_validDescArgs_returnsPatientFindCommand() {
         MultipleContainsKeywordsPredicate<Record> tempPred =
             new MultipleContainsKeywordsPredicate<>(Collections.emptyList(), false, true);
         List<ContainsKeywordsPredicate> predicateList = new ArrayList<>();

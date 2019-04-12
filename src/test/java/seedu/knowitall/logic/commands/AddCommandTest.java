@@ -140,6 +140,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public String getActiveCardFolderName() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ReadOnlyCardFolder getActiveCardFolder() {
             throw new AssertionError("This method should not be called.");
         }

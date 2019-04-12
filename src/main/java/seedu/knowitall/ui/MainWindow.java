@@ -17,6 +17,7 @@ import seedu.knowitall.logic.Logic;
 import seedu.knowitall.logic.commands.CommandResult;
 import seedu.knowitall.logic.commands.exceptions.CommandException;
 import seedu.knowitall.logic.parser.exceptions.ParseException;
+import seedu.knowitall.model.ReadOnlyCardFolder;
 import seedu.knowitall.model.card.Card;
 
 /**
@@ -197,7 +198,8 @@ public class MainWindow extends UiPart<Stage> {
      */
     private void handleEndTestSession() {
         fullScreenPlaceholder.getChildren().remove(fullScreenPlaceholder.getChildren().size() - 1);
-        statusBarFooter.updateStatusBarInFolder();
+        ReadOnlyCardFolder activeFolder = logic.getCardFolder();
+        statusBarFooter.updateStatusBarInFolder(activeFolder.getFolderName());
     }
 
     /**
@@ -208,7 +210,8 @@ public class MainWindow extends UiPart<Stage> {
                 logic::setSelectedCard);
         cardMainScreen = new CardMainScreen(cardListPanel, browserPanel);
         fullScreenPlaceholder.getChildren().add(cardMainScreen.getRoot());
-        statusBarFooter.updateStatusBarInFolder();
+        ReadOnlyCardFolder activeFolder = logic.getCardFolder();
+        statusBarFooter.updateStatusBarInFolder(activeFolder.getFolderName());
     }
 
     /**
@@ -242,7 +245,8 @@ public class MainWindow extends UiPart<Stage> {
      */
     private void handleEndReport() {
         fullScreenPlaceholder.getChildren().remove(fullScreenPlaceholder.getChildren().size() - 1);
-        statusBarFooter.updateStatusBarInFolder();
+        ReadOnlyCardFolder activeFolder = logic.getCardFolder();
+        statusBarFooter.updateStatusBarInFolder(activeFolder.getFolderName());
     }
 
 

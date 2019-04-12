@@ -73,10 +73,13 @@ public interface Model extends Observable {
      */
     void resetCardFolder(ReadOnlyCardFolder cardFolder);
 
-    /** Returns the active CardFolder */
+    /** Returns the name of the active {@code CardFolder} */
+    String getActiveCardFolderName();
+
+    /** Returns the active {@code CardFolder} */
     ReadOnlyCardFolder getActiveCardFolder();
 
-    /** Returns all CardFolders */
+    /** Returns all {@code CardFolders} */
     List<ReadOnlyCardFolder> getCardFolders();
 
     /**

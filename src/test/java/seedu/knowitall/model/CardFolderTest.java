@@ -2,6 +2,7 @@ package seedu.knowitall.model;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.knowitall.logic.commands.CommandTestUtil.VALID_HINT_HUSBAND;
 import static seedu.knowitall.testutil.TypicalCards.ALICE;
@@ -22,7 +23,6 @@ import javafx.beans.InvalidationListener;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
 import seedu.knowitall.model.card.Card;
 import seedu.knowitall.model.card.exceptions.DuplicateCardException;
 import seedu.knowitall.testutil.CardBuilder;
@@ -37,6 +37,10 @@ public class CardFolderTest {
     @Test
     public void constructor() {
         assertEquals(Collections.emptyList(), cardFolder.getCardList());
+
+        CardFolder newData = getTypicalCardFolder();
+        cardFolder.resetData(newData);
+        assertEquals(newData.getCardList(), cardFolder.getCardList());
     }
 
     @Test
@@ -49,7 +53,14 @@ public class CardFolderTest {
     public void resetData_withValidReadOnlyCardFolder_replacesData() {
         CardFolder newData = getTypicalCardFolder();
         cardFolder.resetData(newData);
-        assertEquals(newData, cardFolder);
+        assertEquals(newData.getCardList(), cardFolder.getCardList());
+    }
+
+    @Test
+    public void resetData_withValidReadOnlyCardFolder_doesNotReplaceName() {
+        CardFolder newData = getTypicalCardFolder();
+        cardFolder.resetData(newData);
+        assertNotEquals(newData, cardFolder);
     }
 
     @Test

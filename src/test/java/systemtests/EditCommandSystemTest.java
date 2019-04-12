@@ -249,7 +249,7 @@ public class EditCommandSystemTest extends CardFolderSystemTest {
         } else {
             assertSelectedCardUnchanged();
         }
-        assertStatusBarIsInFolder();
+        assertStatusBarIsInFolder(expectedModel.getActiveCardFolderName());
     }
 
     /**
@@ -270,6 +270,6 @@ public class EditCommandSystemTest extends CardFolderSystemTest {
         assertApplicationDisplaysExpected(command, expectedResultMessage, expectedModel);
         assertSelectedCardUnchanged();
         assertCommandBoxShowsErrorStyle();
-        assertStatusBarIsInFolder();
+        assertStatusBarIsInFolder(expectedModel.getActiveCardFolderName());
     }
 }

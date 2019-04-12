@@ -191,6 +191,7 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
 .Interactions Inside the Logic Component for the `delete 1` Command
 image::DeleteCardSdForLogic.png[width="800"]
 
+//tag::modeldesign[]
 [[Design-Model]]
 === Model component
 
@@ -206,6 +207,7 @@ The `Model`,
 * exposes unmodifiable instances of `FilteredList<Card>` and `FilteredList<VersionedCardFolder>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
+//end::modeldesign[]
 
 [NOTE]
 As a more OOP model, we can change the `Card` implementation to be that of a parent class, from which 2 subclasses, `SingleAnswerCard` and `McqCard` can inherit from. This would eliminate the need for the `Card` class to maintain a Set of MCQ `Options` even if it is a Single-answer card. An example of how such a model may look like is given below. +
@@ -265,11 +267,11 @@ image:CardImplementationAddExample.png[width="800"]
 
 3. Upon execution, the `AddCommand` checks if the card to be added is already present in the current folder. If so, an exception is thrown.
 
-2. The `AddCommand` then calls the `ModelManager#addCard(Card card)` method.
+4. The `AddCommand` then calls the `ModelManager#addCard(Card card)` method.
 
-3. The new card will then be added to the active `VersionedCardFolder`.
+5. The new card will then be added to the active `VersionedCardFolder`.
 
-4. If the user is not inside a folder, or if the card to add already exists inside the current folder, the `addCommand` will throw a `CommandException`.
+6. If the user is not inside a folder, or if the card to add already exists inside the current folder, the `addCommand` will throw a `CommandException`.
 
 The following sequence diagram demonstrates how `AddCommand` works.
 

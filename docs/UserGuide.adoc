@@ -238,7 +238,7 @@ Opens the file in the specified file path and overwrites the current data. +
 Format: `open FILE_PATH`
 
 `FILE_PATH`: +
-Any alphabet and numbers are allowed. +
+Any letters in the English alphabet and numbers are allowed. +
 Allowed special characters are: +
 `! @ # $ % ^ & ( ) _ + - = { } [ ] ; ' , .` +
 Special characters *NOT* allowed are: +
@@ -265,7 +265,7 @@ Otherwise, it will overwrite the existing file.** +
 Format: `save FILE_PATH`
 
 `FILE_PATH`: +
-Any alphabet and numbers are allowed. +
+Any letters in the English alphabet and numbers are allowed. +
 Allowed special characters are: +
 `! @ # $ % ^ & ( ) _ + - = { } [ ] ; ' , .` +
 Special characters *NOT* allowed are: +
@@ -288,7 +288,7 @@ Opens the file in the specified file path and adds the specified patients to the
 Format: `import FILE_PATH INDEX_RANGE`
 
 `FILE_PATH`: +
-Any alphabet and numbers are allowed. +
+Any letters in the English alphabet and numbers are allowed. +
 Allowed special characters are: +
 `! @ # $ % ^ & ( ) _ + - = { } [ ] ; ' , .` +
 Special characters *NOT* allowed are: +
@@ -330,7 +330,7 @@ Otherwise, it will overwrite the existing file.** +
 Format: `export FILE_PATH INDEX_RANGE`
 
 `FILE_PATH`: +
-Any alphabet and numbers are allowed. +
+Any letters in the English alphabet and numbers are allowed. +
 Allowed special characters are: +
 `! @ # $ % ^ & ( ) _ + - = { } [ ] ; ' , .` +
 Special characters *NOT* allowed are: +

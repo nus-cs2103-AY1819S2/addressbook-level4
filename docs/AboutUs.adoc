@@ -4,9 +4,7 @@
 :imagesDir: images
 :stylesDir: stylesheets
 
-AddressBook - FomoFoto was developed by CS2103-AY1819S2-W14-2 +
-_{The dummy content given below serves as a placeholder to be used by future forks of the project.}_ +
-{empty} +
+FomoFoto was developed by CS2103-AY1819S2-W14-2 +
 We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
 
 == Project Team
@@ -15,17 +13,20 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 image::Carrein.png[width="150", align="left"]
 {empty}[https://github.com/Carrein[github]] [<<carrein#, portfolio>>]
 
-Role: Team Lead +
-Responsibilities: Scheduling and Tracking, UI
-
+*Role:* +
+Team Lead +
+*Responsibilities:* +
+User Interface and Model design
 '''
 
 === Tan Qun Wei Randy
 image::randytqw.png[width="150", align="left"]
 {empty}[https://github.com/randytqw[github]] [<<randytqw#, portfolio>>]
 
-Role: Developer +
-Responsibilities: Integration, Image State Management (Undo, Redo)
+*Role:* +
+Developer +
+*Responsibilities:* +
+Integration, Image State Management (Undo, Redo)
 
 '''
 
@@ -33,8 +34,9 @@ Responsibilities: Integration, Image State Management (Undo, Redo)
 image::itszp.png[width="150", align="left"]
 {empty}[https://github.com/itszp[github]] [<<itszp#, portfolio>>]
 
-Role: Developer +
-Responsibilities: Code Quality, Image and Directory Navigation (Open, Save, ListFiles)
+*Role:* +
+Developer +
+*Responsibilities:* Code Quality, Image and Directory Navigation (Open, Save, ListFiles)
 
 '''
 
@@ -42,8 +44,10 @@ Responsibilities: Code Quality, Image and Directory Navigation (Open, Save, List
 image::thamsimun.png[width="150", align="left"]
 {empty}[https://github.com/thamsimun[github]] [<<thamsimun#, portfolio>>]
 
-Role: Developer +
-Responsibilities: Testing, Image Filters
+*Role:* + 
+Developer +
+*Responsibilities:* +
+Testing, Image Filters
 
 '''
 
@@ -51,7 +55,9 @@ Responsibilities: Testing, Image Filters
 image::kayheen.png[width="150", align="left"]
 {empty}[https://github.com/kayheen[github]] [<<kayheen#, portfolio>>]
 
-Role: Developer +
-Responsibilities: Documentation, Image Manipulation
+*Role:* +
+Developer +
+*Responsibilities:* +
+Documentation, Image Manipulation
 
 '''

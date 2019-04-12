@@ -18,8 +18,10 @@ public class PatientFindCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + " or " + COMMAND_WORD2
             + ": Finds all patient whose particulars contain any of "
-            + "the specified parameter's keywords (case-insensitive) and displays them as a list with index numbers.\n"
-            + "Parameters: prefix/KEYWORD [MORE_KEYWORDS]...\n"
+            + "the specified parameter's keywords and displays them as a list with index numbers.\n"
+            + "Specifying CS will search for case sensitivity, while specifying AND will search for patients containing"
+            + "all of the keywords.\n"
+            + "Parameters: [CS] [AND] prefix/KEYWORD [MORE_KEYWORDS]...\n"
             + "Example: " + COMMAND_WORD + " n/alice bob charlie";
 
     private ContainsKeywordsPredicate predicate;

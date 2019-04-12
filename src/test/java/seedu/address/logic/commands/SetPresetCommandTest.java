@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.logic.commands.CommandTestUtil.assertPresetCommandFailure;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import java.util.List;
@@ -118,7 +119,7 @@ public class SetPresetCommandTest {
             }
             System.out.println(expectedMessage);
             System.out.println(currentEdit.getTempImage().toString());
-            assertCommandFailure(setPresetCommand, model, commandHistory, expectedMessage, currentEdit);
+            assertPresetCommandFailure(setPresetCommand, model, commandHistory, expectedMessage, currentEdit);
         } catch (Exception e) {
             System.out.println(e.toString());
         }

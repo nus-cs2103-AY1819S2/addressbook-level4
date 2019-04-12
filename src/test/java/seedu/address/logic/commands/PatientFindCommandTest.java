@@ -380,7 +380,7 @@ public class PatientFindCommandTest {
         List<ContainsKeywordsPredicate> predicateList = new ArrayList<>();
 
         for (int i = 0; i < inputs.length; i++) {
-            predicateList.add(prepareNamePredicate(inputs[i], paras[i], isIgnoreCase, isAnd));
+            predicateList.add(preparePatientPredicate(inputs[i], paras[i], isIgnoreCase, isAnd));
         }
         tempPred.setPredicateList(predicateList);
         return tempPred;
@@ -399,7 +399,7 @@ public class PatientFindCommandTest {
                                                  boolean isIgnoreCase, boolean isAnd,
                                                  List<Person> expectedList) throws ParseException {
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, expectedNum);
-        ContainsKeywordsPredicate predicate = prepareNamePredicate(userInput, parameter, isIgnoreCase, isAnd);
+        ContainsKeywordsPredicate predicate = preparePatientPredicate(userInput, parameter, isIgnoreCase, isAnd);
         PatientFindCommand command = new PatientFindCommand(predicate);
         expectedModel.updateFilteredPersonList(predicate);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
@@ -409,8 +409,8 @@ public class PatientFindCommandTest {
     /**
      * Parses {@code userInput} into a {@code NameContainsKeywordsPredicate}.
      */
-    private ContainsKeywordsPredicate prepareNamePredicate(String userInput, String parameter, boolean isIgnoreCase,
-                                                           boolean isAnd) throws ParseException {
+    private ContainsKeywordsPredicate preparePatientPredicate(String userInput, String parameter, boolean isIgnoreCase,
+                                                              boolean isAnd) throws ParseException {
         switch(parameter) {
         case "name":
             return new NameContainsKeywordsPredicate(Arrays.asList(userInput.split("\\s+")), isIgnoreCase, isAnd);

@@ -19,6 +19,7 @@ import static seedu.travel.logic.commands.CommandTestUtil.INVALID_RATING_DESC;
 import static seedu.travel.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
 import static seedu.travel.logic.commands.CommandTestUtil.NAME_DESC_AMK;
 import static seedu.travel.logic.commands.CommandTestUtil.NAME_DESC_BEDOK;
+import static seedu.travel.logic.commands.CommandTestUtil.PHOTO_DESC_AMK;
 import static seedu.travel.logic.commands.CommandTestUtil.PREAMBLE_NON_EMPTY;
 import static seedu.travel.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
 import static seedu.travel.logic.commands.CommandTestUtil.RATING_DESC_AMK;
@@ -30,6 +31,7 @@ import static seedu.travel.logic.commands.CommandTestUtil.VALID_COUNTRY_CODE_BED
 import static seedu.travel.logic.commands.CommandTestUtil.VALID_DATE_VISITED_BEDOK;
 import static seedu.travel.logic.commands.CommandTestUtil.VALID_DESCRIPTION_BEDOK;
 import static seedu.travel.logic.commands.CommandTestUtil.VALID_NAME_BEDOK;
+import static seedu.travel.logic.commands.CommandTestUtil.VALID_PHOTO_AMK;
 import static seedu.travel.logic.commands.CommandTestUtil.VALID_RATING_BEDOK;
 import static seedu.travel.logic.commands.CommandTestUtil.VALID_TAG_EWL;
 import static seedu.travel.logic.commands.CommandTestUtil.VALID_TAG_MRT;
@@ -99,6 +101,13 @@ public class AddCommandParserTest {
         assertParseSuccess(parser, NAME_DESC_BEDOK + COUNTRY_CODE_DESC_BEDOK + DATE_VISITED_DESC_BEDOK
                 + RATING_DESC_BEDOK + DESCRIPTION_BEDOK + ADDRESS_DESC_BEDOK
                 + TAG_DESC_EWL + TAG_DESC_MRT, new AddCommand(expectedPlaceMultipleTags));
+
+        // photo - photo accepted
+        Place expectedPlaceWithPhoto = new PlaceBuilder(BEDOK).withPhoto(VALID_PHOTO_AMK).buildWithPhoto();
+        assertParseSuccess(parser, NAME_DESC_BEDOK + COUNTRY_CODE_DESC_BEDOK + DATE_VISITED_DESC_BEDOK
+                + RATING_DESC_BEDOK + DESCRIPTION_BEDOK + ADDRESS_DESC_BEDOK
+                + TAG_DESC_EWL + TAG_DESC_MRT + PHOTO_DESC_AMK,
+                new AddCommand(expectedPlaceWithPhoto));
     }
 
     @Test

@@ -143,17 +143,16 @@ public class ParserUtil {
      */
     public static Photo parsePhoto(String filepath) throws ParseException {
         requireNonNull(filepath);
-        String trimmedFilepath;
+        String trimmedFilepath = filepath.trim();
 
-        if (filepath.substring(0, 1).equals("\"")) {
-            trimmedFilepath = filepath.substring(1, filepath.length() - 1);
-        } else {
-            trimmedFilepath = filepath;
+
+        if (trimmedFilepath.substring(0, 1).equals("\"")) {
+            trimmedFilepath = trimmedFilepath.substring(1, filepath.length() - 1);
         }
 
         if (!Photo.isValidPhotoFilepath(trimmedFilepath)) {
 
-            if (filepath.equals(EMPTY_PHOTO_PATH)) {
+            if (trimmedFilepath.equals(EMPTY_PHOTO_PATH)) {
                 return new Photo(EMPTY_PHOTO_PATH);
             } else {
                 throw new ParseException(Photo.MESSAGE_CONSTRAINTS);

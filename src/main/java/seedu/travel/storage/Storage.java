@@ -42,11 +42,11 @@ public interface Storage extends TravelBuddyStorage, UserPrefsStorage, ChartBook
     void saveTravelBuddy(ReadOnlyTravelBuddy travelBuddy) throws IOException;
 
     @Override
-    void saveCountryChart(ReadOnlyCountryChart countryChart) throws IOException;
+    void saveCountryChart(ReadOnlyCountryChart countryChart);
 
     @Override
-    void saveRatingChart(ReadOnlyRatingChart ratingChart) throws IOException;
+    void saveRatingChart(ReadOnlyRatingChart ratingChart);
 
     @Override
-    void saveYearChart(ReadOnlyYearChart yearChart) throws IOException;
+    void saveYearChart(ReadOnlyYearChart yearChart);
 }

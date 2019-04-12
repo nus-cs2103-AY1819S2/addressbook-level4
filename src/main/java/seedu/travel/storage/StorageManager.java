@@ -1,5 +1,6 @@
 package seedu.travel.storage;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.List;
@@ -75,34 +76,34 @@ public class StorageManager implements Storage {
     }
 
     @Override
-    public List<ReadOnlyCountryChart> readCountryChart() {
+    public List<ReadOnlyCountryChart> readCountryChart() throws FileNotFoundException {
         return readCountryChart(chartBookStorage.getCountryChartFilePath());
     }
 
     @Override
-    public List<ReadOnlyCountryChart> readCountryChart(Path filePath) {
+    public List<ReadOnlyCountryChart> readCountryChart(Path filePath) throws FileNotFoundException {
         logger.fine("Attempting to read data from file: " + filePath);
         return chartBookStorage.readCountryChart(filePath);
     }
 
     @Override
-    public List<ReadOnlyRatingChart> readRatingChart() {
+    public List<ReadOnlyRatingChart> readRatingChart() throws FileNotFoundException {
         return readRatingChart(chartBookStorage.getRatingChartFilePath());
     }
 
     @Override
-    public List<ReadOnlyRatingChart> readRatingChart(Path filePath) {
+    public List<ReadOnlyRatingChart> readRatingChart(Path filePath) throws FileNotFoundException {
         logger.fine("Attempting to read data from file: " + filePath);
         return chartBookStorage.readRatingChart(filePath);
     }
 
     @Override
-    public List<ReadOnlyYearChart> readYearChart() {
+    public List<ReadOnlyYearChart> readYearChart() throws FileNotFoundException {
         return readYearChart(chartBookStorage.getYearChartFilePath());
     }
 
     @Override
-    public List<ReadOnlyYearChart> readYearChart(Path filePath) {
+    public List<ReadOnlyYearChart> readYearChart(Path filePath) throws FileNotFoundException {
         logger.fine("Attempting to read data from file: " + filePath);
         return chartBookStorage.readYearChart(filePath);
     }
@@ -130,34 +131,34 @@ public class StorageManager implements Storage {
     }
 
     @Override
-    public void saveCountryChart(ReadOnlyCountryChart countryChart) throws IOException {
+    public void saveCountryChart(ReadOnlyCountryChart countryChart) {
         saveCountryChart(countryChart, chartBookStorage.getCountryChartFilePath());
     }
 
     @Override
-    public void saveCountryChart(ReadOnlyCountryChart countryChart, Path filePath) throws IOException {
+    public void saveCountryChart(ReadOnlyCountryChart countryChart, Path filePath) {
         logger.fine("Attempting to write to country data file: " + filePath);
         chartBookStorage.saveCountryChart(countryChart, filePath);
     }
 
     @Override
-    public void saveRatingChart(ReadOnlyRatingChart ratingChart) throws IOException {
+    public void saveRatingChart(ReadOnlyRatingChart ratingChart) {
         saveRatingChart(ratingChart, chartBookStorage.getRatingChartFilePath());
     }
 
     @Override
-    public void saveRatingChart(ReadOnlyRatingChart ratingChart, Path filePath) throws IOException {
+    public void saveRatingChart(ReadOnlyRatingChart ratingChart, Path filePath) {
         logger.fine("Attempting to write to rating data file: " + filePath);
         chartBookStorage.saveRatingChart(ratingChart, filePath);
     }
 
     @Override
-    public void saveYearChart(ReadOnlyYearChart yearChart) throws IOException {
+    public void saveYearChart(ReadOnlyYearChart yearChart) {
         saveYearChart(yearChart, chartBookStorage.getYearChartFilePath());
     }
 
     @Override
-    public void saveYearChart(ReadOnlyYearChart yearChart, Path filePath) throws IOException {
+    public void saveYearChart(ReadOnlyYearChart yearChart, Path filePath) {
         logger.fine("Attempting to write to year data file: " + filePath);
         chartBookStorage.saveYearChart(yearChart, filePath);
     }

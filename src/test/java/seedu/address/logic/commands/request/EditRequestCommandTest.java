@@ -5,6 +5,7 @@ import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.REQ_DESC_ALICE;
 import static seedu.address.logic.commands.CommandTestUtil.REQ_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BENSON;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NRIC_ANDY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NRIC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BENSON;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
@@ -35,7 +36,6 @@ class EditRequestCommandTest {
     private Model model = new ModelManager(getTypicalHealthWorkerBook(),
             getTypicalRequestBook(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
-    private final String validNric = "S9217324G";
 
     @Test
     void execute_oneFieldsSpecifiedUnfilteredList_success() {
@@ -48,8 +48,7 @@ class EditRequestCommandTest {
         expectedModel.updateRequest(model.getFilteredRequestList().get(0), editedRequest);
         expectedModel.commitRequestBook();
 
-        //assertCommandSuccess(editRequestCommand, model, commandHistory, expectedMessage,
-        //expectedModel);
+        assertCommandSuccess(editRequestCommand, model, commandHistory, expectedMessage, expectedModel);
     }
 
     @Test
@@ -64,14 +63,13 @@ class EditRequestCommandTest {
         expectedModel.updateRequest(model.getFilteredRequestList().get(0), editedRequest);
         expectedModel.commitRequestBook();
 
-        //assertCommandSuccess(editRequestCommand, model, commandHistory, expectedMessage,
-        //expectedModel);
+        assertCommandSuccess(editRequestCommand, model, commandHistory, expectedMessage, expectedModel);
     }
 
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
         Request editedRequest = new RequestBuilder(BENSON_REQUEST).withNric(VALID_NRIC_BOB)
-                .withHealthWorker(validNric).build();
+                .withHealthWorker(VALID_NRIC_ANDY).build();
         EditRequestCommand.EditRequestDescriptor descriptor = new EditRequestDescriptorBuilder(editedRequest).build();
         EditRequestCommand editRequestCommand = new EditRequestCommand(INDEX_FIRST, descriptor);
         String expectedMessage = String.format(EditRequestCommand.MESSAGE_EDIT_REQUEST_SUCCESS, editedRequest);
@@ -80,8 +78,7 @@ class EditRequestCommandTest {
         expectedModel.updateRequest(model.getFilteredRequestList().get(0), editedRequest);
         expectedModel.commitRequestBook();
 
-        //assertCommandSuccess(editRequestCommand, model, commandHistory, expectedMessage,
-        //expectedModel);
+        assertCommandSuccess(editRequestCommand, model, commandHistory, expectedMessage, expectedModel);
     }
 
     @Test

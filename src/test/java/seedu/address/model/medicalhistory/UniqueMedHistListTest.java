@@ -10,6 +10,7 @@ import java.util.List;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+
 import seedu.address.model.medicalhistory.exceptions.DuplicateMedHistException;
 import seedu.address.model.medicalhistory.exceptions.MedHistNotFoundException;
 import seedu.address.testutil.MedHistBuilder;

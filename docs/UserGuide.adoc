@@ -95,8 +95,79 @@ NOTE: Files with the same name can be added to our application provided that
 they are not in the same directory. Just as any Operating System would allow the
 existence of files with the same name in different directories.
 
-Format: `add f/PATH_TO_FILE` [Text Input] +
-Format: `add` [GUI]
+The Add feature has the following syntax:
+
+[.big]#`add`#
+
+[.big]#`add f/<PATH_TO_FILE> t/<TAG>...`#
+
+* `f/` refers to the command immediately following after this prefix is a file
+* `<PATH_TO_FILE>` refers to the path to the `Pdf` you wish to add
+* `<TAG>...` refers to the new `Tag` you wish to add. Leave this portion empty if you
+do not wish to tag this file.
+* Entering `add` without `<INDEX>` or  `<NEWDIRECTORY>` will open the default file
+selection GUI for the user to add the file directly.
+
+[NOTE]
+Please ensure that you have entered the full `PATH_TO_FILE`. Please refer to
+`Step-by-Step Guide -- add` below for detailed explanation.
+
+==== Feature breakdown
+Illustrated below is a sample usage scenario that provides a clear view to the inner
+workings of the Add feature.
+
+Step 1: The user launches the application with either an existing set of `Pdf` or a new
+sample set of `Pdf` stored within as shown below.
+
+image::AddFeatureStep1Default.png[width="600"]
+
+Step 2: The user navigates to the folder with the file and copy the directory.
+
+* __For Windows__
+Once the user has navigated to the folder, click on the address bar and copy
+
+image::AddFeatureStep2CopyDirectory.png[width="600"]
+
+* __For Mac__
+
+Step 3: The user enters the `add` command into the CLI interface, following the
+outlined syntax as illustrated below.
+
+[NOTE]
+Your users must type the file name **after** the directory copied at __Step 2__
+
+image::AddFeatureStep3UserInput.png[width="600"]
+
+[NOTE] you can enter `add` and hit enter, to open up a GUI for you to select the file you
+wish to add.
+
+Step 4: Upon hitting enter to execute the command, the *AddCommandParser* parses the input
+into several components that are required to be executed by the *AddCommand*.
+
+Upon parsing, the parser then creates a new *AddCommand* that will be executed according to
+the your input.
+
+Step 5: Upon receiving the necessary information from the parser, the `AddCommand` first
+begins by checking for validity as shown below.
+
+* Duplicate `Pdf` found in PDF++
+
+image::AddFeatureStep5DuplicateFound.png[width="600"]
+
+* `Pdf` does not exist in directory
+
+image::AddFeatureStep5PdfNotFound.png[width="600"]
+
+* `Pdf` found and no duplication in PDF++
+
+image::AddFeatureStep5Sucess.png[width="600"]
+
+Step 6: If the validity check and the individual property check passes, the file is then
+added to PDF++
+
+[NOTE]
+As of v1.2, the Add feature is only capable of adding 1 `Pdf` file at a time. By v2.0,
+the feature will support adding multiple files.
 
 * The file must be a PDF file (with .pdf extension).
 

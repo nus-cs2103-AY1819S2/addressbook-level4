@@ -567,7 +567,10 @@ specified to be searched.
 // end::findimplement[]
 
 === File Management
-Although TeethHub already has a built-in auto-load and auto-save, implementing file management would give the user more flexibility with managing data. PDF export is also implemented so that the user would have an easier time making sense of the data when offline.
+Although TeethHub already has a built-in auto-load and auto-save, implementing file management would give the user more flexibility with managing data. +
+PDF export is also implemented so that the user would have an easier time making sense of the data when offline.
+
+The File Management features are: `Open`, `Save`, `Import`, `Export`
 
 [NOTE]
 ============================================================
@@ -588,10 +591,10 @@ Use a combination of commas and dashes to indicate a range as well. e.g. `1-3,5`
 `all` can be used instead to include everything. e.g. `import test.json all` or `export test.json all`
 ============================================================
 
-===== Design Considerations
+==== Design Considerations
 
 Current implementation: (Open/Import/Save/Export)Command -> InOutAddressBookStorage -> JsonUtil -> FileUtil +
-* **Alternative 1a:** Open/Import/Save/Export a .json file by calling JsonUtil or FileUtil.
+* **Alternative 1a:** Open/Import/Save/Export a .json file by calling JsonUtil or FileUtil. +
 Alternative 1a.1: (Open/Import/Save/Export)Command -> Json Util -> FileUtil +
 Alternative 1a.2: (Open/Import/Save/Export)Command -> FileUtil +
 ** Pros: Less overhead and faster runtime as there are less classes to go through. +
@@ -607,22 +610,23 @@ Alternative 1b.3: (Save/Export)Command -> PdfUtil +
 
 Current implementation: The Import/Export featues accept index ranges that are larger than the actual index range of the content to be imported/exported. +
 * **Alternative 2:** Don't allow indexes out of range for Import/Export. +
-** Pros: Less overhead and faster runtime as there are less characters in the regex to match.
-** Cons: User would need to know the total amount of 
+** Pros: User cannot input a very large index range. This prevents a scenario where a very large range causes slow runtime and increased memory due to the amount of indexes to process. +
+** Cons: User may feel frustration of being denied due to minor mistakes. e.g. `export data.json 1-31` being rejected when there are only 30 entries. As our goal when designing TeethHub was to make things easier for the user, we decided to go with our current implementation.
 
 Current implementation: The Import/Export features accept the `all` keyword in place of an index range. +
 * **Alternative 3:** Don't parse "all" keyword for Import/Export. +
-** Pros: Faster runtime as there are less characters in the regex to match.
-** Cons: User would need to know the total amount of patients in the external file if importing. Otherwise, the user might resort to inputting a very large index range, which would slow down runtime and increase memory needed due to the amount of indexes to process.
+** Pros: Faster runtime as there are less characters in the regex to match. +
+** Cons: User would need to know the total amount of patients in the external file if importing. Otherwise, the user might resort to inputting a very large index range, which would slow down runtime and increase memory needed due to the amount of indexes to process. We chose the current implementation to provide an alternative so that it would discourage users from inputting a very large index range.
 
 Current implementation: The Export feature calls the Save feature when the `all` keyword is detected. +
-* **Alternative 3a:** Don't parse "all" keyword for Export. +
-** Pros: Less overhead and faster runtime as there are less classes to go through. +
-** Cons: User would need to know the total amount of 
+* **Alternative 3a:** Don't parse `all` keyword for Export. +
+** Pros: Less overhead and faster runtime as there the regex would not need to look for `all` +
+** Cons: In the current implementation, Import and Export share the same parser as Import and Export share the same format of `command FILE_PATH INDEX_RANGE`. Since Import uses the `all` keyword, not parsing `all` would require an additional parser for Export. Furthermore, as the accepted inputs of Open and Save are the same (except for .pdf), the user may expect the same accepted inputs for Import and Export as well.
 
 ==== Open feature
 ===== Current Implementation
 As TeethHub already has a built-in auto-load when starting the program, the implemented Open feature is simple. +
+*The Open feature opens the specified file and overwrites the current TeethHub data with the file data.*
 The Open feature's format is: `open FILE_PATH`
 
 0. AddressBookParser creates OpenCommandParser. +
@@ -637,6 +641,7 @@ image::OpenCommandSequenceDiagram.jpg[width="870"]
 ==== Save feature
 ===== Current Implementation
 As TeethHub already has a built-in auto-save when exiting the program, the implemented Save feature makes use of it. +
+*The Save feature saves all current TeethHub data to the specified file.* +
 In addition to that, the Save can also save to PDF, using the Apache PDFBox. +
 In the Open Command Sequence Diagram above, you can see that OpenCommand creates an InOutAddressBookStorage. The InOutAddressBookStorage has the capability to call the existing saveAddressBook() and also a new saveAsPdf(). +
 The Save feature's format is: `save FILE_PATH`
@@ -652,7 +657,7 @@ The Save feature's format is: `save FILE_PATH`
 ==== Import feature
 ===== Current Implementation
 As TeethHub already has a built-in auto-load when starting the program, the implemented Import feature makes use of it. +
-The reason
+*The Import feature opens the specified file and adds the file data to the current TeethHub data.*
 The Import feature's format is: `import FILE_PATH INDEX_RANGE`
 
 0. AddressBookParser creates ImportCommandParser. +
@@ -660,9 +665,27 @@ The Import feature's format is: `import FILE_PATH INDEX_RANGE`
 2. If the input is valid, ParserUtil creates a ParsedInOut object and returns it to ImportCommandParser. +
 3. ImportCommandParser creates ImportCommand initialized with the ParsedInOut object. +
 4. ImportCommand checks for if the requested file is a ".json" file, if the file exists, if it is a file, or if it can be read. +
-5. ImportCommand calls the existing readAddressBook() on a temporary storage.
-6. ImportCommand adds contents from the temporary storage to the current storage based on the input INDEX_RANGE.
-6a. ImportCommand adds all contents from the temporary storage to the current storage if INDEX_RANGE is `all`.
+5. ImportCommand calls the existing readAddressBook() on a temporary storage. +
+6a. ImportCommand adds contents from the temporary storage to the current storage based on the input INDEX_RANGE. +
+6b. ImportCommand adds all contents from the temporary storage to the current storage if INDEX_RANGE is `all`.
+
+==== Export feature
+===== Current Implementation
+As TeethHub already has a built-in auto-save when starting the program, the implemented Export feature makes use of it. +
+The reason 
+The Export feature's format is: `export FILE_PATH INDEX_RANGE`
+
+image::ExportCommandActivityDiagram.png[width="870"]
+
+0. AddressBookParser creates ExportCommandParser. +
+1. The ExportCommandParser uses ParserUtil to parse the user input. +
+2. If the input is valid, ParserUtil creates a ParsedInOut object and returns it to ExportCommandParser. +
+3. ExportCommandParser creates ImportCommand initialized with the ParsedInOut object. +
+4. ExportCommand checks for if the requested file is a ".json" file, if the file exists, if it is a file, or if it can be read. +
+5a. ExportCommand add contents from the current storage to the temporary storage based on the input INDEX_RANGE. +
+    5b. ExportCommand calls SaveCommand if INDEX_RANGE is `all`. Refer to Save feature. +
+6a. ExportCommand calls the existing saveAddressBook() if the requested file is a ".json" file. +
+6b. ExportCommand calls the new saveAsPdf() if the requested file is a ".pdf" file.
 
 === Suggestion feature
 ===== Design Considerations

@@ -346,7 +346,11 @@ public class ModelManager implements Model {
         }
         activeJobShortlist.setPredicate(predicater);
     }
-
+    @Override
+    public void updateFilteredPersonList(Predicate<Person> predicate) {
+        requireNonNull(predicate);
+        displayedFilteredPersons.setPredicate(predicate);
+    }
     @Override
     public void updateFilteredPersonList() {
         Predicate<Person> predicater = new PredicateManager();

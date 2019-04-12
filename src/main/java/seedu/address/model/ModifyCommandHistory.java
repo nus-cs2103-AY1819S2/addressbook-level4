@@ -3,9 +3,6 @@ package seedu.address.model;
 import java.util.ArrayList;
 import java.util.List;
 
-//import seedu.address.logic.commands.Command;
-
-//import seedu.address.model.BookType;
 
 /**
  * Class that stores history of commands that modify the respective Books.

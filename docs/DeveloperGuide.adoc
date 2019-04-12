@@ -711,8 +711,8 @@ In addition, by returning a single `Predicate` object, ease of implementation
 ==== Current Implementation
 
 The undo/redo mechanism is facilitated by `VersionedBook`.
-There are two implementations of it. One extending `HealthWorkerBook` and the other extending `RequestBook`.
-Both contain an undo/redo history, stored internally as an `healthWorkerBookStateList`/`requestBookStateList`
+There are two implementations of it. `VersionedHealthWorkerBook` extends `HealthWorkerBook` and `VersionedRequestBook` extends `RequestBook`.
+Both contain an undo/redo history, stored internally as an `healthWorkerBookStateList` or `requestBookStateList`
  and `currentStatePointer`.
 Additionally, it implements the following operations:
 
@@ -720,11 +720,11 @@ Additionally, it implements the following operations:
 * `VersionedBook#undo()` -- Restores the previous request/healthworker book state from its history.
 * `VersionedBook#redo()` -- Restores a previously undone request/healthworker book state from its history.
 
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()`
-and `Model#redoAddressBook()` respectively.
+These operations are exposed in the `Model` interface as `Model#commit()`, `Model#undo()`
+and `Model#redo()` respectively.
 
 
-The feature also makes use `ModifyCommandManager` to keep track of the commands that modified the books. It contains
+The feature also makes use `ModifyCommandHistory` to keep track of the commands that modified the books. It contains
 `currentStatePointer` and a list of `CommandType` enums to differenciate the type of command to undo or redo.
 Similar to `CommandMode`, the various `CommandType` enums are:
 
@@ -733,44 +733,49 @@ Similar to `CommandMode`, the various `CommandType` enums are:
 
 
 Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
-{to be updated}
 
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+Step 1. The user launches the application for the first time. The `VersionedRequestBook` and `VersionedHealthWorkerBook` will be initialized with the initial state,
+ and the `currentStatePointer` for each `VersionedBook` pointing to that single book state.
+Since no modify command has been initial `currentStatePointer` of `ModifyCommandHistory` is initialized to -1.
 
 image::UndoRedoStartingStateListDiagram.png[width="800"]
 
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+Step 2. The user executes `delete r 5` command to delete the 5th request in request book. The `delete r` command calls `Model#commit(REQUEST_COMMAND)`, causing the modified state of the request book after the `delete r 5` command executes to be saved in the `requestBookStateList`, and the `currentStatePointer` is shifted to the newly inserted request book state.
+Since the request book is modified, the enum `CommandType.REQUEST_COMMAND` is added to the `modifyCommandHistory` list within the `ModifyCommandHistory` class.
+
 
 image::UndoRedoNewCommand1StateListDiagram.png[width="800"]
 
-Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
+Step 3. The user executes `add h n/David ...` to add a new healthworker. The `add h` command also calls `Model#commit(HEALTHWORKER_COMMAND)`, causing a modified healthworker book state to be saved into the `healthworkerBookStateList` and the `currentStatePointer` is shifted to the newly inserted healthworker book state.
+The enum `HEALTHWORKER_COMMAND` is added into the `modifyCommandHistory` list of the `ModifyCommandHistory` class.
 
 image::UndoRedoNewCommand2StateListDiagram.png[width="800"]
 
 [NOTE]
-If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
+If a command fails its execution, it will not call `Model#commit()`, so the book state will not be saved into the `healthworkerBookStateList` or `requestBookStateList`.
 
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
+Step 4. The user now decides that adding the health worker was a mistake, and decides to undo that action by executing the `undo` command.
+The `undo` command will call `Model#undo()`, which will first obtain the type of command that needs to be undone by caling  `ModifyCommandHistory#getUndoCommand()`. In this case `HEALTHWORKER_COMMAND` is returned, and hence will call undo on `VersionedHealthWorkerBook`. It will shift the `currentStatePointer` once to the left, pointing it to the previous health worker book state, and restores the health worker book to that state.
 
 image::UndoRedoExecuteUndoStateListDiagram.png[width="800"]
 
 [NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+If the `currentStatePointer` of both `VersionedHealthWorkerBook` and `VersionedRequestBook` is at index 0, pointing to the initial book state for both books, then there are no previous states to restore. The `undo` command uses `Model#canUndo()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
 
 The following sequence diagram shows how the undo operation works:
 
 image::UndoRedoSequenceDiagram.png[width="800"]
 
-The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
+The `redo` command does the opposite -- it calls `Model#redo()`, which first obtains the command type by calling `ModifyCommandHistory#getRedoCommand()` and based on the returned command type it shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the respective book to that state.
 
 [NOTE]
-If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+If the `currentStatePointer` of both `VersionedBook` s are pointing to the latest state, then there are no undone book states to restore. The `redo` command uses `Model#canRedo()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
 
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
+Step 5. The user then decides to execute the command `list h`. Commands that do not modify the address book, such as `list h`, will not call `Model#commit()`, `Model#undo()` or `Model#redo()`. Thus, the `VersionedBook` s do not change.
 
 image::UndoRedoNewCommand3StateListDiagram.png[width="800"]
 
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
+Step 6. The user executes `clear`, which calls `Model#commit(REQUEST_COMMAND)`. Since the `currentStatePointer` is not pointing at the end of the `requestBookStateList`, all request book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
 
 image::UndoRedoNewCommand4StateListDiagram.png[width="800"]
 
@@ -782,21 +787,36 @@ image::UndoRedoActivityDiagram.png[width="650"]
 
 ===== Aspect: How undo & redo executes
 
-* **Alternative 1 (current choice):** Saves the entire address book.
-** Pros: Easy to implement.
-** Cons: May have performance issues in terms of memory usage.
+* **Alternative 1 (current choice):** Saves the entire book.
+** Pros: Less prone to bugs since the we are switching between different versions of the books.
+** Cons: May have performance issues in terms of memory usage especially for
+large numbers of health workers and requests.
 * **Alternative 2:** Individual command knows how to undo/redo by itself.
 ** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
-** Cons: We must ensure that the implementation of each individual command are correct.
+** Cons: Every command will have their own implementation of undo and some of them are slow hence it causes performance issues.
+(e.g. for `clr`, all requests that were deleted have to be added back into the list, which will be quite slow if
+there is a large number of requests).
 
 ===== Aspect: Data structure to support the undo/redo commands
 
-* **Alternative 1 (current choice):** Use a list to store the history of address book states.
-** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
+* **Alternative 1 (current choice):** Use a list to store the history of book states.
+** Pros: Undo and redo commands runs faster since all we are doing is switching the state pointer.
+** Cons: Need multiple `VersionedBook` s. One or each type of book.
+
 * **Alternative 2:** Use `HistoryManager` for undo/redo
-** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
-** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
+** Pros: Supports multiple books with the `HistoryManager` alone since we are undoing from the command history.
+** Cons: `HistoryManager` keeps a record of all commands, even if they are invalid or commands that does not call `Model#commit()`.
+Traversing these irrelevant commands to find the next undoable command will take long times especially if size of history is large.
+
+===== Aspect: Data structure to handle multiple `VersionedBooks`
+* **Alternative 1 (current choice):** Use a command history to keep track
+of the type of book that was modified It is represented as a list of `CommandType`.
+** Pros: Easily scalable to include more than two books. AS the developer can simply add an extra `CommandType`
+and extra cases for switch statements.
+** Cons: Unable to handle commands that change multiple books at once. Since we assume, Only one `currentStatePointer` can change per undo/redo.
+* **Alternative 2:** Use a list of pairs. Each state is represented as a pair which stores the `currentStatePointer` of each book.
+** Pros: Supports commands that change multiple books at once since it keeps track of all states.
+** Cons: Keeping a pair of integers takes up more memory as compared to keeping a single enum.
 // end::undoredo[]
 
 // tag::setreminder[]

@@ -8,11 +8,12 @@ import static seedu.address.logic.commands.CommandTestUtil.QUESTION_DESC_SUBTRAC
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_MATH;
 import static seedu.address.logic.commands.CommandTestUtil.updateCardsView;
 import static seedu.address.logic.commands.DeleteCardCommand.MESSAGE_DELETE_CARD_SUCCESS;
-import static seedu.address.testutil.TypicalCards.KEYWORD_MATCHING_HTTP;
+import static seedu.address.testutil.TypicalCards.KEYWORD_MATCHING_LAYER;
 import static seedu.address.testutil.TypicalCards.LAYER;
 import static seedu.address.testutil.TypicalCards.SUBTRACTION;
 import static seedu.address.testutil.TypicalCards.TRANSPORT;
 import static seedu.address.testutil.TypicalDecks.DECK_A;
+import static seedu.address.testutil.TypicalDecks.EMPTY_DECK_FOR_CARD_TEST;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_CARD;
 
 import org.junit.Test;
@@ -34,7 +35,7 @@ import seedu.address.testutil.CardUtil;
 public class DeleteCardCommandSystemTest extends TopDeckSystemTest {
     private static final String MESSAGE_INVALID_DELETE_COMMAND_FORMAT = String
         .format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, DeleteCardCommand.MESSAGE_USAGE);
-    private static final String CHANGE_DECK_COMMAND = "open 2";
+    private static final String CHANGE_DECK_COMMAND = "open " + (EMPTY_DECK_FOR_CARD_TEST + 1);
     private static final Deck TEST_DECK = DECK_A;
 
     @Test
@@ -102,7 +103,7 @@ public class DeleteCardCommandSystemTest extends TopDeckSystemTest {
         /* ------------------ Performing delete operation while a filtered list is being shown ---------------------- */
 
         /* Case: filtered card list, delete index within bounds of top deck and card list -> deleted */
-        showCardsWithQuestion(KEYWORD_MATCHING_HTTP, cardsView);
+        showCardsWithQuestion(KEYWORD_MATCHING_LAYER, cardsView);
         Index index = INDEX_FIRST_CARD;
         assertTrue(index.getZeroBased() < cardsView.getFilteredList().size());
         target = LAYER;
@@ -113,7 +114,7 @@ public class DeleteCardCommandSystemTest extends TopDeckSystemTest {
 
         /* Case: filtered card list, delete index within bounds of address book but out of bounds of card list
         -> rejected */
-        showCardsWithQuestion(KEYWORD_MATCHING_HTTP, cardsView);
+        showCardsWithQuestion(KEYWORD_MATCHING_LAYER, cardsView);
         int invalidIndex = cardsView.getActiveDeck().getCards().internalList.size() + 1;
         command = DeleteCardCommand.COMMAND_WORD + " " + invalidIndex;
         assertCommandFailure(command, model, MESSAGE_INVALID_DISPLAYED_INDEX);

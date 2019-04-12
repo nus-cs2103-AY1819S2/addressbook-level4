@@ -16,6 +16,7 @@ import static seedu.address.testutil.TypicalCards.KEYWORD_MATCHING_HTTP;
 import static seedu.address.testutil.TypicalCards.NO_TAG;
 import static seedu.address.testutil.TypicalCards.SUBTRACTION;
 import static seedu.address.testutil.TypicalDecks.DECK_A;
+import static seedu.address.testutil.TypicalDecks.EMPTY_DECK_FOR_CARD_TEST;
 
 import org.junit.Test;
 
@@ -34,7 +35,7 @@ import seedu.address.testutil.CardUtil;
 
 public class AddCardCommandSystemTest extends TopDeckSystemTest {
 
-    private static final String CHANGE_DECK_COMMAND = "open 2";
+    private static final String CHANGE_DECK_COMMAND = "open " + (EMPTY_DECK_FOR_CARD_TEST + 1);
     private static final Deck TEST_DECK = DECK_A;
 
     @Test

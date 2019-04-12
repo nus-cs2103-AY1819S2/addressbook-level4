@@ -8,6 +8,7 @@ import static seedu.address.testutil.TypicalCards.HELLO_WORLD;
 import static seedu.address.testutil.TypicalCards.KEYWORD_MATCHING_HTTP;
 import static seedu.address.testutil.TypicalCards.TRANSPORT;
 import static seedu.address.testutil.TypicalCards.getTypicalDeck;
+import static seedu.address.testutil.TypicalDecks.FILLED_DECK_FOR_CARD_TEST;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -21,16 +22,18 @@ import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.model.CardsView;
 import seedu.address.model.Model;
+import seedu.address.model.deck.Deck;
 import seedu.address.model.deck.QuestionContainsKeywordsPredicate;
 import seedu.address.model.tag.Tag;
 
 public class FindCardCommandSystemTest extends TopDeckSystemTest {
-    private static final String OPEN_DECK = "open 1";
+    private static final String OPEN_DECK = "open " + (FILLED_DECK_FOR_CARD_TEST + 1);
+    private static final Deck TEST_DECK = getTypicalDeck();
 
     @Test
     public void find() {
         Model expectedModel = getModel();
-        expectedModel.changeDeck(getTypicalDeck());
+        expectedModel.changeDeck(TEST_DECK);
         CardsView cardsView = (CardsView) expectedModel.getViewState();
 
         executeCommand(OPEN_DECK);
@@ -192,7 +195,6 @@ public class FindCardCommandSystemTest extends TopDeckSystemTest {
 
         executeCommand(command);
         assertApplicationDisplaysExpected(command, expectedResultMessage, expectedModel);
-        assertSelectedDeckUnchanged();
         assertCommandBoxShowsErrorStyle();
         assertStatusBarUnchanged();
     }

@@ -640,26 +640,33 @@ Format: `add-presc pid/PATIENT_ID did/DOCTOR_ID rid/MED_ID w/SHORT_WRITEUP`
 
 Examples:
 
-* `add-presc pid/1 did/1 rid/1 w/heaty cough` +
-Adds the prescribing doctor with ID of '1', the medicine with ID of '1',
-and a short write up of 'heaty cough' under the patient with ID of '1'.
-* `add-presc pid/5 did/2 rid/3 w/constipation for 3 days` +
-Adds the prescribing doctor with ID of '2', the medicine with ID of '3',
-and a short write up of 'constipation for 3 days' under the patient with ID of '5'.
+* `add-presc pid/1 did/2 mn/Acetaminophen d/500 mg for relieving pain` +
+Adds the prescribing doctor with ID of '2', the medicine with name of 'Acetaminophen',
+and a short description of '500 mg for relieving pain' under the patient with ID of '1'.
+* `add-presc pid/5 did/3 mn/Aspirin d/2g for curing fever` +
+Adds the prescribing doctor with ID of '3', the medicine with name of 'Aspirin',
+and a short description of '2g for curing fever' under the patient with ID of '5'.
 
-=== Listing all prescriptions of a patient : `list-presc`
+=== Listing prescriptions: `list-presc`
 
-Shows a list of all past prescriptions under the patient involved. +
-Format: `list-presc PATIENT_ID`
+Show a list of all prescriptions with the specified requirements. +
+Format: `list-presc [pid/PATIENT_ID] [did/DOCTOR_ID]`
 
 ****
-* Display the full history of prescriptions under the specified `PATIENT_ID`. The index *must be a positive integer* 1, 2, 3, ...
-****
+* PATIENT_ID and DOCTOR_ID must be existing id in patient and doctor list.
+* If there is no prescription satisfying all specified requirements, an empty list will be shown.
+* Description of prescription may not be shown fully in the list. Can view more details of a particular
+ prescription by using "select-presc" command.
+
 
 Examples:
 
-* `list-presc 3` +
-Lists all past prescriptions under the patient with ID of '3'.
+* `list-presc` +
+Lists all past prescriptions.
+* `list-presc pid/3` +
+Lists all past prescriptions whose patient id is '3'.
+* `list-presc pid/3 did/5` +
+Lists all past prescriptions whose patient id is '3' and doctor id is '5'.
 
 === Viewing a prescription of a patient: `view-presc`
 

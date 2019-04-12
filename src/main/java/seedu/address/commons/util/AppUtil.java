@@ -10,7 +10,18 @@ import seedu.address.MainApp;
  * A container for App specific utility functions
  */
 public class AppUtil {
-    private AppUtil() { }
+    /**
+     * This is a static-methods-only (utility) class which should not be instantiated.
+     * Note that this is not a singleton class given that not even a single instance is allowed.
+     *
+     * Throws an {@link InstantiationError} when accessed to prevent instantiation
+     * via new, clone(), reflection and serialization.
+     */
+    private AppUtil() {
+        // Prevents instantiation via new, clone(), reflection and serialization.
+        throw new InstantiationError(
+                "This is a static-methods-only (utility) class which should not be instantiated.");
+    }
 
     public static Image getImage(String imagePath) {
         requireNonNull(imagePath);

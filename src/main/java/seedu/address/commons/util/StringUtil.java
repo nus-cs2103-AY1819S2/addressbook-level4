@@ -12,7 +12,19 @@ import java.util.List;
  * Helper functions for handling strings.
  */
 public class StringUtil {
-    private StringUtil() { }
+    /**
+     * This is a static-methods-only (utility) class which should not be instantiated.
+     * Note that this is not a singleton class given that not even a single instance is allowed.
+     *
+     * Throws an {@link InstantiationError} when accessed to prevent instantiation
+     * via new, clone(), reflection and serialization.
+     */
+    private StringUtil() {
+        // Prevents instantiation via new, clone(), reflection and serialization.
+        throw new InstantiationError(
+                "This is a static-methods-only (utility) class which should not be instantiated.");
+    }
+
 
     /**
      * Returns true if the {@code sentence} contains the {@code word}.

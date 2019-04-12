@@ -355,6 +355,10 @@ public class DocX implements ReadOnlyDocX {
      */
     public void addPrescription(Prescription prescription) {
         prescriptions.addPrescription(prescription);
+        Patient patientWithId = getPatientById(prescription.getPatientId());
+        prescription.setPatient(patientWithId);
+        Doctor doctorWithId = getDoctorById(prescription.getDoctorId());
+        prescription.setDoctor(doctorWithId);
         indicateModified();
     }
 

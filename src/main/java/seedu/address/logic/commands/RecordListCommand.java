@@ -14,7 +14,7 @@ public class RecordListCommand extends Command {
     public static final String COMMAND_WORD = "recordlist";
     public static final String COMMAND_WORD2 = "rlist";
 
-    public static final String MESSAGE_SUCCESS = "Listed all patients!";
+    public static final String MESSAGE_SUCCESS = "Listed all records!";
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) {

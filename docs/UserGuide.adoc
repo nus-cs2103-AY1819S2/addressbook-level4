@@ -306,7 +306,8 @@ Special characters *NOT* allowed are: +
 Any positive integers (no decimals, must be greater than 0) are allowed.
 You can use commas (no space) to indicate a break. e.g. `1,3,5` for 1 and 3 and 5 +
 You can use dash (no space) to indicate a range. e.g. `3-5` for 3 to 5. `1-3-5` is not allowed, just use `1-5`. +
-You can use a combination of commas and dashes to indicate a range as well. e.g. `1-3,5` for 1 to 3 and 5.
+You can use a combination of commas and dashes to indicate a range as well. e.g. `1-3,5` for 1 to 3 and 5. +
+You can also type `all` instead to import everything.
 ============================================================
 
 Examples:
@@ -326,6 +327,8 @@ Adds patient 1 to patient 4 from "data1.json" to the current data.
 * `import data1.json 1,3-5` +
 Adds patient 1 and patient 3 to patient 5 from "data1.json" to the current data.
 
+* `import data1.json all` +
+Adds all patients from "data1.json" to the current data.
 
 ==== export
 Saves the specified patients in the current data to the specified file path. +
@@ -348,7 +351,8 @@ Special characters *NOT* allowed are: +
 Any positive integers (no decimals, must be greater than 0) are allowed.
 You can use commas (no space) to indicate a break. e.g. `1,3,5` for 1 and 3 and 5 +
 You can use dash (no space) to indicate a range. e.g. `3-5` for 3 to 5. `1-3-5` is not allowed, just use `1-5`. +
-You can use a combination of commas and dashes to indicate a range as well. e.g. `1-3,5` for 1 to 3 and 5.
+You can use a combination of commas and dashes to indicate a range as well. e.g. `1-3,5` for 1 to 3 and 5. +
+You can also type `all` instead to export everything.
 ============================================================
 
 Examples:

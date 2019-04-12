@@ -566,10 +566,81 @@ specified to be searched.
 
 // end::findimplement[]
 
-// tag::openimplementJH[]
-=== Open feature
-==== Current Implementation
+=== File Management
+Although TeethHub already has a built-in auto-load and auto-save, implementing file management would give the user more flexibility with managing data. +
+PDF export is also implemented so that the user would have an easier time making sense of the data when offline.
+
+The File Management features are: `Open`, `Import`, `Save`, `Export`
+
+[NOTE]
+============================================================
+These following two keywords will be used by various File Management features.
+
+`FILE_PATH`: The name and file type to be saved. `FILE_PATH` also allows the inclusion of folder names. If the indicated `FILE_PATH` does not exist, it will be created. +
+Any letters in the English alphabet and numbers are allowed. +
+Allowed special characters are: +
+`! @ # $ % ^ & ( ) _ + - = { } [ ] ; ' , .` +
+Special characters *NOT* allowed are: +
+`< > : " | ? *`
+
+`INDEX_RANGE`: +
+Any positive integers (no decimals, must be greater than 0) are allowed. +
+Use commas (no space) to indicate a break. e.g. `1,3,5` for 1 and 3 and 5 +
+Use dash (no space) to indicate a range. e.g. `3-5` for 3 to 5. `1-3-5` is not allowed, just use `1-5`. +
+Use a combination of commas and dashes to indicate a range as well. e.g. `1-3,5` for 1 to 3 and 5. +
+`all` can be used instead to include everything. e.g. `import test.json all` or `export test.json all`
+============================================================
+
+==== Design Considerations
+
+* **Current implementation:** (Open/Import/Save/Export)Command -> InOutAddressBookStorage -> JsonUtil -> FileUtil
+** **Alternative 1a.1:** (Open/Import/Save/Export)Command -> Json Util -> FileUtil
+** **Alternative 1a.2:** (Open/Import/Save/Export)Command -> FileUtil
+*** Pros: Less overhead and faster runtime as there are less classes to go through.
+*** Cons: InOutAddressBookStorage does some error handling. Bypassing InOutAddressBookStorage would require the same error handling in OpenCommand. Since OpenCommand is not called when the program starts, we cannot move the error handling from InOutAddressBookStorage to OpenCommand. In that case, we would have to copy the error handling instead, which means that we now have a duplicate logic, which is also not ideal.
+
+
+* **Current implementation:** (Save/Export)Command -> InOutAddressBookStorage -> PdfUtil
+** **Alternative 1b.1:** (Save/Export)Command -> Pdf Util -> FileUtil
+** **Alternative 1b.2:** (Save/Export)Command -> FileUtil
+** **Alternative 1b.3:** (Save/Export)Command -> PdfUtil
+*** Pros: Less overhead and faster runtime as there are less classes to go through.
+*** Cons: Same as *Alternative 1a* Cons above. In addition to that, passing the job to FileUtil would require implementing Pdf creation and saving that is already present in the third party library Apache PDFBox. Hence the job is passed to PdfUtil which calls the already present methods of Apache PDFBox.
+
+
+* **Current implementation:** The Import/Export featues accept index ranges that are larger than the actual index range of the content to be imported/exported.
+** **Alternative 2:** Don't allow indexes out of range for Import/Export.
+*** Pros: User cannot input a very large index range. This prevents a scenario where a very large range causes slow runtime and increased memory due to the amount of indexes to process.
+*** Cons: User may feel frustration of being denied due to minor mistakes. e.g. `export data.json 1-31` being rejected when there are only 30 entries. As our goal when designing TeethHub was to make things easier for the user, we decided to go with our current implementation.
+
+
+* **Current implementation:** The Import/Export features accept the `all` keyword in place of an index range.
+** **Alternative 3:** Don't parse "all" keyword for Import/Export.
+*** Pros: Faster runtime as there are less characters in the regex to match.
+*** Cons: User would need to know the total amount of patients in the external file if importing. Otherwise, the user might resort to inputting a very large index range, which would slow down runtime and increase memory needed due to the amount of indexes to process. We chose the current implementation to provide an alternative so that it would discourage users from inputting a very large index range.
+
+
+* **Current implementation:** The Export feature calls the Save feature when the `all` keyword is detected.
+** **Alternative 4:** Don't parse `all` keyword for Export.
+*** Pros: Less overhead and faster runtime as there the regex would not need to look for `all`
+*** Cons: In the current implementation, Import and Export share the same parser as Import and Export share the same format of `command FILE_PATH INDEX_RANGE`. Since Import uses the `all` keyword, not parsing `all` would require an additional parser for Export. Furthermore, as the accepted inputs of Open and Save are the same (except for .pdf), the user may expect the same accepted inputs for Import and Export as well.
+
+=== Open vs Import
+
+Suppose you have a `data.json` file with the following contents:
+
+image::OpenImportFeature1.png[width="870"]
+
+The following image illustrates the difference when you open or import `data.json`.
+
+image::OpenImportFeature2.png[width="870"]
+
+==== Open feature
+===== Current Implementation
 As TeethHub already has a built-in auto-load when starting the program, the implemented Open feature is simple. +
+*The Open feature opens the specified file and overwrites the current TeethHub data with the file data.* +
+The Open feature's format is: `open FILE_PATH`
+
 0. AddressBookParser creates OpenCommandParser. +
 1. The OpenCommandParser uses ParserUtil to parse the user input. +
 2. If the input is valid, ParserUtil creates a ParsedInOut object and returns it to OpenCommandParser. +
@@ -579,23 +650,29 @@ As TeethHub already has a built-in auto-load when starting the program, the impl
 
 image::OpenCommandSequenceDiagram.jpg[width="870"]
 
-==== Design Considerations
+==== Import feature
+===== Current Implementation
+As TeethHub already has a built-in auto-load when starting the program, the implemented Import feature makes use of it. +
+*The Import feature opens the specified file and adds the file data to the current TeethHub data.* +
+The Import feature's format is: `import FILE_PATH INDEX_RANGE`
 
-* **Alternative 1:** Open file by calling JsonUtil or FileUtil. +
-Current implementation: OpenCommand -> InOutAddressBookStorage -> JsonUtil -> FileUtil
-** Pros: Less overhead and faster runtime as there are less classes to go through. +
-Alternative 1.1: OpenCommand -> Json Util -> FileUtil +
-Alternative 1.2: OpenCommand -> FileUtil
-** Cons: InOutAddressBookStorage does some error handling. Bypassing InOutAddressBookStorage would require the same error handling in OpenCommand. Since OpenCommand is not called when the program starts, we cannot move the error handling from InOutAddressBookStorage to OpenCommand. In that case, we would have to copy the error handling instead, which means that we now have a duplicate logic, which is also not ideal.
+0. AddressBookParser creates ImportCommandParser. +
+1. The ImportCommandParser uses ParserUtil to parse the user input. +
+2. If the input is valid, ParserUtil creates a ParsedInOut object and returns it to ImportCommandParser. +
+3. ImportCommandParser creates ImportCommand initialized with the ParsedInOut object. +
+4. ImportCommand checks for if the requested file is a ".json" file, if the file exists, if it is a file, or if it can be read. +
+5. ImportCommand calls the existing readAddressBook() on a temporary storage. +
+6a. ImportCommand adds contents from the temporary storage to the current storage based on the input INDEX_RANGE. +
+6b. ImportCommand adds all contents from the temporary storage to the current storage if INDEX_RANGE is `all`.
 
-// end::openimplementJH[]
-
-// tag::saveimplementJH[]
-=== Save feature
-==== Current Implementation
+==== Save feature
+===== Current Implementation
 As TeethHub already has a built-in auto-save when exiting the program, the implemented Save feature makes use of it. +
+*The Save feature saves all current TeethHub data to the specified file.* +
 In addition to that, the Save can also save to PDF, using the Apache PDFBox. +
 In the Open Command Sequence Diagram above, you can see that OpenCommand creates an InOutAddressBookStorage. The InOutAddressBookStorage has the capability to call the existing saveAddressBook() and also a new saveAsPdf(). +
+The Save feature's format is: `save FILE_PATH`
+
 0. AddressBookParser creates SaveCommandParser. +
 1. The SaveCommandParser uses ParserUtil to parse the user input. +
 2. If the input is valid, ParserUtil creates a ParsedInOut object and returns it to SaveCommandParser. +
@@ -604,24 +681,31 @@ In the Open Command Sequence Diagram above, you can see that OpenCommand creates
 5a. SaveCommand calls the existing saveAddressBook() if the requested file is a ".json" file. +
 5b. SaveCommand calls the new saveAsPdf() if the requested file is a ".pdf" file.
 
-==== Design Considerations
+==== Export feature
+===== Current Implementation
+As TeethHub already has a built-in auto-save when starting the program, the implemented Export feature makes use of it. +
+*The Export feature saves specified patients in the current TeethHub data to the specified file.* +
+The Export feature's format is: `export FILE_PATH INDEX_RANGE`
 
-* **Alternative 1a:** Save .json file by calling JsonUtil or FileUtil. +
-Current implementation: SaveCommand -> InOutAddressBookStorage -> JsonUtil -> FileUtil
-** Pros: Less overhead and faster runtime as there are less classes to go through. +
-Alternative 1a.1: SaveCommand -> Json Util -> FileUtil +
-Alternative 1a.2: SaveCommand -> FileUtil
-** Cons: InOutAddressBookStorage does some error handling. Bypassing InOutAddressBookStorage would require the same error handling in SaveCommand. Since SaveCommand is not called when the program starts, we cannot move the error handling from InOutAddressBookStorage to SaveCommand. In that case, we would have to copy the error handling instead, which means that we now have a duplicate logic, which is also not ideal.
+image::ExportCommandActivityDiagram.png[width="870"]
 
-* **Alternative 1b:** Save .pdf file by calling PdfUtil or FileUtil.
-Current implementation: SaveCommand -> InOutAddressBookStorage -> PdfUtil
-** Pros: Less overhead and faster runtime as there are less classes to go through.
-Alternative 1b.1: SaveCommand -> Pdf Util -> FileUtil
-Alternative 1b.2: SaveCommand -> FileUtil
-Alternative 1b.3: SaveCommand -> PdfUtil
-** Cons: Same as *Alternative 1a* Cons above. In addition to that, passing the job to FileUtil would require implementing Pdf creation and saving that is already present in the third party library Apache PDFBox. Hence the job is passed to PdfUtil which calls the already present methods of Apache PDFBox.
+0. AddressBookParser creates ExportCommandParser. +
+1. The ExportCommandParser uses ParserUtil to parse the user input. +
+2. If the input is valid, ParserUtil creates a ParsedInOut object and returns it to ExportCommandParser. +
+3. ExportCommandParser creates ImportCommand initialized with the ParsedInOut object. +
+4. ExportCommand checks for if the requested file is a ".json" file, if the file exists, if it is a file, or if it can be read. +
+5a. ExportCommand add contents from the current storage to the temporary storage based on the input INDEX_RANGE. +
+    5b. ExportCommand calls SaveCommand if INDEX_RANGE is `all`. Refer to Save feature. +
+6a. ExportCommand calls the existing saveAddressBook() if the requested file is a ".json" file. +
+6b. ExportCommand calls the new saveAsPdf() if the requested file is a ".pdf" file.
 
-// end::saveimplementJH[]
+=== Suggestion feature
+===== Design Considerations
+
+Current implementation: When the user makes multiple typing mistakes, Help window does not show automatically. +
+* **Alternative 2:** Show Help window if the user inputs invalid commands `N` times in a row.
+** Pros: Provide help to the user if the user needs it. +
+** Cons: Might be rude.
 
 === Logging
 

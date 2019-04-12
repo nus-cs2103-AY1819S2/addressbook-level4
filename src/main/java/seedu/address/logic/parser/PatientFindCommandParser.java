@@ -22,6 +22,7 @@ import java.util.List;
 
 import seedu.address.logic.commands.PatientFindCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.patient.Patient;
 import seedu.address.model.util.predicate.AddressContainsKeywordsPredicate;
 import seedu.address.model.util.predicate.ContainsKeywordsPredicate;
 import seedu.address.model.util.predicate.DateOfBirthContainsKeywordsPredicate;
@@ -95,8 +96,8 @@ public class PatientFindCommandParser implements Parser<PatientFindCommand> {
 
         String[] keywords = new String[1];
         ContainsKeywordsPredicate predicate;
-        MultipleContainsKeywordsPredicate multiPredicate =
-            new MultipleContainsKeywordsPredicate(Arrays.asList(keywords), isIgnoreCase, isAnd);
+        MultipleContainsKeywordsPredicate<Patient> multiPredicate =
+            new MultipleContainsKeywordsPredicate<>(Arrays.asList(keywords), isIgnoreCase, isAnd);
 
         List<ContainsKeywordsPredicate> predicateList = new ArrayList<>();
 

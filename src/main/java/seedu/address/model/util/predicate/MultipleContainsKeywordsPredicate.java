@@ -3,8 +3,6 @@ package seedu.address.model.util.predicate;
 import java.util.Arrays;
 import java.util.List;
 
-import seedu.address.model.patient.Patient;
-
 /**
  * Contains multiple different ContainsKeywordsPredicate
  */

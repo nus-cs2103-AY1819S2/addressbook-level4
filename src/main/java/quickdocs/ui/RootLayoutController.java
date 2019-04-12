@@ -363,7 +363,7 @@ public class RootLayoutController {
      * If command result indicates that consultation has ended
      * make label disappear
      *
-     * @param checkConsultation
+     * @param checkConsultation string result of command executed
      */
     private void endConsultation(String checkConsultation) {
         if ((checkConsultation.contains("Consultation")

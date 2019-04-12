@@ -9,6 +9,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BETTY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.address.testutil.TypicalRequests.ALICE_REQUEST;
 import static seedu.address.testutil.TypicalRequests.BENSON_REQUEST;
+import static seedu.address.testutil.TypicalRequests.DANIEL_REQUEST;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -183,7 +184,7 @@ class UniqueRequestListTest {
     public void isAssigned() {
         Request assignedRequest = new RequestBuilder().withHealthWorker(VALID_NAME_BETTY)
                 .withStatus("ONGOING").build();
-        uniqueRequestList.add(ALICE_REQUEST);
+        uniqueRequestList.add(DANIEL_REQUEST);
         uniqueRequestList.add(assignedRequest);
 
         // not assigned

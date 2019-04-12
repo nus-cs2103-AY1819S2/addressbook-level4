@@ -71,7 +71,7 @@ public class TypicalHealthWorkers {
     public static final HealthWorker IVAN = ((HealthWorkerBuilder) new HealthWorkerBuilder()
             .withName("Ida Mueller")
             .withPhone("84821316")
-            .withNric("S1234567A"))
+            .withNric("S1234567B"))
             .withOrganization("NUH").build();
 
     private TypicalHealthWorkers() {

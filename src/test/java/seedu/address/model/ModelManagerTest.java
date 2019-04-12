@@ -8,6 +8,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BETTY;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_HEALTHWORKERS;
 import static seedu.address.testutil.TypicalHealthWorkers.ANDY;
 import static seedu.address.testutil.TypicalHealthWorkers.BETTY;
+import static seedu.address.testutil.TypicalHealthWorkers.PANIEL;
 import static seedu.address.testutil.TypicalHealthWorkers.getTypicalHealthWorkerBook;
 import static seedu.address.testutil.TypicalRequests.ALICE_REQUEST;
 import static seedu.address.testutil.TypicalRequests.BENSON_REQUEST;
@@ -176,7 +177,7 @@ public class ModelManagerTest {
         modelManager = new ModelManager(getTypicalHealthWorkerBook(), getTypicalRequestBook(), new UserPrefs());
 
         // unassigned request
-        assertFalse(modelManager.isAssigned(VALID_NAME_ANDY));
+        assertFalse(modelManager.isAssigned(PANIEL.getName().toString()));
 
         // assigned request
         modelManager.updateRequest(ALICE_REQUEST, new RequestBuilder(ALICE_REQUEST).withHealthWorker(VALID_NAME_ANDY)

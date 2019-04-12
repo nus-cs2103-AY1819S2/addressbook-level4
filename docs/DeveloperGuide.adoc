@@ -340,57 +340,7 @@ The `edit` feature is facilitated by both the *EditCommandParser* and *EditComma
 Essentially upon adding a Pdf to be tracked by the application, the user will be able to
 change certain attributes tied to the PDF such as the `Name` and `Tag` tied to a particular Pdf.
 
-The Edit feature has the following syntax:
 
-[.big]#`edit <INDEX> n/<NEWNAME> t/<NEWTAG1>...`#
-
-* `<INDEX>` refers to the index of the file that you wish to edit.
-* `n/` indicates that you are editing the name of the file
-* `<NEWNAME>` refers to the new value that you would like to set the file _Name_ to.
-* `<NEWTAG...>` refers to the new _Tag_ you wish to add. Leave this portion empty if you
-do not wish to tag this file.
-
-[NOTE]
-The index value can be referenced from the list in the main application, or from the
-result of the `Filter`, `Find` or `List` feature.
-
-==== Feature Breakdown
-Illustrated below is a sample usage scenario that provides a clear view to the inner
-workings of the Edit feature.
-
-Step 1: The user launches an application with either an existing set of `Pdf` or a
-new sample set of `Pdf` stored within as shown below.
-
-image::EdiFeatureStep1Default.png[width="600"]
-
-Step 2: The user chooses a `Pdf` that they wish to edit, in this case `g.pdf`, and
-enters the `edit` command into the CLI Interface, following the outlined Syntax as
-illustrated below.
-
-image::EditFeatureUserInput.png[width="600"]
-
-Step 3: Upon hitting enter to execute the command, the *EditCommandParser* parses
-the input into relevant objects that are required to be executed by the *EditCommand*
-object. Upon parsing, the parser then creates a new *EditCommand* that will execute the
-user's input.
-
-Step 4: Upon receiving the necessary information from the parser, the *EditCommand* first
-begins by checking for validity as shown below.
-
-image::EditFeatureNoDuplicate.png[width="700"]
-
-image::EditFeatureDuplicate.png[width="700"]
-
-Step 5: If the validity check and the individual property check passes, the file is then
-effectively renamed within PDF++ and in the actual directory, thus resulting in an output
-as shown below.
-
-image::EditFeatureFinalOutput.png[width="600"]
-
-[NOTE]
-As of V1.2, the Edit Feature removes any existing `Tag` s and replaces them with those
-input by the user (If any). By `V1.4` The user will be able to select tags he wishes
-to remove or add.
 
 image::EditCommandActivityDiagram.png[width="600"]
 

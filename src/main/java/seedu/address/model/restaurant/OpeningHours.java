@@ -8,7 +8,9 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  * Guarantees: immutable; is valid as declared in {@link #isValidOpeningHours(String)}
  */
 public class OpeningHours {
-    public static final String MESSAGE_CONSTRAINTS = "Opening hours should be of the format 'HHMM to HHMM' or '24hrs' "
+    public static final String MESSAGE_CONSTRAINTS = "Opening hours should be of the format 'HHMM to HHMM' or '24hrs'."
+            + "\n If it should not open and close at the same hours, ie. '1300 to 1300'. "
+            + "If it opens for 24 hours, please use 24hrs."
             + "for example, 1000 to 2200";
     // alphanumeric and special characters
     private static final String DEFAULT_OPENING_HOURS = "No opening hours added";
@@ -33,8 +35,24 @@ public class OpeningHours {
      * Returns if a given string is a valid email.
      */
     public static boolean isValidOpeningHours(String test) {
-        return test.matches(VALIDATION_REGEX) || test.matches(DEFAULT_OPENING_HOURS)
-                || test.matches("24hrs");
+        return (test.matches(VALIDATION_REGEX) || test.matches(DEFAULT_OPENING_HOURS)
+                || test.matches("24hrs")) && !isSameOpeningAndClosingHours(test);
+    }
+
+    /**
+     * @return true if opening hours == closing hours
+     */
+    private static boolean isSameOpeningAndClosingHours(String test) {
+
+        // if input string is 24hrs or default placeholder, do not check for opening and closing hours
+        if (test.equals("24hrs") || test.equals(DEFAULT_OPENING_HOURS)){
+            return false;
+        }
+
+        String[] openingAndClosing = test.split(" to ");
+        String opening = openingAndClosing[0];
+        String closing = openingAndClosing[1];
+        return opening.equals(closing);
     }
 
     public static OpeningHours makeDefaultOpening() {

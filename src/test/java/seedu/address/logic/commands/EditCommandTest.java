@@ -18,6 +18,7 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PDF;
 import static seedu.address.testutil.TypicalPdfs.SAMPLE_EDITEDPDF;
 import static seedu.address.testutil.TypicalPdfs.SAMPLE_PDF_1;
 import static seedu.address.testutil.TypicalPdfs.SAMPLE_PDF_2;
+import static seedu.address.testutil.TypicalPdfs.SAMPLE_PDF_3;
 import static seedu.address.testutil.TypicalPdfs.getTypicalPdfBook;
 
 import java.io.File;
@@ -247,40 +248,6 @@ public class EditCommandTest {
         assertCommandFailure(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_FAILURE);
     }
 
-    /**
-     * 1. Edits a {@code Pdf} from a filtered list.
-     * 2. Undo the edit.
-     * 3. The unfiltered list should be shown now. Verify that the index of the previously edited pdf in the
-     * unfiltered list is different from the index at the filtered list.
-     * 4. Redo the edit. This ensures {@code RedoCommand} edits the pdf object regardless of indexing.
-     */
-    @Test
-    public void executeUndoRedo_validIndexFilteredList_samePdfEdited() throws Exception {
-        Pdf editedPdf = new PdfBuilder(SAMPLE_PDF_2).build();
-        EditPdfDescriptor descriptor = new EditPdfDescriptorBuilder(editedPdf).build();
-        EditCommand editCommand = new EditCommand(INDEX_FIRST_PDF, descriptor);
-        Model expectedModel = new ModelManager(new PdfBook(model.getPdfBook()), new UserPrefs());
-
-        decryptPdf(SAMPLE_PDF_2);
-        decryptPdf(SAMPLE_PDF_1);
-        showPdfAtIndex(model, INDEX_SECOND_PDF);
-        Pdf pdfToEdit = model.getFilteredPdfList().get(INDEX_FIRST_PDF.getZeroBased());
-        expectedModel.setPdf(pdfToEdit, editedPdf);
-        expectedModel.commitPdfBook();
-
-        // edit -> edits second pdf in unfiltered pdf list / first pdf in filtered pdf list
-        editCommand.execute(model, commandHistory);
-
-        // undo -> reverts pdf book back to previous state and filtered pdf list to show all persons
-        expectedModel.undoPdfBook();
-        assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
-
-        assertNotEquals(model.getFilteredPdfList().get(INDEX_FIRST_PDF.getZeroBased()), pdfToEdit);
-        // redo -> edits same second pdf in unfiltered pdf list
-        expectedModel.redoPdfBook();
-        assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
-    }
-
     @Test
     public void equals() {
         final EditCommand standardCommand = new EditCommand(INDEX_FIRST_PDF, DESC_2);
@@ -320,7 +287,7 @@ public class EditCommandTest {
     }
 
     /**
-     * Moves {@code fileToRevert} back to its original location
+     * Moves {@code editedFile} back to its original location
      */
     private void revertBackup(Pdf target, Pdf editedFile) {
         File fileToRevert = Paths.get(editedFile.getDirectory().getDirectory(),
@@ -328,21 +295,5 @@ public class EditCommandTest {
         File revertedFile = Paths.get(target.getDirectory().getDirectory(),
                 target.getName().getFullName()).toFile();
         fileToRevert.renameTo(revertedFile);
-    }
-
-    /**
-     * Decrypts {code pdfToDecrypt}.
-     */
-    private static void decryptPdf(Pdf pdfToDecrypt) throws CommandException {
-        try {
-            PDDocument file = PDDocument.load(new File(pdfToDecrypt.getDirectory().getDirectory(),
-                    pdfToDecrypt.getName().getFullName()), PASSWORD_1_VALID);
-            file.setAllSecurityToBeRemoved(true);
-            file.save(Paths.get(pdfToDecrypt.getDirectory().getDirectory(),
-                    pdfToDecrypt.getName().getFullName()).toFile());
-            file.close();
-        } catch (IOException ioe) {
-            throw new CommandException(String.format(MESSAGE_DECRYPT_PDF_FAILURE, pdfToDecrypt.getName()));
-        }
     }
 }

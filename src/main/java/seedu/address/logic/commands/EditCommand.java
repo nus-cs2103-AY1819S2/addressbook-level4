@@ -6,6 +6,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PDFS;
 
 import java.io.File;
+import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.Collections;
 import java.util.HashSet;
@@ -13,6 +14,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
+import org.apache.pdfbox.pdmodel.PDDocument;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
@@ -61,6 +63,7 @@ public class EditCommand extends Command {
         this.editPdfDescriptor = new EditPdfDescriptor(editPdfDescriptor);
     }
 
+    @SuppressWarnings("Duplicates")
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
@@ -86,6 +89,11 @@ public class EditCommand extends Command {
 
         File oldFile = Paths.get(pdfToEdit.getDirectory().getDirectory(), pdfToEdit.getName().getFullName()).toFile();
         File newFile = Paths.get(editedPdf.getDirectory().getDirectory(), editedPdf.getName().getFullName()).toFile();
+
+        System.out.println(oldFile + "\n");
+
+        System.out.println(newFile + "\n\n");
+
         if (!oldFile.renameTo(newFile)) {
             throw new CommandException(MESSAGE_EDIT_PDF_FAILURE);
         }

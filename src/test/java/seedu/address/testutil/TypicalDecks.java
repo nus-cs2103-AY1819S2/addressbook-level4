@@ -38,6 +38,9 @@ public class TypicalDecks {
     public static final Deck HOLDING = new DeckBuilder().withName("holding me back").build();
     public static final String KEYWORD_MATCHING_JOHN = "John";
 
+    public static final int FILLED_DECK_FOR_CARD_TEST = 0;
+    public static final int EMPTY_DECK_FOR_CARD_TEST = 1;
+
     private TypicalDecks() {
     } // prevents instantiation
 

@@ -1,5 +1,7 @@
 package guitests.guihandles;
 
+import static seedu.address.testutil.TypicalDecks.EMPTY_DECK_FOR_CARD_TEST;
+
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -140,7 +142,7 @@ public class ListPanelHandle extends NodeHandle<ListView<? extends ListItem>> {
     }
 
     private Card getCard(int index) {
-        Deck algebraDeck = (Deck) getRootNode().getItems().get(1);
+        Deck algebraDeck = (Deck) getRootNode().getItems().get(EMPTY_DECK_FOR_CARD_TEST);
         return algebraDeck.getCards().internalList.get(index);
     }
 

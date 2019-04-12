@@ -403,6 +403,11 @@ image::card_ug_diagrams/find_card_2.png[width="800"]
 
 **Outcome**: Returns to decks view.
 
+==== [To be implemented in V2.0] Adding a picture to a card
+
+**Format**: `addImg INDEX IMAGEPATH`
+
+**Outcome**: Adds the image as a question to the card at `INDEX`
 
 === Study View
 

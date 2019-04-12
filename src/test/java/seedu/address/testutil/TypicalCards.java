@@ -53,6 +53,8 @@ public class TypicalCards {
 
     public static final String KEYWORD_MATCHING_HTTP = "HTTP";
 
+    public static final String KEYWORD_MATCHING_LAYER = "layer";
+
     private TypicalCards() {
     } // prevents instantiation
 

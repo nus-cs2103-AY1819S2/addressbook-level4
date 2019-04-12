@@ -35,6 +35,7 @@ import seedu.address.model.DecksView;
 import seedu.address.model.Model;
 import seedu.address.model.TopDeck;
 import seedu.address.model.deck.Deck;
+import seedu.address.model.deck.QuestionContainsKeywordsPredicate;
 import seedu.address.testutil.TypicalDecks;
 import seedu.address.ui.CommandBox;
 
@@ -155,9 +156,13 @@ public abstract class TopDeckSystemTest {
         executeCommand(FindCardCommand.COMMAND_WORD + " " + keyword);
 
         Deck activeDeck = cardsView.getActiveDeck();
+        QuestionContainsKeywordsPredicate predicate =
+            new QuestionContainsKeywordsPredicate(Arrays.asList(keyword));
+
+        cardsView.updateFilteredList(predicate);
 
         assertTrue(cardsView.getFilteredList().size()
-            <= activeDeck.getCards().size());
+            < activeDeck.getCards().size());
     }
 
 

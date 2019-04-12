@@ -132,6 +132,14 @@ public class UniqueRequestList implements Iterable<Request> {
     }
 
     /**
+     * Checks if any Request in the UniqueRequestList contains the assigned HealthWorker name.
+     */
+    public boolean isAssigned(String name) {
+        return this.internalList.stream().anyMatch(x -> x.getHealthStaff().equals(name)
+                && x.getRequestStatus().isOngoingStatus());
+    }
+
+    /**
      * Returns an iterator over elements of type {@code T}.
      *
      * @return an Iterator.

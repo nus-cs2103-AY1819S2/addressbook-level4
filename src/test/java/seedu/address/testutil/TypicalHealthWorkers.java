@@ -25,7 +25,7 @@ public class TypicalHealthWorkers {
     public static final HealthWorker BETTY = ((HealthWorkerBuilder) new HealthWorkerBuilder()
             .withName("Betty Meier")
             .withPhone("98761232")
-            .withNric("S8312942G"))
+            .withNric("S8312943G"))
             .withOrganization("NUH")
             .withSkills(new Skills(new HashSet<>(Arrays.asList(Specialisation
                     .GENERAL_PRACTICE, Specialisation.ORTHOPAEDIC)))).build();

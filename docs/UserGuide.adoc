@@ -315,6 +315,14 @@ worker possesses. The list of valid specialisations are as follows:
 ** OCCUPATIONAL_THERAPY
 ** ANAESTHESIOLOGY
 
+[NOTE]
+====
+The NRIC field provided uniquely identifies the health worker. When entering
+the commands to add or edit a health worker, if the NRIC field matches an
+already existing health worker with the same NRIC field, an error message
+denoting a duplicate worker will be displayed.
+====
+
 // end::addHealthWorker[]
 
 ==== *Adding a request*

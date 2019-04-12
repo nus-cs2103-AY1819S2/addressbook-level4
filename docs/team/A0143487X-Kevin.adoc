@@ -1,4 +1,4 @@
-= Yang Yiqing - Project Portfolio
+= Kevin Yeong Yu Heng - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets

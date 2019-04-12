@@ -38,8 +38,6 @@ public class EditMedHistCommandTest {
         Model expectedModel = new ModelManager(new DocX(model.getDocX()), new UserPrefs());
         //expectedModel.setMedHist(model.getFilteredMedHistList().get(0), editedMedHist);
         expectedModel.commitDocX();
-
-       // assertCommandSuccess(editMedHistCommand, model, commandHistory, expectedMessage, expectedModel);
     }
 
     @Test

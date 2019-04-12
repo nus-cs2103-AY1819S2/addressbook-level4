@@ -27,7 +27,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.DocX;
 import seedu.address.model.Model;
 import seedu.address.model.person.Doctor;
-import seedu.address.model.person.DoctorNameContainsKeywordsPredicate;
+import seedu.address.model.person.DoctorContainsKeywordsPredicate;
 import seedu.address.model.person.Patient;
 import seedu.address.model.person.PatientNameContainsKeywordsPredicate;
 import seedu.address.testutil.EditDoctorDescriptorBuilder;
@@ -242,7 +242,7 @@ public class CommandTestUtil {
 
         Doctor doctor = model.getFilteredDoctorList().get(targetIndex.getZeroBased());
         final String[] splitName = doctor.getName().fullName.split("\\s+");
-        model.updateFilteredDoctorList(new DoctorNameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
+        model.updateFilteredDoctorList(new DoctorContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
         assertEquals(1, model.getFilteredDoctorList().size());
     }

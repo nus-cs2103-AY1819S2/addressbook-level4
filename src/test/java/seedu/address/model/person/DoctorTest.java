@@ -42,9 +42,9 @@ public class DoctorTest {
                 .withPhone(VALID_PHONE_STEVEN).build();
         assertFalse(ALVINA.isSameDoctor(editedAlvina));
 
-        // different name -> returns false
+        // different name, same phone -> returns false
         editedAlvina = new DoctorBuilder(ALVINA).withName(VALID_NAME_STEVEN).build();
-        assertFalse(ALVINA.isSameDoctor(editedAlvina));
+        assertTrue(ALVINA.isSameDoctor(editedAlvina));
 
         // same name, same phone, different attributes -> returns true
         editedAlvina = new DoctorBuilder(ALVINA)

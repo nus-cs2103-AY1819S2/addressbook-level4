@@ -36,6 +36,7 @@ public class AddDoctorCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "New doctor added: %1$s";
     public static final String MESSAGE_DUPLICATE_DOCTOR = "This doctor already exists in the DocX";
+    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the DocX";
 
     private final Doctor toAdd;
 

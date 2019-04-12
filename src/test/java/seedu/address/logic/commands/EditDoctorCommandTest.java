@@ -6,8 +6,6 @@ import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_ALVINA;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_STEVEN;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_STEVEN;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_STEVEN;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_SPECIALISATION_ACUPUNCTURE;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showDoctorAtIndex;
@@ -59,11 +57,11 @@ public class EditDoctorCommandTest {
         Doctor lastDoctor = model.getFilteredDoctorList().get(indexLastDoctor.getZeroBased());
 
         DoctorBuilder doctorInList = new DoctorBuilder(lastDoctor);
-        Doctor editedDoctor = doctorInList.withName(VALID_NAME_STEVEN).withPhone(VALID_PHONE_STEVEN)
-                .withSpecs(VALID_SPECIALISATION_ACUPUNCTURE).build();
+        Doctor editedDoctor = doctorInList.withName(VALID_NAME_STEVEN).withPhone("90000000")
+                .withSpecs("surgery").build();
 
         EditDoctorDescriptor descriptor = new EditDoctorDescriptorBuilder().withName(VALID_NAME_STEVEN)
-                .withPhone(VALID_PHONE_STEVEN).withSpecs(VALID_SPECIALISATION_ACUPUNCTURE).build();
+                .withPhone("90000000").withSpecs("surgery").build();
         EditDoctorCommand editDoctorCommand = new EditDoctorCommand(indexLastDoctor, descriptor);
 
         String expectedMessage = String.format(EditDoctorCommand.MESSAGE_EDIT_DOCTOR_SUCCESS, editedDoctor);
@@ -71,7 +69,6 @@ public class EditDoctorCommandTest {
         Model expectedModel = new ModelManager(new DocX(model.getDocX()), new UserPrefs());
         expectedModel.setDoctor(lastDoctor, editedDoctor);
         expectedModel.commitDocX();
-
         assertCommandSuccess(editDoctorCommand, model, commandHistory, expectedMessage, expectedModel);
     }
 

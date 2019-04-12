@@ -31,9 +31,6 @@ import seedu.address.logic.commands.ListPrescriptionCommand;
 import seedu.address.logic.commands.MarkAppointmentCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SearchAdvancedPatientCommand;
-import seedu.address.logic.commands.SearchDoctorDidCommand;
-import seedu.address.logic.commands.SearchDoctorNameCommand;
-import seedu.address.logic.commands.SearchDoctorSpecialisationCommand;
 import seedu.address.logic.commands.SearchMedHistCommand;
 import seedu.address.logic.commands.SearchPatientApptStatusCommand;
 import seedu.address.logic.commands.SearchPatientCommand;
@@ -102,9 +99,6 @@ public class DocXParser {
         case DeletePatientCommand.COMMAND_WORD:
             return new DeleteCommandParser().parse(arguments);
 
-        case SearchDoctorDidCommand.COMMAND_WORD:
-            return new SearchDoctorDidCommandParser().parse(arguments);
-
         case AddDoctorCommand.COMMAND_WORD:
             return new AddDoctorCommandParser().parse(arguments);
 
@@ -118,7 +112,7 @@ public class DocXParser {
             return new MarkAppointmentCommandParser().parse(arguments);
 
         case ListDoctorCommand.COMMAND_WORD:
-            return new ListDoctorCommand();
+            return new ListDoctorCommandParser().parse(arguments);
 
         case EditDoctorCommand.COMMAND_WORD:
             return new EditDoctorCommandParser().parse(arguments);
@@ -126,14 +120,8 @@ public class DocXParser {
         case DeleteDoctorCommand.COMMAND_WORD:
             return new DeleteDoctorCommandParser().parse(arguments);
 
-        case SearchDoctorNameCommand.COMMAND_WORD:
-            return new SearchDoctorNameCommandParser().parse(arguments);
-
         case SelectDoctorCommand.COMMAND_WORD:
             return new SelectDoctorCommandParser().parse(arguments);
-
-        case SearchDoctorSpecialisationCommand.COMMAND_WORD:
-            return new SearchDoctorSpecialisationCommandParser().parse(arguments);
 
         case DoctorMatchCommand.COMMAND_WORD:
             return (new DoctorMatchCommandParser().parse(arguments));

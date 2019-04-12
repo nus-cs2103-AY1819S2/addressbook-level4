@@ -17,12 +17,14 @@ import static seedu.address.logic.commands.CommandTestUtil.INVALID_PHONE_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_ALVINA;
 import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_ALVINA;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_STROKE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
@@ -92,9 +94,9 @@ public class EditPatientCommandSystemTest extends DocXSystemTest {
         index = INDEX_SECOND_PERSON;
         assertNotEquals(getModel().getFilteredPatientList().get(index.getZeroBased()), BOB);
         command = EditPatientCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_AMY
-                + GENDER_DESC_BOB + AGE_DESC_BOB + PHONE_DESC_BOB
+                + GENDER_DESC_BOB + AGE_DESC_BOB + PHONE_DESC_ALVINA
                 + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
-        editedPatient = new PatientBuilder(BOB).withName(VALID_NAME_AMY).build();
+        editedPatient = new PatientBuilder(BOB).withName(VALID_NAME_AMY).withPhone(VALID_PHONE_ALVINA).build();
         assertCommandSuccess(command, index, editedPatient);
 
         /* Case: edit a patient with new values same as another patient's values but with different phone
@@ -144,12 +146,12 @@ public class EditPatientCommandSystemTest extends DocXSystemTest {
         showAllPatients();
         index = INDEX_FIRST_PERSON;
         selectPatient(index);
-        command = EditPatientCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_AMY
-                + GENDER_DESC_AMY + AGE_DESC_AMY + PHONE_DESC_AMY
-                + ADDRESS_DESC_AMY + TAG_DESC_FRIEND;
+        command = EditPatientCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB
+                + GENDER_DESC_BOB + AGE_DESC_BOB + PHONE_DESC_BOB
+                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
         // this can be misleading: card selection actually remains unchanged but the
         // browser's url is updated to reflect the new patient's name
-        assertCommandSuccess(command, index, AMY, index);
+        assertCommandSuccess(command, index, BOB, index);
 
         /* --------------------------------- Performing invalid edit operation -------------------------------------- */
 
@@ -208,42 +210,42 @@ public class EditPatientCommandSystemTest extends DocXSystemTest {
         executeCommand(PatientUtil.getAddPatientCommand(BOB));
         assertTrue(getModel().getDocX().getPatientList().contains(BOB));
         index = INDEX_FIRST_PERSON;
-        assertFalse(getModel().getFilteredPatientList().get(index.getZeroBased()).equals(BOB));
-        command = EditPatientCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB
-                + GENDER_DESC_BOB + AGE_DESC_BOB + PHONE_DESC_BOB
-                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
+        assertFalse(getModel().getFilteredPatientList().get(index.getZeroBased()).equals(AMY));
+        command = EditPatientCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_AMY
+                + GENDER_DESC_AMY + AGE_DESC_AMY + PHONE_DESC_AMY
+                + ADDRESS_DESC_AMY + TAG_DESC_FRIEND;
         assertCommandFailure(command, EditPatientCommand.MESSAGE_DUPLICATE_PATIENT);
 
         /* Case: edit a patient with new values same as another patient's values
         but with different gender -> rejected */
-        command = EditPatientCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB
-                + GENDER_DESC_AMY + AGE_DESC_BOB + PHONE_DESC_BOB
-                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
+        command = EditPatientCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_AMY
+                + GENDER_DESC_BOB + AGE_DESC_AMY + PHONE_DESC_AMY
+                + ADDRESS_DESC_AMY + TAG_DESC_FRIEND;
         assertCommandFailure(command, EditPatientCommand.MESSAGE_DUPLICATE_PATIENT);
 
         /* Case: edit a patient with new values same as another patient's values but with different age -> rejected */
-        command = EditPatientCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB
-                + GENDER_DESC_BOB + AGE_DESC_AMY + PHONE_DESC_BOB
-                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
+        command = EditPatientCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_AMY
+                + GENDER_DESC_AMY + AGE_DESC_BOB + PHONE_DESC_AMY
+                + ADDRESS_DESC_AMY + TAG_DESC_FRIEND;
         assertCommandFailure(command, EditPatientCommand.MESSAGE_DUPLICATE_PATIENT);
 
         /* Case: edit a patient with new values same as another patient's values but with different phone -> rejected */
-        command = EditPatientCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB
-                + GENDER_DESC_BOB + AGE_DESC_BOB + PHONE_DESC_AMY
-                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
+        command = EditPatientCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_AMY
+                + GENDER_DESC_AMY + AGE_DESC_AMY + PHONE_DESC_AMY
+                + ADDRESS_DESC_AMY + TAG_DESC_FRIEND;
         assertCommandFailure(command, EditPatientCommand.MESSAGE_DUPLICATE_PATIENT);
 
         /* Case: edit a patient with new values same as another patient's values but with different tags -> rejected */
-        command = EditPatientCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB
-                + GENDER_DESC_BOB + AGE_DESC_BOB + PHONE_DESC_BOB
-                + ADDRESS_DESC_BOB + TAG_DESC_HUSBAND;
+        command = EditPatientCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_AMY
+                + GENDER_DESC_AMY + AGE_DESC_AMY + PHONE_DESC_AMY
+                + ADDRESS_DESC_AMY + TAG_DESC_HUSBAND;
         assertCommandFailure(command, EditPatientCommand.MESSAGE_DUPLICATE_PATIENT);
 
         /* Case: edit a patient with new values same as another patient's values
          but with different address -> rejected */
-        command = EditPatientCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB
-                + GENDER_DESC_BOB + AGE_DESC_BOB + PHONE_DESC_BOB
-                + ADDRESS_DESC_AMY + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
+        command = EditPatientCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_AMY
+                + GENDER_DESC_AMY + AGE_DESC_AMY + PHONE_DESC_AMY
+                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND;
         assertCommandFailure(command, EditPatientCommand.MESSAGE_DUPLICATE_PATIENT);
     }
 

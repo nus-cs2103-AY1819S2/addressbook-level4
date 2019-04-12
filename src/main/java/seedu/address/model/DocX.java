@@ -21,8 +21,6 @@ import seedu.address.model.person.UniquePatientList;
 import seedu.address.model.prescription.Prescription;
 import seedu.address.model.prescription.UniquePrescriptionList;
 
-
-
 /**
  * Wraps all data at the docX level
  * Duplicates are not allowed (by .isSamePatient comparison)

@@ -100,17 +100,14 @@ public class SummaryPanel extends UiPart<Region> {
             pieChart.getData().add(new PieChart.Data(s, summaryData.get(s)));
         }
 
-        pieChart.getData().forEach(data ->
-                data.getNode().setStyle("-fx-pie-color: " + getPieChartColorStyleFor(data.getName()) + ";")
-        );
 
-        pieChart.getData().forEach(data ->
-                data.nameProperty().bind(
-                        Bindings.concat(
-                                data.getName(), " - $", String.format("%.2f", data.getPieValue())
-                        )
-                )
-        );
+        for (int i = 0; i < pieChart.getData().size(); i++) {
+            PieChart.Data data = pieChart.getData().get(i);
+            data.getNode().getStyleClass().add(getPieChartColorStyleFor(data.getName()));
+            data.nameProperty().bind(Bindings.concat(data.getName(), " - $",
+                    String.format("%.2f", data.getPieValue())));
+        }
+
 
         pieChart.setLegendSide(Side.BOTTOM);
 

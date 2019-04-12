@@ -219,8 +219,6 @@ TeethHub automatically saves all data in TeethHub.json when you close the progra
 However, you can manage them manually with `open`, `save`, `import` and `export`. +
  +
 *When we mention "data", we mean the patients list and their respective records plus the task list.* +
-*.json files hold data that TeethHub can read. Use this to "save" or "load" your progress.* +
-*.pdf files are easier for people to read. Use this if you are printing out a physical copy.* +
  +
 You can use `open` to open another .json file that you may have transferred over from another computer. +
  +
@@ -263,9 +261,6 @@ Replaces the current data with the data in "data2.json" found in the "february" 
 
 ==== save
 Saves the current data to the specified file path. +
-** Note that 'save' always saves inside the data folder. If no such file path exists,
-it will be created. +
-Otherwise, it will overwrite the existing file.** +
 ** You can only save to .json and .pdf.** +
 .json files allow you to <<open, open>> or <<import, import>> them. +
 .pdf files are easier to read, but you cannot open or import them with TeethHub.
@@ -293,7 +288,6 @@ Saves the current data to "data2.json" found in the "february" folder.
 
 ==== import
 Opens the file in the specified file path and adds the specified patients to the current data. +
-** Note that 'import' always searches inside the data folder.** +
 ** You can only import .json files. **
 
 Format: `import FILE_PATH INDEX_RANGE`
@@ -335,9 +329,6 @@ Adds patient 1 and patient 3 to patient 5 from "data1.json" to the current data.
 
 ==== export
 Saves the specified patients in the current data to the specified file path. +
-** Note that 'export' always saves inside the data folder. If no such file path exists,
-it will be created. +
-Otherwise, it will overwrite the existing file.** +
 ** You can only export to .json and .pdf.** +
 .json files allow you to <<open, open>> or <<import, import>> them. +
 .pdf files are easier to read, but you cannot open or import them with TeethHub.

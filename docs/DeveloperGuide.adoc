@@ -233,7 +233,7 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
-// tag::patient[]
+// tag::patient_kyler[]
 === Patient Management Feature
 ==== Current Implementation: Storing Patient's Information
 
@@ -244,7 +244,14 @@ Various methods are also overridden in order for them to work appropriately with
 The following class diagram summarizes the new `Patient` class, which extends from `Person`:
 
 image::PatientClassDiagram.png[width="800]
-{nbsp}
+
+==== Current Implementation: Patient's Dental Records
+
+The `Record` class represents a dental record of a patient. Each `Patient` class has an list of `Record` as an attribute.
+
+The `Record` class is purposely implemented to be similar to that of `Person`.
+Just like person, record has associate classes for specific operations, such as storage.
+This ensures that the processing of records is streamlined with `Patient`, which extends `Person`.
 
 ==== Current Implementation: Interface to interact with Patient's Dental Records
 
@@ -433,7 +440,7 @@ Changes to the patient class does not significantly affect the goto command.
 ** Cons: Major changes to the patient class would require the immutable patient class to be changed too.
 Furthermore, every time any record of the specified patient is modified, a new immutable patient needs to be created to update the currently stored immutable patient.
 
-// end::patient[]
+// end::patient_kyler[]
 
 // tag::undoredo[]
 === Undo/Redo feature
@@ -1030,7 +1037,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
 
-// tag::patient_user_stories[]
+// tag::patient_user_stories_kyler[]
 |`* * *` |user |add a new patient's particulars | know about their situation
 
 |`* * *` |user |edit my patient's particulars when the situation changes | their personal information remains updated
@@ -1051,7 +1058,7 @@ teeth condition better
 |`* * *` |user |edit a dental record | correct or modify descriptions of dental records that I have already added
 
 |`* * *` |user |clear all dental records of a patient | protect the privacy of my patients if they require me to
-// end::patient_user_stories[]
+// end::patient_user_stories_kyler[]
 |`* * *` |user |add a new task | keep track of what I need to do
 
 |`* * *` |user |delete a task |remove tasks that I have already completed or no longer need to do
@@ -1181,7 +1188,7 @@ These instructions only provide a starting point for testers to work on; testers
 
 _{ more test cases ... }_
 
-// tag::manual_patient[]
+// tag::manual_patient_kyler[]
 === Patient and Record lists
 
 . Switching of UI elements when `goto` command is run
@@ -1223,7 +1230,7 @@ _{ more test cases ... }_
    Expected: No record is deleted. Error details shown in the status message. Status bar remains the same.
 .. Other incorrect recorddelete commands to try: `recorddelete`, `record delete`, `recorddelete x` (where x is larger than the list size), `recorddelete y` (where y is a negative number), `recorddelete z` (where z is not an integer) +
    Expected: Similar to previous.
-// end::manual_patient[]
+// end::manual_patient_kyler[]
 
 === Saving data
 

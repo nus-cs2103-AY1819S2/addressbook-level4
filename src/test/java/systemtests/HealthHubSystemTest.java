@@ -36,7 +36,11 @@ import seedu.address.commons.core.index.Index;
 //import seedu.address.logic.commands.ClearCommand;
 //import seedu.address.logic.commands.FilterHealthWorkerCommand;
 //import seedu.address.logic.commands.ListHealthWorkerCommand;
+import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.SelectCommand;
+import seedu.address.logic.commands.request.DeleteRequestCommand;
+import seedu.address.logic.commands.request.FilterRequestCommand;
+import seedu.address.logic.commands.request.ListRequestCommand;
 import seedu.address.model.HealthWorkerBook;
 import seedu.address.model.Model;
 import seedu.address.model.RequestBook;
@@ -122,7 +126,9 @@ public abstract class HealthHubSystemTest {
         return mainWindowHandle.getCommandBox();
     }
 
-    public ResultDisplayHandle getResultDisplay() { return mainWindowHandle.getResultDisplay(); }
+    public ResultDisplayHandle getResultDisplay() {
+        return mainWindowHandle.getResultDisplay();
+    }
 
     public RequestListPanelHandle getRequestListPanel() {
         return mainWindowHandle.getRequestListPanel();
@@ -149,43 +155,48 @@ public abstract class HealthHubSystemTest {
         // Injects a fixed clock before executing a command so that the time stamp shown in the status bar
         // after each command is predictable and also different from the previous command.
         clockRule.setInjectedClockToCurrentTime();
-
         mainWindowHandle.getCommandBox().run(command);
-
         waitUntilInfoPanelLoaded(getInfoPanel());
     }
 
     /**
-     * Displays all persons in the address book.
+     * Displays all patients in the request book.
      */
-    //protected void showAllPersons() {
-    //  executeCommand(ListHealthWorkerCommand.COMMAND_WORD);
-    //assertEquals(getModel().getAddressBook().getPersonList().size(), getModel().getFilteredPersonList().size());
-    //}
+    protected void showAllPatients() {
+        executeCommand(ListCommand.COMMAND_WORD + " " + ListRequestCommand.COMMAND_OPTION);
+
+        // for some reason list command has to be executed twice due to non-deterministic behaviour of command box
+        executeCommand(ListCommand.COMMAND_WORD + " " + ListRequestCommand.COMMAND_OPTION);
+        assertEquals(getModel().getRequestBook().getRequestList().size(), getModel().getFilteredRequestList().size());
+    }
 
     /**
-     * Displays all persons with any parts of their names matching {@code keyword} (case-insensitive).
+     * Displays all patients with any parts of their names matching {@code keyword} (case-insensitive).
      */
-    //protected void showPersonsWithName(String keyword) {
-    //executeCommand(FilterHealthWorkerCommand.COMMAND_WORD + " " + keyword);
-    //  assertTrue(getModel().getFilteredPersonList().size() < getModel().getAddressBook().getPersonList().size());
-    //}
+    protected void showPatientsWithName(String keyword) {
+        executeCommand(FilterRequestCommand.COMMAND_WORD + " request n/" + keyword);
+        assertTrue(getModel().getFilteredRequestList().size()
+                < getModel().getRequestBook().getRequestList().size());
+    }
 
     /**
-     * Selects the person at {@code index} of the displayed list.
+     * Selects the request at {@code index} of the displayed list.
      */
-    protected void selectPerson(Index index) {
+    protected void selectRequest(Index index) {
         executeCommand(SelectCommand.COMMAND_WORD + " " + index.getOneBased());
         assertEquals(index.getZeroBased(), getRequestListPanel().getSelectedCardIndex());
     }
 
     /**
-     * Deletes all persons in the address book.
+     * Deletes all requests in the request book.
      */
-    //protected void deleteAllPersons() {
-    //  executeCommand(ClearCommand.COMMAND_WORD);
-    //assertEquals(0, getModel().getAddressBook().getPersonList().size());
-    //}
+    protected void deleteAllRequests() {
+        int size = getModel().getRequestBook().getRequestList().size();
+        for (int i = 0; i < size; i++) {
+            executeCommand(DeleteRequestCommand.COMMAND_WORD + " " + DeleteRequestCommand.COMMAND_OPTION + " " + 1);
+        }
+        assertEquals(0, getModel().getRequestBook().getRequestList().size());
+    }
 
     /**
      * Asserts that the {@code CommandBox} displays {@code expectedCommandInput}, the {@code ResultDisplay} displays
@@ -207,7 +218,7 @@ public abstract class HealthHubSystemTest {
      */
     private void rememberStates() {
         StatusBarFooterHandle statusBarFooterHandle = getStatusBarFooter();
-        getInfoPanel().rememberUrl();
+        getInfoPanel().rememberContent();
         statusBarFooterHandle.rememberSaveLocation();
         statusBarFooterHandle.rememberSyncStatus();
         getRequestListPanel().rememberSelectedRequestCard();
@@ -236,12 +247,12 @@ public abstract class HealthHubSystemTest {
     }
 
     /**
-     * Asserts that the info panel's url and the selected card in the person list panel remain unchanged.
-     * @see InfoPanelHandle#isUrlChanged()
+     * Asserts that the info panel's content and the selected card in the request list panel remains unchanged.
+     * @see InfoPanelHandle#isLoadedContentChanged()
      * @see RequestListPanelHandle#isSelectedRequestCardChanged()
      */
     protected void assertSelectedCardUnchanged() {
-        assertFalse(getInfoPanel().isUrlChanged());
+        //assertFalse(getInfoPanel().isLoadedContentChanged());
         assertFalse(getRequestListPanel().isSelectedRequestCardChanged());
     }
 
@@ -266,6 +277,15 @@ public abstract class HealthHubSystemTest {
         StatusBarFooterHandle handle = getStatusBarFooter();
         assertFalse(handle.isSaveLocationChanged());
         assertFalse(handle.isSyncStatusChanged());
+    }
+
+    /**
+     * Asserts that the status bar sync and saved statuses are changed.
+     */
+    protected void assertStatusBarChanged() {
+        StatusBarFooterHandle handle = getStatusBarFooter();
+        assertTrue(handle.isSaveLocationChanged());
+        assertTrue(handle.isSyncStatusChanged());
     }
 
     /**

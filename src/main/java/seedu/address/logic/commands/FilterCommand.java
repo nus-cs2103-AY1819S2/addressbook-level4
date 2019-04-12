@@ -12,6 +12,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_FILTER_SKILL_REVERSE;
 import java.util.Arrays;
 
 import seedu.address.logic.CommandHistory;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 
 /**
@@ -120,7 +121,7 @@ public class FilterCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model, CommandHistory history) {
+    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
 
         try {
             processCommand(model);
@@ -130,21 +131,20 @@ public class FilterCommand extends Command {
                 model.commitAddressBook();
                 return new CommandResult(MESSAGE_CLEAR_FILTER_PERSON_SUCCESS);
             } else if (processNum == 0 && !isFilterCleared) {
-                return new CommandResult(MESSAGE_NO_FILTER_TO_CLEAR);
+                throw new CommandException(MESSAGE_NO_FILTER_TO_CLEAR);
             } else if (processNum == 3) {
                 if (model.getFilterInfo()) {
                     model.commitAddressBook();
                     return new CommandResult(MESSAGE_FILTER_REVERSE_SUCCESS);
                 } else {
-                    return new CommandResult(MESSAGE_NO_FILTER_TO_REVERSE);
+                    throw new CommandException(MESSAGE_NO_FILTER_TO_REVERSE);
                 }
             } else {
                 model.commitAddressBook();
                 return new CommandResult(MESSAGE_FILTER_PERSON_SUCCESS);
             }
         } catch (Exception e) {
-            System.out.println(e.toString());
-            return new CommandResult(MESSAGE_NOT_FILTERED);
+            throw new CommandException(e.getMessage());
         }
     }
 

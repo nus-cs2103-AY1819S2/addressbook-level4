@@ -149,7 +149,7 @@ test {
             //test.include 'seedu/address/**'
             test.include 'seedu/address/model/**'
             test.include 'seedu/address/commons/**'
-            test.include 'seedu/address/logic/commands**'
+            test.include 'seedu/address/logic/commands/**'
         }
 
         if (runGuiTests) {

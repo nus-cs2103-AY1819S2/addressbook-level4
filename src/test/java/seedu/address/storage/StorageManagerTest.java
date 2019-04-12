@@ -25,9 +25,9 @@ public class StorageManagerTest {
 
     @Before
     public void setUp() {
-        JsonPdfBookStorage addressBookStorage = new JsonPdfBookStorage(getTempFilePath("ab"));
+        JsonPdfBookStorage pdfBookStorage = new JsonPdfBookStorage(getTempFilePath("ab"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
-        storageManager = new StorageManager(addressBookStorage, userPrefsStorage);
+        storageManager = new StorageManager(pdfBookStorage, userPrefsStorage);
     }
 
     private Path getTempFilePath(String fileName) {
@@ -50,7 +50,7 @@ public class StorageManagerTest {
     }
 
     @Test
-    public void addressBookReadSave() throws Exception {
+    public void pdfBookReadSave() throws Exception {
         /*
          * Note: This is an integration test that verifies the StorageManager is properly wired to the
          * {@link JsonPdfBookStorage} class.
@@ -63,7 +63,7 @@ public class StorageManagerTest {
     }
 
     @Test
-    public void getAddressBookFilePath() {
+    public void getPdfBookFilePath() {
         assertNotNull(storageManager.getPdfBookFilePath());
     }
 

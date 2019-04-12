@@ -18,7 +18,8 @@ public class PrescriptionContainsKeywordsPredicate implements Predicate<Prescrip
     @Override
     public boolean test(Prescription prescription) {
         Boolean descriptionContainsKeyword = keywords.stream()
-                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(prescription.getDescription().getDescription(), keyword));
+                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(prescription.getDescription().getDescription(),
+                        keyword));
         return descriptionContainsKeyword;
     }
 

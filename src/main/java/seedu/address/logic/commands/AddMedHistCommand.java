@@ -1,3 +1,4 @@
+
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
@@ -41,7 +42,7 @@ public class AddMedHistCommand extends Command {
     private final MedicalHistory toAdd;
 
     /**
-     * Creates an addPatientCommand to add the specified {@code Patient}
+     * Creates an addMedHistCommand to add the specified {@code Patient}
      */
     public AddMedHistCommand(MedicalHistory medHist) {
         requireNonNull(medHist);

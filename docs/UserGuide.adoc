@@ -855,7 +855,7 @@ After all, Patient Management has `patientadd`, Records Management has `recordad
 Even worse, some commands cannot be used in certain modes. +
 If this ever happens, you can either open the <<help, help>> window again, or simply type out their common word due to our suggestion commands!
 
-The Suggestion commands are: `add`, `clear`, `copy`, `delete`, `edit`, `find`, `list`, `select` and `sort`
+The Suggestion commands are: `add`, `clear`, `copy`, `delete`, `edit`, `find`, `list`, `select` and `sort`.
 
 Suppose if you want to add something but you have forgotten the exact command. +
 Simply enter `add`, and TeethHub will ask you if you meant `patientadd` or `recordadd` or `taskadd`. +

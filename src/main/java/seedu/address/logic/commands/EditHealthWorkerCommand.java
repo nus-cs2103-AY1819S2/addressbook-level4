@@ -86,6 +86,13 @@ public class EditHealthWorkerCommand extends EditCommand implements HealthWorker
         return new HealthWorker(updatedName, updatedNric, updatedPhone, updatedOrganization, updatedSkills);
     }
 
+    /**
+     * Method that replaces all existence of old Nric field in Request to the new Nric.
+     */
+    private static void editAssignedRequests(Model model, Nric newNric) {
+
+    }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {

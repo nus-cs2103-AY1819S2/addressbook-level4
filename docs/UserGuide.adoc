@@ -735,10 +735,9 @@ This command allows you to record every purchase you made in the simplest way! +
 [TIP]
 You can access the medicine via two ways. You can either provide the full path to the medicine, or provide the name of medicine only.
 
-Format: +
-`buymed [MEDICINE_NAME] [AMOUNT] [UNIT_COST]` +
+Format: `buymed [MEDICINE_NAME] [AMOUNT] [UNIT_COST]` +
 
-or `buymed [PATH_OF_MEDICINE] [AMOUNT] [UNIT_COST]`
+{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}or `buymed [PATH_OF_MEDICINE] [AMOUNT] [UNIT_COST]`
 
 *Alias:* `bm`
 
@@ -785,7 +784,7 @@ Similar to buymed command, you can either provide the full path to your interest
 
 *Format:* `setprice [PATH_OF_MEDICINE] [PRICE]` +
 
-or `setprice [NAME_OF_MEDICINE] [PRICE]`
+{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}or `setprice [NAME_OF_MEDICINE] [PRICE]`
 
 *Alias:* `sp`
 
@@ -879,8 +878,8 @@ you want to see either by specifying a format and a date, or by specifying an ex
 
 {sp} +
 *Format:* `listapp f/FORMAT d/DATE` +
-{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp} or{nbsp} `listapp r/NRIC` +
-*Alias:*{nbsp}{nbsp}{nbsp}{nbsp} `aa` +
+{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}or `listapp r/NRIC` +
+*Alias:*{nbsp}{nbsp}{nbsp}{nbsp} `la` +
 
 [NOTE]
 The only valid keywords for `FORMAT` are `day`, `week`, or `month`.

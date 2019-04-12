@@ -17,7 +17,7 @@ This includes allocating tables to customers, handling orders, tracking item ava
 We split the application into four main features: Tables, Orders, Menu and Statistics. Each team member was in charge of one feature and mine was the Orders feature.
 I also conceptualised and implemented the Mode system alongside my team members.
 
-I will be sharing more about the Orders and Modes features in the following sections, as well as extracting the relevant parts of the User Guide and Developer Guide that I wrote for these features. 
+I will be sharing more about the Orders and Modes features in the following sections, as well as extracting the relevant parts of the User Guide and Developer Guide that I wrote for these features.
 
 You may refer to the table below for the symbols and formatting used in this portfolio.
 
@@ -31,7 +31,7 @@ a| icon:info-circle[role="icon-note", size="2x"] | A blue information symbol ind
 == Summary of contributions
 
 |===
-| In this section, I will provide a summary of the contributions that I have made to the team project. These contributions include the features that I implemented, as well as other project-related contributions. 
+| In this section, I will provide a summary of the contributions that I have made to the team project. These contributions include the features that I implemented, as well as other project-related contributions.
 |===
 
 * *Major enhancement added (Orders feature)*: I added the Orders feature and all of its related commands.
@@ -79,7 +79,7 @@ include::../UserGuide.adoc[tag=tablemode]
 == Contributions to the Developer Guide
 
 |===
-| This section shows the additions that I have made to the Developer Guide to show the implementation and design considerations for the Modes feature. 
+| This section shows the additions that I have made to the Developer Guide to show the implementation and design considerations for the Modes feature.
 As the implementation for the Orders feature is similar to the basic add, delete and clear commands across the features, I have left the explanation to the other team members to avoid repetition.
 |===
 

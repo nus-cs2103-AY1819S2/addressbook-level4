@@ -62,8 +62,8 @@ image::Ui.png[width="790"]
 
 === Understanding the Mode system
 
-RestOrRant operates in 4 different modes and you will start off in the default Restaurant Mode. 
-Each mode is dedicated to a main feature that ROR provides and comes with its own colour, display and set of commands for that feature. 
+RestOrRant operates in 4 different modes and you will start off in the default Restaurant Mode.
+Each mode is dedicated to a main feature that ROR provides and comes with its own colour, display and set of commands for that feature.
 You may switch between the modes by using the <<Changing Modes, commands provided>>.
 
 The 4 modes are shown below and you may click on them to find out more information about each mode, along with the commands that are available for you in that mode.
@@ -85,7 +85,7 @@ Manages the items ordered and their serving status for a specific table
 a| image::MMUi_NoAnnotation.png[]
 <<Menu Mode, *Menu Mode*>> +
 Tracks the items on the restaurant's menu and their availability
- 
+
 a| image::SMUi_NoAnnotation.png[]
 <<Statistics Mode, *Statistics Mode*>> +
 Displays the revenue and order statistics for the restaurant
@@ -93,8 +93,8 @@ Displays the revenue and order statistics for the restaurant
 
 === Navigating the user interface
 
-When you open up RestOrRant, you will see various components in the user interface. 
-While the different modes display different information that is relevant to the specific mode, the general interface remains the same 
+When you open up RestOrRant, you will see various components in the user interface.
+While the different modes display different information that is relevant to the specific mode, the general interface remains the same
 and the different components are labeled in the image below.
 
 image:Ui_Parts.png[width="790"]
@@ -122,7 +122,7 @@ Note that the commands need to be executed in the correct mode as some of the sh
 For example, the `add` shortcut performs `addTable` in Restaurant Mode but `addToMenu` in Menu Mode.
 
 You may need to include parameters for some commands and the format of each command is provided in the command descriptions.
-You may refer to the pointers below to understand the formatting used to write the command format. 
+You may refer to the pointers below to understand the formatting used to write the command format.
 
 ****
 * Words in `UPPER_CASE` are the parameters to be supplied by you. +
@@ -294,7 +294,7 @@ You can use this command in Table Mode if you are switching to a different table
 
 [width="100%",cols="5%,95%", grid=none]
 |===
-a| icon:check[role="green", size="2x"] a| The user interface switches to <<Table Mode, Table Mode>>. 
+a| icon:check[role="green", size="2x"] a| The user interface switches to <<Table Mode, Table Mode>>.
 The specified table number is also indicated in the Results Display and as part of the Current Mode in the status bar.
 
 a| a| For example, after executing `tableMode 5`, the Results Display shows the table number of the current table, as seen in the image below.
@@ -715,7 +715,20 @@ Format: `yearly`
 [NOTE]
 There should be 4 files in the data folder, *menu.json*, *orders.json*, *statistics.json* and *tables.json*.
 
-== Glossary 
+== Glossary
+
+[[order]] Order::
+The list of items ordered by dining customers at a table
+
+[[menu]] Menu::
+The list of items available to be ordered by dining customers at the restaurant
+
+[[bill]] Bill::
+The amount of money that dining customers have to pay based on their order
+
+[[revenue]] Revenue::
+The amount of money earned based on the bills
+
 
 == Command Summary
 

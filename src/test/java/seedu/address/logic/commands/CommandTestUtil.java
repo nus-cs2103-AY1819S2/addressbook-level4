@@ -26,6 +26,8 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.DocX;
 import seedu.address.model.Model;
+import seedu.address.model.medicalhistory.MedHistContainsKeywordsPredicate;
+import seedu.address.model.medicalhistory.MedicalHistory;
 import seedu.address.model.person.Doctor;
 import seedu.address.model.person.DoctorContainsKeywordsPredicate;
 import seedu.address.model.person.Patient;
@@ -98,6 +100,10 @@ public class CommandTestUtil {
     public static final String DESC_VALID_START_TIME = " " + PREFIX_START_TIME + VALID_START_TIME;
     public static final String DESC_INVALID_START_TIME = " " + PREFIX_START_TIME + INVALID_START_TIME;
     // end of testing appointment
+
+    // medical history test
+    public static final String VALID_DATE_OF_MED_HIST = "2019-03-02";
+    public static final String VALID_WRITE_UP = "Have a fever.";
 
     public static final String VALID_NAME_AMY = "Amy Bee";
     public static final String VALID_NAME_BOB = "Bob Choo";
@@ -226,6 +232,20 @@ public class CommandTestUtil {
         model.updateFilteredPatientList(new PatientNameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
         assertEquals(1, model.getFilteredPatientList().size());
+    }
+
+    /**
+     * Updates {@code model}'s filtered list to show only the medical history at the given {@code targetIndex} in the
+     * {@code model}'s address book.
+     */
+    public static void showMedHistAtIndex(Model model, Index targetIndex) {
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredMedHistList().size());
+
+        MedicalHistory medHist = model.getFilteredMedHistList().get(targetIndex.getZeroBased());
+        final String[] splitWriteUp = medHist.getWriteUp().value.split("\\s+");
+        model.updateFilteredMedHistList(new MedHistContainsKeywordsPredicate(Arrays.asList(splitWriteUp[0])));
+
+        assertEquals(1, model.getFilteredMedHistList().size());
     }
 
     /**

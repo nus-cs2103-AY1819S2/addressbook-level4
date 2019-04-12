@@ -262,7 +262,9 @@ public class DocX implements ReadOnlyDocX {
      */
     public void updateMedHistWhenPatientDeleted(PersonId patientId) {
         requireNonNull(patientId);
+
         medHists.setPatientToNull(patientId);
+        indicateModified();
     }
 
     /**
@@ -270,7 +272,9 @@ public class DocX implements ReadOnlyDocX {
      */
     public void updateMedHistWhenDoctorDeleted(PersonId doctorId) {
         requireNonNull(doctorId);
+
         medHists.setDoctorToNull(doctorId);
+        indicateModified();
     }
 
     /**
@@ -279,6 +283,19 @@ public class DocX implements ReadOnlyDocX {
     public boolean hasMedHist(MedicalHistory medHist) {
         requireNonNull(medHist);
         return medHists.contains(medHist);
+    }
+
+    /**
+     * Replaces the given medical history {@code target} in the list with {@code editedMedHist}.
+     * {@code target} must exist in the docX.
+     * The medical history identity of {@code editedMedHist} must not be the same as another existing medical history
+     * in the docX.
+     */
+    public void setMedHist(MedicalHistory target, MedicalHistory editedMedHist) {
+        requireNonNull(editedMedHist);
+
+        medHists.setMedHist(target, editedMedHist);
+        indicateModified();
     }
 
     /**
@@ -299,19 +316,6 @@ public class DocX implements ReadOnlyDocX {
      */
     public void sortMedHist(Comparator<MedicalHistory> medHistComparator) {
         medHists.sort(medHistComparator);
-    }
-
-    /**
-     * Replaces the given medical history {@code target} in the list with {@code editedMedHist}.
-     * {@code target} must exist in the docX.
-     * The medical history identity of {@code editedMedHist} must not be the same as another existing medical history
-     * in the docX.
-     */
-    public void setMedHist(MedicalHistory target, MedicalHistory editedMedHist) {
-        requireNonNull(editedMedHist);
-
-        medHists.setMedHist(target, editedMedHist);
-        indicateModified();
     }
 
     /**

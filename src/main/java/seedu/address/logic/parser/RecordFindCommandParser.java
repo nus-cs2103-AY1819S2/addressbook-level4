@@ -37,7 +37,7 @@ public class RecordFindCommandParser implements Parser<RecordFindCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, RecordFindCommand.MESSAGE_USAGE));
         }
 
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(trimmedArgs, PREFIX_PROCEDURE, PREFIX_DESC);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_PROCEDURE, PREFIX_DESC);
 
         String preamble = argMultimap.getPreamble().toLowerCase();
 

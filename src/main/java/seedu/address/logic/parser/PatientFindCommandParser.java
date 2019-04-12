@@ -103,6 +103,9 @@ public class PatientFindCommandParser implements Parser<PatientFindCommand> {
         for (Prefix pref: prefixArr) {
             if (argMultimap.getValue(pref).isPresent()) {
                 keywords = argMultimap.getValue(pref).get().split("\\s+");
+                if (keywords[0].isEmpty()) {
+                    throw new ParseException("Keyword cannot be blank!");
+                }
                 predicate = getKeywordsPredicate(pref, Arrays.asList(keywords), isIgnoreCase, isAnd);
                 predicateList.add(predicate);
                 prefixNum++;

@@ -9,12 +9,13 @@ import seedu.address.model.record.Record;
  * Tests that a {@code Record}'s {@code Procedure} matches any of the keywords given.
  */
 public class ProcedureContainsKeywordsPredicate extends ContainsKeywordsPredicate<Record> {
+    public ProcedureContainsKeywordsPredicate(List<String> keywords) {
+        super(keywords, true, false);
+    }
 
     public ProcedureContainsKeywordsPredicate(List<String> keywords, boolean isIgnoreCase, boolean isAnd) {
         super(keywords, isIgnoreCase, isAnd);
     }
-
-
 
     @Override
     public boolean test(Record record) {

@@ -74,7 +74,17 @@ public class SampleDataUtil {
     public static MedicalHistory[] getSampleMedHists() {
         return new MedicalHistory[] {
             new MedicalHistory(new PersonId("1"), new PersonId("7"),
-                    new ValidDate("2019-03-03"), new WriteUp("The patient has a high fever."))
+                    new ValidDate("2019-03-03"), new WriteUp("The patient got a high fever.")),
+            new MedicalHistory(new PersonId("2"), new PersonId("7"),
+                    new ValidDate("2019-03-03"), new WriteUp("The patient had a sneeze.")),
+            new MedicalHistory(new PersonId("2"), new PersonId("8"),
+                    new ValidDate("2019-01-30"), new WriteUp("The patient had a stomachache. " +
+                    "I gave him some medicine to release the pain.")),
+            new MedicalHistory(new PersonId("3"), new PersonId("9"),
+                    new ValidDate("2019-04-03"), new WriteUp("Had a fever with sore throat. Sleeps late.")),
+            new MedicalHistory(new PersonId("4"), new PersonId("10"),
+                    new ValidDate("2019-02-25"),
+                    new WriteUp("Came down with a stomach flu, possibly due to eating expired food"))
         };
     }
 

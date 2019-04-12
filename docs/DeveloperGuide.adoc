@@ -234,8 +234,8 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 This section describes some noteworthy details on how certain features are implemented.
 
 // tag::patient[]
-=== Patient feature
-==== Current Implementation: Patient class
+=== Patient Management Feature
+==== Current Implementation: Storing Patient's Information
 
 The `Patient` class represents patients for our users on TeethHub.
 It extends `Person` with more patient-specific attributes, as well as methods.
@@ -286,14 +286,9 @@ Step 5. The user can now add, edit, or delete patients' personal information.
 [NOTE]
 If the `back` command is entered while the window is already showing patients, an error message will be displayed on the window.
 
-The following activity diagram summarizes what happens when a user executes the `goto` command:
+The following activity diagram summarizes what happens when a user executes the `goto` or `back` command:
 
 image::GotoActivityDiagram.png[width="800"]
-{nbsp}
-
-The following activity diagram summarizes what happens when a user executes the `back` command:
-
-image::BackActivityDiagram.png[width="800"]
 {nbsp}
 
 ==== Current Implementation: Representing Patient's Teeth

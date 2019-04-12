@@ -541,7 +541,7 @@ The number of battleships available to the Enemy AI is congruent to the number o
 available to the Player. The exact number of the different types of battleships is decided from on
 a formula that is based on the map size specified by the player in the `init` command.
 
-*Calculating Cell to Attack*
+*Calculating Coordinate to Attack*
 
 The Enemy AI has the method `enemyShootAt()` that is invoked when the player ends their turn upon a miss.
 The Enemy AI will attempt to generate a random Coordinate to attack,
@@ -549,13 +549,41 @@ and pass this Coordinate to the `BattleManager`. The Enemy AI supports the abili
 check that its generated coordinates are all valid, and will perform certain calculations that will
 increase its accuracy upon detecting a successful hit on any part of a ship.
 
+The following activity diagram illustrates the conditions taken into account by the Enemy AI as part of its shooting algorithm, and shows
+how it decides on which Coordinate to target, depending on the success of previous hits.
+
+image::EnemyShootingActivityDiagram.png[width=800]
+
+
+We can see from the diagram that the start of the game, when scouting for the Player's ships, the Enemy first divides the cells with a parity of 1
+on the map into two groups - we will name these groups White and Black for ease of explanation.
+The enemy will then randomly pick a Coordinate from the White group whenever it is guessing where the
+next Player ship might be. The reason for this is that since every ship must be at least of length 2, all ships will
+consist of at least one of each White or Black coordinates.
+
+The Black-White groupings of Coordinates through the concept of parity is illustrated here in the following diagram:
+
+image::CheckeredBoard.png[width=400]
+
+Once the Enemy hits a Coordinate that has a ship on it, it will note down every valid Coordinate that is cardinal (to the North, South, East and West) to the
+cell that was discovered to hold a ship.
+
+image::CardinalCoordinates.png[width=400]
+
+The validity of these cardinal Coordinates are evaluated by checking if they are within the bounds of the map grid, and
+whether they have not been hit before. If these two conditions are satisfied, then the Enemy will note down the cardinal Coordinate into a `watchlist`, and
+will from that point shoot everything in the `watchlist`, until the ship that it is targeting is destroyed.
+
+When the Enemy AI detects that it has successfully destroyed the Player ship, it will empty out the `watchlist`, and go back to scouting the
+map for another part of the Player ship, by randomly targetting coordinates in the Black cells, as illustrated in the previous image.
+
 
 __Note: All actions taken by the Enemy AI are seeded by a pseudo-random generator.
 Thus, its behaviour will be different for every game session.__
 
 
 ==== Design Considerations
-* **Alternative 1 (current choice):** seed all methods with pseudo-random seed
+* **Alternative 1 (current choice):** seed all methods with pseudo-random seed/
 ** Pros: each game will be a different experience
 ** Cons: testing will be more difficult
 * **Alternative 2:** pre-calculate and hardcode the actions the Enemy AI performs

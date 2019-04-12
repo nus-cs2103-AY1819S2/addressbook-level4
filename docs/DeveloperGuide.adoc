@@ -539,7 +539,7 @@ Given below is a sequence diagram and step by step explanation of how Finance Tr
 executes when a user sets a category budget.
 
 .Sequence diagram of user setting a category budget
-image::AllocateSequenceDiagram.png[]
+image::AllocateSequenceDiagram.png[width="800"]
 
 
 . User enters command `allocate $/10 c/Food`. The command is received by `FinanceBookParser`
@@ -577,7 +577,6 @@ if the category was not previously allocated with a budget
 // end::categorybudget[]
 
 // tag::show[]
-// TODO: To be updated
 ==== Listing Category Budgets allocated
 This feature allows user to list the category budgets and the current spending in these
 categories after category budgets are allocated.
@@ -589,7 +588,7 @@ budgets
 . If there are no allocated category budgets, a message will be printed in the ResultDisplay
 . If there are allocated category budgets, `Model#getCatBudget()` is called to obtain the set of `CategoryBudget`
 . An `Iterator` is then used to iterate through the set of `CategoryBudgets` and the `currentSpending` is printed with
-the `totalBudget` allocated to the `CategoryBudget`.g
+the `totalBudget` allocated to the `CategoryBudget`.
 
 
 // end::show[]

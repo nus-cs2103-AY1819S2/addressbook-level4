@@ -20,19 +20,19 @@ public class AddListToJobCommand extends Command {
     public static final String COMMAND_ALIAS = "aa";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": adds all shown people to job . "
-            + "Parameters: "
-            + "DESTINATION-LIST-NAME "
-            + "SOURCE-LIST-NAME"
-            + PREFIX_JOBNAME + "JobName "
-            + "Example: " + COMMAND_WORD + " "
-            + "kiv "
-            + "applicant "
-            + PREFIX_JOBNAME + "Helper "
-            + "The alias \"aa\" can be used instead.\n"
-            + "Example: " + COMMAND_ALIAS + " "
-            + "kiv "
-            + "applicant "
-            + PREFIX_JOBNAME + "Helper ";
+        + "Parameters: "
+        + "DESTINATION-LIST-NAME "
+        + "SOURCE-LIST-NAME"
+        + PREFIX_JOBNAME + "JobName "
+        + "Example: " + COMMAND_WORD + " "
+        + "kiv "
+        + "applicant "
+        + PREFIX_JOBNAME + "Helper "
+        + "The alias \"aa\" can be used instead.\n"
+        + "Example: " + COMMAND_ALIAS + " "
+        + "kiv "
+        + "applicant "
+        + PREFIX_JOBNAME + "Helper ";
 
     public static final String MESSAGE_SUCCESS = "All people added to job: %1$s. Displaying the job";
     public static final String MESSAGE_MISSING_JOB = "This job does not exist";
@@ -57,10 +57,10 @@ public class AddListToJobCommand extends Command {
         requireNonNull(model);
 
         if (toAdd == null) {
-           if (model.getActiveJob() == null) {
-               throw new CommandException(MESSAGE_NO_ACTIVE_JOB);
-           }
-           toAdd = model.getActiveJob().getName();
+            if (model.getActiveJob() == null) {
+                throw new CommandException(MESSAGE_NO_ACTIVE_JOB);
+            }
+            toAdd = model.getActiveJob().getName();
         }
 
         Job tempJob = new Job(toAdd);
@@ -81,7 +81,7 @@ public class AddListToJobCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof AddListToJobCommand // instanceof handles nulls
-                && toAdd.equals(((AddListToJobCommand) other).toAdd));
+            || (other instanceof AddListToJobCommand // instanceof handles nulls
+            && toAdd.equals(((AddListToJobCommand) other).toAdd));
     }
 }

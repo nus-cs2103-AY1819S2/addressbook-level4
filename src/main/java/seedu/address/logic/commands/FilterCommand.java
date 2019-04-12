@@ -34,6 +34,7 @@ import seedu.address.model.person.predicate.AddressContainsKeywordsPredicate;
 import seedu.address.model.person.predicate.EmailContainsKeywordsPredicate;
 import seedu.address.model.person.predicate.GenderContainsKeywordsPredicate;
 import seedu.address.model.person.predicate.GradeContainsKeywordsPredicate;
+import seedu.address.model.person.predicate.InterviewScoreContainsKeywordsPredicate;
 import seedu.address.model.person.predicate.JobsApplyContainsKeywordsPredicate;
 import seedu.address.model.person.predicate.KnownProgLangContainsKeywordsPredicate;
 import seedu.address.model.person.predicate.MajorContainsKeywordsPredicate;
@@ -123,7 +124,7 @@ public class FilterCommand extends Command {
         boolean isAllJobScreen = model.getIsAllJobScreen();
         boolean hasFilterName = !commandName.equals("");
         boolean hasListName = listName != EMPTY;
-        if (!isAllJobScreen && !hasFilterName) {
+        if (!hasFilterName) {
             throw new CommandException(Messages.MESSAGE_LACK_FILTERNAME);
         }
         if (!isAllJobScreen && !hasListName) {
@@ -131,9 +132,6 @@ public class FilterCommand extends Command {
         }
         if (isAllJobScreen && hasListName) {
             throw new CommandException(Messages.MESSAGE_REDUNDANT_LISTNAME);
-        }
-        if (isAllJobScreen && hasFilterName) {
-            throw new CommandException(Messages.MESSAGE_REDUNDANT_FILTERNAME);
         }
         int size;
         switch (listName) {
@@ -162,9 +160,10 @@ public class FilterCommand extends Command {
             predicateList = model.getPredicateLists(SHORTLIST);
             break;
         default:
-            model.updateFilteredPersonList(predicate);
+            model.addPredicateAllPersons(commandName, predicate);
+            model.updateFilteredPersonList();
             size = model.getFilteredPersonList().size();
-            predicateList = null;
+            predicateList = model.getPredicateLists(EMPTY);
         }
         return new CommandResult(
             String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, size), listName,
@@ -193,13 +192,17 @@ public class FilterCommand extends Command {
      * corresponding field value of the person.
      */
     public static class PredicatePersonDescriptor {
-        private String predicateName;
         private Set<String> name;
         private Set<String> phone;
         private Set<String> email;
         private Set<String> nric;
         private Set<String> gender;
         private Set<String> race;
+        private Set<String> interviewScoreQ1;
+        private Set<String> interviewScoreQ2;
+        private Set<String> interviewScoreQ3;
+        private Set<String> interviewScoreQ4;
+        private Set<String> interviewScoreQ5;
         private Set<String> grade;
         private Set<String> address;
         private Set<String> school;
@@ -217,13 +220,17 @@ public class FilterCommand extends Command {
          * A defensive copy of {@code tags} is used internally.
          */
         public PredicatePersonDescriptor(PredicatePersonDescriptor toCopy) {
-            setPredicateName(toCopy.predicateName);
             setName(toCopy.name);
             setPhone(toCopy.phone);
             setEmail(toCopy.email);
             setNric(toCopy.nric);
             setGender(toCopy.gender);
             setRace(toCopy.race);
+            setInterviewScoreQ1(toCopy.interviewScoreQ1);
+            setInterviewScoreQ2(toCopy.interviewScoreQ2);
+            setInterviewScoreQ3(toCopy.interviewScoreQ3);
+            setInterviewScoreQ4(toCopy.interviewScoreQ4);
+            setInterviewScoreQ5(toCopy.interviewScoreQ5);
             setGrade(toCopy.grade);
             setAddress(toCopy.address);
             setSchool(toCopy.school);
@@ -278,6 +285,26 @@ public class FilterCommand extends Command {
                 predicator = predicator.and(new GradeContainsKeywordsPredicate(
                     new ArrayList<>(this.getGrade().get())));
             }
+            if (this.getInterviewScoreQ1().isPresent()) {
+                predicator = predicator.and(new InterviewScoreContainsKeywordsPredicate(1,
+                    new ArrayList<>(this.getInterviewScoreQ1().get())));
+            }
+            if (this.getInterviewScoreQ2().isPresent()) {
+                predicator = predicator.and(new InterviewScoreContainsKeywordsPredicate(2,
+                    new ArrayList<>(this.getInterviewScoreQ2().get())));
+            }
+            if (this.getInterviewScoreQ3().isPresent()) {
+                predicator = predicator.and(new InterviewScoreContainsKeywordsPredicate(3,
+                    new ArrayList<>(this.getInterviewScoreQ3().get())));
+            }
+            if (this.getInterviewScoreQ4().isPresent()) {
+                predicator = predicator.and(new InterviewScoreContainsKeywordsPredicate(4,
+                    new ArrayList<>(this.getInterviewScoreQ4().get())));
+            }
+            if (this.getInterviewScoreQ5().isPresent()) {
+                predicator = predicator.and(new InterviewScoreContainsKeywordsPredicate(5,
+                    new ArrayList<>(this.getInterviewScoreQ5().get())));
+            }
             if (this.getNric().isPresent()) {
                 predicator = predicator.and(new NricContainsKeywordsPredicate(
                     new ArrayList<>(this.getNric().get())));
@@ -295,14 +322,6 @@ public class FilterCommand extends Command {
                     new ArrayList<>(this.getKnownProgLangs().get())));
             }
             return predicator;
-        }
-
-        public void setPredicateName(String name) {
-            this.predicateName = name;
-        }
-
-        public String getPredicateName() {
-            return this.predicateName;
         }
 
         public void setName(Set<String> name) {
@@ -359,6 +378,46 @@ public class FilterCommand extends Command {
 
         public Optional<Set<String>> getGrade() {
             return Optional.ofNullable(grade);
+        }
+
+        public void setInterviewScoreQ1(Set<String> interviewScoreQ1) {
+            this.interviewScoreQ1 = interviewScoreQ1;
+        }
+
+        public Optional<Set<String>> getInterviewScoreQ1() {
+            return Optional.ofNullable(interviewScoreQ1);
+        }
+
+        public void setInterviewScoreQ2(Set<String> interviewScoreQ2) {
+            this.interviewScoreQ2 = interviewScoreQ2;
+        }
+
+        public Optional<Set<String>> getInterviewScoreQ2() {
+            return Optional.ofNullable(interviewScoreQ2);
+        }
+
+        public void setInterviewScoreQ3(Set<String> interviewScoreQ3) {
+            this.interviewScoreQ3 = interviewScoreQ3;
+        }
+
+        public Optional<Set<String>> getInterviewScoreQ3() {
+            return Optional.ofNullable(interviewScoreQ3);
+        }
+
+        public void setInterviewScoreQ4(Set<String> interviewScoreQ4) {
+            this.interviewScoreQ4 = interviewScoreQ4;
+        }
+
+        public Optional<Set<String>> getInterviewScoreQ4() {
+            return Optional.ofNullable(interviewScoreQ4);
+        }
+
+        public void setInterviewScoreQ5(Set<String> interviewScoreQ5) {
+            this.interviewScoreQ5 = interviewScoreQ5;
+        }
+
+        public Optional<Set<String>> getInterviewScoreQ5() {
+            return Optional.ofNullable(interviewScoreQ5);
         }
 
         public void setAddress(Set<String> address) {
@@ -432,6 +491,11 @@ public class FilterCommand extends Command {
                 && getGender().equals(e.getGender())
                 && getRace().equals(e.getRace())
                 && getGrade().equals(e.getGrade())
+                && getInterviewScoreQ1().equals(e.getInterviewScoreQ1())
+                && getInterviewScoreQ2().equals(e.getInterviewScoreQ2())
+                && getInterviewScoreQ3().equals(e.getInterviewScoreQ3())
+                && getInterviewScoreQ4().equals(e.getInterviewScoreQ4())
+                && getInterviewScoreQ5().equals(e.getInterviewScoreQ5())
                 && getAddress().equals(e.getAddress())
                 && getSchool().equals(e.getSchool())
                 && getMajor().equals(e.getMajor())

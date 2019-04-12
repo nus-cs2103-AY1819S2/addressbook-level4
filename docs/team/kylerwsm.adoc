@@ -76,7 +76,7 @@ Various methods are also overridden in order for them to work appropriately with
 
 The following class diagram summarizes the new `Patient` class, which extends from `Person`:
 
-image::PatientClassDiagram.png[width="400"]
+image::PatientClassDiagram.png[align="center", width="400"]
 
 ==== Current Implementation: Patient's Dental Records
 
@@ -128,7 +128,7 @@ If the `back` command is entered while the window is already showing patients, a
 
 The following activity diagram summarizes what happens when a user executes the `goto` or `back` command:
 
-image::GotoActivityDiagram.png[width="800"]
+image::GotoActivityDiagram.png[align=center, width="800"]
 {nbsp}
 
 ==== Current Implementation: Representing Patient's Teeth
@@ -154,7 +154,7 @@ The following class diagram summarizes the `Teeth` class, which is a composition
 
 {nbsp}
 
-image::TeethClassDiagram.png[width=""]
+image::TeethClassDiagram.png[align=center, width=""]
 {nbsp}
 
 ==== Current Implementation: Automatically Generated Tags
@@ -170,7 +170,7 @@ The worst tooth status found in the patient's teeth will be reflected in the tee
 
 The activity diagram below demonstrates how TeethHub automatically update the patient's status tag when his or her tooth is edited:
 
-image::StatusTagActivityDiagram.png[width=""]
+image::StatusTagActivityDiagram.png[align=center, width=""]
 
 `TeethTag`: Describes the teeth type of the patient. The valid options are "Primary Teeth" or "Permanent Teeth".
 

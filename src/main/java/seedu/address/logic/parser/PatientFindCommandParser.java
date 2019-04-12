@@ -1,6 +1,6 @@
 package seedu.address.logic.parser;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.commons.core.Messages.*;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESC;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DRUG_ALLERGY;
@@ -105,7 +105,7 @@ public class PatientFindCommandParser implements Parser<PatientFindCommand> {
             if (argMultimap.getValue(pref).isPresent()) {
                 keywords = argMultimap.getValue(pref).get().split("\\s+");
                 if (keywords[0].isEmpty()) {
-                    throw new ParseException("Keyword cannot be blank!");
+                    throw new ParseException(MESSAGE_EMPTY_KEYWORD);
                 }
                 predicate = getKeywordsPredicate(pref, Arrays.asList(keywords), isIgnoreCase, isAnd);
                 predicateList.add(predicate);
@@ -114,7 +114,7 @@ public class PatientFindCommandParser implements Parser<PatientFindCommand> {
         }
 
         if (prefixNum < 1) {
-            throw new ParseException("Find needs at least 1 parameter for searching!");
+            throw new ParseException(MESSAGE_NO_SEARCH_PARAMETER);
         }
         multiPredicate.setPredicateList(predicateList);
 

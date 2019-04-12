@@ -56,13 +56,13 @@ public class InfoPanel extends UiPart<Region> {
         selectedRequest.addListener((observable, oldValue, newValue) -> {
             logger.info("InfoPanel triggered on request selection.");
 
-            Request request = selectedRequest.getValue();
-            String htmlContent = generateHtml(request);
-            loadContent(htmlContent);
-
             if (newValue == null) {
                 return;
             }
+
+            Request request = selectedRequest.getValue();
+            String htmlContent = generateHtml(request);
+            loadContent(htmlContent);
         });
     }
 

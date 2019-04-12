@@ -15,6 +15,8 @@ import seedu.address.model.util.SampleDataUtil;
  */
 public class TypicalRequests {
 
+    public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
+
     public static final Request ALICE_REQUEST = new RequestBuilder()
         .withConditions(SampleDataUtil.getConditionSet("Physiotherapy"))
         .withDate("01-01-2019 10:00:00")
@@ -28,7 +30,7 @@ public class TypicalRequests {
 
     public static final Request BENSON_REQUEST = new RequestBuilder()
         .withConditions(SampleDataUtil.getConditionSet("Palliative"))
-        .withDate("02-01-2919 08:00:00")
+        .withDate("18-03-2019 08:00:00")
         .withHealthStaff(TypicalHealthWorkers.BETTY)
         .withStatus("ONGOING")
         .withName("Benson Meier")
@@ -39,7 +41,7 @@ public class TypicalRequests {
 
     public static final Request CARL_REQUEST = new RequestBuilder()
         .withConditions(SampleDataUtil.getConditionSet("Palliative"))
-        .withDate("02-01-2919 14:00:00")
+        .withDate("02-04-2019 14:00:00")
         .withHealthStaff(TypicalHealthWorkers.CARLIE)
         .withStatus("ONGOING")
         .withNric("S9328723A")
@@ -50,17 +52,40 @@ public class TypicalRequests {
 
     public static final Request DANIEL_REQUEST = new RequestBuilder()
         .withConditions(SampleDataUtil.getConditionSet("Palliative"))
-        .withDate("02-01-2919 18:00:00")
+        .withDate("02-05-2019 12:00:00")
         .withHealthStaff(TypicalHealthWorkers.PANIEL)
-        .withStatus("COMPLETED")
-        .withNric("S2652663Z")
-        .withPhone("82015737")
-        .withAddress("10th street")
+        .withStatus("PENDING")
+        .withNric("S8772513C")
+        .withPhone("96734481")
+        .withAddress("108 McNair Road, #09-15")
         .withName("Daniel Meier")
         .build();
 
+
+    public static final Request JANE_REQUEST = new RequestBuilder()
+            .withConditions(SampleDataUtil.getConditionSet("Post Hospitalisation"))
+            .withDate("02-01-2019 15:00:00")
+            .withHealthStaff(TypicalHealthWorkers.ELLA)
+            .withStatus("COMPLETED")
+            .withNric("S2652663Z")
+            .withPhone("82015737")
+            .withAddress("10th street")
+            .withName("Jane Romero")
+            .build();
+
+    public static final Request NEA_REQUEST = new RequestBuilder()
+            .withConditions(SampleDataUtil.getConditionSet("Physiotherapy"))
+            .withDate("25-03-2019 10:00:00")
+            .withHealthStaff(TypicalHealthWorkers.GEORGE)
+            .withStatus("PENDING")
+            .withNric("S8875613T")
+            .withPhone("88179352")
+            .withAddress("480 Lorong 6 Toa Payoh")
+            .withName("Nea Karlsson")
+            .build();
+
     /**
-     * Returns an {@code RequestBook} with all the typical persons.
+     * Returns an {@code RequestBook} with all the typical requests.
      */
     public static RequestBook getTypicalRequestBook() {
         RequestBook requestBook = new RequestBook();
@@ -72,6 +97,6 @@ public class TypicalRequests {
 
     public static List<Request> getTypicalRequests() {
         return new ArrayList<>(Arrays.asList(ALICE_REQUEST, BENSON_REQUEST, CARL_REQUEST,
-            DANIEL_REQUEST));
+            DANIEL_REQUEST, JANE_REQUEST, NEA_REQUEST));
     }
 }

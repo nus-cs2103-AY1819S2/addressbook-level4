@@ -12,14 +12,12 @@ import java.util.List;
 import org.junit.Test;
 
 import seedu.address.commons.core.Messages;
-import seedu.address.logic.commands.AddTableCommand;
 import seedu.address.logic.commands.AddToOrderCommand;
 import seedu.address.logic.commands.ClearOrderCommand;
 import seedu.address.model.Model;
 import seedu.address.model.menu.Code;
 import seedu.address.model.order.OrderItem;
 import seedu.address.model.order.OrderItemStatus;
-import seedu.address.model.table.TableStatus;
 import seedu.address.testutil.OrderItemBuilder;
 import seedu.address.testutil.RestOrRantUtil;
 
@@ -143,7 +141,7 @@ public class AddToOrderCommandSystemTest extends RestOrRantSystemTest {
      * 1. Result display box displays {@code expectedResultMessage}.<br>
      * 2. {@code Storage} and {@code OrderItemListPanel} equal to the corresponding components in
      * {@code expectedModel}.<br>
-     * @see AddToOrderCommandSystemTest#assertCommandSuccess(String, List\<OrderItem\>)
+     * @see AddToOrderCommandSystemTest#assertCommandSuccess(String, List)
      */
     private void assertCommandSuccess(String command, Model expectedModel, String expectedResultMessage) {
         executeCommand(command);

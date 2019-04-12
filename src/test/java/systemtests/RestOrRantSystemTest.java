@@ -116,7 +116,7 @@ public abstract class RestOrRantSystemTest {
     public MainMenuHandle getMainMenu() {
         return mainWindowHandle.getMainMenu();
     }
-    
+
     public StatusBarFooterHandle getStatusBarFooter() {
         return mainWindowHandle.getStatusBarFooter();
     }

@@ -1,11 +1,12 @@
 package guitests.guihandles;
 
+import java.util.Set;
+
 import javafx.scene.Node;
 import javafx.scene.control.ListView;
 import seedu.address.commons.util.warning.WarningPanelPredicateType;
 import seedu.address.model.medicine.Medicine;
 
-import java.util.Set;
 
 /**
  * Provides a handle for {@code WarningListView} containing the list of {@code WarningCard}.
@@ -53,7 +54,7 @@ public class WarningListViewHandle extends NodeHandle<ListView<Medicine>> {
      */
     public WarningCardHandle getWarningCardHandle(int index, WarningPanelPredicateType type) {
         return getAllCardNodes().stream()
-                .map(node ->  new WarningCardHandle(node, type))
+                .map(node -> new WarningCardHandle(node, type))
                 .filter(handle -> handle.equals(getMedicine(index)))
                 .findFirst()
                 .orElseThrow(IllegalStateException::new);

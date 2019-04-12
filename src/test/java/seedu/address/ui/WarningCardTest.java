@@ -1,17 +1,18 @@
 package seedu.address.ui;
 
-import guitests.guihandles.WarningCardHandle;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static seedu.address.ui.testutil.GuiTestAssert.assertCardDisplaysMedicine;
+
 import org.junit.Test;
 
+import guitests.guihandles.WarningCardHandle;
 import seedu.address.commons.util.warning.WarningPanelPredicateAccessor;
 import seedu.address.commons.util.warning.WarningPanelPredicateType;
 import seedu.address.model.medicine.Medicine;
 import seedu.address.testutil.MedicineBuilder;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static seedu.address.ui.testutil.GuiTestAssert.assertCardDisplaysMedicine;
 
 public class WarningCardTest extends GuiUnitTest {
 

@@ -77,6 +77,7 @@ public class TypicalMedicines {
     }
 
     public static List<Medicine> getTypicalMedicines() {
-        return new ArrayList<>(Arrays.asList(ACETAMINOPHEN, IBUPROFEN, LEVOTHYROXINE, LIPITOR, LISINOPRIL, PARACETAMOL, PREDNISONE));
+        return new ArrayList<>(Arrays.asList(ACETAMINOPHEN, IBUPROFEN, LEVOTHYROXINE, LIPITOR, LISINOPRIL, PARACETAMOL,
+                PREDNISONE));
     }
 }

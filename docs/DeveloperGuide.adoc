@@ -570,7 +570,7 @@ specified to be searched.
 Although TeethHub already has a built-in auto-load and auto-save, implementing file management would give the user more flexibility with managing data. +
 PDF export is also implemented so that the user would have an easier time making sense of the data when offline.
 
-The File Management features are: `Open`, `Save`, `Import`, `Export`
+The File Management features are: `Open`, `Import`, `Save`, `Export`
 
 [NOTE]
 ============================================================
@@ -625,11 +625,18 @@ Use a combination of commas and dashes to indicate a range as well. e.g. `1-3,5`
 *** Pros: Less overhead and faster runtime as there the regex would not need to look for `all`
 *** Cons: In the current implementation, Import and Export share the same parser as Import and Export share the same format of `command FILE_PATH INDEX_RANGE`. Since Import uses the `all` keyword, not parsing `all` would require an additional parser for Export. Furthermore, as the accepted inputs of Open and Save are the same (except for .pdf), the user may expect the same accepted inputs for Import and Export as well.
 
+=== Open vs Import
+
+Suppose you have a `data.json` file with the following contents:
+image::OpenImportFeature1.png[width="870"]
+
+The following image illustrates the difference when you open or import `data.json`.
+image::OpenImportFeature2.png[width="870"]
 
 ==== Open feature
 ===== Current Implementation
 As TeethHub already has a built-in auto-load when starting the program, the implemented Open feature is simple. +
-*The Open feature opens the specified file and overwrites the current TeethHub data with the file data.*
+*The Open feature opens the specified file and overwrites the current TeethHub data with the file data.* +
 The Open feature's format is: `open FILE_PATH`
 
 0. AddressBookParser creates OpenCommandParser. +
@@ -640,6 +647,21 @@ The Open feature's format is: `open FILE_PATH`
 5. OpenCommand calls the existing readAddressBook().
 
 image::OpenCommandSequenceDiagram.jpg[width="870"]
+
+==== Import feature
+===== Current Implementation
+As TeethHub already has a built-in auto-load when starting the program, the implemented Import feature makes use of it. +
+*The Import feature opens the specified file and adds the file data to the current TeethHub data.* +
+The Import feature's format is: `import FILE_PATH INDEX_RANGE`
+
+0. AddressBookParser creates ImportCommandParser. +
+1. The ImportCommandParser uses ParserUtil to parse the user input. +
+2. If the input is valid, ParserUtil creates a ParsedInOut object and returns it to ImportCommandParser. +
+3. ImportCommandParser creates ImportCommand initialized with the ParsedInOut object. +
+4. ImportCommand checks for if the requested file is a ".json" file, if the file exists, if it is a file, or if it can be read. +
+5. ImportCommand calls the existing readAddressBook() on a temporary storage. +
+6a. ImportCommand adds contents from the temporary storage to the current storage based on the input INDEX_RANGE. +
+6b. ImportCommand adds all contents from the temporary storage to the current storage if INDEX_RANGE is `all`.
 
 ==== Save feature
 ===== Current Implementation
@@ -657,25 +679,10 @@ The Save feature's format is: `save FILE_PATH`
 5a. SaveCommand calls the existing saveAddressBook() if the requested file is a ".json" file. +
 5b. SaveCommand calls the new saveAsPdf() if the requested file is a ".pdf" file.
 
-==== Import feature
-===== Current Implementation
-As TeethHub already has a built-in auto-load when starting the program, the implemented Import feature makes use of it. +
-*The Import feature opens the specified file and adds the file data to the current TeethHub data.*
-The Import feature's format is: `import FILE_PATH INDEX_RANGE`
-
-0. AddressBookParser creates ImportCommandParser. +
-1. The ImportCommandParser uses ParserUtil to parse the user input. +
-2. If the input is valid, ParserUtil creates a ParsedInOut object and returns it to ImportCommandParser. +
-3. ImportCommandParser creates ImportCommand initialized with the ParsedInOut object. +
-4. ImportCommand checks for if the requested file is a ".json" file, if the file exists, if it is a file, or if it can be read. +
-5. ImportCommand calls the existing readAddressBook() on a temporary storage. +
-6a. ImportCommand adds contents from the temporary storage to the current storage based on the input INDEX_RANGE. +
-6b. ImportCommand adds all contents from the temporary storage to the current storage if INDEX_RANGE is `all`.
-
 ==== Export feature
 ===== Current Implementation
 As TeethHub already has a built-in auto-save when starting the program, the implemented Export feature makes use of it. +
-The reason 
+*The Export feature saves specified patients in the current TeethHub data to the specified file.* +
 The Export feature's format is: `export FILE_PATH INDEX_RANGE`
 
 image::ExportCommandActivityDiagram.png[width="870"]

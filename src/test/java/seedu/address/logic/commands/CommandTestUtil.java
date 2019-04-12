@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_FILTERNAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GENDER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GRADE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INTERVIEWSCORES;
@@ -57,6 +58,7 @@ public class CommandTestUtil {
     public static final String VALID_MAJOR_AMY = "Computer Science";
     public static final String VALID_MAJOR_BOB = "MATH";
     public static final String VALID_GRADE_AMY = "4.12";
+    public static final String VALID_GRADE_RANGE_AMY = "4.11-4.13";
     public static final String VALID_GRADE_BOB = "4.00";
     public static final String VALID_KNOWNPROGLANG_PYTHON = "Python";
     public static final String VALID_KNOWNPROGLANG_JAVA = "Java";
@@ -70,6 +72,7 @@ public class CommandTestUtil {
     public static final String VALID_TAG_FRIEND = "friend";
     public static final String VALID_JOB_NAME_SE = "Search Engineer";
     public static final String VALID_JOB_NAME_TEACHER = "Teacher";
+    public static final String VALID_FILTERNAME = "FilterName";
 
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
@@ -94,6 +97,7 @@ public class CommandTestUtil {
     public static final String MAJOR_DESC_AMY = " " + PREFIX_MAJOR + VALID_MAJOR_AMY;
     public static final String MAJOR_DESC_BOB = " " + PREFIX_MAJOR + VALID_MAJOR_BOB;
     public static final String GRADE_DESC_AMY = " " + PREFIX_GRADE + VALID_GRADE_AMY;
+    public static final String GRADE_RANGE_DESC_AMY = " " + PREFIX_GRADE + VALID_GRADE_RANGE_AMY;
     public static final String GRADE_DESC_BOB = " " + PREFIX_GRADE + VALID_GRADE_BOB;
     public static final String JOBSAPPLY_DESC_TRADER = " " + PREFIX_JOBSAPPLY + VALID_JOBSAPPLY_TRADER;
     public static final String JOBSAPPLY_DESC_ENGINEER = " " + PREFIX_JOBSAPPLY + VALID_JOBSAPPLY_ENGINEER;
@@ -103,6 +107,7 @@ public class CommandTestUtil {
     public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
     public static final String JOBNAME_SE = " " + PREFIX_JOBNAME + VALID_JOB_NAME_SE;
     public static final String JOBNAME_TEACHER = " " + PREFIX_JOBNAME + VALID_JOB_NAME_TEACHER;
+    public static final String FILTERNAME_DESC = " " + PREFIX_FILTERNAME + VALID_FILTERNAME;
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones

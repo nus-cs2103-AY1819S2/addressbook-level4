@@ -2,8 +2,11 @@ package seedu.address.logic.commands;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_PERSONS_LISTED_OVERVIEW;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_FILTERNAME;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalObjects.CARL;
 import static seedu.address.testutil.TypicalObjects.ELLE;
@@ -46,41 +49,49 @@ public class FilterCommandTest {
         FindCommand findCommand = new FindCommand(findPredicate);
 
         // same object -> returns true
-        assertTrue(firstCommand.equals(firstCommand));
+        assertEquals(firstCommand,firstCommand);
 
         // same values -> returns true
         FilterCommand firstCommandCopy = new FilterCommand("", JobListName.EMPTY, firstDescriptor);
-        assertTrue(firstCommand.equals(firstCommandCopy));
+        assertEquals(firstCommand,firstCommandCopy);
 
         // different types -> returns false
-        assertFalse(firstCommand.equals(1));
+        assertNotEquals(firstCommand,1);
 
         // different person -> returns false
-        assertFalse(firstCommand.equals(secondCommand));
+        assertNotEquals(firstCommand,secondCommand);
 
         // different command type -> returns false
-        assertFalse(firstCommand.equals(findCommand));
+        assertNotEquals(firstCommand,findCommand);
     }
 
-    //    @Test
-    //    @SuppressWarnings("unchecked")
-    //    public void execute_zeroKeywords_noPersonFound() {
-    //        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 0);
-    //        FilterCommand.PredicatePersonDescriptor descriptor = preparePredicatePersonDescriptor(" ");
-    //        FilterCommand command = new FilterCommand(JobListName.APPLICANT, descriptor);
-    //        Predicate<Person> predicator = (Predicate<Person>) descriptor.toPredicate();
-    //        expectedModel.updateJobAllApplicantsFilteredPersonList(predicator);
-    //        assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
-    //        assertEquals(Collections.emptyList(), model.getFilteredPersonList());
-    //    }
+    @Test
+    public void execute_duplicatePersonFilteredList_failure() {
+        model.setIsAllJobScreen(false);
+        FilterCommand.PredicatePersonDescriptor descriptor = preparePredicatePersonDescriptor(" ");
+        FilterCommand filterCommand = new FilterCommand(VALID_FILTERNAME, JobListName.EMPTY, descriptor);
+
+        assertCommandFailure(filterCommand, model, commandHistory, EditCommand.MESSAGE_DUPLICATE_PERSON);
+    }
 
     @Test
-    @SuppressWarnings("unchecked")
+    public void execute_emptyKeywords_noPersonFound() {
+        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 0);
+        FilterCommand.PredicatePersonDescriptor descriptor = preparePredicatePersonDescriptor(" ");
+        FilterCommand command = new FilterCommand(VALID_FILTERNAME, JobListName.EMPTY, descriptor);
+        Predicate<Person> predicator = descriptor.toPredicate();
+        expectedModel.addPredicateAllPersons(VALID_FILTERNAME, predicator);
+        expectedModel.updateFilteredPersonList();
+        assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
+        assertEquals(Collections.emptyList(), model.getFilteredPersonList());
+    }
+
+    @Test
     public void execute_multipleKeywords_multiplePersonsFound() {
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 3);
         FilterCommand.PredicatePersonDescriptor descriptor =
             preparePredicatePersonDescriptor("Kurz Elle Kunz");
-        FilterCommand command = new FilterCommand("", JobListName.EMPTY, descriptor);
+        FilterCommand command = new FilterCommand(VALID_FILTERNAME, JobListName.EMPTY, descriptor);
         Predicate<Person> predicator = descriptor.toPredicate();
         expectedModel.updateBaseFilteredPersonList(predicator);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);

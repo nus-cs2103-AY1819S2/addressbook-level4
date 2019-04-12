@@ -10,7 +10,9 @@ public enum JobListName {
     APPLICANT(), KIV(), INTERVIEW(), SHORTLIST(), STUB(), EMPTY();
 
     public static final String MESSAGE_CONSTRAINTS =
-        "Names should only contain alphanumeric characters and spaces, and it should not be blank";
+        "Job List Name should only be name of four job list or their prefixes.\n" +
+            "The valid job list name should be in following set:\n" +
+            "{Applicant, KIV, Interview, Shortlist, a, k, i, s}(case insensitive)";
 
     public static final String APPLICANT_NAME = "applicant";
     public static final String KIV_NAME = "kiv";

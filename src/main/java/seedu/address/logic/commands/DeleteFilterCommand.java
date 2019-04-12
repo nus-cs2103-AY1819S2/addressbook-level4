@@ -32,6 +32,7 @@ public class DeleteFilterCommand extends Command {
 
     public static final String MESSAGE_DELETE_FILTER_SUCCESS = "Deleted Filter: %1$s";
     public static final String MESSAGE_DELETE_FILTER_FAIL = "Deleted Filter Fail";
+    public static final String MESSAGE_CANOT_FOUND_TARGET_FILTER = "The filter you want to delete can not found";
 
     private final String targetName;
     private final JobListName filterListName;
@@ -47,7 +48,7 @@ public class DeleteFilterCommand extends Command {
         boolean isAllJobScreen = model.getIsAllJobScreen();
         boolean hasListName = filterListName != EMPTY;
         if (!isAllJobScreen && !hasListName) {
-            throw new CommandException(Messages.MESSAGE_LACK_LISTNAME);
+            throw new CommandException(FilterCommand.MESSAGE_LACK_LISTNAME);
         }
         requireNonNull(model);
         switch (filterListName) {
@@ -55,7 +56,7 @@ public class DeleteFilterCommand extends Command {
             try {
                 model.removePredicateJobAllApplicants(targetName);
             } catch (FilterNotFoundException ex) {
-                throw new CommandException(Messages.MESSAGE_CANOT_FOUND_TARGET_FILTER);
+                throw new CommandException(MESSAGE_CANOT_FOUND_TARGET_FILTER);
             }
             model.updateJobAllApplicantsFilteredPersonList();
             predicateList = model.getPredicateLists(APPLICANT);
@@ -64,7 +65,7 @@ public class DeleteFilterCommand extends Command {
             try {
                 model.removePredicateJobKiv(targetName);
             } catch (FilterNotFoundException ex) {
-                throw new CommandException(Messages.MESSAGE_CANOT_FOUND_TARGET_FILTER);
+                throw new CommandException(MESSAGE_CANOT_FOUND_TARGET_FILTER);
             }
             model.updateJobKivFilteredPersonList();
             predicateList = model.getPredicateLists(KIV);
@@ -73,7 +74,7 @@ public class DeleteFilterCommand extends Command {
             try {
                 model.removePredicateJobInterview(targetName);
             } catch (FilterNotFoundException ex) {
-                throw new CommandException(Messages.MESSAGE_CANOT_FOUND_TARGET_FILTER);
+                throw new CommandException(MESSAGE_CANOT_FOUND_TARGET_FILTER);
             }
             model.updateJobInterviewFilteredPersonList();
             predicateList = model.getPredicateLists(INTERVIEW);
@@ -82,7 +83,7 @@ public class DeleteFilterCommand extends Command {
             try {
                 model.removePredicateJobShortlist(targetName);
             } catch (FilterNotFoundException ex) {
-                throw new CommandException(Messages.MESSAGE_CANOT_FOUND_TARGET_FILTER);
+                throw new CommandException(MESSAGE_CANOT_FOUND_TARGET_FILTER);
             }
             model.updateJobShortlistFilteredPersonList();
             predicateList = model.getPredicateLists(SHORTLIST);
@@ -91,7 +92,7 @@ public class DeleteFilterCommand extends Command {
             try {
                 model.removePredicateAllPersons(targetName);
             } catch (FilterNotFoundException ex) {
-                throw new CommandException(Messages.MESSAGE_CANOT_FOUND_TARGET_FILTER);
+                throw new CommandException(MESSAGE_CANOT_FOUND_TARGET_FILTER);
             }
             model.updateFilteredPersonList();
             predicateList = model.getPredicateLists(EMPTY);

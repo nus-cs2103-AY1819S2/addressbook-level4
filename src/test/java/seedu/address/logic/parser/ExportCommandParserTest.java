@@ -53,7 +53,7 @@ public class ExportCommandParserTest {
             expectedHash.add(1 - 1);
             ParsedInOut expected = new ParsedInOut(test, "json", expectedHash);
             ParsedInOut actual = parser.parse(" test ! @ # $ % ^ & ( ) _ + - = { } [ ] ; ' , .json 1")
-                                    .getParsedInOut();
+                .getParsedInOut();
             assertEquals(actual.getFile(), expected.getFile());
             assertEquals(actual.getType(), expected.getType());
             assertEquals(actual.getArgIsAll(), expected.getArgIsAll());
@@ -70,7 +70,7 @@ public class ExportCommandParserTest {
     public void parse_invalidArgs_returnsExportCommandForbiddenSpecialCharacters() {
         assertParseFailure(parser, " test < > : \" | ? *.json 1",
             "Special characters such as\n> < : \" | ? *\nare not allowed."
-                                + "\n" + ExportCommand.MESSAGE_USAGE);
+                + "\n" + ExportCommand.MESSAGE_USAGE);
     }
 
     @Test
@@ -122,7 +122,7 @@ public class ExportCommandParserTest {
 
     @Test
     public void parse_validArgs_returnsExportCommandForwardSlash() {
-        File test = new File("data" + File.separator + "testfolder/test.json");
+        File test = new File("data" + File.separator + "testfolder" + File.separator + "test.json");
         try {
             HashSet<Integer> expectedHash = new HashSet<>();
             expectedHash.add(1 - 1);
@@ -142,7 +142,7 @@ public class ExportCommandParserTest {
 
     @Test
     public void parse_validArgs_returnsExportCommandBackwardSlash() {
-        File test = new File("data" + File.separator + "testfolder\\test.json");
+        File test = new File("data" + File.separator + "testfolder" + File.separator + "test.json");
         try {
             HashSet<Integer> expectedHash = new HashSet<>();
             expectedHash.add(1 - 1);
@@ -162,7 +162,8 @@ public class ExportCommandParserTest {
 
     @Test
     public void parse_validArgs_returnsExportCommandBothSlash() {
-        File test = new File("data" + File.separator + "/testfolder\\test.json");
+        File test = new File("data" + File.separator + File.separator
+            + "testfolder" + File.separator + "test.json");
         try {
             HashSet<Integer> expectedHash = new HashSet<>();
             expectedHash.add(1 - 1);
@@ -182,7 +183,10 @@ public class ExportCommandParserTest {
 
     @Test
     public void parse_validArgs_returnsExportCommandMultipleSlash() {
-        File test = new File("data" + File.separator + "testfolder///////////////////test.json");
+        File test = new File("data" + File.separator + "testfolder" + File.separator + File.separator
+            + File.separator + File.separator + File.separator + File.separator + File.separator + File.separator
+            + File.separator + File.separator + File.separator + File.separator + File.separator + File.separator
+            + File.separator + File.separator + File.separator + File.separator + File.separator + "test.json");
         try {
             HashSet<Integer> expectedHash = new HashSet<>();
             expectedHash.add(1 - 1);

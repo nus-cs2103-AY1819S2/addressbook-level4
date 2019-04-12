@@ -41,12 +41,12 @@ public class InterviewScores {
         return value;
     }
 
-    public boolean isNoRecord() {
-        return value.matches(NO_RECORD);
+    public boolean hasRecord() {
+        return !value.matches(NO_RECORD);
     }
 
     public String getInterviewScore(int questionNum) {
-        assert (value.matches(VALIDATION_REGEX));
+        assert (hasRecord());
         String[] scores = value.split(",");
         String score = scores[questionNum - 1].trim();
         return score;

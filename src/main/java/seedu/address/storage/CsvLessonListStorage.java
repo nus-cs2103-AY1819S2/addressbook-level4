@@ -87,6 +87,28 @@ public class CsvLessonListStorage implements LessonListStorage {
             return Optional.empty();
         }
 
+        String lessonName = filePath.getFileName().toString();
+        int extensionIndex = lessonName.lastIndexOf(".");
+        lessonName = lessonName.substring(0, extensionIndex);
+
+        int[] headerData = parseStringArrayToHeaderData(data.get(0));
+
+        int coreCount = headerData[0];
+        if (coreCount < Card.MIN_CORE_COUNT) {
+            logger.warning("Lesson does not have enough testable sides: " + lessonName);
+            return Optional.empty();
+        }
+        int questionIndex = headerData[1];
+        int answerIndex = headerData[2];
+        if (questionIndex < 0 || answerIndex < 0) {
+            logger.info("Invalid values marked for testing. Using defaults.");
+            questionIndex = Lesson.DEFAULT_INDEX_QUESTION;
+            answerIndex = Lesson.DEFAULT_INDEX_ANSWER;
+        }
+
+        List<String> fieldNames = parseStringArrayToFieldNames(data.get(1));
+
+        /*
         String[] header = data.get(0);
         int coreCount = 0;
         int questionIndex = Lesson.DEFAULT_INDEX_QUESTION;
@@ -125,7 +147,12 @@ public class CsvLessonListStorage implements LessonListStorage {
         List<String> fields = Arrays.asList(header);
 
         Lesson newLesson = new Lesson(lessonName, coreCount, fields);
+
         newLesson.setQuestionAnswerIndices(questionIndex, answerIndex);
+
+
+
+
         for (int i = 1; i < data.size(); i++) {
             try {
                 newLesson.addCard(Arrays.asList(data.get(i)));
@@ -133,7 +160,43 @@ public class CsvLessonListStorage implements LessonListStorage {
                 continue;
             }
         }
-        return Optional.of(newLesson);
+        */
+        return Optional.empty();
+        //return Optional.of(newLesson);
+    }
+
+    private int[] parseStringArrayToHeaderData(String[] header) {
+        int[] returnValues = new int[3];
+        Arrays.fill(returnValues, -1);
+        int questionIndex = -1;
+        int answerIndex = -1;
+
+        int coreCount = 0;
+        while (coreCount < header.length) {
+            String headerChar = header[coreCount].toLowerCase().substring(0,1);
+            if (headerChar.equals(HEADER_OPTIONAL)) {
+                System.out.println(headerChar);
+                break;
+            }
+            if (headerChar.equals(HEADER_CORE_QA)) {
+                if (questionIndex == -1) {
+                    questionIndex = coreCount;
+                } else if (answerIndex == -1) {
+                    answerIndex = coreCount;
+                }
+            }
+
+            coreCount++;
+        }
+
+        returnValues[0] = coreCount;
+        returnValues[1] = questionIndex;
+        returnValues[2] = answerIndex;
+        return returnValues;
+    }
+
+    private List<String> parseStringArrayToFieldNames(String[] fieldNames) {
+        return null;
     }
 
     /**

@@ -248,6 +248,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void removePerson(Person key) {
         persons.remove(key);
         nrics.remove(key.getNric());
+        jobs.removePerson(key);
         indicateModified();
     }
 

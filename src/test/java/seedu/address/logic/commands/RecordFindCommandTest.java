@@ -7,7 +7,10 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalRecords.FIFTH;
 import static seedu.address.testutil.TypicalRecords.FOURTH;
+import static seedu.address.testutil.TypicalRecords.SIXTH;
+import static seedu.address.testutil.TypicalRecords.THIRD;
 import static seedu.address.testutil.TypicalRecords.getTypicalRecords;
 
 import java.nio.file.Path;
@@ -71,6 +74,16 @@ public class RecordFindCommandTest {
             true, false, Arrays.asList(FOURTH));
         //Single keyword, case sensitive, no record found.
         execute_parameterPredicate_test(0, "CrOwN", "procedure", false, false, Collections.emptyList());
+        //Multiple keywords, ignore case, or condition, multiple record found
+        execute_parameterPredicate_test(2, "Crown FILLING", "procedure", true, false,
+            Arrays.asList(THIRD, FOURTH));
+        //Multiple keywords, ignore case, and condition, no record found
+        execute_parameterPredicate_test(0, "Crown FILLING", "procedure", true, true, Collections.emptyList());
+        //Multiple keywords, case sensitive, or condition, one record found
+        execute_parameterPredicate_test(1, "Crown FILLING", "procedure", false, false,
+            Arrays.asList(FOURTH));
+        //Multiple keywords, case sensitive, and condition, no record found
+        execute_parameterPredicate_test(0, "Crown FILLING", "procedure", false, true, Collections.emptyList());
     }
 
     @Test
@@ -81,7 +94,17 @@ public class RecordFindCommandTest {
         execute_parameterPredicate_test(1, "ReCROWNED", "desc",
             true, false, Arrays.asList(FOURTH));
         //Single keyword, case sensitive, no record found.
-        execute_parameterPredicate_test(0, "ReCROWNED", "procedure", false, false, Collections.emptyList());
+        execute_parameterPredicate_test(0, "ReCROWNED", "desc", false, false, Collections.emptyList());
+        //Multiple keywords, ignore case, or condition, multiple record found
+        execute_parameterPredicate_test(2, "roTten infection", "desc", true, false,
+            Arrays.asList(FIFTH, SIXTH));
+        //Multiple keywords, ignore case, and condition, no record found
+        execute_parameterPredicate_test(0, "roTten infection", "desc", true, true, Collections.emptyList());
+        //Multiple keywords, case sensitive, or condition, one record found
+        execute_parameterPredicate_test(1, "roTten infection", "desc", false, false,
+            Arrays.asList(FIFTH));
+        //Multiple keywords, case sensitive, and condition, no record found
+        execute_parameterPredicate_test(0, "roTten infection", "desc", false, true, Collections.emptyList());
     }
 
 

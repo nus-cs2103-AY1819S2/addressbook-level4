@@ -1,10 +1,19 @@
 package seedu.address.ui;
 
+import static java.time.Duration.ofMillis;
+import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTimeoutPreemptively;
+import static seedu.address.testutil.TypicalMedicines.getTypicalMedicines;
+import static seedu.address.ui.testutil.GuiTestAssert.assertCardDisplaysMedicine;
+
+import java.util.Collections;
+
+import org.junit.Test;
+
 import guitests.guihandles.WarningCardHandle;
 import guitests.guihandles.WarningListViewHandle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import org.junit.Test;
 import seedu.address.commons.util.warning.WarningPanelPredicateAccessor;
 import seedu.address.commons.util.warning.WarningPanelPredicateType;
 import seedu.address.model.medicine.Company;
@@ -13,13 +22,6 @@ import seedu.address.model.medicine.Medicine;
 import seedu.address.model.medicine.Name;
 import seedu.address.model.medicine.Quantity;
 
-import java.util.Collections;
-
-import static java.time.Duration.ofMillis;
-import static org.junit.Assert.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTimeoutPreemptively;
-import static seedu.address.testutil.TypicalMedicines.getTypicalMedicines;
-import static seedu.address.ui.testutil.GuiTestAssert.assertCardDisplaysMedicine;
 
 public class WarningListViewTest extends GuiUnitTest {
     private static final ObservableList<Medicine> TYPICAL_MEDICINES =

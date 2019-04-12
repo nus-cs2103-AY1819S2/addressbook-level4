@@ -1,7 +1,6 @@
 package seedu.address.ui;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;

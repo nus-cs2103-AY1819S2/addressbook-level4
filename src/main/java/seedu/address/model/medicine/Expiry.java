@@ -15,8 +15,8 @@ import java.time.format.ResolverStyle;
 public class Expiry implements Comparable<Expiry> {
     public static final int MAX_DAYS_TO_EXPIRY = 1000000000; // one trillion days, equivalent to 2,739,726 years
     public static final String MESSAGE_CONSTRAINTS =
-            "Expiry date should be of the format dd/mm/yyyy and should be a valid date.\n" +
-            "Expiry date should not be more than " + Integer.toString(MAX_DAYS_TO_EXPIRY) + " days from today.\n";
+            "Expiry date should be of the format dd/mm/yyyy and should be a valid date.\n"
+            + "Expiry date should not be more than " + Integer.toString(MAX_DAYS_TO_EXPIRY) + " days from today.\n";
 
     private final LocalDate expiryDate;
 

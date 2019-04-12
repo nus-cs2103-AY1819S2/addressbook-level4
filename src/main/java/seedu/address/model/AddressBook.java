@@ -281,6 +281,36 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Get the activities attended by this {@code Person}.
+     */
+    public int getAttendedActivitiesCounter(Person key) {
+        int counter = 0;
+        for (Activity activity: activities) {
+            if (isPersonAttending(key, activity) && activity.getStatus().isCompleted()) {
+                counter++;
+            }
+        }
+        return counter;
+    }
+
+    /**
+     * Get the activities attended by this {@code Person}.
+     */
+    public int getParticipationRate(Person key) {
+        int attendedCounter = 0;
+        int activitiesCounter = 0;
+        for (Activity activity: activities) {
+            if (activity.getStatus().isCompleted()) {
+                activitiesCounter++;
+            }
+            if (isPersonAttending(key, activity) && activity.getStatus().isCompleted()) {
+                attendedCounter++;
+            }
+        }
+        return (attendedCounter * 100) / activitiesCounter;
+    }
+
+    /**
      * Get the person in the attendance from this {@code AddressBook}.
      */
     public ObservableList<Person> getAttendingFromActivity(Activity key) {

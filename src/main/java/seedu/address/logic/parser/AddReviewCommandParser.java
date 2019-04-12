@@ -3,7 +3,9 @@ package seedu.address.logic.parser;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.commands.AddReviewCommand.MAX_REVIEWMESSAGE_LENGTH;
 import static seedu.address.logic.commands.AddReviewCommand.MESSAGE_REVIEW_LENGTH_EXCEEDED;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_AUTHOR;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_RATING;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_REVIEW;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_REVIEWTITLE;
 
@@ -30,7 +32,8 @@ public class AddReviewCommandParser implements Parser<AddReviewCommand> {
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_REVIEWTITLE, PREFIX_REVIEW);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_REVIEWTITLE, PREFIX_REVIEW)
-                || !argMultimap.getPreamble().isEmpty()) {
+                || !argMultimap.getPreamble().isEmpty()
+                || !arePrefixesUnique(argMultimap, PREFIX_NAME, PREFIX_REVIEWTITLE, PREFIX_REVIEW)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddReviewCommand.MESSAGE_USAGE));
         }
 
@@ -53,5 +56,13 @@ public class AddReviewCommandParser implements Parser<AddReviewCommand> {
      */
     private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
         return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
+    }
+
+    /**
+     * Returns true if none of the prefixes appear more than once in the given
+     * {@code ArgumentMultimap}.
+     */
+    private static boolean arePrefixesUnique(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
+        return Stream.of(prefixes).allMatch(prefix -> (argumentMultimap.getNumberOfPrefix(prefix) == 1));
     }
 }

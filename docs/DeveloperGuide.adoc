@@ -1,4 +1,4 @@
-= Book Squirrel - Developer Guide
+= BookSquirrel - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -19,7 +19,7 @@ By: `Team W11-4`      Since: `Jun 2019`      Licence: `MIT`
 
 == Introduction
 
-BookSquirrel is for those who *want to keep a record of books they've read*. More importantly, BookSquirrel is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, BookSquirrel can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+BookSquirrel is for those who *want to keep a record of books they've read*. More importantly, BookSquirrel is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, BookSquirrel can get your contact management tasks done faster than traditional GUI apps.
 
 == Setting up
 
@@ -164,7 +164,7 @@ image::UiClassDiagram.png[width="800"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `BookListPanel`, `StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `BookListPanel`, `ReviewListPanel`, `StatusBarFooter`, `ReviewBrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
@@ -541,11 +541,10 @@ Step 5. The `SummaryCommand` executes. The command will traverse all books in th
 // end::summary[]
 
 // tag::addReview[]
-=== Review Features
 
-==== AddReview Feature
+=== AddReview Feature
 
-===== Current Implementation
+==== Current Implementation
 
 Given below is an example usage and how addReview feature behaves at each step.
 
@@ -561,9 +560,9 @@ Step 5. The `AddReviewCommand` executes. The command checks if the book to which
 
 Step 6. If the book exists, the review is added to the review list of the Book Shelf.
 
-===== Design Considerations
+==== Design Considerations
 
-====== Aspect: Data structure to store Reviews
+===== Aspect: Data structure to store Reviews
 
 * **Alternative 1 (current choice):** Use a List to store Reviews
 ** Pros: There will be an order for the reviews added based on time created. More clear to users.
@@ -572,7 +571,7 @@ Step 6. If the book exists, the review is added to the review list of the Book S
 ** Pros: Easy to code and manage because it is the same implementation as tags.
 ** Cons: Set does not allow duplicate reviews. Need to check for duplicate reviews added.
 
-====== Aspect: Where to store Reviews
+===== Aspect: Where to store Reviews
 
 * **Alternative 1 (current choice):** Have another independent list for reviews in the book shelf.
 ** Pros: Much easier to implement.
@@ -581,7 +580,7 @@ Step 6. If the book exists, the review is added to the review list of the Book S
 ** Pros: The model makes more sense because Reviews belong to Books.
 ** Cons: Makes it more difficult to link with the UI component.
 
-====== Aspect: Constraints on Review Parameters
+===== Aspect: Constraints on Review Parameters
 
 * ReviewTitle has the same constraints as BookName, less than 50 characters.
 * ReviewMessage should be less than or equal to 400 characters. This is because the
@@ -589,15 +588,15 @@ BookBrowserPanel used to display the ReviewMessage currently cannot hold more th
 Longer text also makes it more difficult to edit in the small CommandBox. Future releases would consider
 adding enhanced review input panel to make the review feature more user friendly.
 
-====== Aspect: Auto-creation of Date for the Review
+===== Aspect: Auto-creation of Date for the Review
 
 * Currently, the constructor of Review automatically assigns a dateCreated to it.
 This feature is provided for the convenience of the user. An overloaded constructor
 is available where the date can be passed in as a parameter, to be used in testing.
 
-==== ListReview Feature
+=== ListReview Feature
 
-===== Current Implementation
+==== Current Implementation
 
 Given below is an example usage and program behaviour:
 
@@ -611,10 +610,10 @@ Step 4. Reviews of the selected book will be displayed in the rightmost panel.
 
 Alternatively, the user can click the book to select it.
 
-====== Aspect:
+===== Aspect:
 
-==== ListAllReviews Feature
-===== Current Implementation
+=== ListAllReviews Feature
+==== Current Implementation
 
 The ListAllReviews Feature uses the same implementation as the ListBook feature:
 
@@ -624,9 +623,9 @@ Step 2. A new ListAllReviewsCommand is returned by the BookShelfParser
 
 Step 3. The ListAllReviewsCommand executes. Review list panel is updated to show all reviews.
 
-===== Design Considerations
+==== Design Considerations
 
-====== Aspect: Whether to combine ListAllReviews command with ListReview command
+===== Aspect: Whether to combine ListAllReviews command with ListReview command
 
 * **Alternative 1 (current choice):** not to combine.
 ** Pros: Command is more logical and user friendly because it is actually not intuitive to have two functions combined in one ListReview command.
@@ -635,8 +634,8 @@ Step 3. The ListAllReviewsCommand executes. Review list panel is updated to show
 ** Pros: Consistency.
 ** Cons: Command is not intuitive, and takes extra time to implement review predicates.
 
-==== SelectReview Feature
-===== Current Implementation
+=== SelectReview Feature
+==== Current Implementation
 
 Selection of review is implemented the same way as selection of book.
 
@@ -651,8 +650,8 @@ Step 3. The SelectReviewCommand executes. The review with the specified index is
 Step 4. The BookBrowserPanel listens to the change in selected review, and displays its review message.
 
 
-==== DeleteReview Feature
-===== Current Implementation
+=== DeleteReview Feature
+==== Current Implementation
 
 Review is deleted based on index.
 
@@ -662,9 +661,9 @@ Step 2. The DeleteReviewCommandParser parses this command, and returns a new Del
 
 Step 3. The DeleteReviewCommand executes. The review with the specified index is deleted.
 
-==== Other Design Considerations
+=== Other Design Considerations
 
-===== Whether to Implement EditReview
+==== Whether to Implement EditReview
 
 It seems natural to implement EditReview as one component of the CRUD features. However,
 editing an existing review requires re-typing everything and seems painstaking to the user. It makes much more sense to just delete

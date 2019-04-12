@@ -4,16 +4,20 @@ import static seedu.knowitall.commons.core.Messages.MESSAGE_INVALID_COMMAND_OUTS
 import static seedu.knowitall.commons.core.Messages.MESSAGE_INVALID_NEXT_COMMAND;
 import static seedu.knowitall.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.knowitall.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.knowitall.logic.commands.EndCommand.MESSAGE_END_TEST_SESSION_SUCCESS;
 import static seedu.knowitall.logic.commands.NextCommand.MESSAGE_NEXT_QUESTION_SUCCESS;
+import static seedu.knowitall.testutil.TypicalCards.CARD_1;
 import static seedu.knowitall.testutil.TypicalCards.getTypicalCardFolders;
 
 import org.junit.Before;
 import org.junit.Test;
 
 import seedu.knowitall.logic.CommandHistory;
+import seedu.knowitall.model.CardFolder;
 import seedu.knowitall.model.Model;
 import seedu.knowitall.model.ModelManager;
 import seedu.knowitall.model.UserPrefs;
+import seedu.knowitall.testutil.CardFolderBuilder;
 import seedu.knowitall.testutil.TypicalIndexes;
 
 /**
@@ -42,6 +46,28 @@ public class NextCommandTest {
 
         CommandResult expectedCommandResult = new CommandResult(MESSAGE_NEXT_QUESTION_SUCCESS,
                 CommandResult.Type.SHOW_NEXT_CARD);
+        assertCommandSuccess(new NextCommand(), model, commandHistory, expectedCommandResult, expectedModel);
+    }
+
+    @Test
+    public void execute_nextCommandOnLastCard_endCommandSuccess() {
+        CardFolder cardFolderWithOneCard = new CardFolderBuilder().withCard(CARD_1).build();
+        model.addFolder(cardFolderWithOneCard);
+        expectedModel.addFolder(cardFolderWithOneCard);
+        model.enterFolder(model.getCardFolders().size() - 1);
+        expectedModel.enterFolder(model.getCardFolders().size() - 1);
+
+        model.testCardFolder();
+        expectedModel.testCardFolder();
+        model.setCardAsAnswered();
+        expectedModel.setCardAsAnswered();
+
+        boolean successfullyFoundNextCard = expectedModel.testNextCard();
+        assert !successfullyFoundNextCard;
+        expectedModel.endTestSession();
+
+        CommandResult expectedCommandResult = new CommandResult(MESSAGE_END_TEST_SESSION_SUCCESS,
+                CommandResult.Type.END_TEST_SESSION);
         assertCommandSuccess(new NextCommand(), model, commandHistory, expectedCommandResult, expectedModel);
     }
 

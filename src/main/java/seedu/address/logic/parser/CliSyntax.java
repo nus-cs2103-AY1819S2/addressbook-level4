@@ -20,5 +20,7 @@ public class CliSyntax {
     public static final Prefix PREFIX_REVIEW_RATING = new Prefix("rr/");
     public static final Prefix PREFIX_INDEX = new Prefix("i/");
     public static final Prefix PREFIX_POSTAL = new Prefix("po/");
+    public static final Prefix PREFIX_ORDER = new Prefix("or/");
+    public static final Prefix PREFIX_LIMIT = new Prefix("l/");
 
 }

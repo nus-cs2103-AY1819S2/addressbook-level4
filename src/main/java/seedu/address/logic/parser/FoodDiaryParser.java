@@ -7,6 +7,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.AddDefaultReviewCommand;
 import seedu.address.logic.commands.AddReviewCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
@@ -25,6 +26,7 @@ import seedu.address.logic.commands.NameCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.SetCategoriesCommand;
+import seedu.address.logic.commands.SortCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.commands.ViewCommand;
 import seedu.address.logic.commands.VisitWebCommand;
@@ -66,6 +68,9 @@ public class FoodDiaryParser {
         case AddReviewCommand.COMMAND_WORD:
             return new AddReviewCommandParser().parse(arguments);
 
+        case AddDefaultReviewCommand.COMMAND_WORD:
+            return new AddDefaultReviewCommandParser().parse(arguments);
+
         case EditCommand.COMMAND_WORD:
             return new EditCommandParser().parse(arguments);
 
@@ -97,7 +102,6 @@ public class FoodDiaryParser {
         case ViewCommand.COMMAND_WORD:
             return new ViewCommand();
 
-
         case HistoryCommand.COMMAND_WORD:
             return new HistoryCommand();
 
@@ -121,6 +125,9 @@ public class FoodDiaryParser {
 
         case FilterCommand.COMMAND_WORD:
             return new FilterCommandParser().parse(arguments);
+
+        case SortCommand.COMMAND_WORD:
+            return new SortCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

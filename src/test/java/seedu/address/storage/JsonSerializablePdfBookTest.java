@@ -26,7 +26,7 @@ public class JsonSerializablePdfBookTest {
     public ExpectedException thrown = ExpectedException.none();
 
     @Test
-    public void toModelType_typicalPersonsFile_success() throws Exception {
+    public void toModelType_typicalPdfFile_success() throws Exception {
         JsonSerializablePdfBook dataFromFile = JsonUtil.readJsonFile(TYPICAL_PDF_FILE,
                 JsonSerializablePdfBook.class).get();
         PdfBook addressBookFromFile = dataFromFile.toModelType();
@@ -35,7 +35,7 @@ public class JsonSerializablePdfBookTest {
     }
 
     @Test
-    public void toModelType_invalidPersonFile_throwsIllegalValueException() throws Exception {
+    public void toModelType_invalidPdfFile_throwsIllegalValueException() throws Exception {
         JsonSerializablePdfBook dataFromFile = JsonUtil.readJsonFile(INVALID_PDF_FILE,
                 JsonSerializablePdfBook.class).get();
         thrown.expect(IllegalValueException.class);
@@ -43,7 +43,7 @@ public class JsonSerializablePdfBookTest {
     }
 
     @Test
-    public void toModelType_duplicatePersons_throwsIllegalValueException() throws Exception {
+    public void toModelType_duplicatePdfs_throwsIllegalValueException() throws Exception {
         JsonSerializablePdfBook dataFromFile = JsonUtil.readJsonFile(DUPLICATE_PDF_FILE,
                 JsonSerializablePdfBook.class).get();
         thrown.expect(IllegalValueException.class);

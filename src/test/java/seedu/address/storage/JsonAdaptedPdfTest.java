@@ -116,7 +116,7 @@ public class JsonAdaptedPdfTest {
     }
 
     @Test
-    public void toModelType_nullAddress_throwsIllegalValueException() {
+    public void toModelType_nullDeadline_throwsIllegalValueException() {
         List<JsonAdaptedTag> tags = new ArrayList<>();
         JsonAdaptedPdf person =
                 new JsonAdaptedPdf(NAME_1_VALID, DIR_1_VALID, SIZE_1_VALID, tags, null);

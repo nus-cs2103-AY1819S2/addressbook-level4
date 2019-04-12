@@ -31,12 +31,12 @@ public class JsonPdfBookStorageTest {
     public TemporaryFolder testFolder = new TemporaryFolder();
 
     @Test
-    public void readAddressBook_nullFilePath_throwsNullPointerException() throws Exception {
+    public void readPdfBook_nullFilePath_throwsNullPointerException() throws Exception {
         thrown.expect(NullPointerException.class);
-        readAddressBook(null);
+        readPdfBook(null);
     }
 
-    private java.util.Optional<ReadOnlyPdfBook> readAddressBook(String filePath) throws Exception {
+    private java.util.Optional<ReadOnlyPdfBook> readPdfBook(String filePath) throws Exception {
         return new JsonPdfBookStorage(Paths.get(filePath)).readPdfBook(addToTestDataPathIfNotNull(filePath));
     }
 
@@ -48,33 +48,33 @@ public class JsonPdfBookStorageTest {
 
     @Test
     public void read_missingFile_emptyResult() throws Exception {
-        assertFalse(readAddressBook("NonExistentFile.json").isPresent());
+        assertFalse(readPdfBook("NonExistentFile.json").isPresent());
     }
 
     @Test
     public void read_notJsonFormat_exceptionThrown() throws Exception {
 
         thrown.expect(DataConversionException.class);
-        readAddressBook("notJsonFormatPdfBook.json");
+        readPdfBook("notJsonFormatPdfBook.json");
 
         // IMPORTANT: Any code below an exception-throwing line (like the one above) will be ignored.
         // That means you should not have more than one exception test in one method
     }
 
     @Test
-    public void readAddressBook_invalidPersonAddressBook_throwDataConversionException() throws Exception {
+    public void readPdfBook_invalidPdfPdfBook_throwDataConversionException() throws Exception {
         thrown.expect(DataConversionException.class);
-        readAddressBook("invalidPdfPdfBook.json");
+        readPdfBook("invalidPdfPdfBook.json");
     }
 
     @Test
-    public void readAddressBook_invalidAndValidPersonAddressBook_throwDataConversionException() throws Exception {
+    public void readPdfBook_invalidAndValidPdfPdfBook_throwDataConversionException() throws Exception {
         thrown.expect(DataConversionException.class);
-        readAddressBook("invalidAndValidPdfPdfBook.json");
+        readPdfBook("invalidAndValidPdfPdfBook.json");
     }
 
     @Test
-    public void readAndSaveAddressBook_allInOrder_success() throws Exception {
+    public void readAndSavePdfBook_allInOrder_success() throws Exception {
         Path filePath = testFolder.getRoot().toPath().resolve("TempPdfPlusPlus.json");
         PdfBook original = getTypicalPdfBook();
         JsonPdfBookStorage jsonPdfBookStorage = new JsonPdfBookStorage(filePath);
@@ -100,15 +100,15 @@ public class JsonPdfBookStorageTest {
     }
 
     @Test
-    public void saveAddressBook_nullAddressBook_throwsNullPointerException() {
+    public void savePdfBook_nullPdfBook_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        saveAddressBook(null, "SomeFile.json");
+        savePdfBook(null, "SomeFile.json");
     }
 
     /**
      * Saves {@code addressBook} at the specified {@code filePath}.
      */
-    private void saveAddressBook(ReadOnlyPdfBook addressBook, String filePath) {
+    private void savePdfBook(ReadOnlyPdfBook addressBook, String filePath) {
         try {
             new JsonPdfBookStorage(Paths.get(filePath))
                     .savePdfBook(addressBook, addToTestDataPathIfNotNull(filePath));
@@ -118,8 +118,8 @@ public class JsonPdfBookStorageTest {
     }
 
     @Test
-    public void saveAddressBook_nullFilePath_throwsNullPointerException() {
+    public void savePdfBook_nullFilePath_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        saveAddressBook(new PdfBook(), null);
+        savePdfBook(new PdfBook(), null);
     }
 }

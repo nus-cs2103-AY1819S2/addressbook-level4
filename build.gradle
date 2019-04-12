@@ -149,6 +149,7 @@ test {
             //test.include 'seedu/address/**'
             test.include 'seedu/address/model/**'
             test.include 'seedu/address/commons/**'
+            test.include 'seedu/address/storage/**'
         }
 
         if (runGuiTests) {

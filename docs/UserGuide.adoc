@@ -1,10 +1,9 @@
 = TravelBuddy - User Guide
 :site-section: UserGuide
+:sectnums:
 :toc:
-:toc-title:
 :toc-placement: preamble
 :toclevels: 5
-:sectnums:
 :imagesDir: images
 :stylesDir: stylesheets
 :sourceDir: ../src/main/java
@@ -165,8 +164,9 @@ The table below shows the parameters that require a specific input format to be 
 
 |`COUNTRY_CODE`
 |`cc/`
-|A valid ISO-3166 country code +
-e.g. `JPN` to represent `Japan`
+|A valid ISO-3166 three-letter country code +
+e.g. `JPN` to represent `Japan` +
+The full list of country codes can be found link:{repoURL}/docs/CountryCodes.html[here]
 
 |`DATE_VISITED`
 |`dv/`
@@ -225,6 +225,24 @@ A filepath specifies a unique location for a file.
 
 Adds Himeiji Castle as a place in TravelBuddy, and include the image `castle-photo.jpg` at the location specified by
 the filepath `C:\Users\Michael\Pictures\castle-photo.jpg`.
+
+<<addPhotoBefore>> below shows TravelBuddy before the above example command is executed.
+
+[[addPhotoBefore]]
+[reftext="Figure 4.3.2.1"]
+[caption="Figure 4.3.2.1: "]
+.Before the `add` command is executed
+image::addPhotoBefore.png[width="400"]
+
+<<addPhotoAfter>> below shows TravelBuddy after the above example command is executed, and
+the newly added Place "Himeiji Castle" is selected
+
+[[addPhotoAfter]]
+[reftext="Figure 4.3.2.2"]
+[caption="Figure 4.3.2.2: "]
+.After the `add` command is executed and the newly added Place "Himeiji Castle" is selected
+image::addPhotoAfter.png[width="400"]
+
 ****
 
 [TIP]

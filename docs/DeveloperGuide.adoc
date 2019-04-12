@@ -872,7 +872,8 @@ when a medicine is purchased via the PurchaseMedicineCommand. The commands will 
 function. The clock used is the system clock, to retrieve the current YearMonth of the Record created. The sequence diagram
 below illustrates an example ConsultationRecord being created.
 
-// TODO ADD SD HERE
+.Sequence diagram for sample ConsultationRecord creation
+image::RecordCreationSD.png[width="800"]
 
 ===== 2. Adding the record
 The StatisticsManager holds an ArrayList of MonthStatistics, where a MonthStatistics object contains the YearMonth, and

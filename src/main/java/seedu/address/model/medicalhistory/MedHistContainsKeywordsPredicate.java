@@ -18,7 +18,8 @@ public class MedHistContainsKeywordsPredicate implements Predicate<MedicalHistor
     @Override
     public boolean test(MedicalHistory medHist) {
         Boolean writeUpContainsKeyword = keywords.stream()
-                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(medHist.getWriteUp().value, keyword));
+                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(
+                        medHist.getWriteUp().value.replaceAll("\\p{P}", " "), keyword));
         return writeUpContainsKeyword;
     }
 

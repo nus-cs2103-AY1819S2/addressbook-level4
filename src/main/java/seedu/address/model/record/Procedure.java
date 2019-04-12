@@ -22,7 +22,10 @@ public class Procedure {
      */
     public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
 
-    public static final String MESSAGE_CONSTRAINTS = "Procedures should divided by a -, and only contain alphanumeric"
+    public static final String MESSAGE_CONSTRAINTS = "Procedures should be in the format of TYPE-SUBTYPE"
+        + "TYPE must be one of the following options (case insensitive): Consultation, Preventive, Filling, Crown\n"
+        + "Gum, Extraction, Replacement, Braces, Aesthetic, Implant, Other\n"
+        + "Procedures must be divided by a -, and only contain alphanumeric"
         + " characters, and it should not be blank";
 
     private static final Set<String> procedureSet = new HashSet<>(Arrays.asList(PROCEDURE_LIST));

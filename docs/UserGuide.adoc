@@ -336,7 +336,7 @@ Parameters:
 [cols=",",options=""]
 |===
 |n/NAME |n/Keith Choo Shen Hao
-|s/SEX |s/Male
+|sex/SEX |sex/Male
 |p/PHONE_NUMBER |p/98765432
 |e/EMAIL |e/KeithCSH@debang.com
 |a/ADDRESS |a/1 Pulau Tekong Besar 508449

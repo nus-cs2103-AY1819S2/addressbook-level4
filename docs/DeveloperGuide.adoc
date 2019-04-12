@@ -473,7 +473,7 @@ specified to be searched.
 
 // end::findimplement[]
 
-// tag::openimplement[]
+// tag::openimplementJH[]
 === Open feature
 ==== Current Implementation
 As TeethHub already has a built-in auto-load when starting the program, the implemented Open feature is simple.
@@ -494,7 +494,7 @@ Alternative 1.1: OpenCommand -> FileUtil
 Current implementation: OpenCommand -> InOutAddressBookStorage -> JsonUtil -> FileUtil
 ** Cons: InOutAddressBookStorage does some error handling. Bypassing InOutAddressBookStorage would require the same error handling in OpenCommand. Since OpenCommand is not called when the program starts, we cannot move the error handling from InOutAddressBookStorage to OpenCommand. Then we would have to copy the error handling instead, which means that we now have a duplicate logic.
 
-// end::openimplement[]
+// end::openimplementJH[]
 
 === Logging
 
@@ -996,7 +996,6 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
 *Value proposition*: manage contacts faster than a typical mouse/GUI driven app
 
 [appendix]
-// tag::storyusers[]
 == User Stories
 
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
@@ -1041,6 +1040,8 @@ edit them before exiting.
 
 |`* *` |user |copy a person |reduce the time needed to create a new person who has similar records to an existing person in the list
 
+// tag::storyuserJH[]
+
 |`* *` |user |open an external file |work with patients and tasks saved in another file
 
 |`* *` |user |import specific patients from an external file |add patients and tasks from another file
@@ -1053,6 +1054,8 @@ edit them before exiting.
 
 |`* *` |user |see suggestions when I type common commands |do not have to keep consulting the Help page
 
+// end::storyuserJH[]
+
 |`* *` |user |see relevant dentistry tags on my patients' entries | have an overview of my patients' condition
 
 |`* *` |user with many persons in the address book |sort patients by desired parameter |locate a person easily
@@ -1060,7 +1063,6 @@ edit them before exiting.
 |`*` |user with confidential patient information|log into the application with a password |prevent unauthorized access to the application when I am not around
 
 |=======================================================================
-// end::storyusers[]
 
 [appendix]
 == Use Cases
@@ -1314,6 +1316,7 @@ _{ more test cases ... }_
 ... Other incorrect recorddelete commands to try: `recorddelete`, `record delete`, `recorddelete x` (where x is larger than the list size), `recorddelete y` (where y is a negative number), `recorddelete z` (where z is not an integer) +
    Expected: Similar to previous.
 
+// tag::manualtestingJH[]
 === Exporting data
 . Exporting specific patients to a .json or .pdf file.
 
@@ -1368,5 +1371,5 @@ are not allowed." is shown in message box. No file is created/overwritten.
 .. Prerequisites: Make sure there is no file in the "data" folder named "test.json".
 ... Test case: `open test.json` +
    Expected: Error message "File not found!" is shown in message box.
-
+// end::manualtestingJH[]
 _{ more test cases ... }_

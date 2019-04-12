@@ -73,15 +73,14 @@ The GUI for _Equipment Manager_ as shown in <<GUI>> consists of nine regions:
 | [3] *Message box* | The message box that shows the result after a command has been executed.
 | [4] *Status Bar* |
 | [5] *Google Map*  | Google map serves as a visual representation for where equipments are at as well as showing user the possible routes to take.
-| [6] *Equipment Result Panel* | This panel shows summarized details on equipment
+| [6] *Equipment Details* panel | This panel shows summarized details on equipment
 | [7] *Equipment Details Page* | This is a HTML page where it shows more detailed information on an equipment.
-| [8] *Client Result Panel* | This panel shows specifically information related to client such as the name and how many equipment the client owns.
-| [9] *Work list Result Panel* | This panels shows the work schedule of a person when the user assigns equipments whom the user want to carry out preventive maintenance work.
+| [8] *Client Details* panel | This panel shows specifically information related to client such as the name and how many equipment the client owns.
+| [9] *My Work List* panel | This panels shows the work schedule of a person when the user assigns equipments whom the user want to carry out preventive maintenance work.
 |===
 
-|===
-| image:exclamation.png[width="40"] |Please remember the naming convention for the different regions in GUI as they will be used to explain when explaining Equipment Manager.
-|===
+[TIP]
+Please remember the naming convention for the different regions in GUI as they will be used to explain when explaining Equipment Manager.
 
 === About an equipment
 |===
@@ -101,7 +100,7 @@ Type the command in the Command Box and press kbd:[Enter] to execute it. +
 
 * *`help`*: opens up user guide
 * *`list-e`*: lists all equipment details
-* **`add-e`**`n/Clementi CC p/98765432 d/01-05-2019 a/Pending Rd s/X14DH9283` : adds a contact named `Clementi CC` to the *Equipment Manager*.
+* **`add-e`**`n/Clementi CC p/6776 2517 d/01-05-2019 a/220 Clementi Ave 4, Singapore 129880 Rd s/X14DH9283` : adds a contact named `Clementi CC` to the *Equipment Manager*.
 * **`delete-e`**`3`: deletes the 3rd equipment detail shown in the current list
 * *`exit`*: exits the app
 
@@ -116,7 +115,7 @@ Refer to <<Features>> for details of each command.
 *Command Format*
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/urgent` or as `n/John Doe`.
+* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/Clementi CC t/urgent` or as `n/Clementi CC`.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
 * Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 ====
@@ -132,7 +131,7 @@ You can view help by click the `Help button on the Menu Bar.
 If it is your first time reading this, then good job on opening the User Guide!
 
 === Adding an equipment: `add-e`
-Adds an equipment to the *Equipment Manager*. The result of adding an equipment will be reflected on the panel labelled under *Equipment details*.  +
+Adds an equipment to the *Equipment Manager*. The result of adding an equipment will be reflected on the panel labelled under *Equipment details* and *Client details*.  +
 Format: `add-e n/NAME p/PHONE_NUMBER pm/DATE a/ADDRESS s/SERIAL_NUMBER t/TAG`
 
 [NOTE]
@@ -141,6 +140,9 @@ DATE is the annual due date for maintenance work to be carried out by and it sho
 
 [TIP]
 In the panel under the *Equipment details* label, duplicated names could be added and displayed on the panel because the name refer to a client's name who owns multiple equipments as long as the serial numbers of equipment are different.
+
+[TIP]
+In the panel under the *Client details* label, duplicated names will not appear in the panel because the client details panel only shows distinct number of clients.
 
 [TIP]
 Equipment that has overdue preventative maintenance dates are allowed to be added for tracking purposes.
@@ -156,22 +158,6 @@ The following shows user adding 2 equipments that are own by the same client cal
 
 * `add-e n/Clementi CC p/67762517 pm/10-06-2019  a/220 Clementi Ave 4, Singapore 129880 s/A008844L t/west` +
 `add-e n/Clementi CC p/67762517 pm/10-06-2019 a/220 Clementi Ave 4, Singapore 129880 s/A007723L t/west`
-
-// tag::addclient[]
-=== Adding a client: `add-c`
-Adds a client to the *Equipment Manager*. The result of adding a client will be reflected on the panel labelled under *Client details*. +
-Format: `add-c n/NAME`
-
-[NOTE]
-Client is a person or organization that owns the equipment.
-
-[TIP]
-In the panel under *Client details* label, there should not be any duplicated client names. +
-
-Example:
-
-*  `add-c n/Clementi CC`
-// end::addclient[]
 
 === Creating a new worklist: `add-w`
 Create a worklist in the Equipment Manager by giving the worklist an ID +
@@ -268,6 +254,21 @@ Selects the 1st worklist in the equipment manager.
 * `find Clementi` +
 `select 1` +
 Selects the 1st equipment in the results of the find command.
+// end::select[]
+
+// tag::select[]
+=== Selecting a client: `select-c`
+Selects the client identified by the index number used in the displayed client list panel. All the equipments own by the client will be displayed under *Equipment details* panel. +
+Format: `select-c INDEX`
+
+* Selects the client at the specified INDEX and loads the client's equipment in the *Equipment details* panel. +
+* The index refers to the index number shown in the *Client details* panel. +
+* The index must be a positive integer 1, 2, 3, …​ +
+
+Examples:
+
+* `select 2` +
+Selects the 2nd client in the equipment manager.
 // end::select[]
 
 // tag::find[]
@@ -540,9 +541,6 @@ For more details on what each command does, please refer to <<Features>>.
 |*Add Equipment*
 |add-e
 
-|*Add Client*
-|add-e
-
 |*Add Work List*
 |add-w
 
@@ -551,6 +549,12 @@ For more details on what each command does, please refer to <<Features>>.
 
 |*List Work List*
 |list-w
+
+|*Select Equipment or Worklist*
+|select
+
+|*Select Client*
+|select-c
 
 |*Delete Equipment*
 |delete-e
@@ -574,7 +578,7 @@ For more details on what each command does, please refer to <<Features>>.
 |exit
 |===
 
-.Equipment Manager
+.Some quick example of commands in Equipment Manager
 [[managetable]]
 [cols="^.^1,^.^4,^.^2"]
 |===
@@ -596,5 +600,4 @@ For more details on what each command does, please refer to <<Features>>.
 |filter [n/NAME_KEYWORD] [pm/DATE_KEYWORD] [t/TAG_KEYWORD]
 |fil punggol november ongoing
 |===
-
 // end::commandsummary[]

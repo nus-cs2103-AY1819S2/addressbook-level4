@@ -6,7 +6,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_JOBNAME;
 import java.util.ArrayList;
 import java.util.function.Predicate;
 
-import javafx.collections.transformation.FilteredList;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;

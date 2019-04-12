@@ -24,11 +24,11 @@ public class DeleteFilterCommand extends Command {
     public static final String COMMAND_ALIAS = "df";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-        + ": Deletes the filter identified by the filter name used in the displayed person list.\n"
-        + "Parameters: FilterList NameFilterName \n"
-        + "Example: " + COMMAND_WORD + " Applicant Chinese\n"
-        + "The alias \"d\" can be used instead.\n"
-        + "Example: " + COMMAND_ALIAS + "Applicant Chinese";
+            + ": Deletes the filter identified by the filter name used in the displayed person list.\n"
+            + "Parameters: FilterList NameFilterName \n"
+            + "Example: " + COMMAND_WORD + " Applicant Chinese\n"
+            + "The alias \"d\" can be used instead.\n"
+            + "Example: " + COMMAND_ALIAS + "Applicant Chinese";
 
     public static final String MESSAGE_DELETE_FILTER_SUCCESS = "Deleted Filter: %1$s";
     public static final String MESSAGE_DELETE_FILTER_FAIL = "Deleted Filter Fail";
@@ -54,7 +54,7 @@ public class DeleteFilterCommand extends Command {
         case APPLICANT:
             try {
                 model.removePredicateJobAllApplicants(targetName);
-            }catch (FilterNotFoundException ex){
+            } catch (FilterNotFoundException ex) {
                 throw new CommandException(Messages.MESSAGE_CANOT_FOUND_TARGET_FILTER);
             }
             model.updateJobAllApplicantsFilteredPersonList();
@@ -63,7 +63,7 @@ public class DeleteFilterCommand extends Command {
         case KIV:
             try {
                 model.removePredicateJobKiv(targetName);
-            }catch (FilterNotFoundException ex){
+            } catch (FilterNotFoundException ex) {
                 throw new CommandException(Messages.MESSAGE_CANOT_FOUND_TARGET_FILTER);
             }
             model.updateJobKivFilteredPersonList();
@@ -72,7 +72,7 @@ public class DeleteFilterCommand extends Command {
         case INTERVIEW:
             try {
                 model.removePredicateJobInterview(targetName);
-            }catch (FilterNotFoundException ex){
+            } catch (FilterNotFoundException ex) {
                 throw new CommandException(Messages.MESSAGE_CANOT_FOUND_TARGET_FILTER);
             }
             model.updateJobInterviewFilteredPersonList();
@@ -81,7 +81,7 @@ public class DeleteFilterCommand extends Command {
         case SHORTLIST:
             try {
                 model.removePredicateJobShortlist(targetName);
-            }catch (FilterNotFoundException ex){
+            } catch (FilterNotFoundException ex) {
                 throw new CommandException(Messages.MESSAGE_CANOT_FOUND_TARGET_FILTER);
             }
             model.updateJobShortlistFilteredPersonList();
@@ -90,7 +90,7 @@ public class DeleteFilterCommand extends Command {
         default:
             try {
                 model.removePredicateAllPersons(targetName);
-            }catch (FilterNotFoundException ex){
+            } catch (FilterNotFoundException ex) {
                 throw new CommandException(Messages.MESSAGE_CANOT_FOUND_TARGET_FILTER);
             }
             model.updateFilteredPersonList();
@@ -103,8 +103,8 @@ public class DeleteFilterCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-            || (other instanceof DeleteFilterCommand // instanceof handles nulls
-            && (filterListName.equals(((DeleteFilterCommand) other).filterListName))
-            && (targetName.equals(((DeleteFilterCommand) other).targetName))); // state check
+                || (other instanceof DeleteFilterCommand // instanceof handles nulls
+                && (filterListName.equals(((DeleteFilterCommand) other).filterListName))
+                && (targetName.equals(((DeleteFilterCommand) other).targetName))); // state check
     }
 }

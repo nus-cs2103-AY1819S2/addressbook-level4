@@ -13,11 +13,10 @@ public class Messages {
     public static final String MESSAGE_LACK_LISTNAME = "Filter Command in Display Job page need indicate job list";
     public static final String MESSAGE_REDUNDANT_LISTNAME = "Filter Command in All Jobs page no need indicate job list";
     public static final String MESSAGE_INVALID_RANGE =
-        "Not a valid range, the right format should be value-value;value-value..." + "\n" +
-            "For example: 1.2-1.3; 1.3-1.4";
+            "Not a valid range, the right format should be value-value;value-value..." + "\n"
+                    + "For example: 1.2-1.3; 1.3-1.4";
     public static final String MESSAGE_CANOT_FOUND_TARGET_FILTER = "The filter you want to delete can not found";
-    public static final String MESSAGE_REDUNDANT_FILTERNAME = "Filter name has already been used." + "\n" +
-        "Filter Command need a unique name";
-
+    public static final String MESSAGE_REDUNDANT_FILTERNAME = "Filter name has already been used." + "\n"
+            + "Filter Command need a unique name";
 
 }

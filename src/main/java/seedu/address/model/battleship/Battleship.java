@@ -14,35 +14,20 @@ import seedu.address.model.tag.Tag;
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Battleship {
-
-    // Static constants
-    public static final String AIRCRAFT_CARRIER_STRING = "aircraft carrier";
-    public static final String DESTROYER_STRING = "destroyer";
-    public static final String CRUISER_STRING = "cruiser";
-    public static final Name AIRCRAFT_CARRIER_NAME = new Name(AIRCRAFT_CARRIER_STRING);
-    public static final Name DESTROYER_NAME = new Name(DESTROYER_STRING);
-    public static final Name CRUISER_NAME = new Name(CRUISER_STRING);
-    public static final int AIRCRAFT_CARRIER_LENGTH = 5;
-    public static final int DESTROYER_LENGTH = 3;
-    public static final int CRUISER_LENGTH = 2;
     public static final String MESSAGE_CONSTRAINTS = "Name must be "
-            + AIRCRAFT_CARRIER_STRING + ", "
-            + DESTROYER_STRING + " or "
-            + CRUISER_STRING + ".";
-
-    // Default fields
-    protected static final int DEFAULT_LENGTH = 2;
-    protected static final int DEFAULT_LIFE = 2;
+            + BattleshipType.AIRCRAFT_CARRIER.toString() + ", "
+            + BattleshipType.DESTROYER.toString() + " or "
+            + BattleshipType.CRUISER.toString() + ".";
 
     // Identity fields
-    protected static int counter = 0;
+    private static int counter = 0;
     protected final int id;
     protected final Name name;
 
     // Data fields
     protected final Set<Tag> tags = new HashSet<>();
     protected final int length;
-    protected int life;
+    private int life;
 
     // Logger
     private final Logger logger = LogsCenter.getLogger(Battleship.class);
@@ -60,10 +45,19 @@ public class Battleship {
     }
 
     /**
+     * Constructor for Battleship without arguments.
+     */
+    public Battleship() {
+        this(BattleshipType.DEFAULT.getName(), BattleshipType.DEFAULT.length,
+                BattleshipType.DEFAULT.length, new HashSet<Tag>());
+    }
+
+    /**
      * Constructor for Battleship with only name.
      */
     public Battleship(Name name) {
-        this(name, DEFAULT_LENGTH, DEFAULT_LIFE, new HashSet<Tag>());
+        this(name, BattleshipType.DEFAULT.length,
+                BattleshipType.DEFAULT.length, new HashSet<Tag>());
     }
 
     /**
@@ -71,9 +65,9 @@ public class Battleship {
      * Default size is length = 2, life = 1
      */
     public Battleship(Name name, Set<Tag> tags) {
-        this(name, DEFAULT_LENGTH, DEFAULT_LIFE, tags);
+        this(name, BattleshipType.DEFAULT.length,
+                BattleshipType.DEFAULT.length, tags);
     }
-
 
     /**
      * Constructor Battleship with only name, length and size.
@@ -83,25 +77,29 @@ public class Battleship {
     }
 
     /**
-     * Constructor for Battleship without arguments.
-     * To prepare with refactoring Battleship to a Cell.
+     * Getter method for name.
      */
-    public Battleship() {
-        this(new Name("placeholder"), DEFAULT_LENGTH, DEFAULT_LIFE, new HashSet<Tag>());
-    }
-
     public Name getName() {
         return this.name;
     }
 
+    /**
+     * Getter method for id.
+     */
     public int getId() {
         return this.id;
     }
 
+    /**
+     * Getter method for length.
+     */
     public int getLength() {
         return this.length;
     }
 
+    /**
+     * Getter method for life.
+     */
     public int getLife() {
         return this.life;
     }
@@ -161,17 +159,68 @@ public class Battleship {
         return otherBattleship.getName().equals(getName());
     }
 
+    /**
+     * Return hashcode of object.
+     */
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
         return Objects.hash(name, id, length, life, tags);
     }
 
+    /**
+     * Return name of battleship.
+     */
     @Override
     public String toString() {
-        final StringBuilder builder = new StringBuilder();
-        builder.append(getName());
-        return builder.toString();
+        return this.getName().toString();
+    }
+
+    /**
+     * Enumeration of battleships for internal use.
+     */
+    protected enum BattleshipType {
+        /**
+         * The values for AIRCRAFT_CARRIER, DESTROYER AND CRUISER are fixed.
+         * The DEFAULT value is a placeholder for user-created battleships (coming in v2.0).
+         */
+        AIRCRAFT_CARRIER("aircraft carrier", 5),
+        DESTROYER("destroyer", 3),
+        CRUISER("cruiser", 2),
+        DEFAULT("default", 2);
+
+        private final String name;
+        private final int length;
+
+        /**
+         * Constructor.
+         */
+        BattleshipType(String name, int length) {
+            this.name = name;
+            this.length = length;
+        }
+
+        /**
+         * Returns name as a Name object.
+         */
+        public Name getName() {
+            return new Name(this.name);
+        }
+
+        /**
+         * Getter method for length.
+         */
+        public int getLength() {
+            return this.length;
+        }
+
+        /**
+         * Returns name as String.
+         */
+        @Override
+        public String toString() {
+            return this.name;
+        }
     }
 
 }

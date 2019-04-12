@@ -15,7 +15,10 @@ public class DestroyerBattleship extends Battleship {
      * Default size is length = 2, life = 1
      */
     public DestroyerBattleship(Set<Tag> tagSet) {
-        super(Battleship.DESTROYER_NAME, Battleship.DESTROYER_LENGTH, Battleship.DESTROYER_LENGTH, tagSet);
+        super(BattleshipType.DESTROYER.getName(),
+                BattleshipType.DESTROYER.getLength(),
+                BattleshipType.DESTROYER.getLength(),
+                tagSet);
     }
 
 }

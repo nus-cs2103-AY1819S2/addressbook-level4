@@ -175,7 +175,7 @@ public class ModelManagerTest {
     @Test
     public void setCurrentTestedCard_cardNotInFilteredCardList_throwsCardNotFoundException() {
         thrown.expect(CardNotFoundException.class);
-        modelManager.setSelectedCard(ALICE);
+        modelManager.setCurrentTestedCard(ALICE);
     }
 
     @Test

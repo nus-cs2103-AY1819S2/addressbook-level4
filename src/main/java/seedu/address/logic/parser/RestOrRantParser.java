@@ -12,6 +12,7 @@ import seedu.address.logic.commands.AddTableCommand;
 import seedu.address.logic.commands.AddToMenuCommand;
 import seedu.address.logic.commands.AddToOrderCommand;
 import seedu.address.logic.commands.BillCommand;
+import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.ClearMenuCommand;
 import seedu.address.logic.commands.ClearOrderCommand;
 import seedu.address.logic.commands.ClearTableCommand;
@@ -62,16 +63,18 @@ public class RestOrRantParser {
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
 
-        // General commands that work in all modes
-
         switch (commandWord) {
 
+        // General commands that work in all modes
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
 
         case HistoryCommand.COMMAND_WORD: // Fallthrough
         case HistoryCommand.COMMAND_ALIAS:
             return new HistoryCommand();
+
+        case ClearCommand.COMMAND_WORD:
+            return new ClearCommand();
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();

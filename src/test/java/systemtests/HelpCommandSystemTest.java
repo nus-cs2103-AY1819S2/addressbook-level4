@@ -28,7 +28,9 @@ public class HelpCommandSystemTest extends AddressBookSystemTest {
 
     private final GuiRobot guiRobot = new GuiRobot();
 
-    // TODO: fix system test problem: @Test
+    /**
+     * TODO: fix system test problem: @Test
+     */
     public void openHelpWindow() {
         //use accelerator
         getCommandBox().click();
@@ -73,7 +75,9 @@ public class HelpCommandSystemTest extends AddressBookSystemTest {
         assertNotEquals(StatusBarFooter.SYNC_STATUS_INITIAL, getStatusBarFooter().getSyncStatus());
     }
 
-    // TODO: fix system test problem: @Test
+    /**
+     * TODO: fix system test problem: @Test
+     */
     public void help_multipleCommands_onlyOneHelpWindowOpen() {
         getMainMenu().openHelpWindowUsingMenu();
 

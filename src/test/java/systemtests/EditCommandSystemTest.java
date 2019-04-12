@@ -50,7 +50,9 @@ import seedu.address.testutil.PersonUtil;
 
 public class EditCommandSystemTest extends AddressBookSystemTest {
 
-    // TODO: fix system test problem: @Test
+    /**
+     * TODO: fix system test problem: @Test
+     */
     public void edit() {
         Model model = getModel();
 

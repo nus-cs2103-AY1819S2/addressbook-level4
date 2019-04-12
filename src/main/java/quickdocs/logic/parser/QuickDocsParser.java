@@ -183,7 +183,7 @@ public class QuickDocsParser {
      * @return whether suggestion mode should be turned on
      */
     public boolean isDirectoryFormat(String rawArgs) {
-        Matcher matcher = QuickDocsParser.BASIC_COMMAND_FORMAT.matcher(rawArgs);
+        Matcher matcher = BASIC_COMMAND_FORMAT.matcher(rawArgs);
         if (!matcher.matches()) {
             return false;
         }
@@ -216,7 +216,7 @@ public class QuickDocsParser {
      * @return whether suggestion mode should be turned on
      */
     public boolean isMedicineAllowed(String rawArgs) {
-        Matcher matcher = QuickDocsParser.BASIC_COMMAND_FORMAT.matcher(rawArgs);
+        Matcher matcher = BASIC_COMMAND_FORMAT.matcher(rawArgs);
         if (!matcher.matches()) {
             return false;
         }
@@ -240,7 +240,11 @@ public class QuickDocsParser {
     }
 
     public String getArgument(String rawArgs) {
-        final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(rawArgs.trim());
-        return matcher.group("arguments");
+        rawArgs = rawArgs.trim();
+        Matcher matcher = BASIC_COMMAND_FORMAT.matcher(rawArgs);
+        if (!matcher.matches()) {
+            throw new IllegalStateException(MESSAGE_INVALID_COMMAND_FORMAT);
+        }
+        return matcher.group("arguments").trim();
     }
 }

@@ -173,6 +173,13 @@ public class RootLayoutController {
         return logicManager.getMedicineSuggestions(rawArgs);
     }
 
+    /**
+     * Get the position of current user input in the list of suggestions
+     * @param input current user input, starting from the next character from the last \ character
+     * @param suggestions list of suggestions
+     * @return A even number x if input equals suggestions[x/2];
+     *          an odd number, if input is larger than suggestions[(x-1)/2] but smaller than suggestions[(x+1)/2]
+     */
     private int getIndex(String input, ArrayList<String> suggestions) {
         String currentName = input.substring(input.lastIndexOf("\\") + 1).trim();
         if (currentName.equals("")) {

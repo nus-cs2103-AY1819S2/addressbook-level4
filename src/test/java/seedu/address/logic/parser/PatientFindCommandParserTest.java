@@ -1,5 +1,6 @@
 package seedu.address.logic.parser;
 
+import static seedu.address.commons.core.Messages.MESSAGE_EMPTY_KEYWORD;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
@@ -110,8 +111,7 @@ public class PatientFindCommandParserTest {
 
     @Test
     public void parseFailure_emptyKeyword_throwsParseException() {
-        assertParseFailure(parser, "CS n/", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-            PatientFindCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, "CS n/", MESSAGE_EMPTY_KEYWORD);
     }
 
     @Test

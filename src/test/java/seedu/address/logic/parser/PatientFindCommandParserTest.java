@@ -109,6 +109,12 @@ public class PatientFindCommandParserTest {
     }
 
     @Test
+    public void parseFailure_emptyKeyword_throwsParseException() {
+        assertParseFailure(parser, "CS n/", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+            PatientFindCommand.MESSAGE_USAGE));
+    }
+
+    @Test
     public void parse_validPhoneArgs_returnsPatientFindCommand() {
         // no leading and trailing whitespaces
         MultipleContainsKeywordsPredicate tempPred = new MultipleContainsKeywordsPredicate(Collections.emptyList(),
@@ -227,5 +233,4 @@ public class PatientFindCommandParserTest {
         assertParseSuccess(parser, " sex/ \n M da/NIL nokr/Mother Father \t nokn/Alex nokp/984 999 \t "
             + "noka/Street 4 tag/Healthy Teeth", expectedPatientFindCommand);
     }
-    //TODO: Add in tests for the other Attribute predicates
 }

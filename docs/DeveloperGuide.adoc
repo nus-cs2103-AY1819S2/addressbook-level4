@@ -1228,39 +1228,39 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |Priority |As a ... |I want to ... |So that I can...
 
 // tag::patient_user_stories_kyler[]
-|`* * *` |user |add a new patient's particulars | know about their situation
+|`* * *` |user |add a new patient's particulars |know about their situation
 
-|`* * *` |user |edit my patient's particulars when the situation changes | their personal information remains updated
+|`* * *` |user |edit my patient's particulars when the situation changes |their personal information remains updated
 
-|`* * *` |user |my patients' medical records and teeth data tied to them | know how their situation evolved
+|`* * *` |user |my patients' medical records and teeth data tied to them |know how their situation evolved
 
-|`* * *` |user |store, edit, and view my dental patients' teeth condition | understand and serve my dental patients'
+|`* * *` |user |store, edit, and view my dental patients' teeth condition |understand and serve my dental patients'
 teeth condition better
 
-|`* * *` |user |isolate other patients' information | focus on the current patient in my clinic
+|`* * *` |user |isolate other patients' information |focus on the current patient in my clinic
 
-|`* * *` |user |view my patients' dental records | understand and keep track of my patients' teeth health history
+|`* * *` |user |view my patients' dental records |understand and keep track of my patients' teeth health history
 
-|`* * *` |user |add a new dental record | store diagnosis and treatments of my patients during their dental sessions
+|`* * *` |user |add a new dental record |store diagnosis and treatments of my patients during their dental sessions
 
-|`* * *` |user |delete a dental record | remove records that have become redundant or irrelevant
+|`* * *` |user |delete a dental record |remove records that have become redundant or irrelevant
 
-|`* * *` |user |edit a dental record | correct or modify descriptions of dental records that I have already added
+|`* * *` |user |edit a dental record |correct or modify descriptions of dental records that I have already added
 
-|`* * *` |user |clear all dental records of a patient | protect the privacy of my patients if they require me to
+|`* * *` |user |clear all dental records of a patient |protect the privacy of my patients if they require me to
 // end::patient_user_stories_kyler[]
-|`* * *` |user |add a new task | keep track of what I need to do
+|`* * *` |user |add a new task |keep track of what I need to do
 
 |`* * *` |user |delete a task |remove tasks that I have already completed or no longer need to do
 
 |`* * *` |user |edit a task |change details of certain tasks that I have already added
 
-|`* * *` |user |see a statistics report on each patient's dental history | have an easier time understanding their potential problems
+|`* * *` |user |see a statistics report on each patient's dental history |have an easier time understanding their potential problems
 
-|`* * *` |user |see a warning come up when I'm exiting the program if there exists duplicate entries | be reminded to
+|`* * *` |user |see a warning come up when I'm exiting the program if there exists duplicate entries |be reminded to
 edit them before exiting.
 
-|`* *` |user |see an overall statistics report on my patients | analyze potential trends
+|`* *` |user |see an overall statistics report on my patients |analyze potential trends
 
 |`* *` |user |copy a person |reduce the time needed to create a new person who has similar records to an existing person in the list
 
@@ -1278,9 +1278,11 @@ edit them before exiting.
 
 |`* *` |user |see suggestions when I type common commands |do not have to keep consulting the Help page
 
+|`* *` |user |add my own images into records |keep track and store relevant images
+
 // end::storyuserJH[]
 
-|`* *` |user |see relevant dentistry tags on my patients' entries | have an overview of my patients' condition
+|`* *` |user |see relevant dentistry tags on my patients' entries |have an overview of my patients' condition
 
 |`* *` |user with many persons in the address book |sort patients by desired parameter |locate a person easily
 

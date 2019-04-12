@@ -1,21 +1,22 @@
 package seedu.address.logic.commands;
 
+import static junit.framework.TestCase.assertTrue;
+import static junit.framework.TestCase.fail;
+import static org.junit.Assert.assertFalse;
+import static seedu.address.testutil.TypicalPdfs.getTypicalPdfBook;
+
+import java.time.LocalDate;
+
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.pdf.Deadline;
-
-import java.time.LocalDate;
-
-import static junit.framework.TestCase.assertTrue;
-import static junit.framework.TestCase.fail;
-import static org.junit.Assert.assertFalse;
-import static seedu.address.testutil.TypicalPdfs.getTypicalPdfBook;
 
 public class DeadlineCommandTest {
 
@@ -54,9 +55,10 @@ public class DeadlineCommandTest {
     }
 
     @Test
-    public void execute_valid_new_success() {
+    public void execute_validNew_success() {
         try {
-            DeadlineCommand standardCommand = new DeadlineCommand(Index.fromOneBased(1), new Deadline(), DeadlineCommand.DeadlineAction.NEW);
+            DeadlineCommand standardCommand = new DeadlineCommand(Index.fromOneBased(1), new Deadline(),
+                    DeadlineCommand.DeadlineAction.NEW);
             standardCommand.execute(this.model, commandHistory);
         } catch (Exception e) {
             fail();
@@ -64,9 +66,10 @@ public class DeadlineCommandTest {
     }
 
     @Test
-    public void execute_valid_done_success() {
+    public void execute_validDone_success() {
         try {
-            DeadlineCommand standardCommand = new DeadlineCommand(Index.fromOneBased(1), new Deadline(), DeadlineCommand.DeadlineAction.DONE);
+            DeadlineCommand standardCommand = new DeadlineCommand(Index.fromOneBased(1), new Deadline(),
+                    DeadlineCommand.DeadlineAction.DONE);
             standardCommand.execute(this.model, commandHistory);
         } catch (Exception e) {
             fail();
@@ -74,9 +77,10 @@ public class DeadlineCommandTest {
     }
 
     @Test
-    public void execute_valid_remove_success() {
+    public void execute_validRemove_success() {
         try {
-            DeadlineCommand standardCommand = new DeadlineCommand(Index.fromOneBased(1), new Deadline(), DeadlineCommand.DeadlineAction.REMOVE);
+            DeadlineCommand standardCommand = new DeadlineCommand(Index.fromOneBased(1), new Deadline(),
+                    DeadlineCommand.DeadlineAction.REMOVE);
             standardCommand.execute(this.model, commandHistory);
         } catch (Exception e) {
             fail();

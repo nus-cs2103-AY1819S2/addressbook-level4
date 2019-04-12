@@ -20,7 +20,7 @@ By: `W14-2`      Since: `Feb 2019`      Licence: `MIT`
 
 FomoFoto is a image processing software suite written in Java. This application is optimised for users who are *familiar with the Command Line Interface (CLI)*, while providing a *Graphical User Interface (GUI)* for easy reference. For those who love the CLI, this is written for you! If you are not familiar, don't worry, we'll take you through and you'll be a pro in no time! Who knows? You might even be editing your pictures faster than your friends who use Photoshop! Interested? Jump to the <<Quick Start>> to get started. Enjoy!
 
-
+// tag::QuickStart[]
 == Quick Start
 Follow the steps below to set up your computer to run FomoFoto.
 
@@ -32,6 +32,7 @@ Follow the steps below to set up your computer to run FomoFoto.
 .Home Page of FomoFoto
 image::ui.png[width="800"]
 +
+// end::QuickStart[]
 .  And you have just started up FomoFoto on your device! You can refer to <<Features>> for details of each command. If you would like a step-by-step walk through of our application, scroll down to the next section: A Walk Through.
 
 // tag::AWalkThrough[]

@@ -28,17 +28,24 @@ public class MovePersonCommand extends Command {
     public static final String COMMAND_ALIAS = "mp";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": copies person with NRIC from source list to dest list in job. "
+            + ": copies person to dest list from source list. "
+            + "Displayed job is used unless optional JobName is provided. \n"
             + "Parameters: "
-            + "DESTINATION-LIST-NAME "
-            + "SOURCE-LIST-NAME \n"
+            + "DESTINATION_LIST_NAME "
+            + "SOURCE_LIST_NAME "
+            + "applicant indexes"
+            + PREFIX_JOBNAME + "JobName (OPTIONAL)\n"
             + "Example: " + COMMAND_WORD + " "
             + "applicant "
             + "kiv "
+            + "1, 2, 3 "
+            + PREFIX_JOBNAME + "King-Of-The-World \n"
             + "The alias \"mp\" can be used instead.\n"
             + "Example: " + COMMAND_ALIAS + " "
             + "applicant "
-            + "kiv ";
+            + "kiv "
+            + "1, 2, 3 "
+            + PREFIX_JOBNAME + "High-On-Drugs ";
 
     public static final String MESSAGE_SUCCESS = "All selected people added to job: %1$s";
     public static final String MESSAGE_DUPLICATE_PERSON = "The dest list already has a person with this NRIC";

@@ -22,7 +22,7 @@ public class Procedure {
      */
     public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
 
-    public static final String MESSAGE_CONSTRAINTS = "Procedures should be in the format of TYPE-SUBTYPE"
+    public static final String MESSAGE_CONSTRAINTS = "Procedures should be in the format of TYPE-SUBTYPE\n"
         + "TYPE must be one of the following options (case insensitive): Consultation, Preventive, Filling, Crown\n"
         + "Gum, Extraction, Replacement, Braces, Aesthetic, Implant, Other\n"
         + "Procedures must be divided by a -, and only contain alphanumeric"

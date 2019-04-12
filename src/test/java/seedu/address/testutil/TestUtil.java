@@ -1,5 +1,9 @@
 package seedu.address.testutil;
 
+import seedu.address.commons.core.index.Index;
+import seedu.address.model.Model;
+import seedu.address.model.request.Request;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -32,25 +36,32 @@ public class TestUtil {
         return SANDBOX_FOLDER.resolve(fileName);
     }
 
-    //kept for reference
-    ///**
-    //* Returns the middle index of the person in the {@code model}'s person list.
-    //*/
-    //public static Index getMidIndex(Model model) {
-    //  return Index.fromOneBased(model.getFilteredPersonList().size() / 2);
-    //}
+    /**
+     * Returns the middle index of the request in the {@code model}'s request list.
+     * @param model
+     * @return the middle index
+     */
+    public static Index getMidIndex(Model model) {
+        return Index.fromOneBased(model.getFilteredRequestList().size() / 2);
+    }
 
-    ///**
-    //* Returns the last index of the person in the {@code model}'s person list.
-    //*/
-    //public static Index getLastIndex(Model model) {
-    //  return Index.fromOneBased(model.getFilteredPersonList().size());
-    //}
+    /**
+     * Returns the last index of the request in the {@code model}'s request list.
+     * @param model
+     * @return the last index
+     */
+    public static Index getLastIndex(Model model) {
 
-    ///**
-    //* Returns the person in the {@code model}'s person list at {@code index}.
-    //*/
-    //public static Person getPerson(Model model, Index index) {
-    //return model.getFilteredPersonList().get(index.getZeroBased());
-    //}
+        return Index.fromOneBased(model.getFilteredRequestList().size());
+    }
+
+    /**
+     * Returns the request in the {@code model}'s request list at {@code index}.
+     * @param model
+     * @param index
+     * @return the request from the list at a specified index
+     */
+    public static Request getRequest(Model model, Index index) {
+        return model.getFilteredRequestList().get(index.getZeroBased());
+    }
 }

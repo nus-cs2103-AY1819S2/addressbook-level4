@@ -16,7 +16,7 @@ import seedu.address.model.pdf.Pdf;
 /**
  * An Immutable PdfBook that is serializable to JSON format.
  */
-@JsonRootName(value = "addressbook")
+@JsonRootName(value = "pdfbook")
 class JsonSerializablePdfBook {
 
     public static final String MESSAGE_DUPLICATE_PDF = "Pdf list contains duplicate pdf(s).";

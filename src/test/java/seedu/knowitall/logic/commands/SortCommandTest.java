@@ -1,5 +1,7 @@
 package seedu.knowitall.logic.commands;
 
+import static seedu.knowitall.commons.core.Messages.MESSAGE_INVALID_COMMAND_OUTSIDE_FOLDER;
+import static seedu.knowitall.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.knowitall.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.knowitall.testutil.TypicalCards.getTypicalCardFolders;
 
@@ -33,5 +35,12 @@ public class SortCommandTest {
     @Test
     public void execute_sort() {
         assertCommandSuccess(new SortCommand(), model, commandHistory, SortCommand.MESSAGE_SUCCESS, expectedModel);
+    }
+
+    @Test
+    public void execute_invalidSortOutsideFolder() {
+        model.exitFolderToHome();
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_OUTSIDE_FOLDER);
+        assertCommandFailure(new SortCommand(), model, commandHistory, expectedMessage);
     }
 }

@@ -8,6 +8,8 @@ import seedu.address.model.DocX;
 import seedu.address.model.medicalhistory.MedicalHistory;
 import seedu.address.model.medicalhistory.ValidDate;
 import seedu.address.model.medicalhistory.WriteUp;
+import seedu.address.model.person.Doctor;
+import seedu.address.model.person.Patient;
 import seedu.address.model.person.PersonId;
 
 /**
@@ -28,6 +30,40 @@ public class TypicalMedHists {
             new ValidDate("2019-02-25"),
             new WriteUp("Came down with a stomach flu, possibly due to eating expired food"));
 
+    public static final Patient ALICE = new PatientBuilder().withName("Alice Pauline")
+            .withGender("F").withAge("23").withPhone("94351251")
+            .withAddress("123, Jurong West Ave 6, #08-111")
+            .withTags("friends").build();
+    public static final Patient BENSON = new PatientBuilder().withName("Benson Meier")
+            .withGender("M").withAge("30").withPhone("98765432")
+            .withAddress("311, Clementi Ave 2, #02-25")
+            .withTags("owesMoney", "friends").build();
+    public static final Patient CARL = new PatientBuilder().withName("Carl Kurz")
+            .withGender("M").withAge("101").withPhone("95352563").withAddress("wall street").build();
+    public static final Patient DANIEL = new PatientBuilder().withName("Daniel Meier")
+            .withGender("M").withAge("7").withPhone("87652533").withAddress("10th street").withTags("friends").build();
+    public static final Patient ELLE = new PatientBuilder().withName("Elle Meyer")
+            .withGender("F").withAge("19").withPhone("94822241").withAddress("michegan ave").build();
+    public static final Patient FIONA = new PatientBuilder().withName("Fiona Kunz")
+            .withGender("F").withAge("110").withPhone("94824271").withAddress("little tokyo").build();
+    public static final Patient GEORGE = new PatientBuilder().withName("George Best")
+            .withGender("M").withAge("50").withPhone("94824421").withAddress("4th street").build();
+
+    public static final Doctor ALVINA = new DoctorBuilder().withName("Alvina Ong")
+            .withYear("21").withGender("F").withPhone("82376447").withSpecs("acupuncture").build();
+    public static final Doctor BOND = new DoctorBuilder().withName("Bond Park")
+            .withYear("10").withGender("M").withPhone("91612342").withSpecs("general", "acupuncture").build();
+    public static final Doctor CHARLIE = new DoctorBuilder().withName("Charlie Cruzlei").withPhone("95352563")
+            .withGender("M").withYear("33").build();
+    public static final Doctor DAM = new DoctorBuilder().withName("Dam Dong").withPhone("87652533")
+            .withGender("M").withYear("11").withSpecs("massage").build();
+    public static final Doctor ELSIE = new DoctorBuilder().withName("Elsie Lim").withPhone("94822241")
+            .withGender("F").withYear("5").build();
+    public static final Doctor FLORA = new DoctorBuilder().withName("Flora Winx").withPhone("94824271")
+            .withGender("F").withYear("3").build();
+    public static final Doctor GAN = new DoctorBuilder().withName("Gan Chong").withPhone("94824421")
+            .withGender("F").withYear("8").build();
+
     private TypicalMedHists() {} // prevents instantiation
 
     /**
@@ -38,6 +74,15 @@ public class TypicalMedHists {
         for (MedicalHistory medicalHistory : getTypicalMedHists()) {
             ab.addMedHist(medicalHistory);
         }
+
+        for (Patient patient : getTypicalPatients()) {
+            ab.addPatient(patient);
+        }
+
+        for (Doctor doctor : getTypicalDoctors()) {
+            ab.addDoctor(doctor);
+        }
+
         return ab;
     }
 
@@ -45,4 +90,11 @@ public class TypicalMedHists {
         return new ArrayList<>(Arrays.asList(MED_HIST1, MED_HIST2, MED_HIST3, MED_HIST4, MED_HIST5));
     }
 
+    public static List<Patient> getTypicalPatients() {
+        return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
+    }
+
+    public static List<Doctor> getTypicalDoctors() {
+        return new ArrayList<>(Arrays.asList(ALVINA, BOND, CHARLIE, DAM, ELSIE, FLORA, GAN));
+    }
 }

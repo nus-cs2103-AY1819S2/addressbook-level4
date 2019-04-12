@@ -83,6 +83,7 @@ public class UniqueMedHistList implements Iterable<MedicalHistory> {
 
     public void setPatientToNull(PersonId deleted) {
         requireAllNonNull(deleted);
+
         FilteredList<MedicalHistory> setToNull = internalList.filtered(x -> x.getPatientId().equals(deleted));
         int size = setToNull.size();
         for (int index = 0; index < size; index++) {

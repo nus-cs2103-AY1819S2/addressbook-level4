@@ -15,6 +15,7 @@ import static seedu.address.logic.commands.FilterCommand.MESSAGE_REDUNDANT_LISTN
 import static seedu.address.logic.commands.FilterCommand.MESSAGE_USAGE_ALLJOB_SCREEN;
 import static seedu.address.logic.commands.FilterCommand.MESSAGE_USAGE_JOB_DETAIL_SCREEN;
 import static seedu.address.model.job.JobListName.APPLICANT;
+import static seedu.address.model.job.JobListName.EMPTY;
 import static seedu.address.model.job.JobListName.INTERVIEW;
 import static seedu.address.model.job.JobListName.KIV;
 import static seedu.address.model.job.JobListName.SHORTLIST;
@@ -95,8 +96,12 @@ public class FilterCommandTest {
 
     @Test
     public void execute_repetiveFilterName_failure() {
-        model.setIsAllJobScreen(false);
         FilterCommand.PredicatePersonDescriptor descriptor = preparePredicatePersonDescriptor(" ");
+        FilterCommand commandAllPerson = new FilterCommand(VALID_FILTERNAME, EMPTY, descriptor);
+        commandExecute(commandAllPerson,model,commandHistory);
+        assertCommandFailure(commandAllPerson, model, commandHistory, MESSAGE_REDUNDANT_FILTERNAME);
+
+        model.setIsAllJobScreen(false);
         FilterCommand commandApplicant = new FilterCommand(VALID_FILTERNAME, APPLICANT, descriptor);
         FilterCommand commandKiv = new FilterCommand(VALID_FILTERNAME, KIV, descriptor);
         FilterCommand commandInterview = new FilterCommand(VALID_FILTERNAME, INTERVIEW, descriptor);

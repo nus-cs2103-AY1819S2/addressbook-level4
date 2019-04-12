@@ -5,6 +5,11 @@ import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.FILTERNAME_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.GENDER_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.GRADE_RANGE_DESC_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.INTERVIEW1_RANGE_DESC_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.INTERVIEW2_RANGE_DESC_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.INTERVIEW3_RANGE_DESC_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.INTERVIEW4_RANGE_DESC_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.INTERVIEW5_RANGE_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.JOBSAPPLY_DESC_ENGINEER;
 import static seedu.address.logic.commands.CommandTestUtil.KNOWNPROGLANG_DESC_JAVA;
 import static seedu.address.logic.commands.CommandTestUtil.MAJOR_DESC_AMY;
@@ -19,6 +24,12 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_FILTERNAME;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_GENDER_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_GRADE_RANGE_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_INTERVIEW1_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_INTERVIEW1_RANGE_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_INTERVIEW2_RANGE_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_INTERVIEW3_RANGE_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_INTERVIEW4_RANGE_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_INTERVIEW5_RANGE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_JOBSAPPLY_ENGINEER;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_KNOWNPROGLANG_JAVA;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_MAJOR_AMY;
@@ -28,8 +39,6 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_PASTJOB_PROFESS
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_RACE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_SCHOOL_AMY;
-import static seedu.address.logic.commands.FilterCommand.MESSAGE_LACK_FILTERNAME;
-import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
 import java.util.Arrays;
@@ -45,13 +54,11 @@ public class FilterCommandParserTest {
     private FilterCommandParser parser = new FilterCommandParser();
 
     @Test
-    public void parse_emptyArg_throwsParseException() {
-        assertParseFailure(parser, "     ",
-            String.format(MESSAGE_LACK_FILTERNAME, FilterCommand.MESSAGE_USAGE_ALLJOB_SCREEN));
-    }
+    public void parse_emptyArgs_returnsFilterCommand() {
 
+    }
     @Test
-    public void parse_validArgs_returnsSearchCommand() {
+    public void parse_validArgs_returnsFilterCommand() {
         // no leading and trailing whitespaces
         FilterCommand.PredicatePersonDescriptor descriptorAmy = new FilterCommand.PredicatePersonDescriptor();
         descriptorAmy.setName(new HashSet<>(Arrays.asList(VALID_NAME_AMY.split("\\s+"))));
@@ -63,12 +70,19 @@ public class FilterCommandParserTest {
         descriptorAmy.setMajor(new HashSet<>(Arrays.asList(VALID_MAJOR_AMY.split("\\s+"))));
         descriptorAmy.setGender(new HashSet<>(Arrays.asList(VALID_GENDER_AMY.split("\\s+"))));
         descriptorAmy.setGrade(new HashSet<>(Arrays.asList(VALID_GRADE_RANGE_AMY.split("\\s+"))));
+        descriptorAmy.setInterviewScoreQ1(new HashSet<>(Arrays.asList(VALID_INTERVIEW1_RANGE_AMY.split("\\s+"))));
+        descriptorAmy.setInterviewScoreQ2(new HashSet<>(Arrays.asList(VALID_INTERVIEW2_RANGE_AMY.split("\\s+"))));
+        descriptorAmy.setInterviewScoreQ3(new HashSet<>(Arrays.asList(VALID_INTERVIEW3_RANGE_AMY.split("\\s+"))));
+        descriptorAmy.setInterviewScoreQ4(new HashSet<>(Arrays.asList(VALID_INTERVIEW4_RANGE_AMY.split("\\s+"))));
+        descriptorAmy.setInterviewScoreQ5(new HashSet<>(Arrays.asList(VALID_INTERVIEW5_RANGE_AMY.split("\\s+"))));
         descriptorAmy.setNric(new HashSet<>(Arrays.asList(VALID_NRIC_AMY.split("\\s+"))));
         FilterCommand expectedFilterCommand = new FilterCommand(VALID_FILTERNAME, JobListName.EMPTY, descriptorAmy);
 
         assertParseSuccess(parser, FILTERNAME_DESC + NAME_DESC_AMY + PHONE_DESC_AMY
             + EMAIL_DESC_AMY + NRIC_DESC_AMY + GENDER_DESC_AMY + RACE_DESC_AMY + ADDRESS_DESC_AMY
-            + MAJOR_DESC_AMY + GRADE_RANGE_DESC_AMY + SCHOOL_DESC_AMY, expectedFilterCommand);
+            + MAJOR_DESC_AMY + GRADE_RANGE_DESC_AMY + SCHOOL_DESC_AMY + INTERVIEW1_RANGE_DESC_AMY +
+            INTERVIEW2_RANGE_DESC_AMY + INTERVIEW3_RANGE_DESC_AMY + INTERVIEW4_RANGE_DESC_AMY +
+            INTERVIEW5_RANGE_DESC_AMY, expectedFilterCommand);
 
 
         // test List fields

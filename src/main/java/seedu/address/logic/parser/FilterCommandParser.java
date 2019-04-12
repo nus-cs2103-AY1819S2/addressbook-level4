@@ -63,7 +63,6 @@ public class FilterCommandParser implements Parser<FilterCommand> {
             throw new ParseException(MESSAGE_INVALID_COMMAND_FORMAT, pe);
         }
         PredicatePersonDescriptor predicatePersonDescriptor = new PredicatePersonDescriptor();
-        //predicatePersonDescriptor.setPredicateName(commandName);
         if (argMultimap.getValue(PREFIX_FILTERNAME).isPresent()) {
             commandName = argMultimap.getValue(PREFIX_FILTERNAME).get();
         } else {

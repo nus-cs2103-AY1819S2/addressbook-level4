@@ -46,10 +46,4 @@ public class Size {
                 || (other instanceof Size // instanceof handles nulls
                 && value.equals(((Size) other).value)); // state check
     }
-
-    @Override
-    public int hashCode() {
-        return value.hashCode();
-    }
-
 }

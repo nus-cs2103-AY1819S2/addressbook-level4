@@ -68,7 +68,8 @@ public class FilterCommandParser implements Parser<FilterCommand> {
         if (argMultimap.getValue(PREFIX_FILTERNAME).isPresent()) {
             commandName = argMultimap.getValue(PREFIX_FILTERNAME).get();
         } else {
-            throw new ParseException(String.format(MESSAGE_LACK_FILTERNAME));
+            throw new ParseException(String.format(MESSAGE_LACK_FILTERNAME,
+                FilterCommand.MESSAGE_USAGE));
         }
         if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
             predicatePersonDescriptor.setName(new HashSet<>((
@@ -105,7 +106,8 @@ public class FilterCommandParser implements Parser<FilterCommand> {
         if (argMultimap.getValue(PREFIX_GRADE).isPresent()) {
             List<String> rangeList = Arrays.asList(argMultimap.getValue(PREFIX_GRADE).get().split(";"));
             if(!isValidValueRange(rangeList)){
-                throw new ParseException(String.format(MESSAGE_INVALID_RANGE));
+                throw new ParseException(String.format(MESSAGE_INVALID_RANGE,
+                    FilterCommand.MESSAGE_USAGE));
             }
             predicatePersonDescriptor.setGrade(new HashSet<>(rangeList));
         }
@@ -113,7 +115,8 @@ public class FilterCommandParser implements Parser<FilterCommand> {
             List<String> rangeList =
                 Arrays.asList(argMultimap.getValue(PREFIX_INTERVIEWSCORESQ1).get().split(";"));
             if(!isValidValueRange(rangeList)){
-                throw new ParseException(String.format(MESSAGE_INVALID_RANGE));
+                throw new ParseException(String.format(MESSAGE_INVALID_RANGE,
+                    FilterCommand.MESSAGE_USAGE));
             }
             predicatePersonDescriptor.setInterviewScoreQ1(new HashSet<>(rangeList));
         }
@@ -121,7 +124,8 @@ public class FilterCommandParser implements Parser<FilterCommand> {
             List<String> rangeList =
                 Arrays.asList(argMultimap.getValue(PREFIX_INTERVIEWSCORESQ2).get().split(";"));
             if(!isValidValueRange(rangeList)){
-                throw new ParseException(String.format(MESSAGE_INVALID_RANGE));
+                throw new ParseException(String.format(MESSAGE_INVALID_RANGE,
+                    FilterCommand.MESSAGE_USAGE));
             }
             predicatePersonDescriptor.setInterviewScoreQ2(new HashSet<>(rangeList));
         }
@@ -129,7 +133,8 @@ public class FilterCommandParser implements Parser<FilterCommand> {
             List<String> rangeList =
                 Arrays.asList(argMultimap.getValue(PREFIX_INTERVIEWSCORESQ3).get().split(";"));
             if(!isValidValueRange(rangeList)){
-                throw new ParseException(String.format(MESSAGE_INVALID_RANGE));
+                throw new ParseException(String.format(MESSAGE_INVALID_RANGE,
+                    FilterCommand.MESSAGE_USAGE));
             }
             predicatePersonDescriptor.setInterviewScoreQ3(new HashSet<>(rangeList));
         }
@@ -137,7 +142,8 @@ public class FilterCommandParser implements Parser<FilterCommand> {
             List<String> rangeList =
                 Arrays.asList(argMultimap.getValue(PREFIX_INTERVIEWSCORESQ4).get().split(";"));
             if(!isValidValueRange(rangeList)){
-                throw new ParseException(String.format(MESSAGE_INVALID_RANGE));
+                throw new ParseException(String.format(MESSAGE_INVALID_RANGE,
+                    FilterCommand.MESSAGE_USAGE));
             }
             predicatePersonDescriptor.setInterviewScoreQ4(new HashSet<>(rangeList));
         }
@@ -145,7 +151,8 @@ public class FilterCommandParser implements Parser<FilterCommand> {
             List<String> rangeList =
                 Arrays.asList(argMultimap.getValue(PREFIX_INTERVIEWSCORESQ5).get().split(";"));
             if(!isValidValueRange(rangeList)){
-                throw new ParseException(String.format(MESSAGE_INVALID_RANGE));
+                throw new ParseException(String.format(MESSAGE_INVALID_RANGE,
+                    FilterCommand.MESSAGE_USAGE));
             }
             predicatePersonDescriptor.setInterviewScoreQ5(new HashSet<>(rangeList));
         }

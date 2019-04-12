@@ -84,6 +84,9 @@ public class MainWindow extends UiPart<Stage> {
     private FlowPane shortlistFilter;
 
     @FXML
+    private FlowPane allAppFilter;
+
+    @FXML
     private StackPane allPlaceholder;
 
     @FXML
@@ -173,11 +176,11 @@ public class MainWindow extends UiPart<Stage> {
         }
 
         allListPanel = new PersonListPanel(logic.getFilteredPersonList(), logic.selectedPersonProperty(),
-            logic::setSelectedPerson);
+                logic::setSelectedPerson);
         allPlaceholder.getChildren().add(allListPanel.getRoot());
 
         jobsListPanel = new JobListPanel(logic.getAllJobs(), logic.selectedJobProperty(),
-            logic::setSelectedJob);
+                logic::setSelectedJob);
         jobsPlaceholder.getChildren().add(jobsListPanel.getRoot());
 
         fillInnerParts();
@@ -217,19 +220,19 @@ public class MainWindow extends UiPart<Stage> {
         }
 
         allApplicantsListPanel = new PersonListPanel(logic.getJobsList(0), logic.selectedPersonProperty(),
-            logic::setSelectedAll);
+                logic::setSelectedAll);
         allApplicantsPlaceholder.getChildren().add(allApplicantsListPanel.getRoot());
 
         kivListPanel = new PersonListPanel(logic.getJobsList(1), logic.selectedPersonProperty(),
-            logic::setSelectedKiv);
+                logic::setSelectedKiv);
         kivPlaceholder.getChildren().add(kivListPanel.getRoot());
 
         interviewedListPanel = new PersonListPanel(logic.getJobsList(2), logic.selectedPersonProperty(),
-            logic::setSelectedInterviewed);
+                logic::setSelectedInterviewed);
         interviewedPlaceholder.getChildren().add(interviewedListPanel.getRoot());
 
         selectedListPanel = new PersonListPanel(logic.getJobsList(3), logic.selectedPersonProperty(),
-            logic::setSelectedSelected);
+                logic::setSelectedSelected);
         selectedPlaceholder.getChildren().add(selectedListPanel.getRoot());
 
         fillInnerParts();
@@ -241,24 +244,26 @@ public class MainWindow extends UiPart<Stage> {
 
     private void updateFilterTags(JobListName listName, UniqueFilterList list) {
         switch (listName) {
-        case APPLICANT:
-            allFilter.getChildren().clear();
-            list.forEach(filter -> allFilter.getChildren().add(new Label(filter.getFilterName())));
-            break;
-        case KIV:
-            kivFilter.getChildren().clear();
-            list.forEach(filter -> kivFilter.getChildren().add(new Label(filter.getFilterName())));
-            break;
-        case INTERVIEW:
-            interviewFilter.getChildren().clear();
-            list.forEach(filter -> interviewFilter.getChildren().add(new Label(filter.getFilterName())));
-            break;
-        case SHORTLIST:
-            shortlistFilter.getChildren().clear();
-            list.forEach(filter -> shortlistFilter.getChildren().add(new Label(filter.getFilterName())));
-            break;
-        default:
-            break;
+            case APPLICANT:
+                allFilter.getChildren().clear();
+                list.forEach(filter -> allFilter.getChildren().add(new Label(filter.getFilterName())));
+                break;
+            case KIV:
+                kivFilter.getChildren().clear();
+                list.forEach(filter -> kivFilter.getChildren().add(new Label(filter.getFilterName())));
+                break;
+            case INTERVIEW:
+                interviewFilter.getChildren().clear();
+                list.forEach(filter -> interviewFilter.getChildren().add(new Label(filter.getFilterName())));
+                break;
+            case SHORTLIST:
+                shortlistFilter.getChildren().clear();
+                list.forEach(filter -> shortlistFilter.getChildren().add(new Label(filter.getFilterName())));
+                break;
+            default:
+                allAppFilter.getChildren().clear();
+                list.forEach(filter -> allAppFilter.getChildren().add(new Label(filter.getFilterName())));
+                break;
         }
     }
 
@@ -296,7 +301,7 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private void handleExit() {
         GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
-            (int) primaryStage.getX(), (int) primaryStage.getY());
+                (int) primaryStage.getX(), (int) primaryStage.getY());
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
         primaryStage.hide();

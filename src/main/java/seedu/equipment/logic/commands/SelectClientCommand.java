@@ -8,8 +8,6 @@ import seedu.equipment.commons.core.Messages;
 import seedu.equipment.commons.core.index.Index;
 import seedu.equipment.logic.CommandHistory;
 import seedu.equipment.logic.commands.exceptions.CommandException;
-import seedu.equipment.logic.parser.FilterCommandParser;
-import seedu.equipment.logic.parser.exceptions.ParseException;
 import seedu.equipment.model.Model;
 import seedu.equipment.model.equipment.Name;
 

@@ -1,18 +1,8 @@
 package seedu.equipment.ui;
 
-import static seedu.equipment.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.equipment.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.equipment.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.equipment.logic.parser.CliSyntax.PREFIX_PM;
-import static seedu.equipment.logic.parser.CliSyntax.PREFIX_SERIALNUMBER;
-import static seedu.equipment.logic.parser.CliSyntax.PREFIX_TAG;
-
-import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
@@ -23,22 +13,12 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import seedu.equipment.commons.core.GuiSettings;
 import seedu.equipment.commons.core.LogsCenter;
-import seedu.equipment.logic.CommandHistory;
 import seedu.equipment.logic.Logic;
-import seedu.equipment.logic.commands.Command;
 import seedu.equipment.logic.commands.CommandResult;
-import seedu.equipment.logic.commands.FilterCommand;
 import seedu.equipment.logic.commands.exceptions.CommandException;
-import seedu.equipment.logic.parser.ArgumentMultimap;
-import seedu.equipment.logic.parser.ArgumentTokenizer;
-import seedu.equipment.logic.parser.EquipmentManagerParser;
-import seedu.equipment.logic.parser.FilterCommandParser;
 import seedu.equipment.logic.parser.exceptions.ParseException;
-import seedu.equipment.model.Model;
 import seedu.equipment.model.equipment.Address;
 import seedu.equipment.model.equipment.Equipment;
-import seedu.equipment.model.equipment.EquipmentContainsKeywordsPredicate;
-import seedu.equipment.model.equipment.Name;
 
 /**
  * The Main Window. Provides the basic application layout containing

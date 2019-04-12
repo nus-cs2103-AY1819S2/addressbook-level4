@@ -1,12 +1,9 @@
 package seedu.equipment.ui;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Objects;
 import java.util.function.Consumer;
 import java.util.logging.Logger;
-
-import org.w3c.dom.NameList;
 
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -16,7 +13,6 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.equipment.commons.core.LogsCenter;
-import seedu.equipment.model.equipment.Equipment;
 import seedu.equipment.model.equipment.Name;
 
 /**

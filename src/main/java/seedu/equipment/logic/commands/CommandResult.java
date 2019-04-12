@@ -5,7 +5,6 @@ import static java.util.Objects.requireNonNull;
 import java.util.Objects;
 
 import seedu.equipment.model.equipment.Address;
-import seedu.equipment.model.equipment.Name;
 
 /**
  * Represents the result of a command execution.
@@ -99,7 +98,9 @@ public class CommandResult {
         return routeAddress;
     }
 
-    public boolean isSelectClient() { return selectClient; }
+    public boolean isSelectClient() {
+        return selectClient;
+    }
 
     @Override
     public boolean equals(Object other) {
@@ -124,6 +125,10 @@ public class CommandResult {
 
     }
 
+    /**
+     * Hashcode of the object
+     * @return the hashcode of the object
+     */
     public int hashCode() {
         return Objects.hash(feedbackToUser, showHelp, exit, displayMap, route, routeAddress,
                 selectClient);

@@ -1,10 +1,6 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.Syntax.PREFIX_CORE_ANSWER;
-import static seedu.address.logic.parser.Syntax.PREFIX_CORE_QUESTION;
-
-import java.util.Optional;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.management.SetTestCommand;
@@ -23,24 +19,21 @@ public class SetTestParser implements Parser<SetTestCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public SetTestCommand parse(String args) throws ParseException {
-        ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_CORE_QUESTION, PREFIX_CORE_ANSWER);
+        String[] testValues = args.split(" ");
 
-        Optional<String> question = argMultimap.getValue(PREFIX_CORE_QUESTION);
-        Optional<String> answer = argMultimap.getValue(PREFIX_CORE_ANSWER);
+        try {
+            Index questionIndex = ParserUtil.parseIndex(testValues[0]);
+            Index answerIndex = ParserUtil.parseIndex(testValues[1]);
 
-        if (!question.isPresent()
-                || !answer.isPresent()
-                || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    SetTestCommand.MESSAGE_USAGE));
-        } else {
-            int qIndex = Integer.parseInt(question.get());
-            int aIndex = Integer.parseInt(answer.get());
-            Index questionIndex = Index.fromOneBased(qIndex);
-            Index answerIndex = Index.fromOneBased(aIndex);
+            if (questionIndex.equals(answerIndex)) {
+                throw new ParseException("");
+            }
 
             return new SetTestCommand(questionIndex, answerIndex);
+        } catch (ParseException | IndexOutOfBoundsException e) {
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                            SetTestCommand.MESSAGE_USAGE), e);
         }
     }
 }

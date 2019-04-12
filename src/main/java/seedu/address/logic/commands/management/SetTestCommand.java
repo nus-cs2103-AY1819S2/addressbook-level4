@@ -1,10 +1,7 @@
 package seedu.address.logic.commands.management;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_INDEX;
 import static seedu.address.commons.core.Messages.MESSAGE_NO_OPENED_LESSON;
-import static seedu.address.logic.parser.Syntax.PREFIX_CORE_ANSWER;
-import static seedu.address.logic.parser.Syntax.PREFIX_CORE_QUESTION;
 
 import java.util.List;
 
@@ -32,29 +29,17 @@ public class SetTestCommand extends ManagementCommand {
      * Instructions on command usage and parameters.
      */
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Sets the question and answer indices of a lesson's flashcards.\n"
-            + "The lesson is identified by its LESSON INDEX in the lesson list.\n"
-            + "Only a lesson's core values can be set as the question or answer.\n"
-            + "To view the lesson list, enter \'listLessons\'\n"
-            + "Parameters: "
-            + "[" + PREFIX_CORE_QUESTION + "QUESTION CORE INDEX] (starting from 1)"
-            + "[" + PREFIX_CORE_ANSWER + "ANSWER CORE INDEX] (starting from 1)"
-            + "Example: " + COMMAND_WORD + " "
-            + PREFIX_CORE_QUESTION + " 1 "
-            + PREFIX_CORE_ANSWER + " 2\n";
+            + ": Sets the 2 test values to be tested for the opened lesson's flashcards.\n"
+            + "By default, the first 2 test values are tested as a question-answer pair.\n"
+            + "Use this command to change the test values to be tested.\n"
+            + "Parameters: INDEX INDEX (starting from 1)\n"
+            + "Example: " + COMMAND_WORD + "1 3\n"
+            + "Note: The example sets the 1st and 3rd test values as the 2 values to be tested.";
     /**
      * Feedback message displayed to the user upon successful execution of this command
      */
     public static final String MESSAGE_SUCCESS =
             "Updated lesson's question and answer.\nQuestion: %1$s\nAnswer: %2$s";
-    /**
-     * a
-     */
-    public static final String MESSAGE_INVALID_QUESTION_INDEX = "Invalid question index.";
-    /**
-     * b
-     */
-    public static final String MESSAGE_INVALID_ANSWER_INDEX = "Invalid answer index.";
     /**
      * The question index to be set when {@link #execute(Model, CommandHistory)}
      * is called.
@@ -107,13 +92,7 @@ public class SetTestCommand extends ManagementCommand {
             String answer = cores.get(aIndex);
             return new CommandResult(String.format(MESSAGE_SUCCESS, question, answer));
         } catch (IllegalArgumentException e) {
-            if (e.getMessage().equals(MESSAGE_INVALID_QUESTION_INDEX)) {
-                throw new CommandException(String.format(MESSAGE_INVALID_INDEX,
-                        questionIndex.getOneBased()), e);
-            } else {
-                throw new CommandException(String.format(MESSAGE_INVALID_INDEX,
-                        answerIndex.getOneBased()), e);
-            }
+            throw new CommandException(e.getMessage(), e);
         }
     }
 

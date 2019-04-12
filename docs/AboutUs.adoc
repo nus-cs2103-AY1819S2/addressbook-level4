@@ -37,7 +37,8 @@ image::itszp.png[width="150", align="left"]
 
 *Role:* +
 Developer +
-*Responsibilities:* Code Quality, Image and Directory Navigation (Open, Save, ListFiles)
+*Responsibilities:* +
+Code Quality, Image and Directory Navigation (Open, Save, ListFiles)
 
 '''
 

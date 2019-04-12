@@ -144,6 +144,13 @@
     -fx-text-fill: black;
 }
 
+.cell_medium_label {
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-size: 14px;
+    -fx-font-style: italic;
+    -fx-text-fill: black;
+}
+
 .stack-pane {
      -fx-background-color: derive(#f8f8ff, 20%);
      -fx-border-color: black;

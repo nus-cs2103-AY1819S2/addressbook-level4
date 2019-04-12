@@ -13,13 +13,13 @@ docX is a desktop clinic data management application used to maintain clinic's d
 
 == Summary of contributions
 
-* *Major enhancement*: added *the ability to auto match patient with relevant and available doctors*
-** What it does: allows the user to find doctors who are relevant to the illness of the patient based on patient's tag, and available at the desired date and time for an appointment.
-** Justification: This feature improves the product significantly because a user can find available doctors that match with the patient's illness with just one line of command, instead of having to scroll through the list of doctors and find manually.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+* *Major enhancement*: added *the ability to find relevant and available doctors based on specialisation and available date and time*
+** What it does: allows the user to find doctors who are relevant to the illness of the patient based on user's judgement, and those who are available at the desired date and time for an appointment.
+** Justification: This feature improves the product significantly because a user can now find available doctors that match with the required specialisation with just one line of command, instead of having to scroll through the list of doctors to find them manually.
+** Highlights: This enhancement required an in-depth analysis of design alternatives. The implementation too was challenging as it required access to another class' information and temporary changes made to the model during implementation.
+** Credits: originally done by siyingpoof.
 
-* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
+* *Minor enhancement*: making searching of doctors by keywords more convenient with the usage of just 1 command.
 
 * *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
 
@@ -28,8 +28,8 @@ docX is a desktop clinic data management application used to maintain clinic's d
 ** Project management:
 *** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
 ** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
+*** Allowing the display of doctors' information on the browser panel. (Pull requests https://github.com[#33], https://github.com[#34])
+*** Wrote additional tests for existing features to increase coverage from __% to __% (Pull requests https://github.com[#36], https://github.com[#38])
 ** Documentation:
 *** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
 ** Community:
@@ -37,9 +37,6 @@ docX is a desktop clinic data management application used to maintain clinic's d
 *** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
 *** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
 *** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
-** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
 
 _{you can add/remove categories in the list above}_
 

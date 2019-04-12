@@ -87,12 +87,16 @@ public class CommandTestUtil {
     public static final String VALID_DOCTOR_ID = "2";
     public static final LocalDateTime FUTURE_DATE_TIME = LocalDateTime.now().withHour(9).withMinute(0).plusDays(1);
     public static final String VALID_DATE_OF_APPT = FUTURE_DATE_TIME.toLocalDate().toString();
+    public static final String INVALID_DATE_OF_APPT = "20190833";
     public static final String VALID_START_TIME = FUTURE_DATE_TIME.toLocalTime()
             .format(DateTimeFormatter.ofPattern("HH:mm"));
+    public static final String INVALID_START_TIME = "9";
     public static final String DESC_VALID_PATIENT_ID = " " + PREFIX_PATIENT_ID + VALID_PATIENT_ID;
     public static final String DESC_VALID_DOCTOR_ID = " " + PREFIX_DOCTOR_ID + VALID_DOCTOR_ID;
     public static final String DESC_VALID_DATE_OF_APPT = " " + PREFIX_DATE_OF_APPT + VALID_DATE_OF_APPT;
+    public static final String DESC_INVALID_DATE_OF_APPT = " " + PREFIX_DATE_OF_APPT + INVALID_DATE_OF_APPT;
     public static final String DESC_VALID_START_TIME = " " + PREFIX_START_TIME + VALID_START_TIME;
+    public static final String DESC_INVALID_START_TIME = " " + PREFIX_START_TIME + INVALID_START_TIME;
     // end of testing appointment
 
     public static final String VALID_NAME_AMY = "Amy Bee";

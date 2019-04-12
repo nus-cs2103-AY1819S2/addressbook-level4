@@ -100,7 +100,7 @@ public class AddressBookParser {
             return new DeleteFilterCommandParser().parse(arguments);
 
         case DeleteCommand.COMMAND_WORD:
-            return new DeleteFilterCommandParser().parse(arguments);
+            return new DeleteCommandParser().parse(arguments);
 
         case DeleteCommand.COMMAND_ALIAS:
             return new DeleteCommandParser().parse(arguments);

@@ -46,6 +46,7 @@ public class CommandTestUtil {
     public static final String VALID_TAG_SUBJECT = "CS";
     public static final String VALID_TAG_MATH = "Math";
     public static final String VALID_TAG_SIMPLE = "Simple";
+    public static final int VALID_RATING_HELLO = 3;
 
     public static final String QUESTION_DESC_HELLO = " " + PREFIX_QUESTION + VALID_QUESTION_HELLO;
     public static final String QUESTION_DESC_MOD = " " + PREFIX_QUESTION + VALID_QUESTION_MOD;

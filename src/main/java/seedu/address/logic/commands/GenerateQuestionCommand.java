@@ -23,7 +23,6 @@ public class GenerateQuestionCommand extends Command {
         studyView.addRating(rating);
         studyView.generateCard();
         studyView.setCurrentStudyState(StudyView.StudyState.QUESTION);
-        studyView.updateTextShown();
         return new CommandResult("");
     }
 }

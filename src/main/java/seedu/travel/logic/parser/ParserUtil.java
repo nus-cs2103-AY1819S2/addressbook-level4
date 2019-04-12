@@ -137,16 +137,22 @@ public class ParserUtil {
 
     /**
      * Parses a {@code String filepath} into an {@code Photo}.
-     * Leading and trailing whitespaces will be trimmed.
+     * A single leading and trailing " will be trimmed.
      *
      * @throws ParseException if the given {@code String filepath} is invalid.
      */
     public static Photo parsePhoto(String filepath) throws ParseException {
         requireNonNull(filepath);
         String trimmedFilepath = filepath.trim();
-        if (!Photo.isValidPhotoFilepath(filepath)) {
 
-            if (filepath.equals(EMPTY_PHOTO_PATH)) {
+
+        if (trimmedFilepath.substring(0, 1).equals("\"")) {
+            trimmedFilepath = trimmedFilepath.substring(1, filepath.length() - 1);
+        }
+
+        if (!Photo.isValidPhotoFilepath(trimmedFilepath)) {
+
+            if (trimmedFilepath.equals(EMPTY_PHOTO_PATH)) {
                 return new Photo(EMPTY_PHOTO_PATH);
             } else {
                 throw new ParseException(Photo.MESSAGE_CONSTRAINTS);

@@ -439,6 +439,7 @@ No further changes to the diagnosis and prescription details can be made after t
 
 {sp} +
 *Format:* `endconsult` +
+
 *Alias{nbsp}{nbsp}{nbsp}{nbsp}:* `ec`
 
 {sp} +
@@ -458,6 +459,7 @@ you can always abort the consultation session without providing the diagnosis an
 
 {sp} +
 *Format:* `abort` +
+
 *Alias{nbsp}{nbsp}{nbsp}{nbsp}:* `ab`
 
 {sp} +
@@ -541,7 +543,7 @@ The new directory's name should not contain white spaces or "\" characters.
 
 *Format:* `adddirec [PATH OF THE PARENT DIRECORY] [NAME OF NEW DIRECTORY]` +
 
-*Alias:* `ad`
+*Alias{nbsp}{nbsp}{nbsp}{nbsp}:* `ad`
 
 {sp} +
 
@@ -572,7 +574,7 @@ You can add a new medicine by specifying where it should go to, its initial quan
 
 *Format:* `addmed [PATH OF DIRECTORY TO ADD TO] [MEDICINE_NAME] [q/QUANTITY] [p/PRICE]` +
 
-*Alias:* `am`
+*Alias{nbsp}{nbsp}{nbsp}{nbsp}:* `am`
 
 {sp} +
 
@@ -643,7 +645,7 @@ Whenever you want to see what is inside your medicine storage, you can always us
 
 *Format:* `listmed [PATH]`
 
-*Alias:* `lm`
+*Alias{nbsp}{nbsp}{nbsp}{nbsp}:* `lm`
 
 {sp} +
 
@@ -735,11 +737,10 @@ This command allows you to record every purchase you made in the simplest way! +
 [TIP]
 You can access the medicine via two ways. You can either provide the full path to the medicine, or provide the name of medicine only.
 
-Format: `buymed [MEDICINE_NAME] [AMOUNT] [UNIT_COST]` +
+*Format:* `buymed [MEDICINE_NAME] [AMOUNT] [UNIT_COST]` +
+or{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp} *:* `buymed [PATH_OF_MEDICINE] [AMOUNT] [UNIT_COST]`
 
-{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}or `buymed [PATH_OF_MEDICINE] [AMOUNT] [UNIT_COST]`
-
-*Alias:* `bm`
+*Alias{nbsp}{nbsp}{nbsp}{nbsp}:* `bm`
 
 {sp} +
 
@@ -783,10 +784,9 @@ The price you set will be used in your prescriptions.
 Similar to buymed command, you can either provide the full path to your interested medicine or the name of it only.
 
 *Format:* `setprice [PATH_OF_MEDICINE] [PRICE]` +
+or{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp} *:* `setprice [NAME_OF_MEDICINE] [PRICE]`
 
-{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}or `setprice [NAME_OF_MEDICINE] [PRICE]`
-
-*Alias:* `sp`
+*Alias{nbsp}{nbsp}{nbsp}{nbsp}:* `sp`
 
 {sp} +
 
@@ -832,7 +832,8 @@ of the actual appointment (on the week of the appointment date)!
 
 {sp} +
 *Format:* `addapp r/NRIC d/DATE s/START e/END c/COMMENT` +
-*Alias:*{nbsp}{nbsp}{nbsp}{nbsp} `aa` +
+
+*Alias{nbsp}{nbsp}{nbsp}{nbsp}:* `aa` +
 
 [NOTE]
 The format for a valid date is strictly YYYY-MM-DD (including the dashes) and a valid time is strictly HH:MM (including the colon).
@@ -878,8 +879,9 @@ you want to see either by specifying a format and a date, or by specifying an ex
 
 {sp} +
 *Format:* `listapp f/FORMAT d/DATE` +
-{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}or `listapp r/NRIC` +
-*Alias:*{nbsp}{nbsp}{nbsp}{nbsp} `la` +
+or{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp} *:* `listapp r/NRIC` +
+
+*Alias{nbsp}{nbsp}{nbsp}{nbsp}:* `la` +
 
 [NOTE]
 The only valid keywords for `FORMAT` are `day`, `week`, or `month`.
@@ -935,7 +937,8 @@ so you don't have to worry about any discrepancies with your sidebar!
 
 {sp} +
 *Format:* `deleteapp d/DATE s/START` +
-*Alias:*{nbsp}{nbsp}{nbsp}{nbsp} `da` +
+
+*Alias{nbsp}{nbsp}{nbsp}{nbsp}:* `da` +
 
 [NOTE]
 Since there cannot be any overlapping appointment timings, you are able to uniquely identify any appointment with
@@ -972,7 +975,8 @@ You can filter the free slots you want to see by specifying a format and a date.
 
 {sp} +
 *Format:* `freeapp f/FORMAT d/DATE` +
-*Alias:*{nbsp}{nbsp}{nbsp}{nbsp} `fa` +
+
+*Alias{nbsp}{nbsp}{nbsp}{nbsp}:* `fa` +
 
 [NOTE]
 Similarly to `<<la>>`, the only valid keywords for `FORMAT` are `day`, `week`, or `month`.
@@ -1017,7 +1021,8 @@ Never forget about your to-dos ever again!
 
 {sp} +
 *Format:* `addrem t/TITLE d/DATE s/START [e/END] [c/COMMENT]` +
-*Alias:*{nbsp}{nbsp}{nbsp}{nbsp} `ar` +
+
+*Alias{nbsp}{nbsp}{nbsp}{nbsp}:* `ar` +
 
 [NOTE]
 `END` and `COMMENT` are optional fields for a reminder.
@@ -1051,7 +1056,8 @@ On startup, QuickDocs will display the reminders for the current week on the sid
 
 {sp} +
 *Format:* `listrem f/FORMAT d/DATE` +
-*Alias:*{nbsp}{nbsp}{nbsp}{nbsp} `lr` +
+
+*Alias{nbsp}{nbsp}{nbsp}{nbsp}:* `lr` +
 
 {sp} +
 *Examples:*
@@ -1096,7 +1102,8 @@ Deletion of a reminder is final!
 
 {sp} +
 *Format:* `deleterem INDEX` +
-*Alias:*{nbsp}{nbsp}{nbsp}{nbsp} `dr` +
+
+*Alias{nbsp}{nbsp}{nbsp}{nbsp}:* `dr` +
 
 {sp} +
 *Example and results:*
@@ -1125,7 +1132,8 @@ You can adjust how long before the actual reminder start time to receive this no
 
 {sp} +
 *Format:* `ntime t/TIME` +
-*Alias:*{nbsp}{nbsp}{nbsp}{nbsp} `nt` +
+
+*Alias{nbsp}{nbsp}{nbsp}{nbsp}:* `nt` +
 
 [NOTE]
 `TIME` is specified in minutes.
@@ -1146,7 +1154,8 @@ appointment date.
 
 {sp} +
 *Format:* `sendemail d/DATE s/START` +
-*Alias:*{nbsp}{nbsp}{nbsp}{nbsp} `se` +
+
+*Alias{nbsp}{nbsp}{nbsp}{nbsp}:* `se` +
 
 {sp} +
 *Example:*

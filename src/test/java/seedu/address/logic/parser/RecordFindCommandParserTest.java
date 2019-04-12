@@ -70,4 +70,34 @@ public class RecordFindCommandParserTest {
         // multiple whitespaces between keywords
         assertParseSuccess(parser, " desc/ \n today \t patient  \t", expectedRecordFindCommand);
     }
+
+    @Test
+    public void parseANDOperator_validDescArgs_returnsPatientFindCommand() {
+        MultipleContainsKeywordsPredicate<Record> tempPred =
+            new MultipleContainsKeywordsPredicate<>(Collections.emptyList(), true, true);
+        List<ContainsKeywordsPredicate> predicateList = new ArrayList<>();
+        predicateList.add(new DescriptionRecordContainsKeywordsPredicate(Arrays.asList("today", "patient")));
+        tempPred.setPredicateList(predicateList);
+
+        RecordFindCommand expectedRecordFindCommand = new RecordFindCommand(tempPred);
+        assertParseSuccess(parser, " AND desc/today patient", expectedRecordFindCommand);
+
+        // multiple whitespaces between keywords
+        assertParseSuccess(parser, " AND desc/ \n today \t patient  \t", expectedRecordFindCommand);
+    }
+
+    @Test
+    public void parseCaseSensitiveANDOperator_validDescArgs_returnsPatientFindCommand() {
+        MultipleContainsKeywordsPredicate<Record> tempPred =
+            new MultipleContainsKeywordsPredicate<>(Collections.emptyList(), false, true);
+        List<ContainsKeywordsPredicate> predicateList = new ArrayList<>();
+        predicateList.add(new DescriptionRecordContainsKeywordsPredicate(Arrays.asList("today", "patient")));
+        tempPred.setPredicateList(predicateList);
+
+        RecordFindCommand expectedRecordFindCommand = new RecordFindCommand(tempPred);
+        assertParseSuccess(parser, " cs AND desc/today patient", expectedRecordFindCommand);
+
+        // multiple whitespaces between keywords
+        assertParseSuccess(parser, " cs AND desc/ \n today \t patient  \t", expectedRecordFindCommand);
+    }
 }

@@ -23,7 +23,6 @@ import seedu.address.model.lesson.LessonList;
 import seedu.address.model.user.CardSrsData;
 import seedu.address.model.user.User;
 import seedu.address.testutil.TypicalCards;
-import seedu.address.testutil.TypicalIndices;
 import seedu.address.testutil.TypicalLessonList;
 
 public class ManagementModelManagerTest {

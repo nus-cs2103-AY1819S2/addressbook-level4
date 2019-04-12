@@ -113,6 +113,8 @@ public class PdfBookParser {
 
         case TagCommand.COMMAND_WORD:
             return new TagCommandParser().parse(arguments);
+
+        // Features coming in v2.0
         /*
         case UndoCommand.COMMAND_WORD:
             return new UndoCommand();

@@ -6,10 +6,12 @@ import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_1;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_2;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_1_VALID;
+import static seedu.address.logic.commands.CommandTestUtil.PASSWORD_1_VALID;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 
 import static seedu.address.logic.commands.CommandTestUtil.showPdfAtIndex;
+import static seedu.address.logic.commands.DecryptCommand.MESSAGE_DECRYPT_PDF_FAILURE;
 import static seedu.address.logic.commands.EditCommand.MESSAGE_DUPLICATE_PDF_DIRECTORY;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PDF;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PDF;
@@ -23,6 +25,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
+import org.apache.pdfbox.pdmodel.PDDocument;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -33,6 +36,7 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.EditCommand.EditPdfDescriptor;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.PdfBook;
@@ -257,6 +261,8 @@ public class EditCommandTest {
         EditCommand editCommand = new EditCommand(INDEX_FIRST_PDF, descriptor);
         Model expectedModel = new ModelManager(new PdfBook(model.getPdfBook()), new UserPrefs());
 
+        decryptPdf(SAMPLE_PDF_2);
+        decryptPdf(SAMPLE_PDF_1);
         showPdfAtIndex(model, INDEX_SECOND_PDF);
         Pdf pdfToEdit = model.getFilteredPdfList().get(INDEX_FIRST_PDF.getZeroBased());
         expectedModel.setPdf(pdfToEdit, editedPdf);
@@ -322,5 +328,21 @@ public class EditCommandTest {
         File revertedFile = Paths.get(target.getDirectory().getDirectory(),
                 target.getName().getFullName()).toFile();
         fileToRevert.renameTo(revertedFile);
+    }
+
+    /**
+     * Decrypts {code pdfToDecrypt}.
+     */
+    private static void decryptPdf(Pdf pdfToDecrypt) throws CommandException {
+        try {
+            PDDocument file = PDDocument.load(new File(pdfToDecrypt.getDirectory().getDirectory(),
+                    pdfToDecrypt.getName().getFullName()), PASSWORD_1_VALID);
+            file.setAllSecurityToBeRemoved(true);
+            file.save(Paths.get(pdfToDecrypt.getDirectory().getDirectory(),
+                    pdfToDecrypt.getName().getFullName()).toFile());
+            file.close();
+        } catch (IOException ioe) {
+            throw new CommandException(String.format(MESSAGE_DECRYPT_PDF_FAILURE, pdfToDecrypt.getName()));
+        }
     }
 }

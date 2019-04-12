@@ -257,7 +257,7 @@ public class ParserUtil {
     public static OpeningHours parseOpeningHours(String openingHours) throws ParseException {
         requireNonNull(openingHours);
         String trimmedOpeningHours = openingHours.trim();
-        if (!OpeningHours.isValidOpeningHour(trimmedOpeningHours)) {
+        if (!OpeningHours.isValidOpeningHours(trimmedOpeningHours)) {
             throw new ParseException(OpeningHours.MESSAGE_CONSTRAINTS);
         }
         return new OpeningHours(trimmedOpeningHours);

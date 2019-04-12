@@ -595,7 +595,7 @@ Format: `list-presc [pid/PATIENT_ID] [did/DOCTOR_ID]`
 * PATIENT_ID and DOCTOR_ID must be existing id in patient and doctor list.
 * If there is no prescription satisfying all specified requirements, an empty list will be shown.
 * Description of prescription may not be shown fully in the list. Can view more details of a particular prescription by using "select-presc" command.
-
+****
 
 Examples:
 

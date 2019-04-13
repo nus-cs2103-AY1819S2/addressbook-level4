@@ -29,11 +29,11 @@ public class Gpa {
     /**
      * Converts a string of interger to a string of 1dp format
      */
-    private  String correctForm(String input){
-        if (!input.contains(".")){
-            input = input + ".0";
+    private  String correctForm(String gpa){
+        if (!gpa.contains(".")){
+            gpa = gpa + ".0";
         }
-        return input;
+        return gpa;
     }
 
     /**

@@ -47,7 +47,6 @@ public class JsonStatisticsStorage implements StatisticsStorage {
 
         Optional<JsonSerializableStatistics> jsonStatisticsData = JsonUtil.readJsonFile(
                 filePath, JsonSerializableStatistics.class);
-
         if (!(jsonStatisticsData.isPresent())) {
             return Optional.empty();
         }

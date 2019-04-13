@@ -97,8 +97,6 @@ Format: `help`
 
 You can specify the name you want to reflect in your patients' dental record when you create them.
 
-Format: `dentist n/YOUR_NAME`
-
 * If there is no dentist name specified, the program will prompt you to enter one.
 
 * This should only happen once, during the first startup of the application.

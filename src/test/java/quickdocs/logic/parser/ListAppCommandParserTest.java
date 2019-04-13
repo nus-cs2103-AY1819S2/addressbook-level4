@@ -16,6 +16,9 @@ import quickdocs.logic.commands.ListAppCommand;
 import quickdocs.logic.parser.exceptions.ParseException;
 import quickdocs.model.patient.Nric;
 
+/**
+ * Contains unit tests for {@code ListAppCommandParser}.
+ */
 public class ListAppCommandParserTest {
     private ListAppCommandParser parser = new ListAppCommandParser();
 

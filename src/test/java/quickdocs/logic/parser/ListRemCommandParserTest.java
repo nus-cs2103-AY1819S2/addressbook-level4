@@ -16,6 +16,9 @@ import quickdocs.commons.core.index.Index;
 import quickdocs.logic.commands.ListRemCommand;
 import quickdocs.logic.parser.exceptions.ParseException;
 
+/**
+ * Contains unit tests for {@code ListRemCommandParser}.
+ */
 public class ListRemCommandParserTest {
     private ListRemCommandParser parser = new ListRemCommandParser();
 

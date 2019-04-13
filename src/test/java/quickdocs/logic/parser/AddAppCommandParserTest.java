@@ -12,6 +12,9 @@ import org.junit.Test;
 import quickdocs.logic.commands.AddAppCommand;
 import quickdocs.model.patient.Nric;
 
+/**
+ * Contains unit tests for {@code AddAppCommandParser}.
+ */
 public class AddAppCommandParserTest {
     private AddAppCommandParser parser = new AddAppCommandParser();
 

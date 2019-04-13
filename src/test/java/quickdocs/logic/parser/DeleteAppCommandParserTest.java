@@ -11,6 +11,9 @@ import org.junit.Test;
 
 import quickdocs.logic.commands.DeleteAppCommand;
 
+/**
+ * Contains unit tests for {@code DeleteAppCommandParser}.
+ */
 public class DeleteAppCommandParserTest {
     private DeleteAppCommandParser parser = new DeleteAppCommandParser();
 

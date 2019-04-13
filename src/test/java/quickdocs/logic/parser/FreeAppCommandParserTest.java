@@ -14,6 +14,9 @@ import org.junit.Test;
 import quickdocs.logic.commands.FreeAppCommand;
 import quickdocs.logic.parser.exceptions.ParseException;
 
+/**
+ * Contains unit tests for {@code FreeAppCommandParser}.
+ */
 public class FreeAppCommandParserTest {
     private FreeAppCommandParser parser = new FreeAppCommandParser();
 

@@ -71,6 +71,16 @@ public class TagCommandTest {
     }
 
     @Test
+    public void execute_nonExistingTag_throwsCommandException() throws CommandException {
+        HashSet<Tag> validTags = new HashSet<>();
+        validTags.add(new Tag(TAG_VALID_LECTURE));
+
+        thrown.expect(CommandException.class);
+        TagCommand standardCommand = new TagCommand(Index.fromOneBased(1), validTags, false);
+        standardCommand.execute(this.model, commandHistory);
+    }
+
+    @Test
     public void execute_invalidIndex_throwsInvalidException() throws CommandException {
         HashSet<Tag> validTags = new HashSet<>();
         validTags.add(new Tag(TAG_VALID_LECTURE));

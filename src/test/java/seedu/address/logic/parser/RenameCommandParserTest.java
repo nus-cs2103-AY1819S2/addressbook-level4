@@ -2,7 +2,7 @@ package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
-import static seedu.address.logic.commands.CommandTestUtil.DEADLINE_JSON_NOTDONE;
+import static seedu.address.logic.commands.CommandTestUtil.DEADLINE_JSON_NOT_DONE;
 import static seedu.address.logic.commands.CommandTestUtil.FILE_DESC_1_PDF;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_1_VALID;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_2_VALID;
@@ -21,17 +21,17 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PDF;
 import org.junit.Test;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.EditCommand;
+import seedu.address.logic.commands.RenameCommand;
 import seedu.address.model.pdf.Name;
 import seedu.address.testutil.EditPdfDescriptorBuilder;
 
 
-public class EditCommandParserTest {
+public class RenameCommandParserTest {
 
     private static final String TAG_EMPTY = " " + PREFIX_TAG_ADD;
 
     private static final String MESSAGE_INVALID_FORMAT =
-            String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE);
+            String.format(MESSAGE_INVALID_COMMAND_FORMAT, RenameCommand.MESSAGE_USAGE);
 
     private EditCommandParser parser = new EditCommandParser();
 
@@ -41,10 +41,11 @@ public class EditCommandParserTest {
         assertParseFailure(parser, NAME_1_VALID, MESSAGE_INVALID_FORMAT);
 
         // no field specified
-        assertParseFailure(parser, "1", EditCommand.MESSAGE_NOT_EDITED);
+        assertParseFailure(parser, "1", RenameCommand.MESSAGE_NOT_EDITED);
 
         // no index and no field specified
         assertParseFailure(parser, "", MESSAGE_INVALID_FORMAT);
+
 
         assertParseFailure(parser, "1 " + PREFIX_NAME, Name.MESSAGE_CONSTRAINTS);
 
@@ -53,7 +54,7 @@ public class EditCommandParserTest {
 
     @Test
     public void parse_containsIrrelevantParts_failure() {
-        assertParseFailure(parser, "1 " + NAME_DESC_1_VALID + DEADLINE_JSON_NOTDONE, Name.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, "1 " + NAME_DESC_1_VALID + DEADLINE_JSON_NOT_DONE, Name.MESSAGE_CONSTRAINTS);
         assertParseFailure(parser, "1 " + NAME_DESC_1_VALID + TAG_DESC_CS2103T, MESSAGE_INVALID_FORMAT);
         assertParseFailure(parser, "1 " + NAME_DESC_1_VALID + TAG_EMPTY, MESSAGE_INVALID_FORMAT);
         assertParseFailure(parser, "1 " + NAME_DESC_1_VALID + FILE_DESC_1_PDF, MESSAGE_INVALID_FORMAT);
@@ -85,10 +86,10 @@ public class EditCommandParserTest {
 
         String userInput = targetIndex.getOneBased() + " " + PREFIX_NAME + NAME_1_VALID;
 
-        EditCommand.EditPdfDescriptor descriptor = new EditPdfDescriptorBuilder()
+        RenameCommand.EditPdfDescriptor descriptor = new EditPdfDescriptorBuilder()
                 .withName(NAME_1_VALID).build();
 
-        EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
+        RenameCommand expectedCommand = new RenameCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
     }
@@ -98,8 +99,8 @@ public class EditCommandParserTest {
         Index targetIndex = INDEX_FIRST_PDF;
         String userInput = targetIndex.getOneBased() + NAME_DESC_1_VALID + NAME_DESC_2_VALID;
 
-        EditCommand.EditPdfDescriptor descriptor = new EditPdfDescriptorBuilder().withName(NAME_2_VALID).build();
-        EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
+        RenameCommand.EditPdfDescriptor descriptor = new EditPdfDescriptorBuilder().withName(NAME_2_VALID).build();
+        RenameCommand expectedCommand = new RenameCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
     }
@@ -108,8 +109,8 @@ public class EditCommandParserTest {
     public void parse_invalidValueFollowedByValidValue_success() {
         Index targetIndex = INDEX_FIRST_PDF;
         String userInput = targetIndex.getOneBased() + NAME_DESC_1_INVALID + NAME_DESC_2_VALID;
-        EditCommand.EditPdfDescriptor descriptor = new EditPdfDescriptorBuilder().withName(NAME_2_VALID).build();
-        EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
+        RenameCommand.EditPdfDescriptor descriptor = new EditPdfDescriptorBuilder().withName(NAME_2_VALID).build();
+        RenameCommand expectedCommand = new RenameCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
     }
 }

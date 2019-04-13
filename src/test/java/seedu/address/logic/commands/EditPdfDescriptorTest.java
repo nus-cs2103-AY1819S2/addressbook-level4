@@ -9,7 +9,7 @@ import static seedu.address.logic.commands.CommandTestUtil.TAG_VALID_LECTURE;
 
 import org.junit.Test;
 
-import seedu.address.logic.commands.EditCommand.EditPdfDescriptor;
+import seedu.address.logic.commands.RenameCommand.EditPdfDescriptor;
 import seedu.address.testutil.EditPdfDescriptorBuilder;
 
 public class EditPdfDescriptorTest {
@@ -32,7 +32,7 @@ public class EditPdfDescriptorTest {
         assertFalse(DESC_1.equals(DESC_2));
 
         // different name -> returns false
-        EditCommand.EditPdfDescriptor editedA = new EditPdfDescriptorBuilder(DESC_1).withName(NAME_2_VALID).build();
+        RenameCommand.EditPdfDescriptor editedA = new EditPdfDescriptorBuilder(DESC_1).withName(NAME_2_VALID).build();
         assertFalse(DESC_1.equals(editedA));
 
         // different tags -> returns false

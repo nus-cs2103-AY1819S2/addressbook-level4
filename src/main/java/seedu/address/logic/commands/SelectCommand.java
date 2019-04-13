@@ -23,7 +23,7 @@ public class SelectCommand extends Command {
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_SELECT_PERSON_SUCCESS = "Selected PDF: %1$s";
+    public static final String MESSAGE_SELECT_PDF_SUCCESS = "Selected PDF: %1$s";
 
     private final Index targetIndex;
 
@@ -42,7 +42,7 @@ public class SelectCommand extends Command {
         }
 
         model.setSelectedPdf(filteredPdfList.get(targetIndex.getZeroBased()));
-        return new CommandResult(String.format(MESSAGE_SELECT_PERSON_SUCCESS, targetIndex.getOneBased()));
+        return new CommandResult(String.format(MESSAGE_SELECT_PDF_SUCCESS, targetIndex.getOneBased()));
 
     }
 

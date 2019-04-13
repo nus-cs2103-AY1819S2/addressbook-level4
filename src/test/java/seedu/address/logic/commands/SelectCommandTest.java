@@ -29,11 +29,11 @@ public class SelectCommandTest {
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
-        Index lastPersonIndex = Index.fromOneBased(model.getFilteredPdfList().size());
+        Index lastPdfIndex = Index.fromOneBased(model.getFilteredPdfList().size());
 
         assertExecutionSuccess(INDEX_FIRST_PDF);
         assertExecutionSuccess(INDEX_THIRD_PDF);
-        assertExecutionSuccess(lastPersonIndex);
+        assertExecutionSuccess(lastPdfIndex);
     }
 
     @Test
@@ -91,7 +91,7 @@ public class SelectCommandTest {
      */
     private void assertExecutionSuccess(Index index) {
         SelectCommand selectCommand = new SelectCommand(index);
-        String expectedMessage = String.format(SelectCommand.MESSAGE_SELECT_PERSON_SUCCESS, index.getOneBased());
+        String expectedMessage = String.format(SelectCommand.MESSAGE_SELECT_PDF_SUCCESS, index.getOneBased());
         expectedModel.setSelectedPdf(model.getFilteredPdfList().get(index.getZeroBased()));
 
         assertCommandSuccess(selectCommand, model, commandHistory, expectedMessage, expectedModel);

@@ -11,8 +11,6 @@ import static seedu.address.model.course.CourseReqType.UE;
 
 import org.junit.Test;
 
-import seedu.address.model.moduleinfo.ModuleInfoCode;
-import seedu.address.model.moduleinfo.ModuleInfoTitle;
 import seedu.address.testutil.RecModuleBuilder;
 
 public class RecModuleComparatorTest {

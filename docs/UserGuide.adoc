@@ -322,8 +322,8 @@ Format: `list`
 // tag::rec[]
 === Recommend module: `rec`
 
-Recommends a list of modules that can be read based on GradTrak modules and course requirements, as shown above.
-Modules with unmet prerequisites or preclusions present in GradTrak as well as modules already added (unless they have been failed) will not be recommended. +
+Recommends a list of modules that can be read based on GradTrak modules and course requirements.
+Modules with unmet prerequisites or those already added (unless they have been failed) will not be recommended. +
 Recommended modules are displayed in order of requirement type satisfied: Core, Breadth & Depth, Industry Experience, Faculty, General Education, Unrestricted Electives.
 Modules with the same requirement type satisfied are sorted by level. +
 Format: `rec` +

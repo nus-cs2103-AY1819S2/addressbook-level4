@@ -25,4 +25,11 @@ public class EligibleModulePredicate implements Predicate<ModuleInfo> {
         return !gradTrak.getNonFailedCodeList().contains(code)
                 && gradTrak.getMissingPrerequisites(prerequisites.getModuleTree()).isEmpty();
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof EligibleModulePredicate // instanceof handles nulls
+                && gradTrak.equals(((EligibleModulePredicate) other).gradTrak));
+    }
 }

@@ -1,5 +1,7 @@
 package seedu.address.testutil;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import seedu.address.commons.exceptions.DataConversionException;
@@ -41,5 +43,14 @@ public class RecModuleBuilder {
         assert(moduleInfo != null);
 
         return new RecModule(moduleInfo);
+    }
+
+    public List<RecModule> getAllModules() {
+        List<RecModule> list = new ArrayList<>();
+        for (ModuleInfo moduleInfo : moduleInfoList.getObservableList()) {
+            list.add(new RecModule(moduleInfo));
+        }
+
+        return list;
     }
 }

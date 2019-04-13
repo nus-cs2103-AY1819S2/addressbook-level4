@@ -8,8 +8,6 @@ import static seedu.address.testutil.Assert.assertThrows;
 
 import org.junit.Test;
 
-import seedu.address.model.moduleinfo.ModuleInfoCode;
-import seedu.address.model.moduleinfo.ModuleInfoTitle;
 import seedu.address.testutil.RecModuleBuilder;
 
 public class RecModuleTest {

@@ -224,6 +224,7 @@ In v1.6, TeethHub will have a new command for you to upload images.
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |====
 
+== Implementation
 === File Management
 Although TeethHub already has a built-in auto-load and auto-save, implementing file management would give the user more flexibility with managing data. +
 PDF export is also implemented so that the user would have an easier time making sense of the data when offline.
@@ -389,7 +390,3 @@ image::SuggestionFeatureAddPatientMode.png[width="236"]
 *** **Alternative Pros:** Only 1 implementation, as opposed to an implementation for each Common command. +
 *** **Alternative Cons:** Might be rude.
 ** **Choice Justification:** We chose the current implementation as we occasionally found ourselves and other users typing `add` to add something, `edit` to edit something and so on. This implementation was designed to tackle this issue.
-
-include::../DeveloperGuide.adoc[tag=storyuserJH]
-
-include::../DeveloperGuide.adoc[tag=manualtestingJH]

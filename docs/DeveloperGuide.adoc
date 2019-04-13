@@ -697,14 +697,16 @@ place:
 * Rating
 * Address
 * Description
+* Photo (Optional)
 * Tag (Optional)
 
+// TODO: Update link for CountryCodes.adoc
 [NOTE]
-The Country Code adheres to the three-letters ISO-3166 standard. The full list of Country Codes can be found in
-CountryCodes.adoc
+The country code adheres to the three-letter ISO-3166 standard. The full list of country codes can be found
+link:https://cs2103-ay1819s2-w11-3.github.io/main/CountryCodes.html[here].
 
 ==== Current Implementation
-
+// TODO: Add numbering in the diagram.
 Given below is a sequence of steps, illustrating the interaction between various classes when the add command is
 entered.
 
@@ -718,13 +720,13 @@ Step 2: The command is processed by the Logic component, which will then call `L
 
 Step 3: `TravelBuddyParser#parseCommand()` is invoked, which is also located in the Logic component.
 
-Step 4: `AddCommandParser#AddCommandParser()` is invoked.
+Step 4: `AddCommandParser`'s constructor is invoked.
 
 Step 5: The `AddCommandParser#parse()` is called and receives the command with the arguments given as a string.
 
 Step 6: The `AddCommandParser` interprets the arguments and constructs an `AddCommand`.
 
-Step 7: The `AddCommand` with a Place specified by the user is returned.
+Step 7: The `AddCommand` with a `Place` specified by the user is returned.
 
 Step 8: The `AddCommand#execute()` method is invoked.
 
@@ -734,16 +736,16 @@ Step 9: The `Model#addPlace()` method is invoked with the argument `toAdd`. The 
 Step 10: The `TravelBuddy#addPlace()` method is invoked by `Model` with the argument `toAdd`.
 
 Step 11: A result object is returned.
-
+// TODO: Add code snippet.
 ===== Add Command
 Given below is an example usage scenario and what the user will see in the GUI.
-
+// TODO: The app starts with some sample data already populated. Update screenshot accordingly.
 Step 1. The user launches the application and sees the GUI with no places.
 
 image::AddCommandStep1.png[width="800"]
 
 Step 2. The user enters the full add command `add n/NUS Computing cc/SGP dv/10/10/2017 r/3 d/My School a/13 Computing Drive,
-117417 t/faculty` to add the place to TravelBuddy and presses enter. TravelBuddy will start executing the steps mentioned in Figure 10.
+117417 t/faculty` to add the place to TravelBuddy and presses kbd:[ENTER]. TravelBuddy will start executing the steps mentioned in Figure 10.
 
 image::AddCommandStep2.png[width="800"]
 
@@ -752,13 +754,16 @@ The command `add` is in lower-case. Mixed-case or upper-case commands are not re
 
 
 ==== Design Considerations
+// TODO: Learn from Chung Ming's portion. Change to table. Make sure to bold the starting words.
 ===== Aspect: Data structure to store Country Codes
-* **Alternative 1 (current choice):** Use enum specified in java.util.Locales.
-** Pros: Easy to implement and contains all three-letters country codes specified in ISO-3166.
+* **Alternative 1 (current choice):** Use `enum` specified in `java.util.Locales`.
+** Pros: Easy to implement and contains all three-letter country codes as specified in ISO-3166.
 ** Cons: Slightly slow in searching for country code.
-* **Alternative 2:** Create own data structure containing most commonly traveled countries in the world.
+* **Alternative 2:** Create a data structure containing the most commonly traveled countries in the world.
 ** Pros: Locating country code in data structure would be faster than Alternative 1.
 ** Cons: Tedious process of typing out country codes in the data structure.
+
+// TODO: Add decision.
 // end::countrycode[]
 
 // tag::chartFeature[]
@@ -1136,15 +1141,18 @@ A project often depends on third-party libraries. For example, TravelBuddy depen
 [appendix]
 == Product Scope
 
+
+
 *Target user profile*:
+The target audience that we have identified are stated below.
 
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
-* can type fast
-* prefers typing over mouse input
-* is reasonably comfortable using CLI apps
+* The user has a need to manage a significant number of places
+* The user prefers desktop apps over other types
+* The user can type fast
+* The user prefers typing over mouse input
+* The user is reasonably comfortable using CLI apps
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*: Manage contacts faster than a typical mouse/GUI driven app
 
 // tag::user-stories[]
 [appendix]
@@ -1230,7 +1238,8 @@ The priority of <<user-stories, user stories>> are divided into three categories
 [appendix]
 == Use Cases
 
-(For all <<use-cases, use cases>> below, the *System* is the `TravelBuddy` and the <<actor, *Actor*>> is the `user`, unless specified otherwise)
+For all <<use-cases, use cases>> below, the *System* is the `TravelBuddy` and the <<actor, *Actor*>> is the `user`,
+unless specified otherwise.
 
 [discrete]
 === Use case: Deleting a place
@@ -1352,8 +1361,16 @@ Use case resumes at step 2.
 .  Should work on any <<mainstream-os, mainstream OS>> as long as it has Java `9` or higher installed.
 .  Should be able to hold up to 1000 places without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-
-_{More to be added}_
+.  Business/domain rules: e.g. the size of the minefield cannot be smaller than five.
+.  Constraints: e.g. the system should be backward compatible with data produced by earlier versions of the system;
+.  system testers are available only during the last month of the project; the total project cost should not exceed $1
+.5 million.
+.  Technical requirements: e.g. the system should work on both 32-bit and 64-bit environments.
+.  Performance requirements: e.g. the system should respond within two seconds.
+.  Quality requirements: e.g. the system should be usable by a novice who has never carried out an online purchase.
+.  Process requirements: e.g. the project is expected to adhere to a schedule that delivers a feature set every one month.
+.  Notes about project scope: e.g. the product is not required to handle the printing of reports.
+.  Any other noteworthy points: e.g. the game should not use images deemed offensive to those injured in real mine clearing activities.
 
 [appendix]
 == Glossary
@@ -1412,31 +1429,15 @@ _{More to be added}_
 
 
 [appendix]
-== Product Survey
-
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
-
-[appendix]
 == Instructions for Manual Testing
 
 Given below are instructions to test the app manually.
 
 [NOTE]
-These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
+These instructions only provide a starting point for testers to work on. Testers are expected to do more _exploratory_
+ testing.
 
-=== Launch and Shutdown
+*Launching and Shutdown*
 
 . Initial launch
 
@@ -1450,9 +1451,8 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-_{ more test cases ... }_
 
-=== Deleting a Place
+*Deleting a Place*
 
 . Deleting a place while all places are listed
 
@@ -1461,15 +1461,6 @@ _{ more test cases ... }_
    Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
 .. Test case: `delete 0` +
    Expected: No place is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
+.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size)  +
    Expected: Similar to previous.
 
-_{ more test cases ... }_
-
-=== Saving Data
-
-. Dealing with missing/corrupted data files
-
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
-
-_{ more test cases ... }_

@@ -19,7 +19,7 @@ endif::[]
 :repoURL: https://github.com/CS2103-AY1819S2-W11-3/main
 :source-highlighter: rouge
 
-By: `CS2103T W11-3 Team`      Since: `Mar 2019`      Licence: `MIT`
+By: `CS2103T W11-3 Team`      Since: `Feb 2019`      Licence: `MIT`
 
 // tag::intro[]
 == Introduction
@@ -150,7 +150,7 @@ A quick alternative way to seek help is to hit the kbd:[F1] key.
 *Description:* The `add` command adds a place to TravelBuddy.
 
 *Shortcut:* `a`
-
+// TODO: label table
 The table below shows the parameters that require a specific input format to be added.
 [width="100%",cols="20%,20%,<60%"]
 |=======================================================================
@@ -166,7 +166,7 @@ The table below shows the parameters that require a specific input format to be 
 |`cc/`
 |A valid ISO-3166 three-letter country code +
 e.g. `JPN` to represent `Japan` +
-The full list of country codes can be found link:{repoURL}/docs/CountryCodes.html[here]
+The full list of country codes can be found link:https://cs2103-ay1819s2-w11-3.github.io/main/CountryCodes.html[here]
 
 |`DATE_VISITED`
 |`dv/`
@@ -182,7 +182,7 @@ Adds Raffles Hotel to the list of places you have visited into TravelBuddy.
 
 <<addFigure>> below shows the outcome of a specific `add` command
 [[addFigure]]
-
+// TODO: update photo
 [reftext="Figure 4.3.1"]
 [caption="Figure 4.3.1: "]
 .Adding a place to TravelBuddy
@@ -292,7 +292,7 @@ Currently, TravelBuddy supports the following image *file formats/extensions*:
 
 [NOTE]
 Calling the `list` command returns a list of all the places in TravelBuddy as shown in <<listFigure>> below.
-
+// TODO: Update screenshot
 [[listFigure]]
 [reftext="Figure 4.4.1"]
 [caption="Figure 4.4.1: "]
@@ -322,14 +322,14 @@ image::listCommand.png[width="400"]
 * Preconditions for changing the photo file [FILE_PATH] are in <<Replacing the photo of a place with `edit p/`>>
 
 *Examples:* Given below are some examples on how to utilize the `edit` command:
-
+// TODO: Consider revising below.
 * `edit 1 r/3 d/No description` +
-Edits the rating and description of the 1st place entry in the list to be `3` and `No description` respectively.
+Edits the rating and description of the 1st entry in the list to be `3` and `No description` respectively.
 * `edit 2 n/Raffles Hotel t/` +
-Edits the name of the 2nd place entry in the list to be `Raffles Hotel` and clears all existing tags.
+Edits the name of the 2nd entry in the list to be `Raffles Hotel` and clears all existing tags.
 
-<<editFigureBefore>> below shows the list of places before the `edit` command was used.
-
+<<editFigureBefore>> below shows the list of places before the `edit` command is used.
+// TODO: update screenshot.
 [[editFigureBefore]]
 [reftext="Figure 4.5.1"]
 [caption="Figure 4.5.1: "]
@@ -543,7 +543,7 @@ image::UIsearchyearresults.png[width="400"]
 .Before the `delete` command is used
 image::deleteCommandBefore.png[width="400"]
 
-<<deleteFigureAfter>> below shows the result of using the `delete` command on the first place of interest.
+<<deleteFigureAfter>> below shows the result of using the `delete` command on the first index of the list.
 
 [[deleteFigureAfter]]
 [reftext="Figure 4.11.2"]
@@ -1062,6 +1062,7 @@ _Example:_ +
 
 |*Undo*
 |`undo`
+
 
 |=======================================================================
 

@@ -335,11 +335,6 @@ The ship management feature handles the following:
 * Putting ships on the map grid and ensuring that ships are placed in valid areas on the map grid.
 * Keeping track of the status of ships in the player.
 
-[NOTE]
-====
-The "ship management" feature was named as such to avoid confusion with the title of the application, Battleship CLI.
-====
-
 A `Battleship` is a class representing a ship that can be placed on the map grid. A `FleetEntry` class is internally used to store the `Battleship` in a player's `Fleet`. `FleetEntry` is a nested class within `Fleet` that contains a `Battleship`, its head `Coordinates` and its `Orientation` on the map grid.
 
 The length of the ship varies depending on the type of ship. The user can tag a battleship using a `t/[TAG]` parameter in the `put` command. Tagging a ship is optional. +
@@ -358,10 +353,10 @@ The management of ships can be carried out with three commands, namely `put`, `l
 
 ===== 3.2.1.1 Putting ships
 
-The `put` command puts a ship on the map grid, specified by the __head coordinate__.
+The `put` command puts a ship on the map grid, specified by the __head coordinates__.
 
 ====
-*__What is the head coordinate?__*
+*__What are the head coordinates?__*
 
 The head coordinate of a ship refers to the top-most and left-most cell of the ship. When coordinates are specified in the `put` command, it specifies the coordinates of the head of the ship, as shown in the figure below.
 
@@ -428,14 +423,7 @@ Ships that have been deployed can also be listed in four different ways:
 
 The set of unique tags and the set of unique names are presented to the `ListCommand` as an `Optional` class. This is because both sets may be empty. In such cases, instead of redudantly checking whether each `fleetEntry` contains the ship and an empty set, `ListCommand` simply returns the entire fleet.
 
-The `list` command can list certain ships with certain tags by taking the filtering the list of deployed ships. The code snippet below illustrates this approach.
-
-[source,java]
-----
-include::../src/main/java/seedu/address/logic/commands/ListCommand.java[lines=61..68]
-----
-
-The following sequence diagram shows how deployed battleships are listed when the `list` command is entered into the command line.
+The `list` command can list certain ships with certain tags by taking the filtering the list of deployed ships. The following sequence diagram shows how deployed battleships are listed when the `list` command is entered into the command line.
 
 .Sequence diagram of listing battleships deployed on the map.
 image::ListShipSequenceDiagram.png[]

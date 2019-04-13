@@ -226,7 +226,7 @@ public class MainWindow extends UiPart<Stage> {
      * Sets stylesheet according to the current theme from {@link UserPrefs} object.
      */
     private void setTheme() {
-        primaryStage.getScene().getStylesheets().clear();
+        primaryStage.getScene().getStylesheets().remove(1);
         primaryStage.getScene().getStylesheets().add(logic.getTheme());
     }
 

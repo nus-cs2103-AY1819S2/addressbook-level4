@@ -8,11 +8,11 @@ import static seedu.address.logic.commands.management.CommandTestUtil.PREAMBLE_N
 import static seedu.address.logic.commands.management.CommandTestUtil.PREAMBLE_WHITESPACE;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 //import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.address.logic.parser.Syntax.PREFIX_CORE;
 import static seedu.address.logic.parser.Syntax.PREFIX_CORE_ANSWER;
 import static seedu.address.logic.parser.Syntax.PREFIX_CORE_QUESTION;
+import static seedu.address.logic.parser.Syntax.PREFIX_HINT;
 import static seedu.address.logic.parser.Syntax.PREFIX_LESSON_NAME;
-import static seedu.address.logic.parser.Syntax.PREFIX_OPTIONAL;
+import static seedu.address.logic.parser.Syntax.PREFIX_TEST;
 import static seedu.address.testutil.LessonBuilder.DEFAULT_CORE_HEADER_1;
 import static seedu.address.testutil.LessonBuilder.DEFAULT_CORE_HEADER_2;
 import static seedu.address.testutil.LessonBuilder.DEFAULT_NAME;
@@ -35,9 +35,9 @@ public class AddLessonParserTest {
     public static final String EMPTY_CORE_QUESTION = " " + PREFIX_CORE_QUESTION + " ";
     public static final String CORE_ANSWER = " " + PREFIX_CORE_ANSWER + DEFAULT_CORE_HEADER_2;
     public static final String EMPTY_CORE_ANSWER = " " + PREFIX_CORE_ANSWER + " ";
-    public static final String EMPTY_CORE = " " + PREFIX_CORE + " ";
-    public static final String OPT_1 = " " + PREFIX_OPTIONAL + DEFAULT_OPT_HEADER_1;
-    public static final String EMPTY_OPT = " " + PREFIX_OPTIONAL + " ";
+    public static final String EMPTY_CORE = " " + PREFIX_TEST + " ";
+    public static final String OPT_1 = " " + PREFIX_HINT + DEFAULT_OPT_HEADER_1;
+    public static final String EMPTY_OPT = " " + PREFIX_HINT + " ";
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
@@ -113,11 +113,11 @@ public class AddLessonParserTest {
 
         // empty core string specified
         assertParseFailure(addLessonParser, NAME
-                        + PREFIX_CORE + CORE_ANSWER,
+                        + PREFIX_TEST + CORE_ANSWER,
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddLessonCommand.MESSAGE_USAGE));
 
         assertParseFailure(addLessonParser, NAME
-                        + CORE_QUESTION + PREFIX_CORE,
+                        + CORE_QUESTION + PREFIX_TEST,
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddLessonCommand.MESSAGE_USAGE));
     }
 
@@ -238,7 +238,7 @@ public class AddLessonParserTest {
 
     @Test
     public void parse_emptyQuestionSupplied_throwsIllegalArgumentException() {
-        String expectedMessageForC = String.format(MESSAGE_EMPTY_INPUT, PREFIX_CORE);
+        String expectedMessageForC = String.format(MESSAGE_EMPTY_INPUT, PREFIX_TEST);
 
         // normal format
         assertParseFailure(addLessonParser, PREAMBLE_WHITESPACE + NAME
@@ -251,7 +251,7 @@ public class AddLessonParserTest {
 
     @Test
     public void parse_emptyAnswerSupplied_throwsIllegalArgumentException() {
-        String expectedMessageForC = String.format(MESSAGE_EMPTY_INPUT, PREFIX_CORE);
+        String expectedMessageForC = String.format(MESSAGE_EMPTY_INPUT, PREFIX_TEST);
 
         // normal format
         assertParseFailure(addLessonParser, PREAMBLE_WHITESPACE + NAME
@@ -264,7 +264,7 @@ public class AddLessonParserTest {
 
     @Test
     public void parse_emptyOptionalSupplied_throwsIllegalArgumentException() {
-        String expectedMessageForO = String.format(MESSAGE_EMPTY_INPUT, PREFIX_OPTIONAL);
+        String expectedMessageForO = String.format(MESSAGE_EMPTY_INPUT, PREFIX_HINT);
 
         // normal format
         assertParseFailure(addLessonParser, PREAMBLE_WHITESPACE + NAME
@@ -278,7 +278,7 @@ public class AddLessonParserTest {
     @Test
     public void parse_emptyCoreAndOptionalSupplied_throwsIllegalArgumentException() {
         // Error message for empty 'c/' has higher precedence than error message for empty 'o/'
-        String expectedMessageForC = String.format(MESSAGE_EMPTY_INPUT, PREFIX_CORE);
+        String expectedMessageForC = String.format(MESSAGE_EMPTY_INPUT, PREFIX_TEST);
 
         // normal format
         assertParseFailure(addLessonParser, PREAMBLE_WHITESPACE + NAME

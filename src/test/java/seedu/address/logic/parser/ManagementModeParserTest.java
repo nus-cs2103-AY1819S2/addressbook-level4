@@ -62,7 +62,7 @@ public class ManagementModeParserTest {
                 + Syntax.PREFIX_LESSON_NAME + "Capitals of the world "
                 + Syntax.PREFIX_CORE_QUESTION + "Country "
                 + Syntax.PREFIX_CORE_ANSWER + "Capital "
-                + Syntax.PREFIX_OPTIONAL + "Hint";
+                + Syntax.PREFIX_HINT + "Hint";
         assertTrue(parser.parse(command) instanceof AddLessonCommand);
     }
 
@@ -93,10 +93,10 @@ public class ManagementModeParserTest {
     @Test
     public void parseCommand_addCard() throws Exception {
         String command = AddCardCommand.COMMAND_WORD + " "
-                + Syntax.PREFIX_CORE + "Australia "
-                + Syntax.PREFIX_CORE + "Canberra "
-                + Syntax.PREFIX_CORE + "English "
-                + Syntax.PREFIX_OPTIONAL + "Starts with C";
+                + Syntax.PREFIX_TEST + "Australia "
+                + Syntax.PREFIX_TEST + "Canberra "
+                + Syntax.PREFIX_TEST + "English "
+                + Syntax.PREFIX_HINT + "Starts with C";
         assertTrue(parser.parse(command) instanceof AddCardCommand);
     }
 

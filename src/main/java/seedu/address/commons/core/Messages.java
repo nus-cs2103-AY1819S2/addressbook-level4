@@ -20,27 +20,27 @@ public class Messages {
      */
     public static final String MESSAGE_LESSON_COMMANDS =
             "<< Lesson View >>\nYou can now use the following commands:\n"
-                    + "1. " + EditLessonCommand.COMMAND_WORD
+                    + "1.\t" + EditLessonCommand.COMMAND_WORD
                     + ": Opens a lesson in Card View for editing.\n"
-                    + "2. " + AddLessonCommand.COMMAND_WORD
+                    + "2.\t" + AddLessonCommand.COMMAND_WORD
                     + ": Adds a lesson.\n"
-                    + "3. " + DeleteLessonCommand.COMMAND_WORD
+                    + "3.\t" + DeleteLessonCommand.COMMAND_WORD
                     + ": Deletes a lesson.\n"
-                    + "4. " + ReloadLessonsCommand.COMMAND_WORD
+                    + "4.\t" + ReloadLessonsCommand.COMMAND_WORD
                     + ": Reloads all lessons from the data folder.\n"
-                    + "5. " + ListLessonsCommand.COMMAND_WORD
+                    + "5.\t" + ListLessonsCommand.COMMAND_WORD
                     + ": Lists all lessons in memory.";
     public static final String MESSAGE_CARD_COMMANDS =
             "<< Card View >>\nYou can now use the following commands:\n"
-                    + "1. " + SaveLessonCommand.COMMAND_WORD
+                    + "1.\t" + SaveLessonCommand.COMMAND_WORD
                     + ": Saves changes and returns you to Lesson View.\n"
-                    + "2. " + SetTestCommand.COMMAND_WORD
+                    + "2.\t" + SetTestCommand.COMMAND_WORD
                     + ": Sets the 2 test values for the opened lesson's flashcards.\n"
-                    + "3. " + AddCardCommand.COMMAND_WORD
+                    + "3.\t" + AddCardCommand.COMMAND_WORD
                     + ": Adds a card to the opened lesson.\n"
-                    + "4. " + DeleteCardCommand.COMMAND_WORD
+                    + "4.\t" + DeleteCardCommand.COMMAND_WORD
                     + ": Deletes the card at the specified INDEX of the card list.\n"
-                    + "5. " + ListCardsCommand.COMMAND_WORD
+                    + "5.\t" + ListCardsCommand.COMMAND_WORD
                     + ": Lists all cards in the opened lesson.";
     /**
      * Feedback message displayed to the user when the command does not match any command patterns.

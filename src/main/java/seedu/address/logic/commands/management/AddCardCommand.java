@@ -2,8 +2,8 @@ package seedu.address.logic.commands.management;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_CARD_VIEW_COMMAND;
-import static seedu.address.logic.parser.Syntax.PREFIX_CORE;
-import static seedu.address.logic.parser.Syntax.PREFIX_OPTIONAL;
+import static seedu.address.logic.parser.Syntax.PREFIX_HINT;
+import static seedu.address.logic.parser.Syntax.PREFIX_TEST;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.CommandResult;
@@ -28,16 +28,17 @@ public class AddCardCommand extends ManagementCommand {
     /**
      * Instructions on command usage and parameters.
      */
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a card to the opened lesson. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a card."
             + "\nParameters: "
-            + PREFIX_CORE + "CORE " + PREFIX_CORE + "CORE "
-            + "[" + PREFIX_CORE + "CORE]... "
-            + "[" + PREFIX_OPTIONAL + "OPTIONAL]...\n"
+            + PREFIX_TEST + "TEST " + PREFIX_TEST + "TEST "
+            + "[" + PREFIX_TEST + "TEST]... "
+            + "[" + PREFIX_HINT + "HINT]...\n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_CORE + "Australia "
-            + PREFIX_CORE + "Canberra "
-            + PREFIX_CORE + "English "
-            + PREFIX_OPTIONAL + "Starts with C\n";
+            + PREFIX_TEST + "Australia "
+            + PREFIX_TEST + "Canberra "
+            + PREFIX_TEST + "English "
+            + PREFIX_HINT + "Starts with C\n"
+            + "Note: You need to specify at least 2 test values for the card to be valid.";
     /**
      * Feedback message displayed to the user upon successful execution of this command
      */

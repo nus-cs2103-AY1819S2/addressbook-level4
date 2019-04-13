@@ -41,8 +41,8 @@ public class CommandTestUtil {
     public static final String VALID_POSTAL_BOB = "439922";
     public static final String VALID_TAG_HUSBAND = "husband";
     public static final String VALID_TAG_FRIEND = "friend";
-    public static final String VALID_WEBLINK_AMY = "www.google.com.sg";
-    public static final String VALID_WEBLINK_BOB = "www.google.com.sg";
+    public static final String VALID_WEBLINK_AMY = "https://www.google.com";
+    public static final String VALID_WEBLINK_BOB = "https://www.google.com";
     public static final String VALID_OPENING_HOURS = "0900 to 2300";
     public static final String VALID_CUISINE_FAST_FOOD = "Fast Food";
     public static final String VALID_OCCASION_CASUAL = "Casual";

@@ -33,36 +33,36 @@ public class TypicalRestaurants {
             .withPostal("123456")
             .withPhone("94351253")
             .withTags("friends")
-            .withWeblink("www.google.com.sg")
+            .withWeblink("https://www.google.com")
             //.withReviews("sucks","5","2019-03-18T09:22:07.138")
             .build();
 
 
     public static final Restaurant BENSON = new RestaurantBuilder().withName("Benson Meier")
             .withAddress("311, Clementi Ave 2, #02-25").withPostal("123457")
-            .withEmail("johnd@example.com").withPhone("98765432").withWeblink("www.google.com.sg")
+            .withEmail("johnd@example.com").withPhone("98765432").withWeblink("https://www.google.com")
             .withTags("owesMoney", "friends").build();
     public static final Restaurant CARL = new RestaurantBuilder().withName("Carl Kurz").withPhone("95352563")
             .withEmail("heinz@example.com").withAddress("wall street").withPostal("256914")
-            .withWeblink("www.google.com.sg").build();
+            .withWeblink("https://www.google.com").build();
     public static final Restaurant DANIEL = new RestaurantBuilder().withName("Daniel Meier").withPhone("87652533")
             .withEmail("cornelia@example.com").withAddress("10th street").withPostal("123495")
-            .withWeblink("www.google.com.sg").withTags("friends").build();
+            .withWeblink("https://www.google.com").withTags("friends").build();
     public static final Restaurant ELLE = new RestaurantBuilder().withName("Elle Meyer").withPhone("9482224")
             .withEmail("werner@example.com").withAddress("michegan ave")
-            .withPostal("999999").withWeblink("www.google.com.sg").build();
+            .withPostal("999999").withWeblink("https://www.google.com").build();
     public static final Restaurant FIONA = new RestaurantBuilder().withName("Fiona Kunz").withPhone("9482427")
             .withEmail("lydia@example.com").withAddress("little tokyo")
-            .withWeblink("www.google.com.sg").withPostal("000000").build();
+            .withWeblink("https://www.google.com").withPostal("000000").build();
     public static final Restaurant GEORGE = new RestaurantBuilder().withName("George Best").withPhone("9482442")
             .withEmail("anna@example.com").withAddress("4th street")
-            .withWeblink("www.google.com.sg").withPostal("000001").build();
+            .withWeblink("https://www.google.com").withPostal("000001").build();
 
     // Manually added
     public static final Restaurant HOON = new RestaurantBuilder().withName("Hoon Meier").withPhone("8482424")
-            .withEmail("stefan@example.com").withAddress("little india").withWeblink("www.google.com.sg").build();
+            .withEmail("stefan@example.com").withAddress("little india").withWeblink("https://www.google.com").build();
     public static final Restaurant IDA = new RestaurantBuilder().withName("Ida Mueller").withPhone("8482131")
-            .withEmail("hans@example.com").withAddress("chicago ave").withWeblink("www.google.com.sg").build();
+            .withEmail("hans@example.com").withAddress("chicago ave").withWeblink("https://www.google.com").build();
 
     // Manually added - Restaurant's details found in {@code CommandTestUtil}
     public static final Restaurant AMY = new RestaurantBuilder().withName(VALID_NAME_AMY).withPhone(VALID_PHONE_AMY)

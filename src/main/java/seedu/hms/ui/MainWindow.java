@@ -1,6 +1,5 @@
 package seedu.hms.ui;
 
-import java.io.IOException;
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
@@ -18,7 +17,7 @@ import seedu.hms.logic.LogicManager;
 import seedu.hms.logic.commands.CommandResult;
 import seedu.hms.logic.commands.exceptions.CommandException;
 import seedu.hms.logic.parser.exceptions.ParseException;
-import seedu.hms.model.Stats;
+import seedu.hms.logic.stats.Stats;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -215,6 +214,7 @@ public class MainWindow extends UiPart<Stage> {
             (int) primaryStage.getX(), (int) primaryStage.getY());
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
+        statsWindow.hide();
         primaryStage.hide();
     }
 

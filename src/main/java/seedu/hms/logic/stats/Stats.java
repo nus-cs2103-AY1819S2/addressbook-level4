@@ -1,8 +1,11 @@
-package seedu.hms.model;
+package seedu.hms.logic.stats;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.function.Function;
@@ -11,11 +14,13 @@ import java.util.stream.Collectors;
 
 import javafx.collections.ObservableList;
 import seedu.hms.commons.core.LogsCenter;
-import seedu.hms.model.booking.Booking;
+import seedu.hms.logic.stats.statsitems.CountPayersForReservations;
+import seedu.hms.logic.stats.statsitems.CountPayersForServices;
+import seedu.hms.logic.stats.statsitems.CountRoomTypes;
+import seedu.hms.logic.stats.statsitems.CountServiceTypes;
+import seedu.hms.logic.stats.statsitems.StatsItem;
+import seedu.hms.model.ReadOnlyHotelManagementSystem;
 import seedu.hms.model.booking.serviceType.ServiceType;
-import seedu.hms.model.customer.Customer;
-import seedu.hms.model.reservation.Reservation;
-import seedu.hms.model.reservation.roomType.RoomType;
 
 /**
  * Provide stats for a specific hms
@@ -23,28 +28,16 @@ import seedu.hms.model.reservation.roomType.RoomType;
 public class Stats {
     private static final Logger logger = LogsCenter.getLogger(Stats.class);
     private final ReadOnlyHotelManagementSystem hms;
+    private final List<StatsItem> statsitems;
 
     public Stats(ReadOnlyHotelManagementSystem hms) {
         this.hms = hms;
-    }
-
-    public Map<String, Long> countServiceTypes() {
-        return sortAndFormat(
-                count(hms.getBookingList(), (b) -> b.getService().getName()));
-    }
-
-    public Map<String, Long> countRoomTypes() {
-        return sortAndFormat(count(hms.getReservationList(), (r) -> r.getRoom().getName()));
-    }
-
-    public Map<String, Long> countPayerForServices() {
-        return count(hms.getBookingList(),
-                b -> (b.getPayer().getName().toString() + b.getPayer().getIdNum().toString()));
-    }
-
-    public Map<String, Long> countPayerForReservations() {
-        return count(hms.getReservationList(),
-                r -> (r.getPayer().getName().toString() + r.getPayer().getIdNum().toString()));
+        this.statsitems = new ArrayList<>(Arrays.asList(
+                new CountRoomTypes(this),
+                new CountServiceTypes(this),
+                new CountPayersForReservations(this),
+                new CountPayersForServices(this)
+        ));
     }
 
     public Map<Integer, Long> getPeakHourForService(ServiceType serviceType) {
@@ -66,35 +59,6 @@ public class Stats {
         return hourToBookings;
     }
 
-    // utils
-    private <E, T> Map<T, Long> count(ObservableList<E> ol, Function<E, T> f) {
-        return ol.stream()
-                .collect(Collectors.groupingBy(f, Collectors.counting()));
-    }
-
-    /**
-     * Sorts a map by its value.
-     * @param m The map to be sorted
-     * @param isDesc Whether the result should be descending or ascending
-     * @param f The formatting function
-     * @return The sorted map
-     */
-    private Map<String, Long> sortAndFormat(Map<String, Long> m, boolean isDesc, Function<String, String> f) {
-        return m.entrySet().stream().sorted((
-                    isDesc
-                    ? Collections.reverseOrder(Map.Entry.comparingByValue())
-                    : Map.Entry.comparingByValue()))
-                .collect(Collectors.toMap((e) -> f.apply(e.getKey()), Map.Entry::getValue, (e1, e2) -> e2, LinkedHashMap::new));
-    }
-
-    private Map<String, Long> sortAndFormat(Map<String, Long> m) {
-        return sortAndFormat(m, true, s -> s);
-    }
-
-    private Map<String, Long> sortAndFormat(Map<String, Long> m, boolean isDesc) {
-        return sortAndFormat(m, isDesc, s -> s);
-    }
-
     private static String fillOnLeft(String s, int n) {
         return String.format("%-" + n + "s", s);
     }
@@ -107,6 +71,16 @@ public class Stats {
             Entry<String, Long> entry = iter.next();
             sb.append(fillOnLeft(entry.getKey(), 15)).append(" --- ").append(entry.getValue());
             sb.append('\n');
+        }
+        return sb.toString();
+    }
+
+    public String toTextReport() {
+        final StringBuilder sb = new StringBuilder();
+        for (StatsItem si : statsitems) {
+            sb.append("*** " + si.getTitle() + "\n");
+            sb.append(Stats.prettyMapString(si.calcResult()));
+            sb.append("\n");
         }
         return sb.toString();
     }

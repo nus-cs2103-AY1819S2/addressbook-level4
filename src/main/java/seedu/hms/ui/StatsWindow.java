@@ -9,7 +9,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
 import seedu.hms.commons.core.LogsCenter;
-import seedu.hms.model.Stats;
+import seedu.hms.logic.stats.Stats;
 
 /**
  * The individual window for displaying statistics.
@@ -44,19 +44,7 @@ public class StatsWindow extends UiPart<Stage> {
      * @return A string representing the stats.
      */
     public String generateText(Stats stats) {
-        final StringBuilder sb = new StringBuilder();
-        sb.append("*** Popular Room Types:\n");
-        sb.append(Stats.prettyMapString(stats.countRoomTypes()));
-        sb.append("\n");
-        sb.append("*** Popular Service Types:\n");
-        sb.append(Stats.prettyMapString(stats.countServiceTypes()));
-        sb.append("\n");
-        sb.append("*** Frequent Payers of Services:\n");
-        sb.append(Stats.prettyMapString(stats.countPayerForServices()));
-        sb.append("\n");
-        sb.append("*** Frequent Payers of Reservations:\n");
-        sb.append(Stats.prettyMapString(stats.countPayerForReservations()));
-        return sb.toString();
+        return stats.toTextReport();
     }
 
     /**

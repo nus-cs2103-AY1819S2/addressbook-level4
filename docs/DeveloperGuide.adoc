@@ -373,7 +373,7 @@ image::ImportSequenceDiagram.png[width=800]
 
 * *Alternative 2 (Current Choice)*: Import images from directory as well.
 ** Pros: Can import many images without repeating the command.
-** Cons: Can result in errors in too many images or images are of alternative formats.
+** Cons: Can result in errors if too many images are imported or images are of alternative formats.
 // end::import[]
 
 // tag::OpenAndListFiles[]

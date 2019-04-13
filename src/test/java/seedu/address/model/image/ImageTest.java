@@ -1,3 +1,4 @@
+/* @@author Carrein */
 package seedu.address.model.image;
 
 import java.io.File;

@@ -1,3 +1,4 @@
+/* @@author Carrein */
 package seedu.address.model.image;
 
 import static org.junit.Assert.assertEquals;

@@ -105,12 +105,12 @@ public class EditCommandTest {
 
     @Test
     public void execute_filteredList_success() {
-        showPersonAtIndex(model, TypicalIndexes.INDEX_FIRST_BUYER);
+        showPersonAtIndex(model, INDEX_FIRST_BUYER);
 
         Person personInFilteredList = model.getFilteredPersonList().get(TypicalIndexes.INDEX_FIRST_BUYER
                 .getZeroBased());
         Person editedPerson = new PersonBuilder(personInFilteredList).withName(VALID_NAME_BOB).build();
-        EditCommand editCommand = new EditCommand(TypicalIndexes.INDEX_FIRST_BUYER,
+        EditCommand editCommand = new EditCommand(INDEX_FIRST_BUYER,
                 new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).build());
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson);
@@ -228,11 +228,11 @@ public class EditCommandTest {
     public void executeUndoRedo_validIndexFilteredList_samePersonEdited() throws Exception {
         Person editedPerson = new PersonBuilder().build();
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(editedPerson).build();
-        EditCommand editCommand = new EditCommand(TypicalIndexes.INDEX_FIRST_BUYER, descriptor);
+        EditCommand editCommand = new EditCommand(INDEX_FIRST_BUYER, descriptor);
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()),
                 new AddressBook(model.getArchiveBook()), new PinBook(model.getPinBook()), new UserPrefs());
 
-        showPersonAtIndex(model, TypicalIndexes.INDEX_SECOND_BUYER);
+        showPersonAtIndex(model, INDEX_SECOND_BUYER);
         Person personToEdit = model.getFilteredPersonList().get(TypicalIndexes.INDEX_FIRST_BUYER.getZeroBased());
         expectedModel.setPerson(personToEdit, editedPerson);
         expectedModel.commitAddressBook();
@@ -260,11 +260,11 @@ public class EditCommandTest {
 
     @Test
     public void equals() {
-        final EditCommand standardCommand = new EditCommand(TypicalIndexes.INDEX_FIRST_BUYER, DESC_AMY);
+        final EditCommand standardCommand = new EditCommand(INDEX_FIRST_BUYER, DESC_AMY);
 
         // same values -> returns true
         EditPersonDescriptor copyDescriptor = new EditPersonDescriptor(DESC_AMY);
-        EditCommand commandWithSameValues = new EditCommand(TypicalIndexes.INDEX_FIRST_BUYER, copyDescriptor);
+        EditCommand commandWithSameValues = new EditCommand(INDEX_FIRST_BUYER, copyDescriptor);
         assertTrue(standardCommand.equals(commandWithSameValues));
 
         // same object -> returns true
@@ -277,10 +277,10 @@ public class EditCommandTest {
         assertFalse(standardCommand.equals(new ClearCommand()));
 
         // different index -> returns false
-        assertFalse(standardCommand.equals(new EditCommand(TypicalIndexes.INDEX_SECOND_BUYER, DESC_AMY)));
+        assertFalse(standardCommand.equals(new EditCommand(INDEX_SECOND_BUYER, DESC_AMY)));
 
         // different descriptor -> returns false
-        assertFalse(standardCommand.equals(new EditCommand(TypicalIndexes.INDEX_FIRST_BUYER, DESC_BOB)));
+        assertFalse(standardCommand.equals(new EditCommand(INDEX_FIRST_BUYER, DESC_BOB)));
     }
 
 }

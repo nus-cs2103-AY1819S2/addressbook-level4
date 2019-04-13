@@ -498,6 +498,36 @@ image::TaskCalendarSwimLaneDiagram.png[width=""]
 
 ==== Design Considerations
 
+===== Aspect: Storing the task class
+
+* **Alternative 1 (current choice):** Store the tasks in the same json file
+** Pros: Reduces time spent opening a seperate json file. This results in less I/O work for application and thus an improvement in the application's load time. Easy to implement.
+** Cons: The single json file that stores the data may become too large if there are too many patients and/or tasks. The size might exceed the limit of certain file systems like FAT-32 with a limit of 4GB, leading to the program unable to save to the file.
+
+* **Alternative 2:** Store the tasks in a seperate json file
+** Pros: Very unlikely to have a very large json file by saving different data types to a different file.
+** Cons: Complicated to implement and affects future storage and I/O features. Implementation would affect I/O features that may need to read from the files to export both patients and tasks. Sets a precedent where new data types added in the future should be stored seperately for consistency, which would affect `export` and `import` commands as they have to be changed to read a new file to export/import.
+
+===== Aspect: Representing the Priority class attribute for Task
+
+* **Alternative 1 (current choice):** Use Java's special Enum class for Priority
+** Pros: Easy to validate user input for the attribute. Adding new constants to the Enum class is easy to do and will not affect the code much. Enables the `taskdone` feature to change it for the user automatically. Good programming practice to use enum for values that should not be changed.
+** Cons: Limits user's freedom when naming priority. Users have to name priorities as either `high`, `med` or `low`. Some users might prefer other naming conventions.
+
+* **Alternative 2:** Use a normal class type, with string as inner attribute for Priority.
+** Pros: Easy to implement as it functions similarly to how `name` and `title` works. Priorities can be named anything the user desires.
+** Cons: Priority tracking depends on the user's own memory of what he/she named them and sees as a higher priority. Users may opt to use many levels of priority tracking which causes implementation of new features to interact with the priorities would be difficult as it requires tracking too many different things.
+
+==== Aspect: Modifying task and patient when executing `taskdone` command
+
+* **Alternative 1 (current choice):** Replace the task and patient with new instances with priority changed and record added respectively.
+** Pros: Allows the task completion process to be undo-able and redo-able based on the current implementation of undo/redo.  
+** Cons: Increases number of steps to perform a relatively simple operation on the stored data.
+
+* **Alternative 2:** Modify the target task and linked patient directly
+** Pros: Easy to implement as they already have methods to perform the operations. Reduces run time of taskdone feature.
+** Cons: Completing a task does not work with undo and redo due to the way the model is implemented. Implementing changes model to support this would lead to too much work and could potentially introduce bugs for other commands.
+
 // end::task_cchj1995[]
 
 // tag::undoredo[]

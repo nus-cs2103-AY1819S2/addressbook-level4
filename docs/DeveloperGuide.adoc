@@ -563,6 +563,7 @@ class has an associated `ContainsKeywordsPredicate` that handles the predicate t
 specified to be searched.
 * **Alternative 2:** `Patient` and `Record` would each have an individual associated `ContainsKeywordsPredicate` that
  acts as a "class of classes" that contains each respective paramater predicate class within itself.
+
 // end::findimplement[]
 
 // tag::sortimplement[]
@@ -590,6 +591,7 @@ Should it be a `SortPatientCommand` instead, the same logic flow occurs except i
 methods and classes instead.
 
 image::SortCommandSequenceDiagram.png[width="800"]
+
 // end::sortimplement[]
 
 // tag::statimplement[]

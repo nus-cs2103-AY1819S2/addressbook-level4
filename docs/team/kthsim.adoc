@@ -96,6 +96,7 @@ implementations I did during the creation of the project._
 |===
 
 include::../DeveloperGuide.adoc[tag=findimplement]
+
 include::../DeveloperGuide.adoc[tag=statimplement]
 
 ---

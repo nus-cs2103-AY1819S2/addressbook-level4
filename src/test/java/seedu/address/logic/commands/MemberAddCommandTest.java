@@ -284,7 +284,7 @@ public class MemberAddCommandTest {
         }
 
         @Override
-        public void sortAddressBook(Predicate<String> predicate) {
+        public void sortAddressBook(String input) {
             throw new AssertionError("This method should not be called.");
         }
 

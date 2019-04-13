@@ -467,7 +467,7 @@ The Battle feature handles the following:
 
 The Battle feature is split between several packages:
 
-  * `seedu.address.battle`: the main `Battle` class is implemented here
+  * `seedu.address.battle`: the main `Battle` class is implemented here.
   * `seedu.address.battle.state`: the battle state classes are implemented here, and
     can be stored and retrieved via `Model`.
   * `seedu.address.battle.result`: the attack result classes are implemented here.
@@ -500,6 +500,62 @@ diagram showing the execution of a command.
 image::BattleStateDiagram.png[width=800]
 
 ==== Implementation of the `BattleManager` class
+
+The `BattleManager` class contains four important methods, detailed as follows.
+
+===== `void startGame()`
+`startGame` is called when the player begins the battle (via `BeginCommand`,
+see next section for more details).
+
+`startGame` prepares the `Enemy` for battle by calling `Enemy#prepEnemy`,
+which causes the enemy to place its ships and set up other data structures.
+For more information, please see the "Enemy AI Feature" section below.
+
+===== `AttackResult performAttack(Player, Player, Coordinates)`
+`performAttack` is the method that actually performs the attack from one
+player to another. It takes in an attacker `Player`, a target `Player` and
+the attacked `Coordinates`, and returns an `AttackResult`. (See section
+3.3.3 for the description of `AttackResult`.)
+
+This method is an internal method, used by both `humanPerformAttack` and
+`takeComputerTurn`.
+
+===== `AttackResult humanPerformAttack(Coordinates)`
+
+`humanPerformAttack` is called when the player makes an attack (via
+`AttackCommand`, see below.)
+
+This method simply calls `performAttack` with the human player as the
+attacker, the computer player as the target and the argument coordinate
+as the attacked coordinate.
+
+===== `List<AttackResult> takeComputerTurn()`
+
+`takeComputerTurn` is called after the player makes an attack but misses
+(via `AttackCommand`, see below). As mentioned in the game rules, after
+the player misses the computer may begin to attack until it misses, and
+this method implements that functionality.
+
+==== Implementation of attack result
+
+The representation of the result of an attack is the class `AttackResult` and
+its subclasses.
+
+The type of the `AttackResult` returned can be seen from the following table:
+
+[width="77%",cols="22%,<55%",options="header",]
+|=======================================================================
+|Result type          |Scenario
+|`AttackFailed`       |The `Coordinates` provided was out of bounds, or
+                       some error occurred during the attack.
+|`AttackMissed`       |The attack did not hit an enemy ship.
+|`AttackHit`          |The attack hit an enemy ship but did not sink it.
+|`AttackDestroyedShip`|The attack hit an enemy ship and sank it,
+                       but the enemy still has ships remaining.
+|`AttackDefeatedEnemy`|The attack hit the last of the enemy's ships and sank
+                       it, resulting in a victory for the attacker.
+|=======================================================================
+
 
 ==== Implementation of player interaction via commands
 

@@ -16,13 +16,10 @@ import seedu.address.model.battleship.Orientation;
 import seedu.address.model.cell.Coordinates;
 import seedu.address.model.tag.Tag;
 
-
 /**
- * Represents a list of individual battleships
+ * Represents a fleet of ships in the player.
  */
 public class Fleet {
-
-
     private ArrayList<FleetEntry> deployedFleet;
 
     private final int numAircraftCarrier;
@@ -42,6 +39,8 @@ public class Fleet {
 
     /**
      * Constructor using formula according to mapSize.
+     *
+     * @param mapSize size of map grid.
      */
     public Fleet (int mapSize) {
         this((mapSize + 2) / 5, mapSize - 5, 1);
@@ -49,6 +48,10 @@ public class Fleet {
 
     /**
      * Constructor for a fleet with placeholder ship names.
+     *
+     * @param numDestroyer number of destroyers.
+     * @param numCruiser number of cruisers.
+     * @param numAircraftCarrier number of aircraft carriers.
      */
     public Fleet(int numDestroyer, int numCruiser, int numAircraftCarrier)
             throws IllegalArgumentException {
@@ -68,6 +71,11 @@ public class Fleet {
         this.deployedFleet = new ArrayList<>();
     }
 
+    /**
+     * Calculates the number of ships in the deployed fleet.
+     *
+     * @return size of the fleet.
+     */
     public int getSize() {
         return this.numDestroyerLeft + this.numCruiserLeft + this.numAircraftCarrierLeft;
     }
@@ -78,6 +86,8 @@ public class Fleet {
 
     /**
      * Resets the fleet.
+     *
+     * @param mapSize size of the map grid.
      */
     public void resetFleet(int mapSize) {
         this.numDestroyerLeft = (mapSize + 2) / 5;
@@ -87,7 +97,11 @@ public class Fleet {
     }
 
     /**
-     * Deploys one battleship. Checks class of battleship.
+     * Deploys one ship. Checks class of ship to do so.
+     *
+     * @param battleship battleship object.
+     * @param coordinates coordinates of the battleship.
+     * @param orientation orientation of the battleship.
      */
     public void deployOneBattleship(Battleship battleship, Coordinates coordinates, Orientation orientation) {
         if (battleship instanceof DestroyerBattleship) {
@@ -101,13 +115,14 @@ public class Fleet {
         this.deployedFleet.add(new FleetEntry(
                 battleship,
                 coordinates,
-                orientation
-        ));
-
+                orientation));
     }
 
     /**
      * Checks if there are enough battleships. Returns true or false.
+     *
+     * @param battleship battleship object.
+     * @param numBattleship number of battleships.
      * @return whether there are enough battleships.
      */
     public boolean isEnoughBattleship(Battleship battleship, int numBattleship) {
@@ -122,51 +137,78 @@ public class Fleet {
         return false;
     }
 
-    public List<FleetEntry> getListOfDestroyerBattleship() {
+    /**
+     * Get list of battleship by class.
+     *
+     * @param battleshipClass class of battleship.
+     * @return list of battleships that are of that class.
+     */
+    public List<FleetEntry> getListOfBattleship(Class battleshipClass) {
         return this.deployedFleet
                 .stream()
-                .filter(entry -> entry.getBattleship() instanceof DestroyerBattleship)
+                .filter(entry -> entry.getBattleship().getClass().equals(battleshipClass))
                 .collect(Collectors.toList());
     }
 
-    public List<FleetEntry> getListOfCruiserBattleship() {
-        return this.deployedFleet
-                .stream()
-                .filter(entry -> entry.getBattleship() instanceof CruiserBattleship)
-                .collect(Collectors.toList());
-    }
-
-    public List<FleetEntry> getListOfAircraftCarrierBattleship() {
-        return this.deployedFleet
-                .stream()
-                .filter(entry -> entry.getBattleship() instanceof AircraftCarrierBattleship)
-                .collect(Collectors.toList());
-    }
-
+    /**
+     * Getter method for number of destroyers left.
+     *
+     * @return number of destroyers left.
+     */
     public int getNumDestroyerLeft() {
         return this.numDestroyerLeft;
     }
 
+    /**
+     * Getter method for number of cruisers left.
+     *
+     * @return number of cruisers left.
+     */
     public int getNumCruiserLeft() {
         return this.numCruiserLeft;
     }
 
+    /**
+     * Getter method for number of aircraft carriers left.
+     *
+     * @return number of aircraft carriers left.
+     */
     public int getNumAircraftCarrierLeft() {
         return this.numAircraftCarrierLeft;
     }
 
+    /**
+     * Getter method for original number of destroyers.
+     *
+     * @return original number of destroyers.
+     */
     public int getNumDestroyer() {
         return this.numDestroyer;
     }
 
+    /**
+     * Getter method for original number of cruisers.
+     *
+     * @return original number of cruisers.
+     */
     public int getNumCruiser() {
         return this.numCruiser;
     }
 
+    /**
+     * Getter method for original number of aircraft carriers.
+     *
+     * @return original number of aircraft carriers.
+     */
     public int getNumAircraftCarrier() {
         return this.numAircraftCarrier;
     }
 
+    /**
+     * Gets all tags that have been used by all battleships in the fleet.
+     *
+     * @return set of all tags used by all battleships in the fleet.
+     */
     public Set<Tag> getAllTags() {
         Set<Tag> tagSet = new HashSet<>();
 
@@ -179,18 +221,39 @@ public class Fleet {
         return tagSet;
     }
 
+    /**
+     * Gets list of {@code FleetEntry}s that have {@code Battleship}s containing all
+     * the specified tags from the fleet.
+     *
+     * @param tagSet set of tags.
+     * @return list of fleet entries that have battleships matching all the tags.
+     */
     public List<FleetEntry> getByTags(Set<Tag> tagSet) {
         return this.getDeployedFleet().stream()
                 .filter(fleetEntry -> fleetEntry.getBattleship().getTags().containsAll(tagSet))
                 .collect(Collectors.toList());
     }
 
+    /**
+     * Gets list of {@code FleetEntry}s that have {@code Battleship}s containing all
+     * the specified name from the fleet.
+     *
+     * @param name name of battleship.
+     * @return list of fleet entries that have battleships matching the name.
+     */
     public List<FleetEntry> getByName(Name name) {
         return this.getDeployedFleet().stream()
                 .filter(fleetEntry -> fleetEntry.getBattleship().getName().equals(name))
                 .collect(Collectors.toList());
     }
 
+    /**
+     * Gets list of {@code FleetEntry}s that have {@code Battleship}s containing all
+     * the specified names from the fleet.
+     *
+     * @param nameSet set of names of battleships.
+     * @return list of fleet entries that have battleships matching the names.
+     */
     public List<FleetEntry> getByNames(Set<Name> nameSet) {
         ArrayList<FleetEntry> result = new ArrayList<>();
 
@@ -205,15 +268,19 @@ public class Fleet {
 
     /**
      * Checks if all battleships have been deployed.
+     *
+     * @return boolean of whether all battleships have been deployed.
      */
     public boolean isAllDeployed() {
-        return this.getListOfDestroyerBattleship().size() == this.numDestroyer
-                && this.getListOfCruiserBattleship().size() == this.numCruiser
-                && this.getListOfAircraftCarrierBattleship().size() == this.numAircraftCarrier;
+        return this.getListOfBattleship(DestroyerBattleship.class).size() == this.numDestroyer
+                && this.getListOfBattleship(CruiserBattleship.class).size() == this.numCruiser
+                && this.getListOfBattleship(AircraftCarrierBattleship.class).size() == this.numAircraftCarrier;
     }
 
     /**
      * Checks if all the battleships in a deployed fleet are destroyed.
+     *
+     * @return boolean of whether all battleships have zero life, i.e., are destroyed.
      */
     public boolean isAllDestroyed() {
         boolean isAllDestroyed = true;
@@ -227,6 +294,11 @@ public class Fleet {
         return isAllDestroyed;
     }
 
+    /**
+     * Gets the fleet as a string containing information about its size and contents.
+     *
+     * @return string of fleet size and contents.
+     */
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
@@ -247,24 +319,52 @@ public class Fleet {
         private final Orientation orientation;
         private final Coordinates coordinates;
 
+        /**
+         * Default constructor method.
+         *
+         * @param battleship battleship object.
+         * @param coordinates coordinates of the battleship on the map grid.
+         * @param orientation orientation of the battleship on the map grid.
+         */
         public FleetEntry(Battleship battleship, Coordinates coordinates, Orientation orientation) {
             this.battleship = battleship;
             this.coordinates = coordinates;
             this.orientation = orientation;
         }
 
+        /**
+         * Getter method for battleship.
+         *
+         * @return battleship.
+         */
         public Battleship getBattleship() {
             return battleship;
         }
 
+        /**
+         * Getter method for coordinates.
+         *
+         * @return coordinates of the battleship.
+         */
         public Coordinates getCoordinates() {
             return coordinates;
         }
 
+        /**
+         * Getter method for orientation.
+         *
+         * @return orientation of the battleship.
+         */
         public Orientation getOrientation() {
             return orientation;
         }
 
+        /**
+         * String containing information about the {@code FleetEntry}, including the
+         * battleship, its coordinates and its orientation on the map grid.
+         *
+         * @return string with information about the fleet entry.
+         */
         @Override
         public String toString() {
             StringBuilder builder = new StringBuilder();
@@ -283,6 +383,13 @@ public class Fleet {
             return builder.toString();
         }
 
+        /**
+         * Checks if two given {@code FleetEntry}s are equal. Compares the battleship,
+         * coordinates, and orientation.
+         *
+         * @param other other object.
+         * @return boolean of whether the two objects are equal.
+         */
         @Override
         public boolean equals(Object other) {
             // short circuit if same object

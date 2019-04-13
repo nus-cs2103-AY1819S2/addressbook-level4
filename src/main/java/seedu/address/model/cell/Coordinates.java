@@ -12,11 +12,10 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.index.Index;
 
 /**
- * Represents a Cell's coordinate object in the map.
+ * Represents a {@code Cell}'s coordinates on the map grid.
  * Guarantees: immutable; is valid as declared in {@link #isValidCoordinates(String)}
  */
 public class Coordinates {
-
     private static final String SPECIAL_CHARACTERS = "!#$%&'*+/=?`{|}~^.-";
     public static final String MESSAGE_CONSTRAINTS = "Coordinates should be of the format row-column "
             + "and adhere to the following constraints:\n"
@@ -30,18 +29,20 @@ public class Coordinates {
     private static final String ROW_PART_REGEX = "^([a-z]){1}";
     private static final String COL_PART_REGEX = "(\\d+){1}$";
     private static final String COL_PART_REGEX_NON_MATCH = "[a-z]0";
-
     private static final String VALIDATION_REGEX = ROW_PART_REGEX + COL_PART_REGEX;
 
+    // internal data, guaranteed to be immutable
     private final Index rowIndex;
     private final Index colIndex;
 
+    // logging
     private final Logger logger = LogsCenter.getLogger(Coordinates.class);
 
     /**
-     * Constructs an {@code Coordinates}.
-     *
-     * @param coordinate A valid coordinate.
+     * Constructor for a {@code Coordinates} object with String parameter.
+     * @param coordinate a valid coordinate, as defined by {@code ROW_PART_REGEX}
+     *                   and {@code COL_PART_REGEX}
+     * @throws NumberFormatException
      */
     public Coordinates(String coordinate) throws NumberFormatException {
         requireNonNull(coordinate);
@@ -70,12 +71,26 @@ public class Coordinates {
         this.colIndex = Index.fromOneBased(colNum);
     }
 
+    /**
+     * Constructor for a {@code Coordinates} object with integer parameters for
+     * row and column.
+     *
+     * @param rowZeroBased valid {@code int} representing the row.
+     * @param colZeroBased valid {@code int} representing the column.
+     */
     public Coordinates(int rowZeroBased, int colZeroBased) {
         logger.info("COORDINATES INITIALISED.");
         this.rowIndex = Index.fromZeroBased(rowZeroBased);
         this.colIndex = Index.fromZeroBased(colZeroBased);
     }
 
+    /**
+     * Constructor for a {@code Coordinates} object with Index parameters for
+     * row and column.
+     *
+     * @param rowIndex valid {@code Index} representing the row.
+     * @param colIndex valid {@code Index} representing the column.
+     */
     public Coordinates(Index rowIndex, Index colIndex) {
         logger.info("COORDINATES INITIALISED.");
         this.rowIndex = rowIndex;
@@ -86,7 +101,7 @@ public class Coordinates {
      * Converts a string alphabet to its numerical equivalent.
      *
      * @param alphabet String of alphabet
-     * @return integer offset from 'a', zero-based
+     * @return integer offset from 'a', zero-based.
      */
     public int convertAlphabetToNumber(String alphabet) {
         char alphabetChar = alphabet.charAt(0);
@@ -94,26 +109,38 @@ public class Coordinates {
     }
 
     /**
-     * Returns Index for rowNum
+     * Returns Index for rowNum.
+     *
+     * @return {@code Index} of row.
      */
     public Index getRowIndex() {
         return this.rowIndex;
     }
 
     /**
-     * Return Index for colNum
+     * Return Index for colNum.
+     *
+     * @return {@code Index} of column.
      */
     public Index getColIndex() {
         return this.colIndex;
     }
 
     /**
-     * Returns if a given string is a valid coordinate.
+     * Returns if a given {@code String} is a valid coordinate.
+     *
+     * @return boolean of whether input is a valid coordinate.
      */
     public static boolean isValidCoordinates(String test) {
         return test.matches(VALIDATION_REGEX) && !test.matches(COL_PART_REGEX_NON_MATCH);
     }
 
+    /**
+     * Returns the {@code rowIndex} and {@code colIndex} as a {@code String} in
+     * the format of [alphabet][number], one-based.
+     *
+     * @return coordinates as a {@code String}.
+     */
     @Override
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
@@ -125,6 +152,14 @@ public class Coordinates {
         return stringBuilder.toString();
     }
 
+    /**
+     * Checks equality of two {@code Coordinates} objects by comparing the respective
+     * {@code rowIndex} and {@code colIndex}. If the other object is not a
+     * {@code Coordinates} object, then they are not equal.
+     *
+     * @param other any object.
+     * @return boolean of whether the objects are equal.
+     */
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
@@ -133,6 +168,11 @@ public class Coordinates {
                 && this.colIndex.equals(((Coordinates) other).colIndex); // state check
     }
 
+    /**
+     * Generate hashcode of {@code this}.
+     *
+     * @return {@code int} hashcode of {@code this}.
+     */
     @Override
     public int hashCode() {
         return Objects.hash(rowIndex, colIndex);

@@ -67,7 +67,7 @@ public class Landlord extends Person {
                 .append(getEmail())
                 .append(" Remark: ")
                 .append(getRemark())
-                .append(System.lineSeparator())
+                .append(" ")
                 .append(getProperty());
         return builder.toString();
     }

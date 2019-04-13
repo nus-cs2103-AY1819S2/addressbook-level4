@@ -31,32 +31,36 @@ import seedu.address.model.person.Tenant;
  */
 public class TypicalPersons {
 
-    public static final Seller ALICE = new PersonBuilder().withName("Alice Pauline")
-            .withAddress("123, Jurong West Ave 6, #08-111").withEmail("alice@example.com")
-            .withRemark("Alice is a seller").withSellingPrice("540000")
+    public static final Buyer ALICE = new PersonBuilder().withName("Alice Pauline").withPhone("95352563")
+            .withEmail("alice@example.com").withRemark("Alice is a seller").buildBuyer();
+    public static final Buyer BENSON = new PersonBuilder().withName("Benson Meier").withPhone("94824422")
+            .withEmail("benson@example.com").withRemark("Benson is a buyer").buildBuyer();
+    public static final Seller CARL = new PersonBuilder().withName("Carl Kurz")
+            .withAddress("123, Jurong West Ave 6, #08-111").withEmail("carl@example.com")
+            .withRemark("Carl is a seller").withSellingPrice("540000")
             .withPhone("94351253").withTags("mrt").buildSeller();
-    public static final Landlord BENSON = new PersonBuilder().withName("Benson Meier")
-            .withAddress("311, Clementi Ave 2, #02-25").withEmail("johnd@example.com").withPhone("98765432")
-            .withRemark("Benson is a landlord").withRentalPrice("2300")
-            .withTags("mrt", "3room").buildLandlord();
-    public static final Buyer CARL = new PersonBuilder().withName("Carl Kurz").withPhone("95352563")
-            .withEmail("heinz@example.com").withRemark("Carl is a buyer").buildBuyer();
-    public static final Tenant DANIEL = new PersonBuilder().withName("Daniel Meier").withPhone("87652533")
-            .withEmail("cornelia@example.com").withRemark("Daniel is a Tenant").buildTenant();
-    public static final Seller ELLE = new PersonBuilder().withName("Elle Meyer").withPhone("94822244")
-            .withEmail("werner@example.com").withAddress("michigan ave").withRemark("Elle is  a seller")
+    public static final Seller DANIEL = new PersonBuilder().withName("Daniel Meier").withPhone("94822244")
+            .withEmail("daniel@example.com").withAddress("michigan ave").withRemark("Daniel is  a seller")
             .withSellingPrice("890000").withTags("mrt").buildSeller();
+    public static final Landlord ELLE = new PersonBuilder().withName("Elle Meyer")
+            .withAddress("311, Clementi Ave 2, #02-25").withEmail("elle@example.com").withPhone("98765432")
+            .withRemark("Elle is a landlord").withRentalPrice("230000")
+            .withTags("mrt", "3room").buildLandlord();
     public static final Landlord FIONA = new PersonBuilder().withName("Fiona Kunz").withPhone("94824277")
             .withRemark("Fiona is a landlord").withRentalPrice("3500")
-            .withEmail("lydia@example.com").withAddress("little tokyo").withTags("mrt").buildLandlord();
-    public static final Buyer GEORGE = new PersonBuilder().withName("George Best").withPhone("94824422")
-            .withEmail("anna@example.com").withRemark("George is a buyer").buildBuyer();
+            .withEmail("fiona@example.com").withAddress("little tokyo").withTags("mrt").buildLandlord();
+    public static final Tenant GEORGE = new PersonBuilder().withName("George Takei").withPhone("87652533")
+            .withEmail("george@example.com").withRemark("George is a Tenant").buildTenant();
+    public static final Tenant HARRY = new PersonBuilder().withName("Harry Otter").withPhone("87652533")
+            .withEmail("harry@example.com").withRemark("Harry is a Tenant").buildTenant();
+
+
 
     // Manually added
     public static final Buyer HOON = new PersonBuilder().withName("Hoon Meier").withPhone("84824244")
-            .withEmail("stefan@example.com").withRemark("Hoon is a manually added buyer").buildBuyer();
+            .withEmail("hoon@example.com").withRemark("Hoon is a manually added buyer").buildBuyer();
     public static final Seller IDA = new PersonBuilder().withName("Ida Mueller").withPhone("84821311")
-            .withEmail("hans@example.com").withRemark("Ida is a manually added Seller")
+            .withEmail("ida@example.com").withRemark("Ida is a manually added Seller")
             .withAddress("Block 623 Clementi Ave 6 #12-02").withSellingPrice("760000").withTags("mrt").buildSeller();
 
     // Manually added - Person's details found in {@code CommandTestUtil}
@@ -125,7 +129,7 @@ public class TypicalPersons {
     }
 
     public static List<Person> getTypicalPersons() {
-        return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
+        return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE, HARRY));
     }
 
     public static List<Person> getTypicalArchivedPersons() {

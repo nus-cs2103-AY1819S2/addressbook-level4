@@ -10,7 +10,6 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_MRT;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BOB;
 
-import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -20,15 +19,6 @@ import seedu.address.testutil.PersonBuilder;
 public class PersonTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
-
-    //TODO modify this test for the new person class if needed.
-    @Ignore
-    @Test
-    public void asObservableList_modifyList_throwsUnsupportedOperationException() {
-        //Person person = new PersonBuilder().build();
-        //thrown.expect(UnsupportedOperationException.class);
-        //person.getTags().remove(0);
-    }
 
     @Test
     public void isSamePerson() {
@@ -64,7 +54,7 @@ public class PersonTest {
     @Test
     public void equals() {
         // same values -> returns true
-        Person aliceCopy = new PersonBuilder(ALICE).buildSeller();
+        Person aliceCopy = new PersonBuilder(ALICE).buildBuyer();
         assertTrue(ALICE.equals(aliceCopy));
 
         // same object -> returns true

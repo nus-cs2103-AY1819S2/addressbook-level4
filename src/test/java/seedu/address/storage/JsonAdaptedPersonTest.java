@@ -2,8 +2,8 @@ package seedu.address.storage;
 
 import static org.junit.Assert.assertEquals;
 import static seedu.address.storage.JsonAdaptedPerson.MISSING_FIELD_MESSAGE_FORMAT;
-import static seedu.address.testutil.TypicalPersons.ALICE;
-import static seedu.address.testutil.TypicalPersons.BENSON;
+import static seedu.address.testutil.TypicalPersons.CARL;
+import static seedu.address.testutil.TypicalPersons.ELLE;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,22 +29,22 @@ public class JsonAdaptedPersonTest {
     //private static final String INVALID_RENTALPRICE = "price";
     //private static final String INVALID_CUSTOMER = "random";
 
-    private static final String VALID_NAME = BENSON.getName().toString();
-    private static final String VALID_PHONE = BENSON.getPhone().toString();
-    private static final String VALID_EMAIL = BENSON.getEmail().toString();
-    private static final String VALID_ADDRESS = BENSON.getAddress().toString();
-    private static final String VALID_REMARK = BENSON.getAddress().toString();
-    private static final String VALID_RENTALPRICE = BENSON.getRentalPrice().toString();
-    private static final String VALID_SELLINGPRICE = ALICE.getSellingPrice().toString();
+    private static final String VALID_NAME = CARL.getName().toString();
+    private static final String VALID_PHONE = CARL.getPhone().toString();
+    private static final String VALID_EMAIL = CARL.getEmail().toString();
+    private static final String VALID_ADDRESS = CARL.getAddress().toString();
+    private static final String VALID_REMARK = CARL.getAddress().toString();
+    private static final String VALID_RENTALPRICE = ELLE.getRentalPrice().toString();
+    private static final String VALID_SELLINGPRICE = CARL.getSellingPrice().toString();
     private static final String VALID_CUSTOMER = "seller";
-    private static final List<JsonAdaptedTag> VALID_TAGS = BENSON.getTags().stream()
+    private static final List<JsonAdaptedTag> VALID_TAGS = CARL.getTags().stream()
             .map(JsonAdaptedTag::new)
             .collect(Collectors.toList());
 
     @Test
     public void toModelType_validPersonDetails_returnsPerson() throws Exception {
-        JsonAdaptedPerson person = new JsonAdaptedPerson(BENSON);
-        assertEquals(BENSON, person.toModelType());
+        JsonAdaptedPerson person = new JsonAdaptedPerson(CARL);
+        assertEquals(CARL, person.toModelType());
     }
 
     @Test

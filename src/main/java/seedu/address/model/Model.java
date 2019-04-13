@@ -97,7 +97,7 @@ public interface Model {
     /**
      * Returns true if a person with the same identity as {@code editedPerson} exists in the address book.
      */
-    boolean hasEditedPerson(Person editedPerson);
+    boolean hasEditedPerson(Person referencePerson, Person editedPerson);
 
     /**
      * Returns true if a person with the same identity as {@code toAdd} exists in the address book.

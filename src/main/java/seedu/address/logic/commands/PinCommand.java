@@ -42,14 +42,17 @@ public class PinCommand extends Command {
 
         requireNonNull(model);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        //model.updateFilteredPinnedPersonList(PREDICATE_SHOW_ALL_PERSONS);
         List<Person> lastShownList = model.getFilteredPersonList();
         List<Person> lastShownPinList = model.getFilteredPinnedPersonList();
-        Person personToPin = lastShownList.get(targetIndex.getZeroBased());
+        Person personToPin;
 
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
-        } else if (lastShownPinList.size() >= MAX_SIZE) {
+        } else {
+            personToPin = lastShownList.get(targetIndex.getZeroBased());
+        }
+
+        if (lastShownPinList.size() >= MAX_SIZE) {
             return new CommandResult(String.format(MESSAGE_PIN_LIST_FULL, personToPin));
         } else if (lastShownPinList.contains(personToPin)) {
             return new CommandResult(String.format(MESSAGE_PIN_PERSON_ALREADY, personToPin));

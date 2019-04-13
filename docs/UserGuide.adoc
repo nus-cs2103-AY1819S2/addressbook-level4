@@ -306,7 +306,7 @@ Returns any member having names `Betsy`, `Tim`, or `John`
 * `memberFind matricnum A0` +
 Returns all members (matric num starts with A0)
 
-==== Listing members : `memberList` or mList`
+==== Listing members : `memberList` or `mList`
 
 Shows a list of all members in ClubManager. +
 Format: `memberList`

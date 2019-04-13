@@ -27,10 +27,10 @@
 #conditions .label {
     -fx-font-family: 'Lato';
     -fx-font-weight: 300;
-    -fx-font-size: 10pt;
+    -fx-font-size: 9.5pt;
     -fx-text-fill: white;
     -fx-background-color: #3e7b91;
-    -fx-padding: 2 5 2 5;
+    -fx-padding: 2 4 2 4;
     -fx-border-radius: 4;
     -fx-background-radius: 4;
 }
@@ -97,10 +97,10 @@ i {
 #specialisations .label {
     -fx-font-family: 'Lato';
     -fx-font-weight: 300;
-    -fx-font-size: 10pt;
+    -fx-font-size: 9.5pt;
     -fx-text-fill: white;
     -fx-background-color: #ee5253;
-    -fx-padding: 2 5 2 5;
+    -fx-padding: 2 4 2 4;
     -fx-border-radius: 4;
     -fx-background-radius: 4;
 }

@@ -2,7 +2,6 @@ package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.Syntax.PREFIX_START_COUNT;
-import static seedu.address.logic.parser.Syntax.PREFIX_START_INDEX;
 import static seedu.address.logic.parser.Syntax.PREFIX_START_MODE;
 
 import java.util.stream.Stream;
@@ -27,14 +26,18 @@ public class StartCommandParser implements Parser {
      */
     @Override
     public QuizStartCommand parse(String args) throws ParseException {
+        String[] splited = args.split("\\s+");
         ArgumentMultimap argMultimap =
-            ArgumentTokenizer.tokenize(args, PREFIX_START_INDEX, PREFIX_START_COUNT, PREFIX_START_MODE);
-        if (!arePrefixesPresent(argMultimap, PREFIX_START_INDEX, PREFIX_START_MODE)
-                || !argMultimap.getPreamble().isEmpty()) {
+            ArgumentTokenizer.tokenize(args, PREFIX_START_COUNT, PREFIX_START_MODE);
+        if (!arePrefixesPresent(argMultimap, PREFIX_START_MODE)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, QuizStartCommand.MESSAGE_USAGE));
         }
-
-        int index = ParserUtil.parseLessonIndex(argMultimap.getValue(PREFIX_START_INDEX).get());
+        int index;
+        try {
+            index = Integer.parseInt(splited[1]);
+        } catch (NumberFormatException e) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, QuizStartCommand.MESSAGE_USAGE));
+        }
         int count = ParserUtil.parseCount(argMultimap.getValue(PREFIX_START_COUNT)
             .orElse(String.valueOf(Session.CARD_COUNT_MINIMUM)));
         QuizMode mode = ParserUtil.parseMode(argMultimap.getValue(PREFIX_START_MODE).get());
@@ -43,9 +46,12 @@ public class StartCommandParser implements Parser {
     }
 
     /**
-    * Returns true if none of the prefixes contains empty {@code Optional} values in the given
-    * {@code ArgumentMultimap}.
-    */
+     * Returns true if none of the prefixes contains empty values in the given {@code ArgumentMultimap}.
+     *
+     * @param argumentMultimap the mapping of prefixes to their respective arguments
+     * @param prefixes the prefixes to check if present
+     * @return true if prefixes are present in {@see argumentMultimap}; false otherwise
+     */
     private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
         return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }

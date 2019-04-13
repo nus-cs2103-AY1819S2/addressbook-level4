@@ -16,7 +16,7 @@ public class QuizAnswerCommandSystemTest extends BrainTrainSystemTest {
     @Test
     public void answer() {
         // starts the quiz
-        executeCommand(QuizStartCommand.COMMAND_WORD + " i/1 c/2 m/REVIEW\n");
+        executeCommand(QuizStartCommand.COMMAND_WORD + " 1 c/2 m/REVIEW\n");
 
         /* Case: some invalid quiz command in braintrain
          * -> fails, invalid command

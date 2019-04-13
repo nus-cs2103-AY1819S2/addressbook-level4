@@ -158,8 +158,8 @@ public class LogicManagerTest {
         managementModel = new ManagementModelManager(new UserPrefs(), lessonList, new User());
         logic = new LogicManager(managementModel, quizModel, storage);
 
-        assertCommandSuccess(QuizStartCommand.COMMAND_WORD + " i/1 c/2 m/PREVIEW",
-                "Starting new quiz", expectedMgmtMgr);
+        assertCommandSuccess(QuizStartCommand.COMMAND_WORD + " 1 c/2 m/PREVIEW",
+                "Starting new quiz\nCurrent lesson: Capitals", expectedMgmtMgr);
     }
 
     @Test

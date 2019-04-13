@@ -16,7 +16,6 @@ public class Syntax {
     public static final Prefix PREFIX_OPTIONAL = new Prefix("o/");
 
     // Used by Start command
-    public static final Prefix PREFIX_START_INDEX = new Prefix("i/");
     public static final Prefix PREFIX_START_COUNT = new Prefix("c/");
     public static final Prefix PREFIX_START_MODE = new Prefix("m/");
 }

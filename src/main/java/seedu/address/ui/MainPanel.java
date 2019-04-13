@@ -25,7 +25,6 @@ public class MainPanel extends UiPart<Region> {
 
     private QuizCard quizCard;
     private String totalCorrectAndTotalAttempts;
-    private String currentLessonName;
 
     public MainPanel() {
         super(FXML);
@@ -35,15 +34,13 @@ public class MainPanel extends UiPart<Region> {
      * Displays the current testing card and status information in the main panel.
      * @param quizCard the current testing quizCard.
      * @param totalCorrectAndTotalAttempts the current status stored in totalCorrectAndTotalAttempts.
-     * @param currentLessonName the name of the current testing session.
      */
-    public void setFeedbackToUser(QuizCard quizCard, String totalCorrectAndTotalAttempts, String currentLessonName) {
+    public void setFeedbackToUser(QuizCard quizCard, String totalCorrectAndTotalAttempts) {
         mainPanel.getChildren().clear();
 
         if (quizCard != null) {
             this.quizCard = quizCard;
             this.totalCorrectAndTotalAttempts = totalCorrectAndTotalAttempts;
-            this.currentLessonName = currentLessonName;
             QuizMode mode = quizCard.getQuizMode();
             Text questionAnswer = new Text();
 
@@ -55,13 +52,11 @@ public class MainPanel extends UiPart<Region> {
                 if (!quizCard.isWrongTwice()) {
                     Text text = new Text("\nPress Enter to go to the next question");
                     mainPanel.getChildren().addAll(questionAnswer, text);
-                    setLessonName();
                     setTotalCorrect();
                     break;
                 }
                 mainPanel.getChildren().add(questionAnswer);
                 setAnswerPrompt();
-                setLessonName();
                 setTotalCorrect();
                 break;
             case REVIEW:
@@ -69,7 +64,6 @@ public class MainPanel extends UiPart<Region> {
                     quizCard.getQuestion()));
                 mainPanel.getChildren().add(questionAnswer);
                 setAnswerPrompt();
-                setLessonName();
                 setTotalCorrect();
                 break;
             default:
@@ -90,11 +84,7 @@ public class MainPanel extends UiPart<Region> {
         mainPanel.getChildren().addAll(texts);
     }
     private void setTotalCorrect() {
-        Text text1 = new Text("\nCurrent total correct questions: " + totalCorrectAndTotalAttempts);
-        mainPanel.getChildren().add(text1);
-    }
-    private void setLessonName() {
-        Text text1 = new Text("\n\nCurrent lesson name: " + currentLessonName);
+        Text text1 = new Text("\n\nCurrent total correct questions: " + totalCorrectAndTotalAttempts);
         mainPanel.getChildren().add(text1);
     }
 }

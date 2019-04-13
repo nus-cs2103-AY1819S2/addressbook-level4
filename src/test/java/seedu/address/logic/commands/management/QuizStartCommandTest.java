@@ -3,6 +3,7 @@ package seedu.address.logic.commands.management;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static seedu.address.commons.core.Messages.MESSAGE_OPENED_LESSON;
+import static seedu.address.logic.commands.management.QuizStartCommand.MESSAGE_LESSON;
 import static seedu.address.testutil.TypicalCards.CARD_BELGIUM;
 import static seedu.address.testutil.TypicalCards.CARD_JAPAN;
 
@@ -36,7 +37,7 @@ import seedu.address.testutil.SrsCardBuilder;
 
 public class QuizStartCommandTest {
     private static final CommandHistory commandHistory = new CommandHistory();
-    private static final String MESSAGE_COUNT = "Not enough cards in current lesson.\n Set the count to the maximum"
+    private static final String MESSAGE_COUNT = "Not enough cards in current lesson.\nSet the count to the maximum"
             + " number for you by default.";
 
     @Rule
@@ -78,6 +79,14 @@ public class QuizStartCommandTest {
         ManagementModel managementModel = new ManagementModelManager();
         final Session session = new SessionBuilder().build();
         thrown.expectMessage("Lesson index is out of range. Please try a smaller one.");
+        CommandResult commandResult = new QuizStartCommand(session).execute(managementModel, commandHistory);
+        assertNull(commandResult);
+    }
+    @Test
+    public void execute_lessonExistAnother() throws Exception {
+        ManagementModel managementModel = new ManagementModelManager();
+        final Session session = new SessionBuilder(new Session(0, 1, QuizMode.LEARN)).build();
+        thrown.expectMessage("Lesson index is out of range. Please try a larger one.");
         CommandResult commandResult = new QuizStartCommand(session).execute(managementModel, commandHistory);
         assertNull(commandResult);
     }
@@ -171,7 +180,7 @@ public class QuizStartCommandTest {
         assertEquals(expectedCommandHistory, commandHistory);
         session.setCount(10);
         CommandResult largeCount = new QuizStartCommand(session).executeActual(expectedModel, commandHistory);
-        assertEquals(MESSAGE_COUNT, largeCount.getFeedbackToUser());
+        assertEquals(MESSAGE_COUNT + MESSAGE_LESSON + "default", largeCount.getFeedbackToUser());
     }
 
     @Test

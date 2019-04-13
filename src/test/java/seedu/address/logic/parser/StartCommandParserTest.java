@@ -15,7 +15,7 @@ public class StartCommandParserTest {
     public void parse_emptyArg_throwsParseException() {
         assertParseFailure(parser, "     ", format(MESSAGE_INVALID_COMMAND_FORMAT,
                 QuizStartCommand.MESSAGE_USAGE));
-        assertParseFailure(parser, "start n/02-03-LEARN c/15 m/LEARN", format(MESSAGE_INVALID_COMMAND_FORMAT,
+        assertParseFailure(parser, "start 1i c/15 m/LEARN", format(MESSAGE_INVALID_COMMAND_FORMAT,
                 QuizStartCommand.MESSAGE_USAGE));
     }
     //TODO:

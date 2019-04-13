@@ -3,7 +3,6 @@ package seedu.address.logic.commands.management;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_OPENED_LESSON;
 import static seedu.address.logic.parser.Syntax.PREFIX_START_COUNT;
-import static seedu.address.logic.parser.Syntax.PREFIX_START_INDEX;
 import static seedu.address.logic.parser.Syntax.PREFIX_START_MODE;
 
 import java.util.HashMap;
@@ -35,15 +34,16 @@ public class QuizStartCommand extends ManagementCommand {
     public static final String COMMAND_WORD = "start";
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + "Parameters: "
-            + PREFIX_START_INDEX + "LESSON INDEX "
+            + "LESSON_INDEX "
             + "[" + PREFIX_START_COUNT + "COUNT] "
             + PREFIX_START_MODE + "MODE...\n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_START_INDEX + "1 "
+            + "1 "
             + PREFIX_START_COUNT + "10 "
             + PREFIX_START_MODE + "LEARN";
     public static final String MESSAGE_SUCCESS = "Starting new quiz";
-    public static final String MESSAGE_COUNT = "Not enough cards in current lesson.\n Set the count to the maximum"
+    public static final String MESSAGE_LESSON = "\nCurrent lesson: ";
+    public static final String MESSAGE_COUNT = "Not enough cards in current lesson.\nSet the count to the maximum"
             + " number for you by default.";
     private Session session;
 
@@ -71,8 +71,10 @@ public class QuizStartCommand extends ManagementCommand {
         if (session.getCount() > session.getSrsCards().size()) {
             session.setCount(session.getSrsCards().size());
             sb.append(MESSAGE_COUNT);
+            sb.append(MESSAGE_LESSON + session.getName());
         } else {
             sb.append(MESSAGE_SUCCESS);
+            sb.append(MESSAGE_LESSON + session.getName());
         }
         List<QuizCard> quizCards = session.generateSession();
         Quiz quiz = new Quiz(quizCards, session.getMode());
@@ -106,6 +108,9 @@ public class QuizStartCommand extends ManagementCommand {
         List<Lesson> lessons = lessonList.getLessons();
         if (this.session.getLessonIndex() > lessons.size()) {
             throw new CommandException("Lesson index is out of range. Please try a smaller one.");
+        }
+        if (this.session.getLessonIndex() <= 0) {
+            throw new CommandException("Lesson index is out of range. Please try a larger one.");
         }
         Lesson lesson = lessons.get(this.session.getLessonIndex() - 1);
         HashMap<Integer, CardSrsData> cardData = new HashMap<>();

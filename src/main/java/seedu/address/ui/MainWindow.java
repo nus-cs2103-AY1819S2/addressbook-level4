@@ -182,8 +182,7 @@ public class MainWindow extends UiPart<Stage> {
      * Sets the display for quiz mode.
      */
     private void handleQuiz() {
-        mainPanel.setFeedbackToUser(logic.getCurrentQuizCard(), logic.getTotalCorrectAndTotalAttempts(),
-                logic.getCurrentLessonName());
+        mainPanel.setFeedbackToUser(logic.getCurrentQuizCard(), logic.getTotalCorrectAndTotalAttempts());
     }
 
     /**

@@ -33,7 +33,7 @@ public class ManagementModeParserTest {
 
     @Test
     public void parseCommand_start() throws Exception {
-        assertTrue(parser.parse("start i/1 c/15 m/LEARN") instanceof QuizStartCommand);
+        assertTrue(parser.parse("start 1 c/15 m/LEARN") instanceof QuizStartCommand);
     }
     @Test
     public void parseCommand_exit() throws Exception {

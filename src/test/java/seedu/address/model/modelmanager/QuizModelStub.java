@@ -8,7 +8,6 @@ import seedu.address.model.quiz.QuizMode;
 import seedu.address.model.session.Session;
 import seedu.address.model.srscard.SrsCard;
 import seedu.address.model.user.User;
-import seedu.address.testutil.Assert;
 
 /**
  * A default model stub that have all of the methods failing.

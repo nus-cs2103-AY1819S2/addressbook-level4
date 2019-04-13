@@ -45,31 +45,11 @@ public class ParserUtilTest {
         final String wrongCount = "asd";
 
         ParserUtil parserUtil = new ParserUtil();
-        int expectedIndex = parserUtil.parseLessonIndex(index);
-        assertEquals(expectedIndex, Integer.parseInt(index));
         int expectedCount = parserUtil.parseCount(count);
         assertEquals(expectedCount, 1);
         String trimmedCount = wrongCount.trim();
         thrown.expectMessage("Count of number should be a valid integer less than MAX_INTEGER (2147483647).");
         parserUtil.parseCount(trimmedCount);
-    }
-    @Test
-    public void parserLessonIndex() throws ParseException {
-        final String index = "asd";
-        ParserUtil parserUtil = new ParserUtil();
-        String trimmedIndex = index.trim();
-        thrown.expectMessage("Index of a lesson should be a valid integer"
-                + " less than MAX_INTEGER (2147483647).");
-        parserUtil.parseLessonIndex(trimmedIndex);
-    }
-    @Test
-    public void parserLargeIndex() throws ParseException {
-        final String index = "24398798479857348279";
-        ParserUtil parserUtil = new ParserUtil();
-        String trimmedIndex = index.trim();
-        thrown.expectMessage("Index of a lesson should be a valid integer"
-                + " less than MAX_INTEGER (2147483647).");
-        parserUtil.parseLessonIndex(trimmedIndex);
     }
     @Test
     public void parserLargeCount() throws ParseException {

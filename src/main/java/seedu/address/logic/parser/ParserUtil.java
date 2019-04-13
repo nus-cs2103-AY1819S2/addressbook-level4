@@ -27,26 +27,6 @@ public class ParserUtil {
         return Index.fromOneBased(Integer.parseInt(trimmedIndex));
     }
     /**
-     * Parses a string{@code index} into an integer {@code index}.
-     * Leading and trailing whitespaces will be trimmed.
-     * @throws ParseException if the specified index is not an integer or is an integer larger than MAX_VALUE.
-     */
-    public static int parseLessonIndex(String index) throws ParseException {
-        requireNonNull(index);
-        String trimmedIndex = index.trim();
-        boolean numeric = trimmedIndex.matches("\\d+");
-        if (numeric) {
-            try {
-                return Integer.parseInt(trimmedIndex);
-            } catch (NumberFormatException e) {
-                throw new ParseException(
-                        "Index of a lesson should be a valid integer less than MAX_INTEGER (2147483647).");
-            }
-        } else {
-            throw new ParseException("Index of a lesson should be a valid integer less than MAX_INTEGER (2147483647).");
-        }
-    }
-    /**
      * Parses a string{@code count} into a integer{@code count}.
      * Leading and trailing whitespaces will be trimmed.
      * @throws ParseException if the count is not a number or is an integer larger than MAX_VALUE.

@@ -25,7 +25,7 @@ public class BillCommandIntegrationTest {
         Bill bill = new StatisticsBuilder().buildBill();
 
         Model expectedModel = new ModelManager(model.getRestOrRant(), new UserPrefs());
-        expectedModel.addDailyRevenue(validDailyRevenue);
+        expectedModel.addRevenue(validDailyRevenue);
 
         assertCommandSuccess(Mode.BILL_MODE, new BillCommand(bill), model, commandHistory,
                 String.format(BillCommand.MESSAGE_SUCCESS, bill), expectedModel);

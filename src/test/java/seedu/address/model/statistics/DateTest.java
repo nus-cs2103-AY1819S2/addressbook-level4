@@ -64,6 +64,5 @@ public class DateTest {
         assertTrue(new Date("01.12.2019").equals(new Date("01.12.2019")));
         assertTrue(new Date("01.02.2019").equals(new Date("1.02.2019")));
         assertTrue(new Date("01.02.2019").equals(new Date("01.2.2019")));
-        assertTrue(new Date("01.02.0019").equals(new Date("01.02.19")));
     }
 }

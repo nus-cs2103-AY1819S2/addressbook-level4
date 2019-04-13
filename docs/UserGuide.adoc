@@ -2,8 +2,10 @@
 :site-section: UserGuide
 :toc:
 :toc-title:
+:toclevels: 4
 :toc-placement: preamble
 :sectnums:
+:icons: font
 :imagesDir: images
 :stylesDir: stylesheets
 :xrefstyle: full
@@ -11,6 +13,7 @@
 ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
+:important-caption: :heavy_exclamation_mark:
 endif::[]
 :repoURL: https://github.com/cs2103-ay1819s2-w09-3/main
 
@@ -18,107 +21,340 @@ By: `Team W09-3`      Since: `Feb 2019`      Licence: `MIT`
 
 == Introduction
 
-RestOrRant (ROR) is for those who *prefer to use a desktop app for managing a restaurant's front-end operations*. More importantly, ROR is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, ROR can get your restaurant management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+RestOrRant (ROR) is a desktop restaurant management application that allows *restaurant managers, waiters and cashiers* to perform *restaurant front-end operations* more efficiently. With ROR, you can easily manage table allocation, handle orders, track item availability and check restaurant statistics.
+
+RestOrRant mainly uses a *Command Line Interface* (CLI) to perform operations, but it also boasts a Graphical User Interface (GUI) to provide you with visual information for ease of reference.
+
+Interested? Head over to <<Quick Start>> to get started with RestOrRant!
 
 == Quick Start
 
-.  Ensure you have Java version `9` or later installed in your Computer.
-.  Download the latest `restorrant.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your RestOrRant application.
-.  Double-click the file to start the app. The GUI should appear in a few seconds.
+Welcome to RestOrRant! If you are just starting out, this quick start section will help you get RestOrRant up and running in no time at all and equip you with the basics so that you can quickly enjoy and master the features that ROR has to offer.
+
+=== Using the User Guide
+
+This User Guide is filled with information to help you set up and make the most of RestOrRant. You will be able to learn more about the <<Modes and Commands, commands>> that are available for you, together with examples of how they work. These commands are also consolidated into a <<Command Summary, summary>> for your convenience.
+
+To complement your reading experience, you may find it useful to refer to the table below for the different symbols and formatting used throughout this guide.
+
+[width="70%",cols="^15%,85%"]
+|===
+a| `code` | Command that can be typed into the command box
+ifdef::env-github[]
+| :white_check_mark: | Expected result after executing the command
+| :bulb: | Tips and tricks that might be useful
+| :information_source: | Additional information that is good to know
+| :heavy_exclamation_mark: | Important pointers to take note
+endif::[]
+ifndef::env-github[]
+a| icon:check[role="green", size="2x"] | Expected result after executing the command
+a| icon:lightbulb-o[role="icon-tip", size="2x"] | Tips and tricks that might be useful
+a| icon:info-circle[role="icon-note", size="2x"] | Additional information that is good to know
+a| icon:exclamation-circle[role="icon-important", size="2x"] | Important pointers to take note
+endif::[]
+|===
+
+=== First steps
+
+These steps will guide you in installing RestOrRant on your computer.
+
+. Ensure you have Java version `9` or later installed in your computer.
+[TIP]
+You can download the latest Java version link:https://www.oracle.com/technetwork/java/javase/downloads/index.html[here].
+
+. Download the latest `restorrant.jar` link:{repoURL}/releases[here].
+. Copy the file to the folder you want to use as the home folder for RestOrRant.
+. Double-click the file to start the app. The interface below should appear in a few seconds.
+
 +
 image::Ui.png[width="790"]
-+
-.  Type the command in the command box and press kbd:[Enter] to execute it. +
-e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
-.  The application has three modes: Restaurant Mode, Table Mode and Menu Mode. RestOrRant starts in Restaurant Mode by default. You can switch between the modes using the `xxxMode` commands. Each mode comes with a set of commands to perform mode-specific operations.
-.  Some example commands you can try:
 
-* *`addTable 2 1 4`* (in Restaurant Mode): adds 3 tables to the restaurant with 2, 1 and 4 seats respectively.
-* *`menuMode`*: switches RestOrRant to Menu Mode and displays the list of menu items for the restaurant.
-* *`addToMenu c/W09 n/Chicken Wings p/12.50`* (in Menu Mode): adds a new item "W09 Chicken Wings - $12.50" to the menu.
-* *`tableMode 2`*: switches RestOrRant to Table Mode for the table with table number 2 and displays the list of order items for table 2.
-* *`addToOrder W09 1`* (in Table Mode): adds an order of 1x W09 to table 2.
-* *`exit`* : exits the application.
+=== Understanding the Mode system
 
-.  Refer to <<Features>> for details of each command.
+RestOrRant operates in 4 different modes and you will start off in the default Restaurant Mode.
+Each mode is dedicated to a main feature that ROR provides and comes with its own colour, display and set of commands for that feature.
+You may switch between the modes by using the <<Changing Modes, commands provided>>.
 
-[[Features]]
-== Features
+The 4 modes are shown below and you may click on them to find out more information about each mode, along with the commands that are available for you in that mode.
 
-====
-*Command Format*
+[width="100%",cols="^50%,^50%", frame=none, grid=none]
+|===
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `addTable NUMBER_OF_SEATS`, `NUMBER_OF_SEATS` is a parameter which can be used as `addTable 4`.
-* Items in square brackets are optional e.g `ITEM_CODE QUANTITY [ITEM_CODE QUANTITY]` can be used as `W09 3 A02 4` or as `W09 3`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[ITEM_CODE QUANTITY]...` can be used as `{nbsp}` (i.e. 0 times), `W09 3`, `W09 3 A02 4` etc.
-====
+a| image::RMUi_NoAnnotation.png[]
+<<Restaurant Mode, *Restaurant Mode*>> +
+Handles the status of tables and orders across the entire restaurant
+
+a| image::TMUi_NoAnnotation.png[]
+<<Table Mode, *Table Mode*>> +
+Manages the items ordered and their serving status for a specific table
+|===
+
+[width="100%",cols="^50%,^50%", frame=none, grid=none]
+|===
+a| image::MMUi_NoAnnotation.png[]
+<<Menu Mode, *Menu Mode*>> +
+Tracks the items on the restaurant's menu and their availability
+
+a| image::SMUi_NoAnnotation.png[]
+<<Statistics Mode, *Statistics Mode*>> +
+Displays the revenue and order statistics for the restaurant
+|===
+
+=== Navigating the user interface
+
+When you open up RestOrRant, you will see various components in the user interface.
+While the different modes display different information that is relevant to the specific mode, the general interface remains the same
+and the different components are labeled in the image below.
+
+image:Ui_Parts.png[width="790"]
+
+The function of each component is as follows:
+
+. *Command Box*: This is where you can key in commands to perform operations in RestOrRant.
+. *Results Display*: This is where the results are displayed after executing a command.
+. *Mode Display*: This indicates the current mode that you are in.
+. *Side Panel*: This panel lists information that is relevant to the mode.
+. *Main Panel*: This panel displays information that is relevant to the mode.
+
+You can find out what is displayed in the side and main panels for each mode in <<Modes and Commands>>.
+
+=== Using commands
+
+You can use the commands described in <<Modes and Commands>> by typing them into the Command Box and pressing kbd:[Enter] to execute it.
+For example, typing *`help`* and pressing kbd:[Enter] will open the help window.
+
+Shortcuts are also provided for some commands to allow you to type faster and perform operations more quickly.
+For example, you may type the shortcut `b` instead of the full `bill` command to return the bill.
+
+[IMPORTANT]
+Note that the commands need to be executed in the correct mode as some of the shortcuts perform different operations when used in the different modes.
+For example, the `add` shortcut performs `addTable` in Restaurant Mode but `addToMenu` in Menu Mode.
+
+You may need to include parameters for some commands and the format of each command is provided in the command descriptions.
+You may refer to the pointers below to understand the formatting used to write the command format.
+
+****
+* Words in `UPPER_CASE` are the parameters to be supplied by you. +
+e.g. in `deleteFromOrder ITEM_CODE`, `ITEM_CODE` is a parameter which can be used as `deleteFromOrder W09`.
+* Items in square brackets are optional. +
+e.g `serve ITEM_CODE [QUANTITY]` can be used as `serve W09 3` or as `serve W09`.
+* Items with `…`​ after them can be used multiple times or not at all. +
+e.g. `addTable NUMBER_OF_SEATS [NUMBER_OF_SEATS]...` can be used as `addTable 2`, `addTable 2 4`, `addTable 2 4 4` etc.
+****
+
+Some of the parameters have restrictions and they are stated below.
+
+****
+* `TABLE_NUMBER` has to be a whole number greater than 0.
+* `NUMBER_OF_SEATS` and `NUMBER_OF_CUSTOMERS` have to be
+* `ITEM_CODE` has to be in the form of an uppercase alphabet followed by a double digit integer.
+* `QUANTITY` has to be a whole number between 0 and 2,000,000 inclusive.
+* `ITEM_NAME` has to be
+* `ITEM_PRICE` has to be
+* `DAY` has to be
+* `MONTH` has to be
+* `YEAR` has to be
+****
+
+Some commands may make changes to the data in RestOrRant. There is no need to save manually as the data will be automatically saved in the hard disk.
+
+=== Using RestOrRant in your restaurant
+
+RestOrRant comes preloaded with sample data to allow you to explore and get familiar with the application.
+The examples in this User Guide also make use of this data so that you can easily follow along.
+
+When you are ready to use RestOrRant in your restaurant, use the commands in the following steps to set up and personalise ROR for your own usage. You can find out more information about each command by clicking on them.
+
+. <<ClearRestOrRant, *`clearRestOrRant`*>>: Remove all the sample data so that you can fill it with your own restaurant's information.
+. <<AddTable, *`addTable`*>> (in Restaurant Mode): Populate the tables in ROR with your restaurant's seating information by specifying the number of seats for each table, in ascending order of table number.
+* For example, if your restaurant has 3 tables, and Table 1 and 2 have 4 seats while Table 3 has 8 seats, you can type in `addTable 4 4 8`.
+[TIP]
+You can add all the tables with just a single command!
+. <<MenuMode, *`menuMode`*>>: Switch over to Menu Mode to fill up the menu in ROR with your restaurant's menu information.
+. <<AddToMenu, *`addToMenu`*>> (in Menu Mode): Add each item into the menu by specifying the item code, name and price.
+* For example, `addToMenu c/A05 n/Salad p/4.50` will add a new salad item to the menu in ROR.
+
+That's it! Your RestOrRant is now ready for use. You may head on to <<Modes and Commands>> to learn more about the commands that are available for you.
+
+== Modes and Commands
+
+In this section, you can find details about the commands that RestOrRant supports. These details include the command function, format and example usage.
+The commands have been organised based on their function and the mode that they can be executed in so that you can easily look for the command that you want.
 
 === General
 
-The following commands can be used in any RestOrRant mode.
+RestOrRant provides general commands that are not feature-specific, but they enhance your RestOrRant experience as a whole. You can use these commands in any mode.
 
+[[Help]]
 ==== Viewing help : `help`
 
-Format: `help`
-
-// tag::changemode[]
-==== Switching to Restaurant Mode : `restaurantMode`
-
-Changes RestOrRant to Restaurant Mode which allows the user to add tables and update the tables' statuses. +
-Format: `restaurantMode`
-
+If you ever feel lost or cannot remember what command to use, don't fret! You can access this User Guide any time directly from RestOrRant by simply typing this command.
 ****
-* At start up, the application is already in Restaurant Mode.
-* RestOrRant should not already be in Restaurant Mode.
+*Format*: `help` +
+*Shortcut*: kbd:[F1]
 ****
 
-Examples:
+[TIP]
+You can also access the help window by clicking on menu:Help[Help] in the menu bar.
 
-* `restaurantMode`
+[width="100%",cols="5%,95%", grid=none]
+|===
+ifdef::env-github[| :white_check_mark: a| The help window will open.]
+ifndef::env-github[a| icon:check[role="green", size="2x"] a| The help window will open.]
+|===
 
-==== Switching to Table Mode : `tableMode`
 
-Changes RestOrRant to Table Mode for the table given by the specified table number and displays the list of order items from that table. +
-Format: `tableMode TABLE_NUMBER`
+[[History]]
+==== Viewing history : `history`
 
+You can easily view all the past commands used by you or your other colleagues by using this command, which will display the list of past commands in reverse chronological order.
 ****
-* The table with the specified table number must already exist in the restaurant (can be created in Restaurant Mode).
-****
-
-Examples:
-
-* `tableMode 2` +
-Switches to Table Mode for table 2 and displays the list of order items from table 2.
-
-==== Switching to Menu Mode : `menuMode`
-
-Changes RestOrRant to Menu Mode in order to add to, delete from or edit the menu items in the menu. +
-Format: `menuMode`
-
-****
-* RestOrRant should not already be in Menu Mode.
+*Format*: `history` +
+*Shortcut*: `h`
 ****
 
-==== Switching to Statistics Mode : `statisticsMode`
+[TIP]
+You can also use the kbd:[&uarr;] and kbd:[&darr;] keys to view past commands in the Command Box.
 
-Changes RestOrRant to Statistics Mode in order to view restaurant's customer, revenue and order statistics. +
-Format: `statisticsMode`
+[width="100%",cols="5%,95%", grid=none]
+|===
+ifdef::env-github[| :white_check_mark: a| The list of past commands will be shown in the Results Display.]
+ifndef::env-github[a| icon:check[role="green", size="2x"] a| The list of past commands will be shown in the Results Display.]
+|===
+
+[[ClearRestOrRant]]
+==== Clearing all the data : `clearRestOrRant`
+
+If you need to start from a clean slate, you can clear all the data in RestOrRant with this command and restart from an empty application.
+
+[IMPORTANT]
+This action is not reversible! Be certain before you use this command.
 
 ****
-* RestOrRant should not already be in Statistics Mode.
+*Format*: `clearRestOrRant`
 ****
-// end::changemode[]
 
+[NOTE]
+No shortcut is provided and the command is intentionally long to prevent accidental use of this command.
+
+[width="100%",cols="5%,95%", grid=none]
+|===
+ifdef::env-github[| :white_check_mark: a| All data in RestOrRant will be deleted and the side and main panels will be empty.]
+ifndef::env-github[a| icon:check[role="green", size="2x"] a| All data in RestOrRant will be deleted and the side and main panels will be empty.]
+|===
+
+[[Exit]]
 ==== Exiting the program : `exit`
 
-Exits the program. +
-Format: `exit`
+When you are done with using RestOrRant, you can exit the application with this command.
 
-==== Saving the data
+****
+*Format*: `exit`
+****
 
-RestOrRant data are saved in the hard disk automatically after any command that changes the data. +
-There is no need to save manually.
+[TIP]
+You can also exit RestOrRant by clicking on menu:File[Exit] in the menu bar.
+
+[width="100%",cols="5%,95%", grid=none]
+|===
+ifdef::env-github[| :white_check_mark: a| RestOrRant exits and the application window closes.]
+ifndef::env-github[a| icon:check[role="green", size="2x"] a| RestOrRant exits and the application window closes.]
+|===
+
+
+// tag::changemode[]
+=== Changing Modes
+
+The commands in this section allow you to switch between modes to use the features that each mode provides.
+You can use these commands in any mode except if you are already in the mode that you are trying to switch to.
+
+[NOTE]
+You may find out more information about RestOrRant's Mode system <<Understanding the Mode system, here>>.
+
+[[RM]]
+==== Switching to Restaurant Mode : `restaurantMode`
+
+You can use this command to switch over to Restaurant Mode to manage the occupancy of the tables in the restaurant.
+
+****
+*Format*: `restaurantMode` +
+*Shortcut*: `RM`
+****
+
+[NOTE]
+Restaurant Mode is the default application mode when first starting up RestOrRant.
+
+[width="100%",cols="5%,95%", grid=none]
+|===
+ifdef::env-github[| :white_check_mark: a| The user interface switches to <<Restaurant Mode, Restaurant Mode>>.]
+ifndef::env-github[a| icon:check[role="green", size="2x"] a| The user interface switches to <<Restaurant Mode, Restaurant Mode>>.]
+|===
+
+[[TM]]
+==== Switching to Table Mode : `tableMode`
+
+You can use this command to switch over to Table Mode for the specified table number to handle the orders of that table.
+
+****
+*Format*: `tableMode TABLE_NUMBER` +
+*Shortcut*: `TM`
+****
+
+[NOTE]
+You can only access Table Mode for tables that exist in the restaurant and are currently occupied. The tables can be updated in <<Restaurant Mode, Restaurant Mode>>.
+
+[TIP]
+You can use this command in Table Mode if you are switching to a different table number.
+
+[width="100%",cols="5%,95%", grid=none]
+|===
+ifdef::env-github[| :white_check_mark: a| The user interface switches to <<Table Mode, Table Mode>>.]
+ifndef::env-github[a| icon:check[role="green", size="2x"] a| The user interface switches to <<Table Mode, Table Mode>>.]
+The specified table number is also indicated in the Results Display and as part of the Current Mode in the status bar.
+
+a| a| For example, after executing `tableMode 5`, the Results Display shows the table number of the current table, as seen in the image below.
+
+image::TableMode_RD.png[]
+The table number will also be displayed in the Current Mode portion of the status bar until you change the mode, as shown below.
+
+image::TableMode_CM.png[]
+|===
+
+[[MM]]
+==== Switching to Menu Mode : `menuMode`
+
+You can use this command to switch over to Menu Mode to modify the menu stored in RestOrRant.
+
+****
+*Format*: `menuMode` +
+*Shortcut*: `MM`
+****
+
+[width="100%",cols="5%,95%", grid=none]
+|===
+ifdef::env-github[| :white_check_mark: a| The user interface switches to <<Menu Mode, Menu Mode>>.]
+ifndef::env-github[a| icon:check[role="green", size="2x"] a| The user interface switches to <<Menu Mode, Menu Mode>>.]
+|===
+
+[[SM]]
+==== Switching to Statistics Mode : `statisticsMode`
+
+You can use this command to switch over to Statistics Mode to view revenue and order statistics for your restaurant.
+
+****
+*Format*: `statisticsMode` +
+*Shortcut*: `SM`
+****
+
+[NOTE]
+The default Revenue Panel view is Daily when you first switch over to Statistics Mode. You can find out more about the different views <<Statistics Mode, here>>.
+
+[width="100%",cols="5%,95%", grid=none]
+|===
+ifdef::env-github[| :white_check_mark: a| icon:check[role="green", size="2x"] a| The user interface switches to <<Statistics Mode, Statistics Mode>>.]
+ifndef::env-github[a| icon:check[role="green", size="2x"] a| The user interface switches to <<Statistics Mode, Statistics Mode>>.]
+|===
+// end::changemode[]
 
 // tag::restaurantmode[]
 === Restaurant Mode
@@ -127,6 +363,7 @@ In Restaurant Mode, which is the default mode, you can perform table-related ope
 
 image::RMUi.png[width="790"]
 
+[[AddTable]]
 ==== Adding tables : `addTable`
 
 Adds tables to the restaurant. +
@@ -142,10 +379,11 @@ Examples:
 * `addTable 4`
 * `addTable 4 2 4`
 
+[[EditPax]]
 ==== Editing the occupancy : `editPax`
 
 Edits the occupancy of the table. +
-Format: `editPax TABLE_NUMBER NEW_OCCUPANCY`
+Format: `editPax TABLE_NUMBER NUMBER_OF_CUSTOMERS`
 
 ****
 * Checks if the specified table exists before editing.
@@ -157,10 +395,11 @@ Examples:
 * `editPax 2 0`
 * `editPax 1 4`
 
+[[EditSeats]]
 ==== Editing the available seats : `editSeats`
 
 Edits the number of available seats at a table. +
-Format: `editSeats TABLE_NUMBER NEW_NUMBER_OF_SEATS`
+Format: `editSeats TABLE_NUMBER NUMBER_OF_SEATS`
 
 ****
 * Checks that the table exists.
@@ -171,6 +410,7 @@ Examples:
 
 * `editSeats 3 4`
 
+[[ClearTable]]
 ==== Clearing all the tables : `clearTable`
 
 Clears the RestOrRant of all tables. +
@@ -180,6 +420,7 @@ Format: `clearTable`
 * Checks that all tables are unoccupied before clearing the tables.
 ****
 
+[[SpaceFor]]
 ==== Getting available tables for customers : `spaceFor` _(Coming in v2.0)_
 
 Searches the restaurant for the table that best fits the number of customers to be seated. +
@@ -198,80 +439,178 @@ Examples:
 // tag::tablemode[]
 === Table Mode
 
-In Table Mode, you can perform order-related operations for the chosen table. The application will display the list of items ordered by the table, as well as the restaurant's menu for ease of reference.
+In Table Mode, you can handle orders from the current table, which is given by the table number that was specified in the <<TM, `tableMode`>> command.
+You can take orders, track the serving status of the items ordered, and calculate the bill for that table in this mode.
+
+The user interface for Table Mode (on Table 5) is shown in the image below.
 
 image::TMUi.png[width="790"]
+The function of the side and main panels are as follows:
 
+* *Order Panel*: This panel shows you the list of items ordered by the current table, arranged in chronological order. It also indicates the quantity left to serve for each item, and the background turns dark when the item is fully served.
+* *Menu Panel*: This panel displays the items on the menu along with their item codes for you to conveniently refer to when taking orders.
+
+Here are the commands that you can use in this mode to efficiently handle the orders in your restaurant.
+
+[[AddToOrder]]
 ==== Adding item(s) to an order : `addToOrder`
 
-Adds the specified item(s) to the order of the current selected table and displays the new list of order items. +
-Format: `addToOrder ITEM_CODE QUANTITY [ITEM_CODE QUANTITY]…`
+As you are taking an order from customers, this command allows you to record down the items that were ordered by the table by specifying the item code and quantity for each item that was ordered.
+You may also add more quantities to an item that has already been previously ordered by the table if customers choose to order more.
+
+[NOTE]
+The maximum quantity of an item that can be ordered by a table is 2,000,000.
+
+[TIP]
+The item codes for each item on the menu can be easily found from the Menu Panel.
 
 ****
-* Item has to exist in the menu, i.e. item code has to be valid (can be created in Menu Mode).
-* If the item is already in the order, the quantity for that item is increased.
-* There is no limit to the number of items added.
+*Format*: `addToOrder ITEM_CODE QUANTITY [ITEM_CODE QUANTITY]…` +
+*Shortcut*: `add`
 ****
 
-Examples:
+[NOTE]
+You can only add item codes that exist in the menu. You may add items to the menu using the <<AddToMenu, `addToMenu`>> command in Menu Mode.
 
-* `addToOrder W09 2`
-* `addToOrder W09 1 N01 1 C04 2`
+[TIP]
+You can add multiple or duplicate order items in a single command! If any of the item codes do not exist in the menu or if the new quantity exceeds 2,000,000, then that item and subsequent items will not be added to the order.
 
-==== Adding a note to an item in an order : `addNote` _(Coming in v2.0)_
+[width="100%",cols="5%,95%", grid=none]
+|===
+ifdef::env-github[| :white_check_mark: a|]
+ifndef::env-github[a| icon:check[role="green", size="2x"] a|]
+You will see a success message in the Results Display and the updated order items will be displayed in the Order Panel.
 
-Adds a note to an item in the order of the current selected table. +
-Format: `addNote ITEM_CODE NOTE`
+a| a| For example, Table 5 initially has 4 items in the Order Panel as shown below. Note that the quantity of Coke ordered is 1.
+
+image::Order_Before.png[]
+
+Suppose the customers at Table 5 want to order 1 more Cheeseburger and 1 more Coke. After executing `addToOrder W07 1 W13 1`, you will see a success message in the Results Display, as shown below.
+
+image::AddToOrder_RD.png[]
+The Order Panel will also be updated and you will now see 5 items displayed. As seen in the image below, 1 portion of Cheeseburger has been added as the 5th item, while the quantity of Coke ordered has been updated from 1 to 2.
+
+image::AddToOrder_After.png[]
+|===
+
+[[AddNote]]
+==== Adding a note to an order item : `addNote` _(Coming in v2.0)_
+
+Sometimes, customers may have special requests for their orders, such as reducing the level of spicyness or removing certain ingredients from their meal.
+You can easily add all these special requests and more to the order item with this command.
 
 ****
-* Item has to exist both in the menu (i.e. item code has to be valid) and order (i.e. item has been ordered) before the note can be added.
+*Format*: `addNote ITEM_CODE NOTE`
 ****
 
-Examples:
+[NOTE]
+You can only add notes to item codes that have already been ordered by the table. You can add items to the order using the <<AddToOrder, `addToOrder`>> command.
 
-* `addNote W09 Less spicy`
+[width="100%",cols="5%,95%", grid=none]
+|===
+ifdef::env-github[| :white_check_mark: a|]
+ifndef::env-github[a| icon:check[role="green", size="2x"] a|]
+You will see a success message in the Results Display and the note will appear in a tag beside the item name in the Order Panel.
+a| a| For example, after executing `addNote W09 Less spicy`, a "Less spicy" tag will appear beside "Chicken Wings" in the Order Panel.
+|===
 
+[[DeleteFromOrder]]
 ==== Deleting an item from an order : `deleteFromOrder`
 
-Deletes a specified item from the order of the current selected table. +
-Format: `deleteFromOrder ITEM_CODE`
+If you have accidentally keyed in an incorrect order or if the customer decides not to order a particular item anymore, you can remove that item from the table's order with this command.
 
 ****
-* Item has to exist both in the menu (i.e. item code has to be valid) and order (i.e. item has been ordered) before it can be deleted from the order.
+*Format*: `deleteFromOrder ITEM_CODE` +
+*Shortcut*: `del`
 ****
 
-Examples:
+[NOTE]
+You can only delete item codes that have already been ordered by the table.
 
-* `deleteFromOrder W09` +
-Deletes W09 Chicken Wings from the current table's order.
+[width="100%",cols="5%,95%", grid=none]
+|===
+ifdef::env-github[| :white_check_mark: a|]
+ifndef::env-github[a| icon:check[role="green", size="2x"] a|]
+You will see a success message in the Results Display and the deleted order item will no longer be displayed in the Order Panel.
 
+a| a| For example, Table 5 initially has 4 items in the Order Panel as shown below. Note that Coke has been ordered by the table.
+
+image::Order_Before.png[]
+
+Suppose the customers at Table 5 decide not to order Coke anymore. After executing `deleteFromOrder W13`, you will see a success message in the Results Display, as shown below.
+
+image::DeleteFromOrder_RD.png[]
+The Order Panel will also be updated and you will now only see 3 items displayed. As seen in the image below, Coke has been removed from the order.
+
+image::DeleteFromOrder_After.png[]
+|===
+
+[[ClearOrder]]
 ==== Clearing all the items in an order : `clearOrder`
 
-Deletes all the items ordered by the current selected table. +
-Format: `clearOrder`
+This command allows you to clear all the items ordered by a table so that you can take orders from scratch.
 
-Examples:
-
-* `clearOrder`
-
-==== Marking an item in an order as served : `serve` _(Coming in v1.4)_
-
-Marks the specified item as served for the current selected table. +
-Format: `serve ITEM_CODE [QUANTITY]`
+[IMPORTANT]
+This command is irreversible and will not save the order under restaurant statistics. If the customers are done with the meal, use the <<Bill, `bill`>> command instead, which will automatically clear the orders from the table.
 
 ****
-* Item has to exist in both the menu (i.e. item code has to be valid) and order (i.e. item has to be ordered) before it can be marked as served.
-* The quantity served cannot be greater than the unserved quantity of the item.
-* If quantity is not specified, the default quantity is 1.
+*Format*: `clearOrder` +
+*Shortcut*: `clear`
 ****
 
-Examples:
+[width="100%",cols="5%,95%", grid=none]
+|===
+ifdef::env-github[| :white_check_mark: a|]
+ifndef::env-github[a| icon:check[role="green", size="2x"] a|]
+You will see a success message in the Results Display and the Order Panel will be empty.
 
-* `serve W09` +
-Updates the status of the current table's order with 1 W09 Chicken Wings served.
-* `serve C04 2` +
-Updates the status of the current table's order with 2 C04 Shrimp Fried Rice served.
+a| a| For example, Table 5 initially has 4 items in the Order Panel as shown below.
 
+image::Order_Before.png[]
+
+After executing `clearOrder`, you will see a success message in the Results Display, as shown below.
+
+image::ClearOrder_RD.png[]
+The Order Panel will now be empty, as seen in the image below.
+
+image::ClearOrder_After.png[]
+|===
+
+[[Serve]]
+==== Marking an item in an order as served : `serve`
+
+Once you have served items to the table, you can update the serving status of those items by using this command so that you can easily keep track of what has and has not been served.
+
+****
+*Format*: `serve ITEM_CODE [QUANTITY]` +
+*Shortcut*: `s`
+****
+
+[NOTE]
+You can only serve item codes and quantities that have not already been served for the table. You can add items to the order using the <<AddToOrder, `addToOrder`>> command.
+
+[TIP]
+If the quantity is not specified, the default quantity served is 1.
+
+[width="100%",cols="5%,95%", grid=none]
+|===
+ifdef::env-github[| :white_check_mark: a|]
+ifndef::env-github[a| icon:check[role="green", size="2x"] a|]
+You will see a success message in the Results Display and the order item's quantity to serve in the Order Panel will be updated. The background of the order item also turns dark once it is fully served.
+
+a| a| For example, Table 5 initially has 4 items in the Order Panel as shown below. Note that there are still 2 Prawn Burgers that have yet to be served.
+
+image::Order_Before.png[]
+
+Suppose the Prawn Burgers have been served and you want to update their serving status in RestOrRant. After executing `serve W03 2`, you will see a success message in the Results Display, as shown below.
+
+image::Serve_RD.png[]
+The Order Panel will also be updated and you can see from the image below that there are no more quantities of Prawn Burger to serve. Since it is fully served, the background of the Prawn Burger item has turned dark.
+
+image::Serve_After.png[]
+|===
+
+[[Bill]]
 ==== Calculating the bill of an order : `bill`
 
 Calculates the bill of an order from the current selected table and displays the receipt. +
@@ -290,6 +629,7 @@ In Menu Mode, you can perform menu-related operations. The application will disp
 
 image::MMUi.png[width="790"]
 
+[[AddToMenu]]
 ==== Adding menu items to the menu : `addToMenu`
 
 Adds the specified item to the menu. +
@@ -304,6 +644,7 @@ Examples:
 * `addToMenu c/A02 n/French Fries p/2.00` +
 Adds French Fries with item code A02 and price $2.00 to the menu.
 
+[[DeleteFromMenu]]
 ==== Deleting menu items from the menu : `deleteFromMenu`
 
 Deletes the item specified by the item code from the menu. +
@@ -319,6 +660,7 @@ Examples:
 * `deleteFromMenu A02` +
 Deletes the menu item with item code A02 from the menu.
 
+[[ClearMenu]]
 ==== Clearing all the items in the menu : `clearMenu` _(Coming in v1.4)_
 
 Removes all menu items from the menu. +
@@ -341,6 +683,7 @@ In Statistics Mode, you can obtain statistics related to your restaurant, such a
 
 image::SMUi.png[width="790"]
 
+[[Revenue]]
 ==== Getting the total revenue : `revenue`
 
 Returns the total revenue earned by the restaurant by the stated year, month or day. +
@@ -363,8 +706,8 @@ Returns the total revenue of the month February 2019 `$7000`
 * `revenue y/2019` +
 Returns the total revenue of the year 2019 `15000`
 
-
-==== Getting the daily revenue : `daily` _(coming in v1.4)_
+[[Daily]]
+==== Getting the daily revenue : `daily`
 
 Change the interface to display the statistical daily revenue. +
 Format: `daily`
@@ -373,92 +716,41 @@ Format: `daily`
 * This is the default page for Statistics Mode. +
 ****
 
-==== Getting the monthly revenue : `monthly` _(coming in v1.4)_
+[[Monthly]]
+==== Getting the monthly revenue : `monthly`
 
 Change the interface to display the statistical monthly revenue. +
 Format: `monthly`
 
-==== Getting the yearly revenue : `yearly` _(coming in v1.4)_
+[[Yearly]]
+==== Getting the yearly revenue : `yearly`
 
 Change the interface to display the statistical yearly revenue. +
 Format: `yearly`
-
-==== Getting the most popular item ordered : `getMostPopularItem` _(coming in v1.4)_
-
-Returns the item on the menu that has the most orders. +
-Format: `getMostPopularItem`
-
-Examples:
-
-* `getMostPopularItem` +
-Returns the most popular item `W09 Chicken Wings`
-
-==== Getting the total number of customers : `getTotalCustomers` _(coming in v2.0)_
-
-Returns the total number of customer for the stated day, month or year. +
-Format: `getTotalCustomers [YEAR] [MONTH] [DAY]`
-
-****
-* `YEAR`, `MONTH`, `DAY` has to be valid.
-* If the stated period has no records, it will inform the user that there is no record.
-* If *no arguments* are included, by default it returns the total number of customers for the *current day*.
-****
-
-Examples:
-
-* `getTotalCustomers` +
-Returns the total number of customers of the current day `21`
-* `getTotalCustomers y/2019 m/01 d/01` +
-Returns the total number of customers on the specific day 01/01/2019 `21`
-* `getTotalCustomers y/2019 m/02` +
-Returns the total number of customers of the month February 2019 `600`
-* `getTotalCustomers y/2019` +
-Returns the total number of customers of the year 2019 `1200`
-
-==== Getting all the statistics : `getStatistics` _(coming in v2.0)_
-
-Returns all the calculated statistics. +
-Format: `getStatistics`
-
-****
-* It internally executes all the necessary calculations like:
-E.g. Most popular item, Yearly revenue, Monthly revenue, Recent average revenue.
-* Prints out all the statistics it has been computed.
-****
-
-Examples:
-
-* `getStatistics` +
-Returns All the statistics it has computed.
-`WELCOME TO RestOrRant STATISTIC CHART!` +
-`-----------------------------------------------------------------` +
-`Total Revenue` +
-`-----------------------------------------------------------------` +
-`Year 2018: $10540` +
-`Year 2019: $1700` +
-  `Jan: $800` +
-  `Feb: $900` +
-`Average Monthly Revenue: $850` +
-`-----------------------------------------------------------------` +
-`Total Number of Customers` +
-`-----------------------------------------------------------------` +
-`Year 2018: 20000` +
-`Year 2019: 50` +
-  `Jan: 30` +
-  `Feb: 20` +
-`Average no. of Monthly Customers: 25` +
-`-----------------------------------------------------------------` +
-`Top 3 most popular dish item` +
-`-----------------------------------------------------------------` +
-  `1. W09 Chicken Wings` +
-  `2. W12 Pork Chop Rice` +
-  `3. A01 Dumpling Noodles` +
 // end::statisticsmode[]
 
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
-*A*: Install the application in the other computer and overwrite the empty data files it creates with the files that contains the data of your previous RestOrRant folder.
+*A*: Install the application in the other computer and copy over the data folder from your previous RestOrRant folder along with all the files inside.
+
+[NOTE]
+There should be 4 files in the data folder, *menu.json*, *orders.json*, *statistics.json* and *tables.json*.
+
+== Glossary
+
+[[order]] Order::
+The list of items ordered by dining customers at a table
+
+[[menu]] Menu::
+The list of items available to be ordered by dining customers at the restaurant
+
+[[bill]] Bill::
+The amount of money that dining customers have to pay based on their order
+
+[[revenue]] Revenue::
+The amount of money earned based on the bills
+
 
 == Command Summary
 
@@ -466,61 +758,88 @@ Here is our reference sheet so that you can have all of RestOrRant's commands an
 
 === General
 
-[width="90%",cols="25%,15%,30%,30%",options="header",]
+These commands can be used in any mode.
+
+[width="90%",cols="^25%,^15%,30%,30%",options="header",]
 |=======================================================================
-|Command |Shortcut |Usage |Example
-|`help` | kbd:[F1] | `help` | Shows the user guide
-|`restaurantMode` | `*RM*` | `restaurantMode` | Switches to Restaurant Mode
-|`tableMode` | `*TM*` | `tableMode TABLE_NUMBER` | `tableMode 1` +
+^|Command ^|Shortcut ^|Usage ^|Example
+a|<<Help, `help`>> a| kbd:[F1] a| `help` a| Shows the user guide
+a|<<History, `history`>> a| `*h*` a| `history` a| Shows the past commands
+a|<<ClearRestOrRant, `clearRestOrRant`>> a| - a| `clearRestOrRant` a| Clears all the data in RestOrRant
+a|<<Exit, `exit`>> a| - a| `exit` a| Exits RestOrRant
+|=======================================================================
+
+=== Changing Modes
+
+These commands can be used in any mode unless you are already in the mode that you are trying to switch to.
+
+[width="90%",cols="^25%,^15%,30%,30%",options="header",]
+|=======================================================================
+^|Command ^|Shortcut ^|Usage ^|Example
+a|<<RM, `restaurantMode`>> a| `*RM*` a| `restaurantMode` a| Switches to Restaurant Mode
+a|<<TM, `tableMode`>> a| `*TM*` a| `tableMode TABLE_NUMBER` a| `tableMode 1` +
 Switches to Table Mode for Table 1
-|`menuMode` | `*MM*` | `menuMode` | Switches to Menu Mode
-|`statisticsMode` | `*SM*` | `statisticsMode` | Switches to Statistics Mode
-|`exit` | - | `exit` | Exits RestOrRant
+a|<<MM, `menuMode`>> a| `*MM*` a| `menuMode` a| Switches to Menu Mode
+a|<<SM, `statisticsMode`>> a| `*SM*` a| `statisticsMode` a| Switches to Statistics Mode
 |=======================================================================
 
 === Restaurant Mode
 
-[width="90%",cols="25%,15%,30%,30%",options="header",]
+These commands can only be used in Restaurant Mode.
+
+[width="90%",cols="^25%,^15%,30%,30%",options="header",]
 |=======================================================================
-|Command |Shortcut |Usage |Example
-|`addTable` | `*add*` | `addTable NUMBER_OF_SEATS [NUMBER_OF_SEATS] ...` | `addTable 2 4 6 8` +
+^|Command ^|Shortcut ^|Usage ^|Example
+a|<<AddTable, `addTable`>> a| `*add*` a| `addTable NUMBER_OF_SEATS [NUMBER_OF_SEATS] ...` a| `addTable 2 4 6 8` +
 Adds 4 tables with 2, 4, 6 and 8 seats
-|`editPax` | - | `editPax TABLE_NUMBER NEW_OCCUPANCY` | `editPax 1 2` +
+a|<<EditPax, `editPax`>> a| - a| `editPax TABLE_NUMBER NUMBER_OF_CUSTOMERS` a| `editPax 1 2` +
 Updates Table 1 to have 2 diners
-|`editSeats` | - | `editSeats TABLE_NUMBER NUMBER_OF_SEATS` | `editSeats 1 5` +
+a|<<EditSeats, `editSeats`>> a| - a| `editSeats TABLE_NUMBER NUMBER_OF_SEATS` a| `editSeats 1 5` +
 Updates Table 1 to have 5 seats
-|`clearTable` | `*clear*` | `clearTable` | Clears all the tables in RestOrRant
+a|<<ClearTable, `clearTable`>> a| `*clear*` a| `clearTable` a| Clears all the tables in RestOrRant
 |=======================================================================
 
 === Table Mode
 
-[width="90%",cols="25%,15%,30%,30%",options="header",]
+These commands can only be used in Table Mode.
+
+[width="90%",cols="^25%,^15%,30%,30%",options="header",]
 |=======================================================================
-|Command |Shortcut |Usage |Example
-|`addToOrder` | `*add*` | `addToOrder ITEM_CODE QUANTITY [ITEM_CODE QUANTITY] …` | `addToOrder W09 1 W12 2` +
-Adds 1 W09 and 2 W12 to the current table's order
-|`deleteFromOrder` | `*del*` | `deleteFromOrder ITEM_CODE` | `deleteFromOrder W09` +
+^|Command ^|Shortcut ^|Usage ^|Example
+a|<<AddToOrder, `addToOrder`>> a| `*add*` a| `addToOrder ITEM_CODE QUANTITY [ITEM_CODE QUANTITY] …` a| `addToOrder W07 1 W13 1` +
+Adds 1 W07 and 1 W13 to the current table's order
+a|<<AddNote, `addNote`>> +
+_(Coming in v2.0)_
+a| - a|`addNote ITEM_CODE NOTE` a| `addNote W09 Less spicy` +
+Adds the "Less spicy" note to W09 in the current table's order
+a|<<DeleteFromOrder, `deleteFromOrder`>> a| `*del*` a| `deleteFromOrder ITEM_CODE` a| `deleteFromOrder W09` +
 Removes W09 from the current table's order
-|`clearOrder` | `*clear*` | `clearOrder` | Clears all the items from the current table's order
-|`bill` | `*b*` | `bill` | Returns the bill for the current table's order
+a|<<ClearOrder, `clearOrder`>> a| `*clear*` a| `clearOrder` a| Clears all the items from the current table's order
+a|<<Serve, `serve`>> a| `*s*` a| `serve ITEM_CODE [QUANTITY]` a| `serve W03 2` +
+Marks 2 W03 as served in the current table's order
+a|<<Bill, `bill`>> a| `*b*` a| `bill` a| Returns the bill for the current table's order
 |=======================================================================
 
 === Menu Mode
 
-[width="90%",cols="25%,15%,30%,30%",options="header",]
+These commands can only be used in Menu Mode.
+
+[width="90%",cols="^25%,^15%,30%,30%",options="header",]
 |=======================================================================
-|Command |Shortcut |Usage |Example
-|`addToMenu` | `*add*` | `addToMenu c/ITEM_CODE n/ITEM_NAME p/ITEM_PRICE …` | `addToMenu c/A02 n/French Fries p/2.00` +
+^|Command ^|Shortcut ^|Usage ^|Example
+a|<<AddToMenu, `addToMenu`>> a| `*add*` a| `addToMenu c/ITEM_CODE n/ITEM_NAME p/ITEM_PRICE …` a| `addToMenu c/A02 n/French Fries p/2.00` +
 Adds A02 to the menu
-|`deleteFromMenu` | `*del*` | `deleteFromMenu ITEM_CODE` | `deleteFromMenu A02` +
+a|<<DeleteFromMenu, `deleteFromMenu`>> a| `*del*` a| `deleteFromMenu ITEM_CODE` a| `deleteFromMenu A02` +
 Removes A02 from the menu
 |=======================================================================
 
 === Statistics Mode
 
-[width="90%",cols="25%,15%,30%,30%",options="header",]
+These commands can only be used in Statistics Mode.
+
+[width="90%",cols="^25%,^15%,30%,30%",options="header",]
 |=======================================================================
-|Command |Shortcut |Usage |Example
-|`revenue`|`*r*`|`revenue [d/DAY] [m/MONTH] [y/YEAR]` |`revenue d/1 m/1 y/2019` +
+^|Command ^|Shortcut ^|Usage ^|Example
+a|<<Revenue, `revenue`>> a|`*r*` a|`revenue [d/DAY] [m/MONTH] [y/YEAR]` a|`revenue d/1 m/1 y/2019` +
 Returns the revenue earned on 01 January 2019
 |=======================================================================

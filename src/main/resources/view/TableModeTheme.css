@@ -107,15 +107,6 @@
     -fx-background-color: #707ea5;
 }
 
-.list-cell:filled:selected {
-    -fx-background-color: #424d5f;
-}
-
-.list-cell:filled:selected #cardPane {
-    -fx-border-color: #3e7b91;
-    -fx-border-width: 1;
-}
-
 .list-cell .label {
     -fx-text-fill: white;
 }
@@ -315,7 +306,15 @@
     -fx-padding: 8 1 8 1;
 }
 
-#scrollPane {
+.scroll-pane .corner {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane > .viewport {
+    -fx-background-color: #1d1d1d;
+}
+
+.scroll-pane {
     -fx-background-color: #1d1d1d;
 }
 

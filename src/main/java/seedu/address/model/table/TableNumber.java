@@ -8,7 +8,8 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class TableNumber {
 
-    public static final String MESSAGE_CONSTRAINTS = "Table Number should only contain Integers greater than zero.";
+    public static final String MESSAGE_CONSTRAINTS =
+            "Table Number should only contain whole numbers greater than zero.";
     public static final String VALIDATION_REGEX = "^[1-9]\\d*$";
     public final String tableNumber;
 

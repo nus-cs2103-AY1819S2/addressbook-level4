@@ -540,10 +540,19 @@ The developer should also add the necessary testing methods in `SortCommandTest`
 (TODO: INSERT SEQUENCE DIAGRAM FOR v1.4)
 // end::sort[]
 
-// tag::dataencryption[]
 
+// tag::endorse[]
 === Endorse Command
+====Current Implementation
+The candidate tags are organized as pink for skills, yellow for positions of interest, and blue for employee
+endorsements.
+The endorse command allows employees to select candidates by their index and create an endorsement tag.
+There is a complementary 'clear' function for removing endorsement tags.
 
+
+// end;;endorse[]
+
+// tag::dataencryption[]
 === [Proposed] Data Encryption
 
 _{Explain here how the data encryption feature will be implemented}_

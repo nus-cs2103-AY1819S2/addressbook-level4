@@ -1,6 +1,5 @@
 package seedu.address.testutil;
 
-import java.util.ArrayList;
 import java.util.Collections;
 
 import seedu.address.model.MapGrid;

@@ -392,6 +392,12 @@ public class AddCommandTest {
         }
 
         @Override
+        public boolean hasSameIdentityField(Person person) {
+            requireNonNull(person);
+            return personsAdded.stream().anyMatch(person::hasSameIdentityField);
+        }
+
+        @Override
         public void commitAddressBook() {
             // called by {@code AddCommand#execute()}
         }

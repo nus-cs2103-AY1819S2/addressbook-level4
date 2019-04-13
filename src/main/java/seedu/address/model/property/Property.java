@@ -78,7 +78,6 @@ public class Property {
         Property otherProperty = (Property) other;
         return otherProperty.getPropertyType().equals(getPropertyType())
                 && otherProperty.getAddress().equals(getAddress())
-                && otherProperty.getPrice().equals(getPrice())
-                && otherProperty.getTags().equals(getTags());
+                && otherProperty.getPrice().equals(getPrice());
     }
 }

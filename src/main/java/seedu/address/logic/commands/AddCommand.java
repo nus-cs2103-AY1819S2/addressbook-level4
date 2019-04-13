@@ -52,7 +52,7 @@ public class AddCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "New person added: %1$s";
     public static final String MESSAGE_DUPLICATE_IDENTITY_FIELD = "Customer with one or more duplicate identity "
-            + "field found in addressbook";
+            + "field found in address book";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book";
 
 

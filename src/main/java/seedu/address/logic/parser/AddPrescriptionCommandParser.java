@@ -36,7 +36,7 @@ public class AddPrescriptionCommandParser implements Parser<AddPrescriptionComma
                         PREFIX_DOCTOR_ID, PREFIX_DATE_OF_PRESC, PREFIX_MEDICINE_NAME, PREFIX_DESCRIPTION);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_PATIENT_ID,
-                PREFIX_DOCTOR_ID, PREFIX_MEDICINE_NAME, PREFIX_DESCRIPTION)
+                PREFIX_DOCTOR_ID, PREFIX_DATE_OF_PRESC, PREFIX_MEDICINE_NAME, PREFIX_DESCRIPTION)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     AddPrescriptionCommand.MESSAGE_USAGE));

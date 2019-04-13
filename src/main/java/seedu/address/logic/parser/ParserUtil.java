@@ -177,7 +177,7 @@ public class ParserUtil {
         requireNonNull(description);
         String trimmedDescription = description.trim();
         if (!Description.isValidDescription(trimmedDescription)) {
-            throw new ParseException(Name.MESSAGE_CONSTRAINTS);
+            throw new ParseException(Description.MESSAGE_CONSTRAINTS);
         }
         return new Description(trimmedDescription);
     }
@@ -335,7 +335,7 @@ public class ParserUtil {
     public static Medicine parseMedicineName(String name) throws ParseException {
         requireNonNull(name);
         String trimmedName = name.trim();
-        if (!Name.isValidName(trimmedName)) {
+        if (!Medicine.isValidName(trimmedName)) {
             throw new ParseException(Medicine.MESSAGE_CONSTRAINTS);
         }
         return new Medicine(trimmedName);

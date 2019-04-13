@@ -55,7 +55,7 @@ public class RestaurantBuilder {
         tags = new HashSet<>();
         weblink = new Weblink(DEFAULT_WEBLINK);
         openingHours = new OpeningHours(DEFAULT_OPENING_HOURS);
-        categories = null;
+        categories = Categories.empty();
     }
 
     /**
@@ -159,8 +159,8 @@ public class RestaurantBuilder {
     /**
      * Sets the {@code Cuisine} of the {@code Restaurant} that we are building.
      */
-    public RestaurantBuilder withCategories(String cuisine, String occasion, String priceRange) {
-        this.categories = new Categories(new Cuisine(cuisine), new Occasion(occasion), new PriceRange(priceRange));
+    public RestaurantBuilder withCategories(Cuisine cuisine, Occasion occasion, PriceRange priceRange) {
+        this.categories = new Categories(cuisine, occasion, priceRange);
         return this;
     }
 

@@ -27,8 +27,8 @@ public class ListFilesCommandTest {
 
     @Before
     public void importSampleToAssets() {
+        album.clearAlbum();
         try {
-            album.clearAlbum();
             ImportCommandParser parser = new ImportCommandParser();
             parser.parse("sample").execute(currentEdit, model, commandHistory);
         } catch (Exception e) {
@@ -53,8 +53,8 @@ public class ListFilesCommandTest {
 
     @Test
     public void execute_listOneFile_success() {
+        album.clearAlbum();
         try {
-            album.clearAlbum();
             String validPngTest = "src/main/resources/imageTest/valid/validPNGTest.png";
             ImportCommandParser parser = new ImportCommandParser();
             parser.parse(validPngTest).execute(currentEdit, model, commandHistory);

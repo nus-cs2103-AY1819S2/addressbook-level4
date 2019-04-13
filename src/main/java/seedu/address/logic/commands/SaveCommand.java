@@ -56,8 +56,8 @@ public class SaveCommand extends Command {
 
     @Override
     public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof SaveCommand) // instanceof handles nulls
+        return other == this
+                || (other instanceof SaveCommand)
                 && (this.toName.equals(((SaveCommand) other).toName));
     }
 }

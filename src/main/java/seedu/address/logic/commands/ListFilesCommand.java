@@ -13,7 +13,6 @@ import seedu.address.model.Model;
 /**
  * Lists all files inside assets folder.
  */
-
 public class ListFilesCommand extends Command {
     public static final String COMMAND_WORD = "listfiles";
     public static final String MESSAGE_LIST_FILES_HEADER = "Files in assets folder: %1$s";

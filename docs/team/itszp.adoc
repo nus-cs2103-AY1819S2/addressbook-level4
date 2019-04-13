@@ -25,7 +25,7 @@ This section provides a summary of my coding, documentation and other contributi
 
 ** _What it does:_ The `open` command allows users to open an image that was previously imported into the album for editing.
 
-** _Why it is important:_ This feature is essential as it enables users to choose which image they want to edit. Upon using the `open` command, the chosen image is displayed prominently in the main window of the application, allowing users to confirm which image they are about to apply their edits on.
+** _Why it is important:_ This feature is essential as it enables users to choose which image they want to edit. Upon using the `open` command, the chosen image is displayed prominently in the main window of the application, allowing users to know which image they are about to apply their edits on.
 
 ** _Highlights:_ The `open` command duplicates the opened image in a temporary folder so that users are able to recover the original image should they decide to abandon their edits or in the unlikely event of an application crash. Therefore, this enhancement requires in depth analysis on how the temporary image is stored. When an image is opened, two copies named `ori_img.png` and `temp_img.png` are created in the temporary folder. Subsequent edits will update and overwrite `temp_img.png` while `ori_img.png` is used for `undo` and `redo` operations.
 
@@ -35,7 +35,7 @@ This section provides a summary of my coding, documentation and other contributi
 
 ** _Why it is important:_ This feature completes the image editor by enabling users to apply their edits permanently onto the image. It also gives users the ability to save their current work and resume editing at another time.
 
-** _Highlights:_ The `save` command gives users the choice to either save the edited image with a new name or overwrite the original image. To save as a new image, users simply type `save newName.png` and a new image named `newName.png` will be created in the album. To overwrite the original image, a simple `save` would suffice. After saving, users may continue to apply edits onto the saved image.
+** _Highlights:_ The `save` command gives users the choice to either save the edited image with a new name or overwrite the original image. To save as a new image, users simply type `save newName.png` and an image named `newName.png` will be created in the album. To overwrite the original image, a simple `save` would suffice. After saving, users may continue to edit the image.
 
 
 === *Minor Enhancement* -- Added the feature to list file names.

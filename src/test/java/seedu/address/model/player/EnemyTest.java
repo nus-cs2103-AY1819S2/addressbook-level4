@@ -10,6 +10,7 @@ import static seedu.address.testutil.SizeTenMapGrid.initialisePlayerSizeTen;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Stack;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -85,6 +86,11 @@ public class EnemyTest {
 
     }
 
+    @Test public void test_getWatchlist() {
+        assertTrue(testEnemy.getWatchlist() instanceof Stack);
+    }
+
+
 
     /**
      * this method calls two other private methods:  fillWithAllCoords() and populateEnemyMap();
@@ -150,25 +156,15 @@ public class EnemyTest {
 
 
     /**
-     *
-     *
-     *
-     * Setup:
-     *     Enemy should first have:
-     *
-     *
      * Expected result:
-     *     Enemy should have:
-     *
-     *
-     *
-     *
-     *
-     *
-     *
+     *    For every call of enemyShootAt:
+     *    allTargets must +1
+     *    if watchlist empty -> allParityTargets must -1
+     *    else watchlist must -1
+     *    targetHistory must +1
      */
     @Test public void test_enemyShootAt() {
-        //stub
+
     }
 
 

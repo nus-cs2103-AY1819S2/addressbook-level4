@@ -442,6 +442,16 @@ Furthermore, every time any record of the specified patient is modified, a new i
 
 // end::patient_kyler[]
 
+// tag::task_cchj1995[]
+=== Task Management
+==== Current Implementation
+
+The `Task` class is a new type of object stored by the application in addition to the `Patient` class. It is meant to represent any task a dentist would have to perform. `Task` objects are kept in a list and handled by the `UniqueTaskList` class. This follows the same process as the `Patient` class and by extension, the `Person` class which has a `UniquePersonList` handling a list of `Person` objects. Storing information of all objects does not change between `Task` and `Person` classes and both are stored into a `TeethHub.json` file.
+
+Following the same practice as `Patient`/`Person` attributes for `Task` are instantiated as objects of their own. The following class diagram details the relevant attributes for a `Task` object along with the multiplicity association between the classes:
+
+// end::taskcchj1995[]
+
 // tag::undoredo[]
 === Undo/Redo feature
 ==== Current Implementation

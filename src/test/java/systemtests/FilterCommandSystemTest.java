@@ -1,136 +1,181 @@
 package systemtests;
 
-import static seedu.address.commons.core.Messages.MESSAGE_HEALTHWORKER_LISTED_OVERVIEW;
+import static org.junit.Assert.assertFalse;
+import static seedu.address.commons.core.Messages.MESSAGE_REQUESTS_LISTED_OVERVIEW;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.address.testutil.TypicalPersons.BENSON;
-import static seedu.address.testutil.TypicalPersons.CARL;
-import static seedu.address.testutil.TypicalPersons.DANIEL;
-import static seedu.address.testutil.TypicalPersons.KEYWORD_MATCHING_MEIER;
+import static seedu.address.model.request.RequestStatus.MESSAGE_STATUS_CONSTRAINTS;
+import static seedu.address.testutil.TypicalRequests.ALICE_REQUEST;
+import static seedu.address.testutil.TypicalRequests.BENSON_REQUEST;
+import static seedu.address.testutil.TypicalRequests.CARL_REQUEST;
+import static seedu.address.testutil.TypicalRequests.DANIEL_REQUEST;
+import static seedu.address.testutil.TypicalRequests.EMMANUEL_REQUEST;
+import static seedu.address.testutil.TypicalRequests.FRANCIS_REQUEST;
+import static seedu.address.testutil.TypicalRequests.GLADYS_REQUEST;
+import static seedu.address.testutil.TypicalRequests.HEPZHI_REQUEST;
+import static seedu.address.testutil.TypicalRequests.INDIANA_REQUEST;
+import static seedu.address.testutil.TypicalRequests.KEYWORD_MATCHING_MEIER;
+import static seedu.address.testutil.TypicalRequests.NEA_REQUEST;
+
+import org.junit.Test;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.FilterHealthWorkerCommand;
-//import seedu.address.logic.commands.RedoCommand;
-//import seedu.address.logic.commands.UndoCommand;
+import seedu.address.logic.commands.RedoCommand;
+import seedu.address.logic.commands.UndoCommand;
+import seedu.address.logic.commands.request.DeleteRequestCommand;
+import seedu.address.logic.commands.request.FilterRequestCommand;
 import seedu.address.model.Model;
+import seedu.address.model.request.RequestDate;
 
 /**
- * Deprecated system test for FilterHealthWorkerCommand in AB4.
+ *
  */
-public class FindCommandSystemTest extends HealthHubSystemTest {
+public class FilterCommandSystemTest extends HealthHubSystemTest {
 
-    /**
-     * TODO: replace to filter system test after find is changed to filter
-     */
-    public void find() {
-        /* Case: find multiple persons in address book, command with leading spaces and trailing spaces
-         * -> 2 persons found
+    @Test
+    public void filter() {
+
+        /* Case: find multiple patients in request book, command with leading spaces and trailing spaces
+         * --> 7 out of 11 patients found
          */
-        String command = "   " + FilterHealthWorkerCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_MEIER + "   ";
+        String command = "   " + FilterRequestCommand.COMMAND_WORD + " " + FilterRequestCommand.COMMAND_OPTION + " n/"
+                + KEYWORD_MATCHING_MEIER + "   ";
         Model expectedModel = getModel();
-        ModelHelper.setFilteredList(expectedModel, BENSON, DANIEL); // first names of Benson and Daniel are "Meier"
+        // first names of the below mentioned patients are "Meier"
+        ModelHelper.setFilteredRequestList(expectedModel, BENSON_REQUEST, DANIEL_REQUEST, EMMANUEL_REQUEST,
+                FRANCIS_REQUEST, GLADYS_REQUEST, HEPZHI_REQUEST, INDIANA_REQUEST);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: repeat previous find command where person list is displaying the persons we are finding
-         * -> 2 persons found
+        /* Case: repeat previous filter command where request list is displaying the patients we are finding
+         * --> 7 out of 11 patients found
          */
-        command = FilterHealthWorkerCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_MEIER;
+        command = FilterRequestCommand.COMMAND_WORD + " " + FilterRequestCommand.COMMAND_OPTION + " n/"
+                + KEYWORD_MATCHING_MEIER;
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find person where person list is not displaying the person we are finding -> 1 person found */
-        command = FilterHealthWorkerCommand.COMMAND_WORD + " Carl";
-        ModelHelper.setFilteredList(expectedModel, CARL);
-        assertCommandSuccess(command, expectedModel);
-        assertSelectedCardUnchanged();
-
-        /* Case: find multiple persons in address book, 2 keywords -> 2 persons found */
-        command = FilterHealthWorkerCommand.COMMAND_WORD + " Benson Daniel";
-        ModelHelper.setFilteredList(expectedModel, BENSON, DANIEL);
-        assertCommandSuccess(command, expectedModel);
-        assertSelectedCardUnchanged();
-
-        /* Case: find multiple persons in address book, 2 keywords in reversed order -> 2 persons found */
-        command = FilterHealthWorkerCommand.COMMAND_WORD + " Daniel Benson";
-        assertCommandSuccess(command, expectedModel);
-        assertSelectedCardUnchanged();
-
-        /* Case: find multiple persons in address book, 2 keywords with 1 repeat -> 2 persons found */
-        command = FilterHealthWorkerCommand.COMMAND_WORD + " Daniel Benson Daniel";
-        assertCommandSuccess(command, expectedModel);
-        assertSelectedCardUnchanged();
-
-        /* Case: find multiple persons in address book, 2 matching keywords and 1 non-matching keyword
-         * -> 2 persons found
+        /* Case: find a patient when request list is not displaying the patient we are searching for
+         * --> 1 patient found
          */
-        command = FilterHealthWorkerCommand.COMMAND_WORD + " Daniel Benson NonMatchingKeyWord";
+        command = FilterRequestCommand.COMMAND_WORD + " " + FilterRequestCommand.COMMAND_OPTION + " n/Carl";
+        ModelHelper.setFilteredRequestList(expectedModel, CARL_REQUEST);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: undo previous find command -> rejected */
-        //command = UndoCommand.COMMAND_WORD;
-        //String expectedResultMessage = UndoCommand.MESSAGE_FAILURE;
+        /* Case: find multiple patients in request book, with consecutive 2 keywords --> 0 patients found
+        * Multiple searching of patients under different names is not implemented in Health Hub.
+        */
+        //command = FilterRequestCommand.COMMAND_WORD + " " + FilterRequestCommand.COMMAND_OPTION + " n/Benson Daniel";
+        //ModelHelper.setFilteredRequestList(expectedModel, BENSON_REQUEST, DANIEL_REQUEST);
+        //String expectedResultMessage = String.format(MESSAGE_REQUESTS_LISTED_OVERVIEW, 0);
         //assertCommandFailure(command, expectedResultMessage);
 
-        /* Case: redo previous find command -> rejected */
-        //command = RedoCommand.COMMAND_WORD;
-        //expectedResultMessage = RedoCommand.MESSAGE_FAILURE;
-        //assertCommandFailure(command, expectedResultMessage);
+        /* Case: undo previous filter command --> rejected */
+        command = UndoCommand.COMMAND_WORD;
+        String expectedResultMessage = UndoCommand.MESSAGE_FAILURE;
+        assertCommandFailure(command, expectedResultMessage);
 
-        /* Case: find same persons in address book after deleting 1 of them -> 1 person found */
-        //executeCommand(DeletePersonCommand.COMMAND_WORD + " 1");
-        //assertFalse(getModel().getAddressBook().getPersonList().getSpecialisation(BENSON));
-        //command = FilterHealthWorkerCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_MEIER;
-        //expectedModel = getModel();
-        //ModelHelper.setFilteredList(expectedModel, DANIEL);
-        //assertCommandSuccess(command, expectedModel);
-        //assertSelectedCardUnchanged();
+        /* Case: redo previous filter command --> rejected */
+        command = RedoCommand.COMMAND_WORD;
+        expectedResultMessage = RedoCommand.MESSAGE_FAILURE;
+        assertCommandFailure(command, expectedResultMessage);
 
-        /* Case: find person in address book, keyword is same as name but of different case -> 1 person found */
-        command = FilterHealthWorkerCommand.COMMAND_WORD + " MeIeR";
+        /* Case: find same requests in request book after deleting 1 of the request
+         * --> 7 patient found
+         */
+        executeCommand(DeleteRequestCommand.COMMAND_WORD + " " + DeleteRequestCommand.COMMAND_OPTION + " 1");
+        //assertFalse(getModel().getRequestBook().getRequestList().);
+        command = FilterRequestCommand.COMMAND_WORD + " " + FilterRequestCommand.COMMAND_OPTION + " n/"
+                + KEYWORD_MATCHING_MEIER;
+        expectedModel = getModel();
+        ModelHelper.setFilteredRequestList(expectedModel, BENSON_REQUEST, DANIEL_REQUEST, EMMANUEL_REQUEST,
+                FRANCIS_REQUEST, GLADYS_REQUEST, HEPZHI_REQUEST, INDIANA_REQUEST);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find person in address book, keyword is substring of name -> 0 persons found */
-        command = FilterHealthWorkerCommand.COMMAND_WORD + " Mei";
-        ModelHelper.setFilteredList(expectedModel);
+        /* Case: find patient in request book, keyword is same as name but of different case --> 7 patients found */
+        command = FilterRequestCommand.COMMAND_WORD + " " + FilterRequestCommand.COMMAND_OPTION + " n/MeIeR";
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find person in address book, name is substring of keyword -> 0 persons found */
-        command = FilterHealthWorkerCommand.COMMAND_WORD + " Meiers";
-        ModelHelper.setFilteredList(expectedModel);
+        /* Case: find patient in request book, keyword is substring of name --> 7 patients found */
+        command = FilterRequestCommand.COMMAND_WORD + " " + FilterRequestCommand.COMMAND_OPTION + " n/Mei";
+        ModelHelper.setFilteredRequestList(expectedModel, BENSON_REQUEST, DANIEL_REQUEST, EMMANUEL_REQUEST,
+                FRANCIS_REQUEST, GLADYS_REQUEST, HEPZHI_REQUEST, INDIANA_REQUEST);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find person not in address book -> 0 persons found */
-        command = FilterHealthWorkerCommand.COMMAND_WORD + " Mark";
+        /* Case: find patient not in request book --> 0 patients found */
+        command = FilterRequestCommand.COMMAND_WORD + " " + FilterRequestCommand.COMMAND_OPTION + " n/Mark";
+        ModelHelper.setFilteredRequestList(expectedModel);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find phone number of person in address book -> 0 persons found */
-        command = FilterHealthWorkerCommand.COMMAND_WORD + " " + DANIEL.getPhone().value;
+        /* Case: find request by a phone number --> 1 patient found */
+        command = FilterRequestCommand.COMMAND_WORD + " " + FilterRequestCommand.COMMAND_OPTION + " p/"
+                + DANIEL_REQUEST.getPhone().value;
+        ModelHelper.setFilteredRequestList(expectedModel, DANIEL_REQUEST);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find while a person is selected -> selected card deselected */
-        // showAllPersons();
-        selectPerson(Index.fromOneBased(2));
-        // assertFalse(getPersonListPanel().getHandleToSelectedCard().getName().equals(DANIEL.getName()));
-        command = FilterHealthWorkerCommand.COMMAND_WORD + " Daniel";
-        ModelHelper.setFilteredList(expectedModel, DANIEL);
+        /* Case: find request by date --> 3  requests found */
+        command = FilterRequestCommand.COMMAND_WORD + " " + FilterRequestCommand.COMMAND_OPTION
+                + " dt/02-01-2019 18:00:00";
+        ModelHelper.setFilteredRequestList(expectedModel, DANIEL_REQUEST, EMMANUEL_REQUEST, FRANCIS_REQUEST);
+        assertCommandSuccess(command, expectedModel);
+        assertSelectedCardUnchanged();
+
+        /* Case: find request by date not in specified format --> rejected */
+        command = FilterRequestCommand.COMMAND_WORD + " " + FilterRequestCommand.COMMAND_OPTION
+                + " dt/01-25-2019 18:00:00";
+        expectedResultMessage = RequestDate.MESSAGE_CONSTRAINTS;
+        assertCommandFailure(command, expectedResultMessage);
+
+        /* Case: find request by pending status --> 5 requests found */
+        command = FilterRequestCommand.COMMAND_WORD + " " + FilterRequestCommand.COMMAND_OPTION + " st/PENDING";
+        ModelHelper.setFilteredRequestList(expectedModel, EMMANUEL_REQUEST, FRANCIS_REQUEST, GLADYS_REQUEST,
+                HEPZHI_REQUEST, INDIANA_REQUEST);
+        assertCommandSuccess(command, expectedModel);
+        assertSelectedCardUnchanged();
+
+        /* Case: find request by pending status with trailing spaces --> 5 requests found */
+        command = FilterRequestCommand.COMMAND_WORD + " " + FilterRequestCommand.COMMAND_OPTION + " st/PENDING        ";
+        ModelHelper.setFilteredRequestList(expectedModel, EMMANUEL_REQUEST, FRANCIS_REQUEST, GLADYS_REQUEST,
+                HEPZHI_REQUEST, INDIANA_REQUEST);
+        assertCommandSuccess(command, expectedModel);
+        assertSelectedCardUnchanged();
+
+        /* Case: find request by pending status with additional keywords --> rejected */
+        command = FilterRequestCommand.COMMAND_WORD + " " + FilterRequestCommand.COMMAND_OPTION + " st/PENDING123";
+        expectedResultMessage = MESSAGE_STATUS_CONSTRAINTS;
+        assertCommandFailure(command, expectedResultMessage);
+
+        /* Case: find request by a patient's condition (physiotherapy) --> 2 requests found */
+        command = FilterRequestCommand.COMMAND_WORD + " " + FilterRequestCommand.COMMAND_OPTION + " c/physiotherapy";
+        ModelHelper.setFilteredRequestList(expectedModel, ALICE_REQUEST, NEA_REQUEST);
+        assertCommandSuccess(command, expectedModel);
+        assertSelectedCardUnchanged();
+
+        /* Case: find while a request is selected --> selected card deselected */
+        showAllRequests();
+        selectRequest(Index.fromOneBased(2));
+        assertFalse(getRequestListPanel().getHandleToSelectedCard().getName().equals(DANIEL_REQUEST.getName()));
+        command = FilterRequestCommand.COMMAND_WORD + " " + FilterRequestCommand.COMMAND_OPTION + " n/Daniel";
+        ModelHelper.setFilteredRequestList(expectedModel, DANIEL_REQUEST);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardDeselected();
 
         /* Case: find person in empty address book -> 0 persons found */
-        //deleteAllPersons();
-        command = FilterHealthWorkerCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_MEIER;
+        showAllRequests();
+        deleteAllRequests();
+        command = FilterRequestCommand.COMMAND_WORD + " " + FilterRequestCommand.COMMAND_OPTION + " n/"
+                + KEYWORD_MATCHING_MEIER;
         expectedModel = getModel();
-        ModelHelper.setFilteredList(expectedModel, DANIEL);
+        ModelHelper.setFilteredRequestList(expectedModel);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: mixed case command word -> rejected */
+        /* Case: mixed case command word --> rejected */
         command = "FiNd Meier";
         assertCommandFailure(command, MESSAGE_UNKNOWN_COMMAND);
     }
@@ -143,18 +188,17 @@ public class FindCommandSystemTest extends HealthHubSystemTest {
      * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
      * Also verifies that the status bar remains unchanged, and the command box has the default style class, and the
      * selected card updated accordingly, depending on {@code cardStatus}.
-     * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
+     * @see HealthHubSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
-    //TODO to be rewritten
-    //private void assertCommandSuccess(String command, Model expectedModel) {
-      //  String expectedResultMessage = String.format(
-        //        MESSAGE_HEALTHWORKER_LISTED_OVERVIEW, expectedModel.getFilteredPersonList().size());
+    private void assertCommandSuccess(String command, Model expectedModel) {
+        String expectedResultMessage = String.format(
+                MESSAGE_REQUESTS_LISTED_OVERVIEW, expectedModel.getFilteredRequestList().size());
 
-        //executeCommand(command);
-        //assertApplicationDisplaysExpected("", expectedResultMessage, expectedModel);
-        //assertCommandBoxShowsDefaultStyle();
-        //assertStatusBarUnchanged();
-    //}
+        executeCommand(command);
+        assertApplicationDisplaysExpected("", expectedResultMessage, expectedModel);
+        assertCommandBoxShowsDefaultStyle();
+        assertStatusBarUnchanged();
+    }
 
     /**
      * Executes {@code command} and verifies that the command box displays {@code command}, the result display
@@ -163,7 +207,7 @@ public class FindCommandSystemTest extends HealthHubSystemTest {
      * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
      * Also verifies that the browser url, selected card and status bar remain unchanged, and the command box has the
      * error style.
-     * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
+     * @see HealthHubSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
     private void assertCommandFailure(String command, String expectedResultMessage) {
         Model expectedModel = getModel();

@@ -57,15 +57,33 @@ public class BatchTable extends UiPart<Region> {
         super(FXML);
 
         setDescriptionTexts(selectedMedicine);
+        setColumnWidth();
         populateTable(selectedMedicine);
         sortTable(informationPanelSettings);
     }
 
     private void setDescriptionTexts(Medicine selectedMedicine) {
-        name.setText(selectedMedicine.getName().toString());
+        setNameText(selectedMedicine.getName().toString());
         company.setText(selectedMedicine.getCompany().toString());
         quantity.setText(BATCHTABLE_FOOTER_QUANTITY + selectedMedicine.getTotalQuantity().toString());
         expiry.setText(BATCHTABLE_FOOTER_EXPIRY + selectedMedicine.getNextExpiry().toString());
+    }
+
+    private void setNameText(String medicineName) {
+        if (medicineName.length() > 30) {
+            name.setStyle("-fx-font-size: 12pt");
+        } else if (medicineName.length() > 25) {
+            name.setStyle("-fx-font-size: 15pt");
+        } else if (medicineName.length() > 20) {
+            name.setStyle("-fx-font-size: 20pt");
+        }
+        name.setText(medicineName);
+    }
+
+    private void setColumnWidth() {
+        numberColumn.prefWidthProperty().bind(table.widthProperty().multiply(0.5));
+        quantityColumn.prefWidthProperty().bind(table.widthProperty().multiply(0.24));
+        expiryColumn.prefWidthProperty().bind(table.widthProperty().multiply(0.24));
     }
 
     /**

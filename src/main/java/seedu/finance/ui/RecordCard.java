@@ -62,7 +62,7 @@ public class RecordCard extends UiPart<Region> {
     private String getCategoryColorStyleFor(String categoryName) {
         //Using the hash code of the category name to generate a random color, so color remains consistent
         //between different runs of the program while still making it random enough between Categories
-        return CATEGORY_COLOR_STYLES[Math.abs(categoryName.hashCode()%23) % CATEGORY_COLOR_STYLES.length];
+        return CATEGORY_COLOR_STYLES[Math.abs(categoryName.hashCode() % 23) % CATEGORY_COLOR_STYLES.length];
     }
     //@@author
 

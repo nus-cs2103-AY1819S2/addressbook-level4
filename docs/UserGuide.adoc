@@ -24,15 +24,11 @@ Let us explore how QuickDocs can facilitate and expedite clinical operations in 
 
 == Quick Start
 
-//image::Ui.png[width="790"]
-
-
 .  Ensure you have Java version `9` or later installed in your Computer.
 .  Download the jar file and put it into a folder you desire.
 .  Type a command into the command box and press enter to execute it.
 [NOTE]
 For the full list of commands, you can head to <<Command Summary>>
-.  Click on the buttons if you want to use the GUI to perform the actions instead.
 
 === Interacting with QuickDocs
 
@@ -43,10 +39,11 @@ image::ui_explanation.png[width="600"]
 QuickDocs possesses to perform clinical operations
 .   If you make mistakes and enter an invalid command, instructions on how you can rectify your commands
 will be shown in this *input feedback* box
-.   After the execution of your command, you can view the results on this *display* area
+.   After the execution of your command, you can view the results on the *main display* area
 .   You can view your upcoming appointments for the day, or urgent reminders that you made earlier in the
 *reminders and appointments* panel
-.   During a consultation session, QuickDocs will also indicate that an *ongoing consultation* session is happening
+.   During a consultation session, QuickDocs will also indicate that a session is ongoing through
+this *current consultation label*
 
 
 [[Notation]]
@@ -65,12 +62,12 @@ This is a note. Additional information that further explains a feature will be w
 == Features
 *QuickDoc's Command Format* +
 
-`command VALUE prefix/VALUE [OPTIONAL_VALUE] ...`
+`command prefix/VALUE [prefix/OPTIONAL VALUE] ...`
 
 //* Commands are in lowercase, you can view all of them using the help command.
-* Values are the user input, which the user intend to store or manipulate data with.
-* Prefixes are used to complement certain commands such as adding or editing of records.
-* Optional values can be placed after the command, and can be added multiple times after the command, value and prefix, depending on the command.
+* Command represent the operation you want to perform such as adding patients, listing medicine inventory and so on.
+* Values are the mandatory user input required for the execution of commands.
+* Optional values are non-compulsory values that can be added in certain commands. They can be added multiple times after the command, prefixes and values.
 
 [TIP]
 All commands have aliases, which can be used to execute the same command with fewer keystrokes e.g. `statistics` can be replaced by `stats`.
@@ -78,10 +75,10 @@ All commands have aliases, which can be used to execute the same command with fe
 {nbsp} +
 
 [[help,Help]]
-=== Viewing help : `help`
+=== Viewing help
 
 Whenever you want to find out in-depth explanation on how to execute a specific command, you can always refer to this
-user guide by entering the `help` command.
+user guide by entering the `help` command on QuickDocs.
 
 Format: `help`
 
@@ -113,9 +110,10 @@ You can add a tag to a patient to indicate his or her long term illnesses. You c
 
 *Alias{nbsp}{nbsp}{nbsp}{nbsp}:* `ap`
 [TIP]
-The order of input does not matter as long as they are all captured. +
+The order of input does not matter as long as all the necessary fields are captured. +
 
 {sp}+
+
 *Examples:*
 
 * `addpat n/Gary Goh r/S7332803I g/M d/1973-04-01 a/20 Upper Changi Road c/92347654 e/ggoh@gmail.com t/highbloodpressure t/diabetes`
@@ -136,7 +134,8 @@ image::ap_after.png[width="600"]
 [[editpat, Edit patient]]
 ==== Editing patient : `editpat`
 
-If you made a mistake when registering a patient, fret not! You can always make changes to the patient record with the `editpat` command. All the fields in the record can be edited, including the NRIC and tags.
+If you made a mistake when registering a patient, fret not! You can always make changes to the patient record with the `editpat` command.
+All the fields in the record can be edited, including the NRIC and tags.
 
 [NOTE]
 The tags entered during an edit patient command will override all the tags a patient record currently possess.
@@ -147,9 +146,11 @@ The tags entered during an edit patient command will override all the tags a pat
 *Alias{nbsp}{nbsp}{nbsp}{nbsp}:* `ep` +
 
 [NOTE]
-you can view the prefixes for each of the fields at the <<addpat>> section. +
+The first NRIC to specify the record does not require a prefix. +
+The prefixes used for the `editpat command` is the same as the ones used in the <<addpat>> section. +
 
 {sp} +
+
 *Example:* +
 
 * `editpat S7332803I n/Gary Doh e/gdoh@gmail.com`  +
@@ -182,11 +183,11 @@ image::ep_conflict.png[width="600"]
 To view a patient's detail, you can use the `listpat` command. You can search and filter patient records
 by their names, NRIC and even their tags.
 
-* Currently QuickDocs only support one filter per search.
+* QuickDocs only support one filter per search currently.
 * If more than one filter is entered (i.e. `listpat n/NAME r/NRIC`, only the first search criteria will be used
 (in this case, name)
 
-For example, if you are unsure of the patient's NRIC to start a command, you can always turn to `listpat` to help narrow down your search.
+For example, if you want to check the patient's NRIC, you can always turn to `listpat` to help narrow down your search.
 Entering listpat with `r/S92` and QuickDocs will present you with patient records whose NRIC starts with S92.
 
 * You can similarly filter down your search using tags or parts of a patient name in the same manner.
@@ -202,6 +203,7 @@ Index can also be used to narrow down patient searches to a single record.
 *Alias{nbsp}{nbsp}{nbsp}{nbsp}:* `lp` +
 
 {sp} +
+
 *Examples and Results:*
 
 * `listpat` +
@@ -212,17 +214,15 @@ If no keywords are entered, `listpat` will simply display the first 50 patients 
 image::lp_noargs.png[width="600"]
 
 {sp} +
-
 * `listpat n/P` +
 
-Suppose you want to quickly find a patient record whose name starts with "P", you can use `listpat` along
+Suppose you want to find a patient record whose name starts with "P", you can use `listpat` along
 with a sequence of characters to search for the specific patient record you are interested in.
 
 .Listing patients with matching name
 image::lp_name_after.png[width="600"]
 
 {sp} +
-
 * `listpat r/S92` +
 
 You can narrow down your patient search by providing a NRIC sequence as well. For example,
@@ -239,7 +239,6 @@ patient particulars.
 image::lp_nric_specific.png[width="600"]
 
 {sp} +
-
 * `listpat t/diabetes` +
 
 The tags you assigned to each patient can also be used to expedite the `listpat` command. For example, diabetic patients can be
@@ -253,7 +252,6 @@ permit partial tag search as of v1.4.
 image::lp_tag_after.png[width="600"]
 
 {sp} +
-
 * `listpat 5`
 
 Did you notice that when QuickDocs display multiple patient records during filtering, each record starts with
@@ -277,6 +275,7 @@ When a patient is no longer visiting your clinic (i.e. moved residency), you can
 *Alias{nbsp}{nbsp}{nbsp}{nbsp}:* `dp` +
 
 {sp} +
+
 *Example:* `deletepat r/S7338031I`
 
 {sp} +
@@ -315,7 +314,7 @@ of specific patients +
 [NOTE]
 QuickDocs only permit one ongoing consultation session at any given time. The
 <<diagnose>> and <<prescribe>> steps must be completed before a consultation can end. Otherwise
-you can always use the <<abort>> command to exit an ongoing session.
+you can always use the <<abort>> command to exit an ongoing session without saving any details recorded.
 
 {sp} +
 *Format:* `consult r/NRIC` +
@@ -323,6 +322,7 @@ you can always use the <<abort>> command to exit an ongoing session.
 *Alias{nbsp}{nbsp}{nbsp}{nbsp}:* `c` +
 
 {sp} +
+
 *Example:*
 
 * `consult r/S9876542C` +
@@ -342,7 +342,7 @@ subsequent commands.
 
 {sp}+
 [NOTE]
-While a consultation session is ongoing, It does not mean that you are limited to just entering the consultation commands. You can still enter command that are beyond the consultation module (i.e.
+While a consultation session is ongoing, It does not mean that you are limited to just entering the consultation commands. You can still enter command that are not within the consultation module (i.e.
  listing patients, checking the medicine inventory, etc).
 
 
@@ -365,6 +365,7 @@ This command requires you to have a consultation session already active. See: <<
 *Alias{nbsp}{nbsp}{nbsp}{nbsp}:* `d` +
 
 {sp}+
+
 *Example:*
 
 * `diagnose s/runny nose s/sore throat s/phlegmy cough a/influenza` +
@@ -421,6 +422,7 @@ or{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp} *:* `prescribe m/MEDICINE q/Q
 *Alias{nbsp}{nbsp}{nbsp}{nbsp}:* `p` +
 
 {sp} +
+
 *Example:*
 
 * `prescribe m/penicillin q/1 m/Afrin spray q/1 m/ibuprofen q/2` +
@@ -443,7 +445,7 @@ image::prescription_after.png[width="600"]
 ==== End consultation: `endconsult`
 
 Once the diagnosis and prescription are finalized, you can end the consultation with a simple `endconsult` command.
-No further changes to the diagnosis and prescription details can be made after this point.+
+No further changes to the diagnosis and prescription details can be made after this point.
 
 {sp} +
 *Format:* `endconsult` +
@@ -452,7 +454,11 @@ No further changes to the diagnosis and prescription details can be made after t
 
 {sp} +
 *Result:*
-Once you entered the `endconsult` command, a message to indicate the end of the consultation session is also shown on the main display area. The label for the ongoing consultation session is also removed after the command is entered.
+
+Once you entered the `endconsult` command, a message to indicate the end of the consultation session is also shown on the main display area.
+The label for the ongoing consultation session is also removed after the command is entered.
+
+Most importantly, the consultation record (diagnosis and prescription) is now stored.
 
 .Results of an endconsult command
 image::endconsult.png[width="600"]
@@ -472,6 +478,7 @@ you can always abort the consultation session without providing the diagnosis an
 
 {sp} +
 *Result:*
+
 When you enter the `abort` command, a message is also shown on the main display area to indicate that the current session is aborted.
 The label for the ongoing consultation session is also removed.
 
@@ -496,6 +503,7 @@ or{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp} *:* `listconsult r/NRIC` +
 *Alias{nbsp}{nbsp}{nbsp}{nbsp}:* `lc` +
 
 {sp} +
+
 *Examples and Results:*
 
 * `listconsult r/S9876542C` +
@@ -602,11 +610,7 @@ The new directory will be an empty directory whose name is up to you to decide.
 [NOTE]
 The new directory's name should not contain white spaces or "\" characters.
 
-[NOTE]
-
-
 {sp} +
-
 *Format:* `adddirec [PATH OF THE PARENT DIRECORY] [NAME OF NEW DIRECTORY]` +
 
 *Alias{nbsp}{nbsp}{nbsp}{nbsp}:* `ad`
@@ -762,11 +766,11 @@ In addition, QuickDocs can make your life even easier! You can set an alarm leve
 
 {sp} +
 
-
-
 *Example:*
 
 `alarm root\fever 60`
+
+{sp} +
 
 *Result:*
 

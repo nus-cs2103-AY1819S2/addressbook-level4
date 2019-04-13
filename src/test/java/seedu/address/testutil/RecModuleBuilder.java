@@ -22,7 +22,7 @@ public class RecModuleBuilder {
         ModuleInfoManager moduleInfoManager = new ModuleInfoManager();
         Optional<ModuleInfoList> list;
         try {
-             list = moduleInfoManager.readModuleInfoFile();
+            list = moduleInfoManager.readModuleInfoFile();
         } catch (DataConversionException dce) {
             System.err.println("Error reading json");
             return;
@@ -31,6 +31,13 @@ public class RecModuleBuilder {
         moduleInfoList = list.get();
     }
 
+    /**
+     * Creates a RecModule with the given {@code String} of {@code ModuleInfoCode} and {@code CourseReqType}.
+     * @param code The {@code String} of {@code ModuleInfoCode}.
+     * @param type The {@code CourseReqType}.
+     * @return a RecModule with {@code ModuleInfo} represented by {@code code}
+     * and {@code CourseReqType} of {@code type}.
+     */
     public RecModule create(String code, CourseReqType type) {
         ModuleInfo moduleInfo = moduleInfoList.getModule(code);
         assert(moduleInfo != null);
@@ -38,6 +45,11 @@ public class RecModuleBuilder {
         return new RecModule(moduleInfo, type);
     }
 
+    /**
+     * Creates a RecModule with the given {@code String} of {@code ModuleInfoCode}.
+     * @param code The {@code String} of {@code ModuleInfoCode}.
+     * @return a RecModule with {@code ModuleInfo} represented by {@code code}.
+     */
     public RecModule create(String code) {
         ModuleInfo moduleInfo = moduleInfoList.getModule(code);
         assert(moduleInfo != null);
@@ -45,6 +57,10 @@ public class RecModuleBuilder {
         return new RecModule(moduleInfo);
     }
 
+    /**
+     * Generates a list of {@code RecModule} representing all modules in {@code ModuleInfoList}.
+     * @return a list of {@code RecModule} representing all modules in {@code ModuleInfoList}.
+     */
     public List<RecModule> getAllModules() {
         List<RecModule> list = new ArrayList<>();
         for (ModuleInfo moduleInfo : moduleInfoList.getObservableList()) {

@@ -212,6 +212,7 @@ As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person`
 image:ModelClassBetterOopDiagram.png[width="800"]
 
 [[Design-Storage]]
+// tag::storage[]
 === Storage component
 
 .Structure of the Storage Component
@@ -221,9 +222,9 @@ image::StorageClassDiagram.png[width="800"]
 
 The `Storage` component,
 
-* can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in json format and read it back.
+* can save `PlayerStatistics` objects in json format and read it back.
 
+//end::storage[]
 
 // tag::battle[]
 
@@ -685,10 +686,18 @@ new game.
 
 End of Example Usage Scenario.
 
-The following sequence diagram summarizes what happens at the end of a game and an automatic save and comparison is
+The following sequence diagram summarizes what happens at the end of a game and an automatic save is
 performed.
 
-<To Include Sequence Diagram>
+image::SaveSequenceDiag.PNG[width=800]
+
+The following sequence diagram summarizes what happens when a previous statistic data is read and compared.
+
+
+==== Activity Diagram
+The following Activity Diagram shows when the `stats` command can be used.
+
+<Include activity diagram>
 
 ==== Design Considerations
 * **Alternative 1:** The methods that are responsible for incrementing the relevant game data is placed

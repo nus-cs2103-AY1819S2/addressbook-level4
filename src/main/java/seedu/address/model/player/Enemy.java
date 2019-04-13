@@ -33,9 +33,8 @@ public class Enemy extends Player {
     private Stack<Coordinates> watchlist = new Stack<>(); //one based
     private Status lastAttackStatus = Status.HIDDEN;
     private int mapSize = 0;
-    private Coordinates lastCoordAttacked = new Coordinates(0,0);
-
-    /**
+    private Coordinates lastCoordAttacked = new Coordinates(0, 0);
+    /*
      * Default constructor with fleet size 8.
      */
     public Enemy() {
@@ -239,6 +238,7 @@ public class Enemy extends Player {
                 Coordinates markedCoord = new Coordinates(head.getRowIndex().getZeroBased(), colStart + i);
                 allPossiblePopulateCoords.remove(markedCoord);
                 logger.info(String.format("++++++++MARK_AS_OCCUPIED: " + markedCoord.toString()));
+                logger.info(String.format("++++allPossiblePopulateCoords Size: " + allPossiblePopulateCoords.size()));
             }
         } else { //increase row
             for (int i = 0; i < shipSize; i++) { //col stays the same
@@ -246,7 +246,7 @@ public class Enemy extends Player {
                 Coordinates markedCoord = new Coordinates(rowStart + i, head.getColIndex().getZeroBased());
                 allPossiblePopulateCoords.remove(markedCoord);
                 logger.info(String.format("++++++++MARK_AS_OCCUPIED: " + markedCoord.toString()));
-
+                logger.info(String.format("++++allPossiblePopulateCoords Size: " + allPossiblePopulateCoords.size()));
             }
         }
     }
@@ -429,6 +429,6 @@ public class Enemy extends Player {
     }
 
     public ArrayList<Coordinates> getAllPossiblePopulateCoords() {
-        return this.allPossibleTargets;
+        return this.allPossiblePopulateCoords;
     }
 }

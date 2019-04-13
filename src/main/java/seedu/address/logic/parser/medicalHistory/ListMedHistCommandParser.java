@@ -5,6 +5,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE_OF_MEDHIST;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DOCTOR_ID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PATIENT_ID;
 
+import java.util.Optional;
+
 import seedu.address.logic.commands.medicalHistory.ListMedHistCommand;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
@@ -14,8 +16,6 @@ import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.medicalhistory.ValidDate;
 import seedu.address.model.person.PersonId;
-
-import java.util.Optional;
 
 /**
  * Parses input arguments and creates a new ListMedHistCommand object

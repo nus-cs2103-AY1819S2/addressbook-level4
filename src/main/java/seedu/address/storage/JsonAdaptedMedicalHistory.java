@@ -56,7 +56,8 @@ public class JsonAdaptedMedicalHistory {
      */
     public MedicalHistory toModelType() throws IllegalValueException {
         if (patientId == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, PersonId.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    PersonId.class.getSimpleName()));
         }
 
         if (!PersonId.isValidPersonId(patientId)) {
@@ -66,7 +67,8 @@ public class JsonAdaptedMedicalHistory {
         final PersonId modelPatientId = new PersonId(this.patientId);
 
         if (doctorId == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, PersonId.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    PersonId.class.getSimpleName()));
         }
 
         if (!PersonId.isValidPersonId(doctorId)) {
@@ -76,7 +78,8 @@ public class JsonAdaptedMedicalHistory {
         final PersonId modelDoctorId = new PersonId(this.doctorId);
 
         if (date == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, ValidDate.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    ValidDate.class.getSimpleName()));
         }
 
         if (!ValidDate.isValidDate(date)) {

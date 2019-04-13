@@ -75,7 +75,8 @@ public class ListAppointmentCommandParser implements Parser<ListAppointmentComma
         }
 
         if (!argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListAppointmentCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    ListAppointmentCommand.MESSAGE_USAGE));
         }
 
         return new ListAppointmentCommand(descriptors);

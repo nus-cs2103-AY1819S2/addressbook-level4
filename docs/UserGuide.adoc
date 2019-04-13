@@ -155,7 +155,7 @@ Examples:
 === Approve persons by employee name: `endorse`
 
 Endorses an existing candidate in RecruitMe. +
-Format: 'endorse INDEX n/YOUR NAME'
+Format: 'endorse [clear] INDEX n/YOUR NAME'
 
 ****
 * Endorses the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list.
@@ -164,13 +164,17 @@ Format: 'endorse INDEX n/YOUR NAME'
 * Error will be thrown if an employee tries to endorse a candidate more than once
 * When editing tags, the existing tags of the person will be removed (i.e adding of tags is not cumulative) except for
 existing endorsement tags.
-* NOT COMPLETED
+* Removes endorsement of a person at the specified index using 'clear' keyword
+* Error will be thrown if an employee tries to unendorse a candidate he or she has not previously endorsed
+
 ****
 
 Examples:
 
 * 'endorse 1 n/Steve Jobs'
 Adds a blue tag to the candidate at the '1' index with the text 'Steve Jobs'
+* 'endorse clear 1 n/Steve Jobs'
+Removes 'Steve Jobs' blue tag from the candidate at the '1' index
 
 
 === Locating persons by name: `find`

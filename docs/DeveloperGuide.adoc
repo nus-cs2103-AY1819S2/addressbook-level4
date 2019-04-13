@@ -710,7 +710,7 @@ image::ChangeCommandSequenceDiagram.png[width="600"]
 
 //end::folders[]
 
-//tag::testSession[]
+//tag::testsession[]
 === Test Session feature
 
 ==== Overall Current Implementation
@@ -1054,7 +1054,7 @@ image::NextCommandSequenceDiagram.png[width="800"]
 
 **Evaluation of the two alternatives**:
 With our target audience in mind, alternative 1 is the more user friendly and intuitive way to handle this scenario.
-//end::testSession[]
+//end::testsession[]
 
 
 // tag::undoredo[]

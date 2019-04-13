@@ -74,8 +74,7 @@ https://github.com/cs2103-ay1819s2-w10-4/main/pull/46[#46] (explained why travis
 https://github.com/cs2103-ay1819s2-w10-4/main/issues/120[#120], https://github.com/cs2103-ay1819s2-w10-4/main/issues/121[#121], https://github.com/cs2103-ay1819s2-w10-4/main/issues/123[#123], https://github.com/cs2103-ay1819s2-w10-4/main/issues/124[#124],
 https://github.com/cs2103-ay1819s2-w10-4/main/issues/125[#125], https://github.com/cs2103-ay1819s2-w10-4/main/issues/134[#134]
 ** Conducted manual testing and reported bugs for other teams in class: https://github.com/CS2103-AY1819S2-W14-1/main/issues/170[#170], https://github.com/CS2103-AY1819S2-W14-1/main/issues/158[#158],
-https://github.com/CS2103-AY1819S2-W14-1/main/issues/165[#165], https://github
-.com/CS2103-AY1819S2-W14-1/main/issues/145[#145]
+https://github.com/CS2103-AY1819S2-W14-1/main/issues/165[#165], https://github.com/CS2103-AY1819S2-W14-1/main/issues/145[#145]
 
 == Contributions to the User Guide
 We had to update the original addressbook User Guide with instructions for Know-It-All enhancements that we
@@ -92,5 +91,7 @@ features as well. The following section is an excerpt from our updated Know-It-A
 
 include::../DeveloperGuide.adoc[tag=UIdesign]
 include::../DeveloperGuide.adoc[tag=testsession]
+=== Use Cases
 include::../DeveloperGuide.adoc[tag=testsessionusecases]
+=== Instructions for Manual Testing
 include::../DeveloperGuide.adoc[tag=testmanualtesting]

@@ -68,24 +68,6 @@ public class RightParentPanel extends UiPart<Region> {
 
             }
         );
-
-    }
-
-    /**
-     * Custom {@code ListCell} that displays the graphics of a {@code Place} using a {@code PlaceCard}.
-     */
-    class PlaceListViewCell extends ListCell<Place> {
-        @Override
-        protected void updateItem(Place place, boolean empty) {
-            super.updateItem(place, empty);
-
-            if (empty || place == null) {
-                setGraphic(null);
-                setText(null);
-            } else {
-                setGraphic(new PlaceCard(place, getIndex() + 1).getRoot());
-            }
-        }
     }
 
 }

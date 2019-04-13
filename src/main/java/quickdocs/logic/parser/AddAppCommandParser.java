@@ -11,7 +11,7 @@ import quickdocs.logic.parser.exceptions.ParseException;
 import quickdocs.model.patient.Nric;
 
 /**
- * Parses input arguments and creates a new AddAppCommand object
+ * Parses input arguments and creates a new {@code AddAppCommand} object.
  */
 public class AddAppCommandParser implements Parser<AddAppCommand> {
     public static final Prefix PREFIX_NRIC = new Prefix("r/");
@@ -21,14 +21,16 @@ public class AddAppCommandParser implements Parser<AddAppCommand> {
     public static final Prefix PREFIX_COMMENT = new Prefix("c/");
 
     /**
-     * Parses the given {@code String} of arguments in the context of the AddAppCommand
-     * and returns an AddAppCommand object for execution.
-     * @throws ParseException if the user input does not conform the expected format
+     * Parses the given {@code String} of arguments in the context of the {@code AddAppCommand}
+     * and returns an {@code AddAppCommand} object for execution.
+     *
+     * @throws ParseException if the user input does not conform to the expected format.
      */
     public AddAppCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NRIC, PREFIX_DATE, PREFIX_START, PREFIX_END, PREFIX_COMMENT);
 
+        // check if required prefixes are present
         boolean prefixesPresent = arePrefixesPresent(argMultimap, PREFIX_NRIC,
                 PREFIX_DATE, PREFIX_START, PREFIX_END, PREFIX_COMMENT);
         boolean preamblePresent = argMultimap.getPreamble().isEmpty();

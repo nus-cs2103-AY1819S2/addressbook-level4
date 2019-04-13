@@ -3,7 +3,9 @@ package quickdocs.logic.commands;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Optional;
+import java.util.logging.Logger;
 
+import quickdocs.commons.core.LogsCenter;
 import quickdocs.logic.CommandHistory;
 import quickdocs.logic.commands.exceptions.CommandException;
 import quickdocs.logic.parser.PrescriptionCommandParser;
@@ -35,6 +37,8 @@ public class PrescriptionCommand extends Command {
             + "Example: "
             + COMMAND_WORD + " m/Ibuprofen q/1 m/Afrin Spray q/2\n";
 
+    private static final Logger logger = LogsCenter.getLogger(PrescriptionCommand.class);
+
     private ArrayList<String> medicineList;
     private ArrayList<Integer> quantityList;
 
@@ -63,7 +67,9 @@ public class PrescriptionCommand extends Command {
         /**
          * Check whether the medicine to be administered is currently present in the inventory and
          * if it is present, check whether there is sufficient medicine to be prescribed.
-         * Exception will be thrown to indicate that the current prescription cannot be made
+         *
+         * Throws CommandException when medicine to be prescribed is insufficient or not
+         * present.
          */
         for (int i = 0; i < medicineList.size(); i++) {
 
@@ -82,6 +88,8 @@ public class PrescriptionCommand extends Command {
 
         model.prescribeMedicine(prescriptions);
 
+        logger.info("Prescription entered or replaced for current consultation");
+
         StringBuilder sb = new StringBuilder();
         sb.append("prescription:\n");
         sb.append("====================\n");
@@ -99,7 +107,9 @@ public class PrescriptionCommand extends Command {
 
     /**
      * Check whether the content of medicine list and quantity list is the same for two
-     * prescription commands
+     * prescription commands. This method is used in testing.
+     *
+     * @param other the other PrescriptionCommand object
      */
     public boolean checkAttributes(PrescriptionCommand other) {
         return Arrays.equals(getMedicineList().toArray(), other.getMedicineList().toArray())

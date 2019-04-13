@@ -24,15 +24,11 @@ Let us explore how QuickDocs can facilitate and expedite clinical operations in 
 
 == Quick Start
 
-//image::Ui.png[width="790"]
-
-
 .  Ensure you have Java version `9` or later installed in your Computer.
 .  Download the jar file and put it into a folder you desire.
 .  Type a command into the command box and press enter to execute it.
 [NOTE]
 For the full list of commands, you can head to <<Command Summary>>
-.  Click on the buttons if you want to use the GUI to perform the actions instead.
 
 === Interacting with QuickDocs
 
@@ -40,14 +36,16 @@ For the full list of commands, you can head to <<Command Summary>>
 image::ui_explanation.png[width="600"]
 
 .   This is the *command input* box , this is where you can type and execute the various commands
-QuickDocs possesses to perform clinical operations
+QuickDocs possesses to perform clinical operations.
 .   If you make mistakes and enter an invalid command, instructions on how you can rectify your commands
-will be shown in this *input feedback* box
-.   After the execution of your command, you can view the results on this *display* area
+will be shown in this *input feedback* box.
+.   After the execution of your command, you can view the results on the *main display* area
 .   You can view your upcoming appointments for the day, or urgent reminders that you made earlier in the
 *reminders and appointments* panel
-.   During a consultation session, QuickDocs will also indicate that an *ongoing consultation* session is happening
-
+* Appointments are coloured blue, medicine alarms are coloured red
+and other reminders are coloured beige.
+.   During a consultation session, QuickDocs will also indicate that a session is ongoing through
+this *current consultation label*
 
 [[Notation]]
 == Notations used
@@ -65,12 +63,12 @@ This is a note. Additional information that further explains a feature will be w
 == Features
 *QuickDoc's Command Format* +
 
-`command VALUE prefix/VALUE [OPTIONAL_VALUE] ...`
+`command prefix/VALUE [prefix/OPTIONAL VALUE] ...`
 
 //* Commands are in lowercase, you can view all of them using the help command.
-* Values are the user input, which the user intend to store or manipulate data with.
-* Prefixes are used to complement certain commands such as adding or editing of records.
-* Optional values can be placed after the command, and can be added multiple times after the command, value and prefix, depending on the command.
+* Command represent the operation you want to perform such as adding patients, listing medicine inventory and so on.
+* Values are the mandatory user input required for the execution of commands.
+* Optional values are non-compulsory values that can be added in certain commands. They can be added multiple times after the command, prefixes and values.
 
 [TIP]
 All commands have aliases, which can be used to execute the same command with fewer keystrokes e.g. `statistics` can be replaced by `stats`.
@@ -78,10 +76,10 @@ All commands have aliases, which can be used to execute the same command with fe
 {nbsp} +
 
 [[help,Help]]
-=== Viewing help : `help`
+=== Viewing help
 
 Whenever you want to find out in-depth explanation on how to execute a specific command, you can always refer to this
-user guide by entering the `help` command.
+user guide by entering the `help` command on QuickDocs.
 
 Format: `help`
 
@@ -113,9 +111,10 @@ You can add a tag to a patient to indicate his or her long term illnesses. You c
 
 *Alias{nbsp}{nbsp}{nbsp}{nbsp}:* `ap`
 [TIP]
-The order of input does not matter as long as they are all captured. +
+The order of input does not matter as long as all the necessary fields are captured. +
 
 {sp}+
+
 *Examples:*
 
 * `addpat n/Gary Goh r/S7332803I g/M d/1973-04-01 a/20 Upper Changi Road c/92347654 e/ggoh@gmail.com t/highbloodpressure t/diabetes`
@@ -136,7 +135,8 @@ image::ap_after.png[width="600"]
 [[editpat, Edit patient]]
 ==== Editing patient : `editpat`
 
-If you made a mistake when registering a patient, fret not! You can always make changes to the patient record with the `editpat` command. All the fields in the record can be edited, including the NRIC and tags.
+If you made a mistake when registering a patient, fret not! You can always make changes to the patient record with the `editpat` command.
+All the fields in the record can be edited, including the NRIC and tags.
 
 [NOTE]
 The tags entered during an edit patient command will override all the tags a patient record currently possess.
@@ -147,9 +147,11 @@ The tags entered during an edit patient command will override all the tags a pat
 *Alias{nbsp}{nbsp}{nbsp}{nbsp}:* `ep` +
 
 [NOTE]
-you can view the prefixes for each of the fields at the <<addpat>> section. +
+The first NRIC to specify the record does not require a prefix. +
+The prefixes used for the `editpat command` is the same as the ones used in the <<addpat>> section. +
 
 {sp} +
+
 *Example:* +
 
 * `editpat S7332803I n/Gary Doh e/gdoh@gmail.com`  +
@@ -182,11 +184,15 @@ image::ep_conflict.png[width="600"]
 To view a patient's detail, you can use the `listpat` command. You can search and filter patient records
 by their names, NRIC and even their tags.
 
-Suppose you are unsure of the patient's NRIC to start a command, you can always turn to `listpat` to help narrow down your search.
-`listpat` can present all patient records that matches a search sequence you entered. For example, you can enter `r/S92` and the list command
-will present all patient records with NRIC starting with S92.
+* QuickDocs only support one filter per search currently.
+* If more than one filter is entered (i.e. `listpat n/NAME r/NRIC`, only the first search criteria will be used
+(in this case, name)
 
-You can then display a single patient's record by calling `listpat` with the full name or nric.
+For example, if you want to check the patient's NRIC, you can always turn to `listpat` to help narrow down your search.
+Entering listpat with `r/S92` and QuickDocs will present you with patient records whose NRIC starts with S92.
+
+* You can similarly filter down your search using tags or parts of a patient name in the same manner.
+* A specific patient's record can be displayed by calling `listpat` with the full name or full nric
 
 [NOTE]
 Each patient record stored within QuickDocs have a record number, known as an *INDEX*. The
@@ -198,6 +204,7 @@ Index can also be used to narrow down patient searches to a single record.
 *Alias{nbsp}{nbsp}{nbsp}{nbsp}:* `lp` +
 
 {sp} +
+
 *Examples and Results:*
 
 * `listpat` +
@@ -208,17 +215,15 @@ If no keywords are entered, `listpat` will simply display the first 50 patients 
 image::lp_noargs.png[width="600"]
 
 {sp} +
-
 * `listpat n/P` +
 
-Suppose you want to quickly find a patient record whose name starts with "P", you can use `listpat` along
+Suppose you want to find a patient record whose name starts with "P", you can use `listpat` along
 with a sequence of characters to search for the specific patient record you are interested in.
 
 .Listing patients with matching name
 image::lp_name_after.png[width="600"]
 
 {sp} +
-
 * `listpat r/S92` +
 
 You can narrow down your patient search by providing a NRIC sequence as well. For example,
@@ -235,17 +240,19 @@ patient particulars.
 image::lp_nric_specific.png[width="600"]
 
 {sp} +
-
 * `listpat t/diabetes` +
 
 The tags you assigned to each patient can also be used to expedite the `listpat` command. For example, diabetic patients can be
-listed using the `listpat` command along with "t/diabetes" value.
+listed using the `listpat` command along with "t/diabetes" value.'
+
+[NOTE]
+Tags specified for the search must be full sequences (i.e. Diabetes, highbloodpressure/, etc). QuickDocs do not
+permit partial tag search as of v1.4.
 
 .Listing patients by specific tag
 image::lp_tag_after.png[width="600"]
 
 {sp} +
-
 * `listpat 5`
 
 Did you notice that when QuickDocs display multiple patient records during filtering, each record starts with
@@ -269,6 +276,7 @@ When a patient is no longer visiting your clinic (i.e. moved residency), you can
 *Alias{nbsp}{nbsp}{nbsp}{nbsp}:* `dp` +
 
 {sp} +
+
 *Example:* `deletepat r/S7338031I`
 
 {sp} +
@@ -307,7 +315,7 @@ of specific patients +
 [NOTE]
 QuickDocs only permit one ongoing consultation session at any given time. The
 <<diagnose>> and <<prescribe>> steps must be completed before a consultation can end. Otherwise
-you can always use the <<abort>> command to exit an ongoing session.
+you can always use the <<abort>> command to exit an ongoing session without saving any details recorded.
 
 {sp} +
 *Format:* `consult r/NRIC` +
@@ -315,6 +323,7 @@ you can always use the <<abort>> command to exit an ongoing session.
 *Alias{nbsp}{nbsp}{nbsp}{nbsp}:* `c` +
 
 {sp} +
+
 *Example:*
 
 * `consult r/S9876542C` +
@@ -334,7 +343,7 @@ subsequent commands.
 
 {sp}+
 [NOTE]
-While a consultation session is ongoing, It does not mean that you are limited to just entering the consultation commands. You can still enter command that are beyond the consultation module (i.e.
+While a consultation session is ongoing, It does not mean that you are limited to just entering the consultation commands. You can still enter command that are not within the consultation module (i.e.
  listing patients, checking the medicine inventory, etc).
 
 
@@ -357,6 +366,7 @@ This command requires you to have a consultation session already active. See: <<
 *Alias{nbsp}{nbsp}{nbsp}{nbsp}:* `d` +
 
 {sp}+
+
 *Example:*
 
 * `diagnose s/runny nose s/sore throat s/phlegmy cough a/influenza` +
@@ -413,6 +423,7 @@ or{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp} *:* `prescribe m/MEDICINE q/Q
 *Alias{nbsp}{nbsp}{nbsp}{nbsp}:* `p` +
 
 {sp} +
+
 *Example:*
 
 * `prescribe m/penicillin q/1 m/Afrin spray q/1 m/ibuprofen q/2` +
@@ -435,7 +446,7 @@ image::prescription_after.png[width="600"]
 ==== End consultation: `endconsult`
 
 Once the diagnosis and prescription are finalized, you can end the consultation with a simple `endconsult` command.
-No further changes to the diagnosis and prescription details can be made after this point.+
+No further changes to the diagnosis and prescription details can be made after this point.
 
 {sp} +
 *Format:* `endconsult` +
@@ -444,7 +455,11 @@ No further changes to the diagnosis and prescription details can be made after t
 
 {sp} +
 *Result:*
-Once you entered the `endconsult` command, a message to indicate the end of the consultation session is also shown on the main display area. The label for the ongoing consultation session is also removed after the command is entered.
+
+Once you entered the `endconsult` command, a message to indicate the end of the consultation session is also shown on the main display area.
+The label for the ongoing consultation session is also removed after the command is entered.
+
+Most importantly, the consultation record (diagnosis and prescription) is now stored.
 
 .Results of an endconsult command
 image::endconsult.png[width="600"]
@@ -464,11 +479,12 @@ you can always abort the consultation session without providing the diagnosis an
 
 {sp} +
 *Result:*
+
 When you enter the `abort` command, a message is also shown on the main display area to indicate that the current session is aborted.
 The label for the ongoing consultation session is also removed.
 
 .Results of an abort command
-image::abortconsult.png[width="600"]
+image::abortconsult.PNG[width="600"]
 
 '''
 
@@ -488,6 +504,7 @@ or{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp} *:* `listconsult r/NRIC` +
 *Alias{nbsp}{nbsp}{nbsp}{nbsp}:* `lc` +
 
 {sp} +
+
 *Examples and Results:*
 
 * `listconsult r/S9876542C` +
@@ -594,11 +611,7 @@ The new directory will be an empty directory whose name is up to you to decide.
 [NOTE]
 The new directory's name should not contain white spaces or "\" characters.
 
-[NOTE]
-
-
 {sp} +
-
 *Format:* `adddirec [PATH OF THE PARENT DIRECORY] [NAME OF NEW DIRECTORY]` +
 
 *Alias{nbsp}{nbsp}{nbsp}{nbsp}:* `ad`
@@ -754,11 +767,11 @@ In addition, QuickDocs can make your life even easier! You can set an alarm leve
 
 {sp} +
 
-
-
 *Example:*
 
 `alarm root\fever 60`
+
+{sp} +
 
 *Result:*
 
@@ -860,7 +873,7 @@ or{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp} *:* `setprice [NAME_OF_MEDICI
 This command sets the unit price of aspirin to $10.50. You will then have no need to key in the price during each prescription, this price will automatically be used.
 
 [[setprice_after]]
-.Responce for the sample setprice command
+.Response for the sample setprice command
 image::setprice_after.png[width='600']
 
 - - -
@@ -874,16 +887,16 @@ The appointment and reminder modules give you more control over your busy schedu
 and searching appointments and reminders. There is also a command to list out all free appointment timings to help you choose
 your appointment timings more wisely.
 
-You will never forget about any tasks or appointments again! +
+You will never forget about any appointments or tasks again! +
 
 '''
-[[addapp, Add appointment]]
+[[addapp]]
 ==== Adding appointments: `addapp`
 After a consultation session, you may want to schedule a follow-up appointment with your patient. You can use `addapp`
 to create an appointment with an existing patient in QuickDocs to add to your schedule.
 
 [TIP]
-The `<<fa>>` command may be useful for you to first list out all free appointment timings for a given range of dates
+The `<<freeapp, freeapp>>` command may be useful for you to first list out all free appointment timings for a given range of dates
 before choosing an appropriate appointment timing.
 
 [NOTE]
@@ -905,14 +918,14 @@ If unsure, you can refer to the example below.
 
 * `addapp r/S9534567B d/2019-07-23 s/16:00 e/17:00 c/Weekly checkup` +
 
-This adds an appointment allocated to the patient with NRIC S9534567B, on 23rd July 2019, from 4pm to 5pm. You can
+This adds an appointment allocated to the patient with NRIC S6394980I, on 23rd July 2019, from 4pm to 5pm. You can
 include any comments or notes you want to this appointment, which is 'Weekly checkup' in this case.
 
 If the addition of the appointment was successful, QuickDocs will show the details of the added appointment on the
 main display as demonstrated in the diagram below:
 
 .The main display after adding an appointment
-image::addapp_success.PNG[width="600"]
+image::ug-app_rem/addapp_success.png[width="600"]
 
 {sp} +
 
@@ -920,32 +933,30 @@ The addition of the appointment could have failed as there is a conflict in timi
 QuickDocs will display a message in the input feedback box notifying you of this error, as demonstrated in the diagram below.
 
 .Adding an appointment that has conflicting timing with an existing appointment
-image::addapp_time_clash.PNG[width="600"]
+image::ug-app_rem/addapp_clash.png[width="600"]
 {sp} +
 
 
 Another reason for failing to add an appointment could be due to the appointment timing being outside of office hours
-which is from 9am to 6pm. QuickDocs will remind you of this error, as demonstrated in the diagram below:
+which is from 9am to 6pm. QuickDocs will alert you of this error, as demonstrated in the diagram below:
 
 .Adding an appointment that is not within the office hours, from 9am to 6pm
-image::addapp_office_hours.PNG[width="600"]
+image::ug-app_rem/addapp_officehour.png[width="600"]
 
 '''
-[[listapp, List appointments]]
+[[listapp]]
 ==== Listing appointments: `listapp`
-[[la, listapp]]
 You can list all past and future appointments that you have added using the `listapp` command. The appointments will be ordered and
 listed, with the earliest appointment at the top and the latest at the bottom. You can filter the appointments
-you want to see either by specifying a format and a date, or by specifying an existing patient's NRIC.
+you want to see either by specifying a `FORMAT` and a `DATE`, or by specifying an existing patient's `NRIC`.
 
 {sp} +
 *Format:* `listapp f/FORMAT d/DATE` +
 or{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp} *:* `listapp r/NRIC` +
-
 *Alias{nbsp}{nbsp}{nbsp}{nbsp}:* `la` +
 
 [NOTE]
-The only valid keywords for `FORMAT` are `day`, `week`, or `month`.
+The valid keywords for `FORMAT` are only `day`, `week`, or `month`.
 
 {sp} +
 *Examples:*
@@ -957,18 +968,18 @@ By default, `listapp` will list all appointments scheduled in the current week i
 
 * `listapp f/day d/2019-07-23` +
 
-Lists all appointments scheduled on 23rd July 2019.+
+Lists all appointments scheduled on 23rd July 2019. +
 {sp} +
 
 * `listapp f/week d/2019-07-23` +
 
 Lists all appointments scheduled on the given week of 23rd July 2019, which is from 22nd to 28th July. A week starts on a
-Monday and ends on a Sunday.
+Monday and ends on a Sunday. +
 {sp} +
 
 * `listapp f/month d/2019-07-23` +
 
-Lists all appointments scheduled in the month of the given date, July 2019. +delee
+Lists all appointments scheduled in the month of the given date, July 2019. +
 {sp} +
 
 * `listapp r/S9123456A` +
@@ -981,15 +992,13 @@ Lists all appointments allocated to the patient with NRIC S9123456A, if this pat
 The filtered appointments will be ordered by time and listed on the main display of QuickDocs, as demonstrated in the diagram below:
 
 .Listing appointments scheduled on the week of 23rd July 2019.
-image::listapp_week.PNG[width="600"]
+image::ug-app_rem/listapp_week.png[width="600"]
 
 '''
-[[deleteapp, Delete appointment]]
+[[deleteapp]]
 ==== Deleting appointments: `deleteapp`
 If the patient would like to change the appointment date, or if there is a mistake in the appointment details, you can
 delete the existing scheduled appointment with `deleteapp` and then create a new appointment.
-
-[NOTE]
 Deletion of an appointment is final!
 
 [NOTE]
@@ -1003,7 +1012,7 @@ so you don't have to worry about any discrepancies with your sidebar!
 
 [NOTE]
 Since there cannot be any overlapping appointment timings, you are able to uniquely identify any appointment with
-just the appointment date and start time.
+just the `DATE` and `START` time of the appointment.
 
 {sp} +
 *Example and results*:
@@ -1014,25 +1023,25 @@ This command will delete the appointment created on 23rd July 2019 with a start 
 QuickDocs will display the details of the deleted appointment on the main display, as demonstrated in the diagram below:
 
 .Deleting an existing appointment in QuickDocs successfully
-image::deleteapp_success.PNG[width="600"]
+image::ug-app_rem/deleteapp_success.png[width="600"]
 {sp} +
 
 If the given appointment was not found, QuickDocs will display an error message on the input feedback display,
-as demonstrated in the diagram below. Use the `<<la>>` command to find existing appointments for a given date!
+as demonstrated in the diagram below. Use the `<<listapp, listapp>>` command to find existing appointments for a given date!
 
 .Deleting a non-existent appointment in QuickDocs
-image::deleteapp_failure.PNG[width="600"]
+image::ug-app_rem/deleteapp_failure.png[width="600"]
 
 '''
-[[freeapp, List free appointment slots]]
+[[freeapp]]
 ==== List free appointment slots: `freeapp`
 [[fa, freeapp]]
-Unsure of what appointment timings are available in your schedule? Instead of using `<<la>>` to display all existing
+Unsure of what appointment timings are available in your schedule? Instead of using `<<listapp, listapp>>` to display all existing
 appointments, use `freeapp` instead to display a more intuitive list of free appointment slots -
 QuickDocs does the thinking for you!
 
-The free appointment slots will be ordered and listed, with the earliest appointment at the top and the latest at the bottom.
-You can filter the free slots you want to see by specifying a format and a date.
+The free appointment slots will be ordered and listed, with the earliest date at the top and the latest at the bottom.
+You can filter the free slots you want to see by specifying a `FORMAT` and a `DATE`.
 
 {sp} +
 *Format:* `freeapp f/FORMAT d/DATE` +
@@ -1040,25 +1049,25 @@ You can filter the free slots you want to see by specifying a format and a date.
 *Alias{nbsp}{nbsp}{nbsp}{nbsp}:* `fa` +
 
 [NOTE]
-Similarly to `<<la>>`, the only valid keywords for `FORMAT` are `day`, `week`, or `month`.
+Similar to `<<listapp, listapp>>`, the valid keywords for `FORMAT` are only `day`, `week`, or `month`.
 
 {sp} +
 *Examples:* +
 
 * `freeapp` +
 
-By default, `freeapp` will list all free appointment slots in the current week if there are no keywords provided. +
+By default, `freeapp` will list all free appointment slots for the next month if there are no keywords provided. +
 {sp} +
 
 * `freeapp f/day d/2019-07-23` +
 
-Lists all free appointment slots on 23rd July 2019.+
+Lists all free appointment slots on 23rd July 2019. +
 {sp} +
 
 * `freeapp f/week d/2019-07-23` +
 
 Lists all free appointment slots on the given week of 23rd July 2019, which is from 22nd to 28th July. A week starts on a
-Monday and ends on a Sunday.
+Monday and ends on a Sunday. +
 {sp} +
 
 * `freeapp f/month d/2019-07-23` +
@@ -1071,14 +1080,14 @@ Lists all free appointment slots in the month of the given date, July 2019. +
 The free appointment slots will be ordered by time and listed on the main display of QuickDocs, as demonstrated in the diagram below:
 
 .Listing free appointment slots on the week of 23rd July 2019.
-image::freeapp_success.PNG[width="600"]
+image::ug-app_rem/freeapp_week.png[width="600"]
 
 '''
-[[addrem, Add reminder]]
+[[addrem]]
 ==== Adding reminders: `addrem`
 Need to take note of a task to do in the future? You can create a reminder for an event or task with `addrem`,
 and the reminder will show up on your sidebar closer to the date of the event (the week of the reminder date).
-Never forget about your to-dos ever again!
+Never forget about your tasks ever again!
 
 {sp} +
 *Format:* `addrem t/TITLE d/DATE s/START [e/END] [c/COMMENT]` +
@@ -1086,14 +1095,14 @@ Never forget about your to-dos ever again!
 *Alias{nbsp}{nbsp}{nbsp}{nbsp}:* `ar` +
 
 [NOTE]
-`END` and `COMMENT` are optional fields for a reminder.
+`END` time and `COMMENT` are optional fields for a reminder.
 
 {sp} +
 *Example:*
 
 * `addrem t/Check financial records d/2019-07-31 s/18:00 e/18:30 c/Monthly check` +
 
-This command will create a reminder to 'check financial records' which is a 'monthly check', on 31st July 2019
+This command will create a reminder to 'Check financial records' which is a 'Monthly check', on 31st July 2019
 from 6pm to 6:30pm.
 {sp} +
 
@@ -1103,25 +1112,32 @@ If the addition of the reminder was successful, QuickDocs will show the details 
 main display as demonstrated in the diagram below:
 
 .The main display after adding a reminder
-image::addrem_success.PNG[width="600"]
+image::ug-app_rem/addrem_success.png[width="600"]
 
 '''
-[[listrem, List reminders]]
+[[listrem]]
 ==== Listing reminders: `listrem`
 To view your past or future reminders on the sidebar, you can do so using the `listrem` command.
 The reminders will be ordered and listed, with the earliest reminder at the top and the latest at the bottom.
-You can filter the reminders you want to see by specifying a format and a date.
+You can filter the reminders you want to see by specifying a `FORMAT` and a `DATE`.
 
 [NOTE]
-On startup, QuickDocs will display the reminders for the current week on the sidebar.
+On startup, QuickDocs will automatically display the reminders for the current week on the sidebar.
+
+Are the titles or comments too long to be displayed fully on the sidebar? You can also use `listrem` to display all the
+details of a single reminder by specifying its `INDEX` that is shown on the sidebar.
+
+[TIP]
+If you are tired of typing, you could also click the reminder
+with your mouse and all its details will be displayed as well!
 
 {sp} +
 *Format:* `listrem f/FORMAT d/DATE` +
-
+or{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp} *:* `listrem i/INDEX` +
 *Alias{nbsp}{nbsp}{nbsp}{nbsp}:* `lr` +
 
 {sp} +
-*Examples:*
+*Examples and results:*
 
 * `listrem` +
 
@@ -1130,13 +1146,13 @@ By default, `listrem` will list all reminders in the current week if there are n
 
 * `listrem f/day d/2019-07-31` +
 
-Lists all reminders on 31st July 2019.+
+Lists all reminders on 31st July 2019. +
 {sp} +
 
 * `listrem f/week d/2019-07-31` +
 
 Lists all reminders on the given week of 31st July 2019, which is from 29th July to 4th August. A week starts on a
-Monday and ends on a Sunday.
+Monday and ends on a Sunday. +
 {sp} +
 
 * `listrem f/month d/2019-07-31` +
@@ -1144,21 +1160,28 @@ Monday and ends on a Sunday.
 Lists all reminders in the month of the given date, July 2019. +
 {sp} +
 
-*Result:*
-
 The filtered reminders will be ordered by time and listed on the main display of QuickDocs, as demonstrated in the diagram below:
 
 .Listing reminders scheduled on the week of 31st July 2019.
-image::listrem_week.PNG[width="600"]
+image::ug-app_rem/listrem_week.png[width="600"]
+
+{sp} +
+
+* `listrem i/3` +
+
+In the screenshot above, the details of the third reminder is not fully displayed!
+Use this command to display, on the main display, the details of the third reminder listed on the sidebar as
+demonstrated in the diagram below:
+
+.Displaying details of the third reminder.
+image::ug-app_rem/listrem_single.png[width="600"]
+
 
 '''
-[[deleterem, Delete reminder]]
+[[deleterem]]
 ==== Deleting reminders: `deleterem`
-If you would like to clear out your reminder sidebar after completing a task, you can do so using the `deleterem` command.
-You might have noticed that the reminders on the sidebar are identified with an index, which you will use to specify the
-reminder to be deleted.
-
-[NOTE]
+If you would like to clear out your reminder sidebar after a task is completed, you can do so using the `deleterem` command.
+Each reminder on the sidebar are identified with an `INDEX`, which you can use to specify the reminder to be deleted.
 Deletion of a reminder is final!
 
 {sp} +
@@ -1175,7 +1198,7 @@ This command will delete the third reminder listed on the sidebar, if it exists.
 the details of the deleted reminder on the main display, as demonstrated in the diagram below:
 
 .Deleting an existing reminder in QuickDocs successfully
-image::deleterem_success.PNG[width="600"]
+image::ug-app_rem/deleterem_success.png[width="600"]
 
 {sp} +
 
@@ -1183,10 +1206,10 @@ If the given `INDEX` is not present in the sidebar, QuickDocs will display an er
 as demonstrated in the diagram below.
 
 .Invalid index provided to deleterem
-image::deleterem_failure.PNG[width="600"]
+image::ug-app_rem/deleterem_failure.png[width="600"]
 
 '''
-[[ntime, Set time before a reminder for notification to appear]]
+[[ntime]]
 ==== Timing of notification: `ntime` [coming in v2.0]
 Did you know that QuickDocs displays a pop-up notification for you when a reminder is approaching?
 You can adjust how long before the actual reminder start time to receive this notification using `ntime`.
@@ -1207,7 +1230,7 @@ You can adjust how long before the actual reminder start time to receive this no
 Receives pop-up notifications 30 minutes before the actual reminder start time.
 
 '''
-[[sendemail, Send an email reminder to patients]]
+[[sendemail]]
 ==== Sending email reminders to patients: `sendemail` [coming in v2.0]
 With QuickDoc's reminder sidebar, you will never forget about your appointments - however your patients still might!
 To prevent this, `sendemail` allows you to send an auto-generated email reminder to patients regarding an approaching
@@ -1366,15 +1389,15 @@ This is the summary of all the possible commands for QuickDocs. For detailed exp
 
 *Appointment and Reminders* +
 
-* *<<addapp>>* : `addapp` or `aa` +
-* *<<listapp>>* : `listapp` or `la` +
-* *<<deleteapp>>* : `deleteapp` or `da` +
-* *<<freeapp>>* : `freeapp` or `fa` +
-* *<<addrem>>* : `addrem` or `ar` +
-* *<<listrem>>* : `listrem` or `lr` +
-* *<<deleterem>>* : `deleterem` or `dr` +
-* *<<ntime>>* : `ntime` +
-* *<<sendemail>>* : `sendemail` or `se` *[coming in v2.0]* +
+* *<<addapp, Add appointment>>* : `addapp` or `aa` +
+* *<<listapp, List appointments>>* : `listapp` or `la` +
+* *<<deleteapp, Delete appointment>>* : `deleteapp` or `da` +
+* *<<freeapp, List free appointment slots>>* : `freeapp` or `fa` +
+* *<<addrem, Add reminder>>* : `addrem` or `ar` +
+* *<<listrem, List reminders>>* : `listrem` or `lr` +
+* *<<deleterem, Delete reminder>>* : `deleterem` or `dr` +
+* *<<ntime, Notification timing>>* : `ntime` or `nt` *[coming in v2.0]* +
+* *<<sendemail, Send email reminder>>* : `sendemail` or `se` *[coming in v2.0]* +
 
 *Administration and Statistics* +
 

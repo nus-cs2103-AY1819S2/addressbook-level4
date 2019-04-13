@@ -18,8 +18,6 @@ import quickdocs.model.patient.Patient;
  */
 public class JsonAdaptedConsultation {
 
-    public static final String MISSING_FIELD_MESSAGE_FORMAT = "Consultation's %s field is missing!";
-
     private int index;
     private LocalDateTime session;
 
@@ -64,7 +62,8 @@ public class JsonAdaptedConsultation {
     /**
      * Converts this Jackson-friendly adapted person object into the model's {@code Person} object.
      *
-     * @throws IllegalValueException    if there were any data constraints violated in the tags.
+     * @return The Consultation model object
+     * @throws IllegalValueException if there were any data constraints violated in the tags.
      * @throws IllegalArgumentException if there were any data constraints violated for patient fields.
      */
     public Consultation toModelType() throws IllegalValueException, IllegalArgumentException {

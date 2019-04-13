@@ -3,7 +3,7 @@ package quickdocs.model.patient;
 import java.util.regex.Pattern;
 
 /**
- * Represents email of a particular patient
+ * Represents email address of a particular patient
  */
 public class Email {
 
@@ -13,6 +13,7 @@ public class Email {
 
     private String email;
 
+    // empty constructor for json reconstruction
     public Email() {
     }
 

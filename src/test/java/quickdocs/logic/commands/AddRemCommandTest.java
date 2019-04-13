@@ -1,13 +1,12 @@
 package quickdocs.logic.commands;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 import static quickdocs.testutil.TypicalReminders.REM_A;
 import static quickdocs.testutil.TypicalReminders.REM_B;
 import static quickdocs.testutil.TypicalReminders.REM_E;
 import static quickdocs.testutil.TypicalReminders.getTypicalRemindersQuickDocs;
 
-import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -19,6 +18,9 @@ import quickdocs.model.ModelManager;
 import quickdocs.model.QuickDocs;
 import quickdocs.model.UserPrefs;
 
+/**
+ * Contains integration tests (interaction with the Model) and unit tests for {@code AddRemCommand}.
+ */
 public class AddRemCommandTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
@@ -35,7 +37,7 @@ public class AddRemCommandTest {
         sb.append("Reminder added:\n")
                 .append(REM_E.toString() + "\n");
 
-        Assert.assertEquals(sb.toString(), commandResult.getFeedbackToUser());
+        assertEquals(sb.toString(), commandResult.getFeedbackToUser());
     }
 
     @Test
@@ -50,20 +52,20 @@ public class AddRemCommandTest {
         AddRemCommand addRemA = new AddRemCommand(REM_A);
 
         // same object -> returns true
-        assertTrue(addRemA.equals(addRemA));
+        assertEquals(addRemA, addRemA);
 
         // same values -> returns true
         AddRemCommand addRemB = new AddRemCommand(REM_A);
-        assertTrue(addRemA.equals(addRemB));
+        assertEquals(addRemA, addRemB);
 
         // different types -> returns false
-        assertFalse(addRemA.equals(1));
+        assertNotEquals(addRemA, 1);
 
         // null -> returns false
-        assertFalse(addRemA.equals(null));
+        assertNotEquals(addRemA, null);
 
         // different reminder -> returns false
         addRemB = new AddRemCommand(REM_B);
-        assertFalse(addRemA.equals(addRemB));
+        assertNotEquals(addRemA, addRemB);
     }
 }

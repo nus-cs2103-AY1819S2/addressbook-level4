@@ -10,7 +10,7 @@ import quickdocs.model.QuickDocs;
 import quickdocs.model.reminder.Reminder;
 
 /**
- * A utility class containing a list of {@code Appointment} objects to be used in tests.
+ * A utility class containing a list of {@code Reminder} objects to be used in tests.
  */
 public class TypicalReminders {
 

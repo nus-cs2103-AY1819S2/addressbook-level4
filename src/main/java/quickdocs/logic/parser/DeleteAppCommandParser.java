@@ -10,21 +10,23 @@ import quickdocs.logic.commands.DeleteAppCommand;
 import quickdocs.logic.parser.exceptions.ParseException;
 
 /**
- * Parses input arguments and creates a new DeleteAppCommand object
+ * Parses input arguments and creates a new {@code DeleteAppCommand} object.
  */
 public class DeleteAppCommandParser implements Parser<DeleteAppCommand> {
     public static final Prefix PREFIX_DATE = new Prefix("d/");
     public static final Prefix PREFIX_START = new Prefix("s/");
 
     /**
-     * Parses the given {@code String} of arguments in the context of the DeleteAppCommand
-     * and returns a DeleteAppCommand object for execution.
-     * @throws ParseException if the user input does not conform the expected format
+     * Parses the given {@code String} of arguments in the context of the {@code DeleteAppCommand}
+     * and returns a {@code DeleteAppCommand} object for execution.
+     *
+     * @throws ParseException if the user input does not conform to the expected format.
      */
     public DeleteAppCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_DATE, PREFIX_START);
 
+        // check if required prefixes are present
         boolean prefixesPresent = arePrefixesPresent(argMultimap, PREFIX_DATE, PREFIX_START);
         boolean preamblePresent = argMultimap.getPreamble().isEmpty();
         if (!prefixesPresent || !preamblePresent) {

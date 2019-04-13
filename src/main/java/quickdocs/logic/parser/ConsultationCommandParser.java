@@ -8,7 +8,7 @@ import quickdocs.logic.commands.ConsultationCommand;
 import quickdocs.logic.parser.exceptions.ParseException;
 
 /**
- * Parses the arguments to search for a patient to start consultation
+ * Parses the arguments to search for a patient and start the consultation
  */
 public class ConsultationCommandParser implements Parser<ConsultationCommand> {
 

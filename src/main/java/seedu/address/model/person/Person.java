@@ -70,7 +70,9 @@ public class Person {
         return gpa;
     }
 
-    public Degree getDegree() { return degree; }
+    public Degree getDegree() {
+        return degree;
+    }
 
     public Address getAddress() {
         return address;

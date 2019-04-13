@@ -97,7 +97,8 @@ public class EditCommand extends Command {
         Set<SkillsTag> editedTags = new HashSet<>(changedPerson.getTags());
         editedTags.addAll(endorsements);
         Person editedPerson = new Person(changedPerson.getName(), changedPerson.getPhone(), changedPerson.getEmail(),
-                changedPerson.getEducation(), changedPerson.getGpa(), changedPerson.getDegree(), changedPerson.getAddress(), editedTags);
+                changedPerson.getEducation(), changedPerson.getGpa(), changedPerson.getDegree(),
+                changedPerson.getAddress(), editedTags);
 
 
         if (!personToEdit.isSamePerson(editedPerson) && model.hasPerson(editedPerson)) {

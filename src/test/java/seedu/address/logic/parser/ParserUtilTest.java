@@ -18,12 +18,9 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.logic.parser.exceptions.ParseException;
-//import seedu.address.model.pdf.Address;
-//import seedu.address.model.pdf.Email;
 import seedu.address.model.pdf.Deadline;
 import seedu.address.model.pdf.Directory;
 import seedu.address.model.pdf.Name;
-//import seedu.address.model.pdf.Phone;
 import seedu.address.model.tag.Tag;
 import seedu.address.testutil.Assert;
 

@@ -4,7 +4,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import seedu.address.logic.commands.EditCommand;
+import seedu.address.logic.commands.RenameCommand;
 import seedu.address.model.pdf.Name;
 import seedu.address.model.pdf.Pdf;
 import seedu.address.model.pdf.Size;
@@ -15,21 +15,21 @@ import seedu.address.model.tag.Tag;
  */
 public class EditPdfDescriptorBuilder {
 
-    private EditCommand.EditPdfDescriptor descriptor;
+    private RenameCommand.EditPdfDescriptor descriptor;
 
     public EditPdfDescriptorBuilder() {
-        descriptor = new EditCommand.EditPdfDescriptor();
+        descriptor = new RenameCommand.EditPdfDescriptor();
     }
 
-    public EditPdfDescriptorBuilder(EditCommand.EditPdfDescriptor descriptor) {
-        this.descriptor = new EditCommand.EditPdfDescriptor(descriptor);
+    public EditPdfDescriptorBuilder(RenameCommand.EditPdfDescriptor descriptor) {
+        this.descriptor = new RenameCommand.EditPdfDescriptor(descriptor);
     }
 
     /**
      * Returns an {@code EditPdfDescriptor} with fields containing {@code pdf}'s details
      */
     public EditPdfDescriptorBuilder(Pdf pdf) {
-        descriptor = new EditCommand.EditPdfDescriptor();
+        descriptor = new RenameCommand.EditPdfDescriptor();
         descriptor.setName(pdf.getName());
         descriptor.setTags(pdf.getTags());
     }
@@ -60,7 +60,7 @@ public class EditPdfDescriptorBuilder {
         return this;
     }
 
-    public EditCommand.EditPdfDescriptor build() {
+    public RenameCommand.EditPdfDescriptor build() {
         return descriptor;
     }
 }

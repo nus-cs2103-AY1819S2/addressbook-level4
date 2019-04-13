@@ -140,8 +140,8 @@ public class CommandTestUtil {
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
     //Edit Command Descriptors
-    public static final EditCommand.EditPdfDescriptor DESC_1;
-    public static final EditCommand.EditPdfDescriptor DESC_2;
+    public static final RenameCommand.EditPdfDescriptor DESC_1;
+    public static final RenameCommand.EditPdfDescriptor DESC_2;
 
     static {
         DESC_1 = new EditPdfDescriptorBuilder().withName(NAME_1_VALID).build();

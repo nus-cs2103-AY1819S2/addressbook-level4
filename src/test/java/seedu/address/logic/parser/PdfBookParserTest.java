@@ -33,7 +33,6 @@ import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.DeadlineCommand;
 import seedu.address.logic.commands.DecryptCommand;
 import seedu.address.logic.commands.DeleteCommand;
-import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EncryptCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FilterCommand;
@@ -44,6 +43,7 @@ import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.MergeCommand;
 import seedu.address.logic.commands.MoveCommand;
 import seedu.address.logic.commands.OpenCommand;
+import seedu.address.logic.commands.RenameCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.SortCommand;
 import seedu.address.logic.commands.TagCommand;
@@ -101,12 +101,12 @@ public class PdfBookParserTest {
     @Test
     public void parseCommand_edit() throws Exception {
         Pdf pdf = new PdfBuilder(SAMPLE_PDF_1).withName(NAME_2_VALID).build();
-        EditCommand.EditPdfDescriptor descriptor = new EditPdfDescriptorBuilder()
+        RenameCommand.EditPdfDescriptor descriptor = new EditPdfDescriptorBuilder()
                 .withName(pdf.getName().getFullName()).build();
 
-        EditCommand command = (EditCommand) parser.parseCommand(EditCommand.COMMAND_WORD + " "
+        RenameCommand command = (RenameCommand) parser.parseCommand(RenameCommand.COMMAND_WORD + " "
                 + INDEX_FIRST_PDF.getOneBased() + " " + PdfUtil.getRenamePdfDescriptorDetails(descriptor));
-        assertEquals(new EditCommand(INDEX_FIRST_PDF, descriptor), command);
+        assertEquals(new RenameCommand(INDEX_FIRST_PDF, descriptor), command);
     }
 
     @Test

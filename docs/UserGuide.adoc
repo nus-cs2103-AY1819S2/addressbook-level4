@@ -535,6 +535,61 @@ Following the same logic, you may not be able to store two different medicine wi
 
 - - -
 
+==== Suggestion mode in command typing
+
+In QuickDocs, as medicines are stored in directories format, you will need to key in the path to your interested directory/medicine from time to time. +
+
+For your convenience, QuickDocs actually provides a quick cut to key in these paths so that you do not need to type in every character by yourself! +
+
+As long as you are typing a command in medicine module and you have typed the name of the first parent directory followed by a `\` character, the suggestion mode is automatically turn on! +
+
+So what is suggestions mode? Why is that useful? The following example will illustrate the convenience it brings to you.
+
+* Suppose you have a directory 'Flu' under directory 'General' under directory 'Internal' under the root directory 'root' as illustrated below:
+
+[[suggestion_ug1]]
+.Display of detailed information
+image::suggestion_ug1.png[width='800']
+
+* Now you want to type this command `listmed root\Internal\General\Flu` , which is a command to see detailed information about that directory, from scratch.
+
+* What you can do is to first type `listmed root\` to trigger the suggestion mode.
+
+.To trigger the suggestion mode
+image::suggestion_ug2.png[width='800']
+
+* You can then press the page-down key to iterate through all subdirectories under 'root'. The input box will automatically be filled for you.
+
+.After pressing Page Down once
+image::suggestion_ug3.png[width='800']
+
+* In this example, you can arrive at `listmed root\Internal` in just two Page Down keys.
+
+.After pressing Page Down twice
+image::suggestion_ug4.png[width='800']
+
+* Doing this recursively at every stage, you can quickly arrive at the desired `listmed root\Internal\General\Flu`.
+
+* Suppose now you want to view the detailed information about a medicine called 'guaifenesin' under directory 'Flu'. You entered `listmed root\Internal\General\Flu\guai` only to realize that you forget the spelling of guaifenesin.
+
+* Do not worry! You can press page-up / page-down as well. Page up will bring you to the last valid sub-directory / medicine name as compared to your input according to alphabetic order. Page down will bring you to the next valid input.
+
+.Before pressing Page Up / Page Down
+image::suggestion_ug5.png[width='800']
+
+.After pressiong Page Up, brings you to the last valid medicine: diphenhydramine
+image::suggestion_ug6.png[width='800']
+
+.After pressing Page Down, brings you to your desired : guaifenesin
+image::suggestion_ug7.png[width='800']
+
+In short, instead of typing out every characters, you can iterate through your directories fast and easy when typing commands using the page-up and page-down keys!
+
+[NOTE]
+In QuickDocs, names of directories and medicines are case-insensitive. So what appears in the suggestions may be in different cases from the actual name, but they will work the same.
+
+- - -
+
 [[adddirec, Add directory]]
 ==== Add new directory into storage: `adddirec`
 
@@ -544,6 +599,9 @@ The new directory will be an empty directory whose name is up to you to decide.
 
 [NOTE]
 The new directory's name should not contain white spaces or "\" characters.
+
+[NOTE]
+
 
 {sp} +
 
@@ -581,6 +639,9 @@ You can add a new medicine by specifying where it should go to, its initial quan
 *Format:* `addmed [PATH OF DIRECTORY TO ADD TO] [MEDICINE_NAME] [q/QUANTITY] [p/PRICE]` +
 
 *Alias:* `am`
+
+[NOTE]
+Directories and medicines under the same directory are now allowed to share the same name (case-insensitive).
 
 {sp} +
 

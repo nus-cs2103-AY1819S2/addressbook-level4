@@ -1,11 +1,8 @@
 package quickdocs.ui;
 
-import static quickdocs.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-import java.util.regex.Matcher;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -16,14 +13,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import quickdocs.logic.Logic;
-import quickdocs.logic.commands.AddDirectoryCommand;
-import quickdocs.logic.commands.AddMedicineCommand;
-import quickdocs.logic.commands.AlarmCommand;
 import quickdocs.logic.commands.CommandResult;
-import quickdocs.logic.commands.PurchaseMedicineCommand;
-import quickdocs.logic.commands.SetPriceCommand;
-import quickdocs.logic.commands.ViewStorageCommand;
-import quickdocs.logic.parser.QuickDocsParser;
 
 /**
  * This class handles user interaction with the root layout
@@ -133,17 +123,21 @@ public class RootLayoutController {
          * previously entered commands are navigable using the up and down directional keys
          * suggestions are navigable using the Page-Up and Page-Down keys
          */
+        suggestionOn = logicManager.isDirectoryFormat(userInputField.getText());
+        if (suggestionOn) {
+            isMedicineAllowed = logicManager.isMedicineAllowed(userInputField.getText());
+        }
 
-        suggestionOn = isDirectoryFormat(userInputField.getText());
         switch (event.getCode()) {
         case PAGE_UP:
             event.consume();
             if (!suggestionOn) {
                 break;
             }
-            suggestions = getDirectorySuggestions(userInputField.getText());
+
+            suggestions = logicManager.getDirectorySuggestions(userInputField.getText());
             if (isMedicineAllowed) {
-                suggestions.addAll(getMedicineSuggestions(userInputField.getText()));
+                suggestions.addAll(logicManager.getMedicineSuggestions(userInputField.getText()));
                 suggestions.sort(Comparator.comparing(String::toLowerCase));
             }
             int pointer = getIndex(userInputField.getText(), suggestions);
@@ -161,9 +155,9 @@ public class RootLayoutController {
             if (!suggestionOn) {
                 break;
             }
-            suggestions = getDirectorySuggestions(userInputField.getText());
+            suggestions = logicManager.getDirectorySuggestions(userInputField.getText());
             if (isMedicineAllowed) {
-                suggestions.addAll(getMedicineSuggestions(userInputField.getText()));
+                suggestions.addAll(logicManager.getMedicineSuggestions(userInputField.getText()));
                 suggestions.sort(Comparator.comparing(String::toLowerCase));
             }
             pointer = getIndex(userInputField.getText(), suggestions);
@@ -190,58 +184,12 @@ public class RootLayoutController {
     }
 
     /**
-     * To judge whether suggestion mode should be turned on.
-     *
-     * @param rawArgs The user input
-     * @return whether suggestion mode should be turned on
+     * Get the position of current user input in the list of suggestions
+     * @param input current user input, starting from the next character from the last \ character
+     * @param suggestions list of suggestions
+     * @return A even number x if input equals suggestions[x/2];
+     *          an odd number, if input is larger than suggestions[(x-1)/2] but smaller than suggestions[(x+1)/2]
      */
-    private boolean isDirectoryFormat(String rawArgs) {
-        isMedicineAllowed = false;
-        Matcher matcher = QuickDocsParser.BASIC_COMMAND_FORMAT.matcher(rawArgs);
-        if (!matcher.matches()) {
-            return false;
-        }
-        String commandWord = matcher.group("commandWord").trim();
-        String arguments = matcher.group("arguments").trim();
-        if (!arguments.contains("\\") || arguments.contains(" ")) {
-            return false;
-        }
-        switch (commandWord) {
-        case PurchaseMedicineCommand.COMMAND_WORD:
-        case PurchaseMedicineCommand.COMMAND_ALIAS:
-        case SetPriceCommand.COMMAND_WORD:
-        case SetPriceCommand.COMMAND_ALIAS:
-        case AlarmCommand.COMMAND_WORD:
-        case ViewStorageCommand.COMMAND_WORD:
-        case ViewStorageCommand.COMMAND_ALIAS:
-            isMedicineAllowed = true;
-            return true;
-        case AddMedicineCommand.COMMAND_WORD:
-        case AddMedicineCommand.COMMAND_ALIAS:
-        case AddDirectoryCommand.COMMAND_WORD:
-        case AddDirectoryCommand.COMMAND_ALIAS:
-            return true;
-        default:
-            return false;
-        }
-    }
-
-    private ArrayList<String> getDirectorySuggestions(String rawPath) {
-        Matcher matcher = QuickDocsParser.BASIC_COMMAND_FORMAT.matcher(rawPath);
-        if (!matcher.matches()) {
-            throw new IllegalArgumentException(MESSAGE_INVALID_COMMAND_FORMAT);
-        }
-        return logicManager.getDirectorySuggestions(matcher.group("arguments"));
-    }
-
-    private ArrayList<String> getMedicineSuggestions(String rawPath) {
-        Matcher matcher = QuickDocsParser.BASIC_COMMAND_FORMAT.matcher(rawPath);
-        if (!matcher.matches()) {
-            throw new IllegalArgumentException(MESSAGE_INVALID_COMMAND_FORMAT);
-        }
-        return logicManager.getMedicineSuggestions(matcher.group("arguments"));
-    }
-
     private int getIndex(String input, ArrayList<String> suggestions) {
         String currentName = input.substring(input.lastIndexOf("\\") + 1).trim();
         if (currentName.equals("")) {
@@ -386,6 +334,4 @@ public class RootLayoutController {
             helpWindow.focus();
         }
     }
-
-
 }

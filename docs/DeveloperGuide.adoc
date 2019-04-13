@@ -901,6 +901,9 @@ needed when simply querying for a single topic. However, the current implementat
 class currently holds all the information for all the topics.
 
 === Storing medicines in inventory
+
+One essential aspect of clinic management is about managing medicine storage of the clinic. QuickDocs' medicine management module supports customized medicine organization via a browser-like directory format.
+
 ==== Current implementation
 
 The current implementation takes a similar form as the Windows file browser. The user is free to determine for himself/herself how he/she wants the medicines to be arranged.
@@ -916,6 +919,9 @@ To organize the inventory, the following methods in `MedicineManager` are used: 
 [NOTE]
 The current implementation does not allow multiple medicines with the same to exist simultaneously. However, one medicine could be placed in multiple directories.
 
+[NOTE]
+Both directories and medicines' names are case-insensitive.
+
 From the initial empty state of the storage, the users could arrange their storage in these following ways:
 
 1. The initial empty storage consists of an empty directory named as "root". The user can then add directories and medicines into the storage.
@@ -929,6 +935,8 @@ From the initial empty state of the storage, the users could arrange their stora
 * 1. If there already exists a medicine with the same name in the storage, and the quantity and price is not specified in the command arguments, the existing medicine will be placed in the directory specified.
 
 * 2. Otherwise, a new medicine with the specified name, quantity and price will be created and added to the specified directory.
+
+{nbsp} +
 
 Given below is an example of organizing medicine from an initial empty QuickDocs.
 
@@ -970,53 +978,129 @@ image::medicineModule_example5.png[width='800']
 
 The list of unique medicine is also updated.
 
-4. The user could view detailed information about a directory or medicine through "viewMed" command.
+[[listOfMedicine_example2]]
+image::listOfMedicine_example2.png[width='800']
 
-5. The user could set the alarm level for medicines via the "setAlarm", such that when the stored amount of the medicine falls lower than the alarm level, a reminder will be thrown.
+Step 6: Now, the user found out that aspirin can also be used to treat high blood pressure and decides to put it under "Cardiology" as well. +
 
-* 1. If the path in the command argument corresponds to a medicine, the medicine will have the alarm level specified.
+Via the `addmed root\Internal\Cardiology aspirin`, a reference to the existing aspirin medicine will be placed under the "Cardiology" directory. +
 
-* 2. If the path in the command argument corresponds to a directory, every medicine under it and its sub-directories will have the alarm level specified. All medicines added under this directory will have the same alarm level.
+The figure below shows the result of this command.
 
-* 3. If the path neither points to a directory nor medicine, an error message will be displayed to the user.
+[[medicineModule_example6]]
+image::medicineModule_example6.png[width='800']
 
-6. Additionally, a list of all medicine stored in the storage is also kept to enable fast search and manipulation of medicine by its name only.
+However, the list of unique medicine is not changed, as now new medicine is added.
 
+[[listOfMedicine_example3]]
+image:listOfMedicine_example2.png[width='800']
 
+{nbsp} +
 
-[NOTE]
-Both directories and medicines' names are case-insensitive. So two medicines named `Paracetamol` and `paracetamol` cannot coexist in the inventory.
+When typing the directory path in the command box in the ui, QuickDocs supports intelligent suggestions about the next field. +
 
+After the user entered at least one `\` character to indicate he is inputting a path, the suggestion mode will be turned on. +
 
+The user could press Page Up / Page Down bottom to iterate to the previous or the next valid name of sub-directory or medicine in alphabetical order, given that the path given before the previous `\` character is valid.
+
+Using the above sample inventory as an example: +
+
+[[medicineModule_example7]]
+image::medicineModule_example7.png[width='800']
+
+* When the user types in `addmed root\`, the suggestion mode is turned on. +
+
+* The user may not want to type in the full name of the directories, so when he types in `addmed root\in`, he could then press Page Down to iterate to the next valid name in alphabetical order, which is "Internal". +
+
+* The command box is then automatically filled with `addmed root\Internal` +
+
+* Similarly, if the user decides to traverse to the previous valid name, he could do so by press Page Up. And the command box will automatically be filled with `addmed root\External`. +
+
+The figure below illustrates how this feature is implemented to make user's life more convenient. +
+
+[[suggestion_diagram]]
+.Sequence diagram illustrating the implementation of suggestion mode
+image::suggestion_diagram.png[width='800]
+
+{sp} +
+
+QuickDocs also supports setting alarm level for medicines. Every time a medicine's storage falls below the designated level, a reminder is thrown. +
+
+To convenient the users, QuickDocs allow not only threshold setting for individual medicines, but also threshold setting for directories. +
+
+Taking the above sample inventory as an example: +
+
+[[medicineModule_example8]]
+image::medicineModule_example7.png[width='800']
+
+Setting a threshold for a directory is effectively the same as setting the threshold for every medicine in the "subtree" of that directory. This is down by a tree-like traversal. +
+
+For example, `alarm root\Internal 400` command sets the alarm level of all medicine in the subtree of "Internal" directory to 400. +
+
+[[medicineModule_example8]]
+image::medicineModule_example8.png[width='800]
 
 ==== Design consideration
 
 1. The current implementation takes into consideration that the users may wish to have some freedom in determining the arrangement of medicine.
 
-2. This Windows-file-browser-like data Structure provides user flexibility in determining how the medicines should be arranged.
+2. When prescribing medicines, a directory system that step by step leads to the desired medicine is to the convenience of the user.
 
 3. By arranging the medicine by folders, it is then possible to support massive manipulation of medicine by directories.
 
-4. As it is impossible to expect the user to remember the name of all medicine, this data structure helps the user to find medicine when he/she cannot remember the full name correctly
+4. Additionally, it is impossible to expect the doctor to always remember the full name of medicines correctly. There is a need for an easier way to identify medicines to operate on besides requiring the user to type in full names every time.
+
+5. Considering that even a small private clinic may have a considerably large set of medicine available in their storage, massive operation on a large set of medicine should be made possible besides operations on single medicine.
 
 ==== Alternatives considered
 
-[cols="1, 1, 1", options="header"]
+The table illustrates some of the alternatives I considered during development of this medicine module, the relative advantages they have over the current implementation, and why they are not selected at the end.
+
+[cols="1, 1, 2a, 2a", options="header"]
 |===
-|Alternative |Description |Reasons for not adopting
+|Alternative |Description |Comparative advantages |Reasons for not adopting
 // row 1
 |*Store medicines as a simple ArrayList*
-| When users add a new medicine, just append a new medicine to the ArrayList
-| When the number of medicines stored is large, search and manipulation is not time-efficient.
+|When users add a new medicine, just append a new medicine to the ArrayList. +
 
-There is no room for arrangements of medicine.
+During operations on medicines, use name of medicine as a key to select the wanted medicine.
+
+| * Simpler command format: The user could type in less arguments for the same commands.
+
+* No maintainability issue: There is no constraint to the data structure, therefore there is no need to cross check all modules to ensure the constraints are maintained. Less likely to occur bugs.
+
+| * The user must type in full name of medicines correctly to identify the correct medicine, This contradicts our belief that doctors are unlikely to know the full name of all his/her medicine.
+
+* There is no freedom for the user to organize his/her medicine. When the user wants to view or operate on all medicine that share some common traits, he/she is not able to do so.
 
 // row 2
 |*Use a hash map to store the medicines*
-| Use medicine name as the key and the medicine as the value.
-| The user will not be able to access the medicine unless he/she remembers the name precisely, which is not likely to be the case.
+| Use medicine name as the key and the medicine as the value. Search for the key to identify and operate on medicines.
+| * Searching and identifying using names as key is more time-efficient compared to the current implementation, especially when data size is large. +
+
+* Simpler command format, less fields to input per command.
+
+| * There is no room for customized arrangement of medicine. +
+
+* The user need to type in the correct full name of medicines to be able to identify medicines. This adds on extra difficulties for users to use the application.
+
+* Does not support massive operations on similar medicines. Users need to repeat the same operations on many medicines.
+
+//row 3
+|*Store medicines in a list with tags*
+| When adding medicines, require tags from the users so that searching and identifying medicine is easier.
+| * Easier to list all medicines with the same tag. +
+
+* Similar structure with patient module. Less efforts needed on both the developers' side and users' side to familiarise themselves with the data structure.
+| * Potential lengthy commands if a medicine is widely applicable to many situations such that it may have a lot tags. +
+
+* Have to either input the full name of medicine or recall the tag correctly to retrieve correct medicine. When there is a large set of medicines and tags, this alternatives provides little extra convenience as compared to the two alternatives above.
 
 |===
+
+Since QuickDocs aims to provide the most convenient experience given a large set of medicine in a clinic inventory, the medicine management module needs to provide a model that makes both typing commands, identifying the correct medicine and massive operation possible. +
+
+Combined with the <<medicineModule_example7, suggestion mode>>, the current design is the best way to implement all of the three.
 // tag::dataencryption[]
 
 // end::dataencryption[]
@@ -1620,7 +1704,7 @@ These instructions only provide a starting point for testers to work on; testers
 `listpat` command can be used to check if there are conflicting NRIC
 .. Test case 1: `addpat n/Mohd Hamiru Bin Hamza r/S9876543C a/1 Tampines Street e/mhbh@gmail.com c/92344321 g/M d/1998-07-06` +
    Expected: Patient with name "Mohd Hamiru Bin Hamza" with NRIC S9876542C added
-.. Test case 2: `add n/Nurul Huda Binte Hamza r/S9876543C a/3 Tampines Street e/nhbh@gmail.com c/93124432 g/F d/1998-11-02 ` +
+.. Test case 2: `add n/Nurul Huda Binte Hamza r/S9876543C a/3 Tampines Street e/nhbh@gmail.com c/93124432 g/F d/1998-11-02` +
    Expected: Patient will not be added, an error message will be shown to indicate that a patient with the same NRIC existed in the records
 .. Other incorrect `addpat` commands to try: `addpat` with missing parameters such as gender and date of birth, `addpat` with name containing of symbols,
 `addpat` with invalid NRIC values (8 numbers or invalid last letters).
@@ -1702,3 +1786,42 @@ if there isn't any. You need at least 2 patients to perform this manual test.
    Expected: Assuming that there is no appointment on the given date and time, you will be informed through the error message shown.
 .. Other incorrect `deleteapp` commands to try: date without `-` between month and day, invalid start time (start time must be
    within office hours of 9am to 6pm), any missing prefixes, any missing parameters.
+
+=== Adding a new directory for medicine storage
+
+[NOTE]
+The following tests assume the tester starts with an empty storage.
+
+. Add a new directory under the root directory
+
+.. Test case 1: `adddirec root NEW_DIRECTORY` +
+   Expected: A success message confirming the successful addition will be shown in the main display. A new directory called 'NEW_DIRECTORY' will be added to root directory, which is verifiable via `listmed root` command.
+.. Test case 2:`adddirec root NEW DIRECTORY` +
+   Expected: As the new directory's name includes a white space which is not allowed, no new directory will be added and an error message will show up.
+.. Test case 3:`adddirec root\Internal NEW_DIRECTORY` +
+   Expected: As the tester starts with an empty storage, there is no existing directory at root\Internal. No new directory will be added, and an error message will show up saying "No directory is found at the given path."
+.. Other incorrect `adddirec` commands to try: commands with missing new directory name
+
+=== Adding a medicine into a directory
+
+[NOTE]
+The following tests assume that `root\Internal\General` is a valid path, i,e there is already a directory 'General' under directory 'Internal' under root directory.
+
+. Add a new medicine into storage
+.. Prerequisites: There is no medicine with the same name as the to-add medicine in the entire storage.
+.. Test case 1: `addmed root\Internal\General paracetamol p/2.4 q/40` +
+   Expected: A new medicine called 'paracetamol' with initial quantity 40 and price 2.4 will be added under 'Flu' directory. A success message confirming this addition will show in the main display.
+.. Test case 2: `addmed root\Internal\General paracetamol p/2.4 q/40` when there is an existing medicne named 'paracetamol' in the storage. +
+   Expected: The addition will fails, as there already exists a medicine with same name. No change will occur and an error message will show up.
+.. Test case 3: `addmed root\Internal\General paracetamol p/2.4 q/34.5` +
+   Expected: The addition will fail. As the quantity in QuickDocs are in terms of units, no fractional number is allowed in the quantity field. An error message will show up.
+.. Other incorrect `addmed` commands to try: missing any prefixes, invalid path
+. Add an existing medicine into a different directory
+.. Prerequisites: There is already an existing medicine called 'paracetamol' somewhere in the storage.
+.. Test case 1: `addmed root\Internal\General paracetamol` +
+   Expected: A new reference to the same medicine will be added to root\Internal\General. A success message will show in the main display.
+.. Test case 2: `addmed root\Internal\General paracetamol` when there is no existing medicine with name 'paracetamol' +
+   Expected: No change will occur. As there is no such existing medicine, an error message will show up.
+.. Test case 3: `addmed root\Internal\General paracetamol` when root\Internal\General already contains a reference to paracetamol. +
+   Expected: As the same medicine cannot be placed into the same directory twice, no change will happen. An error message will show up.
+.. Other incorrect `addmed` command to try: When there is a subdirectory under the same directory with the same name as the to-add medicine.

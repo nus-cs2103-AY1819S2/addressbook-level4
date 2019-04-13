@@ -21,6 +21,7 @@ import java.util.Objects;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 import org.junit.rules.TemporaryFolder;
 
 import seedu.knowitall.commons.core.GuiSettings;
@@ -31,6 +32,9 @@ import seedu.knowitall.testutil.TypicalCards;
 import seedu.knowitall.testutil.TypicalIndexes;
 
 public class StorageManagerTest {
+
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
 
     @Rule
     public TemporaryFolder testFolder = new TemporaryFolder();
@@ -80,6 +84,12 @@ public class StorageManagerTest {
     }
 
     @Test
+    public void readCardFolders_nullList_throwsNullPointerException() throws Exception {
+        thrown.expect(NullPointerException.class);
+        storageManager.readCardFolders(null);
+    }
+
+    @Test
     public void saveCardFolder_readSave() throws Exception {
         /*
          * Note: This is an integration test that verifies the StorageManager is properly wired to the
@@ -101,12 +111,19 @@ public class StorageManagerTest {
     @Test
     public void saveCardFolders_readSave() throws Exception {
         CardFolder originalOne = getTypicalFolderOne();
-        CardFolder originalTwo = getTypicalFolderTwo();
         List<ReadOnlyCardFolder> savedFolders = new ArrayList<>();
         savedFolders.add(originalOne);
-        savedFolders.add(originalTwo);
+
+        // with one folder
         storageManager.saveCardFolders(savedFolders, testDataFolder.toPath());
         List<ReadOnlyCardFolder> readFolders = new ArrayList<>();
+        storageManager.readCardFolders(readFolders);
+        assertEquals(savedFolders, readFolders);
+
+        // with two folders
+        CardFolder originalTwo = getTypicalFolderTwo();
+        savedFolders.add(originalTwo);
+        storageManager.saveCardFolders(savedFolders, testDataFolder.toPath());
         storageManager.readCardFolders(readFolders);
         assertEquals(savedFolders, readFolders);
     }

@@ -1,5 +1,7 @@
 package seedu.knowitall.storage;
 
+import static java.util.Objects.requireNonNull;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -48,6 +50,9 @@ public class StorageManager implements Storage {
 
     @Override
     public void readCardFolders(List<ReadOnlyCardFolder> readFolders) throws Exception {
+        requireNonNull(readFolders);
+
+        readFolders.clear();
         Exception exception = null;
         List<CardFolderStorage> unavailableCardFolderStorages = new ArrayList<>();
         for (CardFolderStorage cardFolderStorage : cardFolderStorageList) {

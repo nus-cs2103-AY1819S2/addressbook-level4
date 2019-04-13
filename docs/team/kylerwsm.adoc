@@ -318,26 +318,24 @@ Furthermore, every time any record of the specified patient is modified, a new i
 === User Stories
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
 
-[width="100%",cols="22%,<23%,<25%,<30%",options="header",]
+[width="100%",cols="",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
 |`* * *` |user |add a new patient's particulars | know about their situation
 
-|`* * *` |user |edit my patient's particulars when the situation changes | their personal information remains updated
+|`* * *` |user |edit my patient's particulars | their personal information remains updated
 
-|`* * *` |user |my patients' medical records and teeth data tied to them | know how their situation evolved
+|`* * *` |user |store my patient's teeth | track their teeth condition
 
-|`* * *` |user |store, edit, and view my dental patients' teeth condition | understand and serve my dental patients'
+|`* * *` |user |modify my dental patients' teeth condition | understand and serve my dental patients'
 teeth condition better
 
-|`* * *` |user |isolate other patients' information | focus on the current patient in my clinic
+|`* * *` |user |view my patients' dental records | keep track of my patients' teeth health history
 
-|`* * *` |user |view my patients' dental records | understand and keep track of my patients' teeth health history
-
-|`* * *` |user |add a new dental record | store diagnosis and treatments of my patients during their dental sessions
+|`* * *` |user |add a new dental record | store diagnosis and treatments of my patients
 
 |`* * *` |user |delete a dental record | remove records that have become redundant or irrelevant
 
-|`* * *` |user |edit a dental record | correct or modify descriptions of dental records that I have already added
+|`* * *` |user |edit a dental record | correct existing dental records
 
-|`* * *` |user |clear all dental records of a patient | protect the privacy of my patients if they require me to
+|`* * *` |user |clear all dental records of a patient | protect the privacy of my patients

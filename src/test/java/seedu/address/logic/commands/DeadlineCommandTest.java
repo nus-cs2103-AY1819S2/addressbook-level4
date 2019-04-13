@@ -54,7 +54,7 @@ public class DeadlineCommandTest {
     @Test
     public void execute_validNew_success() {
         try {
-            DeadlineCommand standardCommand = new DeadlineCommand(Index.fromOneBased(1), new Deadline(),
+            DeadlineCommand standardCommand = new DeadlineCommand(Index.fromOneBased(1), new Deadline(LocalDate.now()),
                     DeadlineCommand.DeadlineAction.NEW);
             standardCommand.execute(this.model, commandHistory);
         } catch (Exception e) {
@@ -88,14 +88,14 @@ public class DeadlineCommandTest {
     public void execute_invalidIndex_throwsCommandException() throws CommandException {
         thrown.expect(CommandException.class);
         DeadlineCommand invalidCommand = new DeadlineCommand(Index.fromZeroBased(model.getFilteredPdfList().size() + 1),
-                new Deadline(), DeadlineCommand.DeadlineAction.NEW);
+                new Deadline(LocalDate.now()), DeadlineCommand.DeadlineAction.NEW);
         invalidCommand.execute(this.model, commandHistory);
     }
 
     @Test
     public void execute_doneNonExistingDeadline_throwsCommandException() throws CommandException {
         thrown.expect(CommandException.class);
-        DeadlineCommand addCommand = new DeadlineCommand(Index.fromOneBased(1), new Deadline(),
+        DeadlineCommand addCommand = new DeadlineCommand(Index.fromOneBased(1), new Deadline(LocalDate.now()),
                 DeadlineCommand.DeadlineAction.NEW);
         DeadlineCommand doneCommand = new DeadlineCommand(Index.fromOneBased(1), new Deadline(),
                 DeadlineCommand.DeadlineAction.DONE);
@@ -109,7 +109,7 @@ public class DeadlineCommandTest {
     @Test
     public void execute_removeNonExistingDeadline_throwsCommandException() throws CommandException {
         thrown.expect(CommandException.class);
-        DeadlineCommand addCommand = new DeadlineCommand(Index.fromOneBased(1), new Deadline(),
+        DeadlineCommand addCommand = new DeadlineCommand(Index.fromOneBased(1), new Deadline(LocalDate.now()),
                 DeadlineCommand.DeadlineAction.NEW);
         DeadlineCommand removeCommand = new DeadlineCommand(Index.fromOneBased(1), new Deadline(),
                 DeadlineCommand.DeadlineAction.REMOVE);
@@ -143,7 +143,7 @@ public class DeadlineCommandTest {
 
         // different deadline -> returns false
         assertFalse(standardCommand.equals(new DeadlineCommand(Index.fromOneBased(1),
-                new Deadline(LocalDate.of(2019, 4, 12)), DeadlineCommand.DeadlineAction.NEW)));
+                new Deadline(LocalDate.now()), DeadlineCommand.DeadlineAction.NEW)));
 
         // different action -> returns false
         assertFalse(standardCommand.equals(new DeadlineCommand(Index.fromOneBased(1), new Deadline(),

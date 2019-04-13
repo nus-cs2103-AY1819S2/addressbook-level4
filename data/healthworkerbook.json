@@ -2,15 +2,9 @@
   "healthWorkers" : [ {
     "name" : "Rohan Tay",
     "phone" : "98765432",
-    "nric" : "S8974421C",
+    "nric" : "S9999999G",
     "organization" : "SGH",
     "skills" : "ORTHOPAEDIC GENERAL_PRACTICE "
-  }, {
-    "name" : "Jing Hui Chun",
-    "phone" : "87654321",
-    "nric" : "S9975823K",
-    "organization" : "NUH",
-    "skills" : "ORTHOPAEDIC PHYSIOTHERAPY "
   }, {
     "name" : "David Dev",
     "phone" : "89047389",
@@ -52,7 +46,7 @@
     "phone" : "91238894",
     "nric" : "S1874810J",
     "organization" : "NUS",
-    "skills" : "NEUROLOGY CARDIOLOGY "
+    "skills" : "CARDIOLOGY NEUROLOGY "
   }, {
     "name" : "Aaron Tan",
     "phone" : "81940213",

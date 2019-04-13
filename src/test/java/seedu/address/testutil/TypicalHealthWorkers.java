@@ -11,7 +11,7 @@ import seedu.address.model.tag.Skills;
 import seedu.address.model.tag.Specialisation;
 
 /**
- * A utility class containing a list of {@code Person} objects to be used in tests.
+ * A utility class containing a list of {@code HealthWorker} objects to be used in tests.
  */
 public class TypicalHealthWorkers {
 
@@ -25,8 +25,8 @@ public class TypicalHealthWorkers {
     public static final HealthWorker BETTY = ((HealthWorkerBuilder) new HealthWorkerBuilder()
             .withName("Betty Meier")
             .withPhone("98761232")
-            .withNric("S8312943G"))
-            .withOrganization("NUH")
+            .withNric("S8176952L"))
+            .withOrganization("CGH")
             .withSkills(new Skills(new HashSet<>(Arrays.asList(Specialisation
                     .GENERAL_PRACTICE, Specialisation.ORTHOPAEDIC)))).build();
     public static final HealthWorker CARLIE = ((HealthWorkerBuilder) new HealthWorkerBuilder()
@@ -39,27 +39,27 @@ public class TypicalHealthWorkers {
     public static final HealthWorker PANIEL = ((HealthWorkerBuilder) new HealthWorkerBuilder()
             .withName("Paniel Meier")
             .withPhone("87652133")
-            .withNric("S8412942G"))
-            .withOrganization("NUH")
+            .withNric("S9701568T"))
+            .withOrganization("SGH")
             .withSkills(new Skills(new HashSet<>(Arrays.asList(Specialisation.PHYSIOTHERAPY,
                     Specialisation.HAEMATOLOGY)))).build();
     public static final HealthWorker ELLA = ((HealthWorkerBuilder) new HealthWorkerBuilder()
             .withName("Ella Meyer")
             .withPhone("94824524")
             .withNric("S9112942G"))
-            .withOrganization("NUH")
+            .withOrganization("SGH")
             .withSkills(new Skills(new HashSet<>(Arrays.asList(Specialisation.ANAESTHESIOLOGY,
                     Specialisation.PHYSIOTHERAPY)))).build();
     public static final HealthWorker FIONE = ((HealthWorkerBuilder) new HealthWorkerBuilder()
             .withName("Fione Kunz")
             .withPhone("94822373")
             .withNric("S7812942G"))
-            .withOrganization("NUH").build();
+            .withOrganization("TTSH").build();
     public static final HealthWorker GEORGE = ((HealthWorkerBuilder) new HealthWorkerBuilder()
             .withName("George Best")
             .withPhone("94824424")
             .withNric("S8812942G"))
-            .withOrganization("NUH").build();
+            .withOrganization("TTSH").build();
 
     // Manually added
     public static final HealthWorker HOOK = ((HealthWorkerBuilder) new HealthWorkerBuilder()

@@ -9,6 +9,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.ModelManager;
 import seedu.address.model.person.healthworker.HealthWorker;
 
 /**
@@ -19,7 +20,7 @@ public class DeleteHealthWorkerCommand extends DeleteCommand implements HealthWo
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the health worker identified by the index number used in the displayed health worker list.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " 1\n";
+            + "Example: " + COMMAND_WORD + " h 1\n";
 
     public static final String MESSAGE_DELETE_HEALTHWORKER_SUCCESS = "Deleted Health Worker: %1$s";
 
@@ -46,7 +47,7 @@ public class DeleteHealthWorkerCommand extends DeleteCommand implements HealthWo
 
         HealthWorker toDelete = lastShownList.get(index.getZeroBased());
 
-        if (model.isAssigned(toDelete.getName().toString())) {
+        if (((ModelManager) model).isAssigned(toDelete.getNric().toString())) {
             throw new CommandException(Messages.MESSAGE_HEALTHWORKER_ASSIGNED_CANNOT_DELETE);
         }
 

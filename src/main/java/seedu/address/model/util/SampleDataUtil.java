@@ -28,6 +28,7 @@ import seedu.address.model.tag.Specialisation;
  */
 public class SampleDataUtil {
 
+    private static final String VALID_NRIC = "S8312942G";
 
     public static HealthWorker[] getSampleHealthWorkers() {
         return new HealthWorker[] {
@@ -56,10 +57,10 @@ public class SampleDataUtil {
                         getConditionSet("Palliative"), new RequestStatus("PENDING")),
             new Request(new Name("Benson Tan"), new Nric("S9878932L"), new Phone("84561267"),
                         new Address("14, Bishan Ave 2, #11-90"), new RequestDate("05-04-2019 15:00:00"),
-                        getConditionSet("Palliative"), new RequestStatus("COMPLETED")),
+                        getConditionSet("Palliative"), new RequestStatus("COMPLETED"), VALID_NRIC),
             new Request(new Name("Rajuratnam"), new Nric("S8016757C"), new Phone("81654488"),
                     new Address("108, McNair Road, #09-65"), new RequestDate("01-03-2019 08:00:00"),
-                    getConditionSet("Diabetic", "Kidney Dialysis"), new RequestStatus("COMPLETED"))
+                    getConditionSet("Diabetic", "Kidney Dialysis"), new RequestStatus("COMPLETED"), VALID_NRIC)
         };
     }
 

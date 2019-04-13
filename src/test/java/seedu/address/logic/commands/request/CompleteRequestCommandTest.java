@@ -32,9 +32,7 @@ class CompleteRequestCommandTest {
     private Set<Index> requestSet = new HashSet<>(Arrays.asList(INDEX_FIRST));
 
     @org.junit.jupiter.api.Test
-    public void execute_validIndexUnfilteredList_success() throws CommandException {
-        AssignRequestCommand assignCommand = new AssignRequestCommand(INDEX_FIRST, requestSet);
-        assignCommand.execute(model, commandHistory);
+    public void execute_validIndexUnfilteredList_success() {
 
         Request expectedRequest = new RequestBuilder(ALICE_REQUEST).withStatus("COMPLETED").build();
 

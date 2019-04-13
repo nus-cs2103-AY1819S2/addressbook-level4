@@ -133,8 +133,8 @@ public class RequestBook implements ReadOnlyRequestBook {
     /**
      * Checks if any Request in the UniqueRequestList contains the assigned HealthWorker name.
      */
-    public boolean isAssigned(String name) {
-        return this.requests.isAssigned(name);
+    public boolean isAssigned(String nric) {
+        return this.requests.isAssigned(nric);
     }
 
     //// util methods

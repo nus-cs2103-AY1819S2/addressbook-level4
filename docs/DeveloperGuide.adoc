@@ -316,7 +316,7 @@ Alternative 1 was chosen as the overhead is negligible and a defensive approach 
 
 * **Alternative 2:** List of lists of `Cell` objects.
 ** Pros: Easier to implement from the original AB4 codebase.
-** Cons: Bad code readability and more complicated.
+** Cons: Worse readability and more complicated compared to using a 2D array.
 
 Alternative 1 was chosen because of good code readability and it being the simpler implementation.
 Good code readability is important for new developers taking on the project.

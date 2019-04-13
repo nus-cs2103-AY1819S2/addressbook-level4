@@ -9,7 +9,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.parser.AddressBookParser;
+import seedu.address.logic.parser.BattleshipParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.MapGrid;
 import seedu.address.model.Model;
@@ -26,7 +26,7 @@ public class LogicManager implements Logic {
     private final Model model;
     private final Storage storage;
     private final CommandHistory history;
-    private final AddressBookParser addressBookParser;
+    private final BattleshipParser battleshipParser;
     private final PlayerStatistics statistics;
 
     public LogicManager(Model model, Storage storage) {
@@ -34,7 +34,7 @@ public class LogicManager implements Logic {
         this.model = model;
         this.storage = storage;
         history = new CommandHistory();
-        addressBookParser = new AddressBookParser();
+        battleshipParser = new BattleshipParser();
         this.statistics = model.getPlayerStats();
 
         // Set addressBookModified to true whenever the models' address book is modified.
@@ -47,7 +47,7 @@ public class LogicManager implements Logic {
         boolean validCommand = false;
         CommandResult commandResult;
         try {
-            Command command = addressBookParser.parseCommand(commandText);
+            Command command = battleshipParser.parseCommand(commandText);
             if (command.canExecuteIn(model.getBattleState())) {
                 commandResult = command.execute(model, history);
                 addToStatistics(commandText);

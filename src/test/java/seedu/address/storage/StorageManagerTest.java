@@ -23,7 +23,6 @@ public class StorageManagerTest {
     @Before
     public void setUp() {
         JsonStatisticsStorage statisticsStorage = new JsonStatisticsStorage(getTempFilePath("stats"));
-        JsonAddressBookStorage addressBookStorage = new JsonAddressBookStorage(getTempFilePath("ab"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
         storageManager = new StorageManager(userPrefsStorage, statisticsStorage);
     }

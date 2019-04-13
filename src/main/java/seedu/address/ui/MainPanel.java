@@ -31,6 +31,12 @@ public class MainPanel extends UiPart<Region> {
         super(FXML);
     }
 
+    /**
+     * Displays the current testing card and status information in the main panel.
+     * @param quizCard the current testing quizCard.
+     * @param totalCorrectAndTotalAttempts the current status stored in totalCorrectAndTotalAttempts.
+     * @param currentLessonName the name of the current testing session.
+     */
     public void setFeedbackToUser(QuizCard quizCard, String totalCorrectAndTotalAttempts, String currentLessonName) {
         mainPanel.getChildren().clear();
 

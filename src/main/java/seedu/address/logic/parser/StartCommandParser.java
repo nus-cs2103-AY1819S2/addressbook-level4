@@ -20,6 +20,10 @@ public class StartCommandParser implements Parser {
     /**
      * Parses the given {@code String} of arguments in the context of the StartCommand
      * and returns an StartCommand object for execution.
+     * Checks if userInput is valid.
+     * @param args from commandBox
+     * @return the correct parser as a {@link Session}.
+     * @throws ParseException if the user input does not conform the expected format
      */
     @Override
     public QuizStartCommand parse(String args) throws ParseException {

@@ -26,7 +26,10 @@ import seedu.address.model.srscard.SrsCard;
 import seedu.address.model.user.CardSrsData;
 
 /**
- * Execute user input to start a session.
+ * This implements a {@link ManagementCommand} which starts a {@link Quiz}.
+ *
+ * It requires a {@link ManagementModel} to be passed into the {@link #execute(Model, CommandHistory)}
+ * command.
  */
 public class QuizStartCommand extends ManagementCommand {
     public static final String COMMAND_WORD = "start";
@@ -44,6 +47,11 @@ public class QuizStartCommand extends ManagementCommand {
             + " number for you by default.";
     private Session session;
 
+    /**
+     * Constructs a {@link ManagementCommand} to start the specified {@link Quiz}
+     *
+     * @param session to be opened.
+     */
     public QuizStartCommand(Session session) {
         requireNonNull(session);
         this.session = session;
@@ -54,7 +62,9 @@ public class QuizStartCommand extends ManagementCommand {
     }
 
     /**
-     * Executes the command.
+     * Executes the command and starts the new {@link Quiz}.
+     *
+     * @return messages to show whether the quiz starts correctly.
      */
     public CommandResult executeActual(QuizModel model, CommandHistory history) {
         StringBuilder sb = new StringBuilder();

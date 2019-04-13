@@ -27,8 +27,9 @@ public class ParserUtil {
         return Index.fromOneBased(Integer.parseInt(trimmedIndex));
     }
     /**
-     * Parses a {@code String name} into a {@code String name}.
+     * Parses a string{@code index} into an integer {@code index}.
      * Leading and trailing whitespaces will be trimmed.
+     * @throws ParseException if the specified index is not an integer or is an integer larger than MAX_VALUE.
      */
     public static int parseLessonIndex(String index) throws ParseException {
         requireNonNull(index);
@@ -46,9 +47,9 @@ public class ParserUtil {
         }
     }
     /**
-     * Parses a {@code String count} into a {@code int count}.
+     * Parses a string{@code count} into a integer{@code count}.
      * Leading and trailing whitespaces will be trimmed.
-     * @throws ParseException if the count is not a number.
+     * @throws ParseException if the count is not a number or is an integer larger than MAX_VALUE.
      */
     public static int parseCount(String count) throws ParseException {
         requireNonNull(count);
@@ -66,7 +67,7 @@ public class ParserUtil {
         }
     }
     /**
-     * Parses a {@code String mode} into an {@code Quiz.mode mode}.
+     * Parses a String{@code mode} into a Quiz.mode{@code  mode}.
      * Leading and trailing whitespaces will be trimmed.
      * @throws ParseException if the mode name is not in the enum.
      */

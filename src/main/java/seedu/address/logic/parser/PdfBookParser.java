@@ -12,7 +12,7 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeadlineCommand;
 import seedu.address.logic.commands.DecryptCommand;
 import seedu.address.logic.commands.DeleteCommand;
-import seedu.address.logic.commands.EditCommand;
+import seedu.address.logic.commands.RenameCommand;
 import seedu.address.logic.commands.EncryptCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FilterCommand;
@@ -72,7 +72,7 @@ public class PdfBookParser {
         case DeleteCommand.COMMAND_WORD:
             return new DeleteCommandParser().parse(arguments);
 
-        case EditCommand.COMMAND_WORD:
+        case RenameCommand.COMMAND_WORD:
             return new EditCommandParser().parse(arguments);
 
         case EncryptCommand.COMMAND_WORD:

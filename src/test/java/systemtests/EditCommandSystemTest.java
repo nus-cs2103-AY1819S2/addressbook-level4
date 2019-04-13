@@ -34,7 +34,7 @@ import seedu.address.commons.core.index.Index;
 //import static seedu.address.testutil.TypicalPdfs.KEYWORD_MATCHING_MEIER;
 //import org.junit.Test;
 //import seedu.address.commons.core.Messages;
-import seedu.address.logic.commands.EditCommand;
+import seedu.address.logic.commands.RenameCommand;
 //import seedu.address.logic.commands.RedoCommand;
 //import seedu.address.logic.commands.UndoCommand;
 import seedu.address.model.Model;
@@ -62,7 +62,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
          * -> edited
          *//*
         Index index = INDEX_FIRST_PERSON;
-        String command = " " + EditCommand.COMMAND_WORD + "  " + index.getOneBased() + "  " + NAME_DESC_BOB + "  "
+        String command = " " + RenameCommand.COMMAND_WORD + "  " + index.getOneBased() + "  " + NAME_DESC_BOB + "  "
                 + PHONE_DESC_BOB + " " + EMAIL_DESC_BOB + "  " + ADDRESS_DESC_BOB + " " + TAG_DESC_HUSBAND + " ";
         Pdf editedPdf = new PdfBuilder(BOB).withTags(VALID_TAG_HUSBAND).build();
         assertCommandSuccess(command, index, editedPdf);
@@ -79,7 +79,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         assertCommandSuccess(command, model, expectedResultMessage);
 
         *//* Case: edit a pdf with new values same as existing values -> edited *//*
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
+        command = RenameCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
                 + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
         assertCommandSuccess(command, index, BOB);
 
@@ -87,7 +87,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         assertTrue(getModel().getPdfBook().getPdfList().contains(BOB));
         index = INDEX_SECOND_PERSON;
         assertNotEquals(getModel().getFilteredPdfList().get(index.getZeroBased()), BOB);
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_A + PHONE_DESC_BOB + EMAIL_DESC_BOB
+        command = RenameCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_A + PHONE_DESC_BOB + EMAIL_DESC_BOB
                 + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
         editedPdf = new PdfBuilder(BOB).withName(VALID_NAME_AMY).build();
         assertCommandSuccess(command, index, editedPdf);
@@ -96,14 +96,14 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
          * -> edited
          *//*
         index = INDEX_SECOND_PERSON;
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_AMY + EMAIL_DESC_AMY
+        command = RenameCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_AMY + EMAIL_DESC_AMY
                 + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
         editedPdf = new PdfBuilder(BOB).withSize(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY).build();
         assertCommandSuccess(command, index, editedPdf);
 
         *//* Case: clear tags -> cleared *//*
         index = INDEX_FIRST_PERSON;
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + " " + PREFIX_TAG_ADD.getPrefix();
+        command = RenameCommand.COMMAND_WORD + " " + index.getOneBased() + " " + PREFIX_TAG_ADD.getPrefix();
         Pdf pdfToEdit = getModel().getFilteredPdfList().get(index.getZeroBased());
         editedPdf = new PdfBuilder(pdfToEdit).withTags().build();
         assertCommandSuccess(command, index, editedPdf);
@@ -115,7 +115,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         showPersonsWithName(KEYWORD_MATCHING_MEIER);
         index = INDEX_FIRST_PERSON;
         assertTrue(index.getZeroBased() < getModel().getFilteredPdfList().size());
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + " " + NAME_DESC_BOB;
+        command = RenameCommand.COMMAND_WORD + " " + index.getOneBased() + " " + NAME_DESC_BOB;
         pdfToEdit = getModel().getFilteredPdfList().get(index.getZeroBased());
         editedPdf = new PdfBuilder(pdfToEdit).withName(VALID_NAME_BOB).build();
         assertCommandSuccess(command, index, editedPdf);
@@ -125,7 +125,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
          *//*
         showPersonsWithName(KEYWORD_MATCHING_MEIER);
         int invalidIndex = getModel().getPdfBook().getPdfList().size();
-        assertCommandFailure(EditCommand.COMMAND_WORD + " " + invalidIndex + NAME_DESC_BOB,
+        assertCommandFailure(RenameCommand.COMMAND_WORD + " " + invalidIndex + NAME_DESC_BOB,
                 Messages.MESSAGE_INVALID_PDF_DISPLAYED_INDEX);
 
         *//* --------------------- Performing edit operation while a pdf card is selected ----------------------
@@ -137,7 +137,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         showAllPersons();
         index = INDEX_FIRST_PERSON;
         selectPerson(index);
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_A + PHONE_DESC_AMY + EMAIL_DESC_AMY
+        command = RenameCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_A + PHONE_DESC_AMY + EMAIL_DESC_AMY
                 + ADDRESS_DESC_AMY + TAG_DESC_FRIEND;
         // this can be misleading: card selection actually remains unchanged but the
         // browser's url is updated to reflect the new pdf's name
@@ -147,44 +147,44 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         ------ *//*
 
         *//* Case: invalid index (0) -> rejected *//*
-        assertCommandFailure(EditCommand.COMMAND_WORD + " 0" + NAME_DESC_BOB,
-                String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+        assertCommandFailure(RenameCommand.COMMAND_WORD + " 0" + NAME_DESC_BOB,
+                String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, RenameCommand.MESSAGE_USAGE));
 
         *//* Case: invalid index (-1) -> rejected *//*
-        assertCommandFailure(EditCommand.COMMAND_WORD + " -1" + NAME_DESC_BOB,
-                String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+        assertCommandFailure(RenameCommand.COMMAND_WORD + " -1" + NAME_DESC_BOB,
+                String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, RenameCommand.MESSAGE_USAGE));
 
         *//* Case: invalid index (size + 1) -> rejected *//*
         invalidIndex = getModel().getFilteredPdfList().size() + 1;
-        assertCommandFailure(EditCommand.COMMAND_WORD + " " + invalidIndex + NAME_DESC_BOB,
+        assertCommandFailure(RenameCommand.COMMAND_WORD + " " + invalidIndex + NAME_DESC_BOB,
                 Messages.MESSAGE_INVALID_PDF_DISPLAYED_INDEX);
 
         *//* Case: missing index -> rejected *//*
-        assertCommandFailure(EditCommand.COMMAND_WORD + NAME_DESC_BOB,
-                String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+        assertCommandFailure(RenameCommand.COMMAND_WORD + NAME_DESC_BOB,
+                String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, RenameCommand.MESSAGE_USAGE));
 
         *//* Case: missing all fields -> rejected *//*
-        assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased(),
-                EditCommand.MESSAGE_NOT_EDITED);
+        assertCommandFailure(RenameCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased(),
+                RenameCommand.MESSAGE_NOT_EDITED);
 
         *//* Case: invalid name -> rejected *//*
-        assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased() + INVALID_NAME_DESC,
+        assertCommandFailure(RenameCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased() + INVALID_NAME_DESC,
                 Name.MESSAGE_CONSTRAINTS);
 
         *//* Case: invalid phone -> rejected *//*
-        assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased() + INVALID_PHONE_DESC,
+        assertCommandFailure(RenameCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased() + INVALID_PHONE_DESC,
                 Phone.MESSAGE_CONSTRAINTS);
 
         *//* Case: invalid email -> rejected *//*
-        assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased() + INVALID_EMAIL_DESC,
+        assertCommandFailure(RenameCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased() + INVALID_EMAIL_DESC,
                 Email.MESSAGE_CONSTRAINTS);
 
         *//* Case: invalid address -> rejected *//*
-        assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased() + INVALID_ADDRESS_DESC,
+        assertCommandFailure(RenameCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased() + INVALID_ADDRESS_DESC,
                 Address.MESSAGE_CONSTRAINTS);
 
         *//* Case: invalid tag -> rejected *//*
-        assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased() + INVALID_TAG_DESC,
+        assertCommandFailure(RenameCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased() + INVALID_TAG_DESC,
                 Tag.MESSAGE_CONSTRAINTS);
 
         *//* Case: edit a pdf with new values same as another pdf's values -> rejected *//*
@@ -192,29 +192,29 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         assertTrue(getModel().getPdfBook().getPdfList().contains(BOB));
         index = INDEX_FIRST_PERSON;
         assertFalse(getModel().getFilteredPdfList().get(index.getZeroBased()).equals(BOB));
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
+        command = RenameCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
                 + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
-        assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_PDF);
+        assertCommandFailure(command, RenameCommand.MESSAGE_DUPLICATE_PDF);
 
         *//* Case: edit a pdf with new values same as another pdf's values but with different tags -> rejected *//*
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
+        command = RenameCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
                 + ADDRESS_DESC_BOB + TAG_DESC_HUSBAND;
-        assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_PDF);
+        assertCommandFailure(command, RenameCommand.MESSAGE_DUPLICATE_PDF);
 
         *//* Case: edit a pdf with new values same as another pdf's values but with different address -> rejected *//*
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
+        command = RenameCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
                 + ADDRESS_DESC_AMY + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
-        assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_PDF);
+        assertCommandFailure(command, RenameCommand.MESSAGE_DUPLICATE_PDF);
 
         *//* Case: edit a pdf with new values same as another pdf's values but with different phone -> rejected *//*
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_AMY + EMAIL_DESC_BOB
+        command = RenameCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_AMY + EMAIL_DESC_BOB
                 + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
-        assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_PDF);
+        assertCommandFailure(command, RenameCommand.MESSAGE_DUPLICATE_PDF);
 
         *//* Case: edit a pdf with new values same as another pdf's values but with different email -> rejected *//*
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_AMY
+        command = RenameCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_AMY
                 + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
-        assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_PDF);
+        assertCommandFailure(command, RenameCommand.MESSAGE_DUPLICATE_PDF);
     } */
 
     /**
@@ -229,7 +229,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
 
     /**
      * Performs the same verification as {@code assertCommandSuccess(String, Model, String, Index)} and in addition,<br>
-     * 1. Asserts that result display box displays the success message of executing {@code EditCommand}.<br>
+     * 1. Asserts that result display box displays the success message of executing {@code RenameCommand}.<br>
      * 2. Asserts that the model related components are updated to reflect the pdf at index {@code toEdit} being
      * updated to values specified {@code editedPdf}.<br>
      * @param toEdit the index of the current model's filtered list.
@@ -242,7 +242,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         expectedModel.updateFilteredPdfList(PREDICATE_SHOW_ALL_PDFS);
 
         assertCommandSuccess(command, expectedModel,
-                String.format(EditCommand.MESSAGE_EDIT_PDF_SUCCESS, editedPdf), expectedSelectedCardIndex);
+                String.format(RenameCommand.MESSAGE_EDIT_PDF_SUCCESS, editedPdf), expectedSelectedCardIndex);
     }
 
     /**

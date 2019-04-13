@@ -10,22 +10,22 @@ import java.util.Optional;
 import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.EditCommand;
-import seedu.address.logic.commands.EditCommand.EditPdfDescriptor;
+import seedu.address.logic.commands.RenameCommand;
+import seedu.address.logic.commands.RenameCommand.EditPdfDescriptor;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.tag.Tag;
 
 /**
- * Parses input arguments and creates a new EditCommand object
+ * Parses input arguments and creates a new RenameCommand object
  */
-public class EditCommandParser implements Parser<EditCommand> {
+public class EditCommandParser implements Parser<RenameCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the EditCommand
-     * and returns an EditCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the RenameCommand
+     * and returns an RenameCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
-    public EditCommand parse(String args) throws ParseException {
+    public RenameCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, CliSyntax.getAllPrefixes());
@@ -33,20 +33,20 @@ public class EditCommandParser implements Parser<EditCommand> {
         Index index;
 
         if (CliSyntax.arePrefixesPresent(argMultimap, CliSyntax.getInvalidPrefixesForCommand(PREFIX_NAME))) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, RenameCommand.MESSAGE_USAGE));
         }
 
         try {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE), pe);
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, RenameCommand.MESSAGE_USAGE), pe);
         }
 
-        EditPdfDescriptor editPdfDescriptor = new EditCommand.EditPdfDescriptor();
+        EditPdfDescriptor editPdfDescriptor = new RenameCommand.EditPdfDescriptor();
         if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
             editPdfDescriptor.setName(ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get()));
         } else if (!editPdfDescriptor.isAnyFieldEdited()) {
-            throw new ParseException(EditCommand.MESSAGE_NOT_EDITED);
+            throw new ParseException(RenameCommand.MESSAGE_NOT_EDITED);
         }
 
         /*if (argMultimap.getValue(PREFIX_DIRECTORY).isPresent()) {
@@ -56,10 +56,10 @@ public class EditCommandParser implements Parser<EditCommand> {
         /*parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG_ADD)).ifPresent(editPdfDescriptor::setTags);
 
         if (!editPdfDescriptor.isAnyFieldEdited()) {
-            throw new ParseException(EditCommand.MESSAGE_NOT_EDITED);
+            throw new ParseException(RenameCommand.MESSAGE_NOT_EDITED);
         }*/
 
-        return new EditCommand(index, editPdfDescriptor);
+        return new RenameCommand(index, editPdfDescriptor);
     }
 
     /**

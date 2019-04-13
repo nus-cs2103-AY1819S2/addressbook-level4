@@ -14,7 +14,7 @@ import java.util.Set;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.DeadlineCommand;
 import seedu.address.logic.commands.DecryptCommand;
-import seedu.address.logic.commands.EditCommand.EditPdfDescriptor;
+import seedu.address.logic.commands.RenameCommand.EditPdfDescriptor;
 import seedu.address.logic.commands.EncryptCommand;
 import seedu.address.logic.commands.FilterCommand;
 import seedu.address.model.pdf.Deadline;

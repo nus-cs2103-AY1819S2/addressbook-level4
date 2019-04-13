@@ -1,7 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.commands.EditCommand.MESSAGE_EDIT_PDF_SUCCESS;
+import static seedu.address.logic.commands.RenameCommand.MESSAGE_EDIT_PDF_SUCCESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DEADLINE_DONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DEADLINE_NEW;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DEADLINE_REMOVE;

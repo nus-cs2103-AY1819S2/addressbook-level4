@@ -85,7 +85,7 @@ public class Enemy extends Player {
 
         if (watchlist.isEmpty()) {
             if (!allParityTargets.isEmpty()) {
-                newTarget = drawPartityTarget();
+                newTarget = drawParityTarget();
                 logger.info(String.format("++++++++WATCHLIST EMPTY " + "enemy shoot parity: " + newTarget.toString()));
             } else {
                 newTarget = drawFromAllTargets();
@@ -104,7 +104,7 @@ public class Enemy extends Player {
     /************************************************
      * draws a valid Coord with parity filter on
      */
-    private Coordinates drawPartityTarget() {
+    private Coordinates drawParityTarget() {
         java.util.Collections.shuffle(allParityTargets, randGen);
         return allParityTargets.get(0);
     }

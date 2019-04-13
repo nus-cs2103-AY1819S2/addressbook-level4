@@ -1,6 +1,7 @@
 package seedu.address.model.util;
 
 import static seedu.address.model.util.SampleLessons.SAMPLE_1_LESSON;
+import static seedu.address.model.util.SampleLessons.SAMPLE_2_LESSON;
 
 import seedu.address.model.lesson.LessonList;
 
@@ -17,6 +18,7 @@ public class SampleDataUtil {
     public static LessonList getSampleBrainTrain() {
         LessonList lessonList = new LessonList();
         lessonList.addLesson(SAMPLE_1_LESSON);
+        lessonList.addLesson(SAMPLE_2_LESSON);
         return lessonList;
     }
 }

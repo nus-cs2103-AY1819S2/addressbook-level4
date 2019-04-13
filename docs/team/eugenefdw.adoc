@@ -64,10 +64,79 @@ Added the ability to save and load Lesson data to Comma-Separated Value (CSV) fi
 
 == Contributions to the User Guide
 
+{empty} +
 
-|===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
-|===
+==== Reloading all lessons: `reloadLessons`
+Reloads all lessons from the lessons folder. The default folder is `/lessons/`, found next to `braintrain.jar`.
+
+Format: `reloadLessons`
+
+Steps:
+
+. You have a newly downloaded .csv lesson file, `new_lesson.csv`, with no lessons currently loaded.
++
+.A new lesson file.
+[#img-csv]
+image::reloadLessons_0_csv.png[]
+.No lessons are currently loaded.
+[#img-csv]
+image::reloadLessons_1_empty.png[]
+
+. You drag the new file into the `/lessons/` folder.
++
+.Dragging the file.
+[#img-csv]
+image::reloadLessons_2_drag.png[]
+
+. You enter `reloadLessons` into the app, and the new lesson appears.
++
+.Reloading lessons.
+[#img-csv]
+image::reloadLessons_3_reload.png[]
+
+. You verify again with `listLessons`.
++
+.New lesson has been loaded.
+[#img-csv]
+image::reloadLessons_4_list.png[]
+
+[NOTE]
+====
+Lessons are automatically reloaded when you open the application.
+====
+
+If the lesson does not appear, please check the <<Troubleshooting>> section.
+
+{empty} +
+
+---
+
+==== Troubleshooting
+
+{empty} +
+
+*Q*: Why are my card values shown as `?????`? +
+*A*: If your lesson contains non-English characters such as:
+
+* Characters with accents: `à`
+* Non-English words : `こんにちは` `السلام عليكم` `你好`
+
+This can be fixed by opening the lesson file in your preferred spreadsheet application (e.g. Excel), and then saving it as `CSV UTF-8 (Comma delimited) (*.csv)`. UTF encoding allows a computer to show non-English characters. +
+****
+The default encoding setting is unable to process special characters. As a result, you will need to save it as a `UTF-8` encoded file.
+
+Note that externally created lesson files have to be saved with UTF-8 encoding before using them in BrainTrain. +
+If the files are saved without `UTF-8` encoding, any non-English data may be saved as `?????`, and the data will be lost.
+****
+
+---
+
+*Q*: Why are my lessons not loading? +
+*A*: Please verify if the location of BrainTrain is suitable. Depending on your computer's permissions and security settings, places such as the Desktop may not be usable, and your operating system may prevent BrainTrain from loading the lesson files.
+
+If BrainTrain still does not load lessons despite trying other locations, please contact Team BrainTrain at https://github.com/CS2103-AY1819S2-W14-1/main/issues[our issue tracker] or email us at eugenef@u.nus.edu, and attach any generated braintrain.log files.
+
+{empty} +
 
 == Contributions to the Developer Guide
 

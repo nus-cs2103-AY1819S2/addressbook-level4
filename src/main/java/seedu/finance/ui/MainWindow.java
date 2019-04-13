@@ -157,6 +157,8 @@ public class MainWindow extends UiPart<Stage> {
                 logic.getFinanceTracker());
         logic.getFinanceTracker().addListener(observable ->
                 statusBarFooter.updateFileLocation(logic.getFinanceTrackerFilePath()));
+
+
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand, logic.getHistory());

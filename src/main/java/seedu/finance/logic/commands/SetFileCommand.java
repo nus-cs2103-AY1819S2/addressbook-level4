@@ -4,18 +4,13 @@ import static java.util.Objects.requireNonNull;
 import static seedu.finance.logic.parser.CliSyntax.PREFIX_FILE;
 
 import java.nio.file.Path;
-import java.util.Optional;
 import java.util.logging.Logger;
 
 import seedu.finance.commons.core.LogsCenter;
-import seedu.finance.commons.exceptions.DataConversionException;
 import seedu.finance.logic.CommandHistory;
 import seedu.finance.logic.commands.exceptions.CommandException;
-import seedu.finance.model.FinanceTracker;
 import seedu.finance.model.Model;
-import seedu.finance.model.ReadOnlyFinanceTracker;
 import seedu.finance.storage.JsonFinanceTrackerStorage;
-import seedu.finance.storage.StorageManager;
 
 
 
@@ -52,26 +47,10 @@ public class SetFileCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
-        JsonFinanceTrackerStorage newStorage = new JsonFinanceTrackerStorage(path);
-        Optional<ReadOnlyFinanceTracker> financeTrackerOptional;
-        ReadOnlyFinanceTracker initialData;
-        try {
-            financeTrackerOptional = newStorage.readFinanceTracker();
-            if (!financeTrackerOptional.isPresent()) {
-                logger.info("Data file not found. A new empty FinanceTracker will be created with file name.");
-                initialData = new FinanceTracker();
-            } else {
-                initialData = financeTrackerOptional.get();
-            }
-        } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty FinanceTracker");
-            initialData = new FinanceTracker();
-        }
 
-        model.setFinanceTrackerFilePath(path);
-        model.setFinanceTracker(initialData);
-        model.commitFinanceTracker();
-        StorageManager.setFinanceTrackerStorage(newStorage);
+        model.addPreviousDataFile(model.getFinanceTrackerFilePath());
+        model.changeFinanceTrackerFile(path);
+        model.commitFinanceTracker(true);
         return new CommandResult(String.format(MESSAGE_SUCCESS, path), true, false, false);
     }
 

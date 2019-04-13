@@ -23,8 +23,9 @@ public class VersionedFinanceTracker extends FinanceTracker {
      * Saves a copy of the current {@code FinanceTracker} state at the end of the state list.
      * Undone states are removed from the state list.
      */
-    public void commit() {
+    public void commit(boolean isSetFile) {
         removeStatesAfterCurrentPointer();
+        setIsSetFile(isSetFile);
         financeTrackerStateList.add(new FinanceTracker(this));
         currentStatePointer++;
         indicateModified();
@@ -43,6 +44,7 @@ public class VersionedFinanceTracker extends FinanceTracker {
         }
         currentStatePointer--;
         resetData(financeTrackerStateList.get(currentStatePointer));
+        indicateModified();
     }
 
     /**
@@ -54,6 +56,7 @@ public class VersionedFinanceTracker extends FinanceTracker {
         }
         currentStatePointer++;
         resetData(financeTrackerStateList.get(currentStatePointer));
+        indicateModified();
     }
 
     /**

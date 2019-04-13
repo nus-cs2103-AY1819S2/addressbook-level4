@@ -6,9 +6,11 @@ import static seedu.finance.commons.util.CollectionUtil.requireAllNonNull;
 import java.nio.file.Path;
 import java.time.LocalDate;
 import java.util.Comparator;
-//import java.util.Date;
 import java.util.HashSet;
 import java.util.Objects;
+import java.util.Optional;
+import java.util.Stack;
+//import java.util.Date;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -21,6 +23,7 @@ import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import seedu.finance.commons.core.GuiSettings;
 import seedu.finance.commons.core.LogsCenter;
+import seedu.finance.commons.exceptions.DataConversionException;
 import seedu.finance.logic.commands.SummaryCommand.SummaryPeriod;
 import seedu.finance.model.budget.Budget;
 import seedu.finance.model.budget.CategoryBudget;
@@ -30,6 +33,8 @@ import seedu.finance.model.exceptions.SpendingInCategoryBudgetExceededException;
 import seedu.finance.model.record.Date;
 import seedu.finance.model.record.Record;
 import seedu.finance.model.record.exceptions.RecordNotFoundException;
+import seedu.finance.storage.JsonFinanceTrackerStorage;
+import seedu.finance.storage.StorageManager;
 
 /**
  * Represents the in-memory model of the finance tracker data.
@@ -45,6 +50,9 @@ public class ModelManager implements Model {
     private SummaryPeriod summaryPeriod;
     private Predicate<Record> recordSummaryPredicate;
     private int periodAmount;
+
+    private Stack<Path> prevDataFiles = new Stack<>();
+    private Stack<Path> undoPrevDataFiles = new Stack<>();
 
     /**
      * Initializes a ModelManager with the given financeTracker and userPrefs.
@@ -142,15 +150,54 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public boolean hasBudget() {
-        return versionedFinanceTracker.hasBudget();
-    }
-
-    @Override
-    public void addBudget(Budget budget) {
+    public void addBudget(Budget budget) throws CategoryBudgetExceedTotalBudgetException {
         requireNonNull(budget);
 
         versionedFinanceTracker.addBudget(budget);
+    }
+
+    //================ Set File ================================================================================
+    @Override
+    public void addPreviousDataFile(Path path) {
+        prevDataFiles.push(path);
+    }
+
+    @Override
+    public Path removePreviousDataFile() {
+        return prevDataFiles.pop();
+    }
+
+    @Override
+    public void addUndoPreviousDataFile(Path path) {
+        undoPrevDataFiles.push(path);
+    }
+
+    @Override
+    public Path removeUndoPreviousDataFile() {
+        return undoPrevDataFiles.pop();
+    }
+
+    @Override
+    public void changeFinanceTrackerFile(Path path) {
+        logger.info("Change file path triggered: " + path);
+        JsonFinanceTrackerStorage newStorage = new JsonFinanceTrackerStorage(path);
+        Optional<ReadOnlyFinanceTracker> financeTrackerOptional;
+        ReadOnlyFinanceTracker initialData;
+        try {
+            financeTrackerOptional = newStorage.readFinanceTracker();
+            if (!financeTrackerOptional.isPresent()) {
+                logger.info("Data file not found. A new empty FinanceTracker will be created with file name.");
+                initialData = new FinanceTracker();
+            } else {
+                initialData = financeTrackerOptional.get();
+            }
+        } catch (DataConversionException e) {
+            logger.warning("Data file not in the correct format. Will be starting with an empty FinanceTracker");
+            initialData = new FinanceTracker();
+        }
+        setFinanceTrackerFilePath(path);
+        setFinanceTracker(initialData);
+        StorageManager.setFinanceTrackerStorage(newStorage);
     }
 
     //================ Category Budget =========================================================================
@@ -282,7 +329,17 @@ public class ModelManager implements Model {
 
     @Override
     public void commitFinanceTracker() {
-        versionedFinanceTracker.commit();
+        commitFinanceTracker(false);
+    }
+
+    @Override
+    public void commitFinanceTracker(boolean isSetFile) {
+        versionedFinanceTracker.commit(isSetFile);
+    }
+
+    @Override
+    public boolean isSetFile() {
+        return versionedFinanceTracker.isSetFile();
     }
 
     //=========== Selected record ===========================================================================

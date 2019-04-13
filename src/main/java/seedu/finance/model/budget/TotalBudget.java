@@ -36,8 +36,18 @@ public class TotalBudget extends Budget {
     }
 
     public void set(TotalBudget budget) {
+        if (budget.getTotalBudget() == 0) {
+            set(0, 0);
+            setCategoryBudgets(new HashSet<>());
+        }
         set(budget.getTotalBudget(), budget.getCurrentBudget());
-        this.categoryBudgets = new HashSet<>(budget.getCategoryBudgets());
+        this.categoryBudgets.clear();
+        this.categoryBudgets.addAll(
+                budget.getCategoryBudgets()
+                .stream()
+                .map(CategoryBudget::new)
+                .collect(Collectors.toSet())
+        );
     }
 
     public void setCategoryBudgets(HashSet<CategoryBudget> categoryBudgets) {
@@ -46,6 +56,29 @@ public class TotalBudget extends Budget {
 
     public HashSet<CategoryBudget> getCategoryBudgets() {
         return categoryBudgets;
+    }
+
+    /**
+     * Updates the budget of TotalBudget based on the budget given and current list of records.
+     * Throws an exception if the new budget to be set is less than the total amount allocated
+     * to the different budget categories.
+     *
+     * @param budget the budget to be set
+     * @param records the records in FinanceTracker to check spending and update budget
+     * @throws CategoryBudgetExceedTotalBudgetException thrown when the total amount allocated
+     * in the Set of {@code CategoryBudget} is more than budget to be set
+     */
+    public void updateBudget(Budget budget, ObservableList<Record> records) throws
+            CategoryBudgetExceedTotalBudgetException {
+        Double totalCategoryBudget = 0.0;
+        for (CategoryBudget cb: this.categoryBudgets) {
+            totalCategoryBudget += cb.getTotalBudget();
+        }
+        if (budget.getTotalBudget() < totalCategoryBudget) {
+            throw new CategoryBudgetExceedTotalBudgetException(budget, totalCategoryBudget);
+        }
+        set(budget.getTotalBudget(), budget.getCurrentBudget());
+        updateBudget(records);
     }
 
     //========================= Category Budgets ==========================//
@@ -96,6 +129,7 @@ public class TotalBudget extends Budget {
                 catBudgetToAdd.currentSpendings += r.getAmount().getValue();
             }
         }
+        catBudgetToAdd.currentBudget = catBudgetToAdd.totalBudget - catBudgetToAdd.currentSpendings;
 
         if (catBudgetToAdd.currentSpendings > catBudgetToAdd.totalBudget) {
             throw new SpendingInCategoryBudgetExceededException(catBudgetToAdd);
@@ -121,6 +155,22 @@ public class TotalBudget extends Budget {
         return this.currentSpendings <= this.totalBudget && catBudgetNotExceeded.get() < 1;
 
 
+    }
+
+    @Override
+    public void editRecord(Record target, Record editedRecord) {
+        super.editRecord(target, editedRecord);
+        for (CategoryBudget cb: this.categoryBudgets) {
+            if (cb.getCategory().equals(target.getCategory())) {
+                if (target.getCategory().equals(editedRecord.getCategory())) {
+                    cb.editRecord(target, editedRecord);
+                } else {
+                    cb.removeRecord(target);
+                }
+            } else if (cb.getCategory().equals(editedRecord.getCategory())) {
+                cb.addRecord(editedRecord);
+            }
+        }
     }
 
     @Override

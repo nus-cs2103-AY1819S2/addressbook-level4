@@ -16,6 +16,12 @@ public class CategoryBudgetExceedTotalBudgetException extends Exception {
                 totalBudget.getTotalBudget()));
     }
 
+    public CategoryBudgetExceedTotalBudgetException(Budget budget, Double categoryBudgetTotal) {
+        super(String.format("Setting the budget as $%.2f will cause the allocated category budget of"
+                        + " $%.2f to exceed the total budget of the finance tracker.",
+                budget.getTotalBudget(), categoryBudgetTotal));
+    }
+
     public CategoryBudgetExceedTotalBudgetException(CategoryBudget categoryBudget) {
         super(String.format("The category budget $(%.2f) will exceed total budget of Finance Tracker"));
     }

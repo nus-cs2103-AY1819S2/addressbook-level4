@@ -1,6 +1,8 @@
 package seedu.address.logic.parser;
 
+import static seedu.address.commons.core.Messages.MESSAGE_EMPTY_KEYWORD;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.commons.core.Messages.MESSAGE_NO_SEARCH_PARAMETER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESC;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DRUG_ALLERGY;
@@ -22,6 +24,7 @@ import java.util.List;
 
 import seedu.address.logic.commands.PatientFindCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.patient.Patient;
 import seedu.address.model.util.predicate.AddressContainsKeywordsPredicate;
 import seedu.address.model.util.predicate.ContainsKeywordsPredicate;
 import seedu.address.model.util.predicate.DateOfBirthContainsKeywordsPredicate;
@@ -95,14 +98,17 @@ public class PatientFindCommandParser implements Parser<PatientFindCommand> {
 
         String[] keywords = new String[1];
         ContainsKeywordsPredicate predicate;
-        MultipleContainsKeywordsPredicate multiPredicate =
-            new MultipleContainsKeywordsPredicate(Arrays.asList(keywords), isIgnoreCase, isAnd);
+        MultipleContainsKeywordsPredicate<Patient> multiPredicate =
+            new MultipleContainsKeywordsPredicate<>(Arrays.asList(keywords), isIgnoreCase, isAnd);
 
         List<ContainsKeywordsPredicate> predicateList = new ArrayList<>();
 
         for (Prefix pref: prefixArr) {
             if (argMultimap.getValue(pref).isPresent()) {
                 keywords = argMultimap.getValue(pref).get().split("\\s+");
+                if (keywords[0].isEmpty()) {
+                    throw new ParseException(MESSAGE_EMPTY_KEYWORD);
+                }
                 predicate = getKeywordsPredicate(pref, Arrays.asList(keywords), isIgnoreCase, isAnd);
                 predicateList.add(predicate);
                 prefixNum++;
@@ -110,7 +116,7 @@ public class PatientFindCommandParser implements Parser<PatientFindCommand> {
         }
 
         if (prefixNum < 1) {
-            throw new ParseException("Find needs at least 1 parameter for searching!");
+            throw new ParseException(MESSAGE_NO_SEARCH_PARAMETER);
         }
         multiPredicate.setPredicateList(predicateList);
 

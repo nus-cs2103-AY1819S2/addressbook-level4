@@ -42,6 +42,7 @@ To get started with TopDeck:
 .  Copy the file to the folder you want to use as the home folder for TopDeck.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
+.TopDeck's initial GUI
 image::Ui.png[width="790"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
@@ -49,7 +50,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 Once you have set up TopDeck, you can try these commands:
 
-* `add Capitals` : creates a new deck named "Capitals"
+* `add Parseltongue` : creates a new deck named "Parseltongue"
 * `delete 3` : deletes the third deck in the list
 * `exit` : exits the app
 
@@ -57,13 +58,32 @@ You may refer to <<commands>> for details of each command.
 
 == User interface
 
-TopDeck's interface is seperated into three different views.
+
+TopDeck's GUI is very simple. It consists of four main areas -
+Menu Bar, Command Box, Results Display, and Content Panel.
+
+.Main Areas in TopDeck GUI
+image::gen_ug_diagrams/ui_annotate.png[width="790"]
+
+Here are what you can do with each:
+
+* Menu Bar - access general commands such as `exit` and `help`
+* Command Box - input commands to interact with the application
+* Results Display - see the outcome of your commands
+* Content Panel - view decks or cards, etc. Content is dependent on
+the view you are in.
+
+TopDeck currently supports three different views - Decks View, Cards
+View, and Study View.
 By default, TopDeck starts in <<decksview,Decks View>>.
 
 === Decks View [[decksview]]
 
 This view displays a list of the decks in your collection.
 
+
+.Decks View
+image::deck_ug_diagrams/deck.png[width="800"]
 
 In decks view, you can:
 
@@ -72,20 +92,33 @@ In decks view, you can:
 - Pick a deck to study. TopDeck will enter <<studyview,study view>>.
 - Export or Import a deck.
 
+Jump to <<decksviewc,Decks View Commands>>.
+
 === Cards View [[cardsview]]
 
-This view displays the cards in a particular deck. In cards view, you can:
+This view displays the cards in a particular deck.
+
+
+.Cards View
+image::gen_ug_diagrams/cards.png[width="800"]
+
+In cards view, you can:
 
 - Create, edit and delete cards in the deck.
 - View your performance for specific cards.
 
+Jump to <<cardsviewc,Cards View Commands>>.
+
 === Study View [[studyview]]
+
+image::gen_ug_diagrams/study.png[width="800"]
 
 In this view you can study a deck of cards.
 
 - Test your knowledge of the cards in your chosen deck
 - Rate the difficulty of the cards.
 
+Jump to <<studyviewc, Study View Commands>>.
 
 == Commands [[commands]]
 
@@ -104,11 +137,10 @@ In this view you can study a deck of cards.
   will be accepted. I.e. If you entered add n/nameOne n/nameTwo, the new deck will have the name "nameTwo".
 ====
 
-=== Deck View
+=== Decks View [[decksviewc]]
 
 In this view you can create, edit and find decks. This is the default view when TopDeck is first launched.
 
-image::deck_ug_diagrams/deck.png[width="800"]
 
 These are commands only available in deck view.
 
@@ -271,7 +303,7 @@ Currently select does not do much. However, we will be adding more functionality
 for select in v2.0. Refer to <<Upcoming Features>> for more details.
 
 
-=== Cards View
+=== Cards View [[cardsviewc]]
 
 These commands are only available in cards view.
 In this section, the active deck is the deck used in the `open` command.

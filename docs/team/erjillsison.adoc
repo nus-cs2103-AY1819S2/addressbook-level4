@@ -51,6 +51,13 @@ include::../UserGuide.adoc[tag=map]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
+Co-authored the Model diagram as shown in Figure 3 below.
+
+.Model Diagram
+image::ModelClassDiagram.png[width="800"]
+
+---
+
 include::../DeveloperGuide.adoc[tag=map]
 
 ---
@@ -58,3 +65,5 @@ include::../DeveloperGuide.adoc[tag=map]
 include::../DeveloperGuide.adoc[tag=mapuse]
 
 ---
+=== Instructions for Manual Testing
+include::../DeveloperGuide.adoc[tag=maptest]

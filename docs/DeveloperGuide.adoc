@@ -982,7 +982,6 @@ _{More to be added}_
 
 // tag::mapuse[]
 
-[discrete]
 === Use case: Initialise Maps
 
 *MSS*
@@ -1146,7 +1145,7 @@ Cons:
 * ...
 
 [appendix]
-== Instructions for Manual Testing (!!Must change to fit our context!!)
+== Instructions for Manual Testing
 
 Given below are instructions to test the app manually.
 

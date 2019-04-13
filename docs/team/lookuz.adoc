@@ -1,5 +1,4 @@
 = Choong Wey Yeh - Project Portfolio
-
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets

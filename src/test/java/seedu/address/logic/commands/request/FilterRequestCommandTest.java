@@ -21,6 +21,8 @@ import static seedu.address.testutil.TypicalRequests.FRANCIS_REQUEST;
 import static seedu.address.testutil.TypicalRequests.GLADYS_REQUEST;
 import static seedu.address.testutil.TypicalRequests.HEPZHI_REQUEST;
 import static seedu.address.testutil.TypicalRequests.INDIANA_REQUEST;
+import static seedu.address.testutil.TypicalRequests.JANE_REQUEST;
+import static seedu.address.testutil.TypicalRequests.NEA_REQUEST;
 import static seedu.address.testutil.TypicalRequests.getTypicalRequestBook;
 
 import java.util.Arrays;
@@ -94,7 +96,7 @@ public class FilterRequestCommandTest {
     @Test
     public void execute_singlePrefixSingleKeyword_singleRequestFound() throws ParseException {
         String expectedMessage = String.format(MESSAGE_REQUESTS_LISTED_OVERVIEW, 1);
-        Predicate<Request> predicate = preparePredicate(" dt/02-01-2919 14:00:00");
+        Predicate<Request> predicate = preparePredicate(" dt/04-01-2019 14:00:00");
         FilterRequestCommand command = new FilterRequestCommand(predicate);
         expectedModel.updateFilteredRequestList(predicate);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
@@ -144,23 +146,24 @@ public class FilterRequestCommandTest {
 
     @Test
     public void execute_singleRepeatedPrefixSingleKeywordTakeLast_multipleRequestsFound() throws ParseException {
-        String expectedMessage = String.format(MESSAGE_REQUESTS_LISTED_OVERVIEW, 1);
+        String expectedMessage = String.format(MESSAGE_REQUESTS_LISTED_OVERVIEW, 2);
         Predicate<Request> predicate = preparePredicate(" c/Dialysis c/Physiotherapy");
         FilterRequestCommand command = new FilterRequestCommand(predicate);
         expectedModel.updateFilteredRequestList(predicate);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(ALICE_REQUEST), model.getFilteredRequestList());
+        assertEquals(Arrays.asList(ALICE_REQUEST, NEA_REQUEST), model.getFilteredRequestList());
     }
 
     @Test
     public void execute_singlePrefixSingleKeyword_multipleRequestsFound() throws ParseException {
-        String expectedMessage = String.format(MESSAGE_REQUESTS_LISTED_OVERVIEW, 8);
+        String expectedMessage = String.format(MESSAGE_REQUESTS_LISTED_OVERVIEW, 9);
         Predicate<Request> predicate = preparePredicate(" c/Palliative");
         FilterRequestCommand command = new FilterRequestCommand(predicate);
         expectedModel.updateFilteredRequestList(predicate);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
         assertEquals(Arrays.asList(BENSON_REQUEST, CARL_REQUEST, DANIEL_REQUEST, EMMANUEL_REQUEST,
-            FRANCIS_REQUEST, GLADYS_REQUEST, HEPZHI_REQUEST, INDIANA_REQUEST), model.getFilteredRequestList());
+            FRANCIS_REQUEST, GLADYS_REQUEST, HEPZHI_REQUEST, INDIANA_REQUEST, JANE_REQUEST),
+            model.getFilteredRequestList());
     }
 
     @Test

@@ -75,7 +75,7 @@ a parameter which can be used as add n/John Doe.
 8+^|List of valid prefixes
 
 4+| *Patient* 2+| *Record* 2+| *Next-of-Kin*
-|Prefix | Attribute |Prefix | Attribute | Prefix | Attribute | Prefix | Attribute
+|*Prefix* | *Attribute* |*Prefix* | *Attribute* | *Prefix* | *Attribute* | *Prefix* | *Attribute*
 |n/ | Name |sex/ | Sex | pro/ | Procedure | nokn/ | NOK Name
 |ic/ | Nric |dob/ | Date of Birth |desc/ | Description | nokp/ | NOK Phone
 |p/ | Phone |e/ | Email | | | nokr/ | NOK Relation

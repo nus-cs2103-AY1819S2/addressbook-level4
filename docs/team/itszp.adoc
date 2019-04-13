@@ -3,10 +3,8 @@
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
----
  This portfolio seeks to document my contributions to our team's project, FomoFoto.
 
----
 == Project Title: FomoFoto
 
 

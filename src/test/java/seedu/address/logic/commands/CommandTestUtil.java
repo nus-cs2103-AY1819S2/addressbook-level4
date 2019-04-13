@@ -30,6 +30,7 @@ import seedu.address.model.activity.Activity;
 import seedu.address.model.activity.ActivityNameContainsKeywordsPredicate;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
+import seedu.address.testutil.EditActivityDescriptorBuilder;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 
 /**
@@ -119,6 +120,9 @@ public class CommandTestUtil {
     public static final String INVALID_ACTIVITY_NAME_DESC = " " + PREFIX_ACTIVITYNAME + "HTML@";
     public static final String INVALID_ACTIVITY_DATETIME_DESC = " " + PREFIX_DATETIME + "20022019";
 
+    public static final ActivityEditCommand.EditActivityDescriptor A_DESC_HTML;
+    public static final ActivityEditCommand.EditActivityDescriptor A_DESC_OUTING;
+
     static {
         DESC_AMY = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)
                 .withMatricNumber(VALID_MATRICNUMBER_AMY)
@@ -130,6 +134,17 @@ public class CommandTestUtil {
                 .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
                 .withGender(VALID_GENDER_BOB).withYearOfStudy(VALID_YEAROFSTUDY_BOB).withMajor(VALID_MAJOR_BOB)
                 .withTags(VALID_TAG_RUNNING, VALID_TAG_SWIMMING).build();
+
+        A_DESC_HTML = new EditActivityDescriptorBuilder().withActivityName(VALID_ACTIVITY_NAME_HTML)
+                .withActivityDateTime(VALID_ACTIVITY_DATETIME_HTML)
+                .withActivityLocation(VALID_ACTIVITY_LOCATION_HTML)
+                .withActivityDescription(DEFAULT_ACTIVITY_DESCRIPTION).build();
+
+        A_DESC_OUTING = new EditActivityDescriptorBuilder()
+                .withActivityName(VALID_ACTIVITY_NAME_OUTING)
+                .withActivityDateTime(VALID_ACTIVITY_DATETIME_OUTING)
+                .withActivityLocation(VALID_ACTIVITY_LOCATION_OUTING)
+                .withActivityDescription(VALID_ACTIVITY_DESCRIPTION_OUTING).build();
     }
 
     /**

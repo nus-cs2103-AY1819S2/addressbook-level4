@@ -68,8 +68,8 @@ public class VisitWebCommandTest {
 
     @Test
     public void execute_validUrl_success() {
-        String validUrl = "www.kfc.com.sg";
-        assertExecutionSuccess(validUrl);
+        Weblink validWeblink = new Weblink("https://www.kfc.com.sg");
+        assertExecutionSuccess(validWeblink);
     }
 
     @Test
@@ -110,9 +110,9 @@ public class VisitWebCommandTest {
      * and checks that the model's VisitWebed restaurant is set to the restaurant at {@code index} in the filtered
      * restaurant list.
      */
-    private void assertExecutionSuccess(String url) {
-        VisitWebCommand visitWebCommand = new VisitWebCommand(new Weblink(url));
-        String expectedMessage = String.format(VisitWebCommand.MESSAGE_VISIT_RESTAURANT_SUCCESS, index.getOneBased());
+    private void assertExecutionSuccess(Weblink validWeblink) {
+        VisitWebCommand visitWebCommand = new VisitWebCommand(validWeblink);
+        String expectedMessage = String.format(VisitWebCommand.MESSAGE_VISIT_WEBLINK, validWeblink.value);
 
         assertCommandSuccess(visitWebCommand, model, commandHistory, expectedMessage, expectedModel);
     }

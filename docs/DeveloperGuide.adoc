@@ -282,7 +282,8 @@ Given below is an example usage scenario and how 3 components behaves at each st
 
 Step 1. The user launches the application for the first time. The `PostalDataSet` will be initialised with data from `PostalData.json` through the `Storage` component.
 
-Step 2. The user calls `listUnvisited po/267951`. A new `SortBy` will be created containing the `PostalData` of '267951'. This command will then call the method `Model#filterAndSort(Predicate PREDICATE_SHOW_UNVISITED_RESTAURANTS, Comparator sortBy).`
+Step 2. The user calls `listUnvisited po/267951`. The `listUnvisitedCommand` class will be initialised. A new `SortBy` will be created by the 'listUnvisitedCommand` class containing the `PostalData` of '267951'.
+This command will then call the method `Model#filterAndSort(Predicate PREDICATE_SHOW_UNVISITED_RESTAURANTS, Comparator sortBy).`
 [NOTE]
 If the postal code provided by the user is invalid, there will be no change in ordering of the `Restaurant`.
 
@@ -306,15 +307,14 @@ image::ListUnvisitedSequenceDiagram.png[width="800"]
 ** Pros: Will use less memory and will always be updated and accurate.
 ** Cons: Internet Service is required for the usage of the feature.
 
-===== Aspect: Construction of comparator to compare Restaurants
+===== Aspect: Accessing of local postal data
 
 * **Alternative 1 (current choice):** Comparator constructor is done in the `listUnvisitedCommand`.
 ** Pros: Easy to implement.
 ** Cons: Increased coupling between `Command` and `Model`.
-* **Alternative 2:** Passing the user entered postal code into the `ModelManager`.
-** Pros: Coupling is reduced between `Command` and `Model`.
-** Cons: Violates Single Responsibility Principle and Separation of Concerns as `ModelManager` needs to handle the logic component of the command.
-
+* **Alternative 2:** Using the x and y coordinates as a field in the Restaurant class
+** Pros: r
+** Cons: If incorrect postal data
 // end::listUnvisitedDG[]
 
 // tag::selectDG[]

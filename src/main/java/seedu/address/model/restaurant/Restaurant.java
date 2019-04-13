@@ -7,8 +7,10 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
 
+import seedu.address.model.PostalData;
 import seedu.address.model.restaurant.categories.Categories;
 import seedu.address.model.review.Review;
 import seedu.address.model.tag.Tag;
@@ -31,6 +33,7 @@ public class Restaurant {
     private final List<Review> reviews = new ArrayList<>();
     private final OpeningHours openingHours;
     private final Postal postal;
+    private Optional<PostalData> postalData;
     private final Summary summary;
 
     // Categories fields
@@ -98,6 +101,7 @@ public class Restaurant {
         this.reviews.addAll(restaurant.reviews);
         this.summary = new Summary(restaurant.getReviews());
     }
+
 
     public Name getName() {
         return name;

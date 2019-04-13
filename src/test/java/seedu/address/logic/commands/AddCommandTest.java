@@ -24,6 +24,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.FoodDiary;
 import seedu.address.model.Model;
 import seedu.address.model.PostalData;
+import seedu.address.model.PostalDataSet;
 import seedu.address.model.ReadOnlyFoodDiary;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.restaurant.Restaurant;
@@ -123,7 +124,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public Optional<PostalData> getPostalData(int postal) {
+        public Optional<PostalDataSet> getPostalDataSet() {
             throw new AssertionError("This method should not be called.");
         }
 

@@ -13,6 +13,7 @@ public class ListCommand extends Command {
         + "Listing all patients: \"patientlist\" or \"plist\"\n"
         + "Listing all tasks: \"tasklist\" or \"tlist\"\n";
     public static final String GOTO_USAGE = "Did you mean:\n"
+        + "Listing all records: \"recordlist\" or \"rlist\"\n"
         + "Listing all tasks: \"tasklist\" or \"tlist\"\n";
 
     @Override

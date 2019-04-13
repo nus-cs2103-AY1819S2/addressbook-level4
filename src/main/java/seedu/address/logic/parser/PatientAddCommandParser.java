@@ -89,7 +89,7 @@ public class PatientAddCommandParser implements Parser<PatientAddCommand> {
         if (address.toString().equals("same")) {
             kinAddr = address;
         } else {
-            kinAddr = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_NOKA).orElse(NONE_NOKA));
+            kinAddr = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).orElse(NONE_NOKA));
         }
 
         Patient patient = new Patient(name, phone, email, address, null, nric, dateOfBirth, sex, drugAllergy,

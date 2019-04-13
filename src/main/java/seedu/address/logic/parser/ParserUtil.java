@@ -322,19 +322,14 @@ public class ParserUtil {
     }
 
     /**
-     * Converts all slashes ( / or \ ) in the input {@code String filePath} to File.separator.
+     * Converts all slashes ( \ ) in the input {@code String filePath} to /.
      */
     private static String convertSlashes(String input) {
         char[] pathArr = input.toCharArray();
         for (int i = 0; i < input.length(); i++) {
             // Convert example\example.json to example/example.json if the system prefers /
             if (pathArr[i] == '\\') {
-                pathArr[i] = File.separator.toCharArray()[0];
-                continue;
-            }
-            // Convert example/example.json to example\example.json if the system prefers \
-            if (pathArr[i] == '/') {
-                pathArr[i] = File.separator.toCharArray()[0];
+                pathArr[i] = '/';
             }
         }
         return String.valueOf(pathArr);
@@ -347,7 +342,7 @@ public class ParserUtil {
     static ParsedInOut parseOpenSave(String input) throws ParseException {
         requireNonNull(input);
         input = input.trim();
-        String newPath = "data" + File.separator;
+        String newPath = "data/";
 
         input = convertSlashes(input);
 
@@ -355,12 +350,12 @@ public class ParserUtil {
 
         final String validationRegex = "^(.*)+\\.(\\w*)$";
         if (input.matches(validationRegex)) {
-            final String jsonRegex = "^([\\w\\\\/\\s!@#$%^&()_+\\-={}\\[\\];',.]+)+\\.(json)$";
+            final String jsonRegex = "^([\\w/\\s!@#$%^&()_+\\-={}\\[\\];',.]+)+\\.(json)$";
             final String emptyJson = "^\\.(json)$";
             if (input.matches(jsonRegex) | input.matches(emptyJson)) {
                 return new ParsedInOut(file, "json");
             } else {
-                final String pdfRegex = "^([\\w\\\\/\\s!@#$%^&()_+\\-={}\\[\\];',.]+)+\\.(pdf)$";
+                final String pdfRegex = "^([\\w/\\s!@#$%^&()_+\\-={}\\[\\];',.]+)+\\.(pdf)$";
                 final String emptyPdf = "^\\.(pdf)$";
                 if (input.matches(pdfRegex) | input.matches(emptyPdf)) {
                     return new ParsedInOut(file, "pdf");
@@ -383,12 +378,11 @@ public class ParserUtil {
     static ParsedInOut parseImportExport(String input) throws ParseException {
         requireNonNull(input);
         input = input.trim();
-        String newPath = "data" + File.separator;
+        String newPath = "data/";
         String filepath;
         String fileType;
 
         input = convertSlashes(input);
-
 
         final String fileRegex = "^(.*)+\\.(json|pdf)+(.*)$";
         if (!input.matches(fileRegex)) {
@@ -396,7 +390,7 @@ public class ParserUtil {
         }
 
         // Parse for "all" keyword
-        final String allRegex = "^([\\w\\\\/\\s!@#$%^&()_+\\-={}\\[\\];',.]+)+\\.(json|pdf)+\\s(all)$";
+        final String allRegex = "^([\\w/\\s!@#$%^&()_+\\-={}\\[\\];',.]+)+\\.(json|pdf)+\\s(all)$";
         if (input.matches(allRegex)) {
             final Pattern splitRegex = Pattern.compile(allRegex);
             Matcher splitMatcher = splitRegex.matcher(input);
@@ -429,7 +423,7 @@ public class ParserUtil {
         }
 
         // Parse for index range
-        final String indexRegex = "^([\\w\\\\/\\s!@#$%^&()_+\\-={}\\[\\];',.]+)+\\.(json|pdf)+\\s([0-9,\\-]*)$";
+        final String indexRegex = "^([\\w/\\s!@#$%^&()_+\\-={}\\[\\];',.]+)+\\.(json|pdf)+\\s([0-9,\\-]*)$";
         final String emptyIndexRegex = "^\\.(json|pdf)+\\s([0-9,\\-]*)$";
         String indexRange;
         if (input.matches(indexRegex) | input.matches(emptyIndexRegex)) {

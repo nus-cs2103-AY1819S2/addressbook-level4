@@ -24,7 +24,7 @@ import seedu.address.testutil.TypicalPersons;
  */
 public class ExportCommandTest {
 
-    private File file = new File("data" + File.separator + "test.json");
+    private File file = new File("data/test.json");
 
     /**
      * Exports the file with the patients specified in {@code HashSet<Integer< range}.

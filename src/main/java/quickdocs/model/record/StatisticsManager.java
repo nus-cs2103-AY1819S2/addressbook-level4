@@ -47,6 +47,9 @@ public class StatisticsManager {
      */
     private void updateListSize(Clock clock) {
         YearMonth now = YearMonth.now(clock);
+        if (now.isBefore(START_DATE)) {
+            throw new IllegalArgumentException("System clock is before January 2019");
+        }
         updateListSize(now);
     }
 
@@ -86,6 +89,10 @@ public class StatisticsManager {
      */
     public void addMonthStatistics(MonthStatistics monthStatistics) {
         YearMonth yearMonth = monthStatistics.getYearMonth();
+        YearMonth currentMonth = YearMonth.now(Clock.systemDefaultZone());
+        if (yearMonth.isBefore(START_DATE) || yearMonth.isAfter(currentMonth)) {
+            throw new IllegalArgumentException("Invalid stored statistics");
+        }
         updateListSize(yearMonth);
         int idx = getYearMonthIndex(yearMonth);
         this.monthStatistics.set(idx, monthStatistics);

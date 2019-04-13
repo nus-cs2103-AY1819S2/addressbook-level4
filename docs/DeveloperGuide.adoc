@@ -446,7 +446,7 @@ Furthermore, every time any record of the specified patient is modified, a new i
 === Task Management and related commands
 This segment will explain the key features of the a new data type `Task` that TeethHub handle. Key implementation details and the design considerations when designing these features will also be covered.
 
-==== Current Implementation: Task storage and attributes
+==== Task storage and attributes
 
 The `Task` class is a new type of object that is meant to represent any task a dentist would have to perform. `Task` objects are kept in a list and handled by the `UniqueTaskList` class. This follows the same process as the `Patient` class and by extension, the `Person` class which has a `UniquePersonList` handling a list of `Person` objects. Storing information of all objects does not change between `Task` and `Person` classes and both are stored into a `TeethHub.json` file. Attributes for `Task` are instantiated as objects with their own methods to validate the user's input much like the current implementation of `Patient`/`Person` .
 
@@ -457,7 +457,7 @@ The following class diagram details the relevant attributes for a `Task` object 
 
 image::TaskClassDiagramFinal.png[width=""]
 
-==== Current Implementation: Task interaction feature (Basic)
+==== Task interaction feature (Basic)
 
 Essential commands for basic interaction with the tasks such as, `taskadd`, `taskedit` and `taskdelete` are implemented in a similar fashion as compared to existing commands. All three commands extend from the abstract class `Command` and follow the same execution flow as `patientadd`, `patientedit` and `patientdelete`. The typical execution flow of these commands mostly involve the `Logic` and `Model` component of the application and the order can be detailed as follows:
 
@@ -477,9 +477,9 @@ The following sequence diagram illustrates the generic command execution flow an
 
 image::GenericSequenceDiagram.png[width=""]
 
-==== Current implementation: Task Autocomplete feature
+==== Task Autocomplete feature
 
-The `taskdone` command is a feature implemented to allow the user to automatically complete a task of his/her choice, setting it to `COMPLETED`. The command also allows the user to automatically add a record to the task's `LinkedPatient` upon completion of the task. This feature makes use of the `Model` by calling its API to perform additional interactions with both task and patient.
+The `taskdone` command is a feature implemented to allow the user to automatically complete a task of his/her choice, setting it to `COMPLETED`. The command also allows the user to automatically add a record to the task's `LinkedPatient` upon completion of the task. This feature makes use of the `Model` by calling its methods `setTask()` and `setPerson()` to perform additional interactions with both task and patient respectively.
 
 [NOTE]
 The current `patientedit` and `patientdelete` commands have been modified to update tasks linked to a patient when said patient gets modified or deleted. However, to keep in line with the concept of Defensive Programming, the execution still check and inform the user in an event where the `LinkedPatient` cannot be found.
@@ -488,7 +488,7 @@ The following sequence diagram illustrates flow in which the command's execution
 
 image::TaskDoneSequenceDiagram.png[width=""]
 
-==== Current implementation: Task Calendar feature
+==== Task Calendar feature
 
 The `taskcal` command is a feature implemented to allow the user to view task related data in a more interactive and helpful manner. Executing the command creates a popup window with the list of tasks on the left side and a calendar on the rigth side. This feature is implemented using calls to `JavaFX` with the most important component being `DatePicker` which allows a calendar to be drawn up and displayed to the user. This feature also enables the user to find tasks depending on the `date` they provide the command or the date cell they click on. Implementation of this aspect of the feature is done on the `UI` component of the application under the `CalendarWindow` class which can be found in the `ui` folder.
 
@@ -499,7 +499,6 @@ image::TaskCalendarSwimLaneDiagram.png[width=""]
 ==== Design Considerations
 
 ===== Aspect: Storing the task class
-
 
 * **Current implementation:** Tasks are stored in the same json file as patients.
 ** **Alternative:** Store the tasks in a seperate json file
@@ -1349,11 +1348,23 @@ teeth condition better
 
 |`* * *` |user |clear all dental records of a patient |protect the privacy of my patients if they require me to
 // end::patient_user_stories_kyler[]
+
+// tag::task_user_stories_cchj1995[]
 |`* * *` |user |add a new task |keep track of what I need to do
 
 |`* * *` |user |delete a task |remove tasks that I have already completed or no longer need to do
 
 |`* * *` |user |edit a task |change details of certain tasks that I have already added
+
+|`* * *` |user |link a patient to a task | differentiate between tasks that are meant for a patient and normal tasks
+
+|`* * *` |user | set a task to complete | mark a task as done without needing to edit it again and add a record automatically if the task is linked to a patient
+
+|`* * *` |user | add a record automatically upon completing a task | save time after completing a task that relates a patient by having the record added automatically
+
+|`* * *` |user | view tasks in a calendar | see all the dates in which I have tasks starting or ending, keeping better track of urgency of tasks and deadlines
+
+end::task_user_stories_cchj1995[]
 
 |`* * *` |user |see a statistics report on each patient's dental history |have an easier time understanding their potential problems
 
@@ -1645,6 +1656,56 @@ _{ more test cases ... }_
 ... Other incorrect recorddelete commands to try: `recorddelete`, `record delete`, `recorddelete x` (where x is larger than the list size), `recorddelete y` (where y is a negative number), `recorddelete z` (where z is not an integer) +
    Expected: Similar to previous.
 // end::manual_patient_kyler[]
+
+// tag::manualTesting_cchj1995[]
+=== Adding a task
+
+. Adding a new task while all tasks are listed
+
+.. Prerequisites: List all tasks using the `tasklist` command Tasks should all be displayed in the task list. No tasks with the exact same attributes as the test cases are present in the list.
+... Test case: `taskadd ti/Test task sd/today st/1200 et/1300 pri/HIGH` +
+   Expected: Task with the title "Test task" is added for with the current date as the start date and end date, a start time of 1200, end time of 1300 and a high priority tag displayed in red, should be added at the bottom of the list of all tasks.
+... Test case: `taskadd ti/Test task 2 sd/11-05-2019 ed/16-05-2019 ti/Test task 2 st/1200 et/1300` +
+   Expected: Task with the title "Test task 2" is added with a start date of 11-05-2019, an end date of 16-05-2019, a start time of 1200, end time of 1300 and a high priority tag displayed in red, should be added at the bottom of the list of all tasks.
+... Test case: `taskadd ti/Test task 2 st/1200 et/1300` +
+   Expected: No task is added. Error details shown in the status message showing proper command usage.
+... Test case: `taskaddti/Test task 2 st/1200 et/1300` +
+   Expected: No task is added. Error details shown in the status message stating an unknown command.
+... Other incorrect taskadd commands to try: `task add`, `taskad d ti/Test task sd/today st/1200 et/1300 pri/HIGH` +
+   Expected: Similar to previous.
+   
+=== Editing a task
+
+. Editing a new task while all tasks are listed
+
+.. Prerequisites: List all tasks using the `tasklist` command. There are more than 3 tasks present. Tasks should all be displayed in the task list. No tasks with the exact same attributes as the test cases are present in the list.
+... Test case: `taskedit 1 ti/New Edited Title` +
+   Expected: First task in the list of tasks has its title changed to "New Edited Title".
+... Test case: `taskedit 2 ti/New Edited Title 2 sd/today ed/today` +
+   Expected: Second task in the list of tasks has its title changed to "New Edited Title 2", its start date and end date changed to the current date.
+... Test case: `taskedit 3 ti/New Edited Title 3 sd/today ed/today st/1300 et/1200` +
+   Expected: No task is edited. Error details shown in the status message stating that start time cannot be before end time if start date is the same as the end date.
+... Test case: `taskedit x ti/New Edited Title` (where x is larger than the number of tasks listed)
+   Expected: No task is edited. Error details shown in the status message stating that the task index provided is invalid.
+... Test case: `task edit 1 ti/New Edited Title 4`
+   Expected: No task is edited. Error details shown in the status message stating an unknown command.
+... Other incorrect taskadd commands to try: `tasedit`, `taskedit/ti/Test task sd/today st/1200 et/1300 pri/HIGH` +
+   Expected: Similar to previous.
+  
+=== Deleting a task
+
+. Deleting a task while all tasks are listed
+
+.. Prerequisites: List all tasks using the `tasklist` command Tasks should all be displayed in the task list.
+... Test case: `taskdelete 1` +
+   Expected: First task is deleted from the list. Details of the deleted task are shown in the result display box.
+... Test case: `taskdelete 0` +
+   Expected: No record is deleted. Error details shown in the status message showing invalid command format.
+... Test case: `taskdelete0` +
+   Expected: No record is deleted. Error details shown in the status message stating an unknown command.
+... Other incorrect recorddelete commands to try: `recorddelete`, `record delete`, `recorddelete x` (where x is larger than the list size), `recorddelete y` (where y is a negative number), `recorddelete z` (where z is not an integer) +
+   Expected: Similar to previous.
+// end::manualTesting_cchj1995[]
 
 // tag::manualtestingJH[]
 === Exporting data

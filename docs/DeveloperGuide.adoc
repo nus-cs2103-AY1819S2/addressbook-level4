@@ -460,7 +460,7 @@ The Orders feature allows users to perform order-related operations for a specif
 [NOTE]
 The table number is stored so that users do not need to keep specifying it when typing the commands.
 
-Hence, all the commands in the Orders feature will have to retrieve the table number from [.java]#Model# first before they can perform their functions. The current table is stored as a [.java]#Table# object in [.java]#Model#, which is retrieved by calling [.java]#Model#getSelectedTable()#. 
+Hence, all the commands in the Orders feature will have to retrieve the table number from [.java]#Model# first before they can perform their functions. The current table is stored as a [.java]#Table# object in [.java]#Model#, which is retrieved by calling [.java]#Model#getSelectedTable()#.
 The [.java]#TableNumber# can then be retrieved from that [.java]#Table#. The sequence diagram for this operation is shown below.
 
 .Sequence diagram for retrieving the table number
@@ -510,7 +510,7 @@ public void clearOrderItemsFrom(TableNumber tableNumber) {
     }
 ----
 
-In the method above, [.java]#orderItems# is a [.java]#UniqueOrderItemList# that contains all the order items from all the tables. Let's walk through this method to see how the main functionality of `clearOrder` is implemented: 
+In the method above, [.java]#orderItems# is a [.java]#UniqueOrderItemList# that contains all the order items from all the tables. Let's walk through this method to see how the main functionality of `clearOrder` is implemented:
 
 <1> It first loops through all the items in the [.java]#UniqueOrderItemList# and retrieves the items with the current table number.
 <2> It then deletes these items from the [.java]#UniqueOrderItemList#.
@@ -547,7 +547,7 @@ The interaction between the components for this function is similar to <<EditPax
 Suppose 3 "W09 Chicken Wings" has been ordered by the current table. When `serve W09 2` is keyed in, the command is parsed by [.java]#ServeCommandParser# to check if the arguments are in valid format. The valid [.java]#Code# item code and [.java]#Integer# quantity are then stored in the [.java]#ServeCommand# object returned by the parser.
 
 When [.java]#ServeCommand#execute()# is called, it will use the item code to check whether the item code exists in the menu and in the current table's order.
-If the order item is found and the quantity served is valid, a new [.java]#OrderItem# object will be created with a new [.java]#OrderItemStatus# that reflects the new quantities. 
+If the order item is found and the quantity served is valid, a new [.java]#OrderItem# object will be created with a new [.java]#OrderItemStatus# that reflects the new quantities.
 [.java]#Model#setOrderItem()# is then used to replace the old [.java]#OrderItem# object with the new one.
 
 
@@ -1351,3 +1351,4 @@ You can restore the original sample data by deleting the json files in the data 
 .. Open any of the json files in the data folder and delete all its contents.
 .. Launch RestOrRant by double-clicking the jar file. +
    Expected: Shows the GUI with no data.
+   

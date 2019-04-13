@@ -27,9 +27,16 @@ public class CommandResult {
         NO_CHANGE, MED_HIST_BROWSER, PATIENT_BROWSER, DOCTOR_BROWSER, PRESCRIPTION_BROWSER
     }
 
+    /** Refresh browser panel depending on deletion command is executed ot not. */
+    public enum DeletionOrNot {
+        NO_CHANGE, DELETION
+    }
+
     private ShowPanel showPanel = ShowPanel.NO_CHANGE;
 
     private ShowBrowser showBrowser = ShowBrowser.NO_CHANGE;
+
+    private DeletionOrNot deletionOrNot = DeletionOrNot.NO_CHANGE;
 
     /**
      * Constructs a {@code CommandResult} with the specified fields.
@@ -64,6 +71,14 @@ public class CommandResult {
         this.showBrowser = showBrowser;
     }
 
+    /**
+     * Constructs a {@code CommandResult} that will refresh browser panel in UI.
+     */
+    public CommandResult(String feedbackToUser, DeletionOrNot deletionOrNot) {
+        this(feedbackToUser);
+        this.deletionOrNot = deletionOrNot;
+    }
+
     public String getFeedbackToUser() {
         return feedbackToUser;
     }
@@ -82,6 +97,10 @@ public class CommandResult {
 
     public ShowBrowser getShowBrowser() {
         return showBrowser;
+    }
+
+    public DeletionOrNot getDeletionOrNot() {
+        return deletionOrNot;
     }
 
     @Override

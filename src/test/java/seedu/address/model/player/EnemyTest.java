@@ -3,8 +3,9 @@ package seedu.address.model.player;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
+import static seedu.address.testutil.SizeTenMapGrid.initialisePlayerSizeTen;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -15,8 +16,6 @@ import org.junit.Test;
 
 import seedu.address.model.cell.Coordinates;
 import seedu.address.model.cell.Status;
-import static seedu.address.testutil.SizeTenMapGrid.initialisePlayerSizeTen;
-
 
 public class EnemyTest {
 

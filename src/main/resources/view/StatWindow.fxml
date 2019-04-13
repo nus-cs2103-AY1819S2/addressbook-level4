@@ -46,18 +46,61 @@
 
                 <HBox VBox.vgrow="ALWAYS" fx:id="detailsBox" minHeight="100" maxHeight="300" alignment="CENTER">
                     <SplitPane>
-                        <VBox VBox.vgrow="ALWAYS" fx:id="patientBox" alignment="CENTER" minWidth="100"
-                              styleClass="pane-with-border">
+                        <VBox VBox.vgrow="ALWAYS" fx:id="patientBox" alignment="TOP_CENTER" minWidth="300"
+                              styleClass="pane-with-border" maxWidth="400">
                             <padding>
                                 <Insets top="5" right="10" bottom="5" left="10" />
                             </padding>
-                            <Label fx:id="detailsTitle" text="Personal Details." styleClass="cell_big_label_bright" />
+                            <Label fx:id="detailsTitle" text="Personal Details" styleClass="cell_big_label_bright" />
 
-                            <Label fx:id="nric" styleClass="cell_small_label_bright" text="Tes: \$nric"/>
-                            <Label fx:id="dateOfBirth" styleClass="cell_small_label_bright" text="\$dateOfBirth" />
-                            <Label fx:id="phone" styleClass="cell_small_label_bright" text="\$phone" />
-                            <Label fx:id="address" styleClass="cell_small_label_bright" text="\$address" />
-                            <Label fx:id="email" styleClass="cell_small_label_bright" text="\$email" />
+                            <HBox>
+                                <Label fx:id="sexLabel" text="Sex: " styleClass="stat_header" />
+                                <Label fx:id="sex" styleClass="stat_text" text="\$sex"/>
+
+                                <Label fx:id="nricLabel" text="NRIC: " styleClass="stat_header" />
+                                <Label fx:id="nric" styleClass="stat_text" text="\$nric"/>
+
+                                <Label fx:id="birthLabel" text="D.O.B: " styleClass="stat_header" />
+                                <Label fx:id="dateOfBirth" styleClass="stat_text" text="\$dateOfBirth" />
+                            </HBox>
+
+                            <HBox>
+                                <Label fx:id="phoneLabel" text="Phone: " styleClass="stat_header" />
+                                <Label fx:id="phone" styleClass="stat_text" text="\$phone" />
+                            </HBox>
+
+                            <HBox>
+                                <Label fx:id="emailLabel" text="Email: " styleClass="stat_header" />
+                                <Label fx:id="email" styleClass="stat_text" text="\$email" />
+                            </HBox>
+
+                            <HBox>
+                                <Label fx:id="addressLabel" text="Address: " styleClass="stat_header" />
+                                <Label fx:id="address" styleClass="stat_text" text="\$address" />
+                            </HBox>
+
+                            <Label fx:id="kinTitle" text="Next Of Kin" styleClass="cell_big_label_bright" />
+
+                            <HBox>
+                                <Label fx:id="kinNameLabel" text="Name: " styleClass="stat_header" />
+                                <Label fx:id="kinName" styleClass="stat_text" text="\$kinName"/>
+                            </HBox>
+
+                            <HBox>
+                                <Label fx:id="kinRelationLabel" text="Relationship: " styleClass="stat_header" />
+                                <Label fx:id="kinRelation" styleClass="stat_text" text="\$kinRelation"/>
+                            </HBox>
+
+                            <HBox>
+                                <Label fx:id="kinPhoneLabel" text="Phone: " styleClass="stat_header" />
+                                <Label fx:id="kinPhone" styleClass="stat_text" text="\$kinPhone"/>
+                            </HBox>
+
+                            <HBox>
+                                <Label fx:id="kinAddressLabel" text="Address: " styleClass="stat_header" />
+                                <Label fx:id="kinAddress" styleClass="stat_text" text="\$kinAddress"/>
+                            </HBox>
+
                         </VBox>
 
                         <VBox VBox.vgrow="ALWAYS" fx:id="recordsBox" alignment="CENTER" minWidth="200" maxHeight="300"
@@ -86,20 +129,21 @@
                     </SplitPane>
                 </HBox>
 
-                <HBox HBox.hgrow="ALWAYS" fx:id="chartsBox" minHeight="100" maxHeight="300" alignment="CENTER">
+                <HBox HBox.hgrow="ALWAYS" fx:id="chartsBox" minHeight="100" maxHeight="300"
+                      alignment="CENTER">
                     <padding>
                         <Insets top="20" right="10" bottom="5" left="10" />
                     </padding>
-                    <SplitPane>
+                    <SplitPane maxWidth="800">
                         <padding>
                             <Insets top="5" right="10" bottom="5" left="10" />
                         </padding>
 
                         <VBox styleClass="pane-with-border" fx:id="barChartBox" />
 
-                        <HBox styleClass="pane-with-border">
-                            <Label text="Pie Chart Placeholder" styleClass="cell_big_label" />
-                        </HBox>
+                        <VBox styleClass="pane-with-border" fx:id="pieChartBox">
+                            <!-- <Label text="Pie Chart Placeholder" styleClass="cell_big_label" /> -->
+                        </VBox>
                     </SplitPane>
                 </HBox>
             </VBox>

@@ -2,6 +2,7 @@ package seedu.address.logic.parser;
 
 import static org.junit.Assert.assertEquals;
 
+import seedu.address.MainApp;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -19,6 +20,8 @@ public class CommandParserTestUtil {
             Command command = parser.parse(userInput);
             assertEquals(expectedCommand, command);
         } catch (ParseException pe) {
+            pe.printStackTrace();
+            MainApp.getLogger().info("Entered command is: " + userInput);
             throw new IllegalArgumentException("Invalid userInput.", pe);
         }
     }

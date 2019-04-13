@@ -65,7 +65,7 @@
 }
 
 .table-view .column-header .label {
-    -fx-font-size: 16pt;
+    -fx-font-size: 14pt;
     -fx-font-family: "Segoe UI Light";
     -fx-text-fill: white;
     -fx-alignment: center-left;
@@ -164,22 +164,40 @@
     -fx-padding: 1 10 0 0
 }
 
+.chart-pie-label {
+    -fx-fill: white;
+}
 
+.axis-label {
+  -fx-text-fill: white;
+}
+
+.stat_text {
+    -fx-font-size: 12px;
+    -fx-text-fill: white;
+}
+
+.stat_header {
+    -fx-font-size: 13px;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
 
 .display_title {
     -fx-font-size: 20px;
-    -fx-text-fill: black;
+    -fx-text-fill: white;
     -fx-font-weight: bold;
 }
 
 .display_header {
-    -fx-text-fill: black;
+    -fx-text-fill: white;
     -fx-font-weight: bold;
 }
 
 .display_text {
-    -fx-text-fill: black;
+    -fx-text-fill: white;
 }
+
 .stack-pane {
      -fx-background-color: derive(#1d1d1d, 20%);
 }
@@ -484,7 +502,6 @@
 }
 
 .white_scroll_pane > .viewport {
-    -fx-background-color: white;
 }
 
 

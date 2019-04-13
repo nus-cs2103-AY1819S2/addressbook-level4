@@ -100,5 +100,7 @@ public interface Logic {
      */
     void setMainWindow(MainWindow mainWindow);
 
+    void displayAllTasks();
+
     boolean checkNoCopy();
 }

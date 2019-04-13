@@ -7,6 +7,7 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PDFS;
 
 import java.io.File;
 import java.nio.file.Paths;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -74,14 +75,15 @@ public class RenameCommand extends Command {
         Pdf pdfToEdit = lastShownList.get(index.getZeroBased());
         Pdf editedPdf = createEditedPdf(pdfToEdit, editPdfDescriptor);
 
+        System.out.println(pdfToEdit.getName().getFullName().equals(editedPdf.getName().getFullName()));
+
         if (!pdfToEdit.getName().getFullName().equals(editedPdf.getName().getFullName())
-                && Paths.get(pdfToEdit.getDirectory().getDirectory(), editedPdf.getName().getFullName())
-                .toAbsolutePath().toFile().exists()) {
+                && isFileExists(editedPdf)) {
 
             throw new CommandException(String.format(MESSAGE_DUPLICATE_PDF_DIRECTORY,
                     editedPdf.getName().getFullName(), pdfToEdit.getDirectory().getDirectory()));
-
-        } else if (!pdfToEdit.isSamePdf(editedPdf) && model.hasPdf(editedPdf)) {
+        }
+        if (pdfToEdit.isSamePdf(editedPdf) || model.hasPdf(editedPdf)) {
             throw new CommandException(MESSAGE_DUPLICATE_PDF);
         }
 
@@ -96,6 +98,15 @@ public class RenameCommand extends Command {
         model.updateFilteredPdfList(PREDICATE_SHOW_ALL_PDFS);
         model.commitPdfBook();
         return new CommandResult(String.format(MESSAGE_EDIT_PDF_SUCCESS, editedPdf.toString()));
+    }
+
+    /**
+     * Returns true is the file with the updated name exists in the directory, false otherwise.
+     */
+    private static boolean isFileExists(Pdf editedPdf) {
+        System.out.println(editedPdf);
+        String[] files = Paths.get(editedPdf.getDirectory().getDirectory()).toFile().list();
+        return Arrays.stream(files).anyMatch(x -> editedPdf.getName().getFullName().equals(x));
     }
 
     /**

@@ -504,8 +504,8 @@ into a `SetCategoriesCommand` object. The `SetCategoriesCommand` object contains
 in a `Categories` object as well as the target `Index`.
 
 Step 3: The `SetCategoriesCommand` is executed by calling `SetCategoriesCommand#execute()`. The target restaurant is retrieved
-from `Model` via `Model#getFilteredRestaurantList()`. A new restaurant is set up and the target restaurants fields are copied over.
-The categories of the target restaurant is merged by calling `Categories#merge()` and the result is passed to the new restaurant.
+from `Model` via `Model#getFilteredRestaurantList()`. The categories of the target restaurant is merged by calling
+`Categories#merge()` and the result is used to create a new restaurant, with all other restaurant data preserved.
 The new restaurant is then updated into the Food Diary via `Model#commitFoodDiary()`.
 
 You can refer to _Figure 2_ below to get a better understanding of how a typical valid setCategories command
@@ -537,9 +537,8 @@ This section discusses the different ways price ranges could have been categoris
 | Cons | Lacks proper structure, not very intuitive to the viewer if the user keys in something that does not make sense
 |=========
 
-I chose Alternative 1 because it offers a better user experience to just type in a few characters instead of having the
-user think of what to type every time the user wants to set a price range. It also ensures that all restaurants'
-price ranges are visually consistent.
+I chose Alternative 1 because it offers a better user experience. Users just need to type in a few characters.
+It also ensures that all restaurants' price ranges are visually consistent.
 
 ===== How categories are added and edited
 
@@ -559,8 +558,7 @@ This section discusses how categories could have been handled.
 | Cons | User needs to remember which restaurants do not have categories added yet, else add or edit commands might fail.
 |=====================
 
-I chose Alternative 1 because there are not much categories a restaurant can have. Furthermore, if there ever arise a need
-for the user to tag the restaurants, they can just use the existing tag system. By having one command to set any category,
+I chose Alternative 1 because there are not much categories a restaurant can have. By having one command to set any category,
 users only need to remember one command, hence it is more intuitive for the user.
 
 // end::categorisation[]

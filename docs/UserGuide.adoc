@@ -256,16 +256,12 @@ _Figure 5: Success!_
 ====
 * The index refers to the index number shown in the displayed restaurants list.
 * You need to ensure that the index entered *must be a positive integer* `1, 2, 3, ...`
-* You need to ensure that the `Price Range` entered *must* only consist of 1-5 $ characters. e.g. $, \$$$, $$\$$$
-is okay but $$\$$$$, cheap or $expensive will be rejected.
+* You need to ensure that the `Price Range` entered *must* only consist of 1-5 $ characters. e.g. `$`, `\$$$`, `$$$$$`
 * You need to ensure that `Cuisine` and `Occasion` *must* only contain alphanumeric characters and spaces.
-* You do not need to worry about capitalization. `Cuisine` and `Occasion` will be autocapitalized.
-e.g. `fast food` and `premium casual` will be capitalized to
-`Fast Food` and `Premium Casual`. `fAST fOOD` will be converted into `Fast Food`.
-* You can key in categories in any order. e.g. Entering `Price Range` before `Cuisine` will
-work as well.
-* You can set any number of categories at once. You have complete freedom to set categories
-whether it is one at a time, two at a time or three at a time.
+* You do not need to worry about capitalization for `Cuisine` and `Occasion`.
+e.g. `fast food` will be capitalized to `Fast Food`.
+* You can key in categories in any order. e.g. `Price Range` before `Cuisine`
+* You can set any number of categories at once.
 ====
 
 Other examples you can try:
@@ -291,11 +287,9 @@ Step 2: Press enter again and now all `Western`, `Japanese` and `Chinese` restau
 [NOTE]
 ====
 * You can enter keywords in any case. Filtering is case insensitive. e.g. `western` will match `Western`
-* You can filter across categories and also within categories of the same type.
-e.g. `japanese $` will match all restaurants with `Cuisine` set as `Japanese` or `Price Range` set as `$`.
-Note this also means that the more keywords you add, the more general the filter becomes.
-* You can enter keywords in any order. `$ casual` is the same as `casual $`. Both will match restaurants that has
-`Price Range` as `$` or `Occasion` as `Casual`.
+* You can filter across categories and also within categories of the same type. e.g. `japanese $`, `japanese western`
+* Keying in more keywords will make the filter more general, not specific.
+* You can enter keywords in any order. `$ casual` is the same as `casual $`.
 * You *must* enter words in full. e.g. `west` will not match `western`
 * Restaurants matching at least one keyword will be displayed. e.g. `fast food` will match `hawker food`
 ====

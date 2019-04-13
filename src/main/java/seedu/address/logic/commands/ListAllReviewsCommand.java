@@ -20,6 +20,7 @@ public class ListAllReviewsCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
         model.updateFilteredReviewList(PREDICATE_SHOW_ALL_REVIEWS);
+        model.setSelectedBook(null);
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

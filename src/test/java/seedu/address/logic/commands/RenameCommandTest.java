@@ -11,7 +11,6 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showPdfAtIndex;
 import static seedu.address.logic.commands.RenameCommand.MESSAGE_DUPLICATE_PDF;
 import static seedu.address.logic.commands.RenameCommand.MESSAGE_DUPLICATE_PDF_DIRECTORY;
-import static seedu.address.logic.commands.RenameCommand.MESSAGE_EDIT_PDF_FAILURE;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PDF;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PDF;
 import static seedu.address.testutil.TypicalPdfs.SAMPLE_EDITEDPDF;

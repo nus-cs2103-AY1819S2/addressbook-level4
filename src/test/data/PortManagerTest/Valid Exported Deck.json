@@ -33,8 +33,8 @@
   }, {
     "question" : "Hello?",
     "answer" : "World",
-    "totalRating" : 0,
-    "numberOfAttempts" : 0,
+    "totalRating" : 6,
+    "numberOfAttempts" : 2,
     "tags" : [ "CS", "Simple" ]
   } ]
 }

@@ -19,7 +19,7 @@ public class ReloadLessonsCommand extends ManagementCommand {
     /**
      * The word a user must enter to call this command.
      */
-    public static final String COMMAND_WORD = "reloadLessons";
+    public static final String COMMAND_WORD = "reload";
     /**
      * Instructions on command usage and parameters.
      */
@@ -28,7 +28,7 @@ public class ReloadLessonsCommand extends ManagementCommand {
     /**
      * Feedback message displayed to the user upon successful execution of this command
      */
-    public static final String MESSAGE_SUCCESS = "Reloaded all lessons from file";
+    public static final String MESSAGE_SUCCESS = "Reloaded all lessons from the data folder.";
 
     /**
      * Executes the command which reloads the lessons from file into memory.

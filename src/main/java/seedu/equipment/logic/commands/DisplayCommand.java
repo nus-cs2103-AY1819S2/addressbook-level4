@@ -21,6 +21,7 @@ public class DisplayCommand extends Command {
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
+        model.unsetSelectedEquipment();
         return new CommandResult(
                 Messages.MESSAGE_EQUIPMENT_DISPLAYED_OVERVIEW, false, false, true);
     }

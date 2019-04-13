@@ -226,6 +226,11 @@ public interface Model {
     void setSelectedEquipment(Equipment equipment);
 
     /**
+     * Unset the selected equipment in the filtered equipment list.
+     */
+    void unsetSelectedEquipment();
+
+    /**
      * Sets the selected WorkList in the filtered WorkList list.
      */
     void setSelectedWorkList(WorkList workList);

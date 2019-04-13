@@ -52,7 +52,7 @@ For example, after sorting the entries by amount in descending order, a user may
 and this can be achieved conveniently using the `reverse` command.
 
 
-* Highlights: +
+* *Highlights*: +
 These enhancements work with existing commands such as `edit` and `delete`. When a list is sorted,
 it may be easier to find an entry (_In-Credit-Ble_ has a `search` function too!).
 These enhancements are also compatible with _In-Credit-Ble_’s `undo` and `redo` functions.

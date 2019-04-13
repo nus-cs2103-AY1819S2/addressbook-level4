@@ -43,7 +43,8 @@ public class DeleteDoctorCommand extends Command {
         Doctor doctorToDelete = lastShownList.get(targetIndex.getZeroBased());
         model.deleteDoctor(doctorToDelete);
         model.commitDocX();
-        return new CommandResult(String.format(MESSAGE_DELETE_DOCTOR_SUCCESS, doctorToDelete));
+        return new CommandResult(String.format(MESSAGE_DELETE_DOCTOR_SUCCESS, doctorToDelete),
+                CommandResult.DeletionOrNot.DELETION);
     }
 
     @Override

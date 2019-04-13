@@ -43,7 +43,7 @@ public class MainWindow extends UiPart<Stage> {
     private DoctorListPanel doctorListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
-    private CommandResult.ShowBrowser whichBrowser;
+    private CommandResult.ShowBrowser whichBrowser = null;
 
     @FXML
     private StackPane browserPlaceholder;
@@ -126,11 +126,16 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
+
         browserPanel = new BrowserPanel(logic.selectedPatientProperty());
         patientInfoPanel = new PatientInfoPanel(logic.selectedPatientProperty());
+        doctorBrowserPanel = new DoctorBrowserPanel(logic.selectedDoctorProperty());
         medHistBrowserPanel = new MedHistBrowserPanel(logic.selectedMedHistProperty());
         prescriptionBrowserPanel = new PrescriptionBrowserPanel(logic.selectedPrescriptionProperty());
         browserPlaceholder.getChildren().add(browserPanel.getRoot());
+
+        CommandBox commandBox = new CommandBox(this::executeCommand, logic.getHistory());
+        commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
 
         patientListPanel = new PatientListPanel(logic.getFilteredPatientList(), logic.selectedPatientProperty(),
                 logic::setSelectedPatient);
@@ -139,7 +144,6 @@ public class MainWindow extends UiPart<Stage> {
         doctorListPanel = new DoctorListPanel(logic.getFilteredDoctorList(), logic.selectedDoctorProperty(),
                 logic::setSelectedDoctor);
         doctorListPanelPlaceholder.getChildren().add(doctorListPanel.getRoot());
-        doctorBrowserPanel = new DoctorBrowserPanel(logic.selectedDoctorProperty());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -147,8 +151,6 @@ public class MainWindow extends UiPart<Stage> {
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getDocXFilePath(), logic.getDocX());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
-        CommandBox commandBox = new CommandBox(this::executeCommand, logic.getHistory());
-        commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
     }
 
     /**
@@ -307,16 +309,33 @@ public class MainWindow extends UiPart<Stage> {
 
             switch (commandResult.getShowBrowser()) {
             case MED_HIST_BROWSER:
+                whichBrowser = CommandResult.ShowBrowser.MED_HIST_BROWSER;
                 showMedHistBrowser();
                 break;
             case PATIENT_BROWSER:
+                whichBrowser = CommandResult.ShowBrowser.PATIENT_BROWSER;
                 showPatientBrowser();
                 break;
             case DOCTOR_BROWSER:
+                whichBrowser = CommandResult.ShowBrowser.DOCTOR_BROWSER;
                 showDoctorBrowser();
                 break;
             case PRESCRIPTION_BROWSER:
+                whichBrowser = CommandResult.ShowBrowser.PRESCRIPTION_BROWSER;
                 showPrescriptionBrowser();
+                break;
+            default:
+                break;
+            }
+
+            // If deletion of patient or doctor is executed, refresh MedHist or Prescription Browser Panel
+            switch (commandResult.getDeletionOrNot()) {
+            case DELETION:
+                if ((whichBrowser != null)
+                        && (whichBrowser.equals(CommandResult.ShowBrowser.MED_HIST_BROWSER)
+                        || whichBrowser.equals(CommandResult.ShowBrowser.PRESCRIPTION_BROWSER))) {
+                    browserPlaceholder.getChildren().clear();
+                }
                 break;
             default:
                 break;

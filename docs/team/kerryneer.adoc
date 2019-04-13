@@ -92,4 +92,5 @@ features as well. The following section is an excerpt from our updated Know-It-A
 
 include::../DeveloperGuide.adoc[tag=UIdesign]
 include::../DeveloperGuide.adoc[tag=testsession]
-
+include::../DeveloperGuide.adoc[tag=testsessionusecases]
+include::../DeveloperGuide.adoc[tag=testmanualtesting]

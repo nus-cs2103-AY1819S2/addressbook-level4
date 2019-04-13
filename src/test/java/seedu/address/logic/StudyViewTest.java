@@ -24,7 +24,7 @@ public class StudyViewTest {
     public ExpectedException thrown = ExpectedException.none();
 
     private Deck deck = new DeckBuilder(DECK_A).build();
-    private Deck deckWC = new DeckBuilder(DECK_WITH_CARDS).build();
+    private Deck deckWithCards = new DeckBuilder(DECK_WITH_CARDS).build();
     private StudyView studyView;
 
     @Before
@@ -122,7 +122,7 @@ public class StudyViewTest {
     @Test
     public void equals() {
         StudyView firstStudyView = new StudyView(deck);
-        StudyView secondStudyView = new StudyView(deckWC);
+        StudyView secondStudyView = new StudyView(deckWithCards);
 
         // same object -> returns true
         assertTrue(firstStudyView.equals(firstStudyView));

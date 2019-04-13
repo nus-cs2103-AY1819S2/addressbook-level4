@@ -25,7 +25,7 @@ import seedu.address.testutil.TypicalIndices;
 /**
  * Unit tests for the {@link SetLessonTestValuesCommand}.
  */
-public class SetTestCommandLessonTestValues {
+public class SetLessonTestValuesCommandTest {
 
     private static final CommandHistory EMPTY_COMMAND_HISTORY = new CommandHistory();
 
@@ -104,7 +104,8 @@ public class SetTestCommandLessonTestValues {
         assertEquals(setLessonTestValuesCommand, setLessonTestValuesCommand);
 
         // same values -> returns true
-        SetLessonTestValuesCommand setLessonTestValuesCommandCopy = new SetLessonTestValuesCommand(indexOne, indexThree);
+        SetLessonTestValuesCommand setLessonTestValuesCommandCopy =
+                new SetLessonTestValuesCommand(indexOne, indexThree);
         assertEquals(setLessonTestValuesCommand, setLessonTestValuesCommandCopy);
 
         // same values different order -> returns true

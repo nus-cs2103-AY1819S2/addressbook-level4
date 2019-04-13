@@ -60,8 +60,8 @@ public class ManagementModeParserTest {
     public void parseCommand_addLesson() throws Exception {
         String command = AddLessonCommand.COMMAND_WORD + " "
                 + Syntax.PREFIX_LESSON_NAME + "Capitals of the world "
-                + Syntax.PREFIX_CORE_QUESTION + "Country "
-                + Syntax.PREFIX_CORE_ANSWER + "Capital "
+                + Syntax.PREFIX_TEST + "Country "
+                + Syntax.PREFIX_TEST + "Capital "
                 + Syntax.PREFIX_HINT + "Hint";
         assertTrue(parser.parse(command) instanceof AddLessonCommand);
     }

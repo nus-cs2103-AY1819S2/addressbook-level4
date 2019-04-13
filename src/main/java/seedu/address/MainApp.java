@@ -115,10 +115,10 @@ public class MainApp extends Application {
             }
             gradTrakOptional = storage.readGradTrak();
             if (!gradTrakOptional.isPresent()) {
-                logger.info("Data file not found. Will be starting with an empty GradTrak");
+                logger.info("Data file not found. Will be starting with a default GradTrak");
             }
 
-            initialData = gradTrakOptional.orElseGet(GradTrak::new);
+            initialData = gradTrakOptional.orElseGet(GradTrak::initializeDefaults);
 
             //If unable to find the data file provide a blank Module Info List
             allModules = allModulesOptional.orElse(new ModuleInfoList());

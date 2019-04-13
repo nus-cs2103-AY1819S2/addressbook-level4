@@ -62,16 +62,14 @@ class JsonSerializableGradTrak {
     public GradTrak toModelType() throws IllegalValueException {
         GradTrak gradTrak = new GradTrak();
         gradTrak.setCurrentSemester(Semester.getSemesterByZeroIndex(currentSemesterIndex));
-        List<ModuleTaken> modulesTakenList = new ArrayList<>();
         gradTrak.setModulesTaken(new ArrayList<>());
         for (JsonAdaptedModuleTaken jsonAdaptedModuleTaken : modulesTaken) {
             ModuleTaken moduleTaken = jsonAdaptedModuleTaken.toModelType();
             if (gradTrak.hasModuleTaken(moduleTaken)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_MODULES_TAKEN);
             }
-            modulesTakenList.add(moduleTaken);
+            gradTrak.addModuleTaken(moduleTaken);
         }
-        gradTrak.setModulesTaken(modulesTakenList);
         List<SemesterLimit> semList = new ArrayList<>();
         for (JsonAdaptedSemesterLimits jsonAdaptedSemesterLimits : semesterLimitList) {
             semList.add(jsonAdaptedSemesterLimits.toModelType());

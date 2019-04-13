@@ -49,7 +49,6 @@ public class GradTrak implements ReadOnlyGradTrak {
     }
 
     public GradTrak() {
-        setModulesTaken(getSampleModulesTaken());
         setSemesterLimits(getSampleSemesterLimits());
         setCurrentSemester(Semester.Y1S1);
     }
@@ -60,6 +59,17 @@ public class GradTrak implements ReadOnlyGradTrak {
     public GradTrak(ReadOnlyGradTrak toBeCopied) {
         this();
         resetData(toBeCopied);
+    }
+
+    /**
+     * returns an initialized a gradtrak with default data
+     */
+    public static GradTrak initializeDefaults() {
+        GradTrak defaultGradTrak = new GradTrak();
+        defaultGradTrak.setModulesTaken(getSampleModulesTaken());
+        defaultGradTrak.setSemesterLimits(getSampleSemesterLimits());
+        defaultGradTrak.setCurrentSemester(Semester.Y1S1);
+        return defaultGradTrak;
     }
 
     public static List<ModuleTaken> getSampleModulesTaken() {

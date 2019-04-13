@@ -79,11 +79,15 @@ public class TagCommand extends Command {
         return new Pdf(old.getName(), old.getDirectory(), old.getSize(), nTags, old.getDeadline());
     }
 
-    public static Pdf getPdfWithRemovedTag(Pdf old, Set<Tag> tags) {
+    public static Pdf getPdfWithRemovedTag(Pdf old, Set<Tag> tags) throws CommandException {
         Set<Tag> oTags = old.getTags();
         Set<Tag> nTags = new HashSet<>(oTags);
-        nTags.removeAll(tags);
-        return new Pdf(old.getName(), old.getDirectory(), old.getSize(), nTags, old.getDeadline());
+        boolean hasTag = nTags.removeAll(tags);
+        if (hasTag) {
+            return new Pdf(old.getName(), old.getDirectory(), old.getSize(), nTags, old.getDeadline());
+        } else {
+            throw new CommandException(Messages.MESSAGE_NO_TAG_IN_PDF);
+        }
     }
 
     @Override

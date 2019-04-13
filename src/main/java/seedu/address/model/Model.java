@@ -145,12 +145,6 @@ public interface Model {
     void deletePatient(Patient target);
 
     /**
-     * Deletes the given medHist.
-     * The medHist must exist in the DocX.
-     */
-    void deleteMedHist(MedicalHistory target);
-
-    /**
      * Returns true if a patient with the same identity as {@code patient} exists in the DocX.
      */
     boolean hasAppointment(Appointment appointment);

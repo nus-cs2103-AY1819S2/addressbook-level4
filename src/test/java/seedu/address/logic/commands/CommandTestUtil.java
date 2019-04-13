@@ -37,7 +37,6 @@ import seedu.address.model.prescription.PrescriptionContainsKeywordsPredicate;
 import seedu.address.testutil.EditDoctorDescriptorBuilder;
 import seedu.address.testutil.EditPatientDescriptorBuilder;
 
-//import javax.print.Doc;
 
 /**
  * Contains helper methods for testing commands.
@@ -104,7 +103,12 @@ public class CommandTestUtil {
     // end of testing appointment
 
     // medical history test
+    public static final String INVALID_PATIENT_ID = "aaa";
+    public static final String INVALID_DOCTOR_ID = "bbb";
+    public static final String VALID_MEDHIST_ID = "1/2/2019-03-02";
     public static final String VALID_DATE_OF_MED_HIST = "2019-03-02";
+    public static final String INVALID_FUTURE_DATE_OF_MED_HIST = "2020-09-09";
+    public static final String INVALID_DATE_OF_MED_HIST = "2019-02-29";
     public static final String VALID_WRITE_UP = "Have a fever.";
 
     // prescription test

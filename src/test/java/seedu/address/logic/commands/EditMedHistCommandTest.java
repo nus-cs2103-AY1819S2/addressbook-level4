@@ -9,6 +9,7 @@ import org.junit.Test;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
+import seedu.address.logic.commands.medicalHistory.EditMedHistCommand;
 import seedu.address.model.DocX;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;

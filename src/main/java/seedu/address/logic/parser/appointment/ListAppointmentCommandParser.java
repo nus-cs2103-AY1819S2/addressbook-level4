@@ -1,5 +1,6 @@
 package seedu.address.logic.parser.appointment;
 
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_APPT_STATUS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CHRONOLOGY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE_OF_APPT;
@@ -71,6 +72,11 @@ public class ListAppointmentCommandParser implements Parser<ListAppointmentComma
             AppointmentChronology chronology = ParserUtil
                     .parseAppointmentChronology(argMultimap.getValue(PREFIX_CHRONOLOGY).get());
             descriptors.setChronology(Optional.of(chronology));
+        }
+
+        if (!argMultimap.getPreamble().isEmpty()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    ListAppointmentCommand.MESSAGE_USAGE));
         }
 
         return new ListAppointmentCommand(descriptors);

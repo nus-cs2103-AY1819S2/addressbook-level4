@@ -236,11 +236,6 @@ public class AddPatientCommandTest {
         }
 
         @Override
-        public void deleteMedHist(MedicalHistory target) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
         public void setMedHist(MedicalHistory target, MedicalHistory editedMedHist) {
             throw new AssertionError("This method should not be called.");
         }

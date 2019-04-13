@@ -7,6 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import seedu.address.logic.CommandHistory;
+import seedu.address.logic.commands.medicalHistory.ListMedHistCommand;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -28,13 +29,15 @@ public class ListMedHistCommandTest {
 
     @Test
     public void execute_medHistListIsNotFiltered_showsSameMedHistList() {
-        assertCommandSuccess(new ListMedHistCommand(null, null, null),
+        ListMedHistCommand.ListMedHistDescriptor descriptor = new ListMedHistCommand.ListMedHistDescriptor();
+        assertCommandSuccess(new ListMedHistCommand(descriptor),
                 model, commandHistory, ListMedHistCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
     @Test
     public void execute_medHistListIsFiltered_showsEverything() {
-        assertCommandSuccess(new ListMedHistCommand(null, null, null),
+        ListMedHistCommand.ListMedHistDescriptor descriptor = new ListMedHistCommand.ListMedHistDescriptor();
+        assertCommandSuccess(new ListMedHistCommand(descriptor),
                 model, commandHistory, ListMedHistCommand.MESSAGE_SUCCESS, expectedModel);
     }
 

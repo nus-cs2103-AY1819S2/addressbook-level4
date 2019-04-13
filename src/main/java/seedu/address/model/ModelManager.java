@@ -145,6 +145,7 @@ public class ModelManager implements Model {
     public void deletePatient(Patient target) {
         versionedDocX.removePatient(target);
         updateFilteredMedHistList(PREDICATE_SHOW_ALL_MEDHISTS);
+        setSelectedMedHist(null);
         updateFilteredAppointmentList(PREDICATE_SHOW_ALL_APPOINTMENTS);
         updateFilteredPrescriptionList(PREDICATE_SHOW_ALL_PRESCRIPTIONS);
     }
@@ -171,6 +172,7 @@ public class ModelManager implements Model {
     public void deleteDoctor(Doctor target) {
         versionedDocX.removeDoctor(target);
         updateFilteredMedHistList(PREDICATE_SHOW_ALL_MEDHISTS);
+        setSelectedMedHist(null);
         updateFilteredAppointmentList(PREDICATE_SHOW_ALL_APPOINTMENTS);
         updateFilteredPrescriptionList(PREDICATE_SHOW_ALL_PRESCRIPTIONS);
     }
@@ -209,11 +211,6 @@ public class ModelManager implements Model {
     public void addMedHist(MedicalHistory medicalHistory) {
         versionedDocX.addMedHist(medicalHistory);
         updateFilteredMedHistList(PREDICATE_SHOW_ALL_MEDHISTS);
-    }
-
-    @Override
-    public void deleteMedHist(MedicalHistory target) {
-        versionedDocX.removeMedHist(target);
     }
 
     @Override
@@ -413,7 +410,6 @@ public class ModelManager implements Model {
     public Doctor getSelectedDoctor() {
         return selectedDoctor.getValue();
     }
-
 
     @Override
     public void setSelectedDoctor(Doctor doctor) {

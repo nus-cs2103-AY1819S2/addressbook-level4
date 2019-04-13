@@ -959,9 +959,11 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` | player | list my battleships by tag | check the status of specific battleships during the game
 
-|`* * *` | user | see the number of actions I made |keep track of my play style
+|`* *` | player | see how many enemy ships I have destroyed | know how many more enemy ships to find
 
-|`* * *` | user | see the number of successful attacks I made |keep track of how well I am doing in the game
+|`* *` | player | see game statistics | know how i am performing in the game
+
+|`* *` | player | compare scores with previous games | know if i am getting better at winning the game
 
 |`* * *` | user | see where my battleships are on the map |have a visual representation of the game
 
@@ -1052,15 +1054,40 @@ Use case ends.
 
 [none]
 * 2a. If there are no ships deployed, inform the user.
-
-=== Use case: View statistics
+//tag::StatsUseCase[]
+=== Use case: See game statistics
 *MSS*
 
 1. User requests to display current gameplay statistics
-2. Shows all of the user's gameplay data in one location.
+2. User is presented with all of the user's gameplay data in a pop-up window.
 +
 Use case ends.
 
+*Extensions*
+
+[none]
+* 2a. There is no statistics data to display
++
+[none]
+** 2a1. A single statement indicating no statistical data yet is displayed in the command box.
+
+=== Use case: Compare scores with previous games
+*MSS*
+
+1. User wins a game.
+2. User is presented with a comparison between the current game and previous game score.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. There is no previous game data.
++
+[none]
+** 2a1. A single statement indicating no statistical data yet is displayed in the command box.
+
+//end::StatsUseCase[]
 === Use case: End player turn
 
 *MSS*
@@ -1172,7 +1199,7 @@ These instructions only provide a starting point for testers to work on; testers
 // end::shiptest[]
 
 
-
+// tag::statstest[]
 === Viewing the statistics
 
 To test the `stats` feature. We will perform a before and after check to see if the statistical data of a simple behaviour is captured. In this case, we will perform an attack with a miss result.
@@ -1184,11 +1211,21 @@ To test the `stats` feature. We will perform a before and after check to see if 
 3. Now input `attack c1` to simulate an attack on the enemy map.
 .. Test case : `stats` (after) +
     Expected: Number of attacks : 1, Number of Misses : 1
+//end::statstest[]
 
-=== Saving data
+//tag::savetest[]
+=== Saving statistics data
 
-. Dealing with missing/corrupted data files
+To test the statistics save and compare feature. We will use a debug command `save`.
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
-
-_{ more test cases ... }_
+1. Initialize a 8x8 map using `init 8`.
+2. Input `save` into the command box and press enter.
+.. Test case : `save` (start of game) +
+   Expected: Accuracy is same as before at 0%. This is because the application
+   automatically compares to a default state of 0 if there is no previous game.
+3. Now play the game until you win.
+4. At the end of the game, the `save` command will be automatically called.
+.. Test case : Win the game +
+    Expected: A comparison is made between your current game accuracy and the previous
+    game accuracy which is 0. Your accuracy has improved.
+//end::savetest[]

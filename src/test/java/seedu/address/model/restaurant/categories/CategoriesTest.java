@@ -5,7 +5,6 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 
-import java.util.ArrayList;
 import org.junit.Test;
 
 import seedu.address.logic.parser.Prefix;

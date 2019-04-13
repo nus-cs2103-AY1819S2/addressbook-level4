@@ -3,7 +3,6 @@ package seedu.address.logic.commands;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_CUISINE_FAST_FOOD;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_OCCASION_CASUAL;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PRICE_RANGE;
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_RESTAURANT;
 import static seedu.address.testutil.TypicalRestaurants.getTypicalFoodDiary;

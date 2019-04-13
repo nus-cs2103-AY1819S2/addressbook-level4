@@ -5,6 +5,9 @@ import seedu.address.model.restaurant.categories.Cuisine;
 import seedu.address.model.restaurant.categories.Occasion;
 import seedu.address.model.restaurant.categories.PriceRange;
 
+/**
+ * A utility class containing a list of {@code Categories} objects to be used in tests.
+ */
 public class TypicalCategories {
     public static final Categories VALID_ALL_SET = new Categories(new Cuisine("Western"), new Occasion("Fine Dining"),
             new PriceRange("$$$$$"));

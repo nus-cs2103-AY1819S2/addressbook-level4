@@ -30,7 +30,9 @@ public class UpdateCommand extends Command {
     public static final String COMMAND_WORD = "update";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Updates the medicine new batch details. "
+            + ": Updates the batch details of the medicine identified by the"
+            + " index number used in the displayed medicine list."
+            + " Existing values will be overwritten by the input values.\n"
             + "Parameters: "
             + "INDEX "
             + PREFIX_BATCHNUMBER + "BATCH_NUMBER "
@@ -44,12 +46,14 @@ public class UpdateCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Batch updated: %1$s";
     public static final String MESSAGE_MISSING_PARAMETER = "Must include batch number and quantity or expiry of the "
             + "batch used for updating.";
-    public static final String MESSAGE_NEW_BATCH_MISSING_PARAMETER = "Must include expiry date and quantity for new "
-            + "batches.";
-    public static final String MESSAGE_NEW_BATCH_ZERO_QUANTITY = "Batch not found. Cannot remove batch.";
+    public static final String MESSAGE_NEW_BATCH_MISSING_PARAMETER = "Attempting to add a new batch. Must include "
+            + "both expiry date and quantity for new batches.";
+    public static final String MESSAGE_NEW_BATCH_ZERO_QUANTITY = "Attempting to add a new batch. Cannot add a new "
+            + "batch with zero quantity.";
     public static final String MESSAGE_MAX_QUANTITY_EXCEEDED = "Max quantity exceeded. Max quantity: "
             + Quantity.MAX_QUANTITY;
-    public static final String MESSAGE_EXPIRED_BATCH = "Expiry date has passed.";
+    public static final String MESSAGE_EXPIRED_BATCH = "Expiry date has passed. Cannot add a new batch which is "
+            + "expired.";
 
     private final Index targetIndex;
     private final UpdateBatchDescriptor newBatchDetails;
@@ -78,7 +82,7 @@ public class UpdateCommand extends Command {
         Batch batchToUpdate = medicineToUpdate.getBatches().get(newBatchDetails.getBatchNumber());
 
         if (batchToUpdate == null) {
-            checkCommandForAddingNewBatch();
+            checkCommandForAddingNewBatch(medicineToUpdate);
         }
 
         Batch updatedBatch = createUpdatedBatch(batchToUpdate);
@@ -93,7 +97,11 @@ public class UpdateCommand extends Command {
     /**
      * @throws CommandException if fields needed to add a new batch is not input correctly.
      */
-    private void checkCommandForAddingNewBatch() throws CommandException {
+    private void checkCommandForAddingNewBatch(Medicine medicine) throws CommandException {
+        if (medicine.getBatches().size() == Medicine.MAX_SIZE_BATCH) {
+            throw new CommandException(Medicine.MESSAGE_CONSTRAINTS_BATCHES);
+        }
+
         if (!newBatchDetails.getQuantity().isPresent() || !newBatchDetails.getExpiry().isPresent()) {
             throw new CommandException(MESSAGE_NEW_BATCH_MISSING_PARAMETER);
         }

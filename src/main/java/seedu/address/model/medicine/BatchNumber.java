@@ -8,9 +8,10 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  * Guarantees: immutable; is valid as declared in {@link #isValidBatchNumber(String)}
  */
 public class BatchNumber {
-
+    public static final int MAX_BATCHNUMBER_LENGTH = 30;
     public static final String MESSAGE_CONSTRAINTS = "Batch number may contain alphanumeric characters, '-', and"
-            + " spaces.\nIt should start with an alphanumeric character and should not be blank";
+            + " spaces.\nIt should start with an alphanumeric character and should not be blank\n"
+            + "Max length: " + MAX_BATCHNUMBER_LENGTH + " characters.";
 
     /*
      * The first character of the name must not be a whitespace,
@@ -35,7 +36,7 @@ public class BatchNumber {
      * Returns true if a given string is a valid batch number.
      */
     public static boolean isValidBatchNumber(String test) {
-        return test.matches(VALIDATION_REGEX);
+        return test.matches(VALIDATION_REGEX) && test.length() <= MAX_BATCHNUMBER_LENGTH;
     }
 
     @Override

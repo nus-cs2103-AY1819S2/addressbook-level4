@@ -15,6 +15,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditMedicineDescriptor;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.medicine.Medicine;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -68,6 +69,9 @@ public class EditCommandParser implements Parser<EditCommand> {
             return Optional.empty();
         }
         Collection<String> tagSet = tags.size() == 1 && tags.contains("") ? Collections.emptySet() : tags;
+        if (tagSet.size() > Medicine.MAX_SIZE_TAG) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, Medicine.MESSAGE_CONSTRAINTS_TAGS));
+        }
         return Optional.of(ParserUtil.parseTags(tagSet));
     }
 

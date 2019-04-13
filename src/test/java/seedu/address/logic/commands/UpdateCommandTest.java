@@ -278,7 +278,30 @@ public class UpdateCommandTest {
 
         String expectedMessage = UpdateCommand.MESSAGE_EXPIRED_BATCH;
 
-        // Try to add max quantity to the first medicine in the inventory.
+        // Try to add expired batch to the first medicine in the inventory.
+        UpdateCommand updateCommand = new UpdateCommand(INDEX_FIRST_MEDICINE, newBatchDetails);
+        assertCommandFailure(updateCommand, model, commandHistory, expectedMessage);
+    }
+
+    @Test
+    public void execute_tooManyBatchesUnfilteredList_failure() {
+        Map<BatchNumber, Batch> batches = new HashMap<>();
+        Expiry expiry = new Expiry("10/10/2020");
+        Quantity quantity = new Quantity("10");
+        for (int i = 0; i < Medicine.MAX_SIZE_BATCH; i++) {
+            BatchNumber batchNumber = new BatchNumber(Integer.toString(i));
+            batches.put(batchNumber, new Batch(batchNumber, quantity, expiry));
+        }
+
+        // name 1 to be at the top of the sorted list
+        Medicine medicine = new MedicineBuilder().withName("1").withBatches(batches).build();
+        model.addMedicine(medicine);
+
+        Batch newBatch = new BatchBuilder().build();
+        UpdateBatchDescriptor newBatchDetails = new UpdateBatchDescriptorBuilder(newBatch).build();
+
+        String expectedMessage = Medicine.MESSAGE_CONSTRAINTS_BATCHES;
+
         UpdateCommand updateCommand = new UpdateCommand(INDEX_FIRST_MEDICINE, newBatchDetails);
         assertCommandFailure(updateCommand, model, commandHistory, expectedMessage);
     }

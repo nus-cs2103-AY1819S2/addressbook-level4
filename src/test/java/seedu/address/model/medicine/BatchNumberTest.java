@@ -29,12 +29,12 @@ public class BatchNumberTest {
         assertFalse(BatchNumber.isValidBatchNumber(" ")); // spaces only
         assertFalse(BatchNumber.isValidBatchNumber("^")); // only non-alphanumeric characters
         assertFalse(BatchNumber.isValidBatchNumber("SX 1484*")); // contains illegal non-alphanumeric characters
+        assertFalse(BatchNumber.isValidBatchNumber("111111111111111111111111111111111111111111111111111")); // too long
 
         // valid batch numbers
         assertTrue(BatchNumber.isValidBatchNumber("ABCDE")); // alphabets only
         assertTrue(BatchNumber.isValidBatchNumber("12345")); // numbers only
         assertTrue(BatchNumber.isValidBatchNumber("SX 1484 852")); // alphanumeric characters with spaces
         assertTrue(BatchNumber.isValidBatchNumber("NC 154-4815")); // with '-'
-        assertTrue(BatchNumber.isValidBatchNumber("SDA 152-51120-45131208-4813131231-4843513131231")); // long numbers
     }
 }

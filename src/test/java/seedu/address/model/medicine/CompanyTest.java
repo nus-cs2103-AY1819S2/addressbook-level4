@@ -28,10 +28,11 @@ public class CompanyTest {
         // invalid company names
         assertFalse(Company.isValidCompany("")); // empty string
         assertFalse(Company.isValidCompany(" ")); // spaces only
+        assertFalse(Company.isValidCompany(("way too long company nameeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee")));
 
         // valid company names
         assertTrue(Company.isValidCompany("Acadia Pharmaceuticals"));
         assertTrue(Company.isValidCompany("-")); // one character
-        assertTrue(Company.isValidCompany("Gulf Pharmaceutical Industries (Julphar)")); // long company name
+        assertTrue(Company.isValidCompany("Gulf Pharmaceutical Industries (Julphar)")); // with symbols
     }
 }

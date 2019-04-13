@@ -323,6 +323,13 @@ public class ModelManager implements Model {
         }
     }
 
+    public int getAttendedActivitiesCounter(Person person) {
+        return versionedAddressBook.getAttendedActivitiesCounter(person);
+    }
+
+    public int getParticipationRate(Person person) {
+        return versionedAddressBook.getParticipationRate(person);
+    }
     //=========== Filtered Activity List Accessors =============================================================
 
     /**

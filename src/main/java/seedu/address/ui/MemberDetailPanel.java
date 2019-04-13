@@ -5,6 +5,7 @@ import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.layout.Region;
 import javafx.scene.text.Text;
+import seedu.address.logic.Logic;
 import seedu.address.model.person.Person;
 
 /**
@@ -12,6 +13,9 @@ import seedu.address.model.person.Person;
  */
 public class MemberDetailPanel extends UiPart<Region> {
     private static final String FXML = "MemberDetailPanel.fxml";
+
+    private Logic logic;
+
     @FXML
     private Text name;
 
@@ -36,9 +40,18 @@ public class MemberDetailPanel extends UiPart<Region> {
     @FXML
     private Text major;
 
-    public MemberDetailPanel (ObservableValue<Person> selectedMember) {
-        super(FXML);
+    @FXML
+    private Text statistics;
 
+    @FXML
+    private Text attendedActivitiesCounter;
+
+    @FXML
+    private Text participationRate;
+
+    public MemberDetailPanel (ObservableValue<Person> selectedMember, Logic logic) {
+        super(FXML);
+        this.logic = logic;
         getRoot().setOnKeyPressed(Event::consume);
 
         // Load person page when selected person changes.
@@ -57,6 +70,7 @@ public class MemberDetailPanel extends UiPart<Region> {
      * @param member The patient to be displayed.
      */
     private void loadMemberDetails(Person member) {
+
         name.setText(member.getName().toString());
         matricNumber.setText("Matric Number: " + member.getMatricNumber().toString());
         phone.setText("Phone: " + member.getPhone().toString());
@@ -65,6 +79,17 @@ public class MemberDetailPanel extends UiPart<Region> {
         gender.setText("Gender: " + member.getGender().toString());
         yearOfStudy.setText("Year of study: " + member.getYearOfStudy().toString());
         major.setText("Major: " + member.getMajor().toString());
+        statistics.setText("Member Statistics");
+        int attendedCounter = logic.getAttendedActivitiesCounter(member);
+        attendedActivitiesCounter.setText("Number of Activities Attended By Member: "
+                + Integer.toString(attendedCounter));
+        int memberParticipationRate = logic.getParticipationRate(member);
+        String rateOfParticipation = Integer.toString(memberParticipationRate);
+        rateOfParticipation = rateOfParticipation.concat("%");
+        if (attendedCounter == 0) {
+            rateOfParticipation = "N/A";
+        }
+        participationRate.setText("Participation Rate (out of all completed activities) = " + rateOfParticipation);
     }
 
 
@@ -80,6 +105,9 @@ public class MemberDetailPanel extends UiPart<Region> {
         gender.setText("");
         yearOfStudy.setText("");
         major.setText("");
+        statistics.setText("");
+        attendedActivitiesCounter.setText("");
+        participationRate.setText("");
     }
 
     @Override

@@ -700,7 +700,7 @@ It would be logical to make use of them instead of re-implementing them.
 E.g. There are patients from index 1 to index 30. User inputs `export test.json 10-40`. Patients with index 10 to 30 are exported, the requested 31 to 40 is ignored.
 ** **Alternative:** Don't allow indexes out of range for Import/Export.
 *** **Alternative Pros:** User cannot input a very large index range. This prevents a scenario where a very large range causes slow runtime and increased memory due to the amount of indexes to process.
-*** **Alternative Cons:** User may feel frustration of being denied due to minor mistakes. e.g. `export data.json 1-31` being rejected when there are only 30 entries. 
+*** **Alternative Cons:** User may feel frustration of being denied due to minor mistakes. e.g. `export data.json 1-31` being rejected when there are only 30 entries.
 ** **Choice Justification:** As our goal when designing TeethHub was to make things easier for the user, we decided to allow the user to make some mistakes.
 
 * **Current implementation:** The Import/Export features accept the `all` keyword in place of an index range.
@@ -712,7 +712,7 @@ E.g. There are patients from index 1 to index 30. User inputs `export test.json 
 * **Current implementation:** The Export feature calls the Save feature when the `all` keyword is detected.
 ** **Alternative:** Don't parse `all` keyword for Export.
 *** **Alternative Pros:** Less overhead and faster runtime as there the regex would not need to look for `all`
-*** **Alternative Cons:** In the current implementation, Import and Export share the same parser as Import and Export share the same format of `command FILE_PATH INDEX_RANGE`. Since Import uses the `all` keyword, not parsing `all` would require an additional parser for Export. 
+*** **Alternative Cons:** In the current implementation, Import and Export share the same parser as Import and Export share the same format of `command FILE_PATH INDEX_RANGE`. Since Import uses the `all` keyword, not parsing `all` would require an additional parser for Export.
 ** **Choice Justification:** We chose the current implementation so as to reduce duplicate logic and improve user experience. As the accepted inputs of Open and Save are the same (except for .pdf), the user may expect the same accepted inputs for Import and Export as well.
 
 === Suggestion feature

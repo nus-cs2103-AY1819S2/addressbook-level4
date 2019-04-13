@@ -767,8 +767,8 @@ Step 6. According to the above 3 conditions, the following combinations will res
 
 * Intermediate images have to be stored and edited in a temp folder first due to our `undo/redo` implementation.
 
-.Sequence Diagram for Rotate Command
-image::RotateCommandSequenceDiagram.png[width="800"]
+.Sequence Diagram for WaterMark Command (Note: Some classes have been ommitted for clarity of diagram) 
+image::WaterMarkCommandSequenceDiagram.png[width="800"]
 
 //end::WaterMark[]
 === Logging

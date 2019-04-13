@@ -475,16 +475,24 @@ The following sequence diagram illustrates the generic command execution flow an
 
 image::GenericSequenceDiagram.png[width=""]
 
-==== Current implementation: Taskdone feature
+==== Current implementation: Task Autocomplete feature
 
 The `taskdone` command is a feature implemented to allow the user to automatically complete a task of his/her choice, setting it to `COMPLETED`. The command also allows the user to automatically add a record to the task's `LinkedPatient` upon completion of the task. This feature makes use of the `Model` by calling its API to perform additional interactions with both task and patient.
 
 [NOTE]
-The current `patientedit` and `patientdelete` commands have been modified to update tasks linked to a patient when said patient gets modified or deleted. However, to keep in line with the concept of Defensive Programming, the command will check and inform the user in an event where the `LinkedPatient` cannot be found.
+The current `patientedit` and `patientdelete` commands have been modified to update tasks linked to a patient when said patient gets modified or deleted. However, to keep in line with the concept of Defensive Programming, the execution still check and inform the user in an event where the `LinkedPatient` cannot be found.
 
 The following sequence diagram illustrates flow in which the command's execution takes when completing a task with the index `1`:
 
 image::TaskDoneSequenceDiagram.png[width=""]
+
+==== Current implementation: Task Calendar feature
+
+The `taskcal` command is a feature implemented to allow the user to view task related data in a more interactive and helpful manner. Executing the command creates a popup window with the list of tasks on the left side and a calendar on the rigth side. This feature is implemented using calls to `JavaFX` with the most important component being `DatePicker` which allows a calendar to be drawn up and displayed to the user. This feature enables the user to find tasks depending on the `date` they provide the command or the date cell they click on. Implementation of this aspect of the feature is done on the `UI` component of the application under the `CalendarWindow` class which can be found in the `ui` folder.
+
+The following swimlane activity diagram illustrates the process in which the application goes through to create and display the interactive calendar for the user:
+
+image::TaskCalendarSwimLaneDiagram.png[width=""]
 
 // end::task_cchj1995[]
 

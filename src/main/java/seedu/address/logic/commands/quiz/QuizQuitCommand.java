@@ -35,9 +35,6 @@ public class QuizQuitCommand extends QuizCommand {
             quizModel.updateUserProfile(nonZeroAttemptsResult);
         }
 
-        // set the display to blank for management mode display
-        quizModel.setDisplayFormatter(null);
-
         return new CommandResult(String.format(MESSAGE_SUCCESS, nonZeroAttemptsResult.size()), true, false, false);
     }
 

@@ -158,7 +158,7 @@ test {
         }
 
         if (runGuiTests) {
-        //    test.include 'systemtests/**'
+            test.include 'systemtests/**'
             test.include 'seedu/address/ui/**'
         }
 

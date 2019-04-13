@@ -27,4 +27,13 @@ public class TestUtil {
         }
         return SANDBOX_FOLDER.resolve(fileName);
     }
+
+    public static Path getAndCreateFilePathInSandBoxFolder(String fileName) {
+        try {
+            Files.createDirectories(SANDBOX_FOLDER.resolve(fileName));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return SANDBOX_FOLDER.resolve(fileName);
+    }
 }

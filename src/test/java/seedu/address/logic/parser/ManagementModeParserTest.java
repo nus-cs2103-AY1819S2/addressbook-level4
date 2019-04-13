@@ -11,6 +11,7 @@ import org.junit.rules.ExpectedException;
 
 import seedu.address.logic.commands.management.AddCardCommand;
 import seedu.address.logic.commands.management.AddLessonCommand;
+import seedu.address.logic.commands.management.ChangeThemeCommand;
 import seedu.address.logic.commands.management.CloseLessonCommand;
 import seedu.address.logic.commands.management.DeleteCardCommand;
 import seedu.address.logic.commands.management.DeleteLessonCommand;
@@ -32,7 +33,7 @@ public class ManagementModeParserTest {
 
     @Test
     public void parseCommand_start() throws Exception {
-        assertTrue(parser.parse("start n/country-capitals c/15 m/LEARN") instanceof QuizStartCommand);
+        assertTrue(parser.parse("start i/1 c/15 m/LEARN") instanceof QuizStartCommand);
     }
     @Test
     public void parseCommand_exit() throws Exception {
@@ -119,6 +120,13 @@ public class ManagementModeParserTest {
         String command = ReloadLessonsCommand.COMMAND_WORD;
         assertTrue(parser.parse(command) instanceof ReloadLessonsCommand);
     }
+
+    @Test
+    public void parseCommand_changeTheme() throws Exception {
+        String command = ChangeThemeCommand.COMMAND_WORD;
+        assertTrue(parser.parse(command) instanceof ChangeThemeCommand);
+    }
+
     //    @Test
     //    public void parseCommand_redoCommandWord_returnsRedoCommand() throws Exception {
     //        assertTrue(parser.parse(RedoCommand.COMMAND_WORD) instanceof RedoCommand);

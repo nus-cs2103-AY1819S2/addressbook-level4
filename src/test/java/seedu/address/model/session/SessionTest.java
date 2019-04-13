@@ -22,10 +22,10 @@ public class SessionTest {
     @Test
     public void constructor_invalidName_throwsIllegalArgumentException() {
         Assert.assertThrows(IllegalArgumentException.class, () ->
-                new SessionBuilder(new SessionBuilder().build()).withName("").build());
-        Assert.assertThrows(IllegalArgumentException.class, () ->
-                new SessionBuilder(new SessionBuilder().build_without_srsCards())
+                new SessionBuilder(new SessionBuilder().build_with_name())
                         .withName("").build_without_srsCards());
+        Assert.assertThrows(IllegalArgumentException.class, () ->
+                new SessionBuilder(new SessionBuilder().build()).withName("").build_with_name());
         Assert.assertThrows(IllegalArgumentException.class, () ->
                 new SessionBuilder(new SessionBuilder().build_without_count()).withName("").build_without_count());
     }
@@ -35,8 +35,12 @@ public class SessionTest {
         Assert.assertThrows(IllegalArgumentException.class, () ->
                 new SessionBuilder(new SessionBuilder().build()).withMode(null).build());
         Assert.assertThrows(IllegalArgumentException.class, () ->
+                new SessionBuilder(new SessionBuilder().build()).withMode(null).buildIndex_without_srsCards());
+        Assert.assertThrows(IllegalArgumentException.class, () ->
                 new SessionBuilder(new SessionBuilder().build_without_srsCards())
                         .withMode(null).build_without_srsCards());
+        Assert.assertThrows(IllegalArgumentException.class, () ->
+                new SessionBuilder(new SessionBuilder().build()).withMode(null).build_with_name());
         Assert.assertThrows(IllegalArgumentException.class, () ->
                 new SessionBuilder(new SessionBuilder().build_without_count()).withMode(null).build_without_count());
     }
@@ -45,6 +49,11 @@ public class SessionTest {
     public void constructor_invalidCount_throwsIllegalArgumentException() {
         Assert.assertThrows(IllegalArgumentException.class, () ->
                 new SessionBuilder(new SessionBuilder().build()).withCount(0).build());
+        Assert.assertThrows(IllegalArgumentException.class, () ->
+                new SessionBuilder(new SessionBuilder().build()).withCount(0).build_with_name());
+        Assert.assertThrows(IllegalArgumentException.class, () ->
+                new SessionBuilder(new SessionBuilder().buildIndex_without_srsCards())
+                        .withCount(0).buildIndex_without_srsCards());
         Assert.assertThrows(IllegalArgumentException.class, () ->
                 new SessionBuilder(new SessionBuilder().build_without_srsCards())
                         .withCount(0).build_without_srsCards());

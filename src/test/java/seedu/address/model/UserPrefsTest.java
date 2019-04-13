@@ -1,9 +1,11 @@
 package seedu.address.model;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+import static seedu.address.model.UserPrefs.DARK_THEME;
 
 import java.nio.file.Paths;
 
@@ -18,6 +20,15 @@ public class UserPrefsTest {
     @Test
     public void setGuiSettings_nullGuiSettings_throwsNullPointerException() {
         Assert.assertThrows(NullPointerException.class, () -> userPref.setGuiSettings(null));
+    }
+
+    @Test
+    public void setTheme_lightToDark_success() {
+        String newTheme = userPref.toggleTheme();
+        userPref.setTheme(newTheme);
+
+        assertEquals(DARK_THEME, newTheme);
+        assertEquals(DARK_THEME, userPref.getTheme());
     }
 
     @Test

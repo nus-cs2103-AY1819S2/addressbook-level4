@@ -350,17 +350,17 @@ The SRS method updates users profile using link:https://en.wikipedia.org/wiki/Le
 Quiz feature allows users to enter quiz related commands and answer.
 
 ==== Current Implementation
-The quiz feature implements the following commands and processes answer:
+The quiz feature processes the following inputs:
 
-* `Answer [*]` - Enters any character without escape character \ is treated as an answer.
+* `[ANSWER]...` - An input without a prefix `\` is treated as an answer.
 * `\difficult` - Labels current question in quiz as difficult or not.
 * `\help` - Lists all commands in quiz and inputs the program will accept.
 * `\hint` - Reveals additional information to help user to solve the question.
 * `\quit` - Quits a quiz and save attempted progress.
 * `\status` - Lists current status and lesson progress of user.
 
-==== Answer [*]
-The `Answer [*]` feature is facilitated by `QuizAnswerCommand`. The command takes in user input
+==== [ANSWER]
+The `[ANSWER]` feature is facilitated by `QuizAnswerCommand`. The command takes in user input
 as answer to be processed later.
 
 The following sequence diagram shows the interaction between the various classes when the user

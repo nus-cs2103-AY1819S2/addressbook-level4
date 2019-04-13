@@ -26,16 +26,20 @@ public class QuizCard {
     private boolean isWrongTwice;
     private boolean isCardDifficult;
 
-    public QuizCard(int index, String question, String answer, QuizMode quizMode) {
-        requireAllNonNull(index, question, answer, quizMode);
+    private QuizCard(int index, String question, String answer, List<String> opt, String questionHeader,
+                     String answerHeader, QuizMode quizMode) {
+        requireAllNonNull(index, question, answer, quizMode, questionHeader, answerHeader);
         checkArgument(!question.trim().isEmpty() && !answer.trim().isEmpty(), MESSAGE_CONSTRAINTS);
 
         this.index = index;
         this.question = question;
         this.answer = answer;
+        this.questionHeader = questionHeader;
+        this.answerHeader = answerHeader;
+        this.opt = opt;
         this.quizMode = quizMode;
-        this.hasAttemptedBefore = false;
         this.isWrongTwice = false;
+        this.hasAttemptedBefore = false;
         this.isCardDifficult = false;
     }
 
@@ -54,6 +58,14 @@ public class QuizCard {
         this.isCardDifficult = false;
     }
 
+    public QuizCard generateOrderedQuizCardWithIndex(int index, QuizMode mode) {
+        return new QuizCard(index, question, answer, opt, questionHeader, answerHeader, mode);
+    }
+
+    public QuizCard generateFlippedQuizCardWithIndex(int index) {
+        return new QuizCard(index, answer, question, opt, answerHeader, questionHeader, QuizMode.REVIEW);
+    }
+
     public String getQuestion() {
         return question;
     }
@@ -63,14 +75,10 @@ public class QuizCard {
     }
 
     public List<String> getOpt() {
-        assert index == -1;
-
         return opt;
     }
 
     public int getIndex() {
-        assert index > -1;
-
         return index;
     }
 
@@ -87,19 +95,14 @@ public class QuizCard {
     }
 
     public QuizMode getQuizMode() {
-        requireAllNonNull(quizMode);
         return quizMode;
     }
 
     public String getQuestionHeader() {
-        assert index == -1;
-
         return questionHeader;
     }
 
     public String getAnswerHeader() {
-        assert index == -1;
-
         return answerHeader;
     }
 
@@ -107,8 +110,6 @@ public class QuizCard {
      * Returns if the card labeled difficult.
      */
     public boolean isCardDifficult() {
-        assert index == -1;
-
         return isCardDifficult;
     }
 
@@ -116,8 +117,6 @@ public class QuizCard {
      * Toggles between if the card labeled difficult.
      */
     public void toggleIsCardDifficult() {
-        assert index == -1;
-
         isCardDifficult = !isCardDifficult;
     }
 
@@ -129,6 +128,7 @@ public class QuizCard {
     public boolean isCorrect(String answer) throws NullPointerException {
         if (hasAttemptedBefore) {
             isWrongTwice = true;
+            quizMode = QuizMode.PREVIEW;
         }
         hasAttemptedBefore = true;
         return answer.equalsIgnoreCase(this.answer);

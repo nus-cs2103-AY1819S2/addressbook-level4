@@ -9,7 +9,7 @@ import javafx.scene.text.TextFlow;
  */
 public class MainPanelHandle extends NodeHandle<TextFlow> {
 
-    public static final String RESULT_DISPLAY_ID = "#mainPanel";
+    public static final String MAIN_PANEL_ID = "#mainPanel";
 
     public MainPanelHandle(TextFlow mainPanelNode) {
         super(mainPanelNode);

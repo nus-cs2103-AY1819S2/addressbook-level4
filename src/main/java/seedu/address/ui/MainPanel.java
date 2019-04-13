@@ -7,8 +7,8 @@ import javafx.fxml.FXML;
 import javafx.scene.layout.Region;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
+import seedu.address.model.quiz.QuizCard;
 import seedu.address.model.quiz.QuizMode;
-import seedu.address.model.quiz.QuizUiDisplayFormatter;
 
 /**
  * A ui for the status bar that is displayed at the header of the application.
@@ -18,49 +18,52 @@ public class MainPanel extends UiPart<Region> {
     public static final String MESSAGE_QUESTION_ANSWER = "%1$s: %2$s\n%3$s: %4$s\n";
 
     private static final String FXML = "MainPanel.fxml";
-    private static final String boldStyle = "-fx-font-family: \"Segoe UI\";"
-        + "-fx-font-weight: bold;";
+    private static final String boldStyle = "-fx-font-weight: bold;";
 
     @FXML
     private TextFlow mainPanel;
 
-    private QuizUiDisplayFormatter formatter;
+    private QuizCard quizCard;
+    private String totalCorrectAndTotalAttempts;
+    private String currentLessonName;
 
     public MainPanel() {
         super(FXML);
     }
 
-    public void setFeedbackToUser(QuizUiDisplayFormatter formatter) {
+    public void setFeedbackToUser(QuizCard quizCard, String totalCorrectAndTotalAttempts, String currentLessonName) {
         mainPanel.getChildren().clear();
 
-        if (formatter != null) {
-            // contains only question
-            this.formatter = formatter;
-
-            QuizMode mode = formatter.getMode();
+        if (quizCard != null) {
+            this.quizCard = quizCard;
+            this.totalCorrectAndTotalAttempts = totalCorrectAndTotalAttempts;
+            this.currentLessonName = currentLessonName;
+            QuizMode mode = quizCard.getQuizMode();
             Text questionAnswer = new Text();
 
             switch (mode) {
             case PREVIEW:
-                questionAnswer.setText(String.format(MESSAGE_QUESTION_ANSWER, formatter.getQuestionHeader(),
-                    formatter.getQuestion(), formatter.getAnswerHeader(), formatter.getAnswer()));
+                questionAnswer.setText(String.format(MESSAGE_QUESTION_ANSWER, quizCard.getQuestionHeader(),
+                    quizCard.getQuestion(), quizCard.getAnswerHeader(), quizCard.getAnswer()));
 
-                if (!formatter.isWrongTwice()) {
-                    Text text1 = new Text("\nPress Enter to go to the next question");
-                    mainPanel.getChildren().addAll(questionAnswer, text1);
+                if (!quizCard.isWrongTwice()) {
+                    Text text = new Text("\nPress Enter to go to the next question");
+                    mainPanel.getChildren().addAll(questionAnswer, text);
+                    setLessonName();
                     setTotalCorrect();
                     break;
                 }
-
                 mainPanel.getChildren().add(questionAnswer);
                 setAnswerPrompt();
+                setLessonName();
                 setTotalCorrect();
                 break;
             case REVIEW:
-                questionAnswer.setText(String.format(MESSAGE_QUESTION, formatter.getQuestionHeader(),
-                    formatter.getQuestion()));
+                questionAnswer.setText(String.format(MESSAGE_QUESTION, quizCard.getQuestionHeader(),
+                    quizCard.getQuestion()));
                 mainPanel.getChildren().add(questionAnswer);
                 setAnswerPrompt();
+                setLessonName();
                 setTotalCorrect();
                 break;
             default:
@@ -74,16 +77,18 @@ public class MainPanel extends UiPart<Region> {
 
     private void setAnswerPrompt() {
         Text text1 = new Text("\nType the ");
-        Text answer = new Text(formatter.getAnswerHeader() + " ");
-        Text text2 = new Text("for the ");
-        Text question = new Text(formatter.getQuestionHeader() + " ");
-        Text text3 = new Text("above and press Enter");
+        Text answer = new Text(quizCard.getAnswerHeader() + " ");
+        Text text2 = new Text("for the " + quizCard.getQuestionHeader() + " above and press Enter");
         answer.setStyle(boldStyle);
-        List<Text> texts = Arrays.asList(text1, answer, text2, question, text3);
+        List<Text> texts = Arrays.asList(text1, answer, text2);
         mainPanel.getChildren().addAll(texts);
     }
     private void setTotalCorrect() {
-        Text text1 = new Text("\n\nCurrent total correct questions: " + formatter.getTotalCorrect());
+        Text text1 = new Text("\nCurrent total correct questions: " + totalCorrectAndTotalAttempts);
+        mainPanel.getChildren().add(text1);
+    }
+    private void setLessonName() {
+        Text text1 = new Text("\n\nCurrent lesson name: " + currentLessonName);
         mainPanel.getChildren().add(text1);
     }
 }

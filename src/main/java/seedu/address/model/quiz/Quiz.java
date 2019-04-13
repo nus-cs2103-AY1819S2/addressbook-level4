@@ -48,7 +48,7 @@ public class Quiz {
     /**
      * Generates a list of cards based on the chosen cards given by session.
      */
-    public List<QuizCard> generate() {
+    private List<QuizCard> generate() {
         generatedQuizCardList = new ArrayList<>();
 
         switch (mode) {
@@ -81,14 +81,12 @@ public class Quiz {
         QuizCard currentCard;
         for (int i = 0; i < originalQuizCardList.size(); i++) {
             currentCard = originalQuizCardList.get(i);
-            generatedQuizCardList.add(new QuizCard(i, currentCard.getQuestion(), currentCard.getAnswer(),
-                QuizMode.REVIEW));
+            generatedQuizCardList.add(currentCard.generateOrderedQuizCardWithIndex(i, QuizMode.REVIEW));
         }
 
         for (int i = 0; i < originalQuizCardList.size(); i++) {
             currentCard = originalQuizCardList.get(i);
-            generatedQuizCardList.add(new QuizCard(i, currentCard.getAnswer(), currentCard.getQuestion(),
-                QuizMode.REVIEW));
+            generatedQuizCardList.add(currentCard.generateFlippedQuizCardWithIndex(i));
         }
     }
 
@@ -100,9 +98,12 @@ public class Quiz {
 
         for (int i = 0; i < originalQuizCardList.size(); i++) {
             currentCard = originalQuizCardList.get(i);
-            generatedQuizCardList.add(new QuizCard(i, currentCard.getQuestion(), currentCard.getAnswer(),
-                QuizMode.PREVIEW));
+            generatedQuizCardList.add(currentCard.generateOrderedQuizCardWithIndex(i, QuizMode.PREVIEW));
         }
+    }
+
+    public List<QuizCard> getGeneratedQuizCardList() {
+        return generatedQuizCardList;
     }
 
     /**
@@ -204,9 +205,7 @@ public class Quiz {
     }
 
     public List<String> getOpt() {
-        assert currentCardIndex != -1;
-
-        return getOriginalCardByIndex(currOrignalQuizCardIndex).getOpt();
+        return currentQuizCard.getOpt();
     }
 
     private QuizCard getOriginalCardByIndex(int index) {

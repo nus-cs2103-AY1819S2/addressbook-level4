@@ -12,9 +12,14 @@ import seedu.address.commons.core.GuiSettings;
  * Represents User's preferences.
  */
 public class UserPrefs implements ReadOnlyUserPrefs {
+    public static final String LIGHT_THEME = "view/LightTheme.css";
+    public static final String DARK_THEME = "view/DarkTheme.css";
+
     private GuiSettings guiSettings = new GuiSettings();
     private Path lessonListFolderPath = Paths.get("data");
     private Path userFilePath = Paths.get("data", "user", "savedata.csv");
+    private String theme = LIGHT_THEME;
+
     /**
      * Creates a {@code UserPrefs} with default values.
      */
@@ -36,6 +41,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         setGuiSettings(newUserPrefs.getGuiSettings());
         setLessonListFolderPath(newUserPrefs.getLessonListFolderPath());
         setUserFilePath(newUserPrefs.getUserFilePath());
+        setTheme(newUserPrefs.getTheme());
     }
 
     public GuiSettings getGuiSettings() {
@@ -65,6 +71,18 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         this.userFilePath = userFilePath;
     }
 
+    public String getTheme() {
+        return theme;
+    }
+
+    public void setTheme(String newTheme) {
+        requireNonNull(newTheme);
+        this.theme = newTheme;
+    }
+
+    public String toggleTheme() {
+        return theme.equals(LIGHT_THEME) ? DARK_THEME : LIGHT_THEME;
+    }
 
     @Override
     public boolean equals(Object other) {
@@ -82,7 +100,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
 
     @Override
     public int hashCode() {
-        return Objects.hash(guiSettings, lessonListFolderPath, userFilePath);
+        return Objects.hash(guiSettings, lessonListFolderPath, userFilePath, theme);
     }
 
     @Override
@@ -91,6 +109,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         sb.append("Gui Settings : " + guiSettings);
         sb.append("\nLocal data file location : " + lessonListFolderPath);
         sb.append("\nLocal user file location : " + userFilePath);
+        sb.append("\nTheme location : " + theme);
         return sb.toString();
     }
 

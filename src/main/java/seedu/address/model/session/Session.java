@@ -71,11 +71,32 @@ public class Session {
         this.srsCards = srsCards;
     }
 
-    public Session(int index, int count, QuizMode mode) {
+    public Session(int index, int cardCount, QuizMode mode) {
+        if (cardCount < CARD_COUNT_MINIMUM) {
+            throw new IllegalArgumentException("CardCount should not be less than 1 in a single session");
+        }
+        if ((mode != QuizMode.LEARN) & (mode != QuizMode.REVIEW) & (mode != QuizMode.PREVIEW)
+                & (mode != QuizMode.DIFFICULT)) {
+            throw new IllegalArgumentException("Invalid mode");
+        }
         this.lessonIndex = index;
-        this.cardCount = count;
+        this.cardCount = cardCount;
         this.mode = mode;
         this.name = "default";
+    }
+    public Session(int index, int cardCount, QuizMode mode, List<SrsCard> srsCards) {
+        if (cardCount < CARD_COUNT_MINIMUM) {
+            throw new IllegalArgumentException("CardCount should not be less than 1 in a single session");
+        }
+        if ((mode != QuizMode.LEARN) & (mode != QuizMode.REVIEW) & (mode != QuizMode.PREVIEW)
+                & (mode != QuizMode.DIFFICULT)) {
+            throw new IllegalArgumentException("Invalid mode");
+        }
+        this.lessonIndex = index;
+        this.cardCount = cardCount;
+        this.mode = mode;
+        this.name = "default";
+        this.srsCards = srsCards;
     }
 
     /**

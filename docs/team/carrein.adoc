@@ -16,7 +16,7 @@ Unlike other heavy image editors, FomoFoto has a gentle learning curve, removing
 === Summary of contributions
 
 ==== Major Enhancements:
-1. Importing of Images with User Interface Integration.
+1. Importing of Images.
 
 ** *What it does:*
 Allow users to import images into FomoFoto for editing. Imported images are added to an Album in FomoFoto that can be opened for edits such as Image Transformation and Filters.
@@ -25,21 +25,21 @@ Allow users to import images into FomoFoto for editing. Imported images are adde
 This feature is core to the operation of FomoFoto. Without the ability to import images, an image editor cannot function properly since there is no image to modify.
 
 ** *Highlights:*
-This enhancement is tough to implement as it requires many checks to ensure the image is valid. Files that are not of an image format are not allowed to be imported. Images that are extremely big are not allowed to be imported as the limitation of the JavaFX library means the program might run out of space.
+This enhancement is tough to implement as it requires many checks to ensure the image is valid. Files that are not of an image format are not allowed to be imported. Images that are extremely big are not allowed to be imported as the limitation of the JavaFX library means the program might run out of space. Users are also given the flexibility to import a single image or an entire directory.
 
 2. Overall user interaction and interface/experience design.
 
 ** *What it does:*
-FomoFoto has an intuitive, human-centric design. Users are able to see the images they are editing, the information of images in the Album, their details and the edits applied. All Graphical User Interface elements are updated in real-time using a Notifier which allows commands to interact easily and draw updates on the interface.
+FomoFoto has an intuitive, human-centric design. Users are able to see the images they are editing, the information of images in the Album, their details and all edits applied. All Graphical User Interface elements are updated in real-time using a Notifier which allows commands to interact easily and draw updates on the interface.
 
 ** *Justification:* A good user interface facilitates easy usage of the editor. Users are able to get a good overview on the edits they are doing simply by observing the image and information available on screen. This feature comprises of five components:
-*** Initial Panel - Contains a quick start message on FomoFoto's first start, giving users a high level overview on command available to them.
-*** Image Panel - Displays the image currently opened for editing.
-*** Album Images Panel - Displays all images imported to FomoFoto's Album.
-*** EXIF Profile Panel - Displays core details about the image on the Image Panel such as `Date and Time` and `Location Taken`.
-*** Command History Panel - Displays all previously applied edits on the opened image shown on the Image Panel.
+*** `Initial Panel` - Contains a quick start message on FomoFoto's first start, giving users a high level overview on the commands available.
+*** `Image Panel` - Displays the image currently opened for editing.
+*** `Album Images Panel` - Displays all images imported to FomoFoto's Album.
+*** `EXIF Profile Panel` - Displays core details such as Time and Location Taken about the opened image shown on the Image Panel.
+*** `Command History Panel` - Displays all previously applied edits on the opened image shown on the Image Panel.
 
-** *Highlights:* This enhancement is core to the operation of FomoFoto. Since we are dealing with images, it is paramount to show the item that is being worked on. Without it, there is no visual cue on if the edit being carried out is accurate. The implementation is complex as all edits needs to update graphical user interface instantly. Careful attention has been paid to ensure images are aligned accurately with a clean colour scheme.
+** *Highlights:* This enhancement is core to the operation of FomoFoto. Since we are dealing with images, it is paramount to show the item that is being worked on. Without it, there is no visual cue on if the edits being carried out is accurate. The implementation is complex as all edit commands needs to update graphical user interface instantly. Careful attention has been paid to ensure images are aligned accurately with a clean colour scheme.
 
 ==== Minor Enhancements:
 1. Tab Command.
@@ -59,21 +59,21 @@ FomoFoto has an intuitive, human-centric design. Users are able to see the image
 
 '''
 
-==== Other Contributions:
+=== Other Contributions
 
-** Project Management:
+==== Project Management:
 *** Managed 2 version releases on GitHub: +
 https://github.com/CS2103-AY1819S2-W14-2/main/releases/tag/v1.1[v1.1],
 https://github.com/CS2103-AY1819S2-W14-2/main/releases/tag/v1.3[v1.3]
 
-** Enhancements to Existing Features:
+==== Enhancements to Existing Features:
 *** Additional unit tests for existing features to increase overall coverage: +
 https://github.com[#187], https://github.com[#193], https://github.com[#230], https://github.com[#236]
 
-** Documentation:
+==== Documentation:
 *** Addendum tweaks to existing contents of the User Guide: https://github.com[#236].
 
-** Community:
+==== Community:
 *** Core PRs Contributed: +
     https://github.com[#10], https://github.com[#56], https://github.com[#75], https://github.com[#87], https://github.com[#105], https://github.com[#111], https://github.com[#119], https://github.com[#125], https://github.com[#156], https://github.com[#163], https://github.com[#193], https://github.com[#195], https://github.com[#202],
  https://github.com[#203], https://github.com[#215]
@@ -87,7 +87,7 @@ https://github.com[#187], https://github.com[#193], https://github.com[#230], ht
 *** Core Issues Reviewed: +
     https://github.com[#64], https://github.com[#108], https://github.com[#148] https://github.com[#165], https://github.com[#166], https://github.com[#169], https://github.com[#170], https://github.com[#175], https://github.com[#176], https://github.com[#177], https://github.com[#178], https://github.com[#181], https://github.com[#183], https://github.com[#185], https://github.com[#186], https://github.com[#236]
 
-** Tools:
+==== Tools:
 *** Integrated TravisCI to the team repo.
 *** Integrated Coveralls to the team repo.
 *** Added Issue Templates to the team repo.
@@ -98,14 +98,21 @@ https://github.com[#187], https://github.com[#193], https://github.com[#230], ht
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
+
+== Quick Start
+'''
 include::../UserGuide.adoc[tag=QuickStart]
 
+== Import Command
 '''
+include::../UserGuide.adoc[tag=Import]
 
+== Clear Command
+'''
 include::../UserGuide.adoc[tag=ClearCommand]
 
+== Tab Command
 '''
-
 include::../UserGuide.adoc[tag=Tab]
 
 == Contributions to the Developer Guide
@@ -114,9 +121,19 @@ include::../UserGuide.adoc[tag=Tab]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
+== Album and Image Class
+'''
+include::../DeveloperGuide.adoc[tag=albumModel]
+
+== User Interface Overhaul
+'''
 include::../DeveloperGuide.adoc[tag=ui]
 
+== Import and ImportParser Class
 '''
-
 include::../DeveloperGuide.adoc[tag=import]
+
+== Assets and Temp Folder
+'''
+include::../DeveloperGuide.adoc[tag=DetailsStorage]
 

@@ -22,13 +22,13 @@ FomoFoto is a image processing software suite written in Java. This application 
 
 For new user, jump to <<Quick Start>> for an overview on how to use FomoFoto and the tools available.
 
-// tag::QuickStart[]
-== Quick Start
 
+== Quick Start
+// tag::QuickStart[]
 System Requirements:
 
-* Windows 10 or newer / OS X 10.8 or newer.
-* Java 9 or newer.
+* *Windows 10 or newer / OS X 10.8 or newer.*
+* *Java 9 or newer.*
 
 Follow the steps below to set up your computer to run FomoFoto:
 
@@ -209,19 +209,35 @@ Example:
 Displays help view to user.
 Format: `help`
 
+// tag::Import[]
+
 === Import an image : `import`
 
-Imports an image to assets folder from specified filepath +
+Imports images to FomoFoto's Album from a specified filepath or a directory. +
 Format: `import FILEPATH`
 
-Example:
+Example of single filepath import:
 
-* `import Users/Fomo/Pictures/sample.jpg`
+* `import C:\Users\Addison\Desktop\sample.jpg`
+* `import C:\Home\sample.png`
+
+Example of directory import:
+
+* `import C:\Users\Addison\Desktop`
+* `import C:\Home`
+
+For directory import, invalid files are skipped and only valid images will be imported.
 
 [NOTE]
-====
-The `import` command only accepts files with a maximum size of 10MB.
-====
+Images should be of the following formats: `bmp`, `jpg` , `png`, `tif` or `gif`
+
+Additionally, images must also adhere to the following additional requirements:
+
+. Not be hidden or prepended by a `.` dot identifier.
+. Not be over 10MB in size.
+. Not have the same name of an existing image in the Album.
+
+// end::Import[]
 
 // tag::ListAndOpen[]
 === List Files: `listfiles`
@@ -299,19 +315,19 @@ Example:
 // end::UserSave[]
 
 // tag::Tab[]
-=== Tab switching: `tab`
+=== Tab Switching: `tab`
 
 Cycle between available tabs in the side *Information Panel*. +
 Format: `tab`
 
 The three available tabs are listed below:
 
-. *Album Images*
-- Displays all images currently opened in the `assets` folder and available for editing.
-. *EXIF Profile*
+. Album Images
+- Displays all images currently opened in the Album and available for editing.
+. EXIF Profile
 - Displays all ancillary tags attached to the currently opened
 image such as metadata information like *Date and Time* and *Copyright information*.
-. *Command History*
+. Command History
 - Display all *Image Transformation* and *Image Filters* applied to the currently opened image.
 // end::Tab[]
 

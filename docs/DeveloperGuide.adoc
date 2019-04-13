@@ -328,114 +328,129 @@ Simpler implementation means the likelihood of bugs being introduced is less whe
 
 // tag::ship[]
 
-=== Battleship Feature
+=== Ship Management Feature
 ==== Current Implementation
-A battleship is a basic class representing a battleship that can be placed on the map grid. The length of the battleship varies, depending on the type of battleship. There are three types of battleships: +
+The ship management feature handles the following:
 
-1. Cruiser of length 2.
-1. Destroyer of length 3.
-1. Aircraft carrier of length 5.
+* Putting ships on the map grid and ensuring that ships are placed in valid areas on the map grid.
+* Keeping track of the status of ships in the player.
 
-The number of battleship types that a user can deploy on the map depends on the size of the map. It is given by the formula:
+A `Battleship` is a class representing a ship that can be placed on the map grid. A `FleetEntry` class is internally used to store the `Battleship` in a player's `Fleet`. `FleetEntry` is a nested class within `Fleet` that contains a `Battleship`, its head `Coordinates` and its `Orientation` on the map grid.
 
-1. Number of cruisers = `mapSize - 5`
-1. Number of destroyers = `(mapSize + 2) / 5`.
-1. Number of aircraft carriers = `1`.
+The length of the ship varies depending on the type of ship. The user can tag a battleship using a `t/[TAG]` parameter in the `put` command. Tagging a ship is optional. +
 
-The user can tag a battleship using a `t/[TAG]` parameter in the `put` command. Tagging battleships is optional.
+There are three types of ships and the number of each ship depends on the size of the map. The relationship between map size and the number of each ship is illustrated in the table below.
 
-[NOTE]
-The head of a battleship refers to the top-most and left-most cell of the battleship. When coordinates are specified in the `put` command, it specifies the coordinates of the head of the battleship, as shown in the figure below.
+[width="100%",options="header"]
+|============================================
+|Type of Ship   |Length |Number
+|Cruiser        |2      |`mapSize - 5`
+|Destroyer      |3      |`(mapSize + 2) / 5`
+|Aircraft carrier |5    |`1`
+|============================================
 
-.The coordinates of the battleship head are the top-most and left-most.
-image::BattleshipHeadExample.png[width=800]
+The management of ships can be carried out with three commands, namely `put`, `listTags` and `list`.
 
+===== 3.2.1.1 Putting ships
 
-.The coordinates of the `put` command refer to the coordinates of the battleship head.
+The `put` command puts a ship on the map grid, specified by the __head coordinates__.
 
-image::BattleshipHeadExample2.png[width=800]
+====
+*__What are the head coordinates?__*
+
+The head coordinate of a ship refers to the top-most and left-most cell of the ship. When coordinates are specified in the `put` command, it specifies the coordinates of the head of the ship, as shown in the figure below.
+
+.The coordinates of the battleship head are always the top-most and left-most coordinates.
+image:BattleshipHeadExample.png[width=800]
+====
 
 The following operations are called when the `put` command is called.
 
-* `performChecks()` - performs boundary checks on the map grid to ensure that the battleship can be placed on the map.
-* `putShip()` - puts the battleship into the cell.
-* `getCell()` - gets the cell that is specified by the coordinates provided by the user.
+* `performChecks()` - Performs boundary checks on the map grid to ensure that the battleship can be placed on the map.
+* `putShip()` - Puts the battleship into the cell.
+* `getCell()` - Gets the cell that is specified by the coordinates provided by the user.
 
-Here is an example of a given user scenario.
+The boundary checks are essential to the functionality of both the human player and the computer player. This is because `BoundaryValueChecker` is used by the computer player when it is deploying its own ships after the human player has ended his or her turn. `BoundaryValueChecker` relies on four separate methods to perform its checks. They are:
 
-Step 1. Initialise the map to a map of size 10.
+1. `isHeadWithinBounds()` - Checks if the head coordinates falls within the map grid.
+1. `isBodyWithinBounds()` - Checks if the body of the ship falls within the map grid.
+1. `isBattleshipAbsent()` - Checks if there are no _other_ ships that are situated on the head coordinates.
+1. `isClear()` - Checks if there are no _other_ ships that situated along the body of the ship.
 
-image:PutShipWalkThrough1.png[width=800]
+These methods check both the horizontal and vertical boundaries when a ship is being deployed. They also distinguish between the head and body of a ship in order to provide more specific feedback for the user. A code snippet is provided to illustrate an example of one such check, `isHeadWithinBounds()`.
 
-Step 2. Put the battleship on the map by specifying the name, coordinates, orientation, and tags.
+[source,java]
+----
+include::../src/main/java/seedu/address/model/BoundaryValueChecker.java[lines=78..85]
+----
 
-image:PutShipWalkThrough2.png[width=800]
-
-The following sequence diagram shows how a battleship is put on the map.
+The following sequence diagram illustrates what happens when the `put` command is called.
 
 .Sequence diagram of putting a battleship on the map.
 image::PutShipSequenceDiagram.png[width=800]
 
-Battleships can be tagged. You can list all the tags used by battleships that have been deployed on the map grid using the `listTags` command. The sequence diagram below shows how the tags are listed.
+===== 3.2.1.2 Listing tags
+
+Ships can be tagged. You can list all the tags used by battleships that have been deployed on the map grid with the `listTags` command. The command uses the `getAllTags()` method of the `Fleet` class. The code snippet below shows the operation of the `getAllTags()` method. The method returns a list of all the unique tags present in the player's fleet of deployed ships.
+
+[source,java]
+----
+include::../src/main/java/seedu/address/model/Player/Fleet.java[lines=170..179]
+----
+
+The sequence diagram below shows how the tags are listed.
 
 .Sequence diagram of listing battleship tags.
 image::ListTagsSequenceDiagram.png[width=800]
 
-Battleships that have been deployed can also be listed. Battleships can be listed in four different ways:
+===== 3.2.1.3 Listing ships
 
-1. List all battleships.
-1. List battleships that have certain tags.
-1. List battleships of a certain type.
-1. List battleships of a certain type that have certain tags.
-
-Here is an example of a given user scenario. In this scenario, the user has deployed some battleships on a 10 by 10 map grid with various tags.
-
-Step 1. Initialise the map to a map of size 10.
-Step 2. Deploy battleships by specifying the name, coordinates, orientation, and tags. We will deploy the following battleships:
-
-* Cruiser at a4 vertical with tag `tag1`.
-* Cruiser at d4 vertical with tag `tag1`.
-* Cruiser at f7 horizontal with tag `tag2`.
-* Cruiser at h8 horizontal with tag `tag2`.
-* Destroyer at d4 horizontal with tag `tag1`.
-
-Step 3. List the battleships.
-
-image::ListExample1.png[width=800]
-
-Step 4. List the battleships by name. Use `cruiser`.
-
-image::ListExample2.png[width=800]
-
-Step 5. List the battleships by name and tags. Use `cruiser` with `tag2`.
-
-image::ListExample3.png[width=800]
+Ships that have been deployed can also be listed in four different ways:
 
 
-The following sequence diagram shows how deployed battleships are listed when the `list` command is entered into the command line.
+[width="100%",options="header"]
+|====================
+|List|Example
+|All ships|`list`
+|Ships with certain tags| `list t/tag1 t/tag2`
+|Certain ships| `list n/destroyer n/cruiser`
+|Certain ships with certain tags| `list n/destroyer n/cruiser t/tag1 t/tag2`
+|====================
+
+The set of unique tags and the set of unique names are presented to the `ListCommand` as an `Optional` class. This is because both sets may be empty. In such cases, instead of redudantly checking whether each `fleetEntry` contains the ship and an empty set, `ListCommand` simply returns the entire fleet.
+
+The `list` command can list certain ships with certain tags by taking the filtering the list of deployed ships. The following sequence diagram shows how deployed battleships are listed when the `list` command is entered into the command line.
 
 .Sequence diagram of listing battleships deployed on the map.
-image::ListShipSequenceDiagram.png[width=1499][height=2249]
+image::ListShipSequenceDiagram.png[]
+
+The use case diagram below illustrates the design considerations that have gone into the design of the `list` command.
+
+==== Activity Diagram
+Ship management functions throughout the entirety of the game. As there are multiple states during the game, it is beneficial to visualise the operations of the `put`, `listTags` and `list` commands with respect to the different game states. The activity diagram below illustrates these operations.
+
+.Activity diagram of ship management throughout the game.
+image::ShipManagementActivityDiagram.png[]
 
 ==== Design Considerations
-===== Aspect: How a battleship is placed on the map
+===== Aspect: How a ship is placed on the map
 * **Current choice:** +
  The same `Battleship` object is put in multiple cells. Each cell contains a reference to the same `Battleship` object. When a battleship on the `Cell` needs to be modified, the `Battleship` attribute in the `Cell` is accessed.
 ** Pros: This allows any cell that is hit to access the same `Battleship` object without having to separately find the `Battleship` object.
 ** Cons: Difficult to keep track of each `Battleship` position.
 * **Alternative:** +
-Have two separate `Battleship` and `BattleshipPart` objects. The `BattleshipPart` object represents the "body" of the `Battleship` and contains an attribute that points to the `Battleship`. When a battleship on the `Cell` needs to be modified, the `BattleshipPart` is accessed, which then accesses the main `Battleship` object.
-** Pros: Clearer separation between the "body" of the Battleship and the Battleship itself.
-** Cons: Difficult to handle hit on the cell.
+Two separate `Battleship` and `BattleshipPart` objects are used. The `BattleshipPart` object represents the body of the `Battleship` and contains an attribute that points to the `Battleship`. When a battleship on the `Cell` needs to be modified, the `BattleshipPart` is accessed, which then accesses the main `Battleship` object.
+** Pros: Clearer separation between the body of the Battleship and the Battleship itself.
+** Cons: Difficult to handle hits on the cell.
 
-===== Aspect: Data structure to record battleships in player
+===== Aspect: How a ship is stored in each player's fleet
 * **Current choice:** +
-`ArrayList` of `FleetEntry`, where `FleetEntry` contains a reference to the `Battleship`, its `Orientation` and `Coordinates` of the head. The `FleetEntry` subclass exists in `Fleet`. Whenever a `Fleet` method is called, it accesses the `ArrayList` of `FleetEntry` to obtain information about the `Battleship` and its position on the `MapGrid`.
+An `ArrayList` of `FleetEntry` objects is used for storage, where `FleetEntry` contains a reference to the `Battleship`, its `Orientation` and `Coordinates` of the head coordinates. The `FleetEntry` class is a nested class in `Fleet`. Whenever a `Fleet` method is called, it accesses the `ArrayList` of `FleetEntry` to obtain information about the `Battleship` and its position on the `MapGrid`.
 ** Pros: Can identify `Battleship` by position.
-** Cons: Harder to implement.
+** Cons: Harder to implement, as a nested class has to be implemented from scratch, compared to using an `ArrayList`.
 * **Alternative:** `ArrayList` of `Battleship`.
 ** Pros: Easier to implement and provides a cleaner design.
-** Cons: Harder check position of `Battleship` on the map grid. In order to do so, a separate data structure has to be initialised to store the coordinates and orientation of the battleship. This data structure then has to be aligned with the original `ArrayList` that stores the battleship.
+** Cons: Harder check position of `Battleship` on the map grid. In order to do so, a separate data structure must be created to store the coordinates and orientation of the battleship. This data structure then has to be aligned with the original `ArrayList` that stores the battleship.
 
 // end::ship[]
 
@@ -1066,8 +1081,10 @@ _{More to be added}_
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
 .  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-
-_{More to be added}_
+. Should not use up too much memory for the application and application data for typical usage.
+. Versions should be backward compatible with each other.
+. Should be usable by a novice who has never played Battleship before.
+. The map grid should be large enough for gameplay.
 
 [appendix]
 == Glossary
@@ -1114,8 +1131,6 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-_{ more test cases ... }_
-
 // tag::maptest[]
 
 === Initialising the maps
@@ -1131,6 +1146,8 @@ _{ more test cases ... }_
 
 // end::maptest[]
 
+// tag::shiptest[]
+
 === Putting a ship
 
 . Putting a ship on the map after initialising the map.
@@ -1142,14 +1159,10 @@ _{ more test cases ... }_
    Expected: Aircraft Carrier battleship of size 5 will be put horizontally on coordinates `c1`, `c2`, `c3`, `c4` and `c5`. The map is updated with 5 black cells on each of these coordinates representing the Aircraft Carrier battleship.
 .. Test case: `put n/aircraft carrier r/horizontal c/e1 t/nomore` +
    Expected: No battleship is put down on the map. Error details shown in the status message. Map remains the same.
-.. Test case: `put n/destroyer r/vertical c/b1` +
-   Expected: No battleship is put down on the map. Error details shown in the status message. Map remains the same.
-.. Test case: `put n/destroyer r/vertical c/a1` +
-   Expected: No battleship is put down on the map. Error details shown in the status message. Map remains the same.
-.. Test case: `put n/destroyer r/vertical c/z1` +
-   Expected: No battleship is put down on the map. Error details shown in the status message. Map remains the same.
 
-_{ more test cases ... }_
+// end::shiptest[]
+
+
 
 === Viewing the statistics
 

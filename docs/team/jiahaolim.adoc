@@ -46,11 +46,12 @@ E.g. The user enters `add`. TeethHub will ask them if they meant `patientadd` or
 * *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
 
 * *Other contributions*: 
-** TeamCame up with idea of the Copy feature.
+** Contributions to other members' enhancements: 
+*** Came up with idea of the Copy feature.
 
 ** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
+*** Updated the GUI color scheme (Pull requests https://github.com/CS2103-AY1819S2-W17-2/main/pull/198[#198], https://github.com[#34])
+*** Wrote additional tests for existing features to increase coverage by 6%~7% (Pull requests https://github.com[#36], https://github.com[#38])
 ** Documentation:
 *** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
 ** Community:

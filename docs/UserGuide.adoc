@@ -286,7 +286,7 @@ Writes all entries from the address book to patients1.json. +
 Patient management allows our users to store and modify information of their dental patients.
 This includes their personal particulars, next-of-kin information, dental records, and teeth conditions.
 
-==== patientadd
+==== patient add
 
 Adds a patient to the patients list.
 
@@ -320,7 +320,7 @@ Example:
 
 * `patientadd n/John Choo sex/M ic/S1234567H dob/09-09-1995`
 
-==== patientdelete
+==== patient delete
 
 Deletes the patient specified by `index` from the patients list.
 
@@ -339,7 +339,7 @@ Examples:
 [NOTE]
 If the patient index is invalid, the application will display an error message to the user.
 
-==== patientedit
+==== patient edit
 
 Edits the information of an existing patient.
 
@@ -396,14 +396,13 @@ the current patient list with a copy tag.
 
 ==== goto
 
-The goto command specifies a patient by index.
-It then brings the user to the records mode, where all dental records of the specified patient are listed.
+The goto command specifies a patient by index, and brings the user to the records mode, where all dental records of the specified patient are listed.
 
-Record commands can only be executed in this mode.
+Record-related commands can then be executed in this mode.
 
 Format: `goto 1`
 
-* Specifies the patient of interest to be the patient at index 1.
+* Goes into records mode and displays all dental records of patient 1.
 
 * The given index must be a positive integer (e.g 1, 2 or 3…)
 
@@ -417,14 +416,14 @@ Format: `back` -- Brings the user back to patient mode.
 [NOTE]
 The `back` command will work with parameters, but they will be ignored.
 
-==== recordadd
+==== record add
 
 Adds a new dental record to the patient.
 
 [NOTE]
 `recordadd` requires the application to first be in records mode, via the `goto` command.
 
-Format: `recordadd desc/DETAILS`
+Format: `recordadd pro/PROCEDURE desc/DETAILS`
 
 * The program assigns the name of the dentist stored in the dentist information
 
@@ -442,7 +441,7 @@ Example
 
 * `<<back, back>>` - Go back to the patient list.
 
-==== recorddelete
+==== record delete
 
 Deletes a dental record of a specified patient.
 
@@ -465,7 +464,7 @@ Example:
 
 * `<<back, back>>` - Go back to the patient list.
 
-==== recordedit
+==== record edit
 
 Edits a patient’s dental record.
 
@@ -490,7 +489,7 @@ Example:
 
 * `<<back, back>>` - Go back to the patient list.
 
-==== recordclear
+==== record clear
 
 Clears all of a patient's dental records.
 

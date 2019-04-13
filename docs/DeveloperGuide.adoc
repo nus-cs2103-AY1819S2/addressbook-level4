@@ -1351,4 +1351,3 @@ You can restore the original sample data by deleting the json files in the data 
 .. Open any of the json files in the data folder and delete all its contents.
 .. Launch RestOrRant by double-clicking the jar file. +
    Expected: Shows the GUI with no data.
-   

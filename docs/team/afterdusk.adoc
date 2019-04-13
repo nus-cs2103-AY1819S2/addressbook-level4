@@ -44,9 +44,11 @@ Know-It-All is a flashcard application that helps users store and organise their
 
 include::../UserGuide.adoc[tag=introabout]
 
+include::../UserGuide.adoc[tag=quickstart]
+
 include::../UserGuide.adoc[tag=folderoperations]
 
-include::../UserGuide.adoc[tag=glossarycmdsummary]
+//include::../UserGuide.adoc[tag=glossarycmdsummary]
 
 == Contributions to the Developer Guide
 

@@ -56,7 +56,7 @@ To get Know-It-All up and running:
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 
 ==== Using the application
-In this section, we'll walk you through the user interface of the application and how to create your first flashcard.
+In this section, we'll walk you through the primary user interface of the application and how to create your first flashcard.
 
 [TIP]
 To use a command, type the command in the command box and press kbd:[enter] to execute it. +
@@ -70,14 +70,17 @@ image::AnnotatedStartupUI.png[width="500"]
 +
 image::AnnotatedEnterFolderUI.png[width="500"]
 
-. **`add`**`q/How many chambers are there in a heart? a/Four` : adds a new flashcard to the current folder.
+. `add q/How many chambers are there in a heart? a/Four` : adds a new flashcard to the current folder.
 +
 image::AnnotatedAddCardUI.png[width="500"]
 
-. *`select 4`* : selects the first flashcard in the current folder
+. *`select 4`* : selects the 4th flashcard in the current folder, which is also your newly added card.
++
+image::AnnotatedSelectCardUI.png[width="500"]
+
 . *`exit`* : exits the app. The app window will close.
 
-.  Refer to <<Features>> for details of each command.
+This is the end of the Quick Start tutorial. Please refer to <<Features>> for details of each command, and feel free to reach out to us if you run into any issues!
 // end::quickstart[]
 
 [NOTE]
@@ -98,7 +101,7 @@ Your data is saved in the `data/` folder by default. Like any other software app
 
 //tag::folderoperations[]
 === Folder Operations
-Commands listed in this section affect the application and not a single folder.
+Commands listed in this section are folder-level operations. This includes the operations such as creating and deleting of folders, and excludes commands that affect the contents of individual folders (e.g. adding a card).
 
 [NOTE]
 The commands in this section can only be executed when you are at the home directory, outside of any folder. The commands are also not valid inside a test or report session. You can easily verify that you are at the home directory with the status bar at the bottom, which should display: +

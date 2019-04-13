@@ -563,28 +563,6 @@ Alternative 1 was chosen because there are not much categories a restaurant can 
 for the user to tag the restaurants, they can just use the existing tag system. By having one command to set any category,
 users only need to remember one command, hence it is more intuitive for the user.
 
-===== Filtering restaurants by categories
-
-This section discusses different ways filtering could have been implemented.
-
-* Alternative 1: Key in as many key words as possible, without specifying which keyword is for which category (Current implementation)
-
-|=====================
-| Pros | More user friendly since users do not have to be concerned with which keywords should match which category
-| Cons | Cross category filtering generalises the search results instead of making it more specific
-|=====================
-
-* Alternative 2: For each keyword entered, specify which category it is for
-
-|=====================
-| Pros | Users can find specific restaurants matching each category type
-| Cons | Troublesome for user to type the commands since they now need to indicate which category should match which keyword
-|=====================
-
-Alternative 1 was chosen because it gives users complete freedom to key in whatever keywords they want without worrying about
-which keyword should match which category. The application automatically searches through all the categories to match the keywords
-for the user, which is more user friendly.
-
 // end::categorisation[]
 
 // tag::reviewcommandsdg[]

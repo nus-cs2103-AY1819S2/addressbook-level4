@@ -41,7 +41,7 @@ public class LogicManager implements Logic {
         history = new CommandHistory();
         pdfBookParser = new PdfBookParser();
 
-        // Set pdfBookModified to true whenever the models' address book is modified.
+        // Set pdfBookModified to true whenever the models' pdf book is modified.
         model.getPdfBook().addListener(observable -> pdfBookModified = true);
     }
 
@@ -76,7 +76,7 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ObservableList<Pdf> getFilteredPersonList() {
+    public ObservableList<Pdf> getFilteredPdfList() {
         return model.getFilteredPdfList();
     }
 
@@ -101,12 +101,12 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ReadOnlyProperty<Pdf> selectedPersonProperty() {
+    public ReadOnlyProperty<Pdf> selectedPdfProperty() {
         return model.selectedPdfProperty();
     }
 
     @Override
-    public void setSelectedPerson(Pdf pdf) {
+    public void setSelectedPdf(Pdf pdf) {
         model.setSelectedPdf(pdf);
     }
 

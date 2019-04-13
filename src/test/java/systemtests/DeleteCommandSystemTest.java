@@ -6,7 +6,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.logic.commands.DeleteCommand.MESSAGE_DELETE_PDF_SUCCESS;
 import static seedu.address.testutil.TestUtil.getLastIndex;
 import static seedu.address.testutil.TestUtil.getMidIndex;
-import static seedu.address.testutil.TestUtil.getPerson;
+import static seedu.address.testutil.TestUtil.getPdf;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PDF;
 import static seedu.address.testutil.TypicalPdfs.KEYWORD_MATCHING_MEIER;
 
@@ -116,7 +116,7 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
      * @return the removed pdf
      */
     private Pdf removePerson(Model model, Index index) {
-        Pdf targetPdf = getPerson(model, index);
+        Pdf targetPdf = getPdf(model, index);
         model.deletePdf(targetPdf);
         return targetPdf;
     }

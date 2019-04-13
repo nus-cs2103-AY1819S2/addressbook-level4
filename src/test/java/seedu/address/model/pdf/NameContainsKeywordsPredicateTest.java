@@ -70,7 +70,7 @@ public class NameContainsKeywordsPredicateTest {
         predicate = new NameContainsKeywordsPredicate(Arrays.asList("CS2107"));
         assertFalse(predicate.test(new PdfBuilder().withName("CS2103T Lecture.pdf").build()));
 
-        // Keywords match phone, email and address, but does not match name
+        // Keywords match directory, deadline and size, but does not match name
         predicate = new NameContainsKeywordsPredicate(Arrays.asList("12345", DIR_1_VALID,
                 "Transcript.pdf", DEADLINE_JSON_DONE));
         assertFalse(predicate.test(new PdfBuilder().withName("Resume.pdf").withSize("12345")

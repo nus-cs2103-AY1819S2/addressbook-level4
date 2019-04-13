@@ -204,7 +204,7 @@ public class ModelManager implements Model {
             }
 
             boolean wasSelectedPdfRemoved = change.getRemoved().stream()
-                    .anyMatch(removedPerson -> selectedPdf.getValue().isSamePdf(removedPerson));
+                    .anyMatch(removedPdf -> selectedPdf.getValue().isSamePdf(removedPdf));
             if (wasSelectedPdfRemoved) {
                 // Select the pdf that came before it in the list,
                 // or clear the selection if there is no such pdf.

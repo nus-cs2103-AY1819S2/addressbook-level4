@@ -5,15 +5,15 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTimeoutPreemptively;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PDF;
 import static seedu.address.testutil.TypicalPdfs.getTypicalPdfs;
-import static seedu.address.ui.testutil.GuiTestAssert.assertCardDisplaysPerson;
+import static seedu.address.ui.testutil.GuiTestAssert.assertCardDisplaysPdf;
 import static seedu.address.ui.testutil.GuiTestAssert.assertCardEquals;
 
 import java.util.Collections;
 
 import org.junit.Test;
 
-import guitests.guihandles.PersonCardHandle;
-import guitests.guihandles.PersonListPanelHandle;
+import guitests.guihandles.PdfCardHandle;
+import guitests.guihandles.PdfListPanelHandle;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -29,18 +29,18 @@ public class PdfListPanelTest extends GuiUnitTest {
     private static final long CARD_CREATION_AND_DELETION_TIMEOUT = 2500;
 
     private final SimpleObjectProperty<Pdf> selectedPerson = new SimpleObjectProperty<>();
-    private PersonListPanelHandle personListPanelHandle;
+    private PdfListPanelHandle pdfListPanelHandle;
 
     @Test
     public void display() {
         initUi(TYPICAL_PDFS);
 
         for (int i = 0; i < TYPICAL_PDFS.size(); i++) {
-            personListPanelHandle.navigateToCard(TYPICAL_PDFS.get(i));
+            pdfListPanelHandle.navigateToCard(TYPICAL_PDFS.get(i));
             Pdf expectedPdf = TYPICAL_PDFS.get(i);
-            PersonCardHandle actualCard = personListPanelHandle.getPersonCardHandle(i);
+            PdfCardHandle actualCard = pdfListPanelHandle.getPdfCardHandle(i);
 
-            assertCardDisplaysPerson(expectedPdf, actualCard);
+            assertCardDisplaysPdf(expectedPdf, actualCard);
             assertEquals(Integer.toString(i + 1) + ". ", actualCard.getId());
         }
     }
@@ -52,8 +52,8 @@ public class PdfListPanelTest extends GuiUnitTest {
         guiRobot.interact(() -> selectedPerson.set(secondPdf));
         guiRobot.pauseForHuman();
 
-        PersonCardHandle expectedPerson = personListPanelHandle.getPersonCardHandle(INDEX_SECOND_PDF.getZeroBased());
-        PersonCardHandle selectedPerson = personListPanelHandle.getHandleToSelectedCard();
+        PdfCardHandle expectedPerson = pdfListPanelHandle.getPdfCardHandle(INDEX_SECOND_PDF.getZeroBased());
+        PdfCardHandle selectedPerson = pdfListPanelHandle.getHandleToSelectedCard();
         assertCardEquals(expectedPerson, selectedPerson);
     }
 
@@ -88,7 +88,7 @@ public class PdfListPanelTest extends GuiUnitTest {
     }
 
     /**
-     * Initializes {@code personListPanelHandle} with a {@code PdfListPanel} backed by {@code backingList}.
+     * Initializes {@code pdfListPanelHandle} with a {@code PdfListPanel} backed by {@code backingList}.
      * Also shows the {@code Stage} that displays only {@code PdfListPanel}.
      */
     private void initUi(ObservableList<Pdf> backingList) {
@@ -96,7 +96,7 @@ public class PdfListPanelTest extends GuiUnitTest {
                 new PdfListPanel(backingList, selectedPerson, selectedPerson::set);
         uiPartRule.setUiPart(pdfListPanel);
 
-        personListPanelHandle = new PersonListPanelHandle(getChildNode(pdfListPanel.getRoot(),
-                PersonListPanelHandle.PERSON_LIST_VIEW_ID));
+        pdfListPanelHandle = new PdfListPanelHandle(getChildNode(pdfListPanel.getRoot(),
+                PdfListPanelHandle.PDF_LIST_VIEW_ID));
     }
 }

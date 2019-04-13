@@ -22,5 +22,13 @@ public class Messages {
         + "cannot be assigned. To make changes to a completed request, use edit instead.";
     public static final String MESSAGE_HEALTHWORKER_ASSIGNED_CANNOT_DELETE = "Health Worker is currently assigned to "
             + "one or more request. Please close or reassigned these requests before deleting this Health Worker.";
+    public static final String MESSAGE_HEALTHWORKER_OCCUPIED_CANNOT_ASSIGN = "Healthworker assigned"
+        + " is busy with another request during one of the time intervals. Ensure that requests "
+        + "are at least 2 hours apart.";
+    public static final String MESSAGE_HEALTHWORKER_ALREADY_ASSIGNED = "One of the request(s) "
+        + "selected is already assigned to this healthworker.";
+    public static final String MESSAGE_EDITED_TIME_HEALTHWORKER_UNAVAILABLE = "The healthworker "
+        + "assigned is not available during this specified time. Ensure that requests allocated to "
+        + "a healthworker are at least 2 hours apart.";
 
 }

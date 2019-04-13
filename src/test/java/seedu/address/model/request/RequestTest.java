@@ -81,7 +81,7 @@ public class RequestTest {
 
         // same everything, different health staff -> returns true
         editedAlice = new RequestBuilder(ALICE_REQUEST)
-            .withHealthStaff(BETTY).build();
+            .withHealthWorker(BETTY).build();
         assertTrue(ALICE_REQUEST.isSameRequest(editedAlice));
     }
 
@@ -120,7 +120,7 @@ public class RequestTest {
         assertFalse(ALICE_REQUEST.equals(editedAlice));
 
         // different health staff -> returns false
-        editedAlice = new RequestBuilder(ALICE_REQUEST).withHealthStaff(BETTY).build();
+        editedAlice = new RequestBuilder(ALICE_REQUEST).withHealthWorker(BETTY).build();
         assertFalse(ALICE_REQUEST.equals(editedAlice));
 
         // different treatment conditions -> returns false

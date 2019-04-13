@@ -2,15 +2,9 @@
   "healthWorkers" : [ {
     "name" : "Rohan Tay",
     "phone" : "98765432",
-    "nric" : "S8974421C",
+    "nric" : "S9999999G",
     "organization" : "SGH",
     "skills" : "ORTHOPAEDIC GENERAL_PRACTICE "
-  }, {
-    "name" : "Jing Hui Chun",
-    "phone" : "87654321",
-    "nric" : "S9975823K",
-    "organization" : "NUH",
-    "skills" : "PHYSIOTHERAPY ORTHOPAEDIC "
   }, {
     "name" : "David Dev",
     "phone" : "89047389",
@@ -70,6 +64,6 @@
     "phone" : "93750182",
     "nric" : "S1111222G",
     "organization" : "NUH",
-    "skills" : "PHYSIOTHERAPY ORTHOPAEDIC "
+    "skills" : "ORTHOPAEDIC PHYSIOTHERAPY "
   } ]
 }

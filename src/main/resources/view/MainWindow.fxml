@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 
 <fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-         title="The Food Diary" minWidth="1200" minHeight="750" onCloseRequest="#handleExit">
+         title="The Food Diary" minWidth="900" minHeight="750" onCloseRequest="#handleExit">
   <icons>
     <Image url="@/images/food_diary_32.png" />
   </icons>
@@ -47,14 +47,14 @@
         </StackPane>
 
         <SplitPane id="splitPane" fx:id="splitPane" dividerPositions="0.4" VBox.vgrow="ALWAYS">
-          <VBox fx:id="restaurantList" minWidth="340" prefWidth="340" SplitPane.resizableWithParent="false">
+          <VBox fx:id="restaurantList" minWidth="300" prefWidth="300" SplitPane.resizableWithParent="false">
             <padding>
               <Insets top="10" right="10" bottom="10" left="10" />
             </padding>
             <StackPane fx:id="restaurantListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
           </VBox>
 
-          <VBox fx:id="restaurantSummary" minWidth="275" prefWidth="275" SplitPane.resizableWithParent="false">
+          <VBox fx:id="restaurantSummary" minWidth="325" prefWidth="325" SplitPane.resizableWithParent="false">
             <padding>
               <Insets right="10" />
             </padding>

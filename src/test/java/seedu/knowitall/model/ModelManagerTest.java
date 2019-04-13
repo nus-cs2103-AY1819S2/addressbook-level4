@@ -227,4 +227,15 @@ public class ModelManagerTest {
         assertTrue(modelManager.equals(new ModelManager(Collections.singletonList(cardFolder), userPrefs)));
 
     }
+
+    private void setUpTwoCardsForTestSession() {
+        modelManager.addCard(FIONA);
+        modelManager.addCard(GEORGE);
+        modelManager.startTestSession();
+    }
+
+    private void setUpOneCardForTestSession() {
+        modelManager.addCard(FIONA);
+        modelManager.startTestSession();
+    }
 }

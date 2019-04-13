@@ -17,6 +17,7 @@ import java.util.Optional;
 import java.util.function.Predicate;
 
 import seedu.address.logic.CommandHistory;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.appointment.AppointmentDate;
@@ -24,6 +25,7 @@ import seedu.address.model.appointment.AppointmentDoctorId;
 import seedu.address.model.appointment.AppointmentPatientId;
 import seedu.address.model.appointment.AppointmentStatus;
 import seedu.address.model.appointment.AppointmentTime;
+import seedu.address.model.person.PersonId;
 
 /**
  * Lists all appointments in docX to the user.
@@ -64,23 +66,32 @@ public class ListAppointmentCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model, CommandHistory history) {
+    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
+        requireNonNull(model);
         List<Predicate<Appointment>> predicates = new ArrayList<>();
         StringBuilder result = new StringBuilder(MESSAGE_SUCCESS);
 
-        listAppointmentDescriptor.getPatientId().ifPresent(id -> {
+        if (listAppointmentDescriptor.getPatientId().isPresent()) {
+            PersonId id = listAppointmentDescriptor.getPatientId().get();
+            if (model.getPatientById(id) == null) {
+                throw new CommandException(AddAppointmentCommand.MESSAGE_PATIENT_NOT_FOUND);
+            }
             predicates.add(appointment -> {
                 return appointment.getPatientId().equals(id);
             });
             result.append(MESSAGE_SUCCESS_FILTERED_PATIENT);
-        });
+        }
 
-        listAppointmentDescriptor.getDoctorId().ifPresent(id -> {
+        if (listAppointmentDescriptor.getDoctorId().isPresent()) {
+            PersonId id = listAppointmentDescriptor.getDoctorId().get();
+            if (model.getDoctorById(id) == null) {
+                throw new CommandException(AddAppointmentCommand.MESSAGE_DOCTOR_NOT_NOT_FOUND);
+            }
             predicates.add(appointment -> {
                 return appointment.getDoctorId().equals(id);
             });
             result.append(MESSAGE_SUCCESS_FILTERED_DOCTOR);
-        });
+        }
 
         listAppointmentDescriptor.getDate().ifPresent(date -> {
             predicates.add(appointment -> {
@@ -103,12 +114,8 @@ public class ListAppointmentCommand extends Command {
             result.append(MESSAGE_SUCCESS_FILTERED_STATUS);
         });
 
-        predicates.forEach(e -> System.out.println(e));
-
         // reduce predicate list to a single predicate
         Predicate<Appointment> combinedPredicate = predicates.stream().reduce(x-> true, Predicate::and);
-
-        requireNonNull(model);
         model.updateFilteredAppointmentList((PREDICATE_SHOW_ALL_APPOINTMENTS.and(combinedPredicate)));
 
         return new CommandResult(result.toString(), CommandResult.ShowPanel.APPOINTMENT_PANEL);

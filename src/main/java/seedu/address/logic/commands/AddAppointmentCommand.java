@@ -35,7 +35,7 @@ public class AddAppointmentCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "New appointment added: %1$s";
     public static final String MESSAGE_DUPLICATE_APPOINTMENT = "This appointment already exists in docX";
-    public static final String MESSAGE_PATIENT_NOT_NOT_FOUND =
+    public static final String MESSAGE_PATIENT_NOT_FOUND =
             "Patient with the ID is not found. Please enter a valid patient ID.";
     public static final String MESSAGE_DOCTOR_NOT_NOT_FOUND =
             "Doctor with the ID is not found. Please enter a valid doctor ID.";
@@ -57,7 +57,7 @@ public class AddAppointmentCommand extends Command {
         appointment.setDoctor(model.getDoctorById(appointment.getDoctorId()));
 
         if (appointment.getPatient() == null) {
-            throw new CommandException(MESSAGE_PATIENT_NOT_NOT_FOUND);
+            throw new CommandException(MESSAGE_PATIENT_NOT_FOUND);
         }
         if (appointment.getDoctor() == null) {
             throw new CommandException(MESSAGE_DOCTOR_NOT_NOT_FOUND);

@@ -21,12 +21,12 @@ import seedu.address.model.tag.SkillsTag;
  */
 public class EndorseCommandTest {
 
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-    private CommandHistory commandHistory = new CommandHistory();
     private static final int CLEAR_PROCESS = 1;
     private static final int ENDORSE_PROCESS = 0;
     private static final String INVALID_ENDORSE_NAME = null;
     private static final String VALID_ENDORSE_NAME = "John Smith";
+    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private CommandHistory commandHistory = new CommandHistory();
 
     @Test
     public void execute_endorsePerson_success() {

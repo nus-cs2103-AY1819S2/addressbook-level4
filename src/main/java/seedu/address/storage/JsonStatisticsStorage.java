@@ -20,8 +20,6 @@ public class JsonStatisticsStorage implements StatisticsStorage {
 
     private static final Logger logger = LogsCenter.getLogger(JsonStatisticsStorage.class);
 
-    private static final String DEFAULT_BACKUP_PATH = ".backup.json";
-
     private Path filePath;
 
     public JsonStatisticsStorage(Path filePath) {
@@ -79,11 +77,7 @@ public class JsonStatisticsStorage implements StatisticsStorage {
         String enemyShipsDestroyed = String.valueOf(statisticsData.getEnemyShipsDestroyed());
         String attacksMade = String.valueOf(statisticsData.getAttacksMade());
 
-        //JsonUtil.saveJsonFile(new JsonSerializableAddressBook(addressBook), filePath);
-
         JsonUtil.saveJsonFile(new JsonSerializableStatistics(hitCount, missCount, movesMade,
                                         enemyShipsDestroyed, attacksMade), filePath);
-
-        //System.out.println("Saving to JsonFile in JsonStatisticsStorage");
     }
 }

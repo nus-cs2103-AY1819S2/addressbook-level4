@@ -3,7 +3,6 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import seedu.address.logic.CommandHistory;
-import seedu.address.logic.parser.SortCriteriaContainsKeywordPredicate;
 import seedu.address.model.Model;
 
 /**
@@ -21,16 +20,16 @@ public class MemberSortCommand extends MemberCommand {
 
     public static final String MESSAGE_MEMBER_SORT_SUCCESS = "Members' list successfully sorted!";
 
-    private final SortCriteriaContainsKeywordPredicate predicate;
+    private final String input;
 
-    public MemberSortCommand(SortCriteriaContainsKeywordPredicate predicate) {
-        this.predicate = predicate;
+    public MemberSortCommand(String input) {
+        this.input = input;
     }
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
-        model.sortAddressBook(predicate);
+        model.sortAddressBook(input);
         return new CommandResult(
                 String.format(MESSAGE_MEMBER_SORT_SUCCESS));
     }

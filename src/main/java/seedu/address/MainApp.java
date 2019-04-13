@@ -217,6 +217,9 @@ public class MainApp extends Application {
             storage.saveUserPrefs(model.getUserPrefs());
         } catch (IOException e) {
             logger.severe("Failed to save preferences " + StringUtil.getDetails(e));
+        } finally {
+            // to fix timer task not stopping
+            System.exit(0);
         }
     }
 

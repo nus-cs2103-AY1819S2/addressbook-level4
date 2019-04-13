@@ -66,14 +66,14 @@ Format: `add n/NAME p/PHONE_NUMBER e/EMAIL  d/EDUCATION g/GPA a/ADDRESS deg/DEGR
 * Email should be in the format of `[ANY NUMBER OF ASCII CHARACTERS MORE THAN 0]@[EXTENSION1].[EXTENSION2]`
 * Education can take character from English alphabet and also it can have `space`
 * GPA can take any float value between 0.0 and 4.0
-* DEGREE-LEVEL only takes these inputs: `high school`, `bachelor`, `master`, `PhD`, `associate`
+* DEGREE-LEVEL only takes these inputs: `high school`, `associates` (2-year-degree), `bachelors`, `masters`, `PhD`
 * A candidate can have any number of skill/position tags (including 0)
 * For the addition, input order is important.
 ****
 
 Examples:
 
-* `add n/John Doe p/98765432 e/johnd@example.com d/NUS g/3.4 deg/bachelor a/John street, block 123, #01-01`
+* `add n/John Doe p/98765432 e/johnd@example.com d/NUS g/3.4 deg/bachelors a/John street, block 123, #01-01`
 * `add n/Betsy Crowe skill/statistics e/betsycrowe@example.com d/NTU g/2.4 deg/high school a/Newgate Prison p/1234567 skill/Java position/UIDeveloper`
 // end::add[]
 
@@ -85,13 +85,13 @@ Format: `list`
 === Editing a person : `edit`
 
 Edits an existing candidate in Recruit Me. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [skill/TAG]... [position/TAG]...`
+Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [d/EDUCATION] [g/GPA] [deg/DEGREE-LEVEL] [a/ADDRESS] [skill/TAG]... [position/TAG]...`
 
 ****
 * Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed(i.e adding of tags is not cumulative) except for
+* When editing tags, the existing tags of the person will be removed(i.e adding of tags is not cumulative, both skills and positions will be changed after editing one of them) except for
 existing endorsement tags.
 * You can remove all the person's tags by typing `skill/` or 'position/' without specifying any tags after it.
 ****
@@ -388,7 +388,7 @@ Exits the program. +
 Format: `exit`
 
 // tag::cvview[]
-=== Showing and Updating the `CV` for a person:
+=== Showing and Updating the `CV` for a Person:
 
 *Showing Stage:*
 

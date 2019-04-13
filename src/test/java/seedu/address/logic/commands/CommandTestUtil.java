@@ -228,7 +228,7 @@ public class CommandTestUtil {
         model.deletePerson(firstPerson);
         model.commitAddressBook();
     }
-
+    //@@author minernchan
     /**
      * Updates {@code model}'s filtered list to show only the activity at the given {@code targetIndex} in the
      * {@code model}'s address book.

@@ -6,9 +6,9 @@ import static org.junit.Assert.assertTrue;
 import static seedu.address.testutil.TypicalPdfs.SAMPLE_PDF_1;
 import static seedu.address.ui.testutil.GuiTestAssert.assertCardDisplaysPerson;
 
-import guitests.guihandles.PdfCardHandle;
 import org.junit.Test;
 
+import guitests.guihandles.PdfCardHandle;
 import seedu.address.model.pdf.Pdf;
 import seedu.address.testutil.PdfBuilder;
 
@@ -17,7 +17,6 @@ public class PdfCardTest extends GuiUnitTest {
     @Test
     public void display() {
         // no tags
-        //Pdf pdfWithNoTags = new PdfBuilder().withTags(new String[0]).build();
         Pdf pdfWithNoTags = new PdfBuilder(SAMPLE_PDF_1).build();
         PdfCard pdfCard = new PdfCard(pdfWithNoTags, 1);
         uiPartRule.setUiPart(pdfCard);

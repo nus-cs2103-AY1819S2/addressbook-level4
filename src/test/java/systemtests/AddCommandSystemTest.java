@@ -1,58 +1,19 @@
 package systemtests;
 
-//import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-//import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
-//import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
-//import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
-//import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
-//import static seedu.address.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
-//import static seedu.address.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
-//import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
-//import static seedu.address.logic.commands.CommandTestUtil.INVALID_PHONE_DESC;
-//import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
-//import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
-//import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_BOB;
-//import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
-//import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
-//import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
-//import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
-//import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
-//import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
-//import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-//import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.DIR_1_VALID;
 import static seedu.address.logic.commands.CommandTestUtil.DIR_2_VALID;
 import static seedu.address.logic.commands.CommandTestUtil.FILEPATH_1_VALID;
-import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_LECTURE;
-//import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_CS2103T;
-//import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-//import static seedu.address.testutil.TypicalPdfs.ALICE;
-//import static seedu.address.testutil.TypicalPdfs.AMY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FILE;
 import static seedu.address.testutil.TypicalPdfs.SAMPLE_PDF_1;
-//import static seedu.address.testutil.TypicalPdfs.BOB;
-//import static seedu.address.testutil.TypicalPdfs.CARL;
-//import static seedu.address.testutil.TypicalPdfs.HOON;
-//import static seedu.address.testutil.TypicalPdfs.IDA;
 import static seedu.address.testutil.TypicalPdfs.SAMPLE_PDF_2;
 import static seedu.address.testutil.TypicalPdfs.SAMPLE_PDF_2_DUPLICATE;
-//import static seedu.address.testutil.TypicalPdfs.SAMPLE_PDF_3;
-//import static seedu.address.testutil.TypicalPdfs.KEYWORD_MATCHING_MEIER;
 
 import org.junit.Test;
 
 import seedu.address.logic.commands.AddCommand;
-//import seedu.address.commons.core.Messages;
-//import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.model.Model;
-//import seedu.address.model.pdf.Address;
-//import seedu.address.model.pdf.Email;
-//import seedu.address.model.pdf.Name;
 import seedu.address.model.pdf.Pdf;
-//import seedu.address.model.pdf.Phone;
-//import seedu.address.model.tag.Tag;
 import seedu.address.testutil.PdfBuilder;
 import seedu.address.testutil.PdfUtil;
 

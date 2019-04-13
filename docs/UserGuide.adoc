@@ -161,7 +161,7 @@ previously.
 `redo` (reapplies the patientdelete 1 command) +
 `redo` (reapplies the patientclear command)
 
-
+// tag::viewingInfo[]
 ==== sort
 Sorts the records by an input parameter in an input order.
 
@@ -206,6 +206,8 @@ Example:
 Generates a statistics report based on the specified patient's data.
 
 Format: `stat INDEX`
+
+// end::viewingInfo[]
 
 ==== exit
 Exits the program. You won't be able to exit if copies exist.

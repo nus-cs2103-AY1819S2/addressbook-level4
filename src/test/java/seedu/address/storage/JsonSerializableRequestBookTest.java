@@ -29,7 +29,9 @@ class JsonSerializableRequestBookTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
-    // TODO: Test not working as intended
+    /**
+     * TODO: Test not working as intended
+     */
     void toModelType_typicalRequestsFile_success() throws Exception {
         JsonSerializableRequestBook dataFromFile = JsonUtil.readJsonFile(TYPICAL_REQUESTS_FILE,
              JsonSerializableRequestBook.class).get();

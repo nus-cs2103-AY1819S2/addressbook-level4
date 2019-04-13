@@ -78,10 +78,7 @@ public class BrowserPanel extends UiPart<Region> {
                 selected.setVisible(true);
 
             }
-
-
-
-            //loadPersonPage(newValue);
+            //loadPdfPage(newValue);
         });
 
         //loadDefaultPage();
@@ -123,7 +120,7 @@ public class BrowserPanel extends UiPart<Region> {
 
     }
 
-    /*private void loadPersonPage(Pdf pdf) {
+    /*private void loadPdfPage(Pdf pdf) {
         loadPage(SEARCH_PAGE_URL + pdf.getName().getFullName());
     }
 

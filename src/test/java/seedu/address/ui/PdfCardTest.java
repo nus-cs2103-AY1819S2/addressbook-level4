@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.testutil.TypicalPdfs.SAMPLE_PDF_1;
-import static seedu.address.ui.testutil.GuiTestAssert.assertCardDisplaysPerson;
+import static seedu.address.ui.testutil.GuiTestAssert.assertCardDisplaysPdf;
 
 import org.junit.Test;
 
@@ -69,6 +69,6 @@ public class PdfCardTest extends GuiUnitTest {
         assertEquals(Integer.toString(expectedId) + ". ", pdfCardHandle.getId());
 
         // verify pdf details are displayed correctly
-        assertCardDisplaysPerson(expectedPdf, pdfCardHandle);
+        assertCardDisplaysPdf(expectedPdf, pdfCardHandle);
     }
 }

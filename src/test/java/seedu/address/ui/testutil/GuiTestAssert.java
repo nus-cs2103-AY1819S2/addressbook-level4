@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import guitests.guihandles.PdfCardHandle;
-import guitests.guihandles.PersonListPanelHandle;
+import guitests.guihandles.PdfListPanelHandle;
 import guitests.guihandles.ResultDisplayHandle;
 import seedu.address.model.pdf.Pdf;
 
@@ -29,36 +29,36 @@ public class GuiTestAssert {
     /**
      * Asserts that {@code actualCard} displays the details of {@code expectedPdf}.
      */
-    public static void assertCardDisplaysPerson(Pdf expectedPdf, PdfCardHandle actualCard) {
+    public static void assertCardDisplaysPdf(Pdf expectedPdf, PdfCardHandle actualCard) {
         assertEquals(expectedPdf.getName().getFullName(), actualCard.getName());
         assertEquals(expectedPdf.getTags().stream().map(tag -> tag.tagName).collect(Collectors.toList()),
                 actualCard.getTags());
     }
 
     /**
-     * Asserts that the list in {@code personListPanelHandle} displays the details of {@code pdfs} correctly and
+     * Asserts that the list in {@code pdfListPanelHandle} displays the details of {@code pdfs} correctly and
      * in the correct order.
      */
-    public static void assertListMatching(PersonListPanelHandle personListPanelHandle, Pdf... pdfs) {
+    public static void assertListMatching(PdfListPanelHandle pdfListPanelHandle, Pdf... pdfs) {
         for (int i = 0; i < pdfs.length; i++) {
-            personListPanelHandle.navigateToCard(i);
-            assertCardDisplaysPerson(pdfs[i], personListPanelHandle.getPersonCardHandle(i));
+            pdfListPanelHandle.navigateToCard(i);
+            assertCardDisplaysPdf(pdfs[i], pdfListPanelHandle.getPdfCardHandle(i));
         }
     }
 
     /**
-     * Asserts that the list in {@code personListPanelHandle} displays the details of {@code pdfs} correctly and
+     * Asserts that the list in {@code pdfListPanelHandle} displays the details of {@code pdfs} correctly and
      * in the correct order.
      */
-    public static void assertListMatching(PersonListPanelHandle personListPanelHandle, List<Pdf> pdfs) {
-        assertListMatching(personListPanelHandle, pdfs.toArray(new Pdf[0]));
+    public static void assertListMatching(PdfListPanelHandle pdfListPanelHandle, List<Pdf> pdfs) {
+        assertListMatching(pdfListPanelHandle, pdfs.toArray(new Pdf[0]));
     }
 
     /**
-     * Asserts the size of the list in {@code personListPanelHandle} equals to {@code size}.
+     * Asserts the size of the list in {@code pdfListPanelHandle} equals to {@code size}.
      */
-    public static void assertListSize(PersonListPanelHandle personListPanelHandle, int size) {
-        int numberOfPeople = personListPanelHandle.getListSize();
+    public static void assertListSize(PdfListPanelHandle pdfListPanelHandle, int size) {
+        int numberOfPeople = pdfListPanelHandle.getListSize();
         assertEquals(size, numberOfPeople);
     }
 

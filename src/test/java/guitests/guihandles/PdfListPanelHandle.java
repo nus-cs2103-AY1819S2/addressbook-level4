@@ -11,15 +11,15 @@ import seedu.address.model.pdf.Pdf;
 /**
  * Provides a handle for {@code PdfListPanel} containing the list of {@code PdfCard}.
  */
-public class PersonListPanelHandle extends NodeHandle<ListView<Pdf>> {
-    public static final String PERSON_LIST_VIEW_ID = "#personListView";
+public class PdfListPanelHandle extends NodeHandle<ListView<Pdf>> {
+    public static final String PDF_LIST_VIEW_ID = "#pdfListView";
 
     private static final String CARD_PANE_ID = "#cardPane";
 
-    private Optional<Pdf> lastRememberedSelectedPersonCard;
+    private Optional<Pdf> lastRememberedSelectedPdfCard;
 
-    public PersonListPanelHandle(ListView<Pdf> personListPanelNode) {
-        super(personListPanelNode);
+    public PdfListPanelHandle(ListView<Pdf> pdfListPanelNode) {
+        super(pdfListPanelNode);
     }
 
     /**
@@ -101,15 +101,15 @@ public class PersonListPanelHandle extends NodeHandle<ListView<Pdf>> {
      * Returns the pdf card handle of a pdf associated with the {@code index} in the list.
      * @throws IllegalStateException if the selected card is currently not in the scene graph.
      */
-    public PdfCardHandle getPersonCardHandle(int index) {
+    public PdfCardHandle getPdfCardHandle(int index) {
         return getAllCardNodes().stream()
                 .map(PdfCardHandle::new)
-                .filter(handle -> handle.equals(getPerson(index)))
+                .filter(handle -> handle.equals(getPdf(index)))
                 .findFirst()
                 .orElseThrow(IllegalStateException::new);
     }
 
-    private Pdf getPerson(int index) {
+    private Pdf getPdf(int index) {
         return getRootNode().getItems().get(index);
     }
 
@@ -125,28 +125,28 @@ public class PersonListPanelHandle extends NodeHandle<ListView<Pdf>> {
     /**
      * Remembers the selected {@code PdfCard} in the list.
      */
-    public void rememberSelectedPersonCard() {
+    public void rememberSelectedPdfCard() {
         List<Pdf> selectedItems = getRootNode().getSelectionModel().getSelectedItems();
 
         if (selectedItems.size() == 0) {
-            lastRememberedSelectedPersonCard = Optional.empty();
+            lastRememberedSelectedPdfCard = Optional.empty();
         } else {
-            lastRememberedSelectedPersonCard = Optional.of(selectedItems.get(0));
+            lastRememberedSelectedPdfCard = Optional.of(selectedItems.get(0));
         }
     }
 
     /**
      * Returns true if the selected {@code PdfCard} is different from the value remembered by the most recent
-     * {@code rememberSelectedPersonCard()} call.
+     * {@code rememberSelectedPdfCard()} call.
      */
-    public boolean isSelectedPersonCardChanged() {
+    public boolean isSelectedPdfCardChanged() {
         List<Pdf> selectedItems = getRootNode().getSelectionModel().getSelectedItems();
 
         if (selectedItems.size() == 0) {
-            return lastRememberedSelectedPersonCard.isPresent();
+            return lastRememberedSelectedPdfCard.isPresent();
         } else {
-            return !lastRememberedSelectedPersonCard.isPresent()
-                    || !lastRememberedSelectedPersonCard.get().equals(selectedItems.get(0));
+            return !lastRememberedSelectedPdfCard.isPresent()
+                    || !lastRememberedSelectedPdfCard.get().equals(selectedItems.get(0));
         }
     }
 

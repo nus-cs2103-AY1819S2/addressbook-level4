@@ -32,7 +32,7 @@ public interface Logic {
      */
     ReadOnlyPdfBook getPdfBook();
 
-    /** Returns an unmodifiable view of the filtered list of persons */
+    /** Returns an unmodifiable view of the filtered list of pdfs */
     ObservableList<Pdf> getFilteredPdfList();
 
     /**
@@ -42,7 +42,7 @@ public interface Logic {
     ObservableList<String> getHistory();
 
     /**
-     * Returns the user prefs' address book file value.
+     * Returns the user prefs' pdf book file value.
      */
     Path getPdfBookFilePath();
 

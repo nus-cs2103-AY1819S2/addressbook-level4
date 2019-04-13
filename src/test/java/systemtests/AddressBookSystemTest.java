@@ -139,14 +139,6 @@ public abstract class AddressBookSystemTest {
     }
 
     /**
-     * Selects the person at {@code index} of the displayed list.
-     */
-    protected void selectPerson(Index index) {
-        executeCommand(SelectCommand.COMMAND_WORD + " " + index.getOneBased());
-        assertEquals(index.getZeroBased(), getPersonListPanel().getSelectedCardIndex());
-    }
-
-    /**
      * Deletes all persons in the address book.
      */
     protected void deleteAllPersons() {

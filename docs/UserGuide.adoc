@@ -347,10 +347,10 @@ Format: `filter FILTERLISTNAME [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [g/GENDE
 * Display board always display people base on all undeleted filters.
 ****
 
-==== Delete a filter : `deletefilter` `Coming in v1.4`
+==== Delete a filter : `deleteFilter` 	
 
 Delete a filter showing on the display board and renew the update display people list. +
-Format: `deletefilter FILTERNAME1 FILTERNAME2...`
+Format: `deleteFilter FILTERNAME1 FILTERNAME2...`
 
 ****
 * Multiple filters can be deleted in one command.
@@ -359,11 +359,11 @@ Format: `deletefilter FILTERNAME1 FILTERNAME2...`
 
 ==== Display Analytics : `analytics`
 
-Display the analytics of applicants for desired job list (applicant, kiv, interview, shortlist, all applicants)
-Format : `analytics LISTNAME` or  `analytics`
+Display the analytics of applicants for desired job list (applicant, kiv, interview, shortlist) or all applicants
+Format : `analytics LISTNAME` or  `analytics` (for all applicants)
 
 ****
-* LISTNAME indicate which Job list this command will used.
+* LISTNAME indicate which Job list this command will be used.
 * LISTNAME can are the names of job lists such as "applicant", "kiv", "interview", "shortlist".
 * If no LISTNAME is entered, the analytis of all applicants in the slave system will be shown.
 ****
@@ -388,7 +388,7 @@ Selects the 2nd person and 4th people to the "Interview" list.
 * `selectInterview all`
 Selects all the people on the Person Display List to the "Interview" list.
 
-==== Select people into "To be sent to boss" List: `selectfinal` `Coming in v1.4`
+==== Select people into "To be sent to boss" List: `selectfinal` `Coming in v2.0`
 
 Select people from display board to the Job Hiring Process's "To be sent to boss" List +
 Format : `selectInterview [INDEX] [INDEX-INDEX] [all]`
@@ -424,7 +424,7 @@ Sets the block out dates(unavailable dates) which the interviewer is not availab
 Shows the list of dates which the interviewees in slaveFinder() are assigned.
 
 // end::interviews[]
-==== Generate a final report for the Job Hiring Process : `report` `Coming in v1.4`
+==== Generate a final report for the Job Hiring Process : `report` `Coming in v2.0`
 
 Generate `report.txt` to show 3 categories of applicants for a specific role:
 "Applied", "Interview", "To be sent to boss". in a Job Hiring Process. +

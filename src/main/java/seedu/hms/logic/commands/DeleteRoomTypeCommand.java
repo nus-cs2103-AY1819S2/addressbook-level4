@@ -38,7 +38,7 @@ public class DeleteRoomTypeCommand extends ReservationCommand {
         List<RoomType> lastShownList = model.getRoomTypeList();
 
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_SERVICE_TYPE_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_ROOM_TYPE_DISPLAYED_INDEX);
         }
 
         RoomType roomType = lastShownList.get(targetIndex.getZeroBased());

@@ -46,13 +46,13 @@ public class MovePeopleCommand extends Command {
             + PREFIX_JOBNAME + "High-On-Drugs ";
 
     public static final String MESSAGE_SUCCESS = "All selected people added to job: %1$s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "The dest list already has a person with this NRIC";
     public static final String MESSAGE_NO_DISPLAYED_JOB = "No job is displayed. "
-            + "Please enter a jobName with jn/ prefixed";
-    public static final String MESSAGE_NO_DESTINATION = "Please provide a destination list";
-    public static final String MESSAGE_NO_SOURCE = "Please provide a source list";
-    public static final String MESSAGE_BAD_INDEX = "One of the indexes is bad";
-    public static final String MESSAGE_JOB_NOT_FOUND = "Given job does not exist in database";
+            + "Please enter a jobName with jn/ prefixed\n";
+    public static final String MESSAGE_NO_DESTINATION = "Please provide a destination list\n";
+    public static final String MESSAGE_NO_SOURCE = "Please provide a source list\n";
+    public static final String MESSAGE_NO_INDEX = "Please provide some indexes to move\n";
+    public static final String MESSAGE_BAD_INDEX = "One of the indexes is bad\n";
+    public static final String MESSAGE_JOB_NOT_FOUND = "Given job does not exist in database\n";
 
     private final JobListName to;
     private final JobListName from;
@@ -110,4 +110,13 @@ public class MovePeopleCommand extends Command {
         return new CommandResult(command);
     }
 
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof MovePeopleCommand // instanceof handles nulls
+                && to.equals(((MovePeopleCommand) other).to)
+                && from.equals(((MovePeopleCommand) other).from)
+                && indexes.equals(((MovePeopleCommand) other).indexes)
+                && (toAdd == null || toAdd.equals(((MovePeopleCommand) other).toAdd)));
+    }
 }

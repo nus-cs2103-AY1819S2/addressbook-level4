@@ -31,20 +31,31 @@ public class MovePeopleCommandParser implements Parser<MovePeopleCommand> {
         JobListName from;
         ArrayList<Index> indexes = new ArrayList<>();
         JobName toAdd;
-        try {
-            to = ParserUtil.parseJobListName(args.split("\\b\\s")[0].trim());
-        } catch (Exception e) {
-            throw new ParseException(MovePeopleCommand.MESSAGE_NO_DESTINATION + "\n"
-                    + MovePeopleCommand.MESSAGE_USAGE);
+        String fromString;
+        String indexString;
+
+        to = ParserUtil.parseJobListName(args.split("\\b\\s")[0].trim());
+
+        if (to == JobListName.EMPTY) {
+            throw new ParseException(MovePeopleCommand.MESSAGE_NO_DESTINATION
+                   + String.format(MESSAGE_INVALID_COMMAND_FORMAT, MovePeopleCommand.MESSAGE_USAGE));
         }
+
         try {
-            from = ParserUtil.parseJobListName(args.split("\\b\\s")[1].trim());
+            fromString = args.split("\\b\\s")[1].trim();
         } catch (Exception e) {
             throw new ParseException(MovePeopleCommand.MESSAGE_NO_SOURCE + "\n"
                     + MovePeopleCommand.MESSAGE_USAGE);
         }
 
-        String indexString = args.split("\\b\\s")[2].trim();
+        from = ParserUtil.parseJobListName(fromString);
+
+        try {
+            indexString = args.split("\\b\\s")[2].trim();
+        } catch (Exception e) {
+            throw new ParseException(MovePeopleCommand.MESSAGE_NO_INDEX + "\n"
+                    + MovePeopleCommand.MESSAGE_USAGE);
+        }
         ArrayList<String> numbers = new ArrayList<>(Arrays.asList(indexString.split("[,\\s]+")));
         for (int i = 0; i < numbers.size(); i++) {
             try {

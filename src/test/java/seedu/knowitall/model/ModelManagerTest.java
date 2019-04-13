@@ -147,7 +147,7 @@ public class ModelManagerTest {
         modelManager.addCard(FIONA);
         modelManager.addCard(GEORGE);
         modelManager.sortFilteredCard(COMPARATOR_LEXICOGRAPHIC_CARDS);
-        // Fiona should be sorted after George because higher score
+        // George should be sorted after Fiona by lexicographic order of questions
         Card lastCard = modelManager.getFilteredCards().get(modelManager.getFilteredCards().size() - 1);
         assertEquals(GEORGE, lastCard);
     }

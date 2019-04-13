@@ -6,6 +6,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.testutil.SizeTenMapGrid.initialisePlayerSizeTen;
+import static seedu.address.testutil.SizeTenMapGrid.setUpAllShips;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -15,6 +16,8 @@ import java.util.Stack;
 import org.junit.Before;
 import org.junit.Test;
 
+import seedu.address.logic.battle.BattleManager;
+import seedu.address.model.battleship.Battleship;
 import seedu.address.model.cell.Coordinates;
 import seedu.address.model.cell.Status;
 
@@ -22,6 +25,7 @@ public class EnemyTest {
 
     private Enemy testEnemy;
     private Player testPlayer;
+    private BattleManager batman;
 
     @Before
     public void readyEnemyForTesting() {
@@ -158,12 +162,37 @@ public class EnemyTest {
     /**
      * Expected result:
      *    For every call of enemyShootAt:
-     *    allTargets must +1
-     *    if watchlist empty -> allParityTargets must -1
-     *    else watchlist must -1
-     *    targetHistory must +1
+     *    targetHistory must + 1
+     *    allTargets must - 1
+     *    if watchlist empty -> allParityTargets must - 1
+     *    else watchlist must - 1
      */
     @Test public void test_enemyShootAt() {
+
+        int startingAllPossibleTargetsSize;
+        int startingAllParityTargets;
+        int startingWatchlistSize;
+        int startingTargetHistorySize;
+
+        setUpAllShips(testPlayer);
+        batman = new BattleManager(testPlayer, testEnemy);
+
+        for (int i = 0; i < 5; i++) {
+
+            startingAllPossibleTargetsSize = testEnemy.getAllPossibleTargets().size();
+            startingAllParityTargets = testEnemy.getAllParityTargets().size();
+            startingWatchlistSize = testEnemy.getWatchlist().size();
+            startingTargetHistorySize = testEnemy.getTargetHistory().size();
+
+            testEnemy.enemyShootAt();
+
+            assertEquals(startingTargetHistorySize, (testEnemy.getTargetHistory().size() - 1));
+            assertEquals((startingAllPossibleTargetsSize - 1), testEnemy.getAllPossibleTargets().size());
+
+            assertTrue(((startingAllParityTargets - 1) == testEnemy.getAllParityTargets().size())
+                    ^ ((startingWatchlistSize - 1) == testEnemy.getWatchlist().size()));
+
+        }
 
     }
 

@@ -24,6 +24,9 @@ public class GuiTestAssert {
         assertEquals(expectedCard.getName(), actualCard.getName());
         assertEquals(expectedCard.getPhone(), actualCard.getPhone());
         assertEquals(expectedCard.getTags(), actualCard.getTags());
+        assertEquals(expectedCard.getEducation(), actualCard.getEducation());
+        assertEquals(expectedCard.getGpa(), actualCard.getGpa());
+        assertEquals(expectedCard.getDegree(), actualCard.getDegree());
     }
 
     /**
@@ -31,11 +34,14 @@ public class GuiTestAssert {
      */
     public static void assertCardDisplaysPerson(Person expectedPerson, PersonCardHandle actualCard) {
         assertEquals(expectedPerson.getName().fullName, actualCard.getName());
-        assertEquals(expectedPerson.getPhone().value, actualCard.getPhone());
-        assertEquals(expectedPerson.getEmail().value, actualCard.getEmail());
-        assertEquals(expectedPerson.getAddress().value, actualCard.getAddress());
+        assertEquals("Phone - " + expectedPerson.getPhone().value, actualCard.getPhone());
+        assertEquals("Email - " + expectedPerson.getEmail().value, actualCard.getEmail());
+        assertEquals("Address - " + expectedPerson.getAddress().value, actualCard.getAddress());
         assertEquals(expectedPerson.getTags().stream().map(tag -> tag.tagName).collect(Collectors.toList()),
                 actualCard.getTags());
+        assertEquals("School - " + expectedPerson.getEducation().toString(), actualCard.getEducation());
+        assertEquals("GPA - " + expectedPerson.getGpa().value, actualCard.getGpa());
+        assertEquals("Degree - " + expectedPerson.getDegree().value, actualCard.getDegree());
     }
 
     /**

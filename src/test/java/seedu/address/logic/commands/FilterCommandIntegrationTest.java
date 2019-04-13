@@ -242,7 +242,7 @@ public class FilterCommandIntegrationTest {
         Index indexLastPerson = Index.fromOneBased(model.getFilteredPersonList().size());
         Person lastPerson = model.getFilteredPersonList().get(indexLastPerson.getZeroBased());
         PersonBuilder personInList = new PersonBuilder(lastPerson);
-        editedPerson = personInList.withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB)
+        editedPerson = personInList.withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB).withDegree("Bachelors")
                 .withSkills(VALID_SKILL_JAVA).build();
 
         String[] skillsToBuild = new String[5];

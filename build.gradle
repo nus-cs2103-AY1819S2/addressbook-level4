@@ -157,6 +157,8 @@ test {
         if (runGuiTests) {
             test.exclude 'systemtests/**'
             test.exclude 'seedu/address/ui/**'
+            test.exclude 'seedu/address/ui/PdfListPanelTest**'
+            test.exclude 'seedu/address/ui/PdfCardTest**'
         }
 
         if (!runGuiTests) {

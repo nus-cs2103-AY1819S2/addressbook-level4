@@ -9,22 +9,65 @@ endif::[]
 :warning-caption: :warning:
 :repoURL: https://github.com/CS2103-AY1819S2-W09-4/main/tree/master
 
+Hello! Welcome to my project portfolio page (PPP). This PPP showcases the software development projects I have been
+involved so far. Currently, there is only 1 project listed — QuickDocs.
+
 == PROJECT: QuickDocs
 
 == Introduction to QuickDocs
 
+QuickDocs is an all-in-one software solution for private clinic doctors facing manpower issues. Private clinics are
+usually small in size, with just a single doctor and 1 or 2 assistants. However, there are many tasks that the clinic
+needs to handle, such as patient consultation and management, organising appointments, keeping track of the medicine
+inventory and keeping track of finances. +
+
+Hence, my team and I have decided to morph an existing AddressBook application into a clinic management application,
+QuickDocs, that allows doctors to perform all the tasks above in a single application.
+
 == Summary of contributions
+
+In this section, the summary of my contributions will be listed out. Contributions includes code, documentation, and
+other miscellaneous tasks that helped the team.
+
+I was responsible for developing the calculation and storage of statistical information in QuickDocs, mainly financial
+and consultations information.
 
 === Major Enhancements:
 
+* *Code Contributed:* [https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#=undefined&search=bentwj[Functional code]]
+* *Statistics command*
+** *What it does:* Doctors can view statistics related to consultations and finances within a minimum time span of 1 month.
+** *Why is it necessary:*
+*** By viewing the consultation statistics of the clinic, doctors can view the most common
+symptoms diagnosed and medicine prescribed. This allows them to look out for any possible trends in order to prepare
+for the future. The doctors could stock up on frequently prescribed medicines or prepare his clinic to be able to handle
+the most common illness in the past few months.
+*** By viewing the financial statistics of the clinic, doctors can keep track of the revenue, expenditure, and profit
+of the clinic related to consultations and medicines. In addition, they could also use this as a cross-reference to their
+own accountings if desired.
+** *Highlights:* The statistics generated are done automatically whenever the doctor ends a consultation session on
+QuickDocs or adds purchased medicines to the QuickDocs medicine inventory. There is no need to manually save statistical
+information in QuickDocs. The doctor simply needs to enter the `statistics` command with the date to retrieve the statistics.
+
 === Minor Enhancements:
+
+* *Minor features developed*
+** Developed command for setting the consultation fee in QuickDocs, which is required for accurate financial statistics
+generation.
+* *Miscellaneous tasks*
+** *Team Collaboration:*
+*** Was involved in setting up Travis CI as the integration tool for our project.
+*** Reviewed Pull Requests: [https://github.com/CS2103-AY1819S2-W09-4/main/pull/129[#129]]
+** *Documentation:*
+*** Helped to ensure consistent format for user guide.
+*** Compiled the command summary section for user guide.
 
 == Contributions to the User Guide
 
 |===
 |_The link:{repoURL}/docs/UserGuide.adoc[user guide] is meant to aid users of QuickDocs if they encounter any issues.
-My additions to the user guide, which includes querying the statistics, setting the consultaton fee, the FAQ, and the
-Command Summary. Shown below are the section for querying the statistics and setting the consultation fee._
+My additions to the user guide includes querying the statistics of the clinic, setting the consultaton fee, the FAQ,
+and the Command Summary. Shown below are the section for querying the statistics and setting the consultation fee._
 |===
 
 [[setconsultfee, Set consultation fee]]

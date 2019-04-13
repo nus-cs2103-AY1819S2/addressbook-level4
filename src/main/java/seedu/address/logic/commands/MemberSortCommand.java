@@ -34,5 +34,11 @@ public class MemberSortCommand extends MemberCommand {
                 String.format(MESSAGE_MEMBER_SORT_SUCCESS));
     }
 
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof MemberSortCommand // instanceof handles nulls
+                && input.equals(((MemberSortCommand) other).input)); // state check
+    }
 
 }

@@ -45,8 +45,8 @@ E.g. The user enters `add`. TeethHub will ask them if they meant `patientadd` or
 
 * *Code contributed*: [https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#=undefined&search=jiahaolim[Reposense]]
 
-* *Other contributions*: 
-** Contributions to team members' enhancements: 
+* *Other contributions*:
+** Contributions to team members' enhancements:
 *** Designed the current GUI of TeethHub.
 *** Came up with idea of the Copy feature.
 *** Came up with idea of overlaying images to display teeth for the Teeth feature.

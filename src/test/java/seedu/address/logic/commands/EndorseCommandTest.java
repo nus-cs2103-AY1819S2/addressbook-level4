@@ -51,7 +51,6 @@ public class EndorseCommandTest {
 
         assertCommandSuccess(endorseCommand, model, commandHistory, expectedMessage, expectedModel);
     }
-    
     @Test
     public void execute_clearEndorsePerson_success() throws CommandException {
         Person samplePerson = model.getFilteredPersonList().get(0);

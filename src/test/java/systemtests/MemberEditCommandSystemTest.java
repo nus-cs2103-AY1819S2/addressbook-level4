@@ -58,8 +58,8 @@ public class MemberEditCommandSystemTest extends AddressBookSystemTest {
         Index index = INDEX_FIRST_PERSON;
         String command = " " + MemberEditCommand.COMMAND_WORD + "  " + index.getOneBased() + "  " + NAME_DESC_BOB + "  "
                  + PHONE_DESC_BOB + "  " + MAJOR_DESC_BOB + "  " + EMAIL_DESC_BOB + "  "
-                + ADDRESS_DESC_BOB + " " + GENDER_DESC_BOB + YEAROFSTUDY_DESC_BOB + MAJOR_DESC_BOB + TAG_DESC_SWIMMING +
-                " ";
+                + ADDRESS_DESC_BOB + " " + GENDER_DESC_BOB + YEAROFSTUDY_DESC_BOB + MAJOR_DESC_BOB + TAG_DESC_SWIMMING
+                + " ";
         Person editedPerson = new PersonBuilder(BOB).withMatricNumber("A0123123B")
                 .withTags(VALID_TAG_SWIMMING).build();
         assertCommandSuccess(command, index, editedPerson);
@@ -111,21 +111,6 @@ public class MemberEditCommandSystemTest extends AddressBookSystemTest {
         int invalidIndex = getModel().getAddressBook().getPersonList().size();
         assertCommandFailure(MemberEditCommand.COMMAND_WORD + " " + invalidIndex + NAME_DESC_BOB,
                 Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
-
-        /* --------------------- Performing edit operation while a person card is selected -------------------------- */
-
-        /* Case: selects first card in the person list, edit a person -> edited, card selection remains unchanged but
-         * browser url changes
-         */
-//        showAllPersons();
-//        index = INDEX_FIRST_PERSON;
-//        selectPerson(index);
-//        command = MemberEditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_AMY + PHONE_DESC_AMY
-//                + EMAIL_DESC_AMY + ADDRESS_DESC_AMY + GENDER_DESC_AMY + YEAROFSTUDY_DESC_AMY
-//                + MAJOR_DESC_AMY + TAG_DESC_SWIMMING;
-//        // this can be misleading: card selection actually remains unchanged but the
-//        // browser's url is updated to reflect the new person's name
-//        assertCommandSuccess(command, index, AMY, index);
 
         /* --------------------------------- Performing invalid edit operation -------------------------------------- */
 

@@ -17,7 +17,7 @@ The user interacts with it using a CLI, and it has a GUI created with JavaFX to 
 
 == Summary of contributions
 
-* *Major enhancement*: added *the ability to sort displayed data*
+* Added the ability to sort displayed data
 ** What it does: allows the user to sort either patient or record data according to their desired parameter and sort
 order depending on the mode it's in.
 ** Justification: A user can have large amounts of data stored within the program. This feature improves the product
@@ -27,7 +27,7 @@ user to locate them.
 depending on the mode the program is in. This feature reorders the stored data within the json storage
                 file as well.
 
-* *Major enhancement*: added *the ability to find patients and records through all available parameters*
+* Added the ability to find patients and records through all available parameters
 ** What it does: allows the user to find a desired patient or record based on the specified parameter(s) and keywords.
 The user can additionally choose if they want the search to be case sensitive, and if the search should find data
 containing at least one keyword or if the search should find data that contains all keywords.
@@ -37,7 +37,7 @@ greater refinement over the parameters to find a particular desired patient.
 ** Highlights: This feature automatically switches the type of data (patient or record) that it searches through
 depending on the mode the program is in.
 
-* *Major enhancement*: added *the ability to view a patient's statistics report*
+* Added the ability to view a patient's statistics report
 ** What it does: allows the user to view a detailed report of the select patient containing their latest teeth, all
 linked user information, as well as a breakdown of their associated records.
 ** Justification: A patient might be a frequent visitor to the user's dental practice, hence the user may want a
@@ -45,8 +45,8 @@ detailed report so that they can analyze potential trends.
 ** Highlights: This feature has three different ways of record data visualization; a simple table; a bar chart, and a
  pie chart.
 
-* *Minor enhancement*: added a Next Of Kin class as an attribute for a patient.
-* *Minor enhancement*: added a Procedure class as an attribute for a record.
+* Added a Next Of Kin class as an attribute for a patient.
+* Added a Procedure class as an attribute for a record.
 
 * *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
 
@@ -80,7 +80,8 @@ repo
 
 
 |===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|_The text below is the documentation done for the user guide that I feel highlights my ability to write end-user
+friendly documentation through the showcase of a few important sections._
 |===
 
 include::../UserGuide.adoc[tag=viewingInfo]
@@ -89,11 +90,13 @@ include::../UserGuide.adoc[tag=viewingInfo]
 == Contributions to the Developer Guide
 
 |===
-|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|_The text below is the documentation done for the developer guide that I feel highlights my ability to write
+technical documentation through the showcase of the more important
+implementations I did during the creation of the project._
 |===
 
 include::../DeveloperGuide.adoc[tag=findimplement]
-include::../DeveloperGuide.adoc[tag=storyusers]
+include::../DeveloperGuide.adoc[tag=statimplement]
 
 ---
 

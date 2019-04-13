@@ -13,6 +13,7 @@ public class Nric {
 
     private String nric;
 
+    // empty constructor for json reconstruction
     public Nric() {
     }
 

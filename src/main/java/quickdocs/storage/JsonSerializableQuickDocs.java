@@ -27,7 +27,9 @@ import quickdocs.model.reminder.Reminder;
 import quickdocs.model.reminder.ReminderManager;
 
 /**
- * QuickDocs serializable to json format
+ * This class allows QuickDocs to be saved into the external storage file in the json format.
+ * Using json data from the external storage file, the QuickDocs object can be reconstructed
+ * for use when QuickDocs is started
  */
 public class JsonSerializableQuickDocs {
 
@@ -56,7 +58,7 @@ public class JsonSerializableQuickDocs {
                                      @JsonProperty("medicineList") List<JsonAdaptedMedicine> medicines,
                                      @JsonProperty("rootDirectory") JsonAdaptedDirectory rootDirectory,
                                      @JsonProperty("monthStatisticsList")
-                                                 List<JsonAdaptedMonthStatistics> monthStatisticsList,
+                                             List<JsonAdaptedMonthStatistics> monthStatisticsList,
                                      @JsonProperty("consultationFee") BigDecimal consultationFee) {
         this.patientList.addAll(patients);
         this.consultationList.addAll(consultations);
@@ -69,7 +71,11 @@ public class JsonSerializableQuickDocs {
     }
 
     /**
-     * Converts a given {@code QuickDocs} into this class for Jackson use.
+     * Converts a given {@code QuickDocs} into a JsonSerializableQuickDocs to save into
+     * an external Json file using Jackson
+     *
+     * @param source The QuickDocs model object in memory that is currently holding the data from
+     *               all five modules
      */
     public JsonSerializableQuickDocs(QuickDocs source) {
         patientList.addAll(source.getPatientManager().getPatientList()
@@ -89,7 +95,7 @@ public class JsonSerializableQuickDocs {
     }
 
     /**
-     * Converts this address book into the model's {@code QuickDocs} object.
+     * Converts the JsonSerializableQuickDocs into the model's {@code QuickDocs} object.
      *
      * @throws IllegalValueException    if there were any data constraints violated.
      * @throws IllegalArgumentException if there were any data constraints violated for any class fields
@@ -170,7 +176,8 @@ public class JsonSerializableQuickDocs {
 
     /**
      * Convert a {@link JsonAdaptedDirectory} to a Directory using information from medicineHashMap
-     * @param map A hashmap of medicine name mapping to medicine
+     *
+     * @param map           A hashmap of medicine name mapping to medicine
      * @param jsonDirectory the JsonAdaptedDirectory to convert from
      * @return The converted directory
      * @throws IllegalValueException if a directory contains medicine not from map

@@ -11,6 +11,7 @@ public class Name {
 
     private String name;
 
+    // empty constructor for json reconstruction
     public Name() {
     }
 

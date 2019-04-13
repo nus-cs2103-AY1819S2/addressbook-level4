@@ -137,11 +137,11 @@ public class TypicalPersons {
 
     // Manually added - Person's details found in {@code CommandTestUtil}
     public static final Person AMY = new PersonBuilder().withName(VALID_NAME_AMY).withPhone(VALID_PHONE_AMY)
-            .withEmail(VALID_EMAIL_AMY).withEducation(VALID_EDUCATION_AMY).withGpa(VALID_GPA_AMY).withDegree(VALID_DEGREE_AMY)
-            .withAddress(VALID_ADDRESS_AMY).build();
+            .withEmail(VALID_EMAIL_AMY).withEducation(VALID_EDUCATION_AMY).withGpa(VALID_GPA_AMY)
+            .withDegree(VALID_DEGREE_AMY).withAddress(VALID_ADDRESS_AMY).build();
     public static final Person BOB = new PersonBuilder().withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB)
-            .withEmail(VALID_EMAIL_BOB).withEducation(VALID_EDUCATION_BOB).withGpa(VALID_GPA_BOB).withDegree(VALID_DEGREE_BOB)
-            .withAddress(VALID_ADDRESS_BOB).build();
+            .withEmail(VALID_EMAIL_BOB).withEducation(VALID_EDUCATION_BOB).withGpa(VALID_GPA_BOB)
+            .withDegree(VALID_DEGREE_BOB).withAddress(VALID_ADDRESS_BOB).build();
 
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
 

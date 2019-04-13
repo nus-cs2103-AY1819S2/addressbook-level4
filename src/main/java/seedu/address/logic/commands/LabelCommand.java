@@ -17,10 +17,8 @@ public class LabelCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Prints the Medicine name and description in PDF format using its index.\n"
-            + "Parameters: INDEX + f/(filename)\n"
-            + "Example: " + COMMAND_WORD + " 1" + "f/printThisFile.\n"
-            + "INDEX must be a positive integer while the proper prefix must be used before the filename."
-            + "Filename is optional";
+            + "Parameters: INDEX [f/(filename)]\n"
+            + "Example: " + COMMAND_WORD + " 1" + "f/printThisFile.\n";
 
     public static final String MESSAGE_LABEL_MEDICINE_SUCCESS = "Successfully printed the medicine at index: %1$s"
             + " in PDF format";

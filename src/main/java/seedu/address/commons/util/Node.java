@@ -76,8 +76,10 @@ public class Node {
      * Method to check for nodes matching
      */
     public void checkChildren(ArrayList<String> modules, ArrayList<String> missingModules) {
-
-        if (isHead() || "Requires:".equals(getValue())) {
+        if (childList.isEmpty()) {
+            return;
+        }
+        if (isHead() || " ".equals(nodeValue)) {
             getChildList().get(HEAD_CHILD_INDEX).checkChildren(modules, missingModules);
         } else if ("OR".equals(nodeValue)) {
             for (int i = 0; i < getChildList().size(); i++) {
@@ -103,7 +105,6 @@ public class Node {
                 if (!currNode.isModule() && (currNode.getValue().equals("OR") || currNode.getValue().equals("AND"))) {
                     currNode.checkChildren(modules, missingModules);
                 } else {
-
                     for (int j = 0; j < modules.size(); j++) {
                         if (modules.get(j).equals(currNode.getValue())) {
                             break;
@@ -114,6 +115,13 @@ public class Node {
                     }
                 }
             }
+        } else if (isModule) {
+            for (String code : modules) {
+                if (code.equals(nodeValue)) {
+                    return;
+                }
+            }
+            missingModules.add(nodeValue);
         }
     }
 

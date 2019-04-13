@@ -583,7 +583,7 @@ image::RecModuleComparatorSequenceDiagram.png[width="800"]
 ** Cons: Difficult to implement if several parameters for sorting is allowed; input method for the custom order is problematic
 
 ==== Possible Improvements
-. Allow the user to display a module's information (from displaymod command) using its index in the recommendation list
+. Allow the user to display a module's information (from `displaymod` command) using its index in the recommendation list
 . Allow the user to add a module to GradTrak using its index in the recommendation list
 // end::rec[]
 

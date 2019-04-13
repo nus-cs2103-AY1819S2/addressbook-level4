@@ -124,17 +124,4 @@ public class UniqueRecordList implements Iterable<Record> {
         return internalList.hashCode();
     }
 
-    /**
-     * Returns true if {@code people} contains only unique people.
-     */
-    private boolean recordsAreUnique(List<Record> people) {
-        for (int i = 0; i < people.size() - 1; i++) {
-            for (int j = i + 1; j < people.size(); j++) {
-                if (people.get(i).isSameRecord(people.get(j))) {
-                    return false;
-                }
-            }
-        }
-        return true;
-    }
 }

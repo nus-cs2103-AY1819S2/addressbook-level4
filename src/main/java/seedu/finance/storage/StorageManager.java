@@ -79,4 +79,8 @@ public class StorageManager implements Storage {
         financeTrackerStorage = newStorage;
     }
 
+    public static FinanceTrackerStorage getFinanceTrackerStorage() {
+        return financeTrackerStorage;
+    }
+
 }

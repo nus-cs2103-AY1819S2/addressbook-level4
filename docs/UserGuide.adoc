@@ -58,14 +58,14 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window and show
 .  Refer to <<Features>> for details of each command.
 // end::quickstart[]
 
-// tag::userinterface[]
+
 == Graphical User Interface Introduction
 This section will explain to you the Graphical User Interface (GUI) of _In-Credit-Ble_ Finance Tracker.
 
 .Graphical User Interface (When starting up)
-image::GUI_Diagram.png[width="300"]
+image::GUI_Diagram.png[width="600"]
 .Graphical User Interface (Upon using `summary` command)
-image::GUI_Diagram2.png[width="300"]
+image::GUI_Diagram2.png[width="600"]
 
 There are a total of 7 elements in the Graphical User Interface in _In-Credit-Ble_ Finance Tracker
 as denoted by the different coloured boxes in Figures 2 and 3.
@@ -81,6 +81,7 @@ The menu bar can be used to:
 * Open the Help page to view commands available under `Help` tab
 * Change the colour theme of the application under `Theme` tab
 
+// tag::userinterface[]
 === Records List Panel
 .Record List Panel: Shows a list of your expense records
 image::Record_List_Panel.png[width="200"]
@@ -97,6 +98,7 @@ use the command `list`
 Each record is tagged with an *index number* before the record name.
 The index is used in command such as `delete`, `edit` and `select`
 
+// end::userinterface[]
 === Budget Panel
 .Budget Panel: Shows your total spending against your total budget so far
 image::BudgetPanel.png[width="250"]
@@ -143,7 +145,7 @@ the amount you exceeded the budget set for yourself.
 
 === Summary Panel
 .Summary Panel: Shows you a pie chart illustration of your current expenses
-image::summarypanel.png[width="300"]
+image::summarypanel.png[width="400"]
 
 This element is denoted by the red box in Figure 3.
 
@@ -154,7 +156,7 @@ To change back to the browser panel, simply type in the `summary` command once a
 
 === Command Box and Result Display
 .Command Box and Result Display
-image::commandbox_resultdisplay.png[width="300"]
+image::commandbox_resultdisplay.png[width="450"]
 
 These elements are denoted by the black and blue boxes in Figures 2 and 3 respectively.
 
@@ -172,13 +174,12 @@ This element is denoted by the purple box in Figures 2 and 3.
 The left side of the status footer bar shows the time and date of the last update to the finance tracker.
 The right side of the status footer bar shows where the storage file for the updated data is saved to.
 
-// end::userinterface[]
-
 [[Features]]
 == Features
 This section describes the various features _In-Credit-Ble_ has to offer. Examples are also included to give you
 step-by-step instructions on how to use the different commands.
 
+[IMPORTANT]
 ====
 *Command Format*
 
@@ -187,6 +188,9 @@ step-by-step instructions on how to use the different commands.
 * Items in square brackets are optional e.g `search KEYWORD [MORE_KEYWORDS]` can be used as `search clothes` or as
 `search cake lunch`.
 * Items with `…`​ after them can be used multiple times including zero times.
+* If you provide more than the number of specified parameters
+(e.g. `set $/500 $/400` or `spend n/Chicken n/Duck $/10 $/20 c/Food c/Lunch`), the latest parameter is taken
+(e.g. Budget is set to $400, Record added is Name: Duck, Amount: $20, Category: Lunch)
 ====
 
 === Budget Management
@@ -466,7 +470,7 @@ spent on all the results of the search will also be shown.
 
 * `search -cat Transport`
 * `search -name cake bread`
-* `search -date 10/10/2001
+* `search -date 10/10/2001`
 ****
 
 [NOTE]
@@ -485,13 +489,14 @@ You can choose to sort the list of entries by name, amount, date or category.
 
 [NOTE]
 ====
-* `FLAG` here refers to either `-name`, `-amount, `-date` or `-cat`.
+* `FLAG` here refers to either `-name`, `-amount`, `-date` or `-cat`.
 * Only one flag should be provided.
 
 * `[ORDER]` refers to either `-asc` or `-desc`.
 ** `-asc` for ascending order.
 ** `-desc` for descending order.
 * `[ORDER]` is optional. If not supplied, default ordering is implied.
+* Order of parameters supplied matters.
 ====
 
 ****
@@ -506,14 +511,22 @@ Sorts the list of records by date with the latest at the top (descending order)
 * `sort -cat`: +
 Sorts the list of records by category in lexicographical order (ascending order)
 
+.Examples of `sort` command (default ordering)
+image::sortExamples.png[width ="900"]
+
 *More examples*:
 
 * `sort -name -desc`: +
 Sorts list of records by name in reverse lexicographical order.
+
+.Name sorted in descending order
+image::sortNameDescExample.png[width ="300"]
+
+
 ****
 
 [TIP]
-To sort the list conveniently in the reverse order, use the `reverse` command! +
+To sort any list conveniently in the reverse order, use the `reverse` command! +
 `sort -name` +
 `reverse` +
 List will be sorted by name in reverse lexicographical order.
@@ -529,6 +542,10 @@ You can also reverse the order of the list of entries in the records.
 *Alias*: `rev`
 
 *Format*: reverse
+
+.Name sorted in descending order
+image::reverseExample.png[width ="600"]
+
 // end::reverse[]
 
 // tag::summary[]
@@ -695,6 +712,8 @@ You can change the theme of the application with pre-set colour themes specified
 * `theme pink`
 ****
 
+image::themes.gif[]
+
 [NOTE]
 ====
 * Valid themes include: `Dark`, `Light`, `Blue`, `Pink`
@@ -802,16 +821,16 @@ _In-Credit-Ble_  aims to support multi-currency transactions in `v2.0`.
 |=======================================================================
 | Command | Command Format | Alias | Example
 | List all entries | `list` | `l`, `ls` | -
-| Locate entry based on name, category or date |`search -FLAG* KEYWORD [MORE_KEYWORDS]` | `find` | `search -cat Food`
-| Sort the entries based on name, category, date, amount | `sort -FLAG* [ORDER]**` | - | `sort -name`
+| Locate entry based on name, category or date |`search FLAG* KEYWORD [MORE_KEYWORDS]` | `find` | `search -cat Food`
+| Sort the entries based on name, category, date, amount | `sort FLAG* [ORDER]**` | - | `sort -name`
 | Reverse all entries | `reverse` | `rev` | -
 | Show summary of records | `summary`[#/] [p/] | `overview` | `summary #/5 p/d` +
 Shows summary for past 5 days
 
 |=======================================================================
-*Valid flags: `name`-> Name; `cat` -> Category; `date` -> Date; `amount` -> Amount;
+*Valid flags: `-name`-> Name; `-cat` -> Category; `-date` -> Date; `-amount` (only for `sort` command) -> Amount;
 
-**Valid orders: `asc` -> ascending order; `desc` -> descending order
+**Valid orders: `-asc` -> ascending order; `-desc` -> descending order
 
 === Miscellaneous
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]

@@ -186,4 +186,18 @@ public class UniqueRecordListTest {
         thrown.expect(UnsupportedOperationException.class);
         uniqueRecordList.asUnmodifiableObservableList().remove(0);
     }
+
+    @Test
+    public void sameUniqueRecordList() {
+        UniqueRecordList uniqueRecordListOne = new UniqueRecordList();
+        UniqueRecordList uniqueRecordListTwo = new UniqueRecordList();
+
+        uniqueRecordListOne.add(APPLE);
+        assertFalse(uniqueRecordListOne.hashCode() == uniqueRecordListTwo.hashCode());
+
+        uniqueRecordListTwo.add(APPLE);
+        assertTrue(uniqueRecordListOne.hashCode() == uniqueRecordListTwo.hashCode());
+
+        assertTrue(uniqueRecordListOne.iterator().next() == uniqueRecordListTwo.iterator().next());
+    }
 }

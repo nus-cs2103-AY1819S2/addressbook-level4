@@ -24,7 +24,6 @@ import seedu.finance.logic.commands.EditCommand;
 import seedu.finance.logic.commands.ExitCommand;
 import seedu.finance.logic.commands.HelpCommand;
 import seedu.finance.logic.commands.HistoryCommand;
-import seedu.finance.logic.commands.IncreaseCommand;
 import seedu.finance.logic.commands.ListCommand;
 import seedu.finance.logic.commands.RedoCommand;
 import seedu.finance.logic.commands.ReverseCommand;
@@ -167,12 +166,6 @@ public class FinanceTrackerParserTest {
     public void parseCommand_historyAlias2() throws Exception {
         assertTrue(parser.parseCommand(HistoryCommand.COMMAND_ALIAS2) instanceof HistoryCommand);
         assertTrue(parser.parseCommand(HistoryCommand.COMMAND_ALIAS2 + " 3") instanceof HistoryCommand);
-    }
-
-    @Test
-    public void parseCommand_increase() throws Exception {
-        assertTrue((parser.parseCommand(IncreaseCommand.COMMAND_WORD + " " + PREFIX_AMOUNT + "123")
-                instanceof IncreaseCommand));
     }
 
     @Test

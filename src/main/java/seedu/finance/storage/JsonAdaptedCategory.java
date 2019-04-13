@@ -14,6 +14,7 @@ class JsonAdaptedCategory {
     private final String categoryName;
 
     /**
+     *
      * Constructs a {@code JsonAdaptedCategory} with the given {@code categoryName}.
      */
     @JsonCreator

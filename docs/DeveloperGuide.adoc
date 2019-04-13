@@ -246,6 +246,8 @@ The `Storage` component,
 
 Classes used by multiple components are in the `seedu.financetracker.commons` package.
 // end::design[]
+
+
 == Implementation
 
 This section describes in detail the implementation of certain features in _In-Credit-Ble_.
@@ -314,16 +316,28 @@ The sort mechanism allows users to view their expense records in a different way
 
 ==== Current Implementation
 
-The sort command uses comparators that implement java.util.Comparator interface to provide the comparison functions.
+The sort command uses comparators that implement `java.util.Comparator` interface to provide the comparison functions.
 
-.Sort feature
+.Sort commands (default ordering)
 |===
 |Command |Comparator used |Effect
 
-|`sort -name` |`RecordNameComparator` |Lexicographical order
-|`sort -amount` |`RecordAmountComparator` |Descending order
-|`sort -date` |`RecordDateComparator` |Most recent to least recent
-|`sort -cat` |`RecordCategoryComparator` |Lexicographical order
+|`sort -name`, `sort -name -asc`|`RecordNameComparator` |Lexicographical order
+|`sort -amount`, `sort -amount -desc` |`RecordAmountComparator` |Descending order
+|`sort -date`, `sort -date -desc`|`RecordDateComparator` |Reverse chronological order
+|`sort -cat`, `sort -cat -asc` |`RecordCategoryComparator` |Lexicographical order
+
+|===
+
+
+.Sort commands (Specified order opposite to that of default)
+|===
+|Command |Comparator used |Effect
+
+|`sort -name -desc` |`RecordNameComparator#reversed()` |Reverse lexicographical order
+|`sort -amount - asc` |`RecordAmountComparator#reversed()` |Ascending order
+|`sort -date - asc` |`RecordDateComparator#reversed()` |Chronological order
+|`sort -cat -desc` |`RecordCategoryComparator#reversed()` |Reverse lexicographical order
 
 |===
 
@@ -349,7 +363,34 @@ image::SortSequenceDiagram2.png[width="800"]
 
 ==== Design Considerations
 
-*_Design considerations will be added next time._*
+===== Aspect: How sort is executed
+
+* **Alternative 1 (current choice):** Use the `Comparator` interface.
+
+** Pros 1: Sorting can be done based on different attributes of the records (name, amount, date, category).
+** Pros 2: Allows an alternative ordering to be applied, does not have to be the natural ordering. Therefore, dates can be sorted in reverse chronological order, and amount in descending order.
+** Cons: A new class that implements the interface `Comparator` needs to be created.
+
+* **Alternative 2:** Use the `Comparable` interface.
+
+** Pros: Type-safe with compiler as `Comparable#compareTo()` only accepts object of type `T`, instead of `java.lang.Object`.
+** Cons 1: There can only be one form or way of sorting the records.
+** Cons 2: Uses the natural order for sorting. Therefore, dates will be sorted in chronological order, amount in ascending order, and names and categories in lexicographical order.
+
+
+===== Aspect: How sort is executed when `[ORDER]` argument is supplied and specified order is opposite to that of default. (E.g. `sort -name -desc`)
+
+* **Alternative 1 (current choice):** A new comparator that imposes the reverse ordering of one of the four defined comparator classes is created. +
+(*E.g.* To sort the list by name in reverse lexicographical order, a new comparator, `RecordNameComparator#reversed()` is created.)
+
+** Pros: Easy to implement.
+** Cons: List needs to be sorted again using the new comparator. Time will be needed to compare the records in the list.
+
+* **Alternative 2:** Reverse the list after sorting it using one of the four defined comparator classes.
+(*E.g.* Sort list using `RecordNameComparator`. Then use the `reverse` command to reverse the list.)
+
+** Pros: We can reuse what is already in the codebase (`reverse` command).
+** Cons: Harder to implement, need to execute two commands internally when one command is entered in the `CommandBox`.
 
 // end::sort[]
 
@@ -376,11 +417,6 @@ This is how the reverse command is implemented:
 
 .Sequence Diagram of Reverse Command
 image::ReverseSequenceDiagram.png[width="800"]
-
-
-==== Design Considerations
-
-*_Design considerations will be added next time._*
 
 // end::reverse[]
 
@@ -477,12 +513,18 @@ image::UndoRedoActivityDiagram.png[width="650"]
 
 // tag::budgetmanagement[]
 === Budget Management
-
+// tag::budgetclassdiagram[]
 This group of features allows the user to set a total budget and
 allocate a portion of the total budget to different categories.
 The current spending will increase when records are added.
 
 This implementation is under `Logic`, `Model`, `Storage` and `UI` Component.
+
+The classes associated with Budget is shown in the class diagram below:
+
+.Class Diagram for Budget
+image::budget_classdiagram.png[]
+// end::budgetclassdiagram[]
 // tag::budget[]
 ==== Setting a Budget
 This feature allows the particular user to set a budget for the FinanceTracker. The user
@@ -589,13 +631,7 @@ budgets
 . If there are allocated category budgets, `Model#getCatBudget()` is called to obtain the set of `CategoryBudget`
 . An `Iterator` is then used to iterate through the set of `CategoryBudgets` and the `currentSpending` is printed with
 the `totalBudget` allocated to the `CategoryBudget`.
-
-
 // end::show[]
-
-==== To be implemented
-* Implement `reset` command to reset current budget expenditure and total budget.
-
 //end::budgetmanagement[]
 
 
@@ -637,6 +673,21 @@ image::asterPlot.png[width="400"]
 
 Initially, we were considering using a pie chart instead. However, using an aster plot graph will be more effective in showing the user what is the remaining budget amount for each category.
 //end::summary[]
+
+// tag::theme[]
+=== Theme
+The `theme` feature allows users to change the colour theme of the application to provide
+them with some customisation.
+
+==== Implementation
+. User enters command `theme COLOUR` in Command Box, where `COLOUR` is either `dark`, `light`, `blue` or `pink`
+. `ThemeCommand#formatTheme()` is executed to change the user input of COLOUR to a word that has
+first character in uppercase and the rest of the characters in lowercase.
+. `ThemeCommand#isValidTheme()` is then used to check if the COLOUR is one of the four specified above.
+. `ThemeCommand` then returns a `CommandResult` that sets the boolean field `changeTheme` to true
+. `MainWindow#handleSwitchTheme()` is then executed to call the appropriate method to switch the theme of the application
+to the user-specified input
+// end::theme[]
 
 === Logging
 
@@ -686,6 +737,7 @@ Here are the steps to convert the project documentation files to PDF format.
 .  Set the destination to `Save as PDF`, then click `Save` to save a copy of the file in PDF format. For best results, use the settings indicated in the screenshot below.
 
 .Saving documentation as PDF files in Chrome
+.Saving project documentation files to PDF format
 image::chrome_save_as_pdf.png[width="300"]
 
 [[Docs-SiteWideDocSettings]]
@@ -1190,27 +1242,74 @@ These instructions only provide a starting point for testers to work on; testers
 
 . Initial launch
 
-.. Download the jar file and copy into an empty folder
-.. Double-click the jar file +
-   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+.. Download the JAR file and copy into an empty folder
+.. Double-click the JAR file +
+   Expected: Shows the GUI with a set of sample records. The window size may not be optimum.
 
 . Saving window preferences
 
 .. Resize the window to an optimum size. Move the window to a different location. Close the window.
-.. Re-launch the application by double-clicking the jar file. +
+.. Re-launch the application by double-clicking the JAR file. +
    Expected: The most recent window size and location is retained.
 
+=== Adding an expense
 
-=== Deleting a record
+. Adding an entry no matter what is listed.
 
-. Deleting a record while all records are listed
+.. Test case: `spend n/Chicken Rice $/5.50 c/Food d/1/4/2019 r/Tasty` +
+   Expected: Entry is added to the back of the list. Timestamp in the status bar is updated.
+.. Test case: `spend n/Tshirt $/10.00 d/31/03/2019 c/Food c/Clothes` +
+   Expected: Entry is added to the back of the list. Category recorded down is Clothes. Timestamp in the status bar is updated.
+.. Test case: `spend n/Chicken Rice $/5.50 c/Food` +
+   Expected: Entry is added to the back of the list. Since date is not supplied, today’s date will be recorded. Timestamp in the status bar is updated.
+.. Test case: `add n/Chicken Rice $/5.50 c/Food` +
+   Expected: Entry is added to the back of the list. Since date is not supplied, today’s date will be recorded. Timestamp in the status bar is updated.
+.. Test case: `spend n/Chicken Rice $/5.50` +
+   Expected: No entry is added. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect spend commands to try: `spend n/Chicken Rice c/Food`, `spend $.5.50 c/Food`, `spend n/Chicken Rice $/5.5 c/Food`, `spend n/Chicken Rice $/5.50 c/Food d/12/12/2045` +
+   Expected: Similar to previous
 
-.. Prerequisites: List all records using the `list` command. Multiple records in the list.
+
+=== Deleting an entry
+
+. Deleting an entry while all entries are listed
+
+.. Prerequisites: List all entries using the `list` command. Multiple entries in the list.
 .. Test case: `delete 1` +
-   Expected: First record is deleted from the list. Details of the deleted record shown in the status message. Timestamp in the status bar is updated.
+   Expected: First entry is deleted from the list. Details of the deleted entry shown in the status message. Timestamp in the status bar is updated.
 .. Test case: `delete 0` +
-   Expected: No record is deleted. Error details shown in the status message. Status bar remains the same.
+   Expected: No entry is deleted. Error details shown in the status message. Status bar remains the same.
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size), `delete three` +
+   Expected: Similar to previous.
+
+=== Sorting the entries
+
+. Sort entries by name
+
+.. Prerequisites: List must have some entries in it.
+.. Test case: `sort -name` +
+   Expected: List is sorted by name in lexicographical order. Timestamp in the status bar is updated.
+.. Test case: `sort -name -desc` +
+   Expected: List is sorted by name in reverse lexicographical order. Timestamp in the status bar is updated.
+.. Test case: `sort -name -asc` +
+   Expected: List is sorted by name in lexicographical order. Timestamp in the status bar is updated.
+.. Test case: `sort -asc -name` +
+   Expected: List will not be sorted. Error message is shown. Status bar remains the same.
+.. Other incorrect sort commands to try: `sort -desc -name`, `sort -name -inc`, `sort -name -asc a-z` +
+   Expected: Similar to previous.
+
+. Sort entries by amount
+
+.. Prerequisites: List must have some entries in it.
+.. Test case: `sort -amount` +
+   Expected: List is sorted by amount in descending order. Timestamp in the status bar is updated.
+.. Test case: `sort -amount -asc` +
+   Expected: List is sorted by amount in ascending order. Timestamp in the status bar is updated.
+.. Test case: `sort -amount -desc` +
+   Expected: List is sorted by amount in descending order. Timestamp in the status bar is updated.
+.. Test case: `sort -asc -amount` +
+   Expected: List will not be sorted. Error message is shown. Status bar remains the same.
+.. Other incorrect sort commands to try: `sort -desc -amount`, `sort -amount -inc`, `sort -name -amount` +
    Expected: Similar to previous.
 
 

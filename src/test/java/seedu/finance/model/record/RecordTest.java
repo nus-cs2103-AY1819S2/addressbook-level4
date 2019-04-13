@@ -51,6 +51,10 @@ public class RecordTest {
         editedApple = new RecordBuilder(APPLE).withAmount(VALID_AMOUNT_BOB).withCategory(VALID_CATEGORY_HUSBAND)
                 .build();
         assertTrue(APPLE.isSameRecord(editedApple));
+
+        assertTrue(APPLE.hashCode() == APPLE.hashCode());
+
+        assertFalse(APPLE.hashCode() == BOB.hashCode());
     }
 
     @Test

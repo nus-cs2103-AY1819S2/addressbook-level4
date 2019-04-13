@@ -50,6 +50,7 @@ public class RouteCommand extends Command {
             throw new CommandException(MESSAGE_TOO_MANY_EQUIPMENTS_TO_ROUTE);
         }
 
+        model.unsetSelectedEquipment();
         return new CommandResult(MESSAGE_ROUTE_EQUIPMENT_SUCCESS, false, false, false, true, startendAddress);
 
     }

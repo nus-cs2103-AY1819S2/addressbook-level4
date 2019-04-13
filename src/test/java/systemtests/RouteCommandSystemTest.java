@@ -7,6 +7,7 @@ import java.net.URL;
 import org.junit.Test;
 
 import seedu.equipment.logic.commands.RouteCommand;
+import seedu.equipment.logic.commands.SelectCommand;
 import seedu.equipment.model.Model;
 import seedu.equipment.ui.BrowserPanel;
 
@@ -21,6 +22,18 @@ public class RouteCommandSystemTest extends EquipmentManagerSystemTest {
         Model expectedModel = getModel();
         assertCommandSuccess(command, expectedModel);
 
+        /* ----------------------- Perform select operations and then route and select ---------------------------- */
+
+        /* Case: Select some equipment, route, and then select the same equipment. The browser panel should change.
+         */
+        String selectCommand = "" + SelectCommand.COMMAND_WORD + " 1";
+        URL oldUrl = getBrowserPanel().getLoadedUrl();
+        executeCommand(selectCommand);
+        assertNotEquals(oldUrl.toString(), getBrowserPanel().getLoadedUrl().toString());
+        assertCommandSuccess(command, expectedModel);
+        oldUrl = getBrowserPanel().getLoadedUrl();
+        executeCommand(selectCommand);
+        assertNotEquals(oldUrl.toString(), getBrowserPanel().getLoadedUrl().toString());
     }
 
     /**
@@ -40,7 +53,6 @@ public class RouteCommandSystemTest extends EquipmentManagerSystemTest {
         assertApplicationDisplaysExpected("", expectedResultMessage, expectedModel);
         assertCommandBoxShowsDefaultStyle();
         assertStatusBarUnchanged();
-        assertSelectedPersonCardUnchanged();
         assertNotEquals(oldUrl.toString(), getBrowserPanel().getLoadedUrl().toString());
         assertNotEquals(BrowserPanel.DEFAULT_PAGE, getBrowserPanel().getLoadedUrl().toString());
         assertNotEquals(BrowserPanel.MAP_MULTIPLE_POINT_BASE_URL, getBrowserPanel().getLoadedUrl().toString());

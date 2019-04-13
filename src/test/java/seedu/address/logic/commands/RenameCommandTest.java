@@ -9,6 +9,7 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 
 import static seedu.address.logic.commands.CommandTestUtil.showPdfAtIndex;
+import static seedu.address.logic.commands.RenameCommand.MESSAGE_DUPLICATE_PDF;
 import static seedu.address.logic.commands.RenameCommand.MESSAGE_DUPLICATE_PDF_DIRECTORY;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PDF;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PDF;
@@ -70,8 +71,9 @@ public class RenameCommandTest {
 
     @Test
     public void execute_onlyCompulsoryFieldSpecifiedUnfilteredList_success() {
-        Pdf editedPdf = SAMPLE_PDF_1;
-        RenameCommand.EditPdfDescriptor descriptor = new EditPdfDescriptorBuilder(editedPdf).build();
+        Pdf editedPdf = new PdfBuilder(SAMPLE_PDF_1).withName("Test.pdf").build();
+        RenameCommand.EditPdfDescriptor descriptor = new EditPdfDescriptorBuilder()
+                .withName("Test.pdf").build();
         RenameCommand renameCommand = new RenameCommand(INDEX_FIRST_PDF, descriptor);
 
         String expectedMessage = String.format(RenameCommand.MESSAGE_EDIT_PDF_SUCCESS, editedPdf);
@@ -81,7 +83,30 @@ public class RenameCommandTest {
         expectedModel.commitPdfBook();
 
         assertCommandSuccess(renameCommand, model, commandHistory, expectedMessage, expectedModel);
+        revertBackup(SAMPLE_PDF_1, editedPdf);
     }
+
+    /*@Test
+    public void execute_caseSensitiveOperatingSystemRenameToAnotherFile_failureIfWindowsSuccessIfLinus() {
+        // Linux supports for case-sensitive rename while Windows doesn't
+        Pdf editedPdf = new PdfBuilder(SAMPLE_PDF_1)
+                .withName(SAMPLE_PDF_2.getName().getFullName().toLowerCase()).build();
+        RenameCommand.EditPdfDescriptor descriptor = new EditPdfDescriptorBuilder()
+                .withName(SAMPLE_PDF_2.getName().getFullName().toLowerCase()).build();
+        RenameCommand renameCommand = new RenameCommand(INDEX_FIRST_PDF, descriptor);
+
+        String expectedMessage = MESSAGE_EDIT_PDF_FAILURE;
+
+        if (!System.getProperty("os.name").toLowerCase().contains("linux")) {
+            assertCommandFailure(renameCommand, model, commandHistory, expectedMessage);
+        } else {
+            Model expectedModel = new ModelManager(new PdfBook(model.getPdfBook()), new UserPrefs());
+            expectedModel.setPdf(SAMPLE_PDF_1, editedPdf);
+            expectedModel.commitPdfBook();
+            assertCommandSuccess(renameCommand, model, commandHistory, expectedMessage, expectedModel);
+            revertBackup(SAMPLE_PDF_1, editedPdf);
+        }
+    }*/
 
     @Test
     public void execute_someFieldsSpecifiedUnfilteredList_success() {
@@ -123,14 +148,8 @@ public class RenameCommandTest {
     @Test
     public void execute_noFieldSpecifiedUnfilteredList_success() {
         RenameCommand renameCommand = new RenameCommand(INDEX_FIRST_PDF, new EditPdfDescriptor());
-        Pdf editedPdf = model.getFilteredPdfList().get(INDEX_FIRST_PDF.getZeroBased());
-
-        String expectedMessage = String.format(RenameCommand.MESSAGE_EDIT_PDF_SUCCESS, editedPdf);
-
-        Model expectedModel = new ModelManager(new PdfBook(model.getPdfBook()), new UserPrefs());
-        expectedModel.commitPdfBook();
-
-        assertCommandSuccess(renameCommand, model, commandHistory, expectedMessage, expectedModel);
+        String expectedMessage = MESSAGE_DUPLICATE_PDF;
+        assertCommandFailure(renameCommand, model, commandHistory, expectedMessage);
     }
 
     @Test

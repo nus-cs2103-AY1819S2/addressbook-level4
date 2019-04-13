@@ -43,8 +43,7 @@ public class ModelManager implements Model {
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
-    public ModelManager(
-                        ReadOnlyHealthWorkerBook healthWorkerBook,
+    public ModelManager(ReadOnlyHealthWorkerBook healthWorkerBook,
                         ReadOnlyRequestBook requestBook,
                         ReadOnlyUserPrefs userPrefs) {
         super();
@@ -166,8 +165,8 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void updateRequestOnNameEdit(String oldName, String newName, String nric) {
-        this.versionedRequestBook.updateHealthWorker(oldName, newName, nric);
+    public void updateRequestOnNameEdit(String oldNric, String newNric) {
+        this.versionedRequestBook.updateHealthWorker(oldNric, newNric);
     }
 
     //=========== Undo/Redo =================================================================================

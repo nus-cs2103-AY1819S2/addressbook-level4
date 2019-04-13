@@ -77,11 +77,10 @@ public class EditHealthWorkerCommand extends EditCommand implements HealthWorker
         assert toEdit != null;
 
         Name updatedName = editHealthWorkerDescriptor.getName().orElse(toEdit.getName());
-        if (editHealthWorkerDescriptor.getName().isPresent()) {
-            editAssignedRequestHealthWorker(model, toEdit.getNric().toString(),
-                    updatedName.toString(), toEdit.getName().toString());
-        }
         Nric updatedNric = editHealthWorkerDescriptor.getNric().orElse(toEdit.getNric());
+        if (editHealthWorkerDescriptor.getNric().isPresent()) {
+            editAssignedRequestHealthWorker(model, updatedNric.toString(), toEdit.getNric().toString());
+        }
         Phone updatedPhone = editHealthWorkerDescriptor.getPhone().orElse(toEdit.getPhone());
         Organization updatedOrganization = editHealthWorkerDescriptor.getOrganization()
                 .orElse(toEdit.getOrganization());
@@ -91,19 +90,11 @@ public class EditHealthWorkerCommand extends EditCommand implements HealthWorker
     }
 
     /**
-     * Method that replaces all existence of old Nric field in Request to the new Nric upon editing the Nric field of
-     * the HealthWorker.
-     */
-    private static void editAssignedRequestNric(Model model, String newNric, String oldNric) {
-
-    }
-
-    /**
      * Method that replaces all existence of old HealthWorker field in Request to the new HealthWorker upon editing
      * the Name field of the HealthWorker.
      */
-    private static void editAssignedRequestHealthWorker(Model model, String nric, String newName, String oldName) {
-        model.updateRequestOnNameEdit(oldName, newName, nric);
+    private static void editAssignedRequestHealthWorker(Model model, String newNric, String oldNric) {
+        model.updateRequestOnNameEdit(oldNric, newNric);
     }
 
     @Override

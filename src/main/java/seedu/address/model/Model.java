@@ -101,7 +101,7 @@ public interface Model {
     /**
      * Updates the healthStaff field in Request class upon editing the name of a HealthWorker
      */
-    void updateRequestOnNameEdit(String oldName, String newName, String nric);
+    void updateRequestOnNameEdit(String oldNric, String newNric);
 
     // ================== Request related code =========================================
     // @author David, Hui Chun

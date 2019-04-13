@@ -9,7 +9,6 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.ModelManager;
 import seedu.address.model.person.healthworker.HealthWorker;
 
 /**
@@ -47,7 +46,7 @@ public class DeleteHealthWorkerCommand extends DeleteCommand implements HealthWo
 
         HealthWorker toDelete = lastShownList.get(index.getZeroBased());
 
-        if (((ModelManager) model).isAssigned(toDelete.getNric().toString())) {
+        if (model.isAssigned(toDelete.getNric().toString())) {
             throw new CommandException(Messages.MESSAGE_HEALTHWORKER_ASSIGNED_CANNOT_DELETE);
         }
 

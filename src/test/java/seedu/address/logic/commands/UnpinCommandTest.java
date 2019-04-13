@@ -3,8 +3,8 @@ package seedu.address.logic.commands;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_BUYER;
+import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_BUYER;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalPersons.getTypicalArchiveBook;
 import static seedu.address.testutil.TypicalPersons.getTypicalPinBook;
@@ -51,8 +51,8 @@ public class UnpinCommandTest {
 
     @Test
     public void equals() {
-        UnpinCommand unpinFirstCommand = new UnpinCommand(INDEX_FIRST_PERSON);
-        UnpinCommand unpinSecondCommand = new UnpinCommand(INDEX_SECOND_PERSON);
+        UnpinCommand unpinFirstCommand = new UnpinCommand(INDEX_FIRST_BUYER);
+        UnpinCommand unpinSecondCommand = new UnpinCommand(INDEX_SECOND_BUYER);
 
         // same object -> returns true
         assertTrue(unpinFirstCommand.equals(unpinFirstCommand));

@@ -66,7 +66,7 @@ e.g. typing *`help`* and pressing kbd:[enter] will open the help window. +
 +
 image::AnnotatedStartupUI.png[width="500"]
 
-. *`cd`* `1` : enter the 1st flashcard folder. You will see that you have entered the sample folder.
+. `cd 1` : enter the 1st flashcard folder. You will see that you have entered the sample folder.
 +
 image::AnnotatedEnterFolderUI.png[width="500"]
 

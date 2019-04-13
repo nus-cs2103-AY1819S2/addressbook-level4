@@ -20,7 +20,7 @@ endif::[]
 This document serves to document my contributions to TopDeck, the project I worked on
 as part of our introductory software engineering module in NUS.
 TopDeck is a flash card application built on top of the code from
-https://github.com/nus-cs2103-AY1819S1/addressbook-level4[Addressbook Level 4].
+https://github.com/nus-cs2103-AY1819S1/addressbook-level4[Addressbook Level 4] (AB4).
 
 == Summary of Contributions
 
@@ -48,7 +48,8 @@ This section summarises my key contributions to TopDeck:
       features independently and easily integrate their work through the new API
       I designed.
 
-* **Minor Enhancement**: I added argument completion to the edit card command
+* **Minor Enhancement**: I added argument completion to the edit commands
+      (the remaining exposition will focus on the edit card command).
     - What it does: The edit card command has an abbreviated form `edit INDEX`.
       This prefills the command box with an expanded command which, if submitted
       verbatim, leaves the card at `INDEX` unchanged.
@@ -56,14 +57,14 @@ This section summarises my key contributions to TopDeck:
       edits. Suppose a user notices a typo in a question. Instead of retyping
       the entire question, they can quickly expand all arguments to the edit
       command and edit the question from there.
-    - Highlights: This is the only new feature in TopDeck that interacts with
-      the command box and is made possible with
-      `PrefillCommandBoxCommandResult` which extends `CommandResult` and holds
-      the string to be prefilled. In general, commands that need to interact
-      with `UI` through `MainWindow` do so by returning an appropriate subclass
-      of `CommandResult`.
+    - Highlights: Completion is a feature that interacts with the command box
+      and is implemented by defining a new subclass of `CommandResult` that
+      holds the string to be prefilled. In general, commands that need to
+      interact with `UI` through `MainWindow` do so by returning an appropriate
+      subclass of `CommandResult`.
 
-**Code Contributed:** Please view our github page to see the code that I have contributed.
+
+**Code Contributed:**: https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#search=xsot[CS2103T Dashboard]
 
 **Other contributions**:
 
@@ -83,8 +84,8 @@ This section summarises my key contributions to TopDeck:
 
 * Community:
  - I led the design of the user interface and user experience.
- - I reviewed pull requests and gave comments on how my peers can improve the readability of their code.
- - I put up issues and filed bug reports to keep our team on track.
+ - I reviewed pull requests (with non-trivial review comments): https://github.com/cs2103-ay1819s2-w11-1/main/pull/8[#8], https://github.com/cs2103-ay1819s2-w11-1/main/pull/39[#39], https://github.com/cs2103-ay1819s2-w11-1/main/pull/77[#77]
+ - I reported some subtle bugs: https://github.com/cs2103-ay1819s2-w11-1/main/issues/7[#7], https://github.com/cs2103-ay1819s2-w11-1/main/issues/63[#63]
  - I gave our team a few tips on the git workflow.
 
 * Tools:
@@ -92,6 +93,11 @@ This section summarises my key contributions to TopDeck:
   services into our workflow (TravisCI, AppVeyor, Coveralls).
 
 == Contributions to User Guide
+
+====
+This section contains excerpts from my contributions to the user guide.
+They showcase my ability to write documentation targeting end-users.
+====
 
 == Quick Start
 
@@ -164,6 +170,10 @@ image::study_ug_diagrams/study_1.png[width="800"]
 
 == Contributions to Developer Guide
 
+====
+This section contains excerpts from my contributions to the developer guide.
+They showcase my ability to write technical documentation and the technical depth of my contributions to TopDeck.
+====
 
 === Stateful user interface
 ==== Introduction

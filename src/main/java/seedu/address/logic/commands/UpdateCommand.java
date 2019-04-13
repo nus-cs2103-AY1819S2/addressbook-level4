@@ -134,7 +134,6 @@ public class UpdateCommand extends Command {
         } else {
             expiry = batchToUpdate.getExpiry();
         }
-        
         return new Batch(newBatchDetails.getBatchNumber(), quantity, expiry);
     }
 

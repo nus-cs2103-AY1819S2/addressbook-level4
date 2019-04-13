@@ -7,6 +7,7 @@
 :imagesDir: images
 :stylesDir: stylesheets
 :xrefstyle: full
+:experimental:
 ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
@@ -1202,12 +1203,12 @@ Use case ends.
 Use case resumes at step 3.
 
 [discrete]
-=== Use case: Start multiple lessons
+=== Use case: Start a review quiz
 
 *MSS*
 
-1. User finds specified lessons.
-2. User starts lessons by lesson names.
+1. User finds specified lesson.
+2. User starts quiz by lesson name.
 3. App displays questions for User to answer.
 4. User to input his answer.
 5. App displays the correct answer.
@@ -1219,13 +1220,13 @@ Use case ends.
 *Extensions*
 
 [none]
-* 3a. App detects no questions to be tested now.
+* 3a. App detects no questions to be reviewed now.
 +
 [none]
-** 3a1. App prompts User to continue testing all questions.
-** 3a2. User enter yes.
+** 3a1. App prompts User no questions to be reviewed now.
+
 +
-Use case resumes at step 3.
+Use case ends.
 
 
 [appendix]
@@ -1240,14 +1241,14 @@ _{More to be added}_
 [appendix]
 == Glossary
 
+[[card]] Card::
+A set of values, where one value is given as a prompt to the user, and another value is used as the correct answer for that given question. Other values may be shown to supplement the question.
+
 [[lesson]] Lesson::
 A labelled set of <<card,cards>>.
 
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
-
-[[card]] Card::
-A set of values, where one value is given as a prompt to the user, and another value is used as the correct answer for that given question. Other values may be shown to supplement the question.
 
 [[session]] Session::
 User’s current learning progress
@@ -1277,21 +1278,111 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-_{ more test cases ... }_
+=== Answering a question in a quiz
 
-=== Deleting a person
+Below are some test cases you can perform to test the `QuizAnswerCommand` for the Quiz feature. +
 
-. Deleting a person while all persons are listed
+. Answering questions in `learn` mode
+.. Prerequisite: A quiz have already started. +
+   Start a quiz, for example `start n/sample-capitals c/1 m/learn` +
+   Replace lesson name with a lesson of your choice. +
+   Answer the question according to the question from the specified lesson.
 
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
-.. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
-   Expected: Similar to previous.
+.. Test case:  +
+... kbd:[enter] or anything without the prefix `\` followed by kbd:[enter] +
+    Expected: Shown the question for answering. +
 
-_{ more test cases ... }_
+... `brussels` +
+    Expected: Answered the question correct. Total correct question updated.
+
+... `belgiu` +
+    Expected: Answered the question wrongly once. Total correct question updated.
+
+... `belgiuu` +
+    Expected: Answered the question wrongly twice and shown the correct answer. Total correct
+    question updated.
+
+. Answering questions in `review` mode
+.. Prerequisite: A quiz have already started. +
+   Start a quiz, for example `start n/sample-capitals c/1 m/review` +
+   Replace lesson name with a lesson of your choice. +
+   Answer the question according to the question from the specified lesson.
+
+.. Test case:
+... `brussels` +
+    Expected: Answered the question correct. Total correct question updated.
+
+... `belgiu` +
+    Expected: Answered the question wrongly once. Total correct question updated.
+
+... `belgiuu` +
+    Expected: Answered the question wrongly twice and shown the correct answer. Total correct
+    question updated.
+
+. Answering questions in `preview` mode
+.. Prerequisite: A quiz have already started. +
+   Start a quiz, for example `start n/sample-capitals c/1 m/preview` +
+   Replace lesson name with a lesson of your choice. +
+   Answer the question according to the question from the specified lesson.
+
+.. Test case:
+... kbd:[enter] or anything without the prefix `\` followed by kbd:[enter] +
+    Expected: Shown the next question for previewing. +
+
+=== Labelling a question as difficult in a quiz
+
+Below is a test case you can perform to test the `QuizDifficultCommand` for the Quiz feature. +
+
+. Prerequisite: A quiz have already started. +
+   Start a quiz, for example `start n/sample-capitals c/1 m/learn` +
+   Replace the lesson name with a lesson of your choice. +
+
+. Test case:  +
+.. `\difficult` +
+    Expected: Card labelled as difficult. +
+
+.. `\difficult` +
+    Expected: Card labelled as not difficult. +
+
+=== Viewing hint in a quiz
+
+Below is a test case you can perform to test the `QuizHintCommand` for the Quiz feature. +
+
+. Prerequisite: A quiz have already started. +
+   Start a quiz, for example `start n/sample-capitals c/1 m/review` +
+   Replace the lesson name with a lesson of your choice. +
+
+. Test case: `\hint` +
+  Expected: Shown the hint for this question. +
+
+=== Quitting the quiz
+
+Below are some test cases you can perform to test the `QuizQuitCommand` for the Quiz feature. +
+
+Prerequisite: A quiz have already started. +
+Start a quiz, for example `start n/sample-capitals c/1 m/review` +
+Replace lesson name with a lesson of your choice. +
+Answer the question according to the question from the specified lesson.
+
+. Test case: `\quit` +
+  Expected: Shown the result of the quiz and saved the progress of 0 attempted question.
+
+. Test case: `brussels` +
+  `\quit` +
+  Expected: Shown the result of the quiz and saved the progress of 1 attempted question.
+
+
+
+=== Viewing status in a quiz
+
+Below is a test cases you can perform to test the `QuizStatusCommand` for the Quiz feature. +
+
+. Prerequisite: A quiz have already started. +
+   Start a quiz, for example `start n/sample-capitals c/1 m/learn` +
+   Replace the lesson name with a lesson of your choice. +
+
+. Test case: `\status` +
+  Expected: Shown the quiz progress. +
 
 === Saving data
 

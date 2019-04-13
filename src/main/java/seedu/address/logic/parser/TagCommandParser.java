@@ -5,7 +5,9 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG_ADD;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG_REMOVE;
+import static seedu.address.logic.parser.CliSyntax.getAllPrefixes;
 
+import java.util.Optional;
 import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
@@ -27,8 +29,17 @@ public class TagCommandParser implements Parser<TagCommand> {
     @Override
     public TagCommand parse(String args) throws ParseException {
         requireNonNull(args);
+
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_TAG_NAME, PREFIX_TAG_ADD, PREFIX_TAG_REMOVE);
+        ArgumentMultimap fullArgMultimap =
+                ArgumentTokenizer.tokenize(args, getAllPrefixes());
+
+        if (argMultimap.getNumValues() != fullArgMultimap.getNumValues()) {
+            System.out.println(argMultimap);
+            System.out.println(fullArgMultimap);
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, TagCommand.MESSAGE_USAGE));
+        }
 
         Index index;
         Set<Tag> tags;
@@ -41,14 +52,18 @@ public class TagCommandParser implements Parser<TagCommand> {
 
         if (argMultimap.getValue(PREFIX_TAG_ADD).isPresent() && argMultimap.getValue(PREFIX_TAG_REMOVE).isPresent()) {
             throw new ParseException("Invalid Prefix: -a -r");
-        } else if (argMultimap.getValue(PREFIX_TAG_ADD).isPresent()) {
+        } else if (argMultimap.getValue(PREFIX_TAG_ADD).isPresent() &&
+                argMultimap.getValue(PREFIX_TAG_ADD).equals(Optional.of("")) &&
+                argMultimap.getValue(PREFIX_TAG_NAME).isPresent()) {
             tags = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG_NAME));
             return new TagCommand(index, tags, true);
-        } else if (argMultimap.getValue(PREFIX_TAG_REMOVE).isPresent()) {
+        } else if (argMultimap.getValue(PREFIX_TAG_REMOVE).isPresent() &&
+                argMultimap.getValue(PREFIX_TAG_ADD).equals(Optional.of("")) &&
+                argMultimap.getValue(PREFIX_TAG_NAME).isPresent()) {
             tags = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG_NAME));
             return new TagCommand(index, tags, false);
         } else {
-            throw new ParseException("Missing Prefix(s)");
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, TagCommand.MESSAGE_USAGE));
         }
     }
 }

@@ -395,7 +395,7 @@ public class Enemy extends Player {
      * checks that coord is made up of one odd and one even x-y coordinate pair
      * and returns true if so
      */
-    private boolean hasParity (int row, int col) {
+    public boolean hasParity (int row, int col) {
 
         int parity = (row % 2) + (col % 2);
         return (parity == 1);
@@ -416,5 +416,20 @@ public class Enemy extends Player {
             logger.info(String.format("++++++++RELEASE ON PAROLE COORD:\n" + useCoord.toString()));
 
         }
+    }
+
+    public Status getLastAttackStatus() {
+        return this.lastAttackStatus;
+    }
+    public ArrayList<Coordinates> getAllPossibleTargets() {
+        return this.allPossibleTargets;
+    }
+
+    public ArrayList<Coordinates> getAllParityTargets() {
+        return this.allParityTargets;
+    }
+
+    public ArrayList<Coordinates> getAllPossiblePopulateCoords() {
+        return this.allPossibleTargets;
     }
 }

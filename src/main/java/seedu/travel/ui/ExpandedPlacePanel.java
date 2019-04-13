@@ -19,6 +19,7 @@ import seedu.travel.model.place.Place;
 public class ExpandedPlacePanel extends UiPart<Region> {
 
     public static final String EMPTY_PHOTO_PATH = "pBSgcMnA";
+    public static final String DEFAULT_IMAGE_FILEPATH = "/images/test-img.jpg";
     private static final String FXML = "ExpandedPlacePanel.fxml";
     private static final String[] TAG_COLOR_STYLES =
         { "teal", "red", "yellow", "blue", "orange", "brown", "green", "salmon", "black", "grey" };
@@ -83,7 +84,7 @@ public class ExpandedPlacePanel extends UiPart<Region> {
 
         try {
             if (photo.equals(new Photo(EMPTY_PHOTO_PATH))) {
-                placeImage = new Image(MainApp.class.getResourceAsStream("/images/test-img.jpg"));
+                placeImage = new Image(MainApp.class.getResourceAsStream(DEFAULT_IMAGE_FILEPATH));
             } else {
                 FileInputStream inputStream = new FileInputStream(photo.getFilePath());
                 placeImage = new Image(inputStream);

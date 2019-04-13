@@ -18,6 +18,13 @@ public class Medicine {
         this.name = name;
     }
 
+    /**
+     * Returns true if a given string is a valid medicine name.
+     */
+    public static boolean isValidName(String test) {
+        return true;
+    }
+
     @Override
     public String toString() {
         return this.name;

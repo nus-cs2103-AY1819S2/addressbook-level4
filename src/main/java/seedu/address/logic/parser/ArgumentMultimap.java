@@ -57,4 +57,16 @@ public class ArgumentMultimap {
     public String getPreamble() {
         return getValue(new Prefix("")).orElse("");
     }
+
+    /**
+     * Returns the number of argument values
+     */
+    public int getNumValues() {
+        int num = 0;
+        for (Map.Entry<Prefix, List<String>> entry : argMultimap.entrySet()) {
+            num += entry.getValue().size();
+        }
+
+        return num;
+    }
 }

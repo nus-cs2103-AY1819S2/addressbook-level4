@@ -4,6 +4,8 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.OpenDeckCommand;
+import seedu.address.logic.commands.StudyDeckCommand;
+import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.DecksView;
@@ -11,7 +13,7 @@ import seedu.address.model.DecksView;
 /**
  * Parser creates a new OpenDeckCommand Object.
  */
-public class OpenDeckCommandParser {
+public class OpenDeckCommandParser implements Parser<OpenDeckCommand> {
 
     private DecksView decksView;
 

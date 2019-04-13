@@ -74,10 +74,10 @@ public class EditPersonDescriptorBuilder {
     }
 
     /**
-     * Parses the {@code tags} into a {@code Set<SkillsTag>} and set it to the {@code EditPersonDescriptor}
+     * Parses the {@code skills} into a {@code Set<SkillsTag>} and set it to the {@code EditPersonDescriptor}
      * that we are building.
      */
-    public EditPersonDescriptorBuilder withTags(String... tags) {
+    public EditPersonDescriptorBuilder withSkills(String... tags) {
         Set<SkillsTag> tagSet = Stream.of(tags).map(SkillsTag::new).collect(Collectors.toSet());
         descriptor.setTags(tagSet);
         return this;

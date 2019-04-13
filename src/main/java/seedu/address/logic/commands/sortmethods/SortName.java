@@ -2,7 +2,6 @@ package seedu.address.logic.commands.sortmethods;
 
 import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import seedu.address.model.person.Person;
 
@@ -15,9 +14,8 @@ public class SortName {
     private List<Person> newList;
 
     public SortName(List<Person> lastShownList) {
-        this.newList =
-                lastShownList.stream().sorted(Comparator.comparing(Person::namesToString))
-                        .collect(Collectors.toList());
+        Comparator<Person> personNameComparator = Comparator.comparing(Person::nameToString);
+        this.newList = SortUtil.sortPersons(lastShownList, personNameComparator);
     }
 
     public List<Person> getList() {

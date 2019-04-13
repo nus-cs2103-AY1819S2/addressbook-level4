@@ -4,7 +4,7 @@ import static java.time.Duration.ofMillis;
 import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTimeoutPreemptively;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
-import static seedu.address.testutil.TypicalPersons.getTypicalPersons;
+import static seedu.address.testutil.TypicalPersons.getTypicalPersonsNoTags;
 import static seedu.address.ui.testutil.GuiTestAssert.assertCardDisplaysPerson;
 import static seedu.address.ui.testutil.GuiTestAssert.assertCardEquals;
 
@@ -29,7 +29,7 @@ import seedu.address.model.person.Phone;
 
 public class PersonListPanelTest extends GuiUnitTest {
     private static final ObservableList<Person> TYPICAL_PERSONS =
-            FXCollections.observableList(getTypicalPersons());
+            FXCollections.observableList(getTypicalPersonsNoTags());
 
     private static final long CARD_CREATION_AND_DELETION_TIMEOUT = 2500;
 
@@ -38,6 +38,11 @@ public class PersonListPanelTest extends GuiUnitTest {
 
     @Test
     public void display() {
+
+
+
+
+
         initUi(TYPICAL_PERSONS);
 
         for (int i = 0; i < TYPICAL_PERSONS.size(); i++) {
@@ -87,7 +92,7 @@ public class PersonListPanelTest extends GuiUnitTest {
             Phone phone = new Phone("000");
             Email email = new Email("a@aa");
             Education education = new Education("aaa");
-            Gpa gpa = new Gpa("a");
+            Gpa gpa = new Gpa("1");
             Address address = new Address("a");
             Person person = new Person(name, phone, email, education, gpa, address, Collections.emptySet());
             backingList.add(person);

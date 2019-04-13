@@ -73,6 +73,7 @@ a parameter which can be used as patientadd n/John Doe.
 === Breakdown of attributes used within TeethHub
 [cols=",,,,,,,", options="header",]
 |===
+
 8+^|List of valid prefixes
 
 4+| *Patient* 2+| *Record* 2+| *Next-of-Kin*
@@ -161,7 +162,7 @@ Format: `sort PARAM [ORDER]`
 
 * valid PARAM options in patient mode: address, dob, email, name, nric, phone, sex,
 drug, kinN, kinR, kinP, kinA, desc.
-* valid PARAM options in record mode: desc, date, procedure.
+* valid PARAM options in record mode: desc, date, proc.
 * valid ORDER options: asce, desc
 ** default ORDER if unspecified is ascending
 
@@ -353,7 +354,7 @@ This includes their personal particulars, next-of-kin information, dental record
 
 This command adds a patient to the patients list.
 
-Name, NRIC, and Date of Birth fields are compulsory.
+Name, NRIC, Sex and Date of Birth fields are compulsory.
 The rest are optional fields, and can be filled in later via the `recordedit` command.
 
 Format: `patientadd PARAMETERS …` or `padd PARAMETERS …`
@@ -379,9 +380,19 @@ Parameters:
 [NOTE]
 TeethHub determines the uniqueness of patients based on their `NRIC`.
 
+[NOTE]
+============================================================
+While having a next of kin is optional, if you want to add details for a next of kin the fields `nokn/` & `nokr/`
+must be specified. Adding a next of kin address or phone number without both the name and relationship of the next of
+ kin is not possible.
+============================================================
+
 Example:
 
 * `patientadd n/John Choo sex/M ic/S1234567H dob/09-09-1995`
+
+* `patientadd n/John Choo sex/M p/98425871 e/jonC@example.com a/IDA street block 13
+#02-05 ic/S1234567H dob/26-02-1987 nokn/Jacky Choo nokp/84875215 nokr/Father noka/same desc/New Patient`
 
 ==== Patient Delete
 
@@ -424,7 +435,7 @@ Parameters that can be edited:
 |s/SEX
 |ic/NRIC
 |dob/DATE_OF_BIRTH
-|p/PHONE_NUMBER |p/98765432
+|p/PHONE_NUMBER
 |e/EMAIL
 |a/ADDRESS
 |da/DRUG_ALLERGY
@@ -472,16 +483,19 @@ Shows details of all patients.
 
 Shows patients whose data contains any of the given keywords according to a specified parameter.
 
-Format: `patientfind PREFIX/KEYWORD [MORE_KEYWORDS]` or `pfind PREFIX/KEYWORD [MORE_KEYWORDS]`
+Format: `patientfind [CS] [AND] PREFIX/KEYWORD [MORE_KEYWORDS]` or
+`pfind [CS] [AND] PREFIX/KEYWORD [MORE_KEYWORDS]`
 
-* Search is case insensitive.
+* Search is case insensitive unless `CS` is entered before the prefix(es).
+* By specifying `AND` before the prefix(es), `pfind` will instead search for patients whose data contains all of the
+given keywords and parameters.
 * Order of keywords does not matter.
 * Valid `Prefix` values: See <<Breakdown of attributes used within TeethHub>>
 
 Example:
 
-* `find a/Yishun` +
-Show all the people with an address containing the keyword Yishun.
+* `pfind a/Yishun` +
+Show all the patients with an address containing the keyword Yishun.
 
 ==== Patient Clear
 Clears all patients, from TeethHub.
@@ -586,6 +600,34 @@ Example:
 
 * `<<back, back>>` - Go back to the patient list.
 
+==== Record List
+Shows a list of all records stored in TeethHub.
+
+Format: `recordlist` or `rlist`
+
+Example:
+
+* `recordlist` +
+Shows details of all records.
+
+==== Record Find
+
+Shows patients whose data contains any of the given keywords according to a specified parameter.
+
+Format: `recordfind [CS] [AND] PREFIX/KEYWORD [MORE_KEYWORDS]` or
+`rfind [CS] [AND] PREFIX/KEYWORD [MORE_KEYWORDS]`
+
+* Search is case insensitive unless `CS` is entered before the prefix(es).
+* By specifying `AND` before the prefix(es), `pfind` will instead search for patients whose data contains all of the
+given keywords and parameters.
+* Order of keywords does not matter.
+* Valid `Prefix` values: See <<Breakdown of attributes used within TeethHub>>
+
+Example:
+
+* `rfind pro/Braces` +
+Show all the patients with a procedure containing the keyword Braces.
+
 ==== Record Clear
 
 Clears all of a patient's dental records.
@@ -595,6 +637,7 @@ Format: `recordclear` or `rclear`
 [NOTE]
 `recordclear` requires the application to first be in records mode, via the `goto` command.
 
+=== Teeth Management
 ==== Teeth Create
 
 There is no command required for this feature, as the application automatically generates and stores a new set of all healthy permanent teeth for newly added patients.

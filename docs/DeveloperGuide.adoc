@@ -529,16 +529,15 @@ _{Explain here how the data encryption feature will be implemented}_
 
 // end::dataencryption[]
 
+=== Viewing Information Management
 // tag::findimplement[]
-=== Find feature
-==== Current Implementation
+==== Find feature
+===== Current Implementation
 
 The Find mechanism is facilitated through the use of predicates in conjunction with the
 `FilteredList` within `ModelManager`
 
-image::FindCommandSequenceDiagram1.png[width="800"]
-
-The above sequence diagram gives an overview of how a `Find` Command is created. When the proper string arguments for
+The below sequence diagram gives an overview of how a `Find` Command is created. When the proper string arguments for
  a Find Command is entered into the user interface, the arguments are passed to the Logic Manager and then the
  AddressBook parser to determine if the input is valid. If it valid, a new `FindCommandParser` object is then created
   and handles the remaining user input.
@@ -550,10 +549,11 @@ respective parameter `ContainsKeywordsPredicate` if the parameter is present wit
  creation of a `FindCommand` object. On success, the `FindCommand` object is returned to the LogicManager as per the
  flow in the sequence diagram.
 
-Whereas the sequence diagram below
-gives an overview of it's execution behavior.
+On execution of the Find Command, `updateFilteredPersonList` is called with the predicate stored within the program
+itself. It subsequently calls `setPredicate(predicatte)` and updates the displayed person list to only show patients
+that matches the given predicate.
 
-_{Placeholder for second execution sequence diagram}_
+image::FindCommandSequenceDiagram1.png[width="800"]
 
 ==== Design Considerations
 ===== Aspect: Creation of Predicates
@@ -563,8 +563,50 @@ class has an associated `ContainsKeywordsPredicate` that handles the predicate t
 specified to be searched.
 * **Alternative 2:** `Patient` and `Record` would each have an individual associated `ContainsKeywordsPredicate` that
  acts as a "class of classes" that contains each respective paramater predicate class within itself.
-
 // end::findimplement[]
+
+// tag::sortimplement[]
+==== Sort feature
+===== Current Implementation
+The `Sort` mechanism is facilitated through the use of Comparators in conjunction with the Unique Lists for both
+record and patient depending on the programm's mode when the command is called.
+
+
+Upon parsing the arguments, `SortCommandParser` then checks which mode TeethHub currently is in. If it's in record /
+goTo mode, it creates a `RecordComparator` and returns a `SortRecordCommand`. Otherwise, a `PatientComparator` is called
+instead and returns a `SortPatientCommand` instead.
+
+When the comparator is retrieved,  SortCommandParser then calls `orderChecker` from itself to determine the
+`isReverse` boolean. Finally, the respective parameters are used to create the neccessary `SortCommand` and returns
+it to `AddressBookParser` and then `LogicManager`.
+
+On execution, there are two behaviours can occur depending on whether the `SortCommand` is a `SortPatientCommand` or
+`SortRecordCommand`.  Should it be an instance of `SortRecordCommand`, `sortRecordsBook(c,isReverse)` is called from
+ModelManager, which in turns called `sortRecords(c, isReverse)` from `VersionedAddressBook` and finally calls
+`sortStoredList (c, isReverse)` from `UniqueRecordList`. This sorts the records currently stored according to the
+parsed comparator and hence changes the order records are displayed to the user.
+
+Should it be a `SortPatientCommand` instead, the same logic flow occurs except it that calls the respective patient
+methods and classes instead.
+
+image::SortCommandSequenceDiagram.png[width="800"]
+// end::sortimplement[]
+
+// tag::statimplement[]
+==== Stat feature
+image::StatWindow.png[width="500"]
+===== Current Implementation
+The `Stat` mechanism is facilitated through the use of the inbuilt JavaFx framework in conjunction with the data
+stored within each `Patient` object.
+
+Upon execution of the stat command, the patient to have statistics generated from is set to the `StatWindow` file
+which then uses it to create the report. As per the diagram above, `StatWindow` then obtains all attributes from the
+patient and sets the latest teeth image to itself. From this obtained records list, the records table is generated
+followed by a bar chart and a pie chart. It is at this point that all necessary data has been populated within the
+statistics report and it is displayed to the user.
+
+image::StatActivityDiagram.png[width="800"]
+// end::statimplement[]
 
 === File Management
 Although TeethHub already has a built-in auto-load and auto-save, implementing file management would give the user more flexibility with managing data. +
@@ -593,40 +635,6 @@ Use a combination of commas and dashes to indicate a range as well. e.g. `1-3,5`
 `all` can be used instead to include everything. e.g. `import test.json all` or `export test.json all`
 ============================================================
 
-==== Design Considerations
-===== Aspect: Reading or writing a file
-* **Current implementation:** (Open/Import/Save/Export)Command -> InOutAddressBookStorage -> JsonUtil -> FileUtil
-** **Alternative 1a.1:** (Open/Import/Save/Export)Command -> Json Util -> FileUtil
-** **Alternative 1a.2:** (Open/Import/Save/Export)Command -> FileUtil
-*** Pros: Less overhead and faster runtime as there are less classes to go through.
-*** Cons: InOutAddressBookStorage does some error handling. Bypassing InOutAddressBookStorage would require the same error handling in OpenCommand. Since OpenCommand is not called when the program starts, we cannot move the error handling from InOutAddressBookStorage to OpenCommand. In that case, we would have to copy the error handling instead, which means that we now have a duplicate logic, which is also not ideal.
-
-
-* **Current implementation:** (Save/Export)Command -> InOutAddressBookStorage -> PdfUtil
-** **Alternative 1b.1:** (Save/Export)Command -> Pdf Util -> FileUtil
-** **Alternative 1b.2:** (Save/Export)Command -> FileUtil
-** **Alternative 1b.3:** (Save/Export)Command -> PdfUtil
-*** Pros: Less overhead and faster runtime as there are less classes to go through.
-*** Cons: Same as *Alternative 1a* Cons above. In addition to that, passing the job to FileUtil would require implementing Pdf creation and saving that is already present in the third party library Apache PDFBox. Hence the job is passed to PdfUtil which calls the already present methods of Apache PDFBox.
-
-===== Aspect: Index ranges of Import and Export
-* **Current implementation:** The Import/Export features accept index ranges that are larger than the actual index range of the content to be imported/exported.
-** **Alternative 2:** Don't allow indexes out of range for Import/Export.
-*** Pros: User cannot input a very large index range. This prevents a scenario where a very large range causes slow runtime and increased memory due to the amount of indexes to process.
-*** Cons: User may feel frustration of being denied due to minor mistakes. e.g. `export data.json 1-31` being rejected when there are only 30 entries. As our goal when designing TeethHub was to make things easier for the user, we decided to go with our current implementation.
-
-
-* **Current implementation:** The Import/Export features accept the `all` keyword in place of an index range.
-** **Alternative 3:** Don't parse "all" keyword for Import/Export.
-*** Pros: Faster runtime as there are less characters in the regex to match.
-*** Cons: User would need to know the total amount of patients in the external file if importing. Otherwise, the user might resort to inputting a very large index range, which would slow down runtime and increase memory needed due to the amount of indexes to process. We chose the current implementation to provide an alternative so that it would discourage users from inputting a very large index range.
-
-
-* **Current implementation:** The Export feature calls the Save feature when the `all` keyword is detected.
-** **Alternative 4:** Don't parse `all` keyword for Export.
-*** Pros: Less overhead and faster runtime as there the regex would not need to look for `all`
-*** Cons: In the current implementation, Import and Export share the same parser as Import and Export share the same format of `command FILE_PATH INDEX_RANGE`. Since Import uses the `all` keyword, not parsing `all` would require an additional parser for Export. Furthermore, as the accepted inputs of Open and Save are the same (except for .pdf), the user may expect the same accepted inputs for Import and Export as well.
-
 ==== Open vs Import
 
 Suppose you have a `data.json` file with the following contents:
@@ -638,7 +646,6 @@ The following image illustrates the difference when you open or import `data.jso
 image::OpenImportFeature2.png[width="870"]
 
 ==== Open feature
-===== Current Implementation
 As TeethHub already has a built-in auto-load when starting the program, the implemented Open feature is simple. +
 *The Open feature opens the specified file and overwrites the current TeethHub data with the file data.* +
 The Open feature's format is: `open FILE_PATH`
@@ -653,7 +660,6 @@ The Open feature's format is: `open FILE_PATH`
 image::OpenCommandSequenceDiagram.jpg[width="870"]
 
 ==== Import feature
-===== Current Implementation
 As TeethHub already has a built-in auto-load when starting the program, the implemented Import feature makes use of it. +
 *The Import feature opens the specified file and adds the file data to the current TeethHub data.* +
 The Import feature's format is: `import FILE_PATH INDEX_RANGE`
@@ -668,7 +674,6 @@ The Import feature's format is: `import FILE_PATH INDEX_RANGE`
 6b. ImportCommand adds all contents from the temporary storage to the current storage if INDEX_RANGE is `all`.
 
 ==== Save feature
-===== Current Implementation
 As TeethHub already has a built-in auto-save when exiting the program, the implemented Save feature makes use of it. +
 *The Save feature saves all current TeethHub data to the specified file.* +
 In addition to that, the Save can also save to PDF, using the Apache PDFBox. +
@@ -684,7 +689,6 @@ The Save feature's format is: `save FILE_PATH`
 5b. SaveCommand calls the new saveAsPdf() if the requested file is a ".pdf" file.
 
 ==== Export feature
-===== Current Implementation
 As TeethHub already has a built-in auto-save when starting the program, the implemented Export feature makes use of it. +
 *The Export feature saves specified patients in the current TeethHub data to the specified file.* +
 The Export feature's format is: `export FILE_PATH INDEX_RANGE`
@@ -702,8 +706,58 @@ image::ExportCommandActivityDiagram.png[width="870"]
 6a. ExportCommand calls the existing saveAddressBook() if the requested file is a ".json" file. +
 6b. ExportCommand calls the new saveAsPdf() if the requested file is a ".pdf" file.
 
+==== Design Considerations
+===== Aspect: Reading or writing a file
+* **Current implementation:** (Open/Import/Save/Export)Command -> InOutAddressBookStorage -> JsonUtil -> FileUtil
+** **Alternative 1:** (Open/Import/Save/Export)Command -> Json Util -> FileUtil
+*** **Alternative Pros:** Less overhead and faster runtime as there are less classes to go through.
+*** **Alternative Cons:** InOutAddressBookStorage does some file reading/writing error handling. Bypassing InOutAddressBookStorage would require the same error handling in (Open/Import/Save/Export)Command. Since (Open/Import/Save/Export)Command is not called when the program starts, we cannot move the error handling from InOutAddressBookStorage to (Open/Import/Save/Export)Command. In that case, we would have to copy the error handling instead, which means that we now have a duplicate logic, which is also not ideal.
+** **Alternative 2:** (Open/Import/Save/Export)Command -> FileUtil
+*** **Alternative Pros:** Same as Alternative 1.
+*** **Alternative Cons:** Same as Alternative 1. In addition to that:
+The features of Json Util would need to be re-implemented in (Open/Import/Save/Export)Command, which would also lead to duplicate logic.
+** **Choice Justification:** +
+Since: +
+There already is a file reading/writing error handling implemented in InOutAddressBookStorage. +
+There already is .json handling implemented in JsonUtil. +
+It would be logical to make use of them instead of re-implementing them.
+
+* **Current implementation:** (Save/Export)Command -> InOutAddressBookStorage -> PdfUtil
+** **Alternative 1:** (Save/Export)Command -> PdfUtil
+*** **Alternative Pros:** Less overhead and faster runtime as there are less classes to go through.
+*** **Alternative Cons:** InOutAddressBookStorage does some file reading/writing error handling. Bypassing InOutAddressBookStorage would require the same error handling in (Open/Import/Save/Export)Command. Since (Open/Import/Save/Export)Command is not called when the program starts, we cannot move the error handling from InOutAddressBookStorage to (Open/Import/Save/Export)Command. In that case, we would have to copy the error handling instead, which means that we now have a duplicate logic, which is also not ideal.
+** **Alternative 2.1:** (Save/Export)Command -> PdfUtil -> FileUtil
+** **Alternative 2.2:** (Save/Export)Command -> FileUtil
+*** **Alternative Pros:** Same as Alternative 1.
+*** **Alternative Cons:** Same as Alternative 1. In addition to that:
+Passing the job to FileUtil would require implementing Pdf creation and saving that is already present in the third party library Apache PDFBox. Hence the job is passed to PdfUtil and stops there as it calls the already present writing methods of Apache PDFBox.
+** **Choice Justification:** +
+Since: +
+There already is a file reading/writing error handling implemented in InOutAddressBookStorage. +
+There already is .pdf handling implemented in Apache PDFBox. +
+It would be logical to make use of them instead of re-implementing them.
+
+===== Aspect: Index ranges of Import and Export
+* **Current implementation:** The Import/Export features accept index ranges that are larger than the actual index range of the content to be imported/exported. Indexes out of range are simply ignored. +
+E.g. There are patients from index 1 to index 30. User inputs `export test.json 10-40`. Patients with index 10 to 30 are exported, the requested 31 to 40 is ignored.
+** **Alternative:** Don't allow indexes out of range for Import/Export.
+*** **Alternative Pros:** User cannot input a very large index range. This prevents a scenario where a very large range causes slow runtime and increased memory due to the amount of indexes to process.
+*** **Alternative Cons:** User may feel frustration of being denied due to minor mistakes. e.g. `export data.json 1-31` being rejected when there are only 30 entries.
+** **Choice Justification:** As our goal when designing TeethHub was to make things easier for the user, we decided to allow the user to make some mistakes.
+
+* **Current implementation:** The Import/Export features accept the `all` keyword in place of an index range.
+** **Alternative:** Don't parse "all" keyword for Import/Export.
+*** **Alternative Pros:** Faster runtime as there are less characters in the regex to match.
+*** **Alternative Cons:** User would need to know the total amount of patients in the external file if importing. Otherwise, the user might resort to inputting a very large index range, which would slow down runtime and increase memory needed due to the amount of indexes to process.
+** **Choice Justification:** We chose the current implementation to provide an alternative so that it would discourage users from inputting a very large index range.
+
+* **Current implementation:** The Export feature calls the Save feature when the `all` keyword is detected.
+** **Alternative:** Don't parse `all` keyword for Export.
+*** **Alternative Pros:** Less overhead and faster runtime as there the regex would not need to look for `all`
+*** **Alternative Cons:** In the current implementation, Import and Export share the same parser as Import and Export share the same format of `command FILE_PATH INDEX_RANGE`. Since Import uses the `all` keyword, not parsing `all` would require an additional parser for Export.
+** **Choice Justification:** We chose the current implementation so as to reduce duplicate logic and improve user experience. As the accepted inputs of Open and Save are the same (except for .pdf), the user may expect the same accepted inputs for Import and Export as well.
+
 === Suggestion feature
-==== Current Implementation
 As TeethHub contains commands that are similar, we decided to implement a Suggestion feature. +
 This feature was designed to help users who are familiar with older versions of TeethHub or Address Book 4, as they have the names of old commands. +
 When the user types a Common command, a suggestion will be displayed asking the user if they meant to type something else. +
@@ -715,9 +769,10 @@ image::SuggestionFeatureAddPatientMode.png[width="236"]
 
 ==== Design Considerations
 * **Current implementation:** When the user types a Common command, suggestions are displayed. +
-** **Alternative 1:** Show Help window if the user inputs invalid commands `N` times in a row.
-*** Pros: Only 1 implementation, as opposed to an implementation for each Common command. +
-*** Cons: Might be rude.
+** **Alternative:** Show Help window if the user inputs invalid commands `N` times in a row.
+*** **Alternative Pros:** Only 1 implementation, as opposed to an implementation for each Common command. +
+*** **Alternative Cons:** Might be rude.
+** **Choice Justification:** We chose the current implementation as we occasionally found ourselves and other users typing `add` to add something, `edit` to edit something and so on. This implementation was designed to tackle this issue.
 
 === Logging
 

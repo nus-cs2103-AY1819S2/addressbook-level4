@@ -254,7 +254,8 @@ public class ModelManager implements Model {
      */
     @Override
     public ClassForPrinting checkLimit(ModuleInfoList moduleInfoList) {
-        return new LimitChecker(getCurrentSemester(), getSemesterLimitList(), getFilteredModulesTakenList(), moduleInfoList);
+        return new LimitChecker(getCurrentSemester(), getSemesterLimitList(),
+                getFilteredModulesTakenList(), moduleInfoList);
     }
 
     //=========== Undo/Redo =================================================================================

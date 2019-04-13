@@ -26,7 +26,7 @@ The following sections illustrate the feature in more detail, as well as the rel
 * *Other contributions*:
 
 ** Project management:
-*** Made changes to the project that do not fall under a specific feature e.g renaming the app header title and icon (Pull Requests https://github.com/CS2103-AY1819S2-W14-3/main/pull/352[#352], https://github.com/CS2103-AY1819S2-W14-3/main/pull/240[#240], https://github.com/CS2103-AY1819S2-W14-3/main/pull/176[#176])
+*** Made changes to the project that do not fall under a specific feature (Pull Requests  https://github.com/CS2103-AY1819S2-W14-3/main/pull/352["Change output jar name" #352], https://github.com/CS2103-AY1819S2-W14-3/main/pull/240["Create Model component diagram" #240], https://github.com/CS2103-AY1819S2-W14-3/main/pull/176["Renaming the app header title and icon" #176])
 
 *** Reported bugs not related to my own feature. (Issues https://github.com/CS2103-AY1819S2-W14-3/main/issues/339[#339],  https://github.com/CS2103-AY1819S2-W14-3/main/issues/105[#105], https://github.com/CS2103-AY1819S2-W14-3/main/issues/61[#61])
 ** Enhancements to existing features:

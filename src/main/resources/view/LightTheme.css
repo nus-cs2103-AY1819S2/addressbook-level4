@@ -206,7 +206,7 @@
 .menu-bar .label {
     -fx-font-size: 13pt;
     -fx-font-family: "Segoe UI Semilight";
-    -fx-text-fill: #black;
+    -fx-text-fill: black;
     -fx-opacity: 1;
 }
 

@@ -11,8 +11,9 @@ public class Grade {
 
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Grade should only contain numbers, and must be in exactly 2 decimal places";
-    public static final String VALIDATION_REGEX = "\\d" + "." + "\\d{2}";
+            "Grade should only contain positive numbers equals to or less than 5, and must be in exactly 2 decimal places";
+    public static final String VALIDATION_REGEX = "[0-4]" + "." + "\\d{2}";
+    public static final String VALIDATION_REGEX_FULL = "5.00";
     public final String value;
 
     /**
@@ -30,7 +31,7 @@ public class Grade {
      * Returns true if a given string is a valid phone number.
      */
     public static boolean isValidGrade(String test) {
-        return test.matches(VALIDATION_REGEX);
+        return test.matches(VALIDATION_REGEX) || test.matches(VALIDATION_REGEX_FULL);
     }
 
     @Override

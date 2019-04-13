@@ -14,7 +14,7 @@ public class Gender {
 
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Not among list of possible genders.";
+            "Not among list of possible genders: [Female, Male, Others]";
     private static final String[] POSSIBLE_GENDERS = {"Female", "Male", "Others"};
     private static final TreeSet<String> POSSIBLE_GENDERS_TREE = new TreeSet<>(Arrays.asList(POSSIBLE_GENDERS));
     public final String value;

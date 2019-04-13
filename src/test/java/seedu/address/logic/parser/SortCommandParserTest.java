@@ -8,6 +8,7 @@ import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSucces
 
 import org.junit.Test;
 
+import seedu.address.commons.core.InformationPanelSettings;
 import seedu.address.commons.core.InformationPanelSettings.SortDirection;
 import seedu.address.commons.core.InformationPanelSettings.SortProperty;
 import seedu.address.logic.commands.SortCommand;
@@ -27,10 +28,10 @@ public class SortCommandParserTest {
 
     @Test
     public void parse_missingParts_failure() {
-        // no property
+        // no sortProperty
         assertParseFailure(parser, VALID_INPUT_DIRECTION_DESCENDING, MESSAGE_INVALID_FORMAT);
 
-        // no direction
+        // no sortDirection
         assertParseFailure(parser, VALID_INPUT_PROPERTY_EXPIRY, MESSAGE_INVALID_FORMAT);
     }
 
@@ -43,11 +44,11 @@ public class SortCommandParserTest {
 
     @Test
     public void parse_invalidValue_failure() {
-        // invalid property
+        // invalid sortProperty
         assertParseFailure(parser, INVALID_INPUT_PROPERTY + VALID_INPUT_DIRECTION_DESCENDING,
                 SortProperty.MESSAGE_CONSTRAINTS);
 
-        // invalid direction
+        // invalid sortDirection
         assertParseFailure(parser, VALID_INPUT_PROPERTY_EXPIRY + INVALID_INPUT_DIRECTION,
                 SortDirection.MESSAGE_CONSTRAINTS);
     }
@@ -56,7 +57,8 @@ public class SortCommandParserTest {
     public void parse_allFieldsSpecified_success() {
         String userInput = VALID_INPUT_PROPERTY_EXPIRY + VALID_INPUT_DIRECTION_DESCENDING;
 
-        SortCommand expectedCommand = new SortCommand(SortProperty.EXPIRY, SortDirection.DESCENDING);
+        SortCommand expectedCommand = new SortCommand(new InformationPanelSettings(SortProperty.EXPIRY,
+                SortDirection.DESCENDING));
 
         assertParseSuccess(parser, userInput, expectedCommand);
     }
@@ -66,7 +68,8 @@ public class SortCommandParserTest {
         String userInput = VALID_INPUT_PROPERTY_EXPIRY + VALID_INPUT_DIRECTION_DESCENDING
                 + VALID_INPUT_DIRECTION_ASCENDING;
 
-        SortCommand expectedCommand = new SortCommand(SortProperty.EXPIRY, SortDirection.ASCENDING);
+        SortCommand expectedCommand = new SortCommand(new InformationPanelSettings(SortProperty.EXPIRY,
+                SortDirection.ASCENDING));
 
         assertParseSuccess(parser, userInput, expectedCommand);
     }
@@ -76,7 +79,8 @@ public class SortCommandParserTest {
         // no other valid values specified
         String userInput = INVALID_INPUT_PROPERTY + VALID_INPUT_PROPERTY_EXPIRY + VALID_INPUT_DIRECTION_DESCENDING;
 
-        SortCommand expectedCommand = new SortCommand(SortProperty.EXPIRY, SortDirection.DESCENDING);
+        SortCommand expectedCommand = new SortCommand(new InformationPanelSettings(SortProperty.EXPIRY,
+                SortDirection.DESCENDING));
 
         assertParseSuccess(parser, userInput, expectedCommand);
 
@@ -84,7 +88,8 @@ public class SortCommandParserTest {
         userInput = INVALID_INPUT_PROPERTY + VALID_INPUT_PROPERTY_EXPIRY + VALID_INPUT_DIRECTION_DESCENDING
                 + VALID_INPUT_PROPERTY_BATCHNUMBER;
 
-        expectedCommand = new SortCommand(SortProperty.BATCHNUMBER, SortDirection.DESCENDING);
+        expectedCommand = new SortCommand(new InformationPanelSettings(SortProperty.BATCHNUMBER,
+                SortDirection.DESCENDING));
 
         assertParseSuccess(parser, userInput, expectedCommand);
     }

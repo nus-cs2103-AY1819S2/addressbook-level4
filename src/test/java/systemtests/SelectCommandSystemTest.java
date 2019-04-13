@@ -1,5 +1,6 @@
 package systemtests;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_MEDICINE_DISPLAYED_INDEX;
@@ -48,9 +49,11 @@ public class SelectCommandSystemTest extends MediTabsSystemTest {
         Index middleIndex = getMidIndex(getModel());
         command = SelectCommand.COMMAND_WORD + " " + middleIndex.getOneBased();
         assertCommandSuccess(command, middleIndex);
+        assertInformationPageIsCorrect();
 
         /* Case: select the current selected card -> selected */
         assertCommandSuccess(command, middleIndex);
+        assertInformationPageIsCorrect();
 
         /* ------------------------ Perform select operations on the shown filtered list ---------------------------- */
 
@@ -60,12 +63,14 @@ public class SelectCommandSystemTest extends MediTabsSystemTest {
         showMedicinesWithName(KEYWORD_MATCHING_SODIUM);
         int invalidIndex = getModel().getInventory().getMedicineList().size();
         assertCommandFailure(SelectCommand.COMMAND_WORD + " " + invalidIndex, MESSAGE_INVALID_MEDICINE_DISPLAYED_INDEX);
+        assertFalse(getInformationPanel().isBatchTableLoaded()); // find command deselects medicine
 
         /* Case: filtered medicine list, select index within bounds of inventory and medicine list -> selected */
         Index validIndex = Index.fromOneBased(1);
         assertTrue(validIndex.getZeroBased() < getModel().getFilteredMedicineList().size());
         command = SelectCommand.COMMAND_WORD + " " + validIndex.getOneBased();
         assertCommandSuccess(command, validIndex);
+        assertInformationPageIsCorrect();
 
         /* ----------------------------------- Perform invalid select operations ------------------------------------ */
 

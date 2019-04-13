@@ -28,6 +28,7 @@ import seedu.address.logic.commands.ImportResumesCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.MovePersonCommand;
 import seedu.address.logic.commands.RedoCommand;
+import seedu.address.logic.commands.RemoveFromListCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.SetBlockOutDatesCommand;
 import seedu.address.logic.commands.SetMaxInterviewsADayCommand;
@@ -199,6 +200,12 @@ public class AddressBookParser {
 
         case AddListToJobCommand.COMMAND_ALIAS:
             return new AddListToJobCommandParser().parse(arguments);
+
+        case RemoveFromListCommand.COMMAND_WORD:
+            return new RemoveFromListCommandParser().parse(arguments);
+
+        case RemoveFromListCommand.COMMAND_ALIAS:
+            return new RemoveFromListCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

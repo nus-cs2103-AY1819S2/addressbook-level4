@@ -97,6 +97,29 @@ public class Job {
     }
 
     /**
+     * Removes a person from a job list
+     */
+    public void removeFromList(Person toRemove, Integer listNumber) {
+        requireNonNull(toRemove);
+        boolean shouldStillExist = false;
+        if (!personsInJob.contains(toRemove)) {
+            throw new PersonNotFoundException();
+        }
+        for (int i = 0; i < 4; i++) {
+            if(i == listNumber) {
+                continue;
+            }
+            if (personsList.get(i).contains(toRemove)) {
+                   shouldStillExist = true;
+            }
+        }
+        personsList.get(listNumber).remove(toRemove);
+        if (!shouldStillExist) {
+            personsInJob.remove(toRemove);
+        }
+    }
+
+    /**
      * Adds a person to a job.
      * Goes to the first list
      */

@@ -249,6 +249,11 @@ public class AddressBook implements ReadOnlyAddressBook {
         indicateModified();
     }
 
+    public void deletePersonFromJobList(Person toDelete, JobName job, Integer list) {
+        jobs.removePersonFromJobList(toDelete, job, list);
+        indicateModified();
+    }
+
     public ObservableList<Job> getJobList() {
         return jobs.asUnmodifiableObservableList();
     }

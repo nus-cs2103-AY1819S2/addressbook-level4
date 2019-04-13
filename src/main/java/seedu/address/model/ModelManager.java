@@ -201,6 +201,22 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void deletePersonFromJobList(Person toRemove, JobName job, JobListName list) {
+        switch (list) {
+        case APPLICANT:
+            versionedAddressBook.deletePersonFromJobList(toRemove, job, 0);
+        case KIV:
+            versionedAddressBook.deletePersonFromJobList(toRemove, job, 1);
+        case INTERVIEW:
+            versionedAddressBook.deletePersonFromJobList(toRemove, job, 2);
+        case SHORTLIST:
+            versionedAddressBook.deletePersonFromJobList(toRemove, job, 3);
+        default:
+            versionedAddressBook.deletePersonFromJobList(toRemove, job, 0);
+        }
+    }
+
+    @Override
     public void addPerson(Person person) {
         versionedAddressBook.addPerson(person);
         updateBaseFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);

@@ -48,9 +48,11 @@ Before being able to check their plan against their preferences, the user must f
 
 == Contributions to the User Guide
 
-include::../UserGuide.adoc[tag=Displayreq]
+include::../UserGuide.adoc[tag=SetCurrentSemester]
 
-include::../UserGuide.adoc[tag=study]
+include::../UserGuide.adoc[tag=SetSemesterLimit]
+
+include::../UserGuide.adoc[tag=CheckLimit]
 
 == Contributions to the Developer Guide
 

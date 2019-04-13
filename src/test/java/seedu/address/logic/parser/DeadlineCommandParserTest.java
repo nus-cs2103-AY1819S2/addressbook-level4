@@ -17,10 +17,11 @@ public class DeadlineCommandParserTest {
     private static final String VALID_DEADLINE_ADD = "1 " + PREFIX_DEADLINE_NEW + DATE_USER_INPUT_VALID;
     private static final String VALID_DEADLINE_DONE = "1 " + PREFIX_DEADLINE_DONE;
     private static final String VALID_DEADLINE_REMOVE = "1 " + PREFIX_DEADLINE_REMOVE;
-    private static final String INVALID_DEADLINE_MULTIPLE_ACTIONS = VALID_DEADLINE_ADD + PREFIX_DEADLINE_DONE;
+    private static final String INVALID_DEADLINE_MULTIPLE_ACTIONS = VALID_DEADLINE_ADD + " " + PREFIX_DEADLINE_DONE;
     private static final String INVALID_DEADLINE_PREAMBLE = " " + PREFIX_DEADLINE_DONE;
     private static final String INVALID_DEADLINE_DATE = "1 " + PREFIX_DEADLINE_NEW + DATE_USER_INPUT_INVALID;
     private static final String INVALID_DEADLINE_ACTION = "1 " + "d";
+    private static final String NO_DEADLINE_ACTION = "1 ";
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
@@ -75,6 +76,12 @@ public class DeadlineCommandParserTest {
     public void parse_invalidDeadlineAction_throwsParseException() throws ParseException {
         thrown.expect(ParseException.class);
         parser.parse(INVALID_DEADLINE_ACTION);
+    }
+
+    @Test
+    public void parse_noDeadlineAction_throwsParseException() throws ParseException {
+        thrown.expect(ParseException.class);
+        parser.parse(NO_DEADLINE_ACTION);
     }
 
 }

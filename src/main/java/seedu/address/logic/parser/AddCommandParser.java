@@ -29,6 +29,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_RACE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SCHOOL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
+import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Stream;
 
@@ -66,7 +67,7 @@ public class AddCommandParser implements Parser<AddCommand> {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_NRIC,
                         PREFIX_GENDER, PREFIX_RACE, PREFIX_ADDRESS, PREFIX_SCHOOL, PREFIX_MAJOR, PREFIX_GRADE,
-                        PREFIX_KNOWNPROGLANG, PREFIX_PASTJOB, PREFIX_JOBSAPPLY, PREFIX_INTERVIEWSCORES, PREFIX_TAG);
+                        PREFIX_KNOWNPROGLANG, PREFIX_PASTJOB, PREFIX_JOBSAPPLY, PREFIX_INTERVIEWSCORES);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_ADDRESS, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_NRIC,
                 PREFIX_GENDER, PREFIX_RACE, PREFIX_SCHOOL, PREFIX_MAJOR, PREFIX_GRADE, PREFIX_JOBSAPPLY)
@@ -119,7 +120,7 @@ public class AddCommandParser implements Parser<AddCommand> {
                 .getAllValues(PREFIX_KNOWNPROGLANG));
         Set<PastJob> pastjobList = ParserUtil.parsePastJobs(argMultimap.getAllValues(PREFIX_PASTJOB));
         Set<JobsApply> jobsApplyList = ParserUtil.parseJobsApply(argMultimap.getAllValues(PREFIX_JOBSAPPLY));
-        Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
+        Set<Tag> tagList = new HashSet<>();
         Person person = new Person(name, phone, email, nric, gender, race, address, school, major, grade,
                 knownProgLangsList, pastjobList, jobsApplyList, interviewScores, tagList);
 

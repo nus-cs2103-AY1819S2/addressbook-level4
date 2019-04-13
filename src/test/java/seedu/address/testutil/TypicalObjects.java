@@ -50,12 +50,12 @@ public class TypicalObjects {
             .withAddress("123, Jurong West Ave 6, #08-111").withEmail("alice@example.com").withNric("S9345678K")
             .withGender("Female").withPhone("94351253").withSchool("NUS").withMajor("CS").withGrade("4.54")
             .withKnownProgLangs("Python").withPastJobs("Professor").withJobsApply("Accountant")
-            .withInterviewScores("10,8,5,10,1").withTags("friends").build();
+            .withInterviewScores("10,8,5,10,1").build();
     public static final Person BENSON = new PersonBuilder().withName("Benson Meier").withRace("Chinese")
             .withAddress("311, Clementi Ave 2, #02-25").withEmail("johnd@example.com").withNric("S9421423F")
             .withGender("Male").withPhone("98765432").withSchool("NTU").withMajor("CS").withGrade("4.00")
             .withKnownProgLangs("Python").withPastJobs("Lawyer", "SDE").withJobsApply("Data-Analyst")
-            .withInterviewScores("10,2,10,10,10").withTags("owesMoney", "friends").build();
+            .withInterviewScores("10,2,10,10,10").build();
     public static final Person CARL = new PersonBuilder().withName("Carl Kurz").withRace("Others")
             .withPhone("95352563").withEmail("heinz@example.com").withNric("S9123121F")
             .withGender("Male").withAddress("wall street").withGrade("4.12").withJobsApply("Data-Analyst")
@@ -65,7 +65,7 @@ public class TypicalObjects {
             .withPhone("87652533").withEmail("cornelia@example.com").withNric("S9098983R")
             .withGender("Male").withAddress("10th street").withGrade("5.00").withJobsApply("Chief-Financial-Officer")
             .withInterviewScores("10,10,10,10,10").withSchool("SIM").withMajor("CS").withKnownProgLangs("Python")
-            .withPastJobs("Professor").withTags("friends").build();
+            .withPastJobs("Professor").build();
     public static final Person ELLE = new PersonBuilder().withName("Elle Meyer").withRace("Others")
             .withPhone("9482224").withEmail("werner@example.com").withNric("S9876523T")
             .withGender("Female").withAddress("michegan ave").withGrade("4.85")
@@ -95,14 +95,14 @@ public class TypicalObjects {
     // Manually added - Person's details found in {@code CommandTestUtil}
     public static final Person AMY = new PersonBuilder().withName(VALID_NAME_AMY).withRace(VALID_RACE_AMY)
             .withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY)
-            .withTags(VALID_TAG_FRIEND).withSchool(VALID_SCHOOL_AMY).withPastJobs(VALID_PASTJOB_PROFESSSOR)
+            .withSchool(VALID_SCHOOL_AMY).withPastJobs(VALID_PASTJOB_PROFESSSOR)
             .withKnownProgLangs(VALID_KNOWNPROGLANG_PYTHON).withMajor(VALID_MAJOR_AMY).withNric(VALID_NRIC_AMY)
             .withGender(VALID_GENDER_AMY).withGrade(VALID_GRADE_AMY).withInterviewScores(VALID_INTERVIEWSCORES_AMY)
             .withJobsApply(VALID_JOBSAPPLY_TRADER).build();
     public static final Person BOB = new PersonBuilder().withName(VALID_NAME_BOB).withRace(VALID_RACE_BOB)
             .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
             .withMajor(VALID_MAJOR_BOB).withSchool(VALID_SCHOOL_BOB).withPastJobs(VALID_PASTJOB_PROFESSSOR)
-            .withKnownProgLangs(VALID_KNOWNPROGLANG_PYTHON).withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND)
+            .withKnownProgLangs(VALID_KNOWNPROGLANG_PYTHON)
             .withNric(VALID_NRIC_BOB).withGender(VALID_GENDER_BOB).withGrade(VALID_GRADE_BOB)
             .withInterviewScores(VALID_INTERVIEWSCORES_BOB).withJobsApply(VALID_JOBSAPPLY_ENGINEER).build();
 

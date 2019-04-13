@@ -38,8 +38,6 @@ import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_KNOWNPROGLANG_PYTHON;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalObjects.BOB;
@@ -84,9 +82,9 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         String command = " " + EditCommand.COMMAND_WORD + "  " + index.getOneBased() + "  " + NAME_DESC_BOB + "  "
                 + PHONE_DESC_BOB + " " + EMAIL_DESC_BOB + "  " + RACE_DESC_BOB + "  " + ADDRESS_DESC_BOB + " "
                 + SCHOOL_DESC_BOB + "  " + MAJOR_DESC_BOB + "  " + PASTJOB_DESC_PROFESSOR + " "
-                + TAG_DESC_HUSBAND + " " + GENDER_DESC_BOB + " " + GRADE_DESC_BOB + " " + NRIC_DESC_BOB + " "
+                + GENDER_DESC_BOB + " " + GRADE_DESC_BOB + " " + NRIC_DESC_BOB + " "
                 + INTERVIEWSCORES_DESC_BOB + " " + JOBSAPPLY_DESC_ENGINEER + " ";
-        Person editedPerson = new PersonBuilder(BOB).withTags(VALID_TAG_HUSBAND)
+        Person editedPerson = new PersonBuilder(BOB)
                 .withKnownProgLangs(VALID_KNOWNPROGLANG_PYTHON).build();
         assertCommandSuccess(command, index, editedPerson);
 
@@ -103,17 +101,10 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: edit a person with new values same as existing values -> edited */
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
-                + RACE_DESC_BOB + ADDRESS_DESC_BOB + SCHOOL_DESC_BOB + MAJOR_DESC_BOB + TAG_DESC_FRIEND
-                + TAG_DESC_HUSBAND + GENDER_DESC_BOB + GRADE_DESC_BOB + NRIC_DESC_BOB + INTERVIEWSCORES_DESC_BOB
+                + RACE_DESC_BOB + ADDRESS_DESC_BOB + SCHOOL_DESC_BOB + MAJOR_DESC_BOB
+                +GENDER_DESC_BOB + GRADE_DESC_BOB + NRIC_DESC_BOB + INTERVIEWSCORES_DESC_BOB
                 + JOBSAPPLY_DESC_ENGINEER;
         assertCommandSuccess(command, index, BOB);
-
-        /* Case: clear tags -> cleared */
-        index = INDEX_FIRST_PERSON;
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + " " + PREFIX_TAG.getPrefix();
-        Person personToEdit = getModel().getFilteredPersonList().get(index.getZeroBased());
-        editedPerson = new PersonBuilder(personToEdit).withTags().build();
-        assertCommandSuccess(command, index, editedPerson);
 
         /* ------------------ Performing edit operation while a filtered list is being shown ------------------------ */
 
@@ -122,7 +113,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         index = INDEX_FIRST_PERSON;
         assertTrue(index.getZeroBased() < getModel().getFilteredPersonList().size());
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + " " + NAME_DESC_BOB;
-        personToEdit = getModel().getFilteredPersonList().get(index.getZeroBased());
+        Person personToEdit = getModel().getFilteredPersonList().get(index.getZeroBased());
         editedPerson = new PersonBuilder(personToEdit).withName(VALID_NAME_BOB).build();
         assertCommandSuccess(command, index, editedPerson);
 
@@ -214,73 +205,68 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
                 Major.MESSAGE_CONSTRAINTS);
 
 
-        /* Case: invalid tag -> rejected */
-        assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased()
-                        + INVALID_TAG_DESC,
-                Tag.MESSAGE_CONSTRAINTS);
-
         /* Case: edit a person with new values same as another person's values -> rejected */
         executeCommand(PersonUtil.getAddCommand(BOB));
         index = INDEX_FIRST_PERSON;
         assertFalse(getModel().getFilteredPersonList().get(index.getZeroBased()).equals(BOB));
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
-                + RACE_DESC_BOB + ADDRESS_DESC_BOB + SCHOOL_DESC_BOB + MAJOR_DESC_BOB + TAG_DESC_FRIEND
-                + TAG_DESC_HUSBAND + GENDER_DESC_BOB + GRADE_DESC_BOB + NRIC_DESC_BOB
+                + RACE_DESC_BOB + ADDRESS_DESC_BOB + SCHOOL_DESC_BOB + MAJOR_DESC_BOB
+                + GENDER_DESC_BOB + GRADE_DESC_BOB + NRIC_DESC_BOB
                 + INTERVIEWSCORES_DESC_BOB + JOBSAPPLY_DESC_ENGINEER;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_PERSON);
 
         /* Case: edit a person with new values same as another person's values but with different tags -> rejected */
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
-                + RACE_DESC_BOB + ADDRESS_DESC_BOB + SCHOOL_DESC_BOB + MAJOR_DESC_BOB + TAG_DESC_HUSBAND
+                + RACE_DESC_BOB + ADDRESS_DESC_BOB + SCHOOL_DESC_BOB + MAJOR_DESC_BOB
                 + GENDER_DESC_BOB + GRADE_DESC_BOB + NRIC_DESC_BOB + INTERVIEWSCORES_DESC_BOB + JOBSAPPLY_DESC_ENGINEER;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_PERSON);
 
         /* Case: edit a person with new values same as another person's values but with different address -> rejected */
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
-                + RACE_DESC_BOB + ADDRESS_DESC_AMY + SCHOOL_DESC_BOB + MAJOR_DESC_BOB + TAG_DESC_FRIEND
-                + TAG_DESC_HUSBAND + GENDER_DESC_BOB + GRADE_DESC_BOB + NRIC_DESC_BOB
+                + RACE_DESC_BOB + ADDRESS_DESC_AMY + SCHOOL_DESC_BOB + MAJOR_DESC_BOB
+                + GENDER_DESC_BOB + GRADE_DESC_BOB + NRIC_DESC_BOB
                 + INTERVIEWSCORES_DESC_BOB + JOBSAPPLY_DESC_ENGINEER;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_PERSON);
 
         /* Case: edit a person with new values same as another person's values but with different phone -> rejected */
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_AMY + EMAIL_DESC_BOB
-                + RACE_DESC_BOB + ADDRESS_DESC_BOB + SCHOOL_DESC_BOB + MAJOR_DESC_BOB + TAG_DESC_FRIEND
-                + TAG_DESC_HUSBAND + GENDER_DESC_BOB + GRADE_DESC_BOB + NRIC_DESC_BOB
+                + RACE_DESC_BOB + ADDRESS_DESC_BOB + SCHOOL_DESC_BOB + MAJOR_DESC_BOB
+                + GENDER_DESC_BOB + GRADE_DESC_BOB + NRIC_DESC_BOB
                 + INTERVIEWSCORES_DESC_BOB + JOBSAPPLY_DESC_ENGINEER;;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_PERSON);
 
         /* Case: edit a person with new values same as another person's values but with different email -> rejected */
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_AMY
-                + RACE_DESC_BOB + ADDRESS_DESC_BOB + SCHOOL_DESC_BOB + MAJOR_DESC_BOB + TAG_DESC_FRIEND
-                + TAG_DESC_HUSBAND + GENDER_DESC_BOB + GRADE_DESC_BOB + NRIC_DESC_BOB
+                + RACE_DESC_BOB + ADDRESS_DESC_BOB + SCHOOL_DESC_BOB + MAJOR_DESC_BOB
+                + GENDER_DESC_BOB + GRADE_DESC_BOB + NRIC_DESC_BOB
                 + INTERVIEWSCORES_DESC_BOB + JOBSAPPLY_DESC_ENGINEER;;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_PERSON);
 
         /* Case: edit a person with new values same as another person's values but with different school -> rejected */
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_AMY
-                + RACE_DESC_BOB + ADDRESS_DESC_BOB + SCHOOL_DESC_AMY + MAJOR_DESC_BOB + TAG_DESC_FRIEND
-                + TAG_DESC_HUSBAND + GENDER_DESC_BOB + GRADE_DESC_BOB + NRIC_DESC_BOB
+                + RACE_DESC_BOB + ADDRESS_DESC_BOB + SCHOOL_DESC_AMY + MAJOR_DESC_BOB
+                + GENDER_DESC_BOB + GRADE_DESC_BOB + NRIC_DESC_BOB
                 + INTERVIEWSCORES_DESC_BOB + JOBSAPPLY_DESC_ENGINEER;;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_PERSON);
 
         /* Case: edit a person with new values same as another person's values but with different major -> rejected */
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
-                + RACE_DESC_BOB + ADDRESS_DESC_BOB + SCHOOL_DESC_BOB + MAJOR_DESC_AMY + TAG_DESC_FRIEND
-                + TAG_DESC_HUSBAND + GENDER_DESC_BOB + GRADE_DESC_BOB + NRIC_DESC_BOB
+                + RACE_DESC_BOB + ADDRESS_DESC_BOB + SCHOOL_DESC_BOB + MAJOR_DESC_AMY
+                + GENDER_DESC_BOB + GRADE_DESC_BOB + NRIC_DESC_BOB
                 + INTERVIEWSCORES_DESC_BOB + JOBSAPPLY_DESC_ENGINEER;;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_PERSON);
 
         /* Case: edit a person with new values same as another person's values but with different race -> rejected */
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
-                + RACE_DESC_AMY + ADDRESS_DESC_BOB + SCHOOL_DESC_BOB + MAJOR_DESC_BOB + TAG_DESC_FRIEND
-                + TAG_DESC_HUSBAND + GENDER_DESC_BOB + GRADE_DESC_BOB + NRIC_DESC_BOB
+                + RACE_DESC_AMY + ADDRESS_DESC_BOB + SCHOOL_DESC_BOB + MAJOR_DESC_BOB
+                + GENDER_DESC_BOB + GRADE_DESC_BOB + NRIC_DESC_BOB
                 + INTERVIEWSCORES_DESC_BOB + JOBSAPPLY_DESC_ENGINEER;;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_PERSON);
 
         /* Case: edit a person with new values same as another person's values but with different grade -> rejected */
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
-                + RACE_DESC_BOB + ADDRESS_DESC_BOB + SCHOOL_DESC_BOB + MAJOR_DESC_BOB + TAG_DESC_FRIEND
-                + TAG_DESC_HUSBAND + GENDER_DESC_BOB + GRADE_DESC_AMY + NRIC_DESC_BOB
+                + RACE_DESC_BOB + ADDRESS_DESC_BOB + SCHOOL_DESC_BOB + MAJOR_DESC_BOB
+                + GENDER_DESC_BOB + GRADE_DESC_AMY + NRIC_DESC_BOB
                 + INTERVIEWSCORES_DESC_BOB + JOBSAPPLY_DESC_ENGINEER;;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_PERSON);
     }

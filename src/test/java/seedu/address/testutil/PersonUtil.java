@@ -115,14 +115,6 @@ public class PersonUtil {
         }
         descriptor.getInterviewScores().ifPresent(interviewScores -> sb.append(PREFIX_INTERVIEWSCORES)
                 .append(interviewScores.value).append(" "));
-        if (descriptor.getTags().isPresent()) {
-            Set<Tag> tags = descriptor.getTags().get();
-            if (tags.isEmpty()) {
-                sb.append(PREFIX_TAG).append(" ");
-            } else {
-                tags.forEach(s -> sb.append(PREFIX_TAG).append(s.tagName).append(" "));
-            }
-        }
         return sb.toString();
     }
 }

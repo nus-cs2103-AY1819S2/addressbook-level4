@@ -48,7 +48,7 @@ public class EditCommandParser implements Parser<EditCommand> {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_NRIC, PREFIX_GENDER,
                         PREFIX_RACE, PREFIX_ADDRESS, PREFIX_SCHOOL, PREFIX_MAJOR, PREFIX_GRADE, PREFIX_KNOWNPROGLANG,
-                        PREFIX_PASTJOB, PREFIX_JOBSAPPLY, PREFIX_INTERVIEWSCORES, PREFIX_TAG);
+                        PREFIX_PASTJOB, PREFIX_JOBSAPPLY, PREFIX_INTERVIEWSCORES);
         Index index;
 
         try {
@@ -97,7 +97,6 @@ public class EditCommandParser implements Parser<EditCommand> {
                 .ifPresent(editPersonDescriptor::setKnownProgLangs);
         parsePastJobsForEdit(argMultimap.getAllValues(PREFIX_PASTJOB)).ifPresent(editPersonDescriptor::setPastJobs);
         parseJobsApplyForEdit(argMultimap.getAllValues(PREFIX_JOBSAPPLY)).ifPresent(editPersonDescriptor::setJobsApply);
-        parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editPersonDescriptor::setTags);
 
         if (!editPersonDescriptor.isAnyFieldEdited()) {
             throw new ParseException(EditCommand.MESSAGE_NOT_EDITED);

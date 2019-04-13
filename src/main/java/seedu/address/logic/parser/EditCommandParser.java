@@ -3,6 +3,7 @@ package seedu.address.logic.parser;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DEGREE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EDUCATION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GPA;
@@ -40,7 +41,7 @@ public class EditCommandParser implements Parser<EditCommand> {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_EDUCATION,
-                        PREFIX_GPA, PREFIX_ADDRESS, PREFIX_SKILL, PREFIX_POS);
+                        PREFIX_GPA, PREFIX_DEGREE, PREFIX_ADDRESS, PREFIX_SKILL, PREFIX_POS);
 
         Index index;
 
@@ -63,6 +64,10 @@ public class EditCommandParser implements Parser<EditCommand> {
 
         if (argMultimap.getValue(PREFIX_GPA).isPresent()) {
             editPersonDescriptor.setGpa(ParserUtil.parseGpa(argMultimap.getValue(PREFIX_GPA).get()));
+        }
+
+        if (argMultimap.getValue(PREFIX_DEGREE).isPresent()) {
+            editPersonDescriptor.setDegree(ParserUtil.parseDegree(argMultimap.getValue(PREFIX_DEGREE).get()));
         }
 
         if (argMultimap.getValue(PREFIX_EDUCATION).isPresent()) {

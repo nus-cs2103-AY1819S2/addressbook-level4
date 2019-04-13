@@ -5,6 +5,7 @@
     "email": "alice@example.com",
     "education" : "NUS",
     "gpa" : "4.0",
+    "degree": "Bachelors",
     "address": "123, Jurong West Ave 6, #08-111",
     "tagged": [ "friends" ]
   }, {
@@ -13,6 +14,7 @@
     "email": "pauline@example.com",
     "education" : "NUS",
     "gpa" : "4.0",
+    "degree": "Bachelors",
     "address": "4th street"
   } ]
 }

@@ -6,6 +6,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EDUCATION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GPA;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DEGREE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SKILL;
@@ -40,6 +41,8 @@ public class CommandTestUtil {
     public static final String VALID_GPA_BOB = "2.8";
     public static final String VALID_EDUCATION_AMY = "NUS";
     public static final String VALID_EDUCATION_BOB = "NTU";
+    public static final String VALID_DEGREE_AMY = "Associates";
+    public static final String VALID_DEGREE_BOB = "Bachelors";
     public static final String VALID_SKILL_JAVA = "Java";
     public static final String VALID_SKILL_PYTHON = "Python";
 
@@ -55,12 +58,17 @@ public class CommandTestUtil {
     public static final String GPA_DESC_BOB = " " + PREFIX_GPA + VALID_GPA_BOB;
     public static final String EDUCATION_DESC_AMY = " " + PREFIX_EDUCATION + VALID_EDUCATION_AMY;
     public static final String EDUCATION_DESC_BOB = " " + PREFIX_EDUCATION + VALID_EDUCATION_BOB;
+    public static final String DEGREE_DESC_AMY = " " + PREFIX_DEGREE + VALID_DEGREE_AMY;
+    public static final String DEGREE_DESC_BOB = " " + PREFIX_DEGREE + VALID_DEGREE_BOB;
     public static final String SKILL_DESC_PYTHON = " " + PREFIX_SKILL + VALID_SKILL_PYTHON;
     public static final String SKILL_DESC_JAVA = " " + PREFIX_SKILL + VALID_SKILL_JAVA;
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones
     public static final String INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + "bob!yahoo"; // missing '@' symbol
+    public static final String INVALID_EDUCATION_DESC = " " + PREFIX_EDUCATION + " "; // empty string
+    public static final String INVALID_GPA_DESC = " " + PREFIX_GPA + "a"; // not a number
+    public static final String INVALID_DEGREE_DESC = " " + PREFIX_DEGREE + "none"; // not an option for degree
     public static final String INVALID_ADDRESS_DESC = " " + PREFIX_ADDRESS; // empty string not allowed for addresses
     public static final String INVALID_TAG_DESC = " " + PREFIX_SKILL + "hubby*"; // '*' not allowed in tags
 

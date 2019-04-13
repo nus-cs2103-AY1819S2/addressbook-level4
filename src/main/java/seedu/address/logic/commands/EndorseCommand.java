@@ -53,7 +53,7 @@ public class EndorseCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
-        List<Person> lastShownList = model.getAddressBook().getPersonList();
+        List<Person> lastShownList = model.getFilteredPersonList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
@@ -86,7 +86,7 @@ public class EndorseCommand extends Command {
         }
 
         Person editedPerson = new Person(personToEdit.getName(), personToEdit.getPhone(), personToEdit.getEmail(),
-                personToEdit.getEducation(), personToEdit.getGpa(), personToEdit.getAddress(), personTags);
+                personToEdit.getEducation(), personToEdit.getGpa(), personToEdit.getDegree(), personToEdit.getAddress(), personTags);
 
 
         model.setPerson(personToEdit, editedPerson);

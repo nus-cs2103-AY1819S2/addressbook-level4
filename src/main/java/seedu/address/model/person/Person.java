@@ -25,6 +25,7 @@ public class Person {
     // new identity fields
     private final Education education;
     private final Gpa gpa;
+    private final Degree degree;
 
     //private final Skills skills;
 
@@ -35,7 +36,7 @@ public class Person {
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Education education, Gpa gpa, Address address,
+    public Person(Name name, Phone phone, Email email, Education education, Gpa gpa, Degree degree, Address address,
                   Set<SkillsTag> tags) {
 
         requireAllNonNull(name, phone, email, address, tags);
@@ -44,6 +45,7 @@ public class Person {
         this.email = email;
         this.education = education;
         this.gpa = gpa;
+        this.degree = degree;
         this.address = address;
         this.tags.addAll(tags);
     }
@@ -67,6 +69,8 @@ public class Person {
     public Gpa getGpa() {
         return gpa;
     }
+
+    public Degree getDegree() { return degree; }
 
     public Address getAddress() {
         return address;
@@ -202,7 +206,7 @@ public class Person {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, education, address, tags);
+        return Objects.hash(name, phone, email, education, gpa, degree, address, tags);
     }
 
     @Override
@@ -217,6 +221,8 @@ public class Person {
                 .append(getEducation())
                 .append(" Gpa: ")
                 .append(getGpa())
+                .append(" Degree: ")
+                .append(getDegree())
                 .append(" Address: ")
                 .append(getAddress())
                 .append(" Tags: ");

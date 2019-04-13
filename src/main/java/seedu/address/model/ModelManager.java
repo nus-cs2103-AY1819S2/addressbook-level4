@@ -59,7 +59,7 @@ public class ModelManager implements Model {
     }
 
     public Command parse(String commandWord, String arguments) throws ParseException {
-        return viewState.parse(commandWord, arguments);
+        return viewState.getViewStateParser().parse(commandWord, arguments);
     }
 
     /**

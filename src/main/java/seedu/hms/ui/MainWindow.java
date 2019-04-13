@@ -1,5 +1,6 @@
 package seedu.hms.ui;
 
+import java.io.IOException;
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
@@ -17,6 +18,7 @@ import seedu.hms.logic.LogicManager;
 import seedu.hms.logic.commands.CommandResult;
 import seedu.hms.logic.commands.exceptions.CommandException;
 import seedu.hms.logic.parser.exceptions.ParseException;
+import seedu.hms.model.Stats;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -42,6 +44,7 @@ public class MainWindow extends UiPart<Stage> {
     private ServiceTypeAndRoomTypePanel serviceTypeAndRoomTypePanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    private StatsWindow statsWindow;
 
     @FXML
     private StackPane serviceTypeAndRoomTypePlaceholder;
@@ -77,6 +80,7 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         helpWindow = new HelpWindow();
+        statsWindow = new StatsWindow(new Stats(this.logic.getHotelManagementSystem()));
     }
 
     public Stage getPrimaryStage() {
@@ -185,6 +189,19 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+    /**
+     * Opens the stats window or focuses on it if it's already opened.
+     */
+    @FXML
+    public void handleStats() {
+        //StatsWindow.createStage();
+        if (!statsWindow.isShowing()) {
+            statsWindow.show();
+        } else {
+            statsWindow.focus();
+        }
+    }
+
     void show() {
         primaryStage.show();
     }
@@ -247,6 +264,10 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isShowHelp()) {
                 handleHelp();
+            }
+
+            if (commandResult.isShowStats()) {
+                handleStats();
             }
 
             if (commandResult.isExit()) {

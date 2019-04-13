@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.*?>
+
+
+<fx:root xmlns:fx="http://javafx.com/fxml/1" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8"
+         title="Statistics" maximized="false">
+    <scene>
+        <Scene>
+            <TextArea fx:id="statsTextArea"/>
+        </Scene>
+    </scene>
+</fx:root>
+

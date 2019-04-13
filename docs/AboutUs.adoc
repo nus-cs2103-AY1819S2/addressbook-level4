@@ -39,7 +39,7 @@ Responsibilities: Test session features
 
 === Matthew Low Min De
 image::mmdlow.png[width="150", align="left"]
-{empty}[https://github.com/mmdlow[github]] [<<matthewlow#, portfolio>>]
+{empty}[https://github.com/mmdlow[github]] [<<mmdlow#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Card features

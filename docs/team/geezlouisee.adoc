@@ -65,6 +65,3 @@ include::../DeveloperGuide.adoc[tag=summary]
 include::../DeveloperGuide.adoc[tag=appendixA]
 
 include::../DeveloperGuide.adoc[tag=appendixB]
-
-== [Proposed Enhancement] Additional parameters for `summary` feature (coming in v1.4)
-I intend for the `summary` command to be able to accept parameters (ie. start and end date specified by the user). This will enable users to see their expenditures for each category within their specified duration. However, these parameters will be optional. If the user does not specify the start and end dates, the application will just reflect changes according to their total budget and expenditures.

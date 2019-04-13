@@ -638,6 +638,7 @@ the `totalBudget` allocated to the `CategoryBudget`.
 // tag::summary[]
 === Summary
 The summary feature shows an overview of your previous expenditures in a pie chart. Each sector of the chart represents a category, labelled with the name and total expenditure for each category.
+
 You can also set a report period by indicating the number of days or months. Specifying a report period is optional. If no parameters are defined, data of expenditures in the past week (ie. the last 7 days) will be displayed in the pie chart by default.
 
 ==== Implementation

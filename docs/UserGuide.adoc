@@ -530,16 +530,20 @@ image::reverseExample.png[width ="600"]
 // tag::summary[]
 ==== Showing summary of records: `summary`
 
+You can see the summary of your previous expenditures represented as a pie chart, with
+each sector representing a category. Each sector is labelled with name and total expenditure for the category,
+allowing you to have a clear overview of how your spending habit is like.
+
+By default, _In-Credit-Ble_ will display the browser panel when you first open the application.
+Entering the `summary` command in the command box will allow you to switch from the browser view mode to the summary view mode, as shown in the diagram below.
+
 .Summary panel is displayed when user enters the  `summary` command
 image::summaryUI.png[width ="800"]
 
-You can see the summary of your previous expenditures represented as a pie chart, with
-each sector representing a category. Each sector is labelled with name and total expenditure for the category,
-allowing you to have an overview of how your spending habit is like.
+You can also specify a report period by stating the number of days or months via the `PERIOD_AMOUNT` and `PERIOD` parameters. However, these parameters are optional.
 
-You can also specify a report period by specifying the number of days or months. However, these parameters are optional.
-
-You may also type `summary` in the command box to exit the summary view mode, as shown in the diagram below.
+To exit the summary view mode, simply type `summary` in the command box again.
+Your screen should change back to the browser view mode as shown in the diagram below.
 
 .Exits from summary view mode when user enters the  `summary` command again
 image::summaryUI_2.png[width ="800"]
@@ -552,7 +556,7 @@ image::summaryUI_2.png[width ="800"]
 ====
 * If a period is not specified, then the summary will show a default report period of the last 7 days.
 * Deleted entries are not included in the summary.
-* Adding more entries while in the summary view mode will update the pie chart statistics automatically, if the expense falls within the specified report period
+* Adding more entries while in the summary view mode will update the pie chart statistics automatically, as long as the expense falls within the specified report period
 ====
 
 ****
@@ -734,7 +738,7 @@ Your personal data will be encrypted and stored in your own account that can als
 
 With this feature, multiple users will be able to use _In-Credit-Ble_ on the same computer without being able to access or alter each other's data.
 
-==== Separate expenditures based on methods of payment (Cash, Visa, Paylah) `[coming in v2.0]`
+==== Separate expenditures based on methods of payment (Cash, Visa, DBS PayLah) `[coming in v2.0]`
 
 _In-Credit-Ble_ will link up with secure methods of payment to allow tracking of your cashless transactions.
 These include, but not limited to, payment services such as DBS PayLah, Visa/MasterCard, Amex and Paypal.

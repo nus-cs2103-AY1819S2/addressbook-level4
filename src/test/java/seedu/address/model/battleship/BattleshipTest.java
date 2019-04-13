@@ -25,7 +25,7 @@ public class BattleshipTest {
         Battleship battleshipFour = new Battleship(new Name("destroyer"));
 
         HashSet<Tag> emptySet = new HashSet<>();
-        Battleship battleshipOneShadow = new Battleship(new Name("placeholder"), 2, 2, emptySet);
+        Battleship battleshipOneShadow = new Battleship(new Name("default"), 2, 2, emptySet);
         Battleship battleshipTwoShadow = new Battleship(new Name("destroyer"), 2, 2, emptySet);
         Battleship battleshipThreeShadow = new Battleship(new Name("destroyer"), 2, 2, emptySet);
         Battleship battleshipFourShadow = new Battleship(new Name("destroyer"), 2, 2, emptySet);
@@ -39,7 +39,7 @@ public class BattleshipTest {
     @Test
     public void testToString() {
         Battleship battleship = new Battleship();
-        assertEquals(battleship.toString(), "placeholder");
+        assertEquals(battleship.toString(), "default");
     }
 
     @Test

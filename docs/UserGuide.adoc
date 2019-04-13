@@ -14,7 +14,7 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level4
+:repoURL: https://github.com/CS2103-AY1819S2-W14-3/main
 
 By: `Team W14-3`      Since: `Jan 2019`      Licence: `MIT`
 
@@ -47,30 +47,15 @@ Battleship, as you will see, is a hybrid application. It combines both a CLI and
 .  Download the latest `battleship.jar` link:https://github.com/CS2103-AY1819S2-W14-3/main/releases[here].
 .  Copy the file to the folder you want to use as the home folder for Battleship.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
-+
-image::Ui1.png[width=800]
-+
 .  Type commands in the command box and press kbd:[Enter] to execute them. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  To begin playing, first initialise the map to a size between 6 to 10. eg: `init 6`.
-+
-image::Ui2.png[width=800]
-+
 .  Deploy your battleships:
 ..  Deploy your aircraft carrier: `put n/aircraft carrier c/a1 r/h`
 ..  Deploy your cruiser: `put n/cruiser c/c1 r/h`
 ..  Deploy your destroyer: `put n/destroyer c/e1 r/h`
-+
-image::Ui3.png[width=800]
-+
 .  Start the game: `start game`
-+
-image::Ui4.png[width=800]
-+
 .  Shoot the enemy's map at a specific cell. eg: `shoot a1`
-+
-image::Ui5.png[width=800]
-+
 
 The game will go on until either party's ships are totally destroyed.
 
@@ -154,10 +139,13 @@ This section describes the commands used in the preparation phase.
 
 Initialises both player's maps to the specified size. The size of the maps must be between 6 and 10, inclusive. +
 
-The `init` command can be used at any point in time during gameplay. When used in the middle of a game, the `init` command functions like a "new game" command and will reset the board to a clean state.
-
 Format: `init MAP_SIZE` +
 Example: `init 10`
+
+****
+* The `init` command can be used at any point in time during gameplay. When used in the middle of a game, the `init` command functions like a "new game" command and will reset the board to a clean state.
+* Each cell is represented by its coordinates e.g "b1".
+****
 
 _Figure 1_ below shows how the maps will be displayed in the UI.
 
@@ -191,74 +179,51 @@ image::maplegend.png[width=400]
 ==== Ship Management:
 ===== Placing a ship on the map: `put`
 
-Adds a battleship onto the player's map. The coordinates specified is the position of the battleship's head. +
+Adds a battleship onto the player's map. The coordinates specified is the position of the ship's head. +
 
-Format: `put n/NAME c/COORDINATES r/ORIENTATION t/TAG` +
+Format: `put n/NAME c/COORDINATES r/ORIENTATION [t/TAGS]` +
 
 Examples:
 
 * `put n/Destroyer c/a1 r/vertical`
-* `put n/Aircraft Carrier c/b1 r/h` +
+* `put n/Aircraft Carrier c/b1 r/h t/tag1` +
 
-[NOTE]
 The head of a battleship refers to the top-most and left-most cell of the battleship. When coordinates are specified in the `put` command, it specifies the coordinates of the head of the battleship, as shown in the figure below.
-
-image::BattleshipHeadExample.png[width=800]
 
 .The coordinates of the `put` command refer to the coordinates of the battleship head.
 image::BattleshipHeadExample2.png[width=800]
 
-_Figure 3_ shows how a battleship is put at coordinate `a5`. The head of the battleship is therefore at `a5`. +
+The orientation of the ship can be horizontal or vertical. The orientation of the battleship must be specified. It may be shortened to `h` or `v`. +
 
-.The `put` command will put the battleship at a5, which is the battleship's head coordinate.
-image::putshipheadexample.png[width=750]
+When putting a ship on the map grid, you should not specify the head coordinates such that:
 
-The orientation of the battleship can be horizontal or vertical. The orientation of the battleship must be specified. It may be shortened to `h` or `v`. +
+* The ship falls outside the map grid.
+* The ship collides with another ship that has already been placed on the map grid.
 
 ===== Listing all ships : `list`
 
 Shows a list of all the player's battleships that are have been deployed on the map. There are four ways of using the `list` command:
 
-1. List all the battleships.
-2. List all the battleships that match a list of tags.
-3. List all the battleships of a certain type.
-4. List all the battleships of a certain type that match a list of tags.
-
-Format:
-
-* `list`
-* `list t/[TAGS]`
-* `list n/[NAME]`
-* `list n/[NAME] t/[TAGS]`
+1. List all ships: `list`.
+2. List ships that match certain tags: `list t/[TAGS]`.
+3. List certain ships: `list n/[NAME]`.
+4. List certain ships that match certain tags: `list n/[NAME] t/[TAGS]`
 
 Examples:
 
 * `list`
 * `list t/blueFleet`
 * `list n/destroyer`
-* `list n/destroyer t/blueFleet`
+* `list n/destroyer n/cruiser t/blueFleet t/greenFleet`
 
-The list will show the battleship's head coordinate, the battleship's orientation, and the battleship's tags in square brackets. +
+The list will show the battleship's head coordinate, the battleship's orientation, and the battleship's tags in square brackets. The format of each entry in the list is: `[NAME] [CURRENT LIFE] at [HEAD COORDINATE] [ORIENTATION] [TAGS]`. An example is given below.
 
-The format of each entry in the list is: `[NAME] [CURRENT LIFE] at [HEAD COORDINATE] [ORIENTATION] [TAGS]`.
-
-.The `list` command
-image::listexample.png[width=750]
-
-The `list` command can also be used with tags. In the example provided, we have added the tag `bluefleet` to our destroyer at `f7`. Using the command `list t/bluefleet` will allow us to list all the battleships tagged with `bluefleet`.
-
-.The `list` command with tags
-image::listwithtagexample.png[width=750]
-
-The `list` command can be used with both the name of the battleship and a list of tags. In this example from _Figure 6_ and _Figure 7_, we have created a fleet with two tags: `blue` and `green`.
-
-.The `list` command showing our fleet
-image::listall.png[width=750]
-
-We are able to list a specific battleship by the name of `destroyer` with the tag `blue`, as in _Figure 7_.
-
-.The `list` command with name and tags
-image::listbytagbyname.png[width=750]
+[source,text]
+----
+Input:      list n/destroyer t/blueFleet t/greenFleet
+Output:     destroyer (3/3) at g5 vertical [redFleet][blueFleet][greenFleet]
+            destroyer (3/3) at c3 horizontal [blueFleet][greenFleet]
+----
 
 ===== List all tags: `listTags`
 
@@ -267,7 +232,6 @@ Lists all the tags that have been used to tag the battleships deployed on the ma
 Format: `listTags` +
 Examples: `listTags`
 
-[NOTE]
 The list of tags is given in square brackets.
 
 // end::ship[]
@@ -330,6 +294,7 @@ Format: `exit`
 *Q*: How are you today? +
 *A*: I'm fine and dandy thank you very much.
 
+//tag::commandsummary[]
 == Command Summary
 
 [width="200%",cols="<30%,<70%,50%, 50",options="header",]
@@ -343,7 +308,8 @@ Format: `exit`
 |*Put ship on map*| `put n/NAME r/ORIENTATION c/COORDINATE [optional]t/TAG` |Place your battleship on the map. | `put n/Destroyer r/vertical c/a1 t/myfleet`
 |*View statistics*| `stats` |Opens a Statistics Window. | `stats`
 |*Start game*| `start game` |Let enemy place ships on enemy grid. | `start game`
-
+|=======================================================================
+//end::commandsummary[]
 
 
 

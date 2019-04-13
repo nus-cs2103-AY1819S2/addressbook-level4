@@ -191,6 +191,18 @@ public class Fleet {
                 .collect(Collectors.toList());
     }
 
+    public List<FleetEntry> getByNames(Set<Name> nameSet) {
+        ArrayList<FleetEntry> result = new ArrayList<>();
+
+        for (FleetEntry fleetEntry : this.deployedFleet) {
+            if (nameSet.contains(fleetEntry.getBattleship().getName())) {
+                result.add(fleetEntry);
+            }
+        }
+
+        return result;
+    }
+
     /**
      * Checks if all battleships have been deployed.
      */

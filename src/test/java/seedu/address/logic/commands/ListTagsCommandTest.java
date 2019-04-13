@@ -143,7 +143,16 @@ public class ListTagsCommandTest {
 
         CommandResult expectedCommandResult = new CommandResult(expectedOutput.toString(), false, false);
         assertCommandSuccess(listTagsCommand, model, commandHistory, expectedCommandResult, expectedModel);
+    }
 
+    @Test
+    public void trivial_commandEqualityTest_success() {
+        ListTagsCommand listTagsCommand1 = new ListTagsCommand();
+        ListTagsCommand listTagsCommand2 = new ListTagsCommand();
 
+        listTagsCommand1.execute(model, commandHistory);
+        listTagsCommand2.execute(model, commandHistory);
+
+        assertEquals(listTagsCommand1, listTagsCommand2);
     }
 }

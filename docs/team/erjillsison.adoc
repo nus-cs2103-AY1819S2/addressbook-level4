@@ -26,15 +26,18 @@ The following sections illustrate the feature in more detail, as well as the rel
 * *Other contributions*:
 
 ** Project management:
-*** Reported bugs not related to my own feature: Issue https://github.com/CS2103-AY1819S2-W14-3/main/issues/105[#105]
+*** Made changes to the project that do not fall under a specific feature (Pull Requests  https://github.com/CS2103-AY1819S2-W14-3/main/pull/352["Change output jar name" #352], https://github.com/CS2103-AY1819S2-W14-3/main/pull/240["Create Model component diagram" #240], https://github.com/CS2103-AY1819S2-W14-3/main/pull/176["Renaming the app header title and icon" #176])
+
+*** Reported bugs not related to my own feature. (Issues https://github.com/CS2103-AY1819S2-W14-3/main/issues/339[#339],  https://github.com/CS2103-AY1819S2-W14-3/main/issues/105[#105], https://github.com/CS2103-AY1819S2-W14-3/main/issues/61[#61])
 ** Enhancements to existing features:
-*** Overhaul of UI to display the maps: Pull request https://github.com/CS2103-AY1819S2-W14-3/main/pull/87[#87]
+*** Overhaul of UI to display the maps. (Pull request https://github.com/CS2103-AY1819S2-W14-3/main/pull/87[#87])
 ** Documentation:
-*** Restructured UG to make it easier to follow when playing the game: Pull Request https://github.com/CS2103-AY1819S2-W14-3/main/pull/256[#256]
+*** Restructured UG to make it easier to follow when playing the game. (Pull Request https://github.com/CS2103-AY1819S2-W14-3/main/pull/256[#256])
 ** Community:
-*** Reported bugs and suggestions for other teams in the class (examples:  Issue https://github.com/nus-cs2103-AY1819S2/pe-dry-run/issues/672[#672], Issue https://github.com/nus-cs2103-AY1819S2/pe-dry-run/issues/148[#148])
+*** PRs reviewed (with non-trivial review comments). (Pull Requests https://github.com/CS2103-AY1819S2-W14-3/main/pull/53[#53],  https://github.com/CS2103-AY1819S2-W14-3/main/pull/334[#334])
+*** Reported bugs and suggestions for other teams in the class. (Issues https://github.com/nus-cs2103-AY1819S2/pe-dry-run/issues/672[#672], https://github.com/nus-cs2103-AY1819S2/pe-dry-run/issues/148[#148])
 ** Tools:
-*** Integrated Netlify to the project
+*** Integrated Netlify to the team repo.
 
 == Contributions to the User Guide
 
@@ -51,6 +54,13 @@ include::../UserGuide.adoc[tag=map]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
+Co-authored the Model diagram as shown in Figure 3 below.
+
+.Model Diagram
+image::ModelClassDiagram.png[width="800"]
+
+---
+
 include::../DeveloperGuide.adoc[tag=map]
 
 ---
@@ -58,3 +68,5 @@ include::../DeveloperGuide.adoc[tag=map]
 include::../DeveloperGuide.adoc[tag=mapuse]
 
 ---
+=== Instructions for Manual Testing
+include::../DeveloperGuide.adoc[tag=maptest]

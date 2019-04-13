@@ -20,8 +20,8 @@ public class CommandTestUtil {
     public static final String VALID_PHONE_BOB = "22222222";
     public static final String VALID_EMAIL_BOB = "bob@example.com";
     public static final String VALID_ADDRESS_BOB = "Block 123, Bobby Street 3";
-    public static final String VALID_COORDINATES_FIRST_ROW = "a1";
-    public static final String VALID_COORDINATES_LAST_ROW = "j1";
+    public static final String VALID_COORDINATES_A1 = "a1";
+    public static final String VALID_COORDINATES_J1 = "j1";
 
     public static final String VALID_HORIZONTAL_ORIENTATION = "horizontal";
     public static final String VALID_VERTICAL_ORIENTATION = "vertical";
@@ -30,7 +30,7 @@ public class CommandTestUtil {
 
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
-    public static final String COORDINATE_FIRST_ROW = " " + PREFIX_COORDINATES + VALID_COORDINATES_FIRST_ROW;
+    public static final String COORDINATE_FIRST_ROW = " " + PREFIX_COORDINATES + VALID_COORDINATES_A1;
 
     public static final String NAME_DESC_DESTROYER = " " + PREFIX_NAME + VALID_NAME_DESTROYER;
 

@@ -38,7 +38,7 @@ public class AddCardCommand extends ManagementCommand {
             + PREFIX_TEST + "Canberra "
             + PREFIX_TEST + "English "
             + PREFIX_HINT + "Starts with C\n"
-            + "Note: You need to specify at least 2 test values for the card to be valid.";
+            + "Note: You need to specify at least 2 TEST values. HINT values are optional.";
     /**
      * Feedback message displayed to the user upon successful execution of this command
      */

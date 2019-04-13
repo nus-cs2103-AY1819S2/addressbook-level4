@@ -2,8 +2,6 @@ package seedu.address.logic.commands.management;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_LESSON_VIEW_COMMAND;
-import static seedu.address.logic.parser.Syntax.PREFIX_CORE_ANSWER;
-import static seedu.address.logic.parser.Syntax.PREFIX_CORE_QUESTION;
 import static seedu.address.logic.parser.Syntax.PREFIX_HINT;
 import static seedu.address.logic.parser.Syntax.PREFIX_LESSON_NAME;
 import static seedu.address.logic.parser.Syntax.PREFIX_TEST;
@@ -33,16 +31,20 @@ public class AddLessonCommand extends ManagementCommand {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a lesson. "
             + "\nParameters: "
             + PREFIX_LESSON_NAME + "NAME "
-            + PREFIX_CORE_QUESTION + "QUESTION CORE "
-            + PREFIX_CORE_ANSWER + "ANSWER CORE "
-            + "[" + PREFIX_TEST + "CORE]... "
-            + "[" + PREFIX_HINT + "OPTIONAL]...\n"
+            + PREFIX_TEST + "TEST "
+            + PREFIX_TEST + "TEST "
+            + "[" + PREFIX_TEST + "TEST]... "
+            + "[" + PREFIX_HINT + "HINT]...\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_LESSON_NAME + "Capitals of the world "
-            + PREFIX_CORE_QUESTION + "Country "
-            + PREFIX_CORE_ANSWER + "Capital "
+            + PREFIX_TEST + "Country "
+            + PREFIX_TEST + "Capital "
             + PREFIX_TEST + "Language "
-            + PREFIX_HINT + "Hint";
+            + PREFIX_HINT + "Hint\n"
+            + "Note: You need to specify at least 2 TEST values. add\n"
+            + "By default, the first 2 TEST values (Country and Capital) will be tested.\n"
+            + "Use the `" + EditLessonCommand.COMMAND_WORD + "` and `"
+            + SetTestCommand.COMMAND_WORD + "` commands to set the TEST values to be tested.";
     /**
      * Feedback message displayed to the user upon successful execution of this command
      */

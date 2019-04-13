@@ -32,7 +32,7 @@ import seedu.address.ui.CommandBox;
 public abstract class BrainTrainSystemTest {
     private static final List<String> COMMAND_BOX_DEFAULT_STYLE = Arrays.asList("text-input", "text-field");
     private static final List<String> COMMAND_BOX_ERROR_STYLE =
-            Arrays.asList("text-input", "text-field", CommandBox.ERROR_STYLE_CLASS);
+            Arrays.asList("text-input", "text-field", CommandBox.STYLE_CLASS_ERROR);
 
     private MainWindowHandle mainWindowHandle;
     private TestApp testApp;

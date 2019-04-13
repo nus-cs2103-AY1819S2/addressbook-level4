@@ -107,7 +107,8 @@ public class EditCommandTest {
     public void execute_filteredList_success() {
         showPersonAtIndex(model, TypicalIndexes.INDEX_FIRST_BUYER);
 
-        Person personInFilteredList = model.getFilteredPersonList().get(TypicalIndexes.INDEX_FIRST_BUYER.getZeroBased());
+        Person personInFilteredList = model.getFilteredPersonList().get(TypicalIndexes.INDEX_FIRST_BUYER
+                .getZeroBased());
         Person editedPerson = new PersonBuilder(personInFilteredList).withName(VALID_NAME_BOB).build();
         EditCommand editCommand = new EditCommand(TypicalIndexes.INDEX_FIRST_BUYER,
                 new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).build());
@@ -248,7 +249,8 @@ public class EditCommandTest {
         expectedModel.undoPinBook();
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
-        assertNotEquals(model.getFilteredPersonList().get(TypicalIndexes.INDEX_FIRST_BUYER.getZeroBased()), personToEdit);
+        assertNotEquals(model.getFilteredPersonList().get(TypicalIndexes.INDEX_FIRST_BUYER.getZeroBased()),
+                personToEdit);
         // redo -> edits same second person in unfiltered person list
         expectedModel.redoAddressBook();
         expectedModel.redoArchiveBook();

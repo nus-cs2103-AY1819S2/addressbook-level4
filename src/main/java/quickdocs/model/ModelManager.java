@@ -44,10 +44,6 @@ import quickdocs.model.reminder.ReminderManager;
 import quickdocs.model.reminder.ReminderWithinDatesPredicate;
 import quickdocs.model.reminder.exceptions.ReminderNotFoundException;
 import quickdocs.model.tag.Tag;
-import quickdocs.model.util.SampleAppUtil;
-import quickdocs.model.util.SamplePatientsUtil;
-import quickdocs.model.util.SampleRemUtil;
-
 
 /**
  * Represents the in-memory model of the address book data.
@@ -68,7 +64,7 @@ public class ModelManager implements Model {
     private final StatisticsManager statisticsManager;
 
     /**
-     * Initializes a ModelManager with the given quickdocs and userPrefs.
+     * Initializes a ModelManager with the given QuickDocs and userPrefs.
      */
     public ModelManager(QuickDocs quickDocs, ReadOnlyUserPrefs userPrefs) {
         super();
@@ -77,58 +73,18 @@ public class ModelManager implements Model {
         logger.fine("Initializing with QuickDocs: " + quickDocs + " and user prefs " + userPrefs);
 
         this.quickDocs = quickDocs;
-
         this.userPrefs = new UserPrefs(userPrefs);
         this.medicineManager = quickDocs.getMedicineManager();
-        //this.patientManager = new PatientManager(addressBook.getPatients());
         this.patientManager = quickDocs.getPatientManager();
         this.consultationManager = quickDocs.getConsultationManager();
         this.appointmentManager = quickDocs.getAppointmentManager();
         this.reminderManager = quickDocs.getReminderManager();
         this.statisticsManager = quickDocs.getStatisticsManager();
         filteredReminders = new FilteredList<>(reminderManager.getObservableReminderList());
-
-        iniQuickDocs();
     }
 
     public ModelManager() {
         this(new QuickDocs(), new UserPrefs());
-    }
-
-    /**
-     * Initialise quickdocs with sample patient data
-     */
-    public void iniQuickDocs() {
-        Patient[] samplePatients = SamplePatientsUtil.getSamplePatients();
-        //for (Patient patient : samplePatients) {
-        //    addPatient(patient);
-        //}
-        Appointment[] sampleAppointments = SampleAppUtil.getSampleAppointments(samplePatients);
-        //for (Appointment app : sampleAppointments) {
-        //    addApp(app);
-        //}
-        Reminder[] sampleReminders = SampleRemUtil.getSampleReminders();
-        //for (Reminder rem : sampleReminders) {
-        //    addRem(rem);
-        //}
-    }
-
-    /**
-     * Initialise quickdocs with sample patient data for testing purposes
-     */
-    public void initQuickDocsSampleData() {
-        Patient[] samplePatients = SamplePatientsUtil.getSamplePatients();
-        for (Patient patient : samplePatients) {
-            addPatient(patient);
-        }
-        Appointment[] sampleAppointments = SampleAppUtil.getSampleAppointments(samplePatients);
-        for (Appointment app : sampleAppointments) {
-            addApp(app);
-        }
-        Reminder[] sampleReminders = SampleRemUtil.getSampleReminders();
-        for (Reminder rem : sampleReminders) {
-            addRem(rem);
-        }
     }
 
     @Override
@@ -437,20 +393,38 @@ public class ModelManager implements Model {
         reminderForMedicine(prescription.getMedicine());
     }
     //==========Appointment module===========================================================================
-    public boolean hasTimeConflicts(Appointment app) {
-        return appointmentManager.hasTimeConflicts(app);
-    }
 
     /**
-     * Adds an {@code Appointment} and its {@code Reminder} to QuickDocs
+     * Adds an {@code Appointment} and its corresponding {@code Reminder} into {@code AppointmentManager} and
+     * {@code ReminderManager} respectively.
      *
-     * @param app the {@code Appointment} to add
+     * @param app the {@code Appointment} to add.
      */
     public void addApp(Appointment app) {
         appointmentManager.addAppointment(app);
         Reminder remToAdd = createRemFromApp(app);
         addRem((remToAdd));
         quickDocs.indicateModification(true);
+    }
+
+    /**
+     * Deletes an {@code Appointment} from {@code AppointmentManager}.
+     *
+     * @param appointment the {@code Appointment} to delete
+     */
+    public void deleteAppointment(Appointment appointment) {
+        Optional<Reminder> reminder = reminderManager.getReminder(appointment);
+        reminder.ifPresent(r -> reminderManager.delete(reminder.get()));
+        appointmentManager.delete(appointment);
+        quickDocs.indicateModification(true);
+    }
+
+    public Optional<Appointment> getAppointment(LocalDate date, LocalTime start) {
+        return appointmentManager.getAppointment(date, start);
+    }
+
+    public boolean hasTimeConflicts(Appointment app) {
+        return appointmentManager.hasTimeConflicts(app);
     }
 
     public String listApp(LocalDate start, LocalDate end) {
@@ -465,36 +439,25 @@ public class ModelManager implements Model {
         return appointmentManager.listFreeSlots(start, end);
     }
 
-    public Optional<Appointment> getAppointment(LocalDate date, LocalTime start) {
-        return appointmentManager.getAppointment(date, start);
-    }
-
-    /**
-     * Deletes an {@code Appointment} from QuickDocs
-     *
-     * @param appointment the {@code Appointment} to delete
-     */
-    public void deleteAppointment(Appointment appointment) {
-        Optional<Reminder> reminder = reminderManager.getReminder(appointment);
-        if (reminder.isPresent()) {
-            reminderManager.delete(reminder.get());
-        }
-        appointmentManager.delete(appointment);
-        quickDocs.indicateModification(true);
-    }
-
     //==========Reminder module==============================================================================
-    public boolean duplicateRem(Reminder rem) {
-        return reminderManager.hasDuplicateReminder(rem);
-    }
 
     /**
-     * Adds a {@code Reminder} to QuickDocs
+     * Adds a {@code Reminder} to {@code ReminderManager}.
      *
-     * @param rem the {@code Reminder} to add
+     * @param rem the {@code Reminder} to add.
      */
     public void addRem(Reminder rem) {
         reminderManager.addReminder(rem);
+        quickDocs.indicateModification(true);
+    }
+
+    /**
+     * Deletes a {@code Reminder} from {@code ReminderManager}.
+     *
+     * @param reminder the {@code Reminder} to be deleted.
+     */
+    public void deleteReminder(Reminder reminder) {
+        reminderManager.delete(reminder);
         quickDocs.indicateModification(true);
     }
 
@@ -502,19 +465,14 @@ public class ModelManager implements Model {
         return new Reminder(app.createTitle(), app.getComment(), app.getDate(), app.getStart(), app.getEnd());
     }
 
-    /**
-     * Deletes a {@code Reminder} from QuickDocs
-     *
-     * @param reminder the {@code Reminder} to be deleted
-     */
-    public void deleteReminder(Reminder reminder) {
-        reminderManager.delete(reminder);
-        quickDocs.indicateModification(true);
+    public boolean duplicateRem(Reminder rem) {
+        return reminderManager.hasDuplicateReminder(rem);
     }
 
     /**
-     * Add a reminder for a medicine with insufficient amount
-     * @param medicine medicine that is below threshold
+     * Adds a {@code Reminder} into {@code ReminderManager} for a {@code Medicine} with insufficient amount.
+     *
+     * @param medicine the {@code Medicine} that has quantity below its threshold.
      */
     public void reminderForMedicine(Medicine medicine) {
         reminderManager.reminderForMedicine(medicine);
@@ -522,14 +480,16 @@ public class ModelManager implements Model {
     }
 
     /**
-     * delete outdated medicine amount reminder
-     * @param medicine medicine that is no longer in need of reminder
+     * Deletes outdated low quantity {@code Reminder} previously created for the given {@code Medicine}.
+     *
+     * @param medicine {@code Medicine} that is no longer in need of the {@code Reminder} previously created.
      */
     public void deleteExistingReminderForMedicine(Medicine medicine) {
         if (reminderManager.deleteExistingMedicineReminder(medicine)) {
             quickDocs.indicateModification(true);
         }
     }
+
     //==========Record module================================================================================
     public Statistics getStatistics(YearMonth from, YearMonth to) {
         return statisticsManager.getStatistics(from, to);

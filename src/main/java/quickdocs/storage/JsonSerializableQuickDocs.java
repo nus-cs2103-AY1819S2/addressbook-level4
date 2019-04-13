@@ -33,10 +33,10 @@ import quickdocs.model.reminder.ReminderManager;
  */
 public class JsonSerializableQuickDocs {
 
-    public static final String MESSAGE_DUPLICATE_PATIENT = "Patients list contains duplicate patient(s)";
-    public static final String MESSAGE_DUPLICATE_APPOINTMENT = "Appointment list contains duplicate appointment(s)";
-    public static final String MESSAGE_DUPLICATE_REMINDER = "Reminder list contains duplicate reminder(s)";
-    public static final String MESSGAE_DUPLICATE_MEDICINE = "Medicine list contains medicines with same name.";
+    public static final String MESSAGE_DUPLICATE_PATIENT = "Patients list contains duplicate patient(s).";
+    public static final String MESSAGE_DUPLICATE_APPOINTMENT = "Appointment list contains duplicate appointment(s).";
+    public static final String MESSAGE_DUPLICATE_REMINDER = "Reminder list contains duplicate reminder(s).";
+    public static final String MESSAGE_DUPLICATE_MEDICINE = "Medicine list contains medicines with same name.";
     public static final String MESSAGE_NONEXISTING_MEDICINE =
             "A Directory contains a medicine not found in the list of medicines.";
     public static final String MESSAGE_INVALID_CONSULTATION_FEE = "Consultation Fee is not a non-negative number.";
@@ -120,11 +120,11 @@ public class JsonSerializableQuickDocs {
             consultationManager.addConsultation(consultation);
         }
 
-        // loop for medicine, appointment, and records
         AppointmentManager appointmentManager = quickDocs.getAppointmentManager();
         for (JsonAdaptedAppointment jsonAdaptedAppointment : appointmentList) {
             Appointment appointment = jsonAdaptedAppointment.toModelType();
 
+            // handle duplicates
             if (appointmentManager.hasDuplicateAppointment(appointment)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_APPOINTMENT);
             }
@@ -135,6 +135,7 @@ public class JsonSerializableQuickDocs {
         for (JsonAdaptedReminder jsonAdaptedReminder : reminderList) {
             Reminder reminder = jsonAdaptedReminder.toModelType();
 
+            // handle duplicates
             if (reminderManager.hasDuplicateReminder(reminder)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_REMINDER);
             }
@@ -152,7 +153,7 @@ public class JsonSerializableQuickDocs {
         for (Medicine medicine : listOfMedicine) {
             String medicineName = medicine.name;
             if (medicineHashMap.containsKey(medicineName)) {
-                throw new IllegalValueException(MESSGAE_DUPLICATE_MEDICINE);
+                throw new IllegalValueException(MESSAGE_DUPLICATE_MEDICINE);
             } else {
                 medicineHashMap.put(medicineName, medicine);
             }

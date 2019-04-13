@@ -1,7 +1,8 @@
 package quickdocs.logic.commands;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
+
 import static quickdocs.logic.commands.CommandTestUtil.assertCommandFailure;
 import static quickdocs.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static quickdocs.testutil.TypicalIndexes.INDEX_FIRST_REMINDER;
@@ -18,10 +19,8 @@ import quickdocs.model.QuickDocs;
 import quickdocs.model.UserPrefs;
 import quickdocs.model.reminder.Reminder;
 
-
 /**
- * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for
- * {@code DeleteCommand}.
+ * Contains integration tests (interaction with the Model) and unit tests for {@code DeleteRemCommand}.
  */
 public class DeleteRemCommandTest {
 
@@ -56,19 +55,19 @@ public class DeleteRemCommandTest {
         DeleteRemCommand deleteSecondCommand = new DeleteRemCommand(INDEX_SECOND_REMINDER);
 
         // same object -> returns true
-        assertTrue(deleteFirstCommand.equals(deleteFirstCommand));
+        assertEquals(deleteFirstCommand, deleteFirstCommand);
 
         // same values -> returns true
         DeleteRemCommand deleteFirstCommandCopy = new DeleteRemCommand(INDEX_FIRST_REMINDER);
-        assertTrue(deleteFirstCommand.equals(deleteFirstCommandCopy));
+        assertEquals(deleteFirstCommand, deleteFirstCommandCopy);
 
         // different types -> returns false
-        assertFalse(deleteFirstCommand.equals(1));
+        assertNotEquals(deleteFirstCommand, 1);
 
         // null -> returns false
-        assertFalse(deleteFirstCommand.equals(null));
+        assertNotEquals(deleteFirstCommand, null);
 
-        // different person -> returns false
-        assertFalse(deleteFirstCommand.equals(deleteSecondCommand));
+        // different index -> returns false
+        assertNotEquals(deleteFirstCommand, deleteSecondCommand);
     }
 }

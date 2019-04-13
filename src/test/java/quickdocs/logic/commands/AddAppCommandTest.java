@@ -21,8 +21,10 @@ import quickdocs.model.UserPrefs;
 import quickdocs.model.patient.Nric;
 import quickdocs.testutil.TypicalPatients;
 
+/**
+ * Contains integration tests (interaction with the Model) and unit tests for {@code AddAppCommand}.
+ */
 public class AddAppCommandTest {
-
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
@@ -30,7 +32,7 @@ public class AddAppCommandTest {
     private Model model = new ModelManager(quickDocs, new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
-    private Nric nric = TypicalPatients.ALICE.getNric();
+    private Nric nric = APP_A.getPatient().getNric();
     private LocalDate date = APP_A.getDate();
     private LocalTime start = APP_A.getStart();
     private LocalTime end = APP_A.getEnd();
@@ -99,10 +101,7 @@ public class AddAppCommandTest {
 
     @Test
     public void equals() {
-        Nric nricB = TypicalPatients.EVE.getNric();
-
         AddAppCommand addAppA = new AddAppCommand(nric, date, start, end, comment);
-        AddAppCommand addAppB = new AddAppCommand(nricB, date, start, end, comment);
 
         // same object -> returns true
         assertEquals(addAppA, addAppA);
@@ -117,7 +116,25 @@ public class AddAppCommandTest {
         // null -> returns false
         assertNotEquals(addAppA, null);
 
-        // different person -> returns false
+        // different NRIC -> returns false
+        Nric nricB = TypicalPatients.EVE.getNric();
+        AddAppCommand addAppB = new AddAppCommand(nricB, date, start, end, comment);
+        assertNotEquals(addAppA, addAppB);
+
+        // different date -> returns false
+        addAppB = new AddAppCommand(nric, date.minusDays(1), start, end, comment);
+        assertNotEquals(addAppA, addAppB);
+
+        // different start time -> returns false
+        addAppB = new AddAppCommand(nric, date, start.minusHours(1), end, comment);
+        assertNotEquals(addAppA, addAppB);
+
+        // different end time -> returns false
+        addAppB = new AddAppCommand(nric, date, start, end.minusHours(1), comment);
+        assertNotEquals(addAppA, addAppB);
+
+        // different comment -> returns false
+        addAppB = new AddAppCommand(nric, date, start, end, comment + "different comment");
         assertNotEquals(addAppA, addAppB);
     }
 }

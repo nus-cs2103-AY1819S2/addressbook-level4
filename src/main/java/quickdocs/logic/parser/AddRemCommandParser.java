@@ -11,7 +11,7 @@ import quickdocs.logic.parser.exceptions.ParseException;
 import quickdocs.model.reminder.Reminder;
 
 /**
- * Parses input arguments and creates a new AddRemCommand object
+ * Parses input arguments and creates a new {@code AddRemCommand} object.
  */
 public class AddRemCommandParser implements Parser<AddRemCommand> {
     public static final Prefix PREFIX_TITLE = new Prefix("t/");
@@ -21,14 +21,16 @@ public class AddRemCommandParser implements Parser<AddRemCommand> {
     public static final Prefix PREFIX_COMMENT = new Prefix("c/");
 
     /**
-     * Parses the given {@code String} of arguments in the context of the AddRemCommand
-     * and returns an AddRemCommand object for execution.
-     * @throws ParseException if the user input does not conform the expected format
+     * Parses the given {@code String} of arguments in the context of the {@code AddRemCommand}
+     * and returns an {@code AddRemCommand} object for execution.
+     *
+     * @throws ParseException if the user input does not conform to the expected format.
      */
     public AddRemCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_TITLE, PREFIX_DATE, PREFIX_START, PREFIX_END, PREFIX_COMMENT);
 
+        // check if required prefixes are present
         boolean prefixesPresent = arePrefixesPresent(argMultimap, PREFIX_TITLE,
                 PREFIX_DATE, PREFIX_START);
         boolean preamblePresent = argMultimap.getPreamble().isEmpty();
@@ -39,14 +41,21 @@ public class AddRemCommandParser implements Parser<AddRemCommand> {
         String title = argMultimap.getValue(PREFIX_TITLE).get().trim();
         LocalDate date = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get().trim());
         LocalTime start = ParserUtil.parseTime(argMultimap.getValue(PREFIX_START).get().trim());
-        LocalTime end = null;
-        String comment = null;
+        LocalTime end;
+        String comment;
 
+        // check if end time was provided
         if (argMultimap.getValue(PREFIX_END).isPresent()) {
             end = ParserUtil.parseTime(argMultimap.getValue(PREFIX_END).get().trim());
+        } else {
+            end = null;
         }
+
+        // check if comments were provided
         if (argMultimap.getValue(PREFIX_COMMENT).isPresent()) {
             comment = argMultimap.getValue(PREFIX_COMMENT).get().trim();
+        } else {
+            comment = null;
         }
 
         return new AddRemCommand(new Reminder(title, comment, date, start, end));

@@ -1,8 +1,8 @@
 package quickdocs.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static quickdocs.logic.parser.ListAppCommandParser.PREFIX_DATE;
-import static quickdocs.logic.parser.ListAppCommandParser.PREFIX_FORMAT;
+import static quickdocs.logic.parser.FreeAppCommandParser.PREFIX_DATE;
+import static quickdocs.logic.parser.FreeAppCommandParser.PREFIX_FORMAT;
 
 import java.time.LocalDate;
 
@@ -10,13 +10,12 @@ import quickdocs.logic.CommandHistory;
 import quickdocs.model.Model;
 
 /**
- * Lists all free appointment slots in quickdocs to the user.
+ * Lists all free appointment slots in QuickDocs on the main display of the UI.
  */
 public class FreeAppCommand extends Command {
 
     public static final String COMMAND_WORD = "freeapp";
     public static final String COMMAND_ALIAS = "fa";
-
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Lists all free appointment slots.\n"
             + "Parameters: "
             + "[" + PREFIX_FORMAT + "FORMAT] "
@@ -30,11 +29,9 @@ public class FreeAppCommand extends Command {
     private final LocalDate start;
     private final LocalDate end;
 
-    public FreeAppCommand() {
-        start = LocalDate.now();
-        end = LocalDate.now();
-    }
-
+    /**
+     * Creates a {@code FreeAppCommand} to list free appointment slots within given search range.
+     */
     public FreeAppCommand(LocalDate start, LocalDate end) {
         this.start = start;
         this.end = end;

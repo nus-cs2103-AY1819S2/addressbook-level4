@@ -293,6 +293,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         return counter;
     }
 
+
     /**
      * Get the activities attended by this {@code Person}.
      */
@@ -306,6 +307,9 @@ public class AddressBook implements ReadOnlyAddressBook {
             if (isPersonAttending(key, activity) && activity.getStatus().isCompleted()) {
                 attendedCounter++;
             }
+        }
+        if (activitiesCounter == 0) {
+            return 0;
         }
         return (attendedCounter * 100) / activitiesCounter;
     }

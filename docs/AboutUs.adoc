@@ -40,10 +40,16 @@ Responsibilities: Viewing of stored Data
 
 === Lim Jia Hao
 image::jiahaolim.png[width="150", align="left"]
-{empty}[https://github.com/JiaHaoLim[github]] [<<limjiahao#, portfolio>>]
+{nbsp} +
+*Lim Jia Hao*,{nbsp} _Developer / Tester / Designer_ {nbsp}{nbsp}{nbsp}{nbsp}{nbsp}``[https://github.com/JiaHaoLim[Github]]``{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}``[<<jiahaolim#, Portfolio>>]``
+{nbsp} +
+{nbsp} +
 
-Role: Developer +
-Responsibilities: Records IO
+Responsibilities::
+* Develop functions and features for file management.
+* Create images used for dental representation
+* Design pleasant looking user interfaces
+* Ensure user friendliness of all features
 
 '''
 

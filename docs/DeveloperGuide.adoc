@@ -565,12 +565,12 @@ consist of at least one of each White or Black coordinates.
 
 The Black-White groupings of Coordinates through the concept of parity is illustrated here in the following diagram:
 
-image::CheckeredBoard.png[width=400]
+image::CheckeredBoard.png[width=650]
 
 Once the Enemy hits a Coordinate that has a ship on it, it will note down every valid Coordinate that is cardinal (to the North, South, East and West) to the
 cell that was discovered to hold a ship.
 
-image::CardinalCoordinates.png[width=400]
+image::CardinalCoordinates.png[width=650]
 
 The validity of these cardinal Coordinates are evaluated by checking if they are within the bounds of the map grid, and
 whether they have not been hit before. If these two conditions are satisfied, then the Enemy will note down the cardinal Coordinate into a `watchlist`, and

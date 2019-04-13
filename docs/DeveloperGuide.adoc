@@ -655,7 +655,7 @@ The `List` feature has to following syntax:
 The `find` feature is facilitated by *FindCommand* and *FindCommandParser*.
 This feature lists a subset of all the files in the application based on the keyword(s)
 provided. Using the keyword(s), the application will check the names of all files, as
-well as the content of the text within the files.
+well as the content of the text within the files prior to revealing the results.
 
 The `find` feature has to following syntax:
 
@@ -666,6 +666,47 @@ files. There must be at least one provided.
 
 image::FindCommandActivityDiagram.png[width="600"]
 
+==== Feature Breakdown
+The following image briefly summarises the interactions of the `find` command with
+its immediate components.
+
+image::FindCommandSequenceDiagram.png[width="600"]
+
+When the user enters the CLI Input for the find command, the command is first passed
+from the `LogicManager` to the `PdfBookParser` will carry out the following steps.
+
+1. Identify the appropriate CommandParser that is requested by the user
+  * In the case that the user requests the `find` command, the `PdfBookParser` will correctly parse
+  the user-input to the `FindCommandParser`.
+2. Call the `static` parse method within the appropriate CommandParser that is expected
+to return the correct Command from the CommandParser.
+  * Hence in the case of the `find` command. The `FindCommandParser` would return the
+  `FindCommand` back to the `PdfBookParser`.
+
+Upon receiving the `FindCommand` from the `PdfBookParser` the following steps are carried out.
+
+1. The `execute` method, that is part of the abstract `Command` class, is invoked.
+2. The parameters `Model` and `CommandHistory` are provided to the `execute` and the `FindCommand` executes its directive.
+3. The `FindCommand` then updates the `Model` and `CommandHistory`.
+4. Once the `Model` is updated, the user is able to view the visual changes of their desired actions within the application.
+
+This is a brief explanation of the inner workings of the `FindCommmand` and its execution method.
+
+==== Considerations
+Our application also implements several security features such as the ability of users to `Encrypt` and
+`Decrypt` their files. Hence, a major security concern was to prevent the `FindCommand` from searching
+through the contents of files that are previously encrypted. This is crucial to prevent the leakage of data
+as malicious users might simply utilize the `FindCommand` to extract information from the tracked files.
+
+==== Future Implementation
+
+1. A main issue with the current implementation of the `FindCommand` is it's slow speeds with respect to
+large files or files that contain a large string of text files. Hence, a possible consideration you might
+wish to improve upon is to "upgrade" this feature by improving it's speed of this feature.
+
+2. Yet another enhancement to this feature you might wish to implement is the use of Optical Image Recognition,
+otherwise known as OCR. This will allow the application to translate images within the file to words which would further
+improve the ability of the application to look through content even if they are images.
 // end::find[]
 
 // tag::filter[]

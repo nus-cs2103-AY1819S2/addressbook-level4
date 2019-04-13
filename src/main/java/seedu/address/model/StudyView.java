@@ -86,20 +86,16 @@ public class StudyView implements ViewState {
     public void setCurrentCard(Card card) {
         requireNonNull(card);
         currentCard = card;
+        updateTextShown();
     }
 
     /**
      * Generates the next card to be studied.
      */
     public void generateCard() {
-        setCurrentCard(deckShuffler.generateCard());
-        updateTextShown();
+        Card card = deckShuffler.generateCard();
+        setCurrentCard(card);
     }
-
-    public ReadOnlyProperty<StudyState> studyStateProperty() {
-        return currentStudyState;
-    }
-
 
     public StudyState getCurrentStudyState() {
         return currentStudyState.getValue();
@@ -114,7 +110,7 @@ public class StudyView implements ViewState {
     /**
      * Updates the text shown in the UI.
      */
-    public void updateTextShown() {
+    private void updateTextShown() {
         String text = (getCurrentStudyState() == StudyState.QUESTION) ? currentCard
                 .getQuestion() : currentCard.getAnswer();
         textShown.setValue(text);
@@ -128,14 +124,6 @@ public class StudyView implements ViewState {
         return textShown;
     }
 
-    /**
-     * Returns the user's answer
-     */
-    public ReadOnlyProperty<String> userAnswerProperty() {
-        return userAnswer;
-    }
-
-
     public String getUserAnswer() {
         return userAnswer.getValue();
     }
@@ -143,10 +131,6 @@ public class StudyView implements ViewState {
     public void setUserAnswer(String answer) {
         requireNonNull(answer);
         userAnswer.setValue(answer);
-    }
-
-    public void addRating(int rating) {
-        getCurrentCard().addDifficulty(rating);
     }
 
     public UiPart<Region> getPanel() {

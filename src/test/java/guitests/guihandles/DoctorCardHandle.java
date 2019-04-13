@@ -17,7 +17,7 @@ import seedu.address.model.person.Doctor;
 public class DoctorCardHandle extends NodeHandle<Node> {
     private static final String ID_FIELD_ID = "#id";
     private static final String NAME_FIELD_ID = "#name";
-    private static final String YEAR_FILED_ID = "#year";
+    private static final String YEAR_FIELD_ID = "#year";
     private static final String PHONE_FIELD_ID = "#phone";
     private static final String GENDER_FIELD_ID = "#gender";
     private static final String SPECS_FIELD_ID = "#specialisations";
@@ -34,9 +34,9 @@ public class DoctorCardHandle extends NodeHandle<Node> {
 
         idLabel = getChildNode(ID_FIELD_ID);
         nameLabel = getChildNode(NAME_FIELD_ID);
-        yearLabel = getChildNode(YEAR_FILED_ID);
         phoneLabel = getChildNode(PHONE_FIELD_ID);
         genderLabel = getChildNode(GENDER_FIELD_ID);
+        yearLabel = getChildNode(YEAR_FIELD_ID);
 
         Region specsContainer = getChildNode(SPECS_FIELD_ID);
         specsLabels = specsContainer

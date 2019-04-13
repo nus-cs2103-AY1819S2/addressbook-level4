@@ -40,10 +40,6 @@ public class DoctorBrowserPanel extends UiPart<Region> {
     private Label phone;
     @FXML
     private Label specs;
-    @FXML
-    private Label medHist;
-    @FXML
-    private Label appt;
 
 
     public DoctorBrowserPanel(ObservableValue<Doctor> selectedDoctor) {
@@ -77,14 +73,12 @@ public class DoctorBrowserPanel extends UiPart<Region> {
         year.setText("Year(s) of specialisation: " + doctor.getYear());
         phone.setText("Phone: " + doctor.getPhone());
         specs.setText("Specialisations: " + doctor.getSpecs()); // must loop through and display
-        medHist.setText("Medical histories: "); // to do
-        appt.setText("Appointments:"); // to do
 
-        doctorPage.getChildren().addAll(id, name, gender, year, phone, specs, medHist, appt);
+        doctorPage.getChildren().addAll(id, name, gender, year, phone, specs);
     }
 
     /**
-     * Loads a default blank medical history with a background that matches the general theme.
+     * Loads a default blank doctor information with a background that matches the general theme.
      */
     private void loadDefaultDoctor() {
         doctorPage.getChildren().clear();
@@ -95,9 +89,7 @@ public class DoctorBrowserPanel extends UiPart<Region> {
         year.setText("");
         phone.setText("");
         specs.setText("");
-        medHist.setText("");
-        appt.setText("");
-        doctorPage.getChildren().addAll(id, name, gender, year, phone, specs, medHist, appt);
+        doctorPage.getChildren().addAll(id, name, gender, year, phone, specs);
     }
 
 }

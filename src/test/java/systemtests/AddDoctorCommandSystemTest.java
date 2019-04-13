@@ -193,6 +193,7 @@ public class AddDoctorCommandSystemTest extends DocXSystemTest {
     private void assertCommandSuccess(String command, Doctor toAdd) {
         Model expectedModel = getModel();
         expectedModel.addDoctor(toAdd);
+
         String expectedResultMessage = String.format(AddDoctorCommand.MESSAGE_SUCCESS, toAdd);
 
         assertCommandSuccess(command, expectedModel, expectedResultMessage);

@@ -385,52 +385,37 @@ specifications laid out in <<Including a photo when adding a place with `p/`>>
 // tag::search[]
 === Searching places by name: `search`
 
-*Description:* The `search` command searches for places whose names contain any of the given keywords.
-
-*Shortcut:* `se`
+*Description:* The `search` (Shortcut: `se`) command searches for places whose names contain any of the given keywords.
 
 *Format:* `search KEYWORD [MORE_KEYWORDS]`
 
-*Preconditions:* Given below is a list of preconditions that must be met for the `search` command to work:
+*Preconditions:* Given below are preconditions that must be met for the `search` command to work:
 
 * The search is case insensitive. e.g `national` will match `National`.
-* The order of the keywords does not matter. +
-e.g. `University National of Singapore` will match `National University of Singapore`.
-* Only the name of the places in TravelBuddy is searched.
-* Only full words will be matched. +
-e.g. `Nation` will not match `National`
-* Places matching at least one keyword will be returned (i.e. `OR` search). +
-e.g. `National Museum` will return `National Museum of Singapore` and `National University Hospital`.
+* The order of the keywords does not matter. e.g. `University National of Singapore` will match `National University of Singapore`.
+* Only full words will be matched. e.g. `Nation` will not match `National`
+* Places matching at least one keyword will be returned (i.e. `OR` search). e.g. `National Museum` will return `National Museum of Singapore` and `National University Hospital`.
 
 *Example:* `search Singapore` +
 Executes a search for places that contain the keyword `Singapore` in its name. +
-From <<searchFigure>>, using `search Singapore` will return all places in your TravelBuddy that contain `Singapore` in its name. +
-In this case, the following are returned as they contain `Singapore` in their names:
-
-* Universal Studios *Singapore*
-* National University of *Singapore*
-* *Singapore* Zoo
+In <<searchFigure>>, running the `search` returns places that contain `Singapore` in their names:
 
 [[searchFigure]]
 [reftext="Figure 4.6.1"]
 [caption="Figure 4.6.1: "]
 .Search results of `search Singapore`
-image::UIsearchresults.png[width="400"]
+image::PPPsearchname.png[width="400"]
 
 === Searching places by ratings: `searchr`
 
-*Description:* The `searchr` command searches for places whose ratings match the specified rating from 1 to 5. +
-
-*Shortcut:* `sr`
+*Description:* The `searchr` (Shortcut: `sr`) command searches for places whose ratings match the specified rating from 1 to 5. +
 
 *Format:* `searchr INDEX [MORE_INDICES]`
 
-*Preconditions:* Given below is a list of preconditions that must be met for the `searchr` command to work:
+*Preconditions:* Given below are preconditions that must be met for the `searchr` command to work:
 
-* The rating used in the search must be an integer ranging from 1 to 5. +
-e.g `searchr 5` will return places with 5-star ratings.
-* Only the rating of the places in TravelBuddy is searched.
-* Multiple indices can be included in the query, e.g `searchr 4 5` will return places with `4` or `5` star ratings.
+* The rating used in the search must be an integer ranging from 1 to 5. e.g `searchr 5` will return places with 5-star ratings.
+* Multiple indices can be included in the query. e.g `searchr 4 5` will return places with `4` or `5` star ratings.
 
 *Example:* `searchr 4` +
 Executes a search for places with a rating of `4`. +
@@ -440,23 +425,19 @@ From <<searchRatingFigure>> below, using `searchr 4` will return all places in y
 [reftext="Figure 4.7.1"]
 [caption="Figure 4.7.1: "]
 .Search results of `searchr 4`
-image::UIsearchratingresults.png[width="400"]
+image::PPPsearchrating.png[width="400"]
 
 === Searching places by tags: `searcht`
 
-*Description:* The `searcht` command searches for places whose tags correspond to any given keywords. +
-
-*Shortcut:* `st`
+*Description:* The `searcht` (Shortcut: `st`) command searches for places whose tags correspond to any given keywords. +
 
 *Format:* `searcht KEYWORD [MORE_KEYWORDS]`
 
-*Preconditions:* Given below is a list of preconditions that must be met for the `searcht` command to work:
+*Preconditions:* Given below are preconditions that must be met for the `searcht` command to work:
 
 * The search is case insensitive. e.g `Temple` will match `temple`.
-* Only the tags of the places in TravelBuddy are searched.
 * Only full words will be matched e.g. `temp` will not match `temple`.
 * Places tagged with at least one matching keyword will be returned (i.e. `OR` search). e.g. `temple school` will return places tagged with `temple` or `school`.
-* Multiple keywords can be included in the query, e.g `searcht distillery temple` will return places tagged with `distillery` or `temple`.
 
 *Example:* `searcht distillery` +
 Executes a search for places that are tagged with `distillery`. +
@@ -466,22 +447,18 @@ From <<searchTagFigure>> below, using `searcht distillery` will return all place
 [reftext="Figure 4.8.1"]
 [caption="Figure 4.8.1: "]
 .Search results of `searcht distillery`
-image::UIsearchtagsresults.png[width="400"]
+image::PPPsearchtags.png[width="400"]
 
 === Searching places by country: `searchc`
 
-*Description:* The `searchc` command searches for places whose country matches the specified ISO-3166 3-letter country code. +
-
-*Shortcut:* `sc`
+*Description:* The `searchc` (Shortcut: `sc`) command searches for places whose country matches the specified ISO-3166 3-letter country code. +
 
 *Format:* `searchc KEYWORD [MORE_KEYWORDS]`
 
-*Preconditions:* Given below is a list of preconditions that must be met for the `searchc` command to work:
+*Preconditions:* Given below are preconditions that must be met for the `searchc` command to work:
 
-* The country code keywords for `searchc` must be valid 3-letter ISO-3166 country codes.
-* The search country is from a list of ISO-3166 country codes. e.g `JPN` will return places located in Japan.
-* Only the country of the places in TravelBuddy is searched.
-* Multiple keywords can be included in the query, e.g `searchc JPN CHN` will return places located in Japan or China.
+* The country code keywords for `searchc` must be valid 3-letter ISO-3166 country codes. e.g `JPN` will return places located in Japan.
+* Multiple keywords can be included in the query, i.e. `searchc JPN CHN` will return places located in Japan or China.
 
 *Example:* `searchc JPN` +
 Executes a search for places located in `JPN` (Japan). +
@@ -491,23 +468,18 @@ From <<searchCountryFigure>> below, using `searchc JPN` will return all places i
 [reftext="Figure 4.9.1"]
 [caption="Figure 4.9.1: "]
 .Search results of `searchc JPN`
-image::UIsearchcountryresults.png[width="400"]
+image::PPPsearchcountry.png[width="400"]
 
 === Searching places by year of visit: `searchyear`
 
-*Description:* The `searchyear` command searches for places whose year of visit matches the specified year of interest.
+*Description:* The `searchyear` (Shortcut: `sy`) command searches for places whose year of visit matches the specified year of interest.
 
-*Shortcut:* `sy`
+*Format:* `searchyear KEYWORD [MORE_KEYWORDS]` OR `searchyear KEYWORD-KEYWORD`
 
-*Format:* `searchyear KEYWORD [MORE_KEYWORDS]` OR +
-`searchyear KEYWORD-KEYWORD`
+*Preconditions:* Given below are preconditions that must be met for the `searchyear` command to work:
 
-*Preconditions:* Given below is a list of preconditions that must be met for the `searchyear` command to work:
-
-* The search year is bounded from 1900 to the current year. e.g `2016` will return places visited in the year 2016.
-* Search requests outside the bounds will issue a warning.
+* The search year is bounded from 1900 to the current year.
 * The year keywords for `searchyear` can be entered as a range. e.g `2010-2017` will return all the places visited from `2010` to `2017`.
-* Only the year of visit of the places in TravelBuddy is searched.
 
 *Example:* `searchyear 2016` +
 Executes a search for places visited in the year `2016`. +
@@ -517,7 +489,7 @@ From <<searchYearFigure>> below, using `searchyear 2016` will return all places 
 [reftext="Figure 4.10.1"]
 [caption="Figure 4.10.1: "]
 .Search results of `searchyear 2016`
-image::UIsearchyearresults.png[width="400"]
+image::PPPsearchyear.png[width="400"]
 // end::search[]
 
 // tag::crudDelete[]

@@ -1,8 +1,5 @@
 package seedu.address;
 
-import static seedu.address.testutil.TypicalHealthWorkers.getTypicalHealthWorkerBook;
-import static seedu.address.testutil.TypicalRequests.getTypicalRequestBook;
-
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.function.Supplier;

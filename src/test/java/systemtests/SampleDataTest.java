@@ -1,20 +1,20 @@
 package systemtests;
 
+import static seedu.address.ui.testutil.GuiTestAssert.assertHealthWorkerListMatching;
+import static seedu.address.ui.testutil.GuiTestAssert.assertRequestListMatching;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
 import org.junit.Test;
+
 import seedu.address.model.HealthWorkerBook;
 import seedu.address.model.RequestBook;
 import seedu.address.model.person.healthworker.HealthWorker;
 import seedu.address.model.request.Request;
 import seedu.address.model.util.SampleDataUtil;
 import seedu.address.testutil.TestUtil;
-
-import static seedu.address.ui.testutil.GuiTestAssert.assertHealthWorkerListMatching;
-import static seedu.address.ui.testutil.GuiTestAssert.assertRequestListMatching;
-
 
 public class SampleDataTest extends HealthHubSystemTest {
     /**
@@ -72,8 +72,8 @@ public class SampleDataTest extends HealthHubSystemTest {
 
     @Test
     public void requestBook_dataFileDoesNotExist_loadSampleData() {
-         Request[] expectedList = SampleDataUtil.getSampleRequests();
-         assertRequestListMatching(getRequestListPanel(), expectedList);
+        Request[] expectedList = SampleDataUtil.getSampleRequests();
+        assertRequestListMatching(getRequestListPanel(), expectedList);
     }
 }
 

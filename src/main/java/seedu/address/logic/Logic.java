@@ -28,6 +28,12 @@ public interface Logic {
     ObservableList<String> getHistory();
 
     /**
+     * Filters the command text for command keyword
+     * @param commandText
+     */
+    void addToStatistics(String commandText);
+
+    /**
      * Returns the user prefs' GUI settings.
      */
     GuiSettings getGuiSettings();

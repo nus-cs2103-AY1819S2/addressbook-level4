@@ -49,11 +49,9 @@ public class SelectCommandSystemTest extends MediTabsSystemTest {
         Index middleIndex = getMidIndex(getModel());
         command = SelectCommand.COMMAND_WORD + " " + middleIndex.getOneBased();
         assertCommandSuccess(command, middleIndex);
-        assertInformationPageIsCorrect();
 
         /* Case: select the current selected card -> selected */
         assertCommandSuccess(command, middleIndex);
-        assertInformationPageIsCorrect();
 
         /* ------------------------ Perform select operations on the shown filtered list ---------------------------- */
 
@@ -70,7 +68,6 @@ public class SelectCommandSystemTest extends MediTabsSystemTest {
         assertTrue(validIndex.getZeroBased() < getModel().getFilteredMedicineList().size());
         command = SelectCommand.COMMAND_WORD + " " + validIndex.getOneBased();
         assertCommandSuccess(command, validIndex);
-        assertInformationPageIsCorrect();
 
         /* ----------------------------------- Perform invalid select operations ------------------------------------ */
 
@@ -126,6 +123,7 @@ public class SelectCommandSystemTest extends MediTabsSystemTest {
 
         executeCommand(command);
         assertApplicationDisplaysExpected("", expectedResultMessage, expectedModel);
+        assertInformationPageIsCorrect();
 
         if (preExecutionSelectedCardIndex == expectedSelectedCardIndex.getZeroBased()) {
             assertSelectedCardUnchanged();

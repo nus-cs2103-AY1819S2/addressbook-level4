@@ -26,6 +26,7 @@ public class CliSyntax {
     public static final Prefix PREFIX_DATE_OF_APPT = new Prefix("d/");
     public static final Prefix PREFIX_START_TIME = new Prefix("t/");
     public static final Prefix PREFIX_APPT_STATUS = new Prefix("s/");
+    public static final Prefix PREFIX_CHRONOLOGY = new Prefix("c/");
     public static final String PLACEHOLDER_PATIENT_ID = "PATIENT_ID";
     public static final String PLACEHOLDER_DOCTOR_ID = "DOCTOR_ID";
     public static final String PLACEHOLDER_DATE_OF_APPT = "DATE_OF_APPT";

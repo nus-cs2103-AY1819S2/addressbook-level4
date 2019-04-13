@@ -1,4 +1,4 @@
-package seedu.address.logic.commands;
+package seedu.address.logic.commands.appointment;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PLACEHOLDER_DATE_OF_APPT;
@@ -17,9 +17,12 @@ import java.util.Optional;
 import java.util.function.Predicate;
 
 import seedu.address.logic.CommandHistory;
+import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.appointment.Appointment;
+import seedu.address.model.appointment.AppointmentChronology;
 import seedu.address.model.appointment.AppointmentDate;
 import seedu.address.model.appointment.AppointmentDoctorId;
 import seedu.address.model.appointment.AppointmentPatientId;
@@ -43,11 +46,12 @@ public class ListAppointmentCommand extends Command {
             + COMMAND_EXAMPLE;
 
     public static final String MESSAGE_SUCCESS = "Listed all appointments";
-    public static final String MESSAGE_SUCCESS_FILTERED_PATIENT = ", filtered by patient ID ";
-    public static final String MESSAGE_SUCCESS_FILTERED_DOCTOR = ", filtered by doctor ID ";
-    public static final String MESSAGE_SUCCESS_FILTERED_DATE = ", filtered by date ";
-    public static final String MESSAGE_SUCCESS_FILTERED_TIME = ", filtered by time ";
-    public static final String MESSAGE_SUCCESS_FILTERED_STATUS = ", filtered by status ";
+    public static final String MESSAGE_SUCCESS_FILTERED_PATIENT = ", filtered by patient ID";
+    public static final String MESSAGE_SUCCESS_FILTERED_DOCTOR = ", filtered by doctor ID";
+    public static final String MESSAGE_SUCCESS_FILTERED_DATE = ", filtered by date";
+    public static final String MESSAGE_SUCCESS_FILTERED_TIME = ", filtered by time";
+    public static final String MESSAGE_SUCCESS_FILTERED_STATUS = ", filtered by status";
+    public static final String MESSAGE_SUCCESS_FILTERED_CHRONOLOGY = ", filtered by chronology";
     public static final String MESSAGE_PATIENT_NOT_FOUND =
             "Appointment with the specified patient ID is not found.";
     public static final String MESSAGE_DOCTOR_NOT_FOUND =
@@ -62,7 +66,7 @@ public class ListAppointmentCommand extends Command {
     private final ListAppointmentDescriptor listAppointmentDescriptor;
 
     public ListAppointmentCommand(ListAppointmentDescriptor listAppointmentDescriptor) {
-        this.listAppointmentDescriptor = listAppointmentDescriptor;
+        this.listAppointmentDescriptor = new ListAppointmentDescriptor(listAppointmentDescriptor);
     }
 
     @Override
@@ -79,7 +83,8 @@ public class ListAppointmentCommand extends Command {
             predicates.add(appointment -> {
                 return appointment.getPatientId().equals(id);
             });
-            result.append(MESSAGE_SUCCESS_FILTERED_PATIENT);
+            result.append(MESSAGE_SUCCESS_FILTERED_PATIENT + ": ");
+            result.append(id);
         }
 
         if (listAppointmentDescriptor.getDoctorId().isPresent()) {
@@ -90,28 +95,53 @@ public class ListAppointmentCommand extends Command {
             predicates.add(appointment -> {
                 return appointment.getDoctorId().equals(id);
             });
-            result.append(MESSAGE_SUCCESS_FILTERED_DOCTOR);
+            result.append(MESSAGE_SUCCESS_FILTERED_DOCTOR + ": ");
+            result.append(id);
         }
 
         listAppointmentDescriptor.getDate().ifPresent(date -> {
             predicates.add(appointment -> {
                 return appointment.getDate().equals(date);
             });
-            result.append(MESSAGE_SUCCESS_FILTERED_DATE);
+            result.append(MESSAGE_SUCCESS_FILTERED_DATE + ": ");
+            result.append(date);
         });
 
         listAppointmentDescriptor.getTime().ifPresent(time -> {
             predicates.add(appointment -> {
                 return appointment.getTime().equals(time);
             });
-            result.append(MESSAGE_SUCCESS_FILTERED_TIME);
+            result.append(MESSAGE_SUCCESS_FILTERED_TIME + ": ");
+            result.append(time);
         });
 
         listAppointmentDescriptor.getStatus().ifPresent(status -> {
             predicates.add(appointment -> {
                 return appointment.getAppointmentStatus().equals(status);
             });
-            result.append(MESSAGE_SUCCESS_FILTERED_STATUS);
+            result.append(MESSAGE_SUCCESS_FILTERED_STATUS + ": ");
+            result.append(status);
+        });
+
+        listAppointmentDescriptor.getChronology().ifPresent(chronology -> {
+            AppointmentChronology.refreshCurrentTime();
+            switch(chronology) {
+            case PAST:
+                predicates.add(appointment -> {
+                    return AppointmentChronology.isInPast(appointment);
+                });
+                break;
+            case FUTURE:
+                predicates.add(appointment -> {
+                    return AppointmentChronology.isInFuture(appointment);
+                });
+                break;
+            default:
+                break;
+            }
+
+            result.append(MESSAGE_SUCCESS_FILTERED_CHRONOLOGY + ": ");
+            result.append(chronology);
         });
 
         // reduce predicate list to a single predicate
@@ -130,12 +160,13 @@ public class ListAppointmentCommand extends Command {
         private Optional<AppointmentDate> date = Optional.empty();
         private Optional<AppointmentTime> time = Optional.empty();
         private Optional<AppointmentStatus> status = Optional.empty();
+        private Optional<AppointmentChronology> chronology = Optional.empty();
 
         public ListAppointmentDescriptor() {
         }
 
         /**
-         * Copy constructor.
+         * Copy constructor. For defensive purposes, ensures only a copy is used.
          */
         public ListAppointmentDescriptor(ListAppointmentDescriptor toCopy) {
             setPatientId(toCopy.patientId);
@@ -143,8 +174,8 @@ public class ListAppointmentCommand extends Command {
             setDate(toCopy.date);
             setTime(toCopy.time);
             setStatus(toCopy.status);
+            setChronology(toCopy.chronology);
         }
-
 
         public Optional<AppointmentPatientId> getPatientId() {
             return patientId;
@@ -184,6 +215,14 @@ public class ListAppointmentCommand extends Command {
 
         public void setStatus(Optional<AppointmentStatus> status) {
             this.status = status;
+        }
+
+        public Optional<AppointmentChronology> getChronology() {
+            return chronology;
+        }
+
+        public void setChronology(Optional<AppointmentChronology> chronology) {
+            this.chronology = chronology;
         }
     }
 }

@@ -31,7 +31,9 @@ public class BillPanel extends UiPart<Region> {
         final StringBuilder stringBuilder = new StringBuilder();
         billModel.getBill().addListener(((observable, oldValue, newValue) -> {
             stringBuilder.setLength(0);
-            stringBuilder.append("-----------------Bill-----------------\n");
+            if (newValue.getReservationCount() + newValue.getBookingCount() > 0) {
+                stringBuilder.append("-----------------Bill-----------------\n");
+            }
             if (newValue.getBookingCount() > 0) {
                 stringBuilder.append("Service Booking(s) :\n");
                 for (ServiceType st: newValue.getServiceTypes()) {
@@ -63,7 +65,13 @@ public class BillPanel extends UiPart<Region> {
                 stringBuilder.append("--------------------------------------\n");
             } //if count of reservation is greater than 0
 
-            stringBuilder.append(String.format("-------------------------Total: %6.1f", newValue.getAmountTotal()));
+            if (newValue.getReservationCount() + newValue.getBookingCount() > 0) {
+                stringBuilder.append(String.format("-------------------------Total: %6.1f", newValue.getAmountTotal()));
+            } else {
+                stringBuilder.append(String.format("%34s", "No available Service Booking") + "\n"
+                        + String.format("%34s", "and/or Room Reservation for") + "\n"
+                        + String.format("%34s", "selected customer detected"));
+            }
             textArea.setText(stringBuilder.toString());
             textArea.setEditable(false);
         }));

@@ -23,7 +23,7 @@ public class AddServiceTypeCommand extends BookingCommand {
         + "Parameters: "
         + PREFIX_NAME + "SERVICE NAME "
         + PREFIX_TIMING + "OPERATIONAL HOURS(HH - HH in 24 hour format) "
-        + PREFIX_CAPACITY + "CAPACITY OF SERVICE"
+        + PREFIX_CAPACITY + "CAPACITY OF SERVICE "
         + PREFIX_RATE + "RATE PER HOUR\n"
         + "Example: " + COMMAND_WORD + " "
         + PREFIX_NAME + "BILLIARDS "

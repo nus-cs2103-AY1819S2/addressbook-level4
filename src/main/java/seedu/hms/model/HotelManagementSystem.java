@@ -90,6 +90,22 @@ public class HotelManagementSystem implements ReadOnlyHotelManagementSystem {
     }
 
     /**
+     * Replaces the contents of the reservation list with {@code reservations}.
+     */
+    public void setServiceTypes(List<ServiceType> serviceTypes) {
+        this.serviceTypes.setServiceTypes(serviceTypes);
+        indicateModified();
+    }
+
+    /**
+     * Replaces the contents of the reservation list with {@code reservations}.
+     */
+    public void setRoomTypes(List<RoomType> roomTypes) {
+        this.roomTypes.setRoomTypes(roomTypes);
+        indicateModified();
+    }
+
+    /**
      * Resets the existing data of this {@code HotelManagementSystem} with {@code newData}.
      */
     public void resetData(ReadOnlyHotelManagementSystem newData) {
@@ -98,12 +114,8 @@ public class HotelManagementSystem implements ReadOnlyHotelManagementSystem {
         setCustomers(newData.getCustomerList());
         setBookings(newData.getBookingList());
         setReservations(newData.getReservationList());
-        for (ServiceType st : newData.getServiceTypeList()) {
-            serviceTypes.add(st);
-        }
-        for (RoomType rt : newData.getRoomTypeList()) {
-            roomTypes.add(rt);
-        }
+        setServiceTypes(newData.getServiceTypeList());
+        setRoomTypes(newData.getRoomTypeList());
     }
 
     /**

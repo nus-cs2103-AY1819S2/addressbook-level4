@@ -585,6 +585,34 @@ Example:
 
 * `back` - Go back to the patient list.
 
+==== recordlist
+Shows a list of all records stored in TeethHub.
+
+Format: `recordlist` or `rlist`
+
+Example:
+
+* `recordlist` +
+Shows details of all records.
+
+==== recordfind
+
+Shows patients whose data contains any of the given keywords according to a specified parameter.
+
+Format: `recordfind [CS] [AND] PREFIX/KEYWORD [MORE_KEYWORDS]` or
+`rfind [CS] [AND] PREFIX/KEYWORD [MORE_KEYWORDS]`
+
+* Search is case insensitive unless `CS` is entered before the prefix(es).
+* By specifying `AND` before the prefix(es), `pfind` will instead search for patients whose data contains all of the
+given keywords and parameters.
+* Order of keywords does not matter.
+* Valid `Prefix` values: See <<Breakdown of attributes used within TeethHub>>
+
+Example:
+
+* `rfind pro/Braces` +
+Show all the patients with a procedure containing the keyword Braces.
+
 === Teeth Management
 
 ==== Brief Description

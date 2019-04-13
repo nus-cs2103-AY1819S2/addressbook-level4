@@ -335,14 +335,6 @@ public class DocX implements ReadOnlyDocX {
         medHists.sort(medHistComparator);
     }
 
-    /**
-     * Removes {@code key} from this {@code DocX}.
-     * {@code key} must exist in the docX.
-     */
-    public void removeMedHist(MedicalHistory key) {
-        medHists.remove(key);
-        indicateModified();
-    }
     //// prescription-level operations
     /**
      * Set Doctor in prescription to null if the patient is deleted

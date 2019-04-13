@@ -424,10 +424,8 @@ The `back` command will work with parameters, but they will be ignored.
 
 Adds a new dental record to the patient.
 
-Record contains the patient's personal information, name of the dentist on duty, the date of the record, and the description of the dental treatment the patient has went through during that session.
-
 [NOTE]
-`recordAdd` requires the application to first be in records mode, via the `goto` command.
+`recordadd` requires the application to first be in records mode, via the `goto` command.
 
 Format: `recordadd desc/DETAILS`
 
@@ -445,7 +443,7 @@ Example
 
 * `recordadd desc/Mouth was noticeably smelly, might have halitosis` - Adds a new dental record.
 
-* `back` - Go back to the patient list.
+* `<<back, back>>` - Go back to the patient list.
 
 ==== recorddelete
 
@@ -468,7 +466,7 @@ Example:
 
 * `recorddelete 1` - Delete the latest dental record of the specified patient
 
-* `back` - Go back to the patient list.
+* `<<back, back>>` - Go back to the patient list.
 
 ==== recordedit
 
@@ -493,7 +491,7 @@ Example:
 
 * `recordedit 1 desc/corrected description` - Modifies the description of the first dental record of the specified patient.
 
-* `back` - Go back to the patient list.
+* `<<back, back>>` - Go back to the patient list.
 
 ==== recordclear
 
@@ -502,13 +500,10 @@ Clears all of a patient's dental records.
 [NOTE]
 `recordclear` requires the application to first be in records mode, via the `goto` command.
 
-=== Teeth Management
-
-==== Brief Description
-
-TeethHub complies with the most popular standard of the three the Dental Numbering Systems utilised in Dentistry - The Universal Numbering System.
 
 ==== The Universal Numbering System
+
+TeethHub complies with the most popular standard of the three the Dental Numbering Systems utilised in Dentistry - The Universal Numbering System.
 
 ifdef::env-github[]
 image::BaseLayer.png[width="200"]
@@ -522,7 +517,7 @@ mandibular left third molar, designated number 17, and continues along
 the bottom teeth to the right side. Each tooth has a unique number or
 letter, allowing for easier use on keyboards.
 
-==== Creating and Editing Teeth Layout
+===== Creating and Editing Teeth Layout
 
 There is one template provided by TeethHub: permanent teeth.
 
@@ -538,7 +533,7 @@ All permanent teeth in template will all be present and healthy by default.
 
 ** `teethedit t/TEETH_LABEL s/STATUS` - Edits the status of the indicated tooth of patient.
 
-** `back` - Exits the record edit mode, and returns to the patient list.
+** `<<back, back>>` - Exits the record edit mode, and returns to the patient list.
 
 ** Valid <Teeth Label> are numbers 1 - 32 (permanent teeth).
 
@@ -782,6 +777,18 @@ Generates a statistics report based on the specified patient's data.
 
 Format: `stat INDEX`
 
+// tag::2.0_kyler[]
+== Support for Primary Teeth Type [Coming in v2.0]
+
+To allow the application to truly be able to cater for all dental patients of our user.
+
+== Implementation of Other Teeth Numbering Standards [Coming in v2.0]
+
+TeethHub can adopt other common teeth numbering standards such as the ISO System or Palmer notation method.
+This allows our users to pick the numbering standard they are most familiar with.
+
+// end::2.0_kyler[]
+
 == Cloud Functionality [Coming in v2.0]
 To increase data redundancy and reduce the risk of data being lost,
 you will be able to synchronise your data with a cloud account.
@@ -801,26 +808,28 @@ download it from there.
 
 == Command Summary
 
-* *Add* : add PARAMETERS [t/TAG]*…​* +
+* *Patient Add* : `patientadd PARAMETERS…​` +
 e.g. `add n/John Choo p/98425871 e/jonC@example.com a/IDA street, block
 13, #02-05 ic/S1234567H age/32 dob/26021987 nokn/Jacky Choo
 nokp/84875215 nokr/Father noka/same`
 
-* *Clear* : `clear`
+* *Patient Clear* : `patientclear` +
+e.g. `patientclear`
 
-* *Copy* : `copy INDEX` +
+* *copy* : `copy INDEX` +
 e.g. `copy 3`
 
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
+* *Patient Delete* : `patientdelete INDEX` +
+e.g. `patientdelete 3`
 
-* *Edit* : `edit INDEX` +
-e.g. `edit 2` +
-`p/12345` +
-`e/newemail@gmail.com` +
-`done`
+* *Patient Edit* : `patientedit INDEX PARAMETERS…` +
+e.g. `patientedit 2 p/12345 e/newemail@gmail.com`
 
-* *Exit* : `exit`
+* *Records Mode* : `goto INDEX` +
+e.g. `goto 1`
+
+* *Patients Mode* : `back` +
+e.g. `back`
 
 * *Export* : `export FILE_PATH INDEX_RANGE`` +
 e.g. `export \mnt\clinicRecords.txt 1,3-5`
@@ -843,22 +852,17 @@ e.g `login kthSIM cavities!2`
 * *Open* : `open FILE_PATH` +
 e.g. `import \mnt\sample\newData.json`
 
-* *Record Add* : `record add n/NRIC d/DATE_DDMMYYYY t/TIME_HHMM p/PROCEDURE
-doc/SERVING_DENTIST det/DETAILS` +
-e.g. `record add n/S1234567H d/10022019 t/1705 p/Cleaning doc/Kyler
-det/Mouth was noticeably foul, might have halitosis`
+* *Record Add* : `recordadd p/PROCEDURE det/DETAILS` +
+e.g. `recordadd p/Cleaning desc/Mouth was noticeably foul, might have halitosis`
 
-* *Record Delete* : `record delete n/NRIC INDEX` +
-E.g. `record delete n/S1235467H 4`
+* *Record Delete* : `recorddelete INDEX` +
+e.g. `recorddelete 4`
 
-* *Record Edit* : `record edit n/NRIC INDEX` +
-e.g. `record edit n/S1234657H 3 +
-doc/Debang +
-det/new details +
-Done`
+* *Record Edit* : `recordedit INDEX PARAMETERS…` +
+e.g. `recordedit 1 ic/S1234657H`
 
-* *Record Copy* : `record copy n/NRIC INDEX` +
-e.g. `record copy n/S1235467H 2`
+* *Record Clear* : `recordclear` +
+e.g. `recordclear`
 
 * *Redo* : `redo`
 

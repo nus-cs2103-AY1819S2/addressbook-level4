@@ -10,12 +10,16 @@ import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_OPENING_HOURS;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_PHONE_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_POSTAL_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_WEBLINK;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_WEBLINK_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.OPENING_HOURS_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.OPENING_HOURS_DESC_TWO;
 import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.POSTAL_DESC_AMY;
@@ -41,6 +45,7 @@ import org.junit.Test;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.util.WebUtil;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
@@ -48,9 +53,11 @@ import seedu.address.model.Model;
 import seedu.address.model.restaurant.Address;
 import seedu.address.model.restaurant.Email;
 import seedu.address.model.restaurant.Name;
+import seedu.address.model.restaurant.OpeningHours;
 import seedu.address.model.restaurant.Phone;
 import seedu.address.model.restaurant.Postal;
 import seedu.address.model.restaurant.Restaurant;
+import seedu.address.model.restaurant.Weblink;
 import seedu.address.model.tag.Tag;
 import seedu.address.testutil.RestaurantBuilder;
 import seedu.address.testutil.RestaurantUtil;
@@ -204,6 +211,21 @@ public class EditCommandSystemTest extends FoodDiarySystemTest {
                         + INVALID_TAG_DESC,
                 Tag.MESSAGE_CONSTRAINTS);
 
+        /* Case: invalid Weblink -> rejected */
+        assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_RESTAURANT.getOneBased()
+                        + INVALID_WEBLINK,
+                String.format(WebUtil.INVALID_URL_MESSAGE, INVALID_WEBLINK.substring(3)));
+
+        /* Case: invalid Url form Weblink  -> rejected */
+        assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_RESTAURANT.getOneBased()
+                        + INVALID_WEBLINK_DESC,
+                Weblink.MESSAGE_CONSTRAINTS);
+
+        /* Case: invalid OpeningHours -> rejected */
+        assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_RESTAURANT.getOneBased()
+                        + INVALID_OPENING_HOURS,
+                OpeningHours.MESSAGE_CONSTRAINTS);
+
         /* Case: edit a restaurant with new values same as another restaurant's values -> rejected */
         executeCommand(RestaurantUtil.getAddCommand(BOB));
         assertTrue(getModel().getFoodDiary().getRestaurantList().contains(BOB));
@@ -239,6 +261,20 @@ public class EditCommandSystemTest extends FoodDiarySystemTest {
          */
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_AMY
                 + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND + WEBLINK_DESC_BOB + OPENING_HOURS_DESC;
+        assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_RESTAURANT);
+
+        /* Case: edit a restaurant with new values same as another restaurant's values but with different Weblink
+         * -> rejected
+         */
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
+                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND + WEBLINK_DESC_AMY + OPENING_HOURS_DESC;
+        assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_RESTAURANT);
+
+        /* Case: edit a restaurant with new values same as another restaurant's values but with different OpeningHours
+         * -> rejected
+         */
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
+                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND + WEBLINK_DESC_BOB + OPENING_HOURS_DESC_TWO;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_RESTAURANT);
     }
 

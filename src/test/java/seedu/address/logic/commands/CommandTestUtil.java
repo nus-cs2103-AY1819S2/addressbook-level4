@@ -44,6 +44,7 @@ public class CommandTestUtil {
     public static final String VALID_WEBLINK_AMY = "https://www.google.com";
     public static final String VALID_WEBLINK_BOB = "https://www.google.com";
     public static final String VALID_OPENING_HOURS = "0900 to 2300";
+    public static final String VALID_OPENING_HOURS_TWO = "0900 to 2301";
     public static final String VALID_CUISINE_FAST_FOOD = "Fast Food";
     public static final String VALID_OCCASION_CASUAL = "Casual";
     public static final String VALID_PRICE_RANGE = "$$$";
@@ -61,6 +62,7 @@ public class CommandTestUtil {
     public static final String WEBLINK_DESC_AMY = " " + PREFIX_WEBLINK + VALID_WEBLINK_AMY;
     public static final String WEBLINK_DESC_BOB = " " + PREFIX_WEBLINK + VALID_WEBLINK_BOB;
     public static final String OPENING_HOURS_DESC = " " + PREFIX_OPENING_HOURS + VALID_OPENING_HOURS;
+    public static final String OPENING_HOURS_DESC_TWO = " " + PREFIX_OPENING_HOURS + VALID_OPENING_HOURS_TWO;
     public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
     public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
 

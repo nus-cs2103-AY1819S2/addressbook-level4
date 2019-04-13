@@ -8,6 +8,7 @@ import java.time.format.DateTimeFormatter;
 
 import org.junit.Test;
 
+import seedu.address.commons.util.warning.WarningPanelPredicateType;
 import seedu.address.model.Model;
 import seedu.address.model.threshold.Threshold;
 import seedu.address.testutil.BatchBuilder;
@@ -17,7 +18,8 @@ public class BatchExpiryThresholdPredicateTest {
     @Test
     public void equals() {
         Threshold firstThreshold = Model.DEFAULT_EXPIRY_THRESHOLD; // threshold value of 10
-        Threshold secondThreshold = new Threshold("0");
+        Threshold secondThreshold =
+                new Threshold(Integer.toString(Threshold.MIN_THRESHOLD), WarningPanelPredicateType.EXPIRY);
 
         BatchExpiryThresholdPredicate firstPredicate = new BatchExpiryThresholdPredicate(firstThreshold);
         BatchExpiryThresholdPredicate secondPredicate = new BatchExpiryThresholdPredicate(secondThreshold);
@@ -56,7 +58,8 @@ public class BatchExpiryThresholdPredicateTest {
         String maxDate = formatDateToString(LocalDate.now().plusDays(Expiry.MAX_DAYS_TO_EXPIRY));
 
         // Minimum threshold for expiring and expired batch
-        predicate = new BatchExpiryThresholdPredicate(new Threshold(Integer.toString(Threshold.MIN_THRESHOLD)));
+        predicate = new BatchExpiryThresholdPredicate(
+                new Threshold(Integer.toString(Threshold.MIN_THRESHOLD), WarningPanelPredicateType.EXPIRY));
         assertTrue(predicate.test(new BatchBuilder().withExpiry(today).build()));
         assertTrue(predicate.test(new BatchBuilder().withExpiry(yesterday).build()));
 
@@ -67,7 +70,8 @@ public class BatchExpiryThresholdPredicateTest {
         assertTrue(predicate.test(new BatchBuilder().withExpiry(yesterday).build()));
 
         // Max threshold
-        predicate = new BatchExpiryThresholdPredicate(new Threshold(Integer.toString(Threshold.MAX_THRESHOLD)));
+        predicate = new BatchExpiryThresholdPredicate(
+                new Threshold(Integer.toString(Threshold.MAX_EXPIRY_THRESHOLD), WarningPanelPredicateType.EXPIRY));
         assertTrue(predicate.test(new BatchBuilder().withExpiry(defaultDate).build()));
         assertTrue(predicate.test(new BatchBuilder().withExpiry(today).build()));
         assertTrue(predicate.test(new BatchBuilder().withExpiry(yesterday).build()));
@@ -87,7 +91,8 @@ public class BatchExpiryThresholdPredicateTest {
         String maxDate = formatDateToString(LocalDate.now().plusDays(Expiry.MAX_DAYS_TO_EXPIRY));
 
         // Minimum threshold for expiring and expired batch
-        predicate = new BatchExpiryThresholdPredicate(new Threshold(Integer.toString(Threshold.MIN_THRESHOLD)));
+        predicate = new BatchExpiryThresholdPredicate(
+                new Threshold(Integer.toString(Threshold.MIN_THRESHOLD), WarningPanelPredicateType.EXPIRY));
         assertFalse(predicate.test(new BatchBuilder().withExpiry(tomorrow).build()));
         assertFalse(predicate.test(new BatchBuilder().withExpiry(defaultDate).build()));
         assertFalse(predicate.test(new BatchBuilder().withExpiry(maxDate).build()));

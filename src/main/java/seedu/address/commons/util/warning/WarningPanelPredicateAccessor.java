@@ -49,7 +49,7 @@ public class WarningPanelPredicateAccessor {
      */
     public void updateBatchExpiringThreshold(int threshold) {
         this.batchExpiryPredicate = new BatchExpiryThresholdPredicate(
-            new Threshold(Integer.toString(threshold)));
+            new Threshold(Integer.toString(threshold), WarningPanelPredicateType.EXPIRY));
     }
 
     /**
@@ -58,7 +58,7 @@ public class WarningPanelPredicateAccessor {
      */
     public void updateMedicineExpiringThreshold(int threshold) {
         this.medicineExpiryPredicate = new MedicineExpiryThresholdPredicate(
-            new Threshold(Integer.toString(threshold)));
+            new Threshold(Integer.toString(threshold), WarningPanelPredicateType.EXPIRY));
     }
 
     /**
@@ -67,16 +67,16 @@ public class WarningPanelPredicateAccessor {
      */
     public void updateMedicineLowStockThreshold(int threshold) {
         this.medicineLowStockPredicate = new MedicineLowStockThresholdPredicate(
-            new Threshold(Integer.toString(threshold)));
+            new Threshold(Integer.toString(threshold), WarningPanelPredicateType.LOW_STOCK));
     }
 
     /**
      * Set max threshold such that all predicates always return true.
      */
     public void setMaxThresholds() {
-        updateBatchExpiringThreshold(Threshold.MAX_THRESHOLD);
-        updateMedicineExpiringThreshold(Threshold.MAX_THRESHOLD);
-        updateMedicineLowStockThreshold(Threshold.MAX_THRESHOLD);
+        updateBatchExpiringThreshold(Threshold.MAX_EXPIRY_THRESHOLD);
+        updateMedicineExpiringThreshold(Threshold.MAX_EXPIRY_THRESHOLD);
+        updateMedicineLowStockThreshold(Threshold.MAX_QUANTITY_THRESHOLD);
     }
 
     private void setDefaultPredicates() {

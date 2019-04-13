@@ -37,7 +37,10 @@ public class WarningCommandTest {
 
     @Test
     public void constructor_nullWarningPanelPredicateType_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class, () -> new WarningCommand(null, new Threshold("0")));
+        Assert.assertThrows(NullPointerException.class,
+                () -> new WarningCommand(null, new Threshold("0", WarningPanelPredicateType.EXPIRY)));
+        Assert.assertThrows(NullPointerException.class,
+                () -> new WarningCommand(null, new Threshold("0", WarningPanelPredicateType.LOW_STOCK)));
     }
 
     @Test
@@ -101,7 +104,7 @@ public class WarningCommandTest {
         String expectedMessage = String.format(MESSAGE_SHOW_CURRENT_THRESHOLDS,
                 0, "s", Model.DEFAULT_LOW_STOCK_THRESHOLD.getNumericValue());
 
-        Threshold threshold = new Threshold("0");
+        Threshold threshold = new Threshold("0", WarningPanelPredicateType.EXPIRY);
         WarningCommand command = new WarningCommand(WarningPanelPredicateType.EXPIRY, threshold);
         expectedModel.changeWarningPanelListThreshold(WarningPanelPredicateType.EXPIRY, threshold);
 
@@ -114,7 +117,7 @@ public class WarningCommandTest {
         String expectedMessage = String.format(MESSAGE_SHOW_CURRENT_THRESHOLDS,
                 180, "s", Model.DEFAULT_LOW_STOCK_THRESHOLD.getNumericValue());
 
-        Threshold threshold = new Threshold("180");
+        Threshold threshold = new Threshold("180", WarningPanelPredicateType.EXPIRY);
         WarningCommand command = new WarningCommand(WarningPanelPredicateType.EXPIRY, threshold);
         expectedModel.changeWarningPanelListThreshold(WarningPanelPredicateType.EXPIRY, threshold);
         expectedModel.updateFilteredMedicineList(medicine -> medicine.getNextExpiry() != null);
@@ -130,7 +133,8 @@ public class WarningCommandTest {
                 Model.DEFAULT_EXPIRY_THRESHOLD.getNumericValue() == 1 ? "" : "s",
                 Quantity.MAX_QUANTITY + 1);
 
-        Threshold threshold = new Threshold(Integer.toString(Quantity.MAX_QUANTITY + 1));
+        Threshold threshold = new Threshold(Integer.toString(Threshold.MAX_QUANTITY_THRESHOLD),
+                WarningPanelPredicateType.LOW_STOCK);
         WarningCommand command = new WarningCommand(WarningPanelPredicateType.LOW_STOCK, threshold);
         expectedModel.changeWarningPanelListThreshold(WarningPanelPredicateType.LOW_STOCK, threshold);
 
@@ -144,7 +148,7 @@ public class WarningCommandTest {
                 Model.DEFAULT_EXPIRY_THRESHOLD.getNumericValue(),
                 Model.DEFAULT_EXPIRY_THRESHOLD.getNumericValue() == 1 ? "" : "s", 0);
 
-        Threshold threshold = new Threshold("0");
+        Threshold threshold = new Threshold("0", WarningPanelPredicateType.LOW_STOCK);
         WarningCommand command = new WarningCommand(WarningPanelPredicateType.LOW_STOCK, threshold);
         expectedModel.changeWarningPanelListThreshold(WarningPanelPredicateType.LOW_STOCK, threshold);
 

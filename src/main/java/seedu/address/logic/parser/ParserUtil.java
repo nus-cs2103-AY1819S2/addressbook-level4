@@ -13,6 +13,7 @@ import seedu.address.commons.core.InformationPanelSettings.SortProperty;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.FileName;
 import seedu.address.commons.util.StringUtil;
+import seedu.address.commons.util.warning.WarningPanelPredicateType;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.medicine.BatchNumber;
 import seedu.address.model.medicine.Company;
@@ -159,13 +160,13 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code threshold} is invalid.
      */
-    public static Threshold parseThreshold(String threshold) throws ParseException {
+    public static Threshold parseThreshold(String threshold, WarningPanelPredicateType type) throws ParseException {
         requireNonNull(threshold);
         String trimmedThreshold = threshold.trim();
-        if (!Threshold.isValidThreshold(trimmedThreshold)) {
+        if (!Threshold.isValidThreshold(trimmedThreshold, type)) {
             throw new ParseException(Threshold.MESSAGE_CONSTRAINTS);
         }
-        return new Threshold(trimmedThreshold);
+        return new Threshold(trimmedThreshold, type);
     }
 
     /**

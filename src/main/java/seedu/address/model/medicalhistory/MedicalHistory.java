@@ -20,7 +20,7 @@ public class MedicalHistory {
     //Current id field, will be modified later
     private PersonId patientId;
     private PersonId doctorId;
-    private String medHistId;
+    private MedHistId medHistId;
 
     // Data field
     private ValidDate date;
@@ -32,11 +32,11 @@ public class MedicalHistory {
         this.doctorId = doctorId;
         this.date = date;
         this.writeUp = writeUp;
-        this.medHistId = patientId + "/" + doctorId + "/" + date;
+        this.medHistId = new MedHistId(patientId + "/" + doctorId + "/" + date);
 
     }
 
-    public String getMedHistId() {
+    public MedHistId getMedHistId() {
         return this.medHistId;
     }
 

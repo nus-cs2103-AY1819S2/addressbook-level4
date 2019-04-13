@@ -42,7 +42,7 @@ public class JsonAdaptedMedicalHistory {
      * Converts a given {@code MedicalHistory} into this class for Jackson use.
      */
     public JsonAdaptedMedicalHistory(MedicalHistory source) {
-        medHistId = source.getMedHistId();
+        medHistId = source.getMedHistId().medHistId;
         patientId = String.valueOf(source.getPatientId().personId);
         doctorId = String.valueOf(source.getDoctorId().personId);
         date = source.getDate().toString();

@@ -368,7 +368,7 @@ Example:
 
 === Implementations
 
-=== Patient Management Feature
+=== Patient Management
 ==== Patient Feature
 
 The `Patient` class represents patients for our users on TeethHub.

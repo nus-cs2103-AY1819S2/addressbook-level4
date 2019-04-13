@@ -84,15 +84,15 @@ public class EditCommandTest {
 
     @Test
     public void execute_someFieldsSpecifiedUnfilteredList_success() {
-        Index indexLastPerson = Index.fromOneBased(model.getFilteredPdfList().size());
-        Pdf lastPdf = model.getFilteredPdfList().get(indexLastPerson.getZeroBased());
+        Index indexLastPdf = Index.fromOneBased(model.getFilteredPdfList().size());
+        Pdf lastPdf = model.getFilteredPdfList().get(indexLastPdf.getZeroBased());
 
-        PdfBuilder personInList = new PdfBuilder(lastPdf);
-        Pdf editedPdf = personInList.withName(SAMPLE_EDITEDPDF.getName().getFullName()).build();
+        PdfBuilder pdfInList = new PdfBuilder(lastPdf);
+        Pdf editedPdf = pdfInList.withName(SAMPLE_EDITEDPDF.getName().getFullName()).build();
 
         EditPdfDescriptor descriptor = new EditPdfDescriptorBuilder().withName(SAMPLE_EDITEDPDF.getName().getFullName())
                 .build();
-        EditCommand editCommand = new EditCommand(indexLastPerson, descriptor);
+        EditCommand editCommand = new EditCommand(indexLastPdf, descriptor);
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PDF_SUCCESS, editedPdf);
 
@@ -217,7 +217,7 @@ public class EditCommandTest {
         // edit -> first pdf deleted
         editCommand.execute(model, commandHistory);
 
-        // undo -> reverts pdfbook back to previous state and filtered pdf list to show all persons
+        // undo -> reverts pdfbook back to previous state and filtered pdf list to show all pdfs
         expectedModel.undoPdfBook();
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 

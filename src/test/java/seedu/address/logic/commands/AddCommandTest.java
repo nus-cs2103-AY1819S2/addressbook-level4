@@ -56,7 +56,7 @@ public class AddCommandTest {
         CommandResult commandResult = new AddCommand(validPdf).execute(modelStub, commandHistory);
 
         assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validPdf), commandResult.getFeedbackToUser());
-        assertEquals(Arrays.asList(validPdf), modelStub.personsAdded);
+        assertEquals(Arrays.asList(validPdf), modelStub.pdfsAdded);
         assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
     }
 
@@ -106,7 +106,7 @@ public class AddCommandTest {
         // add -> first pdf deleted
         addCommand.execute(model, commandHistory);
 
-        // undo -> reverts pdfbook back to previous state and filtered pdf list to show all persons
+        // undo -> reverts pdfbook back to previous state and filtered pdf list to show all pdfs
         expectedModel.undoPdfBook();
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
@@ -252,18 +252,18 @@ public class AddCommandTest {
      * A Model stub that always accept the pdf being added.
      */
     private class ModelStubAcceptingPdfAdded extends ModelStub {
-        final ArrayList<Pdf> personsAdded = new ArrayList<>();
+        final ArrayList<Pdf> pdfsAdded = new ArrayList<>();
 
         @Override
         public boolean hasPdf(Pdf pdf) {
             requireNonNull(pdf);
-            return personsAdded.stream().anyMatch(pdf::isSamePdf);
+            return pdfsAdded.stream().anyMatch(pdf::isSamePdf);
         }
 
         @Override
         public void addPdf(Pdf pdf) {
             requireNonNull(pdf);
-            personsAdded.add(pdf);
+            pdfsAdded.add(pdf);
         }
 
         @Override

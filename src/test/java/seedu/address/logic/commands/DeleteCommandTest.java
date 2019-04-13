@@ -104,7 +104,7 @@ public class DeleteCommandTest {
         Model expectedModel = new ModelManager(model.getPdfBook(), new UserPrefs());
         expectedModel.deletePdf(pdfToDelete);
         expectedModel.commitPdfBook();
-        showNoPerson(expectedModel);
+        showNoPdf(expectedModel);
 
         assertCommandSuccess(deleteCommand, model, commandHistory, expectedMessage, expectedModel);
     }
@@ -122,7 +122,7 @@ public class DeleteCommandTest {
         Model expectedModel = new ModelManager(model.getPdfBook(), new UserPrefs());
         expectedModel.deletePdf(pdfToDelete);
         expectedModel.commitPdfBook();
-        showNoPerson(expectedModel);
+        showNoPdf(expectedModel);
 
         assertCommandSuccess(deleteCommand, model, commandHistory, expectedMessage, expectedModel);
         revertBackup(pdfToDelete);
@@ -158,7 +158,7 @@ public class DeleteCommandTest {
         // delete -> first pdf deleted
         deleteCommand.execute(model, commandHistory);
 
-        // undo -> reverts pdfBook back to previous state and filtered pdf list to show all persons
+        // undo -> reverts pdfBook back to previous state and filtered pdf list to show all pdfs
         expectedModel.undoPdfBook();
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
@@ -188,7 +188,7 @@ public class DeleteCommandTest {
      * 4. Redo the deletion. This ensures {@code RedoCommand} deletes the pdf object regardless of indexing.
      */
     @Test
-    public void executeUndoRedo_validIndexFilteredList_samePersonDeleted() throws Exception {
+    public void executeUndoRedo_validIndexFilteredList_samePdfDeleted() throws Exception {
         DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_PDF);
         Model expectedModel = new ModelManager(model.getPdfBook(), new UserPrefs());
 
@@ -200,7 +200,7 @@ public class DeleteCommandTest {
         // delete -> deletes second pdf in unfiltered pdf list / first pdf in filtered pdf list
         deleteCommand.execute(model, commandHistory);
 
-        // undo -> reverts pdfbook back to previous state and filtered pdf list to show all persons
+        // undo -> reverts pdfbook back to previous state and filtered pdf list to show all pdfs
         expectedModel.undoPdfBook();
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
@@ -270,7 +270,7 @@ public class DeleteCommandTest {
     /**
      * Updates {@code model}'s filtered list to show no one.
      */
-    private void showNoPerson(Model model) {
+    private void showNoPdf(Model model) {
         model.updateFilteredPdfList(p -> false);
 
         assertTrue(model.getFilteredPdfList().isEmpty());

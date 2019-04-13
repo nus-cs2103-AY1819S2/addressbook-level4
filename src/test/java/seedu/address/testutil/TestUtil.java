@@ -49,7 +49,7 @@ public class TestUtil {
     /**
      * Returns the pdf in the {@code model}'s pdf list at {@code index}.
      */
-    public static Pdf getPerson(Model model, Index index) {
+    public static Pdf getPdf(Model model, Index index) {
         return model.getFilteredPdfList().get(index.getZeroBased());
     }
 }

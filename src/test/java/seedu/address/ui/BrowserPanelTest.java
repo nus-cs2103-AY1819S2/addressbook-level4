@@ -14,13 +14,13 @@ import javafx.beans.property.SimpleObjectProperty;
 import seedu.address.model.pdf.Pdf;*/
 
 public class BrowserPanelTest extends GuiUnitTest {
-    /*private SimpleObjectProperty<Pdf> selectedPerson = new SimpleObjectProperty<>();
+    /*private SimpleObjectProperty<Pdf> selectedPdf = new SimpleObjectProperty<>();
     private BrowserPanel browserPanel;
     private BrowserPanelHandle browserPanelHandle;
 
     @Before
     public void setUp() {
-        guiRobot.interact(() -> browserPanel = new BrowserPanel(selectedPerson));
+        guiRobot.interact(() -> browserPanel = new BrowserPanel(selectedPdf));
         uiPartRule.setUiPart(browserPanel);
 
         browserPanelHandle = new BrowserPanelHandle(browserPanel.getRoot());
@@ -32,11 +32,11 @@ public class BrowserPanelTest extends GuiUnitTest {
         assertEquals(BrowserPanel.DEFAULT_PAGE, browserPanelHandle.getLoadedUrl());
 
         // associated web page of a pdf
-        guiRobot.interact(() -> selectedPerson.set(SAMPLE_PDF_1));
-        URL expectedPersonUrl = new URL(BrowserPanel.SEARCH_PAGE_URL + SAMPLE_PDF_1.getName().getFullName()
+        guiRobot.interact(() -> selectedPdf.set(SAMPLE_PDF_1));
+        URL expectedPdfUrl = new URL(BrowserPanel.SEARCH_PAGE_URL + SAMPLE_PDF_1.getName().getFullName()
                 .replaceAll(" ", "%20"));
 
         waitUntilBrowserLoaded(browserPanelHandle);
-        assertEquals(expectedPersonUrl, browserPanelHandle.getLoadedUrl());
+        assertEquals(expectedPdfUrl, browserPanelHandle.getLoadedUrl());
     }*/
 }

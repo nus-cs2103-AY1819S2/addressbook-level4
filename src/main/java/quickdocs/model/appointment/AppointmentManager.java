@@ -11,7 +11,7 @@ import quickdocs.model.Slot;
 import quickdocs.model.patient.Patient;
 
 /**
- * Manages the list of appointments created.
+ * Manages the list of {@code Appointments} created.
  */
 public class AppointmentManager {
     public static final LocalTime OPENING_HOUR = LocalTime.parse("09:00");
@@ -331,5 +331,19 @@ public class AppointmentManager {
             }
         }
         return sb.toString();
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof AppointmentManager)) {
+            return false;
+        }
+
+        AppointmentManager otherManager = (AppointmentManager) other;
+        return otherManager.appointments.equals(this.appointments);
     }
 }

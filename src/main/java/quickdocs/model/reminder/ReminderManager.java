@@ -13,7 +13,7 @@ import quickdocs.model.appointment.Appointment;
 import quickdocs.model.medicine.Medicine;
 
 /**
- * Manages the list of reminders created.
+ * Manages the list of {@code Reminders} created.
  */
 public class ReminderManager {
     private final List<Reminder> reminders;
@@ -146,5 +146,19 @@ public class ReminderManager {
             i++;
         }
         return changed;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof ReminderManager)) {
+            return false;
+        }
+
+        ReminderManager otherManager = (ReminderManager) other;
+        return otherManager.reminders.equals(this.reminders);
     }
 }

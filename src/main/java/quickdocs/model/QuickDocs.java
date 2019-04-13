@@ -41,10 +41,6 @@ public class QuickDocs {
         return reminderManager;
     }
 
-    public void setReminderManager(ReminderManager reminderManager) {
-        this.reminderManager = reminderManager;
-    }
-
     public StatisticsManager getStatisticsManager() {
         return statisticsManager;
     }
@@ -77,10 +73,8 @@ public class QuickDocs {
                 .equals(this.patientManager.getPatientList())
                 && otherQuickDocs.consultationManager.getConsultationList()
                 .equals(this.consultationManager.getConsultationList())
-                && otherQuickDocs.appointmentManager.getAppointmentList()
-                .equals(this.appointmentManager.getAppointmentList())
-                && otherQuickDocs.reminderManager.getReminderList()
-                .equals(this.reminderManager.getReminderList())
+                && otherQuickDocs.appointmentManager.equals(this.appointmentManager)
+                && otherQuickDocs.reminderManager.equals(this.reminderManager)
                 && otherQuickDocs.medicineManager.getListOfMedicine()
                 .equals(this.medicineManager.getListOfMedicine());
     }

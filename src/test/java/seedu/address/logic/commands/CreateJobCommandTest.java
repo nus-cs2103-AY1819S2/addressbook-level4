@@ -459,6 +459,11 @@ public class CreateJobCommandTest {
         public void updateFilteredPersonList(Predicate<Person> predicate) {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public void deletePersonFromJobList(Person toRemove, JobName job, JobListName list) {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
     /**
@@ -500,6 +505,13 @@ public class CreateJobCommandTest {
 
         @Override
         public void addFilteredPersonsToJob(JobName jobName, JobListName to, JobListName from) {
+
+        }
+
+        public void updateFilteredPersonList(Predicate<Person> predicate) {
+        }
+
+        public void updateFilteredPersonList() {
 
         }
 

@@ -98,12 +98,12 @@ public class MovePersonCommand extends Command {
             if (indexes.get(i).getZeroBased() >= fromList.size()) {
                 throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
             }
-
-            Person toAdd = fromList.get(indexes.get(i).getZeroBased());
-
-            model.addPersonToJob(tempJob, toAdd, to);
         }
 
+        for (int i = 0; i < indexes.size(); i++) {
+            Person toAdd = fromList.get(indexes.get(i).getZeroBased());
+            model.addPersonToJob(tempJob, toAdd, to);
+        }
 
         model.commitAddressBook();
         String command = String.format(MESSAGE_SUCCESS, tempJob);

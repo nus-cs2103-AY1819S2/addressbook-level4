@@ -57,7 +57,7 @@ This section provides a summary of my coding, documentation and miscellaneous co
 *** PRs reviewed (with non-trivial review comments):
 https://github.com/CS2103-AY1819S2-W14-2/main/pull/220[#220],
 https://github.com/CS2103-AY1819S2-W14-2/main/pull/225[#225], https://github.com/CS2103-AY1819S2-W14-2/main/pull/235[#235],
-*** Reported bugs and suggestions for other teams in the class:  https://github.com/CS2103-AY1819S2-W16-2/main/issues/102[#102], https://github.com/CS2103-AY1819S2-W16-2/main/issues/108[#108], https://github.com/CS2103-AY1819S2-W16-2/main/issues/112[#112],
+*** Reported bugs and suggestions for other teams in the class:  https://github.com/CS2103-AY1819S2-W16-2/main/issues/102[#102], https://github.com/CS2103-AY1819S2-W16-2/main/issues/112[#112],
 https://github.com/CS2103-AY1819S2-W16-2/main/issues/115[#115],
 https://github.com/CS2103-AY1819S2-W16-2/main/issues/117[#117],
 

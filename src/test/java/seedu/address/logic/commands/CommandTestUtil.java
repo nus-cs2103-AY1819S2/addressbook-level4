@@ -107,6 +107,9 @@ public class CommandTestUtil {
     public static final String VALID_DATE_OF_MED_HIST = "2019-03-02";
     public static final String VALID_WRITE_UP = "Have a fever.";
 
+    // prescription test
+    public static final String VALID_DESCRIPTION = "For curing fever";
+
     public static final String VALID_NAME_AMY = "Amy Bee";
     public static final String VALID_NAME_BOB = "Bob Choo";
     public static final String VALID_GENDER_AMY = "F";

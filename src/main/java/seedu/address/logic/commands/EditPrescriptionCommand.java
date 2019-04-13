@@ -12,10 +12,9 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.prescription.Description;
 import seedu.address.model.prescription.Prescription;
-//import seedu.address.model.prescription.Medicine;
 
 /**
- * Edits the writeUp of an existing medical history in the docX.
+ * Edits the description of an existing prescription in the docX.
  */
 public class EditPrescriptionCommand extends Command {
     public static final String COMMAND_WORD = "edit-presc";
@@ -39,8 +38,8 @@ public class EditPrescriptionCommand extends Command {
     private final EditPrescriptionDescriptor editPrescriptionDescriptor;
 
     /**
-     * @param index                 of the medical history in the filtered medical history list to edit
-     * @param editPrescriptionDescriptor details to edit the medical history with
+     * @param index                 of the prescription in the filtered prescription list to edit
+     * @param editPrescriptionDescriptor details to edit the prescription with
      */
     public EditPrescriptionCommand(Index index, EditPrescriptionCommand.EditPrescriptionDescriptor
             editPrescriptionDescriptor) {

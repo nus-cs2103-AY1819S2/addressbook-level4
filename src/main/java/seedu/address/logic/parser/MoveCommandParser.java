@@ -14,15 +14,15 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.pdf.Directory;
 
 /**
- * Parses input arguments and creates a new EditCommand object
+ * Parses input arguments and creates a new RenameCommand object
  */
 public class MoveCommandParser implements Parser<MoveCommand> {
 
     private static final String MESSAGE_NO_DIR_SELECTED = "No Directory Selected";
 
     /**
-     * Parses the given {@code String} of arguments in the context of the EditCommand
-     * and returns an EditCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the RenameCommand
+     * and returns an RenameCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
     public MoveCommand parse(String args) throws ParseException {

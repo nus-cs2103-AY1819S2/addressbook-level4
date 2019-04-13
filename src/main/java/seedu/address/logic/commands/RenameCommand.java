@@ -28,7 +28,7 @@ import seedu.address.model.tag.Tag;
 /**
  * Edits the details of an existing pdf in the pdfBook.
  */
-public class EditCommand extends Command {
+public class RenameCommand extends Command {
 
     public static final String COMMAND_WORD = "rename";
 
@@ -53,7 +53,7 @@ public class EditCommand extends Command {
      * @param index of the pdf in the filtered pdf list to edit
      * @param editPdfDescriptor details to edit the pdf with
      */
-    public EditCommand(Index index, EditPdfDescriptor editPdfDescriptor) {
+    public RenameCommand(Index index, EditPdfDescriptor editPdfDescriptor) {
         requireNonNull(index);
         requireNonNull(editPdfDescriptor);
 
@@ -123,12 +123,12 @@ public class EditCommand extends Command {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof EditCommand)) {
+        if (!(other instanceof RenameCommand)) {
             return false;
         }
 
         // state check
-        EditCommand e = (EditCommand) other;
+        RenameCommand e = (RenameCommand) other;
         return index.equals(e.index)
                 && editPdfDescriptor.equals(e.editPdfDescriptor);
     }

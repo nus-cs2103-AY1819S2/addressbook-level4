@@ -52,8 +52,7 @@ For example, after sorting the entries by amount in descending order, a user may
 and this can be achieved conveniently using the `reverse` command.
 
 
-* Highlights:
-
+* Highlights: +
 These enhancements work with existing commands such as `edit` and `delete`. When a list is sorted,
 it may be easier to find an entry (_In-Credit-Ble_ has a `search` function too!).
 These enhancements are also compatible with _In-Credit-Ble_’s `undo` and `redo` functions.
@@ -90,18 +89,16 @@ https://github.com/CS2103-AY1819S2-W17-3/main/pull/121[#121]
 
 
 == Contributions to the User Guide
-|===
-|_These are additions I made to the In-Credit-Ble User Guide for the `reverse` and `sort` features._
-|===
+
+These are additions I made to _In-Credit-Ble_'s User Guide for the `reverse` and `sort` features.
 
 include::../UserGuide.adoc[tag=sort]
 
 include::../UserGuide.adoc[tag=reverse]
 
 == Contributions to the Developer Guide
-|===
-|_These are additions I made to the In-Credit-Ble Developer Guide for the `reverse` and `sort` features._
-|===
+
+These are additions I made to _In-Credit-Ble_'s Developer Guide for the `reverse` and `sort` features.
 
 include::../DeveloperGuide.adoc[tag=sort]
 

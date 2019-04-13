@@ -1,15 +1,18 @@
-= Tay Zhan Peng - Project Portfolio
+= Tay Zhan Peng's Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-== PROJECT: FomoFoto
+---
+ This portfolio seeks to document my contributions to our team's project, FomoFoto.
 
 ---
+== Project Title: FomoFoto
+
 
 == Overview
 
-My team and I were tasked with enhancing a basic command line addressbook for our Software Engineering project. We decided to morph the project into a image editor. +
+My team and I were tasked with enhancing a basic command line Address Book for our software engineering project. We decided to morph the project into a image editor. +
 
 FomoFoto is a robust yet simple image-editing tool. Users interact with the application through worded commands from their keyboard, and receive visual feedback from it through the displayed image on the application. +
 
@@ -20,26 +23,52 @@ In addition, FomoFoto is well-maintained with high reliability and code quality 
 == Summary of contributions
 This section provides a summary of my coding, documentation and other contributions to FomoFoto, our team project.
 
-=== *Major Enhancement* -- Ability to open files
+=== *Major Enhancement* -- Added the feature to open an image.
 
-** What it does: It allows users to open an image that was previously imported into the album for editing.
+** _What it does:_ The `open` command allows users to open an image that was previously imported into the album for editing.
 
-** Justification: This feature is essential as it sets up the application to allow image manipulation and image filters commands to work. Upon using the `open` command, the image is displayed prominently in the main window of the application, allowing users to confirm and know which image they are currently editing.
+** _Why it is important:_ This feature is essential as it enables users to choose which image they want to edit. Upon using the `open` command, the chosen image is displayed prominently in the main window of the application, allowing users to confirm which image they are about to apply their edits on.
 
-** Highlights: This enhancement requires in depth analysis on how the temporary image is stored. It retrieves the opened image from `assets` folder and creates two copies of it in `temp` folder named `ori_img.png` and `temp_img.png`. Subsequent edits will update and replace the `temp_img.png`. The `ori_img.png` is utilised during an `undo` or `redo`. The implementation was challenging as it required many changes to the `Model` to ensure components access only folders that they are related to.
+** _Highlights:_ The `open` command duplicates the opened image in a temporary folder so that users are able to recover the original image should they decide to abandon their edits or in the unlikely event of an application crash. Therefore, this enhancement requires in depth analysis on how the temporary image is stored. When an image is opened, two copies named `ori_img.png` and `temp_img.png` are created in the temporary folder. Subsequent edits will update and overwrite `temp_img.png` while `ori_img.png` is used for `undo` and `redo` operations.
 
-** *Code contributed*: [https://github.com/CS2103-AY1819S2-W14-2/main/commits?author=itszp[List of commits]]
+=== *Major Enhancement* -- Added the feature to save an image.
+
+** _What it does:_ The `save` command allows users to apply their edits to the image and save it as a new image.
+
+** _Why it is important:_ This feature completes the image editor by enabling users to apply their edits permanently onto the image. It also gives users the ability to save their current work and resume editing at another time.
+
+** _Highlights:_ The `save` command gives users the choice to either save the edited image with a new name or overwrite the original image. To save as a new image, users simply type `save newName.png` and a new image named `newName.png` will be created in the album. To overwrite the original image, a simple `save` would suffice. After saving, users may continue to apply edits onto the saved image.
+
+
+=== *Minor Enhancement* -- Added the feature to list file names.
+
+The `listfiles` command displays all the names of the images in the album. It provides a quick reference to the images so that users may type the name correctly when using `open`.
+
+
+=== *Code Contributed*
+Here are the code contributions that I have made. [https://github.com/CS2103-AY1819S2-W14-2/main/commits?author=itszp[List of Commits]]  [https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#search=itszp[Project Code Dashboard]]
+
 
 === *Other Contributions*
 
 ** Project management:
-*** Managed release `v1.2` and `v1.3` (2 releases) on GitHub
+*** Managed release `v1.2`, `v1.3`, `v1.3.1` and `v1.4` (4 releases) on GitHub.
+*** Managed labels, milestones and issues for issue tracking on GitHub.
+
 ** Documentation:
-*** Wrote features implemented for the User Guide: https://github.com/CS2103-AY1819S2-W14-2/main/issues/132[#132]
+*** Wrote features implemented for the User Guide: https://github.com/CS2103-AY1819S2-W14-2/main/pull/58[#58]
 *** Wrote model and features for the Developer Guide: https://github.com/CS2103-AY1819S2-W14-2/main/pull/129[#129]
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com/CS2103-AY1819S2-W14-2/main/pull/39[#39]
-*** Reported bugs and provided solutions to team: https://github.com/CS2103-AY1819S2-W14-2/main/issues/103[#103], https://github.com/CS2103-AY1819S2-W14-2/main/issues/93[#93], https://github.com/CS2103-AY1819S2-W14-2/main/pull/39[#39], https://github.com/CS2103-AY1819S2-W14-2/main/issues/70[#70], https://github.com/CS2103-AY1819S2-W14-2/main/issues/89[#89]
+*** Pull requests (with non-trival comments) reviewed: https://github.com/CS2103-AY1819S2-W14-2/main/pull/39[#39],
+https://github.com/CS2103-AY1819S2-W14-2/main/pull/239[#239],
+https://github.com/CS2103-AY1819S2-W14-2/main/pull/242[#242]
+*** Reported bugs and provided solutions to team:
+https://github.com/CS2103-AY1819S2-W14-2/main/issues/89[#89],
+https://github.com/CS2103-AY1819S2-W14-2/main/issues/93[#93],  https://github.com/CS2103-AY1819S2-W14-2/main/issues/70[#70],
+https://github.com/CS2103-AY1819S2-W14-2/main/issues/103[#103],
+https://github.com/CS2103-AY1819S2-W14-2/main/issues/128[#128],
+https://github.com/CS2103-AY1819S2-W14-2/main/issues/159[#159],
+https://github.com/CS2103-AY1819S2-W14-2/main/issues/189[#189]
 
 
 == Contributions to the User Guide
@@ -48,8 +77,6 @@ This section provides a summary of my coding, documentation and other contributi
 |===
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
-
-include::../UserGuide.adoc[tag=AWalkThrough]
 
 include::../UserGuide.adoc[tag=ListAndOpen]
 
@@ -71,5 +98,4 @@ include::../DeveloperGuide.adoc[tag=Save]
 include::../DeveloperGuide.adoc[tag=UserStories]
 
 
-== PROJECT: PowerPointLabs
 

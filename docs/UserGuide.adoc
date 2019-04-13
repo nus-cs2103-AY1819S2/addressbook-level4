@@ -218,17 +218,17 @@ _e.g. `Adam Smith` shall come before `Shaun Adams` and `Adam Blacksmith` shall c
 * The `sort surname` command compares the surname only. +
 If two surnames match, then the previous relative ordering of the two shall be kept. +
 _e.g. `Ben Adams` shall come before `Adam Black`._
-* The `sort education` command sorts the persons by the alphabetical ordering of their education. +
+* The `sort education` command sorts the persons by the alphabetical ordering of their education (case-insensitive). +
 _e.g. `Charlotte Green (NTU)` shall come before `Adam Smith (NUS)`._
 * The `sort gpa` command sorts the persons by increasing gpa numeric value. +
 _e.g. `Adam Smith (3.1)` shall come before `Charlotte Green (3.9)`._
-* The `sort skills` arranges each person's skills alphabetically and then arranges the people based on their skills in alphabetical order. +
+* The `sort skills` arranges each person's skills alphabetically and then arranges the people based on their skills in alphabetical order (case-insensitive). +
 _e.g. `Peter Parker (Python, Debugging)` shall come before `Charlotte Oliveiro (Java)` +
 since `Debugging` comes before `Java`._
 * The `sort positions` arranges each person's positions alphabetically and then arranges the people based on their positions in alphabetical order. +
 _e.g. `Charlotte Oliveiro (Project Consultant, Crime Analyst)` shall come before `Peter Parker (Databases)` +
 since `Crime Analyst` comes before `Databases`._
-* The `sort endorsements` arranges each person's endorsements alphabetically and then arranges the people based on their endorsements in alphabetical order. +
+* The `sort endorsements` arranges each person's endorsements alphabetically and then arranges the people based on their endorsements in alphabetical order (case-insensitive). +
 _e.g. `Irfan Ibrahim (Warren Buffett, Jeff Bezos)` shall come before `Alex Yeoh (Mark Cuban, Steve Jobs)` +
 since `Jeff Bezos` comes before `Mark Cuban`._
 * The `sort skill number` arranges persons based on the number of skills they have from most to fewest.+

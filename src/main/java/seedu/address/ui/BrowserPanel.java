@@ -3,6 +3,7 @@ package seedu.address.ui;
 import static java.util.Objects.requireNonNull;
 
 import java.net.URL;
+import java.util.List;
 import java.util.logging.Logger;
 
 import javafx.application.Platform;
@@ -22,9 +23,10 @@ public class BrowserPanel extends UiPart<Region> {
 
     public static final URL DEFAULT_PAGE =
             requireNonNull(MainApp.class.getResource(FXML_FILE_FOLDER + "default.html"));
-    public static final String SEARCH_PAGE_URL = "https://se-education.org/dummy-search-page/?name=";
+    public static final String SEARCH_PAGE_URL = "https://www.linkedin.com/search/results/all/?keywords=";
 
     private static final String FXML = "BrowserPanel.fxml";
+    private static final String DELIM = "%20";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
@@ -49,9 +51,24 @@ public class BrowserPanel extends UiPart<Region> {
         loadDefaultPage();
     }
 
+    /**
+     * Loads the linked in page, making a search for the person with their name and one of their positions.
+     * If no positions are held then just the name is searched for
+     */
     private void loadPersonPage(Person person) {
-        loadPage(SEARCH_PAGE_URL + person.getName().fullName);
+        String personsPosition;
+        String personsName = person.nameToString();
+        String personsModifiedName = trimToSearchFormat(personsName);
+        List<String> positions = person.getPositionString();
+        if (positions.isEmpty()) {
+            personsPosition = "";
+        } else {
+            personsPosition = trimToSearchFormat(positions.get(0));
+        }
+        String searchString1 = SEARCH_PAGE_URL + personsModifiedName + DELIM + personsPosition;
+        loadPage(searchString1);
     }
+
 
     public void loadPage(String url) {
         Platform.runLater(() -> browser.getEngine().load(url));
@@ -62,6 +79,18 @@ public class BrowserPanel extends UiPart<Region> {
      */
     private void loadDefaultPage() {
         loadPage(DEFAULT_PAGE.toExternalForm());
+    }
+
+    /**
+     * removes p:, [, ] and , from string and replaces spaces with a certain delimiter
+     */
+    private String trimToSearchFormat(String input) {
+        String output = input.replace("p:", "")
+                .replace("[", "")
+                .replace("]", "")
+                .replace(",", "")
+                .replace(" ", DELIM);
+        return output;
     }
 
 }

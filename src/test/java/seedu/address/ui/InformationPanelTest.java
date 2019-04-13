@@ -52,11 +52,14 @@ public class InformationPanelTest extends GuiUnitTest {
         guiRobot.interact(() -> selectedMedicine.set(null));
         assertFalse(informationPanelHandle.isBatchTableLoaded());
 
-        // Select another medicine and change settings
-        guiRobot.interact(() -> selectedMedicine.set(LEVOTHYROXINE));
-        assertTrue(informationPanelHandle.isBatchTableLoaded());
+        // change settings without loading the table
         guiRobot.interact(() -> informationPanelSettings.set(new InformationPanelSettings(SortProperty.EXPIRY,
                 SortDirection.DESCENDING)));
+        assertFalse(informationPanelHandle.isBatchTableLoaded());
+
+        // Select another medicine
+        guiRobot.interact(() -> selectedMedicine.set(LEVOTHYROXINE));
+        assertTrue(informationPanelHandle.isBatchTableLoaded());
         checkTable(informationPanel.getBatchTable(), SortProperty.EXPIRY, SortDirection.DESCENDING);
 
         // Select same medicine and change settings without deselecting

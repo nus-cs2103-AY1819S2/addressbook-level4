@@ -133,7 +133,7 @@ public class UpdateCommandTest {
 
     @Test
     public void execute_updateExistingBatchUnfilteredListNoQuantity_success() {
-        Index index = INDEX_SECOND_MEDICINE;
+        Index index = INDEX_THIRD_MEDICINE;
         Medicine medicineToUpdate = model.getFilteredMedicineList().get(index.getZeroBased());
 
         // Get an existing batch from medicineToUpdate
@@ -144,7 +144,6 @@ public class UpdateCommandTest {
         Batch updatedBatch = new BatchBuilder(batchToUpdate).withExpiry(defaultBatch.getExpiry().toString()).build();
 
         Medicine updatedMedicine = new MedicineBuilder(medicineToUpdate)
-                .withExpiry(defaultBatch.getExpiry().toString())
                 .withAddedBatch(updatedBatch).build();
 
         UpdateBatchDescriptor newBatchDetails = new UpdateBatchDescriptorBuilder(updatedBatch).withNoQuantity()
@@ -293,7 +292,7 @@ public class UpdateCommandTest {
             batches.put(batchNumber, new Batch(batchNumber, quantity, expiry));
         }
 
-        // name 1 to be at the top of the sorted list
+        // name the medicine "1" to be at the first medicine in the sorted list
         Medicine medicine = new MedicineBuilder().withName("1").withBatches(batches).build();
         model.addMedicine(medicine);
 
@@ -302,6 +301,7 @@ public class UpdateCommandTest {
 
         String expectedMessage = Medicine.MESSAGE_CONSTRAINTS_BATCHES;
 
+        // Try to add a batch to a medicine with max number of batch
         UpdateCommand updateCommand = new UpdateCommand(INDEX_FIRST_MEDICINE, newBatchDetails);
         assertCommandFailure(updateCommand, model, commandHistory, expectedMessage);
     }

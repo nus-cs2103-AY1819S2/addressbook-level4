@@ -7,9 +7,9 @@
 
 == About the Project
 
-Know-It-All is a flashcard application borne from CS2103T, a software engineering course that spanned 13 weeks. We were tasked to take an existing addressbook application and enhance or morph the product into a different one. After 4 milestones, the result you see is Know-It-All, a digital flashcard solution that helps users store and organise their learning material. With an easy to use interface and convenient content sharing functionality, Know-It-All was designed to help students perform rote learning more efficiently. From cramming in between lessons to focused study, the in-built test session boosts the effectiveness of repetition and recall for memorisation.
+Know-It-All is a flashcard application borne from CS2103T, a software engineering course spanning 13 weeks. We were tasked to take an existing addressbook application and either enhance it or morph it into a different product. After 4 developmental milestones, the result is Know-It-All, a digital flashcard solution that helps users store and organise their learning material. With an easy to use interface and convenient sharing functionality, Know-It-All iss designed to help students perform rote learning more efficiently. From cramming in between lessons to focused study, the interactive test session boosts the effectiveness of repetition and recall for memorisation. Download Know-It-All https://github.com/cs2103-ay1819s2-w10-4/main/releases[here]!
 
-My role in the project was to implement a folder system, so that users could could group together multiple sets of flashcards. Apart from writing code, I maintained the User Guide, Developer Guide and project GitHub repository. Most importantly, I synergised with my team members to work productively and help everyone achieve their goals.
+My role in the project was to implement a folder system, so that users could group together multiple sets of flashcards. Apart from writing code, I maintained the User Guide, Developer Guide and project GitHub repository. Most importantly, I synergised with my team members to work productively and help everyone achieve their goals.
 
 In this document, the following style elements from the respective documentation are present:
 

@@ -45,7 +45,7 @@ public class OpeningHours {
     private static boolean isSameOpeningAndClosingHours(String test) {
 
         // if input string is 24hrs or default placeholder, do not check for opening and closing hours
-        if (test.equals("24hrs") || test.equals(DEFAULT_OPENING_HOURS)){
+        if (test.equals("24hrs") || test.equals(DEFAULT_OPENING_HOURS)) {
             return false;
         }
 

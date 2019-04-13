@@ -50,7 +50,8 @@ public class WeblinkTest {
         assertTrue(Weblink.isValidWeblinkString("test.localhost")); // alphabets only
         assertTrue(Weblink.isValidWeblinkString("!#$%&'*+/=?`{|}~^.example.org")); // special characters local part
         assertTrue(Weblink.isValidWeblinkString("123.145")); // numeric local part and domain name
-        assertTrue(Weblink.isValidWeblinkString("a1+be!.example1.com")); // mixture of alphanumeric and special characters
+        assertTrue(Weblink
+                .isValidWeblinkString("a1+be!.example1.com")); // mixture of alphanumeric and special characters
         assertTrue(Weblink.isValidWeblinkString("peter_jack.very-very-very-long-example.com")); // long domain name
         assertTrue(Weblink.isValidWeblinkString("if.you.dream.it.you.can.do.it.example.com")); // long local part
 

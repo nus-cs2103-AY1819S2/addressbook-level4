@@ -66,24 +66,24 @@ public class VisitWebCommandTest {
 
     @Test
     public void equals() {
-        VisitWebCommand VisitWebFirstCommand = new VisitWebCommand(INDEX_FIRST_RESTAURANT);
-        VisitWebCommand VisitWebSecondCommand = new VisitWebCommand(INDEX_SECOND_RESTAURANT);
+        VisitWebCommand visitWebFirstCommand = new VisitWebCommand(INDEX_FIRST_RESTAURANT);
+        VisitWebCommand visitWebSecondCommand = new VisitWebCommand(INDEX_SECOND_RESTAURANT);
 
         // same object -> returns true
-        assertTrue(VisitWebFirstCommand.equals(VisitWebFirstCommand));
+        assertTrue(visitWebFirstCommand.equals(visitWebFirstCommand));
 
         // same values -> returns true
-        VisitWebCommand VisitWebFirstCommandCopy = new VisitWebCommand(INDEX_FIRST_RESTAURANT);
-        assertTrue(VisitWebFirstCommand.equals(VisitWebFirstCommandCopy));
+        VisitWebCommand visitWebFirstCommandCopy = new VisitWebCommand(INDEX_FIRST_RESTAURANT);
+        assertTrue(visitWebFirstCommand.equals(visitWebFirstCommandCopy));
 
         // different types -> returns false
-        assertFalse(VisitWebFirstCommand.equals(1));
+        assertFalse(visitWebFirstCommand.equals(1));
 
         // null -> returns false
-        assertFalse(VisitWebFirstCommand.equals(null));
+        assertFalse(visitWebFirstCommand.equals(null));
 
         // different restaurant -> returns false
-        assertFalse(VisitWebFirstCommand.equals(VisitWebSecondCommand));
+        assertFalse(visitWebFirstCommand.equals(visitWebSecondCommand));
     }
 
     /**
@@ -92,10 +92,10 @@ public class VisitWebCommandTest {
      * restaurant list.
      */
     private void assertExecutionSuccess(Index index) {
-        VisitWebCommand VisitWebCommand = new VisitWebCommand(index);
+        VisitWebCommand visitWebCommand = new VisitWebCommand(index);
         String expectedMessage = String.format(VisitWebCommand.MESSAGE_VISIT_RESTAURANT_SUCCESS, index.getOneBased());
 
-        assertCommandSuccess(VisitWebCommand, model, commandHistory, expectedMessage, expectedModel);
+        assertCommandSuccess(visitWebCommand, model, commandHistory, expectedMessage, expectedModel);
     }
 
     /**
@@ -103,7 +103,7 @@ public class VisitWebCommandTest {
      * is thrown with the {@code expectedMessage}.
      */
     private void assertExecutionFailure(Index index, String expectedMessage) {
-        VisitWebCommand VisitWebCommand = new VisitWebCommand(index);
-        assertCommandFailure(VisitWebCommand, model, commandHistory, expectedMessage);
+        VisitWebCommand visitWebCommand = new VisitWebCommand(index);
+        assertCommandFailure(visitWebCommand, model, commandHistory, expectedMessage);
     }
 }

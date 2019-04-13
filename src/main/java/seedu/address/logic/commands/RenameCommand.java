@@ -74,9 +74,7 @@ public class RenameCommand extends Command {
 
         Pdf pdfToEdit = lastShownList.get(index.getZeroBased());
         Pdf editedPdf = createEditedPdf(pdfToEdit, editPdfDescriptor);
-
-        System.out.println(pdfToEdit.getName().getFullName().equals(editedPdf.getName().getFullName()));
-
+        
         if (!pdfToEdit.getName().getFullName().equals(editedPdf.getName().getFullName())
                 && isFileExists(editedPdf)) {
 
@@ -104,7 +102,6 @@ public class RenameCommand extends Command {
      * Returns true is the file with the updated name exists in the directory, false otherwise.
      */
     private static boolean isFileExists(Pdf editedPdf) {
-        System.out.println(editedPdf);
         String[] files = Paths.get(editedPdf.getDirectory().getDirectory()).toFile().list();
         return Arrays.stream(files).anyMatch(x -> editedPdf.getName().getFullName().equals(x));
     }

@@ -9,7 +9,9 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 
 import static seedu.address.logic.commands.CommandTestUtil.showPdfAtIndex;
+import static seedu.address.logic.commands.RenameCommand.MESSAGE_DUPLICATE_PDF;
 import static seedu.address.logic.commands.RenameCommand.MESSAGE_DUPLICATE_PDF_DIRECTORY;
+import static seedu.address.logic.commands.RenameCommand.MESSAGE_EDIT_PDF_FAILURE;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PDF;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PDF;
 import static seedu.address.testutil.TypicalPdfs.SAMPLE_EDITEDPDF;
@@ -70,8 +72,9 @@ public class RenameCommandTest {
 
     @Test
     public void execute_onlyCompulsoryFieldSpecifiedUnfilteredList_success() {
-        Pdf editedPdf = SAMPLE_PDF_1;
-        RenameCommand.EditPdfDescriptor descriptor = new EditPdfDescriptorBuilder(editedPdf).build();
+        Pdf editedPdf = new PdfBuilder(SAMPLE_PDF_1).withName("Test.pdf").build();
+        RenameCommand.EditPdfDescriptor descriptor = new EditPdfDescriptorBuilder()
+                .withName("Test.pdf").build();
         RenameCommand renameCommand = new RenameCommand(INDEX_FIRST_PDF, descriptor);
 
         String expectedMessage = String.format(RenameCommand.MESSAGE_EDIT_PDF_SUCCESS, editedPdf);
@@ -81,6 +84,18 @@ public class RenameCommandTest {
         expectedModel.commitPdfBook();
 
         assertCommandSuccess(renameCommand, model, commandHistory, expectedMessage, expectedModel);
+        revertBackup(SAMPLE_PDF_1, editedPdf);
+    }
+
+    @Test
+    public void execute_caseSensitiveRenameToAnotherFile_failure() {
+        RenameCommand.EditPdfDescriptor descriptor = new EditPdfDescriptorBuilder()
+                .withName(SAMPLE_PDF_2.getName().getFullName().toLowerCase()).build();
+        RenameCommand renameCommand = new RenameCommand(INDEX_FIRST_PDF, descriptor);
+
+        String expectedMessage = MESSAGE_EDIT_PDF_FAILURE;
+
+        assertCommandFailure(renameCommand, model, commandHistory, expectedMessage);
     }
 
     @Test
@@ -123,14 +138,8 @@ public class RenameCommandTest {
     @Test
     public void execute_noFieldSpecifiedUnfilteredList_success() {
         RenameCommand renameCommand = new RenameCommand(INDEX_FIRST_PDF, new EditPdfDescriptor());
-        Pdf editedPdf = model.getFilteredPdfList().get(INDEX_FIRST_PDF.getZeroBased());
-
-        String expectedMessage = String.format(RenameCommand.MESSAGE_EDIT_PDF_SUCCESS, editedPdf);
-
-        Model expectedModel = new ModelManager(new PdfBook(model.getPdfBook()), new UserPrefs());
-        expectedModel.commitPdfBook();
-
-        assertCommandSuccess(renameCommand, model, commandHistory, expectedMessage, expectedModel);
+        String expectedMessage = MESSAGE_DUPLICATE_PDF;
+        assertCommandFailure(renameCommand, model, commandHistory, expectedMessage);
     }
 
     @Test

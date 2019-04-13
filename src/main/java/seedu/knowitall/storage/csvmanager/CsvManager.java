@@ -35,7 +35,7 @@ public class CsvManager implements CsvCommands {
 
     private static final String COMMA_DELIMITTER = ",";
     private static final String NEW_LINE_SEPARATOR = "\n";
-    private static final String CARD_HEADERS = "Question,Answer,Hints,Option1,Option2,Option3";
+    private static final String CARD_HEADERS = "Question,Answer,Hints,Option,Option,Option";
     private static final String TEST_FOLDER_PATH = "test";
 
     private String defaultPath;

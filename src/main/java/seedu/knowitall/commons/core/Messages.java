@@ -30,6 +30,6 @@ public class Messages {
             + " as the correct answer";
     public static final String MESSAGE_CSV_MANAGER_NOT_INITIALIZED = "Unable to carry out import and export commands";
     public static final String MESSAGE_INCORRECT_CSV_FILE_HEADER = "Incorrect Csv file headers. Check that the\n"
-            + "csv file contains question,answer,options,hints header";
+            + "csv file contains question,answer,hints,option,option,option header";
     public static final String MESSAGE_EMPTY_CSV_FILE = "Empty csv file!";
 }

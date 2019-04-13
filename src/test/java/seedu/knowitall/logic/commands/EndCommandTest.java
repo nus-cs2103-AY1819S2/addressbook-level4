@@ -26,8 +26,8 @@ public class EndCommandTest {
     public void execute_endTestSession_success() {
         model.enterFolder(TypicalIndexes.INDEX_FIRST_CARD_FOLDER.getZeroBased());
         expectedModel.enterFolder(TypicalIndexes.INDEX_FIRST_CARD_FOLDER.getZeroBased());
-        model.testCardFolder();
-        expectedModel.testCardFolder();
+        model.startTestSession();
+        expectedModel.startTestSession();
 
         expectedModel.endTestSession();
         CommandResult expectedCommandResult = new CommandResult(MESSAGE_END_TEST_SESSION_SUCCESS,

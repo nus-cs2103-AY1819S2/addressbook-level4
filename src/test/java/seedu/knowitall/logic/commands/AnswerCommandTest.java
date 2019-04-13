@@ -59,8 +59,8 @@ public class AnswerCommandTest {
                 CommandResult.Type.ANSWER_CORRECT);
         model.enterFolder(TypicalIndexes.INDEX_FIRST_CARD_FOLDER.getZeroBased());
         expectedModel.enterFolder(TypicalIndexes.INDEX_FIRST_CARD_FOLDER.getZeroBased());
-        model.testCardFolder();
-        expectedModel.testCardFolder();
+        model.startTestSession();
+        expectedModel.startTestSession();
 
         Card testedCard = model.getCurrentTestedCard();
         AnswerCommand answerCommand = new AnswerCommand(testedCard.getAnswer());
@@ -79,8 +79,8 @@ public class AnswerCommandTest {
                 CommandResult.Type.ANSWER_WRONG);
         model.enterFolder(TypicalIndexes.INDEX_FIRST_CARD_FOLDER.getZeroBased());
         expectedModel.enterFolder(TypicalIndexes.INDEX_FIRST_CARD_FOLDER.getZeroBased());
-        model.testCardFolder();
-        expectedModel.testCardFolder();
+        model.startTestSession();
+        expectedModel.startTestSession();
 
         Card testedCard = model.getCurrentTestedCard();
         AnswerCommand answerCommand = new AnswerCommand(new Answer(VALID_ANSWER_2));
@@ -104,7 +104,7 @@ public class AnswerCommandTest {
     public void execute_invalidAnswerAfterAnsweredAttempt_fail() {
         String expectedMessage = String.format(MESSAGE_INVALID_ANSWER_COMMAND);
         model.enterFolder(TypicalIndexes.INDEX_FIRST_CARD_FOLDER.getZeroBased());
-        model.testCardFolder();
+        model.startTestSession();
 
         Card testedCard = model.getCurrentTestedCard();
         AnswerCommand answerCommand = new AnswerCommand(testedCard.getAnswer());

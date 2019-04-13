@@ -34,7 +34,7 @@ public class TestCommandTest {
         model.enterFolder(TypicalIndexes.INDEX_FIRST_CARD_FOLDER.getZeroBased());
         TestCommand testCommand = new TestCommand();
         expectedModel.enterFolder(TypicalIndexes.INDEX_FIRST_CARD_FOLDER.getZeroBased());
-        expectedModel.testCardFolder();
+        expectedModel.startTestSession();
         CommandResult expectedCommandResult = new CommandResult(TestCommand.MESSAGE_ENTER_TEST_FOLDER_SUCCESS,
                 CommandResult.Type.START_TEST_SESSION);
         assertCommandSuccess(testCommand, model, commandHistory, expectedCommandResult, expectedModel);
@@ -49,7 +49,7 @@ public class TestCommandTest {
         expectedModel.enterFolder(model.getCardFolders().size() - 1);
 
         thrown.expect(EmptyCardFolderException.class);
-        expectedModel.testCardFolder();
+        expectedModel.startTestSession();
     }
 
     @Test
@@ -64,7 +64,7 @@ public class TestCommandTest {
     public void execute_invalidTestCommandInsideTestSession_fail() {
         TestCommand testCommand = new TestCommand();
         model.enterFolder(TypicalIndexes.INDEX_FIRST_CARD_FOLDER.getZeroBased());
-        model.testCardFolder();
+        model.startTestSession();
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_OUTSIDE_FOLDER);
         assertCommandFailure(testCommand, model, commandHistory, expectedMessage);
     }

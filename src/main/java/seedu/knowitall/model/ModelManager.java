@@ -360,7 +360,7 @@ public class ModelManager implements Model {
     //=========== Test Session ===========================================================================
 
     @Override
-    public void testCardFolder() {
+    public void startTestSession() {
         currentTestedCardFolder = getActiveCardFolder().getCardList();
         if (currentTestedCardFolder.isEmpty()) {
             throw new EmptyCardFolderException();

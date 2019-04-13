@@ -37,8 +37,8 @@ public class NextCommandTest {
     @Test
     public void execute_nextCommand_success() {
         model.enterFolder(TypicalIndexes.INDEX_FIRST_CARD_FOLDER.getZeroBased());
-        model.testCardFolder();
-        expectedModel.testCardFolder();
+        model.startTestSession();
+        expectedModel.startTestSession();
 
         expectedModel.setCardAsAnswered();
         model.setCardAsAnswered();
@@ -57,8 +57,8 @@ public class NextCommandTest {
         model.enterFolder(model.getCardFolders().size() - 1);
         expectedModel.enterFolder(model.getCardFolders().size() - 1);
 
-        model.testCardFolder();
-        expectedModel.testCardFolder();
+        model.startTestSession();
+        expectedModel.startTestSession();
         model.setCardAsAnswered();
         expectedModel.setCardAsAnswered();
 
@@ -79,7 +79,7 @@ public class NextCommandTest {
 
     @Test
     public void execute_invalidNextCommandBeforeAnswerAttempt_fail() {
-        model.testCardFolder();
+        model.startTestSession();
         String expectedMessage = String.format(MESSAGE_INVALID_NEXT_COMMAND);
         assertCommandFailure(new NextCommand(), model, commandHistory, expectedMessage);
     }

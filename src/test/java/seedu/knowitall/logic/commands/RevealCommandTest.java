@@ -29,8 +29,8 @@ public class RevealCommandTest {
                 CommandResult.Type.ANSWER_REVEAL);
         model.enterFolder(TypicalIndexes.INDEX_FIRST_CARD_FOLDER.getZeroBased());
         expectedModel.enterFolder(TypicalIndexes.INDEX_FIRST_CARD_FOLDER.getZeroBased());
-        model.testCardFolder();
-        expectedModel.testCardFolder();
+        model.startTestSession();
+        expectedModel.startTestSession();
 
         Card testedCard = model.getCurrentTestedCard();
         RevealCommand revealCommand = new RevealCommand();
@@ -54,7 +54,7 @@ public class RevealCommandTest {
     public void execute_invalidRevealAfterAnsweredAttempt_fail() {
         String expectedMessage = String.format(MESSAGE_INVALID_REVEAL_COMMAND);
         model.enterFolder(TypicalIndexes.INDEX_FIRST_CARD_FOLDER.getZeroBased());
-        model.testCardFolder();
+        model.startTestSession();
         model.setCardAsAnswered();
         RevealCommand revealCommand = new RevealCommand();
         assertCommandFailure(revealCommand, model, commandHistory, expectedMessage);

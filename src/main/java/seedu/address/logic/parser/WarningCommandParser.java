@@ -27,7 +27,7 @@ public class WarningCommandParser implements Parser<WarningCommand> {
         }
 
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_EXPIRY, PREFIX_QUANTITY);
-        if (!hasOnePrefix(argMultimap)) {
+        if (!hasOnePrefix(argMultimap) || args.trim().split("\\s+").length > 1) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, WarningCommand.MESSAGE_USAGE));
         }
 

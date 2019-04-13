@@ -1,7 +1,8 @@
-package seedu.address.model.medicine;
+package seedu.address.model.medicine.predicates;
 
 import java.util.function.Predicate;
 
+import seedu.address.model.medicine.Medicine;
 import seedu.address.model.threshold.Threshold;
 
 /**

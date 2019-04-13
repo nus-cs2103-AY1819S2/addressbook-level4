@@ -1,9 +1,10 @@
-package seedu.address.model.medicine;
+package seedu.address.model.medicine.predicates;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.function.Predicate;
 
+import seedu.address.model.medicine.Batch;
 import seedu.address.model.threshold.Threshold;
 
 /**

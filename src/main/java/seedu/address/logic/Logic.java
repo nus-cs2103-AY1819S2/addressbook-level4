@@ -43,7 +43,7 @@ public interface Logic {
     ObservableList<Medicine> getExpiringMedicinesList();
 
     /** Returns an unmodifiable view of the filtered list of medicines with low quantity for warning pane*/
-    ObservableList<Medicine> getLowQuantityMedicinesList();
+    ObservableList<Medicine> getLowStockMedicinesList();
 
     /**
      * Returns an unmodifiable view of the list of commands entered by the user.

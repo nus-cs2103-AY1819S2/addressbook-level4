@@ -18,17 +18,17 @@ import seedu.address.model.medicine.Medicine;
 public class WarningPanel extends UiPart<Region> {
     private static final String FXML = "WarningPanel.fxml";
     private static final Logger logger = LogsCenter.getLogger(WarningPanel.class);
-    private final WarningPanelPredicateAccessor warningPanelPredicateAccessor;
+    private final WarningPanelPredicateAccessor predicateAccessor;
 
     @FXML
     private VBox warningVBox;
 
     public WarningPanel(ObservableList<Medicine> expiringMedicineList,
                         ObservableList<Medicine> lowQuantityMedicineList,
-                        WarningPanelPredicateAccessor warningPanelPredicateAccessor) {
+                        WarningPanelPredicateAccessor predicateAccessor) {
         super(FXML);
 
-        this.warningPanelPredicateAccessor = warningPanelPredicateAccessor;
+        this.predicateAccessor = predicateAccessor;
         setUpVBox(expiringMedicineList, lowQuantityMedicineList);
 
     }
@@ -37,18 +37,18 @@ public class WarningPanel extends UiPart<Region> {
      * Sets up the VBox which holds the lists.
      */
     private void setUpVBox(ObservableList<Medicine> expiringMedicineList,
-                            ObservableList<Medicine> lowQuantityMedicineList) {
+                            ObservableList<Medicine> lowStockMedicineList) {
         Label expiringListTitle = new Label(String.format("%-34s", "Expiring Soon / Expired")); //right-pad title
         expiringListTitle.getStyleClass().add("label-warning-panel");
         warningVBox.getChildren().addAll(expiringListTitle,
                 new WarningListView(expiringMedicineList,
-                WarningPanelPredicateType.EXPIRY, warningPanelPredicateAccessor).getRoot());
+                WarningPanelPredicateType.EXPIRY, predicateAccessor).getRoot());
 
         Label lowQuantityListTitle = new Label(String.format("%-40s", "Low in Stock")); //right-pad title
         lowQuantityListTitle.getStyleClass().add("label-warning-panel");
         warningVBox.getChildren().addAll(lowQuantityListTitle,
-                new WarningListView(lowQuantityMedicineList,
-                WarningPanelPredicateType.LOW_STOCK, warningPanelPredicateAccessor).getRoot());
+                new WarningListView(lowStockMedicineList,
+                WarningPanelPredicateType.LOW_STOCK, predicateAccessor).getRoot());
 
     }
 

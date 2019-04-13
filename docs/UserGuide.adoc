@@ -34,8 +34,8 @@ image::Ui.png[width="790"]
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* *`list`* : lists all applicants and job openings 
-* *`clear`* : clears the software of all applicants and job openings 
+* *`list`* : lists all applicants and job openings
+* *`clear`* : clears the software of all applicants and job openings
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
@@ -47,8 +47,8 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 *Command Format*
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
+* Items in square brackets are optional e.g `n/NAME [pj/PASTJOB]` can be used as `n/John Doe pj/Software-Engineer` or as `n/John Doe`.
+* Items with `…`​ after them can be used multiple times including zero times e.g. `[pj/PASTJOB]...` can be used as `{nbsp}` (i.e. 0 times), `pj/Software-Engineer`, `pj/Software-Engineer pj/Web-Developer` etc.
 * Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 ====
 === Basic Command
@@ -99,7 +99,7 @@ Format: `edit INDEX n/NAME p/PHONE_NUMBER nric/NRIC e/EMAIL a/ADDRESS g/GENDER r
 
 ****
 * Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
-* Editting fields that allows more than 1 value will entirely replace the existing values. 
+* Editting fields that allows more than 1 value will entirely replace the existing values.
 * Existing values will be updated to the input values.
 ****
 
@@ -259,9 +259,8 @@ Lang,Lang,Lang
 pastJob,pastJob,pastJob
 jobsApply,jobsApply,jobsApply
 interviewScore
-tag,tag,tag
 ```
-* All fields are to be populated, except for Programming Languages, Past Jobs, Jobs Applied, and Tags
+* All fields are to be populated, except for Programming Languages, Past Jobs, and Jobs Applied
 ** For these fields, specify any number of items (zero or more), separated by commas
 * All the resume documents should be stored in one folder.
 * If the new added people is a new person to our company, slaveFinder will crawl the data from resume and add him/her as ADD command.
@@ -337,7 +336,7 @@ Format : `switchjob JOBNAME`
 ==== Filter results : `filter`
 
 Filter the people displayed on the Person List. Each filer has a name and can be delete, diplay result always base on all filter request. +
-Format: `filter FILTERLISTNAME [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [g/GENDER] [r/RACE] [s/SCHOOL] [pj/PAST_JOBS] [t/TAG]...`
+Format: `filter FILTERLISTNAME [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [g/GENDER] [r/RACE] [s/SCHOOL] [pj/PAST_JOBS]...`
 
 ****
 * FILTERLISTNAME indicate which Job list this command will used.
@@ -347,7 +346,7 @@ Format: `filter FILTERLISTNAME [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [g/GENDE
 * Display board always display people base on all undeleted filters.
 ****
 
-==== Delete a filter : `deleteFilter` 	
+==== Delete a filter : `deleteFilter`
 
 Delete a filter showing on the display board and renew the update display people list. +
 Format: `deleteFilter FILTERNAME1 FILTERNAME2...`
@@ -439,19 +438,19 @@ Format : `report JOBNAME`
 
 == Command Summary
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS g/GENDER r/RACE m/MAJOR s/SCHOOL [pj/PAST_JOB]... [t/TAG]...` +
+* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS g/GENDER r/RACE m/MAJOR s/SCHOOL [pj/PAST_JOB]... ` +
 e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665
 g/Male r/Chinese m/MATH s/NUS pj/Professor t/friend t/colleague`
 * *Clear* : `clear`
 * *Delete* : `delete INDEX` +
 e.g. `delete 3`
 * *Edit* : `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS]
-[g/GENDER] [r/RACE] [s/SCHOOL] [pj/PAST_JOBS] [t/TAG]...` +
+[g/GENDER] [r/RACE] [s/SCHOOL] [pj/PAST_JOBS] ` +
 e.g. `edit 2 n/James Lee e/jameslee@example.com`
 * *Find* : `find KEYWORD [MORE_KEYWORDS]` +
 e.g. `find James Jake`
 * *Search* : `search [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS]
-[g/GENDER] [r/RACE] [s/SCHOOL] [pj/PAST_JOBS] [t/TAG]...` +
+[g/GENDER] [r/RACE] [s/SCHOOL] [pj/PAST_JOBS] ` +
 e.g. `search s/NUS`
 * *List* : `list`
 * *Help* : `help`
@@ -464,7 +463,7 @@ e.g.`select 2`
 * *Read to slaveFinder()* : `readAll`
 * *Get ranked list* : `getRankedList`
 * *Filter search results* : `filter [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS]
-[g/GENDER] [r/RACE] [s/SCHOOL] [pj/PAST_JOBS] [t/TAG]...` +
+[g/GENDER] [r/RACE] [s/SCHOOL] [pj/PAST_JOBS] ` +
 e.g. `filter r/Chinese`
 * *Display Hiring Process* : `displayProcess`
 * *Display Analytics* : `analytics LISTNAME` or `analytics`

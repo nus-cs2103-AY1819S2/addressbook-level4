@@ -344,10 +344,10 @@ Step 5. `CurrenEdit#displayTempImage()` is called to display the opened image on
 *** Easy to implement.
 *** Saves space as `temp` folder only stores one original image and one temporary image.
 *** Clear to users that edits are done to the only opened image.
-** Disadvantage: Users are unable to open other images while editing.
+** Disadvantage: Only one image can be edited at a time.
 
 * *Alternative 2* : The user can open and edit multiple images.
-** Advantage: Users are able to edit multiple images simultaneously.
+** Advantage: Images can be edited simultaneously.
 ** Disadvantages:
 *** `open` has to distinguish whether user is opening an image from `assets` or `temp` folder.
 *** Requires many duplicates with different temporary names.

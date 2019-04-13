@@ -35,10 +35,12 @@ public class WarningCommandParser implements Parser<WarningCommand> {
         Optional<String> optionalLowStockThreshold = argMultimap.getValue(PREFIX_QUANTITY);
 
         if (optionalExpiryThreshold.isPresent()) {
-            Threshold threshold = ParserUtil.parseThreshold(optionalExpiryThreshold.get());
+            Threshold threshold = ParserUtil.parseThreshold(optionalExpiryThreshold.get(),
+                    WarningPanelPredicateType.EXPIRY);
             return new WarningCommand(WarningPanelPredicateType.EXPIRY, threshold);
         } else {
-            Threshold threshold = ParserUtil.parseThreshold(optionalLowStockThreshold.get());
+            Threshold threshold = ParserUtil.parseThreshold(optionalLowStockThreshold.get(),
+                    WarningPanelPredicateType.LOW_STOCK);
             return new WarningCommand(WarningPanelPredicateType.LOW_STOCK, threshold);
         }
     }

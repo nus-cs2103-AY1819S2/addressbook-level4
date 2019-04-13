@@ -25,16 +25,15 @@ public class Enemy extends Player {
 
     private static final Random randGen = new Random();
     private static final Random randGen2 = new Random();
+
     private static final Logger logger = LogsCenter.getLogger(Enemy.class);
-
-
     private static ArrayList<Coordinates> allPossibleTargets = new ArrayList<>(); //one-based
     private static ArrayList<Coordinates> allParityTargets = new ArrayList<>(); //one-based
     private static ArrayList<Coordinates> allPossiblePopulateCoords = new ArrayList<>(); //zero-based, two ints
     private Stack<Coordinates> watchlist = new Stack<>(); //one based
-    private Status lastAttackStatus;
+    private Status lastAttackStatus = Status.HIDDEN;
     private int mapSize = 0;
-    private Coordinates lastCoordAttacked;
+    private Coordinates lastCoordAttacked = new Coordinates(0,0);
 
     /**
      * Default constructor with fleet size 8.
@@ -403,7 +402,7 @@ public class Enemy extends Player {
 
     /*************************************************************
      *  puts everything back from the stack to the drawing bags
-     *  Idea here is that once something is destroyed,
+     *  Idea here is that once something is destroyed,1
      *  everything on the stack should have been adj to the destroyed ship
      */
     private void cleanseWatchlist () {

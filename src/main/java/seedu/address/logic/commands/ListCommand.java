@@ -52,7 +52,7 @@ public class ListCommand extends Command {
      *
      * @param model {@code Model} which the command should operate on.
      * @param history {@code CommandHistory} which the command should operate on.
-     * @return CommandResult that contains list of ships.
+     * @return {@code CommandResult} that contains list of ships.
      */
     @Override
     public CommandResult execute(Model model, CommandHistory history) {

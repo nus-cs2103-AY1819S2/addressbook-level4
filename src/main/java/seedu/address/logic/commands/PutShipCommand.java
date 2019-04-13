@@ -67,7 +67,8 @@ public class PutShipCommand extends Command {
      *
      * @param model {@code Model} which the command should operate on.
      * @param history {@code CommandHistory} which the command should operate on.
-     * @return
+     * @return {@code CommandResult} which contains information about the battleship,
+     * coordinates and orientation that has been put on the map grid.
      * @throws CommandException
      */
     @Override

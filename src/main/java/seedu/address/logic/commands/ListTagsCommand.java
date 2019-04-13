@@ -35,7 +35,7 @@ public class ListTagsCommand extends Command {
      * Lists all the tags that have been used by ships deployed in the game.
      * @param model {@code Model} which the command should operate on.
      * @param history {@code CommandHistory} which the command should operate on.
-     * @return
+     * @return {@code CommandResult} which contains list of tags.
      */
     @Override
     public CommandResult execute(Model model, CommandHistory history) {

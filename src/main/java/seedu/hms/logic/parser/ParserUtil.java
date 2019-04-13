@@ -316,7 +316,8 @@ public class ParserUtil {
     public static String parseType(String name) throws ParseException {
         requireNonNull(name);
         String trimmedName = name.trim();
-        if ((name.length() >= 20) || !Name.isValidName(trimmedName)) {
+
+        if ((name.length() > 20) || !Name.isValidName(trimmedName)) {
             throw new ParseException("Names should only contain alphanumeric characters and spaces, and it "
                 + "should not be blank. The length should be less than 15.");
         }

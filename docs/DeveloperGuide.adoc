@@ -410,65 +410,58 @@ This feature utilises the
 https://pdfbox.apache.org/download.cgi#20x[_Apache PDFBox® library_], specifically the
 https://pdfbox.apache.org/docs/2.0.1/javadocs/org/apache/pdfbox/multipdf/PDFMergerUtility.html[_PDFMergerUtility_]
 API to append two or more PDFs and create a new file with the merged content. As there will be one
-additional file added to the application, this feature also implicitly performs an `Add` feature to add the new
+additional file added to the application, this feature also implicitly performs <<Adding of files to application>> to add the new
 PDF to the application.
 
-The Merge feature has the following syntax:
-
-[.big]#`merge <INDEX1> <INDEX2> ...`#
-
-* `<INDEX>` refers to the index of the `Pdf` that you wish to merge.
-* Minimum of two indices have to be provided for the merge to be performed, up to as many
-indices as desired.
-* It is possible to repeat an index; the PDF would simply merge with a copy of itself.
-
-[NOTE]
-The index value can be referenced from the list in the main application, or from the
-result of the `Filter`, `Find` or `List` feature.
-
-==== Feature breakdown
-Illustrated below is a sample usage scenario that provides a clear view to the inner
-workings of the `merge` feature.
-
-Step 1: From the main interface of the application, the user chooses the file(s) that
-they wish to merge, and enters the `merge` command into the CLI Interface, following
-the outlined Syntax as illustrated below.
-
-image::MergeFeatureStep1.png[width="600"]
-
-Step 2: After executing the command, the *MergeCommandParser* parses the input into
-relevant objects that are required to be executed by the *MergeCommand* object. In
-particular, it ensures that there are two or more arguments passed as described in the
-above Syntax. Upon parsing, the parser then creates a new *MergeCommand* that will execute
-the user's input.
-
-In this case, the above two files will be merged, with the _"CS2103T_PDF++_UG_Intro.pdf"_
-file appended behind the other file.
-
-Step 3: The *MergeCommand* is then executed. During the execution, there are several levels
-of validation that, failing which would stop the execution and throw an exception.
-Here are the different cases:
-
-[NOTE]
-In these cases, all exceptions encountered will be handled as a  *CommandException*. This design
-consideration was made to add convenience to error handling.
-
-* One or more of the indices provided are invalid i.e. the index is negative or does not reference
-any of the Pdfs listed. A *ParseException* is thrown.
-* When loading the PDDocument of the file, the file cannot be accessed for various reasons:-
-** If the document cannot be found, a *FileNotFoundException* is thrown.
-** If the document is encrypted, an *InvalidPasswordException* is thrown.
-** If the document cannot be opened for any other reason, an *IOException* is thrown.
-* When any of the files to the fail to be added to the PDFMergerUtility, an *IOException* is thrown.
-* After merging the files, if any of the PDDocuments are unable to be closed, an *IOException* is thrown.
-
-Step 4: Successful execution of the command would return a *CommandResult* object and create the
-a new file with the merged content. The new name of the merged file follows the format: "merged[hashcode].pdf". This is to ensure
-unique file name. The hashcode in the name will be modified if name already exists.
-
-The following Activity Diagram is a summary of the entire execution process.
+The implementation of the *MergeCommand* execution can be summarised in the following activity diagram:
 
 image::MergeCommandActivityDiagram.png[width="600"]
+
+. The provided indices are checked to be valid i.e. referring to a specific Pdf in the PdfBook.
+.. If there is at least one invalid index, a *CommandException* will be thrown and the execution will be ended.
+. The required Pdfs are retrieved from the PdfBook based on indices.
+. A File object is created for each Pdf which allows file operations to be performed on the Pdf.
+. https://pdfbox.apache.org/docs/2.0.1/javadocs/org/apache/pdfbox/multipdf/PDFMergerUtility.html[_PDFMergerUtility_] is created. The directory must be set for the merged file prior to merging,
+which also includes the name of the file. By default, the directory of the Pdf based on first index  is used.
+. A unique name is created for the merged file and combined with the aforementioned directory to create the full directory for the merged file.
+.. To avoid issues with duplicate name at the directory, the name is created based on hash code. The created name will also be verified unique at the directory - and changed if necessary.
+. The Files will be loaded as https://pdfbox.apache.org/docs/2.0.1/javadocs/org/apache/pdfbox/pdmodel/PDDocument.html[_PDDocument_],
+which is an indicator if the application can perform other operations on the Pdf that need it to be handled as a `.pdf` file.
+.. Errors in accessing Pdf would throw *IOException*. Errors would most likely be due to:
+... File not found at location
+... Lack of user permissions to open file
+... File has encryption
+... File corruption
+.. Thrown *IOException* is intercepted, a *CommandException* will be thrown and the execution will be ended.
+. The Files are added to the PDFMergerUtility.
+.. Errors in adding to PDFMergerUtility would throw *IOException*. The cause for error would be similar to above.
+.. Thrown *IOException* is intercepted, a *CommandException* will be thrown and the execution will be ended.
+. All loaded *PDDocument* are closed.
+. A new Pdf is created to represented the merged file created.
+. The Pdf is recorded in the Model and the changes are committed.
+. *CommandResult* is returned upon successful execution.
+
+This sequence diagram demonstrates the interactions involved from start of *MergeCommandParser* to end of *MergeCommand* execution:
+
+
+
+==== Considerations
+
+The default directory of the merged file is currently set to the directory of the first index of the files to be merged. There were considerations to make flexibility in the merge command input
+to allow for the user to specify the desired directory of the merged file. As the current version of *_PDF++_* is focused on a working product, it was decided to simplify the command to focus on
+the merge operation. Users can also make use of <<Move feature>> to move the file; such implementation is more intuitive if the user is going to be using the application for everyday needs.
+
+For the merging of files, the current implementation involves adding all files to a single https://pdfbox.apache.org/docs/2.0.1/javadocs/org/apache/pdfbox/multipdf/PDFMergerUtility.html[_PDFMergerUtility_]
+to merge together. One alternative to merging multiple files would be to create a separate *PDFMergerUtility* for every pair of files and merge the content recursively into a final merged file. The
+advantage of this would be better stability in performance when merging multiple large files as there will be lesser workload on each *PDFMergerUtility*. However, this would undoubtedly cause the performance
+to be slower as more merge operations are done overall. As the case of instability occurs only in very large files, it was decided to go with focus on performance.
+
+==== Future Implementation
+
+There are performance issues encountered when performing the merge operations with many files of large size. In future versions, the merge operation has to not only ensure
+performance but stability as well. By v2.0, the merging will be able to support larger files without any concern for the application to freeze or crash while merging.
+Currently, there are no means to make the merging operation perform faster due to the merging operation being performed through the
+https://pdfbox.apache.org/docs/2.0.1/javadocs/org/apache/pdfbox/multipdf/PDFMergerUtility.html[_PDFMergerUtility_] API.
 
 // end::merge[]
 
@@ -700,11 +693,11 @@ as malicious users might simply utilize the `FindCommand` to extract information
 
 ==== Future Implementation
 
-1. A main issue with the current implementation of the `FindCommand` is it's slow speeds with respect to
+. A main issue with the current implementation of the `FindCommand` is it's slow speeds with respect to
 large files or files that contain a large string of text files. Hence, a possible consideration you might
 wish to improve upon is to "upgrade" this feature by improving it's speed of this feature.
 
-2. Yet another enhancement to this feature you might wish to implement is the use of Optical Image Recognition,
+. Yet another enhancement to this feature you might wish to implement is the use of Optical Image Recognition,
 otherwise known as OCR. This will allow the application to translate images within the file to words which would further
 improve the ability of the application to look through content even if they are images.
 // end::find[]

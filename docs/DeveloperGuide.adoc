@@ -226,10 +226,10 @@ link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 .  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("statistics finances 0119")` API call.
+Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("statistics 012019")` API call.
 
-.Interactions Inside the Logic Component for the `statistics 0119` Command
-image::StatisticsCommandSdForLogic.png[width="800"]
+.Interactions Inside the Logic Component for the `statistics 012019` Command
+image::StatisticsCommandSDForLogic.png[width="800"]
 
 [[Design-Model]]
 === Model component
@@ -1082,90 +1082,143 @@ to delete an appointment.
 ==== Current implementation ====
 The statistics command is started through the command `stats START_MMYY [END_MMYY]`.
 The two MMYY corresponds to a range of dates. The end range is optional,
+
+=== Administrative and Statistics Module
+The administrative and statistics module currently consists of 2 commands: +
+
+1. setting the consultation fee `setconsultfee` +
+2. querying the statistics `statistics` +
+
+This 2 commands makes use of the classes located in filepath `model\record`.
+
+==== Consultation fee
+The consultation fee of the clinic is stored as a BigDecimal in the StatisticsManager of QuickDocs, which is loaded from the
+quickdocs.json file through the <<Design-Storage, storage>> component. The consultation fee is used for calculating
+financial statistics for any ConsultationRecord objects.
+
+==== Querying statistics
+The statistics command is started through the command `stats START_MMYYYY [END_MMYYYY]`.
+The two MMYYYY corresponds to a range of dates. The end range is optional,
 and is defaulted to the start range by the StatisticsCommandParser if it does not exist. +
+
+The start date is not allowed to be before January 2019, and the end date cannot be before the start date. Hence,
+QuickDocs currently does not support adding old records before January 2019 due to the implementation of the
+StatisticsManager. This will be explained in the section below. +
 [NOTE]
-MMYY is a string, e.g. "0119", which stands for January 2019. It is parsed by StatisticsCommandParser into a YearMonth
-object.
+MMYYYY is a string, e.g. "012019", which stands for January 2019. It is parsed by StatisticsCommandParser into a
+YearMonth object. +
 
-Currently, Record objects are being created when a command that processes useful information such as finances and
-consultations are executed. For example, a PurchaseMedicine command would create a PurchaseMedicineRecord object that
-stores information such as the name of the medicine, quantity of the medicine, and cost of the medicine. The command
-will then call ModelManager's addRecord(record) function, which will then result in ModelManager calling
-StatisticsManager's addRecord(record) function to add the record's statistics to the respective
-MonthStatistics.
+==== Statistics and Record - Current Implementation
 
-StatisticsManager holds an ArrayList of MonthStatistics. When the StatisticsCommand queries for the statistics for a range
-of months, Logic will call the ModelManager's getStatistics(FROM_YEARMONTH, TO_YEARMONTH), which then calls
-StatisticsManager's getStatistics() with the same arguments. StatisticsManager will convert the YearMonth objects to
-their respective indexes with the StatisticsManager's getYearMonthIndex(YearMonth) function.
+The statistics class stores 6 types of information: +
+
+1. Number of consultations +
+2. Medicines prescribed +
+3. Symptoms diagnosed +
+4. Revenue +
+5. Expenditure +
+6. Profit +
+
+Number of consultations is stored as an int, while the financial variables are stored using BigDecimals. The number of
+medicines prescribed and symptoms diagnosed are stored by using a HashMap. +
+
+[NOTE]
+Implementation of additional statistics will be done through adding additional relevant variable fields.
+
+The implementation of Statistics and Record has 3 parts: +
+
+1. Creation of the Record +
+2. Adding the Record +
+3. Retrieving the Statistics +
+
+===== 1. Creation of the Record
+In order for the statistics to be keep tracked of, Record objects are used to retrieve information that the
+StatisticsManager will make use of. The Record class is an abstract class that only has 1 abstract method,
+`toStatistics(StatisticsManager sm)`, which will generate a Statistics object.
+Each child class of Record is for a specific operation in QuickDocs, where the implementation
+`toStatistics(StatisticsManager sm)` will generate a Statistics object that stores relevant information pertaining to
+that specific operation. The StatisticsManager is passed in to retrieve the any variable that the Record might require
+to calculate the statistics, e.g., ConsultationRecord requires the consultationFee variable in StatisticsManager.
+
+Currently, there are only 2 child classes of Record, ConsultationRecord and MedicinePurchaseRecord. ConsultationRecords
+are created when the a consultation session ends from the EndConsultCommand, while MedicinePurchaseRecord are created
+when a medicine is purchased via the PurchaseMedicineCommand. The commands will create the Record, and call ModelManager's
+`addRecord(record, clock)` function, which will then result in ModelManager calling StatisticsManager's `record(record, clock)`
+function. The clock used is the system clock, to retrieve the current YearMonth of the Record created. The sequence diagram
+below illustrates an example ConsultationRecord being created.
+
+.Sequence diagram for sample ConsultationRecord creation
+image::RecordCreationSD.png[width="800"]
+
+===== 2. Adding the record
+The StatisticsManager holds an ArrayList of MonthStatistics, where a MonthStatistics object contains the YearMonth, and
+the Statistics object of that YearMonth. Each MonthStatistics object will be initialised with the zero Statistics object,
+where all the variables are 0 or contains no elements (not null). The ArrayList starts with a MonthStatistics with the
+YearMonth 2019 January, and every subsequent index will contain the MonthStatistics with the subsequent month, e.g.,
+the 4th index contains the MonthStatistics with YearMonth 2019 May.
+
+When the StatisticsManager adds a new Record by the `record(record, clock)` function, it will first retrieve the
+YearMonth from the `clock` variable passed in. Next, it will update the size of the ArrayList by calling its own method
+`updateListSize(clock)`, which is a wrapper for `updateListSize(YearMonth)`. Afterwards, StatisticsManager will find the
+correct index of the MonthStatistics ArrayList to add the record in. In the current implementation, the record is not
+actually stored. Instead, the record will be converted to a Statistics object which is then merged with the
+MonthStatistics's own Statistics object. The MonthStatistics's Statistics object will then be reassigned with the newly
+merged Statistics object. The sequence diagram below illustrates an example ConsultationRecord being added.
+
+.Sequence diagram for adding a sample ConsultationRecord
+image::SDForAddingRecords.png[width="800"]
+
+===== 3. Retrieving the Statistics
+
+When the StatisticsCommand queries for the statistics for a range
+of months, Logic will call the ModelManager's `getStatistics(FROM_YEARMONTH, TO_YEARMONTH)`, which then calls
+StatisticsManager's `getStatistics(FROM_YEARMONTH, TO_YEARMONTH)`. StatisticsManager will convert the YearMonth objects to
+their respective indexes with the StatisticsManager's `getYearMonthIndex(YearMonth)` function.
 
 StatisticsManager will then obtain the statistics for each of the queried months, and merge them together into a new
 Statistics object. StatisticsManager will then return the Statistics back to the ModelManager, which would then return
 it to the StatisticsCommand, which would then return the CommandResult with the statistics converted to a String to the
 LogicManager.
 
-// TODO add sequence diagram for StatisticsCommand
+==== Statistics and Record - Design considerations
 
-The Record class is an abstract class that is extended by more specialised classes such as PurchaseMedicineRecord and
-ConsultationRecord. All Record and Record subclasses should be able to be converted to a Statistics object.
+1. The statistics are stored in months as the design only allows the doctor to query within a minimum timespan of 1 month.
+Hence, it was decided that the statistics to be stored in months in a chronological order with an ArrayList for ease of
+retrieval. +
 
-The MonthStatistics class contains a YearMonth object and a Statistics object. The Statistics object of a
-MonthStatistics object is updated whenever there is a new Record object added. This Statistics object is reassigned to
-the combined Statistics of the record and the original statistics.
-// TODO add UML diagram here
+2. Currently, as QuickDOcs is developed in 2019, and there are no plans to allow the doctor to add in past records,
+the first index in the array of MonthStatistics is allocated to January 2019. Any MMYYYY value before 012019 will not be
+allowed.
 
-The Statistics class is a class that holds all the information useful to the doctor. The Statistics objects aren't
-modifiable. In order to add 2 statistics object together, a new Statistics object will be created by merge().
-Current fields of a Statistics object are:  +
+3. The MonthStatistics objects are stored in an ArrayList as it might be desirable for a MonthStatistics with the zero
+statistics to exist (all variables 0 or no elements). Such a case might happen when the doctor goes on vacation for the
+whole month. In addition, it would be easy to retrieve the MonthStatistics object of a specific MMYYYY by indexing.
 
-* Number of consultations
-* Revenue
-* Expenditure
-* Profit
-* Symptoms
-* Medicines
-
-==== Design considerations ====
-////
-==== Alternatives Considered
+==== Statistics and Record - Alternatives Considered
+The following table lists out the alternatives designs considered for implementing the storage of the Records and Statistics.
 [cols="1,2a,1, 1", options="header"]
 |===
-|Alternative |Description |Pros | Cons
+|Alternative |Description |Pros |Cons
 // row 1
-|*Storage of Records*
-|Individual records are stored within the MonthStatistics, along with the latest Statistics. When the Statistics for a
+|*Storing of individual records for each month (Alternative chosen)*
+|Individual records are stored within the MonthStatistics, along with the Statistics. When the Statistics for a
 specific month is queried, update the latest statistics and return it.
-|x
-|x
+|Individual records are kept, which could potentially be used for other calculations or features.
+|Storing of individual records is extremely costly in terms of space
 // row 2
-|*y*
-|y
-|y
-|y
+|*Storing the merged statistics of all the records for each month*
+|When a new record is added, it is coverted to a Statistics object which is then merged with the current Statistics object stored.
+|Only one Statistics object needs to be stored, which saves a lot of storage space.
+|The individual records are unable to be retrieved. However, the current implementation has no need to retrieve individual records.
 |===
-////
-* The records are stored in months as the design only allows the doctor to query with a minimum timespan of 1 month. Hence,
-it was decided to store the records in months for ease of access and calculation. +
 
-* Currently, as this application is developed in 2019, and there are no plans to allow the doctor to add in past records,
-the first index in the array of monthRecords is allocated to January 2019. Any MMYY value before 0119 will not be allowed.
-(TODO)
+=== Storing medicines in inventory
 
-* The MonthRecord objects are stored in an ArrayList as it might be desirable for a MonthRecord with no records to exist.
-Such a case might happen when the doctor goes on vacation for the whole month. Hence, it would be easy to retrieve the
-MonthRecord object of a specific MMYY by indexing.
-
-* The Statistics class was decided to be immutable as it would not make sense for past records to change.
-
-==== Alternatives Considered ====
-* RecordManager could store the MonthRecord objects in a LinkedList instead. However, that would slow down the access time.
-
-* The different Record classes could be stored in separate MonthRecords. This would reduce the amount of calculations
-needed when simply querying for a single topic. However, the current implementation was decided as the Statistics
-class currently holds all the information for all the topics.
+One essential aspect of clinic management is about managing medicine storage of the clinic. QuickDocs' medicine management module supports customized medicine organization via a browser-like directory format.
 
 [[med]]
 === Storing medicines in inventory
+
 ==== Current implementation
 
 The current implementation takes a similar form as the Windows file browser. The user is free to determine for himself/herself how he/she wants the medicines to be arranged.
@@ -1181,6 +1234,9 @@ To organize the inventory, the following methods in `MedicineManager` are used: 
 [NOTE]
 The current implementation does not allow multiple medicines with the same to exist simultaneously. However, one medicine could be placed in multiple directories.
 
+[NOTE]
+Both directories and medicines' names are case-insensitive.
+
 From the initial empty state of the storage, the users could arrange their storage in these following ways:
 
 1. The initial empty storage consists of an empty directory named as "root". The user can then add directories and medicines into the storage.
@@ -1194,6 +1250,8 @@ From the initial empty state of the storage, the users could arrange their stora
 * 1. If there already exists a medicine with the same name in the storage, and the quantity and price is not specified in the command arguments, the existing medicine will be placed in the directory specified.
 
 * 2. Otherwise, a new medicine with the specified name, quantity and price will be created and added to the specified directory.
+
+{nbsp} +
 
 Given below is an example of organizing medicine from an initial empty QuickDocs.
 
@@ -1235,53 +1293,129 @@ image::medicineModule_example5.png[width='800']
 
 The list of unique medicine is also updated.
 
-4. The user could view detailed information about a directory or medicine through "viewMed" command.
+[[listOfMedicine_example2]]
+image::listOfMedicine_example2.png[width='800']
 
-5. The user could set the alarm level for medicines via the "setAlarm", such that when the stored amount of the medicine falls lower than the alarm level, a reminder will be thrown.
+Step 6: Now, the user found out that aspirin can also be used to treat high blood pressure and decides to put it under "Cardiology" as well. +
 
-* 1. If the path in the command argument corresponds to a medicine, the medicine will have the alarm level specified.
+Via the `addmed root\Internal\Cardiology aspirin`, a reference to the existing aspirin medicine will be placed under the "Cardiology" directory. +
 
-* 2. If the path in the command argument corresponds to a directory, every medicine under it and its sub-directories will have the alarm level specified. All medicines added under this directory will have the same alarm level.
+The figure below shows the result of this command.
 
-* 3. If the path neither points to a directory nor medicine, an error message will be displayed to the user.
+[[medicineModule_example6]]
+image::medicineModule_example6.png[width='800']
 
-6. Additionally, a list of all medicine stored in the storage is also kept to enable fast search and manipulation of medicine by its name only.
+However, the list of unique medicine is not changed, as now new medicine is added.
 
+[[listOfMedicine_example3]]
+image:listOfMedicine_example2.png[width='800']
 
+{nbsp} +
 
-[NOTE]
-Both directories and medicines' names are case-insensitive. So two medicines named `Paracetamol` and `paracetamol` cannot coexist in the inventory.
+When typing the directory path in the command box in the ui, QuickDocs supports intelligent suggestions about the next field. +
 
+After the user entered at least one `\` character to indicate he is inputting a path, the suggestion mode will be turned on. +
 
+The user could press Page Up / Page Down bottom to iterate to the previous or the next valid name of sub-directory or medicine in alphabetical order, given that the path given before the previous `\` character is valid.
+
+Using the above sample inventory as an example: +
+
+[[medicineModule_example7]]
+image::medicineModule_example7.png[width='800']
+
+* When the user types in `addmed root\`, the suggestion mode is turned on. +
+
+* The user may not want to type in the full name of the directories, so when he types in `addmed root\in`, he could then press Page Down to iterate to the next valid name in alphabetical order, which is "Internal". +
+
+* The command box is then automatically filled with `addmed root\Internal` +
+
+* Similarly, if the user decides to traverse to the previous valid name, he could do so by press Page Up. And the command box will automatically be filled with `addmed root\External`. +
+
+The figure below illustrates how this feature is implemented to make user's life more convenient. +
+
+[[suggestion_diagram]]
+.Sequence diagram illustrating the implementation of suggestion mode
+image::suggestion_diagram.png[width='800]
+
+{sp} +
+
+QuickDocs also supports setting alarm level for medicines. Every time a medicine's storage falls below the designated level, a reminder is thrown. +
+
+To convenient the users, QuickDocs allow not only threshold setting for individual medicines, but also threshold setting for directories. +
+
+Taking the above sample inventory as an example: +
+
+[[medicineModule_example8]]
+image::medicineModule_example7.png[width='800']
+
+Setting a threshold for a directory is effectively the same as setting the threshold for every medicine in the "subtree" of that directory. This is down by a tree-like traversal. +
+
+For example, `alarm root\Internal 400` command sets the alarm level of all medicine in the subtree of "Internal" directory to 400. +
+
+[[medicineModule_example8]]
+image::medicineModule_example8.png[width='800]
 
 ==== Design consideration
 
 1. The current implementation takes into consideration that the users may wish to have some freedom in determining the arrangement of medicine.
 
-2. This Windows-file-browser-like data Structure provides user flexibility in determining how the medicines should be arranged.
+2. When prescribing medicines, a directory system that step by step leads to the desired medicine is to the convenience of the user.
 
 3. By arranging the medicine by folders, it is then possible to support massive manipulation of medicine by directories.
 
-4. As it is impossible to expect the user to remember the name of all medicine, this data structure helps the user to find medicine when he/she cannot remember the full name correctly
+4. Additionally, it is impossible to expect the doctor to always remember the full name of medicines correctly. There is a need for an easier way to identify medicines to operate on besides requiring the user to type in full names every time.
+
+5. Considering that even a small private clinic may have a considerably large set of medicine available in their storage, massive operation on a large set of medicine should be made possible besides operations on single medicine.
 
 ==== Alternatives considered
 
-[cols="1, 1, 1", options="header"]
+The table illustrates some of the alternatives I considered during development of this medicine module, the relative advantages they have over the current implementation, and why they are not selected at the end.
+
+[cols="1, 1, 2a, 2a", options="header"]
 |===
-|Alternative |Description |Reasons for not adopting
+|Alternative |Description |Comparative advantages |Reasons for not adopting
 // row 1
 |*Store medicines as a simple ArrayList*
-| When users add a new medicine, just append a new medicine to the ArrayList
-| When the number of medicines stored is large, search and manipulation is not time-efficient.
+|When users add a new medicine, just append a new medicine to the ArrayList. +
 
-There is no room for arrangements of medicine.
+During operations on medicines, use name of medicine as a key to select the wanted medicine.
+
+| * Simpler command format: The user could type in less arguments for the same commands.
+
+* No maintainability issue: There is no constraint to the data structure, therefore there is no need to cross check all modules to ensure the constraints are maintained. Less likely to occur bugs.
+
+| * The user must type in full name of medicines correctly to identify the correct medicine, This contradicts our belief that doctors are unlikely to know the full name of all his/her medicine.
+
+* There is no freedom for the user to organize his/her medicine. When the user wants to view or operate on all medicine that share some common traits, he/she is not able to do so.
 
 // row 2
 |*Use a hash map to store the medicines*
-| Use medicine name as the key and the medicine as the value.
-| The user will not be able to access the medicine unless he/she remembers the name precisely, which is not likely to be the case.
+| Use medicine name as the key and the medicine as the value. Search for the key to identify and operate on medicines.
+| * Searching and identifying using names as key is more time-efficient compared to the current implementation, especially when data size is large. +
+
+* Simpler command format, less fields to input per command.
+
+| * There is no room for customized arrangement of medicine. +
+
+* The user need to type in the correct full name of medicines to be able to identify medicines. This adds on extra difficulties for users to use the application.
+
+* Does not support massive operations on similar medicines. Users need to repeat the same operations on many medicines.
+
+//row 3
+|*Store medicines in a list with tags*
+| When adding medicines, require tags from the users so that searching and identifying medicine is easier.
+| * Easier to list all medicines with the same tag. +
+
+* Similar structure with patient module. Less efforts needed on both the developers' side and users' side to familiarise themselves with the data structure.
+| * Potential lengthy commands if a medicine is widely applicable to many situations such that it may have a lot tags. +
+
+* Have to either input the full name of medicine or recall the tag correctly to retrieve correct medicine. When there is a large set of medicines and tags, this alternatives provides little extra convenience as compared to the two alternatives above.
 
 |===
+
+Since QuickDocs aims to provide the most convenient experience given a large set of medicine in a clinic inventory, the medicine management module needs to provide a model that makes both typing commands, identifying the correct medicine and massive operation possible. +
+
+Combined with the <<medicineModule_example7, suggestion mode>>, the current design is the best way to implement all of the three.
 // tag::dataencryption[]
 
 // end::dataencryption[]
@@ -1712,58 +1846,23 @@ Use case resumes from step 1.
 
 *MSS*
 
-1. User requests to view statistics
-2. Quickdocs prompts the user for the topic
-3. User enters the topic
-4. Quickdocs prompts the user for the range of month and year
-5. User enters the months and years
-6. Quickdocs prompts the user whether the user wants it in graphical form (Y/N)
-7. User enters his preference
-8. Quickdocs displays the statistics
+1. User requests to view statistics, specifying the start and end YearMonths
+2. Quickdocs displays the statistics
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 1a. User requests to view statistics with valid optional arguments.
+* 1a. User requests to view statistics with valid arguments.
 +
-Use case resumes at step 8.
-* 1b. User requests to view statistics with invalid optional arguments.
+Use case resumes at step 2.
+* 1b. User requests to view statistics with invalid arguments.
 [none]
 ** 1b1. Quickdocs shows an error message.
 +
 Use case ends.
-[none]
-* 3a. User enters invalid topics.
-[none]
-** 3a1. Quickdocs shows an error message.
-+
-Use case resumes at step 2.
-[none]
-* 5a. User enters invalid range of months or years.
-[none]
-** 5a1. Quickdocs shows an error message.
-+
-Use case resumes at step 4.
-[none]
-* 5b. User enters only range of months.
-[none]
-** 5b1. Quickdocs defaults and displays year to current year.
-+
-Use case resumes at step 6.
-[none]
-* 5c. User enters only range of years.
-[none]
-** 5c1. Quickdocs defaults and displays month to current month.
-+
-Use case resumes at step 6.
-[none]
-* 7a. User enters invalid response (not Y or N).
-[none]
-** 7a1. Quickdocs shows an error message.
-+
-Use case resumes at step 6.
+
 
 [discrete]
 === Use case: Inquire about medicine storage
@@ -1884,7 +1983,7 @@ These instructions only provide a starting point for testers to work on; testers
 `listpat` command can be used to check if there are conflicting NRIC
 .. Test case 1: `addpat n/Mohd Hamiru Bin Hamza r/S9876543C a/1 Tampines Street e/mhbh@gmail.com c/92344321 g/M d/1998-07-06` +
    Expected: Patient with name "Mohd Hamiru Bin Hamza" with NRIC S9876542C added
-.. Test case 2: `add n/Nurul Huda Binte Hamza r/S9876543C a/3 Tampines Street e/nhbh@gmail.com c/93124432 g/F d/1998-11-02 ` +
+.. Test case 2: `add n/Nurul Huda Binte Hamza r/S9876543C a/3 Tampines Street e/nhbh@gmail.com c/93124432 g/F d/1998-11-02` +
    Expected: Patient will not be added, an error message will be shown to indicate that a patient with the same NRIC existed in the records
 .. Other incorrect `addpat` commands to try: `addpat` with missing parameters such as gender and date of birth, `addpat` with name containing of symbols,
 `addpat` with invalid NRIC values (8 numbers or invalid last letters).
@@ -1966,3 +2065,57 @@ if there isn't any. You need at least 2 patients to perform this manual test.
    Expected: Assuming that there is no appointment on the given date and time, you will be informed through the error message shown.
 .. Other incorrect `deleteapp` commands to try: date without `-` between month and day, invalid start time (start time must be
    within office hours of 9am to 6pm), any missing prefixes, any missing parameters.
+
+=== Querying Statistics
+
+. Querying the statistics
+.. Prerequisites: Your system clock should be synchronised with the current internet time.
+.. Test case 1: `stats 012019` +
+    Expected: The statistics for the month January 2019 should be listed, regardless if there has been any records added.
+.. Test case 2: `stats 122018` +
+    Expected: An error message will be shown, indicating that the command format is wrong.
+.. Test case 3: `stats 012019 022019` +
+    Expected: The statistics for the range of month January 2019 to February 2019 should be listed, regardless if there has been any records added.
+.. Test case 4: `stats 012999` +
+    Expected: An error message will be shown, indicating that the command format is wrong.
+.. Other incorrect `stats` commands to try: end date before start date, invalid MMYYYY numbers (e.g., 000000, 132019).
+    All these commands should lead to an error message being shown.
+
+=== Adding a new directory for medicine storage
+
+[NOTE]
+The following tests assume the tester starts with an empty storage.
+
+. Add a new directory under the root directory
+
+.. Test case 1: `adddirec root NEW_DIRECTORY` +
+   Expected: A success message confirming the successful addition will be shown in the main display. A new directory called 'NEW_DIRECTORY' will be added to root directory, which is verifiable via `listmed root` command.
+.. Test case 2:`adddirec root NEW DIRECTORY` +
+   Expected: As the new directory's name includes a white space which is not allowed, no new directory will be added and an error message will show up.
+.. Test case 3:`adddirec root\Internal NEW_DIRECTORY` +
+   Expected: As the tester starts with an empty storage, there is no existing directory at root\Internal. No new directory will be added, and an error message will show up saying "No directory is found at the given path."
+.. Other incorrect `adddirec` commands to try: commands with missing new directory name
+
+=== Adding a medicine into a directory
+
+[NOTE]
+The following tests assume that `root\Internal\General` is a valid path, i,e there is already a directory 'General' under directory 'Internal' under root directory.
+
+. Add a new medicine into storage
+.. Prerequisites: There is no medicine with the same name as the to-add medicine in the entire storage.
+.. Test case 1: `addmed root\Internal\General paracetamol p/2.4 q/40` +
+   Expected: A new medicine called 'paracetamol' with initial quantity 40 and price 2.4 will be added under 'Flu' directory. A success message confirming this addition will show in the main display.
+.. Test case 2: `addmed root\Internal\General paracetamol p/2.4 q/40` when there is an existing medicne named 'paracetamol' in the storage. +
+   Expected: The addition will fails, as there already exists a medicine with same name. No change will occur and an error message will show up.
+.. Test case 3: `addmed root\Internal\General paracetamol p/2.4 q/34.5` +
+   Expected: The addition will fail. As the quantity in QuickDocs are in terms of units, no fractional number is allowed in the quantity field. An error message will show up.
+.. Other incorrect `addmed` commands to try: missing any prefixes, invalid path
+. Add an existing medicine into a different directory
+.. Prerequisites: There is already an existing medicine called 'paracetamol' somewhere in the storage.
+.. Test case 1: `addmed root\Internal\General paracetamol` +
+   Expected: A new reference to the same medicine will be added to root\Internal\General. A success message will show in the main display.
+.. Test case 2: `addmed root\Internal\General paracetamol` when there is no existing medicine with name 'paracetamol' +
+   Expected: No change will occur. As there is no such existing medicine, an error message will show up.
+.. Test case 3: `addmed root\Internal\General paracetamol` when root\Internal\General already contains a reference to paracetamol. +
+   Expected: As the same medicine cannot be placed into the same directory twice, no change will happen. An error message will show up.
+.. Other incorrect `addmed` command to try: When there is a subdirectory under the same directory with the same name as the to-add medicine.

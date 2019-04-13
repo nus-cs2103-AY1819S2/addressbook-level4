@@ -40,5 +40,4 @@ public class MemberSortCommand extends MemberCommand {
                 || (other instanceof MemberSortCommand // instanceof handles nulls
                 && input.equals(((MemberSortCommand) other).input)); // state check
     }
-
 }

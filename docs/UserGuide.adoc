@@ -235,13 +235,13 @@ image::setcategories-steptwo.png[]
 _Figure 2: Notice suggestions for cuisines will pop up. Use arrow keys to select the desired suggestion and press enter,
 or you can also choose to continue typing something not in the suggestions._
 
-Step 3: Continue keying in the occasion prefix after you finished keying in the cuisine. The occasion prefix is oc/.
+Step 3: Continue keying in the occasion prefix after you finished keying in the cuisine. The occasion prefix is `oc/`.
 Follow Figure 3 shown _below_.
 
 image::setcategories-stepthree.png[]
 _Figure 3: Once again, you can pick the occasion you see in the suggestions or continue typing._
 
-Step 4: Key in the price range next, as demonstrated by _Figure 4 below_.
+Step 4: Key in the price range next, as demonstrated by _Figure 4 below_. The price range prefix is `pr/`.
 
 image::setcategories-stepfour.png[]
 _Figure 4: Pick a price range from the list or just type, whichever is faster for you._

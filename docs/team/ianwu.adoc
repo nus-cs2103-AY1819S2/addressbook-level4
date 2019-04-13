@@ -7,17 +7,15 @@ Hello there! My name is Ian and I am one of the developers of the Battleship Com
 
 == Project Overview
 
-Battleship CLI is the product of a semester long project, in which our team was tasked with adapting an existing phone addressbook application into an application of our choice. It is a revival of the classic retro game Battleships, where players try to destroy each other's ships by guessing the positions.
+Battleship CLI is the product of a semester long project, in which our team was tasked with adapting an existing phone addressbook application into an application of our choice. Our game Battleship CLI is a revival of the classic retro game Battleships, where players try to destroy each other's ships by guessing the positions of their opponent's battleships.
 
-In Battleship CLI, however, players have the opportunity to use both a Command Line Interface (CLI) and a Graphical User Interface (GUI) to play the game. The GUI was created with JavaFX and the application code is rigorously tested to ensure high quality code.
+In Battleship CLI, however, players have the opportunity to use both a Command Line Interface (CLI) and a Graphical User Interface (GUI) to play the game. The GUI was created with JavaFX and the application code is rigorously tested to ensure a high quality of code.
 
-My role in the team was to design and implement the Ship Manager feature. The feature allows players to manage their ships during the game. The Ship Manager feature consists of the following commands: `put`, `list` and `listTags`. Together, these three commands provide an intuitive way for players to interact with their own ships.
-
-The following sections illustrate the feature in more detail, as well as the relevant sections I have added to the user and developer guides in relation to this feature.
+My role in the team was to design and implement the Ship Management feature. The feature allows players to manage their ships during the game. The Ship Manager feature consists of the following commands: `put`, `list` and `listTags`. Together, these three commands provide an intuitive way for players to interact with their own ships. The following sections illustrate the feature in more detail, as well as the relevant sections I have added to the user and developer guides in relation to this feature.
 
 == Summary of contributions
 
-* *Major enhancement*: I added the Ship Manager feature of the game
+* *Major enhancement*: I added the Ship Manager feature of the game.
 ** What it does: The Ship Manager feature consists of three commands, `put`, `list`, and `listTags`.
 *** The `put` command allows the user to place a ship on the map grid. The user is also given the option of tagging the ships. The ship can be a `cruiser` of length 2, a `cruiser` of length 3, or an `aircraft carrier` of length 5.
 *** The `list` command allows the user to list down the ships that have been placed on the map grid. The user can filter the list by the `name` of the ship or by specific `tags`.
@@ -33,7 +31,7 @@ The following sections illustrate the feature in more detail, as well as the rel
 * *Other contributions*:
 
 ** Project management:
-*** Managed releases `v1.3` on GitHub
+*** Managed release `v1.3` on GitHub
 ** Enhancements to existing features:
 *** Morph from `AddCommand` and `EditCommand` to create `PutShipCommand`: https://github.com/CS2103-AY1819S2-W14-3/main/pull/54[#54], https://github.com/CS2103-AY1819S2-W14-3/main/pull/69[#69],
 https://github.com/CS2103-AY1819S2-W14-3/main/pull/96[#96],

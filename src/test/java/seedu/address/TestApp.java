@@ -1,6 +1,6 @@
 package seedu.address;
 
-import java.io.IOException;
+//import java.io.IOException;
 import java.nio.file.Path;
 import java.util.function.Supplier;
 
@@ -10,7 +10,6 @@ import seedu.address.commons.core.Config;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.UserPrefs;
-import seedu.address.storage.JsonAddressBookStorage;
 import seedu.address.storage.UserPrefsStorage;
 import seedu.address.testutil.TestUtil;
 
@@ -36,14 +35,15 @@ public class TestApp extends MainApp {
         this.saveFileLocation = saveFileLocation;
 
         // If some initial local data has been provided, write those to the file
-        if (initialDataSupplier.get() != null) {
-            JsonAddressBookStorage jsonAddressBookStorage = new JsonAddressBookStorage(saveFileLocation);
-            try {
-                jsonAddressBookStorage.saveAddressBook(initialDataSupplier.get());
-            } catch (IOException ioe) {
-                throw new AssertionError(ioe);
-            }
-        }
+        // STORAGE TEST
+        //if (initialDataSupplier.get() != null) {
+        //    JsonAddressBookStorage jsonAddressBookStorage = new JsonAddressBookStorage(saveFileLocation);
+        //    try {
+        //        jsonAddressBookStorage.saveAddressBook(initialDataSupplier.get());
+        //    } catch (IOException ioe) {
+        //        throw new AssertionError(ioe);
+        //    }
+        //}
     }
 
     @Override

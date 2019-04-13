@@ -152,7 +152,7 @@ The _Sequence Diagram_ below shows how the components interact with each other f
 image::SDforDeleteCard.png[width="800"]
 
 The sections below give more details of each component.
-
+//tag::UIdesign[]
 [[Design-Ui]]
 === UI component
 
@@ -161,14 +161,19 @@ image::UiClassDiagram.png[width="800"]
 
 *API* : link:{repoURL}/src/main/java/seedu/knowitall/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `CardListPanel`, `StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+`UI` consists of a `MainWindow` made up of many parts as seen above e.g.`CommandBox`, `ResultDisplay`, `CardMainScreen`,
+`StatusBarFooter`, `BrowserPanel` etc. All these parts, including the `MainWindow`, inherit from the abstract `UiPart`
+class.
 
-The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/knowitall/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
+The `UI` component uses JavaFx UI framework.
+The layout of these UI parts are defined in matching `.fxml` files located in the `src/main/resources/view` folder.
+For example, the layout of the link:{repoURL}/src/main/java/seedu/knowitall/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
 The `UI` component,
 
-* Executes user commands using the `Logic` component.
-* Listens for changes to `Model` data so that the UI can be updated with the modified data.
+* Uses `Logic` component to execute user commands.
+* Listens for changes to `Model` data to update UI with the modified data.
+//end::UIdesign[]
 
 [[Design-Logic]]
 === Logic component
@@ -705,8 +710,7 @@ image::ChangeCommandSequenceDiagram.png[width="600"]
 
 //end::folders[]
 
-
-//tag::testcommand[]
+//tag::testSession[]
 === Test Session feature
 
 ==== Overall Current Implementation
@@ -750,7 +754,7 @@ card is needed, can simply reference it using `currentTestedCardFolder.getIndex(
 ** Cons: Not so reader friendly. Need to keep accessing the list using the index which can potentially lead to
 possible violation of the Law of Demeter where an object should only interact with objects that are closely related to it.
 
-Evaluation of the 2 alternatives:
+**Evaluation of the 2 alternatives**:
 We went with alternative 1 since not a large amount of memory is taken up with just 1 extra card stored. As there will
 be a number of references to the `currentTestedCard`, it will be better to store them somewhere. Abiding by the Law
 of Demeter, `currentTestedCard` object will not be interacting with `currentTestedCardFolder`,  limiting its
@@ -765,7 +769,7 @@ knowledge of that object which is encouraged according to the Principle of Least
 ====== Model
 The main logic for  `test` and `end` command is carried out in `ModelManager` with the following methods:
 
-* `ModelManager#testCardFolder()` - begins a test session on the current card folder user is in and implicitly sorts
+* `ModelManager#startTestSession()` - begins a test session on the current card folder user is in and implicitly sorts
 the cards in it.
 * `ModelManager#endTestSession()` - ends the current test session.
 
@@ -800,7 +804,7 @@ Model component, with `Model#getState()` to check that user is inside a folder a
 If the user is not inside a folder, this `test` command would be rendered invalid. Step 4 would not proceed and an
 error message is displayed.
 
-**Step 4**. After checking user is in a folder, `ModelManager#testCardFolder()` method is invoked, which
+**Step 4**. After checking user is in a folder, `ModelManager#startTestSession()` method is invoked, which
 does the following:
 
 1. `currentTestedCardFolder` is set to the current folder the user is in, by invoking `getCardList()` from the active
@@ -834,7 +838,6 @@ user.
 .Component interactions for a `test` command
 image::TestCommandSequenceDiagram.png[width="800"]
 
-//end::testcommand[]
 
 [[exampleusageofendcommand]]
 [discrete]
@@ -864,7 +867,6 @@ the type `END_TEST_SESSION`.
 `MainWindow#handleEndTestSession()` to delete the current `testSession` page, presenting `cardMainScreen` page at the
 back (the screen the user was seeing before entering the test session) to the user.
 
-//tag::testcommanddesign[]
 ===== Design Considerations
 ====== Aspect: Way to execute a test/end command
 
@@ -881,11 +883,10 @@ enter folder command as well.
 then have to implicitly enter the folder to get access to the cards in it in order to display them, creating a dependency between test and enter folder command.
 Similar issue will arise for the end test session command where user will need to implicitly exit the folder.
 
-Evaluation of the two alternatives:
+**Evaluation of the two alternatives**:
 Overall, alternative 1 is a better choice following the Single Level of Abstraction Principle(SLAP) where a function should not mix different levels of abstractions. We can then better achieve higher cohesion and lower coupling.
 Also, user being able to see the questions before the test session is not a big issue since the answer will not be shown unless user selects the card.
 
-//end::testcommanddesign[]
 
 ==== Answer Command
 ===== Current Implementation
@@ -1051,9 +1052,9 @@ image::NextCommandSequenceDiagram.png[width="800"]
 ** Pros: Most correct way to do it since there is no next card to display.
 ** Cons: User may not understand. It is not user-friendly as user has to keep track of which card it is at to prevent the exception thrown.
 
-Evaluation of the two alternatives:
+**Evaluation of the two alternatives**:
 With our target audience in mind, alternative 1 is the more user friendly and intuitive way to handle this scenario.
-
+//end::testSession[]
 
 
 // tag::undoredo[]

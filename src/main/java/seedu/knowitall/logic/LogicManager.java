@@ -94,8 +94,8 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ObservableList<Card> getFilteredCards() {
-        return model.getFilteredCards();
+    public ObservableList<Card> getActiveFilteredCards() {
+        return model.getActiveFilteredCards();
     }
 
     @Override

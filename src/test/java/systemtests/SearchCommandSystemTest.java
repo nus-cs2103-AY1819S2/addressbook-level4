@@ -158,12 +158,12 @@ public class SearchCommandSystemTest extends CardFolderSystemTest {
      */
     private void assertCommandSuccess(String command, Model expectedModel) {
         String expectedResultMessage = String.format(
-                MESSAGE_CARDS_LISTED_OVERVIEW, expectedModel.getFilteredCards().size());
+                MESSAGE_CARDS_LISTED_OVERVIEW, expectedModel.getActiveFilteredCards().size());
 
         executeCommand(command);
         assertApplicationDisplaysExpected("", expectedResultMessage, expectedModel);
         assertCommandBoxShowsDefaultStyle();
-        assertStatusBarIsInFolder();
+        assertStatusBarIsInFolder(expectedModel.getActiveCardFolderName());
     }
 
     /**
@@ -182,6 +182,6 @@ public class SearchCommandSystemTest extends CardFolderSystemTest {
         assertApplicationDisplaysExpected(command, expectedResultMessage, expectedModel);
         assertSelectedCardUnchanged();
         assertCommandBoxShowsErrorStyle();
-        assertStatusBarIsInFolder();
+        assertStatusBarIsInFolder(expectedModel.getActiveCardFolderName());
     }
 }

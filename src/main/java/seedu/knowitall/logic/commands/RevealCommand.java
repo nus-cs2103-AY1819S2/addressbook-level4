@@ -39,7 +39,7 @@ public class RevealCommand extends Command {
         model.updateFilteredCard(PREDICATE_SHOW_ALL_CARDS);
         model.commitActiveCardFolder();
 
-        return new CommandResult(MESSAGE_REVEAL_SUCCESS, CommandResult.Type.ANSWER_WRONG);
+        return new CommandResult(MESSAGE_REVEAL_SUCCESS, CommandResult.Type.ANSWER_REVEAL);
     }
 
 }

@@ -1,6 +1,6 @@
 {
   "_comment": "CardFolder save file which contains the same Card values as in TypicalCards#getTypicalCardFolder()",
-  "folderName": "Typical Cards",
+  "folderName": "Typical Folder 1",
   "cards" : [ {
     "question" : "Alice Pauline",
     "answer" : "94351253",

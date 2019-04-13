@@ -6,6 +6,8 @@ package seedu.knowitall.commons.core;
 public class Messages {
 
     public static final String MESSAGE_UNKNOWN_COMMAND = "Unknown command";
+    public static final String MESSAGE_MAX_COMMAND_LENGTH_EXCEEDED = "Maximum command length exceeded, commands should"
+            + " be less than %d characters";
     public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid command format! \n%1$s";
     public static final String MESSAGE_INVALID_CARD_DISPLAYED_INDEX = "The card index provided is invalid";
     public static final String MESSAGE_INVALID_FOLDER_DISPLAYED_INDEX = "The card folder index provided is invalid";
@@ -23,6 +25,7 @@ public class Messages {
             + " answered";
     public static final String MESSAGE_INVALID_COMMAND_OUTSIDE_FOLDER = "Command can only be executed in folder";
     public static final String MESSAGE_INVALID_COMMAND_INSIDE_FOLDER = "Command can only be executed in home directory";
+    public static final String MESSAGE_INVALID_NUMBER_OF_CARD_ARGUMENTS = "Cards can only accept a maximum of %d %s";
     public static final String MESSAGE_ILLEGAL_OPTION_CANNOT_BE_SAME_AS_ANSWER = "Incorrect MCQ options cannot be same"
             + " as the correct answer";
     public static final String MESSAGE_CSV_MANAGER_NOT_INITIALIZED = "Unable to carry out import and export commands";

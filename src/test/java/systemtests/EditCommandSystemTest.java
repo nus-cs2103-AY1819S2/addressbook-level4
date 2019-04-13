@@ -8,7 +8,6 @@ import static seedu.knowitall.logic.commands.CommandTestUtil.ANSWER_DESC_SAMPLE_
 import static seedu.knowitall.logic.commands.CommandTestUtil.HINT_DESC_FRIEND;
 import static seedu.knowitall.logic.commands.CommandTestUtil.HINT_DESC_HUSBAND;
 import static seedu.knowitall.logic.commands.CommandTestUtil.INVALID_ANSWER_DESC;
-import static seedu.knowitall.logic.commands.CommandTestUtil.INVALID_HINT_DESC;
 import static seedu.knowitall.logic.commands.CommandTestUtil.INVALID_QUESTION_DESC;
 import static seedu.knowitall.logic.commands.CommandTestUtil.QUESTION_DESC_SAMPLE_1;
 import static seedu.knowitall.logic.commands.CommandTestUtil.QUESTION_DESC_SAMPLE_2;
@@ -35,7 +34,6 @@ import seedu.knowitall.model.Model;
 import seedu.knowitall.model.card.Answer;
 import seedu.knowitall.model.card.Card;
 import seedu.knowitall.model.card.Question;
-import seedu.knowitall.model.hint.Hint;
 import seedu.knowitall.testutil.CardBuilder;
 import seedu.knowitall.testutil.CardUtil;
 
@@ -64,22 +62,22 @@ public class EditCommandSystemTest extends CardFolderSystemTest {
         /* Case: redo editing the last card in the list -> last card edited again */
         command = RedoCommand.COMMAND_WORD;
         expectedResultMessage = RedoCommand.MESSAGE_SUCCESS;
-        model.setCard(getModel().getFilteredCards().get(INDEX_FIRST_CARD.getZeroBased()), editedCard);
+        model.setCard(getModel().getActiveFilteredCards().get(INDEX_FIRST_CARD.getZeroBased()), editedCard);
         assertCommandSuccess(command, model, expectedResultMessage);
 
         /* Case: edit a card with new values same as existing values -> edited */
         command =
                 EditCommand.COMMAND_WORD + " " + index.getOneBased() + QUESTION_DESC_SAMPLE_2 + ANSWER_DESC_SAMPLE_2
-                       + HINT_DESC_FRIEND + HINT_DESC_HUSBAND;
+                       + HINT_DESC_HUSBAND;
         assertCommandSuccess(command, index, CARD_2);
 
         /* Case: edit a card with new values same as another card's values but with different question -> edited */
         assertTrue(getModel().getActiveCardFolder().getCardList().contains(CARD_2));
         index = INDEX_SECOND_CARD;
-        assertNotEquals(getModel().getFilteredCards().get(index.getZeroBased()), CARD_2);
+        assertNotEquals(getModel().getActiveFilteredCards().get(index.getZeroBased()), CARD_2);
         command =
                 EditCommand.COMMAND_WORD + " " + index.getOneBased() + QUESTION_DESC_SAMPLE_1 + ANSWER_DESC_SAMPLE_2
-                       + HINT_DESC_FRIEND + HINT_DESC_HUSBAND;
+                       + HINT_DESC_HUSBAND;
         editedCard = new CardBuilder(CARD_2).withQuestion(VALID_QUESTION_1).build();
         assertCommandSuccess(command, index, editedCard);
 
@@ -87,14 +85,14 @@ public class EditCommandSystemTest extends CardFolderSystemTest {
         index = INDEX_SECOND_CARD;
         command =
                 EditCommand.COMMAND_WORD + " " + index.getOneBased() + QUESTION_DESC_SAMPLE_2 + ANSWER_DESC_SAMPLE_1
-                        + HINT_DESC_FRIEND + HINT_DESC_HUSBAND;
+                        + HINT_DESC_HUSBAND;
         editedCard = new CardBuilder(CARD_2).withAnswer(VALID_ANSWER_1).build();
         assertCommandSuccess(command, index, editedCard);
 
         /* Case: clear hints -> cleared */
         index = INDEX_FIRST_CARD;
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + " " + PREFIX_HINT.getPrefix();
-        Card cardToEdit = getModel().getFilteredCards().get(index.getZeroBased());
+        Card cardToEdit = getModel().getActiveFilteredCards().get(index.getZeroBased());
         editedCard = new CardBuilder(cardToEdit).withHint().build();
         assertCommandSuccess(command, index, editedCard);
 
@@ -103,9 +101,9 @@ public class EditCommandSystemTest extends CardFolderSystemTest {
         /* Case: filtered card list, edit index within bounds of card folder and card list -> edited */
         showCardsWithQuestion(KEYWORD_MATCHING_MEIER);
         index = INDEX_FIRST_CARD;
-        assertTrue(index.getZeroBased() < getModel().getFilteredCards().size());
+        assertTrue(index.getZeroBased() < getModel().getActiveFilteredCards().size());
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + " " + QUESTION_DESC_SAMPLE_2;
-        cardToEdit = getModel().getFilteredCards().get(index.getZeroBased());
+        cardToEdit = getModel().getActiveFilteredCards().get(index.getZeroBased());
         editedCard = new CardBuilder(cardToEdit).withQuestion(VALID_QUESTION_2).build();
         assertCommandSuccess(command, index, editedCard);
 
@@ -143,7 +141,7 @@ public class EditCommandSystemTest extends CardFolderSystemTest {
                 String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
 
         /* Case: invalid index (size + 1) -> rejected */
-        invalidIndex = getModel().getFilteredCards().size() + 1;
+        invalidIndex = getModel().getActiveFilteredCards().size() + 1;
         assertCommandFailure(EditCommand.COMMAND_WORD + " " + invalidIndex + QUESTION_DESC_SAMPLE_2,
                 Messages.MESSAGE_INVALID_CARD_DISPLAYED_INDEX);
 
@@ -163,18 +161,14 @@ public class EditCommandSystemTest extends CardFolderSystemTest {
         assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_CARD.getOneBased()
                 + INVALID_ANSWER_DESC, Answer.MESSAGE_CONSTRAINTS);
 
-        /* Case: invalid hint -> rejected */
-        assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_CARD.getOneBased()
-                + INVALID_HINT_DESC, Hint.MESSAGE_CONSTRAINTS);
-
         /* Case: edit a card with new values same as another card's values -> rejected */
         executeCommand(CardUtil.getAddCommand(CARD_2));
         assertTrue(getModel().getActiveCardFolder().getCardList().contains(CARD_2));
         index = INDEX_FIRST_CARD;
-        assertFalse(getModel().getFilteredCards().get(index.getZeroBased()).equals(CARD_2));
+        assertFalse(getModel().getActiveFilteredCards().get(index.getZeroBased()).equals(CARD_2));
         command =
                 EditCommand.COMMAND_WORD + " " + index.getOneBased() + QUESTION_DESC_SAMPLE_2 + ANSWER_DESC_SAMPLE_2
-                       + HINT_DESC_FRIEND + HINT_DESC_HUSBAND;
+                       + HINT_DESC_HUSBAND;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_CARD);
 
         /* Case: edit a card with new values same as another card's values but with different hints -> rejected */
@@ -186,7 +180,7 @@ public class EditCommandSystemTest extends CardFolderSystemTest {
         /* Case: edit a card with new values same as another card's values but with different answer -> rejected */
         command =
                 EditCommand.COMMAND_WORD + " " + index.getOneBased() + QUESTION_DESC_SAMPLE_2 + ANSWER_DESC_SAMPLE_1
-                       + HINT_DESC_FRIEND + HINT_DESC_HUSBAND;
+                       + HINT_DESC_HUSBAND;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_CARD);
     }
 
@@ -213,7 +207,7 @@ public class EditCommandSystemTest extends CardFolderSystemTest {
     private void assertCommandSuccess(String command, Index toEdit, Card editedCard,
                                       Index expectedSelectedCardIndex) {
         Model expectedModel = getModel();
-        expectedModel.setCard(expectedModel.getFilteredCards().get(toEdit.getZeroBased()), editedCard);
+        expectedModel.setCard(expectedModel.getActiveFilteredCards().get(toEdit.getZeroBased()), editedCard);
         expectedModel.updateFilteredCard(PREDICATE_SHOW_ALL_CARDS);
 
         assertCommandSuccess(command, expectedModel,
@@ -255,7 +249,7 @@ public class EditCommandSystemTest extends CardFolderSystemTest {
         } else {
             assertSelectedCardUnchanged();
         }
-        assertStatusBarIsInFolder();
+        assertStatusBarIsInFolder(expectedModel.getActiveCardFolderName());
     }
 
     /**
@@ -276,6 +270,6 @@ public class EditCommandSystemTest extends CardFolderSystemTest {
         assertApplicationDisplaysExpected(command, expectedResultMessage, expectedModel);
         assertSelectedCardUnchanged();
         assertCommandBoxShowsErrorStyle();
-        assertStatusBarIsInFolder();
+        assertStatusBarIsInFolder(expectedModel.getActiveCardFolderName());
     }
 }

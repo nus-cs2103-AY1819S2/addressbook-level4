@@ -3,7 +3,7 @@ package seedu.knowitall.logic.commands;
 import static seedu.knowitall.commons.core.Messages.MESSAGE_INVALID_COMMAND_OUTSIDE_FOLDER;
 import static seedu.knowitall.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.knowitall.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.knowitall.testutil.TypicalCards.getTypicalCardFolders;
+import static seedu.knowitall.testutil.TypicalCards.getTypicalFolderOneAsList;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -25,7 +25,7 @@ public class SortCommandTest {
 
     @Before
     public void setUp() {
-        model = new ModelManager(getTypicalCardFolders(), new UserPrefs());
+        model = new ModelManager(getTypicalFolderOneAsList(), new UserPrefs());
         model.enterFolder(TypicalIndexes.INDEX_FIRST_CARD_FOLDER.getZeroBased());
         expectedModel = new ModelManager(model.getCardFolders(), new UserPrefs());
         expectedModel.enterFolder(TypicalIndexes.INDEX_FIRST_CARD_FOLDER.getZeroBased());

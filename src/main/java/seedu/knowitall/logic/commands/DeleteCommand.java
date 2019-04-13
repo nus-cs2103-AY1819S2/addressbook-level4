@@ -40,7 +40,7 @@ public class DeleteCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_COMMAND_OUTSIDE_FOLDER);
         }
 
-        List<Card> lastShownList = model.getFilteredCards();
+        List<Card> lastShownList = model.getActiveFilteredCards();
 
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_CARD_DISPLAYED_INDEX);

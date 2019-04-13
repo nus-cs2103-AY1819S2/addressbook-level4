@@ -33,7 +33,7 @@ public interface Logic {
     ReadOnlyCardFolder getCardFolder();
 
     /** Returns an unmodifiable view of the filtered list of cards */
-    ObservableList<Card> getFilteredCards();
+    ObservableList<Card> getActiveFilteredCards();
 
     /** Returns an unmodifiable view of the filtered folders list */
     ObservableList<VersionedCardFolder> getFilteredCardFolders();

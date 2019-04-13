@@ -30,8 +30,9 @@ public class StatusBarFooterTest extends GuiUnitTest {
         assertStatusBarContent(STATUS_IN_HOME_DIRECTORY);
 
         // new status received
-        guiRobot.interact(() -> statusBarFooter.updateStatusBarInFolder());
-        assertStatusBarContent(STATUS_IN_FOLDER);
+        String testFolderName = "Test";
+        guiRobot.interact(() -> statusBarFooter.updateStatusBarInFolder(testFolderName));
+        assertStatusBarContent(String.format(STATUS_IN_FOLDER, testFolderName));
 
         guiRobot.interact(() -> statusBarFooter.updateStatusBarInTestSession());
         assertStatusBarContent(STATUS_IN_TEST_SESSION);
@@ -41,10 +42,10 @@ public class StatusBarFooterTest extends GuiUnitTest {
     }
 
     /**
-     * Asserts that the save location matches that of {@code expectedSaveLocation}.
+     * Asserts that the current status of user matches that of {@code expectedCurrentStatus}.
      */
-    private void assertStatusBarContent(String expectedSaveLocation) {
-        assertEquals(expectedSaveLocation, statusBarFooterHandle.getCurrentStatus());
+    private void assertStatusBarContent(String expectedCurrentStatus) {
+        assertEquals(expectedCurrentStatus, statusBarFooterHandle.getCurrentStatus());
         guiRobot.pauseForHuman();
     }
 

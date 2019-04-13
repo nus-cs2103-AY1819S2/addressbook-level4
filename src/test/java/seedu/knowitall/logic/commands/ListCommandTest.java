@@ -2,7 +2,7 @@ package seedu.knowitall.logic.commands;
 
 import static seedu.knowitall.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.knowitall.logic.commands.CommandTestUtil.showCardAtIndex;
-import static seedu.knowitall.testutil.TypicalCards.getTypicalCardFolders;
+import static seedu.knowitall.testutil.TypicalCards.getTypicalFolderOneAsList;
 import static seedu.knowitall.testutil.TypicalIndexes.INDEX_FIRST_CARD;
 
 import org.junit.Before;
@@ -25,7 +25,7 @@ public class ListCommandTest {
 
     @Before
     public void setUp() {
-        model = new ModelManager(getTypicalCardFolders(), new UserPrefs());
+        model = new ModelManager(getTypicalFolderOneAsList(), new UserPrefs());
         model.enterFolder(TypicalIndexes.INDEX_FIRST_CARD_FOLDER.getZeroBased());
         expectedModel = new ModelManager(model.getCardFolders(), new UserPrefs());
         expectedModel.enterFolder(TypicalIndexes.INDEX_FIRST_CARD_FOLDER.getZeroBased());

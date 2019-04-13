@@ -9,8 +9,10 @@ import static seedu.knowitall.commons.util.AppUtil.checkArgument;
  */
 public class Hint {
 
-    public static final String MESSAGE_CONSTRAINTS = "Hints should only contain alphanumeric characters and spaces";
-    public static final String VALIDATION_REGEX = "[\\p{Alnum} ]+";
+    public static final int MAX_LENGTH = 512;
+    public static final String MESSAGE_CONSTRAINTS = "Answers can take any values, should not be blank, and should"
+            + " be less than " + MAX_LENGTH + " characters";
+    public static final String VALIDATION_REGEX = "[^\\s].*";
 
     public final String hintName;
 
@@ -29,7 +31,7 @@ public class Hint {
      * Returns true if a given string is a valid hint name.
      */
     public static boolean isValidHintName(String test) {
-        return test.matches(VALIDATION_REGEX);
+        return test.matches(VALIDATION_REGEX) && test.length() <= MAX_LENGTH;
     }
 
     @Override

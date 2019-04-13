@@ -9,12 +9,14 @@ import java.util.function.Predicate;
 import javafx.beans.Observable;
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import seedu.knowitall.commons.core.GuiSettings;
 import seedu.knowitall.logic.commands.exceptions.CommandException;
 import seedu.knowitall.model.card.Answer;
 import seedu.knowitall.model.card.Card;
 import seedu.knowitall.storage.csvmanager.CsvFile;
 import seedu.knowitall.storage.csvmanager.exceptions.CsvManagerNotInitialized;
+import seedu.knowitall.storage.csvmanager.exceptions.IncorrectCsvHeadersException;
 
 /**
  * The API of the Model component.
@@ -78,10 +80,13 @@ public interface Model extends Observable {
      */
     void resetCardFolder(ReadOnlyCardFolder cardFolder);
 
-    /** Returns the active CardFolder */
+    /** Returns the name of the active {@code CardFolder} */
+    String getActiveCardFolderName();
+
+    /** Returns the active {@code CardFolder} */
     ReadOnlyCardFolder getActiveCardFolder();
 
-    /** Returns all CardFolders */
+    /** Returns all {@code CardFolders} */
     List<ReadOnlyCardFolder> getCardFolders();
 
     /**
@@ -114,14 +119,9 @@ public interface Model extends Observable {
     void removeSelectedCard();
 
     /**
-     * Returns true if a {@code CardFolder} with the same identity as {@code cardFolder} exists.
-     */
-    boolean hasFolder(CardFolder cardFolder);
-
-    /**
      * Returns true if a{@code CardFolder} with the same name as {@code folderName} exists.
      */
-    boolean hasFolderWithName(String name);
+    boolean hasFolder(String name);
 
     /**
      * Deletes the folder at the given index.
@@ -156,10 +156,13 @@ public interface Model extends Observable {
      */
     void exitFolderToHome();
 
-    /** Returns an unmodifiable view of the filtered card list */
-    ObservableList<Card> getFilteredCards();
+    /** Returns a copy of the filtered cards list */
+    List<FilteredList<Card>> getFilteredCardsList();
 
-    /** Returns an unmodifiable view of the filtered folders list */
+    /** Returns a copy of the active filtered cards */
+    ObservableList<Card> getActiveFilteredCards();
+
+    /** Returns a copy of the filtered folders list */
     ObservableList<VersionedCardFolder> getFilteredFolders();
 
     /**
@@ -219,7 +222,7 @@ public interface Model extends Observable {
     /**
      * Enters a test session using the specified card folder index.
      */
-    void testCardFolder();
+    void startTestSession();
 
     /**
      * Sets the current card in the test session.
@@ -279,13 +282,13 @@ public interface Model extends Observable {
 
     void exportCardFolders(List<Integer> cardFolderExports) throws IOException, CsvManagerNotInitialized;
 
-    void importCardFolders(CsvFile csvFile) throws IOException, CommandException;
+    void importCardFolders(CsvFile csvFile) throws IOException, CommandException, IncorrectCsvHeadersException;
 
     void enterReportDisplay();
 
     void exitReportDisplay();
 
-    void setTestCsvPath() throws IOException;
+    void setTestCsvPath(String path);
 
     String getDefaultPath();
 

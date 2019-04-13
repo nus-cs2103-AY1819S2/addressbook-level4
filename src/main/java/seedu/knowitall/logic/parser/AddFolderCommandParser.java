@@ -5,6 +5,7 @@ import static seedu.knowitall.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORM
 import seedu.knowitall.logic.commands.AddFolderCommand;
 import seedu.knowitall.logic.parser.exceptions.ParseException;
 import seedu.knowitall.model.CardFolder;
+import seedu.knowitall.model.ReadOnlyCardFolder;
 
 
 /**
@@ -24,8 +25,11 @@ public class AddFolderCommandParser implements Parser<AddFolderCommand> {
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddFolderCommand.MESSAGE_USAGE));
         }
 
-        CardFolder cardFolder = new CardFolder(trimmedArgs);
+        if (!CardFolder.isValidFolderName(trimmedArgs)) {
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, ReadOnlyCardFolder.MESSAGE_CONSTRAINTS));
+        }
 
-        return new AddFolderCommand(cardFolder);
+        return new AddFolderCommand(trimmedArgs);
     }
 }

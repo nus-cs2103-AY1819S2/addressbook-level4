@@ -28,7 +28,7 @@ public class BrowserPanelTest extends GuiUnitTest {
         // default (empty) card page
         assertEquals("", browserPanelHandle.getCurrentQuestion());
 
-        // associated web page of a card
+        // associated contents in the card
         guiRobot.interact(() -> selectedCard.set(ALICE));
 
         String expectedCardQuestion = ALICE.getQuestion().fullQuestion;

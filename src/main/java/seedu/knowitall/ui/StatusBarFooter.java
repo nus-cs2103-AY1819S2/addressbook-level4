@@ -10,7 +10,7 @@ import javafx.scene.layout.Region;
 public class StatusBarFooter extends UiPart<Region> {
 
     public static final String STATUS_IN_HOME_DIRECTORY = "In Home Directory";
-    public static final String STATUS_IN_FOLDER = "Inside Folder";
+    public static final String STATUS_IN_FOLDER = "Inside Folder: %1$s";
     public static final String STATUS_IN_TEST_SESSION = "In Test Session";
     public static final String STATUS_IN_REPORT_DISPLAY = "In Report Display";
 
@@ -37,8 +37,8 @@ public class StatusBarFooter extends UiPart<Region> {
     /**
      * Updates status bar to state current user is currently in a folder.
      */
-    public void updateStatusBarInFolder() {
-        updateStatusBar(STATUS_IN_FOLDER);
+    public void updateStatusBarInFolder(String folderName) {
+        updateStatusBar(String.format(STATUS_IN_FOLDER, folderName));
     }
 
     /**

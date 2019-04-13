@@ -19,7 +19,7 @@ public class JsonAdaptedCardTest {
     private static final String INVALID_QUESTION = " ";
     private static final String INVALID_ANSWER = " ";
     private static final String INVALID_OPTION = " ";
-    private static final String INVALID_HINT = "#friend";
+    private static final String INVALID_HINT = " ";
 
     private static final String VALID_QUESTION = BENSON.getQuestion().toString();
     private static final String VALID_ANSWER = BENSON.getAnswer().toString();

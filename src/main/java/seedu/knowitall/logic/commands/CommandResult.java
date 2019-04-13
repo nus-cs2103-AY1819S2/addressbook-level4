@@ -26,6 +26,7 @@ public class CommandResult {
         END_TEST_SESSION, // The current test session should end.
         ANSWER_CORRECT,
         ANSWER_WRONG,
+        ANSWER_REVEAL,
         ENTERED_REPORT,
         EXITED_REPORT,
         SHOW_NEXT_CARD, // The next card will be displayed in the current test session.

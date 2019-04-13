@@ -23,7 +23,7 @@ import seedu.knowitall.testutil.Assert;
 public class ParserUtilTest {
     private static final String INVALID_QUESTION = " ";
     private static final String INVALID_ANSWER = " ";
-    private static final String INVALID_HINT = "#friend";
+    private static final String INVALID_HINT = " ";
 
     private static final String VALID_QUESTION = "Rachel Walker";
     private static final String VALID_ANSWER = "123456";

@@ -7,11 +7,12 @@ import org.junit.Test;
 import seedu.knowitall.logic.CommandHistory;
 import seedu.knowitall.model.Model;
 import seedu.knowitall.model.ModelManager;
+import seedu.knowitall.testutil.TypicalCards;
 
 public class HistoryCommandTest {
     private CommandHistory history = new CommandHistory();
-    private Model model = new ModelManager(this.getClass().getName());
-    private Model expectedModel = new ModelManager(this.getClass().getName());
+    private Model model = new ModelManager(TypicalCards.getTypicalFolderOneAsList());
+    private Model expectedModel = new ModelManager(TypicalCards.getTypicalFolderOneAsList());
 
     @Test
     public void execute() {

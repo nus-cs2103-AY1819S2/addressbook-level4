@@ -1,11 +1,14 @@
 package seedu.knowitall.logic.parser;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.knowitall.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import javafx.util.Pair;
 import seedu.knowitall.commons.core.index.Index;
 import seedu.knowitall.logic.commands.EditFolderCommand;
 import seedu.knowitall.logic.parser.exceptions.ParseException;
+import seedu.knowitall.model.CardFolder;
+import seedu.knowitall.model.ReadOnlyCardFolder;
 
 /**
  * Parses input arguments and creates a new EditFolderCommand object
@@ -22,6 +25,11 @@ public class EditFolderCommandParser implements Parser<EditFolderCommand> {
 
         Pair<Index, String> parsedObjects;
         parsedObjects = ParserUtil.parseIndexAndFolderName(args);
+
+        if (!CardFolder.isValidFolderName(parsedObjects.getValue())) {
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, ReadOnlyCardFolder.MESSAGE_CONSTRAINTS));
+        }
 
         return new EditFolderCommand(parsedObjects.getKey(), parsedObjects.getValue());
     }

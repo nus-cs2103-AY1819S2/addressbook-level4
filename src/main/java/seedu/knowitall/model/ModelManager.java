@@ -6,7 +6,6 @@ import static seedu.knowitall.commons.util.CollectionUtil.requireAllNonNull;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
@@ -34,6 +33,7 @@ import seedu.knowitall.model.card.exceptions.CardNotFoundException;
 import seedu.knowitall.storage.csvmanager.CsvFile;
 import seedu.knowitall.storage.csvmanager.CsvManager;
 import seedu.knowitall.storage.csvmanager.exceptions.CsvManagerNotInitialized;
+import seedu.knowitall.storage.csvmanager.exceptions.IncorrectCsvHeadersException;
 
 /**
  * Represents the in-memory model of the card folder data.
@@ -54,7 +54,7 @@ public class ModelManager implements Model {
     private ObservableList<VersionedCardFolder> folders;
     private final FilteredList<VersionedCardFolder> filteredFolders;
     private final List<FilteredList<Card>> filteredCardsList;
-    private int activeCardFolderIndex;
+    private int activeCardFolderIndex; // set to -1 when in home directory
 
     // Test Session related
     private final SimpleObjectProperty<Card> currentTestedCard = new SimpleObjectProperty<>();
@@ -76,7 +76,7 @@ public class ModelManager implements Model {
     }
 
     /**
-     * Initializes a ModelManager with the given cardFolders and userPrefs.
+     * Initializes a ModelManager with the given {@code cardFolders} and {@code userPrefs}.
      */
     public ModelManager(List<ReadOnlyCardFolder> cardFolders, ReadOnlyUserPrefs userPrefs) {
         super();
@@ -93,20 +93,23 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
 
         filteredCardsList = new ArrayList<>();
-        for (int i = 0; i < filteredFolders.size(); i++) {
-            FilteredList<Card> filteredCards = new FilteredList<>(filteredFolders.get(i).getCardList());
+        for (VersionedCardFolder filteredFolder : filteredFolders) {
+            FilteredList<Card> filteredCards = new FilteredList<>(filteredFolder.getCardList());
             filteredCardsList.add(filteredCards);
             filteredCards.addListener(this::ensureSelectedCardIsValid);
         }
 
 
-        // ModelManager initialises to first card folder
-        activeCardFolderIndex = 0;
+        // ModelManager initialises to home directory
+        activeCardFolderIndex = -1;
         state = State.IN_HOMEDIR;
     }
 
-    public ModelManager(String newFolderName) {
-        this(Collections.singletonList(new CardFolder(newFolderName)), new UserPrefs());
+    /**
+     * Initalizes a ModelManager with the given {@code cardFolders} and default {@code UserPrefs}.
+     */
+    public ModelManager(List<ReadOnlyCardFolder> cardFolders) {
+        this(cardFolders, new UserPrefs());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -153,6 +156,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public String getActiveCardFolderName() {
+        return getActiveCardFolder().getFolderName();
+    }
+
+    @Override
     public ReadOnlyCardFolder getActiveCardFolder() {
         return getActiveVersionedCardFolder();
     }
@@ -192,14 +200,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public boolean hasFolder(CardFolder cardFolder) {
-        requireNonNull(cardFolder);
-
-        return hasFolderWithName(cardFolder.getFolderName());
-    }
-
-    @Override
-    public boolean hasFolderWithName(String name) {
+    public boolean hasFolder(String name) {
         requireNonNull(name);
 
         return folders.stream().anyMatch(folder -> folder.getFolderName().equals(name));
@@ -207,6 +208,8 @@ public class ModelManager implements Model {
 
     @Override
     public void deleteFolder(int index) {
+        assert(index < folders.size());
+
         folders.remove(index);
         filteredCardsList.remove(index);
         indicateModified();
@@ -214,6 +217,12 @@ public class ModelManager implements Model {
 
     @Override
     public void addFolder(CardFolder cardFolder) {
+        requireNonNull(cardFolder);
+
+        if (hasFolder(cardFolder.getFolderName())) {
+            throw new DuplicateCardFolderException();
+        }
+
         VersionedCardFolder versionedCardFolder = new VersionedCardFolder(cardFolder);
         folders.add(versionedCardFolder);
         FilteredList<Card> filteredCards = new FilteredList<>(versionedCardFolder.getCardList());
@@ -238,6 +247,7 @@ public class ModelManager implements Model {
     @Override
     public void exitFolderToHome() {
         state = State.IN_HOMEDIR;
+        activeCardFolderIndex = -1;
         removeSelectedCard();
     }
 
@@ -264,13 +274,6 @@ public class ModelManager implements Model {
     }
 
     /**
-     * Returns the filtered list of cards from the active {@code CardFolder}
-     */
-    private FilteredList<Card> getActiveFilteredCards() {
-        return filteredCardsList.get(activeCardFolderIndex);
-    }
-
-    /**
      * Notifies listeners that the list of card folders has been modified.
      */
     private void indicateModified() {
@@ -279,24 +282,29 @@ public class ModelManager implements Model {
 
     //=========== Filtered Card List Accessors =============================================================
 
-    /**
-     * Returns an unmodifiable view of the list of {@code Card} backed by the internal list of
-     * {@code filteredFolders}
-     */
     @Override
-    public ObservableList<Card> getFilteredCards() {
-        return getActiveFilteredCards();
+    public List<FilteredList<Card>> getFilteredCardsList() {
+        List<FilteredList<Card>> copy = new ArrayList<>();
+        for (FilteredList<Card> filteredList : filteredCardsList) {
+            copy.add(new FilteredList<>(filteredList));
+        }
+        return copy;
+    }
+
+    @Override
+    public FilteredList<Card> getActiveFilteredCards() {
+        return new FilteredList<>(filteredCardsList.get(activeCardFolderIndex));
     }
 
     @Override
     public ObservableList<VersionedCardFolder> getFilteredFolders() {
-        return filteredFolders;
+        return new FilteredList<>(filteredFolders);
     }
 
     @Override
     public void updateFilteredCard(Predicate<Card> predicate) {
         requireNonNull(predicate);
-        FilteredList<Card> filteredCards = getActiveFilteredCards();
+        FilteredList<Card> filteredCards = filteredCardsList.get(activeCardFolderIndex);
         filteredCards.setPredicate(predicate);
     }
     @Override
@@ -355,7 +363,7 @@ public class ModelManager implements Model {
     //=========== Test Session ===========================================================================
 
     @Override
-    public void testCardFolder() {
+    public void startTestSession() {
         currentTestedCardFolder = getActiveCardFolder().getCardList();
         if (currentTestedCardFolder.isEmpty()) {
             throw new EmptyCardFolderException();
@@ -369,6 +377,14 @@ public class ModelManager implements Model {
         state = State.IN_TEST;
         numAnsweredCorrectly = 0;
         numAnsweredTotal = 0;
+    }
+
+    public ObservableList<Card> getCurrentTestedCardFolder() {
+        return currentTestedCardFolder;
+    }
+
+    public int getNumAnsweredCorrectly() {
+        return numAnsweredCorrectly;
     }
 
     @Override
@@ -547,7 +563,6 @@ public class ModelManager implements Model {
     }
 
 
-
     //=========== Export / Import card folders ========================================================================
     @Override
     public void exportCardFolders(List<Integer> cardFolderExports) throws IOException, CsvManagerNotInitialized {
@@ -559,16 +574,18 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void importCardFolders(CsvFile csvFile) throws IOException, CommandException {
+    public void importCardFolders(CsvFile csvFile) throws IOException, CommandException, IllegalArgumentException,
+            IncorrectCsvHeadersException {
         String cardFolderName = csvFile.getFileNameWithoutExt();
 
         if (isCardFolderExists(cardFolderName)) {
             throw new DuplicateCardFolderException();
         }
 
-        CardFolder cardFolder = csvManager.readFoldersToCsv(csvFile);
+        CardFolder cardFolder = csvManager.readFoldersFromCsv(csvFile);
         addFolder(cardFolder);
     }
+
     /**
      * checks whether cardfolder already exists in the model when importing file
      */
@@ -582,8 +599,8 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void setTestCsvPath() throws IOException {
-        csvManager.setTestDefaultPath();
+    public void setTestCsvPath(String path) {
+        csvManager.setTestDefaultPath(path);
     }
 
     @Override

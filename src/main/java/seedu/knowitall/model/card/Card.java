@@ -16,6 +16,10 @@ import seedu.knowitall.model.hint.Hint;
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Card {
+    public static final int MAX_QUESTIONS = 1;
+    public static final int MAX_ANSWERS = 1;
+    public static final int MAX_HINTS = 1;
+    public static final int MAX_OPTIONS = 3;
 
     /**
      * {@code CardType} representing the type of Card question.

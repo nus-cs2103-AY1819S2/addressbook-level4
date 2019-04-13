@@ -5,7 +5,7 @@ import static seedu.knowitall.logic.commands.CommandTestUtil.assertCommandFailur
 import static seedu.knowitall.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.knowitall.logic.commands.EndCommand.MESSAGE_END_REPORT_DISPLAY_SUCCESS;
 import static seedu.knowitall.logic.commands.EndCommand.MESSAGE_END_TEST_SESSION_SUCCESS;
-import static seedu.knowitall.testutil.TypicalCards.getTypicalCardFolders;
+import static seedu.knowitall.testutil.TypicalCards.getTypicalFolderOneAsList;
 
 import org.junit.Test;
 
@@ -19,16 +19,16 @@ import seedu.knowitall.testutil.TypicalIndexes;
  * Contains integration tests (interaction with the Model) and junit tests for {@code EndCommand}.
  */
 public class EndCommandTest {
-    private Model model = new ModelManager(getTypicalCardFolders(), new UserPrefs());
-    private Model expectedModel = new ModelManager(getTypicalCardFolders(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalFolderOneAsList(), new UserPrefs());
+    private Model expectedModel = new ModelManager(getTypicalFolderOneAsList(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
     public void execute_endTestSession_success() {
         model.enterFolder(TypicalIndexes.INDEX_FIRST_CARD_FOLDER.getZeroBased());
         expectedModel.enterFolder(TypicalIndexes.INDEX_FIRST_CARD_FOLDER.getZeroBased());
-        model.testCardFolder();
-        expectedModel.testCardFolder();
+        model.startTestSession();
+        expectedModel.startTestSession();
 
         expectedModel.endTestSession();
         CommandResult expectedCommandResult = new CommandResult(MESSAGE_END_TEST_SESSION_SUCCESS,

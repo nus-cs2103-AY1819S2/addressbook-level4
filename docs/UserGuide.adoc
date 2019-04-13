@@ -52,7 +52,7 @@ image::Ui.png[width="790"]
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some commands you can try:
 
-* *`change`* `1` : enter the 1st flashcard folder
+* *`cd`* `1` : enter the 1st flashcard folder
 * *`list`* : lists all flashcards in the current folder
 * **`add`**`q/How many chambers are there in a heart? a/Four` : adds a new flashcard to the current folder.
 * **`delete`**`3` : deletes the 3rd flashcard shown in the current folder
@@ -60,6 +60,9 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 .  Refer to <<Features>> for details of each command.
 // end::quickstart[]
+
+[NOTE]
+Your data is saved in the `data/` folder by default. Like any other software application, you are not advised to modify any of the system created files located within the folder. If you do, Know-It-All may not perform right!
 
 [[Features]]
 == Features
@@ -69,18 +72,94 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 * Commands are written in monospaced font, e.g. `sort`
 * Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `addfolder FOLDER_NAME`, `FOLDER_NAME` is a parameter which can be used as `add Human Anatomy`.
-* Items in square brackets are optional e.g HINTS in `add q/QUESTION a/ANSWER [h/HINTS]`.
+* Items in square brackets are optional e.g `HINTS` in `add q/QUESTION a/ANSWER [h/HINTS]`.
+* Items with `…​` after them can be used multiple times including zero times e.g. in `add q/QUESTION a/ANSWER [i/INCORRECT_OPTION]...`, you can include zero or more `i/INCORRECT_OPTIONs`.
 * Parameters can be in any order e.g. if the command specifies `q/QUESTION a/ANSWER`, `a/ANSWER q/QUESTION` is also acceptable.
 ====
+
+//tag::folderoperations[]
+=== Folder Operations
+Commands listed in this section affect the application and not a single folder.
+
+[NOTE]
+The commands in this section can only be executed when you are at the home directory, outside of any folder. The commands are also not valid inside a test or report session. You can easily verify that you are at the home directory with the status bar at the bottom, which should display: +
+ +
+image:StatusBarInHomeDirectory.png[width ="150"]
+
+==== Enter folder : `cd`
+
+Enters the folder specified by index. Panel on the left will display the list of cards in that folder.
+
+Format: `cd FOLDER_INDEX`
+
+Examples:
+
+* `cd 2` +
+Enters the second folder in the folder list on the home directory.
+
+[[addfolder]]
+==== Create new folder : `addfolder`
+
+Creates a new flashcard folder with the specified name.
+
+Format: `addfolder FOLDER_NAME`
+
+====
+* The newly created folder will not contain any cards.
+* Folder names must be unique, between 1 and 50 characters, and only contain letters, numbers and whitespace. Attempting to add a folder with any of the above rules violated will result in an error.
+* Each folder and its cards are stored independently in the directory specified in `preferences.json`. By default, this is the `data/` directory.
+====
+
+Examples:
+
+* `addfolder Nervous System` +
+Creates a folder with the name "Nervous System". The user can then enter the folder with the `cd` command and begin adding cards.
+
+==== Remove folder : `deletefolder`
+
+Removes the flashcard folder specified by index.
+
+Format: `deletefolder FOLDER_INDEX`
+
+====
+* When a folder is deleted, all its cards are removed as well.
+====
+
+Examples:
+
+* `deletefolder 2` +
+Deletes the second folder in the folder list, along with its cards, on the home directory.
+
+==== Rename folder : `editfolder`
+
+Renames the flashcard folder specified by index.
+
+Format: `editfolder FOLDER_INDEX NEW_FOLDER_NAME`
+
+====
+* The new name of the folder cannot be the same as an existing folder, and must adhere to the rules specified in <<addfolder>>.
+====
+
+Examples:
+
+* `editfolder 2 Circulatory System` +
+Renames the second folder in the folder list to "Circulatory System".
+
+**Merge folders feature** `Coming in v2.0`
+
+This feature will enable users to join multiple folders together, reducing the number of folders and grouping two topics.
+
+Format: `merge FOLDER_INDEX_1 FOLDER_INDEX_1 NEW_FOLDER_NAME`
+
+//end::folderoperations[]
 
 === Card Operations
 Commands listed in this section affect the <<flashcard, flashcards>> within a single <<folder, folder>>.
 
 [NOTE]
-The commands in this section can only be executed when you are within a folder
-
-[NOTE]
-The commands in this section are also not valid inside a test or report session.
+The commands in this section can only be executed when you are within a folder. The commands are also not valid inside a test or report session. You can easily verify you are inside a folder with the status bar at the bottom, which should display: +
+ +
+image:StatusBarInFolder.png[width ="200"]
 
 // tag::add[]
 ==== Adding a flashcard : `add`
@@ -91,11 +170,10 @@ Format **(Single answer)**: `add q/QUESTION a/ANSWER [h/HINT]` +
 Format **(MCQ)**: `add q/QUESTION a/ANSWER [i/INCORRECT_OPTION]... [h/HINT]`
 
 ====
-* A card can have at most 1 hint (including 0)
-* If multiple hints are included in the command, only the last hint will be added to the card
-* Hints are currently restricted to alphanumerical characters and spaces only
-* A card can have any number of incorrect options to denote an MCQ card
-* A card with 0 incorrect options will automatically be denoted as a Single answer card
+* The question, answer, incorrect option, and hint fields can take any character, but cannot be blank.
+* A card can have at most 1 hint (including 0).
+* A card can have at most 3 incorrect options to denote an MCQ card.
+* A card with 0 incorrect options will automatically be denoted as a Single answer card.
 ====
 
 Examples:
@@ -103,8 +181,25 @@ Examples:
 * `add q/Hello? a/World`
 * `add q/The cat ___ on the mat a/sat h/poetry`
 * `add q/What is the powerhouse of the cell? a/mitochondria i/cell wall i/nucleus h/biology`
-* `add q/The Hippocrates Oath states to Do no ___? a/harm h/4 letters h/Rhymes with farm` +
-Creates a card with `hint` "Rhymes with farm".
+
+**Adding Fill-In-The-Blanks style card** `Coming in v2.0`
+
+Allows the user to add a card with blanks for multiple answers to be given during a test session. Questions for such cards would include underscores "_", each signifying a blank to be filled with an answer.
+
+Format: ``add q/QUESTION_WITH_BLANKS a/ANSWER_1/ANSWER_2/ANSWER_3...`
+
+Example:
+
+`add q/The quick brown _ jumps over the lazy _. a/fox/dog`
+
+**Adding images to cards** `Coming in v2.0`
+
+Allows the user to add images to cards to supplement the text content of the card.
+
+Format: `add q/QUESTION a/ANSWER [img/IMAGE_FILE_PATH]...`
+
+Example:
+`add q/Hello? a/World img/diagram.jpg`
 // end::add[]
 
 // tag::edit[]
@@ -112,7 +207,7 @@ Creates a card with `hint` "Rhymes with farm".
 
 Edits the flashcard specified by the <<index, index>> in the current folder.
 
-Format: `edit i/INDEX [q/QUESTION] [a/ANSWER] [h/HINT]`
+Format: `edit INDEX [q/QUESTION] [a/ANSWER] [h/HINT]`
 
 ====
 * Edits the card at the specified `INDEX`. The index refers to the index number shown in the displayed card list. The index *must be a positive integer* 1, 2, 3, ...
@@ -120,6 +215,7 @@ Format: `edit i/INDEX [q/QUESTION] [a/ANSWER] [h/HINT]`
 * Existing values will be updated to the input values.
 * **(MCQ cards)** When editing incorrect options, the existing incorrect options of the card will be removed i.e adding of options is not cumulative.
 * You can remove the card's hint by typing `h/` without specifying any hint after it.
+* You can remove the card's incorrect  options by typing `i/` without specifying any incorrect option after it.
 ====
 
 Examples:
@@ -128,6 +224,8 @@ Examples:
 Edits the answer of the 1st card to be 'Skin' and removes the hint associated, if any.
 * `edit 2 h/history q/Who discovered Penicillin? a/Alexander Fleming` +
 Edits the hint, question and answer of the 2nd card respectively.
+* `edit 3 h/cells h/biology h/organs` +
+Replaces the hint of the current card with "organs" only.
 // end::edit[]
 
 ==== Selecting a flashcard : `select`
@@ -243,94 +341,17 @@ The `redo` command fails as there are no `undo` commands executed previously.
 // end::undoredo[]
 
 
-==== Exit folder : `change ..`
+==== Exit folder : `cd ..`
 
 Return to the root directory (exit the current folder). A list of folders will be displayed
 
-Format: `change ..`
+Format: `cd ..`
 
 Examples:
 
-* `change 2` +
-`change ..` +
+* `cd 2` +
+`cd ..` +
 The first command enters the second folder in the folder list on the <<homedirectory, home directory>>. The second command then returns you back to the home directory by exiting the folder.
-
-
-//tag::folderoperations[]
-=== Folder Operations
-Commands listed in this section affect the application and not a single folder.
-
-[NOTE]
-The commands in this section can only be executed when you are at the home directory, outside of any folder
-
-[NOTE]
-The commands in this section are also not valid inside a test or report session.
-
-==== Create new folder : `addfolder`
-
-Creates a new flashcard folder with the specified name.
-
-Format: `addfolder FOLDER_NAME`
-
-====
-* The newly created folder will not contain any cards.
-* Folder names must be unique and non-blank. Attempting to add a folder with the same name as an existing folder will result in an error.
-* Each folder and its cards are stored independently in the directory specified in `preferences.json`. By default, this is the `data/` directory.
-====
-
-Examples:
-
-* `addfolder Nervous System` +
-Creates a folder with the name "Nervous System". The user can then enter the folder with the `change` command and begin adding cards.
-
-==== Remove folder : `deletefolder`
-
-Removes the flashcard folder specified by index.
-
-Format: `deletefolder FOLDER_INDEX`
-
-====
-* When a folder is deleted, all its cards are removed as well.
-====
-
-Examples:
-
-* `deletefolder 2` +
-Deletes the second folder in the folder list, along with its cards, on the home directory.
-
-==== Rename folder : `editfolder`
-
-Renames the flashcard folder specified by index.
-
-Format: `editfolder FOLDER_INDEX NEW_FOLDER_NAME`
-
-====
-* The new name of the folder cannot be the same as an existing folder.
-====
-
-Examples:
-
-* `editfolder 2 Circulatory System` +
-Renames the second folder in the folder list to "Circulatory System".
-
-==== Enter folder : `change`
-
-Enters the folder specified by index. Panel on the left will display the list of cards in that folder.
-
-Format: `change FOLDER_INDEX`
-
-Examples:
-
-* `change 2` +
-Enters the second folder in the folder list on the home directory.
-
-**Merge folders feature** `Coming in v2.0`
-
-This feature will enable users to join multiple folders together, reducing the number of folders and grouping two topics.
-
-Format: `merge FOLDER_INDEX_1 FOLDER_INDEX_1 NEW_FOLDER_NAME`
-
-//end::folderoperations[]
 
 //tag::advancedoperations[]
 
@@ -343,8 +364,9 @@ directory.
 
 Format: `export FOLDER_INDEX FILENAME [MORE_INDEXES]`
 
-IMPORTANT: The files used for Import and Export commands should be placed in the project root directory. +
-i.e The directory where the .jar file is located
+IMPORTANT: The export command creates the new csv file in your project root directory.
+i.e The directory where your .jar file is located. +
+The `import command` imports csv files located in the same directory as well.
 
 image::project_root_dir.png[width ="800"]
 
@@ -374,19 +396,24 @@ You type your flashcards out on excel and later save it in your project root dir
 to import it over to your application.
 
 
-NOTE: The csv file imported should follow the format below
+NOTE: The csv file imported should follow the format described below
+
+====
+* The first row of the csv file should have the following headers:
++
+Question, Answer, Options, Hints.
+* Question and Answer are mandatory fields, and should not be left blank.
+* Hints can take 0 or 1 values only.
+* For MCQ cards, The csv file only accepts one incorrect option for each flashcard.
+====
 
 .Sample format for csv file
-image::Blood.csv.png[width = "800"]
-
-====
-* The first row of the csv file should have the following headers, Question, Answer, Options, Hints.
-* Question and Answer are mandatory fields, and should not be left blank.
-* Options can take 0 or many values.
-* Hints can take 0 or 1 values only.
-====
+image::Blood.png[width = "800"]
 
 Format: `import FILENAME`
+
+NOTE: unlike the `export command` the importing of multiple csv files
+is not supported in Know-It-All.
 
 Examples:
 
@@ -404,10 +431,10 @@ After memorising the content of the flashcards, it is helpful to test how much i
 ==== Test flashcards in a folder : `test`
 
 You will enter a test session, where the display area enters a fullscreen and you will be presented flashcard questions
- one by one. (see Figure 2 below).
+ one by one, as depicted in the figure below.
 
 .A successful test command will display a test session page
-image::startTestSessionPage.png[width="400"]
+image::startTestSessionPage.png[width="500"]
 
 {empty} +
 Format: `test`
@@ -453,17 +480,17 @@ To reinforce learning and provide a more engaging experience with Know-It-All, y
 currently displayed flashcard question. Know-It-All compares your attempt with the correct answer for that flashcard and
 tells you if you are right or wrong.
 
-If the answer has been submitted successfully and it is correct, you will see the following page (see Figure 3).
+If the answer has been submitted successfully and it is *correct*, you will see the following page.
 
 .Correct Answer page
-image::CorrectAnswerPage.png[width="400"]
+image::CorrectAnswerPage.png[width="500"]
 
 {empty} +
 
-If the answer has been submitted successfully and it is wrong, you will see the following page (see Figure 4).
+If the answer has been submitted successfully and it is *wrong*, you will see the following page.
 
 .Wrong Answer page
-image::WrongAnswerPage.png[width="400"]
+image::WrongAnswerPage.png[width="500"]
 
 {empty} +
 Format: `ans ANSWER`
@@ -485,39 +512,43 @@ Examples:
 * `ans Mitochondrion` +
 in response to the card question: What is the powerhouse of the cell?
 
-* `ans 4` +
-in response to the card displayed below, where choosing option 4 will give the right answer.
+* `ans 2` +
+in response to the card displayed below, where choosing option 2 will give the right answer as the correct answer is
+'Pigs'.
 
 .Answering an MCQ card
-image::AnsweringMcqCard.png[width="400"]
-//end::testoperations[]
+image::AnsweringMcqCard.png[width="500"]
 
 ==== Reveal answer to a flashcard : `reveal` `Coming in v1.4`
-If you have no clue what the answer is, this command immediately reveals the correct answer. You will not need
-attempt any answer before being presented the correct answer.
+If you have no clue what the answer is, this command immediately reveals the correct answer, as seen in the figure
+below. You will not need attempt any answer before being presented the correct answer.
 
+.Revealed Answer page
+image::RevealAnswerPage.png[width="500"]
+
+{empty} +
 Format: `reveal`
 
 [NOTE]
 This command is only considered valid if a card question is currently being displayed in an active test session.
 
 ====
-* This is equivalent to a wrong answer, so there is no addition to the correct attempts of this card.
+* This is equivalent to a wrong answer attempted, so there is no addition to the correct attempts of this card.
 ====
 
 ==== Go to next flashcard : `next`
 
 You will be presented with the next lowest scoring flashcard in this current test session. Upon a successful next
-command, you should see a similar page below (see Figure 5).
+command, you should see a similar page below.
 
 .Next card question displayed upon a successful next command
-image::NextCommandPage.png[width="400"]
+image::NextCommandPage.png[width="500"]
 
 {empty} +
 Format: `next`
 
 [NOTE]
-This command is only considered valid if a card question and answer is currently being displayed  (has already done answering the question or revealed the answer) in an active test session. In other words, a flashcard cannot be skipped.
+This command is only considered valid if a card question and answer is currently being displayed (has already done answering the question or revealed the answer) in an active test session. In other words, a flashcard cannot be skipped.
 
 ====
 * If all cards have already been tested, a next command will be equivalent to an end command, ending the current test
@@ -528,16 +559,18 @@ This command is only considered valid if a card question and answer is currently
 [[EndCommand]]
 ==== End the current test session : `end`
 
-Quits the current test session and you will be back inside the card folder (see Figure 6 below).
+Quits the current test session and you will be back inside the card folder. You should see a page like below.
 
 .A successful end command brings you back to inside the folder
-image::EndCommandPage.png[width="400"]
+image::EndCommandPage.png[width="500"]
 
+{empty} +
 Format: `end`
 
 [NOTE]
 For the final <<testscore, test score>> to be recorded, you must have attempted at least 1/4 of cards in the
  card folder. If there are less than 4 cards, any number of cards attempted will be recorded.
+//end::testoperations[]
 
 
 //tag::reportoperations[]
@@ -573,7 +606,6 @@ Format: `end`
 
 
 === Global operations
-
 These commands are valid from anywhere in the application.
 
 ==== Viewing help : `help`
@@ -617,8 +649,8 @@ this number is automatically calculated and recorded.
 |`report` | Display a test score report for the current folder
 |`undo` | Undoes the previous undoable command.
 |`redo` | Redoes the last `undo`.
-|`change ..` | Return to the root directory (exit the current folder). A list of folders will be displayed.
-|`change FOLDER_INDEX`|Enters the folder specified by index. Panel on the left will display the list of cards in that folder.
+|`cd ..` | Return to the root directory (exit the current folder). A list of folders will be displayed.
+|`cd FOLDER_INDEX`|Enters the folder specified by index. Panel on the left will display the list of cards in that folder.
 |`addfolder FOLDER_NAME` | Creates a new flashcard folder with the specified name.
 |`deletefolder FOLDER_INDEX` | Removes the flashcard folder specified by index.
 |`editfolder FOLDER_INDEX NEW_FOLDER_NAME`| Renames the flashcard folder specified by index to the new name specified.

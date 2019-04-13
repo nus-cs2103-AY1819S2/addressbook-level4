@@ -2,6 +2,7 @@ package seedu.finance.model.record;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.Test;
 
@@ -34,5 +35,12 @@ public class AmountTest {
         assertTrue(Amount.isValidAmount("123.20")); // 2 dp only
         assertTrue(Amount.isValidAmount("1")); // one character
         assertTrue(Amount.isValidAmount("2147483648.50")); // long amount
+    }
+
+    @Test
+    public void hashCode_sameAmountInDouble() {
+        Amount amountOne = new Amount("50");
+        Amount amountTwo = new Amount("50.00");
+        assertEquals(amountOne.hashCode(), amountTwo.hashCode());
     }
 }

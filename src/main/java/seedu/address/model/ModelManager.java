@@ -273,6 +273,15 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public Activity generateExportedActivity(Activity activity) {
+        if (activity != null && !filteredActivities.contains(activity)) {
+            throw new ActivityNotFoundException();
+        }
+        setSelectedActivity(activity);
+        return selectedActivity.get(); // this function returns a activity
+    }
+
+    @Override
     public void setSelectedPerson(Person person) {
         if (person != null && !filteredPersons.contains(person)) {
             throw new PersonNotFoundException();
@@ -314,6 +323,13 @@ public class ModelManager implements Model {
         }
     }
 
+    public int getAttendedActivitiesCounter(Person person) {
+        return versionedAddressBook.getAttendedActivitiesCounter(person);
+    }
+
+    public int getParticipationRate(Person person) {
+        return versionedAddressBook.getParticipationRate(person);
+    }
     //=========== Filtered Activity List Accessors =============================================================
 
     /**

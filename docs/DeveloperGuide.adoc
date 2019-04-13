@@ -175,7 +175,7 @@ The `UI` component,
 
 [[fig-LogicClassDiagram]]
 .Structure of the Logic Component
-image::LogicClassDiagram.png[width="800"]
+image::LogicClassDiagram2.png[width="800"]
 
 *API* :
 link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
@@ -232,6 +232,48 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 == Implementation
 
 This section describes some noteworthy details on how certain features are implemented.
+
+// tag::modes_of_operation[]
+=== Operation mode control feature
+==== Current Implementation
+
+ClubManager is designed to manage members and activities and allow the user to link members to the activities.
+To syncronize the user interface to show appropriate information when users are doing different operation and to minimize confusion the following feature has been added.
+With the implementation of modes of operations which only allows commands to be executed in their respective modes.
+
+For example when ClubManager is in Member Mode, only member commands can be called (for example memberAdd, memberEdit etc.)
+
+image::appInMemberMode.png[width="800"]
+
+Calling an activity command will result in an error.
+
+image::appInMemberModeCallingActivityCmd.png[width="800"]
+
+General commands can be called in any mode (for example help and exit)
+
+Currently the app has 2 modes of operation, namely member mode and activity mode.
+
+==== Design of operation mode control
+Each Command extends a CommandType, currently MemberCommand, ActivityCommand and GeneralCommand
+
+For each CommandType, there is an ArrayList of modes in where this category of command can operate in.
+When the Command is created, it instatiates the operation modes. And when the execute function of the Command is called, the app would allow the execution of the command if the current app mode can be found within the the allowed mode list of the command.
+If the mode does not match, it will throw an exception preventing the execution and prompting the user to change the app mode (by using the mode command) before calling such a function.
+
+A coloured label on the top right corner also indicates the mode of operation at any time to let the user easily track which mode the app is operating in.
+
+image::ModeMemberLabel.png[width="400"]
+
+image::ModeActivityLabel.png[width="400"]
+
+==== Design Consideration to aid future expansion of app
+
+* The design approach of the mode of operation control allows easy expansion of the app to manage more categories if required.
+* The feature is designed with easy reuse in mind by allowing the checking of mode to be done dynamically.
+* Since the modes which the command can operate in is stored as an ArrayList, future implementation of more modes of operation, can be added to the list. The current function to check the allowed mode will still be valid.
+* The design also allows the type of command to operate in and not be restricted to either a single mode or all modes but also any combination of modes.
+
+// end::modes_of_operation[]
 
 // tag::undoredo[]
 === Undo/Redo feature
@@ -329,19 +371,30 @@ If the user input does not match, then an error message will be prompted to the 
 //end::membersort[]
 
 // tag::memberexport[]
-
 === MemberExport
 
 ==== Current Implementation
 image::MemberExportCommand_LogicComponentSequenceDiagram.png[width="800"]
 * The `memberExport` command extends from command and retrieves the Person object from the Model based on the specified index
 
-* Then it uses export utilities to create the file and write the Person's information to it
+* The `exportPerson` command is called with the Person object being pass into the function as a parameter. The function will get the formatting as defined in resources/exportutil personInfo.html
+
+* The formatted string in html mark up is then passed to the `exportDataToFile` function which then creates the file and writes to it.
 
 * If the index specified in invalid, an error message will be displayed
 
+* Currently the exported file is in html format. The formatted document is responsive to the screen size giving 2 options.
+
+* For large screens (diagram below)
+
+image::MemberExportExample.png[width="1000"]
+
+* For smaller mobile screens (diagram below)
+
+image::MemberExportExampleMobile.png[width="800"]
+
 ==== Future Implementation
-* For future implementation, the `memberExport` command will export the members details in a formatted html page
+* For future implementation, the `memberExport` would be able to take in an additional parameter for the selection of export format.
 // end::memberexport[]
 
 
@@ -368,22 +421,149 @@ The updated `Model`,
 * stores the Address Book data.
 * exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * exposes an unmodifiable `ObservableList<Activity>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
-* Each activity can have a HashMap of `Person` Object for attendance.
+* Each activity can have a `List` of `MatricNumber` Object for attendance.
 
-*to be completed*
 [discrete]
 ===== Activity Add Command
 The `activityAdd` command enables users to create a new activity with name, datetime, location. User could
 also provide additional description.
 
+When user enters the command `activityAdd` in `Command Box`, the following sequence of events would occur:
+
+Step 1. An `ActivityAddCommandParser` would be generated based on user's inputs. +
+The presence of required prefixes and whether any prefixes are duplicated would be checked. +
+Inputs would be checked in respective parser utils. +
+If all checks pass, an `ActivityAddCommand` would be generated with the specified `Activity`.
+
+Step 2. `ActivityAddCommand` would be executed by calling `ActivityAddCommand#execute` and it would attempt to
+add the new `Activity` to `Model` by calling `Model#addActivity` +
+Whether the `Activity` can be added to `Model` would be checked in this step.
+
+.Sequence of Checks for Adding Activity
+image::ActivityAddChecks.png[width="600" height="300"]
+
+
 [discrete]
-===== Activity List Command
+===== Activity Filter Command
+The `activityFilter` command enables users to filter activities based on the time. Either past or
+future activities would be filtered based on the condition in the user input.
+
+The `activityFilter` mechanism is facilitated by `ActivityFilterCommand`, `ActivityFilterCommandParser`,
+`ActivityDateTimeAfterPredicate` and `ActivityDateTimeBeforePredicate`.
+
+Given below is an example usage scenario and how the `ActivityFilterCommand` is carried out at each step.
+
+Step 1. The users want to find all future `Activity` scheduled for the next seven days by inputting
+`activityFilter + 7` in the command box.
+
+Step 2. The `ActivityFilterCommandParser` will parse the input and generate an `ActivityDateTimeAfterPredicate`
+based on the `+` condition given. The predicate will be passed to `ActivityFilterCommand`.
+
+Step 3. The `ActivityFilterCommand` will call the `execute` function by executing `Model#updateFilteredActivityList`
+
+Step 4. `AddressBook` will be committed due to potential update to `ActivityStatus` for each `Activity`.
+
+The following diagram is a partial sequence diagram that summarises what happens when the user call
+`ActivityFilterCommand` starting from `ActivityFilterCommandParser`.
+
+.Activity Filter Command Sequence Diagram
+image::ActivityFilterCommandSequenceDiagram.png[width="800"]
+
+[discrete]
+==== Activity Find Command
+The `activityFind` command enables users to search for activities with specific keywords in some attribute
+fields(i.e `ActivityName`, `ActivityDescription` and `ActivityLocation`).
+
+The structure and sequence of events after `activityFind` command is called is very similar to that of
+`activityFilter`. The one difference is, instead of generating a predicate based on conditions, the
+`ActivityFindCommandParser` would parse the input into a `Map` of `Prefix` mapped to a `List` of `String`(keywords)
+ and pass the map to generate an `ActivityContainsKeywordPredicate`.
+
+To avoid redundancy and repeating diagrams with minor details, the sequence of events could refer to the steps and
+sequence diagram for `ActivityFilterCommand` given above.
+
+The key component of `ActivityFindCommand` is the `ActivityContainsKeywordsPredicate#test` function. The snippet
+of code below is to show how it is implemented.
+
+[source,java]
+----
+public boolean test(Activity activity) {
+    // all attribute fields are searched.
+    if (keywords.containsKey(PREFIX_ALL)) {
+        return keywords.get(PREFIX_ALL).stream()
+            .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(activity.getName().fullActivityName, keyword)
+                || StringUtil.containsWordIgnoreCase(activity.getDescription().value, keyword)
+                || StringUtil.containsWordIgnoreCase(activity.getLocation().value, keyword));
+    }
+
+     // OR search for a single boolean
+   boolean isNameMatched = keywords.get(PREFIX_ACTIVITYNAME) == null
+       || keywords.get(PREFIX_ACTIVITYNAME).stream()
+           .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(activity.getName().fullActivityName, keyword));
+
+   boolean isDescriptionMatched = keywords.get(PREFIX_ADESCRIPTION) == null
+       || keywords.get(PREFIX_ADESCRIPTION).stream()
+           .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(activity.getDescription().value, keyword));
+
+   boolean isLocationMatched = keywords.get(PREFIX_LOCATION) == null
+       || keywords.get(PREFIX_LOCATION).stream()
+           .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(activity.getLocation().value, keyword));
+
+   // AND search between prefixes
+        return isNameMatched && isDescriptionMatched && isLocationMatched;
+}
+----
+
+Here is some usage scenarios to better elucidate the logic of the predicate use:
+
+* If a user want to find some `Activity` with name `Workshop` or `Outing`, it could be achieved by typing
+`activityFind n/Workshop Outing`.
+* If a user want to find some `Activity` with name `Movie` or `Viewing` and the location is a `cinema`,
+`activityFind n/Movie Viewing l/cinema` could be used. +
+`Activity` with `Movie Panel` as `ActivityName`, `Club Room` as `ActivityLocation` would not be displayed
+by this command because it does not match the keyword provided by the location prefix.
+* If no `Prexfix` is found, e.g. `activityFind Summer`, all `Activity` with `Summer` in any of the three
+fields would be listed.
 
 ==== Design Considerations
 This section describes the pros and cons of the current implementation of the activity list
 feature.
 
-==== Future Implementation
+===== Aspect: Updating the status of activities
+
+* **Alternative 1(current choice):** Loop through the entire `ActivityList` in `AddressBook` each time
+the predicate to `FilteredActivityList` is updated.
+
+** Pros: Ensures that all the status of `Activity` displayed by most command calls are accurate and every
+`Activity` is in the sorted position whenever the list is displayed. The given code snippet below demonstrates
+how this is achieved.
+[source, java]
+    //in ModelManager.java
+    public void updateFilteredActivityList(Predicate<Activity> predicate) {
+        requireNonNull(predicate);
+        updateActivityList(); //loop through activitylist to update any outdated status
+        filteredActivities.setPredicate(predicate);
+    }
+** Cons: The update function would be called for most activity commands, as it loops through the entire `ActivityList`,
+it would make the app slower in performance. There may be unnecessary loops as well.
+
+* **Alternative 2:** Implement an `activityUpdate` command and `ActivityStatus` would only be updated when
+the command is called.
+
+** Pros: Faster in performance.
+** Cons: `ActivityStatus` displayed in the List may be outdated and the `Activity` might not be in the correct
+sorted position.
+
+===== Aspect: How to specify search field for `activityFind`
+
+* **Alternative 1 (current choice):** Search conditions are specified by `Prefix` such as `n/` for `ActivityName`
+** Pros: Similar to other activity commands such as `activityAdd` or `activityEdit`. More accurate results.
+** Cons: May be hard for new users to remember and understand the logic.
+
+* **Alternative 2:** Use `name` etc. as search conditions.
+** Pros: More intuitive for new users.
+** Cons: Inconsistency with other activity commands. It may yield incorrect results as the app need to
+distinguish whether an input is a keyword or a search condition.
 
 // end::activity_list[]
 

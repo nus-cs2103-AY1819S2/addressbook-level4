@@ -324,10 +324,24 @@ public class MemberAddCommandTest {
         }
 
         @Override
+        public Activity generateExportedActivity(Activity activity) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void removeMemberFromAllAttendance(MatricNumber matricNumber) {
             throw new AssertionError("This method should not be called.");
         }
 
+        @Override
+        public int getParticipationRate(Person person) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public int getAttendedActivitiesCounter(Person person) {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
     /**

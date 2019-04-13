@@ -122,4 +122,14 @@ public interface Logic {
      * Returns list of activities attended by Person
      */
     ObservableList<Activity> getActivitiesOfPerson();
+
+    /**
+     * Returns the number of activities attended by the member.
+     */
+    int getAttendedActivitiesCounter(Person person);
+
+    /**
+     * Return participation rate of the member.
+     */
+    int getParticipationRate(Person person);
 }

@@ -31,15 +31,16 @@ import seedu.address.model.person.MatricNumber;
 public class ActivityEditCommand extends ActivityCommand {
 
     public static final String COMMAND_WORD = "activityEdit";
+    public static final String COMMAND_ALIAS = "aEdit";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the activity identified "
             + "by the index number used in the displayed activity list. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_ACTIVITYNAME + "NAME] "
-            + "[" + PREFIX_DATETIME + "MATRICNUMBER] "
-            + "[" + PREFIX_LOCATION + "PHONE] "
-            + "[" + PREFIX_ADESCRIPTION + "EMAIL]... \n "
+            + "[" + PREFIX_DATETIME + "DATETIME] "
+            + "[" + PREFIX_LOCATION + "LOCATION] "
+            + "[" + PREFIX_ADESCRIPTION + "DESCRIPTION]... \n "
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_ACTIVITYNAME + "Final Exam "
             + PREFIX_DATETIME + "30/04/2019 1700";

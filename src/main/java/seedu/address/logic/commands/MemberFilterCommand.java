@@ -18,6 +18,7 @@ import seedu.address.model.person.YearOfStudyContainsKeywordsPredicate;
  */
 public class MemberFilterCommand extends MemberCommand {
     public static final String COMMAND_WORD = "memberFilter";
+    public static final String COMMAND_ALIAS = "mFilter";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + " ：Generates a filtered member's list based on a given"
             + " filter criteria. "

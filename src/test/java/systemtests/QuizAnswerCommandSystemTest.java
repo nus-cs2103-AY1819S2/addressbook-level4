@@ -3,6 +3,11 @@ package systemtests;
 import static seedu.address.commons.core.Messages.MESSAGE_LESSON_COMMANDS;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.logic.commands.quiz.QuizAnswerCommand.MESSAGE_CORRECT;
+import static seedu.address.model.util.SampleCards.SAMPLE_1_CARD_1_CORE_1;
+import static seedu.address.model.util.SampleCards.SAMPLE_1_CARD_1_CORE_2;
+import static seedu.address.model.util.SampleCards.SAMPLE_1_CARD_2_CORE_1;
+import static seedu.address.model.util.SampleCards.SAMPLE_1_CARD_2_CORE_2;
+import static seedu.address.model.util.SampleLessons.SAMPLE_1_NAME;
 import static seedu.address.testutil.TypicalSession.SESSION_REVIEW_2;
 
 import org.junit.Test;
@@ -16,7 +21,7 @@ public class QuizAnswerCommandSystemTest extends BrainTrainSystemTest {
     @Test
     public void answer() {
         // starts the quiz
-        executeCommand(QuizStartCommand.COMMAND_WORD + " n/sampleData c/2 m/REVIEW\n");
+        executeCommand(QuizStartCommand.COMMAND_WORD + " n/" + SAMPLE_1_NAME + " c/2 m/REVIEW\n");
 
         /* Case: some invalid quiz command in braintrain
          * -> fails, invalid command
@@ -26,7 +31,7 @@ public class QuizAnswerCommandSystemTest extends BrainTrainSystemTest {
         /* Case: answer a question correctly in braintrain
          * -> answer 1st question
          */
-        String command = "Brussels";
+        String command = SAMPLE_1_CARD_2_CORE_2;
         QuizModel expectedModel = getQuizModel();
         Quiz quiz = new Quiz(SESSION_REVIEW_2.generateSession(), SESSION_REVIEW_2.getMode());
         expectedModel.init(quiz, SESSION_REVIEW_2);
@@ -40,7 +45,7 @@ public class QuizAnswerCommandSystemTest extends BrainTrainSystemTest {
         /* Case: answer a question correctly in braintrain
          * -> answer 2nd question
          */
-        command = "Tokyo";
+        command = SAMPLE_1_CARD_1_CORE_2;
         expectedResultMessage = MESSAGE_CORRECT;
         expectedModel.updateTotalAttemptsAndStreak(1, command);
         expectedModel.getNextCard();
@@ -50,7 +55,7 @@ public class QuizAnswerCommandSystemTest extends BrainTrainSystemTest {
         /* Case: answer a question correctly in braintrain
          * -> answer 3rd question
          */
-        command = "Belgium";
+        command = SAMPLE_1_CARD_2_CORE_1;
         expectedResultMessage = MESSAGE_CORRECT;
         expectedModel.updateTotalAttemptsAndStreak(0, command);
         expectedModel.getNextCard();
@@ -60,7 +65,7 @@ public class QuizAnswerCommandSystemTest extends BrainTrainSystemTest {
         /* Case: answer a question correctly in braintrain
          * -> answer 4th and last question
          */
-        command = "Japan";
+        command = SAMPLE_1_CARD_1_CORE_1;
         // switch back to management mode
         expectedResultMessage = MESSAGE_LESSON_COMMANDS;
         expectedModel.updateTotalAttemptsAndStreak(1, command);

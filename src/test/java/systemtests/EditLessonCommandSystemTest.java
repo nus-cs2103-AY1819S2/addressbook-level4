@@ -2,6 +2,7 @@ package systemtests;
 
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.logic.commands.management.EditLessonCommand.MESSAGE_SUCCESS;
+import static seedu.address.model.util.SampleLessons.SAMPLE_1_NAME;
 
 import org.junit.Test;
 
@@ -11,7 +12,7 @@ import seedu.address.model.modelmanager.Model;
 
 public class EditLessonCommandSystemTest extends BrainTrainSystemTest {
     @Test
-    public void open() {
+    public void edit() {
         /* Case: invalid command
          * -> fails, invalid command
          */
@@ -24,7 +25,6 @@ public class EditLessonCommandSystemTest extends BrainTrainSystemTest {
         command = EditLessonCommand.COMMAND_WORD + " 1";
         ManagementModel expectedModel = getManagementModel();
         assertCommandSuccess(command, expectedModel);
-
     }
 
     /**
@@ -38,7 +38,7 @@ public class EditLessonCommandSystemTest extends BrainTrainSystemTest {
      * @see BrainTrainSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
     private void assertCommandSuccess(String command, ManagementModel expectedModel) {
-        String expectedResultMessage = String.format(MESSAGE_SUCCESS, "sampleData", true);
+        String expectedResultMessage = String.format(MESSAGE_SUCCESS, SAMPLE_1_NAME, true);
         executeCommand(command);
         assertApplicationDisplaysExpected("", expectedResultMessage, expectedModel);
         assertCommandBoxShowsDefaultStyle();

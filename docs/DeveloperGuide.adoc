@@ -446,7 +446,10 @@ Furthermore, every time any record of the specified patient is modified, a new i
 === Task Management and related commands
 ==== Current Implementation: Task storage and attributes
 
-The `Task` class is a new type of object stored by the application in addition to the `Patient` class. It is meant to represent any task a dentist would have to perform. `Task` objects are kept in a list and handled by the `UniqueTaskList` class. This follows the same process as the `Patient` class and by extension, the `Person` class which has a `UniquePersonList` handling a list of `Person` objects. Storing information of all objects does not change between `Task` and `Person` classes and both are stored into a `TeethHub.json` file. Attributes for `Task` are instantiated as objects of their own much like the current implementation of `Patient`/`Person` .
+The `Task` class is a new type of object stored by the application in addition to the `Patient` class. It is meant to represent any task a dentist would have to perform. `Task` objects are kept in a list and handled by the `UniqueTaskList` class. This follows the same process as the `Patient` class and by extension, the `Person` class which has a `UniquePersonList` handling a list of `Person` objects. Storing information of all objects does not change between `Task` and `Person` classes and both are stored into a `TeethHub.json` file. Attributes for `Task` are instantiated as objects with their own methods to validate the user's input much like the current implementation of `Patient`/`Person` .
+
+[NOTE]
+Task has an attribute called `LinkedPatient` which stores the `NAME` and `NRIC` of a patient. This is to allow tasks to be bound to a patient and facilliate another implementation `taskdone` .
 
 The following class diagram details the relevant attributes for a `Task` object along with the multiplicity association between the classes:
 
@@ -456,7 +459,7 @@ image::TaskClassDiagramFinal.png[width=""]
 
 {nbsp}
 
-==== Current Implementation: Task interaction commands (Basic)
+==== Current Implementation: Task interaction feature (Basic)
 
 Essential commands for basic interaction with the tasks such as, `taskadd`, `taskedit` and `taskdelete` are implemented in a similar fashion as compared to existing commands. All three commands extend from the abstract class `Command` and follow the same execution flow as `patientadd`, `patientedit` and `patientdelete`. The typical execution flow of these commands mostly involve the `Logic` and `Model` component of the application and the order can be detailed as follows:
 
@@ -469,18 +472,35 @@ Essential commands for basic interaction with the tasks such as, `taskadd`, `tas
 . Result from the command's execution gets sent back to the UI and eventually the user.
 
 [NOTE]
-The commands to interact with task and patient data may be similar in the way they interact with the Model, but checks done within the commands and their parsers are different due to different object types involved.
+Adding and editing tasks may involved additional calls to `Model` if the user specifies a patient to link to the task as the application will have to extract unique information from the `Patient` to store in the task
 
 
 The following sequence diagram illustrates the generic command execution flow and the components involved:
 
+
+{nbsp}
+
 image::GenericSequenceDiagram.png[width=""]
+
+{nbsp}
 
 
 ==== Current implementation: Taskdone feature
 
+The `taskdone` command is a feature implemented to allow the user to automatically complete a task of his/her choice, setting it to `COMPLETED`. The command also allows the user to automatically add a record to the task's `LinkedPatient` upon completion of the task. This feature makes use of the `Model` by calling its API to perform additional interactions with both task and patient.
 
-// end::taskcchj1995[]
+[NOTE]
+The current `patientedit` and `patientdelete` commands have been modified to update tasks linked to a patient when said patient gets modified or deleted. However, to keep in line with the concept of Defensive Programming, the command will check and inform the user in an event where the `LinkedPatient` cannot be found.
+
+The following sequence diagram illustrates flow in which the command's execution takes when completing a task with the index `1`:
+
+{nbsp}
+
+image::TaskDoneSequenceDiagram.png[width=""]
+
+{nbsp}
+
+// end::task_cchj1995[]
 
 // tag::undoredo[]
 === Undo/Redo feature

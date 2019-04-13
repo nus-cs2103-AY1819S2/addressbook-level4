@@ -3,6 +3,7 @@ package seedu.address.model.prescription;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
@@ -41,6 +42,14 @@ public class UniquePrescriptionList implements Iterable<Prescription> {
     public boolean contains(Prescription other) {
         requireNonNull(other);
         return internalList.stream().anyMatch(other::equals);
+    }
+
+    /**
+     * Sort prescription list by date
+     */
+    public void sort(Comparator<Prescription> prescriptionComparator) {
+        requireNonNull(prescriptionComparator);
+        FXCollections.sort(internalList, prescriptionComparator);
     }
 
     /**

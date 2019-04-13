@@ -42,6 +42,7 @@ import seedu.address.logic.commands.SelectMedHistCommand;
 import seedu.address.logic.commands.SelectPatientCommand;
 import seedu.address.logic.commands.SelectPrescriptionCommand;
 import seedu.address.logic.commands.SortMedHistCommand;
+import seedu.address.logic.commands.SortPrescriptionCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -163,6 +164,9 @@ public class DocXParser {
 
         case SelectPrescriptionCommand.COMMAND_WORD:
             return new SelectPrescriptionCommandParser().parse(arguments);
+
+        case SortPrescriptionCommand.COMMAND_WORD:
+            return new SortPrescriptionCommandParser().parse(arguments);
 
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();

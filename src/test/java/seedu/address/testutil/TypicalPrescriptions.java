@@ -9,7 +9,8 @@ import seedu.address.model.prescription.Prescription;
 
 
 /**
- * A utility class containing a list of {@code Prescription} objects to be used in tests.
+ * A utility class containing a list of {@code Prescript
+ * ion} objects to be used in tests.
  */
 public class TypicalPrescriptions {
 

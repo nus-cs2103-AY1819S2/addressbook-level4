@@ -396,6 +396,13 @@ public class DocX implements ReadOnlyDocX {
         indicateModified();
     }
 
+    /**
+     * Sort prescriptions by date.
+     */
+    public void sortPrescription(Comparator<Prescription> prescriptionComparator) {
+        prescriptions.sort(prescriptionComparator);
+    }
+
 
     /**
      * Removes {@code key} from this {@code DocX}.

@@ -54,7 +54,7 @@ public class RequestBuilder {
         this.phone = new Phone(DEFAULT_PATIENT_PHONE);
         this.nric = new Nric(DEFAULT_PATIENT_NRIC);
         this.address = new Address(DEFAULT_PATIENT_ADDRESS);
-        this.healthWorker = DEFAULT_STAFF_NAME;
+        this.healthWorker = null;
         this.requestDate = new RequestDate(DEFAULT_DATE);
         this.requestStatus = new RequestStatus(DEFAULT_STATUS);
         this.conditions = new HashSet<>(Arrays.asList(new Condition(DEFAULT_REQUEST)));
@@ -129,11 +129,11 @@ public class RequestBuilder {
     }
 
     /**
-     * Sets the {@code healthStaff} of the {@code Request} we are building.
+     * Sets the {@code healthWorker} of the {@code Request} we are building.
      */
-    public RequestBuilder withHealthStaff(HealthWorker healthStaff) {
+    public RequestBuilder withHealthWorker(HealthWorker healthStaff) {
         requireNonNull(healthStaff);
-        this.healthWorker = healthStaff.getName().toString();
+        this.healthWorker = healthStaff.getNric().toString();
         return this;
     }
 

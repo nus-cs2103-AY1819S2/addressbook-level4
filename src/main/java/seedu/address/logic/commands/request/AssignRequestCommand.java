@@ -5,11 +5,16 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_HEALTHWORKER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_REQUEST;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.StringJoiner;
+import java.util.TreeSet;
+import java.util.logging.Logger;
 
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
@@ -27,6 +32,9 @@ public class AssignRequestCommand extends Command implements RequestCommand {
 
     public static final String COMMAND_WORD = "assign";
 
+    public static final int MIN_REQUEST_DURATION = 2; // buffer between requests should be at
+    // least 2 hours
+
     public static final String MESSAGE_SUCCESS = "Assigned request %1$s successfully to healthworker %2$s";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Assign requests to healthworker. "
@@ -36,6 +44,8 @@ public class AssignRequestCommand extends Command implements RequestCommand {
         + "Example: " + COMMAND_WORD + " "
         + PREFIX_HEALTHWORKER + "1 "
         + PREFIX_REQUEST + "1 " + PREFIX_REQUEST + "3";
+
+    private static final Logger logger = LogsCenter.getLogger(AssignRequestCommand.class);
 
     private final Index healthworkerId;
     private final Set<Index> requestIds;
@@ -58,6 +68,8 @@ public class AssignRequestCommand extends Command implements RequestCommand {
         Set<Request> requestsToAdd = new HashSet<>();
 
         if (healthworkerId.getZeroBased() >= lastShownHealthworkerList.size()) {
+            logger.warning("Invalid healthworker index " + healthworkerId.getOneBased()
+                + " accessed for assign");
             throw new CommandException(Messages.MESSAGE_INVALID_HEALTHWORKER_DISPLAYED_INDEX);
         }
 
@@ -66,17 +78,56 @@ public class AssignRequestCommand extends Command implements RequestCommand {
 
         for (Index i : requestIds) {
             if (i.getZeroBased() >= lastShownRequestList.size()) {
+                logger.warning("Invalid request index " + healthworkerId.getOneBased()
+                    + " accessed for assign");
                 throw new CommandException(Messages.MESSAGE_INVALID_REQUEST_DISPLAYED_INDEX);
             }
 
             Request request = lastShownRequestList.get(i.getZeroBased());
             if (request.isCompleted()) {
+                logger.info("Error: attempted to assign to a completed request at index " + i.getOneBased());
                 throw new CommandException(Messages.MESSAGE_REQUEST_COMPLETED_CANNOT_ASSIGN);
             }
             requestsToAdd.add(request);
         }
 
         HealthWorker assignedHealthWorker = new HealthWorker(healthWorkerToAssign);
+
+        // First, adds all the date and time that the current healthworker is assigned to
+        TreeSet<Date> dates = new TreeSet<>();
+
+        for (Request req : lastShownRequestList) {
+            if (assignedHealthWorker.getNric().toString().equals(req.getHealthStaff()) && req.isOngoingStatus()) {
+                dates.add(req.getRequestDate().getDate());
+            }
+        }
+
+        Calendar calendar = Calendar.getInstance();
+
+        for (Request request : requestsToAdd) {
+
+            if (healthWorkerToAssign.getNric().toString().equals(request.getHealthStaff())) {
+                throw new CommandException(Messages.MESSAGE_HEALTHWORKER_ALREADY_ASSIGNED);
+            }
+
+            Date date = request.getRequestDate().getDate();
+            calendar.setTime(date);
+            calendar.add(Calendar.HOUR_OF_DAY, -MIN_REQUEST_DURATION);
+            Date lowerLimit = calendar.getTime();
+            logger.info("Lower limit: " + lowerLimit);
+            calendar.add(Calendar.HOUR_OF_DAY, 2 * MIN_REQUEST_DURATION);
+            Date upperLimit = calendar.getTime();
+            logger.info("Upper limit: " + upperLimit);
+
+            if (dates.contains(date) || (dates.lower(date) != null && dates.lower(date).after(lowerLimit))
+                || (dates.higher(date) != null && dates.ceiling(date).before(upperLimit))) {
+                throw new CommandException(Messages.MESSAGE_HEALTHWORKER_OCCUPIED_CANNOT_ASSIGN);
+            }
+
+            dates.add(date);
+
+        }
+
         for (Request request : requestsToAdd) {
             Request updatedRequest = new Request(request);
             updatedRequest.setHealthWorker(assignedHealthWorker);

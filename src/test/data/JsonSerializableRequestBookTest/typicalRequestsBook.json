@@ -7,7 +7,7 @@
     "conditions" : "Physiotherapy ",
     "requestStatus" : "ONGOING",
     "requestDate" : "01-01-2019 10:00:00",
-    "healthWorker": "Andy Tan"
+    "healthWorker": "S8312942G"
   }, {
     "name": "Benson Meier",
     "nric": "S9274100D",
@@ -15,8 +15,8 @@
     "address": "311, Clementi Ave 2, #02-25",
     "conditions" : "Palliative ",
     "requestStatus" : "ONGOING",
-    "requestDate" : "18-03-2019 08:00:00",
-    "healthWorker": "Betty Meier"
+    "requestDate" : "02-01-2019 08:00:00",
+    "healthWorker": "S8176952L"
   }, {
     "name": "Carl Kurz",
     "nric": "S9328723A",
@@ -24,26 +24,71 @@
     "address": "wall street",
     "conditions" : "Palliative ",
     "requestStatus" : "ONGOING",
-    "requestDate" : "02-04-2019 14:00:00",
-    "healthWorker": "Carlie Kurz"
+    "requestDate" : "04-01-2019 14:00:00",
+    "healthWorker": "S9312942G"
   }, {
     "name": "Daniel Meier",
-    "nric": "S8772513C",
-    "phone": "96734481",
-    "address": "108 McNair Road, #09-15",
-    "conditions" : "Palliative ",
-    "requestStatus" : "ONGOING",
-    "requestDate" : "02-05-2019 12:00:00",
-    "healthWorker": "Carlie Kurz"
-  }, {
-    "name": "Jane Romero",
     "nric": "S2652663Z",
     "phone": "82015737",
     "address": "10th street",
+    "conditions" : "Palliative ",
+    "requestStatus" : "COMPLETED",
+    "requestDate" : "02-01-2019 18:00:00",
+    "healthWorker": "S9701568T"
+  }, {
+    "name" : "Emmanuel Meier",
+    "nric" : "S2862663Z",
+    "phone" : "82205737",
+    "address" : "10th street",
+    "requestDate" : "02-01-2019 18:00:00",
+    "conditions" : "Palliative",
+    "requestStatus" : "PENDING",
+    "healthWorker" : null
+  }, {
+    "name" : "Francis Meier",
+    "nric" : "S2122663Z",
+    "phone" : "82655737",
+    "address" : "10th street",
+    "requestDate" : "02-01-2019 18:00:00",
+    "conditions" : "Palliative",
+    "requestStatus" : "PENDING",
+    "healthWorker" : null
+  }, {
+    "name" : "Gladys Meier",
+    "nric" : "S2176663Z",
+    "phone" : "82659337",
+    "address" : "10th street",
+    "requestDate" : "02-01-2019 19:00:00",
+    "conditions" : "Palliative",
+    "requestStatus" : "PENDING",
+    "healthWorker" : null
+  }, {
+    "name" : "Hepzhi Meier",
+    "nric" : "S2176698Z",
+    "phone" : "82658937",
+    "address" : "10th street",
+    "requestDate" : "02-01-2019 16:00:00",
+    "conditions" : "Palliative",
+    "requestStatus" : "PENDING",
+    "healthWorker" : null
+  }, {
+    "name" : "Indiana Meier",
+    "nric" : "S2184698Z",
+    "phone" : "82692937",
+    "address" : "10th street",
+    "requestDate" : "01-01-2019 08:00:00",
+    "conditions" : "Palliative",
+    "requestStatus" : "PENDING",
+    "healthWorker" : null
+  }, {
+    "name" : "Jane Romero",
+    "nric" : "S2652663Z",
+    "phone" : "82845737",
+    "address" : "10th street",
+    "requestDate" : "02-01-2019 15:00:00",
     "conditions" : "Palliative",
     "requestStatus" : "COMPLETED",
-    "requestDate" : "02-01-2019 15:00:00",
-    "healthWorker": "Ella Meyer"
+    "healthWorker" : "S9112942G"
   }, {
     "name": "Nea Karlsson",
     "nric": "S8875613T",
@@ -52,6 +97,6 @@
     "conditions" : "Physiotherapy",
     "requestStatus" : "ONGOING",
     "requestDate" : "25-03-2019 10:00:00",
-    "healthWorker": "Ella Meyer"
+    "healthWorker": "S9112942G"
   } ]
 }

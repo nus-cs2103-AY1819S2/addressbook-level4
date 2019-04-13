@@ -17,6 +17,7 @@ import seedu.address.model.person.Person;
 public class MemberDeleteCommand extends MemberCommand {
 
     public static final String COMMAND_WORD = "memberDelete";
+    public static final String COMMAND_ALIAS = "mDelete";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the person identified by the index number used in the displayed person list.\n"
@@ -41,6 +42,7 @@ public class MemberDeleteCommand extends MemberCommand {
         }
 
         Person personToDelete = lastShownList.get(targetIndex.getZeroBased());
+        model.removeMemberFromAllAttendance(personToDelete.getMatricNumber());
         model.deletePerson(personToDelete);
         model.commitAddressBook();
         return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, personToDelete));

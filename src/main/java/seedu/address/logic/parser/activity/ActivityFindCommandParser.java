@@ -6,8 +6,12 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_ADESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ALL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_LOCATION;
 
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.stream.Stream;
+import java.util.HashMap;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import seedu.address.logic.commands.ActivityFindCommand;
 import seedu.address.logic.parser.ArgumentMultimap;
@@ -16,52 +20,54 @@ import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.activity.ActivityContainsKeywordsPredicate;
-import seedu.address.model.activity.ActivityDescriptionContainsKeywordsPredicate;
-import seedu.address.model.activity.ActivityLocationContainsKeywordsPredicate;
-import seedu.address.model.activity.ActivityNameContainsKeywordsPredicate;
 
 
 /**
  * Parses input arguments and creates a new ActivityFindCommand object
  */
 public class ActivityFindCommandParser implements Parser<ActivityFindCommand> {
+    private static final ArrayList<Prefix> prefixes = new ArrayList<>(Arrays.asList(PREFIX_ACTIVITYNAME,
+            PREFIX_ADESCRIPTION, PREFIX_LOCATION));
+
     /**
      * Parses the given {@code String} of arguments in the context of the ActivityFindCommand
      * and returns an ActivityFindCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
     public ActivityFindCommand parse(String args) throws ParseException {
+
+        List<Prefix> prefixesFound = new ArrayList<>();
+        Matcher matcher = Pattern.compile("\\s\\w+/").matcher(args);
+        while (matcher.find()) {
+            prefixesFound.add(new Prefix(matcher.group().trim()));
+        }
+        for (Prefix p: prefixesFound) {
+            if (prefixes.stream().noneMatch(x -> x.equals(p))) {
+                throw new ParseException(String
+                        .format(MESSAGE_INVALID_COMMAND_FORMAT, ActivityFindCommand.MESSAGE_USAGE));
+            }
+        }
+
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_ACTIVITYNAME, PREFIX_LOCATION, PREFIX_ALL,
-                        PREFIX_ADESCRIPTION);
-        if (!isPrefixPresent(argMultimap, PREFIX_ACTIVITYNAME, PREFIX_LOCATION, PREFIX_ADESCRIPTION, PREFIX_ALL)
-                || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ActivityFindCommand.MESSAGE_USAGE));
+                ArgumentTokenizer.tokenize(args, PREFIX_ACTIVITYNAME, PREFIX_LOCATION, PREFIX_ADESCRIPTION);
+        HashMap<Prefix, List<String>> activityFindKeywords = new HashMap<>();
+
+        if (!isAnyPrefixPresent(argMultimap) && argMultimap.getPreamble().isEmpty()) {
+            throw new ParseException(String
+                    .format(MESSAGE_INVALID_COMMAND_FORMAT, ActivityFindCommand.MESSAGE_USAGE));
         }
 
-        if (areMultiplePrefixesPresent(argMultimap, PREFIX_ACTIVITYNAME, PREFIX_LOCATION, PREFIX_ADESCRIPTION,
-                PREFIX_ALL)) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    ActivityFindCommand.MESSAGE_MULTIPLE_PREFIXES));
+        if (!isAnyPrefixPresent(argMultimap)) {
+            List<String> keywords = new ArrayList<>(Arrays.asList(argMultimap.getPreamble().split("\\s+")));
+            activityFindKeywords.put(PREFIX_ALL, keywords);
         }
 
-        if (argMultimap.getValue(PREFIX_ALL).isPresent()) {
-            String[] keywords = getKeyWords(argMultimap, PREFIX_ALL);
-            return new ActivityFindCommand(new ActivityContainsKeywordsPredicate(Arrays.asList(keywords)));
+        for (Prefix p: prefixesFound) {
+            List<String> keywords = getKeyWords(argMultimap, p);
+            activityFindKeywords.put(p, keywords);
         }
 
-        if (argMultimap.getValue(PREFIX_ACTIVITYNAME).isPresent()) {
-            String[] keywords = getKeyWords(argMultimap, PREFIX_ACTIVITYNAME);
-            return new ActivityFindCommand(new ActivityNameContainsKeywordsPredicate(Arrays.asList(keywords)));
-        }
-
-        if (argMultimap.getValue(PREFIX_ADESCRIPTION).isPresent()) {
-            String[] keywords = getKeyWords(argMultimap, PREFIX_ADESCRIPTION);
-            return new ActivityFindCommand(new ActivityDescriptionContainsKeywordsPredicate(Arrays.asList(keywords)));
-        }
-
-        String[] keywords = getKeyWords(argMultimap, PREFIX_LOCATION);
-        return new ActivityFindCommand(new ActivityLocationContainsKeywordsPredicate(Arrays.asList(keywords)));
+        return new ActivityFindCommand(new ActivityContainsKeywordsPredicate(activityFindKeywords));
 
     }
 
@@ -69,29 +75,26 @@ public class ActivityFindCommandParser implements Parser<ActivityFindCommand> {
      * Returns true if none of the prefixes contains empty {@code Optional} values in the given
      * {@code ArgumentMultimap}.
      */
-    private static boolean isPrefixPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return Stream.of(prefixes).anyMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
+    private static boolean isAnyPrefixPresent(ArgumentMultimap argumentMultimap) {
+        return prefixes.stream().anyMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
 
     /**
      * Returns the keywords for the given prefix
      */
-    private static String[] getKeyWords (ArgumentMultimap argumentMultimap, Prefix prefix) throws ParseException {
-        String arg = argumentMultimap.getValue(prefix).get();
-        String trimmedArg = arg.trim();
-        if (trimmedArg.isEmpty()) {
-            throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, ActivityFindCommand.MESSAGE_USAGE));
+    private static List<String> getKeyWords (ArgumentMultimap argumentMultimap, Prefix prefix) throws ParseException {
+        List<String> args = argumentMultimap.getAllValues(prefix);
+        List<String> keywords = new ArrayList<>();
+        for (String arg: args) {
+            keywords.addAll(Arrays.asList(arg.trim().split("\\s+")));
         }
-        return trimmedArg.split("\\s+");
+        if (keywords.isEmpty()) {
+            throw new ParseException(String
+                    .format(MESSAGE_INVALID_COMMAND_FORMAT, ActivityFindCommand.MESSAGE_USAGE));
+        }
+        return keywords;
     }
 
-    /**
-     * Returns true if there are more than one prefixes contain value {@code Optional} in the given
-     * {@code ArgumentMultimap}.
-     */
-    private static boolean areMultiplePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return (Stream.of(prefixes).filter(prefix -> argumentMultimap.getValue(prefix).isPresent()).count() > 1);
-    }
 }
+
 

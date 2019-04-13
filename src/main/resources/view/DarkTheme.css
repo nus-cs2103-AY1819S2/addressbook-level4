@@ -351,6 +351,39 @@
     -fx-font-size: 11;
 }
 
+#tags .darkestblue {
+    -fx-text-fill: white;
+    -fx-background-color: #113F67;
+}
+
+#tags .darkblue {
+    -fx-text-fill: white;
+    -fx-background-color: #38598b;
+}
+
+ #tags .blue {
+    -fx-text-fill: white;
+    -fx-background-color: #113F67;
+}
+
+ #tags .lightblue {
+    -fx-background-color: #87c0cd;
+    -fx-text-fill: black;
+}
+ #tags .lightestblue {
+    -fx-background-color: #b7fbff;
+    -fx-text-fill: black;
+}
+ #tags .black {
+    -fx-background-color: black;
+    -fx-text-fill: white;
+}
+
+ #tags .white {
+    -fx-text-fill: black;
+    -fx-background-color: #f3f9fb;
+}
+
 #status {
     -fx-text-fill: white;
     -fx-padding: 1 3 1 3;
@@ -378,4 +411,32 @@
 
 .labelMode-Activity {
     -fx-background-color: #418FDE;
+}
+
+.activity-details-title {
+    -fx-font-size: 12pt;
+    -fx-font-family: "Segoe UI";
+    -fx-fill: white;
+    -fx-padding:10;
+}
+
+.activity-details-text {
+    -fx-font-size: 10pt;
+    -fx-font-family: "Segoe UI";
+    -fx-fill: white;
+    -fx-padding:10;
+}
+
+.member-details-title {
+      -fx-font-size: 28px;
+      -fx-font-style: italic;
+      -fx-fill: white;
+      -fx-padding:10;
+
+}
+
+ .member-details-text {
+      -fx-font-size: 14px;
+      -fx-fill: white;
+      -fx-padding:10;
 }

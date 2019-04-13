@@ -27,7 +27,7 @@ public class ActivityDateTime implements Comparable<ActivityDateTime> {
      * The first character of the address must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    private static final String DATE_PART_REGEX = "^\\d{1,2}" + "/" + "\\d{1,2}" + "/" + "\\d{4}";
+    private static final String DATE_PART_REGEX = "^\\d{2}" + "/" + "\\d{2}" + "/" + "\\d{4}";
     private static final String TIME_PART_REGEX = "\\d{4}";
     private static final String VALIDATION_REGEX = DATE_PART_REGEX + " " + TIME_PART_REGEX;
 
@@ -92,9 +92,10 @@ public class ActivityDateTime implements Comparable<ActivityDateTime> {
         List<String> dateTimeParts = Arrays.asList(datetime.split(" "));
         String datePart = dateTimeParts.get(0);
         String timePart = dateTimeParts.get(1);
-        int day = Integer.parseInt(datePart.substring(0, 2));
-        int month = Integer.parseInt(datePart.substring(3, 5));
-        int year = Integer.parseInt(datePart.substring(6, 10));
+        List<String> date = Arrays.asList(datePart.split("/"));
+        int day = Integer.parseInt(date.get(0));
+        int month = Integer.parseInt(date.get(1));
+        int year = Integer.parseInt(date.get(2));
         int hour = Integer.parseInt(timePart.substring(0, 2));
         int minute = Integer.parseInt(timePart.substring(2));
         cal.set(year, month - 1, day, hour, minute, 00);

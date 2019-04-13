@@ -3,17 +3,19 @@
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-== PROJECT: Club Manager - v1.3
+== PROJECT: Club Manager - v1.4
 
----
 
 == Overview
+This Project Portfolio serves to document the features and enhancements that I have made to the project as well as my contributions to the User Guide and Developer Guide.
 
-Club Manager is a desktop CCA management application used for managing CCA members. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+For this project, our group has embarked on a journey to create a desktop CCA management application called *Club Manager*.
+Club Manager is catered for CCA leaders and is used for managing CCA members and activities. The user (i.e. CCA leader) interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
 
 == Summary of contributions
 
-* *Major enhancement*: Organise the member list as well as display members' information.
+* *Major enhancement*: Enhancements that allow the users to be able to better manage the member's list.
+
 ** What it does:
 
 *** Sorts the members' list based on a given sorting criteria. This allows the user to be able to organise their members based on a particular member attribute, facilitating the planning of CCA activities and the export list function.
@@ -25,7 +27,7 @@ Club Manager is a desktop CCA management application used for managing CCA membe
 
 * *Minor enhancement*: Modified the add command to accept other forms of members' information such as gender, major, matric number, and year of study.
 ** Add members to the member's list, and checks if the user input matches the correct format required.
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Code contributed*: [https://github.com/CS2103-AY1819S2-W13-2/main/commits?author=joel0111[Functional code]] [https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#search=joel0111&sort=displayName&since=2019-02-10&until=2019-04-2&timeframe=day&reverse=false&repoSort=true[RepoSense]]
 
 
 == Contributions to the User Guide

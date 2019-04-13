@@ -13,6 +13,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import seedu.address.model.AddressBook;
+import seedu.address.model.AppMode;
 import seedu.address.model.activity.Activity;
 
 /**
@@ -62,6 +63,7 @@ public class TypicalActivities {
      */
     public static AddressBook getTypicalAddressBookWithActivities() {
         AddressBook ab = new AddressBook();
+        ab.setAppMode(AppMode.Modes.ACTIVITY);
         for (Activity activity : getTypicalActivities()) {
             ab.addActivity(activity);
         }

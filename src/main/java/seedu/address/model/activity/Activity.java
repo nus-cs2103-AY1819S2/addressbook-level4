@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Objects;
 
 import seedu.address.model.person.MatricNumber;
-import seedu.address.model.person.exceptions.PersonNotFoundException;
 
 
 /**
@@ -89,19 +88,34 @@ public class Activity implements Comparable<Activity> {
         return new ActivityStatus(dateTime.isPast());
     }
 
-    public void addMemberToActivity(MatricNumber matricNumber) {
-        attendance.add(matricNumber);
+    /**
+     * Adds member to attendance list
+     * */
+    public static Activity addMemberToActivity(Activity toReplace, MatricNumber matricNumber) {
+        ActivityName copyName = toReplace.getName();
+        ActivityDateTime copyDateTime = toReplace.getDateTime();
+        ActivityLocation copyLocation = toReplace.getLocation();
+        ActivityDescription copyDescription = toReplace.getDescription();
+        List<MatricNumber> copyAttendance = new ArrayList<>();
+        copyAttendance.addAll(toReplace.getAttendance());
+        copyAttendance.add(matricNumber);
+
+        return new Activity(copyName, copyDateTime, copyLocation, copyDescription, copyAttendance);
     }
 
     /**
      * Removes member from attendance list
      * */
-    public void removeMemberFromActivity(MatricNumber matricNumber) throws PersonNotFoundException {
-        if (!attendance.contains(matricNumber)) {
-            throw new PersonNotFoundException();
-        } else {
-            attendance.remove(matricNumber);
-        }
+    public static Activity removeMemberFromActivity(Activity toReplace, MatricNumber matricNumber) {
+        ActivityName copyName = toReplace.getName();
+        ActivityDateTime copyDateTime = toReplace.getDateTime();
+        ActivityLocation copyLocation = toReplace.getLocation();
+        ActivityDescription copyDescription = toReplace.getDescription();
+        List<MatricNumber> copyAttendance = new ArrayList<>();
+        copyAttendance.addAll(toReplace.getAttendance());
+        copyAttendance.remove(matricNumber);
+
+        return new Activity(copyName, copyDateTime, copyLocation, copyDescription, copyAttendance);
     }
 
     public boolean hasPersonInAttendance(MatricNumber matricNumber) {
@@ -157,6 +171,13 @@ public class Activity implements Comparable<Activity> {
         ActivityDescription description = this.getDescription();
         List<MatricNumber> attendance = this.getAttendance();
         return new Activity(name, dateTime, location, description, attendance);
+    }
+
+    /**
+     * Returns whether a Person represented by the {@code Matric} is Attending the activity
+     */
+    public boolean isMatricAttending(MatricNumber matric) {
+        return attendance.contains(matric);
     }
 
 

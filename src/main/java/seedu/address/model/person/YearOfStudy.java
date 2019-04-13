@@ -10,13 +10,13 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class YearOfStudy {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "YearOfStudy should only contain alphanumeric characters and spaces, and it should not be blank";
+            "YearOfStudy should only contain a single digit between 1 to 6 and it should not be blank";
 
     /*
      * The first character of the yearOfStudy must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String VALIDATION_REGEX = "[\\p{Alpha}][\\p{Digit} ]*";
+    public static final String VALIDATION_REGEX = "[[1-6]{1}]";
 
     public final String value;
 
@@ -35,19 +35,17 @@ public class YearOfStudy {
      * Returns true if a given string is a valid yearOfStudy.
      */
     public static boolean isValidYearOfStudy(String yearOfStudy) {
-        String yearOfStudyInLowerCase = yearOfStudy.toLowerCase();
 
-        if ((!yearOfStudy.matches(VALIDATION_REGEX)) && (!yearOfStudyInLowerCase.contains("year"))) {
+        if ((!yearOfStudy.matches(VALIDATION_REGEX))) {
             return false;
         }
-
         return true;
     }
 
 
     @Override
     public String toString() {
-        return value;
+        return "Year " + value;
     }
 
     @Override

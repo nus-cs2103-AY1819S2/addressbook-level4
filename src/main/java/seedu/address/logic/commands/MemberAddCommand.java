@@ -22,6 +22,7 @@ import seedu.address.model.person.Person;
 public class MemberAddCommand extends MemberCommand {
 
     public static final String COMMAND_WORD = "memberAdd";
+    public static final String COMMAND_ALIAS = "mAdd";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a member to Club Manager. "
             + "Parameters: "
@@ -35,13 +36,13 @@ public class MemberAddCommand extends MemberCommand {
             + PREFIX_MAJOR + "MAJOR "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_NAME + "John Doe "
-            + PREFIX_MATRICNUMBER + "A0123456Z "
+            + PREFIX_NAME + "Jon Lim "
+            + PREFIX_MATRICNUMBER + "A0123456J "
             + PREFIX_PHONE + "98765432 "
-            + PREFIX_EMAIL + "johnd@example.com "
-            + PREFIX_ADDRESS + "311, Clementi Ave 2, #02-25 "
+            + PREFIX_EMAIL + "johnl@example.com "
+            + PREFIX_ADDRESS + "123, Woodlands Drive 12, #12-34 "
             + PREFIX_GENDER + "Male "
-            + PREFIX_YEAROFSTUDY + "Year 2 "
+            + PREFIX_YEAROFSTUDY + "2 "
             + PREFIX_MAJOR + "Chemistry "
             + PREFIX_TAG + "Swimming";
 

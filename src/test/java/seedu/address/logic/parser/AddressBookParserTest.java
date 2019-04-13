@@ -4,10 +4,12 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ACTIVITYNAME;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_ACTIVITY;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -107,9 +109,11 @@ public class AddressBookParserTest {
     public void parseCommand_activityFind() throws Exception {
         List<String> keywords = Arrays.asList("foo", "bar", "baz");
         ActivityFindCommand command = (ActivityFindCommand) parser.parseCommand(
-                ActivityFindCommand.COMMAND_WORD + " a/" + keywords.stream().collect(Collectors.joining(
+                ActivityFindCommand.COMMAND_WORD + " n/" + keywords.stream().collect(Collectors.joining(
                         " ")));
-        assertEquals(new ActivityFindCommand(new ActivityContainsKeywordsPredicate(keywords)), command);
+        HashMap<Prefix, List<String>> predicate = new HashMap<>();
+        predicate.put(PREFIX_ACTIVITYNAME, keywords);
+        assertEquals(new ActivityFindCommand(new ActivityContainsKeywordsPredicate(predicate)), command);
     }
 
     @Test

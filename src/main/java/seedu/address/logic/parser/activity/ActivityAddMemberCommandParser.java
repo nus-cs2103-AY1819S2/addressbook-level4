@@ -21,14 +21,12 @@ public class ActivityAddMemberCommandParser implements Parser<ActivityAddMemberC
      */
     public ActivityAddMemberCommand parse(String args) throws ParseException {
         String[] splitArgs = args.trim().split("\\s+");
-
-        try {
-            Index index = ParserUtil.parseIndex(splitArgs[0]);
-            MatricNumber matricNumber = ParserUtil.parseMatricNumber(splitArgs[1]);
-            return new ActivityAddMemberCommand(index, matricNumber);
-        } catch (ParseException pe) {
+        if (splitArgs.length != 2) {
             throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, ActivityAddMemberCommand.MESSAGE_USAGE), pe);
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, ActivityAddMemberCommand.MESSAGE_USAGE));
         }
+        Index index = ParserUtil.parseIndex(splitArgs[0]);
+        MatricNumber matricNumber = ParserUtil.parseMatricNumber(splitArgs[1]);
+        return new ActivityAddMemberCommand(index, matricNumber);
     }
 }

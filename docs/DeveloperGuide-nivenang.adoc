@@ -389,33 +389,35 @@ image::UndoRedoActivityDiagram.png[width="650"]
 
 The `search` command provides functionality for users to search for places in TravelBuddy that contain the specified input.
 The user's input is split into separate keywords and matched by a `Predicate` to the list of places in TravelBuddy.
-Places with matching keywords will be displayed on the GUI, which allows users to retrieve a list of places according to their input.
+Places with matching keywords will be displayed as a list on the GUI.
 
-*Logic:* The `search` mechanism is executed by `SearchCommand`, which extends from `Command`. A code snippet is shown below:
+The search feature comprises of the following search commands:
 
-[source, java]
-public CommandResult execute(Model model, CommandHistory history) {
-    requireNonNull(model);
-    model.updateFilteredPlaceList(predicate);
-    return new CommandResult(constructFeedbackToUser(model));
-}
+* Search by Name: `search`
+* Search by Rating: `searchr`
+* Search by Tags: `searcht`
+* Search by Country: `searchc`
+* Search by Year: `searchyear`
+
+[NOTE]
+The various `search` commands are in lower-case. Mixed-case or upper-case commands are not recognised by the application.
 
 <<Figure 4.2.1.1>> below shows the class diagram of the `search` mechanism and its associations to the other classes in the Logic component.
 
 [[SearchCommandClassDiagram]]
 .Class Diagram for `search` command.
-image::SearchCommandClassDiagram.png[width="800", caption="Figure 4.2.1.1: ", reftext="Figure 4.2.1.1"]
+image::SearchCommandClassDiagram.png[width="450", caption="Figure 4.2.1.1: ", reftext="Figure 4.2.1.1"]
 
-
-The example below is a usage scenario for the search feature and is based on the search name feature.
 [NOTE]
 The various search features (i.e. search name, country code, rating, tags, year) function on a similar concept, differing only in the `Parser` which is called using different command words and the `Predicate` to filter arguments.
+
+Given below is a usage scenario for the search feature and is based on the search name feature.
 
 The following sequence diagram, <<Figure 4.2.1.2>>, shows how the search feature works:
 
 [[SearchCommandSequenceDiagram]]
 .Sequence Diagram for `search` command.
-image::SearchCommandSequenceDiagram.png[width="800", caption="Figure 4.2.1.2: ", reftext="Figure 4.2.1.2"]
+image::SearchCommandSequenceDiagram.png[width="500", caption="Figure 4.2.1.2: ", reftext="Figure 4.2.1.2"]
 
 The control flow of the sequence diagram above is as follows:
 
@@ -424,18 +426,18 @@ The control flow of the sequence diagram above is as follows:
 . `TravelBuddyParser` parses `search` as the command and a `SearchCommandParser` will be instantiated to further parse the command.
 . `SearchCommandParser` receives the arguments if the command word input matches the command word of any search command.
 
-** The argument string is split into an array of keywords based on the `regex` which is `\\s+` in the code snippet below.
+** The argument string is split into an array of keywords shown in the code snippet below.
 +
 [source, java]
 String[] nameKeywords = trimmedArgs.split("\\s+");
-return new SearchCommand(new NameContainsKeywordsPredicate(Arrays.asList(nameKeywords)));
+return new SearchCommand(new
+    NameContainsKeywordsPredicate(Arrays.asList(nameKeywords)));
 ** A NameContainsKeywordPredicate will be instantiated with the array of arguments as the predicate, which will be used to check if any of the places in TravelBuddy matches the user's input.
 +
 [source, java]
 public boolean test(Place place) {
-    return keywords.stream().anyMatch(
-        keyword -> StringUtil.containsWordIgnoreCase(
-        place.getName().fullName, keyword));
+    return keywords.stream().anyMatch(keyword -> StringUtil
+        .containsWordIgnoreCase(place.getName().fullName, keyword));
 }
 . Subsequently, `SearchCommandParser` creates a `SearchCommand` object with the predicate and returns it to `LogicManager`.
 . Following that, `LogicManager` calls the `execute` method of `SearchCommand`, shown in the code snippet below.
@@ -449,173 +451,41 @@ public CommandResult execute(Model model, CommandHistory history) {
 . `SearchCommand` updates the list in `Model`, which will be displayed in the GUI.
 . `SearchCommand` instantiates a `CommandResult` object and passes it to `LogicManager` .
 
-The search feature comprises of the following search commands:
-
-* Search by Name: `search`
-* Search by Rating: `searchr`
-* Search by Tags: `searcht`
-* Search by Country: `searchc`
-* Search by Year: `searchyear`
-
-[NOTE]
-The various `search` commands are in lower-case. Mixed-case or upper-case commands are not recognised by the application.
-
-===== Search Name Feature
-The command word for search name is `search` and is parsed by `TravelBuddyParser`. The arguments are then passed into `SearchCommandParser`.
-
-The name arguments entered by the user are stored in a list of keywords and passed into `NameContainsKeywordsPredicate`, where the list is converted into a stream and individually matched to the names of each entry in TravelBuddy.
-
-The search name mechanism is facilitated by `SearchCommand`, which extends `Command` with a predicate that specifies the conditions of the name of the place to be chosen from TravelBuddy.
-
-Given below is an example usage scenario and how the search mechanism behaves at each step.
-
-Step 1. The user launches the application and sees the GUI with the user's list of places as shown in <<Figure 4.2.1.3>> below.
-
-[[UIsearch]]
-.GUI with user's list of places, prior to running `search Singapore` command.
-image::UIsearch.png[width="800", caption="Figure 4.2.1.3: ", reftext="Figure 4.2.1.3"]
-
-Step 2. The user executes `search Singapore` command to search for all entries in TravelBuddy with `Singapore` in its name.
-The user input will be passed into `LogicManager#execute()`, which in turn uses `TravelBuddyParser#parseCommand()`. Since the command is `search`, `SearchCommandParser#parse(arguments)` will be called to parse the arguments to be used in `SearchCommand`.
-The parsed arguments will be compared to every entry in TravelBuddy and matching entries will be displayed.
-
-Step 3. The filtered list is now displayed according to the requirements set by the user input as shown in <<Figure 4.2.1.4>> below.
-
-[[UIsearchresults]]
-.Application Interface displaying the results of `search Singapore` command.
-image::UIsearchresults.png[width="800", caption="Figure 4.2.1.4: ", reftext="Figure 4.2.1.4"]
-
-===== Search Rating Feature
-The command word for search rating is `searchr` and is parsed by `TravelBuddyParser`. The arguments are then passed into `SearchRatingCommandParser`.
-
-The rating arguments entered by the user are first checked for validity before being stored in a list of keywords and passed into `RatingContainsKeywordsPredicate`. The list is then converted into a stream and individually matched to the rating of each entry in TravelBuddy.
-
-The search rating mechanism is facilitated by `SearchRatingCommand`, which extends `Command` with a predicate that specifies the conditions of the rating of the place to be chosen from TravelBuddy.
-
-Given below is an example usage scenario and how the search rating mechanism behaves at each step.
-
-Step 1. The user launches the application and sees the GUI with the user's list of places as shown in <<Figure 4.2.1.5>> below.
-
-[[UIsearchrating]]
-.GUI with user's list of places, prior to running `searchr 4` command.
-image::UIsearchrating.png[width="800", caption="Figure 4.2.1.5: ", reftext="Figure 4.2.1.5"]
-
-Step 2. The user executes `searchr 4` command to search for all entries in TravelBuddy with `4` as its rating.
-The user input will be passed into `LogicManager#execute()`, which in turn uses `TravelBuddyParser#parseCommand()`. Since
-the command is `searchr`, `SearchRatingCommandParser#parse(arguments)` will be called to parse the arguments to be
-used in `SearchRatingCommand`. The arguments are checked for validity (i.e. rating value between 1 to 5) as seen in the code snippet below before being parsed.
-
-[source, java]
-String[] ratingKeywords = trimmedArgs.split("\\s+");
-for (String rating : ratingKeywords) {
-    if (!Rating.isValidRating(rating)) {
-        throw new ParseException(String.format(Rating.MESSAGE_CONSTRAINTS,
-             SearchRatingCommand.MESSAGE_USAGE));
-    }
-}
-return new SearchRatingCommand(new RatingContainsKeywordsPredicate(Arrays.asList(ratingKeywords)));
-
-The parsed arguments will be compared to every entry in TravelBuddy and matching entries will be displayed.
-
-[NOTE]
-The arguments for `searchr` range from 1 to 5. Non-integer values outside the range are not recognised by the application.
-
-Step 3. The filtered list is now displayed according to the requirements set by the user input as shown in <<Figure 4.2.1.6>> below.
-
-[[UIsearchratingresults]]
-.Application Interface displaying the results of `searchr 4` command.
-image::UIsearchratingresults.png[width="800", caption="Figure 4.2.1.6: ", reftext="Figure 4.2.1.6"]
-
-===== Search Tags Feature
-The command word for search tags is `searcht` and is parsed by `TravelBuddyParser`. The arguments are then passed into `SearchTagsCommandParser`.
-
-The tags arguments entered by the user are stored in a list of keywords and passed into `TagsContainsKeywordsPredicate`, where the list is converted into a stream and individually matched to the tags of each entry in TravelBuddy.
-
-The search tags mechanism is facilitated by `SearchTagsCommand`, which extends `Command` with a predicate that specifies the conditions of the tags of the place to be chosen from TravelBuddy.
-
-Given below is an example usage scenario and how the search tags mechanism behaves at each step.
-
-Step 1. The user launches the application and sees the GUI with the user's list of places as shown in <<Figure 4.2.1.7>> below.
-
-[[UIsearchtags]]
-.GUI with user's list of places, prior to running `searcht distillery` command.
-image::UIsearchtags.png[width="800", caption="Figure 4.2.1.7: ", reftext="Figure 4.2.1.7"]
-
-Step 2. The user executes `searcht distillery` command to search for all entries in TravelBuddy with `distillery`
-as its tag. The user input will be passed into `LogicManager#execute()`, which in turn uses
-`TravelBuddyParser#parseCommand()`. Since the command is `searcht`, `SearchTagsCommandParser#parse(arguments)`
-will be called to parse the arguments to be used in `SearchTagsCommand`. The parsed arguments will be compared to every entry in TravelBuddy and matching entries will be displayed.
-
-Step 3. The filtered list is now displayed according to the requirements set by the user input as shown in <<Figure 4.2.1.8>> below.
-
-[[UIsearchtagsresults]]
-.Application Interface displaying the results of `searcht distillery` command.
-image::UIsearchtagsresults.png[width="800", caption="Figure 4.2.1.8: ", reftext="Figure 4.2.1.8"]
-
-===== Search Country Feature
-The command word for search country is `searchc` and is parsed by `TravelBuddyParser`. The arguments are then passed into `SearchCountryCommandParser`.
-
-The country code arguments entered by the user are stored in a list of keywords and passed into `CountryCodeContainsKeywordsPredicate`, where the list is converted into a stream and individually matched to the country code of each entry in TravelBuddy.
-
-The search country mechanism is facilitated by `SearchCountryCommand`, which extends `Command` with a predicate that specifies the conditions of the country code of the place to be chosen from TravelBuddy.
-
-Given below is an example usage scenario and how the search country mechanism behaves at each step.
-
-Step 1. The user launches the application and sees the GUI with the user's list of places as shown in <<Figure 4.2.1.9>> below.
-
-[[UIsearchcountry]]
-.GUI with user's list of places, prior to running `searchc JPN` command.
-image::UIsearchcountry.png[width="800", caption="Figure 4.2.1.9: ", reftext="Figure 4.2.1.9"]
-
-Step 2. The user executes `searchc SGP JPN` command to search for all entries in TravelBuddy with `SGP` or `JPN`
-as its country. The `searchc` command will call `LogicManager#execute()`, which in turn uses
-`TravelBuddyParser#parseCommand()`. Since the command is `searchc`, `SearchCountryCommandParser#parse(arguments)`
-will be called to parse the arguments to be used in `SearchCountryCommand`. The arguments are then checked for validity (i.e. valid ISO-3166 country code).
-The parsed arguments will be compared to every entry in TravelBuddy and matching entries will be displayed.
-[NOTE]
-The country code arguments for `searchc` must be valid 3-letter ISO-3166 country codes.
-
-Step 3. The filtered list is now displayed according to the requirements set by the user input as shown in <<Figure 4.2.1.10>> below.
-
-[[UIsearchcountryresults]]
-.Application Interface displaying the results of `searchc JPN` command.
-image::UIsearchcountryresults.png[width="800", caption="Figure 4.2.1.10: ", reftext="Figure 4.2.1.10"]
-
-===== Search Year Feature
-The command word for search year is `searchyear` and is parsed by `TravelBuddyParser`. The arguments are then passed into `SearchYearCommandParser`.
-
-The year arguments entered by the user are stored in a list of keywords and passed into `YearContainsKeywordsPredicate`, where the list is converted into a stream and individually matched to the year of visit of each entry in TravelBuddy.
-
-The search year mechanism is facilitated by `SearchYearCommand`, which extends `Command` with a predicate that specifies the conditions of the year of visit of the place to be chosen from TravelBuddy.
-
-Given below is an example usage scenario and how the search year mechanism behaves at each step.
-
-Step 1. The user launches the application and sees the GUI with the user's list of places as shown in <<Figure 4.2.1.11>> below.
-
-[[UIsearchyear]]
-.GUI with user's list of places, prior to running `searchyear 2016` command.
-[#img-UIsearchyear]
-image::UIsearchyear.png[width="800", caption="Figure 4.2.1.11: ", reftext="Figure 4.2.1.11"]
-
-Step 2. The user executes `searchyear 2016` command to search for all entries in TravelBuddy with `2016`
-as its year visited. The `searchyear` command will call `LogicManager#execute()`, which in turn uses
-`TravelBuddyParser#parseCommand()`. Since the command is `searchyear`, `SearchYearCommandParser#parse(arguments)`
-will be called to parse the arguments to be used in `SearchYearCommand`. The arguments are then checked for validity (i.e. valid year from 1900 to the current year).
-The parsed arguments will be compared to every entry in TravelBuddy and matching entries will be displayed.
-[NOTE]
-The year arguments range from 1900 to the current year. A single year, multiple years or a range of years can be passed in as arguments.
-
-Step 3. The filtered list is now displayed according to the requirements set by the user input as shown in <<Figure 4.2.1.12>> below.
-
-[[UIsearchyearresults]]
-.Application Interface displaying the results of `searchyear 2016` command.
-image::UIsearchyearresults.png[width="800", caption="Figure 4.2.1.12: ", reftext="Figure 4.2.1.12"]
-
-The activity diagram, <<Figure 4.2.1.13>>, below summarises what happens when a user inputs a search command:
+The activity diagram, <<Figure 4.2.1.3>>, below summarises what happens when a user inputs a search command:
 
 [[SearchCommandActivityDiagram]]
 .Activity Diagram showing the process flow when a search command is issued.
-image::SearchCommandActivityDiagram.png[width="800", caption="Figure 4.2.1.13: ", reftext="Figure 4.2.1.13"]
+image::SearchCommandActivityDiagram.png[width="450", caption="Figure 4.2.1.3: ", reftext="Figure 4.2.1.3"]
+
+===== Search Name Feature
+The command word for search name is `search` and is parsed by `TravelBuddyParser`.
+The name arguments are then passed into `SearchCommandParser` and are stored in a list of keywords before being passed into `NameContainsKeywordsPredicate`. The list is converted into a stream and individually matched to the names of each entry in TravelBuddy.
+
+The search name mechanism is facilitated by `SearchCommand`, which extends `Command` with a predicate that specifies the conditions of the name of the place to be chosen from TravelBuddy.
+
+===== Search Rating Feature
+The command word for search rating is `searchr` and is parsed by `TravelBuddyParser`.
+The rating arguments are then passed into `SearchRatingCommandParser` and are checked for validity before being stored in a list of keywords. The list is then passed into `RatingContainsKeywordsPredicate`, where it is converted into a stream and individually matched to the rating of each entry in TravelBuddy.
+
+The search rating mechanism is facilitated by `SearchRatingCommand`, which extends `Command` with a predicate that specifies the conditions of the rating of the place to be chosen from TravelBuddy.
+
+===== Search Tags Feature
+The command word for search tags is `searcht` and is parsed by `TravelBuddyParser`.
+The tag arguments are then passed into `SearchTagsCommandParser` and are stored in a list of keywords before being passed into `TagContainsKeywordsPredicate`. The list is converted into a stream and individually matched to the tags of each entry in TravelBuddy.
+
+The search tags mechanism is facilitated by `SearchTagsCommand`, which extends `Command` with a predicate that specifies the conditions of the tags of the place to be chosen from TravelBuddy.
+
+===== Search Country Feature
+The command word for search country is `searchc` and is parsed by `TravelBuddyParser`.
+The country code arguments are then passed into `SearchCountryCommandParser` and are checked for validity before being stored in a list of keywords. The list is then passed into `CountryCodeContainsKeywordsPredicate`, where it is converted into a stream and individually matched to the country code of each entry in TravelBuddy.
+
+The search country mechanism is facilitated by `SearchCountryCommand`, which extends `Command` with a predicate that specifies the conditions of the country code of the place to be chosen from TravelBuddy.
+
+===== Search Year Feature
+The command word for search year is `searchyear` and is parsed by `TravelBuddyParser`.
+The year arguments are then passed into `SearchYearCommandParser` and are checked for validity before being stored in a list of keywords. The list is then passed into `YearContainsKeywordsPredicate`, where it is converted into a stream and individually matched to the year of visit of each entry in TravelBuddy.
+
+The search year mechanism is facilitated by `SearchYearCommand`, which extends `Command` with a predicate that specifies the conditions of the year of visit of the place to be chosen from TravelBuddy.
 
 ==== Design Considerations
 
@@ -631,7 +501,7 @@ Given below is a comparison between the alternatives of the `search` mechanism d
 
 |*Description*
 |Matches entire keyword.
-|Remove whitespaces and check if the place contains the argument string.
+|Check if the place contains the argument string.
 
 |*Pros*
 |*Speed*: This approach is faster in processing speed and computationally less intensive. +
@@ -641,7 +511,7 @@ Given below is a comparison between the alternatives of the `search` mechanism d
 
 |*Cons*
 |*Inflexible*: This approach is unable to support a search for partial keywords and may prove to be restrictive for certain users.
-|*Unrefined results*: This approach provides a wider range of results, which may devolve into a messy clutter if the keyword is too general, defeating the purpose of filtering the list through search.
+|*Unrefined results*: This approach returns a longer list of results, which may defeat the purpose of filtering the list through search.
 |=======================================================================
 
 *Decision*: Alternative 1 of matching the entire keyword is adopted as it reduces processing time during keyword matching.
@@ -662,7 +532,7 @@ Given below is a comparison between the alternatives of the data structure used 
 |Use `HashMap` to map keywords to each place.
 
 |*Pros*
-|*Ease-of-implementation*: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
+|*Ease-of-implementation*: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project. +
 *Refined results*: This approach provides more refined results as it narrows down the search scope to the user's query.
 
 |*Faster search*: Faster searching as HashMap lookup runs in O(1) time.
@@ -671,7 +541,7 @@ Given below is a comparison between the alternatives of the data structure used 
 |*Slower search*: This approach is less efficient as the entire list needs to be searched through.
 |*Memory-consuming*. This approach requires more memory as a separate HashMap needs to be stored.
 |=======================================================================
-*Decision*: Alternative 1 of using a list is preferred as it uses less memory compared to alternative 2. Moreover, future contributors are likely to be student undergraduates, so a simple data structure would be more optimal for educational purposes.
+*Decision*: Alternative 1 of using a list is preferred as it uses less memory compared to alternative 2. Moreover, future contributors to the project are likely to be student undergraduates, so a simple data structure would be more optimal for educational purposes.
 // end::search[]
 
 // tag::countrycode[]

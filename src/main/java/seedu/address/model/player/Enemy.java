@@ -320,34 +320,22 @@ public class Enemy extends Player {
             if (oldRow - 1 >= 0) {
                 //add cardinal NORTH to watchlist. ROW MINUS ONE
                 updatedCoord = new Coordinates(oldRow - 1, oldCol);
-                if (isValidCardinal(updatedCoord)) {
-                    watchlist.push(updatedCoord);
-                    modeCleanup(updatedCoord);
-                }
+                addCardinal(updatedCoord);
             }
             if (oldCol - 1 >= 0) {
                 //add cardinal WEST to watchlist   COL MINUS ONE
                 updatedCoord = new Coordinates(oldRow, oldCol - 1);
-                if (isValidCardinal(updatedCoord)) {
-                    watchlist.push(updatedCoord);
-                    modeCleanup(updatedCoord);
-                }
+                addCardinal(updatedCoord);
             }
             if (oldRow + 1 < mapSize) {
                 //add cardinal SOUTH to watchlist  ROW PLUS ONE
                 updatedCoord = new Coordinates(oldRow + 1, oldCol);
-                if (isValidCardinal(updatedCoord)) {
-                    watchlist.push(updatedCoord);
-                    modeCleanup(updatedCoord);
-                }
+                addCardinal(updatedCoord);
             }
             if (oldCol + 1 < mapSize) {
                 //add cardinal EAST to watchlist   COL PLUS ONE
                 updatedCoord = new Coordinates(oldRow, oldCol + 1);
-                if (isValidCardinal(updatedCoord)) {
-                    watchlist.push(updatedCoord);
-                    modeCleanup(updatedCoord);
-                }
+                addCardinal(updatedCoord);
             }
             logger.info(String.format("++++++++WATCHLIST UPDATING:\n" + watchlist.toString()));
             logger.info(String.format("++++++++WATCHLIST SIZE:\n" + watchlist.size()));
@@ -359,6 +347,16 @@ public class Enemy extends Player {
         }
 
 
+    }
+
+    /******************************************************8
+     *jkljkkjl
+     */
+    private void addCardinal(Coordinates updatedCoord) {
+        if (isValidCardinal(updatedCoord)) {
+            watchlist.push(updatedCoord);
+            modeCleanup(updatedCoord);
+        }
     }
 
     /******************************************************8

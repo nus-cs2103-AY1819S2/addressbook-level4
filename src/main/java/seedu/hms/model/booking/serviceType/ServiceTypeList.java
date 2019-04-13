@@ -1,8 +1,10 @@
 package seedu.hms.model.booking.serviceType;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.hms.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Iterator;
+import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -39,6 +41,20 @@ public class ServiceTypeList implements Iterable<ServiceType> {
             throw new ServiceTypeNotFoundException();
         }
         internalList.set(serviceTypeIndex, editedServiceType);
+    }
+
+    public void setServiceTypes(ServiceTypeList replacement) {
+        requireNonNull(replacement);
+        internalList.setAll(replacement.internalList);
+    }
+
+    /**
+     * Replaces the contents of this list with {@code Bookings}.
+     * {@code Bookings} must not contain duplicate Bookings.
+     */
+    public void setServiceTypes(List<ServiceType> serviceTypes) {
+        requireAllNonNull(serviceTypes);
+        internalList.setAll(serviceTypes);
     }
 
     /**

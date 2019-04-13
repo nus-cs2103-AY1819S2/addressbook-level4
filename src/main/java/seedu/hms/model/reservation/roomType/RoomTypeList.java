@@ -1,8 +1,10 @@
 package seedu.hms.model.reservation.roomType;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.hms.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Iterator;
+import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -38,6 +40,20 @@ public class RoomTypeList implements Iterable<RoomType> {
             throw new RoomTypeNotFoundException();
         }
         internalList.set(roomTypeIndex, editedRoomType);
+    }
+
+    public void setRoomTypes(RoomTypeList replacement) {
+        requireNonNull(replacement);
+        internalList.setAll(replacement.internalList);
+    }
+
+    /**
+     * Replaces the contents of this list with {@code Bookings}.
+     * {@code Bookings} must not contain duplicate Bookings.
+     */
+    public void setRoomTypes(List<RoomType> roomTypes) {
+        requireAllNonNull(roomTypes);
+        internalList.setAll(roomTypes);
     }
 
     /**

@@ -58,7 +58,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window and show
 .  Refer to <<Features>> for details of each command.
 // end::quickstart[]
 
-// tag::userinterface[]
+
 == Graphical User Interface Introduction
 This section will explain to you the Graphical User Interface (GUI) of _In-Credit-Ble_ Finance Tracker.
 
@@ -81,6 +81,7 @@ The menu bar can be used to:
 * Open the Help page to view commands available under `Help` tab
 * Change the colour theme of the application under `Theme` tab
 
+// tag::userinterface[]
 === Records List Panel
 .Record List Panel: Shows a list of your expense records
 image::Record_List_Panel.png[width="200"]

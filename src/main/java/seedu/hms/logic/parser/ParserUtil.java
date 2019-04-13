@@ -210,7 +210,7 @@ public class ParserUtil {
             if (startHour < 0 || startHour > 23 || endHour < 0 || endHour > 23) {
                 throw new ParseException("Hour does not lie in the valid range of 0 - 23");
             }
-            if (startHour > endHour) {
+            if (startHour >= endHour) {
                 throw new ParseException("End hour must be after start hour");
             }
         }

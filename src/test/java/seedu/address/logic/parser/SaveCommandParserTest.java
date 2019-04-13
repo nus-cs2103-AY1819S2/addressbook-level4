@@ -26,7 +26,7 @@ public class SaveCommandParserTest {
 
     @Test
     public void parse_validArgs_returnsSaveCommand() throws IOException {
-        File test = new File("data" + File.separator + "records.json");
+        File test = new File("data/records.json");
         if (!test.exists()) {
             try {
                 test.createNewFile();

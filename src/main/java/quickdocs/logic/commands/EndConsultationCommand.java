@@ -11,7 +11,7 @@ import quickdocs.model.patient.Nric;
 import quickdocs.model.record.ConsultationRecord;
 
 /**
- * End the current consultation session and store the details
+ * End the current consultation session and store the consultation details
  */
 public class EndConsultationCommand extends Command {
     public static final String COMMAND_WORD = "endconsult";
@@ -43,13 +43,11 @@ public class EndConsultationCommand extends Command {
         }
 
         /**
-         * When the consultation session have ended, then the medicine that is prescribed will be
-         * removed from the inventory
+         * The deduction of medicine from the inventory will only happen once the
+         * consultation is confirmed to have ended.
          */
         for (Prescription prescription : currentConsultation.getPrescriptions()) {
             model.executePrescription(prescription);
-            //prescription.getMedicine().subtractQuantity(prescription.getQuantity());
-            //model.reminderForMedicine(prescription.getMedicine());
         }
 
         ConsultationRecord record = new ConsultationRecord(currentConsultation.getPrescriptions(),

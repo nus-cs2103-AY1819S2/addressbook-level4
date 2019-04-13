@@ -7,7 +7,12 @@ import java.util.Optional;
 import quickdocs.model.tag.Tag;
 
 /**
- * Stores changes to patient records
+ * Stores changes to patient records during an EditPatientCommand
+ * All fields start out as null, and values can be assigned to the attributes using the
+ * setter methods.
+ *
+ * During edit when the PatientEditedFields is compared with, the non-null values will
+ * represent the changed attributes, and will be used to update the existing Patient Object.
  */
 public class PatientEditedFields {
 
@@ -85,7 +90,7 @@ public class PatientEditedFields {
     }
 
     /**
-     * Checks if PatientEditedFields is empty, meaning no changes
+     * Checks if PatientEditedFields is empty, which means that no changes were made
      */
     public boolean checkEmpty() {
         return name == null && nric == null && email == null && address == null

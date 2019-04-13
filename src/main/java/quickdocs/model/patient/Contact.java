@@ -10,6 +10,7 @@ public class Contact {
 
     private String contact;
 
+    // empty constructor for json reconstruction
     public Contact() {
     }
 

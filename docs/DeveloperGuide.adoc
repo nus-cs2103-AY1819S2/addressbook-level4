@@ -41,9 +41,8 @@ This is a tip. Useful information pertaining to the features will be written her
 [NOTE]
 This is a note. Additional information that further explains a feature will be written here. +
 
-#filepath# Specific file or filepaths are formatted using a highlight. Example #logic\LogicManager#
-
-`command` or `method` Code methods or user input to QuickDocs are formatted with a grey background. Example: `help`, `getCurrentConsultation()`
+`filepath`, `command` and `method` are all formatted with a grey background. Example: `help`, `getCurrentConsultation()`
+and `logic\LogicManager`
 
 === Developer Guide Organization
 
@@ -139,7 +138,7 @@ When you are ready to start coding,
 === Architecture
 
 .Architecture Diagram
-image::Architecture.png[width="600"]
+image::Architecture2.png[width="600"]
 
 The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
 
@@ -195,11 +194,11 @@ The UI consists of a `rootLayoutController` composed of a `Display`, `UserInput`
 
 image::uioverview.png[width="800"]
 
-1. `Display` will reflect the results of the command entered
-2. `userInput` is where the user can enter their commands
-3. should the command fail due to erroneous command input, instructions to rectify the command will be displayed on the `InputFeedback`
+1. `resultDisplay` will reflect the results of the command entered
+2. `userInputField` is where the user can enter their commands
+3. should the command fail due to erroneous command input, instructions to rectify the command will be displayed on the `InputFeedbackArea`
 4. Appointments and Reminders are displayed on the `ReminderListPanel`
-5. Current consultation sessions will be indicated on this `currentSession` label.
+5. Current consultation sessions will be indicated on the `currentSessionLabel`.
 
 The `UI` component uses JavaFx UI framework. RootLayout is defined in the matching `.fxml` file that are in link:{repoURL}/src/main/resources/view[src/main/resources/view] folder.
 
@@ -395,13 +394,13 @@ The patient management module consists of these commands:
 3. deleting a patient record `deletepat`
 4. listing a patient record (by name, nric, tags or index) `listpat`
 
-The operations involved in the patient management modules involve the use of the #model\Patient\PatientManager.java#
-class. The #PatientManager# maintains a list of patient records, which are loaded from the #quickdocs.json# file through the
+The operations involved in the patient management modules involve the use of the `model\Patient\PatientManager.java`
+class. The `PatientManager` maintains a list of patient records, which are loaded from the `quickdocs.json` file through the
 <<Design-Storage, storage>> component.
 
 ==== Adding a patient
 
-Patient records consist of #Name#, #NRIC#, #Email#, #Address#, #Contact#, #Gender#, #Dob# (Date of Birth) and #tagList# fields. The `addpat` command
+Patient records consist of `Name`, `NRIC`, `Email`, `Address`, `Contact`, `Gender`, `Dob` (Date of Birth) and `tagList` fields. The `addpat` command
 require users to enter the value of these fields prepended by prefixes. The prefixes are used to separate the parameters and assign the
 values to these fields.
 
@@ -412,10 +411,10 @@ tagList can contain multiple or no tags at all.
 
 ==== Editing a patient
 
-To edit a patient, a #PatientEditedFields# is first created. It consist of all the fields of a #Patient# object but all its values
-are null initially. This means that only when the user enter a value for a specific field will it be assigned to the #PatientEditedFields#.
+To edit a patient, a `PatientEditedFields` is first created. It consist of all the fields of a `Patient` object but all its values
+are null initially. This means that only when the user enter a value for a specific field will it be assigned to the `PatientEditedFields`.
 
-A temporary #Patient# object is then created with the values of the existing patient record to be edited. The #PatientEditedFields# will then
+A temporary `Patient` object is then created with the values of the existing patient record to be edited. The `PatientEditedFields` will then
 be checked against this temporary patient object and replace the fields which are non-null.
 
 image::dg-consultation/patientediting.png[width="800"]
@@ -427,7 +426,7 @@ designated for editing.
 ==== Deleting patient records
 
 Each patient have a unique NRIC value. This is how QuickDocs differentiate between the different patient
-records in the patient list in the #PatientManager# class.
+records in the patient list in the `PatientManager` class.
 
 To delete a patient record, the `deletepat` and a nric is specified. The patient list will be iterated and the record whose
 NRIC matches the specified value will be removed.
@@ -440,7 +439,7 @@ The user can narrow down their patient record searches using the names, nric and
 of patient records, with their index reflected to be shown on the main display of QuickDocs. The specific session can then be viewed by calling `listpat` along
 with the index.
 
-Internally, a #ListCommand# can
+Internally, a `ListCommand` can
 be created using four different constructors and each of them have a `constructedBy` field. The constructedBy field will indicate
 whether the search is done by indexing, or filtering by name, nric or tags.
 
@@ -481,7 +480,7 @@ The consultation process comprises of four stages:
 3. entering the medicine to be prescribed
 4. ending the consultation
 
-The consultation process is facilitated by the #ConsultationManager.java# class.
+The consultation process is facilitated by the `ConsultationManager.java` class.
 The ConsultationManager class holds the current consultation session and a list of past
 consultation records for every patients.
 
@@ -619,7 +618,7 @@ Implementation is very inflexible, doctor can only diagnose and prescribe during
 // row 3
 | *Separate commands for start, diagnose, prescribe and end*
 
-*(Alternative selected and implemented)*
+*(Chosen implementation)*
 |
 Doctors begin and end session with `consult` and `endconsult`.
 
@@ -657,19 +656,24 @@ code volume.
 
 |===
 
-Since QuickDocs aim to provide a single interface for doctors to perform clinical operations more efficiently, the consultation
+Although the selected option require more input and lengthier commands, it guarantees the flexibility and efficiency QuickDocs
+aim to deliver for doctors in neighbourhood clinics.
+
+These are some of the considerations taken before the decision was made:
+
+1. Since QuickDocs aim to provide a single interface for doctors to perform clinical operations more efficiently, the consultation
 process will require one shot commands to fulfill the efficiency requirement of the overall product.
 
-However, it is possible for doctors to make mistakes with the one-shot commands, especially when there are so many parameters involved
+2. However, it is possible for doctors to make mistakes with the one-shot commands, especially when there are so many parameters involved
 in a single command. We also noticed that there could be interleaving operations between the modules, such as viewing past consultation records or
 checking medicine inventory in the midst of the consultation. This is why both flexibility of cross module commands and error recovery is also
 also taken into account when selecting the implementation method.
 
-Although the selected option require more and lengthier commands to be entered to complete a single session, it does not limit the doctor to just consultation-related
+3. Although the selected option require more and lengthier commands to be entered to complete a single session, it does not limit the doctor to just consultation-related
 commands. Doctors are free to perform other operations while the consultation is ongoing (except starting another consultation). It is also convenient for
 the doctor to make changes to his erroneous commands.
 
-Implementing the consultation session in this way will guarantee the flexibility and efficiency that
+4. Implementing the consultation session in this way will guarantee the flexibility and efficiency that
 QuickDocs aim to deliver for doctors in neighbourhood clinics.
 
 
@@ -785,7 +789,9 @@ appointment is added or deleted.
 Also, if the given search range is not within the range of this consistent list of free slots,
 this list will still have to be created from scratch, defeating the purpose of maintaining this permanent list.
 // row 2
-|*Generate free slots only when required* (Chosen implementation)
+|*Generate free slots only when required*
+
+*(Chosen implementation)*
 |We will only generate a list of free slots when the `freeapp` command is called. This list will be a one-time use
 only and will not be stored in QuickDocs Storage.
 |The user is given the flexibility to specify the range of dates to list the free slots, as this list is generated
@@ -1300,21 +1306,14 @@ We have two types of tests:
 
 .  *GUI Tests* - These are tests involving the GUI. They include,
 .. _System Tests_ that test the entire App by simulating user actions on the GUI. These are in the `systemtests` package.
-.. _Unit tests_ that test the individual components. These are in `seedu.address.ui` package.
+.. _Unit tests_ that test the individual components. These are in `quickdocs.ui` package.
 .  *Non-GUI Tests* - These are tests not involving the GUI. They include,
 ..  _Unit tests_ targeting the lowest level methods/classes. +
-e.g. `seedu.address.model.PersonTest`
+e.g. `quickdocs.model.PatientTest`
 ..  _Integration tests_ that are checking the integration of multiple code units (those code units are assumed to be working). +
 e.g. `StorageManagerTest`
 ..  Hybrids of unit and integration tests. These test are checking multiple code units as well as how the are connected together. +
 e.g. `LogicManagerTest`
-
-
-=== Troubleshooting Testing
-**Problem: `HelpWindowTest` fails with a `NullPointerException`.**
-
-* Reason: One of its dependencies, `HelpWindow.html` in `src/main/resources/docs` is missing.
-* Solution: Execute Gradle task `processResources`.
 
 == Dev Ops
 
@@ -1364,6 +1363,8 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 
+|===
+
 |Priority |As a ... |I want to ... |So that I can...
 |`* * *` |doctor |allocate appointments for patients |Prevent clashes in schedules
 
@@ -1397,6 +1398,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`*` |newly trained doctor | search for details of a medical condition |explain to my patients better
 
+|===
 
 [appendix]
 == Use Cases
@@ -1676,7 +1678,8 @@ Use case resumes at step 9.
 .  Should be able to hold up to 1000 patients and their consultation records without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 .  Response time for commands should be below 3 seconds so that clinical operations can be expedited
-.  Commands should be easy to pick up for novice users, and convenient for expert users.
+.  Commands should be easy to pick up for novice users, they can remember it more quickly and start using them immediately
+.  Commands should be made convenient for expert users as well
 .  Data stored can be easily transferred to another device installed with Quickdocs for operation continuation.
 .  Data stored, especially patient records and particulars, need to be encrypted to prevent unauthorised access and misuse.
 
@@ -1689,6 +1692,10 @@ Windows, Linux, Unix, OS-X
 [[private-contact-detail]] Private contact detail::
 A contact detail that is not meant to be shared with others
 
+[[patient_records]] Patient Records::
+A data entry consisting of a patient's particulars, which includes name, NRIC, email address, home address,
+gender, contact number, date of birth and the list tags assigned to him or her.
+
 [appendix]
 == Instructions for Manual Testing
 
@@ -1699,7 +1706,7 @@ These instructions only provide a starting point for testers to work on; testers
 
 === Adding patient records
 
-. Add a new patient record
+. Add a new <<patient_records, patient record>>
 
 .. Prerequisites: patient to be added must not have the same NRIC as an existing patient's NRIC, the
 `listpat` command can be used to check if there are conflicting NRIC

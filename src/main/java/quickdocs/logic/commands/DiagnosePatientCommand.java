@@ -1,5 +1,8 @@
 package quickdocs.logic.commands;
 
+import java.util.logging.Logger;
+
+import quickdocs.commons.core.LogsCenter;
 import quickdocs.logic.CommandHistory;
 import quickdocs.logic.commands.exceptions.CommandException;
 import quickdocs.logic.parser.DiagnosePatientCommandParser;
@@ -26,6 +29,8 @@ public class DiagnosePatientCommand extends Command {
             + DiagnosePatientCommandParser.PREFIX_ASSESSMENT + "flu\n";
     public static final String NO_ONGOING_CONSULTATION = "There is no ongoing consultation to record diagnosis\n";
 
+    private static final Logger logger = LogsCenter.getLogger(DiagnosePatientCommand.class);
+
     private Diagnosis patientDiagnosis;
 
     public DiagnosePatientCommand(Diagnosis diagnosis) {
@@ -35,11 +40,13 @@ public class DiagnosePatientCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
 
+        // diagnosis can only be given when there's an ongoing consultation session
         if (model.checkConsultation() == false) {
             throw new CommandException(NO_ONGOING_CONSULTATION);
         }
 
         model.diagnosePatient(patientDiagnosis);
+        logger.info("Diagnosis entered or replaced for current consultation");
 
         return new CommandResult(patientDiagnosis.toString());
     }

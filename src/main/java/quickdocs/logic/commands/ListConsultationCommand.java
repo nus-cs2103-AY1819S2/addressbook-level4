@@ -2,7 +2,9 @@ package quickdocs.logic.commands;
 
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.logging.Logger;
 
+import quickdocs.commons.core.LogsCenter;
 import quickdocs.logic.CommandHistory;
 import quickdocs.logic.commands.exceptions.CommandException;
 import quickdocs.model.Model;
@@ -27,6 +29,8 @@ public class ListConsultationCommand extends Command {
             + "Example: " + COMMAND_WORD + " r/S9237161A\n"
             + "or: " + COMMAND_WORD + " 10\n";
 
+    private static final Logger logger = LogsCenter.getLogger(ListConsultationCommand.class);
+
     private int index;
     private String nric;
 
@@ -35,11 +39,13 @@ public class ListConsultationCommand extends Command {
     public ListConsultationCommand(int index) {
         this.index = index;
         constructedBy = 1;
+        logger.info("Listing consultation using index");
     }
 
     public ListConsultationCommand(String value) {
         this.nric = value;
         constructedBy = 2;
+        logger.info("Listing consultation using NRIC");
     }
 
     @Override

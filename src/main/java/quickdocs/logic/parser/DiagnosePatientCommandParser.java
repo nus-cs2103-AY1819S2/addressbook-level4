@@ -44,7 +44,11 @@ public class DiagnosePatientCommandParser implements Parser<DiagnosePatientComma
     }
 
     /**
-     * consolidate the list of symptoms entered by user into a single arraylist
+     * Consolidates the symptom strings from the argMultimap into a list of
+     * Symptom objects
+     *
+     * @param symptoms list of symptoms recorded by doctor as String objects
+     * @return ArrayList of Symptom objects
      */
     public static ArrayList<Symptom> parseSymptoms(Collection<String> symptoms) {
         final ArrayList<Symptom> symptomList = new ArrayList<>();

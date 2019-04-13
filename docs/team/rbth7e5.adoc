@@ -26,6 +26,25 @@ My role was to implement the categorisation of restaurants as well as manage the
 The following sections illustrate these enhancements in more detail, as well as the relevant sections I have added
 to the user and developer guides in relation to these enhancements.
 
+Note the the following use of symbols and formatting in order to understand their meanings:
+
+[NOTE]
+====
+* This is a Note, indicating crucial information. Read it to understand why something works or does not work.
+====
+
+[TIP]
+====
+* This is a Tip, indicating nice-to-have information. Reading these will help you navigate the application better.
+====
+
+====
+* A grey highlight indicates something that you can type into the command line as an instruction. e.g. `setCategories`
+* A grey highlight can also refer to specific functionalities of the application. e.g. `Cuisine`
+* A *bolded* word or phrase indicates important words that you should take note of.
+* A phrase in _italics_ indicates that it is either a Figure label or a phrase referring to a particular Figure.
+====
+
 == Summary of contributions
 
 The following describes the contributions I made to the project. More specifically, it documents both the code enhancements
@@ -59,7 +78,7 @@ and how I helped manage the project.
 *** PRs reviewed (with non-trivial review comments): (PR https://github.com/CS2103-AY1819S2-W17-1/main/pull/103[#103])
 *** Fixed tutor PR comments: (PR https://github.com/CS2103-AY1819S2-W17-1/main/pull/76[#76])
 *** Fixed AboutUs photos not linking properly for all members: (PR https://github.com/CS2103-AY1819S2-W17-1/main/pull/40[#40])
-*** Helping team members with git workflow
+*** Helped team members with git workflow
 *** Contributed to the forum: (FORUM https://github.com/nus-cs2103-AY1819S2/forum/issues/62[#62], https://github.com/nus-cs2103-AY1819S2/forum/issues/69[#69])
 
 == Contributions to the User Guide

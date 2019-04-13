@@ -519,7 +519,7 @@ _Figure 2: setCategories Sequence Diagram_
 You can find out more about why certain areas of the feature is implemented a certain way here. Other possible
 alternatives are also considered and reasons as to why they were not chosen are also explained here.
 
-===== Price Range Categorisation
+===== How a restaurant's Price Range is categorised
 
 This section discusses the different ways price ranges could have been categorised.
 
@@ -537,7 +537,7 @@ This section discusses the different ways price ranges could have been categoris
 | Cons | Lacks proper structure, not very intuitive to the viewer if the user keys in something that does not make sense
 |=========
 
-Alternative 1 was chosen because it offers a better user experience to just type in a few characters instead of having the
+I chose Alternative 1 because it offers a better user experience to just type in a few characters instead of having the
 user think of what to type every time the user wants to set a price range. It also ensures that all restaurants'
 price ranges are visually consistent.
 
@@ -559,7 +559,7 @@ This section discusses how categories could have been handled.
 | Cons | User needs to remember which restaurants do not have categories added yet, else add or edit commands might fail.
 |=====================
 
-Alternative 1 was chosen because there are not much categories a restaurant can have. Furthermore, if there ever arise a need
+I chose Alternative 1 because there are not much categories a restaurant can have. Furthermore, if there ever arise a need
 for the user to tag the restaurants, they can just use the existing tag system. By having one command to set any category,
 users only need to remember one command, hence it is more intuitive for the user.
 

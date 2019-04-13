@@ -226,7 +226,7 @@ suggestion and press enter. The suggestion will be filled automatically for you!
 Step 1: List all the restaurants by typing `list`, then press enter, as shown _below_.
 
 image::setcategories-stepone.png[]
-_Figure 1: After typing `list`_. Oh no the categories for Aston's are wrong! It is definitely not Chinese! Let's change it!
+_Figure 1: After typing `list`. Oh no the categories for Aston's are wrong! It is definitely not Chinese. Let's change it._
 
 Step 2: Choose a restaurant you want to set categories to. Let us choose Astons for this example. Take note that Astons
 is identified by *INDEX 1*. Start typing `setCategories 1 c/` as _follows_:

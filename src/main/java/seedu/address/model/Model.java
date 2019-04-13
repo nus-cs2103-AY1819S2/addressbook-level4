@@ -17,7 +17,8 @@ public interface Model {
     Predicate<Pdf> PREDICATE_SHOW_ALL_PDFS = unused -> true;
 
     /** {@code Comparator} that compares two PDFs alphabetically based on name */
-    Comparator<Pdf> COMPARATOR_NAME_ASCENDING_PDFS = Comparator.comparing(Pdf::getName);
+    Comparator<Pdf> COMPARATOR_NAME_ASCENDING_PDFS = (o1, o2) ->
+            o1.getName().toString().compareToIgnoreCase(o2.getName().toString());
     Comparator<Pdf> COMPARATOR_NAME_DESCENDING_PDFS = COMPARATOR_NAME_ASCENDING_PDFS.reversed();
 
     /** {@code Comparator} that compares two PDFs chronologically based on deadline */

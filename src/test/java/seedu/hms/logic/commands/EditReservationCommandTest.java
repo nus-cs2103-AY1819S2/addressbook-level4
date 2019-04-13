@@ -1,4 +1,5 @@
-//package seedu.hms.logic.commands;
+package seedu.hms.logic.commands;
+
 //
 //import static org.junit.Assert.assertFalse;
 //import static org.junit.Assert.assertTrue;
@@ -8,6 +9,7 @@
 //import static seedu.hms.logic.commands.CommandTestUtil.assertReservationCommandSuccess;
 //import static seedu.hms.logic.commands.CommandTestUtil.showReservationForPayer;
 //import static seedu.hms.testutil.TypicalCustomers.ALICE;
+//import static seedu.hms.testutil.TypicalCustomers.DOUBLE;
 //import static seedu.hms.testutil.TypicalCustomers.getTypicalHotelManagementSystem;
 //import static seedu.hms.testutil.TypicalIndexes.INDEX_FIRST_RESERVATION;
 //import static seedu.hms.testutil.TypicalIndexes.INDEX_SECOND_RESERVATION;
@@ -22,12 +24,11 @@
 //import seedu.hms.model.UserPrefs;
 //import seedu.hms.model.VersionedHotelManagementSystem;
 //import seedu.hms.model.reservation.Reservation;
-//import seedu.hms.model.reservation.RoomType;
 //import seedu.hms.testutil.EditReservationDescriptorBuilder;
 //import seedu.hms.testutil.ReservationBuilder;
 //
-//public class EditReservationCommandTest {
-//
+public class EditReservationCommandTest {
+
 //    private ReservationModel model =
 //        new ReservationManager(new VersionedHotelManagementSystem(getTypicalHotelManagementSystem()),
 //            new UserPrefs());
@@ -40,7 +41,7 @@
 //            new EditReservationDescriptorBuilder(editedReservation)
 //                .build();
 //        EditReservationCommand editReservationCommand = new EditReservationCommand(INDEX_FIRST_RESERVATION,
-//        descriptor);
+//            descriptor);
 //
 //        String expectedMessage = String.format(EditReservationCommand.MESSAGE_EDIT_RESERVATION_SUCCESS,
 //            editedReservation);
@@ -51,7 +52,8 @@
 //        expectedModel.setReservation(0, editedReservation);
 //        expectedModel.commitHotelManagementSystem();
 //
-//        assertReservationCommandSuccess(editReservationCommand, model, commandHistory, expectedMessage, expectedModel
+//        assertReservationCommandSuccess(editReservationCommand, model, commandHistory, expectedMessage,
+// expectedModel);
 //    }
 //
 //    @Test
@@ -60,10 +62,10 @@
 //        Reservation lastReservation = model.getFilteredReservationList().get(indexLastReservation.getZeroBased());
 //
 //        ReservationBuilder reservationInList = new ReservationBuilder(lastReservation);
-//        Reservation editedReservation = reservationInList.withRoom(RoomType.DOUBLE).build();
+//        Reservation editedReservation = reservationInList.withRoom(DOUBLE).build();
 //
 //        EditReservationCommand.EditReservationDescriptor descriptor = new EditReservationDescriptorBuilder()
-//            .withRoom(RoomType.DOUBLE).build();
+//            .withRoom(DOUBLE).build();
 //        EditReservationCommand editReservationCommand = new EditReservationCommand(indexLastReservation, descriptor);
 //
 //        String expectedMessage = String.format(EditReservationCommand.MESSAGE_EDIT_RESERVATION_SUCCESS,
@@ -75,14 +77,16 @@
 //        expectedModel.setReservation(indexLastReservation.getZeroBased(), editedReservation);
 //        expectedModel.commitHotelManagementSystem();
 //
-//        assertReservationCommandSuccess(editReservationCommand, model, commandHistory, expectedMessage, expectedModel
+//        assertReservationCommandSuccess(editReservationCommand, model, commandHistory, expectedMessage,
+// expectedModel);
 //    }
 //
 //    @Test
 //    public void execute_noFieldSpecifiedUnfilteredList_success() {
 //        EditReservationCommand editReservationCommand = new EditReservationCommand(INDEX_FIRST_RESERVATION,
 //            new EditReservationCommand.EditReservationDescriptor());
-//        Reservation editedReservation = model.getFilteredReservationList().get(INDEX_FIRST_RESERVATION.getZeroBased()
+//        Reservation editedReservation = model.getFilteredReservationList().get(INDEX_FIRST_RESERVATION.getZeroBased
+// ());
 //
 //        String expectedMessage = String.format(EditReservationCommand.MESSAGE_EDIT_RESERVATION_SUCCESS,
 //            editedReservation);
@@ -92,7 +96,8 @@
 //                new UserPrefs());
 //        expectedModel.commitHotelManagementSystem();
 //
-//        assertReservationCommandSuccess(editReservationCommand, model, commandHistory, expectedMessage, expectedModel
+//        assertReservationCommandSuccess(editReservationCommand, model, commandHistory, expectedMessage,
+// expectedModel);
 //    }
 //
 //    @Test
@@ -101,8 +106,8 @@
 //
 //        Reservation reservationInFilteredList =
 //            model.getFilteredReservationList().get(INDEX_FIRST_RESERVATION.getZeroBased());
-//        Reservation editedReservation = new ReservationBuilder(reservationInFilteredList).withDates("14/05/2019", "17
-//            "/05/2019").build();
+//        Reservation editedReservation = new ReservationBuilder(reservationInFilteredList).withDates("14/05/2019",
+//            "17/05/2019").build();
 //        EditReservationCommand editReservationCommand = new EditReservationCommand(INDEX_FIRST_RESERVATION,
 //            new EditReservationDescriptorBuilder().withDates("14/05/2019", "17/05/2019").build());
 //
@@ -115,7 +120,8 @@
 //        expectedModel.setReservation(0, editedReservation);
 //        expectedModel.commitHotelManagementSystem();
 //
-//        assertReservationCommandSuccess(editReservationCommand, model, commandHistory, expectedMessage, expectedModel
+//        assertReservationCommandSuccess(editReservationCommand, model, commandHistory, expectedMessage,
+// expectedModel);
 //    }
 //
 //    @Test
@@ -153,7 +159,8 @@
 //        EditReservationCommand.EditReservationDescriptor descriptor =
 //            new EditReservationDescriptorBuilder(editedReservation)
 //                .build();
-//        EditReservationCommand editReservationCommand = new EditReservationCommand(INDEX_FIRST_RESERVATION, descripto
+//        EditReservationCommand editReservationCommand = new EditReservationCommand(INDEX_FIRST_RESERVATION,
+// descriptor);
 //        ReservationModel expectedModel =
 //            new ReservationManager(new VersionedHotelManagementSystem(model.getHotelManagementSystem()),
 //                new UserPrefs());
@@ -203,7 +210,8 @@
 //        EditReservationCommand.EditReservationDescriptor descriptor =
 //            new EditReservationDescriptorBuilder(editedReservation)
 //                .build();
-//        EditReservationCommand editReservationCommand = new EditReservationCommand(INDEX_FIRST_RESERVATION, descripto
+//        EditReservationCommand editReservationCommand = new EditReservationCommand(INDEX_FIRST_RESERVATION,
+// descriptor);
 //        ReservationModel expectedModel =
 //            new ReservationManager(new VersionedHotelManagementSystem(model.getHotelManagementSystem()),
 //                new UserPrefs());
@@ -251,6 +259,7 @@
 //            DESC_ALICE_SINGLE_ROOM)));
 //
 //        // different descriptor -> returns false
-//        assertFalse(standardCommand.equals(new EditReservationCommand(INDEX_FIRST_RESERVATION, DESC_CARL_SINGLE_ROOM)
+//        assertFalse(standardCommand.equals(new EditReservationCommand(INDEX_FIRST_RESERVATION,
+// DESC_CARL_SINGLE_ROOM)));
 //    }
-//}
+}

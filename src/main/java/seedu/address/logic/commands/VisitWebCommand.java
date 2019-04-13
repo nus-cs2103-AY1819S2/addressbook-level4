@@ -91,8 +91,16 @@ public class VisitWebCommand extends Command {
 
     @Override
     public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof VisitWebCommand // instanceof handles nulls
-                && targetIndex.equals(((VisitWebCommand) other).targetIndex)); // state check
+
+        boolean result;
+
+        if (targetIndex != null) {
+            result = targetIndex.equals(((VisitWebCommand) other).targetIndex);
+        } else {
+            assert weblink != null;
+            result = weblink.equals(((VisitWebCommand) other).weblink);
+        }
+
+        return other == this || (other instanceof VisitWebCommand && result); // state check
     }
 }

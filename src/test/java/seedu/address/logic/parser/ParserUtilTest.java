@@ -15,6 +15,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import seedu.address.commons.util.WebUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.restaurant.Address;
 import seedu.address.model.restaurant.Email;
@@ -43,6 +44,7 @@ public class ParserUtilTest {
     private static final String VALID_TAG_2 = "neighbour";
     private static final String VALID_OPENING_HOURS = "0800 to 2359";
     private static final String VALID_WEBLINK = "https://www.google.com.sg";
+    private static final String VALID_WEBLINK_WITHOUT_PROTOCOL = "www.kfc.com.sg";
 
     private static final String WHITESPACE = " \t\r\n";
 
@@ -285,5 +287,12 @@ public class ParserUtilTest {
         String defaultWeblink = "No weblink added";
         Weblink expectedWeblink = Weblink.makeDefaultWeblink();
         assertEquals(expectedWeblink, ParserUtil.parseWeblink(defaultWeblink));
+    }
+
+    @Test
+    public void parseWeblink_withoutProtocol() throws Exception {
+        String weblinkWithoutProtocol = VALID_WEBLINK_WITHOUT_PROTOCOL;
+        Weblink expectedWeblink = new Weblink(WebUtil.validateAndAppend(VALID_WEBLINK_WITHOUT_PROTOCOL));
+        assertEquals(expectedWeblink, ParserUtil.parseWeblink(weblinkWithoutProtocol));
     }
 }

@@ -414,7 +414,7 @@ e.g. `find James Jake`
 * *Filter* :
 ** Usage 1: `filter and [name<NAME>name] [phone<PHONE>phone] [email<EMAIL>email] [gpa<GPA>gpa] [edu<EDUCATION>edu] [deg<DEGREE-LEVEL>deg] [addr<ADDRESS>addr] [skill<SKILL1, SKILL2, ... >skill][pos<POSITION1, POSITION2, ... >pos] [end<ENDORSEMENT>end]` +
 e.g. `filter and name<ale>name gpa<2.6>gpa skill<C++>skill end<2>end email<a@>email`
-** Usage 2: `filter or [name<NAME>name] [phone<PHONE>phone] [email<EMAIL>email] [gpa<GPA>gpa] [edu<EDUCATION>edu] [deg<DEGREE-LEVEL>deg] [addr<ADDRESS>addr] [skill<SKILL1, SKILL2, ... >skill][pos<POSITION1, POSITION2, ... >pos] [end<ENDORSEMENT>end]`
+** Usage 2: `filter or [name<NAME>name] [phone<PHONE>phone] [email<EMAIL>email] [gpa<GPA>gpa] [edu<EDUCATION>edu] [deg<DEGREE-LEVEL>deg] [addr<ADDRESS>addr] [skill<SKILL1, SKILL2, ... >skill][pos<POSITION1, POSITION2, ... >pos] [end<ENDORSEMENT>end]` +
 e.g. `filter or phone<9>phone edu<NUS>edu pos<Manager, Developer>pos deg<high school>deg addr<street>addr`
 ** Usage 3: `filter clear`
 ** Usage 4: `filter reverse`

@@ -13,6 +13,7 @@ import org.junit.rules.ExpectedException;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -25,13 +26,6 @@ public class DeadlineCommandTest {
 
     private Model model = new ModelManager(getTypicalPdfBook(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
-
-    @Test
-    public void constructor_invalidIndex_throwsIndexOutOfBoundsException() {
-        //thrown.expect(IndexOutOfBoundsException.class);
-        new DeadlineCommand(Index.fromZeroBased(model.getFilteredPdfList().size() + 1),
-                new Deadline(), DeadlineCommand.DeadlineAction.NEW);
-    }
 
     @Test
     public void constructor_invalidNegativeIndex_throwsIndexOutOfBoundsException() {
@@ -88,6 +82,40 @@ public class DeadlineCommandTest {
         } catch (Exception e) {
             fail();
         }
+    }
+
+    @Test
+    public void execute_invalidIndex_throwsCommandException() throws CommandException {
+        thrown.expect(CommandException.class);
+        DeadlineCommand invalidCommand = new DeadlineCommand(Index.fromZeroBased(model.getFilteredPdfList().size() + 1),
+                new Deadline(), DeadlineCommand.DeadlineAction.NEW);
+        invalidCommand.execute(this.model, commandHistory);
+    }
+
+    @Test
+    public void execute_doneNonExistingDeadline_throwsCommandException() throws CommandException {
+        thrown.expect(CommandException.class);
+        DeadlineCommand addCommand = new DeadlineCommand(Index.fromOneBased(1), new Deadline(),
+                DeadlineCommand.DeadlineAction.NEW);
+        DeadlineCommand doneCommand = new DeadlineCommand(Index.fromOneBased(1), new Deadline(),
+                DeadlineCommand.DeadlineAction.DONE);
+        DeadlineCommand removeCommand = new DeadlineCommand(Index.fromOneBased(1), new Deadline(),
+                DeadlineCommand.DeadlineAction.REMOVE);
+        addCommand.execute(this.model, commandHistory);
+        removeCommand.execute(this.model, commandHistory);
+        doneCommand.execute(this.model, commandHistory);
+    }
+
+    @Test
+    public void execute_removeNonExistingDeadline_throwsCommandException() throws CommandException {
+        thrown.expect(CommandException.class);
+        DeadlineCommand addCommand = new DeadlineCommand(Index.fromOneBased(1), new Deadline(),
+                DeadlineCommand.DeadlineAction.NEW);
+        DeadlineCommand removeCommand = new DeadlineCommand(Index.fromOneBased(1), new Deadline(),
+                DeadlineCommand.DeadlineAction.REMOVE);
+        addCommand.execute(this.model, commandHistory);
+        removeCommand.execute(this.model, commandHistory);
+        removeCommand.execute(this.model, commandHistory);
     }
 
     @Test

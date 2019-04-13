@@ -22,11 +22,13 @@ package systemtests;
 //import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.DIR_1_VALID;
 import static seedu.address.logic.commands.CommandTestUtil.DIR_2_VALID;
+import static seedu.address.logic.commands.CommandTestUtil.FILEPATH_1_VALID;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_LECTURE;
 //import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_CS2103T;
 //import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 //import static seedu.address.testutil.TypicalPdfs.ALICE;
 //import static seedu.address.testutil.TypicalPdfs.AMY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_FILE;
 import static seedu.address.testutil.TypicalPdfs.SAMPLE_PDF_1;
 //import static seedu.address.testutil.TypicalPdfs.BOB;
 //import static seedu.address.testutil.TypicalPdfs.CARL;
@@ -67,7 +69,7 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
          */
         Pdf toAdd = SAMPLE_PDF_1;
 
-        String command = "   " + AddCommand.COMMAND_WORD + "  " + DIR_1_VALID + " " + TAG_DESC_LECTURE + " ";
+        String command = AddCommand.COMMAND_WORD + " " + PREFIX_FILE + FILEPATH_1_VALID;
         assertCommandSuccess(command, toAdd);
 
         /* Case: undo adding SAMPLE_PDF_1 to the list -> Amy deleted */

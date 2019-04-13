@@ -12,7 +12,7 @@ import java.util.Collections;
 
 import org.junit.Test;
 
-import guitests.guihandles.PersonCardHandle;
+import guitests.guihandles.PdfCardHandle;
 import guitests.guihandles.PersonListPanelHandle;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
@@ -38,7 +38,7 @@ public class PdfListPanelTest extends GuiUnitTest {
         for (int i = 0; i < TYPICAL_PDFS.size(); i++) {
             personListPanelHandle.navigateToCard(TYPICAL_PDFS.get(i));
             Pdf expectedPdf = TYPICAL_PDFS.get(i);
-            PersonCardHandle actualCard = personListPanelHandle.getPersonCardHandle(i);
+            PdfCardHandle actualCard = personListPanelHandle.getPersonCardHandle(i);
 
             assertCardDisplaysPerson(expectedPdf, actualCard);
             assertEquals(Integer.toString(i + 1) + ". ", actualCard.getId());
@@ -52,8 +52,8 @@ public class PdfListPanelTest extends GuiUnitTest {
         guiRobot.interact(() -> selectedPerson.set(secondPdf));
         guiRobot.pauseForHuman();
 
-        PersonCardHandle expectedPerson = personListPanelHandle.getPersonCardHandle(INDEX_SECOND_PDF.getZeroBased());
-        PersonCardHandle selectedPerson = personListPanelHandle.getHandleToSelectedCard();
+        PdfCardHandle expectedPerson = personListPanelHandle.getPersonCardHandle(INDEX_SECOND_PDF.getZeroBased());
+        PdfCardHandle selectedPerson = personListPanelHandle.getHandleToSelectedCard();
         assertCardEquals(expectedPerson, selectedPerson);
     }
 

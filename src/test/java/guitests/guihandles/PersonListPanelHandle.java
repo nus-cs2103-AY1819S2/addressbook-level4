@@ -23,12 +23,12 @@ public class PersonListPanelHandle extends NodeHandle<ListView<Pdf>> {
     }
 
     /**
-     * Returns a handle to the selected {@code PersonCardHandle}.
+     * Returns a handle to the selected {@code PdfCardHandle}.
      * A maximum of 1 item can be selected at any time.
      * @throws AssertionError if no card is selected, or more than 1 card is selected.
      * @throws IllegalStateException if the selected card is currently not in the scene graph.
      */
-    public PersonCardHandle getHandleToSelectedCard() {
+    public PdfCardHandle getHandleToSelectedCard() {
         List<Pdf> selectedPdfList = getRootNode().getSelectionModel().getSelectedItems();
 
         if (selectedPdfList.size() != 1) {
@@ -36,7 +36,7 @@ public class PersonListPanelHandle extends NodeHandle<ListView<Pdf>> {
         }
 
         return getAllCardNodes().stream()
-                .map(PersonCardHandle::new)
+                .map(PdfCardHandle::new)
                 .filter(handle -> handle.equals(selectedPdfList.get(0)))
                 .findFirst()
                 .orElseThrow(IllegalStateException::new);
@@ -101,9 +101,9 @@ public class PersonListPanelHandle extends NodeHandle<ListView<Pdf>> {
      * Returns the pdf card handle of a pdf associated with the {@code index} in the list.
      * @throws IllegalStateException if the selected card is currently not in the scene graph.
      */
-    public PersonCardHandle getPersonCardHandle(int index) {
+    public PdfCardHandle getPersonCardHandle(int index) {
         return getAllCardNodes().stream()
-                .map(PersonCardHandle::new)
+                .map(PdfCardHandle::new)
                 .filter(handle -> handle.equals(getPerson(index)))
                 .findFirst()
                 .orElseThrow(IllegalStateException::new);

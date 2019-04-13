@@ -13,29 +13,29 @@ import seedu.address.model.pdf.Pdf;
 /**
  * Provides a handle to a pdf card in the pdf list panel.
  */
-public class PersonCardHandle extends NodeHandle<Node> {
+public class PdfCardHandle extends NodeHandle<Node> {
     private static final String ID_FIELD_ID = "#id";
     private static final String NAME_FIELD_ID = "#name";
-    private static final String ADDRESS_FIELD_ID = "#address";
-    private static final String PHONE_FIELD_ID = "#phone";
-    private static final String EMAIL_FIELD_ID = "#email";
+    private static final String DIRECTORY_FIELD_ID = "#directory";
+    private static final String DEADLINE_FIELD_ID = "#deadline";
+    private static final String SIZE_FIELD_ID = "#size";
     private static final String TAGS_FIELD_ID = "#tags";
 
     private final Label idLabel;
     private final Label nameLabel;
-    private final Label addressLabel;
-    private final Label phoneLabel;
-    private final Label emailLabel;
+    private final Label directoryLabel;
+    private final Label deadlineLabel;
+    private final Label sizeLabel;
     private final List<Label> tagLabels;
 
-    public PersonCardHandle(Node cardNode) {
+    public PdfCardHandle(Node cardNode) {
         super(cardNode);
 
         idLabel = getChildNode(ID_FIELD_ID);
         nameLabel = getChildNode(NAME_FIELD_ID);
-        addressLabel = getChildNode(ADDRESS_FIELD_ID);
-        phoneLabel = getChildNode(PHONE_FIELD_ID);
-        emailLabel = getChildNode(EMAIL_FIELD_ID);
+        directoryLabel = getChildNode(DIRECTORY_FIELD_ID);
+        deadlineLabel = getChildNode(DEADLINE_FIELD_ID);
+        sizeLabel = getChildNode(SIZE_FIELD_ID);
 
         Region tagsContainer = getChildNode(TAGS_FIELD_ID);
         tagLabels = tagsContainer
@@ -54,15 +54,15 @@ public class PersonCardHandle extends NodeHandle<Node> {
     }
 
     public String getAddress() {
-        return addressLabel.getText();
+        return directoryLabel.getText();
     }
 
     public String getPhone() {
-        return phoneLabel.getText();
+        return deadlineLabel.getText();
     }
 
     public String getEmail() {
-        return emailLabel.getText();
+        return sizeLabel.getText();
     }
 
     public List<String> getTags() {

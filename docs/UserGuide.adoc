@@ -423,7 +423,6 @@ Format: `patientedit INDEX [PREFIX/KEYWORDS]` or `pedit INDEX [PREFIX/KEYWORDS]`
 Must be a positive integer (e.g 1, 2 or 3).
 
 * Input the prefix followed by the new value to replace the existing data.
-** The full list of possible prefixes can be found in <<Breakdown of attributes used within TeethHub>>
 
 * The given index must be a positive integer (e.g. 1, 2, or 3…).
 
@@ -443,6 +442,7 @@ Parameters that can be edited:
 |nokp/NEXT_OF_KIN_PHONE_NUMBER
 |nokr/NEXT_OF_KIN_RELATION
 |noka/NEXT_OF_KIN_ADDRESS
+|desc/DESCRIPTION
 |===
 
 Example:

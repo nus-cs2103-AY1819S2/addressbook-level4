@@ -101,7 +101,7 @@ public class DeleteRequestCommandSystemTest extends HealthHubSystemTest {
 
 
         /* Case: delete the selected request -> request list panel selects the request before the deleted request */
-        showAllPatients();
+        showAllRequests();
         expectedModel.updateFilteredRequestList(Model.PREDICATE_SHOW_ALL_REQUESTS);
         Index selectedIndex = getLastIndex(expectedModel);
         Index expectedIndex = Index.fromZeroBased(selectedIndex.getZeroBased() - 1);

@@ -109,7 +109,7 @@ public class SelectCommandSystemTest extends HealthHubSystemTest {
         /* Case: select from empty request book --> rejected */
         //deleteAllRequests();
         //assertCommandFailure(SelectCommand.COMMAND_WORD + " " + INDEX_FIRST.getOneBased(),
-        //      MESSAGE_INVALID_REQUEST_DISPLAYED_INDEX);
+        //      MESSAGE_INVALID_REQUEST_DISPLAYED_INDEX, expectedModel);
     }
 
     /**

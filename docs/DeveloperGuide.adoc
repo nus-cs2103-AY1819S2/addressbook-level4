@@ -674,7 +674,8 @@ image::ExportCommandActivityDiagram.png[width="870"]
 *** **Alternative Pros:** Same as Alternative 1.
 *** **Alternative Cons:** Same as Alternative 1. In addition to that:
 The features of Json Util would need to be re-implemented in (Open/Import/Save/Export)Command, which would also lead to duplicate logic.
-** **Choice Justification:** Since:
+** **Choice Justification:** +
+Since: +
 There already is a file reading/writing error handling implemented in InOutAddressBookStorage. +
 There already is .json handling implemented in JsonUtil. +
 It would be logical to make use of them instead of re-implementing them.
@@ -688,7 +689,8 @@ It would be logical to make use of them instead of re-implementing them.
 *** **Alternative Pros:** Same as Alternative 1.
 *** **Alternative Cons:** Same as Alternative 1. In addition to that:
 Passing the job to FileUtil would require implementing Pdf creation and saving that is already present in the third party library Apache PDFBox. Hence the job is passed to PdfUtil and stops there as it calls the already present writing methods of Apache PDFBox.
-** **Choice Justification:** Since:
+** **Choice Justification:** +
+Since: +
 There already is a file reading/writing error handling implemented in InOutAddressBookStorage. +
 There already is .pdf handling implemented in Apache PDFBox. +
 It would be logical to make use of them instead of re-implementing them.

@@ -33,7 +33,7 @@ public class Messages {
     public static final String MESSAGE_CARD_COMMANDS =
             "<< Card View >>\nYou can now use the following commands:\n"
                     + "1. " + SaveLessonCommand.COMMAND_WORD
-                    + ": Saves changes made to this lesson and return to Lesson View.\n"
+                    + ": Saves changes and returns you to Lesson View.\n"
                     + "2. " + SetTestCommand.COMMAND_WORD
                     + ": Sets the 2 test values for the opened lesson's flashcards.\n"
                     + "3. " + AddCardCommand.COMMAND_WORD
@@ -67,16 +67,18 @@ public class Messages {
      * Feedback message displayed to the user when attempting to close lesson when no lesson is opened.
      */
     public static final String MESSAGE_CARD_VIEW_COMMAND =
-            "This is a Card View command. Open a lesson in Card View to use this command.\n"
-            + "To open a lesson in Card View for editing:\n" + EditLessonCommand.MESSAGE_USAGE;
+            "This is a Card View command.\n"
+            + "To open a lesson in Card View for editing, use this command:\n"
+                    + EditLessonCommand.MESSAGE_USAGE;
     /**
      * Feedback message displayed to the user when attempting to use listLessons, addLesson,
      * deleteLesson, editLesson and reloadLessons command while lesson is opened. Prompts user
      * to exitLesson first.
      */
     public static final String MESSAGE_LESSON_VIEW_COMMAND =
-            "This is a Lesson View command. Exit Card View to return to Lesson View.\n"
-            + "To exit Card View:\n" + SaveLessonCommand.MESSAGE_USAGE;
+            "This is a Lesson View command.\n"
+            + "To exit Card View and return to Lesson View, use this command:\n"
+                    + SaveLessonCommand.MESSAGE_USAGE;
 
     /**
      * This is a constants-only (utility) class which should not be instantiated.

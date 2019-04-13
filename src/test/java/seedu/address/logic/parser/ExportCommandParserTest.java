@@ -33,7 +33,7 @@ public class ExportCommandParserTest {
      * @param expectedHash The expected parsed index range
      */
     private void parse_validArgs(String filename, String type, String range, HashSet<Integer> expectedHash) {
-        File test = new File("data" + File.separator + filename + "." + type);
+        File test = new File("data/" + filename + "." + type);
         try {
             ParsedInOut expected;
             if (range.equals("all")) {

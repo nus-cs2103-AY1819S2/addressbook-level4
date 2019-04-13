@@ -50,7 +50,7 @@ highscore functionality in the game.
 ** Enhancements to existing features:
 *** Morphed HistoryCommand into StatsCommand to be used by rest of the team(Pull requests https://github.com[#], https://github.com[#])
 *** Restructured Storage component to accommodate saving of statistics data (Pull requests : #)
-*** Introduced an elasped time functionality in the Graphical User Interface (GUI). (Pull request : # )
+*** Introduced an elapsed time functionality in the Graphical User Interface (GUI). (Pull request : # )
 ** Documentation:
 *** Added detailed implementation documentation for the statistics feature in the Developer Guide, including screenshots
 and diagrams. (Pull requests # )

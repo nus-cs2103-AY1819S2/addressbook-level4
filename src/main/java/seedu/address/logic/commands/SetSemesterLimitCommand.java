@@ -76,7 +76,7 @@ public class SetSemesterLimitCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
-        List<SemesterLimit> lastShownList = model.getSemLimitList();
+        List<SemesterLimit> lastShownList = model.getSemesterLimitList();
 
         if (index.getZeroBased() >= NUMSEM) {
             throw new CommandException(Messages.MESSAGE_INVALID_SEMESTER_LIMIT);

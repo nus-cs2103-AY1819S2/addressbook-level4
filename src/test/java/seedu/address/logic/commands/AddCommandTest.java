@@ -196,7 +196,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public ObservableList<SemesterLimit> getSemLimitList() {
+        public ObservableList<SemesterLimit> getSemesterLimitList() {
             throw new AssertionError("This method should not be called.");
         }
 

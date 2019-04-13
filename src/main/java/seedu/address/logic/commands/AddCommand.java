@@ -15,7 +15,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PASTJOB;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_RACE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SCHOOL;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Iterator;
 
@@ -50,8 +49,8 @@ public class AddCommand extends Command {
             + PREFIX_GRADE + "GRADE "
             + PREFIX_INTERVIEWSCORES + "INTERVIEWSCORES "
             + PREFIX_JOBSAPPLY + "JOBSAPPLY..."
-            + "[" +  PREFIX_PASTJOB + "PASTJOB]..."
-            + "[" +  PREFIX_KNOWNPROGLANG + "KNOWNPROGLANG]...\n"
+            + "[" + PREFIX_PASTJOB + "PASTJOB]..."
+            + "[" + PREFIX_KNOWNPROGLANG + "KNOWNPROGLANG]...\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "John Doe "
             + PREFIX_PHONE + "98765432 "
@@ -63,7 +62,7 @@ public class AddCommand extends Command {
             + PREFIX_SCHOOL + "NUS "
             + PREFIX_MAJOR + "Computer Science "
             + PREFIX_GRADE + "4.76 "
-            + PREFIX_JOBSAPPLY + "Software Engineer "
+            + PREFIX_JOBSAPPLY + "Software-Engineer "
             + PREFIX_INTERVIEWSCORES + "1,2,3,4,5 "
             + PREFIX_KNOWNPROGLANG + "Python "
             + PREFIX_PASTJOB + "Software Engineer "
@@ -81,7 +80,7 @@ public class AddCommand extends Command {
     public static final String MESSAGE_LACK_RACE = "Race field should not be empty.\n%1$s";
     public static final String MESSAGE_LACK_SCHOOL = "School field should not be empty.\n%1$s";
     public static final String MESSAGE_INFORMATION_WITHOUT_PREFIX =
-        "All information need a prefix for this command. \n%1$s";
+            "All information need a prefix for this command. \n%1$s";
     public static final String MESSAGE_SUCCESS = "New person added: %1$s";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book";
 

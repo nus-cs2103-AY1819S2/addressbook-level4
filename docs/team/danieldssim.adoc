@@ -1,0 +1,61 @@
+= Daniel Sim - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: slaveFinder()
+
+---
+
+== Overview
+
+slaveFinder() is a desktop address book application used for people in the HR department of a company to help them filter people and schedule interviews. It also helps with analytics of the hiring process in the company.
+
+== Summary of contributions
+
+* *Major enhancement*: added *Job manipulation functionality*
+** What it does: Allows users to interact with new Job object by creating and deleting jobs as well as adding, removing and moving people within the lists contained in job.
+** Justification: This feature allows the user to contain data for more than one job opening as well as to indicate progress of candidates through the job application process.
+** Highlights: Implementation of this class required a modification of the addressbook application across all components. Base addressbook database was enhanced to not only contain a database of people but also a database of jobs. Add command was modified to automatically add people who have applied for an available job to the first list ("applicants") of the job. When a job is created, all applicants for the specific job are automatically added.
+** Credits:
+
+* *Minor enhancement*: Added a major field and known programming language field which helps in the ranking and filtering of individuals for interviews
+
+* *Code contributed*:https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#=undefined&search=githbub_username_in_lower_case (replace githbub_username_in_lower_case
+
+* *Other contributions*:
+
+** Project management:
+*** Managed release `v1.3` on GitHub
+** Enhancements to existing features:
+** Documentation:
+*** Updated Model Component image of slaveFinder()
+** Community:
+*** PRs reviewed (with non-trivial review comments): https://github.com/CS2103-AY1819S2-W15-3/main/pull/44[#44]
+** Tools:
+*** Integrated TravisCI, Appveyor, Codacy, and Coveralls to team repo
+
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=interviews]
+
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=interviews]
+
+
+
+
+
+---

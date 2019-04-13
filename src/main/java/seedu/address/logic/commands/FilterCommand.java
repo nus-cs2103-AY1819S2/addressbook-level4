@@ -276,6 +276,7 @@ public class FilterCommand extends Command {
             setPastJobs(toCopy.pastJobs);
             setJobsApply(toCopy.jobsApply);
         }
+
         /**
          * Translate and returns a Predicate object for name
          */
@@ -287,6 +288,7 @@ public class FilterCommand extends Command {
             }
             return predicator;
         }
+
         /**
          * Translate and returns a Predicate object for phone
          */
@@ -298,6 +300,7 @@ public class FilterCommand extends Command {
             }
             return predicator;
         }
+
         /**
          * Translate and returns a Predicate object for email
          */
@@ -309,6 +312,7 @@ public class FilterCommand extends Command {
             }
             return predicator;
         }
+
         /**
          * Translate and returns a Predicate object for race
          */
@@ -320,6 +324,7 @@ public class FilterCommand extends Command {
             }
             return predicator;
         }
+
         /**
          * Translate and returns a Predicate object for address
          */
@@ -331,6 +336,7 @@ public class FilterCommand extends Command {
             }
             return predicator;
         }
+
         /**
          * Translate and returns a Predicate object for school
          */
@@ -342,6 +348,7 @@ public class FilterCommand extends Command {
             }
             return predicator;
         }
+
         /**
          * Translate and returns a Predicate object for major
          */
@@ -353,6 +360,7 @@ public class FilterCommand extends Command {
             }
             return predicator;
         }
+
         /**
          * Translate and returns a Predicate object for gender
          */
@@ -364,6 +372,7 @@ public class FilterCommand extends Command {
             }
             return predicator;
         }
+
         /**
          * Translate and returns a Predicate object for grade
          */
@@ -375,6 +384,7 @@ public class FilterCommand extends Command {
             }
             return predicator;
         }
+
         /**
          * Translate and returns a Predicate object for iq1
          */
@@ -386,6 +396,7 @@ public class FilterCommand extends Command {
             }
             return predicator;
         }
+
         /**
          * Translate and returns a Predicate object for iq2
          */
@@ -397,6 +408,7 @@ public class FilterCommand extends Command {
             }
             return predicator;
         }
+
         /**
          * Translate and returns a Predicate object for iq3
          */
@@ -408,6 +420,7 @@ public class FilterCommand extends Command {
             }
             return predicator;
         }
+
         /**
          * Translate and returns a Predicate object for iq4
          */
@@ -419,6 +432,7 @@ public class FilterCommand extends Command {
             }
             return predicator;
         }
+
         /**
          * Translate and returns a Predicate object for iq5
          */
@@ -430,6 +444,7 @@ public class FilterCommand extends Command {
             }
             return predicator;
         }
+
         /**
          * Translate and returns a Predicate object for nric
          */
@@ -441,6 +456,7 @@ public class FilterCommand extends Command {
             }
             return predicator;
         }
+
         /**
          * Translate and returns a Predicate object for pastJob
          */
@@ -452,6 +468,7 @@ public class FilterCommand extends Command {
             }
             return predicator;
         }
+
         /**
          * Translate and returns a Predicate object for jobsApply
          */
@@ -463,6 +480,7 @@ public class FilterCommand extends Command {
             }
             return predicator;
         }
+
         /**
          * Translate and returns a Predicate object for knownProgLang
          */
@@ -474,6 +492,7 @@ public class FilterCommand extends Command {
             }
             return predicator;
         }
+
         /**
          * Translate and returns a Predicate object for search command
          */
@@ -481,11 +500,11 @@ public class FilterCommand extends Command {
             Predicate<Person> predicator = new PredicateManager();
             predicator = predicator.and(nameToPredicate().and(phoneToPredicate()
                 .and(emailToPredicate().and(raceToPredicate().and(addressToPredicate()
-                .and(majorToPredicate().and(genderToPredicate().and(schoolToPredicate()
-                .and(gradeToPredicate().and(interviewQ1ToPredicate().and(interviewQ2ToPredicate()
-                .and(interviewQ3ToPredicate().and(interviewQ4ToPredicate().and(interviewQ5ToPredicate()
-                .and(nricToPredicate().and(pastJobToPredicate().and(jobsApplyToPredicate()
-                .and(knownProgLangToPredicate()))))))))))))))))));
+                    .and(majorToPredicate().and(genderToPredicate().and(schoolToPredicate()
+                        .and(gradeToPredicate().and(interviewQ1ToPredicate().and(interviewQ2ToPredicate()
+                            .and(interviewQ3ToPredicate().and(interviewQ4ToPredicate().and(interviewQ5ToPredicate()
+                                .and(nricToPredicate().and(pastJobToPredicate().and(jobsApplyToPredicate()
+                                    .and(knownProgLangToPredicate()))))))))))))))))));
             return predicator;
         }
 

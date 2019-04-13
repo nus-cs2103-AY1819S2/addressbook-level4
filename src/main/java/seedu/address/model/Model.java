@@ -111,6 +111,12 @@ public interface Model {
     void deleteJob(Job job);
 
     /**
+     * Deletes the given job list of a job
+     * {@code job} must exist in the address book.
+     */
+    void deletePersonFromJobList(Person toRemove, JobName job, JobListName list);
+
+    /**
      * Moves Person with {@code nric} in Job with {@code jobName}
      * from list {@code source} to list {@code dest}
      * {@code job} must exist in the address book.

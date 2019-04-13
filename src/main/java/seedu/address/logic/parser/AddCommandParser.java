@@ -73,29 +73,29 @@ public class AddCommandParser implements Parser<AddCommand> {
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
-        if (!argMultimap.getPreamble().isEmpty()){
+        if (!argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INFORMATION_WITHOUT_PREFIX, AddCommand.MESSAGE_USAGE));
-        }else if (!argMultimap.getValue(PREFIX_NAME).isPresent()) {
+        } else if (!argMultimap.getValue(PREFIX_NAME).isPresent()) {
             throw new ParseException(String.format(MESSAGE_LACK_NAME, AddCommand.MESSAGE_USAGE));
-        }else if (!argMultimap.getValue(PREFIX_ADDRESS).isPresent()) {
+        } else if (!argMultimap.getValue(PREFIX_ADDRESS).isPresent()) {
             throw new ParseException(String.format(MESSAGE_LACK_ADDRESS, AddCommand.MESSAGE_USAGE));
-        }else if (!argMultimap.getValue(PREFIX_PHONE).isPresent()) {
+        } else if (!argMultimap.getValue(PREFIX_PHONE).isPresent()) {
             throw new ParseException(String.format(MESSAGE_LACK_PHONE, AddCommand.MESSAGE_USAGE));
-        }else if (!argMultimap.getValue(PREFIX_EMAIL).isPresent()) {
+        } else if (!argMultimap.getValue(PREFIX_EMAIL).isPresent()) {
             throw new ParseException(String.format(MESSAGE_LACK_EMAIL, AddCommand.MESSAGE_USAGE));
-        }else if (!argMultimap.getValue(PREFIX_NRIC).isPresent()) {
+        } else if (!argMultimap.getValue(PREFIX_NRIC).isPresent()) {
             throw new ParseException(String.format(MESSAGE_LACK_NRIC, AddCommand.MESSAGE_USAGE));
-        }else if (!argMultimap.getValue(PREFIX_GENDER).isPresent()) {
+        } else if (!argMultimap.getValue(PREFIX_GENDER).isPresent()) {
             throw new ParseException(String.format(MESSAGE_LACK_GENDER, AddCommand.MESSAGE_USAGE));
-        }else if (!argMultimap.getValue(PREFIX_RACE).isPresent()) {
+        } else if (!argMultimap.getValue(PREFIX_RACE).isPresent()) {
             throw new ParseException(String.format(MESSAGE_LACK_RACE, AddCommand.MESSAGE_USAGE));
-        }else if (!argMultimap.getValue(PREFIX_SCHOOL).isPresent()) {
+        } else if (!argMultimap.getValue(PREFIX_SCHOOL).isPresent()) {
             throw new ParseException(String.format(MESSAGE_LACK_SCHOOL, AddCommand.MESSAGE_USAGE));
-        }else if (!argMultimap.getValue(PREFIX_MAJOR).isPresent()) {
+        } else if (!argMultimap.getValue(PREFIX_MAJOR).isPresent()) {
             throw new ParseException(String.format(MESSAGE_LACK_MAJOR, AddCommand.MESSAGE_USAGE));
-        }else if (!argMultimap.getValue(PREFIX_GRADE).isPresent()) {
+        } else if (!argMultimap.getValue(PREFIX_GRADE).isPresent()) {
             throw new ParseException(String.format(MESSAGE_LACK_GRADE, AddCommand.MESSAGE_USAGE));
-        }else if (!argMultimap.getValue(PREFIX_JOBSAPPLY).isPresent()) {
+        } else if (!argMultimap.getValue(PREFIX_JOBSAPPLY).isPresent()) {
             throw new ParseException(String.format(MESSAGE_LACK_JOBSAPPLY, AddCommand.MESSAGE_USAGE));
         }
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());

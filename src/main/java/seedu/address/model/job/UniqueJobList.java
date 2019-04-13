@@ -61,6 +61,14 @@ public class UniqueJobList implements Iterable<Job> {
     }
 
     /**
+     * Removes Person from all jobs.
+     */
+    public void removePersonFromJobList(Person toRemove, JobName job, Integer listNumber) {
+        Job toEdit = getJob(job);
+        toEdit.removeFromList(toRemove, listNumber);
+    }
+
+    /**
      * Removes the equivalent job from the list.
      * The job must exist in the list.
      */

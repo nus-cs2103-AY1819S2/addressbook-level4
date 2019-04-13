@@ -69,6 +69,8 @@ Format: `dentist n/YOUR_NAME`
 
 include::../UserGuide.adoc[tag=patient_management_kyler]
 
+include::../UserGuide.adoc[tag=attributes_kyler]
+
 == Contributions to the Developer Guide
 
 |===

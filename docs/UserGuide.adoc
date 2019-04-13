@@ -68,24 +68,25 @@ a parameter which can be used as add n/John Doe.
 * Parameters can be in any order e.g. if the command specifies `n/NAME ic/NRIC dob/DATE_OF_BIRTH`,
 `dob/DATE_OF_BIRTH n/NAME ic/NRIC ` is also acceptable.
 
+// tag::attributes_kyler[]
 === Breakdown of attributes used within TeethHub
-[cols=",,,", options="header",]
+[cols=",,,,,", options="header",]
 |===
-4+^|List of valid prefixes
+6+^|List of valid prefixes
 
-4+^|Unique Prefixes
-2+| *Patient* 2+| *Record*
-|Prefix | Attribute | Prefix | Attribute
-|a/ | Address 2.7+|
-|dob/ | Date of Birth
-|e/ | Email
-|ic/ | Nric
-|n/ | Name
-|p/ | Phone
-|sex/ | Sex
-4+^|Common Prefixes
+6+^|Unique Prefixes
+2+| *Patient* 2+| *Record* 2+| *Next-of-Kin*
+|Prefix | Attribute | Prefix | Attribute | Prefix | Attribute
+|n/ | Name | pro/ | Procedure | nokn/ | NOK Name
+|sex/ | Sex | desc/ | Description | nokp/ | NOK Phone
+|ic/ | Nric | | | nokr/ | NOK Relation
+|dob/ | Date of Birth | | | noka/ | NOK Address
+|p/ | Phone | | | |
+|e/ | Email | | | |
+|a/ | Address | | | |
 
 |===
+// end::attributes_kyler[]
 
 === General Commands
 

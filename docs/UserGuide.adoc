@@ -529,13 +529,20 @@ image::reverseExample.png[width ="600"]
 
 // tag::summary[]
 ==== Showing summary of records: `summary`
+
+.Summary panel is displayed when user enters the  `summary` command
+image::summaryUI.png[width ="800"]
+
 You can see the summary of your previous expenditures represented as a pie chart, with
 each sector representing a category. Each sector is labelled with name and total expenditure for the category,
 allowing you to have an overview of how your spending habit is like.
 
 You can also specify a report period.
-//with an aster plot graph showing how your spending habits are like in the
-//different categories. It also displays the remaining budget amount for each category.
+
+You may also type `summary` in the command box to exit the summary view mode, as shown in the diagram below.
+
+.Exits from summary view mode when user enters the  `summary` command again
+image::summaryUI_2.png[width ="800"]
 
 *Alias*: `overview`
 
@@ -545,7 +552,7 @@ You can also specify a report period.
 ====
 * If a period is not specified, then the summary will show a default report period of the last 7 days.
 * Deleted entries are not included in the summary.
-* You may also type `summary` in the command box to exit the summary view mode or update the pie chart statistics
+* Adding more entries while in the summary view mode will update the pie chart statistics automatically, if the expense falls within the specified report period
 ====
 
 ****
@@ -558,9 +565,6 @@ Shows summary of expenses in the past 3 days
 * `summary #/7 p/m`: +
 Shows summary of expenses in the past 7 months
 ****
-
-[NOTE]
-The implementation of this feature is still ongoing. It will be completed by v1.4.
 
 // end::summary[]
 

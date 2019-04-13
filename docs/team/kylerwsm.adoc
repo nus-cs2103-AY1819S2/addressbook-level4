@@ -12,25 +12,24 @@ The program is written in Java.
 
 == Summary of contributions
 
-* *Major enhancement*: enhanced the *person* storage into a *dental patient* storage
-** What it does: This new data structure allows our users to store personal information of patients.
-** Justification: This data structure creates the foundation of the product, as TeethHub is an application which manages dental patients for our users.
-** Highlights: This enhancements affects existing commands and commands to be added in the future.
-The development of patient required an in-depth knowledge of the dentistry industry.
+* *Major enhancement*: greatly enhanced and functionalized the *person* class into a *dental patient* class
+** What it does: This new data structure allows our users to manage extensive information about their dental patients, such as personal information, next-of-kin information, dental records, and teeth layouts.
+** Justification: This data structure is the foundation of our product, as TeethHub is an application which aims to assist our dentist users by improving the way they manage their dental patients and records.
+** Highlights: This enhancement affects existing commands and commands to be added in the future.
+The development of patient required an in-depth knowledge of the dentistry industry, and their common practices.
 The implementation too was challenging as it required major changes to existing commands.
+Furthermore, it demanded thorough object-oriented thinking and planning as it consists of numerous inter-related classes.
 
-* *Major enhancement*: added the ability to *store and manage dental records* to patients
-** What it does: This allows our users to store dental records on TeethHub, which will be linked to a specified dental patient.
-** Justification: This feature is essential to TeethHub as the product wish to offload the workload for dentists, and dental records are the primary documents which dentists handle.
+* *Major implementation*: Records Mode, an intuitive *storage manager for dental records*
+** What it does: This implementation prompts our users specify a patient before they can manage dental records or edit teeth statuses tied to the specified dental patient. A separate but intuitive user interface is also built for users to facilitate a better user experience in records and teeth management.
+** Justification: This feature is essential to TeethHub as the users are expected to handle heavy workloads involving dental records and teeth information of patients.
 ** Highlights: This enhancement affects how data is stored, written and read.
 It required a thorough understanding of the design requirements, as well as its constraints.
 The implementation too was demanding, as many factors need to be considered.
 
-* *Minor enhancement*: added a goto command that allows the user to navigate to the specified patient's record list from the current patient list.
+* *Minor enhancement*: added a goto command that allows the user to navigate to the records mode, which displays a specified patient's record list.
 
-* *Minor enhancement*: added a back command that allows the user to return back to the patient list from the current record list.
-
-* *Minor enhancement*: added a new user interface which displays the dental record information of a specified patient.
+* *Minor enhancement*: added a back command that allows the user to return back to the patients mode, which displays all the stored patients.
 
 * *Code contributed*: `https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#=undefined&search=kylerwsm[via RepoSense]`
 
@@ -40,14 +39,11 @@ The implementation too was demanding, as many factors need to be considered.
 *** Managed releases `v1.1` - `v1.4` (4 releases) on GitHub
 ** Enhancements to existing features:
 *** Added a new GUI to allow users to interact with a specific patient's dental records.
-*** Wrote additional tests for new features to increase coverage significantly (0.6%).
+*** Wrote additional tests for new features to significantly increase coverage (~1%).
 ** Documentation:
 *** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
 *** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
 
 == Contributions to the User Guide
 
@@ -320,26 +316,24 @@ Furthermore, every time any record of the specified patient is modified, a new i
 === User Stories
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
 
-[width="100%",cols="22%,<23%,<25%,<30%",options="header",]
+[width="100%",cols="",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
 |`* * *` |user |add a new patient's particulars | know about their situation
 
-|`* * *` |user |edit my patient's particulars when the situation changes | their personal information remains updated
+|`* * *` |user |edit my patient's particulars | their personal information remains updated
 
-|`* * *` |user |my patients' medical records and teeth data tied to them | know how their situation evolved
+|`* * *` |user |store my patient's teeth | track their teeth condition
 
-|`* * *` |user |store, edit, and view my dental patients' teeth condition | understand and serve my dental patients'
+|`* * *` |user |modify my dental patients' teeth condition | understand and serve my dental patients'
 teeth condition better
 
-|`* * *` |user |isolate other patients' information | focus on the current patient in my clinic
+|`* * *` |user |view my patients' dental records | keep track of my patients' teeth health history
 
-|`* * *` |user |view my patients' dental records | understand and keep track of my patients' teeth health history
-
-|`* * *` |user |add a new dental record | store diagnosis and treatments of my patients during their dental sessions
+|`* * *` |user |add a new dental record | store diagnosis and treatments of my patients
 
 |`* * *` |user |delete a dental record | remove records that have become redundant or irrelevant
 
-|`* * *` |user |edit a dental record | correct or modify descriptions of dental records that I have already added
+|`* * *` |user |edit a dental record | correct existing dental records
 
-|`* * *` |user |clear all dental records of a patient | protect the privacy of my patients if they require me to
+|`* * *` |user |clear all dental records of a patient | protect the privacy of my patients

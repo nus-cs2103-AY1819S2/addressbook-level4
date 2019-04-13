@@ -74,17 +74,21 @@ a parameter which can be used as patientadd n/John Doe.
 |===
 4+^|List of valid prefixes
 
-4+^|Unique Prefixes
-2+| *Patient* 2+| *Record*
-|Prefix | Attribute | Prefix | Attribute
-|a/ | Address 2.7+|
-|dob/ | Date of Birth
-|e/ | Email
-|ic/ | Nric
-|n/ | Name
-|p/ | Phone
-|sex/ | Sex
-4+^|Common Prefixes
+4+^|_Patient Prefixes_
+|*Prefix* | *Attribute* | *Prefix* | *Attribute*
+
+|a/ | Address | dob/ | Date of Birth
+|e/ | Email |ic/ | Nric
+|n/ | Name |p/ | Phone
+|sex/ | Sex | da/ | Drug Allergy
+|nokn/ | Next of Kin Name | nokr/ | Next of Kin Relation
+|nokp/ | Next of Kin Phone | noka/ | Next of Kin Address
+|desc/ | Description 2+|
+4+^|
+
+4+^|_Record Prefixes_
+|*Prefix* | *Attribute* | *Prefix* | *Attribute*
+|pro/ | Procedure |desc/ | Description
 
 |===
 
@@ -353,7 +357,7 @@ This saves all patients currently in TeethHub to "data1.json".
 
 Adds a patient to the patients list.
 
-Name, NRIC, and Date of Birth fields are compulsory. The rest are optional fields.
+Name, NRIC, Sex, and Date of Birth fields are compulsory. The rest are optional fields.
 
 Format: `patientadd PARAMETERS …` or `padd PARAMETERS …`
 
@@ -373,14 +377,22 @@ Parameters:
 |nokp/NEXT_OF_KIN_PHONE_NUMBER |nokp/97654321
 |nokr/NEXT_OF_KIN_RELATION |nokr/Brother
 |noka/NEXT_OF_KIN_ADDRESS |noka/21 Lower Kent Ridge Rd 119077
+|desc/DESCRIPTION | desc/New patient
 |===
 
-Note: If a patient’s next of kin lives at the same address, use `same` to indicate that.
+If a patient’s next of kin lives at the same address, you can use `same` to indicate that!
+
+[NOTE]
+============================================================
+While having a next of kin is optional, if you want to add details for a next of kin the fields `nokn/` & `nokr/`
+must be specified. Adding a next of kin address or phone number without both the name and relationship of the next of
+ kin is not possible.
+============================================================
 
 Examples:
 
 * `patientadd n/John Choo sex/M p/98425871 e/jonC@example.com a/IDA street block 13
-#02-05 ic/S1234567H dob/26-02-1987 nokn/Jacky Choo nokp/84875215 nokr/Father noka/same`
+#02-05 ic/S1234567H dob/26-02-1987 nokn/Jacky Choo nokp/84875215 nokr/Father noka/same desc/New Patient`
 
 ==== patientdelete
 

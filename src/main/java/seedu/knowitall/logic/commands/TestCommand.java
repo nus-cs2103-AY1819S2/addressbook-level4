@@ -28,7 +28,7 @@ public class TestCommand extends Command {
         }
 
         try {
-            model.testCardFolder();
+            model.startTestSession();
             Card cardToTest = model.getCurrentTestedCard();
             CommandResult commandResult = new CommandResult(MESSAGE_ENTER_TEST_FOLDER_SUCCESS,
                     CommandResult.Type.START_TEST_SESSION);

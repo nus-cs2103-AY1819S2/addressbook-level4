@@ -216,7 +216,7 @@ public interface Model extends Observable {
     /**
      * Enters a test session using the specified card folder index.
      */
-    void testCardFolder();
+    void startTestSession();
 
     /**
      * Sets the current card in the test session.

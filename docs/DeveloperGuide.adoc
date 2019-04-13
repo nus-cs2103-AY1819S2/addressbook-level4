@@ -362,10 +362,6 @@ The head coordinate of a ship refers to the top-most and left-most cell of the s
 
 .The coordinates of the battleship head are always the top-most and left-most coordinates.
 image:BattleshipHeadExample.png[width=800]
-
-
-.The coordinates of the `put` command refer to the coordinates of the battleship head.
-image:BattleshipHeadExample2.png[width=800]
 ====
 
 The following operations are called when the `put` command is called.

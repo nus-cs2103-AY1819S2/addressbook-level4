@@ -18,9 +18,7 @@ import seedu.address.logic.LogicManager;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
-import seedu.address.model.PinBook;
 import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.ReadOnlyPinBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.util.SampleDataUtil;
@@ -86,8 +84,8 @@ public class MainApp extends Application {
         ReadOnlyAddressBook initialData;
         Optional<ReadOnlyAddressBook> archiveBookOptional;
         ReadOnlyAddressBook initialArchiveData;
-        Optional<ReadOnlyPinBook> pinBookOptional;
-        ReadOnlyPinBook initialPinData;
+        Optional<ReadOnlyAddressBook> pinBookOptional;
+        ReadOnlyAddressBook initialPinData;
 
         try {
             addressBookOptional = storage.readAddressBook();
@@ -125,10 +123,10 @@ public class MainApp extends Application {
             initialPinData = pinBookOptional.orElseGet(SampleDataUtil::getSamplePinBook);
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty PinBook");
-            initialPinData = new PinBook();
+            initialPinData = new AddressBook();
         } catch (IOException e) {
             logger.warning("Problem while reading from the file. Will be starting with an empty PinBook");
-            initialPinData = new PinBook();
+            initialPinData = new AddressBook();
         }
 
         return new ModelManager(initialData, initialArchiveData, initialPinData, userPrefs);

@@ -24,7 +24,6 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.testutil.AddressBookBuilder;
 import seedu.address.testutil.PersonBuilder;
-import seedu.address.testutil.PinBookBuilder;
 
 public class ModelManagerTest {
     @Rule
@@ -154,7 +153,7 @@ public class ModelManagerTest {
     public void equals() {
         AddressBook addressBook = new AddressBookBuilder().withPerson(ALICE).withPerson(BENSON).build();
         AddressBook archiveBook = new AddressBookBuilder().build();
-        PinBook pinBook = new PinBookBuilder().build();
+        AddressBook pinBook = new AddressBookBuilder().build();
         AddressBook differentAddressBook = new AddressBook();
         UserPrefs userPrefs = new UserPrefs();
 

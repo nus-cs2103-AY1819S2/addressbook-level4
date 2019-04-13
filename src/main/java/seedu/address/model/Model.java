@@ -84,10 +84,10 @@ public interface Model {
     /**
      * Replaces pin book data with the data in {@code pinBook}.
      */
-    void setPinBook(ReadOnlyPinBook pinBook);
+    void setPinBook(ReadOnlyAddressBook pinBook);
 
     /** Returns the PinBook */
-    ReadOnlyPinBook getPinBook();
+    ReadOnlyAddressBook getPinBook();
 
     /**
      * Returns true if a person with the same identity as {@code person} exists in the address book.

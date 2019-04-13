@@ -4,9 +4,12 @@ import static java.time.DayOfWeek.MONDAY;
 import static java.time.DayOfWeek.SUNDAY;
 import static java.time.temporal.TemporalAdjusters.nextOrSame;
 import static java.time.temporal.TemporalAdjusters.previousOrSame;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+
+import java.time.LocalDate;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -14,8 +17,6 @@ import org.junit.rules.ExpectedException;
 
 import quickdocs.commons.core.GuiSettings;
 import quickdocs.model.reminder.ReminderWithinDatesPredicate;
-
-import java.time.LocalDate;
 
 public class ModelManagerTest {
     @Rule

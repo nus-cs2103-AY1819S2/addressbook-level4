@@ -20,7 +20,7 @@ import seedu.address.model.person.Person;
 /**
  * Adds a person to the address book.
  */
-public class MovePersonCommand extends Command {
+public class MovePeopleCommand extends Command {
 
     public static final String COMMAND_WORD = "movePeople";
     public static final String COMMAND_ALIAS = "mp";
@@ -62,7 +62,7 @@ public class MovePersonCommand extends Command {
     /**
      * Creates an AddCommand to add the specified {@code job}
      */
-    public MovePersonCommand(JobListName to, JobListName from, ArrayList<Index> indexes, JobName jobName) {
+    public MovePeopleCommand(JobListName to, JobListName from, ArrayList<Index> indexes, JobName jobName) {
         requireNonNull(to);
         requireNonNull(from);
         requireNonNull(indexes);

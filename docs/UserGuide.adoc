@@ -273,14 +273,12 @@ Imports all resumes in the given path
 
 ==== Create a Job Hiring Process: `createjob`
 
-Create a Job hiring process with four person lists: "All Applicants", "KIV", "Interview", "Shortlist". +
+Create a Job hiring process with four person lists: "Applicants", "KIV", "Interview", "Shortlist". +
 Format : `createJob jn/JOBNAME`
 
 ****
-* JOBNAME indicate the job name. For example: `IOS-Developer`.
-* All people in the storage who want to apply this job will automatically be added in "Applied" list. `Coming in v1.4`
-* All people in "Applied" list will show on the display list after this command. `Coming in v1.4`
-* A label with JOBNAME will show on the display board to indicate the current Job Hiring Process. `Coming in v1.4`
+* JOBNAME indicate the job name. This name cannot contain spaces. Names with multiple words are separated by '-'. For example: `IOS-Developer`.
+* All people in the storage who want to apply this job will automatically be added in "Applied" list.
 ****
 
 ==== Delete the Job Hiring Process : `deletejob`
@@ -288,24 +286,37 @@ Format : `createJob jn/JOBNAME`
 Delete a Job Hiring Process and all its information +
 Format : `deleteJob jn/JOBNAME`
 
-==== Add all shown persons to a job : `addAll`
+==== Add all shown persons in a list to another list : `addAll`
 
-Adds all currently shown people to the "All Applicants" list of a job +
-Format : `addAll jn/JOBNAME`
+Adds all currently shown people in source list to the destination list +
+Format : `addAll TO FROM(Optional) jn/JOBNAME(Optional)`
+
 
 ****
-* Filter function can be used to filter those who applied for the job before using this command
+* Filter function can be used to modify the displayed list before moving the people in the list
+* `FROM` input is optional and if not given, input list will be the displayed list of the entire directory.
+* `JOBNAME` input is optional if there is a currently displayed job. If provided, both source and destination will be of the provided job.
+* `FORM` and `TO` can only be one of the following `applied, kiv, interview, shortlist`
 ****
 
-==== Add a specific person to Job using NRIC : `addPersonToJob`
+Examples:
 
-Adds person with NRIC to "All Applicants" list of a job +
+* `list` +
+`createJob jn/Lecturer` +
+* `addAll applied jn/Lecturer` +
+addAll adds all in database to Lecturer Job
+* `addAll kiv applied jn/Lecturer` +
+addAll adds all in applied list to kiv list in lecturer
+
+==== Adds people using by index to a selected list in a Job : `movePeople`
+
+ Moves a few people specified by index from a specified list to a +
 Format : `addPersonToJob jn/JOBNAME nric/NRIC`
 
 ==== Displays one of the four persons list in a job : `DisplayJob`
 
 Displays LISTNUMBERth list of a Job +
-Format : `DisplayJob ln/LISTNUMBER jn/JOBNAME`
+Format : `displayJob ln/LISTNUMBER jn/JOBNAME`
 
 ****
 * Displays all four lists at once `Coming in v1.4`

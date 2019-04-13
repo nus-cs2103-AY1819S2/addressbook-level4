@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.MovePersonCommand;
+import seedu.address.logic.commands.MovePeopleCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.job.JobListName;
 import seedu.address.model.job.JobName;
@@ -15,7 +15,7 @@ import seedu.address.model.job.JobName;
 /**
  * Parses input arguments and creates a new AddCommand object
  */
-public class MovePersonCommandParser implements Parser<MovePersonCommand> {
+public class MovePeopleCommandParser implements Parser<MovePeopleCommand> {
 
     /**
      * Parses the given {@code String} of arguments in the context of the AddPersonToJobCommand
@@ -23,7 +23,7 @@ public class MovePersonCommandParser implements Parser<MovePersonCommand> {
      *
      * @throws ParseException if the user input does not conform the expected format
      */
-    public MovePersonCommand parse(String args) throws ParseException {
+    public MovePeopleCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_JOBNAME);
 
@@ -34,14 +34,14 @@ public class MovePersonCommandParser implements Parser<MovePersonCommand> {
         try {
             to = ParserUtil.parseJobListName(args.split("\\b\\s")[0].trim());
         } catch (Exception e) {
-            throw new ParseException(MovePersonCommand.MESSAGE_NO_DESTINATION + "\n"
-                    + MovePersonCommand.MESSAGE_USAGE);
+            throw new ParseException(MovePeopleCommand.MESSAGE_NO_DESTINATION + "\n"
+                    + MovePeopleCommand.MESSAGE_USAGE);
         }
         try {
             from = ParserUtil.parseJobListName(args.split("\\b\\s")[1].trim());
         } catch (Exception e) {
-            throw new ParseException(MovePersonCommand.MESSAGE_NO_SOURCE + "\n"
-                    + MovePersonCommand.MESSAGE_USAGE);
+            throw new ParseException(MovePeopleCommand.MESSAGE_NO_SOURCE + "\n"
+                    + MovePeopleCommand.MESSAGE_USAGE);
         }
 
         String indexString = args.split("\\b\\s")[2].trim();
@@ -51,7 +51,7 @@ public class MovePersonCommandParser implements Parser<MovePersonCommand> {
                 indexes.add(ParserUtil.parseIndex(numbers.get(i)));
             } catch (ParseException pe) {
                 throw new ParseException(
-                        String.format(MESSAGE_INVALID_COMMAND_FORMAT, MovePersonCommand.MESSAGE_BAD_INDEX), pe);
+                        String.format(MESSAGE_INVALID_COMMAND_FORMAT, MovePeopleCommand.MESSAGE_BAD_INDEX), pe);
             }
         }
 
@@ -62,7 +62,7 @@ public class MovePersonCommandParser implements Parser<MovePersonCommand> {
         }
 
 
-        return new MovePersonCommand(to, from, indexes, toAdd);
+        return new MovePeopleCommand(to, from, indexes, toAdd);
     }
 
 }

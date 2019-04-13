@@ -12,7 +12,7 @@ The program is written in Java.
 
 == Summary of contributions
 
-* *Major enhancement*: greatly enhanced and functionalized the *person* class into a *dental patient* class
+* *Major enhancement*: greatly enhanced and developed the *person* class into a *dental patient* class
 ** What it does: This new data structure allows our users to manage extensive information about their dental patients, such as personal information, next-of-kin information, dental records, and teeth layouts.
 ** Justification: This data structure is the foundation of our product, as TeethHub is an application which aims to assist our dentist users by improving the way they manage their dental patients and records.
 ** Highlights: This enhancement affects existing commands and commands to be added in the future.
@@ -37,13 +37,12 @@ The implementation too was demanding, as many factors need to be considered.
 
 ** Project management:
 *** Managed releases `v1.1` - `v1.4` (4 releases) on GitHub
+*** Ran manual testings and reported found bugs and issues on the group reposition on GitHub (i.e. #57, #58)
 ** Enhancements to existing features:
 *** Added a new GUI to allow users to interact with a specific patient's dental records.
 *** Wrote additional tests for new features to significantly increase coverage (~1%).
-** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
 ** Community:
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
+*** Reported bugs and suggestions for other teams in the class (during the mock and actual practical examinations)
 
 == Contributions to the User Guide
 

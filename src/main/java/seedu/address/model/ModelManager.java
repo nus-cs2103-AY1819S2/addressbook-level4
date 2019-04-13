@@ -190,6 +190,7 @@ public class ModelManager implements Model {
         versionedAddressBook.setActivity(target, editedActivity);
     }
 
+    @Override
     public void sortAddressBook(String input) {
         versionedAddressBook.sortAddressBook(input);
     }

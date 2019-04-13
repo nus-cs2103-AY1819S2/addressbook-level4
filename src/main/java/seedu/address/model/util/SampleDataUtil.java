@@ -5,9 +5,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import seedu.address.model.AddressBook;
-import seedu.address.model.PinBook;
 import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.ReadOnlyPinBook;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Buyer;
 import seedu.address.model.person.Email;
@@ -96,8 +94,8 @@ public class SampleDataUtil {
         return sampleAb;
     }
 
-    public static ReadOnlyPinBook getSamplePinBook() {
-        PinBook sampleAb = new PinBook();
+    public static ReadOnlyAddressBook getSamplePinBook() {
+        AddressBook sampleAb = new AddressBook();
         for (Person samplePinnedPerson : getSamplePinnedPersons()) {
             sampleAb.addPerson(samplePinnedPerson);
         }

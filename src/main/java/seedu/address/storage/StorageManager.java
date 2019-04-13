@@ -8,7 +8,6 @@ import java.util.logging.Logger;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.ReadOnlyPinBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 
@@ -117,23 +116,23 @@ public class StorageManager implements Storage {
     }
 
     @Override
-    public Optional<ReadOnlyPinBook> readPinBook() throws DataConversionException, IOException {
+    public Optional<ReadOnlyAddressBook> readPinBook() throws DataConversionException, IOException {
         return readPinBook(pinBookStorage.getPinBookFilePath());
     }
 
     @Override
-    public Optional<ReadOnlyPinBook> readPinBook(Path filePath) throws DataConversionException, IOException {
+    public Optional<ReadOnlyAddressBook> readPinBook(Path filePath) throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
         return pinBookStorage.readPinBook(filePath);
     }
 
     @Override
-    public void savePinBook(ReadOnlyPinBook pinBook) throws IOException {
+    public void savePinBook(ReadOnlyAddressBook pinBook) throws IOException {
         savePinBook(pinBook, pinBookStorage.getPinBookFilePath());
     }
 
     @Override
-    public void savePinBook(ReadOnlyPinBook pinBook, Path filePath) throws IOException {
+    public void savePinBook(ReadOnlyAddressBook pinBook, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
         pinBookStorage.savePinBook(pinBook, filePath);
     }

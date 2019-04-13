@@ -22,7 +22,6 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.ReadOnlyPinBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.PersonBuilder;
@@ -159,7 +158,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public ReadOnlyPinBook getPinBook() {
+        public ReadOnlyAddressBook getPinBook() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -174,7 +173,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void setPinBook(ReadOnlyPinBook pinBook) {
+        public void setPinBook(ReadOnlyAddressBook pinBook) {
             throw new AssertionError("This method should not be called.");
         }
 

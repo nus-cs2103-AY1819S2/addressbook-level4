@@ -26,7 +26,7 @@ public class ModelManager implements Model {
 
     private final VersionedAddressBook versionedAddressBook;
     private final VersionedAddressBook versionedArchiveBook;
-    private final VersionedPinBook versionedPinBook;
+    private final VersionedAddressBook versionedPinBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
     private final FilteredList<Person> filteredArchivedPersons;
@@ -39,7 +39,7 @@ public class ModelManager implements Model {
      * Initializes a ModelManager with the given addressBook, archiveBook, pinBook and userPrefs.
      */
     public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyAddressBook archiveBook,
-                        ReadOnlyPinBook pinBook, ReadOnlyUserPrefs userPrefs) {
+                        ReadOnlyAddressBook pinBook, ReadOnlyUserPrefs userPrefs) {
         super();
         requireAllNonNull(addressBook, archiveBook, pinBook, userPrefs);
 
@@ -50,7 +50,7 @@ public class ModelManager implements Model {
 
         versionedAddressBook = new VersionedAddressBook(addressBook);
         versionedArchiveBook = new VersionedAddressBook(archiveBook);
-        versionedPinBook = new VersionedPinBook(pinBook);
+        versionedPinBook = new VersionedAddressBook(pinBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
         filteredPersons.addListener(this::ensureSelectedPersonIsValid);
@@ -61,7 +61,7 @@ public class ModelManager implements Model {
     }
 
     public ModelManager() {
-        this(new AddressBook(), new AddressBook(), new PinBook(), new UserPrefs());
+        this(new AddressBook(), new AddressBook(), new AddressBook(), new UserPrefs());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -199,12 +199,12 @@ public class ModelManager implements Model {
     //=========== PinBook ====================================================================================
 
     @Override
-    public void setPinBook(ReadOnlyPinBook pinBook) {
+    public void setPinBook(ReadOnlyAddressBook pinBook) {
         versionedPinBook.resetData(pinBook);
     }
 
     @Override
-    public ReadOnlyPinBook getPinBook() {
+    public ReadOnlyAddressBook getPinBook() {
         return versionedPinBook;
     }
 

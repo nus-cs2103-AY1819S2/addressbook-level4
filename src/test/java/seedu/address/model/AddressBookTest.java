@@ -7,6 +7,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HDB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_MRT;
 import static seedu.address.testutil.TypicalPersons.ALICE;
+import static seedu.address.testutil.TypicalPersons.CARL;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import java.util.Arrays;
@@ -54,9 +55,9 @@ public class AddressBookTest {
     @Test
     public void resetData_withDuplicatePersons_throwsDuplicatePersonException() {
         // Two persons with the same identity fields
-        Person editedAlice = new PersonBuilder(ALICE).withTags(VALID_TAG_HDB)
+        Person editedCarl = new PersonBuilder(CARL).withTags(VALID_TAG_HDB)
                 .buildSeller();
-        List<Person> newPersons = Arrays.asList(ALICE, editedAlice);
+        List<Person> newPersons = Arrays.asList(CARL, editedCarl);
         AddressBookStub newData = new AddressBookStub(newPersons);
 
         thrown.expect(DuplicatePersonException.class);

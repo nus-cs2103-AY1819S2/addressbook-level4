@@ -140,9 +140,10 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public boolean hasEditedPerson(Person editedPerson) {
+    public boolean hasEditedPerson(Person referencePerson, Person editedPerson) {
+        requireNonNull(referencePerson);
         requireNonNull(editedPerson);
-        return versionedAddressBook.hasEditedPerson(editedPerson);
+        return versionedAddressBook.hasEditedPerson(referencePerson, editedPerson);
     }
 
     @Override

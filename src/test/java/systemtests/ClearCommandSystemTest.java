@@ -15,8 +15,6 @@ import seedu.address.model.ModelManager;
 
 public class ClearCommandSystemTest extends AddressBookSystemTest {
 
-    //TODO Debug this test
-    @Ignore
     @Test
     public void clear() {
         final Model defaultModel = getModel();

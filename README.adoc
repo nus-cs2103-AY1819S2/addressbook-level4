@@ -4,7 +4,7 @@ ifdef::env-github,env-browser[:relfileprefix: docs/]
 
 image:https://travis-ci.org/cs2103-ay1819s2-w13-1/main.svg?branch=master["Build Status", link="https://travis-ci.org/cs2103-ay1819s2-w13-1/main"]
 https://ci.appveyor.com/project/wayneswq/main/branch/master[image:https://ci.appveyor.com/api/projects/status/yulbp51x3qkkyrlu/branch/master?svg=true[Build status]]
-https://coveralls.io/github/cs2103-ay1819s2-w13-1/main/badge.svg?branch=master[image:https://coveralls.io/repos/github/cs2103-ay1819s2-w13-1/main/badge.svg?branch=master[Coverage Status]]
+https://coveralls.io/github/cs2103-ay1819s2-w13-1/main?branch=master[image:https://coveralls.io/repos/github/cs2103-ay1819s2-w13-1/main/badge.svg?branch=master[Coverage Status]]
 https://app.netlify.com/sites/cs2103-ay1819s2-w13-1/deploys[image:https://api.netlify.com/api/v1/badges/affc1f29-4e36-4d55-8249-d91b9f0fc02f/deploy-status[Netlify Status]]
 
 ifdef::env-github[]
@@ -15,14 +15,14 @@ ifndef::env-github[]
 image::images/Ui.png[width="600"]
 endif::[]
 
-* This is a desktop clinic management application designed for receptionists in clinic. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
-* Nowadays many clinic receptionists are still using pen and paper to track patients' information, which can be quite troublesome if the number of patients is large. Our patient management application is designed specifically to make this process much easier for them.
+* This is a desktop clinic management application designed for receptionists in small clinics. While it has a GUI, most of the user interactions happen using a CLI (Command Line Interface).
+* Even today, many receptionists in small clinics are still using pen and paper to track patients' information, which can be prone to human errors and reduced productivity if the number of patients is large. Our clinic management application is designed specifically to make this process much easier for them.
 * The features we provide include:
-** Record all patients coming to the clinic
-** Record all doctors in clinic
-** Record medical histories of patients
-** Make appointments for patients
-** Record all medicines in the clinic and record prescriptions given by doctors
+** Record and manage patients coming to the clinic
+** Record and manage doctors in the clinic
+** Record and manage medical histories of patients
+** Make and manage appointments for patients
+** Record and manage medicines in the clinic and prescriptions given by doctors
 
 == Site Map
 

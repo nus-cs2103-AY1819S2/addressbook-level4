@@ -18,7 +18,6 @@ import seedu.finance.model.UserPrefs;
 import seedu.finance.model.budget.CategoryBudget;
 import seedu.finance.model.exceptions.CategoryBudgetExceedTotalBudgetException;
 import seedu.finance.model.exceptions.SpendingInCategoryBudgetExceededException;
-import seedu.finance.model.record.Amount;
 import seedu.finance.testutil.Assert;
 
 /**
@@ -71,7 +70,7 @@ public class AllocateCommandTest {
         assertFalse(standardCommand.equals(null));
 
         // different types -> returns false
-        assertFalse(standardCommand.equals(new IncreaseCommand(new Amount ("312.00"))));
+        assertFalse(standardCommand.equals(new SetCommand("312.00")));
 
         // different category -> returns false
         assertFalse(standardCommand.equals(new AllocateCommand(new CategoryBudget(VALID_CATEGORY_HUSBAND,

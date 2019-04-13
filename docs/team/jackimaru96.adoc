@@ -109,7 +109,7 @@ budget
 **** Managed issue trackers:
 ***** To see the issue trackers I managed, click
 https://github.com/CS2103-AY1819S2-W17-3/main/issues?q=is%3Aissue+author%3AJackimaru96+is%3Aclosed[here!]
-____
+
 ==== Community
 *** PR Reviews:
 **** To view the Pull Requests reviewed by me,

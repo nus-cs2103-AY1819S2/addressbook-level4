@@ -19,7 +19,21 @@ public class MainMenuHandle extends NodeHandle<Node> {
      * Opens the {@code HelpWindow} using the menu bar in {@code MainWindow}.
      */
     public void openHelpWindowUsingMenu() {
-        clickOnMenuItemsSequentially("Help", "F1");
+        clickOnMenuItemsSequentially("How To Use", "User Manual");
+    }
+
+    /**
+     * Opens the {@code ReportWindow} using the menu bar in {@code MainWindow}.
+     */
+    public void openReportWindowUsingMenu() {
+        clickOnMenuItemsSequentially("Report", "Completed Report");
+    }
+
+    /**
+     * cleans up the {@code Textarea} using the menu bar in {@code MainWindow}.
+     */
+    public void cleanUpTextareaUsingMenu() {
+        clickOnMenuItemsSequentially("Clean", "Clean TextArea");
     }
 
     /**
@@ -28,6 +42,14 @@ public class MainMenuHandle extends NodeHandle<Node> {
      */
     public void openHelpWindowUsingAccelerator() {
         guiRobot.push(KeyCode.F1);
+    }
+
+    /**
+     * Cleans up the {@code Textarea} by pressing the shortcut key associated
+     * with the menu bar in {@code MainWindow}.
+     */
+    public void cleanTextareaUsingAccelerator() {
+        guiRobot.push(KeyCode.F2);
     }
 
     /**

@@ -33,6 +33,9 @@ public class MainWindow extends UiPart<Stage> {
     // Independent Ui parts residing in this Ui container
     private BrowserPanel browserPanel;
     private PersonListPanel personListPanel;
+    private ExpenseListPanel expenseListPanel;
+    private SavingsPanel savingsPanel;
+    private BudgetPanel budgetPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
 
@@ -46,7 +49,16 @@ public class MainWindow extends UiPart<Stage> {
     private MenuItem helpMenuItem;
 
     @FXML
-    private StackPane personListPanelPlaceholder;
+    private MenuItem cleanText;
+
+    @FXML
+    private StackPane savingsPanelPlaceholder;
+
+    @FXML
+    private StackPane expenseListPanelPlaceholder;
+
+    @FXML
+    private StackPane budgetPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -75,10 +87,12 @@ public class MainWindow extends UiPart<Stage> {
 
     private void setAccelerators() {
         setAccelerator(helpMenuItem, KeyCombination.valueOf("F1"));
+        setAccelerator(cleanText, KeyCombination.valueOf("F2"));
     }
 
     /**
      * Sets the accelerator of a MenuItem.
+     *
      * @param keyCombination the KeyCombination value of the accelerator
      */
     private void setAccelerator(MenuItem menuItem, KeyCombination keyCombination) {
@@ -114,14 +128,21 @@ public class MainWindow extends UiPart<Stage> {
         browserPanel = new BrowserPanel(logic.selectedPersonProperty());
         browserPlaceholder.getChildren().add(browserPanel.getRoot());
 
-        personListPanel = new PersonListPanel(logic.getFilteredPersonList(), logic.selectedPersonProperty(),
-                logic::setSelectedPerson);
-        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+        expenseListPanel = new ExpenseListPanel(logic.getFilteredExpenseList(),
+                logic.selectedExpenseProperty(), expense -> {
+        }); //TODO
+        expenseListPanelPlaceholder.getChildren().add(expenseListPanel.getRoot());
+
+        savingsPanel = new SavingsPanel(logic.getFilteredExpenseList(), logic.getGoal(), logic::getSavings);
+        savingsPanelPlaceholder.getChildren().add(savingsPanel.getRoot());
+
+        budgetPanel = new BudgetPanel(logic.getFilteredBudgetList(), logic::setCurrentBudget);
+        budgetPanelPlaceholder.getChildren().add(budgetPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath(), logic.getAddressBook());
+        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getEPiggyFilePath(), logic.getEPiggy());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand, logic.getHistory());
@@ -134,6 +155,7 @@ public class MainWindow extends UiPart<Stage> {
     private void setWindowDefaultSize(GuiSettings guiSettings) {
         primaryStage.setHeight(guiSettings.getWindowHeight());
         primaryStage.setWidth(guiSettings.getWindowWidth());
+
         if (guiSettings.getWindowCoordinates() != null) {
             primaryStage.setX(guiSettings.getWindowCoordinates().getX());
             primaryStage.setY(guiSettings.getWindowCoordinates().getY());
@@ -168,8 +190,32 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
-    public PersonListPanel getPersonListPanel() {
-        return personListPanel;
+    /**
+     * Shows completed summary to user.
+     */
+    @FXML
+    private void handleReport() {
+        helpWindow.hide();
+        try {
+            logic.execute("report");
+        } catch (CommandException | ParseException e) {
+            resultDisplay.setFeedbackToUser(e.getMessage(), "report t/daily");
+        }
+    }
+
+    /**
+     * clean text area.
+     */
+    @FXML
+    private void handleClean() {
+        helpWindow.hide();
+        resultDisplay.clearDisplay();
+
+    }
+
+
+    public ExpenseListPanel getExpenseListPanel() {
+        return expenseListPanel;
     }
 
     /**
@@ -181,7 +227,7 @@ public class MainWindow extends UiPart<Stage> {
         try {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
-            resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+            resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser(), commandText);
 
             if (commandResult.isShowHelp()) {
                 handleHelp();
@@ -194,7 +240,7 @@ public class MainWindow extends UiPart<Stage> {
             return commandResult;
         } catch (CommandException | ParseException e) {
             logger.info("Invalid command: " + commandText);
-            resultDisplay.setFeedbackToUser(e.getMessage());
+            resultDisplay.setFeedbackToUser(e.getMessage(), commandText);
             throw e;
         }
     }

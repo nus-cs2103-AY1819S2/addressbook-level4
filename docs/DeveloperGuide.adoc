@@ -869,7 +869,7 @@ within the `FilterCommandParser` class when it's `parse()` method is called.
 ==== Current Implementation
 
 The undo/redo mechanism is facilitated by `VersionedBook`.
-There are two implementations of it. `VersionedHealthWorkerBook` extends `HealthWorkerBook` and `VersionedRequestBook` extends `RequestBook`.
+There are two extensions of it. `VersionedHealthWorkerBook` extends `HealthWorkerBook` and `VersionedRequestBook` extends `RequestBook`.
 Both contain an undo/redo history, stored internally as an `healthWorkerBookStateList` or `requestBookStateList`
  and `currentStatePointer`.
 Additionally, it implements the following operations:
@@ -894,28 +894,35 @@ Given below is an example usage scenario and how the undo/redo mechanism behaves
 
 Step 1. The user launches the application for the first time. The `VersionedRequestBook` and `VersionedHealthWorkerBook` will be initialized with the initial state,
  and the `currentStatePointer` for each `VersionedBook` pointing to that single book state.
-Since no modify command has been initial `currentStatePointer` of `ModifyCommandHistory` is initialized to -1.
+Since no modify command has been called, the initial list of commands in `ModifyCommandHistory` is empty and the initial `currentStatePointer` of `ModifyCommandHistory` is initialized to -1.
 
-image::UndoRedoStartingStateListDiagram.png[width="800"]
+image::initrb.png[width="800"]
+image::inithb.png[width="800"]
+
 
 Step 2. The user executes `delete r 5` command to delete the 5th request in request book. The `delete r` command calls `Model#commit(REQUEST_COMMAND)`, causing the modified state of the request book after the `delete r 5` command executes to be saved in the `requestBookStateList`, and the `currentStatePointer` is shifted to the newly inserted request book state.
-Since the request book is modified, the enum `CommandType.REQUEST_COMMAND` is added to the `modifyCommandHistory` list within the `ModifyCommandHistory` class.
+Since the request book is modified, the enum `REQUEST_COMMAND` is added to the `modifyCommandHistory` list within the `ModifyCommandHistory` class and the `currentStatePointer` is now pointing at the most recent command.
+The `VersionedHealthWorkerBook` is unaffected.
 
+image::rbafterdelete.png[width="800"]
+image::mchafterdelete.png[width="800"]
 
-image::UndoRedoNewCommand1StateListDiagram.png[width="800"]
-
-Step 3. The user executes `add h n/David ...` to add a new healthworker. The `add h` command also calls `Model#commit(HEALTHWORKER_COMMAND)`, causing a modified healthworker book state to be saved into the `healthworkerBookStateList` and the `currentStatePointer` is shifted to the newly inserted healthworker book state.
+Step 3. The user executes `add h n/David ...` to add a new healthworker. The `add h` command also calls `Model#commit(HEALTHWORKER_COMMAND)`, causing a modified healthworker book state to be saved into the `healthWorkerBookStateList` and the `currentStatePointer` is shifted to the newly inserted healthworker book state.
 The enum `HEALTHWORKER_COMMAND` is added into the `modifyCommandHistory` list of the `ModifyCommandHistory` class.
+The `VersionedRequestBook` is unaffected.
 
-image::UndoRedoNewCommand2StateListDiagram.png[width="800"]
+image::hbafteradd.png[width="800"]
+image::mchafteradd.png[width="800"]
 
 [NOTE]
-If a command fails its execution, it will not call `Model#commit()`, so the book state will not be saved into the `healthworkerBookStateList` or `requestBookStateList`.
+If a command fails its execution, it will not call `Model#commit()`, so the book state will not be saved into the `healthWorkerBookStateList` or `requestBookStateList`.
 
 Step 4. The user now decides that adding the health worker was a mistake, and decides to undo that action by executing the `undo` command.
 The `undo` command will call `Model#undo()`, which will first obtain the type of command that needs to be undone by caling  `ModifyCommandHistory#getUndoCommand()`. In this case `HEALTHWORKER_COMMAND` is returned, and hence will call undo on `VersionedHealthWorkerBook`. It will shift the `currentStatePointer` once to the left, pointing it to the previous health worker book state, and restores the health worker book to that state.
+The `currentStatePointer` of the `ModifyCommandHistory` also gets shifted once to the left, pointing it to the previous command.
 
-image::UndoRedoExecuteUndoStateListDiagram.png[width="800"]
+image::hbafterundo.png[width="800"]
+image::mchafterundo.png[width="800"]
 
 [NOTE]
 If the `currentStatePointer` of both `VersionedHealthWorkerBook` and `VersionedRequestBook` is at index 0, pointing to the initial book state for both books, then there are no previous states to restore. The `undo` command uses `Model#canUndo()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
@@ -929,13 +936,15 @@ The `redo` command does the opposite -- it calls `Model#redo()`, which first obt
 [NOTE]
 If the `currentStatePointer` of both `VersionedBook` s are pointing to the latest state, then there are no undone book states to restore. The `redo` command uses `Model#canRedo()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
 
-Step 5. The user then decides to execute the command `list h`. Commands that do not modify the address book, such as `list h`, will not call `Model#commit()`, `Model#undo()` or `Model#redo()`. Thus, the `VersionedBook` s do not change.
+Step 5. The user then decides to execute the command `list r`. Commands that do not modify the address book, such as `list r`, will not call `Model#commit()`, `Model#undo()` or `Model#redo()`. Thus, the `VersionedBook` s do not change.
 
-image::UndoRedoNewCommand3StateListDiagram.png[width="800"]
+image::rbafterlist.png[width="800"]
 
-Step 6. The user executes `clear`, which calls `Model#commit(REQUEST_COMMAND)`. Since the `currentStatePointer` is not pointing at the end of the `requestBookStateList`, all request book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
+Step 6. The user executes `delete h 1`, which calls `Model#commit(HEALTHWORKER_COMMAND)`. Since the `currentStatePointer` is not pointing at the end of the `healthWorkerBookStateList`, all health worker book states after the `currentStatePointer` will be purged.
+We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
 
-image::UndoRedoNewCommand4StateListDiagram.png[width="800"]
+image::hbafterdel.png[width="800"]
+image::mchafteroverride.png[width="800"]
 
 The following activity diagram summarizes what happens when a user executes a new command:
 

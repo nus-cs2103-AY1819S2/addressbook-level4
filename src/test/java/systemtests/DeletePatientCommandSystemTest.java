@@ -15,8 +15,6 @@ import org.junit.Test;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.DeletePatientCommand;
-import seedu.address.logic.commands.RedoCommand;
-import seedu.address.logic.commands.UndoCommand;
 import seedu.address.model.Model;
 import seedu.address.model.person.Patient;
 
@@ -41,17 +39,6 @@ public class DeletePatientCommandSystemTest extends DocXSystemTest {
         Model modelBeforeDeletingLast = getModel();
         Index lastPatientIndex = getLastIndex(modelBeforeDeletingLast);
         assertCommandSuccess(lastPatientIndex);
-
-        /* Case: undo deleting the last patient in the list -> last patient restored */
-        command = UndoCommand.COMMAND_WORD;
-        expectedResultMessage = UndoCommand.MESSAGE_SUCCESS;
-        assertCommandSuccess(command, modelBeforeDeletingLast, expectedResultMessage);
-
-        /* Case: redo deleting the last patient in the list -> last patient deleted again */
-        command = RedoCommand.COMMAND_WORD;
-        removePatient(modelBeforeDeletingLast, lastPatientIndex);
-        expectedResultMessage = RedoCommand.MESSAGE_SUCCESS;
-        assertCommandSuccess(command, modelBeforeDeletingLast, expectedResultMessage);
 
         /* Case: delete the middle patient in the list -> deleted */
         Index middlePatientIndex = getMidIndex(getModel());

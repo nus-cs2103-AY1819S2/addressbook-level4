@@ -92,14 +92,6 @@ public class DeleteDoctorCommandTest {
 
         // delete -> first doctor deleted
         deleteDoctorCommand.execute(model, commandHistory);
-
-        // undo -> reverts docX back to previous state and filtered doctor list to show all doctors
-        expectedModel.undoDocX();
-        assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
-
-        // redo -> same first doctor deleted again
-        expectedModel.redoDocX();
-        assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
     @Test
@@ -110,10 +102,6 @@ public class DeleteDoctorCommandTest {
         // execution failed -> docX state not added into model
         assertCommandFailure(deleteDoctorCommand, model, commandHistory,
                 Messages.MESSAGE_INVALID_DOCTOR_DISPLAYED_INDEX);
-
-        // single docX state in model -> undoCommand and redoCommand fail
-        assertCommandFailure(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_FAILURE);
-        assertCommandFailure(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_FAILURE);
     }
 
     /**
@@ -135,15 +123,6 @@ public class DeleteDoctorCommandTest {
 
         // delete -> deletes second doctor in unfiltered doctor list / first doctor in filtered doctor list
         deleteDoctorCommand.execute(model, commandHistory);
-
-        // undo -> reverts docX back to previous state and filtered doctor list to show all doctors
-        expectedModel.undoDocX();
-        assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
-
-        //assertNotEquals(doctorToDelete, model.getFilteredDoctorList().get(INDEX_FIRST_PERSON.getZeroBased()));
-        // redo -> deletes same second patient in unfiltered patient list
-        expectedModel.redoDocX();
-        assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
     @Test

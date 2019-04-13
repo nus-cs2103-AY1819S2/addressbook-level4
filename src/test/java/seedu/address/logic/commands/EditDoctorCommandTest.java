@@ -1,7 +1,6 @@
 package seedu.address.logic.commands;
 
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_ALVINA;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_STEVEN;
@@ -165,14 +164,6 @@ public class EditDoctorCommandTest {
 
         // edit -> first doctor edited
         editDoctorCommand.execute(model, commandHistory);
-
-        // undo -> reverts DocX back to previous state and filtered doctor list to show all doctor
-        expectedModel.undoDocX();
-        assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
-
-        // redo -> same first doctor edited again
-        expectedModel.redoDocX();
-        assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
     @Test
@@ -184,10 +175,6 @@ public class EditDoctorCommandTest {
         // execution failed -> docX state not added into model
         assertCommandFailure(editDoctorCommand, model, commandHistory,
                 Messages.MESSAGE_INVALID_DOCTOR_DISPLAYED_INDEX);
-
-        // single docX state in model -> undoCommand and redoCommand fail
-        assertCommandFailure(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_FAILURE);
-        assertCommandFailure(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_FAILURE);
     }
 
     /**
@@ -211,15 +198,6 @@ public class EditDoctorCommandTest {
 
         // edit -> edits second doctor in unfiltered doctor list / first doctor in filtered doctor list
         editDoctorCommand.execute(model, commandHistory);
-
-        // undo -> reverts DocX back to previous state and filtered doctor list to show all doctors
-        expectedModel.undoDocX();
-        assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
-
-        assertNotEquals(model.getFilteredDoctorList().get(INDEX_FIRST_PERSON.getZeroBased()), doctorToEdit);
-        // redo -> edits same second doctor in unfiltered doctor list
-        expectedModel.redoDocX();
-        assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
     @Test

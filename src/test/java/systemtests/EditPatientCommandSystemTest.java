@@ -40,8 +40,6 @@ import org.junit.Test;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditPatientCommand;
-import seedu.address.logic.commands.RedoCommand;
-import seedu.address.logic.commands.UndoCommand;
 import seedu.address.model.Model;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Age;
@@ -71,17 +69,6 @@ public class EditPatientCommandSystemTest extends DocXSystemTest {
                 + "  " + ADDRESS_DESC_BOB + " " + TAG_DESC_HUSBAND + " ";
         Patient editedPatient = new PatientBuilder(BOB).withTags(VALID_TAG_STROKE).build();
         assertCommandSuccess(command, index, editedPatient);
-
-        /* Case: undo editing the last patient in the list -> last patient restored */
-        command = UndoCommand.COMMAND_WORD;
-        String expectedResultMessage = UndoCommand.MESSAGE_SUCCESS;
-        assertCommandSuccess(command, model, expectedResultMessage);
-
-        /* Case: redo editing the last patient in the list -> last patient edited again */
-        command = RedoCommand.COMMAND_WORD;
-        expectedResultMessage = RedoCommand.MESSAGE_SUCCESS;
-        model.setPatient(getModel().getFilteredPatientList().get(INDEX_FIRST_PERSON.getZeroBased()), editedPatient);
-        assertCommandSuccess(command, model, expectedResultMessage);
 
         /* Case: edit a patient with new values same as existing values -> edited */
         command = EditPatientCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB

@@ -309,26 +309,6 @@ public class AddDoctorCommandTest {
         }
 
         @Override
-        public boolean canUndoDocX() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public boolean canRedoDocX() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void undoDocX() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void redoDocX() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
         public void commitDocX() {
             throw new AssertionError("This method should not be called.");
         }

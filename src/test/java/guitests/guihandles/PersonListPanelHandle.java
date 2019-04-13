@@ -3,11 +3,10 @@ package guitests.guihandles;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
-import java.util.stream.Stream;
 
 import javafx.scene.Node;
 import javafx.scene.control.ListView;
-import seedu.address.model.person.*;
+import seedu.address.model.person.Person;
 
 /**
  * Provides a handle for {@code PersonListPanel} containing the list of {@code PersonCard}.

@@ -17,12 +17,12 @@ import org.junit.rules.ExpectedException;
 
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Address;
+import seedu.address.model.person.Degree;
+import seedu.address.model.person.Education;
 import seedu.address.model.person.Email;
+import seedu.address.model.person.Gpa;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
-import seedu.address.model.person.Education;
-import seedu.address.model.person.Gpa;
-import seedu.address.model.person.Degree;
 import seedu.address.model.tag.SkillsTag;
 import seedu.address.testutil.Assert;
 
@@ -33,7 +33,7 @@ public class ParserUtilTest {
     private static final String INVALID_EMAIL = "example.com";
     private static final String INVALID_EDUCATION = " ";
     private static final String INVALID_GPA = "a";
-    private static final String INVALID_DEGREE= " ";
+    private static final String INVALID_DEGREE = " ";
     private static final String INVALID_COLOR = "black";
 
     private static final String VALID_NAME = "Rachel Walker";
@@ -42,7 +42,7 @@ public class ParserUtilTest {
     private static final String VALID_EMAIL = "rachel@example.com";
     private static final String VALID_EDUCATION = "NUS";
     private static final String VALID_GPA = "3.0";
-    private static final String VALID_DEGREE= "Bachelors";
+    private static final String VALID_DEGREE = "Bachelors";
     private static final String VALID_TAG_1 = "friend";
     private static final String VALID_TAG_2 = "neighbour";
     private static final String VALID_COLOR = "teal";

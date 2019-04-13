@@ -17,7 +17,14 @@ import guitests.guihandles.PersonListPanelHandle;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.person.*;
+import seedu.address.model.person.Address;
+import seedu.address.model.person.Degree;
+import seedu.address.model.person.Education;
+import seedu.address.model.person.Email;
+import seedu.address.model.person.Gpa;
+import seedu.address.model.person.Name;
+import seedu.address.model.person.Person;
+import seedu.address.model.person.Phone;
 
 
 public class PersonListPanelTest extends GuiUnitTest {
@@ -31,11 +38,6 @@ public class PersonListPanelTest extends GuiUnitTest {
 
     @Test
     public void display() {
-
-
-
-
-
         initUi(TYPICAL_PERSONS);
 
         for (int i = 0; i < TYPICAL_PERSONS.size(); i++) {

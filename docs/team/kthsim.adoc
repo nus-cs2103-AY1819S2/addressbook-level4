@@ -61,8 +61,6 @@ detailed report so that they can analyze potential trends.
 
 ** Enhancements to existing features:
 *** Updated README to reflect information for TeethHub instead of AddressBook4
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests
-https://github.com[#36], https://github.com[#38])
 ** Documentation:
 *** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
 ** Community:

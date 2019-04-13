@@ -16,6 +16,7 @@ import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.appointment.AppointmentChronology;
 import seedu.address.model.appointment.AppointmentDate;
 import seedu.address.model.appointment.AppointmentDoctorId;
 import seedu.address.model.appointment.AppointmentPatientId;
@@ -66,10 +67,11 @@ public class ListAppointmentCommandParser implements Parser<ListAppointmentComma
                     .parseAppointmentStatus(argMultimap.getValue(PREFIX_APPT_STATUS).get());
             descriptors.setStatus(Optional.of(status));
         }
-
-       /* if (argMultimap.getValue(PREFIX_CHRONOLOGY).isPresent()) {
-            App
-        }*/
+        if (argMultimap.getValue(PREFIX_CHRONOLOGY).isPresent()) {
+            AppointmentChronology chronology = ParserUtil
+                    .parseAppointmentChronology(argMultimap.getValue(PREFIX_CHRONOLOGY).get());
+            descriptors.setChronology(Optional.of(chronology));
+        }
 
         return new ListAppointmentCommand(descriptors);
     }

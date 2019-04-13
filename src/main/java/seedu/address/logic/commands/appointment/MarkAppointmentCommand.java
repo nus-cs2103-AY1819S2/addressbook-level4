@@ -138,7 +138,7 @@ public class MarkAppointmentCommand extends Command {
         }
 
         /**
-         * Copy constructor.
+         * Copy constructor. For defensive purposes, ensures only a copy is used.
          */
         public ChangedAppointmentDescriptor(ChangedAppointmentDescriptor toCopy) {
             setStatus(toCopy.status);

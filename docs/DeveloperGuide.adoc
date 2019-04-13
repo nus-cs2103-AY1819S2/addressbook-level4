@@ -443,7 +443,7 @@ which is an indicator if the application can perform other operations on the Pdf
 
 This sequence diagram demonstrates the interactions involved from start of *MergeCommandParser* to end of *MergeCommand* execution:
 
-
+image::MergeCommandSequenceDiagram.png[width="600"]
 
 ==== Considerations
 

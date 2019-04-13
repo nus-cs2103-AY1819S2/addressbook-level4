@@ -168,4 +168,6 @@ public class StudyView implements ViewState {
      * The type of possible states that the study view can have.
      */
     public enum StudyState { QUESTION, ANSWER }
+
+
 }

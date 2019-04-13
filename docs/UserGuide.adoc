@@ -154,7 +154,8 @@ Some of the parameters have restrictions and they are stated below.
 * `ITEM_PRICE` has to be
 * `YEAR` has to be be within 2000 and the current year.
 * `MONTH` has to be within 1 to 12.
-* `DAY` has to be within 0 to 31 (Special case: 29, 30 and 31 are only vaild if it exists in the month of a specified year).
+* `DAY` has to be within 1 to 31 (Special case: 29, 30 and 31 are only vaild if it exists in the month of a specified
+ year).
 ****
 
 Some commands may make changes to the data in RestOrRant. There is no need to save manually as the data will be automatically saved in the hard disk.
@@ -752,8 +753,9 @@ yearly revenue trends. +
 |===
 ifdef::env-github[| :white_check_mark: a|]
 ifndef::env-github[a| icon:check[role="green", size="2x"] a|]
-You will see a success message in the Results Display and the Revenue Panel changes to display the revenue earned from
- the last 30 years starting from the most recent record.
+You will see a success message in the Results Display and the Revenue Panel changes to display up to 30 yearly
+revenue starting from the most recent record.
+
 
 a| a| Notice that the first yearly revenue is the most recent year recorded. This saves you from the trouble of
 scrolling through the rest of the record.
@@ -777,10 +779,11 @@ monthly revenue trends. +
 |===
 ifdef::env-github[| :white_check_mark: a|]
 ifndef::env-github[a| icon:check[role="green", size="2x"] a|]
-You will see a success message in the Results Display and the Revenue Panel changes to display the revenue earned from
- the last 30 months starting from the most recent record.
+You will see a success message in the Results Display and the Revenue Panel changes to display up to 30 monthly
+revenue starting from the most recent record.
 
-a| a| Notice that the first monthly revenue is the most recent year recorded. This saves you from the trouble of
+
+a| a| Notice that the first monthly revenue is the most recent month recorded. This saves you from the trouble of
 scrolling through the rest of the record.
 
 image::SM_Monthly.png[]
@@ -802,10 +805,10 @@ This command helps you to change the Revenue Panel back to its default display o
 |===
 ifdef::env-github[| :white_check_mark: a|]
 ifndef::env-github[a| icon:check[role="green", size="2x"] a|]
-You will see a success message in the Results Display and the Revenue Panel changes to display the revenue earned from
- the last 30 days starting from the most recent record.
+You will see a success message in the Results Display and the Revenue Panel changes to display up to 30 daily
+revenue starting from the most recent record.
 
-a| a| Notice that the first daily revenue is the most recent year recorded. This saves you from the trouble of
+a| a| Notice that the first daily revenue is the most recent day recorded. This saves you from the trouble of
 scrolling through the rest of the record.
 
 image::SM_Daily.png[]
@@ -965,12 +968,12 @@ These commands can only be used in Statistics Mode.
 [width="90%",cols="^25%,^15%,30%,30%",options="header",]
 |=======================================================================
 ^|Command ^|Shortcut ^|Usage ^|Example
-a|<<Revenue, `revenue`>> a|`*r*` a|`revenue [d/DAY] [m/MONTH] [y/YEAR]` a|`revenue d/1 m/1 y/2019` +
-Returns the revenue earned on 01 January 2019
 a|<<Yearly, `yearly`>> a|`*y*` a|`yearly` a|
-Displays revenue from last 30 years in the Revenue Panel
+Displays up to 30 revenue from recent years in the Revenue Panel
 a|<<Monthly, `monthly`>> a|`*m*` a|`monthly` a|
-Displays revenue from last 30 months in the Revenue Panel
+Displays up to 30 revenue from recent months in the Revenue Panel
 a|<<Daily, `daily`>> a|`*d*` a|`daily` a|
-Displays revenue from last 30 days in the Revenue Panel
+Displays up to 30 revenue from recent days in the Revenue Panel
+a|<<Revenue, `revenue`>> a|`*r*` a|`revenue [y/YEAR [[m/MONTH] [d/DAY]]]` a|`revenue y/2019 m/1 d/1` +
+Returns the revenue earned on 01 January 2019
 |=======================================================================

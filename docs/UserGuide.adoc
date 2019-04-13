@@ -543,7 +543,7 @@ in response to the card displayed below, where choosing option 2 will give the r
 .Answering an MCQ card
 image::AnsweringMcqCard.png[width="500"]
 
-==== Reveal answer to a flashcard : `reveal` `Coming in v1.4`
+==== Reveal answer to a flashcard : `reveal`
 If you have no clue what the answer is, this command immediately reveals the correct answer, as seen in the figure
 below. You will not need attempt any answer before being presented the correct answer.
 

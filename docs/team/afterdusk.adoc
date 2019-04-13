@@ -108,3 +108,5 @@ include::../DeveloperGuide.adoc[tag=modeldesign]
 include::../DeveloperGuide.adoc[tag=folders]
 
 include::../DeveloperGuide.adoc[tag=folderusecases]
+
+include::../DeveloperGuide.adoc[tag=foldermanualtesting]

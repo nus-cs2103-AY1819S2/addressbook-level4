@@ -1674,21 +1674,17 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-_{ more test cases to be added ... }_
+// === Deleting a card
 
-=== Deleting a card
+// . Deleting a card while all cards are listed
 
-. Deleting a card while all cards are listed
-
-.. Prerequisites: List all cards using the `list` command. Multiple cards in the list.
-.. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No card is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
-   Expected: Similar to previous.
-
-_{ more test cases to be added ... }_
+// .. Prerequisites: List all cards using the `list` command. Multiple cards in the list.
+// .. Test case: `delete 1` +
+//    Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+// .. Test case: `delete 0` +
+//    Expected: No card is deleted. Error details shown in the status message. Status bar remains the same.
+// .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
+//    Expected: Similar to previous.
 
 // tag::testmanualtesting[]
 === Starting a test session
@@ -1763,10 +1759,73 @@ lowest scoring flashcard question and hints are displayed. Tester can also be in
    remains the same.
 // end::testmanualtesting[]
 
+//tag::foldermanualtesting[]
+=== Folder operations
+
+. Adding a folder
+.. Prerequisites: You must be at the home directory (status bar should read `In Home Directory`) and have only one folder called "Sample Folder". To get this configuration, you can delete all data files except for the jar file and relaunch the application.
+.. Test case: `addfolder Folder 1` +
+   Expected: A folder by the name of "Folder 1" is added. Status message confirms that the folder added, and the new folder can be found in the list of folders.
+.. Test case: `addfolder Sample Folder` +
+   Expected: No folder is added. Error details shown in the status message.
+.. Other incorrect addfolder commands to try: `addfolder`, `addfolder Special/Chars`, `addfolder x` (where x is string longer than 50 characters) +
+   Expected: Similar to previous.
+
+. Deleting a folder 
+.. Prerequisites: You must be at the home directory (status bar should read `In Home Directory`) and have at least one folder.
+.. Test case: `deletefolder 1` +
+   Expected: The folder at index 1 is deleted. Status message confirms that the folder is deleted, and the folder can no longer be found in the list of folders.
+.. Test case: `deletefolder 0` +
+   Expected: No folder is deleted. Error details shown in the status message.
+.. Other incorrect deletefolder commands to try: `deletefolder`, `deletefolder Sample Folder`, `deletefolder x` (where x is larger than the list length) +
+   Expected: Similar to previous.
+
+. Renaming a folder 
+.. Prerequisites: You must be at the home directory (status bar should read `In Home Directory`) and have at least one folder called "Sample Folder", and no folder called "New Name".
+.. Test case: `editfolder x New Name` (where x is the index of a folder that is not Sample Folder) +
+   Expected: The folder at index x is renamed to "New Name". Status message confirms that renaming operation succeeded.
+.. Test case: `editfolder x Sample Folder` (where x is the index of Sample Folder) +
+   Expected: The folder at index x is renamed to its original name. Status message confirms that renaming operation succeeded.
+.. Test case: `editfolder x Sample Folder` (where x is not the index of Sample Folder) +
+   Expected: The folder at index x is not renamed. Error details shown in the status message.
+.. Other incorrect editfolder commands to try: `editfolder`, `editfolder New Name 1`, `editfolder x New Name` (where x is larger than the list length) +
+   Expected: No folder is renamed. Error details shown in the status message.
+
+. Persistence of folder operations
+.. Prerequisites: You must be at the home directory (status bar should read `In Home Directory`) and know where the data files are stored. By default, this will be at the `data/` directory at the path of the jar file.
+.. Test case: `addfolder x` (where x is the name not used by any existing folder) +
+   Expected: A new json by the name of `x.json` appears in the data directory.
+.. Test case: `deletefolder 1` +
+   Expected: The json with the same file name as the deleted folder is no longer present in the data directory. No other files in the directory are affected.
+.. Test case: `editfolder 1 x` (where x is a name not used by any existing folder) +
+   Expected: The json with the original name of the edited folder is no longer present in the data directory, replaced with a json with the new folder name.  No other files in the directory are affected.
+
+=== Navigating in and out of folders
+
+. Entering a folder
+.. Prerequisites: You must be at the home directory (status bar should read `In Home Directory`) and have at least one folder.
+.. Test case: `cd 1` +
+   Expected: Folder 1 is entered. Status message confirms this and UI is updated.
+.. Test case: `cd x` (where x is larger than the list length) +
+   Expected: No folder is entered. Error details shown in the status message.
+.. Other incorrect cd commands to try: `cd`, `cd Sample Folder`, `cd ..` +
+   Expected: Similar to previous.
+
+. Exiting a folder
+.. Prerequisites: You must be inside a folder (status bar should read `Inside Folder: x` where `x` is the name of the folder you are in).
+.. Test case: `cd ..` +
+   Expected: The folder is exited and you return to the home directory. Status message confirms this and UI is updated.
+.. Test case: `cd x` (where x is any combination of characters other than "..") +
+   Expected: The folder is not exited. Error details shown in the status message.
+.. Other incorrect cd commands to try: `cd`, `cd Home` +
+   Expected: Similar to previous.
+
 === Saving data
 
 . Dealing with missing/corrupted data files
-
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
-
-_{ more test cases to be added ... }_
+.. Prerequisites: You must know where the data files are stored. By default, this will be at the `data/` directory at the path of the jar file.
+.. Test case: Delete the data directory and launch the app +
+   Expected: A sample folder is present when the app launches.
+.. Test case: Insert a non-json file/corrupted json file in the data directory and launch the app +
+   Expected: The valid json files have folders with their corresponding names present. The non-json file/corrupted json file remains unaffected.
+//end::foldermanualtesting[]

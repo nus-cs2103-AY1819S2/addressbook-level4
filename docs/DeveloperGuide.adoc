@@ -484,7 +484,6 @@ image::GenericSequenceDiagram.png[width=""]
 
 {nbsp}
 
-
 ==== Current implementation: Taskdone feature
 
 The `taskdone` command is a feature implemented to allow the user to automatically complete a task of his/her choice, setting it to `COMPLETED`. The command also allows the user to automatically add a record to the task's `LinkedPatient` upon completion of the task. This feature makes use of the `Model` by calling its API to perform additional interactions with both task and patient.
@@ -493,13 +492,11 @@ The `taskdone` command is a feature implemented to allow the user to automatical
 The current `patientedit` and `patientdelete` commands have been modified to update tasks linked to a patient when said patient gets modified or deleted. However, to keep in line with the concept of Defensive Programming, the command will check and inform the user in an event where the `LinkedPatient` cannot be found.
 
 The following sequence diagram illustrates flow in which the command's execution takes when completing a task with the index `1`:
-
 {nbsp}
 
 image::TaskDoneSequenceDiagram.png[width=""]
 
 {nbsp}
-
 // end::task_cchj1995[]
 
 // tag::undoredo[]

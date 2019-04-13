@@ -5,11 +5,8 @@ import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSucces
 
 import org.junit.Test;
 
-import seedu.address.logic.commands.AddMedHistCommand;
 import seedu.address.logic.commands.AddPrescriptionCommand;
-import seedu.address.model.medicalhistory.MedicalHistory;
 import seedu.address.model.medicalhistory.ValidDate;
-import seedu.address.model.medicalhistory.WriteUp;
 import seedu.address.model.person.PersonId;
 import seedu.address.model.prescription.Description;
 import seedu.address.model.prescription.Medicine;
@@ -29,10 +26,10 @@ public class AddPrescriptionCommandParserTest {
     }
 
     @Test
-    public void parse_invalidValue_failure(){
+    public void parse_invalidValue_failure() {
         // invalid date
-        assertParseFailure(parser, " pid/1 " + " did/2 " + " dp/2020-05-13 " +
-                " mn/testMedicine " + " d/testDescription ", ValidDate.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, " pid/1 " + " did/2 " + " dp/2020-05-13 "
+                + " mn/testMedicine " + " d/testDescription ", ValidDate.MESSAGE_CONSTRAINTS);
 
 
     }

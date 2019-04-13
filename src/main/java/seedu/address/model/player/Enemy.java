@@ -431,4 +431,7 @@ public class Enemy extends Player {
     public ArrayList<Coordinates> getAllPossiblePopulateCoords() {
         return this.allPossiblePopulateCoords;
     }
+    public Stack getWatchlist() {
+        return this.watchlist;
+    }
 }

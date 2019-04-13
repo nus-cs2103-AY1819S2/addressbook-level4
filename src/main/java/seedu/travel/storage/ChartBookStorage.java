@@ -1,7 +1,6 @@
 package seedu.travel.storage;
 
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.nio.file.Path;
 import java.util.List;
 
@@ -30,38 +29,42 @@ public interface ChartBookStorage {
 
     /**
      * Returns country chart data as a {@link ReadOnlyCountryChart}.
+     * @throws FileNotFoundException if the file is not found.
      */
     List<ReadOnlyCountryChart> readCountryChart() throws FileNotFoundException;
 
     /**
      * @see #readCountryChart()
+     * @throws FileNotFoundException if the file is not found.
      */
     List<ReadOnlyCountryChart> readCountryChart(Path filePath) throws FileNotFoundException;
 
     /**
      * Returns rating chart data as a {@link ReadOnlyRatingChart}.
+     * @throws FileNotFoundException if the file is not found.
      */
     List<ReadOnlyRatingChart> readRatingChart() throws FileNotFoundException;
 
     /**
      * @see #readRatingChart()
+     * @throws FileNotFoundException if the file is not found.
      */
     List<ReadOnlyRatingChart> readRatingChart(Path filePath) throws FileNotFoundException;
 
     /**
      * Returns year chart data as a {@link ReadOnlyYearChart}.
-     */
+     * @throws FileNotFoundException if the file is not found.     */
     List<ReadOnlyYearChart> readYearChart() throws FileNotFoundException;
 
     /**
      * @see #readYearChart()
+     * @throws FileNotFoundException if the file is not found.
      */
     List<ReadOnlyYearChart> readYearChart(Path filePath) throws FileNotFoundException;
 
     /**
      * Saves the given {@link ReadOnlyCountryChart} to the storage.
      * @param countryChart cannot be null.
-     * @throws IOException if there was any problem writing to the file.
      */
     void saveCountryChart(ReadOnlyCountryChart countryChart);
 
@@ -73,7 +76,6 @@ public interface ChartBookStorage {
     /**
      * Saves the given {@link ReadOnlyCountryChart} to the storage.
      * @param ratingChart cannot be null.
-     * @throws IOException if there was any problem writing to the file.
      */
     void saveRatingChart(ReadOnlyRatingChart ratingChart);
 
@@ -85,7 +87,6 @@ public interface ChartBookStorage {
     /**
      * Saves the given {@link ReadOnlyCountryChart} to the storage.
      * @param yearChart cannot be null.
-     * @throws IOException if there was any problem writing to the file.
      */
     void saveYearChart(ReadOnlyYearChart yearChart);
 

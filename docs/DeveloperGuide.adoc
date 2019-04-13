@@ -786,17 +786,13 @@ include::{sourceDir}/seedu/travel/logic/commands/GenerateCommand.java[tags=execu
 
 In the snippet, the operations implemented are:
 
-* `GenerateCommand#setChartDisplayed(chartDisplayed)` - Signals to the UI to display the charts.
-* `GenerateCommand#commitTravelBuddy()` - Saves the current TravelBuddy state from its history.
-* `GenerateCommand#getFilteredPlaceList()` - Verifies if the list is empty.
+. `Model#setChartDisplayed(chartDisplayed)` - Signals to the UI to display the charts.
+. `Model#commitTravelBuddy()` - Saves the current TravelBuddy state from its history.
+. `Model#getFilteredPlaceList()` - Verifies if the list is empty.
 
 These operations are exposed in the `Model` interface as `Model#setChartDisplayed(chartDisplayed)`, `Model#commitTravelBuddy()` and `Model#getFilteredPlaceList()`.
 
 *Model:* The chart generation mechanism is facilitated by `VersionedTravelBuddy`, which extends from `TravelBuddy`, as seen in the Model Class Diagram in <<ModelClassDiagram>>.
-
-[[chartOopDiagramFigure]]
-.OOP Diagram
-image::Chart_ModelClassBetterOopDiagram.png[width="590", caption="Figure 4.4.1: ", reftext="Figure 4.4.1"]
 
 For this section on Charts, the focus is on the <<class-diagram, class diagram>> as seen in <<chartOopDiagramFigure>>. The step-by-step explanation of the class diagram can be found below:
 
@@ -807,7 +803,15 @@ For this section on Charts, the focus is on the <<class-diagram, class diagram>>
 . `countryChartList` is a container for one or more `CountryChart` objects. Similarly, `ratingChartList` is a container for one or more `RatingChart` objects and `yearChartList` is a container for one or more `YearChart` objects.
 . `CountryChart` consists of a `CountryCode` object and a `Total` object. Similarly, `RatingChart` consists of a `Rating` object and a `Total` object and `YearChart` consists of a `Year` object and a `Total` object.
 
+[[chartOopDiagramFigure]]
+.OOP Diagram
+image::Chart_ModelClassBetterOopDiagram.png[width="590", caption="Figure 4.4.1: ", reftext="Figure 4.4.1"]
+
 *Logic & Model Interaction:* Having discussed Logic and Model, we can now model the workflow of the `generate` command. This can be accomplished using an <<activity-diagram, activity diagram>>, as seen in <<GenerateCommandActivityDiagram>>.
+
+[[GenerateCommandActivityDiagram]]
+.Activity Diagram for the `generate` command
+image::GenerateCommandActivityDiagram.png[width="370", caption="Figure 4.4.2: ", reftext="Figure 4.4.2"]
 
 Additionally, we want to be able to capture the interaction between multiple objects for the `generate` command. This can be accomplished using a <<sequence-diagram, sequence diagram>>, as seen in <<GenerateCommandSeqDiagramFigure>> below. The step-by-step explanation of the sequence diagram is as follows:
 
@@ -819,21 +823,19 @@ Additionally, we want to be able to capture the interaction between multiple obj
 . The `ChartBook#commitChart()` method is invoked by `TravelBuddy`.
 . A result object is returned.
 
-[[GenerateCommandActivityDiagram]]
-.Activity Diagram for the `generate` command
-image::GenerateCommandActivityDiagram.png[width="370", caption="Figure 4.4.2: ", reftext="Figure 4.4.2"]
+
 
 [[GenerateCommandSeqDiagramFigure]]
 .Sequence Diagram for the `generate` command
 image::GenerateCommandSeqDiagram.png[width="700", caption="Figure 4.4.3: ", reftext="Figure 4.4.3"]
 
-*Storage:* The Chart's storage is handled by `JsonChartBookStorage`, which implements from `ChartBookStorage`. The three main methods it implements are:
+*Storage:* The Chart's storage is handled by `JsonChartBookStorage`, which implements from `ChartBookStorage`. The three main data-storage methods it implements are:
 
 * `saveCountryChart(filePath)` - Saves the countries data into a JSON file.
 * `saveRatingChart(filePath)` - Saves the ratings data into a JSON file.
 * `saveYearChart(filePath)` - Saves the years data into a JSON file.
 
-A code snippet for `saveCountryChart(filePath)` is shown below.
+As an example, a code snippet for `saveCountryChart(filePath)` is shown below.
 
 [source,java]
 ----
@@ -842,12 +844,13 @@ include::{sourceDir}/seedu/travel/storage/JsonChartBookStorage.java[tags=saveCou
 
 In the snippet, a third-party library called Gson was used to convert Java Objects into JSON and back. The Gson API can be found https://www.javadoc.io/doc/com.google.code.gson/gson/2.8.5[here]. A step-by-step explanation is as follows:
 
-. The method accepts two parameters, namely a `ReadOnlyCountryChart` object, which supplies the data for the Country Chart, and a `Path` object, which specifies the file path for the `FileWriter` to write into.
-. Both parameters are checked by `requireAllNonNull` to make sure they are not empty.
-. A `Gson` object is instantiated using the `GsonBuilder` 's `create` method.
-. A `FileWriter` object is instantiated with the `Path` object as its parameter. If an `IOException` occurs, a warning message will be displayed by the `Logger` object.
-. Assuming there are no exceptions, `Gson#toJson()` will serialize the `ReadOnlyCountryChart` data as a `JsonObject` and places the stream on `FileWriter`.
-. The `FileWriter#flush()` flushes the stream.
+. `saveCountryChart` accepts a `ReadOnlyCountryChart` object, which supplies data for the Country Chart, and a `Path` object, which specifies the file path for the `FileWriter` to write into.
+. Both objects are checked by `requireAllNonNull` to make sure they are not empty.
+. A `Gson` object is instantiated using the `GsonBuilder#setPrettyPrinting()#create()` object.
+. A `FileWriter` object is instantiated with the `Path` object as its parameter.
+. Assuming there are no exceptions, `Gson#toJson()` object will serialize the `ReadOnlyCountryChart` data as a `JsonObject` and place the stream on `FileWriter`.
+. The `FileWriter#flush()` will flush the stream.
+. If an `IOException` occurs, a warning message will be displayed by the `Logger#warning` object.
 
 ==== Generate Command
 

@@ -484,8 +484,8 @@ given keywords and parameters.
 
 Example:
 
-* `find a/Yishun` +
-Show all the people with an address containing the keyword Yishun.
+* `pfind a/Yishun` +
+Show all the patients with an address containing the keyword Yishun.
 
 ==== patientclear
 Clears all patients, from TeethHub.

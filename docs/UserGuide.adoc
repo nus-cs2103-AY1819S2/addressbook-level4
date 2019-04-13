@@ -355,9 +355,9 @@ You can use BrainTrain across different devices. This is an in-built feature tha
 
 To transfer your files: +
 
-. Store the `userdata` folder into your transfer device(thumbdrive etc.).
+. Store the `userdata` and `lessons` folder into your transfer device(thumbdrive etc.).
 . On another device, ensure that BrainTrain has been executed `at least once`.
-. Transfer and overwrite the `userdata` folder.
+. Transfer and overwrite the `userdata` and `lessons` folder.
 . Your progress will be automatically imported on that device.
 
 ==== Coming Soon(v2.0)

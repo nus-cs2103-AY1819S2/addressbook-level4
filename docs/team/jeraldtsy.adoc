@@ -29,9 +29,9 @@ the user and developer guide.
 * *Major enhancement*: User features, Comma-Separated Values(CSV) File Storage
 
 ** *What it does*: User features manage the user progress and import and export their progress into a simple CSV file accordingly.
-This feature is automated.
-Import of user file happens when the application is opened
-Export of user file happens when the application is closed
+This feature is automated. +
+Import of user file happens when the application is opened. +
+Export of user file happens when the application is closed. +
 
 ** *Why is it important*: In consideration of the portability for users to use BrainTrain across different devices, it is
 important to have a file to keep track of the status of the questions. Furthermore, each question will have a unique SRS-date that is
@@ -41,7 +41,7 @@ dependent on how well the user answered the questions. Questions with approachin
 ** *Highlights*: Pull request https://github.com/CS2103-AY1819S2-W14-1/main/pull/30[#30],
 https://github.com/CS2103-AY1819S2-W14-1/main/pull/75[#75],
 https://github.com/CS2103-AY1819S2-W14-1/main/pull/106[#106],
-https://github.com/CS2103-AY1819S2-W14-1/main/pull/139[#139],
+https://github.com/CS2103-AY1819S2-W14-1/main/pull/139[#139]
 
 * *Minor enhancement*: Sanitise user inputs of the CSV file that is generated
 

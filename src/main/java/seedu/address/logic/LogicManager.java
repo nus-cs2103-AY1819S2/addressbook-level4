@@ -146,7 +146,9 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public boolean modeHasChange_isCurrModeActivity() { return model.addressBookModeIsActivity(); }
+    public boolean modeHasChange_isCurrModeActivity() {
+        return model.addressBookModeIsActivity();
+    }
 
     @Override
     public ObservableList<Person> getAttendingOfSelectedActivity() {
@@ -162,5 +164,15 @@ public class LogicManager implements Logic {
     @Override
     public ObservableList<Activity> getActivitiesOfPerson() {
         return model.getActivitiesOfPerson();
+    }
+
+    @Override
+    public int getAttendedActivitiesCounter(Person person) {
+        return model.getAttendedActivitiesCounter(person);
+    }
+
+    @Override
+    public int getParticipationRate(Person person) {
+        return model.getParticipationRate(person);
     }
 }

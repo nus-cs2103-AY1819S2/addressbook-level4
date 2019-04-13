@@ -178,6 +178,12 @@ public interface Model {
      */
     Person generateExportedPerson(Person person);
 
+    /**
+     * Sets the selected activity in the filtered person list.
+     * Returns the filtered activity, for export
+     */
+    Activity generateExportedActivity(Activity activity);
+
     /** Returns an unmodifiable view of the filtered activity list */
     ObservableList<Activity> getFilteredActivityList();
 
@@ -258,4 +264,14 @@ public interface Model {
      * removes member from all activities using matriculation number
      */
     void removeMemberFromAllAttendance(MatricNumber matricNumber);
+
+    /**
+     * Returns number of activities attended by member.
+     */
+    int getAttendedActivitiesCounter(Person person);
+
+    /**
+     * Returns participation rate of member.
+     */
+    int getParticipationRate(Person person);
 }

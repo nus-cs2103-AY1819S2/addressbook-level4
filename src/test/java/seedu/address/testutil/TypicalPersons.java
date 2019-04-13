@@ -46,7 +46,7 @@ public class TypicalPersons {
             .withPhone("98765432")
             .withEmail("benson@example.com")
             .withAddress("311, Clementi Ave 2, #02-25")
-            .withGender("male")
+            .withGender("Male")
             .withYearOfStudy("2")
             .withMajor("Information Systems")
             .withTags("Swimming", "Running").build();
@@ -56,7 +56,7 @@ public class TypicalPersons {
             .withPhone("95352563")
             .withEmail("carl@example.com")
             .withAddress("wall street")
-            .withGender("male")
+            .withGender("Male")
             .withYearOfStudy("1")
             .withMajor("Computer Engineering")
             .withTags("Swimming", "Running").build();
@@ -66,7 +66,7 @@ public class TypicalPersons {
             .withPhone("87652533")
             .withEmail("daniel@example.com")
             .withAddress("10th street")
-            .withGender("male")
+            .withGender("Male")
             .withYearOfStudy("4")
             .withMajor("Computer Science")
             .withTags("Hockey").build();
@@ -86,7 +86,7 @@ public class TypicalPersons {
             .withPhone("94812427")
             .withEmail("fiona@example.com")
             .withAddress("little tokyo")
-            .withGender("female")
+            .withGender("Female")
             .withYearOfStudy("5")
             .withMajor("Medicine")
             .withTags("Floorball").build();
@@ -117,7 +117,7 @@ public class TypicalPersons {
             .withPhone("84821311")
             .withEmail("ida@example.com")
             .withAddress("chicago ave")
-            .withGender("female")
+            .withGender("Female")
             .withYearOfStudy("4")
             .withMajor("Business")
             .withTags("Basketball").build();

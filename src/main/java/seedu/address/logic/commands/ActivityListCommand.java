@@ -11,6 +11,7 @@ import seedu.address.model.Model;
  */
 public class ActivityListCommand extends ActivityCommand {
     public static final String COMMAND_WORD = "activityList";
+    public static final String COMMAND_ALIAS = "aList";
 
     public static final String MESSAGE_SUCCESS = "Listed all activities";
 

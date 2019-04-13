@@ -20,6 +20,6 @@ public class ClearCommand extends GeneralCommand {
         requireNonNull(model);
         model.setAddressBook(new AddressBook());
         model.commitAddressBook();
-        return new CommandResult(MESSAGE_SUCCESS);
+        return new CommandResult(MESSAGE_SUCCESS, false, false, true);
     }
 }

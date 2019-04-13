@@ -8,9 +8,13 @@ import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_OPENING_HOURS;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_PHONE_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_POSTAL_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_SAME_OPENING_HOURS;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_WEBLINK;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_WEBLINK_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.OPENING_HOURS_DESC;
@@ -40,12 +44,15 @@ import static seedu.address.testutil.TypicalRestaurants.BOB;
 
 import org.junit.Test;
 
+import seedu.address.commons.util.WebUtil;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.model.restaurant.Address;
 import seedu.address.model.restaurant.Email;
 import seedu.address.model.restaurant.Name;
+import seedu.address.model.restaurant.OpeningHours;
 import seedu.address.model.restaurant.Phone;
 import seedu.address.model.restaurant.Restaurant;
+import seedu.address.model.restaurant.Weblink;
 import seedu.address.model.tag.Tag;
 import seedu.address.testutil.RestaurantBuilder;
 
@@ -124,36 +131,61 @@ public class AddCommandParserTest {
     public void parse_invalidValue_failure() {
         // invalid name
         assertParseFailure(parser, INVALID_NAME_DESC + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
-                + POSTAL_DESC_BOB + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, Name.MESSAGE_CONSTRAINTS);
+                + POSTAL_DESC_BOB + TAG_DESC_HUSBAND + TAG_DESC_FRIEND + WEBLINK_DESC_BOB
+                + OPENING_HOURS_DESC, Name.MESSAGE_CONSTRAINTS);
 
         // invalid phone
         assertParseFailure(parser, NAME_DESC_BOB + INVALID_PHONE_DESC + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
-                + POSTAL_DESC_BOB + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, Phone.MESSAGE_CONSTRAINTS);
+                + POSTAL_DESC_BOB + TAG_DESC_HUSBAND + TAG_DESC_FRIEND + WEBLINK_DESC_BOB
+                + OPENING_HOURS_DESC, Phone.MESSAGE_CONSTRAINTS);
 
         // invalid email
         assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + INVALID_EMAIL_DESC + ADDRESS_DESC_BOB
-                + POSTAL_DESC_BOB + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, Email.MESSAGE_CONSTRAINTS);
+                + POSTAL_DESC_BOB + TAG_DESC_HUSBAND + TAG_DESC_FRIEND + WEBLINK_DESC_BOB
+                + OPENING_HOURS_DESC, Email.MESSAGE_CONSTRAINTS);
 
         // invalid address
         assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + INVALID_ADDRESS_DESC
-                + POSTAL_DESC_BOB + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, Address.MESSAGE_CONSTRAINTS);
+                + POSTAL_DESC_BOB + TAG_DESC_HUSBAND + TAG_DESC_FRIEND + WEBLINK_DESC_BOB
+                + OPENING_HOURS_DESC, Address.MESSAGE_CONSTRAINTS);
 
         // invalid address
         assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + INVALID_ADDRESS_DESC
-                + POSTAL_DESC_BOB + INVALID_POSTAL_DESC + TAG_DESC_HUSBAND + TAG_DESC_FRIEND,
-                Address.MESSAGE_CONSTRAINTS);
+                        + POSTAL_DESC_BOB + INVALID_POSTAL_DESC + TAG_DESC_HUSBAND + TAG_DESC_FRIEND
+                        + WEBLINK_DESC_BOB + OPENING_HOURS_DESC, Address.MESSAGE_CONSTRAINTS);
 
         // invalid tag
         assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
-                + POSTAL_DESC_BOB + INVALID_TAG_DESC + VALID_TAG_FRIEND, Tag.MESSAGE_CONSTRAINTS);
+                + POSTAL_DESC_BOB + INVALID_TAG_DESC + VALID_TAG_FRIEND + WEBLINK_DESC_BOB
+                + OPENING_HOURS_DESC, Tag.MESSAGE_CONSTRAINTS);
 
         // two invalid values, only first invalid value reported
         assertParseFailure(parser, INVALID_NAME_DESC + PHONE_DESC_BOB + EMAIL_DESC_BOB + INVALID_ADDRESS_DESC
-                + POSTAL_DESC_BOB, Name.MESSAGE_CONSTRAINTS);
+                + POSTAL_DESC_BOB + WEBLINK_DESC_BOB + OPENING_HOURS_DESC, Name.MESSAGE_CONSTRAINTS);
 
         // non-empty preamble
         assertParseFailure(parser, PREAMBLE_NON_EMPTY + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
-                + ADDRESS_DESC_BOB + POSTAL_DESC_BOB + TAG_DESC_HUSBAND + TAG_DESC_FRIEND,
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+                + ADDRESS_DESC_BOB + POSTAL_DESC_BOB + TAG_DESC_HUSBAND + TAG_DESC_FRIEND + WEBLINK_DESC_BOB
+                        + OPENING_HOURS_DESC, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+
+        // invalid weblink
+        assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
+                        + POSTAL_DESC_BOB + TAG_DESC_HUSBAND + TAG_DESC_FRIEND + INVALID_WEBLINK
+                        + OPENING_HOURS_DESC, String.format(WebUtil.INVALID_URL_MESSAGE, INVALID_WEBLINK.substring(3)));
+
+        // invalid weblink
+        assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
+                        + POSTAL_DESC_BOB + TAG_DESC_HUSBAND + TAG_DESC_FRIEND
+                        + INVALID_WEBLINK_DESC + OPENING_HOURS_DESC, Weblink.MESSAGE_CONSTRAINTS);
+
+        // invalid opening hours
+        assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
+                        + POSTAL_DESC_BOB + TAG_DESC_HUSBAND + TAG_DESC_FRIEND + WEBLINK_DESC_BOB
+                        + INVALID_OPENING_HOURS, OpeningHours.MESSAGE_CONSTRAINTS);
+
+        // invalid opening hours
+        assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
+                + POSTAL_DESC_BOB + TAG_DESC_HUSBAND + TAG_DESC_FRIEND + WEBLINK_DESC_BOB
+                + INVALID_SAME_OPENING_HOURS, OpeningHours.MESSAGE_CONSTRAINTS);
     }
 }

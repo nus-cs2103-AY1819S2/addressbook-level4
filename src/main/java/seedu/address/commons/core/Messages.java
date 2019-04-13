@@ -5,10 +5,13 @@ import seedu.address.logic.commands.management.AddLessonCommand;
 import seedu.address.logic.commands.management.DeleteCardCommand;
 import seedu.address.logic.commands.management.DeleteLessonCommand;
 import seedu.address.logic.commands.management.EditLessonCommand;
+import seedu.address.logic.commands.management.ExitCommand;
+import seedu.address.logic.commands.management.HelpCommand;
+import seedu.address.logic.commands.management.HistoryCommand;
 import seedu.address.logic.commands.management.ListCardsCommand;
 import seedu.address.logic.commands.management.ListLessonsCommand;
+import seedu.address.logic.commands.management.QuitLessonCommand;
 import seedu.address.logic.commands.management.ReloadLessonsCommand;
-import seedu.address.logic.commands.management.SaveLessonCommand;
 import seedu.address.logic.commands.management.SetLessonTestValuesCommand;
 
 /**
@@ -29,11 +32,17 @@ public class Messages {
                     + "4.\t" + ReloadLessonsCommand.COMMAND_WORD
                     + ": Reloads all lessons from the data folder.\n"
                     + "5.\t" + ListLessonsCommand.COMMAND_WORD
-                    + ": Lists all lessons in memory.";
+                    + ": Lists all lessons in memory.\n"
+                    + "6.\t" + HistoryCommand.COMMAND_WORD
+                    + ": Lists all entered commands.\n"
+                    + "7.\t" + HelpCommand.COMMAND_WORD
+                    + ": Shows user guide.\n"
+                    + "8.\t" + ExitCommand.COMMAND_WORD
+                    + ": Exits the program.";
     public static final String MESSAGE_CARD_COMMANDS =
             "<< Card View >>\nYou can now use the following commands:\n"
-                    + "1.\t" + SaveLessonCommand.COMMAND_WORD
-                    + ": Saves changes and returns you to Lesson View.\n"
+                    + "1.\t" + QuitLessonCommand.COMMAND_WORD
+                    + ": Quits Card View and returns to Lesson View.\n"
                     + "2.\t" + SetLessonTestValuesCommand.COMMAND_WORD
                     + ": Sets the 2 test values for the opened lesson's flashcards.\n"
                     + "3.\t" + AddCardCommand.COMMAND_WORD
@@ -41,7 +50,11 @@ public class Messages {
                     + "4.\t" + DeleteCardCommand.COMMAND_WORD
                     + ": Deletes the card at the specified INDEX of the card list.\n"
                     + "5.\t" + ListCardsCommand.COMMAND_WORD
-                    + ": Lists all cards in the opened lesson.";
+                    + ": Lists all cards in the opened lesson.\n"
+                    + "6.\t" + HistoryCommand.COMMAND_WORD
+                    + ": Lists all entered commands.\n"
+                    + "7.\t" + HelpCommand.COMMAND_WORD
+                    + ": Shows user guide.";
     /**
      * Feedback message displayed to the user when the command does not match any command patterns.
      */
@@ -78,7 +91,7 @@ public class Messages {
     public static final String MESSAGE_LESSON_VIEW_COMMAND =
             "This is a Lesson View command.\n"
             + "To exit Card View and return to Lesson View, use this command:\n"
-                    + SaveLessonCommand.MESSAGE_USAGE;
+                    + QuitLessonCommand.MESSAGE_USAGE;
 
     /**
      * This is a constants-only (utility) class which should not be instantiated.

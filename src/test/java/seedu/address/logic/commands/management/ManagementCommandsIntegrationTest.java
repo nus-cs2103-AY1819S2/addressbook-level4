@@ -24,7 +24,7 @@ import seedu.address.testutil.LessonBuilder;
 
 /**
  * Integration tests for the {@link AddLessonCommand}, {@link DeleteLessonCommand}, {@link ListLessonsCommand},
- * {@link EditLessonCommand}, {@link ListCardsCommand} and {@link SaveLessonCommand}
+ * {@link EditLessonCommand}, {@link ListCardsCommand} and {@link QuitLessonCommand}
  * which are executed using an actual {@link ManagementModelManager}.
  */
 public class ManagementCommandsIntegrationTest {
@@ -96,9 +96,9 @@ public class ManagementCommandsIntegrationTest {
 
     /**
      * Tests {@link AddLessonCommand}, {@link DeleteLessonCommand}, {@link EditLessonCommand} and
-     * {@link SaveLessonCommand} with {@link ManagementModelManager}.
+     * {@link QuitLessonCommand} with {@link ManagementModelManager}.
      *
-     * <br><br>Opening and closing a lesson with {@link EditLessonCommand} and {@link SaveLessonCommand}
+     * <br><br>Opening and closing a lesson with {@link EditLessonCommand} and {@link QuitLessonCommand}
      * should not prevent deletion of lesson by using {@link DeleteLessonCommand}.
      */
     @Test
@@ -129,7 +129,7 @@ public class ManagementCommandsIntegrationTest {
 
         // Step 4: closeLesson
         // close opened lesson -> lesson closed successfully
-        new SaveLessonCommand().execute(model, commandHistory);
+        new QuitLessonCommand().execute(model, commandHistory);
 
         // openedLesson is now null
         assertNull(model.getOpenedLesson());

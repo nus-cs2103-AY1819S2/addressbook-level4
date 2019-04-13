@@ -374,14 +374,6 @@
     -fx-font-size: 13pt;
 }
 
-.error {
-    -fx-text-fill: #F44336;
-}
-
-.success {
-    -fx-text-fill: #4CAF50;
-}
-
 #filterField, #lessonListPanel, #lessonWebpage {
     -fx-effect: innershadow(gaussian, black, 10, 0, 0, 0);
 }

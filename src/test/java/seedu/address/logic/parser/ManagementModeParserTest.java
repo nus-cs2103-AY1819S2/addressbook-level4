@@ -20,8 +20,8 @@ import seedu.address.logic.commands.management.HelpCommand;
 import seedu.address.logic.commands.management.HistoryCommand;
 import seedu.address.logic.commands.management.ListCardsCommand;
 import seedu.address.logic.commands.management.ListLessonsCommand;
+import seedu.address.logic.commands.management.QuitLessonCommand;
 import seedu.address.logic.commands.management.ReloadLessonsCommand;
-import seedu.address.logic.commands.management.SaveLessonCommand;
 import seedu.address.logic.commands.management.SetLessonTestValuesCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -86,8 +86,8 @@ public class ManagementModeParserTest {
 
     @Test
     public void parseCommand_closeLessons() throws Exception {
-        assertTrue(parser.parse(SaveLessonCommand.COMMAND_WORD)
-                instanceof SaveLessonCommand);
+        assertTrue(parser.parse(QuitLessonCommand.COMMAND_WORD)
+                instanceof QuitLessonCommand);
     }
 
     @Test

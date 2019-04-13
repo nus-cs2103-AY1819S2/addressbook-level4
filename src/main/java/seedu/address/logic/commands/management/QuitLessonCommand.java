@@ -18,21 +18,22 @@ import seedu.address.model.modelmanager.Model;
  * It requires a {@link ManagementModel} to be passed into the {@link #execute(Model, CommandHistory)}
  * command.
  */
-public class SaveLessonCommand extends ManagementCommand {
+public class QuitLessonCommand extends ManagementCommand {
     /**
      * The word a user must enter to call this command.
      */
-    public static final String COMMAND_WORD = "save";
+    public static final String COMMAND_WORD = "quit";
     /**
      * Instructions on command usage and parameters.
      */
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Saves changes made and returns you to Lesson View.\n"
-            + "Example: " + COMMAND_WORD;
+            + ": Quits Card View and returns to Lesson View.\n"
+            + "Example: " + COMMAND_WORD
+            + "\nNote: Changes made in Card View will be saved.";
     /**
      * Feedback message displayed to the user upon successful execution of this command
      */
-    public static final String MESSAGE_SUCCESS = "Saved lesson: %1$s\n"
+    public static final String MESSAGE_SUCCESS = "Changes saved for lesson: %1$s\n"
             + MESSAGE_LESSON_COMMANDS;
 
     /**
@@ -60,16 +61,16 @@ public class SaveLessonCommand extends ManagementCommand {
     }
 
     /**
-     * Returns true if {@code other} is the same object or if it is also an {@link SaveLessonCommand}.
-     * All {@link SaveLessonCommand} objects are the same.
+     * Returns true if {@code other} is the same object or if it is also an {@link QuitLessonCommand}.
+     * All {@link QuitLessonCommand} objects are the same.
      *
      * @param other the other object to compare this object to
-     * @return true if {@code other} is the same object or if it is also an {@link SaveLessonCommand}.
-     * All {@link SaveLessonCommand} objects are the same.
+     * @return true if {@code other} is the same object or if it is also an {@link QuitLessonCommand}.
+     * All {@link QuitLessonCommand} objects are the same.
      */
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof SaveLessonCommand);
+                || (other instanceof QuitLessonCommand);
     }
 }

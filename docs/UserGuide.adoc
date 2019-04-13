@@ -403,19 +403,21 @@ Format: `exit`
 ** The content of the HTML is below. to the field in HTML content `[YOUR_JPG_FILE_CV]` place the name that you gave to HTML file. But do not add any extension.
 ** Prepare the CV you want to add in `JPG` format and name with the text that you wrote to `[YOUR_JPG_FILE_CV]` and place this file to directory `./data/html/cv`
 ....
-<!DOCTYPE html> +
-<html> +
-<head> +
-    <link rel="stylesheet" href="DarkTheme.css"> +
-</head> +
-<body style="background-color:#383838"> +
-	<img style="display:block; margin-left:auto; margin-right:auto; width:40%" src="./cv/[YOUR_JPG_FILE_CV].jpg"> +
-</body> +
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="DarkTheme.css">
+</head>
+<body style="background-color:#383838">
+	<img style="display:block; margin-left:auto; margin-right:auto; width:40%"
+	src="./cv/[YOUR_JPG_FILE_CV].jpg">
+</body>
 </html>
 
 ....
 
 *Updating a CV:*
+
 * `Edit Command:` If you change name of a candidate in the application, the name of the HTML file is not automatically updated. Please update the name.
 ** If you change name of a person that came to the application by default and has a CV, you cannot reach to that person's CV until you reverse your edit.
 * `Delete Command:` If you delete one person from the application, the HTML and JPG files are not automatically deleted. Please delete them manually if you want those files to be deleted.

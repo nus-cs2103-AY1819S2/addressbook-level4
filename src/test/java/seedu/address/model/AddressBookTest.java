@@ -118,6 +118,7 @@ public class AddressBookTest {
     private static class AddressBookStub implements ReadOnlyAddressBook {
         private final ObservableList<Person> persons = FXCollections.observableArrayList();
         private final ObservableList<Person> allPersonsStorage = FXCollections.observableArrayList();
+        private final boolean isFilterExist = false;
 
         AddressBookStub(Collection<Person> persons) {
             this.persons.setAll(persons);
@@ -131,6 +132,11 @@ public class AddressBookTest {
         @Override
         public ObservableList<Person> getAllPersonsStorageList() {
             return allPersonsStorage;
+        }
+
+        @Override
+        public boolean getFilterInfo() {
+            return isFilterExist;
         }
 
         @Override

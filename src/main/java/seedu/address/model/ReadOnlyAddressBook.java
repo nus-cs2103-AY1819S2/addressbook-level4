@@ -17,4 +17,9 @@ public interface ReadOnlyAddressBook extends Observable {
 
     ObservableList<Person> getAllPersonsStorageList();
 
+    /**
+     * returns the current state of the filtering
+     */
+    boolean getFilterInfo();
+
 }

@@ -39,6 +39,7 @@ public class FilterCommandTest {
      * 0 -> clear
      * 1 -> or
      * 2 -> and
+     * 3 -> reverse
 
      * Indexes in the criterion array:
      * 1- Name
@@ -53,7 +54,7 @@ public class FilterCommandTest {
      */
 
     @Test
-    public void execute_oneConditionAtOneFilter() {
+    public void execute_oneConditionAtOneFilter_success() {
 
         // name condition - 2 peoples are listed: DANIEL, ELLE
         String[] criterion = {"el", null, null, null, null, null, null, null, null};
@@ -311,7 +312,7 @@ public class FilterCommandTest {
     }
 
     @Test
-    public void execute_filterClearAtOneFilterActive() {
+    public void execute_filterClearAtOneFilterActive_success() {
 
         String[] criterion = {"el", null, null, null, null, null, "2.6", null, null};
         FilterCommand commandAnd = new FilterCommand(criterion, 2);
@@ -351,7 +352,7 @@ public class FilterCommandTest {
     }
 
     @Test
-    public void execute_filterReverseAtOneFilterActive() {
+    public void execute_filterReverseAtOneFilterActive_success() {
 
         String[] criterion = {"el", null, null, null, null, null, null, null, null};
         FilterCommand commandAnd = new FilterCommand(criterion, 2);
@@ -391,7 +392,7 @@ public class FilterCommandTest {
     }
 
     @Test
-    public void execute_filterClearAtMultipleFiltersActive() {
+    public void execute_filterClearAtMultipleFiltersActive_success() {
 
         modelAnd = new ModelManager(getTypicalAddressBook(), new UserPrefs());
         modelOr = new ModelManager(getTypicalAddressBook(), new UserPrefs());
@@ -468,7 +469,7 @@ public class FilterCommandTest {
     }
 
     @Test
-    public void execute_filterReverseAtMultipleFiltersActive() {
+    public void execute_filterReverseAtMultipleFiltersActive_success() {
 
         modelAnd = new ModelManager(getTypicalAddressBook(), new UserPrefs());
         modelOr = new ModelManager(getTypicalAddressBook(), new UserPrefs());
@@ -546,7 +547,7 @@ public class FilterCommandTest {
     }
 
     @Test
-    public void execute_multipleConditionsAtOneFilter() {
+    public void execute_multipleConditionsAtOneFilter_success() {
         String[] criterion = {"a", "5", "n", null, null, null, null, null, null};
         FilterCommand commandAnd = new FilterCommand(criterion, 2);
         FilterCommand commandOr = new FilterCommand(criterion, 1);
@@ -571,7 +572,7 @@ public class FilterCommandTest {
     }
 
     @Test
-    public void execute_allConditionsAtOneFilter() {
+    public void execute_allConditionsAtOneFilter_success() {
 
         String[] criterion = {"a", "5", "n", "street", "C++", "Developer", "2.5", "nus", "2"};
         String[] skillArr = {"C++"};
@@ -599,18 +600,18 @@ public class FilterCommandTest {
     }
 
     @Test
-    public void execute_filterClearWhenNoFilterActive() {
+    public void execute_filterClearWhenNoFilterActive_failure() {
         String[] criterion = {null, null, null, null, null, null, null, null, null};
         FilterCommand command = new FilterCommand(criterion, 0);
 
-        assertCommandSuccess(command, model, commandHistory, FilterCommand.MESSAGE_NO_FILTER_TO_CLEAR, modelAnd);
+        assertCommandFailure(command, model, commandHistory, FilterCommand.MESSAGE_NO_FILTER_TO_CLEAR);
     }
 
     @Test
-    public void execute_filterReverseWhenNoFilterActive() {
+    public void execute_filterReverseWhenNoFilterActive_failure() {
         String[] criterion = {null, null, null, null, null, null, null, null, null};
         FilterCommand command = new FilterCommand(criterion, 3);
 
-        assertCommandSuccess(command, model, commandHistory, FilterCommand.MESSAGE_NO_FILTER_TO_REVERSE, modelAnd);
+        assertCommandFailure(command, model, commandHistory, FilterCommand.MESSAGE_NO_FILTER_TO_REVERSE);
     }
 }

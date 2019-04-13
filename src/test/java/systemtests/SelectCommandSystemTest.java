@@ -19,7 +19,10 @@ import seedu.address.logic.commands.UndoCommand;
 import seedu.address.model.Model;
 
 public class SelectCommandSystemTest extends AddressBookSystemTest {
-    // TODO: fix system test problem: @Test
+
+    /**
+     * TODO: fix system test problem: @Test
+     */
     public void select() {
         /* ------------------------ Perform select operations on the shown unfiltered list -------------------------- */
 

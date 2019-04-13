@@ -17,7 +17,7 @@ import seedu.address.model.player.Fleet;
 import seedu.address.model.tag.Tag;
 
 /**
- * Lists all persons in the address book to the user.
+ * Lists ships of certain types, by certain tags, or both.
  */
 public class ListCommand extends Command {
 
@@ -36,6 +36,24 @@ public class ListCommand extends Command {
                 BattleState.ENEMY_ATTACK));
     }
 
+    /**
+     * Lists ships according to the prefixes specified by the user, which have
+     * been parsed by {@code ListCommandParser}. There are four ways in which the
+     * ships can be listed.
+     *
+     * 1. List all ships when no prefixes are provided.
+     * 2. List ships with certain tags when tags are provided.
+     * 3. List certain ships when names are provided.
+     * 4. List certain ships with certain tags when names and tags are provided.
+     *
+     * The behaviour for (1) is such that there is no redundant checking against
+     * the fleet for an empty set of names or tags. The fleet is simply returned in
+     * such a case.
+     *
+     * @param model {@code Model} which the command should operate on.
+     * @param history {@code CommandHistory} which the command should operate on.
+     * @return {@code CommandResult} that contains list of ships.
+     */
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
@@ -53,18 +71,14 @@ public class ListCommand extends Command {
         if (!optionalTagSet.isPresent() && !optionalNameSet.isPresent()) {
             // list all battleships
             for (int i = 0; i < fleet.getDeployedFleet().size(); i++) {
-                builder.append(fleet.getDeployedFleet().get(i))
-                        .append("\n");
+                builder.append(fleet.getDeployedFleet().get(i)).append("\n");
             }
             return new CommandResult(builder.toString());
-
         } else if (optionalNameSet.isPresent() && optionalTagSet.isPresent()) {
             fleetResult.addAll(fleet.getDeployedFleet().stream()
                     .filter(fleetEntry -> optionalNameSet.get().contains(fleetEntry.getBattleship().getName()))
                     .filter(fleetEntry -> fleetEntry.getBattleship().getTags().containsAll(optionalTagSet.get()))
-                    .collect(Collectors.toList())
-            );
-
+                    .collect(Collectors.toList()));
         } else if (optionalNameSet.isPresent()) {
             fleetResult.addAll(fleet.getByNames(optionalNameSet.get()));
         } else {
@@ -72,24 +86,41 @@ public class ListCommand extends Command {
         }
 
         for (Fleet.FleetEntry fleetEntry : fleetResult) {
-            builder.append(fleetEntry)
-                    .append("\n");
+            builder.append(fleetEntry).append("\n");
         }
 
         if (fleetResult.isEmpty()) {
             return new CommandResult("There are no results.");
         }
+
         return new CommandResult(builder.toString());
     }
 
+    /**
+     * Getter method for {@code optionalNameSet}.
+     *
+     * @return {@code this.optionalNameSet}.
+     */
     public Optional<Set<Name>> getOptionalNameSet() {
         return optionalNameSet;
     }
 
+    /**
+     * Getter method for {@code optionalTagSet}.
+     *
+     * @return {@code this.optionalTagSet}.
+     */
     public Optional<Set<Tag>> getOptionalTagSet() {
         return optionalTagSet;
     }
 
+    /**
+     * Checks equality of two ListCommand objects by comparing the respective
+     * {@code optionalNameSet} and {@code optionalTagSet}.
+     *
+     * @param other any object.
+     * @return boolean of whether the objects are equal.
+     */
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object

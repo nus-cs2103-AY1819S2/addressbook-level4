@@ -39,7 +39,7 @@ public class ReportCommandSystemTest extends CardFolderSystemTest {
         assertCommandFailure(command, MESSAGE_INVALID_COMMAND_OUTSIDE_FOLDER);
 
         /* Case: Execute end in report
-         * -> exits report back to folder (do not use assertCommandFailure here)
+         * -> exits report back to folder (do not use assertCommandSuccess here)
          */
         command = EndCommand.COMMAND_WORD;
         executeCommand(command);

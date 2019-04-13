@@ -13,8 +13,7 @@ My role in the project was to implement a folder system, so that users could cou
 
 In this document, the following style elements from the respective documentation are present:
 
-
-`test`: Command to be executed  a component, class or object in the architecture of the application.
+`test`: Command to be executed or a component, class or object in the architecture of the application.
 
 [NOTE]
 Important information that should be noted.
@@ -87,7 +86,7 @@ Useful information for a deeper understanding of the current topic.
 
 
 =====
-_As we morphed the product, we kept the user guide up to date with the features we implemented. To showcase my technical writing skills, I have included an excerpt of the notable contributions, namely Quick Start and the new folder-related commands._
+_As we morphed the product, we kept the user guide up to date with the features we implemented. To showcase my technical writing skills, I have included an excerpt of my notable contributions, namely Quick Start and the new folder-related commands._
 =====
 
 // include::../UserGuide.adoc[tag=introabout]
@@ -101,7 +100,7 @@ include::../UserGuide.adoc[tag=folderoperations]
 == Contributions to the Developer Guide
 
 =====
-_We also kept the Developer Guide updated so that potential developers and enthusiast users could better understand the design and implementation of our app. To show the technical depth of my contributions while keepong this document brief, I have once again included notable excerpts._
+_We also kept the Developer Guide updated so that potential developers and enthusiast users could better understand the design and implementation of our app. To show the technical depth of my contributions while keeping this document brief, I have once again only included the more notable excerpts._
 =====
 
 include::../DeveloperGuide.adoc[tag=modeldesign]

@@ -64,11 +64,11 @@ In this section, we'll walk you through the primary user interface of the applic
 To use a command, type the command in the command box and press kbd:[enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[enter] will open the help window. +
 
-. When booting up the app for the first time, you should see the home directory much like the screengrab below. The first and only folder present is a sample folder named none other than "Sample Folder".
+. When booting up the app for the first time, you should see the home directory much like the screengrab below. The first and only folder present is a sample folder.
 +
 image::AnnotatedStartupUI.png[width="500"]
 
-. `cd 1` : enter the 1st flashcard folder. You will see that you have entered the sample folder.
+. `cd 1` : enters the 1st flashcard folder. You will see a change in the user interface as you enter the folder.
 +
 image::AnnotatedEnterFolderUI.png[width="500"]
 

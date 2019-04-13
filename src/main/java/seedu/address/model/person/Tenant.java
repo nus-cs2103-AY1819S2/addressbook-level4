@@ -5,8 +5,7 @@ package seedu.address.model.person;
  */
 public class Tenant extends Person {
 
-    //private final Remark remark;
-    ///private final Property property;
+    public static final String CUSTOMER_TYPE_TENANT = "tenant";
 
     public Tenant(Name name, Phone phone, Email email, Remark remark) {
         super(name, phone, email, remark);

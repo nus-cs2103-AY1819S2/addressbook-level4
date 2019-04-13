@@ -22,6 +22,7 @@ import seedu.address.model.person.Seller;
 import seedu.address.model.person.Tenant;
 import seedu.address.model.property.Price;
 import seedu.address.model.property.Property;
+import seedu.address.model.property.PropertyType;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -177,7 +178,7 @@ class JsonAdaptedPerson {
             }
             final Set<Tag> modelTags = new HashSet<>(personTags);
             return new Seller(modelName, modelPhone, modelEmail, modelRemark,
-                    new Property(Property.PROPERTY_TYPE_SELL, modelAddress, modelSellingPrice, modelTags)); }
+                    new Property(PropertyType.SELLING, modelAddress, modelSellingPrice, modelTags)); }
         case "landlord": {
             if (address == null) {
                 throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
@@ -201,7 +202,7 @@ class JsonAdaptedPerson {
             }
             final Set<Tag> modelTags = new HashSet<>(personTags);
             return new Landlord(modelName, modelPhone, modelEmail, modelRemark,
-                    new Property(Property.PROPERTY_TYPE_RENT, modelAddress, modelRentalPrice, modelTags));
+                    new Property(PropertyType.RENTAL, modelAddress, modelRentalPrice, modelTags));
         }
         case "tenant":
             return new Tenant(modelName, modelPhone, modelEmail, modelRemark);

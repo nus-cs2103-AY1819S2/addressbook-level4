@@ -100,6 +100,11 @@ public interface Model {
     boolean hasEditedPerson(Person editedPerson);
 
     /**
+     * Returns true if a person with the same identity as {@code toAdd} exists in the address book.
+     */
+    boolean hasSameIdentityField(Person person);
+
+    /**
      * Deletes the given person.
      * The person must exist in the address book.
      */
@@ -274,4 +279,5 @@ public interface Model {
      * Sets the selected archived person in the filtered archived person list.
      */
     void setSelectedArchivedPerson(Person person);
+
 }

@@ -11,7 +11,7 @@ import seedu.address.model.tag.Tag;
  */
 public class Landlord extends Person {
 
-    //private final Remark remark;
+    public static final String CUSTOMER_TYPE_LANDLORD = "landlord";
     private final Property property;
 
     public Landlord(Name name, Phone phone, Email email, Remark remark, Property property) {
@@ -28,7 +28,7 @@ public class Landlord extends Person {
     }
 
     public Price getRentalPrice() {
-        return property.getRentalPrice();
+        return property.getPrice();
     }
 
     public Property getProperty() {
@@ -54,7 +54,7 @@ public class Landlord extends Person {
                 && otherLandlord.getPhone().equals(getPhone())
                 && otherLandlord.getEmail().equals(getEmail())
                 && otherLandlord.getRemark().equals(getRemark())
-                && otherLandlord.getAddress().equals(getAddress());
+                && otherLandlord.getProperty().equals(getProperty());
     }
 
     @Override
@@ -67,12 +67,8 @@ public class Landlord extends Person {
                 .append(getEmail())
                 .append(" Remark: ")
                 .append(getRemark())
-                .append(" Address: ")
-                .append(getAddress())
-                .append(" Rental Price: ")
-                .append(getRentalPrice())
-                .append(" Tags: ");
-        getTags().forEach(builder::append);
+                .append(System.lineSeparator())
+                .append(getProperty());
         return builder.toString();
     }
 

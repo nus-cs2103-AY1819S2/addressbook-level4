@@ -35,6 +35,7 @@ import seedu.address.model.person.Seller;
 import seedu.address.model.person.Tenant;
 import seedu.address.model.property.Price;
 import seedu.address.model.property.Property;
+import seedu.address.model.property.PropertyType;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -155,7 +156,7 @@ public class EditCommand extends Command {
             Price updatedSellingPrice = editPersonDescriptor.getSellingPrice()
                     .orElse(referenceSeller.getSellingPrice());
             return new Seller(updatedName, updatedPhone, updatedEmail, updatedRemark,
-                    new Property(Property.PROPERTY_TYPE_SELL, updatedAddress, updatedSellingPrice, updatedTags));
+                    new Property(PropertyType.SELLING, updatedAddress, updatedSellingPrice, updatedTags));
         }
 
         if (personToEdit instanceof Landlord) {
@@ -164,7 +165,7 @@ public class EditCommand extends Command {
             Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(referenceLandlord.getTags());
             Price updatedRentalPrice = editPersonDescriptor.getRentalPrice().orElse(referenceLandlord.getRentalPrice());
             return new Landlord(updatedName, updatedPhone, updatedEmail, updatedRemark,
-                    new Property(Property.PROPERTY_TYPE_RENT, updatedAddress, updatedRentalPrice, updatedTags));
+                    new Property(PropertyType.RENTAL, updatedAddress, updatedRentalPrice, updatedTags));
         }
 
         if (personToEdit instanceof Tenant) {

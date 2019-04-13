@@ -146,6 +146,12 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public boolean hasSameIdentityField(Person person) {
+        requireNonNull(person);
+        return versionedAddressBook.hasSameIdentityField(person);
+    }
+
+    @Override
     public void deletePerson(Person target) {
         versionedAddressBook.removePerson(target);
     }

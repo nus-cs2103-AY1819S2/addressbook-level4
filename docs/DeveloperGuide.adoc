@@ -513,12 +513,18 @@ image::UndoRedoActivityDiagram.png[width="650"]
 
 // tag::budgetmanagement[]
 === Budget Management
-
+// tag::budgetclassdiagram[]
 This group of features allows the user to set a total budget and
 allocate a portion of the total budget to different categories.
 The current spending will increase when records are added.
 
 This implementation is under `Logic`, `Model`, `Storage` and `UI` Component.
+
+The classes associated with Budget is shown in the class diagram below:
+
+.Class Diagram for Budget
+image::budget_classdiagram.png[]
+// end::budgetclassdiagram[]
 // tag::budget[]
 ==== Setting a Budget
 This feature allows the particular user to set a budget for the FinanceTracker. The user
@@ -625,13 +631,7 @@ budgets
 . If there are allocated category budgets, `Model#getCatBudget()` is called to obtain the set of `CategoryBudget`
 . An `Iterator` is then used to iterate through the set of `CategoryBudgets` and the `currentSpending` is printed with
 the `totalBudget` allocated to the `CategoryBudget`.
-
-
 // end::show[]
-
-==== To be implemented
-* Implement `reset` command to reset current budget expenditure and total budget.
-
 //end::budgetmanagement[]
 
 
@@ -673,6 +673,21 @@ image::asterPlot.png[width="400"]
 
 Initially, we were considering using a pie chart instead. However, using an aster plot graph will be more effective in showing the user what is the remaining budget amount for each category.
 //end::summary[]
+
+// tag::theme[]
+=== Theme
+The `theme` feature allows users to change the colour theme of the application to provide
+them with some customisation.
+
+==== Implementation
+. User enters command `theme COLOUR` in Command Box, where `COLOUR` is either `dark`, `light`, `blue` or `pink`
+. `ThemeCommand#formatTheme()` is executed to change the user input of COLOUR to a word that has
+first character in uppercase and the rest of the characters in lowercase.
+. `ThemeCommand#isValidTheme()` is then used to check if the COLOUR is one of the four specified above.
+. `ThemeCommand` then returns a `CommandResult` that sets the boolean field `changeTheme` to true
+. `MainWindow#handleSwitchTheme()` is then executed to call the appropriate method to switch the theme of the application
+to the user-specified input
+// end::theme[]
 
 === Logging
 
@@ -722,6 +737,7 @@ Here are the steps to convert the project documentation files to PDF format.
 .  Set the destination to `Save as PDF`, then click `Save` to save a copy of the file in PDF format. For best results, use the settings indicated in the screenshot below.
 
 .Saving documentation as PDF files in Chrome
+.Saving project documentation files to PDF format
 image::chrome_save_as_pdf.png[width="300"]
 
 [[Docs-SiteWideDocSettings]]

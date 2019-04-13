@@ -29,21 +29,20 @@ image::travis.png[66,90]
 
 == PROJECT: In-Credit-Ble (Finance Tracker)
 
----
 
 == Overview
 
-_In-Credit-Ble_ is a desktop Finance Tracker that is tailored to help users manage their finances
+_In-Credit-Ble_ is a desktop Finance Tracker tailored to help users manage their finances
 and keep track of their budget in an *easy and efficient* manner. It is designed for those who
 prefer to work with a Command Line Interface (CLI), especially for those who prefer to type over
 using their mouse.
 
- As part of the module requirement, my team and I (of 5 students from NUS)
- had to morph an existing application and develop a functional product in a short
- span of 13 weeks while learning new software engineering concepts. We have chosen to
- morph the existing application from an Address Book to a Finance Tracker.
- In the following sections, I will be summarising my contributions to this project through the major
- and minor features implemented for _In-Credit-Ble_.
+As part of the module requirement, my team and I (of 5 students from NUS)
+had to morph an existing application and develop a functional product in a short
+span of 13 weeks while learning new software engineering concepts. We have chosen to
+morph the existing application from an Address Book to a Finance Tracker.
+In the following sections, I will be summarising my contributions to this project through the major
+and minor features implemented for _In-Credit-Ble_.
 
 == Summary of Contributions
 |===
@@ -83,7 +82,8 @@ budget is stored in the `TotalBudget` class which is implemented in the `Model` 
 command. It shows the current spending over the the total budget allocated for each individual category.
 
 
-==== Minor enhancement: Changing theme of application
+==== Minor enhancements
+* Changing Theme of Application
 ** *_What it does_:* Allows user to change the colour theme of the application to pre-set themes
 such as `Dark`, `Light`, `Blue`, `Pink`.
 ** *_Justification_:* This feature allows the user to have minor customisation of their In-Credit-Ble
@@ -91,6 +91,14 @@ Finance Tracker Application
 ** *_Highlights of feature:_*
 *** This feature can be triggered using the `theme` command. Triggering this command will result in
 the `UI` component changing its stylesheet to fit the pre-set themes indicated by the user.
+
+* `BudgetPanel` of UI
+** *_What it does_*: Allows user to see the total spending against total budget so far in a visual progress bar.
+Depending on how close the total spending is to the total budget, the colour of the bar will change accordingly.
+** *_Justification_*: This feature will allows users to have a visual view of their total spending against their set
+budget
+** *_Highlights of feature:_*
+*** This feature will be updated every time a user `spends`, `edit` the amount in the records, or `delete` a record
 
 === Other Contributions
 ==== Notable Contributions
@@ -101,7 +109,7 @@ the `UI` component changing its stylesheet to fit the pre-set themes indicated b
 **** Managed issue trackers:
 ***** To see the issue trackers I managed, click
 https://github.com/CS2103-AY1819S2-W17-3/main/issues?q=is%3Aissue+author%3AJackimaru96+is%3Aclosed[here!]
-
+____
 ==== Community
 *** PR Reviews:
 **** To view the Pull Requests reviewed by me,
@@ -131,13 +139,16 @@ To allow users to get started with our application with ease, I've created the `
 `Graphical User Interface Introduction` (GUI) sections. This section shows how I am able to use diagrams
 to support my writing so that users can have visual aids to guide their understanding. +
 
-Due to page limit constraints, I will only be listing the major portion of my contribution.
+Due to page limit constraints, I will only be listing a part of the `Graphical User Interface Introduction`.
 To see the rest of the contributions I made to the User Guide, click the below link.
 
 1) https://github.com/CS2103-AY1819S2-W17-3/main/blob/master/docs/UserGuide.adoc#quick-start[Quick Start] +
+2) https://github.com/CS2103-AY1819S2-W17-3/main/blob/master/docs/UserGuide.adoc#graphical-user-interface-introduction[Graphical User Interface Introduction]
 ====
 
 include::../UserGuide.adoc[tag=userinterface]
+
+---
 
 === `Allocate`, `Show` and `Theme` Commands
 [NOTE]
@@ -155,6 +166,8 @@ To see the rest of the contributions I made to the User Guide, click the below l
 2) https://github.com/CS2103-AY1819S2-W17-3/main/blob/master/docs/UserGuide.adoc#changing-theme-of-application-theme[`theme` command]
 ====
 
+---
+
 include::../UserGuide.adoc[tag=allocate]
 
 == Contributions to the Developer Guide
@@ -165,10 +178,17 @@ This is important in real-world software engineering projects where we are expec
 document the Developer Guide well will allow colleagues or other developers to understand our implementation better. +
 
 Due to page limit constraints, I will only be listing the major portion of my contribution.
+(Class Diagram + Sequence Diagram)
 To see the rest of the contributions I made to the DG, click the below link. +
-https://github.com/CS2103-AY1819S2-W17-3/main/blob/master/docs/DeveloperGuide.adoc#budget-management[`show` implementation]
+
+1) https://github.com/CS2103-AY1819S2-W17-3/main/blob/master/docs/DeveloperGuide.adoc#budget-management[`show` implementation] +
+2)https://github.com/CS2103-AY1819S2-W17-3/main/blob/master/docs/DeveloperGuide.adoc#theme[`theme` implementation]
 |===
 
+=== Budget Class Diagrams
+include::../DeveloperGuide.adoc[tag=budgetclassdiagram]
+---
+=== CategoryBudget Implementation
 include::../DeveloperGuide.adoc[tag=categorybudget]
 
 

@@ -375,6 +375,14 @@ public class ModelManager implements Model {
         numAnsweredCorrectly = 0;
     }
 
+    public ObservableList<Card> getCurrentTestedCardFolder() {
+        return currentTestedCardFolder;
+    }
+
+    public int getNumAnsweredCorrectly() {
+        return numAnsweredCorrectly;
+    }
+
     @Override
     public void setCurrentTestedCard(Card card) {
         if (card != null && !getActiveFilteredCards().contains(card)) {

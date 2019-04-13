@@ -52,14 +52,14 @@
                         </padding>
                         <StackPane fx:id="patientListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
                     </VBox>
-                    <VBox fx:id="medHistList" minWidth="240" prefWidth="240" SplitPane.resizableWithParent="false">
+                    <VBox fx:id="medHistList" minWidth="250" prefWidth="250" SplitPane.resizableWithParent="false">
                         <padding>
                             <Insets top="10" right="10" bottom="10"/>
                         </padding>
                         <StackPane fx:id="middleListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
                     </VBox>
 
-                    <StackPane fx:id="browserPlaceholder" minWidth="300" prefWidth="340">
+                    <StackPane fx:id="browserPlaceholder" minWidth="320" prefWidth="340">
                         <padding>
                             <Insets top="10" right="10" bottom="10" left="10"/>
                         </padding>

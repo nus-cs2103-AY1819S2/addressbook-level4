@@ -788,9 +788,19 @@ Example:
 
 ==== taskdone
 Sets a task to `[green]#complete#`, marking the completion of the task.
+Tasks marked as complete will have their priority replaced with a green tag that says COMPLETED as illustrated by the image below:
+
+image::Taskdone.png[width=""]
+
 Executing this command on a patient that has a patient linked to it will automatically add a record to the patient.
 
 Format: `taskdone INDEX`
+
+Example:
+
+* `taskdone 2`
+* `<<taskcal, taskcal>>` +
+  `taskdone 1`
 
 ==== taskcal
 Creates a popup window with a list of tasks on the left hand side of the window and a calendar on the right hand side.

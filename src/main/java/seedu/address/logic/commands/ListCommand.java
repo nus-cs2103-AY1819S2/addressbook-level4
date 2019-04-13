@@ -57,14 +57,12 @@ public class ListCommand extends Command {
                         .append("\n");
             }
             return new CommandResult(builder.toString());
-
         } else if (optionalNameSet.isPresent() && optionalTagSet.isPresent()) {
             fleetResult.addAll(fleet.getDeployedFleet().stream()
                     .filter(fleetEntry -> optionalNameSet.get().contains(fleetEntry.getBattleship().getName()))
                     .filter(fleetEntry -> fleetEntry.getBattleship().getTags().containsAll(optionalTagSet.get()))
                     .collect(Collectors.toList())
             );
-
         } else if (optionalNameSet.isPresent()) {
             fleetResult.addAll(fleet.getByNames(optionalNameSet.get()));
         } else {

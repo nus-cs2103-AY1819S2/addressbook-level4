@@ -24,7 +24,7 @@ public class SaveCommandParserTest {
 
     @Test
     public void parse_validArgs_returnsSaveCommand() {
-        File test = new File("data" + File.separator + "records.json");
+        File test = new File("data/records.json");
         try {
             assertEquals(parser.parse(" records.json").getFile(),
                             new SaveCommand(new ParsedInOut(test, ".json")).getFile());
@@ -35,7 +35,7 @@ public class SaveCommandParserTest {
 
     @Test
     public void parse_validArgs_returnsSaveCommandEmptyFilename() {
-        File test = new File("data" + File.separator + ".json");
+        File test = new File("data/.json");
         try {
             assertEquals(parser.parse(" .json").getFile(),
                 new SaveCommand(new ParsedInOut(test, ".json")).getFile());

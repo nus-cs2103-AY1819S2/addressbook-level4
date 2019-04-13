@@ -1,0 +1,25 @@
+{
+  "authors":
+  [
+    {
+      "githubId": "LiuXuanIan",
+      "displayName": "LIU...UAN",
+      "authorNames": ["LiuXuanIan"]
+    },
+    {
+      "githubId": "e0191632",
+      "displayName": "RAC... QI",
+      "authorNames": ["e0191632"]
+    },
+    {
+      "githubId": "dukesun99",
+      "displayName": "SUN...QUN",
+      "authorNames": ["dukesun99", "Yiqun Sun"]
+    },
+    {
+      "githubId": "bendymochi",
+      "displayName": "TAN...YEN",
+      "authorNames": ["bendymochi"]
+    }
+  ]
+}

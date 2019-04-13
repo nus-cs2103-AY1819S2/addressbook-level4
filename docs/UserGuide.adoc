@@ -284,9 +284,9 @@ Writes all entries from the address book to patients1.json. +
 Patient management allows our users to store and modify information of their dental patients.
 This includes their personal particulars, next-of-kin information, dental records, and teeth conditions.
 
-==== patient add
+==== Patient Add
 
-Adds a patient to the patients list.
+This command adds a patient to the patients list.
 
 Name, NRIC, and Date of Birth fields are compulsory.
 The rest are optional fields, and can be filled in later via the `recordedit` command.
@@ -318,9 +318,9 @@ Example:
 
 * `patientadd n/John Choo sex/M ic/S1234567H dob/09-09-1995`
 
-==== patient delete
+==== Patient Delete
 
-Deletes the patient specified by `index` from the patients list.
+This command deletes the patient specified by `index` from the patients list.
 
 Format: `patientdelete INDEX`
 
@@ -337,19 +337,17 @@ Examples:
 [NOTE]
 If the patient index is invalid, the application will display an error message to the user.
 
-==== patient edit
+==== Patient Edit
 
-Edits the information of an existing patient.
+This command edits the information of an existing patient.
 
-Format: `patientedit INDEX`
+Format: `patientedit INDEX PARAMETERS …`
 
 * Edits the information of the patient at the specified index.
 
 * The index refers to the index number shown in the displayed patient list.
 
 * The given index must be a positive integer (e.g. 1, 2, or 3…).
-
-Format: `patientadd PARAMETERS …`
 
 Parameters that can be edited:
 
@@ -374,7 +372,7 @@ Example:
 
 * `patientedit 1 ic/S1234567A` -- Edits the `NRIC` of the first patient in the patient list.
 
-==== copy
+==== Copy
 
 Makes an exact copy of a patient and adds them to the patient list.
 This is useful if there are multiple people who share similar details.
@@ -392,7 +390,7 @@ the current patient list with a copy tag.
 * `copy 3 4` -- Makes 4 copies of the patient at index 3 and inserts them at the bottom of
 the current patient list with a copy tag.
 
-==== goto
+==== Go To
 
 The goto command specifies a patient by index, and brings the user to the records mode, where all dental records of the specified patient are listed.
 
@@ -404,7 +402,7 @@ Format: `goto 1`
 
 * The given index must be a positive integer (e.g 1, 2 or 3…)
 
-==== back
+==== Back
 
 The back command can only be run in records mode.
 It brings the user back to the patients mode, where all patients will be listed.
@@ -414,9 +412,9 @@ Format: `back` -- Brings the user back to patient mode.
 [NOTE]
 The `back` command will work with parameters, but they will be ignored.
 
-==== record add
+==== Record Add
 
-Adds a new dental record to the patient.
+This command adds a new dental record to the patient.
 
 [NOTE]
 `recordadd` requires the application to first be in records mode, via the `goto` command.
@@ -439,9 +437,9 @@ Example
 
 * `<<back, back>>` - Go back to the patient list.
 
-==== record delete
+==== Record Delete
 
-Deletes a dental record of a specified patient.
+This command deletes a dental record of a specified patient.
 
 [NOTE]
 `recorddelete` requires the application to first be in records mode, via the `goto` command.
@@ -462,9 +460,9 @@ Example:
 
 * `<<back, back>>` - Go back to the patient list.
 
-==== record edit
+==== Record Edit
 
-Edits a patient’s dental record.
+This command edits a patient’s dental record.
 
 [NOTE]
 `recordedit` requires the application to first be in records mode, via the `goto` command.
@@ -494,7 +492,7 @@ Clears all of a patient's dental records.
 [NOTE]
 `recordclear` requires the application to first be in records mode, via the `goto` command.
 
-==== teeth create
+==== Teeth Create
 
 There is no command required for this feature, as the application automatically generates and stores a new set of all healthy permanent teeth for newly added patients.
 
@@ -515,9 +513,9 @@ letter, allowing for easier use on keyboards.
 [NOTE]
 At the moment, only the permanent teeth type is supported.
 
-==== teeth edit
+==== Teeth Edit
 
-This method edits a specific tooth of a patient.
+This command edits a specific tooth of a patient.
 
 Format: `teethedit t/TEETH_LABEL s/STATUS`
 

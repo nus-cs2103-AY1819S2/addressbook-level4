@@ -505,45 +505,40 @@ image::TaskCalendarSwimLaneDiagram.png[width=""]
 ** **Alternative:** Store the tasks in a seperate json file
 *** Alternative Pros: Very unlikely to have a very large json file by saving different data types to a different file.The single json file that stores the data will not become too large if there are too many patients and/or tasks. Reduces the likelihood that the size of the json file will exceed the limit of certain file systems like FAT-32 with a limit of 4GB, which would result in the application being unable to save to the file.
 *** Alternative Cons: Increases time spent opening a seperate json file. This results in more I/O work for application, decreasing application load time.Complicated to implement and affects future storage and I/O features. Implementation would affect I/O features that may need to read from the files to export both patients and tasks. Sets a precedent where new data types added in the future should be stored seperately for consistency, which would affect `export` and `import` commands as they have to be changed to read a new file to export/import.
-** **Choice Justification: Having an extremely large file is a very unlikely scenario and even in the case where it does happen, most operating systems these days utilize a filesystem that allows for filesizes far beyond 4GB. Compared to the cons of the alternative where performance and increased likelihood of issues in the futre, the pros that the alternative offers do not seem valid enough to justify using it over the current choice.
+** **Choice Justification**: Most operating systems these days utilize a filesystem that allows for filesizes far beyond 4GB. The limit can go up to 2^64 bytes in NTFS for example and in almost all cases, it is unlikely for the a dentist to have such a large number of patients and tasks. Compared to the cons of the alternative where performance and increased likelihood of issues in the futre, the pros that the alternative offers do not seem valid enough to justify using it over the current choice.
 
-* **Alternative 1 (current choice):** Store the tasks in the same json file
-** Pros: Reduces time spent opening a seperate json file. This results in less I/O work for application and thus an improvement in the application's load time. Easy to implement.
-** Cons: The single json file that stores the data may become too large if there are too many patients and/or tasks. The size might exceed the limit of certain file systems like FAT-32 with a limit of 4GB, leading to the program unable to save to the file.
-
-* **Alternative 2:** Store the tasks in a seperate json file
-** Pros: Very unlikely to have a very large json file by saving different data types to a different file.
-** Cons: Complicated to implement and affects future storage and I/O features. Implementation would affect I/O features that may need to read from the files to export both patients and tasks. Sets a precedent where new data types added in the future should be stored seperately for consistency, which would affect `export` and `import` commands as they have to be changed to read a new file to export/import.
 
 ===== Aspect: Representing the Priority class attribute for Task
 
-* **Alternative 1 (current choice):** Use Java's special Enum class for Priority
-** Pros: Easy to validate user input for the attribute. Adding new constants to the Enum class is easy to do and will not affect the code much. Enables the `taskdone` feature to change it for the user automatically. Good programming practice to use enum for values that should not be changed.
-** Cons: Limits user's freedom when naming priority. Users have to name priorities as either `high`, `med` or `low`. Some users might prefer other naming conventions.
-
-* **Alternative 2:** Use a normal class type, with string as inner attribute for Priority.
-** Pros: Easy to implement as it functions similarly to how `name` and `title` works. Priorities can be named anything the user desires.
-** Cons: Priority tracking depends on the user's own memory of what he/she named them and sees as a higher priority. Users may opt to use many levels of priority tracking which causes implementation of new features to interact with the priorities would be difficult as it requires tracking too many different things.
+* **Current implementation:** Java's special Enumeration (Enum) class is used for the Priority class
+** **Alternative:** Use a normal class type, with string as inner attribute for Priority.
+*** Alternative Pros: Priorities can be named anything the user desires such as "code red", "code blue" for example. Easy to implement as it functions similarly to how `name` and `title` works.
+*** Alternative Cons: Priority tracking depends on the user's own memory of what he/she named them and sees as a higher priority, making it difficult for the program to display the appropriate color for priorities to benefit users. Goes against good programming practice which is to use enum for values that should not be changed and Enum is typically used to store priority types.
+** **Choice Justification**: Priorities being represented as "high", "med" and "low" is a common case and as such, most if not all people should be able to understand the naming convention. While giving freedom to the user is typically beneficial, in this case, it prevents the application from providing better more value to the user. The current choice uses terms that are understandable whilst providing benefits to the user by enabling a consistent colored display of priority tags.
 
 ==== Aspect: Modifying task and patient when executing `taskdone` command
 
-* **Alternative 1 (current choice):** Replace the task and patient with new instances with priority changed and record added respectively.
-** Pros: Allows the task completion process to be undo-able and redo-able based on the current implementation of undo/redo.  
-** Cons: Increases number of steps to perform a relatively simple operation on the stored data.
-
-* **Alternative 2:** Modify the target task and linked patient directly
-** Pros: Easy to implement as they already have methods to perform the operations. Reduces run time of taskdone feature.
-** Cons: Completing a task does not work with undo and redo due to the way the model is implemented. Implementing changes model to support this would lead to too much work and could potentially introduce bugs for other commands.
+* **Current implementation:** Target task and patient are replaced with new instances with priority changed and record added respectively.
+** **Alternative:** Modify the target task and linked patient directly.
+*** Alternative Pros: Easy to implement as they already have methods to perform the operations Requires less operations to execute the command, leading to performance increase.
+*** Alternative Cons: Completing a task does not work with undo and redo due to the way the model is implemented.
+** **Choice Justification**: The current choice enables undo and redo to work with the task autocomplete feature, enabling tasks to be un-completed by using the undo command. This is important as the user could potentially key the wrong index when completing a task and wish to undo the command without having to manually edit the task. From tests done with the alternative, the performance increase is also  negligible at best. The lack of a strong benefit does not make up for the inability to undo/redo making the alternative less desirable as compared to the current choice.
 
 ==== Aspect: Data strcuture to support Task Calendar generation
 
-* **Alternative 1 (current choice):** Use a HashTable to store dates that have task's starting and/or ending.
-** Pros: Finding duplicate dates and replacing the stored priority number becomes fast and efficient when using a HashTable O(1) run time. Removing
-** Cons: Increases number of steps to perform a relatively simple operation on the stored data.
+* **Current implementation:** HashMap is used to store dates that have task's starting and/or ending.
+** **Alternative:**  Use an ArrayList to store the dates instead.
+*** Alternative Pros: Does not require its stored values to have an `equals()` method. Lower memory consuption as there is no need to store both a key and a value. Retrieves elements with `get()` in O(1) time with a specified index.
+*** Alternative Cons: Checking if an element exists within is O(n) time as the entire arraylist needs to be checked. Requires knowing the actual index in order to utilize the benefit of an O(1) retrieval.
+** **Choice Justification**: The generation of the calendar page requires a data structure that can check if a particular date is contained within itself in order to decide whether a date cell should be highlighted or not. Arraylist would be slower in this case as it would have to peform an O(n) every time a task gets iterated compared to the O(1) a HashMap offers. There is also no need to implement an `equals()` method for the DateCustom object to be stored as it is already implemented to ensure that there are no duplicate tasks. In this case, the current choices is a much better fit as compared to arraylist to support the calendar feature.
 
-* **Alternative 2:** Modify the target task and linked patient directly
-** Pros: Easy to implement as they already have methods to perform the operations. Reduces run time of taskdone feature.
-** Cons: Completing a task does not work with undo and redo due to the way the model is implemented. Implementing changes model to support this would lead to too much work and could potentially introduce bugs for other commands.
+==== Aspect: Method of displaying Task Calendar
+
+* **Current implementation:** Task Calendar window is displayed in a seperate popup.
+** **Alternative:** Display the calendar in another pane in the Main Window.
+*** Alternative Pros: Everything can be shown at one glance to the user. No need to shuffle between windows. No need for a command to make the calendar show.
+*** Alternative Cons: Other elements displayed in the Main Window have to be shrunk along with the calendar's contents to make space for the task calendar to be viewed. Main Window would be displaying too many things.
+** **Choice Justification**: Shrinking all elements in the Main Window would adversely affect the visibility of other important features the application provdies such as the patient's information, the list of patients and list of tasks. This reduces the user experience as content cannot be clearly seen. Following the traditional usage of a calendar, most people typically look at a calendar when the need arises such as planning or scheduling. It would be better for a command to be provided and show the user a clear and distinct calendar only when he/she requires it, making the current choice ideal.
 
 // end::task_cchj1995[]
 

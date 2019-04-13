@@ -41,30 +41,10 @@ public class ListMedHistCommand extends Command {
     public static final String MESSAGE_SUCCESS =
             "Listed all medical histories. Write up of medical histories are not be shown in the list.";
 
-    private final Optional<PersonId> targetPatientId;
+    private final ListMedHistDescriptor listMedHistDescriptor;
 
-    private final Optional<PersonId> targetDoctorId;
-
-    private final Optional<ValidDate> targetDate;
-
-    public ListMedHistCommand(PersonId targetPatientId, PersonId targetDoctorId, ValidDate targetDate) {
-        if (targetPatientId == null) {
-            this.targetPatientId = Optional.empty();
-        } else {
-            this.targetPatientId = Optional.of(targetPatientId);
-        }
-
-        if (targetDoctorId == null) {
-            this.targetDoctorId = Optional.empty();
-        } else {
-            this.targetDoctorId = Optional.of(targetDoctorId);
-        }
-
-        if (targetDate == null) {
-            this.targetDate = Optional.empty();
-        } else {
-            this.targetDate = Optional.of(targetDate);
-        }
+    public ListMedHistCommand(ListMedHistDescriptor listMedHistDescriptor) {
+        this.listMedHistDescriptor = listMedHistDescriptor;
     }
 
     @Override
@@ -74,30 +54,31 @@ public class ListMedHistCommand extends Command {
         Predicate<MedicalHistory> predicateListMedHistIsDid;
         Predicate<MedicalHistory> predicateListMedHistIsDate;
 
-        if (targetPatientId.isPresent()) {
-            Patient patientWithId = model.getPatientById(targetPatientId.get());
+        if (listMedHistDescriptor.getPatientId().isPresent()) {
+            PersonId patientId = listMedHistDescriptor.getPatientId().get();
+            Patient patientWithId = model.getPatientById(patientId);
             if (patientWithId == null) {
                 throw new CommandException(AddMedHistCommand.MESSAGE_PATIENT_NOT_FOUND);
             }
-            predicateListMedHistIsPid = x -> x.getPatientId().equals(targetPatientId.get());
-
+            predicateListMedHistIsPid = medHist -> medHist.getPatientId().equals(patientId);
         } else {
-            predicateListMedHistIsPid = x -> true;
+            predicateListMedHistIsPid = medHist -> true;
         }
 
-        if (targetDoctorId.isPresent()) {
-            Doctor doctorWithId = model.getDoctorById(targetDoctorId.get());
+        if (listMedHistDescriptor.getDoctorId().isPresent()) {
+            PersonId doctorId = listMedHistDescriptor.getDoctorId().get();
+            Doctor doctorWithId = model.getDoctorById(doctorId);
             if (doctorWithId == null) {
                 throw new CommandException(AddMedHistCommand.MESSAGE_DOCTOR_NOT_FOUND);
             }
-            predicateListMedHistIsDid = x -> x.getDoctorId().equals(targetDoctorId.get());
+            predicateListMedHistIsDid = medHist -> medHist.getDoctorId().equals(doctorId);
 
         } else {
-            predicateListMedHistIsDid = x -> true;
+            predicateListMedHistIsDid = medHist -> true;
         }
 
-        if (targetDate.isPresent()) {
-            predicateListMedHistIsDate = x -> x.getDate().equals(targetDate.get());
+        if (listMedHistDescriptor.getDate().isPresent()) {
+            predicateListMedHistIsDate = x -> x.getDate().equals(listMedHistDescriptor.getDate().get());
         } else {
             predicateListMedHistIsDate = x -> true;
         }
@@ -107,5 +88,56 @@ public class ListMedHistCommand extends Command {
 
         model.updateFilteredMedHistList(specifiedPredicate);
         return new CommandResult(MESSAGE_SUCCESS, CommandResult.ShowPanel.MED_HIST_PANEL);
+    }
+
+    /**
+     * Stores the fields to filter medical history by.
+     */
+    public static class ListMedHistDescriptor {
+
+        private Optional<PersonId> targetPatientId;
+
+        private Optional<PersonId> targetDoctorId;
+
+        private Optional<ValidDate> targetDate;
+
+        public ListMedHistDescriptor() {
+            targetPatientId = Optional.empty();
+            targetDoctorId = Optional.empty();
+            targetDate = Optional.empty();
+        }
+
+        /**
+         * Copy constructor. For defensive purposes, ensures only a copy is used.
+         */
+        public ListMedHistDescriptor(ListMedHistDescriptor toCopy) {
+            setPatientId(toCopy.targetPatientId);
+            setDoctorId(toCopy.targetDoctorId);
+            setDate(toCopy.targetDate);
+        }
+
+        public Optional<PersonId> getPatientId() {
+            return targetPatientId;
+        }
+
+        public void setPatientId(Optional<PersonId> patientId) {
+            this.targetPatientId = patientId;
+        }
+
+        public Optional<PersonId> getDoctorId() {
+            return targetDoctorId;
+        }
+
+        public void setDoctorId(Optional<PersonId> doctorId) {
+            this.targetDoctorId = doctorId;
+        }
+
+        public Optional<ValidDate> getDate() {
+            return targetDate;
+        }
+
+        public void setDate(Optional<ValidDate> date) {
+            this.targetDate = date;
+        }
     }
 }

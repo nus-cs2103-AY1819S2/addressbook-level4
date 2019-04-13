@@ -10,6 +10,8 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.medicalhistory.ValidDate;
 import seedu.address.model.person.PersonId;
 
+import java.util.Optional;
+
 /**
  * Parses input arguments and creates a new ListMedHistCommand object
  */
@@ -24,57 +26,32 @@ public class ListMedHistCommandParser implements Parser<ListMedHistCommand> {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(
                 args, PREFIX_PATIENT_ID, PREFIX_DOCTOR_ID, PREFIX_DATE_OF_MEDHIST);
 
-        PersonId patientId = null;
-        PersonId doctorId = null;
-        ValidDate date = null;
+        ListMedHistCommand.ListMedHistDescriptor listMedHistDescriptor = new ListMedHistCommand.ListMedHistDescriptor();
+
+
+        if (argMultimap.getValue(PREFIX_PATIENT_ID).isPresent()) {
+            PersonId patientId = ParserUtil
+                    .parsePersonId(argMultimap.getValue(PREFIX_PATIENT_ID).get());
+            listMedHistDescriptor.setPatientId(Optional.of(patientId));
+        }
+
+        if (argMultimap.getValue(PREFIX_DOCTOR_ID).isPresent()) {
+            PersonId doctorId = ParserUtil
+                    .parsePersonId(argMultimap.getValue(PREFIX_DOCTOR_ID).get());
+            listMedHistDescriptor.setDoctorId(Optional.of(doctorId));
+        }
+
+        if (argMultimap.getValue(PREFIX_DATE_OF_MEDHIST).isPresent()) {
+            ValidDate date = ParserUtil
+                    .parseValidDate(argMultimap.getValue(PREFIX_DATE_OF_MEDHIST).get());
+            listMedHistDescriptor.setDate(Optional.of(date));
+        }
 
         if (!argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListMedHistCommand.MESSAGE_USAGE));
         }
 
-        patientId = presentPatientIdOrNull(PREFIX_PATIENT_ID, argMultimap);
-        doctorId = presentDoctorIdOrNull(PREFIX_DOCTOR_ID, argMultimap);
-        date = presentDateOrNull(argMultimap);
-
-        return new ListMedHistCommand(patientId, doctorId, date);
-    }
-
-    /**
-     * Returns PersonId if patient id present and the format is correct
-     * {@code ArgumentMultimap}.
-     */
-    private static PersonId presentPatientIdOrNull(Prefix prefix, ArgumentMultimap argumentMultimap)
-            throws ParseException {
-        PersonId patientId = null;
-        if (isPrefixPresent(argumentMultimap, prefix)) {
-            patientId = ParserUtil.parsePersonId(argumentMultimap.getValue(PREFIX_PATIENT_ID).get());
-        }
-        return patientId;
-    }
-
-    /**
-     * Returns id if doctor id present and the format is correct
-     * {@code ArgumentMultimap}.
-     */
-    private static PersonId presentDoctorIdOrNull(Prefix prefix, ArgumentMultimap argumentMultimap)
-            throws ParseException {
-        PersonId doctorId = null;
-        if (isPrefixPresent(argumentMultimap, prefix)) {
-            doctorId = ParserUtil.parsePersonId(argumentMultimap.getValue(PREFIX_DOCTOR_ID).get());
-        }
-        return doctorId;
-    }
-
-    /**
-     * Returns date if date presents and the format is correct
-     * {@code ArgumentMultimap}.
-     */
-    private static ValidDate presentDateOrNull(ArgumentMultimap argumentMultimap) throws ParseException {
-        ValidDate date = null;
-        if (isPrefixPresent(argumentMultimap, PREFIX_DATE_OF_MEDHIST)) {
-            date = ParserUtil.parseValidDate(argumentMultimap.getValue(PREFIX_DATE_OF_MEDHIST).get());
-        }
-        return date;
+        return new ListMedHistCommand(listMedHistDescriptor);
     }
 
     /**

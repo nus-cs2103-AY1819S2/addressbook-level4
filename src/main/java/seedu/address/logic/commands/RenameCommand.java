@@ -75,13 +75,22 @@ public class RenameCommand extends Command {
         Pdf pdfToEdit = lastShownList.get(index.getZeroBased());
         Pdf editedPdf = createEditedPdf(pdfToEdit, editPdfDescriptor);
 
-        if (!pdfToEdit.getName().getFullName().equals(editedPdf.getName().getFullName())
-                && Paths.get(pdfToEdit.getDirectory().getDirectory(), editedPdf.getName().getFullName())
-                .toAbsolutePath().toFile().exists()) {
-            //(isFileExists(editedPdf))) {
-            throw new CommandException(String.format(MESSAGE_DUPLICATE_PDF_DIRECTORY,
-                    editedPdf.getName().getFullName(), pdfToEdit.getDirectory().getDirectory()));
+        if (System.getProperty("os.name").equals("Linux")) {
+            if (!pdfToEdit.getName().getFullName().equals(editedPdf.getName().getFullName())
+                    && Paths.get(pdfToEdit.getDirectory().getDirectory(), editedPdf.getName().getFullName())
+                    .toAbsolutePath().toFile().exists()) {
+                //(isFileExists(editedPdf))) {
+                throw new CommandException(String.format(MESSAGE_DUPLICATE_PDF_DIRECTORY,
+                        editedPdf.getName().getFullName(), pdfToEdit.getDirectory().getDirectory()));
+            }
+        } else {
+            if (!pdfToEdit.getName().getFullName().equals(editedPdf.getName().getFullName())
+                    && (isFileExists(editedPdf))) {
+                throw new CommandException(String.format(MESSAGE_DUPLICATE_PDF_DIRECTORY,
+                        editedPdf.getName().getFullName(), pdfToEdit.getDirectory().getDirectory()));
+            }
         }
+
         if (pdfToEdit.isSamePdf(editedPdf) || model.hasPdf(editedPdf)) {
             throw new CommandException(MESSAGE_DUPLICATE_PDF);
         }

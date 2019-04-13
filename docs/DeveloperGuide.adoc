@@ -300,80 +300,90 @@ image::ImportSequenceDiagram.png[width=800]
 // tag::OpenAndListFiles[]
 === Open Feature
 
-The open command allows users to open a previously imported image for image-editing.
+This command allows the user to open a previously imported image for image-editing.
 
 ==== Current Implementation
-The open function is facilitated by `Album` and `CurrentEdit`. It uses the following operations:
+The `open` function is facilitated by `Album` and `CurrentEdit`. It uses the following operations:
 
 * `Album#checkFileExist(String)` - Checks if file name specified by the `String` exists in assets folder.
 
-* `Album#retrieveImage(String)` - Return an `Image` specified by the `String` in assets folder.
+* `Album#retrieveImage(String)` - Returns an `Image` specified by the `String` in assets folder.
 
 * `CurrentEdit#openImage(Image)` - Creates two copies of the opened image in `temp` folder. The duplicated images are instantiated as `tempImage` and `originalImage`.
 
 * `CurrentEdit#updateExIF(Image)` - Updates the Exif data of the image.
 
-* `CurrenEdit#displayTempImage()` - Displays the temporary image stored in directory: "src/main/resources/temp/".
-
-Given below is an example usage scenario and how the `open` mechanism behaves at each step.
-
-Step 1. The user executes `open sample.png`.
-
-Step 2. `Album#checkFileExist(String)` is called to check if the file specified by the `String` exist in `assets` folder. If it exists, `Album#retrieveImage(String)` is called to create an `Image` object from the specified file. Otherwise, `CommandException` is thrown.
-
-Step 3. The `Image` is passed to `CurrentEdit#openImage(Image)` to create two copies of `Image`, named `temp_img.png` and `ori_img.png`, in `temp` folder. These copies are then instantiated as `tempImage` and `originalImage`.
-
-Step 4. `CurrentEdit#updateExIF(Image)` is called to updates the information of the opened image in the GUI.
-
-Step 5. `CurrenEdit#displayTempImage()` displays the opened image on the GUI.
+* `CurrentEdit#displayTempImage()` - Displays the temporary image stored in directory: "src/main/resources/temp/".
 
 
-The following sequence diagram shows how the `open` command works:
+The following sequence diagram shows how `open` works:
+
 
 .Sequence Diagram for Open Command
 image::OpenCommandSequenceDiagram.png[width=800]
 
+Given below is an example usage scenario and how `open` behaves at each step as shown in _Figure 11_.
+
+Step 1. The user executes `open sample.png`.
+
+Step 2. `Album#checkFileExist(String)` is called to check if the file specified by the `String` is in `assets` folder. If it exists, `Album#retrieveImage(String)` is called to create an `Image` object from the specified file. Otherwise, `CommandException` is thrown.
+
+Step 3. The `Image` is passed to `CurrentEdit#openImage(Image)` to create two copies of it, named `temp_img.png` and `ori_img.png`, in `temp` folder. These copies are then instantiated as `tempImage` and `originalImage`.
+
+Step 4. `CurrentEdit#updateExIF(Image)` is called to updates the information of the opened image in the GUI.
+
+Step 5. `CurrenEdit#displayTempImage()` is called to display the opened image on the GUI.
+
+
+
+
 ==== Design Considerations
 
-* *Alternative 1 (current choice)*: Users can only open and edit one image at a time.
-** Pros: Easy to implement. `temp` folder only stores one original image and one temporary image. Clear to users that edits are done to the only opened image.
-** Cons: Users are unable to open other images while editing.
+* *Alternative 1 (current choice)*: The user can only open and edit one image at a time.
+** Advantages:
+*** Easy to implement.
+*** Saves space as `temp` folder only stores one original image and one temporary image.
+*** Clear to users that edits are done to the only opened image.
+** Disadvantage: Users are unable to open other images while editing.
 
-* *Alternative 2* : Users can open and edit multiple images.
-** Pros: Users are able to edit multiple images simultaneously.
-** Cons: Open has to distinguish whether user is opening an image from `assets` folder or `temp` folder. Requires many duplicates with different names. This may be confusing for the user.
+* *Alternative 2* : The user can open and edit multiple images.
+** Advantage: Users are able to edit multiple images simultaneously.
+** Disadvantages:
+*** `open` has to distinguish whether user is opening an image from `assets` or `temp` folder.
+*** Requires many duplicates with different temporary names.
+*** May be confusing for the user.
+
+Alternative 1 was chosen as it is less complicated, requires lesser space and more user-friendly.
 
 
 
 === List Files Feature
 
-The `listfiles` command displays a list of all the files in `assets` folder.
+This command displays the names of all the files in `assets` folder.
 
 ==== Current Implementation
-The listfiles function is facilitated by `Album`. It uses the following operations:
+The `listfiles` function is facilitated by `Album`. It uses the following operations:
 
 * `Album#getFileNames()` - Returns a list of all the files in `assets` folder.
 
-
-Given below is an example usage scenario and how the `listfiles` mechanism behaves at each step.
-
-Step 1. The user executes `listfiles`.
-
-Step 2. `Album#getFileNames()` accesses `assets` folder and returns all the file names in a String array.
-
-Step 3. The String array is displayed on the GUI.
-
-
-
-The following sequence diagram shows how the `listfiles` command works:
+The following sequence diagram shows how `listfiles` works:
 
 
 .Sequence Diagram for ListFiles
 image::ListFilesCommandSequenceDiagram.png[width=800]
 
+Given below is an example usage scenario and how `listfiles` behaves at each step as shown in _Figure 11_.
+
+Step 1. The user executes `listfiles`.
+
+Step 2. `Album#getFileNames()` accesses `assets` folder and returns all the file names in a `String` array.
+
+Step 3. The `String` array is displayed on the GUI.
+
+
 ==== Design Considerations
 
-`listfiles` command was created to allow users to know what files are stored in `assets` folder so that they can call `open` using the right file names.
+This command was created to allow the user to know what files are stored in `assets` folder so that the `FILENAME` can be easily referenced for `open`.
 
 // end::OpenAndListFiles[]
 
@@ -606,20 +616,24 @@ image::UndoRedoActivityDiagram.png[width="650"]
 // tag::Save[]
 === Save Feature
 
-The `save` command applies the edits to the current edit image and saves it into `assets` folder.
+This command applies the edits to the current image and saves it into `assets` folder.
 
 ==== Current Implementation
-The save function is facilitated by `Album` and `CurrentEdit`. It uses the following operations:
+The `save` function is facilitated by `Album` and `CurrentEdit`. It uses the following operations:
 
-* `CurrentEdit#tempImageExist()` - Returns true `tempImage` in `CurrentEdit` is null. `tempImage` is null only if `open` command was never called.
+* `CurrentEdit#tempImageExist()` - Returns `true` if `tempImage` in `CurrentEdit` is null. `tempImage` is null only if `open` command was never called.
 
 * `CurrentEdit#getTempImage()` - Returns the latest edited image stored in `tempImage` in `CurrentEdit`.
 
-* `CurrentEdit#getOriginalName()` - Returns original name of opened image.
+* `CurrentEdit#getOriginalName()` - Returns the original name of opened image.
 
 * `CurrentEdit#overwriteOriginal(String)` - Replaces `ori_img.png` with `temp_img.png' in `temp` folder. Updates `originalImage` to `tempImage` and `originalImageName` to `String` in `CurrentEdit`.
 
-* `Album#checkFileExist(String)` - Checks if file name specified by the `String` exists in assets folder.
+* `CurrentEdit#deleteHistory()` - Clears the history in `CurrentEdit`.
+
+* `CurrentEdit#updateExif()` - Updates the Exif data of the new image.
+
+* `Album#checkFileExist(String)` - Checks if the file name specified by the `String` exists in assets folder.
 
 * `Album#saveToAssets(Image, String)` - Saves the `Image` as `String` into `assets` folder.
 
@@ -627,38 +641,45 @@ The save function is facilitated by `Album` and `CurrentEdit`. It uses the follo
 
 * `Album#refreshAlbum()` - Updates and displays the latest images in `assets` folder on the GUI.
 
-Given below is an example usage scenario and how the `save` mechanism behaves at each step.
+
+The following sequence diagram shows how `save` works:
+
+.Sequence Diagram for Save Command
+image::SaveCommandSequenceDiagram.png[width=800]
+
+Given below is an example usage scenario and how `save` behaves at each step as shown in _Figure 19_.
 
 Step 1. The user executes `save`.
 
-Step 2. `CurrentEdit#tempImageExist()` checks if an image was previously opened. If no `open` was called previously, `CommandException` is thrown.
+Step 2. `CurrentEdit#tempImageExist()` is called to check if an image was previously opened. If `open` was not called previously, `CommandException` is thrown.
 
-Step 3. `CurrentEdit#getTempImage()` retrieves the `tempImage` from `CurrentEdit`.
+Step 3. `CurrentEdit#getTempImage()` is called to retrieve the `tempImage` from `CurrentEdit`.
 
-Step 4. If user did not input a `String` after `save` previously, `CurrentEdit#getOriginalName()` will retrieve the `originalImageName` from `CurrentEdit`. Otherwise, `Album#checkFileExist(String)` will be called to check if a file name is similar to `String`. If it is a duplicate, `CommandException` will be thrown.
+Step 4. If the user did not input a `String` after `save` previously, `CurrentEdit#getOriginalName()` will retrieve the `originalImageName` from `CurrentEdit`. Otherwise, `Album#checkFileExist(String)` will be called to check if a file name is similar to `String`. If it is a duplicate, `CommandException` will be thrown.
 
 Step 5. `Album#saveToAssets(Image, String)` takes in the previously retrieved `Image` and `String` to create a new image file in `assets` folder.
 
 Step 6. `CurrentEdit#overwriteOriginal(String)` is called to update the files in `temp` folder and their respective instances in `CurrentEdit`.
 
-Step 7. `Album#populateAlbum()` updates the list of image in `Album` class to ensure it reflects all the files in `assets` folder.
+Step 7. `CurrentEdit#deleteHistory()` is called to delete the edit history in `CurrentEdit` so that the user can no longer perform `undo` on the saved image.
 
-Step 8.`Album#refreshAlbum()` is called to update the Information Panel on the GUI.
+Step 8.`#updateExif()` is called to update the Exif data of the new image.
 
+Step 9. `Album#populateAlbum()` is called to update the list of image in `Album` class and to ensure it reflects all the files in `assets` folder.
 
-The following sequence diagram shows how the `save` command works:
+Step 10.`Album#refreshAlbum()` is called to update the Information Panel on the GUI.
 
-.Sequence Diagram for Save Command
-image::SaveCommandSequenceDiagram.png[width=800]
 
 ==== Design Considerations
-* *Alternative 1*: User must input a string to name the the new image.
-** Pros: Name of the new image is clear to the user.
-** Cons: Tedious for user to type in a name each time `save` is performed.
+* *Alternative 1*: The user must give a name to the new image.
+** Advantage: Name of the new image is clear to the user.
+** Disadvantage: May be tedious for the user to type in a name each time `save` is performed.
 
-* *Alternative 2 (current choice)* : User can choose to input a string to name the new image or overwrite the opened image.
-** Pros: Convenient for user to `save` quickly without having to type a new name everytime.
-** Cons: User may unintentionally overwrite the opened image.
+* *Alternative 2 (current choice)* : The user can choose to save as a new name or overwrite the original image
+** Advantage: Convenient for user to `save` quickly without having to type a new name everytime.
+** Disadvantage: The user may unintentionally overwrite the original image.
+
+Alternative 2 was chosen as the user is likely to use `save` frequently. Since the `assets` folder functions like an album, images can be re-imported if they are accidentally overwritten. The user is able to `save` easily and choose to resume editing immediately or at a later time.
 // end::Save[]
 
 //tag::WaterMark[]

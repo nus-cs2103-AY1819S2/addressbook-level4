@@ -17,7 +17,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import seedu.address.logic.battle.BattleManager;
-import seedu.address.model.battleship.Battleship;
 import seedu.address.model.cell.Coordinates;
 import seedu.address.model.cell.Status;
 

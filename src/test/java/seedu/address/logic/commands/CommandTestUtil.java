@@ -70,6 +70,12 @@ public class CommandTestUtil {
     public static final String INVALID_ADDRESS_DESC = " " + PREFIX_ADDRESS; // empty string not allowed for addresses
     public static final String INVALID_POSTAL_DESC = " " + PREFIX_POSTAL + "12345"; // needs 6 numbers
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
+    public static final String INVALID_WEBLINK_DESC = " " + PREFIX_WEBLINK + "asdasdajdad"; // not in valid url form
+    public static final String INVALID_WEBLINK = " " + PREFIX_WEBLINK + "www.asdadjas.com"; // not a valid
+    public static final String INVALID_OPENING_HOURS = " "
+            + PREFIX_OPENING_HOURS + "0000 to 3000"; // hours should be 0000 to 2359
+    public static final String INVALID_SAME_OPENING_HOURS = " "
+            + PREFIX_OPENING_HOURS + "1200 to 1200"; // should be 24hrs instead
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";

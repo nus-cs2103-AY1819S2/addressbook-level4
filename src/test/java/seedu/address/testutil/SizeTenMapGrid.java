@@ -1,5 +1,6 @@
 package seedu.address.testutil;
 
+import java.util.ArrayList;
 import java.util.Collections;
 
 import seedu.address.model.MapGrid;
@@ -80,6 +81,33 @@ public class SizeTenMapGrid {
         p.getMapGrid().putShip(ship, TypicalIndexes.COORDINATES_A1, vertical);
 
         return ship;
+    }
+
+    /**
+     * Set up the following scenario:
+     *     Player has one Aircraft Carrier at:
+     *          a1 horizontal with full HP
+     *     Player has two Destroyers at:
+     *          b2 horizontal with full HP
+     *          d4 horizontal with full HP
+     *     Player has five cruisers at:
+     *          c8 horizontal with full HP
+     *          g3 horizontal with full HP
+     *          i3 horizontal with full HP
+     *          g6 horizontal with full HP
+     *          i6 horizontal with full HP
+     * @param p The player to set up
+     */
+    public static void setUpAllShips(Player p) {
+        String[] coordsToUse = {"a1", "b2", "d4", "c8", "g3", "i3", "g6", "i6"};
+
+        for (int i = 0; i < 8; i++) {
+            Battleship ship = new DestroyerBattleship(Collections.emptySet());
+            Orientation horizontal = new Orientation("h");
+            p.getFleet().deployOneBattleship(ship, new Coordinates(coordsToUse[i]), horizontal);
+            p.getMapGrid().putShip(ship, new Coordinates(coordsToUse[i]), horizontal);
+        }
+
     }
 
     /**

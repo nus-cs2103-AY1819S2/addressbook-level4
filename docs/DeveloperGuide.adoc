@@ -272,8 +272,8 @@ NOTE: These functions are automatically performed on opening/closing the Session
 ==== Current Implementation
 The lesson CSV storage feature implements the following functions:
 
-* Parsing lesson data into the correct format for saving
-* Parsing data from file into lessons
+* Parsing lesson data into the a list of string arrays, which is a format opencsv accepts for saving to CSV.
+* Parsing a list of string arrays back into lesson data, as retrieved from opencsv.
 
 Actual file I/O is handled in the CsvUtil class, which uses the opencsv library to read/write CSV files.
 
@@ -291,11 +291,22 @@ Lesson names are equivalent to their filenames.
 A lesson named "French" would be saved as French.csv, and vice-versa.
 
 ===== Header
-The header stores the set up information for the lesson. For more information on the format of lessons, please read `TODO`
+The header is represented in the file as the first two lines. Each line represents a specific set of data, as outlined below.
 
-Core fields start with `CORE_ESCAPE` character, `\*`. When a field without `*` is found, all subsequent fields are assumed to be optional.
+The first line represents the type of the corresponding column. Each column can have three types:
 
-Question and answer fields have the `QUESTION_ESCAPE` character, `?`, and `ANSWER_ESCAPE` character, `@`, respectively after the core character, `*`.
+. *Tested* +
+This marks the column as a core value. The first two instances of Tested in the file will be used in quizzes, and all remaining Tested values are treated as Not Tested.
+. *Not Tested* +
+This marks the column as a core value. However, unlike *Tested*, they will not be tested in quizzes, but can be chosen to be tested.
+. *Hint* +
+The values here will appear when the user uses the hint command during the quiz. However, values here are strictly optional, and can be left empty.
+
+NOTE: Core values require every value in that column to be non-empty. This guarantees that the user will be tested on something should they change which fields are tested.
+
+The second line represents the name of each column as shown to the user. Any names left blank are automatically replaced with Unnamed.
+
+Any discrepancies in the number of types and the number of names will result in the lesson not being loaded.
 
 ===== Card Data
 
@@ -306,10 +317,12 @@ All remaining data is treated as card data. Any invalid data found in memory or 
 ===== Aspect: Choice of file type
 * **Alternative 1 (current choice):** Save as CSV
 ** Pros: Allows the user to edit lesson data in an external program such as Excel, which provides a user-friendly spreadsheet interface.
-** Cons: Lack of data verification within the file, JSON already implemented
+** Cons: Lack of data verification within the file, JSON already implemented in original codebase
 * **Alternative 2:** Save as JSON
 ** Pros: Can ensure all values are filled out correctly
 ** Cons: Difficult for user to edit
+
+Alternative 1 was chosen as ease of use is a high priority for the project. Most computer users are familiar with the Microsoft Office suite of applications, such as Word and Excel. As Excel allows CSV files to be shown in a spreadsheet, it was intended that users use Excel alongside BrainTrain for easy lesson management.
 
 // end::csvstorage[]
 

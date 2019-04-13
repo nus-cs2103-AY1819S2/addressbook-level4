@@ -317,10 +317,6 @@ There is no command required for this feature, as the application automatically 
 
 TeethHub complies with the most popular standard of the three the Dental Numbering Systems utilised in Dentistry - The Universal Numbering System.
 
-ifdef::env-github[]
-image::BaseLayer.png[width="200"]
-endif::[]
-
 The upper-case letters A through T are used for primary teeth and the
 numbers 1 - 32 are used for permanent teeth. The tooth designated "1" is
 the maxillary right third molar ("wisdom tooth") and the count continues

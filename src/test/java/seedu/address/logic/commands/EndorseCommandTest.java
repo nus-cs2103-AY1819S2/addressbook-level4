@@ -4,6 +4,7 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import org.junit.Test;
@@ -33,7 +34,7 @@ public class EndorseCommandTest {
         String expectedMessage = String.format("Endorsed correct person with name");
         Person samplePerson = model.getFilteredPersonList().get(0);
         SkillsTag sampleEndorseTag = new SkillsTag(VALID_ENDORSE_NAME, "endorse");
-        Set<SkillsTag> samplePersonTags = samplePerson.getTags();
+        Set<SkillsTag> samplePersonTags = new HashSet<>(samplePerson.getTags());
         EndorseCommand endorseCommand = new EndorseCommand(ENDORSE_PROCESS, INDEX_FIRST_PERSON, VALID_ENDORSE_NAME);
 
         samplePersonTags.add(sampleEndorseTag);

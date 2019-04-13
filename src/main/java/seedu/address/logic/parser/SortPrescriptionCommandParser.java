@@ -21,8 +21,8 @@ public class SortPrescriptionCommandParser implements Parser<SortPrescriptionCom
             return new SortPrescriptionCommand();
         }
 
-        if (trimmedArgs.equals(SortPrescriptionCommand.ASCENDING) ||
-                trimmedArgs.equals(SortPrescriptionCommand.DESCENDING)) {
+        if (trimmedArgs.equals(SortPrescriptionCommand.ASCENDING)
+                || trimmedArgs.equals(SortPrescriptionCommand.DESCENDING)) {
             return new SortPrescriptionCommand(trimmedArgs);
         }
 

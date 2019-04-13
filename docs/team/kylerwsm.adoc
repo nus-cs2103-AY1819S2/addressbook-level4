@@ -32,7 +32,7 @@ The implementation too was demanding, as many factors need to be considered.
 
 * *Minor enhancement*: added a new user interface which displays the dental record information of a specified patient.
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Code contributed*: `https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#=undefined&search=kylerwsm[via RepoSense]`
 
 * *Other contributions*:
 

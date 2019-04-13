@@ -1,15 +1,16 @@
 package seedu.address.model.player;
 
+import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
 import static seedu.address.testutil.SizeTenMapGrid.initialisePlayerSizeTen;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -97,7 +98,9 @@ public class EnemyTest {
      *     Enemy should have:
      *          filled allPossibleTargets, allPossiblePopulateCoords, allParityTargets
      *          allParityTargets should only contain coordinates that hasParity()
-     *          allPossibleTargets must be size 100, allPossiblePopulateCoords must be < 100, allParityTargets must be 50
+     *          allPossibleTargets must be size 100,
+     *          allPossiblePopulateCoords must be < 100,
+     *          allParityTargets must be 50
      *          allParityTargets should be proper subset of allPossibleTargets
      *          allPossiblePopulateCoords should be proper subset of allPossibleTargets
      *          filled deployed fleet with the correct number of battleships: 8 in total for  size 10 map
@@ -145,6 +148,25 @@ public class EnemyTest {
         assertEquals(testEnemy.getFleet().getSize(), 8);
     }
 
+
+    /**
+     *
+     *
+     *
+     * Setup:
+     *     Enemy should first have:
+     *
+     *
+     * Expected result:
+     *     Enemy should have:
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     */
     @Test public void test_enemyShootAt() {
         //stub
     }
@@ -152,7 +174,6 @@ public class EnemyTest {
 
     /**
      * Expected result:
-     *
      *  testEnemy should have its lastAttackStatus attribute be updated to
      *  the status passed into the receiveStatus method
      *

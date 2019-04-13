@@ -197,7 +197,7 @@ image such as metadata information like *Date and Time* and *Copyright informati
 . Command History
 - Display all *Image Transformation* and *Image Filters* applied to the currently opened image.
 
-The `UI` component is supported to a `Notifier` class. The class implements Java's `propertyChangeListener` as means of drawing updates to the User Interface.
+The `UI` component is supported by a `Notifier` class. The class implements Java's `propertyChangeListener` as means of drawing updates to the User Interface.
 
 For example, the `ImageView` component draws updates to an opened image in the following sequence:
 
@@ -364,6 +364,7 @@ Example usage scenario:
  3. `Album` display the imported image to UI by calling the `Notifier` class which calls on the display panel listening to the notifier.
  4. `InformationPanel` updates to reflect the imported image in the Album.
 
+.Sequence Diagram for Import Command
 image::ImportSequenceDiagram.png[width=800]
 
 ==== Design Considerations

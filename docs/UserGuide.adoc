@@ -20,7 +20,7 @@ By: `W14-2`      Since: `Feb 2019`      Licence: `MIT`
 
 FomoFoto is a image processing software suite written in Java. This application is optimised for users who are *familiar with the Command Line Interface (CLI)*, while providing a *Graphical User Interface (GUI)* for easy reference. The application is optimized for users who prefer text-based instructions.
 
-For new user, jump to <<Quick Start>> for an overview on how to use FomoFoto and the tools available.
+For new users, jump to <<Quick Start>> for an overview on how to use FomoFoto and view the tools available.
 
 
 == Quick Start

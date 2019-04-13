@@ -10,10 +10,10 @@ import static seedu.address.ui.testutil.GuiTestAssert.assertCardEquals;
 
 import java.util.Collections;
 
-import guitests.guihandles.PdfListPanelHandle;
 import org.junit.Test;
 
 import guitests.guihandles.PdfCardHandle;
+import guitests.guihandles.PdfListPanelHandle;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

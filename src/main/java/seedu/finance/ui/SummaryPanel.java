@@ -113,7 +113,7 @@ public class SummaryPanel extends UiPart<Region> {
     }
 
     private String getPieChartColorStyleFor(String categoryName) {
-        return PIE_CHART_COLOUR_STYLES[Math.abs(categoryName.hashCode()%23) % PIE_CHART_COLOUR_STYLES.length];
+        return PIE_CHART_COLOUR_STYLES[Math.abs(categoryName.hashCode() % 23) % PIE_CHART_COLOUR_STYLES.length];
     }
 
 }

@@ -42,6 +42,7 @@ To get started with TopDeck:
 .  Copy the file to the folder you want to use as the home folder for TopDeck.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
+.TopDeck's initial GUI
 image::Ui.png[width="790"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
@@ -49,7 +50,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 Once you have set up TopDeck, you can try these commands:
 
-* `add Capitals` : creates a new deck named "Capitals"
+* `add Parseltongue` : creates a new deck named "Parseltongue"
 * `delete 3` : deletes the third deck in the list
 * `exit` : exits the app
 
@@ -57,35 +58,77 @@ You may refer to <<commands>> for details of each command.
 
 == User interface
 
-TopDeck's interface is seperated into three different views.
+
+TopDeck's GUI is very simple. It consists of four main areas -
+Menu Bar, Command Box, Results Display, and Content Panel.
+
+.Main Areas in TopDeck GUI
+image::gen_ug_diagrams/ui_annotate.png[width="790"]
+
+Here are what you can do with each:
+
+* Menu Bar - access general commands such as `exit` and `help`
+* Command Box - input commands to interact with the application
+* Results Display - see the outcome of your commands
+* Content Panel - view decks or cards, etc. Content is dependent on
+the view you are in.
+
+TopDeck currently supports three different views - Decks View, Cards
+View, and Study View.
 By default, TopDeck starts in <<decksview,Decks View>>.
 
 === Decks View [[decksview]]
 
 This view displays a list of the decks in your collection.
 
+The figure below shows a preview of Decks View.
+
+.Decks View
+image::deck_ug_diagrams/deck.png[width="800"]
 
 In decks view, you can:
 
 - Create, edit, delete and find decks.
-- Open a deck to view its contents. TopDeck will enter <<cardsview,cards view>>.
-- Pick a deck to study. TopDeck will enter <<studyview,study view>>.
+- Open a deck to view its contents. TopDeck will enter <<cardsview,Cards View>>.
+- Pick a deck to study. TopDeck will enter <<studyview,Study View>>.
 - Export or Import a deck.
+
+Jump to <<decksviewc,Decks View Commands>>.
 
 === Cards View [[cardsview]]
 
-This view displays the cards in a particular deck. In cards view, you can:
+This view displays the cards in a particular deck.
+
+The figure below shows a preview of Cards View.
+
+.Cards View
+image::gen_ug_diagrams/cards.png[width="800"]
+
+In cards view, you can:
 
 - Create, edit and delete cards in the deck.
 - View your performance for specific cards.
 
+
+Jump to <<cardsviewc,Cards View Commands>>.
+
 === Study View [[studyview]]
+
+This view enables you to conduct a self-study session.
+In this view, TopDeck flashes questions followed by
+their answers.
+
+The following is a preview of Study View.
+
+.Study View
+image::gen_ug_diagrams/study.png[width="800"]
 
 In this view you can study a deck of cards.
 
 - Test your knowledge of the cards in your chosen deck
 - Rate the difficulty of the cards.
 
+Learn more about <<studyviewc, Study View>>.
 
 == Commands [[commands]]
 
@@ -104,11 +147,10 @@ In this view you can study a deck of cards.
   will be accepted. I.e. If you entered add n/nameOne n/nameTwo, the new deck will have the name "nameTwo".
 ====
 
-=== Deck View
+=== Decks View [[decksviewc]]
 
 In this view you can create, edit and find decks. This is the default view when TopDeck is first launched.
 
-image::deck_ug_diagrams/deck.png[width="800"]
 
 These are commands only available in deck view.
 
@@ -120,13 +162,22 @@ These are commands only available in deck view.
 
 **Example**: `add n/History`
 
+
+Here is what you type in.
+
+image::deck_ug_diagrams/add.png[]
+
+The deck should appear at the bottom of the list.
+
 Before:
 
-image::deck_ug_diagrams/add_deck_1.png[width="800"]
+image::deck_ug_diagrams/add_deck_1.png[width="200"]
+
 
 After:
 
-image::deck_ug_diagrams/add_deck_2.png[width="800"]
+image::deck_ug_diagrams/add_deck_2.png[width="200"]
+
 
 ==== Deleting a deck: `delete`
 
@@ -143,11 +194,11 @@ The index refers to the index number shown in the displayed deck list. The index
 
 Before:
 
-image::deck_ug_diagrams/delete_deck_1.png[width="800"]
+image::deck_ug_diagrams/delete_deck_1.png[width="200"]
 
 After:
 
-image::deck_ug_diagrams/delete_deck_2.png[width="800"]
+image::deck_ug_diagrams/delete_deck_2.png[width="200"]
 
 ==== Editing the name of a deck: `edit`
 
@@ -271,7 +322,7 @@ Currently select does not do much. However, we will be adding more functionality
 for select in v2.0. Refer to <<Upcoming Features>> for more details.
 
 
-=== Cards View
+=== Cards View [[cardsviewc]]
 
 These commands are only available in cards view.
 In this section, the active deck is the deck used in the `open` command.
@@ -411,48 +462,63 @@ image::card_ug_diagrams/find_card_2.png[width="800"]
 
 === Study View
 
-These are commands are only available in study view, after `study INDEX` or `study` command is executed.
+Study View can be accessed using any of these commands:
 
-==== Returning to decks view: `back`
+* `study INDEX` from Decks View
+* `study` from Cards View
+
+
+In order to facilitate your study session,
+Study View presents Flash Cards in two phases, namely <<qnphase, Question Phase>> and <<ansphase, Answer Phase>>.
+
+==== Question Phase [[qnphase]]
+
+Study View starts off in Question Phase, which displays the question in this user interface:
+
+.Study View's Question Phase
+image::study_ug_diagrams/question.png[width="800"]
+
+
+As seen above, the question is displayed in a blue flash card.
+
+
+[NOTE]
+Currently, questions are chosen this way: TopDeck shuffles the deck and displays all cards until the entire deck
+has been viewed. Topdeck repeats this endlessly until you choose to <<studyback, end your study session>>.
+
+You may choose to attempt the question by typing your answer into the Command Box.
+ Once you're ready to see the answer, hit kbd:[Enter]. Your attempt will be recorded and
+ TopDeck goes into Answer Phase.
+
+
+
+==== Answer Phase [[ansphase]]
+
+During this phase, you will see the answer to the earlier question in the following
+user interface:
+
+.Study View's Answer Phase
+image::study_ug_diagrams/answer.png[width="800"]
+
+
+The correct answer is displayed in a white flash card. Your attempt is displayed on the top right hand side for your own comparison.
+
+Additionally, a prompt asks you to rate the difficulty of that flash card.
+You should input your rating into the Command Box.
+
+During both phases, the following commands are available:
+
+==== Returning to decks view: `back` [[studyback]]
 
 **Format**: `back`
 
 **Outcome**: Returns to decks view.
 
-==== Opening the deck in cards view: `deck`
+==== Opening the deck in cards view: `open`
 
-**Format**: `deck`
+**Format**: `open`
 
 **Outcome**: Opens the deck in cards view.
-
-==== Revealing the answer to card: `[any attempt]`
-
-**Format**: `[any attempt]`
-
-**Outcome**: Reveals the answer to card, with your attempt shown beside it.
-
-For example, you can type in `CO2` and hit kbd:[Enter]
-
-image::study_ug_diagrams/study_1.png[width="800"]
-
-The following image is the result of the command.
-
-image::study_ug_diagrams/study_2.png[width="800"]
-
-==== Displaying the next card: `[your difficulty rating]`
-
-**Format**: `[your difficulty rating]`
-
-**Outcome**: Displays another card from the deck. Stores your difficulty rating for the card.
-
-Entering a number 3 indicates that you rate the difficulty as 3.
-
-image::study_ug_diagrams/study_3.png[width="800"]
-
-Submitting this reveals the next question.
-
-image::study_ug_diagrams/study_4.png[width="800"]
-
 
 === Global commands
 
@@ -469,6 +535,33 @@ These commands are available in all views.
 Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
 ====
 
+==== Viewing help : `help`
+
+**Format**: `help`
+
+**Outcome**: Displays information regarding commands
+
+
+==== Exiting the program : `exit`
+
+**Format**: `exit`
+
+**Outcome**: Exits the program
+
+
+==== Clearing all entries : `clear`
+
+**Format**: `clear`
+
+**Outcome**: Clears all entries in TopDeck
+
+
+[NOTE]
+====
+Clearing TopDeck is disabled in study view.
+====
+
+
 ==== Undoing a command : `undo`
 
 **Format**: `undo`
@@ -479,7 +572,6 @@ Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and 
 
 * _In decks view_ +
 `delete 1` +
-`list` +
 `undo` (undos `delete 1`) +
 
 * _In cards view_ +
@@ -517,23 +609,14 @@ The `redo` command fails as there is no undone state to restore.
 `redo` (redos `delete`) +
 `redo` (redos `add`) +
 
-==== Viewing help : `help`
 
-**Format**: `help`
 
-**Outcome**: Displays information regarding commands
+[NOTE]
+====
+Redoing is disabled in study view.
+====
 
-==== Clearing all entries : `clear`
 
-**Format**: `clear`
-
-**Outcome**: Clears all entries in TopDeck
-
-==== Exiting the program : `exit`
-
-**Format**: `exit`
-
-**Outcome**: Exits the program
 
 ==== Saving your data
 

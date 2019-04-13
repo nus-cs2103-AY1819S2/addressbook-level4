@@ -1,10 +1,13 @@
 package seedu.address.model;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 import static seedu.address.testutil.TypicalCards.ADDITION;
 import static seedu.address.testutil.TypicalCards.SUBTRACTION;
 import static seedu.address.testutil.TypicalDecks.DECK_A;
+import static seedu.address.testutil.TypicalDecks.DECK_WITH_CARDS;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -21,6 +24,7 @@ public class StudyViewTest {
     public ExpectedException thrown = ExpectedException.none();
 
     private Deck deck = new DeckBuilder(DECK_A).build();
+    private Deck deckWC = new DeckBuilder(DECK_WITH_CARDS).build();
     private StudyView studyView;
 
     @Before
@@ -47,10 +51,21 @@ public class StudyViewTest {
     }
 
     @Test
-    public void setCurrentCard_validCard_setCurrentCard() {
+    public void setCurrentCard_validCardQuestion_setCurrentCard() {
         Card addition = new CardBuilder(ADDITION).build();
         studyView.setCurrentCard(addition);
         assertEquals(addition, studyView.getCurrentCard());
+        studyView.setCurrentStudyState(StudyView.StudyState.QUESTION);
+        assertEquals(addition.getQuestion(), studyView.textShownProperty().getValue());
+    }
+
+    @Test
+    public void setCurrentCard_validCardAnswer_setCurrentCard() {
+        Card addition = new CardBuilder(ADDITION).build();
+        studyView.setCurrentCard(addition);
+        assertEquals(addition, studyView.getCurrentCard());
+        studyView.setCurrentStudyState(StudyView.StudyState.ANSWER);
+        assertEquals(addition.getAnswer(), studyView.textShownProperty().getValue());
     }
 
     @Test
@@ -102,5 +117,32 @@ public class StudyViewTest {
         String sampleUserAnswer = "Four";
         studyView.setUserAnswer(sampleUserAnswer);
         assertEquals(sampleUserAnswer, studyView.getUserAnswer());
+    }
+
+    @Test
+    public void equals() {
+        StudyView firstStudyView = new StudyView(deck);
+        StudyView secondStudyView = new StudyView(deckWC);
+
+        // same object -> returns true
+        assertTrue(firstStudyView.equals(firstStudyView));
+
+        // copied object -> returns true
+        StudyView firstStudyViewCopy = new StudyView(firstStudyView);
+        assertTrue(firstStudyView.equals(firstStudyViewCopy));
+
+        // same study view different study state -> returns false
+        firstStudyViewCopy.setCurrentStudyState(StudyView.StudyState.ANSWER);
+        assertFalse(firstStudyView.equals(firstStudyViewCopy));
+
+        // different types -> returns false
+        assertFalse(firstStudyView.equals(1));
+
+        // null -> returns false
+        assertFalse(firstStudyView.equals(null));
+
+        // different studyViews with diff deck shufflers -> returns false
+        assertFalse(firstStudyView.equals(secondStudyView));
+
     }
 }

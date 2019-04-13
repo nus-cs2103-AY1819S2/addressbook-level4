@@ -1,5 +1,6 @@
 package seedu.address.logic.commands;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_RATING_HELLO;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
@@ -33,7 +34,7 @@ public class GenerateQuestionCommandTest {
     public void execute_generateQuestion_success() {
         CommandResult expectedCommandResult = new CommandResult("");
         StudyView studyView = (StudyView) model.getViewState();
-        Card expectedRatingChanged = studyView.getCurrentCard();
+        Card prevCard = studyView.getCurrentCard();
 
         StudyView expectedStudyView = (StudyView) expectedModel.getViewState();
         expectedStudyView.generateCard();
@@ -41,7 +42,10 @@ public class GenerateQuestionCommandTest {
 
         assertCommandSuccess(new GenerateQuestionCommand(studyView, VALID_RATING_HELLO), model,
                              commandHistory, expectedCommandResult, expectedModel);
-        expectedRatingChanged.resetDifficulty();
+
+        //card rating is updated
+        assertEquals(prevCard.getDifficultyObj().getTotalRating(), VALID_RATING_HELLO);
+        prevCard.resetDifficulty();
     }
 
 }

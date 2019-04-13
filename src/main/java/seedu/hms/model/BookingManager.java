@@ -67,6 +67,11 @@ public class BookingManager implements BookingModel {
     }
 
     @Override
+    public boolean hasServiceType(ServiceType st) {
+        return versionedHotelManagementSystem.hasServiceType(st);
+    }
+
+    @Override
     public GuiSettings getGuiSettings() {
         return userPrefs.getGuiSettings();
     }

@@ -23,11 +23,11 @@ public class DeleteFilterCommand extends Command {
     public static final String COMMAND_ALIAS = "df";
 
     public static final String MESSAGE_USAGE_ALLJOB_SCREEN = COMMAND_WORD
-            + ": Deletes the filter identified by the filter name used in the All Job Showing Screen.\n"
-            + "Parameters: NameFilterName \n"
-            + "Example: " + COMMAND_WORD + " Chinese\n"
-            + "The alias \"d\" can be used instead.\n"
-            + "Example: " + COMMAND_ALIAS + " Chinese\n";
+        + ": Deletes the filter identified by the filter name used in the All Job Showing Screen.\n"
+        + "Parameters: NameFilterName \n"
+        + "Example: " + COMMAND_WORD + " Chinese\n"
+        + "The alias \"d\" can be used instead.\n"
+        + "Example: " + COMMAND_ALIAS + " Chinese\n";
 
     public static final String MESSAGE_USAGE_DETAIL_SCREEN = COMMAND_WORD
         + ": Deletes the filter identified by the filter name used in the displayed person list.\n"
@@ -56,7 +56,7 @@ public class DeleteFilterCommand extends Command {
         boolean isAllJobScreen = model.getIsAllJobScreen();
         boolean hasListName = filterListName != EMPTY;
         if (!isAllJobScreen && !hasListName) {
-            throw new CommandException(String.format(MESSAGE_LACK_LISTNAME,MESSAGE_USAGE_DETAIL_SCREEN));
+            throw new CommandException(String.format(MESSAGE_LACK_LISTNAME, MESSAGE_USAGE_DETAIL_SCREEN));
         }
         switch (filterListName) {
         case APPLICANT:
@@ -64,7 +64,7 @@ public class DeleteFilterCommand extends Command {
                 model.removePredicateJobAllApplicants(targetName);
             } catch (FilterNotFoundException ex) {
                 throw new CommandException(
-                    String.format(MESSAGE_CANOT_FOUND_TARGET_FILTER,MESSAGE_USAGE_DETAIL_SCREEN));
+                    String.format(MESSAGE_CANOT_FOUND_TARGET_FILTER, MESSAGE_USAGE_DETAIL_SCREEN));
             }
             model.updateJobAllApplicantsFilteredPersonList();
             predicateList = model.getPredicateLists(APPLICANT);
@@ -74,7 +74,7 @@ public class DeleteFilterCommand extends Command {
                 model.removePredicateJobKiv(targetName);
             } catch (FilterNotFoundException ex) {
                 throw new CommandException(
-                    String.format(MESSAGE_CANOT_FOUND_TARGET_FILTER,MESSAGE_USAGE_DETAIL_SCREEN));
+                    String.format(MESSAGE_CANOT_FOUND_TARGET_FILTER, MESSAGE_USAGE_DETAIL_SCREEN));
             }
             model.updateJobKivFilteredPersonList();
             predicateList = model.getPredicateLists(KIV);
@@ -84,8 +84,8 @@ public class DeleteFilterCommand extends Command {
                 model.removePredicateJobInterview(targetName);
             } catch (FilterNotFoundException ex) {
                 throw new CommandException(
-                    String.format(MESSAGE_CANOT_FOUND_TARGET_FILTER,MESSAGE_USAGE_DETAIL_SCREEN));
-        }
+                    String.format(MESSAGE_CANOT_FOUND_TARGET_FILTER, MESSAGE_USAGE_DETAIL_SCREEN));
+            }
             model.updateJobInterviewFilteredPersonList();
             predicateList = model.getPredicateLists(INTERVIEW);
             break;
@@ -94,7 +94,7 @@ public class DeleteFilterCommand extends Command {
                 model.removePredicateJobShortlist(targetName);
             } catch (FilterNotFoundException ex) {
                 throw new CommandException(
-                    String.format(MESSAGE_CANOT_FOUND_TARGET_FILTER,MESSAGE_USAGE_DETAIL_SCREEN));
+                    String.format(MESSAGE_CANOT_FOUND_TARGET_FILTER, MESSAGE_USAGE_DETAIL_SCREEN));
             }
             model.updateJobShortlistFilteredPersonList();
             predicateList = model.getPredicateLists(SHORTLIST);
@@ -104,20 +104,20 @@ public class DeleteFilterCommand extends Command {
                 model.removePredicateAllPersons(targetName);
             } catch (FilterNotFoundException ex) {
                 throw new CommandException(
-                    String.format(MESSAGE_CANOT_FOUND_TARGET_FILTER,MESSAGE_USAGE_ALLJOB_SCREEN));
+                    String.format(MESSAGE_CANOT_FOUND_TARGET_FILTER, MESSAGE_USAGE_ALLJOB_SCREEN));
             }
             model.updateFilteredPersonList();
             predicateList = model.getPredicateLists(EMPTY);
         }
         return new CommandResult(String.format(MESSAGE_DELETE_FILTER_SUCCESS, targetName), filterListName,
-                predicateList);
+            predicateList);
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof DeleteFilterCommand // instanceof handles nulls
-                && (filterListName.equals(((DeleteFilterCommand) other).filterListName))
-                && (targetName.equals(((DeleteFilterCommand) other).targetName))); // state check
+            || (other instanceof DeleteFilterCommand // instanceof handles nulls
+            && (filterListName.equals(((DeleteFilterCommand) other).filterListName))
+            && (targetName.equals(((DeleteFilterCommand) other).targetName))); // state check
     }
 }

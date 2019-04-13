@@ -15,18 +15,19 @@ public class PredicateManagerTest {
         PredicateManager predicate = new PredicateManager();
 
         // same object -> returns true
-        assertEquals(predicate,predicate);
+        assertEquals(predicate, predicate);
 
         // same values -> returns true
         PredicateManager predicateCopy = new PredicateManager();
-        assertEquals(predicate,predicateCopy);
+        assertEquals(predicate, predicateCopy);
 
         // different types -> returns false
-        assertNotEquals(predicate,1);
+        assertNotEquals(predicate, 1);
 
         // null -> returns false
-        assertNotEquals(predicate,null);
+        assertNotEquals(predicate, null);
     }
+
     @Test
     public void test_returnsTrue() {
         // always return true

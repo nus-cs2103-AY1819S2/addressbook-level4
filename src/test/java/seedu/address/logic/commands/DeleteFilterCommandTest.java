@@ -131,28 +131,29 @@ public class DeleteFilterCommandTest {
 
         assertCommandSuccess(deleteFilterCommand, model, commandHistory, expectedMessage, expectedModel);
     }
+
     @Test
     public void execute_invalidListName_fail() {
         model.setIsAllJobScreen(false);
-        DeleteFilterCommand deleteFilterCommand = new DeleteFilterCommand(EMPTY,VALID_FILTERNAME);
-        String expectedMessage = String.format(MESSAGE_LACK_LISTNAME,MESSAGE_USAGE_DETAIL_SCREEN);
+        DeleteFilterCommand deleteFilterCommand = new DeleteFilterCommand(EMPTY, VALID_FILTERNAME);
+        String expectedMessage = String.format(MESSAGE_LACK_LISTNAME, MESSAGE_USAGE_DETAIL_SCREEN);
         assertCommandFailure(deleteFilterCommand, model, commandHistory, expectedMessage);
     }
 
     @Test
     public void execute_filterNameNotFoundAllJob_fail() {
-        DeleteFilterCommand deleteFilterCommand = new DeleteFilterCommand(EMPTY,VALID_FILTERNAME);
-        String expectedMessage = String.format(MESSAGE_CANOT_FOUND_TARGET_FILTER,MESSAGE_USAGE_ALLJOB_SCREEN);
+        DeleteFilterCommand deleteFilterCommand = new DeleteFilterCommand(EMPTY, VALID_FILTERNAME);
+        String expectedMessage = String.format(MESSAGE_CANOT_FOUND_TARGET_FILTER, MESSAGE_USAGE_ALLJOB_SCREEN);
         assertCommandFailure(deleteFilterCommand, model, commandHistory, expectedMessage);
     }
 
     @Test
     public void execute_filterNameNotFoundDetailJob_fail() {
-        DeleteFilterCommand deleteFilterCommandApplicant = new DeleteFilterCommand(APPLICANT,VALID_FILTERNAME);
-        DeleteFilterCommand deleteFilterCommandInterview = new DeleteFilterCommand(INTERVIEW,VALID_FILTERNAME);
-        DeleteFilterCommand deleteFilterCommandKiv = new DeleteFilterCommand(KIV,VALID_FILTERNAME);
-        DeleteFilterCommand deleteFilterCommandShortList = new DeleteFilterCommand(SHORTLIST,VALID_FILTERNAME);
-        String expectedMessage = String.format(MESSAGE_CANOT_FOUND_TARGET_FILTER,MESSAGE_USAGE_DETAIL_SCREEN);
+        DeleteFilterCommand deleteFilterCommandApplicant = new DeleteFilterCommand(APPLICANT, VALID_FILTERNAME);
+        DeleteFilterCommand deleteFilterCommandInterview = new DeleteFilterCommand(INTERVIEW, VALID_FILTERNAME);
+        DeleteFilterCommand deleteFilterCommandKiv = new DeleteFilterCommand(KIV, VALID_FILTERNAME);
+        DeleteFilterCommand deleteFilterCommandShortList = new DeleteFilterCommand(SHORTLIST, VALID_FILTERNAME);
+        String expectedMessage = String.format(MESSAGE_CANOT_FOUND_TARGET_FILTER, MESSAGE_USAGE_DETAIL_SCREEN);
         assertCommandFailure(deleteFilterCommandApplicant, model, commandHistory, expectedMessage);
         assertCommandFailure(deleteFilterCommandInterview, model, commandHistory, expectedMessage);
         assertCommandFailure(deleteFilterCommandKiv, model, commandHistory, expectedMessage);

@@ -21,38 +21,38 @@ public class InterviewScoreContainsKeywordsPredicateTest {
         List<String> secondPredicateKeywordList = Arrays.asList("first", "second");
 
         InterviewScoreContainsKeywordsPredicate firstPredicate =
-            new InterviewScoreContainsKeywordsPredicate(1,firstPredicateKeywordList);
+            new InterviewScoreContainsKeywordsPredicate(1, firstPredicateKeywordList);
         InterviewScoreContainsKeywordsPredicate secondPredicate =
-            new InterviewScoreContainsKeywordsPredicate(2,firstPredicateKeywordList);
+            new InterviewScoreContainsKeywordsPredicate(2, firstPredicateKeywordList);
         InterviewScoreContainsKeywordsPredicate thirdPredicate =
-            new InterviewScoreContainsKeywordsPredicate(1,secondPredicateKeywordList);
+            new InterviewScoreContainsKeywordsPredicate(1, secondPredicateKeywordList);
 
         // same object -> returns true
-        assertEquals(firstPredicate,firstPredicate);
+        assertEquals(firstPredicate, firstPredicate);
 
         // same values -> returns true
         InterviewScoreContainsKeywordsPredicate firstPredicateCopy =
-            new InterviewScoreContainsKeywordsPredicate(1,firstPredicateKeywordList);
-        assertEquals(firstPredicate,firstPredicateCopy);
+            new InterviewScoreContainsKeywordsPredicate(1, firstPredicateKeywordList);
+        assertEquals(firstPredicate, firstPredicateCopy);
 
         // different types -> returns false
-        assertNotEquals(firstPredicate,1);
+        assertNotEquals(firstPredicate, 1);
 
         // null -> returns false
-        assertNotEquals(firstPredicate,null);
+        assertNotEquals(firstPredicate, null);
 
         // different question num -> returns false
-        assertNotEquals(firstPredicate,secondPredicate);
+        assertNotEquals(firstPredicate, secondPredicate);
 
         // different person -> returns false
-        assertNotEquals(firstPredicate,thirdPredicate);
+        assertNotEquals(firstPredicate, thirdPredicate);
     }
 
     @Test
     public void test_interviewContainsKeywords_returnsTrue() {
         // One keyword
         InterviewScoreContainsKeywordsPredicate predicate =
-            new InterviewScoreContainsKeywordsPredicate(1,Collections.singletonList("4-6"));
+            new InterviewScoreContainsKeywordsPredicate(1, Collections.singletonList("4-6"));
         assertTrue(predicate.test(new PersonBuilder().withInterviewScores("5,5,5,5,5").build()));
 
     }
@@ -61,7 +61,7 @@ public class InterviewScoreContainsKeywordsPredicateTest {
     public void test_interviewDoesNotContainKeywords_returnsFalse() {
         InterviewScoreContainsKeywordsPredicate predicate;
         // Non-matching keyword
-        predicate = new InterviewScoreContainsKeywordsPredicate(1,Collections.singletonList("3-4"));
+        predicate = new InterviewScoreContainsKeywordsPredicate(1, Collections.singletonList("3-4"));
         assertFalse(predicate.test(new PersonBuilder().withInterviewScores("5,5,5,5,5").build()));
 
     }

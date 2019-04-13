@@ -1,13 +1,11 @@
 package seedu.address.logic.parser;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_FILTERNAME;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.address.model.job.JobListName.APPLICANT;
 import static seedu.address.model.job.JobListName.APPLICANT_NAME;
 import static seedu.address.model.job.JobListName.EMPTY;
-import static seedu.address.model.job.JobListName.isValidJobListName;
 
 import org.junit.Test;
 
@@ -29,6 +27,6 @@ public class DeleteFilterCommandParserTest {
     @Test
     public void parse_invalidArgs_throwsParseException() {
         assertParseFailure(parser, "1 1", String.format(JobListName.MESSAGE_CONSTRAINTS,
-            DeleteFilterCommand.MESSAGE_USAGE_ALLJOB_SCREEN+DeleteFilterCommand.MESSAGE_USAGE_DETAIL_SCREEN));
+            DeleteFilterCommand.MESSAGE_USAGE_ALLJOB_SCREEN + DeleteFilterCommand.MESSAGE_USAGE_DETAIL_SCREEN));
     }
 }

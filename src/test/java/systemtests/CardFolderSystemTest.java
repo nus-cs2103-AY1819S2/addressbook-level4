@@ -28,7 +28,7 @@ import guitests.guihandles.ResultDisplayHandle;
 import guitests.guihandles.StatusBarFooterHandle;
 import seedu.knowitall.TestApp;
 import seedu.knowitall.commons.core.index.Index;
-import seedu.knowitall.logic.commands.ChangeCommand;
+import seedu.knowitall.logic.commands.ChangeDirectoryCommand;
 import seedu.knowitall.logic.commands.ClearCommand;
 import seedu.knowitall.logic.commands.ListCommand;
 import seedu.knowitall.logic.commands.SearchCommand;
@@ -62,8 +62,8 @@ public abstract class CardFolderSystemTest {
         testApp = setupHelper.setupApplication(this::getInitialData, getDataFileLocation());
         mainWindowHandle = setupHelper.setupMainWindowHandle();
 
-        String command = ChangeCommand.COMMAND_WORD + " " + TEST_FOLDER_INDEX.getOneBased();
-        String resultDisplayString = String.format(ChangeCommand.MESSAGE_ENTER_FOLDER_SUCCESS,
+        String command = ChangeDirectoryCommand.COMMAND_WORD + " " + TEST_FOLDER_INDEX.getOneBased();
+        String resultDisplayString = String.format(ChangeDirectoryCommand.MESSAGE_ENTER_FOLDER_SUCCESS,
                 TEST_FOLDER_INDEX.getOneBased());
 
         mainWindowHandle.getCommandBox().run(command);
@@ -82,7 +82,7 @@ public abstract class CardFolderSystemTest {
      * Returns the data to be loaded into the file in {@link #getDataFileLocation()}.
      */
     protected CardFolder getInitialData() {
-        return TypicalCards.getTypicalCardFolder();
+        return TypicalCards.getTypicalFolderOne();
     }
 
     /**
@@ -137,7 +137,7 @@ public abstract class CardFolderSystemTest {
      */
     protected void showAllCards() {
         executeCommand(ListCommand.COMMAND_WORD);
-        assertEquals(getModel().getActiveCardFolder().getCardList().size(), getModel().getFilteredCards().size());
+        assertEquals(getModel().getActiveCardFolder().getCardList().size(), getModel().getActiveFilteredCards().size());
     }
 
     /**
@@ -145,7 +145,7 @@ public abstract class CardFolderSystemTest {
      */
     protected void showCardsWithQuestion(String keyword) {
         executeCommand(SearchCommand.COMMAND_WORD + " " + keyword);
-        assertTrue(getModel().getFilteredCards().size() < getModel().getActiveCardFolder().getCardList().size());
+        assertTrue(getModel().getActiveFilteredCards().size() < getModel().getActiveCardFolder().getCardList().size());
     }
 
     /**
@@ -173,8 +173,12 @@ public abstract class CardFolderSystemTest {
             Model expectedModel) {
         assertEquals(expectedCommandInput, getCommandBox().getInput());
         assertEquals(expectedResultMessage, getResultDisplay().getText());
-        assertEquals(new CardFolder(expectedModel.getActiveCardFolder()), testApp.readFirstStorageCardFolder());
-        assertListMatching(getCardListPanel(), expectedModel.getFilteredCards());
+        if (expectedModel.getState() == Model.State.IN_FOLDER) {
+            assertEquals(new CardFolder(expectedModel.getActiveCardFolder()), testApp.readFirstStorageCardFolder());
+            assertListMatching(getCardListPanel(), expectedModel.getActiveFilteredCards());
+        } else if (expectedModel.getState() == Model.State.IN_HOMEDIR) {
+            assertEquals(expectedModel.getCardFolders(), testApp.getModel().getCardFolders());
+        }
     }
 
     /**
@@ -273,7 +277,7 @@ public abstract class CardFolderSystemTest {
     private void assertApplicationStartingStateIsCorrect(String resultDisplayString) {
         assertEquals("", getCommandBox().getInput());
         assertEquals(resultDisplayString, getResultDisplay().getText());
-        assertListMatching(getCardListPanel(), getModel().getFilteredCards());
+        assertListMatching(getCardListPanel(), getModel().getActiveFilteredCards());
         assertEquals("", getBrowserPanel().getCurrentQuestion());
         assertStatusBarIsInFolder(getModel().getActiveCardFolderName());
     }

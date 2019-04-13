@@ -2,6 +2,7 @@ package seedu.knowitall.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.knowitall.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.knowitall.logic.commands.ChangeDirectoryCommand.HOME_SYMBOL;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -34,7 +35,6 @@ public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
     public static final String MESSAGE_INDEX_LESS_THAN_ZERO = "Index is less than zero";
-    public static final String HOME_SYMBOL = "..";
 
 
     /**

@@ -36,20 +36,20 @@ public class TestUtil {
      * Returns the middle index of the card in the {@code model}'s card list.
      */
     public static Index getMidIndex(Model model) {
-        return Index.fromOneBased(model.getFilteredCards().size() / 2);
+        return Index.fromOneBased(model.getActiveFilteredCards().size() / 2);
     }
 
     /**
      * Returns the last index of the card in the {@code model}'s card list.
      */
     public static Index getLastIndex(Model model) {
-        return Index.fromOneBased(model.getFilteredCards().size());
+        return Index.fromOneBased(model.getActiveFilteredCards().size());
     }
 
     /**
      * Returns the card in the {@code model}'s card list at {@code index}.
      */
     public static Card getCard(Model model, Index index) {
-        return model.getFilteredCards().get(index.getZeroBased());
+        return model.getActiveFilteredCards().get(index.getZeroBased());
     }
 }

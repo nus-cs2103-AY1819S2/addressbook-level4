@@ -27,6 +27,19 @@ public class JsonCardFolderStorage implements CardFolderStorage {
         this.filePath = filePath;
     }
 
+    /**
+     * Returns true if provided {@code filePath} is a file that can be read as a {@code JsonCardFolderStorage}.
+     */
+    public static boolean isCardFolderStorage(Path filePath) {
+        JsonCardFolderStorage cardFolderStorage = new JsonCardFolderStorage(filePath);
+        try {
+            cardFolderStorage.readCardFolder();
+        } catch (DataConversionException | IOException e) {
+            return false;
+        }
+        return true;
+    }
+
     public Path getcardFolderFilesPath() {
         return filePath;
     }
@@ -58,15 +71,6 @@ public class JsonCardFolderStorage implements CardFolderStorage {
             logger.info("Illegal values found in " + filePath + ": " + ive.getMessage());
             throw new DataConversionException(ive);
         }
-    }
-
-    @Override
-    public Optional<String> getCardFolderName() throws DataConversionException, IOException {
-        Optional<ReadOnlyCardFolder> readOnlyCardFolder = readCardFolder();
-        if (!readOnlyCardFolder.isPresent()) {
-            return Optional.empty();
-        }
-        return Optional.of(readOnlyCardFolder.get().getFolderName());
     }
 
     @Override

@@ -32,12 +32,6 @@ public interface CardFolderStorage {
     Optional<ReadOnlyCardFolder> readCardFolder(Path filePath) throws DataConversionException, IOException;
 
     /**
-     * Returns a the name of the card folder, which uniquely identifies it.
-     *  Returns {@code Optional.empty()} if storage file is not found.
-     */
-    Optional<String> getCardFolderName() throws DataConversionException, IOException;
-
-    /**
      * Saves the given {@link ReadOnlyCardFolder} to the storage.
      * @param cardFolder cannot be null.
      * @throws IOException if there was any problem writing to the file.

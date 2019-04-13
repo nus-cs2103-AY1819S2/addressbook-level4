@@ -35,7 +35,7 @@ public class SelectCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
-        List<Card> filteredCardList = model.getFilteredCards();
+        List<Card> filteredCardList = model.getActiveFilteredCards();
 
         if (model.getState() != Model.State.IN_FOLDER) {
             throw new CommandException(Messages.MESSAGE_INVALID_COMMAND_OUTSIDE_FOLDER);

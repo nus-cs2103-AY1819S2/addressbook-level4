@@ -30,8 +30,6 @@ public class AddFolderCommandParser implements Parser<AddFolderCommand> {
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, ReadOnlyCardFolder.MESSAGE_CONSTRAINTS));
         }
 
-        CardFolder cardFolder = new CardFolder(trimmedArgs);
-
-        return new AddFolderCommand(cardFolder);
+        return new AddFolderCommand(trimmedArgs);
     }
 }

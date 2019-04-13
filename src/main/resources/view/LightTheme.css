@@ -133,26 +133,29 @@
 .cell_XXL_label {
     -fx-font-family: "Segoe UI Semibold";
     -fx-font-size: 20px;
-    -fx-text-fill: #010504;
+    -fx-text-fill: #383838;
     -fx-padding: 10px 0;
 }
 
 .cell_big_label {
     -fx-font-family: "Segoe UI Semibold";
     -fx-font-size: 18px;
-    -fx-text-fill: #010504;
+    -fx-text-fill: #383838;
+    -fx-pref-height: 20px;
 }
 
 .cell_normal_label {
     -fx-font-family: "Segoe UI";
     -fx-font-size: 16px;
-    -fx-text-fill: #010504;
+    -fx-pref-height: 18px;
+    -fx-text-fill: #383838;
 }
 
 .cell_small_label {
     -fx-font-family: "Segoe UI";
-    -fx-font-size: 13px;
-    -fx-text-fill: #010504;
+    -fx-font-size: 14px;
+    -fx-pref-height: 18px;
+    -fx-text-fill: #383838;
 }
 
 .stack-pane {
@@ -168,7 +171,6 @@
 .status-bar {
     -fx-padding: 5px 10px;
     -fx-background-color: derive(#e5e7ec, 20%);
-
 }
 
 .result-display {
@@ -186,13 +188,13 @@
     -fx-background-color: #f3f4f8;
     -fx-font-family: "Segoe UI";
     -fx-font-size: 20pt;
-    -fx-text-fill: white;
+    -fx-text-fill: #383838;
 }
 
 .status-bar .label {
     -fx-font-family: "Segoe UI Semibold";
     -fx-pref-height: 30px;
-    -fx-text-fill: #f3f4f8;
+    -fx-text-fill: #383838;
     -fx-padding: 5 11 5 11;
     -fx-border-radius: 3;
     -fx-background-radius: 3;
@@ -206,7 +208,7 @@
 }
 
 .status-bar-with-border .label {
-    -fx-text-fill: white;
+    -fx-text-fill: #383838;
 }
 
 .grid-pane {
@@ -224,7 +226,7 @@
 }
 
 .context-menu .label {
-    -fx-text-fill: white;
+    -fx-text-fill: #383838;
 }
 
 .menu-bar {
@@ -264,7 +266,7 @@
     -fx-background-color: #f3f4f8;
     -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
     -fx-font-size: 11pt;
-    -fx-text-fill: #d8d8d8;
+    -fx-text-fill: #383838;
     -fx-background-insets: 0 0 0 0, 0, 1, 2;
 }
 
@@ -274,7 +276,7 @@
 
 .button:pressed, .button:default:hover:pressed {
     -fx-background-color: white;
-    -fx-text-fill: #f3f4f8;
+    -fx-text-fill: #383838;
 }
 
 .button:focused {
@@ -288,12 +290,12 @@
 .button:disabled, .button:default:disabled {
     -fx-opacity: 0.4;
     -fx-background-color: #f3f4f8;
-    -fx-text-fill: white;
+    -fx-text-fill: #383838;
 }
 
 .button:default {
     -fx-background-color: -fx-focus-color;
-    -fx-text-fill: #ffffff;
+    -fx-text-fill: #383838;
 }
 
 .button:default:hover {
@@ -322,7 +324,7 @@
     -fx-font-size: 18px;
     -fx-font-style: italic;
     -fx-fill: white;
-    -fx-text-fill: white;
+    -fx-text-fill: #383838;
 }
 
 .scroll-bar {
@@ -361,8 +363,8 @@
     -fx-text-fill: #f44336;
 }
 
-#commandTextBox {
-    -fx-text-fill: #f3f4f8;
+#commandTextBox, .def-colour {
+    -fx-text-fill: #383838;
 }
 
 #commandTextField {
@@ -396,12 +398,13 @@
 #headers {
     -fx-hgap: 7;
     -fx-vgap: 4;
+    -fx-padding: 10 0;
 }
 
 #bigHeaders {
     -fx-hgap: 14;
     -fx-vgap: 8;
-    -fx-padding: 10 0;
+    -fx-padding: 15 0;
 }
 
 #headers .label {

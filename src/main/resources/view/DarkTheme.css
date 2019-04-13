@@ -11,7 +11,7 @@
 .label {
     -fx-font-size: 11pt;
     -fx-font-family: "Segoe UI Semibold";
-    -fx-text-fill: #555555;
+    -fx-text-fill: #f3f4f8;
     -fx-opacity: 0.9;
     -fx-wrap-text: true;
 }
@@ -73,7 +73,7 @@
 .table-view .column-header .label {
     -fx-font-size: 20pt;
     -fx-font-family: "Segoe UI Light";
-    -fx-text-fill: #1d1d1d;
+    -fx-text-fill: #f3f4f8;
     -fx-alignment: center-left;
     -fx-opacity: 1;
 }
@@ -133,26 +133,29 @@
 .cell_XXL_label {
     -fx-font-family: "Segoe UI Semibold";
     -fx-font-size: 20px;
-    -fx-text-fill: #010504;
+    -fx-text-fill: #f3f4f8;
     -fx-padding: 10px 0;
 }
 
 .cell_big_label {
     -fx-font-family: "Segoe UI Semibold";
     -fx-font-size: 18px;
-    -fx-text-fill: #010504;
+    -fx-text-fill: #f3f4f8;
+    -fx-pref-height: 20px;
 }
 
 .cell_normal_label {
     -fx-font-family: "Segoe UI";
     -fx-font-size: 16px;
-    -fx-text-fill: #010504;
+    -fx-pref-height: 18px;
+    -fx-text-fill: #f3f4f8;
 }
 
 .cell_small_label {
     -fx-font-family: "Segoe UI";
-    -fx-font-size: 13px;
-    -fx-text-fill: #010504;
+    -fx-font-size: 14px;
+    -fx-pref-height: 18px;
+    -fx-text-fill: #f3f4f8;
 }
 
 .stack-pane {
@@ -178,7 +181,7 @@
 }
 
 .result-display .label {
-    -fx-text-fill: black !important;
+    -fx-text-fill: #f3f4f8;
 }
 
 .main-panel {
@@ -189,9 +192,9 @@
 }
 
 .status-bar .label {
-    -fx-font-family: "Segoe UI ;";
+    -fx-font-family: "Segoe UI Semibold";
     -fx-pref-height: 30px;
-    -fx-text-fill: #1d1d1d;
+    -fx-text-fill: #f3f4f8;
     -fx-padding: 5 11 5 11;
     -fx-border-radius: 3;
     -fx-background-radius: 3;
@@ -360,8 +363,8 @@
     -fx-text-fill: #f44336;
 }
 
-#commandTextBox {
-    -fx-text-fill: #f3f4f8;
+#commandTextBox, .def-colour {
+    -fx-text-fill: #ffffff;
 }
 
 #commandTextField {
@@ -391,16 +394,16 @@
     -fx-fill: DCDCDC;
 }
 
-
 #headers {
     -fx-hgap: 7;
     -fx-vgap: 4;
+    -fx-padding: 10 0;
 }
 
 #bigHeaders {
     -fx-hgap: 14;
     -fx-vgap: 8;
-    -fx-padding: 10 0;
+    -fx-padding: 15 0;
 }
 
 #headers .label {

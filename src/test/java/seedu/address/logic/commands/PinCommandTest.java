@@ -3,8 +3,8 @@ package seedu.address.logic.commands;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_BUYER;
+import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_BUYER;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalPersons.getTypicalArchiveBook;
 import static seedu.address.testutil.TypicalPersons.getTypicalPinBook;
@@ -51,14 +51,14 @@ public class PinCommandTest {
 
     @Test
     public void equals() {
-        PinCommand pinFirstCommand = new PinCommand(INDEX_FIRST_PERSON);
-        PinCommand pinSecondCommand = new PinCommand(INDEX_SECOND_PERSON);
+        PinCommand pinFirstCommand = new PinCommand(INDEX_FIRST_BUYER);
+        PinCommand pinSecondCommand = new PinCommand(INDEX_SECOND_BUYER);
 
         // same object -> returns true
         assertTrue(pinFirstCommand.equals(pinFirstCommand));
 
         // same values -> returns true
-        PinCommand pinFirstCommandCopy = new PinCommand(INDEX_FIRST_PERSON);
+        PinCommand pinFirstCommandCopy = new PinCommand(INDEX_FIRST_BUYER);
         assertTrue(pinFirstCommand.equals(pinFirstCommandCopy));
 
         // different types -> returns false

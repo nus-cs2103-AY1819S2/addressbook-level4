@@ -22,13 +22,19 @@ By: `CS2103-AY2018/19s2-W10-4 Team`      Since: `Mar 2019`      Licence: `MIT`
 
 *Know-It-All* is a flashcard application that helps users store and organise their learning material. With an easy to use interface and a storage solution that supports content sharing, *Know-It-All* is designed to help students perform rote learning more efficiently. From cramming in between lessons to focused study, the in-built test session boosts the effectiveness of repetition and recall for memorisation. *Know-It-All* targets medicine students as their studies involve a considerable amount of memory work, and deals with content that is suitable for the bite-sized flashcard format.
 
+image::UI.png[width="790"]
+
 == How To Use This Guide
 
 Welcome to the *Know-It-All* User Guide! This document will equip you with what you need in order to use `v1.4` of the application. While some familiarity with command line programs will come in handy, simply adhere to the command formats specified in this guide closely and the rest will be a breeze.
 
 Look out for the following icons and formatting used!
 
-NOTE: Important information that should be noted.
+[NOTE]
+Important information that should be noted.
+
+[TIP]
+Useful tips that can help if you get stuck.
 
 ====
 Information in a box like this represents additional useful information for a deeper understanding of this command.
@@ -41,22 +47,35 @@ Without further ado, let's head over to <<Quick Start>> to get started!
 // tag::quickstart[]
 == Quick Start
 
+==== Launching the application
+To get Know-It-All up and running:
+
 .  Ensure that you have Java version `9` or later installed in your Computer.
 .  Download the latest `know-it-all.jar` link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for *Know-It-All*.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
-+
-image::Ui.png[width="790"]
-+
-.  Type the command in the command box and press kbd:[Enter] to execute it. +
-e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
-.  Some commands you can try:
 
-* *`cd`* `1` : enter the 1st flashcard folder
-* *`list`* : lists all flashcards in the current folder
-* **`add`**`q/How many chambers are there in a heart? a/Four` : adds a new flashcard to the current folder.
-* **`delete`**`3` : deletes the 3rd flashcard shown in the current folder
-* *`exit`* : exits the app
+==== Using the application
+In this section, we'll walk you through the user interface of the application and how to create your first flashcard.
+
+[TIP]
+To use a command, type the command in the command box and press kbd:[enter] to execute it. +
+e.g. typing *`help`* and pressing kbd:[enter] will open the help window. +
+
+. When booting up the app for the first time, you should see the home directory much like the screengrab below. The first and only folder present is a sample folder named none other than "Sample Folder".
++
+image::AnnotatedStartupUI.png[width="500"]
+
+. *`cd`* `1` : enter the 1st flashcard folder. You will see that you have entered the sample folder.
++
+image::AnnotatedEnterFolderUI.png[width="500"]
+
+. **`add`**`q/How many chambers are there in a heart? a/Four` : adds a new flashcard to the current folder.
++
+image::AnnotatedAddCardUI.png[width="500"]
+
+. *`select 4`* : selects the first flashcard in the current folder
+. *`exit`* : exits the app. The app window will close.
 
 .  Refer to <<Features>> for details of each command.
 // end::quickstart[]

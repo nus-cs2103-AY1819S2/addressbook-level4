@@ -14,9 +14,11 @@ import seedu.address.model.person.PersonId;
  */
 public class JsonAdaptedMedicalHistory {
 
+    public static final String MISSING_FIELD_MESSAGE_FORMAT = "Medical history's %s field is missing!";
+
     private final String medHistId;
-    private final int patientId;
-    private final int doctorId;
+    private final String patientId;
+    private final String doctorId;
     private final String date;
     private final String writeUp;
 
@@ -25,8 +27,8 @@ public class JsonAdaptedMedicalHistory {
      */
     @JsonCreator
     public JsonAdaptedMedicalHistory(@JsonProperty("medHistId") String medHistId,
-                                     @JsonProperty("patientId") int patientId,
-                                     @JsonProperty("doctorId") int doctorId,
+                                     @JsonProperty("patientId") String patientId,
+                                     @JsonProperty("doctorId") String doctorId,
                                      @JsonProperty("date") String date,
                                      @JsonProperty("writeUp") String writeUp) {
         this.medHistId = medHistId;
@@ -41,8 +43,8 @@ public class JsonAdaptedMedicalHistory {
      */
     public JsonAdaptedMedicalHistory(MedicalHistory source) {
         medHistId = source.getMedHistId();
-        patientId = source.getPatientId().personId;
-        doctorId = source.getDoctorId().personId;
+        patientId = String.valueOf(source.getPatientId().personId);
+        doctorId = String.valueOf(source.getDoctorId().personId);
         date = source.getDate().toString();
         writeUp = source.getWriteUp().value;
     }
@@ -53,11 +55,46 @@ public class JsonAdaptedMedicalHistory {
      * @throws IllegalValueException if there were any data constraints violated in the adapted medical history.
      */
     public MedicalHistory toModelType() throws IllegalValueException {
-        final PersonId patientId = new PersonId(this.patientId);
-        final PersonId doctorId = new PersonId(this.doctorId);
+        if (patientId == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, PersonId.class.getSimpleName()));
+        }
+
+        if (!PersonId.isValidPersonId(patientId)) {
+            throw new IllegalValueException(PersonId.MESSAGE_CONSTRAINTS);
+        }
+
+        final PersonId modelPatientId = new PersonId(this.patientId);
+
+        if (doctorId == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, PersonId.class.getSimpleName()));
+        }
+
+        if (!PersonId.isValidPersonId(doctorId)) {
+            throw new IllegalValueException(PersonId.MESSAGE_CONSTRAINTS);
+        }
+
+        final PersonId modelDoctorId = new PersonId(this.doctorId);
+
+        if (date == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, ValidDate.class.getSimpleName()));
+        }
+
+        if (!ValidDate.isValidDate(date)) {
+            throw new IllegalValueException(ValidDate.MESSAGE_CONSTRAINTS);
+        }
+
         final ValidDate modelDate = new ValidDate(date);
+
+        if (writeUp == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, WriteUp.class.getSimpleName()));
+        }
+
+        if (!WriteUp.isValidWriteUp(writeUp)) {
+            throw new IllegalValueException(WriteUp.MESSAGE_CONSTRAINTS);
+        }
         final WriteUp modelWriteUp = new WriteUp(this.writeUp);
-        return new MedicalHistory(patientId, doctorId, modelDate, modelWriteUp);
+
+        return new MedicalHistory(modelPatientId, modelDoctorId, modelDate, modelWriteUp);
     }
 
 

@@ -41,11 +41,6 @@ public class ListMedHistCommand extends Command {
     public static final String MESSAGE_SUCCESS =
             "Listed all medical histories. Write up of medical histories are not be shown in the list.";
 
-    public static final String MESSAGE_PATIENT_NOT_FOUND =
-            "Patient with the ID is not found. Please enter a valid patient ID.";
-    public static final String MESSAGE_DOCTOR_NOT_FOUND =
-            "Doctor with the ID is not found. Please enter a valid doctor ID.";
-
     private final Optional<PersonId> targetPatientId;
 
     private final Optional<PersonId> targetDoctorId;
@@ -82,7 +77,7 @@ public class ListMedHistCommand extends Command {
         if (targetPatientId.isPresent()) {
             Patient patientWithId = model.getPatientById(targetPatientId.get());
             if (patientWithId == null) {
-                throw new CommandException(MESSAGE_PATIENT_NOT_FOUND);
+                throw new CommandException(AddMedHistCommand.MESSAGE_PATIENT_NOT_FOUND);
             }
             predicateListMedHistIsPid = x -> x.getPatientId().equals(targetPatientId.get());
 
@@ -93,7 +88,7 @@ public class ListMedHistCommand extends Command {
         if (targetDoctorId.isPresent()) {
             Doctor doctorWithId = model.getDoctorById(targetDoctorId.get());
             if (doctorWithId == null) {
-                throw new CommandException(MESSAGE_DOCTOR_NOT_FOUND);
+                throw new CommandException(AddMedHistCommand.MESSAGE_DOCTOR_NOT_FOUND);
             }
             predicateListMedHistIsDid = x -> x.getDoctorId().equals(targetDoctorId.get());
 

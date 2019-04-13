@@ -529,9 +529,10 @@ _{Explain here how the data encryption feature will be implemented}_
 
 // end::dataencryption[]
 
+=== Viewing Information Management
 // tag::findimplement[]
-=== Find feature
-==== Current Implementation
+==== Find feature
+===== Current Implementation
 
 The Find mechanism is facilitated through the use of predicates in conjunction with the
 `FilteredList` within `ModelManager`
@@ -565,8 +566,8 @@ specified to be searched.
 // end::findimplement[]
 
 // tag::sortimplement[]
-=== Sort feature
-==== Current Implementation
+==== Sort feature
+===== Current Implementation
 The `Sort` mechanism is facilitated through the use of Comparators in conjunction with the Unique Lists for both
 record and patient depending on the programm's mode when the command is called.
 
@@ -592,9 +593,9 @@ image::SortCommandSequenceDiagram.png[width="800"]
 // end::sortimplement[]
 
 // tag::statimplement[]
-=== Stat feature
+==== Stat feature
 image::StatWindow.png[width="500"]
-==== Current Implementation
+===== Current Implementation
 The `Stat` mechanism is facilitated through the use of the inbuilt JavaFx framework in conjunction with the data
 stored within each `Patient` object.
 

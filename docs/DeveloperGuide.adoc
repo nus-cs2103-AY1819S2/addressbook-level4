@@ -901,18 +901,21 @@ A project often depends on third-party libraries. For example, Address Book depe
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
 
 [discrete]
-=== CRUD
+=== Add, Edit, Delete, List (Basic CRUD commands)
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
+|`* * *` |user |add an equipment and its specific details |keep track of the details of an equipment
+
 |`* * *` |user |delete an equipment or its specific details |remove equipment that is obsolete
 
-|`* * *` |user |delete worklist |remove worklist which indicates work completed and no longer need it for tracking progress
+|`* * *` |user |have a work list where I can store the equipments I am working on |keep track of all the equipments that I am assigned to
 
-|`* * *` |user |have a worklist where I can store the equipments I am working on |keep track of all the equipments that I am assigned to
+|`* * *` |user |delete work list |remove work list which indicates work completed and no longer need it for tracking progress
 
-|`* * *` |user |want to view details of an equipment | so that i can retrieve more details information about a particular equipment
+|`* * *` |user |view details of all equipment |know how many equipments there are and what is the individual details of each equipment
 
+|`* * *` |user |know how many clients have the equipment |track equipments in group based on client and how many equipment the client owns
 |=======================================================================
 
 [discrete]
@@ -920,7 +923,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |user |filter the list based on some conditions |remove all irrelevant equipments and worklist showing on the list
+|`* * *` |user |filter the list based on some conditions |remove all irrelevant equipments and work list showing on the list
 |=======================================================================
 
 [discrete]
@@ -957,12 +960,11 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`*` |user |see my past commands |keep track of what I have searched on
 
-|`*` |user |autocomplete my command queries |get the information that I want faster
-
 |`*` |user |change command keywords |use the words that I prefer
 
 |`*` |user |redo or undo my past commands |correct any mistakes I have made
 
+|`*` |user |autocomplete my command queries |get the information that I want faster
 |=======================================================================
 
 _{More to be added}_

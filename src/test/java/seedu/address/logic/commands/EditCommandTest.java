@@ -14,12 +14,16 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import org.junit.Test;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
@@ -111,6 +115,28 @@ public class EditCommandTest {
         showPersonAtIndex(expectedModel, INDEX_FIRST_PERSON);
         expectedModel.setPerson(model.getFilteredPersonList().get(0), editedPerson);
         expectedModel.commitAddressBook();
+
+        assertCommandSuccess(editCommand, model, commandHistory, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void execute_editTagsWithEndorsements_success() throws CommandException {
+
+        Person samplePerson = model.getFilteredPersonList().get(0);
+        SkillsTag sampleEndorseTag = new SkillsTag(VALID_NAME_BOB, "endorse");
+        Set<SkillsTag> samplePersonTags = new HashSet<>(samplePerson.getTags());
+        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        EndorseCommand endorseCommand = new EndorseCommand(0, INDEX_FIRST_PERSON, VALID_NAME_BOB);
+        endorseCommand.execute(model, new CommandHistory());
+        Person endorsedPerson = model.getFilteredPersonList().get(0);
+
+        endorseCommand.execute(expectedModel, new CommandHistory());
+        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, endorsedPerson);
+
+
+        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(samplePerson).build();
+        EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON, descriptor);
+        editCommand.execute(expectedModel, new CommandHistory());
 
         assertCommandSuccess(editCommand, model, commandHistory, expectedMessage, expectedModel);
     }

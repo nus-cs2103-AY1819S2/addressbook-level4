@@ -133,10 +133,11 @@ public class FinanceTrackerTest {
 
         @Override
         public void addListener(InvalidationListener listener) {
-            throw new AssertionError("This method should not be called.");
+            throw new AssertionError(
+                    "This method should not be called.");
         }
 
-        @Override
+
         public void removeListener(InvalidationListener listener) {
             throw new AssertionError("This method should not be called.");
         }
@@ -150,6 +151,11 @@ public class FinanceTrackerTest {
         @Override
         public HashSet<CategoryBudget> getCategoryBudget() {
             return null;
+        }
+
+        @Override
+        public boolean isSetFile() {
+            return false;
         }
     }
 

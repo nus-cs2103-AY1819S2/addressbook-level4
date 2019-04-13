@@ -112,6 +112,18 @@ public class Budget {
     }
 
     /**
+     * Method to edit current budget and spendings based on changes in records.
+     *
+     * @param target The original record
+     * @param editedRecord The record with the edits
+     */
+    public void editRecord(Record target, Record editedRecord) {
+        this.currentBudget = currentBudget + target.getAmount().getValue()
+                - editedRecord.getAmount().getValue();
+        this.currentSpendings = this.totalBudget - this.currentBudget;
+    }
+
+    /**
      * Method to remove spendings of record
      * @param record the record to be removed
      */

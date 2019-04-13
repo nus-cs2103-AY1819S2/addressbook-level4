@@ -23,4 +23,6 @@ public interface ReadOnlyFinanceTracker extends Observable {
 
     HashSet<CategoryBudget> getCategoryBudget();
 
+    boolean isSetFile();
+
 }

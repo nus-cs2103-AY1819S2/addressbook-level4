@@ -27,7 +27,7 @@ public class VersionedFinanceTrackerTest {
     public void commit_singleFinanceTracker_noStatesRemovedCurrentStateSaved() {
         VersionedFinanceTracker versionedFinanceTracker = prepareFinanceTrackerList(emptyFinanceTracker);
 
-        versionedFinanceTracker.commit();
+        versionedFinanceTracker.commit(false);
         assertFinanceTrackerListStatus(versionedFinanceTracker,
                 Collections.singletonList(emptyFinanceTracker),
                 emptyFinanceTracker,
@@ -39,7 +39,7 @@ public class VersionedFinanceTrackerTest {
         VersionedFinanceTracker versionedFinanceTracker = prepareFinanceTrackerList(
                 emptyFinanceTracker, financeTrackerWithAmy, financeTrackerWithBob);
 
-        versionedFinanceTracker.commit();
+        versionedFinanceTracker.commit(false);
         assertFinanceTrackerListStatus(versionedFinanceTracker,
                 Arrays.asList(emptyFinanceTracker, financeTrackerWithAmy, financeTrackerWithBob),
                 financeTrackerWithBob,
@@ -52,7 +52,7 @@ public class VersionedFinanceTrackerTest {
                 emptyFinanceTracker, financeTrackerWithAmy, financeTrackerWithBob);
         shiftCurrentStatePointerLeftwards(versionedFinanceTracker, 2);
 
-        versionedFinanceTracker.commit();
+        versionedFinanceTracker.commit(false);
         assertFinanceTrackerListStatus(versionedFinanceTracker,
                 Collections.singletonList(emptyFinanceTracker),
                 emptyFinanceTracker,
@@ -286,7 +286,7 @@ public class VersionedFinanceTrackerTest {
         VersionedFinanceTracker versionedFinanceTracker = new VersionedFinanceTracker(financeTrackerStates[0]);
         for (int i = 1; i < financeTrackerStates.length; i++) {
             versionedFinanceTracker.resetData(financeTrackerStates[i]);
-            versionedFinanceTracker.commit();
+            versionedFinanceTracker.commit(false);
         }
 
         return versionedFinanceTracker;

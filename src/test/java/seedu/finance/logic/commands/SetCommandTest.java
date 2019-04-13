@@ -2,7 +2,7 @@ package seedu.finance.logic.commands;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.finance.logic.commands.CommandTestUtil.assertCommandFailure;
+import static org.junit.Assert.fail;
 import static seedu.finance.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.finance.testutil.TypicalRecords.getTypicalFinanceTracker;
 import static seedu.finance.testutil.TypicalRecords.getTypicalFinanceTrackerWithoutSetBudget;
@@ -15,6 +15,7 @@ import seedu.finance.model.Model;
 import seedu.finance.model.ModelManager;
 import seedu.finance.model.UserPrefs;
 import seedu.finance.model.budget.Budget;
+import seedu.finance.model.exceptions.CategoryBudgetExceedTotalBudgetException;
 
 /**
  * Contains integration tests (interaction with Model) and unit test for SetCommand.
@@ -26,23 +27,38 @@ public class SetCommandTest {
 
     @Test
     public void execute_financeTrackerWithoutBudget() {
-        final String amount = "500.50";
-        final Budget budget = new Budget(Double.parseDouble(amount));
-        //model.addBudget(budget);
-        SetCommand setCommand = new SetCommand(amount);
-        String expectedMessage = String.format(SetCommand.MESSAGE_SUCCESS, amount);
-        Model expectedModel = new ModelManager(new FinanceTracker(model.getFinanceTracker()), new UserPrefs());
-        expectedModel.addBudget(budget);
-        expectedModel.commitFinanceTracker();
-        assertCommandSuccess(setCommand, model, commandHistory, expectedMessage, expectedModel);
+        try {
+            final String amount = "500.50";
+            final Budget budget = new Budget(Double.parseDouble(amount));
+            //model.addBudget(budget);
+            SetCommand setCommand = new SetCommand(amount);
+            String expectedMessage = String.format(SetCommand.MESSAGE_SUCCESS, amount);
+            Model expectedModel = new ModelManager(new FinanceTracker(model.getFinanceTracker()), new UserPrefs());
+            expectedModel.addBudget(budget);
+            expectedModel.commitFinanceTracker();
+            assertCommandSuccess(setCommand, model, commandHistory, expectedMessage, expectedModel);
+        } catch (CategoryBudgetExceedTotalBudgetException cte) {
+            fail();
+        }
     }
 
     @Test
     public void execute_financeTrackerWithBudget() {
-        final String amount = "500.50";
-        model = new ModelManager(getTypicalFinanceTracker(), new UserPrefs());
-        SetCommand setCommand = new SetCommand(amount);
-        assertCommandFailure(setCommand, model, commandHistory, SetCommand.MESSAGE_DUPLICATE_BUDGET);
+
+        try {
+            final String amount = "500.50";
+            final Budget budget = new Budget(Double.parseDouble(amount));
+            model = new ModelManager(getTypicalFinanceTracker(), new UserPrefs());
+            SetCommand setCommand = new SetCommand(amount);
+            String expectedMessage = String.format(SetCommand.MESSAGE_SUCCESS, amount);
+            Model expectedModel = new ModelManager(new FinanceTracker(model.getFinanceTracker()), new UserPrefs());
+            expectedModel.addBudget(budget);
+            expectedModel.commitFinanceTracker();
+            assertCommandSuccess(setCommand, model, commandHistory, expectedMessage, expectedModel);
+        } catch (CategoryBudgetExceedTotalBudgetException cte) {
+            fail();
+        }
+
     }
 
     @Test

@@ -274,14 +274,11 @@ Clears all of a patient's dental records.
 [NOTE]
 `recordclear` requires the application to first be in records mode, via the `goto` command.
 
+==== teeth create
 
-==== The Universal Numbering System
+There is no command required for this feature, as the application automatically generates and stores a new set of all healthy permanent teeth for newly added patients.
 
 TeethHub complies with the most popular standard of the three the Dental Numbering Systems utilised in Dentistry - The Universal Numbering System.
-
-ifdef::env-github[]
-image::BaseLayer.png[width="200"]
-endif::[]
 
 The upper-case letters A through T are used for primary teeth and the
 numbers 1 - 32 are used for permanent teeth. The tooth designated "1" is
@@ -291,32 +288,26 @@ mandibular left third molar, designated number 17, and continues along
 the bottom teeth to the right side. Each tooth has a unique number or
 letter, allowing for easier use on keyboards.
 
-===== Creating and Editing Teeth Layout
+[NOTE]
+At the moment, only the permanent teeth type is supported.
 
-There is one template provided by TeethHub: permanent teeth.
+==== teeth edit
 
-All permanent teeth in template will all be present and healthy by default.
+This method edits a specific tooth of a patient.
 
-* To create a new teeth layout for patient:
+Format: `teethedit t/TEETH_LABEL s/STATUS`
 
-** The program automatically creates a new permanent teeth template for new patients added.
+* `TEETH_LABEL` are integers 1 to 32, which represents a tooth according to the Universal Numbering System.
 
-* To edit a new specific tooth:
+* Valid `STATUS` are 0 (for healthy tooth), 1 (for problematic tooth), or 2 (for missing tooth).
 
-** `<<goto, goto>> 1` - Specifies patient 1 to edit his or her teeth status. Enters the record edit mode.
+Example:
 
-** `teethedit t/TEETH_LABEL s/STATUS` - Edits the status of the indicated tooth of patient.
+* `<<goto, goto>> 1` - Specifies patient 1 to edit his or her teeth status. User enters the records mode.
 
-** `<<back, back>>` - Exits the record edit mode, and returns to the patient list.
+* `teethedit t/31 s/2` - This edits the status of tooth 31 of the specified patient to missing.
 
-** Valid <Teeth Label> are numbers 1 - 32 (permanent teeth).
-
-** <Status> reflects overall health of the indicated tooth, and valid
-<Status> are "healthy", "problem" and "absent".
-
-** <Description> is an optional field that allows you to
-write a note describing more detail on the patient’s teeth
-health.
+* `<<back, back>>` - This command allows the user to exit the record edit mode, returning to the patients mode.
 
 === Breakdown of attributes used within TeethHub
 [cols=",,,,,,,", options="header",]

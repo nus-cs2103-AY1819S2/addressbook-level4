@@ -102,11 +102,8 @@ public class ImportResumesCommandParser implements Parser<ImportResumesCommand> 
             Set<JobsApply> jobsApplyList = ParserUtil.parseJobsApply(jobsApplyStringList);
 
             InterviewScores interviewScores = ParserUtil.parseInterviewScores(reader.readLine());
-
-            String tagsString = reader.readLine();
-            String[] tagsArray = tagsString.split(",");
-            Collection<String> tagsStringList = Arrays.asList(tagsArray);
-            Set<Tag> tagList = ParserUtil.parseTags(tagsStringList);
+            //always empty
+            Set<Tag> tagList = new HashSet<>();
 
             person = new Person(name, phone, email, nric, gender, race, address, school, major, grade,
                     knownProgLangsList, pastjobList, jobsApplyList, interviewScores, tagList);

@@ -23,8 +23,6 @@ import seedu.address.model.person.exceptions.FilterNotFoundException;
 public class UniqueFilterList implements Iterable<Filter> {
 
     private final ObservableList<Filter> internalList = FXCollections.observableArrayList();
-    private final ObservableList<Filter> internalUnmodifiableList =
-        FXCollections.unmodifiableObservableList(internalList);
 
     /**
      * Returns true if the list contains an equivalent person as the given argument.
@@ -33,7 +31,6 @@ public class UniqueFilterList implements Iterable<Filter> {
         requireNonNull(toCheck);
         return internalList.stream().anyMatch(toCheck::isSameFilter);
     }
-
 
     /**
      * Adds a person to the list.

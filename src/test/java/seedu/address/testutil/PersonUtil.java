@@ -24,7 +24,6 @@ import seedu.address.model.person.JobsApply;
 import seedu.address.model.person.KnownProgLang;
 import seedu.address.model.person.PastJob;
 import seedu.address.model.person.Person;
-import seedu.address.model.tag.Tag;
 
 
 /**
@@ -114,15 +113,7 @@ public class PersonUtil {
             }
         }
         descriptor.getInterviewScores().ifPresent(interviewScores -> sb.append(PREFIX_INTERVIEWSCORES)
-                .append(interviewScores.value).append(" "));
-        if (descriptor.getTags().isPresent()) {
-            Set<Tag> tags = descriptor.getTags().get();
-            if (tags.isEmpty()) {
-                sb.append(PREFIX_TAG).append(" ");
-            } else {
-                tags.forEach(s -> sb.append(PREFIX_TAG).append(s.tagName).append(" "));
-            }
-        }
+            .append(interviewScores.value).append(" "));
         return sb.toString();
     }
 }

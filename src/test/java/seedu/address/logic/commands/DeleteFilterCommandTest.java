@@ -4,8 +4,13 @@ import static org.junit.Assert.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_FILTERNAME;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.commandExecute;
+import static seedu.address.logic.commands.DeleteFilterCommand.MESSAGE_CANOT_FOUND_TARGET_FILTER;
+import static seedu.address.logic.commands.DeleteFilterCommand.MESSAGE_LACK_LISTNAME;
+import static seedu.address.logic.commands.DeleteFilterCommand.MESSAGE_USAGE_ALLJOB_SCREEN;
+import static seedu.address.logic.commands.DeleteFilterCommand.MESSAGE_USAGE_DETAIL_SCREEN;
 import static seedu.address.model.job.JobListName.APPLICANT;
 import static seedu.address.model.job.JobListName.EMPTY;
 import static seedu.address.model.job.JobListName.INTERVIEW;
@@ -125,6 +130,34 @@ public class DeleteFilterCommandTest {
         expectedModel.removePredicateAllPersons(VALID_FILTERNAME);
 
         assertCommandSuccess(deleteFilterCommand, model, commandHistory, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void execute_invalidListName_fail() {
+        model.setIsAllJobScreen(false);
+        DeleteFilterCommand deleteFilterCommand = new DeleteFilterCommand(EMPTY, VALID_FILTERNAME);
+        String expectedMessage = String.format(MESSAGE_LACK_LISTNAME, MESSAGE_USAGE_DETAIL_SCREEN);
+        assertCommandFailure(deleteFilterCommand, model, commandHistory, expectedMessage);
+    }
+
+    @Test
+    public void execute_filterNameNotFoundAllJob_fail() {
+        DeleteFilterCommand deleteFilterCommand = new DeleteFilterCommand(EMPTY, VALID_FILTERNAME);
+        String expectedMessage = String.format(MESSAGE_CANOT_FOUND_TARGET_FILTER, MESSAGE_USAGE_ALLJOB_SCREEN);
+        assertCommandFailure(deleteFilterCommand, model, commandHistory, expectedMessage);
+    }
+
+    @Test
+    public void execute_filterNameNotFoundDetailJob_fail() {
+        DeleteFilterCommand deleteFilterCommandApplicant = new DeleteFilterCommand(APPLICANT, VALID_FILTERNAME);
+        DeleteFilterCommand deleteFilterCommandInterview = new DeleteFilterCommand(INTERVIEW, VALID_FILTERNAME);
+        DeleteFilterCommand deleteFilterCommandKiv = new DeleteFilterCommand(KIV, VALID_FILTERNAME);
+        DeleteFilterCommand deleteFilterCommandShortList = new DeleteFilterCommand(SHORTLIST, VALID_FILTERNAME);
+        String expectedMessage = String.format(MESSAGE_CANOT_FOUND_TARGET_FILTER, MESSAGE_USAGE_DETAIL_SCREEN);
+        assertCommandFailure(deleteFilterCommandApplicant, model, commandHistory, expectedMessage);
+        assertCommandFailure(deleteFilterCommandInterview, model, commandHistory, expectedMessage);
+        assertCommandFailure(deleteFilterCommandKiv, model, commandHistory, expectedMessage);
+        assertCommandFailure(deleteFilterCommandShortList, model, commandHistory, expectedMessage);
     }
 
     @Test

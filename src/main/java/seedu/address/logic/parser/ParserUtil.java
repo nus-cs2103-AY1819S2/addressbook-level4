@@ -493,6 +493,7 @@ public class ParserUtil {
      * Check if the date range provided is valid.value
      */
     protected static boolean isValidValueRange(String range) {
+        requireNonNull(range);
         String trimedRange = range.trim();
         String[] bounds = trimedRange.split("-");
         if (bounds.length != 2) {
@@ -508,9 +509,10 @@ public class ParserUtil {
     }
 
     /**
-     * Check if the date range provided is valid. Takes a list of string
+     * Check if the value range provided is valid. Takes a list of string
      */
     protected static boolean isValidValueRange(List<String> rangeList) {
+        requireNonNull(rangeList);
         for (String range : rangeList) {
             if (!isValidValueRange(range)) {
                 return false;

@@ -260,8 +260,7 @@ public class FilterCommand extends Command {
 
         /**
          * Copy constructor.
-         * * A defensive copy of {@code pastjobs} is used internally.
-         * A defensive copy of {@code tags} is used internally.
+         * A defensive copy
          */
         public PredicatePersonDescriptor(PredicatePersonDescriptor toCopy) {
             setName(toCopy.name);

@@ -419,8 +419,7 @@ public class EditCommand extends Command {
                     && getKnownProgLangs().equals(e.getKnownProgLangs())
                     && getPastJobs().equals(e.getPastJobs())
                     && getJobsApply().equals(e.getJobsApply())
-                    && getInterviewScores().equals(e.getInterviewScores())
-                    && getTags().equals(e.getTags());
+                    && getInterviewScores().equals(e.getInterviewScores());
         }
     }
 }

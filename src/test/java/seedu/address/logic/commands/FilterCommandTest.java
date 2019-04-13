@@ -34,7 +34,6 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.job.JobListName;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.predicate.NameContainsKeywordsPredicate;
 
@@ -50,10 +49,10 @@ public class FilterCommandTest {
     @Test
     public void equals() {
         FilterCommand.PredicatePersonDescriptor firstDescriptor = preparePredicatePersonDescriptor("first");
-        FilterCommand firstCommand = new FilterCommand("", JobListName.EMPTY, firstDescriptor);
+        FilterCommand firstCommand = new FilterCommand("", EMPTY, firstDescriptor);
         FilterCommand.PredicatePersonDescriptor secondDescriptor =
             preparePredicatePersonDescriptor("second");
-        FilterCommand secondCommand = new FilterCommand("", JobListName.EMPTY, secondDescriptor);
+        FilterCommand secondCommand = new FilterCommand("", EMPTY, secondDescriptor);
         NameContainsKeywordsPredicate findPredicate =
             new NameContainsKeywordsPredicate(Collections.singletonList("first"));
         FindCommand findCommand = new FindCommand(findPredicate);
@@ -62,7 +61,7 @@ public class FilterCommandTest {
         assertEquals(firstCommand, firstCommand);
 
         // same values -> returns true
-        FilterCommand firstCommandCopy = new FilterCommand("", JobListName.EMPTY, firstDescriptor);
+        FilterCommand firstCommandCopy = new FilterCommand("", EMPTY, firstDescriptor);
         assertEquals(firstCommand, firstCommandCopy);
 
         // different types -> returns false
@@ -88,7 +87,7 @@ public class FilterCommandTest {
     public void execute_lackListName_failure() {
         model.setIsAllJobScreen(false);
         FilterCommand.PredicatePersonDescriptor descriptor = preparePredicatePersonDescriptor(" ");
-        FilterCommand filterCommand = new FilterCommand(VALID_FILTERNAME, JobListName.EMPTY, descriptor);
+        FilterCommand filterCommand = new FilterCommand(VALID_FILTERNAME, EMPTY, descriptor);
 
         assertCommandFailure(filterCommand, model, commandHistory,
             String.format(MESSAGE_LACK_LISTNAME, MESSAGE_USAGE_JOB_DETAIL_SCREEN));
@@ -122,7 +121,7 @@ public class FilterCommandTest {
     public void execute_emptyKeywords_noPersonFound() {
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 0);
         FilterCommand.PredicatePersonDescriptor descriptor = preparePredicatePersonDescriptor(" ");
-        FilterCommand command = new FilterCommand(VALID_FILTERNAME, JobListName.EMPTY, descriptor);
+        FilterCommand command = new FilterCommand(VALID_FILTERNAME, EMPTY, descriptor);
         Predicate<Person> predicator = descriptor.toPredicate();
         expectedModel.addPredicateAllPersons(VALID_FILTERNAME, predicator);
         expectedModel.updateFilteredPersonList();
@@ -187,7 +186,7 @@ public class FilterCommandTest {
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 3);
         FilterCommand.PredicatePersonDescriptor descriptor =
             preparePredicatePersonDescriptor("Kurz Elle Kunz");
-        FilterCommand command = new FilterCommand(VALID_FILTERNAME, JobListName.EMPTY, descriptor);
+        FilterCommand command = new FilterCommand(VALID_FILTERNAME, EMPTY, descriptor);
         Predicate<Person> predicator = descriptor.toPredicate();
         expectedModel.updateBaseFilteredPersonList(predicator);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);

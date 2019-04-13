@@ -16,6 +16,7 @@ import quickdocs.model.Model;
 import quickdocs.model.ModelManager;
 import quickdocs.model.QuickDocs;
 import quickdocs.model.UserPrefs;
+import quickdocs.model.appointment.Appointment;
 
 /**
  * Contains integration tests (interaction with the Model) and unit tests for {@code FreeAppCommand}.
@@ -27,8 +28,27 @@ public class FreeAppCommandTest {
 
     @Test
     public void executeFreeApp() {
+        // add more appointments to a single day
+        model.addApp(new Appointment(APP_A.getPatient(), APP_A.getDate(),
+                APP_A.getStart().plusHours(1), APP_A.getEnd().plusHours(1), APP_A.getComment()));
+        model.addApp(new Appointment(APP_A.getPatient(), APP_A.getDate(),
+                APP_A.getStart().plusHours(2), APP_A.getEnd().plusHours(2), APP_A.getComment()));
+        model.addApp(new Appointment(APP_A.getPatient(), APP_A.getDate(),
+                APP_A.getStart().plusHours(3), APP_A.getEnd().plusHours(3), APP_A.getComment()));
+
         LocalDate start = APP_A.getDate();
         LocalDate end = start.plusDays(30);
+        CommandResult result = new FreeAppCommand(start, end).execute(model, commandHistory);
+        String expected = String.format(FreeAppCommand.MESSAGE_SUCCESS, start, end)
+                + model.freeApp(start, end) + "\n";
+
+        assertEquals(result.getFeedbackToUser(), expected);
+    }
+
+    @Test
+    public void executeFreeApp_allDatesFree() {
+        LocalDate start = APP_A.getDate().minusDays(10);
+        LocalDate end = start;
         CommandResult result = new FreeAppCommand(start, end).execute(model, commandHistory);
         String expected = String.format(FreeAppCommand.MESSAGE_SUCCESS, start, end)
                 + model.freeApp(start, end) + "\n";

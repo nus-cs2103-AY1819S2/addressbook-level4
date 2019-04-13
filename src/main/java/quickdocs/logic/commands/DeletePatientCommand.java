@@ -21,25 +21,25 @@ public class DeletePatientCommand extends Command {
     public static final String NO_PATIENT_FOUND = "No patient with NRIC: %s found";
     public static final String PATIENT_DELETED = "Patient with NRIC: %s deleted.\n";
 
-    private Nric toDelete;
+    private Nric patientToDelete;
 
     public DeletePatientCommand(Nric toDelete) {
-        this.toDelete = toDelete;
+        this.patientToDelete = toDelete;
     }
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
 
-        Patient selectedPatient = model.getPatientByNric(toDelete.toString());
+        Patient selectedPatient = model.getPatientByNric(patientToDelete.toString());
 
         if (selectedPatient == null) {
-            throw new CommandException(String.format(NO_PATIENT_FOUND, toDelete.toString()));
+            throw new CommandException(String.format(NO_PATIENT_FOUND, patientToDelete.toString()));
         }
 
-        model.deletePatientByNric(toDelete.toString());
+        model.deletePatientByNric(patientToDelete.toString());
 
         CommandResult result = new CommandResult(String.format(PATIENT_DELETED,
-                toDelete.toString()));
+                patientToDelete.toString()));
 
         return result;
     }
@@ -55,7 +55,7 @@ public class DeletePatientCommand extends Command {
         }
 
         DeletePatientCommand that = (DeletePatientCommand) o;
-        return Objects.equals(toDelete, that.toDelete);
+        return Objects.equals(patientToDelete, that.patientToDelete);
     }
 
 }

@@ -78,14 +78,5 @@ public class AddPatientCommandTest {
 
         quickdocs.testutil.Assert.assertThrows(CommandException.class, () ->
                 new AddPatientCommand(patient1).execute(modelManager, history));
-
-
-        /*
-        try {
-            CommandResult commandResult = new AddPatientCommand(patient1).execute(modelManager, history);
-        } catch (CommandException ce) {
-            Assert.assertEquals(ce.getMessage(), "Patient with same NRIC already exist");
-        }
-        */
     }
 }

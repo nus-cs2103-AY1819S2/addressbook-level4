@@ -5,13 +5,13 @@
 :note-caption: :information_source:
 :warning-caption: :warning:
 
-My name is Jia Zhi and I am an undergraduate from National University of Singapore, School of Computing (SOC). These are some of
+I am an undergraduate from National University of Singapore, School of Computing (SOC). Here are some of
 the software development projects i am involved in during my tenure in SOC.
 
 == PROJECT: QuickDocs
 
 == What is QuickDocs?
-For our software engineering project, my team and I were tasked with transforming a working application (consisting of 10,000 lines of code) into a new product to tackle a real-world issue.
+For our software engineering project, my team and I were tasked with transforming a working application (consisting of 10,000 lines of code) into a new product that tackles a real-world issue.
 We have decided to create QuickDocs, an all-in-one applications to assist doctors in running their family clinics.
 
 QuickDocs allow doctors to better manage their patient records, inventory, appointments, and conduct consultations more efficiently.
@@ -19,51 +19,61 @@ They can even generate useful financial statistics to make even more informed de
 
 == Summary of contributions
 
-I am in charge of developing the patient and consultation modules for this project. This include features such as patient registration and conducting the consultation process in QuickDocs.
+I am in charge of developing the patient and consultation modules for this project.
+
+* The patient module is responsible for registering, listing, updating and deleting patient records
+* The consultation module is responsible for conducting the consultation session and listing of past consultation records
+belonging to each patient.
 
 As consultation is a crucial aspect of a clinic's operation, it will be the main feature showcased in this document.
 The consultation process not only aid doctors in actual clinical operations, it is also the most integrated feature i have developed in QuickDocs.
 
-=== Major Enhancements:
+=== Main Features developed
 
-* *Code Contributed:* [https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#=undefined&search=simjiazhi[Functional code]]
 * *Created the consultation process of QuickDocs*
+* *Code Contributed:* [https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#=undefined&search=simjiazhi[Functional code]]
 ** *What it does:* Doctors can record the patient symptoms and prescribe drugs to patients using one-shot commands on a single interface.
 ** *Why is it needed:* Doctors no longer need to navigate through multiple menus to perform these actions. Recording of symptoms and prescribing
 medicine can be done with minimal clicking and keystrokes. This will help to expedite the consultation process, and the doctor can tend to other patients more quickly.
-** *Highlights:* The prescription command is integrated with the medicine inventory. If the clinic have insufficient amount of medicine to support the prescriptions, the
-doctor can be alerted and the incomplete prescription can be prevented.
 ** *How is it convenient:* The diagnosis and prescription works in tandem with the command history. Doctors can
 simply navigate to the command previously entered, make changes before re-entering the diagnosis or prescription command to rectify errors or make changes.
+** *Highlights:* The prescription command is integrated with the medicine inventory. If the clinic have insufficient amount of medicine to support the prescriptions, the
+doctor can be alerted and the incomplete prescription can be prevented.
 ** *Who / what to acknowledge:* My inspiration for the replacement style of the diagnosis and prescription editing is drawn from the original https://github.com/nus-cs2103-AY1819S2/addressbook-level4[*AddressBook Level 4*]'s edit command.
 It uses this mechanism to provide a more efficient way to make changes to the person's particulars.
 
+==== Other features and enhancements:
+* *Created the list consultation records module*
+** Doctors can search for a patient's past consultation records with fewer clicking or keystrokes
 * *Created the functionalities for the patient management module*
 ** Features include the registration, update, search and deletion of patient particulars in QuickDocs
+* *Adapted the history command from the original sample application for use in QuickDocs*
+** Allow editing and repeating of commands to be expedited by allowing users to navigate to previously entered command
+* *Added an indicator of ongoing consultation session*
+** Help remind the doctor to record diagnosis and prescribe medicine for the patient.
 
-=== Minor Enhancements:
 
-* *Minor features implemented:*
-** Adapted the history command from the original sample application for use in QuickDocs
-** Added a label to indicate that a consultation session is ongoing, to help remind the doctor to record diagnosis and prescribe medicine for the patient.
+=== Other contributions:
 
-* *Other contributions*:
-** *Project management:*
-*** Managed releases from v1.2.1 to v1.4 (3 releases) for QuickDocs on GitHub
-*** Managed milestone goals and the issue tracker on QuickDocs' GitHub project page
+As the team lead, I am also responsible for the overall project coordination, making sure the deliverables
+are ready before the deadlines.
 
-** *Team collaboration:*
-*** Assisted in setting up integration tools for QuickDocs' Github projects such as coveralls and TravisCI
-*** Helped team member to develop QuickDoc's storage mechanism, allowing data generated across all modules to be saved in the Json format:
+* *Project management:*
+** Managed releases from v1.2.1 to v1.4 (3 releases) for QuickDocs on GitHub
+** Managed milestone goals and the issue tracker on QuickDocs' GitHub project page
+
+* *Team collaboration:*
+** Assisted in setting up integration tools for QuickDocs' Github projects such as coveralls and TravisCI
+** Helped team member to develop QuickDoc's storage mechanism, allowing data generated across all modules to be saved in the Json format:
 https://github.com/CS2103-AY1819S2-W09-4/main/pull/95[#95]
-*** Created the UI from scratch and provided means for the different modules to display results from entered commands:
+** Created the UI for QuickDocs and provided means for the different modules to display results from entered commands:
 https://github.com/CS2103-AY1819S2-W09-4/main/pull/28[#28]
-*** Reviewed pull requests https://github.com/CS2103-AY1819S2-W09-4/main/pull/103[#103] and https://github.com/CS2103-AY1819S2-W09-4/main/pull/125[#125]
+** Reviewed pull requests https://github.com/CS2103-AY1819S2-W09-4/main/pull/103[#103] and https://github.com/CS2103-AY1819S2-W09-4/main/pull/125[#125]
 to enhance the edits on the user guide made by team members
 
-** *Documentation and tools:*
-*** Created a tool for team members to generate diagrams for documentations.
-*** Designed templates for writing sections in both the user and developer guides for QuickDocs
+* *Documentation and tools:*
+** Created a tool for team members to generate diagrams for documentations.
+** Designed templates for writing sections in both the user and developer guides for QuickDocs
 
 == Contributions to the User Guide
 
@@ -99,13 +109,13 @@ After entering the command, QuickDocs will show the symptoms and assessment reco
 in the following diagram.
 
 .Result of the diagnose command
-image::diagnose_after.png[width="400"]
+image::diagnose_after.png[width="600"]
 
 If you made a mistake when entering the diagnosis, you can always rectify it by re-entering the `diagnose` command with the correct
 symptoms and assessment. This will replace the current erroneous diagnosis with the one you have just entered.
 
 .Editing the diagnosis
-image::diagnose_edit_after.png[width="400"]
+image::diagnose_edit_after.png[width="600"]
 
 [TIP]
 Whenever you make a mistake entering a command, you can always press the UP and DOWN buttons on your keyboard to cycle through the past
@@ -143,7 +153,7 @@ or{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp} *:* `prescribe m/MEDICI
 After the medicine-quantity pairings are entered, the prescription to address the patient's current condition will be displayed on the main display area of QuickDocs. Changes can still be made to the prescription as long as the consultation session is still ongoing.
 
 .Prescribing medicines to tackle the patient's current conditions
-image::prescription_after.png[width="400"]
+image::prescription_after.png[width="600"]
 
 '''
 
@@ -184,7 +194,7 @@ can only end after both the diagnosis and prescription are finalized.
 
 Given below is an example usage scenario:
 
-image::dg-consultation/consultation1.png[width="400"]
+image::dg-consultation/consultation1.png[width="600"]
 
 *Step 1.* A previously registered patient arrives and the doctor starts the session by
 entering the consult command in this manner: `consult r/NRIC of the patient`. A message to indicate
@@ -194,7 +204,7 @@ the start of the consultation will be shown in the results display.
 that the consultation cannot continue since no patient records with the entered Nric can be found. An invalid nric entered will also prompt the
 same response
 
-image::dg-consultation/consultation2.png[width="400"]
+image::dg-consultation/consultation2.png[width="600"]
 
 *Step 2.* The patient will tell the doctor what are his / her ailments. The doctor will record the symptoms
 down. The doctor will then make the assessment of the illness the patient is having and execute the command by clicking
@@ -203,13 +213,13 @@ on the `Enter` on the keyboard.
 * The symptoms and assessment have to be prepended by the `s/` and `a/` prefix respectively
 * The command entered by the doctor will look something like this: `diagnose s/constant coughing s/sore throat a/throat infection`
 
-image::dg-consultation/consultation3.png[width="400"]
+image::dg-consultation/consultation3.png[width="600"]
 
 *Step 3.* Should the patient inform the doctor of additional symptoms after the diagnosis is given, the doctor can simply press
 the up and down key to display the previously entered command on the userInput area. The doctor can then add the new symptom in and
 press `Enter`, replacing the previously recorded diagnosis.
 
-image::dg-consultation/consultation4.png[width="400"]
+image::dg-consultation/consultation4.png[width="600"]
 
 *Step 4.* The doctor will then add the medicine to the prescription list, followed by the quantities. Medicine are prepended by the `m/` prefix while
 quantities are prefixed by `q/`.The order of the quantity entered corresponds with the order the medicine is added in the command:
@@ -221,7 +231,7 @@ quantities are prefixed by `q/`.The order of the quantity entered corresponds wi
 If any of the medicine issued are insufficient to complete the prescription, or is simply not in the inventory, a message will be displayed in
 the inputFeedback area. The command will not be executed and remains in the userInput text field. The doctor can then make the changes to the command.
 
-image::dg-consultation/consultation5.png[width="400"]
+image::dg-consultation/consultation5.png[width="600"]
 
 *Step 5.* Just like the diagnosis command, prescription can be replaced by reentering the command.
 
@@ -318,14 +328,14 @@ code volume.
 
 |===
 
-QuickDocs require one shot commands to allow doctors to perform clinical operations more efficiently. However, it is possible for doctors to make mistakes with the one-shot commands, especially when there are so many parameters involved
-in a single command.
-
-There are also interleaving operations that happen between modules, such as viewing past consultation records or
-checking medicine inventory in the midst of the consultation. This is why both flexibility and error recovery is taken into account when selecting the implementation method.
-
-Although the selected option require more and lengthier commands to be entered, doctors can perform other operations while the consultation is ongoing (except starting another consultation). It is also convenient for
-the doctor to make changes to his erroneous commands.
-
-Implementing the consultation session in this way will guarantee the flexibility and efficiency that
+Although the selected option involve more inputs and lengthier commands, it guarantees the flexibility and efficiency
 QuickDocs aim to deliver for doctors in neighbourhood clinics.
+
+Here are some of the factors considered when selecting the implementation:
+
+* QuickDocs require one shot commands to allow doctors to perform clinical operations more efficiently. However, it is possible for doctors to make mistakes with the one-shot commands, especially when there are so many parameters involved
+in a single command.
+* There are also interleaving operations that happen between modules, such as viewing past consultation records or
+checking medicine inventory in the midst of the consultation. This is why both flexibility and error recovery is taken into account when selecting the implementation method.
+* Although the selected option require more and lengthier commands to be entered, doctors can perform other operations while the consultation is ongoing (except starting another consultation). It is also convenient for
+the doctor to make changes to his erroneous commands.

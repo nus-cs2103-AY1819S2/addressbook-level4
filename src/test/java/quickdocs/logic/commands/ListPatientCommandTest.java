@@ -71,9 +71,13 @@ public class ListPatientCommandTest {
 
     @Test
     public void noPatientFoundName() {
-        ListPatientCommand listcommand = new ListPatientCommand("Ba", true);
+        ListPatientCommand listcommand = new ListPatientCommand("Ba", false);
         quickdocs.testutil.Assert.assertThrows(CommandException.class, () ->
                 listcommand.execute(modelManager, history));
+
+        ListPatientCommand listcommand2 = new ListPatientCommand("@@@", false);
+        quickdocs.testutil.Assert.assertThrows(CommandException.class, () ->
+                listcommand2.execute(modelManager, history));
     }
 
     @Test
@@ -159,6 +163,20 @@ public class ListPatientCommandTest {
     }
 
     @Test
+    public void invalidNameSearch() {
+
+        // no patients have "ang" in their names
+        ListPatientCommand listPatientCommand = new ListPatientCommand("ang", true);
+        quickdocs.testutil.Assert.assertThrows(CommandException.class, () ->
+                listPatientCommand.execute(modelManager, history));
+
+        // permitted, but nothing will be return since no name will have symbols in them
+        ListPatientCommand listPatientCommand2 = new ListPatientCommand("@", true);
+        quickdocs.testutil.Assert.assertThrows(CommandException.class, () ->
+                listPatientCommand2.execute(modelManager, history));
+    }
+
+    @Test
     public void noPatientWithGivenNric() {
 
         ListPatientCommand listPatientCommand = new ListPatientCommand("S88", false);
@@ -228,6 +246,12 @@ public class ListPatientCommandTest {
         ListPatientCommand listPatientCommand = new ListPatientCommand(tag);
         quickdocs.testutil.Assert.assertThrows(CommandException.class, () ->
                 listPatientCommand.execute(modelManager, history));
+
+        //incomplete tags
+        Tag tag2 = new Tag("Diab");
+        ListPatientCommand listPatientCommand2 = new ListPatientCommand(tag2);
+        quickdocs.testutil.Assert.assertThrows(CommandException.class, () ->
+                listPatientCommand2.execute(modelManager, history));
     }
 
     @Test

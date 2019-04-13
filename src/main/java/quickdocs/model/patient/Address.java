@@ -4,19 +4,13 @@ package quickdocs.model.patient;
  * Represents the address of the patient
  */
 public class Address {
-    //public static final String REGEX_ADDRESS = "[\\p{Alnum}][\\p{Alnum} ]*";
     public static final String REGEX_ADDRESS = "[^\\s\\W].*";
-    //public static final String REGEX_ADDRESS = "^[-0-9a-zA-Z \\-#,\\s][-0-9a-zA-Z \\-#, \\s ]+$";
-
-    //public static final String ADDRESS_CONSTRAINTS =
-    //        "Addresses should only contain alphanumeric characters and spaces but not blank";
-
     public static final String ADDRESS_CONSTRAINTS =
             "Addresses should not be blank or only contain only spaces or symbols";
 
-
     private String address;
 
+    // empty constructor for json reconstruction
     public Address() {
     }
 

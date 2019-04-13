@@ -220,7 +220,7 @@ public class MainApp extends Application {
             //this will work when the rootlayout fxml file is in the resources folder but cannot link to controller
             rootLayout = loader.load(getClass().getClassLoader().getResourceAsStream("view/RootLayout.fxml"));
             RootLayoutController rootLayoutController = loader.getController();
-            rootLayoutController.setLogicManager(logic);
+            rootLayoutController.initialiseRootLayout(logic);
             // Show the scene containing the root layout.
             Scene scene = new Scene(rootLayout);
             primaryStage.setScene(scene);

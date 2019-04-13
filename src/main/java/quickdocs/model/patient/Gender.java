@@ -9,6 +9,7 @@ public class Gender {
 
     private String gender;
 
+    // empty constructor for json reconstruction
     public Gender() {
     }
 

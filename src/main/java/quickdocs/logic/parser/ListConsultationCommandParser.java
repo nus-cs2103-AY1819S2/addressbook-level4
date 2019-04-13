@@ -38,12 +38,4 @@ public class ListConsultationCommandParser implements Parser<ListConsultationCom
         return new ListConsultationCommand(nric);
 
     }
-
-    /**
-     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
-     * {@code ArgumentMultimap}.
-     *//*
-    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return Stream.of(prefixes).anyMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
-    }*/
 }

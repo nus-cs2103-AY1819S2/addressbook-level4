@@ -6,10 +6,10 @@ import java.util.Calendar;
 import java.util.List;
 
 /**
- * Represents the patient's date of birth
+ * Represents the patient's date of birth in the YYYY-MM-DD format
  */
 public class Dob {
-    //public static final String REGEX_DOB = "(0?[1-9]|[12][0-9]|3[01])/(0?[1-9]|1[012])/[0-9]{4}";
+
     public static final String REGEX_DOB = "[0-9]{4}-(0?[1-9]|1[012])-(0?[1-9]|[12][0-9]|3[01])";
     public static final String DOB_CONSTRAINTS = "Date of Birth should be in YYYY-MM-DD format";
     public static final String FEBURARY_CONSTRAINT = "Feburary only have 28 or 29 days";
@@ -20,6 +20,7 @@ public class Dob {
 
     private LocalDate dob;
 
+    // empty constructor for json reconstruction
     public Dob() {
     }
 
@@ -56,6 +57,7 @@ public class Dob {
             throw new IllegalArgumentException(LEAPYEAR_CONSTRAINT);
         }
 
+        // check if the date entered that is 31st can actually fall on the months with 31 days
         List<Integer> monthsWith31Days = Arrays.asList(1, 3, 5, 7, 8, 10, 12);
         if (!monthsWith31Days.contains(Integer.valueOf(month)) && Integer.valueOf(day) == 31) {
             throw new IllegalArgumentException(THIRTYFIRST_CONSTRAINT);

@@ -20,11 +20,9 @@ import quickdocs.logic.commands.CommandResult;
  */
 public class RootLayoutController {
 
-    private static int currentInputPointer = 0;
     private boolean suggestionOn = false;
     private boolean isMedicineAllowed = false;
     private ArrayList<String> suggestions;
-    private ArrayList<String> medicineSuggestions;
     private Logic logicManager;
     private ReminderListPanel reminderListPanel;
     private List<String> history;
@@ -34,19 +32,19 @@ public class RootLayoutController {
     private Stage primaryStage;
 
     @FXML
-    private TextArea display;
+    private TextArea resultDisplay;
 
     @FXML
-    private TextField userInput;
+    private TextField userInputField;
 
     @FXML
-    private TextArea inputFeedback;
+    private TextArea inputFeedbackArea;
 
     @FXML
     private StackPane reminderList;
 
     @FXML
-    private Label currentSession;
+    private Label currentSessionLabel;
 
     private HelpWindow helpWindow;
 
@@ -54,7 +52,13 @@ public class RootLayoutController {
         this.primaryStage = primaryStage;
     }
 
-    public void setLogicManager(Logic logicManager) {
+    /**
+     * Initialize the root layout controller with the logic manager, history and help window
+     * so they can be used when UI is interacted with
+     *
+     * @param logicManager initialised at MainApp
+     */
+    public void initialiseRootLayout(Logic logicManager) {
         this.logicManager = logicManager;
         this.history = this.logicManager.getHistory();
         this.historySnapshot = new ListElementPointer(history);
@@ -62,7 +66,9 @@ public class RootLayoutController {
     }
 
     /**
-     * This method will pass the command into the parser whenever the user presses enter
+     * Captures the user's entered command (when the user presses enter) and passes it to the logic
+     * logic will handle the parsing and execution and returns the result
+     * which will then be displayed on the resultDisplay control in the ui
      *
      * @param event Event associated with the user pressing enter to confirm a command
      */
@@ -70,8 +76,8 @@ public class RootLayoutController {
     public void enterInput(KeyEvent event) {
         if (event.getCode().equals(KeyCode.ENTER)) {
             try {
-                inputFeedback.setText("");
-                CommandResult result = logicManager.execute(userInput.getText());
+                inputFeedbackArea.setText("");
+                CommandResult result = logicManager.execute(userInputField.getText());
 
                 // handling exit
                 if (result.isExit()) {
@@ -88,69 +94,81 @@ public class RootLayoutController {
                 indicateConsultation(result.getFeedbackToUser());
                 endConsultation(result.getFeedbackToUser());
 
-                display.appendText(">>> " + userInput.getText() + "\n");
-                display.appendText("---------------------------------------------------------------------------\n");
-                display.appendText(result.getFeedbackToUser());
-                display.appendText("\n");
+                resultDisplay.appendText(">>> " + userInputField.getText() + "\n");
+                resultDisplay.appendText(
+                        "---------------------------------------------------------------------------\n");
+                resultDisplay.appendText(result.getFeedbackToUser());
+                resultDisplay.appendText("\n");
 
-                // move display to the end to show result of last entered command
-                display.selectPositionCaret(display.getText().length());
+                // move resultDisplay to the end to show result of last entered command
+                resultDisplay.selectPositionCaret(resultDisplay.getText().length());
 
                 // history handling
                 initHistory();
                 historySnapshot.next();
-                userInput.setText("");
+                userInputField.setText("");
 
                 fillReminderList();
+            } catch (NumberFormatException nfe) {
+                inputFeedbackArea.setText("Index entered is beyond valid range");
             } catch (Exception e) {
-                inputFeedback.setText(e.getMessage());
+                inputFeedbackArea.setText(e.getMessage());
             }
             return;
         }
-        suggestionOn = logicManager.isDirectoryFormat(userInput.getText());
+
+        /**
+         * The following code handles both the command history and the suggestions of medicine filepath
+         *
+         * previously entered commands are navigable using the up and down directional keys
+         * suggestions are navigable using the Page-Up and Page-Down keys
+         */
+        suggestionOn = logicManager.isDirectoryFormat(userInputField.getText());
         if (suggestionOn) {
-            isMedicineAllowed = logicManager.isMedicineAllowed(userInput.getText());
+            isMedicineAllowed = logicManager.isMedicineAllowed(userInputField.getText());
         }
+
         switch (event.getCode()) {
         case PAGE_UP:
             event.consume();
             if (!suggestionOn) {
                 break;
             }
-            suggestions = logicManager.getDirectorySuggestions(userInput.getText());
+
+            suggestions = logicManager.getDirectorySuggestions(userInputField.getText());
             if (isMedicineAllowed) {
-                suggestions.addAll(logicManager.getMedicineSuggestions(userInput.getText()));
+                suggestions.addAll(logicManager.getMedicineSuggestions(userInputField.getText()));
                 suggestions.sort(Comparator.comparing(String::toLowerCase));
             }
-            int pointer = getIndex(userInput.getText(), suggestions);
+            int pointer = getIndex(userInputField.getText(), suggestions);
             if (pointer > 0) {
                 if (pointer % 2 == 0) {
-                    userInput.setText(processPath(userInput.getText(), suggestions.get(pointer / 2 - 1)));
+                    userInputField.setText(processPath(userInputField.getText(), suggestions.get(pointer / 2 - 1)));
                 } else {
-                    userInput.setText(processPath(userInput.getText(), suggestions.get(pointer / 2)));
+                    userInputField.setText(processPath(userInputField.getText(), suggestions.get(pointer / 2)));
                 }
             }
-            userInput.positionCaret(userInput.getText().length());
+            userInputField.positionCaret(userInputField.getText().length());
             break;
         case PAGE_DOWN:
             event.consume();
             if (!suggestionOn) {
                 break;
             }
-            suggestions = logicManager.getDirectorySuggestions(userInput.getText());
+            suggestions = logicManager.getDirectorySuggestions(userInputField.getText());
             if (isMedicineAllowed) {
-                suggestions.addAll(logicManager.getMedicineSuggestions(userInput.getText()));
+                suggestions.addAll(logicManager.getMedicineSuggestions(userInputField.getText()));
                 suggestions.sort(Comparator.comparing(String::toLowerCase));
             }
-            pointer = getIndex(userInput.getText(), suggestions);
+            pointer = getIndex(userInputField.getText(), suggestions);
             if (pointer < 2 * (suggestions.size() - 1)) {
                 if (pointer % 2 == 0) {
-                    userInput.setText(processPath(userInput.getText(), suggestions.get(pointer / 2 + 1)));
+                    userInputField.setText(processPath(userInputField.getText(), suggestions.get(pointer / 2 + 1)));
                 } else {
-                    userInput.setText(processPath(userInput.getText(), suggestions.get((pointer + 1) / 2)));
+                    userInputField.setText(processPath(userInputField.getText(), suggestions.get((pointer + 1) / 2)));
                 }
             }
-            userInput.positionCaret(userInput.getText().length());
+            userInputField.positionCaret(userInputField.getText().length());
             break;
         case UP:
             event.consume();
@@ -209,7 +227,7 @@ public class RootLayoutController {
     @FXML
     public void checkInput(KeyEvent event) {
         if (event.getCode() == KeyCode.SPACE) {
-            //inputFeedback.setText("space entered");
+            //inputFeedbackArea.setText("space entered");
         }
     }
 
@@ -222,16 +240,9 @@ public class RootLayoutController {
         reminderList.getChildren().add(reminderListPanel.getRoot());
     }
 
-    /**
-     * This method allow other modules to tap on the display to show the output
-     * of different commands
-     *
-     * @return the reference to the display textArea for other modules
-     */
-    public TextArea getDisplay() {
-        return this.display;
+    public TextArea getResultDisplay() {
+        return this.resultDisplay;
     }
-
 
     // history handling
 
@@ -277,13 +288,13 @@ public class RootLayoutController {
      * positions the caret to the end of the {@code text}.
      */
     private void replaceText(String text) {
-        userInput.setText(text);
-        userInput.positionCaret(userInput.getText().length());
+        userInputField.setText(text);
+        userInputField.positionCaret(userInputField.getText().length());
     }
 
     /**
      * First, check whether the command result is from the consultation command
-     * if it is, make label display the ongoing session
+     * if it is, make label resultDisplay the ongoing session
      *
      * @param checkConsultation can be any command result from the various commands
      */
@@ -292,7 +303,7 @@ public class RootLayoutController {
                 && checkConsultation.contains("started")) {
             int colonPos = checkConsultation.indexOf(":");
             String nric = checkConsultation.substring(colonPos + 2, colonPos + 11);
-            currentSession.setText("Consultation ongoing for: " + nric);
+            currentSessionLabel.setText("Consultation ongoing for: " + nric);
         }
     }
 
@@ -300,12 +311,12 @@ public class RootLayoutController {
      * If command result indicates that consultation has ended
      * make label disappear
      *
-     * @param checkConsultation
+     * @param checkConsultation string result of command executed
      */
     private void endConsultation(String checkConsultation) {
         if ((checkConsultation.contains("Consultation")
                 && (checkConsultation.contains("ended") || checkConsultation.contains("aborted")))) {
-            currentSession.setText("");
+            currentSessionLabel.setText("");
         }
     }
 

@@ -110,4 +110,9 @@ public class VersionedFinanceTracker extends FinanceTracker {
             super("Current state pointer at end of financeTrackerState list, unable to redo.");
         }
     }
+
+    @Override
+    public String toString() {
+        return financeTrackerStateList.toString() + " " + currentStatePointer;
+    }
 }

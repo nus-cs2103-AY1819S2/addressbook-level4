@@ -411,4 +411,9 @@ public class ModelManager implements Model {
                 && Objects.equals(selectedRecord.get(), other.selectedRecord.get());
     }
 
+    @Override
+    public String toString() {
+        return versionedFinanceTracker.toString();
+    }
+
 }

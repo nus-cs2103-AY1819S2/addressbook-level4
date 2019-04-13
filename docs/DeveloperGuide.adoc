@@ -776,26 +776,29 @@ account:
 // tag::filterHealthWorkerTable[]
 [width="100%",cols="1, 5, 5",options="header"]
 |=======================================================================
-Design | Using a `List` of `Predicate` | Composed `Predicate` using
- `and` method
+| Design
+| Using a `List` of `Predicate`
+| Composed `Predicate` using `and` method
 
-| How it works | Each user input condition will be parsed into `Predicate`,
+| How it works
+| Each user input condition will be parsed into `Predicate`,
 which are stored in an `List`.
 *Pros*: Easier to manage each single `Predicate` as they are kept separate
 *Cons*: Need to rework existing GUI implementation for `filter` as it only
-uses a single `Predicate` Object |
-Each user input will be parsed into a `Predicate` object, and all the
+uses a single `Predicate` Object
+| Each user input will be parsed into a `Predicate` object, and all the
 `Predicate` formed will be composed into a single `Predicate` object.
 *Pros*: Ease of existing and future implementations as functionality only
 depends on `Predicate`
-*Cons*: Unable to specify actions for each `Predicate` |
+*Cons*: Unable to specify actions for each `Predicate`
 
-Implementation| User inputs are first parsed into `Predicate` equivalents,
+| Implementation
+| User inputs are first parsed into `Predicate` equivalents,
 and then added to an `ArrayList`. `FilterCommandParser` then takes the
 existing `UniqueHealthWorkerList`, checks for `HealthWorker` whose fields
 matches the list of `Predicate` using `allMatch` method from the `Predicate`
-library, and then returns an `ObservableList` containing those `HealthWorker`. |
-User inputs are parsed into `Predicate` equivalents, which are then composed
+library, and then returns an `ObservableList` containing those `HealthWorker`.
+| User inputs are parsed into `Predicate` equivalents, which are then composed
 into a single `Predicate` containing the logic of all the composed
 `Predicates` using the `and` method from `Predicate` library. The composed
 `Predicate` is then set as the filter condition into the existing

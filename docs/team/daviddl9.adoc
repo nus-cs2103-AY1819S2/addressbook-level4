@@ -69,7 +69,7 @@ as knowledge of how information is cached in the application's memory was essent
 
 == Contributions to the User Guide
 
-==== *Filter requests*:
+=== *Filter requests*:
 
 Format: `filter request <keyword> [<more_keywords>]`
 

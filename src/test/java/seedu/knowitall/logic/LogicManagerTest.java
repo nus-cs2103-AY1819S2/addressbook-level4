@@ -35,6 +35,7 @@ import seedu.knowitall.storage.JsonCardFolderStorage;
 import seedu.knowitall.storage.JsonUserPrefsStorage;
 import seedu.knowitall.storage.StorageManager;
 import seedu.knowitall.testutil.CardBuilder;
+import seedu.knowitall.testutil.TypicalCards;
 
 
 public class LogicManagerTest {
@@ -46,7 +47,7 @@ public class LogicManagerTest {
     @Rule
     public TemporaryFolder temporaryFolder = new TemporaryFolder();
 
-    private Model model = new ModelManager(this.getClass().getName());
+    private Model model = new ModelManager(TypicalCards.getTypicalFolderOneAsList());
     private Logic logic;
 
     @Before
@@ -95,7 +96,7 @@ public class LogicManagerTest {
         // Execute add command
         String addCommand = AddCommand.COMMAND_WORD + QUESTION_DESC_SAMPLE_1 + ANSWER_DESC_SAMPLE_1;
         Card expectedCard = new CardBuilder(CARD_1).withHint().build();
-        ModelManager expectedModel = new ModelManager(this.getClass().getName());
+        ModelManager expectedModel = new ModelManager(TypicalCards.getTypicalFolderOneAsList());
         expectedModel.enterFolder(0);
         expectedModel.addCard(expectedCard);
         expectedModel.commitActiveCardFolder();
@@ -107,7 +108,7 @@ public class LogicManagerTest {
     @Test
     public void getFilteredCardList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
-        logic.getFilteredCards().remove(0);
+        logic.getActiveFilteredCards().remove(0);
     }
 
     /**

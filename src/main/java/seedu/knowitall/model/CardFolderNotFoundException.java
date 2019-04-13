@@ -9,8 +9,4 @@ public class CardFolderNotFoundException extends RuntimeException {
         super(message);
     }
 
-    public CardFolderNotFoundException() {
-        super();
-    }
-
 }

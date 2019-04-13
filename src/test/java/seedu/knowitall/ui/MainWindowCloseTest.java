@@ -23,6 +23,7 @@ import seedu.knowitall.storage.CardFolderStorage;
 import seedu.knowitall.storage.JsonCardFolderStorage;
 import seedu.knowitall.storage.JsonUserPrefsStorage;
 import seedu.knowitall.storage.StorageManager;
+import seedu.knowitall.testutil.TypicalCards;
 
 /**
  * Contains tests for closing of the {@code MainWindow}.
@@ -45,7 +46,7 @@ public class MainWindowCloseTest extends GuiUnitTest {
         FxToolkit.setupStage(stage -> {
             this.stage = stage;
             mainWindow = new MainWindow(stage, new LogicManager(
-                    new ModelManager(this.getClass().getName()), storageManager));
+                    new ModelManager(TypicalCards.getTypicalFolderOneAsList()), storageManager));
             mainWindowHandle = new EmptyMainWindowHandle(stage);
             mainWindowHandle.focus();
         });

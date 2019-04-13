@@ -8,7 +8,7 @@ import static org.junit.Assert.assertTrue;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.function.Predicate;
@@ -22,6 +22,7 @@ import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.knowitall.commons.core.GuiSettings;
+import seedu.knowitall.commons.core.Messages;
 import seedu.knowitall.logic.CommandHistory;
 import seedu.knowitall.logic.commands.exceptions.CommandException;
 import seedu.knowitall.model.CardFolder;
@@ -32,9 +33,10 @@ import seedu.knowitall.model.VersionedCardFolder;
 import seedu.knowitall.model.card.Answer;
 import seedu.knowitall.model.card.Card;
 import seedu.knowitall.storage.csvmanager.CsvFile;
-import seedu.knowitall.testutil.CardBuilder;
+import seedu.knowitall.testutil.TypicalCards;
+import seedu.knowitall.testutil.TypicalIndexes;
 
-public class AddCommandTest {
+public class AddFolderCommandTest {
 
     private static final CommandHistory EMPTY_COMMAND_HISTORY = new CommandHistory();
 
@@ -44,56 +46,67 @@ public class AddCommandTest {
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
-    public void constructor_nullCard_throwsNullPointerException() {
+    public void constructor_nullFolder_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        new AddCommand(null);
+        new AddFolderCommand(null);
     }
 
     @Test
-    public void execute_cardAcceptedByModel_addSuccessful() throws Exception {
-        ModelStubAcceptingCardAdded modelStub = new ModelStubAcceptingCardAdded();
-        Card validCard = new CardBuilder().build();
+    public void execute_folderNameAcceptedByModel_addEmptyFolderSuccessful() throws Exception {
+        ModelStubAcceptingFolderAdded modelStub = new ModelStubAcceptingFolderAdded();
+        CardFolder cardFolder = new CardFolder(TypicalCards.getTypicalFolderOne());
 
-        CommandResult commandResult = new AddCommand(validCard).execute(modelStub, commandHistory);
+        Command addFolderCommand = new AddFolderCommand(cardFolder.getFolderName());
+        CommandResult commandResult = addFolderCommand.execute(modelStub, commandHistory);
 
-        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validCard), commandResult.getFeedbackToUser());
-        assertEquals(Arrays.asList(validCard), modelStub.cardsAdded);
+        assertEquals(String.format(AddFolderCommand.MESSAGE_SUCCESS, cardFolder), commandResult.getFeedbackToUser());
+        assertEquals(Collections.singletonList(cardFolder), modelStub.foldersAdded);
         assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
     }
 
     @Test
-    public void execute_duplicateCard_throwsCommandException() throws Exception {
-        Card validCard = new CardBuilder().build();
-        AddCommand addCommand = new AddCommand(validCard);
-        ModelStub modelStub = new ModelStubWithCard(validCard);
+    public void execute_duplicateFolder_throwsCommandException() throws Exception {
+        CardFolder cardFolder = new CardFolder(TypicalCards.getTypicalFolderOne());
+        AddFolderCommand addFolderCommand = new AddFolderCommand(cardFolder.getFolderName());
+        ModelStub modelStub = new ModelStubWithFolder(cardFolder);
 
         thrown.expect(CommandException.class);
-        thrown.expectMessage(AddCommand.MESSAGE_DUPLICATE_CARD);
-        addCommand.execute(modelStub, commandHistory);
+        thrown.expectMessage(AddFolderCommand.MESSAGE_DUPLICATE_CARD_FOLDER);
+        addFolderCommand.execute(modelStub, commandHistory);
+    }
+
+    @Test
+    public void execute_inFolder_throwsCommandException() throws Exception {
+        CardFolder cardFolder = new CardFolder(TypicalCards.getTypicalFolderOne());
+        AddFolderCommand addFolderCommand = new AddFolderCommand(cardFolder.getFolderName());
+        ModelStub modelStub = new ModelStubWithFolder(cardFolder);
+        modelStub.enterFolder(TypicalIndexes.INDEX_FIRST_CARD_FOLDER.getZeroBased());
+
+        thrown.expect(CommandException.class);
+        thrown.expectMessage(Messages.MESSAGE_INVALID_COMMAND_INSIDE_FOLDER);
+        addFolderCommand.execute(modelStub, commandHistory);
     }
 
     @Test
     public void equals() {
-        Card alice = new CardBuilder().withQuestion("Alice").build();
-        Card bob = new CardBuilder().withQuestion("Bob").build();
-        AddCommand addAliceCommand = new AddCommand(alice);
-        AddCommand addBobCommand = new AddCommand(bob);
+        AddFolderCommand addFolderOneCommand = new AddFolderCommand(TypicalCards.getTypicalFolderOneName());
+        AddFolderCommand addFolderTwoCommand = new AddFolderCommand(TypicalCards.getTypicalFolderTwoName());
 
         // same object -> returns true
-        assertTrue(addAliceCommand.equals(addAliceCommand));
+        assertTrue(addFolderOneCommand.equals(addFolderOneCommand));
 
         // same values -> returns true
-        AddCommand addAliceCommandCopy = new AddCommand(alice);
-        assertTrue(addAliceCommand.equals(addAliceCommandCopy));
+        AddFolderCommand addFolderOneCommandCopy = new AddFolderCommand(TypicalCards.getTypicalFolderOneName());
+        assertTrue(addFolderOneCommand.equals(addFolderOneCommandCopy));
 
         // different types -> returns false
-        assertFalse(addAliceCommand.equals(1));
+        assertFalse(addFolderOneCommand.equals(1));
 
         // null -> returns false
-        assertFalse(addAliceCommand.equals(null));
+        assertFalse(addFolderOneCommand.equals(null));
 
         // different card -> returns false
-        assertFalse(addAliceCommand.equals(addBobCommand));
+        assertFalse(addFolderOneCommand.equals(addFolderTwoCommand));
     }
 
     /**
@@ -374,55 +387,67 @@ public class AddCommandTest {
     }
 
     /**
-     * A Model stub that contains a single card.
+     * A Model stub that contains a single folder.
      */
-    private class ModelStubWithCard extends ModelStub {
-        private final Card card;
+    private class ModelStubWithFolder extends ModelStub {
+        private final CardFolder cardFolder;
+        private State state = State.IN_HOMEDIR;
 
-        ModelStubWithCard(Card card) {
-            requireNonNull(card);
-            this.card = card;
+        ModelStubWithFolder(CardFolder cardFolder) {
+            requireNonNull(cardFolder);
+            this.cardFolder = cardFolder;
         }
 
         @Override
         public State getState() {
-            return State.IN_FOLDER;
+            return state;
         }
 
         @Override
-        public boolean hasCard(Card card) {
-            requireNonNull(card);
-            return this.card.isSameCard(card);
+        public void enterFolder(int newIndex) {
+            state = State.IN_FOLDER;
+        }
+
+        @Override
+        public void exitFolderToHome() {
+            state = State.IN_HOMEDIR;
+        }
+
+        @Override
+        public boolean hasFolder(String folderName) {
+            requireNonNull(folderName);
+            return cardFolder.getFolderName().equals(folderName);
         }
 
     }
 
     /**
-     * A Model stub that always accept the card being added.
+     * A Model stub that always accept the folder being added.
      */
-    private class ModelStubAcceptingCardAdded extends ModelStub {
-        final ArrayList<Card> cardsAdded = new ArrayList<>();
+    private class ModelStubAcceptingFolderAdded extends ModelStub {
+        final List<CardFolder> foldersAdded = new ArrayList<>();
 
         @Override
-        public boolean hasCard(Card card) {
-            requireNonNull(card);
-            return cardsAdded.stream().anyMatch(card::isSameCard);
+        public boolean hasFolder(String folderName) {
+            requireNonNull(folderName);
+
+            return foldersAdded.stream().anyMatch(folder -> folder.getFolderName().equals(folderName));
         }
 
         @Override
-        public void addCard(Card card) {
-            requireNonNull(card);
-            cardsAdded.add(card);
+        public void addFolder(CardFolder cardFolder) {
+            requireNonNull(cardFolder);
+
+            foldersAdded.add(cardFolder);
         }
 
         @Override
         public State getState() {
-            return State.IN_FOLDER;
+            return State.IN_HOMEDIR;
         }
 
-        @Override
-        public void commitActiveCardFolder() {
-            // called by {@code AddCommand#execute()}
+        public ObservableList<Card> getFirstFolderCardList() {
+            return foldersAdded.get(0).getCardList();
         }
     }
 

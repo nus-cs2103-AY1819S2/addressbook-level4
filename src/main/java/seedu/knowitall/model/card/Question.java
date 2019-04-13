@@ -9,9 +9,11 @@ import static seedu.knowitall.commons.util.AppUtil.checkArgument;
  */
 public class Question implements Comparable<Question> {
 
-    public static final String MESSAGE_CONSTRAINTS = "Questions can take any values, and should not be blank";
+    public static final int MAX_LENGTH = 512;
+    public static final String MESSAGE_CONSTRAINTS = "Questions can take any values, should not be blank, and should"
+            + " be less than " + MAX_LENGTH + " characters";
     /*
-     * The first character of the knowitall must not be a whitespace,
+     * The first character of the question must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
     public static final String VALIDATION_REGEX = "[^\\s].*";
@@ -33,7 +35,7 @@ public class Question implements Comparable<Question> {
      * Returns true if a given string is a valid name.
      */
     public static boolean isValidQuestion(String test) {
-        return test.matches(VALIDATION_REGEX);
+        return test.matches(VALIDATION_REGEX) && test.length() <= MAX_LENGTH;
     }
 
 

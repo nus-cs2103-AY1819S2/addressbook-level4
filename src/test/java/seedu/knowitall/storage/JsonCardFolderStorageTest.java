@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static seedu.knowitall.testutil.TypicalCards.ALICE;
 import static seedu.knowitall.testutil.TypicalCards.HOON;
 import static seedu.knowitall.testutil.TypicalCards.IDA;
-import static seedu.knowitall.testutil.TypicalCards.getTypicalCardFolder;
+import static seedu.knowitall.testutil.TypicalCards.getTypicalFolderOne;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -18,6 +18,7 @@ import org.junit.rules.TemporaryFolder;
 import seedu.knowitall.commons.exceptions.DataConversionException;
 import seedu.knowitall.model.CardFolder;
 import seedu.knowitall.model.ReadOnlyCardFolder;
+import seedu.knowitall.testutil.TypicalCards;
 
 public class JsonCardFolderStorageTest {
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonCardFolderStorageTest");
@@ -75,7 +76,7 @@ public class JsonCardFolderStorageTest {
     @Test
     public void readAndSaveCardFolder_allInOrder_success() throws Exception {
         Path filePath = testFolder.getRoot().toPath().resolve("TempCardFolder.json");
-        CardFolder original = getTypicalCardFolder();
+        CardFolder original = getTypicalFolderOne();
         JsonCardFolderStorage jsonCardFolderStorage = new JsonCardFolderStorage(filePath);
 
         // Save in new file and read back
@@ -120,6 +121,6 @@ public class JsonCardFolderStorageTest {
     @Test
     public void saveCardFolder_nullFilePath_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        saveCardFolder(new CardFolder(this.getClass().getName()), null);
+        saveCardFolder(TypicalCards.getTypicalFolderOne(), null);
     }
 }

@@ -87,7 +87,7 @@ public class RenameCommandTest {
         revertBackup(SAMPLE_PDF_1, editedPdf);
     }
 
-    @Test
+    /*@Test
     public void execute_caseSensitiveOperatingSystemRenameToAnotherFile_failureIfWindowsSuccessIfLinus() {
         // Linux supports for case-sensitive rename while Windows doesn't
         Pdf editedPdf = new PdfBuilder(SAMPLE_PDF_2)
@@ -108,7 +108,7 @@ public class RenameCommandTest {
             assertCommandSuccess(renameCommand, model, commandHistory, expectedMessage, expectedModel);
             revertBackup(SAMPLE_PDF_1, editedPdf);
         }
-    }
+    }*/
 
     @Test
     public void execute_someFieldsSpecifiedUnfilteredList_success() {

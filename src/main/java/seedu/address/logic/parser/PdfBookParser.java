@@ -71,7 +71,7 @@ public class PdfBookParser {
             return new DeleteCommandParser().parse(arguments);
 
         case RenameCommand.COMMAND_WORD:
-            return new EditCommandParser().parse(arguments);
+            return new RenameCommandParser().parse(arguments);
 
         case EncryptCommand.COMMAND_WORD:
             return new EncryptCommandParser().parse(arguments);

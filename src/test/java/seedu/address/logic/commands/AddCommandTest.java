@@ -128,6 +128,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public void configureWarningPanelLists() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void setInformationPanelSettings(InformationPanelSettings informationPanelSettings) {
             throw new AssertionError("This method should not be called.");
         }

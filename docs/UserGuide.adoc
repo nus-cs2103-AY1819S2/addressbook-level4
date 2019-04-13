@@ -268,79 +268,160 @@ Format: `quit`
 
 When you <<start, `start`>> a quiz, you will enter quiz mode. In this mode, you will only be allowed to enter the following set of quiz commands. Management commands are disabled in this mode.
 
-==== Viewing help: `\help`
+==== Answering a card : `[ANSWER]`
 
-Displays usage information on all quiz mode commands and acceptable inputs for answering cards. +
-Format: `\help`
-
-==== Viewing the quiz session's status: `\status`
-
-Displays information on the current session's status such as lesson progress (i.e. number of flashcards left). +
-Format: `\status`
-
-==== Answering a flashcard : `[ANSWER]`
-
-An input without the `\` prefix will be treated as an answer to the current flashcard. +
+An input without the `\` prefix will be treated as an answer to the current card. +
 Format: `[ANSWER]...`
 
+****
 Usage rules:
 
 * You can answer with one or more words (e.g. "Tokyo" or "Aland Islands").
 
-What a flashcard contains:
+What a card contains:
 
-* For each flashcard, total attempts and answer streak are tracked.
-* Total attempts refers to the number of times you have attempted this flashcard, regardless of
+* For each card, total attempts and answer streak are tracked.
+* Total attempts refers to the number of times you have attempted this card, regardless of
 whether you were answered it correctly.
-* The answer streak is the number of times you have answered the flashcard correctly consecutively.
+* The answer streak is the number of times you have answered the card correctly consecutively.
+****
 
 [NOTE]
-The streak will be reduced to 0 after you answer a flashcard wrongly twice in a row. Hence, if you accidentally enter the wrong answer once, your streak for the question will not be affected, unless you answer wrongly again.
+The streak will be reduced to 0 after you answer a card wrongly twice in a row. Hence, if you
+accidentally enter the wrong answer once, your streak for the question will not be affected, unless you answer wrongly again.
 
 [TIP]
 You can press kbd:[ENTER] twice without entering any other input to reveal the answer.
 
-Examples:
+*Going through the different scenario in a quiz*:
 
-* The question is "Japan" and is asking for the capital of "Japan": +
-  `Tokyo` +
-  This is the correct answer, both the streak and total attempts increased by 1.
+*Step 1:* +
+  The question is "Japan" and is asking for the capital of "Japan": +
+  Enters `Tokyo` as answer +
+  The picture shown below shows the expected result if the question has been answered correctly,
+  which the total correct question counter increased by 1.
 
-* The question is "Tokyo" and is asking for the country of "Tokyo": +
-  `Japaan` +
-  `Japan` +
-  This is the correct answer, the streak increased by 1 while total attempts increased by 2.
+.Expected result of answering the question correctly.
+image::quiz-command-examples/answer-tokyo-correctly.PNG[width="500"]
 
-* The question is "Tokyo" and is asking for the country of "Tokyo": +
-  `Japaan` +
-  `Jappan` +
-  This is the wrong answer, the streak is reduced to 0 while total attempts increased by 2.
+{empty} +
+*Step 2:* +
+  The question is "Tokyo" and is asking for the country of "Tokyo": +
+  Enters `Japaan` as wrong answer +
+  The picture shown below shows the expected result if the question has been answered wrongly once,
+  which the total attempts counter increased by 1.
 
-==== Labelling the current flashcard as difficult: `\difficult`
-Labels the current flashcard as difficult. +
+.Expected result of answering the question wrongly once.
+image::quiz-command-examples/answer-japan-wrongly-once.PNG[width="500"]
+
+{empty} +
+*Step 3:* +
+  Same question as above, "Tokyo" and is asking for the country of "Tokyo": +
+  Enters `Jappan` as another wrong answer +
+  The picture shown below shows the expected result if the question has been answered wrongly twice,
+  which shows the correct answer and the total attempts counter increased by 1.
+
+.Expected result of answering the question wrongly twice.
+image::quiz-command-examples/answer-japan-wrongly-twice.PNG[width="500"]
+
+{empty} +
+*Step 4:* +
+  Same question as above, "Tokyo" and is asking for the country of "Tokyo": +
+  Enters `Japan` as correct answer +
+  The picture shown below shows the expected result if the question has been answered correctly
+  after answer has been revealed, which shows how well each question is performed in this quiz.
+
+.Expected result of quiz after questions have been completed.
+image::quiz-command-examples/answer-end.PNG[width="500"]
+
+{empty} +
+
+==== Labelling the current card as difficult: `\difficult`
+Labels the current card as difficult. +
 Format: `\difficult`
 
 Examples:
 
 * The question is "Japan" and is asking for the capital of "Japan": +
-  `\difficult` +
-  This will label flashcard of "Japan" as difficult.
+  Enters `\difficult` +
+  Labelled this card as difficult as shown in the picture below.
+
+.Expected result of card labelled as difficult.
+image::quiz-command-examples/difficult.PNG[width="500"]
 
 * The question is "Japan" and is asking for the capital of "Japan": +
   `\difficult` +
   `\difficult` +
-  This will label flashcard of "Japan" as not difficult.
+  Labelled this card as difficult as shown in the picture below.
+
+.Expected result of card labelled as difficult.
+image::quiz-command-examples/not-difficult.PNG[width="500"]
+
+==== Viewing help: `\help`
+
+Displays usage information on all quiz mode commands and acceptable inputs for answering cards. +
+Format: `\help`
 
 [[hint]]
-==== Viewing the current flashcard's hint(s): `\hint`
+==== Viewing the current card's hint(s): `\hint`
 
-Reveals the hint(s) for the current flashcard (if any). +
+Reveals the hint(s) for the current card (if any). +
 Format: `\hint`
+
+Example:
+
+* Enters `\hint` +
+  Reveals the hint of the current card
+
+.Expected result revealing the hint of the card.
+image::quiz-command-examples/hint.PNG[width="500"]
 
 ==== Quitting the quiz session: `\quit`
 
 Quits the current quiz session and switches back to `management mode`. +
 Format: `\quit`
+
+*Example*:
+
+* The question is "Japan" and is asking for the capital of "Japan": +
+  Enters `Tokyo` as answer +
+  Enters `\quit` to quit the quiz. +
+  Saves the progress of 1 attempted question "Japan".
+
+.Expected result of quitting a quiz after answering a question correctly.
+image::quiz-command-examples/quit.PNG[width="500"]
+
+{empty} +
+
+==== Viewing the status of the current quiz: `\status`
+
+Displays information on the current quiz's status such as questions progress (i.e. number of
+correct questions). +
+Format: `\status`
+
+****
+
+What does a status displays:
+
+* Total attempts refers to the number of times you have attempted this card, regardless of
+whether you were answered it correctly.
+
+* Total correct answer refers to the numbers of time you have gotten correct, regardless of the
+streak.
+
+* Current progress refers to which card are you currently on out of all the cards in the quiz.
+****
+
+
+*Example*:
+
+* The question is "Japan" and is asking for the capital of "Japan": +
+  Enters `Tokyo` as answer +
+  Enters `\status` to view the status of the current quiz. +
+  Saves the progress of 1 attempted question "Japan".
+
+.Expected result of viewing the status of a quiz after answering a question correctly.
+image::quiz-command-examples/status.PNG[width="500"]
 
 // end::quiz[]
 
@@ -400,9 +481,9 @@ e.g. `deleteCard 2`
 === Quiz mode
 * *Viewing help*: `\help`
 * *Viewing the quiz session's status*: `\status`
-* *Answering a flashcard*: `[*]`
-* *Labelling the current flashcard as difficult*: `\difficult`
-* *Viewing the current flashcard's hint(s)*: `\hint`
+* *Answering a card*: `[ANSWER]...`
+* *Labelling the current card as difficult*: `\difficult`
+* *Viewing the current card's hint(s)*: `\hint`
 * *Quitting the quiz session*: `\quit`
 
 {empty} +

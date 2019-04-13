@@ -211,7 +211,7 @@ The `ManagementModel`,
 === QuizModel component
 
 .Structure of the QuizModel Component
-image::QuizModelClassDiagram.png[width="500"]
+image::QuizModelClassDiagram.png[width="800"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/model/modelmanager/QuizModel.java[`QuizModel.java`]
 
@@ -219,10 +219,8 @@ The `QuizModel`,
 
 * stores a `Quiz` object that represents a list of `QuizCard`.
 * stores a `Session` object that represents a list of `SrsCard`.
-* stores a `QuizUiDisplayFormatter` object that represents the information needed to display to Ui
-
-It does not depend on any of the other four components.
-
+* stores a `ManagementModelManager` object that represents the `ManagementModel` component.
+* depends on only the `ManagementModel` component.
 
 [[Design-Storage]]
 === Storage component
@@ -359,15 +357,147 @@ The quiz feature processes the following inputs:
 * `\quit` - Quits a quiz and save attempted progress.
 * `\status` - Lists current status and lesson progress of user.
 
+==== Quiz class
+
+link:{repoURL}/src/main/java/seedu/address/model/quiz/Quiz.java[`Quiz.java`] holds all the
+information of quiz in memory. It takes in a list of <<card,cards>> from `Session` and generate a
+new list of cards based on the `mode` indicated by the user. The generated list of cards in both
+`review` and `learn` mode includes questions and answers that are flipped to ensure that user are
+learning both the values. Accordingly to the mode that the user have chosen, the cards will be
+displayed differently.
+
+In the four different modes:
+
+* **Preview**: both the question and answer are shown to the user
+
+.Display for previewing a question.
+image::quiz-command-examples/quiz-preview.PNG[width="300"]
+
+* **Review**: only the question is shown as the user needs to answer the question.
+
+.Display for reviewing a question.
+image::quiz-command-examples/quiz-review.PNG[width="300"]
+
+* **Learn**: is a combination of preview and review, which the user see both the question and
+answer before attempting the question.
+
+.Display for learning a question.
+image::quiz-command-examples/quiz-learn.PNG[width="670"]
+
+* **Difficult**: similar to preview mode but only contains questions that have been labelled as
+difficult.
+
+The following code shows how are the cards generated:
+[source,java]
+----
+private List<QuizCard> generate() {
+    generatedQuizCardList = new ArrayList<>();
+
+    switch (mode) {
+    case PREVIEW:
+        generatePreview();
+        break;
+    case LEARN:
+        // Learn is a combination of preview + review
+        generatePreview();
+        generateReview();
+        break;
+    case REVIEW:
+        generateReview();
+        break;
+    case DIFFICULT:
+        generatePreview();
+        break;
+    default:
+        break;
+    }
+
+    generatedCardSize = generatedQuizCardList.size();
+    return generatedQuizCardList;
+}
+
+private void generateReview() {
+    QuizCard currentCard;
+    for (int i = 0; i < originalQuizCardList.size(); i++) {
+        currentCard = originalQuizCardList.get(i);
+        generatedQuizCardList.add(
+            currentCard.generateOrderedQuizCardWithIndex(i, QuizMode.REVIEW));
+    }
+
+    for (int i = 0; i < originalQuizCardList.size(); i++) {
+        currentCard = originalQuizCardList.get(i);
+        generatedQuizCardList.add(
+            currentCard.generateFlippedQuizCardWithIndex(i));
+    }
+}
+
+private void generatePreview() {
+    QuizCard currentCard;
+
+    for (int i = 0; i < originalQuizCardList.size(); i++) {
+        currentCard = originalQuizCardList.get(i);
+        generatedQuizCardList.add(
+            currentCard.generateOrderedQuizCardWithIndex(i, QuizMode.PREVIEW));
+    }
+}
+----
+
 ==== [ANSWER]
 The `[ANSWER]` feature is facilitated by `QuizAnswerCommand`. The command takes in user input
 as answer to be processed later.
 
 The following sequence diagram shows the interaction between the various classes when the user
-answers a question:
+answered the question correctly:
 
 .Sequence diagram for answer feature
-image::QuizAnswerCommandSequenceDiagram.png[width="800"]
+image::QuizAnswerCommandSequenceDiagram.png[width="900"]
+
+In the `execute` method of the `QuizAnswerCommand`, the following steps could be performed:
+
+1. Quiz result +
+This step checks if the user is shown the result, this is performed as quiz can only ends after
+the result has been shown before. Once the quiz ends, BrainTrain will save the progress of the quiz
+to the file specified by the user.
+
+2. Handling of answer +
+This step checks if the answer should be handled, if user is in `PREVIEW` mode it will not be
+handled. Otherwise, the total attempts and streak of the question will be updated accordingly to
+if the question has been answered correctly.
+
+3. Handling of next question +
+This step verifies the question has been answered correct and checks if there are still questions
+left in the quiz, either gets the next question or show the quiz result to the user.
+
+The following code shows how the steps could be performed:
+
+[source,java]
+----
+public CommandResult execute(Model model, CommandHistory history) throws CommandException {
+    requireNonNull(model);
+    this.quizModel = requireQuizModel(model);
+    this.card = quizModel.getCurrentQuizCard();
+    this.isCurrentCardWrong = false;
+
+    StringBuilder sb = new StringBuilder();
+
+    if (quizModel.isResultDisplay()) {
+        endQuiz();
+        return new CommandResult("", true, false, false);
+    }
+
+    if (card.isWrongTwice() || card.getQuizMode() != QuizMode.PREVIEW) {
+        sb.append(handleCurrentCardAnswer());
+    }
+
+    if (!isCurrentCardWrong) {
+        String result = handleIfCardLeft();
+        sb.append(result);
+    }
+
+    return new CommandResult(sb.toString(), true, false, false);
+}
+
+----
 
 ==== \quit
 The `\quit` will force quit the current quiz and save the attempted question to the location that
@@ -386,22 +516,22 @@ image::QuizStatusCommandSequenceDiagram.png[width="800"]
 
 ==== Design Considerations
 
-===== Aspect: How Quiz executes
+===== Aspect: Quiz and management commands execution
 * **Alternative 1 (current choice):** Run quiz in a different mode
-** Pros: Least restricted choice of answer.
+** Pros: Least restricted choice of answer and great user experience.
 ** Cons: Tedious to implement.
 
 * **Alternative 2:** Run quiz together with the rest of the commands
 ** Pros: Easy to implement.
-** Cons: Restricted answer. Answer cannot start with words already listed as management commands
+** Cons: Restricted answer and compromised user experience. Answer cannot start with words already
+listed as management commands
 (e.g. `start`)
 
 **Alternative 1** is chosen because it allows the user to have a more comprehensive choice of
-word as
-answer without restricting the possible choices. In certain question, it is possible for the
+word as answer without restricting the possible choices. In certain question, it is possible for the
 answer to be "start". Hence by choosing alternative 1, the choice of answer is the least
-restricted. Also, by running the quiz in a different mode, it allows the user to concentrate on the quiz
-without having unrelated display as distraction.
+restricted. Also, by running the quiz in a different mode, it allows the user to have intuitive
+interaction in quiz mode.
 // end::quiz[]
 
 === Logging
@@ -1111,12 +1241,12 @@ _{More to be added}_
 == Glossary
 
 [[lesson]] Lesson::
-A labelled set of <<question,questions>>.
+A labelled set of <<card,cards>>.
 
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
 
-[[question]] Question::
+[[card]] Card::
 A set of values, where one value is given as a prompt to the user, and another value is used as the correct answer for that given question. Other values may be shown to supplement the question.
 
 [[session]] Session::

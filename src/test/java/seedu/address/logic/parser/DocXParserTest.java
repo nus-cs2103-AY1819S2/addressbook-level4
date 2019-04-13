@@ -23,7 +23,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.logic.commands.AddDoctorCommand;
-import seedu.address.logic.commands.AddMedHistCommand;
+import seedu.address.logic.commands.medicalHistory.AddMedHistCommand;
 import seedu.address.logic.commands.AddPatientCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.DeleteDoctorCommand;

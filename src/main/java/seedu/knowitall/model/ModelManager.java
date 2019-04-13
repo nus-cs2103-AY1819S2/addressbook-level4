@@ -362,7 +362,7 @@ public class ModelManager implements Model {
     //=========== Test Session ===========================================================================
 
     @Override
-    public void testCardFolder() {
+    public void startTestSession() {
         currentTestedCardFolder = getActiveCardFolder().getCardList();
         if (currentTestedCardFolder.isEmpty()) {
             throw new EmptyCardFolderException();
@@ -375,6 +375,14 @@ public class ModelManager implements Model {
         setCurrentTestedCard(cardToTest);
         state = State.IN_TEST;
         numAnsweredCorrectly = 0;
+    }
+
+    public ObservableList<Card> getCurrentTestedCardFolder() {
+        return currentTestedCardFolder;
+    }
+
+    public int getNumAnsweredCorrectly() {
+        return numAnsweredCorrectly;
     }
 
     @Override

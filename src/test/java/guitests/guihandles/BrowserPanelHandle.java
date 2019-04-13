@@ -13,7 +13,7 @@ public class BrowserPanelHandle extends NodeHandle<Node> {
     public static final String BROWSER_ID = "#browser";
     public static final String CURRENT_CARD_QUESTION = "#cardQuestion";
 
-    private boolean isWebViewLoaded = true;
+    private boolean isCardViewLoaded = true;
 
     private String lastRememberedQuestion;
 
@@ -52,10 +52,10 @@ public class BrowserPanelHandle extends NodeHandle<Node> {
     }
 
     /**
-     * Returns true if the browser is done loading a page, or if this browser has yet to load any page.
+     * Returns true if the browser is done loading a card page, or if this browser has yet to load any page.
      */
     public boolean isLoaded() {
         getChildNode(CURRENT_CARD_QUESTION).applyCss();
-        return isWebViewLoaded;
+        return isCardViewLoaded;
     }
 }

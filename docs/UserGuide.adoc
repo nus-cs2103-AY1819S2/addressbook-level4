@@ -431,10 +431,10 @@ After memorising the content of the flashcards, it is helpful to test how much i
 ==== Test flashcards in a folder : `test`
 
 You will enter a test session, where the display area enters a fullscreen and you will be presented flashcard questions
- one by one. (see Figure 2 below).
+ one by one, as depicted in the figure below.
 
 .A successful test command will display a test session page
-image::startTestSessionPage.png[width="400"]
+image::startTestSessionPage.png[width="500"]
 
 {empty} +
 Format: `test`
@@ -480,17 +480,17 @@ To reinforce learning and provide a more engaging experience with Know-It-All, y
 currently displayed flashcard question. Know-It-All compares your attempt with the correct answer for that flashcard and
 tells you if you are right or wrong.
 
-If the answer has been submitted successfully and it is correct, you will see the following page (see Figure 3).
+If the answer has been submitted successfully and it is *correct*, you will see the following page.
 
 .Correct Answer page
-image::CorrectAnswerPage.png[width="400"]
+image::CorrectAnswerPage.png[width="500"]
 
 {empty} +
 
-If the answer has been submitted successfully and it is wrong, you will see the following page (see Figure 4).
+If the answer has been submitted successfully and it is *wrong*, you will see the following page.
 
 .Wrong Answer page
-image::WrongAnswerPage.png[width="400"]
+image::WrongAnswerPage.png[width="500"]
 
 {empty} +
 Format: `ans ANSWER`
@@ -512,39 +512,43 @@ Examples:
 * `ans Mitochondrion` +
 in response to the card question: What is the powerhouse of the cell?
 
-* `ans 4` +
-in response to the card displayed below, where choosing option 4 will give the right answer.
+* `ans 2` +
+in response to the card displayed below, where choosing option 2 will give the right answer as the correct answer is
+'Pigs'.
 
 .Answering an MCQ card
-image::AnsweringMcqCard.png[width="400"]
-//end::testoperations[]
+image::AnsweringMcqCard.png[width="500"]
 
 ==== Reveal answer to a flashcard : `reveal` `Coming in v1.4`
-If you have no clue what the answer is, this command immediately reveals the correct answer. You will not need
-attempt any answer before being presented the correct answer.
+If you have no clue what the answer is, this command immediately reveals the correct answer, as seen in the figure
+below. You will not need attempt any answer before being presented the correct answer.
 
+.Revealed Answer page
+image::RevealAnswerPage.png[width="500"]
+
+{empty} +
 Format: `reveal`
 
 [NOTE]
 This command is only considered valid if a card question is currently being displayed in an active test session.
 
 ====
-* This is equivalent to a wrong answer, so there is no addition to the correct attempts of this card.
+* This is equivalent to a wrong answer attempted, so there is no addition to the correct attempts of this card.
 ====
 
 ==== Go to next flashcard : `next`
 
 You will be presented with the next lowest scoring flashcard in this current test session. Upon a successful next
-command, you should see a similar page below (see Figure 5).
+command, you should see a similar page below.
 
 .Next card question displayed upon a successful next command
-image::NextCommandPage.png[width="400"]
+image::NextCommandPage.png[width="500"]
 
 {empty} +
 Format: `next`
 
 [NOTE]
-This command is only considered valid if a card question and answer is currently being displayed  (has already done answering the question or revealed the answer) in an active test session. In other words, a flashcard cannot be skipped.
+This command is only considered valid if a card question and answer is currently being displayed (has already done answering the question or revealed the answer) in an active test session. In other words, a flashcard cannot be skipped.
 
 ====
 * If all cards have already been tested, a next command will be equivalent to an end command, ending the current test
@@ -555,13 +559,14 @@ This command is only considered valid if a card question and answer is currently
 [[EndCommand]]
 ==== End the current test session : `end`
 
-Quits the current test session and you will be back inside the card folder (see Figure 6 below).
+Quits the current test session and you will be back inside the card folder. You should see a page like below.
 
 .A successful end command brings you back to inside the folder
-image::EndCommandPage.png[width="400"]
+image::EndCommandPage.png[width="500"]
 
+{empty} +
 Format: `end`
-
+//end::testoperations[]
 
 //tag::reportoperations[]
 === Report Operations

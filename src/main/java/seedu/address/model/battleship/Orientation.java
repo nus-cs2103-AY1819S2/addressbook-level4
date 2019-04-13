@@ -10,8 +10,7 @@ import java.util.regex.Pattern;
 import seedu.address.commons.core.LogsCenter;
 
 /**
- * Represents the orientation of a battleship on the map.
- * Guarantees: immutable; is valid as declared in {@link #isValidOrientation(String)}
+ * Represents the orientation of a ship on the map.
  */
 public class Orientation {
     public static final String MESSAGE_CONSTRAINTS =
@@ -22,8 +21,6 @@ public class Orientation {
      * otherwise " " (a blank string) becomes a valid input.
      */
     private static final String VALIDATION_REGEX = "^(horizontal|vertical|h|v)$";
-    private static final String VALIDATION_HORIZONTAL_REGEX = "horizontal|h";
-    private static final String VALIDATION_VERTICAL_REGEX = "vertical|v";
 
     private static final Pattern VALIDATION_PATTERN = Pattern.compile(
             VALIDATION_REGEX, Pattern.CASE_INSENSITIVE);

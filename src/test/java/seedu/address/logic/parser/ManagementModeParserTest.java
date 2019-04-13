@@ -15,12 +15,12 @@ import seedu.address.logic.commands.management.ChangeThemeCommand;
 import seedu.address.logic.commands.management.CloseLessonCommand;
 import seedu.address.logic.commands.management.DeleteCardCommand;
 import seedu.address.logic.commands.management.DeleteLessonCommand;
+import seedu.address.logic.commands.management.EditLessonCommand;
 import seedu.address.logic.commands.management.ExitCommand;
 import seedu.address.logic.commands.management.HelpCommand;
 import seedu.address.logic.commands.management.HistoryCommand;
 import seedu.address.logic.commands.management.ListCardsCommand;
 import seedu.address.logic.commands.management.ListLessonsCommand;
-import seedu.address.logic.commands.management.OpenLessonCommand;
 import seedu.address.logic.commands.management.ReloadLessonsCommand;
 import seedu.address.logic.commands.management.SetTestCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -80,8 +80,8 @@ public class ManagementModeParserTest {
 
     @Test
     public void parseCommand_openLessons() throws Exception {
-        String command = OpenLessonCommand.COMMAND_WORD + " 2";
-        assertTrue(parser.parse(command) instanceof OpenLessonCommand);
+        String command = EditLessonCommand.COMMAND_WORD + " 2";
+        assertTrue(parser.parse(command) instanceof EditLessonCommand);
     }
 
     @Test

@@ -1,15 +1,15 @@
 package systemtests;
 
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.address.logic.commands.management.OpenLessonCommand.MESSAGE_SUCCESS;
+import static seedu.address.logic.commands.management.EditLessonCommand.MESSAGE_SUCCESS;
 
 import org.junit.Test;
 
-import seedu.address.logic.commands.management.OpenLessonCommand;
+import seedu.address.logic.commands.management.EditLessonCommand;
 import seedu.address.model.modelmanager.ManagementModel;
 import seedu.address.model.modelmanager.Model;
 
-public class OpenLessonCommandSystemTest extends BrainTrainSystemTest {
+public class EditLessonCommandSystemTest extends BrainTrainSystemTest {
     @Test
     public void open() {
         /* Case: invalid command
@@ -21,7 +21,7 @@ public class OpenLessonCommandSystemTest extends BrainTrainSystemTest {
         /* Case: opens lesson at index 1
          * -> opens lesson
          */
-        command = OpenLessonCommand.COMMAND_WORD + " 1";
+        command = EditLessonCommand.COMMAND_WORD + " 1";
         ManagementModel expectedModel = getManagementModel();
         assertCommandSuccess(command, expectedModel);
 

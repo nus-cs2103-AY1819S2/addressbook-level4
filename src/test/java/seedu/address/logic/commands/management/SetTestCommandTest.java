@@ -2,8 +2,8 @@ package seedu.address.logic.commands.management;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
+import static seedu.address.commons.core.Messages.MESSAGE_CARD_VIEW_COMMAND;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_INDEX;
-import static seedu.address.commons.core.Messages.MESSAGE_NO_OPENED_LESSON;
 import static seedu.address.logic.commands.management.ManagementCommand.MESSAGE_EXPECTED_MODEL;
 import static seedu.address.model.lesson.Lesson.EXCEPTION_INVALID_INDEX;
 
@@ -80,7 +80,7 @@ public class SetTestCommandTest {
 
         // add valid card but there is no open lesson -> command exception thrown
         thrown.expect(CommandException.class);
-        thrown.expectMessage(MESSAGE_NO_OPENED_LESSON);
+        thrown.expectMessage(MESSAGE_CARD_VIEW_COMMAND);
         new SetTestCommand(indexOne, indexTwo).execute(modelStub, commandHistory);
     }
 

@@ -1,7 +1,7 @@
 package seedu.address.logic.commands.management;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.core.Messages.MESSAGE_NO_OPENED_LESSON;
+import static seedu.address.commons.core.Messages.MESSAGE_CARD_VIEW_COMMAND;
 import static seedu.address.logic.parser.Syntax.PREFIX_CORE;
 import static seedu.address.logic.parser.Syntax.PREFIX_OPTIONAL;
 
@@ -85,7 +85,7 @@ public class AddCardCommand extends ManagementCommand {
 
         try {
             if (!mgtModel.isThereOpenedLesson()) {
-                throw new CommandException(MESSAGE_NO_OPENED_LESSON);
+                throw new CommandException(MESSAGE_CARD_VIEW_COMMAND);
             } else if (mgtModel.openLessonHasCard(toAdd)) {
                 throw new CommandException(MESSAGE_DUPLICATE_CARD);
             }

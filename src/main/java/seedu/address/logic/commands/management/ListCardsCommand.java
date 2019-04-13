@@ -1,7 +1,7 @@
 package seedu.address.logic.commands.management;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.core.Messages.MESSAGE_NO_OPENED_LESSON;
+import static seedu.address.commons.core.Messages.MESSAGE_CARD_VIEW_COMMAND;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -82,7 +82,7 @@ public class ListCardsCommand extends ManagementCommand {
 
         try {
             if (!mgtModel.isThereOpenedLesson()) {
-                throw new CommandException(MESSAGE_NO_OPENED_LESSON);
+                throw new CommandException(MESSAGE_CARD_VIEW_COMMAND);
             }
 
             ArrayList<Card> cards = new ArrayList<>(mgtModel.getOpenedLessonCards());

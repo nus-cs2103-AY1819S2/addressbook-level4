@@ -11,12 +11,12 @@ import seedu.address.logic.commands.management.ChangeThemeCommand;
 import seedu.address.logic.commands.management.CloseLessonCommand;
 import seedu.address.logic.commands.management.DeleteCardCommand;
 import seedu.address.logic.commands.management.DeleteLessonCommand;
+import seedu.address.logic.commands.management.EditLessonCommand;
 import seedu.address.logic.commands.management.ExitCommand;
 import seedu.address.logic.commands.management.HelpCommand;
 import seedu.address.logic.commands.management.HistoryCommand;
 import seedu.address.logic.commands.management.ListCardsCommand;
 import seedu.address.logic.commands.management.ListLessonsCommand;
-import seedu.address.logic.commands.management.OpenLessonCommand;
 import seedu.address.logic.commands.management.ReloadLessonsCommand;
 import seedu.address.logic.commands.management.SetTestCommand;
 import seedu.address.logic.commands.quiz.QuizStartCommand;
@@ -73,7 +73,7 @@ public class ManagementModeParser implements Parser<Command> {
         case ListLessonsCommand.COMMAND_WORD:
             return new ListLessonsCommand();
 
-        case OpenLessonCommand.COMMAND_WORD:
+        case EditLessonCommand.COMMAND_WORD:
             return new OpenLessonParser().parse(arguments);
 
         case CloseLessonCommand.COMMAND_WORD:

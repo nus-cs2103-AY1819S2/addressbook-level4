@@ -13,18 +13,18 @@ public class ThresholdTest {
     @Test
     public void constructor_null_throwsNullPointerException() {
         Assert.assertThrows(NullPointerException.class, ()
-                -> new Threshold(null, WarningPanelPredicateType.EXPIRY));
+            -> new Threshold(null, WarningPanelPredicateType.EXPIRY));
         Assert.assertThrows(NullPointerException.class, ()
-                -> new Threshold(null, WarningPanelPredicateType.LOW_STOCK));
+            -> new Threshold(null, WarningPanelPredicateType.LOW_STOCK));
     }
 
     @Test
     public void constructor_invalidQuantity_throwsIllegalArgumentException() {
         String invalidThreshold = "";
-        Assert.assertThrows(IllegalArgumentException.class, () ->
-                new Threshold(invalidThreshold, WarningPanelPredicateType.EXPIRY));
         Assert.assertThrows(IllegalArgumentException.class, ()
-                -> new Threshold(invalidThreshold, WarningPanelPredicateType.LOW_STOCK));
+            -> new Threshold(invalidThreshold, WarningPanelPredicateType.EXPIRY));
+        Assert.assertThrows(IllegalArgumentException.class, ()
+            -> new Threshold(invalidThreshold, WarningPanelPredicateType.LOW_STOCK));
     }
 
     @Test

@@ -23,7 +23,7 @@ import seedu.address.storage.StorageManager;
 
 public class StatsCommandTest {
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonSerializableStatistics");
-    private static final Path STATS_FILE = TEST_DATA_FOLDER.resolve("statsTest.json");
+    private static final Path STATS_FILE = TEST_DATA_FOLDER.resolve("statsTest_statsCommand.json");
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();

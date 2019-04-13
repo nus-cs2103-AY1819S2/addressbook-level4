@@ -572,19 +572,21 @@ Step 5. A `BufferedImage` object is returned from the external library and `curr
 
 Step 6. The `execute` method then checks if the boolean `isNewCommand` is true. If it is true, it indicates that the command is a new rotate command called directly from the user and not through an undo/redo command which triggers Step 7 in the line below. Otherwise, the command’s execution ends in this step.
 
-Step 7. `isNewCommand` is set to false to signal that this command is not a new rotate command if it is executed again through the `undo/redo` function. `currentEdit#addCommand(this)` is invoked to add this command to the `List<Command>` in `tempImage` for the `undo/redo` function and `currentEdit#displayTempImage()` is used to display the edited image on the graphical user interface.
+Step 7. `isNewCommand` is set to false to signal that this command is not a new rotate command if it is executed again through the `undo/redo` function. `currentEdit#addCommand(this)` is invoked to add this command to the `List<Command>` in `tempImage` for the `undo/redo` function and `currentEdit#displayTempImage()` is used to display the edited image on the graphical user interface. +
+
+The diagram below illustrates how the Rotate Command works:
+
+.Sequence Diagram for Rotate Command
+image::RotateCommandSequenceDiagram.png[width="800"]
 
 ==== Design Considerations
 
 * Intermediate images have to be stored and edited in a temp folder first due to our `undo/redo` implementation.
 
-.Sequence Diagram for Rotate Command
-image::RotateCommandSequenceDiagram.png[width="800"]
-
 ==== Crop Command
 This command allows the user to crop the targetted image by specifying the coordinates of the top left hand corner of the desired image, the width of the desired image and the height of the desired image. Upon receiving the inputs, the values will be checked for their validity and will throw an error if any value is not within the specified range. The command will then be added to the `List<Commands>` belonging to `tempImage` found in `currentEdit` which saves the editing history of the targetted image.
 
-Refer to the example usage scenario and design considerations in <<Rotate Command>>
+Refer to the example usage scenario and design considerations in <<Rotate Command>>.
 
 .Sequence Diagram for Crop Command
 image::CropCommandSequenceDiagram.png[width="800"]
@@ -592,7 +594,7 @@ image::CropCommandSequenceDiagram.png[width="800"]
 ==== Resize Command
 This command allows the user to resize the targetted image by specifying the width and height of the desired image. Upon receiving the inputs, the values will be checked for their validity and will throw an error if any value is not within the specified range. The command will then be added to the `List<Commands>` belonging to `tempImage` found in `currentEdit` which saves the editing history of the targetted image.
 
-Refer to the example usage scenario and design considerations in <<Rotate Command>>
+Refer to the example usage scenario and design considerations in <<Rotate Command>>.
 
 .Sequence Diagram for Resize Command
 image::ResizeCommandSequenceDiagram.png[width="800"]
@@ -839,15 +841,15 @@ Step 6. According to the above 3 conditions, the following combinations will res
 
 +
 * Throws an exception as there is already a watermark on `tempImage`
-+
 
+The diagram below illustrates how the WaterMark Command works:
+
+.Sequence Diagram for WaterMark Command (Note: Some classes have been omitted for clarity of the diagram)
+image::WaterMarkCommandSequenceDiagram.png[width="800"]
 
 ==== Design Considerations
 
 * Intermediate images have to be stored and edited in a temp folder first due to our `undo/redo` implementation.
-
-.Sequence Diagram for Rotate Command
-image::RotateCommandSequenceDiagram.png[width="800"]
 
 //end::WaterMark[]
 === Logging

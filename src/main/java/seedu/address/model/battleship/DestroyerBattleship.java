@@ -5,14 +5,13 @@ import java.util.Set;
 import seedu.address.model.tag.Tag;
 
 /**
- * Represents a battleship in a map.
- * Guarantees: details are present and not null, field values are validated, immutable.
+ * Represents a destroyer in the game.
  */
 public class DestroyerBattleship extends Battleship {
-
     /**
-     * Constructor for Battleship with only name and tags.
-     * Default size is length = 2, life = 1
+     * Constructor for destroyer ship. The default length of the destroyer is 3.
+     *
+     * @param tagSet set of {@code Tag}s that the ship has.
      */
     public DestroyerBattleship(Set<Tag> tagSet) {
         super(BattleshipType.DESTROYER.getName(),

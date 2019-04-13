@@ -160,7 +160,6 @@ public class Budget {
 
         Budget otherBudget = (Budget) other;
         return this.totalBudget == otherBudget.totalBudget
-                && this.currentBudget == otherBudget.currentBudget
-                && this.currentSpendings == otherBudget.currentSpendings;
+                && this.currentBudget == otherBudget.currentBudget;
     }
 }

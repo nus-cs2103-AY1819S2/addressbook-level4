@@ -13,8 +13,8 @@ The program is written in Java.
 == Summary of contributions
 
 * *Major enhancement*: greatly enhanced and functionalized the *person* class into a *dental patient* class
-** What it does: This new data structure allows our users to store personal information of patients, their next-of-kin information, their dental records, and their current teeth layout.
-** Justification: This data structure is the foundation of our product, as TeethHub is an application which primarily manages dental patients and their dental data for our dentist users.
+** What it does: This new data structure allows our users to manage extensive information about their dental patients, such as personal information, next-of-kin information, dental records, and teeth layouts.
+** Justification: This data structure is the foundation of our product, as TeethHub is an application which aims to assist our dentist users by improving the way they manage their dental patients and records.
 ** Highlights: This enhancement affects existing commands and commands to be added in the future.
 The development of patient required an in-depth knowledge of the dentistry industry, and their common practices.
 The implementation too was challenging as it required major changes to existing commands.

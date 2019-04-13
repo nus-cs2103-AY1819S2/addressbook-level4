@@ -69,8 +69,7 @@ Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS g/GENDER r/RACE m/MAJOR s/S
 
 Examples:
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123 g/Male r/Chinese m/CS s/NUS`
-* `add n/Betsy Crowe g/Polygender p/12345678 t/friend e/betsycrowe@example.com a/Newgate Prison r/Indian p/1234567 t/criminal m/ME s/NTU pj/Hacker`
+* `n/John Doe p/98765432 e/johnd@example.com nric/S9671597H g/Male r/Indian a/311, Clementi Ave 2, #02-25 s/NUS m/Computer Science gr/4.76 j/Software-Engineer is/1,2,3,4,5 kpl/Python pj/Software Engineer`
 
 ==== Listing all persons : `list`
 

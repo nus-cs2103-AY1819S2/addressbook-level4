@@ -91,7 +91,9 @@ features as well. The following section is an excerpt from our updated Know-It-A
 
 include::../DeveloperGuide.adoc[tag=UIdesign]
 include::../DeveloperGuide.adoc[tag=testsession]
+
 === Use Cases
 include::../DeveloperGuide.adoc[tag=testsessionusecases]
+
 === Instructions for Manual Testing
 include::../DeveloperGuide.adoc[tag=testmanualtesting]

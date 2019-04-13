@@ -20,7 +20,7 @@ import seedu.address.model.UserPrefs;
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for
- * {@code PinCommand}.
+ * {@code UnpinCommand}.
  */
 public class UnpinCommandTest {
 

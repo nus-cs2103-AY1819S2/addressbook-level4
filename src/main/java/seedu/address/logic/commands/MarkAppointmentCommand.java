@@ -78,11 +78,14 @@ public class MarkAppointmentCommand extends Command {
             throw new CommandException(AppointmentStatus.MESSAGE_CONSTRAINT_PAST);
         }
 
-        Patient changedPatient =
-                patientStatusToChange.changeAppointmentStatus(changedAppointment.getAppointmentStatus());
+        if (patientStatusToChange != null) {
+            Patient changedPatient =
+                    patientStatusToChange.changeAppointmentStatus(changedAppointment.getAppointmentStatus());
 
-        model.setPatient(patientStatusToChange, changedPatient);
-        model.commitDocX();
+            model.setPatient(patientStatusToChange, changedPatient);
+            model.commitDocX();
+        }
+
         model.setAppointment(appointmentToChange, changedAppointment);
         model.commitDocX();
         return new CommandResult(String.format(MESSAGE_MARK_APPT_SUCCESS, changedAppointment));

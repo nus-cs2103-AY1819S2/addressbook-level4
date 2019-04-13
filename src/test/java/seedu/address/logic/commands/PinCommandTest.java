@@ -70,5 +70,4 @@ public class PinCommandTest {
         // different person -> returns false
         assertFalse(pinFirstCommand.equals(pinSecondCommand));
     }
-    
 }

@@ -66,5 +66,4 @@ public class UnpinCommandTest {
         // different person -> returns false
         assertFalse(unpinFirstCommand.equals(unpinSecondCommand));
     }
-
 }

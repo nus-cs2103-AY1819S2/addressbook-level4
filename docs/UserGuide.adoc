@@ -463,22 +463,23 @@ Examples:
 
 .  Open up the software interface. (Fig 5.12.2)
 +
-image::label2_taken.png[width="790"]
+image::blankUI.png[width="790"]
 +
 Fig 5.12.2 Software interface
 +
-
 . Key in  `list` followed by +
-`label 2`. +
-This selects the 2nd medicine in the inventory and output the information to a default PDF file named `to_print`.
+`label 1`. +
+This selects the 1st medicine in the inventory and output the information to a default PDF file named `to_print`.
 
 - A confirmation message will be shown to indicate to you that it have been successfully labeled.
++
+image::ConfirmationMessage.png[width="790"]
 +
 .  You can open the file in the PDF folder (Fig 5.12.1) with your preferred PDF reader to print the medicine information.
 +
 A example below of how the label information will look like (Fig 5.12.2)
 +
-image::label2.png[width="790"]
+image::label1.png[width="790"]
 +
 Fig 5.12.2 Medicine information
 +
@@ -487,7 +488,7 @@ Fig 5.12.2 Medicine information
 `label 1 f/Simvastatin` +
 Similar to the example above, the 1st medicine information will be output to a file name `Simvastatin`. (Fig 5.12.3)
 +
-image::label1.png[width="790"]
+image::label2.png[width="790"]
 +
 Fig 5.12.3 Simvastatin medicine information
 +
@@ -580,9 +581,10 @@ There is no need to save manually.
 - In v2.0, a snapshot of the resulting files will be previewed under the UI for easier reference. This further streamline the inventory management and improve your usability.
 - Below is a mock up on how the UI may look like with the features integrated.
 
+image::MockUp.png[width="790"]
+
 . Import of pictures to aid in the medicine identification.
 - Pictures and snapshot of the medicine may be added to MediTabs such that it is easier for you to identify what the physical medicine looks like.
-- Below is a mock up on the UI.
 
 . Analytical features to help predict when and how much the pharmacist have to order a new batch of medicine.
 - Meditabs will analyse the history of individual medicine, such as how much quantity is dispensed and what frequency you reorder the medicine.

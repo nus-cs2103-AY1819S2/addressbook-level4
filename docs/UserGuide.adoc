@@ -792,12 +792,6 @@ Executing this command on a patient that has a patient linked to it will automat
 
 Format: `taskdone INDEX`
 
-Example:
-
-* `taskdone 2`
-* `<<taskcal, taskcal>>` +
-  `taskdone 1`
-
 ==== taskcal
 Creates a popup window with a list of tasks on the left hand side of the window and a calendar on the right hand side.
 There will also be a command box below the calendar, allowing you to execute task commands from this window as well.

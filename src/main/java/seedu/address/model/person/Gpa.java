@@ -27,10 +27,10 @@ public class Gpa {
     }
 
     /**
-     * Converts a string of interger to a string of 1dp format
+     * Converts a string of integer to a string of 1dp format
      */
-    private  String correctForm(String gpa){
-        if (!gpa.contains(".")){
+    private String correctForm(String gpa) {
+        if (!gpa.contains(".")) {
             gpa = gpa + ".0";
         }
         return gpa;

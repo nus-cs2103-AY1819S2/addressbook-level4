@@ -637,12 +637,11 @@ the `totalBudget` allocated to the `CategoryBudget`.
 
 // tag::summary[]
 === Summary
-
-The summary feature shows an overview of your previous expenditures in an Aster Plot chart, which works similarly to a pie chart. Each sector of the chart represents a category. The radius of each sector indicates the total budget amount allocated for a particular category, while the coloured area of the sector denotes the amount spent for that category. This allows users to easily perceive whether their spending is within their budget for each category.
+The summary feature shows an overview of your previous expenditures in a pie chart. Each sector of the chart represents a category, labelled with the name and total expenditure for each category.
+You can also set a report period by indicating the number of days or months. Specifying a report period is optional. If no parameters are defined, data of expenditures in the past week (ie. the last 7 days) will be displayed in the pie chart by default.
 
 ==== Implementation
-The summary feature intends to use a D3.js graph to display the data. This will help contribute to the aesthetics and user-friendliness of displaying the data in In-Credit-Ble.
-The implementation of the Summary command can be divided into two phases – preparation and execution. Given below is an explanation of how the summary mechanism behaves at each phase, although it has not been fully implemented yet.
+The implementation of the Summary command can be divided into two phases – preparation and execution. Given below is an explanation of how the summary mechanism behaves at each phase.
 
 ===== Preparation
 In the preparation phase, the application will parse the command. Below is the UML Sequence diagram and a step-by-step explanation of the preparation stage.
@@ -650,28 +649,64 @@ In the preparation phase, the application will parse the command. Below is the U
 .Sequence diagram of the preparation stage in the summary mechanism
 image::SummarySequenceDiagram.png[width="800"]
 
-1.	User first enters the command `summary`. This command is received by `FinanceTrackerParser`, which  then calls `SummaryCommandParser#parse()` to create `SummaryCommand`.
-2.	`SummaryCommand`  is then returned to `LogicManager`.
-3.	`LogicManager` then calls `SummaryCommand#execute()`, which will then trigger the process of retrieving the data to be displayed.
+1.	User first enters the command `summary #/7 p/d`. This command is received by `FinanceTrackerParser`, which then calls `SummaryCommandParser#parse()` to create `SummaryCommand`.
+2.	If no parameters are provided by the user, `SummaryCommand#SummaryCommand()` is called to create `SummaryCommand` with the default parameters of ` periodAmount ` as `7` and `period` as `d`. Otherwise, `SummaryCommand#SummaryCommand(periodAmount, period)` is called to create `SummaryCommand` with the specified parameters.
+3.	`SummaryCommand` then checks if the parameters are valid. If any parameter is invalid, an exception will be thrown, and an error message will be shown to the user. Else, the parameters are stored in instance variables and `SummaryCommand` is returned to `LogicManager`.
+4.	`LogicManager` then calls `SummaryCommand#execute()`, which updates the variables `RecordSummaryPredicate`, `summaryPeriod` and `periodAmount` in `ModelManager`.
 
 ===== Execution
-In the execution phase, the program accesses the `Budget` class to retrieve the data to be displayed. It will then finally map this data to graph the Aster Plot chart and display it. Below is the UML sequence diagram and a step-by-step explanation of the execution stage.
+In the execution phase, the program handles `ShowSummaryRequestEvent` posted by `SummaryCommand` to retrieve the data to be displayed. The data will be rendered as a JavaFX `PieChart` and then displayed. Below is the UML sequence diagram and a step-by-step explanation of the execution stage.
 
 .Sequence diagram of the execution stage in the summary mechanism
 image::SummarySequenceDiagram2.png[width="800"]
 
-1.	The`handleShowSummary` will be handled by `MainWindow#handleShowSummary()`, which will call `GraphPanel#execute()` and pass the data as parameters by calling `Logic#getTotalBudget()` and `Logic#getCategoryBudget()`.
-2.	`Logic#getTotalBudget()` and `Logic#getCategoryBudget()` will get their respective data by calling the method of the same name in `Model`.
-3.	Once the parameters are passed into GraphPanel#execute(), StackPane#getData()#clear() is called to clear any display elements in StackPane. D3.js is used to render the charts.
+1.	The`handleShowSummary` will be handled by `MainWindow#handleShowSummary()`, which will call `SummaryPanel#setData()` and pass the data as parameters by calling `Logic#getRecordSummary()`, `Logic#getSummaryPeriod()`  and `Logic#getPeriodAmount()`.
+2.	`Logic#getRecordSummary()` gets the filtered record list by calling `Model#getRecordSummary()`, which returns an unmodifiable ObservableList, only containing only expenses in the last 7 days.
+3.	`Logic#getRecordSummary()` then organises the data into a `LinkedHashMap<String, Double>`, where the key value pair represents category and cost.
+4.	`Logic#getSummaryPeriod()`  and `Logic#getPeriodAmount()` get their respective data by calling the method of the same name in `Model`.
+5.	Once the parameters are passed into `SummaryPanel#setData()`, `StackPane#getChildren()#clear()` is called to clear any display elements in `StackPane`. JavaFX’s `PieChart` is then used to render the summary pie chart. There are two possible scenarios which could happen:
+i) If the data received is empty, a `Text` object is generated and `StackPane#getChildren()#add()` is called, which informs the user that there are no expenditures.
+ii)	Else, `SummaryPanel#setSummaryData()` will be called, which generates a Pie Chart and calls `StackPane#getChildren()#add()`, which adds it to `StackPane`. This is shown in the code snippet below:
+
+    public void setSummaryData(LinkedHashMap<String, Double> summaryData) {
+            PieChart pieChart = new PieChart();
+            Set<String> keySet = summaryData.keySet();
+            for (String s : keySet) {
+                pieChart.getData().add(new PieChart.Data(s, summaryData.get(s)));
+            }
+            for (int i = 0; i < pieChart.getData().size(); i++) {
+                PieChart.Data data = pieChart.getData().get(i);
+                data.getNode().getStyleClass().add(getPieChartColorStyleFor(data.getName()));
+                data.nameProperty().bind(Bindings.concat(data.getName(), " - $",
+                                        String.format("%.2f", data.getPieValue())));
+            }
+            pieChart.setLegendSide(Side.BOTTOM);
+            chartArea.getChildren().add(pieChart);
+    }
 
 ==== Design Consideration
 ===== Aspect: Representation for Summary of Expenditure
-An aster plot graph will be used to display the information in the main window. Using such a graph will allow for sufficient space should users decide to add more categories in the future. Hovering over the different sectors in the aster plot graph will display the corresponding category. If possible, the colours used for the category in the aster plot graph should be the same colour palette used for the category labels.
+
+* *Alternative 1 (current choice)*: Represent summary of expenses using a pie chart
+
+.Current Implementation of Summary Panel using JavaFX's `PieChart`
+image::summaryPanel.png[width="600"]
+
+** Pros: Labels can act as a legend as well as there might be categories with similar colours. This will help the user to easily identify the expenditures in different categories.
+** Cons: If there are too many categories, the labels may not show up as it will clash with the other labels. The data presented may also become too cluttered as well.
+
+* *Alternative 2 (planned for `[v2.0]`)*: Represent summary of expenses using an Aster Plot graph
+
+In `v2.0` of _In-Credit-Ble_, the summary feature intends to use a D3.js Aster Plot graph to display the summary of expenditures instead of the current pie chart. This will help contribute to the aesthetics and user-friendliness of displaying the data in _In-Credit-Ble_.
 
 .Example of Aster Plot Graph
 image::asterPlot.png[width="400"]
 
-Initially, we were considering using a pie chart instead. However, using an aster plot graph will be more effective in showing the user what is the remaining budget amount for each category.
+Each sector of the chart represents a category. The area of each sector indicates the total budget amount allocated for a particular category, while the coloured area of the sector denotes the amount spent for that category. On mouseover of each sector, a pop-up display of the category name and amount spent for each category will be shown. The colours used for the category in the aster plot graph should also correspond to the same colour palette used for the category labels.
+
+** Pros: More effective in showing the user what is the remaining budget amount for each category. It also allows users to easily perceive whether their spending is within their budget for each category.
+** Cons: Difficult to implement as it requires linking to D3, a third party JavaScript library for data visualisations via HTML, SVG, and CSS.
+
 //end::summary[]
 
 // tag::theme[]

@@ -298,6 +298,7 @@ As such, we have decided to implement a mode system for ROR to organise the avai
 
 To use the different features, we have also implemented mode-changing commands for users to switch between the 4 user modes.
 
+[[BillMode]]
 There is also a *Bill Mode* available for your use as a developer, although the existence of this mode is not shared with the users. The Bill Mode displays the receipt and is only used after the `bill` command is executed in RestOrRant.
 
 [NOTE]
@@ -595,31 +596,61 @@ The pros outweighs the cons as despite the number of variables during runtime, i
 
 // end::addtomenu[]
 
+// tag::statistics
 === Statistics feature
+
+The Statistics feature allows users to perform queries that deals with the restaurant's statistical data, mainly the
+revenue earned and the popularity of menu items. Restaurant front-end staff can bill the customers' orders and save the
+revenue earned in the restaurant's statistics using the <<Bill, `bill`>> command.
+Other commands like <<Yearly, `yearly`>>, <<Monthly, `monthly`>>, <<Daily, `daily`>> and <<Revenue, `revenue`>>
+commands allow the manager to retrieve and study the restaurant's statistical data like the popularity of the dishes
+and the revenue earned.
 
 // tag::bill[]
 [[Bill]]
 ==== Billing an order
+
+The Bill mechanism can only be executed under Table Mode where users are allowed to call the bill that is unique to a
+ specific table. The table number was specified when <<ChangeToTableMode, switching over to Table Mode>>. To understand how the table number is specified, you may refer
+to the <<CurrentTable, elaboration>> on this function in the Orders feature.
+
+After the command is called, it will internally switch to the <<BillMode, Bill Mode>> to display the receipt of the
+specified table. Concurrently, it saves the revenue earned and updates the specified table's occupancy and orders to accomodate new customers.
+
 ===== Current Implementation
 
-The Bill mechanism can only be executed under the `TableMode`. After which, it switches to `BillMode` which changes the UI to display a receipt of the bill specific to the table selected in TableMode.
-
-The main crust of Bill mechanism is implemented in `BillCommand`. `BillCommand#execute()` overrides `Command#execcute()` which is called in `LogicManger`. It takes in the current mode, model and command history which will provide the necessary functions it will need to execute the command properly.
+The main crust of Bill mechanism is implemented in [.java]#BillCommand#. [.java]#BillCommand#execute()# overrides
+[.java]#Command#execcute()# which is called in [.java]#LogicManger#. It takes in the current mode, model and command
+history which will provide the necessary functions it will need to execute the command properly.
 
 Additionally, it implements the following operations:
 
-* `BillCommand#calculateBill()` -- Calculates the total bill from the order list that is unique to a table.
-* `BillCommand#updateDailyRevenue()` -- Either saves the bill as a new `DailyRevenue`  or updates the `DailyRevenue` that is existing in its Statistics storage.
-* `BillCommand#updateStatusOfTable()` -- Updates the status of the table to indicate that it is empty.
-* `BillCommand#updateOrderList()` -- Clears the order list to prepare for the next customer.
+* [.java]#BillCommand#calculateBill()# -- Creates a bill with a receipt of all the menu items ordered the calculated
+total bill that is unique to the specified table.
+* [.java]#BillCommand#updateRevenue()# -- Either saves the bill as a new [.java]#DailyRevenue#  or updates an
+existing [.java]#Revenue# in the Statistics storage ([.java]#statistics.json# file in the /data folder).
+* [.java]#BillCommand#updateStatusOfTable()# -- Updates the occupancy of the specified table to indicate that it has
+zero pax.
+* [.java]#BillCommand#updateOrderList()# -- Clears the order list to prepare for the next customer.
 
-The `bill` or `b` command is executed in 2 simple steps. Given below is an example usage scenario and how the bill mechanism behaves at each step.
+The following sequence diagram shows the relevant parts of what happens when the user executes `bill` command:
 
-Step 1. Users are only allowed to use the `bill/b` command in *TableMode*. When they enter the `TableMode 1` command, the program calls for `Model#setselectedTable()` to set the current table to Table 1 and change the UI display to the menu and the table’s list of orders as shown below:
+.Sequence diagram for executing bill
+image::BillCommandSequenceDiagram.png[width="500"]
 
-image::TableMode.png[width="800"]
+To give you a better understanding of the bill mechanism, the following is a usage scenario and how the bill
+mechanism behaves at each step. The `bill` or `b` command is executed in 2 simple steps.
 
-Step 2. The user executes `bill` command to bill the orders of the current Table. The `bill` command gets the details of the current table using `Model#getSelectedTable()` and checks that the table exists. If it is true that the table exists, it calls both `Model#getFilteredOrderItemList` and `ReadOnlyRestOrRant#geMenu()` to obtain the table’s list of orders and the restaurant’s menu to pass into `BillCommand#calculateBill()`.
+Step 1. Users are only allowed to use the `bill` command in *Table Mode*. Let's assume that the user is already in
+Table Mode 1. This means that the current table is Table 1. Before the `bill` command can be executed successfully,
+[.java]#BillCommand#execute()# checks that all order items in the order item list have been served.
+
+image::Bill_AllServedDiagram.png[width="800"]
+
+Step 2. Given that all order items are served, the user can successfully execute the `bill` command to bill the
+orders of the current Table.
+The `bill` command gets
+the details of the current table using `Model#getSelectedTable()` and checks that the table exists. If it is true that the table exists, it calls both `Model#getFilteredOrderItemList` and `ReadOnlyRestOrRant#geMenu()` to obtain the table’s list of orders and the restaurant’s menu to pass into `BillCommand#calculateBill()`.
 
 `BillCommand#calculateBill()` will iterate through the `orderItemList` to obtain individual `orderItems` and execute the following in each iteration:
 * Obtain the `menuItem` by passing the code of the OrderItem into `Menu#getItemFromCode`.
@@ -629,6 +660,7 @@ Step 2. The user executes `bill` command to bill the orders of the current Table
 After the iterating through the `orderItemList`, the receipt will append the final calculation of the total bill and the function will return a new Bill that contains the updated `tableNumber`, `totalBill` and `receipt`. This new Bill will be assigned as the recent bill that was created via `Model#setRecentBill()`. Format of the receipt should be as follows:
 
 image::BillReceipt.png[width="300"]
+
 
 Now that the bill is calculated, the `BillCommand` has to store the calculated data in the `Statistics` storage. If a `DailyRevenue` with the same `Day`, `Month` and `Year` exists in the `DailyRevenueList`, the program calls `BillCommand#updateDailyRevenue()` to add the total bill to the recorded total daily revenue. On the other hand, if no matching Daily Revenue is found, the program will create a new Daily Revenue from the details of the new bill and store it in the statistics storage using `Model#addDailyRevenue`.
 
@@ -882,7 +914,7 @@ A project often depends on third-party libraries. For example, RestOrRant depend
 
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
 
-[width="59%",cols="22%,<23%,<25%,<30%",options="header",]
+[width="59%",cols="22%,<23%,<30%,<40%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
 |`* * *` |waiter |view the status of the tables |know which tables are free/occupied and which tables are waiting for orders/has received their orders
@@ -897,7 +929,13 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |cashier |retrieve the bill for each table |easily process their bill when they are done eating
 
+|`* * *` |manager |obtain specific date's revenue |easily close accounts for the day and track profit
+
+|`* * *` |manager |view yearly, monthly and daily statistics |study the restaurant's revenue trends
+
 |`* *` |waiter |add special requests to the order |inform the chef of the customers' specific preferences
+
+|`* *` |manager |view popular dishes via statistics |decide the amount of ingredients to purchase
 
 |`* *` |waiter |view popular dishes via statistics |suggest the best dishes to the customer
 
@@ -1097,38 +1135,70 @@ Use case ends.
 Use case ends.
 
 [discrete]
-=== Use case: UC8 - Check statistics
+=== Use case: UC8 - Obtaining revenue from statistics
 
 *MSS*
 
-1.  User enters the statistic command with specific optional arguments (year, month and date).
-2.  RestOrRant Program collates data from the stated period, calculates all the statistics and prints out the calculated data in a neat presentation for the user to refer to.
-+
+1.  User enters the revenue command with specific optional arguments (year, month and date).
+2.  RestOrRant Program collates data from the stated period, calculates all the revenue and prints out the calculated
+figure for the user to refer. +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 1a. The arguments are invalid.
+* 1a. The combination of arguments are invalid.
 +
 [none]
-** 1a1. RestOrRant prints out "Invalid arguments. All arguments should be a numercial number. Format: getStatistics [Year] [Month] [Date]".
+** 1a1. RestOrRant prints out "Invalid command format!
+revenue: Gets the revenue from the specified year, month or day. Parameters: [y/YEAR [m/MONTH] [d/DAY]]]
+Example: revenue or revenue y/2019 or revenue y/2019 m/12 or revenue y/2019 m/12 d/30" +
+Use case ends.
+
+[none]
+* 1b. Invalid year.
++
+[none]
+** 1b1. RestOrRant prints out "Year should be in the format <four digit integer>, it should not be blank or larger
+than current year. Years before 2000s are not supported (2000 to current year)." +
+Use case ends.
+
+[none]
+* 1c. Invalid month.
++
+[none]
+** 1c1. RestOrRant prints out "Month should be a single or double double digit integer, and it should not be blank
+and should be a valid month (1 to 12)." +
+Use case ends.
+
+[none]
+* 1d. Invalid day.
++
+[none]
+** 1d1. RestOrRant prints out "Day should be a single or double double digit integer, it should not be blank and
+should be a valid day (1 to 31)." +
+Use case ends.
+
+[none]
+* 1d. Invalid date.
++
+[none]
+** 1d1. RestOrRant prints out "Date is invalid. It does not exists." +
+Use case ends.
+
+[none]
+* 2a. No arguments keyed in.
++
+[none]
+** 2a1. RestOrRant returns the revenue of the current day.
 +
 Use case ends.
 
 [none]
-* 2a. There is no data recorded, list is empty.
+* 2b. There is no data recorded, list is empty.
 +
 [none]
-** 2a1. RestOrRant prints out "No available data recorded."
-+
-Use case ends.
-
-[none]
-* 2b. Not all arguments were keyed in.
-+
-[none]
-* 2b1. RestOrRant returns the statistical data based on the year if only 1 argument was specified; and the month if only 2 arguments were specified.
+* 2b1. RestOrRant prints out "Revenue for (stated day, month or year) $ 0.00"
 +
 Use case ends.
 
@@ -1229,7 +1299,9 @@ _{ more test cases ... }_
 .. In Statistics Mode, switch to Statistics Mode with `statisticsMode` or `SM`. +
    Expected: Mode is not changed. Error message is shown in the Results Display.
 .. In any other mode, switch to Statistics Mode with `statisticsMode` or `SM`. +
-   Expected: Status bar indicates "Statistics Mode". Success message is shown in the Results Display. Main panel will display a grid of dates with their revenues and side panel will be empty.
+   Expected: Status bar indicates "Statistics Mode". Success message is shown in the Results Display.
+   Main panel will display a grid of dates with their revenues and side panel will be a list of menu items sorted
+   according to its popularity.
 
 
 === Tables feature
@@ -1316,27 +1388,32 @@ You can restore the original sample data by deleting the json files in the data 
 
 . Billing an order
 
-.. Switch to Table Mode of the selected table. Orders should have been populated from the Order tests above.
+.. Switch to Table Mode of the selected table. Orders should have been populated and served from the Order tests above.
 .. Test case: `bill` or `b` +
    Expected: Mode change to Bill Mode where a receipt of the orders will be shown. The total bill is calculated and
    recorded. If Bill is the first bill of the day, a new daily revenue card will appear in the default display of
    Statistics Mode. Otherwise, it just updates the daily revenue by adding the total bill to the current revenue of the
-   current date.
+   current date. The order list and occupancy of the selected table should be cleared.
+
+.. Switch to Table Mode of the selected table. Orders should have been populated from the Order tests above. Some of
+the order items are not served.
+.. Test case: `bill` or `b` +
+   Expected: Error message is shown in Results Display.
 
 . Retrieving revenue for a specified day, month or year
 
 .. Switch to Statistics Mode. Daily revenue should have been populated from the Bill test.
 .. Test case: `revenue` or `r` +
    Expected: Revenue of the current date will be calculated.
-.. Test case: `revenue d/1 m/1 y/2019` or `r d/1 m/1 y/2019` +
+.. Test case: `revenue y/2019 m/1 d/1` or `r y/2019 m/1 d/1` +
    Expected: Revenue of 1-Jan-2019 will be calculated.
-.. Test case: `revenue m/1 y/2019` or `r m/1 y/2019` +
+.. Test case: `revenue y/2019 m/1` or `r y/2019 m/1` +
    Expected: Revenue of Jan-2019 will be calculated.
 .. Test case: `revenue y/2019` or `y/2019` +
    Expected: Revenue of year 2019 will be calculated.
 .. Test case: `revenue d/1 y/2019` or `r d/1 y/2019` +
    Expected: No revenue are calculated. Error message is shown in the Results Display.
-.. Other invalid test cases: `revenue d/1`, `revenue d/29 m/2 y/2019`
+.. Other invalid test cases: `revenue d/1`, `revenue m/1`, `revenue d/1 m/1`, `revenue d/29 m/2 y/2019`
 
 === Data storage
 

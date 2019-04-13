@@ -68,19 +68,10 @@ public class BillCommand extends Command {
         }
 
         bill = calculateBill(model);
-        model.setRecentBill(bill);
-
-        DailyRevenue dailyRevenue =
-                new DailyRevenue(bill.getDay(), bill.getMonth(), bill.getYear(), bill.getTotalBill());
-
-        if (model.hasRevenue(dailyRevenue)) {
-            updateRevenue(model, bill);
-        } else {
-            model.addRevenue(dailyRevenue);
-        }
-
+        createOrUpdateRevenue(model, bill);
         updateStatusOfTable(model);
         model.clearOrderItemsFrom(tableToBill.getTableNumber());
+        model.setRecentBill(bill);
 
         model.updateTables();
         model.updateStatistics();
@@ -128,16 +119,24 @@ public class BillCommand extends Command {
     }
 
     /**
-     * Updates the revenue.
+     * Creates or updates the revenue.
      */
-    private void updateRevenue(Model model, Bill bill) {
-        ObservableList<Revenue> dailyRevenuesList = model.getFilteredRevenueList();
-        for (Revenue dailyRevenue : dailyRevenuesList) {
-            if (dailyRevenue.getYear().equals(bill.getYear())
-                    && dailyRevenue.getMonth().equals(bill.getMonth())
-                    && dailyRevenue.getDay().equals(bill.getDay())) {
-                dailyRevenue.addToRevenue(bill.getTotalBill());
+    private void createOrUpdateRevenue(Model model, Bill bill) {
+
+        DailyRevenue dailyRevenue =
+                new DailyRevenue(bill.getDay(), bill.getMonth(), bill.getYear(), bill.getTotalBill());
+
+        if (model.hasRevenue(dailyRevenue)) {
+            ObservableList<Revenue> revenueList = model.getFilteredRevenueList();
+            for (Revenue revenue : revenueList) {
+                if (revenue.getYear().equals(bill.getYear())
+                        && revenue.getMonth().equals(bill.getMonth())
+                        && revenue.getDay().equals(bill.getDay())) {
+                    revenue.addToRevenue(bill.getTotalBill());
+                }
             }
+        } else {
+            model.addRevenue(dailyRevenue);
         }
     }
 

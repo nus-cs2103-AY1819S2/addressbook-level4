@@ -11,7 +11,7 @@ public class Month {
 
     public static final String MESSAGE_CONSTRAINTS =
             "Month should be a single or double double digit integer, and it should not be blank and should be a "
-                    + "valid month (1 to 12)";
+                    + "valid month (1 to 12).";
 
     /*
      * The first character of the item code must not be a whitespace,

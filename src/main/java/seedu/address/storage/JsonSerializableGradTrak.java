@@ -11,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.GradTrak;
 import seedu.address.model.ReadOnlyGradTrak;
-import seedu.address.model.SemLimit;
+import seedu.address.model.limits.SemesterLimit;
 import seedu.address.model.moduletaken.ModuleTaken;
 import seedu.address.model.moduletaken.Semester;
 
@@ -69,7 +69,7 @@ class JsonSerializableGradTrak {
             }
             gradTrak.addModuleTaken(moduleTaken);
         }
-        List<SemLimit> semList = new ArrayList<>();
+        List<SemesterLimit> semList = new ArrayList<>();
         for (JsonAdaptedSemesterLimits jsonAdaptedSemesterLimits : semesterLimitList) {
             semList.add(jsonAdaptedSemesterLimits.toModelType());
         }

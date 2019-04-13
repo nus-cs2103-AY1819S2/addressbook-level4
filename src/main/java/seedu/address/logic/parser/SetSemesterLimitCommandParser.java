@@ -16,22 +16,22 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_MIN_PROJECT_HOUR;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MIN_TUTORIAL_HOUR;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.SetSemLimitCommand;
-import seedu.address.logic.commands.SetSemLimitCommand.EditSemLimitDescriptor;
+import seedu.address.logic.commands.SetSemesterLimitCommand;
+import seedu.address.logic.commands.SetSemesterLimitCommand.EditSemLimitDescriptor;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.moduletaken.Semester;
 
 /**
  * Parses input arguments and creates a new SetLimitCommand object
  */
-public class SetLimitCommandParser implements Parser<SetSemLimitCommand> {
+public class SetSemesterLimitCommandParser implements Parser<SetSemesterLimitCommand> {
 
     /**
      * Parses the given {@code String} of arguments in the context of the SetLimitCommand
      * and returns an SetLimitCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
-    public SetSemLimitCommand parse(String args) throws ParseException {
+    public SetSemesterLimitCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args,
@@ -45,7 +45,7 @@ public class SetLimitCommandParser implements Parser<SetSemLimitCommand> {
         boolean isValidSemester = Semester.isValidSemesterForTakingModules(rawSemester);
         if (!isValidSemester) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    SetSemLimitCommand.MESSAGE_USAGE));
+                    SetSemesterLimitCommand.MESSAGE_USAGE));
         }
 
         int zeroBasedIndex = Semester.valueOf(rawSemester).getIndex();
@@ -102,9 +102,9 @@ public class SetLimitCommandParser implements Parser<SetSemLimitCommand> {
         }
 
         if (!editSemLimitDescriptor.isAnyFieldEdited()) {
-            throw new ParseException(SetSemLimitCommand.MESSAGE_NOT_EDITED);
+            throw new ParseException(SetSemesterLimitCommand.MESSAGE_NOT_EDITED);
         }
 
-        return new SetSemLimitCommand(index, editSemLimitDescriptor);
+        return new SetSemesterLimitCommand(index, editSemLimitDescriptor);
     }
 }

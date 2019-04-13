@@ -21,6 +21,7 @@ import javafx.beans.InvalidationListener;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.model.limits.SemesterLimit;
 import seedu.address.model.moduletaken.ModuleTaken;
 import seedu.address.model.moduletaken.Semester;
 import seedu.address.model.moduletaken.exceptions.DuplicateModuleTakenException;
@@ -133,7 +134,7 @@ public class AddressBookTest {
         }
 
         @Override
-        public ObservableList<SemLimit> getSemesterLimitList() {
+        public ObservableList<SemesterLimit> getSemesterLimitList() {
             throw new AssertionError("This method should not be called.");
         }
 

@@ -32,13 +32,6 @@ public class CapAverage {
     }
 
     /**
-     * Returns if this {@code CapAverage} is no more than another CapAverage.
-     */
-    public boolean isWithin(CapAverage limit) {
-        return this.getCapLimit() <= limit.getCapLimit();
-    }
-
-    /**
      * Adds a cap into the list of caps to be averaged
      *
      * @param gradeCap The grade point to be added to the list of caps

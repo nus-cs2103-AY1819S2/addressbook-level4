@@ -14,6 +14,12 @@ public class Messages {
             "Grades before current semester must be finalized";
     public static final String MESSAGE_GRADES_OUT_OF_ORDER = "Grades are out of order";
     public static final String MESSAGE_MAX_GRADE_MUST_BE_COUNTED = "Max grade of module must be countable in CAP";
+    public static final String MESSAGE_CAP_LIMIT_OUT_OF_ORDER = "CAP limit is out of order";
+    public static final String MESSAGE_LECTURE_HOUR_LIMIT_OUT_OF_ORDER = "Lecture hour is out of order";
+    public static final String MESSAGE_TUTORIAL_HOUR_LIMIT_OUT_OF_ORDER = "Tutorial hour is out of order";
+    public static final String MESSAGE_LAB_HOUR_LIMIT_OUT_OF_ORDER = "Lab hour is out of order";
+    public static final String MESSAGE_PROJECT_HOUR_LIMIT_OUT_OF_ORDER = "Project hour is out of order";
+    public static final String MESSAGE_PREPARATION_HOUR_LIMIT_OUT_OF_ORDER = "Preparation hour limit is out of order";
     public static final String MESSAGE_MODULETAKEN_LISTED_OVERVIEW = "GradTrak modules found: %1$d";
 
 }

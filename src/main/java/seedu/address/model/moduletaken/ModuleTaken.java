@@ -181,23 +181,23 @@ public class ModuleTaken implements ClassForPrinting {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getModuleInfoCode())
-                .append("\n Semester: \n")
+                .append("\nSemester: ")
                 .append(getSemester())
-                .append("\n Expected Min Grade: \n")
+                .append("\nExpected Min Grade: ")
                 .append(getExpectedMinGrade())
-                .append("\n Expected Max Grade: \n")
+                .append("\nExpected Max Grade: ")
                 .append(getExpectedMaxGrade())
-                .append("\n Lecture Hour: \n")
+                .append("\nLecture Hour: ")
                 .append(getLectureHour())
-                .append("\n Tutorial Hour: \n")
+                .append("\nTutorial Hour: ")
                 .append(getTutorialHour())
-                .append("\n Lab Hour: \n")
+                .append("\nLab Hour: ")
                 .append(getLabHour())
-                .append("\n Project Hour: \n")
+                .append("\nProject Hour: ")
                 .append(getProjectHour())
-                .append("\n Preparation Hour: \n")
+                .append("\nPreparation Hour: ")
                 .append(getPreparationHour())
-                .append("\n Tags: \n");
+                .append("\nTags: ");
         getTags().forEach(builder::append);
         return builder.toString();
     }

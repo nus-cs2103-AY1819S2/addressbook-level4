@@ -1,4 +1,4 @@
-package seedu.address.model;
+package seedu.address.model.limits;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
@@ -8,10 +8,10 @@ import seedu.address.model.moduletaken.CapAverage;
 import seedu.address.model.moduletaken.Hour;
 
 /**
- * Represents a SemLimit in GradTrak.
+ * Represents a SemesterLimit in GradTrak.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class SemLimit {
+public class SemesterLimit {
 
     // Data fields
     private final CapAverage minCap;
@@ -30,9 +30,9 @@ public class SemLimit {
     /**
      * Every field must be present and not null.
      */
-    public SemLimit(CapAverage minCap, CapAverage maxCap, Hour minLectureHour, Hour maxLectureHour,
-                    Hour minTutorialHour, Hour maxTutorialHour, Hour minLabHour, Hour maxLabHour,
-                    Hour minProjectHour, Hour maxProjectHour, Hour minPreparationHour, Hour maxPreparationHour) {
+    public SemesterLimit(CapAverage minCap, CapAverage maxCap, Hour minLectureHour, Hour maxLectureHour,
+                         Hour minTutorialHour, Hour maxTutorialHour, Hour minLabHour, Hour maxLabHour,
+                         Hour minProjectHour, Hour maxProjectHour, Hour minPreparationHour, Hour maxPreparationHour) {
         requireAllNonNull(minCap, maxCap, minLectureHour, maxLectureHour, minTutorialHour, maxTutorialHour,
                 minLabHour, maxLabHour, minProjectHour, maxProjectHour, maxPreparationHour);
         this.minCap = minCap;
@@ -98,7 +98,7 @@ public class SemLimit {
     }
 
     /**
-     * Returns true if both SemLimit have the same identity and data fields.
+     * Returns true if both SemesterLimit have the same identity and data fields.
      */
     @Override
     public boolean equals(Object other) {
@@ -106,23 +106,23 @@ public class SemLimit {
             return true;
         }
 
-        if (!(other instanceof SemLimit)) {
+        if (!(other instanceof SemesterLimit)) {
             return false;
         }
 
-        SemLimit otherSemLimit = (SemLimit) other;
-        return otherSemLimit.getMinCap().equals(getMinCap())
-                && otherSemLimit.getMaxCap().equals(getMaxCap())
-                && otherSemLimit.getMinLectureHour().equals(getMinLectureHour())
-                && otherSemLimit.getMaxLectureHour().equals(getMaxLectureHour())
-                && otherSemLimit.getMinTutorialHour().equals(getMinTutorialHour())
-                && otherSemLimit.getMaxTutorialHour().equals(getMaxTutorialHour())
-                && otherSemLimit.getMinLabHour().equals(getMinLabHour())
-                && otherSemLimit.getMaxLabHour().equals(getMaxLabHour())
-                && otherSemLimit.getMinProjectHour().equals(getMinProjectHour())
-                && otherSemLimit.getMaxProjectHour().equals(getMaxProjectHour())
-                && otherSemLimit.getMinPreparationHour().equals(getMinPreparationHour())
-                && otherSemLimit.getMaxPreparationHour().equals(getMaxPreparationHour());
+        SemesterLimit otherSemesterLimit = (SemesterLimit) other;
+        return otherSemesterLimit.getMinCap().equals(getMinCap())
+                && otherSemesterLimit.getMaxCap().equals(getMaxCap())
+                && otherSemesterLimit.getMinLectureHour().equals(getMinLectureHour())
+                && otherSemesterLimit.getMaxLectureHour().equals(getMaxLectureHour())
+                && otherSemesterLimit.getMinTutorialHour().equals(getMinTutorialHour())
+                && otherSemesterLimit.getMaxTutorialHour().equals(getMaxTutorialHour())
+                && otherSemesterLimit.getMinLabHour().equals(getMinLabHour())
+                && otherSemesterLimit.getMaxLabHour().equals(getMaxLabHour())
+                && otherSemesterLimit.getMinProjectHour().equals(getMinProjectHour())
+                && otherSemesterLimit.getMaxProjectHour().equals(getMaxProjectHour())
+                && otherSemesterLimit.getMinPreparationHour().equals(getMinPreparationHour())
+                && otherSemesterLimit.getMaxPreparationHour().equals(getMaxPreparationHour());
     }
 
     @Override
@@ -134,29 +134,29 @@ public class SemLimit {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(" Min CAP: ")
+        builder.append(" \nMin CAP: ")
                 .append(getMinCap())
-                .append(" Max CAP: ")
+                .append(" , Max CAP: ")
                 .append(getMaxCap())
-                .append(" Min Lecture Hour: ")
+                .append(" \nMin Lecture Hour: ")
                 .append(getMinLectureHour())
-                .append(" Max Lecture Hour: ")
+                .append(" , Max Lecture Hour: ")
                 .append(getMaxLectureHour())
-                .append(" Min Tutorial Hour: ")
+                .append(" \nMin Tutorial Hour: ")
                 .append(getMinTutorialHour())
-                .append(" Max Tutorial Hour: ")
+                .append(" , Max Tutorial Hour: ")
                 .append(getMaxTutorialHour())
-                .append(" Min Lab Hour: ")
+                .append(" \nMin Lab Hour: ")
                 .append(getMinLabHour())
-                .append(" Max Lab Hour: ")
+                .append(" , Max Lab Hour: ")
                 .append(getMaxLabHour())
-                .append(" Min Project Hour: ")
+                .append(" \nMin Project Hour: ")
                 .append(getMinProjectHour())
-                .append(" Max Project Hour: ")
+                .append(" , Max Project Hour: ")
                 .append(getMaxProjectHour())
-                .append(" Min Preparation Hour: ")
+                .append(" \nMin Preparation Hour: ")
                 .append(getMinPreparationHour())
-                .append(" Max Preparation Hour: ")
+                .append(" , Max Preparation Hour: ")
                 .append(getMaxPreparationHour());
         return builder.toString();
     }

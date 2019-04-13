@@ -1,6 +1,7 @@
-package seedu.address.model;
+package seedu.address.model.limits;
 
 import javafx.collections.ObservableList;
+import seedu.address.model.ClassForPrinting;
 import seedu.address.model.moduleinfo.ModuleInfo;
 import seedu.address.model.moduleinfo.ModuleInfoCredits;
 import seedu.address.model.moduleinfo.ModuleInfoList;
@@ -23,23 +24,23 @@ public class LimitChecker implements ClassForPrinting {
      * Returns a generated html string that shows where their CAP and workload limits are violated.
      *
      * @param currentSemester the current semester when running the limit checker.
-     * @param semLimits the current semester limits of the user when running the limit checker.
+     * @param semesterLimits the current semester limits of the user when running the limit checker.
      * @param modulesTaken the current modules taken of the user when running the limit checker.
      * @param moduleInfoList the full list of ModuleInfo for checking the modules credits of each module
      */
-    public LimitChecker(Semester currentSemester, ObservableList<SemLimit> semLimits,
+    public LimitChecker(Semester currentSemester, ObservableList<SemesterLimit> semesterLimits,
                                     ObservableList<ModuleTaken> modulesTaken, ModuleInfoList moduleInfoList) {
         CapAverage currentCap = new CapAverage();
         CapAverage cumulativeMinCap = new CapAverage();
         CapAverage cumulativeMaxCap = new CapAverage();
-        CapAverage[][] minMaxCapAveragesPerSem = new CapAverage[semLimits.size()][2];
+        CapAverage[][] minMaxCapAveragesPerSem = new CapAverage[semesterLimits.size()][2];
         for (int i = 0; i < minMaxCapAveragesPerSem.length; i++) {
             for (int j = 0; j < minMaxCapAveragesPerSem[i].length; j++) {
                 minMaxCapAveragesPerSem[i][j] = new CapAverage();
             }
         }
 
-        double[][] semesterSums = new double[semLimits.size()][5];
+        double[][] semesterSums = new double[semesterLimits.size()][5];
         for (int mod = 0; mod < modulesTaken.size(); mod++) {
             ModuleInfoCredits modCredits = new ModuleInfoCredits(DEFAULT_MODULE_CREDITS);
             ModuleInfo moduleInfo = moduleInfoList.getModule(String.valueOf(modulesTaken.get(mod).getModuleInfoCode()));
@@ -80,38 +81,38 @@ public class LimitChecker implements ClassForPrinting {
         cumulativeMinCurrentMaxCap[1] = currentCap.getCapLimit();
         cumulativeMinCurrentMaxCap[2] = cumulativeMaxCap.getCapLimit();
 
-        double[][] capTable = new double[semLimits.size()][CAP_TABLE_COL_COUNT];
-        for (int sem = 0; sem < semLimits.size(); sem++) {
-            capTable[sem][0] = semLimits.get(sem).getMinCap().getCapLimit();
+        double[][] capTable = new double[semesterLimits.size()][CAP_TABLE_COL_COUNT];
+        for (int sem = 0; sem < semesterLimits.size(); sem++) {
+            capTable[sem][0] = semesterLimits.get(sem).getMinCap().getCapLimit();
             capTable[sem][1] = minMaxCapAveragesPerSem[sem][0].getCapLimit();
             capTable[sem][2] = minMaxCapAveragesPerSem[sem][1].getCapLimit();
-            capTable[sem][3] = semLimits.get(sem).getMaxCap().getCapLimit();
+            capTable[sem][3] = semesterLimits.get(sem).getMaxCap().getCapLimit();
         }
 
         double[][] workloadTable =
-                new double[semLimits.size() * WORKLOAD_TABLE_ROW_COUNT][WORKLOAD_TABLE_COL_COUNT];
-        for (int sem = 0; sem < semLimits.size(); sem++) {
+                new double[semesterLimits.size() * WORKLOAD_TABLE_ROW_COUNT][WORKLOAD_TABLE_COL_COUNT];
+        for (int sem = 0; sem < semesterLimits.size(); sem++) {
             int rowIndexOffSet = sem * WORKLOAD_TABLE_ROW_COUNT;
 
-            workloadTable[rowIndexOffSet][0] = semLimits.get(sem).getMinLectureHour().getHour();
+            workloadTable[rowIndexOffSet][0] = semesterLimits.get(sem).getMinLectureHour().getHour();
             workloadTable[rowIndexOffSet][1] = semesterSums[sem][0];
-            workloadTable[rowIndexOffSet][2] = semLimits.get(sem).getMaxLectureHour().getHour();
+            workloadTable[rowIndexOffSet][2] = semesterLimits.get(sem).getMaxLectureHour().getHour();
 
-            workloadTable[rowIndexOffSet + 1][0] = semLimits.get(sem).getMinTutorialHour().getHour();
+            workloadTable[rowIndexOffSet + 1][0] = semesterLimits.get(sem).getMinTutorialHour().getHour();
             workloadTable[rowIndexOffSet + 1][1] = semesterSums[sem][1];
-            workloadTable[rowIndexOffSet + 1][2] = semLimits.get(sem).getMaxTutorialHour().getHour();
+            workloadTable[rowIndexOffSet + 1][2] = semesterLimits.get(sem).getMaxTutorialHour().getHour();
 
-            workloadTable[rowIndexOffSet + 2][0] = semLimits.get(sem).getMinLabHour().getHour();
+            workloadTable[rowIndexOffSet + 2][0] = semesterLimits.get(sem).getMinLabHour().getHour();
             workloadTable[rowIndexOffSet + 2][1] = semesterSums[sem][2];
-            workloadTable[rowIndexOffSet + 2][2] = semLimits.get(sem).getMaxLabHour().getHour();
+            workloadTable[rowIndexOffSet + 2][2] = semesterLimits.get(sem).getMaxLabHour().getHour();
 
-            workloadTable[rowIndexOffSet + 3][0] = semLimits.get(sem).getMinProjectHour().getHour();
+            workloadTable[rowIndexOffSet + 3][0] = semesterLimits.get(sem).getMinProjectHour().getHour();
             workloadTable[rowIndexOffSet + 3][1] = semesterSums[sem][3];
-            workloadTable[rowIndexOffSet + 3][2] = semLimits.get(sem).getMaxProjectHour().getHour();
+            workloadTable[rowIndexOffSet + 3][2] = semesterLimits.get(sem).getMaxProjectHour().getHour();
 
-            workloadTable[rowIndexOffSet + 4][0] = semLimits.get(sem).getMinPreparationHour().getHour();
+            workloadTable[rowIndexOffSet + 4][0] = semesterLimits.get(sem).getMinPreparationHour().getHour();
             workloadTable[rowIndexOffSet + 4][1] = semesterSums[sem][4];
-            workloadTable[rowIndexOffSet + 4][2] = semLimits.get(sem).getMaxPreparationHour().getHour();
+            workloadTable[rowIndexOffSet + 4][2] = semesterLimits.get(sem).getMaxPreparationHour().getHour();
         }
         this.checkedReport = generateHtmlLimits(currentSemester, cumulativeMinCurrentMaxCap, capTable, workloadTable);
     }

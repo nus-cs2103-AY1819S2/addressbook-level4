@@ -16,7 +16,6 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserInfo;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.course.CourseList;
 import seedu.address.model.course.CourseName;
 import seedu.address.model.moduleinfo.ModuleInfoList;
 import seedu.address.testutil.Assert;

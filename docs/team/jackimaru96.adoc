@@ -32,7 +32,7 @@ image::travis.png[66,90]
 
 == Overview
 
-_In-Credit-Ble_ is a desktop Finance Tracker that is tailored to help users manage their finances
+_In-Credit-Ble_ is a desktop Finance Tracker tailored to help users manage their finances
 and keep track of their budget in an *easy and efficient* manner. It is designed for those who
 prefer to work with a Command Line Interface (CLI), especially for those who prefer to type over
 using their mouse.
@@ -91,6 +91,14 @@ Finance Tracker Application
 ** *_Highlights of feature:_*
 *** This feature can be triggered using the `theme` command. Triggering this command will result in
 the `UI` component changing its stylesheet to fit the pre-set themes indicated by the user.
+
+* `BudgetPanel` of UI
+** *_What it does_*: Allows user to see the total spending against total budget so far in a visual progress bar.
+Depending on how close the total spending is to the total budget, the colour of the bar will change accordingly.
+** *_Justification_*: This feature will allows users to have a visual view of their total spending against their set
+budget
+** *_Highlights of feature:_*
+*** This feature will be updated every time a user `spends`, `edit` the amount in the records, or `delete` a record
 
 === Other Contributions
 ==== Notable Contributions
@@ -172,11 +180,15 @@ document the Developer Guide well will allow colleagues or other developers to u
 Due to page limit constraints, I will only be listing the major portion of my contribution.
 (Class Diagram + Sequence Diagram)
 To see the rest of the contributions I made to the DG, click the below link. +
-https://github.com/CS2103-AY1819S2-W17-3/main/blob/master/docs/DeveloperGuide.adoc#budget-management[`show` implementation]
+
+1) https://github.com/CS2103-AY1819S2-W17-3/main/blob/master/docs/DeveloperGuide.adoc#budget-management[`show` implementation] +
+2)https://github.com/CS2103-AY1819S2-W17-3/main/blob/master/docs/DeveloperGuide.adoc#theme[`theme` implementation]
 |===
 
+=== Budget Class Diagrams
 include::../DeveloperGuide.adoc[tag=budgetclassdiagram]
 ---
+=== CategoryBudget Implementation
 include::../DeveloperGuide.adoc[tag=categorybudget]
 
 

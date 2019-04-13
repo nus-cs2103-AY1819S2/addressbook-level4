@@ -1,6 +1,7 @@
-package seedu.address.logic.parser;
+package seedu.address.logic.parser.appointment;
 
 import static seedu.address.logic.parser.CliSyntax.PREFIX_APPT_STATUS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CHRONOLOGY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE_OF_APPT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DOCTOR_ID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PATIENT_ID;
@@ -8,8 +9,12 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_START_TIME;
 
 import java.util.Optional;
 
-import seedu.address.logic.commands.ListAppointmentCommand;
-import seedu.address.logic.commands.ListAppointmentCommand.ListAppointmentDescriptor;
+import seedu.address.logic.commands.appointment.ListAppointmentCommand;
+import seedu.address.logic.commands.appointment.ListAppointmentCommand.ListAppointmentDescriptor;
+import seedu.address.logic.parser.ArgumentMultimap;
+import seedu.address.logic.parser.ArgumentTokenizer;
+import seedu.address.logic.parser.Parser;
+import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.appointment.AppointmentDate;
 import seedu.address.model.appointment.AppointmentDoctorId;
@@ -31,7 +36,7 @@ public class ListAppointmentCommandParser implements Parser<ListAppointmentComma
 
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_PATIENT_ID, PREFIX_DOCTOR_ID,
-                        PREFIX_DATE_OF_APPT, PREFIX_START_TIME, PREFIX_APPT_STATUS);
+                        PREFIX_DATE_OF_APPT, PREFIX_START_TIME, PREFIX_APPT_STATUS, PREFIX_CHRONOLOGY);
 
         ListAppointmentDescriptor descriptors =
                 new ListAppointmentDescriptor();
@@ -61,6 +66,10 @@ public class ListAppointmentCommandParser implements Parser<ListAppointmentComma
                     .parseAppointmentStatus(argMultimap.getValue(PREFIX_APPT_STATUS).get());
             descriptors.setStatus(Optional.of(status));
         }
+
+       /* if (argMultimap.getValue(PREFIX_CHRONOLOGY).isPresent()) {
+            App
+        }*/
 
         return new ListAppointmentCommand(descriptors);
     }

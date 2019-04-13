@@ -1,4 +1,4 @@
-package seedu.address.logic.commands;
+package seedu.address.logic.commands.appointment;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PLACEHOLDER_DATE_OF_APPT;
@@ -17,6 +17,8 @@ import java.util.Optional;
 import java.util.function.Predicate;
 
 import seedu.address.logic.CommandHistory;
+import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.appointment.Appointment;
@@ -43,11 +45,11 @@ public class ListAppointmentCommand extends Command {
             + COMMAND_EXAMPLE;
 
     public static final String MESSAGE_SUCCESS = "Listed all appointments";
-    public static final String MESSAGE_SUCCESS_FILTERED_PATIENT = ", filtered by patient ID ";
-    public static final String MESSAGE_SUCCESS_FILTERED_DOCTOR = ", filtered by doctor ID ";
-    public static final String MESSAGE_SUCCESS_FILTERED_DATE = ", filtered by date ";
-    public static final String MESSAGE_SUCCESS_FILTERED_TIME = ", filtered by time ";
-    public static final String MESSAGE_SUCCESS_FILTERED_STATUS = ", filtered by status ";
+    public static final String MESSAGE_SUCCESS_FILTERED_PATIENT = ", filtered by patient ID";
+    public static final String MESSAGE_SUCCESS_FILTERED_DOCTOR = ", filtered by doctor ID";
+    public static final String MESSAGE_SUCCESS_FILTERED_DATE = ", filtered by date";
+    public static final String MESSAGE_SUCCESS_FILTERED_TIME = ", filtered by time";
+    public static final String MESSAGE_SUCCESS_FILTERED_STATUS = ", filtered by status";
     public static final String MESSAGE_PATIENT_NOT_FOUND =
             "Appointment with the specified patient ID is not found.";
     public static final String MESSAGE_DOCTOR_NOT_FOUND =
@@ -79,7 +81,8 @@ public class ListAppointmentCommand extends Command {
             predicates.add(appointment -> {
                 return appointment.getPatientId().equals(id);
             });
-            result.append(MESSAGE_SUCCESS_FILTERED_PATIENT);
+            result.append(MESSAGE_SUCCESS_FILTERED_PATIENT + ": ");
+            result.append(id);
         }
 
         if (listAppointmentDescriptor.getDoctorId().isPresent()) {
@@ -90,28 +93,32 @@ public class ListAppointmentCommand extends Command {
             predicates.add(appointment -> {
                 return appointment.getDoctorId().equals(id);
             });
-            result.append(MESSAGE_SUCCESS_FILTERED_DOCTOR);
+            result.append(MESSAGE_SUCCESS_FILTERED_DOCTOR + ": ");
+            result.append(id);
         }
 
         listAppointmentDescriptor.getDate().ifPresent(date -> {
             predicates.add(appointment -> {
                 return appointment.getDate().equals(date);
             });
-            result.append(MESSAGE_SUCCESS_FILTERED_DATE);
+            result.append(MESSAGE_SUCCESS_FILTERED_DATE + ": ");
+            result.append(date);
         });
 
         listAppointmentDescriptor.getTime().ifPresent(time -> {
             predicates.add(appointment -> {
                 return appointment.getTime().equals(time);
             });
-            result.append(MESSAGE_SUCCESS_FILTERED_TIME);
+            result.append(MESSAGE_SUCCESS_FILTERED_TIME + ": ");
+            result.append(time);
         });
 
         listAppointmentDescriptor.getStatus().ifPresent(status -> {
             predicates.add(appointment -> {
                 return appointment.getAppointmentStatus().equals(status);
             });
-            result.append(MESSAGE_SUCCESS_FILTERED_STATUS);
+            result.append(MESSAGE_SUCCESS_FILTERED_STATUS + ": ");
+            result.append(status);
         });
 
         // reduce predicate list to a single predicate

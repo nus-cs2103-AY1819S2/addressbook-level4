@@ -6,7 +6,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import seedu.address.logic.commands.AddAppointmentCommand;
+import seedu.address.logic.commands.appointment.AddAppointmentCommand;
 import seedu.address.logic.commands.AddDoctorCommand;
 import seedu.address.logic.commands.AddMedHistCommand;
 import seedu.address.logic.commands.AddPatientCommand;
@@ -23,12 +23,13 @@ import seedu.address.logic.commands.EditPrescriptionCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
-import seedu.address.logic.commands.ListAppointmentCommand;
+import seedu.address.logic.commands.appointment.ListAppointmentCommand;
 import seedu.address.logic.commands.ListDoctorCommand;
 import seedu.address.logic.commands.ListMedHistCommand;
 import seedu.address.logic.commands.ListPatientCommand;
 import seedu.address.logic.commands.ListPrescriptionCommand;
-import seedu.address.logic.commands.MarkAppointmentCommand;
+import seedu.address.logic.parser.appointment.ListAppointmentCommandParser;
+import seedu.address.logic.commands.appointment.MarkAppointmentCommand;
 import seedu.address.logic.commands.SearchAdvancedPatientCommand;
 import seedu.address.logic.commands.SearchMedHistCommand;
 import seedu.address.logic.commands.SearchPatientApptStatusCommand;
@@ -42,6 +43,8 @@ import seedu.address.logic.commands.SelectPatientCommand;
 import seedu.address.logic.commands.SelectPrescriptionCommand;
 import seedu.address.logic.commands.SortMedHistCommand;
 import seedu.address.logic.commands.SortPrescriptionCommand;
+import seedu.address.logic.parser.appointment.AddAppointmentCommandParser;
+import seedu.address.logic.parser.appointment.MarkAppointmentCommandParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 

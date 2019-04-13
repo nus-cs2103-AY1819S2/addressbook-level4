@@ -18,9 +18,9 @@ import seedu.address.model.modelmanager.ManagementModelStub;
 import seedu.address.model.modelmanager.QuizModelStub;
 
 /**
- * Unit tests for the {@link CloseLessonCommand}.
+ * Unit tests for the {@link SaveLessonCommand}.
  */
-public class CloseLessonCommandTest {
+public class SaveLessonCommandTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
@@ -33,7 +33,7 @@ public class CloseLessonCommandTest {
         assertEquals(modelStub.getOpenedLesson(), modelStub.toBeOpenedLesson); // always work
 
         // closes the opened lesson -> lesson closed successfully without exception
-        new CloseLessonCommand().execute(modelStub, commandHistory);
+        new SaveLessonCommand().execute(modelStub, commandHistory);
         // openedLesson is now null
         assertNull(modelStub.getOpenedLesson());
     }
@@ -44,7 +44,7 @@ public class CloseLessonCommandTest {
 
         // attempts to close a lesson when no lesson is opened -> CommandException thrown
         thrown.expect(CommandException.class);
-        new CloseLessonCommand().execute(modelStub, commandHistory);
+        new SaveLessonCommand().execute(modelStub, commandHistory);
     }
 
     @Test
@@ -54,43 +54,43 @@ public class CloseLessonCommandTest {
         assertEquals(modelStub.getOpenedLesson(), modelStub.toBeOpenedLesson); // always work
 
         // closes the opened lesson -> lesson closed successfully without exception
-        new CloseLessonCommand().execute(modelStub, commandHistory);
+        new SaveLessonCommand().execute(modelStub, commandHistory);
         // openedLesson is now null
         assertNull(modelStub.getOpenedLesson());
 
         // attempts to close a lesson when no lesson is opened -> CommandException thrown
         thrown.expect(CommandException.class);
-        new CloseLessonCommand().execute(modelStub, commandHistory);
+        new SaveLessonCommand().execute(modelStub, commandHistory);
     }
 
     @Test
     public void execute_incorrectModel_throwsCommandException() throws Exception {
         QuizModelStub modelStub = new QuizModelStub();
-        CloseLessonCommand closeLessonCommand = new CloseLessonCommand();
+        SaveLessonCommand saveLessonCommand = new SaveLessonCommand();
 
-        // attempting to execute CloseLessonCommand on a QuizModel instead of a ManagementModel ->
+        // attempting to execute SaveLessonCommand on a QuizModel instead of a ManagementModel ->
         // CommandException thrown
         thrown.expect(CommandException.class);
         thrown.expectMessage(MESSAGE_EXPECTED_MODEL);
-        closeLessonCommand.execute(modelStub, commandHistory);
+        saveLessonCommand.execute(modelStub, commandHistory);
     }
 
     @Test
     public void equals() {
-        CloseLessonCommand closeLessonCommand = new CloseLessonCommand();
+        SaveLessonCommand saveLessonCommand = new SaveLessonCommand();
 
         // same object -> returns true
-        assertEquals(closeLessonCommand, closeLessonCommand);
+        assertEquals(saveLessonCommand, saveLessonCommand);
 
-        // all CloseLessonCommand objects are the same -> returns true
-        CloseLessonCommand closeLessonCommand2 = new CloseLessonCommand();
-        assertEquals(closeLessonCommand, closeLessonCommand2);
+        // all SaveLessonCommand objects are the same -> returns true
+        SaveLessonCommand saveLessonCommand2 = new SaveLessonCommand();
+        assertEquals(saveLessonCommand, saveLessonCommand2);
 
         // different types -> returns false
-        assertNotEquals(closeLessonCommand, 1);
+        assertNotEquals(saveLessonCommand, 1);
 
         // null -> returns false
-        assertNotEquals(closeLessonCommand, null);
+        assertNotEquals(saveLessonCommand, null);
     }
 
     /**

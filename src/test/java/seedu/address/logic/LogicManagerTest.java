@@ -29,13 +29,13 @@ import org.junit.rules.TemporaryFolder;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.commands.management.AddLessonCommand;
-import seedu.address.logic.commands.management.CloseLessonCommand;
 import seedu.address.logic.commands.management.DeleteLessonCommand;
 import seedu.address.logic.commands.management.EditLessonCommand;
 import seedu.address.logic.commands.management.ExitCommand;
 import seedu.address.logic.commands.management.HelpCommand;
 import seedu.address.logic.commands.management.HistoryCommand;
 import seedu.address.logic.commands.management.ReloadLessonsCommand;
+import seedu.address.logic.commands.management.SaveLessonCommand;
 import seedu.address.logic.commands.quiz.QuizAnswerCommand;
 import seedu.address.logic.commands.quiz.QuizQuitCommand;
 import seedu.address.logic.commands.quiz.QuizStartCommand;
@@ -131,7 +131,7 @@ public class LogicManagerTest {
             + LogicManager.CHECK_LOGS_MESSAGE);
         logic.execute(EditLessonCommand.COMMAND_WORD + " 1");
         assertEquals(expected.getFeedbackToUser(),
-            logic.execute(CloseLessonCommand.COMMAND_WORD).getFeedbackToUser());
+            logic.execute(SaveLessonCommand.COMMAND_WORD).getFeedbackToUser());
     }
 
     @Test

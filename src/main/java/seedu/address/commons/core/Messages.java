@@ -2,13 +2,13 @@ package seedu.address.commons.core;
 
 import seedu.address.logic.commands.management.AddCardCommand;
 import seedu.address.logic.commands.management.AddLessonCommand;
-import seedu.address.logic.commands.management.CloseLessonCommand;
 import seedu.address.logic.commands.management.DeleteCardCommand;
 import seedu.address.logic.commands.management.DeleteLessonCommand;
 import seedu.address.logic.commands.management.EditLessonCommand;
 import seedu.address.logic.commands.management.ListCardsCommand;
 import seedu.address.logic.commands.management.ListLessonsCommand;
 import seedu.address.logic.commands.management.ReloadLessonsCommand;
+import seedu.address.logic.commands.management.SaveLessonCommand;
 import seedu.address.logic.commands.management.SetTestCommand;
 
 /**
@@ -21,7 +21,7 @@ public class Messages {
     public static final String MESSAGE_LESSON_COMMANDS =
             "<< Lesson View >>\nYou can now use the following commands:\n"
                     + "1. " + EditLessonCommand.COMMAND_WORD
-                    + ": Opens a lesson in Card View for editing .\n"
+                    + ": Opens a lesson in Card View for editing.\n"
                     + "2. " + AddLessonCommand.COMMAND_WORD
                     + ": Adds a lesson.\n"
                     + "3. " + DeleteLessonCommand.COMMAND_WORD
@@ -32,8 +32,8 @@ public class Messages {
                     + ": Lists all lessons in memory.";
     public static final String MESSAGE_CARD_COMMANDS =
             "<< Card View >>\nYou can now use the following commands:\n"
-                    + "1. " + CloseLessonCommand.COMMAND_WORD
-                    + ": Closes this opened lesson and sav and return to Lesson View.\n"
+                    + "1. " + SaveLessonCommand.COMMAND_WORD
+                    + ": Saves changes made to this lesson and return to Lesson View.\n"
                     + "2. " + SetTestCommand.COMMAND_WORD
                     + ": Sets the 2 test values for the opened lesson's flashcards.\n"
                     + "3. " + AddCardCommand.COMMAND_WORD
@@ -76,7 +76,7 @@ public class Messages {
      */
     public static final String MESSAGE_LESSON_VIEW_COMMAND =
             "This is a Lesson View command. Exit Card View to return to Lesson View.\n"
-            + "To exit Card View:\n" + CloseLessonCommand.MESSAGE_USAGE;
+            + "To exit Card View:\n" + SaveLessonCommand.MESSAGE_USAGE;
 
     /**
      * This is a constants-only (utility) class which should not be instantiated.

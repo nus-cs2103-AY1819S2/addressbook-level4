@@ -12,27 +12,28 @@ import seedu.address.model.modelmanager.ManagementModel;
 import seedu.address.model.modelmanager.Model;
 
 /**
- * This implements a {@link ManagementCommand} which closes the opened {@link Lesson} in the
- * {@code List<Lesson> lessons} loaded in memory.
+ * This implements a {@link ManagementCommand} which saves changes made to the {@link Lesson}
+ * opened in Card View, before returning to Lesson View.
  *
  * It requires a {@link ManagementModel} to be passed into the {@link #execute(Model, CommandHistory)}
  * command.
  */
-public class CloseLessonCommand extends ManagementCommand {
+public class SaveLessonCommand extends ManagementCommand {
     /**
      * The word a user must enter to call this command.
      */
-    public static final String COMMAND_WORD = "close";
+    public static final String COMMAND_WORD = "save";
     /**
      * Instructions on command usage and parameters.
      */
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Closes this opened lesson with changes saved and return to Lesson View.\n"
+            + ": Saves changes made to the lesson currently opened in Card View "
+            + "and return to Lesson View.\n"
             + "Example: " + COMMAND_WORD;
     /**
      * Feedback message displayed to the user upon successful execution of this command
      */
-    public static final String MESSAGE_SUCCESS = "Closed lesson and saved changes: %1$s\n"
+    public static final String MESSAGE_SUCCESS = "Saved lesson: %1$s\n"
             + MESSAGE_LESSON_COMMANDS;
 
     /**
@@ -60,16 +61,16 @@ public class CloseLessonCommand extends ManagementCommand {
     }
 
     /**
-     * Returns true if {@code other} is the same object or if it is also an {@link CloseLessonCommand}.
-     * All {@link CloseLessonCommand} objects are the same.
+     * Returns true if {@code other} is the same object or if it is also an {@link SaveLessonCommand}.
+     * All {@link SaveLessonCommand} objects are the same.
      *
      * @param other the other object to compare this object to
-     * @return true if {@code other} is the same object or if it is also an {@link CloseLessonCommand}.
-     * All {@link CloseLessonCommand} objects are the same.
+     * @return true if {@code other} is the same object or if it is also an {@link SaveLessonCommand}.
+     * All {@link SaveLessonCommand} objects are the same.
      */
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof CloseLessonCommand);
+                || (other instanceof SaveLessonCommand);
     }
 }

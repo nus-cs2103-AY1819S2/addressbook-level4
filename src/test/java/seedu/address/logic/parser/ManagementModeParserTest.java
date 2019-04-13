@@ -12,7 +12,6 @@ import org.junit.rules.ExpectedException;
 import seedu.address.logic.commands.management.AddCardCommand;
 import seedu.address.logic.commands.management.AddLessonCommand;
 import seedu.address.logic.commands.management.ChangeThemeCommand;
-import seedu.address.logic.commands.management.CloseLessonCommand;
 import seedu.address.logic.commands.management.DeleteCardCommand;
 import seedu.address.logic.commands.management.DeleteLessonCommand;
 import seedu.address.logic.commands.management.EditLessonCommand;
@@ -22,6 +21,7 @@ import seedu.address.logic.commands.management.HistoryCommand;
 import seedu.address.logic.commands.management.ListCardsCommand;
 import seedu.address.logic.commands.management.ListLessonsCommand;
 import seedu.address.logic.commands.management.ReloadLessonsCommand;
+import seedu.address.logic.commands.management.SaveLessonCommand;
 import seedu.address.logic.commands.management.SetTestCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -86,8 +86,8 @@ public class ManagementModeParserTest {
 
     @Test
     public void parseCommand_closeLessons() throws Exception {
-        assertTrue(parser.parse(CloseLessonCommand.COMMAND_WORD)
-                instanceof CloseLessonCommand);
+        assertTrue(parser.parse(SaveLessonCommand.COMMAND_WORD)
+                instanceof SaveLessonCommand);
     }
 
     @Test

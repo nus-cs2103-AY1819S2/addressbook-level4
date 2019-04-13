@@ -24,7 +24,7 @@ public class SummaryPanel extends UiPart<Region> {
     private static final String FXML = "SummaryPanel.fxml";
 
     private static final String[] PIE_CHART_COLOUR_STYLES =
-        { "teal", "red", "yellow", "blue", "orange", "brown", "green", "pink", "black", "grey", "purple",
+        { "teal", "red", "yellow", "blue", "orange", "brown", "green", "pink", "black", "gray", "purple",
             "coral", "tan", "turquoise", "lightGray", "lightSkyBlue", "hotPink", "peachPuff", "cadetBlue" };
 
     @FXML
@@ -115,7 +115,7 @@ public class SummaryPanel extends UiPart<Region> {
     }
 
     private String getPieChartColorStyleFor(String categoryName) {
-        return PIE_CHART_COLOUR_STYLES[Math.abs(categoryName.hashCode()) % PIE_CHART_COLOUR_STYLES.length];
+        return PIE_CHART_COLOUR_STYLES[Math.abs(categoryName.hashCode()%23) % PIE_CHART_COLOUR_STYLES.length];
     }
 
 }

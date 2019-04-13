@@ -406,9 +406,9 @@
     -fx-background-color: black;
 }
 
-.grey {
+.gray {
     -fx-text-fill: black !important;
-    -fx-background-color: grey;
+    -fx-background-color: gray;
 }
 
 .purple {

@@ -5,46 +5,55 @@
 
 == PROJECT: In-Credit-Ble
 
----
+This is my project portfolio for _In-Credit-Ble_, a product that was developed as part of our Software Engineering module, CS2103T.
+
+In this portfolio, I will be showcasing a brief overview of my total contributions to the team project, followed by excerpts of my contributions to _In-Credit-Ble_’s User Guide and Developer Guide respectively. Through this project portfolio, I hope you will glean insights into my personal contributions to the development of _In-Credit-Ble_.
 
 == Overview
 
+_In-Credit-Ble_ is a finance tracker that is tailored to help users manage their personal finances in an easy and efficient manner. _In-Credit-Ble_ helps the user to achieve their financial objectives by helping them to keep track of their expenditure and be more aware of their spending habits. The application is designed for those who prefer to type over using their mouse, with the main mode of navigation in this application being a Command Line Interface (CLI).
+
 image::Ui_2.png[]
 
-_In-Credit-Ble_ is an expense tracker that is tailored to help users manage their finances and keep track of their budget in an easy and efficient manner. It is designed for those who prefer to work with a Command Line Interface (CLI), especially for those who prefer to type over using their mouse.
+Some of its key features include, but not limited to:
 
-_In-Credit-Ble_ was developed by four friends and I, from the National University of Singapore. This product was developed as part of our Software Engineering module, CS2103T. We had to adapt to an existing codebase in Java and develop a functional product in a short span of 13 weeks. In this project portfolio, I will be documenting my personal contributions to this project.
+** An intuitive and easy to use user interface that allows you to add new records fast.
+** Able to sort your list of recorded expenses by name, amount, date or category
+** View a summary of your expenditures by their categories, illustrated as a pie chart
+
+_In-Credit-Ble_ was developed by four friends and I, from the National University of Singapore. We had to adapt to an existing codebase that was written in Java and develop a functional product in a short span of 13 weeks.
+
 
 == Summary of contributions
 This section summarises my contributions towards the code, documentation, as well as other helpful contributions to the team project.
 
 * *Major enhancement*: added *Summary* command to represent the overview of expenses in a graphical form
-** What it does: Allows the user to view an overview of all their expenditures in a single graph. Each sector represents a category and gets “filled up” according to the percentage spent of the allocated budget for that particular sector.
-** Justification: This feature improves the product significantly because a user will be able to see a quick overview of their spending in a pictorial form. This allows users to easily perceive whether their spending is within their budget for each category.
-** Highlights: This enhancement required an in-depth analysis of design alternatives. The implementation was also quite challenging as it required linking to third party libraries.
-** Credits: Usage of D3, a JavaScript library for data visualisations via HTML, SVG, and CSS.
+** What it does: Allows the user to view an overview of all their expenditures in a specified report period, represented as a single pie chart. Each sector represents a category, labelled with the name and amount spent in that particular category.
+** Justification: This feature improves the product significantly because a user will be able to see a quick overview of their spending in a pictorial form. his allows users to easily identify which category they spend the most on and can afford to cut down on.
+** Highlights: You can specify the report period of which expenditures should be represented in the pie chart. Else, the default report period that will be shown is the expenditures of the user in the last 7 days.
 
 * *Code contributed*: [https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#=undefined&search=geezlouisee[Functional code]]
 
 * *Other contributions*:
 
 ** Project management:
-*** Helped to manage issue tracker (https://github.com/CS2103-AY1819S2-W17-3/main/issues/89[#89])
+*** Helped to manage issue tracker (https://github.com/CS2103-AY1819S2-W17-3/main/issues/89[#89], https://github.com/CS2103-AY1819S2-W17-3/main/issues/179[#179])
 ** Enhancements to existing features:
 *** Added more colours to tags, and refactored them as categories to suit our product (https://github.com/CS2103-AY1819S2-W17-3/main/pull/20[#20], https://github.com/CS2103-AY1819S2-W17-3/main/pull/59[#59], https://github.com/CS2103-AY1819S2-W17-3/main/pull/73[#73])
 ** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com/CS2103-AY1819S2-W17-3/main/pull/109[#109]
-*** Did cosmetic tweaks to the Developer Guide (https://github.com/CS2103-AY1819S2-W17-3/main/pull/4[#4], https://github.com/CS2103-AY1819S2-W17-3/main/pull/8[#8], https://github.com/CS2103-AY1819S2-W17-3/main/pull/78[#78])
+*** Did cosmetic tweaks to existing contents of the User Guide (https://github.com/CS2103-AY1819S2-W17-3/main/pull/109[#109], https://github.com/CS2103-AY1819S2-W17-3/main/issues/208[#208])
+*** Did cosmetic tweaks to the Developer Guide (https://github.com/CS2103-AY1819S2-W17-3/main/pull/4[#4], https://github.com/CS2103-AY1819S2-W17-3/main/pull/8[#8], https://github.com/CS2103-AY1819S2-W17-3/main/pull/78[#78], https://github.com/CS2103-AY1819S2-W17-3/main/issues/125[#125], https://github.com/CS2103-AY1819S2-W17-3/main/issues/208[#208])
 ** Community:
 *** PRs reviewed (with non-trivial review comments): https://github.com/CS2103-AY1819S2-W17-3/main/pull/64[#64]
+*** Activity in Forum (https://github.com/nus-cs2103-AY1819S2/forum/issues/65[#65])
 ** Tools:
-*** Integrated a third party library (d3.js) to the project (https://github.com/CS2103-AY1819S2-W17-3/main/pull/104[#104])
 *** Configured project to link properly to RepoSense (https://github.com/CS2103-AY1819S2-W17-3/main/pull/70[#70])
+*** Configured project to link properly to Coveralls (https://github.com/CS2103-AY1819S2-W17-3/main/issues/137[#137], https://github.com/CS2103-AY1819S2-W17-3/main/issues/138[#138])
 
 == Contributions to the User Guide
 
 |===
-|_We had to update the original addressbook's User Guide with instructions for the enhancements that we had added. The following is an excerpt from our In-Credit-Ble User Guide, showing additions that I have made for the `summary` feature._
+|_We had to update the original addressbook's User Guide with instructions for the enhancements that we had added. The following is an excerpt from our In-Credit-Ble User Guide, showing additions that I have made for the `summary` feature and `Upcoming Features`._
 |===
 
 include::../UserGuide.adoc[tag=summary]

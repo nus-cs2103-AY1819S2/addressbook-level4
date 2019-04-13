@@ -730,13 +730,14 @@ The finance record and allocated budget will be saved in the hard disk automatic
 the data. There is no need for you to save manually.
 
 // tag::upcomingFeatures[]
-=== Upcoming features
+=== Upcoming Features
 
 ==== Login Feature `[coming in v2.0]`
 _In-Credit-Ble_ will implement a login feature so that your data and personal finance records will remain safe and secure.
 Your personal data will be encrypted and stored in your own account that can also be secured with a password.
 
-With this feature, multiple users will be able to use _In-Credit-Ble_ on the same computer without being able to access or alter each other's data.
+With this feature, multiple users will be able to use _In-Credit-Ble_ on the same computer without being able to access or modify each other's data.
+// end::upcomingFeatures[]
 
 ==== Separate expenditures based on methods of payment (Cash, Visa, DBS PayLah) `[coming in v2.0]`
 
@@ -745,7 +746,6 @@ These include, but not limited to, payment services such as DBS PayLah, Visa/Mas
 
 By paying through these third-party applications, your transactions will automatically be updated
 and recorded as entries in _In-Credit-Ble_.
-// end::upcomingFeatures[]
 
 // tag::savingpatterns[]
 ==== Establish saving patterns based on record and derive projected savings/expenses in a time span `[coming in v2.0]`

@@ -4,9 +4,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_ANDY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BETTY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NRIC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NRIC_ANDY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.address.testutil.TypicalRequests.ALICE_REQUEST;
@@ -208,9 +208,9 @@ class UniqueRequestListTest {
         uniqueRequestList.add(ALICE_REQUEST);
         uniqueRequestList.add(BENSON_REQUEST);
 
-        uniqueRequestList.updateHealthWorker(VALID_NAME_ANDY, VALID_NAME_AMY, VALID_NRIC_ANDY);
+        uniqueRequestList.updateHealthWorker(VALID_NRIC_ANDY, VALID_NRIC_AMY);
         UniqueRequestList copyList = new UniqueRequestList();
-        copyList.add(new RequestBuilder(ALICE_REQUEST).withHealthWorker(VALID_NAME_AMY).build());
+        copyList.add(new RequestBuilder(ALICE_REQUEST).withHealthWorker(VALID_NRIC_AMY).build());
         copyList.add(BENSON_REQUEST);
         assertEquals(copyList, uniqueRequestList);
     }

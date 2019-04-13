@@ -263,7 +263,7 @@ public class AddHealthWorkerCommandTest {
         }
 
         @Override
-        public void updateRequestOnNameEdit(String oldName, String newName, String nric) {
+        public void updateRequestOnNameEdit(String oldNric, String newNric) {
             throw new AssertionError("This method should not be called.");
         }
 

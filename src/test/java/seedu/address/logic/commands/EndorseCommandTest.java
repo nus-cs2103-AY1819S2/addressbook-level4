@@ -7,6 +7,7 @@ import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 import java.util.Set;
 
 import org.junit.Test;
+
 import seedu.address.logic.CommandHistory;
 
 import seedu.address.model.AddressBook;
@@ -22,8 +23,8 @@ public class EndorseCommandTest {
 
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
-    private static final int ENDORSE_PROCESS = 0;
     private static final int CLEAR_PROCESS = 1;
+    private static final int ENDORSE_PROCESS = 0;
     private static final String INVALID_ENDORSE_NAME = null;
     private static final String VALID_ENDORSE_NAME = "John Smith";
 

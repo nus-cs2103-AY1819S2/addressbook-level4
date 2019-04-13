@@ -39,6 +39,8 @@ public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
     public static final String MESSAGE_NOT_JSON_OR_PDF = "Input file type is not a .json or .pdf.";
+    public static final String MESSAGE_INVALID_INDEX_RANGE =
+            "Invalid index range! Please input a positive unsigned index range.";
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -320,16 +322,11 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String filePath} into a {@code ParsedIO}.
-     * @throws ParseException if the given {@code file} is invalid.
+     * Converts all slashes ( / or \ ) in the input {@code String filePath} to File.separator.
      */
-    static ParsedInOut parseOpenSave(String filePath) throws ParseException {
-        requireNonNull(filePath);
-        filePath = filePath.trim();
-        String newPath = "data" + File.separator;
-
-        char[] pathArr = filePath.toCharArray();
-        for (int i = 0; i < filePath.length(); i++) {
+    private static String convertSlashes(String input) {
+        char[] pathArr = input.toCharArray();
+        for (int i = 0; i < input.length(); i++) {
             // Convert example\example.json to example/example.json if the system prefers /
             if (pathArr[i] == '\\') {
                 pathArr[i] = File.separator.toCharArray()[0];
@@ -340,21 +337,43 @@ public class ParserUtil {
                 pathArr[i] = File.separator.toCharArray()[0];
             }
         }
-        filePath = String.valueOf(pathArr);
+        return String.valueOf(pathArr);
+    }
 
-        File file = new File(newPath.concat(filePath));
+    /**
+     * Parses a {@code String filePath} into a {@code ParsedIO}.
+     * @throws ParseException if the given {@code file} is invalid.
+     */
+    static ParsedInOut parseOpenSave(String input) throws ParseException {
+        requireNonNull(input);
+        input = input.trim();
+        String newPath = "data" + File.separator;
 
-        final String jsonRegex = "^([\\w-\\\\/\\s.()]+)+\\.(json)$";
-        if (filePath.matches(jsonRegex)) {
-            return new ParsedInOut(file, "json");
-        } else {
-            final String pdfRegex = "^([\\w-\\\\/\\s.()]+)+\\.(pdf)$";
-            if (filePath.matches(pdfRegex)) {
-                return new ParsedInOut(file, "pdf");
+        input = convertSlashes(input);
+
+        File file = new File(newPath.concat(input));
+
+        final String validationRegex = "^(.*)+\\.(\\w*)$";
+        if (input.matches(validationRegex)) {
+            final String jsonRegex = "^([\\w\\\\/\\s!@#$%^&()_+\\-={}\\[\\];',.]+)+\\.(json)$";
+            final String emptyJson = "^\\.(json)$";
+            if (input.matches(jsonRegex) | input.matches(emptyJson)) {
+                return new ParsedInOut(file, "json");
             } else {
-                throw new ParseException(MESSAGE_NOT_JSON_OR_PDF);
+                final String pdfRegex = "^([\\w\\\\/\\s!@#$%^&()_+\\-={}\\[\\];',.]+)+\\.(pdf)$";
+                final String emptyPdf = "^\\.(pdf)$";
+                if (input.matches(pdfRegex) | input.matches(emptyPdf)) {
+                    return new ParsedInOut(file, "pdf");
+                } else {
+                    final String specialRegex = "^(.*)+\\.(json|pdf)$";
+                    if (input.matches(specialRegex)) {
+                        throw new ParseException("Special characters such as\n> < : \" | ? *\nare not allowed.");
+                    }
+                    throw new ParseException(MESSAGE_NOT_JSON_OR_PDF);
+                }
             }
         }
+        throw new ParseException("Invalid command format!");
     }
 
     /**
@@ -368,28 +387,54 @@ public class ParserUtil {
         String filepath;
         String fileType;
 
-        // Convert example/example.json to example\example.json
-        char[] pathArr = input.toCharArray();
-        for (int i = 0; i < input.length(); i++) {
-            // Convert example\example.json to example/example.json if the system prefers /
-            if (pathArr[i] == '\\') {
-                pathArr[i] = File.separator.toCharArray()[0];
-                continue;
-            }
-            // Convert example/example.json to example\example.json if the system prefers \
-            if (pathArr[i] == '/') {
-                pathArr[i] = File.separator.toCharArray()[0];
-            }
-        }
-        input = String.valueOf(pathArr);
+        input = convertSlashes(input);
 
-        final String validationRegex = "^([\\w-\\\\/\\s.()]+)+\\.(json|pdf)+\\s?([0-9,-]*)?$";
+
+        final String fileRegex = "^(.*)+\\.(json|pdf)+(.*)$";
+        if (!input.matches(fileRegex)) {
+            throw new ParseException(MESSAGE_NOT_JSON_OR_PDF);
+        }
 
         // Parse for "all" keyword
-        final String allRegex = "^([\\w-\\\\/\\s.()]+)+\\.(json|pdf)+\\s(all)$";
-        if (!input.matches(validationRegex)) {
-            if (input.matches(allRegex)) {
-                final Pattern splitRegex = Pattern.compile("^([\\w-\\\\/\\s.()]+)+\\.(json|pdf)+\\s(all)$");
+        final String allRegex = "^([\\w\\\\/\\s!@#$%^&()_+\\-={}\\[\\];',.]+)+\\.(json|pdf)+\\s(all)$";
+        if (input.matches(allRegex)) {
+            final Pattern splitRegex = Pattern.compile(allRegex);
+            Matcher splitMatcher = splitRegex.matcher(input);
+
+            if (splitMatcher.find()) {
+                filepath = splitMatcher.group(1).concat(".");
+                filepath = filepath.concat(splitMatcher.group(2));
+                filepath = newPath.concat(filepath);
+                fileType = splitMatcher.group(2);
+                return new ParsedInOut(new File(filepath), fileType);
+            } else {
+                // This shouldn't be possible after allRegex
+                throw new ParseException(MESSAGE_INVALID_INDEX_RANGE);
+            }
+        }
+        final String emptyAllRegex = "^\\.(json|pdf)+\\s(all)$";
+        if (input.matches(emptyAllRegex)) {
+            final Pattern splitRegex = Pattern.compile(emptyAllRegex);
+            Matcher splitMatcher = splitRegex.matcher(input);
+            if (splitMatcher.find()) {
+                filepath = ".";
+                filepath = filepath.concat(splitMatcher.group(1));
+                filepath = newPath.concat(filepath);
+                fileType = splitMatcher.group(1);
+                return new ParsedInOut(new File(filepath), fileType);
+            } else {
+                // This shouldn't be possible after emptyAllRegex
+                throw new ParseException(MESSAGE_INVALID_INDEX_RANGE);
+            }
+        }
+
+        // Parse for index range
+        final String indexRegex = "^([\\w\\\\/\\s!@#$%^&()_+\\-={}\\[\\];',.]+)+\\.(json|pdf)+\\s([0-9,\\-]*)$";
+        final String emptyIndexRegex = "^\\.(json|pdf)+\\s([0-9,\\-]*)$";
+        String indexRange;
+        if (input.matches(indexRegex) | input.matches(emptyIndexRegex)) {
+            if (input.matches(indexRegex)) {
+                final Pattern splitRegex = Pattern.compile(indexRegex);
                 Matcher splitMatcher = splitRegex.matcher(input);
 
                 if (splitMatcher.find()) {
@@ -397,32 +442,48 @@ public class ParserUtil {
                     filepath = filepath.concat(splitMatcher.group(2));
                     filepath = newPath.concat(filepath);
                     fileType = splitMatcher.group(2);
-                    return new ParsedInOut(new File(filepath), fileType);
+                    indexRange = splitMatcher.group(3);
                 } else {
-                    // This shouldn't be possible after validationRegex
-                    throw new ParseException(MESSAGE_NOT_JSON_OR_PDF);
+                    // This shouldn't be possible after indexRegex
+                    throw new ParseException(MESSAGE_INVALID_INDEX_RANGE);
+                }
+            } else if (input.matches(emptyIndexRegex)) {
+                final Pattern splitRegex = Pattern.compile(emptyIndexRegex);
+                Matcher splitMatcher = splitRegex.matcher(input);
+
+                if (splitMatcher.find()) {
+                    filepath = ".";
+                    filepath = filepath.concat(splitMatcher.group(1));
+                    filepath = newPath.concat(filepath);
+                    fileType = splitMatcher.group(1);
+                    indexRange = splitMatcher.group(2);
+                } else {
+                    // This shouldn't be possible after emptyIndexRegex
+                    throw new ParseException(MESSAGE_INVALID_INDEX_RANGE);
                 }
             } else {
-                throw new ParseException(MESSAGE_NOT_JSON_OR_PDF);
+                // This shouldn't be possible
+                throw new ParseException(MESSAGE_INVALID_INDEX_RANGE);
             }
+
+            HashSet<Integer> parsedIndex = parseIndexRange(indexRange);
+
+            return new ParsedInOut(new File(filepath), fileType, parsedIndex);
         }
 
-        // Parse for index range
-        final Pattern splitRegex = Pattern.compile("([\\w-\\\\/\\s.()]+)+\\.(json|pdf)+\\s?([0-9,-]*)?");
-        Matcher splitMatcher = splitRegex.matcher(input);
-        String indexRange;
-
-        if (splitMatcher.find()) {
-            filepath = splitMatcher.group(1).concat(".");
-            filepath = filepath.concat(splitMatcher.group(2));
-            filepath = newPath.concat(filepath);
-            fileType = splitMatcher.group(2);
-            indexRange = splitMatcher.group(3);
-        } else {
-            // This shouldn't be possible after validationRegex
-            throw new ParseException(MESSAGE_NOT_JSON_OR_PDF);
+        final String specialRegex = "^(.*)+\\.(json|pdf)+\\s([0-9,\\-]*|all)$";
+        if (input.matches(specialRegex)) {
+            throw new ParseException("Special characters such as\n> < : \" | ? *\nare not allowed.");
         }
 
+        throw new ParseException("Invalid command format!");
+    }
+
+    /**
+     * Parses a {@code String indexRange} into a {@code HashSet}.
+     * @throws ParseException if index range is invalid
+     */
+    private static HashSet<Integer> parseIndexRange(String indexRange) throws ParseException {
         HashSet<Integer> parsedIndex = new HashSet<>();
 
         String[] splitInput = indexRange.trim().split(",");
@@ -441,11 +502,10 @@ public class ParserUtil {
                     parsedIndex.add(i - 1);
                 }
             } else {
-                throw new ParseException("Invalid index range! Please input a non-zero unsigned index range.");
+                throw new ParseException(MESSAGE_INVALID_INDEX_RANGE);
             }
         }
-
-        return new ParsedInOut(new File(filepath), fileType, parsedIndex);
+        return parsedIndex;
     }
 
     /**

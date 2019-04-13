@@ -14,7 +14,7 @@ import seedu.address.model.person.Person;
 /**
  * PDF-friendly version of {@link Person}.
  */
-class PdfAdaptedPerson implements PdfAdaptedInterface {
+public class PdfAdaptedPerson implements PdfAdaptedInterface {
 
     private final String name;
     private final String sex;

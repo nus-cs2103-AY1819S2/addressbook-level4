@@ -4,12 +4,12 @@ import static org.junit.Assert.assertEquals;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 
 import java.io.File;
-import java.io.IOException;
 
 import org.junit.Test;
 
 import seedu.address.logic.commands.OpenCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.storage.ParsedInOut;
 
 /**
  * As we are only doing white-box testing, our test cases do not cover path variations
@@ -23,21 +23,14 @@ public class OpenCommandParserTest {
     private OpenCommandParser parser = new OpenCommandParser();
 
     @Test
-    public void parse_validArgs_returnsOpenCommand() throws IOException {
+    public void parse_validArgs_returnsOpenCommand() {
         File test = new File("data" + File.separator + "records.json");
-        if (!test.exists()) {
-            try {
-                test.createNewFile();
-            } catch (IOException e) {
-                throw new IOException("Failed to create test file!");
-            }
-        }
         try {
-            assertEquals(parser.parse(" records.json").getFile(), new OpenCommand(test).getFile());
+            assertEquals(parser.parse(" records.json").getFile(),
+                            new OpenCommand(new ParsedInOut(test, ".json")).getFile());
         } catch (ParseException pe) {
             throw new IllegalArgumentException("Invalid userInput.", pe);
         }
-        test.delete();
     }
 
     @Test

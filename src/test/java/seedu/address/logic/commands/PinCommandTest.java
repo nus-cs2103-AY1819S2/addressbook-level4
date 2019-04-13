@@ -70,13 +70,5 @@ public class PinCommandTest {
         // different person -> returns false
         assertFalse(pinFirstCommand.equals(pinSecondCommand));
     }
-
-    /**
-     * Updates {@code model}'s filtered list to show no one.
-     */
-    private void showNoPerson(Model model) {
-        model.updateFilteredPersonList(p -> false);
-
-        assertTrue(model.getFilteredPersonList().isEmpty());
-    }
+    
 }

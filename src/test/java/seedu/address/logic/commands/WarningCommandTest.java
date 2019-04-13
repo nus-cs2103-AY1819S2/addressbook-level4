@@ -37,10 +37,10 @@ public class WarningCommandTest {
 
     @Test
     public void constructor_nullWarningPanelPredicateType_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class,
-                () -> new WarningCommand(null, new Threshold("0", WarningPanelPredicateType.EXPIRY)));
-        Assert.assertThrows(NullPointerException.class,
-                () -> new WarningCommand(null, new Threshold("0", WarningPanelPredicateType.LOW_STOCK)));
+        Assert.assertThrows(NullPointerException.class, () -> new WarningCommand(null,
+                new Threshold("0", WarningPanelPredicateType.EXPIRY)));
+        Assert.assertThrows(NullPointerException.class, () -> new WarningCommand(null,
+                new Threshold("0", WarningPanelPredicateType.LOW_STOCK)));
     }
 
     @Test

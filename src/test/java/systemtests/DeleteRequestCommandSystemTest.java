@@ -13,12 +13,14 @@ import org.junit.Test;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
-//import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.commands.request.DeleteRequestCommand;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.model.Model;
 import seedu.address.model.request.Request;
+import seedu.address.model.request.RequestNameContainsKeywordPredicate;
+
+//import seedu.address.logic.commands.RedoCommand;
 
 /**
  * Deprecated system test for DeleteCommand in AB4.
@@ -44,9 +46,14 @@ public class DeleteRequestCommandSystemTest extends HealthHubSystemTest {
         assertCommandSuccess(command, expectedModel, expectedResultMessage);
 
         /* Case: delete the last request in the list --> deleted */
-        Model modelBeforeDeletingLast = getModel();
-        Index lastPersonIndex = getLastIndex(modelBeforeDeletingLast);
-        assertCommandSuccess(lastPersonIndex);
+        Model modelBeforeDeletingLast = expectedModel;
+        Index lastPersonIndex = getLastIndex(expectedModel);
+        command = "     " + DeleteRequestCommand.COMMAND_WORD + " " + DeleteRequestCommand.COMMAND_OPTION
+                + "       " + lastPersonIndex.getOneBased() + "       ";
+        deletedRequest = removeRequest(expectedModel, lastPersonIndex);
+        expectedResultMessage = String.format(DeleteRequestCommand.MESSAGE_DELETE_REQUEST_SUCCESS,
+                deletedRequest);
+        assertCommandSuccess(command, expectedModel, expectedResultMessage);
 
         /* Case: undo deleting the last request in the list --> last request restored */
         command = UndoCommand.COMMAND_WORD;
@@ -61,7 +68,12 @@ public class DeleteRequestCommandSystemTest extends HealthHubSystemTest {
 
         /* Case: delete the middle person in the list -> deleted */
         Index middlePersonIndex = getMidIndex(getModel());
-        assertCommandSuccess(middlePersonIndex);
+        command = "     " + DeleteRequestCommand.COMMAND_WORD + " " + DeleteRequestCommand.COMMAND_OPTION
+                + "       " + middlePersonIndex.getOneBased() + "       ";
+        deletedRequest = removeRequest(expectedModel, middlePersonIndex);
+        expectedResultMessage = String.format(DeleteRequestCommand.MESSAGE_DELETE_REQUEST_SUCCESS,
+                deletedRequest);
+        assertCommandSuccess(command, expectedModel, expectedResultMessage);
 
         /* --------- Performing delete operation while a filtered list is being shown ----------- */
 
@@ -69,7 +81,13 @@ public class DeleteRequestCommandSystemTest extends HealthHubSystemTest {
         showPatientsWithName(KEYWORD_MATCHING_MEIER);
         Index index = INDEX_FIRST;
         assertTrue(index.getZeroBased() < getModel().getFilteredRequestList().size());
-        assertCommandSuccess(index);
+        command = "     " + DeleteRequestCommand.COMMAND_WORD + " " + DeleteRequestCommand.COMMAND_OPTION
+                + "       " + index.getOneBased() + "       ";
+        expectedModel.updateFilteredRequestList(new RequestNameContainsKeywordPredicate(KEYWORD_MATCHING_MEIER));
+        deletedRequest = removeRequest(expectedModel, index);
+        expectedResultMessage = String.format(DeleteRequestCommand.MESSAGE_DELETE_REQUEST_SUCCESS,
+                deletedRequest);
+        assertCommandSuccess(command, expectedModel, expectedResultMessage);
 
         /* Case: filtered request list, delete index within bounds of request book but out of bounds of request list
          * --> rejected
@@ -77,14 +95,14 @@ public class DeleteRequestCommandSystemTest extends HealthHubSystemTest {
         showPatientsWithName(KEYWORD_MATCHING_MEIER);
         int invalidIndex = getModel().getRequestBook().getRequestList().size();
         command = DeleteRequestCommand.COMMAND_WORD + " " + DeleteRequestCommand.COMMAND_OPTION + " " + invalidIndex;
-        assertCommandFailure(command, MESSAGE_INVALID_REQUEST_DISPLAYED_INDEX);
+        assertCommandFailure(command, MESSAGE_INVALID_REQUEST_DISPLAYED_INDEX, expectedModel);
 
         /* ------------ Performing delete operation while a person card is selected ------------- */
 
 
         /* Case: delete the selected request -> request list panel selects the request before the deleted request */
         showAllPatients();
-        expectedModel = getModel();
+        expectedModel.updateFilteredRequestList(Model.PREDICATE_SHOW_ALL_REQUESTS);
         Index selectedIndex = getLastIndex(expectedModel);
         Index expectedIndex = Index.fromZeroBased(selectedIndex.getZeroBased() - 1);
         selectRequest(selectedIndex);
@@ -99,29 +117,29 @@ public class DeleteRequestCommandSystemTest extends HealthHubSystemTest {
 
         /* Case: invalid index (0) --> rejected */
         command = DeleteRequestCommand.COMMAND_WORD + " " + DeleteRequestCommand.COMMAND_OPTION + " 0";
-        assertCommandFailure(command, ParserUtil.MESSAGE_INVALID_INDEX);
+        assertCommandFailure(command, ParserUtil.MESSAGE_INVALID_INDEX, expectedModel);
 
         /* Case: invalid index (-1) --> rejected */
         command = DeleteRequestCommand.COMMAND_WORD + " " + DeleteRequestCommand.COMMAND_OPTION + " -1";
-        assertCommandFailure(command, ParserUtil.MESSAGE_INVALID_INDEX);
+        assertCommandFailure(command, ParserUtil.MESSAGE_INVALID_INDEX, expectedModel);
 
         /* Case: invalid index (size + 1) --> rejected */
         Index outOfBoundsIndex = Index.fromOneBased(
                 getModel().getRequestBook().getRequestList().size() + 1);
         command = DeleteRequestCommand.COMMAND_WORD + " " + DeleteRequestCommand.COMMAND_OPTION + " "
                 + outOfBoundsIndex.getOneBased();
-        assertCommandFailure(command, MESSAGE_INVALID_REQUEST_DISPLAYED_INDEX);
+        assertCommandFailure(command, MESSAGE_INVALID_REQUEST_DISPLAYED_INDEX, expectedModel);
 
         /* Case: invalid arguments (alphabets) --> rejected */
         assertCommandFailure(DeleteRequestCommand.COMMAND_WORD + " " + DeleteRequestCommand.COMMAND_OPTION
-                + " abc", ParserUtil.MESSAGE_INVALID_INDEX);
+                + " abc", ParserUtil.MESSAGE_INVALID_INDEX, expectedModel);
 
         /* Case: invalid arguments (extra argument) -> rejected */
         assertCommandFailure(DeleteRequestCommand.COMMAND_WORD + " " + DeleteRequestCommand.COMMAND_OPTION
-                + " 1 abc", ParserUtil.MESSAGE_INVALID_INDEX);
+                + " 1 abc", ParserUtil.MESSAGE_INVALID_INDEX, expectedModel);
 
         /* Case: mixed case command word --> rejected */
-        assertCommandFailure("DelETE 1", MESSAGE_UNKNOWN_COMMAND);
+        assertCommandFailure("DelETE 1", MESSAGE_UNKNOWN_COMMAND, expectedModel);
     }
 
     /**
@@ -197,9 +215,7 @@ public class DeleteRequestCommandSystemTest extends HealthHubSystemTest {
      * {@code HealthHubSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
      * @see HealthHubSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
-    private void assertCommandFailure(String command, String expectedResultMessage) {
-        Model expectedModel = getModel();
-
+    private void assertCommandFailure(String command, String expectedResultMessage, Model expectedModel) {
         executeCommand(command);
         assertApplicationDisplaysExpected(command, expectedResultMessage, expectedModel);
         assertSelectedCardUnchanged();

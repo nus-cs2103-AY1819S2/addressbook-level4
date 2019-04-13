@@ -27,7 +27,6 @@ public class Skills {
     /**
      * Constructs a Skills object from existing {@code skills} Set of
      * Specialisations.
-     * TODO: Consider using variable argument list.
      * @param skills Set object containing Specialisation to construct from.
      */
     public Skills(Collection<Specialisation> skills) {

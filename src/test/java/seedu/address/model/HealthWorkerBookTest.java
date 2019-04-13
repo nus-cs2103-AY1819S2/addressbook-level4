@@ -124,8 +124,6 @@ public class HealthWorkerBookTest {
                 .remove(0));
     }
 
-    // TODO: add tests for listeners.
-
     private static class HealthWorkerBookStub implements ReadOnlyHealthWorkerBook {
         private final ObservableList<HealthWorker> healthWorkers = FXCollections.observableArrayList();
 

@@ -58,7 +58,7 @@ public class EditHealthWorkerCommand extends EditCommand implements HealthWorker
         }
 
         HealthWorker toEdit = lastShownList.get(index.getZeroBased());
-        HealthWorker edited = createEditedHealthWorker(toEdit, editHealthWorkerDescriptor);
+        HealthWorker edited = createEditedHealthWorker(toEdit, model, editHealthWorkerDescriptor);
 
         if (!toEdit.isSameHealthWorker(edited) && model.hasHealthWorker(edited)) {
             throw new CommandException(DUPLICATE_HEALTH_WORKER);
@@ -72,18 +72,29 @@ public class EditHealthWorkerCommand extends EditCommand implements HealthWorker
      * Creates and returns a {@code HealthWorker} with the details of {@code toEdit}
      * edited with {@code editHealthWorkerDescriptor}.
      */
-    private static HealthWorker createEditedHealthWorker(HealthWorker toEdit,
+    private static HealthWorker createEditedHealthWorker(HealthWorker toEdit, Model model,
                                                          EditHealthWorkerDescriptor editHealthWorkerDescriptor) {
         assert toEdit != null;
 
         Name updatedName = editHealthWorkerDescriptor.getName().orElse(toEdit.getName());
         Nric updatedNric = editHealthWorkerDescriptor.getNric().orElse(toEdit.getNric());
+        if (editHealthWorkerDescriptor.getNric().isPresent()) {
+            editAssignedRequestHealthWorker(model, updatedNric.toString(), toEdit.getNric().toString());
+        }
         Phone updatedPhone = editHealthWorkerDescriptor.getPhone().orElse(toEdit.getPhone());
         Organization updatedOrganization = editHealthWorkerDescriptor.getOrganization()
                 .orElse(toEdit.getOrganization());
         Skills updatedSkills = editHealthWorkerDescriptor.getSkills().orElse(toEdit.getSkills());
 
         return new HealthWorker(updatedName, updatedNric, updatedPhone, updatedOrganization, updatedSkills);
+    }
+
+    /**
+     * Method that replaces all existence of old HealthWorker field in Request to the new HealthWorker upon editing
+     * the Name field of the HealthWorker.
+     */
+    private static void editAssignedRequestHealthWorker(Model model, String newNric, String oldNric) {
+        model.updateRequestOnNameEdit(oldNric, newNric);
     }
 
     @Override

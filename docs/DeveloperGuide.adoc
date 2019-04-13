@@ -175,17 +175,17 @@ image::DeletePersonSdForLogic.png[width="800"]
 === Model component
 
 .Structure of the Model Component
-image::modelUmlDiagram.jpg[width="800"]
+image::modelUmlDiagram.png[width="800"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
 
 The `Model`,
 
-* stores the Request Book data.
-* stores the Health Worker Book data.
-* stores the Statistics Book data
-* exposes an unmodifiable `ObservableList<T>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
-* does not depend on any of the other three components.
+* stores the `Request` Book data.
+* stores the `HealthWorker` Book data.
+* Both `HealthWorkerBook` and `RequestBook` stores multiple previous states
+in the form of `ReadOnlyHealthWorkerBook` and `ReadOnlyRequestBook`.
+* A `UserPrefs` object denoting the user settings for the application.
 
 [NOTE]
 As a more OOP model, we store a list of `Request` objects in `Request Book`, which stores the details of every request, including the patient's details, request date and status.
@@ -776,26 +776,29 @@ account:
 // tag::filterHealthWorkerTable[]
 [width="100%",cols="1, 5, 5",options="header"]
 |=======================================================================
-Design | Using a `List` of `Predicate` | Composed `Predicate` using
- `and` method
+| Design
+| Using a `List` of `Predicate`
+| Composed `Predicate` using `and` method
 
-| How it works | Each user input condition will be parsed into `Predicate`,
+| How it works
+| Each user input condition will be parsed into `Predicate`,
 which are stored in an `List`.
 *Pros*: Easier to manage each single `Predicate` as they are kept separate
 *Cons*: Need to rework existing GUI implementation for `filter` as it only
-uses a single `Predicate` Object |
-Each user input will be parsed into a `Predicate` object, and all the
+uses a single `Predicate` Object
+| Each user input will be parsed into a `Predicate` object, and all the
 `Predicate` formed will be composed into a single `Predicate` object.
 *Pros*: Ease of existing and future implementations as functionality only
 depends on `Predicate`
-*Cons*: Unable to specify actions for each `Predicate` |
+*Cons*: Unable to specify actions for each `Predicate`
 
-Implementation| User inputs are first parsed into `Predicate` equivalents,
+| Implementation
+| User inputs are first parsed into `Predicate` equivalents,
 and then added to an `ArrayList`. `FilterCommandParser` then takes the
 existing `UniqueHealthWorkerList`, checks for `HealthWorker` whose fields
 matches the list of `Predicate` using `allMatch` method from the `Predicate`
-library, and then returns an `ObservableList` containing those `HealthWorker`. |
-User inputs are parsed into `Predicate` equivalents, which are then composed
+library, and then returns an `ObservableList` containing those `HealthWorker`.
+| User inputs are parsed into `Predicate` equivalents, which are then composed
 into a single `Predicate` containing the logic of all the composed
 `Predicates` using the `and` method from `Predicate` library. The composed
 `Predicate` is then set as the filter condition into the existing

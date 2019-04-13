@@ -63,7 +63,8 @@ import seedu.hms.testutil.CustomerUtil;
 import seedu.hms.testutil.EditCustomerDescriptorBuilder;
 
 public class HotelManagementSystemParserTest {
-    
+
+
     @Rule
     public ExpectedException thrown = ExpectedException.none();
     private final HotelManagementSystemParser parser = new HotelManagementSystemParser();

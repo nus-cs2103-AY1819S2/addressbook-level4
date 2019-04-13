@@ -81,6 +81,8 @@ public class EditCommand extends Command {
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Person: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.";
+    private static final String MESSAGE_ILLEGAL_EDIT_COMMAND = "One or more of the parameters are not applicable for "
+            + "the selected customer.";
 
     private final Index index;
     private final EditPersonDescriptor editPersonDescriptor;
@@ -108,9 +110,11 @@ public class EditCommand extends Command {
 
         Person personToEdit = lastShownList.get(index.getZeroBased());
         Person editedPerson = createEditedPerson(personToEdit, editPersonDescriptor);
-
         if (!personToEdit.isSamePerson(editedPerson) && model.hasEditedPerson(editedPerson)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+        }
+        if (!isLegalEdit(personToEdit, editPersonDescriptor)) {
+            throw new CommandException(MESSAGE_ILLEGAL_EDIT_COMMAND);
         }
 
         model.setPerson(personToEdit, editedPerson);
@@ -131,6 +135,20 @@ public class EditCommand extends Command {
     @Override
     public boolean requiresArchiveList() {
         return false;
+    }
+
+    /**
+     * Creates and returns a {@code Person} with the details of {@code personToEdit}
+     * edited with {@code editPersonDescriptor}.
+     */
+    private static Boolean isLegalEdit(Person personToEdit, EditPersonDescriptor editPersonDescriptor) {
+        if (((personToEdit instanceof Buyer || personToEdit instanceof Tenant)
+                && (editPersonDescriptor.getAddress().isPresent() || editPersonDescriptor.getSellingPrice().isPresent()
+                || editPersonDescriptor.getRentalPrice().isPresent() || editPersonDescriptor.getTags().isPresent()))
+                || (personToEdit instanceof Seller && editPersonDescriptor.getRentalPrice().isPresent())
+                || (personToEdit instanceof Landlord && editPersonDescriptor.getSellingPrice().isPresent())) {
+            return false;
+        } else return true;
     }
 
     /**
@@ -315,13 +333,8 @@ public class EditCommand extends Command {
                 return false;
             }
 
-
-
-
             // state check
-
             EditPersonDescriptor e = (EditPersonDescriptor) other;
-
             return getName().equals(e.getName())
                     && getPhone().equals(e.getPhone())
                     && getEmail().equals(e.getEmail())

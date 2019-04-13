@@ -9,7 +9,7 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 
 /**
- * Sorts the batch table according to the entered property and direction.
+ * Changes the property and direction that the batch table in information panel is sorted by.
  */
 public class SortCommand extends Command {
 
@@ -31,7 +31,7 @@ public class SortCommand extends Command {
     private final InformationPanelSettings informationPanelSettings;
 
     /**
-     * Creates an AddCommand to add the specified {@code Medicine}
+     * Creates a SortCommand to change the {@code informationPanelSettings}
      */
     public SortCommand(InformationPanelSettings informationPanelSettings) {
         requireNonNull(informationPanelSettings);

@@ -8,10 +8,10 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  * Guarantees: immutable; is valid as declared in {@link #isValidName(String)}
  */
 public class Name implements Comparable<Name> {
-    public static final int MAX_NAME_LENGTH = 40;
+    public static final int MAX_LENGTH_NAME = 40;
     public static final String MESSAGE_CONSTRAINTS = "Names may contain alphanumeric characters, '-', '%', '(', ')',"
             + "  and spaces. It should start with an alphanumeric character and should not be blank.\n"
-            + "Max length: " + MAX_NAME_LENGTH + " characters.";
+            + "Max length: " + MAX_LENGTH_NAME + " characters.";
 
     /*
      * The first character of the name must not be a whitespace,
@@ -36,7 +36,7 @@ public class Name implements Comparable<Name> {
      * Returns true if a given string is a valid name.
      */
     public static boolean isValidName(String test) {
-        return test.matches(VALIDATION_REGEX) && test.length() <= MAX_NAME_LENGTH;
+        return test.matches(VALIDATION_REGEX) && test.length() <= MAX_LENGTH_NAME;
     }
 
     @Override

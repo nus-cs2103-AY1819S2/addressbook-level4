@@ -8,7 +8,6 @@ import org.junit.Test;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.medicine.BatchNumber;
 import seedu.address.model.medicine.Expiry;
-import seedu.address.model.medicine.Name;
 import seedu.address.model.medicine.Quantity;
 import seedu.address.testutil.Assert;
 import seedu.address.testutil.BatchBuilder;
@@ -32,7 +31,7 @@ public class JsonAdaptedBatchTest {
     @Test
     public void toModelType_invalidBatchNumber_throwsIllegalValueException() {
         JsonAdaptedBatch batch = new JsonAdaptedBatch(INVALID_BATCHNUMBER, VALID_QUANTITY, VALID_EXPIRY);
-        String expectedMessage = Name.MESSAGE_CONSTRAINTS;
+        String expectedMessage = BatchNumber.MESSAGE_CONSTRAINTS;
         Assert.assertThrows(IllegalValueException.class, expectedMessage, batch::toModelType);
     }
 

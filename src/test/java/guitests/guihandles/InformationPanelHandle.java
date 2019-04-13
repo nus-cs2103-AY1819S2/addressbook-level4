@@ -69,15 +69,16 @@ public class InformationPanelHandle extends NodeHandle<Node> {
      * Returns a list of details from the loaded table, in the order of name, company, quantity, expiry.
      */
     public List<String> getTableDetails() {
-        List<String> details = new ArrayList<>();
-        if (isBatchTableLoaded()) {
-            details.add(getMedicineName());
-            details.add(getMedicineCompany());
-            details.add(getMedicineQuantity());
-            details.add(getMedicineExpiry());
-            return details;
+        if (!isBatchTableLoaded()) {
+            return null;
         }
-        return null;
+
+        List<String> details = new ArrayList<>();
+        details.add(getMedicineName());
+        details.add(getMedicineCompany());
+        details.add(getMedicineQuantity());
+        details.add(getMedicineExpiry());
+        return details;
     }
 
     /**

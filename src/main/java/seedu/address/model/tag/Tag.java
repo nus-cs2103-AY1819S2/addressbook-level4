@@ -8,9 +8,9 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  * Guarantees: immutable; name is valid as declared in {@link #isValidTagName(String)}
  */
 public class Tag {
-    public static final int MAX_TAG_LENGTH = 25; // To fit on screen
+    public static final int MAX_LENGTH_TAG = 25; // To fit on screen
     public static final String MESSAGE_CONSTRAINTS = "Tags names should be alphanumeric.\n"
-            + "Max length: " + MAX_TAG_LENGTH + " characters.";
+            + "Max length: " + MAX_LENGTH_TAG + " characters.";
 
     public static final String VALIDATION_REGEX = "\\p{Alnum}+";
 
@@ -31,7 +31,7 @@ public class Tag {
      * Returns true if a given string is a valid tag name.
      */
     public static boolean isValidTagName(String test) {
-        return test.matches(VALIDATION_REGEX) && test.length() <= MAX_TAG_LENGTH;
+        return test.matches(VALIDATION_REGEX) && test.length() <= MAX_LENGTH_TAG;
     }
 
     @Override

@@ -48,6 +48,7 @@ public class EditCommandParser implements Parser<EditCommand> {
         if (argMultimap.getValue(PREFIX_COMPANY).isPresent()) {
             editMedicineDescriptor.setCompany(ParserUtil.parseCompany(argMultimap.getValue(PREFIX_COMPANY).get()));
         }
+
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editMedicineDescriptor::setTags);
 
         if (!editMedicineDescriptor.isAnyFieldEdited()) {

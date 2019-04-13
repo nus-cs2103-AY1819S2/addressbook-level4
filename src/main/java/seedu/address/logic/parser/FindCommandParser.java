@@ -34,7 +34,7 @@ public class FindCommandParser implements Parser<FindCommand> {
                 PREFIX_BATCHNUMBER);
 
         // First argument must be a prefix
-        if (!argMultimap.getPreamble().equals("")) {
+        if (!argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
         }
 
@@ -62,8 +62,9 @@ public class FindCommandParser implements Parser<FindCommand> {
 
     /**
      * Returns the appropriate predicate depending on which prefix is present in the argument.
+     * @throws ParseException if unknown prefix is entered.
      */
-    private Predicate<Medicine> getPredicate(Prefix prefix, String[] keywords) {
+    private Predicate<Medicine> getPredicate(Prefix prefix, String[] keywords) throws ParseException {
         if (prefix == PREFIX_NAME) {
             return new NameContainsKeywordsPredicate(Arrays.asList(keywords));
         }
@@ -79,7 +80,8 @@ public class FindCommandParser implements Parser<FindCommand> {
         if (prefix == PREFIX_BATCHNUMBER) {
             return new BatchContainsKeywordsPredicate(Arrays.asList(keywords));
         }
-        return null;
+
+        throw new ParseException("Unknown prefix");
     }
 
     /**

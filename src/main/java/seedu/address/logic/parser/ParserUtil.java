@@ -197,14 +197,17 @@ public class ParserUtil {
             throw new ParseException(SortProperty.MESSAGE_CONSTRAINTS);
         }
 
-        sortProperty = trimmedProperty.toUpperCase();
-        if (sortProperty.equals("BATCHNUMBER")) {
+        sortProperty = trimmedProperty.toLowerCase();
+        if (sortProperty.equals(SortProperty.BATCHNUMBER.toString())) {
             return SortProperty.BATCHNUMBER;
-        } else if (sortProperty.equals("QUANTITY")) {
+        }
+        if (sortProperty.equals(SortProperty.QUANTITY.toString())) {
             return SortProperty.QUANTITY;
-        } else {
+        }
+        if (sortProperty.equals(SortProperty.EXPIRY.toString())) {
             return SortProperty.EXPIRY;
         }
+        throw new ParseException("Unknown sort property");
     }
 
     /**
@@ -220,11 +223,13 @@ public class ParserUtil {
             throw new ParseException(SortDirection.MESSAGE_CONSTRAINTS);
         }
 
-        sortDirection = trimmedDirection.toUpperCase();
-        if (sortDirection.equals("ASCENDING")) {
+        sortDirection = trimmedDirection.toLowerCase();
+        if (sortDirection.equals(SortDirection.ASCENDING.toString())) {
             return SortDirection.ASCENDING;
-        } else {
+        }
+        if (sortDirection.equals(SortDirection.DESCENDING.toString())) {
             return SortDirection.DESCENDING;
         }
+        throw new ParseException("Unknown sort direction");
     }
 }

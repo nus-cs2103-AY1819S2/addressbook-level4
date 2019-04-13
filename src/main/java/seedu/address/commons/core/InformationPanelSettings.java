@@ -1,5 +1,7 @@
 package seedu.address.commons.core;
 
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+
 /**
  * Settings to control sorting of BatchTable in Information Panel.
  */
@@ -16,6 +18,7 @@ public class InformationPanelSettings {
     }
 
     public InformationPanelSettings(SortProperty sortProperty, SortDirection sortDirection) {
+        requireAllNonNull(sortProperty, sortDirection);
         this.sortProperty = sortProperty;
         this.sortDirection = sortDirection;
     }
@@ -30,31 +33,25 @@ public class InformationPanelSettings {
 
     @Override
     public boolean equals(Object other) {
-        if (other == this) {
-            return true;
-        }
-
-        if (!(other instanceof InformationPanelSettings)) { //this handles null as well.
-            return false;
-        }
-
-        InformationPanelSettings otherSettings = (InformationPanelSettings) other;
-        return sortProperty == otherSettings.sortProperty
-                && sortDirection == otherSettings.sortDirection;
+        return other == this // short circuit if same object
+                || (other instanceof InformationPanelSettings // instanceof handles nulls
+                && sortProperty.equals(((InformationPanelSettings) other).sortProperty)
+                && sortDirection.equals(((InformationPanelSettings) other).sortDirection));
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("Sort Property: ")
+        sb.append("Sort Property: '")
                 .append(sortProperty)
-                .append(" Sort Direction: ")
-                .append(sortDirection);
+                .append("' Sort Direction: '")
+                .append(sortDirection)
+                .append("'");
         return sb.toString();
     }
 
     /**
-     * Represents the possible properties that the batchtable can be sorted by.
+     * Represents the possible properties that the batch table can be sorted by.
      */
     public enum SortProperty {
         BATCHNUMBER, QUANTITY, EXPIRY;
@@ -72,12 +69,12 @@ public class InformationPanelSettings {
 
         @Override
         public String toString() {
-            return "'" + super.toString().toLowerCase() + "'";
+            return super.toString().toLowerCase();
         }
     }
 
     /**
-     * Represents the possible direction that the batchtable can be sorted in.
+     * Represents the possible direction that the batch table can be sorted in.
      */
     public enum SortDirection {
         ASCENDING, DESCENDING;
@@ -94,7 +91,7 @@ public class InformationPanelSettings {
 
         @Override
         public String toString() {
-            return "'" + super.toString().toLowerCase() + "'";
+            return super.toString().toLowerCase();
         }
     }
 

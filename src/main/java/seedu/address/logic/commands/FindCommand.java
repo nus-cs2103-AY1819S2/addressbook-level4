@@ -26,6 +26,9 @@ public class FindCommand extends Command {
 
     private final Predicate<Medicine> predicate;
 
+    /**
+     * Creates a FindCommand to filter the medicine list with {@code predicate}
+     */
     public FindCommand(Predicate<Medicine> predicate) {
         this.predicate = predicate;
     }

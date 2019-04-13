@@ -1,6 +1,7 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_NON_EMPTY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DIRECTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PROPERTY;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
@@ -17,10 +18,10 @@ public class SortCommandParserTest {
     private static final String MESSAGE_INVALID_FORMAT =
             String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.MESSAGE_USAGE);
 
-    private static final String VALID_INPUT_PROPERTY_EXPIRY = " " + PREFIX_PROPERTY + "expiry ";
-    private static final String VALID_INPUT_DIRECTION_DESCENDING = " " + PREFIX_DIRECTION + "descending ";
-    private static final String VALID_INPUT_PROPERTY_BATCHNUMBER = " " + PREFIX_PROPERTY + "batchnumber ";
-    private static final String VALID_INPUT_DIRECTION_ASCENDING = " " + PREFIX_DIRECTION + "ascending ";
+    private static final String VALID_INPUT_PROPERTY_EXPIRY = " " + PREFIX_PROPERTY + SortProperty.EXPIRY;
+    private static final String VALID_INPUT_PROPERTY_BATCHNUMBER = " " + PREFIX_PROPERTY + SortProperty.BATCHNUMBER;
+    private static final String VALID_INPUT_DIRECTION_DESCENDING = " " + PREFIX_DIRECTION + SortDirection.DESCENDING;
+    private static final String VALID_INPUT_DIRECTION_ASCENDING = " " + PREFIX_DIRECTION + SortDirection.ASCENDING;
     private static final String INVALID_INPUT_PROPERTY = " " + PREFIX_PROPERTY + "expir";
     private static final String INVALID_INPUT_DIRECTION = " " + PREFIX_DIRECTION + "down";
 
@@ -38,7 +39,7 @@ public class SortCommandParserTest {
     @Test
     public void parse_invalidPreamble_failure() {
         // Any preamble
-        assertParseFailure(parser, "random text" + VALID_INPUT_PROPERTY_EXPIRY + VALID_INPUT_DIRECTION_DESCENDING,
+        assertParseFailure(parser, PREAMBLE_NON_EMPTY + VALID_INPUT_PROPERTY_EXPIRY + VALID_INPUT_DIRECTION_DESCENDING,
                 MESSAGE_INVALID_FORMAT);
     }
 

@@ -104,20 +104,7 @@ public class DocXTest {
         thrown.expect(UnsupportedOperationException.class);
         docX.getPatientList().remove(0);
     }
-    /*
-    @Test
-    public void resetData_withDuplicateDoctors_throwsDuplicateDoctorException() {
-        // Two doctors with the same identity fields
-        Doctor editedAlvina = new DoctorBuilder(ALVINA).withGender(VALID_GENDER_ALVIN)
-                .withSpecs(VALID_SPECIALISATION_GENERAL)
-                .build();
-        List<Doctor> newDoctors = Arrays.asList(ALVINA, editedAlvina);
-        DocXStub newData = new DocXStub(newDoctors);
 
-        thrown.expect(DuplicatePatientException.class);
-        docX.resetData(newData);
-    }
-    */
     @Test
     public void hasDoctor_nullDoctor_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);

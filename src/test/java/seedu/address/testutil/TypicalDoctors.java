@@ -1,10 +1,14 @@
 package seedu.address.testutil;
 
+import static seedu.address.logic.commands.CommandTestUtil.VALID_GENDER_ALVINA;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_GENDER_STEVEN;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_ALVINA;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_STEVEN;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_ALVINA;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_STEVEN;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_SPECIALISATION_ACUPUNCTURE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_SPECIALISATION_MASSAGE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_YEAR_ALVINA;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_YEAR_STEVEN;
 
 import java.util.ArrayList;
@@ -21,13 +25,13 @@ import seedu.address.model.person.Doctor;
  */
 public class TypicalDoctors {
 
-    public static final Doctor ALVINA = new DoctorBuilder().withName("Alvina Ong")
-            .withYear("21").withGender("F").withPhone("82376447").withSpecs("acupuncture").build();
-    public static final Doctor BOND = new DoctorBuilder().withName("Bond Park")
-            .withYear("10").withGender("M").withPhone("91612342").withSpecs("general", "acupuncture").build();
+    public static final Doctor AMELIA = new DoctorBuilder().withName("Amelia Lim").withPhone("67253742").withGender("F")
+            .withYear("2").withSpecs("surgery", "general").build();
+    public static final Doctor BOND = new DoctorBuilder().withName("Bond Meier")
+            .withYear("10").withGender("M").withPhone("60923911").withSpecs("general", "acupuncture").build();
     public static final Doctor CHARLIE = new DoctorBuilder().withName("Charlie Cruzlei").withPhone("95352563")
             .withGender("M").withYear("33").build();
-    public static final Doctor DAM = new DoctorBuilder().withName("Dam Dong").withPhone("87652533")
+    public static final Doctor DAM = new DoctorBuilder().withName("Dam Meier").withPhone("87652533")
             .withGender("M").withYear("11").withSpecs("massage").build();
     public static final Doctor ELSIE = new DoctorBuilder().withName("Elsie Lim").withPhone("94822241")
             .withGender("F").withYear("5").build();
@@ -43,6 +47,9 @@ public class TypicalDoctors {
             .withGender("F").withYear("18").build();
 
     // Manually added - Doctor's details found in {@code CommandTestUtil}
+    public static final Doctor ALVINA = new DoctorBuilder().withName(VALID_NAME_ALVINA)
+            .withYear(VALID_YEAR_ALVINA).withGender(VALID_GENDER_ALVINA).withPhone(VALID_PHONE_ALVINA)
+            .withSpecs(VALID_SPECIALISATION_ACUPUNCTURE).build();
     public static final Doctor STEVEN = new DoctorBuilder().withName(VALID_NAME_STEVEN).withPhone(VALID_PHONE_STEVEN)
             .withGender(VALID_GENDER_STEVEN).withYear(VALID_YEAR_STEVEN)
             .withSpecs(VALID_SPECIALISATION_ACUPUNCTURE, VALID_SPECIALISATION_MASSAGE).build();
@@ -63,6 +70,6 @@ public class TypicalDoctors {
     }
 
     public static List<Doctor> getTypicalDoctors() {
-        return new ArrayList<>(Arrays.asList(ALVINA, BOND, CHARLIE, DAM, ELSIE, FLORA, GAN));
+        return new ArrayList<>(Arrays.asList(AMELIA, BOND, CHARLIE, DAM, ELSIE, FLORA, GAN));
     }
 }

@@ -364,13 +364,15 @@ directory.
 
 Format: `export FOLDER_INDEX FILENAME [MORE_INDEXES]`
 
-IMPORTANT: The export command creates the new csv file in your project root directory.
+[IMPORTANT]
+The export command creates the new csv file in your project root directory.
 i.e The directory where your .jar file is located. +
 The `import command` imports csv files located in the same directory as well.
 
 image::project_root_dir.png[width ="800"]
 
-NOTE: The current version does not support the importing and exporting of files outside of this directory
+[NOTE]
+The current version does not support the importing and exporting of files outside of this directory
 
 ====
 * You should key in indices corresponding to the folder index
@@ -401,10 +403,10 @@ NOTE: The csv file imported should follow the format described below
 ====
 * The first row of the csv file should have the following headers:
 +
-Question, Answer, Options, Hints.
+Question, Answer, Hints, Option 1, Option 2, Option 3.
 * Question and Answer are mandatory fields, and should not be left blank.
 * Hints can take 0 or 1 values only.
-* For MCQ cards, The csv file only accepts one incorrect option for each flashcard.
+* For MCQ cards, The csv file accepts up to 3 incorrect options per flashcard.
 ====
 
 .Sample format for csv file
@@ -623,6 +625,7 @@ this number is automatically calculated and recorded.
 * [[folderscore]] **Folder Score**: The average of all <<cardscore, card scores>> in a folder after a test session. This number is automatically recorded after each test session.
 * [[homedirectory]] **Home Directory**: The home page where all the folders are listed. From here, users can enter folders to view cards.
 * [[index]] **Index**: The unique number associated with an item in a list. The first item in a list has an index of 1.
+* **project root directory**: The directory where Know-It-All's .jar file is located
 
 
 == Command Summary

@@ -31,19 +31,19 @@ user and developer guides in relation to these enhancements.
 
 
 == Summary of contributions
+This section contains a summary of my contributions to the project;
+mainly the code and documentation for the import and export feature as well as contributions to the community.
 
 * *Major enhancement*: added *the ability to import/export existing or new flashcards*
-** What it does: The import and export command allows users to import and export flashcards as csv files.
-** Justification: This feature improves the product significantly because users can now share their flashcards with
-others. The ability to import flashcards also provides a faster alternative to creating multiple flashcards in comparison
-to manually adding within the app iteself.
+** What it does: The import command allows users to import flashcards from a a .csv file while the export command
+allows users to export flashcards as a .csv file.
+** Justification: These two complementary features improve the product significantly because users can now share their flashcards with others,
+saving time taken to create similar flashcards for the other user.
+Also, being able to import flashcards from a csv file provides users with a quicker alternative to create large numbers of flashcards.
 ** Highlights: Although not technically challenging, there were many considerations that went into the design of the import/export feature. One of them was deciding
 the formatting of csv files. whether a user should be able to export multiple card folders into a single csv. Also, since commas
 were used within each card field as well, there was a need to ensure that the comma separated values are actually not
 part of the "commas" within the card field itself.
-
-
-** Credits:
 
 
 * *Code contributed*: [https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#search=yichong96[Collated code]]
@@ -57,18 +57,13 @@ part of the "commas" within the card field itself.
 
 
 == Contributions to the User Guide
+The user guide contains instructions needed to effectively use Know-It-All.
+The following is an excerpt from Know-It-All's user guide, which contains the additions that I have made to the user guide.
 
-
-|===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
-|===
 
 include::../UserGuide.adoc[tag = advancedoperations]
 
 == Contributions to the Developer Guide
-
-|===
-|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
-|===
+The following shows my addition to Know-It-All's developer guide for the import and export commmand.
 
 include::../DeveloperGuide.adoc[tag=importexport]

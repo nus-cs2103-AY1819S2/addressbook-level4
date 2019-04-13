@@ -36,5 +36,4 @@ public class MatricNumberTest {
         // valid MatricNumber
         assertTrue(MatricNumber.isValidMatricNumber("A0123456J"));
     }
-    
 }

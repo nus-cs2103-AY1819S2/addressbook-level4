@@ -112,8 +112,10 @@ This section describes all the commands available in FomoFoto and includes examp
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `import FILEPATH`, `FILEPATH` is a parameter which can be used as `import desktop/photoalbum/image1`.
-* Items in square brackets are optional e.g `brightness [BRIGHTNESS_RATIO]` can be used as `brightness or as `brightness 0.9`.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user. +
+e.g. For `import FILEPATH`, `FILEPATH` is a parameter which can be used as `import desktop/photoalbum/image1`.
+* Items in square brackets are optional. +
+e.g `brightness [BRIGHTNESS_RATIO]` can be used as `brightness` or `brightness 0.9`.
 
 ====
 
@@ -218,12 +220,12 @@ The `import` command only accepts files with a maximum size of 10MB.
 // tag::ListAndOpen[]
 === List Files: `listfiles`
 
-Lists all files in assets folder. +
+Lists all the names of the files in the album. +
 Format: `listfiles`
 
 === Open an image : `open`
 
-Opens an image inside assets folder for editing. +
+Opens an image from the album for editing. +
 Format: `open FILENAME`
 
 Example:
@@ -283,10 +285,11 @@ Example:
 === Save image : `save`
 
 Applies and saves your edits. +
-Format: `save` or `save FILENAME`
+Format: `save [FILENAME]`
 
 Example:
 
+* `save`
 * `save MyNewImage.png`
 // end::UserSave[]
 

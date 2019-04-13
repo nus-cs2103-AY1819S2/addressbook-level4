@@ -444,9 +444,11 @@ Furthermore, every time any record of the specified patient is modified, a new i
 
 // tag::task_cchj1995[]
 === Task Management and related commands
+This segment will explain the key features of the a new data type `Task` that TeethHub handle. Key implementation details and the design considerations when designing these features will also be covered.
+
 ==== Current Implementation: Task storage and attributes
 
-The `Task` class is a new type of object stored by the application in addition to the `Patient` class. It is meant to represent any task a dentist would have to perform. `Task` objects are kept in a list and handled by the `UniqueTaskList` class. This follows the same process as the `Patient` class and by extension, the `Person` class which has a `UniquePersonList` handling a list of `Person` objects. Storing information of all objects does not change between `Task` and `Person` classes and both are stored into a `TeethHub.json` file. Attributes for `Task` are instantiated as objects with their own methods to validate the user's input much like the current implementation of `Patient`/`Person` .
+The `Task` class is a new type of object that is meant to represent any task a dentist would have to perform. `Task` objects are kept in a list and handled by the `UniqueTaskList` class. This follows the same process as the `Patient` class and by extension, the `Person` class which has a `UniquePersonList` handling a list of `Person` objects. Storing information of all objects does not change between `Task` and `Person` classes and both are stored into a `TeethHub.json` file. Attributes for `Task` are instantiated as objects with their own methods to validate the user's input much like the current implementation of `Patient`/`Person` .
 
 [NOTE]
 Task has an attribute called `LinkedPatient` which stores the `NAME` and `NRIC` of a patient. This is to allow tasks to be bound to a patient and facilliate another implementation `taskdone` .
@@ -488,11 +490,13 @@ image::TaskDoneSequenceDiagram.png[width=""]
 
 ==== Current implementation: Task Calendar feature
 
-The `taskcal` command is a feature implemented to allow the user to view task related data in a more interactive and helpful manner. Executing the command creates a popup window with the list of tasks on the left side and a calendar on the rigth side. This feature is implemented using calls to `JavaFX` with the most important component being `DatePicker` which allows a calendar to be drawn up and displayed to the user. This feature enables the user to find tasks depending on the `date` they provide the command or the date cell they click on. Implementation of this aspect of the feature is done on the `UI` component of the application under the `CalendarWindow` class which can be found in the `ui` folder.
+The `taskcal` command is a feature implemented to allow the user to view task related data in a more interactive and helpful manner. Executing the command creates a popup window with the list of tasks on the left side and a calendar on the rigth side. This feature is implemented using calls to `JavaFX` with the most important component being `DatePicker` which allows a calendar to be drawn up and displayed to the user. This feature also enables the user to find tasks depending on the `date` they provide the command or the date cell they click on. Implementation of this aspect of the feature is done on the `UI` component of the application under the `CalendarWindow` class which can be found in the `ui` folder.
 
 The following swimlane activity diagram illustrates the process in which the application goes through to create and display the interactive calendar for the user:
 
 image::TaskCalendarSwimLaneDiagram.png[width=""]
+
+==== Design Considerations
 
 // end::task_cchj1995[]
 

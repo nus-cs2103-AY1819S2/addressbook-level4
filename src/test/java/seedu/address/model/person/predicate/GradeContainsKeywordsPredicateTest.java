@@ -50,10 +50,9 @@ public class GradeContainsKeywordsPredicateTest {
 
     @Test
     public void test_gradeDoesNotContainKeywords_returnsFalse() {
-        GradeContainsKeywordsPredicate predicate = new GradeContainsKeywordsPredicate(Collections.emptyList());
+        GradeContainsKeywordsPredicate predicate;
         // Non-matching keyword
-        predicate = new GradeContainsKeywordsPredicate(Arrays.asList("4.20-4.23"));
+        predicate = new GradeContainsKeywordsPredicate(Collections.singletonList("4.20-4.23"));
         assertFalse(predicate.test(new PersonBuilder().withGrade("4.12").build()));
-
     }
 }

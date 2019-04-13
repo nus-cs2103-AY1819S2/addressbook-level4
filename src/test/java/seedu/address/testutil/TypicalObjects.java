@@ -4,6 +4,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_FILTERNAME;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_GENDER_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_GENDER_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_GRADE_AMY;
@@ -37,6 +38,7 @@ import java.util.List;
 import seedu.address.model.AddressBook;
 import seedu.address.model.job.Job;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.predicate.Filter;
 
 
 /**
@@ -119,6 +121,8 @@ public class TypicalObjects {
     public static final Job TEACHER = new JobBuilder().withName(VALID_JOB_NAME_TEACHER).build();
 
     public static final String KEYWORD_MATCHING_PILOT = "Pilot"; // A keyword that matches PILOT
+
+    public static final Filter FILTER = new Filter(VALID_FILTERNAME);
 
     private TypicalObjects() {
     } // prevents instantiation

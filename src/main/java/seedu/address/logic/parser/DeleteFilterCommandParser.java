@@ -14,6 +14,7 @@ public class DeleteFilterCommandParser implements Parser<DeleteFilterCommand> {
     /**
      * Parses the given {@code String} of arguments in the context of the DeleteCommand
      * and returns an DeleteCommand object for execution.
+     *
      * @throws ParseException if the user input does not conform the expected format
      */
     public DeleteFilterCommand parse(String args) throws ParseException {
@@ -33,8 +34,8 @@ public class DeleteFilterCommandParser implements Parser<DeleteFilterCommand> {
             listName = ParserUtil.parseJobListName(listNameString);
             return new DeleteFilterCommand(listName, commandName);
         } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                DeleteFilterCommand.MESSAGE_USAGE), pe);
+            throw new ParseException(String.format(pe.getMessage(),
+                DeleteFilterCommand.MESSAGE_USAGE_ALLJOB_SCREEN + DeleteFilterCommand.MESSAGE_USAGE_DETAIL_SCREEN), pe);
         }
     }
 

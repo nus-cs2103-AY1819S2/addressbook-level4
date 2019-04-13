@@ -2,8 +2,8 @@
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-== image:Logo.png[width=50] Know-It-All 
-:icons: font 
+== image:Logo.png[width=50] Know-It-All
+:icons: font
 
 == About the Project
 

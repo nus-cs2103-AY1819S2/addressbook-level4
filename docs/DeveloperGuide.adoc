@@ -1771,7 +1771,7 @@ lowest scoring flashcard question and hints are displayed. Tester can also be in
 .. Other incorrect addfolder commands to try: `addfolder`, `addfolder Special/Chars`, `addfolder x` (where x is string longer than 50 characters) +
    Expected: Similar to previous.
 
-. Deleting a folder 
+. Deleting a folder
 .. Prerequisites: You must be at the home directory (status bar should read `In Home Directory`) and have at least one folder.
 .. Test case: `deletefolder 1` +
    Expected: The folder at index 1 is deleted. Status message confirms that the folder is deleted, and the folder can no longer be found in the list of folders.
@@ -1780,7 +1780,7 @@ lowest scoring flashcard question and hints are displayed. Tester can also be in
 .. Other incorrect deletefolder commands to try: `deletefolder`, `deletefolder Sample Folder`, `deletefolder x` (where x is larger than the list length) +
    Expected: Similar to previous.
 
-. Renaming a folder 
+. Renaming a folder
 .. Prerequisites: You must be at the home directory (status bar should read `In Home Directory`) and have at least one folder called "Sample Folder", and no folder called "New Name".
 .. Test case: `editfolder x New Name` (where x is the index of a folder that is not Sample Folder) +
    Expected: The folder at index x is renamed to "New Name". Status message confirms that renaming operation succeeded.
@@ -1828,4 +1828,5 @@ lowest scoring flashcard question and hints are displayed. Tester can also be in
    Expected: A sample folder is present when the app launches.
 .. Test case: Insert a non-json file/corrupted json file in the data directory and launch the app +
    Expected: The valid json files have folders with their corresponding names present. The non-json file/corrupted json file remains unaffected.
+
 //end::foldermanualtesting[]

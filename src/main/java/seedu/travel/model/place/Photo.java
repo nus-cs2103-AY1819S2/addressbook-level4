@@ -46,6 +46,13 @@ public class Photo {
     }
 
     /**
+     * Only used for JUnit testing
+     */
+    public void setFilepath(String filepath) {
+        this.filepath = filepath;
+    }
+
+    /**
      * Returns true if a given string is a valid filepath, checks for filepath format and spaces
      */
     public static boolean isValidPhotoFilepath(String test) {

@@ -118,6 +118,7 @@ The function of each component is as follows:
 
 You can find out what is displayed in the side and main panels for each mode in <<Modes and Commands>>.
 
+[[Command]]
 === Using commands
 
 You can use the commands described in <<Modes and Commands>> by typing them into the Command Box and pressing kbd:[Enter] to execute it.
@@ -151,9 +152,9 @@ Some of the parameters have restrictions and they are stated below.
 * `QUANTITY` has to be a whole number between 0 and 2,000,000 inclusive.
 * `ITEM_NAME` has to be
 * `ITEM_PRICE` has to be
-* `DAY` has to be
-* `MONTH` has to be
-* `YEAR` has to be
+* `YEAR` has to be a 4 digit whole number within 2000 and the current year.
+* `MONTH` has to be a whole number within 1 to 12.
+* `DAY` has to be a whole number within 1 to 31 provided it exists in the desired month and year.
 ****
 
 Some commands may make changes to the data in RestOrRant. There is no need to save manually as the data will be automatically saved in the hard disk.
@@ -610,16 +611,53 @@ The Order Panel will also be updated and you can see from the image below that t
 image::Serve_After.png[]
 |===
 
+// tag::bill[]
 [[Bill]]
-==== Calculating the bill of an order : `bill`
+==== Calling the bill of an order : `bill`
 
-Calculates the bill of an order from the current selected table and displays the receipt. +
-Format: `bill`
+Now that all the orders have been served and the customer is ready to pay for the meal, you can call the
+bill to obtain the customer's receipt.
 
-Examples:
+****
+*Format*: `bill` +
+*Shortcut*: `b`
+****
 
-* `bill` +
-Returns the total price of the order from the current table.
+[IMPORTANT]
+This command is irreversible. Once the command is executed, all orders and the table occupancy will be cleared to allow
+new customers to use the table. The money earned from the bill will automatically be added to the RestOrRant's revenue statistics.
+
+[NOTE]
+The `bill` can only be called when all order items have been served.
+
+[width="100%",cols="5%,95%", grid=none]
+|===
+ifdef::env-github[| :white_check_mark: a|]
+ifndef::env-github[a| icon:check[role="green", size="2x"] a|]
+You will see a success message in the Results Display and the user interface will change its colour scheme and
+display. +
+
+In the new user interface, the order items in the order panel are cleared and the menu panel displays the
+customer's receipt. +
+The receipt will indicate the price, quantity and type of menu items ordered, along with the time, date and total bill the customer has to pay.
+
+a| a| Given that Table 5 has 4 items in the Order Panel as shown below. Note that all items have been
+served.
+
+image::Bill_AllServed.png[]
+
+When bill is called, the user interface changes to display the receipt as shown below:
+
+image::Bill_Receipt.png[]
+
+When you switch to Restaurant Mode using <<RM, `restaurantMode`>> command, you will realise that the table
+has been updated to accomodate new customers.
+
+image::Bill_UpdatedSeats.png[]
+|===
+
+// end::bill[]
+
 // end::tablemode[]
 
 // tag::menumode[]
@@ -679,54 +717,144 @@ Examples:
 // tag::statisticsmode[]
 === Statistics Mode
 
-In Statistics Mode, you can obtain statistics related to your restaurant, such as daily revenue and the popularity of dishes.
+In Statistics Mode, you can obtain statistics related to your restaurant, such as the popularity of dishes and the
+revenue of a specified year, month or day.
+
+The user interface for Statistics Mode is shown in the image below.
 
 image::SMUi.png[width="790"]
+
+The function of the side and main panels are as follows:
+
+* *Item Panel*: This panel shows you the list of menu items sorted by its popularity. This is meant to help you decide
+what ingredients to order to cater to the demands of the popular dishes.
+* *Revenue Panel*: This panel displays the revenue from the recent years, months or days, depending on the view that
+you have selected. This allows you to study trends in your restaurant's revenue.
+
+[NOTE]
+By default the Statistics Mode displays revenue up to 30 days in the Revenue Panel unless you execute
+<<Yearly, `yearly`>>, <<Monthly, `monthly`>> or <<Daily, `daily`>> commands to change its display respectively.
+
+Here are the commands that you can use in this mode to study the statistical data of your restaurant.
+
+[[Yearly]]
+==== Changing the Revenue Panel to yearly : `yearly`
+
+This command changes the Revenue Panel to display the statistical yearly revenue for you to study the
+yearly revenue trends. +
+
+****
+*Format*: `yearly` +
+*Shortcut*: `y`
+****
+
+[width="100%",cols="5%,95%", grid=none]
+|===
+ifdef::env-github[| :white_check_mark: a|]
+ifndef::env-github[a| icon:check[role="green", size="2x"] a|]
+You will see a success message in the Results Display and the Revenue Panel changes to display up to 30 yearly
+revenue starting from the most recent record.
+
+
+a| a| Notice that the first yearly revenue is the most recent year recorded. This saves you the trouble of
+scrolling through the rest of the record.
+
+image::SM_Yearly.png[]
+
+|===
+
+[[Monthly]]
+==== Changing the Revenue Panel to monthly : `monthly`
+
+This command changes the Revenue Panel to display the statistical monthly revenue for you to study the
+monthly revenue trends. +
+
+****
+*Format*: `monthly` +
+*Shortcut*: `m`
+****
+
+[width="100%",cols="5%,95%", grid=none]
+|===
+ifdef::env-github[| :white_check_mark: a|]
+ifndef::env-github[a| icon:check[role="green", size="2x"] a|]
+You will see a success message in the Results Display and the Revenue Panel changes to display up to 30 monthly
+revenue starting from the most recent record.
+
+
+a| a| Notice that the first monthly revenue is the most recent month recorded. This saves you the trouble of
+scrolling through the rest of the record.
+
+image::SM_Monthly.png[]
+
+|===
+
+[[Daily]]
+==== Changing the Revenue Panel to daily : `daily`
+
+This command helps you to change the Revenue Panel back to its default display of the statistical daily revenue
+ for you to study the daily revenue trends. +
+
+****
+*Format*: `daily` +
+*Shortcut*: `d`
+****
+
+[width="100%",cols="5%,95%", grid=none]
+|===
+ifdef::env-github[| :white_check_mark: a|]
+ifndef::env-github[a| icon:check[role="green", size="2x"] a|]
+You will see a success message in the Results Display and the Revenue Panel changes to display up to 30 daily
+revenue starting from the most recent record.
+
+a| a| Notice that the first daily revenue is the most recent day recorded. This saves you the trouble of
+scrolling through the rest of the record.
+
+image::SM_Daily.png[]
+
+|===
 
 [[Revenue]]
 ==== Getting the total revenue : `revenue`
 
-Returns the total revenue earned by the restaurant by the stated year, month or day. +
-Format: `revenue [d/DAY] [m/MONTH] [y/YEAR]`
+If you want to obtain the revenue earned in a particular year, month or day, you can obtain it with this command.
 
 ****
-* `DAY`, `MONTH`, `YEAR` have to be valid.
-* If the stated period has no records, it will return $0.
-* If *no arguments* are included, by default it returns the total revenue for the *current day*.
+*Format*: `revenue [ y/YEAR [m/MONTH [d/DAY] ] ]` +
+*Shortcut*: `r` +
+*Examples*: `r`, `r y/2019`, `r y/2019 m/4`, `r y/2019 m/4 d/6`
 ****
 
-Examples:
+[TIP]
+Order of the parameters does not matter. +
+For example, `r y/2019 d/6 m/4` will still return the revenue earned on
+6th April 2019. +
+If *no arguments* are included, by default the revenue earned from the *current day* will be returned.
 
-* `revenue` +
-Returns the total revenue of the current day `$45`
-* `revenue y/2019 m/01 d/01` +
-Returns the total revenue on the specific day 01/01/2019 `$45`
-* `revenue y/2019 m/02` +
-Returns the total revenue of the month February 2019 `$7000`
-* `revenue y/2019` +
-Returns the total revenue of the year 2019 `15000`
+[NOTE]
+If there are no records of the stated period, it will be returned as $0. +
+Refer to <<Command, commands>> to take note of the parameter restrictions of `YEAR`, `MONTH` and `DAY`.
 
-[[Daily]]
-==== Getting the daily revenue : `daily`
+[width="100%",cols="5%,95%", grid=none]
+|===
+ifdef::env-github[| :white_check_mark: a|]
+ifndef::env-github[a| icon:check[role="green", size="2x"] a|]
+You will see a success message and the revenue of the specified year, month or day in the Results Display. Examples
+are provided below.
 
-Change the interface to display the statistical daily revenue. +
-Format: `daily`
+a| a| `revenue y/2019` will return the revenue for year 2019 as shown:
 
-****
-* This is the default page for Statistics Mode. +
-****
+image::Revenue_Year.png[]
 
-[[Monthly]]
-==== Getting the monthly revenue : `monthly`
+`revenue y/2019 m/4` will return the revenue for the month April 2019 as shown:
 
-Change the interface to display the statistical monthly revenue. +
-Format: `monthly`
+image::Revenue_Month.png[]
 
-[[Yearly]]
-==== Getting the yearly revenue : `yearly`
+`revenue y/2019 m/4 d/6` will return the revenue for the day 6th April 2019 as shown:
 
-Change the interface to display the statistical yearly revenue. +
-Format: `yearly`
+image::Revenue_Day.png[]
+|===
+
 // end::statisticsmode[]
 
 == FAQ
@@ -840,6 +968,12 @@ These commands can only be used in Statistics Mode.
 [width="90%",cols="^25%,^15%,30%,30%",options="header",]
 |=======================================================================
 ^|Command ^|Shortcut ^|Usage ^|Example
-a|<<Revenue, `revenue`>> a|`*r*` a|`revenue [d/DAY] [m/MONTH] [y/YEAR]` a|`revenue d/1 m/1 y/2019` +
+a|<<Yearly, `yearly`>> a|`*y*` a|`yearly` a|
+Displays the revenue from up to the past 30 years in the Revenue Panel
+a|<<Monthly, `monthly`>> a|`*m*` a|`monthly` a|
+Displays the revenue from up to the past 30 months in the Revenue Panel
+a|<<Daily, `daily`>> a|`*d*` a|`daily` a|
+Displays the revenue from up to the past 30 days in the Revenue Panel
+a|<<Revenue, `revenue`>> a|`*r*` a|`revenue [y/YEAR [[m/MONTH] [d/DAY]]]` a|`revenue y/2019 m/1 d/1` +
 Returns the revenue earned on 01 January 2019
 |=======================================================================

@@ -2,6 +2,8 @@ package seedu.knowitall.model;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static seedu.knowitall.logic.commands.CommandTestUtil.VALID_ANSWER_2;
 import static seedu.knowitall.model.Model.COMPARATOR_ASC_SCORE_CARDS;
@@ -23,6 +25,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.knowitall.commons.core.GuiSettings;
+import seedu.knowitall.model.card.Answer;
 import seedu.knowitall.model.card.Card;
 import seedu.knowitall.model.card.QuestionContainsKeywordsPredicate;
 import seedu.knowitall.model.card.exceptions.CardNotFoundException;
@@ -30,6 +33,9 @@ import seedu.knowitall.testutil.CardBuilder;
 import seedu.knowitall.testutil.CardFolderBuilder;
 
 public class ModelManagerTest {
+    public static final String CORRECT_ANSWER_TO_GEORGE = "9482442";
+    public static final String WRONG_ANSWER_TO_GEORGE = "9482441";
+
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
@@ -39,7 +45,10 @@ public class ModelManagerTest {
     public void constructor() {
         assertEquals(new UserPrefs(), modelManager.getUserPrefs());
         assertEquals(new GuiSettings(), modelManager.getGuiSettings());
-        assertEquals(null, modelManager.getSelectedCard());
+        assertNull(modelManager.getSelectedCard());
+        assertNull(modelManager.getCurrentTestedCard());
+        assertNull(modelManager.getCurrentTestedCardFolder());
+        assertEquals(0, modelManager.getNumAnsweredCorrectly());
     }
 
     @Test
@@ -110,7 +119,7 @@ public class ModelManagerTest {
         modelManager.addCard(ALICE);
         modelManager.setSelectedCard(ALICE);
         modelManager.deleteCard(ALICE);
-        assertEquals(null, modelManager.getSelectedCard());
+        assertNull(modelManager.getSelectedCard());
     }
 
     @Test
@@ -173,6 +182,34 @@ public class ModelManagerTest {
     }
 
     @Test
+    public void startTestSession_IsInEmptyFolder_throwsEmptyCardFolderException() {
+        thrown.expect(EmptyCardFolderException.class);
+        modelManager.startTestSession();
+    }
+
+    @Test
+    public void startTestSession_IsInNonEmptyFolder_startsTestSession() {
+        setUpTwoCardsForTestSession();
+        assertEquals(GEORGE, modelManager.getCurrentTestedCard());
+        assertEquals(Model.State.IN_TEST, modelManager.getState());
+        assertNotNull(modelManager.getCurrentTestedCardFolder());
+        assertEquals(0, modelManager.getNumAnsweredCorrectly());
+        Card lastCard = modelManager.getFilteredCards().get(modelManager.getFilteredCards().size() - 1);
+        assertEquals(FIONA, lastCard);
+    }
+
+    @Test
+    public void endTestSession_IsInTestSession_endsTestSession() {
+        setUpTwoCardsForTestSession();
+        modelManager.endTestSession();
+        assertEquals(Model.State.IN_FOLDER, modelManager.getState());
+        assertNull(modelManager.getCurrentTestedCard());
+        assertNull(modelManager.getCurrentTestedCardFolder());
+        assertFalse(modelManager.isCardAlreadyAnswered());
+        assertEquals(0, modelManager.getNumAnsweredCorrectly());
+    }
+
+    @Test
     public void setCurrentTestedCard_cardNotInFilteredCardList_throwsCardNotFoundException() {
         thrown.expect(CardNotFoundException.class);
         modelManager.setCurrentTestedCard(ALICE);
@@ -184,6 +221,45 @@ public class ModelManagerTest {
         assertEquals(Collections.singletonList(ALICE), modelManager.getFilteredCards());
         modelManager.setCurrentTestedCard(ALICE);
         assertEquals(ALICE, modelManager.getCurrentTestedCard());
+    }
+
+    @Test
+    public void markAttemptedAnswer_WrongAnswer_noChangeCorrectAnswerAttempts() {
+        setUpTwoCardsForTestSession();
+        Answer attempt = new Answer(WRONG_ANSWER_TO_GEORGE);
+        int beforeNumAnsweredCorrectly = modelManager.getNumAnsweredCorrectly();
+        modelManager.markAttemptedAnswer(attempt);
+
+        assertEquals(beforeNumAnsweredCorrectly, modelManager.getNumAnsweredCorrectly());
+    }
+
+    @Test
+    public void markAttemptedAnswer_CorrectAnswer_increaseCorrectAnswerAttempts() {
+        setUpTwoCardsForTestSession();
+        Answer attempt = new Answer(CORRECT_ANSWER_TO_GEORGE);
+        int beforeNumAnsweredCorrectly = modelManager.getNumAnsweredCorrectly();
+        modelManager.markAttemptedAnswer(attempt);
+
+        assertEquals(beforeNumAnsweredCorrectly + 1, modelManager.getNumAnsweredCorrectly());
+    }
+
+    @Test
+    public void testNextCard_HasANextCard_testsNextCard() {
+        setUpTwoCardsForTestSession();
+        modelManager.setCardAsAnswered();
+        modelManager.testNextCard();
+
+        assertNotNull(modelManager.getCurrentTestedCard());
+        assertFalse(modelManager.isCardAlreadyAnswered());
+    }
+
+    @Test
+    public void testNextCard_NoNextCard_doesNotTestNextCard() {
+        setUpOneCardForTestSession();
+        modelManager.setCardAsAnswered();
+        modelManager.testNextCard();
+
+        assertTrue(modelManager.isCardAlreadyAnswered());
     }
 
     @Test

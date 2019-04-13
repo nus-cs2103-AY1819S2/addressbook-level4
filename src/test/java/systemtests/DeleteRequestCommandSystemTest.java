@@ -78,24 +78,24 @@ public class DeleteRequestCommandSystemTest extends HealthHubSystemTest {
         /* --------- Performing delete operation while a filtered list is being shown ----------- */
 
         /* Case: filtered request list, delete index within bounds of request book and request list --> deleted */
-         showPatientsWithName(KEYWORD_MATCHING_MEIER);
-         Index index = INDEX_FIRST;
-         assertTrue(index.getZeroBased() < getModel().getFilteredRequestList().size());
-         command = "     " + DeleteRequestCommand.COMMAND_WORD + " " + DeleteRequestCommand.COMMAND_OPTION
-                 + "       " + index.getOneBased() + "       ";
-         expectedModel.updateFilteredRequestList(new RequestNameContainsKeywordPredicate(KEYWORD_MATCHING_MEIER));
-         deletedRequest = removeRequest(expectedModel, index);
-         expectedResultMessage = String.format(DeleteRequestCommand.MESSAGE_DELETE_REQUEST_SUCCESS,
-                 deletedRequest);
-         assertCommandSuccess(command, expectedModel, expectedResultMessage);
+        showPatientsWithName(KEYWORD_MATCHING_MEIER);
+        Index index = INDEX_FIRST;
+        assertTrue(index.getZeroBased() < getModel().getFilteredRequestList().size());
+        command = "     " + DeleteRequestCommand.COMMAND_WORD + " " + DeleteRequestCommand.COMMAND_OPTION
+                + "       " + index.getOneBased() + "       ";
+        expectedModel.updateFilteredRequestList(new RequestNameContainsKeywordPredicate(KEYWORD_MATCHING_MEIER));
+        deletedRequest = removeRequest(expectedModel, index);
+        expectedResultMessage = String.format(DeleteRequestCommand.MESSAGE_DELETE_REQUEST_SUCCESS,
+                deletedRequest);
+        assertCommandSuccess(command, expectedModel, expectedResultMessage);
 
         /* Case: filtered request list, delete index within bounds of request book but out of bounds of request list
          * --> rejected
          */
-         showPatientsWithName(KEYWORD_MATCHING_MEIER);
-         int invalidIndex = getModel().getRequestBook().getRequestList().size();
-         command = DeleteRequestCommand.COMMAND_WORD + " " + DeleteRequestCommand.COMMAND_OPTION + " " + invalidIndex;
-         assertCommandFailure(command, MESSAGE_INVALID_REQUEST_DISPLAYED_INDEX, expectedModel);
+        showPatientsWithName(KEYWORD_MATCHING_MEIER);
+        int invalidIndex = getModel().getRequestBook().getRequestList().size();
+        command = DeleteRequestCommand.COMMAND_WORD + " " + DeleteRequestCommand.COMMAND_OPTION + " " + invalidIndex;
+        assertCommandFailure(command, MESSAGE_INVALID_REQUEST_DISPLAYED_INDEX, expectedModel);
 
         /* ------------ Performing delete operation while a person card is selected ------------- */
 

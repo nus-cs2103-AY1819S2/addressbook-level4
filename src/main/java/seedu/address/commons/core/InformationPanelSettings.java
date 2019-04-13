@@ -1,7 +1,7 @@
 package seedu.address.commons.core;
 
 /**
- * Settings to control sorting of BatchTable information
+ * Settings to control sorting of BatchTable in Information Panel.
  */
 public class InformationPanelSettings {
     public static final SortProperty DEFAULT_SORT_PROPERTY = SortProperty.BATCHNUMBER;
@@ -33,14 +33,14 @@ public class InformationPanelSettings {
         if (other == this) {
             return true;
         }
+
         if (!(other instanceof InformationPanelSettings)) { //this handles null as well.
             return false;
         }
 
-        InformationPanelSettings o = (InformationPanelSettings) other;
-
-        return sortProperty == o.sortProperty
-                && sortDirection == o.sortDirection;
+        InformationPanelSettings otherSettings = (InformationPanelSettings) other;
+        return sortProperty == otherSettings.sortProperty
+                && sortDirection == otherSettings.sortDirection;
     }
 
     @Override

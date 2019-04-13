@@ -22,7 +22,7 @@ public class TestCommandSystemTest extends CardFolderSystemTest {
     public void test() {
         Model expectedModel = getModel();
 
-        /* ----------------- Performing report operations ---------------------- */
+        /* ----------------- Performing test operations ---------------------- */
 
         /* Case: test command with leading spaces, trailing spaces
          * -> enter test

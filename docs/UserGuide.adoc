@@ -152,10 +152,9 @@ Some of the parameters have restrictions and they are stated below.
 * `QUANTITY` has to be a whole number between 0 and 2,000,000 inclusive.
 * `ITEM_NAME` has to be
 * `ITEM_PRICE` has to be
-* `YEAR` has to be be within 2000 and the current year.
-* `MONTH` has to be within 1 to 12.
-* `DAY` has to be within 1 to 31 (Special case: 29, 30 and 31 are only vaild if it exists in the month of a specified
- year).
+* `YEAR` has to be a 4 digit whole number within 2000 and the current year.
+* `MONTH` has to be a whole number within 1 to 12.
+* `DAY` has to be a whole number within 1 to 31 provided it exists in the desired month and year.
 ****
 
 Some commands may make changes to the data in RestOrRant. There is no need to save manually as the data will be automatically saved in the hard disk.
@@ -626,8 +625,7 @@ bill to obtain the customer's receipt.
 
 [IMPORTANT]
 This command is irreversible. Once the command is executed, all orders and the table occupancy will be cleared to allow
-new customers to order at the table. The money earned from the bill will automatically be added in the
-RestOrRant's daily revenue statistics.
+new customers to use the table. The money earned from the bill will automatically be added to the RestOrRant's revenue statistics.
 
 [NOTE]
 The `bill` can only be called when all order items have been served.
@@ -730,13 +728,14 @@ The function of the side and main panels are as follows:
 
 * *Item Panel*: This panel shows you the list of menu items sorted by its popularity. This is meant to help you decide
 what ingredients to order to cater to the demands of the popular dishes.
-* *Revenue Panel*: This panel displays the revenue from the past 30 years, months and days for you to study the revenue trends.
+* *Revenue Panel*: This panel displays the revenue from the recent years, months or days, depending on the view that
+you have selected. This allows you to study trends in your restaurant's revenue.
 
 [NOTE]
-By default the Statistics Mode displays revenue from the past 30 days in the Revenue pPnel unless you execute
+By default the Statistics Mode displays revenue up to 30 days in the Revenue Panel unless you execute
 <<Yearly, `yearly`>>, <<Monthly, `monthly`>> or <<Daily, `daily`>> commands to change its display respectively.
 
-Here are the commands that you can use in this mode to efficiently study the statistical data of your restaurant.
+Here are the commands that you can use in this mode to study the statistical data of your restaurant.
 
 [[Yearly]]
 ==== Changing the Revenue Panel to yearly : `yearly`
@@ -757,7 +756,7 @@ You will see a success message in the Results Display and the Revenue Panel chan
 revenue starting from the most recent record.
 
 
-a| a| Notice that the first yearly revenue is the most recent year recorded. This saves you from the trouble of
+a| a| Notice that the first yearly revenue is the most recent year recorded. This saves you the trouble of
 scrolling through the rest of the record.
 
 image::SM_Yearly.png[]
@@ -783,7 +782,7 @@ You will see a success message in the Results Display and the Revenue Panel chan
 revenue starting from the most recent record.
 
 
-a| a| Notice that the first monthly revenue is the most recent month recorded. This saves you from the trouble of
+a| a| Notice that the first monthly revenue is the most recent month recorded. This saves you the trouble of
 scrolling through the rest of the record.
 
 image::SM_Monthly.png[]
@@ -808,7 +807,7 @@ ifndef::env-github[a| icon:check[role="green", size="2x"] a|]
 You will see a success message in the Results Display and the Revenue Panel changes to display up to 30 daily
 revenue starting from the most recent record.
 
-a| a| Notice that the first daily revenue is the most recent day recorded. This saves you from the trouble of
+a| a| Notice that the first daily revenue is the most recent day recorded. This saves you the trouble of
 scrolling through the rest of the record.
 
 image::SM_Daily.png[]
@@ -822,7 +821,8 @@ If you want to obtain the revenue earned in a particular year, month or day, you
 
 ****
 *Format*: `revenue [ y/YEAR [m/MONTH [d/DAY] ] ]` +
-*Shortcut*: `r`
+*Shortcut*: `r` +
+*Examples*: `r`, `r y/2019`, `r y/2019 m/4`, `r y/2019 m/4 d/6`
 ****
 
 [TIP]
@@ -874,7 +874,7 @@ The list of items ordered by dining customers at a table
 The list of items available to be ordered by dining customers at the restaurant
 
 [[bill]] Bill::
-The amount of money that dining customers have to pay based on their orders
+The amount of money that dining customers have to pay based on their order
 
 [[revenue]] Revenue::
 The amount of money earned based on the bills
@@ -969,11 +969,11 @@ These commands can only be used in Statistics Mode.
 |=======================================================================
 ^|Command ^|Shortcut ^|Usage ^|Example
 a|<<Yearly, `yearly`>> a|`*y*` a|`yearly` a|
-Displays up to 30 revenue from recent years in the Revenue Panel
+Displays the revenue from up to the past 30 years in the Revenue Panel
 a|<<Monthly, `monthly`>> a|`*m*` a|`monthly` a|
-Displays up to 30 revenue from recent months in the Revenue Panel
+Displays the revenue from up to the past 30 months in the Revenue Panel
 a|<<Daily, `daily`>> a|`*d*` a|`daily` a|
-Displays up to 30 revenue from recent days in the Revenue Panel
+Displays the revenue from up to the past 30 days in the Revenue Panel
 a|<<Revenue, `revenue`>> a|`*r*` a|`revenue [y/YEAR [[m/MONTH] [d/DAY]]]` a|`revenue y/2019 m/1 d/1` +
 Returns the revenue earned on 01 January 2019
 |=======================================================================

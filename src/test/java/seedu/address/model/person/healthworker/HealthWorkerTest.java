@@ -43,10 +43,10 @@ public class HealthWorkerTest {
                 .withNric(VALID_NRIC_BETTY)).build();
         assertFalse(ANDY.isSameHealthWorker(editedAndy));
 
-        // different name -> returns false
+        // different name -> returns true
         editedAndy = ((HealthWorkerBuilder) new HealthWorkerBuilder(ANDY)
                 .withName(VALID_NAME_BETTY)).build();
-        assertFalse(ANDY.isSameHealthWorker(editedAndy));
+        assertTrue(ANDY.isSameHealthWorker(editedAndy));
 
         // same name, same phone, different organization -> returns true
         editedAndy = new HealthWorkerBuilder(ANDY)

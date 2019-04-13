@@ -31,6 +31,7 @@ class JsonSerializableRequestBookTest {
 
     @Test
     void toModelType_typicalRequestsFile_success() throws Exception {
+
         JsonSerializableRequestBook dataFromFile = JsonUtil.readJsonFile(TYPICAL_REQUESTS_FILE,
              JsonSerializableRequestBook.class).get();
         RequestBook requestBookFromFile = dataFromFile.toModelType();

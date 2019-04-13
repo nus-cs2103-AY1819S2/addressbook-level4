@@ -123,6 +123,13 @@ public class RequestBook implements ReadOnlyRequestBook {
         invalidationListenerManager.callListeners(this);
     }
 
+    /**
+     * Checks if any Request in the UniqueRequestList contains the assigned HealthWorker name.
+     */
+    public boolean isAssigned(String nric) {
+        return this.requests.isAssigned(nric);
+    }
+
     //// util methods
 
     @Override

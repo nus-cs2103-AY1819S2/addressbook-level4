@@ -195,7 +195,7 @@ public class Request {
 
     public void setHealthWorker(HealthWorker healthWorker) {
         requireNonNull(healthWorker);
-        this.healthWorker = healthWorker.getName().toString();
+        this.healthWorker = healthWorker.getNric().toString();
         this.requestStatus = new RequestStatus("ONGOING");
     }
 

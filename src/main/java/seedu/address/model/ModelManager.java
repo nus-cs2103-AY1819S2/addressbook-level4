@@ -28,7 +28,6 @@ public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final VersionedHealthWorkerBook versionedHealthWorkerBook;
-
     private final VersionedRequestBook versionedRequestBook;
     private final ModifyCommandHistory modifyCommandHistory;
     private final UserPrefs userPrefs;
@@ -45,8 +44,7 @@ public class ModelManager implements Model {
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
-    public ModelManager(
-                        ReadOnlyHealthWorkerBook healthWorkerBook,
+    public ModelManager(ReadOnlyHealthWorkerBook healthWorkerBook,
                         ReadOnlyRequestBook requestBook,
                         ReadOnlyUserPrefs userPrefs) {
         super();
@@ -162,6 +160,13 @@ public class ModelManager implements Model {
         return userPrefs.getHealthWorkerBookFilePath();
     }
 
+    /**
+     * Checks if the provided HealthWorker nric string as been assigned to any existing request.
+     */
+    public boolean isAssigned(String nric) {
+        return this.versionedRequestBook.isAssigned(nric);
+    }
+
     //=========== Undo/Redo =================================================================================
     // @author Jing1324
 
@@ -222,13 +227,11 @@ public class ModelManager implements Model {
         }
     }
 
-
-    //=========== Selected Person ===========================================================================
     //=========== Implemented methods for Request through the Model interface  ==============================
 
     @Override
     public ObservableList<Request> getFilteredRequestList() {
-        return filteredRequests;
+        return this.filteredRequests;
     }
 
     /**
@@ -329,35 +332,6 @@ public class ModelManager implements Model {
             throw new RequestNotFoundException();
         }
         selectedRequest.setValue(request);
-    }
-
-    /**
-     * Ensures {@code selectedPerson} is a valid person in {@code filteredPersons}.
-     */
-    private void ensureSelectedPersonIsValid(ListChangeListener.Change<? extends Person> change) {
-        while (change.next()) {
-            if (selectedPerson.getValue() == null) {
-                // null is always a valid selected person, so we do not need to check that it is valid anymore.
-                return;
-            }
-
-            boolean wasSelectedPersonReplaced = change.wasReplaced() && change.getAddedSize() == change.getRemovedSize()
-                    && change.getRemoved().contains(selectedPerson.getValue());
-            if (wasSelectedPersonReplaced) {
-                // Update selectedPerson to its new value.
-                int index = change.getRemoved().indexOf(selectedPerson.getValue());
-                selectedPerson.setValue(change.getAddedSubList().get(index));
-                continue;
-            }
-
-            boolean wasSelectedPersonRemoved = change.getRemoved().stream()
-                    .anyMatch(removedPerson -> selectedPerson.getValue().isSamePerson(removedPerson));
-            if (wasSelectedPersonRemoved) {
-                // Select the person that came before it in the list,
-                // or clear the selection if there is no such person.
-                selectedPerson.setValue(change.getFrom() > 0 ? change.getList().get(change.getFrom() - 1) : null);
-            }
-        }
     }
 
     /**

@@ -28,9 +28,8 @@ public class InfoPanelHandle extends NodeHandle<Node> {
     public static final String WEB_VIEW_ID = "#webView";
 
     private boolean isWebViewLoaded = true;
-
     private String loadedContent = "";
-
+    private String lastRememberedContent = "";
     private URL lastRememberedUrl;
 
     public InfoPanelHandle(Node infoPanelNode) {
@@ -72,7 +71,7 @@ public class InfoPanelHandle extends NodeHandle<Node> {
 
     /**
      * Returns the loaded page content.
-     * @return
+     * @return the loaded content in the web view
      */
     public String getLoadedContent() {
         return this.loadedContent;
@@ -86,10 +85,25 @@ public class InfoPanelHandle extends NodeHandle<Node> {
     }
 
     /**
+     * Remembers the {@code String} of the loaded content.
+     */
+    public void rememberContent() {
+        lastRememberedContent = getLoadedContent();
+    }
+
+    /**
      * Remembers the {@code URL} of the currently loaded page.
      */
     public void rememberUrl() {
         lastRememberedUrl = getLoadedUrl();
+    }
+
+    /**
+     * Returns true if the current {@code content} is different from the value remembered by the most recent
+     * {@code rememberContent()} call.
+     */
+    public boolean isLoadedContentChanged() {
+        return !lastRememberedContent.equals(getLoadedContent());
     }
 
     /**

@@ -5,6 +5,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.Objects;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -131,6 +132,14 @@ public class UniqueRequestList implements Iterable<Request> {
      */
     public ObservableList<Request> asUnmodifiableObservableList() {
         return FXCollections.unmodifiableObservableList(internalList);
+    }
+
+    /**
+     * Checks if any Request in the UniqueRequestList contains the assigned HealthWorker nric.
+     */
+    public boolean isAssigned(String nric) {
+        return this.internalList.stream().anyMatch(x -> Objects.equals(nric, x.getHealthStaff())
+                && x.getRequestStatus().isOngoingStatus());
     }
 
     /**

@@ -106,6 +106,29 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void configureWarningPanelLists() {
+        try {
+            warningPanelPredicateAccessor
+                    .updateMedicineExpiringThreshold(userPrefs.getWarningPanelSettings().getExpiryThresholdValue());
+            warningPanelPredicateAccessor
+                    .updateBatchExpiringThreshold(userPrefs.getWarningPanelSettings().getExpiryThresholdValue());
+
+        } catch (IllegalArgumentException ie) {
+            // last threshold set was maximum for medicines expiring on 31/12/9999, but from a different start date
+            warningPanelPredicateAccessor.updateMedicineExpiringThreshold(Threshold.MAX_EXPIRY_THRESHOLD);
+            warningPanelPredicateAccessor.updateBatchExpiringThreshold(Threshold.MAX_EXPIRY_THRESHOLD);
+            setWarningPanelSettings(new WarningPanelSettings(
+                    Threshold.MAX_EXPIRY_THRESHOLD, userPrefs.getWarningPanelSettings().getLowStockThresholdValue()));
+
+        } finally {
+            warningPanelPredicateAccessor
+                    .updateMedicineLowStockThreshold(userPrefs.getWarningPanelSettings().getLowStockThresholdValue());
+            updateFilteredExpiringMedicineList(warningPanelPredicateAccessor.getMedicineExpiryPredicate());
+            updateFilteredLowStockMedicineList(warningPanelPredicateAccessor.getMedicineLowStockPredicate());
+        }
+    }
+
+    @Override
     public void setInformationPanelSettings(InformationPanelSettings informationPanelSettings) {
         requireNonNull(informationPanelSettings);
         userPrefs.setInformationPanelSettings(informationPanelSettings);
@@ -319,21 +342,6 @@ public class ModelManager implements Model {
             // WarningPanelPredicateType.LOW_STOCK
             return warningPanelPredicateAccessor.getLowStockThreshold();
         }
-    }
-
-    /**
-     * Sets up warning panel thresholds with thresholds from userPrefs.
-     */
-    private void configureWarningPanelLists() {
-        warningPanelPredicateAccessor
-                .updateMedicineExpiringThreshold(userPrefs.getWarningPanelSettings().getExpiryThresholdValue());
-        warningPanelPredicateAccessor
-                .updateBatchExpiringThreshold(userPrefs.getWarningPanelSettings().getExpiryThresholdValue());
-        warningPanelPredicateAccessor
-                .updateMedicineLowStockThreshold(userPrefs.getWarningPanelSettings().getLowStockThresholdValue());
-
-        updateFilteredExpiringMedicineList(warningPanelPredicateAccessor.getMedicineExpiryPredicate());
-        updateFilteredLowStockMedicineList(warningPanelPredicateAccessor.getMedicineLowStockPredicate());
     }
 
     @Override

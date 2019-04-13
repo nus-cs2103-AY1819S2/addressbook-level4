@@ -19,11 +19,11 @@ import seedu.address.model.threshold.Threshold;
 public interface Model {
     /** Default {@code Threshold} used for expiry */
     Threshold DEFAULT_EXPIRY_THRESHOLD = new Threshold(Integer
-            .toString(WarningPanelSettings.DEFAULT_EXPIRY_THRESHOLD_VALUE));
+            .toString(WarningPanelSettings.DEFAULT_EXPIRY_THRESHOLD_VALUE), WarningPanelPredicateType.EXPIRY);
 
     /** Default {@code Threshold} used for low stock */
     Threshold DEFAULT_LOW_STOCK_THRESHOLD = new Threshold(Integer
-            .toString(WarningPanelSettings.DEFAULT_LOW_STOCK_THRESHOLD_VALUE));
+            .toString(WarningPanelSettings.DEFAULT_LOW_STOCK_THRESHOLD_VALUE), WarningPanelPredicateType.LOW_STOCK);
 
     /** {@code Predicate} that always evaluate to true */
     Predicate<Medicine> PREDICATE_SHOW_ALL_MEDICINES = unused -> true;
@@ -52,6 +52,11 @@ public interface Model {
      * Returns the user prefs' WarningPanel settings.
      */
     WarningPanelSettings getWarningPanelSettings();
+
+    /**
+     * Configures up warning panel thresholds with thresholds from userPrefs.
+     */
+    void configureWarningPanelLists();
 
     /**
      * Sets the user prefs' GUI settings.

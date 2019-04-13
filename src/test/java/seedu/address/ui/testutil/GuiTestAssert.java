@@ -1,6 +1,7 @@
 package seedu.address.ui.testutil;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -8,6 +9,7 @@ import java.util.stream.Collectors;
 import guitests.guihandles.MedicineCardHandle;
 import guitests.guihandles.MedicineListPanelHandle;
 import guitests.guihandles.ResultDisplayHandle;
+import guitests.guihandles.WarningCardHandle;
 import seedu.address.model.medicine.Medicine;
 
 /**
@@ -36,6 +38,14 @@ public class GuiTestAssert {
         assertEquals(expectedMedicine.getCompany().companyName, actualCard.getCompany());
         assertEquals(expectedMedicine.getTags().stream().map(tag -> tag.tagName).collect(Collectors.toList()),
                 actualCard.getTags());
+    }
+
+    /**
+     * Asserts that {@code actualCard} displays the details of {@code expectedMedicine}.
+     */
+    public static void assertCardDisplaysMedicine(Medicine expectedMedicine, WarningCardHandle actualCard) {
+        assertEquals(expectedMedicine.getName().fullName, actualCard.getName());
+        assertTrue(actualCard.equals(expectedMedicine));
     }
 
     /**

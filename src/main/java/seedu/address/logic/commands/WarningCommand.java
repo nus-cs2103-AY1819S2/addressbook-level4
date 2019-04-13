@@ -18,8 +18,8 @@ public class WarningCommand extends Command {
 
     public static final String COMMAND_WORD = "warning";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Change or check thresholds used in the warning panel. "
-            + "Parameters: "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Change or check thresholds used in the warning panel."
+            + "\nParameters: "
             + "[" + PREFIX_EXPIRY + "EXPIRY_THRESHOLD" + "] "
             + "[" + PREFIX_QUANTITY + "LOW_STOCK_THRESHOLD] "
             + "[" + "SHOW" + "]\n"

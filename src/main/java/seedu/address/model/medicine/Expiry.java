@@ -7,15 +7,19 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.format.ResolverStyle;
+import java.time.temporal.ChronoUnit;
 
 /**
  * Represents the expiry date of a batch Medicine in the inventory.
  * Guarantees: immutable; is valid as declared in {@link #isValidDate(String)}
  */
 public class Expiry implements Comparable<Expiry> {
-
-    public static final String MESSAGE_CONSTRAINTS = "Expiry date should be of the format dd/mm/yyyy "
-            + "and should be a valid date.\n";
+    public static final LocalDate MAX_DATE = parseRawDate("31/12/9999");
+    public static final int MAX_DAYS_TO_EXPIRY = (int) ChronoUnit.DAYS.between(LocalDate.now(), MAX_DATE);
+    public static final String MESSAGE_CONSTRAINTS =
+            "Expiry date should be of the format dd/mm/yyyy and should be a valid date before "
+            + MAX_DATE.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) + ".\n"
+            + "All dates after will be considered invalid.\n";
 
     private final LocalDate expiryDate;
 
@@ -44,7 +48,10 @@ public class Expiry implements Comparable<Expiry> {
         }
 
         try {
-            parseRawDate(test);
+            LocalDate parsed = parseRawDate(test);
+            if (parsed.isAfter(MAX_DATE)) {
+                return false;
+            }
         } catch (DateTimeParseException e) {
             return false;
         }

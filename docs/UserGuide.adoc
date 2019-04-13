@@ -283,25 +283,20 @@ Format: `filter KEYWORD [MORE_KEYWORDS]`
 
 *Step by step guide on how to filter:*
 
-Step 1: Suppose you want to filter out all the `Western` restaurants. Type `filter western`.
-
-Step 2: Press enter and you should see all the western restaurants.
-
-Step 3: Suppose now you want to filter out all `Western`, `Japanese`, as well as `Chinese` restaurants. Type `filter
+Step 1: Suppose you want to filter out all `Western`, `Japanese`, as well as `Chinese` restaurants. Type `filter
 western japanese chinese` into the command box.
 
-Step 4: Press enter again and now all `Western`, `Japanese` and `Chinese` restaurants will be shown.
+Step 2: Press enter again and now all `Western`, `Japanese` and `Chinese` restaurants will be shown.
 
 [NOTE]
 ====
 * You do not need to worry about case. Filtering is case insensitive. e.g. `western` will match `Western`
-* You do not need to be concerned about which categories you want to filter. Filtering works across categories.
+* You do not need to be concerned about which categories you want to filter. Filtering works across categories and also
+within categories of the same type.
 e.g. `japanese $` will match all restaurants with `Cuisine` set as `Japanese` or `Price Range` set as `$`.
 Note this also means that the more keywords you add, the more general the filter becomes.
 * You can enter keywords in any order. `$ casual` is the same as `casual $`. Both will match restaurants that has
 `Price Range` as `$` or `Occasion` as `Casual`.
-* You can filter multiple categories of the same type. e.g. `japanese western` will match both `Japanese` and `Western` cuisine
-restaurants. All `Japanese` and `Western` restaurants will be displayed.
 * You must enter words in full. e.g. `west` will not match `western`
 * Restaurants matching at least one keyword will be displayed. e.g. `fast food` will match `hawker food`
 ====

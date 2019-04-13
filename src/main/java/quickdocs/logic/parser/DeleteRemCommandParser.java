@@ -7,14 +7,15 @@ import quickdocs.logic.commands.DeleteRemCommand;
 import quickdocs.logic.parser.exceptions.ParseException;
 
 /**
- * Parses input arguments and creates a new DeleteRemCommand object
+ * Parses input arguments and creates a new {@code DeleteRemCommand} object.
  */
 public class DeleteRemCommandParser implements Parser<DeleteRemCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the DeleteRemCommand
-     * and returns a DeleteRemCommand object for execution.
-     * @throws ParseException if the user input does not conform the expected format
+     * Parses the given {@code String} of arguments in the context of the {@code DeleteRemCommand}
+     * and returns a {@code DeleteRemCommand} object for execution.
+     *
+     * @throws ParseException if the user input does not conform to the expected format.
      */
     public DeleteRemCommand parse(String args) throws ParseException {
         try {
@@ -25,5 +26,4 @@ public class DeleteRemCommandParser implements Parser<DeleteRemCommand> {
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteRemCommand.MESSAGE_USAGE), pe);
         }
     }
-
 }

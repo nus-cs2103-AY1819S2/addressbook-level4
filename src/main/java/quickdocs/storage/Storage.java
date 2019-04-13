@@ -9,7 +9,7 @@ import quickdocs.model.ReadOnlyUserPrefs;
 import quickdocs.model.UserPrefs;
 
 /**
- * API of the MedicineManager component
+ * API of the Storage component
  */
 public interface Storage extends UserPrefsStorage {
 
@@ -19,7 +19,6 @@ public interface Storage extends UserPrefsStorage {
     @Override
     void saveUserPrefs(ReadOnlyUserPrefs userPrefs) throws IOException;
 
-    // for quickdocs
     Optional<QuickDocs> readQuickDocs() throws DataConversionException, IOException;
 
     void saveQuickDocs(QuickDocs quickDocs) throws IOException;

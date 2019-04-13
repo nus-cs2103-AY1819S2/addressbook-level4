@@ -38,6 +38,7 @@ public class JsonQuickDocsStorage implements QuickDocsStorage {
      * Similar to {@link #readQuickDocs()}.
      *
      * @param filePath location of the data. Cannot be null.
+     * @return an {@code Optional<QuickDocs>} object that contains all objects read from the json file.
      * @throws DataConversionException if the file is not in the correct format.
      */
     public Optional<QuickDocs> readQuickDocs(Path filePath) throws DataConversionException {

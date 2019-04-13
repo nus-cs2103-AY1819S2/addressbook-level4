@@ -41,6 +41,12 @@ public class Slot implements Comparable<Slot> {
             return date.compareTo(other.getDate());
         }
     }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(date, start, end);
+    }
+
     /**
      * Returns true if both slots have the same identity and data fields.
      * This defines a stronger notion of equality between two slots.
@@ -60,8 +66,9 @@ public class Slot implements Comparable<Slot> {
         }
 
         Slot otherSlot = (Slot) other;
-        return otherSlot.getDate().equals(getDate())
-                && otherSlot.getStart().equals(getStart())
-                && Objects.equals(otherSlot.getEnd(), getEnd());
+        // Objects.equals() to handle null fields
+        return otherSlot.date.equals(date)
+                && otherSlot.start.equals(start)
+                && Objects.equals(otherSlot.end, end);
     }
 }

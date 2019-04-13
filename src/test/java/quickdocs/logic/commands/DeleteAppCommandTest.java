@@ -1,9 +1,9 @@
 package quickdocs.logic.commands;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
+
 import static quickdocs.testutil.TypicalAppointments.APP_A;
-import static quickdocs.testutil.TypicalAppointments.APP_B;
 import static quickdocs.testutil.TypicalAppointments.APP_E;
 import static quickdocs.testutil.TypicalAppointments.getTypicalAppointmentsQuickDocs;
 
@@ -22,6 +22,9 @@ import quickdocs.model.ModelManager;
 import quickdocs.model.QuickDocs;
 import quickdocs.model.UserPrefs;
 
+/**
+ * Contains integration tests (interaction with the Model) and unit tests for {@code DeleteAppCommand}.
+ */
 public class DeleteAppCommandTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
@@ -44,8 +47,21 @@ public class DeleteAppCommandTest {
 
         Assert.assertEquals(sb.toString(), commandResult.getFeedbackToUser());
     }
+
     @Test
-    public void executeInvalidDeleteAppointment() throws Exception {
+    public void executeInvalidDeleteAppointment_nonOfficeHours() throws Exception {
+        // Start time outside of office hours
+        LocalDate date = APP_E.getDate();
+        LocalTime start = LocalTime.parse("08:00");
+        DeleteAppCommand deleteAppCommand = new DeleteAppCommand(date, start);
+
+        thrown.expect(CommandException.class);
+        thrown.expectMessage(DeleteAppCommand.MESSAGE_NON_OFFICE_HOURS);
+        deleteAppCommand.execute(model, commandHistory);
+    }
+
+    @Test
+    public void executeInvalidDeleteAppointment_appNotFound() throws Exception {
         // No such appointment with this date and start time
         LocalDate date = APP_E.getDate();
         LocalTime start = APP_E.getStart();
@@ -55,30 +71,32 @@ public class DeleteAppCommandTest {
         thrown.expectMessage(DeleteAppCommand.MESSAGE_APPOINTMENT_NOT_FOUND);
         deleteAppCommand.execute(model, commandHistory);
     }
+
     @Test
     public void equals() {
-        LocalDate dateA = APP_A.getDate();
-        LocalTime startA = APP_A.getStart();
-        LocalDate dateB = APP_B.getDate();
-        LocalTime startB = APP_B.getStart();
-
-        DeleteAppCommand deleteAppA = new DeleteAppCommand(dateA, startA);
-        DeleteAppCommand deleteAppB = new DeleteAppCommand(dateB, startB);
+        LocalDate date = APP_A.getDate();
+        LocalTime start = APP_A.getStart();
+        DeleteAppCommand deleteAppA = new DeleteAppCommand(date, start);
 
         // same object -> returns true
-        assertTrue(deleteAppA.equals(deleteAppA));
+        assertEquals(deleteAppA, deleteAppA);
 
         // same values -> returns true
-        DeleteAppCommand deleteAppACopy = new DeleteAppCommand(dateA, startA);
-        assertTrue(deleteAppA.equals(deleteAppACopy));
+        DeleteAppCommand deleteAppACopy = new DeleteAppCommand(date, start);
+        assertEquals(deleteAppA, deleteAppACopy);
 
         // different types -> returns false
-        assertFalse(deleteAppA.equals(1));
+        assertNotEquals(deleteAppA, 1);
 
         // null -> returns false
-        assertFalse(deleteAppA.equals(null));
+        assertNotEquals(deleteAppA, null);
 
-        // different value -> returns false
-        assertFalse(deleteAppA.equals(deleteAppB));
+        // different date -> returns false
+        DeleteAppCommand deleteAppB = new DeleteAppCommand(date.minusDays(1), start);
+        assertNotEquals(deleteAppA, deleteAppB);
+
+        // different start time -> returns false
+        deleteAppB = new DeleteAppCommand(date, start.minusHours(1));
+        assertNotEquals(deleteAppA, deleteAppB);
     }
 }

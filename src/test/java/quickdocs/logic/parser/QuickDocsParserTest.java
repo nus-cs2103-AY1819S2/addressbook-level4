@@ -286,7 +286,6 @@ public class QuickDocsParserTest {
         LocalTime end = LocalTime.parse(endString);
         String comment = "This is a test comment";
 
-
         String userInput = AddAppCommand.COMMAND_WORD
                 + " r/" + nricString
                 + " d/" + dateString
@@ -294,6 +293,11 @@ public class QuickDocsParserTest {
                 + " e/" + endString
                 + " c/" + comment;
         AddAppCommand command = (AddAppCommand) parser.parseCommand(userInput);
+        assertEquals(new AddAppCommand(nric, date, start, end, comment), command);
+
+        // alias test
+        userInput = userInput.replace(AddAppCommand.COMMAND_WORD, AddAppCommand.COMMAND_ALIAS);
+        command = (AddAppCommand) parser.parseCommand(userInput);
         assertEquals(new AddAppCommand(nric, date, start, end, comment), command);
     }
 
@@ -306,18 +310,30 @@ public class QuickDocsParserTest {
         LocalDate date = LocalDate.parse(dateString);
         Nric nric = new Nric(nricString);
 
+        // test for listing appointments by format and date
         String userInput = ListAppCommand.COMMAND_WORD
                 + " f/" + formatString
                 + " d/" + dateString;
         ListAppCommand command = (ListAppCommand) parser.parseCommand(userInput);
         assertEquals(new ListAppCommand(date, date), command);
+        assertTrue(parser.parseCommand(ListAppCommand.COMMAND_WORD) instanceof ListAppCommand);
 
+        // alias test
+        userInput = userInput.replace(ListAppCommand.COMMAND_WORD, ListAppCommand.COMMAND_ALIAS);
+        command = (ListAppCommand) parser.parseCommand(userInput);
+        assertEquals(new ListAppCommand(date, date), command);
+        assertTrue(parser.parseCommand(ListAppCommand.COMMAND_ALIAS) instanceof ListAppCommand);
+
+        // test for listing appointments by patient's NRIC
         userInput = ListAppCommand.COMMAND_WORD
                 + " r/" + nricString;
         command = (ListAppCommand) parser.parseCommand(userInput);
         assertEquals(new ListAppCommand(nric), command);
 
-        assertTrue(parser.parseCommand(ListAppCommand.COMMAND_WORD) instanceof ListAppCommand);
+        // alias test
+        userInput = userInput.replace(ListAppCommand.COMMAND_WORD, ListAppCommand.COMMAND_ALIAS);
+        command = (ListAppCommand) parser.parseCommand(userInput);
+        assertEquals(new ListAppCommand(nric), command);
     }
 
     @Test
@@ -331,8 +347,13 @@ public class QuickDocsParserTest {
                 + " d/" + dateString;
         FreeAppCommand command = (FreeAppCommand) parser.parseCommand(userInput);
         assertEquals(new FreeAppCommand(date, date), command);
-
         assertTrue(parser.parseCommand(FreeAppCommand.COMMAND_WORD) instanceof FreeAppCommand);
+
+        // alias test
+        userInput = userInput.replace(FreeAppCommand.COMMAND_WORD, FreeAppCommand.COMMAND_ALIAS);
+        command = (FreeAppCommand) parser.parseCommand(userInput);
+        assertEquals(new FreeAppCommand(date, date), command);
+        assertTrue(parser.parseCommand(FreeAppCommand.COMMAND_ALIAS) instanceof FreeAppCommand);
     }
 
     @Test
@@ -347,6 +368,11 @@ public class QuickDocsParserTest {
                 + " d/" + dateString
                 + " s/" + startString;
         DeleteAppCommand command = (DeleteAppCommand) parser.parseCommand(userInput);
+        assertEquals(new DeleteAppCommand(date, start), command);
+
+        // alias test
+        userInput = userInput.replace(DeleteAppCommand.COMMAND_WORD, DeleteAppCommand.COMMAND_ALIAS);
+        command = (DeleteAppCommand) parser.parseCommand(userInput);
         assertEquals(new DeleteAppCommand(date, start), command);
     }
 
@@ -371,12 +397,22 @@ public class QuickDocsParserTest {
                 + " c/" + comment;
         AddRemCommand command = (AddRemCommand) parser.parseCommand(userInput);
         assertEquals(new AddRemCommand(toAdd), command);
+
+        // alias test
+        userInput = userInput.replace(AddRemCommand.COMMAND_WORD, AddRemCommand.COMMAND_ALIAS);
+        command = (AddRemCommand) parser.parseCommand(userInput);
+        assertEquals(new AddRemCommand(toAdd), command);
     }
 
     @Test
     public void parseCommand_deleteRem() throws Exception {
         DeleteRemCommand command = (DeleteRemCommand) parser.parseCommand(
                 DeleteRemCommand.COMMAND_WORD + " " + TypicalIndexes.INDEX_FIRST_REMINDER.getOneBased());
+        assertEquals(new DeleteRemCommand(TypicalIndexes.INDEX_FIRST_REMINDER), command);
+
+        // alias test
+        command = (DeleteRemCommand) parser.parseCommand(
+                DeleteRemCommand.COMMAND_ALIAS + " " + TypicalIndexes.INDEX_FIRST_REMINDER.getOneBased());
         assertEquals(new DeleteRemCommand(TypicalIndexes.INDEX_FIRST_REMINDER), command);
     }
 
@@ -392,6 +428,12 @@ public class QuickDocsParserTest {
         ListRemCommand command = (ListRemCommand) parser.parseCommand(userInput);
         assertEquals(new ListRemCommand(date, date), command);
         assertTrue(parser.parseCommand(ListRemCommand.COMMAND_WORD) instanceof ListRemCommand);
+
+        // alias test
+        userInput = userInput.replace(ListRemCommand.COMMAND_WORD, ListRemCommand.COMMAND_ALIAS);
+        command = (ListRemCommand) parser.parseCommand(userInput);
+        assertEquals(new ListRemCommand(date, date), command);
+        assertTrue(parser.parseCommand(ListRemCommand.COMMAND_ALIAS) instanceof ListRemCommand);
     }
 
     @Test

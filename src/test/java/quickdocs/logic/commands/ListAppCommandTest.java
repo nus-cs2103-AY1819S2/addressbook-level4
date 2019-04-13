@@ -1,11 +1,14 @@
 package quickdocs.logic.commands;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
+
 import static quickdocs.testutil.TypicalAppointments.APP_A;
+import static quickdocs.testutil.TypicalAppointments.APP_B;
 import static quickdocs.testutil.TypicalAppointments.getTypicalAppointmentsQuickDocs;
 
 import java.time.LocalDate;
 
-import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -19,6 +22,9 @@ import quickdocs.model.UserPrefs;
 import quickdocs.model.patient.Nric;
 import quickdocs.testutil.TypicalPatients;
 
+/**
+ * Contains integration tests (interaction with the Model) and unit tests for {@code ListAppCommand}.
+ */
 public class ListAppCommandTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
@@ -35,7 +41,7 @@ public class ListAppCommandTest {
         String expected = String.format(ListAppCommand.MESSAGE_SUCCESS_BY_DATE, start, end)
                 + model.listApp(start, end);
 
-        Assert.assertEquals(result.getFeedbackToUser(), expected);
+        assertEquals(result.getFeedbackToUser(), expected);
 
         // no results to show
         end = LocalDate.of(2019, 10, 1);
@@ -43,7 +49,7 @@ public class ListAppCommandTest {
         expected = String.format(ListAppCommand.MESSAGE_SUCCESS_BY_DATE, start, end)
                 + model.listApp(start, end);
 
-        Assert.assertEquals(result.getFeedbackToUser(), expected);
+        assertEquals(result.getFeedbackToUser(), expected);
     }
 
     @Test
@@ -53,7 +59,7 @@ public class ListAppCommandTest {
         String expected = String.format(ListAppCommand.MESSAGE_SUCCESS_BY_NRIC, TypicalPatients.ALICE.getName())
                 + model.listApp(TypicalPatients.ALICE);
 
-        Assert.assertEquals(result.getFeedbackToUser(), expected);
+        assertEquals(result.getFeedbackToUser(), expected);
     }
 
     @Test
@@ -68,28 +74,46 @@ public class ListAppCommandTest {
 
     @Test
     public void equals() {
-        Nric nric = TypicalPatients.ALICE.getNric();
         LocalDate start = APP_A.getDate();
         LocalDate end = start.plusDays(7);
         ListAppCommand listAppA = new ListAppCommand(start, end);
-        ListAppCommand listAppB = new ListAppCommand(end, start);
-        ListAppCommand listAppC = new ListAppCommand(nric);
 
         // same object -> returns true
-        Assert.assertEquals(listAppA, listAppA);
+        assertEquals(listAppA, listAppA);
 
         // same values -> returns true
         ListAppCommand listAppCopy = new ListAppCommand(start, end);
-        Assert.assertEquals(listAppA, listAppCopy);
+        assertEquals(listAppA, listAppCopy);
 
         // different types -> returns false
-        Assert.assertNotEquals(listAppA, 1);
+        assertNotEquals(listAppA, 1);
 
         // null -> returns false
-        Assert.assertNotEquals(listAppA, null);
+        assertNotEquals(listAppA, null);
 
-        // different attributes -> returns false
-        Assert.assertNotEquals(listAppA, listAppB);
-        Assert.assertNotEquals(listAppA, listAppC);
+        // different start date -> returns false
+        ListAppCommand listAppB = new ListAppCommand(start.minusDays(1), end);
+        assertNotEquals(listAppA, listAppB);
+
+        // null start date -> returns false
+        listAppB = new ListAppCommand(null, end);
+        assertNotEquals(listAppA, listAppB);
+
+        // different end date -> returns false
+        listAppB = new ListAppCommand(start, end.plusDays(1));
+        assertNotEquals(listAppA, listAppB);
+
+        // null end date -> returns false
+        listAppB = new ListAppCommand(start, null);
+        assertNotEquals(listAppA, listAppB);
+
+        // different NRIC -> returns false
+        listAppA = new ListAppCommand(APP_A.getPatient().getNric());
+        listAppB = new ListAppCommand(APP_B.getPatient().getNric());
+        assertNotEquals(listAppA, listAppB);
+
+        // null NRIC -> returns false
+        listAppB = new ListAppCommand(null);
+        assertNotEquals(listAppA, listAppB);
     }
 }

@@ -4,13 +4,15 @@ import java.time.LocalDate;
 import java.util.function.Predicate;
 
 /**
- * Tests that a {@code Reminder}'s date is within the start and end date given.
+ * A {@code Predicate} to test that a {@code Reminder}'s date is within the given start and end date.
  */
 public class ReminderWithinDatesPredicate implements Predicate<Reminder> {
     private final LocalDate start;
     private final LocalDate end;
 
     public ReminderWithinDatesPredicate(LocalDate start, LocalDate end) {
+        // extend the range by one day so we can use the isAfter() and isBefore() methods
+        // on the dates directly in the test() method
         this.start = start.minusDays(1);
         this.end = end.plusDays(1);
     }

@@ -1,14 +1,22 @@
 package quickdocs.model;
 
+import static java.time.DayOfWeek.MONDAY;
+import static java.time.DayOfWeek.SUNDAY;
+import static java.time.temporal.TemporalAdjusters.nextOrSame;
+import static java.time.temporal.TemporalAdjusters.previousOrSame;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+
+import java.time.LocalDate;
 
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import quickdocs.commons.core.GuiSettings;
+import quickdocs.model.reminder.ReminderWithinDatesPredicate;
 
 public class ModelManagerTest {
     @Rule
@@ -39,6 +47,14 @@ public class ModelManagerTest {
         GuiSettings guiSettings = new GuiSettings(1, 2, 3, 4);
         modelManager.setGuiSettings(guiSettings);
         assertEquals(guiSettings, modelManager.getGuiSettings());
+    }
+
+    @Test
+    public void getCurrentWeekRemindersPredicate_success() {
+        LocalDate start = LocalDate.now().with(previousOrSame(MONDAY));
+        LocalDate end = LocalDate.now().with(nextOrSame(SUNDAY));
+        ReminderWithinDatesPredicate actualPredicate = new ReminderWithinDatesPredicate(start, end);
+        assertEquals(actualPredicate, modelManager.getCurrentWeekRemindersPredicate());
     }
 
     @Test

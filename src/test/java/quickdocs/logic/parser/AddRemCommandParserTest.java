@@ -12,6 +12,9 @@ import org.junit.Test;
 import quickdocs.logic.commands.AddRemCommand;
 import quickdocs.model.reminder.Reminder;
 
+/**
+ * Contains unit tests for {@code AddRemCommandParser}.
+ */
 public class AddRemCommandParserTest {
     private AddRemCommandParser parser = new AddRemCommandParser();
 

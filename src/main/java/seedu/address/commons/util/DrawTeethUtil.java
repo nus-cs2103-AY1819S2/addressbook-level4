@@ -25,7 +25,7 @@ public class DrawTeethUtil {
         String basepath = System.getProperty("user.dir");
         try {
             InputStream imageFile = MainApp.class.getClassLoader()
-                    .getResourceAsStream("images" + File.separator + "teeth" + File.separator + "BaseLayer.png");
+                    .getResourceAsStream("images/teeth/BaseLayer.png");
             if (imageFile == null) {
                 throw new IOException();
             }
@@ -38,8 +38,7 @@ public class DrawTeethUtil {
                         type = "A_";
                     }
                     InputStream layerFile = MainApp.class.getClassLoader()
-                            .getResourceAsStream("images" + File.separator + "teeth" + File.separator
-                                                    + type + (i + 1) + ".png");
+                            .getResourceAsStream("images/teeth/" + type + (i + 1) + ".png");
                     if (layerFile == null) {
                         throw new IOException();
                     }

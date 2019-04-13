@@ -46,7 +46,7 @@ public class PdfUtil {
     private static final PDFont FONT = PDType1Font.HELVETICA;
     private static final int FONT_SIZE = 12;
     private static final int LINE_SPACING = 3;
-    private static final String TEETH_IMAGE_PATH = "images" + File.separator + "tooth.png";
+    private static final String TEETH_IMAGE_PATH = "images/tooth.png";
 
     /**
      * Saves the PdfAdaptedPerson and PdfAdaptedTask objects to the specified PDF file.

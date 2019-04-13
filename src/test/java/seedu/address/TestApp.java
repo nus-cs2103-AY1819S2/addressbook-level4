@@ -1,5 +1,8 @@
 package seedu.address;
 
+import static seedu.address.testutil.TypicalHealthWorkers.getTypicalHealthWorkerBook;
+import static seedu.address.testutil.TypicalRequests.getTypicalRequestBook;
+
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.function.Supplier;
@@ -20,7 +23,6 @@ import seedu.address.storage.JsonHealthWorkerBookStorage;
 import seedu.address.storage.JsonRequestBookStorage;
 import seedu.address.storage.UserPrefsStorage;
 import seedu.address.testutil.TestUtil;
-import systemtests.ModelHelper;
 //import systemtests.ModelHelper;
 
 /**
@@ -137,8 +139,9 @@ public class TestApp extends MainApp {
      * Returns a defensive copy of the model.
      */
     public Model getModel() {
-        Model copy = new ModelManager(model.getHealthWorkerBook(), model.getRequestBook(), model.getUserPrefs());
-        ModelHelper.setFilteredRequestList(copy, model.getFilteredRequestList());
+        Model copy = new ModelManager(getTypicalHealthWorkerBook(),
+                getTypicalRequestBook(), new UserPrefs());
+        //ModelHelper.setFilteredList(copy, model.getFilteredPersonList());
         return copy;
     }
 

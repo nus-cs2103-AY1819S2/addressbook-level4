@@ -12,7 +12,6 @@ import seedu.address.model.tag.Specialisation;
 
 /**
  * Interface that represents a Command object involving a HealthWorker
- * TODO: add abstract methods involving HealthWorkerCommand
  * @author Lookaz
  */
 public interface HealthWorkerCommand {

@@ -77,7 +77,7 @@ class AssignRequestCommandTest {
             assignedHealthWorker);
 
         Model expectedModel = new ModelManager(model.getHealthWorkerBook(), model.getRequestBook(), new UserPrefs());
-        // todo needs model.updateHealthworker()
+        // TODO: needs model.updateHealthworker()
         expectedModel.updateRequest(validRequest, toAssign);
         expectedModel.commitRequestBook();
 

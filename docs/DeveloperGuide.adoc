@@ -444,8 +444,6 @@ Furthermore, every time any record of the specified patient is modified, a new i
 
 // tag::undoredo[]
 === Undo/Redo feature
-==== Current Implementation
-
 The undo/redo mechanism is facilitated by `VersionedAddressBook`.
 It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
 Additionally, it implements the following operations:
@@ -502,24 +500,21 @@ The following activity diagram summarizes what happens when a user executes a ne
 image::UndoRedoActivityDiagram.png[width="650"]
 
 ==== Design Considerations
-
 ===== Aspect: How undo & redo executes
 
-* **Alternative 1 (current choice):** Saves the entire address book.
-** Pros: Easy to implement.
-** Cons: May have performance issues in terms of memory usage.
-* **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
-** Cons: We must ensure that the implementation of each individual command are correct.
+* **Current implementation:** Saves the entire address book.
+** **Alternative:** Individual command knows how to undo/redo by itself.
+*** **Alternative Pros:** Will use less memory (e.g. for `delete`, just save the person being deleted).
+*** **Alternative Cons:** We must ensure that the implementation of each individual command are correct.
+** **Choice Justification:** We decided to go with the current implementation as it is simple and easier to fix.
 
 ===== Aspect: Data structure to support the undo/redo commands
 
-* **Alternative 1 (current choice):** Use a list to store the history of address book states.
-** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
-* **Alternative 2:** Use `HistoryManager` for undo/redo
-** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
-** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
+* **Current implementation:** Use a list to store the history of address book states.
+** **Alternative:** Use `HistoryManager` for undo/redo
+*** **Alternative Pros:** We do not need to maintain a separate list, and just reuse what is already in the codebase. Logic is not duplicated twice as a result.
+*** **Alternative Cons:** Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things. It is also harder for the new incoming developers of our project, who are new Computer Science student undergraduates, to understand.
+** **Choice Justification:** We decided to keep to the Single Responsibility Principle and Separation of Concerns, thus we chose the current implementation.
 // end::undoredo[]
 
 // tag::dataencryption[]

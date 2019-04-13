@@ -1038,45 +1038,356 @@ _{More to be added}_
 (For all use cases below, the *System* is the `HMS+` and the *Actor* is the Hotel Staff, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete reservation
+=== Use case: Add reservation
 
-*MSS*
+*Main Success Scenario*
 
-1.  Staff requests all the reservations a customer has
-2.  HMS lists the reservations requested
-3.  Staff requests to delete one reservation
-4.  HMS deletes the reservation
+1.  The actor adds a reservation.
+2.  The system adds the reservation to its list of reservations.
 +
-Use case resumes at step 3
+Use case resumes at step 1.
 
 *Extensions*
 
 [none]
-* 2a. The customer has no reservations.
-+
-Use case ends.
-
-* 2b. The staff requests to stop editing the reservation.
-+
-Use case ends.
-
-* 3a. The index that the staff selected is invalid.
+* 1a. The actor tries to add invalid reservation.
 +
 [none]
-** 3a1. HMS+ shows an error message.
+** 1a1. The system shows an error.
 +
-Use case resumes at step 2.
-
-* 3b. The staff requests to stop editing the reservation.
+Steps 1 - 1a1 are repeated till a valid reservation is provided.
 +
 Use case ends.
 
-* 4a. The commands given by the staff to edit the fields are invalid.
-+
-[none]
-** 4a1. HMS shows an error message.
+[discrete]
+=== Use case: Edit reservation
+
+*Main Success Scenario*
+
+1.  The actor requests all the reservations in the system.
+2.  The system lists the reservations requested.
+3.  The actor requests to edit a reservation at a specified index.
+4.  The system editss the reservation.
 +
 Use case resumes at step 3.
+
+*Extensions*
+
+[none]
+* 2a. The system has no reservations.
++
+Use case ends.
+
+* 3a. The index that the actor specified is invalid.
++
+[none]
+** 3a1. The system shows an error message.
++
+Steps 3 - 3a1 are repeated till a valid index is provided.
+
+[discrete]
+=== Use case: List reservations
+
+*Main Success Scenario*
+
+1.  The actor requests to see all the reservations in the system.
+2.  The system lists the reservations requested.
+
+[discrete]
+=== Use case: Delete reservation
+
+*Main Success Scenario*
+
+1.  The actor requests all the reservations in the system.
+2.  The system lists the reservations requested.
+3.  The actor requests to delete a reservation at a specified index.
+4.  The system deletes the reservation.
++
+Use case resumes at step 3.
+
+*Extensions*
+
+[none]
+* 2a. The system has no reservations.
++
+Use case ends.
+
+* 3a. The index that the actor specified is invalid.
++
+[none]
+** 3a1. The system shows an error message.
++
+Steps 3 - 3a1 are repeated till a valid index is provided.
+
+[discrete]
+=== Use case: Add booking
+
+*Main Success Scenario*
+
+1.  The actor adds a booking.
+2.  The system adds the booking to its list of bookings.
++
+Use case resumes at step 1.
+
+*Extensions*
+
+[none]
+* 1a. The actor tries to add invalid booking.
++
+[none]
+** 1a1. The system shows an error.
++
+Steps 1 - 1a1 are repeated till a valid booking is provided.
++
+Use case ends.
+
+[discrete]
+=== Use case: Edit booking
+
+*Main Success Scenario*
+
+1.  The actor requests all the bookings in the system.
+2.  The system lists the bookings requested.
+3.  The actor requests to edit a booking at a specified index.
+4.  The system editss the booking.
++
+Use case resumes at step 3.
+
+*Extensions*
+
+[none]
+* 2a. The system has no bookings.
++
+Use case ends.
+
+* 3a. The index that the actor specified is invalid.
++
+[none]
+** 3a1. The system shows an error message.
++
+Steps 3 - 3a1 are repeated till a valid index is provided.
+
+[discrete]
+=== Use case: List bookings
+
+*Main Success Scenario*
+
+1.  The actor requests to see all the bookings in the system.
+2.  The system lists the bookings requested.
+
+[discrete]
+=== Use case: Delete booking
+
+*Main Success Scenario*
+
+1.  The actor requests all the bookings in the system.
+2.  The system lists the bookings requested.
+3.  The actor requests to delete a booking at a specified index.
+4.  The system deletes the booking.
++
+Use case resumes at step 3.
+
+*Extensions*
+
+[none]
+* 2a. The system has no bookings.
++
+Use case ends.
+
+* 3a. The index that the actor specified is invalid.
++
+[none]
+** 3a1. The system shows an error message.
++
+Steps 3 - 3a1 are repeated till a valid index is provided.
+
+[discrete]
+=== Use case: Add room-type
+
+*Main Success Scenario*
+
+1.  The actor adds a room-type.
+2.  The system adds the room-type to its list of room-types.
++
+Use case resumes at step 1.
+
+*Extensions*
+
+[none]
+* 1a. The actor tries to add invalid room-type.
++
+[none]
+** 1a1. The system shows an error.
++
+Steps 1 - 1a1 are repeated till a valid room-type is provided.
++
+Use case ends.
+
+[none]
+* 2a. The actor tries to add an already existing room type.
++
+[none]
+** 2a1. The system shows an error.
++
+Steps 2 - 2a1 are repeated till a new room-type is provided.
++
+Use case ends.
+
+[discrete]
+=== Use case: Edit room-type
+
+*Main Success Scenario*
+
+1.  The actor requests all the room-types in the system.
+2.  The system lists the room-types requested.
+3.  The actor requests to edit a room-type at a specified index.
+4.  The system editss the room-type.
++
+Use case resumes at step 3.
+
+*Extensions*
+
+[none]
+* 2a. The system has no room-types.
++
+Use case ends.
+
+* 3a. The index that the actor specified is invalid.
++
+[none]
+** 3a1. The system shows an error message.
++
+Steps 3 - 3a1 are repeated till a valid index is provided.
+
+[none]
+* 3b. The actor tries to edit the room type to an already existing room type.
++
+[none]
+** 3b1. The system shows an error.
++
+Steps 3 - 3b1 are repeated till a new room-type is provided.
++
+Use case ends.
+
+[discrete]
+=== Use case: Delete room-type
+
+*Main Success Scenario*
+
+1.  The actor requests all the room-types in the system.
+2.  The system lists the room-types requested.
+3.  The actor requests to delete a room-type at a specified index.
+4.  The system deletes the room-type.
++
+Use case resumes at step 3.
+
+*Extensions*
+
+[none]
+* 2a. The system has no room-types.
++
+Use case ends.
+
+* 3a. The index that the actor specified is invalid.
++
+[none]
+** 3a1. The system shows an error message.
++
+Steps 3 - 3a1 are repeated till a valid index is provided.
+
+[discrete]
+=== Use case: Add service
+
+*Main Success Scenario*
+
+1.  The actor adds a service.
+2.  The system adds the service to its list of services.
++
+Use case resumes at step 1.
+
+*Extensions*
+
+[none]
+* 1a. The actor tries to add invalid service.
++
+[none]
+** 1a1. The system shows an error.
++
+Steps 1 - 1a1 are repeated till a valid service is provided.
++
+Use case ends.
+
+[none]
+* 2a. The actor tries to add an already existing room type.
++
+[none]
+** 2a1. The system shows an error.
++
+Steps 2 - 2a1 are repeated till a new service is provided.
++
+Use case ends.
+
+[discrete]
+=== Use case: Edit service
+
+*Main Success Scenario*
+
+1.  The actor requests all the services in the system.
+2.  The system lists the services requested.
+3.  The actor requests to edit a service at a specified index.
+4.  The system editss the service.
++
+Use case resumes at step 3.
+
+*Extensions*
+
+[none]
+* 2a. The system has no services.
++
+Use case ends.
+
+* 3a. The index that the actor specified is invalid.
++
+[none]
+** 3a1. The system shows an error message.
++
+Steps 3 - 3a1 are repeated till a valid index is provided.
+
+[none]
+* 3b. The actor tries to edit the room type to an already existing room type.
++
+[none]
+** 3b1. The system shows an error.
++
+Steps 3 - 3b1 are repeated till a new service is provided.
++
+Use case ends.
+
+[discrete]
+=== Use case: Delete service
+
+*Main Success Scenario*
+
+1.  The actor requests all the services in the system.
+2.  The system lists the services requested.
+3.  The actor requests to delete a service at a specified index.
+4.  The system deletes the service.
++
+Use case resumes at step 3.
+
+*Extensions*
+
+[none]
+* 2a. The system has no services.
++
+Use case ends.
+
+* 3a. The index that the actor specified is invalid.
++
+[none]
+** 3a1. The system shows an error message.
++
+Steps 3 - 3a1 are repeated till a valid index is provided.
 
 [appendix]
 == Non Functional Requirements
@@ -1152,6 +1463,92 @@ These instructions only provide a starting point for testers to work on; testers
 .. Test case: `delete-customer 0` +
    Expected: No customer is deleted. Error details shown in the status message. Status bar remains the same.
 .. Other incorrect delete commands to try: `delete-customer`, `delete-customer x` (where x is larger than the list size)... +
+   Expected: Similar to previous.
+
+=== Reservations
+==== Adding a reservation
+
+Adding a reservation with the `add-reservation` command
+
+.. Test case: `add-reservation` +
+   Expected: No reservation is added. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect commands to try: `add-reservation r/room-type`, `add-reservation r/room-type $/1`...
+.. Test case: `add-reservation d/5/5/19 - 4/5/19 ...` followed by the remaining details+
+   Expected: No reservation is added. Error details regarding the date range are shown. Status bar remains the same.
+..Other incorrect commands to try: `add-reservation d/5/5/1 - 4/5/19 ...`, `add-reservation d/5/13/19 - 4/5/19 ...`
+
+==== Editing a reservation
+
+=Editing a reservation with the `edit-reservation` command
+
+.. Test case: `edit-reservation` +
+   Expected: No reservation is edited. Error details shown in the status message. Status bar remains the same.
+.. Test case: `edit-reservation 1 r/INVALID_ROOM_TYPE $/-1` +
+   Expected: No reservation is edited. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect commands to try: `edit-reservation 1 r/SINGLE ROOM $/1000`, `edit-reservation 1 r/SINGLE ROOM c/-1 c/1000`
+.. Test case: `edit-reservation 1 d/5/5/19 - 4/5/19 ...` followed by the remaining details+
+   Expected: No reservation is edited. Error details regarding the date range are shown. Status bar remains the same.
+
+==== Listing reservations
+
+Listing all reservations with the `list-reservation` command
+
+.. Test case: `list=reservations` +
+   Expected: All reservations are listed.  Timestamp in the status bar is updated.
+
+==== Deleting a reservation
+
+Deleting a reservation while all reservations are listed
+
+.. Prerequisites: List all reservations using the `list-reservations` command. Multiple reservations in the list.
+.. Test case: `delete-reservation 1` +
+   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `delete-reservation 0` +
+   Expected: No reservation is deleted. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect delete commands to try: `delete-reservation`, `delete-reservation x` (where x is larger than the list size)... +
+   Expected: Similar to previous.
+
+=== Bookings
+==== Adding a booking
+
+Adding a booking with the `add-booking` command
+
+.. Test case: `add-booking` +
+   Expected: No booking is added. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect commands to try: `add-booking s/service-type`, `add-booking s/service-type $/1`...
+.. Test case: `add-booking d/5/5/19 - 4/5/19 ...` followed by the remaining details+
+   Expected: No booking is added. Error details regarding the date range are shown. Status bar remains the same.
+..Other incorrect commands to try: `add-booking d/5/5/1 - 4/5/19 ...`, `add-booking d/5/13/19 - 4/5/19 ...`
+
+==== Editing a booking
+
+=Editing a booking with the `edit-booking` command
+
+.. Test case: `edit-booking` +
+   Expected: No booking is edited. Error details shown in the status message. Status bar remains the same.
+.. Test case: `edit-booking 1 s/INVALID_SERVICE_TYPE $/-1` +
+   Expected: No booking is edited. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect commands to try: `edit-booking 1 s/GYM $/1000`, `edit-booking 1 s/GYM c/-1 c/1000`
+.. Test case: `edit-booking 1 :/22 - 25 ...` followed by the remaining details+
+   Expected: No booking is edited. Error details regarding the time range are shown. Status bar remains the same.
+
+==== Listing bookings
+
+Listing all bookings with the `list-booking` command
+
+.. Test case: `list=bookings` +
+   Expected: All bookings are listed.  Timestamp in the status bar is updated.
+
+==== Deleting a booking
+
+Deleting a booking while all bookings are listed
+
+.. Prerequisites: List all bookings using the `list-bookings` command. Multiple bookings in the list.
+.. Test case: `delete-booking 1` +
+   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `delete-booking 0` +
+   Expected: No booking is deleted. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect delete commands to try: `delete-booking`, `delete-reservation x` (where x is larger than the list size)... +
    Expected: Similar to previous.
 
 === Generating bill for a customer

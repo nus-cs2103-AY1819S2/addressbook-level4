@@ -1,6 +1,7 @@
 package seedu.finance.logic.parser;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.finance.logic.commands.SetFileCommand.MAX_FILE_LENGTH;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -93,11 +94,11 @@ public class ParserUtil {
      */
     public static Path parseFile(String filename) throws ParseException {
         requireNonNull(filename);
-        String trimmedFilename = filename.trim();
 
+        String trimmedFilename = filename.trim();
         Pattern special = Pattern.compile ("[!@#$%&*()_+=|<>?{}\\[\\]~-]");
         if (special.matcher(trimmedFilename).find() || trimmedFilename.indexOf('\\') != -1
-                || trimmedFilename.equals("")) {
+                || trimmedFilename.equals("") || trimmedFilename.length() > MAX_FILE_LENGTH) {
             throw new ParseException(SetFileCommand.MESSAGE_CONSTRAINTS);
         }
         return Paths.get("data\\" + trimmedFilename + ".json");

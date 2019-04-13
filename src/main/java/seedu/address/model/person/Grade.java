@@ -21,6 +21,7 @@ public class Grade {
      *
      * @param grade A valid grade.
      */
+
     public Grade(String grade) {
         requireNonNull(grade);
         checkArgument(isValidGrade(grade), MESSAGE_CONSTRAINTS);

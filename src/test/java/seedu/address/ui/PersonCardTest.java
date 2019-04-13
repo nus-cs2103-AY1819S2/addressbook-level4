@@ -15,17 +15,17 @@ public class PersonCardTest extends GuiUnitTest {
 
     @Test
     public void display() {
-        // no tags
-        Person personWithNoTags = new PersonBuilder().withTags(new String[0]).build();
-        PersonCard personCard = new PersonCard(personWithNoTags, 1);
+        // no past job
+        Person personWithNoPastJobs = new PersonBuilder().withPastJobs(new String[0]).build();
+        PersonCard personCard = new PersonCard(personWithNoPastJobs, 1);
         uiPartRule.setUiPart(personCard);
-        assertCardDisplay(personCard, personWithNoTags, 1);
+        assertCardDisplay(personCard, personWithNoPastJobs, 1);
 
-        // with tags
-        Person personWithTags = new PersonBuilder().build();
-        personCard = new PersonCard(personWithTags, 2);
+        // with past job
+        Person personWithPastJob = new PersonBuilder().build();
+        personCard = new PersonCard(personWithPastJob, 2);
         uiPartRule.setUiPart(personCard);
-        assertCardDisplay(personCard, personWithTags, 2);
+        assertCardDisplay(personCard, personWithPastJob, 2);
     }
 
     @Test

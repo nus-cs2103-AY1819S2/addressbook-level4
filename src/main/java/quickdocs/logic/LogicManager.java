@@ -34,10 +34,6 @@ public class LogicManager implements Logic {
         this.storage = storage;
         history = new CommandHistory();
         quickDocsParser = new QuickDocsParser();
-
-        // Set addressBookModified to true whenever the models' address book is modified.
-
-
     }
 
     @Override

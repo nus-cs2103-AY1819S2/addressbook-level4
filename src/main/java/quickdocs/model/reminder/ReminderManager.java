@@ -69,6 +69,8 @@ public class ReminderManager {
      * @param toAdd the {@code Reminder} to be added.
      */
     public void addReminder(Reminder toAdd) {
+        assert !hasDuplicateReminder(toAdd);
+
         if (reminders.isEmpty()) {
             reminders.add(toAdd);
             internalList.add(toAdd);

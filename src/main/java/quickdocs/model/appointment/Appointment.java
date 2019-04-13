@@ -57,8 +57,8 @@ public class Appointment extends Slot {
 
         Appointment otherApp = (Appointment) other;
         return super.equals(other)
-                && otherApp.getPatient().equals(getPatient())
-                && otherApp.getComment().equals(getComment());
+                && otherApp.patient.equals(patient)
+                && otherApp.comment.equals(comment);
     }
 
     @Override

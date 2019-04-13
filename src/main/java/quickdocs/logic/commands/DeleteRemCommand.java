@@ -11,24 +11,24 @@ import quickdocs.model.Model;
 import quickdocs.model.reminder.Reminder;
 
 /**
- * Deletes a reminder identified using it's displayed index from the reminder sidebar.
+ * Deletes a {@code Reminder} identified using it's displayed {@code Index} from the reminder sidebar.
  */
 public class DeleteRemCommand extends Command {
 
     public static final String COMMAND_WORD = "deleterem";
     public static final String COMMAND_ALIAS = "dr";
-
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes the reminder identified by the index number used in the reminder sidebar.\n"
+            + ": Deletes the reminder identified by the index number displayed in the reminder sidebar.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_DELETE_REMINDER_SUCCESS = "Deleted Reminder: %1$s";
-    public static final String MESSAGE_INVALID_REMINDER_INDEX = "The reminder index provided is invalid";
+    public static final String MESSAGE_DELETE_REMINDER_SUCCESS = "Deleted reminder: %1$s";
+    public static final String MESSAGE_INVALID_REMINDER_INDEX = "The reminder index provided is invalid.";
 
     private final Index targetIndex;
 
     public DeleteRemCommand(Index targetIndex) {
+        assert targetIndex.getOneBased() > 0;
         this.targetIndex = targetIndex;
     }
 
@@ -37,10 +37,13 @@ public class DeleteRemCommand extends Command {
         requireNonNull(model);
         List<Reminder> lastShownList = model.getFilteredReminderList();
 
+        // check if given targetIndex is valid
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(MESSAGE_INVALID_REMINDER_INDEX);
         }
+        assert !lastShownList.isEmpty();
 
+        // retrieve selected reminder and delete it
         Reminder reminderToDelete = lastShownList.get(targetIndex.getZeroBased());
         model.deleteReminder(reminderToDelete);
         return new CommandResult(String.format(MESSAGE_DELETE_REMINDER_SUCCESS, reminderToDelete));

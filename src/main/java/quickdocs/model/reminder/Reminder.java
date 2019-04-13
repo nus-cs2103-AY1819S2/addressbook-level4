@@ -65,9 +65,10 @@ public class Reminder extends Slot {
         }
 
         Reminder otherReminder = (Reminder) other;
+        // Objects.equals() to handle null fields
         return super.equals(other)
-                && otherReminder.getTitle().equals(getTitle())
-                && Objects.equals(otherReminder.getComment(), getComment());
+                && otherReminder.title.equals(title)
+                && Objects.equals(otherReminder.comment, comment);
     }
 
     @Override

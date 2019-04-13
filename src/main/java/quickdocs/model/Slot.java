@@ -60,9 +60,10 @@ public class Slot implements Comparable<Slot> {
         }
 
         Slot otherSlot = (Slot) other;
-        return otherSlot.getDate().equals(getDate())
-                && otherSlot.getStart().equals(getStart())
-                && Objects.equals(otherSlot.getEnd(), getEnd());
+        // Objects.equals() to handle null fields
+        return otherSlot.date.equals(date)
+                && otherSlot.start.equals(start)
+                && Objects.equals(otherSlot.end, end);
     }
 
     @Override

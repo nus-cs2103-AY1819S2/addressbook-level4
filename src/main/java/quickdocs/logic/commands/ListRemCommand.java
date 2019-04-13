@@ -1,12 +1,13 @@
 package quickdocs.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static quickdocs.logic.parser.ListAppCommandParser.PREFIX_DATE;
-import static quickdocs.logic.parser.ListAppCommandParser.PREFIX_FORMAT;
+import static quickdocs.logic.parser.ListRemCommandParser.PREFIX_DATE;
+import static quickdocs.logic.parser.ListRemCommandParser.PREFIX_FORMAT;
 import static quickdocs.logic.parser.ListRemCommandParser.PREFIX_INDEX;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 import quickdocs.commons.core.index.Index;
@@ -17,14 +18,13 @@ import quickdocs.model.reminder.Reminder;
 import quickdocs.model.reminder.ReminderWithinDatesPredicate;
 
 /**
- * Lists filtered reminders on the sidebar to the user.
+ * Lists filtered {@code Reminder}(s) on the reminder sidebar of the UI.
  */
 public class ListRemCommand extends Command {
 
     public static final String COMMAND_WORD = "listrem";
     public static final String COMMAND_ALIAS = "lr";
-
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Lists reminders on sidebar.\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Lists reminders on the reminder sidebar.\n"
             + "Parameters: "
             + PREFIX_FORMAT + "FORMAT "
             + PREFIX_DATE + "DATE\n"
@@ -36,11 +36,11 @@ public class ListRemCommand extends Command {
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_INDEX + "1";
 
-    public static final String MESSAGE_SUCCESS = "Listed all reminders from %1$s to %2$s on the sidebar\n";
+    public static final String MESSAGE_SUCCESS = "Listed all reminders from %1$s to %2$s on the sidebar.\n";
     public static final String MESSAGE_SINGLE_REMINDER_SUCCESS = "Displaying reminder #%1$s:\n"
             + "============================================\n"
             + "%2$s";
-    public static final String MESSAGE_INVALID_REMINDER_INDEX = "The reminder index provided is invalid";
+    public static final String MESSAGE_INVALID_REMINDER_INDEX = "The reminder index provided is invalid.";
 
     private final LocalDate start;
     private final LocalDate end;
@@ -64,18 +64,24 @@ public class ListRemCommand extends Command {
 
         // List single reminder
         if (Optional.ofNullable(targetIndex).isPresent()) {
+            assert start == null;
+            assert end == null;
+
             List<Reminder> lastShownList = model.getFilteredReminderList();
             if (targetIndex.getZeroBased() >= lastShownList.size()) {
                 throw new CommandException(MESSAGE_INVALID_REMINDER_INDEX);
             }
+            assert !lastShownList.isEmpty();
+
             Reminder reminderToList = lastShownList.get(targetIndex.getZeroBased());
             return new CommandResult(String.format(MESSAGE_SINGLE_REMINDER_SUCCESS,
                     targetIndex.getOneBased(), reminderToList));
         }
 
-        // List reminders on sidebar
+        // List reminder(s) on sidebar
         assert start != null;
         assert end != null;
+
         ReminderWithinDatesPredicate predicate = new ReminderWithinDatesPredicate(start, end);
         model.updateFilteredReminderList(predicate);
         return new CommandResult(String.format(MESSAGE_SUCCESS, start, end), false, false);
@@ -83,16 +89,11 @@ public class ListRemCommand extends Command {
 
     @Override
     public boolean equals(Object other) {
+        // Objects.equals() to handle null fields
         return other == this // short circuit if same object
                 || (other instanceof ListRemCommand // instanceof handles nulls
-                && ((start != null && ((ListRemCommand) other).start != null
-                && start.equals(((ListRemCommand) other).start))
-                || (start == null && ((ListRemCommand) other).start == null))
-                && ((end != null && ((ListRemCommand) other).end != null
-                && end.equals(((ListRemCommand) other).end))
-                || (end == null && ((ListRemCommand) other).end == null))
-                && ((targetIndex != null && ((ListRemCommand) other).targetIndex != null
-                && targetIndex.equals(((ListRemCommand) other).targetIndex))
-                || (targetIndex == null && ((ListRemCommand) other).targetIndex == null)));
+                && Objects.equals(start, ((ListRemCommand) other).start)
+                && Objects.equals(end, ((ListRemCommand) other).end)
+                && Objects.equals(targetIndex, ((ListRemCommand) other).targetIndex));
     }
 }

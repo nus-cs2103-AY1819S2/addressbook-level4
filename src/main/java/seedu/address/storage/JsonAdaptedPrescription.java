@@ -65,16 +65,19 @@ public class JsonAdaptedPrescription {
             throw new IllegalValueException(PersonId.MESSAGE_CONSTRAINTS);
         }
         if (this.date == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, ValidDate.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    ValidDate.class.getSimpleName()));
         }
         if (!ValidDate.isValidDate(this.date)) {
             throw new IllegalValueException(ValidDate.MESSAGE_CONSTRAINTS);
         }
         if (this.medicineName == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Medicine.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Medicine.class.getSimpleName()));
         }
         if (this.description == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Description.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Description.class.getSimpleName()));
         }
         final PersonId patientId = new PersonId(this.patientId);
         final PersonId doctorId = new PersonId(this.doctorId);

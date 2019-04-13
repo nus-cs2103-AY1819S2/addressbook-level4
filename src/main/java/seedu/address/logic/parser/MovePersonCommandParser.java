@@ -31,20 +31,31 @@ public class MovePersonCommandParser implements Parser<MovePersonCommand> {
         JobListName from;
         ArrayList<Index> indexes = new ArrayList<>();
         JobName toAdd;
-        try {
-            to = ParserUtil.parseJobListName(args.split("\\b\\s")[0].trim());
-        } catch (Exception e) {
-            throw new ParseException(MovePersonCommand.MESSAGE_NO_DESTINATION + "\n"
-                    + MovePersonCommand.MESSAGE_USAGE);
-        }
-        try {
-            from = ParserUtil.parseJobListName(args.split("\\b\\s")[1].trim());
-        } catch (Exception e) {
-            throw new ParseException(MovePersonCommand.MESSAGE_NO_SOURCE + "\n"
-                    + MovePersonCommand.MESSAGE_USAGE);
+        String fromString;
+        String indexString;
+
+        to = ParserUtil.parseJobListName(args.split("\\b\\s")[0].trim());
+
+        if (to == JobListName.EMPTY) {
+            throw new ParseException(MovePersonCommand.MESSAGE_NO_DESTINATION
+                   + String.format(MESSAGE_INVALID_COMMAND_FORMAT, MovePersonCommand.MESSAGE_USAGE));
         }
 
-        String indexString = args.split("\\b\\s")[2].trim();
+        try {
+            fromString = args.split("\\b\\s")[1].trim();
+        } catch (Exception e) {
+            throw new ParseException(MovePersonCommand.MESSAGE_NO_SOURCE
+                    + String.format(MESSAGE_INVALID_COMMAND_FORMAT, MovePersonCommand.MESSAGE_USAGE));
+        }
+
+        from = ParserUtil.parseJobListName(fromString);
+
+        try {
+            indexString = args.split("\\b\\s")[2].trim();
+        } catch (Exception e) {
+            throw new ParseException(MovePersonCommand.MESSAGE_NO_INDEX
+                    + String.format(MESSAGE_INVALID_COMMAND_FORMAT, MovePersonCommand.MESSAGE_USAGE));
+        }
         ArrayList<String> numbers = new ArrayList<>(Arrays.asList(indexString.split("[,\\s]+")));
         for (int i = 0; i < numbers.size(); i++) {
             try {

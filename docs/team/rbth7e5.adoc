@@ -6,14 +6,14 @@
 == Overview
 
 This portfolio showcases my contributions to a software engineering team project for our software engineering module.
-Our project, The Food Diary, is a food journal meant for tech savvy food lovers looking to document
+Our project, The Food Diary, is a food journal meant for tech-savvy food lovers looking to document
 their food adventures. You can get personalised recommendations, document your food adventures as well as organise the
 restaurants you have visited with categories so that you can easily filter them later.
 
 My role was to implement the categorisation of restaurants as well as manage the git workflow of members.
 The following sections illustrate these enhancements and the relevant sections I added to the User and Developer Guide.
 
-Note the the following use of symbols and formatting in order to understand their meanings:
+Note the following use of symbols and formatting in order to understand their meanings:
 
 [NOTE]
 ====
@@ -29,7 +29,7 @@ Note the the following use of symbols and formatting in order to understand thei
 * A grey highlight indicates a command line instruction or specific functionalities of the application.
 e.g. `setCategories`, `Cuisine`
 * A *bolded* word or phrase indicates important words that you should take note of.
-* A phrase in _italics_ indicates that it is either a Figure label or a referrence to a Figure.
+* A phrase in _italics_ indicates that it is either a Figure label or a reference to a Figure.
 ====
 
 == Summary of contributions
@@ -57,7 +57,7 @@ The following documents both the code enhancements and how I helped manage the p
 ** Enhancements to existing features:
 *** Refactored existing address book classes (PR https://github.com/CS2103-AY1819S2-W17-1/main/pull/9[#9])
 ** Documentation:
-*** Added user stories, use cases and and Non-Functional Requirements (PR https://github.com/CS2103-AY1819S2-W17-1/main/pull/22[#22])
+*** Added user stories, use cases and Non-Functional Requirements (PR https://github.com/CS2103-AY1819S2-W17-1/main/pull/22[#22])
 *** Added details on Categorisation implementation (PR https://github.com/CS2103-AY1819S2-W17-1/main/pull/57[#57], https://github.com/CS2103-AY1819S2-W17-1/main/pull/88[#88])
 ** Community:
 *** PRs reviewed (with non-trivial review comments): (PR https://github.com/CS2103-AY1819S2-W17-1/main/pull/103[#103])

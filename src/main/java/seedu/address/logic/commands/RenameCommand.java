@@ -76,7 +76,6 @@ public class RenameCommand extends Command {
         Pdf editedPdf = createEditedPdf(pdfToEdit, editPdfDescriptor);
 
         if (isOsUnix()) {
-        //if (System.getProperty("os.name").toLowerCase().contains("linux")) {
             if (!pdfToEdit.getName().getFullName().equals(editedPdf.getName().getFullName())
                     && Paths.get(pdfToEdit.getDirectory().getDirectory(), editedPdf.getName().getFullName())
                     .toAbsolutePath().toFile().exists()) {

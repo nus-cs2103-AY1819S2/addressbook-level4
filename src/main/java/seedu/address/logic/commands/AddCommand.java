@@ -80,6 +80,8 @@ public class AddCommand extends Command {
         model.commitAddressBook();
         model.commitArchiveBook();
         model.commitPinBook();
+        model.setSelectedPinPerson(null);
+        model.setSelectedPerson(toAdd);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 

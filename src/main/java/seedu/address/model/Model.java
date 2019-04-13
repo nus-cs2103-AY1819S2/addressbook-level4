@@ -242,7 +242,7 @@ public interface Model {
     Person getSelectedPerson();
 
     /**
-     * Sets the selected archived person in the filtered archived person list.
+     * Sets the selected person in the filtered person list.
      */
     void setSelectedPerson(Person person);
 

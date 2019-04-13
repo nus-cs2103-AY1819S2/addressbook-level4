@@ -29,7 +29,7 @@ import seedu.address.model.request.RequestDate;
 /**
  *
  */
-public class FilterCommandSystemTest extends HealthHubSystemTest {
+public class FilterRequestCommandSystemTest extends HealthHubSystemTest {
 
     @Test
     public void filter() {

@@ -310,7 +310,7 @@ addAll adds all in applied list to kiv list in lecturer
 
 ==== Adds people using by index to a selected list in a Job : `movePeople`
 
- Moves a few people specified by index from a specified list to a +
+ Moves a few people specified by index from a specified list to another list in a job.+
 Format : `addPersonToJob jn/JOBNAME nric/NRIC`
 
 ==== Displays one of the four persons list in a job : `DisplayJob`

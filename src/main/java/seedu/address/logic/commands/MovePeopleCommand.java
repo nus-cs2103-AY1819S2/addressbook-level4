@@ -31,7 +31,7 @@ public class MovePeopleCommand extends Command {
             + "Parameters: "
             + "DESTINATION_LIST_NAME "
             + "SOURCE_LIST_NAME "
-            + "applicant indexes"
+            + "APPLICANT_INDEXES "
             + PREFIX_JOBNAME + "JobName (OPTIONAL)\n"
             + "Example: " + COMMAND_WORD + " "
             + "applicant "

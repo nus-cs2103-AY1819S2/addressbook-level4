@@ -92,7 +92,7 @@ public class FilterCommand extends Command {
             + PREFIX_ADDRESS + "311, Clementi Ave 2, #02-25 "
             + PREFIX_SCHOOL + "NUS "
             + PREFIX_MAJOR + "Computer Science "
-            + PREFIX_JOBSAPPLY + "Software Engineer ";
+            + PREFIX_JOBSAPPLY + "Software Engineer \n";
 
     public static final String MESSAGE_USAGE_ALLJOB_SCREEN = COMMAND_WORD + ": (In All Jobs shows mode)\n"
         + "Filter all persons whose informations contain any of the specified keywords (case-insensitive) "
@@ -139,19 +139,11 @@ public class FilterCommand extends Command {
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
-        UniqueFilterList predicateList;
         requireNonNull(model);
+        UniqueFilterList predicateList;
         boolean isAllJobScreen = model.getIsAllJobScreen();
-        boolean hasFilterName = !"".equals(commandName);
         boolean hasListName = listName != EMPTY;
-        String showMessage = isAllJobScreen ? MESSAGE_USAGE_ALLJOB_SCREEN : MESSAGE_USAGE_JOB_DETAIL_SCREEN;
-        if (!hasFilterName) {
-            throw new CommandException(String.format(MESSAGE_LACK_FILTERNAME, showMessage));
-        } else if (!isAllJobScreen && !hasListName) {
-            throw new CommandException(String.format(MESSAGE_LACK_LISTNAME, showMessage));
-        } else if (isAllJobScreen && hasListName) {
-            throw new CommandException(String.format(MESSAGE_REDUNDANT_LISTNAME, showMessage));
-        }
+        checkException(isAllJobScreen, hasListName);
 
         int size = model.getJobsList(listName).size();
 
@@ -205,6 +197,21 @@ public class FilterCommand extends Command {
         return new CommandResult(
             String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, size), listName,
             predicateList);
+    }
+
+    /**
+     * @param isAllJobScreen Indicate the current screen, true if screen on all jobs screen
+     * @param hasListName    Indicate whether command parser parse the List name
+     * @throws CommandException throw exception and catch by function excute()
+     */
+    private void checkException(boolean isAllJobScreen, boolean hasListName)
+        throws CommandException {
+        String showMessage = isAllJobScreen ? MESSAGE_USAGE_ALLJOB_SCREEN : MESSAGE_USAGE_JOB_DETAIL_SCREEN;
+        if (!isAllJobScreen && !hasListName) {
+            throw new CommandException(String.format(MESSAGE_LACK_LISTNAME, showMessage));
+        } else if (isAllJobScreen && hasListName) {
+            throw new CommandException(String.format(MESSAGE_REDUNDANT_LISTNAME, showMessage));
+        }
     }
 
     @Override

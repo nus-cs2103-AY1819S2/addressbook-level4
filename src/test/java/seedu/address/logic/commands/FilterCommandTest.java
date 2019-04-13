@@ -4,12 +4,10 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static seedu.address.commons.core.Messages.MESSAGE_PERSONS_LISTED_OVERVIEW;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_FILTERNAME;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_FILTERNAME;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.commandExecute;
-import static seedu.address.logic.commands.FilterCommand.MESSAGE_LACK_FILTERNAME;
 import static seedu.address.logic.commands.FilterCommand.MESSAGE_LACK_LISTNAME;
 import static seedu.address.logic.commands.FilterCommand.MESSAGE_REDUNDANT_FILTERNAME;
 import static seedu.address.logic.commands.FilterCommand.MESSAGE_REDUNDANT_LISTNAME;
@@ -61,20 +59,20 @@ public class FilterCommandTest {
         FindCommand findCommand = new FindCommand(findPredicate);
 
         // same object -> returns true
-        assertEquals(firstCommand,firstCommand);
+        assertEquals(firstCommand, firstCommand);
 
         // same values -> returns true
         FilterCommand firstCommandCopy = new FilterCommand("", JobListName.EMPTY, firstDescriptor);
-        assertEquals(firstCommand,firstCommandCopy);
+        assertEquals(firstCommand, firstCommandCopy);
 
         // different types -> returns false
-        assertNotEquals(firstCommand,1);
+        assertNotEquals(firstCommand, 1);
 
         // different person -> returns false
-        assertNotEquals(firstCommand,secondCommand);
+        assertNotEquals(firstCommand, secondCommand);
 
         // different command type -> returns false
-        assertNotEquals(firstCommand,findCommand);
+        assertNotEquals(firstCommand, findCommand);
     }
 
     @Test
@@ -85,6 +83,7 @@ public class FilterCommandTest {
         assertCommandFailure(filterCommand, model, commandHistory,
             String.format(MESSAGE_REDUNDANT_LISTNAME, MESSAGE_USAGE_ALLJOB_SCREEN));
     }
+
     @Test
     public void execute_lackListName_failure() {
         model.setIsAllJobScreen(false);
@@ -96,10 +95,10 @@ public class FilterCommandTest {
     }
 
     @Test
-    public void execute_repetiveFilterName_failure() {
+    public void execute_repetitiveFilterName_failure() {
         FilterCommand.PredicatePersonDescriptor descriptor = preparePredicatePersonDescriptor(" ");
         FilterCommand commandAllPerson = new FilterCommand(VALID_FILTERNAME, EMPTY, descriptor);
-        commandExecute(commandAllPerson,model,commandHistory);
+        commandExecute(commandAllPerson, model, commandHistory);
         assertCommandFailure(commandAllPerson, model, commandHistory, MESSAGE_REDUNDANT_FILTERNAME);
 
         model.setIsAllJobScreen(false);
@@ -107,10 +106,10 @@ public class FilterCommandTest {
         FilterCommand commandKiv = new FilterCommand(VALID_FILTERNAME, KIV, descriptor);
         FilterCommand commandInterview = new FilterCommand(VALID_FILTERNAME, INTERVIEW, descriptor);
         FilterCommand commandShortlist = new FilterCommand(VALID_FILTERNAME, SHORTLIST, descriptor);
-        commandExecute(commandApplicant,model,commandHistory);
-        commandExecute(commandKiv,model,commandHistory);
-        commandExecute(commandInterview,model,commandHistory);
-        commandExecute(commandShortlist,model,commandHistory);
+        commandExecute(commandApplicant, model, commandHistory);
+        commandExecute(commandKiv, model, commandHistory);
+        commandExecute(commandInterview, model, commandHistory);
+        commandExecute(commandShortlist, model, commandHistory);
 
         assertCommandFailure(commandApplicant, model, commandHistory, MESSAGE_REDUNDANT_FILTERNAME);
         assertCommandFailure(commandKiv, model, commandHistory, MESSAGE_REDUNDANT_FILTERNAME);
@@ -118,17 +117,6 @@ public class FilterCommandTest {
         assertCommandFailure(commandShortlist, model, commandHistory, MESSAGE_REDUNDANT_FILTERNAME);
     }
 
-    @Test
-    public void execute_lackFilterName_failure() {
-        FilterCommand.PredicatePersonDescriptor descriptor = preparePredicatePersonDescriptor(" ");
-        FilterCommand filterCommand = new FilterCommand(INVALID_FILTERNAME, JobListName.EMPTY, descriptor);
-
-        assertCommandFailure(filterCommand, model, commandHistory,
-            (String.format(MESSAGE_LACK_FILTERNAME, MESSAGE_USAGE_ALLJOB_SCREEN)));
-        model.setIsAllJobScreen(false);
-        assertCommandFailure(filterCommand, model, commandHistory,
-            (String.format(MESSAGE_LACK_FILTERNAME, MESSAGE_USAGE_JOB_DETAIL_SCREEN)));
-    }
 
     @Test
     public void execute_emptyKeywords_noPersonFound() {
@@ -143,7 +131,7 @@ public class FilterCommandTest {
     }
 
     @Test
-    public void execute_emptyKeywords_noPersonFound_applicant() {
+    public void execute_emptyKeywordsApplicant_noPersonFound() {
         model.setIsAllJobScreen(false);
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 0);
         FilterCommand.PredicatePersonDescriptor descriptor = preparePredicatePersonDescriptor(" ");
@@ -156,7 +144,7 @@ public class FilterCommandTest {
     }
 
     @Test
-    public void execute_emptyKeywords_noPersonFound_kiv() {
+    public void execute_emptyKeywordsKiv_noPersonFound() {
         model.setIsAllJobScreen(false);
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 0);
         FilterCommand.PredicatePersonDescriptor descriptor = preparePredicatePersonDescriptor(" ");
@@ -169,7 +157,7 @@ public class FilterCommandTest {
     }
 
     @Test
-    public void execute_emptyKeywords_noPersonFound_interview() {
+    public void execute_emptyKeywordsInterview_noPersonFound() {
         model.setIsAllJobScreen(false);
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 0);
         FilterCommand.PredicatePersonDescriptor descriptor = preparePredicatePersonDescriptor(" ");
@@ -182,7 +170,7 @@ public class FilterCommandTest {
     }
 
     @Test
-    public void execute_emptyKeywords_noPersonFound_shortList() {
+    public void execute_emptyKeywordsShortList_noPersonFound() {
         model.setIsAllJobScreen(false);
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 0);
         FilterCommand.PredicatePersonDescriptor descriptor = preparePredicatePersonDescriptor(" ");

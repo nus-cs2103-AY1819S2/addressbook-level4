@@ -451,12 +451,12 @@ public class CreateJobCommandTest {
         }
 
         @Override
-        public ObservableList<Person> getBaseFilteredPersonList() {
+        public void updateFilteredPersonList(Predicate<Person> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void updateFilteredPersonList(Predicate<Person> predicate) {
+        public ObservableList<Person> getBaseFilteredPersonList() {
             throw new AssertionError("This method should not be called.");
         }
 

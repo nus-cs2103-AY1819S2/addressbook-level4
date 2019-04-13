@@ -35,89 +35,93 @@ public class DeleteFilterCommandTest {
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
-    public void execute_validFilterName_allPersons_success() {
+    public void execute_validFilterNameAllPersons_success() {
         FilterCommand.PredicatePersonDescriptor descriptor = preparePredicatePersonDescriptor(" ");
         FilterCommand filterCommand = new FilterCommand(VALID_FILTERNAME, EMPTY, descriptor);
         Predicate<Person> predicator = descriptor.toPredicate();
-        commandExecute(filterCommand,model,commandHistory);
-        DeleteFilterCommand deleteFilterCommand = new DeleteFilterCommand(EMPTY,VALID_FILTERNAME);
+        commandExecute(filterCommand, model, commandHistory);
+        DeleteFilterCommand deleteFilterCommand = new DeleteFilterCommand(EMPTY, VALID_FILTERNAME);
 
-        String expectedMessage = String.format(DeleteFilterCommand.MESSAGE_DELETE_FILTER_SUCCESS,VALID_FILTERNAME);
+        String expectedMessage = String.format(DeleteFilterCommand.MESSAGE_DELETE_FILTER_SUCCESS, VALID_FILTERNAME);
 
         ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
-        expectedModel.addPredicateAllPersons(VALID_FILTERNAME,predicator);
+        expectedModel.addPredicateAllPersons(VALID_FILTERNAME, predicator);
         expectedModel.removePredicateAllPersons(VALID_FILTERNAME);
 
         assertCommandSuccess(deleteFilterCommand, model, commandHistory, expectedMessage, expectedModel);
     }
+
     @Test
-    public void execute_validFilterName_applicant_success() {
+    public void execute_validFilterNameApplicant_success() {
         model.setIsAllJobScreen(false);
         FilterCommand.PredicatePersonDescriptor descriptor = preparePredicatePersonDescriptor(" ");
         FilterCommand filterCommand = new FilterCommand(VALID_FILTERNAME, APPLICANT, descriptor);
         Predicate<Person> predicator = descriptor.toPredicate();
-        commandExecute(filterCommand,model,commandHistory);
-        DeleteFilterCommand deleteFilterCommand = new DeleteFilterCommand(APPLICANT,VALID_FILTERNAME);
+        commandExecute(filterCommand, model, commandHistory);
+        DeleteFilterCommand deleteFilterCommand = new DeleteFilterCommand(APPLICANT, VALID_FILTERNAME);
 
-        String expectedMessage = String.format(DeleteFilterCommand.MESSAGE_DELETE_FILTER_SUCCESS,VALID_FILTERNAME);
+        String expectedMessage = String.format(DeleteFilterCommand.MESSAGE_DELETE_FILTER_SUCCESS, VALID_FILTERNAME);
 
         ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         expectedModel.setIsAllJobScreen(false);
-        expectedModel.addPredicateAllPersons(VALID_FILTERNAME,predicator);
+        expectedModel.addPredicateAllPersons(VALID_FILTERNAME, predicator);
         expectedModel.removePredicateAllPersons(VALID_FILTERNAME);
 
         assertCommandSuccess(deleteFilterCommand, model, commandHistory, expectedMessage, expectedModel);
     }
+
     @Test
-    public void execute_validFilterName_interview_success() {
+    public void execute_validFilterNameInterview_success() {
         model.setIsAllJobScreen(false);
         FilterCommand.PredicatePersonDescriptor descriptor = preparePredicatePersonDescriptor(" ");
         FilterCommand filterCommand = new FilterCommand(VALID_FILTERNAME, INTERVIEW, descriptor);
         Predicate<Person> predicator = descriptor.toPredicate();
-        commandExecute(filterCommand,model,commandHistory);
-        DeleteFilterCommand deleteFilterCommand = new DeleteFilterCommand(INTERVIEW,VALID_FILTERNAME);
+        commandExecute(filterCommand, model, commandHistory);
+        DeleteFilterCommand deleteFilterCommand = new DeleteFilterCommand(INTERVIEW, VALID_FILTERNAME);
 
-        String expectedMessage = String.format(DeleteFilterCommand.MESSAGE_DELETE_FILTER_SUCCESS,VALID_FILTERNAME);
+        String expectedMessage = String.format(DeleteFilterCommand.MESSAGE_DELETE_FILTER_SUCCESS, VALID_FILTERNAME);
 
         ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         expectedModel.setIsAllJobScreen(false);
-        expectedModel.addPredicateAllPersons(VALID_FILTERNAME,predicator);
+        expectedModel.addPredicateAllPersons(VALID_FILTERNAME, predicator);
         expectedModel.removePredicateAllPersons(VALID_FILTERNAME);
 
         assertCommandSuccess(deleteFilterCommand, model, commandHistory, expectedMessage, expectedModel);
     }
+
     @Test
-    public void execute_validFilterName_shortlist_success() {
+    public void execute_validFilterNameShortlist_success() {
         model.setIsAllJobScreen(false);
         FilterCommand.PredicatePersonDescriptor descriptor = preparePredicatePersonDescriptor(" ");
         FilterCommand filterCommand = new FilterCommand(VALID_FILTERNAME, SHORTLIST, descriptor);
         Predicate<Person> predicator = descriptor.toPredicate();
-        commandExecute(filterCommand,model,commandHistory);
-        DeleteFilterCommand deleteFilterCommand = new DeleteFilterCommand(SHORTLIST,VALID_FILTERNAME);
+        commandExecute(filterCommand, model, commandHistory);
+        DeleteFilterCommand deleteFilterCommand = new DeleteFilterCommand(SHORTLIST, VALID_FILTERNAME);
 
-        String expectedMessage = String.format(DeleteFilterCommand.MESSAGE_DELETE_FILTER_SUCCESS,VALID_FILTERNAME);
+        String expectedMessage = String.format(DeleteFilterCommand.MESSAGE_DELETE_FILTER_SUCCESS, VALID_FILTERNAME);
 
         ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         expectedModel.setIsAllJobScreen(false);
-        expectedModel.addPredicateAllPersons(VALID_FILTERNAME,predicator);
+        expectedModel.addPredicateAllPersons(VALID_FILTERNAME, predicator);
         expectedModel.removePredicateAllPersons(VALID_FILTERNAME);
 
         assertCommandSuccess(deleteFilterCommand, model, commandHistory, expectedMessage, expectedModel);
     }
+
     @Test
-    public void execute_validFilterName_kiv_success() {
+    public void execute_validFilterNamKiv_success() {
         model.setIsAllJobScreen(false);
         FilterCommand.PredicatePersonDescriptor descriptor = preparePredicatePersonDescriptor(" ");
         FilterCommand filterCommand = new FilterCommand(VALID_FILTERNAME, KIV, descriptor);
         Predicate<Person> predicator = descriptor.toPredicate();
-        commandExecute(filterCommand,model,commandHistory);
-        DeleteFilterCommand deleteFilterCommand = new DeleteFilterCommand(KIV,VALID_FILTERNAME);
+        commandExecute(filterCommand, model, commandHistory);
+        DeleteFilterCommand deleteFilterCommand = new DeleteFilterCommand(KIV, VALID_FILTERNAME);
 
-        String expectedMessage = String.format(DeleteFilterCommand.MESSAGE_DELETE_FILTER_SUCCESS,VALID_FILTERNAME);
+        String expectedMessage = String.format(DeleteFilterCommand.MESSAGE_DELETE_FILTER_SUCCESS, VALID_FILTERNAME);
 
         ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         expectedModel.setIsAllJobScreen(false);
-        expectedModel.addPredicateAllPersons(VALID_FILTERNAME,predicator);
+        expectedModel.addPredicateAllPersons(VALID_FILTERNAME, predicator);
         expectedModel.removePredicateAllPersons(VALID_FILTERNAME);
 
         assertCommandSuccess(deleteFilterCommand, model, commandHistory, expectedMessage, expectedModel);
@@ -125,27 +129,28 @@ public class DeleteFilterCommandTest {
 
     @Test
     public void equals() {
-        DeleteFilterCommand deleteFilterFirstCommand = new DeleteFilterCommand(APPLICANT,"firstName");
-        DeleteFilterCommand deleteFilterSecondCommand = new DeleteFilterCommand(APPLICANT,"secondName");
-        DeleteFilterCommand deleteFilterThirdCommand = new DeleteFilterCommand(INTERVIEW,"firstName");
+        DeleteFilterCommand deleteFilterFirstCommand = new DeleteFilterCommand(APPLICANT, "firstName");
+        DeleteFilterCommand deleteFilterSecondCommand = new DeleteFilterCommand(APPLICANT, "secondName");
+        DeleteFilterCommand deleteFilterThirdCommand = new DeleteFilterCommand(INTERVIEW, "firstName");
 
         // same object -> returns true
-        assertEquals(deleteFilterFirstCommand,deleteFilterFirstCommand);
+        assertEquals(deleteFilterFirstCommand, deleteFilterFirstCommand);
 
         // same values -> returns true
-        DeleteFilterCommand deleteFilterFirstCommandCopy = new DeleteFilterCommand(APPLICANT,"firstName");
-        assertEquals(deleteFilterFirstCommand,deleteFilterFirstCommandCopy);
+        DeleteFilterCommand deleteFilterFirstCommandCopy = new DeleteFilterCommand(APPLICANT, "firstName");
+        assertEquals(deleteFilterFirstCommand, deleteFilterFirstCommandCopy);
 
         // different targetname -> returns false
-        assertNotEquals(deleteFilterFirstCommand,deleteFilterSecondCommand);
+        assertNotEquals(deleteFilterFirstCommand, deleteFilterSecondCommand);
 
         // different list name -> returns false
-        assertNotEquals(deleteFilterFirstCommand,deleteFilterThirdCommand);
+        assertNotEquals(deleteFilterFirstCommand, deleteFilterThirdCommand);
 
         // null -> returns false
-        assertNotEquals(deleteFilterFirstCommand,null);
+        assertNotEquals(deleteFilterFirstCommand, null);
 
     }
+
     /**
      * Parses {@code userInput} into a {@code Descriptor}.
      */

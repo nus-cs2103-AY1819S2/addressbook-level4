@@ -16,7 +16,7 @@ public class Major {
      * The first character of the major must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String VALIDATION_REGEX = "[^\\s].*";
+    public static final String VALIDATION_REGEX = "[\\p{Alpha}][\\p{Alpha} ]*";
 
     public final String value;
 

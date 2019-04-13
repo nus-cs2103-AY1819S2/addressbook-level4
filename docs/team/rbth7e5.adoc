@@ -14,9 +14,7 @@ In a period of 6 weeks, we were tasked to implement a command line interface (CL
 specific group of users.
 
 Our project, The Food Diary, is a fast and reliable food journal meant for nostalgic food lovers looking to document
-their food adventures. The Food Diary is especially useful to food lovers who can type fast and hence prefers using CLI
-over a Graphical User Interface (GUI). Our project is written in Java and uses the JavaFX UI framework to display
-content onto the screen.
+their food adventures. Our project is written in Java and uses the JavaFX UI framework to display content onto the screen.
 
 The main features of The Food Diary are:
 

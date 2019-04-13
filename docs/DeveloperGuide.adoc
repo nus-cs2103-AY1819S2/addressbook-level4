@@ -485,8 +485,8 @@ Restaurant Categorisation is mainly implemented using the following commands:
 * `setCategories` -- sets the different categories of the restaurant using its respective prefixes.
 * `filter` -- filters out restaurants using keywords matching that of its categories.
 
-All supported categories are defined in the `seedu.address.model.restaurant.categories` package, along with the `Categories`
-class that encapsulates all categories into a `Categories` object to be used in the `Restaurant` class.
+All supported categories are defined in the `seedu.address.model.restaurant.categories` package. A Facade design pattern
+is used to allow access to individual `Cuisine`, `Occasion` and `PriceRange` categories through the `Categories` class.
 
 _Figure 1_ below shows the chain of events when setting categories of a restaurant with the setCategories command:
 
@@ -496,7 +496,7 @@ _Figure 1: setCategories Activity Diagram_
 The following elaborates in detail on how the setCategories mechanism behaves at each step:
 
 Step 1: User starts keying in the command into the command box. Once prefixes for either `Cuisine`, `Occasion` or `Price Range`
-is detected, suggestions for that Category type is retrieved by `CategoriesAutoCompleteTextField` and populated in the appearing
+are detected, suggestions for that Category type are retrieved by `CategoriesAutoCompleteTextField` and populated in the appearing
 context menu.
 
 Step 2: User finishes typing and submits command for execution. The keyed in text is sent to the `Food Diary Parser` to be parsed

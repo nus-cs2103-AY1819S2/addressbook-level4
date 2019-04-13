@@ -150,10 +150,10 @@ image::LogicClassDiagram.png[width="600"]
 [discrete]
 ==== How the architecture components interact with each other
 
-The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete-booking 1`.
+The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete-customer 1`.
 
-.Component interactions for `delete-booking 1` command
-image::logic-sequence-diagram.png[width="600"]
+.Component interactions for `delete-customer 1` command
+image::LogicComponentSequenceDiagram.png[width="600"]
 
 The sections below give more details of each component.
 
@@ -161,11 +161,11 @@ The sections below give more details of each component.
 === UI component
 
 .Structure of the UI Component
-image::ui-class-diagram.png[width:"1200"]
+image::UiClassDiagram.png[width:"1200"]
 
 *API* : link:{repoURL}/blob/master/src/main/java/seedu/hms/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `CustomerListPanel`, `StatusBarFooter` etc.
+The UI consists of a `MainWindow` that is made up of parts e.g.`StatsWindow`, `HelpWindow`, `ResultDisplay`, `CustomerListPanel`, `StatusBarFooter` etc.
 All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/blob/master/src/main/java/seedu/hms/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/blob/master/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
@@ -174,10 +174,10 @@ The `UI` component uses JavaFx UI framework. The layout of these UI parts are de
 
 ==== How the UI updates itself
 This is handled by the link:{repoURL}/blob/master/src/main/java/seedu/hms/commons/util/InvalidationListenerManager.java[`InvalidationListenerManager`].
-It is basically a list of `InvalidationListeners` linked to three lists - `UniqueCustomerList`, `BookingList` and `ReservationList`.
-A listener is added for each of the three lists when the `HotelManagementSystem` is set up using the
+It is basically a list of `InvalidationListeners` linked to three lists - `UniqueCustomerList`, `BookingList`, `ReservationList`, `RoomTypeList` and `ServiceTypeList`.
+A listener is added for each of the five lists when the `HotelManagementSystem` is set up using the
 link:https://github.com/cs2103-ay1819s2-t12-1/main/blob/90e374cb6e0dbafa2854fbc82792444434744a42/src/main/java/seedu/hms/model/HotelManagementSystem.java#L251[`addListener()`] method.
-Whenever a change is made to any of these three lists of the `HotelManagementSystem`, all the listeners are called
+Whenever a change is made to any of these five lists of the `HotelManagementSystem`, all the listeners are called
 using the link:https://github.com/cs2103-ay1819s2-t12-1/main/blob/90e374cb6e0dbafa2854fbc82792444434744a42/src/main/java/seedu/hms/model/HotelManagementSystem.java#L263[`indicateModified()`] method.
 Thus, the internal listeners when called update the UI automatically.
 
@@ -215,6 +215,10 @@ In addition, the `CommandResult` object can also instruct the User-Interface to 
 .Structure of the Model Component
 image::model-class-diagram.png[width:"1200"]
 
+
+.Structure of the CustomerModel Component
+image::CustomerModelDiagram.png[width="200"]
+
 *API* : link:{repoURL}/blob/master/src/main/java/seedu/hms/model/Model.java[`Model.java`]
 
 The `Model`,
@@ -240,7 +244,7 @@ image:ModelClassBetterOopDiagram.png[width="950"]
 === Storage component
 
 .Structure of the Storage Component
-image::storage-class-diagram.png[width="1200"]
+image::StorageClassDiagram.png[width="1200"]
 
 *API* : link:{repoURL}/blob/master/src/main/java/seedu/hms/storage/Storage.java[`Storage.java`]
 
@@ -374,13 +378,15 @@ creating more work.
 
 ==== Aspect: Memory storage for bill
 
-* **Alternate 1 (current choice):** Bill doesn't get stored
+* **Alternate 1 (current choice):** Bill doesn't get stored.
 ** Pros: No work required to be done for storing the bills.
 ** Cons: If a new feature gets implemented, which requires history of bills, system will not be able to provide it.
-* **Alternative 2:**
+* **Alternative 2:** Bill gets stored.
 ** Pros: If bill history is required for a new feature, system will be able to provide it.
 ** Cons: Lot of work needs to be done for creating the storage of bills.
 
+.Component interactions for `generate-bill-customer 1` command
+image::GenerateBillLogicSequenceDiagram.png[width="600"]
 // end::bill-generation[]
 
 // tag::undoredo[]
@@ -1046,12 +1052,12 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [discrete]
 === Use case: Delete reservation
 
-*MSS*
+*Main Success Scenario*
 
-1.  Staff requests all the reservations a customer has
-2.  HMS lists the reservations requested
-3.  Staff requests to delete one reservation
-4.  HMS deletes the reservation
+1.  The actor requests all the reservations a customer has.
+2.  The system lists the reservations requested.
+3.  The actor requests to delete a specific reservation.
+4.  The system deletes the reservation.
 +
 Use case resumes at step 3
 
@@ -1062,10 +1068,6 @@ Use case resumes at step 3
 +
 Use case ends.
 
-* 2b. The staff requests to stop editing the reservation.
-+
-Use case ends.
-
 * 3a. The index that the staff selected is invalid.
 +
 [none]
@@ -1073,14 +1075,176 @@ Use case ends.
 +
 Use case resumes at step 2.
 
-* 3b. The staff requests to stop editing the reservation.
+* 3b. The staff requests to stop deleting the reservation.
 +
 Use case ends.
 
-* 4a. The commands given by the staff to edit the fields are invalid.
+[discrete]
+=== Use case: Generate total bill for a specific customer
+
+*Main Success Scenario*
+
+1. The actor requests the lists of all the customers.
+2. The system lists all the customers.
+3. The actor requests to generate total bill for a specific customer.
+4. The system generates the total bill for that specific customer.
++
+Use case resumes at step 3.
+
+*Extensions*
+
+[none]
+* 2a. There are no customers.
++
+Use case ends.
+
+[none]
+* 3a. The command that the actor entered is invalid.
 +
 [none]
-** 4a1. HMS shows an error message.
+** 3a1. The system shows an error message that the command is invalid.
++
+Use case resumes at step 3.
+
+[none]
+* 3b. The index that the actor selected is invalid.
++
+[none]
+** 3b1. The system shows an error message that the index is invalid.
++
+Use case resumes at step 3.
+
+[none]
+* 3b. The index that the actor selected is wrong.
++
+[none]
+** 3b1. The system generates total bill for a different customer, not the intended one.
++
+Use case resumes at step 3.
+
+[discrete]
+=== Use case: Finding the specific list of bookings
+
+*Main Success Scenario*
+
+1. The actor requests for the specific list of bookings.
+2. The system shows the specific list of bookings.
++
+Use case resumes at step 1.
+
+*Extensions*
+
+[none]
+* 1a. The command that the actor entered is invalid.
++
+[none]
+** 1a1. The system shows an error message that the command is invalid.
++
+Use case resumes at step 1.
+
+[none]
+* 1b. The identification number that the actor entered is in wrong format.
++
+[none]
+** 1b1. The system shows an error message that the identification number has been not entered in the correct format.
++
+Use case resumes at step 1.
+
+[none]
+* 1c. The identification number that the actor entered is wrong.
++
+[none]
+** 1c1. The system shows the specific list of bookings with the wrong identification number.
++
+Use case resumes at step 1.
+
+Use cases for `ServiceType` and `TimeRange` can be created in a similar manner like steps `1b` and `1c`.
+
+[discrete]
+=== Use case: Finding the specific list of reservations
+
+*Main Success Scenario*
+
+1. The actor requests for the specific list of reservations.
+2. The system shows the specific list of reservations.
++
+Use case resumes at step 1.
+
+*Extensions*
+
+[none]
+* 1a. The command that the actor entered is invalid.
++
+[none]
+** 1a1. The system shows an error message that the command is invalid.
++
+Use case resumes at step 1.
+
+[none]
+* 1b. The identification number that the actor entered is in wrong format.
++
+[none]
+** 1b1. The system shows an error message that the identification number has been not entered in the correct format.
++
+Use case resumes at step 1.
+
+[none]
+* 1c. The identification number that the actor entered is wrong.
++
+[none]
+** 1c1. The system shows the specific list of reservations with the wrong identification number.
++
+Use case resumes at step 1.
+
+Use cases for `RoomType` and `DateRange` can be created in a similar manner like steps `1b` and `1c`.
+
+[discrete]
+=== Use case: Clear all reservations
+
+*Main Success Scenario*
+
+1. The actor requests the list of all reservations.
+2. The system shows the list of all reservations.
+3. The actor requests to clear all reservations.
+4. The system clears all the reservations.
+
+*Extensions*
+
+[none]
+* 2a. The list of reservations is empty.
++
+Use case ends.
+
+[none]
+* 3a. The command that the actor entered is invalid.
++
+[none]
+** 3a1. The system shows an error message that the command is invalid.
++
+Use case resumes at step 3.
+
+[discrete]
+=== Use case: Clear all bookings
+
+*Main Success Scenario*
+
+1. The actor requests the list of all bookings.
+2. The system shows the list of all bookings.
+3. The actor requests to clear all bookings.
+4. The system clears all the bookings.
+
+*Extensions*
+
+[none]
+* 2a. The list of bookings is empty.
++
+Use case ends.
+
+[none]
+* 3a. The command that the actor entered is invalid.
++
+[none]
+** 3a1. The system shows an error message that the command is invalid.
 +
 Use case resumes at step 3.
 
@@ -1091,7 +1255,7 @@ Use case resumes at step 3.
 .  Should be able to hold up to 1000 customers without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 
-_{More to be added}_
+
 
 [appendix]
 == Glossary
@@ -1145,7 +1309,7 @@ These instructions only provide a starting point for testers to work on; testers
 .. Test case: `add-customer` +
    Expected: No customer is added. Error details shown in the status message. Status bar remains the same.
 .. Other incorrect commands to try: `addcustomer n/test name`, `addcustomer n/123 456`...
-.. Test case: `addcustomer ...` followed by the details of an existing customer +
+.. Test case: `add-customer ...` followed by the details of an existing customer +
    Expected: No customer is added. Message shows "This customer already exists in the hms book". Status bar remains the same.
 
 === Deleting a customer

@@ -365,8 +365,8 @@ public class BillManager implements BillModel {
             RoomType roomType = reservation.getRoom();
             DateRange dateRange = reservation.getDates();
             long daysBooked = dateRange.numOfDays();
-            double ratePerHour = roomType.getRatePerDay();
-            double amount = daysBooked * ratePerHour;
+            double ratePerDay = roomType.getRatePerDay();
+            double amount = daysBooked * ratePerDay;
             totalAmount = totalAmount + amount;
         }
         return totalAmount;

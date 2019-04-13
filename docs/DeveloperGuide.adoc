@@ -2,16 +2,19 @@
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
+:toclevels: 4
 :toc-placement: preamble
 :sectnums:
+:icons: font
 :imagesDir: images
 :stylesDir: stylesheets
 :xrefstyle: full
+:experimental:
 ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
+:important-caption: :heavy_exclamation_mark:
 :warning-caption: :warning:
-:code-caption: :computer:
 :experimental:
 endif::[]
 :repoURL: https://github.com/cs2103-ay1819s2-w09-3/main
@@ -33,17 +36,23 @@ This Developer Guide consists of the following sections:
 * <<Testing, Testing>> - Provides methods to run and troubleshoot tests
 * <<Dev Ops, Dev Ops>> - Provides tools to help build, test and release ROR
 
-To help you follow this Developer Guide better, here is the legend of the markups used throughout this document:
+To help you follow this Developer Guide better, here is the legend of the markups and formatting used throughout this document:
 
-[width="80%",cols="^20%,80%"]
-|=======================================================================
-|`HelloWorld`|Code in the codebase
-| kbd:[ENTER] |Keyboard key
-| :information_source: |Notes that provides additional information
-| :bulb: |Tips and tricks
-| :warning: |Warnings
-| :computer: `menuMode` |Commands to input in the CLI
-|=======================================================================
+[width="70%",cols="^15%,85%"]
+|===
+a| `code` | Command that can be typed
+a| [.java]#name# | Reference to the codebase (such as component, class and method names)
+ifdef::env-github[]
+a| :bulb: | Tips and tricks that might be useful
+a| :information_source: | Additional information that is good to know
+a| :heavy_exclamation_mark: | Important pointers to take note
+endif::[]
+ifndef::env-github[]
+a| icon:lightbulb-o[role="icon-tip", size="2x"] | Tips and tricks that might be useful
+a| icon:info-circle[role="icon-note", size="2x"] | Additional information that is good to know
+a| icon:exclamation-circle[role="icon-important", size="2x"] | Important pointers to take note
+endif::[]
+|===
 
 == Setting Up
 
@@ -53,43 +62,43 @@ This section will guide you along the process of setting up ROR in your computer
 
 Before you proceed, there are two prerequisites you will need to fulfill:
 
-. *JDK `9`* or later
+. *JDK 9* or later
 +
-[WARNING]
-JDK `10` on Windows will fail to run tests in <<UsingGradle#Running-Tests, headless mode>> due to a https://github.com/javafxports/openjdk-jfx/issues/66[JavaFX bug].
-Windows developers are highly recommended to use JDK `9`.
+[IMPORTANT]
+JDK *10* on Windows will fail to run tests in <<UsingGradle#Running-Tests, headless mode>> due to a https://github.com/javafxports/openjdk-jfx/issues/66[JavaFX bug].
+Windows developers are highly recommended to use JDK *9*.
 
 . *IntelliJ* IDE
 +
 [NOTE]
 IntelliJ by default has Gradle and JavaFx plugins installed. +
-Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plugins` to re-enable them.
+Do not disable them. If you have disabled them, go to menu:File[Settings > Plugins] to re-enable them.
 
 === Setting up ROR in your computer
 
 Having satisfied the prerequisites, you can now set up ROR in your computer by following the steps below:
 
 . Fork this repo, and clone the fork to your computer
-. Open IntelliJ (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project dialog first)
+. Open IntelliJ (if you are not in the welcome screen, click menu:File[Close Project] to close the existing project dialog first)
 . Set up the correct JDK version for Gradle
-.. Click `Configure` > `Project Defaults` > `Project Structure`
-.. Click `New...` and find the directory of the JDK
-. Click `Import Project`
-. Locate the `build.gradle` file and select it. Click `OK`
-. Click `Open as Project`
-. Click `OK` to accept the default settings
-. Open a console and run the command `gradlew processResources` (Mac/Linux: `./gradlew processResources`). It should finish with the `BUILD SUCCESSFUL` message. +
+.. Click menu:Configure[Project Defaults > Project Structure]
+.. Click btn:[New...] and find the directory of the JDK
+. Click btn:[Import Project]
+. Locate the [.java]#build.gradle# file and select it. Click btn:[OK]
+. Click btn:[Open as Project]
+. Click btn:[OK] to accept the default settings
+. Open a console and run the command `gradlew processResources` (Mac/Linux: `./gradlew processResources`). It should finish with the *BUILD SUCCESSFUL* message. +
 This will generate all resources required by the application and tests.
-. Open link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow.java`] and check for any code errors
+. Open link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[[.java]#MainWindow.java#] and check for any code errors
 .. Due to an ongoing https://youtrack.jetbrains.com/issue/IDEA-189060[issue] with some of the newer versions of IntelliJ, code errors may be detected even if the project can be built and run successfully
-.. To resolve this, place your cursor over any of the code section highlighted in red. Press kbd:[ALT + ENTER], and select `Add '--add-modules=...' to module compiler options` for each error
-. Repeat this for the test folder as well (e.g. check link:{repoURL}/src/test/java/seedu/address/ui/HelpWindowTest.java[`HelpWindowTest.java`] for code errors, and if so, resolve it the same way)
+.. To resolve this, place your cursor over any of the code section highlighted in red. Press kbd:[ALT + ENTER], and select btn:[Add '--add-modules=...' to module compiler options] for each error
+. Repeat this for the test folder as well (e.g. check link:{repoURL}/src/test/java/seedu/address/ui/HelpWindowTest.java[[.java]#HelpWindowTest.java#] for code errors, and if so, resolve it the same way)
 
 === Verifying the setup
 
 To make sure that your ROR is properly set up:
 
-. Run the `seedu.address.MainApp` and try a few commands
+. Run the [.java]#seedu.address.MainApp# and try a few commands
 . <<Testing,Run the tests>> to ensure they all pass.
 
 === Configurations to do before writing code
@@ -100,24 +109,24 @@ You should ensure that the following configurations are done to be compatible wi
 
 This project follows https://github.com/oss-generic/process/blob/master/docs/CodingStandards.adoc[oss-generic coding standards]. IntelliJ's default style is mostly compliant with ours but it uses a different import order from ours. To rectify,
 
-. Go to `File` > `Settings...` (Windows/Linux), or `IntelliJ IDEA` > `Preferences...` (macOS)
-. Select `Editor` > `Code Style` > `Java`
-. Click on the `Imports` tab to set the order
+. Go to menu:File[Settings...] (Windows/Linux), or menu:IntelliJ IDEA[Preferences...] (macOS)
+. Select menu:Editor[Code Style > Java]
+. Click on the *Imports* tab to set the order
 
-* For `Class count to use import with '\*'` and `Names count to use static import with '*'`: Set to `999` to prevent IntelliJ from contracting the import statements
-* For `Import Layout`: The order is `import static all other imports`, `import java.\*`, `import javax.*`, `import org.\*`, `import com.*`, `import all other imports`. Add a `<blank line>` between each `import`
+* For *Class count to use import with 'pass:[*]'* and *Names count to use static import with 'pass:[*]'*: Set to *999* to prevent IntelliJ from contracting the import statements
+* For *Import Layout*: The order is btn:[import static all other imports], btn:[import java.\*], btn:[import javax.*], btn:[import org.\*], btn:[import com.*], btn:[import all other imports]. Add a blank line between each import
 
 Optionally, you can follow the <<UsingCheckstyle#, UsingCheckstyle.adoc>> document to configure Intellij to check style-compliance as you write code.
 
 ==== Updating documentation to match your fork
 
-After forking the repo, the documentation will still have the SE-EDU branding and refer to the `se-edu/addressbook-level4` repo.
+After forking the repo, the documentation will still have the SE-EDU branding and refer to the *se-edu/addressbook-level4* repo.
 
-If you plan to develop this fork as a separate product (i.e. instead of contributing to `se-edu/addressbook-level4`), you should do the following:
+If you plan to develop this fork as a separate product (i.e. instead of contributing to *se-edu/addressbook-level4*), you should do the following:
 
-. Configure the <<Docs-SiteWideDocSettings, site-wide documentation settings>> in link:{repoURL}/build.gradle[`build.gradle`], such as the `site-name`, to suit your own project.
+. Configure the <<Docs-SiteWideDocSettings, site-wide documentation settings>> in link:{repoURL}/build.gradle[[.java]#build.gradle#], such as the [.java]#site-name#, to suit your own project.
 
-. Replace the URL in the attribute `repoURL` in link:{repoURL}/docs/DeveloperGuide.adoc[`DeveloperGuide.adoc`] and link:{repoURL}/docs/UserGuide.adoc[`UserGuide.adoc`] with the URL of your fork.
+. Replace the URL in the attribute [.java]#repoURL# in link:{repoURL}/docs/DeveloperGuide.adoc[[.java]#DeveloperGuide.adoc#] and link:{repoURL}/docs/UserGuide.adoc[[.java]#UserGuide.adoc#] with the URL of your fork.
 
 ==== Setting up CI
 
@@ -135,10 +144,7 @@ Having both Travis and AppVeyor ensures your App works on both Unix-based platfo
 
 ==== Getting started with coding
 
-When you are ready to start coding,
-
-. Get some sense of the overall design by reading <<Design-Architecture>>.
-. Take a look at <<GetStartedProgramming>>.
+When you are ready to start coding, get some sense of the overall design by reading <<Design-Architecture>>.
 
 == Design
 
@@ -146,39 +152,39 @@ Now that you have successfully set up ROR, you are advised to read this section 
 
 [[Design-Architecture]]
 === Architecture
-The *_Architecture Diagram_* given below (Figure 1) explains the high-level design of the ROR App.
+The _Architecture Diagram_ given below explains the high-level design of the ROR App.
 
 .Architecture Diagram
 image::Architecture.png[width="600"]
 
 [TIP]
-The `.pptx` files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder. To update a diagram, modify the diagram in the pptx file, select the objects of the diagram, and choose `Save as picture`.
+The *.pptx* files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder. To update a diagram, modify the diagram in the pptx file, select the objects of the diagram, and choose btn:[Save as picture].
 
 Given below is a quick overview of each component.
 
-`Main` has only one class called link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp`]. It is responsible for:
+[.java]#Main# has only one class called link:{repoURL}/src/main/java/seedu/address/MainApp.java[[.java]#MainApp#]. It is responsible for:
 
 * At app launch: Initializes the components in the correct sequence, and connects them up with each other.
 * At shut down: Shuts down the components and invokes cleanup method where necessary.
 
-<<Design-Commons,*`Commons`*>> represents a collection of classes used by multiple other components.
+<<Design-Commons,[.java]#Commons#>> represents a collection of classes used by multiple other components.
 The following class plays an important role at the architecture level:
 
-* `LogsCenter` : Used by many classes to write log messages to the App's log file.
+* [.java]#LogsCenter# : Used by many classes to write log messages to the App's log file.
 
 The rest of the App consists of four components.
 
-* <<Design-Ui,*`UI`*>> : The UI of the App.
-* <<Design-Logic,*`Logic`*>> : The command executor.
-* <<Design-Model,*`Model`*>> : Holds the data of the App in-memory.
-* <<Design-Storage,*`Storage`*>> : Reads data from, and writes data to, the hard disk.
+* <<Design-Ui,[.java]#UI#>> : The UI of the App.
+* <<Design-Logic,[.java]#Logic#>> : The command executor.
+* <<Design-Model,[.java]#Model#>> : Holds the data of the App in-memory.
+* <<Design-Storage,[.java]#Storage#>> : Reads data from, and writes data to, the hard disk.
 
 Each of the four components
 
-* Defines its _API_ in an `interface` with the same name as the Component.
-* Exposes its functionality using a `{Component Name}Manager` class.
+* Defines its API in an interface with the same name as the Component.
+* Exposes its functionality using a [.java]#{Component Name}Manager# class.
 
-For example, the `Logic` component (see the class diagram given below in Figure 2) defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
+For example, the [.java]#Logic# component (see the class diagram given below) defines its API in the [.java]#Logic.java# interface and exposes its functionality using the [.java]#LogicManager.java# class.
 
 .Class Diagram of the Logic Component
 image::LogicClassDiagram.png[width="800"]
@@ -186,9 +192,9 @@ image::LogicClassDiagram.png[width="800"]
 [discrete]
 ==== How the architecture components interact with each other
 
-The _Sequence Diagram_ below (Figure 3) shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
+The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `addTable 2`.
 
-.Component interactions for :computer: `addTable 2` command
+.Component interactions for `addTable 2` command
 image::SDforAddTable.png[width="800"]
 
 The sections below give more details of each component.
@@ -201,16 +207,16 @@ The UI component (Figure 4) handles the User Interface of ROR.
 .Structure of the UI Component
 image::UiClassDiagram.png[width="800"]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
+*API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[[.java]#Ui.java#]
 
-The UI consists of a `MainWindow` that is made up of parts such as `CommandBox`, `ResultDisplay`, `TableFlowPanel`, `MenuFlowPanel`, `OrdersListPanel`, `MenuListPanel` and `StatusBarFooter`. All these, including the `MainWindow`, inherit from the abstract `UiPart` class, and are not used at the same time.
+The UI consists of a [.java]#MainWindow# that is made up of parts such as [.java]#CommandBox#, [.java]#ResultDisplay# and [.java]#StatusBarFooter#. All these, including the [.java]#MainWindow#, inherit from the abstract [.java]#UiPart# class. Not all the parts are displayed to the user at the same time (eg. [.java]#TableFlowPanel# is not shown together with [.java]#StatisticsFlowPanel#). The parts that are shown depends on the <<Modes, mode>>.
 
-The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`].
+The [.java]#UI# component uses JavaFx UI framework. The layout of these UI parts are defined in matching *.fxml* files that are in the [.java]#src/main/resources/view# folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[[.java]#MainWindow#] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[[.java]#MainWindow.fxml#].
 
-The `UI` component:
+The [.java]#UI# component:
 
-* Executes user commands using the `Logic` component.
-* Listens for changes to `Model` data so that the UI can be updated with the modified data.
+* Executes user commands using the [.java]#Logic# component.
+* Listens for changes to [.java]#Model# data so that the UI can be updated with the modified data.
 
 [[Design-Logic]]
 === Logic component
@@ -222,15 +228,15 @@ The Logic component (Figure 5) deals with the logic behind the execution of comm
 image::LogicClassDiagram.png[width="800"]
 
 *API* :
-link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
+link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[[.java]#Logic.java#]
 
-*  `Logic` uses the `RestOrRantParser` class to parse the user command.
-*  This results in a `Command` object which is executed by the `LogicManager`.
-*  The command execution can affect the `Model` (e.g. adding a table).
-*  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
-*  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
+*  [.java]#Logic# uses the [.java]#RestOrRantParser# class to parse the user command.
+*  This results in a [.java]#Command# object which is executed by the [.java]#LogicManager#.
+*  The command execution can affect the [.java]#Model# (e.g. adding a table).
+*  The result of the command execution is encapsulated as a [.java]#CommandResult# object which is passed back to the [.java]#Ui#.
+*  In addition, the [.java]#CommandResult# object can also instruct the [.java]#Ui# to perform certain actions, such as displaying help to the user or changing the <<Modes, mode>> displayed.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
+Given below is the Sequence Diagram for interactions within the [.java]#Logic# component for the [.java]#execute("addTable 2")# API call.
 
 .Interactions Inside the Logic Component for the `addTable 2` Command
 image::AddTableSdForLogic.png[width="800"]
@@ -238,99 +244,111 @@ image::AddTableSdForLogic.png[width="800"]
 [[Design-Model]]
 === Model component
 
-The Model component keeps a model of the current state of ROR in memory.
+The Model component (Figure 7) keeps a model of the current state of ROR in memory.
 
 .Structure of the Model Component
 image::ModelClassDiagram.png[width="800"]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
+*API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[[.java]#Model.java#]
 
-The `Model` :
+The [.java]#Model# :
 
-* stores a `UserPref` object that represents the user's preferences.
+* stores a [.java]#UserPref# object that represents the user's preferences.
 * stores the RestOrRant data.
-* exposes an unmodifiable `ObservableList<Table>`, `ObservableList<OrderItem>`, `ObservableList<MenuItem>` and `ObservableList<DailyRevenue>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* exposes an unmodifiable [.java]#ObservableList<Table>#, [.java]#ObservableList<OrderItem>#, [.java]#ObservableList<MenuItem># and [.java]#ObservableList<Revenue># that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
 [[Design-Storage]]
 === Storage component
 
-The Storage component manages the storing and retrieving of data on local files.
+The Storage component (Figure 8) manages the storing and retrieving of data on local files.
 
 .Structure of the Storage Component
 image::StorageClassDiagram.png[width="800"]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
+*API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[[.java]#Storage.java#]
 
-The `Storage` component:
+The [.java]#Storage# component:
 
-* can save `UserPref` objects in json format and read it back.
-* can save the `Tables`, `Orders`, `Menu` and `Statistics` data in json format and read it back.
+* can save [.java]#UserPref# objects in json format and read it back.
+* can save the [.java]#Tables#, [.java]#Orders#, [.java]#Menu# and [.java]#Statistics# data in json format and read it back.
 
 [[Design-Commons]]
 === Common classes
 
-Classes used by multiple components are in the `seedu.address.commons` package.
+Classes used by multiple components are in the [.java]#seedu.address.commons# package.
 
 == Implementation
 
-This section describes some noteworthy details on how certain features are implemented.
+This section describes some noteworthy details on how our features are implemented.
 
 // tag::changemode[]
-=== Changing Mode feature
+=== Mode System
 
 ==== Modes
 
 As ROR contains many features, users may find it complicated to handle all the features at one go with so many commands to use. Furthermore, users may be overwhelmed if all the restaurant's information were to be displayed together in one screen.
 
-As such, we have decided to implement a mode system for ROR to organise the available commands into their respective features. ROR contains 4 different modes, each displaying a different set of panels that are relevant to the mode:
+As such, we have decided to implement a mode system for ROR to organise the available commands into their respective features. ROR provides 4 different modes for the users, each displaying a different set of panels that are relevant to the mode:
 
-* Restaurant Mode - perform table-related operations across the entire restaurant
-* Table Mode - perform order-related operations for a specific table
-* Menu Mode - perform menu-related operations for the restaurant's menu
-* Statistics Mode - perform queries to retrieve the restaurant's statistics
+* *Restaurant Mode* - perform <<Tables feature, table-related operations>> across the entire restaurant
+* *Table Mode* - perform <<Orders feature, order-related operations>> for a specific table
+* *Menu Mode* - perform <<Menu feature, menu-related operations>> on the restaurant's menu
+* *Statistics Mode* - perform <<Statistics feature, queries>> to retrieve the restaurant's statistics
+
+To use the different features, we have also implemented mode-changing commands for users to switch between the 4 user modes.
+
+There is also a *Bill Mode* available for your use as a developer, although the existence of this mode is not shared with the users. The Bill Mode displays the receipt and is only used after the `bill` command is executed in RestOrRant.
+
+[NOTE]
+Although the `bill` command is used in Table Mode, it is considered a Statistics feature rather than an Orders feature as it involves calculation for the revenue.
 
 ==== Current Implementation
 
 ===== Changing modes in general
 
-The modes of the application are defined using a `Mode` enum and the current mode of the application is stored as a private attribute `Mode mode` in `LogicManager`. Users can switch between modes in ROR using the `{XXX}Mode` command. When the mode of the application is changed, we need to update the:
+The modes of the application are defined using a [.java]#Mode# enum and the current mode of the application is stored as a private attribute [.java]#Mode mode# in [.java]#LogicManager#. Users can switch between modes in ROR using the `{XXX}Mode` command, such as `menuMode` and `tableMode`. When the mode of the application is changed, we need to update the:
 
-* `Logic` component so that the `mode` attribute in `LogicManager` reflects the new current mode, since this is used to check if a command can be executed,
-* `UI` component so that the panels display the information that is relevant to the mode.
+* [.java]#Logic# component so that the [.java]#mode# attribute in [.java]#LogicManager# reflects the new current mode, since this is used to check if a command can be executed,
+* [.java]#UI# component so that the panels display the information that is relevant to the mode.
 
-For all the mode-changing commands, these updates are done using a new `toMode` attribute added to the `CommandResult` object. As an example, Figure 9 below shows the sequence diagram for when a user executes the `menuMode` command:
+For all the mode-changing commands, these updates are done using a new [.java]#toMode# attribute added to the [.java]#CommandResult# object. As an example, the figure below shows the sequence diagram for when a user executes the `menuMode` command:
 
-.Component interactions for :computer: `menuMode` command
+.Component interactions for `menuMode` command
 image::MenuModeSequenceDiagram.png[width="800"]
 
-Upon execution of the `menuMode` command, `MenuModeCommand#generateCommandResult()` will generate a `CommandResult` whose `toMode` attribute is set to `MENU_MODE` and return it to the `LogicManager`. Now, the updates can be done for the respective components:
+Upon execution of the `menuMode` command, [.java]#MenuModeCommand#generateCommandResult()# will generate a [.java]#CommandResult# whose [.java]#toMode# attribute is set to [.java]#MENU_MODE# and return it to the [.java]#LogicManager#. Now, the updates can be done for the respective components:
 
-* `Logic` component: `LogicManager` calls `CommandResult#newModeStatus()` to retrieve the mode to be changed to and updates the current mode stored in its `mode` attribute by calling `LogicManager#changeMode()`. The `CommandResult` is passed to `MainWindow` in UI.
-* `UI` component: `MainWindow` calls `CommandResult#newModeStatus()` to retrieve the mode to be changed to and updates the display panels by calling `MainWindow#handleChangeMode()`.
+* [.java]#Logic# component: [.java]#LogicManager# calls [.java]#CommandResult#newModeStatus()# to retrieve the mode to be changed to and updates the current mode stored in its [.java]#mode# attribute by calling [.java]#LogicManager#changeMode()#. The [.java]#CommandResult# is passed to [.java]#MainWindow# in UI.
+* [.java]#UI# component: [.java]#MainWindow# calls [.java]#CommandResult#newModeStatus()# to retrieve the mode to be changed to and updates the display panels by calling [.java]#MainWindow#handleChangeMode()#.
 
 [NOTE]
-For commands that do not involve a change in mode, `CommandResult#newModeStatus()` will return `null` and no updates to the current mode or display will be done.
+For commands that do not involve a change in mode, [.java]#CommandResult#newModeStatus()# will return [.java]#null# and no updates to the current mode or display will be done.
 
+[[ChangeToTableMode]]
 ===== Changing to Table Mode for a specific table
 All the mode-changing commands take no parameters except for Table Mode. When the user wants to perform order-related operations (eg. add an item to the table's order), the user will first have to switch to Table Mode by typing the `tableMode` command (or its shortcut command `TM`) followed by the table number of the table that the user wants to perform actions on.
 
 [NOTE]
 The `tableMode` command can be used from any mode, even in Table Mode of a different table number. If the application is already in Table Mode of the same table number, or if the table specified by the table number is unoccupied, an error message will be shown to the user.
 
-The following sequence diagram (Figure 10) shows the relevant parts of what happens when a user executes the `tableMode 3` command:
+The following sequence diagram shows the relevant parts of what happens when a user executes the `tableMode 3` command:
 
-.Component interactions for :computer: `tableMode 3` command
+.Component interactions for `tableMode 3` command
 image::TableModeSequenceDiagram.png[width="800"]
 
-The `Logic` and `UI` component interactions work in a similar way to the other mode-changing commands and the implementation is mentioned above. The only difference is the parsing of the argument `3` into a `TableNumber` object that indicates the table number of the target table to switch to. This `TableNumber` object is stored as an attribute in `TableModeCommand`.
+The [.java]#Logic# and [.java]#UI# component interactions work in a similar way to the other mode-changing commands and the implementation is mentioned above. The only difference is the parsing of the argument *3* into a [.java]#TableNumber# object that indicates the table number of the target table to switch to. This [.java]#TableNumber# object is stored as an attribute in [.java]#`TableModeCommand#.
 
-Let's focus on what happens to the Model component when the `TableModeCommand` is executed. It first retrieves the `Table` that corresponds to its `TableNumber` attribute. This is done by going through `Model#getRestOrRant()` to obtain the `ReadOnlyRestOrRant`, whose `getTables()` method can be called to retrieve `ReadOnlyTables` that contains the list of all the tables in the restaurant. The `Table` can then be retrieved by passing `TableNumber` into `ReadOnlyTables#getTableFromNumber()`.
+Let's focus on what happens to the [.java]#Model# component when the [.java]#TableModeCommand# is executed. The relevant parts of the sequence diagram has been extracted out and shown in the diagram below.
 
-The `Table` is then set as the selected table in `Model` using `Model#setSelectedTable()`. This is to keep track of the current table so that the Table Mode commands like `addToOrder` and `bill` can easily perform their operations by getting the table from `Model#getSelectedTable()`.
+.Interaction between Logic and Model components for `tableMode 3` command
+image::TableModeModelSequenceDiagram.png[width="800"]
 
-After which, `Model#updateFilteredOrderItemList()` is called to update the filtered list such that it only contains order items ordered by the chosen table. This will then update the item list panel in the UI to display only the order items that were ordered by the chosen table, since the UI retrieves its information from the filtered list.
+It first retrieves the [.java]#Table# that corresponds to its [.java]#TableNumber# attribute. This is done by going through [.java]#Model#getRestOrRant()# to obtain the [.java]#ReadOnlyRestOrRant#, whose [.java]#getTables()# method can be called to retrieve [.java]#ReadOnlyTables# that contains the list of all the tables in the restaurant. The [.java]#Table# can then be retrieved by passing [.java]#TableNumber# into [.java]#ReadOnlyTables#getTableFromNumber()#.
 
+The [.java]#Table# is then set as the selected table in [.java]#Model# using [.java]#Model#setSelectedTable()#. This is to keep track of the current table so that the Table Mode commands like `addToOrder` and `bill` can easily perform their operations by getting the table from [.java]#Model#getSelectedTable()#.
+
+After which, [.java]#Model#updateFilteredOrderItemList()# is called to update the filtered list such that it only contains order items ordered by the chosen table. This will then update the item list panel in the UI to display only the order items that were ordered by the chosen table.
 
 ==== Design Considerations
 
@@ -338,37 +356,37 @@ After which, `Model#updateFilteredOrderItemList()` is called to update the filte
 |=======================================================================
 | Aspect | Alternative 1 | Alternative 2
 | Defining of modes
-| Modes are defined using a `Mode` enum. +
+| Modes are defined using a [.java]#Mode# enum. +
 - *Pros*: Easily identify incorrect modes since the set of valid modes is restricted to the enum values. +
 - *Cons*: Need to create a new class and increases coupling between Logic and UI components.
 
 We decided to choose this option as the enum is an abstraction over the possible modes. Apart from being less prone to errors,
-it also makes the code more readable as the enum values explicitly state the name of the mode (eg. `TABLE_MODE`, `MENU_MODE`) and are stored
-in `Mode` variables, making it clear that it refers to a mode and not just any string.
+it also makes the code more readable as the enum values explicitly state the name of the mode (eg. [.java]#TABLE_MODE#, [.java]#MENU_MODE#) and are stored
+in [.java]#Mode# variables, making it clear that it refers to a mode and not just any string.
 | Modes can be defined with strings (eg. "TableMode") or integers. +
 - *Pros*: Easy to implement. +
 - *Cons*: May be prone to errors (eg. mistyping a string) that causes bugs in the code. +
 
 | Storing of current mode
-| Mode stored in the Logic component (`LogicManager`). +
+| Mode stored in the Logic component ([.java]#LogicManager#). +
 - *Pros*: Easy to access the current mode to check whether a command is valid to execute in a particular mode. +
 - *Cons*: Slightly breaks abstraction since mode is not purely related to command execution.
 
 We decided to store the current mode in Logic because we note that most of the work that requires access to the current mode is done here, so providing a quick access will be more efficient.
 The Model component does not need to know what the current mode is at all, so it would be better to keep the coupling low to facilitate integration.
 
-| Mode stored in the Model component (`ModelManager`). +
+| Mode stored in the Model component ([.java]#ModelManager#). +
 - *Pros*: Maintains abstraction as the mode is part of the current state of the application, which is maintained in Model. +
 - *Cons*: Increases coupling among the Model, Logic and UI components. +
 
 | Specifying table number for Table Mode commands
-| Table number specified once when switching to Table Mode, then retrieved from `Model#getSelectedTable()` for future commands. +
+| Table number specified once when switching to Table Mode, then retrieved from [.java]#Model#getSelectedTable()# for future commands. +
 - *Pros*: Convenient to retrieve table number without having to explicitly specify it in every command. +
 - *Cons*: Non-standardized mode-changing commands since the others do not have any parameters.
 
 We decided to go ahead with this implementation as we feel that from a user's point of view, it would be more convenient to be able to just specify the table number once and then perform a series of operations afterwards. Furthermore, having to parse the table number for every command will also do more work.
 
-| Table number specified for every command (eg. `deleteOrder 3 1`). +
+| Table number specified for every command (eg. `addToOrder 3 W09 1` to add 1x W09 to table 3). +
 - *Pros*: All mode-changing commands are simple and similar. +
 - *Cons*: Makes the commands longer to type.
 
@@ -376,9 +394,12 @@ We decided to go ahead with this implementation as we feel that from a user's po
 
 // end::changemode[]
 
+=== Tables feature
+
 // tag::editpax[]
-=== Edit Pax feature
-==== Current Implementation
+[[EditPax]]
+==== Edit pax at a table
+===== Current Implementation
 
 The edit pax mechanism is facilitated by `UniqueTableList`. It stores the all tables currently in the system and ensures that there are no duplicated tables. Additionally, it implements the following operations:
 
@@ -412,9 +433,9 @@ The following activity diagram summarises what happens when a user executes a ne
 
 image::EditPaxActivityDiagram.png[width="800"]
 
-==== Design Considerations
+===== Design Considerations
 
-===== Aspect: How edit number of customers executes
+====== Aspect: How edit number of customers executes
 
 * **Alternative 1 (current choice):** Replace the entire table with an updated table.
 ** Pros: Maintains abstraction of `Table` and `TableStatus` and reduce errors from abusing the editability of `TableStatus` in `Table`.
@@ -425,9 +446,161 @@ image::EditPaxActivityDiagram.png[width="800"]
 
 // end::editpax[]
 
+=== Orders feature
+
+The Orders feature allows restaurant front-end staff to take orders from customers using the <<AddToOrder, `addToOrder`>> command,
+as well as remove incorrectly inputted orders using the <<DeleteFromOrder, `deleteFromOrder`>> or <<ClearOrder, `clearOrder`>> commands.
+They can track the current list of items ordered for each table (in Table Mode) or across all tables (in Restaurant Mode) and update their serving statuses with the <<Serve, `serve`>> command.
+
+[[CurrentTable]]
+==== Getting the table number
+
+The Orders feature allows users to perform order-related operations for a specific table. The table number was specified when <<ChangeToTableMode, switching over to Table Mode>>.
+
+[NOTE]
+The table number is stored so that users do not need to keep specifying it when typing the commands.
+
+Hence, all the commands in the Orders feature will have to retrieve the table number from [.java]#Model# first before they can perform their functions. The current table is stored as a [.java]#Table# object in [.java]#Model#, which is retrieved by calling [.java]#Model#getSelectedTable()#.
+The [.java]#TableNumber# can then be retrieved from that [.java]#Table#. The sequence diagram for this operation is shown below.
+
+.Sequence diagram for retrieving the table number
+image::CurrentTableSequenceDiagram.png[width="500"]
+
+[[AddToOrder]]
+==== Adding to an order
+
+The interaction between the components for this function is similar to <<AddToMenu, adding to menu>>. A key difference in function is that `addToMenu` only adds 1 menu item each time, but `addToOrder` allows multiple and duplicate items to be added in a single command.
+
+Order items are stored in a list. When `addToOrder W09 3 W12 1` is keyed in, the command is parsed by [.java]#AddToOrderCommandParser# to check if the arguments are in valid format. They are then converted into a list of [.java]#Code# item codes and a list of [.java]#Integer# quantities, which are stored in the [.java]#AddToOrderCommand# object returned by the parser.
+
+When [.java]#AddToOrderCommand#execute()# is called, the item codes in the [.java]#Code# list are processed one by one.
+For each item code, the [.java]#MenuItem# with the [.java]#Code# will be retrieved from the [.java]#Model# component to check if it exists in the menu. Otherwise, an error is returned and the subsequent item codes in the list are not processed.
+
+If the item is found in the menu, it will then attempt to find an [.java]#OrderItem# with the same [.java]#Code# in the current table. If an order of that item already exists, the quantity will be updated in the list using [.java]#Model#setOrderItem()#. Otherwise, the new item will be added to the list using [.java]#Model#addOrderItem()#.
+
+[[DeleteFromOrder]]
+==== Deleting from an order
+
+
+
+
+[[ClearOrder]]
+==== Clearing an order
+
+===== Current Implementation
+
+When the user enters the `clearOrder` command, the command is parsed and a [.java]#ClearOrderCommand# object is created.
+
+[.java]#ClearOrderCommand#execute()# is then called, which in turn calls [.java]#Model#clearOrderItemsFrom()# with the <<CurrentTable, current table number>>.
+In fact, [.java]#Model# acts as a facade and forwards the call to [.java]#Orders#clearOrderItemsFrom()#. That method's source code is replicated below.
+
+[source, java]
+----
+public void clearOrderItemsFrom(TableNumber tableNumber) {
+        ArrayList<OrderItem> itemsToDelete = new ArrayList<>();
+        for (OrderItem orderItem : orderItems) { // <1>
+            if (orderItem.getTableNumber().equals(tableNumber)) {
+                itemsToDelete.add(orderItem);
+            }
+        }
+        for (OrderItem item : itemsToDelete) { // <2>
+            orderItems.remove(item);
+        }
+        indicateModified(); // <3>
+    }
+----
+
+In the method above, [.java]#orderItems# is a [.java]#UniqueOrderItemList# that contains all the order items from all the tables. Let's walk through this method to see how the main functionality of `clearOrder` is implemented:
+
+<1> It first loops through all the items in the [.java]#UniqueOrderItemList# and retrieves the items with the current table number.
+<2> It then deletes these items from the [.java]#UniqueOrderItemList#.
+<3> Finally, it triggers the listener in [.java]#Orders# to indicate that the order item list has been modified. This signals to the [.java]#LogicManager# to update the storage data files by calling [.java]#Storage#saveOrders()#.
+
+The sequence diagram for when a user executes the `clearOrder` command is shown below.
+
+.Component interactions for `clearOrder` command
+image::ClearOrderSequenceDiagram.png[width="800"]
+
+===== Design Considerations
+
+[width="90%",cols="20%,40%,40%",options="header",]
+|=======================================================================
+| Aspect | Alternative 1 | Alternative 2
+| Storing of order items
+| The order items from all the tables in RestOrRant can be stored in a single [.java]#UniqueOrderItemList#. +
+- *Pros*: Easier to handle a single list. +
+- *Cons*: `clearOrder` needs to iterate through the entire list to delete the order items from the specific table.
+
+We decided to choose this option because we realise that customers are unlikely to order a large number of items in a single table, so it would not be space efficient to create so many [.java]#UniqueOrderItemList#.
+Furthermore, it also provides the benefit of arranging the order items across all the tables based on when they were ordered without keeping an extra time attribute. This provides the useful functionality of seeing which orders should be fulfilled first in Restaurant Mode.
+| Each table has its own [.java]#UniqueOrderItemList# to store the order items for that table. +
+- *Pros*: `clearOrder` will just need to create a new empty [.java]#UniqueOrderItemList# to replace the existing one. +
+- *Cons*: Difficult to keep track of so many lists. May be space inefficient to create multiple [.java]#UniqueOrderItemList# if each list only has a few items. +
+
+|=======================================================================
+
+[[Serve]]
+==== Serving items in an order
+
+The interaction between the components for this function is similar to <<EditPax, editing the occupancy at a table>>.
+
+Suppose 3 "W09 Chicken Wings" has been ordered by the current table. When `serve W09 2` is keyed in, the command is parsed by [.java]#ServeCommandParser# to check if the arguments are in valid format. The valid [.java]#Code# item code and [.java]#Integer# quantity are then stored in the [.java]#ServeCommand# object returned by the parser.
+
+When [.java]#ServeCommand#execute()# is called, it will use the item code to check whether the item code exists in the menu and in the current table's order.
+If the order item is found and the quantity served is valid, a new [.java]#OrderItem# object will be created with a new [.java]#OrderItemStatus# that reflects the new quantities.
+[.java]#Model#setOrderItem()# is then used to replace the old [.java]#OrderItem# object with the new one.
+
+
+=== Menu feature
+
+// tag::addtomenu[]
+[[AddToMenu]]
+==== Adding to menu
+===== Current Implementation
+
+The menu items in the menu are stored as a list. Adding a new menu item to the menu is done by adding to the existing list.
+
+The command is read as a text string from the command box and then is executed by calling `executeCommand`, which passes this string to the Logic component by calling `execute`.
+
+The `execute` method in the logic component then creates a command from the text string input by parsing the string to identify the command word (done by the `parse` method in the `RestOrRantParser` class) and other parameters, in this case the details of the menu item (done by the `parse` method in the `AddToMenuCommandParser` class). The text string is then converted to Name, Code, and Price after parsing and then passed to Model component.
+
+In the model component, the validity of the name, code and price of the menu item is checked, and the menu item is only added to the current menu items list if all three parameters are valid (i.e. in the specified format). The new menu item is added to the list in the Model component after ensuring that the menu item does not already exist in the list and that it does not have the same name and code as another menu item already in the list.
+
+After adding to the list in the Model component, the `indicateModified` method is called, which then triggers the Logic component to save the menu, by calling `saveMenu` in the Storage Component.
+
+The User Interface also updated by adding the new menu item to the list panel.
+
+[NOTE]
+This action can only be done in Menu Mode. If not in Menu Mode currently , users can first change mode by typing `MenuMode` or `MM` in the command box.
+
+Given below is an example usage scenario and how the `addToMenu` mechanism behaves at each step.
+
+Step 1. The user executes the `addToMenu` command by typing the name, code and price of the menu item (e.g.: `addToMenu n/French Fries c/W12 p/2.50`).
+
+Step 2. After ensuring that all parameters is valid and that the new menu item is unique, the change is reflected in the User Interface, where the list panel displays the newly added menu item. A success message is also displayed to the users at the Results Display box.
+
+===== Design Considerations
+
+====== Aspect: Saving changes from `AddToMenu` command
+
+* **Alternative 1 (current choice):** Saves only the menu.
+** Pros: Uses less memory as any update to the menu will only save the menu. This is implemented by adding a listener to menu, which detects any changes to the menu when the `indicateModified` method is called. This then triggers Storage component to save the state of the menu.
+** Cons: An increase in the number of variables during runtime, as every feature will need a listener and a boolean (for instance, menu feature would have a listener and a boolean `menuModified` to trigger call storage#saveMenu() when the boolean evaluates to true).
+
+* **Alternative 2:** Save the whole restaurant instance.
+** Pros: Fewer variables during runtime, easier to call just one boolean upon any change to restaurant features.
+** Cons: There is no need to save another feature if only menu is being updated, may cause lagging instead of improving performance.
+
+The pros outweighs the cons as despite the number of variables during runtime, in the long run saving every instance of the restaurant would cause bigger performance issues such as lagging especially if there are constant and multiple changes to every feature of the restaurant. This implementation is also more scalable for future developments.
+
+// end::addtomenu[]
+
+=== Statistics feature
+
 // tag::bill[]
-=== Bill feature
-==== Current Implementation
+[[Bill]]
+==== Billing an order
+===== Current Implementation
 
 The Bill mechanism can only be executed under the `TableMode`. After which, it switches to `BillMode` which changes the UI to display a receipt of the bill specific to the table selected in TableMode.
 
@@ -481,68 +654,25 @@ To add: BillActivityDiagram.png[width="650"]
 
 // end::bill[]
 
-// tag::addtomenu[]
-=== Adding To Menu feature
-==== Current Implementation
-
-The menu items in the menu are stored as a list. Adding a new menu item to the menu is done by adding to the existing list.
-
-
-The command is read as a text string from the command box and then is executed by calling `executeCommand`, which passes this string to the Logic component by calling `execute`.
-
-The `execute` method in the logic component then creates a command from the text string input by parsing the string to identify the command word (done by the `parse` method in the `RestOrRantParser` class) and other parameters, in this case the details of the menu item (done by the `parse` method in the `AddToMenuCommandParser` class). The text string is then converted to Name, Code, and Price after parsing and then passed to Model component.
-
-In the model component, the validity of the name, code and price of the menu item is checked, and the menu item is only added to the current menu items list if all three parameters are valid (i.e. in the specified format). The new menu item is added to the list in the Model component after ensuring that the menu item does not already exist in the list and that it does not have the same name and code as another menu item already in the list.
-
-After adding to the list in the Model component, the `indicateModified` method is called, which then triggers the Logic component to save the menu, by calling `saveMenu` in the Storage Component.
-
-The User Interface also updated by adding the new menu item to the list panel.
-
-[NOTE]
-This action can only be done in Menu Mode. If not in Menu Mode currently , users can first change mode by typing `MenuMode` or `MM` in the command box.
-
-Given below is an example usage scenario and how the `addToMenu` mechanism behaves at each step.
-
-Step 1. The user executes the `addToMenu` command by typing the name, code and price of the menu item (e.g.: `addToMenu n/French Fries c/W12 p/2.50`).
-
-Step 2. After ensuring that all parameters is valid and that the new menu item is unique, the change is reflected in the User Interface, where the list panel displays the newly added menu item. A success message is also displayed to the users at the result display box.
-
-==== Design Considerations
-
-===== Aspect: Saving changes from `AddToMenu` command
-
-* **Alternative 1 (current choice):** Saves only the menu.
-** Pros: Uses less memory as any update to the menu will only save the menu. This is implemented by adding a listener to menu, which detects any changes to the menu when the `indicateModified` method is called. This then triggers Storage component to save the state of the menu.
-** Cons: An increase in the number of variables during runtime, as every feature will need a listener and a boolean (for instance, menu feature would have a listener and a boolean `menuModified` to trigger call storage#saveMenu() when the boolean evaluates to true).
-
-* **Alternative 2:** Save the whole restaurant instance.
-** Pros: Fewer variables during runtime, easier to call just one boolean upon any change to restaurant features.
-** Cons: There is no need to save another feature if only menu is being updated, may cause lagging instead of improving performance.
-
-The pros outweighs the cons as despite the number of variables during runtime, in the long run saving every instance of the restaurant would cause bigger performance issues such as lagging especially if there are constant and multiple changes to every feature of the restaurant. This implementation is also more scalable for future developments.
-
-
-// end::addtomenu[]
-
 === Logging
 
-We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
+We are using [.java]#java.util.logging# package for logging. The [.java]#LogsCenter# class is used to manage the logging levels and logging destinations.
 
-* The logging level can be controlled using the `logLevel` setting in the configuration file (See <<Implementation-Configuration>>)
-* The `Logger` for a class can be obtained using `LogsCenter.getLogger(Class)` which will log messages according to the specified logging level
-* Currently log messages are output through: `Console` and to a `.log` file.
+* The logging level can be controlled using the [.java]#logLevel# setting in the configuration file (See <<Implementation-Configuration>>)
+* The [.java]#Logger# for a class can be obtained using [.java]#LogsCenter.getLogger(Class)# which will log messages according to the specified logging level
+* Currently log messages are output through: *Console* and to a *.log* file.
 
 *Logging Levels*
 
-* `SEVERE` : Critical problem detected which may possibly cause the termination of the application
-* `WARNING` : Can continue, but with caution
-* `INFO` : Information showing the noteworthy actions by the App
-* `FINE` : Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size
+* [.java]#SEVERE# : Critical problem detected which may possibly cause the termination of the application
+* [.java]#WARNING# : Can continue, but with caution
+* [.java]#INFO# : Information showing the noteworthy actions by the App
+* [.java]#FINE# : Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size
 
 [[Implementation-Configuration]]
 === Configuration
 
-Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
+Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: [.java]#config.json#).
 
 == Documentation
 
@@ -553,8 +683,8 @@ We chose asciidoc over Markdown because asciidoc, although a bit more complex th
 
 === Editing Documentation
 
-See <<UsingGradle#rendering-asciidoc-files, UsingGradle.adoc>> to learn how to render `.adoc` files locally to preview the end result of your edits.
-Alternatively, you can download the AsciiDoc plugin for IntelliJ, which allows you to preview the changes you have made to your `.adoc` files in real-time.
+See <<UsingGradle#rendering-asciidoc-files, UsingGradle.adoc>> to learn how to render *.adoc* files locally to preview the end result of your edits.
+Alternatively, you can download the AsciiDoc plugin for IntelliJ, which allows you to preview the changes you have made to your *.adoc* files in real-time.
 
 === Publishing Documentation
 
@@ -566,10 +696,10 @@ We use https://www.google.com/chrome/browser/desktop/[Google Chrome] for convert
 
 Here are the steps to convert the project documentation files to PDF format.
 
-.  Follow the instructions in <<UsingGradle#rendering-asciidoc-files, UsingGradle.adoc>> to convert the AsciiDoc files in the `docs/` directory to HTML format.
-.  Go to your generated HTML files in the `build/docs` folder, right click on them and select `Open with` -> `Google Chrome`.
-.  Within Chrome, click on the `Print` option in Chrome's menu.
-.  Set the destination to `Save as PDF`, then click `Save` to save a copy of the file in PDF format. For best results, use the settings indicated in the screenshot below.
+.  Follow the instructions in <<UsingGradle#rendering-asciidoc-files, UsingGradle.adoc>> to convert the AsciiDoc files in the [.java]#docs/# directory to HTML format.
+.  Go to your generated HTML files in the [.java]#build/docs# folder, right click on them and select menu:Open with[Google Chrome].
+.  Within Chrome, click on the btn:[Print] option in Chrome's menu.
+.  Set the destination to btn:[Save as PDF], then click btn:[Save] to save a copy of the file in PDF format. For best results, use the settings indicated in the screenshot below.
 
 .Saving documentation as PDF files in Chrome
 image::chrome_save_as_pdf.png[width="300"]
@@ -577,27 +707,27 @@ image::chrome_save_as_pdf.png[width="300"]
 [[Docs-SiteWideDocSettings]]
 === Site-wide Documentation Settings
 
-The link:{repoURL}/build.gradle[`build.gradle`] file specifies some project-specific https://asciidoctor.org/docs/user-manual/#attributes[asciidoc attributes] which affects how all documentation files within this project are rendered.
+The link:{repoURL}/build.gradle[[.java]#build.gradle#] file specifies some project-specific https://asciidoctor.org/docs/user-manual/#attributes[asciidoc attributes] which affects how all documentation files within this project are rendered.
 
 [TIP]
-Attributes left unset in the `build.gradle` file will use their *default value*, if any.
+Attributes left unset in the [.java]#build.gradle# file will use their *default value*, if any.
 
 [cols="1,2a,1", options="header"]
 .List of site-wide attributes
 |===
 |Attribute name |Description |Default value
 
-|`site-name`
+|[.java]#site-name#
 |The name of the website.
 If set, the name will be displayed near the top of the page.
 |_not set_
 
-|`site-githuburl`
+|[.java]#site-githuburl#
 |URL to the site's repository on https://github.com[GitHub].
 Setting this will add a "View on GitHub" link in the navigation bar.
 |_not set_
 
-|`site-seedu`
+|[.java]#site-seedu#
 |Define this attribute if the project is an official SE-EDU project.
 This will render the SE-EDU navigation bar at the top of the page, and add some SE-EDU-specific navigation items.
 |_not set_
@@ -607,27 +737,27 @@ This will render the SE-EDU navigation bar at the top of the page, and add some 
 [[Docs-PerFileDocSettings]]
 === Per-file Documentation Settings
 
-Each `.adoc` file may also specify some file-specific https://asciidoctor.org/docs/user-manual/#attributes[asciidoc attributes] which affects how the file is rendered.
+Each *.adoc* file may also specify some file-specific https://asciidoctor.org/docs/user-manual/#attributes[asciidoc attributes] which affects how the file is rendered.
 
 Asciidoctor's https://asciidoctor.org/docs/user-manual/#builtin-attributes[built-in attributes] may be specified and used as well.
 
 [TIP]
-Attributes left unset in `.adoc` files will use their *default value*, if any.
+Attributes left unset in *.adoc* files will use their *default value*, if any.
 
 [cols="1,2a,1", options="header"]
 .List of per-file attributes, excluding Asciidoctor's built-in attributes
 |===
 |Attribute name |Description |Default value
 
-|`site-section`
+|[.java]#site-section#
 |Site section that the document belongs to.
 This will cause the associated item in the navigation bar to be highlighted.
-One of: `UserGuide`, `DeveloperGuide`, ``LearningOutcomes``{asterisk}, `AboutUs`, `ContactUs`
+One of: [.java]#UserGuide#, [.java]#DeveloperGuide#, [.java]#LearningOutcomes#{asterisk}, [.java]#AboutUs#, [.java]#ContactUs#
 
 _{asterisk} Official SE-EDU projects only_
 |_not set_
 
-|`no-site-header`
+|[.java]#no-site-header#
 |Set this attribute to remove the site navigation bar.
 |_not set_
 
@@ -635,15 +765,15 @@ _{asterisk} Official SE-EDU projects only_
 
 === Site Template
 
-The files in link:{repoURL}/docs/stylesheets[`docs/stylesheets`] are the https://developer.mozilla.org/en-US/docs/Web/CSS[CSS stylesheets] of the site.
+The files in link:{repoURL}/docs/stylesheets[[.java]#docs/stylesheets#] are the https://developer.mozilla.org/en-US/docs/Web/CSS[CSS stylesheets] of the site.
 You can modify them to change some properties of the site's design.
 
-The files in link:{repoURL}/docs/templates[`docs/templates`] controls the rendering of `.adoc` files into HTML5.
+The files in link:{repoURL}/docs/templates[[.java]#docs/templates#] controls the rendering of *.adoc* files into HTML5.
 These template files are written in a mixture of https://www.ruby-lang.org[Ruby] and http://slim-lang.com[Slim].
 
 [WARNING]
 ====
-Modifying the template files in link:{repoURL}/docs/templates[`docs/templates`] requires some knowledge and experience with Ruby and Asciidoctor's API.
+Modifying the template files in link:{repoURL}/docs/templates[[.java]#docs/templates#] requires some knowledge and experience with Ruby and Asciidoctor's API.
 You should only modify them if you need greater control over the site's layout than what stylesheets can provide.
 The SE-EDU team does not provide support for modified template files.
 ====
@@ -660,8 +790,8 @@ The most reliable way to run tests is the 3rd one. The first two methods might f
 
 *Method 1: Using IntelliJ JUnit test runner*
 
-* To run all tests, right-click on the `src/test/java` folder and choose `Run 'All Tests'`
-* To run a subset of tests, you can right-click on a test package, test class, or a test and choose `Run 'ABC'`
+* To run all tests, right-click on the [.java]#src/test/java# folder and choose btn:[Run 'All Tests']
+* To run a subset of tests, you can right-click on a test package, test class, or a test and choose btn:[Run 'ABC']
 
 *Method 2: Using Gradle*
 
@@ -681,21 +811,21 @@ To run tests in headless mode, open a console and run the command `gradlew clean
 We have two types of tests:
 
 .  *GUI Tests* - These are tests involving the GUI. They include,
-.. _System Tests_ that test the entire App by simulating user actions on the GUI. These are in the `systemtests` package.
-.. _Unit tests_ that test the individual components. These are in `seedu.address.ui` package.
+.. _System Tests_ that test the entire App by simulating user actions on the GUI. These are in the [.java]#systemtests# package.
+.. _Unit tests_ that test the individual components. These are in [.java]#seedu.address.ui# package.
 .  *Non-GUI Tests* - These are tests not involving the GUI. They include,
 ..  _Unit tests_ targeting the lowest level methods/classes. +
-e.g. `seedu.address.commons.StringUtilTest`
+e.g. [.java]#seedu.address.commons.StringUtilTest#
 ..  _Integration tests_ that are checking the integration of multiple code units (those code units are assumed to be working). +
-e.g. `seedu.address.storage.StorageManagerTest`
+e.g. [.java]#seedu.address.storage.StorageManagerTest#
 ..  Hybrids of unit and integration tests. These test are checking multiple code units as well as how the are connected together. +
-e.g. `seedu.address.logic.LogicManagerTest`
+e.g. [.java]#seedu.address.logic.LogicManagerTest#
 
 
 === Troubleshooting Testing
-**Problem: `HelpWindowTest` fails with a `NullPointerException`.**
+**Problem: [.java]#HelpWindowTest# fails with a [.java]#NullPointerException#.**
 
-* Reason: One of its dependencies, `HelpWindow.html` in `src/main/resources/docs` is missing.
+* Reason: One of its dependencies, [.java]#HelpWindow.html# in [.java]#src/main/resources/docs# is missing.
 * Solution: Execute Gradle task `processResources`.
 
 == Dev Ops
@@ -719,9 +849,9 @@ When a pull request has changes to asciidoc files, you can use https://www.netli
 
 Here are the steps to create a new release.
 
-.  Update the version number in link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp.java`].
+.  Update the version number in link:{repoURL}/src/main/java/seedu/address/MainApp.java[[.java]#MainApp.java#].
 .  Generate a JAR file <<UsingGradle#creating-the-jar-file, using Gradle>>.
-.  Tag the repo with the version number. e.g. `v0.1`
+.  Tag the repo with the version number. e.g. *v0.1*
 .  https://help.github.com/articles/creating-releases/[Create a new release using GitHub] and upload the JAR file you created.
 
 === Managing Dependencies
@@ -732,297 +862,20 @@ A project often depends on third-party libraries. For example, RestOrRant depend
 . Include those libraries in the repo (this bloats the repo size)
 . Require developers to download those libraries manually (this creates extra work for developers)
 
-[[GetStartedProgramming]]
-[appendix]
-== Suggested Programming Tasks to Get Started
-
-Suggested path for new programmers:
-
-1. First, add small local-impact (i.e. the impact of the change does not go beyond the component) enhancements to one component at a time. Some suggestions are given in <<GetStartedProgramming-EachComponent>>.
-
-2. Next, add a feature that touches multiple components to learn how to implement an end-to-end feature across all components. <<GetStartedProgramming-RemarkCommand>> explains how to go about adding such a feature.
-
-[[GetStartedProgramming-EachComponent]]
-=== Improving each component
-
-Each individual exercise in this section is component-based (i.e. you would not need to modify the other components to get it to work).
-
-[discrete]
-==== `Logic` component
-
-*Scenario:* You are in charge of `logic`. During dog-fooding, your team realize that it is troublesome for the user to type the whole command in order to execute a command. Your team devise some strategies to help cut down the amount of typing necessary, and one of the suggestions was to implement aliases for the command words. Your job is to implement such aliases.
-
-[TIP]
-Do take a look at <<Design-Logic>> before attempting to modify the `Logic` component.
-
-. Add a shorthand equivalent alias for each of the individual commands. For example, besides typing `clearTable`, the user can also type `clear` to remove all tables when they are in Restaurant Mode.
-+
-****
-* Hints
-** Just like we store each individual command word constant `COMMAND_WORD` inside `*Command.java` (e.g.  link:{repoURL}/src/main/java/seedu/address/logic/commands/AddTableCommand.java[`AddTableCommand#COMMAND_WORD`], link:{repoURL}/src/main/java/seedu/address/logic/commands/AddToOrderCommand.java[`AddToOrderCommand#COMMAND_WORD`]), you need a new constant for aliases as well (e.g. `AddTableCommand#COMMAND_ALIAS`).
-** link:{repoURL}/src/main/java/seedu/address/logic/parser/RestOrRantParser.java[`RestOrRantParser`] is responsible for analyzing command words.
-* Solution
-** Modify the switch statement in link:{repoURL}/src/main/java/seedu/address/logic/parser/RestOrRantParser.java[`RestOrRantParser#parseCommand(String)`] such that both the proper command word and alias can be used to execute the same intended command.
-** Add new tests for each of the aliases that you have added.
-** Update the user guide to document the new aliases.
-** See this https://github.com/se-edu/addressbook-level4/pull/785[PR] for the full solution.
-****
-
-[discrete]
-==== `Model` component
-
-*Scenario:* You are in charge of `model`. One day, the `logic`-in-charge approaches you for help. He wants to implement a command such that the user is able to remove a particular tag from everyone in the address book, but the model API does not support such a functionality at the moment. Your job is to implement an API method, so that your teammate can use your API to implement his command.
-
-[TIP]
-Do take a look at <<Design-Model>> before attempting to modify the `Model` component.
-
-. Add a `removeTag(Tag)` method. The specified tag will be removed from everyone in the address book.
-+
-****
-* Hints
-** The link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model`] and the link:{repoURL}/src/main/java/seedu/address/model/RestOrRant.java[`RestOrRant`] API need to be updated.
-** Think about how you can use SLAP to design the method. Where should we place the main logic of deleting tags?
-**  Find out which of the existing API methods in  link:{repoURL}/src/main/java/seedu/address/model/RestOrRant.java[`RestOrRant`] and link:{repoURL}/src/main/java/seedu/address/model/person/Table.java[`Table`] classes can be used to add tables. link:{repoURL}/src/main/java/seedu/address/model/RestOrRant.java[`RestOrRant`] allows you to update a person, and link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`] allows you to update the tags.
-* Solution
-** Implement a `removeTag(Tag)` method in link:{repoURL}/src/main/java/seedu/address/model/RestOrRant.java[`RestOrRant`]. Loop through each person, and remove the `tag` from each person.
-** Add a new API method `deleteTag(Tag)` in link:{repoURL}/src/main/java/seedu/address/model/ModelManager.java[`ModelManager`]. Your link:{repoURL}/src/main/java/seedu/address/model/ModelManager.java[`ModelManager`] should call `AddressBook#removeTag(Tag)`.
-** Add new tests for each of the new public methods that you have added.
-** See this https://github.com/se-edu/addressbook-level4/pull/790[PR] for the full solution.
-****
-
-[discrete]
-==== `Ui` component
-
-*Scenario:* You are in charge of `ui`. During a beta testing session, your team is observing how the users use your address book application. You realize that one of the users occasionally tries to delete non-existent tags from a contact, because the tags all look the same visually, and the user got confused. Another user made a typing mistake in his command, but did not realize he had done so because the error message wasn't prominent enough. A third user keeps scrolling down the list, because he keeps forgetting the index of the last person in the list. Your job is to implement improvements to the UI to solve all these problems.
-
-[TIP]
-Do take a look at <<Design-Ui>> before attempting to modify the `UI` component.
-
-. Use different colors for different tags inside person cards. For example, `friends` tags can be all in brown, and `colleagues` tags can be all in yellow.
-+
-**Before**
-+
-image::getting-started-ui-tag-before.png[width="300"]
-+
-**After**
-+
-image::getting-started-ui-tag-after.png[width="300"]
-+
-****
-* Hints
-** The tag labels are created inside link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[the `PersonCard` constructor] (`new Label(tag.tagName)`). https://docs.oracle.com/javase/8/javafx/api/javafx/scene/control/Label.html[JavaFX's `Label` class] allows you to modify the style of each Label, such as changing its color.
-** Use the .css attribute `-fx-background-color` to add a color.
-** You may wish to modify link:{repoURL}/src/main/resources/view/DarkTheme.css[`DarkTheme.css`] to include some pre-defined colors using css, especially if you have experience with web-based css.
-* Solution
-** You can modify the existing test methods for `PersonCard` 's to include testing the tag's color as well.
-** See this https://github.com/se-edu/addressbook-level4/pull/798[PR] for the full solution.
-*** The PR uses the hash code of the tag names to generate a color. This is deliberately designed to ensure consistent colors each time the application runs. You may wish to expand on this design to include additional features, such as allowing users to set their own tag colors, and directly saving the colors to storage, so that tags retain their colors even if the hash code algorithm changes.
-****
-
-. Modify link:{repoURL}/src/main/java/seedu/address/commons/events/ui/NewResultAvailableEvent.java[`NewResultAvailableEvent`] such that link:{repoURL}/src/main/java/seedu/address/ui/ResultDisplay.java[`ResultDisplay`] can show a different style on error (currently it shows the same regardless of errors).
-+
-**Before**
-+
-image::getting-started-ui-result-before.png[width="200"]
-+
-**After**
-+
-image::getting-started-ui-result-after.png[width="200"]
-+
-****
-* Hints
-** link:{repoURL}/src/main/java/seedu/address/commons/events/ui/NewResultAvailableEvent.java[`NewResultAvailableEvent`] is raised by link:{repoURL}/src/main/java/seedu/address/ui/CommandBox.java[`CommandBox`] which also knows whether the result is a success or failure, and is caught by link:{repoURL}/src/main/java/seedu/address/ui/ResultDisplay.java[`ResultDisplay`] which is where we want to change the style to.
-** Refer to link:{repoURL}/src/main/java/seedu/address/ui/CommandBox.java[`CommandBox`] for an example on how to display an error.
-* Solution
-** Modify link:{repoURL}/src/main/java/seedu/address/commons/events/ui/NewResultAvailableEvent.java[`NewResultAvailableEvent`] 's constructor so that users of the event can indicate whether an error has occurred.
-** Modify link:{repoURL}/src/main/java/seedu/address/ui/ResultDisplay.java[`ResultDisplay#handleNewResultAvailableEvent(NewResultAvailableEvent)`] to react to this event appropriately.
-** You can write two different kinds of tests to ensure that the functionality works:
-*** The unit tests for `ResultDisplay` can be modified to include verification of the color.
-*** The system tests link:{repoURL}/src/test/java/systemtests/AddressBookSystemTest.java[`AddressBookSystemTest#assertCommandBoxShowsDefaultStyle() and AddressBookSystemTest#assertCommandBoxShowsErrorStyle()`] to include verification for `ResultDisplay` as well.
-** See this https://github.com/se-edu/addressbook-level4/pull/799[PR] for the full solution.
-*** Do read the commits one at a time if you feel overwhelmed.
-****
-
-. Modify the link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] to show the total number of people in the address book.
-+
-**Before**
-+
-image::getting-started-ui-status-before.png[width="500"]
-+
-**After**
-+
-image::getting-started-ui-status-after.png[width="500"]
-+
-****
-* Hints
-** link:{repoURL}/src/main/resources/view/StatusBarFooter.fxml[`StatusBarFooter.fxml`] will need a new `StatusBar`. Be sure to set the `GridPane.columnIndex` properly for each `StatusBar` to avoid misalignment!
-** link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] needs to initialize the status bar on application start, and to update it accordingly whenever the address book is updated.
-* Solution
-** Modify the constructor of link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] to take in the number of persons when the application just started.
-** Use link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter#handleAddressBookChangedEvent(AddressBookChangedEvent)`] to update the number of persons whenever there are new changes to the addressbook.
-** For tests, modify link:{repoURL}/src/test/java/guitests/guihandles/StatusBarFooterHandle.java[`StatusBarFooterHandle`] by adding a state-saving functionality for the total number of people status, just like what we did for save location and sync status.
-** For system tests, modify link:{repoURL}/src/test/java/systemtests/AddressBookSystemTest.java[`AddressBookSystemTest`] to also verify the new total number of persons status bar.
-** See this https://github.com/se-edu/addressbook-level4/pull/803[PR] for the full solution.
-****
-
-[discrete]
-==== `Storage` component
-
-*Scenario:* You are in charge of `storage`. For your next project milestone, your team plans to implement a new feature of saving the tables, menu, orders and statistics to the cloud. However, the current implementation of the application constantly saves the tables, menu, orders and statistics after the execution of each command, which is not ideal if the user is working on limited internet connection. Your team decided that the application should instead save the changes to a temporary local backup file first, and only upload to the cloud after the user closes the application. Your job is to implement a backup API for the storage.
-
-[TIP]
-Do take a look at <<Design-Storage>> before attempting to modify the `Storage` component.
-
-. Add a new method `backupMenu(ReadOnlyMenu)`, so that the menu can be saved in a fixed temporary location.
-+
-****
-* Hint
-** Add the API method in link:{repoURL}/src/main/java/seedu/address/storage/MenuStorage.java[`MenuStorage`] interface.
-** Implement the logic in link:{repoURL}/src/main/java/seedu/address/storage/StorageManager.java[`StorageManager`] and link:{repoURL}/src/main/java/seedu/address/storage/JsonMenuStorage.java[`JsonMenuStorage`] class.
-* Solution
-** See this https://github.com/se-edu/addressbook-level4/pull/594[PR] for the full solution.
-****
-
-[[GetStartedProgramming-RemarkCommand]]
-=== Creating a new command: `remark`
-
-By creating this command, you will get a chance to learn how to implement a feature end-to-end, touching all major components of the app.
-
-*Scenario:* You are a software maintainer for `addressbook`, as the former developer team has moved on to new projects. The current users of your application have a list of new feature requests that they hope the software will eventually have. The most popular request is to allow adding additional comments/notes about a particular contact, by providing a flexible `remark` field for each contact, rather than relying on tags alone. After designing the specification for the `remark` command, you are convinced that this feature is worth implementing. Your job is to implement the `remark` command.
-
-==== Description
-Edits the remark for a person specified in the `INDEX`. +
-Format: `remark INDEX r/[REMARK]`
-
-Examples:
-
-* `remark 1 r/Likes to drink coffee.` +
-Edits the remark for the first person to `Likes to drink coffee.`
-* `remark 1 r/` +
-Removes the remark for the first person.
-
-==== Step-by-step Instructions
-
-===== [Step 1] Logic: Teach the app to accept 'remark' which does nothing
-Let's start by teaching the application how to parse a `remark` command. We will add the logic of `remark` later.
-
-**Main:**
-
-. Add a `RemarkCommand` that extends link:{repoURL}/src/main/java/seedu/address/logic/commands/Command.java[`Command`]. Upon execution, it should just throw an `Exception`.
-. Modify link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser`] to accept a `RemarkCommand`.
-
-**Tests:**
-
-. Add `RemarkCommandTest` that tests that `execute()` throws an Exception.
-. Add new test method to link:{repoURL}/src/test/java/seedu/address/logic/parser/AddressBookParserTest.java[`AddressBookParserTest`], which tests that typing "remark" returns an instance of `RemarkCommand`.
-
-===== [Step 2] Logic: Teach the app to accept 'remark' arguments
-Let's teach the application to parse arguments that our `remark` command will accept. E.g. `1 r/Likes to drink coffee.`
-
-**Main:**
-
-. Modify `RemarkCommand` to take in an `Index` and `String` and print those two parameters as the error message.
-. Add `RemarkCommandParser` that knows how to parse two arguments, one index and one with prefix 'r/'.
-. Modify link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser`] to use the newly implemented `RemarkCommandParser`.
-
-**Tests:**
-
-. Modify `RemarkCommandTest` to test the `RemarkCommand#equals()` method.
-. Add `RemarkCommandParserTest` that tests different boundary values
-for `RemarkCommandParser`.
-. Modify link:{repoURL}/src/test/java/seedu/address/logic/parser/AddressBookParserTest.java[`AddressBookParserTest`] to test that the correct command is generated according to the user input.
-
-===== [Step 3] Ui: Add a placeholder for remark in `PersonCard`
-Let's add a placeholder on all our link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`] s to display a remark for each person later.
-
-**Main:**
-
-. Add a `Label` with any random text inside link:{repoURL}/src/main/resources/view/PersonListCard.fxml[`PersonListCard.fxml`].
-. Add FXML annotation in link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`] to tie the variable to the actual label.
-
-**Tests:**
-
-. Modify link:{repoURL}/src/test/java/guitests/guihandles/PersonCardHandle.java[`PersonCardHandle`] so that future tests can read the contents of the remark label.
-
-===== [Step 4] Model: Add `Remark` class
-We have to properly encapsulate the remark in our link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`] class. Instead of just using a `String`, let's follow the conventional class structure that the codebase already uses by adding a `Remark` class.
-
-**Main:**
-
-. Add `Remark` to model component (you can copy from link:{repoURL}/src/main/java/seedu/address/model/person/Address.java[`Address`], remove the regex and change the names accordingly).
-. Modify `RemarkCommand` to now take in a `Remark` instead of a `String`.
-
-**Tests:**
-
-. Add test for `Remark`, to test the `Remark#equals()` method.
-
-===== [Step 5] Model: Modify `Person` to support a `Remark` field
-Now we have the `Remark` class, we need to actually use it inside link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`].
-
-**Main:**
-
-. Add `getRemark()` in link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`].
-. You may assume that the user will not be able to use the `add` and `edit` commands to modify the remarks field (i.e. the person will be created without a remark).
-. Modify link:{repoURL}/src/main/java/seedu/address/model/util/SampleDataUtil.java/[`SampleDataUtil`] to add remarks for the sample data (delete your `data/addressbook.json` so that the application will load the sample data when you launch it.)
-
-===== [Step 6] Storage: Add `Remark` field to `JsonAdaptedPerson` class
-We now have `Remark` s for `Person` s, but they will be gone when we exit the application. Let's modify link:{repoURL}/src/main/java/seedu/address/storage/JsonAdaptedPerson.java[`JsonAdaptedPerson`] to include a `Remark` field so that it will be saved.
-
-**Main:**
-
-. Add a new JSON field for `Remark`.
-
-**Tests:**
-
-. Fix `invalidAndValidPersonAddressBook.json`, `typicalPersonsAddressBook.json`, `validAddressBook.json` etc., such that the JSON tests will not fail due to a missing `remark` field.
-
-===== [Step 6b] Test: Add withRemark() for `PersonBuilder`
-Since `Person` can now have a `Remark`, we should add a helper method to link:{repoURL}/src/test/java/seedu/address/testutil/PersonBuilder.java[`PersonBuilder`], so that users are able to create remarks when building a link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`].
-
-**Tests:**
-
-. Add a new method `withRemark()` for link:{repoURL}/src/test/java/seedu/address/testutil/PersonBuilder.java[`PersonBuilder`]. This method will create a new `Remark` for the person that it is currently building.
-. Try and use the method on any sample `Person` in link:{repoURL}/src/test/java/seedu/address/testutil/TypicalPersons.java[`TypicalPersons`].
-
-===== [Step 7] Ui: Connect `Remark` field to `PersonCard`
-Our remark label in link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`] is still a placeholder. Let's bring it to life by binding it with the actual `remark` field.
-
-**Main:**
-
-. Modify link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`]'s constructor to bind the `Remark` field to the `Person` 's remark.
-
-**Tests:**
-
-. Modify link:{repoURL}/src/test/java/seedu/address/ui/testutil/GuiTestAssert.java[`GuiTestAssert#assertCardDisplaysPerson(...)`] so that it will compare the now-functioning remark label.
-
-===== [Step 8] Logic: Implement `RemarkCommand#execute()` logic
-We now have everything set up... but we still can't modify the remarks. Let's finish it up by adding in actual logic for our `remark` command.
-
-**Main:**
-
-. Replace the logic in `RemarkCommand#execute()` (that currently just throws an `Exception`), with the actual logic to modify the remarks of a person.
-
-**Tests:**
-
-. Update `RemarkCommandTest` to test that the `execute()` logic works.
-
-==== Full Solution
-
-See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-by-step solution.
-
 [appendix]
 == Product Scope
 
 *Target user profile*:
 
 * has a need to manage the front-end operations of a restaurant (customers, orders, menu)
-* wants to easily keep track of restaurant statistics (customers, revenue, dishes’ popularity)
+* still uses outdated front-end restaurant management systems like pen and paper
+* wants to easily keep track of restaurant statistics (revenue, dishes’ popularity)
 * prefer desktop apps over other types
 * can type fast
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
 
-*Value proposition*: RestOrRant manages the customers, orders, menu and restaurant statistics with a speed faster than a typical mouse/GUI driven application. This allows the user to have a clear idea of the current arrangement of the customers and status of the restaurant without the need to physically check out the space. This is especially useful for busy restaurants with unorganised front-end managing systems.
+*Value proposition*: RestOrRant manages the customers, orders, menu and restaurant statistics with a speed faster than a typical mouse/GUI driven application. This allows the user to have a clear idea of the current status of the restaurant without the need to physically check out the space. This is especially useful for busy restaurants with unorganised or slow front-end management systems.
 
 [appendix]
 == User Stories
@@ -1042,13 +895,11 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |waiter |update wrong orders |conveniently assist to customers demands without keying in wrong/changed orders
 
-|`* * *` |cashier |retrieve the bill for each table |easily process their bill when they're done eating
+|`* * *` |cashier |retrieve the bill for each table |easily process their bill when they are done eating
 
 |`* *` |waiter |add special requests to the order |inform the chef of the customers' specific preferences
 
 |`* *` |waiter |view popular dishes via statistics |suggest the best dishes to the customer
-
-|`* *` |chef |review the statistics of the dishes' popularity |determine how much ingredients to allocate to the popular dishes
 
 |`*` |waiter |reserve tables |see which tables can be provided to other subsequent customers
 |=======================================================================
@@ -1176,12 +1027,36 @@ Use case ends.
 
 *Extensions*
 [none]
-* 3a. The item code(s) is/are invalid.
+* 3a. The item code(s) are not present in the menu.
 +
 [none]
-** 3a1. RestOrRant displays the first invalid item code in the result display and stops adding new items to the order.
+** 3a1. RestOrRant displays the first invalid item code in the Results Display and stops adding new items to the order.
 +
 Use case resumes from step 4.
+
+[none]
+* 3b. The item code(s) do not follow the standard alphanumeric format.
++
+[none]
+** 3b1. RestOrRant returns an error message saying that the item code is in invalid format.
++
+Use case ends.
+
+[none]
+* 3c. The quantity of an item exceeds the limit after the user tries to add the specified quantity.
++
+[none]
+** 3c1. RestOrRant displays the item code of that item in the Results Display and stops adding new items to the order.
++
+Use case resumes from step 4.
+
+[none]
+* 3d. The quantities provided are not in valid format or exceed the limit.
++
+[none]
+** 3d1. RestOrRant returns an error message saying that the quantity is in invalid format.
++
+Use case ends.
 
 [discrete]
 === Use case: UC7 - Adding items to menu
@@ -1260,8 +1135,14 @@ Use case ends.
 [appendix]
 == Non Functional Requirements
 
-.  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
+.  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java 9 or higher installed.
+.  Should work on both 32-bit and 64-bit machines.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+.  Should be able to handle any kind of input, including invalid ones.
+.  Should be able to respond within two seconds, even with a large number of tables and order items.
+.  Number of tables in the restaurant will not be greater than 400.
+.  Quantity of an item ordered by a table will not be greater than 2,000,000,000.
+.  Not required to handle the printing of receipts.
 
 [appendix]
 == Glossary
@@ -1278,25 +1159,8 @@ The list of items available to be ordered by dining customers at the restaurant
 [[bill]] Bill::
 The amount of money that dining customers have to pay based on their order
 
-[[statistics]] Statistics::
-The record of the revenue earned, number of customers and number of menu items purchased
-
-[appendix]
-== Product Survey
-
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
+[[revenue]] Revenue::
+The amount of money earned based on the bills
 
 [appendix]
 == Instructions for Manual Testing
@@ -1312,7 +1176,7 @@ These instructions only provide a starting point for testers to work on; testers
 
 .. Download the jar file and copy into an empty folder.
 .. Double-click the jar file. +
-   Expected: Shows the GUI without any data. The window size may not be optimum.
+   Expected: Shows the GUI with sample data. The window size may not be optimum.
 
 . Saving window preferences
 
@@ -1323,7 +1187,7 @@ These instructions only provide a starting point for testers to work on; testers
 . Exiting the application
 
 .. Add some data into RestOrRant (eg. `addTable 4 4 2 2`).
-.. Exit RestOrRant by clicking the `File` > `Exit` button, then re-launch the app. +
+.. Exit RestOrRant by clicking the menu:File[Exit] button, then re-launch the app. +
    Expected: The application closes upon exit. All data remains intact upon re-launch.
 .. Exit RestOrRant by typing the `exit` command, then re-launch the app. +
    Expected: Similar to previous.
@@ -1337,72 +1201,120 @@ _{ more test cases ... }_
 . Restaurant Mode
 
 .. In Restaurant Mode, switch to Restaurant Mode with `restaurantMode` or `RM`. +
-   Expected: Mode is not changed. Error message is shown in the result display.
+   Expected: Mode is not changed. Error message is shown in the Results Display.
 .. In any other mode, switch to Restaurant Mode with `restaurantMode` or `RM`. +
-   Expected: Status bar indicates "Restaurant Mode". Success message is shown in the result display. Main panel will display a grid of tables with their statuses and side panel will display a list of order items across all tables.
+   Expected: Status bar indicates "Restaurant Mode". Success message is shown in the Results Display. Main panel will display a grid of tables with their statuses and side panel will display a list of order items across all tables.
 
 . Menu Mode
 
 .. In Menu Mode, switch to Menu Mode with `menuMode` or `MM`. +
-   Expected: Mode is not changed. Error message is shown in the result display.
+   Expected: Mode is not changed. Error message is shown in the Results Display.
 .. In any other mode, switch to Menu Mode with `menuMode` or `MM`. +
-   Expected: Status bar indicates "Menu Mode". Success message is shown in the result display. Main panel will be empty and side panel will display a list of menu items with their code, name and price.
+   Expected: Status bar indicates "Menu Mode". Success message is shown in the Results Display. Main panel will be empty and side panel will display a list of menu items with their code, name and price.
 
 . Table Mode
 
-.. In Restaurant Mode, create three tables and set Tables 1 and 2 to be occupied, leaving Table 3 to be unoccupied.
-.. In Table Mode for Table 1, switch to Table Mode with `tableMode 1` or `TM 1`. +
-   Expected: Mode is not changed. Error message is shown in the result display.
-.. In Table Mode for Table 2 or in any other mode, switch to Table Mode with `tableMode 1` or `TM 1`. +
-   Expected: Status bar indicates "Table Mode: Table 1". Success message is shown in the result display. Main panel will display a grid of menu items with their code, name and price and side panel will display a list of order items from Table 1.
-.. Test case for unoccupied table: In any mode, switch to Table Mode with `tableMode 3` or `TM 3`. +
-   Expected: Mode is not changed. Error message is shown in the result display.
-.. Test case for invalid table number: In any mode, switch to Table Mode with `tableMode 4` or `TM 4`. +
-   Expected: Mode is not changed. Error message is shown in the result display.
+.. Pre-requisite: Tables should have been populated with sample data. Table 1 is unoccupied while Tables 2 and 3 are occupied.
+.. In Table Mode for Table 2, switch to Table Mode with `tableMode 2` or `TM 2`. +
+   Expected: Mode is not changed. Error message is shown in the Results Display.
+.. In Table Mode for Table 2 or in any other mode, switch to Table Mode with `tableMode 3` or `TM 3`. +
+   Expected: Status bar indicates "Table Mode: Table 3". Success message is shown in the Results Display. Main panel will display a grid of menu items with their code, name and price and side panel will display a list of order items from Table 3.
+.. Test case for unoccupied table: In any mode, switch to Table Mode with `tableMode 1` or `TM 1`. +
+   Expected: Mode is not changed. Error message is shown in the Results Display.
+.. Test case for invalid table number: In any mode, switch to Table Mode with `tableMode 100` or `TM 100`. +
+   Expected: Mode is not changed. Error message is shown in the Results Display.
 
 . Statistics Mode
 
 .. In Statistics Mode, switch to Statistics Mode with `statisticsMode` or `SM`. +
-   Expected: Mode is not changed. Error message is shown in the result display.
+   Expected: Mode is not changed. Error message is shown in the Results Display.
 .. In any other mode, switch to Statistics Mode with `statisticsMode` or `SM`. +
-   Expected: Status bar indicates "Statistics Mode". Success message is shown in the result display. Main panel will display a grid of dates with their revenues and side panel will be empty.
+   Expected: Status bar indicates "Statistics Mode". Success message is shown in the Results Display. Main panel will display a grid of dates with their revenues and side panel will be empty.
 
 
-=== Tables
+=== Tables feature
 
 . Adding a table
 
 .. Test case: `addTable 1` +
    Expected: Adds a table with table status of 0/1.
 .. Test case: `addTable` +
-   Expected: No tables are added. Error message is shown in the result display. Status bar remains the same.
+   Expected: No tables are added. Error message is shown in the Results Display. Status bar remains the same.
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
    Expected: Similar to previous.
 
 _{ more test cases ... }_
 
-=== Menu
+=== Menu feature
 
 
 
-=== Orders
+=== Orders feature
 
-. Adding an order
+****
+Pre-requisite: Tables and menu items should have been populated with sample data in order for the test cases below to work.
+You can restore the original sample data by deleting the json files in the data folder and restarting the application.
+****
 
-.. Switch to Table Mode for Table 1. Tables and menu items should have been populated from the Table and Menu tests above.
-.. Test case: `addToOrder W09 2` or `add W09 2` +
-   Expected: Adds an order item "W09 Chicken Wings" with quantity of 2 to Table 1's order.
-.. Test case: `addToOrder W12 2 A05 1` or `add W12 2 A05 1` +
-   Expected: Adds order items "W12 French Fries" with quantity of 2 and "A05 Salad" with quantity of 1 to Table 1's order.
-.. Test case: `addToOrder W09 1` or `add W09 1` +
-   Expected: Updates the order item "W09 Chicken Wings" in Table 1's order with quantity of 3.
-.. Test case: `addToOrder W09` or `add W09` +
-   Expected: No order items are added. Error message is shown in the result display.
-.. Other invalid test cases: `addToOrder 3`, `addToOrder W99 1`, `addToOrder W09 0`, `addToOrder W09 1 W12`
+. Adding to an order
 
-=== Statistics
+.. Switch to Table Mode for Table 10 (`tableMode 10`).
+.. For the following test cases, `addToOrder` can be replaced with the shortcut `add`.
+.. Test case: `addToOrder W09 2` +
+   Expected: Adds an order item "W09 Chicken Wings" with quantity of 2/2 to Table 10's order.
+.. Test case: `addToOrder W12 2 W13 1` +
+   Expected: Adds order items "W12 French Fries" with quantity of 2/2 and "W13 Coke" with quantity of 1/1 to Table 10's order.
+.. Test case: `addToOrder W09 1` +
+   Expected: Updates the order item "W09 Chicken Wings" in Table 10's order from quantity of 2/2 to quantity of 3/3.
+.. Test case for invalid command format: `addToOrder W09` +
+   Expected: No order items are added. Error message is shown in the Results Display.
+.. Test case for invalid item code format: `addToOrder 2A 2` +
+   Expected: Similar to previous.
+.. Test case for item code not in menu: `addToOrder W35 2` +
+   Expected: Similar to previous.
+.. Test case for invalid quantity: `addToOrder W09 3000000000` +
+   Expected: Similar to previous.
+.. Other invalid test cases: `addToOrder`, `addToOrder 3`, `addToOrder W99 1`, `addToOrder W09 1 W12`, `addToOrder W09 -2`
 
-. Bill order
+. Deleting from an order
+
+.. Switch to Table Mode for Table 22 (`tableMode 22`).
+.. For the following test cases, `deleteFromOrder` can be replaced with the shortcut `del`.
+.. Test case: `deleteFromOrder W09` +
+   Expected: Deletes the order item "W09 Chicken Wings" from Table 22's order.
+.. Test case for invalid command format: `deleteFromOrder W09 3` +
+   Expected: No order items are deleted. Error message is shown in the Results Display.
+.. Test case for invalid item code format: `deleteFromOrder 2A` +
+   Expected: Similar to previous.
+.. Test case for item code not in order: `deleteFromOrder W14` +
+   Expected: Similar to previous.
+.. Other invalid test cases: `deleteFromOrder`, `deleteFromOrder W01`, `deleteFromOrder W35`
+
+. Clearing an order
+
+.. Switch to Table Mode for Table 5 (`tableMode 5`).
+.. Test case: `clearOrder` or `clear` +
+   Expected: All the order items from Table 5's order are deleted.
+
+. Serving items in an order
+
+.. Switch to Table Mode for Table 24 (`tableMode 24`).
+.. For the following test cases, `serve` can be replaced with the shortcut `s`.
+.. Test case: `serve W01 3` +
+   Expected: Updates the order item "W01 Chicken Burger" in Table 24's order from quantity of 3/3 to quantity of 0/3.
+.. Test case: `serve W12` +
+   Expected: Updates the order item "W12 French Fries" in Table 24's order from quantity of 3/3 to quantity of 2/3.
+.. Test case for invalid item code format: `serve 2A` +
+   Expected: No order items are updated. Error message is shown in the Results Display.
+.. Test case for item code not in order: `serve W02` +
+   Expected: Similar to previous.
+.. Test case for item already fully served: `serve W01 2` +
+   Expected: Similar to previous.
+.. Other invalid test cases: `serve`, `serve W12 4`, `serve W03 2`
+
+=== Statistics feature
+
+. Billing an order
 
 .. Switch to Table Mode of the selected table. Orders should have been populated from the Order tests above.
 .. Test case: `bill` or `b` +
@@ -1411,7 +1323,7 @@ _{ more test cases ... }_
    Statistics Mode. Otherwise, it just updates the daily revenue by adding the total bill to the current revenue of the
    current date.
 
-. Retrieve revenue of specified day, month or year
+. Retrieving revenue for a specified day, month or year
 
 .. Switch to Statistics Mode. Daily revenue should have been populated from the Bill test.
 .. Test case: `revenue` or `r` +
@@ -1423,13 +1335,19 @@ _{ more test cases ... }_
 .. Test case: `revenue y/2019` or `y/2019` +
    Expected: Revenue of year 2019 will be calculated.
 .. Test case: `revenue d/1 y/2019` or `r d/1 y/2019` +
-   Expected: No revenue are calculated. Error message is shown in the result display.
+   Expected: No revenue are calculated. Error message is shown in the Results Display.
 .. Other invalid test cases: `revenue d/1`, `revenue d/29 m/2 y/2019`
 
-=== Saving data
+=== Data storage
 
-. Dealing with missing/corrupted data files
+. Missing data files
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
+.. Open the data folder inside your RestOrRant home folder and delete one or more of the json files.
+.. Launch RestOrRant by double-clicking the jar file. +
+   Expected: Shows the GUI with sample data restored.
 
-_{ more test cases ... }_
+. Corrupted data files
+
+.. Open any of the json files in the data folder and delete all its contents.
+.. Launch RestOrRant by double-clicking the jar file. +
+   Expected: Shows the GUI with no data.

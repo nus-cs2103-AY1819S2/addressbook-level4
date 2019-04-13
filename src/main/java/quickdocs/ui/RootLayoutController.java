@@ -65,6 +65,10 @@ public class RootLayoutController {
         this.helpWindow = new HelpWindow();
     }
 
+    public TextArea getDisplay() {
+        return resultDisplay;
+    }
+
     /**
      * Captures the user's entered command (when the user presses enter) and passes it to the logic
      * logic will handle the parsing and execution and returns the result

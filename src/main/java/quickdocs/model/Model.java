@@ -59,8 +59,6 @@ public interface Model {
     void setSelectedReminder(Reminder reminder);
 
     //===========Quickdocs methods=====================================
-    void initQuickDocsSampleData();
-
     QuickDocs getQuickDocs();
 
     //===========Medicine Storage =====================================

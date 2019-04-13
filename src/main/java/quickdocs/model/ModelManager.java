@@ -44,10 +44,6 @@ import quickdocs.model.reminder.ReminderManager;
 import quickdocs.model.reminder.ReminderWithinDatesPredicate;
 import quickdocs.model.reminder.exceptions.ReminderNotFoundException;
 import quickdocs.model.tag.Tag;
-import quickdocs.model.util.SampleAppUtil;
-import quickdocs.model.util.SamplePatientsUtil;
-import quickdocs.model.util.SampleRemUtil;
-
 
 /**
  * Represents the in-memory model of the address book data.
@@ -85,39 +81,10 @@ public class ModelManager implements Model {
         this.reminderManager = quickDocs.getReminderManager();
         this.statisticsManager = quickDocs.getStatisticsManager();
         filteredReminders = new FilteredList<>(reminderManager.getObservableReminderList());
-
-        iniQuickDocs();
     }
 
     public ModelManager() {
         this(new QuickDocs(), new UserPrefs());
-    }
-
-    /**
-     * Initialise QuickDocs with sample patient data
-     */
-    public void iniQuickDocs() {
-        Patient[] samplePatients = SamplePatientsUtil.getSamplePatients();
-        Appointment[] sampleAppointments = SampleAppUtil.getSampleAppointments(samplePatients);
-        Reminder[] sampleReminders = SampleRemUtil.getSampleReminders();
-    }
-
-    /**
-     * Initialise QuickDocs with sample patient data for testing purposes
-     */
-    public void initQuickDocsSampleData() {
-        Patient[] samplePatients = SamplePatientsUtil.getSamplePatients();
-        for (Patient patient : samplePatients) {
-            addPatient(patient);
-        }
-        Appointment[] sampleAppointments = SampleAppUtil.getSampleAppointments(samplePatients);
-        for (Appointment app : sampleAppointments) {
-            addApp(app);
-        }
-        Reminder[] sampleReminders = SampleRemUtil.getSampleReminders();
-        for (Reminder rem : sampleReminders) {
-            addRem(rem);
-        }
     }
 
     @Override

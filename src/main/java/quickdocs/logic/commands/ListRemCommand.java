@@ -46,12 +46,20 @@ public class ListRemCommand extends Command {
     private final LocalDate end;
     private final Index targetIndex;
 
+    /**
+     * Creates a {@code ListRemCommand} to list {@code Reminder}(s) on the reminder sidebar
+     * in the given search range of dates.
+     */
     public ListRemCommand(LocalDate start, LocalDate end) {
         this.start = start;
         this.end = end;
         targetIndex = null;
     }
 
+    /**
+     * Creates a {@code ListRemCommand} to display information of the selected {@code Reminder} based on
+     * the given {@code Index}.
+     */
     public ListRemCommand(Index targetIndex) {
         this.start = null;
         this.end = null;

@@ -45,12 +45,19 @@ public class ListAppCommand extends Command {
     private final LocalDate end;
     private final Nric nric;
 
+    /**
+     * Creates a {@code ListAppCommand} to list {@code Appointment}(s) in the given search range of dates.
+     */
     public ListAppCommand(LocalDate start, LocalDate end) {
         this.start = start;
         this.end = end;
         nric = null;
     }
 
+    /**
+     * Creates a {@code ListAppCommand} to list {@code Appointment}(s) made by a {@code Patient} with
+     * the given {@code Nric}.
+     */
     public ListAppCommand(Nric nric) {
         this.nric = nric;
         start = null;

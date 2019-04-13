@@ -29,6 +29,9 @@ public class FreeAppCommand extends Command {
     private final LocalDate start;
     private final LocalDate end;
 
+    /**
+     * Creates a {@code FreeAppCommand} to list free appointment slots within given search range.
+     */
     public FreeAppCommand(LocalDate start, LocalDate end) {
         this.start = start;
         this.end = end;

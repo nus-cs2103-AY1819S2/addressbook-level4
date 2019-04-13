@@ -176,10 +176,11 @@ public class ParserUtil {
     /**
      * Parses a {@code LocalDate date} and {@code String format} to the respective start and end dates.
      *
-     * @param format the format given to parse the date.
-     * @param date the date given to be parsed
-     * @return {@code List} of dates, first element being the start date and second element being the end date
-     * @throws ParseException if the given {@code String format} is invalid
+     * @param format the {@code String format} given to parse the date.
+     * @param date the {@code LocalDate date} given to be parsed.
+     * @return {@code List} of {@code LocalDate dates}, with the first element being the start date and
+     * the second element being the end date.
+     * @throws ParseException if the given {@code String format} is invalid.
      */
     public static List<LocalDate> parseFormatDate(String format, LocalDate date) throws ParseException {
         // check if the format given is valid
@@ -203,13 +204,14 @@ public class ParserUtil {
             end = date.with(lastDayOfMonth());
             break;
         default:
-            start = date;
-            end = date;
+            start = end = date;
         }
 
         List<LocalDate> dates = new ArrayList<>();
         dates.add(start);
         dates.add(end);
+        assert dates.size() == 2;
+
         return dates;
     }
 }

@@ -1045,7 +1045,7 @@ Similar to `<<listapp, listapp>>`, the valid keywords for `FORMAT` are only `day
 
 * `freeapp` +
 
-By default, `freeapp` will list all free appointment slots in the current month if there are no keywords provided. +
+By default, `freeapp` will list all free appointment slots for the next month if there are no keywords provided. +
 {sp} +
 
 * `freeapp f/day d/2019-07-23` +

@@ -10,25 +10,29 @@ import quickdocs.logic.commands.FreeAppCommand;
 import quickdocs.logic.parser.exceptions.ParseException;
 
 /**
- * Parses input arguments and creates a new FreeAppCommand object
+ * Parses input arguments and creates a new {@code FreeAppCommand} object.
  */
 public class FreeAppCommandParser implements Parser<FreeAppCommand> {
     public static final Prefix PREFIX_FORMAT = new Prefix("f/");
     public static final Prefix PREFIX_DATE = new Prefix("d/");
 
     /**
-     * Parses the given {@code String} of arguments in the context of the FreeAppCommand
-     * and returns a FreeAppCommand object for execution.
-     * @throws ParseException if the user input does not conform the expected format
+     * Parses the given {@code String} of arguments in the context of the {@code FreeAppCommand}
+     * and returns a {@code FreeAppCommand} object for execution.
+     *
+     * @throws ParseException if the user input does not conform to the expected format.
      */
     public FreeAppCommand parse(String args) throws ParseException {
-        // Use dates of next month as default dates
+        // use dates of next month as default search range if no arguments provided
         if (args.isEmpty()) {
             LocalDate nextMonthDate = LocalDate.now().plusMonths(1);
             List<LocalDate> dates = ParserUtil.parseFormatDate(ParserUtil.FORMAT_MONTH, nextMonthDate);
+            assert dates.size() == 2;
+
             return new FreeAppCommand(dates.get(0), dates.get(1));
         }
 
+        // check if required prefixes are present
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_FORMAT, PREFIX_DATE);
         boolean prefixesPresent = arePrefixesPresent(argMultimap, PREFIX_FORMAT, PREFIX_DATE);
         boolean preamblePresent = argMultimap.getPreamble().isEmpty();
@@ -39,6 +43,7 @@ public class FreeAppCommandParser implements Parser<FreeAppCommand> {
         LocalDate date = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get().trim());
         String format = argMultimap.getValue(PREFIX_FORMAT).get().trim();
         List<LocalDate> dates = ParserUtil.parseFormatDate(format, date);
+        assert dates.size() == 2;
 
         return new FreeAppCommand(dates.get(0), dates.get(1));
     }

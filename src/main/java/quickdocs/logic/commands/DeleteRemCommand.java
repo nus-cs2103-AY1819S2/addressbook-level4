@@ -27,6 +27,9 @@ public class DeleteRemCommand extends Command {
 
     private final Index targetIndex;
 
+    /**
+     * Creates a {@code DeleteRemCommand} to delete the specified {@code Reminder}.
+     */
     public DeleteRemCommand(Index targetIndex) {
         assert targetIndex.getOneBased() > 0;
         this.targetIndex = targetIndex;

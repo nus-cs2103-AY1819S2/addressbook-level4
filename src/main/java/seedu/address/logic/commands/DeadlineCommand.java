@@ -58,15 +58,6 @@ public class DeadlineCommand extends Command {
         DeadlineAction(String status) {
             this.status = status;
         }
-
-        public String getStatus() {
-            return this.status;
-        }
-
-        @Override
-        public String toString() {
-            return status;
-        }
     }
 
     public DeadlineCommand(Index index, Deadline deadline, DeadlineAction action) {

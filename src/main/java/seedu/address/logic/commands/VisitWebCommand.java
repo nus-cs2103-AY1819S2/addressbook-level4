@@ -94,6 +94,10 @@ public class VisitWebCommand extends Command {
 
         boolean result;
 
+        if (!(other instanceof VisitWebCommand)) {
+            return false;
+        }
+
         if (targetIndex != null) {
             result = targetIndex.equals(((VisitWebCommand) other).targetIndex);
         } else {
@@ -101,6 +105,6 @@ public class VisitWebCommand extends Command {
             result = weblink.equals(((VisitWebCommand) other).weblink);
         }
 
-        return other == this || (other instanceof VisitWebCommand && result); // state check
+        return other == this || result; // state check
     }
 }

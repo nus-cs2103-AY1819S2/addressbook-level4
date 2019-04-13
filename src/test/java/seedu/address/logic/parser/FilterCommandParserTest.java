@@ -66,13 +66,13 @@ public class FilterCommandParserTest {
 
     @Test
     public void parse_invalidListName_returnsFilterCommand() {
-        assertParseFailure(parser, INVALID_LISTNAME ,String.format(JobListName.MESSAGE_CONSTRAINTS,
+        assertParseFailure(parser, INVALID_LISTNAME, String.format(JobListName.MESSAGE_CONSTRAINTS,
             MESSAGE_USAGE_ALLJOB_SCREEN + MESSAGE_USAGE_JOB_DETAIL_SCREEN));
     }
 
     @Test
     public void parse_emptyArgs_returnsFilterCommand() {
-        assertParseFailure(parser, " ",String.format(MESSAGE_LACK_FILTERNAME,
+        assertParseFailure(parser, " ", String.format(MESSAGE_LACK_FILTERNAME,
             MESSAGE_USAGE_ALLJOB_SCREEN + MESSAGE_USAGE_JOB_DETAIL_SCREEN));
     }
 
@@ -85,6 +85,7 @@ public class FilterCommandParserTest {
         assertParseFailure(parser, FILTERNAME_DESC + INVALID_INTERVIEW4_RANGE_DESC, MESSAGE_INVALID_RANGE);
         assertParseFailure(parser, FILTERNAME_DESC + INVALID_INTERVIEW5_RANGE_DESC, MESSAGE_INVALID_RANGE);
     }
+
     @Test
     public void parse_validArgs_returnsFilterCommand() {
         // no leading and trailing whitespaces
@@ -108,9 +109,9 @@ public class FilterCommandParserTest {
 
         assertParseSuccess(parser, FILTERNAME_DESC + NAME_DESC_AMY + PHONE_DESC_AMY
             + EMAIL_DESC_AMY + NRIC_DESC_AMY + GENDER_DESC_AMY + RACE_DESC_AMY + ADDRESS_DESC_AMY
-            + MAJOR_DESC_AMY + GRADE_RANGE_DESC_AMY + SCHOOL_DESC_AMY + INTERVIEW1_RANGE_DESC_AMY +
-            INTERVIEW2_RANGE_DESC_AMY + INTERVIEW3_RANGE_DESC_AMY + INTERVIEW4_RANGE_DESC_AMY +
-            INTERVIEW5_RANGE_DESC_AMY, expectedFilterCommand);
+            + MAJOR_DESC_AMY + GRADE_RANGE_DESC_AMY + SCHOOL_DESC_AMY + INTERVIEW1_RANGE_DESC_AMY
+            + INTERVIEW2_RANGE_DESC_AMY + INTERVIEW3_RANGE_DESC_AMY + INTERVIEW4_RANGE_DESC_AMY
+            + INTERVIEW5_RANGE_DESC_AMY, expectedFilterCommand);
 
 
         // test List fields

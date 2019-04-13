@@ -143,7 +143,7 @@ public class FilterCommand extends Command {
         UniqueFilterList predicateList;
         boolean isAllJobScreen = model.getIsAllJobScreen();
         boolean hasListName = listName != EMPTY;
-        checkException(isAllJobScreen,hasListName);
+        checkException(isAllJobScreen, hasListName);
 
         int size = model.getJobsList(listName).size();
 
@@ -200,13 +200,12 @@ public class FilterCommand extends Command {
     }
 
     /**
-     *
      * @param isAllJobScreen Indicate the current screen, true if screen on all jobs screen
-     * @param hasListName Indicate whether command parser parse the List name
+     * @param hasListName    Indicate whether command parser parse the List name
      * @throws CommandException throw exception and catch by function excute()
      */
     private void checkException(boolean isAllJobScreen, boolean hasListName)
-        throws CommandException{
+        throws CommandException {
         String showMessage = isAllJobScreen ? MESSAGE_USAGE_ALLJOB_SCREEN : MESSAGE_USAGE_JOB_DETAIL_SCREEN;
         if (!isAllJobScreen && !hasListName) {
             throw new CommandException(String.format(MESSAGE_LACK_LISTNAME, showMessage));
@@ -214,6 +213,7 @@ public class FilterCommand extends Command {
             throw new CommandException(String.format(MESSAGE_REDUNDANT_LISTNAME, showMessage));
         }
     }
+
     @Override
     public boolean equals(Object other) {
         // short circuit if same object

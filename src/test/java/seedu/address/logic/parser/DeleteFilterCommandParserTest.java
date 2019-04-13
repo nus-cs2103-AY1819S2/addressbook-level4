@@ -9,7 +9,6 @@ import static seedu.address.model.job.JobListName.APPLICANT_NAME;
 
 import org.junit.Test;
 
-import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.DeleteFilterCommand;
 
 public class DeleteFilterCommandParserTest {
@@ -18,8 +17,8 @@ public class DeleteFilterCommandParserTest {
 
     @Test
     public void parse_validArgs_returnsDeleteFilterCommand() {
-        assertParseSuccess(parser, APPLICANT_NAME+" "+VALID_FILTERNAME,
-            new DeleteFilterCommand(APPLICANT,VALID_FILTERNAME));
+        assertParseSuccess(parser, APPLICANT_NAME + " " + VALID_FILTERNAME,
+            new DeleteFilterCommand(APPLICANT, VALID_FILTERNAME));
     }
 
     @Test

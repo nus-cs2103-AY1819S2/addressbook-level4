@@ -183,7 +183,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public boolean hasEditedPerson(Person editedPerson) {
+        public boolean hasEditedPerson(Person referencePerson, Person editedPerson) {
             throw new AssertionError("This method should not be called.");
         }
 

@@ -45,6 +45,9 @@ public class PersonBuilder {
         phone = new Phone(DEFAULT_PHONE);
         email = new Email(DEFAULT_EMAIL);
         remark = new Remark(DEFAULT_REMARK);
+        address = new Address(DEFAULT_ADDRESS);
+        sellingPrice = new Price(DEFAULT_SELLINGPRICE);
+        rentalPrice = new Price(DEFAULT_RENTALPRICE);
     }
 
     /**

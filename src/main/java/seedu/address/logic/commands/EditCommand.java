@@ -49,14 +49,14 @@ public class EditCommand extends Command {
             + "[" + PREFIX_NAME + "NAME] " + "[" + PREFIX_PHONE + "PHONE] " + "[" + PREFIX_EMAIL + "EMAIL] "
             + "[" + PREFIX_REMARK + "REMARK] \n"
             + "Example for buyer: " + COMMAND_WORD + " 1 " + PREFIX_PHONE + "91234567 " + PREFIX_EMAIL
-            + "johndoe@example.com" + PREFIX_REMARK + "updated phone and email\n";
+            + "johndoe@example.com " + PREFIX_REMARK + "updated phone and email\n";
 
     public static final String MESSAGE_USAGE_SELLER = "Parameters for seller: INDEX (must be a positive integer) "
             + "[" + PREFIX_NAME + "NAME] " + "[" + PREFIX_PHONE + "PHONE] " + "[" + PREFIX_EMAIL + "EMAIL] "
             + "[" + PREFIX_REMARK + "REMARK] " + "[" + PREFIX_ADDRESS + "ADDRESS] "
             + "[" + PREFIX_SELLINGPRICE + "SELLING_PRICE] " + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example for seller: " + COMMAND_WORD + " 1 " + PREFIX_PHONE + "91234567 " + PREFIX_EMAIL
-            + "johndoe@example.com" + PREFIX_ADDRESS + "Block 323 Clementi Road #11-12 "
+            + "johndoe@example.com " + PREFIX_ADDRESS + "Block 323 Clementi Road #11-12 "
             + PREFIX_REMARK + "updated phone, email and address for property\n";
 
     public static final String MESSAGE_USAGE_LANDLORD = "Parameters for landlord: INDEX (must be a positive integer) "
@@ -64,14 +64,14 @@ public class EditCommand extends Command {
             + "[" + PREFIX_REMARK + "REMARK] " + "[" + PREFIX_ADDRESS + "ADDRESS] "
             + "[" + PREFIX_RENTALPRICE + "RENTAL_PRICE] " + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example for landlord: " + COMMAND_WORD + " 1 " + PREFIX_PHONE + "91234567 " + PREFIX_EMAIL
-            + "johndoe@example.com" + PREFIX_ADDRESS + "Block 323 Clementi Road #11-12 "
+            + "johndoe@example.com " + PREFIX_ADDRESS + "Block 323 Clementi Road #11-12 "
             + PREFIX_REMARK + "updated phone, email and address for property\n";
 
     public static final String MESSAGE_USAGE_TENANT = "Parameters for tenant: INDEX (must be a positive integer) "
             + "[" + PREFIX_NAME + "NAME] " + "[" + PREFIX_PHONE + "PHONE] " + "[" + PREFIX_EMAIL + "EMAIL] "
             + "[" + PREFIX_REMARK + "REMARK] \n"
             + "Example for tenant: " + COMMAND_WORD + " 1 " + PREFIX_PHONE + "91234567 " + PREFIX_EMAIL
-            + "johndoe@example.com" + PREFIX_REMARK + "updated phone and email\n";
+            + "johndoe@example.com " + PREFIX_REMARK + "updated phone and email\n";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the person identified "
             + "by the index number used in the displayed person list. "
@@ -81,6 +81,11 @@ public class EditCommand extends Command {
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Person: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.";
+    public static final String MESSAGE_DUPLICATE_IDENTITY_FIELD = "Customer with one or more duplicate identity "
+            + "field already exists in address book";
+    private static final String MESSAGE_ILLEGAL_EDIT_COMMAND = "One or more of the parameters are not applicable for "
+            + "the selected customer.\n";
+
 
     private final Index index;
     private final EditPersonDescriptor editPersonDescriptor;
@@ -109,8 +114,25 @@ public class EditCommand extends Command {
         Person personToEdit = lastShownList.get(index.getZeroBased());
         Person editedPerson = createEditedPerson(personToEdit, editPersonDescriptor);
 
-        if (!personToEdit.isSamePerson(editedPerson) && model.hasEditedPerson(editedPerson)) {
+        if (!isLegalEdit(personToEdit, editPersonDescriptor)) {
+            if (personToEdit instanceof Buyer) {
+                throw new CommandException(MESSAGE_ILLEGAL_EDIT_COMMAND + MESSAGE_USAGE_BUYER);
+            }
+            if (personToEdit instanceof Seller) {
+                throw new CommandException(MESSAGE_ILLEGAL_EDIT_COMMAND + MESSAGE_USAGE_SELLER);
+            }
+            if (personToEdit instanceof Landlord) {
+                throw new CommandException(MESSAGE_ILLEGAL_EDIT_COMMAND + MESSAGE_USAGE_LANDLORD);
+            }
+            if (personToEdit instanceof Tenant) {
+                throw new CommandException(MESSAGE_ILLEGAL_EDIT_COMMAND + MESSAGE_USAGE_TENANT);
+            }
+        }
+        if (!personToEdit.equals(editedPerson) && model.hasPerson(editedPerson)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+        }
+        if (model.hasEditedPerson(personToEdit, editedPerson)) {
+            throw new CommandException(MESSAGE_DUPLICATE_IDENTITY_FIELD);
         }
 
         model.setPerson(personToEdit, editedPerson);
@@ -131,6 +153,22 @@ public class EditCommand extends Command {
     @Override
     public boolean requiresArchiveList() {
         return false;
+    }
+
+    /**
+     * Creates and returns a {@code Person} with the details of {@code personToEdit}
+     * edited with {@code editPersonDescriptor}.
+     */
+    private static Boolean isLegalEdit(Person personToEdit, EditPersonDescriptor editPersonDescriptor) {
+        if (((personToEdit instanceof Buyer || personToEdit instanceof Tenant)
+                && (editPersonDescriptor.getAddress().isPresent() || editPersonDescriptor.getSellingPrice().isPresent()
+                || editPersonDescriptor.getRentalPrice().isPresent() || editPersonDescriptor.getTags().isPresent()))
+                || (personToEdit instanceof Seller && editPersonDescriptor.getRentalPrice().isPresent())
+                || (personToEdit instanceof Landlord && editPersonDescriptor.getSellingPrice().isPresent())) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
     /**
@@ -315,13 +353,8 @@ public class EditCommand extends Command {
                 return false;
             }
 
-
-
-
             // state check
-
             EditPersonDescriptor e = (EditPersonDescriptor) other;
-
             return getName().equals(e.getName())
                     && getPhone().equals(e.getPhone())
                     && getEmail().equals(e.getEmail())

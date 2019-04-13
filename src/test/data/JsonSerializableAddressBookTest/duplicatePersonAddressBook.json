@@ -1,23 +1,23 @@
 {
   "persons" : [ {
     "name" : "Alice Pauline",
-    "phone" : "94351253",
+    "phone" : "95352563",
     "email" : "alice@example.com",
     "remark" : "Alice is a seller",
-    "address" : "123, Jurong West Ave 6, #08-111",
-    "customer" : "seller",
-    "sellingPrice" : "540000",
+    "address" : null,
+    "customer" : "buyer",
+    "sellingPrice" : null,
     "rentalPrice" : null,
-    "tagged" : [ "mrt" ]
+    "tagged" : [ ]
   }, {
     "name" : "Alice Pauline",
-    "phone" : "94351253",
+    "phone" : "95352563",
     "email" : "alice@example.com",
     "remark" : "Alice is a seller",
-    "address" : "123, Jurong West Ave 6, #08-111",
-    "customer" : "seller",
-    "sellingPrice" : "540000",
+    "address" : null,
+    "customer" : "buyer",
+    "sellingPrice" : null,
     "rentalPrice" : null,
-    "tagged" : [ "mrt" ]
+    "tagged" : [ ]
   } ]
 }

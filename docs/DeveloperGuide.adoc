@@ -1001,7 +1001,7 @@ image:listOfMedicine_example2.png[width='800']
 
 This six-step example illustrates the basic implementation of how medicines and directories are organized in QuickDocs.
 
-{nbsp} +
+- - -
 
 When typing the directory path in the command box in the ui, QuickDocs supports intelligent suggestions about the next field. +
 
@@ -1028,7 +1028,7 @@ The figure below illustrates how this feature is implemented to make user's life
 .Sequence diagram illustrating the implementation of suggestion mode
 image::suggestion_diagram.png[width='800]
 
-{sp} +
+- - -
 
 QuickDocs also supports setting alarm level for medicines. Every time a medicine's storage falls below the designated level, a reminder is thrown. +
 

@@ -786,7 +786,7 @@ image::alarm_directory_after.png[width='600']
 
 - - -
 
-[[buymed, Buying a medicine]]
+[[buymed, Buy a medicine]]
 ==== Recording purchases of medicine: `buymed`
 
 As a doctor running your own clinic, you will certainly purchase medicine from time to time to keep your medicine storage updated. +
@@ -834,7 +834,7 @@ To make your life easier, QuickDocs automatically records every purchase you mad
 
 - - -
 
-[[setprice, set price for a medicine]]
+[[setprice, Set price for a medicine]]
 ==== Setting Price for a medicine: `setprice`
 
 Through QuickDocs, you have hundred percent freedom to set the price of your medicine via this simple command! +

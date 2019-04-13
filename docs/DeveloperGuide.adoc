@@ -338,6 +338,7 @@ Image file must adhere to a subset of the following formats as describe by its M
 * `.gif`
 
 [NOTE]
+Images with `.tif` or `.tiff` formats are not rendered on screen due to a limitation with JavaFX but edits made will still be applied.
 Support for additional formats will be available past V2.0.
 
 Images must also adhere to the following additional requirements:

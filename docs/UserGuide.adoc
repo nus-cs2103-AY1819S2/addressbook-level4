@@ -229,7 +229,7 @@ Example of directory import:
 For directory import, invalid files are skipped and only valid images will be imported.
 
 [NOTE]
-Images should be of the following formats: `bmp`, `jpg` , `png`, `tif` or `gif`
+Images should be of the following formats: `bmp`, `jpg` , `jpeg`, `png`, `tif`, `tiff` or `gif`. Images with `tif` or `tiff` formats are not rendered on screen due to a bug with Java but edits made will still be applied.
 
 Additionally, images must also adhere to the following additional requirements:
 

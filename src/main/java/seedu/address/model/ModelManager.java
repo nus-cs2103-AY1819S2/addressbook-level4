@@ -102,11 +102,11 @@ public class ModelManager implements Model {
         //for now default course will be Computer Science Algorithms
         this.course = userInfo.getCourse();
         this.requirementStatusList = new RequirementStatusList();
-        requirementStatusList.updateCourseRequirements(course,
+        requirementStatusList.updateRequirementStatus(course,
                 versionedGradTrak.getModulesTakenList()
                         .stream()
                         .map(ModuleTaken::getModuleInfoCode)
-                        .collect(Collectors.toList()), allModules);
+                        .collect(Collectors.toList()));
     }
 
     public ModelManager() {
@@ -118,7 +118,7 @@ public class ModelManager implements Model {
     public void setCourse(CourseName courseName) {
         requireNonNull(courseName);
         course = courseList.getCourse(courseName);
-        requirementStatusList.updateCourseRequirements(course, getModuleInfoCodeList(), allModules);
+        requirementStatusList.updateRequirementStatus(course, getModuleInfoCodeList());
         userInfo.setCourse(course);
     }
 
@@ -403,12 +403,19 @@ public class ModelManager implements Model {
     //=========== Display completed requirement =======================================================================
     @Override
     public ObservableList<RequirementStatus> getRequirementStatusList() {
-        requirementStatusList.updateModuleInfoCodes(
+        updateRequirementStatusList();
+        return this.requirementStatusList.getRequirementStatusList();
+    }
+
+    /**
+     * Updates the requirement status in requirement status list with the latest module taken information
+     */
+    public void updateRequirementStatusList() {
+        requirementStatusList.updateRequirementStatus(
                 versionedGradTrak.getModulesTakenList()
                         .stream()
                         .map(ModuleTaken::getModuleInfoCode)
                         .collect(Collectors.toList()));
-        return this.requirementStatusList.getRequirementStatusList();
     }
 
     @Override

@@ -2,7 +2,7 @@ package systemtests;
 
 import static org.junit.Assert.assertTrue;
 import static seedu.equipment.commons.core.Messages.MESSAGE_INVALID_EQUIPMENT_DISPLAYED_INDEX;
-import static seedu.equipment.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+//import static seedu.equipment.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.equipment.logic.commands.DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS;
 import static seedu.equipment.testutil.TestUtil.getLastIndex;
 import static seedu.equipment.testutil.TestUtil.getMidIndex;

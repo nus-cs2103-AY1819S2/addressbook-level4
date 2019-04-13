@@ -100,11 +100,11 @@ Examples:
 Adds CS2103T, to be taken in Y2S2, to the module plan.
 
 * `add c/CS2103T s/Y2S2 max/B_MINUS` +
-Adds CS2103T, to be taken in Y2S2 with expected max grade B-, to the module plan.
+Adds CS2103T, to be taken in the second semester of year 2 with expected max grade B-, to the module plan.
 
-=== Listing all modules in module plan: `cklimit`
+=== Checking the preferred limits of the user against the planned modules for all semesters: `cklimit`
 
-Calculates the expected total workload and expected min and max CAP of each semester and checks against the limit set by the user. +
+Calculates the total expected weekly workload and expected min and max CAP of each semester and checks against the limit set by the user. +
 Format: `cklimit`
 
 === Clear all data entered: `clear`
@@ -114,8 +114,19 @@ Format: `clear`
 
 === Sets the current semester: `cursem`
 
-Indicates that the previous semesters must have a single finalized grade in the expected grade range. +
-Format: `cursem`
+Indicates that the previous semesters are completed and can be included in the current CAP computation. +
+Format: `cursem SEMESTER`
+
+Constraints for the command input:
+
+* Semester set must be a valid semester from year 1 to 5, in either the first or second semester, or GRAD if the user has completed all semesters.
+* All modules taken in the previous semesters must have a finalized grade. The minimum expected grade and maximum expected grade must be the same.
+
+* `cursem Y3S2` +
+Sets the current semester to the second semester of year 3.
+
+* `cursem GRAD` +
+Sets the current semester to graduated semester.
 
 === Delete module: `delete`
 
@@ -388,14 +399,48 @@ Sets the course of study to Computer Science with Focus Area Algorithms. Invokin
 More courses will be rolled out in GradTrak in its future iteration.
 // end::study[]
 
-=== Sets the total expected CAP and workload limit for each semester: `setlimit`
+=== Sets the total expected CAP limit for each semester: `setlimit`
 
-Calculates the expected total workload and expected min and max CAP of each semester and checks against the limit set by the user. +
-Format: `setlimit s/SEMESTER [g/MIN_GRADE MAX_GRADE] [lec/MIN_LECTURE_HOURS MAX_LECTURE_HOURS] [tut/MIN_TUTORIAL_HOURS MAX_TUTORIAL_HOURS] [lab/MIN_LAB_HOURS MAX_LAB_HOURS] [proj/MIN_PROJ_HOURS MAX_PROJ_HOURS] [prep/MIN_PREP_HOURS MAX_PREP_HOURS]`
+Some students have a desired CAP for graduation. They may like to plan modules to take that ensures that their cap remains at a suitable range at all times, so that they can easily apply for programs with minimum CAP requirements such as the Student Exchange Program, or NUS Overseas Challenge, or maintain the CAP requirement of their scholarship for each semester.
+
+GradTrak can keep track of their CAP limit preferences so that it is possible to help them detect whether their current module plan fulfils their preferences.
+
+The `setlimit` command allows you to set the minimum and maximum preferred CAP for a semester. +
+Format: `setlimit s/SEMESTER [mincap/MIN_CAP] [maxcap/MAX_CAP]`
+
+Constraints for the command input:
+
+* Semester set must be a valid semester from year 1 to 5, in either the first or second semester.
+* Newly edited limits must be not be out of order. Minimum CAP must not be more than maximum CAP
 
 Examples:
 
-* `setlimit s/Y1S1 g/2.5 5.0`
+* `setlimit s/Y1S1 mincap/2.52 maxcap/5` +
+This sets the minimum CAP acceptable to 2.52 and maximum CAP acceptable to 5.00 for the first semester in year 1.
+
+=== Sets the total expected workload limit for each semester: `setlimit`
+
+Some students who do not have a strong programming background may be slightly uncomfortable taking multiple programming modules in year 1 as they may feel too stressed from huge weekly lab workloads. Other students who like project work may like to take 1 or 2 team-based modules per semester that focuses on communication skills.
+
+GradTrak can keep track of their workload limit preferences for each semester so that it is possible to help them detect whether their current module plan fulfils their preferences. Various types of workload limits  such as total number of weekly lecture hours, tutorial hours, lab hours, project hours, and preparation hours could be tracked.
+
+The `setlimit` command allows you to set the minimum and maximum total weekly workload limits for a semester. +
+Format: `setlimit s/SEMESTER [minlec/MIN_LECTURE_HOURS] [maxlec/MAX_LECTURE_HOURS] [mintut/MIN_TUTORIAL_HOURS] [maxtut/MAX_TUTORIAL_HOURS] [minlab/MIN_LAB_HOURS] [maxlab/MAX_LAB_HOURS] [minproj/MIN_PROJ_HOURS] [maxproj/MAX_PROJ_HOURS] [minprep/MIN_PREP_HOURS] [maxprep/MAX_PREP_HOURS]`
+
+Constraints for the command input:
+
+* Semester set must be a valid semester from year 1 to 5, in either the first or second semester.
+* Newly edited limits must be not be out of order.
+** Minimum lecture hours must not be more than maximum lecture hours
+** Minimum tutorial hours must not be more than maximum tutorial hours
+** Minimum lab hours must not be more than maximum lab hours
+** Minimum project hours must not be more than maximum project hours
+** Minimum preparation hours must not be more than maximum preparation hours
+
+Examples:
+
+* `setlimit s/Y1S2 minlec/2.5 maxproj/3 maxprep/12` +
+This sets the minimum number of weekly lecture hours acceptable to 2.5 and maximum number of weekly project hours acceptable to 3 for the second semester in year 1.
 
 === Undo previous command: `undo`
 
@@ -414,14 +459,14 @@ Examples:
 `undo` (reverses the `delete 1` command) +
 
 * `displayreq` +
-`history` +
+`cklimit` +
 `undo` +
 The `undo` command fails as there are no undoable commands executed previously.
 
-* `delete 1` +
-`clear` +
-`undo` (reverses the `clear` command) +
-`undo` (reverses the `delete 1` command) +
+* `cursem Y2S2` +
+`setlimit Y3S1 minprep/4` +
+`undo` (reverses the `setlimit Y3S1 minprep/4` command) +
+`undo` (reverses the `cursem Y2S2` command) +
 
 === Save data
 

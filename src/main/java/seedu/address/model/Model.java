@@ -120,7 +120,7 @@ public interface Model {
     ObservableList<ModuleTaken> getFilteredModulesTakenList();
 
     /** Returns an unmodifiable view of the SemesterLimit list */
-    ObservableList<SemesterLimit> getSemLimitList();
+    ObservableList<SemesterLimit> getSemesterLimitList();
 
     /**
      * Updates the filter of the filtered moduleTaken list to filter by the given {@code predicate}.

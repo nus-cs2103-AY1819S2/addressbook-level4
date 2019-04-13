@@ -61,8 +61,8 @@ public class SetSemesterLimitCommandTest {
 
     @Test
     public void execute_someFieldsSpecifiedUnfilteredList_success() {
-        Index indexLastSem = Index.fromOneBased(model.getSemLimitList().size());
-        SemesterLimit lastSemesterLimit = model.getSemLimitList().get(indexLastSem.getZeroBased());
+        Index indexLastSem = Index.fromOneBased(model.getSemesterLimitList().size());
+        SemesterLimit lastSemesterLimit = model.getSemesterLimitList().get(indexLastSem.getZeroBased());
 
         SemesterLimitBuilder personInList = new SemesterLimitBuilder(lastSemesterLimit);
         SemesterLimit editedSemesterLimit = personInList
@@ -91,7 +91,7 @@ public class SetSemesterLimitCommandTest {
         SetSemesterLimitCommand editCommand = new SetSemesterLimitCommand(
                 Index.fromZeroBased(
                         INDEX_FIRST_SEMESTER.getIndex()), new SetSemesterLimitCommand.EditSemesterLimitDescriptor());
-        SemesterLimit editedSemesterLimit = model.getSemLimitList().get(INDEX_FIRST_SEMESTER.getIndex());
+        SemesterLimit editedSemesterLimit = model.getSemesterLimitList().get(INDEX_FIRST_SEMESTER.getIndex());
 
         String expectedMessage = String.format(SetSemesterLimitCommand.MESSAGE_EDIT_LIMIT_SUCCESS, editedSemesterLimit);
 

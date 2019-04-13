@@ -238,7 +238,7 @@ public class ModelManager implements Model {
      * {@code versionedAddressBook}
      */
     @Override
-    public ObservableList<SemesterLimit> getSemLimitList() {
+    public ObservableList<SemesterLimit> getSemesterLimitList() {
         return versionedGradTrak.getSemesterLimitList();
     }
 
@@ -254,7 +254,8 @@ public class ModelManager implements Model {
      */
     @Override
     public ClassForPrinting checkLimit(ModuleInfoList moduleInfoList) {
-        return new LimitChecker(getCurrentSemester(), getSemLimitList(), getFilteredModulesTakenList(), moduleInfoList);
+        return new LimitChecker(getCurrentSemester(), getSemesterLimitList(),
+                getFilteredModulesTakenList(), moduleInfoList);
     }
 
     //=========== Undo/Redo =================================================================================

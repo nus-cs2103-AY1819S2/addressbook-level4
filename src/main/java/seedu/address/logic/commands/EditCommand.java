@@ -15,7 +15,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PASTJOB;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_RACE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SCHOOL;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.Collections;
@@ -74,7 +73,6 @@ public class EditCommand extends Command {
             + "[" + PREFIX_PASTJOB + "PASTJOB] "
             + "[" + PREFIX_JOBSAPPLY + "JOBSAPPLY] "
             + "[" + PREFIX_INTERVIEWSCORES + "INTERVIEWSCORES] "
-            + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_PHONE + "91234567 "
             + PREFIX_EMAIL + "johndoe@example.com"
@@ -87,23 +85,9 @@ public class EditCommand extends Command {
             + PREFIX_GRADE + "4.76 "
             + PREFIX_JOBSAPPLY + "Software Engineer "
             + PREFIX_INTERVIEWSCORES + "5,8,2,4,10 "
-            + PREFIX_TAG + "friends "
-            + PREFIX_TAG + "owesMoney\n"
-            + "The alias \"ed\" can be used instead.\n"
-            + "Example: " + COMMAND_ALIAS + " 1 "
-            + PREFIX_PHONE + "91234567 "
-            + PREFIX_EMAIL + "johndoe@example.com "
-            + PREFIX_NRIC + "S9671597H "
-            + PREFIX_GENDER + "Male "
-            + PREFIX_RACE + "Indian "
-            + PREFIX_ADDRESS + "311, Clementi Ave 2, #02-25 "
-            + PREFIX_SCHOOL + "NUS "
-            + PREFIX_MAJOR + "Computer Science"
-            + PREFIX_GRADE + "4.76 "
-            + PREFIX_JOBSAPPLY + "Software Engineer "
-            + PREFIX_INTERVIEWSCORES + "5,8,2,4,10 "
-            + PREFIX_TAG + "friends "
-            + PREFIX_TAG + "owesMoney\n";
+            + PREFIX_KNOWNPROGLANG + "Python "
+            + PREFIX_PASTJOB + "Software Engineer "
+            + "The alias \"ed\" can be used instead.\n";
 
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Person: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";

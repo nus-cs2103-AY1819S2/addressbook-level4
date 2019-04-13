@@ -8,7 +8,6 @@ import java.util.regex.Pattern;
 
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.AddListToJobCommand;
-import seedu.address.logic.commands.AddPersonToJobCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.ClearInterviewsCommand;
 import seedu.address.logic.commands.Command;
@@ -29,7 +28,7 @@ import seedu.address.logic.commands.ImportResumesCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.MovePersonCommand;
 import seedu.address.logic.commands.RedoCommand;
-import seedu.address.logic.commands.SelectCommand;
+import seedu.address.logic.commands.RemoveFromListCommand;
 import seedu.address.logic.commands.SetBlockOutDatesCommand;
 import seedu.address.logic.commands.SetMaxInterviewsADayCommand;
 import seedu.address.logic.commands.ShowInterviewsCommand;
@@ -87,20 +86,14 @@ public class AddressBookParser {
         case EditCommand.COMMAND_ALIAS:
             return new EditCommandParser().parse(arguments);
 
-        case SelectCommand.COMMAND_WORD:
-            return new SelectCommandParser().parse(arguments);
-
-        case SelectCommand.COMMAND_ALIAS:
-            return new SelectCommandParser().parse(arguments);
-
         case DeleteFilterCommand.COMMAND_WORD:
-            return new DeleteCommandParser().parse(arguments);
+            return new DeleteFilterCommandParser().parse(arguments);
 
         case DeleteFilterCommand.COMMAND_ALIAS:
             return new DeleteFilterCommandParser().parse(arguments);
 
         case DeleteCommand.COMMAND_WORD:
-            return new DeleteFilterCommandParser().parse(arguments);
+            return new DeleteCommandParser().parse(arguments);
 
         case DeleteCommand.COMMAND_ALIAS:
             return new DeleteCommandParser().parse(arguments);
@@ -177,12 +170,6 @@ public class AddressBookParser {
         case SetBlockOutDatesCommand.COMMAND_WORD:
             return new SetBlockOutDatesCommandParser().parse(arguments);
 
-        case AddPersonToJobCommand.COMMAND_WORD:
-            return new AddPersonToJobCommandParser().parse(arguments);
-
-        case AddPersonToJobCommand.COMMAND_ALIAS:
-            return new AddPersonToJobCommandParser().parse(arguments);
-
         case DisplayJobCommand.COMMAND_WORD:
             return new DisplayJobCommandParser().parse(arguments);
 
@@ -206,6 +193,12 @@ public class AddressBookParser {
 
         case AddListToJobCommand.COMMAND_ALIAS:
             return new AddListToJobCommandParser().parse(arguments);
+
+        case RemoveFromListCommand.COMMAND_WORD:
+            return new RemoveFromListCommandParser().parse(arguments);
+
+        case RemoveFromListCommand.COMMAND_ALIAS:
+            return new RemoveFromListCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

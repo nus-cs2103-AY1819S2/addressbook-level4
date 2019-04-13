@@ -1,6 +1,18 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.commands.AddCommand.MESSAGE_INFORMATION_WITHOUT_PREFIX;
+import static seedu.address.logic.commands.AddCommand.MESSAGE_LACK_ADDRESS;
+import static seedu.address.logic.commands.AddCommand.MESSAGE_LACK_EMAIL;
+import static seedu.address.logic.commands.AddCommand.MESSAGE_LACK_GENDER;
+import static seedu.address.logic.commands.AddCommand.MESSAGE_LACK_GRADE;
+import static seedu.address.logic.commands.AddCommand.MESSAGE_LACK_JOBSAPPLY;
+import static seedu.address.logic.commands.AddCommand.MESSAGE_LACK_MAJOR;
+import static seedu.address.logic.commands.AddCommand.MESSAGE_LACK_NAME;
+import static seedu.address.logic.commands.AddCommand.MESSAGE_LACK_NRIC;
+import static seedu.address.logic.commands.AddCommand.MESSAGE_LACK_PHONE;
+import static seedu.address.logic.commands.AddCommand.MESSAGE_LACK_RACE;
+import static seedu.address.logic.commands.AddCommand.MESSAGE_LACK_SCHOOL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GENDER;
@@ -61,7 +73,31 @@ public class AddCommandParser implements Parser<AddCommand> {
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
-
+        if (!argMultimap.getPreamble().isEmpty()) {
+            throw new ParseException(String.format(MESSAGE_INFORMATION_WITHOUT_PREFIX, AddCommand.MESSAGE_USAGE));
+        } else if (!argMultimap.getValue(PREFIX_NAME).isPresent()) {
+            throw new ParseException(String.format(MESSAGE_LACK_NAME, AddCommand.MESSAGE_USAGE));
+        } else if (!argMultimap.getValue(PREFIX_ADDRESS).isPresent()) {
+            throw new ParseException(String.format(MESSAGE_LACK_ADDRESS, AddCommand.MESSAGE_USAGE));
+        } else if (!argMultimap.getValue(PREFIX_PHONE).isPresent()) {
+            throw new ParseException(String.format(MESSAGE_LACK_PHONE, AddCommand.MESSAGE_USAGE));
+        } else if (!argMultimap.getValue(PREFIX_EMAIL).isPresent()) {
+            throw new ParseException(String.format(MESSAGE_LACK_EMAIL, AddCommand.MESSAGE_USAGE));
+        } else if (!argMultimap.getValue(PREFIX_NRIC).isPresent()) {
+            throw new ParseException(String.format(MESSAGE_LACK_NRIC, AddCommand.MESSAGE_USAGE));
+        } else if (!argMultimap.getValue(PREFIX_GENDER).isPresent()) {
+            throw new ParseException(String.format(MESSAGE_LACK_GENDER, AddCommand.MESSAGE_USAGE));
+        } else if (!argMultimap.getValue(PREFIX_RACE).isPresent()) {
+            throw new ParseException(String.format(MESSAGE_LACK_RACE, AddCommand.MESSAGE_USAGE));
+        } else if (!argMultimap.getValue(PREFIX_SCHOOL).isPresent()) {
+            throw new ParseException(String.format(MESSAGE_LACK_SCHOOL, AddCommand.MESSAGE_USAGE));
+        } else if (!argMultimap.getValue(PREFIX_MAJOR).isPresent()) {
+            throw new ParseException(String.format(MESSAGE_LACK_MAJOR, AddCommand.MESSAGE_USAGE));
+        } else if (!argMultimap.getValue(PREFIX_GRADE).isPresent()) {
+            throw new ParseException(String.format(MESSAGE_LACK_GRADE, AddCommand.MESSAGE_USAGE));
+        } else if (!argMultimap.getValue(PREFIX_JOBSAPPLY).isPresent()) {
+            throw new ParseException(String.format(MESSAGE_LACK_JOBSAPPLY, AddCommand.MESSAGE_USAGE));
+        }
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
         Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
         Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
@@ -73,7 +109,7 @@ public class AddCommandParser implements Parser<AddCommand> {
         Major major = ParserUtil.parseMajor(argMultimap.getValue(PREFIX_MAJOR).get());
         Grade grade = ParserUtil.parseGrade(argMultimap.getValue(PREFIX_GRADE).get());
         InterviewScores interviewScores;
-        if (arePrefixesPresent(argMultimap, PREFIX_INTERVIEWSCORES)) {
+        if (argMultimap.getValue(PREFIX_INTERVIEWSCORES).isPresent()) {
             interviewScores = ParserUtil.parseInterviewScores(argMultimap
                     .getValue(PREFIX_INTERVIEWSCORES).get());
         } else {

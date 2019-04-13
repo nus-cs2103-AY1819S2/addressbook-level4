@@ -4,9 +4,15 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_FILTERNAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GENDER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GRADE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INTERVIEWSCORES;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_INTERVIEWSCORESQ1;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_INTERVIEWSCORESQ2;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_INTERVIEWSCORESQ3;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_INTERVIEWSCORESQ4;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_INTERVIEWSCORESQ5;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_JOBNAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_JOBSAPPLY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_KNOWNPROGLANG;
@@ -57,7 +63,18 @@ public class CommandTestUtil {
     public static final String VALID_MAJOR_AMY = "Computer Science";
     public static final String VALID_MAJOR_BOB = "MATH";
     public static final String VALID_GRADE_AMY = "4.12";
+    public static final String VALID_GRADE_RANGE_AMY = "4.11-4.13";
     public static final String VALID_GRADE_BOB = "4.00";
+    public static final String VALID_INTERVIEW1_AMY = "6";
+    public static final String VALID_INTERVIEW1_RANGE_AMY = "5-7";
+    public static final String VALID_INTERVIEW2_AMY = "6";
+    public static final String VALID_INTERVIEW2_RANGE_AMY = "5-7";
+    public static final String VALID_INTERVIEW3_AMY = "6";
+    public static final String VALID_INTERVIEW3_RANGE_AMY = "5-7";
+    public static final String VALID_INTERVIEW4_AMY = "6";
+    public static final String VALID_INTERVIEW4_RANGE_AMY = "5-7";
+    public static final String VALID_INTERVIEW5_AMY = "6";
+    public static final String VALID_INTERVIEW5_RANGE_AMY = "5-7";
     public static final String VALID_KNOWNPROGLANG_PYTHON = "Python";
     public static final String VALID_KNOWNPROGLANG_JAVA = "Java";
     public static final String VALID_PASTJOB_PROFESSSOR = "Professor";
@@ -70,6 +87,7 @@ public class CommandTestUtil {
     public static final String VALID_TAG_FRIEND = "friend";
     public static final String VALID_JOB_NAME_SE = "Search Engineer";
     public static final String VALID_JOB_NAME_TEACHER = "Teacher";
+    public static final String VALID_FILTERNAME = "FilterName";
 
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
@@ -94,6 +112,12 @@ public class CommandTestUtil {
     public static final String MAJOR_DESC_AMY = " " + PREFIX_MAJOR + VALID_MAJOR_AMY;
     public static final String MAJOR_DESC_BOB = " " + PREFIX_MAJOR + VALID_MAJOR_BOB;
     public static final String GRADE_DESC_AMY = " " + PREFIX_GRADE + VALID_GRADE_AMY;
+    public static final String INTERVIEW1_RANGE_DESC_AMY = " " + PREFIX_INTERVIEWSCORESQ1 + VALID_INTERVIEW1_RANGE_AMY;
+    public static final String INTERVIEW2_RANGE_DESC_AMY = " " + PREFIX_INTERVIEWSCORESQ2 + VALID_INTERVIEW2_RANGE_AMY;
+    public static final String INTERVIEW3_RANGE_DESC_AMY = " " + PREFIX_INTERVIEWSCORESQ3 + VALID_INTERVIEW3_RANGE_AMY;
+    public static final String INTERVIEW4_RANGE_DESC_AMY = " " + PREFIX_INTERVIEWSCORESQ4 + VALID_INTERVIEW4_RANGE_AMY;
+    public static final String INTERVIEW5_RANGE_DESC_AMY = " " + PREFIX_INTERVIEWSCORESQ5 + VALID_INTERVIEW5_RANGE_AMY;
+    public static final String GRADE_RANGE_DESC_AMY = " " + PREFIX_GRADE + VALID_GRADE_RANGE_AMY;
     public static final String GRADE_DESC_BOB = " " + PREFIX_GRADE + VALID_GRADE_BOB;
     public static final String JOBSAPPLY_DESC_TRADER = " " + PREFIX_JOBSAPPLY + VALID_JOBSAPPLY_TRADER;
     public static final String JOBSAPPLY_DESC_ENGINEER = " " + PREFIX_JOBSAPPLY + VALID_JOBSAPPLY_ENGINEER;
@@ -103,6 +127,7 @@ public class CommandTestUtil {
     public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
     public static final String JOBNAME_SE = " " + PREFIX_JOBNAME + VALID_JOB_NAME_SE;
     public static final String JOBNAME_TEACHER = " " + PREFIX_JOBNAME + VALID_JOB_NAME_TEACHER;
+    public static final String FILTERNAME_DESC = " " + PREFIX_FILTERNAME + VALID_FILTERNAME;
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones
@@ -115,12 +140,20 @@ public class CommandTestUtil {
     public static final String INVALID_PASTJOB_DESC = " " + PREFIX_PASTJOB; // empty string not allowed for past job
     public static final String INVALID_MAJOR_DESC = " " + PREFIX_MAJOR + "^^"; //symbols not allowed
     public static final String INVALID_GRADE_DESC = " " + PREFIX_GRADE + "4.2"; // 1 decimal place not allowed
+    public static final String INVALID_GRADE_RANGE_DESC = " " + PREFIX_GRADE + "4.1*-4.2";
+    public static final String INVALID_INTERVIEW1_RANGE_DESC = " " + PREFIX_GRADE + "5*-7";
+    public static final String INVALID_INTERVIEW2_RANGE_DESC = " " + PREFIX_GRADE + "5*-7";
+    public static final String INVALID_INTERVIEW3_RANGE_DESC = " " + PREFIX_GRADE + "5*-7";
+    public static final String INVALID_INTERVIEW4_RANGE_DESC = " " + PREFIX_GRADE + "5*-7";
+    public static final String INVALID_INTERVIEW5_RANGE_DESC = " " + PREFIX_GRADE + "5*-7";
     public static final String INVALID_KNOWNPROGLANG_DESC = " " + PREFIX_KNOWNPROGLANG + "  "; //blank not allowed
     public static final String INVALID_JOBSAPPLY_DESC = " " + PREFIX_JOBSAPPLY + " "; //blank not allowed
     public static final String INVALID_INTERVIEWSCORES_DESC = " " + PREFIX_INTERVIEWSCORES + " ";
+    public static final String INVALID_FILTERNAME = "";
     // empty string not allowed for interview scores
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
     public static final String INVALID_JOBNAME = " " + PREFIX_JOBNAME + "$#@#@$*"; // only letters allowed
+    public static final String INVALID_LISTNAME = " invalidListName";
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
@@ -173,6 +206,17 @@ public class CommandTestUtil {
                                             String expectedMessage, Model expectedModel) {
         CommandResult expectedCommandResult = new CommandResult(expectedMessage);
         assertCommandSuccess(command, actualModel, actualCommandHistory, expectedCommandResult, expectedModel);
+    }
+
+    /**
+     * Executes the given {@code command}
+     */
+    public static void commandExecute(Command command, Model actualModel, CommandHistory actualCommandHistory) {
+        try {
+            command.execute(actualModel, actualCommandHistory);
+        } catch (CommandException ce) {
+            throw new AssertionError("Execution of command should not fail.", ce);
+        }
     }
 
     /**

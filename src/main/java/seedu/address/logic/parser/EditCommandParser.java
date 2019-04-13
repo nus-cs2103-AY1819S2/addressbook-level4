@@ -1,7 +1,7 @@
 package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_PREAMBLE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GENDER;
@@ -54,7 +54,7 @@ public class EditCommandParser implements Parser<EditCommand> {
         try {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+            throw new ParseException(String.format(MESSAGE_INVALID_PREAMBLE,
                     EditCommand.MESSAGE_USAGE), pe);
         }
 
@@ -154,8 +154,6 @@ public class EditCommandParser implements Parser<EditCommand> {
                 && pastjobs.contains("") ? Collections.emptySet() : pastjobs;
         return Optional.of(ParserUtil.parsePastJobs(pastjobSet));
     }
-
-
 
 
     /**

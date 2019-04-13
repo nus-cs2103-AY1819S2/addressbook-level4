@@ -19,13 +19,13 @@ public class DeleteFilterCommandParser implements Parser<DeleteFilterCommand> {
     public DeleteFilterCommand parse(String args) throws ParseException {
         JobListName listName;
         String trimedString = args.trim();
-        boolean hasListName = trimedString.split("\\s+").length==2;
+        boolean hasListName = trimedString.split("\\s+").length == 2;
         String listNameString;
         String commandName;
-        if (!hasListName){
+        if (!hasListName) {
             listNameString = "";
             commandName = trimedString.split("\\s+")[0].trim();
-        }else {
+        } else {
             listNameString = trimedString.split("\\s+")[0].trim();
             commandName = trimedString.split("\\s+")[1].trim();
         }

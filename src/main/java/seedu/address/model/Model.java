@@ -13,7 +13,6 @@ import seedu.address.model.interviews.Interviews;
 import seedu.address.model.job.Job;
 import seedu.address.model.job.JobListName;
 import seedu.address.model.job.JobName;
-import seedu.address.model.person.Nric;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.person.predicate.UniqueFilterList;
@@ -85,7 +84,7 @@ public interface Model {
     /**
      * adds person with {@code nric} to {@code job}.
      */
-    boolean addPersonToJob(JobName job, Nric nric);
+    void addPersonToJob(Job job, Person person, JobListName list);
 
     /**
      * Deletes the given person.
@@ -112,11 +111,17 @@ public interface Model {
     void deleteJob(Job job);
 
     /**
+     * Deletes the given job list of a job
+     * {@code job} must exist in the address book.
+     */
+    void deletePersonFromJobList(Person toRemove, JobName job, JobListName list);
+
+    /**
      * Moves Person with {@code nric} in Job with {@code jobName}
      * from list {@code source} to list {@code dest}
      * {@code job} must exist in the address book.
      */
-    Integer movePerson(JobName jobName, Nric nric, Integer source, Integer dest);
+    Integer movePerson(Job job, Person person, Integer source, Integer dest);
 
     /**
      * Replaces the given person {@code target} with {@code editedPerson}.
@@ -204,9 +209,10 @@ public interface Model {
      */
     ObservableList<Person> getFilteredPersonList();
 
-    /** Returns an unmodifiable view of the filtered  people list in job */
+    /** Returns an unmodifiable view of the filtered  people list in job
+     * @param list*/
 
-    ObservableList<Person> getJobsList(int listNum);
+    ObservableList<Person> getJobsList(JobListName list);
 
     /** Returns an unmodifiable view of the filtered job list */
     ObservableList<Job> getAllJobs();
@@ -222,6 +228,19 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateBaseFilteredPersonList(Predicate<Person> predicate);
+
+    /**
+     * Updates the filter of the filtered person list to filter by the given {@code predicate}.
+     *
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredPersonList(Predicate<Person> predicate);
+
+    /**
+     * Updates the filter of the active filtered person list to filter.
+     *
+     */
+    void updateFilteredPersonList();
 
     /**
      * Updates the filter of the JobAllApplcants filtered person list to filter by the given {@code predicate}.
@@ -245,12 +264,6 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateJobShortlistFilteredPersonList();
-
-    /**
-     * Updates the filter of the active filtered person list to filter.
-     *
-     */
-    void updateFilteredPersonList();
 
     /**
      * Clear four filter list.

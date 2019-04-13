@@ -58,21 +58,21 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window and show
 .  Refer to <<Features>> for details of each command.
 // end::quickstart[]
 
-// tag::userinterface[]
-== Graphical User Interface Introdution
+
+== Graphical User Interface Introduction
 This section will explain to you the Graphical User Interface (GUI) of _In-Credit-Ble_ Finance Tracker.
 
 .Graphical User Interface (When starting up)
-image::GUI_Diagram.png[]
+image::GUI_Diagram.png[width="600"]
 .Graphical User Interface (Upon using `summary` command)
-image::GUI_Diagram2.png[]
+image::GUI_Diagram2.png[width="600"]
 
 There are a total of 7 elements in the Graphical User Interface in _In-Credit-Ble_ Finance Tracker
 as denoted by the different coloured boxes in Figures 2 and 3.
 
 === Menu Bar
 .Menu Bar
-image::Menu_bar.png[]
+image::Menu_bar.png[width="300"]
 This element is denoted by the pink box in Figures 2 and 3.
 
 The menu bar can be used to:
@@ -81,9 +81,10 @@ The menu bar can be used to:
 * Open the Help page to view commands available under `Help` tab
 * Change the colour theme of the application under `Theme` tab
 
+// tag::userinterface[]
 === Records List Panel
 .Record List Panel: Shows a list of your expense records
-image::Record_List_Panel.png[]
+image::Record_List_Panel.png[width="200"]
 
 This element is denoted by the yellow box in Figures 2 and 3.
 
@@ -97,9 +98,10 @@ use the command `list`
 Each record is tagged with an *index number* before the record name.
 The index is used in command such as `delete`, `edit` and `select`
 
+// end::userinterface[]
 === Budget Panel
 .Budget Panel: Shows your total spending against your total budget so far
-image::BudgetPanel.png[]
+image::BudgetPanel.png[width="250"]
 
 This element is denoted by the green box in Figures 2 and 3.
 
@@ -116,10 +118,10 @@ See:
 
 
 .Budget progress bar turns orange to give warning
-image::BudgetPanel_Orange.png[]
+image::BudgetPanel_Orange.png[width="250"]
 
 .Budget progress bar turns red to give warning
-image::BudgetPanel_red.png[]
+image::BudgetPanel_red.png[width="250"]
 
 * The budget progress bar will be *green* if you are still within your budget as shown in Figure 6
 * The budget progress bar will turn *orange* if your expenditure is above 80% of your total budget
@@ -129,7 +131,7 @@ as shown in Figure 7
 
 === Browser Panel
 .Browser Panel: Shows the budget left, current spending and total budget
-image::browserpanel.png[]
+image::browserpanel.png[width="250"]
 
 This element is denoted by the brown box in Figure 2.
 
@@ -143,7 +145,7 @@ the amount you exceeded the budget set for yourself.
 
 === Summary Panel
 .Summary Panel: Shows you a pie chart illustration of your current expenses
-image::summarypanel.png[]
+image::summarypanel.png[width="400"]
 
 This element is denoted by the red box in Figure 3.
 
@@ -154,7 +156,7 @@ To change back to the browser panel, simply type in the `summary` command once a
 
 === Command Box and Result Display
 .Command Box and Result Display
-image::commandbox_resultdisplay.png[]
+image::commandbox_resultdisplay.png[width="450"]
 
 These elements are denoted by the black and blue boxes in Figures 2 and 3 respectively.
 
@@ -172,13 +174,12 @@ This element is denoted by the purple box in Figures 2 and 3.
 The left side of the status footer bar shows the time and date of the last update to the finance tracker.
 The right side of the status footer bar shows where the storage file for the updated data is saved to.
 
-// end::userinterface[]
-
 [[Features]]
 == Features
 This section describes the various features _In-Credit-Ble_ has to offer. Examples are also included to give you
 step-by-step instructions on how to use the different commands.
 
+[IMPORTANT]
 ====
 *Command Format*
 
@@ -187,6 +188,9 @@ step-by-step instructions on how to use the different commands.
 * Items in square brackets are optional e.g `search KEYWORD [MORE_KEYWORDS]` can be used as `search clothes` or as
 `search cake lunch`.
 * Items with `…`​ after them can be used multiple times including zero times.
+* If you provide more than the number of specified parameters
+(e.g. `set $/500 $/400` or `spend n/Chicken n/Duck $/10 $/20 c/Food c/Lunch`), the latest parameter is taken
+(e.g. Budget is set to $400, Record added is Name: Duck, Amount: $20, Category: Lunch)
 ====
 
 === Budget Management
@@ -194,7 +198,7 @@ step-by-step instructions on how to use the different commands.
 // tag::set[]
 ==== Setting a budget: `set`
 
-This command enables you to set a fixed budget for a month/week (Time limit to be implemented). The current budget will be modified based on the transaction records. The command format is as follows:
+You can use this command to set a budget for the current instance of _In-Credit-Ble_ Finance Tracker. +
 
 *Format*: `set $/AMOUNT`
 
@@ -204,6 +208,31 @@ This command enables you to set a fixed budget for a month/week (Time limit to b
 * `set $/500`
 * `set $/500.50`
 ****
+[NOTE]
+====
+* The budget set must contain a valid amount. A valid amount is a positive number with
+0 or 2 decimal places.
+* If you provide multiple amounts (e.g. `set $/30 $/50`), only the last amount you provided will
+be used to set the budget (`$/50` in the example). Only the last amount needs to be a valid
+amount (e.g. `set $/1a $/10` works while `set $/10 $/1a` does not).
+* If a budget was previously set, the old budget will be overwritten by the new budget specified
+by the `set` command.
+* The budget you set and current spending will be displayed in the <<Budget Panel>>.
+* Only one budget may be set for each instance of the Finance Tracker. The rationale is to keep the
+UI as clean as possible without extra panels for past budgets. You can either use `allocate` to set
+various category sub-budgets or create a new instance of he Finance Tracker with the `setfile` command
+detailed in <<Changing FinanceTracker data storage location: `setfile`>>.
+====
+
+[IMPORTANT]
+====
+* Take note that you can spend over the budget set and set a budget lower than current spending. The
+ratianole is for you to be able to see how much you have exceeded your budget set to better plan your
+expenditure in the future since the App is unable to stop you from spending.
+* The budget you set must be higher than or equal to the sum of the budgets allocated to individual
+category. The rationale is that it would be pointless to set an overall budget if individual category
+budgets are going to exceed it.
+====
 // end::set[]
 
 // tag::allocate[]
@@ -273,7 +302,7 @@ _(See Graphical User Interface Introduction (GUI) if you are
 unsure of the elements of the GUI):_
 
 .Example of `show` command
-image::show_example.png[]
+image::show_example.png[width ="300"]
 ****
 
 [NOTE]
@@ -327,6 +356,7 @@ category and will be shown with the first character in uppercase and the rest of
 in lowercase (in the above example, it will be shown as `Clothes`)
 * Category name supplied must be https://en.wikipedia.org/wiki/Alphanumeric[alphanumeric]
 and cannot contain special characters such as `:<>;\/|?~^%$#@`
+* Date cannot be a date in the future. Addition of future expenses are not allowed.
 * If no date is inputted, current local date will be used instead.
 * Description is limited to 40 characters.
 * Order of the different parameters does not matter.
@@ -357,6 +387,7 @@ Index refers to the index number shown in the list.
 * `INDEX` *must be a positive integer* 1, 2, 3, ...
 * `INDEX` must be within the total number of records that are displayed.
 * At least one of the optional fields must be provided.
+* Date cannot be a future date.
 * Order of parameters inputted does not matter.
 * Existing values will be updated to the input values.
 ====
@@ -439,7 +470,7 @@ spent on all the results of the search will also be shown.
 
 * `search -cat Transport`
 * `search -name cake bread`
-* `search -date 10/10/2001
+* `search -date 10/10/2001`
 ****
 
 [NOTE]
@@ -458,13 +489,14 @@ You can choose to sort the list of entries by name, amount, date or category.
 
 [NOTE]
 ====
-* `FLAG` here refers to either `-name`, `-amount, `-date` or `-cat`.
+* `FLAG` here refers to either `-name`, `-amount`, `-date` or `-cat`.
 * Only one flag should be provided.
 
 * `[ORDER]` refers to either `-asc` or `-desc`.
 ** `-asc` for ascending order.
 ** `-desc` for descending order.
 * `[ORDER]` is optional. If not supplied, default ordering is implied.
+* Order of parameters supplied matters.
 ====
 
 ****
@@ -479,14 +511,22 @@ Sorts the list of records by date with the latest at the top (descending order)
 * `sort -cat`: +
 Sorts the list of records by category in lexicographical order (ascending order)
 
+.Examples of `sort` command (default ordering)
+image::sortExamples.png[width ="900"]
+
 *More examples*:
 
 * `sort -name -desc`: +
 Sorts list of records by name in reverse lexicographical order.
+
+.Name sorted in descending order
+image::sortNameDescExample.png[width ="300"]
+
+
 ****
 
 [TIP]
-To sort the list conveniently in the reverse order, use the `reverse` command! +
+To sort any list conveniently in the reverse order, use the `reverse` command! +
 `sort -name` +
 `reverse` +
 List will be sorted by name in reverse lexicographical order.
@@ -502,17 +542,32 @@ You can also reverse the order of the list of entries in the records.
 *Alias*: `rev`
 
 *Format*: reverse
+
+.Name sorted in descending order
+image::reverseExample.png[width ="600"]
+
 // end::reverse[]
 
 // tag::summary[]
 ==== Showing summary of records: `summary`
+
 You can see the summary of your previous expenditures represented as a pie chart, with
 each sector representing a category. Each sector is labelled with name and total expenditure for the category,
-allowing you to have an overview of how your spending habit is like.
+allowing you to have a clear overview of how your spending habit is like.
 
-You can also specify a report period.
-//with an aster plot graph showing how your spending habits are like in the
-//different categories. It also displays the remaining budget amount for each category.
+By default, _In-Credit-Ble_ will display the browser panel when you first open the application.
+Entering the `summary` command in the command box will allow you to switch from the browser view mode to the summary view mode, as shown in the diagram below.
+
+.Summary panel is displayed when user enters the  `summary` command
+image::summaryUI.png[width ="800"]
+
+You can also specify a report period by stating the number of days or months via the `PERIOD_AMOUNT` and `PERIOD` parameters. However, these parameters are optional.
+
+To exit the summary view mode, simply type `summary` in the command box again.
+Your screen should change back to the browser view mode as shown in the diagram below.
+
+.Exits from summary view mode when user enters the  `summary` command again
+image::summaryUI_2.png[width ="800"]
 
 *Alias*: `overview`
 
@@ -522,7 +577,7 @@ You can also specify a report period.
 ====
 * If a period is not specified, then the summary will show a default report period of the last 7 days.
 * Deleted entries are not included in the summary.
-* You may also type `summary` in the command box to exit the summary view mode or update the pie chart statistics
+* Adding more entries while in the summary view mode will update the pie chart statistics automatically, as long as the expense falls within the specified report period
 ====
 
 ****
@@ -536,34 +591,45 @@ Shows summary of expenses in the past 3 days
 Shows summary of expenses in the past 7 months
 ****
 
-[NOTE]
-The implementation of this feature is still ongoing. It will be completed by v1.4.
-
 // end::summary[]
 
 
 === Miscellaneous
 
 
-////
+
 // tag::setfile[]
 ==== Changing FinanceTracker data storage location: `setfile`
-Want to maintain multiple users of the FinanceTracker? You can use this command to load a finance tracker profile from another file.
-If the file name does not exist, a new file will be created with an empty finance tracker profile.
-
-File paths and extension should not be included in command.
+You can change the file used to store the data of the application. Essentially,
+you can maintain multiple sets of expenditure and budget data for multiple users
+or profiles.
 
 *Format*: `setfile f/FILENAME`
 
 ****
 *Examples*:
 
+* `setfile f/Daily Expenses`
 * `setfile f/JohnDoe`
+* `setfile f/Personal Finances.April.2019`
+* `setfile f/Company June Petty Cash Finances`
 ****
 
+[NOTE]
+====
+* The filename should not contain any file paths (e.g. /data/file) or extensions
+(e.g. file.json). The filename must also be 250 characters or lesser and should not
+contain any special characters or be left blank.
+* If multiple filenames are provided (e.g. `setfile f/file1 f/file2`) only the last
+filename provided will be taken in as the filename (`file2` in this example).
+Only the last filename needs to be a valid filename
+(e.g. `setfile f/$file f/file` works while `set f/file f/$file` does not).
+* If the file specified by the filename does not already exist, a new blank file
+will be created with no data in the Finance Tracker. Otherwise, the data stored
+in the file will be loaded into the Finance Tracker.
+====
 
 //end::setfile[]
-////
 
 
 // tag::help[]
@@ -586,6 +652,7 @@ You can restore the program to the state before the previous _undoable_ command 
 
 ****
 *Examples*:
+
 * `delete 1` +
 `list` +
 `undo` (reverses the `delete 1` command) +
@@ -605,7 +672,8 @@ The `undo` command fails as there are no undoable commands executed previously.
 _Undoable_ commands:
 
 * commands that modify the finance tracker's content +
-(`set`, `spend`, `increase`, `allocate`, `edit`, `delete`, `clear`, `description).
+(`set`, `allocate`, `spend`, `edit`, `delete`,
+ `sort`, `reverse`, `setfile`, `clear`, `description`).
 ====
 
 ==== Redoing the previously undone command : `redo`
@@ -652,6 +720,8 @@ You can change the theme of the application with pre-set colour themes specified
 * `theme pink`
 ****
 
+image::themes.gif[]
+
 [NOTE]
 ====
 * Valid themes include: `Dark`, `Light`, `Blue`, `Pink`
@@ -695,26 +765,36 @@ You can quit the program at any point in time when you use this command.
 The finance record and allocated budget will be saved in the hard disk automatically after any command that changes
 the data. There is no need for you to save manually.
 
-=== Upcoming features
+// tag::upcomingFeatures[]
+=== Upcoming Features
+
+==== Login Feature `[coming in v2.0]`
+_In-Credit-Ble_ will implement a login feature so that your data and personal finance records will remain safe and secure.
+Your personal data will be encrypted and stored in your own account that can also be secured with a password.
+
+With this feature, multiple users will be able to use _In-Credit-Ble_ on the same computer without being able to access or modify each other's data.
+// end::upcomingFeatures[]
+
+==== Separate expenditures based on methods of payment (Cash, Visa, DBS PayLah) `[coming in v2.0]`
+
+_In-Credit-Ble_ will link up with secure methods of payment to allow tracking of your cashless transactions.
+These include, but not limited to, payment services such as DBS PayLah, Visa/MasterCard, Amex and Paypal.
+
+By paying through these third-party applications, your transactions will automatically be updated
+and recorded as entries in _In-Credit-Ble_.
 
 // tag::savingpatterns[]
 ==== Establish saving patterns based on record and derive projected savings/expenses in a time span `[coming in v2.0]`
 
 Your monthly finance records will be archived at the end of the month. This information will be used to derive
-the projected savings and expenses based on your typical spending patterns.
+the projected savings and expenses of future months, based on analysing your typical spending patterns.
 // end::savingpatterns[]
 
 ==== Links to financial articles `[coming in v2.0]`
 
 You will be able to list categories of financial articles that you are interested in
-(e.g. investment, stock market). Based on these categories, _In-Credit-Ble_ will use Google API to search for
+(e.g. investment, stock market, taxes). Based on these categories, _In-Credit-Ble_ will use Google API to search for
 related articles for you to view.
-
-==== Separate expenditures based on methods of payment (Cash, Visa, Paylah) `[coming in v2.0]`
-
-_In-Credit-Ble_ will link up with secure methods of payment such as payLah, Visa/MasterCard, Amex or Paypal to allow
-tracking of your cashless transactions. By paying through _In-Credit-Ble, transactions will automatically be updated
-and recorded as entries.
 
 == FAQ
 
@@ -739,7 +819,6 @@ _In-Credit-Ble_  aims to support multi-currency transactions in `v2.0`.
 | Set Budget | `set $/AMOUNT` |- | `set $/500`
 | Allocate budgeting based on categories | `allocate $/AMOUNT c/CATEGORY` | `allo` | `allocate $/100 c/Shopping`
 | Show allocated category budget and spending | `show` | `showCatBudget` | -
-//| Increase budget | `increase $/AMOUNT` | - | `increase $/10.10`
 
 |=======================================================================
 
@@ -760,16 +839,16 @@ _In-Credit-Ble_  aims to support multi-currency transactions in `v2.0`.
 |=======================================================================
 | Command | Command Format | Alias | Example
 | List all entries | `list` | `l`, `ls` | -
-| Locate entry based on name, category or date |`search -FLAG* KEYWORD [MORE_KEYWORDS]` | `find` | `search -cat Food`
-| Sort the entries based on name, category, date, amount | `sort -FLAG* [ORDER]**` | - | `sort -name`
+| Locate entry based on name, category or date |`search FLAG* KEYWORD [MORE_KEYWORDS]` | `find` | `search -cat Food`
+| Sort the entries based on name, category, date, amount | `sort FLAG* [ORDER]**` | - | `sort -name`
 | Reverse all entries | `reverse` | `rev` | -
-| Show summary of records | `summary`[#/] [p/] | `overview` | `summary #/5 p/d` +
+| Show summary of records | `summary` _or_ `summary #/PERIOD_AMOUNT p/PERIOD` | `overview` | `summary #/5 p/d` +
 Shows summary for past 5 days
 
 |=======================================================================
-*Valid flags: `name`-> Name; `cat` -> Category; `date` -> Date; `amount` -> Amount;
+*Valid flags: `-name`-> Name; `-cat` -> Category; `-date` -> Date; `-amount` (only for `sort` command) -> Amount;
 
-**Valid orders: `asc` -> ascending order; `desc` -> descending order
+**Valid orders: `-asc` -> ascending order; `-desc` -> descending order
 
 === Miscellaneous
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
@@ -789,7 +868,7 @@ Shows summary for past 5 days
 == Glossary
 
 Amount::
-The amount of money for expenditure and budget
+The amount of money for expenditure and budget.
 
 Category::
 The category that an entry belongs to.
@@ -799,4 +878,4 @@ A listed item/activity tracked by the application.  It generally consists of the
 compulsory category tag
 
 Records::
-The list of all entries stored in the application
+The list of all entries stored in the application.

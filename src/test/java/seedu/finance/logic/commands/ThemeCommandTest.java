@@ -14,26 +14,26 @@ import seedu.finance.model.ModelManager;
 
 public class ThemeCommandTest {
 
-    public static final String blueString1 = "blue";
-    public static final String blueString2 = "BLUE";
-    public static final String lightString1 = "light";
-    public static final String lightString2 = "LIGHT";
+    public static final String BLUE_STRING_1 = "blue";
+    public static final String BLUE_STRING_2 = "BLUE";
+    public static final String LIGHT_STRING_1 = "light";
+    public static final String LIGHT_STRING_2 = "LIGHT";
 
     private Model model = new ModelManager();
     private Model expectedModel = new ModelManager();
     private CommandHistory commandHistory = new CommandHistory();
 
-    private ThemeCommand blueThemeCommand1 = new ThemeCommand(blueString1);
-    private ThemeCommand blueThemeCommand2 = new ThemeCommand(blueString2);
-    private ThemeCommand lightThemeCommand1 = new ThemeCommand(lightString1);
-    private ThemeCommand lightThemeCommand2 = new ThemeCommand(lightString2);
+    private ThemeCommand blueThemeCommand1 = new ThemeCommand(BLUE_STRING_1);
+    private ThemeCommand blueThemeCommand2 = new ThemeCommand(BLUE_STRING_2);
+    private ThemeCommand lightThemeCommand1 = new ThemeCommand(LIGHT_STRING_1);
+    private ThemeCommand lightThemeCommand2 = new ThemeCommand(LIGHT_STRING_2);
 
 
     @Test
     public void execute_theme_success() {
         CommandResult expectedCommandResult = new CommandResult(String.format(MESSAGE_THEME_SUCCESS,
                 "Blue"), false, false, true, "Blue");
-        assertCommandSuccess(new ThemeCommand(blueString1), model, commandHistory,
+        assertCommandSuccess(new ThemeCommand(BLUE_STRING_1), model, commandHistory,
                 expectedCommandResult, expectedModel);
     }
 

@@ -65,6 +65,14 @@ public class EditCommandParserTest {
         assertParseFailure(parser, "", MESSAGE_INVALID_FORMAT);
     }
 
+    // Category is a compulsory field.
+    @Test
+    public void parse_resetCategories_failure() {
+        Index targetIndex = INDEX_THIRD_RECORD;
+        String userInput = targetIndex.getOneBased() + CATEGORY_EMPTY;
+        assertParseFailure(parser, userInput, Category.MESSAGE_CONSTRAINTS);
+    }
+
     @Test
     public void parse_invalidPreamble_failure() {
         // negative index
@@ -89,19 +97,17 @@ public class EditCommandParserTest {
         assertParseFailure(parser, "1"
                 + INVALID_DESCRIPTION_DESC, Description.MESSAGE_CONSTRAINTS); // invalid description
 
-        // valid phone followed by invalid phone. The test case for invalid phone followed by valid phone
+        // valid amount followed by invalid amount. The test case for invalid amount followed by valid phone
         // is tested at {@code parse_invalidValueFollowedByValidValue_success()}
         assertParseFailure(parser, "1" + AMOUNT_DESC_BOB + INVALID_AMOUNT_DESC, Amount.MESSAGE_CONSTRAINTS);
 
-        // while parsing {@code PREFIX_CATEGORY} alone will reset the categories of the {@code Record} being edited,
-        // parsing it together with a valid category results in error
+        // parsing {@code PREFIX_CATEGORY} as the last argument will result in an error
         assertParseFailure(parser, "1" + CATEGORY_DESC_FRIEND + CATEGORY_DESC_HUSBAND
                             + CATEGORY_EMPTY, Category.MESSAGE_CONSTRAINTS);
-        // TODO: Failed Test; need to update
-        /*assertParseFailure(parser, "1" + CATEGORY_DESC_FRIEND + CATEGORY_EMPTY
-                            + CATEGORY_DESC_HUSBAND, Category.MESSAGE_CONSTRAINTS);*/
-        /*assertParseFailure(parser, "1" + CATEGORY_EMPTY + CATEGORY_DESC_FRIEND
-                            + CATEGORY_DESC_HUSBAND, Category.MESSAGE_CONSTRAINTS);*/
+
+        // parsing {@code PREFIX_CATEGORY} will result in an error
+        assertParseFailure(parser, "1" + CATEGORY_EMPTY, Category.MESSAGE_CONSTRAINTS);
+
 
         // multiple invalid values, but only the first invalid value is captured
         assertParseFailure(parser, "1" + INVALID_NAME_DESC + INVALID_AMOUNT_DESC + VALID_AMOUNT_AMY
@@ -199,17 +205,4 @@ public class EditCommandParserTest {
         expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
     }
-
-    // Category is a compulsory field.
-    /*
-    @Test
-    public void parse_resetCategories_success() {
-        Index targetIndex = INDEX_THIRD_RECORD;
-        String userInput = targetIndex.getOneBased() + CATEGORY_EMPTY;
-
-        EditCommand.EditRecordDescriptor descriptor = new EditRecordDescriptorBuilder().withCategories().build();
-        EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
-
-        assertParseSuccess(parser, userInput, expectedCommand);
-    }*/
 }

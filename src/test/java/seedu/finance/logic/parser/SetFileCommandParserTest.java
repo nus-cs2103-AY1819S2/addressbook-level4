@@ -1,5 +1,6 @@
 package seedu.finance.logic.parser;
 
+import static seedu.finance.logic.commands.SetFileCommand.MAX_FILE_LENGTH;
 import static seedu.finance.logic.parser.CliSyntax.PREFIX_FILE;
 import static seedu.finance.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.finance.logic.parser.CommandParserTestUtil.assertParseSuccess;
@@ -36,6 +37,11 @@ public class SetFileCommandParserTest {
         assertParseFailure(parser, " " + PREFIX_FILE + "\\file", expectedMessage);
         assertParseFailure(parser, " " + PREFIX_FILE + "f&ile", expectedMessage);
 
-        // Filename is same as current file
+        // File name is longer than maximum length
+        StringBuilder longFileName = new StringBuilder();
+        for (int i = 0; i < MAX_FILE_LENGTH + 1; i++) {
+            longFileName.append("a");
+        }
+        assertParseFailure(parser, " " + PREFIX_FILE + longFileName.toString(), expectedMessage);
     }
 }

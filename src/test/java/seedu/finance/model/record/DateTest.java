@@ -13,6 +13,9 @@ import seedu.finance.testutil.Assert;
 
 public class DateTest {
 
+    private static final Date dateOne = new Date("29/03/2019");
+    private static final Date dateTwo = new Date("28/03/2019");
+
     @Test
     public void constructor_null_throwsNullPointerException() {
         String test = null;
@@ -50,5 +53,17 @@ public class DateTest {
 
         // valid date
         assertTrue(Date.isValidDate("30/03/2009"));
+    }
+
+    @Test
+    public void differentDateHashCode() {
+        assertFalse(dateOne.hashCode() == dateTwo.hashCode());
+    }
+
+    @Test
+    public void comparingDates() {
+        assertTrue(Date.compare(dateOne, dateTwo) < 0);
+        assertTrue(Date.compare(dateTwo, dateOne) > 0);
+        assertTrue(Date.compare(dateOne, dateOne) == 0);
     }
 }

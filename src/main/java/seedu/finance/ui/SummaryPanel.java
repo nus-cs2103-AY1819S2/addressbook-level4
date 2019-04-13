@@ -4,7 +4,6 @@ import java.util.LinkedHashMap;
 import java.util.Set;
 
 import javafx.beans.binding.Bindings;
-
 import javafx.fxml.FXML;
 import javafx.geometry.Side;
 import javafx.scene.chart.PieChart;
@@ -31,13 +30,12 @@ public class SummaryPanel extends UiPart<Region> {
     private StackPane chartArea;
 
 
-
     /**
      * Constructs a {@code SummaryPanel} object with parameters.
      *
-     * @param summaryData a map with key and value pairs representing data for the charts.
+     * @param summaryData   a map with key and value pairs representing data for the charts.
      * @param summaryPeriod a {@code SummaryPeriod} enum representing the summary period
-     * @param periodAmount an int representing the period amount
+     * @param periodAmount  an int representing the period amount
      */
     public SummaryPanel(
             LinkedHashMap<String, Double> summaryData,
@@ -53,9 +51,9 @@ public class SummaryPanel extends UiPart<Region> {
      * If {@code summaryData} is empty, {@code chartArea} will be a message
      * saying that there are no expenditures.
      *
-     * @param summaryData a map with key and value pairs representing data for the charts.
+     * @param summaryData   a map with key and value pairs representing data for the charts.
      * @param summaryPeriod a {@code SummaryPeriod} enum representing the summary period
-     * @param periodAmount an int representing the period amount
+     * @param periodAmount  an int representing the period amount
      */
     public void setData(
             LinkedHashMap<String, Double> summaryData,

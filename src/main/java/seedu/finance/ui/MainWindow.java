@@ -157,6 +157,8 @@ public class MainWindow extends UiPart<Stage> {
                 logic.getFinanceTracker());
         logic.getFinanceTracker().addListener(observable ->
                 statusBarFooter.updateFileLocation(logic.getFinanceTrackerFilePath()));
+
+
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand, logic.getHistory());
@@ -277,7 +279,7 @@ public class MainWindow extends UiPart<Stage> {
      * Method to handle summary graph to show on UI
      */
     @FXML
-    public void handleShowSummary() { //Need to think how to link to the D3 files
+    public void handleShowSummary() {
         handleChangeBudget();
         handleBrowserPlaceholderSwap();
     }

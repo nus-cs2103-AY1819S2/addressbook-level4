@@ -19,8 +19,8 @@ public class EditLessonCommandSystemTest extends BrainTrainSystemTest {
         String command = "someinvalidcommand";
         assertCommandFailure(command, MESSAGE_UNKNOWN_COMMAND);
 
-        /* Case: opens lesson at index 1
-         * -> opens lesson
+        /* Case: edits lesson at index 1
+         * -> edits lesson
          */
         Index index = Index.fromZeroBased(0);
         command = EditLessonCommand.COMMAND_WORD + " " + index.getOneBased();

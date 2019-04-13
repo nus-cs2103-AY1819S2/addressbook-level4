@@ -55,9 +55,19 @@ The implementation too was demanding, as many factors need to be considered.
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=undoredo]
+=== General Commands
 
-include::../UserGuide.adoc[tag=dataencryption]
+==== dentist
+
+You can specify the name you want to reflect in your patients' dental record when you create them.
+
+Format: `dentist n/YOUR_NAME`
+
+* If there is no dentist name specified, the program will prompt you to enter one.
+
+* This should only happen once, during the first startup of the application.
+
+include::../UserGuide.adoc[tag=patient_management_kyler]
 
 == Contributions to the Developer Guide
 

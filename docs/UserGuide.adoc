@@ -95,6 +95,7 @@ Displays the help text for all available commands.
 
 Format: `help`
 
+// tag::dentist_kyler[]
 ==== dentist
 
 You can specify the name you want to reflect in your patients' dental record when you create them.
@@ -104,6 +105,7 @@ Format: `dentist n/YOUR_NAME`
 * If there is no dentist name specified, the program will prompt you to enter one.
 
 * This should only happen once, during the first startup of the application.
+// end::dentist_kyler[]
 
 ==== history
 Lists all the commands that have been entered since starting the
@@ -281,15 +283,17 @@ Saves patient 1 and patient 3 to patient 5 from the current patients list to "pa
 * `export patients1.json all` +
 Writes all entries from the address book to patients1.json. +
 
+// tag::patient_management_kyler[]
 === Patient Management
 
-==== add
+==== patientadd
 
 Adds a patient to the patients list.
 
-Name, NRIC, and Date of Birth fields are compulsory. The rest are optional fields.
+Name, NRIC, and Date of Birth fields are compulsory.
+The rest are optional fields, and can be filled in later via the `recordedit` command.
 
-Format: `add PARAMETERS …`
+Format: `patientadd PARAMETERS …`
 
 Parameters:
 
@@ -297,11 +301,11 @@ Parameters:
 |===
 |n/NAME |n/Keith Choo Shen Hao
 |s/SEX |s/Male
+|ic/NRIC |ic/S1234567Z
+|dob/DATE_OF_BIRTH_DD-MM-YYYY |dob/28-06-1994
 |p/PHONE_NUMBER |p/98765432
 |e/EMAIL |e/KeithCSH@debang.com
 |a/ADDRESS |a/1 Pulau Tekong Besar 508449
-|ic/NRIC |ic/S1234567Z
-|dob/DATE_OF_BIRTH_DD-MM-YYYY |dob/28-06-1994
 |da/DRUG_ALLERGY |da/Insulin
 |nokn/NEXT_OF_KIN_NAME |nokn/Choo Debang
 |nokp/NEXT_OF_KIN_PHONE_NUMBER |nokp/97654321
@@ -309,19 +313,18 @@ Parameters:
 |noka/NEXT_OF_KIN_ADDRESS |noka/21 Lower Kent Ridge Rd 119077
 |===
 
-Note: If a patient’s next of kin lives at the same address, use `same` to indicate that.
+[NOTE]
+TeethHub determines the uniqueness of patients based on their `NRIC`.
 
-Examples:
+Example:
 
-* `add n/John Choo p/98425871 e/jonC@example.com a/IDA street block 13
-#02-05 ic/S1234567H age/32 dob/26021987 nokn/Jacky Choo nokp/84875215
-nokr/Father noka/same`
+* `patientadd n/John Choo sex/M ic/S1234567H dob/09-09-1995`
 
-==== delete
+==== patientdelete
 
-Deletes the specified patient from the patients list.
+Deletes the patient specified by `index` from the patients list.
 
-Format: delete INDEX
+Format: `patientdelete INDEX`
 
 * Deletes the patient at the specified index.
 
@@ -331,57 +334,52 @@ Format: delete INDEX
 
 Examples:
 
-* `delete 1` +
-Deletes the patient shown with index 1 from the displayed list.
+* `delete 1` -- Deletes the patient shown with index 1 from the displayed list.
 
-* `<<find, find>> John` +
-`delete 2` +
-Deletes the patient shown with index 2 found using the find command.
+[NOTE]
+If the patient index is invalid, the application will display an error message to the user.
 
-==== edit
+==== patientedit
 
-Edits data from an existing patient.
+Edits the information of an existing patient.
 
-Format: `edit INDEX`
+Format: `patientedit INDEX`
 
-* Goes into edit mode for the patient at the specified index shown from
-list or find command. Must be a positive integer (e.g 1, 2 or 3).
+* Edits the information of the patient at the specified index.
 
-* Input the field followed by the new value to replace the existing data.
+* The index refers to the index number shown in the displayed patient list.
 
-* Multiple fields can be edited in a single input or across multiple
-inputs.
+* The given index must be a positive integer (e.g. 1, 2, or 3…).
 
-* When editing tags, the existing tags of the patient will be removed i.e
-adding of tags is not cumulative.
+Format: `patientadd PARAMETERS …`
 
-* All tags can be removed by keying in t/ without specifying any tags
-following it.
+Parameters that can be edited:
 
-* Exit the edit mode by entering done.
+[cols="3",options=""]
+|===
+|n/NAME
+|s/SEX
+|ic/NRIC
+|dob/DATE_OF_BIRTH
+|p/PHONE_NUMBER |p/98765432
+|e/EMAIL
+|a/ADDRESS
+|da/DRUG_ALLERGY
+|nokn/NEXT_OF_KIN_NAME
+|nokp/NEXT_OF_KIN_PHONE_NUMBER
+|nokr/NEXT_OF_KIN_RELATION
+|noka/NEXT_OF_KIN_ADDRESS
+|===
+
 
 Example:
 
-* `<<list, list>>` +
-`edit 1` +
-`p/12345` +
-`e/newemail@gmail.com` +
-`done` +
-Edits the phone number and email of the first patient listed to become
-12345 and newemail@gmail.com respectively across 2 inputs.
-
-
-* `<<find, find>> Betsy` +
-`edit 2` +
-`p/987654 e/mymail@gmail.com` +
-`done` +
-Edits the phone number and email of the first patient listed to become
-987654 and mymail@gmail.com respectively with a single input.
+* `patientedit 1 ic/S1234567A` -- Edits the `NRIC` of the first patient in the patient list.
 
 ==== copy
 
 Makes an exact copy of a patient and adds them to the patient list.
-This may be useful if multiple people share similar details.
+This is useful if there are multiple people who share similar details.
 
 Format: `copy INDEX [Count]`
 
@@ -390,19 +388,15 @@ there will be a confirmation.
 
 Example:
 
-* `copy 3` +
-Makes a copy of the patient at index 3 and inserts it at the bottom of
+* `copy 3` -- Makes a copy of the patient at index 3 and inserts it at the bottom of
 the current patient list with a copy tag.
 
-* `copy 3 4` +
-Makes 4 copies of the patient at index 3 and inserts them at the bottom of
+* `copy 3 4` -- Makes 4 copies of the patient at index 3 and inserts them at the bottom of
 the current patient list with a copy tag.
-
-=== Patient Records Management
 
 ==== goto
 
-Specifies a patient of interest, in order to modify his or her dental records and information.
+The goto command brings the user to the record list of a specified patient.
 
 When the `goto` mode is active, the patient list is replaced by a dental records list. The dental records list displays all dental records of the patient of interest.
 
@@ -534,6 +528,7 @@ All permanent teeth in template will all be present and healthy by default.
 ** <Description> is an optional field that allows you to
 write a note describing more detail on the patient’s teeth
 health.
+// end::patient_management_kyler[]
 
 === Task Management
 ==== taskadd

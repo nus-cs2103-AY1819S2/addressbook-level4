@@ -29,7 +29,6 @@ import seedu.address.logic.commands.ListMedHistCommand;
 import seedu.address.logic.commands.ListPatientCommand;
 import seedu.address.logic.commands.ListPrescriptionCommand;
 import seedu.address.logic.commands.MarkAppointmentCommand;
-import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SearchAdvancedPatientCommand;
 import seedu.address.logic.commands.SearchMedHistCommand;
 import seedu.address.logic.commands.SearchPatientApptStatusCommand;
@@ -43,7 +42,6 @@ import seedu.address.logic.commands.SelectPatientCommand;
 import seedu.address.logic.commands.SelectPrescriptionCommand;
 import seedu.address.logic.commands.SortMedHistCommand;
 import seedu.address.logic.commands.SortPrescriptionCommand;
-import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 
@@ -179,12 +177,6 @@ public class DocXParser {
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
-
-        case UndoCommand.COMMAND_WORD:
-            return new UndoCommand();
-
-        case RedoCommand.COMMAND_WORD:
-            return new RedoCommand();
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

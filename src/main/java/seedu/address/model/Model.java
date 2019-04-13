@@ -281,26 +281,6 @@ public interface Model {
     void sortFilteredPrescriptionList(Comparator<Prescription> prescriptionComparator);
 
     /**
-     * Returns true if the model has previous DocX states to restore.
-     */
-    boolean canUndoDocX();
-
-    /**
-     * Returns true if the model has undone DocX states to restore.
-     */
-    boolean canRedoDocX();
-
-    /**
-     * Restores the model's DocX to its previous state.
-     */
-    void undoDocX();
-
-    /**
-     * Restores the model's DocX to its previously undone state.
-     */
-    void redoDocX();
-
-    /**
      * Saves the current DocX state for undo/redo.
      */
     void commitDocX();

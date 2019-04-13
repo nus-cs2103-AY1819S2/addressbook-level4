@@ -346,29 +346,6 @@ public class ModelManager implements Model {
         versionedDocX.sortPrescription(prescriptionComparator);
     }
 
-
-    //=========== Undo/Redo =================================================================================
-
-    @Override
-    public boolean canUndoDocX() {
-        return versionedDocX.canUndo();
-    }
-
-    @Override
-    public boolean canRedoDocX() {
-        return versionedDocX.canRedo();
-    }
-
-    @Override
-    public void undoDocX() {
-        versionedDocX.undo();
-    }
-
-    @Override
-    public void redoDocX() {
-        versionedDocX.redo();
-    }
-
     @Override
     public void commitDocX() {
         versionedDocX.commit();

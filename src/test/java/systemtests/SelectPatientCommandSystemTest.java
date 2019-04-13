@@ -13,9 +13,7 @@ import static seedu.address.testutil.TypicalPatients.KEYWORD_MATCHING_MEIER;
 import org.junit.Test;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectPatientCommand;
-import seedu.address.logic.commands.UndoCommand;
 import seedu.address.model.Model;
 
 public class SelectPatientCommandSystemTest extends DocXSystemTest {
@@ -33,16 +31,6 @@ public class SelectPatientCommandSystemTest extends DocXSystemTest {
         Index patientCount = getLastIndex(getModel());
         command = SelectPatientCommand.COMMAND_WORD + " " + patientCount.getOneBased();
         assertCommandSuccess(command, patientCount);
-
-        /* Case: undo previous selection -> rejected */
-        command = UndoCommand.COMMAND_WORD;
-        String expectedResultMessage = UndoCommand.MESSAGE_FAILURE;
-        assertCommandFailure(command, expectedResultMessage);
-
-        /* Case: redo selecting last card in the list -> rejected */
-        command = RedoCommand.COMMAND_WORD;
-        expectedResultMessage = RedoCommand.MESSAGE_FAILURE;
-        assertCommandFailure(command, expectedResultMessage);
 
         /* Case: select the middle card in the patient list -> selected */
         Index middleIndex = getMidIndex(getModel());

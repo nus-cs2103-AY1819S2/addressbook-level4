@@ -536,9 +536,7 @@ _{Explain here how the data encryption feature will be implemented}_
 The Find mechanism is facilitated through the use of predicates in conjunction with the
 `FilteredList` within `ModelManager`
 
-image::FindCommandSequenceDiagram1.png[width="800"]
-
-The above sequence diagram gives an overview of how a `Find` Command is created. When the proper string arguments for
+The below sequence diagram gives an overview of how a `Find` Command is created. When the proper string arguments for
  a Find Command is entered into the user interface, the arguments are passed to the Logic Manager and then the
  AddressBook parser to determine if the input is valid. If it valid, a new `FindCommandParser` object is then created
   and handles the remaining user input.
@@ -553,6 +551,8 @@ respective parameter `ContainsKeywordsPredicate` if the parameter is present wit
 On execution of the Find Command, `updateFilteredPersonList` is called with the predicate stored within the program
 itself. It subsequently calls `setPredicate(predicatte)` and updates the displayed person list to only show patients
 that matches the given predicate.
+
+image::FindCommandSequenceDiagram1.png[width="800"]
 
 ==== Design Considerations
 ===== Aspect: Creation of Predicates
@@ -570,7 +570,6 @@ specified to be searched.
 The `Sort` mechanism is facilitated through the use of Comparators in conjunction with the Unique Lists for both
 record and patient depending on the programm's mode when the command is called.
 
-image::SortCommandSequenceDiagram.png[width="800"]
 
 Upon parsing the arguments, `SortCommandParser` then checks which mode TeethHub currently is in. If it's in record /
 goTo mode, it creates a `RecordComparator` and returns a `SortRecordCommand`. Otherwise, a `PatientComparator` is called
@@ -588,6 +587,8 @@ parsed comparator and hence changes the order records are displayed to the user.
 
 Should it be a `SortPatientCommand` instead, the same logic flow occurs except it that calls the respective patient
 methods and classes instead.
+
+image::SortCommandSequenceDiagram.png[width="800"]
 // end::sortimplement[]
 
 // tag::statimplement[]
@@ -597,14 +598,13 @@ image::StatWindow.png[width="500"]
 The `Stat` mechanism is facilitated through the use of the inbuilt JavaFx framework in conjunction with the data
 stored within each `Patient` object.
 
-image::StatActivityDiagram.png[width="800"]
-
 Upon execution of the stat command, the patient to have statistics generated from is set to the `StatWindow` file
 which then uses it to create the report. As per the diagram above, `StatWindow` then obtains all attributes from the
 patient and sets the latest teeth image to itself. From this obtained records list, the records table is generated
 followed by a bar chart and a pie chart. It is at this point that all necessary data has been populated within the
 statistics report and it is displayed to the user.
 
+image::StatActivityDiagram.png[width="800"]
 // end::statimplement[]
 
 === File Management

@@ -169,7 +169,7 @@ Format: `sort PARAM [ORDER]`
 
 * valid PARAM options in patient mode: address, dob, email, name, nric, phone, sex,
 drug, kinN, kinR, kinP, kinA, desc.
-* valid PARAM options in record mode: desc, date, procedure.
+* valid PARAM options in record mode: desc, date, proc.
 * valid ORDER options: asce, desc
 ** default ORDER if unspecified is ascending
 

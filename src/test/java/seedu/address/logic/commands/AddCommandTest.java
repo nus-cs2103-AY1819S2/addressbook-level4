@@ -309,6 +309,11 @@ public class AddCommandTest {
         public ObservableList<ModuleInfoCode> getModuleInfoCodeList() {
             throw new AssertionError("This method should not be called");
         }
+
+        @Override
+        public void updateRequirementStatusList() {
+            throw new AssertionError("This method should not be called");
+        }
     }
 
     /**

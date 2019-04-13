@@ -1,42 +1,36 @@
 package seedu.address.model.course;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import javafx.collections.ObservableList;
-import seedu.address.model.moduleinfo.ModuleInfo;
+import java.util.List;
+
 import seedu.address.model.moduleinfo.ModuleInfoCode;
 
 /**
- * Wrapper class of CourseRequirement to store a snapshot of the completion of requirement
- * at the specific time frame when this class is created
+ * Association class between {@code CourseRequirement} and {@code GradTrak}that stores a snapshot of the completion of {@code CourseRequirement}
+ * object.
  */
 public class RequirementStatus {
 
-    private List<ModuleInfoCode> moduleInfoCodes;
-    private ObservableList<ModuleInfo> allModules;
     private final CourseRequirement courseRequirement;
     private double percentageFulfilled;
     private boolean isFulfilled;
-    private List<String> unsatisfiedRegex = new ArrayList<>();
 
     public RequirementStatus(CourseRequirement courseRequirement,
-                             List<ModuleInfoCode> moduleInfoCodes,
-                             ObservableList<ModuleInfo> allModules) {
-        this.allModules = allModules;
+                             List<ModuleInfoCode> moduleInfoCodes) {
+        requireAllNonNull(courseRequirement, moduleInfoCodes);
+        requireAllNonNull(moduleInfoCodes);
         this.courseRequirement = courseRequirement;
-        this.updateModuleInfoCodes(moduleInfoCodes);
+        this.updateRequirementStatus(moduleInfoCodes);
     }
 
     /**
-     * Updates moduleInfoCodes of this class
+     * Updates isFulfilled and percentageFulfilled based off same {@code CourseRequirement} but different
+     * list of ModuleInfoCode
      */
-    public void updateModuleInfoCodes(List<ModuleInfoCode> moduleInfoCodes) {
-        this.moduleInfoCodes = moduleInfoCodes;
+    public void updateRequirementStatus(List<ModuleInfoCode> moduleInfoCodes) {
         this.isFulfilled = courseRequirement.isFulfilled(moduleInfoCodes);
         this.percentageFulfilled = courseRequirement.getFulfilledPercentage(moduleInfoCodes);
-        unsatisfiedRegex.addAll(courseRequirement.getUnfulfilled(moduleInfoCodes));
 
     }
 
@@ -65,7 +59,7 @@ public class RequirementStatus {
         RequirementStatus another = (RequirementStatus) other;
 
         return this.courseRequirement.equals(another.courseRequirement)
-                && this.allModules.equals(another.allModules)
-                && this.moduleInfoCodes.equals(another.moduleInfoCodes);
+                && this.isFulfilled == another.isFulfilled
+                && this.percentageFulfilled == another.percentageFulfilled;
     }
 }

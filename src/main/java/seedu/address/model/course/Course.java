@@ -23,6 +23,7 @@ public class Course {
     public Course(CourseName courseName, CourseDescription courseDescription,
                   CourseRequirement... courseRequirements) {
         requireAllNonNull(courseName, courseDescription, courseRequirements);
+        requireAllNonNull(courseRequirements);
         this.courseName = courseName;
         this.courseDescription = courseDescription;
         this.courseRequirements = Arrays.asList(courseRequirements);

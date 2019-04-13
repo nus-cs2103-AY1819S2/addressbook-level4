@@ -239,12 +239,12 @@ and other relevant information. This can be seen in the annotated screenshot bel
 .Annotated screenshot when `displayreq` is invoked
 image::displayreqcommand.png[width = "800"]
 
-These are the information displayed in the result panel when `displayreq` is invoked:
+These information are displayed in the result panel when `displayreq` is invoked:
 
 . Name of the course requirement. +
 . Description of the course requirement. Gives an overview of the modules the user should take to fulfill the requirement. +
 . Requirement type. Informs the user the importance of the requirement in relation to their course of study. +
-. Requirement progress bar and percentage. Informs the user the degree to which he/she have fulfilled the course
+. Requirement progress bar and percentage. Informs the user the extent to which he/she have fulfilled the course
 requirement.
 
 Format: `displayreq`
@@ -264,9 +264,6 @@ or +
 ****
 
 Examples:
-
-* `edit c/CS2103T s/Y2S2` +
-Changes the semester taken of CS2103T to Y2S2.
 
 * `edit 2 min/A_PLUS` +
 Changes the expected min grade of the second module in the most recently displayed list to A+.
@@ -371,7 +368,7 @@ Format: `study COURSE` +
 [NOTE]
 The parameter `COURSE` is case-sensitive.
 
-As of `v1.3`, GradTrak has information to keep track of course requirement
+As of `v1.4`, GradTrak has information to keep track of course requirement
 from the courses mentioned below:
 ****
 * Computer Science Algorithms

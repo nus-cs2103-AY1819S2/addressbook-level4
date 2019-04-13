@@ -101,13 +101,7 @@ public class CompositeRequirement implements CourseRequirement {
 
     @Override
     public boolean canFulfill(ModuleInfoCode moduleInfoCode) {
-        switch(connector) {
-        case AND:
-            return first.canFulfill(moduleInfoCode) && second.canFulfill(moduleInfoCode);
-        case OR:
-        default:
             return first.canFulfill(moduleInfoCode) || second.canFulfill(moduleInfoCode);
-        }
     }
 
     @Override

@@ -26,29 +26,29 @@ import seedu.address.model.moduletaken.Semester;
 import seedu.address.model.moduletaken.exceptions.DuplicateModuleTakenException;
 import seedu.address.testutil.ModuleTakenBuilder;
 
-public class AddressBookTest {
+public class GradTrakTest {
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
-    private final GradTrak addressBook = new GradTrak();
+    private final GradTrak gradTrak = new GradTrak();
 
     @Test
     public void constructor() {
-        assertEquals(Collections.emptyList(), addressBook.getModulesTakenList());
+        assertEquals(Collections.emptyList(), gradTrak.getModulesTakenList());
     }
 
     @Test
     public void resetData_null_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        addressBook.resetData(null);
+        gradTrak.resetData(null);
     }
 
     @Test
     public void resetData_withValidReadOnlyAddressBook_replacesData() {
         GradTrak newData = getTypicalGradTrak();
-        addressBook.resetData(newData);
-        assertEquals(newData, addressBook);
+        gradTrak.resetData(newData);
+        assertEquals(newData, gradTrak);
     }
 
     @Test
@@ -62,48 +62,48 @@ public class AddressBookTest {
         GradTrakStub newData = new GradTrakStub(newModuleTakens);
 
         thrown.expect(DuplicateModuleTakenException.class);
-        addressBook.resetData(newData);
+        gradTrak.resetData(newData);
     }
 
     @Test
-    public void hasPerson_nullPerson_throwsNullPointerException() {
+    public void hasModuleTaken_nullModuleTaken_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        addressBook.hasModuleTaken(null);
+        gradTrak.hasModuleTaken(null);
     }
 
     @Test
-    public void hasPerson_personNotInAddressBook_returnsFalse() {
-        assertFalse(addressBook.hasModuleTaken(CS2103T));
+    public void hasModuleTaken_moduleTakenNotInGradTrak_returnsFalse() {
+        assertFalse(gradTrak.hasModuleTaken(CS2103T));
     }
 
     @Test
-    public void hasPerson_personInAddressBook_returnsTrue() {
-        addressBook.addModuleTaken(CS2103T);
-        assertTrue(addressBook.hasModuleTaken(CS2103T));
+    public void hasModuleTaken_moduleTakenInGradTrak_returnsTrue() {
+        gradTrak.addModuleTaken(CS2103T);
+        assertTrue(gradTrak.hasModuleTaken(CS2103T));
     }
 
     @Test
-    public void hasPerson_personWithSameIdentityFieldsInAddressBook_returnsTrue() {
-        addressBook.addModuleTaken(CS2103T);
+    public void hasModuleTaken_moduleTakenWithSameField_returnsTrue() {
+        gradTrak.addModuleTaken(CS2103T);
         ModuleTaken editedAlice = new ModuleTakenBuilder(CS2103T)
                 .withExpectedMaxGrade(VALID_EXPECTED_MAX_GRADE_CS1010)
                 .withTags(VALID_TAG_HUSBAND)
                 .build();
-        assertTrue(addressBook.hasModuleTaken(editedAlice));
+        assertTrue(gradTrak.hasModuleTaken(editedAlice));
     }
 
     @Test
-    public void getPersonList_modifyList_throwsUnsupportedOperationException() {
+    public void getModuleTakenList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
-        addressBook.getModulesTakenList().remove(0);
+        gradTrak.getModulesTakenList().remove(0);
     }
 
     @Test
     public void addListener_withInvalidationListener_listenerAdded() {
         SimpleIntegerProperty counter = new SimpleIntegerProperty();
         InvalidationListener listener = observable -> counter.set(counter.get() + 1);
-        addressBook.addListener(listener);
-        addressBook.addModuleTaken(CS2103T);
+        gradTrak.addListener(listener);
+        gradTrak.addModuleTaken(CS2103T);
         assertEquals(1, counter.get());
     }
 
@@ -111,9 +111,9 @@ public class AddressBookTest {
     public void removeListener_withInvalidationListener_listenerRemoved() {
         SimpleIntegerProperty counter = new SimpleIntegerProperty();
         InvalidationListener listener = observable -> counter.set(counter.get() + 1);
-        addressBook.addListener(listener);
-        addressBook.removeListener(listener);
-        addressBook.addModuleTaken(CS2103T);
+        gradTrak.addListener(listener);
+        gradTrak.removeListener(listener);
+        gradTrak.addModuleTaken(CS2103T);
         assertEquals(0, counter.get());
     }
 

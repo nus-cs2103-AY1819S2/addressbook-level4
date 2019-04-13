@@ -18,22 +18,30 @@ By: `W14-2`      Since: `Feb 2019`      Licence: `MIT`
 
 == Introduction
 
-FomoFoto is a image processing software suite written in Java. This application is optimised for users who are *familiar with the Command Line Interface (CLI)*, while providing a *Graphical User Interface (GUI)* for easy reference. For those who love the CLI, this is written for you! If you are not familiar, don't worry, we'll take you through and you'll be a pro in no time! Who knows? You might even be editing your pictures faster than your friends who use Photoshop! Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+FomoFoto is a image processing software suite written in Java. This application is optimised for users who are *familiar with the Command Line Interface (CLI)*, while providing a *Graphical User Interface (GUI)* for easy reference. The application is optimized for users who prefer text-based instructions.
+
+For new user, jump to <<Quick Start>> for an overview on how to use FomoFoto and the tools available.
 
 // tag::QuickStart[]
 == Quick Start
-Follow the steps below to set up your computer to run FomoFoto.
 
-.  Ensure you have Java version 9 or later installed in your Computer.
-.  Download the latest FomoFoto.jar here.
-.  Copy the file to the folder you want to use as the home folder for your FomoFoto application.
-.  Double-click the file to start the app. The GUI should appear in a few seconds.
+System Requirements:
+
+* Windows 10 or newer / OS X 10.8 or newer.
+* Java 9 or newer.
+
+Follow the steps below to set up your computer to run FomoFoto:
+
+.  Ensure your system meets the system requirements.
+.  Download the latest FomoFoto.jar https://github.com/CS2103-AY1819S2-W14-2/main/releases[here].
+.  Copy the JAR to the folder you want to use as the home folder for your FomoFoto application.
+.  Double-click the JAR to start the application. The Graphical User Interface should appear in a few seconds.
 +
 .Home Page of FomoFoto
 image::ui.png[width="800"]
 +
+.  You have just successfully setup FomoFoto on your device. To see the command available in FomoFoto, refer to <<Features>> for details of each command. A step-by-step walkthrough of FomoFoto is available at the next section: <<A Walk Through>>.
 // end::QuickStart[]
-.  And you have just started up FomoFoto on your device! You can refer to <<Features>> for details of each command. If you would like a step-by-step walk through of our application, scroll down to the next section: A Walk Through.
 
 // tag::AWalkThrough[]
 == A Walk Through

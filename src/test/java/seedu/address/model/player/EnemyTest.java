@@ -2,14 +2,12 @@ package seedu.address.model.player;
 
 import static org.junit.Assert.assertEquals;
 import static org.hamcrest.CoreMatchers.is;
-import static org.assertj.core.api.Assertions.not;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.testutil.SizeTenMapGrid.initialisePlayerSizeTen;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import org.junit.Before;

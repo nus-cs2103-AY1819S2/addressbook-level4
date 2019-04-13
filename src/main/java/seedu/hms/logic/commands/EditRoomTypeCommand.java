@@ -37,6 +37,7 @@ public class EditRoomTypeCommand extends ReservationCommand {
 
     public static final String MESSAGE_EDIT_ROOM_TYPE_SUCCESS = "Room Type edited: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
+    public static final String MESSAGE_DUPLICATE_ROOM_TYPE = "This room type already exists in the hms book";
 
     private final EditRoomTypeDescriptor editRoomTypeDescriptor;
     private final Index index;
@@ -78,6 +79,11 @@ public class EditRoomTypeCommand extends ReservationCommand {
 
         RoomType roomTypeToEdit = lastShownList.get(index.getZeroBased());
         RoomType editedRoomType = createEditedRoomType(roomTypeToEdit, editRoomTypeDescriptor);
+
+        if (!roomTypeToEdit.equals(editedRoomType) && model.hasRoomType(editedRoomType)) {
+            throw new CommandException(MESSAGE_DUPLICATE_ROOM_TYPE);
+        }
+
         model.setRoomType(index.getZeroBased(), editedRoomType);
         model.commitHotelManagementSystem();
         return new CommandResult(String.format(MESSAGE_EDIT_ROOM_TYPE_SUCCESS, editedRoomType));

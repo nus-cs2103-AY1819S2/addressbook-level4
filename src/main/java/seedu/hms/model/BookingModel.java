@@ -24,6 +24,8 @@ public interface BookingModel extends Model {
      */
     Booking getSelectedBooking();
 
+    boolean hasServiceType(ServiceType st);
+
     /**
      * Sets the selected booking in the filtered booking list.
      */

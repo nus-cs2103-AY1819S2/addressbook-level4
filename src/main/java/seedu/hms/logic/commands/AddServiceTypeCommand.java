@@ -32,6 +32,7 @@ public class AddServiceTypeCommand extends BookingCommand {
         + PREFIX_RATE + "4.0 ";
 
     public static final String MESSAGE_SUCCESS = "New service type added: %1$s";
+    public static final String MESSAGE_DUPLICATE_SERVICE_TYPE = "This service type already exists in the hms book";
     private final ServiceType toAdd;
 
     /**
@@ -45,6 +46,9 @@ public class AddServiceTypeCommand extends BookingCommand {
     @Override
     public CommandResult execute(BookingModel model, CommandHistory history) throws CommandException {
         requireNonNull(model);
+        if (model.hasServiceType(toAdd)) {
+            throw new CommandException(MESSAGE_DUPLICATE_SERVICE_TYPE);
+        }
         model.addServiceType(toAdd);
         model.commitHotelManagementSystem();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));

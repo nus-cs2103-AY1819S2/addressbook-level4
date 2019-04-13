@@ -14,7 +14,7 @@ import seedu.address.model.person.Person;
  *     the other types (in their pre-existing ordering)
  * Should two people have perfectly matching tags, they are then ordered alphabetically by name (first name first)
  */
-public class SortSkills implements SortMethod {
+public class SortTags implements SortMethod {
 
     private List<Person> newList;
 

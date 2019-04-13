@@ -105,6 +105,7 @@ public class CommandTestUtil {
     public static void assertCommandSuccess(Command command, Model actualModel, CommandHistory actualCommandHistory,
             String expectedMessage, Model expectedModel) {
         CommandResult expectedCommandResult = new CommandResult(expectedMessage);
+        System.out.println("acs:" + actualModel.getFilteredPersonList());
         assertCommandSuccess(command, actualModel, actualCommandHistory, expectedCommandResult, expectedModel);
     }
 

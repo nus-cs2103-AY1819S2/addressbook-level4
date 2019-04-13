@@ -10,7 +10,6 @@ import seedu.address.model.person.Person;
 /**
  * Follows the SortMethod interface
  * Sorts all persons by GPA and then subsequently alphabetically by name (first name first)
- * TODO: replace name by education level
  */
 public class SortGpa implements SortMethod {
 

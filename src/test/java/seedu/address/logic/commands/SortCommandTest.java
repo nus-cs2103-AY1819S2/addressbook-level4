@@ -1,6 +1,8 @@
 package seedu.address.logic.commands;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BENSON;
 import static seedu.address.testutil.TypicalPersons.CARL;
@@ -22,6 +24,8 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.Person;
+import seedu.address.testutil.EditPersonDescriptorBuilder;
+import seedu.address.testutil.PersonBuilder;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code FindCommand}.
@@ -64,16 +68,42 @@ public class SortCommandTest {
     @Test
     public void execute_sortSurnames_success() {
         //TODO: Look at situation for matching surnames
-        String expectedMessage = String.format("Sorted all persons by surname");
+        // The edit SortCommandIntegrationTest must be working
+        // Edit three of the persons to have matching surnames to test subsequent first name sorting
+
+        String Surname  = GEORGE.surnameToString();
+        Person editedAlice = new PersonBuilder()
+                .withName(model.getFilteredPersonList().get(0).firstNameToString() + " " + Surname).build();
+        Person editedBenson = new PersonBuilder()
+                .withName(model.getFilteredPersonList().get(1).firstNameToString() + " " + Surname).build();
+
+        // Edit the first person to have George's surname
+        EditCommand.EditPersonDescriptor descriptorOne = new EditPersonDescriptorBuilder(editedAlice).build();
+        EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON, descriptorOne);
+        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedAlice);
+        expectedModel.setPerson(model.getFilteredPersonList().get(0), editedAlice);
+        expectedModel.commitAddressBook();
+        System.out.println(expectedModel.getFilteredPersonList());
+        assertCommandSuccess(editCommand, model, commandHistory, expectedMessage, expectedModel);
+
+        // Edit the second person to have George's surname
+        EditCommand.EditPersonDescriptor descriptorTwo = new EditPersonDescriptorBuilder(editedBenson).build();
+        EditCommand editCommandTwo = new EditCommand(INDEX_SECOND_PERSON, descriptorTwo);
+        String expectedMessageTwo = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedBenson);
+        expectedModel.setPerson(model.getFilteredPersonList().get(1), editedBenson);
+        expectedModel.commitAddressBook();
+        assertCommandSuccess(editCommandTwo, model, commandHistory, expectedMessageTwo, expectedModel);
+
+        String expectedMessageThree = String.format("Sorted all persons by surname");
         SortWord type = new SortWord("surname");
         SortCommand command = new SortCommand(type);
         expectedModel.deleteAllPerson();
-        correctPersonOrder = Arrays.asList(GEORGE, FIONA, CARL, BENSON, DANIEL, ELLE, ALICE);
+        correctPersonOrder = Arrays.asList(ALICE, BENSON, GEORGE, FIONA, CARL, DANIEL, ELLE);
         for (Person newPerson : correctPersonOrder) {
             expectedModel.addPersonWithFilter(newPerson);
         }
         expectedModel.commitAddressBook();
-        assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
+        assertCommandSuccess(command, model, commandHistory, expectedMessageThree, expectedModel);
     }
 
     @Test

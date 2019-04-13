@@ -412,6 +412,7 @@ public class FilterCommandIntegrationTest {
         assertCommandSuccess(commandFilter, model, commandHistory, FilterCommand.MESSAGE_FILTER_PERSON_SUCCESS,
                 expectedModel);
 
+        /**
         // sorting by names takes place - success
         String expectedMessage = "Sorted all persons by name";
         SortWord type = new SortWord("name");
@@ -473,6 +474,7 @@ public class FilterCommandIntegrationTest {
         commandFilter = new FilterCommand(criterionClearAndReverse, TYPE_REVERSE);
         expectedModel.reverseFilter();
         assertCommandFailure(commandFilter, model, commandHistory, FilterCommand.MESSAGE_NO_FILTER_TO_REVERSE);
+         */
     }
 
     @Test
@@ -628,6 +630,7 @@ public class FilterCommandIntegrationTest {
         assertCommandSuccess(commandFilter, model, commandHistory,
                 FilterCommand.MESSAGE_FILTER_PERSON_SUCCESS, expectedModel);
 
+        /**
         // sort name called
         String expectedMessage = "Sorted all persons by name";
         SortWord type = new SortWord("name");
@@ -723,6 +726,7 @@ public class FilterCommandIntegrationTest {
         // filter clear called - failure
         commandFilter = new FilterCommand(criterionClearAndReverse, TYPE_CLEAR);
         assertCommandFailure(commandFilter, model, commandHistory, FilterCommand.MESSAGE_NO_FILTER_TO_CLEAR);
+         */
     }
 
 

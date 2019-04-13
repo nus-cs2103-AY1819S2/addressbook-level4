@@ -3,7 +3,12 @@ package seedu.address.logic.parser;
 /**
  * Contains Command Line Interface (CLI) syntax definitions common to multiple commands
  */
-public class CliSyntax {
+public class
+
+
+
+CliSyntax {
+
 
     /* Prefix definitions */
     public static final Prefix PREFIX_NAME = new Prefix("n/");
@@ -38,6 +43,7 @@ public class CliSyntax {
 
 
     /* Sort-Word definitions*/
+    public static final SortWord SORTWORD_DEGREE = new SortWord("degree");
     public static final SortWord SORTWORD_EDUCATION = new SortWord("education");
     public static final SortWord SORTWORD_ENDORSEMENTS = new SortWord("endorsements");
     public static final SortWord SORTWORD_ENDORSEMENT_NUMBER = new SortWord("endorsement number");
@@ -45,6 +51,7 @@ public class CliSyntax {
     public static final SortWord SORTWORD_NAME = new SortWord("name");
     public static final SortWord SORTWORD_POSITION_NUMBER = new SortWord("position number");
     public static final SortWord SORTWORD_POSITIONS = new SortWord("positions");
+    public static final SortWord SORTWORD_REVERSE_DEGREE = new SortWord("reverse degree");
     public static final SortWord SORTWORD_REVERSE_EDUCATION = new SortWord("reverse education");
     public static final SortWord SORTWORD_REVERSE_ENDORSEMENTS = new SortWord("reverse endorsements");
     public static final SortWord SORTWORD_REVERSE_ENDORSEMENT_NUMBER = new SortWord("reverse endorsement number");

@@ -3,12 +3,14 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
+import java.util.logging.Logger;
 
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.sortmethods.SortEducation;
 import seedu.address.logic.commands.sortmethods.SortGpa;
 import seedu.address.logic.commands.sortmethods.SortName;
-import seedu.address.logic.commands.sortmethods.SortSkills;
+import seedu.address.logic.commands.sortmethods.SortTags;
 import seedu.address.logic.commands.sortmethods.SortMethod;
 import seedu.address.logic.commands.sortmethods.SortSurname;
 import seedu.address.logic.commands.sortmethods.SortTagNumber;
@@ -28,11 +30,12 @@ public class SortCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Sorts all persons in address book "
             + "according to the specified keyword and displays them as a list with index numbers.\n"
             + "Parameters: [reverse] KEYWORD \n"
-            + "Valid KEYWORD: education, endorsements, endorsement number, gpa, name, positions, position number,\n"
-            + "               skills, skill number, surname \n"
+            + "Valid KEYWORD: degree, education, endorsements, endorsement number, gpa, name, positions,\n"
+            + "               position number, skills, skill number, surname \n"
             + "Example: " + COMMAND_WORD + " name \n"
             + "Example: " + COMMAND_WORD + " reverse skills ";
 
+    private final Logger logger = LogsCenter.getLogger(SortUtil.class);
     private final SortWord method;
 
     private List<Person> sortedPersons;
@@ -82,7 +85,7 @@ public class SortCommand extends Command {
             getSortedPersons(new SortSurname(), lastShownList);
         } else if (commandInput.equals("skills") || commandInput.equals("endorsements")
                 || commandInput.equals("positions")) {
-            getSortedPersons(new SortSkills(), lastShownList, commandInput);
+            getSortedPersons(new SortTags(), lastShownList, commandInput);
         } else if (commandInput.equals("gpa")) {
             getSortedPersons(new SortGpa(), lastShownList);
             //TODO: remove this print statement
@@ -96,9 +99,10 @@ public class SortCommand extends Command {
             System.out.println(sortedPersons);
         } else if (commandInput.substring(commandInput.lastIndexOf(" ") + 1).equals("number")) {
             getSortedPersons(new SortTagNumber(), lastShownList, commandInput);
+        //} else if (commandInput.equals("degree")) {
+        //    getSortedPersons(new SortDegree(), lastShownList);
         } else {
-            // throw error
-            // ensure model cannot be deleted unless a list has been found
+            logger.info("Invalid sort input and cannot be processed.");
         }
         if (isReverseList) {
             sortedPersons = SortUtil.reversePersonList(sortedPersons);

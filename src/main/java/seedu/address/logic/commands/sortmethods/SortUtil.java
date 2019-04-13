@@ -5,8 +5,10 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Education;
 import seedu.address.model.person.Email;
@@ -101,4 +103,33 @@ public class SortUtil {
         Collections.reverse(tempList);
         return tempList;
     }
+
+    /**
+     * A comparator for ranking the 5 degree levels
+     */
+    public static Comparator<String> degreeComparator = new Comparator<String>() {
+        private final Logger logger = LogsCenter.getLogger(SortUtil.class);
+        private int getEducationValue(String education) {
+            int value;
+            if (education.equals("high school")) {
+                value = 1;
+            } else if (education.equals("associate")) {
+                value = 2;
+            } else if (education.equals("associate")) {
+                value = 2;
+            } else if (education.equals("masters")) {
+                value = 4;
+            } else if (education.equals("phd")) {
+                value = 5;
+            } else {
+                value = 0;
+                logger.info("No valid degree to compare");
+            }
+            return value;
+        }
+        @Override
+        public int compare(String personOneDegree, String personTwoDegree) {
+            return getEducationValue(personOneDegree) - getEducationValue(personTwoDegree);
+        }
+    };
 }

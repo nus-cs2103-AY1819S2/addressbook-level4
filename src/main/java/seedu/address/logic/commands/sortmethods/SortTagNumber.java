@@ -34,7 +34,7 @@ public class SortTagNumber implements SortMethod {
             initialSortedList = SortUtil.sortPersons(lastShownList, personTagNumberComparator);
         }
         Collections.reverse(initialSortedList);
-        SortListWithDuplicates secondarySort = new SortListWithDuplicates(initialSortedList, new SortSkills(),
+        SortListWithDuplicates secondarySort = new SortListWithDuplicates(initialSortedList, new SortTags(),
                 personTagNumberComparator, type);
         this.newList = secondarySort.getList();
     }

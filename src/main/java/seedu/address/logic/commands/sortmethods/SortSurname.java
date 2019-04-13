@@ -8,7 +8,9 @@ import seedu.address.model.person.Person;
 
 
 /**
- * Sorts all persons by age.
+ * Follows the SortMethod interface
+ * Sorts all persons alphabetically by surname.
+ * Sorts persons with matching surnames by first name.
  */
 public class SortSurname implements SortMethod {
 

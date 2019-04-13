@@ -238,6 +238,15 @@ public class Person {
         return getName().toString();
     }
 
+     /**
+     * Returns just the first name of the Persons name as a string
+     */
+    public String firstNameToString() {
+        String fullName = nameToString();
+        int firstSpace = fullName.indexOf(" ");
+        return fullName.substring(0, firstSpace);
+    }
+
     /**
      * Returns just the surname of the Persons name as a string
      */
@@ -259,18 +268,5 @@ public class Person {
      */
     public String educationToString() {
         return getEducation().toString().toLowerCase();
-    }
-
-    /**
-     *  returns the Person's positions as a string in lowercase
-     */
-    public List<String> getPositionString() {
-        Set<SkillsTag> individualTags = getTags();
-        List<String> positionTagStrings = new ArrayList<>();
-        Set<SkillsTag> positionTags = PersonUtil.getTagsOfType(individualTags, "p");
-        for (SkillsTag tag : positionTags) {
-            positionTagStrings.add(tag.toString());
-        }
-        return positionTagStrings;
     }
 }

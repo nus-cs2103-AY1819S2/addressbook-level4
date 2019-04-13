@@ -89,7 +89,8 @@ public class SetSemesterLimitCommandTest {
     @Test
     public void execute_noFieldSpecifiedUnfilteredList_success() {
         SetSemesterLimitCommand editCommand = new SetSemesterLimitCommand(
-                Index.fromZeroBased(INDEX_FIRST_SEMESTER.getIndex()), new SetSemesterLimitCommand.EditSemesterLimitDescriptor());
+                Index.fromZeroBased(
+                        INDEX_FIRST_SEMESTER.getIndex()), new SetSemesterLimitCommand.EditSemesterLimitDescriptor());
         SemesterLimit editedSemesterLimit = model.getSemLimitList().get(INDEX_FIRST_SEMESTER.getIndex());
 
         String expectedMessage = String.format(SetSemesterLimitCommand.MESSAGE_EDIT_LIMIT_SUCCESS, editedSemesterLimit);
@@ -114,7 +115,8 @@ public class SetSemesterLimitCommandTest {
     @Test
     public void executeUndoRedo_validIndexUnfilteredList_success() throws Exception {
         SemesterLimit editedSemesterLimit = new SemesterLimitBuilder().build();
-        SetSemesterLimitCommand.EditSemesterLimitDescriptor descriptor = new EditSemesterLimitDescriptorBuilder(editedSemesterLimit).build();
+        SetSemesterLimitCommand.EditSemesterLimitDescriptor descriptor = new EditSemesterLimitDescriptorBuilder(
+                editedSemesterLimit).build();
         SetSemesterLimitCommand editCommand = new SetSemesterLimitCommand(
                 Index.fromZeroBased(INDEX_FIRST_SEMESTER.getIndex()), descriptor);
         Model expectedModel = new ModelManager(new GradTrak(model.getGradTrak()), new UserPrefs(),
@@ -156,7 +158,8 @@ public class SetSemesterLimitCommandTest {
                 Index.fromZeroBased(INDEX_FIRST_SEMESTER.getIndex()), DESC_Y2S2);
 
         // same values -> returns true
-        SetSemesterLimitCommand.EditSemesterLimitDescriptor copyDescriptor = new SetSemesterLimitCommand.EditSemesterLimitDescriptor(DESC_Y2S2);
+        SetSemesterLimitCommand.EditSemesterLimitDescriptor copyDescriptor = new SetSemesterLimitCommand
+                .EditSemesterLimitDescriptor(DESC_Y2S2);
         SetSemesterLimitCommand commandWithSameValues = new SetSemesterLimitCommand(
                 Index.fromZeroBased(INDEX_FIRST_SEMESTER.getIndex()), copyDescriptor);
         assertTrue(standardCommand.equals(commandWithSameValues));

@@ -58,11 +58,11 @@ endif::[]
 
 These steps will guide you in installing RestOrRant on your computer.
 
-. Ensure you have Java version `9` or later installed in your computer.
+. Ensure you have Java version *9* or later installed in your computer.
 [TIP]
 You can download the latest Java version link:https://www.oracle.com/technetwork/java/javase/downloads/index.html[here].
 
-. Download the latest `restorrant.jar` link:{repoURL}/releases[here].
+. Download the latest *restorrant.jar* link:{repoURL}/releases[here].
 . Copy the file to the folder you want to use as the home folder for RestOrRant.
 . Double-click the file to start the app. The interface below should appear in a few seconds.
 
@@ -351,7 +351,7 @@ The default Revenue Panel view is Daily when you first switch over to Statistics
 
 [width="100%",cols="5%,95%", grid=none]
 |===
-ifdef::env-github[| :white_check_mark: a| icon:check[role="green", size="2x"] a| The user interface switches to <<Statistics Mode, Statistics Mode>>.]
+ifdef::env-github[a| :white_check_mark: a| The user interface switches to <<Statistics Mode, Statistics Mode>>.]
 ifndef::env-github[a| icon:check[role="green", size="2x"] a| The user interface switches to <<Statistics Mode, Statistics Mode>>.]
 |===
 // end::changemode[]

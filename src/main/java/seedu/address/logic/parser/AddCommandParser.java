@@ -10,10 +10,10 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_REMARK;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_RENTALPRICE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SELLINGPRICE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.model.person.Person.CUSTOMER_TYPE_BUYER;
-import static seedu.address.model.person.Person.CUSTOMER_TYPE_LANDLORD;
-import static seedu.address.model.person.Person.CUSTOMER_TYPE_SELLER;
-import static seedu.address.model.person.Person.CUSTOMER_TYPE_TENANT;
+import static seedu.address.model.person.Buyer.CUSTOMER_TYPE_BUYER;
+import static seedu.address.model.person.Landlord.CUSTOMER_TYPE_LANDLORD;
+import static seedu.address.model.person.Seller.CUSTOMER_TYPE_SELLER;
+import static seedu.address.model.person.Tenant.CUSTOMER_TYPE_TENANT;
 
 import java.util.Set;
 import java.util.stream.Stream;
@@ -31,6 +31,7 @@ import seedu.address.model.person.Seller;
 import seedu.address.model.person.Tenant;
 import seedu.address.model.property.Price;
 import seedu.address.model.property.Property;
+import seedu.address.model.property.PropertyType;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -75,7 +76,7 @@ public class AddCommandParser implements Parser<AddCommand> {
                     && !argMultimap.getValue(PREFIX_RENTALPRICE).isPresent()) {
                 Price sellingPrice = ParserUtil.parsePrice(argMultimap.getValue(PREFIX_SELLINGPRICE).get());
                 Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
-                Seller seller = new Seller(name, phone, email, remark, new Property(Property.PROPERTY_TYPE_RENT,
+                Seller seller = new Seller(name, phone, email, remark, new Property(PropertyType.SELLING,
                         address, sellingPrice, tagList));
                 return new AddCommand(seller);
             } else {
@@ -89,7 +90,7 @@ public class AddCommandParser implements Parser<AddCommand> {
                 Price rentalPrice = ParserUtil.parsePrice(argMultimap.getValue(PREFIX_RENTALPRICE).get());
                 Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
                 Landlord landlord = new Landlord(name, phone, email, remark,
-                        new Property(Property.PROPERTY_TYPE_RENT, address, rentalPrice, tagList));
+                        new Property(PropertyType.RENTAL, address, rentalPrice, tagList));
                 return new AddCommand(landlord);
             } else {
                 throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,

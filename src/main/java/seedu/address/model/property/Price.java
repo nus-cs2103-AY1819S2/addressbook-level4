@@ -8,7 +8,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class Price {
 
-    public static final String MESSAGE_CONSTRAINTS = "Price must be an integer value.";
+    public static final String MESSAGE_CONSTRAINTS = "Price must be an positive integer value.";
     public static final String VALIDATION_REGEX = "\\d+";
     public final Integer value;
 

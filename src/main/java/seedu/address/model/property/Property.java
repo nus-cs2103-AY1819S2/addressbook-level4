@@ -14,18 +14,16 @@ import seedu.address.model.tag.Tag;
  */
 public class Property {
 
-    public static final String PROPERTY_TYPE_SELL = "sell";
-    public static final String PROPERTY_TYPE_RENT = "rent";
+    private final PropertyType propertyType;
     private final Address address;
-    private final Price sellingPrice;
-    private final Price rentalPrice;
+    private final Price price;
     private final Set<Tag> tags = new HashSet<>();
 
-    public Property(String propertyType, Address address, Price price, Set<Tag> tags) {
-        requireAllNonNull(address, price);
+    public Property(PropertyType propertyType, Address address, Price price, Set<Tag> tags) {
+        requireAllNonNull(propertyType, address, price);
+        this.propertyType = propertyType;
         this.address = address;
-        this.sellingPrice = price;
-        this.rentalPrice = price;
+        this.price = price;
         this.tags.addAll(tags);
     }
 
@@ -33,12 +31,12 @@ public class Property {
         return address;
     }
 
-    public Price getSellingPrice() {
-        return sellingPrice;
+    public Price getPrice() {
+        return price;
     }
 
-    public Price getRentalPrice() {
-        return rentalPrice;
+    public PropertyType getPropertyType() {
+        return propertyType;
     }
 
     /**
@@ -52,12 +50,34 @@ public class Property {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(" Address: ")
+        builder.append("Property Type: ")
+                .append(getPropertyType())
+                .append(" Address: ")
                 .append(getAddress())
                 .append(" Price: ")
-                .append(getRentalPrice())
+                .append(getPrice())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();
+    }
+
+    /**
+     * Returns true if both properties have the same identity fields.
+     * This defines a stronger notion of equality between two properties.
+     */
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof Property)) {
+            return false;
+        }
+
+        Property otherProperty = (Property) other;
+        return otherProperty.getPropertyType().equals(getPropertyType())
+                && otherProperty.getAddress().equals(getAddress())
+                && otherProperty.getPrice().equals(getPrice());
     }
 }

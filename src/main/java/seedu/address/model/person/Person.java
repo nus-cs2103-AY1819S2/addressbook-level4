@@ -10,11 +10,6 @@ import java.util.Objects;
  */
 public class Person {
 
-    public static final String CUSTOMER_TYPE_BUYER = "buyer";
-    public static final String CUSTOMER_TYPE_SELLER = "seller";
-    public static final String CUSTOMER_TYPE_LANDLORD = "landlord";
-    public static final String CUSTOMER_TYPE_TENANT = "tenant";
-
     // Identity fields
     private final Name name;
     private final Phone phone;
@@ -59,6 +54,14 @@ public class Person {
         return remark;
     }
 
+    /**
+     * Returns true if both persons has least one other identity field that is the same.
+     */
+    public boolean hasSameIdentityField (Person otherPerson) {
+        return otherPerson != null
+                && (otherPerson.getName().equals(getName())
+                || otherPerson.getPhone().equals(getPhone()) || otherPerson.getEmail().equals(getEmail()));
+    }
 
     /**
      * Returns true if both persons of the same name have at least one other identity field that is the same.

@@ -188,6 +188,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public boolean hasSameIdentityField(Person person) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void deletePerson(Person target) {
             throw new AssertionError("This method should not be called.");
         }
@@ -383,6 +388,12 @@ public class AddCommandTest {
         public void addPerson(Person person) {
             requireNonNull(person);
             personsAdded.add(person);
+        }
+
+        @Override
+        public boolean hasSameIdentityField(Person person) {
+            requireNonNull(person);
+            return personsAdded.stream().anyMatch(person::hasSameIdentityField);
         }
 
         @Override

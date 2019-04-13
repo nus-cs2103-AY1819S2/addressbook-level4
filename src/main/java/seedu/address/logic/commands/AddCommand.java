@@ -51,8 +51,10 @@ public class AddCommand extends Command {
             + MESSAGE_USAGE_BUYER + MESSAGE_USAGE_SELLER + MESSAGE_USAGE_LANDLORD + MESSAGE_USAGE_TENANT;
 
     public static final String MESSAGE_SUCCESS = "New person added: %1$s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "Customer with one or more duplicate information field "
-            + "found in addressbook";
+    public static final String MESSAGE_DUPLICATE_IDENTITY_FIELD = "Customer with one or more duplicate identity "
+            + "field found in address book";
+    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book";
+
 
     private final Person toAdd;
 
@@ -70,6 +72,8 @@ public class AddCommand extends Command {
 
         if (model.hasPerson(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+        } else if (model.hasSameIdentityField(toAdd)) {
+            throw new CommandException(MESSAGE_DUPLICATE_IDENTITY_FIELD);
         }
 
         model.addPerson(toAdd);

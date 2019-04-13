@@ -46,18 +46,18 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_SEMESTER;
 import org.junit.Test;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.SetSemLimitCommand;
+import seedu.address.logic.commands.SetSemesterLimitCommand;
 import seedu.address.model.moduletaken.CapAverage;
 import seedu.address.model.moduletaken.Hour;
 import seedu.address.model.moduletaken.Semester;
-import seedu.address.testutil.EditSemLimitDescriptorBuilder;
+import seedu.address.testutil.EditSemesterLimitDescriptorBuilder;
 
-public class SetLimitCommandParserTest {
+public class SetSemesterLimitCommandParserTest {
 
     private static final String MESSAGE_INVALID_FORMAT =
-            String.format(MESSAGE_INVALID_COMMAND_FORMAT, SetSemLimitCommand.MESSAGE_USAGE);
+            String.format(MESSAGE_INVALID_COMMAND_FORMAT, SetSemesterLimitCommand.MESSAGE_USAGE);
 
-    private SetLimitCommandParser parser = new SetLimitCommandParser();
+    private SetSemesterLimitCommandParser parser = new SetSemesterLimitCommandParser();
 
     @Test
     public void parse_missingParts_failure() {
@@ -65,7 +65,7 @@ public class SetLimitCommandParserTest {
         assertParseFailure(parser, VALID_MAX_LECTURE_HOUR, MESSAGE_INVALID_FORMAT);
 
         // no field specified
-        assertParseFailure(parser, "Y2S2", SetSemLimitCommand.MESSAGE_NOT_EDITED);
+        assertParseFailure(parser, "Y2S2", SetSemesterLimitCommand.MESSAGE_NOT_EDITED);
 
         // no index and no field specified
         assertParseFailure(parser, "", MESSAGE_INVALID_FORMAT);
@@ -125,7 +125,7 @@ public class SetLimitCommandParserTest {
                 + MAX_LAB_HOUR_DESC + MIN_PROJECT_HOUR_DESC + MAX_PROJECT_HOUR_DESC + MIN_PREPARATION_HOUR_DESC
                 + MAX_PREPARATION_HOUR_DESC;
 
-        SetSemLimitCommand.EditSemLimitDescriptor descriptor = new EditSemLimitDescriptorBuilder()
+        SetSemesterLimitCommand.EditSemesterLimitDescriptor descriptor = new EditSemesterLimitDescriptorBuilder()
                 .withMinCap(VALID_MIN_CAP)
                 .withMaxCap(VALID_MAX_CAP)
                 .withMinLectureHour(VALID_MIN_LECTURE_HOUR)
@@ -139,7 +139,7 @@ public class SetLimitCommandParserTest {
                 .withMinPreparationHour(VALID_MIN_PREPARATION_HOUR)
                 .withMaxPreparationHour(VALID_MAX_PREPARATION_HOUR)
                 .build();
-        SetSemLimitCommand expectedCommand = new SetSemLimitCommand(
+        SetSemesterLimitCommand expectedCommand = new SetSemesterLimitCommand(
                 Index.fromZeroBased(targetIndex.getIndex()), descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
@@ -150,10 +150,10 @@ public class SetLimitCommandParserTest {
         Semester targetIndex = INDEX_FIRST_SEMESTER;
         String userInput = targetIndex.name() + MAX_CAP_DESC + MIN_LECTURE_HOUR_DESC;
 
-        SetSemLimitCommand.EditSemLimitDescriptor descriptor = new EditSemLimitDescriptorBuilder()
+        SetSemesterLimitCommand.EditSemesterLimitDescriptor descriptor = new EditSemesterLimitDescriptorBuilder()
                 .withMaxCap(VALID_MAX_CAP)
                 .withMinLectureHour(VALID_MIN_LECTURE_HOUR).build();
-        SetSemLimitCommand expectedCommand = new SetSemLimitCommand(
+        SetSemesterLimitCommand expectedCommand = new SetSemesterLimitCommand(
                 Index.fromZeroBased(targetIndex.getIndex()), descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
@@ -164,45 +164,45 @@ public class SetLimitCommandParserTest {
         // min project hour
         Semester targetIndex = INDEX_THIRD_SEMESTER;
         String userInput = targetIndex.name() + MIN_PROJECT_HOUR_DESC;
-        SetSemLimitCommand.EditSemLimitDescriptor descriptor = new EditSemLimitDescriptorBuilder()
+        SetSemesterLimitCommand.EditSemesterLimitDescriptor descriptor = new EditSemesterLimitDescriptorBuilder()
                 .withMinProjectHour(VALID_MIN_PROJECT_HOUR)
                 .build();
-        SetSemLimitCommand expectedCommand = new SetSemLimitCommand(
+        SetSemesterLimitCommand expectedCommand = new SetSemesterLimitCommand(
                 Index.fromZeroBased(targetIndex.getIndex()), descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // min cap
         userInput = targetIndex.name() + MIN_CAP_DESC;
-        descriptor = new EditSemLimitDescriptorBuilder()
+        descriptor = new EditSemesterLimitDescriptorBuilder()
                 .withMinCap(VALID_MIN_CAP)
                 .build();
-        expectedCommand = new SetSemLimitCommand(
+        expectedCommand = new SetSemesterLimitCommand(
                 Index.fromZeroBased(targetIndex.getIndex()), descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // min lecture hour
         userInput = targetIndex.name() + MIN_LECTURE_HOUR_DESC;
-        descriptor = new EditSemLimitDescriptorBuilder()
+        descriptor = new EditSemesterLimitDescriptorBuilder()
                 .withMinLectureHour(VALID_MIN_LECTURE_HOUR)
                 .build();
-        expectedCommand = new SetSemLimitCommand(
+        expectedCommand = new SetSemesterLimitCommand(
                 Index.fromZeroBased(targetIndex.getIndex()), descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // max lecture hour
         userInput = targetIndex.name() + MAX_LECTURE_HOUR_DESC;
-        descriptor = new EditSemLimitDescriptorBuilder()
+        descriptor = new EditSemesterLimitDescriptorBuilder()
                 .withMaxLectureHour(VALID_MAX_LECTURE_HOUR)
                 .build();
-        expectedCommand = new SetSemLimitCommand(
+        expectedCommand = new SetSemesterLimitCommand(
                 Index.fromZeroBased(targetIndex.getIndex()), descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // max project hour
         userInput = targetIndex.name() + MAX_PROJECT_HOUR_DESC;
-        descriptor = new EditSemLimitDescriptorBuilder()
+        descriptor = new EditSemesterLimitDescriptorBuilder()
                 .withMaxProjectHour(VALID_MAX_PROJECT_HOUR).build();
-        expectedCommand = new SetSemLimitCommand(
+        expectedCommand = new SetSemesterLimitCommand(
                 Index.fromZeroBased(targetIndex.getIndex()), descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
     }
@@ -216,7 +216,7 @@ public class SetLimitCommandParserTest {
                 + MIN_LECTURE_HOUR_DESC + MIN_LAB_HOUR_DESC + MIN_CAP_DESC
                 + MAX_TUTORIAL_HOUR_DESC + MIN_TUTORIAL_HOUR_DESC;
 
-        SetSemLimitCommand.EditSemLimitDescriptor descriptor = new EditSemLimitDescriptorBuilder()
+        SetSemesterLimitCommand.EditSemesterLimitDescriptor descriptor = new EditSemesterLimitDescriptorBuilder()
                 .withMinCap(VALID_MIN_CAP)
                 .withMinLectureHour(VALID_MIN_LECTURE_HOUR)
                 .withMaxLectureHour(VALID_MAX_LECTURE_HOUR)
@@ -225,7 +225,7 @@ public class SetLimitCommandParserTest {
                 .withMinLabHour(VALID_MIN_LAB_HOUR)
                 .withMaxLabHour(VALID_MAX_LAB_HOUR)
                 .build();
-        SetSemLimitCommand expectedCommand = new SetSemLimitCommand(
+        SetSemesterLimitCommand expectedCommand = new SetSemesterLimitCommand(
                 Index.fromZeroBased(targetIndex.getIndex()), descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
@@ -236,10 +236,10 @@ public class SetLimitCommandParserTest {
         // no other valid values specified
         Semester targetIndex = INDEX_FIRST_SEMESTER;
         String userInput = targetIndex.name() + INVALID_MIN_CAP_DESC + MIN_CAP_DESC;
-        SetSemLimitCommand.EditSemLimitDescriptor descriptor = new EditSemLimitDescriptorBuilder()
+        SetSemesterLimitCommand.EditSemesterLimitDescriptor descriptor = new EditSemesterLimitDescriptorBuilder()
                 .withMinCap(VALID_MIN_CAP)
                 .build();
-        SetSemLimitCommand expectedCommand = new SetSemLimitCommand(
+        SetSemesterLimitCommand expectedCommand = new SetSemesterLimitCommand(
                 Index.fromZeroBased(targetIndex.getIndex()), descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
@@ -247,11 +247,11 @@ public class SetLimitCommandParserTest {
         userInput = targetIndex.name() + MIN_TUTORIAL_HOUR_DESC
                 + INVALID_MIN_CAP_DESC + MAX_TUTORIAL_HOUR_DESC
                 + MIN_CAP_DESC;
-        descriptor = new EditSemLimitDescriptorBuilder()
+        descriptor = new EditSemesterLimitDescriptorBuilder()
                 .withMinCap(VALID_MIN_CAP)
                 .withMinTutorialHour(VALID_MIN_TUTORIAL_HOUR)
                 .withMaxTutorialHour(VALID_MAX_TUTORIAL_HOUR).build();
-        expectedCommand = new SetSemLimitCommand(
+        expectedCommand = new SetSemesterLimitCommand(
                 Index.fromZeroBased(targetIndex.getIndex()), descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
     }

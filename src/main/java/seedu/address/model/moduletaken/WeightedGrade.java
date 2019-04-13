@@ -5,7 +5,7 @@ import java.util.Objects;
 import seedu.address.model.moduleinfo.ModuleInfoCredits;
 
 /**
- * Represents the combination of the grade attained for the module weighted by the amount of credits
+ * Represents the combination of the grade attained for the module weighted by the amount of credits.
  */
 public class WeightedGrade {
     public final double score;
@@ -16,18 +16,6 @@ public class WeightedGrade {
         this.credits = credits;
     }
 
-    // ================ Object String Methods ==============================
-
-    public String getGradeString() {
-        return String.valueOf(this.score);
-    }
-
-    public String getModuleInfoCreditString() {
-        return this.credits.toString();
-    }
-
-    // ================ Object methods ==============================
-
     public double getScore() {
         return this.score;
     }
@@ -37,7 +25,7 @@ public class WeightedGrade {
     }
 
     /**
-     * Returns true if both WeightedGrades have the same identity and data fields.
+     * Returns true if both WeightedGrades have the same score and credits.
      */
     @Override
     public boolean equals(Object other) {

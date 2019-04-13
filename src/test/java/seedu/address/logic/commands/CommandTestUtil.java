@@ -36,7 +36,7 @@ import seedu.address.model.Model;
 import seedu.address.model.moduletaken.ModuleTaken;
 import seedu.address.model.moduletaken.NameContainsKeywordsPredicate;
 import seedu.address.testutil.EditModuleTakenDescriptorBuilder;
-import seedu.address.testutil.EditSemLimitDescriptorBuilder;
+import seedu.address.testutil.EditSemesterLimitDescriptorBuilder;
 import seedu.address.testutil.FindModuleDescriptorBuilder;
 
 /**
@@ -168,8 +168,8 @@ public class CommandTestUtil {
     public static final EditCommand.EditModuleTakenDescriptor DESC_CS2103T;
     public static final EditCommand.EditModuleTakenDescriptor DESC_CS1010;
 
-    public static final SetSemLimitCommand.EditSemLimitDescriptor DESC_Y1S1;
-    public static final SetSemLimitCommand.EditSemLimitDescriptor DESC_Y2S2;
+    public static final SetSemesterLimitCommand.EditSemesterLimitDescriptor DESC_Y1S1;
+    public static final SetSemesterLimitCommand.EditSemesterLimitDescriptor DESC_Y2S2;
 
     public static final FindCommand.FindModuleDescriptor FIND_CS2103T;
     public static final FindCommand.FindModuleDescriptor FIND_CS1010;
@@ -188,7 +188,7 @@ public class CommandTestUtil {
                 .withLectureHour(VALID_LECTURE_HOUR_CS1010)
                 .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
 
-        DESC_Y1S1 = new EditSemLimitDescriptorBuilder()
+        DESC_Y1S1 = new EditSemesterLimitDescriptorBuilder()
                 .withMinCap(VALID_MIN_CAP)
                 .withMaxCap(VALID_MAX_CAP)
                 .withMinLectureHour(VALID_MIN_LECTURE_HOUR)
@@ -202,7 +202,7 @@ public class CommandTestUtil {
                 .withMinPreparationHour(VALID_MIN_PREPARATION_HOUR)
                 .withMaxPreparationHour(VALID_MAX_PREPARATION_HOUR)
                 .build();
-        DESC_Y2S2 = new EditSemLimitDescriptorBuilder()
+        DESC_Y2S2 = new EditSemesterLimitDescriptorBuilder()
                 .withMinCap(VALID_MIN_CAP_EDITED_SEMLIMIT)
                 .withMaxCap(VALID_MAX_CAP_EDITED_SEMLIMIT)
                 .withMinLectureHour(VALID_MIN_LECTURE_HOUR_EDITED_SEMLIMIT)

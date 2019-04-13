@@ -1,13 +1,13 @@
 package seedu.address.testutil;
 
-import seedu.address.model.SemLimit;
+import seedu.address.model.limits.SemesterLimit;
 import seedu.address.model.moduletaken.CapAverage;
 import seedu.address.model.moduletaken.Hour;
 
 /**
  * A utility class to help with building ModuleTaken objects.
  */
-public class SemLimitBuilder {
+public class SemesterLimitBuilder {
 
     public static final double DEFAULT_MIN_CAP = 3;
     public static final double DEFAULT_MAX_CAP = 4;
@@ -35,7 +35,7 @@ public class SemLimitBuilder {
     private Hour minPreparationHour;
     private Hour maxPreparationHour;
 
-    public SemLimitBuilder() {
+    public SemesterLimitBuilder() {
         minCap = new CapAverage(DEFAULT_MIN_CAP);
         maxCap = new CapAverage(DEFAULT_MAX_CAP);
         minLectureHour = new Hour(DEFAULT_MIN_LECTURE_HOUR);
@@ -51,124 +51,124 @@ public class SemLimitBuilder {
     }
 
     /**
-     * Initializes the SemLimitBuilder with the data of {@code semLimitToCopy}.
+     * Initializes the SemesterLimitBuilder with the data of {@code semesterLimitToCopy}.
      */
-    public SemLimitBuilder(SemLimit semLimitToCopy) {
-        minCap = semLimitToCopy.getMinCap();
-        maxCap = semLimitToCopy.getMaxCap();
-        minLectureHour = semLimitToCopy.getMinLectureHour();
-        maxLectureHour = semLimitToCopy.getMaxLectureHour();
-        minTutorialHour = semLimitToCopy.getMinTutorialHour();
-        maxTutorialHour = semLimitToCopy.getMaxTutorialHour();
-        minLabHour = semLimitToCopy.getMinLabHour();
-        maxLabHour = semLimitToCopy.getMaxLabHour();
-        minProjectHour = semLimitToCopy.getMinProjectHour();
-        maxProjectHour = semLimitToCopy.getMaxProjectHour();
-        minPreparationHour = semLimitToCopy.getMinPreparationHour();
-        maxPreparationHour = semLimitToCopy.getMaxPreparationHour();
+    public SemesterLimitBuilder(SemesterLimit semesterLimitToCopy) {
+        minCap = semesterLimitToCopy.getMinCap();
+        maxCap = semesterLimitToCopy.getMaxCap();
+        minLectureHour = semesterLimitToCopy.getMinLectureHour();
+        maxLectureHour = semesterLimitToCopy.getMaxLectureHour();
+        minTutorialHour = semesterLimitToCopy.getMinTutorialHour();
+        maxTutorialHour = semesterLimitToCopy.getMaxTutorialHour();
+        minLabHour = semesterLimitToCopy.getMinLabHour();
+        maxLabHour = semesterLimitToCopy.getMaxLabHour();
+        minProjectHour = semesterLimitToCopy.getMinProjectHour();
+        maxProjectHour = semesterLimitToCopy.getMaxProjectHour();
+        minPreparationHour = semesterLimitToCopy.getMinPreparationHour();
+        maxPreparationHour = semesterLimitToCopy.getMaxPreparationHour();
     }
 
     /**
-     * Sets the {@code minCap} of the {@code SemLimit} being built.
+     * Sets the {@code minCap} of the {@code SemesterLimit} being built.
      */
-    public SemLimitBuilder withMinCap(double minCap) {
+    public SemesterLimitBuilder withMinCap(double minCap) {
         this.minCap = new CapAverage(minCap);
         return this;
     }
 
     /**
-     * Sets the {@code maxCap} of the {@code SemLimit} being built.
+     * Sets the {@code maxCap} of the {@code SemesterLimit} being built.
      */
-    public SemLimitBuilder withMaxCap(double maxCap) {
+    public SemesterLimitBuilder withMaxCap(double maxCap) {
         this.maxCap = new CapAverage(maxCap);
         return this;
     }
 
     /**
-     * Sets the {@code minLectureHour} of the {@code SemLimit} being built.
+     * Sets the {@code minLectureHour} of the {@code SemesterLimit} being built.
      */
-    public SemLimitBuilder withMinLectureHour(String minLectureHour) {
+    public SemesterLimitBuilder withMinLectureHour(String minLectureHour) {
         this.minLectureHour = new Hour(minLectureHour);
         return this;
     }
 
     /**
-     * Sets the {@code maxLectureHour} of the {@code SemLimit} being built.
+     * Sets the {@code maxLectureHour} of the {@code SemesterLimit} being built.
      */
-    public SemLimitBuilder withMaxLectureHour(String maxLectureHour) {
+    public SemesterLimitBuilder withMaxLectureHour(String maxLectureHour) {
         this.maxLectureHour = new Hour(maxLectureHour);
         return this;
     }
 
     /**
-     * Sets the {@code minTutorialHour} of the {@code SemLimit} being built.
+     * Sets the {@code minTutorialHour} of the {@code SemesterLimit} being built.
      */
-    public SemLimitBuilder withMinTutorialHour(String minTutorialHour) {
+    public SemesterLimitBuilder withMinTutorialHour(String minTutorialHour) {
         this.minTutorialHour = new Hour(minTutorialHour);
         return this;
     }
 
     /**
-     * Sets the {@code maxTutorialHour} of the {@code SemLimit} being built.
+     * Sets the {@code maxTutorialHour} of the {@code SemesterLimit} being built.
      */
-    public SemLimitBuilder withMaxTutorialHour(String maxTutorialHour) {
+    public SemesterLimitBuilder withMaxTutorialHour(String maxTutorialHour) {
         this.maxTutorialHour = new Hour(maxTutorialHour);
         return this;
     }
 
     /**
-     * Sets the {@code minLabHour} of the {@code SemLimit} being built.
+     * Sets the {@code minLabHour} of the {@code SemesterLimit} being built.
      */
-    public SemLimitBuilder withMinLabHour(String minLabHour) {
+    public SemesterLimitBuilder withMinLabHour(String minLabHour) {
         this.minLabHour = new Hour(minLabHour);
         return this;
     }
 
     /**
-     * Sets the {@code maxLabHour} of the {@code SemLimit} being built.
+     * Sets the {@code maxLabHour} of the {@code SemesterLimit} being built.
      */
-    public SemLimitBuilder withMaxLabHour(String maxLabHour) {
+    public SemesterLimitBuilder withMaxLabHour(String maxLabHour) {
         this.maxLabHour = new Hour(maxLabHour);
         return this;
     }
 
     /**
-     * Sets the {@code minProjectHour} of the {@code SemLimit} being built.
+     * Sets the {@code minProjectHour} of the {@code SemesterLimit} being built.
      */
-    public SemLimitBuilder withMinProjectHour(String minProjectHour) {
+    public SemesterLimitBuilder withMinProjectHour(String minProjectHour) {
         this.minProjectHour = new Hour(minProjectHour);
         return this;
     }
 
     /**
-     * Sets the {@code maxProjectHour} of the {@code SemLimit} being built.
+     * Sets the {@code maxProjectHour} of the {@code SemesterLimit} being built.
      */
-    public SemLimitBuilder withMaxProjectHour(String maxProjectHour) {
+    public SemesterLimitBuilder withMaxProjectHour(String maxProjectHour) {
         this.maxProjectHour = new Hour(maxProjectHour);
         return this;
     }
 
     /**
-     * Sets the {@code minPreparationHour} of the {@code SemLimit} being built.
+     * Sets the {@code minPreparationHour} of the {@code SemesterLimit} being built.
      */
-    public SemLimitBuilder withMinPreparationHour(String minPreparationHour) {
+    public SemesterLimitBuilder withMinPreparationHour(String minPreparationHour) {
         this.minPreparationHour = new Hour(minPreparationHour);
         return this;
     }
 
     /**
-     * Sets the {@code maxPreparationHour} of the {@code SemLimit} being built.
+     * Sets the {@code maxPreparationHour} of the {@code SemesterLimit} being built.
      */
-    public SemLimitBuilder withMaxPreparationHour(String maxPreparationHour) {
+    public SemesterLimitBuilder withMaxPreparationHour(String maxPreparationHour) {
         this.maxPreparationHour = new Hour(maxPreparationHour);
         return this;
     }
 
     /**
-     * Builds a semester limit with all the fields in the {@code SemLimitBuilder}
+     * Builds a semester limit with all the fields in the {@code SemesterLimitBuilder}
      */
-    public SemLimit build() {
-        return new SemLimit(minCap, maxCap, minLectureHour, maxLectureHour, minTutorialHour, maxTutorialHour,
+    public SemesterLimit build() {
+        return new SemesterLimit(minCap, maxCap, minLectureHour, maxLectureHour, minTutorialHour, maxTutorialHour,
                 minLabHour, maxLabHour, minProjectHour, maxProjectHour, minPreparationHour, maxPreparationHour);
     }
 

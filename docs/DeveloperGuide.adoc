@@ -541,6 +541,7 @@ Modules taken before the current semester must have a finalized grade such that
 when the user tries to shift the current semester forward, the app will check through all the modules taken before the current semester to ensure that the maximum and minimum expected grades are set to be the same.
 or else the `cursem` command will fail and be rejected with an error message
 
+image::SetCurrentSemesterSequenceDiagram.png[width="1000"]
 //end::semestertracking[]
 
 === Logging

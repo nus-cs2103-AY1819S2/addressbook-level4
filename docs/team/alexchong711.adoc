@@ -1,0 +1,64 @@
+= Chong Hong Yun - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: GradTrak - A Graduation Tracker for NUS
+
+---
+
+== Overview
+
+GradTrak is an application that was morphed from the codebase of https://github.com/nus-cs2103-AY1819S2/addressbook-level4[Address Book - Level 4].
+It was conceptualised and designed in mind to assist students of NUS to track their graduation progress and plan future modules that they want to take.
+
+== Summary of contributions
+
+* *Major feature*: added the ability for users to manage CAP and workload limits
+** What it does: allows the user to check if their current module plan for all semesters is aligned with their preferences.
+The user can set their own preferences and check against the modules they plan to take.
+
+** Why this feature: This is critical for users to ensure that they can manage their workload and maintain their targeted CAP for graduation.
+It is easier for users to detect if any semester will be too challenging or too easy for them.
+This may suggest reallocating some modules to distribute the difficulty more evenly across all semesters.
+
+** Highlights: This feature depends on many attributes that originally does not exist in the system and can only be implemented after implementing the other smaller features.
+Before being able to check their plan against their preferences, the user must first be able to set their preferences, as well as estimate their workload and grades for each planned module.
+
+* *Minor enhancement*: added the ability to shift the current semester when grades have been finalized. The current semester indicates that all modules taken in previous semesters have been completed and should be included in the calculation of the current CAP.
+
+
+* *Code contributed*: [https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#search=alexchong711[Reposense]]
+
+* *Other contributions*:
+** https://github.com/cs2103-ay1819s2-w14-4/main/pulls?utf8=%E2%9C%93&q=is%3Apr+author%3Aalexchong711[Pull Requests Made]
+** https://github.com/cs2103-ay1819s2-w14-4/main/pulls?utf8=%E2%9C%93&q=is%3Apr+is%3Aclosed+reviewed-by%3Aalexchong711[Pull Requests Reviewed]
+
+** Project Management
+*** Set up milestones, issue tracker
+*** Put up user stories
+
+** Refactored Code
+*** Morphed the original Person class in Address Book to contain the attributes of the module taken by the user - Level 4 code base
+
+** Documentation:
+*** Changed some of the prose of the User Guide, Developer Guide (see above PR)
+*** Modified some sections of User Guide, Developer Guide
+
+
+== Contributions to the User Guide
+
+include::../UserGuide.adoc[tag=Displayreq]
+
+include::../UserGuide.adoc[tag=study]
+
+== Contributions to the Developer Guide
+
+include::../DeveloperGuide.adoc[tag=semestertracking]
+
+
+== PROJECT: Cuckoo Hash
+An experimental assignment from https://www.comp.nus.edu.sg/~gilbert/CS5330/[CS5330 - Randomised Algorithm]
+to investigate various effects of different Cuckoo Hash schemes.
+https://www.comp.nus.edu.sg/~gilbert/CS5330/2019/psets/ExperimentalAlgorithms.pdf[More information on assignment here]
+and https://github.com/monikernemo/CS5330-Experimental-Assignment[more on the codes of the implementation here]

@@ -7,7 +7,6 @@ import java.util.function.Predicate;
 import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.model.EligibleModulePredicate;
 import seedu.address.model.GradTrak;
 import seedu.address.model.course.Course;
 import seedu.address.model.course.CourseReqType;
@@ -31,20 +30,19 @@ public class RecModulePredicate implements Predicate<RecModule> {
 
     @Override
     public boolean test(RecModule recModule) {
-        ModuleInfoCode moduleInfoCode = recModule.getModuleInfoCode();
-        List<ModuleInfoCode> nonFailedCodeList = gradTrak.getNonFailedCodeList();
-
-        /* ineligible module */
-        if (!(new EligibleModulePredicate(gradTrak).test(moduleInfoCode))) {
+        /* ineligible module
+        if (!(new EligibleModulePredicate(gradTrak).test(recModule.getModuleInfo()))) {
             return false;
-        }
+        }*/
 
+        ModuleInfoCode codeToTest = recModule.getCode();
+        List<ModuleInfoCode> nonFailedCodeList = gradTrak.getNonFailedCodeList();
         /* eligible module */
-        List<CourseReqType> reqTypeList = course.getCourseReqTypeOf(moduleInfoCode);
+        List<CourseReqType> reqTypeList = course.getCourseReqTypeOf(codeToTest);
         for (CourseReqType reqType : reqTypeList) { // starting from most important requirement
-            if (course.isCodeContributing(reqType, nonFailedCodeList, moduleInfoCode)) {
+            if (course.isCodeContributing(reqType, nonFailedCodeList, codeToTest)) {
                 recModule.setCourseReqType(reqType);
-                logger.fine(moduleInfoCode.toString() + " fulfills " + reqType.name());
+                logger.fine(codeToTest.toString() + " fulfills " + reqType.name());
                 return true;
             }
         }

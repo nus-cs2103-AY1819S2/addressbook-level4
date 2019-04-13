@@ -1,34 +1,32 @@
 package seedu.address.model.recmodule;
 
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import static java.util.Objects.requireNonNull;
 
 import java.util.Optional;
 
 import seedu.address.model.course.CourseReqType;
+import seedu.address.model.moduleinfo.ModuleInfo;
 import seedu.address.model.moduleinfo.ModuleInfoCode;
-import seedu.address.model.moduleinfo.ModuleInfoTitle;
 
 /**
- * A class for storing a {@code ModuleInfoCode} and its corresponding {@code ModuleInfoTitle}, {@code CourseReqType}.
+ * A class for storing a {@code ModuleInfo} and its corresponding {@code CourseReqType}.
  */
 public class RecModule {
 
-    private final ModuleInfoCode moduleInfoCode;
-    private final ModuleInfoTitle moduleInfoTitle;
+    private final ModuleInfo moduleInfo;
     private CourseReqType courseReqType;
 
-    public RecModule(ModuleInfoCode code, ModuleInfoTitle title) {
-        requireAllNonNull(code, title);
-        this.moduleInfoCode = code;
-        this.moduleInfoTitle = title;
+    public RecModule(ModuleInfo moduleInfo) {
+        requireNonNull(moduleInfo);
+        this.moduleInfo = moduleInfo;
     }
 
-    public ModuleInfoCode getModuleInfoCode() {
-        return moduleInfoCode;
+    public ModuleInfoCode getCode() {
+        return moduleInfo.getModuleInfoCode();
     }
 
-    public ModuleInfoTitle getModuleInfoTitle() {
-        return moduleInfoTitle;
+    public ModuleInfo getModuleInfo() {
+        return moduleInfo;
     }
 
     public Optional<CourseReqType> getCourseReqType() {
@@ -49,8 +47,7 @@ public class RecModule {
         }
 
         RecModule other = (RecModule) object;
-        return moduleInfoCode.equals(other.moduleInfoCode)
-                && moduleInfoTitle.equals(other.moduleInfoTitle)
+        return moduleInfo.equals(other.moduleInfo)
                 && getCourseReqType().equals(other.getCourseReqType());
     }
 }

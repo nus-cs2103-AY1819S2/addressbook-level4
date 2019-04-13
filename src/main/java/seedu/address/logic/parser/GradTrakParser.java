@@ -24,7 +24,7 @@ import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.SetCourseCommand;
 import seedu.address.logic.commands.SetCurrentSemesterCommand;
-import seedu.address.logic.commands.SetSemLimitCommand;
+import seedu.address.logic.commands.SetSemesterLimitCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -64,8 +64,8 @@ public class GradTrakParser {
         case EditCommand.COMMAND_WORD:
             return new EditCommandParser().parse(arguments);
 
-        case SetSemLimitCommand.COMMAND_WORD:
-            return new SetLimitCommandParser().parse(arguments);
+        case SetSemesterLimitCommand.COMMAND_WORD:
+            return new SetSemesterLimitCommandParser().parse(arguments);
 
         case SetCurrentSemesterCommand.COMMAND_WORD:
             return new SetCurrentSemesterCommandParser().parse(arguments);

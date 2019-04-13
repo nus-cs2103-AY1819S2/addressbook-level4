@@ -22,13 +22,13 @@ public class RecModuleComparator implements Comparator<RecModule> {
         }
 
         // same req type -> compare module level
-        int firstLevel = first.getModuleInfoCode().getLevel();
-        int secondLevel = second.getModuleInfoCode().getLevel();
+        int firstLevel = first.getCode().getLevel();
+        int secondLevel = second.getCode().getLevel();
         if (firstLevel != secondLevel) {
             return (firstLevel - secondLevel);
         }
 
         // same module level -> compare lexicographically
-        return first.getModuleInfoCode().toString().compareTo(second.getModuleInfoCode().toString());
+        return first.getCode().toString().compareTo(second.getCode().toString());
     }
 }

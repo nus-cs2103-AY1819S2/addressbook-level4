@@ -8,6 +8,8 @@ import java.util.List;
 import javafx.beans.InvalidationListener;
 import javafx.collections.ObservableList;
 import seedu.address.commons.util.InvalidationListenerManager;
+import seedu.address.commons.util.ModuleTree;
+import seedu.address.model.limits.SemesterLimit;
 import seedu.address.model.moduleinfo.ModuleInfoCode;
 import seedu.address.model.moduletaken.CapAverage;
 import seedu.address.model.moduletaken.Hour;
@@ -42,9 +44,9 @@ public class GradTrak implements ReadOnlyGradTrak {
     }
 
     public GradTrak() {
-        List<SemLimit> semList = new ArrayList<>();
+        List<SemesterLimit> semList = new ArrayList<>();
         for (int i = 0; i < NUM_SEMS; i++) {
-            semList.add(new SemLimit(new CapAverage(2.0), new CapAverage(5.0), new Hour("5.0"), new Hour("9.0"),
+            semList.add(new SemesterLimit(new CapAverage(2.0), new CapAverage(5.0), new Hour("5.0"), new Hour("9.0"),
                     new Hour("2.5"), new Hour("5.0"), new Hour("2.0"), new Hour("5.0"), new Hour("2.0"),
                     new Hour("5.0"), new Hour("6.0"), new Hour("10.0")));
         }
@@ -76,10 +78,10 @@ public class GradTrak implements ReadOnlyGradTrak {
     }
 
     /**
-     * Replaces the contents of the Semester Limit list with {@code semLimits}.
+     * Replaces the contents of the Semester Limit list with {@code semesterLimits}.
      */
-    public void setSemesterLimits(List<SemLimit> semLimits) {
-        this.semesterLimitList.setSemesterLimits(semLimits);
+    public void setSemesterLimits(List<SemesterLimit> semesterLimits) {
+        this.semesterLimitList.setSemesterLimits(semesterLimits);
         indicateModified();
     }
 
@@ -129,7 +131,7 @@ public class GradTrak implements ReadOnlyGradTrak {
     /**
      * Replaces the given index of semester limit with {@code editedSemesterLimit}.
      */
-    public void setSemesterLimit(int index, SemLimit editedSemesterLimit) {
+    public void setSemesterLimit(int index, SemesterLimit editedSemesterLimit) {
         requireNonNull(editedSemesterLimit);
 
         semesterLimitList.setSemesterLimit(index, editedSemesterLimit);
@@ -170,6 +172,21 @@ public class GradTrak implements ReadOnlyGradTrak {
         return codeList;
     }
 
+    /**
+     * Generates an {@code ArrayList} of {@code String} of missing prerequisites in this {@code GradTrak},
+     * given the {@code ModuleTree} of the module.
+     * @param moduleTree The {@code ModuleTree} of the module whose missing prerequisites are being generated.
+     * @return an {@code ArrayList} of {@code String} of missing prerequisites.
+     */
+    public ArrayList<String> getMissingPrerequisites(ModuleTree moduleTree) {
+        ArrayList<String> codeStringList = new ArrayList<>();
+        for (ModuleInfoCode code : getNonFailedCodeList()) {
+            codeStringList.add(code.toString());
+        }
+
+        return moduleTree.checkPrerequisites(codeStringList);
+    }
+
     @Override
     public void addListener(InvalidationListener listener) {
         invalidationListenerManager.addListener(listener);
@@ -201,7 +218,7 @@ public class GradTrak implements ReadOnlyGradTrak {
     }
 
     @Override
-    public ObservableList<SemLimit> getSemesterLimitList() {
+    public ObservableList<SemesterLimit> getSemesterLimitList() {
         return semesterLimitList.asUnmodifiableObservableList();
     }
 

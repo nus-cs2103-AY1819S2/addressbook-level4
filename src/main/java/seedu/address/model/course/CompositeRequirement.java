@@ -101,7 +101,7 @@ public class CompositeRequirement implements CourseRequirement {
 
     @Override
     public boolean canFulfill(ModuleInfoCode moduleInfoCode) {
-            return first.canFulfill(moduleInfoCode) || second.canFulfill(moduleInfoCode);
+        return first.canFulfill(moduleInfoCode) || second.canFulfill(moduleInfoCode);
     }
 
     @Override

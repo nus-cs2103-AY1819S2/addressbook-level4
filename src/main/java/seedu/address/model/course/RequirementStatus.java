@@ -7,8 +7,8 @@ import java.util.List;
 import seedu.address.model.moduleinfo.ModuleInfoCode;
 
 /**
- * Association class between {@code CourseRequirement} and {@code GradTrak}that stores a snapshot of the completion of {@code CourseRequirement}
- * object.
+ * Association class between {@code CourseRequirement} and {@code GradTrak}that stores
+ * a snapshot of the completion of {@code CourseRequirement} object.
  */
 public class RequirementStatus {
 

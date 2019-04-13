@@ -11,7 +11,7 @@ import static seedu.address.model.course.CourseReqType.UE;
 import static seedu.address.model.util.SampleCourseRequirement.COMPUTER_SCIENCE_FOUNDATION;
 import static seedu.address.model.util.SampleCourseRequirement.SCIENCE_REQUIREMENT;
 import static seedu.address.model.util.SampleCourseRequirement.UNIVERSITY_LEVEL_REQUIREMENT;
-import static seedu.address.testutil.TypicalModuleTaken.*;
+import static seedu.address.testutil.TypicalModuleTaken.getTypicalModulesInfoCodes;
 
 import java.util.Collections;
 import java.util.List;
@@ -25,16 +25,16 @@ import seedu.address.testutil.Assert;
 public class CompositeRequirementTest {
     private static final CompositeRequirement sampleRequirement = new CompositeRequirement(UNIVERSITY_LEVEL_REQUIREMENT,
             COMPUTER_SCIENCE_FOUNDATION, AND, CORE);
-    private static final CourseRequirement ulrRequirements = UNIVERSITY_LEVEL_REQUIREMENT;
-    private static final CourseRequirement scienceRequirements = SCIENCE_REQUIREMENT;
+    private static final CourseRequirement ulrReq = UNIVERSITY_LEVEL_REQUIREMENT;
+    private static final CourseRequirement scienceReq = SCIENCE_REQUIREMENT;
     private static final List<ModuleInfoCode> test = getTypicalModulesInfoCodes();
     private static final List<ModuleInfoCode> geModuleCodes = test.stream()
-            .filter(moduleInfoCode -> ulrRequirements.canFulfill(moduleInfoCode))
+            .filter(moduleInfoCode -> ulrReq.canFulfill(moduleInfoCode))
             .collect(Collectors.toList());
-    private static final CompositeRequirement ulrAndScience = new CompositeRequirement(ulrRequirements, scienceRequirements, AND, GE);
-    private static final CompositeRequirement ulrOrScience = new CompositeRequirement(ulrRequirements, scienceRequirements, OR, GE);
-    private static final CompositeRequirement scienceAndUlr = new CompositeRequirement(scienceRequirements, ulrRequirements, AND, GE);
-    private static final CompositeRequirement scienceOrUlr = new CompositeRequirement(scienceRequirements, ulrRequirements, OR, GE);
+    private static final CompositeRequirement ulrAndScience = new CompositeRequirement(ulrReq, scienceReq, AND, GE);
+    private static final CompositeRequirement ulrOrScience = new CompositeRequirement(ulrReq, scienceReq, OR, GE);
+    private static final CompositeRequirement scienceAndUlr = new CompositeRequirement(scienceReq, ulrReq, AND, GE);
+    private static final CompositeRequirement scienceOrUlr = new CompositeRequirement(scienceReq, ulrReq, OR, GE);
 
 
     @Test
@@ -98,10 +98,10 @@ public class CompositeRequirementTest {
 
     @Test
     public void isFulfilled_logicalConnectorCommutesWithCheckingComponent() {
-        assertEquals(ulrAndScience.isFulfilled(test),ulrRequirements.isFulfilled(test)
-                && scienceRequirements.isFulfilled(test));
-        assertEquals(ulrOrScience.isFulfilled(test),ulrRequirements.isFulfilled(test)
-                || scienceRequirements.isFulfilled(test));
+        assertEquals(ulrAndScience.isFulfilled(test), ulrReq.isFulfilled(test)
+                && scienceReq.isFulfilled(test));
+        assertEquals(ulrOrScience.isFulfilled(test), ulrReq.isFulfilled(test)
+                || scienceReq.isFulfilled(test));
     }
 
     @Test
@@ -134,22 +134,22 @@ public class CompositeRequirementTest {
 
     @Test
     public void getFulfilledPercentage_andConnector_returnsAverage() {
-        assertTrue((ulrRequirements.getFulfilledPercentage(geModuleCodes) +
-                scienceRequirements.getFulfilledPercentage(geModuleCodes))/2
+        assertTrue((ulrReq.getFulfilledPercentage(geModuleCodes)
+                + scienceReq.getFulfilledPercentage(geModuleCodes)) / 2
                 == ulrAndScience.getFulfilledPercentage(geModuleCodes));
     }
 
     @Test
     public void getFulfilledPercentage_orConnector_returnsMax() {
-        assertTrue(Math.max(ulrRequirements.getFulfilledPercentage(geModuleCodes),
-                scienceRequirements.getFulfilledPercentage(geModuleCodes))
+        assertTrue(Math.max(ulrReq.getFulfilledPercentage(geModuleCodes),
+                scienceReq.getFulfilledPercentage(geModuleCodes))
                 == ulrOrScience.getFulfilledPercentage(geModuleCodes));
     }
 
     @Test
     public void getFulfilledPercentage_notAffectedByOrder() {
-        assertTrue(ulrOrScience.getFulfilledPercentage(geModuleCodes) ==
-                scienceOrUlr.getFulfilledPercentage(geModuleCodes));
+        assertTrue(ulrOrScience.getFulfilledPercentage(geModuleCodes)
+                == scienceOrUlr.getFulfilledPercentage(geModuleCodes));
         assertTrue(scienceAndUlr.getFulfilledPercentage(geModuleCodes)
                 == ulrAndScience.getFulfilledPercentage(geModuleCodes));
     }
@@ -157,15 +157,15 @@ public class CompositeRequirementTest {
     @Test
     public void getUnfulfilled_emptyList_returnsFullList() {
         List<String> actual = ulrOrScience.getUnfulfilled(Collections.emptyList());
-        List<String> expected = ulrRequirements.getUnfulfilled(Collections.emptyList());
-        expected.addAll(scienceRequirements.getUnfulfilled(Collections.emptyList()));
+        List<String> expected = ulrReq.getUnfulfilled(Collections.emptyList());
+        expected.addAll(scienceReq.getUnfulfilled(Collections.emptyList()));
         assertEquals(actual, expected);
     }
 
     @Test
     public void getUnfilfilled_someConditionsUnfulfilled_returnsScience() {
         List<String> actual = ulrOrScience.getUnfulfilled(geModuleCodes);
-        List<String> expected = scienceRequirements.getUnfulfilled(Collections.emptyList());
+        List<String> expected = scienceReq.getUnfulfilled(Collections.emptyList());
         assertEquals(actual, expected);
     }
 

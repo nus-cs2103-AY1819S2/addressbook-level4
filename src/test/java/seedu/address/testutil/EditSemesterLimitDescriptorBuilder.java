@@ -1,49 +1,48 @@
 package seedu.address.testutil;
 
-import seedu.address.logic.commands.SetSemLimitCommand;
-import seedu.address.logic.commands.SetSemLimitCommand.EditSemLimitDescriptor;
-import seedu.address.model.SemLimit;
+import seedu.address.logic.commands.SetSemesterLimitCommand;
+import seedu.address.model.limits.SemesterLimit;
 import seedu.address.model.moduletaken.CapAverage;
 import seedu.address.model.moduletaken.Hour;
 
 /**
  * A utility class to help with building EditModuleTakenDescriptor objects.
  */
-public class EditSemLimitDescriptorBuilder {
+public class EditSemesterLimitDescriptorBuilder {
 
-    private EditSemLimitDescriptor descriptor;
+    private SetSemesterLimitCommand.EditSemesterLimitDescriptor descriptor;
 
-    public EditSemLimitDescriptorBuilder() {
-        descriptor = new SetSemLimitCommand.EditSemLimitDescriptor();
+    public EditSemesterLimitDescriptorBuilder() {
+        descriptor = new SetSemesterLimitCommand.EditSemesterLimitDescriptor();
     }
 
-    public EditSemLimitDescriptorBuilder(EditSemLimitDescriptor descriptor) {
-        this.descriptor = new EditSemLimitDescriptor(descriptor);
+    public EditSemesterLimitDescriptorBuilder(SetSemesterLimitCommand.EditSemesterLimitDescriptor descriptor) {
+        this.descriptor = new SetSemesterLimitCommand.EditSemesterLimitDescriptor(descriptor);
     }
 
     /**
      * Returns an {@code EditModuleTakenDescriptor} with fields containing {@code moduleTaken}'s details
      */
-    public EditSemLimitDescriptorBuilder(SemLimit semLimit) {
-        descriptor = new EditSemLimitDescriptor();
-        descriptor.setMinCap(semLimit.getMinCap());
-        descriptor.setMaxCap(semLimit.getMaxCap());
-        descriptor.setMinLectureHour(semLimit.getMinLectureHour());
-        descriptor.setMaxLectureHour(semLimit.getMaxLectureHour());
-        descriptor.setMinTutorialHour(semLimit.getMinTutorialHour());
-        descriptor.setMaxTutorialHour(semLimit.getMaxTutorialHour());
-        descriptor.setMinLabHour(semLimit.getMinLabHour());
-        descriptor.setMaxLabHour(semLimit.getMaxLabHour());
-        descriptor.setMinProjectHour(semLimit.getMinProjectHour());
-        descriptor.setMaxProjectHour(semLimit.getMaxProjectHour());
-        descriptor.setMinPreparationHour(semLimit.getMinPreparationHour());
-        descriptor.setMaxPreparationHour(semLimit.getMaxPreparationHour());
+    public EditSemesterLimitDescriptorBuilder(SemesterLimit semesterLimit) {
+        descriptor = new SetSemesterLimitCommand.EditSemesterLimitDescriptor();
+        descriptor.setMinCap(semesterLimit.getMinCap());
+        descriptor.setMaxCap(semesterLimit.getMaxCap());
+        descriptor.setMinLectureHour(semesterLimit.getMinLectureHour());
+        descriptor.setMaxLectureHour(semesterLimit.getMaxLectureHour());
+        descriptor.setMinTutorialHour(semesterLimit.getMinTutorialHour());
+        descriptor.setMaxTutorialHour(semesterLimit.getMaxTutorialHour());
+        descriptor.setMinLabHour(semesterLimit.getMinLabHour());
+        descriptor.setMaxLabHour(semesterLimit.getMaxLabHour());
+        descriptor.setMinProjectHour(semesterLimit.getMinProjectHour());
+        descriptor.setMaxProjectHour(semesterLimit.getMaxProjectHour());
+        descriptor.setMinPreparationHour(semesterLimit.getMinPreparationHour());
+        descriptor.setMaxPreparationHour(semesterLimit.getMaxPreparationHour());
     }
 
     /**
      * Sets the {@code CapAverage} of the {@code EditSemesterLimitDescriptor} that we are building.
      */
-    public EditSemLimitDescriptorBuilder withMinCap(String cap) {
+    public EditSemesterLimitDescriptorBuilder withMinCap(String cap) {
         descriptor.setMinCap(new CapAverage(Double.valueOf(cap)));
         return this;
     }
@@ -51,7 +50,7 @@ public class EditSemLimitDescriptorBuilder {
     /**
      * Sets the {@code CapAverage} of the {@code EditSemesterLimitDescriptor} that we are building.
      */
-    public EditSemLimitDescriptorBuilder withMaxCap(String cap) {
+    public EditSemesterLimitDescriptorBuilder withMaxCap(String cap) {
         descriptor.setMaxCap(new CapAverage(Double.valueOf(cap)));
         return this;
     }
@@ -59,7 +58,7 @@ public class EditSemLimitDescriptorBuilder {
     /**
      * Sets the {@code Hour} of the {@code EditSemesterLimitDescriptor} that we are building.
      */
-    public EditSemLimitDescriptorBuilder withMinLectureHour(String hour) {
+    public EditSemesterLimitDescriptorBuilder withMinLectureHour(String hour) {
         descriptor.setMinLectureHour(new Hour(hour));
         return this;
     }
@@ -67,7 +66,7 @@ public class EditSemLimitDescriptorBuilder {
     /**
      * Sets the {@code Hour} of the {@code EditSemesterLimitDescriptor} that we are building.
      */
-    public EditSemLimitDescriptorBuilder withMaxLectureHour(String hour) {
+    public EditSemesterLimitDescriptorBuilder withMaxLectureHour(String hour) {
         descriptor.setMaxLectureHour(new Hour(hour));
         return this;
     }
@@ -75,7 +74,7 @@ public class EditSemLimitDescriptorBuilder {
     /**
      * Sets the {@code Hour} of the {@code EditSemesterLimitDescriptor} that we are building.
      */
-    public EditSemLimitDescriptorBuilder withMinTutorialHour(String hour) {
+    public EditSemesterLimitDescriptorBuilder withMinTutorialHour(String hour) {
         descriptor.setMinTutorialHour(new Hour(hour));
         return this;
     }
@@ -83,7 +82,7 @@ public class EditSemLimitDescriptorBuilder {
     /**
      * Sets the {@code Hour} of the {@code EditSemesterLimitDescriptor} that we are building.
      */
-    public EditSemLimitDescriptorBuilder withMaxTutorialHour(String hour) {
+    public EditSemesterLimitDescriptorBuilder withMaxTutorialHour(String hour) {
         descriptor.setMaxTutorialHour(new Hour(hour));
         return this;
     }
@@ -91,7 +90,7 @@ public class EditSemLimitDescriptorBuilder {
     /**
      * Sets the {@code Hour} of the {@code EditSemesterLimitDescriptor} that we are building.
      */
-    public EditSemLimitDescriptorBuilder withMinLabHour(String hour) {
+    public EditSemesterLimitDescriptorBuilder withMinLabHour(String hour) {
         descriptor.setMinLabHour(new Hour(hour));
         return this;
     }
@@ -99,7 +98,7 @@ public class EditSemLimitDescriptorBuilder {
     /**
      * Sets the {@code Hour} of the {@code EditSemesterLimitDescriptor} that we are building.
      */
-    public EditSemLimitDescriptorBuilder withMaxLabHour(String hour) {
+    public EditSemesterLimitDescriptorBuilder withMaxLabHour(String hour) {
         descriptor.setMaxLabHour(new Hour(hour));
         return this;
     }
@@ -107,7 +106,7 @@ public class EditSemLimitDescriptorBuilder {
     /**
      * Sets the {@code Hour} of the {@code EditSemesterLimitDescriptor} that we are building.
      */
-    public EditSemLimitDescriptorBuilder withMinProjectHour(String hour) {
+    public EditSemesterLimitDescriptorBuilder withMinProjectHour(String hour) {
         descriptor.setMinProjectHour(new Hour(hour));
         return this;
     }
@@ -115,7 +114,7 @@ public class EditSemLimitDescriptorBuilder {
     /**
      * Sets the {@code Hour} of the {@code EditSemesterLimitDescriptor} that we are building.
      */
-    public EditSemLimitDescriptorBuilder withMaxProjectHour(String hour) {
+    public EditSemesterLimitDescriptorBuilder withMaxProjectHour(String hour) {
         descriptor.setMaxProjectHour(new Hour(hour));
         return this;
     }
@@ -123,7 +122,7 @@ public class EditSemLimitDescriptorBuilder {
     /**
      * Sets the {@code Hour} of the {@code EditSemesterLimitDescriptor} that we are building.
      */
-    public EditSemLimitDescriptorBuilder withMinPreparationHour(String hour) {
+    public EditSemesterLimitDescriptorBuilder withMinPreparationHour(String hour) {
         descriptor.setMinPreparationHour(new Hour(hour));
         return this;
     }
@@ -131,12 +130,12 @@ public class EditSemLimitDescriptorBuilder {
     /**
      * Sets the {@code Hour} of the {@code EditSemesterLimitDescriptor} that we are building.
      */
-    public EditSemLimitDescriptorBuilder withMaxPreparationHour(String hour) {
+    public EditSemesterLimitDescriptorBuilder withMaxPreparationHour(String hour) {
         descriptor.setMaxPreparationHour(new Hour(hour));
         return this;
     }
 
-    public EditSemLimitDescriptor build() {
+    public SetSemesterLimitCommand.EditSemesterLimitDescriptor build() {
         return descriptor;
     }
 }

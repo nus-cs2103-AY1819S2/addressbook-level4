@@ -24,11 +24,11 @@ import seedu.address.model.GradTrak;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyGradTrak;
 import seedu.address.model.ReadOnlyUserPrefs;
-import seedu.address.model.SemLimit;
 import seedu.address.model.UserInfo;
 import seedu.address.model.course.Course;
 import seedu.address.model.course.CourseName;
 import seedu.address.model.course.RequirementStatus;
+import seedu.address.model.limits.SemesterLimit;
 
 import seedu.address.model.moduleinfo.ModuleInfo;
 import seedu.address.model.moduleinfo.ModuleInfoCode;
@@ -185,7 +185,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void setSemesterLimit(int index, SemLimit editedSemLimit) {
+        public void setSemesterLimit(int index, SemesterLimit editedSemesterLimit) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -196,7 +196,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public ObservableList<SemLimit> getSemLimitList() {
+        public ObservableList<SemesterLimit> getSemLimitList() {
             throw new AssertionError("This method should not be called.");
         }
 

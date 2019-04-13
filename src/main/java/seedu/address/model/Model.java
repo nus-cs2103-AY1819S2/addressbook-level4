@@ -10,6 +10,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.course.Course;
 import seedu.address.model.course.CourseName;
 import seedu.address.model.course.RequirementStatus;
+import seedu.address.model.limits.SemesterLimit;
 import seedu.address.model.moduleinfo.ModuleInfo;
 import seedu.address.model.moduleinfo.ModuleInfoCode;
 import seedu.address.model.moduleinfo.ModuleInfoList;
@@ -106,9 +107,9 @@ public interface Model {
     void setModuleTaken(ModuleTaken target, ModuleTaken editedModuleTaken);
 
     /**
-     * Replaces the semester limit at the given index with {@code editedSemLimit}.
+     * Replaces the semester limit at the given index with {@code editedSemesterLimit}.
      */
-    void setSemesterLimit(int index, SemLimit editedSemLimit);
+    void setSemesterLimit(int index, SemesterLimit editedSemesterLimit);
 
     /**
      * Replaces the current semester with the given semester.
@@ -118,8 +119,8 @@ public interface Model {
     /** Returns an unmodifiable view of the filtered moduleTaken list */
     ObservableList<ModuleTaken> getFilteredModulesTakenList();
 
-    /** Returns an unmodifiable view of the SemLimit list */
-    ObservableList<SemLimit> getSemLimitList();
+    /** Returns an unmodifiable view of the SemesterLimit list */
+    ObservableList<SemesterLimit> getSemLimitList();
 
     /**
      * Updates the filter of the filtered moduleTaken list to filter by the given {@code predicate}.

@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import seedu.address.model.GradTrak;
-import seedu.address.model.SemLimit;
+import seedu.address.model.limits.SemesterLimit;
 import seedu.address.model.moduleinfo.ModuleInfoCode;
 import seedu.address.model.moduletaken.CapAverage;
 import seedu.address.model.moduletaken.Hour;
@@ -117,34 +117,34 @@ public class TypicalModuleTaken {
             .withExpectedMaxGrade("A")
             .withLectureHour("0").build();
 
-    public static final SemLimit Y1S1 = new SemLimit(new CapAverage(1), new CapAverage(5), new Hour("4"),
+    public static final SemesterLimit Y1S1 = new SemesterLimit(new CapAverage(1), new CapAverage(5), new Hour("4"),
             new Hour("8"), new Hour("2"), new Hour("5"), new Hour("2"), new Hour("5"),
             new Hour("2"), new Hour("5"), new Hour("6"), new Hour("10"));
-    public static final SemLimit Y1S2 = new SemLimit(new CapAverage(1), new CapAverage(5), new Hour("4"),
+    public static final SemesterLimit Y1S2 = new SemesterLimit(new CapAverage(1), new CapAverage(5), new Hour("4"),
             new Hour("8"), new Hour("2"), new Hour("5"), new Hour("2"), new Hour("5"),
             new Hour("2"), new Hour("5"), new Hour("6"), new Hour("10"));
-    public static final SemLimit Y2S1 = new SemLimit(new CapAverage(1), new CapAverage(5), new Hour("4"),
+    public static final SemesterLimit Y2S1 = new SemesterLimit(new CapAverage(1), new CapAverage(5), new Hour("4"),
             new Hour("8"), new Hour("2"), new Hour("5"), new Hour("2"), new Hour("5"),
             new Hour("2"), new Hour("5"), new Hour("6"), new Hour("10"));
-    public static final SemLimit Y2S2 = new SemLimit(new CapAverage(1), new CapAverage(5), new Hour("4"),
+    public static final SemesterLimit Y2S2 = new SemesterLimit(new CapAverage(1), new CapAverage(5), new Hour("4"),
             new Hour("8"), new Hour("2"), new Hour("5"), new Hour("2"), new Hour("5"),
             new Hour("2"), new Hour("5"), new Hour("6"), new Hour("10"));
-    public static final SemLimit Y3S1 = new SemLimit(new CapAverage(1), new CapAverage(5), new Hour("4"),
+    public static final SemesterLimit Y3S1 = new SemesterLimit(new CapAverage(1), new CapAverage(5), new Hour("4"),
             new Hour("8"), new Hour("2"), new Hour("5"), new Hour("2"), new Hour("5"),
             new Hour("2"), new Hour("5"), new Hour("6"), new Hour("10"));
-    public static final SemLimit Y3S2 = new SemLimit(new CapAverage(1), new CapAverage(5), new Hour("4"),
+    public static final SemesterLimit Y3S2 = new SemesterLimit(new CapAverage(1), new CapAverage(5), new Hour("4"),
             new Hour("8"), new Hour("2"), new Hour("5"), new Hour("2"), new Hour("5"),
             new Hour("2"), new Hour("5"), new Hour("6"), new Hour("10"));
-    public static final SemLimit Y4S1 = new SemLimit(new CapAverage(1), new CapAverage(5), new Hour("4"),
+    public static final SemesterLimit Y4S1 = new SemesterLimit(new CapAverage(1), new CapAverage(5), new Hour("4"),
             new Hour("8"), new Hour("2"), new Hour("5"), new Hour("2"), new Hour("5"),
             new Hour("2"), new Hour("5"), new Hour("6"), new Hour("10"));
-    public static final SemLimit Y4S2 = new SemLimit(new CapAverage(1), new CapAverage(5), new Hour("4"),
+    public static final SemesterLimit Y4S2 = new SemesterLimit(new CapAverage(1), new CapAverage(5), new Hour("4"),
             new Hour("8"), new Hour("2"), new Hour("5"), new Hour("2"), new Hour("5"),
             new Hour("2"), new Hour("5"), new Hour("6"), new Hour("10"));
-    public static final SemLimit Y5S1 = new SemLimit(new CapAverage(1), new CapAverage(5), new Hour("4"),
+    public static final SemesterLimit Y5S1 = new SemesterLimit(new CapAverage(1), new CapAverage(5), new Hour("4"),
             new Hour("8"), new Hour("2"), new Hour("5"), new Hour("2"), new Hour("5"),
             new Hour("2"), new Hour("5"), new Hour("6"), new Hour("10"));
-    public static final SemLimit Y5S2 = new SemLimit(new CapAverage(1), new CapAverage(5), new Hour("4"),
+    public static final SemesterLimit Y5S2 = new SemesterLimit(new CapAverage(1), new CapAverage(5), new Hour("4"),
             new Hour("8"), new Hour("2"), new Hour("5"), new Hour("2"), new Hour("5"),
             new Hour("2"), new Hour("5"), new Hour("6"), new Hour("10"));
 
@@ -181,9 +181,9 @@ public class TypicalModuleTaken {
         for (ModuleTaken moduleTaken : getTypicalModulesTaken()) {
             gt.addModuleTaken(moduleTaken);
         }
-        List<SemLimit> semList = new ArrayList<>();
-        for (SemLimit semLimit : getTypicalSemesterLimits()) {
-            semList.add(semLimit);
+        List<SemesterLimit> semList = new ArrayList<>();
+        for (SemesterLimit semesterLimit : getTypicalSemesterLimits()) {
+            semList.add(semesterLimit);
         }
         gt.setSemesterLimits(semList);
         gt.setCurrentSemester(Semester.Y1S1);
@@ -195,7 +195,7 @@ public class TypicalModuleTaken {
         return new ArrayList<>(Arrays.asList(CS2103T, CS2101, CS1010S, CS1010X, MA1521, LSM1301, GER1000));
     }
 
-    public static List<SemLimit> getTypicalSemesterLimits() {
+    public static List<SemesterLimit> getTypicalSemesterLimits() {
         return new ArrayList<>(Arrays.asList(Y1S1, Y1S2, Y2S1, Y2S2, Y3S1, Y3S2, Y4S1, Y4S2, Y5S1, Y5S2));
     }
 

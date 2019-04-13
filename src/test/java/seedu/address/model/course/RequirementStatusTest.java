@@ -2,7 +2,8 @@ package seedu.address.model.course;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static seedu.address.model.util.SampleCourseRequirement.*;
+import static seedu.address.model.util.SampleCourseRequirement.TOTAL_MODULE_COUNT;
+import static seedu.address.model.util.SampleCourseRequirement.UNIVERSITY_LEVEL_REQUIREMENT;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,7 +59,7 @@ public class RequirementStatusTest {
         RequirementStatus actual = new RequirementStatus(UNIVERSITY_LEVEL_REQUIREMENT, moduleInfoCodeList);
         RequirementStatus expected = new RequirementStatus(UNIVERSITY_LEVEL_REQUIREMENT, moduleInfoCodeList);
         assertEquals(actual, expected);
-        List<ModuleInfoCode> anotherList= List.of(new ModuleInfoCode("GET1000"), new ModuleInfoCode("GES1000"));
+        List<ModuleInfoCode> anotherList = List.of(new ModuleInfoCode("GET1000"), new ModuleInfoCode("GES1000"));
         expected.updateRequirementStatus(anotherList);
         assertEquals(actual, expected);
     }
@@ -70,7 +71,7 @@ public class RequirementStatusTest {
         RequirementStatus actual = new RequirementStatus(UNIVERSITY_LEVEL_REQUIREMENT, moduleInfoCodeList);
         RequirementStatus expected = new RequirementStatus(UNIVERSITY_LEVEL_REQUIREMENT, moduleInfoCodeList);
         assertEquals(actual, expected);
-        List<ModuleInfoCode> anotherList= List.of(new ModuleInfoCode("GET1000"), new ModuleInfoCode("GE1000"));
+        List<ModuleInfoCode> anotherList = List.of(new ModuleInfoCode("GET1000"), new ModuleInfoCode("GE1000"));
         expected.updateRequirementStatus(anotherList);
         assertNotEquals(actual, expected);
     }

@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 
 import seedu.address.model.GradTrak;
 import seedu.address.model.ReadOnlyGradTrak;
-import seedu.address.model.SemLimit;
+import seedu.address.model.limits.SemesterLimit;
 import seedu.address.model.moduleinfo.ModuleInfoCode;
 import seedu.address.model.moduletaken.CapAverage;
 import seedu.address.model.moduletaken.Grade;
@@ -46,10 +46,10 @@ public class SampleDataUtil {
         };
     }
 
-    public static List<SemLimit> getSampleSemesterLimits() {
-        List<SemLimit> semList = new ArrayList<>();
+    public static List<SemesterLimit> getSampleSemesterLimits() {
+        List<SemesterLimit> semList = new ArrayList<>();
         for (int i = 0; i < NUM_SEMS; i++) {
-            semList.add(new SemLimit(new CapAverage(2.0), new CapAverage(5.0), new Hour("5.0"), new Hour("9.0"),
+            semList.add(new SemesterLimit(new CapAverage(2.0), new CapAverage(5.0), new Hour("5.0"), new Hour("9.0"),
                     new Hour("2.5"), new Hour("5.0"), new Hour("2.0"), new Hour("5.0"), new Hour("2.0"),
                     new Hour("5.0"), new Hour("6.0"), new Hour("10.0")));
         }

@@ -53,7 +53,7 @@ public class BrowserPanel extends UiPart<Region> {
     //@FXML
     //private WebView browser;
 
-    public BrowserPanel(ObservableValue<Pdf> selectedPerson, List<Pdf> duePdfs) {
+    public BrowserPanel(ObservableValue<Pdf> selectedPdf, List<Pdf> duePdfs) {
         super(FXML);
 
         // To prevent triggering events for typing inside the loaded Web page.
@@ -62,7 +62,7 @@ public class BrowserPanel extends UiPart<Region> {
         this.updateDefaultPage(duePdfs);
         this.selected.setVisible(false);
 
-        selectedPerson.addListener((observable, oldValue, newValue) -> {
+        selectedPdf.addListener((observable, oldValue, newValue) -> {
             if (newValue == null) {
 
                 this.updateDefaultPage(duePdfs);

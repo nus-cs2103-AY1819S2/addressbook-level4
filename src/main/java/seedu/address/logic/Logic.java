@@ -33,7 +33,7 @@ public interface Logic {
     ReadOnlyPdfBook getPdfBook();
 
     /** Returns an unmodifiable view of the filtered list of persons */
-    ObservableList<Pdf> getFilteredPersonList();
+    ObservableList<Pdf> getFilteredPdfList();
 
     /**
      * Returns an unmodifiable view of the list of commands entered by the user.
@@ -62,14 +62,14 @@ public interface Logic {
      *
      * @see seedu.address.model.Model#selectedPdfProperty()
      */
-    ReadOnlyProperty<Pdf> selectedPersonProperty();
+    ReadOnlyProperty<Pdf> selectedPdfProperty();
 
     /**
      * Sets the selected pdf in the filtered pdf list.
      *
      * @see seedu.address.model.Model#setSelectedPdf(Pdf)
      */
-    void setSelectedPerson(Pdf pdf);
+    void setSelectedPdf(Pdf pdf);
 
     /**
      * Provides a list of Pdfs that are about to hit their deadines.

@@ -76,7 +76,7 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ObservableList<Pdf> getFilteredPersonList() {
+    public ObservableList<Pdf> getFilteredPdfList() {
         return model.getFilteredPdfList();
     }
 
@@ -101,12 +101,12 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ReadOnlyProperty<Pdf> selectedPersonProperty() {
+    public ReadOnlyProperty<Pdf> selectedPdfProperty() {
         return model.selectedPdfProperty();
     }
 
     @Override
-    public void setSelectedPerson(Pdf pdf) {
+    public void setSelectedPdf(Pdf pdf) {
         model.setSelectedPdf(pdf);
     }
 

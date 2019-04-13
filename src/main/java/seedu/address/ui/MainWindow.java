@@ -111,11 +111,11 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        browserPanel = new BrowserPanel(logic.selectedPersonProperty(), logic.getDuePdfs());
+        browserPanel = new BrowserPanel(logic.selectedPdfProperty(), logic.getDuePdfs());
         browserPlaceholder.getChildren().add(browserPanel.getRoot());
 
-        pdfListPanel = new PdfListPanel(logic.getFilteredPersonList(), logic.selectedPersonProperty(),
-                logic::setSelectedPerson);
+        pdfListPanel = new PdfListPanel(logic.getFilteredPdfList(), logic.selectedPdfProperty(),
+                logic::setSelectedPdf);
         pdfListPanelPlaceholder.getChildren().add(pdfListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();

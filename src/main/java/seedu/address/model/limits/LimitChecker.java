@@ -68,13 +68,13 @@ public class LimitChecker implements ClassForPrinting {
             semesterSums[modulesTaken.get(mod).getSemester().getIndex()][0] +=
                     modulesTaken.get(mod).getLectureHour().getHour();
             semesterSums[modulesTaken.get(mod).getSemester().getIndex()][1] +=
-                    modulesTaken.get(mod).getLectureHour().getHour();
+                    modulesTaken.get(mod).getTutorialHour().getHour();
             semesterSums[modulesTaken.get(mod).getSemester().getIndex()][2] +=
-                    modulesTaken.get(mod).getLectureHour().getHour();
+                    modulesTaken.get(mod).getLabHour().getHour();
             semesterSums[modulesTaken.get(mod).getSemester().getIndex()][3] +=
-                    modulesTaken.get(mod).getLectureHour().getHour();
+                    modulesTaken.get(mod).getProjectHour().getHour();
             semesterSums[modulesTaken.get(mod).getSemester().getIndex()][4] +=
-                    modulesTaken.get(mod).getLectureHour().getHour();
+                    modulesTaken.get(mod).getPreparationHour().getHour();
         }
         double[] cumulativeMinCurrentMaxCap = new double[3];
         cumulativeMinCurrentMaxCap[0] = cumulativeMinCap.getCapLimit();

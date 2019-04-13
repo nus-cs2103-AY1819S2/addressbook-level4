@@ -96,7 +96,8 @@ public class EditCommand extends Command {
             throw new CommandException(Messages.MESSAGE_GRADES_OUT_OF_ORDER);
         }
 
-        if ((editPersonDescriptor.getExpectedMinGrade() != null || editPersonDescriptor.getExpectedMaxGrade() != null)
+        if ((editPersonDescriptor.getExpectedMinGrade().isPresent()
+                || editPersonDescriptor.getExpectedMaxGrade().isPresent())
                 && editedModuleTaken.getSemester().getIndex() < model.getCurrentSemester().getIndex()) {
             throw new CommandException(Messages.MESSAGE_GRADES_NOT_FINALIZED_BEFORE_SEMESTER);
         }

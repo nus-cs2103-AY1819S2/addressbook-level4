@@ -115,6 +115,11 @@ GradTrak is able to consolidate all the information about the modules they plan 
 The cklimit command calculates the expected minimum and maximum CAP of each semester and checks them against the limit preferences set by the user. +
 Format: `cklimit`
 
+The image below shows the display after using the `cklimit` command
+
+image::CheckLimitDisplay.png[width="1000"]
+Figure 2000000000000000000000. Results of `cklimit` is displayed
+
 [NOTE]
 This command also analyzes and prints workload information.
 
@@ -128,7 +133,12 @@ To find out if their current plans are optimized in workload distribution, users
 GradTrak is able to consolidate all the information about the modules they plan to take and what limit preferences they have for each semester. This allows the user to run a workload analysis on their current module plan and generate the results to be printed all in one page on their screen.
 
 The cklimit command calculates the total expected weekly workload of each semester and checks against the limit preferences set by the user. +
-Format: `cklimit`
+Format: `cklimit` +
+
+The image below shows the display after using the `cklimit` command and scrolling down the result page to the workload information:
+
+image::CheckLimitScrolledDownDisplay.png[width="1000"]
+Figure 2000000000000000000001. Results of `cklimit` is displayed after scrolling down the result page
 
 [NOTE]
 This command also analyzes and prints CAP information

@@ -2,13 +2,12 @@ package systemtests;
 
 import static org.junit.Assert.assertTrue;
 import static seedu.equipment.commons.core.Messages.MESSAGE_INVALID_EQUIPMENT_DISPLAYED_INDEX;
-//import static seedu.equipment.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.equipment.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.equipment.logic.commands.DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS;
 import static seedu.equipment.testutil.TestUtil.getLastIndex;
 import static seedu.equipment.testutil.TestUtil.getMidIndex;
 import static seedu.equipment.testutil.TestUtil.getPerson;
 import static seedu.equipment.testutil.TypicalEquipments.KEYWORD_MATCHING_HWI;
-//import static seedu.equipment.testutil.TypicalEquipments.KEYWORD_MATCHING_CC;
 import static seedu.equipment.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
 import org.junit.Test;
@@ -110,8 +109,8 @@ public class DeleteCommandSystemTest extends EquipmentManagerSystemTest {
         /* Case: invalid arguments (extra argument) -> rejected */
         assertCommandFailure(DeleteCommand.COMMAND_WORD + " 1 abc", MESSAGE_INVALID_DELETE_COMMAND_FORMAT);
 
-//        /* Case: mixed case command word -> rejected */
-//        assertCommandFailure("DelETE 1", MESSAGE_UNKNOWN_COMMAND);
+        /* Case: mixed case command word -> rejected */
+        assertCommandFailure("DelETE 1", MESSAGE_UNKNOWN_COMMAND);
     }
 
     /**

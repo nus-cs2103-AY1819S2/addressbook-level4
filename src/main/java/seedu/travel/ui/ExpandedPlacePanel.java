@@ -19,10 +19,10 @@ import seedu.travel.model.place.Place;
 public class ExpandedPlacePanel extends UiPart<Region> {
 
     public static final String EMPTY_PHOTO_PATH = "pBSgcMnA";
+    public static final String DEFAULT_IMAGE_FILEPATH = "/images/test-img.jpg";
     private static final String FXML = "ExpandedPlacePanel.fxml";
     private static final String[] TAG_COLOR_STYLES =
         { "teal", "red", "yellow", "blue", "orange", "brown", "green", "salmon", "black", "grey" };
-    public static final String DEFAULT_IMAGE_FILEPATH = "/images/test-img.jpg";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.

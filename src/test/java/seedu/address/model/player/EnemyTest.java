@@ -32,10 +32,6 @@ public class EnemyTest {
         initialisePlayerSizeTen(testPlayer);
     }
 
-    boolean isSubset(List<?> list, List<?> sublist) {
-        return Collections.indexOfSubList(list, sublist) != -1;
-    }
-
     public static <T> boolean isSameListContents(List<T> list1, List<T> list2) {
         return new HashSet<>(list1).equals(new HashSet<>(list2));
     }
@@ -106,7 +102,7 @@ public class EnemyTest {
      *          allPossibleTargets must be size 100, allPossiblePopulateCoords must be < 100, allParityTargets must be 50
      *          allParityTargets should be proper subset of allPossibleTargets
      *          allPossiblePopulateCoords should be proper subset of allPossibleTargets
-     *          filled deployed fleet with the correct number of each type of battleships
+     *          filled deployed fleet with the correct number of battleships: 8 in total for  size 10 map
      *
      */
     @Test public void test_prepEnemy() {
@@ -141,14 +137,14 @@ public class EnemyTest {
 
         //check that allParityTargets should be proper subset of allPossibleTargets
         assertFalse(isSameListContents(testEnemy.getAllParityTargets(), testEnemy.getAllPossibleTargets()));
-        assertTrue(isSubset(testEnemy.getAllPossibleTargets(), testEnemy.getAllParityTargets()));
+        assertTrue(testEnemy.getAllPossibleTargets().containsAll(testEnemy.getAllParityTargets()));
 
         //check that allPossiblePopulateCoords should be proper subset of allPossibleTargets
         assertFalse(isSameListContents(testEnemy.getAllPossiblePopulateCoords(), testEnemy.getAllPossibleTargets()));
-        assertTrue(isSubset(testEnemy.getAllPossiblePopulateCoords(), testEnemy.getAllParityTargets()));
+        assertTrue(testEnemy.getAllPossibleTargets().containsAll(testEnemy.getAllPossiblePopulateCoords()));
 
         //check that the correct number of ships were deployed into deployedFleet
-        assertTrue(testEnemy.getFleet().isAllDeployed());
+        assertEquals(testEnemy.getFleet().getSize(), 8);
     }
 
     @Test public void test_enemyShootAt() {

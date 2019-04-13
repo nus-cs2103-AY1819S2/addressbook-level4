@@ -1342,25 +1342,25 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 // tag::patient_user_stories_kyler[]
 |`* * *` |user |add a new patient's particulars |know about their situation
 
-|`* * *` |user |edit my patient's particulars when the situation changes |their personal information remains updated
+|`* * *` |user |edit my patient's particulars | their personal information remains updated
 
-|`* * *` |user |my patients' medical records and teeth data tied to them |know how their situation evolved
+|`* * *` |user |store my patient's teeth | track their teeth condition
 
-|`* * *` |user |store, edit, and view my dental patients' teeth condition |understand and serve my dental patients'
-teeth condition better
+|`* * *` |user |modify my dental patients' teeth condition | understand and serve my dental patients'
 
 |`* * *` |user |isolate other patients' information |focus on the current patient in my clinic
 
-|`* * *` |user |view my patients' dental records |understand and keep track of my patients' teeth health history
+|`* * *` |user |view my patients' dental records | keep track of my patients' teeth health history
 
-|`* * *` |user |add a new dental record |store diagnosis and treatments of my patients during their dental sessions
+|`* * *` |user |add a new dental record | store diagnosis and treatments of my patients
 
 |`* * *` |user |delete a dental record |remove records that have become redundant or irrelevant
 
-|`* * *` |user |edit a dental record |correct or modify descriptions of dental records that I have already added
+|`* * *` |user |edit a dental record | correct existing dental records
 
-|`* * *` |user |clear all dental records of a patient |protect the privacy of my patients if they require me to
+|`* * *` |user |clear all dental records of a patient | protect the privacy of my patients
 // end::patient_user_stories_kyler[]
+
 |`* * *` |user |add a new task |keep track of what I need to do
 
 |`* * *` |user |delete a task |remove tasks that I have already completed or no longer need to do

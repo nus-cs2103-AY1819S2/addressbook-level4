@@ -366,11 +366,11 @@ The `put` command puts a ship on the map grid, specified by the __head coordinat
 The head coordinate of a ship refers to the top-most and left-most cell of the ship. When coordinates are specified in the `put` command, it specifies the coordinates of the head of the ship, as shown in the figure below.
 
 .The coordinates of the battleship head are always the top-most and left-most coordinates.
-image:BattleshipHeadExample.png[]
+image:BattleshipHeadExample.png[width=800]
 
 
 .The coordinates of the `put` command refer to the coordinates of the battleship head.
-image:BattleshipHeadExample2.png[]
+image:BattleshipHeadExample2.png[width=800]
 ====
 
 The following operations are called when the `put` command is called.
@@ -1097,8 +1097,10 @@ _{More to be added}_
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
 .  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-
-_{More to be added}_
+. Should not use up too much memory for the application and application data for typical usage.
+. Versions should be backward compatible with each other.
+. Should be usable by a novice who has never played Battleship before.
+. The map grid should be large enough for gameplay.
 
 [appendix]
 == Glossary
@@ -1145,8 +1147,6 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-_{ more test cases ... }_
-
 // tag::maptest[]
 
 === Initialising the maps
@@ -1162,6 +1162,8 @@ _{ more test cases ... }_
 
 // end::maptest[]
 
+// tag::shiptest[]
+
 === Putting a ship
 
 . Putting a ship on the map after initialising the map.
@@ -1173,14 +1175,10 @@ _{ more test cases ... }_
    Expected: Aircraft Carrier battleship of size 5 will be put horizontally on coordinates `c1`, `c2`, `c3`, `c4` and `c5`. The map is updated with 5 black cells on each of these coordinates representing the Aircraft Carrier battleship.
 .. Test case: `put n/aircraft carrier r/horizontal c/e1 t/nomore` +
    Expected: No battleship is put down on the map. Error details shown in the status message. Map remains the same.
-.. Test case: `put n/destroyer r/vertical c/b1` +
-   Expected: No battleship is put down on the map. Error details shown in the status message. Map remains the same.
-.. Test case: `put n/destroyer r/vertical c/a1` +
-   Expected: No battleship is put down on the map. Error details shown in the status message. Map remains the same.
-.. Test case: `put n/destroyer r/vertical c/z1` +
-   Expected: No battleship is put down on the map. Error details shown in the status message. Map remains the same.
 
-_{ more test cases ... }_
+// end::shiptest[]
+
+
 
 === Viewing the statistics
 

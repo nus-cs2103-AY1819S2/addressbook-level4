@@ -403,7 +403,7 @@ NOTE: The csv file imported should follow the format described below
 ====
 * The first row of the csv file should have the following headers:
 +
-Question, Answer, Hints, Option 1, Option 2, Option 3.
+Question, Answer, Hints, Option, Option, Option.
 * Question and Answer are mandatory fields, and should not be left blank.
 * Hints can take 0 or 1 values only.
 * For MCQ cards, The csv file accepts up to 3 incorrect options per flashcard.

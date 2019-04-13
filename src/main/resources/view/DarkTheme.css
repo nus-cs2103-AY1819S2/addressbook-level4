@@ -3,10 +3,6 @@
     -fx-focus-color: #19b4c5;
 }
 
-.error {
-    -fx-text-fill: #F44336 !important; /* The error class should always override the default text-fill style */
-}
-
 .background {
     -fx-background-color: derive(#1d1d1d, 20%);
     background-color: #383838; /* Used in the default.html file */
@@ -364,6 +360,10 @@
     -fx-text-fill: #f44336;
 }
 
+#commandTextBox {
+    -fx-text-fill: #f3f4f8;
+}
+
 #commandTextField {
     -fx-background-color: transparent #383838 transparent #383838;
     -fx-background-insets: 0;
@@ -372,7 +372,14 @@
     -fx-border-width: 1;
     -fx-font-family: "Segoe UI";
     -fx-font-size: 13pt;
-    -fx-text-fill: #f3f4f8;
+}
+
+.error {
+    -fx-text-fill: #F44336;
+}
+
+.success {
+    -fx-text-fill: #4CAF50;
 }
 
 #filterField, #lessonListPanel, #lessonWebpage {

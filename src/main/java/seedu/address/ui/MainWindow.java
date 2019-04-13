@@ -241,6 +241,7 @@ public class MainWindow extends UiPart<Stage> {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+            resultDisplay.setStyleToDefault();
             LogicManager.Mode currentMode = logic.getMode();
             setTheme();
 
@@ -273,6 +274,7 @@ public class MainWindow extends UiPart<Stage> {
         } catch (CommandException | ParseException e) {
             logger.info("Invalid command: " + commandText);
             resultDisplay.setFeedbackToUser(e.getMessage());
+            resultDisplay.setStyleToIndicateCommandFailure();
             throw e;
         }
     }

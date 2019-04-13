@@ -17,8 +17,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
  * The UI component that is responsible for receiving user command inputs.
  */
 public class CommandBox extends UiPart<Region> {
-
-    public static final String ERROR_STYLE_CLASS = "error";
+    public static final String STYLE_CLASS_ERROR = "error";
     private static final String FXML = "CommandBox.fxml";
 
     private final CommandExecutor commandExecutor;
@@ -124,7 +123,7 @@ public class CommandBox extends UiPart<Region> {
      * Sets the command box style to use the default style.
      */
     private void setStyleToDefault() {
-        commandTextField.getStyleClass().remove(ERROR_STYLE_CLASS);
+        commandTextField.getStyleClass().remove(STYLE_CLASS_ERROR);
     }
 
     /**
@@ -133,11 +132,11 @@ public class CommandBox extends UiPart<Region> {
     private void setStyleToIndicateCommandFailure() {
         ObservableList<String> styleClass = commandTextField.getStyleClass();
 
-        if (styleClass.contains(ERROR_STYLE_CLASS)) {
+        if (styleClass.contains(STYLE_CLASS_ERROR)) {
             return;
         }
 
-        styleClass.add(ERROR_STYLE_CLASS);
+        styleClass.add(STYLE_CLASS_ERROR);
     }
 
     /**

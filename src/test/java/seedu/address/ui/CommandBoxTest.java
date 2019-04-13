@@ -43,7 +43,7 @@ public class CommandBoxTest extends GuiUnitTest {
         defaultStyleOfCommandBox = new ArrayList<>(commandBoxHandle.getStyleClass());
 
         errorStyleOfCommandBox = new ArrayList<>(defaultStyleOfCommandBox);
-        errorStyleOfCommandBox.add(CommandBox.ERROR_STYLE_CLASS);
+        errorStyleOfCommandBox.add(CommandBox.STYLE_CLASS_ERROR);
     }
 
     @Test

@@ -172,6 +172,7 @@ public class ModelManager implements Model {
         versionedDocX.removeDoctor(target);
         updateFilteredMedHistList(PREDICATE_SHOW_ALL_MEDHISTS);
         updateFilteredAppointmentList(PREDICATE_SHOW_ALL_APPOINTMENTS);
+        updateFilteredPrescriptionList(PREDICATE_SHOW_ALL_PRESCRIPTIONS);
     }
 
     @Override

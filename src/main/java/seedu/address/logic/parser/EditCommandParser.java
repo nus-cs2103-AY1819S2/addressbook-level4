@@ -55,7 +55,7 @@ public class EditCommandParser implements Parser<EditCommand> {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (ParseException pe) {
             throw new ParseException(String.format(MESSAGE_INVALID_PREAMBLE,
-                 EditCommand.MESSAGE_USAGE),pe);
+                    EditCommand.MESSAGE_USAGE), pe);
         }
 
         EditPersonDescriptor editPersonDescriptor = new EditPersonDescriptor();
@@ -154,8 +154,6 @@ public class EditCommandParser implements Parser<EditCommand> {
                 && pastjobs.contains("") ? Collections.emptySet() : pastjobs;
         return Optional.of(ParserUtil.parsePastJobs(pastjobSet));
     }
-
-
 
 
     /**

@@ -60,95 +60,95 @@ public class FilterCommand extends Command {
     public static final String COMMAND_ALIAS = "f";
 
     public static final String MESSAGE_USAGE_ALLJOB_SCREEN = COMMAND_WORD + ": (In All Jobs shows mode)\n"
-        +"Filter all persons whose informations contain any of the specified keywords (case-insensitive) "
-        + "and displays them as a list with index numbers.\n"
-        + "Parameters: FILTERNAME [KEYWORDS]...\n"
-        + "[" + PREFIX_FILTERNAME + "FILTERNAME] "
-        + "[" + PREFIX_NAME + "NAME KEYWORD] "
-        + "[" + PREFIX_PHONE + "PHONE KEYWORD] "
-        + "[" + PREFIX_EMAIL + "EMAIL KEYWORD] "
-        + "[" + PREFIX_NRIC + "NRIC KEYWORD] "
-        + "[" + PREFIX_GENDER + "GENDER KEYWORD] "
-        + "[" + PREFIX_RACE + "RACE KEYWORD] "
-        + "[" + PREFIX_ADDRESS + "ADDRESS KEYWORD] "
-        + "[" + PREFIX_SCHOOL + "SCHOOL KEYWORD] "
-        + "[" + PREFIX_MAJOR + "MAJOR KEYWORD] "
-        + "[" + PREFIX_SCHOOL + "SCHOOL KEYWORD] "
-        + "[" + PREFIX_KNOWNPROGLANG + "KNOWNPROGLANG KEYWORD] "
-        + "[" + PREFIX_PASTJOB + "PASTJOB KEYWORD] "
-        + "[" + PREFIX_JOBSAPPLY + "JOBSAPPLY KEYWORD] "
-        + "Example: " + COMMAND_WORD
-        + PREFIX_PHONE + "91234567 "
-        + PREFIX_EMAIL + "johndoe@example.com "
-        + PREFIX_NRIC + "S9671597H "
-        + PREFIX_GENDER + "Male "
-        + PREFIX_RACE + "Indian "
-        + PREFIX_ADDRESS + "311, Clementi Ave 2, #02-25 "
-        + PREFIX_SCHOOL + "NUS "
-        + PREFIX_MAJOR + "Computer Science "
-        + "The alias \"sh \" can be used instead.\n"
-        + "Example: " + COMMAND_ALIAS
-        + PREFIX_PHONE + "91234567 "
-        + PREFIX_EMAIL + "johndoe@example.com "
-        + PREFIX_NRIC + "S9671597H "
-        + PREFIX_GENDER + "Male "
-        + PREFIX_RACE + "Indian "
-        + PREFIX_ADDRESS + "311, Clementi Ave 2, #02-25 "
-        + PREFIX_SCHOOL + "NUS "
-        + PREFIX_MAJOR + "Computer Science "
-        + PREFIX_JOBSAPPLY + "Software Engineer ";
+            + "Filter all persons whose informations contain any of the specified keywords (case-insensitive) "
+            + "and displays them as a list with index numbers.\n"
+            + "Parameters: FILTERNAME [KEYWORDS]...\n"
+            + "[" + PREFIX_FILTERNAME + "FILTERNAME] "
+            + "[" + PREFIX_NAME + "NAME KEYWORD] "
+            + "[" + PREFIX_PHONE + "PHONE KEYWORD] "
+            + "[" + PREFIX_EMAIL + "EMAIL KEYWORD] "
+            + "[" + PREFIX_NRIC + "NRIC KEYWORD] "
+            + "[" + PREFIX_GENDER + "GENDER KEYWORD] "
+            + "[" + PREFIX_RACE + "RACE KEYWORD] "
+            + "[" + PREFIX_ADDRESS + "ADDRESS KEYWORD] "
+            + "[" + PREFIX_SCHOOL + "SCHOOL KEYWORD] "
+            + "[" + PREFIX_MAJOR + "MAJOR KEYWORD] "
+            + "[" + PREFIX_SCHOOL + "SCHOOL KEYWORD] "
+            + "[" + PREFIX_KNOWNPROGLANG + "KNOWNPROGLANG KEYWORD] "
+            + "[" + PREFIX_PASTJOB + "PASTJOB KEYWORD] "
+            + "[" + PREFIX_JOBSAPPLY + "JOBSAPPLY KEYWORD] "
+            + "Example: " + COMMAND_WORD
+            + PREFIX_PHONE + "91234567 "
+            + PREFIX_EMAIL + "johndoe@example.com "
+            + PREFIX_NRIC + "S9671597H "
+            + PREFIX_GENDER + "Male "
+            + PREFIX_RACE + "Indian "
+            + PREFIX_ADDRESS + "311, Clementi Ave 2, #02-25 "
+            + PREFIX_SCHOOL + "NUS "
+            + PREFIX_MAJOR + "Computer Science "
+            + "The alias \"sh \" can be used instead.\n"
+            + "Example: " + COMMAND_ALIAS
+            + PREFIX_PHONE + "91234567 "
+            + PREFIX_EMAIL + "johndoe@example.com "
+            + PREFIX_NRIC + "S9671597H "
+            + PREFIX_GENDER + "Male "
+            + PREFIX_RACE + "Indian "
+            + PREFIX_ADDRESS + "311, Clementi Ave 2, #02-25 "
+            + PREFIX_SCHOOL + "NUS "
+            + PREFIX_MAJOR + "Computer Science "
+            + PREFIX_JOBSAPPLY + "Software Engineer ";
 
 
     public static final String MESSAGE_USAGE_JOB_DETAIL_SCREEN = COMMAND_WORD + ": (In Job Detail mode)\n"
-        +"Filter indicated job list whose informations contain any of the specified keywords (case-insensitive) "
-        + "and displays them as a list with index numbers.\n"
-        + "Parameters: LISTNAME FILTERNAME [KEYWORDS]...\n"
-        + "LISTNAME "
-        + "[" + PREFIX_FILTERNAME + "FILTERNAME] "
-        + "[" + PREFIX_NAME + "NAME KEYWORD] "
-        + "[" + PREFIX_PHONE + "PHONE KEYWORD] "
-        + "[" + PREFIX_EMAIL + "EMAIL KEYWORD] "
-        + "[" + PREFIX_NRIC + "NRIC KEYWORD] "
-        + "[" + PREFIX_GENDER + "GENDER KEYWORD] "
-        + "[" + PREFIX_RACE + "RACE KEYWORD] "
-        + "[" + PREFIX_ADDRESS + "ADDRESS KEYWORD] "
-        + "[" + PREFIX_SCHOOL + "SCHOOL KEYWORD] "
-        + "[" + PREFIX_MAJOR + "MAJOR KEYWORD] "
-        + "[" + PREFIX_SCHOOL + "SCHOOL KEYWORD] "
-        + "[" + PREFIX_KNOWNPROGLANG + "KNOWNPROGLANG KEYWORD] "
-        + "[" + PREFIX_PASTJOB + "PASTJOB KEYWORD] "
-        + "[" + PREFIX_JOBSAPPLY + "JOBSAPPLY KEYWORD] "
-        + "Example: " + COMMAND_WORD
-        + PREFIX_PHONE + "91234567 "
-        + PREFIX_EMAIL + "johndoe@example.com "
-        + PREFIX_NRIC + "S9671597H "
-        + PREFIX_GENDER + "Male "
-        + PREFIX_RACE + "Indian "
-        + PREFIX_ADDRESS + "311, Clementi Ave 2, #02-25 "
-        + PREFIX_SCHOOL + "NUS "
-        + PREFIX_MAJOR + "Computer Science "
-        + "The alias \"sh \" can be used instead.\n"
-        + "Example: " + COMMAND_ALIAS
-        + PREFIX_PHONE + "91234567 "
-        + PREFIX_EMAIL + "johndoe@example.com "
-        + PREFIX_NRIC + "S9671597H "
-        + PREFIX_GENDER + "Male "
-        + PREFIX_RACE + "Indian "
-        + PREFIX_ADDRESS + "311, Clementi Ave 2, #02-25 "
-        + PREFIX_SCHOOL + "NUS "
-        + PREFIX_MAJOR + "Computer Science "
-        + PREFIX_JOBSAPPLY + "Software Engineer ";
+            + "Filter indicated job list whose informations contain any of the specified keywords (case-insensitive) "
+            + "and displays them as a list with index numbers.\n"
+            + "Parameters: LISTNAME FILTERNAME [KEYWORDS]...\n"
+            + "LISTNAME "
+            + "[" + PREFIX_FILTERNAME + "FILTERNAME] "
+            + "[" + PREFIX_NAME + "NAME KEYWORD] "
+            + "[" + PREFIX_PHONE + "PHONE KEYWORD] "
+            + "[" + PREFIX_EMAIL + "EMAIL KEYWORD] "
+            + "[" + PREFIX_NRIC + "NRIC KEYWORD] "
+            + "[" + PREFIX_GENDER + "GENDER KEYWORD] "
+            + "[" + PREFIX_RACE + "RACE KEYWORD] "
+            + "[" + PREFIX_ADDRESS + "ADDRESS KEYWORD] "
+            + "[" + PREFIX_SCHOOL + "SCHOOL KEYWORD] "
+            + "[" + PREFIX_MAJOR + "MAJOR KEYWORD] "
+            + "[" + PREFIX_SCHOOL + "SCHOOL KEYWORD] "
+            + "[" + PREFIX_KNOWNPROGLANG + "KNOWNPROGLANG KEYWORD] "
+            + "[" + PREFIX_PASTJOB + "PASTJOB KEYWORD] "
+            + "[" + PREFIX_JOBSAPPLY + "JOBSAPPLY KEYWORD] "
+            + "Example: " + COMMAND_WORD
+            + PREFIX_PHONE + "91234567 "
+            + PREFIX_EMAIL + "johndoe@example.com "
+            + PREFIX_NRIC + "S9671597H "
+            + PREFIX_GENDER + "Male "
+            + PREFIX_RACE + "Indian "
+            + PREFIX_ADDRESS + "311, Clementi Ave 2, #02-25 "
+            + PREFIX_SCHOOL + "NUS "
+            + PREFIX_MAJOR + "Computer Science "
+            + "The alias \"sh \" can be used instead.\n"
+            + "Example: " + COMMAND_ALIAS
+            + PREFIX_PHONE + "91234567 "
+            + PREFIX_EMAIL + "johndoe@example.com "
+            + PREFIX_NRIC + "S9671597H "
+            + PREFIX_GENDER + "Male "
+            + PREFIX_RACE + "Indian "
+            + PREFIX_ADDRESS + "311, Clementi Ave 2, #02-25 "
+            + PREFIX_SCHOOL + "NUS "
+            + PREFIX_MAJOR + "Computer Science "
+            + PREFIX_JOBSAPPLY + "Software Engineer ";
 
     public static final String MESSAGE_LACK_FILTERNAME = "Filter Command need a name\n%1$s";
     public static final String MESSAGE_LACK_LISTNAME =
-        "Filter Command in Display Job page need indicate job list\n%1$s";
+            "Filter Command in Display Job page need indicate job list\n%1$s";
     public static final String MESSAGE_REDUNDANT_LISTNAME =
-        "Filter Command in All Jobs page no need indicate job list\n%1$s";
+            "Filter Command in All Jobs page no need indicate job list\n%1$s";
     public static final String MESSAGE_INVALID_RANGE =
-        "Not a valid range, the right format should be value-value;value-value..." + "\n"
-            + "For example: 1.2-1.3; 1.3-1.4";
+            "Not a valid range, the right format should be value-value;value-value..." + "\n"
+                    + "For example: 1.2-1.3; 1.3-1.4";
     public static final String MESSAGE_REDUNDANT_FILTERNAME = "Filter name has already been used." + "\n"
-        + "Filter Command need a unique name";
+            + "Filter Command need a unique name";
     private final Predicate<Person> predicate;
     private final PredicatePersonDescriptor predicatePersonDescriptor;
     private final JobListName listName;
@@ -240,8 +240,8 @@ public class FilterCommand extends Command {
             predicateList = model.getPredicateLists(EMPTY);
         }
         return new CommandResult(
-            String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, size), listName,
-            predicateList);
+                String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, size), listName,
+                predicateList);
     }
 
     @Override
@@ -321,79 +321,79 @@ public class FilterCommand extends Command {
             Predicate<Person> predicator = new PredicateManager();
             if (this.getName().isPresent()) {
                 predicator = predicator.and(new NameContainsKeywordsPredicate(
-                    new ArrayList<>(this.getName().get())));
+                        new ArrayList<>(this.getName().get())));
             }
             if (this.getPhone().isPresent()) {
                 predicator = predicator.and(new PhoneContainsKeywordsPredicate(
-                    new ArrayList<>(this.getPhone().get())));
+                        new ArrayList<>(this.getPhone().get())));
             }
             if (this.getEmail().isPresent()) {
                 predicator = predicator.and(new EmailContainsKeywordsPredicate(
-                    new ArrayList<>(this.getEmail().get())));
+                        new ArrayList<>(this.getEmail().get())));
             }
             if (this.getRace().isPresent()) {
                 predicator = predicator.and(new RaceContainsKeywordsPredicate(
-                    new ArrayList<>(this.getRace().get())));
+                        new ArrayList<>(this.getRace().get())));
             }
             if (this.getName().isPresent()) {
                 predicator = predicator.and(new NameContainsKeywordsPredicate(
-                    new ArrayList<>(this.getName().get())));
+                        new ArrayList<>(this.getName().get())));
             }
             if (this.getAddress().isPresent()) {
                 predicator = predicator.and(new AddressContainsKeywordsPredicate(
-                    new ArrayList<>(this.getAddress().get())));
+                        new ArrayList<>(this.getAddress().get())));
             }
             if (this.getSchool().isPresent()) {
                 predicator = predicator.and(new SchoolContainsKeywordsPredicate(
-                    new ArrayList<>(this.getSchool().get())));
+                        new ArrayList<>(this.getSchool().get())));
             }
             if (this.getMajor().isPresent()) {
                 predicator = predicator.and(new MajorContainsKeywordsPredicate(
-                    new ArrayList<>(this.getMajor().get())));
+                        new ArrayList<>(this.getMajor().get())));
             }
             if (this.getGender().isPresent()) {
                 predicator = predicator.and(new GenderContainsKeywordsPredicate(
-                    new ArrayList<>(this.getGender().get())));
+                        new ArrayList<>(this.getGender().get())));
             }
             if (this.getGrade().isPresent()) {
                 predicator = predicator.and(new GradeContainsKeywordsPredicate(
-                    new ArrayList<>(this.getGrade().get())));
+                        new ArrayList<>(this.getGrade().get())));
             }
             if (this.getInterviewScoreQ1().isPresent()) {
                 predicator = predicator.and(new InterviewScoreContainsKeywordsPredicate(1,
-                    new ArrayList<>(this.getInterviewScoreQ1().get())));
+                        new ArrayList<>(this.getInterviewScoreQ1().get())));
             }
             if (this.getInterviewScoreQ2().isPresent()) {
                 predicator = predicator.and(new InterviewScoreContainsKeywordsPredicate(2,
-                    new ArrayList<>(this.getInterviewScoreQ2().get())));
+                        new ArrayList<>(this.getInterviewScoreQ2().get())));
             }
             if (this.getInterviewScoreQ3().isPresent()) {
                 predicator = predicator.and(new InterviewScoreContainsKeywordsPredicate(3,
-                    new ArrayList<>(this.getInterviewScoreQ3().get())));
+                        new ArrayList<>(this.getInterviewScoreQ3().get())));
             }
             if (this.getInterviewScoreQ4().isPresent()) {
                 predicator = predicator.and(new InterviewScoreContainsKeywordsPredicate(4,
-                    new ArrayList<>(this.getInterviewScoreQ4().get())));
+                        new ArrayList<>(this.getInterviewScoreQ4().get())));
             }
             if (this.getInterviewScoreQ5().isPresent()) {
                 predicator = predicator.and(new InterviewScoreContainsKeywordsPredicate(5,
-                    new ArrayList<>(this.getInterviewScoreQ5().get())));
+                        new ArrayList<>(this.getInterviewScoreQ5().get())));
             }
             if (this.getNric().isPresent()) {
                 predicator = predicator.and(new NricContainsKeywordsPredicate(
-                    new ArrayList<>(this.getNric().get())));
+                        new ArrayList<>(this.getNric().get())));
             }
             if (this.getPastJobs().isPresent()) {
                 predicator = predicator.and(new PastJobContainsKeywordsPredicate(
-                    new ArrayList<>(this.getPastJobs().get())));
+                        new ArrayList<>(this.getPastJobs().get())));
             }
             if (this.getJobsApply().isPresent()) {
                 predicator = predicator.and(new JobsApplyContainsKeywordsPredicate(
-                    new ArrayList<>(this.getJobsApply().get())));
+                        new ArrayList<>(this.getJobsApply().get())));
             }
             if (this.getKnownProgLangs().isPresent()) {
                 predicator = predicator.and(new KnownProgLangContainsKeywordsPredicate(
-                    new ArrayList<>(this.getKnownProgLangs().get())));
+                        new ArrayList<>(this.getKnownProgLangs().get())));
             }
             return predicator;
         }
@@ -559,23 +559,23 @@ public class FilterCommand extends Command {
             PredicatePersonDescriptor e = (PredicatePersonDescriptor) other;
 
             return getName().equals(e.getName())
-                && getPhone().equals(e.getPhone())
-                && getEmail().equals(e.getEmail())
-                && getNric().equals(e.getNric())
-                && getGender().equals(e.getGender())
-                && getRace().equals(e.getRace())
-                && getGrade().equals(e.getGrade())
-                && getInterviewScoreQ1().equals(e.getInterviewScoreQ1())
-                && getInterviewScoreQ2().equals(e.getInterviewScoreQ2())
-                && getInterviewScoreQ3().equals(e.getInterviewScoreQ3())
-                && getInterviewScoreQ4().equals(e.getInterviewScoreQ4())
-                && getInterviewScoreQ5().equals(e.getInterviewScoreQ5())
-                && getAddress().equals(e.getAddress())
-                && getSchool().equals(e.getSchool())
-                && getMajor().equals(e.getMajor())
-                && getKnownProgLangs().equals(e.getKnownProgLangs())
-                && getPastJobs().equals(e.getPastJobs())
-                && getJobsApply().equals(e.getJobsApply());
+                    && getPhone().equals(e.getPhone())
+                    && getEmail().equals(e.getEmail())
+                    && getNric().equals(e.getNric())
+                    && getGender().equals(e.getGender())
+                    && getRace().equals(e.getRace())
+                    && getGrade().equals(e.getGrade())
+                    && getInterviewScoreQ1().equals(e.getInterviewScoreQ1())
+                    && getInterviewScoreQ2().equals(e.getInterviewScoreQ2())
+                    && getInterviewScoreQ3().equals(e.getInterviewScoreQ3())
+                    && getInterviewScoreQ4().equals(e.getInterviewScoreQ4())
+                    && getInterviewScoreQ5().equals(e.getInterviewScoreQ5())
+                    && getAddress().equals(e.getAddress())
+                    && getSchool().equals(e.getSchool())
+                    && getMajor().equals(e.getMajor())
+                    && getKnownProgLangs().equals(e.getKnownProgLangs())
+                    && getPastJobs().equals(e.getPastJobs())
+                    && getJobsApply().equals(e.getJobsApply());
         }
     }
 }

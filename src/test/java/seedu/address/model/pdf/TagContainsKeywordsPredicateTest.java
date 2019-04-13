@@ -5,11 +5,11 @@ import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.DEADLINE_JSON_DONE;
 import static seedu.address.logic.commands.CommandTestUtil.DIR_1_VALID;
 
-import org.junit.Test;
-
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+
+import org.junit.Test;
 
 import seedu.address.testutil.PdfBuilder;
 

@@ -524,7 +524,7 @@ image::EnemyDeployingUseCaseDiagram.png[width=650]
 The Enemy AI also supports the ability for the enemy to automatically and intelligently shoot
 the player's map when the player ends their turn, encapsulated by these scenarios:
 
-image::EnemyDeployingUseCaseDiagram.png[width=650]
+image::EnemyShootingUseCaseDiagram.png[width=650]
 
 Note that the Enemy AI feature does not contain any explicit commands to be
 entered by the Player. Its methods are called by other features instead, and does its

@@ -359,7 +359,11 @@ To transfer your files: +
 . On another device, ensure that BrainTrain has been executed `at least once`.
 . Transfer and overwrite the `userdata` folder.
 . Your progress will be automatically imported on that device.
-+
+
+==== Coming Soon(v2.0)
+
+Easily transfer files using import command to get files directly from a specific link without the use of transfer devices.
+Example : import User l/[INSERT_DESIRED_LINK_HERE]
 
 // end::jeraldtsy[]
 

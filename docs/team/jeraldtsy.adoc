@@ -61,8 +61,7 @@ https://github.com/CS2103-AY1819S2-W16-1/main/issues/152[#152])
 include::../UserGuide.adoc[tag=jeraldtsy]
 
 == Contributions to the Developer Guide
-//todo
 
-include::../DeveloperGuide.adoc[tag=jeraldtsy]
+include::../DeveloperGuide.adoc[tag=datastorage]
 
 

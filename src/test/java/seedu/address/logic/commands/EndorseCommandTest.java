@@ -10,6 +10,8 @@ import java.util.Set;
 
 import org.junit.Test;
 
+import seedu.address.commons.core.Messages;
+import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -26,7 +28,6 @@ public class EndorseCommandTest {
 
     private static final int CLEAR_PROCESS = 1;
     private static final int ENDORSE_PROCESS = 0;
-    private static final String INVALID_ENDORSE_NAME = null;
     private static final String VALID_ENDORSE_NAME = "John Smith";
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
@@ -89,6 +90,23 @@ public class EndorseCommandTest {
 
         assertCommandFailure(endorseCommand, model, commandHistory, expectedMessage);
 
+    }
+
+    @Test
+    public void execute_clearEmptyEndorsement_failure() {
+        EndorseCommand clearCommand = new EndorseCommand(CLEAR_PROCESS, INDEX_FIRST_PERSON, VALID_ENDORSE_NAME);
+        String expectedMessage = String.format(EndorseCommand.MESSAGE_MISSING_ENDORSEMENT);
+
+        assertCommandFailure(clearCommand, model, commandHistory, expectedMessage);
+    }
+
+    @Test
+    public void execute_endorseIndexOutBounds_failure() {
+        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
+        EndorseCommand endorseCommand = new EndorseCommand(ENDORSE_PROCESS, outOfBoundIndex, VALID_ENDORSE_NAME);
+        String expectedMessage = Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
+
+        assertCommandFailure(endorseCommand, model, commandHistory, expectedMessage);
     }
 
 }

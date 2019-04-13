@@ -51,7 +51,7 @@ public class NextCommandTest {
 
     @Test
     public void execute_nextCommandOnLastCard_endCommandSuccess() {
-        CardFolder cardFolderWithOneCard = new CardFolderBuilder().withCard(CARD_1).build();
+        CardFolder cardFolderWithOneCard = new CardFolderBuilder("New folder").withCard(CARD_1).build();
         model.addFolder(cardFolderWithOneCard);
         expectedModel.addFolder(cardFolderWithOneCard);
         model.enterFolder(model.getCardFolders().size() - 1);

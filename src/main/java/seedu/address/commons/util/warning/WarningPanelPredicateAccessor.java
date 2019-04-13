@@ -70,6 +70,15 @@ public class WarningPanelPredicateAccessor {
             new Threshold(Integer.toString(threshold)));
     }
 
+    /**
+     * Set max threshold such that all predicates always return true.
+     */
+    public void setMaxThresholds() {
+        updateBatchExpiringThreshold(Threshold.MAX_THRESHOLD);
+        updateMedicineExpiringThreshold(Threshold.MAX_THRESHOLD);
+        updateMedicineLowStockThreshold(Threshold.MAX_THRESHOLD);
+    }
+
     private void setDefaultPredicates() {
         this.batchExpiryPredicate = new BatchExpiryThresholdPredicate(Model.DEFAULT_EXPIRY_THRESHOLD);
         this.medicineExpiryPredicate = new MedicineExpiryThresholdPredicate(Model.DEFAULT_EXPIRY_THRESHOLD);

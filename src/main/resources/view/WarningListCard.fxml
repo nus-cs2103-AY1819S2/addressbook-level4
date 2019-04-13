@@ -2,12 +2,12 @@
 
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Text?>
 
+<?import javafx.scene.control.Label?>
 <VBox id="warningCardPane" fx:id="warningCardPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
     <HBox>
-        <Text fx:id="id" />
-        <Text fx:id="name" text="\$name" />
+        <Label fx:id="id" styleClass="cell_small_label"/>
+        <Label fx:id="name" styleClass="cell_small_label" text="\$name" />
     </HBox>
-    <Text fx:id="field" text="\$field" />
+    <Label fx:id="field" styleClass="cell_small_label" text="\$field" />
 </VBox>

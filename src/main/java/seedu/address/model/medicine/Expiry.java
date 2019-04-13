@@ -13,9 +13,10 @@ import java.time.format.ResolverStyle;
  * Guarantees: immutable; is valid as declared in {@link #isValidDate(String)}
  */
 public class Expiry implements Comparable<Expiry> {
-
-    public static final String MESSAGE_CONSTRAINTS = "Expiry date should be of the format dd/mm/yyyy "
-            + "and should be a valid date.\n";
+    public static final int MAX_DAYS_TO_EXPIRY = 1000000000; // one trillion days, equivalent to 2,739,726 years
+    public static final String MESSAGE_CONSTRAINTS =
+            "Expiry date should be of the format dd/mm/yyyy and should be a valid date.\n"
+            + "Expiry date should not be more than " + Integer.toString(MAX_DAYS_TO_EXPIRY) + " days from today.\n";
 
     private final LocalDate expiryDate;
 
@@ -44,7 +45,10 @@ public class Expiry implements Comparable<Expiry> {
         }
 
         try {
-            parseRawDate(test);
+            LocalDate parsed = parseRawDate(test);
+            if (parsed.isAfter(LocalDate.now().plusDays(MAX_DAYS_TO_EXPIRY))) {
+                return false;
+            }
         } catch (DateTimeParseException e) {
             return false;
         }

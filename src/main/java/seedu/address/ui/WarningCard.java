@@ -1,10 +1,10 @@
 package seedu.address.ui;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -26,19 +26,22 @@ public class WarningCard extends UiPart<Region> {
     private VBox cardPane;
 
     @FXML
-    private Text name;
+    private Label name;
 
     @FXML
-    private Text id;
+    private Label id;
 
     @FXML
-    private Text field;
+    private Label field;
+
+    private WarningPanelPredicateType type;
 
     public WarningCard(Medicine medicine, int displayedIndex,
                        WarningPanelPredicateType listType,
                        WarningPanelPredicateAccessor warningPanelPredicateAccessor) {
         super(FXML);
         this.medicine = medicine;
+        this.type = listType;
         id.setText(displayedIndex + ". ");
         name.setText(medicine.getName().fullName);
 
@@ -56,8 +59,10 @@ public class WarningCard extends UiPart<Region> {
         default:
             break;
         }
+    }
 
-        setStyle(new ArrayList<>(Arrays.asList(id, name, field)));
+    public WarningPanelPredicateType getType() {
+        return type;
     }
 
     private String getFormattedBatch(FilteredList<Batch> filteredBatch) {

@@ -11,7 +11,7 @@ import seedu.address.model.medicine.Quantity;
  */
 public class Threshold {
     public static final int MIN_THRESHOLD = 0;
-    public static final int MAX_THRESHOLD = Quantity.MAX_QUANTITY + 1; // value large enough as max expiry threshold
+    public static final int MAX_THRESHOLD = Quantity.MAX_QUANTITY + 1; // value same as max expiry threshold
     public static final String MESSAGE_CONSTRAINTS = "Threshold should only contain numbers. Maximum threshold: "
             + MAX_THRESHOLD;
     public static final String VALIDATION_REGEX = "\\d+";

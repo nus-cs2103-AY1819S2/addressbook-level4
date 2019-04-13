@@ -37,8 +37,6 @@ MediTabs is a desktop inventory management application used by pharmacists to ke
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=featureintro]
-
 include::../UserGuide.adoc[tag=warningpanelfeature]
 
 include::../UserGuide.adoc[tag=warningpanelcommand]

@@ -453,11 +453,7 @@ Task has an attribute called `LinkedPatient` which stores the `NAME` and `NRIC` 
 
 The following class diagram details the relevant attributes for a `Task` object along with the multiplicity association between the classes:
 
-{nbsp}
-
 image::TaskClassDiagramFinal.png[width=""]
-
-{nbsp}
 
 ==== Current Implementation: Task interaction feature (Basic)
 
@@ -477,12 +473,7 @@ Adding and editing tasks may involved additional calls to `Model` if the user sp
 
 The following sequence diagram illustrates the generic command execution flow and the components involved:
 
-
-{nbsp}
-
 image::GenericSequenceDiagram.png[width=""]
-
-{nbsp}
 
 ==== Current implementation: Taskdone feature
 
@@ -492,11 +483,9 @@ The `taskdone` command is a feature implemented to allow the user to automatical
 The current `patientedit` and `patientdelete` commands have been modified to update tasks linked to a patient when said patient gets modified or deleted. However, to keep in line with the concept of Defensive Programming, the command will check and inform the user in an event where the `LinkedPatient` cannot be found.
 
 The following sequence diagram illustrates flow in which the command's execution takes when completing a task with the index `1`:
-{nbsp}
 
 image::TaskDoneSequenceDiagram.png[width=""]
 
-{nbsp}
 // end::task_cchj1995[]
 
 // tag::undoredo[]

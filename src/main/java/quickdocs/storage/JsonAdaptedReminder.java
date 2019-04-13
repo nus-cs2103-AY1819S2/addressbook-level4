@@ -14,17 +14,16 @@ import quickdocs.model.reminder.Reminder;
  * Jackson-friendly version of {@link Reminder}.
  */
 public class JsonAdaptedReminder {
-
-    public static final String MISSING_FIELD_MESSAGE_FORMAT = "Reminder's %s field is missing!";
+    public static final String REM_MISSING_FIELD_MESSAGE_FORMAT = "Reminder's %s field is missing!";
 
     private String title;
-    private String comment;
     private String date;
     private String start;
+    private String comment = null;
     private String end = null;
 
     /**
-     * Constructs a {@code JsonAdaptedAppointment} with the given appointment details.
+     * Constructs a {@code JsonAdaptedAppointment} with the given {@code Reminder} details.
      */
     @JsonCreator
     public JsonAdaptedReminder(@JsonProperty("title") String title,
@@ -43,24 +42,34 @@ public class JsonAdaptedReminder {
      * Converts a given {@code Reminder} into this class for Jackson use.
      */
     public JsonAdaptedReminder(Reminder source) {
-        this.title = source.getTitle();
-        this.comment = source.getComment();
-        this.date = source.getDate().toString();
-        this.start = source.getStart().toString();
-        LocalTime endTime = source.getEnd();
-        if (Optional.ofNullable(endTime).isPresent()) {
-            this.end = endTime.toString();
-        }
+        title = source.getTitle();
+        date = source.getDate().toString();
+        start = source.getStart().toString();
+        Optional<String> commentString = Optional.ofNullable(source.getComment());
+        commentString.ifPresent(s -> comment = commentString.get());
+        Optional<LocalTime> endTime = Optional.ofNullable(source.getEnd());
+        endTime.ifPresent(e -> end = endTime.get().toString());
     }
 
     /**
-     * Converts this Jackson-friendly adapted reminder object into the model's {@code Reminder} object.
+     * Converts this Jackson-friendly adapted {@code Reminder} object into the model's {@code Reminder} object.
      *
-     * @throws IllegalArgumentException if there were any data constraints violated for reminder fields.
+     * @throws IllegalArgumentException if there were any data constraints violated for {@code Reminder} fields.
      */
     public Reminder toModelType() throws IllegalArgumentException {
-        String modelTitle = this.title;
-        String modelComment = this.comment;
+        // check if any required fields are missing
+        if (title == null) {
+            throw new IllegalArgumentException(String.format(REM_MISSING_FIELD_MESSAGE_FORMAT, "Title"));
+        }
+        if (date == null) {
+            throw new IllegalArgumentException(String.format(REM_MISSING_FIELD_MESSAGE_FORMAT, "Date"));
+        }
+        if (start == null) {
+            throw new IllegalArgumentException(String.format(REM_MISSING_FIELD_MESSAGE_FORMAT, "Start"));
+        }
+
+        String modelTitle = title;
+        String modelComment = comment;
         LocalDate modelDate;
         LocalTime modelStart;
         LocalTime modelEnd;
@@ -82,7 +91,6 @@ public class JsonAdaptedReminder {
             throw new IllegalArgumentException("Time format: HH:MM");
         }
 
-        Reminder reminder = new Reminder(modelTitle, modelComment, modelDate, modelStart, modelEnd);
-        return reminder;
+        return new Reminder(modelTitle, modelComment, modelDate, modelStart, modelEnd);
     }
 }

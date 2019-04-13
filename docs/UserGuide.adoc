@@ -143,7 +143,10 @@ This section describes the commands used in the preparation phase.
 
 ==== Map : `init`
 
-Initialises both player's maps to the specified size. +
+Initialises both player's maps to the specified size. The size of the maps must be between 6 and 10, inclusive. +
+
+The `init` command can be used at any point in time during gameplay. When used in the middle of a game, the `init` command will act like a "new game" function and will reset the board to a clean state.
+
 Format: `init MAP_SIZE` +
 Example: `init 10`
 

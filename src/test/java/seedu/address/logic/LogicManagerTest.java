@@ -20,9 +20,9 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
-import seedu.address.model.ReadOnlyAddressBook;
+//import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.UserPrefs;
-import seedu.address.storage.JsonAddressBookStorage;
+import seedu.address.model.statistics.PlayerStatistics;
 import seedu.address.storage.JsonStatisticsStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.StorageManager;
@@ -43,9 +43,8 @@ public class LogicManagerTest {
     @Before
     public void setUp() throws Exception {
         JsonStatisticsStorage statisticsStorage = new JsonStatisticsStorage(temporaryFolder.newFile().toPath());
-        JsonAddressBookStorage addressBookStorage = new JsonAddressBookStorage(temporaryFolder.newFile().toPath());
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.newFile().toPath());
-        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage, statisticsStorage);
+        StorageManager storage = new StorageManager(userPrefsStorage, statisticsStorage);
         logic = new LogicManager(model, storage);
     }
 
@@ -165,13 +164,13 @@ public class LogicManagerTest {
     /**
      * A stub class to throw an {@code IOException} when the save method is called.
      */
-    private static class JsonAddressBookIoExceptionThrowingStub extends JsonAddressBookStorage {
-        private JsonAddressBookIoExceptionThrowingStub(Path filePath) {
+    private static class JsonStatisticsIoExceptionThrowingStub extends JsonStatisticsStorage {
+        private JsonStatisticsIoExceptionThrowingStub(Path filePath) {
             super(filePath);
         }
 
         @Override
-        public void saveAddressBook(ReadOnlyAddressBook addressBook, Path filePath) throws IOException {
+        public void saveStatisticsData(PlayerStatistics playerStats, Path filePath) throws IOException {
             throw DUMMY_IO_EXCEPTION;
         }
     }

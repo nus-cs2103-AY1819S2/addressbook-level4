@@ -1,7 +1,6 @@
 package seedu.address.storage;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 
 import java.nio.file.Path;
 
@@ -24,9 +23,8 @@ public class StorageManagerTest {
     @Before
     public void setUp() {
         JsonStatisticsStorage statisticsStorage = new JsonStatisticsStorage(getTempFilePath("stats"));
-        JsonAddressBookStorage addressBookStorage = new JsonAddressBookStorage(getTempFilePath("ab"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
-        storageManager = new StorageManager(addressBookStorage, userPrefsStorage, statisticsStorage);
+        storageManager = new StorageManager(userPrefsStorage, statisticsStorage);
     }
 
     private Path getTempFilePath(String fileName) {
@@ -82,9 +80,9 @@ public class StorageManagerTest {
          */
     }
 
-    @Test
-    public void getAddressBookFilePath() {
-        assertNotNull(storageManager.getAddressBookFilePath());
-    }
+    //@Test
+    //public void getAddressBookFilePath() {
+    //    assertNotNull(storageManager.getAddressBookFilePath());
+    //}
 
 }

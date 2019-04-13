@@ -14,8 +14,6 @@ import seedu.address.model.statistics.PlayerStatistics;
 public interface StatisticsStorage {
 
     Path getStatisticsFilePath();
-
-
     void saveStatisticsData(PlayerStatistics statisticsData) throws IOException;
     void saveStatisticsData(PlayerStatistics statisticsData, Path filePath) throws IOException;
 

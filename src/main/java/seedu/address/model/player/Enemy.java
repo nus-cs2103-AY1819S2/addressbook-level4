@@ -7,7 +7,6 @@ import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.BoundaryValueChecker;
 import seedu.address.model.battleship.Battleship;
 import seedu.address.model.battleship.Name;
@@ -15,7 +14,7 @@ import seedu.address.model.battleship.Name;
 import seedu.address.model.battleship.Orientation;
 import seedu.address.model.cell.Coordinates;
 import seedu.address.model.cell.Status;
-
+import seedu.address.model.exceptions.BoundaryValueException;
 
 
 /**
@@ -205,7 +204,7 @@ public class Enemy extends Player {
                         + " orientation is " + useOrientation.toString()));
             } catch (ArrayIndexOutOfBoundsException aIoObEx) {
                 //TODO log the error later from putship
-            } catch (CommandException cmdEx) {
+            } catch (BoundaryValueException bve) {
                 logger.info(String.format("++++++++REJECTED POPULATING " + useShip.getName())
                         + " at " + useCoord + " orientation: " + useOrientation);
             }
@@ -327,17 +326,17 @@ public class Enemy extends Player {
                     modeCleanup(updatedCoord);
                 }
             }
-            if (oldRow + 1 < mapSize) {
-                //add cardinal SOUTH to watchlist  ROW PLUS ONE
-                updatedCoord = new Coordinates(oldRow + 1, oldCol);
+            if (oldCol - 1 >= 0) {
+                //add cardinal WEST to watchlist   COL MINUS ONE
+                updatedCoord = new Coordinates(oldRow, oldCol - 1);
                 if (isValidCardinal(updatedCoord)) {
                     watchlist.push(updatedCoord);
                     modeCleanup(updatedCoord);
                 }
             }
-            if (oldCol - 1 >= 0) {
-                //add cardinal WEST to watchlist   COL MINUS ONE
-                updatedCoord = new Coordinates(oldRow, oldCol - 1);
+            if (oldRow + 1 < mapSize) {
+                //add cardinal SOUTH to watchlist  ROW PLUS ONE
+                updatedCoord = new Coordinates(oldRow + 1, oldCol);
                 if (isValidCardinal(updatedCoord)) {
                     watchlist.push(updatedCoord);
                     modeCleanup(updatedCoord);

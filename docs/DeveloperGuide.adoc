@@ -677,10 +677,10 @@ QuickDocs aim to deliver for doctors in neighbourhood clinics.
 The Appointment module provides the user with greater control over his/her scheduled appointments by organising them
 neatly and preventing any clash of appointment timings. Listed below are the commands that the appointment module features:
 
-. adding an appointment `addapp`
-. listing appointments `listapp`
-. deleting an appointment `deleteapp`
-. listing free appointment slots `freeapp`
+. Adding an appointment, `addapp`
+. Listing appointments, `listapp`
+. Deleting an appointment, `deleteapp`
+. Listing free appointment slots, `freeapp`
 
 These features are supported by the `AppointmentManager` class, which stores all created appointments in an `ArrayList`.
 On QuickDocs launch, existing appointments are read from the `quickdocs.json` file through the <<Design-Storage, storage>> component.
@@ -708,7 +708,7 @@ the following steps before adding the appointment into QuickDocs:
 . Retrieve the `patient`, if he/she exists, by calling `Model#getPatientByNric()`.
 Note that the user specifies the `patient` of the appointment by providing the patient's NRIC, hence the need for this step.
 . Check if the `start` and `end` timings are valid. The appointment timing has to be within office hours (9am to 6pm)
-and the `start` time must not be after the `end` time.
+and the `start` time must not be after or equal to the `end` time.
 . Create the appointment using the given fields and check if this appointment has any conflict in timing with other
 existing appointments, by calling `Model#hasTimeConflicts()`.
 . Finally, add the appointment into `AppointmentManager` by calling `Model#addApp()`.
@@ -717,7 +717,7 @@ existing appointments, by calling `Model#hasTimeConflicts()`.
 If any of the steps 1 to 3 fails, a `CommandException` will be thrown and the corresponding exception message will
 be shown to the user.
 
-===== Adding appointment into AppointmentManager
+===== Adding the appointment into AppointmentManager
 Listed below are the steps taken when the `Model#addApp()` method is called. Note that
 when an appointment is added, a reminder tailored for this appointment will also be added. This was implemented to
 ensure that the user does not forget about the appointment in the future.
@@ -749,11 +749,12 @@ of dates to list out all appointments in those dates, or provide an NRIC to list
 with the given NRIC.
 
 [NOTE]
-If the user does not provide any parameters together with `listapp`, the appointments for the current week will be listed.
+If the user does not specify a `FORMAT` and `DATE`, `FORMAT` will default to `week` and `DATE` will default to the
+current date, meaning that the current week's appointments will be displayed.
 
 [[listapp]]
 ===== Listing by dates
-The user can specify the range of dates by providing a `FORMAT` (`day`, `week`, or `month`) and a `DATE`, meaning to
+The user can specify the range of dates by providing a `FORMAT` (`day`, `week`, or `month`) and a `DATE`, which means to
 list all appointments on the `FORMAT` (day/month/week) of `DATE`. The following steps will then be taken:
 
 . The `ListAppCommandParser` class parses these two parameters into `LocalDate start` and `LocalDate end`, and creates a
@@ -767,19 +768,19 @@ to be listed.
 In this case, the user only provides the NRIC of a patient together with the `listapp` command. The following steps
 will then be taken:
 
-. The `ListAppCommandParser` class parses the NRIC into an `NRIC` object, to create a `ListAppCommand` object with this
+. The `ListAppCommandParser` class parses the user input into an `NRIC` object, to create a `ListAppCommand` object with this
 `NRIC` field.
-. `ListAppCommand` executes
+. `ListAppCommand` executes:
 * Firstly, it retrieves the patient with the provided `NRIC`, if exists, by calling `Model#getPatientByNric()`.
 * `Model#listApp()` will then be called, providing it with the patient retrieved.
 . `Model#listApp()` then calls `AppointmentManager#listAppointments()`, providing it with the patient, which will return
 a `String` of all the given patient's appointment information.
 
 [NOTE]
-`Model#listApp()` and `AppointmentManager#listAppointments()` are overloaded methods. They have different method
-signatures based on their parameters. One implementation takes in two `LocalDates`, `start` and `end`, while the other
-implementation takes in a single `Patient` object. This allows the same method name to be called, and list appointments
-by either providing a given range of dates or by providing a patient.
+`Model#listApp()` and `AppointmentManager#listAppointments()` are overloaded methods, having different method
+signatures based on their parameters. One implementation takes in two `LocalDate` parameters, `start` and `end`, while
+the other implementation takes in a single `Patient` object. This allows the same method name to be called, and list
+appointments by either providing a range of dates or a valid patient.
 
 [[deleteapp]]
 ==== Deleting appointments
@@ -787,10 +788,10 @@ The user can delete any appointments created using the `deleteapp` command. Sinc
 for appointments, any appointment can be identified uniquely by its date and start time. Hence the user can specify
 the appointment to be deleted only with those two fields, after which the following steps are taken:
 
-. The `DeleteAppCommandParser` class parses the user input into a `LocalDate date` and `LocalTime start` that specifies
+. The `DeleteAppCommandParser` class parses the two parameters into `LocalDate date` and `LocalTime start` that specifies
 the date and start time of the appointment to be deleted respectively. It then creates a `DeleteAppCommand` object with
 these two fields.
-. `DeleteAppCommand` executes
+. `DeleteAppCommand` executes:
 * Firstly, it checks if `start` is a valid timing, checking if it is within office hours (9am to 6pm).
 * Next, it retrieves the specified appointment, if it exists, by calling `Model#getAppointment()`, providing it
 with `date` and `start`.
@@ -816,32 +817,36 @@ The `FreeAppCommandParser` class will parse these two parameters into two dates,
 representing the start and end dates of the search range for free appointment slots. `FreeAppCommandParser` then
 constructs a `FreeAppCommand` object with the `start` and `end` fields.
 
+[NOTE]
+If the user does not specify a `FORMAT` and `DATE`, `FORMAT` will default to `month` and `DATE` will default to the
+current date, meaning that the current month's free appointment slots will be displayed.
+
 ===== Current Implementation
 The search is facilitated by the `AppointmentManager` class which stores all created `Appointments` in an `ArrayList`.
-`AppointmentManager` contains the method `listFreeSlots()` which firstly calls `getFreeSlots()`.
+`AppointmentManager` contains the method `listFreeSlots()` which firstly calls `AppointmentManager#getFreeSlots()`.
 `getFreeSlots()` is the main method that implements the logic behind `freeapp`.
 
 Given below are the steps taken when `listFreeSlots()` is called.
 
 Step 1. The method `listFreeSlots()` takes in the two arguments, `start` and `end`, which have been mentioned previously.
 Firstly, `listFreeSlots()` calls `getFreeSlots()`, providing it with the same two arguments, to retrieve the
-free slots before it can parse the free slots into a `String`.
+free slots before it can parse them into a `String`.
 
 .Given search range from start to end date
 image::dg-appointment/freeapp1.png[width="800"]
 
 {sp} +
 Step 2. In `getFreeSlots()`, we first retrieve the existing appointments that are within this given search range
-by using the method `getAppointments()`.
+by using the method `AppointmentManager#getAppointments()`.
 
-.Retrieve appointments in the search range
+.Retrieved appointments in the search range
 image::dg-appointment/freeapp2.png[width="800"]
 
 {sp} +
 Step 3. Next, we look at all the appointments that are present on the `start` date, as shown in the diagram below.
-Since these appointments are sorted by date and time, the earliest appointment is on the left and the latest on the right.
+These appointments are sorted by date and time, with the earliest appointment on the left and the latest on the right.
 
-.Select appointments on start date
+.Selected appointments on start date
 image::dg-appointment/freeapp3.png[width="800"]
 
 {sp} +
@@ -861,24 +866,25 @@ Each `Slot` object represents a single time period on a single date. It has thre
 
 In this `freeapp` context, these slots created represents a time period without any scheduled appointments.
 
-.Create slots to fill in empty time slots
+.Slots created to fill in empty time slots
 image::dg-appointment/freeapp4.png[width="800"]
 
 {sp} +
 [NOTE]
 Slots will only be created for timings during office hours (09:00 to 18:00). This is to prevent any possible
 inconvenience caused if the user accidentally decides on a timing outside of office hours.
-(Even though there is an office hour constraint when you eventually create the appointment.)
+(Even though there will be an office hour constraint when the user eventually creates the appointment.)
 
 {sp} +
 Step 5. We repeat Steps 3 and 4, replacing the `start` date with the remaining dates until the `end` date.
-All slots created will be added into a list of free slots, `freeSlots`.
+All slots created will be added into an `ArrayList` of free slots, `freeSlots`.
 
 .All empty time slots filled
 image::dg-appointment/freeapp5.png[width="800"]
 
+{sp} +
 Step 6. After all the slots are added, we return `freeSlots` to the caller function `listFreeSlots()`,
-to generate a `String` that represents all the free slots to be printed on the main display of QuickDocs.
+to generate a `String` that represents all the free slots to be appended onto the main display of the UI.
 
 {sp} +
 
@@ -934,8 +940,9 @@ We decided to implement the second method, as it is more straightforward. Here a
 to generate a list of free slots, either when QuickDocs is launched or when the user requests a search range outside
 of the pre-determined list.
 . The first implementation additionally requires more effort to maintain this permanent list whenever the
-list of appointments is modified, which is not straightforward to implement. For example we need a method to merge
-two free slots when an appointment is deleted, and a method to split a free slot into two when an appointment is added.
+list of appointments is modified, which is not straightforward to implement. For example, we need a method to merge
+two free slots when an appointment is deleted, and another method to split a free slot into two when an appointment
+is added.
 . The benefit of a permanent list of free slots is the quicker execution time of `freeapp`, which will typically
 only be called a small number of times (around 10) a day, when the user books an appointment slot with his/her patient.
 The total time saved on executing `freeapp` a small number of times is therefore negligible.
@@ -954,9 +961,9 @@ will be displayed on the reminder side bar, and are colour coded as such:
 
 Listed below are the commands that the reminder module features:
 
-. adding a reminder `addrem`
-. listing reminders `listrem`
-. deleting a reminder `deleterem`
+. Adding a reminder, `addrem`
+. Listing reminders, `listrem`
+. Deleting a reminder, `deleterem`
 
 These features are supported by the `ReminderManager` class, which stores all created reminders in an `ArrayList`.
 On QuickDocs launch, existing reminders are read from the `quickdocs.json` file through the
@@ -983,7 +990,7 @@ after the user executes the command.
 . The `AddRemCommandParser` class parses the user input into 3 to 5 `Reminder` fields.
 . The `Reminder` object is constructed by the parser with the given fields.
 . An `AddRemCommand` object is created, providing it with the reminder object to be added.
-. `AddRemCommand` executes
+. `AddRemCommand` executes:
 * Firstly, it checks if there is a duplicate reminder using the `Model#duplicateRem()` method, which subsequently
 calls `ReminderManager#hasDuplicateReminder()`.
 * If there are no duplicates, `Model#addRem()` is called, providing it with the given reminder.
@@ -1002,7 +1009,7 @@ Some reminders will be created and added automatically.
 * When an appointment is added, a reminder for this appointment will be generated automatically.
 More information can be found in the <<addapp, Adding an appointment>> section.
 . Low medicine alarm reminders
-* The user is able to set a threshold for each medicine in the inventory, using the `alarm` command. When the quantity
+* The user is able to set a threshold for each medicine in the inventory by using the `alarm` command. When the quantity
 of a medicine drops below its threshold, a reminder will be created to alert the user of the low medicine quantity. More
 information can be found in the <<med, Medicine implementation>> section.
 
@@ -1018,11 +1025,15 @@ The following steps will then be taken:
 . The `ListRemCommandParser` class parses these two parameters into `LocalDate start` and `LocalDate end`, and creates a
 `ListRemCommand` object. `start` and `end` represents the start and end dates of the range of dates of reminders
 to be displayed on the sidebar.
-. `ListRemCommand` will then be executed
+. `ListRemCommand` executes:
 * Firstly, a `ReminderWithinDatesPredicate` object will be created with the given `start` and `end` dates.
 This predicate is used to update the `FilteredList` of reminders contained in the `ModelManager` class.
 * Next, `Model#updateFilteredReminderList()` is called, providing it with the created predicate.
 . The `FilteredList` of reminders will be updated to match the range of dates given and the reminder sidebar is updated.
+
+[NOTE]
+If the user does not specify a `FORMAT` and `DATE`, `FORMAT` will default to `week` and `DATE` will default to the
+current date, meaning that the current week's reminders will be displayed.
 
 [[listrem_single]]
 ===== Display a single reminder
@@ -1032,7 +1043,7 @@ providing the index of the reminder, as shown in the sidebar, together with the 
 
 . The `ListRemCommandParser` class parses the user input into an `Index` object, and creates a `ListRemCommand` object
 consisting of the `Index` field.
-. `ListRemCommand` will then be executed
+. `ListRemCommand` executes:
 * Firstly, it retrieves the currently displayed `List` of reminders by calling `Model#getFilteredReminderList()`.
 * Next, it checks if the given `Index` is valid, checking if the `Index` is present in the current `List`
 of reminders.
@@ -1040,7 +1051,7 @@ of reminders.
 of reminders.
 . The information of the selected reminder is then appended onto the main display of the UI.
 
-Displaying a single reminder can also be done by clicking on the reminder at the sidebar with a mouse. This feature
+Displaying a single reminder can also be done by clicking on the reminder in the sidebar with a mouse. This feature
 is supported by the `ReminderListPanel` class which is a UI component for the reminder sidebar. It contains the
 `Node#setOnMouseClicked()` method that takes in an `EventHandler`, which is specified to display the reminder
 details when the reminder is clicked.
@@ -1052,7 +1063,7 @@ process when `listrem` is called to <<listrem_single, display a single reminder>
 
 . The `DeleteRemCommandParser` class parses the user input into an `Index` object, and creates a `DeleteRemCommand`
 object consisting of the `Index` field.
-. `DeleteRemCommand` will then be executed
+. `DeleteRemCommand` executes:
 * Firstly, it retrieves the currently displayed `List` of reminders by calling `Model#getFilteredReminderList()`.
 * Next, it checks if the given `Index` is valid, checking if the `Index` is present in the current `List`
 of reminders.

@@ -45,7 +45,8 @@ QuickDocs possesses to perform clinical operations.
 will be shown in this *input feedback* box.
 .   After the execution of your command, you can view the results on this *display* area.
 .   You can view your upcoming appointments for the week, or urgent reminders that you made earlier in the
-*reminders and appointments* panel. Appointments are coloured blue, medicine alarms are coloured red
+*reminders and appointments* panel.
+* Appointments are coloured blue, medicine alarms are coloured red
 and other reminders are coloured beige.
 .   During a consultation session, QuickDocs will also indicate that an *ongoing consultation* session is happening.
 
@@ -875,15 +876,15 @@ image::ug-app_rem/addapp_officehour.png[width="600"]
 ==== Listing appointments: `listapp`
 You can list all past and future appointments that you have added using the `listapp` command. The appointments will be ordered and
 listed, with the earliest appointment at the top and the latest at the bottom. You can filter the appointments
-you want to see either by specifying a format and a date, or by specifying an existing patient's NRIC.
+you want to see either by specifying a `FORMAT` and a `DATE`, or by specifying an existing patient's `NRIC`.
 
 {sp} +
 *Format:* `listapp f/FORMAT d/DATE` +
-{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp} or{nbsp} `listapp r/NRIC` +
+{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp} or{nbsp} `listapp r/NRIC` +
 *Alias:*{nbsp}{nbsp}{nbsp}{nbsp} `aa` +
 
 [NOTE]
-The only valid keywords for `FORMAT` are `day`, `week`, or `month`.
+The valid keywords for `FORMAT` are only `day`, `week`, or `month`.
 
 {sp} +
 *Examples:*
@@ -926,8 +927,6 @@ image::ug-app_rem/listapp_week.png[width="600"]
 ==== Deleting appointments: `deleteapp`
 If the patient would like to change the appointment date, or if there is a mistake in the appointment details, you can
 delete the existing scheduled appointment with `deleteapp` and then create a new appointment.
-
-[NOTE]
 Deletion of an appointment is final!
 
 [NOTE]
@@ -940,7 +939,7 @@ so you don't have to worry about any discrepancies with your sidebar!
 
 [NOTE]
 Since there cannot be any overlapping appointment timings, you are able to uniquely identify any appointment with
-just the appointment date and start time.
+just the `DATE` and `START` time of the appointment.
 
 {sp} +
 *Example and results*:
@@ -969,14 +968,14 @@ appointments, use `freeapp` instead to display a more intuitive list of free app
 QuickDocs does the thinking for you!
 
 The free appointment slots will be ordered and listed, with the earliest date at the top and the latest at the bottom.
-You can filter the free slots you want to see by specifying a format and a date.
+You can filter the free slots you want to see by specifying a `FORMAT` and a `DATE`.
 
 {sp} +
 *Format:* `freeapp f/FORMAT d/DATE` +
 *Alias:*{nbsp}{nbsp}{nbsp}{nbsp} `fa` +
 
 [NOTE]
-Similar to `<<listapp, listapp>>`, the only valid keywords for `FORMAT` are `day`, `week`, or `month`.
+Similar to `<<listapp, listapp>>`, the valid keywords for `FORMAT` are only `day`, `week`, or `month`.
 
 {sp} +
 *Examples:* +
@@ -1014,21 +1013,21 @@ image::ug-app_rem/freeapp_week.png[width="600"]
 ==== Adding reminders: `addrem`
 Need to take note of a task to do in the future? You can create a reminder for an event or task with `addrem`,
 and the reminder will show up on your sidebar closer to the date of the event (the week of the reminder date).
-Never forget about your to-dos ever again!
+Never forget about your tasks ever again!
 
 {sp} +
 *Format:* `addrem t/TITLE d/DATE s/START [e/END] [c/COMMENT]` +
 *Alias:*{nbsp}{nbsp}{nbsp}{nbsp} `ar` +
 
 [NOTE]
-`END` and `COMMENT` are optional fields for a reminder.
+`END` time and `COMMENT` are optional fields for a reminder.
 
 {sp} +
 *Example:*
 
 * `addrem t/Check financial records d/2019-07-31 s/18:00 e/18:30 c/Monthly check` +
 
-This command will create a reminder to 'check financial records' which is a 'monthly check', on 31st July 2019
+This command will create a reminder to 'Check financial records' which is a 'Monthly check', on 31st July 2019
 from 6pm to 6:30pm.
 {sp} +
 
@@ -1045,13 +1044,13 @@ image::ug-app_rem/addrem_success.png[width="600"]
 ==== Listing reminders: `listrem`
 To view your past or future reminders on the sidebar, you can do so using the `listrem` command.
 The reminders will be ordered and listed, with the earliest reminder at the top and the latest at the bottom.
-You can filter the reminders you want to see by specifying a format and a date.
+You can filter the reminders you want to see by specifying a `FORMAT` and a `DATE`.
 
 [NOTE]
 On startup, QuickDocs will automatically display the reminders for the current week on the sidebar.
 
 Are the titles or comments too long to be displayed fully on the sidebar? You can also use `listrem` to display all the
-details of a single reminder by specifying its index that is shown on the sidebar.
+details of a single reminder by specifying its `INDEX` that is shown on the sidebar.
 
 [TIP]
 If you are tired of typing, you could also click the reminder
@@ -1107,9 +1106,7 @@ image::ug-app_rem/listrem_single.png[width="600"]
 [[deleterem]]
 ==== Deleting reminders: `deleterem`
 If you would like to clear out your reminder sidebar after a task is completed, you can do so using the `deleterem` command.
-The reminders on the sidebar are identified with an index, which you can use to specify the reminder to be deleted.
-
-[NOTE]
+Each reminder on the sidebar are identified with an `INDEX`, which you can use to specify the reminder to be deleted.
 Deletion of a reminder is final!
 
 {sp} +

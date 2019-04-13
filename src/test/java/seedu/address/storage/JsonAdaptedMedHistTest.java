@@ -6,9 +6,9 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_DATE_OF_MED_HIS
 import static seedu.address.logic.commands.CommandTestUtil.VALID_MEDHIST_ID;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PATIENT_ID;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DOCTOR_ID;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_WRITE_UP;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_PATIENT_ID;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_DOCTOR_ID;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_WRITE_UP;
 import static seedu.address.testutil.TypicalMedHists.MED_HIST1;
 
 import org.junit.Test;

@@ -9,7 +9,11 @@
 
 == Overview
 
-AddressBook - Level 4 is a desktop address book application used for teaching Software Engineering principles. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+As part of a Software Engineering module, my team and I were given an objective, to enhance an existing application known as AddressBoook4(AB4) or transform it into a different program. We decided to work towards transforming the application and the product of our efforts was TeethHub.
+
+TeethHub was designed with a specific user group in mind, dentists who are proficient with computers and are morecomfortable with using a Command Line Interface(CLI) for interaction over a Graphical User Interface(GUI). TeethHub enables dentists to store, modify and interact with patients, records and tasks, all the while providing clear and useful graphical feedback to its user. Dentists can also import and export data in and out of the application to formats such as .json and .pdf. TeethHub was written in Java, building its graphical elements on JavaFX. As of v1.4, the application has roughly 20000 lines of codes, a difference of 10000 lines compared to AB4.
+
+My role in the development of TeethHub was to cover two main aspects, task data management and GUI enhancement. I developed implementations and features involving interactions with tasks in the application along with creating pertinent graphical feedback. The following segment is a detailed summary of my contributions.
 
 == Summary of contributions
 

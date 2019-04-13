@@ -716,7 +716,7 @@ class components.
 ** Chosen: Alternative 2. Even though the method violates the Single Responsibility Principle, this can be subverted by
 performing the analysis of data in the Storage component instead. By implementing the method calls at a central Command
 Result, will make ... more modular... less dependencies especially when working with other components..(Edit)
-// tag::stats[]
+//end::stats[]
 
 === Logging
 

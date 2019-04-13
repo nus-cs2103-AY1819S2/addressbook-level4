@@ -27,7 +27,7 @@ the number of successful hits, number of misses, number of enemy ships destroyed
 accuracy.
 ** Justification: This feature is crucial to user experience in the game as it allows players to track and keep up with the progress of the game. It is also fundamental as a basis for deploying strategies in the gameplay.
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Code contributed*: [https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#=undefined&search=bos10[Functional code]]
 
 * *Minor enhancement*: added the *ability to compare the game scores between two games.*
 ** What it does: Upon winning a game, the game will automatically save the current game statistics into the storage folder
@@ -79,11 +79,19 @@ include::../UserGuide.adoc[tag=commandsummary]
 
 include::../DeveloperGuide.adoc[tag=stats]
 
+---
+
 include::../DeveloperGuide.adoc[tag=storage]
+
+---
 
 include::../DeveloperGuide.adoc[tag=StatsUseCase]
 
+---
+
 include::../DeveloperGuide.adoc[tag=statstest]
+
+---
 
 include::../DeveloperGuide.adoc[tag=savetest]
 

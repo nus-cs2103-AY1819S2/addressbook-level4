@@ -308,7 +308,7 @@ Format: `exit`
 |*Put ship on map*| `put n/NAME r/ORIENTATION c/COORDINATE [optional]t/TAG` |Place your battleship on the map. | `put n/Destroyer r/vertical c/a1 t/myfleet`
 |*View statistics*| `stats` |Opens a Statistics Window. | `stats`
 |*Start game*| `start game` |Let enemy place ships on enemy grid. | `start game`
-
+|=======================================================================
 //end::commandsummary[]
 
 

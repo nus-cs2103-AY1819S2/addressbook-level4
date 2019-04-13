@@ -20,7 +20,7 @@ import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.StorageManager;
 
 /**
- * The StatsCommandTest will test the methods of the statistics class.
+ * The StatisticsTest will test the methods of the statistics class.
  * Contains integration tests (interaction with Model, Player, Storage and Battleship commands)
  */
 public class SaveCommandTest {

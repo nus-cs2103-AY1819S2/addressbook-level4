@@ -477,12 +477,17 @@ image::UndoRedoActivityDiagram.png[width="650"]
 
 // tag::budgetmanagement[]
 === Budget Management
-
+// tag::budgetclassdiagram[]
 This group of features allows the user to set a total budget and
 allocate a portion of the total budget to different categories.
 The current spending will increase when records are added.
 
 This implementation is under `Logic`, `Model`, `Storage` and `UI` Component.
+
+The classes associated with Budget is shown in the class diagram below:
+
+image::budget_classdiagram.png[]
+// end::budgetclassdiagram[]
 // tag::budget[]
 ==== Setting a Budget
 This feature allows the particular user to set a budget for the FinanceTracker. The user
@@ -686,6 +691,7 @@ Here are the steps to convert the project documentation files to PDF format.
 .  Set the destination to `Save as PDF`, then click `Save` to save a copy of the file in PDF format. For best results, use the settings indicated in the screenshot below.
 
 .Saving documentation as PDF files in Chrome
+.Saving project documentation files to PDF format
 image::chrome_save_as_pdf.png[width="300"]
 
 [[Docs-SiteWideDocSettings]]

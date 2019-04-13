@@ -63,9 +63,9 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window and show
 This section will explain to you the Graphical User Interface (GUI) of _In-Credit-Ble_ Finance Tracker.
 
 .Graphical User Interface (When starting up)
-image::GUI_Diagram.png[width="400"]
+image::GUI_Diagram.png[width="600"]
 .Graphical User Interface (Upon using `summary` command)
-image::GUI_Diagram2.png[width="400"]
+image::GUI_Diagram2.png[width="600"]
 
 There are a total of 7 elements in the Graphical User Interface in _In-Credit-Ble_ Finance Tracker
 as denoted by the different coloured boxes in Figures 2 and 3.
@@ -97,6 +97,7 @@ use the command `list`
 Each record is tagged with an *index number* before the record name.
 The index is used in command such as `delete`, `edit` and `select`
 
+// end::userinterface[]
 === Budget Panel
 .Budget Panel: Shows your total spending against your total budget so far
 image::BudgetPanel.png[width="250"]
@@ -171,8 +172,6 @@ image::statusfooterbar.png[]
 This element is denoted by the purple box in Figures 2 and 3.
 The left side of the status footer bar shows the time and date of the last update to the finance tracker.
 The right side of the status footer bar shows where the storage file for the updated data is saved to.
-
-// end::userinterface[]
 
 [[Features]]
 == Features
@@ -653,6 +652,8 @@ You can change the theme of the application with pre-set colour themes specified
 * `theme BlUE`
 * `theme pink`
 ****
+
+image::themes.gif[]
 
 [NOTE]
 ====

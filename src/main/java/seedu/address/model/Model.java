@@ -54,6 +54,11 @@ public interface Model {
     WarningPanelSettings getWarningPanelSettings();
 
     /**
+     * Configures up warning panel thresholds with thresholds from userPrefs.
+     */
+    void configureWarningPanelLists();
+
+    /**
      * Sets the user prefs' GUI settings.
      */
     void setWarningPanelSettings(WarningPanelSettings warningPanelSettings);

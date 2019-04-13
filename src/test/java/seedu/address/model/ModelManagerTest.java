@@ -94,6 +94,15 @@ public class ModelManagerTest {
     }
 
     @Test
+    public void configureWarningPanelLists_expiryThresholdExceedsMax() {
+        WarningPanelSettings actualSetting = new WarningPanelSettings(Threshold.MAX_EXPIRY_THRESHOLD + 1, 2);
+        WarningPanelSettings expectedSetting = new WarningPanelSettings(Threshold.MAX_EXPIRY_THRESHOLD, 2);
+        modelManager.setWarningPanelSettings(actualSetting);
+        modelManager.configureWarningPanelLists();
+        assertEquals(expectedSetting, modelManager.getWarningPanelSettings());
+    }
+
+    @Test
     public void setInventoryFilePath_nullPath_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
         modelManager.setInventoryFilePath(null);

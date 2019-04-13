@@ -56,11 +56,6 @@ public interface BillModel extends Model {
     ObservableList<Reservation> getFilteredReservationList();
 
     /**
-     * Returns an unmodifiable view of the filtered reservation list
-     */
-    ObservableList<RoomType> getRoomTypeList();
-
-    /**
      * Updates the filter of the filtered reservation list to filter by the given {@code predicate}.
      *
      * @throws NullPointerException if {@code predicate} is null.

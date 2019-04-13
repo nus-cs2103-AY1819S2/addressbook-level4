@@ -16,7 +16,6 @@ public class DateRange {
 
     private final Calendar startDate;
     private final Calendar endDate;
-    private final Calendar cal = Calendar.getInstance();
 
     public DateRange(String startDate, String endDate) throws seedu.hms.logic.parser.exceptions.ParseException {
         String[] sd = startDate.split("/");

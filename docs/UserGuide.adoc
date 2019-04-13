@@ -473,9 +473,12 @@ Shows details of all patients.
 
 Shows patients whose data contains any of the given keywords according to a specified parameter.
 
-Format: `patientfind PREFIX/KEYWORD [MORE_KEYWORDS]` or `pfind PREFIX/KEYWORD [MORE_KEYWORDS]`
+Format: `patientfind [CS] [AND] PREFIX/KEYWORD [MORE_KEYWORDS]` or
+`pfind [CS] [AND] PREFIX/KEYWORD [MORE_KEYWORDS]`
 
-* Search is case insensitive.
+* Search is case insensitive unless `CS` is entered before the prefix(es).
+* By specifying `AND` before the prefix(es), `pfind` will instead search for patients whose data contains all of the
+given keywords and parameters.
 * Order of keywords does not matter.
 * Valid `Prefix` values: See <<Breakdown of attributes used within TeethHub>>
 

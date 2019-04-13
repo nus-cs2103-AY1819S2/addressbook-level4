@@ -41,6 +41,7 @@ public class ReviewCard extends UiPart<Region> {
         this.review = review;
         id.setText(displayedIndex + ". ");
         name.setText(review.getTitle().fullName);
+        name.setWrapText(true);
         bookName.setText(review.getBookName().fullName);
         reviewMessage.setText(review.getReviewMessage());
         dateCreated.setText(review.getDateCreated());

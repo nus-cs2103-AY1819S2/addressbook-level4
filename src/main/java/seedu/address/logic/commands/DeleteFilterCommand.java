@@ -7,7 +7,6 @@ import static seedu.address.model.job.JobListName.INTERVIEW;
 import static seedu.address.model.job.JobListName.KIV;
 import static seedu.address.model.job.JobListName.SHORTLIST;
 
-import seedu.address.commons.core.Messages;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;

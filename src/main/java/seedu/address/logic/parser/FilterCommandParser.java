@@ -104,47 +104,47 @@ public class FilterCommandParser implements Parser<FilterCommand> {
         if (argMultimap.getValue(PREFIX_GRADE).isPresent()) {
             List<String> rangeList = Arrays.asList(argMultimap.getValue(PREFIX_GRADE).get().split(";"));
 
-            if(!isValidValueRange(rangeList)){
+            if (!isValidValueRange(rangeList)) {
                 throw new ParseException(MESSAGE_INVALID_RANGE);
             }
             predicatePersonDescriptor.setGrade(new HashSet<>(rangeList));
         }
         if (argMultimap.getValue(PREFIX_INTERVIEWSCORESQ1).isPresent()) {
             List<String> rangeList =
-                Arrays.asList(argMultimap.getValue(PREFIX_INTERVIEWSCORESQ1).get().split(";"));
-            if(!isValidValueRange(rangeList)){
+                    Arrays.asList(argMultimap.getValue(PREFIX_INTERVIEWSCORESQ1).get().split(";"));
+            if (!isValidValueRange(rangeList)) {
                 throw new ParseException(MESSAGE_INVALID_RANGE);
             }
             predicatePersonDescriptor.setInterviewScoreQ1(new HashSet<>(rangeList));
         }
         if (argMultimap.getValue(PREFIX_INTERVIEWSCORESQ2).isPresent()) {
             List<String> rangeList =
-                Arrays.asList(argMultimap.getValue(PREFIX_INTERVIEWSCORESQ2).get().split(";"));
-            if(!isValidValueRange(rangeList)){
+                    Arrays.asList(argMultimap.getValue(PREFIX_INTERVIEWSCORESQ2).get().split(";"));
+            if (!isValidValueRange(rangeList)) {
                 throw new ParseException(MESSAGE_INVALID_RANGE);
             }
             predicatePersonDescriptor.setInterviewScoreQ2(new HashSet<>(rangeList));
         }
         if (argMultimap.getValue(PREFIX_INTERVIEWSCORESQ3).isPresent()) {
             List<String> rangeList =
-                Arrays.asList(argMultimap.getValue(PREFIX_INTERVIEWSCORESQ3).get().split(";"));
-            if(!isValidValueRange(rangeList)){
+                    Arrays.asList(argMultimap.getValue(PREFIX_INTERVIEWSCORESQ3).get().split(";"));
+            if (!isValidValueRange(rangeList)) {
                 throw new ParseException(MESSAGE_INVALID_RANGE);
             }
             predicatePersonDescriptor.setInterviewScoreQ3(new HashSet<>(rangeList));
         }
         if (argMultimap.getValue(PREFIX_INTERVIEWSCORESQ4).isPresent()) {
             List<String> rangeList =
-                Arrays.asList(argMultimap.getValue(PREFIX_INTERVIEWSCORESQ4).get().split(";"));
-            if(!isValidValueRange(rangeList)){
+                    Arrays.asList(argMultimap.getValue(PREFIX_INTERVIEWSCORESQ4).get().split(";"));
+            if (!isValidValueRange(rangeList)) {
                 throw new ParseException(MESSAGE_INVALID_RANGE);
             }
             predicatePersonDescriptor.setInterviewScoreQ4(new HashSet<>(rangeList));
         }
         if (argMultimap.getValue(PREFIX_INTERVIEWSCORESQ5).isPresent()) {
             List<String> rangeList =
-                Arrays.asList(argMultimap.getValue(PREFIX_INTERVIEWSCORESQ5).get().split(";"));
-            if(!isValidValueRange(rangeList)){
+                    Arrays.asList(argMultimap.getValue(PREFIX_INTERVIEWSCORESQ5).get().split(";"));
+            if (!isValidValueRange(rangeList)) {
                 throw new ParseException(MESSAGE_INVALID_RANGE);
             }
             predicatePersonDescriptor.setInterviewScoreQ5(new HashSet<>(rangeList));

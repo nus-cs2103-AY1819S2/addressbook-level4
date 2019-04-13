@@ -28,8 +28,8 @@ public class SetFileCommand extends Command {
     public static final String MESSAGE_SUCCESS = "File Set: %1$s";
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Filename must be " + MAX_FILE_LENGTH + " or shorter " +
-                    "and should not contain special characters, '\\' character, or be blank.";
+            "Filename must be " + MAX_FILE_LENGTH + " or shorter "
+                    + "and should not contain special characters, '\\' character, or be blank.";
 
     private final Path path;
 

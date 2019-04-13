@@ -63,9 +63,9 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window and show
 This section will explain to you the Graphical User Interface (GUI) of _In-Credit-Ble_ Finance Tracker.
 
 .Graphical User Interface (When starting up)
-image::GUI_Diagram.png[width="300"]
+image::GUI_Diagram.png[width="400"]
 .Graphical User Interface (Upon using `summary` command)
-image::GUI_Diagram2.png[width="300"]
+image::GUI_Diagram2.png[width="400"]
 
 There are a total of 7 elements in the Graphical User Interface in _In-Credit-Ble_ Finance Tracker
 as denoted by the different coloured boxes in Figures 2 and 3.
@@ -143,7 +143,7 @@ the amount you exceeded the budget set for yourself.
 
 === Summary Panel
 .Summary Panel: Shows you a pie chart illustration of your current expenses
-image::summarypanel.png[width="300"]
+image::summarypanel.png[width="400"]
 
 This element is denoted by the red box in Figure 3.
 
@@ -154,7 +154,7 @@ To change back to the browser panel, simply type in the `summary` command once a
 
 === Command Box and Result Display
 .Command Box and Result Display
-image::commandbox_resultdisplay.png[width="300"]
+image::commandbox_resultdisplay.png[width="450"]
 
 These elements are denoted by the black and blue boxes in Figures 2 and 3 respectively.
 

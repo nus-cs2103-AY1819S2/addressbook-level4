@@ -182,13 +182,13 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void startTestSession_IsInEmptyFolder_throwsEmptyCardFolderException() {
+    public void startTestSession_isInEmptyFolder_throwsEmptyCardFolderException() {
         thrown.expect(EmptyCardFolderException.class);
         modelManager.startTestSession();
     }
 
     @Test
-    public void startTestSession_IsInNonEmptyFolder_startsTestSession() {
+    public void startTestSession_isInNonEmptyFolder_startsTestSession() {
         setUpTwoCardsForTestSession();
         assertEquals(GEORGE, modelManager.getCurrentTestedCard());
         assertEquals(Model.State.IN_TEST, modelManager.getState());
@@ -199,7 +199,7 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void endTestSession_IsInTestSession_endsTestSession() {
+    public void endTestSession_isInTestSession_endsTestSession() {
         setUpTwoCardsForTestSession();
         modelManager.endTestSession();
         assertEquals(Model.State.IN_FOLDER, modelManager.getState());
@@ -224,7 +224,7 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void markAttemptedAnswer_WrongAnswer_noChangeCorrectAnswerAttempts() {
+    public void markAttemptedAnswer_wrongAnswer_noChangeCorrectAnswerAttempts() {
         setUpTwoCardsForTestSession();
         Answer attempt = new Answer(WRONG_ANSWER_TO_GEORGE);
         int beforeNumAnsweredCorrectly = modelManager.getNumAnsweredCorrectly();
@@ -234,7 +234,7 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void markAttemptedAnswer_CorrectAnswer_increaseCorrectAnswerAttempts() {
+    public void markAttemptedAnswer_correctAnswer_increaseCorrectAnswerAttempts() {
         setUpTwoCardsForTestSession();
         Answer attempt = new Answer(CORRECT_ANSWER_TO_GEORGE);
         int beforeNumAnsweredCorrectly = modelManager.getNumAnsweredCorrectly();
@@ -244,7 +244,7 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void testNextCard_HasANextCard_testsNextCard() {
+    public void testNextCard_hasANextCard_testsNextCard() {
         setUpTwoCardsForTestSession();
         modelManager.setCardAsAnswered();
         modelManager.testNextCard();
@@ -254,7 +254,7 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void testNextCard_NoNextCard_doesNotTestNextCard() {
+    public void testNextCard_noNextCard_doesNotTestNextCard() {
         setUpOneCardForTestSession();
         modelManager.setCardAsAnswered();
         modelManager.testNextCard();

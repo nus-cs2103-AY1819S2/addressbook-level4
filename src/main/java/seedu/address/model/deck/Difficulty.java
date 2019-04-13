@@ -31,6 +31,14 @@ public class Difficulty {
         numberOfAttempts += 1;
     }
 
+    /**
+     * Resets the  difficulty
+     */
+    public void resetDifficulty() {
+        totalRating = 0;
+        numberOfAttempts = 0;
+    }
+
     public double getDifficulty() {
         return numberOfAttempts == 0 ? 0 : (double) totalRating / (double) numberOfAttempts;
     }

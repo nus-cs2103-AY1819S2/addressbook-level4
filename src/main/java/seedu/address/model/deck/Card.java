@@ -103,13 +103,18 @@ public class Card implements ListItem {
         builder.append("Question: ").append(getQuestion()).append(" Answer: ").append(getAnswer())
                .append(" Tags: ");
         getTags().forEach(builder::append);
-        //builder.append(" No Of Attempts: ").append(difficulty.getNumberOfAttempts());
-        //builder.append(" Average Difficulty: ").append(difficulty.getDifficulty());
+        builder.append(" No Of Attempts: ").append(difficulty.getNumberOfAttempts());
+        builder.append(" Average Difficulty: ").append(difficulty.getDifficulty());
         return builder.toString();
     }
 
     public void addDifficulty(int rating) {
         difficulty.addDifficulty(rating);
     }
+
+    public void resetDifficulty() {
+        difficulty.resetDifficulty();
+    }
+
 
 }

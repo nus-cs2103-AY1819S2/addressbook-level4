@@ -10,9 +10,12 @@ import java.util.List;
  * Manager for the Statistics objects, segmented in months
  */
 public class StatisticsManager {
+
     public static final BigDecimal DEFAULT_CONSULTATION_FEE = BigDecimal.valueOf(30.00);
-    public static final int NUMBER_OF_MONTHS_IN_A_YEAR = 12;
     public static final YearMonth START_DATE = YearMonth.of(2019, 1);
+
+    private static final int NUMBER_OF_MONTHS_IN_A_YEAR = 12;
+
     private BigDecimal consultationFee;
     private List<MonthStatistics> monthStatistics;
 
@@ -20,10 +23,19 @@ public class StatisticsManager {
         consultationFee = DEFAULT_CONSULTATION_FEE;
         monthStatistics = new ArrayList<>();
     }
+
     public BigDecimal getConsultationFee() {
         return this.consultationFee;
     }
+
+    /**
+     * Sets the consultation fee of the clinic. Must be a non-negative BigDecimal value.
+     * @param cost A non-negative BigDecimal value
+     */
     public void setConsultationFee(BigDecimal cost) {
+        if (cost.compareTo(BigDecimal.ZERO) == -1) {
+            throw new IllegalArgumentException("Consultation Fee cannot be a negative number");
+        }
         consultationFee = cost;
     }
 
@@ -34,6 +46,9 @@ public class StatisticsManager {
      */
     public void record(Record record, Clock clock) {
         int idx = getYearMonthIndex(YearMonth.now(clock));
+        if (idx < 0) {
+            throw new IllegalArgumentException("System clock is before January 2019");
+        }
         this.updateListSize(clock);
         this.monthStatistics.get(idx).addRecord(record, this);
     }
@@ -72,7 +87,8 @@ public class StatisticsManager {
         int fromIdx = getYearMonthIndex(from);
         int toIdx = getYearMonthIndex(to);
         // check if the queried indexes are in range
-        if (fromIdx < 0 || toIdx < 0 || fromIdx > monthStatistics.size() - 1 || toIdx > monthStatistics.size() - 1) {
+        if (fromIdx < 0 || toIdx < 0 || fromIdx > monthStatistics.size() - 1 || toIdx > monthStatistics.size() - 1
+            || toIdx < fromIdx) {
             throw new IllegalArgumentException("Invalid MMYY range");
         }
         for (int idx = fromIdx; idx <= toIdx; idx++) {
@@ -80,8 +96,13 @@ public class StatisticsManager {
         }
         return stats;
     }
+
     public List<MonthStatistics> getMonthStatisticsList() {
         return this.monthStatistics;
+    }
+
+    public int getMonthStatisticsListSize() {
+        return this.monthStatistics.size();
     }
 
     /**

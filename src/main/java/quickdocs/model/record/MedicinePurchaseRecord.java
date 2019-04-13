@@ -25,6 +25,6 @@ public class MedicinePurchaseRecord extends Record {
     @Override
     public Statistics toStatistics(StatisticsManager statisticsManager) {
         BigDecimal totalCost = cost.multiply(new BigDecimal(quantity));
-        return new Statistics(0, BigDecimal.ZERO , totalCost);
+        return new Statistics(0, BigDecimal.ZERO, totalCost);
     }
 }

@@ -1,5 +1,6 @@
 package seedu.address.logic.commands;
 
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
@@ -53,6 +54,7 @@ public class EndorseCommandTest {
     }
     @Test
     public void execute_clearEndorsePerson_success() throws CommandException {
+
         Person samplePerson = model.getFilteredPersonList().get(0);
         SkillsTag sampleEndorseTag = new SkillsTag(VALID_ENDORSE_NAME, "endorse");
         Set<SkillsTag> samplePersonTags = new HashSet<>(samplePerson.getTags());
@@ -75,6 +77,18 @@ public class EndorseCommandTest {
         expectedModel.commitAddressBook();
 
         assertCommandSuccess(clearEndorseCommand, model, commandHistory, expectedMessage, expectedModel);
+
+    }
+
+    @Test
+    public void execute_endorseDuplicate_failure() throws CommandException {
+
+        EndorseCommand endorseCommand = new EndorseCommand(ENDORSE_PROCESS, INDEX_FIRST_PERSON, VALID_ENDORSE_NAME);
+        endorseCommand.execute(model, new CommandHistory());
+        String expectedMessage = String.format(EndorseCommand.MESSAGE_DUPLICATE_PERSON);
+
+        assertCommandFailure(endorseCommand, model, commandHistory, expectedMessage);
+
     }
 
 }

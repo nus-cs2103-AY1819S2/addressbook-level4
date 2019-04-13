@@ -13,9 +13,7 @@ Development Guide(DG) that I documented. I hope that this document will provide 
 contribution in _In-Credit-Ble_.
 --
 
-== PROJECT: In-Credit-Ble (
-
----
+== PROJECT: In-Credit-Ble
 
 == Overview
 
@@ -33,7 +31,7 @@ _In-Credit-Ble_.
 == Summary of Contributions
 
 |===
-_This section will provide a summary of my contributions to In-Credit-Ble._
+|_This section will provide a summary of my contributions to In-Credit-Ble._
 |===
 
 === Features Enhancements
@@ -132,16 +130,23 @@ documentation and also demonstrate the technical depth of my code contribution._
 
 === Application Design
 |===
-I constructed the class diagrams for the different components of the _In-Credit-Ble_ and explained the interaction within
+|I constructed the class diagrams for the different components of the _In-Credit-Ble_ and explained the interaction within
 these components. This will allow developers who wish to contribute to our project to easily understand how our
-application is designed.
+application is designed. Due to page constraints, I will only be showing the edits that I made to the `Logic`
+and the `Model` component. To see the contributions I made in documenting the other components of the application,
+please visit the links below.
+
+1) https://github.com/CS2103-AY1819S2-W17-3/main/blob/master/docs/DeveloperGuide.adoc#Design-Ui[UI] +
+2) https://github.com/CS2103-AY1819S2-W17-3/main/blob/master/docs/DeveloperGuide.adoc#Design-Storage[Storage]
 |===
 
-include::../DeveloperGuide.adoc[tag=design]
+include::../DeveloperGuide.adoc[tag=logic]
+include::../DeveloperGuide.adoc[tag=model]
+
 
 === Implementation of Search Command
 |===
-I documented the design of `Search` command to give the readers a better understanding of how the `search` command is
+|I documented the design of `Search` command to give the readers a better understanding of how the `search` command is
 implemented and the interactions between the various components of the application in order for the `search` command
 to be executed. I also listed the design considerations of the `search` command so that the reader understands why
 the current implementation is chosen instead of the alternative.

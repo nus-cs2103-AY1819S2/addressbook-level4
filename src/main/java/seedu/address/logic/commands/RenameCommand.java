@@ -76,7 +76,8 @@ public class RenameCommand extends Command {
         Pdf editedPdf = createEditedPdf(pdfToEdit, editPdfDescriptor);
 
         if (!pdfToEdit.getName().getFullName().equals(editedPdf.getName().getFullName())
-                && isFileExists(editedPdf)) {
+                && (isFileExists(editedPdf)) || Paths.get(pdfToEdit.getDirectory().getDirectory(),
+                editedPdf.getName().getFullName()).toAbsolutePath().toFile().exists()) {
 
             throw new CommandException(String.format(MESSAGE_DUPLICATE_PDF_DIRECTORY,
                     editedPdf.getName().getFullName(), pdfToEdit.getDirectory().getDirectory()));

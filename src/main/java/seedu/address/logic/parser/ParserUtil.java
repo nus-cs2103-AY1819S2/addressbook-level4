@@ -27,14 +27,23 @@ public class ParserUtil {
         return Index.fromOneBased(Integer.parseInt(trimmedIndex));
     }
     /**
-     *
      * Parses a {@code String name} into a {@code String name}.
      * Leading and trailing whitespaces will be trimmed.
      */
-    public static String parseName(String name) {
-        requireNonNull(name);
-        String trimmedName = name.trim().toUpperCase();
-        return trimmedName;
+    public static int parseLessonIndex(String index) throws ParseException {
+        requireNonNull(index);
+        String trimmedIndex = index.trim();
+        boolean numeric = trimmedIndex.matches("\\d+");
+        if (numeric) {
+            try {
+                return Integer.parseInt(trimmedIndex);
+            } catch (NumberFormatException e) {
+                throw new ParseException(
+                        "Index of a lesson should be a valid integer less than MAX_INTEGER (2147483647).");
+            }
+        } else {
+            throw new ParseException("Index of a lesson should be a valid integer less than MAX_INTEGER (2147483647).");
+        }
     }
     /**
      * Parses a {@code String count} into a {@code int count}.
@@ -49,10 +58,11 @@ public class ParserUtil {
             try {
                 return Integer.parseInt(trimmedCount);
             } catch (NumberFormatException e) {
-                throw new ParseException("Count of number should be a valid integer less than MAX_INTEGER.");
+                throw new ParseException(
+                        "Count of number should be a valid integer less than MAX_INTEGER (2147483647).");
             }
         } else {
-            throw new ParseException("Count of number should be a valid integer less than MAX_INTEGER.");
+            throw new ParseException("Count of number should be a valid integer less than MAX_INTEGER (2147483647).");
         }
     }
     /**

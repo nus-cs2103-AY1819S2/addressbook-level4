@@ -50,7 +50,7 @@ public class ParserUtilTest {
         int expectedCount = parserUtil.parseCount(count);
         assertEquals(expectedCount, 1);
         String trimmedCount = wrongCount.trim();
-        thrown.expectMessage("Count of number should be a valid integer less than MAX_INTEGER.");
+        thrown.expectMessage("Count of number should be a valid integer less than MAX_INTEGER (2147483647).");
         parserUtil.parseCount(trimmedCount);
     }
     @Test
@@ -58,7 +58,7 @@ public class ParserUtilTest {
         final String count = "129084913749871398471936571369587198347981";
         ParserUtil parserUtil = new ParserUtil();
         String trimmedCount = count.trim();
-        thrown.expectMessage("Count of number should be a valid integer less than MAX_INTEGER.");
+        thrown.expectMessage("Count of number should be a valid integer less than MAX_INTEGER (2147483647).");
         parserUtil.parseCount(trimmedCount);
     }
     @Test

@@ -1,9 +1,10 @@
-package seedu.address.logic.commands.quiz;
+package seedu.address.logic.commands.management;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_OPENED_LESSON;
 import static seedu.address.logic.parser.Syntax.PREFIX_START_COUNT;
+import static seedu.address.logic.parser.Syntax.PREFIX_START_INDEX;
 import static seedu.address.logic.parser.Syntax.PREFIX_START_MODE;
-import static seedu.address.logic.parser.Syntax.PREFIX_START_NAME;
 
 import java.util.HashMap;
 import java.util.List;
@@ -12,7 +13,6 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 
-import seedu.address.logic.commands.management.ManagementCommand;
 import seedu.address.model.lesson.Lesson;
 import seedu.address.model.lesson.LessonList;
 import seedu.address.model.modelmanager.ManagementModel;
@@ -36,11 +36,11 @@ public class QuizStartCommand extends ManagementCommand {
     public static final String COMMAND_WORD = "start";
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + "Parameters: "
-            + PREFIX_START_NAME + "NAME "
+            + PREFIX_START_INDEX + "INDEX "
             + "[" + PREFIX_START_COUNT + "COUNT] "
             + PREFIX_START_MODE + "MODE...\n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_START_NAME + "country-capitals "
+            + PREFIX_START_INDEX + "1 "
             + PREFIX_START_COUNT + "15 "
             + PREFIX_START_MODE + "LEARN";
     public static final String MESSAGE_SUCCESS = "Starting new quiz";
@@ -101,20 +101,15 @@ public class QuizStartCommand extends ManagementCommand {
             throw new CommandException(MESSAGE_EXPECTED_MODEL);
         }
         ManagementModel mgtModel = (ManagementModel) model;
+        if (mgtModel.isThereOpenedLesson()) {
+            throw new CommandException(MESSAGE_OPENED_LESSON);
+        }
         LessonList lessonList = mgtModel.getLessonList();
         List<Lesson> lessons = lessonList.getLessons();
-        boolean lessonExist = false;
-        Lesson lesson = new Lesson("default", List.of("q", "a"), List.of());
-        for (int i = 0; i < lessons.size(); i++) {
-            if (lessons.get(i).getName().equalsIgnoreCase(this.session.getName().toUpperCase())) {
-                lesson = mgtModel.getLesson(i);
-                lessonExist = true;
-                break;
-            }
+        if (this.session.getLessonIndex() > lessons.size()) {
+            throw new CommandException("Lesson index is out of range. Please try a smaller one.");
         }
-        if (!lessonExist) {
-            throw new CommandException("Lesson is not found. Please try another one.");
-        }
+        Lesson lesson = lessons.get(this.session.getLessonIndex() - 1);
         HashMap<Integer, CardSrsData> cardData = new HashMap<>();
         for (int i = 0; i < lesson.getCardCount(); i++) {
             int currentHashcode = lesson.getCards().get(i).hashCode();

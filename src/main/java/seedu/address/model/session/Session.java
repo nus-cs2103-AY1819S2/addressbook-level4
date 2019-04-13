@@ -19,6 +19,7 @@ public class Session {
     private String name;
     private QuizMode mode;
     private int cardCount;
+    private int lessonIndex;
     private List<SrsCard> srsCards;
 
     public Session(String name, int cardCount, QuizMode mode) {
@@ -70,6 +71,13 @@ public class Session {
         this.srsCards = srsCards;
     }
 
+    public Session(int index, int count, QuizMode mode) {
+        this.lessonIndex = index;
+        this.cardCount = count;
+        this.mode = mode;
+        this.name = "default";
+    }
+
     /**
      * Generate a list of quizCards that will pass to quiz system.
      */
@@ -88,7 +96,9 @@ public class Session {
     public QuizMode getMode() {
         return mode;
     }
-
+    public int getLessonIndex() {
+        return lessonIndex;
+    }
     public int getCount() {
         return cardCount;
     }

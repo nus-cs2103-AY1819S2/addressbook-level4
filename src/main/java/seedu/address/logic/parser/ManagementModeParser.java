@@ -16,8 +16,8 @@ import seedu.address.logic.commands.management.HistoryCommand;
 import seedu.address.logic.commands.management.ListCardsCommand;
 import seedu.address.logic.commands.management.ListLessonsCommand;
 import seedu.address.logic.commands.management.OpenLessonCommand;
+import seedu.address.logic.commands.management.QuizStartCommand;
 import seedu.address.logic.commands.management.ReloadLessonsCommand;
-import seedu.address.logic.commands.quiz.QuizStartCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**

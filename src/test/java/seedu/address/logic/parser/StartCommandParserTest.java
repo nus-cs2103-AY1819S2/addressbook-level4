@@ -6,7 +6,7 @@ import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailur
 
 import org.junit.Test;
 
-import seedu.address.logic.commands.quiz.QuizStartCommand;
+import seedu.address.logic.commands.management.QuizStartCommand;
 
 
 public class StartCommandParserTest {

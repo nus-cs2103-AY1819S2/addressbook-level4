@@ -18,7 +18,7 @@ public class TestSession extends UiPart<Region> {
     private static final String MESSAGE_WRONG_ANSWER = "\"Wrong answer, better luck next time!\"";
     private static final String MESSAGE_REVEAL_ANSWER = "\"Answer revealed, you can do better!\"";
 
-    private Card cardToTest; //final?
+    private Card cardToTest;
 
     @FXML
     private GridPane testSessionPage;

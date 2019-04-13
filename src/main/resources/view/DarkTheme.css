@@ -3,6 +3,10 @@
     -fx-focus-color: #19b4c5;
 }
 
+.error {
+    -fx-text-fill: #F44336 !important; /* The error class should always override the default text-fill style */
+}
+
 .background {
     -fx-background-color: derive(#1d1d1d, 20%);
     background-color: #383838; /* Used in the default.html file */

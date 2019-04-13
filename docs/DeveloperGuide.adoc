@@ -592,7 +592,7 @@ methods and classes instead.
 
 // tag::statimplement[]
 === Stat feature
-
+image::StatWindow.png[width="500"]
 ==== Current Implementation
 The `Stat` mechanism is facilitated through the use of the inbuilt JavaFx framework in conjunction with the data
 stored within each `Patient` object.

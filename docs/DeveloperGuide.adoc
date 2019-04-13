@@ -272,7 +272,7 @@ The `Image` class encapsulates the fields of a raw image file. This design choic
 
 The core functions of the `Image` class are listed below.
 
-* Validation check to see if raw image is a valid Image.
+* Validation checks to see if raw image is a valid Image.
 * Keeps a command history of edits executed on this Image.
 //end::albumModel[]
 
@@ -369,7 +369,7 @@ image::ImportSequenceDiagram.png[width=800]
 
 * *Alternative 1*: Import single images only.
 ** Pros: Easy to implement.
-** Cons: Importing multiple images from same folder needs more commands.
+** Cons: Importing multiple images from same folder needs repeated commands.
 
 * *Alternative 2 (Current Choice)*: Import images from directory as well.
 ** Pros: Can import many images without repeating the command.

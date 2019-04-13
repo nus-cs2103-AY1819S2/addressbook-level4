@@ -13,8 +13,7 @@ import seedu.address.model.cell.Status;
 import seedu.address.model.exceptions.BoundaryValueException;
 
 /**
- * Wraps all data at the address-book level
- * Duplicates are not allowed (by .isSamePerson comparison)
+ * Represents a boundary value checker for battleships.
  */
 public class BoundaryValueChecker {
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Put ship in cell: %1$s";
@@ -23,7 +22,7 @@ public class BoundaryValueChecker {
             "There is already a ship along the vertical coordinates";
     public static final String MESSAGE_BATTLESHIP_PRESENT_BODY_HORIZONTAL =
             "There is already a ship along the horizontal coordinates";
-    public static final String MESSAGE_OUT_OF_BOUNDS = "Out of bounds";
+    public static final String MESSAGE_OUT_OF_BOUNDS = "The ship falls out of bounds.";
 
     private static final Logger logger = LogsCenter.getLogger(BoundaryValueChecker.class);
 
@@ -32,6 +31,14 @@ public class BoundaryValueChecker {
     private final Coordinates coordinates;
     private final Orientation orientation;
 
+    /**
+     * Default constructor method.
+     *
+     * @param mapGrid map grid of the game.
+     * @param battleship battleship to be put on the map grid.
+     * @param coordinates coordinates of the battleship on the map grid.
+     * @param orientation orientation of the battleship on the map grid.
+     */
     public BoundaryValueChecker(MapGrid mapGrid, Battleship battleship,
                                 Coordinates coordinates, Orientation orientation) {
         this.mapGrid = mapGrid;
@@ -42,6 +49,7 @@ public class BoundaryValueChecker {
 
     /**
      * Performs all the relevant checks.
+     *
      * @throws CommandException when a check fails
      */
     public void performChecks() throws BoundaryValueException {
@@ -74,6 +82,8 @@ public class BoundaryValueChecker {
 
     /**
      * Checks if the head of a battleship is within bounds.
+     *
+     * @return boolean of whether the battleship head falls within bounds.
      */
     public boolean isHeadWithinBounds() {
         Index rowIndex = coordinates.getRowIndex();
@@ -89,6 +99,8 @@ public class BoundaryValueChecker {
 
     /**
      * Checks if the body of a battleship is within bounds.
+     *
+     * @return boolean of whether the battleship body falls within bounds.
      */
     public boolean isBodyWithinBounds(Index index) {
         if (index.getZeroBased() + battleship.getLength() > mapGrid.getMapSize()) {
@@ -100,6 +112,8 @@ public class BoundaryValueChecker {
 
     /**
      * Checks if there is no battleship on the grids.
+     *
+     * @return boolean of whether the battleship head is absent.
      */
     public boolean isBattleshipAbsent() {
         Status status = mapGrid.getCellStatus(coordinates);
@@ -113,6 +127,8 @@ public class BoundaryValueChecker {
 
     /**
      * Check if the body of the battleship does not collide into another battleship.
+     *
+     * @return boolean of whether battleship body collides into another battleship.
      */
     public boolean isClear(Orientation orientation) {
         int row = coordinates.getRowIndex().getZeroBased();
@@ -126,6 +142,7 @@ public class BoundaryValueChecker {
             }
 
             Coordinates cellCoords = new Coordinates(row, col);
+
             if (mapGrid.getCellStatus(cellCoords) == Status.SHIP) {
                 return false;
             }

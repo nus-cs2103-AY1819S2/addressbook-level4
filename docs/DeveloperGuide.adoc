@@ -44,8 +44,6 @@ This is a note. Additional information that further explains a feature will be w
 `filepath`, `command` and `method` are all formatted with a grey background. Example: `help`, `getCurrentConsultation()`
 and `logic\LogicManager`
 
-=== Developer Guide Organization
-
 == Setting up
 
 === Prerequisites
@@ -190,17 +188,20 @@ image::QDUiClassDiagram.png[width="800"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `rootLayoutController` composed of a `Display`, `UserInput`, `InputFeedBack` and `ReminderListPanel` controls. +
+The UI aspect of QuickDocs is controlled by a single `rootLayoutController` that is responsible for handling the user interactions with
+the interface. It is composed of the `resultDisplay`, `userInputField`, `inputFeedbackArea`, `reminderListPanel` and
+the `currentSessionLabel` controls. +
 
+.Overview of QuickDoc's user interface
 image::uioverview.png[width="800"]
 
 1. `resultDisplay` will reflect the results of the command entered
 2. `userInputField` is where the user can enter their commands
-3. should the command fail due to erroneous command input, instructions to rectify the command will be displayed on the `InputFeedbackArea`
-4. Appointments and Reminders are displayed on the `ReminderListPanel`
+3. should the command fail due to erroneous command input, instructions to rectify the command will be displayed on the `inputFeedbackArea`
+4. Appointments and Reminders are displayed on the `reminderListPanel`
 5. Current consultation sessions will be indicated on the `currentSessionLabel`.
 
-The `UI` component uses JavaFx UI framework. RootLayout is defined in the matching `.fxml` file that are in link:{repoURL}/src/main/resources/view[src/main/resources/view] folder.
+The `UI` component uses JavaFx UI framework. RootLayout is defined in the matching `.fxml` file that is in link:{repoURL}/src/main/resources/view[src/main/resources/view] folder.
 
 The `UI` component,
 

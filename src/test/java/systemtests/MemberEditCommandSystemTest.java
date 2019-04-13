@@ -60,7 +60,7 @@ public class MemberEditCommandSystemTest extends AddressBookSystemTest {
                  + PHONE_DESC_BOB + "  " + MAJOR_DESC_BOB + "  " + EMAIL_DESC_BOB + "  "
                 + ADDRESS_DESC_BOB + " " + GENDER_DESC_BOB + YEAROFSTUDY_DESC_BOB + MAJOR_DESC_BOB + TAG_DESC_SWIMMING +
                 " ";
-        Person editedPerson = new PersonBuilder(BOB).withMatricNumber("A0123123Z")
+        Person editedPerson = new PersonBuilder(BOB).withMatricNumber("A0123123B")
                 .withTags(VALID_TAG_SWIMMING).build();
         assertCommandSuccess(command, index, editedPerson);
 

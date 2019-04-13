@@ -11,7 +11,6 @@ import java.util.stream.Stream;
 import seedu.hms.logic.commands.AddServiceTypeCommand;
 import seedu.hms.logic.parser.exceptions.ParseException;
 import seedu.hms.model.booking.serviceType.ServiceType;
-import seedu.hms.model.customer.Name;
 import seedu.hms.model.util.TimeRange;
 
 /**
@@ -45,12 +44,12 @@ public class AddServiceTypeCommandParser implements Parser<AddServiceTypeCommand
                 AddServiceTypeCommand.MESSAGE_USAGE));
         }
 
-        Name serviceName = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
+        String serviceName = ParserUtil.parseType(argMultimap.getValue(PREFIX_NAME).get());
         TimeRange timing = ParserUtil.parseTiming(argMultimap.getValue(PREFIX_TIMING).get());
         int capacity = ParserUtil.parseCapacity(argMultimap.getValue(PREFIX_CAPACITY).get());
         double rate = ParserUtil.parseRate(argMultimap.getValue(PREFIX_RATE).get());
 
-        ServiceType serviceType = new ServiceType(capacity, timing, serviceName.toString(), rate);
+        ServiceType serviceType = new ServiceType(capacity, timing, serviceName, rate);
         return new AddServiceTypeCommand(serviceType);
     }
 

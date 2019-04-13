@@ -18,6 +18,8 @@ import seedu.hms.logic.commands.Command;
 import seedu.hms.logic.commands.DeleteBookingCommand;
 import seedu.hms.logic.commands.DeleteCustomerCommand;
 import seedu.hms.logic.commands.DeleteReservationCommand;
+import seedu.hms.logic.commands.DeleteRoomTypeCommand;
+import seedu.hms.logic.commands.DeleteServiceTypeCommand;
 import seedu.hms.logic.commands.EditBookingCommand;
 import seedu.hms.logic.commands.EditCustomerCommand;
 import seedu.hms.logic.commands.EditReservationCommand;
@@ -125,6 +127,14 @@ public class HotelManagementSystemParser {
         case DeleteBookingCommand.COMMAND_WORD:
         case DeleteBookingCommand.COMMAND_ALIAS:
             return new DeleteBookingCommandParser().parse(arguments);
+
+        case DeleteServiceTypeCommand.COMMAND_WORD:
+        case DeleteServiceTypeCommand.COMMAND_ALIAS:
+            return new DeleteServiceTypeCommandParser().parse(arguments);
+
+        case DeleteRoomTypeCommand.COMMAND_WORD:
+        case DeleteRoomTypeCommand.COMMAND_ALIAS:
+            return new DeleteRoomTypeCommandParser().parse(arguments);
 
         case ClearHotelManagementSystemCommand.COMMAND_WORD:
         case ClearHotelManagementSystemCommand.COMMAND_ALIAS:

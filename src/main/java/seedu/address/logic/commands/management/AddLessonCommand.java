@@ -44,7 +44,7 @@ public class AddLessonCommand extends ManagementCommand {
             + "Note: You need to specify at least 2 TEST values. add\n"
             + "By default, the first 2 TEST values (Country and Capital) will be tested.\n"
             + "Use the `" + EditLessonCommand.COMMAND_WORD + "` and `"
-            + SetTestCommand.COMMAND_WORD + "` commands to set the TEST values to be tested.";
+            + SetLessonTestValuesCommand.COMMAND_WORD + "` commands to set the TEST values to be tested.";
     /**
      * Feedback message displayed to the user upon successful execution of this command
      */

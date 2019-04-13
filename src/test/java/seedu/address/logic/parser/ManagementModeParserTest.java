@@ -22,7 +22,7 @@ import seedu.address.logic.commands.management.ListCardsCommand;
 import seedu.address.logic.commands.management.ListLessonsCommand;
 import seedu.address.logic.commands.management.ReloadLessonsCommand;
 import seedu.address.logic.commands.management.SaveLessonCommand;
-import seedu.address.logic.commands.management.SetTestCommand;
+import seedu.address.logic.commands.management.SetLessonTestValuesCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 public class ManagementModeParserTest {
@@ -114,8 +114,8 @@ public class ManagementModeParserTest {
 
     @Test
     public void parseCommand_setTest() throws Exception {
-        String command = SetTestCommand.COMMAND_WORD + " 1 2";
-        assertTrue(parser.parse(command) instanceof SetTestCommand);
+        String command = SetLessonTestValuesCommand.COMMAND_WORD + " 1 2";
+        assertTrue(parser.parse(command) instanceof SetLessonTestValuesCommand);
     }
 
     @Test

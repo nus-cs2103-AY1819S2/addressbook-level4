@@ -23,9 +23,9 @@ import seedu.address.model.modelmanager.QuizModelStub;
 import seedu.address.testutil.TypicalIndices;
 
 /**
- * Unit tests for the {@link SetTestCommand}.
+ * Unit tests for the {@link SetLessonTestValuesCommand}.
  */
-public class SetTestCommandTest {
+public class SetTestCommandLessonTestValues {
 
     private static final CommandHistory EMPTY_COMMAND_HISTORY = new CommandHistory();
 
@@ -47,19 +47,19 @@ public class SetTestCommandTest {
 
         // set to core one and core two -> success since 3 cores exist
         CommandResult commandResult =
-                new SetTestCommand(indexOne, indexTwo).execute(modelStub, commandHistory);
+                new SetLessonTestValuesCommand(indexOne, indexTwo).execute(modelStub, commandHistory);
 
         // set test values successfully -> success feedback
-        assertEquals(String.format(SetTestCommand.MESSAGE_SUCCESS, coreOne, coreTwo),
+        assertEquals(String.format(SetLessonTestValuesCommand.MESSAGE_SUCCESS, coreOne, coreTwo),
                 commandResult.getFeedbackToUser());
         assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
 
         // set to core three and core two -> success since 3 cores exist
         commandResult =
-                new SetTestCommand(indexThree, indexTwo).execute(modelStub, commandHistory);
+                new SetLessonTestValuesCommand(indexThree, indexTwo).execute(modelStub, commandHistory);
 
         // set test values successfully -> success feedback
-        assertEquals(String.format(SetTestCommand.MESSAGE_SUCCESS, coreThree, coreTwo),
+        assertEquals(String.format(SetLessonTestValuesCommand.MESSAGE_SUCCESS, coreThree, coreTwo),
                 commandResult.getFeedbackToUser());
         assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
     }
@@ -71,7 +71,7 @@ public class SetTestCommandTest {
         Index invalidIndex = Index.fromZeroBased(index);
         thrown.expect(CommandException.class);
         thrown.expectMessage(String.format(MESSAGE_INVALID_INDEX, index));
-        new SetTestCommand(invalidIndex, indexThree).execute(modelStub, commandHistory);
+        new SetLessonTestValuesCommand(invalidIndex, indexThree).execute(modelStub, commandHistory);
     }
 
     @Test
@@ -81,45 +81,45 @@ public class SetTestCommandTest {
         // add valid card but there is no open lesson -> command exception thrown
         thrown.expect(CommandException.class);
         thrown.expectMessage(MESSAGE_CARD_VIEW_COMMAND);
-        new SetTestCommand(indexOne, indexTwo).execute(modelStub, commandHistory);
+        new SetLessonTestValuesCommand(indexOne, indexTwo).execute(modelStub, commandHistory);
     }
 
     @Test
     public void execute_incorrectModel_throwsCommandException() throws Exception {
         QuizModelStub modelStub = new QuizModelStub();
-        SetTestCommand setTestCommand = new SetTestCommand(indexOne, indexTwo);
+        SetLessonTestValuesCommand setLessonTestValuesCommand = new SetLessonTestValuesCommand(indexOne, indexTwo);
 
-        // attempting to execute SetTestCommand on a QuizModel instead of a ManagementModel ->
+        // attempting to execute SetLessonTestValuesCommand on a QuizModel instead of a ManagementModel ->
         // CommandException thrown
         thrown.expect(CommandException.class);
         thrown.expectMessage(MESSAGE_EXPECTED_MODEL);
-        setTestCommand.execute(modelStub, commandHistory);
+        setLessonTestValuesCommand.execute(modelStub, commandHistory);
     }
 
     @Test
     public void equals() {
-        SetTestCommand setTestCommand = new SetTestCommand(indexOne, indexThree);
+        SetLessonTestValuesCommand setLessonTestValuesCommand = new SetLessonTestValuesCommand(indexOne, indexThree);
 
         // same object -> returns true
-        assertEquals(setTestCommand, setTestCommand);
+        assertEquals(setLessonTestValuesCommand, setLessonTestValuesCommand);
 
         // same values -> returns true
-        SetTestCommand setTestCommandCopy = new SetTestCommand(indexOne, indexThree);
-        assertEquals(setTestCommand, setTestCommandCopy);
+        SetLessonTestValuesCommand setLessonTestValuesCommandCopy = new SetLessonTestValuesCommand(indexOne, indexThree);
+        assertEquals(setLessonTestValuesCommand, setLessonTestValuesCommandCopy);
 
         // same values different order -> returns true
-        setTestCommandCopy = new SetTestCommand(indexThree, indexOne);
-        assertEquals(setTestCommand, setTestCommandCopy);
+        setLessonTestValuesCommandCopy = new SetLessonTestValuesCommand(indexThree, indexOne);
+        assertEquals(setLessonTestValuesCommand, setLessonTestValuesCommandCopy);
 
         // different types -> returns false
-        assertNotEquals(setTestCommand, 1);
+        assertNotEquals(setLessonTestValuesCommand, 1);
 
         // null -> returns false
-        assertNotEquals(setTestCommand, null);
+        assertNotEquals(setLessonTestValuesCommand, null);
 
         // different card -> returns false
-        SetTestCommand setTestDiffCommand = new SetTestCommand(indexTwo, indexThree);
-        assertNotEquals(setTestCommand, setTestDiffCommand);
+        SetLessonTestValuesCommand setTestDiffCommand = new SetLessonTestValuesCommand(indexTwo, indexThree);
+        assertNotEquals(setLessonTestValuesCommand, setTestDiffCommand);
     }
 
     /**

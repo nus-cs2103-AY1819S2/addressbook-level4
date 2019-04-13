@@ -20,11 +20,11 @@ import seedu.address.model.modelmanager.Model;
  * It requires a {@link ManagementModel} to be passed into the {@link #execute(Model, CommandHistory)}
  * command.
  */
-public class SetTestCommand extends ManagementCommand {
+public class SetLessonTestValuesCommand extends ManagementCommand {
     /**
      * The word a user must enter to call this command.
      */
-    public static final String COMMAND_WORD = "setTest";
+    public static final String COMMAND_WORD = "set";
     /**
      * Instructions on command usage and parameters.
      */
@@ -49,13 +49,13 @@ public class SetTestCommand extends ManagementCommand {
      */
     private final Index answerIndex;
     /**
-     * Creates an SetTestCommand to set the question and answer core indices of
+     * Creates an SetLessonTestValuesCommand to set the question and answer core indices of
      * the specified {@link Lesson}.
      *
      * @param questionIndex the index of the {@link Lesson} to be deleted
      * @param answerIndex ew
      */
-    public SetTestCommand(Index questionIndex, Index answerIndex) {
+    public SetLessonTestValuesCommand(Index questionIndex, Index answerIndex) {
         this.questionIndex = questionIndex;
         this.answerIndex = answerIndex;
     }
@@ -96,11 +96,11 @@ public class SetTestCommand extends ManagementCommand {
 
     /**
      * Returns true if {@code other} is the same object or if it is also a
-     * {@link SetTestCommand} attempting to set the same 2 test values as question and answer.
+     * {@link SetLessonTestValuesCommand} attempting to set the same 2 test values as question and answer.
      *
      * @param other the other object to compare this object to
      * @return true if {@code other} is the same object or if it is also a
-     * {@link SetTestCommand} attempting to set the same 2 test values as question and answer.
+     * {@link SetLessonTestValuesCommand} attempting to set the same 2 test values as question and answer.
      */
     @Override
     public boolean equals(Object other) {
@@ -108,11 +108,11 @@ public class SetTestCommand extends ManagementCommand {
             return true;
         }
 
-        if (!(other instanceof SetTestCommand)) {
+        if (!(other instanceof SetLessonTestValuesCommand)) {
             return false;
         }
 
-        SetTestCommand otherCommand = (SetTestCommand) other;
+        SetLessonTestValuesCommand otherCommand = (SetLessonTestValuesCommand) other;
 
         return (otherCommand.answerIndex.getZeroBased() + otherCommand.questionIndex.getZeroBased()
             == questionIndex.getZeroBased() + answerIndex.getZeroBased());

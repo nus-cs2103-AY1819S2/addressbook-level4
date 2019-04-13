@@ -9,7 +9,7 @@ import seedu.address.logic.commands.management.ListCardsCommand;
 import seedu.address.logic.commands.management.ListLessonsCommand;
 import seedu.address.logic.commands.management.ReloadLessonsCommand;
 import seedu.address.logic.commands.management.SaveLessonCommand;
-import seedu.address.logic.commands.management.SetTestCommand;
+import seedu.address.logic.commands.management.SetLessonTestValuesCommand;
 
 /**
  * Container for user visible messages.
@@ -34,7 +34,7 @@ public class Messages {
             "<< Card View >>\nYou can now use the following commands:\n"
                     + "1.\t" + SaveLessonCommand.COMMAND_WORD
                     + ": Saves changes and returns you to Lesson View.\n"
-                    + "2.\t" + SetTestCommand.COMMAND_WORD
+                    + "2.\t" + SetLessonTestValuesCommand.COMMAND_WORD
                     + ": Sets the 2 test values for the opened lesson's flashcards.\n"
                     + "3.\t" + AddCardCommand.COMMAND_WORD
                     + ": Adds a card to the opened lesson.\n"

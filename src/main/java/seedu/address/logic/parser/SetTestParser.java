@@ -6,22 +6,22 @@ import java.util.Arrays;
 import java.util.List;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.management.SetTestCommand;
+import seedu.address.logic.commands.management.SetLessonTestValuesCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
- * Parses input arguments and creates a new {@link SetTestCommand} object.
+ * Parses input arguments and creates a new {@link SetLessonTestValuesCommand} object.
  */
-public class SetTestParser implements Parser<SetTestCommand> {
+public class SetTestParser implements Parser<SetLessonTestValuesCommand> {
 
     /**
      * Parses the given {@code String} of arguments in the context of the
-     * {@link SetTestCommand} and returns an {@link SetTestCommand} object
+     * {@link SetLessonTestValuesCommand} and returns an {@link SetLessonTestValuesCommand} object
      * for execution.
      *
      * @throws ParseException if the user input does not conform the expected format
      */
-    public SetTestCommand parse(String args) throws ParseException {
+    public SetLessonTestValuesCommand parse(String args) throws ParseException {
         List<String> testValues = Arrays.asList(args.trim().split(" "));
         try {
             // Only allow 2 inputs - can only set 2 values to be tested
@@ -39,11 +39,11 @@ public class SetTestParser implements Parser<SetTestCommand> {
                 throw new ParseException("");
             }
 
-            return new SetTestCommand(questionIndex, answerIndex);
+            return new SetLessonTestValuesCommand(questionIndex, answerIndex);
         } catch (ParseException | IndexOutOfBoundsException e) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                            SetTestCommand.MESSAGE_USAGE), e);
+                            SetLessonTestValuesCommand.MESSAGE_USAGE), e);
         }
     }
 }

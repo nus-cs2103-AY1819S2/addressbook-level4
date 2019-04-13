@@ -159,7 +159,7 @@ The following shows user adding 2 equipments that are own by the same client cal
 * `add-e n/Clementi CC p/67762517 pm/10-06-2019  a/220 Clementi Ave 4, Singapore 129880 s/A008844L t/west` +
 `add-e n/Clementi CC p/67762517 pm/10-06-2019 a/220 Clementi Ave 4, Singapore 129880 s/A007723L t/west`
 
-=== Creating a new worklist: `add-w`
+=== Creating a new work list: `add-w`
 Create a worklist in the Equipment Manager by giving the worklist an ID +
 Format: `add-w d/DATE a/ASSIGNEE i/ID`
 
@@ -271,25 +271,6 @@ Examples:
 Selects the 2nd client in the equipment manager.
 // end::select-c[]
 
-// tag::find[]
-=== Locating equipment by location: `find`
-Finds equipment whose location contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
-
-****
-* The search is case insensitive. e.g `clementi` will match `Clementi`
-* The order of the keywords does not matter.
-* Only the name is searched.
-* Only full words will be matched e.g. `Clem` will not match `Clementi`
-* Equipment matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-****
-
-Examples:
-
-* `find Clementi` +
-Returns `Clementi Police Station` and `Clementi CC`
-// end::find[]
-
 // tag::display[]
 === Show in map: `display`
 Display entries on the list to the map. Addresses of the equipment will be taken to plot marker on map.
@@ -300,8 +281,25 @@ Example:
 * `display`
 // end::display[]
 
+
+=== Route planning: `route`
+With multiple destinations that you plan to visit for preventive maintenance, using the route command can return you with the following details: +
+****
+* A visual representation on the map of the most efficient route you can take
+* A list of location to visit in order.
+****
+Format: `route /[worklist id]`
+
+Examples:
+
+* `list-w` +
+`route 120`
+
+    Note to editor: add a png example of the routing of worklist id 120.
+
+
 // tag::sort[]
-=== Sort the list: `sort`
+=== Sorting the equipment list: `sort`
 Sort the current shown list.
 
 Format: `sort [FIELD_NAME to be sorted by]`
@@ -331,7 +329,7 @@ Returns the list sorted by phone number of the client.
 // end::sort[]
 
 // tag::filter[]
-=== Filtering the list: `filter`
+=== Filtering the equipment list: `filter`
 Filter the current shown list which match the given keywords.
 
 Format: `filter [n/NAME_KEYWORD]...[t/TAG_KEYWORD]...[a/ADDRESS_KEYWORD]`
@@ -380,7 +378,7 @@ Returns any equipment whose names that either contains jurong, address that cont
 === Autocomplete: kbd:[tab] [Coming in v2.0]
 If you have forgotten how to type a command, do not worry!  By typing in the first letter of the command in the command and pressing the kbd:[tab] key, it will display the full format of the command.
 
-=== Deleting equipment: `delete-e`
+=== Deleting an equipment: `delete-e`
 Deletes the specified equipment from the equipment list and the whole details contained under the equipment specified by INDEX
 
 Format: `delete-e INDEX`
@@ -390,7 +388,7 @@ Example:
 * `list-e` +
 `delete-e 1`
 
-=== Deleting work list: `delete-w`
+=== Deleting a work list: `delete-w`
 Deletes the specified work list from the work list.
 Format: `delete-w INDEX`
 
@@ -402,21 +400,6 @@ Example:
 === Enabling notification: `notify` [Coming in v2.0]
 Notifies you when an equipment is due for preventive maintenance in 2 days. You can choose to get notifications or not.
 
-=== Route planning: `route`
-With multiple destinations that you plan to visit for preventive maintenance, using the route command can return you with the following details: +
-****
-* A visual representation on the map of the most efficient route you can take
-* A list of location to visit in order.
-****
-Format: `route /[worklist id]`
-
-Examples:
-
-* `list-w` +
-`route 120`
-
-    Note to editor: add a png example of the routing of worklist id 120.
-
 === Listing entered commands: `history`
 Lists all the commands that you have entered in reverse chronological order.
 
@@ -427,28 +410,28 @@ Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and 
 
 // tag::undoredo[]
 === Undoing previous command: `undo`
-Restores Equipment Manager to the state before the previous undoable command was executed.
+Restores *Equipment Manager* to the state before the previous undoable command was executed.
 
 [NOTE]
 ====
-Undoable commands: those commands that modify the address book's content (`add`, `delete`, `edit` and `clear`).
+Undoable commands: those commands that modify the equipment manager's content (`add-e`, `delete-e`, `edit-e` and `clear`).
 ====
 
 Examples:
 
-* `delete 1` +
-`list` +
-`undo` (reverses the `delete 1` command) +
+* `delete-e 1` +
+`list-e` +
+`undo` (reverses the `delete-e 1` command) +
 
-* `select 1` +
-`list` +
+* `select-e 1` +
+`list-e` +
 `undo` +
 The `undo` command fails as there are no undoable commands executed previously.
 
-* `delete 1` +
+* `delete-e 1` +
 `clear` +
 `undo` (reverses the `clear` command) +
-`undo` (reverses the `delete 1` command) +
+`undo` (reverses the `delete-e 1` command) +
 
 === Redoing all the previously undone command: `redo`
 Reverses the most recent `undo` command. +
@@ -456,19 +439,19 @@ Format: `redo`
 
 Examples:
 
-* `delete 1` +
-`undo` (reverses the `delete 1` command) +
-`redo` (reapplies the `delete 1` command) +
+* `delete-e 1` +
+`undo` (reverses the `delete-e 1` command) +
+`redo` (reapplies the `delete-e 1` command) +
 
-* `delete 1` +
+* `delete-e 1` +
 `redo` +
 The `redo` command fails as there are no `undo` commands executed previously.
 
-* `delete 1` +
+* `delete-e 1` +
 `clear` +
 `undo` (reverses the `clear` command) +
-`undo` (reverses the `delete 1` command) +
-`redo` (reapplies the `delete 1` command) +
+`undo` (reverses the `delete-e 1` command) +
+`redo` (reapplies the `delete-e 1` command) +
 `redo` (reapplies the `clear` command) +
 // end::undoredo[]
 
@@ -482,7 +465,7 @@ Format: `exit`
 
 === Saving the data
 
-Equipment Manager data are saved in the hard disk automatically after any command that changes the data. +
+*Equipment Manager* data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
 // tag::dataencryption[]
@@ -527,7 +510,7 @@ Unsure of a few technical terms? We got you covered. Refer to [underline]#<<tech
 == Command Summary
 
 This is the last section of the User Guide, but the most useful if you just want a list of commands to try.
-Refer to <<generaltable>> for general commands and <<managetable>> for Equipment Manager.
+Refer to <<generaltable>> for a summary of all the commands with quick command format guide.
 For more details on what each command does, please refer to <<Features>>.
 
 .General Commands
@@ -538,66 +521,67 @@ For more details on what each command does, please refer to <<Features>>.
 |*Help*
 |help
 
-|*Add Equipment*
+|*Adding an equipment*
 |add-e
 
-|*Add Work List*
+|*Creating a new Work List*
 |add-w
 
-|*List Equipment*
+|*Putting an equipment into work list*
+|put
+
+|*Removing an equipment from work list*
+|remove
+
+|*Editing an equipment*
+|edit-e
+
+|*List all equipments*
 |list-e
 
-|*List Work List*
+|*List all work list*
 |list-w
 
-|*Select Equipment or Worklist*
+|*Selecting an Equipment or work list*
 |select
 
-|*Select Client*
+|*Selecting a client*
 |select-c
 
-|*Delete Equipment*
+|*Locating equipment by location*
+|find
+
+|*Show equipment location(s) in map*
+|display
+
+|*Route planning*
+|route
+
+|*Sort the equipment list*
+|sort
+
+|*Filtering the equipment list*
+|filter
+
+|*Deleting an equipment*
 |delete-e
 
-|*Delete Work List*
+|*Deleting a work list*
 |delete-w
 
-|*Undo*
-|undo
-
-|*Redo*
-|redo
-
-|*Clear*
-|clear
-
-|*History*
+|*Listing entered commands*
 |history
 
-|*Exit*
+|*Undoing previous commands*
+|undo
+
+|*Redoing all the previously undone command*
+|redo
+
+|*Clearing all entries*
+|clear
+
+|*Exit the program*
 |exit
-|===
-
-.Some quick example of commands in Equipment Manager
-[[managetable]]
-[cols="^.^1,^.^4,^.^2"]
-|===
-|Command |Format |Example
-
-|*Select*
-|select INDEX
-|s 2
-
-|*Put*
-|put INDEX [worklist id]
-|put 1 120
-
-|*Find*
-|find KEYWORD [MORE_KEYWORDS]
-|fin punggol
-
-|*Filter*
-|filter [n/NAME_KEYWORD] [pm/DATE_KEYWORD] [t/TAG_KEYWORD]
-|fil punggol november ongoing
 |===
 // end::commandsummary[]

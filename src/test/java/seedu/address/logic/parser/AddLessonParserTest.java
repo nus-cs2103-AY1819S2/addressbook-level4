@@ -7,7 +7,6 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_INPUT;
 import static seedu.address.logic.commands.management.CommandTestUtil.PREAMBLE_NON_EMPTY;
 import static seedu.address.logic.commands.management.CommandTestUtil.PREAMBLE_WHITESPACE;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
-import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.address.logic.parser.Syntax.PREFIX_HINT;
 import static seedu.address.logic.parser.Syntax.PREFIX_LESSON_NAME;
 import static seedu.address.logic.parser.Syntax.PREFIX_TEST;
@@ -15,15 +14,12 @@ import static seedu.address.testutil.LessonBuilder.DEFAULT_CORE_HEADER_1;
 import static seedu.address.testutil.LessonBuilder.DEFAULT_CORE_HEADER_2;
 import static seedu.address.testutil.LessonBuilder.DEFAULT_NAME;
 import static seedu.address.testutil.LessonBuilder.DEFAULT_OPT_HEADER_1;
-import static seedu.address.testutil.TypicalLessonList.LESSON_DEFAULT;
 
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.logic.commands.management.AddLessonCommand;
-import seedu.address.model.lesson.Lesson;
-import seedu.address.testutil.LessonBuilder;
 
 public class AddLessonParserTest {
     public static final String NAME = " " + PREFIX_LESSON_NAME + DEFAULT_NAME;

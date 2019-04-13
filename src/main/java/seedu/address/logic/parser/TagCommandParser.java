@@ -52,14 +52,14 @@ public class TagCommandParser implements Parser<TagCommand> {
 
         if (argMultimap.getValue(PREFIX_TAG_ADD).isPresent() && argMultimap.getValue(PREFIX_TAG_REMOVE).isPresent()) {
             throw new ParseException("Invalid Prefix: -a -r");
-        } else if (argMultimap.getValue(PREFIX_TAG_ADD).isPresent() &&
-                argMultimap.getValue(PREFIX_TAG_ADD).equals(Optional.of("")) &&
-                argMultimap.getValue(PREFIX_TAG_NAME).isPresent()) {
+        } else if (argMultimap.getValue(PREFIX_TAG_ADD).isPresent()
+                && argMultimap.getValue(PREFIX_TAG_ADD).equals(Optional.of(""))
+                && argMultimap.getValue(PREFIX_TAG_NAME).isPresent()) {
             tags = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG_NAME));
             return new TagCommand(index, tags, true);
-        } else if (argMultimap.getValue(PREFIX_TAG_REMOVE).isPresent() &&
-                argMultimap.getValue(PREFIX_TAG_ADD).equals(Optional.of("")) &&
-                argMultimap.getValue(PREFIX_TAG_NAME).isPresent()) {
+        } else if (argMultimap.getValue(PREFIX_TAG_REMOVE).isPresent()
+                && argMultimap.getValue(PREFIX_TAG_REMOVE).equals(Optional.of(""))
+                && argMultimap.getValue(PREFIX_TAG_NAME).isPresent()) {
             tags = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG_NAME));
             return new TagCommand(index, tags, false);
         } else {

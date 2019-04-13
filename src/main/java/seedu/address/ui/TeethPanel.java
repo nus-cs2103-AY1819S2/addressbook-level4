@@ -49,11 +49,13 @@ public class TeethPanel extends UiPart<Region> {
         });
     }
 
-    public TeethPanel(ObservableValue<Person> givenPerson, boolean isStat) {
+    public TeethPanel(ObservableValue<Person> givenPerson, boolean isStat, Double size) {
         super(FXML);
         getRoot();
         try {
             loadTeeth(givenPerson.getValue());
+            ImageView temp = (ImageView) space.getChildren().get(space.getChildren().size() - 1);
+            temp.setFitHeight(size);
         } catch (IOException e) {
             logger.info(e.getMessage());
         }
@@ -71,9 +73,7 @@ public class TeethPanel extends UiPart<Region> {
             Image fin = SwingFXUtils.toFXImage(main, null);
             ImageView test = new ImageView(fin);
             test.setPreserveRatio(true);
-            test.setFitHeight(500);
-            test.setX(80);
-            test.setY(50);
+            test.setFitHeight(550);
             space.getChildren().add(test);
 
         } catch (IOException e) {

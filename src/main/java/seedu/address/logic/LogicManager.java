@@ -121,6 +121,16 @@ public class LogicManager implements Logic {
     }
 
     @Override
+    public ReadOnlyProperty<Record> selectedRecordProperty() {
+        return model.selectedRecordProperty();
+    }
+
+    @Override
+    public void setSelectedRecord(Record record) {
+        model.setSelectedRecord(record);
+    }
+
+    @Override
     public ReadOnlyProperty<Person> selectedPersonProperty() {
         return model.selectedPersonProperty();
     }
@@ -138,5 +148,10 @@ public class LogicManager implements Logic {
     @Override
     public void setMainWindow(MainWindow mainWindow) {
         this.mainWindow = mainWindow;
+    }
+
+    @Override
+    public void displayAllTasks() {
+        this.model.updateFilteredTaskList(Model.PREDICATE_SHOW_ALL_TASKS);
     }
 }

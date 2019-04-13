@@ -3,7 +3,7 @@ package seedu.address.model.person;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
-import seedu.address.logic.parser.AddCommandParser;
+import seedu.address.logic.parser.PatientAddCommandParser;
 
 /**
  * Represents a Person's email in the address book.
@@ -46,7 +46,7 @@ public class Email {
      * Returns if a given string is a valid email.
      */
     public static boolean isValidEmail(String test) {
-        if (!test.equals(AddCommandParser.NONE_EMAIL)) {
+        if (!test.equals(PatientAddCommandParser.NONE_EMAIL)) {
             return test.matches(VALIDATION_REGEX);
         } else {
             return true;

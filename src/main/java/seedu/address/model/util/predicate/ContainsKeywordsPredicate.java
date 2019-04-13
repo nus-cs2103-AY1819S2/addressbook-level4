@@ -2,6 +2,7 @@ package seedu.address.model.util.predicate;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.function.Predicate;
 
@@ -30,6 +31,11 @@ public abstract class ContainsKeywordsPredicate<T> implements Predicate<T> {
         this.keywords = keywords;
         this.isIgnoreCase = true;
         this.isAnd = false;
+    }
+
+    @Override
+    public String toString() {
+        return this.getClass().getSimpleName() + Arrays.toString(keywords.toArray());
     }
 
     @Override

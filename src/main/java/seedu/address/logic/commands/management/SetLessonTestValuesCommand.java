@@ -29,10 +29,10 @@ public class SetLessonTestValuesCommand extends ManagementCommand {
      * Instructions on command usage and parameters.
      */
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Sets the 2 test values to be tested for the opened lesson's flashcards when"
-            + "the lesson is started in quiz mode.\n"
+            + ": Sets the 2 test values to be tested.\n"
             + "Parameters: INDEX INDEX (both starting from 1)\n"
-            + "Example: " + COMMAND_WORD + " 1 3\n";
+            + "Example: " + COMMAND_WORD + " 1 3\n"
+            + "Note: When the lesson is started in quiz mode, these 2 values will be tested.";
     /**
      * Feedback message displayed to the user upon successful execution of this command
      */

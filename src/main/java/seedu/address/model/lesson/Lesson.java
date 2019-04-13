@@ -239,7 +239,8 @@ public class Lesson {
      */
     public void setQuestionCoreIndex(int index) {
         if (index < 0 || index >= coreHeaders.size()) {
-            throw new IllegalArgumentException(String.format(EXCEPTION_INVALID_INDEX, index));
+            throw new IllegalArgumentException(String.format(EXCEPTION_INVALID_INDEX,
+                    index + 1));
         }
 
         questionCoreIndex = index;
@@ -250,7 +251,8 @@ public class Lesson {
      */
     public void setAnswerCoreIndex(int index) {
         if (index < 0 || index >= coreHeaders.size()) {
-            throw new IllegalArgumentException(String.format(EXCEPTION_INVALID_INDEX, index));
+            throw new IllegalArgumentException(String.format(EXCEPTION_INVALID_INDEX,
+                    index + 1));
         }
 
         answerCoreIndex = index;

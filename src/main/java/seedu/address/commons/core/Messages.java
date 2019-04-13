@@ -54,7 +54,9 @@ public class Messages {
                     + "6.\t" + HistoryCommand.COMMAND_WORD
                     + ": Lists all entered commands.\n"
                     + "7.\t" + HelpCommand.COMMAND_WORD
-                    + ": Shows user guide.";
+                    + ": Shows user guide.\n"
+                    + "8.\t" + ExitCommand.COMMAND_WORD
+                    + ": Exits the program.";
     /**
      * Feedback message displayed to the user when the command does not match any command patterns.
      */

@@ -49,11 +49,13 @@ public class TeethPanel extends UiPart<Region> {
         });
     }
 
-    public TeethPanel(ObservableValue<Person> givenPerson, boolean isStat) {
+    public TeethPanel(ObservableValue<Person> givenPerson, boolean isStat, Double size) {
         super(FXML);
         getRoot();
         try {
             loadTeeth(givenPerson.getValue());
+            ImageView temp = (ImageView) space.getChildren().get(space.getChildren().size() - 1);
+            temp.setFitHeight(size);
         } catch (IOException e) {
             logger.info(e.getMessage());
         }

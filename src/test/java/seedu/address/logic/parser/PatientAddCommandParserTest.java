@@ -29,13 +29,20 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NRIC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_SEX_BOB;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_YEAR;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.address.testutil.TypicalPersons.BOB;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 import org.junit.Test;
 
 import seedu.address.logic.commands.PatientAddCommand;
+import seedu.address.model.datetime.DateBase;
 import seedu.address.model.datetime.DateOfBirth;
 import seedu.address.model.patient.Nric;
 import seedu.address.model.patient.Sex;
@@ -102,6 +109,86 @@ public class PatientAddCommandParserTest {
         // all prefixes missing
         assertParseFailure(parser, VALID_NAME_BOB + VALID_NRIC_BOB + VALID_DOB_BOB + VALID_PHONE_BOB
                         + VALID_EMAIL_BOB + VALID_ADDRESS_BOB + VALID_SEX_BOB, expectedMessage);
+    }
+
+    @Test
+    public void parse_differentDates() {
+        String tempDob;
+
+        DateBase lastYear = DateOfBirth.getToday();
+        lastYear.setTo(lastYear.getDay(), lastYear.getMonth(), lastYear.getYear() - 1);
+
+        tempDob = " " + PREFIX_YEAR + lastYear.getRawFormat() + " ";
+        Person expectedPerson = new PersonBuilder(BOB).withDob(lastYear.getRawFormat()).build();
+
+        // last year -> valid dob
+        assertParseSuccess(parser, NAME_DESC_BOB + NRIC_DESC_BOB + tempDob
+                + PHONE_DESC_BOB + EMAIL_DESC_AMY + EMAIL_DESC_BOB
+                + ADDRESS_DESC_BOB + SEX_DESC_BOB, new PatientAddCommand(expectedPerson));
+
+        String yesterday = getYesterdayDateString();
+        tempDob = " " + PREFIX_YEAR + yesterday + " ";
+        expectedPerson = new PersonBuilder(BOB).withDob(yesterday).build();
+
+        // yesterday -> valid dob
+        assertParseSuccess(parser, NAME_DESC_BOB + NRIC_DESC_BOB + tempDob
+                + PHONE_DESC_BOB + EMAIL_DESC_AMY + EMAIL_DESC_BOB
+                + ADDRESS_DESC_BOB + SEX_DESC_BOB, new PatientAddCommand(expectedPerson));
+
+        DateBase today = DateOfBirth.getToday();
+
+        tempDob = " " + PREFIX_YEAR + today.getRawFormat() + " ";
+        expectedPerson = new PersonBuilder(BOB).withDob(today.getRawFormat()).build();
+
+        // today -> valid dob
+        assertParseSuccess(parser, NAME_DESC_BOB + NRIC_DESC_BOB + tempDob
+                + PHONE_DESC_BOB + EMAIL_DESC_AMY + EMAIL_DESC_BOB
+                + ADDRESS_DESC_BOB + SEX_DESC_BOB, new PatientAddCommand(expectedPerson));
+
+        // for the test failures below
+        String expectedMessage = DateOfBirth.MESSAGE_CONSTRAINTS_FUTURE_DAY;
+
+        String tomorrow = getTomorrowDateString();
+        tempDob = " " + PREFIX_YEAR + tomorrow + " ";
+
+        // tomorrow -> invalid dob
+        assertParseFailure(parser, NAME_DESC_BOB + NRIC_DESC_BOB + tempDob + SEX_DESC_BOB,
+                expectedMessage);
+
+        DateBase nextYear = DateOfBirth.getToday();
+        nextYear.setTo(nextYear.getDay(), nextYear.getMonth(), nextYear.getYear() + 1);
+
+        tempDob = " " + PREFIX_YEAR + nextYear.getRawFormat() + " ";
+
+        // next year compulsory fields only -> invalid dob
+        assertParseFailure(parser, NAME_DESC_BOB + NRIC_DESC_BOB + tempDob + SEX_DESC_BOB,
+                expectedMessage);
+
+        // next year all fields present -> invalid dob
+        assertParseFailure(parser, NAME_DESC_BOB + NRIC_DESC_BOB + tempDob + SEX_DESC_BOB
+                + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB, expectedMessage);
+    }
+
+    private Date yesterday() {
+        final Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.DATE, -1);
+        return cal.getTime();
+    }
+
+    private Date tomorrow() {
+        final Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.DATE, 1);
+        return cal.getTime();
+    }
+
+    private String getYesterdayDateString() {
+        DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        return dateFormat.format(yesterday());
+    }
+
+    private String getTomorrowDateString() {
+        DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        return dateFormat.format(tomorrow());
     }
 
     @Test

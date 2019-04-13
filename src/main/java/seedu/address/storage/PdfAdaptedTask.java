@@ -8,7 +8,7 @@ import seedu.address.model.task.Task;
 /**
  * PDF-friendly version of {@link Task}.
  */
-class PdfAdaptedTask implements PdfAdaptedInterface {
+public class PdfAdaptedTask implements PdfAdaptedInterface {
 
     public static final int ATTRIBUTES = 3;
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Task's %s field is missing!";

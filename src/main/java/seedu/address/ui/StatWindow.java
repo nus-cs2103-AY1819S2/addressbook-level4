@@ -10,9 +10,11 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -20,6 +22,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Pair;
 import seedu.address.commons.core.GuiSettings;
@@ -53,6 +56,8 @@ public class StatWindow extends UiPart<Stage> {
     @FXML
     private Label nric;
     @FXML
+    private Label sex;
+    @FXML
     private Label dateOfBirth;
     @FXML
     private Label phone;
@@ -61,11 +66,23 @@ public class StatWindow extends UiPart<Stage> {
     @FXML
     private Label email;
     @FXML
+    private Label kinRelation;
+    @FXML
+    private Label kinPhone;
+    @FXML
+    private Label kinAddress;
+    @FXML
+    private Label kinName;
+    @FXML
     private TableView recordStatTable;
     @FXML
     private VBox barChartBox;
     @FXML
-    private StackPane teethHolder;
+    private VBox pieChartBox;
+    @FXML
+    private StackPane teethBox;
+    @FXML
+    private VBox teethHolder;
 
 
     public StatWindow(Stage root, Logic logic) {
@@ -78,12 +95,12 @@ public class StatWindow extends UiPart<Stage> {
     }
 
     public void setWindowDefaultSize(GuiSettings guiSettings) {
-        primaryStage.setHeight(guiSettings.getWindowHeight());
-        primaryStage.setWidth(guiSettings.getWindowWidth());
+        primaryStage.setHeight(720.0);
+        primaryStage.setWidth(860.0);
 
         if (guiSettings.getWindowCoordinates() != null) {
-            primaryStage.setX(guiSettings.getWindowCoordinates().getX() + 50);
-            primaryStage.setY(guiSettings.getWindowCoordinates().getY() - 50);
+            primaryStage.setX(guiSettings.getWindowCoordinates().getX());
+            primaryStage.setY(guiSettings.getWindowCoordinates().getY());
         }
     }
 
@@ -96,12 +113,7 @@ public class StatWindow extends UiPart<Stage> {
      */
     public void populateData() {
         Patient statPatient = StatWindow.toStat;
-        this.patientTitle.setText("Statistics Report for " + statPatient.getName().toString());
-        nric.setText(statPatient.getNric().toString());
-        dateOfBirth.setText(statPatient.getDateOfBirth().getDate());
-        phone.setText(statPatient.getPhone().toString());
-        address.setText(statPatient.getAddress().toString());
-        email.setText(statPatient.getEmail().toString());
+        populatePatientInfo();
 
         String[] procList = Procedure.PROCEDURE_LIST;
         for (String procType: procList) {
@@ -119,16 +131,47 @@ public class StatWindow extends UiPart<Stage> {
         selectedPerson.setValue(toStat);
         ObservableValue<Person> localPatient = selectedPerson;
 
-        //this.teethPanel = new TeethPanel(localPatient, true);
-        //teethHolder.getChildren().add(teethPanel.getRoot());
+
+        this.teethPanel = new TeethPanel(localPatient, true, 280.0);
+        // teethPanel.getRoot().setSnapToPixel(true);
+
+        teethBox.setAlignment(Pos.TOP_CENTER);
+
+        teethHolder.getChildren().add(teethPanel.getRoot());
+
 
         populateStatTable();
         populateBarChart();
-
+        populatePieChart();
     }
 
     void show() {
         primaryStage.show();
+    }
+
+    /**
+     * Populates patient info
+     */
+    private void populatePatientInfo() {
+        Patient statPatient = StatWindow.toStat;
+        this.patientTitle.setText("Statistics Report for " + statPatient.getName().toString());
+        patientTitle.setWrapText(true);
+
+        sex.setText(statPatient.getSex().getSex() + "    ");
+        nric.setText(statPatient.getNric().toString() + "    ");
+        dateOfBirth.setText(statPatient.getDateOfBirth().getDate());
+        phone.setText(statPatient.getPhone().toString());
+        address.setText(statPatient.getAddress().toString());
+        address.setWrapText(true);
+        email.setText(statPatient.getEmail().toString());
+        email.setWrapText(true);
+
+        kinName.setText(statPatient.getNextOfKin().getName().toString());
+        kinName.setWrapText(true);
+        kinRelation.setText(statPatient.getNextOfKin().getKinRelation().toString());
+        kinAddress.setText(statPatient.getNextOfKin().getAddress().toString());
+        kinAddress.setWrapText(true);
+        kinPhone.setText(statPatient.getNextOfKin().getPhone().toString());
     }
 
     /**
@@ -145,9 +188,11 @@ public class StatWindow extends UiPart<Stage> {
 
         TableColumn<Pair<String, Integer>, String> procCol = new TableColumn<>("Procedure");
         procCol.setCellValueFactory(param -> new SimpleObjectProperty<>(param.getValue().getKey()));
+        procCol.prefWidthProperty().bind(recordStatTable.widthProperty().multiply(0.5));
 
         TableColumn<Pair<String, Integer>, Integer> numCol = new TableColumn<>("Number");
         numCol.setCellValueFactory(param -> new SimpleObjectProperty<>(param.getValue().getValue()));
+        numCol.prefWidthProperty().bind(recordStatTable.widthProperty().multiply(0.5));
 
         recordStatTable.getColumns().addAll(procCol, numCol);
         recordStatTable.getItems().addAll(data);
@@ -163,7 +208,9 @@ public class StatWindow extends UiPart<Stage> {
         NumberAxis yAxis = new NumberAxis();
         BarChart<String, Number> recordBarChart = new BarChart<String, Number>(xAxis, yAxis);
         xAxis.setLabel("Procedure");
+        xAxis.setTickLabelFill(Color.WHITE);
         yAxis.setLabel("Count");
+        yAxis.setTickLabelFill(Color.WHITE);
 
         XYChart.Series series = new XYChart.Series();
         series.setName("Overall Stat");
@@ -173,6 +220,22 @@ public class StatWindow extends UiPart<Stage> {
         recordBarChart.getData().add(series);
 
         barChartBox.getChildren().add(recordBarChart);
+    }
+
+    /**
+     * Populates the pie chart
+     */
+    private void populatePieChart() {
+        PieChart pieChart = new PieChart();
+
+        for (String procType: Procedure.PROCEDURE_LIST) {
+            int tempValue = recordNumbers.get(procType);
+            if (tempValue != 0) {
+                pieChart.getData().add(new PieChart.Data(procType, tempValue));
+            }
+        }
+        pieChart.setStyle("-fx-text-fill: white");
+        pieChartBox.getChildren().add(pieChart);
     }
 
     /**

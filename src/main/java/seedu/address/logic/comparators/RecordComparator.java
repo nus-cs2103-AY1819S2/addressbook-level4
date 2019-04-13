@@ -12,6 +12,16 @@ import seedu.address.model.record.Record;
 public class RecordComparator {
 
     /**
+     * Comparator to sort via procedure
+     */
+    private static Comparator<Record> compRecordProc = new Comparator<Record>() {
+        @Override
+        public int compare(Record r1, Record r2) {
+            return r1.getProcedure().toString().compareTo(r2.getProcedure().toString());
+        }
+    };
+
+    /**
      * Comparator to sort via record date.
      */
     private static Comparator<Record> compRecordDate = new Comparator<Record>() {
@@ -35,6 +45,10 @@ public class RecordComparator {
         Comparator<Record> recComp;
 
         switch (parameterType.trim()) {
+
+        case "proc":
+            recComp = compRecordProc;
+            break;
 
         case "date":
             recComp = compRecordDate;

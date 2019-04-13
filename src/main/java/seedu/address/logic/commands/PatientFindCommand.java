@@ -38,6 +38,11 @@ public class PatientFindCommand extends Command {
     }
 
     @Override
+    public String toString() {
+        return predicate.toString();
+    }
+
+    @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof PatientFindCommand // instanceof handles nulls

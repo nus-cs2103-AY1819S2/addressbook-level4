@@ -140,6 +140,12 @@ public class CommandTestUtil {
     public static final String INVALID_PASTJOB_DESC = " " + PREFIX_PASTJOB; // empty string not allowed for past job
     public static final String INVALID_MAJOR_DESC = " " + PREFIX_MAJOR + "^^"; //symbols not allowed
     public static final String INVALID_GRADE_DESC = " " + PREFIX_GRADE + "4.2"; // 1 decimal place not allowed
+    public static final String INVALID_GRADE_RANGE_DESC = " " + PREFIX_GRADE + "4.1*-4.2";
+    public static final String INVALID_INTERVIEW1_RANGE_DESC = " " + PREFIX_GRADE + "5*-7";
+    public static final String INVALID_INTERVIEW2_RANGE_DESC = " " + PREFIX_GRADE + "5*-7";
+    public static final String INVALID_INTERVIEW3_RANGE_DESC = " " + PREFIX_GRADE + "5*-7";
+    public static final String INVALID_INTERVIEW4_RANGE_DESC = " " + PREFIX_GRADE + "5*-7";
+    public static final String INVALID_INTERVIEW5_RANGE_DESC = " " + PREFIX_GRADE + "5*-7";
     public static final String INVALID_KNOWNPROGLANG_DESC = " " + PREFIX_KNOWNPROGLANG + "  "; //blank not allowed
     public static final String INVALID_JOBSAPPLY_DESC = " " + PREFIX_JOBSAPPLY + " "; //blank not allowed
     public static final String INVALID_INTERVIEWSCORES_DESC = " " + PREFIX_INTERVIEWSCORES + " ";
@@ -147,6 +153,7 @@ public class CommandTestUtil {
     // empty string not allowed for interview scores
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
     public static final String INVALID_JOBNAME = " " + PREFIX_JOBNAME + "$#@#@$*"; // only letters allowed
+    public static final String INVALID_LISTNAME = " invalidListName";
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";

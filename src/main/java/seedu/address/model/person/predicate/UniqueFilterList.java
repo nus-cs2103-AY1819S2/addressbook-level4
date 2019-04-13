@@ -35,16 +35,6 @@ public class UniqueFilterList implements Iterable<Filter> {
         return internalList.stream().anyMatch(toCheck::isSameFilter);
     }
 
-    public Filter getFilter(String predicateName) {
-        requireAllNonNull(predicateName);
-        Filter predicateManager = new Filter(predicateName, null);
-        for (int i = 0; i < internalList.size(); i++) {
-            if (internalList.get(i).isSameFilter(predicateManager)) {
-                return internalList.get(i);
-            }
-        }
-        return null;
-    }
 
     /**
      * Adds a person to the list.
@@ -69,13 +59,6 @@ public class UniqueFilterList implements Iterable<Filter> {
         }
     }
 
-
-    /**
-     * Returns the backing list as an unmodifiable {@code ObservableList}.
-     */
-    public ObservableList<Filter> asUnmodifiableObservableList() {
-        return internalUnmodifiableList;
-    }
 
     @Override
     public Iterator<Filter> iterator() {

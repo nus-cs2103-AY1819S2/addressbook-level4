@@ -10,6 +10,13 @@ import static seedu.address.logic.commands.CommandTestUtil.INTERVIEW2_RANGE_DESC
 import static seedu.address.logic.commands.CommandTestUtil.INTERVIEW3_RANGE_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.INTERVIEW4_RANGE_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.INTERVIEW5_RANGE_DESC_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_GRADE_RANGE_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_INTERVIEW1_RANGE_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_INTERVIEW2_RANGE_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_INTERVIEW3_RANGE_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_INTERVIEW4_RANGE_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_INTERVIEW5_RANGE_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_LISTNAME;
 import static seedu.address.logic.commands.CommandTestUtil.JOBSAPPLY_DESC_ENGINEER;
 import static seedu.address.logic.commands.CommandTestUtil.KNOWNPROGLANG_DESC_JAVA;
 import static seedu.address.logic.commands.CommandTestUtil.MAJOR_DESC_AMY;
@@ -24,7 +31,6 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_FILTERNAME;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_GENDER_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_GRADE_RANGE_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_INTERVIEW1_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_INTERVIEW1_RANGE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_INTERVIEW2_RANGE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_INTERVIEW3_RANGE_AMY;
@@ -39,6 +45,11 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_PASTJOB_PROFESS
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_RACE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_SCHOOL_AMY;
+import static seedu.address.logic.commands.FilterCommand.MESSAGE_INVALID_RANGE;
+import static seedu.address.logic.commands.FilterCommand.MESSAGE_LACK_FILTERNAME;
+import static seedu.address.logic.commands.FilterCommand.MESSAGE_USAGE_ALLJOB_SCREEN;
+import static seedu.address.logic.commands.FilterCommand.MESSAGE_USAGE_JOB_DETAIL_SCREEN;
+import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
 import java.util.Arrays;
@@ -54,8 +65,25 @@ public class FilterCommandParserTest {
     private FilterCommandParser parser = new FilterCommandParser();
 
     @Test
-    public void parse_emptyArgs_returnsFilterCommand() {
+    public void parse_invalidListName_returnsFilterCommand() {
+        assertParseFailure(parser, INVALID_LISTNAME ,String.format(JobListName.MESSAGE_CONSTRAINTS,
+            MESSAGE_USAGE_ALLJOB_SCREEN + MESSAGE_USAGE_JOB_DETAIL_SCREEN));
+    }
 
+    @Test
+    public void parse_emptyArgs_returnsFilterCommand() {
+        assertParseFailure(parser, " ",String.format(MESSAGE_LACK_FILTERNAME,
+            MESSAGE_USAGE_ALLJOB_SCREEN + MESSAGE_USAGE_JOB_DETAIL_SCREEN));
+    }
+
+    @Test
+    public void parse_invalidValueRnge_returnsFilterCommand() {
+        assertParseFailure(parser, FILTERNAME_DESC + INVALID_GRADE_RANGE_DESC, MESSAGE_INVALID_RANGE);
+        assertParseFailure(parser, FILTERNAME_DESC + INVALID_INTERVIEW1_RANGE_DESC, MESSAGE_INVALID_RANGE);
+        assertParseFailure(parser, FILTERNAME_DESC + INVALID_INTERVIEW2_RANGE_DESC, MESSAGE_INVALID_RANGE);
+        assertParseFailure(parser, FILTERNAME_DESC + INVALID_INTERVIEW3_RANGE_DESC, MESSAGE_INVALID_RANGE);
+        assertParseFailure(parser, FILTERNAME_DESC + INVALID_INTERVIEW4_RANGE_DESC, MESSAGE_INVALID_RANGE);
+        assertParseFailure(parser, FILTERNAME_DESC + INVALID_INTERVIEW5_RANGE_DESC, MESSAGE_INVALID_RANGE);
     }
     @Test
     public void parse_validArgs_returnsFilterCommand() {

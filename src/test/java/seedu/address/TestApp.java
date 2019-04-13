@@ -136,7 +136,6 @@ public class TestApp extends MainApp {
      * Returns a defensive copy of the model.
      */
     public Model getModel() {
-        // TODO: Fix HealthWorkerBook implementation
         Model copy = new ModelManager(new HealthWorkerBook(),
                 new RequestBook(), new UserPrefs());
         //ModelHelper.setFilteredList(copy, model.getFilteredPersonList());

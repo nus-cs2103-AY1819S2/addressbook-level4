@@ -175,17 +175,17 @@ image::DeletePersonSdForLogic.png[width="800"]
 === Model component
 
 .Structure of the Model Component
-image::modelUmlDiagram.jpg[width="800"]
+image::modelUmlDiagram.png[width="800"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
 
 The `Model`,
 
-* stores the Request Book data.
-* stores the Health Worker Book data.
-* stores the Statistics Book data
-* exposes an unmodifiable `ObservableList<T>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
-* does not depend on any of the other three components.
+* stores the `Request` Book data.
+* stores the `HealthWorker` Book data.
+* Both `HealthWorkerBook` and `RequestBook` stores multiple previous states
+in the form of `ReadOnlyHealthWorkerBook` and `ReadOnlyRequestBook`.
+* A `UserPrefs` object denoting the user settings for the application.
 
 [NOTE]
 As a more OOP model, we store a list of `Request` objects in `Request Book`, which stores the details of every request, including the patient's details, request date and status.

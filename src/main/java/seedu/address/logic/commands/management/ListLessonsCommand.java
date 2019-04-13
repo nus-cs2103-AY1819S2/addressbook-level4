@@ -28,7 +28,7 @@ public class ListLessonsCommand extends ManagementCommand {
     /**
      * Instructions on command usage and parameters.
      */
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Lists all lessons in memory.\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Lists all lessons with full details.\n"
             + "Example: " + COMMAND_WORD;
     /**
      * Feedback message displayed to the user upon successful execution of this command

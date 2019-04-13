@@ -29,7 +29,7 @@ public class ListCardsCommand extends ManagementCommand {
     /**
      * Instructions on command usage and parameters.
      */
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Lists all cards in the opened lesson.\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Lists all cards with full details.\n"
             + "Example: " + COMMAND_WORD;
     /**
      * Feedback message displayed to the user upon successful execution of this command

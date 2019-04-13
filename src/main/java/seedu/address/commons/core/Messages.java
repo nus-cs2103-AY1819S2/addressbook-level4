@@ -32,7 +32,7 @@ public class Messages {
                     + "4.\t" + ReloadLessonsCommand.COMMAND_WORD
                     + ": Reloads all lessons from the data folder.\n"
                     + "5.\t" + ListLessonsCommand.COMMAND_WORD
-                    + ": Lists all lessons in memory.\n"
+                    + ": Lists all lessons with full details.\n"
                     + "6.\t" + HistoryCommand.COMMAND_WORD
                     + ": Lists all entered commands.\n"
                     + "7.\t" + HelpCommand.COMMAND_WORD
@@ -44,13 +44,13 @@ public class Messages {
                     + "1.\t" + QuitLessonCommand.COMMAND_WORD
                     + ": Quits Card View and returns to Lesson View.\n"
                     + "2.\t" + SetLessonTestValuesCommand.COMMAND_WORD
-                    + ": Sets the 2 test values for the opened lesson's flashcards.\n"
+                    + ": Sets the 2 test values for the lesson's flashcards.\n"
                     + "3.\t" + AddCardCommand.COMMAND_WORD
-                    + ": Adds a card to the opened lesson.\n"
+                    + ": Adds a card to the lesson.\n"
                     + "4.\t" + DeleteCardCommand.COMMAND_WORD
                     + ": Deletes the card at the specified INDEX of the card list.\n"
                     + "5.\t" + ListCardsCommand.COMMAND_WORD
-                    + ": Lists all cards in the opened lesson.\n"
+                    + ": Lists all cards in the lesson with full details.\n"
                     + "6.\t" + HistoryCommand.COMMAND_WORD
                     + ": Lists all entered commands.\n"
                     + "7.\t" + HelpCommand.COMMAND_WORD

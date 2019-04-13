@@ -21,10 +21,10 @@ import org.junit.rules.ExpectedException;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.WarningPanelSettings;
 import seedu.address.commons.util.warning.WarningPanelPredicateAccessor;
+import seedu.address.commons.util.warning.WarningPanelPredicateType;
 import seedu.address.model.medicine.Medicine;
 import seedu.address.model.medicine.MedicineExpiryThresholdPredicate;
 import seedu.address.model.medicine.MedicineLowStockThresholdPredicate;
-import seedu.address.model.medicine.Quantity;
 import seedu.address.model.medicine.exceptions.MedicineNotFoundException;
 import seedu.address.model.medicine.predicates.NameContainsKeywordsPredicate;
 import seedu.address.model.threshold.Threshold;
@@ -91,6 +91,15 @@ public class ModelManagerTest {
         WarningPanelSettings warningPanelSettings = new WarningPanelSettings(1, 2);
         modelManager.setWarningPanelSettings(warningPanelSettings);
         assertEquals(warningPanelSettings, modelManager.getWarningPanelSettings());
+    }
+
+    @Test
+    public void configureWarningPanelLists_expiryThresholdExceedsMax() {
+        WarningPanelSettings actualSetting = new WarningPanelSettings(Threshold.MAX_EXPIRY_THRESHOLD + 1, 2);
+        WarningPanelSettings expectedSetting = new WarningPanelSettings(Threshold.MAX_EXPIRY_THRESHOLD, 2);
+        modelManager.setWarningPanelSettings(actualSetting);
+        modelManager.configureWarningPanelLists();
+        assertEquals(expectedSetting, modelManager.getWarningPanelSettings());
     }
 
     @Test
@@ -232,7 +241,8 @@ public class ModelManagerTest {
         modelManager.updateFilteredMedicineList(PREDICATE_SHOW_ALL_MEDICINES);
 
         // different filteredExpiringMedicineList -> returns false
-        Threshold threshold = new Threshold("365"); // one year
+        Threshold threshold =
+                new Threshold(Integer.toString(Threshold.MAX_EXPIRY_THRESHOLD), WarningPanelPredicateType.EXPIRY);
         modelManager.updateFilteredExpiringMedicineList(new MedicineExpiryThresholdPredicate(threshold));
         assertFalse(modelManager.equals(new ModelManager(inventory, userPrefs)));
 
@@ -241,7 +251,8 @@ public class ModelManagerTest {
                 new MedicineExpiryThresholdPredicate(Model.DEFAULT_EXPIRY_THRESHOLD));
 
         // different filteredLowStockMedicineList -> returns false
-        threshold = new Threshold(Integer.toString(Quantity.MAX_QUANTITY));
+        threshold =
+                new Threshold(Integer.toString(Threshold.MAX_QUANTITY_THRESHOLD), WarningPanelPredicateType.LOW_STOCK);
         modelManager.updateFilteredLowStockMedicineList(new MedicineLowStockThresholdPredicate(threshold));
         assertFalse(modelManager.equals(new ModelManager(inventory, userPrefs)));
 

@@ -28,7 +28,7 @@ public class TestCommandSystemTest extends CardFolderSystemTest {
          * -> enter test
          */
         String command = " " + TestCommand.COMMAND_WORD + "  ";
-        expectedModel.testCardFolder();
+        expectedModel.startTestSession();
         assertCommandSuccess(command, expectedModel, TestCommand.MESSAGE_ENTER_TEST_FOLDER_SUCCESS);
 
         /* Case: Execute invalid commands in report

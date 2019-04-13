@@ -47,7 +47,7 @@ public class StringUtil {
      *
      * @param sentence
      * @param word
-     * @return true is fuzzysearch is matched
+     * @return
      */
     public static boolean matchFuzzySearch(String sentence, String word) {
         requireNonNull(sentence);
@@ -70,11 +70,11 @@ public class StringUtil {
      *
      * @param str1
      * @param str2
-     * @return similarity of two strings
+     * @return
      */
     public static double similarity(String str1, String str2) {
         try {
-            double levenshteinDistance = (double) getLevenshteinDistance(str1, str2);
+            double levenshteinDistance = (double) findLevenshteinDistance(str1, str2);
             return (1 - levenshteinDistance / (double) Math.max(str1.length(), str2.length()));
         } catch (Exception e) {
             return 0.1;
@@ -86,7 +86,7 @@ public class StringUtil {
      *
      * @param sentence
      * @param word
-     * @return true is wildcard search is matched
+     * @return
      */
     public static boolean matchWildcardSearch(String sentence, String word) {
         requireNonNull(sentence);
@@ -105,7 +105,7 @@ public class StringUtil {
     }
 
     /**
-     * wildcard match. * matched any number of a-z,0-9.
+     * wildcard match.
      *
      * @param sentence
      * @param word
@@ -120,7 +120,7 @@ public class StringUtil {
     }
 
     /**
-     * get min of three numbers
+     * get min similarity.
      *
      * @param one
      * @param two
@@ -139,13 +139,13 @@ public class StringUtil {
     }
 
     /**
-     * get Levenshtein distance.
+     * Levenshtein distance.
      *
      * @param str1
      * @param str2
-     * @return levenshtein distance of two strings
+     * @return
      */
-    public static int getLevenshteinDistance(String str1, String str2) {
+    public static int findLevenshteinDistance(String str1, String str2) {
         int n = str1.length();
         int m = str2.length();
         int i;

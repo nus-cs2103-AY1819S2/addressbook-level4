@@ -74,7 +74,7 @@ public class RenameCommand extends Command {
 
         Pdf pdfToEdit = lastShownList.get(index.getZeroBased());
         Pdf editedPdf = createEditedPdf(pdfToEdit, editPdfDescriptor);
-        
+
         if (!pdfToEdit.getName().getFullName().equals(editedPdf.getName().getFullName())
                 && isFileExists(editedPdf)) {
 

@@ -522,6 +522,7 @@ This implementation is under `Logic`, `Model`, `Storage` and `UI` Component.
 
 The classes associated with Budget is shown in the class diagram below:
 
+.Class Diagram for Budget
 image::budget_classdiagram.png[]
 // end::budgetclassdiagram[]
 // tag::budget[]

@@ -260,31 +260,48 @@ or date.
 
 This implementation is under `Logic` and `Model` Component.
 
+==== Current Implementation
+The sort command uses predicates that implement`java.util.Predicate` interface which will be used to filter the records
+that are inputted into the finance tracker. Each of these predicates contains a `List<String>` of keywords and a `test()`
+command that is used to test if a record satisfy the conditions set in the predicate. These predicates are found in the `Model` component.
+
+.Predicates implemented in `Model` component
+[cols="1,1"]
+|===
+|Types of predicate |Functions|
+`CategoryContainsKeywordsPredicate` | Filter out records by a given category |
+`DateContainsKeywordsPredicate` | Filter out records by a given date |
+`NameContainsKeywordPredicate` | Filter out records with names that matches a keyword |
+|===
+
+Below is the UML sequence diagram and a step-by-step explanation of an example usage scenario.
+
 .Sequence Diagram of Search Command
 image::SearchCommandSequenceDiagram.png[width="800"]
 
-==== Current Implementation
+1. User enters a search command (eg.`search -cat food`). The command is received by the UI components and the method
+`LogicManger#execute()` is called.
 
-1. User enters command `search -FLAG food`. The command is received by `FinanceTrackerParser`,
-which then creates a `SearchCommandParser` Object and calls `SearchCommandParser#parse()` method.
+2. The command is received by `FinanceTrackerParser`, which then creates a
+`SearchCommandParser` Object and calls `SearchCommandParser#parse()` method.
 
-2. Depending on the `-FLAG` that is entered by the user, `SearchCommandParser` will create different predicates that
-correspond to the `-FLAG`.
+3. Depending on the `-FLAG` that is entered by the user, `SearchCommandParser` will create different predicates objects
+that correspond to the `-FLAG`.
 * If `-cat` is inputted, `CategoryContainsKeywordsPredicate` will be created.
 * If `-date` is inputted, `DateContainsKeywordPredicate` will be created.
 * If `-name` is inputted, `NameContainsKeywordPredicate` will be created.
 
-3. A `SearchCommand` Object with the correct predicate Object as parameter is created and returned to the
-`LogicManager`.
+4. A `SearchCommand` Object with the correct predicate Object as parameter is created and returned to the
+`FinanceTrackerParser` and then to the `LogicManager`.
 
-4. `LogicManager` then calls `SearchCommand#execute()`, which calls Model#updateFilteredExpenseList() method
-to update the predicate of FilterList<Record>. FilterList now contains a new set of records which is filtered by the
-new predicate.
+5. `LogicManager` then calls `SearchCommand#execute()`, which calls `Model#updateFilteredExpenseList()` method
+to update the predicate of `FilterList<Record>`. `FilterList<Record> now contains a new set of records which is filtered
+by the new predicate.
 
-5. `SearchCommand` then calls `getFilteredRecordList` method to access the filtered records in an
+6. `SearchCommand` then calls `getFilteredRecordList` method to access the filtered records in an
 `ObservableList<Record>` in order to calculate the sum of the money that is spent in all the filtered records.
 
-6. Then the record list panel will show a set of records according to the keywords. A `CommandResult` is then created
+7. Then the record list panel will show a set of records according to the keywords. A `CommandResult` is then created
 and returned to `Logic Manager`.
 
 ==== Design Consideration
@@ -302,6 +319,13 @@ will hold all the records that correspond to these category or dates.
 ** Pros: Very efficient, each time the command is called, just need to retrieve the list of the wanted field.
 ** Cons: Need to change the original architecture of storage to introduce storing of different list corresponding to
 each tag. Will take up more space if there is many different tags.
+
+We have implemented *Alternative 1* as we want the search function to be more dynamic and more generic to accept
+accept different kind of search in the future implementation. If we were to choose *Alternative 2*, the search
+conditions will only be restricted to category and date where it is likely for different records to have the same
+value (eg. same date or same category). However, it is not feasible to create a different list for every single name
+that is inputted into the finance tracker.
+
 // end::search[]
 
 

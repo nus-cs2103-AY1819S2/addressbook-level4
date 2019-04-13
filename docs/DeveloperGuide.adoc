@@ -585,7 +585,6 @@ modified, we are forced to modify the code of either `PatientContainsKeywordsPre
 The `Sort` mechanism is facilitated through the use of Comparators in conjunction with the Unique Lists for both
 record and patient depending on the programm's mode when the command is called.
 
-
 Upon parsing the arguments, `SortCommandParser` then checks which mode TeethHub currently is in. If it's in record /
 goTo mode, it creates a `RecordComparator` and returns a `SortRecordCommand`. Otherwise, a `PatientComparator` is called
 instead and returns a `SortPatientCommand` instead.
@@ -604,6 +603,29 @@ Should it be a `SortPatientCommand` instead, the same logic flow occurs except i
 methods and classes instead.
 
 image::SortCommandSequenceDiagram.png[width="800"]
+
+==== Design Considerations
+===== Aspect: Implementation of sort
+
+* *Current Implementation:* `SortPatientCommand` & `SortRecordCommand` extends from a super `SortCommand` class and
+share a common `SortCommandParser`. They hence share the same command words and allows the user to simply enter
+`sort` to sort either the displayed patients or records.
+
+** *Alternative 1:* Create separate parsers and commands for sorting patients and records respectively.
+`PatientSortCommand` and `PatientSortParserCommand` could sort patients while in patients mode while
+`RecordSortCommand` and `RecordSortParserCommand` could sort records while in records mode.
+
+*** *Alternative Pros:* A clearer distinction of what mode the program is in would be made to the user. Additionally,
+ it would be easier to change the parser behavior if necessary in the future of either sort command without affecting
+ the other.
+
+*** *Alternative Cons:* It would no longer be possible to change any shared behavior of both sort commands simply by
+modifying the SortCommand super class.
+
+** *Choice Justification:* Ultimately, we decided on having a parent SortCommand with its two SortPatientCommand and
+SortRecordCommand children share a common SortCommandParser. Aside from the fact that `SortRecordCommand` calls the
+Record equivalent methods and classes that `SortPatientCommand` does, the behavior of both sort commands are
+essentially the same. As such, it made more sense for us to go ahead with our current implementation.
 
 // end::sortimplement[]
 

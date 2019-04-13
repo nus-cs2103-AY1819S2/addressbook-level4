@@ -156,9 +156,9 @@ public class Statistics {
         }
         Statistics stats = (Statistics) other;
         return this.getNoOfConsultations() == stats.getNoOfConsultations()
-                && this.getRevenue().equals(stats.getRevenue())
-                && this.getExpenditure().equals(stats.getExpenditure())
-                && this.getProfit().equals(stats.getProfit())
+                && (this.getRevenue().compareTo(stats.getRevenue()) == 0)
+                && (this.getExpenditure().compareTo(stats.getExpenditure()) == 0)
+                && (this.getProfit().compareTo(stats.getProfit()) == 0)
                 && this.getMedicinesCount().equals(stats.getMedicinesCount())
                 && this.getSymptomsCount().equals(stats.getSymptomsCount());
     }

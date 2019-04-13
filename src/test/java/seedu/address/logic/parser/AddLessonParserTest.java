@@ -41,28 +41,6 @@ public class AddLessonParserTest {
     public ExpectedException thrown = ExpectedException.none();
 
     private AddLessonParser addLessonParser = new AddLessonParser();
-    private Lesson expectedLesson = new LessonBuilder(LESSON_DEFAULT).withNoCards().build();
-
-    @Test
-    public void parse_allFieldsPresent_success() {
-        // no preamble
-        // normal format
-        assertParseSuccess(addLessonParser, NAME
-                + CORE_QUESTION + CORE_ANSWER + OPT_1, new AddLessonCommand(expectedLesson));
-
-        // unordered format
-        assertParseSuccess(addLessonParser, CORE_QUESTION + OPT_1 + CORE_ANSWER
-                + NAME, new AddLessonCommand(expectedLesson));
-    }
-
-    @Test
-    public void parse_optionalFieldPrefixesMissing_success() {
-        // zero optionals
-        expectedLesson = new LessonBuilder(LESSON_DEFAULT).withNoOptionalHeaders().withNoCards().build();
-
-        assertParseSuccess(addLessonParser, NAME + CORE_QUESTION + CORE_ANSWER,
-                new AddLessonCommand(expectedLesson));
-    }
 
     @Test
     public void parse_compulsoryFieldPrefixesMissing_failure() {

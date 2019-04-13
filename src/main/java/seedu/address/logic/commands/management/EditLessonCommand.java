@@ -24,15 +24,15 @@ public class OpenLessonCommand extends ManagementCommand {
     /**
      * The word a user must enter to call this command.
      */
-    public static final String COMMAND_WORD = "open";
+    public static final String COMMAND_WORD = "edit";
     /**
      * Instructions on command usage and parameters.
      */
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Opens the lesson at the specified INDEX of the lesson list in Card View.\n"
-            + "To view the lesson list, enter \'listLessons\'.\n"
+            + ": Opens the lesson at the specified INDEX in Card View for editing.\n"
             + "Parameter: INDEX (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " 1";
+            + "Example: " + COMMAND_WORD + " 1\n"
+            + "Note: The INDEX of the lesson can be found by using the `listLessons` command.";
     /**
      * Feedback message displayed to the user upon successful execution of this command
      */

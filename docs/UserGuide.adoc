@@ -845,8 +845,11 @@ Example:
 
 
 ==== taskcal
-Creates a popup window with a list of tasks on the left hand side of the window and a calendar on the right hand side.
-There will also be a command box below the calendar, allowing you to execute task commands from this window as well. 
+Creates a popup window with a list of tasks on the left hand side of the window and a calendar on the right hand side. The calendar will load the dates for the month and year of the given date.
+There will also be a command box below the calendar, allowing you to execute task mangement commands and navigate to other dates.
+
+[NOTE]
+Executing the command without specifying a date will cause the calendar to load into the current date.
 
 format: `taskcal` or `taskcal DD-MM-YYYY`
 
@@ -862,12 +865,14 @@ As seen from Figure 3, you can view tasks that either start or end on a particul
 
 Using Figure 3 as an example, the date `29-03-2019` is colored in red which matches the highest priority task on that day which is `HIGH`. You can also focus into any of the dates in the calendar to change the task list to display the tasks for that date. To choose a date to focus into, you can either key a date directly into the command box in the format `DD-MM-YYYY`, or simply click on the date cells with a mouse.
 
+You can execute task related commands such as `taskadd`, `taskedit`, `taskdelete` and `tasklist` from the command box in this window to interact with tasks. 
+
+[NOTE]
+Executing the `taskcal` command inside this popup window without specifying a date will cause the calendar to load into the current date.
+
 The top pane of the calendar has clickable arrows that lets you change the calendar page to display the dates for different months and years. Figure 4 below shows a focused view of the calendar's top pane:
 
 image::TaskCalendarUG2.png[width=""]
-
-[NOTE]
-Executing the command without specifying a date will cause the current date to be selected by default.
 
 ////
 ==== taskfind

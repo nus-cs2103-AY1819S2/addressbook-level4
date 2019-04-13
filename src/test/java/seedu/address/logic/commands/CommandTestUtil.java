@@ -32,6 +32,8 @@ import seedu.address.model.person.Doctor;
 import seedu.address.model.person.DoctorContainsKeywordsPredicate;
 import seedu.address.model.person.Patient;
 import seedu.address.model.person.PatientNameContainsKeywordsPredicate;
+import seedu.address.model.prescription.Prescription;
+import seedu.address.model.prescription.PrescriptionContainsKeywordsPredicate;
 import seedu.address.testutil.EditDoctorDescriptorBuilder;
 import seedu.address.testutil.EditPatientDescriptorBuilder;
 
@@ -232,6 +234,20 @@ public class CommandTestUtil {
         model.updateFilteredPatientList(new PatientNameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
         assertEquals(1, model.getFilteredPatientList().size());
+    }
+
+    /**
+     * Updates {@code model}'s filtered list to show only the prescription at the given {@code targetIndex} in the
+     * {@code model}'s address book.
+     */
+    public static void showPrescriptionAtIndex(Model model, Index targetIndex) {
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredPrescriptionList().size());
+
+        Prescription prescription = model.getFilteredPrescriptionList().get(targetIndex.getZeroBased());
+        final String[] description = prescription.getDescription().getDescription().split("\\s+");
+        model.updateFilteredPrescriptionList(new PrescriptionContainsKeywordsPredicate(Arrays.asList(description[0])));
+
+        assertEquals(1, model.getFilteredPrescriptionList().size());
     }
 
     /**

@@ -1,6 +1,8 @@
 package quickdocs.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+
 import static quickdocs.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static quickdocs.testutil.TypicalReminders.REM_B;
 import static quickdocs.testutil.TypicalReminders.REM_C;
@@ -11,7 +13,6 @@ import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Collections;
 
-import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
 
@@ -26,6 +27,9 @@ import quickdocs.model.QuickDocs;
 import quickdocs.model.UserPrefs;
 import quickdocs.model.reminder.ReminderWithinDatesPredicate;
 
+/**
+ * Contains integration tests (interaction with the Model) and unit tests for {@code ListRemCommand}.
+ */
 public class ListRemCommandTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
@@ -39,14 +43,14 @@ public class ListRemCommandTest {
 
     @Test
     public void executeListRem_listSingleReminder_reminderFound() throws Exception {
-        // reminder with index 1 should be REM_B
+        // reminder with index 1 is REM_B
         ReminderWithinDatesPredicate predicate = new ReminderWithinDatesPredicate(testStart, testEnd);
         model.updateFilteredReminderList(predicate);
 
         CommandResult result = new ListRemCommand(targetIndex).execute(model, commandHistory);
         String expected = String.format(ListRemCommand.MESSAGE_SINGLE_REMINDER_SUCCESS,
                 targetIndex.getOneBased(), REM_B);
-        Assert.assertEquals(result.getFeedbackToUser(), expected);
+        assertEquals(result.getFeedbackToUser(), expected);
     }
 
     @Test
@@ -92,41 +96,41 @@ public class ListRemCommandTest {
         ListRemCommand listRemA = new ListRemCommand(testStart, testEnd);
 
         // same object -> returns true
-        Assert.assertTrue(listRemA.equals(listRemA));
+        assertEquals(listRemA, listRemA);
 
         // same values -> returns true
         ListRemCommand listRemACopy = new ListRemCommand(testStart, testEnd);
-        Assert.assertTrue(listRemA.equals(listRemACopy));
+        assertEquals(listRemA, listRemACopy);
 
         // different types -> returns false
-        Assert.assertFalse(listRemA.equals(1));
+        assertNotEquals(listRemA, 1);
 
         // null -> returns false
-        Assert.assertFalse(listRemA.equals(null));
+        assertNotEquals(listRemA, null);
 
         // different start date -> returns false
         ListRemCommand listRemB = new ListRemCommand(testStart.minusDays(1), testEnd);
-        Assert.assertFalse(listRemA.equals(listRemB));
+        assertNotEquals(listRemA, listRemB);
 
         // start date null -> returns false
         listRemB = new ListRemCommand(null, testEnd);
-        Assert.assertFalse(listRemA.equals(listRemB));
+        assertNotEquals(listRemA, listRemB);
 
         // different end date -> returns false
         listRemB = new ListRemCommand(testStart, testEnd.minusDays(1));
-        Assert.assertFalse(listRemA.equals(listRemB));
+        assertNotEquals(listRemA, listRemB);
 
         // end date null -> returns false
         listRemB = new ListRemCommand(testStart, null);
-        Assert.assertFalse(listRemA.equals(listRemB));
+        assertNotEquals(listRemA, listRemB);
 
         // different targetIndex -> returns false
-        listRemB = new ListRemCommand(targetIndex);
-        ListRemCommand listRemC = new ListRemCommand(Index.fromOneBased(2));
-        Assert.assertFalse(listRemB.equals(listRemC));
+        listRemA = new ListRemCommand(targetIndex);
+        listRemB = new ListRemCommand(Index.fromOneBased(2));
+        assertNotEquals(listRemA, listRemB);
 
         // targetIndex null -> returns false
-        listRemC = new ListRemCommand(null);
-        Assert.assertFalse(listRemB.equals(listRemC));
+        listRemB = new ListRemCommand(null);
+        assertNotEquals(listRemA, listRemB);
     }
 }

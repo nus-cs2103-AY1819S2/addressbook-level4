@@ -68,7 +68,7 @@ public class ModelManager implements Model {
     private final StatisticsManager statisticsManager;
 
     /**
-     * Initializes a ModelManager with the given quickdocs and userPrefs.
+     * Initializes a ModelManager with the given QuickDocs and userPrefs.
      */
     public ModelManager(QuickDocs quickDocs, ReadOnlyUserPrefs userPrefs) {
         super();
@@ -77,10 +77,8 @@ public class ModelManager implements Model {
         logger.fine("Initializing with QuickDocs: " + quickDocs + " and user prefs " + userPrefs);
 
         this.quickDocs = quickDocs;
-
         this.userPrefs = new UserPrefs(userPrefs);
         this.medicineManager = quickDocs.getMedicineManager();
-        //this.patientManager = new PatientManager(addressBook.getPatients());
         this.patientManager = quickDocs.getPatientManager();
         this.consultationManager = quickDocs.getConsultationManager();
         this.appointmentManager = quickDocs.getAppointmentManager();
@@ -96,25 +94,16 @@ public class ModelManager implements Model {
     }
 
     /**
-     * Initialise quickdocs with sample patient data
+     * Initialise QuickDocs with sample patient data
      */
     public void iniQuickDocs() {
         Patient[] samplePatients = SamplePatientsUtil.getSamplePatients();
-        //for (Patient patient : samplePatients) {
-        //    addPatient(patient);
-        //}
         Appointment[] sampleAppointments = SampleAppUtil.getSampleAppointments(samplePatients);
-        //for (Appointment app : sampleAppointments) {
-        //    addApp(app);
-        //}
         Reminder[] sampleReminders = SampleRemUtil.getSampleReminders();
-        //for (Reminder rem : sampleReminders) {
-        //    addRem(rem);
-        //}
     }
 
     /**
-     * Initialise quickdocs with sample patient data for testing purposes
+     * Initialise QuickDocs with sample patient data for testing purposes
      */
     public void initQuickDocsSampleData() {
         Patient[] samplePatients = SamplePatientsUtil.getSamplePatients();

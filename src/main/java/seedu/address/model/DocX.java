@@ -323,10 +323,8 @@ public class DocX implements ReadOnlyDocX {
      */
     public void addMedHist(MedicalHistory medHist) {
         medHists.add(medHist);
-        Patient patientWithId = getPatientById(medHist.getPatientId());
-        medHist.setPatient(patientWithId);
-        Doctor doctorWithId = getDoctorById(medHist.getDoctorId());
-        medHist.setDoctor(doctorWithId);
+        medHist.setPatient(getPatientById(medHist.getPatientId()));
+        medHist.setDoctor(getDoctorById(medHist.getDoctorId()));
         indicateModified();
     }
 

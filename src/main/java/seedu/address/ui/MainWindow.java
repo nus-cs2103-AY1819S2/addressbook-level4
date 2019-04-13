@@ -127,7 +127,7 @@ public class MainWindow extends UiPart<Stage> {
      */
     void fillInnerParts() {
 
-        browserPanel = new BrowserPanel(logic.selectedPatientProperty());
+        browserPanel = new BrowserPanel(logic.selectedPatientProperty()); // to delete !!!
         patientInfoPanel = new PatientInfoPanel(logic.selectedPatientProperty());
         doctorBrowserPanel = new DoctorBrowserPanel(logic.selectedDoctorProperty());
         medHistBrowserPanel = new MedHistBrowserPanel(logic.selectedMedHistProperty());

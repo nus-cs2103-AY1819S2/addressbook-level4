@@ -765,7 +765,7 @@ Step 6. According to the above 3 conditions, the following combinations will res
 
 The diagram below illustrates how the WaterMark Command works:
 
-.Sequence Diagram for WaterMark Command (Note: Some classes have been omitted for clarity of the diagram) 
+.Sequence Diagram for WaterMark Command (Note: Some classes have been omitted for clarity of the diagram)
 image::WaterMarkCommandSequenceDiagram.png[width="800"]
 
 ==== Design Considerations

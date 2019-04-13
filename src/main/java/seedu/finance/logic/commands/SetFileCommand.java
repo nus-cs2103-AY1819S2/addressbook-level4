@@ -4,13 +4,10 @@ import static java.util.Objects.requireNonNull;
 import static seedu.finance.logic.parser.CliSyntax.PREFIX_FILE;
 
 import java.nio.file.Path;
-import java.util.logging.Logger;
 
-import seedu.finance.commons.core.LogsCenter;
 import seedu.finance.logic.CommandHistory;
 import seedu.finance.logic.commands.exceptions.CommandException;
 import seedu.finance.model.Model;
-import seedu.finance.storage.JsonFinanceTrackerStorage;
 
 
 
@@ -33,8 +30,6 @@ public class SetFileCommand extends Command {
     public static final String MESSAGE_CONSTRAINTS =
             "Filename must be " + MAX_FILE_LENGTH + " or shorter " +
                     "and should not contain special characters, '\\' character, or be blank.";
-
-    private static final Logger logger = LogsCenter.getLogger(JsonFinanceTrackerStorage.class);
 
     private final Path path;
 

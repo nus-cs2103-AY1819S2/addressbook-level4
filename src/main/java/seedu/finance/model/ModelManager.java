@@ -10,7 +10,6 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Stack;
-//import java.util.Date;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -179,7 +178,7 @@ public class ModelManager implements Model {
 
     @Override
     public void changeFinanceTrackerFile(Path path) {
-        logger.info("Change file path triggered: " + path);
+        logger.fine("Change file path triggered: " + path);
         JsonFinanceTrackerStorage newStorage = new JsonFinanceTrackerStorage(path);
         Optional<ReadOnlyFinanceTracker> financeTrackerOptional;
         ReadOnlyFinanceTracker initialData;

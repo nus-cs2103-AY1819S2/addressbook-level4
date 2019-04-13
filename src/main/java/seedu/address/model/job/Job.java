@@ -31,9 +31,9 @@ public class Job {
 
     // Data fields
     private UniquePersonList personsInJob = new UniquePersonList();
-    private ArrayList<UniquePersonList> personsList = new ArrayList<> (NUMBER_OF_LISTS);
+    private ArrayList<UniquePersonList> personsList = new ArrayList<>(NUMBER_OF_LISTS);
     private ArrayList<Set<Nric>> personsNricList = new ArrayList<>(NUMBER_OF_LISTS);
-    private ArrayList<UniqueFilterList> predicateList = new ArrayList<> (NUMBER_OF_LISTS);
+    private ArrayList<UniqueFilterList> predicateList = new ArrayList<>(NUMBER_OF_LISTS);
 
 
     /**
@@ -106,11 +106,11 @@ public class Job {
             throw new PersonNotFoundException();
         }
         for (int i = 0; i < 4; i++) {
-            if(i == listNumber) {
+            if (i == listNumber) {
                 continue;
             }
             if (personsList.get(i).contains(toRemove)) {
-                   shouldStillExist = true;
+                shouldStillExist = true;
             }
         }
         personsList.get(listNumber).remove(toRemove);
@@ -190,7 +190,7 @@ public class Job {
     }
 
     public final ArrayList<Name> getPeopleNames(List<Person> peopleList) {
-        ArrayList<Name> names = new ArrayList<> (peopleList.size());
+        ArrayList<Name> names = new ArrayList<>(peopleList.size());
         for (int i = 0; i < peopleList.size(); i++) {
             names.add(peopleList.get(i).getName());
         }

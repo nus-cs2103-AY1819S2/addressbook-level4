@@ -249,6 +249,11 @@ public class AddressBook implements ReadOnlyAddressBook {
         indicateModified();
     }
 
+    /**
+     * Removes {@code key} from this {@code job}.
+     * in {@code list}
+     * {@code key} must exist in the address book.
+     */
     public void deletePersonFromJobList(Person toDelete, JobName job, Integer list) {
         jobs.removePersonFromJobList(toDelete, job, list);
         indicateModified();

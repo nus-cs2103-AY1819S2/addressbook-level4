@@ -47,7 +47,7 @@ public class RemoveFromListCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
-        if(model.getIsAllJobScreen()) {
+        if (model.getIsAllJobScreen()) {
             throw new CommandException(MESSAGE_NO_DISPLAYED_JOB);
         }
 

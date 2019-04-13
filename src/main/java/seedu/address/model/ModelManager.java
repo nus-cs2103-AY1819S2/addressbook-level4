@@ -205,12 +205,16 @@ public class ModelManager implements Model {
         switch (list) {
         case APPLICANT:
             versionedAddressBook.deletePersonFromJobList(toRemove, job, 0);
+            break;
         case KIV:
             versionedAddressBook.deletePersonFromJobList(toRemove, job, 1);
+            break;
         case INTERVIEW:
             versionedAddressBook.deletePersonFromJobList(toRemove, job, 2);
+            break;
         case SHORTLIST:
             versionedAddressBook.deletePersonFromJobList(toRemove, job, 3);
+            break;
         default:
             versionedAddressBook.deletePersonFromJobList(toRemove, job, 0);
         }

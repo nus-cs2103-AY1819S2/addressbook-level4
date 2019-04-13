@@ -11,7 +11,8 @@ public class Grade {
 
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Grade should only contain positive numbers equals to or less than 5, and must be in exactly 2 decimal places";
+            "Grade should only contain positive numbers equals to or less than 5,"
+                + " and must be in exactly 2 decimal places";
     public static final String VALIDATION_REGEX = "[0-4]" + "." + "\\d{2}";
     public static final String VALIDATION_REGEX_FULL = "5.00";
     public final String value;

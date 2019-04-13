@@ -29,7 +29,6 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.ListCommand;
-import seedu.address.logic.commands.SelectCommand;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.testutil.TypicalObjects;
@@ -45,7 +44,7 @@ public abstract class AddressBookSystemTest {
 
     private static final List<String> COMMAND_BOX_DEFAULT_STYLE = Arrays.asList("text-input", "text-field");
     private static final List<String> COMMAND_BOX_ERROR_STYLE =
-            Arrays.asList("text-input", "text-field", CommandBox.ERROR_STYLE_CLASS);
+        Arrays.asList("text-input", "text-field", CommandBox.ERROR_STYLE_CLASS);
 
     private MainWindowHandle mainWindowHandle;
     private TestApp testApp;
@@ -152,7 +151,7 @@ public abstract class AddressBookSystemTest {
      * and the person list panel displays the persons in the model correctly.
      */
     protected void assertApplicationDisplaysExpected(String expectedCommandInput, String expectedResultMessage,
-            Model expectedModel) {
+                                                     Model expectedModel) {
         assertEquals(expectedCommandInput, getCommandBox().getInput());
         assertEquals(expectedResultMessage, getResultDisplay().getText());
         assertEquals(new AddressBook(expectedModel.getAddressBook()), testApp.readStorageAddressBook());
@@ -181,6 +180,7 @@ public abstract class AddressBookSystemTest {
     /**
      * Asserts that the browser's url is changed to display the details of the person in the person list panel at
      * {@code expectedSelectedCardIndex}, and only the card at {@code expectedSelectedCardIndex} is selected.
+     *
      * @see PersonListPanelHandle#isSelectedPersonCardChanged()
      */
     protected void assertSelectedCardChanged(Index expectedSelectedCardIndex) {
@@ -192,6 +192,7 @@ public abstract class AddressBookSystemTest {
 
     /**
      * Asserts that the browser's url and the selected card in the person list panel remain unchanged.
+     *
      * @see PersonListPanelHandle#isSelectedPersonCardChanged()
      */
     protected void assertSelectedCardUnchanged() {
@@ -241,7 +242,7 @@ public abstract class AddressBookSystemTest {
         assertEquals("", getResultDisplay().getText());
         assertListMatching(getPersonListPanel(), getModel().getFilteredPersonList());
         assertEquals(Paths.get(".").resolve(testApp.getStorageSaveLocation()).toString(),
-                getStatusBarFooter().getSaveLocation());
+            getStatusBarFooter().getSaveLocation());
         assertEquals(SYNC_STATUS_INITIAL, getStatusBarFooter().getSyncStatus());
     }
 

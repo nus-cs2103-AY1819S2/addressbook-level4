@@ -49,7 +49,6 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_NRIC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_RACE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_SCHOOL_BOB;
-
 import static seedu.address.logic.parser.CliSyntax.PREFIX_JOBSAPPLY;
 import static seedu.address.testutil.TypicalObjects.ALICE;
 import static seedu.address.testutil.TypicalObjects.AMY;
@@ -61,7 +60,6 @@ import static seedu.address.testutil.TypicalObjects.KEYWORD_MATCHING_MEIER;
 import org.junit.Test;
 
 import seedu.address.commons.core.Messages;
-import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
@@ -95,10 +93,10 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
          */
         Person toAdd = AMY;
         String command = "   " + AddCommand.COMMAND_WORD + "  " + NAME_DESC_AMY + "  " + PHONE_DESC_AMY + " "
-                + EMAIL_DESC_AMY + "   " + NRIC_DESC_AMY + "   " + GENDER_DESC_AMY + "   " + RACE_DESC_AMY + "   "
-                + ADDRESS_DESC_AMY + "   " + SCHOOL_DESC_AMY + "  " + MAJOR_DESC_AMY + "   " + GRADE_DESC_AMY + "   "
-                + " " + JOBSAPPLY_DESC_TRADER + "   " + PASTJOB_DESC_PROFESSOR + " "
-                + KNOWNPROGLANG_DESC_PYTHON + " " + INTERVIEWSCORES_DESC_AMY;
+            + EMAIL_DESC_AMY + "   " + NRIC_DESC_AMY + "   " + GENDER_DESC_AMY + "   " + RACE_DESC_AMY + "   "
+            + ADDRESS_DESC_AMY + "   " + SCHOOL_DESC_AMY + "  " + MAJOR_DESC_AMY + "   " + GRADE_DESC_AMY + "   "
+            + " " + JOBSAPPLY_DESC_TRADER + "   " + PASTJOB_DESC_PROFESSOR + " "
+            + KNOWNPROGLANG_DESC_PYTHON + " " + INTERVIEWSCORES_DESC_AMY;
         assertCommandSuccess(command, toAdd);
 
         /* Case: undo adding Amy to the list -> Amy deleted */
@@ -115,9 +113,9 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
         /* Case: add a person with all fields same as another person in the address book except nric -> added */
         toAdd = new PersonBuilder(AMY).withNric(VALID_NRIC_BOB).build();
         command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + RACE_DESC_AMY
-                + ADDRESS_DESC_AMY + SCHOOL_DESC_AMY + MAJOR_DESC_AMY + GENDER_DESC_AMY
-                + NRIC_DESC_BOB + JOBSAPPLY_DESC_TRADER + GRADE_DESC_AMY + PASTJOB_DESC_PROFESSOR
-                + KNOWNPROGLANG_DESC_PYTHON + INTERVIEWSCORES_DESC_AMY;
+            + ADDRESS_DESC_AMY + SCHOOL_DESC_AMY + MAJOR_DESC_AMY + GENDER_DESC_AMY
+            + NRIC_DESC_BOB + JOBSAPPLY_DESC_TRADER + GRADE_DESC_AMY + PASTJOB_DESC_PROFESSOR
+            + KNOWNPROGLANG_DESC_PYTHON + INTERVIEWSCORES_DESC_AMY;
         assertCommandSuccess(command, toAdd);
 
 
@@ -221,7 +219,8 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
         /* Case: missing address -> rejected */
         command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + RACE_DESC_AMY
             + SCHOOL_DESC_AMY + MAJOR_DESC_AMY + GENDER_DESC_AMY + GRADE_DESC_AMY + NRIC_DESC_AMY
-            + JOBSAPPLY_DESC_TRADER + INTERVIEWSCORES_DESC_AMY;;
+            + JOBSAPPLY_DESC_TRADER + INTERVIEWSCORES_DESC_AMY;
+        ;
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 
         /* Case: missing school -> rejected */
@@ -244,26 +243,26 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: missing gender -> rejected */
         command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + RACE_DESC_AMY
-                + ADDRESS_DESC_AMY + SCHOOL_DESC_AMY + MAJOR_DESC_AMY + GRADE_DESC_AMY + NRIC_DESC_AMY
-                + JOBSAPPLY_DESC_TRADER + INTERVIEWSCORES_DESC_AMY;
+            + ADDRESS_DESC_AMY + SCHOOL_DESC_AMY + MAJOR_DESC_AMY + GRADE_DESC_AMY + NRIC_DESC_AMY
+            + JOBSAPPLY_DESC_TRADER + INTERVIEWSCORES_DESC_AMY;
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 
         /* Case: missing grade -> rejected */
         command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + RACE_DESC_AMY
-                + ADDRESS_DESC_AMY + SCHOOL_DESC_AMY + MAJOR_DESC_AMY + GENDER_DESC_AMY + NRIC_DESC_AMY
-                + JOBSAPPLY_DESC_TRADER + INTERVIEWSCORES_DESC_AMY;
+            + ADDRESS_DESC_AMY + SCHOOL_DESC_AMY + MAJOR_DESC_AMY + GENDER_DESC_AMY + NRIC_DESC_AMY
+            + JOBSAPPLY_DESC_TRADER + INTERVIEWSCORES_DESC_AMY;
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 
         /* Case: missing nric -> rejected */
         command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + RACE_DESC_AMY
-                + ADDRESS_DESC_AMY + SCHOOL_DESC_AMY + MAJOR_DESC_AMY + GENDER_DESC_AMY + GRADE_DESC_AMY
-                + JOBSAPPLY_DESC_TRADER + INTERVIEWSCORES_DESC_AMY;
+            + ADDRESS_DESC_AMY + SCHOOL_DESC_AMY + MAJOR_DESC_AMY + GENDER_DESC_AMY + GRADE_DESC_AMY
+            + JOBSAPPLY_DESC_TRADER + INTERVIEWSCORES_DESC_AMY;
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 
         /* Case: missing jobs apply -> rejected */
         command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + RACE_DESC_AMY
-                + ADDRESS_DESC_AMY + SCHOOL_DESC_AMY + MAJOR_DESC_AMY + GENDER_DESC_AMY + GRADE_DESC_AMY + NRIC_DESC_AMY
-                + INTERVIEWSCORES_DESC_AMY;
+            + ADDRESS_DESC_AMY + SCHOOL_DESC_AMY + MAJOR_DESC_AMY + GENDER_DESC_AMY + GRADE_DESC_AMY + NRIC_DESC_AMY
+            + INTERVIEWSCORES_DESC_AMY;
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 
         /* Case: invalid keyword -> rejected */

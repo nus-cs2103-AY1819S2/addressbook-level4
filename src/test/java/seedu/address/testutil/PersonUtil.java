@@ -24,7 +24,6 @@ import seedu.address.model.person.JobsApply;
 import seedu.address.model.person.KnownProgLang;
 import seedu.address.model.person.PastJob;
 import seedu.address.model.person.Person;
-import seedu.address.model.tag.Tag;
 
 
 /**
@@ -114,7 +113,7 @@ public class PersonUtil {
             }
         }
         descriptor.getInterviewScores().ifPresent(interviewScores -> sb.append(PREFIX_INTERVIEWSCORES)
-                .append(interviewScores.value).append(" "));
+            .append(interviewScores.value).append(" "));
         return sb.toString();
     }
 }

@@ -6,6 +6,7 @@ import static seedu.address.model.util.SampleLessons.SAMPLE_1_NAME;
 
 import org.junit.Test;
 
+import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.management.EditLessonCommand;
 import seedu.address.model.modelmanager.ManagementModel;
 import seedu.address.model.modelmanager.Model;
@@ -22,9 +23,11 @@ public class EditLessonCommandSystemTest extends BrainTrainSystemTest {
         /* Case: opens lesson at index 1
          * -> opens lesson
          */
-        command = EditLessonCommand.COMMAND_WORD + " 1";
+        Index index = Index.fromZeroBased(0);
+        command = EditLessonCommand.COMMAND_WORD + " " + index.getOneBased();
         ManagementModel expectedModel = getManagementModel();
-        assertCommandSuccess(command, expectedModel);
+        String expectedLesson = expectedModel.getLesson(index.getZeroBased()).getName();
+        assertCommandSuccess(command, expectedModel, expectedLesson);
     }
 
     /**
@@ -37,8 +40,8 @@ public class EditLessonCommandSystemTest extends BrainTrainSystemTest {
      * selected card updated accordingly, depending on {@code cardStatus}.
      * @see BrainTrainSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
-    private void assertCommandSuccess(String command, ManagementModel expectedModel) {
-        String expectedResultMessage = String.format(MESSAGE_SUCCESS, SAMPLE_1_NAME, true);
+    private void assertCommandSuccess(String command, ManagementModel expectedModel, String expectedLesson) {
+        String expectedResultMessage = String.format(MESSAGE_SUCCESS, expectedLesson, true);
         executeCommand(command);
         assertApplicationDisplaysExpected("", expectedResultMessage, expectedModel);
         assertCommandBoxShowsDefaultStyle();

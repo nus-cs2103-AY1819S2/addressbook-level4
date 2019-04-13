@@ -15,6 +15,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/CS2103-AY1819S2-T12-4/main
 :mainWindowURL: {repoURL}/tree/master/src/main/java/seedu/pdf/ui/MainWindow.java
+:helpWindowTestURL: {repoURL}/tree/master/src/test/java/seedu/pdf/ui/HelpWindowTest.java
 
 By: `Team T12-4`      Since: `Feb 2019`      Licence: `MIT`
 
@@ -51,11 +52,11 @@ This will generate all resources required by the application and tests.
 . Open link:{mainWindowURL}[`MainWindow.java`] and check for any code errors
 .. Due to an ongoing https://youtrack.jetbrains.com/issue/IDEA-189060[issue] with some of the newer versions of IntelliJ, code errors may be detected even if the project can be built and run successfully
 .. To resolve this, place your cursor over any of the code section highlighted in red. Press kbd:[ALT + ENTER], and select `Add '--add-modules=...' to module compiler options` for each error
-. Repeat this for the test folder as well (e.g. check link:{repoURL}/src/test/java/seedu/pdf/ui/HelpWindowTest.java[`HelpWindowTest.java`] for code errors, and if so, resolve it the same way)
+. Repeat this for the test folder as well (e.g. check link:{helpWindowTestURL}[`HelpWindowTest.java`] for code errors, and if so, resolve it the same way)
 
 === Verifying the setup
 
-. Run the `seedu.pdf.MainApp` and try a few commands
+. Run the `seedu.pdf.MainApp` and try a few commands.
 . <<Testing,Run the tests>> to ensure they all pass.
 
 === Configurations to do before writing code
@@ -115,7 +116,9 @@ image::Architecture.png[width="600"]
 The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
 
 [TIP]
-The `.pptx` or `.xml` files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder. To update a diagram, modify the diagram in the pptx or xml file, select the objects of the diagram, and choose `Save as picture`.
+The `.pptx` or `.xml` files used to create diagrams in this document can be found in the
+link:{repoURL}/docs/diagrams/[diagrams] folder. To update a diagram, modify the diagram in
+the pptx or xml file, select the objects of the diagram, and choose `Save as picture`.
 
 `Main` has only one class called link:{repoURL}/src/main/java/seedu/pdf/MainApp.java[`MainApp`]. It is responsible for,
 
@@ -129,9 +132,9 @@ The following class plays an important role at the architecture level:
 
 The rest of the App consists of four components.
 
-* <<Design-Ui,*`UI`*>>: The UI of the App.
+* <<Design-Ui,*`UI`*>>: The UI of the PDF++ App.
 * <<Design-Logic,*`Logic`*>>: The command executor.
-* <<Design-Model,*`Model`*>>: Holds the data of the App in-memory.
+* <<Design-Model,*`Model`*>>: Stores the data of the App in-memory.
 * <<Design-Storage,*`Storage`*>>: Reads data from, and writes data to, the hard disk.
 
 Each of the four components

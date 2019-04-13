@@ -458,7 +458,7 @@ unique file name. The hashcode in the name will be modified if name already exis
 Examples:
 
 * `merge 1 2 3`
-* `merge 1 2 1` 
+* `merge 1 2 1`
 * `merge 1 1`
 
 [NOTE]

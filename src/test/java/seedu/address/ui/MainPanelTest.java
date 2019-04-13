@@ -35,7 +35,6 @@ public class MainPanelTest extends GuiUnitTest {
         QuizCard quizCard = new QuizCard("some question", "some answer", Arrays.asList("Q", "A"),
             "Question", "Answer");
         String totalCorrectAndTotalAttempts = "0 out of 4";
-        String currentLessonName = "default";
 
         guiRobot.interact(() -> mainPanel.setFeedbackToUser(
             quizCard.generateOrderedQuizCardWithIndex(0, QuizMode.PREVIEW),

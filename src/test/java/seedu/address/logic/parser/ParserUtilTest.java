@@ -40,7 +40,6 @@ public class ParserUtilTest {
 
     @Test
     public void parserUtil() throws ParseException {
-        final String index = "1";
         final String count = "1";
         final String wrongCount = "asd";
 

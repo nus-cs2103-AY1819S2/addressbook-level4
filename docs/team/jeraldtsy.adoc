@@ -8,6 +8,10 @@
 This project portfolio page showcases my contributions to the BrainTrain project such as coding,
 documentation and other contributions.
 
+My role in BrainTrain is to design and manage the app's user data. The following sections
+give a summary of how I have contributed to the project and showcases my ability to write both
+the user and developer guide.
+
 == Overview
 
 BrainTrain is a spaced repetition flashcard application which makes memorising key learning concepts easy and efficient.
@@ -46,15 +50,13 @@ https://github.com/CS2103-AY1819S2-W14-1/main/pull/139[#139],
 * *Other contributions*:
 ** Documentation:
 *** Updated class and sequence diagrams to match the current implementation
-
-***Reported bugs and suggestion for other team in the class
+*** Reported bugs and suggestion for other team in the class
 (examples: https://github.com/CS2103-AY1819S2-W16-1/main/issues/172[#172],
 https://github.com/CS2103-AY1819S2-W16-1/main/issues/163[#163],
 https://github.com/CS2103-AY1819S2-W16-1/main/issues/143[#143],
 https://github.com/CS2103-AY1819S2-W16-1/main/issues/152[#152])
 
 == Contributions to the User Guide
-//todo
 
 include::../UserGuide.adoc[tag=jeraldtsy]
 

@@ -302,7 +302,7 @@ Format: `select INDEX`
 
 ****
 
-* Selects the person and loads the Google search page the person at the specified `INDEX`.
+* Selects the person and loads the CV the person at the specified `INDEX` if there is a CV for that person in the storage. If there is not, a placeholder page is loaded that says no CV is available.
 * The index refers to the index number shown in the displayed person list.
 * The index *must be a positive integer* `1, 2, 3, ...`
 
@@ -386,6 +386,47 @@ Format: `clear`
 
 Exits the program. +
 Format: `exit`
+
+// tag::cvview[]
+=== Showing and Updating the `CV` for a person:
+
+*Showing Stage:*
+
+* Just running the `select` command or clicking on the wanted person opens the CV.
+* If there is no CV is available for the person, it shows a placeholder page.
+
+*Adding a new CV:*
+
+* After running the application first time and selecting someone in the application, the directories `./data/html` and `./data/html/cv` should be created.
+* To add a new CV to the application, please create an `HTML` file in `./data/html` directory.
+** The name of the directory should be the name of the person in lowercase with no-space-separated format (e.g. if the candidate name is Alex Yeoh, the file name should be `alexyeoh.html`).
+** The content of the HTML is below. to the field in HTML content `[YOUR_JPG_FILE_CV]` place the name that you gave to HTML file. But do not add any extension.
+** Prepare the CV you want to add in `JPG` format and name with the text that you wrote to `[YOUR_JPG_FILE_CV]` and place this file to directory `./data/html/cv`
+....
+<!DOCTYPE html> +
+<html> +
+<head> +
+    <link rel="stylesheet" href="DarkTheme.css"> +
+</head> +
+<body style="background-color:#383838"> +
+	<img style="display:block; margin-left:auto; margin-right:auto; width:40%" src="./cv/[YOUR_JPG_FILE_CV].jpg"> +
+</body> +
+</html>
+
+....
+
+*Updating a CV:*
+* `Edit Command:` If you change name of a candidate in the application, the name of the HTML file is not automatically updated. Please update the name.
+** If you change name of a person that came to the application by default and has a CV, you cannot reach to that person's CV until you reverse your edit.
+* `Delete Command:` If you delete one person from the application, the HTML and JPG files are not automatically deleted. Please delete them manually if you want those files to be deleted.
+
+*What comes in v2.0?*
+
+* Automatic file handling for editing and deleting commands.
+* For addition, path of a JPG image will be taken and the html file will be constructed and JPG file will be copied to the right directory directly by the application.
+* Currently, adding multiple CVs at one is not available, thet will be possible with v2.0.
+
+// end::cvview[]
 
 === Saving the data
 

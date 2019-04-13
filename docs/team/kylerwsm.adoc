@@ -72,7 +72,7 @@ This command adds a patient to the patients list.
 Name, NRIC, and Date of Birth fields are compulsory.
 The rest are optional fields, and can be filled in later via the `recordedit` command.
 
-Format: `patientadd PARAMETERS …`
+Format: `patientadd PARAMETERS …` or `padd PARAMETERS …`
 
 Parameters:
 
@@ -103,7 +103,7 @@ Example:
 
 This command deletes the patient specified by `index` from the patients list.
 
-Format: `patientdelete INDEX`
+Format: `patientdelete INDEX` or `pdelete INDEX`
 
 * Deletes the patient at the specified index.
 
@@ -122,11 +122,13 @@ If the patient index is invalid, the application will display an error message t
 
 This command edits the information of an existing patient.
 
-Format: `patientedit INDEX PARAMETERS …`
+Format: `patientedit INDEX [PREFIX/KEYWORDS]` or `pedit INDEX [PREFIX/KEYWORDS]`
 
-* Edits the information of the patient at the specified index.
+* Edits the patient at the specified index shown from list or find command.
+Must be a positive integer (e.g 1, 2 or 3).
 
-* The index refers to the index number shown in the displayed patient list.
+* Input the prefix followed by the new value to replace the existing data.
+** The full list of possible prefixes can be found in <<Breakdown of attributes used within TeethHub>>
 
 * The given index must be a positive integer (e.g. 1, 2, or 3…).
 
@@ -152,23 +154,58 @@ Example:
 
 * `patientedit 1 ic/S1234567A` -- Edits the `NRIC` of the first patient in the patient list.
 
-==== Copy
+==== Patient Copy
 
 Makes an exact copy of a patient and adds them to the patient list.
 This is useful if there are multiple people who share similar details.
 
-Format: `copy INDEX [Count]`
+Format: `patientcopy INDEX [Count]` or `pcopy INDEX [Count]`
 
 Note: If the copied entry is not modified before exiting the program,
 there will be a confirmation.
 
 Example:
 
-* `copy 3` -- Makes a copy of the patient at index 3 and inserts it at the bottom of
+* `patientcopy 3` +
+Makes a patientcopy of the patient at index 3 and inserts it at the bottom of
 the current patient list with a copy tag.
 
-* `copy 3 4` -- Makes 4 copies of the patient at index 3 and inserts them at the bottom of
+* `patientcopy 3 4` +
+Makes 4 copies of the patient at index 3 and inserts them at the bottom of
 the current patient list with a copy tag.
+
+==== Patient List
+Shows a list of all patients or medical stored in TeethHub.
+
+Format: `patientlist` or `plist`
+
+Example:
+
+* `patientlist` +
+Shows details of all patients.
+
+==== Patient Find
+
+Shows patients whose data contains any of the given keywords according to a specified parameter.
+
+Format: `patientfind PREFIX/KEYWORD [MORE_KEYWORDS]` or `pfind PREFIX/KEYWORD [MORE_KEYWORDS]`
+
+* Search is case insensitive.
+* Order of keywords does not matter.
+* Valid `Prefix` values: See <<Breakdown of attributes used within TeethHub>>
+
+Example:
+
+* `find a/Yishun` +
+Show all the people with an address containing the keyword Yishun.
+
+==== Patient Clear
+Clears all patients, from TeethHub.
+
+* You will be prompted to confirm.
+* Input `y` to proceed to the patientclear all records or `n` to abort.
+
+Format: `patientclear`
 
 ==== Go To
 
@@ -199,7 +236,7 @@ This command adds a new dental record to the patient.
 [NOTE]
 `recordadd` requires the application to first be in records mode, via the `goto` command.
 
-Format: `recordadd pro/PROCEDURE desc/DETAILS`
+Format: `recordadd pro/PROCEDURE desc/DETAILS or `radd pro/PROCEDURE desc/DETAILS`
 
 * The program assigns the name of the dentist stored in the dentist information
 
@@ -224,7 +261,7 @@ This command deletes a dental record of a specified patient.
 [NOTE]
 `recorddelete` requires the application to first be in records mode, via the `goto` command.
 
-Format: `recorddelete INDEX`
+Format: `recorddelete INDEX` or `rdelete INDEX`
 
 * Deletes the patient’s dental record at the specified index.
 
@@ -236,7 +273,7 @@ Example:
 
 * `<<goto, goto>> 1` - Displays dental records of the first patient in the list and hides the patient list.
 
-* `recorddelete 1` - Delete the latest dental record of the specified patient
+* `recorddelete 1` - patientdelete the latest dental record of the specified patient
 
 * `<<back, back>>` - Go back to the patient list.
 
@@ -247,7 +284,7 @@ This command edits a patient’s dental record.
 [NOTE]
 `recordedit` requires the application to first be in records mode, via the `goto` command.
 
-Format: `recordedit INDEX desc/DETAILS`
+Format: `recordedit INDEX desc/DETAILS` or `redit INDEX desc/DETAILS`
 
 * Edits the patient's dental record at the specified index.
 
@@ -267,7 +304,9 @@ Example:
 
 ==== Record Clear
 
-This command clears all of a patient's dental records.
+Clears all of a patient's dental records.
+
+Format: `recordclear` or `rclear`
 
 [NOTE]
 `recordclear` requires the application to first be in records mode, via the `goto` command.
@@ -277,6 +316,10 @@ This command clears all of a patient's dental records.
 There is no command required for this feature, as the application automatically generates and stores a new set of all healthy permanent teeth for newly added patients.
 
 TeethHub complies with the most popular standard of the three the Dental Numbering Systems utilised in Dentistry - The Universal Numbering System.
+
+ifdef::env-github[]
+image::BaseLayer.png[width="200"]
+endif::[]
 
 The upper-case letters A through T are used for primary teeth and the
 numbers 1 - 32 are used for permanent teeth. The tooth designated "1" is

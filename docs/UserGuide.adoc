@@ -458,7 +458,7 @@ the current patient list with a copy tag.
 Makes 4 copies of the patient at index 3 and inserts them at the bottom of
 the current patient list with a copy tag.
 
-==== patientlist
+==== Patient List
 Shows a list of all patients or medical stored in TeethHub.
 
 Format: `patientlist` or `plist`
@@ -468,7 +468,7 @@ Example:
 * `patientlist` +
 Shows details of all patients.
 
-==== patientfind
+==== Patient Find
 
 Shows patients whose data contains any of the given keywords according to a specified parameter.
 
@@ -483,7 +483,7 @@ Example:
 * `find a/Yishun` +
 Show all the people with an address containing the keyword Yishun.
 
-==== patientclear
+==== Patient Clear
 Clears all patients, from TeethHub.
 
 * You will be prompted to confirm.
@@ -586,9 +586,11 @@ Example:
 
 * `<<back, back>>` - Go back to the patient list.
 
-==== record clear
+==== Record Clear
 
 Clears all of a patient's dental records.
+
+Format: `recordclear` or `rclear`
 
 [NOTE]
 `recordclear` requires the application to first be in records mode, via the `goto` command.

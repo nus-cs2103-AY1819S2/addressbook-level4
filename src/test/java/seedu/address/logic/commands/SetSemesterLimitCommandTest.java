@@ -18,7 +18,7 @@ import org.junit.Test;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
-import seedu.address.logic.commands.SetSemesterLimitCommand.EditSemLimitDescriptor;
+import seedu.address.logic.commands.SetSemesterLimitCommand.EditSemesterLimitDescriptor;
 import seedu.address.model.GradTrak;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
@@ -45,7 +45,7 @@ public class SetSemesterLimitCommandTest {
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
         SemesterLimit editedSemesterLimit = new SemesterLimitBuilder().build();
-        EditSemLimitDescriptor descriptor = new EditSemesterLimitDescriptorBuilder(editedSemesterLimit).build();
+        EditSemesterLimitDescriptor descriptor = new EditSemesterLimitDescriptorBuilder(editedSemesterLimit).build();
         SetSemesterLimitCommand setSemesterLimitCommand = new SetSemesterLimitCommand(
                 Index.fromZeroBased(INDEX_FIRST_SEMESTER.getIndex()), descriptor);
 
@@ -70,7 +70,7 @@ public class SetSemesterLimitCommandTest {
                 .withMaxLectureHour(VALID_MAX_LECTURE_HOUR)
                 .withMaxProjectHour(VALID_MAX_PROJECT_HOUR).build();
 
-        EditSemLimitDescriptor descriptor = new EditSemesterLimitDescriptorBuilder()
+        EditSemesterLimitDescriptor descriptor = new EditSemesterLimitDescriptorBuilder()
                 .withMaxCap(VALID_MAX_CAP)
                 .withMaxLectureHour(VALID_MAX_LECTURE_HOUR)
                 .withMaxProjectHour(VALID_MAX_PROJECT_HOUR).build();
@@ -89,7 +89,7 @@ public class SetSemesterLimitCommandTest {
     @Test
     public void execute_noFieldSpecifiedUnfilteredList_success() {
         SetSemesterLimitCommand editCommand = new SetSemesterLimitCommand(
-                Index.fromZeroBased(INDEX_FIRST_SEMESTER.getIndex()), new EditSemLimitDescriptor());
+                Index.fromZeroBased(INDEX_FIRST_SEMESTER.getIndex()), new SetSemesterLimitCommand.EditSemesterLimitDescriptor());
         SemesterLimit editedSemesterLimit = model.getSemLimitList().get(INDEX_FIRST_SEMESTER.getIndex());
 
         String expectedMessage = String.format(SetSemesterLimitCommand.MESSAGE_EDIT_LIMIT_SUCCESS, editedSemesterLimit);
@@ -104,7 +104,7 @@ public class SetSemesterLimitCommandTest {
     @Test
     public void execute_invalidSemesterLimitIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(INVALID_SEMESTER_INDEX);
-        EditSemLimitDescriptor descriptor = new EditSemesterLimitDescriptorBuilder()
+        SetSemesterLimitCommand.EditSemesterLimitDescriptor descriptor = new EditSemesterLimitDescriptorBuilder()
                 .withMaxCap(VALID_MAX_CAP).build();
         SetSemesterLimitCommand editCommand = new SetSemesterLimitCommand(outOfBoundIndex, descriptor);
 
@@ -114,7 +114,7 @@ public class SetSemesterLimitCommandTest {
     @Test
     public void executeUndoRedo_validIndexUnfilteredList_success() throws Exception {
         SemesterLimit editedSemesterLimit = new SemesterLimitBuilder().build();
-        EditSemLimitDescriptor descriptor = new EditSemesterLimitDescriptorBuilder(editedSemesterLimit).build();
+        SetSemesterLimitCommand.EditSemesterLimitDescriptor descriptor = new EditSemesterLimitDescriptorBuilder(editedSemesterLimit).build();
         SetSemesterLimitCommand editCommand = new SetSemesterLimitCommand(
                 Index.fromZeroBased(INDEX_FIRST_SEMESTER.getIndex()), descriptor);
         Model expectedModel = new ModelManager(new GradTrak(model.getGradTrak()), new UserPrefs(),
@@ -137,7 +137,7 @@ public class SetSemesterLimitCommandTest {
     @Test
     public void executeUndoRedo_invalidIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(INVALID_SEMESTER_INDEX);
-        EditSemLimitDescriptor descriptor = new EditSemesterLimitDescriptorBuilder()
+        EditSemesterLimitDescriptor descriptor = new EditSemesterLimitDescriptorBuilder()
                 .withMaxCap(VALID_MAX_CAP).build();
         SetSemesterLimitCommand setSemesterLimitCommand = new SetSemesterLimitCommand(outOfBoundIndex, descriptor);
 
@@ -156,7 +156,7 @@ public class SetSemesterLimitCommandTest {
                 Index.fromZeroBased(INDEX_FIRST_SEMESTER.getIndex()), DESC_Y2S2);
 
         // same values -> returns true
-        EditSemLimitDescriptor copyDescriptor = new EditSemLimitDescriptor(DESC_Y2S2);
+        SetSemesterLimitCommand.EditSemesterLimitDescriptor copyDescriptor = new SetSemesterLimitCommand.EditSemesterLimitDescriptor(DESC_Y2S2);
         SetSemesterLimitCommand commandWithSameValues = new SetSemesterLimitCommand(
                 Index.fromZeroBased(INDEX_FIRST_SEMESTER.getIndex()), copyDescriptor);
         assertTrue(standardCommand.equals(commandWithSameValues));

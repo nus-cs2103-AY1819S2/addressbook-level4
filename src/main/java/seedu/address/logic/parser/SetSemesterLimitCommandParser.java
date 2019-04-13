@@ -17,7 +17,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_MIN_TUTORIAL_HOUR;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.SetSemesterLimitCommand;
-import seedu.address.logic.commands.SetSemesterLimitCommand.EditSemLimitDescriptor;
+import seedu.address.logic.commands.SetSemesterLimitCommand.EditSemesterLimitDescriptor;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.moduletaken.Semester;
 
@@ -51,60 +51,60 @@ public class SetSemesterLimitCommandParser implements Parser<SetSemesterLimitCom
         int zeroBasedIndex = Semester.valueOf(rawSemester).getIndex();
         index = ParserUtil.parseIndex(String.valueOf(++zeroBasedIndex));
 
-        EditSemLimitDescriptor editSemLimitDescriptor = new EditSemLimitDescriptor();
+        EditSemesterLimitDescriptor editSemesterLimitDescriptor = new EditSemesterLimitDescriptor();
         if (argMultimap.getValue(PREFIX_MIN_CAP).isPresent()) {
-            editSemLimitDescriptor.setMinCap(
+            editSemesterLimitDescriptor.setMinCap(
                     ParserUtil.parseCap(argMultimap.getValue(PREFIX_MIN_CAP).get()));
         }
         if (argMultimap.getValue(PREFIX_MAX_CAP).isPresent()) {
-            editSemLimitDescriptor.setMaxCap(
+            editSemesterLimitDescriptor.setMaxCap(
                     ParserUtil.parseCap(argMultimap.getValue(PREFIX_MAX_CAP).get()));
         }
         if (argMultimap.getValue(PREFIX_MIN_LECTURE_HOUR).isPresent()) {
-            editSemLimitDescriptor.setMinLectureHour(
+            editSemesterLimitDescriptor.setMinLectureHour(
                     ParserUtil.parseHour(argMultimap.getValue(PREFIX_MIN_LECTURE_HOUR).get()));
         }
         if (argMultimap.getValue(PREFIX_MAX_LECTURE_HOUR).isPresent()) {
-            editSemLimitDescriptor.setMaxLectureHour(
+            editSemesterLimitDescriptor.setMaxLectureHour(
                     ParserUtil.parseHour(argMultimap.getValue(PREFIX_MAX_LECTURE_HOUR).get()));
         }
         if (argMultimap.getValue(PREFIX_MIN_TUTORIAL_HOUR).isPresent()) {
-            editSemLimitDescriptor.setMinTutorialHour(
+            editSemesterLimitDescriptor.setMinTutorialHour(
                     ParserUtil.parseHour(argMultimap.getValue(PREFIX_MIN_TUTORIAL_HOUR).get()));
         }
         if (argMultimap.getValue(PREFIX_MAX_TUTORIAL_HOUR).isPresent()) {
-            editSemLimitDescriptor.setMaxTutorialHour(
+            editSemesterLimitDescriptor.setMaxTutorialHour(
                     ParserUtil.parseHour(argMultimap.getValue(PREFIX_MAX_TUTORIAL_HOUR).get()));
         }
         if (argMultimap.getValue(PREFIX_MIN_LAB_HOUR).isPresent()) {
-            editSemLimitDescriptor.setMinLabHour(
+            editSemesterLimitDescriptor.setMinLabHour(
                     ParserUtil.parseHour(argMultimap.getValue(PREFIX_MIN_LAB_HOUR).get()));
         }
         if (argMultimap.getValue(PREFIX_MAX_LAB_HOUR).isPresent()) {
-            editSemLimitDescriptor.setMaxLabHour(
+            editSemesterLimitDescriptor.setMaxLabHour(
                     ParserUtil.parseHour(argMultimap.getValue(PREFIX_MAX_LAB_HOUR).get()));
         }
         if (argMultimap.getValue(PREFIX_MIN_PROJECT_HOUR).isPresent()) {
-            editSemLimitDescriptor.setMinProjectHour(
+            editSemesterLimitDescriptor.setMinProjectHour(
                     ParserUtil.parseHour(argMultimap.getValue(PREFIX_MIN_PROJECT_HOUR).get()));
         }
         if (argMultimap.getValue(PREFIX_MAX_PROJECT_HOUR).isPresent()) {
-            editSemLimitDescriptor.setMaxProjectHour(
+            editSemesterLimitDescriptor.setMaxProjectHour(
                     ParserUtil.parseHour(argMultimap.getValue(PREFIX_MAX_PROJECT_HOUR).get()));
         }
         if (argMultimap.getValue(PREFIX_MIN_PREPARATION_HOUR).isPresent()) {
-            editSemLimitDescriptor.setMinPreparationHour(
+            editSemesterLimitDescriptor.setMinPreparationHour(
                     ParserUtil.parseHour(argMultimap.getValue(PREFIX_MIN_PREPARATION_HOUR).get()));
         }
         if (argMultimap.getValue(PREFIX_MAX_PREPARATION_HOUR).isPresent()) {
-            editSemLimitDescriptor.setMaxPreparationHour(
+            editSemesterLimitDescriptor.setMaxPreparationHour(
                     ParserUtil.parseHour(argMultimap.getValue(PREFIX_MAX_PREPARATION_HOUR).get()));
         }
 
-        if (!editSemLimitDescriptor.isAnyFieldEdited()) {
+        if (!editSemesterLimitDescriptor.isAnyFieldEdited()) {
             throw new ParseException(SetSemesterLimitCommand.MESSAGE_NOT_EDITED);
         }
 
-        return new SetSemesterLimitCommand(index, editSemLimitDescriptor);
+        return new SetSemesterLimitCommand(index, editSemesterLimitDescriptor);
     }
 }

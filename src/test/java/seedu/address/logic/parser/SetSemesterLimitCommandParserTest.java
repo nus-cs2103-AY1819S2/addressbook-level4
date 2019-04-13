@@ -125,7 +125,7 @@ public class SetSemesterLimitCommandParserTest {
                 + MAX_LAB_HOUR_DESC + MIN_PROJECT_HOUR_DESC + MAX_PROJECT_HOUR_DESC + MIN_PREPARATION_HOUR_DESC
                 + MAX_PREPARATION_HOUR_DESC;
 
-        SetSemesterLimitCommand.EditSemLimitDescriptor descriptor = new EditSemesterLimitDescriptorBuilder()
+        SetSemesterLimitCommand.EditSemesterLimitDescriptor descriptor = new EditSemesterLimitDescriptorBuilder()
                 .withMinCap(VALID_MIN_CAP)
                 .withMaxCap(VALID_MAX_CAP)
                 .withMinLectureHour(VALID_MIN_LECTURE_HOUR)
@@ -150,7 +150,7 @@ public class SetSemesterLimitCommandParserTest {
         Semester targetIndex = INDEX_FIRST_SEMESTER;
         String userInput = targetIndex.name() + MAX_CAP_DESC + MIN_LECTURE_HOUR_DESC;
 
-        SetSemesterLimitCommand.EditSemLimitDescriptor descriptor = new EditSemesterLimitDescriptorBuilder()
+        SetSemesterLimitCommand.EditSemesterLimitDescriptor descriptor = new EditSemesterLimitDescriptorBuilder()
                 .withMaxCap(VALID_MAX_CAP)
                 .withMinLectureHour(VALID_MIN_LECTURE_HOUR).build();
         SetSemesterLimitCommand expectedCommand = new SetSemesterLimitCommand(
@@ -164,7 +164,7 @@ public class SetSemesterLimitCommandParserTest {
         // min project hour
         Semester targetIndex = INDEX_THIRD_SEMESTER;
         String userInput = targetIndex.name() + MIN_PROJECT_HOUR_DESC;
-        SetSemesterLimitCommand.EditSemLimitDescriptor descriptor = new EditSemesterLimitDescriptorBuilder()
+        SetSemesterLimitCommand.EditSemesterLimitDescriptor descriptor = new EditSemesterLimitDescriptorBuilder()
                 .withMinProjectHour(VALID_MIN_PROJECT_HOUR)
                 .build();
         SetSemesterLimitCommand expectedCommand = new SetSemesterLimitCommand(
@@ -216,7 +216,7 @@ public class SetSemesterLimitCommandParserTest {
                 + MIN_LECTURE_HOUR_DESC + MIN_LAB_HOUR_DESC + MIN_CAP_DESC
                 + MAX_TUTORIAL_HOUR_DESC + MIN_TUTORIAL_HOUR_DESC;
 
-        SetSemesterLimitCommand.EditSemLimitDescriptor descriptor = new EditSemesterLimitDescriptorBuilder()
+        SetSemesterLimitCommand.EditSemesterLimitDescriptor descriptor = new EditSemesterLimitDescriptorBuilder()
                 .withMinCap(VALID_MIN_CAP)
                 .withMinLectureHour(VALID_MIN_LECTURE_HOUR)
                 .withMaxLectureHour(VALID_MAX_LECTURE_HOUR)
@@ -236,7 +236,7 @@ public class SetSemesterLimitCommandParserTest {
         // no other valid values specified
         Semester targetIndex = INDEX_FIRST_SEMESTER;
         String userInput = targetIndex.name() + INVALID_MIN_CAP_DESC + MIN_CAP_DESC;
-        SetSemesterLimitCommand.EditSemLimitDescriptor descriptor = new EditSemesterLimitDescriptorBuilder()
+        SetSemesterLimitCommand.EditSemesterLimitDescriptor descriptor = new EditSemesterLimitDescriptorBuilder()
                 .withMinCap(VALID_MIN_CAP)
                 .build();
         SetSemesterLimitCommand expectedCommand = new SetSemesterLimitCommand(

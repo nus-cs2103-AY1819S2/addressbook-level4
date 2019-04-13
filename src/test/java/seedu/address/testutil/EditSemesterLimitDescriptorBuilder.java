@@ -1,7 +1,6 @@
 package seedu.address.testutil;
 
 import seedu.address.logic.commands.SetSemesterLimitCommand;
-import seedu.address.logic.commands.SetSemesterLimitCommand.EditSemLimitDescriptor;
 import seedu.address.model.limits.SemesterLimit;
 import seedu.address.model.moduletaken.CapAverage;
 import seedu.address.model.moduletaken.Hour;
@@ -11,21 +10,21 @@ import seedu.address.model.moduletaken.Hour;
  */
 public class EditSemesterLimitDescriptorBuilder {
 
-    private EditSemLimitDescriptor descriptor;
+    private SetSemesterLimitCommand.EditSemesterLimitDescriptor descriptor;
 
     public EditSemesterLimitDescriptorBuilder() {
-        descriptor = new SetSemesterLimitCommand.EditSemLimitDescriptor();
+        descriptor = new SetSemesterLimitCommand.EditSemesterLimitDescriptor();
     }
 
-    public EditSemesterLimitDescriptorBuilder(EditSemLimitDescriptor descriptor) {
-        this.descriptor = new EditSemLimitDescriptor(descriptor);
+    public EditSemesterLimitDescriptorBuilder(SetSemesterLimitCommand.EditSemesterLimitDescriptor descriptor) {
+        this.descriptor = new SetSemesterLimitCommand.EditSemesterLimitDescriptor(descriptor);
     }
 
     /**
      * Returns an {@code EditModuleTakenDescriptor} with fields containing {@code moduleTaken}'s details
      */
     public EditSemesterLimitDescriptorBuilder(SemesterLimit semesterLimit) {
-        descriptor = new EditSemLimitDescriptor();
+        descriptor = new SetSemesterLimitCommand.EditSemesterLimitDescriptor();
         descriptor.setMinCap(semesterLimit.getMinCap());
         descriptor.setMaxCap(semesterLimit.getMaxCap());
         descriptor.setMinLectureHour(semesterLimit.getMinLectureHour());
@@ -136,7 +135,7 @@ public class EditSemesterLimitDescriptorBuilder {
         return this;
     }
 
-    public EditSemLimitDescriptor build() {
+    public SetSemesterLimitCommand.EditSemesterLimitDescriptor build() {
         return descriptor;
     }
 }

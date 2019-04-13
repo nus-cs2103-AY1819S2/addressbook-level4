@@ -24,11 +24,11 @@ import seedu.address.model.GradTrak;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyGradTrak;
 import seedu.address.model.ReadOnlyUserPrefs;
-import seedu.address.model.limits.SemesterLimit;
 import seedu.address.model.UserInfo;
 import seedu.address.model.course.Course;
 import seedu.address.model.course.CourseName;
 import seedu.address.model.course.RequirementStatus;
+import seedu.address.model.limits.SemesterLimit;
 
 import seedu.address.model.moduleinfo.ModuleInfo;
 import seedu.address.model.moduleinfo.ModuleInfoCode;

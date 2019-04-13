@@ -59,18 +59,18 @@ public class SetSemesterLimitCommand extends Command {
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
 
     private final Index index;
-    private final EditSemLimitDescriptor editSemLimitDescriptor;
+    private final EditSemesterLimitDescriptor editSemesterLimitDescriptor;
 
     /**
      * @param index of the moduleTaken in the filtered moduleTaken list to edit
      * @param editLimitDescriptor details to edit the moduleTaken with
      */
-    public SetSemesterLimitCommand(Index index, EditSemLimitDescriptor editLimitDescriptor) {
+    public SetSemesterLimitCommand(Index index, EditSemesterLimitDescriptor editLimitDescriptor) {
         requireNonNull(index);
         requireNonNull(editLimitDescriptor);
 
         this.index = index;
-        this.editSemLimitDescriptor = new EditSemLimitDescriptor(editLimitDescriptor);
+        this.editSemesterLimitDescriptor = new EditSemesterLimitDescriptor(editLimitDescriptor);
     }
 
     @Override
@@ -83,7 +83,7 @@ public class SetSemesterLimitCommand extends Command {
         }
 
         SemesterLimit semesterLimitToEdit = lastShownList.get(index.getZeroBased());
-        SemesterLimit editedSemesterLimit = createEditedLimit(semesterLimitToEdit, editSemLimitDescriptor);
+        SemesterLimit editedSemesterLimit = createEditedLimit(semesterLimitToEdit, editSemesterLimitDescriptor);
 
         if (editedSemesterLimit.getMinCap().getCapLimit()
                 > editedSemesterLimit.getMaxCap().getCapLimit()) {
@@ -122,35 +122,35 @@ public class SetSemesterLimitCommand extends Command {
 
     /**
      * Creates and returns a {@code SemesterLimit} with the details of {@code semesterLimitToEdit}
-     * edited with {@code EditSemLimitDescriptor}.
+     * edited with {@code EditSemesterLimitDescriptor}.
      */
     private static SemesterLimit createEditedLimit(SemesterLimit semesterLimitToEdit,
-                                                   EditSemLimitDescriptor editSemLimitDescriptor) {
+                                                   EditSemesterLimitDescriptor editSemesterLimitDescriptor) {
         assert semesterLimitToEdit != null;
 
-        CapAverage updatedMinCap = editSemLimitDescriptor
+        CapAverage updatedMinCap = editSemesterLimitDescriptor
                 .getMinCap().orElse(semesterLimitToEdit.getMinCap());
-        CapAverage updatedMaxCap = editSemLimitDescriptor
+        CapAverage updatedMaxCap = editSemesterLimitDescriptor
                 .getMaxCap().orElse(semesterLimitToEdit.getMaxCap());
-        Hour updatedMinLectureHour = editSemLimitDescriptor
+        Hour updatedMinLectureHour = editSemesterLimitDescriptor
                 .getMinLectureHour().orElse(semesterLimitToEdit.getMinLectureHour());
-        Hour updatedMaxLectureHour = editSemLimitDescriptor
+        Hour updatedMaxLectureHour = editSemesterLimitDescriptor
                 .getMaxLectureHour().orElse(semesterLimitToEdit.getMaxLectureHour());
-        Hour updatedMinTutorialHour = editSemLimitDescriptor
+        Hour updatedMinTutorialHour = editSemesterLimitDescriptor
                 .getMinTutorialHour().orElse(semesterLimitToEdit.getMinTutorialHour());
-        Hour updatedMaxTutorialHour = editSemLimitDescriptor
+        Hour updatedMaxTutorialHour = editSemesterLimitDescriptor
                 .getMaxTutorialHour().orElse(semesterLimitToEdit.getMaxTutorialHour());
-        Hour updatedMinLabHour = editSemLimitDescriptor
+        Hour updatedMinLabHour = editSemesterLimitDescriptor
                 .getMinLabHour().orElse(semesterLimitToEdit.getMinLabHour());
-        Hour updatedMaxLabHour = editSemLimitDescriptor
+        Hour updatedMaxLabHour = editSemesterLimitDescriptor
                 .getMaxLabHour().orElse(semesterLimitToEdit.getMaxLabHour());
-        Hour updatedMinProjectHour = editSemLimitDescriptor
+        Hour updatedMinProjectHour = editSemesterLimitDescriptor
                 .getMinProjectHour().orElse(semesterLimitToEdit.getMinProjectHour());
-        Hour updatedMaxProjectHour = editSemLimitDescriptor
+        Hour updatedMaxProjectHour = editSemesterLimitDescriptor
                 .getMaxProjectHour().orElse(semesterLimitToEdit.getMaxProjectHour());
-        Hour updatedMinPreparationHour = editSemLimitDescriptor
+        Hour updatedMinPreparationHour = editSemesterLimitDescriptor
                 .getMinPreparationHour().orElse(semesterLimitToEdit.getMinPreparationHour());
-        Hour updatedMaxPreparationHour = editSemLimitDescriptor
+        Hour updatedMaxPreparationHour = editSemesterLimitDescriptor
                 .getMaxPreparationHour().orElse(semesterLimitToEdit.getMaxPreparationHour());
 
         return new SemesterLimit(updatedMinCap, updatedMaxCap,
@@ -174,14 +174,14 @@ public class SetSemesterLimitCommand extends Command {
         // state check
         SetSemesterLimitCommand e = (SetSemesterLimitCommand) other;
         return index.equals(e.index)
-                && editSemLimitDescriptor.equals(e.editSemLimitDescriptor);
+                && editSemesterLimitDescriptor.equals(e.editSemesterLimitDescriptor);
     }
 
     /**
      * Stores the details to edit the limit with. Each non-empty field value will replace the
      * corresponding field value of the limit.
      */
-    public static class EditSemLimitDescriptor {
+    public static class EditSemesterLimitDescriptor {
         private CapAverage minCap;
         private CapAverage maxCap;
         private Hour minLectureHour;
@@ -195,12 +195,12 @@ public class SetSemesterLimitCommand extends Command {
         private Hour minPreparationHour;
         private Hour maxPreparationHour;
 
-        public EditSemLimitDescriptor() {}
+        public EditSemesterLimitDescriptor() {}
 
         /**
          * Copy constructor.
          */
-        public EditSemLimitDescriptor(EditSemLimitDescriptor toCopy) {
+        public EditSemesterLimitDescriptor(EditSemesterLimitDescriptor toCopy) {
             setMinCap(toCopy.minCap);
             setMaxCap(toCopy.maxCap);
             setMinLectureHour(toCopy.minLectureHour);
@@ -328,12 +328,12 @@ public class SetSemesterLimitCommand extends Command {
             }
 
             // instanceof handles nulls
-            if (!(other instanceof EditSemLimitDescriptor)) {
+            if (!(other instanceof EditSemesterLimitDescriptor)) {
                 return false;
             }
 
             // state check
-            EditSemLimitDescriptor e = (EditSemLimitDescriptor) other;
+            EditSemesterLimitDescriptor e = (EditSemesterLimitDescriptor) other;
 
             return getMinCap().equals(e.getMinCap())
                     && getMaxCap().equals(e.getMaxCap())

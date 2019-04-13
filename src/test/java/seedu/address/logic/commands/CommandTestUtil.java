@@ -168,8 +168,8 @@ public class CommandTestUtil {
     public static final EditCommand.EditModuleTakenDescriptor DESC_CS2103T;
     public static final EditCommand.EditModuleTakenDescriptor DESC_CS1010;
 
-    public static final SetSemesterLimitCommand.EditSemLimitDescriptor DESC_Y1S1;
-    public static final SetSemesterLimitCommand.EditSemLimitDescriptor DESC_Y2S2;
+    public static final SetSemesterLimitCommand.EditSemesterLimitDescriptor DESC_Y1S1;
+    public static final SetSemesterLimitCommand.EditSemesterLimitDescriptor DESC_Y2S2;
 
     public static final FindCommand.FindModuleDescriptor FIND_CS2103T;
     public static final FindCommand.FindModuleDescriptor FIND_CS1010;

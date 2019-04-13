@@ -414,10 +414,8 @@ Adds a new activity to the activity list +
 |=======================================================================
 |Information of Activity| Definition | Example
 |`ActivityName`| ACTIVITY_NAME refers to the name of the activity.
-
  Only alphabets are accepted. | Sentosa Outing
 |`ActivityDateTime`| DATETIME refers to the date and time of the activity
-
 Activity Date and time should be in "dd/MM/YYYY HHMM" format, where dd, MM, YYYY refers
 to day of month, month and year respectively. HH refers to the hour in 24 hour format (
 0-23). | 28/02/2019 2359
@@ -441,7 +439,7 @@ Example:
 * `activityAdd n/Sentosa Outing d/16/02/2019 1000 l/Harbour Front MRT de/Bring swim suits.`
 * `activityAdd n/HTML workshop d/14/02/2019 l/ICube Auditorium`
 
-image::ActivityAddCommand.png[width="790"]
+(image omitted) +
 Adding activity to the correct position based on the time.
 // end::activityAdd[]
 
@@ -576,7 +574,7 @@ If the status of some activities have changed from `ONGOING` to `COMPLETED`, the
 `activityList` command will automatically update the status of these activities.
 ****
 
-image::ActivityListCommand.png[width="790"]
+(image omitted)
 
 ==== Selecting an activity : `activitySelect` or `aSelect`
 

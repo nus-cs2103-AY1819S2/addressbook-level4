@@ -176,8 +176,7 @@ public class EnemyTest {
         setUpAllShips(testPlayer);
         batman = new BattleManager(testPlayer, testEnemy);
 
-        for (int i = 0; i < 5; i++) {
-
+        for (int i = 0; i < 30; i++) {
             startingAllPossibleTargetsSize = testEnemy.getAllPossibleTargets().size();
             startingAllParityTargets = testEnemy.getAllParityTargets().size();
             startingWatchlistSize = testEnemy.getWatchlist().size();

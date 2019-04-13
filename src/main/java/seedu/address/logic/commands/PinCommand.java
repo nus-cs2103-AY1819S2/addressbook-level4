@@ -39,6 +39,9 @@ public class PinCommand extends Command {
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
+
+        System.out.println("just a test");
+
         requireNonNull(model);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         //model.updateFilteredPinnedPersonList(PREDICATE_SHOW_ALL_PERSONS);

@@ -8,6 +8,7 @@ import java.util.Set;
 
 import org.junit.Test;
 import seedu.address.logic.CommandHistory;
+
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
@@ -21,14 +22,13 @@ public class EndorseCommandTest {
 
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
-    private static final String VALID_ENDORSE_NAME = "John Smith";
-    private static final String INVALID_ENDORSE_NAME = null;
     private static final int ENDORSE_PROCESS = 0;
     private static final int CLEAR_PROCESS = 1;
-
+    private static final String INVALID_ENDORSE_NAME = null;
+    private static final String VALID_ENDORSE_NAME = "John Smith";
 
     @Test
-    public void execute_endorsePerson_success(){
+    public void execute_endorsePerson_success() {
         String expectedMessage = String.format("Endorsed correct person with name");
         Person samplePerson = model.getFilteredPersonList().get(0);
         SkillsTag sampleEndorseTag = new SkillsTag(VALID_ENDORSE_NAME, "endorse");

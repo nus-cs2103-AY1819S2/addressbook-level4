@@ -4,14 +4,13 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Person's name in the address book.
- * Guarantees: immutable; is valid as declared in {@link #isValidDegree)}
+ * Created for holding the graduation degree of the person
  */
 public class Degree {
 
     public static final String MESSAGE_CONSTRAINTS =
             "Degree should be the highest level of completed education, and it should not be blank \n"
-                    + "Can only be either: High school, Associates, Bachelors, Masters or PHD" ;
+                    + "Can only be either: High school, Associates, Bachelors, Masters or PHD";
 
     /*
      * The first character of the Degree must not be a whitespace,
@@ -38,25 +37,23 @@ public class Degree {
      */
     public static boolean isValidDegree(String test) {
 
-        if(test.equalsIgnoreCase("High School")){
+        if (test.equalsIgnoreCase("High School")) {
             return true;
         }
-        if(test.equalsIgnoreCase("Associates")){
+        if (test.equalsIgnoreCase("Associates")) {
             return true;
         }
-        if(test.equalsIgnoreCase("Bachelors")){
+        if (test.equalsIgnoreCase("Bachelors")) {
             return true;
         }
-        if(test.equalsIgnoreCase("Masters")){
+        if (test.equalsIgnoreCase("Masters")) {
             return true;
         }
-        if(test.equalsIgnoreCase("PHD")){
+        if (test.equalsIgnoreCase("PHD")) {
             return true;
         }
         return false;
-
     }
-
 
     @Override
     public String toString() {

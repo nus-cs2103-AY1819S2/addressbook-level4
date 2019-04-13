@@ -138,7 +138,7 @@ When you are ready to start coding,
 === Architecture
 
 .Architecture Diagram
-image::Architecture.png[width="600"]
+image::Architecture2.png[width="600"]
 
 The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
 
@@ -194,11 +194,11 @@ The UI consists of a `rootLayoutController` composed of a `Display`, `UserInput`
 
 image::uioverview.png[width="800"]
 
-1. `Display` will reflect the results of the command entered
-2. `userInput` is where the user can enter their commands
-3. should the command fail due to erroneous command input, instructions to rectify the command will be displayed on the `InputFeedback`
+1. `resultDisplay` will reflect the results of the command entered
+2. `userInputField` is where the user can enter their commands
+3. should the command fail due to erroneous command input, instructions to rectify the command will be displayed on the `InputFeedbackArea`
 4. Appointments and Reminders are displayed on the `ReminderListPanel`
-5. Current consultation sessions will be indicated on this `currentSession` label.
+5. Current consultation sessions will be indicated on the `currentSessionLabel`.
 
 The `UI` component uses JavaFx UI framework. RootLayout is defined in the matching `.fxml` file that are in link:{repoURL}/src/main/resources/view[src/main/resources/view] folder.
 

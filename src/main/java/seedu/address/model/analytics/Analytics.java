@@ -167,7 +167,7 @@ public class Analytics {
 
         for (int i = 0; i < numPeople; i++) {
             Person curr = personList.get(i);
-            if (curr.getInterviewScores().value == "No Record") {
+            if (curr.getInterviewScores().value.equals("No Record")) {
                 interviewed--;
             } else {
                 String[] personScores;

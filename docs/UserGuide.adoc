@@ -365,7 +365,16 @@ Format : `analytics LISTNAME` or  `analytics` (for all applicants)
 * LISTNAME indicate which Job list this command will be used.
 * LISTNAME can are the names of job lists such as "applicant", "kiv", "interview", "shortlist".
 * If no LISTNAME is entered, the analytis of all applicants in the slave system will be shown.
+* If have never used the `DisplayJob` command before, using `analytics LISTNAME` will be empty analytics.
+* If on all applicants and all jobs page, `analytics LISTNAME` will display analytics on the job last displayed using command `DisplayJob`
+
 ****
+
+Examples:
+
+* `analytics applicant` 
+* `analytics kiv`
+* `analytics`
 
 ==== Select people into "Interview" List: `selectInterview` `Coming in v1.4`
 

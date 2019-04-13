@@ -328,6 +328,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void unsetSelectedEquipment() {
+        selectedEquipment.setValue(null);
+    }
+
+    @Override
     public void deleteTag(Tag tag) {
         versionedEquipmentManager.removeTag(tag);
     }

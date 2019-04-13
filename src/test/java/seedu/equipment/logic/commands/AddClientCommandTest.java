@@ -308,6 +308,11 @@ public class AddClientCommandTest {
         }
 
         @Override
+        public void unsetSelectedEquipment() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void setSelectedWorkList(WorkList workList) {
             throw new AssertionError("This method should not be called.");
         }

@@ -8,6 +8,7 @@ import org.junit.Test;
 
 import seedu.equipment.commons.core.Messages;
 import seedu.equipment.logic.commands.DisplayCommand;
+import seedu.equipment.logic.commands.SelectCommand;
 import seedu.equipment.model.Model;
 import seedu.equipment.ui.BrowserPanel;
 
@@ -22,6 +23,18 @@ public class DisplayCommandSystemTest extends EquipmentManagerSystemTest {
         Model expectedModel = getModel();
         assertCommandSuccess(command, expectedModel);
 
+        /* ----------------------- Perform select operations and then display and select ---------------------------- */
+
+        /* Case: Select some equipment, display, and then select the same equipment. The browser panel should change.
+         */
+        String selectCommand = "" + SelectCommand.COMMAND_WORD + " 1";
+        URL oldUrl = getBrowserPanel().getLoadedUrl();
+        executeCommand(selectCommand);
+        assertNotEquals(oldUrl.toString(), getBrowserPanel().getLoadedUrl().toString());
+        assertCommandSuccess(command, expectedModel);
+        oldUrl = getBrowserPanel().getLoadedUrl();
+        executeCommand(selectCommand);
+        assertNotEquals(oldUrl.toString(), getBrowserPanel().getLoadedUrl().toString());
     }
 
     /**

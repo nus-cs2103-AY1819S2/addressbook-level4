@@ -32,14 +32,14 @@ public class BrowserPanel extends UiPart<Region> {
     @FXML
     private WebView browser;
 
-    public BrowserPanel(ObservableValue<Equipment> selectedPerson) {
+    public BrowserPanel(ObservableValue<Equipment> selectedEquipment) {
         super(FXML);
 
         // To prevent triggering events for typing inside the loaded Web page.
         getRoot().setOnKeyPressed(Event::consume);
 
         // Load equipment page when selected equipment changes.
-        selectedPerson.addListener((observable, oldValue, newValue) -> {
+        selectedEquipment.addListener((observable, oldValue, newValue) -> {
             if (newValue == null) {
                 loadDefaultPage();
                 return;

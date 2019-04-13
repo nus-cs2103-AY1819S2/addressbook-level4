@@ -14,8 +14,8 @@ image::yongxiang1095.png[width="150", align="left"]
 {empty}[http://github.com/yongxiang1095[github]] [<<yongxiang1095#, portfolio>>]
 
 Role: Team Lead +
-Responsibilities: Scheduling and Tracking + Integration + Documentation +
-Features: Archive, Select, Sort
+Responsibilities: Scheduling and Tracking + Documentation + UI
+Features: Archive, Select
 
 '''
 
@@ -35,6 +35,6 @@ image::chenwencuhk.png[width="150", align="left"]
 
 Role: Developer +
 Responsibilities: UI + Storage + Testing +
-Features: Pin, Match
+Features: Pin
 
 '''

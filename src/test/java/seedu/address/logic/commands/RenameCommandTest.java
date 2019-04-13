@@ -90,7 +90,7 @@ public class RenameCommandTest {
     @Test
     public void execute_caseSensitiveOperatingSystemRenameToAnotherFile_failureIfWindowsSuccessIfLinus() {
         // Linux supports for case-sensitive rename while Windows doesn't
-        Pdf editedPdf = new PdfBuilder(SAMPLE_PDF_2)
+        Pdf editedPdf = new PdfBuilder(SAMPLE_PDF_1)
                 .withName(SAMPLE_PDF_2.getName().getFullName().toLowerCase()).build();
         RenameCommand.EditPdfDescriptor descriptor = new EditPdfDescriptorBuilder()
                 .withName(SAMPLE_PDF_2.getName().getFullName().toLowerCase()).build();

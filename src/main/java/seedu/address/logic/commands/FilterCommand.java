@@ -58,12 +58,8 @@ public class FilterCommand extends Command {
 
     public static final String COMMAND_WORD = "filter";
     public static final String COMMAND_ALIAS = "f";
-
-    public static final String MESSAGE_USAGE_ALLJOB_SCREEN = COMMAND_WORD + ": (In All Jobs shows mode)\n"
-            + "Filter all persons whose informations contain any of the specified keywords (case-insensitive) "
-            + "and displays them as a list with index numbers.\n"
-            + "Parameters: FILTERNAME [KEYWORDS]...\n"
-            + "[" + PREFIX_FILTERNAME + "FILTERNAME] "
+    public static final String MESSAGE_USAGE_PARAMETERS =
+        "[" + PREFIX_FILTERNAME + "FILTERNAME] "
             + "[" + PREFIX_NAME + "NAME KEYWORD] "
             + "[" + PREFIX_PHONE + "PHONE KEYWORD] "
             + "[" + PREFIX_EMAIL + "EMAIL KEYWORD] "
@@ -97,58 +93,29 @@ public class FilterCommand extends Command {
             + PREFIX_SCHOOL + "NUS "
             + PREFIX_MAJOR + "Computer Science "
             + PREFIX_JOBSAPPLY + "Software Engineer ";
+
+    public static final String MESSAGE_USAGE_ALLJOB_SCREEN = COMMAND_WORD + ": (In All Jobs shows mode)\n"
+        + "Filter all persons whose informations contain any of the specified keywords (case-insensitive) "
+        + "and displays them as a list with index numbers.\n"
+        + "Parameters: FILTERNAME [KEYWORDS]...\n" + MESSAGE_USAGE_PARAMETERS;
 
 
     public static final String MESSAGE_USAGE_JOB_DETAIL_SCREEN = COMMAND_WORD + ": (In Job Detail mode)\n"
-            + "Filter indicated job list whose informations contain any of the specified keywords (case-insensitive) "
-            + "and displays them as a list with index numbers.\n"
-            + "Parameters: LISTNAME FILTERNAME [KEYWORDS]...\n"
-            + "LISTNAME "
-            + "[" + PREFIX_FILTERNAME + "FILTERNAME] "
-            + "[" + PREFIX_NAME + "NAME KEYWORD] "
-            + "[" + PREFIX_PHONE + "PHONE KEYWORD] "
-            + "[" + PREFIX_EMAIL + "EMAIL KEYWORD] "
-            + "[" + PREFIX_NRIC + "NRIC KEYWORD] "
-            + "[" + PREFIX_GENDER + "GENDER KEYWORD] "
-            + "[" + PREFIX_RACE + "RACE KEYWORD] "
-            + "[" + PREFIX_ADDRESS + "ADDRESS KEYWORD] "
-            + "[" + PREFIX_SCHOOL + "SCHOOL KEYWORD] "
-            + "[" + PREFIX_MAJOR + "MAJOR KEYWORD] "
-            + "[" + PREFIX_SCHOOL + "SCHOOL KEYWORD] "
-            + "[" + PREFIX_KNOWNPROGLANG + "KNOWNPROGLANG KEYWORD] "
-            + "[" + PREFIX_PASTJOB + "PASTJOB KEYWORD] "
-            + "[" + PREFIX_JOBSAPPLY + "JOBSAPPLY KEYWORD] "
-            + "Example: " + COMMAND_WORD
-            + PREFIX_PHONE + "91234567 "
-            + PREFIX_EMAIL + "johndoe@example.com "
-            + PREFIX_NRIC + "S9671597H "
-            + PREFIX_GENDER + "Male "
-            + PREFIX_RACE + "Indian "
-            + PREFIX_ADDRESS + "311, Clementi Ave 2, #02-25 "
-            + PREFIX_SCHOOL + "NUS "
-            + PREFIX_MAJOR + "Computer Science "
-            + "The alias \"sh \" can be used instead.\n"
-            + "Example: " + COMMAND_ALIAS
-            + PREFIX_PHONE + "91234567 "
-            + PREFIX_EMAIL + "johndoe@example.com "
-            + PREFIX_NRIC + "S9671597H "
-            + PREFIX_GENDER + "Male "
-            + PREFIX_RACE + "Indian "
-            + PREFIX_ADDRESS + "311, Clementi Ave 2, #02-25 "
-            + PREFIX_SCHOOL + "NUS "
-            + PREFIX_MAJOR + "Computer Science "
-            + PREFIX_JOBSAPPLY + "Software Engineer ";
+        + "Filter indicated job list whose informations contain any of the specified keywords (case-insensitive) "
+        + "and displays them as a list with index numbers.\n"
+        + "Parameters: LISTNAME FILTERNAME [KEYWORDS]...\n"
+        + "LISTNAME " + MESSAGE_USAGE_PARAMETERS;
 
     public static final String MESSAGE_LACK_FILTERNAME = "Filter Command need a name\n%1$s";
     public static final String MESSAGE_LACK_LISTNAME =
-            "Filter Command in Display Job page need indicate job list\n%1$s";
+        "Filter Command in Display Job page need indicate job list\n%1$s";
     public static final String MESSAGE_REDUNDANT_LISTNAME =
-            "Filter Command in All Jobs page no need indicate job list\n%1$s";
+        "Filter Command in All Jobs page no need indicate job list\n%1$s";
     public static final String MESSAGE_INVALID_RANGE =
-            "Not a valid range, the right format should be value-value;value-value..." + "\n"
-                    + "For example: 1.2-1.3; 1.3-1.4";
+        "Not a valid range, the right format should be value-value;value-value..." + "\n"
+            + "For example: 1.2-1.3; 1.3-1.4";
     public static final String MESSAGE_REDUNDANT_FILTERNAME = "Filter name has already been used." + "\n"
-            + "Filter Command need a unique name";
+        + "Filter Command need a unique name";
     private final Predicate<Person> predicate;
     private final PredicatePersonDescriptor predicatePersonDescriptor;
     private final JobListName listName;
@@ -175,19 +142,15 @@ public class FilterCommand extends Command {
         UniqueFilterList predicateList;
         requireNonNull(model);
         boolean isAllJobScreen = model.getIsAllJobScreen();
-        boolean hasFilterName = !commandName.equals("");
+        boolean hasFilterName = !"".equals(commandName);
         boolean hasListName = listName != EMPTY;
-        if (isAllJobScreen && !hasFilterName) {
-            throw new CommandException(String.format(MESSAGE_LACK_FILTERNAME, MESSAGE_USAGE_ALLJOB_SCREEN));
-        }
-        if (!isAllJobScreen && !hasFilterName) {
-            throw new CommandException(String.format(MESSAGE_LACK_FILTERNAME, MESSAGE_USAGE_JOB_DETAIL_SCREEN));
-        }
-        if (!isAllJobScreen && !hasListName) {
-            throw new CommandException(String.format(MESSAGE_LACK_LISTNAME, MESSAGE_USAGE_JOB_DETAIL_SCREEN));
-        }
-        if (isAllJobScreen && hasListName) {
-            throw new CommandException(String.format(MESSAGE_REDUNDANT_LISTNAME, MESSAGE_USAGE_ALLJOB_SCREEN));
+        String showMessage = isAllJobScreen ? MESSAGE_USAGE_ALLJOB_SCREEN : MESSAGE_USAGE_JOB_DETAIL_SCREEN;
+        if (!hasFilterName) {
+            throw new CommandException(String.format(MESSAGE_LACK_FILTERNAME, showMessage));
+        } else if (!isAllJobScreen && !hasListName) {
+            throw new CommandException(String.format(MESSAGE_LACK_LISTNAME, showMessage));
+        } else if (isAllJobScreen && hasListName) {
+            throw new CommandException(String.format(MESSAGE_REDUNDANT_LISTNAME, showMessage));
         }
 
         int size = model.getJobsList(listName).size();
@@ -240,8 +203,8 @@ public class FilterCommand extends Command {
             predicateList = model.getPredicateLists(EMPTY);
         }
         return new CommandResult(
-                String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, size), listName,
-                predicateList);
+            String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, size), listName,
+            predicateList);
     }
 
     @Override
@@ -315,86 +278,233 @@ public class FilterCommand extends Command {
         }
 
         /**
+         * Translate and returns a Predicate object for name
+         */
+        private Predicate<Person> nameToPredicate() {
+            Predicate<Person> predicator = new PredicateManager();
+            if (this.getName().isPresent()) {
+                predicator = predicator.and(new NameContainsKeywordsPredicate(
+                    new ArrayList<>(this.getName().get())));
+            }
+            return predicator;
+        }
+
+        /**
+         * Translate and returns a Predicate object for phone
+         */
+        private Predicate<Person> phoneToPredicate() {
+            Predicate<Person> predicator = new PredicateManager();
+            if (this.getPhone().isPresent()) {
+                predicator = predicator.and(new PhoneContainsKeywordsPredicate(
+                    new ArrayList<>(this.getPhone().get())));
+            }
+            return predicator;
+        }
+
+        /**
+         * Translate and returns a Predicate object for email
+         */
+        private Predicate<Person> emailToPredicate() {
+            Predicate<Person> predicator = new PredicateManager();
+            if (this.getEmail().isPresent()) {
+                predicator = predicator.and(new EmailContainsKeywordsPredicate(
+                    new ArrayList<>(this.getEmail().get())));
+            }
+            return predicator;
+        }
+
+        /**
+         * Translate and returns a Predicate object for race
+         */
+        private Predicate<Person> raceToPredicate() {
+            Predicate<Person> predicator = new PredicateManager();
+            if (this.getRace().isPresent()) {
+                predicator = predicator.and(new RaceContainsKeywordsPredicate(
+                    new ArrayList<>(this.getRace().get())));
+            }
+            return predicator;
+        }
+
+        /**
+         * Translate and returns a Predicate object for address
+         */
+        private Predicate<Person> addressToPredicate() {
+            Predicate<Person> predicator = new PredicateManager();
+            if (this.getAddress().isPresent()) {
+                predicator = predicator.and(new AddressContainsKeywordsPredicate(
+                    new ArrayList<>(this.getAddress().get())));
+            }
+            return predicator;
+        }
+
+        /**
+         * Translate and returns a Predicate object for school
+         */
+        private Predicate<Person> schoolToPredicate() {
+            Predicate<Person> predicator = new PredicateManager();
+            if (this.getSchool().isPresent()) {
+                predicator = predicator.and(new SchoolContainsKeywordsPredicate(
+                    new ArrayList<>(this.getSchool().get())));
+            }
+            return predicator;
+        }
+
+        /**
+         * Translate and returns a Predicate object for major
+         */
+        private Predicate<Person> majorToPredicate() {
+            Predicate<Person> predicator = new PredicateManager();
+            if (this.getMajor().isPresent()) {
+                predicator = predicator.and(new MajorContainsKeywordsPredicate(
+                    new ArrayList<>(this.getMajor().get())));
+            }
+            return predicator;
+        }
+
+        /**
+         * Translate and returns a Predicate object for gender
+         */
+        private Predicate<Person> genderToPredicate() {
+            Predicate<Person> predicator = new PredicateManager();
+            if (this.getGender().isPresent()) {
+                predicator = predicator.and(new GenderContainsKeywordsPredicate(
+                    new ArrayList<>(this.getGender().get())));
+            }
+            return predicator;
+        }
+
+        /**
+         * Translate and returns a Predicate object for grade
+         */
+        private Predicate<Person> gradeToPredicate() {
+            Predicate<Person> predicator = new PredicateManager();
+            if (this.getGrade().isPresent()) {
+                predicator = predicator.and(new GradeContainsKeywordsPredicate(
+                    new ArrayList<>(this.getGrade().get())));
+            }
+            return predicator;
+        }
+
+        /**
+         * Translate and returns a Predicate object for iq1
+         */
+        private Predicate<Person> interviewQ1ToPredicate() {
+            Predicate<Person> predicator = new PredicateManager();
+            if (this.getInterviewScoreQ1().isPresent()) {
+                predicator = predicator.and(new InterviewScoreContainsKeywordsPredicate(1,
+                    new ArrayList<>(this.getInterviewScoreQ1().get())));
+            }
+            return predicator;
+        }
+
+        /**
+         * Translate and returns a Predicate object for iq2
+         */
+        private Predicate<Person> interviewQ2ToPredicate() {
+            Predicate<Person> predicator = new PredicateManager();
+            if (this.getInterviewScoreQ2().isPresent()) {
+                predicator = predicator.and(new InterviewScoreContainsKeywordsPredicate(2,
+                    new ArrayList<>(this.getInterviewScoreQ2().get())));
+            }
+            return predicator;
+        }
+
+        /**
+         * Translate and returns a Predicate object for iq3
+         */
+        private Predicate<Person> interviewQ3ToPredicate() {
+            Predicate<Person> predicator = new PredicateManager();
+            if (this.getInterviewScoreQ3().isPresent()) {
+                predicator = predicator.and(new InterviewScoreContainsKeywordsPredicate(3,
+                    new ArrayList<>(this.getInterviewScoreQ3().get())));
+            }
+            return predicator;
+        }
+
+        /**
+         * Translate and returns a Predicate object for iq4
+         */
+        private Predicate<Person> interviewQ4ToPredicate() {
+            Predicate<Person> predicator = new PredicateManager();
+            if (this.getInterviewScoreQ4().isPresent()) {
+                predicator = predicator.and(new InterviewScoreContainsKeywordsPredicate(4,
+                    new ArrayList<>(this.getInterviewScoreQ4().get())));
+            }
+            return predicator;
+        }
+
+        /**
+         * Translate and returns a Predicate object for iq5
+         */
+        private Predicate<Person> interviewQ5ToPredicate() {
+            Predicate<Person> predicator = new PredicateManager();
+            if (this.getInterviewScoreQ5().isPresent()) {
+                predicator = predicator.and(new InterviewScoreContainsKeywordsPredicate(5,
+                    new ArrayList<>(this.getInterviewScoreQ5().get())));
+            }
+            return predicator;
+        }
+
+        /**
+         * Translate and returns a Predicate object for nric
+         */
+        private Predicate<Person> nricToPredicate() {
+            Predicate<Person> predicator = new PredicateManager();
+            if (this.getNric().isPresent()) {
+                predicator = predicator.and(new NricContainsKeywordsPredicate(
+                    new ArrayList<>(this.getNric().get())));
+            }
+            return predicator;
+        }
+
+        /**
+         * Translate and returns a Predicate object for pastJob
+         */
+        private Predicate<Person> pastJobToPredicate() {
+            Predicate<Person> predicator = new PredicateManager();
+            if (this.getPastJobs().isPresent()) {
+                predicator = predicator.and(new PastJobContainsKeywordsPredicate(
+                    new ArrayList<>(this.getPastJobs().get())));
+            }
+            return predicator;
+        }
+
+        /**
+         * Translate and returns a Predicate object for jobsApply
+         */
+        private Predicate<Person> jobsApplyToPredicate() {
+            Predicate<Person> predicator = new PredicateManager();
+            if (this.getJobsApply().isPresent()) {
+                predicator = predicator.and(new JobsApplyContainsKeywordsPredicate(
+                    new ArrayList<>(this.getJobsApply().get())));
+            }
+            return predicator;
+        }
+
+        /**
+         * Translate and returns a Predicate object for knownProgLang
+         */
+        private Predicate<Person> knownProgLangToPredicate() {
+            Predicate<Person> predicator = new PredicateManager();
+            if (this.getKnownProgLangs().isPresent()) {
+                predicator = predicator.and(new KnownProgLangContainsKeywordsPredicate(
+                    new ArrayList<>(this.getKnownProgLangs().get())));
+            }
+            return predicator;
+        }
+
+        /**
          * Translate and returns a Predicate object for search command
          */
         public Predicate<Person> toPredicate() {
             Predicate<Person> predicator = new PredicateManager();
-            if (this.getName().isPresent()) {
-                predicator = predicator.and(new NameContainsKeywordsPredicate(
-                        new ArrayList<>(this.getName().get())));
-            }
-            if (this.getPhone().isPresent()) {
-                predicator = predicator.and(new PhoneContainsKeywordsPredicate(
-                        new ArrayList<>(this.getPhone().get())));
-            }
-            if (this.getEmail().isPresent()) {
-                predicator = predicator.and(new EmailContainsKeywordsPredicate(
-                        new ArrayList<>(this.getEmail().get())));
-            }
-            if (this.getRace().isPresent()) {
-                predicator = predicator.and(new RaceContainsKeywordsPredicate(
-                        new ArrayList<>(this.getRace().get())));
-            }
-            if (this.getName().isPresent()) {
-                predicator = predicator.and(new NameContainsKeywordsPredicate(
-                        new ArrayList<>(this.getName().get())));
-            }
-            if (this.getAddress().isPresent()) {
-                predicator = predicator.and(new AddressContainsKeywordsPredicate(
-                        new ArrayList<>(this.getAddress().get())));
-            }
-            if (this.getSchool().isPresent()) {
-                predicator = predicator.and(new SchoolContainsKeywordsPredicate(
-                        new ArrayList<>(this.getSchool().get())));
-            }
-            if (this.getMajor().isPresent()) {
-                predicator = predicator.and(new MajorContainsKeywordsPredicate(
-                        new ArrayList<>(this.getMajor().get())));
-            }
-            if (this.getGender().isPresent()) {
-                predicator = predicator.and(new GenderContainsKeywordsPredicate(
-                        new ArrayList<>(this.getGender().get())));
-            }
-            if (this.getGrade().isPresent()) {
-                predicator = predicator.and(new GradeContainsKeywordsPredicate(
-                        new ArrayList<>(this.getGrade().get())));
-            }
-            if (this.getInterviewScoreQ1().isPresent()) {
-                predicator = predicator.and(new InterviewScoreContainsKeywordsPredicate(1,
-                        new ArrayList<>(this.getInterviewScoreQ1().get())));
-            }
-            if (this.getInterviewScoreQ2().isPresent()) {
-                predicator = predicator.and(new InterviewScoreContainsKeywordsPredicate(2,
-                        new ArrayList<>(this.getInterviewScoreQ2().get())));
-            }
-            if (this.getInterviewScoreQ3().isPresent()) {
-                predicator = predicator.and(new InterviewScoreContainsKeywordsPredicate(3,
-                        new ArrayList<>(this.getInterviewScoreQ3().get())));
-            }
-            if (this.getInterviewScoreQ4().isPresent()) {
-                predicator = predicator.and(new InterviewScoreContainsKeywordsPredicate(4,
-                        new ArrayList<>(this.getInterviewScoreQ4().get())));
-            }
-            if (this.getInterviewScoreQ5().isPresent()) {
-                predicator = predicator.and(new InterviewScoreContainsKeywordsPredicate(5,
-                        new ArrayList<>(this.getInterviewScoreQ5().get())));
-            }
-            if (this.getNric().isPresent()) {
-                predicator = predicator.and(new NricContainsKeywordsPredicate(
-                        new ArrayList<>(this.getNric().get())));
-            }
-            if (this.getPastJobs().isPresent()) {
-                predicator = predicator.and(new PastJobContainsKeywordsPredicate(
-                        new ArrayList<>(this.getPastJobs().get())));
-            }
-            if (this.getJobsApply().isPresent()) {
-                predicator = predicator.and(new JobsApplyContainsKeywordsPredicate(
-                        new ArrayList<>(this.getJobsApply().get())));
-            }
-            if (this.getKnownProgLangs().isPresent()) {
-                predicator = predicator.and(new KnownProgLangContainsKeywordsPredicate(
-                        new ArrayList<>(this.getKnownProgLangs().get())));
-            }
+            predicator = predicator.and(nameToPredicate().and(phoneToPredicate()
+                .and(emailToPredicate().and(raceToPredicate().and(addressToPredicate()
+                    .and(majorToPredicate().and(genderToPredicate().and(schoolToPredicate()
+                        .and(gradeToPredicate().and(interviewQ1ToPredicate().and(interviewQ2ToPredicate()
+                            .and(interviewQ3ToPredicate().and(interviewQ4ToPredicate().and(interviewQ5ToPredicate()
+                                .and(nricToPredicate().and(pastJobToPredicate().and(jobsApplyToPredicate()
+                                    .and(knownProgLangToPredicate()))))))))))))))))));
             return predicator;
         }
 
@@ -559,23 +669,23 @@ public class FilterCommand extends Command {
             PredicatePersonDescriptor e = (PredicatePersonDescriptor) other;
 
             return getName().equals(e.getName())
-                    && getPhone().equals(e.getPhone())
-                    && getEmail().equals(e.getEmail())
-                    && getNric().equals(e.getNric())
-                    && getGender().equals(e.getGender())
-                    && getRace().equals(e.getRace())
-                    && getGrade().equals(e.getGrade())
-                    && getInterviewScoreQ1().equals(e.getInterviewScoreQ1())
-                    && getInterviewScoreQ2().equals(e.getInterviewScoreQ2())
-                    && getInterviewScoreQ3().equals(e.getInterviewScoreQ3())
-                    && getInterviewScoreQ4().equals(e.getInterviewScoreQ4())
-                    && getInterviewScoreQ5().equals(e.getInterviewScoreQ5())
-                    && getAddress().equals(e.getAddress())
-                    && getSchool().equals(e.getSchool())
-                    && getMajor().equals(e.getMajor())
-                    && getKnownProgLangs().equals(e.getKnownProgLangs())
-                    && getPastJobs().equals(e.getPastJobs())
-                    && getJobsApply().equals(e.getJobsApply());
+                && getPhone().equals(e.getPhone())
+                && getEmail().equals(e.getEmail())
+                && getNric().equals(e.getNric())
+                && getGender().equals(e.getGender())
+                && getRace().equals(e.getRace())
+                && getGrade().equals(e.getGrade())
+                && getInterviewScoreQ1().equals(e.getInterviewScoreQ1())
+                && getInterviewScoreQ2().equals(e.getInterviewScoreQ2())
+                && getInterviewScoreQ3().equals(e.getInterviewScoreQ3())
+                && getInterviewScoreQ4().equals(e.getInterviewScoreQ4())
+                && getInterviewScoreQ5().equals(e.getInterviewScoreQ5())
+                && getAddress().equals(e.getAddress())
+                && getSchool().equals(e.getSchool())
+                && getMajor().equals(e.getMajor())
+                && getKnownProgLangs().equals(e.getKnownProgLangs())
+                && getPastJobs().equals(e.getPastJobs())
+                && getJobsApply().equals(e.getJobsApply());
         }
     }
 }

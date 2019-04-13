@@ -1551,6 +1551,70 @@ Deleting a booking while all bookings are listed
 .. Other incorrect delete commands to try: `delete-booking`, `delete-reservation x` (where x is larger than the list size)... +
    Expected: Similar to previous.
 
+=== Service Types
+==== Adding a service Type
+
+Adding a service Type with the `add-service-type` command
+
+.. Test case: `add-service-type` +
+   Expected: No service type is added. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect commands to try: `add-service-type n/name cap/-1`...
+.. Test case: `add-service-type :/23 - 25 ...` followed by the remaining details+
+   Expected: No service type is added. Error details regarding the time range are shown. Status bar remains the same.
+
+==== Editing a service type
+
+=Editing a service type with the `edit-service-type` command
+
+.. Test case: `edit-service-type` +
+   Expected: No service type is edited. Error details shown in the status message. Status bar remains the same.
+.. Test case: `edit-service-type 1 rate/-1` +
+   Expected: No service type is edited. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect commands to try: `edit-service-type 1 cap/-1`, `edit-service-type rate/-2`
+.. Test case: `edit-service-type 1 :/22 - 25 ...` followed by the remaining details+
+   Expected: No service type is edited. Error details regarding the time range are shown. Status bar remains the same.
+
+==== Deleting a service type
+
+Deleting a service type while all service types are listed
+
+.. Test case: `delete-service-type 1` +
+   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `delete-service-type 0` +
+   Expected: No service type is deleted. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect delete commands to try: `delete-service-type`, `delete-reservation x` (where x is larger than the list size)... +
+   Expected: Similar to previous.
+
+=== Room Types
+==== Adding a room Type
+
+Adding a room Type with the `add-room-type` command
+
+.. Test case: `add-room-type` +
+   Expected: No room type is added. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect commands to try: `add-room-type n/name cap/-1`...
+
+==== Editing a room type
+
+=Editing a room type with the `edit-room-type` command
+
+.. Test case: `edit-room-type` +
+   Expected: No room type is edited. Error details shown in the status message. Status bar remains the same.
+.. Test case: `edit-room-type 1 rate/-1` +
+   Expected: No room type is edited. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect commands to try: `edit-room-type 1 cap/-1`, `edit-room-type rate/-2`
+
+==== Deleting a room type
+
+Deleting a room type while all room types are listed
+
+.. Test case: `delete-room-type 1` +
+   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `delete-room-type 0` +
+   Expected: No room type is deleted. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect delete commands to try: `delete-room-type`, `delete-reservation x` (where x is larger than the list size)... +
+   Expected: Similar to previous.
+
 === Generating bill for a customer
 
 . Generating bill for a customer based on index

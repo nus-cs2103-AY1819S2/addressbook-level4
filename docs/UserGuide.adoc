@@ -70,20 +70,16 @@ a parameter which can be used as add n/John Doe.
 
 // tag::attributes_kyler[]
 === Breakdown of attributes used within TeethHub
-[cols=",,,,,", options="header",]
+[cols=",,,,,,,", options="header",]
 |===
-6+^|List of valid prefixes
+8+^|List of valid prefixes
 
-6+^|Unique Prefixes
-2+| *Patient* 2+| *Record* 2+| *Next-of-Kin*
-|Prefix | Attribute | Prefix | Attribute | Prefix | Attribute
-|n/ | Name | pro/ | Procedure | nokn/ | NOK Name
-|sex/ | Sex | desc/ | Description | nokp/ | NOK Phone
-|ic/ | Nric | | | nokr/ | NOK Relation
-|dob/ | Date of Birth | | | noka/ | NOK Address
-|p/ | Phone | | | |
-|e/ | Email | | | |
-|a/ | Address | | | |
+4+| *Patient* 2+| *Record* 2+| *Next-of-Kin*
+|Prefix | Attribute |Prefix | Attribute | Prefix | Attribute | Prefix | Attribute
+|n/ | Name |sex/ | Sex | pro/ | Procedure | nokn/ | NOK Name
+|ic/ | Nric |dob/ | Date of Birth |desc/ | Description | nokp/ | NOK Phone
+|p/ | Phone |e/ | Email | | | nokr/ | NOK Relation
+|a/ | Address | | | | | noka/ | NOK Address
 
 |===
 // end::attributes_kyler[]

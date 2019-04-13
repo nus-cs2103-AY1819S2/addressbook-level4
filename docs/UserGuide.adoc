@@ -226,7 +226,7 @@ suggestion and press enter. The suggestion will be filled automatically for you!
 Step 1: List all the restaurants by typing `list`, then press enter, as shown _below_.
 
 image::setcategories-stepone.png[]
-_Figure 1: After typing `list`_
+_Figure 1: After typing `list`_. Oh no the categories for Aston's are wrong! It is definitely not Chinese! Let's change it!
 
 Step 2: Choose a restaurant you want to set categories to. Let us choose Astons for this example. Take note that Astons
 is identified by *INDEX 1*. Start typing `setCategories 1 c/` as _follows_:
@@ -262,9 +262,9 @@ is okay but $$\$$$$, cheap or $expensive will be rejected.
 * You do not need to worry about capitalization. `Cuisine` and `Occasion` will be autocapitalized.
 e.g. `fast food` and `premium casual` will be capitalized to
 `Fast Food` and `Premium Casual`. `fAST fOOD` will be converted into `Fast Food`.
-* You do not need to be concerned about the order of categories keyed in. e.g. Entering `Price Range` before `Cuisine` will
+* You can key in categories in any order. e.g. Entering `Price Range` before `Cuisine` will
 work as well.
-* You do not need to set categories one by one or set all three at once. You have complete freedom to set categories
+* You can set any number of categories at once. You have complete freedom to set categories
 whether it is one at a time, two at a time or three at a time.
 ====
 

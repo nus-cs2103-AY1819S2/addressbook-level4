@@ -19,6 +19,7 @@ import seedu.address.logic.parser.GenerateQuestionCommandParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.deck.Card;
 import seedu.address.model.deck.Deck;
+import seedu.address.model.deck.exceptions.EmptyDeckException;
 import seedu.address.ui.StudyPanel;
 import seedu.address.ui.UiPart;
 
@@ -33,7 +34,10 @@ public class StudyView implements ViewState {
     private Card currentCard;
     private DeckShuffler deckShuffler;
 
-    public StudyView(Deck deck) {
+    public StudyView(Deck deck) throws EmptyDeckException {
+        if (deck.isEmpty()) {
+            throw new EmptyDeckException("Unable to create study view with empty deck");
+        }
         this.activeDeck = deck;
         this.deckShuffler = new DeckShuffler(activeDeck);
         generateCard();
@@ -42,8 +46,9 @@ public class StudyView implements ViewState {
 
     public StudyView(StudyView studyView) {
         this.activeDeck = studyView.getActiveDeck();
-        this.setCurrentStudyState(studyView.getCurrentStudyState());
         this.deckShuffler = new DeckShuffler(studyView.getDeckShuffler());
+        this.setCurrentCard(studyView.getCurrentCard());
+        this.setCurrentStudyState(studyView.getCurrentStudyState());
     }
 
     @Override

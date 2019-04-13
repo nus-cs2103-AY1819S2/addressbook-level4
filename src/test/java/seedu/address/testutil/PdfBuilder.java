@@ -24,7 +24,7 @@ public class PdfBuilder {
     private static final String DEFAULT_NAME = DEFAULT_FILE.getName();
     private static final String DEFAULT_DIRECTORY = DEFAULT_FILE.getParent();
     private static final String DEFAULT_SIZE = Long.toString(DEFAULT_FILE.length());
-    private static final String DEFAULT_DEADLINE = CommandTestUtil.DEADLINE_JSON_NOTDONE;
+    private static final String DEFAULT_DEADLINE = CommandTestUtil.DEADLINE_JSON_NOT_DONE;
     private static final String DEADLINE_NEWLY_ADDED_FILE = "NEWLY ADDED";
 
     private Name name;

@@ -40,12 +40,11 @@ public class VisitWebCommandParser implements Parser<VisitWebCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     private VisitWebCommand parseUrl(String args) throws ParseException {
-        Weblink weblink;
         try {
-            weblink = ParserUtil.parseWeblink(args);
+            Weblink weblink = ParserUtil.parseWeblink(args);
+            return new VisitWebCommand(weblink);
         } catch (NoInternetException e) {
             throw new ParseException(e.getMessage());
         }
-        return new VisitWebCommand(weblink);
     }
 }

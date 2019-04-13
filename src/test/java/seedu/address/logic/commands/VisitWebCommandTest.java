@@ -14,11 +14,13 @@ import org.junit.Test;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.util.WebUtil;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.PostalDataSet;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.restaurant.Weblink;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code VisitWebCommand}.
@@ -65,6 +67,12 @@ public class VisitWebCommandTest {
     }
 
     @Test
+    public void execute_validUrl_success() {
+        String validUrl = "www.kfc.com.sg";
+        assertExecutionSuccess(validUrl);
+    }
+
+    @Test
     public void equals() {
         VisitWebCommand visitWebFirstCommand = new VisitWebCommand(INDEX_FIRST_RESTAURANT);
         VisitWebCommand visitWebSecondCommand = new VisitWebCommand(INDEX_SECOND_RESTAURANT);
@@ -88,11 +96,22 @@ public class VisitWebCommandTest {
 
     /**
      * Executes a {@code VisitWebCommand} with the given {@code index},
-     * and checks that the model's VisitWebed restaurant is set to the restaurant at {@code index} in the filtered
-     * restaurant list.
+     * and checks that the invoking visitWeb index does not do any changes to the model
      */
     private void assertExecutionSuccess(Index index) {
         VisitWebCommand visitWebCommand = new VisitWebCommand(index);
+        String expectedMessage = String.format(VisitWebCommand.MESSAGE_VISIT_RESTAURANT_SUCCESS, index.getOneBased());
+
+        assertCommandSuccess(visitWebCommand, model, commandHistory, expectedMessage, expectedModel);
+    }
+
+    /**
+     * Executes a {@code VisitWebCommand} with the given {@code url},
+     * and checks that the model's VisitWebed restaurant is set to the restaurant at {@code index} in the filtered
+     * restaurant list.
+     */
+    private void assertExecutionSuccess(String url) {
+        VisitWebCommand visitWebCommand = new VisitWebCommand(new Weblink(url));
         String expectedMessage = String.format(VisitWebCommand.MESSAGE_VISIT_RESTAURANT_SUCCESS, index.getOneBased());
 
         assertCommandSuccess(visitWebCommand, model, commandHistory, expectedMessage, expectedModel);

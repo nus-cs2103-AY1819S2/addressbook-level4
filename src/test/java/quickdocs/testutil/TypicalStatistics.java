@@ -39,13 +39,13 @@ public class TypicalStatistics {
     public static final Diagnosis SAMPLE_DIAGNOSIS_B = new Diagnosis(SAMPLE_ASSESSMENT,
             new ArrayList<>(SAMPLE_SYMPTOMS_B));
 
-    public static final Record SAMPLE_RECORD_CR_A = new ConsultationRecord(new ArrayList<>(SAMPLE_PRESCRIPTIONS_A),
+    public static final ConsultationRecord SAMPLE_RECORD_CR_A = new ConsultationRecord(new ArrayList<>(SAMPLE_PRESCRIPTIONS_A),
             SAMPLE_DIAGNOSIS_A);
-    public static final Record SAMPLE_RECORD_CR_B = new ConsultationRecord(new ArrayList<>(SAMPLE_PRESCRIPTIONS_B),
+    public static final ConsultationRecord SAMPLE_RECORD_CR_B = new ConsultationRecord(new ArrayList<>(SAMPLE_PRESCRIPTIONS_B),
             SAMPLE_DIAGNOSIS_B);
-    public static final Record SAMPLE_RECORD_MPR_A = new MedicinePurchaseRecord(SAMPLE_MEDICINE_PARACETAMOL,
+    public static final MedicinePurchaseRecord SAMPLE_RECORD_MPR_A = new MedicinePurchaseRecord(SAMPLE_MEDICINE_PARACETAMOL,
             4, BigDecimal.valueOf(5));
-    public static final Record SAMPLE_RECORD_MPR_B = new MedicinePurchaseRecord(SAMPLE_MEDICINE_DEXTROMETHORPHAN,
+    public static final MedicinePurchaseRecord SAMPLE_RECORD_MPR_B = new MedicinePurchaseRecord(SAMPLE_MEDICINE_DEXTROMETHORPHAN,
             3, BigDecimal.valueOf(10));
 
     public static final MonthStatistics SAMPLE_MONTH_STATISTICS_JAN_2019 = new MonthStatistics(

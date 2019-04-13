@@ -13,11 +13,20 @@ public class MedicinePurchaseRecord extends Record {
     private final BigDecimal cost;
 
     public MedicinePurchaseRecord(Medicine medicine, int quantity) {
+        if (medicine.getPrice() == null) {
+            throw new NullPointerException("Price not set");
+        }
+        if (quantity <= 0 || medicine.getPrice().compareTo(BigDecimal.ZERO) == -1) {
+            throw new IllegalArgumentException("Invalid arguments");
+        }
         this.medicine = medicine;
         this.quantity = quantity;
         this.cost = medicine.getPrice();
     }
     public MedicinePurchaseRecord(Medicine medicine, int quantity, BigDecimal cost) {
+        if (quantity <= 0 || cost.compareTo(BigDecimal.ZERO) == -1) {
+            throw new IllegalArgumentException("Invalid arguments");
+        }
         this.medicine = medicine;
         this.quantity = quantity;
         this.cost = cost;

@@ -12,7 +12,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import quickdocs.testutil.TypicalStatistics;
-
 import quickdocs.testutil.Assert;
 
 class StatisticsManagerTest {
@@ -119,5 +118,4 @@ class StatisticsManagerTest {
         Assert.assertThrows(IllegalArgumentException.class, () -> statisticsManager
                 .addMonthStatistics(monthStatistics));
     }
-
 }

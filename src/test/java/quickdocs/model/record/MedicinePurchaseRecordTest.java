@@ -2,20 +2,41 @@ package quickdocs.model.record;
 
 import java.math.BigDecimal;
 
-import org.junit.Assert;
+import static org.junit.Assert.assertEquals;
+
 import org.junit.jupiter.api.Test;
 
 import quickdocs.model.medicine.Medicine;
+import quickdocs.testutil.Assert;
+import quickdocs.testutil.TypicalStatistics;
 
 class MedicinePurchaseRecordTest {
 
     @Test
+    void constructor_medicineNoPrice_throwsNullPointerException() {
+        Medicine testMedicine = TypicalStatistics.SAMPLE_MEDICINE_DEXTROMETHORPHAN;
+        Assert.assertThrows(NullPointerException.class, () -> new MedicinePurchaseRecord(testMedicine,
+                1));
+    }
+
+    @Test
+    void constructor_invalidCost_throwsIllegalArgumentException() {
+        Medicine testMedicine = TypicalStatistics.SAMPLE_MEDICINE_DEXTROMETHORPHAN;
+        Assert.assertThrows(IllegalArgumentException.class, () -> new MedicinePurchaseRecord(testMedicine,
+                1, BigDecimal.valueOf(-1)));
+    }
+
+    @Test
+    void constructor_invalidQuantity_throwsIllegalArgumentException() {
+        Medicine testMedicine = TypicalStatistics.SAMPLE_MEDICINE_DEXTROMETHORPHAN;
+        Assert.assertThrows(IllegalArgumentException.class, () -> new MedicinePurchaseRecord(testMedicine,
+                -1, BigDecimal.ZERO));
+    }
+
+    @Test
     void toStatistics() {
         StatisticsManager statisticsManager = new StatisticsManager();
-        Medicine medicine = new Medicine("test");
-        medicine.setPrice(BigDecimal.valueOf(11.10));
-        Statistics stats = new Statistics(0, BigDecimal.ZERO, BigDecimal.valueOf(44.40));
-        MedicinePurchaseRecord mpr = new MedicinePurchaseRecord(medicine, 4);
-        Assert.assertEquals(mpr.toStatistics(statisticsManager), stats);
+        MedicinePurchaseRecord mpr = TypicalStatistics.SAMPLE_RECORD_MPR_A;
+        assertEquals(new Statistics(0, BigDecimal.ZERO, BigDecimal.valueOf(20)), mpr.toStatistics(statisticsManager));
     }
 }

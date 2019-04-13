@@ -399,11 +399,10 @@ the current patient list with a copy tag.
 
 ==== goto
 
-The goto command brings the user to the record list of a specified patient.
+The goto command specifies a patient by index.
+It then brings the user to the records mode, where all dental records of the specified patient are listed.
 
-When the `goto` mode is active, the patient list is replaced by a dental records list. The dental records list displays all dental records of the patient of interest.
-
-To go back to the patient list, use the command `back`.
+Record commands can only be executed in this mode.
 
 Format: `goto 1`
 
@@ -411,15 +410,24 @@ Format: `goto 1`
 
 * The given index must be a positive integer (e.g 1, 2 or 3…)
 
-* Enters all the records of the patient of interest in the `goto` mode.
+==== back
 
-==== record add
+The back command can only be run in records mode.
+It brings the user back to the patients mode, where all patients will be listed.
+
+Format: `back` -- Brings the user back to patient mode.
+
+[NOTE]
+The `back` command will work with parameters, but they will be ignored.
+
+==== recordadd
 
 Adds a new dental record to the patient.
 
 Record contains the patient's personal information, name of the dentist on duty, the date of the record, and the description of the dental treatment the patient has went through during that session.
 
-Note: `recordadd` requires the program to first be in `goto` mode, where a patient is specified for his or her dental information to be modified.
+[NOTE]
+`recordAdd` requires the application to first be in records mode, via the `goto` command.
 
 Format: `recordadd desc/DETAILS`
 
@@ -439,11 +447,12 @@ Example
 
 * `back` - Go back to the patient list.
 
-==== record delete
+==== recorddelete
 
 Deletes a dental record of a specified patient.
 
-Note: `recorddelete` requires the program to first be in `goto` mode, where a patient is specified for his or her dental information to be modified.
+[NOTE]
+`recorddelete` requires the application to first be in records mode, via the `goto` command.
 
 Format: `recorddelete INDEX`
 
@@ -461,11 +470,12 @@ Example:
 
 * `back` - Go back to the patient list.
 
-==== record edit
+==== recordedit
 
 Edits a patient’s dental record.
 
-Note: `recordedit` requires the program to first be in `goto` mode, where a patient is specified for his or her dental information to be modified.
+[NOTE]
+`recordedit` requires the application to first be in records mode, via the `goto` command.
 
 Format: `recordedit INDEX desc/DETAILS`
 
@@ -484,6 +494,13 @@ Example:
 * `recordedit 1 desc/corrected description` - Modifies the description of the first dental record of the specified patient.
 
 * `back` - Go back to the patient list.
+
+==== recordclear
+
+Clears all of a patient's dental records.
+
+[NOTE]
+`recordclear` requires the application to first be in records mode, via the `goto` command.
 
 === Teeth Management
 

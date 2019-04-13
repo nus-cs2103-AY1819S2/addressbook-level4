@@ -60,9 +60,277 @@ You can specify the name you want to reflect in your patients' dental record whe
 
 * This should only happen once, during the first startup of the application.
 
-include::../UserGuide.adoc[tag=patient_management_kyler]
+=== Patient Management
 
-include::../UserGuide.adoc[tag=attributes_kyler]
+Patient management allows our users to store and modify information of their dental patients.
+This includes their personal particulars, next-of-kin information, dental records, and teeth conditions.
+
+==== patient add
+
+Adds a patient to the patients list.
+
+Name, NRIC, and Date of Birth fields are compulsory.
+The rest are optional fields, and can be filled in later via the `recordedit` command.
+
+Format: `patientadd PARAMETERS …`
+
+Parameters:
+
+[cols="3",options=""]
+|===
+|n/NAME
+|s/SEX
+|ic/NRIC
+|dob/DATE_OF_BIRTH
+|p/PHONE_NUMBER
+|e/EMAIL
+|a/ADDRESS
+|da/DRUG_ALLERGY
+|nokn/NEXT_OF_KIN_NAME
+|nokp/NEXT_OF_KIN_PHONE_NUMBER
+|nokr/NEXT_OF_KIN_RELATION
+|noka/NEXT_OF_KIN_ADDRESS
+|===
+
+[NOTE]
+TeethHub determines the uniqueness of patients based on their `NRIC`.
+
+Example:
+
+* `patientadd n/John Choo sex/M ic/S1234567H dob/09-09-1995`
+
+==== patient delete
+
+Deletes the patient specified by `index` from the patients list.
+
+Format: `patientdelete INDEX`
+
+* Deletes the patient at the specified index.
+
+* The index refers to the index number shown in the displayed patient list.
+
+* The given index must be a positive integer (e.g 1, 2 or 3…).
+
+Examples:
+
+* `delete 1` -- Deletes the patient shown with index 1 from the displayed list.
+
+[NOTE]
+If the patient index is invalid, the application will display an error message to the user.
+
+==== patient edit
+
+Edits the information of an existing patient.
+
+Format: `patientedit INDEX`
+
+* Edits the information of the patient at the specified index.
+
+* The index refers to the index number shown in the displayed patient list.
+
+* The given index must be a positive integer (e.g. 1, 2, or 3…).
+
+Format: `patientadd PARAMETERS …`
+
+Parameters that can be edited:
+
+[cols="3",options=""]
+|===
+|n/NAME
+|s/SEX
+|ic/NRIC
+|dob/DATE_OF_BIRTH
+|p/PHONE_NUMBER |p/98765432
+|e/EMAIL
+|a/ADDRESS
+|da/DRUG_ALLERGY
+|nokn/NEXT_OF_KIN_NAME
+|nokp/NEXT_OF_KIN_PHONE_NUMBER
+|nokr/NEXT_OF_KIN_RELATION
+|noka/NEXT_OF_KIN_ADDRESS
+|===
+
+Example:
+
+* `patientedit 1 ic/S1234567A` -- Edits the `NRIC` of the first patient in the patient list.
+
+==== copy
+
+Makes an exact copy of a patient and adds them to the patient list.
+This is useful if there are multiple people who share similar details.
+
+Format: `copy INDEX [Count]`
+
+Note: If the copied entry is not modified before exiting the program,
+there will be a confirmation.
+
+Example:
+
+* `copy 3` -- Makes a copy of the patient at index 3 and inserts it at the bottom of
+the current patient list with a copy tag.
+
+* `copy 3 4` -- Makes 4 copies of the patient at index 3 and inserts them at the bottom of
+the current patient list with a copy tag.
+
+==== goto
+
+The goto command specifies a patient by index, and brings the user to the records mode, where all dental records of the specified patient are listed.
+
+Record-related commands can then be executed in this mode.
+
+Format: `goto 1`
+
+* Goes into records mode and displays all dental records of patient 1.
+
+* The given index must be a positive integer (e.g 1, 2 or 3…)
+
+==== back
+
+The back command can only be run in records mode.
+It brings the user back to the patients mode, where all patients will be listed.
+
+Format: `back` -- Brings the user back to patient mode.
+
+[NOTE]
+The `back` command will work with parameters, but they will be ignored.
+
+==== record add
+
+Adds a new dental record to the patient.
+
+[NOTE]
+`recordadd` requires the application to first be in records mode, via the `goto` command.
+
+Format: `recordadd pro/PROCEDURE desc/DETAILS`
+
+* The program assigns the name of the dentist stored in the dentist information
+
+* The program assigns the date of record as the date the record is created.
+
+* When records of a patient is accessed, the stored records are sorted from newest to oldest.
+
+* New dental records will appear on the top of the list upon entry.
+
+Example
+
+* `<<goto, goto>> 1` - Displays dental records of the first patient in the list and hides the patient list.
+
+* `recordadd desc/Mouth was noticeably smelly, might have halitosis` - Adds a new dental record.
+
+* `<<back, back>>` - Go back to the patient list.
+
+==== record delete
+
+Deletes a dental record of a specified patient.
+
+[NOTE]
+`recorddelete` requires the application to first be in records mode, via the `goto` command.
+
+Format: `recorddelete INDEX`
+
+* Deletes the patient’s dental record at the specified index.
+
+* The index refers to the index number shown in the displayed dental record list.
+
+* The given index must be a positive integer (e.g 1, 2 or 3…)
+
+Example:
+
+* `<<goto, goto>> 1` - Displays dental records of the first patient in the list and hides the patient list.
+
+* `recorddelete 1` - Delete the latest dental record of the specified patient
+
+* `<<back, back>>` - Go back to the patient list.
+
+==== record edit
+
+Edits a patient’s dental record.
+
+[NOTE]
+`recordedit` requires the application to first be in records mode, via the `goto` command.
+
+Format: `recordedit INDEX desc/DETAILS`
+
+* Edits the patient's dental record at the specified index.
+
+* The index refers to the index number shown in the displayed dental record list.
+
+* The given index must be a positive integer (e.g 1, 2 or 3…)
+
+* The new description stated in the command will replace the old description in the specified dental record.
+
+Example:
+
+* `<<goto, goto>> 1` - Displays dental records of the first patient in the list and hides the patient list.
+
+* `recordedit 1 desc/corrected description` - Modifies the description of the first dental record of the specified patient.
+
+* `<<back, back>>` - Go back to the patient list.
+
+==== record clear
+
+Clears all of a patient's dental records.
+
+[NOTE]
+`recordclear` requires the application to first be in records mode, via the `goto` command.
+
+
+==== The Universal Numbering System
+
+TeethHub complies with the most popular standard of the three the Dental Numbering Systems utilised in Dentistry - The Universal Numbering System.
+
+ifdef::env-github[]
+image::BaseLayer.png[width="200"]
+endif::[]
+
+The upper-case letters A through T are used for primary teeth and the
+numbers 1 - 32 are used for permanent teeth. The tooth designated "1" is
+the maxillary right third molar ("wisdom tooth") and the count continues
+along the upper teeth to the left side. Then the count begins at the
+mandibular left third molar, designated number 17, and continues along
+the bottom teeth to the right side. Each tooth has a unique number or
+letter, allowing for easier use on keyboards.
+
+===== Creating and Editing Teeth Layout
+
+There is one template provided by TeethHub: permanent teeth.
+
+All permanent teeth in template will all be present and healthy by default.
+
+* To create a new teeth layout for patient:
+
+** The program automatically creates a new permanent teeth template for new patients added.
+
+* To edit a new specific tooth:
+
+** `<<goto, goto>> 1` - Specifies patient 1 to edit his or her teeth status. Enters the record edit mode.
+
+** `teethedit t/TEETH_LABEL s/STATUS` - Edits the status of the indicated tooth of patient.
+
+** `<<back, back>>` - Exits the record edit mode, and returns to the patient list.
+
+** Valid <Teeth Label> are numbers 1 - 32 (permanent teeth).
+
+** <Status> reflects overall health of the indicated tooth, and valid
+<Status> are "healthy", "problem" and "absent".
+
+** <Description> is an optional field that allows you to
+write a note describing more detail on the patient’s teeth
+health.
+
+=== Breakdown of attributes used within TeethHub
+[cols=",,,,,,,", options="header",]
+|===
+8+^|List of valid prefixes
+
+4+| *Patient* 2+| *Record* 2+| *Next-of-Kin*
+|*Prefix* | *Attribute* |*Prefix* | *Attribute* | *Prefix* | *Attribute* | *Prefix* | *Attribute*
+|n/ | Name |sex/ | Sex | pro/ | Procedure | nokn/ | NOK Name
+|ic/ | Nric |dob/ | Date of Birth |desc/ | Description | nokp/ | NOK Phone
+|p/ | Phone |e/ | Email | | | nokr/ | NOK Relation
+|a/ | Address | | | | | noka/ | NOK Address
+
+|===
 
 == Contributions to the Developer Guide
 

@@ -29,10 +29,10 @@ public class ReservationList implements Iterable<Reservation> {
         FXCollections.unmodifiableObservableList(internalList);
 
 
-    private List<Reservation> getOverlappingReservations(DateRange t) {
+    private List<Reservation> getOverlappingReservations(DateRange t, RoomType rt) {
         List<Reservation> overlappingReservations = new ArrayList<Reservation>();
         for (Reservation b : internalList) {
-            if (t.withinDates(b.getDates())) {
+            if (t.withinDates(b.getDates()) && b.getRoom().equals(rt)) {
                 overlappingReservations.add(b);
             }
         }
@@ -44,7 +44,8 @@ public class ReservationList implements Iterable<Reservation> {
      */
     private Optional<DateRange> isRoomFull(Reservation reservation) {
         for (DateRange reservationDate : reservation.getDates().getEachDay()) {
-            if (getOverlappingReservations(reservationDate).size() > reservation.getRoom().getNumberOfRooms()) {
+            if (getOverlappingReservations(reservationDate, reservation.getRoom()).size()
+                    > reservation.getRoom().getNumberOfRooms()) {
                 return Optional.of(reservationDate);
             }
         }

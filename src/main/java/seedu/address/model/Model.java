@@ -229,6 +229,11 @@ public interface Model {
     ObservableList<RequirementStatus> getRequirementStatusList();
 
     /**
+     * Updates requirement status list of model
+     */
+    void updateRequirementStatusList();
+
+    /**
      * Returns a copy of the user info.
      */
     UserInfo getUserInfo();
@@ -237,4 +242,5 @@ public interface Model {
      * Returns an unmodifiable view of the moduleInfoCode list in GradTrak
      */
     ObservableList<ModuleInfoCode> getModuleInfoCodeList();
+
 }

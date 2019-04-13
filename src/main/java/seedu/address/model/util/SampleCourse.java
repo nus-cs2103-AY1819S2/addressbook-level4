@@ -14,6 +14,7 @@ import static seedu.address.model.util.SampleCourseRequirement.UNIVERSITY_LEVEL_
 
 import seedu.address.model.course.Course;
 import seedu.address.model.course.CourseDescription;
+import seedu.address.model.course.CourseList;
 import seedu.address.model.course.CourseName;
 
 /**
@@ -38,20 +39,11 @@ public class SampleCourse {
             UNIVERSITY_LEVEL_REQUIREMENT, COMPUTER_SCIENCE_FOUNDATION, FOCUS_AREA_AI,
             INDUSTRIAL_SYSTEM_EXPERIENCE, COMPUTER_SYSTEM_TEAM_PROJECT, IT_PROFESSIONALISM,
             MATH_REQUIREMENT, SCIENCE_REQUIREMENT, TOTAL_MODULE_COUNT);
-
-/*    public static void main(String args[]) {
-        List<JsonAdaptedCourse> courseList = new ArrayList<>();
-        courseList.add(new JsonAdaptedCourse(COMPUTER_SCIENCE_ALGORITHMS));
-        courseList.add(new JsonAdaptedCourse(COMPUTER_SCIENCE_AI));
-        courseList.add(new JsonAdaptedCourse(COMPUTER_SCIENCE_SOFTWARE_ENG));
-        JsonCourseStorage courseManager =
-            new JsonCourseStorage("/json/course.json");
-        try {
-            courseManager.saveCourse(courseList,
-                    Paths.get("src", "main", "resources", "json", "course.json"));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    public static CourseList getSampleCourseList() {
+        CourseList courseList = new CourseList();
+        courseList.addCourse(COMPUTER_SCIENCE_ALGORITHMS);
+        courseList.addCourse(COMPUTER_SCIENCE_AI);
+        courseList.addCourse(COMPUTER_SCIENCE_SOFTWARE_ENG);
+        return courseList;
     }
-*/
 }

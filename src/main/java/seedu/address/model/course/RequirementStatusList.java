@@ -1,12 +1,13 @@
 package seedu.address.model.course;
 
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.moduleinfo.ModuleInfo;
 import seedu.address.model.moduleinfo.ModuleInfoCode;
 
 /**
@@ -24,22 +25,23 @@ public class RequirementStatusList {
     }
 
     /**
-     * Updates with new Course Requirements
+     * Updates RequirementStatus list with RequirementStatus containing new Course Requirements
      */
-    public void updateCourseRequirements(Course course, List<ModuleInfoCode> moduleInfoCodes,
-                                         ObservableList<ModuleInfo> allModules) {
+    public void updateRequirementStatus(Course course, List<ModuleInfoCode> moduleInfoCodes) {
+        requireAllNonNull(course, moduleInfoCodes);
+        requireAllNonNull(moduleInfoCodes);
         requirementStatusList.clear();
         requirementStatusList.addAll(course.getCourseRequirements()
                 .stream()
-                .map(courseRequirement -> new RequirementStatus(courseRequirement, moduleInfoCodes, allModules))
+                .map(courseRequirement -> new RequirementStatus(courseRequirement, moduleInfoCodes))
                 .collect(Collectors.toList()));
     }
 
     /**
-     * Update moduleInfoCodes of each Requirement Status
+     * Updates each RequirementStatus with new ModuleInfoCodes
      */
-    public void updateModuleInfoCodes(List<ModuleInfoCode> moduleInfoCodes) {
-        requirementStatusList.forEach(requirementStatus -> requirementStatus.updateModuleInfoCodes(moduleInfoCodes));
+    public void updateRequirementStatus(List<ModuleInfoCode> moduleInfoCodes) {
+        requirementStatusList.forEach(requirementStatus -> requirementStatus.updateRequirementStatus(moduleInfoCodes));
     }
 
     /**

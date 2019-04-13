@@ -16,9 +16,11 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import seedu.address.model.GradTrak;
 import seedu.address.model.limits.SemesterLimit;
+import seedu.address.model.moduleinfo.ModuleInfoCode;
 import seedu.address.model.moduletaken.CapAverage;
 import seedu.address.model.moduletaken.Hour;
 import seedu.address.model.moduletaken.ModuleTaken;
@@ -195,5 +197,13 @@ public class TypicalModuleTaken {
 
     public static List<SemesterLimit> getTypicalSemesterLimits() {
         return new ArrayList<>(Arrays.asList(Y1S1, Y1S2, Y2S1, Y2S2, Y3S1, Y3S2, Y4S1, Y4S2, Y5S1, Y5S2));
+    }
+
+    public static List<ModuleInfoCode> getTypicalModulesInfoCodes() {
+        List<ModuleInfoCode> list = getTypicalModulesTaken()
+                .stream().map(ModuleTaken::getModuleInfoCode).collect(Collectors.toList());
+        list.addAll(List.of(new ModuleInfoCode("GEQ1000"), new ModuleInfoCode("GEH1000"), new ModuleInfoCode("GES1000"),
+                new ModuleInfoCode("GET1000")));
+        return list;
     }
 }

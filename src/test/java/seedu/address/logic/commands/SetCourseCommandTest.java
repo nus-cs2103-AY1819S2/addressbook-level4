@@ -5,6 +5,7 @@ import static org.junit.Assert.assertNotEquals;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.model.util.SampleCourse.COMPUTER_SCIENCE_AI;
 import static seedu.address.model.util.SampleCourse.COMPUTER_SCIENCE_ALGORITHMS;
+import static seedu.address.model.util.SampleCourse.getSampleCourseList;
 import static seedu.address.testutil.TypicalModuleTaken.getTypicalGradTrak;
 
 import org.junit.Test;
@@ -15,7 +16,6 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserInfo;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.course.CourseList;
 import seedu.address.model.course.CourseName;
 import seedu.address.model.moduleinfo.ModuleInfoList;
 import seedu.address.testutil.Assert;
@@ -24,10 +24,10 @@ public class SetCourseCommandTest {
     private CommandHistory commandHistory = new CommandHistory();
 
     private Model model = new ModelManager(getTypicalGradTrak(), new UserPrefs(),
-            new ModuleInfoList(), new CourseList(), new UserInfo());
+            new ModuleInfoList(), getSampleCourseList(), new UserInfo());
 
     private Model expectedModel = new ModelManager(getTypicalGradTrak(), new UserPrefs(),
-            new ModuleInfoList(), new CourseList(), new UserInfo());
+            new ModuleInfoList(), getSampleCourseList(), new UserInfo());
 
     @Test
     public void equals() {

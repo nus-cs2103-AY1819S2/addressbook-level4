@@ -17,51 +17,51 @@ public class ModuleTakenCardTest extends GuiUnitTest {
     public void display() {
         // no tags
         ModuleTaken moduleTakenWithNoTags = new ModuleTakenBuilder().withTags(new String[0]).build();
-        PersonCard personCard = new PersonCard(moduleTakenWithNoTags, 1);
-        uiPartRule.setUiPart(personCard);
-        assertCardDisplay(personCard, moduleTakenWithNoTags, 1);
+        ModuleTakenCard moduleTakenCard = new ModuleTakenCard(moduleTakenWithNoTags, 1);
+        uiPartRule.setUiPart(moduleTakenCard);
+        assertCardDisplay(moduleTakenCard, moduleTakenWithNoTags, 1);
 
         // with tags
         ModuleTaken moduleTakenWithTags = new ModuleTakenBuilder().build();
-        personCard = new PersonCard(moduleTakenWithTags, 2);
-        uiPartRule.setUiPart(personCard);
-        assertCardDisplay(personCard, moduleTakenWithTags, 2);
+        moduleTakenCard = new ModuleTakenCard(moduleTakenWithTags, 2);
+        uiPartRule.setUiPart(moduleTakenCard);
+        assertCardDisplay(moduleTakenCard, moduleTakenWithTags, 2);
     }
 
     @Test
     public void equals() {
         ModuleTaken moduleTaken = new ModuleTakenBuilder().build();
-        PersonCard personCard = new PersonCard(moduleTaken, 0);
+        ModuleTakenCard moduleTakenCard = new ModuleTakenCard(moduleTaken, 0);
 
         // same moduleTaken, same index -> returns true
-        PersonCard copy = new PersonCard(moduleTaken, 0);
-        assertTrue(personCard.equals(copy));
+        ModuleTakenCard copy = new ModuleTakenCard(moduleTaken, 0);
+        assertTrue(moduleTakenCard.equals(copy));
 
         // same object -> returns true
-        assertTrue(personCard.equals(personCard));
+        assertTrue(moduleTakenCard.equals(moduleTakenCard));
 
         // null -> returns false
-        assertFalse(personCard.equals(null));
+        assertFalse(moduleTakenCard.equals(null));
 
         // different types -> returns false
-        assertFalse(personCard.equals(0));
+        assertFalse(moduleTakenCard.equals(0));
 
         // different moduleTaken, same index -> returns false
         ModuleTaken differentModuleTaken = new ModuleTakenBuilder().withModuleInfoCode("CS2101").build();
-        assertFalse(personCard.equals(new PersonCard(differentModuleTaken, 0)));
+        assertFalse(moduleTakenCard.equals(new ModuleTakenCard(differentModuleTaken, 0)));
 
         // same moduleTaken, different index -> returns false
-        assertFalse(personCard.equals(new PersonCard(moduleTaken, 1)));
+        assertFalse(moduleTakenCard.equals(new ModuleTakenCard(moduleTaken, 1)));
     }
 
     /**
-     * Asserts that {@code personCard} displays the details of {@code expectedModuleTaken} correctly and matches
+     * Asserts that {@code moduleTakenCard} displays the details of {@code expectedModuleTaken} correctly and matches
      * {@code expectedId}.
      */
-    private void assertCardDisplay(PersonCard personCard, ModuleTaken expectedModuleTaken, int expectedId) {
+    private void assertCardDisplay(ModuleTakenCard moduleTakenCard, ModuleTaken expectedModuleTaken, int expectedId) {
         guiRobot.pauseForHuman();
 
-        PersonCardHandle personCardHandle = new PersonCardHandle(personCard.getRoot());
+        PersonCardHandle personCardHandle = new PersonCardHandle(moduleTakenCard.getRoot());
 
         // verify id is displayed correctly
         assertEquals(Integer.toString(expectedId) + ". ", personCardHandle.getId());

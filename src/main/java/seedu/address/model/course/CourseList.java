@@ -5,11 +5,9 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.util.SampleCourse;
 
 /**
  * Wraps all data at the Course List level
- * Duplicates are not allowed (by name)
  */
 public class CourseList {
     private final List<Course> courseList;
@@ -18,16 +16,13 @@ public class CourseList {
         courseList = new ArrayList<>();
     }
 
-    public CourseList() {
-        courseList.add(SampleCourse.COMPUTER_SCIENCE_ALGORITHMS);
-    }
+    public CourseList() { }
 
     /** Adds Course to the List of all the courses
     * @param course
     */
     public void addCourse(Course course) {
         this.courseList.add(course);
-        System.out.println("new course added:" + course.getCourseName().toString());
     }
 
     /**
@@ -45,29 +40,28 @@ public class CourseList {
         return course;
     }
 
+    /**
+     * Returns an unmodifiable observable list of course list
+     * @return
+     */
     public ObservableList<Course> getObservableList() {
-        ObservableList<Course> observableList = FXCollections.observableArrayList(courseList);
+        ObservableList<Course> observableList = FXCollections
+                .unmodifiableObservableList(FXCollections.observableArrayList(courseList));
         return observableList;
     }
 
-    /**
-     * Returns an ObservableList of all Courses.
-     * @return an ObservableList.
-     */
-    public ObservableList<Course> getObservableCodeList() {
-        ArrayList<Course> codeList = new ArrayList<>();
-        for (Course course: courseList) {
-            codeList.add(course);
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
         }
 
-        return FXCollections.observableArrayList(codeList);
+        if (!(obj instanceof CourseList)) {
+            return false;
+        }
+
+        CourseList other = (CourseList) obj;
+        return this.courseList.equals(other.courseList);
     }
 
-    /**
-     * Returns first course in List
-     * @return the first course in courseList
-     */
-    public Course getFirst() {
-        return courseList.get(0);
-    }
 }

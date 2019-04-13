@@ -31,7 +31,7 @@ public class EndorseCommandTest {
 
     @Test
     public void execute_endorsePerson_success() {
-        String expectedMessage = String.format("Endorsed correct person with name");
+
         Person samplePerson = model.getFilteredPersonList().get(0);
         SkillsTag sampleEndorseTag = new SkillsTag(VALID_ENDORSE_NAME, "endorse");
         Set<SkillsTag> samplePersonTags = new HashSet<>(samplePerson.getTags());
@@ -42,6 +42,7 @@ public class EndorseCommandTest {
                 samplePerson.getPhone(), samplePerson.getEmail(),
                 samplePerson.getEducation(), samplePerson.getGpa(),
                 samplePerson.getAddress(), samplePersonTags);
+        String expectedMessage = String.format(EndorseCommand.MESSAGE_ENDORSE_PERSON_SUCCESS, editedPerson.getName());
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.setPerson(model.getFilteredPersonList().get(0), editedPerson);

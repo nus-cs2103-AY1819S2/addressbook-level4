@@ -26,8 +26,6 @@ import seedu.address.logic.commands.RenameCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.SortCommand;
 import seedu.address.logic.commands.TagCommand;
-//import seedu.address.logic.commands.UndoCommand;
-//import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -113,15 +111,6 @@ public class PdfBookParser {
 
         case TagCommand.COMMAND_WORD:
             return new TagCommandParser().parse(arguments);
-
-        // Features coming in v2.0
-        /*
-        case UndoCommand.COMMAND_WORD:
-            return new UndoCommand();
-
-        case RedoCommand.COMMAND_WORD:
-            return new RedoCommand();
-         */
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

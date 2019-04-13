@@ -73,7 +73,8 @@ public class JsonAdaptedMedHistTest {
     public void toModelType_nullDate_throwsIllegalValueException() {
         JsonAdaptedMedicalHistory medHist = new JsonAdaptedMedicalHistory(VALID_MEDHIST_ID,
                 VALID_PATIENT_ID, VALID_DOCTOR_ID, null, VALID_WRITE_UP);
-        String expectedMessage = String.format(JsonAdaptedMedicalHistory.MISSING_FIELD_MESSAGE_FORMAT, ValidDate.class.getSimpleName());
+        String expectedMessage = String.format(JsonAdaptedMedicalHistory.MISSING_FIELD_MESSAGE_FORMAT,
+                ValidDate.class.getSimpleName());
         Assert.assertThrows(IllegalValueException.class, expectedMessage, medHist::toModelType);
     }
 

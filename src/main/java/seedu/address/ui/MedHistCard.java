@@ -11,8 +11,8 @@ import seedu.address.model.medicalhistory.MedicalHistory;
  */
 public class MedHistCard extends UiPart<Region> {
     private static final String FXML = "MedHistListCard.fxml";
-    public static final String MESSAGE_PATIENT_DELETED = "Patient Deleted.";
-    public static final String MESSAGE_DOCTOR_DELETED = "Doctor Deleted.";
+    private static final String MESSAGE_PATIENT_DELETED = "Patient Deleted.";
+    private static final String MESSAGE_DOCTOR_DELETED = "Doctor Deleted.";
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
      * As a consequence, UI elements' variable names cannot be set to such keywords

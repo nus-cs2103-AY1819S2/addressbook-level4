@@ -328,14 +328,15 @@ public class MainWindow extends UiPart<Stage> {
                 break;
             }
 
-            // If deletion of patient or doctor is executed, refresh MedHist or prescription Browser Panel
+            // If deletion of patient or doctor is executed, refresh MedHist or Prescription Browser Panel
             switch (commandResult.getDeletionOrNot()) {
             case DELETION:
-                if ((whichBrowser != null) &&
-                        (whichBrowser.equals(CommandResult.ShowBrowser.MED_HIST_BROWSER) ||
-                                whichBrowser.equals(CommandResult.ShowBrowser.PRESCRIPTION_BROWSER))) {
+                if ((whichBrowser != null)
+                        && (whichBrowser.equals(CommandResult.ShowBrowser.MED_HIST_BROWSER)
+                        || whichBrowser.equals(CommandResult.ShowBrowser.PRESCRIPTION_BROWSER))) {
                     browserPlaceholder.getChildren().clear();
                 }
+                break;
             default:
                 break;
             }

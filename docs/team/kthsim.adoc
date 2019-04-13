@@ -8,14 +8,23 @@
 ---
 
 == Overview
+My teammates and I were assigned the task of either improving an existing Command-Line Interfaces (CLI) based program
+ by the name of AddressBook4 or to use it as the basis for our own program. We chose to transform it into TeethHub.
 
 TeethHub is a desktop patient-record application meant for tech-savvy dental practitioners who
 prefer interacting with Command-Line Interfaces (CLI) based programs over Graphical User Interface (GUI) based ones.
+The program allows dentists to enter patient data, manage records and teeth data tied to each patient, view
+information in a variety of ways, as well as import and export information into either .json or .pdf format.
+The user interacts with it using a CLI, and it has a GUI created with JavaFX to display data for the user.  It is
+written in Java, and has about 20 kLoC.
 
-The user interacts with it using a CLI, and it has a GUI created with JavaFX to display data for the user.
- It is written in Java, and has about 10 kLoC.
+My responsibility was implement different ways the dentist could view the stored information within the program. To
+that end, I created the `sort` and `stat` commands as well as enhanced the existing functionality of the `find`
+program. The below segments go into greater detail of these implementations as well as the sections I have written
+within both the user guide and the developer guide.
 
 == Summary of contributions
+The segment below summarises the most pertinent improvements and enhancements I made towards the team's overall goals.
 
 * Added the ability to sort displayed data
 ** What it does: allows the user to sort either patient or record data according to their desired parameter and sort
@@ -48,14 +57,14 @@ detailed report so that they can analyze potential trends.
 * Added a Next Of Kin class as an attribute for a patient.
 * Added a Procedure class as an attribute for a record.
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+*Code contributed*: [http://tinyurl.com/yywtfzrn[Functional code]] [https://github.com[Test code]]
 
-* *Other contributions*:
+*Other contributions*:
 
 ** Project management:
 *** Created and maintained the group project repository
 *** Managed releases `v1.1` - `v1.4` (6 releases) on GitHub
-*** Responsible for approving and merging the PR of fellow teammates
+*** Responsible for approving and merging the Pull Requests of fellow teammates
 *** Created majority of open issues and distributed responsibilities for the issues to relevant team members
 *** Created and assigned relevant tags to issues within the project
 
@@ -75,7 +84,6 @@ repo
 
 
 == Contributions to the User Guide
-
 
 |===
 |_The text below is the documentation done for the user guide that I feel highlights my ability to write end-user

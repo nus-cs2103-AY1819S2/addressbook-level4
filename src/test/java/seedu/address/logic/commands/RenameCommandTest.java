@@ -98,7 +98,7 @@ public class RenameCommandTest {
 
         String expectedMessage = MESSAGE_EDIT_PDF_FAILURE;
 
-        if (!System.getProperty("os.name").equals("Linux")) {
+        if (!System.getProperty("os.name").toLowerCase().contains("linux")) {
             assertCommandFailure(renameCommand, model, commandHistory, expectedMessage);
         } else {
             Model expectedModel = new ModelManager(new PdfBook(model.getPdfBook()), new UserPrefs());

@@ -78,6 +78,11 @@ Format: `help`
 [TIP]
 Alternatively, press kbd:[F1] to display usage information on all commands.
 
+==== Changing theme: `changeTheme`
+
+Changes the theme from light to dark vice versa. +
+Format: `changeTheme`
+
 [[start]]
 ==== Starting a quiz session: `start`
 
@@ -293,7 +298,7 @@ accidentally enter the wrong answer once, your streak for the question will not 
 [TIP]
 You can press kbd:[ENTER] twice without entering any other input to reveal the answer.
 
-*Going through the different scenario in a quiz*:
+*Going through the different scenarios in a quiz*:
 
 *Step 1:* +
   The question is "Japan" and is asking for the capital of "Japan": +
@@ -457,6 +462,7 @@ If the file is saved without `UTF-8` encoding, the data may be saved as `?????`,
 
 === Management mode
 * *Viewing help*: `help`
+* *Changing theme*: `changeTheme`
 * *Starting quiz session*: `start n/NAME [c/COUNT] m/MODE` +
 e.g. `start n/country-capitals c/15 m/LEARN`
 * *Listing all lessons*: `listLessons`
@@ -479,11 +485,11 @@ e.g. `deleteCard 2`
 {empty} +
 
 === Quiz mode
-* *Viewing help*: `\help`
-* *Viewing the quiz session's status*: `\status`
 * *Answering a card*: `[ANSWER]...`
 * *Labelling the current card as difficult*: `\difficult`
+* *Viewing help*: `\help`
 * *Viewing the current card's hint(s)*: `\hint`
-* *Quitting the quiz session*: `\quit`
+* *Quitting the quiz*: `\quit`
+* *Viewing the quiz session's status*: `\status`
 
 {empty} +

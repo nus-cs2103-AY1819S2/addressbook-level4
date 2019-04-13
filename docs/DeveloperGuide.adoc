@@ -1278,6 +1278,14 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
+=== Changing theme
+
+. Changing from light theme to dark theme
+.. `changeTheme` +
+
+.. Exit and start `BrainTrain` again. +
+   Expected: The theme have changed to dark theme and persist beyond restart.
+
 === Answering a question in a quiz
 
 Below are some test cases you can perform to test the `QuizAnswerCommand` for the Quiz feature. +

@@ -539,11 +539,20 @@ this method implements that functionality.
 ==== Implementation of attack result
 
 The representation of the result of an attack is the class `AttackResult` and
-its subclasses.
+its subclasses. To help the receiver in deciphering the attack result without
+needing to resort to `instanceof`, methods are provided to test for attributes
+such as whether the attack is a hit.
 
-The type of the `AttackResult` returned can be seen from the following table:
+The methods are:
 
-[width="77%",cols="22%,<55%",options="header",]
+    * `isSuccessful`: tests whether the attack actually completed
+    * `isHit`: tests whether the attack damaged a ship
+    * `isDestroy`: tests whether the attack destroyed the ship
+    * `isWin`: tests whether the attack caused the attacker to win
+
+A summary of each type of `AttackResult` can be seen from the following table:
+
+[width="88%",cols="22%,66%",options="header",]
 |=======================================================================
 |Result type          |Scenario
 |`AttackFailed`       |The `Coordinates` provided was out of bounds, or
@@ -559,15 +568,19 @@ The type of the `AttackResult` returned can be seen from the following table:
 
 ==== Implementation of player interaction via commands
 
-The player does battle by using the `begin` command to initiate the battle,
+.Activity diagram of the process of battling.
+image::BattleActivityDiagram.png[width=800]
+
+The above figure is a high-level overview of what happens when the
+user does battle against the computer enemy. As shown above, the player
+does battle by using the `begin` command to initiate the battle,
 then the `attack` command to attack the enemy.
 
-The following sequence diagram shows what happens when the user enters the `begin` command is as follows:
+The following sequence diagrams show what happens when the user enters
+the `begin` command, then the `attack a1` command.
 
 .Sequence diagram of beginning the battle.
 image::BeginSequenceDiagram.png[width=800]
-
-The following sequence diagram shows what happens when the user enters the `attack a1` command is as follows:
 
 .Sequence diagram of attacking the cell a1.
 image::AttackSequenceDiagram.png[width=800]

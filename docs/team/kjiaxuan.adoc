@@ -59,7 +59,7 @@ These enhancements are also compatible with _In-Credit-Ble_’s `undo` and `redo
 
 
 === Code contributed
-Click https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#=undefined&search=kjiaxuan[here] to see the code I contributed to the In-Credit-Ble project!
+Click https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#=undefined&search=kjiaxuan[here] to see the code I contributed to the _In-Credit-Ble_ project!
 
 
 === Other contributions

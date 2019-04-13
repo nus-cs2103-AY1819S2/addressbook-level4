@@ -75,7 +75,8 @@ public class RenameCommand extends Command {
         Pdf pdfToEdit = lastShownList.get(index.getZeroBased());
         Pdf editedPdf = createEditedPdf(pdfToEdit, editPdfDescriptor);
 
-        if (System.getProperty("os.name").equals("Linux")) {
+        if (isOsUnix()) {
+        //if (System.getProperty("os.name").toLowerCase().contains("linux")) {
             if (!pdfToEdit.getName().getFullName().equals(editedPdf.getName().getFullName())
                     && Paths.get(pdfToEdit.getDirectory().getDirectory(), editedPdf.getName().getFullName())
                     .toAbsolutePath().toFile().exists()) {
@@ -106,6 +107,19 @@ public class RenameCommand extends Command {
         model.updateFilteredPdfList(PREDICATE_SHOW_ALL_PDFS);
         model.commitPdfBook();
         return new CommandResult(String.format(MESSAGE_EDIT_PDF_SUCCESS, editedPdf.toString()));
+    }
+
+    /**
+     * Returns true is the system is unix environment, false otherwise.
+     */
+    private static boolean isOsUnix() {
+        String osName = System.getProperty("os.name");
+        return osName.contains("linux")
+                || osName.contains("mpe/ix")
+                || osName.contains("freebsd")
+                || osName.contains("irix")
+                || osName.contains("digital unix")
+                || osName.contains("unix");
     }
 
     /**

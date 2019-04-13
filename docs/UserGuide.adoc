@@ -476,7 +476,7 @@ When you enter the `abort` command, a message is also shown on the main display 
 The label for the ongoing consultation session is also removed.
 
 .Results of an abort command
-image::abortconsult.png[width="600"]
+image::abortconsult.PNG[width="600"]
 
 '''
 

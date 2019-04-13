@@ -7,7 +7,7 @@ import quickdocs.model.Model;
 import quickdocs.model.patient.Patient;
 
 /**
- * Starts a consultation session for the specified patient
+ * Starts a consultation session for the specified patient using his or her NRIC
  */
 public class ConsultationCommand extends Command {
 
@@ -19,7 +19,6 @@ public class ConsultationCommand extends Command {
             + "Parameters: " + ConsultationCommandParser.PREFIX_NRIC + "NRIC of current patient.\n"
             + "Example: " + COMMAND_WORD + " " + ConsultationCommandParser.PREFIX_NRIC + "S9237162A\n";
 
-    // current consultations can only be created by nric searches
     private String nric;
 
     public ConsultationCommand(String nric) {

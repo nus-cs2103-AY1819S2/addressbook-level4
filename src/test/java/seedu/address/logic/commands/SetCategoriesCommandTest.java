@@ -3,13 +3,17 @@ package seedu.address.logic.commands;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_CUISINE_FAST_FOOD;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_OCCASION_CASUAL;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PRICE_RANGE;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_RESTAURANT;
 import static seedu.address.testutil.TypicalRestaurants.getTypicalFoodDiary;
 
 import org.junit.Test;
 
+import seedu.address.commons.core.Messages;
+import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
+import seedu.address.model.FoodDiary;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.PostalDataSet;
@@ -20,6 +24,7 @@ import seedu.address.model.restaurant.categories.Cuisine;
 import seedu.address.model.restaurant.categories.Occasion;
 import seedu.address.model.restaurant.categories.PriceRange;
 import seedu.address.testutil.RestaurantBuilder;
+import seedu.address.testutil.TypicalCategories;
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for
@@ -66,5 +71,38 @@ public class SetCategoriesCommandTest {
         expectedModel.commitFoodDiary();
 
         assertCommandSuccess(categoryCommand, model, commandHistory, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void execute_invalidRestaurantIndexUnfilteredList_failure() {
+        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredRestaurantList().size() + 1);
+        Categories allSet = TypicalCategories.VALID_ALL_SET;
+        SetCategoriesCommand categoriesCommand = new SetCategoriesCommand(outOfBoundIndex, allSet);
+
+        assertCommandFailure(categoriesCommand, model, commandHistory,
+                Messages.MESSAGE_INVALID_RESTAURANT_DISPLAYED_INDEX);
+    }
+
+    @Test
+    public void executeUndoRedo_validIndexUnfilteredList_success() throws Exception {
+        Restaurant restaurantToSet = model.getFilteredRestaurantList().get(INDEX_FIRST_RESTAURANT.getZeroBased());
+        Categories categoriesToSet = TypicalCategories.VALID_ALL_SET;
+        Restaurant updatedRestaurant = new Restaurant(restaurantToSet, categoriesToSet);
+        SetCategoriesCommand categoriesCommand = new SetCategoriesCommand(INDEX_FIRST_RESTAURANT, categoriesToSet);
+        Model expectedModel = new ModelManager(new FoodDiary(model.getFoodDiary()), new UserPrefs(),
+                new PostalDataSet());
+        expectedModel.setRestaurant(restaurantToSet, updatedRestaurant);
+        expectedModel.commitFoodDiary();
+
+        // edit -> first restaurant edited
+        categoriesCommand.execute(model, commandHistory);
+
+        // undo -> reverts fooddiary back to previous state and filtered restaurant list to show all restaurants
+        expectedModel.undoFoodDiary();
+        assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
+
+        // redo -> same first restaurant edited again
+        expectedModel.redoFoodDiary();
+        assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
     }
 }

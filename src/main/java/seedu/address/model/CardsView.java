@@ -82,9 +82,6 @@ public class CardsView implements ListViewState<Card> {
         return activeDeck;
     }
 
-    /**
-     * Updates the filtered list in CardsView.
-     */
     @Override
     public void updateFilteredList(Predicate<Card> predicate) {
         requireNonNull(predicate);
@@ -96,23 +93,17 @@ public class CardsView implements ListViewState<Card> {
         return filteredCards;
     }
 
-    /**
-     * Sets the selected Item in the filtered list.
-     */
     @Override
     public void setSelectedItem(Card card) {
         selectedCard.setValue(card);
     }
 
-    /**
-     * Returns the selected Item in the filtered list.
-     * null if no card is selected.
-     */
     @Override
     public Card getSelectedItem() {
         return selectedCard.getValue();
     }
 
+    @Override
     public UiPart<Region> getPanel() {
         return new ListPanel<>(getFilteredList(), selectedCard, this::setSelectedItem);
     }

@@ -86,9 +86,6 @@ public class DecksView implements ListViewState<Deck> {
         }
     }
 
-    /**
-     * Updates the filtered list in DecksView.
-     */
     @Override
     public void updateFilteredList(Predicate<Deck> predicate) {
         requireNonNull(predicate);
@@ -100,23 +97,17 @@ public class DecksView implements ListViewState<Deck> {
         return filteredDecks;
     }
 
-    /**
-     * Sets the selected Item in the filtered list.
-     */
     @Override
     public void setSelectedItem(Deck deck) {
         selectedDeck.setValue(deck);
     }
 
-    /**
-     * Returns the selected Item in the filtered list.
-     * null if no card is selected.
-     */
     @Override
     public Deck getSelectedItem() {
         return selectedDeck.getValue();
     }
 
+    @Override
     public UiPart<Region> getPanel() {
         return new ListPanel<>(getFilteredList(), selectedDeck, this::setSelectedItem);
     }

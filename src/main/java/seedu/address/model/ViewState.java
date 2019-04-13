@@ -5,11 +5,11 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.ui.UiPart;
 
-/**
- * Stores the state of TopDeck.
- */
 public interface ViewState {
     Command parse(String commandWord, String arguments) throws ParseException;
 
+    /**
+     * Construct a Panel object to be rendered by the UI.
+     */
     UiPart<Region> getPanel();
 }

@@ -2,7 +2,6 @@ package systemtests;
 
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.logic.commands.management.EditLessonCommand.MESSAGE_SUCCESS;
-import static seedu.address.model.util.SampleLessons.SAMPLE_1_NAME;
 
 import org.junit.Test;
 

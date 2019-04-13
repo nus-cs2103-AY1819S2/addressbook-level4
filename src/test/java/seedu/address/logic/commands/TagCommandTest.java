@@ -76,7 +76,7 @@ public class TagCommandTest {
         validTags.add(new Tag(TAG_VALID_LECTURE));
 
         thrown.expect(CommandException.class);
-        TagCommand standardCommand = new TagCommand(Index.fromOneBased(20), validTags, false);
+        TagCommand standardCommand = new TagCommand(Index.fromOneBased(1), validTags, false);
         standardCommand.execute(this.model, commandHistory);
     }
 

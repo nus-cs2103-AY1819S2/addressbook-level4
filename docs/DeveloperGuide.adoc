@@ -581,7 +581,6 @@ modified, we are forced to modify the code of either `PatientContainsKeywordsPre
 
 // tag::sortimplement[]
 ==== Sort feature
-===== Current Implementation
 The `Sort` mechanism is facilitated through the use of Comparators in conjunction with the Unique Lists for both
 record and patient depending on the programm's mode when the command is called.
 
@@ -632,7 +631,7 @@ essentially the same. As such, it made more sense for us to go ahead with our cu
 // tag::statimplement[]
 ==== Stat feature
 image::StatWindow.png[width="500"]
-===== Current Implementation
+
 The `Stat` mechanism is facilitated through the use of the inbuilt JavaFx framework in conjunction with the data
 stored within each `Patient` object.
 

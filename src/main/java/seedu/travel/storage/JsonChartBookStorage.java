@@ -130,14 +130,14 @@ public class JsonChartBookStorage implements ChartBookStorage {
     @Override
     // tag::saveCountryChart[]
     public void saveCountryChart(ReadOnlyCountryChart countryChart, Path filePath) { // <1>
-        requireAllNonNull(countryChart, filePath);  // <2>
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();  // <3>
+        requireAllNonNull(countryChart, filePath); // <2>
+        Gson gson = new GsonBuilder().setPrettyPrinting().create(); // <3>
         try {
-            FileWriter fileWriter = new FileWriter(String.valueOf(filePath));  // <4>
-            gson.toJson(countryChart, fileWriter);  // <5>
-            fileWriter.flush();  // <6>
+            FileWriter fileWriter = new FileWriter(String.valueOf(filePath)); // <4>
+            gson.toJson(countryChart, fileWriter); // <5>
+            fileWriter.flush(); // <6>
         } catch (IOException ioe) {
-            logger.warning(ioe.getMessage());  // <7>
+            logger.warning(ioe.getMessage()); // <7>
         }
     }
     // end::saveCountryChart[]

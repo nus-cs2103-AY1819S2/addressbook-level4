@@ -34,8 +34,8 @@ public interface ChartBookStorage {
     List<ReadOnlyCountryChart> readCountryChart() throws FileNotFoundException;
 
     /**
-     * @see #readCountryChart()
      * @throws FileNotFoundException if the file is not found.
+     * @see #readCountryChart()
      */
     List<ReadOnlyCountryChart> readCountryChart(Path filePath) throws FileNotFoundException;
 
@@ -46,19 +46,20 @@ public interface ChartBookStorage {
     List<ReadOnlyRatingChart> readRatingChart() throws FileNotFoundException;
 
     /**
-     * @see #readRatingChart()
      * @throws FileNotFoundException if the file is not found.
+     * @see #readRatingChart()
      */
     List<ReadOnlyRatingChart> readRatingChart(Path filePath) throws FileNotFoundException;
 
     /**
      * Returns year chart data as a {@link ReadOnlyYearChart}.
-     * @throws FileNotFoundException if the file is not found.     */
+     * @throws FileNotFoundException if the file is not found.
+     */
     List<ReadOnlyYearChart> readYearChart() throws FileNotFoundException;
 
     /**
-     * @see #readYearChart()
      * @throws FileNotFoundException if the file is not found.
+     * @see #readYearChart()
      */
     List<ReadOnlyYearChart> readYearChart(Path filePath) throws FileNotFoundException;
 

@@ -29,6 +29,21 @@ public class CommandResult {
     private final Mode toMode;
 
     /**
+     * The application should change display in StatisticsMode if true.
+     */
+    private final boolean isDaily;
+
+    /**
+     * The application should change display in StatisticsMode if true.
+     */
+    private final boolean isMonthly;
+
+    /**
+     * The application should change display in StatisticsMode if true.
+     */
+    private final boolean isYearly;
+
+    /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
     public CommandResult(String feedbackToUser, boolean showHelp, boolean exit) {
@@ -36,6 +51,9 @@ public class CommandResult {
         this.showHelp = showHelp;
         this.exit = exit;
         this.toMode = null;
+        this.isDaily = true;
+        this.isMonthly = false;
+        this.isYearly = false;
     }
 
     /**
@@ -46,6 +64,23 @@ public class CommandResult {
         this.showHelp = showHelp;
         this.exit = exit;
         this.toMode = mode;
+        this.isDaily = true;
+        this.isMonthly = false;
+        this.isYearly = false;
+    }
+
+    /**
+     * Constructs a {@code CommandResult} with the specified fields including toMode.
+     */
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, Mode mode, boolean isDaily,
+                         boolean isMonthly, boolean isYearly) {
+        this.feedbackToUser = requireNonNull(feedbackToUser);
+        this.showHelp = showHelp;
+        this.exit = exit;
+        this.toMode = mode;
+        this.isDaily = isDaily;
+        this.isMonthly = isMonthly;
+        this.isYearly = isYearly;
     }
 
     /**
@@ -70,6 +105,18 @@ public class CommandResult {
 
     public Mode newModeStatus() {
         return toMode;
+    }
+
+    public boolean isDaily() {
+        return isDaily;
+    }
+
+    public boolean isMonthly() {
+        return isMonthly;
+    }
+
+    public boolean isYearly() {
+        return isYearly;
     }
 
     @Override

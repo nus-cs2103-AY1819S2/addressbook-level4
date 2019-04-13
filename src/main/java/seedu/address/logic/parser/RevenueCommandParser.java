@@ -9,10 +9,10 @@ import java.util.stream.Stream;
 
 import seedu.address.logic.commands.RevenueCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.statistics.DailyRevenue;
 import seedu.address.model.statistics.Date;
 import seedu.address.model.statistics.Day;
 import seedu.address.model.statistics.Month;
+import seedu.address.model.statistics.Revenue;
 import seedu.address.model.statistics.Year;
 
 /**
@@ -34,22 +34,24 @@ public class RevenueCommandParser implements Parser<RevenueCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public RevenueCommand parse(String args) throws ParseException {
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_DAY, PREFIX_MONTH, PREFIX_YEAR);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_YEAR, PREFIX_MONTH, PREFIX_DAY);
 
         Day day = null;
         Month month = null;
         Year year = null;
 
-        if ((!arePrefixesPresent(argMultimap, PREFIX_MONTH) && arePrefixesPresent(argMultimap, PREFIX_DAY, PREFIX_YEAR))
-                || (!arePrefixesPresent(argMultimap, PREFIX_YEAR) && arePrefixesPresent(argMultimap, PREFIX_DAY,
-                PREFIX_MONTH)) || !argMultimap.getPreamble().isEmpty()) {
+        if (!arePrefixesPresent(argMultimap, PREFIX_YEAR)
+                && (arePrefixesPresent(argMultimap, PREFIX_MONTH) || arePrefixesPresent(argMultimap, PREFIX_DAY))
+                || (!arePrefixesPresent(argMultimap, PREFIX_MONTH)
+                && arePrefixesPresent(argMultimap, PREFIX_YEAR, PREFIX_DAY))
+                || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, RevenueCommand.MESSAGE_USAGE));
 
-        } else if (arePrefixesPresent(argMultimap, PREFIX_DAY, PREFIX_MONTH, PREFIX_YEAR)) {
+        } else if (arePrefixesPresent(argMultimap, PREFIX_YEAR, PREFIX_MONTH, PREFIX_DAY)) {
             //daily
-            day = ParserUtil.parseDay(argMultimap.getValue(PREFIX_DAY).get());
-            month = ParserUtil.parseMonth(argMultimap.getValue(PREFIX_MONTH).get());
             year = ParserUtil.parseYear(argMultimap.getValue(PREFIX_YEAR).get());
+            month = ParserUtil.parseMonth(argMultimap.getValue(PREFIX_MONTH).get());
+            day = ParserUtil.parseDay(argMultimap.getValue(PREFIX_DAY).get());
 
             StringBuilder dateString = new StringBuilder();
             dateString.append(day).append(".").append(month).append(".").append(year);
@@ -63,16 +65,16 @@ public class RevenueCommandParser implements Parser<RevenueCommand> {
 
         } else if (arePrefixesPresent(argMultimap, PREFIX_YEAR, PREFIX_MONTH)) {
             //Monthly
-            month = ParserUtil.parseMonth(argMultimap.getValue(PREFIX_MONTH).get());
             year = ParserUtil.parseYear(argMultimap.getValue(PREFIX_YEAR).get());
+            month = ParserUtil.parseMonth(argMultimap.getValue(PREFIX_MONTH).get());
 
         } else if (arePrefixesPresent(argMultimap, PREFIX_YEAR)) {
             //Yearly
             year = ParserUtil.parseYear(argMultimap.getValue(PREFIX_YEAR).get());
         }
 
-        DailyRevenue dailyRevenue = new DailyRevenue(day, month, year);
+        Revenue revenue = new Revenue(day, month, year);
 
-        return new RevenueCommand(dailyRevenue);
+        return new RevenueCommand(revenue);
     }
 }

@@ -151,7 +151,6 @@ public class Orders implements ReadOnlyOrders {
     @Override
     public String toString() {
         return orderItems.asUnmodifiableObservableList().size() + " order items";
-        // TODO: refine later
     }
 
     @Override

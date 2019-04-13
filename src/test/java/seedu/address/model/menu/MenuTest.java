@@ -162,9 +162,13 @@ public class MenuTest {
             throw new AssertionError("This method should not be called.");
         }
 
-        // TODO: test this method up there
         @Override
         public void updateMenuItemQuantity(MenuItem menuItem, int quantity) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setMenuItems(List<MenuItem> menuItems) {
             throw new AssertionError("This method should not be called.");
         }
 

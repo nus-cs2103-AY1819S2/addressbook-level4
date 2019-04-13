@@ -54,7 +54,7 @@ public class TableCardTest extends GuiUnitTest {
 
         TableCardHandle tableCardHandle = new TableCardHandle(tableCard.getRoot());
 
-        // verify person details are displayed correctly
+        // verify table details are displayed correctly
         assertCardDisplaysTable(expectedTable, tableCardHandle);
     }
 }

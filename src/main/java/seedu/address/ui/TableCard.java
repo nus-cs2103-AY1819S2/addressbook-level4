@@ -24,7 +24,7 @@ public class TableCard extends UiPart<Region> {
     public final Table table;
 
     @FXML
-    private HBox cardPane;
+    private HBox tableCardPane;
     @FXML
     private Label id;
     @FXML
@@ -38,6 +38,11 @@ public class TableCard extends UiPart<Region> {
 
         tableNumber.setText("Table " + this.table.getTableNumber());
         tableStatus.setText("Status: " + this.table.getTableStatus());
+        if (table.getTableStatus().getNumberOfSeats().equals("0")) {
+            tableCardPane.setStyle("-fx-background-color: #121e23;");
+        } else if (!table.isOccupied()) {
+            tableCardPane.setStyle("-fx-background-color: #6cadc9;");
+        }
     }
 
     @Override

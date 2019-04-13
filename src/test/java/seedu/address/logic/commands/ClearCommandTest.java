@@ -20,9 +20,11 @@ public class ClearCommandTest {
     public void execute_emptyRestOrRant_success() {
         Model model = new ModelManager();
         Model expectedModel = new ModelManager();
+        CommandResult expectedCommandResult = new CommandResult(ClearCommand.MESSAGE_SUCCESS, false,
+                false, Mode.RESTAURANT_MODE);
 
         assertCommandSuccess(Mode.RESTAURANT_MODE, new ClearCommand(), model, commandHistory,
-                ClearCommand.MESSAGE_SUCCESS, expectedModel);
+                expectedCommandResult, expectedModel);
     }
 
     @Test
@@ -30,9 +32,11 @@ public class ClearCommandTest {
         Model model = new ModelManager(TypicalRestOrRant.getTypicalRestOrRant(), new UserPrefs());
         Model expectedModel = new ModelManager(TypicalRestOrRant.getTypicalRestOrRant(), new UserPrefs());
         expectedModel.setRestOrRant(new RestOrRant());
+        CommandResult expectedCommandResult = new CommandResult(ClearCommand.MESSAGE_SUCCESS, false,
+                false, Mode.RESTAURANT_MODE);
 
         assertCommandSuccess(Mode.RESTAURANT_MODE, new ClearCommand(), model, commandHistory,
-                ClearCommand.MESSAGE_SUCCESS, expectedModel);
+                expectedCommandResult, expectedModel);
     }
 
 }

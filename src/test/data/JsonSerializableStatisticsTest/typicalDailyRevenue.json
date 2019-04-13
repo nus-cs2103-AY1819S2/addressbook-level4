@@ -4,36 +4,36 @@
     "day" : "1",
     "month" : "3",
     "year" : "2019",
-    "totalDailyRevenue" : "700"
+    "totalRevenue" : "700"
   }, {
     "day" : "2",
     "month" : "3",
     "year" : "2019",
-    "totalDailyRevenue" : "600"
+    "totalRevenue" : "600"
   }, {
     "day" : "3",
     "month" : "3",
     "year" : "2019",
-    "totalDailyRevenue" : "500"
+    "totalRevenue" : "500"
   }, {
     "day" : "4",
     "month" : "3",
     "year" : "2019",
-    "totalDailyRevenue" : "400"
+    "totalRevenue" : "400"
   }, {
     "day" : "5",
     "month" : "3",
     "year" : "2019",
-    "totalDailyRevenue" : "300"
+    "totalRevenue" : "300"
   }, {
     "day" : "6",
     "month" : "3",
     "year" : "2019",
-    "totalDailyRevenue" : "200"
+    "totalRevenue" : "200"
   }, {
     "day" : "7",
     "month" : "3",
     "year" : "2019",
-    "totalDailyRevenue" : "100"
+    "totalRevenue" : "100"
   } ]
 }

@@ -3,14 +3,17 @@ package seedu.address.ui;
 import static guitests.guihandles.WebViewUtil.waitUntilBrowserLoaded;
 import static org.junit.Assert.assertEquals;
 import static seedu.address.testutil.TypicalPersons.ALICE;
+import static seedu.address.testutil.TypicalPersons.BENSON;
+import static seedu.address.ui.UiPart.FXML_FILE_FOLDER;
 
-import java.net.URL;
+// import java.net.URL;
 
 import org.junit.Before;
 import org.junit.Test;
 
 import guitests.guihandles.BrowserPanelHandle;
 import javafx.beans.property.SimpleObjectProperty;
+import seedu.address.MainApp;
 import seedu.address.model.person.Person;
 
 public class BrowserPanelTest extends GuiUnitTest {
@@ -27,22 +30,27 @@ public class BrowserPanelTest extends GuiUnitTest {
     }
 
     @Test
-    public void display() throws Exception {
+    public void display_placeholder() throws Exception {
         // default web page
         assertEquals(BrowserPanel.DEFAULT_PAGE, browserPanelHandle.getLoadedUrl());
 
         // associated web page of a person
         guiRobot.interact(() -> selectedPerson.set(ALICE));
-        URL expectedPersonUrl = new URL(BrowserPanel.SEARCH_PAGE_URL + ALICE.getName()
-                .fullName.replaceAll(" ", "%20"));
-        URL expectedPersonUrlLogin = new URL("https://www.linkedin.com/m/login/"); //Login Page returned first
 
         waitUntilBrowserLoaded(browserPanelHandle);
-        // there are two options depending on if the page has been logged into or not
-        try {
-            assertEquals(expectedPersonUrlLogin, browserPanelHandle.getLoadedUrl());
-        } catch (Exception AssertionError) {
-            assertEquals(expectedPersonUrl, browserPanelHandle.getLoadedUrl());
-        }
+        assertEquals(BrowserPanel.PLACEHOLDER_PAGE, browserPanelHandle.getLoadedUrl());
+    }
+
+    @Test
+    public void display_storageCv() throws Exception {
+        // default web page
+        assertEquals(BrowserPanel.DEFAULT_PAGE, browserPanelHandle.getLoadedUrl());
+
+        // associated web page of a person
+        guiRobot.interact(() -> selectedPerson.set(BENSON));
+
+        waitUntilBrowserLoaded(browserPanelHandle);
+        assertEquals(MainApp.class.getResource(FXML_FILE_FOLDER + "html/bensonmeier.html"),
+                browserPanelHandle.getLoadedUrl());
     }
 }

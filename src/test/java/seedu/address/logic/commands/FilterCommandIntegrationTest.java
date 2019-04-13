@@ -1,5 +1,7 @@
 package seedu.address.logic.commands;
 
+import static org.junit.Assert.assertEquals;
+import static seedu.address.commons.core.Messages.MESSAGE_PERSONS_LISTED_OVERVIEW;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_SKILL_JAVA;
@@ -9,9 +11,17 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_PERSON;
+import static seedu.address.testutil.TypicalPersons.ALICE;
+import static seedu.address.testutil.TypicalPersons.BENSON;
+import static seedu.address.testutil.TypicalPersons.CARL;
+import static seedu.address.testutil.TypicalPersons.ELLE;
+import static seedu.address.testutil.TypicalPersons.FIONA;
+import static seedu.address.testutil.TypicalPersons.GEORGE;
 import static seedu.address.testutil.TypicalPersons.HOON;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import org.junit.Test;
@@ -25,6 +35,7 @@ import seedu.address.logic.parser.SortWord;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.model.tag.SkillsTag;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
@@ -71,6 +82,8 @@ public class FilterCommandIntegrationTest {
     private String[] criterion1 = {null, null, null, null, "Java, C++", null, "2.6", "NUS", null};
     private String[] criterion2 = {"e", "5", null, null, null, null, null, null, "2"};
     private String[] criterion3 = {null, null, "a@", "street", null, "Manager, Developer", null, null, null};
+    private String[] criterion4 = {null, null, null, null, "Java", null, "2.6", null, null};
+    private String[] criterion5 = {null, null, "h", "street", null, null, null, null, null};
 
     /**
      * Divides the tags string to an array with separated tags
@@ -80,6 +93,13 @@ public class FilterCommandIntegrationTest {
             return null;
         }
         return tags.trim().split(", ");
+    }
+
+    /**
+     * Parses {@code userInput} into a {@code NameContainsKeywordsPredicate}.
+     */
+    private NameContainsKeywordsPredicate preparePredicate(String userInput) {
+        return new NameContainsKeywordsPredicate(Arrays.asList(userInput.split("\\s+")));
     }
 
     @Test
@@ -453,22 +473,277 @@ public class FilterCommandIntegrationTest {
         commandFilter = new FilterCommand(criterionClearAndReverse, TYPE_REVERSE);
         expectedModel.reverseFilter();
         assertCommandFailure(commandFilter, model, commandHistory, FilterCommand.MESSAGE_NO_FILTER_TO_REVERSE);
-
-
     }
 
     @Test
     public void execute_filterWithFindCommand() {
-        //TODO: add a testcase with find command
+
+        // filtering called - success
+        FilterCommand commandFilter = new FilterCommand(criterion1, TYPE_OR);
+        expectedModel.filterOr(criterion1[0], criterion1[1], criterion1[2], criterion1[3],
+                divideTagsFromString(criterion1[4]), divideTagsFromString(criterion1[5]),
+                criterion1[8], criterion1[6], criterion1[7]);
+        expectedModel.commitAddressBook();
+        assertCommandSuccess(commandFilter, model, commandHistory,
+                FilterCommand.MESSAGE_FILTER_PERSON_SUCCESS, expectedModel);
+
+        // finding called - success
+        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 3);
+        NameContainsKeywordsPredicate predicate = preparePredicate("Kurz Elle Kunz");
+        FindCommand commandFind = new FindCommand(predicate);
+        expectedModel.updateFilteredPersonList(predicate);
+        assertCommandSuccess(commandFind, model, commandHistory, expectedMessage, expectedModel);
+        assertEquals(Arrays.asList(CARL, ELLE, FIONA), model.getFilteredPersonList());
+
+        // finding called - failure
+        expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 0);
+        predicate = preparePredicate(" ");
+        commandFind = new FindCommand(predicate);
+        expectedModel.updateFilteredPersonList(predicate);
+        assertCommandSuccess(commandFind, model, commandHistory, expectedMessage, expectedModel);
+        assertEquals(Collections.emptyList(), model.getFilteredPersonList());
+
+        // filtering reverse called - success
+        commandFilter = new FilterCommand(criterionClearAndReverse, TYPE_REVERSE);
+        expectedModel.reverseFilter();
+        expectedModel.commitAddressBook();
+        assertCommandSuccess(commandFilter, model, commandHistory, FilterCommand.MESSAGE_FILTER_REVERSE_SUCCESS,
+                expectedModel);
+
+        // finding called - success
+        expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 1);
+        predicate = preparePredicate("George");
+        commandFind = new FindCommand(predicate);
+        expectedModel.updateFilteredPersonList(predicate);
+        assertCommandSuccess(commandFind, model, commandHistory, expectedMessage, expectedModel);
+        assertEquals(Collections.singletonList(GEORGE), model.getFilteredPersonList());
+
+        // finding called - failure
+        expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 0);
+        predicate = preparePredicate(" ");
+        commandFind = new FindCommand(predicate);
+        expectedModel.updateFilteredPersonList(predicate);
+        assertCommandSuccess(commandFind, model, commandHistory, expectedMessage, expectedModel);
+        assertEquals(Collections.emptyList(), model.getFilteredPersonList());
+
+        // filtering clear called - success
+        commandFilter = new FilterCommand(criterionClearAndReverse, TYPE_CLEAR);
+        expectedModel.clearFilter();
+        expectedModel.commitAddressBook();
+        assertCommandSuccess(commandFilter, model, commandHistory,
+                FilterCommand.MESSAGE_CLEAR_FILTER_PERSON_SUCCESS, expectedModel);
+
+        // finding called - success
+        expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 2);
+        predicate = preparePredicate("Alice Benson");
+        commandFind = new FindCommand(predicate);
+        expectedModel.updateFilteredPersonList(predicate);
+        assertCommandSuccess(commandFind, model, commandHistory, expectedMessage, expectedModel);
+        assertEquals(Arrays.asList(ALICE, BENSON), model.getFilteredPersonList());
+
+        // finding called - failure
+        expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 0);
+        predicate = preparePredicate(" ");
+        commandFind = new FindCommand(predicate);
+        expectedModel.updateFilteredPersonList(predicate);
+        assertCommandSuccess(commandFind, model, commandHistory, expectedMessage, expectedModel);
+        assertEquals(Collections.emptyList(), model.getFilteredPersonList());
+
+        // filtering clear called - failure
+        commandFilter = new FilterCommand(criterionClearAndReverse, TYPE_CLEAR);
+        assertCommandFailure(commandFilter, model, commandHistory, FilterCommand.MESSAGE_NO_FILTER_TO_CLEAR);
+
     }
 
     @Test
     public void execute_filterWithSelectCommand() {
-        //TODO: add a testcase with select command
+
+        // filtering called - success
+        FilterCommand commandFilter = new FilterCommand(criterion2, TYPE_AND);
+        expectedModel.filterAnd(criterion2[0], criterion2[1], criterion2[2], criterion2[3],
+                divideTagsFromString(criterion2[4]), divideTagsFromString(criterion2[5]),
+                criterion2[8], criterion2[6], criterion2[7]);
+        expectedModel.commitAddressBook();
+        assertCommandSuccess(commandFilter, model, commandHistory,
+                FilterCommand.MESSAGE_FILTER_PERSON_SUCCESS, expectedModel);
+
+        // selecting called - success
+        assertExecutionSuccess(INDEX_FIRST_PERSON);
+
+        // selecting called - failure
+        Index outOfBoundsIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
+        assertExecutionFailure(outOfBoundsIndex, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+
+        // filtering reverse called - success
+        commandFilter = new FilterCommand(criterionClearAndReverse, TYPE_REVERSE);
+        expectedModel.reverseFilter();
+        expectedModel.commitAddressBook();
+        assertCommandSuccess(commandFilter, model, commandHistory, FilterCommand.MESSAGE_FILTER_REVERSE_SUCCESS,
+                expectedModel);
+
+        // selecting called - success
+        assertExecutionSuccess(INDEX_THIRD_PERSON);
+
+        // selecting called - failure
+        outOfBoundsIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 2);
+        assertExecutionFailure(outOfBoundsIndex, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+
+        // filtering clear called - success
+        commandFilter = new FilterCommand(criterionClearAndReverse, TYPE_CLEAR);
+        expectedModel.clearFilter();
+        expectedModel.commitAddressBook();
+        assertCommandSuccess(commandFilter, model, commandHistory,
+                FilterCommand.MESSAGE_CLEAR_FILTER_PERSON_SUCCESS, expectedModel);
+
+        // selecting called - success
+        assertExecutionSuccess(INDEX_SECOND_PERSON);
+
+        // selecting called - failure
+        outOfBoundsIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 3);
+        assertExecutionFailure(outOfBoundsIndex, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+
+        // filtering clear called - failure
+        commandFilter = new FilterCommand(criterionClearAndReverse, TYPE_CLEAR);
+        assertCommandFailure(commandFilter, model, commandHistory, FilterCommand.MESSAGE_NO_FILTER_TO_CLEAR);
     }
 
     @Test
     public void execute_allCommands() {
-        //TODO: add a long testcase in which every important command is used
+
+        // filter and called
+        FilterCommand commandFilter = new FilterCommand(criterion4, TYPE_AND);
+        expectedModel.filterAnd(criterion4[0], criterion4[1], criterion4[2], criterion4[3],
+                divideTagsFromString(criterion4[4]), divideTagsFromString(criterion4[5]),
+                criterion4[8], criterion4[6], criterion4[7]);
+        expectedModel.commitAddressBook();
+        assertCommandSuccess(commandFilter, model, commandHistory,
+                FilterCommand.MESSAGE_FILTER_PERSON_SUCCESS, expectedModel);
+
+        // filter or called
+        commandFilter = new FilterCommand(criterion5, TYPE_OR);
+        expectedModel.filterOr(criterion5[0], criterion5[1], criterion5[2], criterion5[3],
+                divideTagsFromString(criterion5[4]), divideTagsFromString(criterion5[5]),
+                criterion5[8], criterion5[6], criterion5[7]);
+        expectedModel.commitAddressBook();
+        assertCommandSuccess(commandFilter, model, commandHistory,
+                FilterCommand.MESSAGE_FILTER_PERSON_SUCCESS, expectedModel);
+
+        // sort name called
+        String expectedMessage = "Sorted all persons by name";
+        SortWord type = new SortWord("name");
+        SortCommand commandSort = new SortCommand(type);
+        SortName sortName = new SortName(expectedModel.getAddressBook().getPersonList());
+        List<Person> sortedPersons = sortName.getList();
+        expectedModel.deleteAllPerson();
+        for (Person newPerson : sortedPersons) {
+            expectedModel.addPersonWithFilter(newPerson);
+        }
+        expectedModel.commitAddressBook();
+        assertCommandSuccess(commandSort, model, commandHistory, expectedMessage, expectedModel);
+
+        // delete 1 called
+        Person personToDelete = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_PERSON);
+        expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, personToDelete);
+        expectedModel.deletePerson(personToDelete);
+        expectedModel.commitAddressBook();
+        assertCommandSuccess(deleteCommand, model, commandHistory, expectedMessage, expectedModel);
+
+        // undo called 2 times
+        expectedModel.undoAddressBook();
+        assertCommandSuccess(new UndoCommand(), model, commandHistory,
+                UndoCommand.MESSAGE_SUCCESS, expectedModel);
+
+        expectedModel.undoAddressBook();
+        assertCommandSuccess(new UndoCommand(), model, commandHistory,
+                UndoCommand.MESSAGE_SUCCESS, expectedModel);
+
+        // redo called
+        expectedModel.redoAddressBook();
+        assertCommandSuccess(new RedoCommand(), model, commandHistory,
+                RedoCommand.MESSAGE_SUCCESS, expectedModel);
+
+        // filter reverse called
+        commandFilter = new FilterCommand(criterionClearAndReverse, TYPE_REVERSE);
+        expectedModel.reverseFilter();
+        expectedModel.commitAddressBook();
+        assertCommandSuccess(commandFilter, model, commandHistory,
+                FilterCommand.MESSAGE_FILTER_REVERSE_SUCCESS, expectedModel);
+
+        // add called
+        Person validPerson = HOON;
+        expectedModel.addPerson(validPerson);
+        expectedModel.commitAddressBook();
+        assertCommandSuccess(new AddCommand(validPerson), model, commandHistory,
+                String.format(AddCommand.MESSAGE_SUCCESS, validPerson), expectedModel);
+
+        // filter clear called - failure
+        commandFilter = new FilterCommand(criterionClearAndReverse, TYPE_CLEAR);
+        assertCommandFailure(commandFilter, model, commandHistory, FilterCommand.MESSAGE_NO_FILTER_TO_CLEAR);
+
+        // filter reverse called - failure
+        commandFilter = new FilterCommand(criterionClearAndReverse, TYPE_REVERSE);
+        expectedModel.reverseFilter();
+        assertCommandFailure(commandFilter, model, commandHistory, FilterCommand.MESSAGE_NO_FILTER_TO_REVERSE);
+
+        // undo called
+        expectedModel.undoAddressBook();
+        assertCommandSuccess(new UndoCommand(), model, commandHistory,
+                UndoCommand.MESSAGE_SUCCESS, expectedModel);
+
+        // filter reverse called
+        commandFilter = new FilterCommand(criterionClearAndReverse, TYPE_REVERSE);
+        expectedModel.reverseFilter();
+        expectedModel.commitAddressBook();
+        assertCommandSuccess(commandFilter, model, commandHistory,
+                FilterCommand.MESSAGE_FILTER_REVERSE_SUCCESS, expectedModel);
+
+        // find called
+        expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 1);
+        NameContainsKeywordsPredicate predicate = preparePredicate("Carl Kunz");
+        FindCommand commandFind = new FindCommand(predicate);
+        expectedModel.updateFilteredPersonList(predicate);
+        assertCommandSuccess(commandFind, model, commandHistory, expectedMessage, expectedModel);
+        assertEquals(Arrays.asList(CARL), model.getFilteredPersonList());
+
+        // list called
+        expectedModel.updateFilteredPersonList(Model.PREDICATE_SHOW_ALL_PERSONS);
+        assertCommandSuccess(new ListCommand(), model, commandHistory, ListCommand.MESSAGE_SUCCESS, expectedModel);
+
+        // select called
+        assertExecutionSuccess(INDEX_SECOND_PERSON);
+
+        // filter clear called
+        commandFilter = new FilterCommand(criterionClearAndReverse, TYPE_CLEAR);
+        expectedModel.clearFilter();
+        expectedModel.commitAddressBook();
+        assertCommandSuccess(commandFilter, model, commandHistory,
+                FilterCommand.MESSAGE_CLEAR_FILTER_PERSON_SUCCESS, expectedModel);
+
+        // filter clear called - failure
+        commandFilter = new FilterCommand(criterionClearAndReverse, TYPE_CLEAR);
+        assertCommandFailure(commandFilter, model, commandHistory, FilterCommand.MESSAGE_NO_FILTER_TO_CLEAR);
+    }
+
+
+    /**
+     * Executes a {@code SelectCommand} with the given {@code index}, and checks that a {@code CommandException}
+     * is thrown with the {@code expectedMessage}.
+     */
+    private void assertExecutionFailure(Index index, String expectedMessage) {
+        SelectCommand selectCommand = new SelectCommand(index);
+        assertCommandFailure(selectCommand, model, commandHistory, expectedMessage);
+    }
+
+    /**
+     * Executes a {@code SelectCommand} with the given {@code index},
+     * and checks that the model's selected person is set to the person at {@code index} in the filtered person list.
+     */
+    private void assertExecutionSuccess(Index index) {
+        SelectCommand selectCommand = new SelectCommand(index);
+        String expectedMessage = String.format(SelectCommand.MESSAGE_SELECT_PERSON_SUCCESS, index.getOneBased());
+        expectedModel.setSelectedPerson(model.getFilteredPersonList().get(index.getZeroBased()));
+
+        assertCommandSuccess(selectCommand, model, commandHistory, expectedMessage, expectedModel);
     }
 }

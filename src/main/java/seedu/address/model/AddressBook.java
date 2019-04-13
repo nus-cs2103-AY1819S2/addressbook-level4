@@ -75,6 +75,7 @@ public class AddressBook implements ReadOnlyAddressBook {
 
         allPersonsStorage.setPersons(newData.getAllPersonsStorageList());
         persons.setPersons(newData.getPersonList());
+        isFilterExist = newData.getFilterInfo();
     }
 
     //// person-level operations
@@ -341,6 +342,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     /**
      * gets filter info
      */
+    @Override
     public boolean getFilterInfo() {
         return isFilterExist;
     }

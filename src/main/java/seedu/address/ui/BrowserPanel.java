@@ -2,8 +2,11 @@ package seedu.address.ui;
 
 import static java.util.Objects.requireNonNull;
 
+import java.io.File;
 import java.net.URL;
-import java.util.List;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.logging.Logger;
 
 import javafx.application.Platform;
@@ -23,7 +26,8 @@ public class BrowserPanel extends UiPart<Region> {
 
     public static final URL DEFAULT_PAGE =
             requireNonNull(MainApp.class.getResource(FXML_FILE_FOLDER + "default.html"));
-    public static final String SEARCH_PAGE_URL = "https://www.linkedin.com/search/results/all/?keywords=";
+    public static final URL PLACEHOLDER_PAGE = requireNonNull(MainApp.class.getResource(FXML_FILE_FOLDER
+            + "html/placeholder.html"));
 
     private static final String FXML = "BrowserPanel.fxml";
     private static final String DELIM = "%20";
@@ -45,30 +49,34 @@ public class BrowserPanel extends UiPart<Region> {
                 loadDefaultPage();
                 return;
             }
-            loadPersonPage(newValue);
+
+            Path htmlPath = Paths.get("data/html").toAbsolutePath();
+            Path cvImgPath = Paths.get("data/html/cv").toAbsolutePath();
+            String fileName = selectedPerson.getValue().getName().toString().trim().toLowerCase()
+                    .replace(" ", "") + ".html";
+            String url = "data/html/" + fileName;
+
+            if (Files.exists(htmlPath)) {
+                if (Files.exists(cvImgPath)) {
+                    if (Files.exists(Paths.get(url))) {
+                        loadPage("file:/" + Paths.get(url).toAbsolutePath().toString()
+                                .replace("\\", "/"));
+                    } else {
+                        loadCvPage(fileName);
+                    }
+                } else {
+                    new File("./data/html/cv").mkdirs();
+                    loadCvPage(fileName);
+                }
+            } else {
+                new File("./data/html").mkdirs();
+                new File("./data/html/cv").mkdirs();
+                loadCvPage(fileName);
+            }
         });
 
         loadDefaultPage();
     }
-
-    /**
-     * Loads the linked in page, making a search for the person with their name and one of their positions.
-     * If no positions are held then just the name is searched for
-     */
-    private void loadPersonPage(Person person) {
-        String personsPosition;
-        String personsName = person.nameToString();
-        String personsModifiedName = trimToSearchFormat(personsName);
-        List<String> positions = person.getPositionString();
-        if (positions.isEmpty()) {
-            personsPosition = "";
-        } else {
-            personsPosition = trimToSearchFormat(positions.get(0));
-        }
-        String searchString1 = SEARCH_PAGE_URL + personsModifiedName + DELIM + personsPosition;
-        loadPage(searchString1);
-    }
-
 
     public void loadPage(String url) {
         Platform.runLater(() -> browser.getEngine().load(url));
@@ -93,4 +101,15 @@ public class BrowserPanel extends UiPart<Region> {
         return output;
     }
 
+    /**
+     * checks the files in default to see if a Cv exists, if it exist then it shows that, if not, it shows the
+     * place holder page
+     */
+    private void loadCvPage(String fileName) {
+        try {
+            loadPage(MainApp.class.getResource(FXML_FILE_FOLDER + "html/" + fileName).toString());
+        } catch (Exception e) {
+            loadPage(MainApp.class.getResource(FXML_FILE_FOLDER + "html/placeholder.html").toString());
+        }
+    }
 }

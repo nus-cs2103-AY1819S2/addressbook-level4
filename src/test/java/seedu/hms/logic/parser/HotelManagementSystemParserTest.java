@@ -24,6 +24,8 @@ import seedu.hms.logic.commands.AddServiceTypeCommand;
 import seedu.hms.logic.commands.ClearBookingCommand;
 import seedu.hms.logic.commands.ClearHotelManagementSystemCommand;
 import seedu.hms.logic.commands.ClearReservationCommand;
+import seedu.hms.logic.commands.ClearRoomTypeCommand;
+import seedu.hms.logic.commands.ClearServiceTypeCommand;
 import seedu.hms.logic.commands.DeleteBookingCommand;
 import seedu.hms.logic.commands.DeleteCustomerCommand;
 import seedu.hms.logic.commands.DeleteReservationCommand;
@@ -125,7 +127,7 @@ public class HotelManagementSystemParserTest {
         assertTrue(parser.parseCommand(ClearHotelManagementSystemCommand.COMMAND_WORD, new CustomerManager(),
             new BookingManager(), new ReservationManager(), new BillManager())
             instanceof ClearHotelManagementSystemCommand);
-        assertTrue(parser.parseCommand(ClearHotelManagementSystemCommand.COMMAND_WORD + " 3",
+        assertTrue(parser.parseCommand(ClearHotelManagementSystemCommand.COMMAND_WORD,
             new CustomerManager(), new BookingManager(), new ReservationManager(), new BillManager())
             instanceof ClearHotelManagementSystemCommand);
     }
@@ -134,7 +136,7 @@ public class HotelManagementSystemParserTest {
     public void parseCommandClearBooking() throws Exception {
         assertTrue(parser.parseCommand(ClearBookingCommand.COMMAND_WORD, new CustomerManager(), new BookingManager(),
             new ReservationManager(), new BillManager()) instanceof ClearBookingCommand);
-        assertTrue(parser.parseCommand(ClearBookingCommand.COMMAND_WORD + " 3", new CustomerManager(),
+        assertTrue(parser.parseCommand(ClearBookingCommand.COMMAND_WORD, new CustomerManager(),
             new BookingManager(), new ReservationManager(), new BillManager()) instanceof ClearBookingCommand);
     }
 
@@ -142,9 +144,27 @@ public class HotelManagementSystemParserTest {
     public void parseCommandClearReservation() throws Exception {
         assertTrue(parser.parseCommand(ClearReservationCommand.COMMAND_WORD, new CustomerManager(),
             new BookingManager(), new ReservationManager(), new BillManager()) instanceof ClearReservationCommand);
-        assertTrue(parser.parseCommand(ClearReservationCommand.COMMAND_WORD + " 3",
+        assertTrue(parser.parseCommand(ClearReservationCommand.COMMAND_WORD,
             new CustomerManager(), new BookingManager(), new ReservationManager(), new BillManager())
             instanceof ClearReservationCommand);
+    }
+
+    @Test
+    public void parseCommandClearServiceType() throws Exception {
+        assertTrue(parser.parseCommand(ClearServiceTypeCommand.COMMAND_WORD, new CustomerManager(),
+            new BookingManager(), new ReservationManager(), new BillManager()) instanceof ClearServiceTypeCommand);
+        assertTrue(parser.parseCommand(ClearServiceTypeCommand.COMMAND_WORD,
+            new CustomerManager(), new BookingManager(), new ReservationManager(), new BillManager())
+            instanceof ClearServiceTypeCommand);
+    }
+
+    @Test
+    public void parseCommandClearRoomType() throws Exception {
+        assertTrue(parser.parseCommand(ClearRoomTypeCommand.COMMAND_WORD, new CustomerManager(),
+            new BookingManager(), new ReservationManager(), new BillManager()) instanceof ClearRoomTypeCommand);
+        assertTrue(parser.parseCommand(ClearRoomTypeCommand.COMMAND_WORD,
+            new CustomerManager(), new BookingManager(), new ReservationManager(), new BillManager())
+            instanceof ClearRoomTypeCommand);
     }
 
     @Test
@@ -152,7 +172,7 @@ public class HotelManagementSystemParserTest {
         assertTrue(parser.parseCommand(ClearHotelManagementSystemCommand.COMMAND_ALIAS, new CustomerManager(),
             new BookingManager(), new ReservationManager(), new BillManager())
             instanceof ClearHotelManagementSystemCommand);
-        assertTrue(parser.parseCommand(ClearHotelManagementSystemCommand.COMMAND_ALIAS + " 3",
+        assertTrue(parser.parseCommand(ClearHotelManagementSystemCommand.COMMAND_ALIAS,
             new CustomerManager(), new BookingManager(), new ReservationManager(), new BillManager())
             instanceof ClearHotelManagementSystemCommand);
     }
@@ -162,7 +182,7 @@ public class HotelManagementSystemParserTest {
         assertTrue(parser.parseCommand(ClearBookingCommand.COMMAND_ALIAS, new CustomerManager(), new BookingManager(),
             new ReservationManager(), new BillManager())
             instanceof ClearBookingCommand);
-        assertTrue(parser.parseCommand(ClearBookingCommand.COMMAND_ALIAS + " 3", new CustomerManager(),
+        assertTrue(parser.parseCommand(ClearBookingCommand.COMMAND_ALIAS, new CustomerManager(),
             new BookingManager(), new ReservationManager(), new BillManager()) instanceof ClearBookingCommand);
     }
 
@@ -171,9 +191,27 @@ public class HotelManagementSystemParserTest {
         assertTrue(parser.parseCommand(ClearReservationCommand.COMMAND_ALIAS, new CustomerManager(),
             new BookingManager(), new ReservationManager(), new BillManager())
             instanceof ClearReservationCommand);
-        assertTrue(parser.parseCommand(ClearReservationCommand.COMMAND_ALIAS + " 3",
+        assertTrue(parser.parseCommand(ClearReservationCommand.COMMAND_ALIAS,
             new CustomerManager(), new BookingManager(), new ReservationManager(), new BillManager())
             instanceof ClearReservationCommand);
+    }
+
+    @Test
+    public void parseCommandClearServiceTypeAlias() throws Exception {
+        assertTrue(parser.parseCommand(ClearServiceTypeCommand.COMMAND_ALIAS, new CustomerManager(),
+            new BookingManager(), new ReservationManager(), new BillManager()) instanceof ClearServiceTypeCommand);
+        assertTrue(parser.parseCommand(ClearServiceTypeCommand.COMMAND_ALIAS,
+            new CustomerManager(), new BookingManager(), new ReservationManager(), new BillManager())
+            instanceof ClearServiceTypeCommand);
+    }
+
+    @Test
+    public void parseCommandClearRoomTypeAlias() throws Exception {
+        assertTrue(parser.parseCommand(ClearRoomTypeCommand.COMMAND_ALIAS, new CustomerManager(),
+            new BookingManager(), new ReservationManager(), new BillManager()) instanceof ClearRoomTypeCommand);
+        assertTrue(parser.parseCommand(ClearRoomTypeCommand.COMMAND_ALIAS,
+            new CustomerManager(), new BookingManager(), new ReservationManager(), new BillManager())
+            instanceof ClearRoomTypeCommand);
     }
 
     @Test

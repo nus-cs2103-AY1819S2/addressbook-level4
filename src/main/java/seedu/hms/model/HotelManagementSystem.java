@@ -42,8 +42,7 @@ public class HotelManagementSystem implements ReadOnlyHotelManagementSystem {
      *
      * Note that non-static init blocks are not recommended to use. There are other ways to avoid duplication
      *   among constructors.
-     */
-    {
+     */ {
         bookings = new BookingList();
         customers = new UniqueCustomerList();
         serviceTypes = new ServiceTypeList();
@@ -128,7 +127,25 @@ public class HotelManagementSystem implements ReadOnlyHotelManagementSystem {
     }
 
     /**
-     * Resets the existing booking data of this {@code HotelManagementSystem} with {@code newData}
+     * Resets the existing room types data of this {@code HotelManagementSystem} with {@code newData}
+     */
+    public void resetDataRoomTypes(ReadOnlyHotelManagementSystem newData) {
+        requireNonNull(newData);
+
+        setRoomTypes(newData.getRoomTypeList());
+    }
+
+    /**
+     * Resets the existing service types data of this {@code HotelManagementSystem} with {@code newData}
+     */
+    public void resetDataServiceTypes(ReadOnlyHotelManagementSystem newData) {
+        requireNonNull(newData);
+
+        setServiceTypes(newData.getServiceTypeList());
+    }
+
+    /**
+     * Resets the existing reservation data of this {@code HotelManagementSystem} with {@code newData}
      */
     public void resetDataReservation(ReadOnlyHotelManagementSystem newData) {
         requireNonNull(newData);
@@ -263,6 +280,7 @@ public class HotelManagementSystem implements ReadOnlyHotelManagementSystem {
      */
     public void removeServiceType(ServiceType b) {
         serviceTypes.remove(b);
+        bookings.removeServiceTpe(b);
         indicateModified();
     }
 
@@ -303,6 +321,7 @@ public class HotelManagementSystem implements ReadOnlyHotelManagementSystem {
      */
     public void removeRoomType(RoomType b) {
         roomTypes.remove(b);
+        reservations.removeRoomType(b);
         indicateModified();
     }
 

@@ -126,6 +126,11 @@ public class BookingManager implements BookingModel {
         versionedHotelManagementSystem.resetDataBooking(hotelManagementSystem);
     }
 
+    @Override
+    public void setClearServiceTypes(ReadOnlyHotelManagementSystem hotelManagementSystem) {
+        versionedHotelManagementSystem.resetDataServiceTypes(hotelManagementSystem);
+    }
+
     public void deleteServiceType(int serviceTypeIndex) {
         versionedHotelManagementSystem.removeServiceType(serviceTypeIndex);
     }
@@ -149,7 +154,7 @@ public class BookingManager implements BookingModel {
 
     public ServiceType getServiceType(String serviceName) {
         requireNonNull(serviceName);
-        for (ServiceType st: serviceTypeList) {
+        for (ServiceType st : serviceTypeList) {
             if (st.getName().equalsIgnoreCase(serviceName)) {
                 return st;
             }
@@ -285,7 +290,9 @@ public class BookingManager implements BookingModel {
         return versionedHotelManagementSystem.equals(other.versionedHotelManagementSystem)
             && userPrefs.equals(other.userPrefs)
             && filteredBookings.equals(other.filteredBookings)
-            && Objects.equals(selectedBooking.get(), other.selectedBooking.get());
+            && Objects.equals(selectedBooking.get(), other.selectedBooking.get())
+            && Objects.equals(selectedServiceType.get(), other.selectedServiceType.get())
+            && serviceTypeList.equals(other.serviceTypeList);
     }
 
     /**

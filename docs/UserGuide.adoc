@@ -211,12 +211,19 @@ _Figure 2. After selecting restaurant with index 3, Chilis' summary, reviews and
 // tag::categorization[]
 ==== Setting the categories of a restaurant : `setCategories`
 
-Sets the cuisine of a restaurant identified by the index number used in the list. +
+Sets the categories of a restaurant identified by the index number used in the list. +
 Format: `setCategories INDEX [c/CUISINE] [oc/OCCASION] [pr/PRICE_RANGE]`
+
+[TIP]
+====
+* You can make use of the autocomplete suggestions to type faster!
+* When a category's prefix (`c/`, `oc/` or `pr/`) is keyed in, suggestions will appear. Use arrow keys to select the desired
+suggestion and press enter. The suggestion will be filled automatically for you!
+====
 
 *Step by step guide on how to set categories:*
 
-Step 1: List all the restaurants by typing `list`, then pressing enter, as shown _below_.
+Step 1: List all the restaurants by typing `list`, then press enter, as shown _below_.
 
 image::setcategories-stepone.png[]
 _Figure 1: After typing `list`_
@@ -269,13 +276,6 @@ Sets the categories of the second restaurant in the list to `Premium Casual` for
 * `setCategories 3 c/Western` +
 Only sets the cuisine of the third restaurant to `Western`.
 
-[TIP]
-====
-* You can make use of the autocomplete suggestions to type faster!
-* When a category's prefix (`c/`, `oc/` or `pr/`) is keyed in, suggestions will appear. Use arrow keys to select the desired
-suggestion and press enter. The suggestion will be filled automatically for you!
-====
-
 ==== Filtering restaurants based on category : `filter`
 
 Filters and lists the restaurants with categories matching the keywords entered. +
@@ -304,9 +304,9 @@ Note this also means that the more keywords you add, the more general the filter
 Some examples you can try:
 
 * `filter fine dining casual`
-Returns restaurants with any category matching `fine`, `dining` or `casual`.
+Displays restaurants with any category matching `fine`, `dining` or `casual`.
 * `filter $ casual western`
-Returns restaurants with any category matching `$`, `casual` or `western`.
+Displays restaurants with any category matching `$`, `casual` or `western`.
 // end::categorization[]
 
 // tag::visitweb[]

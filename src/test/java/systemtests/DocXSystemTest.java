@@ -39,6 +39,9 @@ import seedu.address.logic.commands.SelectDoctorCommand;
 import seedu.address.logic.commands.SelectPatientCommand;
 import seedu.address.model.DocX;
 import seedu.address.model.Model;
+import seedu.address.model.person.Doctor;
+import seedu.address.model.person.Patient;
+import seedu.address.testutil.TypicalDoctors;
 import seedu.address.testutil.TypicalPatients;
 import seedu.address.ui.CommandBox;
 import seedu.address.ui.PatientInfoPanel;
@@ -83,7 +86,16 @@ public abstract class DocXSystemTest {
      * Returns the data to be loaded into the file in {@link #getDataFileLocation()}.
      */
     protected DocX getInitialData() {
-        return TypicalPatients.getTypicalDocX();
+        DocX combined = new DocX();
+        List<Patient> patients = TypicalPatients.getTypicalPatients();
+        for (Patient p : patients) {
+            combined.addPatient(p);
+        }
+        List<Doctor> doctors = TypicalDoctors.getTypicalDoctors();
+        for (Doctor d : doctors) {
+            combined.addDoctor(d);
+        }
+        return combined;
     }
 
     /**
@@ -255,6 +267,21 @@ public abstract class DocXSystemTest {
         URL expectedUrl;
 
         assertEquals(expectedSelectedCardIndex.getZeroBased(), getPatientListPanel().getSelectedCardIndex());
+    }
+
+    /**
+     * Asserts that the browser's url is changed to display the details of the patient in the patient list panel at
+     * {@code expectedSelectedCardIndex}, and only the card at {@code expectedSelectedCardIndex} is selected.
+     *
+     * @see BrowserPanelHandle#isUrlChanged()
+     * @see PatientListPanelHandle#isSelectedPatientCardChanged()
+     */
+    protected void assertSelectedCardChanged_doc(Index expectedSelectedCardIndex) {
+        getDoctorListPanel().navigateToCard(getDoctorListPanel().getSelectedCardIndex());
+        String selectedCardName = getDoctorListPanel().getHandleToSelectedCard().getName();
+        URL expectedUrl;
+
+        assertEquals(expectedSelectedCardIndex.getZeroBased(), getDoctorListPanel().getSelectedCardIndex());
     }
 
     /**

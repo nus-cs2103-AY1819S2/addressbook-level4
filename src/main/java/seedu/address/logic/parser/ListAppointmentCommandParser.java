@@ -1,12 +1,21 @@
 package seedu.address.logic.parser;
 
+import static seedu.address.logic.parser.CliSyntax.PREFIX_APPT_STATUS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE_OF_APPT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DOCTOR_ID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PATIENT_ID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_START_TIME;
 
+import java.util.Optional;
+
 import seedu.address.logic.commands.ListAppointmentCommand;
+import seedu.address.logic.commands.ListAppointmentCommand.ListAppointmentDescriptor;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.appointment.AppointmentDate;
+import seedu.address.model.appointment.AppointmentDoctorId;
+import seedu.address.model.appointment.AppointmentPatientId;
+import seedu.address.model.appointment.AppointmentStatus;
+import seedu.address.model.appointment.AppointmentTime;
 
 /**
  * Parses input arguments and creates a new ListAppointmentCommand object
@@ -22,21 +31,37 @@ public class ListAppointmentCommandParser implements Parser<ListAppointmentComma
 
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_PATIENT_ID, PREFIX_DOCTOR_ID,
-                        PREFIX_DATE_OF_APPT, PREFIX_START_TIME);
+                        PREFIX_DATE_OF_APPT, PREFIX_START_TIME, PREFIX_APPT_STATUS);
+
+        ListAppointmentDescriptor descriptors =
+                new ListAppointmentDescriptor();
 
         if (argMultimap.getValue(PREFIX_PATIENT_ID).isPresent()) {
-            argMultimap.getValue(PREFIX_PATIENT_ID).get();
+            AppointmentPatientId pid = ParserUtil
+                    .parseAppointmentPatientId(argMultimap.getValue(PREFIX_PATIENT_ID).get());
+            descriptors.setPatientId(Optional.of(pid));
         }
         if (argMultimap.getValue(PREFIX_DOCTOR_ID).isPresent()) {
-            argMultimap.getValue(PREFIX_DOCTOR_ID).get();
+            AppointmentDoctorId did = ParserUtil
+                    .parseAppointmentDoctorId(argMultimap.getValue(PREFIX_DOCTOR_ID).get());
+            descriptors.setDoctorId(Optional.of(did));
         }
         if (argMultimap.getValue(PREFIX_DATE_OF_APPT).isPresent()) {
-            argMultimap.getValue(PREFIX_DATE_OF_APPT).get();
+            AppointmentDate date = ParserUtil
+                    .parseAppointmentDate(argMultimap.getValue(PREFIX_DATE_OF_APPT).get());
+            descriptors.setDate(Optional.of(date));
         }
         if (argMultimap.getValue(PREFIX_START_TIME).isPresent()) {
-            argMultimap.getValue(PREFIX_START_TIME).get();
+            AppointmentTime time = ParserUtil
+                    .parseAppointmentTime(argMultimap.getValue(PREFIX_START_TIME).get());
+            descriptors.setTime(Optional.of(time));
+        }
+        if (argMultimap.getValue(PREFIX_APPT_STATUS).isPresent()) {
+            AppointmentStatus status = ParserUtil
+                    .parseAppointmentStatus(argMultimap.getValue(PREFIX_APPT_STATUS).get());
+            descriptors.setStatus(Optional.of(status));
         }
 
-        return new ListAppointmentCommand();
+        return new ListAppointmentCommand(descriptors);
     }
 }

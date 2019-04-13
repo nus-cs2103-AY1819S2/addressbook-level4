@@ -1,7 +1,7 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.address.testutil.TypicalPatients.getTypicalDocX;
+import static seedu.address.testutil.TypicalDoctors.getTypicalDocX_doctor;
 
 import java.util.Arrays;
 
@@ -24,7 +24,7 @@ public class ListDoctorCommandParserTest {
 
     @Before
     public void setUp() {
-        model = new ModelManager(getTypicalDocX(), new UserPrefs());
+        model = new ModelManager(getTypicalDocX_doctor(), new UserPrefs());
         expectedModel = new ModelManager(model.getDocX(), new UserPrefs());
     }
     /*

@@ -323,7 +323,7 @@ public class ParserUtil {
         if (!AppointmentStatus.isValidAppointmentStatus(trimmedStatus)) {
             throw new ParseException(AppointmentStatus.MESSAGE_CONSTRAINTS);
         }
-        return AppointmentStatus.valueOf(status);
+        return AppointmentStatus.valueOf(trimmedStatus);
     }
 
     /**

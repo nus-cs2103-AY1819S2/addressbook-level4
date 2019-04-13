@@ -99,7 +99,6 @@ public class UniqueAppointmentList implements Iterable<Appointment> {
 
         int numberOfOccurrence = appointmentsToSet.size();
         for (int i = 0; i < numberOfOccurrence; i++) {
-            System.out.println("TEST " + numberOfOccurrence);
             modifiedAppointment = appointmentsToSet.get(i);
             int indexToReplace = internalList.indexOf(modifiedAppointment);
             modifiedAppointment.setPatient(null);

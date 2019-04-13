@@ -52,7 +52,7 @@ public class CommandTestUtil {
     public static final String VALID_YEAR_STEVEN = "23";
     public static final String VALID_YEAR_ALVINA = "21";
     public static final String VALID_PHONE_STEVEN = "91612342";
-    public static final String VALID_PHONE_ALVINA = "82376447";
+    public static final String VALID_PHONE_ALVINA = "62423423";
     public static final String VALID_SPECIALISATION_ACUPUNCTURE = "acupuncture";
     public static final String VALID_SPECIALISATION_MASSAGE = "massage";
     public static final String VALID_SPECIALISATION_GENERAL = "general";

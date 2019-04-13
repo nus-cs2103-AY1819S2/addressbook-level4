@@ -450,6 +450,9 @@ The `Task` class is a new type of object stored by the application in addition t
 
 Following the same practice as `Patient`/`Person` attributes for `Task` are instantiated as objects of their own. The following class diagram details the relevant attributes for a `Task` object along with the multiplicity association between the classes:
 
+{nbsp}
+image::TaskClassDiagramFinal.png[width=""]
+{nbsp}
 // end::taskcchj1995[]
 
 // tag::undoredo[]

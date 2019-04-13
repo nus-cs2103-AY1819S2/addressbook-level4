@@ -511,7 +511,7 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ===== Aspect: Data structure to support the undo/redo commands
 
 * **Current implementation:** Use a list to store the history of address book states.
-* **Alternative 2:** Use `HistoryManager` for undo/redo
+** **Alternative:** Use `HistoryManager` for undo/redo
 *** **Alternative Pros:** We do not need to maintain a separate list, and just reuse what is already in the codebase. Logic is not duplicated twice as a result.
 *** **Alternative Cons:** Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things. It is also harder for the new incoming developers of our project, who are new Computer Science student undergraduates, to understand.
 ** **Choice Justification:** We decided to keep to the Single Responsibility Principle and Separation of Concerns, thus we chose the current implementation.

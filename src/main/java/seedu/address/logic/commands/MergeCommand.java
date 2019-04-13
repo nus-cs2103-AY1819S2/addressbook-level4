@@ -76,7 +76,7 @@ public class MergeCommand extends Command {
                 .getZeroBased()).getDirectory().getDirectory();
         String mergedPdfName = "merged" + hashCode();
         //Check that no duplicate file name (how on earth would it happen though)
-        while (Paths.get(mergedPdfDirectory, mergedPdfName).toAbsolutePath().toFile().exists()) {
+        while (Paths.get(mergedPdfDirectory, mergedPdfName + PDF_SUFFIX).toAbsolutePath().toFile().exists()) {
             //Just throwing zeros at the back of the name until it is unique
             mergedPdfName += FIRST_INDEX;
         }

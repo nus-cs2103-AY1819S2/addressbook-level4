@@ -415,12 +415,50 @@ Examples:
 === Merging Files: `merge`
 With the `merge` command , you can merge two or more files into a new single file.
 
-Format: `merge INDEX INDEX...`
+The Merge feature has the following syntax:
+
+[.big]#`merge <INDEX1> <INDEX2> ...`#
+
+* `<INDEX>` refers to the index of the `Pdf` that you wish to merge.
+* Minimum of two indices have to be provided for the merge to be performed, up to as many
+indices as desired.
+* It is possible to repeat an index; the PDF would simply merge with a copy of itself.
+
+[NOTE]
+The index value can be referenced from the list in the main application, or from the
+result of the `Filter`, `Find` or `List` feature.
+
+==== Feature breakdown
+Illustrated below is a sample usage scenario that provides a clear view to the inner
+workings of the `merge` feature.
+
+Step 1: From the main interface of the application, the user chooses the file(s) that
+they wish to merge, and enters the `merge` command into the CLI Interface, following
+the outlined Syntax as illustrated below.
+
+image::MergeFeatureStep1.png[width="600"]
+
+Step 2: After executing the command, the *MergeCommandParser* parses the input into
+relevant objects that are required to be executed by the *MergeCommand* object. In
+particular, it ensures that there are two or more arguments passed as described in the
+above Syntax. Upon parsing, the parser then creates a new *MergeCommand* that will execute
+the user's input.
+
+In this case, the above two files will be merged, with the _"CS2103T_PDF++_UG_Intro.pdf"_
+file appended behind the other file.
+
+Step 3: The *MergeCommand* is then executed. During the execution, there are several levels
+of validation that, failing which would stop the execution and throw an exception.
+Here are the different cases:
+
+Step 4: Successful execution of the command would return a *CommandResult* object and create the
+a new file with the merged content. The new name of the merged file follows the format: "merged[hashcode].pdf". This is to ensure
+unique file name. The hashcode in the name will be modified if name already exists.
 
 Examples:
 
-* `merge 1 2 3` +
-* `merge 1 2 1` +
+* `merge 1 2 3`
+* `merge 1 2 1`
 * `merge 1 1`
 
 [NOTE]

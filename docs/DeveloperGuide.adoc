@@ -532,8 +532,6 @@ _{Explain here how the data encryption feature will be implemented}_
 === Viewing Information Management
 // tag::findimplement[]
 ==== Find feature
-===== Current Implementation
-
 The Find mechanism is facilitated through the use of predicates in conjunction with the
 `FilteredList` within `ModelManager`
 
@@ -556,13 +554,28 @@ that matches the given predicate.
 image::FindCommandSequenceDiagram1.png[width="800"]
 
 ==== Design Considerations
-===== Aspect: Creation of Predicates
+===== Aspect: Creation of Predicate Classes
 
-* **Alternative 1 (current choice):** Every associated parameter that is found within either a `Patient` or `Record`
-class has an associated `ContainsKeywordsPredicate` that handles the predicate testing when that parameter is
-specified to be searched.
-* **Alternative 2:** `Patient` and `Record` would each have an individual associated `ContainsKeywordsPredicate` that
- acts as a "class of classes" that contains each respective paramater predicate class within itself.
+* *Current Implementation:* Every associated parameter that is found within either a `Patient` or `Record`
+class has an associated parameter predicate classes extended from `ContainsKeywordsPredicate` class that handles the
+predicate testing when that parameter is specified to be searched. +
+(E.g. The predicate for Name is handled in `NameContainsKeywordsPredicate`)
+
+** *Alternative 1:* `Patient` and `Record` would each have an individually associated
+`PatientContainsKeywordsPredicate` and `RecordContainsKeywordsPredicate` that
+ contains each respective parameter predicate class within itself.
+
+*** *Alternative Pros:* Collates all parameter predicates relevant to either Patient or Record within a singular
+class. This makes it easier for future developers to discover which file to change should they require to add or
+remove additional parameter predicates from TeethHub.
+
+*** *Alternative Cons:* Violates *Open-Closed Principle* as every time a parameter predicate needs to be added or
+modified, we are forced to modify the code of either `PatientContainsKeywordsPredicate` or
+`RecordContainsKeywordsPredicate` in order to extend its behavior.
+
+** *Choice Justification:* Ultimately, while the current implementation can be considered more troublesome for future
+ developers as they would need to create a new java file for each new parameter, we decided that it was more
+ important for us to maintain proper software engineering principles.
 
 // end::findimplement[]
 

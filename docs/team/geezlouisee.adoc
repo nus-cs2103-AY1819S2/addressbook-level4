@@ -48,6 +48,7 @@ This section summarises my contributions towards the code, documentation, as wel
 |===
 
 include::../UserGuide.adoc[tag=summary]
+include::../UserGuide.adoc[tag=upcomingFeatures]
 
 == Contributions to the Developer Guide
 

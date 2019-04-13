@@ -537,7 +537,7 @@ You can see the summary of your previous expenditures represented as a pie chart
 each sector representing a category. Each sector is labelled with name and total expenditure for the category,
 allowing you to have an overview of how your spending habit is like.
 
-You can also specify a report period.
+You can also specify a report period by specifying the number of days or months. However, these parameters are optional.
 
 You may also type `summary` in the command box to exit the summary view mode, as shown in the diagram below.
 
@@ -725,6 +725,7 @@ You can quit the program at any point in time when you use this command.
 The finance record and allocated budget will be saved in the hard disk automatically after any command that changes
 the data. There is no need for you to save manually.
 
+// tag::upcomingFeatures[]
 === Upcoming features
 
 ==== Login Feature `[coming in v2.0]`
@@ -733,13 +734,6 @@ Your personal data will be encrypted and stored in your own account that can als
 
 With this feature, multiple users will be able to use _In-Credit-Ble_ on the same computer without being able to access or alter each other's data.
 
-// tag::savingpatterns[]
-==== Establish saving patterns based on record and derive projected savings/expenses in a time span `[coming in v2.0]`
-
-Your monthly finance records will be archived at the end of the month. This information will be used to derive
-the projected savings and expenses of future months, based on analysing your typical spending patterns.
-// end::savingpatterns[]
-
 ==== Separate expenditures based on methods of payment (Cash, Visa, Paylah) `[coming in v2.0]`
 
 _In-Credit-Ble_ will link up with secure methods of payment to allow tracking of your cashless transactions.
@@ -747,6 +741,14 @@ These include, but not limited to, payment services such as DBS PayLah, Visa/Mas
 
 By paying through these third-party applications, your transactions will automatically be updated
 and recorded as entries in _In-Credit-Ble_.
+// end::upcomingFeatures[]
+
+// tag::savingpatterns[]
+==== Establish saving patterns based on record and derive projected savings/expenses in a time span `[coming in v2.0]`
+
+Your monthly finance records will be archived at the end of the month. This information will be used to derive
+the projected savings and expenses of future months, based on analysing your typical spending patterns.
+// end::savingpatterns[]
 
 ==== Links to financial articles `[coming in v2.0]`
 

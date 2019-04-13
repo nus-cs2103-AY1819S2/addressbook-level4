@@ -9,7 +9,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.model.Model;
 import seedu.address.model.menu.MenuItem;
 import seedu.address.model.order.OrderItem;
-import seedu.address.model.statistics.DailyRevenue;
+import seedu.address.model.statistics.Revenue;
 import seedu.address.model.table.Table;
 
 /**
@@ -99,23 +99,23 @@ public class TestUtil {
     }
 
     /**
-     * Returns the middle index of the daily revenue in the {@code model}'s daily revenue list.
+     * Returns the middle index of the revenue in the {@code model}'s revenue list.
      */
-    public static Index getDailyRevenueMidIndex(Model model) {
-        return Index.fromOneBased(model.getFilteredDailyRevenueList().size() / 2);
+    public static Index getRevenueMidIndex(Model model) {
+        return Index.fromOneBased(model.getFilteredRevenueList().size() / 2);
     }
 
     /**
-     * Returns the last index of the daily revenue in the {@code model}'s daily revenue list.
+     * Returns the last index of the revenue in the {@code model}'s revenue list.
      */
-    public static Index getDailyRevenueLastIndex(Model model) {
-        return Index.fromOneBased(model.getFilteredDailyRevenueList().size());
+    public static Index getRevenueLastIndex(Model model) {
+        return Index.fromOneBased(model.getFilteredRevenueList().size());
     }
 
     /**
-     * Returns the daily revenue in the {@code model}'s daily revenue list at {@code index}.
+     * Returns the daily revenue in the {@code model}'s revenue list at {@code index}.
      */
-    public static DailyRevenue getDailyRevenue(Model model, Index index) {
-        return model.getFilteredDailyRevenueList().get(index.getZeroBased());
+    public static Revenue getRevenue(Model model, Index index) {
+        return model.getFilteredRevenueList().get(index.getZeroBased());
     }
 }

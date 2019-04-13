@@ -141,7 +141,7 @@ public class TestApp extends MainApp {
         ModelHelper.setOrderItemFilteredList(copy, model.getFilteredOrderItemList());
         ModelHelper.setMenuItemFilteredList(copy, model.getFilteredMenuItemList());
         ModelHelper.setTableFilteredList(copy, model.getFilteredTableList());
-        ModelHelper.setDailyRevenueFilteredList(copy, model.getFilteredDailyRevenueList());
+        ModelHelper.setRevenueFilteredList(copy, model.getFilteredRevenueList());
         return copy;
     }
 

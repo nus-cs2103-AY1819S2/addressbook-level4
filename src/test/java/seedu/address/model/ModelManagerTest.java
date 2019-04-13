@@ -27,7 +27,7 @@ import seedu.address.model.menu.MenuItem;
 import seedu.address.model.menu.exceptions.MenuItemNotFoundException;
 import seedu.address.model.order.OrderItem;
 import seedu.address.model.order.exceptions.OrderItemNotFoundException;
-import seedu.address.model.statistics.exceptions.DailyRevenueNotFoundException;
+import seedu.address.model.statistics.exceptions.RevenueNotFoundException;
 import seedu.address.model.table.Table;
 import seedu.address.model.table.TableNumber;
 import seedu.address.model.table.exceptions.TableNotFoundException;
@@ -50,7 +50,7 @@ public class ModelManagerTest {
         assertEquals(null, modelManager.getSelectedOrderItem());
         assertEquals(null, modelManager.getSelectedMenuItem());
         assertEquals(null, modelManager.getSelectedTable());
-        assertEquals(null, modelManager.getSelectedDailyRevenue());
+        assertEquals(null, modelManager.getSelectedRevenue());
         assertEquals(null, modelManager.getRecentBill());
     }
 
@@ -338,70 +338,70 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void hasDailyRevenue_nullDailyRevenue_throwsNullPointerException() {
+    public void hasRevenue_nullRevenue_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        modelManager.hasDailyRevenue(null);
+        modelManager.hasRevenue(null);
     }
 
     @Test
-    public void hasDailyRevenue_dailyRevenueNotInDailyRevenues_returnsFalse() {
-        assertFalse(modelManager.hasDailyRevenue(DAILY_REVENUE1));
+    public void hasRevenue_revenueNotInRevenues_returnsFalse() {
+        assertFalse(modelManager.hasRevenue(DAILY_REVENUE1));
     }
 
     @Test
-    public void hasDailyRevenue_dailyRevenueInDailyRevenues_returnsTrue() {
-        modelManager.addDailyRevenue(DAILY_REVENUE1);
-        assertTrue(modelManager.hasDailyRevenue(DAILY_REVENUE1));
+    public void hasRevenue_revenueInRevenues_returnsTrue() {
+        modelManager.addRevenue(DAILY_REVENUE1);
+        assertTrue(modelManager.hasRevenue(DAILY_REVENUE1));
     }
 
     @Test
-    public void deleteDailyRevenue_firstDailyRevenueIsSelectedInFilteredDailyRevenueList_selectionCleared() {
-        modelManager.addDailyRevenue(DAILY_REVENUE1);
-        modelManager.setSelectedDailyRevenue(DAILY_REVENUE1);
-        modelManager.deleteDailyRevenue(DAILY_REVENUE1);
-        assertEquals(null, modelManager.getSelectedDailyRevenue());
+    public void deleteRevenue_firstRevenueIsSelectedInFilteredRevenueList_selectionCleared() {
+        modelManager.addRevenue(DAILY_REVENUE1);
+        modelManager.setSelectedRevenue(DAILY_REVENUE1);
+        modelManager.deleteRevenue(DAILY_REVENUE1);
+        assertEquals(null, modelManager.getSelectedRevenue());
     }
 
     @Test
-    public void deleteDailyRevenue_secondDailyRevenueIsSelectedInFilteredDailyRevenueList_firstDailyRevenueSelected() {
-        modelManager.addDailyRevenue(DAILY_REVENUE1);
-        modelManager.addDailyRevenue(DAILY_REVENUE2);
-        assertEquals(Arrays.asList(DAILY_REVENUE1, DAILY_REVENUE2), modelManager.getFilteredDailyRevenueList());
-        modelManager.setSelectedDailyRevenue(DAILY_REVENUE2);
-        modelManager.deleteDailyRevenue(DAILY_REVENUE2);
-        assertEquals(DAILY_REVENUE1, modelManager.getSelectedDailyRevenue());
+    public void deleteRevenue_secondRevenueIsSelectedInFilteredRevenueList_firstRevenueSelected() {
+        modelManager.addRevenue(DAILY_REVENUE1);
+        modelManager.addRevenue(DAILY_REVENUE2);
+        assertEquals(Arrays.asList(DAILY_REVENUE1, DAILY_REVENUE2), modelManager.getFilteredRevenueList());
+        modelManager.setSelectedRevenue(DAILY_REVENUE2);
+        modelManager.deleteRevenue(DAILY_REVENUE2);
+        assertEquals(DAILY_REVENUE1, modelManager.getSelectedRevenue());
     }
 
     /**
     @Test
-    public void setDailyRevenue_dailyRevenueIsSelected_selectedDailyRevenueUpdated() {
-        modelManager.addDailyRevenue(DAILY_REVENUE1);
-        modelManager.setSelectedDailyRevenue(DAILY_REVENUE1);
-        DailyRevenue updatedDailyRevenue =
-                new StatisticsBuilder(DAILY_REVENUE1).withTotalDailyRevenue("150.60").build();
-        modelManager.setDailyRevenue(DAILY_REVENUE1, updatedDailyRevenue);
-        assertEquals(updatedDailyRevenue, modelManager.getSelectedDailyRevenue());
+    public void setRevenue_revenueIsSelected_selectedRevenueUpdated() {
+        modelManager.addRevenue(DAILY_REVENUE1);
+        modelManager.setSelectedRevenue(DAILY_REVENUE1);
+        Revenue updatedRevenue =
+                new StatisticsBuilder(DAILY_REVENUE1).withTotalRevenue("150.60").build();
+        modelManager.setRevenue(DAILY_REVENUE1, updatedRevenue);
+        assertEquals(updatedRevenue, modelManager.getSelectedRevenue());
     }
     **/
 
     @Test
-    public void getFilteredDailyRevenueList_modifyList_throwsUnsupportedOperationException() {
+    public void getFilteredRevenueList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
-        modelManager.getFilteredDailyRevenueList().remove(0);
+        modelManager.getFilteredRevenueList().remove(0);
     }
 
     @Test
     public void setSelectedDailyRevenue_dailyRevenueNotInFilteredList_throwsDailyRevenueNotFoundException() {
-        thrown.expect(DailyRevenueNotFoundException.class);
-        modelManager.setSelectedDailyRevenue(DAILY_REVENUE1);
+        thrown.expect(RevenueNotFoundException.class);
+        modelManager.setSelectedRevenue(DAILY_REVENUE1);
     }
 
     @Test
     public void setSelectedDailyRevenue_dailyRevenueInFilteredDailyRevenueList_setsSelectedDailyRevenue() {
-        modelManager.addDailyRevenue(DAILY_REVENUE1);
-        assertEquals(Collections.singletonList(DAILY_REVENUE1), modelManager.getFilteredDailyRevenueList());
-        modelManager.setSelectedDailyRevenue(DAILY_REVENUE1);
-        assertEquals(DAILY_REVENUE1, modelManager.getSelectedDailyRevenue());
+        modelManager.addRevenue(DAILY_REVENUE1);
+        assertEquals(Collections.singletonList(DAILY_REVENUE1), modelManager.getFilteredRevenueList());
+        modelManager.setSelectedRevenue(DAILY_REVENUE1);
+        assertEquals(DAILY_REVENUE1, modelManager.getSelectedRevenue());
     }
 
     @Test
@@ -410,7 +410,7 @@ public class ModelManagerTest {
                 .withTable(TABLE2)
                 .withMenuItem(CHICKEN_WINGS)
                 .withOrderItem(TABLE1_W09)
-                .withDailyRevenue(DAILY_REVENUE1)
+                .withRevenue(DAILY_REVENUE1)
                 .build();
         RestOrRant differentRestOrRant = new RestOrRant();
         UserPrefs userPrefs = new UserPrefs();

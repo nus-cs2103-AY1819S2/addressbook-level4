@@ -39,18 +39,18 @@ public class EditPaxCommandParserTest {
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditPaxCommand.MESSAGE_USAGE));
 
         // non-empty preamble
-        assertParseFailure(parser, PREAMBLE_NON_EMPTY + "4", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                EditPaxCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, PREAMBLE_NON_EMPTY + "1 4",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditPaxCommand.MESSAGE_USAGE));
     }
 
     @Test
     public void parse_invalidNumberOfInputs_failure() {
         // extra inputs
-        assertParseFailure(parser, "1 2 3", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                EditPaxCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, "1 2 3",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditPaxCommand.MESSAGE_USAGE));
 
         // insufficient inputs
-        assertParseFailure(parser, "1", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                EditPaxCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, "1",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditPaxCommand.MESSAGE_USAGE));
     }
 }

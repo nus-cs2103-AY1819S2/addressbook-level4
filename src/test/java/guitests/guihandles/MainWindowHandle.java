@@ -12,7 +12,6 @@ public class MainWindowHandle extends StageHandle {
     private final CommandBoxHandle commandBox;
     private final StatusBarFooterHandle statusBarFooter;
     private final MainMenuHandle mainMenu;
-    //    private final BrowserPanelHandle browserPanelHandle;
     //    private final BillBrowserPanelHandle billBrowserPanel;
     private final TablesFlowPanelHandle tableFlowPanel;
 

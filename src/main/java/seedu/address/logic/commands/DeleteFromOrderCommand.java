@@ -55,8 +55,6 @@ public class DeleteFromOrderCommand extends Command {
         }
 
         model.deleteOrderItem(itemToDelete.get());
-
-        // model.updateFilteredOrderItemList(orderItem -> orderItem.getTableNumber().equals(tableNumber));
         return new CommandResult(String.format(MESSAGE_SUCCESS, itemToDelete.get()));
     }
 

@@ -72,8 +72,6 @@ public class ServeCommand extends Command {
         }
         return new CommandResult(String.format(MESSAGE_SUCCESS, newItem));
 
-        // model.updateFilteredOrderItemList(orderItem -> orderItem.getTableNumber().equals(tableNumber));
-
     }
 
     @Override

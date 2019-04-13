@@ -35,13 +35,15 @@ public class YearTest {
         assertFalse(Year.isValidYear("0")); // less than 1
         assertFalse(Year.isValidYear("01234")); // more than 4 digits
         assertFalse(Year.isValidYear("2020")); // More than current year
+        assertFalse(Year.isValidYear("1")); // 1 digit, years of the past that is less then 2000
+        assertFalse(Year.isValidYear("10")); // 2 digits, years of the past that is less then 2000
+        assertFalse(Year.isValidYear("907")); // 3 digits, years of the past that is less then 2000
+        assertFalse(Year.isValidYear("1998")); // 4 digits, years of the past that is less then 2000
 
         // valid year
-        assertTrue(Year.isValidYear("1")); // 1 digit, years of the past
-        assertTrue(Year.isValidYear("10")); // 2 digits, years of the past
-        assertTrue(Year.isValidYear("907")); // 3 digits, years of the past
-        assertTrue(Year.isValidYear("1998")); // 4 digits, years of the past
         assertTrue(Year.isValidYear("2019")); // Current Year
+        assertTrue(Year.isValidYear("2000")); // 4 digits, years of the past that is 2000
+        assertTrue(Year.isValidYear("2001")); // 4 digits, years of the past that is more than 2000
     }
 
     @Test
@@ -65,16 +67,10 @@ public class YearTest {
 
         // not equal
         assertFalse(new Year("2019").equals(new Year("2018")));
-        assertFalse(new Year("139").equals(new Year("199")));
-        assertFalse(new Year("76").equals(new Year("16")));
-        assertFalse(new Year("6").equals(new Year("1")));
+        assertFalse(new Year("2001").equals(new Year("2010")));
 
         // equal
         assertTrue(new Year("2019").equals(new Year("2019")));
-        assertTrue(new Year("201").equals(new Year("201")));
-        assertTrue(new Year("20").equals(new Year("20")));
-        assertTrue(new Year("2").equals(new Year("2")));
-        assertTrue(new Year("0020").equals(new Year("20")));
-        assertTrue(new Year("02").equals(new Year("2")));
+        assertTrue(new Year("2010").equals(new Year("2010")));
     }
 }

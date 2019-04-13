@@ -1,5 +1,8 @@
 package seedu.address.ui;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
@@ -24,7 +27,7 @@ public class MonthlyStatisticsCard extends UiPart<Region> {
     public final MonthlyRevenue monthlyRevenue;
 
     @FXML
-    private HBox cardPane;
+    private HBox monthlyStatisticsCardPane;
     @FXML
     private Label month;
     @FXML
@@ -32,52 +35,21 @@ public class MonthlyStatisticsCard extends UiPart<Region> {
     @FXML
     private Label totalMonthlyRevenue;
 
+    private final ArrayList<String> monthsInWords = new
+            ArrayList<>(List.of("JAN ", "FEB ", "MAR ", "APR ", "MAY ", "JUN ", "JUL ", "AUG ", "SEP ", "OCT ", "NOV ",
+            "DEC "));
+
     public MonthlyStatisticsCard(MonthlyRevenue monthlyRevenue) {
         super(FXML);
         this.monthlyRevenue = monthlyRevenue;
 
-        switch(Integer.parseInt(monthlyRevenue.getMonth().toString())) {
-        case 1:
-            month.setText("JAN ");
-            break;
-        case 2:
-            month.setText("FEB ");
-            break;
-        case 3:
-            month.setText("MAR ");
-            break;
-        case 4:
-            month.setText("APR ");
-            break;
-        case 5:
-            month.setText("MAY ");
-            break;
-        case 6:
-            month.setText("JUN ");
-            break;
-        case 7:
-            month.setText("JUL ");
-            break;
-        case 8:
-            month.setText("AUG ");
-            break;
-        case 9:
-            month.setText("SEP ");
-            break;
-        case 10:
-            month.setText("OCT ");
-            break;
-        case 11:
-            month.setText("NOV ");
-            break;
-        case 12:
-            month.setText("DEC ");
-            break;
-        default:
-            month.setText(this.monthlyRevenue.getMonth().toString());
-        }
+        month.setText(monthsInWords.get(Integer.parseInt(monthlyRevenue.getMonth().toString()) - 1));
         year.setText(this.monthlyRevenue.getYear().toString());
-        totalMonthlyRevenue.setText("$ " + String.format("%.2f", this.monthlyRevenue.getTotalMonthlyRevenue()));
+        totalMonthlyRevenue.setText("$ " + String.format("%.2f", this.monthlyRevenue.getTotalRevenue()));
+
+        if (monthlyRevenue.getTotalRevenue() == 0) {
+            monthlyStatisticsCardPane.setStyle("-fx-background-color: #1d1d1d;");
+        }
     }
 
     @Override

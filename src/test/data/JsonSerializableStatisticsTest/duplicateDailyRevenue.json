@@ -3,11 +3,11 @@
     "day" : "1",
     "month" : "3",
     "year" : "2019",
-    "totalDailyRevenue" : "700"
+    "totalRevenue" : "700"
   }, {
     "day" : "1",
     "month" : "3",
     "year" : "2019",
-    "totalDailyRevenue" : "500"
+    "totalRevenue" : "500"
   } ]
 }

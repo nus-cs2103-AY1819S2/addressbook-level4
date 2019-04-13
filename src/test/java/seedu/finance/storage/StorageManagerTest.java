@@ -9,7 +9,6 @@ import java.nio.file.Path;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
-import org.junit.jupiter.api.TestTemplate;
 import org.junit.rules.TemporaryFolder;
 
 import seedu.finance.commons.core.GuiSettings;
@@ -70,7 +69,9 @@ public class StorageManagerTest {
 
 
     @Test
-    public void getUserPrefsFilePath() { assertNotNull(storageManager.getUserPrefsFilePath()); }
+    public void getUserPrefsFilePath() {
+        assertNotNull(storageManager.getUserPrefsFilePath());
+    }
 
     @Test
     public void setFinanceTrackerStorageTest() {
@@ -81,5 +82,4 @@ public class StorageManagerTest {
         storageManager.setFinanceTrackerStorage(otherStorageManager);
         assertEquals(storageManager.getFinanceTrackerStorage(), otherStorageManager.getFinanceTrackerStorage());
     }
-
 }

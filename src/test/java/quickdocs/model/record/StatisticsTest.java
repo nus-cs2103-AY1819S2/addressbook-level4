@@ -4,7 +4,8 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import org.junit.Assert;
+import static org.junit.Assert.assertEquals;
+
 import org.junit.jupiter.api.BeforeEach;
 
 import org.junit.jupiter.api.Test;
@@ -14,6 +15,8 @@ import quickdocs.model.consultation.Diagnosis;
 import quickdocs.model.consultation.Prescription;
 import quickdocs.model.consultation.Symptom;
 import quickdocs.model.medicine.Medicine;
+import quickdocs.testutil.Assert;
+import quickdocs.testutil.TypicalStatistics;
 
 class StatisticsTest {
     private StatisticsManager statisticsManager;
@@ -45,9 +48,27 @@ class StatisticsTest {
     }
 
     @Test
+    void constructor_negativeNoOfConsultations_throwsIllegalArgumentException() {
+        Assert.assertThrows(IllegalArgumentException.class, () ->
+                new Statistics(-1, BigDecimal.ZERO, BigDecimal.ZERO));
+    }
+
+    @Test
+    void constructor_negativeBigDecimalValues_throwsIllegalArgumentException() {
+        Assert.assertThrows(IllegalArgumentException.class, () ->
+                new Statistics(0, BigDecimal.valueOf(-1), BigDecimal.valueOf(-999)));
+    }
+
+    @Test
+    void constructor_nullHashMaps_throwsNullPointerException() {
+        Assert.assertThrows(NullPointerException.class, () ->
+                new Statistics(0, BigDecimal.ZERO, BigDecimal.ZERO, null, null));
+    }
+
+    @Test
     void merge() {
         Statistics testStats = record1.toStatistics(statisticsManager).merge(record2.toStatistics(statisticsManager));
-        Assert.assertEquals(testStats, stats);
+        assertEquals(stats, testStats);
     }
 
     @Test
@@ -71,6 +92,19 @@ class StatisticsTest {
                 .append("Profit: ")
                 .append(Statistics.currencyFormat(BigDecimal.valueOf(20.00)))
                 .append("\n\n");
-        Assert.assertEquals(stats.toString(), sb.toString());
+        assertEquals(stats.toString(), sb.toString());
+    }
+
+    @Test
+    void getMostCommonKeyFromHashMap_nullHashMap_throwsNullPointerException() {
+        Assert.assertThrows(NullPointerException.class, () -> Statistics.getMostCommonKeyFromHashMap(null));
+    }
+
+    @Test
+    void getMostCommonKeyFromHashMap_hashMapWith1Key_success() {
+        HashMap<String, Integer> hashMap = new HashMap<>();
+        hashMap.put("paracetamol", 1);
+        String expectedResult = "paracetamol: 1\n";
+        assertEquals(expectedResult, Statistics.getMostCommonKeyFromHashMap(hashMap));
     }
 }

@@ -26,6 +26,10 @@ public class Statistics {
         this.symptomsCount = new HashMap<>();
     }
     public Statistics(int noOfConsultations, BigDecimal revenue, BigDecimal expenditure) {
+        if (noOfConsultations < 0 || revenue.compareTo(BigDecimal.ZERO) == -1
+                || expenditure.compareTo(BigDecimal.ZERO) == -1) {
+            throw new IllegalArgumentException("Invalid arguments");
+        }
         this.noOfConsultations = noOfConsultations;
         this.revenue = revenue;
         this.expenditure = expenditure;
@@ -35,6 +39,13 @@ public class Statistics {
     }
     public Statistics(int noOfConsultations, BigDecimal revenue, BigDecimal expenditure,
                       HashMap<String, Integer> medicinesCount, HashMap<String, Integer> symptomsCount) {
+        if (noOfConsultations < 0 || revenue.compareTo(BigDecimal.ZERO) == -1
+                || expenditure.compareTo(BigDecimal.ZERO) == -1) {
+            throw new IllegalArgumentException("Invalid arguments");
+        }
+        if (medicinesCount == null || symptomsCount == null) {
+            throw new NullPointerException();
+        }
         this.noOfConsultations = noOfConsultations;
         this.revenue = revenue;
         this.expenditure = expenditure;
@@ -92,7 +103,10 @@ public class Statistics {
         return new Statistics(newNoOfConsultations, newRevenue, newExpenditure, newMedicinesCount, newSymptomsCount);
     }
 
-    private static String getMostCommonKeyFromHashMap(HashMap<String, Integer> hashMap) {
+    public static String getMostCommonKeyFromHashMap(HashMap<String, Integer> hashMap) {
+        if (hashMap == null) {
+            throw new NullPointerException();
+        }
         if (hashMap.isEmpty()) {
             return "N/A";
         }

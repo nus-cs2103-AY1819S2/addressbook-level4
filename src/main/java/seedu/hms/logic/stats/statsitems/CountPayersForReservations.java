@@ -12,7 +12,10 @@ public class CountPayersForReservations extends StatsItem {
 
     @Override
     public Map<String, Long> calcResult(boolean isDesc) {
-        return count(stats.getHms().getReservationList(),
-            r -> (r.getPayer().getName().toString() + r.getPayer().getIdNum().toString()));
+        return updateLongest(sortAndFormat(
+                count(
+                    stats.getHms().getReservationList(),
+                    r -> (r.getPayer().getName().toString() + " (" + r.getPayer().getIdNum().toString() + ")")),
+                isDesc));
     }
 }

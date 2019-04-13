@@ -12,8 +12,10 @@ public class CountRoomTypes extends StatsItem {
 
     @Override
     public Map<String, Long> calcResult(boolean isDesc) {
-        return sortAndFormat(
-            count(stats.getHms().getReservationList(), (r) -> r.getRoom().getName()),
-            isDesc);
+        return updateLongest(sortAndFormat(
+                count(
+                    stats.getHms().getReservationList(),
+                    r -> (r.getRoom().getName())),
+                isDesc));
     }
 }

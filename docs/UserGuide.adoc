@@ -65,6 +65,7 @@ To set the course, enter one of the following commands:
 * **`add`**`c/CS1010 s/Y1S1` : adds the module "CS1010", taken in Y1S1, into the module plan.
 * **`delete`**`1` : deletes the first module on the most recently displayed list.
 * **`displayreq`**: displays information on your course requirements and the percentage completed for each requirement.
+* **`cklimit`**: displays information on your current semester and a report with the CAP and workload information of the current module plan.
 * *`exit`* : exits the app
 
 Here we only introduced some of the more basic functions and commands of GradTrak. The following section, <<Features>>,

@@ -25,24 +25,30 @@ public class SampleDataUtil {
 
     public static ModuleTaken[] getSampleModulesTaken() {
         return new ModuleTaken[] {
-            new ModuleTaken(new ModuleInfoCode("CS2103T"), Semester.valueOf("Y1S1"), Grade.valueOf("C"),
-                Grade.valueOf("A"),
+            new ModuleTaken(new ModuleInfoCode("CS1010"), Semester.valueOf("Y1S1"), Grade.valueOf("B"),
+                Grade.valueOf("B"),
                     getTagSet("friends")),
-            new ModuleTaken(new ModuleInfoCode("CS2101"), Semester.valueOf("Y1S1"), Grade.valueOf("C"),
+            new ModuleTaken(new ModuleInfoCode("CS2040"), Semester.valueOf("Y1S1"), Grade.valueOf("B_PLUS"),
+                Grade.valueOf("B_PLUS"),
+                    getTagSet("programming", "friends")),
+            new ModuleTaken(new ModuleInfoCode("CS2030"), Semester.valueOf("Y1S2"), Grade.valueOf("B"),
+                    Grade.valueOf("B"),
+                    getTagSet("programming", "friends")),
+            new ModuleTaken(new ModuleInfoCode("MA1521"), Semester.valueOf("Y3S1"), Grade.valueOf("C"),
+                    Grade.valueOf("A"),
+                    getTagSet("math")),
+            new ModuleTaken(new ModuleInfoCode("CS2101"), Semester.valueOf("Y3S1"), Grade.valueOf("C"),
                 Grade.valueOf("A"),
-                    getTagSet("colleagues", "friends")),
-            new ModuleTaken(new ModuleInfoCode("CS1010"), Semester.valueOf("Y2S1"), Grade.valueOf("C"),
+                    getTagSet("communication")),
+            new ModuleTaken(new ModuleInfoCode("CS2103T"), Semester.valueOf("Y3S1"), Grade.valueOf("C"),
+                    Grade.valueOf("A"),
+                    getTagSet("programming")),
+            new ModuleTaken(new ModuleInfoCode("GER1000"), Semester.valueOf("Y3S2"), Grade.valueOf("C"),
+                    Grade.valueOf("A"),
+                    getTagSet("GEM")),
+            new ModuleTaken(new ModuleInfoCode("LSM1301"), Semester.valueOf("Y4S1"), Grade.valueOf("C"),
                 Grade.valueOf("A"),
-                    getTagSet("neighbours")),
-            new ModuleTaken(new ModuleInfoCode("LSM1301"), Semester.valueOf("Y2S2"), Grade.valueOf("C"),
-                Grade.valueOf("A"),
-                    getTagSet("family")),
-            new ModuleTaken(new ModuleInfoCode("GER1000"), Semester.valueOf("Y2S1"), Grade.valueOf("C"),
-                Grade.valueOf("A"),
-                    getTagSet("classmates")),
-            new ModuleTaken(new ModuleInfoCode("MA1521"), Semester.valueOf("Y2S2"), Grade.valueOf("C"),
-                Grade.valueOf("A"),
-                    getTagSet("colleagues"))
+                    getTagSet("friends"))
         };
     }
 
@@ -61,8 +67,8 @@ public class SampleDataUtil {
         for (ModuleTaken sampleModuleTaken : getSampleModulesTaken()) {
             sampleAb.addModuleTaken(sampleModuleTaken);
         }
-        sampleAb.setSemesterLimits(getSampleSemesterLimits());
-        sampleAb.setCurrentSemester(Semester.Y1S1);
+        //sampleAb.setSemesterLimits(getSampleSemesterLimits());
+        //sampleAb.setCurrentSemester(Semester.Y1S1);
         return sampleAb;
     }
 

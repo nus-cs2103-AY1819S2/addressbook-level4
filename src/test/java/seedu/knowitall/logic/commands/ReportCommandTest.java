@@ -3,7 +3,7 @@ package seedu.knowitall.logic.commands;
 import static seedu.knowitall.commons.core.Messages.MESSAGE_INVALID_COMMAND_OUTSIDE_FOLDER;
 import static seedu.knowitall.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.knowitall.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.knowitall.testutil.TypicalCards.getTypicalCardFolders;
+import static seedu.knowitall.testutil.TypicalCards.getTypicalFolderOneAsList;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -18,8 +18,8 @@ import seedu.knowitall.testutil.TypicalIndexes;
  * Contains integration tests (interaction with the Model) and junit tests for {@code ReportCommand}.
  */
 public class ReportCommandTest {
-    private Model model = new ModelManager(getTypicalCardFolders(), new UserPrefs());
-    private Model expectedModel = new ModelManager(getTypicalCardFolders(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalFolderOneAsList(), new UserPrefs());
+    private Model expectedModel = new ModelManager(getTypicalFolderOneAsList(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
     @Before

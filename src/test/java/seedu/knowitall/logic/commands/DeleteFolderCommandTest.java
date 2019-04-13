@@ -5,7 +5,7 @@ import static org.junit.Assert.assertTrue;
 import static seedu.knowitall.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.knowitall.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.knowitall.logic.commands.DeleteFolderCommand.MESSAGE_DELETE_FOLDER_SUCCESS;
-import static seedu.knowitall.testutil.TypicalCards.getTypicalCardFolders;
+import static seedu.knowitall.testutil.TypicalCards.getTypicalFolderOneAsList;
 
 import java.util.ArrayList;
 
@@ -27,7 +27,7 @@ public class DeleteFolderCommandTest {
     public ExpectedException thrown = ExpectedException.none();
 
     private CommandHistory commandHistory = new CommandHistory();
-    private Model model = new ModelManager(getTypicalCardFolders(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalFolderOneAsList(), new UserPrefs());
 
     @Test
     public void constructor_nullIndex_throwsNullPointerException() {

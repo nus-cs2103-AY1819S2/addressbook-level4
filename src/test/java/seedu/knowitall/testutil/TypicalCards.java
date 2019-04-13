@@ -61,8 +61,7 @@ public class TypicalCards {
 
     private TypicalCards() {} // prevents instantiation
 
-    // TODO: Add more folders
-    public static List<ReadOnlyCardFolder> getTypicalCardFolders() {
+    public static List<ReadOnlyCardFolder> getTypicalFolderOneAsList() {
         return Collections.singletonList(getTypicalFolderOne());
     }
 

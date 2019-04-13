@@ -5,7 +5,7 @@ import static seedu.knowitall.commons.core.Messages.MESSAGE_INVALID_NEXT_COMMAND
 import static seedu.knowitall.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.knowitall.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.knowitall.logic.commands.NextCommand.MESSAGE_NEXT_QUESTION_SUCCESS;
-import static seedu.knowitall.testutil.TypicalCards.getTypicalCardFolders;
+import static seedu.knowitall.testutil.TypicalCards.getTypicalFolderOneAsList;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -20,8 +20,8 @@ import seedu.knowitall.testutil.TypicalIndexes;
  * Contains integration tests (interaction with the Model) and junit tests for {@code NextCommand}.
  */
 public class NextCommandTest {
-    private Model model = new ModelManager(getTypicalCardFolders(), new UserPrefs());
-    private Model expectedModel = new ModelManager(getTypicalCardFolders(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalFolderOneAsList(), new UserPrefs());
+    private Model expectedModel = new ModelManager(getTypicalFolderOneAsList(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
     @Before

@@ -8,7 +8,7 @@ import static seedu.knowitall.logic.commands.CommandTestUtil.assertCommandSucces
 import static seedu.knowitall.testutil.TypicalCards.CARL;
 import static seedu.knowitall.testutil.TypicalCards.ELLE;
 import static seedu.knowitall.testutil.TypicalCards.FIONA;
-import static seedu.knowitall.testutil.TypicalCards.getTypicalCardFolders;
+import static seedu.knowitall.testutil.TypicalCards.getTypicalFolderOneAsList;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -34,7 +34,7 @@ public class SearchCommandTest {
 
     @Before
     public void setUp() {
-        model = new ModelManager(getTypicalCardFolders(), new UserPrefs());
+        model = new ModelManager(getTypicalFolderOneAsList(), new UserPrefs());
         model.enterFolder(TypicalIndexes.INDEX_FIRST_CARD_FOLDER.getZeroBased());
         expectedModel = new ModelManager(model.getCardFolders(), new UserPrefs());
         expectedModel.enterFolder(TypicalIndexes.INDEX_FIRST_CARD_FOLDER.getZeroBased());

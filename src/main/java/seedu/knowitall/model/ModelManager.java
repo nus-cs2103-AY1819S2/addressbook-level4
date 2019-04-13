@@ -6,7 +6,6 @@ import static seedu.knowitall.commons.util.CollectionUtil.requireAllNonNull;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
@@ -110,14 +109,6 @@ public class ModelManager implements Model {
      */
     public ModelManager(List<ReadOnlyCardFolder> cardFolders) {
         this(cardFolders, new UserPrefs());
-    }
-
-    // TODO: Delete this
-    /**
-     * Initalizes a ModelManager with an empty folder with the given {@code folderName} and default {@code UserPrefs}.
-     */
-    public ModelManager(String folderName) {
-        this(Collections.singletonList(new CardFolder(folderName)), new UserPrefs());
     }
 
     //=========== UserPrefs ==================================================================================

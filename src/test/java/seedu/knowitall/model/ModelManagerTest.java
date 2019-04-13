@@ -281,7 +281,7 @@ public class ModelManagerTest {
     @Test
     public void equals() {
         CardFolder cardFolder = new CardFolderBuilder().withCard(ALICE).withCard(BENSON).build();
-        CardFolder differentCardFolder = new CardFolder(this.getClass().getName());
+        CardFolder differentCardFolder = new CardFolder(TypicalCards.getTypicalFolderTwo());
         UserPrefs userPrefs = new UserPrefs();
 
         // same values -> returns true

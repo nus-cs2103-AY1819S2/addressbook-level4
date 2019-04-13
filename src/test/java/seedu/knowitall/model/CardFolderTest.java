@@ -51,19 +51,37 @@ public class CardFolderTest {
 
     @Test
     public void isValidFolderName_valid_returnsTrue() {
+
+        // string consisting of letters
         assertTrue(CardFolder.isValidFolderName("folder"));
+
+        // string consisting of letters and numbers
         assertTrue(CardFolder.isValidFolderName("folder1"));
+
+        // string consisting of letters, numbers and whitespace
         assertTrue(CardFolder.isValidFolderName("folder 2"));
+
         String padding = new String(new char[48]).replace('\0', ' ');
+
+        // string of length 50 (character limit)
         assertTrue(CardFolder.isValidFolderName("1" + padding + "2"));
+
+        // string of length 50 surrounded by whitespace
         assertTrue(CardFolder.isValidFolderName("  1" + padding + "2  "));
     }
 
     @Test
     public void isInvalidFolderName_valid_returnsFalse() {
+
+        // empty string
         assertFalse(CardFolder.isValidFolderName(""));
+
         String padding = new String(new char[48]).replace('\0', ' ');
+
+        // string of length 51
         assertFalse(CardFolder.isValidFolderName("1 " + padding + "2"));
+
+        // strings with special characters
         assertFalse(CardFolder.isValidFolderName("folder/"));
         assertFalse(CardFolder.isValidFolderName("folder :)"));
     }

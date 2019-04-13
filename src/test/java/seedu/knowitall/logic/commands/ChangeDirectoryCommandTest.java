@@ -4,7 +4,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.knowitall.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.knowitall.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.knowitall.testutil.TypicalCards.getTypicalCardFolders;
+import static seedu.knowitall.testutil.TypicalCards.getTypicalFolderOneAsList;
 
 import org.junit.Test;
 
@@ -19,8 +19,8 @@ import seedu.knowitall.testutil.TypicalIndexes;
  * Contains integration tests (interaction with the Model) and junit tests for {@code ChangeDirectoryCommand}.
  */
 public class ChangeDirectoryCommandTest {
-    private Model model = new ModelManager(getTypicalCardFolders(), new UserPrefs());
-    private Model expectedModel = new ModelManager(getTypicalCardFolders(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalFolderOneAsList(), new UserPrefs());
+    private Model expectedModel = new ModelManager(getTypicalFolderOneAsList(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test

@@ -1,9 +1,11 @@
 package seedu.knowitall.storage;
 
+import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static seedu.knowitall.testutil.TypicalCards.TYPICAL_FOLDER_ONE_NAME;
 import static seedu.knowitall.testutil.TypicalCards.TYPICAL_FOLDER_TWO_NAME;
+import static seedu.knowitall.testutil.TypicalCards.getEmptyCardFolder;
 import static seedu.knowitall.testutil.TypicalCards.getTypicalFolderOne;
 import static seedu.knowitall.testutil.TypicalCards.getTypicalFolderTwo;
 
@@ -78,34 +80,26 @@ public class StorageManagerTest {
     }
 
     @Test
-    public void cardFolderReadSave() throws Exception {
+    public void saveCardFolder_readSave() throws Exception {
         /*
          * Note: This is an integration test that verifies the StorageManager is properly wired to the
          * {@link JsonCardFolderStorage} class.
          * More extensive testing of UserPref saving/reading is done in {@link JsonCardFolderStorageTest} class.
          */
-        CardFolder original = getTypicalFolderOne();
-        List<ReadOnlyCardFolder> savedFolders = new ArrayList<>();
-        savedFolders.add(original);
-        storageManager.saveCardFolders(savedFolders, testDataFolder.toPath());
+        CardFolder originalOne = getTypicalFolderOne();
+        storageManager.saveCardFolder(originalOne, TypicalIndexes.INDEX_FIRST_CARD_FOLDER.getZeroBased());
         List<ReadOnlyCardFolder> readFolders = new ArrayList<>();
         storageManager.readCardFolders(readFolders);
-        assertEquals(savedFolders, readFolders);
-
-        storageManager.saveCardFolder(original, savedFolders.size() - 1);
-        readFolders.clear();
-        storageManager.readCardFolders(readFolders);
-        ReadOnlyCardFolder retrieved = readFolders.get(savedFolders.size() - 1);
-        assertEquals(original, retrieved);
+        ReadOnlyCardFolder retrievedOne = readFolders.get(TypicalIndexes.INDEX_FIRST_CARD_FOLDER.getZeroBased());;
+        assertEquals(originalOne, retrievedOne);
+        assertTrue(originalOne.hasSameCards(retrievedOne.getCardList()));
     }
 
+    /**
+     * This test relies on the {@code saveCardFolder()} method, which is tested in {@code saveCardFolder_readSave()}.
+     */
     @Test
-    public void cardFoldersReadSave() throws Exception {
-        /*
-         * Note: This is an integration test that verifies the StorageManager is properly wired to the
-         * {@link JsonCardFolderStorage} class.
-         * More extensive testing of UserPref saving/reading is done in {@link JsonCardFolderStorageTest} class.
-         */
+    public void saveCardFolders_readSave() throws Exception {
         CardFolder originalOne = getTypicalFolderOne();
         CardFolder originalTwo = getTypicalFolderTwo();
         List<ReadOnlyCardFolder> savedFolders = new ArrayList<>();
@@ -115,15 +109,27 @@ public class StorageManagerTest {
         List<ReadOnlyCardFolder> readFolders = new ArrayList<>();
         storageManager.readCardFolders(readFolders);
         assertEquals(savedFolders, readFolders);
+    }
 
-        storageManager.saveCardFolder(originalOne, TypicalIndexes.INDEX_FIRST_CARD_FOLDER.getZeroBased());
-        storageManager.saveCardFolder(originalTwo, TypicalIndexes.INDEX_SECOND_CARD_FOLDER.getZeroBased());
-        readFolders.clear();
+    /**
+     * This test relies on the {@code saveCardFolders()} method, which is tested in {@code saveCardFolders_readSave()}
+     */
+    @Test
+    public void saveCardFolder_multipleFolders_correctOneSaved() throws Exception {
+        CardFolder originalOne = getTypicalFolderOne();
+        CardFolder originalTwo = getEmptyCardFolder();
+        List<ReadOnlyCardFolder> savedFolders = new ArrayList<>();
+        savedFolders.add(originalOne);
+        savedFolders.add(originalTwo);
+        storageManager.saveCardFolders(savedFolders, testDataFolder.toPath());
+
+        CardFolder newTwo = getTypicalFolderTwo();
+        storageManager.saveCardFolder(newTwo, TypicalIndexes.INDEX_SECOND_CARD_FOLDER.getZeroBased());
+        List<ReadOnlyCardFolder> readFolders = new ArrayList<>();
         storageManager.readCardFolders(readFolders);
-        ReadOnlyCardFolder retrievedOne = readFolders.get(TypicalIndexes.INDEX_FIRST_CARD_FOLDER.getZeroBased());
-        ReadOnlyCardFolder retrievedTwo = readFolders.get(TypicalIndexes.INDEX_SECOND_CARD_FOLDER.getZeroBased());
-        assertEquals(originalOne, retrievedOne);
-        assertEquals(originalTwo, retrievedTwo);
+        ReadOnlyCardFolder retrievedTwo = readFolders.get(TypicalIndexes.INDEX_SECOND_CARD_FOLDER.getZeroBased());;
+        assertEquals(newTwo, retrievedTwo);
+        assertTrue(newTwo.hasSameCards(retrievedTwo.getCardList()));
     }
 
     @Test

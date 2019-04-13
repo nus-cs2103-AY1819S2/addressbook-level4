@@ -3,7 +3,7 @@ package seedu.knowitall.logic.commands;
 import static seedu.knowitall.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.knowitall.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.knowitall.logic.commands.CommandTestUtil.deleteFirstCard;
-import static seedu.knowitall.testutil.TypicalCards.getTypicalCardFolders;
+import static seedu.knowitall.testutil.TypicalCards.getTypicalFolderOneAsList;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -16,8 +16,8 @@ import seedu.knowitall.testutil.TypicalIndexes;
 
 public class UndoCommandTest {
 
-    private final Model model = new ModelManager(getTypicalCardFolders(), new UserPrefs());
-    private final Model expectedModel = new ModelManager(getTypicalCardFolders(), new UserPrefs());
+    private final Model model = new ModelManager(getTypicalFolderOneAsList(), new UserPrefs());
+    private final Model expectedModel = new ModelManager(getTypicalFolderOneAsList(), new UserPrefs());
     private final CommandHistory commandHistory = new CommandHistory();
 
     @Before

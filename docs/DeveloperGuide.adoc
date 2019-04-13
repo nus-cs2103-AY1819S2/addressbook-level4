@@ -684,7 +684,7 @@ Folder navigation is achieved by the user through the use of the `change` comman
 The change directory command has the following formats:
 
 1. `cd ..` - Returns the user to the home directory. This command can only be executed when the user is inside a folder.
-2. `cdFOLDER_INDEX` - Enters the folder specified by `FOLDER_INDEX`. This command can only be executed from the home directory, when the user is not in any folder.
+2. `cd FOLDER_INDEX` - Enters the folder specified by `FOLDER_INDEX`. This command can only be executed from the home directory, when the user is not in any folder.
 
 When a `cd` command is executed, the Logic component parses the command and creates a `ChangeDirectoryCommand` object. If the command is of the first format, `ChangeDirectoryCommand()` is invoked without any arguments and the boolean `isExitingFolder` is set to `true`. If the command is of the second format, the overloaded constructor `ChangeCommand(FOLDER_INDEX)` is instead called and `isExitingFolder` is set to `false`.
 

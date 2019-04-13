@@ -3,12 +3,15 @@ package systemtests;
 import static seedu.knowitall.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.knowitall.testutil.TypicalCards.KEYWORD_MATCHING_MEIER;
 
+import java.util.Collections;
+
 import org.junit.Test;
 
 import seedu.knowitall.commons.core.index.Index;
 import seedu.knowitall.logic.commands.ClearCommand;
 import seedu.knowitall.logic.commands.RedoCommand;
 import seedu.knowitall.logic.commands.UndoCommand;
+import seedu.knowitall.model.CardFolder;
 import seedu.knowitall.model.Model;
 import seedu.knowitall.model.ModelManager;
 import seedu.knowitall.testutil.TypicalCards;
@@ -35,7 +38,8 @@ public class ClearCommandSystemTest extends CardFolderSystemTest {
         /* Case: redo clearing card folder -> cleared */
         command = RedoCommand.COMMAND_WORD;
         expectedResultMessage = RedoCommand.MESSAGE_SUCCESS;
-        Model expectedModel = new ModelManager(defaultModel.getActiveCardFolder().getFolderName());
+        CardFolder emptyCardFolder = new CardFolder(TypicalCards.getTypicalFolderOneName());
+        Model expectedModel = new ModelManager(Collections.singletonList(emptyCardFolder));
         expectedModel.enterFolder(TypicalIndexes.INDEX_FIRST_CARD_FOLDER.getZeroBased());
         assertCommandSuccess(command, expectedResultMessage, expectedModel);
         assertSelectedCardUnchanged();
@@ -69,7 +73,8 @@ public class ClearCommandSystemTest extends CardFolderSystemTest {
      * @see CardFolderSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
     private void assertCommandSuccess(String command) {
-        Model expectedModel = new ModelManager(TypicalCards.getTypicalFolderOneName());
+        CardFolder emptyCardFolder = new CardFolder(TypicalCards.getTypicalFolderOneName());
+        Model expectedModel = new ModelManager(Collections.singletonList(emptyCardFolder));
         expectedModel.enterFolder(TypicalIndexes.INDEX_FIRST_CARD_FOLDER.getZeroBased());
 
         assertCommandSuccess(command, ClearCommand.MESSAGE_SUCCESS, expectedModel);

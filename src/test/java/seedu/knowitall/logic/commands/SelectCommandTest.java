@@ -5,7 +5,7 @@ import static org.junit.Assert.assertTrue;
 import static seedu.knowitall.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.knowitall.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.knowitall.logic.commands.CommandTestUtil.showCardAtIndex;
-import static seedu.knowitall.testutil.TypicalCards.getTypicalCardFolders;
+import static seedu.knowitall.testutil.TypicalCards.getTypicalFolderOneAsList;
 import static seedu.knowitall.testutil.TypicalIndexes.INDEX_FIRST_CARD;
 import static seedu.knowitall.testutil.TypicalIndexes.INDEX_SECOND_CARD;
 import static seedu.knowitall.testutil.TypicalIndexes.INDEX_THIRD_CARD;
@@ -25,8 +25,8 @@ import seedu.knowitall.testutil.TypicalIndexes;
  * Contains integration tests (interaction with the Model) for {@code SelectCommand}.
  */
 public class SelectCommandTest {
-    private Model model = new ModelManager(getTypicalCardFolders(), new UserPrefs());
-    private Model expectedModel = new ModelManager(getTypicalCardFolders(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalFolderOneAsList(), new UserPrefs());
+    private Model expectedModel = new ModelManager(getTypicalFolderOneAsList(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
     @Before

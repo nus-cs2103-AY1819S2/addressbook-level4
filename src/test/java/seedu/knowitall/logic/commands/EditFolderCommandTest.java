@@ -6,7 +6,7 @@ import static seedu.knowitall.logic.commands.CommandTestUtil.assertCommandFailur
 import static seedu.knowitall.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.knowitall.logic.commands.EditFolderCommand.MESSAGE_DUPLICATE_FOLDER;
 import static seedu.knowitall.logic.commands.EditFolderCommand.MESSAGE_EDIT_FOLDER_SUCCESS;
-import static seedu.knowitall.testutil.TypicalCards.getTypicalCardFolders;
+import static seedu.knowitall.testutil.TypicalCards.getTypicalFolderOneAsList;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -26,8 +26,8 @@ public class EditFolderCommandTest {
     public ExpectedException thrown = ExpectedException.none();
 
     private CommandHistory commandHistory = new CommandHistory();
-    private Model model = new ModelManager(getTypicalCardFolders(), new UserPrefs());
-    private Model expectedModel = new ModelManager(getTypicalCardFolders(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalFolderOneAsList(), new UserPrefs());
+    private Model expectedModel = new ModelManager(getTypicalFolderOneAsList(), new UserPrefs());
 
     @Test
     public void constructor_nullIndex_throwsNullPointerException() {

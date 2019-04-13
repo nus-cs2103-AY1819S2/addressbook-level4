@@ -43,7 +43,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 * *`list-customers`* : lists all customers
 * **`add-customer`**`n/John Doe p/98765432 e/johnd@example.com id/G8957685R a/John street, block 123, #01-01` : adds a customer named `John Doe` to the HMS+ database.
-* **`delete-customer`**`3` : deletes the 3rd customer  shown in the current list
+* **`delete-customer`**`3` : deletes the 3rd customer shown in the current list
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
@@ -59,7 +59,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Items in curly brackets separated by a slash (`/`) are interchangeable (entering either of those items have the same effect). For example, `{addcustomer/ac}` are two aliases of the same command.
 * Items with `…` after them can be used multiple times including zero times. For example, `[t/TAG]…` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
 * Parameters can be in any order. For example, if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
-* If you enter the same prefix twice, the data in the second prefix is recorded. For example, `n/Tejas Bhuwania n/Sanjay Bhuwania` will take in Sanjay Bhuwania as the answer.
+* If you enter the same prefix twice, the data in the second prefix is recorded. For example, `n/Tejas Bhuwania n/Sanjay Bhuwania` will take in Sanjay Bhuwania inside the database.
 ====
 
 === [underline]#Viewing help# : `help`
@@ -83,6 +83,7 @@ Format: `{[aqua]#add-customer#/[aqua]#ac#} [blue]#n/# [lime]#NAME# [blue]#p/# [l
 * A person needs to have the Name, Phone number, Email address and Identification number fields compulsorily.
 * Any two person cannot have the same Phone number, Email address or Identification number.
 * Identification number refers to NRIC/FIN number or Social Security Number (used in the US) and is therefoe a bit flexible.
+* Date of birth, address and tags are optional fields. A customer can exist can without any of these.
 ====
 
 [TIP]
@@ -176,6 +177,11 @@ Format: `{[aqua]#add-room-type#/[aqua]#art#} [blue]#n/# [lime]#ROOM_TYPE# [blue]
 * All fields are compulsory.
 ====
 
+[TIP]
+====
+* `ROOM_TYPE` is case insensitive.
+====
+
 Example:
 
 * `art n/SINGLE ROOM cap/50 rate/300.0` +
@@ -223,16 +229,9 @@ Format: `{[aqua]#add-reservation#/[aqua]#ar#} [blue]#r/# [lime]#ROOM_TYPE# [blue
 
 Examples: +
 Assume current date is 10 May, 2019. +
-* `list-customers`, then `ar r/SINGLE ROOM d/20/5/2019-25/5/2019 $/15` +
-Adds a reservation of Single Room in the name of the 15th customer from 20 May 2019 to 25 May 2019.
-* `find-name Jack Rose`, then `add-reservation r/DELUXE ROOM d/14/2/2019-15/2/2019 $/1 c/2` +
-=======
-Examples: +
-Assume current date is 10 May, 2019. +
 * `list-customers`, then `ar r/SINGLE ROOM d/20/5/2019-25/5/2019 $/5` +
 Adds a reservation of Single Room in the name of the 5th customer from 20 May 2019 to 25 May 2019.
 * `find-name Jack Rose`, then `add-reservation r/DELUXE ROOM d/14/05/2019-15/05/2019 $/1 c/2` +
->>>>>>> Stashed changes
 Adds a reservation of Deluxe Room, in the name of the first customer for both him/her and the second customer, from 14 Feb 2019 to 15 Feb 2019.
 
 
@@ -327,6 +326,10 @@ Format: `{[aqua]#add-service-type#/[aqua]#ast#} [blue]#n/# [lime]#SERVICE_NAME# 
 ====
 * All fields are compulsory.
 * Operational hours are only between 0 - 23.
+====
+[TIP]
+====
+* `SERVICE_NAME` is case insensitive.
 ====
 
 Example:
@@ -662,13 +665,19 @@ _{explain how the user can enable/disable data encryption}_
 
       _Example_:: [blue]#dob/# 28/05/1999
 
-* [underline]*Tag* +
-  _Prefix_:: `t/` +
-  _Validation_:: Tag should adhere to following constraints:
+* [underline]*Address* +
+  _Prefix_:: `a/` +
+  _Validation_:: Address has no constraints.
 
-    1: Tags should be alphanumeric only.
+    _Example_:: [blue]#a/# 311, Ali Amar Avenue
 
-    _Example_:: [blue]#t/# friend
+    * [underline]*Tag* +
+      _Prefix_:: `t/` +
+      _Validation_:: Tag should adhere to following constraints:
+
+        1: Tags should be alphanumeric only.
+
+        _Example_:: [blue]#t/# friend
 
 === Only Service Type
 
@@ -694,7 +703,7 @@ _{explain how the user can enable/disable data encryption}_
 
        _Example_:: [blue]#n/# DOUBLE ROOM
 
-* [underline]*Rate* +
+* [underline]*Rate of Service or Room Type* +
  _Prefix_:: `rate/` +
  _Validation_:: Rate should adhere to following constraints:
 
@@ -702,7 +711,7 @@ _{explain how the user can enable/disable data encryption}_
 
   _Example_:: [blue]#rate/# 700.0
 
-* [underline]*Capacity* +
+* [underline]*Capacity of Service or Number of Rooms* +
  _Prefix_:: `cap/` +
  _Validation_:: Capacity should adhere to following constraints:
 

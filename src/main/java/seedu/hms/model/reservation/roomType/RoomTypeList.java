@@ -8,6 +8,7 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.hms.model.reservation.roomType.exceptions.DuplicateRoomTypeException;
 import seedu.hms.model.reservation.roomType.exceptions.RoomTypeNotFoundException;
 
 /**
@@ -22,10 +23,21 @@ public class RoomTypeList implements Iterable<RoomType> {
             FXCollections.unmodifiableObservableList(internalList);
 
     /**
+     * Returns true if the list contains an equivalent customer as the given argument.
+     */
+    public boolean contains(RoomType toCheck) {
+        requireNonNull(toCheck);
+        return internalList.stream().anyMatch(toCheck::equals);
+    }
+
+    /**
      * Adds a RoomType to the list.
      */
     public void add(RoomType toAdd) {
         requireNonNull(toAdd);
+        if (contains(toAdd)) {
+            throw new DuplicateRoomTypeException();
+        }
         internalList.add(toAdd);
     }
 

@@ -29,6 +29,8 @@ public class AddRoomTypeCommand extends ReservationCommand {
         + PREFIX_RATE + "400.0 ";
 
     public static final String MESSAGE_SUCCESS = "New room type added: %1$s";
+    public static final String MESSAGE_DUPLICATE_ROOM_TYPE = "This room type already exists in the hms book";
+
     private final RoomType toAdd;
 
     /**
@@ -42,6 +44,9 @@ public class AddRoomTypeCommand extends ReservationCommand {
     @Override
     public CommandResult execute(ReservationModel model, CommandHistory history) throws CommandException {
         requireNonNull(model);
+        if (model.hasRoomType(toAdd)) {
+            throw new CommandException(MESSAGE_DUPLICATE_ROOM_TYPE);
+        }
         model.addRoomType(toAdd);
         model.commitHotelManagementSystem();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));

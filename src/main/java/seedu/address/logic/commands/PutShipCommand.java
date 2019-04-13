@@ -46,6 +46,7 @@ public class PutShipCommand extends Command {
 
     /**
      * Default constructor method for ListTagsCommand.
+     *
      * @param coordinates of the cell in the map grid.
      * @param battleship battleship to place in the cell in the map grid.
      * @param orientation orientation of the battleship in the map grid.
@@ -64,6 +65,8 @@ public class PutShipCommand extends Command {
     }
 
     /**
+     * Checks if a ship can be put on a specific cell on the map grid and sends
+     * feedback to the user.
      *
      * @param model {@code Model} which the command should operate on.
      * @param history {@code CommandHistory} which the command should operate on.
@@ -118,7 +121,9 @@ public class PutShipCommand extends Command {
 
     /**
      * Checks equality of two PutShipCommand objects by comparing the respective
-     * {@code battleship}, {@code coordinates} and {@code orientation}.
+     * {@code battleship}, {@code coordinates} and {@code orientation}. If the other
+     * object is not a {@code PutShipCommand} object, then they are not equal.
+     *
      * @param other any object.
      * @return boolean of whether the objects are equal.
      */

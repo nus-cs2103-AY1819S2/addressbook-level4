@@ -33,6 +33,7 @@ public class ListTagsCommand extends Command {
 
     /**
      * Lists all the tags that have been used by ships deployed in the game.
+     *
      * @param model {@code Model} which the command should operate on.
      * @param history {@code CommandHistory} which the command should operate on.
      * @return {@code CommandResult} which contains list of tags.
@@ -67,6 +68,7 @@ public class ListTagsCommand extends Command {
 
     /**
      * Getter method for {@code this.tagSet}.
+     *
      * @return {@code this.tagSet}.
      */
     public Set<Tag> getTagSet() {
@@ -75,6 +77,9 @@ public class ListTagsCommand extends Command {
 
     /**
      * Checks equality of two ListTagsCommand objects by comparing both {@code tagSet}s.
+     * If the other object is not a {@code ListTagsCommand} object then they are not
+     * equal.
+     *
      * @param other any object.
      * @return boolean of whether the objects are equal.
      */

@@ -98,6 +98,7 @@ public class ListCommand extends Command {
 
     /**
      * Getter method for {@code optionalNameSet}.
+     *
      * @return {@code this.optionalNameSet}.
      */
     public Optional<Set<Name>> getOptionalNameSet() {
@@ -106,6 +107,7 @@ public class ListCommand extends Command {
 
     /**
      * Getter method for {@code optionalTagSet}.
+     *
      * @return {@code this.optionalTagSet}.
      */
     public Optional<Set<Tag>> getOptionalTagSet() {
@@ -115,6 +117,7 @@ public class ListCommand extends Command {
     /**
      * Checks equality of two ListCommand objects by comparing the respective
      * {@code optionalNameSet} and {@code optionalTagSet}.
+     *
      * @param other any object.
      * @return boolean of whether the objects are equal.
      */

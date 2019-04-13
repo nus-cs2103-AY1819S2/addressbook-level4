@@ -12,13 +12,13 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<Scene fx:id="mainJobScene" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<Scene fx:id="mainJobScene" fill="#ad3c4d" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <stylesheets>
       <URL value="@DarkTheme.css" />
       <URL value="@Extensions.css" />
    </stylesheets>
    <root>
-      <VBox stylesheets="@DarkTheme.css">
+      <VBox fx:id="allDisplayVBox" style="-fx-background-color: derive(#ad3c4d, 20%);" stylesheets="@DarkTheme.css">
          <children>
             <MenuBar fx:id="menuBar" stylesheets="@DarkTheme.css" VBox.vgrow="NEVER">
                <menus>
@@ -34,17 +34,17 @@
                   </Menu>
                </menus>
             </MenuBar>
-            <StackPane fx:id="commandBoxPlaceholder" styleClass="pane-with-border" VBox.vgrow="NEVER">
+            <StackPane fx:id="commandBoxPlaceholder" prefHeight="12.0" styleClass="pane-with-border" VBox.vgrow="NEVER">
                <padding>
-                  <Insets bottom="5" left="10" right="10" top="5" />
+                  <Insets bottom="5.0" left="10.0" right="15.0" top="5.0" />
                </padding>
             </StackPane>
-            <StackPane fx:id="resultDisplayPlaceholder" maxHeight="100" minHeight="100" prefHeight="100" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
+            <StackPane fx:id="resultDisplayPlaceholder" maxHeight="100.0" minHeight="100.0" prefHeight="100.0" styleClass="pane-with-border" VBox.vgrow="NEVER">
                <padding>
-                  <Insets bottom="5" left="10" right="10" top="5" />
+                  <Insets bottom="5.0" left="10.0" right="15.0" top="5.0" />
                </padding>
             </StackPane>
-            <HBox fx:id="fourList" focusTraversable="true" prefHeight="590.0" stylesheets="@DarkTheme.css" VBox.vgrow="ALWAYS">
+            <HBox fx:id="fourList" focusTraversable="true" maxHeight="-Infinity" prefHeight="580.0" stylesheets="@DarkTheme.css" VBox.vgrow="ALWAYS">
                <children>
                   <VBox fx:id="allList" maxHeight="1.7976931348623157E308" minWidth="400.0" prefWidth="400.0">
                      <children>
@@ -60,7 +60,7 @@
                      <children>
                         <Label fx:id="jobsLabel" prefHeight="31.0" prefWidth="407.0" text="Jobs Open" />
                         <FlowPane fx:id="allJobFilter" prefHeight="30.0" prefWidth="200.0" styleClass="cell_small_label" stylesheets="@DarkTheme.css" />
-                        <StackPane fx:id="jobsPlaceholder" maxHeight="1.7976931348623157E308" VBox.vgrow="ALWAYS" />
+                        <StackPane fx:id="jobsPlaceholder" VBox.vgrow="ALWAYS" />
                      </children>
                   </VBox>
                </children>

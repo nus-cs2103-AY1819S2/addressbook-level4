@@ -41,7 +41,7 @@ public class EndorseCommandTest {
         Person editedPerson = new Person(samplePerson.getName(),
                 samplePerson.getPhone(), samplePerson.getEmail(),
                 samplePerson.getEducation(), samplePerson.getGpa(),
-                samplePerson.getAddress(), samplePersonTags);
+                samplePerson.getDegree(), samplePerson.getAddress(), samplePersonTags);
         String expectedMessage = String.format(EndorseCommand.MESSAGE_ENDORSE_PERSON_SUCCESS, editedPerson.getName());
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());

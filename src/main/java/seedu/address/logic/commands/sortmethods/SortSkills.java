@@ -5,13 +5,7 @@ import java.util.Comparator;
 import java.util.LinkedHashSet;
 import java.util.List;
 
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Education;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Gpa;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
+import seedu.address.model.person.*;
 import seedu.address.model.tag.SkillsTag;
 
 /**
@@ -61,11 +55,12 @@ public class SortSkills {
             Email email = person.getEmail();
             Education education = person.getEducation();
             Gpa gpa = person.getGpa();
+            Degree degree = person.getDegree();
             Address address = person.getAddress();
             //change list back to set
             LinkedHashSet<SkillsTag> tagSet = SortUtil.toTags(individualSortedTags);
 
-            Person newPerson = new Person(name, phone, email, education, gpa, address, tagSet);
+            Person newPerson = new Person(name, phone, email, education, gpa, degree, address, tagSet);
             personsWithCorrectTagOrder.add(newPerson);
         }
         return personsWithCorrectTagOrder;

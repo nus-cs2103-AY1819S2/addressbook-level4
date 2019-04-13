@@ -10,8 +10,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.tag.Tag;
 
 /**
- * Represents a battleship in a map.
- * Guarantees: details are present and not null, field values are validated, immutable.
+ * Represents a ship in the game.
  */
 public class Battleship {
     public static final String MESSAGE_CONSTRAINTS = "Name must be "
@@ -34,6 +33,11 @@ public class Battleship {
 
     /**
      * Every field must be present and not null.
+     *
+     * @param name name of the ship.
+     * @param length length of the ship.
+     * @param life life of the ship as it may differ from the length.
+     * @param tags set of tags for the ship.
      */
     public Battleship(Name name, int length, int life, Set<Tag> tags) {
         logger.info("BATTLESHIP INITIALISED.");
@@ -45,24 +49,35 @@ public class Battleship {
     }
 
     /**
-     * Constructor for Battleship without arguments.
+     * Constructor for Battleship without arguments. Calls the constructor with
+     * default values.
      */
     public Battleship() {
-        this(BattleshipType.DEFAULT.getName(), BattleshipType.DEFAULT.length,
-                BattleshipType.DEFAULT.length, new HashSet<Tag>());
+        this(BattleshipType.DEFAULT.getName(),
+                BattleshipType.DEFAULT.length,
+                BattleshipType.DEFAULT.length,
+                new HashSet<Tag>());
     }
 
     /**
-     * Constructor for Battleship with only name.
+     * Constructor for Battleship with only name. Calls the constructor with
+     * default values.
+     *
+     * @param name name of the ship.
      */
     public Battleship(Name name) {
-        this(name, BattleshipType.DEFAULT.length,
-                BattleshipType.DEFAULT.length, new HashSet<Tag>());
+        this(name,
+                BattleshipType.DEFAULT.length,
+                BattleshipType.DEFAULT.length,
+                new HashSet<Tag>());
     }
 
     /**
-     * Constructor for Battleship with only name and tags.
-     * Default size is length = 2, life = 1
+     * Constructor for Battleship with only name and tags. Calls the constructor with
+     * default values.
+     *
+     * @param name name of the ship.
+     * @param tags set of tags for the ship.
      */
     public Battleship(Name name, Set<Tag> tags) {
         this(name, BattleshipType.DEFAULT.length,
@@ -71,6 +86,10 @@ public class Battleship {
 
     /**
      * Constructor Battleship with only name, length and size.
+     *
+     * @param name name of the ship.
+     * @param length length of the ship.
+     * @param life life of the ship as it may differ from the length.
      */
     public Battleship(Name name, int length, int life) {
         this(name, length, life, new HashSet<>());
@@ -78,6 +97,8 @@ public class Battleship {
 
     /**
      * Getter method for name.
+     *
+     * @return name of ship.
      */
     public Name getName() {
         return this.name;
@@ -85,6 +106,8 @@ public class Battleship {
 
     /**
      * Getter method for id.
+     *
+     * @return id of ship.
      */
     public int getId() {
         return this.id;
@@ -92,6 +115,8 @@ public class Battleship {
 
     /**
      * Getter method for length.
+     *
+     * @return length of ship.
      */
     public int getLength() {
         return this.length;
@@ -99,6 +124,8 @@ public class Battleship {
 
     /**
      * Getter method for life.
+     *
+     * @return life of ship.
      */
     public int getLife() {
         return this.life;
@@ -114,6 +141,8 @@ public class Battleship {
     /**
      * Checks if life of the battleship is equal to zero.
      * That is, if it is destroyed.
+     *
+     * @return boolean of whether the ship is destroyed.
      */
     public boolean isDestroyed() {
         return this.life == 0;
@@ -122,6 +151,8 @@ public class Battleship {
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
+     *
+     * @return tags of the ship.
      */
     public Set<Tag> getTags() {
         return Collections.unmodifiableSet(tags);
@@ -130,6 +161,9 @@ public class Battleship {
     /**
      * Returns true if both battleships of the same name have the same name.
      * This defines a weaker notion of equality between two battleships.
+     *
+     * @param otherBattleship other object to be compared with.
+     * @return boolean of whether the ships are equal.
      */
     public boolean isSameBattleship(Battleship otherBattleship) {
         if (otherBattleship == this) {
@@ -144,6 +178,9 @@ public class Battleship {
     /**
      * Returns true if both battleships have the same identity fields.
      * This defines a stronger notion of equality between two battleships.
+     *
+     * @param other other object to be compared with.
+     * @return boolean of whether the objects are equal.
      */
     @Override
     public boolean equals(Object other) {
@@ -160,7 +197,9 @@ public class Battleship {
     }
 
     /**
-     * Return hashcode of object.
+     * Return hashcode of object. Hashes the name, id, length, life, and tags.
+     *
+     * @return {@code int} of hashcode of object.
      */
     @Override
     public int hashCode() {
@@ -169,7 +208,9 @@ public class Battleship {
     }
 
     /**
-     * Return name of battleship.
+     * Return name of ship.
+     *
+     * @return name of ship.
      */
     @Override
     public String toString() {
@@ -194,6 +235,9 @@ public class Battleship {
 
         /**
          * Constructor.
+         *
+         * @param name name of ship.
+         * @param length length of ship.
          */
         BattleshipType(String name, int length) {
             this.name = name;
@@ -202,6 +246,8 @@ public class Battleship {
 
         /**
          * Returns name as a Name object.
+         *
+         * @return name of ship.
          */
         public Name getName() {
             return new Name(this.name);
@@ -209,6 +255,8 @@ public class Battleship {
 
         /**
          * Getter method for length.
+         *
+         * @return length of ship
          */
         public int getLength() {
             return this.length;
@@ -216,6 +264,8 @@ public class Battleship {
 
         /**
          * Returns name as String.
+         *
+         * @return name of ship as a string.
          */
         @Override
         public String toString() {

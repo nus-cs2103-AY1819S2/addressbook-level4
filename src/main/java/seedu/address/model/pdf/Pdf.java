@@ -124,9 +124,8 @@ public class Pdf {
      */
     private boolean isFileEncrypted(Name name, Directory directory) {
         try (PDDocument pd = PDDocument.load(Paths.get(directory.getDirectory(), name.getFullName()).toFile())) {
-            boolean isEncrypted = pd.isEncrypted();
             pd.close();
-            return isEncrypted;
+            return false;
         } catch (IOException ioe) {
             return true;
         }

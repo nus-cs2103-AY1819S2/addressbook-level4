@@ -16,6 +16,7 @@ import seedu.address.model.activity.ActivityContainsKeywordsPredicate;
  */
 public class ActivityFindCommand extends ActivityCommand {
     public static final String COMMAND_WORD = "activityFind";
+    public static final String COMMAND_ALIAS = "aFind";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all activities whose attribute contain any of "
             + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"

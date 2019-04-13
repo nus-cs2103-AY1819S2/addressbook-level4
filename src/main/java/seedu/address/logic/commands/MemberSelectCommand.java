@@ -17,6 +17,7 @@ import seedu.address.model.person.Person;
 public class MemberSelectCommand extends MemberCommand {
 
     public static final String COMMAND_WORD = "memberSelect";
+    public static final String COMMAND_ALIAS = "mSelect";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Selects the member identified by the index number used in the displayed member list.\n"

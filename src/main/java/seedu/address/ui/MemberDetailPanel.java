@@ -12,7 +12,6 @@ import seedu.address.model.person.Person;
  */
 public class MemberDetailPanel extends UiPart<Region> {
     private static final String FXML = "MemberDetailPanel.fxml";
-
     @FXML
     private Text name;
 

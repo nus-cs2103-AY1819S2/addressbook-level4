@@ -12,6 +12,7 @@ import seedu.address.model.Model;
  */
 public class MemberSortCommand extends MemberCommand {
     public static final String COMMAND_WORD = "memberSort";
+    public static final String COMMAND_ALIAS = "mSort";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Sorts all members in the members' list based on "
             + "the specified attribute (case-insensitive).\n"

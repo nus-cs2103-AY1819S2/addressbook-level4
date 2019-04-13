@@ -13,6 +13,7 @@ import seedu.address.model.activity.ActivityDateTimePredicate;
  */
 public class ActivityFilterCommand extends ActivityCommand {
     public static final String COMMAND_WORD = "activityFilter";
+    public static final String COMMAND_ALIAS = "aFilter";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + " ：Filters the activities that is the given "
             + "number of days away from today (inclusive) and displays them as a list with index numbers.\n "

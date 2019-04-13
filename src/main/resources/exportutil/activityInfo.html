@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>$title</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        .row::after {
+            content: "";
+            clear: both;
+            display: table;
+        }
+
+        [class*="col-"] {
+            float: left;
+            padding: 15px;
+        }
+
+        html {
+            font-family: "Lucida Sans", sans-serif;
+        }
+
+        .header {
+            background-color: #aaaaaa;
+            color: #ffffff;
+            padding: 15px;
+        }
+
+        .row-small-padding {
+            padding-top: 2px;
+            padding-bottom: 2px;
+        }
+
+        .left {
+            padding-top: 2px;
+            padding-bottom: 2px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .right {
+            padding-top: 2px;
+            padding-bottom: 10px;
+            text-align: center;
+        }
+
+        td {
+            border: 1px solid #000000;
+        }
+        th {
+            background: #333333;
+            color: #ffffff;
+            font-weight: bolder;
+            border: 1px solid #000000;
+            padding-bottom: 8px;
+            padding-top: 12px;
+        }
+
+        tr:nth-child(even) {
+            background: #ffffff;
+        }
+        tr:nth-child(odd) {
+            background: #c0c0c0;
+        }
+
+        table {
+            color: #000000;
+            border-spacing: 0px;
+            border: 1px solid #000000;
+        }
+
+        .listName {
+            min-width: 230px;
+            padding-left: 30px;
+            padding-right: 30px;
+            padding-bottom: 7px;
+            padding-top: 7px;
+        }
+        .listMatric {
+            padding-left: 30px;
+            padding-right: 30px;
+            padding-bottom: 7px;
+            padding-top: 7px;
+        }
+        .listAttendBox {
+            padding-left:50px;
+            padding-right: 50px;
+            padding-bottom: 7px;
+            padding-top: 7px;
+        }
+
+        /* For mobile phones: */
+        [class*="col-"] {
+            width: 100%;
+        }
+
+        .desc-area {
+            border-bottom: 1px ridge #cdcdcd;
+            margin-bottom: 20px;
+        }
+
+        @media only screen and (min-width: 768px) {
+            /* For desktop: */
+            .col-1 {width: 8.33%;}
+            .col-2 {width: 16.66%;}
+            .col-3 {width: 25%;}
+            .col-4 {width: 33.33%;}
+            .col-5 {width: 41.66%;}
+            .col-6 {width: 50%;}
+            .col-7 {width: 58.33%;}
+            .col-8 {width: 66.66%;}
+            .col-9 {width: 75%;}
+            .col-10 {width: 83.33%;}
+            .col-11 {width: 91.66%;}
+            .col-12 {width: 100%;}
+            .left {
+                padding-top: 2px;
+                padding-bottom: 2px;
+                text-align: left;
+            }
+            .right {
+                padding-top: 2px;
+                padding-bottom: 2px;
+                text-align: left;
+            }
+            .desc-area {
+                border-bottom: none;
+                margin-bottom: auto;
+            }
+        }
+    </style>
+
+</head>
+<body>
+    <div class="header">
+        <h1>Details for $title</h1>
+    </div>
+    <hr>
+    <div class="col-12">
+        <div class="col-6 row-small-padding desc-area">
+            <div class="col-12 right"><h3>$name</h3></div>
+            <div class="col-12 left">
+                <h4>$description</h4>
+            </div>
+        </div>
+        <div class="col-6 row-small-padding">
+            <div class="col-12 row-small-padding">
+                <div class="col-4 left">Event Name :</div>
+                <div class="col-8 right">$name</div>
+            </div>
+            <div class="col-12 row-small-padding">
+                <div class="col-4 left">Date Time :</div>
+                <div class="col-8 right">$dateTime</div>
+            </div>
+            <div class="col-12 row-small-padding">
+                <div class="col-4 left">Location :</div>
+                <div class="col-8 right">$location</div>
+            </div>
+            <div class="col-12 row-small-padding">
+                <div class="col-4 left">Status :</div>
+                <div class="col-8 right">$status</div>
+            </div>
+        </div>
+    </div>
+
+    <hr>
+
+    <div class="col-12 row-small-padding" style="overflow-x: scroll;">
+        $attendanceListHtml
+    </div>
+
+
+</body>
+</html>

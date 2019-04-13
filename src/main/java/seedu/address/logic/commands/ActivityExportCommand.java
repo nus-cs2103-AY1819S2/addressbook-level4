@@ -8,26 +8,28 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.exportutil.ExportUtil;
 import seedu.address.model.Model;
 import seedu.address.model.activity.Activity;
 
 /**
- * Selects an activity identified using it's displayed index from the address book.
+ * Exports an activity identified using it's displayed index from the address book.
  */
-public class ActivitySelectCommand extends ActivityCommand {
-    public static final String COMMAND_WORD = "activitySelect";
-    public static final String COMMAND_ALIAS = "aSelect";
+public class ActivityExportCommand extends ActivityCommand {
+
+    public static final String COMMAND_WORD = "activityExport";
+    public static final String COMMAND_ALIAS = "aExport";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Selects the activity identified by the index number used in the displayed activity list.\n"
+            + ": Exports the activity identified by the index number used in the displayed activity list.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_SELECT_ACTIVITY_SUCCESS = "Selected Activity: %1$s";
+    public static final String MESSAGE_SELECT_ACTIVITY_SUCCESS = "Exported Activity: %1$s";
 
     private final Index targetIndex;
 
-    public ActivitySelectCommand(Index targetIndex) {
+    public ActivityExportCommand(Index targetIndex) {
         this.targetIndex = targetIndex;
     }
 
@@ -41,7 +43,10 @@ public class ActivitySelectCommand extends ActivityCommand {
             throw new CommandException(Messages.MESSAGE_INVALID_ACTIVITY_DISPLAYED_INDEX);
         }
 
-        model.setSelectedActivity(filteredActivityList.get(targetIndex.getZeroBased()));
+        Activity exportActivity = model.generateExportedActivity(filteredActivityList.get(targetIndex.getZeroBased()));
+        ExportUtil.exportActivity(exportActivity, model.getAttendingOfSelectedActivity());
+
+
         return new CommandResult(String.format(MESSAGE_SELECT_ACTIVITY_SUCCESS, targetIndex.getOneBased()));
 
     }
@@ -49,7 +54,7 @@ public class ActivitySelectCommand extends ActivityCommand {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof ActivitySelectCommand // instanceof handles nulls
-                && targetIndex.equals(((ActivitySelectCommand) other).targetIndex)); // state check
+                || (other instanceof ActivityExportCommand // instanceof handles nulls
+                && targetIndex.equals(((ActivityExportCommand) other).targetIndex)); // state check
     }
 }

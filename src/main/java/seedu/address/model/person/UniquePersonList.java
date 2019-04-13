@@ -123,9 +123,8 @@ public class UniquePersonList implements Iterable<Person> {
                 String sortCriteria = predicate.toString().toLowerCase();
                 Pair<String, String> test = getCriteria(sortCriteria, o1, o2);
                 int result = 1;
-                if (test == null) {
-                    result = test.getKey().compareTo(test.getValue());
-                }
+                result = test.getKey().compareTo(test.getValue());
+
                 if (result != 0) {
                     return result;
                 }
@@ -142,7 +141,7 @@ public class UniquePersonList implements Iterable<Person> {
      * @return
      */
     public Pair<String, String> getCriteria(String sortCriteria, Person o1, Person o2) {
-        switch (sortCriteria) {
+        switch (sortCriteria.toLowerCase()) {
         case SORT_BY_NAME:
             return new Pair<>(o1.getName().fullName, o2.getName().fullName);
         case SORT_BY_GENDER:

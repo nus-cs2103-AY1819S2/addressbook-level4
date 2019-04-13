@@ -178,6 +178,7 @@ The right side of the status footer bar shows where the storage file for the upd
 This section describes the various features _In-Credit-Ble_ has to offer. Examples are also included to give you
 step-by-step instructions on how to use the different commands.
 
+[IMPORTANT]
 ====
 *Command Format*
 
@@ -186,6 +187,9 @@ step-by-step instructions on how to use the different commands.
 * Items in square brackets are optional e.g `search KEYWORD [MORE_KEYWORDS]` can be used as `search clothes` or as
 `search cake lunch`.
 * Items with `…`​ after them can be used multiple times including zero times.
+* If you provide more than the number of specified parameters
+(e.g. `set $/500 $/400` or `spend n/Chicken n/Duck $/10 $/20 c/Food c/Lunch`), the latest parameter is taken
+(e.g. Budget is set to $400, Record added is Name: Duck, Amount: $20, Category: Lunch)
 ====
 
 === Budget Management
@@ -203,6 +207,11 @@ This command enables you to set a fixed budget for a month/week (Time limit to b
 * `set $/500`
 * `set $/500.50`
 ****
+
+[IMPORTANT]
+====
+If more than one parameter are given by user input, e.g. (`set $/500 $/400`), the latest parameter is taken.
+====
 // end::set[]
 
 // tag::allocate[]

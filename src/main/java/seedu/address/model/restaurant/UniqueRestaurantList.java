@@ -3,6 +3,7 @@ package seedu.address.model.restaurant;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
@@ -79,6 +80,13 @@ public class UniqueRestaurantList implements Iterable<Restaurant> {
         if (!internalList.remove(toRemove)) {
             throw new RestaurantNotFoundException();
         }
+    }
+
+    /**
+     * Sorts the list of Restaurants in {@code versionedFoodDiary} using the given comparator
+     */
+    public void sortRestaurants(Comparator<Restaurant> sortBy) {
+        internalList.sort(sortBy);
     }
 
     public void setRestaurants(UniqueRestaurantList replacement) {

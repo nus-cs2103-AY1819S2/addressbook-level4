@@ -61,9 +61,7 @@ public class DeleteReviewCommand extends Command {
         model.updateFilteredRestaurantList(PREDICATE_SHOW_ALL_RESTAURANTS);
 
         // To display the Reviews of the Restaurant
-        List<Restaurant> filteredRestaurantList = model.getFilteredRestaurantList();
-        model.setSelectedRestaurant(filteredRestaurantList
-                .get(filteredRestaurantList.indexOf(restaurantWithDeletedReview)));
+        model.setSelectedRestaurant(restaurantWithDeletedReview);
 
         model.commitFoodDiary();
         return new CommandResult(String.format(MESSAGE_DELETE_REVIEW_SUCCESS, index.getOneBased(),

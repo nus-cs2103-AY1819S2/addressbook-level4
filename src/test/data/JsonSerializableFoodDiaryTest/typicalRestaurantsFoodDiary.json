@@ -7,7 +7,7 @@
     "address" : "123, Jurong West Ave 6, #08-111",
     "postal" : "123456",
     "tagged" : [ "friends" ],
-    "weblink" : "No weblink added",
+    "weblink" : "https://www.google.com",
     "openingHours" : "0930 to 2130",
     "review" : [ ]
   }, {
@@ -17,7 +17,7 @@
     "address" : "311, Clementi Ave 2, #02-25",
     "postal" : "123457",
     "tagged" : [ "owesMoney", "friends" ],
-    "weblink" : "No weblink added",
+    "weblink" : "https://www.google.com",
     "openingHours" : "0930 to 2130",
     "review" : [ ]
   }, {
@@ -27,7 +27,7 @@
     "address" : "wall street",
     "postal" : "256914",
     "tagged" : [ ],
-    "weblink" : "No weblink added",
+    "weblink" : "https://www.google.com",
     "openingHours" : "0930 to 2130",
     "review" : [ ]
   }, {
@@ -37,7 +37,7 @@
     "address" : "10th street",
     "postal" : "123495",
     "tagged" : [ "friends" ],
-    "weblink" : "No weblink added",
+    "weblink" : "https://www.google.com",
     "openingHours" : "0930 to 2130",
     "review" : [ ]
   }, {
@@ -47,7 +47,7 @@
     "address" : "michegan ave",
     "postal" : "999999",
     "tagged" : [ ],
-    "weblink" : "No weblink added",
+    "weblink" : "https://www.google.com",
     "openingHours" : "0930 to 2130",
     "review" : [ ]
   }, {
@@ -57,7 +57,7 @@
     "address" : "little tokyo",
     "postal" : "000000",
     "tagged" : [ ],
-    "weblink" : "No weblink added",
+    "weblink" : "https://www.google.com",
     "openingHours" : "0930 to 2130",
     "review" : [ ]
   }, {
@@ -67,7 +67,7 @@
     "address" : "4th street",
     "postal" : "000001",
     "tagged" : [ ],
-    "weblink" : "No weblink added",
+    "weblink" : "https://www.google.com",
     "openingHours" : "0930 to 2130",
     "review" : [ ]
   } ]

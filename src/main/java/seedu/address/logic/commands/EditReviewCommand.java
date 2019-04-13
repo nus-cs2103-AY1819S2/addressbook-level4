@@ -79,9 +79,7 @@ public class EditReviewCommand extends Command {
         model.updateFilteredRestaurantList(PREDICATE_SHOW_ALL_RESTAURANTS);
 
         // To display the edited Review
-        List<Restaurant> filteredRestaurantList = model.getFilteredRestaurantList();
-        model.setSelectedRestaurant(filteredRestaurantList
-                .get(filteredRestaurantList.indexOf(restaurantWithEditedReview)));
+        model.setSelectedRestaurant(restaurantWithEditedReview);
 
         model.commitFoodDiary();
         return new CommandResult(String.format(MESSAGE_EDIT_REVIEW_SUCCESS, restaurantWithEditedReview.getName()));

@@ -14,7 +14,7 @@
   } ],
   "budget" : {
     "totalBudget" : "0.0",
-    "currentBudget" : "0.0",
+    "currentBudget" : "-6.0",
     "categoryBudgets" : [ ]
   }
 }

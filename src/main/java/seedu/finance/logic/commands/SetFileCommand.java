@@ -9,8 +9,6 @@ import seedu.finance.logic.CommandHistory;
 import seedu.finance.logic.commands.exceptions.CommandException;
 import seedu.finance.model.Model;
 
-
-
 /**
  * Sets a file path to store data.
  */

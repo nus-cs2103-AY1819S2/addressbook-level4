@@ -422,7 +422,6 @@ Examples:
 * `import Blood.csv` +
 Imports blood csv file into know-it-all. A new `Blood` cardfolder should be present in the home
 directory after execution of this command.
-
 // end::advancedoperations[]
 
 

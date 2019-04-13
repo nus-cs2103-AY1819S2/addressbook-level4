@@ -491,7 +491,13 @@ can be left blank or take on 1 value.
 
 * Hints header can take either 0 or 1 value.
 
+//end::importexport[]
+
+
+
 ==== Design Considerations
+
+//tag::design_considerations_import_export[]
 ===== Aspect:
 [cols = "1,1,2", options = "header"]
 |===
@@ -579,8 +585,8 @@ I also felt that it might cause confusion if one filename contains multiple flas
 Users might be opening the file to check which flashcards are being imported perhaps. Hence, I felt
 that the cons outweigh the pros for alternative 1.
 |===
+//end::design_considerations_import_export[]
 
-//end::importexport[]
 
 //tag::folders[]
 === Folders

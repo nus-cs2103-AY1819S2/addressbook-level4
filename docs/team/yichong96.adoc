@@ -69,14 +69,30 @@ part of the "commas" within the card field itself.
 
 
 
-== Contributions to the User Guide
+=== Contributions to the User Guide
+---
+
 The user guide contains instructions needed to effectively use Know-It-All.
 The following is an excerpt from Know-It-All's user guide, which contains the additions that I have made to the user guide.
 
 
 include::../UserGuide.adoc[tag = advancedoperations]
 
-== Contributions to the Developer Guide
+
+
+=== Contributions to the Developer Guide
+---
+
 The following shows my addition to Know-It-All's developer guide for the import and export commmand.
 
 include::../DeveloperGuide.adoc[tag=importexport]
+
+=== Design Considerations
+---
+
+Designing the import and export features required me to
+make decisions not just in code design, but also to enable users to have a
+smooth experience in being able to import and export their flashcards.
+. The following is a brief summary of my analysis and decisions.
+
+include::../DeveloperGuide.adoc[tag=design_considerations_import_export]

@@ -294,6 +294,7 @@ Format: `exit`
 *Q*: How are you today? +
 *A*: I'm fine and dandy thank you very much.
 
+//tag::commandsummary[]
 == Command Summary
 
 [width="200%",cols="<30%,<70%,50%, 50",options="header",]
@@ -308,7 +309,7 @@ Format: `exit`
 |*View statistics*| `stats` |Opens a Statistics Window. | `stats`
 |*Start game*| `start game` |Let enemy place ships on enemy grid. | `start game`
 
-
+//end::commandsummary[]
 
 
 

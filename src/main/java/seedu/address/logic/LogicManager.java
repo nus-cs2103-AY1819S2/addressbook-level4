@@ -112,7 +112,7 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ReadOnlyPinBook getPinBook() {
+    public ReadOnlyAddressBook getPinBook() {
         return model.getPinBook();
     }
 

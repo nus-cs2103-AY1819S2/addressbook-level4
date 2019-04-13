@@ -220,6 +220,7 @@ The `Storage` component,
 * can save `UserPref` objects in json format and read it back.
 * can save the Address Book data in json format and read it back.
 * can save the Archive Book data in json format and read it back.
+* can save the Pin Book data in json format and read it back.
 * maintains separate data files for each of the books.
 
 [[Design-Commons]]

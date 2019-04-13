@@ -154,7 +154,7 @@ public class ModelManagerTest {
     public void equals() {
         AddressBook addressBook = new AddressBookBuilder().withPerson(ALICE).withPerson(BENSON).build();
         AddressBook archiveBook = new AddressBookBuilder().build();
-        PinBook pinBook = new PinBookBuilder().build();
+        AddressBook pinBook = new AddressBookBuilder().build();
         AddressBook differentAddressBook = new AddressBook();
         UserPrefs userPrefs = new UserPrefs();
 

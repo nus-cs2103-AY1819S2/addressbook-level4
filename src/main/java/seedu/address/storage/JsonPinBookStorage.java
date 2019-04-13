@@ -12,7 +12,7 @@ import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.JsonUtil;
-import seedu.address.model.ReadOnlyPinBook;
+import seedu.address.model.ReadOnlyAddressBook;
 
 /**
  * A class to access PinBook data stored as a json file on the hard disk.
@@ -32,7 +32,7 @@ public class JsonPinBookStorage implements PinBookStorage {
     }
 
     @Override
-    public Optional<ReadOnlyPinBook> readPinBook() throws DataConversionException {
+    public Optional<ReadOnlyAddressBook> readPinBook() throws DataConversionException {
         return readPinBook(filePath);
     }
 
@@ -42,7 +42,7 @@ public class JsonPinBookStorage implements PinBookStorage {
      * @param filePath location of the data. Cannot be null.
      * @throws DataConversionException if the file is not in the correct format.
      */
-    public Optional<ReadOnlyPinBook> readPinBook(Path filePath) throws DataConversionException {
+    public Optional<ReadOnlyAddressBook> readPinBook(Path filePath) throws DataConversionException {
         requireNonNull(filePath);
 
         Optional<JsonSerializablePinBook> jsonPinBook = JsonUtil.readJsonFile(
@@ -60,16 +60,16 @@ public class JsonPinBookStorage implements PinBookStorage {
     }
 
     @Override
-    public void savePinBook(ReadOnlyPinBook pinBook) throws IOException {
+    public void savePinBook(ReadOnlyAddressBook pinBook) throws IOException {
         savePinBook(pinBook, filePath);
     }
 
     /**
-     * Similar to {@link #savePinBook(ReadOnlyPinBook)}.
+     * Similar to {@link #savePinBook(ReadOnlyAddressBook)}.
      *
      * @param filePath location of the data. Cannot be null.
      */
-    public void savePinBook(ReadOnlyPinBook pinBook, Path filePath) throws IOException {
+    public void savePinBook(ReadOnlyAddressBook pinBook, Path filePath) throws IOException {
         requireNonNull(pinBook);
         requireNonNull(filePath);
 

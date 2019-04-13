@@ -159,7 +159,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public ReadOnlyPinBook getPinBook() {
+        public ReadOnlyAddressBook getPinBook() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -174,7 +174,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void setPinBook(ReadOnlyPinBook pinBook) {
+        public void setPinBook(ReadOnlyAddressBook pinBook) {
             throw new AssertionError("This method should not be called.");
         }
 

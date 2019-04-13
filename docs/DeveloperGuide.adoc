@@ -529,7 +529,7 @@ _{Explain here how the data encryption feature will be implemented}_
 
 // end::dataencryption[]
 
-=== Viewing Information Management
+=== Viewing Information
 // tag::findimplement[]
 ==== Find feature
 The Find mechanism is facilitated through the use of predicates in conjunction with the
@@ -636,12 +636,38 @@ The `Stat` mechanism is facilitated through the use of the inbuilt JavaFx framew
 stored within each `Patient` object.
 
 Upon execution of the stat command, the patient to have statistics generated from is set to the `StatWindow` file
-which then uses it to create the report. As per the diagram above, `StatWindow` then obtains all attributes from the
-patient and sets the latest teeth image to itself. From this obtained records list, the records table is generated
-followed by a bar chart and a pie chart. It is at this point that all necessary data has been populated within the
-statistics report and it is displayed to the user.
+which then uses it to create the report. As per the diagram below, `StatWindow` then obtains all attributes from the
+patient and sets the latest teeth image to itself.
+
+The `StatWindow` then creates a `Map<String, Integer>` with all the valid procedure values
+found in `Procedure` as the keys and the values set to 0. `StatWindow` subsequently iterates through all the records
+linked to the set patient checking for the record's procedure type, incrementing the value paired the respective
+procedure by 1 on a hit. It is from this Map that the records table is generated as well as the bar chart. The pie
+chart uses the Map as well while ignoring entries whose values have remained at 0.
+
+It is at this point that all necessary data has been populated within the statistics report and it is displayed to
+the user.
 
 image::StatActivityDiagram.png[width="800"]
+
+==== Design Considerations
+===== Aspect: Selecting the desired patient to stat
+* *Current Implementation:* The selected patient is determined by the Index number of the currently displayed
+patients within the `PatientListPanel`
+
+** *Alternative 1:* The selected patient is determined by a given keyword. Upon entering the keyword, the program
+then searches for the patients that match the keyword. Should multiple patients match the keyword, the command would
+fail and the user would be prompted to refine their search.
+*** *Alternative Pros:* Combines `patientfind` and `stat` together, giving the user greater convenience should they
+know enough unique details of the patient they wish to stat.
+
+*** *Alternative Cons:* Reduces the ease of use of the stat command. As the amount of patients stored within the
+program increases, so does the probability that the entered keywords would match multiple patients.
+
+** *Choice Justification:* Ultimately, we decided to stick with Index based selection as it increases the ease of use
+ for the user when there's a large number of patient entries. As the Index references the displayed patients, the user
+ can hence perform a `patientfind` operation beforehand and locate the desired patient.
+
 // end::statimplement[]
 
 === File Management

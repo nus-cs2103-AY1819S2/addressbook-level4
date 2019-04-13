@@ -36,8 +36,10 @@ Important information that should be noted.
 [TIP]
 Useful tips that can help if you get stuck.
 
+`test`: Command to be executed or less commonly, a component, class or object in the architecture of the application.
+
 ====
-Information in a box like this represents additional useful information for a deeper understanding of this command.
+Useful information for a deeper understanding of the command.
 ====
 
 Without further ado, let's head over to <<Quick Start>> to get started!

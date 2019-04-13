@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 
 <?import javafx.scene.layout.Region?>
-<BorderPane id="borderPane" fx:id="borderPane" maxHeight="100" maxWidth="300" minHeight="100" minWidth="200" prefHeight="100" prefWidth="300" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane id="borderPane" fx:id="borderPane" maxHeight="125" maxWidth="300" minHeight="100" minWidth="200" prefHeight="125" prefWidth="300" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
     <padding>
         <Insets bottom="5" left="20" right="20" top="5" />
     </padding>
@@ -33,6 +33,7 @@
                 <Label fx:id="name" styleClass="cell_big_label" text="\$name" />
                 <Label fx:id="organisation" styleClass="cell_big_label" text="\$organisation" />
             </HBox>
+            <Label fx:id="nric" styleClass="cell_small_label" text="\$nric" />
             <Label fx:id="phone" styleClass="cell_small_label" text="\$phone" />
             <FlowPane fx:id="specialisations">
                 <VBox.margin>

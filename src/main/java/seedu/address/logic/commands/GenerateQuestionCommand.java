@@ -25,4 +25,11 @@ public class GenerateQuestionCommand extends Command {
         studyView.setCurrentStudyState(StudyView.StudyState.QUESTION);
         return new CommandResult("");
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof GenerateQuestionCommand // instanceof handles nulls
+                && rating == ((GenerateQuestionCommand) other).rating);
+    }
 }

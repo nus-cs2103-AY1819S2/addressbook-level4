@@ -1,8 +1,8 @@
 package seedu.address.model.deck.exceptions;
 
-import org.junit.Test;
-
 import static seedu.address.testutil.TypicalDecks.DECK_A;
+
+import org.junit.Test;
 
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;

@@ -127,10 +127,12 @@ for every field, using `< or >` can cause false results. Please do not use them 
 ****
 
 *Different types of filtering processes:*
+
 * 'OR' Usage: According to the conditions written, if at least one of them passes with the regarding person in the applicant pool, the person is included in the filtered version.
 * 'AND' Usage: According to the conditions written, if every single one of them passes with the regarding person in the applicant pool, the person is included in the filtered version.
 
 *Special Input Conditions for Fields:*
+
 * For all the non-mentioned fields below, the default input format should be applied for the filtering field. Default input formats can be checked from `add command tab in User Guide`
 * For `PHONE`, any number of integers more than 0 can be entered.
 * For `EMAIL` and `ADDRESS`, any number of ASCII characters (also take the `TIP` into attention) more than 0 can be used.
@@ -139,6 +141,7 @@ for every field, using `< or >` can cause false results. Please do not use them 
 * For `SKILLS` and `POSITIONS`, if more than one specification are added to the filter, they should be separated by ','
 
 *About the Running Process of Filtering Command:*
+
 * The filtering is case insensitive. e.g `hans` will match `Hans`
 * Filtering does not check if the written condition passes totally. It only checks, if the written condition is contained in the person properties.
 e.g if there is someone named Alex, in the filtering conditions `n/ale/n` or `n/le/n` or `n/lex/n`, Alex will be included.
@@ -158,7 +161,7 @@ Examples:
 
 * filter or phone<91234567>phone email<johndoemail@example.com>email skill<C++, Java>skill end<2>end
 ** Returns the people, whose numbers include 91234567 or whose email includes johndoe@example.com or who has (contains) at least C++ or Java in the skills or has at least 2 endorsements.
-* filter and name<ale>name addr<street>addr gpa<3.1>gpa pos<Manager, Developer>pos deg<bachelor>deg
+* filter and name<ale>name addr<street>addr gpa<3.1>gpa pos<Manager, Developer>pos deg<bachelors>deg
 ** Returns the people, whose name contains ale (in any uppercase and lowercase format) and whose address contains street and who is interested in Manager and Developer positions,has a GPA higher than or equal to 3.1 and has at least Bachelor's degree
 
 // end::filter[]

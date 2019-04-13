@@ -7,7 +7,7 @@ import java.util.Objects;
 import quickdocs.model.Slot;
 
 /**
- * Represents a Reminder created in quickdocs.
+ * Represents a Reminder created in QuickDocs.
  */
 public class Reminder extends Slot {
     private String title;
@@ -66,13 +66,13 @@ public class Reminder extends Slot {
 
         Reminder otherReminder = (Reminder) other;
         return super.equals(other)
-                && otherReminder.getTitle().equals(getTitle());
+                && otherReminder.getTitle().equals(getTitle())
+                && Objects.equals(otherReminder.getComment(), getComment());
     }
 
     @Override
     public int hashCode() {
-        // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(title, super.hashCode());
+        return Objects.hash(getDate(), getStart(), getEnd(), title, comment);
     }
 
     @Override

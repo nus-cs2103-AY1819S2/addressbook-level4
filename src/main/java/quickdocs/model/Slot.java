@@ -64,4 +64,9 @@ public class Slot implements Comparable<Slot> {
                 && otherSlot.getStart().equals(getStart())
                 && Objects.equals(otherSlot.getEnd(), getEnd());
     }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(date, start, end);
+    }
 }

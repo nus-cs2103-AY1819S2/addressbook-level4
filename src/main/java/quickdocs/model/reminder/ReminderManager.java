@@ -17,12 +17,50 @@ import quickdocs.model.medicine.Medicine;
  */
 public class ReminderManager {
     private final List<Reminder> reminders;
-    private final ObservableList<Reminder> internalList = FXCollections.observableArrayList();
-    private final ObservableList<Reminder> internalUnmodifiableList =
-            FXCollections.unmodifiableObservableList(internalList);
+    private final ObservableList<Reminder> internalList;
+    private final ObservableList<Reminder> internalUnmodifiableList;
 
     public ReminderManager() {
         reminders = new ArrayList<>();
+        internalList = FXCollections.observableArrayList();
+        internalUnmodifiableList = FXCollections.unmodifiableObservableList(internalList);
+    }
+
+    public List<Reminder> getReminderList() {
+        return reminders;
+    }
+
+    public ObservableList<Reminder> getObservableReminderList() {
+        return internalUnmodifiableList;
+    }
+
+    /**
+     * Finds and returns the {@code Reminder} created for the given {@code Appointment} in the list of reminders,
+     * if it exists.
+     *
+     * @param appointment the {@code Appointment}'s {@code Reminder} to find.
+     * @return the {@code Reminder} found, if it exists, else returns {@code Optional.empty()}.
+     */
+    public Optional<Reminder> getReminder(Appointment appointment) {
+        String title = appointment.createTitle();
+        LocalDate date = appointment.getDate();
+        LocalTime start = appointment.getStart();
+
+        List<Reminder> filtered = reminders.stream()
+                .filter(r -> r.getTitle().equals(title))
+                .filter(r -> r.getDate().equals(date))
+                .filter(a -> a.getStart().equals(start))
+                .collect(Collectors.toList());
+
+        // filtered cannot contain > 1 reminder as each reminder for an appointment is uniquely identified by its
+        // title, date, and start fields.
+        assert filtered.size() <= 1;
+
+        if (filtered.isEmpty()) {
+            return Optional.empty();
+        } else {
+            return Optional.of(filtered.get(0));
+        }
     }
 
     /**
@@ -37,6 +75,7 @@ public class ReminderManager {
             return;
         }
 
+        // place reminder in correct position
         for (Reminder rem : reminders) {
             if (rem.compareTo(toAdd) > 0) {
                 int index = reminders.indexOf(rem);
@@ -55,18 +94,6 @@ public class ReminderManager {
         return reminders.contains(rem);
     }
 
-    public List<Reminder> getReminderList() {
-        return reminders;
-    }
-
-    public ObservableList<Reminder> getObservableReminderList() {
-        return internalUnmodifiableList;
-    }
-
-    public List<Reminder> getReminders() {
-        return reminders;
-    }
-
     /**
      * Deletes a {@code Reminder} in the list of reminders.
      *
@@ -77,27 +104,10 @@ public class ReminderManager {
         internalList.remove(reminder);
     }
 
-    public Optional<Reminder> getReminder(Appointment appointment) {
-        String title = appointment.createTitle();
-        LocalDate date = appointment.getDate();
-        LocalTime start = appointment.getStart();
-
-        List<Reminder> filtered = reminders.stream()
-                .filter(r -> r.getTitle().equals(title))
-                .filter(r -> r.getDate().equals(date))
-                .filter(a -> a.getStart().equals(start))
-                .collect(Collectors.toList());
-
-        if (filtered.isEmpty()) {
-            return Optional.empty();
-        } else {
-            return Optional.of(filtered.get(0));
-        }
-    }
-
     /**
-     * create and add a new reminder when medicine amount falls below threshold for some medicine
-     * @param medicine
+     * Creates and adds a new {@code Reminder} when the given {@code Medicine}'s quantity falls below its threshold.
+     *
+     * @param medicine The {@code Medicine} to create a {@code Reminder} for.
      */
     public void reminderForMedicine(Medicine medicine) {
         if (medicine.isSufficient()) {
@@ -116,9 +126,11 @@ public class ReminderManager {
     }
 
     /**
-     * delete any existing medicine reminder corresponding to the same medicine
-     * @param medicine the medicine we are concerned with
-     * @return whether something is deleted
+     * Deletes any existing {@code Reminder} corresponding to the given {@code Medicine}, which was created
+     * when the {@code Medicine}'s quantity fell below its threshold.
+     *
+     * @param medicine the {@code Medicine} whose {@code Reminder} to search for.
+     * @return {@code true} if the {@code Reminder} was found and deleted, else returns {@code false}.
      */
     public boolean deleteExistingMedicineReminder(Medicine medicine) {
         String title = String.format(Medicine.REMINDER_TITLE_IF_INSUFFICIENT, medicine.name);
@@ -134,16 +146,5 @@ public class ReminderManager {
             i++;
         }
         return changed;
-    }
-
-    /**
-     * Returns a {@code String} of reminders created.
-     */
-    public String list() {
-        StringBuilder sb = new StringBuilder();
-        for (Reminder rem : reminders) {
-            sb.append(rem.toString() + "\n");
-        }
-        return sb.toString();
     }
 }

@@ -23,18 +23,102 @@ public class AppointmentManager {
         appointments = new ArrayList<>();
     }
 
+    public List<Appointment> getAppointmentList() {
+        return appointments;
+    }
+
+    public void delete(Appointment app) {
+        appointments.remove(app);
+    }
+
+    public boolean hasDuplicateAppointment(Appointment app) {
+        return appointments.contains(app);
+    }
+
+
+    /**
+     * Finds and returns the {@code Appointment} in the list of appointments with the given date and start time,
+     * if it exists.
+     *
+     * @param date the {@code LocalDate} date of the {@code Appointment} to find.
+     * @param start the {@code LocalTime} start time of the {@code Appointment} to find.
+     * @return the {@code Appointment} found, if it exists, else returns {@code Optional.empty()}.
+     */
+    public Optional<Appointment> getAppointment(LocalDate date, LocalTime start) {
+        List<Appointment> filtered = appointments.stream()
+                .filter(a -> a.getDate().equals(date))
+                .filter(a -> a.getStart().equals(start))
+                .collect(Collectors.toList());
+
+        // filtered cannot contain > 1 appointment as each appointment is uniquely identified by its
+        // date and start fields.
+        assert filtered.size() <= 1;
+
+        if (filtered.isEmpty()) {
+            return Optional.empty();
+        } else {
+            return Optional.of(filtered.get(0));
+        }
+    }
+
+    /**
+     * Returns a {@code List} of {@code Appointment}s that are within the given search range of dates.
+     *
+     * @param start the {@code LocalDate start} date of the search range.
+     * @param end the {@code LocalDate end} date of the search range.
+     * @return {@code List} of {@code Appointment}s that has dates from {@code start} to {@code end}.
+     */
+    private List<Appointment> getAppointments(LocalDate start, LocalDate end) {
+        List<Appointment> validApps = new ArrayList<>();
+        LocalDate date;
+
+        for (Appointment app : appointments) {
+            date = app.getDate();
+            // Add appointments to validApps only with dates between the given range (inclusive)
+            if (date.compareTo(start) >= 0 && date.compareTo(end) <= 0) {
+                validApps.add(app);
+            }
+
+            // Stop adding when date of appointment is after given end date, since appointments are already sorted
+            if (date.compareTo(end) > 0) {
+                break;
+            }
+        }
+        return validApps;
+    }
+
+    /**
+     * Returns a {@code List} of {@code Appointment}s that were created for the given {@code Patient}.
+     *
+     * @param patient the {@code Patient} whose {@code Appointment}s to be retrieved.
+     * @return {@code List} of {@code Appointment}s that were created for {@code Patient patient}.
+     */
+    private List<Appointment> getAppointments(Patient patient) {
+        List<Appointment> validApps = new ArrayList<>();
+
+        for (Appointment app : appointments) {
+            // Add appointments to validApps only if they were created for the given patient
+            if (app.getPatient().equals(patient)) {
+                validApps.add(app);
+            }
+        }
+        return validApps;
+    }
+
     /**
      * Adds an {@code Appointment} to the ordered list of appointments, in the correct position.
      *
-     * @param toAdd the {@code Appointment} to add
+     * @param toAdd the {@code Appointment} to add.
      */
     public void addAppointment(Appointment toAdd) {
-        //assert !this.hasTimeConflicts(toAdd);
+        // checking for time conflicts should have happened in AddAppCommand
+        assert !this.hasTimeConflicts(toAdd);
         if (appointments.isEmpty()) {
             appointments.add(toAdd);
             return;
         }
 
+        // place appointment in correct position
         for (Appointment app : appointments) {
             if (app.compareTo(toAdd) > 0) {
                 int index = appointments.indexOf(app);
@@ -48,21 +132,22 @@ public class AppointmentManager {
     }
 
     /**
-     * Checks if there is any conflict in appointment timings, given an appointment.
+     * Checks if there are any conflicts in appointment timings between the current list of appointments
+     * and the given {@code Appointment}.
      *
-     * @param otherApp given appointment to check timing against the existing list of appointments
-     * @return true if there exists a conflict in timing, else return false
+     * @param otherApp given {@code Appointment} to check timing against the existing list of appointments.
+     * @return {@code true} if there exists a conflict in timing, else return {@code false}.
      */
     public boolean hasTimeConflicts(Appointment otherApp) {
         LocalDate date = otherApp.getDate();
 
-        // appointments are sorted by date and time
         for (Appointment app : appointments) {
             if (app.getDate().compareTo(date) == 0) {
                 if (hasOverlappingTime(app, otherApp)) {
                     return true;
                 }
             } else if (app.getDate().isAfter(date)) {
+                // terminate loop early since appointments are already sorted by date and time
                 break;
             }
         }
@@ -70,11 +155,11 @@ public class AppointmentManager {
     }
 
     /**
-     * Checks if two {@code Appointment} has an overlap in timing.
+     * Checks if two {@code Appointment}s have an overlap in timing.
      *
-     * @param appA first appointment
-     * @param appB second appointment
-     * @return true if there is an overlap in timing, else return false
+     * @param appA first {@code Appointment} given.
+     * @param appB second {@code Appontment} given.
+     * @return {@code true} if there is an overlap in timing, else return {@code false}.
      */
     private boolean hasOverlappingTime(Appointment appA, Appointment appB) {
         LocalTime startA = appA.getStart();
@@ -82,56 +167,45 @@ public class AppointmentManager {
         LocalTime startB = appB.getStart();
         LocalTime endB = appB.getEnd();
 
+        // shortcut to check for overlaps between two intervals
         return startA.isBefore(endB) && startB.isBefore(endA);
     }
 
-    public List<Appointment> getAppointmentList() {
-        return appointments;
-    }
-
-    public Optional<Appointment> getAppointment(LocalDate date, LocalTime start) {
-        List<Appointment> filtered = appointments.stream()
-                .filter(a -> a.getDate().equals(date))
-                .filter(a -> a.getStart().equals(start))
-                .collect(Collectors.toList());
-
-        if (filtered.isEmpty()) {
-            return Optional.empty();
-        } else {
-            return Optional.of(filtered.get(0));
-        }
-    }
-
-    private List<Appointment> getAppointments(LocalDate start, LocalDate end) {
-        List<Appointment> validApps = new ArrayList<>();
-        LocalDate date;
-        for (Appointment app : appointments) {
-            date = app.getDate();
-            // Start listing only for appointments with dates between the given range
-            if (date.compareTo(start) >= 0 && date.compareTo(end) <= 0) {
-                validApps.add(app);
-            }
-
-            // Stop when date of appointment is after given end date, since appointments are already sorted
-            if (date.compareTo(end) > 0) {
-                break;
-            }
-        }
-        return validApps;
+    /**
+     * Generates a {@code String} of {@code Appointment} details with dates between a search range, inclusive.
+     *
+     * @param start the {@code LocalDate start} date of the search range.
+     * @param end the {@code LocalDate end} date of the search range.
+     * @return {@code String} of {@code Appointment} details with dates from {@code start} to {@code end}.
+     */
+    public String listAppointments(LocalDate start, LocalDate end) {
+        List<Appointment> toList = getAppointments(start, end);
+        return listAppointments(toList);
     }
 
     /**
-     * Returns a {@code String} of appointments with dates between a search range, inclusive.
-     * @param start the start date of the search range
-     * @param end the end date of the search range
-     * @return {@code String} of appointments within the given search range
+     * Generates a {@code String} of {@code Appointment} details created for a given {@code Patient}.
+     *
+     * @param patient the {@code Patient} whose {@code Appointment} details to list.
+     * @return {@code String} of {@code Appointment} details created for the given {@code Patient}.
      */
-    public String listAppointments(LocalDate start, LocalDate end) {
+    public String listAppointments(Patient patient) {
+        List<Appointment> toList = getAppointments(patient);
+        return listAppointments(toList);
+    }
+
+    /**
+     * Generates a {@code String} of {@code Appointment} details given the appointments.
+     *
+     * @param appsToList the {@code List} of {@code Appointment}s to list.
+     * @return {@code String} of {@code Appointment} details.
+     */
+    public String listAppointments(List<Appointment> appsToList) {
         StringBuilder sb = new StringBuilder();
-        List<Appointment> toList = getAppointments(start, end);
+        // index of the appointment to be displayed
         int i = 1;
 
-        for (Appointment app : toList) {
+        for (Appointment app : appsToList) {
             sb.append(i)
                     .append(") ")
                     .append(app.toString())
@@ -142,31 +216,17 @@ public class AppointmentManager {
     }
 
     /**
-     * Returns a {@code String} of appointments booked by a {@code Patient}.
-     * @param patient the {@code Patient} whose appointments to list
-     * @return {@code String} of appointments for the given patient
+     * Generates a {@code List} of free {@code Slot}s within a given search range of dates.
+     * A {@code Slot} is free if there are no {@code Appointment}s scheduled during that time slot.
+     *
+     * @param start the {@code LocalDate start} date of the search range.
+     * @param end the {@code LocalDate end} date of the search range.
+     * @return {@code List} of free {@code Slot}s within the given search range.
      */
-    public String listAppointments(Patient patient) {
-        StringBuilder sb = new StringBuilder();
-        Patient p;
-        int i = 1;
-
-        for (Appointment app : appointments) {
-            p = app.getPatient();
-            if (p.equals(patient)) {
-                sb.append(i)
-                        .append(") ")
-                        .append(app.toString())
-                        .append("\n");
-                i++;
-            }
-        }
-        return sb.toString();
-    }
-
     private List<Slot> getFreeSlots(LocalDate start, LocalDate end) {
         List<Slot> freeSlots = new ArrayList<>();
         List<Appointment> toSearch = getAppointments(start, end);
+
         // all slots are free
         if (toSearch.isEmpty()) {
             for (LocalDate date = start; date.compareTo(end) <= 0; date = date.plusDays(1)) {
@@ -181,6 +241,7 @@ public class AppointmentManager {
         Appointment app = toSearch.get(index);
         Appointment prevApp = new Appointment(
                 app.getPatient(), app.getDate().minusDays(1), app.getStart(), app.getEnd(), app.getComment());
+
         // loop through all search dates from the start
         while (date.compareTo(end) <= 0) {
 
@@ -237,16 +298,18 @@ public class AppointmentManager {
     }
 
     /**
-     * Returns a {@code String} of free {@code Slot} to be used as appointment slots, given a search range.
+     * Generates a {@code String} of free {@code Slot}s given a search range of dates.
+     * A {@code Slot} is free if there are no {@code Appointment}s scheduled during that time slot.
      *
-     * @param start the starting date of the range to search
-     * @param end the ending date of the range to search
-     * @return a string of free slots
+     * @param start the {@code LocalDate start} date of the search range.
+     * @param end the {@code LocalDate end} date of the search range.
+     * @return {@code String} of free {@code Slot}s within the given search range.
      */
     public String listFreeSlots(LocalDate start, LocalDate end) {
         List<Slot> freeSlots = getFreeSlots(start, end);
         StringBuilder sb = new StringBuilder();
         LocalDate date = start.minusDays(1);
+
         for (Slot slot : freeSlots) {
             // start listing for a new date
             if (slot.getDate().isAfter(date)) {
@@ -258,6 +321,7 @@ public class AppointmentManager {
                 sb.append(", ");
             }
 
+            // Whole day is free
             if (slot.getStart().equals(OPENING_HOUR) && slot.getEnd().equals(CLOSING_HOUR)) {
                 sb.append("All slots are free");
             } else {
@@ -266,15 +330,6 @@ public class AppointmentManager {
                         .append(slot.getEnd());
             }
         }
-
         return sb.toString();
-    }
-
-    public void delete(Appointment app) {
-        appointments.remove(app);
-    }
-
-    public boolean hasDuplicateAppointment(Appointment app) {
-        return appointments.contains(app);
     }
 }

@@ -8,7 +8,7 @@ import quickdocs.model.Slot;
 import quickdocs.model.patient.Patient;
 
 /**
- * Represents an appointment created in QuickDocs.
+ * Represents an Appointment created in QuickDocs.
  */
 public class Appointment extends Slot {
     private Patient patient;
@@ -32,6 +32,11 @@ public class Appointment extends Slot {
         return comment;
     }
 
+    /**
+     * Generates a {@code String title} to be used in the creation of a {@code Reminder}
+     *
+     * @return the {@code String title} of this {@code Appointment}
+     */
     public String createTitle() {
         return "Appointment with " + this.getPatient().getName() + ", " + this.getPatient().getNric();
     }
@@ -53,13 +58,12 @@ public class Appointment extends Slot {
         Appointment otherApp = (Appointment) other;
         return super.equals(other)
                 && otherApp.getPatient().equals(getPatient())
-                && otherApp.getDate().equals(getDate());
+                && otherApp.getComment().equals(getComment());
     }
 
     @Override
     public int hashCode() {
-        // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(patient, comment, super.hashCode());
+        return Objects.hash(getDate(), getStart(), getEnd(), patient, comment);
     }
 
     @Override

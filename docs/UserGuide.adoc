@@ -586,7 +586,8 @@ or profiles.
 
 * `setfile f/Daily Expenses`
 * `setfile f/JohnDoe`
-* `setfile f/Food.Groceries.Shopping`
+* `setfile f/Personal Finances.April.2019`
+* `setfile f/Company June Petty Cash Finances`
 ****
 
 [NOTE]
@@ -781,7 +782,6 @@ _In-Credit-Ble_  aims to support multi-currency transactions in `v2.0`.
 | Set Budget | `set $/AMOUNT` |- | `set $/500`
 | Allocate budgeting based on categories | `allocate $/AMOUNT c/CATEGORY` | `allo` | `allocate $/100 c/Shopping`
 | Show allocated category budget and spending | `show` | `showCatBudget` | -
-//| Increase budget | `increase $/AMOUNT` | - | `increase $/10.10`
 
 |=======================================================================
 
@@ -831,7 +831,7 @@ Shows summary for past 5 days
 == Glossary
 
 Amount::
-The amount of money for expenditure and budget
+The amount of money for expenditure and budget.
 
 Category::
 The category that an entry belongs to.
@@ -841,4 +841,4 @@ A listed item/activity tracked by the application.  It generally consists of the
 compulsory category tag
 
 Records::
-The list of all entries stored in the application
+The list of all entries stored in the application.

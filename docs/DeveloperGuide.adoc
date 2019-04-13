@@ -593,40 +593,6 @@ Use a combination of commas and dashes to indicate a range as well. e.g. `1-3,5`
 `all` can be used instead to include everything. e.g. `import test.json all` or `export test.json all`
 ============================================================
 
-==== Design Considerations
-===== Aspect: Reading or writing a file
-* **Current implementation:** (Open/Import/Save/Export)Command -> InOutAddressBookStorage -> JsonUtil -> FileUtil
-** **Alternative 1a.1:** (Open/Import/Save/Export)Command -> Json Util -> FileUtil
-** **Alternative 1a.2:** (Open/Import/Save/Export)Command -> FileUtil
-*** Pros: Less overhead and faster runtime as there are less classes to go through.
-*** Cons: InOutAddressBookStorage does some error handling. Bypassing InOutAddressBookStorage would require the same error handling in OpenCommand. Since OpenCommand is not called when the program starts, we cannot move the error handling from InOutAddressBookStorage to OpenCommand. In that case, we would have to copy the error handling instead, which means that we now have a duplicate logic, which is also not ideal.
-
-
-* **Current implementation:** (Save/Export)Command -> InOutAddressBookStorage -> PdfUtil
-** **Alternative 1b.1:** (Save/Export)Command -> Pdf Util -> FileUtil
-** **Alternative 1b.2:** (Save/Export)Command -> FileUtil
-** **Alternative 1b.3:** (Save/Export)Command -> PdfUtil
-*** Pros: Less overhead and faster runtime as there are less classes to go through.
-*** Cons: Same as *Alternative 1a* Cons above. In addition to that, passing the job to FileUtil would require implementing Pdf creation and saving that is already present in the third party library Apache PDFBox. Hence the job is passed to PdfUtil which calls the already present methods of Apache PDFBox.
-
-===== Aspect: Index ranges of Import and Export
-* **Current implementation:** The Import/Export features accept index ranges that are larger than the actual index range of the content to be imported/exported.
-** **Alternative 2:** Don't allow indexes out of range for Import/Export.
-*** Pros: User cannot input a very large index range. This prevents a scenario where a very large range causes slow runtime and increased memory due to the amount of indexes to process.
-*** Cons: User may feel frustration of being denied due to minor mistakes. e.g. `export data.json 1-31` being rejected when there are only 30 entries. As our goal when designing TeethHub was to make things easier for the user, we decided to go with our current implementation.
-
-
-* **Current implementation:** The Import/Export features accept the `all` keyword in place of an index range.
-** **Alternative 3:** Don't parse "all" keyword for Import/Export.
-*** Pros: Faster runtime as there are less characters in the regex to match.
-*** Cons: User would need to know the total amount of patients in the external file if importing. Otherwise, the user might resort to inputting a very large index range, which would slow down runtime and increase memory needed due to the amount of indexes to process. We chose the current implementation to provide an alternative so that it would discourage users from inputting a very large index range.
-
-
-* **Current implementation:** The Export feature calls the Save feature when the `all` keyword is detected.
-** **Alternative 4:** Don't parse `all` keyword for Export.
-*** Pros: Less overhead and faster runtime as there the regex would not need to look for `all`
-*** Cons: In the current implementation, Import and Export share the same parser as Import and Export share the same format of `command FILE_PATH INDEX_RANGE`. Since Import uses the `all` keyword, not parsing `all` would require an additional parser for Export. Furthermore, as the accepted inputs of Open and Save are the same (except for .pdf), the user may expect the same accepted inputs for Import and Export as well.
-
 ==== Open vs Import
 
 Suppose you have a `data.json` file with the following contents:
@@ -701,6 +667,40 @@ image::ExportCommandActivityDiagram.png[width="870"]
 6. ExportCommand checks for if the requested file is a ".json" file or ".pdf" file. It also checks if the file is Read-only. +
 6a. ExportCommand calls the existing saveAddressBook() if the requested file is a ".json" file. +
 6b. ExportCommand calls the new saveAsPdf() if the requested file is a ".pdf" file.
+
+==== Design Considerations
+===== Aspect: Reading or writing a file
+* **Current implementation:** (Open/Import/Save/Export)Command -> InOutAddressBookStorage -> JsonUtil -> FileUtil
+** **Alternative 1a.1:** (Open/Import/Save/Export)Command -> Json Util -> FileUtil
+** **Alternative 1a.2:** (Open/Import/Save/Export)Command -> FileUtil
+*** Pros: Less overhead and faster runtime as there are less classes to go through.
+*** Cons: InOutAddressBookStorage does some error handling. Bypassing InOutAddressBookStorage would require the same error handling in OpenCommand. Since OpenCommand is not called when the program starts, we cannot move the error handling from InOutAddressBookStorage to OpenCommand. In that case, we would have to copy the error handling instead, which means that we now have a duplicate logic, which is also not ideal.
+
+
+* **Current implementation:** (Save/Export)Command -> InOutAddressBookStorage -> PdfUtil
+** **Alternative 1b.1:** (Save/Export)Command -> Pdf Util -> FileUtil
+** **Alternative 1b.2:** (Save/Export)Command -> FileUtil
+** **Alternative 1b.3:** (Save/Export)Command -> PdfUtil
+*** Pros: Less overhead and faster runtime as there are less classes to go through.
+*** Cons: Same as *Alternative 1a* Cons above. In addition to that, passing the job to FileUtil would require implementing Pdf creation and saving that is already present in the third party library Apache PDFBox. Hence the job is passed to PdfUtil which calls the already present methods of Apache PDFBox.
+
+===== Aspect: Index ranges of Import and Export
+* **Current implementation:** The Import/Export features accept index ranges that are larger than the actual index range of the content to be imported/exported.
+** **Alternative 2:** Don't allow indexes out of range for Import/Export.
+*** Pros: User cannot input a very large index range. This prevents a scenario where a very large range causes slow runtime and increased memory due to the amount of indexes to process.
+*** Cons: User may feel frustration of being denied due to minor mistakes. e.g. `export data.json 1-31` being rejected when there are only 30 entries. As our goal when designing TeethHub was to make things easier for the user, we decided to go with our current implementation.
+
+
+* **Current implementation:** The Import/Export features accept the `all` keyword in place of an index range.
+** **Alternative 3:** Don't parse "all" keyword for Import/Export.
+*** Pros: Faster runtime as there are less characters in the regex to match.
+*** Cons: User would need to know the total amount of patients in the external file if importing. Otherwise, the user might resort to inputting a very large index range, which would slow down runtime and increase memory needed due to the amount of indexes to process. We chose the current implementation to provide an alternative so that it would discourage users from inputting a very large index range.
+
+
+* **Current implementation:** The Export feature calls the Save feature when the `all` keyword is detected.
+** **Alternative 4:** Don't parse `all` keyword for Export.
+*** Pros: Less overhead and faster runtime as there the regex would not need to look for `all`
+*** Cons: In the current implementation, Import and Export share the same parser as Import and Export share the same format of `command FILE_PATH INDEX_RANGE`. Since Import uses the `all` keyword, not parsing `all` would require an additional parser for Export. Furthermore, as the accepted inputs of Open and Save are the same (except for .pdf), the user may expect the same accepted inputs for Import and Export as well.
 
 === Suggestion feature
 ==== Current Implementation

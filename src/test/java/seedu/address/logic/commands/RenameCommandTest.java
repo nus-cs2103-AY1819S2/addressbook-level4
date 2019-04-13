@@ -88,14 +88,26 @@ public class RenameCommandTest {
     }
 
     @Test
-    public void execute_caseSensitiveRenameToAnotherFile_failure() {
+    public void execute_caseSensitiveOperatingSystemRenameToAnotherFile_failureIfWindowsSuccessIfLinus() {
+        // Linux supports for case-sensitive rename while Windows doesn't
+        Pdf editedPdf = new PdfBuilder(SAMPLE_PDF_2)
+                .withName(SAMPLE_PDF_2.getName().getFullName().toLowerCase()).build();
         RenameCommand.EditPdfDescriptor descriptor = new EditPdfDescriptorBuilder()
                 .withName(SAMPLE_PDF_2.getName().getFullName().toLowerCase()).build();
         RenameCommand renameCommand = new RenameCommand(INDEX_FIRST_PDF, descriptor);
 
         String expectedMessage = MESSAGE_EDIT_PDF_FAILURE;
 
-        assertCommandFailure(renameCommand, model, commandHistory, expectedMessage);
+        if (Paths.get(SAMPLE_PDF_2.getDirectory().getDirectory(), SAMPLE_PDF_1.getName().getFullName())
+                .toAbsolutePath().toFile().exists()) {
+            assertCommandFailure(renameCommand, model, commandHistory, expectedMessage);
+        } else {
+            Model expectedModel = new ModelManager(new PdfBook(model.getPdfBook()), new UserPrefs());
+            expectedModel.setPdf(SAMPLE_PDF_1, editedPdf);
+            expectedModel.commitPdfBook();
+            assertCommandSuccess(renameCommand, model, commandHistory, expectedMessage, expectedModel);
+            revertBackup(SAMPLE_PDF_1, editedPdf);
+        }
     }
 
     @Test

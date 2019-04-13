@@ -9,6 +9,7 @@ import java.util.function.Predicate;
 import javafx.beans.Observable;
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import seedu.knowitall.commons.core.GuiSettings;
 import seedu.knowitall.logic.commands.exceptions.CommandException;
 import seedu.knowitall.model.card.Answer;
@@ -112,14 +113,9 @@ public interface Model extends Observable {
     void removeSelectedCard();
 
     /**
-     * Returns true if a {@code CardFolder} with the same identity as {@code cardFolder} exists.
-     */
-    boolean hasFolder(CardFolder cardFolder);
-
-    /**
      * Returns true if a{@code CardFolder} with the same name as {@code folderName} exists.
      */
-    boolean hasFolderWithName(String name);
+    boolean hasFolder(String name);
 
     /**
      * Deletes the folder at the given index.
@@ -154,10 +150,13 @@ public interface Model extends Observable {
      */
     void exitFolderToHome();
 
-    /** Returns an unmodifiable view of the filtered card list */
-    ObservableList<Card> getFilteredCards();
+    /** Returns a copy of the filtered cards list */
+    List<FilteredList<Card>> getFilteredCardsList();
 
-    /** Returns an unmodifiable view of the filtered folders list */
+    /** Returns a copy of the active filtered cards */
+    ObservableList<Card> getActiveFilteredCards();
+
+    /** Returns a copy of the filtered folders list */
     ObservableList<VersionedCardFolder> getFilteredFolders();
 
     /**

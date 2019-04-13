@@ -127,13 +127,11 @@ public class MainWindow extends UiPart<Stage> {
 
         browserPanel = new BrowserPanel(logic.selectedCardProperty());
         folderListPanel = new FolderListPanel(logic.getFilteredCardFolders());
-        cardListPanel = new CardListPanel(logic.getFilteredCards(), logic.selectedCardProperty(),
-                logic::setSelectedCard);
-        cardMainScreen = new CardMainScreen(cardListPanel, browserPanel);
         fullScreenPlaceholder.getChildren().add(folderListPanel.getRoot());
     }
 
     /**
+     *
      * Sets the default size based on {@code guiSettings}.
      */
     private void setWindowDefaultSize(GuiSettings guiSettings) {
@@ -206,7 +204,7 @@ public class MainWindow extends UiPart<Stage> {
      * Refreshes the side panel to display the contents of the new active folder.
      */
     private void handleEnterFolder() {
-        cardListPanel = new CardListPanel(logic.getFilteredCards(), logic.selectedCardProperty(),
+        cardListPanel = new CardListPanel(logic.getActiveFilteredCards(), logic.selectedCardProperty(),
                 logic::setSelectedCard);
         cardMainScreen = new CardMainScreen(cardListPanel, browserPanel);
         fullScreenPlaceholder.getChildren().add(cardMainScreen.getRoot());

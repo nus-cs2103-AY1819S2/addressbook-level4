@@ -286,6 +286,9 @@ Writes all entries from the address book to patients1.json. +
 // tag::patient_management_kyler[]
 === Patient Management
 
+Patient management allows our users to store and modify information of their dental patients.
+This includes their personal particulars, next-of-kin information, dental records, and teeth conditions.
+
 ==== patientadd
 
 Adds a patient to the patients list.
@@ -297,20 +300,20 @@ Format: `patientadd PARAMETERS …`
 
 Parameters:
 
-[cols=",",options=""]
+[cols="3",options=""]
 |===
-|n/NAME |n/Keith Choo Shen Hao
-|s/SEX |s/Male
-|ic/NRIC |ic/S1234567Z
-|dob/DATE_OF_BIRTH_DD-MM-YYYY |dob/28-06-1994
-|p/PHONE_NUMBER |p/98765432
-|e/EMAIL |e/KeithCSH@debang.com
-|a/ADDRESS |a/1 Pulau Tekong Besar 508449
-|da/DRUG_ALLERGY |da/Insulin
-|nokn/NEXT_OF_KIN_NAME |nokn/Choo Debang
-|nokp/NEXT_OF_KIN_PHONE_NUMBER |nokp/97654321
-|nokr/NEXT_OF_KIN_RELATION |nokr/Brother
-|noka/NEXT_OF_KIN_ADDRESS |noka/21 Lower Kent Ridge Rd 119077
+|n/NAME
+|s/SEX
+|ic/NRIC
+|dob/DATE_OF_BIRTH
+|p/PHONE_NUMBER
+|e/EMAIL
+|a/ADDRESS
+|da/DRUG_ALLERGY
+|nokn/NEXT_OF_KIN_NAME
+|nokp/NEXT_OF_KIN_PHONE_NUMBER
+|nokr/NEXT_OF_KIN_RELATION
+|noka/NEXT_OF_KIN_ADDRESS
 |===
 
 [NOTE]

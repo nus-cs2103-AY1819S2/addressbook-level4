@@ -81,10 +81,11 @@ public class EditCommand extends Command {
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Person: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.";
-    private static final String MESSAGE_ILLEGAL_EDIT_COMMAND = "One or more of the parameters are not applicable for "
-            + "the selected customer.\n";
     public static final String MESSAGE_DUPLICATE_IDENTITY_FIELD = "Customer with one or more duplicate identity "
             + "field already exists in address book";
+    private static final String MESSAGE_ILLEGAL_EDIT_COMMAND = "One or more of the parameters are not applicable for "
+            + "the selected customer.\n";
+
 
     private final Index index;
     private final EditPersonDescriptor editPersonDescriptor;
@@ -165,7 +166,9 @@ public class EditCommand extends Command {
                 || (personToEdit instanceof Seller && editPersonDescriptor.getRentalPrice().isPresent())
                 || (personToEdit instanceof Landlord && editPersonDescriptor.getSellingPrice().isPresent())) {
             return false;
-        } else return true;
+        } else {
+            return true;
+        }
     }
 
     /**

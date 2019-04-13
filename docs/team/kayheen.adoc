@@ -8,7 +8,7 @@
 ---
 
 == 1. Overview of the Project
-My team and I were tasked with enhancing a basic command line addressbook for our Software Engineering project. We decided to morph the project into a image editor. +
+My team and I were tasked with enhancing a basic command line AddressBook for our Software Engineering project. We decided to morph the project into an image editor. +
 
 FomoFoto is a robust yet simple image-editing tool. Users interact with the application through worded commands from their keyboard, and receive visual feedback from it through the displayed image on the application. Unlike other heavy image editors, FomoFoto has a very gentle learning curve as it abstracts out clutter by providing the more essential features (complex editing can still be done with special commands). The features and implementations are well documented in guides for users and developers respectively. +
 
@@ -42,21 +42,21 @@ This section provides a summary of my coding, documentation and miscellaneous co
 * *Other Contributions*:
 
 ** Project Management:
-*** Ensured that we are on task with our project documentation by allocating roles and ensuring consistency with our words and diagrams. (User Guide and Developer Guide)
+*** Ensured that we were on task with our project documentation by allocating roles and ensuring consistency with our words and diagrams. (User Guide and Developer Guide)
 
 ** Enhancements to Existing Features:
-*** EXAMPLE: Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
 *** Wrote tests for image manipulation and watermark commands to increase coverage. (Pull requests https://github.com/CS2103-AY1819S2-W14-2/main/pull/188[#188], https://github.com/CS2103-AY1819S2-W14-2/main/pull/208[#208], https://github.com/CS2103-AY1819S2-W14-2/main/pull/222[#222])
 
 ** Documentation:
-*** Did architecture and sequence diagram for the overall App: https://github.com/CS2103-AY1819S2-W14-2/main/pull/118[#118]
-*** Did the documentation for image manipulation: https://github.com/CS2103-AY1819S2-W14-2/main/pull/123/files[#123]
-*** Did the documentation for the watermark command: https://github.com/CS2103-AY1819S2-W14-2/main/pull/229[#229]
+*** Did Developer Guide architecture and sequence diagram for the overall application: https://github.com/CS2103-AY1819S2-W14-2/main/pull/118[#118]
+*** Did the Developer Guide documentation for image manipulation: https://github.com/CS2103-AY1819S2-W14-2/main/pull/123/files[#123]
+*** Did the Devloper Guide documentation for the watermark command: https://github.com/CS2103-AY1819S2-W14-2/main/pull/229[#229]
+*** Did the overall walkthrough for the User Guide: https://github.com/CS2103-AY1819S2-W14-2/main/pull/65[#65]
 
 ** Community:
 *** PRs reviewed (with non-trivial review comments):
 https://github.com/CS2103-AY1819S2-W14-2/main/pull/220[#220],
-https://github.com/CS2103-AY1819S2-W14-2/main/pull/225[#225], https://github.com/CS2103-AY1819S2-W14-2/main/pull/235[#235], https://github.com[#19], https://github.com[#42]
+https://github.com/CS2103-AY1819S2-W14-2/main/pull/225[#225], https://github.com/CS2103-AY1819S2-W14-2/main/pull/235[#235],
 *** Reported bugs and suggestions for other teams in the class:  https://github.com/CS2103-AY1819S2-W16-2/main/issues/102[#102], https://github.com/CS2103-AY1819S2-W16-2/main/issues/108[#108], https://github.com/CS2103-AY1819S2-W16-2/main/issues/112[#112],
 https://github.com/CS2103-AY1819S2-W16-2/main/issues/115[#115],
 https://github.com/CS2103-AY1819S2-W16-2/main/issues/117[#117],
@@ -69,7 +69,7 @@ https://github.com/CS2103-AY1819S2-W16-2/main/issues/117[#117],
 |===
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
-include::../UserGuide.adoc[tag= AWalkThrough]
+include::../UserGuide.adoc[tag=AWalkThrough]
 
 include::../UserGuide.adoc[tag=CropCommand]
 

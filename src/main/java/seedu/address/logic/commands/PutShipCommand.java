@@ -30,7 +30,7 @@ public class PutShipCommand extends Command {
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: "
             + "[" + PREFIX_NAME + "NAME] "
-            + "[" + PREFIX_COORDINATES + "COORDINATES]\n"
+            + "[" + PREFIX_COORDINATES + "COORDINATES] "
             + "[" + PREFIX_ORIENTATION + "ORIENTATION]\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "Destroyer "

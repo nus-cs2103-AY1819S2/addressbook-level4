@@ -3,7 +3,10 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import javafx.beans.InvalidationListener;
 import javafx.collections.ObservableList;
@@ -12,11 +15,13 @@ import seedu.address.commons.util.ModuleTree;
 import seedu.address.model.limits.SemesterLimit;
 import seedu.address.model.moduleinfo.ModuleInfoCode;
 import seedu.address.model.moduletaken.CapAverage;
+import seedu.address.model.moduletaken.Grade;
 import seedu.address.model.moduletaken.Hour;
 import seedu.address.model.moduletaken.ModuleTaken;
 import seedu.address.model.moduletaken.Semester;
 import seedu.address.model.moduletaken.SemesterLimitList;
 import seedu.address.model.moduletaken.UniqueModuleTakenList;
+import seedu.address.model.tag.Tag;
 
 /**
  * Wraps all data at the address-book level
@@ -44,13 +49,8 @@ public class GradTrak implements ReadOnlyGradTrak {
     }
 
     public GradTrak() {
-        List<SemesterLimit> semList = new ArrayList<>();
-        for (int i = 0; i < NUM_SEMS; i++) {
-            semList.add(new SemesterLimit(new CapAverage(2.0), new CapAverage(5.0), new Hour("5.0"), new Hour("9.0"),
-                    new Hour("2.5"), new Hour("5.0"), new Hour("2.0"), new Hour("5.0"), new Hour("2.0"),
-                    new Hour("5.0"), new Hour("6.0"), new Hour("10.0")));
-        }
-        setSemesterLimits(semList);
+        setModulesTaken(getSampleModulesTaken());
+        setSemesterLimits(getSampleSemesterLimits());
         setCurrentSemester(Semester.Y1S1);
     }
 
@@ -60,6 +60,46 @@ public class GradTrak implements ReadOnlyGradTrak {
     public GradTrak(ReadOnlyGradTrak toBeCopied) {
         this();
         resetData(toBeCopied);
+    }
+
+    public static List<ModuleTaken> getSampleModulesTaken() {
+        List<ModuleTaken> modulesTakenList = new ArrayList<>();
+        modulesTakenList.add(new ModuleTaken(new ModuleInfoCode("CS1010"), Semester.valueOf("Y1S1"),
+                Grade.valueOf("B"), Grade.valueOf("B"), getTagSet("friends")));
+        modulesTakenList.add(new ModuleTaken(new ModuleInfoCode("CS2040"), Semester.valueOf("Y1S1"),
+                Grade.valueOf("B_PLUS"), Grade.valueOf("B_PLUS"), getTagSet("programming", "friends")));
+        modulesTakenList.add(new ModuleTaken(new ModuleInfoCode("CS2030"), Semester.valueOf("Y1S2"),
+                Grade.valueOf("B"), Grade.valueOf("B"), getTagSet("programming", "friends")));
+        modulesTakenList.add(new ModuleTaken(new ModuleInfoCode("MA1521"), Semester.valueOf("Y3S1"),
+                Grade.valueOf("C"), Grade.valueOf("A"), getTagSet("math")));
+        modulesTakenList.add(new ModuleTaken(new ModuleInfoCode("CS2101"), Semester.valueOf("Y3S1"),
+                Grade.valueOf("C"), Grade.valueOf("A"), getTagSet("communication")));
+        modulesTakenList.add(new ModuleTaken(new ModuleInfoCode("CS2103T"), Semester.valueOf("Y3S1"),
+                Grade.valueOf("C"), Grade.valueOf("A"), getTagSet("programming")));
+        modulesTakenList.add(new ModuleTaken(new ModuleInfoCode("GER1000"), Semester.valueOf("Y3S2"),
+                Grade.valueOf("C"), Grade.valueOf("A"), getTagSet("GEM")));
+        modulesTakenList.add(new ModuleTaken(new ModuleInfoCode("LSM1301"), Semester.valueOf("Y4S1"),
+                Grade.valueOf("C"), Grade.valueOf("A"), getTagSet("friends")));
+        return modulesTakenList;
+    }
+
+    /**
+     * Returns a tag set containing the list of strings given.
+     */
+    public static Set<Tag> getTagSet(String... strings) {
+        return Arrays.stream(strings)
+                .map(Tag::new)
+                .collect(Collectors.toSet());
+    }
+
+    public static List<SemesterLimit> getSampleSemesterLimits() {
+        List<SemesterLimit> semList = new ArrayList<>();
+        for (int i = 0; i < NUM_SEMS; i++) {
+            semList.add(new SemesterLimit(new CapAverage(2.0), new CapAverage(5.0), new Hour("5.0"), new Hour("9.0"),
+                    new Hour("2.5"), new Hour("5.0"), new Hour("2.0"), new Hour("5.0"), new Hour("2.0"),
+                    new Hour("5.0"), new Hour("6.0"), new Hour("10.0")));
+        }
+        return semList;
     }
 
     public Semester getCurrentSemester() {

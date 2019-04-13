@@ -40,6 +40,12 @@ public interface Model {
     /** {@code Comparator} that sort medical history by date in decending order from newest to oldest. */
     Comparator<MedicalHistory> COMPARATOR_MED_HIST_DATE_DESC = new MedHistDateDescComparator();
 
+    /** {@code Comparator} that sort prescriptions by date in ascending order from oldest to newest. */
+    Comparator<Prescription> COMPARATOR_PRESC_DATE_ASC = new PrescriptionDateAscComparator();
+
+    /** {@code Comparator} that sort prescriptions by date in descending order from newest to oldest. */
+    Comparator<Prescription> COMPARATOR_PRESC_DATE_DESC = new PrescriptionDateDescComparator();
+
     /** Comparater of Medical History
      * Medical history with older date is larger than medical history with newer date.
      */
@@ -54,6 +60,23 @@ public interface Model {
     class MedHistDateDescComparator implements Comparator<MedicalHistory> {
         public int compare (MedicalHistory mh1, MedicalHistory mh2) {
             return mh2.getDate().date.compareTo(mh1.getDate().date);
+        }
+    }
+
+    /** Comparator of Prescription
+     * Prescriptions with older date is larger than prescription with newer date.
+     */
+    class PrescriptionDateAscComparator implements Comparator<Prescription> {
+        public int compare (Prescription p1, Prescription p2) {
+            return p1.getDate().date.compareTo(p2.getDate().date);
+        }
+    }
+    /** Comparator of Prescription
+     * Prescription with newer date is larger than prescription with older date.
+     */
+    class PrescriptionDateDescComparator implements Comparator<Prescription> {
+        public int compare (Prescription p1, Prescription p2) {
+            return p2.getDate().date.compareTo(p1.getDate().date);
         }
     }
 
@@ -252,6 +275,10 @@ public interface Model {
      */
     void updateFilteredPrescriptionList(Predicate<Prescription> predicate);
 
+    /**
+     * Sort filtered prescription list
+     */
+    void sortFilteredPrescriptionList(Comparator<Prescription> prescriptionComparator);
 
     /**
      * Returns true if the model has previous DocX states to restore.

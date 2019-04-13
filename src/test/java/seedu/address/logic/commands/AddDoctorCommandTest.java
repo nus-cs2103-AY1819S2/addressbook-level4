@@ -103,6 +103,11 @@ public class AddDoctorCommandTest {
         }
 
         @Override
+        public void sortFilteredPrescriptionList(Comparator<Prescription> prescriptionComparator) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public Patient getPatientById(PersonId patientId) {
             throw new AssertionError("This method should not be called.");
         }

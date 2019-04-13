@@ -340,6 +340,12 @@ public class ModelManager implements Model {
         filteredPrescriptions.setPredicate(predicate);
     }
 
+    @Override
+    public void sortFilteredPrescriptionList(Comparator<Prescription> prescriptionComparator) {
+        requireNonNull(prescriptionComparator);
+        versionedDocX.sortPrescription(prescriptionComparator);
+    }
+
 
     //=========== Undo/Redo =================================================================================
 

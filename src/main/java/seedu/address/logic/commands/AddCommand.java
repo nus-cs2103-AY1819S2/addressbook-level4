@@ -62,7 +62,7 @@ public class AddCommand extends Command {
             + PREFIX_SCHOOL + "NUS "
             + PREFIX_MAJOR + "Computer Science "
             + PREFIX_GRADE + "4.76 "
-            + PREFIX_JOBSAPPLY + "Software Engineer "
+            + PREFIX_JOBSAPPLY + "Software-Engineer "
             + PREFIX_INTERVIEWSCORES + "1,2,3,4,5 "
             + PREFIX_KNOWNPROGLANG + "Python "
             + PREFIX_PASTJOB + "Software Engineer "

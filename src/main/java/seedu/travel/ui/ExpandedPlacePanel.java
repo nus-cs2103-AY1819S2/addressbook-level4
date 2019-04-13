@@ -79,12 +79,13 @@ public class ExpandedPlacePanel extends UiPart<Region> {
     /**
      * Initialised and loads the image into ImageViewer for {@code place}.
      */
-    private void initImg(Photo photo) {
+    public boolean initImg(Photo photo) {
         Image placeImage;
 
         try {
             if (photo.equals(new Photo(EMPTY_PHOTO_PATH))) {
                 placeImage = new Image(MainApp.class.getResourceAsStream(DEFAULT_IMAGE_FILEPATH));
+
             } else {
                 FileInputStream inputStream = new FileInputStream(photo.getFilePath());
                 placeImage = new Image(inputStream);
@@ -92,9 +93,11 @@ public class ExpandedPlacePanel extends UiPart<Region> {
             img.setImage(placeImage);
             img.setFitWidth(800);
             img.setPreserveRatio(true);
+            return true;
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
+            return false;
         }
     }
 

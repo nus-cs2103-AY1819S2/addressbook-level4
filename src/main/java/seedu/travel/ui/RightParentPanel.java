@@ -7,7 +7,6 @@ import javafx.beans.property.ReadOnlyProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
@@ -68,24 +67,6 @@ public class RightParentPanel extends UiPart<Region> {
 
             }
         );
-
-    }
-
-    /**
-     * Custom {@code ListCell} that displays the graphics of a {@code Place} using a {@code PlaceCard}.
-     */
-    class PlaceListViewCell extends ListCell<Place> {
-        @Override
-        protected void updateItem(Place place, boolean empty) {
-            super.updateItem(place, empty);
-
-            if (empty || place == null) {
-                setGraphic(null);
-                setText(null);
-            } else {
-                setGraphic(new PlaceCard(place, getIndex() + 1).getRoot());
-            }
-        }
     }
 
 }

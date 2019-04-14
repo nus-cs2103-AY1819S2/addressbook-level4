@@ -905,6 +905,8 @@ Example:
 
 *`tasksort starttime desc`
 
+// tag::task_ppp_cchj1995[]
+
 ==== taskdone
 Sets a task to `[green]#complete#`, marking the completion of the task.
 
@@ -966,6 +968,8 @@ Executing the `taskcal` command inside this popup window without specifying a da
 The top pane of the calendar has clickable arrows that lets you change the calendar page to display the dates for different months and years. Figure 4 below shows a focused view of the calendar's top pane:
 
 image::TaskCalendarUG2.png[width=""]
+
+// end::task_ppp_cchj1995[]
 
 ////
 ==== taskfind

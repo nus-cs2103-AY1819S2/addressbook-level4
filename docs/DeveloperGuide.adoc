@@ -623,8 +623,6 @@ essentially the same. As such, it made more sense for us to go ahead with our cu
 
 // tag::statimplement[]
 ==== Stat feature
-image::statWindow.png[width="500"]
-
 The `Stat` mechanism is facilitated through the use of the inbuilt JavaFx framework in conjunction with the data
 stored within each `Patient` object.
 

@@ -7,6 +7,7 @@ import static seedu.address.commons.core.Config.SAMPLE_FOLDER;
 import org.junit.Before;
 import org.junit.Test;
 
+import seedu.address.logic.ResourceWalker;
 import seedu.address.model.Album;
 import seedu.address.testutil.Assert;
 

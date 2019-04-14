@@ -30,7 +30,9 @@ This section provides a summary of my coding, documentation and other contributi
 
 ** Credits: _{The processing of images is facilitated by an external API https://github.com/sksamuel/scrimage[`scrimage`]}_
 
-* *Code contributed*: [https://github.com/CS2103-AY1819S2-W14-2/main/commits?author=thamsimun[List of commits]]
+* *Code contributed*:
+** https://github.com/CS2103-AY1819S2-W14-2/main/commits?author=thamsimun[List of commits]
+** https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#search=thamsimun[Project Code Dashboard]
 
 * *Other contributions*:
 

@@ -32,9 +32,10 @@ This section shows a summary of my coding, documentation, and other helpful cont
 *Feature implemented*: I implemented the functionalities of a test session.
 
 * What it does: This allows users to  begin and end a test session. While inside a test session, flashcard questions
-will be presented and student can input an answer or choose to reveal the answer before moving on to the next flashcard.
+will be displayed, and student can input an answer or choose to reveal the answer before moving on to the next
+flashcard.
 * Justification: This feature is the main highlight of Know-It-All, as students use flashcards to test how
-much content they have memorised. Equipped with the user friendly answer command that is missing in existing
+much content they have memorised. Equipped with the user-friendly answer command that is missing in existing
 flashcard applications, Know-It-All provides a more engaging and interactive testing experience for the user.
 * Highlights: This feature modifies the existing UI to facilitate the addition of a new test session screen. It also
 has a heavy dependency on folder methods. Hence, this feature required an in-depth analysis of design alternatives,
@@ -50,8 +51,8 @@ done to permit only certain commands and ban others.
 * Enhancements to features:
 ** Wrote additional tests for new features to increase coverage from 79% to 81% (Pull requests https://github.com/cs2103-ay1819s2-w10-4/main/pull/74[#74])
 ** Refactor existing status bar to display the current state of the user (whether user is in a test session, in a
-report display, in a folder or in home directory) instead of the last saved location and time and corresponding tests
-are written (Pull requests https://github.com/cs2103-ay1819s2-w10-4/main/pull/162[#162])
+report display, in a folder or in home directory) instead of the previous last saved location and time. Corresponding
+ tests are written as well. (Pull requests https://github.com/cs2103-ay1819s2-w10-4/main/pull/162[#162])
 ** Updated UI colour scheme to enhance aesthetics as well as clarity of Know-It-All (Pull requests https://github.com/cs2103-ay1819s2-w10-4/main/pull/162[#162], https://github.com/cs2103-ay1819s2-w10-4/main/pull/166[#166],
 https://github.com/cs2103-ay1819s2-w10-4/main/pull/174[#174])
 
@@ -67,7 +68,7 @@ https://github.com/cs2103-ay1819s2-w10-4/main/pull/106[#106])
 https://github.com/cs2103-ay1819s2-w10-4/main/pull/127[#127])
 
 * Community:
-** PRs reviewed (with non-trivial review comment):
+** PRs reviewed with non-trivial review comment:
 https://github.com/cs2103-ay1819s2-w10-4/main/pull/65[#65] (suggested another method of implementation),
 https://github.com/cs2103-ay1819s2-w10-4/main/pull/46[#46] (explained why travis CI was failing)
 ** Conducted manual testing, reported bugs and offered suggestions for our team: https://github.com/cs2103-ay1819s2-w10-4/main/issues/117[#117], https://github.com/cs2103-ay1819s2-w10-4/main/issues/119[#119],

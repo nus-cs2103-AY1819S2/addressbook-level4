@@ -107,12 +107,11 @@ public class LabelCommandTest {
     private String getMedicineInformationToString(Medicine medicineToPrint) {
         String medicineName = medicineToPrint.getName().toString();
         String medicineExpiry = medicineToPrint.getNextExpiry().toString();
+        String medicineQuantity = medicineToPrint.getTotalQuantity().toString();
         String medicineCompany = medicineToPrint.getCompany().toString();
         String medicineTags = medicineToPrint.getTags().toString();
 
-        String information = (medicineName + "\n" + medicineCompany + "\n"
-                + medicineExpiry + "\n" + medicineTags + "\n");
-        information = information.replaceAll("\r", "").replaceAll("\n", "");
-        return information;
+        return ("Name:" + medicineName + "\n" + "Company:" + medicineCompany + "\n" + "Quantity:"
+                + medicineQuantity + "\n" + "Expiry:" + medicineExpiry + "\n" + "Tags:" + medicineTags);
     }
 }

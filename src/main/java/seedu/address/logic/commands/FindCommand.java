@@ -20,12 +20,15 @@ public class FindCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all medicines whose data contain any of the "
             + "specified keywords (case-insensitive). Select a field to search by entering the appropriate prefix.\n"
-            + "Name: 'n/', Company: 'c/', Tags: 't/', Batch: 'b/'\n"
-            + "Parameters: [n/] [c/] [t/] [b/] KEYWORD [MORE_KEYWORDS]...\n"
-            + "Example: " + COMMAND_WORD + PREFIX_NAME + " Paracetamol Amoxicillin Ibuprofen";
+            + "Parameters: PREFIX KEYWORD [MORE_KEYWORDS]...\n"
+            + "Example: " + COMMAND_WORD + " " + PREFIX_NAME + " Paracetamol Amoxicillin Ibuprofen\n"
+            + "Possible prefixes: 'n/': Name, 'c/': Company, 't/': Tags, 'b/': Batch\n";
 
     private final Predicate<Medicine> predicate;
 
+    /**
+     * Creates a FindCommand to filter the medicine list with {@code predicate}
+     */
     public FindCommand(Predicate<Medicine> predicate) {
         this.predicate = predicate;
     }

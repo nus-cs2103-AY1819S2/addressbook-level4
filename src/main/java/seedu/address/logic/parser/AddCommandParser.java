@@ -46,9 +46,12 @@ public class AddCommandParser implements Parser<AddCommand> {
         Company company = ParserUtil.parseCompany(argMultimap.getValue(PREFIX_COMPANY).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        Medicine medicine = new Medicine(name, company, INITIAL_QUANTITY, INITIAL_EXPIRY, tagList, INITIAL_BATCHES);
-
-        return new AddCommand(medicine);
+        try {
+            Medicine medicine = new Medicine(name, company, INITIAL_QUANTITY, INITIAL_EXPIRY, tagList, INITIAL_BATCHES);
+            return new AddCommand(medicine);
+        } catch (IllegalArgumentException e) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, Medicine.MESSAGE_CONSTRAINTS_TAGS));
+        }
     }
 
     /**

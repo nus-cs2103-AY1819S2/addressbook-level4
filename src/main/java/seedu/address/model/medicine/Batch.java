@@ -10,8 +10,8 @@ import java.util.Objects;
  */
 public class Batch {
     private final BatchNumber batchNumber;
-    private final Expiry expiry;
     private final Quantity quantity;
+    private final Expiry expiry;
 
     /**
      * Constructs a {@code Batch}.

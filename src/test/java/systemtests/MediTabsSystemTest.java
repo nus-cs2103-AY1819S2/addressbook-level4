@@ -257,6 +257,16 @@ public abstract class MediTabsSystemTest {
     }
 
     /**
+     * Asserts that the loaded information page has the correct information.
+     */
+    protected void assertInformationPageIsCorrect() {
+        InformationPanelHandle informationPanelHandle = getInformationPanel();
+        assertTrue(informationPanelHandle.isBatchTableLoaded());
+        informationPanelHandle.assertTableCorrect(testApp.getSelectedMedicine(),
+                getModel().getInformationPanelSettings().getValue());
+    }
+
+    /**
      * Asserts that only the sync status in the status bar was changed to the timing of
      * {@code ClockRule#getInjectedClock()}, while the save location remains the same.
      */

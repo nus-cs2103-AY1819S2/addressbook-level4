@@ -12,6 +12,7 @@ import seedu.address.testutil.Assert;
 
 public class InformationPanelSettingsTest {
     private final InformationPanelSettings settings = new InformationPanelSettings();
+
     @Test
     public void getters_defaultValues() {
         assertEquals(settings.getSortProperty(), InformationPanelSettings.DEFAULT_SORT_PROPERTY);

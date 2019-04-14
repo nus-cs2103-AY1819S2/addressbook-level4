@@ -39,7 +39,7 @@ public class EditCommand extends Command {
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_COMPANY + "3M Pharmaceuticals "
-            + PREFIX_TAG + "needsRestock";
+            + PREFIX_TAG + "fever";
 
     public static final String MESSAGE_EDIT_MEDICINE_SUCCESS = "Edited Medicine: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";

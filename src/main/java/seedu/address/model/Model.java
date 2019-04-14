@@ -64,12 +64,12 @@ public interface Model {
     void setWarningPanelSettings(WarningPanelSettings warningPanelSettings);
 
     /**
-     * Returns the current InformationPanel settings.
+     * Returns the user prefs' InformationPanel settings as a ReadOnlyProperty.
      */
     ReadOnlyProperty<InformationPanelSettings> getInformationPanelSettings();
 
     /**
-     * Sets the InformationPanel settings.
+     * Sets the user prefs' InformationPanel settings.
      */
     void setInformationPanelSettings(InformationPanelSettings informationPanelSettings);
 

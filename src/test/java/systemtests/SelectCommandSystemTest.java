@@ -1,5 +1,6 @@
 package systemtests;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_MEDICINE_DISPLAYED_INDEX;
@@ -60,6 +61,7 @@ public class SelectCommandSystemTest extends MediTabsSystemTest {
         showMedicinesWithName(KEYWORD_MATCHING_SODIUM);
         int invalidIndex = getModel().getInventory().getMedicineList().size();
         assertCommandFailure(SelectCommand.COMMAND_WORD + " " + invalidIndex, MESSAGE_INVALID_MEDICINE_DISPLAYED_INDEX);
+        assertFalse(getInformationPanel().isBatchTableLoaded()); // find command deselects medicine
 
         /* Case: filtered medicine list, select index within bounds of inventory and medicine list -> selected */
         Index validIndex = Index.fromOneBased(1);
@@ -121,6 +123,7 @@ public class SelectCommandSystemTest extends MediTabsSystemTest {
 
         executeCommand(command);
         assertApplicationDisplaysExpected("", expectedResultMessage, expectedModel);
+        assertInformationPageIsCorrect();
 
         if (preExecutionSelectedCardIndex == expectedSelectedCardIndex.getZeroBased()) {
             assertSelectedCardUnchanged();

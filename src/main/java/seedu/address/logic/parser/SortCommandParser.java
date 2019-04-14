@@ -5,6 +5,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DIRECTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PROPERTY;
 
+import seedu.address.commons.core.InformationPanelSettings;
 import seedu.address.commons.core.InformationPanelSettings.SortDirection;
 import seedu.address.commons.core.InformationPanelSettings.SortProperty;
 import seedu.address.logic.commands.SortCommand;
@@ -20,7 +21,7 @@ public class SortCommandParser implements Parser<SortCommand> {
         requireNonNull(args);
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_PROPERTY, PREFIX_DIRECTION);
 
-        if (!argMultimap.getPreamble().equals("") || !argMultimap.getValue(PREFIX_PROPERTY).isPresent()
+        if (!argMultimap.getPreamble().isEmpty() || !argMultimap.getValue(PREFIX_PROPERTY).isPresent()
                 || !argMultimap.getValue(PREFIX_DIRECTION).isPresent()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.MESSAGE_USAGE));
         }
@@ -29,7 +30,7 @@ public class SortCommandParser implements Parser<SortCommand> {
 
         SortDirection sortDirection = ParserUtil.parseSortDirection(argMultimap.getValue(PREFIX_DIRECTION).get());
 
-        return new SortCommand(sortProperty, sortDirection);
+        return new SortCommand(new InformationPanelSettings(sortProperty, sortDirection));
     }
 }
 

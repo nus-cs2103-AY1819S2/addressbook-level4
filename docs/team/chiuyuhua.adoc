@@ -14,10 +14,10 @@ slaveFinder() is a resume management application that helps recruiters manage mo
 == Summary of contributions
 
 * *Major enhancement 1*: added *Analytics* feature end-to-end
-** What it does: 
+** What it does:
 *** Consolidates and breaksdown the various fields data of applicants, such as gender breakdown, number of applicants in each school, number of applicants in each major and average grade. 
-*** Analytics can be done on specific lists in the selection process, such as only on applicants that were interviewed or selected for the job. `analytics applicant`, `analytics kiv`, `analytics interview`, `analytics shortlist`, `analytics` 
-** Justification: 
+*** Analytics can be done on specific lists in the selection process, such as only on applicants that were interviewed or selected for the job. `analytics applicant`, `analytics kiv`, `analytics interview`, `analytics shortlist`, `analytics`
+** Justification:
 *** Recruiters often want to know the quality of applicants that apply to their company, and use this data to improve their hiring process or recruit marketing strategies.
 *** Furthermore, many companies are concerned about diviersity in their team. Such analytics can inform them if they are getting (or selecting) a sufficiently diversed pool of applicants.
 ** Highlights: In addition to processing the various fields data in corresponding lists, analytics data is presented in a visually intuitive manner consisting of different charts to suit the nature of the person field.
@@ -25,11 +25,11 @@ slaveFinder() is a resume management application that helps recruiters manage mo
 image::analytics.png[width="790"]
 
 
-* *Major enhancement 2*: restructured the original AB4 UI code to suit the context of slaveFinder(), and provide UI component for various commands added by other team members. 
-** What it does: 
-*** Consist of two scenes: First scene shows 2 panels consisting of a list of all applicants and a list of all job openings. Second scene shows 4 panels, each representing a specific part in the hiring process for a specific job opening: "Applicants, KIV, Interviewed, Shortlist". 
+* *Major enhancement 2*: restructured the original AB4 UI code to suit the context of slaveFinder(), and provide UI component for various commands added by other team members.
+** What it does:
+*** Consist of two scenes: First scene shows 2 panels consisting of a list of all applicants and a list of all job openings. Second scene shows 4 panels, each representing a specific part in the hiring process for a specific job opening: "Applicants, KIV, Interviewed, Shortlist".
 *** Filtering of applicants through field data is also shown visually on software, where filtered keywords are "stored" (and removed when needed) above the corresponding lists.
-** Justification: Being able to filter applicants and sort them according to the selection process is the core value add of our software, and hence essential to be visually represented and for user to interact with each list accordingly. 
+** Justification: Being able to filter applicants and sort them according to the selection process is the core value add of our software, and hence essential to be visually represented and for user to interact with each list accordingly.
 ** Highlights: Enable UI for the following commands:
 *** `DisplayJob`: Switch UI scene to show 4 panels for specific job
 *** `list`: Switch UI scene to show all applicants and all job openings
@@ -49,7 +49,7 @@ image::analytics.png[width="790"]
 
 * *Other contributions*:
 
-** Enhancements to existing features: 
+** Enhancements to existing features:
 *** Updated the GUI color scheme (https://github.com/CS2103-AY1819S2-W15-3/main/pull/200[#200])
 *** Wrote additional tests to increase coverage by 4% (https://github.com/CS2103-AY1819S2-W15-3/main/pull/247[#247], (https://github.com/CS2103-AY1819S2-W15-3/main/pull/85[#85])
 ** Documentation:
@@ -127,7 +127,7 @@ Examples:
 === Analytics Feature
 ==== Current Implementation
 
-The analytics is facilicated by the Analytics class. Analytics data are generated in real time depending on the specific job currently on display in the software by the user. Hence it will not be saved as states in the `versionedAddressBook`. It pulls required person list to generate data from Model, which consists of lists: `displayedFilter`, `activeJobAllApplicants`, `activeJobKiv`, `activeJobInterview`, `activeJobShortist`. An `Analytics` object will be created by Analytics class, storing the various required data generated, and pass it to Logic and UI for display.  
+The analytics is facilicated by the Analytics class. Analytics data are generated in real time depending on the specific job currently on display in the software by the user. Hence it will not be saved as states in the `versionedAddressBook`. It pulls required person list to generate data from Model, which consists of lists: `displayedFilter`, `activeJobAllApplicants`, `activeJobKiv`, `activeJobInterview`, `activeJobShortist`. An `Analytics` object will be created by Analytics class, storing the various required data generated, and pass it to Logic and UI for display.
 
 Given below is the sequence diagram for `analytics`:
 

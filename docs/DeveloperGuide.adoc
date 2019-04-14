@@ -328,7 +328,7 @@ the Nric is stored instead. At load time, the UniqueJobList is only created afte
 === Analytics Feature
 ==== Current Implementation
 
-The analytics is facilicated by the Analytics class. Analytics data are generated in real time depending on the specific job currently on display in the software by the user. Hence it will not be saved as states in the `versionedAddressBook`. It pulls required person list to generate data from Model, which consists of lists: `displayedFilter`, `activeJobAllApplicants`, `activeJobKiv`, `activeJobInterview`, `activeJobShortist`. An `Analytics` object will be created by Analytics class, storing the various required data generated, and pass it to Logic and UI for display.  
+The analytics is facilicated by the Analytics class. Analytics data are generated in real time depending on the specific job currently on display in the software by the user. Hence it will not be saved as states in the `versionedAddressBook`. It pulls required person list to generate data from Model, which consists of lists: `displayedFilter`, `activeJobAllApplicants`, `activeJobKiv`, `activeJobInterview`, `activeJobShortist`. An `Analytics` object will be created by Analytics class, storing the various required data generated, and pass it to Logic and UI for display. 
 
 Given below is the sequence diagram for `analytics`:
 

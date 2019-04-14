@@ -1283,6 +1283,8 @@ The list of unique medicine in `MedicineManager` is empty.
 [[medicineModule_example1]]
 image::medicineModule_example1.png[width='800']
 
+{nbsp} +
+
 Step 2: Via `adddirec root Internal`, a new directory called "Internal" is added under root. +
 
 The list of unique medicine is still empty.
@@ -1290,12 +1292,16 @@ The list of unique medicine is still empty.
 [[medicineModule_example2]]
 image::medicineModule_example2.png[width='800']
 
+{nbsp} +
+
 Step 3: Via a few more `adddirec` commands, the figure below is an illustration of a sample inventory's framework. +
 
 The list of unique medicine is still empty.
 
 [[medicineModule_example3.png]]
 image::medicineModule_example3.png[width='800']
+
+{nbsp} +
 
 Step 4: Now the user can add new medicines into the storage via `addmed root\Internal\General paracetamol p/40 q/50`. +
 
@@ -1307,6 +1313,8 @@ The list of unique medicine is also updated.
 [[listOfMedicine_example1]]
 image::listOfMedicine_example1.png[width='800']
 
+{nbsp} +
+
 Step 5: Via a few more `addmed` commands, some more new medicines are added to the inventory. The following figure shows the result after that
 
 [[medicineModule_example5]]
@@ -1316,6 +1324,8 @@ The list of unique medicine is also updated.
 
 [[listOfMedicine_example2]]
 image::listOfMedicine_example2.png[width='800']
+
+{nbsp} +
 
 Step 6: Now, the user found out that aspirin can also be used to treat high blood pressure and decides to put it under "Cardiology" as well. +
 
@@ -1331,7 +1341,9 @@ However, the list of unique medicine is not changed, as now new medicine is adde
 [[listOfMedicine_example3]]
 image:listOfMedicine_example2.png[width='800']
 
-{nbsp} +
+This six-step example illustrates the basic implementation of how medicines and directories are organized in QuickDocs.
+
+- - -
 
 When typing the directory path in the command box in the ui, QuickDocs supports intelligent suggestions about the next field. +
 
@@ -1358,7 +1370,7 @@ The figure below illustrates how this feature is implemented to make user's life
 .Sequence diagram illustrating the implementation of suggestion mode
 image::suggestion_diagram.png[width='800]
 
-{sp} +
+- - -
 
 QuickDocs also supports setting alarm level for medicines. Every time a medicine's storage falls below the designated level, a reminder is thrown. +
 

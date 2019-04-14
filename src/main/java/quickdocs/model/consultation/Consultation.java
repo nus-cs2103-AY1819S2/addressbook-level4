@@ -40,6 +40,7 @@ public class Consultation {
         this.patient = patient;
         this.session = session;
         this.diagnosis = diagnosis;
+        this.prescriptions = new ArrayList<>();
         this.prescriptions.addAll(prescriptions);
     }
 

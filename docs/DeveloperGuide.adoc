@@ -22,18 +22,34 @@ By: `Team W9-02 (HealthHub)`      Since: `Jan 2019`      Licence: `MIT`
 
 === Prerequisites
 
-. *JDK `9`* or later
+. *JDK `9`*
+* The Java Development Kit, or JDK for short, provides the necessary existing
+ libraries and implementations that we have used in our implementation of
+ HealthHub. The current version of HealthHub needs at least JDK version 9 to
+ support the full functionality it has to offer.
 +
 [WARNING]
 JDK `10` on Windows will fail to run tests in <<UsingGradle#Running-Tests, headless mode>> due to a https://github.com/javafxports/openjdk-jfx/issues/66[JavaFX bug].
 Windows developers are highly recommended to use JDK `9`.
 
 . *IntelliJ* IDE
+* IntelliJ is an Integrated Development Environment(IDE) that provides the
+necessary tools and available plugins needed to compile, build and run the
+project.
 +
 [NOTE]
 IntelliJ by default has Gradle and JavaFx plugins installed. +
 Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plugins` to re-enable them.
 
+[NOTE]
+====
+Don't have Intellij or JDK installed? Click on the following links to
+download them below:
+
+* IntelliJ: https://www.jetbrains.com/idea/
+
+* Java Development Kit: https://www.oracle.com/technetwork/java/javase/downloads/index.html
+====
 
 === Setting up the project in your computer
 
@@ -73,11 +89,23 @@ This project follows https://github.com/oss-generic/process/blob/master/docs/Cod
 
 Optionally, you can follow the <<UsingCheckstyle#, UsingCheckstyle.adoc>> document to configure Intellij to check style-compliance as you write code.
 
-==== Getting started with coding
+==== Getting started
 
-When you are ready to start coding,
+When you have set up your environment successfully for building and running
+HealthHub, you are ready to get started on coding to contribute to the
+project. But before that, you may consider familiarising yourself with
+HealthHub through the following:
 
-1. Get some sense of the overall design by reading <<Design-Architecture>>.
+* Familiarising yourself with the model, logic and storage design of
+HealthHub under the section <<Design>>.
+
+* Get a good feel of how existing features are implemented under the
+<<Implementation>> section.
+
+* Follow the way that the testing suite for features are built in
+<<Testing>>
+
+* Painlessly automate build integration by following the steps under <<Dev Ops>>
 
 == Design
 
@@ -190,7 +218,9 @@ in the form of `ReadOnlyHealthWorkerBook` and `ReadOnlyRequestBook`.
 [NOTE]
 As a more OOP model, we store a list of `Request` objects in `Request Book`, which stores the details of every request, including the patient's details, request date and status.
 In addition, each `Request` also stores a `Set` of `Conditions` of the patient. +
-image:ModelClassBetterOopDiagram.png[width="800"]
+Similarly for `HealthWorker`, the list of `HealthWorker` is stored in a
+`HealthWorkerBook`, and each `Specialisation` that the `HealthWorker` has is
+stored in a `Set` that is contained in the `Skills` class.
 
 // tag::storage[]
 [[Design-Storage]]
@@ -360,7 +390,8 @@ constructed from the user entered fields will be added to the end of the `Unique
 The `Specialisation` field is an `Enum` type in Java, and supports only the
 enum fields that are specified in the `Specialisation` class itself.
 
-The implementation of the `Specialisiation` class is as follows:
+The various available specialisation enum values of the `Specialisation`
+class is as follows in the implementation of `Specialisation`:
 
 ```
 public enum Specialisation {
@@ -379,79 +410,7 @@ public enum Specialisation {
     OCCUPATIONAL_THERAPY,
     ANAESTHESIOLOGY;
 
-    public static final String MESSAGE_CONSTRAINTS = getMessageConstraints();
-
-    /**
-     * Displays a list of available specialisations.
-     * @return String describing all available specialisations.
-     */
-    public static String getSpecialisationList() {
-        StringBuilder stringBuilder = new StringBuilder();
-        for (Specialisation specialisation : Specialisation.values()) {
-            stringBuilder.append(specialisation.toString()).append("\n");
-        }
-
-        return stringBuilder.toString();
-    }
-
-    /**
-     * Checks if a given input string matches any of the available
-     * Specialisations
-     * @param input string to check for valid Specialisation.
-     * @return true if the input string has a matching Specialisation, else
-     * false.
-     */
-    public static boolean isValidSpecialisation(String input) {
-        try {
-            Specialisation.valueOf(input);
-        } catch (IllegalArgumentException | NullPointerException e) {
-            return false;
-        }
-
-        return true;
-    }
-
-    /**
-     * Returns the corresponding matching Specialisation given an input String
-     * @param input string to match Specialisations.
-     * @return Specialisation matching the given string.
-     */
-    public static Specialisation parseString(String input) {
-        return Specialisation.valueOf(input);
-    }
-
-    /**
-     * Returns an Optional containing the matching Specialisation to the substring if any, else an empty Optional
-     * @param input the substring to match against the Specialisation names
-     * @return Optional containing the matching Specialisation, else an empty Optional
-     */
-    public static Optional<Specialisation> getSpecialisation (String input) {
-        if (input.isEmpty()) {
-            return Optional.empty();
-        }
-
-        for (Specialisation specialisation : Specialisation.values()) {
-            if (specialisation.name().toLowerCase().contains(input.toLowerCase())) {
-                return Optional.of(specialisation);
-            }
-        }
-
-        return Optional.empty();
-    }
-
-    /**
-     * Formulates the String representing the valid specialisations and
-     * constraints.
-     * @return String containing the valid specialisations to be added.
-     */
-    private static String getMessageConstraints() {
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("Valid specialisations: \n");
-        stringBuilder.append(getSpecialisationList());
-
-        return stringBuilder.toString();
-    }
-
+    ...
 }
 
 ```
@@ -1172,9 +1131,27 @@ The SE-EDU team does not provide support for modified template files.
 [[Testing]]
 == Testing
 
+Testing is an important component of the development pipeline for HealthHub.
+With each new feature that is implemented, new tests for the fresh feature
+must also be included to ensure robustness and validation of the feature. In
+addition, regression testing using existing tests already implemented is also
+ extensively done to ensure that the application functions without unintended
+  side effects. In following sections, we will be elaborating on how you can
+  adopt the testing suite implementation that is in place in HealthHub.
+
 === Running Tests
 
-There are three ways to run tests.
+For the testing phase in HealthHub, we will be using a testing framework
+called *JUnit* that is specialised to run tests for software built in Java.
+
+[NOTE]
+====
+Not sure how JUnit works? Head over to the JUnit website and take a look at
+their User Guide at this link:
+https://junit.org/junit5/docs/current/user-guide/
+====
+
+There are three ways to run tests in HealthHub.
 
 [TIP]
 The most reliable way to run tests is the 3rd one. The first two methods might fail some GUI tests due to platform/resolution-specific idiosyncrasies.
@@ -1222,7 +1199,6 @@ book containing the respective data they need for tests by using the `HealthWork
 All test file generator classes contains a main function and hence can be ran independently by compiling the file.
 
 
-
 === Troubleshooting Testing
 **Problem: `HelpWindowTest` fails with a `NullPointerException`.**
 
@@ -1231,15 +1207,31 @@ All test file generator classes contains a main function and hence can be ran in
 
 == Dev Ops
 
+As HealthHub grows larger as a software development project due to addition
+of new features or overhauling of existing ones, we have also deployed the
+use of various build automation tools in order to efficiently integrate the
+components of HealthHub together during the build process. This allows of
+greater efficiency and scalability when introducing new implementations into
+the project.
+
 === Build Automation
 
-See <<UsingGradle#, UsingGradle.adoc>> to learn how to use Gradle for build automation.
+See <<UsingGradle#, UsingGradle.adoc>> to learn how to use Gradle for build
+automation on your local machine for efficient project builds.
 
 === Continuous Integration
 
-We use https://travis-ci.org/[Travis CI] and https://www.appveyor.com/[AppVeyor] to perform _Continuous Integration_ on our projects. See <<UsingTravis#, UsingTravis.adoc>> and <<UsingAppVeyor#, UsingAppVeyor.adoc>> for more details.
+We use https://travis-ci.org/[Travis CI] and https://www.appveyor
+.com/[AppVeyor] to perform _Continuous Integration_ on our projects to allow
+for more seamless and parallel coding performance between team members. See
+<<UsingTravis#, UsingTravis.adoc>> and <<UsingAppVeyor#, UsingAppVeyor.adoc>> for more details.
 
 === Coverage Reporting
+
+Coverage represents the portion of the software codebase that has been tested
+ for using various testing frameworks, such as JUnit. This allows the
+ development to track how extensive the testing of new features are to ensure
+  that their features are correctly implemented with minimal bugs.
 
 We use https://coveralls.io/[Coveralls] to track the code coverage of our projects. See <<UsingCoveralls#, UsingCoveralls.adoc>> for more details.
 
@@ -1257,7 +1249,10 @@ Here are the steps to create a new release.
 
 === Managing Dependencies
 
-A project often depends on third-party libraries. For example, Address Book depends on the https://github.com/FasterXML/jackson[Jackson library] for JSON parsing. Managing these _dependencies_ can be automated using Gradle. For example, Gradle can download the dependencies automatically, which is better than these alternatives:
+With a huge number of different components in HealthHub, the project also
+includes use of various third party libraries to efficiently support new and
+existing features in HealthHub, some of which includes for example the
+https://github.com/FasterXML/jackson[Jackson library] for JSON parsing. Managing these _dependencies_ can be automated using Gradle. For example, Gradle can download the dependencies automatically, which is better than these alternatives:
 
 [loweralpha]
 . Include those libraries in the repo (this bloats the repo size)
@@ -1271,13 +1266,17 @@ A project often depends on third-party libraries. For example, Address Book depe
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
-* can type fast
-* prefers typing over mouse input
-* is reasonably comfortable using CLI apps
+* Administrative staff in hospitals and healthcare organizations that also
+manage requests from and services for home-care patients
+* Administrative staff that are comfortable with typing on a CLI, as well as
+a GUI.
+* Aims to streamline the performance of keeping records of home-care
+patients, and also assigning health staff to requests using technological
+means.
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*: manage requests from home-care patients, and handle
+assignment of healthstaff for these requests much faster and efficient than
+traditional methods of pen and paper documentation.
 
 [appendix]
 == User Stories
@@ -1421,8 +1420,6 @@ Use case ends.
 .  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 
-_{More to be added}_
-
 [appendix]
 == Glossary
 
@@ -1435,7 +1432,9 @@ A contact detail that is not meant to be shared with others
 [appendix]
 == Instructions for Manual Testing
 
-Given below are instructions to test the app manually.
+In case of circumstances where manual testing needs to be done for HealthHub,
+ this section provides instructions on how to get started on manual testing
+ for the application.
 
 [NOTE]
 These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
@@ -1455,18 +1454,86 @@ These instructions only provide a starting point for testers to work on; testers
    Expected: The most recent window size and location is retained.
 
 
-=== Deleting a person
 
-. Deleting a person while all persons are listed
+=== Adding a `HealthWorker
 
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
-.. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
+* Enter a valid `add healthworker` command with all compulsory fields
+containing valid values. For example, you may try `add healthworker n/Dog Terr
+p/92837710 i/S98817471Z o/NUH s/GENERAL_PRACTICE s/ORTHOPAEDIC` +
+ Message showing the successful addition of the `HealthWorker` will be
+displayed in the command terminal, as well as the details of the newly added
+`HealthWorker`. The newly added `HealthWorker` is now reflected immediately
+in the GUI shown at the end of the list on the right.
+* Enter an invalid `add healthworker` command. Some examples include:
+** Missing fields: add healthworker p/92837710 i/S98817471Z o/NUH
+s/GENERAL_PRACTICE s/ORTHOPAEDIC` (Missing name) +
+An error message representing invalid command format will be displayed on the
+ command terminal, as well as the valid command format for the `add
+ healthworker` command.
+
+** Invalid fields: add healthworker n/Dog Terr p/92837710 i/A111Z o/NUH
+s/GENERAL_PRACTICE s/ORTHOPAEDIC` (Invalid NRIC format) +
+An error message is displayed that tells the user of the incorrect format for
+ a field whose value does not follow the correct format. If there are
+ multiple, the incorrect format of the first field whose value is invalid is
+ shown.
+
+=== Editing a `HealthWorker`
+
+* Enter a valid `edit healthworker` command with a valid index, and at least
+one field to edit with a valid value. For example, you may try `edit
+healthworker 1 p/91234567 n/John Doe` +
+A status message that denotes the successful modification of the details of
+an existing `HealthWorker` is shown on the command terminal. In addition, the
+ modified details of the `HealthWorker is immediately reflected on the list
+ in the GUI.
+
+* Enter an invalid `edit healthworker` command. Some examples include:
+** Invalid index: `edit healthworker -1 n/John` +
+An error message displays which informs the user that the index provided is
+invalid.
+** No field specified: `edit healthworker 1 ` +
+An error message displays informing the user that at least one field to edit
+must be provided.
+** Invalid field: `edit healthworker 1 p/helloworld` +
+An error message displays informing the user that the specific field
+specified containing invalid values does not conform the field format. If
+multiple invalid fields are entered, the first invalid one will be chosen as
+the invalid format.
+
+=== Deleting a `HealthWorker`
+
+* Deleting a `HealthWorker` while all `HealthWorker` are listed:
+
+.. Prerequisites: List all `HealthWorker` using the `list healthworker`
+command. Multiple `HealthWorker` in the list.
+.. Test case: `delete healthworker 1` +
+   Expected: First `HealthWorker` is deleted from the list. Details of the
+   deleted `HealthWorker` shown in the status message. Timestamp in the status
+   bar is updated.
+.. Test case: `delete healthworker 0` +
+   Expected: No `HealthWorker` is deleted. Error details shown in the status
+   message. Status bar remains the same.
+.. Other incorrect delete commands to try: `delete`, delete healthworker`,
+`delete healthworker x` (where x is larger than the list size), `delete healthworker y` (where y is negative) +
    Expected: Similar to previous.
 
+* Deleting a `HealthWorker` after a valid `filter healthworker` command is
+issued:
+.. Prerequisite: Enter the command `filter healthworker s/physiotherapy` to
+display only `HealthWorker` that specialise in physiotherapy. Other valid
+variants of the `filter healthworker` command may be used in place of this.
+.. Test case: `delete healthworker 1` +
+   Expected: First `HealthWorker` is deleted from the filtered list. Details of
+    the deleted `HealthWorker` shown in the status message. Timestamp in the
+    status bar is updated.
+.. Test case: `delete healthworker 0` +
+   Expected: No `HealthWorker` is deleted. Error details shown in the status
+   message. Status bar remains the same.
+.. Other incorrect delete commands to try: `delete`, delete healthworker`,
+`delete healthworker x` (where x is larger than the filtered list size),
+`delete healthworker y` (where y is negative) +
+   Expected: Similar to previous.
 
 === Saving data
 
@@ -1490,7 +1557,5 @@ Expected: The application will show an error message: No more commands to undo!
 Expected: The application will redo the undone command.
 .. Test case: `redo` without prerequisites+
 Expected: The application will show an error message: No more commands to redo!
-
-
 
 

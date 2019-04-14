@@ -681,81 +681,154 @@ Given below is a comparison between the alternatives of the data structure used 
 // tag::countrycode[]
 === Add Feature
 The `add` command is used to add a place into TravelBuddy. The user can add the following details related to the
-place:
+place: name, country code, date visited, rating, address, description, photo (Optional) and
+Tag (Optional).
 
-* Name
-* Country Code
-* Date Visited
-* Rating
-* Address
-* Description
-* Photo (Optional)
-* Tag (Optional)
-
-// TODO: Update link for CountryCodes.adoc
 [NOTE]
 The country code adheres to the three-letter ISO-3166 standard. The full list of country codes can be found
 link:https://cs2103-ay1819s2-w11-3.github.io/main/CountryCodes.html[here].
 
 ==== Current Implementation
-// TODO: Add numbering in the diagram.
-Given below is a sequence of steps, illustrating the interaction between various classes when the add command is
+<<addSeqDiagram>> is a sequence of steps that illustrates the interaction between various classes when the `add`
+command is
 entered.
-
+[[addSeqDiagram]]
+[reftext="Figure 4.3.1"]
+[caption="Figure 4.3.1: "]
+.Execution sequence of the `add` command
 image::AddCommandSequenceDiagram.PNG[width="800"]
-Figure 10: Add Command Sequence Diagram
 
-Step 1: The user enters the command `add n/NUS Computing cc/SGP dv/10/10/2017 r/3 d/My School a/13 Computing Drive,
-117417 t/faculty`.
+`add n/NUS Computing cc/SGP dv/10/10/2017 r/3 d/My School a/13 Computing Drive,
+117417 t/faculty`
 
-Step 2: The command is processed by the Logic component, which will then call `LogicManager#execute()`.
+1) The `String` user input is passed into the `LogicManager::execute` method of the LogicManager instance as the
+only parameter.
 
-Step 3: `TravelBuddyParser#parseCommand()` is invoked, which is also located in the Logic component.
+2) The `LogicManager::execute` method calls `TravelBuddyParser::parseCommand` which receives the user input as a
+parameter.
 
-Step 4: `AddCommandParser`'s constructor is invoked.
+** The user input is formatted: the first `String` token is taken as the command word and the rest of the  String is
+grouped as arguments to be used later by the `AddCommandParser`.
+** From the command word, the `TravelBuddyParser` instance identifies the user input as an `add` command and
+constructs an instance of `AddCommandParser`.
 
-Step 5: The `AddCommandParser#parse()` is called and receives the command with the arguments given as a string.
+3) TravelBuddyParser calls the `AddCommandParser::parse` method. The `AddCommandParser` takes in the rest of the
+string, which is
+`n/NUS Computing cc/SGP dv/10/10/2017 r/3 d/My School a/13 Computing Drive, 117417 t/faculty`
 
-Step 6: The `AddCommandParser` interprets the arguments and constructs an `AddCommand`.
+** The string is tokenised to arguments based on their prefixes.
 
-Step 7: The `AddCommand` with a `Place` specified by the user is returned.
+[source, java]
+ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_NAME,
+     PREFIX_COUNTRY_CODE, PREFIX_DATE_VISITED, PREFIX_RATING,
+     PREFIX_DESCRIPTION, PREFIX_ADDRESS, PREFIX_PHOTO, PREFIX_TAG);
 
-Step 8: The `AddCommand#execute()` method is invoked.
+** A check is made on the presence of the relevant prefixes `n/`, `cc/`, `dv/`, `r/`, `d/`, `a/`, `p/` and `t/`.
 
-Step 9: The `Model#addPlace()` method is invoked with the argument `toAdd`. The `Model#commitTravelBuddy()` method is
- also invoked.
+** When the mandatory prefixes are not present, a `ParseException` will be thrown with an error message on the
+proper
+usage of
+the `add` command.
 
-Step 10: The `TravelBuddy#addPlace()` method is invoked by `Model` with the argument `toAdd`.
+[source,java]
+// Mandatory fields in "add" command
+ if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_COUNTRY_CODE,
+     PREFIX_DATE_VISITED, PREFIX_ADDRESS, PREFIX_RATING, PREFIX_DESCRIPTION)
+     || !argMultimap.getPreamble().isEmpty()) {
+     throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+         AddCommand.MESSAGE_USAGE));
+ }
 
-Step 11: A result object is returned.
-// TODO: Add code snippet.
+
+** Otherwise, a `Place` object is constructed and used as a field in the creation of a `AddCommand` object.
+
+4) The newly created `AddCommand` object is returned to back to the `LogicManager` instance through the
+`AddCommandParser` and `TravelBuddyParser` objects.
+
+5) Once the control is returned to the `LogicManager` object, it calls the `AddCommand::execute` method.
+
+** The method takes in a Model object to access the application’s data context, the stored data of all places.
+
+** The code snippet below shows the `AddCommand::execute` method.
+
+[source,java]
+ public CommandResult execute(Model model, CommandHistory history)
+     throws CommandException {
+     requireNonNull(model);
+     if (model.hasPlace(toAdd)) {
+         throw new CommandException(MESSAGE_DUPLICATE_PLACE);
+     }
+     model.addPlace(toAdd);
+     model.commitTravelBuddy();
+     return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+ }
+
+** A check is made on whether the place already exists in TravelBuddy. If it already exists,
+a `CommandException` will be thrown with an error message on the duplicate entry of the place.
+
+6) The `Place` data is added into TravelBuddy.
+
+** Here the `Model::addPlace` method is called, and it subsequently calls the `TravelBuddy::addPlace` method.
+** Following which the `Model::commitTravelBuddy` method is called.
+
+7) The `AddCommand::execute` execution completes by returning a new CommandResult that contains a success message to
+its calling method which is `LogicManager::execute`.
+
+8) Finally, the `CommandResult` is returned to the caller of `LogicManager::execute` and the execution sequence ends.
+
 ===== Add Command
 Given below is an example usage scenario and what the user will see in the GUI.
-// TODO: The app starts with some sample data already populated. Update screenshot accordingly.
-Step 1. The user launches the application and sees the GUI with no places.
 
-image::AddCommandStep1.png[width="800"]
+The user launches the application and enters the full add command `add n/Raffles Hotel cc/SGP dv/05/05/2016 t/hotel d/This place is lovely a/Raffles Road r/5 t/staycation
+117417 t/faculty`. TravelBuddy will start executing the steps mentioned in
+<<addSeqDiagram>> and the output is shown below in <<output>>.
 
-Step 2. The user enters the full add command `add n/NUS Computing cc/SGP dv/10/10/2017 r/3 d/My School a/13 Computing Drive,
-117417 t/faculty` to add the place to TravelBuddy and presses kbd:[ENTER]. TravelBuddy will start executing the steps mentioned in Figure 10.
+[[output]]
+[reftext="Figure 4.3.2"]
+[caption="Figure 4.3.2: "]
+image::addCommand.png[width="400"]
 
-image::AddCommandStep2.png[width="800"]
 
 [NOTE]
 The command `add` is in lower-case. Mixed-case or upper-case commands are not recognised by TravelBuddy.
 
 
 ==== Design Considerations
-// TODO: Learn from Chung Ming's portion. Change to table. Make sure to bold the starting words.
-===== Aspect: Data structure to store Country Codes
-* **Alternative 1 (current choice):** Use `enum` specified in `java.util.Locales`.
-** Pros: Easy to implement and contains all three-letter country codes as specified in ISO-3166.
-** Cons: Slightly slow in searching for country code.
-* **Alternative 2:** Create a data structure containing the most commonly traveled countries in the world.
-** Pros: Locating country code in data structure would be faster than Alternative 1.
-** Cons: Tedious process of typing out country codes in the data structure.
 
-// TODO: Add decision.
+===== Aspect: Data structure to store Country Codes
+
+[width="100%",cols="16%,<50%,<50%",options="header"]
+|=======================================================================
+
+|
+|*Alternative 1 (current choice)*
+|*Alternative 2*
+
+|*Description*
+|Use `enum` specified in `java.util.Locales`.
+|Create a data structure containing only the top 30 commonly traveled countries in the world.
+
+|*Pros*
+|*Ease-of-use*. This approach simply requires the importing of `java.util.Locales` to get the country codes. +
+*Comprehensive*. `java.util.Locales` contains all of the 250 three-letter country codes as specified in ISO-3166.
+
+|*Fast*. This approach is computationally less intensive than Alternative 1. This is because there are only 30 country
+codes in the data structure.
+
+|*Cons*
+|*Slightly slow*. This approach is computationally more intensive than Alternative 1. This is because there are 250
+country codes to search from.
+
+|*Tedious*. This approach requires the coder to search for the top 30 visited countries in the world and type out all
+ the 30, three-letter country codes as specified in ISO-3166. +
+*Not User-friendly*. If the user visited a country that is not in the top 30 list of countries visited, the user
+would not be able to add it into TravelBuddy.
+
+|=======================================================================
+
+*Decision:* Alternative 1. Alternative 2 may not fulfill all of the user requirements of adding any country code, but Alternative 1 does.  Alternative 1's speed is only slightly slower than Alternative 2.
+
+
 // end::countrycode[]
 
 // tag::photosFeature[]
@@ -1244,8 +1317,6 @@ A project often depends on third-party libraries. For example, TravelBuddy depen
 [appendix]
 == Product Scope
 
-
-
 *Target user profile*:
 The target audience that we have identified are stated below.
 
@@ -1459,21 +1530,17 @@ Use case resumes at step 2.
 // end::use-cases[]
 
 [appendix]
-== Non Functional Requirements
+== Non-Functional Requirements
 
-.  Should work on any <<mainstream-os, mainstream OS>> as long as it has Java `9` or higher installed.
-.  Should be able to hold up to 1000 places without a noticeable sluggishness in performance for typical usage.
-.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-.  Business/domain rules: e.g. the size of the minefield cannot be smaller than five.
-.  Constraints: e.g. the system should be backward compatible with data produced by earlier versions of the system;
-.  system testers are available only during the last month of the project; the total project cost should not exceed $1
-.5 million.
-.  Technical requirements: e.g. the system should work on both 32-bit and 64-bit environments.
-.  Performance requirements: e.g. the system should respond within two seconds.
-.  Quality requirements: e.g. the system should be usable by a novice who has never carried out an online purchase.
-.  Process requirements: e.g. the project is expected to adhere to a schedule that delivers a feature set every one month.
-.  Notes about project scope: e.g. the product is not required to handle the printing of reports.
-.  Any other noteworthy points: e.g. the game should not use images deemed offensive to those injured in real mine clearing activities.
+The non-functional requirements of the system are listed below:
+
+.  *Operating System (OS) Compatability:* Should work on any <<mainstream-os, mainstream OS>> as long as it has Java `9` or higher installed.
+.  *Storage Requirements:* Should store up to 1,000 places without a noticeable sluggishness in performance for typical usage.
+.  *Usage Efficiency:* A user with above average typing speed for regular english text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+.  *Constraints:* Should be backward compatible with data produced by earlier versions of the system;
+.  *Technical Requirements:* Should work on both 32-bit and 64-bit environments.
+.  *Speed Requirements:* Should respond within two seconds.
+.  *Quality Requirements:* Should be usable by a novice who has never used a travel log
 
 [appendix]
 == Glossary

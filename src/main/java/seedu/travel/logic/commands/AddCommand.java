@@ -57,7 +57,9 @@ public class AddCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
+    // tag::addCommandExecute[]
+    public CommandResult execute(Model model, CommandHistory history)
+        throws CommandException {
         requireNonNull(model);
 
         if (model.hasPlace(toAdd)) {
@@ -68,6 +70,7 @@ public class AddCommand extends Command {
         model.commitTravelBuddy();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
+    // end::addCommandExecute[]
 
     @Override
     public boolean equals(Object other) {

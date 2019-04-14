@@ -175,7 +175,7 @@ The `UI` component uses the JavaFX UI framework. The layout of these UI parts ar
 The `UI` component,
 
 * Executes user commands using the `Logic` component.
-* Listens for changes to `Model` data so that the UI can be updated with the modified data dynamically.
+* Listens for changes to the `Model` data so that the UI can be updated with the modified data dynamically.
 // end::ui-header[]
 
 [[Design-Logic]]

@@ -817,17 +817,21 @@ request.
 // tag::setreminder[]
 === Setting Reminder Alerts: `setreminder`
 
-Sometimes, it can be difficult to keep track of multiple tasks and specific
-details for different requests. In addition to the already expressive
-function of keying in the description of a request upon registering, the
-`setreminder` command now also allows you to set customised reminder alerts
-to aid you so that you do not have to cram a large amount of details in memory.
+Sometimes when you have too many tasks at hand, it can be quite cumbersome to remember what tasks you need to
+complete for the day. You might want to phone up a patient to remind him of an appointment before the health worker
+visits his home, because you recall that this patient was not at home the last time the health worker visited. The
+phone call from you can prepare him to be at his home when the health worker arrives, so he can provide the necessary
+health care services. It can also remind you when it is lunch time, so you can avoid the peak period!
 
 Format: `setreminder t/<hh:mm:ss> m/<customised_message>` +
 
-Using the `setreminder` command, you can set a reminder alert to notify you at a certain time
-of the day, with your own message that you can customise to remind youself. The alert only shows
-for when Health Hub is running in the background process.
+Using the `setreminder` command, you can set a reminder alert to notify you at a certain time of the day, with your
+own message that you can customise to remind yourself.
+
+[NOTE]
+====
+The alert only shows for when Health Hub is running in the background process.
+====
 
 In the example below, a reminder has been set to notify the user at 1.30PM with
 the customised message to "to call patient John Doe for his appointment".
@@ -912,42 +916,96 @@ to the `\data` folder of the app directory.
 // tag::summary[]
 == Command Summary
 
-[%header, cols=2*]
+[%header, cols=4*]
 |===
-|Command
+|Base Command
+|Additional Parameters
 |Description
+|Remarks
 
 |`help`
-|opens the user guide
-|`list`
-|lists all the requests or health workers
+|_not applicable_
+|opens the user guide in a new window
+|_none_
+|`list healthworker/h/1` +
+
+`list request/r/2`
+|_not applicable_
+|lists all the health workers or requests
+|_none_
 |`add healthworker/h/1`
+|`n/ (name)` - required +
+ `i/ (nric)` - required +
+ `p/ (phone)` - required +
+ `o/ (organisation)` - required +
+ `s/ (specialisations)` - required
 |registers a health worker into the system
+|_none_
 |`add request/r/2`
+|`n/ (name)` - required +
+ `i/ (nric)` - required +
+ `p/ (phone)` - required +
+ `a/ (address)` - required +
+ `dt/ (request date)` - required +
+ `c/ (patient conditions)` - required
 |registers a request into the system
+|_none_
 |`edit`
+|any of the tags above (i.e. edit `n/` or `dt/` or `c/`)
 |edits the details of a request or a health worker
-|`filter`
-|filters the list of requests or health workers by a condition
-|`delete`
-|deletes a request or a health worker
+|_none_
+|`filter healthworker/h/1`
+|any of the tags above belonging to health worker (i.e. filter by `n/` or `o/` or `s/`)
+|filters through the list of health workers by a criteria
+|_none_
+|`filter request/r/2`
+|any of the tags above belonging to request (i.e. filter by `n/` or `dt/` or `c/`)
+|filters through the list of requests by a criteria
+|_none_
+|`delete request`
+|`INDEX` of  request to delete
+|deletes a request
+|_none_
 |`assign`
-|assigns a health worker to a request
-|`clr`
-|clears all requests from the list
+|`hw/<index>` - `INDEX` of the health worker to be assigned +
+
+`r/<index>` - `INDEX` of the request
+|assigns a health worker to an open request
+|should a health worker be assigned to requests on the same date and time, it should be at least 2 hours apart.
 |`complete`
-|closes a pending or ongoing request after it has been done
+|`INDEX` of the request to close
+|closes an ongoing request after it has been completed by the assigned staff
+|only used for requests that have the *ONGOING* status
+
+|`clr`
+|_not applicable_
+|clears all *COMPLETED* requests from the list
+|_none_
 |`history`
-|lists the previous commands entered
+|_not applicable_
+|lists the previous commands entered in chronological order
+|_none_
 |`sr`
-|selects a request and view its details on the UI
+|`INDEX` of request to display
+|selects a request and display its details on the UI
+|_none_
 |`setreminder`
-|sets a reminder alert to notify the user at a certain time
+|`t/<hh:mm:ss>` - time to schedule, required +
+
+`m/` - customised message, required
+|sets a reminder alert to notify the user at a certain time of the day
+|the alert will show only if Health Hub is still running
 |`statistics`
+|_not applicable_
 |shows the occurences of the different requests by conditions
+|_none_
 |`undo`
+|_not applicable_
 |undos the previous action
+|_none_
 |`redo`
+|_not applicable_
 |redos the previous undone command
+|_none_
 |===
 // end::summary[]

@@ -449,7 +449,6 @@ Our user can also utilize TeethHub to store manage and interact with tasks aside
 This segment will explain the main features of the a new data type `Task` that TeethHub handle. Key implementation details and the design considerations when designing these features will also be covered.
 
 ==== Task storage and attributes
-
 The `Task` class is a new type of object that is meant to represent any task a dentist would have to perform. `Task` objects are kept in a list and handled by the `UniqueTaskList` class. This follows the same process as the `Patient` class and by extension, the `Person` class which has a `UniquePersonList` handling a list of `Person` objects. 
 
 Storing information of all objects does not change between `Task` and `Person` classes and both are stored into a `TeethHub.json` file. Attributes for `Task` are instantiated as objects with their own methods to validate the user's input much like the current implementation of `Patient`/`Person` .
@@ -465,7 +464,6 @@ image::TaskClassDiagramFinal.png[width=""]
 // end::taskDG1_cchj1995[]
 
 ==== Task interaction feature (Basic)
-
 Essential commands for basic interaction with the tasks such as, `taskadd`, `taskedit` and `taskdelete` are implemented in a similar fashion as compared to existing commands. All three commands extend from the abstract class `Command` and follow the same execution flow as `patientadd`, `patientedit` and `patientdelete`. 
 
 The generic execution flow of these commands mostly involve the `Logic` and `Model` component of the application and the order can be detailed as follows:
@@ -517,7 +515,6 @@ The `taskcal` command is a feature implemented to allow the user to view task re
 
 [NOTE]
 Closing the Main Window whilst the Task Calendar popup is showing will also close the popup automatically. This is implemented intentionally as the popup is designed to be an extension of the Main Window, not a standalone window.
-
 
 The calendar is generated with modifications to the date cells being done during the generation process. Modifications to the date cells (e.g. changing font colors, overlaying a circle) are done to highlight date cells with the color of task priority. The class `CalendarWindow` uses a `HashMap` with the date, as the key and priority number, as a value,to store the start date and end date information from tasks stored in TeethHub, replacing the stored value with a highest priority value between the duplicates. This enables the date cells to be compared with the stored values amidst the generation process, choosing which date cells to highlight with the highest priority color. 
 
@@ -1836,9 +1833,9 @@ _{ more test cases ... }_
 ... Test case: `taskedit x ti/New Edited Title` (where x is larger than the number of tasks listed)
    Expected: No task is edited. Error details shown in the status message stating that the task index provided is invalid.
 ... Test case: `task edit 1 ti/New Edited Title 4`
-   Expected: No task is edited. Error details shown in the status message stating an unknown command.
+Expected: No task is edited. Error details shown in the status message stating an unknown command.
 ... Other incorrect taskadd commands to try: `tasedit`, `taskedit/ti/Test task sd/today st/1200 et/1300 pri/HIGH` +
-   Expected: Similar to previous.
+Expected: Similar to previous.
   
 === Deleting a task
 

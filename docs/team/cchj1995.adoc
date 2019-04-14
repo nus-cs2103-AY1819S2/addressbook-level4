@@ -43,7 +43,7 @@ The main contributions listed here details how I covered these two aspects.
 ** Contributions to team members' enhancements:
 *** Provided code to flatten and overlay images of teeth, resulting image used in teammates features.
 *** Added GUI panel to display Teeth feature using flattened image.
-*** Added GUI panel to display Patient and Record information. 
+*** Added GUI panel to display Patient and Record information.
 *** Reported, suggested solutions and fixed bugs for own team (E.g. https://github.com/CS2103-AY1819S2-W17-2/main/issues/106#issuecomment-478082206[Date bug], https://github.com/CS2103-AY1819S2-W17-2/main/issues/106#issuecomment-478637428[Record bug] and https://github.com/CS2103-AY1819S2-W17-2/main/pull/108[Bug fixes] )
 
 ** Community:

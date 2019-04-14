@@ -687,9 +687,9 @@ Example:
 
 === Task Management
 
-In addition to patients, TeethHub also helps you store, display and manage your tasks so that you can improve your overall efficiency. Much like patients, you can interact with your tasks using specific commands to perform essential functions like adding, editing and deleting a task. 
+In addition to patients, TeethHub also helps you store, display and manage your tasks so that you can improve your overall efficiency. Much like patients, you can interact with your tasks using specific commands to perform essential functions like adding, editing and deleting a task.
 
-TeethHub helps you handle and differentiate the many tasks you might have by giving every task certain attributes that define them. You will need to know the various attributes a task can have before proceding to the commands that you can use to work with your tasks. Not to worry though, most attributes are basic information such as title of the task, the date and times of the task, making them very intuitive and easy to work with. 
+TeethHub helps you handle and differentiate the many tasks you might have by giving every task certain attributes that define them. You will need to know the various attributes a task can have before proceding to the commands that you can use to work with your tasks. Not to worry though, most attributes are basic information such as title of the task, the date and times of the task, making them very intuitive and easy to work with.
 
 Table 1 below shows the list of parameters along with their respective descriptions.
 Some attributes are bolded and marked with an asterisk `*`. These are **mandatory** attributes that should be provided when adding a task for the first time.
@@ -777,7 +777,7 @@ a value of `0` when using the <<taskedit, taskedit>> command. This parameter sho
 task editing when in <<goto, goto>> mode as the patient list is not visible in that mode. +
 
 
-If a linked patient is <<edit, edited>>, fret not, TeethHub automatically updates the tasks for you. 
+If a linked patient is <<edit, edited>>, fret not, TeethHub automatically updates the tasks for you.
 
 If a patient is <<delete, deleted>> , you will be greeted with an alert box to let you decide between deleting the tasks associated with the patient, or setting those tasks to have no patient linked to them.
 
@@ -834,7 +834,7 @@ Edits a task currently stored in the application
 
 Format: `taskedit INDEX PARAMETERS` or `tedit INDEX PARAMETERS`
 
-You can edit any attribute of the tasks as you wish and you can even provide multiple paramters in a single command and they will all be edited accordingly. 
+You can edit any attribute of the tasks as you wish and you can even provide multiple paramters in a single command and they will all be edited accordingly.
 
 Take note of the following:
 

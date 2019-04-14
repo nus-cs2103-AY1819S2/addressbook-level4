@@ -143,7 +143,7 @@ public interface Model {
     /**
      * Restores the model's address book to its previous state.
      */
-    void sortAddressBook(Predicate<String> predicate);
+    void sortAddressBook(String input);
 
     /**
      * Restores the model's address book to its previously undone state.

@@ -2,6 +2,8 @@ package seedu.address.logic.parser.medicalHistory;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
+import java.util.Optional;
+
 import seedu.address.logic.commands.medicalHistory.SortMedHistCommand;
 import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -18,16 +20,17 @@ public class SortMedHistCommandParser implements Parser<SortMedHistCommand> {
     public SortMedHistCommand parse(String args) throws ParseException {
         String trimmedArgs = args.trim();
 
-        if (trimmedArgs.isEmpty()) {
-            return new SortMedHistCommand();
+        SortMedHistCommand.SortMedHistDescriptor sortMedHistDescriptor = new SortMedHistCommand.SortMedHistDescriptor();
+
+        if (!trimmedArgs.isEmpty()) {
+            if (trimmedArgs.equals(SortMedHistCommand.ASCENDING) || trimmedArgs.equals(SortMedHistCommand.DESCENDING)) {
+                sortMedHistDescriptor.setOrder(Optional.of(trimmedArgs));
+            } else {
+                throw new ParseException(
+                        String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortMedHistCommand.MESSAGE_USAGE));
+            }
         }
 
-        if (trimmedArgs.equals(SortMedHistCommand.ASCENDING) || trimmedArgs.equals(SortMedHistCommand.DESCENDING)) {
-            return new SortMedHistCommand(trimmedArgs);
-        }
-
-
-        throw new ParseException(
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortMedHistCommand.MESSAGE_USAGE));
+        return new SortMedHistCommand(sortMedHistDescriptor);
     }
 }

@@ -844,13 +844,14 @@ Take note of the following:
 * Input tag of the field to modify followed by the new value to replace the old value
 * Refer to *Table 1* above to see all the fields that can be modified
   along with their format and restrictions
-  
-  
+
 [NOTE]
 ============================================================
 Edit will not go through if task becomes a duplicate after the change.
 
-Tasks are considered duplicates if they have the *exact* same TITLE, START DATE, START TIME, END TIME and LINKED PATIENT
+Tasks are considered duplicates if they have the *exact*
+same TITLE, START DATE, START TIME, END TIME and
+LINKED PATIENT
 ============================================================
 
 [TIP]
@@ -921,10 +922,10 @@ The added record will use the task's title as its description. Figure 2 shows yo
 
 image::Taskdone2.png[width=""]
 
-Figure 2: Image showing the added record after completing a task
+Figure 2: Image showing the added record after completing a task.
 
 [NOTE]
-You can use the `undo` command to set a completed task back to its original priority. However, the added record will remain in the patient as of the current implementation of TeethHub. 
+You can use the `undo` command to set a completed task back to its original priority. However, the added record will remain in the patient as of the current implementation of TeethHub.
 
 [NOTE]
 ====
@@ -958,12 +959,11 @@ As seen from Figure 3, you can view tasks that either start or end on a particul
 
 Using Figure 3 as an example, the date `29-03-2019` is colored in red which matches the highest priority task on that day which is `HIGH`. You can also focus into any of the dates in the calendar to change the task list to display the tasks for that date. To choose a date to focus into, you can either key a date directly into the command box in the format `DD-MM-YYYY`, or simply click on the date cells with a mouse.
 
-You can execute task related commands such as `taskadd`, `taskedit`, `taskdelete` and `tasklist` from the command box in this window to interact with tasks. 
+You can execute task related commands such as `taskadd`, `taskedit`, `taskdelete` and `tasklist` from the command box in this window to interact with tasks.
 
 [NOTE]
-==========================================================================================================================================
 Executing the `taskcal` command inside this popup window without specifying a date will cause the calendar to load into the current date.
-==========================================================================================================================================
+
 The top pane of the calendar has clickable arrows that lets you change the calendar page to display the dates for different months and years. Figure 4 below shows a focused view of the calendar's top pane:
 
 image::TaskCalendarUG2.png[width=""]

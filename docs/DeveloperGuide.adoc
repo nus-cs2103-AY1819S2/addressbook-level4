@@ -163,6 +163,8 @@ image::SDforDeletePlace.png[width="800"]
 
 The sections below give more details of each component.
 
+// tag::uiArchitecture[]
+
 [[Design-Ui]]
 === UI Component
 
@@ -213,6 +215,8 @@ contains helper methods for switching functionality, interacts with model and lo
 * `BrowserPanel`: *_Deprecated._* Opens on clicking the PlaceListCard, on the right of the PlaceListPanel.
 
 *All CSS code can be found in `LightTheme.css` and `Extensions.css`
+
+// end::uiArchitecture[]
 
 [[Design-Logic]]
 === Logic Component
@@ -1451,4 +1455,3 @@ These instructions only provide a starting point for testers to work on. Testers
    Expected: No place is deleted. Error details shown in the status message. Status bar remains the same.
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size)  +
    Expected: Similar to previous.
-

@@ -62,7 +62,7 @@ public class EditCommand extends Command {
             + "[" + PREFIX_REMARK + "REMARK] " + "[" + PREFIX_ADDRESS + "ADDRESS] "
             + "[" + PREFIX_SELLINGPRICE + "SELLING_PRICE] " + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example for seller: " + COMMAND_WORD + " 1 " + PREFIX_PHONE + "82515472 " + PREFIX_EMAIL
-            + "stanleyking@example.com " + PREFIX_ADDRESS + "Blk 11 Marsiling Dr, #11-04"
+            + "stanleyking@example.com " + PREFIX_ADDRESS + "Blk 11 Marsiling Dr, #11-04 "
             + PREFIX_REMARK + "updated phone, email and address for property\n";
 
     public static final String MESSAGE_USAGE_LANDLORD = "Parameters for landlord: INDEX (must be a positive integer) "

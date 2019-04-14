@@ -3,13 +3,23 @@
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
+== Introduction
+
+Hi visitor! I am Yiqun, the author of this page.
+
+I am a Year 2 Computer Science student in National University of Singapore (at the time of Apr 2019).
+This is the Personal Project Portfolio (PPP) of my CS2103T Software Engineering project.
+In this PPP I will showcase some of my learning outcomes and contributions to you.
+To tell the truth, I really spent a lot effort in this project, but I am very happy to see all the achievements I have made from my hard work. I believe you are the same, right?
+
 == PROJECT: Equipment Manager
 
 ---
 
 == Overview
 
-Equipment Manager is a desktop equipment information management system used for technicians and engineers who need to do maintainance or manage equipments. The user interacts with it using mainly a CLI (command line interface). It also has a GUI (graphical user interface) to serve as secondary approach for users to interact with the application, aslo as the primary approach to display information. The GUI is build with JavaFX, and the whole application is mainly build with Java, except for the static pages to display equipment details and maps.
+* Equipment Manager is a desktop equipment information management system used for technicians and engineers who need to do maintenance or manage equipments. It allows users to keep track of equipment information, and plan their work.
+* The user interacts with it using mainly a CLI (command line interface). It also has a GUI (graphical user interface) to serve as secondary approach for users to interact with the application, also as the primary approach to display information. The GUI is build with JavaFX, and the whole application is mainly build with Java, except for the static pages to display equipment details and maps.
 
 This project is morphed from link:https://github.com/nus-cs2103-AY1819S2/addressbook-level4[AddressBook-Level4].
 

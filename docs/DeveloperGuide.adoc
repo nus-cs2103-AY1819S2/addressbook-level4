@@ -892,7 +892,7 @@ Similar to `CommandMode`, the various `CommandType` enums are:
 
 ** `CommandType.HEALTHWORKER_COMMAND`
 ** `CommandType.REQUEST_COMMAND`
-
+** `CommandType.HEALTHWORKER_AND_REQUEST_COMMAND`
 
 
 Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
@@ -987,7 +987,7 @@ Implementation | Use a command history to keep track
 of the type of book that was modified It is represented as a list of `CommandType`.(Current implementation) | Use a list of pairs. Each state is represented as a pair which stores the `currentStatePointer` of each book.
 |Pros| Easily scalable to include more than two books. As the developer can simply add an extra `CommandType`
 and extra cases for switch statements.| Supports commands that change multiple books at once since it keeps track of all states.
-|Cons| Unable to handle commands that change multiple books at once. We assume that only one `currentStatePointer` can change per undo/redo.| Keeping a multiple integers takes up more memory as compared to keeping a single enum.
+|Cons| Unable to scale as well if there are many commands that modifies multiple books at once.| Keeping multiple integers takes up more memory as compared to keeping a single enum.
 |=======================================================================
 
 // end::undoredo[]

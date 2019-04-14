@@ -144,7 +144,9 @@ public class SampleCourseRequirement {
             new PrimitiveRequirement("Mathematics", "Complete MA1521, MA1101R and ST2334",
                     CORE, MATH_CONDITIONS);
     public static final String SCIENCE_REGEX =
-            "^(?!(MA1521)|(ST2334)|(MA1101R))((MA|ST|PC|LSM|CM|FST)[1-9][0-9]{3}[A-Z]?)$";
+            "CM1121|CM1131|CM1417|LSM1102|LSM1105|LSM1106|LSM1301|LSM1302|PC1141|PC1142|PC1143|PC1144|PC1221|PC1222|"
+                    + "PC1432|MA2213|MA2214|CM1101|CM1111|CM1161|CM1191|CM1401|CM1402|CM1501|CM1502|LSM1303|LSM1306|"
+                    + "PC1421|PC1431|PC1433|MA1104|MA2104|MA2101|MA2108|MA2501|ST2132|ST2137";
     public static final Condition SCIENCE_CONDITION = new Condition(SCIENCE_REGEX);
     public static final CourseRequirement SCIENCE_REQUIREMENT = new PrimitiveRequirement(
             "Sciences", "Complete 1 Science module other than MA1521, MA1101R, ST2334",

@@ -79,49 +79,44 @@ public class Node {
         if (childList.isEmpty()) {
             return;
         }
-        if (isHead() || " ".equals(nodeValue)) {
-            getChildList().get(HEAD_CHILD_INDEX).checkChildren(modules, missingModules);
-        } else if ("OR".equals(nodeValue)) {
+        if (isHead()) {
+            childList.get(HEAD_CHILD_INDEX).checkChildren(modules, missingModules);
+        } else if ("OR".equals(nodeValue) || " ".equals(nodeValue)) {
             for (int i = 0; i < getChildList().size(); i++) {
                 Node currNode = getChildList().get(i);
 
-                if (!currNode.isModule() && (currNode.getValue().equals("OR") || currNode.getValue().equals("AND"))) {
-                    currNode.checkChildren(modules, missingModules);
-                } else {
-                    for (int j = 0; j < modules.size(); j++) {
-                        if (modules.get(j).equals(currNode.getValue()) && currNode.isModule()) {
-                            return;
-                        }
-                    }
-                }
-                if (i == getChildList().size() - 1 && currNode.isModule()) {
-                    //gives the last value of the OR list
-                    missingModules.add(currNode.getValue());
-                }
-            }
-        } else if ("AND".equals(nodeValue)) {
-            for (int i = 0; i < getChildList().size(); i++) {
-                Node currNode = getChildList().get(i);
-                if (!currNode.isModule() && (currNode.getValue().equals("OR") || currNode.getValue().equals("AND"))) {
+                if (!currNode.isModule()) {
                     currNode.checkChildren(modules, missingModules);
                 } else {
                     for (int j = 0; j < modules.size(); j++) {
                         if (modules.get(j).equals(currNode.getValue())) {
-                            break;
+                            return;
                         }
-                        if (j == modules.size() - 1 && currNode.isModule()) {
-                            missingModules.add(currNode.getValue());
-                        }
+                    }
+                    if (i == getChildList().size() - 1) {
+                        //gives the last value of the OR list
+                        missingModules.add(currNode.getValue());
                     }
                 }
             }
-        } else if (isModule) {
-            for (String code : modules) {
-                if (code.equals(nodeValue)) {
-                    return;
+        } else if ("AND".equals(nodeValue)) {
+            for (int i = 0; i < getChildList().size(); i++) {
+                boolean found = false;
+                Node currNode = getChildList().get(i);
+                if (!currNode.isModule()) {
+                    currNode.checkChildren(modules, missingModules);
+                } else {
+                    for (int j = 0; j < modules.size(); j++) {
+                        if (modules.get(j).equals(currNode.getValue())) {
+                            found = true;
+                            break;
+                        }
+                    }
+                    if (!found) {
+                        missingModules.add(currNode.getValue());
+                    }
                 }
             }
-            missingModules.add(nodeValue);
         }
     }
 

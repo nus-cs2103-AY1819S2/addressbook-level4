@@ -15,7 +15,7 @@ public class RecModuleTest {
     private RecModuleBuilder rmb = new RecModuleBuilder();
 
     @Test
-    public void constructor_nullCode_throwsNullPointerException() {
+    public void constructor_nullModuleInfo_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> new RecModule(null));
         assertThrows(NullPointerException.class, () -> new RecModule(null, null));
     }

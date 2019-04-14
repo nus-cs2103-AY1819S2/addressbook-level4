@@ -23,25 +23,25 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.logic.commands.AddDoctorCommand;
-import seedu.address.logic.commands.patient.AddPatientCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.DeleteDoctorCommand;
-import seedu.address.logic.commands.patient.DeletePatientCommand;
 import seedu.address.logic.commands.DoctorMatchCommand;
-import seedu.address.logic.commands.EditDoctorCommand.EditDoctorDescriptor;
 import seedu.address.logic.commands.EditDoctorCommand;
-import seedu.address.logic.commands.patient.EditPatientCommand.EditPatientDescriptor;
-import seedu.address.logic.commands.patient.EditPatientCommand;
+import seedu.address.logic.commands.EditDoctorCommand.EditDoctorDescriptor;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.ListDoctorCommand;
-import seedu.address.logic.commands.patient.ListPatientCommand;
-import seedu.address.logic.commands.patient.SearchPatientCommand;
 import seedu.address.logic.commands.SelectDoctorCommand;
-import seedu.address.logic.commands.patient.SelectPatientCommand;
 import seedu.address.logic.commands.appointment.AddAppointmentCommand;
 import seedu.address.logic.commands.medicalhistory.AddMedHistCommand;
+import seedu.address.logic.commands.patient.AddPatientCommand;
+import seedu.address.logic.commands.patient.DeletePatientCommand;
+import seedu.address.logic.commands.patient.EditPatientCommand;
+import seedu.address.logic.commands.patient.EditPatientCommand.EditPatientDescriptor;
+import seedu.address.logic.commands.patient.ListPatientCommand;
+import seedu.address.logic.commands.patient.SearchPatientCommand;
+import seedu.address.logic.commands.patient.SelectPatientCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.appointment.AppointmentDate;
 import seedu.address.model.appointment.AppointmentDoctorId;
@@ -55,9 +55,9 @@ import seedu.address.model.person.Doctor;
 import seedu.address.model.person.DoctorContainsKeywordsPredicate;
 import seedu.address.model.person.DoctorMatch;
 import seedu.address.model.person.DoctorSpecialisationMatchesPredicate;
+import seedu.address.model.person.PersonId;
 import seedu.address.model.person.patient.Patient;
 import seedu.address.model.person.patient.PatientNameContainsKeywordsPredicate;
-import seedu.address.model.person.PersonId;
 import seedu.address.model.tag.Specialisation;
 import seedu.address.testutil.DoctorBuilder;
 import seedu.address.testutil.DoctorUtil;
@@ -240,10 +240,10 @@ public class DocXParserTest {
         DoctorMatchCommand command = new DoctorMatchCommand(pred);
 
         assertEquals(new DoctorMatchCommand(
-                new DoctorSpecialisationMatchesPredicate(
-                        new DoctorMatch(new Specialisation("acupuncture"),
-                                new AppointmentDate("2019-06-20"),
-                                new AppointmentTime("09:00")))),
+                        new DoctorSpecialisationMatchesPredicate(
+                                new DoctorMatch(new Specialisation("acupuncture"),
+                                        new AppointmentDate("2019-06-20"),
+                                        new AppointmentTime("09:00")))),
                 command);
     }
 }

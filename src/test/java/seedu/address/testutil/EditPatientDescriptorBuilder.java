@@ -5,12 +5,12 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.patient.EditPatientCommand.EditPatientDescriptor;
-import seedu.address.model.person.patient.Address;
-import seedu.address.model.person.patient.Age;
 import seedu.address.model.person.Gender;
 import seedu.address.model.person.Name;
-import seedu.address.model.person.patient.Patient;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.patient.Address;
+import seedu.address.model.person.patient.Age;
+import seedu.address.model.person.patient.Patient;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -64,6 +64,7 @@ public class EditPatientDescriptorBuilder {
         descriptor.setAge(new Age(age));
         return this;
     }
+
     /**
      * Sets the {@code Phone} of the {@code EditPatientDescriptor} that we are building.
      */

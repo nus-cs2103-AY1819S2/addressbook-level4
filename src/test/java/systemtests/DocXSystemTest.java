@@ -31,11 +31,10 @@ import guitests.guihandles.StatusBarFooterHandle;
 import seedu.address.TestApp;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.ClearCommand;
-//import seedu.address.logic.commands.DeleteDoctorCommand;
 import seedu.address.logic.commands.ListDoctorCommand;
+import seedu.address.logic.commands.SelectDoctorCommand;
 import seedu.address.logic.commands.patient.ListPatientCommand;
 import seedu.address.logic.commands.patient.SearchPatientCommand;
-import seedu.address.logic.commands.SelectDoctorCommand;
 import seedu.address.logic.commands.patient.SelectPatientCommand;
 import seedu.address.model.DocX;
 import seedu.address.model.Model;
@@ -45,6 +44,8 @@ import seedu.address.testutil.TypicalDoctors;
 import seedu.address.testutil.TypicalPatients;
 import seedu.address.ui.CommandBox;
 import seedu.address.ui.patient.PatientInfoPanel;
+
+//import seedu.address.logic.commands.DeleteDoctorCommand;
 
 /**
  * A system test class for DocX, which provides access to handles of GUI components and helper methods

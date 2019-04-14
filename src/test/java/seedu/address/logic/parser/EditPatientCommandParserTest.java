@@ -42,11 +42,11 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.patient.EditPatientCommand;
 import seedu.address.logic.commands.patient.EditPatientCommand.EditPatientDescriptor;
 import seedu.address.logic.parser.patient.EditPatientCommandParser;
-import seedu.address.model.person.patient.Address;
-import seedu.address.model.person.patient.Age;
 import seedu.address.model.person.Gender;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.patient.Address;
+import seedu.address.model.person.patient.Age;
 import seedu.address.model.tag.Tag;
 import seedu.address.testutil.EditPatientDescriptorBuilder;
 

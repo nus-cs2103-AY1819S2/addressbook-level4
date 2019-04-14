@@ -25,7 +25,7 @@ My role was to design and implement the [blue]`Request` related commands and fea
 
 Note the following symbols and formatting used in this document:
 
-`add` A grey highlight (called a mark-up) indicates that this is a command that can be inputted into the command line and executed by the application.
+`add` A grey highlight (called a mark-up) indicates that this is a command that can be inputted into the command line and executed by the application. +
 [blue]`Request` Blue text with a grey highlight indicates a component, class or object in the architecture of the application.
 
 == Summary of contributions
@@ -50,22 +50,17 @@ as knowledge of how information is cached in the application's memory was essent
 
 * *Minor enhancement*: added a filter command that allows the user to navigate through all requests stored by filtering by a specific value.
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Code contributed*: [https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#search=daviddl9&sort=displayName&since=2019-02-10&until=2019-04-12&timeframe=day&reverse=false&repoSort=true[Reposense]]
 
 * *Other contributions*:
 
 ** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
+*** Managed releases `v1.3` onwards (3 releases) on GitHub
 *** Added reposense compatibility
 *** Added coveralls compatibility to project README
-** Enhancements to existing features:
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
-** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
+*** PRs reviewed: https://github.com/CS2103-AY1819S2-W09-2/main/pulls?q=is%3Apr+is%3Aclosed+reviewed-by%3Adaviddl9[view here]
+*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com/nus-cs2103-AY1819S2/pe-dry-run/issues/964[1], https://github.com/nus-cs2103-AY1819S2/pe-dry-run/issues/743[2], https://github.com/nus-cs2103-AY1819S2/pe-dry-run/issues/173[3], https://github.com/nus-cs2103-AY1819S2/pe-dry-run/issues/12[4])
 
 == Contributions to the User Guide
 
@@ -79,7 +74,7 @@ Shortcut(s): +
 
 where `[<more_keywords]` refer to the fields you would like to search for.
 
-After entering the command with valid inputs, you will the entire list of requests whose fields match
+After entering the command with valid inputs, you will see the entire list of requests whose fields match
  the parameters specified in the command. To filter requests, you can specify any of the following filtering criteria:
 `dt/DATE`, `n/NAME`, `p/PHONE`, `st/STATUS`, `i/NRIC`, `c/CONDITION`. Note that you can also chain multiple criteria together to get a more specific
 filter result.
@@ -90,12 +85,12 @@ show you all the requests you are looking for.
 
 Before:
 
-image::filterrequestbefore.png[width=400]
+image::filterrequestbefore.png[width=300]
 Figure 5.5.2.1 shows the request list prior to executing the `filter request` command
 
 After:
 
-image::filterrequestafter.png[width=400]
+image::filterrequestafter.png[width=300]
 
 Figure 5.5.2.2 shows the request list after executing `filter request i/S9123456A st/COMPLETED`
 
@@ -116,6 +111,10 @@ If there are no such requests that match the user's query, an empty list would b
 that subword. (e.g `filter request n/Tan` may return people with the surnames Tan or
 Tang)
 
+* Note that to filter by status, the status has to be spelt out in *full*.
+e.g `filter r st/pending`
+
+
 {nbsp}
 
 [TIP]
@@ -130,7 +129,7 @@ filters the request list for requests whose patient's name contains the
 specified name substring *and* the specified phone number.
 ====
 
-[TIP]
+[NOTE]
 ====
 To revert the view back to the original request list, enter the `list request` command.
 ====
@@ -185,19 +184,48 @@ Figure 3.3.1.2 Sequence diagram to illustrate `Logic` and `Model` component inte
 4. `LogicManager` will proceed to call the `execute` command of `AssignCommand`
 5. `AssignRequestCommand` will proceed to call the `getFilteredRequestList` method of `Model`.
 6. Iterate through the `requestIds`, if valid, add the `request` corresponding to that `index` to the set of `Request`.
-7. Writes the updated request to the `RequestBook` in `ModelManager`
+7. Iterates through all the requests already assigned to that `healthWorker`. If there is a conflict of schedule (i.e Requests assigned
+to that healthWorker are less than 2 hours apart), a `CommandException` is thrown.
+8. Writes the updated request to the `RequestBook` in `ModelManager`, if all the request timings are valid.
 
 ==== Design Consideration
 
-===== Aspect: Relationship between `Request` and `Healthworker`
-* Alternative 1 (current choice): The `Request` holds only some of the details of the healthworker (e.g name) assigned to it.
+===== Aspect: Ensuring no clashing requests assigned to healthworkers - Data Structure and implementation
+* Alternative 1 (current choice): Using a Balanced Binary Search Tree (java `TreeSet`) to keep track of the [blue]`RequestDate` of each request attended to by a particular `healthWorker`.
+** Reasoning: Since the allowed time interval between 2 consecutive requests should be at least 2 hours, this allows us to take advantage
+of the fact that we only need to keep track of the start time of requests. Hence we can utilise the `ceiling()`, `contains()` and `floor()` methods of the `TreeSet`, which runs effeciently in O(log N) time. Here is the code snippet that implements this:
+```
+    // Note: healthWorkerAppointments is the TreeSet that stores the appointment dates
+    Date date = request.getRequestDate().getDate();
+    calendar.setTime(date);
+    calendar.add(Calendar.HOUR_OF_DAY, -MIN_REQUEST_DURATION); // MIN_REQUEST_DURATION = 2 hours
+    Date lowerLimit = calendar.getTime();
+    calendar.add(Calendar.HOUR_OF_DAY, 2 * MIN_REQUEST_DURATION);
+    Date upperLimit = calendar.getTime();
+
+    if (healthWorkerAppointments.contains(date) || (healthWorkerAppointments.lower(date) != null
+          && healthWorkerAppointments.lower(date).after(lowerLimit))
+          || (healthWorkerAppointments.higher(date) != null
+          && healthWorkerAppointments.ceiling(date).before(upperLimit))) {
+              throw new CommandException(Messages.MESSAGE_HEALTHWORKER_OCCUPIED_CANNOT_ASSIGN);
+    }
+
+    healthWorkerAppointments.add(date);
+```
+
+* Alternative 2: For each request to be assigned, manually iterate through the Request list to ensure that there are not clashing dates.
+Pros: Easy to implement
+Cons: Slow - in the worst case, if all the requests get assigned at once, this operation will run in O(n^2) time.
+
+===== Aspect: Relationship between [blue]`Request` and [blue]`Healthworker`
+* Alternative 1 (current choice): The [blue]`Request` holds a unique identifier of the [blue]`HealthWorker` (i.e the `NRIC`) assigned to it.
 ** Pros: Simplification of implementation.
 ** Pros: Cleaner implementation, low level of dependencies on other modules. This also makes it easier to test, and easier to maintain.
-** Cons: Makes it difficult to obtain all details of a healthworker from a `Request` object.
+** Cons: Makes it difficult to obtain all details of the `healthWorker` assigned from a [blue]`Request` object. The healthworker with the unique NRIC will have the be queried from the `healthWorkerList`
 
 * Alternative 2: The `Request` holds a `HealthWorker` object and the `HealthWorker` keeps track of a list of `Request`s.
 ** Pros: Can quickly access details of a `HealthWorker` from a `Request`, and can quickly access the `Requests` assigned to a `HealthWorker` from the `Request`.
-** Cons: Increases complexity of code base, adding additional dependencies to the code. This makes the code base more verbose and less maintainable
+** Cons: Increases complexity of code base, adding additional dependencies to the code. This makes the code base more verbose and more difficult to maintain.
 
 === Add Request feature
 

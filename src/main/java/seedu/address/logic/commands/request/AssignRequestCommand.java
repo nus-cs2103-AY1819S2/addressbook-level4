@@ -94,11 +94,11 @@ public class AssignRequestCommand extends Command implements RequestCommand {
         HealthWorker assignedHealthWorker = new HealthWorker(healthWorkerToAssign);
 
         // First, adds all the date and time that the current healthworker is assigned to
-        TreeSet<Date> dates = new TreeSet<>();
+        TreeSet<Date> healthWorkerAppointments = new TreeSet<>();
 
         for (Request req : lastShownRequestList) {
             if (assignedHealthWorker.getNric().toString().equals(req.getHealthStaff()) && req.isOngoingStatus()) {
-                dates.add(req.getRequestDate().getDate());
+                healthWorkerAppointments.add(req.getRequestDate().getDate());
             }
         }
 
@@ -119,12 +119,14 @@ public class AssignRequestCommand extends Command implements RequestCommand {
             Date upperLimit = calendar.getTime();
             logger.info("Upper limit: " + upperLimit);
 
-            if (dates.contains(date) || (dates.lower(date) != null && dates.lower(date).after(lowerLimit))
-                || (dates.higher(date) != null && dates.ceiling(date).before(upperLimit))) {
+            if (healthWorkerAppointments.contains(date) || (healthWorkerAppointments.lower(date) != null
+                && healthWorkerAppointments.lower(date).after(lowerLimit))
+                || (healthWorkerAppointments.higher(date) != null
+                && healthWorkerAppointments.ceiling(date).before(upperLimit))) {
                 throw new CommandException(Messages.MESSAGE_HEALTHWORKER_OCCUPIED_CANNOT_ASSIGN);
             }
 
-            dates.add(date);
+            healthWorkerAppointments.add(date);
 
         }
 

@@ -9,6 +9,10 @@ import static seedu.address.testutil.TypicalData.EXTRACT;
 import static seedu.address.testutil.TypicalData.REORG;
 import static seedu.address.testutil.TypicalData.getTypicalAddressBook;
 
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.List;
+
 import org.junit.Test;
 
 import seedu.address.logic.CommandHistory;
@@ -20,10 +24,6 @@ import seedu.address.model.datetime.DateCustom;
 import seedu.address.model.datetime.TimeCustom;
 import seedu.address.model.task.Priority;
 import seedu.address.model.task.Task;
-
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.List;
 
 public class TaskSortCommandTest {
 
@@ -45,9 +45,17 @@ public class TaskSortCommandTest {
         execute_sortTaskParameter("priority", true, Arrays.asList(REORG, EXTRACT, CLEANING));
     }
 
+    /**
+     * Wrap up method for testing tasksort
+     * @param sortField
+     * @param isAscending
+     * @param expectedList
+     * @throws ParseException
+     */
     private void execute_sortTaskParameter(String sortField, boolean isAscending,
                                               List<Task> expectedList) throws ParseException {
-        String expectedMessage = String.format(MESSAGE_SORT_TASK_SUCCESS, sortField, isAscending ? "ascending" : "descending");
+        String expectedMessage = String.format(MESSAGE_SORT_TASK_SUCCESS, sortField,
+                isAscending ? "ascending" : "descending");
         TaskSortCommand command = new TaskSortCommand(sortField, isAscending);
         Comparator<Task> taskComparator = createComparator(sortField, isAscending);
         expectedModel.sortTasks(taskComparator);
@@ -56,6 +64,13 @@ public class TaskSortCommandTest {
         assertEquals(expectedList, model.getFilteredPersonList());
     }
 
+    /**
+     * Tasksort helper method
+     * @param sortField
+     * @param isAscending
+     * @return
+     * @throws ParseException
+     */
     private Comparator<Task> createComparator(String sortField, boolean isAscending) throws ParseException {
         Comparator<Task> t;
         int ascendingCoefficient = isAscending ? 1 : -1;
@@ -88,6 +103,14 @@ public class TaskSortCommandTest {
         return t;
     }
 
+    /**
+     * Task sort helper method
+     * @param d1
+     * @param d2
+     * @param t1
+     * @param t2
+     * @return
+     */
     private int compareDateTime(DateCustom d1, DateCustom d2, TimeCustom t1, TimeCustom t2) {
         int dateCompare = d1.compareTo(d2);
         if (dateCompare == 0) {

@@ -7,6 +7,7 @@ import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.CommandHistory;
+import seedu.address.logic.commands.sortmethods.SortDegree;
 import seedu.address.logic.commands.sortmethods.SortEducation;
 import seedu.address.logic.commands.sortmethods.SortGpa;
 import seedu.address.logic.commands.sortmethods.SortName;
@@ -99,8 +100,8 @@ public class SortCommand extends Command {
             System.out.println(sortedPersons);
         } else if (commandInput.substring(commandInput.lastIndexOf(" ") + 1).equals("number")) {
             getSortedPersons(new SortTagNumber(), lastShownList, commandInput);
-        //} else if (commandInput.equals("degree")) {
-        //    getSortedPersons(new SortDegree(), lastShownList);
+        } else if (commandInput.equals("degree")) {
+            getSortedPersons(new SortDegree(), lastShownList);
         } else {
             logger.info("Invalid sort input and cannot be processed.");
         }

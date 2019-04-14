@@ -28,6 +28,9 @@ public class SortCommandIntegrationTest {
     private CommandHistory commandHistory = new CommandHistory();
     private List<Person> correctPersonOrder = new ArrayList<>();
 
+    /**
+     * Use The sort by name method since they are already ordered
+     */
     @Test
     public void execute_sortNames_After_Edit_success() {
         // First make trivial edit to the first person

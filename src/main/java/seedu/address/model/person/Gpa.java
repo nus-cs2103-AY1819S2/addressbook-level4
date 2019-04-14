@@ -23,7 +23,17 @@ public class Gpa {
     public Gpa(String gpa) {
         requireNonNull(gpa);
         checkArgument(isValidGpa(gpa), MESSAGE_CONSTRAINTS);
-        value = gpa;
+        value = correctForm(gpa);
+    }
+
+    /**
+     * Converts a string of integer format to a string of 1dp format
+     */
+    private String correctForm(String input) {
+        if (!input.contains(".")) {
+            input = input + ".0";
+        }
+        return input;
     }
 
     /**

@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.person.Address;
+import seedu.address.model.person.Degree;
 import seedu.address.model.person.Education;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Gpa;
@@ -76,11 +77,12 @@ public class SortUtil {
             Email email = person.getEmail();
             Education education = person.getEducation();
             Gpa gpa = person.getGpa();
+            Degree degree = person.getDegree();
             Address address = person.getAddress();
             //change list back to set
             LinkedHashSet<SkillsTag> tagSet = SortUtil.toTags(individualSortedTags);
 
-            Person newPerson = new Person(name, phone, email, education, gpa, address, tagSet);
+            Person newPerson = new Person(name, phone, email, education, gpa, degree, address, tagSet);
             personsWithCorrectTagOrder.add(newPerson);
         }
         return personsWithCorrectTagOrder;
@@ -103,33 +105,4 @@ public class SortUtil {
         Collections.reverse(tempList);
         return tempList;
     }
-
-    /**
-     * A comparator for ranking the 5 degree levels
-     */
-    public static Comparator<String> degreeComparator = new Comparator<String>() {
-        private final Logger logger = LogsCenter.getLogger(SortUtil.class);
-        private int getEducationValue(String education) {
-            int value;
-            if (education.equals("high school")) {
-                value = 1;
-            } else if (education.equals("associate")) {
-                value = 2;
-            } else if (education.equals("associate")) {
-                value = 2;
-            } else if (education.equals("masters")) {
-                value = 4;
-            } else if (education.equals("phd")) {
-                value = 5;
-            } else {
-                value = 0;
-                logger.info("No valid degree to compare");
-            }
-            return value;
-        }
-        @Override
-        public int compare(String personOneDegree, String personTwoDegree) {
-            return getEducationValue(personOneDegree) - getEducationValue(personTwoDegree);
-        }
-    };
 }

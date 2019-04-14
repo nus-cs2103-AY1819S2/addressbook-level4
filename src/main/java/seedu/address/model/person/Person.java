@@ -275,4 +275,18 @@ public class Person {
     public String educationToString() {
         return getEducation().toString().toLowerCase();
     }
+
+    /**
+     *  returns the Person's degree as a string in lowercase
+     */
+    public String degreeToString() {
+        return getDegree().toString().toLowerCase();
+    }
+
+    /**
+     *  returns the Person's degree value
+     */
+    public Integer degreeToValue() {
+        return PersonUtil.getEducationValue(degreeToString());
+    }
 }

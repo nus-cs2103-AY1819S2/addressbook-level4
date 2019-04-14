@@ -9,19 +9,19 @@ import java.util.List;
 
 /**
  * Follows the SortMethod interface
- * Sorts all persons by Degree and then subsequently by Education
+ * Sorts all persons by Degree and then subsequently by Gpa
  */
 public class SortDegree implements SortMethod {
 
     private List<Person> newList;
 
     public void execute(List<Person> lastShownList, String... type) {
-//        Comparator<Person> personDegreeComparator = SortUtil.degreeComparator.comparing(Person::degreeToString);
-//        List<Person> initialSortedList = SortUtil.sortPersons(lastShownList, personDegreeComparator);
-//        Collections.reverse(initialSortedList);
-//        SortListWithDuplicates secondarySort = new SortListWithDuplicates(initialSortedList, new SortEducation(),
-//                personDegreeComparator);
-//        this.newList = secondarySort.getList();
+        Comparator<Person> personDegreeComparator = Comparator.comparing(Person::degreeToValue);
+        List<Person> initialSortedList = SortUtil.sortPersons(lastShownList, personDegreeComparator);
+        Collections.reverse(initialSortedList);
+        SortListWithDuplicates secondarySort = new SortListWithDuplicates(initialSortedList, new SortGpa(),
+                personDegreeComparator);
+        this.newList = secondarySort.getList();
     }
 
     public List<Person> getList() {

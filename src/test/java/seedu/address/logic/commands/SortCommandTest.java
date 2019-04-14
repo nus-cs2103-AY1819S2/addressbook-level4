@@ -28,7 +28,9 @@ import seedu.address.testutil.EditPersonDescriptorBuilder;
 import seedu.address.testutil.PersonBuilder;
 
 /**
- * Contains integration tests (interaction with the Model) for {@code FindCommand}.
+ * Contains tests for {@code SortCommand}.
+ * The sort command is commonly used in collaboration with the edit command and so it should be ensured that the
+ *     {@code execute_sortNames_After_Edit_success} test in {@code SortCommandIntegrationTest} class is passing
  */
 public class SortCommandTest {
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
@@ -36,9 +38,26 @@ public class SortCommandTest {
     private CommandHistory commandHistory = new CommandHistory();
     private List<Person> correctPersonOrder = new ArrayList<>();
 
+    /**
+     * Sort by name.
+     * i. Make two names similar, initially in wrong order. Check the sort orders them as desired.
+     *        2nd person: Alex Meier
+     * ii. Check the surname is subsequently ordered
+     */
     @Test
     public void execute_sortNames_success() {
-        String expectedMessage = String.format("Sorted all persons by name");
+        // i.
+        Person editedBenson = new PersonBuilder()
+                .withName("Alex Meier").build();
+        EditCommand.EditPersonDescriptor descriptorOne = new EditPersonDescriptorBuilder(editedBenson).build();
+        EditCommand editCommand = new EditCommand(INDEX_SECOND_PERSON, descriptorOne);
+        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedBenson);
+        expectedModel.setPerson(model.getFilteredPersonList().get(1), editedBenson);
+        expectedModel.commitAddressBook();
+        System.out.println(expectedModel.getFilteredPersonList());
+        assertCommandSuccess(editCommand, model, commandHistory, expectedMessage, expectedModel);
+
+        String expectedMessageTwo = String.format("Sorted all persons by name");
         SortWord type = new SortWord("name");
         SortCommand command = new SortCommand(type);
         expectedModel.deleteAllPerson();
@@ -47,7 +66,8 @@ public class SortCommandTest {
             expectedModel.addPersonWithFilter(newPerson);
         }
         expectedModel.commitAddressBook();
-        assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
+        assertCommandSuccess(command, model, commandHistory, expectedMessageTwo, expectedModel);
+        // ii.
     }
 
     @Test
@@ -251,6 +271,20 @@ public class SortCommandTest {
     public void execute_sortEndorsementNumber_success() {
         String expectedMessage = String.format("Sorted all persons by endorsement number");
         SortWord type = new SortWord("endorsement number");
+        SortCommand command = new SortCommand(type);
+        expectedModel.deleteAllPerson();
+        correctPersonOrder = Arrays.asList(DANIEL, FIONA, ELLE, GEORGE, ALICE, BENSON, CARL);
+        for (Person newPerson : correctPersonOrder) {
+            expectedModel.addPersonWithFilter(newPerson);
+        }
+        expectedModel.commitAddressBook();
+        assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void execute_sortDegreeNumber_success() {
+        String expectedMessage = String.format("Sorted all persons by degree");
+        SortWord type = new SortWord("degree");
         SortCommand command = new SortCommand(type);
         expectedModel.deleteAllPerson();
         correctPersonOrder = Arrays.asList(DANIEL, FIONA, ELLE, GEORGE, ALICE, BENSON, CARL);

@@ -22,7 +22,9 @@ import seedu.address.storage.Storage;
 public class SaveCommand extends Command {
 
     public static final String COMMAND_WORD = "save";
-    public static final String MESSAGE_SUCCESS = "Statistics Analysis";
+    public static final String MESSAGE_SUCCESS_BETTER = "Statistics Analysis : Your accuracy improved!";
+    public static final String MESSAGE_SUCCESS_WORST = "Statistics Analysis : Your accuracy was better last round!";
+    public static final String MESSAGE_SUCCESS_SAME = "Statistics Analysis : Your accuracy is the same!";
     private static PlayerStatistics playerStats;
     private Optional<PlayerStatistics> statisticsDataOptional;
     private PlayerStatistics oldPlayerStats;
@@ -53,8 +55,6 @@ public class SaveCommand extends Command {
             //logger.warning("Problem while reading from the file. Past statistics data will not be used");
         }
 
-        // READING OF VALUES FROM THE FILES
-
         int pastHit = (statisticsDataOptional.orElse(new PlayerStatistics())).getHitCount();
         int pastMiss = (statisticsDataOptional.orElse(new PlayerStatistics())).getMissCount();
         double pastAccuracy = getAccuracy(pastHit, pastMiss);
@@ -67,18 +67,21 @@ public class SaveCommand extends Command {
         }
         // this game accuracy higher,
         if (pastAccuracy < (this.playerStats).getAccuracy()) {
-            return new CommandResult(MESSAGE_SUCCESS + ">> Your accuracy improved!" + '\n'
-            + String.format("Current Game : %.1f", this.playerStats.getAccuracy())
+            return new CommandResult(MESSAGE_SUCCESS_BETTER
             + '\n'
-            + String.format("Previous Game : %.1f", pastAccuracy));
+            + String.format("Current Game : %.1f%%", this.playerStats.getAccuracy() * 100)
+            + '\n'
+            + String.format("Previous Game : %.1f%%", pastAccuracy * 100));
         } else if (pastAccuracy == this.playerStats.getAccuracy()) {
-            return new CommandResult(MESSAGE_SUCCESS
-            + String.format(">> Your accuracy is the same at %.1f", pastAccuracy));
-        } else {
-            return new CommandResult(MESSAGE_SUCCESS + ">> Your accuracy was better last round!" + '\n'
-            + "Current Game : " + this.playerStats.getAccuracy()
+            return new CommandResult(MESSAGE_SUCCESS_SAME
             + '\n'
-            + String.format("Previous Game : %.1f", pastAccuracy));
+            + String.format("Current Game : %.1f", pastAccuracy * 100));
+        } else {
+            return new CommandResult(MESSAGE_SUCCESS_WORST
+            + '\n'
+            + String.format("Current Game : %.1f%%", this.playerStats.getAccuracy() * 100)
+            + '\n'
+            + String.format("Previous Game : %.1f%%", pastAccuracy * 100));
         }
 
     }

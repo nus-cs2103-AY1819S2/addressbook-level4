@@ -75,8 +75,10 @@ public class FileUtil {
     /**
      * Writes given string to a file.
      * Will create the file if it does not exist yet.
+     * @author bos10
      */
     public static void writeToFile(Path file, String content) throws IOException {
+        content = content + '\n';
         Files.write(file, content.getBytes(CHARSET));
     }
 

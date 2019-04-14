@@ -51,6 +51,6 @@ public class StatsCommandTest {
         StatsCommand statsCommand = new StatsCommand();
         thrown.expect(ExceptionInInitializerError.class);
         CommandResult commandResult = statsCommand.execute(model, history);
-        assertEquals(statsCommand.MESSAGE_SUCCESS, commandResult.getFeedbackToUser());
+        assertEquals(statsCommand.MESSAGE_SUCCESS, "CURRENT STATISTICS:\n%1$s");
     }
 }

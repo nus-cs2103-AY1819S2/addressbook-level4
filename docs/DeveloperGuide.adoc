@@ -192,6 +192,7 @@ As a more OOP model, we store a list of `Request` objects in `Request Book`, whi
 In addition, each `Request` also stores a `Set` of `Conditions` of the patient. +
 image:ModelClassBetterOopDiagram.png[width="800"]
 
+// tag::storage[]
 [[Design-Storage]]
 === Storage component
 
@@ -203,8 +204,9 @@ image::StorageClassDiagram.png[width="800"]
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save the Address, Request, HealthWorker Book data in json format and read it back.
+* can save the Request, HealthWorker Book data in json format and read it back.
 
+// end::storage[]
 
 [[Design-Commons]]
 === Common classes
@@ -222,6 +224,7 @@ and `delete` different types of objects respective to the different
 `CommandMode` Enums. The various `CommandMode` enums are:
 ** `CommandMode.HEALTHWORKER`
 ** `CommandMode.REQUEST`
+** `CommandMode.OTHERS`
 ** `CommandMode.INVALID`
 
 Each `CommandMode` enum is matched by it's own corresponding set of keywords,
@@ -242,13 +245,11 @@ Then implementation for `CommandMode` is as follows:
 public enum CommandMode {
 
     HEALTH_WORKER,
-    PATIENT,
     REQUEST,
     OTHERS,
     INVALID;
 
     public static final String MODE_HEALTHWORKER = "1";
-    public static final String MODE_PATIENT = "3";
     public static final String MODE_REQUEST = "2";
     public static final String MODE_OTHERS = "4";
     public static final String MODE_INVALID = "5";
@@ -283,7 +284,7 @@ These `CommandModes` provide flexbility and functionality to switch between
 === Add feature
 
 The `add` command allows for users to register new `HealthWorker` and
-`Request` objects into HealtHub.
+`Request` objects into HealthHub.
 
 The format for the `add` command is as follows:
 
@@ -952,38 +953,38 @@ image::UndoRedoActivityDiagram.png[width="650"]
 
 ==== Design Considerations
 
-===== Aspect: How undo & redo executes
 
-* **Alternative 1 (current choice):** Saves the entire book.
-** Pros: Less prone to bugs since the we are switching between different versions of the books.
-** Cons: May have performance issues in terms of memory usage especially for
-large numbers of health workers and requests.
-* **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
-** Cons: Every command will have their own implementation of undo and some of them are slow hence it causes performance issues.
+===== Aspect: How undo & redo executes
+[width="100%",cols="1, 5, 5",options="header"]
+|=======================================================================
+Implementation |Saves the entire book (Current implementation) | Individual command knows how to undo/redo by itself.
+|Pros| Less prone to bugs since the we are switching between different versions of the books. | Will use less memory (e.g. for `delete`, just save the person being deleted).
+|Cons| May have performance issues in terms of memory usage especially for
+large numbers of health workers and requests.| Every command will have their own implementation of undo and some of them are slow hence it causes performance issues.
 (e.g. for `clr`, all requests that were deleted have to be added back into the list, which will be quite slow if
-there is a large number of requests).
+there is a large number of requests).|
+|=======================================================================
+
 
 ===== Aspect: Data structure to support the undo/redo commands
-
-* **Alternative 1 (current choice):** Use a list to store the history of book states.
-** Pros: Undo and redo commands runs faster since all we are doing is switching the state pointer.
-** Cons: Need multiple `VersionedBook` s. One or each type of book.
-
-* **Alternative 2:** Use `HistoryManager` for undo/redo
-** Pros: Supports multiple books with the `HistoryManager` alone since we are undoing from the command history.
-** Cons: `HistoryManager` keeps a record of all commands, even if they are invalid or commands that does not call `Model#commit()`.
-Traversing these irrelevant commands to find the next undoable command will take long times especially if size of history is large.
+[width="100%",cols="1, 5, 5",options="header"]
+|=======================================================================
+Implementation | Use a list to store the history of book states.(Current implementation) | Use `HistoryManager` for undo/redo
+|Pros|  Undo and redo commands runs faster since it only involves the switching of the state pointer.| Supports multiple books with the `HistoryManager` alone since we are undoing from the command history.
+|Cons| Need multiple `VersionedBook` s. One or each type of book.|  `HistoryManager` keeps a record of all commands, even if they are invalid or commands that does not call `Model#commit()`.
+Traversing these irrelevant commands to find the next undoable command will take a long time especially if size of history is large.|
+|=======================================================================
 
 ===== Aspect: Data structure to handle multiple `VersionedBooks`
-* **Alternative 1 (current choice):** Use a command history to keep track
-of the type of book that was modified It is represented as a list of `CommandType`.
-** Pros: Easily scalable to include more than two books. AS the developer can simply add an extra `CommandType`
-and extra cases for switch statements.
-** Cons: Unable to handle commands that change multiple books at once. Since we assume, Only one `currentStatePointer` can change per undo/redo.
-* **Alternative 2:** Use a list of pairs. Each state is represented as a pair which stores the `currentStatePointer` of each book.
-** Pros: Supports commands that change multiple books at once since it keeps track of all states.
-** Cons: Keeping a pair of integers takes up more memory as compared to keeping a single enum.
+[width="100%",cols="1, 5, 5",options="header"]
+|=======================================================================
+Implementation | Use a command history to keep track
+of the type of book that was modified It is represented as a list of `CommandType`.(Current implementation) | Use a list of pairs. Each state is represented as a pair which stores the `currentStatePointer` of each book.
+|Pros| Easily scalable to include more than two books. AS the developer can simply add an extra `CommandType`
+and extra cases for switch statements.| Supports commands that change multiple books at once since it keeps track of all states.
+|Cons| Unable to handle commands that change multiple books at once. We assume that only one `currentStatePointer` can change per undo/redo.| Keeping a pair of integers takes up more memory as compared to keeping a single enum.
+|=======================================================================
+
 // end::undoredo[]
 
 // tag::setreminder[]

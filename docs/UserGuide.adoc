@@ -742,6 +742,8 @@ Examples:
 * `complete 1` +
 Marks the first request in the list as completed.
 
+// tag::undoredo[]
+// end::undoredo[]
 === Listing previous commands : `history`
 
 In the case where you have been using the application for a while now, and

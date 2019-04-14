@@ -29,36 +29,24 @@ public class RedoCommandTest {
         deleteFirstPerson(model);
         deleteFirstPerson(model);
         deleteFirstPerson(model);
-        model.undoAddressBook();
-        model.undoArchiveBook();
-        model.undoPinBook();
-        model.undoAddressBook();
-        model.undoArchiveBook();
-        model.undoPinBook();
+        model.undoBooks();
+        model.undoBooks();
 
         deleteFirstPerson(expectedModel);
         deleteFirstPerson(expectedModel);
         deleteFirstPerson(expectedModel);
-        expectedModel.undoAddressBook();
-        expectedModel.undoArchiveBook();
-        expectedModel.undoPinBook();
-        expectedModel.undoAddressBook();
-        expectedModel.undoArchiveBook();
-        expectedModel.undoPinBook();
+        expectedModel.undoBooks();
+        expectedModel.undoBooks();
     }
 
     @Test
     public void execute() {
         // multiple redoable states in model
-        expectedModel.redoAddressBook();
-        expectedModel.redoArchiveBook();
-        expectedModel.redoPinBook();
+        expectedModel.redoBooks();
         assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
 
         // single redoable state in model
-        expectedModel.redoAddressBook();
-        expectedModel.redoArchiveBook();
-        expectedModel.redoPinBook();
+        expectedModel.redoBooks();
         assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
 
         // no redoable state in model

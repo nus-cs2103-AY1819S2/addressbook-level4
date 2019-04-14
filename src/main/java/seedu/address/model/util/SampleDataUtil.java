@@ -27,21 +27,21 @@ import seedu.address.model.tag.Tag;
 public class SampleDataUtil {
     public static Person[] getSamplePersons() {
         return new Person[] {
-            new Buyer(new Name("Alex Yeoh"), new Phone("87438807"), new Email("alexyeoh@example.com"),
+            new Buyer(new Name("Alvin Quek"), new Phone("94563459"), new Email("alvinquek@example.com"),
                 new Remark("I am a buyer")),
-            new Seller(new Name("Bernice Yu"), new Phone("99272758"), new Email("berniceyu@example.com"),
+            new Seller(new Name("Bernard Chan"), new Phone("86495582"), new Email("bernardchan@example.com"),
                 new Remark("I am a seller"),
-                new Property(PropertyType.SELLING, new Address("Blk 131 Geylang East Ave 1, #06-40"),
+                new Property(PropertyType.SELLING, new Address("Block 321 Clementi Ave 5 #12-08 "),
                 new Price("750000"), getTagSet("MRT", "4Room"))),
-            new Landlord(new Name("Charlotte Oliveiro"), new Phone("93210283"), new Email("charlotte@example.com"),
+            new Landlord(new Name("Calvin Pratt"), new Phone("94226854"), new Email("calvinpratt@example.com"),
                 new Remark("I am a Landlord"),
-                new Property(PropertyType.RENTAL, new Address("Blk 11 Marsiling Dr, #11-04"),
+                new Property(PropertyType.RENTAL, new Address("Block 323 Clementi Ave 5 #11-12 "),
                 new Price("2500"), getTagSet("3Room"))),
-            new Tenant(new Name("David Li"), new Phone("91031282"), new Email("lidavid@example.com"),
+            new Tenant(new Name("Damon Khoo"), new Phone("98256372"), new Email("damonkhoo@example.com"),
                 new Remark("I am a tenant")),
-            new Buyer(new Name("Irfan Ibrahim"), new Phone("92492021"), new Email("irfan@example.com"),
+            new Buyer(new Name("Francis Chan"), new Phone("82569732"), new Email("francischan@example.com"),
                 new Remark("I am also a buyer")),
-            new Seller(new Name("Roy Balakrishnan"), new Phone("92624417"), new Email("royb@example.com"),
+            new Seller(new Name("Gillian Cook"), new Phone("87564931"), new Email("gilliancook@example.com"),
                 new Remark("I am also a seller"),
                 new Property(PropertyType.SELLING, new Address("Blk 444 Pasir Ris Dr 6, #01-43"),
                 new Price("500000"), getTagSet("4Room")))
@@ -50,13 +50,13 @@ public class SampleDataUtil {
 
     public static Person[] getSampleArchivedPersons() {
         return new Person[] {
-            new Buyer(new Name("James Lee"), new Phone("98765432"), new Email("jameslee@example.com"),
+            new Buyer(new Name("James Lee"), new Phone("92536734"), new Email("jameslee@example.com"),
                     new Remark("I am an archived buyer")),
-            new Seller(new Name("Tan Ah Beng"), new Phone("87654321"), new Email("tab@example.com"),
+            new Seller(new Name("Lee Yi Tian"), new Phone("86427462"), new Email("leeyitian@example.com"),
                     new Remark("I am an archived seller"), new Property(PropertyType.SELLING,
                     new Address("Blk 150 Tampines Street 12, #17-35"), new Price("500000"),
                     getTagSet("3Room", "new"))),
-            new Landlord(new Name("Ricky Young"), new Phone("91827364"), new Email("rickyoung@example.com"),
+            new Landlord(new Name("Ricky Young"), new Phone("95426123"), new Email("rickyoung@example.com"),
                     new Remark("I am an archived landlord"), new Property(PropertyType.RENTAL,
                     new Address("10 Ocean Drive"), new Price("10000"),
                     getTagSet("seaView", "bungalow"))),
@@ -65,13 +65,13 @@ public class SampleDataUtil {
 
     public static Person[] getSamplePinnedPersons() {
         return new Person[] {
-            new Buyer(new Name("Philip Fu"), new Phone("83070005"), new Email("philipfu@example.com"),
+            new Buyer(new Name("Philip Fu"), new Phone("85427482"), new Email("philipfu@example.com"),
                 new Remark("I am a pinned buyer")),
-            new Seller(new Name("Irwin King"), new Phone("83070006"), new Email("irwinking@example.com"),
+            new Seller(new Name("Irwin King"), new Phone("86258492"), new Email("irwinking@example.com"),
                 new Remark("I am a pinned seller"), new Property(PropertyType.SELLING,
                 new Address("Blk 345 Clementi Ave 5, #04-04"), new Price("600000"),
                 getTagSet("MRT", "4Room"))),
-            new Landlord(new Name("Jimmy Lee"), new Phone("83070007"), new Email("jimmylee@example.com"),
+            new Landlord(new Name("Jimmy Lee"), new Phone("95527572"), new Email("jimmylee@example.com"),
                 new Remark("I am a pinned landlord"), new Property(PropertyType.RENTAL,
                 new Address("Blk 346 Clementi Ave 5, #05-05"), new Price("2500"),
                 getTagSet("MRT", "4Room")))

@@ -52,9 +52,7 @@ public class EditCommandTest {
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()),
                 new AddressBook(model.getArchiveBook()), new AddressBook(model.getPinBook()), new UserPrefs());
         expectedModel.setPerson(model.getFilteredPersonList().get(0), editedPerson);
-        expectedModel.commitAddressBook();
-        expectedModel.commitArchiveBook();
-        expectedModel.commitPinBook();
+        expectedModel.commitBooks();
         expectedModel.setSelectedPerson(editedPerson);
 
         assertCommandSuccess(editCommand, model, commandHistory, expectedMessage, expectedModel);
@@ -77,9 +75,7 @@ public class EditCommandTest {
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()),
                 new AddressBook(model.getArchiveBook()), new AddressBook(model.getPinBook()), new UserPrefs());
         expectedModel.setPerson(lastPerson, editedPerson);
-        expectedModel.commitAddressBook();
-        expectedModel.commitArchiveBook();
-        expectedModel.commitPinBook();
+        expectedModel.commitBooks();
         expectedModel.setSelectedPerson(editedPerson);
 
         assertCommandSuccess(editCommand, model, commandHistory, expectedMessage, expectedModel);
@@ -94,9 +90,7 @@ public class EditCommandTest {
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()),
                 new AddressBook(model.getArchiveBook()), new AddressBook(model.getPinBook()), new UserPrefs());
-        expectedModel.commitAddressBook();
-        expectedModel.commitArchiveBook();
-        expectedModel.commitPinBook();
+        expectedModel.commitBooks();
         expectedModel.setSelectedPerson(editedPerson);
 
         assertCommandSuccess(editCommand, model, commandHistory, expectedMessage, expectedModel);
@@ -117,9 +111,7 @@ public class EditCommandTest {
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()),
                 new AddressBook(model.getArchiveBook()), new AddressBook(model.getPinBook()), new UserPrefs());
         expectedModel.setPerson(model.getFilteredPersonList().get(0), editedPerson);
-        expectedModel.commitAddressBook();
-        expectedModel.commitArchiveBook();
-        expectedModel.commitPinBook();
+        expectedModel.commitBooks();
         expectedModel.setSelectedPerson(editedPerson);
 
         assertCommandSuccess(editCommand, model, commandHistory, expectedMessage, expectedModel);
@@ -131,7 +123,7 @@ public class EditCommandTest {
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(firstPerson).build();
         EditCommand editCommand = new EditCommand(INDEX_SECOND_BUYER, descriptor);
 
-        assertCommandFailure(editCommand, model, commandHistory, EditCommand.MESSAGE_DUPLICATE_PERSON);
+        assertCommandFailure(editCommand, model, commandHistory, AddCommand.MESSAGE_DUPLICATE_PERSON);
     }
 
     @Test
@@ -143,7 +135,7 @@ public class EditCommandTest {
         EditCommand editCommand = new EditCommand(INDEX_FIRST_BUYER,
                 new EditPersonDescriptorBuilder(personInList).build());
 
-        assertCommandFailure(editCommand, model, commandHistory, EditCommand.MESSAGE_DUPLICATE_PERSON);
+        assertCommandFailure(editCommand, model, commandHistory, AddCommand.MESSAGE_DUPLICATE_PERSON);
     }
 
     @Test
@@ -181,24 +173,18 @@ public class EditCommandTest {
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()),
                 new AddressBook(model.getArchiveBook()), new AddressBook(model.getPinBook()), new UserPrefs());
         expectedModel.setPerson(personToEdit, editedPerson);
-        expectedModel.commitAddressBook();
-        expectedModel.commitArchiveBook();
-        expectedModel.commitPinBook();
+        expectedModel.commitBooks();
         expectedModel.setSelectedPerson(editedPerson);
 
         // edit -> first person edited
         editCommand.execute(model, commandHistory);
 
         // undo -> reverts addressbook back to previous state and filtered person list to show all persons
-        expectedModel.undoAddressBook();
-        expectedModel.undoArchiveBook();
-        expectedModel.undoPinBook();
+        expectedModel.undoBooks();
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
         // redo -> same first person edited again
-        expectedModel.redoAddressBook();
-        expectedModel.redoArchiveBook();
-        expectedModel.redoPinBook();
+        expectedModel.redoBooks();
         assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
@@ -234,26 +220,20 @@ public class EditCommandTest {
         showPersonAtIndex(model, INDEX_SECOND_BUYER);
         Person personToEdit = model.getFilteredPersonList().get(TypicalIndexes.INDEX_FIRST_BUYER.getZeroBased());
         expectedModel.setPerson(personToEdit, editedPerson);
-        expectedModel.commitAddressBook();
-        expectedModel.commitArchiveBook();
-        expectedModel.commitPinBook();
+        expectedModel.commitBooks();
         expectedModel.setSelectedPerson(editedPerson);
 
         // edit -> edits second person in unfiltered person list / first person in filtered person list
         editCommand.execute(model, commandHistory);
 
         // undo -> reverts addressbook back to previous state and filtered person list to show all persons
-        expectedModel.undoAddressBook();
-        expectedModel.undoArchiveBook();
-        expectedModel.undoPinBook();
+        expectedModel.undoBooks();
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
         assertNotEquals(model.getFilteredPersonList().get(TypicalIndexes.INDEX_FIRST_BUYER.getZeroBased()),
                 personToEdit);
         // redo -> edits same second person in unfiltered person list
-        expectedModel.redoAddressBook();
-        expectedModel.redoArchiveBook();
-        expectedModel.redoPinBook();
+        expectedModel.redoBooks();
         assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
     }
 

@@ -183,12 +183,42 @@ public class AddCommandTest {
         }
 
         @Override
+        public boolean hasPersonArchive(Person person) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasPersonPin(Person person) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public boolean hasEditedPerson(Person referencePerson, Person editedPerson) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
+        public boolean hasEditedPersonArchive(Person referencePerson, Person editedPerson) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasEditedPersonPin(Person referencePerson, Person editedPerson) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public boolean hasSameIdentityField(Person person) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasSameIdentityFieldArchive(Person person) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasSameIdentityFieldPin(Person person) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -253,60 +283,29 @@ public class AddCommandTest {
         }
 
         @Override
-        public boolean canUndoAddressBook() {
+        public boolean canUndoBooks() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public boolean canRedoAddressBook() {
+        public boolean canRedoBooks() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void undoAddressBook() {
+        public void undoBooks() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void redoAddressBook() {
+        public void redoBooks() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void commitAddressBook() {
+        public void commitBooks() {
             throw new AssertionError("This method should not be called.");
         }
-
-        @Override
-        public void undoArchiveBook() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void redoArchiveBook() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void commitArchiveBook() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void undoPinBook() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void redoPinBook() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void commitPinBook() {
-            throw new AssertionError("This method should not be called.");
-        }
-
 
         @Override
         public ReadOnlyProperty<Person> selectedPersonProperty() {
@@ -385,6 +384,18 @@ public class AddCommandTest {
         }
 
         @Override
+        public boolean hasPersonArchive(Person person) {
+            requireNonNull(person);
+            return personsAdded.stream().anyMatch(person::isSamePerson);
+        }
+
+        @Override
+        public boolean hasPersonPin(Person person) {
+            requireNonNull(person);
+            return personsAdded.stream().anyMatch(person::isSamePerson);
+        }
+
+        @Override
         public void addPerson(Person person) {
             requireNonNull(person);
             personsAdded.add(person);
@@ -396,18 +407,19 @@ public class AddCommandTest {
             return personsAdded.stream().anyMatch(person::hasSameIdentityField);
         }
 
-        @Override
-        public void commitAddressBook() {
-            // called by {@code AddCommand#execute()}
+        public boolean hasSameIdentityFieldArchive(Person person) {
+            requireNonNull(person);
+            return personsAdded.stream().anyMatch(person::hasSameIdentityField);
         }
 
         @Override
-        public void commitArchiveBook() {
-            // called by {@code AddCommand#execute()}
+        public boolean hasSameIdentityFieldPin(Person person) {
+            requireNonNull(person);
+            return personsAdded.stream().anyMatch(person::hasSameIdentityField);
         }
 
         @Override
-        public void commitPinBook() {
+        public void commitBooks() {
             // called by {@code AddCommand#execute()}
         }
 

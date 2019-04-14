@@ -42,9 +42,7 @@ public class ArchiveCommand extends Command {
 
         Person personToArchive = lastShownList.get(targetIndex.getZeroBased());
         model.archivePerson(personToArchive);
-        model.commitAddressBook();
-        model.commitArchiveBook();
-        model.commitPinBook();
+        model.commitBooks();
         model.setSelectedPerson(null);
         return new CommandResult(String.format(MESSAGE_ARCHIVE_PERSON_SUCCESS, personToArchive));
     }

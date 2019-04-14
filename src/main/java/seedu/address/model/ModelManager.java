@@ -140,6 +140,18 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public boolean hasPersonArchive(Person person) {
+        requireNonNull(person);
+        return versionedArchiveBook.hasPerson(person);
+    }
+
+    @Override
+    public boolean hasPersonPin(Person person) {
+        requireNonNull(person);
+        return versionedPinBook.hasPerson(person);
+    }
+
+    @Override
     public boolean hasEditedPerson(Person referencePerson, Person editedPerson) {
         requireNonNull(referencePerson);
         requireNonNull(editedPerson);
@@ -147,9 +159,35 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public boolean hasEditedPersonArchive(Person referencePerson, Person editedPerson) {
+        requireNonNull(referencePerson);
+        requireNonNull(editedPerson);
+        return versionedArchiveBook.hasEditedPerson(referencePerson, editedPerson);
+    }
+
+    @Override
+    public boolean hasEditedPersonPin(Person referencePerson, Person editedPerson) {
+        requireNonNull(referencePerson);
+        requireNonNull(editedPerson);
+        return versionedPinBook.hasEditedPerson(referencePerson, editedPerson);
+    }
+
+    @Override
     public boolean hasSameIdentityField(Person person) {
         requireNonNull(person);
         return versionedAddressBook.hasSameIdentityField(person);
+    }
+
+    @Override
+    public boolean hasSameIdentityFieldArchive(Person person) {
+        requireNonNull(person);
+        return versionedArchiveBook.hasSameIdentityField(person);
+    }
+
+    @Override
+    public boolean hasSameIdentityFieldPin(Person person) {
+        requireNonNull(person);
+        return versionedPinBook.hasSameIdentityField(person);
     }
 
     @Override
@@ -276,57 +314,33 @@ public class ModelManager implements Model {
     //=========== Undo/Redo =================================================================================
 
     @Override
-    public boolean canUndoAddressBook() {
+    public boolean canUndoBooks() {
         return versionedAddressBook.canUndo();
     }
 
     @Override
-    public boolean canRedoAddressBook() {
+    public boolean canRedoBooks() {
         return versionedAddressBook.canRedo();
     }
 
     @Override
-    public void undoAddressBook() {
+    public void undoBooks() {
         versionedAddressBook.undo();
-    }
-
-    @Override
-    public void redoAddressBook() {
-        versionedAddressBook.redo();
-    }
-
-    @Override
-    public void commitAddressBook() {
-        versionedAddressBook.commit();
-    }
-
-    @Override
-    public void undoArchiveBook() {
         versionedArchiveBook.undo();
-    }
-
-    @Override
-    public void redoArchiveBook() {
-        versionedArchiveBook.redo();
-    }
-
-    @Override
-    public void commitArchiveBook() {
-        versionedArchiveBook.commit();
-    }
-
-    @Override
-    public void undoPinBook() {
         versionedPinBook.undo();
     }
 
     @Override
-    public void redoPinBook() {
+    public void redoBooks() {
+        versionedAddressBook.redo();
+        versionedArchiveBook.redo();
         versionedPinBook.redo();
     }
 
     @Override
-    public void commitPinBook() {
+    public void commitBooks() {
+        versionedAddressBook.commit();
+        versionedArchiveBook.commit();
         versionedPinBook.commit();
     }
 

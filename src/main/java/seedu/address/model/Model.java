@@ -95,14 +95,44 @@ public interface Model {
     boolean hasPerson(Person person);
 
     /**
+     * Returns true if a person with the same identity as {@code person} exists in the archive book.
+     */
+    boolean hasPersonArchive(Person person);
+
+    /**
+     * Returns true if a person with the same identity as {@code person} exists in the pin book.
+     */
+    boolean hasPersonPin(Person person);
+
+    /**
      * Returns true if a person with the same identity as {@code editedPerson} exists in the address book.
      */
     boolean hasEditedPerson(Person referencePerson, Person editedPerson);
 
     /**
-     * Returns true if a person with the same identity as {@code toAdd} exists in the address book.
+     * Returns true if a person with the same identity as {@code editedPerson} exists in the archive book.
+     */
+    boolean hasEditedPersonArchive(Person referencePerson, Person editedPerson);
+
+    /**
+     * Returns true if a person with the same identity as {@code editedPerson} exists in the pin book.
+     */
+    boolean hasEditedPersonPin(Person referencePerson, Person editedPerson);
+
+    /**
+     * Returns true if a person with the same identity as {@code person} exists in the address book.
      */
     boolean hasSameIdentityField(Person person);
+
+    /**
+     * Returns true if a person with the same identity as {@code person} exists in the archive book.
+     */
+    boolean hasSameIdentityFieldArchive(Person person);
+
+    /**
+     * Returns true if a person with the same identity as {@code person} exists in the pin book.
+     */
+    boolean hasSameIdentityFieldPin(Person person);
 
     /**
      * Deletes the given person.
@@ -175,59 +205,29 @@ public interface Model {
     void updateFilteredPinnedPersonList(Predicate<Person> predicate);
 
     /**
-     * Returns true if the model has previous address book states to restore.
+     * Returns true if the model has previous book states to restore.
      */
-    boolean canUndoAddressBook();
+    boolean canUndoBooks();
 
     /**
-     * Returns true if the model has undone address book states to restore.
+     * Returns true if the model has undone book states to restore.
      */
-    boolean canRedoAddressBook();
+    boolean canRedoBooks();
 
     /**
-     * Restores the model's address book to its previous state.
+     * Restores all the model's books to its previous state.
      */
-    void undoAddressBook();
+    void undoBooks();
 
     /**
-     * Restores the model's address book to its previously undone state.
+     * Restores all the model's books to its previously undone state.
      */
-    void redoAddressBook();
+    void redoBooks();
 
     /**
-     * Saves the current address book state for undo/redo.
+     * Saves the current book states for undo/redo.
      */
-    void commitAddressBook();
-
-    /**
-     * Restores the model's archive book to its previous state.
-     */
-    void undoArchiveBook();
-
-    /**
-     * Restores the model's archive book to its previously undone state.
-     */
-    void redoArchiveBook();
-
-    /**
-     * Saves the current archive book state for undo/redo.
-     */
-    void commitArchiveBook();
-
-    /**
-     * Restores the model's pin book to its previous state.
-     */
-    void undoPinBook();
-
-    /**
-     * Restores the model's pin book to its previously undone state.
-     */
-    void redoPinBook();
-
-    /**
-     * Saves the current pin book state for undo/redo.
-     */
-    void commitPinBook();
+    void commitBooks();
 
     /**
      * Selected person in the filtered person list.

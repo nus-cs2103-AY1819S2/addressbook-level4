@@ -13,6 +13,7 @@ import java.util.regex.Pattern;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.ArchiveClearCommand;
 import seedu.address.logic.commands.ArchiveCommand;
+import seedu.address.logic.commands.ArchiveFindCommand;
 import seedu.address.logic.commands.ArchiveListCommand;
 import seedu.address.logic.commands.ArchiveSelectCommand;
 import seedu.address.logic.commands.ClearCommand;
@@ -49,26 +50,28 @@ public class AddressBookParser {
      * @param arguments arguments of user input string
      * @throws ParseException if the user input parameters that contains keywords
      */
-     public void dealArguments(String arguments) throws ParseException {
+    public void dealArguments(String arguments) throws ParseException {
 
-         String[] commandList = {"help", "add", "list", "select", "edit", "delete", "clear", "pin", "unpin", "pinselect",
-                 "archive", "archivelist", "archiveselect", "unarchive", "archiveclear", "history",
-                 "redo", "undo", "exit", "find"};
+        String[] commandList = {"help", "add", "list", "select", "edit", "delete", "clear", "pin", "unpin", "pinselect",
+                                "archive", "archivelist", "archiveselect", "unarchive", "archiveclear", "archivefind",
+                                "history", "redo", "undo", "exit", "find"};
 
-         ArrayList<String> command = new ArrayList<>(Arrays.asList(commandList));
-         Iterator<String> iterator = command.iterator();
-         StringTokenizer st = new StringTokenizer(arguments);
 
-         while (st.hasMoreTokens()) {
-             String t = st.nextToken();
-             while (iterator.hasNext()) {
-                 String s = iterator.next();
-                 if (s.equals(t)) {
-                     throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
-                 }
-             }
-         }
-     }
+        ArrayList<String> command = new ArrayList<>(Arrays.asList(commandList));
+        Iterator<String> iterator = command.iterator();
+
+        StringTokenizer st = new StringTokenizer(arguments);
+
+        while (st.hasMoreTokens()) {
+            String t = st.nextToken();
+            while (iterator.hasNext()) {
+                String s = iterator.next();
+                if (s.equals(t)) {
+                    throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
+                }
+            }
+        }
+    }
 
     /**
      * Parses user input into command for execution.
@@ -127,6 +130,9 @@ public class AddressBookParser {
         case ArchiveClearCommand.COMMAND_WORD:
             dealArguments(arguments);
             return new ArchiveClearCommand();
+
+        case ArchiveFindCommand.COMMAND_WORD:
+            return new ArchiveFindCommandParser().parse(arguments);
 
         case UnarchiveCommand.COMMAND_WORD:
             return new UnarchiveCommandParser().parse(arguments);

@@ -231,7 +231,7 @@ public class ModelManager implements Model {
     public void unarchivePerson(Person target) {
         versionedAddressBook.addPerson(target);
         versionedArchiveBook.removePerson(target);
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        updateFilteredArchivedPersonList(PREDICATE_SHOW_ALL_PERSONS);
     }
 
     //=========== PinBook ====================================================================================

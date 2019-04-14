@@ -102,19 +102,20 @@ public class MarkAppointmentCommand extends Command {
                     patientToChange.changeAppointmentStatus(changedStatus);
             model.setPatient(patientToChange, changedPatient);
             model.commitDocX();
-        }
 
-        // find whether the patient has any other active appointments
-        ListIterator<Appointment> appointmentListIterator = lastShownList.listIterator();
-        while (appointmentListIterator.hasNext()) {
-            Appointment currentAppointment = appointmentListIterator.next();
+            // find whether the patient has any other active appointments
+            ListIterator<Appointment> appointmentListIterator = lastShownList.listIterator();
+            while (appointmentListIterator.hasNext()) {
+                Appointment currentAppointment = appointmentListIterator.next();
 
-            if (currentAppointment.getPatient().equals(patientToChange)
-                    && currentAppointment.getAppointmentStatus().equals(AppointmentStatus.ACTIVE)) {
-                Patient changedPatient =
-                        patientToChange.changeAppointmentStatus(AppointmentStatus.ACTIVE);
-                model.setPatient(patientToChange, changedPatient);
-                model.commitDocX();
+                if (currentAppointment.getPatient().equals(patientToChange)
+                        && currentAppointment.getAppointmentStatus().equals(AppointmentStatus.ACTIVE)) {
+                    changedPatient =
+                            patientToChange.changeAppointmentStatus(AppointmentStatus.ACTIVE);
+                    model.setPatient(patientToChange, changedPatient);
+                    model.commitDocX();
+                    break;
+                }
             }
         }
     }

@@ -21,6 +21,8 @@ public class Patient extends Person {
     private final Age age;
     private final Address address;
     private final Set<Tag> tags = new HashSet<>();
+
+    // Additional details
     private AppointmentStatus appointmentStatus;
 
     /**
@@ -92,8 +94,7 @@ public class Patient extends Person {
     }
 
     /**
-     * Returns true if both patients are of the same name
-     * and their phone number are the same.
+     * Returns true if both patients have the same phone number.
      * This defines a weaker notion of equality between two patients.
      */
     public boolean isSamePatient(Patient otherPatient) {

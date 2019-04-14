@@ -7,7 +7,7 @@
 [PROFILE]
 ====
 --
-image::jackimaru96_pp.png[120,120,float="left"]
+image::jackimaru96_pp.png[120,110,float="left"]
 --
 This page aims to showcase my contributions to the project
 *In-Credit-Ble* under module _CS2103T_. I will be giving you an introduction to *In-Credit-Ble*,
@@ -16,11 +16,11 @@ Development Guide (DG) that I documented.
 
 This project was developed with the following utilities:
 --
-image::github_icon.png[65,50,float="left"]
-image::java.png[70,50,float="left"]
-image::junit5-logo.png[66,50,float="left"]
-image::json.png[67,50, float="left"]
-image::travis.png[66,60]
+image::github_icon.png[65,70,float="left"]
+image::java.png[70,70,float="left"]
+image::junit5-logo.png[66,70,float="left"]
+image::json.png[67,70, float="left"]
+image::travis.png[66,70]
 --
 ====
 
@@ -133,13 +133,14 @@ To allow users to get started with our application with ease, I've created the `
 `Graphical User Interface Introduction` (GUI) sections.
 
 Due to page limit constraints, I will only be listing a part of the `Graphical User Interface Introduction`.
-To see the rest of the contributions I made to the User Guide, click the below link.
+To see the rest of the contributions I made to the User Guide, click the below links.
 
 1) https://github.com/CS2103-AY1819S2-W17-3/main/blob/master/docs/UserGuide.adoc#quick-start[Quick Start] +
 2) https://github.com/CS2103-AY1819S2-W17-3/main/blob/master/docs/UserGuide.adoc#graphical-user-interface-introduction[Graphical User Interface Introduction]
 ====
 
-include::../UserGuide.adoc[tag=userinterface]
+include::../UserGuide.adoc[tag=userinterface1]
+include::../UserGuide.adoc[tag=userinterface2]
 
 ---
 

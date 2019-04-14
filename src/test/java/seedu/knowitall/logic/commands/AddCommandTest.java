@@ -156,7 +156,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void testCardFolder() {
+        public void startTestSession() {
             throw new AssertionError("This method should not be called.");
         }
 

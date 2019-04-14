@@ -14,7 +14,7 @@ import seedu.knowitall.model.card.Card;
 import seedu.knowitall.model.card.Option;
 
 /**
- * The Browser Panel of the App.
+ * The Browser Panel to display contents of the selected card of the App.
  */
 public class BrowserPanel extends UiPart<Region> {
 
@@ -42,7 +42,7 @@ public class BrowserPanel extends UiPart<Region> {
     public BrowserPanel(ObservableValue<Card> selectedCard) {
         super(FXML);
 
-        // To prevent triggering events for typing inside the loaded Web page.
+        // To prevent triggering events for typing inside the loaded card page.
         getRoot().setOnKeyPressed(Event::consume);
 
         // Load card page when selected card changes.
@@ -66,7 +66,7 @@ public class BrowserPanel extends UiPart<Region> {
 
         cardQuestion.setText(card.getQuestion().fullQuestion);
         answer.setText(card.getAnswer().fullAnswer);
-        score.setText("Score: " + card.getScore().toString());
+        score.setText("Score: " + (int) (100 * card.getScore().getAsDouble()) + "%");
         // Set empty string for hint and options by default
         hint.setText("");
         if (!card.getHints().isEmpty()) {

@@ -49,6 +49,11 @@ done to permit only certain commands and ban others.
 
 * Enhancements to features:
 ** Wrote additional tests for new features to increase coverage from 79% to 81% (Pull requests https://github.com/cs2103-ay1819s2-w10-4/main/pull/74[#74])
+** Refactor existing status bar to display the current state of the user (whether user is in a test session, in a
+report display, in a folder or in home directory) instead of the last saved location and time and corresponding tests
+are written (Pull requests https://github.com/cs2103-ay1819s2-w10-4/main/pull/162[#162])
+** Updated UI colour scheme to enhance aesthetics as well as clarity of Know-It-All (Pull requests https://github.com/cs2103-ay1819s2-w10-4/main/pull/162[#162], https://github.com/cs2103-ay1819s2-w10-4/main/pull/166[#166],
+https://github.com/cs2103-ay1819s2-w10-4/main/pull/174[#174])
 
 * Documentation:
 ** User guide: I updated the QuickStart section, added new features, remove previous addressbook features and modify
@@ -67,7 +72,9 @@ https://github.com/cs2103-ay1819s2-w10-4/main/pull/65[#65] (suggested another me
 https://github.com/cs2103-ay1819s2-w10-4/main/pull/46[#46] (explained why travis CI was failing)
 ** Conducted manual testing, reported bugs and offered suggestions for our team: https://github.com/cs2103-ay1819s2-w10-4/main/issues/117[#117], https://github.com/cs2103-ay1819s2-w10-4/main/issues/119[#119],
 https://github.com/cs2103-ay1819s2-w10-4/main/issues/120[#120], https://github.com/cs2103-ay1819s2-w10-4/main/issues/121[#121], https://github.com/cs2103-ay1819s2-w10-4/main/issues/123[#123], https://github.com/cs2103-ay1819s2-w10-4/main/issues/124[#124],
-https://github.com/cs2103-ay1819s2-w10-4/main/issues/125[#125]
+https://github.com/cs2103-ay1819s2-w10-4/main/issues/125[#125], https://github.com/cs2103-ay1819s2-w10-4/main/issues/134[#134]
+** Conducted manual testing and reported bugs for other teams in class: https://github.com/CS2103-AY1819S2-W14-1/main/issues/170[#170], https://github.com/CS2103-AY1819S2-W14-1/main/issues/158[#158],
+https://github.com/CS2103-AY1819S2-W14-1/main/issues/165[#165], https://github.com/CS2103-AY1819S2-W14-1/main/issues/145[#145]
 
 == Contributions to the User Guide
 We had to update the original addressbook User Guide with instructions for Know-It-All enhancements that we
@@ -79,9 +86,14 @@ include::../UserGuide.adoc[tag=testoperations]
 [[contributionstodevguide]]
 == Contributions to the Developer Guide
 Besides updating the original addressbook User Guide, Developer Guide has to be updated to Know-It-All context and
-features as well. The following section is an excerpt from our updated Know-It-All Developer Guide about the
-implementation details and design considerations for the test session feature.
+features as well. The following section is an excerpt from our updated Know-It-All Developer Guide about UI Component
+ and the implementation details and design considerations for the test session feature.
 
-include::../DeveloperGuide.adoc[tag=testcommand]
-include::../DeveloperGuide.adoc[tag=testcommanddesign]
+include::../DeveloperGuide.adoc[tag=UIdesign]
+include::../DeveloperGuide.adoc[tag=testsession]
 
+=== Use Cases
+include::../DeveloperGuide.adoc[tag=testsessionusecases]
+
+=== Instructions for Manual Testing
+include::../DeveloperGuide.adoc[tag=testmanualtesting]

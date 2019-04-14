@@ -7,6 +7,7 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.person.GenderContainsKeywordsPredicate;
 import seedu.address.model.person.MajorContainsKeywordsPredicate;
+import seedu.address.model.person.TagsContainsKeywordsPredicate;
 import seedu.address.model.person.YearOfStudyContainsKeywordsPredicate;
 
 
@@ -26,6 +27,7 @@ public class MemberFilterCommand extends MemberCommand {
     public final YearOfStudyContainsKeywordsPredicate yearOfStudyPredicate;
     public final MajorContainsKeywordsPredicate majorPredicate;
     public final GenderContainsKeywordsPredicate genderPredicate;
+    public final TagsContainsKeywordsPredicate tagsPredicate;
 
     public MemberFilterCommand(String[] input) {
         requireNonNull(input[0]);
@@ -33,6 +35,7 @@ public class MemberFilterCommand extends MemberCommand {
         this.input = input;
         this.majorPredicate = new MajorContainsKeywordsPredicate(input[1]);
         this.genderPredicate = new GenderContainsKeywordsPredicate(input[1]);
+        this.tagsPredicate = new TagsContainsKeywordsPredicate(input[1]);
         this.yearOfStudyPredicate =
                 new YearOfStudyContainsKeywordsPredicate(input[1]);
     }
@@ -46,6 +49,8 @@ public class MemberFilterCommand extends MemberCommand {
             model.updateFilteredPersonList(majorPredicate);
         } else if (input[0].equalsIgnoreCase("yearofstudy")) {
             model.updateFilteredPersonList(yearOfStudyPredicate);
+        } else if (input[0].equalsIgnoreCase("tags")) {
+            model.updateFilteredPersonList(tagsPredicate);
         }
 
         model.getFilteredPersonList();

@@ -259,19 +259,21 @@ The following sequence diagram shows how add appointment works on a high level:
 
 image::AddAppointmentSequenceDiagram.png[width="800"]
 
-Steps: +
-1. When a user enters an add appointment command, the input is first validated by `AddAppointmentCommandParser`.
+
+Steps:
+
+. When a user enters an add appointment command, the input is first validated by `AddAppointmentCommandParser`.
 Here, inputs that do not require access to the model is validated, such as ensuring patient ID, doctor ID, date and time are of the correct format, as well as ensuring the appointment is in the future.
 A new `AddAppointmentCommand` object is created.
 
-2. The Logic layer then executes the `AddAppointmentCommand`. Here, the appointment is checked against existing appointments in the model to ensure there are no duplicates.
+. The Logic layer then executes the `AddAppointmentCommand`. Here, the appointment is checked against existing appointments in the model to ensure there are no duplicates.
 The appointment object is then sent to the model layer.
 
-3. The model adds the appointment to its internal list, and the UI layer is notified and updated through an `InvalidationListener`.
+. The model adds the appointment to its internal list, and the UI layer is notified and updated through an `InvalidationListener`.
 
-4. The Logic layer then stores the new appointment to disk using the Storage layer.
+. The Logic layer then stores the new appointment to disk using the Storage layer.
 The Storage layer will convert the appointment Java object into the JSON file format using the format specified in `JsonAdaptedAppointment`.
-The next time the application is opened, the Storage layer will use `JsonAdaptedAppointment` again to convert appointments in the JSON file back in appointment objects.
+The next time the application is opened, the Storage layer will use `JsonAdaptedAppointment` again to convert appointments in the JSON file back into appointment objects.
 
 // tag::dataencryption[]
 === [Proposed] Data Encryption

@@ -54,20 +54,33 @@ Here are the code contributions that I have made. [https://github.com/CS2103-AY1
 *** Managed labels, milestones and issues for issue tracking on GitHub.
 
 ** Documentation:
-*** Wrote features implemented for the User Guide: https://github.com/CS2103-AY1819S2-W14-2/main/pull/58[#58]
-*** Wrote model and features for the Developer Guide: https://github.com/CS2103-AY1819S2-W14-2/main/pull/129[#129]
+*** Wrote features implemented for the User Guide: https://github.com/CS2103-AY1819S2-W14-2/main/pull/58[#58],
+https://github.com/CS2103-AY1819S2-W14-2/main/pull/142[#142]
+*** Wrote features implemented and User Stories for the Developer Guide: https://github.com/CS2103-AY1819S2-W14-2/main/pull/129[#129],
+https://github.com/CS2103-AY1819S2-W14-2/main/pull/244[#244]
+
 ** Community:
-*** Pull requests reviewed (with non-trivial comments): https://github.com/CS2103-AY1819S2-W14-2/main/pull/39[#39],
+*** Reviewed pull requests:
+https://github.com/CS2103-AY1819S2-W14-2/main/pull/39[#39],
 https://github.com/CS2103-AY1819S2-W14-2/main/pull/239[#239],
 https://github.com/CS2103-AY1819S2-W14-2/main/pull/242[#242],
 https://github.com/CS2103-AY1819S2-W14-2/main/pull/247[#247]
 *** Reported bugs and provided solutions to team:
+https://github.com/CS2103-AY1819S2-W14-2/main/issues/70[#70],
 https://github.com/CS2103-AY1819S2-W14-2/main/issues/89[#89],
-https://github.com/CS2103-AY1819S2-W14-2/main/issues/93[#93],  https://github.com/CS2103-AY1819S2-W14-2/main/issues/70[#70],
+https://github.com/CS2103-AY1819S2-W14-2/main/issues/93[#93],
 https://github.com/CS2103-AY1819S2-W14-2/main/issues/103[#103],
 https://github.com/CS2103-AY1819S2-W14-2/main/issues/128[#128],
 https://github.com/CS2103-AY1819S2-W14-2/main/issues/159[#159],
 https://github.com/CS2103-AY1819S2-W14-2/main/issues/189[#189]
+*** Raised core issues:
+https://github.com/CS2103-AY1819S2-W14-2/main/issues/32[#32],
+https://github.com/CS2103-AY1819S2-W14-2/main/issues/63[#63],
+https://github.com/CS2103-AY1819S2-W14-2/main/issues/64[#64],
+https://github.com/CS2103-AY1819S2-W14-2/main/issues/71[#71],
+https://github.com/CS2103-AY1819S2-W14-2/main/issues/114[#114],
+https://github.com/CS2103-AY1819S2-W14-2/main/issues/160[#160],
+https://github.com/CS2103-AY1819S2-W14-2/main/issues/224[#224]
 
 
 == Contributions to the User Guide
@@ -76,6 +89,8 @@ https://github.com/CS2103-AY1819S2-W14-2/main/issues/189[#189]
 |===
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
+
+include::../UserGuide.adoc[tag=FeaturesHeader]
 
 include::../UserGuide.adoc[tag=ListAndOpen]
 
@@ -88,13 +103,8 @@ include::../UserGuide.adoc[tag=UserSave]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=DesignModel]
-
 include::../DeveloperGuide.adoc[tag=OpenAndListFiles]
 
 include::../DeveloperGuide.adoc[tag=Save]
 
 include::../DeveloperGuide.adoc[tag=UserStories]
-
-
-

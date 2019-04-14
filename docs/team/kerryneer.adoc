@@ -98,6 +98,8 @@ include::../DeveloperGuide.adoc[tag=UIdesign]
 
 include::../DeveloperGuide.adoc[tag=testcommand]
 
+include::../DeveloperGuide.adoc[tag=testdesign]
+
 === Use Cases
 include::../DeveloperGuide.adoc[tag=testsessionusecases]
 

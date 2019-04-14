@@ -169,28 +169,23 @@ Steps:
 . You have a newly downloaded .csv lesson file, `new_lesson.csv`, with no lessons currently loaded.
 +
 .A new lesson file.
-[#img-csv]
 image::reloadLessons_0_csv.png[]
 .No lessons are currently loaded.
-[#img-csv]
 image::reloadLessons_1_empty.png[]
 
 . You drag the new file into the `/lessons/` folder.
 +
 .Dragging the file.
-[#img-csv]
 image::reloadLessons_2_drag.png[]
 
 . You enter `reloadLessons` into the app, and the new lesson appears.
 +
 .Reloading lessons.
-[#img-csv]
 image::reloadLessons_3_reload.png[]
 
 . You verify again with `listLessons`.
 +
 .New lesson has been loaded.
-[#img-csv]
 image::reloadLessons_4_list.png[]
 
 [NOTE]

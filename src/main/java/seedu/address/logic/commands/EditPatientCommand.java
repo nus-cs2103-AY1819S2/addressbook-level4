@@ -194,7 +194,6 @@ public class EditPatientCommand extends Command {
             return Optional.ofNullable(phone);
         }
 
-
         public void setAddress(Address address) {
             this.address = address;
         }

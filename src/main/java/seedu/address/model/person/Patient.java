@@ -32,7 +32,7 @@ public class Patient extends Person {
         this.age = age;
         this.address = address;
         this.tags.addAll(tags);
-        this.appointmentStatus = AppointmentStatus.ACTIVE;
+        this.appointmentStatus = AppointmentStatus.COMPLETED;
     }
 
     /**
@@ -45,7 +45,7 @@ public class Patient extends Person {
         this.age = age;
         this.address = address;
         this.tags.addAll(tags);
-        this.appointmentStatus = AppointmentStatus.ACTIVE;
+        this.appointmentStatus = AppointmentStatus.COMPLETED;
     }
 
     /**

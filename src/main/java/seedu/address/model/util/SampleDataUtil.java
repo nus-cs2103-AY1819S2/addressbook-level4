@@ -10,6 +10,7 @@ import seedu.address.model.appointment.Appointment;
 import seedu.address.model.appointment.AppointmentDate;
 import seedu.address.model.appointment.AppointmentDoctorId;
 import seedu.address.model.appointment.AppointmentPatientId;
+import seedu.address.model.appointment.AppointmentStatus;
 import seedu.address.model.appointment.AppointmentTime;
 import seedu.address.model.appointment.FutureAppointment;
 import seedu.address.model.medicalhistory.MedicalHistory;
@@ -35,10 +36,10 @@ public class SampleDataUtil {
         return new Patient[] {
             new Patient(new Name("Tan Ah Ming"), new Gender("M"), new Age("29"), new Phone("87438807"),
                 new Address("Blk 30 Geylang Street 29 #06-40"),
-                getTagSet("foodpoisoning", "heatstroke")),
+                getTagSet("foodpoisoning", "heatstroke")).changeAppointmentStatus(AppointmentStatus.ACTIVE),
             new Patient(new Name("Bernice Yu Ye Sim"), new Gender("F"), new Age("23"), new Phone("99272758"),
                 new Address("Blk 30 Lorong 3 Serangoon Gardens #07-18"),
-                getTagSet("highbloodpressure", "stroke")),
+                getTagSet("highbloodpressure", "stroke")).changeAppointmentStatus(AppointmentStatus.ACTIVE),
             new Patient(new Name("David Li"), new Gender("M"), new Age("53"), new Phone("91031282"),
                 new Address("Blk 436 Serangoon Gardens Street 26 #16-43"),
                 getTagSet("diabetes", "fever", "lungcancer")),
@@ -141,7 +142,7 @@ public class SampleDataUtil {
         appointments[1] = appointment2;
         appointments[2] = appointment3;
         appointments[3] = appointment4;
-
+        
         return appointments;
     }
 }

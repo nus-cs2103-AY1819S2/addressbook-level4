@@ -11,7 +11,7 @@ import seedu.address.model.modelmanager.Model;
 import seedu.address.model.modelmanager.QuizModel;
 
 /**
- * Force quits quiz while it is still ongoing
+ * Force quits quiz while it is still not yet completed.
  */
 public class QuizQuitCommand extends QuizCommand {
     public static final String COMMAND_WORD = "\\quit";

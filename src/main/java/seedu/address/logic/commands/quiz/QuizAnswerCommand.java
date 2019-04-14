@@ -11,7 +11,7 @@ import seedu.address.model.quiz.QuizCard;
 import seedu.address.model.quiz.QuizMode;
 
 /**
- * Processes user answer
+ * Processes user answer.
  */
 public class QuizAnswerCommand extends QuizCommand {
     public static final String COMMAND_WORD = "answer";

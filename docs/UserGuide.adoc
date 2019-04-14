@@ -19,7 +19,7 @@ By: `Team 15-3`      Since: `Feb 2019`      Licence: `MIT`
 
 == Introduction
 
-slaveFinder() is a resume management software for those who *prefer to use a desktop app for managing contacts*. More importantly, slaveFinder() is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, slaveFinder() can get your resume management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+slaveFinder() is a resume management software for those who *prefer to use a desktop app for managing resumes*. More importantly, slaveFinder() is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, slaveFinder() can get your resume management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
 
 == Quick Start
 
@@ -420,7 +420,7 @@ Shows all persons in Interview List in Job Detail Screen.
 
 ==== Display Analytics : `analytics`
 
-Display the analytics of applicants for desired job list (applicant, kiv, interview, shortlist) or all applicants
+Display the analytics of applicants for desired job list (applicant, kiv, interview, shortlist) or all applicants. +
 Format : `analytics LISTNAME` or  `analytics` (for all applicants)
 
 ****
@@ -438,8 +438,8 @@ Examples:
 * `analytics kiv`
 * `analytics`
 
-
 === Schedule Interviews and Generate Final Report Related Features
+
 // tag::interviews[]
 ==== Generate Interview Dates : `generateInterviews`
 
@@ -463,6 +463,37 @@ Sets the block out dates(unavailable dates) which the interviewer is not availab
 ==== Show interviews dates : `showInterviews`
 
 Shows the list of dates which the interviewees in slaveFinder() are assigned.
+
+==== Select people into "Interview" List: `selectInterview` `Coming in v2.0`
+
+Select people from display board to the Job Hiring Process's "Interviewed" list +
+Format : `selectInterview [INDEX] [INDEX-INDEX] [all]`
+
+****
+* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
+* At least one of the optional fields must be provided.
+* You can add all people on the Person Display List to the "Interview" list by using `all` parameter.
+****
+
+Examples:
+
+* `selectInterview 2-10` +
+Selects the 2nd person to 10th people to the "Interview" list.
+* `selectInterview 2 4`
+Selects the 2nd person and 4th people to the "Interview" list.
+* `selectInterview all`
+Selects all the people on the Person Display List to the "Interview" list.
+
+==== Select people into "To be sent to boss" List: `selectfinal` `Coming in v2.0`
+
+Select people from display board to the Job Hiring Process's "To be sent to boss" List +
+Format : `selectInterview [INDEX] [INDEX-INDEX] [all]`
+
+****
+* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
+* At least one of the optional fields must be provided.
+* You can add all people on the Person Display List to the "To be sent to boss" list by using `all` parameter.
+****
 
 // end::interviews[]
 
@@ -533,8 +564,6 @@ Format: `exit`
 
 Address book data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
-
-
 
 == FAQ
 

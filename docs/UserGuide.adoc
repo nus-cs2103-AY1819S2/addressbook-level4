@@ -143,24 +143,30 @@ Refer to <<EquipmentPara>> to understand each equipment's parameter when adding 
 Equipment that has overdue preventative maintenance dates are allowed to be added for tracking purposes.
 
 [TIP]
-As seen in the image below, under *Equipment details* panel, duplicated client details such as name, phone, address could be added and displayed because the details refer to a client's details who owns multiple equipments as long as the serial numbers of equipment are different.
-
-
-[TIP]
-As seen in the image below, under *Client details* panel, duplicated client names will not appear in the panel because the *Client details* panel will only show distinct number of clients in the *Equipment Manager*.
+As seen in <<duplicate>> below, under *Equipment details* panel, duplicated client details such as name, phone, address could be added and displayed because the details refer to a client's details who owns multiple equipments as long as the serial numbers of equipment are different. +
+Under *Client details* panel, duplicated client names will not appear in the panel because the *Client details* panel will only show distinct number of clients in the *Equipment Manager*.
 
 
 Example:
 
-The following shows user adding 1 equipment that is own by the client called  Serangoon CC
+The following shows user adding 1 equipment that is own by the client called Serangoon CC.
 
-* `add-e n/Serangon CC p/64738499 pm/11-06-2019 a/10 Serangoon North Ave 2, Singapore 555877 s/A0293838X t/north-east`
+* `add-e n/Serangon CC p/64738499 pm/11-06-2019 a/10 Serangoon North Ave 2, Singapore 555877 s/A0293838X t/northeast`
+
+.UI Result after adding an equipment own by Serangoon CC
+image::SerangoonCC.png[width="800"]
 
 
-The following shows user adding 2 equipments that are own by the same client called  Clementi CC
+The following shows user adding 2 equipments that are own by the same client called  Pending CC.
+Under *Equipment details* panel, 2 equipments of the same name Pending CC are displayed. Only the serial number is different which indicates 2 different equipment owned by Pending CC.
+Under *Client details* panel, Pending CC is added to the panel after entering the `add-e` command.
 
-* `add-e n/Clementi CC p/67762517 pm/10-06-2019  a/220 Clementi Ave 4, Singapore 129880 s/A008844L t/west` +
-`add-e n/Clementi CC p/67762517 pm/10-06-2019 a/220 Clementi Ave 4, Singapore 129880 s/A007723L t/west`
+* `add-e n/Pending CC p/65060900 pm/22-04-2019 a/8 Pending Rd, Singapore 678295 s/A23234567X t/northwest` +
+`add-e n/Pending CC p/65060900 pm/22-04-2019 a/8 Pending Rd, Singapore 678295 s/61672453X t/northwest`
+
+[[duplicate]]
+.UI Result after adding 2 equipments owned by the same client
+image::PendingCC.png[width="800"]
 
 === Creating a new work list: `add-w`
 Create a worklist in the Equipment Manager by giving the worklist an ID +

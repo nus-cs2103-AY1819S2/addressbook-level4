@@ -35,8 +35,8 @@ different features and shows you how to perform basic _In-Credit-Ble_ operations
 
 .  Ensure you have [teal]#Java# version `[fuchsia]#9#` or later installed in your computer. You can download and install the required
    Java Development Kit
-   link:https://www.oracle.com/technetwork/java/javase/downloads/java-archive-javase9-3934878.html[here]
-.  Download the latest `[fuchsia]#In-Credit-Ble.jar#` file link:{repoURL}/releases[here].
+   link:https://www.oracle.com/technetwork/java/javase/downloads/java-archive-javase9-3934878.html[[blue]#here#]
+.  Download the latest `[fuchsia]#In-Credit-Ble.jar#` file link:{repoURL}/releases[[blue]#here#].
 .  Copy the file to the folder you want to use as the home folder for your finance tracker.
 .  Double-click the file to start the app. The GUI should appear in a few seconds as shown below.
    The _In-Credit-Ble_ finance tracker is loaded with example expense records and budget is still not set.
@@ -161,7 +161,7 @@ To change back to the browser panel, simply enter the `[fuchsia]#summary#` comma
 .Command Box and Result Display
 image::commandbox_resultdisplay.png[width="450"]
 
-These elements are denoted by the black and maroon boxes in Figures 2 and 3 respectively.
+These elements are denoted by the black and blue boxes in Figures 2 and 3 respectively.
 
 The command box is the place for users to type in their commands.
 Refer to <<Features>> for details of each command.
@@ -201,7 +201,7 @@ step-by-step instructions on how to use the different commands.
 // tag::set[]
 ==== Setting a budget: `[fuchsia]#set#`
 
-[maroon]#You can use this command to set a budget for the current instance of _In-Credit-Ble_ Finance Tracker.# +
+[navy]#You can use this command to set a budget for the current instance of _In-Credit-Ble_ Finance Tracker.# +
 
 *Format*: `[fuchsia]#set $/AMOUNT#`
 
@@ -245,7 +245,7 @@ budgets are going to exceed it.
 // tag::allocate[]
 ==== Allocating budget based on categories: `[fuchsia]#allocate#`
 
-[maroon]#You can use this command to set a budget for a category in _In-Credit-Ble_ Finance Tracker.# +
+[navy]#You can use this command to set a budget for a category in _In-Credit-Ble_ Finance Tracker.# +
 
 *Alias*: `[fuchsia]#allo#`
 
@@ -290,7 +290,7 @@ You cannot set a budget smaller than the current spending in the category.
 // tag::show[]
 ==== Showing allocated budget and spending in categories: `[fuchsia]#show#`
 
-[maroon]#You can use this command to see your current spending and the category budget allocated in
+[navy]#You can use this command to see your current spending and the category budget allocated in
 _In-Credit-Ble_ Finance Tracker.# +
 
 *Alias*: `[fuchsia]#showCatBudget#`
@@ -331,7 +331,7 @@ to let you know so
 // tag::spend[]
 ==== Adding an expense: `[fuchsia]#spend#`
 
-[maroon]#You can keep track of how much you have spent by adding an expense entry to _In-Credit-Ble_.#
+[navy]#You can keep track of how much you have spent by adding an expense entry to _In-Credit-Ble_.#
 
 *Alias*: `[fuchsia]#add#`
 
@@ -351,7 +351,7 @@ only the last category you provided will be taken (In the previous e.g, the comm
 add expense for `[fuchsia]#Clothes#` category).
 * Category names are case-insensitive. (e.g. `[fuchsia]#CLotHes#`, `[fuchsia]#clothes#` and `[fuchsia]#CLOTHES#` refer to the same
 category and will be shown with the first character in uppercase and the rest of the characters
-in lowercase. In the above example, it will be shown as `Clothes`)
+in lowercase. In the above example, it will be shown as `[fuchsia]#Clothes#`)
 * Category name supplied must be https://en.wikipedia.org/wiki/Alphanumeric[alphanumeric]
 and cannot contain special characters such as `*:<>;\/|?~^%$#@*`
 * Date cannot be a date in the future. Addition of future expenses are not allowed.
@@ -366,7 +366,7 @@ and cannot contain special characters such as `*:<>;\/|?~^%$#@*`
 // tag::edit[]
 ==== Editing an entry: `[fuchsia]#edit#`
 
-[maroon]#You can easily edit any part of an existing records in _In-Credit-Ble_.# +
+[navy]#You can easily edit any part of an existing records in _In-Credit-Ble_.# +
 Index refers to the index number shown in the list.
 
 *Alias*: `[fuchsia]#e#`
@@ -411,9 +411,9 @@ image::RemoveDescriptionExample.png[width ="600"]
 
 ==== Selecting an entry: `[fuchsia]#select#`
 
-[maroon]#You can select an existing entry in the records to view its details by specifying the entry's index number.#
+[navy]#You can select an existing entry in the records to view its details by specifying the entry's index number.#
 
-*Alias*: `[fuchsia]##`, `[fuchsia]#sel#`
+*Alias*: `[fuchsia]#sel#`
 
 *Format*: `[fuchsia]#select INDEX#`
 
@@ -434,7 +434,7 @@ image::RemoveDescriptionExample.png[width ="600"]
 // tag::delete[]
 ==== Deleting an entry: `[fuchsia]#delete#`
 
-[maroon]#You can delete an entry in the record by specifying the entry's index number.#
+[navy]#You can delete an entry in the record by specifying the entry's index number.#
 Deleted entries can be recovered via the `undo` command.
 
 *Alias*: `[fuchsia]#d#`, `[fuchsia]#del#`
@@ -460,7 +460,7 @@ Deleted entries can be recovered via the `undo` command.
 // tag::list[]
 ==== Listing all entries: `[fuchsia]#list#`
 
-[maroon]#You can see all the entries you have entered, as long as they are not deleted entries#.
+[navy]#You can see all the entries you have entered, as long as they are not deleted entries#.
 
 *Alias*: `[fuchsia]#l#`, `[fuchsia]#ls#`
 
@@ -470,7 +470,7 @@ Deleted entries can be recovered via the `undo` command.
 // tag::search[]
 ==== Searching an entry based on name/category/date: `[fuchsia]#search#`
 
-[maroon]#You can easily search for entries in the records using a name, category or date as keywords#. The total sum of money
+[navy]#You can easily search for entries in the records using a name, category or date as keywords#. The total sum of money
 spent on all the results of the search will also be shown.
 
 [TIP]
@@ -508,7 +508,7 @@ image::TotalSpentInResultDisplay.png[width ="600"]
 // tag::sort[]
 ==== Sorting the entries according to name/amount/date/category: `[fuchsia]#sort#`
 
-[maroon]#You can choose to sort the list of entries by name, amount, date or category.# +
+[navy]#You can choose to sort the list of entries by name, amount, date or category.# +
 `[fuchsia]#Sort#` has effect on the entire list of entries (instead of a filtered list).
 
 *Format*: `[fuchsia]#sort FLAG [ORDER]#`
@@ -562,7 +562,7 @@ List will be sorted by name in reverse lexicographical order.
 // tag::reverse[]
 ==== Reversing the entries: `[fuchsia]#reverse#`
 
-[maroon]#You can also reverse the order of the list of entries in the records.# +
+[navy]#You can also reverse the order of the list of entries in the records.# +
 `[fuchsia]#Reverse#` has effect on the entire list of entries (instead of a filtered list).
 
 *Alias*: `[fuchsia]#rev#`
@@ -577,7 +577,7 @@ image::reverseExample.png[width ="600"]
 // tag::summary[]
 ==== Showing summary of records: `[fuchsia]#summary#`
 
-[maroon]#You can see the summary of your previous expenditures represented as a pie chart#, with
+[navy]#You can see the summary of your previous expenditures represented as a pie chart#, with
 each sector representing a category. Each sector is labelled with name and total expenditure for the category,
 allowing you to have a clear overview of how your spending habit is like.
 
@@ -597,7 +597,7 @@ image::summaryUI_2.png[width ="800"]
 
 *Alias*: `[fuchsia]#overview#`
 
-*Format*: `[fuchsia]#summary [#/PERIOD_AMOUNT] [p/PERIOD]#`
+*Format*: `[fuchsia]#summary# [fuchsia]#[# [fuchsia]##/PERIOD_AMOUNT ] [ p/PERIOD ]#`
 
 [NOTE]
 ====
@@ -626,7 +626,7 @@ Shows summary of expenses in the past 7 months
 
 // tag::setfile[]
 ==== Changing FinanceTracker data storage location: `[fuchsia]#setfile#`
-[maroon]#You can change the file used to store the data of the application.# Essentially,
+[navy]#You can change the file used to store the data of the application.# Essentially,
 you can maintain multiple sets of expenditure and budget data for multiple users
 or profiles. +
 
@@ -664,7 +664,7 @@ in the file will be loaded into the Finance Tracker.
 // tag::help[]
 ==== Viewing help: `[fuchsia]#help#`
 
-[maroon]#Forgotten which commands to use?# You can easily find the commands you need to navigate the software
+[navy]#Forgotten which commands to use?# You can easily find the commands you need to navigate the software
 by using the following command:
 
 *Format*: `[fuchsia]#help#`
@@ -673,7 +673,7 @@ by using the following command:
 // tag::undoredo[]
 ==== Undoing previous command : `[fuchsia]#undo#`
 
-[maroon]#You can restore the program to the state before the previous _undoable_ command was executed.#
+[navy]#You can restore the program to the state before the previous _undoable_ command was executed.#
 
 *Alias*: `[fuchsia]#u#`
 
@@ -707,7 +707,7 @@ _Undoable_ commands:
 
 ==== Redoing the previously undone command : `[fuchsia]#redo#`
 
-[maroon]#You can reverse the most recent `undo` command#.
+[navy]#You can reverse the most recent `undo` command.#
 
 *Alias*: `[fuchsia]#r#`
 
@@ -735,7 +735,7 @@ The `[fuchsia]#redo#` command fails as there are no `[fuchsia]#undo#` commands e
 // tag::theme[]
 ==== Changing theme of application: `[fuchsia]#theme#`
 
-[maroon]#You can change the theme of the application with pre-set colour themes specified.#
+[navy]#You can change the theme of the application with pre-set colour themes specified.#
 
 *Alias*: `[fuchsia]#colour#`
 
@@ -767,7 +767,7 @@ image::themeMenuBar.png[]
 // end::theme[]
 ==== Listing entered commands: `[fuchsia]#history#`
 
-[maroon]#You can list all the commands you have entered in reverse chronological order.#
+[navy]#You can list all the commands you have entered in reverse chronological order.#
 
 *Alias*: `[fuchsia]#h#`, `[fuchsia]#hist#`
 
@@ -775,7 +775,7 @@ image::themeMenuBar.png[]
 
 ==== Clearing all entries : `[fuchsia]#clear#`
 
-[maroon]#You can delete all existing entries in the records and reset your budget to $0.00.#
+[navy]#You can delete all existing entries in the records and reset your budget to $0.00.#
 
 *Alias*: `[fuchsia]#c#`, `[fuchsia]#clr#`
 
@@ -783,7 +783,7 @@ image::themeMenuBar.png[]
 
 ==== Exiting the program : `[fuchsia]#exit#`
 
-[maroon]#You can quit the program at any point in time when you use this command.#
+[navy]#You can quit the program at any point in time when you use this command.#
 
 *Alias*: `[fuchsia]#quit#`
 
@@ -797,14 +797,14 @@ the data. There is no need for you to save manually.
 // tag::upcomingFeatures[]
 === Upcoming Features
 
-==== Login Feature `[[green]#coming in v2.0#]`
+==== Login Feature `[green]#[coming in v2.0]#`
 _In-Credit-Ble_ will implement a login feature so that your data and personal finance records will remain safe and secure.
 Your personal data will be encrypted and stored in your own account that can also be secured with a password.
 
 With this feature, multiple users will be able to use _In-Credit-Ble_ on the same computer without being able to access or modify each other's data.
 // end::upcomingFeatures[]
 
-==== Separate expenditures based on methods of payment (Cash, Visa, DBS PayLah) `[[green]#coming in v2.0#]`
+==== Separate expenditures based on methods of payment (Cash, Visa, DBS PayLah) `[green]#[coming in v2.0]#`
 
 _In-Credit-Ble_ will link up with secure methods of payment to allow tracking of your cashless transactions.
 These include, but not limited to, payment services such as DBS PayLah, Visa/MasterCard, Amex and Paypal.
@@ -813,13 +813,13 @@ By paying through these third-party applications, your transactions will automat
 and recorded as entries in _In-Credit-Ble_.
 
 // tag::savingpatterns[]
-==== Establish saving patterns based on record and derive projected savings/expenses in a time span `[[fuchsia]#coming in v2.0#]`
+==== Establish saving patterns based on record and derive projected savings/expenses in a time span `[green]#[coming in v2.0]#`
 
 Your monthly finance records will be archived at the end of the month. This information will be used to derive
 the projected savings and expenses of future months, based on analysing your typical spending patterns.
 // end::savingpatterns[]
 
-==== Links to financial articles `[[fuchsia]#coming in v2.0#]`
+==== Links to financial articles `[green]#[coming in v2.0]#`
 
 You will be able to list categories of financial articles that you are interested in
 (e.g. investment, stock market, taxes). Based on these categories, _In-Credit-Ble_ will use Google API to search for
@@ -841,8 +841,10 @@ _In-Credit-Ble_  aims to support multi-currency transactions in [green]#v2.0#`.
 
 == Command Summary
 
+[aqua]#All of _In-Credit-Ble's_ commands are listed here!#
+
 === Budget Management
-[width="59%",cols="22%,<23%,<25%,<30%",options="header",]
+[cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 | Command | Command Format | Alias | Example
 | Set Budget | `set $/AMOUNT` |- | `set $/500`
@@ -852,7 +854,7 @@ _In-Credit-Ble_  aims to support multi-currency transactions in [green]#v2.0#`.
 |=======================================================================
 
 === Expense Entry Management
-[width="59%",cols="22%,<23%,<25%,<30%",options="header",]
+[cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 | Command | Command Format | Alias | Example
 | Add expense | `spend n/NAME $/AMOUNT [d/DATE] c/CATEGORY [r/Description]` | `add` | `spend n/movie $/10
@@ -864,7 +866,7 @@ _In-Credit-Ble_  aims to support multi-currency transactions in [green]#v2.0#`.
 |=======================================================================
 
 === Records Management
-[width="59%",cols="22%,<23%,<25%,<30%",options="header",]
+[cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 | Command | Command Format | Alias | Example
 | List all entries | `list` | `l`, `ls` | -
@@ -880,7 +882,7 @@ Shows summary for past 5 days
 **Valid orders: `-asc` -> ascending order; `-desc` -> descending order
 
 === Miscellaneous
-[width="59%",cols="22%,<23%,<25%,<30%",options="header",]
+[cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 | Command | Command Format | Alias | Example
 | Set data file | `setfile f/FILENAME` | - | `setfile f/finance`

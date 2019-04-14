@@ -155,7 +155,7 @@ image::LogicClassDiagram.png[width="800"]
 
 [discrete]
 // tag::ArchiInteraction[]
-==== How the architecture components interact with each other
+==== How the Architecture Components Interact with Each Other
 
 The _Sequence Diagrams_ below show how the components interact with each other for the scenarios where the user issues the commands `import C:\Users\XXX\Desktop\Pictures` and `rotate 90`.
 
@@ -619,7 +619,7 @@ The diagram below illustrates how the `Rotate` Command works:
 .Sequence Diagram for Rotate Command
 image::RotateCommandSequenceDiagram.png[width="800"]
 
-==== Design Considerations
+===== Design Considerations
 
 * Images that are still being edited have to be stored and edited in a temp directory first due to our `undo/redo` implementation.
 

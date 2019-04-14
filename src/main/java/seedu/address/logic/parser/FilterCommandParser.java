@@ -105,7 +105,7 @@ public class FilterCommandParser implements Parser<FilterCommand> {
         requireNonNull(predicatePersonDescriptor);
         if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
             predicatePersonDescriptor.setName(new HashSet<>((
-                Arrays.asList(argMultimap.getValue(PREFIX_NAME).get().split("\\s+")))));
+                    Arrays.asList(argMultimap.getValue(PREFIX_NAME).get().split("\\s+")))));
         }
     }
 
@@ -120,7 +120,7 @@ public class FilterCommandParser implements Parser<FilterCommand> {
         requireNonNull(predicatePersonDescriptor);
         if (argMultimap.getValue(PREFIX_PHONE).isPresent()) {
             predicatePersonDescriptor.setPhone(new HashSet<>((
-                Arrays.asList(argMultimap.getValue(PREFIX_PHONE).get().split("\\s+")))));
+                    Arrays.asList(argMultimap.getValue(PREFIX_PHONE).get().split("\\s+")))));
         }
     }
 
@@ -135,7 +135,7 @@ public class FilterCommandParser implements Parser<FilterCommand> {
         requireNonNull(predicatePersonDescriptor);
         if (argMultimap.getValue(PREFIX_EMAIL).isPresent()) {
             predicatePersonDescriptor.setEmail(new HashSet<>((
-                Arrays.asList(argMultimap.getValue(PREFIX_EMAIL).get().split("\\s+")))));
+                    Arrays.asList(argMultimap.getValue(PREFIX_EMAIL).get().split("\\s+")))));
         }
     }
 
@@ -150,7 +150,7 @@ public class FilterCommandParser implements Parser<FilterCommand> {
         requireNonNull(predicatePersonDescriptor);
         if (argMultimap.getValue(PREFIX_RACE).isPresent()) {
             predicatePersonDescriptor.setRace(new HashSet<>((
-                Arrays.asList(argMultimap.getValue(PREFIX_RACE).get().split("\\s+")))));
+                    Arrays.asList(argMultimap.getValue(PREFIX_RACE).get().split("\\s+")))));
         }
     }
 
@@ -165,7 +165,7 @@ public class FilterCommandParser implements Parser<FilterCommand> {
         requireNonNull(predicatePersonDescriptor);
         if (argMultimap.getValue(PREFIX_ADDRESS).isPresent()) {
             predicatePersonDescriptor.setAddress(new HashSet<>((
-                Arrays.asList(argMultimap.getValue(PREFIX_ADDRESS).get().split("\\s+")))));
+                    Arrays.asList(argMultimap.getValue(PREFIX_ADDRESS).get().split("\\s+")))));
         }
     }
 
@@ -180,7 +180,7 @@ public class FilterCommandParser implements Parser<FilterCommand> {
         requireNonNull(predicatePersonDescriptor);
         if (argMultimap.getValue(PREFIX_SCHOOL).isPresent()) {
             predicatePersonDescriptor.setSchool(new HashSet<>((
-                Arrays.asList(argMultimap.getValue(PREFIX_SCHOOL).get().split("\\s+")))));
+                    Arrays.asList(argMultimap.getValue(PREFIX_SCHOOL).get().split("\\s+")))));
         }
     }
 
@@ -195,7 +195,7 @@ public class FilterCommandParser implements Parser<FilterCommand> {
         requireNonNull(predicatePersonDescriptor);
         if (argMultimap.getValue(PREFIX_MAJOR).isPresent()) {
             predicatePersonDescriptor.setMajor(new HashSet<>((
-                Arrays.asList(argMultimap.getValue(PREFIX_MAJOR).get().split("\\s+")))));
+                    Arrays.asList(argMultimap.getValue(PREFIX_MAJOR).get().split("\\s+")))));
         }
     }
 
@@ -210,7 +210,7 @@ public class FilterCommandParser implements Parser<FilterCommand> {
         requireNonNull(predicatePersonDescriptor);
         if (argMultimap.getValue(PREFIX_GENDER).isPresent()) {
             predicatePersonDescriptor.setGender(new HashSet<>((
-                Arrays.asList(argMultimap.getValue(PREFIX_GENDER).get().split("\\s+")))));
+                    Arrays.asList(argMultimap.getValue(PREFIX_GENDER).get().split("\\s+")))));
         }
     }
 
@@ -222,7 +222,7 @@ public class FilterCommandParser implements Parser<FilterCommand> {
      * @throws ParseException the exception throws if parse value is not in format
      */
     private void parseGrade(PredicatePersonDescriptor predicatePersonDescriptor, ArgumentMultimap argMultimap)
-        throws ParseException {
+            throws ParseException {
         requireNonNull(argMultimap);
         requireNonNull(predicatePersonDescriptor);
         if (argMultimap.getValue(PREFIX_GRADE).isPresent()) {
@@ -243,7 +243,7 @@ public class FilterCommandParser implements Parser<FilterCommand> {
      * @throws ParseException the exception throws if parse value is not in format
      */
     private void parseInterviewQ1(PredicatePersonDescriptor predicatePersonDescriptor, ArgumentMultimap argMultimap)
-        throws ParseException {
+            throws ParseException {
         requireNonNull(argMultimap);
         requireNonNull(predicatePersonDescriptor);
         if (argMultimap.getValue(PREFIX_INTERVIEWSCORESQ1).isPresent()) {
@@ -264,7 +264,7 @@ public class FilterCommandParser implements Parser<FilterCommand> {
      * @throws ParseException the exception throws if parse value is not in format
      */
     private void parseInterviewQ2(PredicatePersonDescriptor predicatePersonDescriptor, ArgumentMultimap argMultimap)
-        throws ParseException {
+            throws ParseException {
         requireNonNull(argMultimap);
         requireNonNull(predicatePersonDescriptor);
         if (argMultimap.getValue(PREFIX_INTERVIEWSCORESQ2).isPresent()) {
@@ -285,7 +285,7 @@ public class FilterCommandParser implements Parser<FilterCommand> {
      * @throws ParseException the exception throws if parse value is not in format
      */
     private void parseInterviewQ3(PredicatePersonDescriptor predicatePersonDescriptor, ArgumentMultimap argMultimap)
-        throws ParseException {
+            throws ParseException {
         requireNonNull(argMultimap);
         requireNonNull(predicatePersonDescriptor);
         if (argMultimap.getValue(PREFIX_INTERVIEWSCORESQ3).isPresent()) {
@@ -306,7 +306,7 @@ public class FilterCommandParser implements Parser<FilterCommand> {
      * @throws ParseException the exception throws if parse value is not in format
      */
     private void parseInterviewQ4(PredicatePersonDescriptor predicatePersonDescriptor, ArgumentMultimap argMultimap)
-        throws ParseException {
+            throws ParseException {
         requireNonNull(argMultimap);
         requireNonNull(predicatePersonDescriptor);
         if (argMultimap.getValue(PREFIX_INTERVIEWSCORESQ4).isPresent()) {
@@ -327,7 +327,7 @@ public class FilterCommandParser implements Parser<FilterCommand> {
      * @throws ParseException the exception throws if parse value is not in format
      */
     private void parseInterviewQ5(PredicatePersonDescriptor predicatePersonDescriptor, ArgumentMultimap argMultimap)
-        throws ParseException {
+            throws ParseException {
         requireNonNull(argMultimap);
         requireNonNull(predicatePersonDescriptor);
         if (argMultimap.getValue(PREFIX_INTERVIEWSCORESQ5).isPresent()) {
@@ -351,7 +351,7 @@ public class FilterCommandParser implements Parser<FilterCommand> {
         requireNonNull(predicatePersonDescriptor);
         if (argMultimap.getValue(PREFIX_NRIC).isPresent()) {
             predicatePersonDescriptor.setNric(new HashSet<>((
-                Arrays.asList(argMultimap.getValue(PREFIX_NRIC).get().split("\\s+")))));
+                    Arrays.asList(argMultimap.getValue(PREFIX_NRIC).get().split("\\s+")))));
         }
     }
 
@@ -366,7 +366,7 @@ public class FilterCommandParser implements Parser<FilterCommand> {
         requireNonNull(predicatePersonDescriptor);
         if (argMultimap.getValue(PREFIX_PASTJOB).isPresent()) {
             predicatePersonDescriptor.setPastJobs(new HashSet<>((
-                Arrays.asList(argMultimap.getValue(PREFIX_PASTJOB).get().split("\\s+")))));
+                    Arrays.asList(argMultimap.getValue(PREFIX_PASTJOB).get().split("\\s+")))));
         }
     }
 
@@ -381,7 +381,7 @@ public class FilterCommandParser implements Parser<FilterCommand> {
         requireNonNull(predicatePersonDescriptor);
         if (argMultimap.getValue(PREFIX_JOBSAPPLY).isPresent()) {
             predicatePersonDescriptor.setJobsApply(new HashSet<>((
-                Arrays.asList(argMultimap.getValue(PREFIX_JOBSAPPLY).get().split("\\s+")))));
+                    Arrays.asList(argMultimap.getValue(PREFIX_JOBSAPPLY).get().split("\\s+")))));
         }
     }
 
@@ -396,7 +396,7 @@ public class FilterCommandParser implements Parser<FilterCommand> {
         requireNonNull(predicatePersonDescriptor);
         if (argMultimap.getValue(PREFIX_KNOWNPROGLANG).isPresent()) {
             predicatePersonDescriptor.setKnownProgLangs(new HashSet<>((
-                Arrays.asList(argMultimap.getValue(PREFIX_KNOWNPROGLANG).get().split("\\s+")))));
+                    Arrays.asList(argMultimap.getValue(PREFIX_KNOWNPROGLANG).get().split("\\s+")))));
         }
     }
 }

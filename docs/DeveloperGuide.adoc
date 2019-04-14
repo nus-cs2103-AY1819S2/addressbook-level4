@@ -1,6 +1,6 @@
 = PDF++ - Developer Guide
 :site-section: DeveloperGuide
-:toc: preamble
+:toc: left
 :toc-title:
 :toclevels: 2
 :sectnums:
@@ -14,8 +14,8 @@ ifdef::env-github[]
 :experimental:
 endif::[]
 :repoURL: https://github.com/CS2103-AY1819S2-T12-4/main
-:mainWindowURL: {repoURL}/tree/master/src/main/java/seedu/pdf/ui/MainWindow.java
-:helpWindowTestURL: {repoURL}/tree/master/src/test/java/seedu/pdf/ui/HelpWindowTest.java
+:mainWindowURL: {repoURL}/blob/master/src/main/java/seedu/address/ui/MainWindow.java
+:helpWindowTestURL: {repoURL}/blob/master/src/test/java/seedu/address/ui/HelpWindowTest.java
 
 By: `Team T12-4`      Since: `Feb 2019`      Licence: `MIT`
 
@@ -110,10 +110,10 @@ When you are ready to start coding,
 [[Design-Architecture]]
 === Architecture
 
+The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
+
 .Architecture Diagram
 image::Architecture.png[width="600"]
-
-The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
 
 [TIP]
 The `.pptx` or `.xml` files used to create diagrams in this document can be found in the
@@ -164,7 +164,7 @@ The sections below give more details of each component.
 .Structure of the UI Component
 image::UiClassDiagram.png[width="800"]
 
-*API* : link:{repoURL}/src/main/java/seedu/pdf/ui/Ui.java[`Ui.java`]
+*API* : link:{repoURL}/blob/master/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
 The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PdfListPanel`, `StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
@@ -194,7 +194,7 @@ link:{repoURL}/src/main/java/seedu/pdf/logic/Logic.java[`Logic.java`]
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
 
 .Interactions Inside the Logic Component for the `delete 1` Command
-image::DeletePdfSdForLogic.png[width="800"]
+image::SDforDeletePdf.png[width="800"]
 
 [[Design-Model]]
 === Model component
@@ -214,6 +214,7 @@ The `Model`,
 [NOTE]
 As a more OOP model, we can store a `Tag` list in `Pdf Book`, which `Pdf` can reference. This would allow `Pdf Book` to only require one `Tag` object per unique `Tag`, instead of each `Pdf` needing their own `Tag` object. An example of how such a model may look like is given below. +
  +
+.OOP Diagram
 image:ModelClassBetterOopDiagram.png[width="800"]
 
 [[Design-Storage]]
@@ -254,14 +255,16 @@ The *AddCommandParser* uses the prefixes defined in *CliSyntax* to identify the 
 
 The implementation of the *AddCommand* execution can be summarised in the following activity diagram:
 
+.Add Command Activity Diagram
 image::AddCommandActivityDiagram.png[width="600"]
 
 . The current PdfBook Model is checked to determine if identical Pdf has already been added.
 .. If such a Pdf already exists, a *CommandException* will be thrown and the execution will be ended.
-. The Pdf to be added is loaded as to check for errors.
-.. Pdf will be loaded as *PDDocument*, which is an indicator if the application can perform other operations on the Pdf that need it to be handled as a `.pdf` file.
+. The Pdf to be added is loaded into a third-party API to verify for any errors.
+.. Pdf will be loaded as link:https://pdfbox.apache.org/docs/2.0.2/javadocs/org/apache/pdfbox/pdmodel/PDDocument.html[PDDocument],
+which verifies the file that the user wishes to add to the program.
 .. Created PDDocument will be closed after loading as it is unused.
-.. Errors in accessing Pdf would throw *IOException*. Errors would most likely be due to:
+.. Errors in adding the Pdf would throw *IOException*. Errors would most likely be due to:
 ... File not found at location
 ... Lack of user permissions to open file
 ... File has encryption
@@ -312,12 +315,14 @@ workings of the Open feature.
 Step 1: The user launches an application with either an existing set of `Pdf` or a
 new sample set of `Pdf` stored within as shown below.
 
+.Step 1
 image::OpenFeatureStep1Default.png[width="600"]
 
 Step 2: The user chooses a `Pdf` that they wish to open, in this case `a.pdf`, and
 enters the `open` command into the CLI Interface, following the outlined Syntax as
 illustrated below.
 
+.Step 2
 image::OpenFeatureStep2UserInput.png[width="600"]
 
 Step 3: Upon hitting enter to execute the command, the *OpenCommandParser* parses
@@ -329,6 +334,7 @@ Step 4: Upon receiving the necessary information from the parser, the *OpenComma
 retrieves the directory of the Pdf listed in the Pdf Book. It then launches the Pdf
 with the user-default Pdf reader.
 
+.Open Command Activity Diagram
 image::OpenCommandActivityDiagram.png[width="600"]
 
 [NOTE]
@@ -344,6 +350,7 @@ The `edit` feature is facilitated by both the *EditCommandParser* and *EditComma
 Essentially upon adding a Pdf to be tracked by the application, the user will be able to
 change certain attributes tied to the PDF such as the `Name` and `Tag` tied to a particular Pdf.
 
+.Edit Command Activity Diagram
 image::EditCommandActivityDiagram.png[width="600"]
 
 // end::edit[]
@@ -386,6 +393,7 @@ Step 1: From the main interface of the application, the user chooses a `Pdf` tha
 they wish to move, and enters the `move` command into the CLI Interface, following
 the outlined Syntax as illustrated below.
 
+.Step 1
 image::MoveFeatureStep1.png[width="600"]
 
 In this scenario, there is a file *document.pdf* in the windows _Desktop_ directory, and
@@ -447,6 +455,7 @@ which is an indicator if the application can perform other operations on the Pdf
 
 This sequence diagram demonstrates the interactions involved from start of *MergeCommandParser* to end of *MergeCommand* execution:
 
+.Merge Command Sequence Diagram
 image::MergeCommandSequenceDiagram.png[width="600"]
 
 ==== Considerations
@@ -516,6 +525,7 @@ user's input.
 Step 3: The *DeleteCommand* is then executed. Successful execution will return a
 *CommandResult* indicating that the deadline has been set.
 
+.Delete Command Activity Diagram
 image::DeleteCommandActivityDiagram.png[width="600"]
 
 // end::delete[]
@@ -540,6 +550,7 @@ The `Clear` feature has to following syntax:
 Since the `clear` feature is very easily executed, if you have accidentally entered the `clear` command and
 wish to revert the action, please refer to <<Undo/Redo feature>> for more information.
 
+.Clear Command Activity Diagram.
 image::ClearCommandActivityDiagram.png[width="600"]
 
 // end::clear[]
@@ -583,6 +594,7 @@ user's input.
 Step 3: The *DeadlineCommand* is then executed. Successful execution will return a
 *CommandResult* indicating that the deadline has been set.
 
+.Deadline Command Activity Diagram
 image::DeadlineCommandActivityDiagram.png[width="600"]
 
 [TIP]
@@ -604,6 +616,7 @@ The `help` feature has to following syntax:
 After execution, the user will be directed to the start of the _UserGuide.adoc_ as shown.
 Users can reference from the UserGuide directly on how to navigate the guide.
 
+.User Guide
 image::UserGuide.png[width="600"]
 
 // end::help[]
@@ -661,12 +674,14 @@ The `find` feature has to following syntax:
 * `<KEYWORD>` refers to the word that the application will use as reference to find
 files. There must be at least one provided.
 
+.Find Command Activity Diagram
 image::FindCommandActivityDiagram.png[width="600"]
 
 ==== Feature Breakdown
 The following image briefly summarises the interactions of the `find` command with
 some of its immediate components.
 
+.General Internal Illustration of Find Command.
 image::FindCommandSequenceDiagram.png[width="600"]
 
 When the user enters the CLI Input for the find command, the command is first passed
@@ -674,7 +689,7 @@ from the `LogicManager` to the `PdfBookParser` will carry out the following step
 
 1. The user inputs a request to `find` a keyword within the files of the application.
 e.g. `find keyword`.
-2. The `PdfBookParser` creates a new `FindCommandParser` upon recognizing that the user
+2. The `PdfBookParser` creates a new `FindCommandParser` upon recognising that the user
 wishes to use the `find` feature.
 3. Parse method within the `FindCommandParser` would create a `NameContainsKeywordPredicate` which will allow
   the `Model` to filter its list of files to show the user the requested files.
@@ -686,7 +701,7 @@ Upon receiving the `FindCommand` from the `PdfBookParser` the following steps ar
 2. The `model` then uses the `NameContainsKeywordPredicate` and runs the `test` method to check each file and
 verify that it fulfils the predicate. This is so that the `model` can update itself to present the list of
 files that the user wishes to view.
-3. The `test` method invokes classes from the external `Apache PDFBox` library, nameley `PDDocument` and
+3. The `test` method invokes classes from the external link:https://pdfbox.apache.org/index.html[Apache PDFBox] library, namely `PDDocument` and
 `PDFTextStripper` to extract the contents of the existing files.
 4. The extracted content is then checked to verify if it contains the `keyword` input by the user.
 5. Further checks are also done to confirm if each file's name contains the `keyword` as well.
@@ -727,6 +742,7 @@ The `filter` feature has to following syntax:
 * `<TAG>` refers to a tag that is valid, i.e. a tag that was previously set on a file.
 * All tags need to have the prefix #/t# to differentiate between each tag.
 
+.Filter Command Activity Diagram
 image::FilterCommandActivityDiagram.png[width="600"]
 
 // end::filter[]
@@ -734,14 +750,28 @@ image::FilterCommandActivityDiagram.png[width="600"]
 // tag::select[]
 === Select feature
 ==== Current Implementation
-The select feature is facilitated by `SelectCommand`. `Enter functionality here`
+The select feature is facilitated by `SelectCommand` and `SelectCommandParser`. This allows users to select a file and view
+more information pertaining to that selected file. They are able to view features such as its size,
+any deadlines assigned to it, its name, and directory.
 
-The `Select` feature has to following syntax: `select`
+The `Select` feature has to following syntax:
+Format: `select INDEX`
 
-* Enter here
+The inner workings of `SelectCommand` can be explained in the following steps.
 
-[NOTE]
-Enter note here
+* The `LogicManager` component invokes a `PdfBookParser` to parse the input command.
+** An input command such as `select 1`.
+* The `PdfBookParser` then decodes the instruction by identifying the keyword, which is
+`select` and creates a new `SelectCommandParser` to parse the necessary parameters.
+* The `SelectCommandParser` then parses the parameter, in this case `1` and creates a new
+`SelectCommand` object that is returned to the `LogicManager` to execute.
+* The `LogicManager` supplies the `SelectCommand` with the existing application `model` and
+`command history` and executes it.
+* The execution of the `SelectCommand` sets the `selectedPdf` property of the model.
+** This change causes the invocation of the `UI` component to display the selected item to the user.
+* Finally, upon succesfful execution, a `CommandResult` is returned to the `LogicManager` for other operations.
+** If any errors occur mid-execution, a `CommandException` is thrown. These errors may occur due to:
+*** Inavlid parameter inputs.
 
 // end::select[]
 

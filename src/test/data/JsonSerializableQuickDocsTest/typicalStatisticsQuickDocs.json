@@ -33,9 +33,9 @@
       },
       "symptoms" : {
         "cough" : 2,
-        "fever" : 1,
+        "fever" : 1
       }
     }
   } ],
-  "consultationFee" : 30
+  "consultationFee" : 30.00
 }

@@ -7,13 +7,13 @@
   "rootDirectory" : {
     "name" : "root",
     "threshold" : {
-      "value" : null
+      "value" : 30
     },
     "listOfMedicineNames" : [ ],
     "listOfDirectories" : [ ]
   },
   "monthStatisticsList" : [ {
-    "yearMonth" : "2019-01",
+    "yearMonth" : "2018-01",
     "statistics" : {
       "consultations" : 0,
       "revenue" : 0,
@@ -22,20 +22,20 @@
       "symptoms" : { }
     }
   }, {
-    "yearMonth" : "2019-02",
+    "yearMonth" : "2018-02",
     "statistics" : {
       "consultations" : 2,
       "revenue" : 100.00,
       "expenditure" : 0,
       "medicines" : {
-        "panadol" : 1,
+        "paracetamol" : 1,
         "dextromethorphan" : 2
       },
       "symptoms" : {
         "cough" : 2,
-        "fever" : 1,
+        "fever" : 1
       }
     }
   } ],
-  "consultationFee" : -30
+  "consultationFee" : 30.00
 }

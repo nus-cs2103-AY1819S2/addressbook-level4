@@ -286,7 +286,7 @@ public class CurrentEditManager implements CurrentEdit {
         return tempPath;
     }
 
-    public boolean tempImageExist() {
+    public boolean tempImageDoNotExist() {
         return tempImage == null;
     }
     /* @@author*/

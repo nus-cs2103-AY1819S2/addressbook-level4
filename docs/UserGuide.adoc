@@ -143,7 +143,7 @@ Examples:
 // tag::BrightnessCommand[]
 === Brightness: `brightness`
 
-Adjusts the brightness of the opened image based on a decimal value. If the brightness value is not specified, a preset decimal value of 1.1 will be used. Any decimal value that is less than 1 (e.g. 0.5) will reduce the brightness of the image while any decimal value that is more than 1 (e.g. 1.9) will increase the brightness of the image. +
+Adjusts the brightness of the opened image based on a decimal value. If the brightness value is not specified, a preset decimal value of 1.1 will be used. Any positive decimal value that is less than 1 (e.g. 0.5) will reduce the brightness of the image while any decimal value that is above 1 (e.g. 1.9) will increase the brightness of the image. Negative decimal value will not be accepted.+
 Format: `brightness [BRIGHTNESS_RATIO]`
 
 Examples:
@@ -168,7 +168,7 @@ Clear does not remove the image currently being edited i.e. Images opened with t
 // tag::ContrastCommand[]
 === Contrast: `contrast`
 
-Adjusts the contrast of the opened image based on a decimal value. If the contrast value is not specified, a preset decimal value of 1.1 will be used. Any decimal value that is lower than 1 (e.g. 0.5) will reduce the contrast of the image while any decimal value that is higher than 1 (e.g. 1.9) will increase the contrast of the image.+
+Adjusts the contrast of the opened image based on a decimal value. If the contrast value is not specified, a preset decimal value of 1.1 will be used. Any positive decimal value that is lower than 1 (e.g. 0.5) will reduce the contrast of the image while any decimal value that is above 1 (e.g. 1.9) will increase the contrast of the image. Negative decimal value will not be accepted. +
 Format: `contrast CONTRAST_RATIO`
 
 Examples:

@@ -28,6 +28,8 @@ public class SavePresetCommand extends Command {
      * @param presetName name given to the preset set by user
      */
     public SavePresetCommand(String presetName) {
+        setCommandName(COMMAND_WORD);
+        setArguments(presetName);
         this.presetName = presetName;
     }
 

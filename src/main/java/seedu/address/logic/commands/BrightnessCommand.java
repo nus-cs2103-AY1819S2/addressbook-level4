@@ -47,10 +47,10 @@ public class BrightnessCommand extends Command {
     @Override
     public CommandResult execute(CurrentEdit currentEdit, Model model, CommandHistory history)
             throws CommandException {
-        seedu.address.model.image.Image initialImage = currentEdit.getTempImage();
-        if (initialImage == null) {
+        if (currentEdit.tempImageDoNotExist()) {
             throw new CommandException(Messages.MESSAGE_DID_NOT_OPEN);
         }
+        seedu.address.model.image.Image initialImage = currentEdit.getTempImage();
         if (this.brightnessValue.isPresent()) {
             BufferedOpFilter brightnessFilter =
                     new BrightnessFilter(this.brightnessValue.getAsDouble());

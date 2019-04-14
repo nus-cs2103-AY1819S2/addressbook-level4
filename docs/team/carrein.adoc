@@ -124,8 +124,7 @@ include::../DeveloperGuide.adoc[tag=albumModel]
 
 === User Interface Overhaul
 '''
-include::../DeveloperGuide.adoc[tag=uione]
-include::../DeveloperGuide.adoc[tag=uitwo]
+include::../DeveloperGuide.adoc[tag=ui]
 
 === Import and ImportParser Class
 '''

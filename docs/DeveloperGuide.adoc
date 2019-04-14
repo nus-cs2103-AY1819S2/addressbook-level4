@@ -611,7 +611,7 @@ Step 5. A `BufferedImage` object is returned from the external library and `curr
 
 Step 6. The `execute` method then checks if the boolean `isNewCommand` is true. If it is true, it indicates that the command is a new `Rotate` command called directly from the user and not through an `undo/redo` command which triggers Step 7 in the line below. Otherwise, the command’s execution ends in this step.
 
-Step 7. `isNewCommand` is set to false to signal that this command is not a new rotate command if it is executed again through the `Undo/Redo` function. `currentEdit#addCommand(this)` is invoked to add this command to the `List<Command>` in `tempImage` for the `undo/redo` function and `currentEdit#displayTempImage()` is used to display the edited image on the graphical user interface. +
+Step 7. `isNewCommand` is set to false to signal that this command is not a new rotate command if it is executed again through the `undo/redo` command. `currentEdit#addCommand(this)` is invoked to add this command to the `List<Command>` in `tempImage` for the `undo/redo` function and `currentEdit#displayTempImage()` is used to display the edited image on the graphical user interface. +
 
 The diagram below illustrates how the `Rotate` Command works:
 

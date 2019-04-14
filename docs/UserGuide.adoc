@@ -446,11 +446,43 @@ Format: `exit`
 Applicant data is saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
+// tag::addmultiplepersons[]
+=== Adding Multiple Persons `[coming in v2.0]`
 
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
+* Right now, through the application there is no possibility to add multiple persons at once. This feature will come with v2.0.
+* However, there is a way to add multiple persons at once:
+** If you run the application at least once and change some data in it, you will see the directory `./data/addressbook.json`.
+** It is the `JSON` file that holds every single person on the application. The format is given below.
+** As long as the format is correct, you can add as many people as you want or if you have a ready file with the same format, you can replace it directly as long as you rename the file as `addressbook.json`.
+** The changes made in the file will be shown in the application GUI itself, too.
+
+....
+{
+  "persons" : [ {
+    "name" : "Claire Smith",
+    "phone" : "98765432",
+    "education" : "Oxford",
+    "gpa" : "2.7",
+    "degree" : "PHD",
+    "email" : "claireS@gmail.com",
+    "address" : "12 Biscuits Way, Oxford",
+    "tagged" : [ "s:PHP", "s:C#", "s:C++", "e:Elon Musk", "s:Linux", "p:Systems Analyst", "s:Finance" ]
+  }, {
+    "name" : "Bruce Wayne",
+    "phone" : "92875639",
+    "education" : "Stanford",
+    "gpa" : "3.6",
+    "degree" : "Bachelors",
+    "email" : "bruce@wayne.com",
+    "address" : "1 Wayne Manor, New York NY",
+    "tagged" : [ "e:Thomas Wayne", "p:Project Consultant", "s:Cyber Crime", "s:Hardware Testing", "p:Crime Analyst", "s:Finance", "s:Business Analysis" ]
+  }  ]
+}
+
+....
+
+// end::addmultiplepersons[]
+
 
 == FAQ
 

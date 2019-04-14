@@ -140,6 +140,18 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public boolean hasPersonArchive(Person person) {
+        requireNonNull(person);
+        return versionedArchiveBook.hasPerson(person);
+    }
+
+    @Override
+    public boolean hasPersonPin(Person person) {
+        requireNonNull(person);
+        return versionedPinBook.hasPerson(person);
+    }
+
+    @Override
     public boolean hasEditedPerson(Person referencePerson, Person editedPerson) {
         requireNonNull(referencePerson);
         requireNonNull(editedPerson);
@@ -147,9 +159,35 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public boolean hasEditedPersonArchive(Person referencePerson, Person editedPerson) {
+        requireNonNull(referencePerson);
+        requireNonNull(editedPerson);
+        return versionedArchiveBook.hasEditedPerson(referencePerson, editedPerson);
+    }
+
+    @Override
+    public boolean hasEditedPersonPin(Person referencePerson, Person editedPerson) {
+        requireNonNull(referencePerson);
+        requireNonNull(editedPerson);
+        return versionedPinBook.hasEditedPerson(referencePerson, editedPerson);
+    }
+
+    @Override
     public boolean hasSameIdentityField(Person person) {
         requireNonNull(person);
         return versionedAddressBook.hasSameIdentityField(person);
+    }
+
+    @Override
+    public boolean hasSameIdentityFieldArchive(Person person) {
+        requireNonNull(person);
+        return versionedArchiveBook.hasSameIdentityField(person);
+    }
+
+    @Override
+    public boolean hasSameIdentityFieldPin(Person person) {
+        requireNonNull(person);
+        return versionedPinBook.hasSameIdentityField(person);
     }
 
     @Override

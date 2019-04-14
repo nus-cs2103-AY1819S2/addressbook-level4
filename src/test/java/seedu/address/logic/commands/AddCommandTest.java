@@ -183,12 +183,42 @@ public class AddCommandTest {
         }
 
         @Override
+        public boolean hasPersonArchive(Person person) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasPersonPin(Person person) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public boolean hasEditedPerson(Person referencePerson, Person editedPerson) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
+        public boolean hasEditedPersonArchive(Person referencePerson, Person editedPerson) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasEditedPersonPin(Person referencePerson, Person editedPerson) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public boolean hasSameIdentityField(Person person) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasSameIdentityFieldArchive(Person person) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasSameIdentityFieldPin(Person person) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -354,6 +384,18 @@ public class AddCommandTest {
         }
 
         @Override
+        public boolean hasPersonArchive(Person person) {
+            requireNonNull(person);
+            return personsAdded.stream().anyMatch(person::isSamePerson);
+        }
+
+        @Override
+        public boolean hasPersonPin(Person person) {
+            requireNonNull(person);
+            return personsAdded.stream().anyMatch(person::isSamePerson);
+        }
+
+        @Override
         public void addPerson(Person person) {
             requireNonNull(person);
             personsAdded.add(person);
@@ -361,6 +403,17 @@ public class AddCommandTest {
 
         @Override
         public boolean hasSameIdentityField(Person person) {
+            requireNonNull(person);
+            return personsAdded.stream().anyMatch(person::hasSameIdentityField);
+        }
+
+        public boolean hasSameIdentityFieldArchive(Person person) {
+            requireNonNull(person);
+            return personsAdded.stream().anyMatch(person::hasSameIdentityField);
+        }
+
+        @Override
+        public boolean hasSameIdentityFieldPin(Person person) {
             requireNonNull(person);
             return personsAdded.stream().anyMatch(person::hasSameIdentityField);
         }

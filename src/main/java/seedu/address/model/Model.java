@@ -95,14 +95,44 @@ public interface Model {
     boolean hasPerson(Person person);
 
     /**
+     * Returns true if a person with the same identity as {@code person} exists in the archive book.
+     */
+    boolean hasPersonArchive(Person person);
+
+    /**
+     * Returns true if a person with the same identity as {@code person} exists in the pin book.
+     */
+    boolean hasPersonPin(Person person);
+
+    /**
      * Returns true if a person with the same identity as {@code editedPerson} exists in the address book.
      */
     boolean hasEditedPerson(Person referencePerson, Person editedPerson);
 
     /**
-     * Returns true if a person with the same identity as {@code toAdd} exists in the address book.
+     * Returns true if a person with the same identity as {@code editedPerson} exists in the archive book.
+     */
+    boolean hasEditedPersonArchive(Person referencePerson, Person editedPerson);
+
+    /**
+     * Returns true if a person with the same identity as {@code editedPerson} exists in the pin book.
+     */
+    boolean hasEditedPersonPin(Person referencePerson, Person editedPerson);
+
+    /**
+     * Returns true if a person with the same identity as {@code person} exists in the address book.
      */
     boolean hasSameIdentityField(Person person);
+
+    /**
+     * Returns true if a person with the same identity as {@code person} exists in the archive book.
+     */
+    boolean hasSameIdentityFieldArchive(Person person);
+
+    /**
+     * Returns true if a person with the same identity as {@code person} exists in the pin book.
+     */
+    boolean hasSameIdentityFieldPin(Person person);
 
     /**
      * Deletes the given person.

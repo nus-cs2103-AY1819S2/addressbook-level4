@@ -53,7 +53,7 @@ done to permit only certain commands and ban others.
 ** Refactor existing status bar to display the current state of the user (whether user is in a test session, in a
 report display, in a folder or in home directory) instead of the previous last saved location and time. Corresponding
  tests are written as well. (Pull requests https://github.com/cs2103-ay1819s2-w10-4/main/pull/162[#162])
-** Updated UI colour scheme to enhance aesthetics as well as clarity of Know-It-All (Pull requests https://github.com/cs2103-ay1819s2-w10-4/main/pull/162[#162], https://github.com/cs2103-ay1819s2-w10-4/main/pull/166[#166],
+** Updated UI colour scheme to enhance aesthetics and clarity of Know-It-All (Pull requests https://github.com/cs2103-ay1819s2-w10-4/main/pull/162[#162], https://github.com/cs2103-ay1819s2-w10-4/main/pull/166[#166],
 https://github.com/cs2103-ay1819s2-w10-4/main/pull/174[#174])
 
 * Documentation:
@@ -84,7 +84,7 @@ the test session feature.
 
 === Command Format
 * Words in `UPPER_CASE` are the parameters to be supplied by you e.g. in `addfolder FOLDER_NAME`,
-`FOLDER_NAME` is a parameter which can be used as `add Human Anatomy`.
+`FOLDER_NAME` is a parameter which can be something like `Human Anatomy`.
 
 * Items in square brackets are optional e.g `HINTS` in `add q/QUESTION a/ANSWER [h/HINTS]`.
 
@@ -95,8 +95,7 @@ include::../UserGuide.adoc[tag=testoperations]
 == Contributions to the Developer Guide
 Besides updating the original addressbook User Guide, Developer Guide has to be updated to Know-It-All context and
 features as well. The following section is an excerpt from our updated Know-It-All Developer Guide about the UI
-Component
- and the implementation details and design considerations for the test session feature.
+Component and the implementation details and design considerations for the test session feature.
 
 include::../DeveloperGuide.adoc[tag=UIdesign]
 

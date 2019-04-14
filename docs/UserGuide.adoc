@@ -95,7 +95,8 @@ Your data is saved in the `data/` folder by default. Like any other software app
 *Command Format*
 
 * Commands are written in monospaced font, e.g. `sort`
-* Words in `UPPER_CASE` are the parameters to be supplied by you e.g. in `addfolder FOLDER_NAME`, `FOLDER_NAME` is a parameter which can be used as `add Human Anatomy`.
+* Words in `UPPER_CASE` are the parameters to be supplied by you e.g. in `addfolder FOLDER_NAME`, `FOLDER_NAME` is a
+parameter which can be something like `Human Anatomy`.
 * Items in square brackets are optional e.g `HINTS` in `add q/QUESTION a/ANSWER [h/HINTS]`.
 * Items with `…​` after them can be used multiple times including zero times e.g. in `add q/QUESTION a/ANSWER [i/INCORRECT_OPTION]...`, you can include zero or more `i/INCORRECT_OPTIONs`.
 * Parameters can be in any order e.g. if the command specifies `q/QUESTION a/ANSWER`, `a/ANSWER q/QUESTION` is also acceptable.
@@ -541,7 +542,7 @@ Examples:
 in response to the card question: What is the powerhouse of the cell?
 
 * `ans 2` +
-in response to the card displayed below, where choosing option 2 will give the right answer as the correct answer is
+in response to the card displayed below, choosing option 2 will give the right answer as the correct answer is
 'Pigs'.
 
 .Answering an MCQ card

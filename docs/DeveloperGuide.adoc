@@ -883,16 +883,17 @@ back (the screen the user was seeing before entering the test session) to the us
 ====== Aspect: Way to execute a test/end command
 
 * **Alternative 1 (current choice)**: `test` is executed when inside a folder. The user does not have to specify the
-folder index and `test` would just immediately display the first card in the this current folder.
+folder index and `test` would just immediately display the first card in this current folder.
 ** Pros: The most logical way of carrying out a test session is where user is in the folder that he or she wants to be tested on. Lesser dependency on entering and exiting folder methods.
-** Cons: Requires the extra step of entering the folder before it can actually test the folder. User may actually see the questions before the test session.
+** Cons: Requires the extra step of entering the folder before it can test the folder. User may actually see the questions before the test session.
 
 * **Alternative 2**: `test` is executed when outside a folder, in the home directory. `test` command would require a
 folder index, e.g `test 1` to test the first folder. Implementation of getting the card from the folder would rely on
 enter folder command as well.
 ** Pros: Fast way to enter test session from home directory
-** Cons: Not logical for test to be called from home directory which should only allow folder operations. Test will
-then have to implicitly enter the folder to get access to the cards in it in order to display them, creating a dependency between test and enter folder command.
+** Cons: Not logical for test to be called from home directory which should only allow folder operations. `test` command
+will then have to implicitly enter the folder to get access to the cards in it in order to display them, creating a
+dependency between the test and enter folder commands.
 Similar issue will arise for the end test session command where user will need to implicitly exit the folder.
 
 *Evaluation*:

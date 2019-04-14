@@ -307,6 +307,7 @@ There is also a *Bill Mode* available for your use as a developer, although the 
 [NOTE]
 Although the `bill` command is used in Table Mode, it is considered a Statistics feature rather than an Orders feature as it involves calculation for the revenue.
 
+[[ChangeMode]]
 ==== Current Implementation
 
 ===== Changing modes in general
@@ -608,15 +609,40 @@ The Statistics feature allows users to perform queries that deal with the restau
 revenue earned and the popularity of menu items. With Statistics feature, restaurant front-end staffs can bill the
 customers' orders and automatically save the revenue in the restaurant's statistics storage using the <<Bill, `bill`>>
  command.
-Other commands like <<Yearly, `yearly`>>, <<Monthly, `monthly`>>, <<Daily, `daily`>> and <<Revenue, `revenue`>>
+Other commands like <<Trends, `yearly`>>, <<Trends, `monthly`>>, <<Trends, `daily`>> and <<Revenue, `revenue`>>
 commands allow the manager to retrieve and study the restaurant's statistical data trends. +
 
 The following class diagram illustrates the relationship between the Model components in Statistics.
 
 .Class diagram for Model components in Statistics feature
-image::Statistics_ModelClassDiagramAnnotated.png[width="700"]
+image::Statistics_ModelClassDiagram.png[width="700"]
 
 // end::statisticsintro[]
+// tag::statisticsstorage[]
+[[StatsStorage]]
+==== Design Considerations for Statistics Storage
+
+The data stored in [.java]#Storage# (/data/statistics.json) only encompasses Day, Month, Year and Revenue earned on
+that specific date. These data are stored when the <<Bill, `bill`>> command is called.
+
+[width="90%",cols="20%,40%,40%",options="header",]
+|=======================================================================
+| Aspect | Alternative 1 | Alternative 2
+| Storage of statistical data
+| Stores daily revenue which comprises of day, month, year and revenue. +
+- *Pros*: Less storage space used. +
+- *Cons*: No record of bill. Impossible to retrieve receipts. +
+
+|Stores bill which comprises of the day, month, year, bill, table number and receipt. +
+- *Pros*: Able to retrieve data of bills. +
+- *Cons*: More storage space for lists of bills for each day.+
+|=======================================================================
+
+In a restaurant, it is unlikely that a customer will request for a refund after consuming and paying for the meal.
+Even if there are complaints about the meal, they will demand for a newly cook dish before calling for the bill.
+Hence, we did not see the need to store receipts in the storage and implemented Alternative 1.
+
+// end::statisticsstorage[]
 // tag::bill[]
 [[Bill]]
 ==== Billing an order
@@ -638,8 +664,8 @@ Once the `bill` command is called, it will internally switch to <<BillMode, Bill
 
 The main crust of Bill mechanism is implemented in [.java]#BillCommand#. Just like any other commands, [
 .java]#BillCommand#execute()# overrides
-[.java]#Command#execute()# which is called in [.java]#LogicManger#. It takes in the current mode, model and command
-history which will provide the necessary functions it will need to execute the command prpoperly with the following
+[.java]#Command#execute()# which is called in [.java]#LogicManager#. It takes in the current mode, model and command
+history which will provide the necessary functions it will need to execute the command properly with the following
 operations:
 
 * [.java]#BillCommand#calculateBill()# -- Creates a bill with a receipt of all menu items ordered and updates the
@@ -679,7 +705,7 @@ image::Bill_CalculateBill.png[width="700"]
 After which, it iterates through the list of orders to obtain individual [.java]#OrderItem# and
 executes the following in each iteration:
 
-* Gets [.java]#MenuItem# by passing the Code of the [.java]#OrderItem# into [.java]#Menu#getItemFromCode()#.
+* Gets [.java]#MenuItem# by passing the code of the [.java]#OrderItem# into [.java]#Menu#getItemFromCode()#.
 * Retrieves the quantity of [.java]#OrderItem# ordered using [.java]#OrderItem#getQuantityOrdered()#.
 * Updates the quantity of menu item ordered using [.java]#ReadOnlyMenu#updateMenuItemQuantity()#.
 * Creates a [.java]#receipt# that appends the [.java]#MenuItem#getCode()#, [.java]#MenuItem#getName()#, [
@@ -735,43 +761,54 @@ confusion.
 [width="90%",cols="20%,40%,40%",options="header",]
 |=======================================================================
 | Aspect | Alternative 1 | Alternative 2
-| CalculateBill function
-| The function iterates through the [.java]#FilteredOrderItemList# to append the receipt, update quantity ordered of
-the Menu Items in [
-.java]#Menu#menuItems# and calculate the bill. +
+| Design calculateBill()
+| Iterates through the [.java]#FilteredOrderItemList# once to append the receipt, update quantity ordered of
+the Menu Items in [.java]#Menu#menuItems# and calculate the bill. +
 - *Pros*: Efficient as it only iterates through the list once. +
-- *Cons*: The code can be break into different functions that specifically calculates the bill, creates a
-bill receipt and update the quantity of menu items ordered. +
+- *Cons*: The code can be further break into different functions. +
 
-| Each table has its own [.java]#UniqueOrderItemList# to store the order items for that table. +
+| Create different functions that specifically calculates the bill, creates a bill receipt and update the quantity of
+ menu items ordered. +
 - *Pros*: Adheres to a better abstract design of the code. +
 - *Cons*: Inefficient due to multiple iteration of the [.java]#FilteredOrderItemList#. Given a long list of order
 items, this design will be impractical. +
-
 |=======================================================================
-We chose Alternative 1 as we decided to prioritize efficiency in this use case. `bill` command is only
-called when the customer is ready to pay and leave the restaurant. Hence, it is expected for the payment process to
+
+We implemented Alternative 1 to prioritize efficiency in this use case. Since `bill` command is only
+called when the customer is ready to pay and leave the restaurant, it is better for the payment process to
 be swift.
 
 // end::bill[]
-
 // tag::trends[]
-[[Revenue]]
+[[Trends]]
 ==== Changing Statistics Mode display
+The following implementation applies for `yearly`, `monthly` and `daily` commands.
+These commands make adjustments to the user interface to display statistical data trends.
+
 ===== Current Implementation
 
-The overall implementation of [.java]#RevenueCommand#
+The execution of these commands is similar to <<ChangeMode, changing the mode>>. The only difference is that [
+.java]#isYearly#, [.java]#isMonthly# and [.java]#isDaily# boolean variables are used in [
+.java]#MainWindow#executeCommand()#. These boolean variables are passed into [.java]#MainWindow#handleChangeMode()#
+where it will determine which display to switch to. You may refer to the activity diagram to understand the cause of
+actions in the [.java]#Statistics Mode# user interface.
+
+.Yearly, Monthly and Daily Activity Diagram
+image::Trend_ActivityDiagram.png[]
+
+Since these commands changes the user interface, a huge portion of their mechanism is dependent on [
+.java]#StatisitcsFlowPanel#. It determines the layout and arrangement of the revenue cards displayed.
+
 ===== Design Considerations
 
 [width="90%",cols="20%,40%,40%",options="header",]
 |=======================================================================
 | Aspect | Alternative 1 | Alternative 2
-| S
-| d +
-- *Pros*:  +
+| Arrangement of XXXStatisticsCard +
+| XXXStatisticsCard are arranged in descending order.+
+- *Pros*: The most recent card is visible to the user without scrolling.+
 - *Cons*: +
 
-w
 |  +
 - *Pros*:  +
 - *Cons*:  +
@@ -783,7 +820,13 @@ w
 // tag::revenue[]
 [[Revenue]]
 ==== Getting the revenue
+
+Statistical revenue data are stored in the
 ===== Current Implementation
+
+
+.Revenue Activity Diagram
+image::Revenue_ActivityDiagram.png[]
 
 The overall implementation of [.java]#RevenueCommand#
 ===== Design Considerations
@@ -791,7 +834,7 @@ The overall implementation of [.java]#RevenueCommand#
 [width="90%",cols="20%,40%,40%",options="header",]
 |=======================================================================
 | Aspect | Alternative 1 | Alternative 2
-| S
+|
 | d +
 - *Pros*:  +
 - *Cons*: +

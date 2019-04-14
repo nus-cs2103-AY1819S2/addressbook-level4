@@ -22,13 +22,10 @@ class JsonSerializableEquipmentManager {
     public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate equipment(s).";
 
     private final List<JsonAdaptedEquipment> persons = new ArrayList<>();
-
     /**
      * Constructs a {@code JsonSerializableEquipmentManager} with the given persons.
      */
     @JsonCreator
-
-
     public JsonSerializableEquipmentManager(@JsonProperty("persons") List<JsonAdaptedEquipment> persons) {
         this.persons.addAll(persons);
     }

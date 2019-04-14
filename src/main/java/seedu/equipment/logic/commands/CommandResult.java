@@ -13,6 +13,9 @@ public class CommandResult {
 
     private final String feedbackToUser;
 
+    /** The application should show list of client's equipment in the equipment details panel. */
+    private final boolean selectClient;
+
     /** Help information should be shown to the user. */
     private final boolean showHelp;
 
@@ -51,18 +54,24 @@ public class CommandResult {
         this(feedbackToUser, showHelp, exit, displayMap, false, null);
     }
 
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean displayMap,
+                         boolean route, Address routeAddress) {
+        this(feedbackToUser, showHelp, exit, displayMap, route, routeAddress, false);
+    }
+
     /**
      * Constructs a {@code CommandResult} with the specified {@code feedbackToUser},
      * and other fields set to their default value.
      */
     public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean displayMap,
-                         boolean route, Address routeAddress) {
+                         boolean route, Address routeAddress, boolean selectClient) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;
         this.displayMap = displayMap;
         this.route = route;
         this.routeAddress = routeAddress;
+        this.selectClient = selectClient;
     }
 
     public String getFeedbackToUser() {
@@ -89,6 +98,10 @@ public class CommandResult {
         return routeAddress;
     }
 
+    public boolean isSelectClient() {
+        return selectClient;
+    }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {
@@ -107,11 +120,18 @@ public class CommandResult {
                 && displayMap == otherCommandResult.displayMap
                 && route == otherCommandResult.route
                 && ((routeAddress == null && otherCommandResult.routeAddress == null)
-                    || (routeAddress != null && routeAddress.equals(otherCommandResult.routeAddress)));
+                    || (routeAddress != null && routeAddress.equals(otherCommandResult.routeAddress)))
+                && selectClient == otherCommandResult.selectClient;
+
     }
 
+    /**
+     * Hashcode of the object
+     * @return the hashcode of the object
+     */
     public int hashCode() {
-        return Objects.hash(feedbackToUser, showHelp, exit, displayMap, route, routeAddress);
+        return Objects.hash(feedbackToUser, showHelp, exit, displayMap, route, routeAddress,
+                selectClient);
     }
 
 }

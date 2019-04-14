@@ -46,21 +46,25 @@ public class EndConsultationTest {
     }
 
     @Test
-    public void noConsultation() {
-        modelManager.createConsultation(modelManager.getPatientByNric(patient1.getNric().toString()));
-
+    public void endConsultation_noConsultation_throwsCommandException() {
         EndConsultationCommand command = new EndConsultationCommand();
-
         Assert.assertThrows(CommandException.class, () -> command.execute(modelManager, history));
     }
 
     @Test
-    public void endConsultWithoutPrescription() {
+    public void endConsultation_noDiagnosisAndPrescription_throwsCommandException() {
         modelManager.createConsultation(modelManager.getPatientByNric(patient1.getNric().toString()));
         EndConsultationCommand command = new EndConsultationCommand();
-        Assessment assessment = new Assessment("migrane");
+        Assert.assertThrows(CommandException.class, () -> command.execute(modelManager, history));
+    }
+
+    @Test
+    public void endConsultation_noPrescription_throwsCommandException() {
+        modelManager.createConsultation(modelManager.getPatientByNric(patient1.getNric().toString()));
+        EndConsultationCommand command = new EndConsultationCommand();
 
         // no prescription
+        Assessment assessment = new Assessment("migrane");
         ArrayList<Symptom> symptoms = new ArrayList<>();
         symptoms.add(new Symptom("constant headache"));
         modelManager.diagnosePatient(new Diagnosis(assessment, symptoms));
@@ -68,10 +72,11 @@ public class EndConsultationTest {
     }
 
     @Test
-    public void endConsultWithoutDiagnosis() {
+    public void endConsultation_noDiagnosis_throwsCommandException() {
         modelManager.createConsultation(modelManager.getPatientByNric(patient1.getNric().toString()));
         EndConsultationCommand command = new EndConsultationCommand();
 
+        // no diagnosis
         ArrayList<Prescription> prescriptions = new ArrayList<>();
         Medicine med1 = new Medicine("migrane_medicine", 1);
         med1.setPrice(BigDecimal.valueOf(20.00));
@@ -81,9 +86,7 @@ public class EndConsultationTest {
     }
 
     @Test
-    public void endConsultation() {
-        EndConsultationCommand noConcommand = new EndConsultationCommand();
-        Assert.assertThrows(CommandException.class, () -> noConcommand.execute(modelManager, history));
+    public void endConsultation_validConsultation_success() {
 
         modelManager.createConsultation(modelManager.getPatientByNric(patient1.getNric().toString()));
         EndConsultationCommand command = new EndConsultationCommand();

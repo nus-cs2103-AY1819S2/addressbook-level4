@@ -2,6 +2,7 @@ package quickdocs.logic.commands;
 
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Logger;
 
 import quickdocs.commons.core.LogsCenter;
@@ -103,8 +104,21 @@ public class ListConsultationCommand extends Command {
     public boolean equals(Object other) {
         return other == this
                 || (other instanceof ListConsultationCommand
-                && (getIndex() == ((ListConsultationCommand) other).getIndex())
-                || getNric().equals(((ListConsultationCommand) other).getNric()));
+                && checkEquals((ListConsultationCommand) other));
+    }
+
+    /**
+     * Separate the checking of NRIC and index between 2 ListConsultationCommand
+     *
+     * @param other the other ListConsultationCommand to check equality against
+     */
+    public boolean checkEquals(ListConsultationCommand other) {
+
+        if (nric == null && other.getNric() == null) {
+            return getIndex() == other.getIndex();
+        }
+
+        return getNric().equals(other.getNric());
     }
 
 }

@@ -41,30 +41,35 @@ public class ConsultationCommandTest {
     }
 
     @Test
-    public void createConsultation() {
-
-        modelManager.createConsultation(modelManager.getPatientByNric(patient1.getNric().toString()));
-
-        // exception thrown when consultation is recreated with an ongoing session
-        Assert.assertThrows(IllegalArgumentException.class, () -> modelManager.createConsultation(
-                modelManager.getPatientByNric(patient1.getNric().toString())));
+    public void consultation_noPatientFound_failure() {
+        ConsultationCommand cr = new ConsultationCommand("S9123456B");
+        Assert.assertThrows(CommandException.class, ()->cr.execute(modelManager, history));
     }
 
     @Test
-    public void executeTest() {
-        ConsultationCommand cr = new ConsultationCommand("S9123456B");
-        Assert.assertThrows(CommandException.class, ()->cr.execute(modelManager, history));
-
-        ConsultationCommand cr2 = new ConsultationCommand("S9123456A");
+    public void consultation_alreadyStarted_failure() {
 
         try {
+            ConsultationCommand cr = new ConsultationCommand("S9123456A");
+            ConsultationCommand cr2 = new ConsultationCommand("S9123456A");
+
+            cr.execute(modelManager, history);
+            // exception thrown when consultation is recreated with an ongoing session
+            Assert.assertThrows(IllegalArgumentException.class, () -> cr2.execute(modelManager, history));
+        } catch (Exception e) {
+            org.junit.Assert.fail();
+        }
+    }
+
+    @Test
+    public void consultation_validExecute_success() {
+        ConsultationCommand cr = new ConsultationCommand("S9123456A");
+        try {
             String consultationResult = "Consultation session for: " + "S9123456A" + " started\n";
-            org.junit.Assert.assertEquals(cr2.execute(modelManager, history).getFeedbackToUser(),
+            org.junit.Assert.assertEquals(cr.execute(modelManager, history).getFeedbackToUser(),
                     new CommandResult(consultationResult).getFeedbackToUser());
         } catch (CommandException ce) {
             org.junit.Assert.fail();
         }
     }
-
-
 }

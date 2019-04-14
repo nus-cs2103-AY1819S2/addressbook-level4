@@ -62,11 +62,11 @@ Fashion Match is a desktop wardrobe management application used as a guide for y
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-Available/wash command:
-include::../UserGuide.adoc[tag=available]
+Wash command:
+include::../UserGuide.adoc[tag=wash]
 
-Unavailable/dirty command:
-include::../UserGuide.adoc[tag=unavailable]
+Wear command:
+include::../UserGuide.adoc[tag=wear]
 
 == Contributions to the Developer Guide
 
@@ -74,8 +74,8 @@ include::../UserGuide.adoc[tag=unavailable]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-Available/wash command:
-include::../DeveloperGuide.adoc[tag=unavailable]
+Wash command:
+include::../DeveloperGuide.adoc[tag=wash]
 
-Unavailable/dirty command:
-include::../DeveloperGuide.adoc[tag=unavailable]
+Wear command:
+include::../DeveloperGuide.adoc[tag=wear]

@@ -17,7 +17,7 @@ import seedu.address.commons.core.index.Index;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.AddressBook;
+import seedu.address.model.FashionMatch;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -45,7 +45,7 @@ public class WashCommandTest {
         // reset
         apparelToWash.setWorn();
 
-        Model expectedModel = new ModelManager(new AddressBook(dirtyModel.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new FashionMatch(dirtyModel.getAddressBook()), new UserPrefs());
         expectedModel.setPerson(apparelToWash, new Apparel(apparelToWash).setWorn());
         expectedModel.commitAddressBook();
 

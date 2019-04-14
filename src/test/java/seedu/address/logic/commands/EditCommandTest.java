@@ -21,7 +21,7 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
-import seedu.address.model.AddressBook;
+import seedu.address.model.FashionMatch;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -45,7 +45,7 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_APPAREL_SUCCESS, editedApparel);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new FashionMatch(model.getAddressBook()), new UserPrefs());
         expectedModel.setPerson(model.getFilteredApparelList().get(0), editedApparel);
         expectedModel.commitAddressBook();
 
@@ -67,7 +67,7 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_APPAREL_SUCCESS, editedApparel);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new FashionMatch(model.getAddressBook()), new UserPrefs());
         expectedModel.setPerson(lastApparel, editedApparel);
         expectedModel.commitAddressBook();
 
@@ -81,7 +81,7 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_APPAREL_SUCCESS, editedApparel);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new FashionMatch(model.getAddressBook()), new UserPrefs());
         expectedModel.commitAddressBook();
 
         assertCommandSuccess(editCommand, model, commandHistory, expectedMessage, expectedModel);
@@ -98,7 +98,7 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_APPAREL_SUCCESS, editedApparel);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new FashionMatch(model.getAddressBook()), new UserPrefs());
         expectedModel.setPerson(model.getFilteredApparelList().get(0), editedApparel);
         expectedModel.commitAddressBook();
 
@@ -158,7 +158,7 @@ public class EditCommandTest {
         Apparel apparelToEdit = model.getFilteredApparelList().get(INDEX_FIRST_APPAREL.getZeroBased());
         EditPersonDescriptor descriptor = new EditApparelDescriptorBuilder(editedApparel).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_APPAREL, descriptor);
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new FashionMatch(model.getAddressBook()), new UserPrefs());
         expectedModel.setPerson(apparelToEdit, editedApparel);
         expectedModel.commitAddressBook();
 
@@ -200,7 +200,7 @@ public class EditCommandTest {
         Apparel editedApparel = new ApparelBuilder().build();
         EditPersonDescriptor descriptor = new EditApparelDescriptorBuilder(editedApparel).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_APPAREL, descriptor);
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new FashionMatch(model.getAddressBook()), new UserPrefs());
 
         showApparelAtIndex(model, INDEX_SECOND_APPAREL);
         Apparel apparelToEdit = model.getFilteredApparelList().get(INDEX_FIRST_APPAREL.getZeroBased());

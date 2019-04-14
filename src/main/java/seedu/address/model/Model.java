@@ -48,10 +48,10 @@ public interface Model {
     /**
      * Replaces address book data with the data in {@code addressBook}.
      */
-    void setAddressBook(ReadOnlyAddressBook addressBook);
+    void setAddressBook(ReadOnlyFashionMatch addressBook);
 
-    /** Returns the AddressBook */
-    ReadOnlyAddressBook getAddressBook();
+    /** Returns the FashionMatch */
+    ReadOnlyFashionMatch getAddressBook();
 
     /**
      * Returns true if a apparel with the same identity as {@code apparel} exists in the address book.

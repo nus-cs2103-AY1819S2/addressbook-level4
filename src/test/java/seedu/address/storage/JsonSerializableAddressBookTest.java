@@ -11,7 +11,7 @@ import org.junit.rules.ExpectedException;
 
 /*import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.JsonUtil;
-import seedu.address.model.AddressBook;
+import seedu.address.model.FashionMatch;
 import seedu.address.testutil.TypicalApparels;*/
 
 public class JsonSerializableAddressBookTest {
@@ -29,8 +29,8 @@ public class JsonSerializableAddressBookTest {
     public void toModelType_typicalPersonsFile_success() throws Exception {
         JsonSerializableAddressBook dataFromFile = JsonUtil.readJsonFile(TYPICAL_PERSONS_FILE,
                 JsonSerializableAddressBook.class).get();
-        AddressBook addressBookFromFile = dataFromFile.toModelType();
-        AddressBook typicalPersonsAddressBook = TypicalApparels.getTypicalAddressBook();
+        FashionMatch addressBookFromFile = dataFromFile.toModelType();
+        FashionMatch typicalPersonsAddressBook = TypicalApparels.getTypicalAddressBook();
         assertEquals(addressBookFromFile, typicalPersonsAddressBook);
     }
 

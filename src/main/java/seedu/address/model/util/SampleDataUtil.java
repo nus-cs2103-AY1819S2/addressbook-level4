@@ -4,8 +4,8 @@ import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import seedu.address.model.AddressBook;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.FashionMatch;
+import seedu.address.model.ReadOnlyFashionMatch;
 import seedu.address.model.apparel.Apparel;
 import seedu.address.model.apparel.ClothingType;
 import seedu.address.model.apparel.Color;
@@ -13,7 +13,7 @@ import seedu.address.model.apparel.Name;
 import seedu.address.model.tag.Tag;
 
 /**
- * Contains utility methods for populating {@code AddressBook} with sample data.
+ * Contains utility methods for populating {@code FashionMatch} with sample data.
  */
 public class SampleDataUtil {
     public static Apparel[] getSamplePersons() {
@@ -56,8 +56,8 @@ public class SampleDataUtil {
         };
     }
 
-    public static ReadOnlyAddressBook getSampleAddressBook() {
-        AddressBook sampleAb = new AddressBook();
+    public static ReadOnlyFashionMatch getSampleAddressBook() {
+        FashionMatch sampleAb = new FashionMatch();
         for (Apparel sampleApparel : getSamplePersons()) {
             sampleAb.addApparel(sampleApparel);
         }

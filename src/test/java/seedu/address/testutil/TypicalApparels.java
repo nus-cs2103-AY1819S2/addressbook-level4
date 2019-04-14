@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import seedu.address.model.AddressBook;
+import seedu.address.model.FashionMatch;
 import seedu.address.model.apparel.Apparel;
 
 /**
@@ -82,27 +82,27 @@ public class TypicalApparels {
     private TypicalApparels() {} // prevents instantiation
 
     /**
-     * Returns an {@code AddressBook} with all the typical persons.
+     * Returns an {@code FashionMatch} with all the typical persons.
      */
-    public static AddressBook getTypicalAddressBook() {
-        AddressBook ab = new AddressBook();
+    public static FashionMatch getTypicalAddressBook() {
+        FashionMatch ab = new FashionMatch();
         for (Apparel apparel : getTypicalApparels()) {
             ab.addApparel(apparel);
         }
         return ab;
     }
 
-    public static AddressBook getDirtyAddressBook() {
-        AddressBook ab = new AddressBook();
+    public static FashionMatch getDirtyAddressBook() {
+        FashionMatch ab = new FashionMatch();
         ab.addApparel(SHIRT3);
         return ab;
     }
 
     /**
-     * Returns an {@code AddressBook} with all the typical persons.
+     * Returns an {@code FashionMatch} with all the typical persons.
      */
-    public static AddressBook getTypicalAddressBookWithLowerCaseName() {
-        AddressBook ab = new AddressBook();
+    public static FashionMatch getTypicalAddressBookWithLowerCaseName() {
+        FashionMatch ab = new FashionMatch();
         for (Apparel apparel : getTypicalApparelsWithLowerCaseName()) {
             ab.addApparel(apparel);
         }
@@ -110,10 +110,10 @@ public class TypicalApparels {
     }
 
     /**
-     * Returns an {@code AddressBook} with all the typical persons sorted by name.
+     * Returns an {@code FashionMatch} with all the typical persons sorted by name.
      */
-    public static AddressBook getTypicalAddressBookSortedByName() {
-        AddressBook ab = new AddressBook();
+    public static FashionMatch getTypicalAddressBookSortedByName() {
+        FashionMatch ab = new FashionMatch();
         for (Apparel apparel : getTypicalApparelsSortedByName()) {
             ab.addApparel(apparel);
         }
@@ -121,10 +121,10 @@ public class TypicalApparels {
     }
 
     /**
-     * Returns an {@code AddressBook} with all the typical persons sorted by name.
+     * Returns an {@code FashionMatch} with all the typical persons sorted by name.
      */
-    public static AddressBook getTypicalAddressBookSortedByNameCaseInsensitive() {
-        AddressBook ab = new AddressBook();
+    public static FashionMatch getTypicalAddressBookSortedByNameCaseInsensitive() {
+        FashionMatch ab = new FashionMatch();
         for (Apparel apparel : getTypicalApparelsSortedByNameCaseInsensitive()) {
             ab.addApparel(apparel);
         }
@@ -132,10 +132,10 @@ public class TypicalApparels {
     }
 
     /**
-     * Returns an {@code AddressBook} with all the typical persons sorted by color.
+     * Returns an {@code FashionMatch} with all the typical persons sorted by color.
      */
-    public static AddressBook getTypicalAddressBookSortedByColor() {
-        AddressBook ab = new AddressBook();
+    public static FashionMatch getTypicalAddressBookSortedByColor() {
+        FashionMatch ab = new FashionMatch();
         for (Apparel apparel : getTypicalApparelsSortedByColor()) {
             ab.addApparel(apparel);
         }
@@ -143,10 +143,10 @@ public class TypicalApparels {
     }
 
     /**
-     * Returns an {@code AddressBook} with all the typical persons sorted by color.
+     * Returns an {@code FashionMatch} with all the typical persons sorted by color.
      */
-    public static AddressBook getTypicalAddressBookSortedByType() {
-        AddressBook ab = new AddressBook();
+    public static FashionMatch getTypicalAddressBookSortedByType() {
+        FashionMatch ab = new FashionMatch();
         for (Apparel apparel : getTypicalApparelsSortedByType()) {
             ab.addApparel(apparel);
         }

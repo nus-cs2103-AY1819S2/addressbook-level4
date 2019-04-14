@@ -35,7 +35,7 @@ public class ModelManagerTest {
     public void constructor() {
         assertEquals(new UserPrefs(), modelManager.getUserPrefs());
         assertEquals(new GuiSettings(), modelManager.getGuiSettings());
-        assertEquals(new AddressBook(), new AddressBook(modelManager.getAddressBook()));
+        assertEquals(new FashionMatch(), new FashionMatch(modelManager.getAddressBook()));
         assertEquals(null, modelManager.getSelectedApparel());
     }
 
@@ -151,8 +151,8 @@ public class ModelManagerTest {
 
     @Test
     public void equals() {
-        AddressBook addressBook = new AddressBookBuilder().withPerson(SHIRT1).withPerson(PANTS1).build();
-        AddressBook differentAddressBook = new AddressBook();
+        FashionMatch addressBook = new AddressBookBuilder().withPerson(SHIRT1).withPerson(PANTS1).build();
+        FashionMatch differentAddressBook = new FashionMatch();
         UserPrefs userPrefs = new UserPrefs();
 
         // same values -> returns true

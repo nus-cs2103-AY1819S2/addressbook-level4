@@ -112,19 +112,26 @@ image::cropSuccess.PNG[width="918"]
 .  Save your edits by typing command: `save`.
 // end::AWalkThrough[]
 
+
 [[Features]]
 == Features
-This section describes all the commands available in FomoFoto and examples on how to use them. Commands are listed in alphanumeric order.
+// tag::FeaturesHeader[]
+This section describes all the commands available in FomoFoto. It provides a short description of what each command does, their formats as well as examples on how to use them. The commands are listed in alphabetical order.
 
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user. +
-e.g. For `import FILEPATH`, `FILEPATH` is a parameter which can be used as `import desktop/imagealbum/image1`.
-* Items in square brackets are optional. +
-e.g `brightness [BRIGHTNESS_RATIO]` can be used as `brightness` or `brightness 0.9`.
+The following styles are used to describe the format of the commands.
+
+* Words in `UPPER_CASE` are to be replaced with what the text specifies. +
+e.g. `open FILENAME`: `FILENAME` is to be replaced with the name of the file that the user wants to work on such as `open myImage.png`.
+* Words in square brackets are optional values. +
+e.g. `brightness [BRIGHTNESS_RATIO]`: `BRIGHTNESS_RATIO` can be omitted. Both `brightness` and `brightness 0.9` are accepted.
 
 ====
+
+// end::FeaturesHeader[]
+
 
 // tag::BlackWhiteCommand[]
 === Black and White Filter : `bw`
@@ -241,21 +248,22 @@ Additionally, images must also adhere to the following additional requirements:
 
 // end::Import[]
 
-// tag::ListAndOpen[]
-=== List Files: `listfiles`
 
+=== List Files: `listfiles`
+// tag::UGListFiles[]
 Lists all the names of the files in the album. +
 Format: `listfiles`
+// end::UGListFiles[]
 
 === Open an Image : `open`
-
+// tag::UGOpen[]
 Opens an image from the album for editing. +
 Format: `open FILENAME`
 
 Example:
 
 * `open sample.jpg`
-// end::ListAndOpen[]
+// end::UGOpen[]
 
 //tag::Redo[]
 === Redo Edit Steps : `redo`
@@ -305,10 +313,9 @@ Example:
 * `resize 100 200`
 // end::ResizeCommand[]
 
-// tag::UserSave[]
+
 === Save Image : `save`
-
-
+// tag::UGSave[]
 Applies your edits and saves the image. +
 Format: `save [FILENAME]`
 
@@ -334,8 +341,7 @@ image::ugValidsave.png[width="800"]
 
 
 <<invalid_save_name>> shows an example of how FomoFoto does not allow saving with invalid names. Ensure that your file name is valid before saving. There should be a message to indicate that the save is successful as seen in <<valid_save_name>> . To overwrite the original image, simply use `save` without the file name.
-
-// end::UserSave[]
+// end::UGSave[]
 
 // tag::SavePreset[]
 === Save Preset: `savepreset`

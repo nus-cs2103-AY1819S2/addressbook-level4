@@ -253,8 +253,8 @@ Classes used by multiple components are in the `seedu.hms.commons` package.
 This section describes some noteworthy details on how certain features are implemented.
 
 // tag::booking[]
-=== Adding service booking functionality
-==== Current Implementation
+=== How to include a new model
+==== Current Implementation using service booking
 
 In general, when adding any new model and its related commands, we need to work on 3 components
 compulsorily - Logic, Model and Storage. The UI component is modified based on how we
@@ -263,9 +263,10 @@ want the user to be able to interact with our newly added model.
 We start by working on the model component. We create a more specific model which
 implements the existing `Model` interface and create a manager for this model. This constitutes
 the API for our new model how the `Logic` component will execute the commands related to the model.
-For Booking, we create a `BookingModel` interface and a `BookingManager` manager which
+For Booking, we create a `BookingModel` interface and a `BookingManager` class which
 keeps track of a booking list. An 'observable booking list' is bounded to the UI using
-listeners so that the UI can be updated as the list changes.
+listeners so that the UI can be updated as the list changes. While the interface is a means of exposing the
+API, the manager class links with the system and performs the actions.
 
 Then we add the command files and parser files so that the application can parse commands
 related to the model and execute them. We have seperated the commands for different models
@@ -299,15 +300,25 @@ been explained before.
 ** Cons: There is no specific model for GUI actions and the Customer Model is used
          for these purposes.
 * **Alternative 2:** All the model APIs will be seperate and there will be no Model Interface.
-** Pros: Better seperation and less scope for errors
+** Pros: Better separation and less scope for errors
 ** Cons: Lot of refactoring required
+
+=== Allowing addition and editing of service and room types
+==== Current Implementation
+
+The booking model has a list of unique service types and it is similar to the setup
+between reservation model and room types. Refactoring the code from an ENUM allowed us
+to make commands for these two new models within booking and reservation. Each command is
+executed using the booking or reservation manager.
+
+==== Design Considerations
 
 ===== Aspect: Implementing Services (and Room Types)
 
-* **Alternative 1 (current choice):** Using ENUM
+* **Alternative 1:** Using ENUM
 ** Pros: It is safer as it makes sure every booking has a valid service
 ** Cons: Reduces flexibility of services and uses string matching in command parsing.
-* **Alternative 2:** Using a class
+* **Alternative 2 (current choice):** Using a class
 ** Pros: Makes it easier for staff to add and edit new services.
 ** Cons: Requires more error handling and safety measures
 // end::booking[]

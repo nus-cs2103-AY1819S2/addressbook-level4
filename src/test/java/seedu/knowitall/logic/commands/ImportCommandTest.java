@@ -153,6 +153,12 @@ public class ImportCommandTest {
      * answer, options and hint
      */
     private boolean isSameCard(Card card, Card expected) {
+        System.out.println("actual: ");
+        card.getOptions().forEach(x -> System.out.print(x.optionValue + ", "));
+
+        System.out.println("\nexpected: ");
+        expected.getOptions().forEach(x -> System.out.print(x.optionValue + ", "));
+
         assertTrue (card.getHints().equals(expected.getHints()));
         assertTrue (card.getOptions().equals(expected.getOptions()));
         assertTrue (card.getQuestion().equals(expected.getQuestion()));

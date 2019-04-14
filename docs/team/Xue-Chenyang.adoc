@@ -20,7 +20,7 @@ QuickDocs is an one-user all in one clinic management application developed by m
 
 My team was assigned to transform an existing application (of around 10,000 lines of code) to a new application that has real-world applications. +
 
-My team decided to address the problem private clinics in Singapore are facing conflicts between limited manpower and the enormous amount of trivial but complicated management chores to handle. +
+My team decided to address the problem that private clinics in Singapore are facing conflicts between limited manpower and the enormous amount of trivial but complicated management chores to handle. +
 
 In QuickDocs, doctors can have greater control in facilitating patient consultations, organizing appointments, and monitoring financial and inventory records in private clinics.
 

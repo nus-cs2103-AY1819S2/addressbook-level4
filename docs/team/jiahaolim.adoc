@@ -5,15 +5,16 @@
 
 == PROJECT: TeethHub
 
-In a Software Engineering module, my team was given the task to morph the given AddressBook 4 into an application of our choice. The result was TeethHub.
+In a Software Engineering module, my team was given the brownfield task to morph the given AddressBook 4 into an application of our choice. The result was TeethHub.
 
 === Overview
 
 TeethHub is designed for Dentists who prefer type commands over clicking on a Graphical User Interface(GUI). It is still possible to perform some actions by clicking on the GUI, but only in very limited capacity. For example, the user can select patients and records by clicking on them, but they would need to type the edit commands to edit them.
 
 As of version 1.4: +
-TeethHub allows Dentists to manage patient information, records of each patient and tasks for the dentist. TeethHub can also export them to a PDF file. +
-TeethHub displays the latest teeth information in the form of an image that follows the *Universal Numbering System* dental notation.
+TeethHub allows Dentists to manage patient information, records of each patient and tasks for the dentist. +
+TeethHub allows Dentists to manage multiple databases through File Management. File Management also allows exporting to a PDF file. +
+TeethHub displays the latest teeth information in the form of an image that follows the *Universal Numbering System* dental notation. +
 TeethHub displays statistics generated from all patients and records stored in it.
 
 The GUI of TeethHub is created with JavaFX. TeethHub is written in Java, and has about 20,000 lines of code. +
@@ -58,8 +59,10 @@ E.g. The user enters `add`. TeethHub will ask them if they meant `patientadd` or
 ** Documentation:
 *** Added Welcome message to User Guide.
 *** Edited prerequisites, quick start guide in User Guide.
+*** Proofread User Guide.
 *** Reordered original order of Commands and Feature to the current version in User Guide.
 *** Edited Design Considerations for existing undo/redo feature to conform to the new format agreed on by my team.
+*** Proofread and edited README.adoc.
 ** Community:
 *** Reported bugs and suggestions for other teams in the class (Examples: https://github.com/cs2103-ay1819s2-w09-3/main/issues/181[1], https://github.com/cs2103-ay1819s2-w09-3/main/issues/183[2], https://github.com/cs2103-ay1819s2-w09-3/main/issues/176[3], https://github.com/cs2103-ay1819s2-w09-3/main/issues/177[4])
 ** Tools:
@@ -71,6 +74,21 @@ E.g. The user enters `add`. TeethHub will ask them if they meant `patientadd` or
 |====
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |====
+
+== Introduction
+
+Welcome to TeethHub!
+If you are a dental practitioner who prefers to use a Command Line Interface (CLI),
+then TeethHub is an application for you!
+
+TeethHub works primarily through a CLI while having elements of a Graphical User Interface (GUI).
+For example, you can select patients and records by clicking on them, but you would need to type the edit commands to edit them.
+TeethHub allows you to keep track of your patient's particulars along with their dental records.
+An image of each patient's teeth will also be displayed according to what you input for each tooth's status(Absent, Problem, Healthy).
+In addition to that, TeethHub also allows you to keep track of your upcoming tasks, just like a calendar.
+
+Interested in trying TeethHub out? Check out <<prerequisites>> to see what programs you need in order for TeethHub to work properly.
+If you’re confident in your computer set-up, jump to <<quick-start-guide>> to begin!
 
 === File Management
 
@@ -224,6 +242,7 @@ In v1.6, TeethHub will have a new command for you to upload images.
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |====
 
+== Implementation
 === File Management
 Although TeethHub already has a built-in auto-load and auto-save, implementing file management would give the user more flexibility with managing data. +
 PDF export is also implemented so that the user would have an easier time making sense of the data when offline.
@@ -273,7 +292,7 @@ The Open feature's format is: `open FILE_PATH`
 5. OpenCommand checks for if the requested file is a ".json" file, if the file exists, if it is a file, or if it can be read. +
 6. OpenCommand calls the existing readAddressBook().
 
-image::OpenCommandSequenceDiagram.jpg[width="870"]
+image::OpenCommandSequenceDiagram.png[width="870"]
 
 ==== Import feature
 As TeethHub already has a built-in auto-load when starting the program, the implemented Import feature makes use of it. +
@@ -389,7 +408,3 @@ image::SuggestionFeatureAddPatientMode.png[width="236"]
 *** **Alternative Pros:** Only 1 implementation, as opposed to an implementation for each Common command. +
 *** **Alternative Cons:** Might be rude.
 ** **Choice Justification:** We chose the current implementation as we occasionally found ourselves and other users typing `add` to add something, `edit` to edit something and so on. This implementation was designed to tackle this issue.
-
-include::../DeveloperGuide.adoc[tag=storyuserJH]
-
-include::../DeveloperGuide.adoc[tag=manualtestingJH]

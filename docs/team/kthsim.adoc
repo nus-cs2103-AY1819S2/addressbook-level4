@@ -5,8 +5,6 @@
 
 == PROJECT: TeethHub
 
----
-
 == Overview
 My teammates and I were assigned the task of either improving an existing Command-Line Interfaces (CLI) based program
  by the name of AddressBook4 or to use it as the basis for our own program. We chose to transform it into TeethHub.
@@ -57,7 +55,7 @@ detailed report so that they can analyze potential trends.
 * Added a Next Of Kin class as an attribute for a patient.
 * Added a Procedure class as an attribute for a record.
 
-*Code contributed*: [http://tinyurl.com/yywtfzrn[Functional code]] [https://github.com[Test code]]
+*Code contributed*: [http://tinyurl.com/yywtfzrn[Reposense]]
 
 *Other contributions*:
 
@@ -70,10 +68,7 @@ detailed report so that they can analyze potential trends.
 
 ** Enhancements to existing features:
 *** Updated README to reflect information for TeethHub instead of AddressBook4
-** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
 ** Community:
-*** PRs reviewed (with non-trivial review comments)
 *** Reported bugs and suggestions for other team members https://github.com/CS2103-AY1819S2-W17-2/main/issues/58[#58]
 https://github.com/CS2103-AY1819S2-W17-2/main/issues/106[#106]
 ** Tools:
@@ -92,6 +87,8 @@ friendly documentation through the showcase of a few important sections._
 
 include::../UserGuide.adoc[tag=viewingInfo]
 
+include::../UserGuide.adoc[tag=rfindClear]
+
 
 == Contributions to the Developer Guide
 
@@ -102,6 +99,8 @@ implementations I did during the creation of the project._
 |===
 
 include::../DeveloperGuide.adoc[tag=findimplement]
+
+include::../DeveloperGuide.adoc[tag=sortimplement]
 
 include::../DeveloperGuide.adoc[tag=statimplement]
 

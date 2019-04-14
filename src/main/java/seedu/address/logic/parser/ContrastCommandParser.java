@@ -22,14 +22,11 @@ public class ContrastCommandParser implements Parser<ContrastCommand> {
         OptionalDouble contrastValue;
 
         if (args.isEmpty()) {
-            System.out.println("empty");
             contrastValue = OptionalDouble.empty();
         } else {
             args = args.trim();
             String[] parsed = args.split(" ");
-            System.out.println("length is" + parsed.length);
             if (parsed.length > 1) {
-                System.out.println("hi");
                 throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
                     ContrastCommand.MESSAGE_USAGE));
             }

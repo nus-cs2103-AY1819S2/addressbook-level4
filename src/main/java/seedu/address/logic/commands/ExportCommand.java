@@ -51,7 +51,7 @@ public class ExportCommand extends Command {
         try {
             copyFileToDirectory(toExport, directory, false);
         } catch (IOException e) {
-            System.out.println(e.toString());
+            e.printStackTrace();
         }
 
         return new CommandResult(Messages.MESSAGE_EXPORT_SUCCESS);

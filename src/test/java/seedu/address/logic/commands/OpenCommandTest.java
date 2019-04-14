@@ -33,7 +33,7 @@ public class OpenCommandTest {
             ImportCommandParser parser = new ImportCommandParser();
             parser.parse("sample").execute(currentEdit, model, commandHistory);
         } catch (Exception e) {
-            System.out.println(e.toString());
+            e.printStackTrace();
         }
     }
 

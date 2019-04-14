@@ -40,7 +40,6 @@ public class CurrentEditManager implements CurrentEdit {
     /* @@author thamsimun */
     public CurrentEditManager() {
         this.editFilePath = generateEdit();
-        System.out.println(editFilePath);
         this.editFileName = editFilePath + editName;
         this.originalFileName = editFilePath + originalName;
         this.directoryTo = new File(editFilePath);
@@ -73,7 +72,7 @@ public class CurrentEditManager implements CurrentEdit {
             this.originalImage = new Image(originalFile.getAbsolutePath());
             this.tempImage = new Image(tempFile.getAbsolutePath());
         } catch (Exception e) {
-            System.out.println(e);
+            e.printStackTrace();
         }
     }
 
@@ -91,7 +90,7 @@ public class CurrentEditManager implements CurrentEdit {
             FileUtils.copyFileToDirectory(outputFile, directory, false);
             outputFile.delete();
         } catch (IOException e) {
-            System.out.println(e.toString());
+            e.printStackTrace();
         }
     }
 
@@ -141,7 +140,7 @@ public class CurrentEditManager implements CurrentEdit {
             File outputFile = new File(editFileName);
             ImageIO.write(bufferedimage, tempImage.getFileType(), outputFile);
         } catch (IOException e) {
-            System.out.println(e.toString());
+            e.printStackTrace();
         }
         tempImage = new Image(editFileName);
         tempImage.setHistory(tempList);
@@ -181,7 +180,7 @@ public class CurrentEditManager implements CurrentEdit {
             //tempImage.setHistory(tempList);
             //tempImage.setIndex(index);
         } catch (IOException e) {
-            System.out.println(e.toString());
+            e.printStackTrace();
         }
     }
 
@@ -203,10 +202,6 @@ public class CurrentEditManager implements CurrentEdit {
 
     public Command getCommandTemp() {
         return tempImage.getCommand();
-    }
-
-    public List<Command> getSubHistoryTemp() {
-        return tempImage.getSubHistory();
     }
 
     /* @@author itszp */
@@ -281,12 +276,12 @@ public class CurrentEditManager implements CurrentEdit {
             editFolder.deleteOnExit();
             tempPath = editFolder.getAbsolutePath() + File.separator;
         } catch (Exception e) {
-            System.out.println(e);
+            e.printStackTrace();
         }
         return tempPath;
     }
 
-    public boolean tempImageExist() {
+    public boolean tempImageDoNotExist() {
         return tempImage == null;
     }
     /* @@author*/

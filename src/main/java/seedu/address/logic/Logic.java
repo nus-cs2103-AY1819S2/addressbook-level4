@@ -62,7 +62,7 @@ public interface Logic {
     GuiSettings getGuiSettings();
 
     /**
-     * Get the current InformationPanel settings.
+     * Get the user prefs' InformationPanel settings as a ReadOnlyProperty.
      */
     ReadOnlyProperty<InformationPanelSettings> getInformationPanelSetting();
 

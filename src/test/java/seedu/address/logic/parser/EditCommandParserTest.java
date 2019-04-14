@@ -29,6 +29,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditMedicineDescriptor;
 import seedu.address.model.medicine.Company;
+import seedu.address.model.medicine.Medicine;
 import seedu.address.model.medicine.Name;
 import seedu.address.model.tag.Tag;
 import seedu.address.testutil.EditMedicineDescriptorBuilder;
@@ -84,6 +85,17 @@ public class EditCommandParserTest {
         // multiple invalid values, but only the first invalid value is captured
         assertParseFailure(parser, "1" + INVALID_NAME_DESC + VALID_COMPANY_AMOXICILLIN + INVALID_TAG_DESC,
                 Name.MESSAGE_CONSTRAINTS);
+    }
+
+    @Test
+    public void parse_tooManyTags_failure() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("1 ").append(NAME_DESC_GABAPENTIN).append(COMPANY_DESC_GABAPENTIN);
+        for (int i = 0; i < Medicine.MAX_SIZE_TAG + 1; i++) {
+            sb.append(" ").append(PREFIX_TAG).append(i);
+        }
+        assertParseFailure(parser, sb.toString(), String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                Medicine.MESSAGE_CONSTRAINTS_TAGS));
     }
 
     @Test

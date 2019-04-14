@@ -32,17 +32,17 @@ public class UpdateBatchDescriptorTest {
         assertFalse(DESC_AMOXICILLIN_BATCH.equals(DESC_GABAPENTIN_BATCH));
 
         // different name -> returns false
-        UpdateBatchDescriptor editedBatch = new UpdateBatchDescriptorBuilder(DESC_AMOXICILLIN_BATCH)
+        UpdateBatchDescriptor updateBatchDescriptor = new UpdateBatchDescriptorBuilder(DESC_AMOXICILLIN_BATCH)
                 .withBatchNumber(VALID_NAME_GABAPENTIN).build();
-        assertFalse(DESC_AMOXICILLIN_BATCH.equals(editedBatch));
+        assertFalse(DESC_AMOXICILLIN_BATCH.equals(updateBatchDescriptor));
 
         // different quantity -> returns false
-        editedBatch = new UpdateBatchDescriptorBuilder(DESC_AMOXICILLIN_BATCH).withNoQuantity().build();
-        assertFalse(DESC_AMOXICILLIN_BATCH.equals(editedBatch));
+        updateBatchDescriptor = new UpdateBatchDescriptorBuilder(DESC_AMOXICILLIN_BATCH).withNoQuantity().build();
+        assertFalse(DESC_AMOXICILLIN_BATCH.equals(updateBatchDescriptor));
 
         // different expiry -> returns false
-        editedBatch = new UpdateBatchDescriptorBuilder(DESC_AMOXICILLIN_BATCH).withNoExpiry().build();
-        assertFalse(DESC_AMOXICILLIN_BATCH.equals(editedBatch));
+        updateBatchDescriptor = new UpdateBatchDescriptorBuilder(DESC_AMOXICILLIN_BATCH).withNoExpiry().build();
+        assertFalse(DESC_AMOXICILLIN_BATCH.equals(updateBatchDescriptor));
     }
 }
 

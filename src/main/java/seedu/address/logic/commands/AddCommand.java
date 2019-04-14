@@ -25,8 +25,8 @@ public class AddCommand extends Command {
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "Paracetamol "
             + PREFIX_COMPANY + "Novartis "
-            + PREFIX_TAG + "Popular "
-            + PREFIX_TAG + "needsRestock";
+            + PREFIX_TAG + "inflammation "
+            + PREFIX_TAG + "fever";
 
     public static final String MESSAGE_SUCCESS = "New medicine added: %1$s";
     public static final String MESSAGE_DUPLICATE_MEDICINE = "This medicine already exists in the inventory";

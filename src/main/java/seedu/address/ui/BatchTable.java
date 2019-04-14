@@ -1,8 +1,5 @@
 package seedu.address.ui;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -26,6 +23,13 @@ public class BatchTable extends UiPart<Region> {
 
     public static final String BATCHTABLE_FOOTER_QUANTITY = "Total Quantity: ";
     public static final String BATCHTABLE_FOOTER_EXPIRY = "Next Expiry Date: ";
+
+    public static final String FONT_SIZE_VERY_SMALL = "-fx-font-size: 12pt";
+    public static final String FONT_SIZE_SMALL = "-fx-font-size: 15pt";
+    public static final String FONT_SIZE_MEDIUM = "-fx-font-size: 20pt";
+    public static final int NAME_LENGTH_VERY_LONG = 30;
+    public static final int NAME_LENGTH_LONG = 25;
+    public static final int NAME_LENGTH_MEDIUM = 20;
 
     private static final String FXML = "BatchTable.fxml";
 
@@ -57,19 +61,37 @@ public class BatchTable extends UiPart<Region> {
         super(FXML);
 
         setDescriptionTexts(selectedMedicine);
+        setColumnWidth();
         populateTable(selectedMedicine);
         sortTable(informationPanelSettings);
     }
 
     private void setDescriptionTexts(Medicine selectedMedicine) {
-        name.setText(selectedMedicine.getName().toString());
+        setNameText(selectedMedicine.getName().toString());
         company.setText(selectedMedicine.getCompany().toString());
         quantity.setText(BATCHTABLE_FOOTER_QUANTITY + selectedMedicine.getTotalQuantity().toString());
         expiry.setText(BATCHTABLE_FOOTER_EXPIRY + selectedMedicine.getNextExpiry().toString());
     }
 
+    private void setNameText(String medicineName) {
+        if (medicineName.length() > NAME_LENGTH_VERY_LONG) {
+            name.setStyle(FONT_SIZE_VERY_SMALL);
+        } else if (medicineName.length() > NAME_LENGTH_LONG) {
+            name.setStyle(FONT_SIZE_SMALL);
+        } else if (medicineName.length() > NAME_LENGTH_MEDIUM) {
+            name.setStyle(FONT_SIZE_MEDIUM);
+        }
+        name.setText(medicineName);
+    }
+
+    private void setColumnWidth() {
+        numberColumn.prefWidthProperty().bind(table.widthProperty().multiply(0.5));
+        quantityColumn.prefWidthProperty().bind(table.widthProperty().multiply(0.24));
+        expiryColumn.prefWidthProperty().bind(table.widthProperty().multiply(0.24));
+    }
+
     /**
-     * Gets batch details from selectedMedicine and add them to the table.
+     * Gets batch details from {@code selectedMedicine} and add them to the table.
      */
     private void populateTable(Medicine selectedMedicine) {
         ObservableList<Batch> batches = FXCollections.observableArrayList(selectedMedicine.getBatches().values());
@@ -77,23 +99,27 @@ public class BatchTable extends UiPart<Region> {
     }
 
     /**
-     * Sorts the table depending on the input sortProperty and sortDirection.
+     * Sorts the table depending on the {@code informationPanelSettings}.
      */
-    public void sortTable(InformationPanelSettings informationPanelSettings) {
+    private void sortTable(InformationPanelSettings informationPanelSettings) {
         table.getSortOrder().clear();
 
         SortProperty sortProperty = informationPanelSettings.getSortProperty();
         SortDirection sortDirection = informationPanelSettings.getSortDirection();
 
         TableColumn<Batch, ?> column;
-        if (sortProperty.equals(SortProperty.BATCHNUMBER)) {
+        switch (sortProperty) {
+        case BATCHNUMBER:
             column = numberColumn;
-        } else if (sortProperty.equals(SortProperty.QUANTITY)) {
+            break;
+        case QUANTITY:
             column = quantityColumn;
-        } else if (sortProperty.equals(SortProperty.EXPIRY)) {
+            break;
+        case EXPIRY:
             column = expiryColumn;
-        } else {
-            throw new IllegalArgumentException("Unknown Sort Property.");
+            break;
+        default:
+            throw new IllegalArgumentException("Unknown sort property.");
         }
 
         if (sortDirection.equals(SortDirection.ASCENDING)) {
@@ -103,25 +129,5 @@ public class BatchTable extends UiPart<Region> {
         }
 
         table.getSortOrder().add(column);
-    }
-
-    public String getNameLabelText() {
-        return name.getText();
-    }
-
-    public String getCompanyLabelText() {
-        return company.getText();
-    }
-
-    public String getQuantityLabelText() {
-        return quantity.getText();
-    }
-
-    public String getExpiryLabelTexts() {
-        return expiry.getText();
-    }
-
-    public List<Batch> getTableData() {
-        return new ArrayList<>(table.getItems());
     }
 }

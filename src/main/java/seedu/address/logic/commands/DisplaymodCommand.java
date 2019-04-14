@@ -21,10 +21,10 @@ public class DisplaymodCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Finds one module Information based on given "
-            + "parameters. "
+            + "parameters. \n"
             + "Parameters: "
             + PREFIX_MODCODE + "MODULE CODE" + " "
-            + PREFIX_MODNAME + "MODULE NAME" + " "
+            + PREFIX_MODNAME + "MODULE NAME" + " \n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_MODCODE + "CS2103T,CS2101" + " "
             + PREFIX_MODNAME + "Software+Engineering";

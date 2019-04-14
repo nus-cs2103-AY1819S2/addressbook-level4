@@ -15,6 +15,7 @@ import seedu.address.model.course.Condition;
 public class JsonAdaptedCondition {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Condition's %s field is missing!";
+    public static final String NOT_PARSABLE_AS_INT = "minToSatisfy not parsable as integer";
     private final String minToSatisfy;
     private final String pattern;
 
@@ -58,9 +59,17 @@ public class JsonAdaptedCondition {
 
             final int minToSatisfy = Integer.parseInt(this.minToSatisfy);
 
+            if (!Condition.isValidRegex(pattern)) {
+                throw new IllegalValueException(Condition.INVALID_REGEXES);
+            }
+
+            if (!Condition.isValidMinToSatisfy(minToSatisfy)) {
+                throw new IllegalValueException(Condition.INVALID_MIN_TO_SATISFY);
+            }
+
             return new Condition(minToSatisfy, pattern);
         } catch (NumberFormatException e) {
-            throw new IllegalValueException(String.format("minToSatisfy not parseable as integer"));
+            throw new IllegalValueException(NOT_PARSABLE_AS_INT);
         }
     }
 }

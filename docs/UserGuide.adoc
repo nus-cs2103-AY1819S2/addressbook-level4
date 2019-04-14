@@ -399,19 +399,15 @@ Examples:
 
 // tag::dataencryption[]
 === File Protection: `encrypt` & `decrypt`
-The command `encrypt` allow you to lock your files such that they cannot be accessed without a password that you had specified. Similarly, the command `decrypt` will let you remove the password that you had set for the file.
 
-Format: `encrypt INDEX password/PASSWORD` [To Encrypt a file] +
-Format: `decrypt INDEX password/PASSWORD` [To Decrypt a file] +
+[NOTE]
+The term `protected` and `encrypted` has the same meaning and will be used
+interchangeably.
 
-Examples:
-
-* `encrypt 2 password/ThisIsNotASecurePassword`
-* `decrypt 2 password/ThisIsNotASecurePassword`
-
-For encryption, you can select the file on the list that you wish to encrypt
-with a password you specified. Likewise, for decryption, you have to enter the
-password of the encrypted file that you wish to decrypt.
+The command `encrypt` allow you to protect your files with a password such that
+they cannot be accessed without a password that you had specified.
+Similarly, the command `decrypt` will let you remove the password that
+you had previously set for the file.
 
 The Encrypt and Decrypt feature has the following syntax:
 
@@ -426,14 +422,15 @@ of the file
 * `PASSWORD` refers to the password you wish to encrypt your file with / of the encrypted file
 you want to decrypt.
 
-[NOTE]
-Please ensure that you have entered the correct password as undo & redo functions do not work
-with encrypt & decrypt.
+Examples:
 
-Please refer to `Step-by-Step Guide -- encrypt` for encryption guide and `Step-by-Step Guide --
+* `encrypt 2 password/ThisIsNotASecurePassword`
+* `decrypt 2 password/ThisIsNotASecurePassword`
+
+Please refer to <<Encryption Guide>> for encryption guide and `Step-by-Step Guide --
 decrypt` for decryption guide.
 
-==== Step-by-Step Guide -- encrypt
+==== Encryption Guide
 Illustrate below is a sample usage scenario that provides a clear view to the inner workings
 of the Encrypt feature.
 

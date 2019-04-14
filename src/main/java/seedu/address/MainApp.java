@@ -1,15 +1,13 @@
 package seedu.address;
 
-import static seedu.address.logic.commands.Statistics.updateStatistics;
+import static seedu.address.logic.commands.Statistics.undoRedoStatistics;
 
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
-import java.util.Set;
 import java.util.logging.Logger;
 
 import javafx.application.Application;
-import javafx.collections.ObservableList;
 import javafx.stage.Stage;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.LogsCenter;
@@ -27,8 +25,6 @@ import seedu.address.model.ReadOnlyRequestBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.RequestBook;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.request.Request;
-import seedu.address.model.tag.Condition;
 import seedu.address.model.util.SampleDataUtil;
 import seedu.address.storage.HealthWorkerBookStorage;
 import seedu.address.storage.JsonHealthWorkerBookStorage;
@@ -76,12 +72,7 @@ public class MainApp extends Application {
 
         model = initModelManager(storage, userPrefs);
 
-        ReadOnlyRequestBook requestBook = model.getRequestBook();
-        ObservableList<Request> requestList = requestBook.getRequestList();
-        for (Request request : requestList) {
-            Set<Condition> conditionSet = request.getConditions();
-            updateStatistics(conditionSet);
-        }
+        undoRedoStatistics(model);
 
         logic = new LogicManager(model, storage);
 

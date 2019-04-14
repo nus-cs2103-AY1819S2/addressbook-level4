@@ -59,7 +59,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * *`delete`* `3` : deletes the 3rd entry shown in the current list
 * *`exit`* : exits the app
 
-.  Refer to <<Commands>> for details of each command.
+.  You can refer to <<Commands>> for details of each command.
 .  Having trouble setting up MediTabs? You can refer to the <<Frequently Asked Questions (FAQ)>> for solutions to common problems you might encounter. Do you require further assistance? If so, you can also post your queries link:{repoURL}/issues[here] and our team will do our best to assist you.
 
 // tag::applicationinterface[]
@@ -161,7 +161,7 @@ MediTabs will store information about your monthly stock level and predict the o
 It will also be possible to import past inventory data to increase accuracy of forecasting immediately without having to wait for the application to collect data.
 
 [NOTE]
-We recommend importing or allowing MediTabs to collect data for 6 months or more for a more accurate forecast.
+Importing or allowing MediTabs to collect data for 6 months or more will produce a more accurate forecast.
 // end::inventoryforecasting[]
 
 // tag::integrationaddon[]
@@ -230,8 +230,6 @@ Examples:
 Shows a list of all medicine in the inventory. +
 Format: `list`
 
-image::UserGuide_ListCommand.png[width="180", float="left"]
-
 ****
 * The details of the medicine shown in the list include: name, company, total quantity, closest expiry date and tags.
 ****
@@ -249,7 +247,7 @@ Format: `find PREFIX KEYWORD [MORE_KEYWORDS]...`
 * `t/` : tags of medicine are searched.
 * `b/` : batch number of batches of medicine are searched.
 
-+
+{nbsp}
 
 * Only the category indicated by the entered prefix will be searched. You can only enter one prefix at a time.
 * The search is case insensitive. e.g `sodium` will match `Sodium`
@@ -263,11 +261,11 @@ Examples:
 * `find n/ Sodium` +
 `Levothyroxine Sodium` and `Naproxen Sodium` are displayed in the list.
 * `find c/ 3M Johnson Pharmaceutical` +
-All medicine from companies with names containing `3M`, `Johnson` or `Pharmaceutical` such as `3M Pharmaceuticals` are displayed in the list.
+All medicines from companies with names containing `3M`, `Johnson` or `Pharmaceutical` such as `3M Pharmaceuticals` are displayed in the list.
 * `find t/ fever` +
-All medicine with tag `fever` are displayed in the list.
+All medicines with tag `fever` are displayed in the list.
 * `find b/ NDC` +
-All medicine with batches with batch number containing `NDC` such as `NDC 0777-3105-02` are displayed in the list.
+All medicines with batches with batch number containing `NDC` such as `NDC 0777-3105-02` are displayed in the list.
 // end::find[]
 
 === Editing a medicine : `edit`
@@ -310,15 +308,15 @@ Deletes the 1st medicine in the results of the `find` command.
 Selects a medicine and loads the information page of the medicine. +
 Format: `select INDEX`
 
-.Information page will be loaded when a medicine is selected
-image::UserGuide_SelectCommand.png[width="715"]
-
 ****
 * Loads the information page of the medicine at the specified `INDEX` in the information panel.
 * The information page consists of a table with details of all batches of the selected medicine.
 * These details include: batch number, quantity and expiry date.
 * The total quantity and closest expiry date of the medicine is also displayed at the bottom of the table.
 ****
+
+.An example of the information page loaded when Aspirin is selected
+image::UserGuide_SelectCommand.png[width="715"]
 
 Examples:
 
@@ -336,9 +334,6 @@ Selects the 1st medicine in the results of the `find` command and loads its info
 Sorts the batch table in the medicine information page based on the entered property and direction +
 Format: `sort p/PROPERTY d/DIRECTION`
 
-.Batch table will be sorted accordingly
-image::UserGuide_SortCommand.png[width="715"]
-
 ****
 .Possible properties:
 * `batchnumber` : sorts the table by batch number (lexicographically).
@@ -349,6 +344,9 @@ image::UserGuide_SortCommand.png[width="715"]
 * `ascending`: sorts the table in ascending order.
 * `descending` : sorts the table in descending order.
 ****
+
+.An example of the batch table sorted by expiry date in ascending order
+image::UserGuide_SortCommand.png[width="715"]
 
 Examples:
 
@@ -385,9 +383,9 @@ Updates quantity and expiry date of batch `NDC 0777-3105-02` in the batch record
 * `find n/ Gabapentin` +
 `update 1 b/GKP1684 q/50` +
 Updates quantity of batch `GKP1684` in the batch records of the 1st medicine in the results of the `find` command to `50`. An error message is shown if batch `GKP1684` did not already exist.
-*`list` +
+* `list` +
 `update 1 b/HK85412 q/0` +
-Remove batch `HK85412` from the batch records of the 1st medicine in the list. An error message is shown if batch `HK85412` did not already exist.
+Removes batch `HK85412` from the batch records of the 1st medicine in the list. An error message is shown if batch `HK85412` did not already exist.
 //end::update[]
 
 // tag::warningpanelcommand[]
@@ -644,7 +642,7 @@ e.g. `warning e/20`, `warning s/10`, `warning show`
 
 * *List:* This refers to the currently displayed list (possibly filtered).
 * *Inventory:* This refers to the storage containing all medicines that have been added. Display all medicines in the inventory by using the `list` command.
-* *Batch:* This refers to medicine with the same name, medical properties and manufacturing date. There may be more than one batch of medicine with the same name, but they will have different batch numbers and manufacturing dates. View all batches of a medicine by using the `select` command.
+* *Batch:* This refers to a group of medicine with the same name, medical properties and manufacturing date. There may be more than one batch of medicine with the same name, but they will have different batch numbers and manufacturing dates. View all batches of a medicine by using the `select` command.
 
 // tag::filenamingconvention[]
 == Appendix A: File Naming Convention

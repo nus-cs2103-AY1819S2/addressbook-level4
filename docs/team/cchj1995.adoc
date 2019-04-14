@@ -11,7 +11,7 @@
 
 As part of a Software Engineering module, my team and I were given an objective to enhance or morph an existing application known as AddressBoook4(AB4). We opted to transform the application and the product of our efforts was TeethHub.
 
-TeethHub was designed for dentists who are proficient with computers and comfortable with using a Command Line Interface(CLI) for interaction over a Graphical User Interface(GUI). TeethHub enables dentists to store, modify and interact with patients, records and tasks, all the while providing clear and useful graphical feedback to its user. Dentists can also import and export data in and out of the application to formats such as .json and .pdf. TeethHub was written in Java, building its graphical elements on JavaFX. As of v1.4, the application has roughly 20000 lines of codes, a difference of 10000 lines compared to AB4.
+TeethHub was designed for dentists who are proficient with computers and comfortable with using a Command Line Interface(CLI) for interaction over a Graphical User Interface(GUI). Dentists can store, modify, interact and even export their patients, records and tasks, all the while enjoying clear graphical feedback. TeethHub was written in Java, building its graphical elements on JavaFX. As of v1.4, the application has roughly 20000 lines of codes, a difference of 10000 lines compared to AB4.
 
 == Summary of contributions
 My role in the development of TeethHub was to cover two main aspects, task data management and GUI enhancement.

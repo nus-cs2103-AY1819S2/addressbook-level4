@@ -347,6 +347,7 @@ Example:
 * `rotate 180` +
 `brightness 1.3` +
 `savepreset preset1` (saves `rotate 180` and `brightness 1.3` in a list of commands that can be used on other images)
+// end::SavePreset[]
 
 // tag::SetPreset[]
 === Set Preset: `setpreset`
@@ -360,6 +361,7 @@ Example:
 `savepreset preset1` (saves `rotate 180` and `brightness 1.3` in a list of commands that can be used on other images) +
 `open newImage.jpg`  (open a new image to edit on) +
 `setpreset preset1`  (applies the list of commands which consists of `rotate 180` and `brightness 1.3` on the newly opened image)
+// end::SetPreset[]
 
 // tag::Tab[]
 === Tab Switching: `tab`

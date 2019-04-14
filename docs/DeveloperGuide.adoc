@@ -771,7 +771,7 @@ In the end, the first alternative is chosen for this application because our pho
 
 // tag::SetPreset[]
 === SetPreset Feature
-This feature applies a preset list of commands that were saved previously using the `savepreset` command on the opened image.
+This feature applies a preset list of commands that were saved previously using the `setpreset` command on the opened image.
 
 ==== Current Implementation
 The `setpreset` function is facilitated by `CurrentEdit` and `TransformationSet`. It uses the following operations:
@@ -792,7 +792,7 @@ The `setpreset` function is facilitated by `CurrentEdit` and `TransformationSet`
 
 * `TransformationSet#isPresent(String)` - Returns true if there is a `List<Command>` saved under the given preset name.
 
-The following sequence diagram shows how `savepreset` works:
+The following sequence diagram shows how `setpreset` works:
 
 [[sequencediagram_setpreset]]
 .Sequence Diagram for Set Preset Command

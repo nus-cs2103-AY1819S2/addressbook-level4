@@ -668,35 +668,108 @@ image::RecModuleComparatorSequenceDiagram.png[width="800"]
 . Allow the user to add a module to the module plan using its index in the recommendation list
 // end::rec[]
 
-// tag::semesterlimits[]
-=== Semester CAP and workload management feature
+// tag::CheckLimit[]
+=== Checking of limits
 
 ==== Current Implementation
-Users are able to set their preferred minimum and maximum CAP limits for each semester. They are also able to set the minimum and maximum workload limits for each semester in terms of the number of hours per week in terms of lectures, tutorials, labs, projects, and preparation.
 
-The current stored semester limits will be loaded from the GradTrak.json file into a list of `SemLimit` Objects for each semester on app startup.
-If the user has not set any limits, the json file will contain a list with default limit values.
+The `cklimit` command is able to calculate the CAP and workload information of the current module plan and display the results in a report together with the preferred limits set by the student for comparison.
 
-Users able to set the expected minimum and maximum grade for each module they take, as well as the number of workload hours.
-The `EditCommand` is used to set the grades and workload expected using an single argument for each variable.
+The `LimitChecker` class does all the computation and generation of the report.
+It makes use of the following classes:
 
-Users can check if their expected grades and workload per semester falls within their preferred limits.
-A class `LimitChecker` handles the computation of CAP and total workload of the semesters and generates a table in HTML with the information computed.
-//end::semesterlimits[]
+* `Semester`
+* `ObservableList` of `SemesterLimit`
+* `ObservableList` of `ModuleTaken`
+* `ModuleInfoList`
 
-// tag::semestertracking[]
+<class diagram>
+
+The CAP of the student is calculated using the formula below
+
+.Formula for CAP calculation
+image::modular-system.png[width="800"]
+
+GradTrak uses the Classes `CapAverage`, `WeightedGrade`, and `ModuleInfoCredits` to store and manipulate the variables for calculation.
+
+The `CapAverage` class contains an `ArrayList` of `WeightedGrade`.
+Each weight grade has a CAP score and information on the number of Modular Credits weighted by the score.
+
+The minimum and maximum expected CAP is calculated with the minimum and maximum expected CAP of every module taken respectively.
+
+The current CAP only includes modules that are completed. Modules are considered completed if they are taken on a semester before the current semester.
+
+Once all the calculations are completed, the HTML string report is generated and stored in the `checkedReport` variable in the `LimitChecker` to be displayed.
+
+`LimitChecker` implements the `ClassForPrinting` and can be used to set the HTML string generated to be displayed on the `BrowserPanel` using the `setSelectedClassForPrinting` method as seen below.
+
+.Usage example for the `ClassForPrinting`
+image::ClassForPrintingUsageExample.png[width="800"]
+
+==== Design Considerations
+
+===== Aspect: Having to change multiple types of limits.
+
+* **Current choice: Using a single command to check both the CAP limits as well as the workload limits and print the results all to one page**
+** Pros: Only one command needs to be known and it can check everything in one page to ensure that the module plan meets the selected limit preferences
+** Cons: Unwanted information that was not requested is also shown on the page and may cause confusion
+
+* ** Alternative: Using separate commands to display CAP limits and workload limits on their own individual page**
+** Pros: The information needed can be easily identified from the page displayed
+** Cons: Two commands need to be known and keyed in to check the limits every time a modification is made to the module plan.
+
+The current choice was chosen because the student will become more experienced and familiar GradTrak over time and be less confused by the result page. Scrolling up and down the page is easier than having to type two commands alternatively to view the limits.
+
+==== Possible Improvements
+. Check if any row has their minimum or maximum limits violated and highlight them to user
+. Style the table to suit the theme of the app so that the user has a better experience using the app
+//end::CheckLimit[]
+
+// tag::SetCurrentSemester[]
 === Current Semester Tracking
 
 ==== Current Implementation
-Modules taken before the current semester must have a finalized grade such that
 
-when the user tries to shift the current semester forward, the app will check through all the modules taken before the current semester to ensure that the maximum and minimum expected grades are set to be the same.
-or else the `cursem` command will fail and be rejected with an error message
+The `cursem` command allows the user to track the current semester using GradTrak. This indicates completion of all modules in the previous semesters and includes them in the current CAP computation during the `cklimit` command.
 
+The interaction of how the `cursem` command interacts with the system is shown below as a sequence diagram.
+
+.Sequence Diagram for setting of the current semester
 image::SetCurrentSemesterSequenceDiagram.png[width="1000"]
+
+==== Design Considerations
+
+===== Aspect: Storage location of the current semester.
+
+* **Current choice: Storing of current semester within the `VersionedGradTrak` **
+** Pros: Allows the `cursem` command to be undoable and redoable
+** Cons: The storage file `gradtrak.json` has to contain more than just the modules taken and it is difficult to make changes due to the requirement of a large scale restructuring of the application and multiple unit tests.
+
+* ** Alternative: Storing of the current semester outside of the `VersionedGradTrak` together with the module and course information**
+** Pros: Minimal changes are required to implement it
+** Cons: Problems may occur later on in maintaining the integrity of the application as `cursem` can only be performed if grades in the previous semesters have been finalized. The `undo` and `redo` commands can bypass the checks for finalized grades and lead to instability in the application.
+
+The current choice was chosen because it will be worth the effort to restructure the application storage to make GradTrak easier to develop in the future and be less likely to cause problems.
+
+==== Possible Improvements
+. Prevent the student from adding or editing his module plan if doing so will violate the limits set
+. Allowing the student to type semester indexes instead of the entire semester name
+//end::SetCurrentSemester[]
+
+// tag::SetSemesterLimit[]
+=== Semester CAP and workload management feature
+
+==== Current Implementation
+
+The `setlimit` command allows the user to set CAP limits and workload limits for each semester. This helps the student manage the difficulty and time required of the modules taken. Various types of limits can be set, such as the minimum and maximum amount of weekly lecture hours, tutorial hours, lab hours, project hours, and preparation hours acceptable for each semester, as well as the minimum and maximum CAP acceptable for the semester.
+
+The interaction of how the `setlimit` command interacts with the system is shown below as a sequence diagram.
+
+.Sequence Diagram for setting of the limits for a semester
 image::SetSemesterLimitSequenceDiagram.png[width="1000"]
 
-//end::semestertracking[]
+//end::SetSemesterLimit[]
+
 
 === Logging
 
@@ -1237,19 +1310,19 @@ _{More to be added}_
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is `GT` (GradTrak) and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is `GT` (GradTrak) and the *Actor* is the `Student`, unless specified otherwise)
 
 [discrete]
 === Use case: Initialising
 
-Precondition: User uses GT for the first time
+Precondition: Student uses GT for the first time
 
 *MSS*
 
-1.  User starts GT.
+1.  Student starts GT.
 2.  GT displays courses.
 3.  GT prompts for user to set choice of course.
-4.  User selects course.
+4.  Student selects course.
 5.  GT sets choice of course by user.
 +
 Use case ends.
@@ -1257,7 +1330,7 @@ Use case ends.
 *Extensions*
 
 [none]
-* 4a. User selects course that has specialisation.
+* 4a. Student selects course that has specialisation.
 +
 [none]
 ** 4a1. GT displays specialisation.
@@ -1273,7 +1346,7 @@ Precondition: Student has already initialised GT
 
 *MSS*
 
-1.  User enters command to add modules with module code, semester completed and grades.
+1.  Student enters command to add modules with module code, semester completed and grades.
 2.  System records module code, semester completed and grades.
 +
 Use case ends.
@@ -1319,7 +1392,7 @@ Precondition: Student has already intialised GT
 
 *MSS*
 
-1.  User enters command to remove modules by giving module code.
+1.  Student enters command to remove modules by giving module code.
 2.  System removes module from list of completed / planned modules.
 +
 Use case ends.
@@ -1343,7 +1416,7 @@ Use case resumes at step 1.
 
 *MSS*
 
-1.  User enters command to edit modules indicated by module code and gives grades and semester taken / planning to take.
+1.  Student enters command to edit modules indicated by module code and gives grades and semester taken / planning to take.
 2.  System edits relevant details.
 +
 Use case ends.
@@ -1370,7 +1443,7 @@ Use case ends.
 
 *MSS*
 
-1.  User enters a command to indicate the semester to set the limit as well as the limits to be set on the semester
+1.  Student enters a command to indicate the semester to set the limit as well as the limits to be set on the semester
 2.  System edits relevant details.
 +
 Use case ends.
@@ -1396,6 +1469,16 @@ Use case ends.
 +
 [none]
 ** 1c1. GT shows an error message.
++
+Use case ends.
+
+[discrete]
+=== Use case: Check limits
+
+*MSS*
+
+1.  Student enters the command to check the current plan against their preferred semester limits
+2.  System analyses the current module plan to generate and display a report comparing the current plan against the semester limits.
 +
 Use case ends.
 

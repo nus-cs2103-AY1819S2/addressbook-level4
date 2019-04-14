@@ -1,11 +1,11 @@
 package seedu.knowitall.logic.parser;
 
+import static seedu.knowitall.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+
 import seedu.knowitall.logic.commands.ImportCommand;
 import seedu.knowitall.logic.parser.exceptions.ParseException;
 import seedu.knowitall.model.CardFolder;
 import seedu.knowitall.storage.csvmanager.CsvFile;
-
-import static seedu.knowitall.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 
 /**

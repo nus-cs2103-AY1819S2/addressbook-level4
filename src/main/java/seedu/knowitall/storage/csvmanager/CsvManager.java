@@ -148,7 +148,9 @@ public class CsvManager implements CsvCommands {
         }
 
         for (int i = 0; i < cardHeaders.length; i++) {
-            if (!cardHeaders[i].toLowerCase().equals(fileHeaders[i].toLowerCase())) {
+            String cardHeader = cardHeaders[i].trim().toLowerCase();
+            String fileHeader = fileHeaders[i].trim().toLowerCase();
+            if (!cardHeader.equals(fileHeader)) {
                 return false;
             }
         }
@@ -247,6 +249,9 @@ public class CsvManager implements CsvCommands {
         }
     }
 
+    /**
+     * Ensures that each row of the csv file has option fields filled correctly with commas
+     */
     private String fillCommas(String toJoin) {
         // 3 options filled
         long numCommas = toJoin.chars().mapToObj(c -> (char) c)

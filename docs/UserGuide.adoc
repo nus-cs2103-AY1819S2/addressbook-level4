@@ -82,7 +82,7 @@ The GUI for _Equipment Manager_ as shown in <<GUI>> consists of nine regions:
 [TIP]
 Please remember the naming convention for the different regions in GUI as they will be used to explain when explaining Equipment Manager.
 
-=== About an equipment
+=== About Equipment Parameters
 |===
 | *Parameters* | *Description* | *Things to Note*
 | NAME | The client's name who owns the equipment. | Name should only contain alphanumeric characters and spaces, and it should not be blank.
@@ -90,6 +90,7 @@ Please remember the naming convention for the different regions in GUI as they w
 | DATE | The due date for which maintenance work on the equipment should be carried out by then. | Should only contain numbers and hyphens, no blanks allowed. The correct format is  dd-MM-yyyy. For example, 03-05-2019 which means 3 May 2019.
 | ADDRESS | The address of the client that owns the equipment. |
 | SERIAL_NUMBER | The serial number of an equipment | All equipments have unique serial number and there should not be duplicated serial number.
+| TAG | Tag provides user with desired labels without any restriction on labelling format in *Equipment Manager*
 |===
 
 === Entering a command
@@ -175,7 +176,7 @@ Example:
 
 === Putting an equipment into a work list: `put`
 Adds an equipment into a working list in the Equipment Manager +
-Format: `put i/WorkListID s/EquipmentSerialNumber`
+Format: `put i/WorkListID s/SERIAL_NUMBER`
 
 [NOTE]
 Please make sure that the respective Equipment and WorkList exist in the equipment manager.

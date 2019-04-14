@@ -37,7 +37,7 @@ public class RedoCommandTest {
             assertCommandFailure(new RedoCommand(), model, commandHistory, Messages.MESSAGE_DID_NOT_OPEN,
                 currentEdit);
         } catch (CommandException e) {
-            System.out.println(e.toString());
+            e.printStackTrace();
         }
         //set up
         try {
@@ -46,7 +46,7 @@ public class RedoCommandTest {
             OpenCommandParser openParser = new OpenCommandParser();
             openParser.parse("iu.jpg").execute(currentEdit, model, commandHistory);
         } catch (Exception e) {
-            System.out.println(e.toString());
+            e.printStackTrace();
         }
     }
 
@@ -58,7 +58,7 @@ public class RedoCommandTest {
             assertCommandFailure(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_FAILURE,
                 currentEdit);
         } catch (Exception e) {
-            System.out.println(e.toString());
+            e.printStackTrace();
         }
         try {
             ContrastCommandParser contrastParser = new ContrastCommandParser();
@@ -71,7 +71,7 @@ public class RedoCommandTest {
             assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, currentEdit);
             assertCommandFailure(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_FAILURE, currentEdit);
         } catch (Exception e) {
-            System.out.println(e.toString());
+            e.printStackTrace();
         }
         /*
         // multiple redoable states in model

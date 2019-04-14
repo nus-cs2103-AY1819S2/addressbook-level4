@@ -10,13 +10,13 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 == Project Team
 
 === Ho Boon Wee Addison
-image::Carrein.png[width="150", align="left"]
+image::carrein.png[width="150", align="left"]
 {empty}[https://github.com/Carrein[github]] [<<carrein#, portfolio>>]
 
 *Role:* +
 Team Lead +
 *Responsibilities:* +
-User Interface and Model design
+User Interface and Model designi
 
 '''
 

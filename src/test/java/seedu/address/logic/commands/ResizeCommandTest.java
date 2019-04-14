@@ -41,7 +41,7 @@ public class ResizeCommandTest {
             OpenCommandParser parser2 = new OpenCommandParser();
             parser2.parse("iu.jpg").execute(currentEdit, model, commandHistory);
         } catch (Exception e) {
-            System.out.println(e.toString());
+            e.printStackTrace();
         }
     }
     @Test
@@ -52,7 +52,7 @@ public class ResizeCommandTest {
             String expectedMessage = Messages.MESSAGE_RESIZE_SUCCESS;
             assertCommandSuccess(command, model, commandHistory, expectedMessage, currentEdit);
         } catch (Exception e) {
-            System.out.println(e.toString());
+            e.printStackTrace();
         }
     }
     @Test
@@ -63,7 +63,7 @@ public class ResizeCommandTest {
             String expectedMessage = Messages.MESSAGE_RESIZE_VALUES_TOO_LARGE;
             assertCommandFailure(command, model, commandHistory, expectedMessage, currentEdit);
         } catch (Exception e) {
-            System.out.println(e.toString());
+            e.printStackTrace();
         }
 
 

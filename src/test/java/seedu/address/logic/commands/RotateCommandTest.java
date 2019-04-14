@@ -40,7 +40,7 @@ public class RotateCommandTest {
             OpenCommandParser parser2 = new OpenCommandParser();
             parser2.parse("iu.jpg").execute(currentEdit, model, commandHistory);
         } catch (Exception e) {
-            System.out.println(e.toString());
+            e.printStackTrace();
         }
     }
     @Test
@@ -51,7 +51,7 @@ public class RotateCommandTest {
             String expectedMessage = Messages.MESSAGE_ROTATE_SUCCESS;
             assertCommandSuccess(command, model, commandHistory, expectedMessage, currentEdit);
         } catch (Exception e) {
-            System.out.println(e.toString());
+            e.printStackTrace();
         }
     }
 
@@ -70,7 +70,7 @@ public class RotateCommandTest {
             assertCommandFailure(command2, model, commandHistory, expectedMessage, currentEdit);
             assertCommandFailure(command3, model, commandHistory, expectedMessage, currentEdit);
         } catch (Exception e) {
-            System.out.println(e.toString());
+            e.printStackTrace();
         }
     }
 

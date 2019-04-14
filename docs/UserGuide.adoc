@@ -24,7 +24,7 @@ For new users, jump to <<Quick Start>> for an overview on how to use FomoFoto an
 
 
 == Quick Start
-// tag::QuickStart[]
+// tag::QuickStartOne[]
 System Requirements:
 
 * *Windows 10 or newer / OS X 10.8 or newer.*
@@ -36,24 +36,26 @@ Follow the steps below to set up your computer to run FomoFoto:
 .  Download the latest FomoFoto.jar https://github.com/CS2103-AY1819S2-W14-2/main/releases[here].
 .  Copy the JAR to the folder you want to use as the home folder for your FomoFoto application.
 .  Double-click the JAR to start the application. The Graphical User Interface should appear in a few seconds.
+// end::QuickStartOne[]
 +
 .Home Page of FomoFoto
 image::ui.png[width="800"]
 +
+// tag::QuickStartTwo[]
 .  You have just successfully setup FomoFoto on your device. To see the command available in FomoFoto, refer to <<Features>> for details of each command. A step-by-step walkthrough of FomoFoto is available at the next section: <<A Walk Through>>.
-// end::QuickStart[]
+// end::QuickStartTwo[]
 
 // tag::AWalkThrough[]
 == A Walk Through
 Let's start on our image editing journey. In this walk through, we will be demonstrating some simple commands to edit a sample image.
 
-.  Head over to this https://twistedsifter.files.wordpress.com/2012/03/squirrel-photobomb-banff.jpg[`link`] to get a suggested sample image to start from.
+.  Head over to this https://twistedsifter.files.wordpress.com/2012/03/squirrel-photobomb-banff.jpg[link] to get a suggested sample image to start from.
 
 .  Save the image in any desired folder you like on your device, like your Pictures folder for example. Name your image *squirrel.jpg*.
 
 .  Start FomoFoto by referring to <<Quick Start>>.
 
-.  Open the folder that the image file is stored in. Then, to get the file path of the image:
+.  Open the folder that the image file is stored in. Then, to get the filepath of the image:
 * In Windows: Hold on to the kbd:[Shift] key and *right click* on your image file. Click the option *Copy path*.
 * In Mac: Go to terminal and navigate to your image file. Type 'pwd' to get the filepath to your image file and copy paste.
 
@@ -62,7 +64,7 @@ Let's start on our image editing journey. In this walk through, we will be demon
 .Import Command
 image::import.PNG[width="912"]
 +
-.  Paste the file path by simultaneously pressing kbd:[Ctrl] and kbd:[V] keys.
+.  Paste the filepath of the image you would like to import.
 * In Windows: Remove the kbd:["] and kbd:["] signs at the two ends of the filepath.
 
 .  Ensure your final command looks similar to the figure below (filepath may differ):
@@ -102,7 +104,7 @@ image::brightnessCommand.PNG[width="915"]
 image::brightnessSuccess.PNG[width="917"]
 +
 
-.  Crop your photo by typing the following command: `crop 310 250 140 200`. Press kbd:[Enter]. Your image should look similar as the figure below.
+.  Crop your image by typing the following command: `crop 310 250 140 200`. Press kbd:[Enter]. Your image should look similar as the figure below.
 
 +
 .Crop Success
@@ -115,13 +117,13 @@ image::cropSuccess.PNG[width="918"]
 
 [[Features]]
 == Features
-This section describes all the commands available in FomoFoto and includes examples on how to use them.
+This section describes all the commands available in FomoFoto and examples on how to use them. Commands are listed in alphanumeric order.
 
 ====
 *Command Format*
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user. +
-e.g. For `import FILEPATH`, `FILEPATH` is a parameter which can be used as `import desktop/photoalbum/image1`.
+e.g. For `import FILEPATH`, `FILEPATH` is a parameter which can be used as `import desktop/imagealbum/image1`.
 * Items in square brackets are optional. +
 e.g `brightness [BRIGHTNESS_RATIO]` can be used as `brightness` or `brightness 0.9`.
 
@@ -216,7 +218,7 @@ Format: `help`
 
 === Import an Image : `import`
 
-Imports images to FomoFoto's Album from a specified filepath or a directory. +
+Imports images to FomoFoto's Album from a specified filepath or a folder. +
 Format: `import FILEPATH`
 
 Example of single filepath import:
@@ -224,12 +226,12 @@ Example of single filepath import:
 * `import C:\Users\Addison\Desktop\sample.jpg`
 * `import C:\Home\sample.png`
 
-Example of directory import:
+Example of folder import:
 
 * `import C:\Users\Addison\Desktop`
 * `import C:\Home`
 
-For directory import, invalid files are skipped and only valid images will be imported.
+For folder import, invalid files are skipped and only valid images will be imported.
 
 [NOTE]
 Images should be of the following formats: `bmp`, `jpg` , `jpeg`, `png`, `tif`, `tiff` or `gif`. Images with `tif` or `tiff` formats are not rendered on screen due to a bug with Java but edits made will still be applied.
@@ -288,7 +290,7 @@ Examples:
 // tag::RotateCommand[]
 === Rotate an Image : `rotate`
 
-Rotates the photo by a given degree provided by the user. Only 90, 180 or 270 degrees of rotation is allowed. +
+Rotates the image by a given degree provided by the user. Only 90, 180 or 270 degrees of rotation is allowed. +
 Format: `rotate ANGLE`
 
 Example:
@@ -326,16 +328,16 @@ For a file name to be valid, it must end with either of the following: `.jpg`, `
 ====
 
 
-
+[[invalid_save_name]]
 .Invalid Save Name
 image::ugInvalidsave.png[width="800"]
 
-
+[[valid_save_name]]
 .Valid Save Name
 image::ugValidsave.png[width="800"]
 
 
-_Figure 10_ shows an example of how FomoFoto does not allow saving with invalid names. Ensure that your file name is valid before saving. There should be a message to indicate that the save is successful as seen in _Figure 11_. To overwrite the original image, simply use `save` without the file name.
+<<invalid_save_name>> shows an example of how FomoFoto does not allow saving with invalid names. Ensure that your file name is valid before saving. There should be a message to indicate that the save is successful as seen in <<valid_save_name>> . To overwrite the original image, simply use `save` without the file name.
 
 // end::UserSave[]
 

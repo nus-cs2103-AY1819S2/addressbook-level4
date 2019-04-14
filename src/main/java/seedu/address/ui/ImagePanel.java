@@ -41,7 +41,7 @@ public class ImagePanel extends UiPart<Region> implements PropertyChangeListener
                 Image i = new Image(f.toURI().toURL().toExternalForm());
                 imageView.setImage(i);
             } catch (MalformedURLException e) {
-                System.out.println(e.toString());
+                e.printStackTrace();
             }
         }
     }

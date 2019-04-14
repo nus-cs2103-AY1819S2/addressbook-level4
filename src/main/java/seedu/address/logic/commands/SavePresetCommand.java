@@ -50,7 +50,6 @@ public class SavePresetCommand extends Command {
                 presetList.add(command);
             }
         }
-        System.out.print(presetList);
         if (presetList.size() < 1) {
             throw new CommandException(Messages.MESSAGE_SAVEPRESET_FAIL_EMPTY);
         }

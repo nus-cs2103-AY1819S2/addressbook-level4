@@ -274,8 +274,8 @@
 }
 
 .yellow {
-    -fx-background-color: yellow !important;
-    -fx-text-fill: black;
+    -fx-background-color: yellow;
+    -fx-text-fill: black !important;
 }
 
 .blue {
@@ -308,9 +308,9 @@
     -fx-background-color: black;
 }
 
-.grey {
+.gray {
     -fx-text-fill: black !important;
-    -fx-background-color: grey;
+    -fx-background-color: gray;
 }
 
 .purple {
@@ -331,6 +331,31 @@
 .turquoise {
     -fx-text-fill: black !important;
     -fx-background-color: turquoise;
+}
+
+.lightGray {
+    -fx-text-fill: black !important;
+    -fx-background-color: lightGray;
+}
+
+.lightSkyBlue {
+    -fx-text-fill: black !important;
+    -fx-background-color: lightSkyBlue;
+}
+
+.hotPink {
+    -fx-text-fill: white !important;
+    -fx-background-color: hotPink;
+}
+
+.peachPuff {
+    -fx-text-fill: black !important;
+    -fx-background-color: peachPuff;
+}
+
+.cadetBlue {
+    -fx-text-fill: white !important;
+    -fx-background-color: cadetBlue;
 }
 
 .chart-pie-label-line {

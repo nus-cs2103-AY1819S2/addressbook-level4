@@ -645,9 +645,8 @@ Refer to the example usage scenario, sequence diagram and design considerations 
 
 // end::ImageManipulation[]
 
-// tag::Save[]
 === Save Feature
-
+// tag::DGSave[]
 This command applies the edits to the current image and saves it into `assets` directory.
 
 ==== Current Implementation
@@ -659,7 +658,7 @@ The `save` function is facilitated by `Album` and `CurrentEdit`. It uses the fol
 
 * `CurrentEdit#getOriginalName()` - Returns the original name of opened image.
 
-* `CurrentEdit#overwriteOriginal(String)` - Replaces `ori_img.png` with `temp_img.png' in `temp` directory. Updates `originalImage` to `tempImage` and `originalImageName` to `String` in `CurrentEdit`.
+* `CurrentEdit#overwriteOriginal(String)` - Replaces `ori_img.png` with `temp_img.png` in `temp` directory. Updates `originalImage` to `tempImage` and `originalImageName` to `String` in `CurrentEdit`.
 
 * `CurrentEdit#deleteHistory()` - Clears the history in `CurrentEdit`.
 
@@ -674,13 +673,10 @@ The `save` function is facilitated by `Album` and `CurrentEdit`. It uses the fol
 * `Album#refreshAlbum()` - Updates and displays the latest images in `assets` directory on the GUI.
 
 
-The following sequence diagram shows how `save` works:
-
-[[sequencediagram_save]]
 .Sequence Diagram for Save Command
 image::SaveCommandSequenceDiagram.png[width=800]
 
-Given below is an example usage scenario of how `save` behaves at each step as shown in <<sequencediagram_save>>.
+Given below is an example usage scenario of how `save` behaves at each step as shown in the figure above.
 
 Step 1. The user executes `save`.
 
@@ -713,7 +709,8 @@ Step 10.`Album#refreshAlbum()` is called to update the Information Panel on the 
 ** Disadvantage: The user may unintentionally overwrite the original image.
 
 Alternative 2 was chosen as the user is likely to use `save` frequently. Since the `assets` directory functions like an album, images can be re-imported if they are accidentally overwritten. The user is able to `save` easily and choose to resume editing immediately or at a later time.
-// end::Save[]
+// end::DGSave[]
+
 
 // tag::SavePreset[]
 === SavePreset Feature

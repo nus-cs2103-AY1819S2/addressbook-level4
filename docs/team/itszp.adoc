@@ -57,9 +57,10 @@ Here are the code contributions that I have made. [https://github.com/CS2103-AY1
 *** Wrote features implemented for the User Guide: https://github.com/CS2103-AY1819S2-W14-2/main/pull/58[#58]
 *** Wrote model and features for the Developer Guide: https://github.com/CS2103-AY1819S2-W14-2/main/pull/129[#129]
 ** Community:
-*** Pull requests (with non-trival comments) reviewed: https://github.com/CS2103-AY1819S2-W14-2/main/pull/39[#39],
+*** Pull requests reviewed (with non-trivial comments): https://github.com/CS2103-AY1819S2-W14-2/main/pull/39[#39],
 https://github.com/CS2103-AY1819S2-W14-2/main/pull/239[#239],
-https://github.com/CS2103-AY1819S2-W14-2/main/pull/242[#242]
+https://github.com/CS2103-AY1819S2-W14-2/main/pull/242[#242],
+https://github.com/CS2103-AY1819S2-W14-2/main/pull/247[#247]
 *** Reported bugs and provided solutions to team:
 https://github.com/CS2103-AY1819S2-W14-2/main/issues/89[#89],
 https://github.com/CS2103-AY1819S2-W14-2/main/issues/93[#93],  https://github.com/CS2103-AY1819S2-W14-2/main/issues/70[#70],

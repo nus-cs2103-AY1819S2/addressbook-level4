@@ -14,7 +14,7 @@
 <fx:root xmlns:fx="http://javafx.com/fxml/1" minHeight="600" minWidth="900" onCloseRequest="#handleExit"
          title="Acquizition" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11.0.1">
     <icons>
-        <Image url="@/images/address_book_32.png"/>
+        <Image url="@/images/ic_launcher/res/mipmap-xxxhdpi/ic_launcher.png"/>
     </icons>
     <scene>
         <Scene>

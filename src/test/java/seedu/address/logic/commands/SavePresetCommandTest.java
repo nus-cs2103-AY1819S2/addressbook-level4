@@ -38,6 +38,7 @@ public class SavePresetCommandTest {
 
     @Before
     public void createImagesInAlbum() {
+        album.clearAlbum();
         transformationSet.clear();
         try {
             SavePresetCommandParser parserSavePreset = new SavePresetCommandParser();

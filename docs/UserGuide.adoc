@@ -345,7 +345,7 @@ image::ugValidsave.png[width="800"]
 
 // tag::SavePreset[]
 === Save Preset: `savepreset`
-Saves a list of commands that was used to edit the opened image under a specified name so that you can apply them on other images in the future. The specified name given must not be used before. +
+Saves a list of commands that were used to edit the opened image under a specified name so that you can apply them on other images in the future. The specified name given must not be used before. +
 Format: `savepreset PRESETNAME`
 
 Example:

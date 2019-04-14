@@ -17,8 +17,8 @@ endif::[]
 
 By: `Team BrainTrain`      Since: `Jan 2019`      Licence: `MIT`
 
-== Introduction
 // tag::evan-intro[]
+== Introduction
 BrainTrain is a *spaced-repetition flashcard application* which makes *memorizing easy and effective*. With BrainTrain's link:https://www.theguardian.com/education/2016/jan/23/spaced-repetition-a-hack-to-make-your-brain-store-information[Spaced Repetition System (SRS)] optimizing your flashcard revision intervals, you will be able to *learn more in less time*.
 
 *Who is it for:*
@@ -53,23 +53,26 @@ To begin using BrainTrain, follow the following set of instructions: +
 image::UiFirstLook.png[width="790"]
 
 . Read the next section, <<Features>>, to find out what BrainTrain commands there are.
+// end::evan-start[]
 
 {empty} +
 
-// end::evan-start[]
 [[Features]]
 == Features
 
+// tag::evan-format[]
 ====
 *Command Format*
 
 * Words in `UPPER_CASE` are parameter values which you need to specify in order for the commands to work. For example,
 for `deleteCard INDEX`, `INDEX` is a parameter you have to specify.
-* Parameters with trailing `...` can be specified multiple times. For example, for the `addLesson n/NAME q/QUESTION CORE a/ANSWER CORE [c/CORE]... [o/OPTIONAL]...` command, you can specify as many `CORE` values as you need to. On the other hand, you can only specify exactly 1 `QUESTION CORE` value.
-* Parameters in `[ ]` brackets are optional. For example, for the `addCard c/CORE c/CORE [c/CORE]... [o/OPTIONAL]...` command, you have to specify at least 2 `CORE` values, but you can optionally specify more than 2 `CORE` values or 0 or more `OPTIONAL` values.
-* Parameters can be entered in any order. For example, for `addCard c/CORE c/CORE [c/CORE]... [o/OPTIONAL]...`, you can use the
-command as such `addCard o/Country Code c/Country c/Capital`.
+* Parameters in `[ ]` brackets are optional. For example, for the `addCard t/TEST t/TEST [t/TEST]... [h/HINT]...` command, you have to specify at least *2* `TEST` values, but you can optionally specify more than *2* `TEST` values. You can also specify *0 or more* `OPTIONAL` values.
+* Parameters with trailing `...` can be specified more than once. For example, for the `addLesson n/NAME t/TEST t/TEST [t/TEST]... [h/HINT]...` command, you can specify *0 or more* `HINT` values and *2 or more* `TEST` values. On the other hand, you can only specify exactly *1* `NAME` value.
+* Parameters can be entered in any order. For example, for the `addCard t/TEST t/TEST [t/TEST]... [h/HINT]...` command, you can use the
+command as such: `addCard t/Australia h/Starts with C t/Canberra t/English`.
 ====
+// end::evan-format[]
+
 {empty} +
 
 === Management mode
@@ -95,12 +98,13 @@ Format: `changeTheme`
 Starts a new quiz session. +
 Format: `start LESSON_INDEX [c/COUNT] m/MODE`
 
-Usage rules:
-
 [NOTE]
 ====
-The `start` command only works when there is no opened lesson in the system. Otherwise you need to close the opened lesson first.
+This command only works in lesson view. If you are currently editing a lesson in card view, you have to use the <<quit, `quit`>> command to return to lesson view before you can use this command.
 ====
+
+Usage rules:
+
 * You must specify the index of lesson to be started. If your input index is out of range of current Lesson List, an error will be thrown.
 * You can optionally specify the `COUNT` parameter. `COUNT` sets the number of cards to be tested in the quiz session.
 ** If no `COUNT` is specified, by default 1 card is tested.
@@ -138,59 +142,77 @@ Starting a quiz session with multiple lessons [coming in v2.0]
 ** Starts a quiz with 5 words from the first lesson and 5 words from the second lesson in `LEARN` mode.
 // end::start[]
 
-// tag::evan[]
+// tag::evan-mgt[]
 [[listLessons]]
 ==== Listing all lessons: `listLessons`
 
 Displays a numbered list of all lessons. +
-Format: `listLessons`
-
-==== Adding a lesson: `addLesson`
-Adds a lesson. +
-Format: `addLesson n/NAME q/QUESTION CORE a/ANSWER CORE [c/CORE]... [o/OPTIONAL]...`
-
-Usage rules:
-
-* You must specify `QUESTION CORE` and `ANSWER CORE`. `QUESTION CORE` and `ANSWER CORE` sets the `CORE` headers describing the question and answer `CORE` values of flashcards added to this lesson.
-** For example, a lesson for memorising the capitals of countries will have the `QUESTION CORE` set as "Country" and `ANSWER_CORE` set as "Capital".
-* You can optionally specify 0 or more additional `CORE` headers (e.g. "Language"), which can be set as the `QUESTION CORE` and `ANSWER CORE` by using the command `editLesson`.
-* You can only add flashcards which have `QUESTION CORE`, `ANSWER CORE` and `CORE` values which correspond to the lesson's `CORE` headers.
-* You can optionally specify 0 or more `OPTIONAL` values (e.g. "Hint").
-** Flash cards added to the lesson *need not* have corresponding `OPTIONAL` values.
-** `OPTIONAL` values are displayed during quiz mode when you enter <<hint, `\hint`>>.
-
-Examples:
-
-* `addLesson n/Upper limb anatomy q/Statement a/TrueOrFalse`
-* `addLesson n/Capitals of the world q/Country a/Capital c/Language o/Hint`
-
-
-==== Deleting a lesson: `deleteLesson`
-
-Deletes a lesson by referencing its index in the numbered lesson list. +
-Format: `deleteLesson INDEX`
-
-Usage rules:
-
-* To view the list, enter the command <<listLessons, `listLessons`>>.
-* You must specify the `INDEX` of the lesson in the numbered lesson list.
+Format: `listLessons` +
 
 [NOTE]
 ====
-You have to open a lesson before you can use the following commands: <<listCards, `listCards`>>, <<addCard, `addCard`>> and <<deleteCard, `deleteCard`>> commands.
+This command only works in lesson view. If you are currently editing a lesson in card view, you have to use the <<quit, `quit`>> command to return to lesson view before you can use this command.
 ====
+
+.Listing of lessons by `listLessons` command
+[#img-listLessons]
+image::list_lessons.png[]
+
+[[addLesson]]
+==== Adding a lesson: `addLesson`
+
+Adds a lesson which is used to store cards of the same type and topic. +
+Format: `addLesson n/NAME t/TEST t/TEST [t/TEST]... [h/HINT]...`
+
+[NOTE]
+====
+This command only works in lesson view. If you are currently editing a lesson in card view, you have to use the <<quit, `quit`>> command to return to lesson view before you can use this command.
+====
+
+Usage rules:
+
+* You must specify at least 2 `TEST` values. Flashcards added to this lesson must have corresponding `TEST` values.
+** For example, a lesson for memorising _muscle anatomy_ will have three `TEST` values: 'Muscle', 'Action' and 'Innervation'.
+** By default, the first 2 `TEST` values ('Muscle' and 'Action') will be tested when the lesson is started in quiz mode.
+** You can set the 2 `TEST` values to be tested by using the <<set, `set`>> command.
+* You can specify 0 or more `HINT` values (e.g. 'Muscle Group').
+** `HINT` values are displayed during quiz mode when you enter <<hint, `\hint`>>.
 
 Examples:
 
-* `deleteLesson 2` +
-Deletes the second lesson in the numbered list displayed by `listLessons`.
-// end::evan[]
+* `addLesson n/Capitals of the world t/Country t/Capital t/Language h/Hint`
+** Adds a lesson named 'Capitals of the world' with 3 `TEST` values and 1 `HINT` value.
+* `addLesson n/Chinese vocabulary t/English t/Chinese`
+** Adds a lesson named 'Chinese vocabulary' with 2 `TEST` values.
+
+==== Deleting a lesson: `deleteLesson`
+
+Deletes the lesson at the specified INDEX of the numbered lesson list. +
+Format: `deleteLesson INDEX`
+
+[NOTE]
+====
+This command only works in lesson view. If you are currently editing a lesson in card view, you have to use the <<quit, `quit`>> command to return to lesson view before you can use this command.
+====
+
+Example:
+
+.BrainTrain with sample lessons loaded
+image::delete_lesson.png[width=384]
+
+In the above scenario, the command `deleteLesson 2` will delete the second lesson in the numbered list, 'Sample-Muscle-Anatomy'.
+// end::evan-mgt[]
 // tag::eugene[]
 
 ==== Reloading all lessons: `reloadLessons`
 Reloads all lessons from the lessons folder. The default folder is `/lessons/`, found next to `braintrain.jar`.
 
 Format: `reloadLessons`
+
+[NOTE]
+====
+This command only works in lesson view. If you are currently editing a lesson in card view, you have to use the <<quit, `quit`>> command to return to lesson view before you can use this command.
+====
 
 Steps:
 
@@ -229,88 +251,127 @@ Lessons are automatically reloaded when you open the application.
 If the lesson does not appear, please check <<Troubleshooting>>.
 
 // end::eugene[]
-// tag::evan[]
+// tag::evan-mgt[]
 [[openLesson]]
-==== Opening a lesson: `openLesson`
+==== Editing a lesson in card view: `edit`
 
-Opens a lesson from the numbered lesson list so you can edit the lesson and its flash cards. +
+Opens the lesson at the specified INDEX in Card View for editing. +
 Format: `openLesson INDEX`
-
-Usage rules:
-
-* To view the lesson list, enter the command <<listLessons, `listLessons`>>.
-* You must specify the `INDEX` of the lesson in the numbered lesson list.
-
-Examples:
-
-* `openLesson 1` +
-Opens the first lesson in the numbered list.
-
-==== Closing a lesson: `closeLesson`
-
-Closes and saves changes made to the opened lesson. +
-Format: `closeLesson`
-
-Usage rule: +
-To open a lesson, enter the command <<openLesson, `openLessons`>>.
 
 [NOTE]
 ====
-Changes made to the opened lesson through the commands: <<addCard, `addCard`>> and <<deleteCard, `deleteCard`>>, are only saved when you close the lesson.
+In Card View, users will be able to use the following commands: <<set, `set`>>, <<addCard, `addCard`>>, <<deleteCard, `deleteCard`>> and <<listCards, `listCards`>>.
 ====
 
-[[listCards]]
-==== Listing all flashcards: `listCards`
+Example:
 
-Displays a numbered list of all flashcards in the opened lesson.  +
-Format: `listCards`
+.BrainTrain with sample lessons loaded
+image::edit_lesson.png[width=384]
 
-Usage rule: +
-To open a lesson, enter the command <<openLesson, `openLesson`>>.
+In the above scenario, the command `edit 1` will open the first lesson in the numbered list, 'Sample-Capitals' in Card View for editing.
 
-[[addCard]]
-==== Adding a flashcard: `addCard`
-Adds a flashcard to the opened lesson. +
-Format: `addCard c/CORE c/CORE [c/CORE]... [o/OPTIONAL]...`
+[[quit]]
+==== Quitting card view: `quit`
+
+Quits Card View and returns to Lesson View. +
+Format: `quit`
+
+[NOTE]
+====
+Changes made to the lesson in Card View are saved automatically upon quitting Card View.
+====
+
+[[set]]
+==== Setting the lesson's test pair: `set`
+
+Sets the 2 `TEST` values at the 2 specified INDEX of the numbered card list to be tested in quiz mode. +
+Format: `set INDEX INDEX`
+
+[NOTE]
+====
+This command only works in card view. You have to open a lesson in card view for editing with the <<edit, `edit`>> command before you can use this command.
+====
 
 Usage rules:
 
-* To open a lesson, enter the command <<openLesson, `openLesson`>>.
-* You must specify at least 2 `CORE` values. This is because a flashcard needs at least 2 values to be testable.
-* You can optionally specify 0 or more additional `CORE` values.
-* You can optionally specify 0 or more `OPTIONAL` values.
+* You must specify exactly 2 valid `INDEX` values.
 
-[[NOTE]]
+Example:
+
+.A lesson opened in card view, before `set 1 3` is entered
+image::set_test_before.png[width=384]
+
+In the above scenario, the command `set 1 3` will set the first `TEST` value 'Muscle' and the third `TEST` value 'Innervation' as the values to be tested. After the command is entered, the interface updates accordingly:
+
+.A lesson opened in card view, after `set 1 3` is entered
+image::set_test_after.png[width=384]
+
+[[listCards]]
+==== Listing all cards: `listCards`
+
+Displays a numbered list of all cards in the lesson opened in Card View. +
+Format: `listCards` +
+
+[NOTE]
 ====
-You can only add flashcards to the opened lesson if the flashcards have `CORE` values which corresponds to the lesson's `CORE` headers.
+This command only works in card view. You have to open a lesson in card view for editing with the <<edit, `edit`>> command before you can use this command.
+====
+
+.Listing of cards by `listCards` command
+[#img-listCards]
+image::list_cards.png[]
+
+[[addCard]]
+==== Adding a card: `addCard`
+Adds a card to the lesson opened in Card View. +
+Format: `addCard t/TEST t/TEST [t/TEST]... [h/HINT]...`
+
+[NOTE]
+====
+This command only works in card view. You have to open a lesson in card view for editing with the <<edit, `edit`>> command before you can use this command.
+====
+
+Usage rules:
+
+* You must specify at least 2 `TEST` values. This is because a flashcard needs at least 2 `TEST` values to be testable in quiz mode.
+* You can specify 0 or more `HINT` values.
+
+[NOTE]
+====
+You can only add cards to the opened lesson if they have the same number of `TEST` values as the opened lesson. See <<addLesson, `addLesson`>> command for more information.
 ====
 
 Examples:
 
-* `addCard c/Stapes is the smallest bone in the body c/True`
-* `addCard c/Australia c/Canberra c/English o/Starts with C`
+* `addCard t/Australia t/Canberra t/English h/Starts with C`
+** Adds a flashcard with 3 `TEST` values and 1 `HINT` value.
+** By default, the lesson will be set to test the first 2 `TEST` values. In this case, 'Australia' and 'Canberra' are the 2 values to be tested by default.
+* `addCard t/Cake t/蛋糕`
+** Adds a flashcard with 2 `TEST` values which are both tested in quiz  mode.
 
 [[deleteCard]]
 ==== Deleting a flashcard: `deleteCard`
 
-Deletes a flashcard by referencing its index in the numbered flashcard list. +
+Deletes the card at the specified INDEX of the numbered card list. +
 Format: `deleteCard INDEX`
 
-Usage rules:
+[NOTE]
+====
+This command only works in card view. You have to open a lesson in card view for editing with the <<edit, `edit`>> command before you can use this command.
+====
 
-* To view the list, enter the command <<listCards, `listCards`>>.
-* Deletes the flashcard at the specified `INDEX` of the numbered flashcard list.
+Example:
 
-Examples:
+.BrainTrain with sample cards loaded
+image::delete_card.png[width=384]
 
-* `deleteCard 2` +
-Deletes the second flashcard.
+In the above scenario, the command `deleteCard 2` will delete the second card in the numbered list, 'Orbicularis oculi / Facial nerve'.
 
-// end::evan[]
+// end::evan-mgt[]
 
 ==== Listing entered commands : `history`
 
-Lists all the commands that you have entered in reverse chronological order. +
+Lists all the commands you have entered in reversed chronological order. +
 Format: `history`
 
 [NOTE]
@@ -318,9 +379,9 @@ Format: `history`
 Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
 ====
 
-==== Quitting the program : `quit`
+==== Exiting the program : `exit`
 
-Quits the program. +
+Exits the program. +
 Format: `quit`
 
 {empty} +
@@ -553,23 +614,20 @@ If BrainTrain still does not load lessons despite trying other locations, please
 * *Viewing help*: `help`
 * *Changing theme*: `changeTheme`
 * *Starting a quiz session*: `start LESSON_INDEX [c/COUNT] m/MODE` +
-e.g. `start 1 c/15 m/LEARN`
+** e.g. `start 1 c/15 m/LEARN`
 * *Listing all lessons*: `listLessons`
-* *Adding a lesson*: `addLesson n/NAME q/QUESTION CORE a/ANSWER CORE [c/CORE]... [o/OPTIONAL]...` +
-e.g. `addLesson n/Capitals of the world q/Country a/Capital c/Language o/Hint`
+* *Adding a lesson*: `addLesson n/NAME t/TEST t/TEST [t/TEST]…​ [h/HINT]…​` +
+** e.g. `addLesson n/Capitals of the world t/Country t/Capital t/Language h/Hint`
 * *Deleting a lesson*: `deleteLesson INDEX` +
-e.g. `deleteLesson 2`
 * *Reloading all lessons*: `reloadLessons`
-* *Opening a lesson*: `openLesson INDEX` +
-e.g. `openLesson 1`
-* *Closing a lesson*: `closeLesson`
-* *Listing all flashcards*: `listCards`
-* *Adding a flashcard*: `c/CORE c/CORE [c/CORE]... [o/OPTIONAL]...` +
-e.g. `addCard c/Australia c/Canberra c/English o/Starts with C`
-* *Deleting a flashcard*: `deleteCard INDEX` +
-e.g. `deleteCard 2`
+* *Editing a lesson in Card View*: `edit INDEX` +
+* *Quitting card view*: `quit`
+* *Listing all cards*: `listCards`
+* *Adding a card*: `addCard t/TEST t/TEST [t/TEST]... [h/HINT]...` +
+** e.g. `addCard t/Australia t/Canberra t/English h/Starts with C`
+* *Deleting a card*: `deleteCard INDEX` +
 * *Listing entered commands*: `history`
-* *Quiting the program*: `quit`
+* *Exiting the program*: `exit`
 
 {empty} +
 

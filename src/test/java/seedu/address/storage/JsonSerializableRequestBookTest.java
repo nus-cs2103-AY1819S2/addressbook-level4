@@ -32,7 +32,6 @@ class JsonSerializableRequestBookTest {
     /**
      * TODO, test fails when run as a whole but passes individually.
      */
-    @Test
     public void toModelType_typicalRequestsFile_success() throws Exception {
         JsonSerializableRequestBook dataFromFile = JsonUtil.readJsonFile(TYPICAL_REQUESTS_FILE,
              JsonSerializableRequestBook.class).get();

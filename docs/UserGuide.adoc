@@ -265,7 +265,7 @@ the request and the type of service requested.
 // tag::addHealthWorker[]
 === Adding requests/health workers: `add`
 
-Before you can jump right intWo the core feature of our application and
+Before you can jump right into the core feature of our application and
 streamline the process of adding requests from patients and to assign
 requests to experts in the medical field, it is essential to first ensure
 that the respective health staff and patients are registered in the system

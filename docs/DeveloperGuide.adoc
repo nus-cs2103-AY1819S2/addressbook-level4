@@ -582,9 +582,19 @@ image::RecModuleComparatorSequenceDiagram.png[width="800"]
 ** Pros: User can sort the list according to his own preferences
 ** Cons: Difficult to implement if several parameters for sorting is allowed; input method for the custom order is problematic
 
+===== Aspect: Format of recommendation
+* **Alternative 1 (current choice): Display a list of all eligible modules that contribute to course requirements**
+** Pros: User has a greater freedom of choice
+** Cons: User may be confused or unable to decide if the list is too long
+
+* **Alternative 2: Display `n` modules for each semester, where `n` is decided by the user**
+** Pros: User can plan modules for specific semesters easily and quickly
+** Cons: Algorithm required to plan for all semesters can be complex; user may not prefer the given plan
+
+
 ==== Possible Improvements
 . Allow the user to display a module's information (from `displaymod` command) using its index in the recommendation list
-. Allow the user to add a module to GradTrak using its index in the recommendation list
+. Allow the user to add a module to the module plan using its index in the recommendation list
 // end::rec[]
 
 // tag::semesterlimits[]

@@ -32,22 +32,29 @@ public class FindCardCommandParser implements Parser<FindCardCommand> {
      */
     public FindCardCommand parse(String args) throws ParseException {
         String trimmedArgs = args.trim();
-        if (trimmedArgs.isEmpty()) {
+        if (trimmedArgs.isEmpty() || trimmedArgs.replaceAll("\"", "").isEmpty()) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCardCommand.MESSAGE_USAGE));
         }
 
         ArrayList<String> questionKeywords = new ArrayList<>();
+
         Pattern p = Pattern.compile(IN_BETWEEN_QUOTES_REGEX);
         Matcher m = p.matcher(trimmedArgs);
         while (m.find()) {
-            questionKeywords.add(m.group(1));
+            String keyWord = m.group(1);
+            questionKeywords.add(keyWord);
         }
 
         trimmedArgs = trimmedArgs.replaceAll(IN_BETWEEN_QUOTES_REGEX, "");
         String[] keyArgs = trimmedArgs.split("\\s+");
 
         for (String key : keyArgs) {
+            if (key.contains("\"")) {
+                throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCardCommand.MESSAGE_USAGE));
+            }
+
             if (!key.isEmpty()) {
                 questionKeywords.add(key);
             }

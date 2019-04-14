@@ -164,7 +164,7 @@ Displays the contact list sorted by name in forward alphabetical order.
 // end::sortfeatures[]
 
 // tag::findfeatures[]
-=== Finding contact(s) by keyword(s) : `find` `[coming in v2.0]`
+=== Finding contact(s) by keyword(s) : `find`
 
 Finds contact(s) whose information contains any of the keyword(s). +
 e.g. search by name, search by address, search by tags etc. +
@@ -285,6 +285,11 @@ Format: `pin INDEX`
 * The index *must be a positive integer* 1, 2, 3, ...
 ****
 
+[NOTE]
+====
+Pinned contacts must be unpinned before any other commands can be performed, except for `pinselect`.
+====
+
 Examples:
 
 * `list` +
@@ -323,7 +328,8 @@ Format: `archive INDEX`
 
 [NOTE]
 ====
-Archived contacts *cannot* be displayed in a sorted list or be pinned.
+Archived contacts *cannot* be displayed in a sorted list, be pinned or be deleted individually. +
+Unarchive a contact before performing those commands.
 ====
 
 ****
@@ -373,7 +379,7 @@ Examples:
 `select 2` +
 Selects the 2nd contact in the archive book.
 
-=== Finding archived contact(s) : `archivefind` `[coming in v2.0]`
+=== Finding archived contact(s) : `archivefind`
 
 Searches the archive and finds contact(s) whose information contains any of the keyword(s). +
 Format: `archivefind KEYWORD [KEYWORD]...`

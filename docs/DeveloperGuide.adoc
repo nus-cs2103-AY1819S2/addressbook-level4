@@ -342,6 +342,10 @@ methods are used to enter or exit the report display:
 * `Model#enterReportDisplay()` -- Enters the report display for this folder.
 * `Model#exitReportDisplay()` -- Exits the report display back into the folder.
 
+Here is a screenshot of how it looks:
+
+image:ReportDisplay.png[width="800"]
+
 Given below is an example usage scenario and how the report display is rendered.
 
 Step 1. The user is in a folder and wishes to see a report by executing `report`.

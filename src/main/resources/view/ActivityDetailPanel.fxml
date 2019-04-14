@@ -12,7 +12,7 @@
         <Text fx:id="actDescription" styleClass="activity-details-text" />
         <Text fx:id="actStatus" styleClass="activity-details-text" />
         <Text fx:id="numAttending" styleClass="activity-details-text" />
-        <Text fx:id="hasAttending" styleClass="activity-details-title" />
+        <Text fx:id="hasAttending" styleClass="activity-details-title list-label-member" style="-fx-font-size: 13px; -fx-fill: white;" />
 
     <ListView fx:id="attendingList" VBox.vgrow="ALWAYS"/>
 </VBox>

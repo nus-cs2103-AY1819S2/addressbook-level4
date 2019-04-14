@@ -82,6 +82,11 @@ public class BrowserPanel extends UiPart<Region> {
                 index++;
             }
         }
+        cardQuestion.setMinHeight(Region.USE_PREF_SIZE);
+        answer.setMinHeight(Region.USE_PREF_SIZE);
+        score.setMinHeight(Region.USE_PREF_SIZE);
+        hint.setMinHeight(Region.USE_PREF_SIZE);
+        options.setMinHeight(Region.USE_PREF_SIZE);
 
         cardPage.getChildren().addAll(cardQuestion, answer, score, options, hint);
     }

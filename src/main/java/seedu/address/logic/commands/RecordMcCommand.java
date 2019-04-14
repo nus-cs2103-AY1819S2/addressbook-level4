@@ -1,5 +1,14 @@
 package seedu.address.logic.commands;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.PdfUtil.saveMcPdfFile;
+
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.List;
+
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
@@ -8,16 +17,10 @@ import seedu.address.model.Model;
 import seedu.address.model.patient.Patient;
 import seedu.address.model.record.Record;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.List;
-
-import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.PdfUtil.SaveMcPdfFile;
-
-public class RecordMcCommand extends Command{
+/**
+ * Command to create a medical credit for selected record. The mc is saved as a pdf file.
+ */
+public class RecordMcCommand extends Command {
     public static final String COMMAND_WORD = "recordmc";
     public static final String COMMAND_WORD2 = "rmc";
 
@@ -58,7 +61,7 @@ public class RecordMcCommand extends Command{
 
         Path path = Paths.get("data", String.format("MC%s.pdf", mcNo));
         try {
-            SaveMcPdfFile(record, patient,daysToRest, mcNo, path);
+            saveMcPdfFile(record, patient, daysToRest, mcNo, path);
         } catch (IOException e) {
             throw new CommandException(e.getMessage());
         }
@@ -66,13 +69,19 @@ public class RecordMcCommand extends Command{
 
     }
 
+    /**
+     * Create a mc serial number based on date and storage system
+     * @param date
+     * @return
+     * @throws IOException
+     */
     private String createMcNo(String date) throws IOException {
-        for (int i = 0; i < 10000; i++){
+        for (int i = 0; i < 10000; i++) {
             String mcNo = date + "-" + i;
             String filePathString = Paths.get("data", String.format("MC%s.pdf", mcNo)).toString();
             System.out.println(filePathString);
             File f = new File(filePathString);
-            if (!f.exists()) return mcNo;
+            if (!f.exists()) { return mcNo; }
         }
         throw new IOException("Too many MCs today");
     }

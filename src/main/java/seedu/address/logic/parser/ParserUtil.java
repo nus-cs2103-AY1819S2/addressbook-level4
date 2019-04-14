@@ -548,11 +548,17 @@ public class ParserUtil {
         throw new ParseException("Wrong number of arguments");
     }
 
+    /**
+     * Parse argument into parameters for RecordMc command
+     * @param arg
+     * @return
+     * @throws ParseException
+     */
     public static String[] parseRecordMc(String arg) throws ParseException {
         String[] args = arg.trim().split("\\s+");
         String[] results = new String[] { "-1", "2" };
 
-        if (args.length > 2) throw new ParseException("Wrong input numbers!");
+        if (args.length > 2) { throw new ParseException("Wrong input numbers!"); }
 
         results[0] = parseIndex(args[0]).getOneBased() + "";
 

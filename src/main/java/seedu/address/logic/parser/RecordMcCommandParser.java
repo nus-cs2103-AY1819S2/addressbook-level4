@@ -1,12 +1,15 @@
 package seedu.address.logic.parser;
 
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.ParserUtil.parseIndex;
+
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.RecordMcCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.ParserUtil.parseIndex;
-
+/**
+ * Parser for RecordMcCommand
+ */
 public class RecordMcCommandParser implements Parser<RecordMcCommand> {
     /**
      * Parses the given {@code String} of arguments in the context of the RecordMcCommand

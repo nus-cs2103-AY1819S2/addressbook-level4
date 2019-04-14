@@ -31,11 +31,11 @@ Follow the instructions below to install this application.
 .  Ensure you have Java version `9` or later installed in your computer.
 .  Download the latest `GradTrak.jar` link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for your GradTrak.
-.  Double-click the file to start the app. The app window should appear within a few seconds.
+.  Double-click the file to start the application. The application window should appear within a few seconds.
 
 == Quick Guide
 
-Read the guide below to have a quick understanding of the usage of this app.
+Read the guide below to have a quick understanding of the usage of this application.
 
 .Parts of the User Interface
 image::annotated-ui.png[width="790"]
@@ -59,14 +59,14 @@ or are planning to take.
 For example, typing *`help`* and pressing kbd:[Enter] will open the help window.
 . You might wish to set the course of study first. There are currently 3 courses available in this app: Computer Science Algorithms,
 Computer Science Artificial Intelligence, Computer Science Software Engineering.
-To set the course, enter one of the following commands:
+To set the course, enter the following command:
 `study [COURSE]`
 .  Here are some commands you can try:
-* **`add`**`c/CS1010 s/Y1S1` : adds the module "CS1010", taken in Y1S1, into the module plan.
-* **`delete`**`1` : deletes the first module on the most recently displayed list.
+* **`add`**`c/CS1010 s/Y1S1` : adds the module "CS1010", taken in Y1S1, to the module plan
+* **`delete`**`1` : deletes the first module on the most recently displayed list
 * **`displayreq`**: displays information on your course requirements and the percentage completed for each requirement.
-* **`cklimit`**: displays information on your current semester and a report with the CAP and workload information of the current module plan.
-* *`exit`* : exits the app
+* **`cklimit`**: displays information on your current semester and a report with the CAP and workload information of the current module plan
+* *`exit`* : exits the application
 
 Here we only introduced some of the more basic functions and commands of GradTrak. The following section, <<Features>>,
 will give you a more detailed guide/walk through for each command.
@@ -84,7 +84,7 @@ will give you a more detailed guide/walk through for each command.
 [[add]]
 === Add module: `add`
 
-Adds a module to GradTrak based on the given module code, semester taken and expected / obtained grade. +
+Adds a module to the module plan based on the given module code, semester taken and expected / obtained grade. +
 Format: `add c/MODULE_CODE s/SEMESTER [ming/NEW_EXPECTED_MIN_GRADE] [maxg/NEW_EXPECTED_MAX_GRADE] [lec/NEW_LECTURE_HOURS] [tut/NEW_TUTORIAL_HOURS] [lab/NEW_LAB_HOURS] [proj/NEW_PROJ_HOURS] [prep/NEW_PREP_HOURS]` +
 
 ****
@@ -166,7 +166,7 @@ image::CheckLimitScrolledDownDisplay.png[width="1000"]
 
 === Clear all data entered: `clear`
 
-Deletes all the added modules. +
+Deletes all the added modules in the module plan. +
 Format: `clear`
 
 // tag::SetCurrentSemester[]
@@ -200,20 +200,16 @@ Sets the current semester to the graduated semester.
 
 === Delete module: `delete`
 
-Removes a module from GradTrak based on module code or index in the most recently displayed list. +
+Removes a module from the module plan based on its index in the most recently displayed list. +
 Format: `delete INDEX` +
-or +
-`delete c/MODULE_CODE`
 
 ****
-* Shows a message if the given module code is not found.
+* Shows a message if the given index is invalid
 * This command is undoable and redoable
 ****
 
 Examples:
 
-* `delete c/CS2103T` +
-Deletes CS2103T from GradTrak.
 * `delete 1` +
 Deletes the first module on the most recently displayed list.
 
@@ -335,7 +331,7 @@ Format: `displayreq`
 
 === Edit module: `edit`
 
-Edits the grade and workload of a module as well as which semester it should be taken in the module plan based on module code or index in the most recently displayed list. +
+Edits the semester, grade or workload of a module in the module plan, based on its index in the most recently displayed list. +
 Format: `edit INDEX [s/NEW_SEMESTER] [ming/NEW_EXPECTED_MIN_GRADE] [maxg/NEW_EXPECTED_MAX_GRADE] [lec/NEW_LECTURE_HOURS] [tut/NEW_TUTORIAL_HOURS] [lab/NEW_LAB_HOURS] [proj/NEW_PROJ_HOURS] [prep/NEW_PREP_HOURS]` +
 
 ****
@@ -360,7 +356,7 @@ Format: `exit`
 // tag::find[]
 === Find module: `find`
 
-Finds modules in GradTrak matching all given module code, semester, grade or finished status. +
+Finds modules in the module plan matching all given module code, semester, grade or finished status. +
 Format: `find [c/MODULE_CODE] [s/SEMESTER] [g/GRADE] [f/IS_FINISHED]`
 
 ****
@@ -373,13 +369,13 @@ Format: `find [c/MODULE_CODE] [s/SEMESTER] [g/GRADE] [f/IS_FINISHED]`
 Examples:
 
 * `find c/CS` +
-Lists all CS modules in GradTrak.
+Lists all CS modules in the module plan.
 
 .Finding CS modules
 image::find(c).png[width="800"]
 
 * `find s/Y1S2` +
-Lists all modules in Y1S2 in GradTrak.
+Lists all modules in Y1S2 in the module plan.
 
 .Finding modules in Y1S2
 image::find(s).png[width="800"]
@@ -408,13 +404,13 @@ Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and 
 
 === Listing all modules in GradTrak: `list`
 
-Shows a list of all modules in GradTrak. +
+Shows a list of all modules in the module plan. +
 Format: `list`
 
 // tag::rec[]
 === Recommend module: `rec`
 
-Recommends a list of modules that can be read based on GradTrak modules and course requirements.
+Recommends a list of modules that can be read based on the current module plan and course requirements.
 Modules with unmet prerequisites or those already added (unless they have been failed) will not be recommended. +
 Recommended modules are displayed in order of requirement type satisfied: Core, Breadth & Depth, Industry Experience, Faculty, General Education, Unrestricted Electives.
 Modules with the same requirement type satisfied are sorted by level. +
@@ -579,18 +575,18 @@ Retrieves the latest information of all modules from CORS.
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous GradTrak folder.
+*A*: Install the application on the other computer and overwrite the empty data file it creates with the file that contains the data of your previous GradTrak folder.
 
 == Command Summary
 
-* *Add*: `add c/MODULE_CODE s/SEMESTER
+* *Add*: `add c/MODULE_CODE s/SEMESTER`
 * *Cklimit*: `cklimit`
 * *Clear*: `clear`
 * *Cursem*: `cursem s/SEMESTER`
 * *Delete*: `delete INDEX` +
 * *Displaymod*: `displaym o/OPTIONS [MORE_ARGUMENTS]`
 * *Displayreq*: `displayreq`
-* *Edit*: `edit INDEX [s/NEW_SEMESTER]
+* *Edit*: `edit INDEX [s/NEW_SEMESTER]`
 * *Exit*: `exit`
 * *Find*: `find [c/MODULE_CODE] [s/SEMESTER] [g/GRADE] [f/IS_FINISHED]`
 * *Help*: `help`

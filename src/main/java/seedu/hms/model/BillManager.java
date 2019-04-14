@@ -107,6 +107,14 @@ public class BillManager implements BillModel {
         userPrefs.setHotelManagementSystemFilePath(hotelManagementSystemFilePath);
     }
 
+    /**
+     * Returns an unmodifiable view of the list of {@code Booking} backed by the internal list of
+     * {@code versionedHotelManagementSystem}
+     */
+    public ObservableList<Booking> getFilteredBookingList() {
+        return filteredBookings;
+    }
+
     //=========== HotelManagementSystem ================================================================================
 
     @Override

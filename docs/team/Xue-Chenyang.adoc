@@ -1,5 +1,4 @@
 = Xue Chenyang - Project Portfolio
-:site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 :xrefstyle: full
@@ -19,9 +18,6 @@ I am **Xue Chenyang**, a Computer Science undergraduate student form NUS School 
 
 QuickDocs is an one-user all in one clinic management application developed by my team consisting of 4 students. +
 
-.Sample User Interface of QuickDocs
-image::UI_xcyPPP.png[width='800']
-
 My team was assigned to transform an existing application (of around 10,000 lines of code) to a new application that has real-world applications. +
 
 My team decided to address the problem private clinics in Singapore are facing conflicts between limited manpower and the enormous amount of trivial but complicated management chores to handle. +
@@ -34,21 +30,12 @@ My role in this project is to design and implement the medicine management modul
 
 The following is a list of notation used in this document and their respective meaning. +
 
-[width="800",cols="^15%,85%",options="header"]
-|===
-|Format |Meaning
-a|`command` |This is a user input to the application. It is formatted with a gray background.
-ifdef::env-github[]
-| :bulb: |This is a tip. Useful information pertaining to the features will be written here.
-| :information_source: | This is a note. Additional information that further explains a feature will be written here.
-| :warning: |This is a highlight. Ideas and explanation that I want to draw your attention to will be written here.
-endif::[]
-ifndef::env-github[]
-a| icon:lightbulb-o[role="icon-tip", size="2x"] | Tips and tricks that might be useful
-a| icon:info-circle[role="icon-note", size="2x"] | This is a note. Additional information that further explains a feature will be written here.
-a| icon:warning-circle[role="icon-important", size="2x"] |This is a highlight. Ideas and explanation that I want to draw your attention to will be written here.
-endif::[]
-|===
+[TIP]
+This is a tip. Useful information pertaining to the features will be written here.
+[NOTE]
+This is a note. Additional information that further explains a feature will be written here. +
+
+`command` This is a user input to the application. It is formatted with a gray background. Example: `help`
 
 
 === Major enhancements
@@ -61,12 +48,10 @@ endif::[]
 ** *What it does:* Medicine management is a key aspect of clinic management. My medicine management module allows the doctors to customize his/her medicine organization. It also supports a variety of commands to facilitate users in clinic management. +
 ** *Why is it needed:* With QuickDocs, doctors no longer need to go through tons of paperwork or sheets and sheets of Excel files to keep track of his medicine storage. All additions, modifications, prescriptions and organizations of medicines could be done on one single interface so that QuickDocs provides its users with the most convenience possible in managing their clinics. +
 ** *Highlights:* The medicine module is designed is in a directory format,  which supports quick search of medicines and mass operation of medicines without the need to type in lengthy commands. This will be explained further in details in <<Developer_Guide, Contribution to Developer Guide>>.
-//Todo: add link
 ** *Who / what to acknowledge:* My inspiration for organizing medicines in a directory format is adapted from the folder system in most of the common Operating systems such as Windows.
 
 * *Enhancement 2:* I added automatic completion feature to facilitate command typing.
-** *What it does:* With this feature, when typing commands related to medicine storage, the users no longer need to remember and type in the path by themselves; instead, they can press page-up and page-down to iterate through all possible sub-directories. +
-** *Why is it needed:* When the users intend to locate a medicine or directory in the medicine management module, they will need to key in the full path leading to their interested medicine or directory. This requires the users to remember spellings of directories and paths of medicines precisely. This contradicts the project's purpose which is to make users' like easier. Therefore to achieve maximum convenience for our users, I have implemented this autocompletion feature. +
+** *What it does:* With this feature, when typing commands related to medicine storage, the users no longer need to remember and type in the path by themselves; instead, they can press page-up and page-down to iterate through all possible sub-directories. This feature is added to bring maximum convenience to the users+
 ** *Highlights:* This feature requires seamless integration among three components of the product, namely the UI component, Logic component and the Model component. In my implementation, I followed the principle of abstraction closely, so that this feature is independent from the implementations of lower level modules and will work well with both existing commands and possible future commands. +
 
 * *Code contributed:* [https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#=undefined&search=Xue-Chenyang[Functional code]]
@@ -94,7 +79,7 @@ https://github.com/CS2103-AY1819S2-W09-4/main/pull/163[#163]
 
 |===
 |_In this sections, I will show a sample section of my contribution to the User Guide._ +
-_This sample section will cover the autocompletion feature and the most fundamental commands in medicine management which are adding directories and medicines._
+_This sample section will cover the autocompletion feature and the most fundamental commands in medicine management, i.e adding medicines._
 |===
 
 === Suggestion mode in command typing
@@ -117,18 +102,9 @@ image::suggestion_ug1.png[width='600']
 
 * What you can do is to first type `listmed root\` to trigger the suggestion mode.
 
-.To trigger the suggestion mode
-image::suggestion_ug2.png[width='600']
-
 * You can then press the page-down key to iterate through all subdirectories under 'root'. The input box will automatically be filled for you.
 
-.After pressing Page Down once
-image::suggestion_ug3.png[width='600']
-
 * In this example, you can arrive at `listmed root\Internal` in just two Page Down keys.
-
-.After pressing Page Down twice
-image::suggestion_ug4.png[width='600']
 
 * Doing this recursively at every stage, you can quickly arrive at the desired `listmed root\Internal\General\Flu`.
 
@@ -154,46 +130,10 @@ In QuickDocs, names of directories and medicines are case-insensitive. So what a
 
 - - -
 
-[[adddirec, Add directory]]
-=== Add new directory into storage: `adddirec`
-
-By providing the path pointing to a specific directory, you can add a new directory under that directory. +
-
-The new directory will be an empty directory whose name is up to you to decide.
-
-[NOTE]
-The new directory's name should not contain white spaces or "\" characters.
-
-{sp} +
-
-*Format:* `adddirec [PATH OF THE PARENT DIRECORY] [NAME OF NEW DIRECTORY]` +
-
-*Alias{nbsp}{nbsp}{nbsp}{nbsp}:* `ad`
-
-{sp} +
-
-*Example:* +
-
-* `adddirec root fever` followed by `adddirec root\fever oral` +
-
-*Result:* +
-
-These commands add a new directory called fever to root, and then add another new directory called oral under fever. +
-
-There will be success messages confirming every successful addition of directories. +
-
-[[adddirec_after]]
-.Result of sample add directory command
-image::adddirec_after.png[width="600"]
-
-- - -
-
 [[addmed, Add medicine]]
 === Add medicine into storage: `addmed`
 
 Through this command, you can either add a new medicine into the storage, or to place an existing medicine under another directory. +
-
-{sp} +
 
 You can add a new medicine by specifying where it should go to, its initial quantity and its price +
 
@@ -204,28 +144,17 @@ You can add a new medicine by specifying where it should go to, its initial quan
 [NOTE]
 Directories and medicines under the same directory are now allowed to share the same name (case-insensitive).
 
-{sp} +
-
-*Example:* +
-
-`addmed root\fever paracetamol q/50 p/9.99`
+*Example:* `addmed root\fever paracetamol q/50 p/9.99`
 
 *Result:* +
-
 After you enter the command, if it is executed successfully, a confirmation message will appear.
 
 [[addmed_newmedicien_after]]
 .Sucess message of sample addmed command
-image::addmed_newmedicien_after.png[align="center" width="600"]
-
-{sp} +
+image::addmed_newmedicien_after.png[width="600"]
 
 [NOTE]
 If you entered a medicine name that already exists in the storage in this format, a error message will pop up. +
-
-[[addmed_newMedicine_existing]]
-.Error message of adding an existing medicine in wrong format
-image::addmed_newMedicine_existing.png[width="600"]
 
 {sp} +
 
@@ -233,44 +162,27 @@ You can also place an existing medicine into a directory. +
 
 *Format:* `addmed [PATH] [MEDICINE_NAME]`
 
-{sp} +
-
-*Example:* +
-
-`addmed root\headache paracetamol` +
+*Example:* `addmed root\headache paracetamol` +
 
 Assuming there already exists a medicine called paracetamol in the storage, you can place this medicine under root\headache via this command. +
 
 *Result:* +
-
 After you enter the command, if it is executed successfully, a confirmation message showing the detailed information of that medicine will appear.
 
 [[addmed_existing]]
 .Success message of sample addmed command
-image::addmed_existing.png[align="center" width="600"]
-
-{sp} +
+image::addmed_existing.png[width="600"]
 
 [NOTE]
 If you entered a medicine name that has not existed in the storage in this format, an error message will pop up.
 
-
-[[addmed_existing_nonExisting]]
-.Error message for adding new medicine in wrong format
-image::addmed_existing_nonExisting.png[align="center" width="600"]
-
-In this case, no medicine called aspirin has yet existed in the storage.
-
-{nbsp} +
-
-[NOTE]
-Click https://github.com/CS2103-AY1819S2-W09-4/main/blob/master/docs/UserGuide.adoc[here] to see the full User Guide.
+_Click https://github.com/CS2103-AY1819S2-W09-4/main/blob/master/docs/UserGuide.adoc[here] to see the full User Guide._
 
 == Contribution to the Developer Guide
 
 |===
 |_In this section, I will showcase a sample section of Developer Guide I contributed._ +
-_The sample sections explains the implementations of medicine modules and auto-completion features.
+_The sample sections explains the implementations of medicine modules, the auto-completion features and the alarm system._
 |===
 
 [[Develop_Guide]]
@@ -284,13 +196,7 @@ The current implementation takes a similar form as the Windows file browser. The
 
 *Code:* {repoURL}/src/main/java/quickdocs/model/medicine/MedicineManager.java[MedicineManager.java]
 
-To organize the inventory, the following methods in `MedicineManager` are used: +
-
-* `addDirectory(new directory's name, path of parent directory)` -- Adds a new directory with the given name to the parent directory corresponding to the path.
-* `addMedicine(name, quantity, path of parent directory, price)` -- Adds a new Medicine with given name, quantity and price to the parent directory corresponding to the path given.
-* `addExistingMedicineToDirectory(medicine, path of parent directory)` -- Assuming the medicine already exists, add a reference of this medicine under the directory corresponding to the path.
-
-[NOTE]
+[TIP]
 The current implementation does not allow multiple medicines with the same to exist simultaneously. However, one medicine could be placed in multiple directories.
 
 [NOTE]
@@ -310,78 +216,8 @@ From the initial empty state of the storage, the users could arrange their stora
 
 * 2. Otherwise, a new medicine with the specified name, quantity and price will be created and added to the specified directory.
 
-{nbsp} +
-
-Given below is an example of organizing medicine from an initial empty QuickDocs.
-
-Step 1: Initially, the storage only consists of an empty directory called root. +
-
-The list of unique medicine in `MedicineManager` is empty.
-
-[[medicineModule_example1]]
-image::medicineModule_example1.png[width='800']
-
-{nbsp} +
-
-Step 2: Via `adddirec root Internal`, a new directory called "Internal" is added under root. +
-
-The list of unique medicine is still empty.
-
-[[medicineModule_example2]]
-image::medicineModule_example2.png[width='800']
-
-{nbsp} +
-
-Step 3: Via a few more `adddirec` commands, the figure below is an illustration of a sample inventory's framework. +
-
-The list of unique medicine is still empty.
-
-[[medicineModule_example3.png]]
-image::medicineModule_example3.png[width='800']
-
-{nbsp} +
-
-Step 4: Now the user can add new medicines into the storage via `addmed root\Internal\General paracetamol p/40 q/50`. +
-
-[[medicineModule_example4]]
-image::medicineModule_example4.png[width='800']
-
-The list of unique medicine is also updated.
-
-[[listOfMedicine_example1]]
-image::listOfMedicine_example1.png[width='800']
-
-{nbsp} +
-
-Step 5: Via a few more `addmed` commands, some more new medicines are added to the inventory. The following figure shows the result after that
-
-[[medicineModule_example5]]
-image::medicineModule_example5.png[width='800']
-
-The list of unique medicine is also updated.
-
-[[listOfMedicine_example2]]
-image::listOfMedicine_example2.png[width='800']
-
-{nbsp} +
-
-Step 6: Now, the user found out that aspirin can also be used to treat high blood pressure and decides to put it under "Cardiology" as well. +
-
-Via the `addmed root\Internal\Cardiology aspirin`, a reference to the existing aspirin medicine will be placed under the "Cardiology" directory. +
-
-The figure below shows the result of this command.
-
-[[medicineModule_example6]]
-image::medicineModule_example6.png[width='800']
-
-However, the list of unique medicine is not changed, as now new medicine is added.
-
-[[listOfMedicine_example3]]
-image:listOfMedicine_example2.png[width='800']
-
-This six-step example illustrates the basic implementation of how medicines and directories are organized in QuickDocs.
-
 - - -
+
 [[suggestion_mode]]
 When typing the directory path in the command box in the ui, QuickDocs supports intelligent suggestions about the next field. +
 
@@ -389,10 +225,10 @@ After the user entered at least one `\` character to indicate he is inputting a 
 
 The user could press Page Up / Page Down bottom to iterate to the previous or the next valid name of sub-directory or medicine in alphabetical order, given that the path given before the previous `\` character is valid.
 
-Using the above sample inventory as an example: +
+Using a sample inventory below as an example: +
 
 [[medicineModule_example7]]
-image::medicineModule_example7.png[width='800']
+image::medicineModule_example7.png[width='600']
 
 * When the user types in `addmed root\`, the suggestion mode is turned on. +
 
@@ -406,7 +242,7 @@ The figure below illustrates how this feature is implemented to make user's life
 
 [[suggestion_diagram]]
 .Sequence diagram illustrating the implementation of suggestion mode
-image::suggestion_diagram.png[width='800]
+image::suggestion_diagram.png[width='600']
 
 - - -
 
@@ -414,17 +250,14 @@ QuickDocs also supports setting alarm level for medicines. Every time a medicine
 
 To convenient the users, QuickDocs allow not only threshold setting for individual medicines, but also threshold setting for directories. +
 
-Taking the above sample inventory as an example: +
-
-[[medicineModule_example8]]
-image::medicineModule_example7.png[width='800']
+Taking the same sample inventory as an example: +
 
 Setting a threshold for a directory is effectively the same as setting the threshold for every medicine in the "subtree" of that directory. This is down by a tree-like traversal. +
 
 For example, `alarm root\Internal 400` command sets the alarm level of all medicine in the subtree of "Internal" directory to 400. +
 
-[[medicineModule_example8]]
-image::medicineModule_example8.png[width='800]
+[[medicineModule_example9]]
+image::medicineModule_example8.png[width='600']
 
 ==== Design consideration
 
@@ -436,8 +269,6 @@ image::medicineModule_example8.png[width='800]
 
 4. Additionally, it is impossible to expect the doctor to always remember the full name of medicines correctly. There is a need for an easier way to identify medicines to operate on besides requiring the user to type in full names every time.
 
-5. Considering that even a small private clinic may have a considerably large set of medicine available in their storage, massive operation on a large set of medicine should be made possible besides operations on single medicine.
-
 ==== Alternatives considered
 
 The table illustrates some of the alternatives I considered during development of this medicine module, the relative advantages they have over the current implementation, and why they are not selected at the end.
@@ -447,40 +278,37 @@ The table illustrates some of the alternatives I considered during development o
 |Alternative |Description |Comparative advantages |Reasons for not adopting
 // row 1
 |*Store medicines as a simple ArrayList*
-|When users add a new medicine, just append a new medicine to the ArrayList. +
-
-During operations on medicines, use name of medicine as a key to select the wanted medicine.
-
+|When users add a new medicine, just append a new medicine to the ArrayList.
 | * Simpler command format: The user could type in less arguments for the same commands.
 
-* No maintainability issue: There is no constraint to the data structure, therefore there is no need to cross check all modules to ensure the constraints are maintained. Less likely to occur bugs.
+* No maintainability issue, less likely to occur bugs.
 
-| * The user must type in full name of medicines correctly to identify the correct medicine, This contradicts our belief that doctors are unlikely to know the full name of all his/her medicine.
+| * Must type in full name of medicines correctly.
 
-* There is no freedom for the user to organize his/her medicine. When the user wants to view or operate on all medicine that share some common traits, he/she is not able to do so.
+* No freedom for the user to organize his/her medicine. Does not support massive operations.
 
 // row 2
 |*Use a hash map to store the medicines*
-| Use medicine name as the key and the medicine as the value. Search for the key to identify and operate on medicines.
-| * Searching and identifying using names as key is more time-efficient compared to the current implementation, especially when data size is large. +
+| Use medicine name as the key and the medicine as the value.
+| * More time-efficient searching, especially when data size is large. +
 
 * Simpler command format, less fields to input per command.
 
-| * There is no room for customized arrangement of medicine. +
+| * No room for customized arrangement of medicine. +
 
-* The user need to type in the correct full name of medicines to be able to identify medicines. This adds on extra difficulties for users to use the application.
+* Need to type in the correct full name of medicines.
 
-* Does not support massive operations on similar medicines. Users need to repeat the same operations on many medicines.
+* Does not support massive operations on similar medicines.
 
 //row 3
 |*Store medicines in a list with tags*
-| When adding medicines, require tags from the users so that searching and identifying medicine is easier.
-| * Easier to list all medicines with the same tag. +
+| Users add tags to medicines for searching.
+| * Can list all medicines with the same tag. +
 
-* Similar structure with patient module. Less efforts needed on both the developers' side and users' side to familiarise themselves with the data structure.
-| * Potential lengthy commands if a medicine is widely applicable to many situations such that it may have a lot tags. +
+* Similar structure with patient module. Less efforts needed.
+| * Potential lengthy commands if a medicine has many tags. +
 
-* Have to either input the full name of medicine or recall the tag correctly to retrieve correct medicine. When there is a large set of medicines and tags, this alternatives provides little extra convenience as compared to the two alternatives above.
+* Have to input the full name of medicine or the tag correctly to retrieve correct medicine. When there is a large set of medicines and tags, this is not convenient.
 
 |===
 

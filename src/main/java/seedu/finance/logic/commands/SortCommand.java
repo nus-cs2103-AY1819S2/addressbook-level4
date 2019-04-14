@@ -57,7 +57,7 @@ public class SortCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
-        if (model.getFilteredRecordList().size() == 0) {
+        if (model.getFinanceTracker().getRecordList().size() == 0) {
             throw new CommandException(MESSAGE_EMPTY_LIST);
         }
 

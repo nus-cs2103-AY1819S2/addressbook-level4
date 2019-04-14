@@ -25,9 +25,9 @@ public class SpendCommand extends Command {
             + "Parameters: "
             + PREFIX_NAME + "NAME "
             + PREFIX_AMOUNT + "AMOUNT "
-            + PREFIX_DATE + "DATE "
-            + PREFIX_CATEGORY + "CATEGORY\n"
-            + PREFIX_DESCRIPTION + "DESCRIPTION\n"
+            + "[" + PREFIX_DATE + "DATE] "
+            + PREFIX_CATEGORY + "CATEGORY "
+            + "[" + PREFIX_DESCRIPTION + "DESCRIPTION]\n"
             + "Note that each record should only have one category.\n"
             + "If date is not inputted, local date will be used.\n"
             + "Example: " + COMMAND_WORD + " "
@@ -35,7 +35,7 @@ public class SpendCommand extends Command {
             + PREFIX_AMOUNT + "123.23 "
             + PREFIX_DATE + "12/02/2002 "
             + PREFIX_CATEGORY + "Food "
-            + PREFIX_DESCRIPTION + "Lunch with friends ";
+            + PREFIX_DESCRIPTION + "Lunch with friends\n";
 
     public static final String MESSAGE_SUCCESS = "New record added: %1$s";
     public static final String MESSAGE_SUCCESS_EXCEED_BUDGET = "Your spending in %s "

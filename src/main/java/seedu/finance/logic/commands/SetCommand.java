@@ -22,7 +22,7 @@ public class SetCommand extends Command {
             + PREFIX_AMOUNT + "AMOUNT "
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_AMOUNT + "500.50";
-    public static final String MESSAGE_SUCCESS = "Budget Set: %1$s";
+    public static final String MESSAGE_SUCCESS = "Budget Set: $%1$s";
 
     private final String amount;
 

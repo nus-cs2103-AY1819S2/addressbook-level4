@@ -75,6 +75,10 @@ public class JsonAdaptedConsultationTest {
                 VALID_PATIENT, VALID_DIAGNOSIS, VALID_PRESCRIPTIONS);
 
         assertEquals(EXPECTED.toString(), consultation.toModelType().toString());
+
+        JsonAdaptedConsultation consultation2 = new JsonAdaptedConsultation(EXPECTED);
+        assertEquals(consultation2.toModelType().toString(), consultation.toModelType().toString());
+
     }
 
 }

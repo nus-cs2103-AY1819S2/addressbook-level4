@@ -521,10 +521,6 @@ The calendar is generated with modifications to the date cells being done during
 
 The UI components of this feature are implemented using classes from `JavaFX` with the most important component being `DatePicker` which allows a calendar to be drawn up and displayed to the user. The implementation overrides the `updateItem()` method from `DatePicker` to enable modifications to be done to the date cells in the calendar.
 
-[NOTE]
-Color sceheme and certain font sizes of the Calendar are done using Cascading Style Sheets (CSS) in a `Calendar.CSS` file found under resources. Changes can be made to the CSS file to change color schemes of the calendar if needed
-
-
 The following swimlane activity diagram illustrates the process in which the application goes through to create and display the interactive calendar for the user:
 
 image::TaskCalendarSwimLaneDiagram.png[height="500"]

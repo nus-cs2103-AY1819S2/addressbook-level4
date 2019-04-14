@@ -19,7 +19,9 @@ By: `Team 15-3`      Since: `Feb 2019`      Licence: `MIT`
 
 == Introduction
 
-slaveFinder() is a resume management software for those who *prefer to use a desktop app for managing resumes*. More importantly, slaveFinder() is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, slaveFinder() can get your resume management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+slaveFinder() is a resume management application that helps recruiters manage most of the hiring process. . + 
+The application is optimized for those who prefer to work with a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, slaveFinder() can get your resume management tasks done faster than traditional GUI apps. +
+Interested? Jump to the <<Quick Start>> to get started or <<Command Summary>> for the list of commands. Enjoy!
 
 == Quick Start
 
@@ -42,9 +44,11 @@ image::DisplayJob.png[width="790"]
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* *`list`* : lists all applicants and job openings
-* *`clear`* : clears the software of all applicants and job openings
-* *`exit`* : exits the app
+* `*add* n/John p/91757536 nric/S8761230Q e/john@example.com a/123 Disneyland g/Male r/Malay m/Psychology s/NUS gr/4.33 j/Manager`: adds a person named `John` to all applicants database.
+* `*createJob* jn/Manager`: creates new job opening `Manager`.
+* `*addAll* a jn/Manager` : adds all applicants in the database to the `applicants` list of job `Manager`.
+* `*displayJob* jn/Manager`: displays the selection process for job opening `Manager`
+* `*list*` : Goes back to the list of all applicants and job openings. 
 
 .  Refer to <<Features>> for details of each command.
 
@@ -132,21 +136,22 @@ Format: `add n/NAME p/PHONE_NUMBER nric/NRIC e/EMAIL a/ADDRESS g/GENDER r/RACE m
 
 ****
 [TIP]
+
 * This command can only be used when All Jobs Screen shows. You can add applicants into All Aplicants list
 * `n/`: Name should only contain alphanumeric characters and spaces, and should not be empty.
 * `a/`: Address can take any values, but should not be empty.
 * `nric/`: NRIC must be unique. It must start with S, followed by exactly 7 numbers, and end with an alpabet in capital letter. It should not be empty.
-* `p/`: Phone numbers should only contain numbers, and it should be at least 3 digits long, and should not be empty.
-* `e/`: Email should be of the format local-part@domain, and should not be empty. "E.g. example@gmail.com"
-* `g/`: Gender should only be "Female", "Male" or "Others", and should not be empty.
-* `r/`: Race should only be "Chinese", "Malay", "Indian" or "Others", and should not be empty.
-* `gr/`: Grade should only contain positive numbers, and must be in exactly 2 decimal place. E.g. "4.64"
-* `s/`: School can take any values, but should not be empty.
-* `m/`: Major should only contain alphanumeric characters and spaces, and should not be empty.
-* `j/`: Jobs Apply must only contain one word. If two or more words, have to be connected by a dash. E.g. "Software-Engineer". It should not be empty. It can take more than 1 value. E.g. "j/Manager j/Sweeper"
-* `is/`: Interview scores field is optional, and must be exactly 5 set of numbers, each seperated by a comma. E.g. "1,2,3,4,5"
-* `kpl/`: Known Programming Language field is optional. It can take any values, and can take more than 1 value. E.g. "kpl/Java kpl/Python"
-* `pj/`: Past jobs field is optional, and past job must only contain one word. If two or more words, have to be connected by a dash. E.g. "Software-Engineer". It can take more than 1 value E.g. "pj/Manager pj/Sweeper"
+* `p/`: *Phone* numbers should only contain numbers, and it should be at least 3 digits long, and should not be empty.
+* `e/`: *Email* should be of the format local-part@domain, and should not be empty. "E.g. example@gmail.com"
+* `g/`: *Gender* should only be "Female", "Male" or "Others", and should not be empty.
+* `r/`: *Race* should only be "Chinese", "Malay", "Indian" or "Others", and should not be empty.
+* `gr/`: *Grade* should only contain positive numbers, and must be in exactly 2 decimal place. E.g. "4.64"
+* `s/`: *School* can take any values, but should not be empty.
+* `m/`: *Major* should only contain alphanumeric characters and spaces, and should not be empty.
+* `j/`: *Jobs Apply* must only contain one word. If two or more words, have to be connected by a dash. E.g. "Software-Engineer". It should not be empty. It can take more than 1 value. E.g. "j/Manager j/Sweeper"
+* `is/`: *Interview scores* field is optional, and must be exactly 5 set of numbers, each seperated by a comma. E.g. "1,2,3,4,5"
+* `kpl/`: *Known Programming Language* field is optional. It can take any values, and can take more than 1 value. E.g. "kpl/Java kpl/Python"
+* `pj/`: *Past jobs* field is optional, and past job must only contain one word. If two or more words, have to be connected by a dash. E.g. "Software-Engineer". It can take more than 1 value E.g. "pj/Manager pj/Sweeper"
 ****
 
 Examples:
@@ -158,11 +163,6 @@ Examples:
 
 Shows a list of all job openings and applicants in the slave system. +
 Format: `list`
-
-****
-* This command can be used in both All Jobs Screen and Job Detail Screen.
-* You will be back to All Jobs Screen when you use this command in Job Detail Screen and all applicants will show in `All Applicants` List.
-****
 
 ==== Editing a person : `edit`
 
@@ -183,9 +183,29 @@ Edits the phone number and email address of the 1st person to be `91234567` and 
 * `edit 2 n/Betsy Crower` pj/Manager +
 Edits the name of the 2nd person to be `Betsy Crower` and clears all existing past jobs and replace it with 'Manager".
 
+==== Locating persons by name: `find`
+
+Finds persons whose names contain any of the given keywords. +
+Format: `find KEYWORD [MORE_KEYWORDS]`
+
+****
+* The search is case insensitive. e.g `hans` will match `Hans`
+* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
+* Only the name is searched.
+* Only full words will be matched e.g. `Han` will not match `Hans`
+* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+****
+
+Examples:
+
+* `find John` +
+Returns `john` and `John Doe`
+* `find Betsy Tim John` +
+Returns any person having names `Betsy`, `Tim`, or `John`
+
 ==== Deleting a person : `delete`
 
-Deletes the specified person from the address book. +
+Deletes the specified person from slaveFinder(). +
 Format: `delete INDEX`
 
 ****
@@ -199,12 +219,14 @@ Examples:
 
 * `list` +
 `delete 2` +
-Deletes the 2nd person in the address book.
-
+Deletes the 2nd person in slaveFinder().
+* `find Betsy` +
+`delete 1` +
+Deletes the 1st person in the results of the `find` command.
 
 ==== Clearing all entries : `clear`
 
-Clears all entries from the address book. +
+Clears all entries from slaveFinder(). +
 Format: `clear`
 
 ****

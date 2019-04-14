@@ -13,10 +13,10 @@ public class AttackFailed extends AttackResult {
         super(attacker, target, cell);
         this.reason = reason;
 
-        succeeds = false;
-        hitsShip = false;
-        destroysShip = false;
-        winsGame = false;
+        succeeds(false);
+        hitsShip(false);
+        destroysShip(false);
+        winsGame(false);
     }
 
     @Override

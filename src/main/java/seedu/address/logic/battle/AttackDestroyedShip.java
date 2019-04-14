@@ -13,10 +13,10 @@ public class AttackDestroyedShip extends AttackResult {
         super(attacker, target, cell);
         this.destroyedShipName = destroyedShipName;
 
-        succeeds = true;
-        hitsShip = true;
-        destroysShip = true;
-        winsGame = false;
+        succeeds(true);
+        hitsShip(true);
+        destroysShip(true);
+        winsGame(false);
     }
 
     @Override

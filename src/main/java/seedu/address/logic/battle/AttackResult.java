@@ -10,19 +10,36 @@ import seedu.address.model.player.Player;
 public abstract class AttackResult {
     public static final String ATTACK = "Attack by player %s on cell %s of player %s ";
 
-    protected Player attacker;
-    protected Player target;
-    protected Coordinates coords;
     // refactoring the way of handling attributes to enable a declarative style
-    protected boolean succeeds;
-    protected boolean hitsShip;
-    protected boolean destroysShip;
-    protected boolean winsGame;
+    private boolean succeeds;
+    private boolean hitsShip;
+    private boolean destroysShip;
+    private boolean winsGame;
+
+    private Player attacker;
+    private Player target;
+    private Coordinates coords;
 
     protected AttackResult(Player attacker, Player target, Coordinates coords) {
         this.attacker = attacker;
         this.target = target;
         this.coords = coords;
+    }
+
+    protected void succeeds(boolean succeeds) {
+        this.succeeds = succeeds;
+    }
+
+    protected void hitsShip(boolean hitsShip) {
+        this.hitsShip = hitsShip;
+    }
+
+    protected void destroysShip(boolean destroysShip) {
+        this.destroysShip = destroysShip;
+    }
+
+    protected void winsGame(boolean winsGame) {
+        this.winsGame = winsGame;
     }
 
     /**

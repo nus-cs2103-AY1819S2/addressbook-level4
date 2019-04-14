@@ -241,14 +241,14 @@ public class FilterCommandParserTest {
     public void parse_validFields_success() {
 
         String userInputAddress = AND_TYPE + VALID_ADDRESS;
-        String[] criterionAddress = {null, null, null, "street".trim().toLowerCase(), null, null, null,
-                null, null, null};
+        String[] criterionAddress = {null, null, null, "street".trim().toLowerCase(), null, null, null, null, null,
+            null};
         FilterCommand expectedAddressCommand = new FilterCommand(criterionAddress, 2);
         assertParseSuccess(parser, userInputAddress, expectedAddressCommand);
 
         String userInputEducation = AND_TYPE + VALID_EDUCATION;
-        String[] criterionEducation = {null, null, null, null, null, null,
-                null, "NUS".trim().toLowerCase(), null, null};
+        String[] criterionEducation = {null, null, null, null, null, null, null, "NUS".trim().toLowerCase(),
+            null, null};
         FilterCommand expectedEducationCommand = new FilterCommand(criterionEducation, 2);
         assertParseSuccess(parser, userInputEducation, expectedEducationCommand);
 
@@ -258,8 +258,8 @@ public class FilterCommandParserTest {
         assertParseSuccess(parser, userInputEmail, expectedEmailCommand);
 
         String userInputEndorsement = AND_TYPE + VALID_ENDORSEMENT;
-        String[] criterionEndorsement = {null, null, null, null, null, null, null,
-                null, "2".trim().toLowerCase(), null};
+        String[] criterionEndorsement = {null, null, null, null, null, null, null, null, "2".trim().toLowerCase(),
+            null};
         FilterCommand expectedEndorsementCommand = new FilterCommand(criterionEndorsement, 2);
         assertParseSuccess(parser, userInputEndorsement, expectedEndorsementCommand);
 
@@ -285,8 +285,8 @@ public class FilterCommandParserTest {
         assertParseSuccess(parser, userInputPos, expectedPosCommand);
 
         String userInputSkill = OR_TYPE + VALID_SKILL;
-        String[] criterionSkill = {null, null, null, null, "Java, C++".trim().toLowerCase(), null, null,
-                null, null, null};
+        String[] criterionSkill = {null, null, null, null, "Java, C++".trim().toLowerCase(), null, null, null, null,
+            null};
         FilterCommand expectedSkillCommand = new FilterCommand(criterionSkill, 1);
         assertParseSuccess(parser, userInputSkill, expectedSkillCommand);
     }
@@ -411,13 +411,13 @@ public class FilterCommandParserTest {
 
         String userInputAddress = AND_TYPE + VALID_ADDRESS + " " + VALID_ADDRESS2;
         String[] criterionAddress = {null, null, null, "street".trim().toLowerCase(), null, null, null,
-                null, null, null};
+            null, null, null};
         FilterCommand expectedAddressCommand = new FilterCommand(criterionAddress, 2);
         assertParseSuccess(parser, userInputAddress, expectedAddressCommand);
 
         String userInputEducation = AND_TYPE + VALID_EDUCATION + " " + VALID_EDUCATION2;
         String[] criterionEducation = {null, null, null, null, null, null, null, "NUS".trim().toLowerCase(),
-                null, null};
+            null, null};
         FilterCommand expectedEducationCommand = new FilterCommand(criterionEducation, 2);
         assertParseSuccess(parser, userInputEducation, expectedEducationCommand);
 
@@ -428,7 +428,7 @@ public class FilterCommandParserTest {
 
         String userInputEndorsement = AND_TYPE + VALID_ENDORSEMENT + " " + VALID_ENDORSEMENT2;
         String[] criterionEndorsement = {null, null, null, null, null, null, null, null,
-                "2".trim().toLowerCase(), null};
+            "2".trim().toLowerCase(), null};
         FilterCommand expectedEndorsementCommand = new FilterCommand(criterionEndorsement, 2);
         assertParseSuccess(parser, userInputEndorsement, expectedEndorsementCommand);
 
@@ -439,13 +439,13 @@ public class FilterCommandParserTest {
 
         String userInputName = OR_TYPE + VALID_NAME2 + " " + VALID_NAME1;
         String[] criterionName = {"Neill".trim().toLowerCase(), null, null, null, null, null, null,
-                null, null, null};
+            null, null, null};
         FilterCommand expectedNameCommand = new FilterCommand(criterionName, 1);
         assertParseSuccess(parser, userInputName, expectedNameCommand);
 
         String userInputPhone = OR_TYPE + VALID_PHONE + " " + VALID_PHONE2;
         String[] criterionPhone = {null, "92".trim().toLowerCase(), null, null, null, null, null,
-                null, null, null};
+            null, null, null};
         FilterCommand expectedPhoneCommand = new FilterCommand(criterionPhone, 1);
         assertParseSuccess(parser, userInputPhone, expectedPhoneCommand);
 
@@ -457,7 +457,7 @@ public class FilterCommandParserTest {
 
         String userInputSkill = OR_TYPE + VALID_SKILL + " " + VALID_SKILL2;
         String[] criterionSkill = {null, null, null, null, "Java, C++".trim().toLowerCase(), null, null,
-                null, null, null};
+            null, null, null};
         FilterCommand expectedSkillCommand = new FilterCommand(criterionSkill, 1);
         assertParseSuccess(parser, userInputSkill, expectedSkillCommand);
 

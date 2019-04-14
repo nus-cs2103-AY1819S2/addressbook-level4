@@ -10,26 +10,20 @@ import java.util.regex.Pattern;
 import seedu.address.commons.core.LogsCenter;
 
 /**
- * Represents the orientation of a battleship on the map.
- * Guarantees: immutable; is valid as declared in {@link #isValidOrientation(String)}
+ * Represents the orientation of a ship on the map.
  */
 public class Orientation {
     public static final String MESSAGE_CONSTRAINTS =
             "Orientation should either be horizontal or vertical, case-insensitive";
 
-    /*
-     * The first character of the address must not be a whitespace,
-     * otherwise " " (a blank string) becomes a valid input.
-     */
+    // The first character of the address must not be a whitespace,
+    // otherwise " " (a blank string) becomes a valid input.
     private static final String VALIDATION_REGEX = "^(horizontal|vertical|h|v)$";
-    private static final String VALIDATION_HORIZONTAL_REGEX = "horizontal|h";
-    private static final String VALIDATION_VERTICAL_REGEX = "vertical|v";
-
     private static final Pattern VALIDATION_PATTERN = Pattern.compile(
-            VALIDATION_REGEX, Pattern.CASE_INSENSITIVE);
+            VALIDATION_REGEX,
+            Pattern.CASE_INSENSITIVE);
 
     public final OrientationType orientation;
-
     private final Logger logger = LogsCenter.getLogger(Orientation.class);
 
     /**
@@ -56,6 +50,9 @@ public class Orientation {
 
     /**
      * Returns true if a given string is a valid name.
+     *
+     * @param test input string to be tested.
+     * @return boolean of whether the given string is a valid orientation.
      */
     public static boolean isValidOrientation(String test) {
         Matcher matcher = VALIDATION_PATTERN.matcher(test);
@@ -64,6 +61,8 @@ public class Orientation {
 
     /**
      * Checks if orientation is left.
+     *
+     * @return boolean of whether the orientation is left.
      */
     public boolean isHorizontal() {
         return this.orientation == OrientationType.HORIZONTAL;
@@ -71,6 +70,8 @@ public class Orientation {
 
     /**
      * Checks if orientation is right.
+     *
+     * @return boolean of whether the orientation is right.
      */
     public boolean isVertical() {
         return this.orientation == OrientationType.VERTICAL;
@@ -78,6 +79,8 @@ public class Orientation {
 
     /**
      * Returns string of orientation.
+     *
+     * @return string of orientation.
      */
     @Override
     public String toString() {
@@ -86,6 +89,9 @@ public class Orientation {
 
     /**
      * Checks if two given Orientation objects are equal by checking the enum value.
+     *
+     * @param other object to be compared with.
+     * @return boolean of whether objects are equal.
      */
     @Override
     public boolean equals(Object other) {
@@ -96,6 +102,8 @@ public class Orientation {
 
     /**
      * Hashes the object.
+     *
+     * @return {@code int} of orientation hashcode.
      */
     @Override
     public int hashCode() {
@@ -113,7 +121,9 @@ public class Orientation {
         private final String orientationDescription;
 
         /**
-         * Constructor.
+         * Default constructor method.
+         *
+         * @param value orientation string.
          */
         OrientationType(String value) {
             orientationDescription = value;
@@ -121,6 +131,8 @@ public class Orientation {
 
         /**
          * Returns orientation as a lowercase string.
+         *
+         * @return orientation as a lowercase string.
          */
         @Override
         public String toString() {

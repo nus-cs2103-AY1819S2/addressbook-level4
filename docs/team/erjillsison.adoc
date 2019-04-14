@@ -73,7 +73,7 @@ This section provides the summary of the contributions that I have made to the p
 include::../UserGuide.adoc[tag=map]
 
 ---
-== Upcoming Feature in v2.0
+=== Upcoming Feature in v2.0
 
 include::../UserGuide.adoc[tag=upcomingmap]
 
@@ -83,7 +83,7 @@ include::../UserGuide.adoc[tag=upcomingmap]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project. Note that the horizontal lines indicate that they are taken from different sections of the Developer Guide._
 |===
 
-Co-authored the Model diagram as shown in Figure 3 below.
+Co-authored the Model diagram as shown below.
 
 .Model Diagram
 image::ModelClassDiagram.png[width="800"]

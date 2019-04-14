@@ -264,20 +264,20 @@ This section describes in detail the implementation of certain features in _In-C
 This feature allows the user to filter out specific expenses based on keywords that correspond to the name, category
 or date.
 
-This implementation is under `Logic` and `Model` Component.
+This implementation is under `[fuchsia]#Logic#` and `[fuchsia]#Model#` Component.
 
 ==== Current Implementation
-The sort command uses predicates that implement`java.util.Predicate` interface which will be used to filter the records
-that are inputted into the finance tracker. Each of these predicates contains a `List<String>` of keywords and a `test()`
-command that is used to test if a record satisfy the conditions set in the predicate. These predicates are found in the `Model` component.
+The search command uses predicates that implement `[fuchsia]#java.util.Predicate#` interface which will be used to filter the records
+that are inputted into the finance tracker. Each of these predicates contains a `[fuchsia]#List<String>#` of keywords and a `[fuchsia]#test()#`
+command that is used to test if a record satisfy the conditions set in the predicate. These predicates are found in the `[fuchsia]#Model#` component.
 
-.Predicates implemented in `Model` component
+.Predicates implemented in `[fuchsia]#Model#` component
 [cols="1,1"]
 |===
 |Types of predicate |Functions|
-`CategoryContainsKeywordsPredicate` | Filter out records by a given category |
-`DateContainsKeywordsPredicate` | Filter out records by a given date |
-`NameContainsKeywordPredicate` | Filter out records with names that matches a keyword |
+`[fuchsia]#CategoryContainsKeywordsPredicate#` | Filter out records by a given category |
+`[fuchsia]#DateContainsKeywordsPredicate#` | Filter out records by a given date |
+`[fuchsia]#NameContainsKeywordPredicate#` | Filter out records with names that matches a keyword |
 |===
 
 Below is the UML sequence diagram and a step-by-step explanation of an example usage scenario.
@@ -285,30 +285,30 @@ Below is the UML sequence diagram and a step-by-step explanation of an example u
 .Sequence Diagram of Search Command
 image::SearchCommandSequenceDiagram.png[width="800"]
 
-1. User enters a search command (eg.`search -cat food`). The command is received by the UI components and the method
-`LogicManger#execute()` is called.
+1. User enters a search command ([navy]#eg.# `[fuchsia]#search -cat food#`). The command is received by the UI components and the method
+`[fuchsia]#LogicManger#execute()#` is called.
 
-2. The command is received by `FinanceTrackerParser`, which then creates a
-`SearchCommandParser` Object and calls `SearchCommandParser#parse()` method.
+2. The command is received by `[fuchsia]#FinanceTrackerParser#`, which then creates a
+`[fuchsia]#SearchCommandParser#` Object and calls `[fuchsia]#SearchCommandParser#parse()#` method.
 
-3. Depending on the `-FLAG` that is entered by the user, `SearchCommandParser` will create different predicates objects
-that correspond to the `-FLAG`.
-* If `-cat` is inputted, `CategoryContainsKeywordsPredicate` will be created.
-* If `-date` is inputted, `DateContainsKeywordPredicate` will be created.
-* If `-name` is inputted, `NameContainsKeywordPredicate` will be created.
+3. Depending on the `[fuchsia]#-FLAG#` that is entered by the user, `[fuchsia]#SearchCommandParser#` will create different predicates objects
+that correspond to the `[fuchsia]#-FLAG#`.
+* If `[fuchsia]#-cat#` is inputted, `[fuchsia]#CategoryContainsKeywordsPredicate#` will be created.
+* If `[fuchsia]#-date#` is inputted, `[fuchsia]#DateContainsKeywordPredicate#` will be created.
+* If `[fuchsia]#-name#` is inputted, `[fuchsia]#NameContainsKeywordPredicate#` will be created.
 
-4. A `SearchCommand` Object with the correct predicate Object as parameter is created and returned to the
-`FinanceTrackerParser` and then to the `LogicManager`.
+4. A `[fuchsia]#SearchCommand#` Object with the correct predicate Object as parameter is created and returned to the
+`[fuchsia]#FinanceTrackerParser#` and then to the `[fuchsia]#LogicManager#`.
 
-5. `LogicManager` then calls `SearchCommand#execute()`, which calls `Model#updateFilteredExpenseList()` method
-to update the predicate of `FilterList<Record>`. `FilterList<Record> now contains a new set of records which is filtered
+5. `[fuchsia]#LogicManager#` then calls `[fuchsia]#SearchCommand#execute()#`, which calls `[fuchsia]#Model#updateFilteredExpenseList()#` method
+to update the predicate of `[fuchsia]#FilterList<Record>#`. `[fuchsia]#FilterList<Record>#` now contains a new set of records which is filtered
 by the new predicate.
 
-6. `SearchCommand` then calls `getFilteredRecordList` method to access the filtered records in an
-`ObservableList<Record>` in order to calculate the sum of the money that is spent in all the filtered records.
+6. `[fuchsia]#SearchCommand#` then calls `[fuchsia]#getFilteredRecordList#` method to access the filtered records in an
+`[fuchsia]#ObservableList<Record>#` in order to calculate the sum of the money that is spent in all the filtered records.
 
-7. Then the record list panel will show a set of records according to the keywords. A `CommandResult` is then created
-and returned to `Logic Manager`.
+7. Then the record list panel will show a set of records according to the keywords. A `[fuchsia]#CommandResult#` is then created
+and returned to `[fuchsia]#Logic Manager#`.
 
 ==== Design Consideration
 
@@ -344,16 +344,16 @@ The sort mechanism allows users to view their expense records in a different way
 
 ==== Current Implementation
 
-The sort command uses comparators that implement `java.util.Comparator` interface to provide the comparison functions.
+The sort command uses comparators that implement `[fuchsia]#java.util.Comparator#` interface to provide the comparison functions.
 
 .Sort commands (default ordering)
 |===
 |Command |Comparator used |Effect
 
-|`sort -name`, `sort -name -asc`|`RecordNameComparator` |Lexicographical order
-|`sort -amount`, `sort -amount -desc` |`RecordAmountComparator` |Descending order
-|`sort -date`, `sort -date -desc`|`RecordDateComparator` |Reverse chronological order
-|`sort -cat`, `sort -cat -asc` |`RecordCategoryComparator` |Lexicographical order
+|`[fuchsia]#sort -name#`, `[fuchsia]#sort -name -asc#`|`[fuchsia]#RecordNameComparator#` |Lexicographical order
+|`[fuchsia]#sort -amount#`, `[fuchsia]#sort -amount -desc#` |`[fuchsia]#RecordAmountComparator#` |Descending order
+|`[fuchsia]#sort -date#`, `[fuchsia]#sort -date -desc#`|`[fuchsia]#RecordDateComparator#` |Reverse chronological order
+|`[fuchsia]#sort -cat#`, `[fuchsia]#sort -cat -asc#` |`[fuchsia]#RecordCategoryComparator#` |Lexicographical order
 
 |===
 
@@ -362,29 +362,29 @@ The sort command uses comparators that implement `java.util.Comparator` interfac
 |===
 |Command |Comparator used |Effect
 
-|`sort -name -desc` |`RecordNameComparator#reversed()` |Reverse lexicographical order
-|`sort -amount - asc` |`RecordAmountComparator#reversed()` |Ascending order
-|`sort -date - asc` |`RecordDateComparator#reversed()` |Chronological order
-|`sort -cat -desc` |`RecordCategoryComparator#reversed()` |Reverse lexicographical order
+|`[fuchsia]#sort -name -desc#` |`[fuchsia]#RecordNameComparator#reversed()#` |Reverse lexicographical order
+|`[fuchsia]#sort -amount - asc#` |`[fuchsia]#RecordAmountComparator#reversed()#` |Ascending order
+|`[fuchsia]#sort -date - asc#` |`[fuchsia]#RecordDateComparator#reversed()#` |Chronological order
+|`[fuchsia]#sort -cat -desc#` |`[fuchsia]#RecordCategoryComparator#reversed()#` |Reverse lexicographical order
 
 |===
 
-Here is the list of operations involved in the execution of command, `sort -name`.
+Here is the list of operations involved in the execution of command, `[fuchsia]#sort -name#`.
 
-. `LogicManager#execute(_"sort -name"_)` calls `FinanceTrackerParser#parseCommand(_"sort -name"_)`.
-. `FinanceTracker#parseCommand(_"sort -name"_)` creates a new `SortCommandParser` object and calls `SortCommandParser#parse(_" -name"_)`.
-. `SortCommandParser#parse()` creates a new `RecordNameComparator()` object, _comparator_ and passes it as a parameter into the `SortCommand` constructor.
-. The `SortCommand` object, _s_, is then passed back to the `SortCommandParser`, `FinanceTrackerParser`, and finally back to the `LogicManager`.
+. `[fuchsia]#LogicManager#execute(_"sort -name"_)#` calls `[fuchsia]#FinanceTrackerParser#parseCommand(_"sort -name"_)#`.
+. `[fuchsia]#FinanceTracker#parseCommand(_"sort -name"_)#` creates a new `[fuchsia]#SortCommandParser#` object and calls `[fuchsia]#SortCommandParser#parse(_" -name"_)#`.
+. `[fuchsia]#SortCommandParser#parse()#` creates a new `[fuchsia]#RecordNameComparator()#` object, _comparator_ and passes it as a parameter into the `[fuchsia]#SortCommand#` constructor.
+. The `[fuchsia]#SortCommand#` object, _s_, is then passed back to the `[fuchsia]#SortCommandParser#`, `[fuchsia]#FinanceTrackerParser#`, and finally back to the `[fuchsia]#LogicManager#`.
 +
 .Sequence Diagram of Sort Command I
 image::SortSequenceDiagram1.png[width="800"]
 +
-. `LogicManager#execute(_"sort -name"_)` then continues to call `SortCommand#execute()`.
-. `SortCommand#execute()` calls `Model#SortFilteredRecordList(_comparator_)`.
-. `Model#SortFilteredRecordList(_comparator_)` calls `FinanceTracker#sortRecordList(_comparator_)`.
-. `FinanceTracker#sortRecordList(_comparator_)` calls `UniqueRecordList#sortList(_comparator_)`.
-. `UniqueRecordList#sortList(_comparator_)` then uses `FXCollection`’s static method `sort()`  to sort the records.
-. `SortCommand#execute()` then creates a `CommandResult` object and returns it back to the `LogicManager`.
+. `[fuchsia]#LogicManager#execute(_"sort -name"_)#` then continues to call `[fuchsia]#SortCommand#execute()#`.
+. `[fuchsia]#SortCommand#execute()#` calls `[fuchsia]#Model#SortFilteredRecordList(_comparator_)#`.
+. `[fuchsia]#Model#SortFilteredRecordList(_comparator_)#` calls `[fuchsia]#FinanceTracker#sortRecordList(_comparator_)#`.
+. `[fuchsia]#FinanceTracker#sortRecordList(_comparator_)#` calls `[fuchsia]#UniqueRecordList#sortList(_comparator_)#`.
+. `[fuchsia]#UniqueRecordList#sortList(_comparator_)#` then uses `[fuchsia]#FXCollection#`’s static method `[fuchsia]#sort()#`  to sort the records.
+. `[fuchsia]#SortCommand#execute()#` then creates a `[fuchsia]#CommandResult#` object and returns it back to the `[fuchsia]#LogicManager#`.
 
 .Sequence Diagram of Sort Command II
 image::SortSequenceDiagram2.png[width="800"]
@@ -393,32 +393,32 @@ image::SortSequenceDiagram2.png[width="800"]
 
 ===== Aspect: How sort is executed
 
-* **Alternative 1 (current choice):** Use the `Comparator` interface.
+* **Alternative 1 (current choice):** Use the `[fuchsia]#Comparator#` interface.
 
 ** Pros 1: Sorting can be done based on different attributes of the records (name, amount, date, category).
 ** Pros 2: Allows an alternative ordering to be applied, does not have to be the natural ordering. Therefore, dates can be sorted in reverse chronological order, and amount in descending order.
-** Cons: A new class that implements the interface `Comparator` needs to be created.
+** Cons: A new class that implements the interface `[fuchsia]#Comparator#` needs to be created.
 
-* **Alternative 2:** Use the `Comparable` interface.
+* **Alternative 2:** Use the `[fuchsia]#Comparable#` interface.
 
-** Pros: Type-safe with compiler as `Comparable#compareTo()` only accepts object of type `T`, instead of `java.lang.Object`.
+** Pros: Type-safe with compiler as `[fuchsia]#Comparable#compareTo()#` only accepts object of type `[fuchsia]#T#`, instead of `[fuchsia]#java.lang.Object#`.
 ** Cons 1: There can only be one form or way of sorting the records.
 ** Cons 2: Uses the natural order for sorting. Therefore, dates will be sorted in chronological order, amount in ascending order, and names and categories in lexicographical order.
 
 
-===== Aspect: How sort is executed when `[ORDER]` argument is supplied and specified order is opposite to that of default. (E.g. `sort -name -desc`)
+===== Aspect: How sort is executed when `[fuchsia]#[ORDER]#` argument is supplied and specified order is opposite to that of default. ([navy]#E.g.# `[fuchsia]#sort -name -desc#`)
 
 * **Alternative 1 (current choice):** A new comparator that imposes the reverse ordering of one of the four defined comparator classes is created. +
-(*E.g.* To sort the list by name in reverse lexicographical order, a new comparator, `RecordNameComparator#reversed()` is created.)
+(*[navy]#E.g.#* To sort the list by name in reverse lexicographical order, a new comparator, `[fuchsia]#RecordNameComparator#reversed()#` is created.)
 
 ** Pros: Easy to implement.
 ** Cons: List needs to be sorted again using the new comparator. Time will be needed to compare the records in the list.
 
-* **Alternative 2:** Reverse the list after sorting it using one of the four defined comparator classes.
-(*E.g.* Sort list using `RecordNameComparator`. Then use the `reverse` command to reverse the list.)
+* **Alternative 2:** Reverse the list after sorting it using one of the four defined comparator classes. +
+(*[navy]#E.g.#* Sort list using `[fuchsia]#RecordNameComparator#`. Then use the `[fuchsia]#reverse#` command to reverse the list.)
 
-** Pros: We can reuse what is already in the codebase (`reverse` command).
-** Cons: Harder to implement, need to execute two commands internally when one command is entered in the `CommandBox`.
+** Pros: We can reuse what is already in the codebase (`[fuchsia]#reverse#` command).
+** Cons: Harder to implement, need to execute two commands internally when one command is entered in the `[fuchsia]#CommandBox#`.
 
 // end::sort[]
 

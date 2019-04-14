@@ -167,7 +167,7 @@ The table below shows the parameters that require a specific input format to be 
 |`cc/`
 |A valid ISO-3166 three-letter country code +
 e.g. `JPN` to represent `Japan` +
-The full list of country codes can be found link:https://cs2103-ay1819s2-w11-3.github.io/main/CountryCodes.html[here]
+The full list of country codes can be found <<start, here>>
 
 |`DATE_VISITED`
 |`dv/`
@@ -1065,7 +1065,7 @@ _Example:_ +
 |*Undo*
 |`undo`
 
-
 |=======================================================================
-
 // end::commandFormats[]
+
+[[start]]

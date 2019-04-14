@@ -110,16 +110,14 @@ You can also sort the table by any of its columns with the `sort` command to sui
 === Warning Panel
 
 .Warning panel
-image::UserGuide_WarningPanel.png[width="180", float="right"]
-
-A standard clinical inventory holds around a hundred types of medicine. This makes sieving out medicines which are expiring, expired or running low in stock extremely cumbersome and time consuming. Thus, to streamline this aspect of inventory management, the warning panel was included as one of the features in our first product release.
+image::UserGuide_WarningPanel.png[width="180"]
 
 The warning panel provides an overview of pressing issues that have to be taken care of. With a quick glance, you will be able to identify expiring or expired batches of medicine, and medicines running low in stock.
 
-On top of that, the panel features flexible thresholds to determine what is expiring and what is low in stock. These thresholds can be changed according your own needs and preferences with a simple command.
+On top of that, the warning panel features flexible thresholds that can be changed according your needs and preferences with a simple command, adding to your user experience.
+// end::warningpanelfeature[]
 
 You can learn about related commands related in <<WarningPanel>>.
-// end::warningpanelfeature[]
 
 // tag::exportingascsvfileformat[]
 === Exporting as CSV file format
@@ -380,8 +378,8 @@ Updates quantity of batch `8937v1x7` in batch records of the 1st medicine in the
 Manage the threshold for expiry date and low stock warnings. +
 Format: `warning [e/EXPIRY_THRESHOLD] [q/LOW_STOCK_THRESHOLD] [SHOW]` +
 Provide *only one* of the optional fields available. +
-If the thresholds are not set, the default threshold for expiry is 10 days, and 20 for low stock. +
-Thresholds set are saved as a user preference, and will be used when the application is launched again.
+If the thresholds are not set, the default threshold for expiry will be 10 days, and 20 for low stock. +
+Thresholds set by the user are saved and will be used when the application is launched again.
 
 ****
 * `EXPIRY_THRESHOLD` should be in days before expiry date.

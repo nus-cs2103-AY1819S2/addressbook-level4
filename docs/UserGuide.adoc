@@ -92,11 +92,11 @@ image::mapSizeFleetSize.png[width=550]
 *Ready, aim, fire!*
 
 The Player will always be given the first turn.
-The Player may fire shots at the enemy map through the command `shoot <a1>`.
+The Player may fire shots at the enemy map through the command `shoot`, for example `shoot a1`.
 
-If the shot hit a ship, the Player may continue taking shots til a miss.
+If the shot hits a ship, the Player may continue taking shots until they miss.
 Upon a miss, the turn will be handed over to the enemy.
-The same goes for the enemy. The enemy will take its shot automatically, firing until a miss, before
+The same goes for the enemy - the enemy will take its shot automatically, firing until it misses, before
 passing the turn back to the Player.
 ====
 

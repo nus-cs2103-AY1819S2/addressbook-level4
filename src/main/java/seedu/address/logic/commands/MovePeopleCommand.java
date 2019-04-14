@@ -48,6 +48,7 @@ public class MovePeopleCommand extends Command {
     public static final String MESSAGE_SUCCESS = "All selected people added to job: %1$s";
     public static final String MESSAGE_NO_DISPLAYED_JOB = "No job is displayed. "
             + "Please enter a jobName with jn/ prefixed\n";
+    public static final String MESSAGE_DISPLAYING_JOB_ERROR = "Displaying Job. Cannot have jn/ input\n";
     public static final String MESSAGE_NO_DESTINATION = "Please provide a destination list\n";
     public static final String MESSAGE_NO_SOURCE = "Please provide a source list\n";
     public static final String MESSAGE_NO_INDEX = "Please provide some indexes to move\n";
@@ -64,7 +65,6 @@ public class MovePeopleCommand extends Command {
      */
     public MovePeopleCommand(JobListName to, JobListName from, ArrayList<Index> indexes, JobName jobName) {
         requireNonNull(to);
-        requireNonNull(from);
         requireNonNull(indexes);
         this.to = to;
         this.from = from;
@@ -84,6 +84,9 @@ public class MovePeopleCommand extends Command {
             }
             tempJob = model.getActiveJob();
         } else {
+            if(!model.getIsAllJobScreen()) {
+                throw new CommandException(MESSAGE_DISPLAYING_JOB_ERROR);
+            }
             tempJob = new Job(toAdd);
             try {
                 model.getJob(toAdd);

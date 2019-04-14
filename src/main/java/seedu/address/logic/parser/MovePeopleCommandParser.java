@@ -28,7 +28,7 @@ public class MovePeopleCommandParser implements Parser<MovePeopleCommand> {
                 ArgumentTokenizer.tokenize(args, PREFIX_JOBNAME);
 
         JobListName to;
-        JobListName from;
+        JobListName from = JobListName.STUB;
         ArrayList<Index> indexes = new ArrayList<>();
         JobName toAdd;
         String fromString;
@@ -44,18 +44,33 @@ public class MovePeopleCommandParser implements Parser<MovePeopleCommand> {
         try {
             fromString = args.split("\\b\\s")[1].trim();
         } catch (Exception e) {
-            throw new ParseException(MovePeopleCommand.MESSAGE_NO_SOURCE + "\n"
-                    + MovePeopleCommand.MESSAGE_USAGE);
+            throw new ParseException(MovePeopleCommand.MESSAGE_NO_SOURCE
+                    + String.format(MESSAGE_INVALID_COMMAND_FORMAT, MovePeopleCommand.MESSAGE_USAGE));
         }
 
-        from = ParserUtil.parseJobListName(fromString);
-
-        try {
-            indexString = args.split("\\b\\s")[2].trim();
-        } catch (Exception e) {
-            throw new ParseException(MovePeopleCommand.MESSAGE_NO_INDEX + "\n"
-                    + MovePeopleCommand.MESSAGE_USAGE);
+        if(fromString.matches("[A-z]+")) {
+            from = ParserUtil.parseJobListName(fromString);
+            try {
+                indexString = args.split("\\b\\s")[2].trim();
+            } catch (Exception e) {
+                throw new ParseException(MovePeopleCommand.MESSAGE_NO_INDEX
+                        + String.format(MESSAGE_INVALID_COMMAND_FORMAT, MovePeopleCommand.MESSAGE_USAGE));
+            }
+            try {
+                toAdd = ParserUtil.parseJobName(argMultimap.getValue(PREFIX_JOBNAME).get());
+            } catch (Exception e) {
+                toAdd = null;
+            }
+        } else {
+            try {
+                indexString = args.split("\\b\\s")[1].trim();
+            } catch (Exception e) {
+                throw new ParseException(MovePeopleCommand.MESSAGE_NO_INDEX
+                        + String.format(MESSAGE_INVALID_COMMAND_FORMAT, MovePeopleCommand.MESSAGE_USAGE));
+            }
+            toAdd = null;
         }
+
         ArrayList<String> numbers = new ArrayList<>(Arrays.asList(indexString.split("[,\\s]+")));
         for (int i = 0; i < numbers.size(); i++) {
             try {
@@ -64,12 +79,6 @@ public class MovePeopleCommandParser implements Parser<MovePeopleCommand> {
                 throw new ParseException(
                         String.format(MESSAGE_INVALID_COMMAND_FORMAT, MovePeopleCommand.MESSAGE_BAD_INDEX), pe);
             }
-        }
-
-        try {
-            toAdd = ParserUtil.parseJobName(argMultimap.getValue(PREFIX_JOBNAME).get());
-        } catch (Exception e) {
-            toAdd = null;
         }
 
 

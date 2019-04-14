@@ -15,9 +15,20 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/cs2103-ay1819s2-w13-2/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+Welcome Developers! Thank you for your interest to contribute to Club Manager!
 
-== Setting up
+By: `W13-2`      Since: `Jan 2019`      Licence: `MIT`
+
+= About This Guide
+This guide provides a technical overview of Club Manager and walks you through the installation process.
+Furthermore, this guide documents all of the features available in Club Manager, and covers everything that you need to know before you begin contributing to Club Manager.
+
+== Introduction
+Club Manager is a desktop application that enables CCA leaders to manage their members and activities effectively and efficiently.
+To learn more about installation, proceed to Section 2 (Installation Guide).
+
+== Installation Guide
+This section serves to guide you through the setting up process of Club Manager's development environment.
 
 === Prerequisites
 
@@ -356,9 +367,50 @@ image::UndoRedoActivityDiagram.png[width="650"]
 
 // end::undoredo[]
 
+
+=== Member List Feature
+The Member's List is a core feature that underpins Club Manager's role as a CCA management system.
+To ensure versatility and enhance the usefulness of this list, a number of commands have been introduced to facilitate the management of members. These commands include: `MemberAdd`, `MemberDelete`, `MemberEdit`, `MemberFilter`, `MemberFind`, `MemberList`, `MemberSelect`, and `MemberSort`.
+
+==== Current Implementation
+
+===== `memberAdd` Command
+This command takes in a number of parameters that are contact and student information pertaining to the member. The `MemberAddCommandParser` can parse requires that all field are present, in the required format, with the exception of tags which are optional.
+
+Below is a step-by-step process on how the memberAdd command works on execution:
+
+* *Step 1:* The User executes the memberAdd command
+* *Step 2:* The memberAdd command calls the `Model#hasPerson()` to prevent duplicated members from being added to the member's list.
+* *Step 3:* Then, the memberAdd call `Model#hasMatricNumber` to prevent duplication of matric number within the member's list. This is because matric number are unique and no two students have the same matric number.
+* *Step 4:* Once these verification have been completed, the `memberAdd` command calls `Model#addPerson` to proceed with adding the member to the member's list.
+* *Step 5:* The `memberAdd` calls `Model#commitAddressBook()` to finalise the changes made to the patient record.
+* *Step 6:* Finally, the `memberAdd` command provides a success message to indicate that the member has been successfully added to Club Manager.
+
+The following code snippet shows how the `memberAdd` command is executed:
+[source,java]
+----
+    @Override
+    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
+        requireNonNull(model);
+
+        if (model.hasPerson(toAdd)) { # <1>
+            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+        } else if (model.hasMatricNumber(toAdd.getMatricNumber())) { # <2>
+            throw new CommandException(MESSAGE_DUPLICATE_MATRICNUMBER);
+        }
+        model.addPerson(toAdd); # <3>
+        model.commitAddressBook();
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+    }
+----
+<1> Check if member already exists in Club Manager.
+<2> Check if the matric number entered is unique.
+<3> Add member to Club Manager.
+
+[discrete]
 //tag::membersort[]
 === MemberSort
-
+[discrete]
 ==== Current Implementation
 image::MemberSortCommand_LogicComponentSequenceDiagram.png[width="800"]
 * The `memberSort` command extends from command, and modifies the uniquePersonList which is an observable list.

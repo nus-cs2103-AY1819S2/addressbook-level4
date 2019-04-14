@@ -42,18 +42,6 @@ public class MemberAddCommandTest {
         new MemberAddCommand(null);
     }
 
-    /*@Test
-    public void execute_personAcceptedByModel_addSuccessful() throws Exception {
-        ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
-        Person validPerson = new PersonBuilder().build();
-
-        CommandResult commandResult = new MemberAddCommand(validPerson).execute(modelStub, commandHistory);
-
-        assertEquals(String.format(MemberAddCommand.MESSAGE_SUCCESS, validPerson), commandResult.getFeedbackToUser());
-        assertEquals(Arrays.asList(validPerson), modelStub.personsAdded);
-        assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
-    }*/
-
     @Test
     public void execute_duplicatePerson_throwsCommandException() throws Exception {
         Person validPerson = new PersonBuilder().build();
@@ -284,7 +272,7 @@ public class MemberAddCommandTest {
         }
 
         @Override
-        public void sortAddressBook(Predicate<String> predicate) {
+        public void sortAddressBook(String input) {
             throw new AssertionError("This method should not be called.");
         }
 

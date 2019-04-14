@@ -17,6 +17,7 @@ import seedu.address.model.UserPrefs;
 import seedu.address.storage.InOutAddressBookStorage;
 import seedu.address.storage.UserPrefsStorage;
 import seedu.address.testutil.TestUtil;
+import systemtests.ModelHelper;
 
 /**
  * This class is meant to override some properties of MainApp so that it will be suited for
@@ -92,6 +93,7 @@ public class TestApp extends MainApp {
      */
     public Model getModel() {
         Model copy = new ModelManager((model.getAddressBook()), new UserPrefs());
+        ModelHelper.setFilteredList(copy, model.getFilteredPersonList());
         return copy;
     }
 

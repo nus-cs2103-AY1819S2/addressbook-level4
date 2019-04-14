@@ -23,7 +23,7 @@ public class TaskCopyCommandTest {
 
     @Test
     public void copy_oneTask_success() {
-        Task taskToCopy = model.getFilteredTaskList().get(0).copy();
+        Task taskToCopy = expectedModel.getFilteredTaskList().get(0).copy();
         expectedModel.addTask(taskToCopy);
         String expectedMessage = String.format(TaskCopyCommand.MESSAGE_SUCCESS, taskToCopy);
         assertCommandSuccess(new TaskCopyCommand(INDEX_FIRST_PERSON, 1),
@@ -31,9 +31,9 @@ public class TaskCopyCommandTest {
     }
 
     @Test
-    public void copy_twoPersons_success() {
-        Task taskToCopy1 = model.getFilteredTaskList().get(0).copy();
-        Task taskToCopy2 = model.getFilteredTaskList().get(0).copy();
+    public void copy_twoTasks_success() {
+        Task taskToCopy1 = expectedModel.getFilteredTaskList().get(0).copy();
+        Task taskToCopy2 = expectedModel.getFilteredTaskList().get(0).copy();
         expectedModel.addTask(taskToCopy1);
         expectedModel.addTask(taskToCopy2);
         String expectedMessage = String.format(TaskCopyCommand.MESSAGE_SUCCESS, taskToCopy1);
@@ -42,7 +42,7 @@ public class TaskCopyCommandTest {
     }
 
     @Test
-    public void execute_invalidPersonIndexUnfilteredList_failure() {
+    public void execute_invalidTaskIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
         TaskCopyCommand taskCopyCommand = new TaskCopyCommand(outOfBoundIndex, 1);
 

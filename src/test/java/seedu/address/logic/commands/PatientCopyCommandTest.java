@@ -23,7 +23,7 @@ public class PatientCopyCommandTest {
 
     @Test
     public void copy_onePerson_success() {
-        Person personToCopy = model.getFilteredPersonList().get(0).copy();
+        Person personToCopy = expectedModel.getFilteredPersonList().get(0).copy();
         expectedModel.addPerson(personToCopy);
         String expectedMessage = String.format(PatientCopyCommand.MESSAGE_SUCCESS, personToCopy);
         assertCommandSuccess(new PatientCopyCommand(INDEX_FIRST_PERSON, 1),
@@ -32,8 +32,8 @@ public class PatientCopyCommandTest {
 
     @Test
     public void copy_twoPersons_success() {
-        Person personToCopy1 = model.getFilteredPersonList().get(0).copy();
-        Person personToCopy2 = model.getFilteredPersonList().get(0).copy();
+        Person personToCopy1 = expectedModel.getFilteredPersonList().get(0).copy();
+        Person personToCopy2 = expectedModel.getFilteredPersonList().get(0).copy();
         expectedModel.addPerson(personToCopy1);
         expectedModel.addPerson(personToCopy2);
         String expectedMessage = String.format(PatientCopyCommand.MESSAGE_SUCCESS, personToCopy1);

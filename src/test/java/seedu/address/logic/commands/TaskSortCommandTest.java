@@ -28,21 +28,20 @@ import seedu.address.model.task.Task;
 public class TaskSortCommandTest {
 
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-    private Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
-    public void execute_sortPatientParameters_orderDefault() throws ParseException {
-        execute_sortTaskParameter("starttime", false, Arrays.asList(CLEANING, EXTRACT, REORG));
-        execute_sortTaskParameter("endtime", false, Arrays.asList(EXTRACT, CLEANING, REORG));
-        execute_sortTaskParameter("priority", false, Arrays.asList(CLEANING, EXTRACT, REORG));
+    public void execute_sortParameters_orderDefault() throws ParseException {
+        execute_sortTaskParameter("starttime", true, Arrays.asList(CLEANING, EXTRACT, REORG));
+        execute_sortTaskParameter("endtime", true, Arrays.asList(EXTRACT, CLEANING, REORG));
+        execute_sortTaskParameter("priority", true, Arrays.asList(CLEANING, EXTRACT, REORG));
     }
 
     @Test
-    public void execute_sortPatientParameters_orderReverse() throws ParseException {
-        execute_sortTaskParameter("starttime", true, Arrays.asList(REORG, EXTRACT, CLEANING));
-        execute_sortTaskParameter("endtime", true, Arrays.asList(REORG, CLEANING, EXTRACT));
-        execute_sortTaskParameter("priority", true, Arrays.asList(REORG, EXTRACT, CLEANING));
+    public void execute_sortParameters_orderReverse() throws ParseException {
+        execute_sortTaskParameter("starttime", false, Arrays.asList(REORG, EXTRACT, CLEANING));
+        execute_sortTaskParameter("endtime", false, Arrays.asList(REORG, CLEANING, EXTRACT));
+        execute_sortTaskParameter("priority", false, Arrays.asList(REORG, EXTRACT, CLEANING));
     }
 
     /**
@@ -58,10 +57,10 @@ public class TaskSortCommandTest {
                 isAscending ? "ascending" : "descending");
         TaskSortCommand command = new TaskSortCommand(sortField, isAscending);
         Comparator<Task> taskComparator = createComparator(sortField, isAscending);
-        expectedModel.sortTasks(taskComparator);
-        expectedModel.commitAddressBook();
-        assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
-        assertEquals(expectedList, model.getFilteredPersonList());
+        model.sortTasks(taskComparator);
+        model.commitAddressBook();
+        assertCommandSuccess(command, model, commandHistory, expectedMessage, model);
+        assertEquals(expectedList, model.getFilteredTaskList());
     }
 
     /**

@@ -34,7 +34,7 @@ My role in this project is to design and implement the medicine management modul
 
 The following is a list of notation used in this document and their respective meaning. +
 
-[width="800",cols="15%,85%",options="header"]
+[width="80%",cols="^15%,85%",options="header"]
 |===================
 |Format |Meaning
 a|`command` |This is a user input to the application. It is formatted with a gray background.

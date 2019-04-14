@@ -2,7 +2,7 @@
   "healthWorkers" : [ {
     "name" : "S1234567L",
     "phone" : "98765432",
-    "nric" : "S1234567L",
+    "nric" : "S3216547M",
     "organization" : "SGH",
     "skills" : "ORTHOPAEDIC GENERAL_PRACTICE "
   }, {
@@ -46,7 +46,7 @@
     "phone" : "91238894",
     "nric" : "S1874810J",
     "organization" : "NUS",
-    "skills" : "CARDIOLOGY NEUROLOGY "
+    "skills" : "NEUROLOGY CARDIOLOGY "
   }, {
     "name" : "Aaron Tan",
     "phone" : "81940213",
@@ -67,4 +67,3 @@
     "skills" : "ORTHOPAEDIC PHYSIOTHERAPY "
   } ]
 }
-

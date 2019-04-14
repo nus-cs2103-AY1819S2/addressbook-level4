@@ -155,15 +155,18 @@ Other enhancements made to Health Hub include:
 For more explicit information on the `filter`,`setreminder` and `undo/redo`
 command, visit <<Features>>, under Filtering Health Workers/Requests.
 
+// tag::releasenotes-1.4[]
 === v1.4 Release Notes
 
 With the release of version 1.4, we decided to improve our current features by making them more dynamic and automated to reduce the manual work of changing the data.
 
-* The health worker field inside requests now shows the `NRIC` of the health worker instead of the name in previous versions.
+* The health worker field inside requests now shows the NRIC of the health worker instead of the name in previous versions.
 
-* Editing the `NRIC` of a health worker will dynamically change the health staff field  of all requests assigned to the health worker.
+* Editing the NRIC of a health worker will dynamically change the health staff field  of all requests assigned to the health worker.
 
-* Users can now only assign multiple requests to a health worker only if the requests are at least 2 hours apart.
+* Users can assign multiple requests to a health worker only if the requests are at least 2 hours apart.
+
+// end::releasenotes-1.4[]
 
 // tag::releasenotes-2.0[]
 === v2.0 Release Notes
@@ -197,6 +200,10 @@ The following description of the features and commands are prototypes and specif
 can be used as `n/John Doe c/Claustrophobia` or as `n/John Doe`.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `s/<specialisation>...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
 * Parameters can be in any order e.g. if the command specifies `n/<name> p/<phone_number>`, `p/<phonenumber> n/<name>` is also acceptable.
+
+[NOTE]
+Our application does not support command chaining. Inputting multiple commands onto the same line will result in only the first command to be executed.
+For example, calling `list r undo` will only list the requests and not execute the `undo` command.
 
 === Viewing Help : `help`
 

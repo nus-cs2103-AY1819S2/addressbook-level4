@@ -46,7 +46,8 @@ public class MapGrid {
     }
 
     /**
-     * Returns a copy of the MapGrid in a 2D array format. Any changes done to the copy will not affect the internal grid.
+     * Returns a copy of the MapGrid in a 2D array format.
+     * Any changes done to the copy will not affect the internal grid.
      * @return copy of the map.
      */
     public Cell[][] get2dArrayMapGridCopy() {

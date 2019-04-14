@@ -23,6 +23,8 @@ public class SwitchTabCommandParserTest {
         assertParseFailure(parser, " 3 2", SwitchTabCommand.MESSAGE_INVALID_PANEL_NUMBER);
         assertParseFailure(parser, " 2 3", SwitchTabCommand.MESSAGE_INVALID_TAB_NUMBER);
         assertParseFailure(parser, " 1 4", SwitchTabCommand.MESSAGE_INVALID_TAB_NUMBER);
+        assertParseFailure(parser, " 1 1111111111111111111111111111",
+            "Invalid Panel/Tab number");
     }
 
 

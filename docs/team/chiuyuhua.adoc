@@ -87,27 +87,41 @@ Examples:
 * `analytics kiv`
 * `analytics`
 
+== Introduction
+
+slaveFinder() is a resume management application that helps recruiters manage most of the hiring process. . + 
+The application is optimized for those who prefer to work with a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, slaveFinder() can get your resume management tasks done faster than traditional GUI apps. +
+Interested? Jump to the <<Quick Start>> to get started or <<Command Summary>> for the list of commands. Enjoy!
+
+.  Some example commands you can try:
+
+* `*add* n/John p/91757536 nric/S8761230Q e/john@example.com a/123 Disneyland g/Male r/Malay m/Psychology s/NUS gr/4.33 j/Manager`: adds a person named `John` to all applicants database.
+* `*createJob* jn/Manager`: creates new job opening `Manager`.
+* `*addAll* a jn/Manager` : adds all applicants in the database to the `applicants` list of job `Manager`.
+* `*displayJob* jn/Manager`: displays the selection process for job opening `Manager`
+* `*list*` : Goes back to the list of all applicants and job openings. 
+
 ==== Adding a person: `add`
 
-Adds a person to the address book +
+Adds a person to slaveFinder() +
 Format: `add n/NAME p/PHONE_NUMBER nric/NRIC e/EMAIL a/ADDRESS g/GENDER r/RACE m/MAJOR s/SCHOOL gr/GRADE j/JOBS_APPLY`
 
 ****
 [TIP]
-* `n/`: Name should only contain alphanumeric characters and spaces, and should not be empty.
-* `a/`: Address can take any values, but should not be empty.
+* `n/`: *Name* should only contain alphanumeric characters and spaces, and should not be empty.
+* `a/`: *Address* can take any values, but should not be empty.
 * `nric/`: NRIC must be unique. It must start with S, followed by exactly 7 numbers, and end with an alpabet in capital letter. It should not be empty.
-* `p/`: Phone numbers should only contain numbers, and it should be at least 3 digits long, and should not be empty.
-* `e/`: Email should be of the format local-part@domain, and should not be empty. "E.g. example@gmail.com"
-* `g/`: Gender should only be "Female", "Male" or "Others", and should not be empty.
-* `r/`: Race should only be "Chinese", "Malay", "Indian" or "Others", and should not be empty.
-* `gr/`: Grade should only contain positive numbers, and must be in exactly 2 decimal place. E.g. "4.64"
-* `s/`: School can take any values, but should not be empty.
-* `m/`: Major should only contain alphanumeric characters and spaces, and should not be empty.
-* `j/`: Jobs Apply must only contain one word. If two or more words, have to be connected by a dash. E.g. "Software-Engineer". It should not be empty. It can take more than 1 value. E.g. "j/Manager j/Sweeper"
-* `is/`: Interview scores field is optional, and must be exactly 5 set of numbers, each seperated by a comma. E.g. "1,2,3,4,5"
-* `kpl/`: Known Programming Language field is optional. It can take any values, and can take more than 1 value. E.g. "kpl/Java kpl/Python"
-* `pj/`: Past jobs field is optional, and past job must only contain one word. If two or more words, have to be connected by a dash. E.g. "Software-Engineer". It can take more than 1 value E.g. "pj/Manager pj/Sweeper"
+* `p/`: *Phone* numbers should only contain numbers, and it should be at least 3 digits long, and should not be empty.
+* `e/`: *Email* should be of the format local-part@domain, and should not be empty. "E.g. example@gmail.com"
+* `g/`: *Gender* should only be "Female", "Male" or "Others", and should not be empty.
+* `r/`: *Race* should only be "Chinese", "Malay", "Indian" or "Others", and should not be empty.
+* `gr/`: *Grade* should only contain positive numbers, and must be in exactly 2 decimal place. E.g. "4.64"
+* `s/`: *School* can take any values, but should not be empty.
+* `m/`: *Major* should only contain alphanumeric characters and spaces, and should not be empty.
+* `j/`: *Jobs Apply* must only contain one word. If two or more words, have to be connected by a dash. E.g. "Software-Engineer". It should not be empty. It can take more than 1 value. E.g. "j/Manager j/Sweeper"
+* `is/`: *Interview scores* field is optional, and must be exactly 5 set of numbers, each seperated by a comma. E.g. "1,2,3,4,5"
+* `kpl/`: *Known Programming Language* field is optional. It can take any values, and can take more than 1 value. E.g. "kpl/Java kpl/Python"
+* `pj/`: *Past jobs* field is optional, and past job must only contain one word. If two or more words, have to be connected by a dash. E.g. "Software-Engineer". It can take more than 1 value E.g. "pj/Manager pj/Sweeper"
 ****
 
 Examples:
@@ -116,7 +130,63 @@ Examples:
 * `add n/Betty p/123 nric/S4444455Y e/betty@bet.com a/321 USS g/Female r/Others m/Life Science s/NTU gr/0.44 j/Helper is/1,2,1,10,5 kpl/Java pj/Chief-Executive-Officer`
 
 
+// tag::undoredo[]
+==== Undoing previous command : `undo`
 
+Restores slaveFinder() to the state before the previous _undoable_ command was executed. +
+Format: `undo`
+
+[NOTE]
+=====
+Undoable commands: those commands that modify slaveFinder()'s content (`add`, `delete`, `edit`, `clear`, `createJob`, `deleteJob`, `generateInterviews`, `setMaxInterviewsADay`, `setBlockOutDates`, `clearInterviews`, `filter`, `deleteFilter`).
+=====
+
+Examples:
+
+* `edit 1 n/Johnny` +
+`list` +
+`undo` (reverses the `edit 1 n/Johnny` command) +
+
+==== Redoing the previously undone command : `redo`
+
+Reverses the most recent `undo` command. +
+Format: `redo`
+
+Examples:
+
+* `edit 1 n/Johnny` +
+`undo` (reverses the `edit 1 n/Johnny` command) +
+`redo` (reapplies the `edit 1 n/Johnny` command) +
+
+* `edit 1 n/Johnny` +
+`redo` +
+The `redo` command fails as there are no `undo` commands executed previously.
+
+* `edit 1 n/Johnny` +
+`clear` +
+`undo` (reverses the `clear` command) +
+`undo` (reverses the `edit 1 n/Johnny` command) +
+`redo` (reapplies the `edit 1 n/Johnny` command) +
+`redo` (reapplies the `clear` command) +
+// end::undoredo[]
+
+==== Editing a person : `edit`
+
+Edits an existing person in slaveFinder(). +
+Format: `edit INDEX n/NAME p/PHONE_NUMBER nric/NRIC e/EMAIL a/ADDRESS g/GENDER r/RACE m/MAJOR s/SCHOOL gr/GRADE j/JOBS_APPLY`
+
+****
+* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
+* Editting fields that allows more than 1 value will entirely replace the existing values.
+* Existing values will be updated to the input values.
+****
+
+Examples:
+
+* `edit 1 p/91234567 e/johndoe@example.com` +
+Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
+* `edit 2 n/Betsy Crower` pj/Manager +
+Edits the name of the 2nd person to be `Betsy Crower` and clears all existing past jobs and replace it with 'Manager".
 
 == Contributions to the Developer Guide
 

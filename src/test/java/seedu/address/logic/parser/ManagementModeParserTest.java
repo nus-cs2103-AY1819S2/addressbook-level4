@@ -21,6 +21,7 @@ import seedu.address.logic.commands.management.HistoryCommand;
 import seedu.address.logic.commands.management.ListCardsCommand;
 import seedu.address.logic.commands.management.ListLessonsCommand;
 import seedu.address.logic.commands.management.OpenLessonCommand;
+import seedu.address.logic.commands.management.QuizStartCommand;
 import seedu.address.logic.commands.management.ReloadLessonsCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -30,6 +31,10 @@ public class ManagementModeParserTest {
 
     private final ManagementModeParser parser = new ManagementModeParser();
 
+    @Test
+    public void parseCommand_start() throws Exception {
+        assertTrue(parser.parse("start 1 c/15 m/LEARN") instanceof QuizStartCommand);
+    }
     @Test
     public void parseCommand_exit() throws Exception {
         assertTrue(parser.parse(ExitCommand.COMMAND_WORD) instanceof ExitCommand);
@@ -64,7 +69,6 @@ public class ManagementModeParserTest {
                 + Syntax.PREFIX_OPTIONAL + "Hint";
         assertTrue(parser.parse(command) instanceof AddLessonCommand);
     }
-
     @Test
     public void parseCommand_deleteLesson() throws Exception {
         String command = DeleteLessonCommand.COMMAND_WORD + " 1";
@@ -134,10 +138,6 @@ public class ManagementModeParserTest {
     //        assertTrue(parser.parse(UndoCommand.COMMAND_WORD) instanceof UndoCommand);
     //        assertTrue(parser.parse("undo 3") instanceof UndoCommand);
     //    }
-    /*@Test
-    public void parseCommand_start() throws Exception {
-        assertTrue(parser.parse(QuizStartCommand.COMMAND_WORD) instanceof QuizStartCommand);
-    }*/
 
     @Test
     public void parseCommand_unrecognisedInput_throwsParseException() throws Exception {

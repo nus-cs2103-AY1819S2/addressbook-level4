@@ -27,19 +27,9 @@ public class ParserUtil {
         return Index.fromOneBased(Integer.parseInt(trimmedIndex));
     }
     /**
-     *
-     * Parses a {@code String name} into a {@code String name}.
+     * Parses a string{@code count} into a integer{@code count}.
      * Leading and trailing whitespaces will be trimmed.
-     */
-    public static String parseName(String name) {
-        requireNonNull(name);
-        String trimmedName = name.trim().toUpperCase();
-        return trimmedName;
-    }
-    /**
-     * Parses a {@code String count} into a {@code int count}.
-     * Leading and trailing whitespaces will be trimmed.
-     * @throws ParseException if the count is not a number.
+     * @throws ParseException if the count is not a number or is an integer larger than MAX_VALUE.
      */
     public static int parseCount(String count) throws ParseException {
         requireNonNull(count);
@@ -47,16 +37,22 @@ public class ParserUtil {
         boolean numeric = trimmedCount.matches("\\d+");
         if (numeric) {
             try {
-                return Integer.parseInt(trimmedCount);
+                int validCount = Integer.parseInt(trimmedCount);
+                if (validCount < 1) {
+                    throw new ParseException("Count should not be less than 1 in a single lesson.");
+                } else {
+                    return validCount;
+                }
             } catch (NumberFormatException e) {
-                throw new ParseException("Count of number should be a valid integer less than MAX_INTEGER.");
+                throw new ParseException(
+                        "Count of number should be a valid integer less than MAX_INTEGER (2147483647).");
             }
         } else {
-            throw new ParseException("Count of number should be a valid integer less than MAX_INTEGER.");
+            throw new ParseException("Count of number should be a valid integer less than MAX_INTEGER (2147483647).");
         }
     }
     /**
-     * Parses a {@code String mode} into an {@code Quiz.mode mode}.
+     * Parses a String{@code mode} into a Quiz.mode{@code  mode}.
      * Leading and trailing whitespaces will be trimmed.
      * @throws ParseException if the mode name is not in the enum.
      */

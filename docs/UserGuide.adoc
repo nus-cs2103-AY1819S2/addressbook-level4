@@ -126,7 +126,9 @@ Starting a quiz session with multiple lessons [coming in v2.0]
 * You can start a quiz session with cards from more than one lesson. The sequence of cards will be random instead of following the sequence of lessons to increase the difficulty for you to memorize.
 * Example: `start 1 2 c/5 c/5 m/learn`
 ** Starts a quiz with 5 words from the first lesson and 5 words from the second lesson in `LEARN` mode.
+
 // end::start[]
+
 // tag::evan[]
 [[listLessons]]
 ==== Listing all lessons: `listLessons`

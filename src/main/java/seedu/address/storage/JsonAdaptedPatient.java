@@ -12,11 +12,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.appointment.AppointmentStatus;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Age;
+import seedu.address.model.person.patient.Address;
+import seedu.address.model.person.patient.Age;
 import seedu.address.model.person.Gender;
 import seedu.address.model.person.Name;
-import seedu.address.model.person.Patient;
+import seedu.address.model.person.patient.Patient;
 import seedu.address.model.person.PersonId;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;

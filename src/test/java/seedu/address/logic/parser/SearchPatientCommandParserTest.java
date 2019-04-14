@@ -8,8 +8,9 @@ import java.util.Arrays;
 
 import org.junit.Test;
 
-import seedu.address.logic.commands.SearchPatientCommand;
-import seedu.address.model.person.PatientNameContainsKeywordsPredicate;
+import seedu.address.logic.commands.patient.SearchPatientCommand;
+import seedu.address.logic.parser.patient.SearchPatientCommandParser;
+import seedu.address.model.person.patient.PatientNameContainsKeywordsPredicate;
 
 public class SearchPatientCommandParserTest {
 

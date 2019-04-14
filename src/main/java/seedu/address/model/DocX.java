@@ -13,7 +13,7 @@ import seedu.address.model.appointment.UniqueAppointmentList;
 import seedu.address.model.medicalhistory.MedicalHistory;
 import seedu.address.model.medicalhistory.UniqueMedHistList;
 import seedu.address.model.person.Doctor;
-import seedu.address.model.person.Patient;
+import seedu.address.model.person.patient.Patient;
 import seedu.address.model.person.PersonId;
 import seedu.address.model.person.PersonIdCounter;
 import seedu.address.model.person.UniqueDoctorList;

@@ -19,12 +19,13 @@ import org.junit.Test;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
-import seedu.address.logic.commands.EditPatientCommand.EditPatientDescriptor;
+import seedu.address.logic.commands.patient.EditPatientCommand;
+import seedu.address.logic.commands.patient.EditPatientCommand.EditPatientDescriptor;
 import seedu.address.model.DocX;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.person.Patient;
+import seedu.address.model.person.patient.Patient;
 import seedu.address.testutil.EditPatientDescriptorBuilder;
 import seedu.address.testutil.PatientBuilder;
 

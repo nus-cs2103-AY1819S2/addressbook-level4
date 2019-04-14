@@ -1,5 +1,5 @@
 /* @@author wayneswq */
-package seedu.address.model.person;
+package seedu.address.model.person.patient;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;

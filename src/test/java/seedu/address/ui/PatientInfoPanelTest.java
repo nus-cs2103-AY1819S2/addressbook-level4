@@ -4,7 +4,7 @@ import org.junit.Before;
 
 import guitests.guihandles.BrowserPanelHandle;
 import javafx.beans.property.SimpleObjectProperty;
-import seedu.address.model.person.Patient;
+import seedu.address.model.person.patient.Patient;
 
 public class PatientInfoPanelTest extends GuiUnitTest {
     private SimpleObjectProperty<Patient> selectedPatient = new SimpleObjectProperty<>();

@@ -1,12 +1,14 @@
 /* @@author wayneswq */
-package seedu.address.logic.commands;
+package seedu.address.logic.commands.patient;
 
 import static java.util.Objects.requireNonNull;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.CommandHistory;
+import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.Model;
-import seedu.address.model.person.PatientApptStatusContainsKeywordsPredicate;
+import seedu.address.model.person.patient.PatientApptStatusContainsKeywordsPredicate;
 
 /**
  * Searches and lists all patients in docX record whose appointment status contains any of the 4 keywords.

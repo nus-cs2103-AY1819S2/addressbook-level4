@@ -18,7 +18,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import seedu.address.model.DocX;
-import seedu.address.model.person.Patient;
+import seedu.address.model.person.patient.Patient;
 
 /**
  * A utility class containing a list of {@code Patient} objects to be used in tests.

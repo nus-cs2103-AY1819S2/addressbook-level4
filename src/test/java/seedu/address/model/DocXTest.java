@@ -28,7 +28,7 @@ import javafx.collections.ObservableList;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.medicalhistory.MedicalHistory;
 import seedu.address.model.person.Doctor;
-import seedu.address.model.person.Patient;
+import seedu.address.model.person.patient.Patient;
 import seedu.address.model.person.PersonIdCounter;
 import seedu.address.model.person.exceptions.DuplicatePatientException;
 import seedu.address.model.prescription.Prescription;

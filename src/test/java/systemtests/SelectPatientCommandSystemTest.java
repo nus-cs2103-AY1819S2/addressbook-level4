@@ -4,7 +4,7 @@ import static org.junit.Assert.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_PATIENT_DISPLAYED_INDEX;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.address.logic.commands.SelectPatientCommand.MESSAGE_SELECT_PERSON_SUCCESS;
+import static seedu.address.logic.commands.patient.SelectPatientCommand.MESSAGE_SELECT_PERSON_SUCCESS;
 import static seedu.address.testutil.TestUtil.getLastIndex;
 import static seedu.address.testutil.TestUtil.getMidIndex;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
@@ -13,7 +13,7 @@ import static seedu.address.testutil.TypicalPatients.KEYWORD_MATCHING_MEIER;
 import org.junit.Test;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.SelectPatientCommand;
+import seedu.address.logic.commands.patient.SelectPatientCommand;
 import seedu.address.model.Model;
 
 public class SelectPatientCommandSystemTest extends DocXSystemTest {

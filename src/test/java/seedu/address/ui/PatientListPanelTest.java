@@ -18,11 +18,11 @@ import guitests.guihandles.PatientListPanelHandle;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Age;
+import seedu.address.model.person.patient.Address;
+import seedu.address.model.person.patient.Age;
 import seedu.address.model.person.Gender;
 import seedu.address.model.person.Name;
-import seedu.address.model.person.Patient;
+import seedu.address.model.person.patient.Patient;
 import seedu.address.model.person.Phone;
 
 public class PatientListPanelTest extends GuiUnitTest {

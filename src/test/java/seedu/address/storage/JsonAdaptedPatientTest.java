@@ -12,8 +12,8 @@ import java.util.stream.Collectors;
 import org.junit.Test;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Age;
+import seedu.address.model.person.patient.Address;
+import seedu.address.model.person.patient.Age;
 import seedu.address.model.person.Gender;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;

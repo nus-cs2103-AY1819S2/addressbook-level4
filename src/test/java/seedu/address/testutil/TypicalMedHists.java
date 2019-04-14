@@ -9,7 +9,7 @@ import seedu.address.model.medicalhistory.MedicalHistory;
 import seedu.address.model.medicalhistory.ValidDate;
 import seedu.address.model.medicalhistory.WriteUp;
 import seedu.address.model.person.Doctor;
-import seedu.address.model.person.Patient;
+import seedu.address.model.person.patient.Patient;
 import seedu.address.model.person.PersonId;
 
 /**

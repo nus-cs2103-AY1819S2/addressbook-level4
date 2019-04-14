@@ -13,6 +13,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.model.person.exceptions.DuplicatePatientException;
 import seedu.address.model.person.exceptions.PatientNotFoundException;
+import seedu.address.model.person.patient.Patient;
 
 /**
  * Supports a minimal set of list operations.

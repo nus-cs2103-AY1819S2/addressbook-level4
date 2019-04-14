@@ -64,6 +64,7 @@ Viet Phone: 86128655 Email: pdnm@cp.com Nric: S0129574R Gender: Male Race: Other
 Adds a person to the address book +
 Format: `add n/NAME p/PHONE_NUMBER nric/NRIC e/EMAIL a/ADDRESS g/GENDER r/RACE m/MAJOR s/SCHOOL gr/GRADE j/JOBS_APPLY`
 
+****
 [TIP]
 * `n/`: Name should only contain alphanumeric characters and spaces, and should not be empty.
 * `a/`: Address can take any values, but should not be empty.
@@ -79,6 +80,7 @@ Format: `add n/NAME p/PHONE_NUMBER nric/NRIC e/EMAIL a/ADDRESS g/GENDER r/RACE m
 * `is/`: Interview scores field is optional, and must be exactly 5 set of numbers, each seperated by a comma. E.g. "1,2,3,4,5"
 * `kpl/`: Known Programming Language field is optional. It can take any values, and can take more than 1 value. E.g. "kpl/Java kpl/Python"
 * `pj/`: Past jobs field is optional, and past job must only contain one word. If two or more words, have to be connected by a dash. E.g. "Software-Engineer". It can take more than 1 value E.g. "pj/Manager pj/Sweeper"
+****
 
 Examples:
 
@@ -428,7 +430,7 @@ Interview dates cannot be generated again if they are already present.
 Dates generated exclude weekends and block out dates(see below).
 Format : `generateInterviews`
 
-=== Clear Interview Dates : `clearInterviews`
+==== Clear Interview Dates : `clearInterviews`
 
 Clears the list of generated interview dates.
 
@@ -445,7 +447,7 @@ Sets the block out dates(unavailable dates) which the interviewer is not availab
 Shows the list of dates which the interviewees in slaveFinder() are assigned.
 
 // end::interviews[]
-=== Generate a final report for the Job Hiring Process : `report` `Coming in v2.0`
+==== Generate a final report for the Job Hiring Process : `report` `Coming in v2.0`
 
 Generate `report.txt` to show 3 categories of applicants for a specific role:
 "Applied", "Interview", "To be sent to boss". in a Job Hiring Process. +

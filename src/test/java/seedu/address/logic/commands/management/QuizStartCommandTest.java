@@ -2,7 +2,7 @@ package seedu.address.logic.commands.management;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
-import static seedu.address.commons.core.Messages.MESSAGE_OPENED_LESSON;
+import static seedu.address.commons.core.Messages.MESSAGE_LESSON_VIEW_COMMAND;
 import static seedu.address.logic.commands.management.QuizStartCommand.MESSAGE_LESSON;
 import static seedu.address.testutil.TypicalCards.CARD_BELGIUM;
 import static seedu.address.testutil.TypicalCards.CARD_JAPAN;
@@ -63,7 +63,7 @@ public class QuizStartCommandTest {
         // attempt to reload lessons but there is an opened lesson ->
         // ask user to close opened lesson first
         thrown.expect(CommandException.class);
-        thrown.expectMessage(MESSAGE_OPENED_LESSON);
+        thrown.expectMessage(MESSAGE_LESSON_VIEW_COMMAND);
         new QuizStartCommand(new SessionBuilder().build()).execute(modelStub, null);
     }
     @Test

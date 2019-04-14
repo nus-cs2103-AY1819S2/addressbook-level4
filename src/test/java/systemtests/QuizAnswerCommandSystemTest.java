@@ -39,7 +39,7 @@ public class QuizAnswerCommandSystemTest extends BrainTrainSystemTest {
         }
 
         StringBuilder sb = new StringBuilder(QuizStartCommand.COMMAND_WORD);
-        sb.append(" ").append(index.getOneBased()).append(" c/2 m/REVIEW\\n");
+        sb.append(" ").append(index.getOneBased()).append(" c/2 m/REVIEW \n");
         executeCommand(sb.toString());
 
         /* Case: some invalid quiz command in braintrain

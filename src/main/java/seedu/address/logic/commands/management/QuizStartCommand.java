@@ -1,7 +1,7 @@
 package seedu.address.logic.commands.management;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.core.Messages.MESSAGE_OPENED_LESSON;
+import static seedu.address.commons.core.Messages.MESSAGE_LESSON_VIEW_COMMAND;
 import static seedu.address.logic.parser.Syntax.PREFIX_START_COUNT;
 import static seedu.address.logic.parser.Syntax.PREFIX_START_MODE;
 
@@ -106,7 +106,7 @@ public class QuizStartCommand extends QuizCommand {
         }
         ManagementModel mgtModel = (ManagementModel) model;
         if (mgtModel.isThereOpenedLesson()) {
-            throw new CommandException(MESSAGE_OPENED_LESSON);
+            throw new CommandException(MESSAGE_LESSON_VIEW_COMMAND);
         }
         LessonList lessonList = mgtModel.getLessonList();
         List<Lesson> lessons = lessonList.getLessons();

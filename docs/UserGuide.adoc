@@ -238,15 +238,22 @@ _Figure 2. After selecting restaurant with index 3, Chilis' summary, reviews and
 // tag::categorization[]
 ==== Setting the categories of a restaurant : `setCategories`
 
-Sets the cuisine of a restaurant identified by the index number used in the list. +
+Sets the categories of a restaurant identified by the index number used in the list. +
 Format: `setCategories INDEX [c/CUISINE] [oc/OCCASION] [pr/PRICE_RANGE]`
+
+[TIP]
+====
+* You can make use of the autocomplete suggestions to type faster!
+* When a category's prefix (`c/`, `oc/` or `pr/`) is keyed in, suggestions will appear. Use arrow keys to select the desired
+suggestion and press enter. The suggestion will be filled automatically for you!
+====
 
 *Step by step guide on how to set categories:*
 
-Step 1: List all the restaurants by typing `list`, then pressing enter, as shown _below_.
+Step 1: List all the restaurants by typing `list`, then press enter, as shown _below_.
 
 image::setcategories-stepone.png[]
-_Figure 1: After typing `list`_
+_Figure 1: After typing `list`. Oh no, the categories for Aston's are wrong! It is definitely not Chinese. Let's change it._
 
 Step 2: Choose a restaurant you want to set categories to. Let us choose Astons for this example. Take note that Astons
 is identified by *INDEX 1*. Start typing `setCategories 1 c/` as _follows_:
@@ -255,13 +262,13 @@ image::setcategories-steptwo.png[]
 _Figure 2: Notice suggestions for cuisines will pop up. Use arrow keys to select the desired suggestion and press enter,
 or you can also choose to continue typing something not in the suggestions._
 
-Step 3: Continue keying in the occasion prefix after you finished keying in the cuisine. The occasion prefix is oc/.
+Step 3: Continue keying in the occasion prefix after you finished keying in the cuisine. The occasion prefix is `oc/`.
 Follow Figure 3 shown _below_.
 
 image::setcategories-stepthree.png[]
 _Figure 3: Once again, you can pick the occasion you see in the suggestions or continue typing._
 
-Step 4: Key in the price range next, as demonstrated by _Figure 4 below_.
+Step 4: Key in the price range next, as demonstrated by _Figure 4 below_. The price range prefix is `pr/`.
 
 image::setcategories-stepfour.png[]
 _Figure 4: Pick a price range from the list or just type, whichever is faster for you._
@@ -276,16 +283,12 @@ _Figure 5: Success!_
 ====
 * The index refers to the index number shown in the displayed restaurants list.
 * You need to ensure that the index entered *must be a positive integer* `1, 2, 3, ...`
-* You need to ensure that the `Price Range` entered *must* only consist of 1-5 $ characters. e.g. $, \$$$, $$\$$$
-is okay but $$\$$$$, cheap or $expensive will be rejected.
+* You need to ensure that the `Price Range` entered *must* only consist of 1-5 $ characters. e.g. `$`, `\$$$`, `$$$$$`
 * You need to ensure that `Cuisine` and `Occasion` *must* only contain alphanumeric characters and spaces.
-* You do not need to worry about capitalization. `Cuisine` and `Occasion` will be autocapitalized.
-e.g. `fast food` and `premium casual` will be capitalized to
-`Fast Food` and `Premium Casual`. `fAST fOOD` will be converted into `Fast Food`.
-* You do not need to be concerned about the order of categories keyed in. e.g. Entering `Price Range` before `Cuisine` will
-work as well.
-* You do not need to set categories one by one or set all three at once. You have complete freedom to set categories
-whether it is one at a time, two at a time or three at a time.
+* You do not need to worry about capitalization for `Cuisine` and `Occasion`.
+e.g. `fast food` will be capitalized to `Fast Food`.
+* You can key in categories in any order. e.g. `Price Range` before `Cuisine`
+* You can set any number of categories at once.
 ====
 
 Other examples you can try:
@@ -296,49 +299,34 @@ Sets the categories of the second restaurant in the list to `Premium Casual` for
 * `setCategories 3 c/Western` +
 Only sets the cuisine of the third restaurant to `Western`.
 
-[TIP]
-====
-* You can make use of the autocomplete suggestions to type faster!
-* When a category's prefix (`c/`, `oc/` or `pr/`) is keyed in, suggestions will appear. Use arrow keys to select the desired
-suggestion and press enter. The suggestion will be filled automatically for you!
-====
-
-==== Filtering restaurants based on category : `filter`
+==== Filtering restaurants based on category: `filter`
 
 Filters and lists the restaurants with categories matching the keywords entered. +
 Format: `filter KEYWORD [MORE_KEYWORDS]`
 
 *Step by step guide on how to filter:*
 
-Step 1: Suppose you want to filter out all the `Western` restaurants. Type `filter western`.
-
-Step 2: Press enter and you should see all the western restaurants.
-
-Step 3: Suppose now you want to filter out all `Western`, `Japanese`, as well as `Chinese` restaurants. Type `filter
+Step 1: Suppose you want to filter out all `Western`, `Japanese`, as well as `Chinese` restaurants. Type `filter
 western japanese chinese` into the command box.
 
-Step 4: Press enter again and now all `Western`, `Japanese` and `Chinese` restaurants will be shown.
+Step 2: Press enter again and now all `Western`, `Japanese` and `Chinese` restaurants will be shown.
 
 [NOTE]
 ====
-* You do not need to worry about case. Filtering is case insensitive. e.g. `western` will match `Western`
-* You do not need to be concerned about which categories you want to filter. Filtering works across categories.
-e.g. `japanese $` will match all restaurants with `Cuisine` set as `Japanese` or `Price Range` set as `$`.
-Note this also means that the more keywords you add, the more general the filter becomes.
-* You can enter keywords in any order. `$ casual` is the same as `casual $`. Both will match restaurants that has
-`Price Range` as `$` or `Occasion` as `Casual`.
-* You can filter multiple categories of the same type. e.g. `japanese western` will match both `Japanese` and `Western` cuisine
-restaurants. All `Japanese` and `Western` restaurants will be displayed.
-* You must enter words in full. e.g. `west` will not match `western`
+* You can enter keywords in any case. Filtering is case insensitive. e.g. `western` will match `Western`
+* You can filter across categories and also within categories of the same type. e.g. `japanese $`, `japanese western`
+* Keying in more keywords will make the filter more general, not specific.
+* You can enter keywords in any order. `$ casual` is the same as `casual $`.
+* You *must* enter words in full. e.g. `west` will not match `western`
 * Restaurants matching at least one keyword will be displayed. e.g. `fast food` will match `hawker food`
 ====
 
 Some examples you can try:
 
 * `filter fine dining casual`
-Returns restaurants with any category matching `fine`, `dining` or `casual`.
+Displays restaurants with any category matching `fine`, `dining` or `casual`.
 * `filter $ casual western`
-Returns restaurants with any category matching `$`, `casual` or `western`.
+Displays restaurants with any category matching `$`, `casual` or `western`.
 // end::categorization[]
 
 // tag::visitweb[]

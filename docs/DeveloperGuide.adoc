@@ -336,7 +336,7 @@ For example, 2 correct attempts and 4 total attempts becomes 0.5. When instantia
 ==== Current Implementation
 
 The report feature is meant to provide the user with the ability to look back and compare their test score from
-previous test sessions. It makes use of Java FXML features to display score in a user-friendly manner. The following
+previous test sessions. It makes use of Java FXML features to display scores in a user-friendly manner. The following
 methods are used to enter or exit the report display:
 
 * `Model#enterReportDisplay()` -- Enters the report display for this folder.
@@ -346,7 +346,7 @@ Given below is an example usage scenario and how the report display is rendered.
 
 Step 1. The user is in a folder and wishes to see a report by executing `report`.
 
-Step 2. A ReportCommand is created and executed by LogicManager. `Model#enterReportDisplay()` is called, which prepares
+Step 2. A `ReportCommand` is created and executed by `LogicManager`. `Model#enterReportDisplay()` is called, which prepares
 the model for report by sorting the cards by lowest scores first. The state is also checked to make sure the user is in
 a folder.
 
@@ -354,6 +354,7 @@ Step 3. A `CommandResult` with type `ENTERED_REPORT` is returned by the `ReportC
 
 Below is a sequence diagram, summarizing the above operations.
 
+.Sequence Diagram for Report Command.
 image:ReportCommandSequenceDiagram.png[width="800"]
 
 Step 4. The `CommandResult` is passed to UI, which now has to render the new screen. It does so by getting the current
@@ -361,7 +362,7 @@ Step 4. The `CommandResult` is passed to UI, which now has to render the new scr
  display by Java FXML, split by their content:
 
  * `ReportDisplay#displayTitle()` -- Displays title and how many test scores were recorded.
- * `ReportDisplay#displayGraph()` -- Takes the last 10 or all test scores from `CardFolder`, whichever is lower, and
+ * `ReportDisplay#displayGraph()` -- Takes maximum of last 10 test scores from `CardFolder`, and
  adds them as points on the Java FXML `AreaChart`.
  * `ReportDisplay#displayQuestions()` -- Displays maximum of 3 questions from `CardFolder` which have lowest the
  individual <<cardscore, card scores>>.
@@ -372,6 +373,7 @@ Step 5. The `ReportDisplay` is rendered by `fullScreenPlaceholder`.
 
 Below is a sequence diagram summarizing steps 4 and 5. The interactions with Java FXML elements are omitted for clarity.
 
+.Sequence diagram for Report Display.
 image:ReportDisplaySequenceDiagram.png[width="800"]
 
 ==== Design Considerations

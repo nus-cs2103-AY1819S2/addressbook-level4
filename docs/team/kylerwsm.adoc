@@ -74,24 +74,6 @@ The rest are optional fields, and can be filled in later via the `recordedit` co
 
 Format: `patientadd PARAMETERS …` or `padd PARAMETERS …`
 
-Parameters:
-
-[cols="3",options=""]
-|===
-|n/NAME
-|s/SEX
-|ic/NRIC
-|dob/DATE_OF_BIRTH
-|p/PHONE_NUMBER
-|e/EMAIL
-|a/ADDRESS
-|da/DRUG_ALLERGY
-|nokn/NEXT_OF_KIN_NAME
-|nokp/NEXT_OF_KIN_PHONE_NUMBER
-|nokr/NEXT_OF_KIN_RELATION
-|noka/NEXT_OF_KIN_ADDRESS
-|===
-
 [NOTE]
 TeethHub determines the uniqueness of patients based on their `NRIC`.
 
@@ -131,24 +113,6 @@ Must be a positive integer (e.g 1, 2 or 3).
 ** The full list of possible prefixes can be found in <<Breakdown of attributes used within TeethHub>>
 
 * The given index must be a positive integer (e.g. 1, 2, or 3…).
-
-Parameters that can be edited:
-
-[cols="3",options=""]
-|===
-|n/NAME
-|s/SEX
-|ic/NRIC
-|dob/DATE_OF_BIRTH
-|p/PHONE_NUMBER |p/98765432
-|e/EMAIL
-|a/ADDRESS
-|da/DRUG_ALLERGY
-|nokn/NEXT_OF_KIN_NAME
-|nokp/NEXT_OF_KIN_PHONE_NUMBER
-|nokr/NEXT_OF_KIN_RELATION
-|noka/NEXT_OF_KIN_ADDRESS
-|===
 
 Example:
 
@@ -375,10 +339,6 @@ The `Patient` class represents patients for our users on TeethHub.
 It extends `Person` with more patient-specific attributes, as well as methods.
 Various methods are also overridden in order for them to work appropriately with the new `Patient` class.
 
-The following class diagram summarizes the new `Patient` class, which extends from `Person`:
-
-image::PatientClassDiagram.png[width="400"]
-
 ==== Dental Records Feature
 
 The `Record` class represents a dental record of a patient. Each `Patient` class has an list of `Record` as an attribute.
@@ -468,10 +428,6 @@ We have implemented patient tags to be fully automated by our application.
 
 `StatusTag`: Describes the condition of the patient's teeth. The valid options are "Healthy Teeth", "Status Teeth", and "Absent Teeth".
 The worst tooth status found in the patient's teeth will be reflected in the teeth status tag.
-
-The activity diagram below demonstrates how TeethHub automatically update the patient's status tag when his or her tooth is edited:
-
-image::StatusTagActivityDiagram.png[width=""]
 
 `TeethTag`: Describes the teeth type of the patient. The valid options are "Primary Teeth" or "Permanent Teeth".
 
@@ -606,26 +562,5 @@ However, the patient class is mutable, and accidental changes to its attributes 
    Expected: Similar to previous.
 
 === User Stories
-Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
 
-[width="100%",cols="",options="header",]
-|=======================================================================
-|Priority |As a ... |I want to ... |So that I can...
-|`* * *` |user |add a new patient's particulars | know about their situation
-
-|`* * *` |user |edit my patient's particulars | their personal information remains updated
-
-|`* * *` |user |store my patient's teeth | track their teeth condition
-
-|`* * *` |user |modify my dental patients' teeth condition | understand and serve my dental patients'
-teeth condition better
-
-|`* * *` |user |view my patients' dental records | keep track of my patients' teeth health history
-
-|`* * *` |user |add a new dental record | store diagnosis and treatments of my patients
-
-|`* * *` |user |delete a dental record | remove records that have become redundant or irrelevant
-
-|`* * *` |user |edit a dental record | correct existing dental records
-
-|`* * *` |user |clear all dental records of a patient | protect the privacy of my patients
+* I have contributed numerous user stories on the Developer Guide, which are related to patients, dental records and teeth.

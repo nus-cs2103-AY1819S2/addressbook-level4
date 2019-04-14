@@ -13,7 +13,9 @@ ifdef::env-github[]
 :warning-caption: :warning:
 :experimental:
 endif::[]
-:repoURL: https://github.com/cs2103-ay1819s2-t12-4/main
+:repoURL: https://github.com/CS2103-AY1819S2-T12-4/main
+:mainWindowURL: {repoURL}/tree/master/src/main/java/seedu/pdf/ui/MainWindow.java
+:helpWindowTestURL: {repoURL}/tree/master/src/test/java/seedu/pdf/ui/HelpWindowTest.java
 
 By: `Team T12-4`      Since: `Feb 2019`      Licence: `MIT`
 
@@ -47,14 +49,14 @@ Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plu
 . Click `OK` to accept the default settings
 . Open a console and run the command `gradlew processResources` (Mac/Linux: `./gradlew processResources`). It should finish with the `BUILD SUCCESSFUL` message. +
 This will generate all resources required by the application and tests.
-. Open link:{repoURL}/src/main/java/seedu/pdf/ui/MainWindow.java[`MainWindow.java`] and check for any code errors
+. Open link:{mainWindowURL}[`MainWindow.java`] and check for any code errors
 .. Due to an ongoing https://youtrack.jetbrains.com/issue/IDEA-189060[issue] with some of the newer versions of IntelliJ, code errors may be detected even if the project can be built and run successfully
 .. To resolve this, place your cursor over any of the code section highlighted in red. Press kbd:[ALT + ENTER], and select `Add '--add-modules=...' to module compiler options` for each error
-. Repeat this for the test folder as well (e.g. check link:{repoURL}/src/test/java/seedu/pdf/ui/HelpWindowTest.java[`HelpWindowTest.java`] for code errors, and if so, resolve it the same way)
+. Repeat this for the test folder as well (e.g. check link:{helpWindowTestURL}[`HelpWindowTest.java`] for code errors, and if so, resolve it the same way)
 
 === Verifying the setup
 
-. Run the `seedu.pdf.MainApp` and try a few commands
+. Run the `seedu.pdf.MainApp` and try a few commands.
 . <<Testing,Run the tests>> to ensure they all pass.
 
 === Configurations to do before writing code
@@ -114,7 +116,9 @@ image::Architecture.png[width="600"]
 The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
 
 [TIP]
-The `.pptx` or `.xml` files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder. To update a diagram, modify the diagram in the pptx or xml file, select the objects of the diagram, and choose `Save as picture`.
+The `.pptx` or `.xml` files used to create diagrams in this document can be found in the
+link:{repoURL}/docs/diagrams/[diagrams] folder. To update a diagram, modify the diagram in
+the pptx or xml file, select the objects of the diagram, and choose `Save as picture`.
 
 `Main` has only one class called link:{repoURL}/src/main/java/seedu/pdf/MainApp.java[`MainApp`]. It is responsible for,
 
@@ -128,9 +132,9 @@ The following class plays an important role at the architecture level:
 
 The rest of the App consists of four components.
 
-* <<Design-Ui,*`UI`*>>: The UI of the App.
+* <<Design-Ui,*`UI`*>>: The UI of the PDF++ App.
 * <<Design-Logic,*`Logic`*>>: The command executor.
-* <<Design-Model,*`Model`*>>: Holds the data of the App in-memory.
+* <<Design-Model,*`Model`*>>: Stores the data of the App in-memory.
 * <<Design-Storage,*`Storage`*>>: Reads data from, and writes data to, the hard disk.
 
 Each of the four components
@@ -410,65 +414,58 @@ This feature utilises the
 https://pdfbox.apache.org/download.cgi#20x[_Apache PDFBox® library_], specifically the
 https://pdfbox.apache.org/docs/2.0.1/javadocs/org/apache/pdfbox/multipdf/PDFMergerUtility.html[_PDFMergerUtility_]
 API to append two or more PDFs and create a new file with the merged content. As there will be one
-additional file added to the application, this feature also implicitly performs an `Add` feature to add the new
+additional file added to the application, this feature also implicitly performs <<Adding of files to application>> to add the new
 PDF to the application.
 
-The Merge feature has the following syntax:
-
-[.big]#`merge <INDEX1> <INDEX2> ...`#
-
-* `<INDEX>` refers to the index of the `Pdf` that you wish to merge.
-* Minimum of two indices have to be provided for the merge to be performed, up to as many
-indices as desired.
-* It is possible to repeat an index; the PDF would simply merge with a copy of itself.
-
-[NOTE]
-The index value can be referenced from the list in the main application, or from the
-result of the `Filter`, `Find` or `List` feature.
-
-==== Feature breakdown
-Illustrated below is a sample usage scenario that provides a clear view to the inner
-workings of the `merge` feature.
-
-Step 1: From the main interface of the application, the user chooses the file(s) that
-they wish to merge, and enters the `merge` command into the CLI Interface, following
-the outlined Syntax as illustrated below.
-
-image::MergeFeatureStep1.png[width="600"]
-
-Step 2: After executing the command, the *MergeCommandParser* parses the input into
-relevant objects that are required to be executed by the *MergeCommand* object. In
-particular, it ensures that there are two or more arguments passed as described in the
-above Syntax. Upon parsing, the parser then creates a new *MergeCommand* that will execute
-the user's input.
-
-In this case, the above two files will be merged, with the _"CS2103T_PDF++_UG_Intro.pdf"_
-file appended behind the other file.
-
-Step 3: The *MergeCommand* is then executed. During the execution, there are several levels
-of validation that, failing which would stop the execution and throw an exception.
-Here are the different cases:
-
-[NOTE]
-In these cases, all exceptions encountered will be handled as a  *CommandException*. This design
-consideration was made to add convenience to error handling.
-
-* One or more of the indices provided are invalid i.e. the index is negative or does not reference
-any of the Pdfs listed. A *ParseException* is thrown.
-* When loading the PDDocument of the file, the file cannot be accessed for various reasons:-
-** If the document cannot be found, a *FileNotFoundException* is thrown.
-** If the document is encrypted, an *InvalidPasswordException* is thrown.
-** If the document cannot be opened for any other reason, an *IOException* is thrown.
-* When any of the files to the fail to be added to the PDFMergerUtility, an *IOException* is thrown.
-* After merging the files, if any of the PDDocuments are unable to be closed, an *IOException* is thrown.
-
-Step 4: Successful execution of the command would return a *CommandResult* object and create the
-a new file with the merged content. The new name of the merged file follows the format: "merged[hashcode].pdf". This is to ensure
-unique file name. The hashcode in the name will be modified if name already exists.
-
-The following Activity Diagram is a summary of the entire execution process.
+The implementation of the *MergeCommand* execution can be summarised in the following activity diagram:
 
 image::MergeCommandActivityDiagram.png[width="600"]
+
+. The provided indices are checked to be valid i.e. referring to a specific Pdf in the PdfBook.
+.. If there is at least one invalid index, a *CommandException* will be thrown and the execution will be ended.
+. The required Pdfs are retrieved from the PdfBook based on indices.
+. A File object is created for each Pdf which allows file operations to be performed on the Pdf.
+. https://pdfbox.apache.org/docs/2.0.1/javadocs/org/apache/pdfbox/multipdf/PDFMergerUtility.html[_PDFMergerUtility_] is created. The directory must be set for the merged file prior to merging,
+which also includes the name of the file. By default, the directory of the Pdf based on first index  is used.
+. A unique name is created for the merged file and combined with the aforementioned directory to create the full directory for the merged file.
+.. To avoid issues with duplicate name at the directory, the name is created based on hash code. The created name will also be verified unique at the directory - and changed if necessary.
+. The Files will be loaded as https://pdfbox.apache.org/docs/2.0.1/javadocs/org/apache/pdfbox/pdmodel/PDDocument.html[_PDDocument_],
+which is an indicator if the application can perform other operations on the Pdf that need it to be handled as a `.pdf` file.
+.. Errors in accessing Pdf would throw *IOException*. Errors would most likely be due to:
+... File not found at location
+... Lack of user permissions to open file
+... File has encryption
+... File corruption
+.. Thrown *IOException* is intercepted, a *CommandException* will be thrown and the execution will be ended.
+. The Files are added to the PDFMergerUtility.
+.. Errors in adding to PDFMergerUtility would throw *IOException*. The cause for error would be similar to above.
+.. Thrown *IOException* is intercepted, a *CommandException* will be thrown and the execution will be ended.
+. All loaded *PDDocument* are closed.
+. A new Pdf is created to represented the merged file created.
+. The Pdf is recorded in the Model and the changes are committed.
+. *CommandResult* is returned upon successful execution.
+
+This sequence diagram demonstrates the interactions involved from start of *MergeCommandParser* to end of *MergeCommand* execution:
+
+image::MergeCommandSequenceDiagram.png[width="600"]
+
+==== Considerations
+
+The default directory of the merged file is currently set to the directory of the first index of the files to be merged. There were considerations to make flexibility in the merge command input
+to allow for the user to specify the desired directory of the merged file. As the current version of *_PDF++_* is focused on a working product, it was decided to simplify the command to focus on
+the merge operation. Users can also make use of <<Move feature>> to move the file; such implementation is more intuitive if the user is going to be using the application for everyday needs.
+
+For the merging of files, the current implementation involves adding all files to a single https://pdfbox.apache.org/docs/2.0.1/javadocs/org/apache/pdfbox/multipdf/PDFMergerUtility.html[_PDFMergerUtility_]
+to merge together. One alternative to merging multiple files would be to create a separate *PDFMergerUtility* for every pair of files and merge the content recursively into a final merged file. The
+advantage of this would be better stability in performance when merging multiple large files as there will be lesser workload on each *PDFMergerUtility*. However, this would undoubtedly cause the performance
+to be slower as more merge operations are done overall. As the case of instability occurs only in very large files, it was decided to go with focus on performance.
+
+==== Future Implementation
+
+There are performance issues encountered when performing the merge operations with many files of large size. In future versions, the merge operation has to not only ensure
+performance but stability as well. By v2.0, the merging will be able to support larger files without any concern for the application to freeze or crash while merging.
+Currently, there are no means to make the merging operation perform faster due to the merging operation being performed through the
+https://pdfbox.apache.org/docs/2.0.1/javadocs/org/apache/pdfbox/multipdf/PDFMergerUtility.html[_PDFMergerUtility_] API.
 
 // end::merge[]
 
@@ -707,11 +704,11 @@ as malicious users might simply utilize the `FindCommand` to extract information
 
 ==== Future Implementation
 
-1. A main issue with the current implementation of the `FindCommand` is it's slow speeds with respect to
+. A main issue with the current implementation of the `FindCommand` is it's slow speeds with respect to
 large files or files that contain a large string of text files. Hence, a possible consideration you might
 wish to improve upon is to "upgrade" this feature by improving it's speed of this feature.
 
-2. Yet another enhancement to this feature you might wish to implement is the use of Optical Image Recognition,
+. Yet another enhancement to this feature you might wish to implement is the use of Optical Image Recognition,
 otherwise known as OCR. This will allow the application to translate images within the file to words which would further
 improve the ability of the application to look through content even if they are images.
 // end::find[]
@@ -792,7 +789,7 @@ The `history` feature has to following syntax:
 // end::History[]
 
 // tag::undoredo[]
-=== Undo/Redo feature
+=== Undo/Redo feature [Coming in v2.0]
 ==== Current Implementation
 
 The undo/redo mechanism is facilitated by `VersionedPdfBook`.
@@ -875,126 +872,151 @@ image::UndoRedoActivityDiagram.png[width="650"]
 === File Protection
 
 PDF++ has a robust in-built file protection system which allows you to encrypt or decrypt any
-PDF files you want. Both encrypt and decrypt feature are facilitated by both `EncryptCommand /
-DecryptCommand` and `EncryptCommandParser / DecryptCommandParser`.
-
-For encryption, you can
-select the file on the list that you wish to encrypt with a password you specified. Likewise,
-for decryption, you have to enter the password of the encrypted file that you wish to decrypt.
-
-The Encrypt and Decrypt feature has the following syntax:
-
-Encryption: `encrypt INDEX password/PASSWORD`
-
-Decryption: `decrypt INDEX password/PASSWORD`
-
-* `INDEX` refers to the index of the file on the list that you wish to encrypt/decrypt
-* `password/` refers to the command immediately following after this prefix is the password
-of the file
-
-* `PASSWORD` refers to the password you wish to encrypt your file with / of the encrypted file
-you want to decrypt.
+PDF files you want. These features utilises the
+https://pdfbox.apache.org/download.cgi#20x[_Apache PDFBox® library_], specifically the
+https://pdfbox.apache.org/docs/2.0.1/javadocs/org/apache/pdfbox/pdmodel/PDDocument.html[_PDDocument_],
+https://pdfbox.apache.org/docs/2.0.1/javadocs/org/apache/pdfbox/pdmodel/encryption/AccessPermission.html[_AccessPermission_], and
+https://pdfbox.apache.org/docs/2.0.1/javadocs/org/apache/pdfbox/pdmodel/encryption/StandardProtectionPolicy.html[_StandardProtectionPolicy_].
 
 [NOTE]
-Please ensure that you have entered the correct password as undo & redo functions do not work
-with encrypt & decrypt.
+An <<encrypted-file>> is a file that is protected with a password. The term `protected` and `encrypted` will be used interchangeably.
 
-Please refer to `Step-by-Step Guide -- encrypt` for encryption guide and `Step-by-Step Guide --
-decrypt` for decryption guide.
+You can visit <<Encryption feature>> and <<Decryption feature>> to understand more about the respective feature.
 
-==== Step-by-Step Guide -- encrypt
-Illustrate below is a sample usage scenario that provides a clear view to the inner workings
-of the Encrypt feature.
+==== Encryption feature
 
-Step 1: The user launches the application with either an existing set of `Pdf` or a new
-sample set of `Pdf` stored within as shown below. Please refer to <<Add feature>> for guide
-in how you can add your files into PDF++.
+===== Current Implementation
+The `encrypt` feature is facilitated by both *EncryptCommand* and *EncryptCommandParser*.
 
-image::EncryptFeatureStep1Default.png[width="600"]
-
-Step 2: You select the file that you wish to encrypt via the INDEX on the list.
-
-image::EncryptFeatureStep2Index.png[width="600"]
-
-Step 3: Enter the `encrypt` command into the CLI interface, following the outlined syntax as
-illustrated below.
-
-image::EncryptFeatureStep3UserInput.png[width="600"]
-
-Step 4: Upon hitting enter to execute the command, the `EncryptCommandParser` parses the input
-into several components that are required to be executed by the `EncryptCommand`.
-
-Upon parsing, the parser then creates a new `EncryptCommand` that will be executed according
-to your input.
-
-Step 5: Upon receiving the necessary information from the parser, which includes the INDEX and
-PASSWORD, the `EncryptCommand` first checks if the INDEX is valid.
-
-* `INDEX` is invalid or out of bound.
-
-image::EncryptFeatureStep5InvalidIndex.png[width="600"]
-
-* `INDEX` and `PASSWORD` are both valid. The file you selected will be encrypted with the
-password you specified.
-
-image::EncryptFeatureStep5Sucess.png[width="600"]
-
-Step 6: If the command passes the validity check, the file you have selected is encrypted.
-You can open your file to see the result. Please refer to <<Open feature>> for the `open` feature.
+The implementation of the *EncryptCommand* execution is summarised in the following activity diagram:
 
 image::EncryptCommandActivityDiagram.png[width="600"]
 
-==== Step-by-Step Guide -- decrypt
-Illustrate below is a sample usage scenario that provides a clear view to the inner workings
-of the Decrypt feature.
+. The provided index is checked for validity i.e. referring to a specific Pdf in PdfBook.
+.. If the index is invalid, a *CommandException* will be thrown and the execution ends.
+. The Pdf specified via the index is retrieved from the PdfBook.
+. A `File` object is created for the Pdf.
+. The `File` will be loaded as https://pdfbox.apache.org/docs/2.0.1/javadocs/org/apache/pdfbox/pdmodel/PDDocument.html[_PDDocument_],
+which is an indicator that the `File` is a *PDF* document that is uncorrupted and
+not protected with a password.
+.. Error in loading Pdf as *PDDocument* would throw an *IOException*. Common reasons of error are:
+... File not found in location
+... Lack of user permissions to open File
+... Protected File
+... Corrupted File
+.. Thrown IOException is intercepted, a *CommandException* will be thrown and the execution ends.
+. https://pdfbox.apache.org/docs/2.0.1/javadocs/org/apache/pdfbox/pdmodel/encryption/AccessPermission.html[_AccessPermission_], and
+https://pdfbox.apache.org/docs/2.0.1/javadocs/org/apache/pdfbox/pdmodel/encryption/StandardProtectionPolicy.html[_StandardProtectionPolicy_]
+are created. The password specified will be passed to `StandardProtectionPolicy` for the purpose of setting security settings for the
+`PDDocument`.
+. A protected Pdf will be saved and closed.
+.. Error in encrypting the file will throw an *IOException*. Common reasons of error are:
+... Excessive long password
+... Empty password
+.. Thrown IOException is intercepted, a *CommandException* will be thrown and the execution ends.
+. The Pdf is recorded in the <<Model component>> and the changes are saved.
+. A *CommandResult* is returned upon successful exception of *EncryptCommand*.
 
-[TIP]
-`decrypt` feature is very similar to `encrypt` feature.
+This sequence diagram demonstrates the <<main-success-scenario>> from the
+*LogicManager* to the end of *EncryptCommand* execution:
 
-Step 1: The user launches the application with either an existing set of `Pdf` or a new
-sample set of `Pdf` stored within as shown below. Please refer to <<Add feature>> for guide
-in how you can add your files into PDF++.
+image::EncryptCommandSequenceDiagram.png[width="700"]
 
-image::DecryptFeatureStep1Default.png[width="600"]
+===== Design Considerations
 
-Step 2: You select the file that you wish to decrypt via the INDEX on the list.
+===== Edit password of an encrypted file
 
-image::DecryptFeatureStep2Index.png[width="600"]
+* Alternative 1 (current choice): Execute *DecryptCommand* then *EncryptCommand*
 
-Step 3: Enter the `decrypt` command into the CLI interface, following the outlined syntax as
-illustrate below.
+Due to security reasons, it was decided to focus on encrypting an unprotected Pdf.
+You will need to <<Decryption feature>>
+before encrypting it with a new password. This is to ensure your intent in changing the password,
+as the current version *PDF++* does not provide `Forget Password` feature.
 
-image::DecryptFeatureStep3UserInput.png[width="600"]
+However, this process is inefficient as you will need to enter 2 commands instead of 1.
 
-Step 4: Upon hitting enter to execute the command, the `DecryptCommandParser` parses the input
-into several components that are required to be executed by the `DecryptCommand`.
+* Alternative 2: Change password of an encrypted file
 
-Upon parsing, the parser then creates a new `DecryptCommand` that will be executed according
-to your input.
+This minimised the number of commands to be executed, but there are several security concerns as mentioned above.
 
-Step 5: Upon receiving the necessary information from the parser, which includes the INDEX and
-PASSWORD, the `DecryptCommand` first checks if the INDEX is valid.
+===== A sophisticated protection system
 
-* `INDEX` is invalid or out of bound.
+* Multiple adjustments to protect your interest
 
-image::DecryptFeatureStep5InvalidIndex.png[width="600"]
+. <<History feature>> will not show the executed `EncryptCommand` which includes the password of the file.
+. The <<Undo/Redo feature [Coming in v2.0]>> is temporarily disabled until a solution that
+will not comprise your privacy has been found.
+. Pressing up in the command box will not show the `EncryptCommand` that was previously executed.
 
-* `PASSWORD` is invalid
+===== Future Implementation
+
+There are concerns of accidental encryption of a file with a wrong password. In *PDF++* v2.0,
+the *EncryptCommand* will prompt you to re-enter the password as a form of confirmation message.
+If there is a mismatch of the two passwords entered, the command will not be executed.
+
+==== Decryption feature
+
+===== Current Implementation
+
 [NOTE]
-Please enter the password of the encrypted file. You will not be able to decrypt the file
-without the password.
+The current Implementation of *DecryptCommand* is very similar to <<Encryption feature>>.
+The part where it is implemented differently will be specifically marked with a `*` for your convenience.
 
-image::DecryptFeatureStep5InvalidPassword.png[width="600"]
+The `decrypt` feature is facilitated by both *DecryptCommand* and *DecryptCommandParser*.
 
-* `INDEX` and `PASSWORD` are both valid. The file you selected will be decrypted with the
-password you specified.
-
-image::DecryptFeatureStep5Sucess.png[width="600"]
-
-Step 6: If the command passes the validity check, the file you have selected is decrypted.
-You can open your file to see the result. Please refer to <<Open feature>> for the `open` feature.
+The implementation of the `DecryptCommand` execution is summarised in the following activity diagram.
 
 image::DecryptCommandActivityDiagram.png[width="600"]
+
+. The provided index is checked for validity i.e. referring to a specific Pdf in PdfBook.
+.. If the index is invalid, a *CommandException* will be thrown and the execution ends.
+. The Pdf specified via the index is retrieved from the PdfBook.
+. A `File` object is created for the Pdf.
+. The `File` will be loaded as https://pdfbox.apache.org/docs/2.0.1/javadocs/org/apache/pdfbox/pdmodel/PDDocument.html[_PDDocument_]
+with the specified password, which is an indicator that the `File` is a *PDF* document that is uncorrupted, protected and the password
+provided is valid *.
+.. Error in loading Pdf as *PDDocument* would throw an *IOException* and invalid password would throw an *CommandException*.
+Common reasons of error are:
+... File not found in location
+... Lack of user permissions to open File
+... Unprotected File *
+... Corrupted File
+... Wrong password *
+.. Thrown IOException is intercepted, a *CommandException* will be thrown and the execution ends.
+. Upon success loading of the PDDocument, the security will be removed. *
+. An unprotected * Pdf will be saved and closed.
+. The Pdf is recorded in the <<Model component>> and the changes are saved.
+. A *CommandResult* is returned upon successful exception of *DecryptCommand*.
+
+This sequence diagram demonstrates the <<main-success-scenario>> from the
+*LogicManager* to the end of *DecryptCommand* execution:
+
+image::DecryptCommandSequenceDiagram.png[width="700"]
+
+===== Design Considerations
+
+===== A sophisticated protection system
+
+* Multiple adjustments to protect your interest
+
+. <<History feature>> will not show the executed `EncryptCommand` which includes the password of the file.
+. The <<Undo/Redo feature [Coming in v2.0]>> is temporarily disabled until a solution that
+will not comprise your privacy has been found.
+. Pressing up in the command box will not show the `EncryptCommand` that was previously executed.
+
+===== Future Implementation
+
+If an unauthorised personnel obtained the password of your files through illegal means,
+they can potentially set the file with a new password. This will hinder your access to
+your files.
+
+However, With 2-Factor Authentication, there is an additional layer of protection
+that prevents these personnel from changing the passwords of your files. This
+ensures that only you/any authorised personnel can decrypt your files.
+
+In *PDF++* v2.0, the *DecryptCommand* will support for the 2FA feature as mentioned above.
+If this feature is highly demanded, this feature will be implemented to *EncryptCommand* too.
+
 // end::fileprotection[]
 
 === Logging
@@ -1637,6 +1659,14 @@ Windows, Linux, Unix, OS-X
 
 [[private-contact-detail]] Private contact detail::
 A contact detail that is not meant to be shared with others
+
+[[encrypted-file]] Encrypted file::
+A file that is protected with a password
+
+[[main-success-scenario]] Main Success Scenario::
+The expected sequence of events assuming that nothing goes wrong
+
+
 
 [appendix]
 == Instructions for Manual Testing

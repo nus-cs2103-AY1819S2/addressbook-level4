@@ -33,7 +33,7 @@ public class RenameCommandParserTest {
     private static final String MESSAGE_INVALID_FORMAT =
             String.format(MESSAGE_INVALID_COMMAND_FORMAT, RenameCommand.MESSAGE_USAGE);
 
-    private EditCommandParser parser = new EditCommandParser();
+    private RenameCommandParser parser = new RenameCommandParser();
 
     @Test
     public void parse_missingParts_failure() {

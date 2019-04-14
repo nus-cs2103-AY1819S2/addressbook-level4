@@ -18,7 +18,7 @@ import seedu.address.model.tag.Tag;
 /**
  * Parses input arguments and creates a new RenameCommand object
  */
-public class EditCommandParser implements Parser<RenameCommand> {
+public class RenameCommandParser implements Parser<RenameCommand> {
 
     /**
      * Parses the given {@code String} of arguments in the context of the RenameCommand
@@ -48,17 +48,6 @@ public class EditCommandParser implements Parser<RenameCommand> {
         } else if (!editPdfDescriptor.isAnyFieldEdited()) {
             throw new ParseException(RenameCommand.MESSAGE_NOT_EDITED);
         }
-
-        /*if (argMultimap.getValue(PREFIX_DIRECTORY).isPresent()) {
-            editPdfDescriptor.setDirectory(ParserUtil.parseDirectory(argMultimap.getValue(PREFIX_DIRECTORY).get()));
-        }*/
-
-        /*parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG_ADD)).ifPresent(editPdfDescriptor::setTags);
-
-        if (!editPdfDescriptor.isAnyFieldEdited()) {
-            throw new ParseException(RenameCommand.MESSAGE_NOT_EDITED);
-        }*/
-
         return new RenameCommand(index, editPdfDescriptor);
     }
 

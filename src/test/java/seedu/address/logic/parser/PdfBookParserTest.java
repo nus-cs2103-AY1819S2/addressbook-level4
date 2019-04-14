@@ -123,7 +123,6 @@ public class PdfBookParserTest {
 
     @Test
     public void parseCommand_filter() throws Exception {
-        System.out.println(PdfUtil.getFilterCommand(SAMPLE_PDF_2.getTags()));
         FilterCommand command = (FilterCommand) parser.parseCommand(
                 PdfUtil.getFilterCommand(SAMPLE_PDF_2.getTags()));
         assertEquals(new FilterCommand(new TagContainsKeywordsPredicate(

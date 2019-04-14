@@ -23,6 +23,10 @@ PDF++ is a desktop application that is meant for anyone who wants or needs a con
 This application can be used by both *Text Input (TI)* and a Graphical *User Interface (GUI)*
 hence, both technical users and casual users can enjoy a comfortable experience using our program. All features provided by our application can be used via the *TI* and relevant feedback, based on your command, will be displayed in the Response Area of the application.
 
+[NOTE]
+The current version of PDF++ supports PDF documents only. However, it is projected
+to support for all file types in the future.
+
 === Proper Usage of PDF++
 As PDF++ aims to replace your existing File Management System, all operations should be done
 through the application. In order to ensure smooth user experience, you should not perform any
@@ -329,10 +333,16 @@ Example:
 This command lets you exit the program. +
 Format: `exit`
 
-=== Retrieving information about a file:
+=== Retrieving information about a file: `select`
 
-In order to see a little more information on a file, clicking the file in the Files Section, highlighted in green, allows you to view more information pertaining to that file. +
+Select a file to see a more information about file.
+
+Alternatively, clicking the file in the Files Section, highlighted in green, allows you to view more information pertaining to that file. +
 This information will be displayed in the Upcoming Deadlines Area, highlighted in red. +
+
+Format: `select INDEX`
+
+Example: `select 3`
 
 === Setting a deadline for the file : `deadline`
 
@@ -387,19 +397,8 @@ Examples:
 * File matching at least one keyword will be returned
 ****
 
-// tag::undoredo[]
-=== Undo & redo command: `undo` & `redo`
-The `undo` and `redo` commands allow you to reverse an action that was previously done on our application. +
-
-WARNING: You *CANNOT* Undo or Redo an encrpytion command.
-This functionality has been disabled for security reasons. +
-
-Format: `undo` [To Undo an Action] +
-Format: `redo` [To Redo an Action]
-// end::undoredo[]
-
 // tag::dataencryption[]
-=== Encrypting & Decryption: `encrypt` & `decrypt`
+=== File Protection: `encrypt` & `decrypt`
 The command `encrypt` allow you to lock your files such that they cannot be accessed without a password that you had specified. Similarly, the command `decrypt` will let you remove the password that you had set for the file.
 
 Format: `encrypt INDEX password/PASSWORD` [To Encrypt a file] +
@@ -410,17 +409,173 @@ Examples:
 * `encrypt 2 password/ThisIsNotASecurePassword`
 * `decrypt 2 password/ThisIsNotASecurePassword`
 
+For encryption, you can select the file on the list that you wish to encrypt
+with a password you specified. Likewise, for decryption, you have to enter the
+password of the encrypted file that you wish to decrypt.
+
+The Encrypt and Decrypt feature has the following syntax:
+
+Encryption: `encrypt INDEX password/PASSWORD`
+
+Decryption: `decrypt INDEX password/PASSWORD`
+
+* `INDEX` refers to the index of the file on the list that you wish to encrypt/decrypt
+* `password/` refers to the command immediately following after this prefix is the password
+of the file
+
+* `PASSWORD` refers to the password you wish to encrypt your file with / of the encrypted file
+you want to decrypt.
+
+[NOTE]
+Please ensure that you have entered the correct password as undo & redo functions do not work
+with encrypt & decrypt.
+
+Please refer to `Step-by-Step Guide -- encrypt` for encryption guide and `Step-by-Step Guide --
+decrypt` for decryption guide.
+
+==== Step-by-Step Guide -- encrypt
+Illustrate below is a sample usage scenario that provides a clear view to the inner workings
+of the Encrypt feature.
+
+Step 1: The user launches the application with either an existing set of `Pdf` or a new
+sample set of `Pdf` stored within as shown below. Please refer to <<Add feature>> for guide
+in how you can add your files into PDF++.
+
+image::EncryptFeatureStep1Default.png[width="600"]
+
+Step 2: You select the file that you wish to encrypt via the INDEX on the list.
+
+image::EncryptFeatureStep2Index.png[width="600"]
+
+Step 3: Enter the `encrypt` command into the CLI interface, following the outlined syntax as
+illustrated below.
+
+image::EncryptFeatureStep3UserInput.png[width="600"]
+
+Step 4: Upon hitting enter to execute the command, the `EncryptCommandParser` parses the input
+into several components that are required to be executed by the `EncryptCommand`.
+
+Upon parsing, the parser then creates a new `EncryptCommand` that will be executed according
+to your input.
+
+Step 5: Upon receiving the necessary information from the parser, which includes the INDEX and
+PASSWORD, the `EncryptCommand` first checks if the INDEX is valid.
+
+* `INDEX` is invalid or out of bound.
+
+image::EncryptFeatureStep5InvalidIndex.png[width="600"]
+
+* `INDEX` and `PASSWORD` are both valid. The file you selected will be encrypted with the
+password you specified.
+
+image::EncryptFeatureStep5Sucess.png[width="600"]
+
+Step 6: If the command passes the validity check, the file you have selected is encrypted.
+You can open your file to see the result. Please refer to <<Open feature>> for the `open` feature.
+
+
+
+==== Step-by-Step Guide -- decrypt
+Illustrate below is a sample usage scenario that provides a clear view to the inner workings
+of the Decrypt feature.
+
+[TIP]
+`decrypt` feature is very similar to `encrypt` feature.
+
+Step 1: The user launches the application with either an existing set of `Pdf` or a new
+sample set of `Pdf` stored within as shown below. Please refer to <<Add feature>> for guide
+in how you can add your files into PDF++.
+
+image::DecryptFeatureStep1Default.png[width="600"]
+
+Step 2: You select the file that you wish to decrypt via the INDEX on the list.
+
+image::DecryptFeatureStep2Index.png[width="600"]
+
+Step 3: Enter the `decrypt` command into the CLI interface, following the outlined syntax as
+illustrate below.
+
+image::DecryptFeatureStep3UserInput.png[width="600"]
+
+Step 4: Upon hitting enter to execute the command, the `DecryptCommandParser` parses the input
+into several components that are required to be executed by the `DecryptCommand`.
+
+Upon parsing, the parser then creates a new `DecryptCommand` that will be executed according
+to your input.
+
+Step 5: Upon receiving the necessary information from the parser, which includes the INDEX and
+PASSWORD, the `DecryptCommand` first checks if the INDEX is valid.
+
+* `INDEX` is invalid or out of bound.
+
+image::DecryptFeatureStep5InvalidIndex.png[width="600"]
+
+* `PASSWORD` is invalid
+[NOTE]
+Please enter the password of the encrypted file. You will not be able to decrypt the file
+without the password.
+
+image::DecryptFeatureStep5InvalidPassword.png[width="600"]
+
+* `INDEX` and `PASSWORD` are both valid. The file you selected will be decrypted with the
+password you specified.
+
+image::DecryptFeatureStep5Sucess.png[width="600"]
+
+Step 6: If the command passes the validity check, the file you have selected is decrypted.
+You can open your file to see the result. Please refer to <<Open feature>> for the `open` feature.
+
+
+
 // end::dataencryption[]
 
 === Merging Files: `merge`
 With the `merge` command , you can merge two or more files into a new single file.
 
-Format: `merge INDEX INDEX...`
+The Merge feature has the following syntax:
+
+[.big]#`merge <INDEX1> <INDEX2> ...`#
+
+* `<INDEX>` refers to the index of the `Pdf` that you wish to merge.
+* Minimum of two indices have to be provided for the merge to be performed, up to as many
+indices as desired.
+* It is possible to repeat an index; the PDF would simply merge with a copy of itself.
+
+[NOTE]
+The index value can be referenced from the list in the main application, or from the
+result of the `Filter`, `Find` or `List` feature.
+
+==== Feature breakdown
+Illustrated below is a sample usage scenario that provides a clear view to the inner
+workings of the `merge` feature.
+
+Step 1: From the main interface of the application, the user chooses the file(s) that
+they wish to merge, and enters the `merge` command into the CLI Interface, following
+the outlined Syntax as illustrated below.
+
+image::MergeFeatureStep1.png[width="600"]
+
+Step 2: After executing the command, the *MergeCommandParser* parses the input into
+relevant objects that are required to be executed by the *MergeCommand* object. In
+particular, it ensures that there are two or more arguments passed as described in the
+above Syntax. Upon parsing, the parser then creates a new *MergeCommand* that will execute
+the user's input.
+
+In this case, the above two files will be merged, with the _"CS2103T_PDF++_UG_Intro.pdf"_
+file appended behind the other file.
+
+Step 3: The *MergeCommand* is then executed. During the execution, there are several levels
+of validation that, failing which would stop the execution and throw an exception.
+Here are the different cases:
+
+Step 4: Successful execution of the command would return a *CommandResult* object and create the
+a new file with the merged content. The new name of the merged file follows the format: "merged[hashcode].pdf". This is to ensure
+unique file name. The hashcode in the name will be modified if name already exists.
 
 Examples:
 
-* `merge 1 2 3` +
-* `merge 1 2 1` +
+* `merge 1 2 3`
+* `merge 1 2 1`
 * `merge 1 1`
 
 [NOTE]
@@ -453,18 +608,22 @@ e.g. `open 3`
 e.g. `delete 4`
 * *Move* : `move INDEX d/LOCATION`
 e.g. `move 3 d/C:\User\Jeremy\Downloads`
-* *Tag* : `tag INDEX t/TAG…` +
-e.g. `tag 3 t/DijkstraGraph t/Tutorial t/CS2040`
-* *Filter* : `filter tx/KEYWORD...` +
-e.g. `filter tx/GraphsDFS`
-* *Deadline* : `deadline INDEX DATE` or `deadline INDEX` +
-e.g. `deadline 3 20-02-2019` , `deadline 2`
+* *Tag* : `tag -a INDEX t/TAG…` or `tag -r INDEX t/TAG` +
+e.g. `tag 3 -a t/DijkstraGraph t/Tutorial`, `tag 1 -r t/Homework`
+* *Filter* : `filter t/KEYWORD...` +
+e.g. `filter t/GraphsDFS`
+* *Deadline* : `deadline INDEX date/DATE` or `deadline INDEX done` or `deadline INDEX remove` +
+e.g. `deadline 3 date/20-02-2019` , `deadline 2 done`, `deadline 2 remove`
+* *Select* : `select INDEX` +
+e.g. `select 3`
 * *Encrypt* : `encrypt INDEX password/PASSWORD` +
 e.g. `encrypt 2 password/superPASSWORD`
 * *Decrypt* : `decrypt INDEX password/PASSWORD` +
 e.g. `decrypt 2 password/superPASSWORD`
 * *Merge* : `merge INDEX INDEX...` +
 e.g `merge 1 2 1`
+* *Sort* : `sort CRITERIA ORDER` +
+e.g `sort name down`, `sort deadline up`, `sort size down`
 * *Help* : `help`
 * *Exit* : `exit`
 

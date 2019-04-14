@@ -22,18 +22,34 @@ By: `Team W9-02 (HealthHub)`      Since: `Jan 2019`      Licence: `MIT`
 
 === Prerequisites
 
-. *JDK `9`* or later
+. *JDK `9`*
+* The Java Development Kit, or JDK for short, provides the necessary existing
+ libraries and implementations that we have used in our implementation of
+ HealthHub. The current version of HealthHub needs at least JDK version 9 to
+ support the full functionality it has to offer.
 +
 [WARNING]
 JDK `10` on Windows will fail to run tests in <<UsingGradle#Running-Tests, headless mode>> due to a https://github.com/javafxports/openjdk-jfx/issues/66[JavaFX bug].
 Windows developers are highly recommended to use JDK `9`.
 
 . *IntelliJ* IDE
+* IntelliJ is an Integrated Development Environment(IDE) that provides the
+necessary tools and available plugins needed to compile, build and run the
+project.
 +
 [NOTE]
 IntelliJ by default has Gradle and JavaFx plugins installed. +
 Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plugins` to re-enable them.
 
+[NOTE]
+====
+Don't have Intellij or JDK installed? Click on the following links to
+download them below:
+
+* IntelliJ: https://www.jetbrains.com/idea/
+
+* Java Development Kit: https://www.oracle.com/technetwork/java/javase/downloads/index.html
+====
 
 === Setting up the project in your computer
 
@@ -73,11 +89,23 @@ This project follows https://github.com/oss-generic/process/blob/master/docs/Cod
 
 Optionally, you can follow the <<UsingCheckstyle#, UsingCheckstyle.adoc>> document to configure Intellij to check style-compliance as you write code.
 
-==== Getting started with coding
+==== Getting started
 
-When you are ready to start coding,
+When you have set up your environment successfully for building and running
+HealthHub, you are ready to get started on coding to contribute to the
+project. But before that, you may consider familiarising yourself with
+HealthHub through the following:
 
-1. Get some sense of the overall design by reading <<Design-Architecture>>.
+* Familiarising yourself with the model, logic and storage design of
+HealthHub under the section <<Design>>.
+
+* Get a good feel of how existing features are implemented under the
+<<Implementation>> section.
+
+* Follow the way that the testing suite for features are built in
+<<Testing>>
+
+* Painlessly automate build integration by following the steps under <<Dev Ops>>
 
 == Design
 
@@ -362,7 +390,8 @@ constructed from the user entered fields will be added to the end of the `Unique
 The `Specialisation` field is an `Enum` type in Java, and supports only the
 enum fields that are specified in the `Specialisation` class itself.
 
-The implementation of the `Specialisiation` class is as follows:
+The various available specialisation enum values of the `Specialisation`
+class is as follows in the implementation of `Specialisation`:
 
 ```
 public enum Specialisation {
@@ -381,79 +410,7 @@ public enum Specialisation {
     OCCUPATIONAL_THERAPY,
     ANAESTHESIOLOGY;
 
-    public static final String MESSAGE_CONSTRAINTS = getMessageConstraints();
-
-    /**
-     * Displays a list of available specialisations.
-     * @return String describing all available specialisations.
-     */
-    public static String getSpecialisationList() {
-        StringBuilder stringBuilder = new StringBuilder();
-        for (Specialisation specialisation : Specialisation.values()) {
-            stringBuilder.append(specialisation.toString()).append("\n");
-        }
-
-        return stringBuilder.toString();
-    }
-
-    /**
-     * Checks if a given input string matches any of the available
-     * Specialisations
-     * @param input string to check for valid Specialisation.
-     * @return true if the input string has a matching Specialisation, else
-     * false.
-     */
-    public static boolean isValidSpecialisation(String input) {
-        try {
-            Specialisation.valueOf(input);
-        } catch (IllegalArgumentException | NullPointerException e) {
-            return false;
-        }
-
-        return true;
-    }
-
-    /**
-     * Returns the corresponding matching Specialisation given an input String
-     * @param input string to match Specialisations.
-     * @return Specialisation matching the given string.
-     */
-    public static Specialisation parseString(String input) {
-        return Specialisation.valueOf(input);
-    }
-
-    /**
-     * Returns an Optional containing the matching Specialisation to the substring if any, else an empty Optional
-     * @param input the substring to match against the Specialisation names
-     * @return Optional containing the matching Specialisation, else an empty Optional
-     */
-    public static Optional<Specialisation> getSpecialisation (String input) {
-        if (input.isEmpty()) {
-            return Optional.empty();
-        }
-
-        for (Specialisation specialisation : Specialisation.values()) {
-            if (specialisation.name().toLowerCase().contains(input.toLowerCase())) {
-                return Optional.of(specialisation);
-            }
-        }
-
-        return Optional.empty();
-    }
-
-    /**
-     * Formulates the String representing the valid specialisations and
-     * constraints.
-     * @return String containing the valid specialisations to be added.
-     */
-    private static String getMessageConstraints() {
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("Valid specialisations: \n");
-        stringBuilder.append(getSpecialisationList());
-
-        return stringBuilder.toString();
-    }
-
+    ...
 }
 
 ```

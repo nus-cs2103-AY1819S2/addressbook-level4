@@ -41,7 +41,7 @@ public class WaterMarkCommandTest {
             OpenCommandParser parser2 = new OpenCommandParser();
             parser2.parse("iu.jpg").execute(currentEdit, model, commandHistory);
         } catch (Exception e) {
-            System.out.println(e.toString());
+            e.printStackTrace();
         }
     }
     // This tests for when WaterMark Command is a new command and image has no watermark
@@ -53,7 +53,7 @@ public class WaterMarkCommandTest {
             String expectedMessage = Messages.MESSAGE_WATERMARK_SUCCESS;
             assertCommandSuccess(command, model, commandHistory, expectedMessage, currentEdit);
         } catch (Exception e) {
-            System.out.println(e.toString());
+            e.printStackTrace();
         }
     }
     // This tests for when WaterMark Command is a new command and image has a watermark.
@@ -68,7 +68,7 @@ public class WaterMarkCommandTest {
             String expectedMessage = Messages.MESSAGE_HAS_WATERMARK;
             assertCommandFailure(command, model, commandHistory, expectedMessage, currentEdit);
         } catch (Exception e) {
-            System.out.println(e.toString());
+            e.printStackTrace();
         }
     }
     // This tests for when WaterMark Command is undone on an image.
@@ -89,7 +89,7 @@ public class WaterMarkCommandTest {
             String expectedMessage = Messages.MESSAGE_WATERMARK_SUCCESS;
             assertCommandSuccess(command, model, commandHistory, expectedMessage, currentEdit);
         } catch (Exception e) {
-            System.out.println(e.toString());
+            e.printStackTrace();
         }
     }
 
@@ -112,7 +112,7 @@ public class WaterMarkCommandTest {
             String expectedMessage = Messages.MESSAGE_HAS_WATERMARK;
             assertCommandFailure(command, model, commandHistory, expectedMessage, currentEdit);
         } catch (Exception e) {
-            System.out.println(e.toString());
+            e.printStackTrace();
         }
     }
     // This tests for when a preset is set and applies on an image without a watermark (success)
@@ -128,7 +128,7 @@ public class WaterMarkCommandTest {
             String expectedMessage = Messages.MESSAGE_WATERMARK_SUCCESS;
             assertCommandSuccess(command, model, commandHistory, expectedMessage, currentEdit);
         } catch (Exception e) {
-            System.out.println(e.toString());
+            e.printStackTrace();
         }
     }
     // This tests for when a preset is set and applies on an image with a watermark (failure)
@@ -142,7 +142,7 @@ public class WaterMarkCommandTest {
             String expectedMessage = Messages.MESSAGE_HAS_WATERMARK;
             assertCommandFailure(command, model, commandHistory, expectedMessage, currentEdit);
         } catch (Exception e) {
-            System.out.println(e.toString());
+            e.printStackTrace();
         }
     }
     @After

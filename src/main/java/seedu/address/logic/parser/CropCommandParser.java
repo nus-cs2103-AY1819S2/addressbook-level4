@@ -32,7 +32,6 @@ public class CropCommandParser implements Parser<CropCommand> {
                 throw new ParseException(String.format(Messages.MESSAGE_CROP_INT_ERROR,
                         CropCommand.MESSAGE_USAGE));
             }
-            System.out.println(xValue + " " + yValue + " " + width + " " + height);
             return new CropCommand(xValue, yValue, width, height);
         } catch (NumberFormatException e) {
             throw new ParseException(String.format(Messages.MESSAGE_CROP_INT_ERROR, CropCommand.MESSAGE_USAGE));

@@ -41,7 +41,7 @@ public class CropCommandTest {
             OpenCommandParser parser2 = new OpenCommandParser();
             parser2.parse("iu.jpg").execute(currentEdit, model, commandHistory);
         } catch (Exception e) {
-            System.out.println(e.toString());
+            e.printStackTrace();
         }
     }
     @Test
@@ -52,7 +52,7 @@ public class CropCommandTest {
             String expectedMessage = Messages.MESSAGE_CROP_SUCCESS;
             assertCommandSuccess(command, model, commandHistory, expectedMessage, currentEdit);
         } catch (Exception e) {
-            System.out.println(e.toString());
+            e.printStackTrace();
         }
     }
     @Test
@@ -81,7 +81,7 @@ public class CropCommandTest {
             assertCommandFailure(command2, model, commandHistory, expectedMessage, currentEdit);
             assertCommandFailure(command3, model, commandHistory, expectedMessage, currentEdit);
         } catch (Exception e) {
-            System.out.println(e.toString());
+            e.printStackTrace();
         }
     }
     @After

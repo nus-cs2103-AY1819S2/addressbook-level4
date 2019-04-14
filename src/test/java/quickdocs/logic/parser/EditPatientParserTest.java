@@ -24,69 +24,48 @@ public class EditPatientParserTest {
 
     private EditPatientParser parser;
 
+    private Name name = new Name("Peter Tan");
+    private Nric nric = new Nric("S9123456A");
+    private Email email = new Email("ptan@gmail.com");
+    private Address address = new Address("1 Simei Road");
+    private Contact contact = new Contact("91111111");
+    private Gender gender = new Gender("M");
+    private Dob dob = new Dob("1999-09-09");
+    private Tag tag = new Tag("Diabetes");
+    private ArrayList<Tag> tagList = new ArrayList<Tag>();
+
     @Before
     public void init() {
         parser = new EditPatientParser();
+        tagList.add(tag);
     }
 
     @Test
-    public void invalidEdit() {
-
-        Name name = new Name("Peter Tan");
-        Nric nric = new Nric("S9123456A");
-        Email email = new Email("ptan@gmail.com");
-        Address address = new Address("1 Simei Road");
-        Contact contact = new Contact("91111111");
-        Gender gender = new Gender("M");
-        Dob dob = new Dob("1999-09-09");
-        Tag tag = new Tag("Diabetes");
-        ArrayList<Tag> tagList = new ArrayList<Tag>();
-        tagList.add(tag);
+    public void parseEditPatient_noPreamble_throwParseException() {
 
         // no original nric defined
-        String userInput = " n/" + name.getName() + " "
-                + "r/" + nric.getNric() + " "
-                + "e/" + email.getEmail() + " "
-                + "t/" + tag.tagName;
-        Assert.assertThrows(ParseException.class, ()-> parser.parse(userInput));
-
-        // original nric wrong format
-        String userInput2 = " S111 n/" + name.getName() + " "
-                + "r/" + nric.getNric() + " "
-                + "e/" + email.getEmail() + " "
-                + "t/" + tag.tagName;
-        Assert.assertThrows(IllegalArgumentException.class, ()-> parser.parse(userInput2));
-
-        // no fields entered for editing
-        String userInput3 = " S9234123C";
-        Assert.assertThrows(ParseException.class, ()-> parser.parse(userInput3));
-
+        String userInput = createTestInput(name, nric, email, tag);
+        Assert.assertThrows(ParseException.class, () -> parser.parse(userInput));
     }
 
     @Test
-    public void successfulEdit() {
+    public void parseEditPatient_premableInvalid_throwIllegalArgumentException() {
+        String userInput = " S111" + createTestInput(name, nric, email, address, contact, gender, dob);
+        Assert.assertThrows(IllegalArgumentException.class, () -> parser.parse(userInput));
+    }
 
-        Name name = new Name("Peter Tan");
-        Nric originalNric = new Nric("S9123456A");
-        Nric nric = new Nric("S9123456B");
-        Email email = new Email("ptan@gmail.com");
-        Address address = new Address("1 Simei Road");
-        Contact contact = new Contact("91111111");
-        Gender gender = new Gender("M");
-        Dob dob = new Dob("1999-09-09");
-        Tag tag = new Tag("Diabetes");
-        ArrayList<Tag> tagList = new ArrayList<Tag>();
-        tagList.add(tag);
+    @Test
+    public void parseEditPatient_nothingToEdit_throwParseException() {
+        // no fields entered for editing
+        String userInput3 = " S9234123C";
+        Assert.assertThrows(ParseException.class, () -> parser.parse(userInput3));
+    }
 
-        String userInput = originalNric.getNric()
-                + " n/" + name.getName() + " "
-                + "r/" + nric.getNric() + " "
-                + "e/" + email.getEmail() + " "
-                + "a/" + address.getAddress() + " "
-                + "c/" + contact.getContact() + " "
-                + "g/" + gender.getGender() + " "
-                + "d/" + dob.getDob() + " "
-                + "t/" + tag.tagName;
+    @Test
+    public void parseEditPatient_validEdit_success() {
+
+        Nric editedNric = new Nric("S9123456B");
+        String userInput = nric + createTestInput(name, editedNric, email, address, contact, gender, dob);
 
         PatientEditedFields peft = new PatientEditedFields();
         peft.setName(new Name("Peter Tan"));
@@ -98,8 +77,63 @@ public class EditPatientParserTest {
         peft.setDob(new Dob("1999-09-09"));
         peft.setTagList(tagList);
 
-        assertParseSuccess(parser, userInput, new EditPatientCommand(originalNric, peft));
-
+        assertParseSuccess(parser, userInput, new EditPatientCommand(nric, peft));
     }
+
+    /**
+     * To produce the userInput for parsing testing
+     *
+     * @param params one or more parameters to be added to parsed
+     * @return the string input to be supplied
+     */
+    public String createTestInput(Object... params) {
+        String userInput = " ";
+
+        for (Object param : params) {
+
+            if (param instanceof Name) {
+                userInput += "n/" + ((Name) param).getName() + " ";
+                continue;
+            }
+
+            if (param instanceof Nric) {
+                userInput += "r/" + ((Nric) param).getNric() + " ";
+                continue;
+            }
+
+            if (param instanceof Email) {
+                userInput += "e/" + ((Email) param).getEmail() + " ";
+                continue;
+            }
+
+            if (param instanceof Address) {
+                userInput += "a/" + ((Address) param).getAddress() + " ";
+                continue;
+            }
+
+            if (param instanceof Contact) {
+                userInput += "c/" + ((Contact) param).getContact() + " ";
+                continue;
+            }
+
+            if (param instanceof Gender) {
+                userInput += "g/" + ((Gender) param).getGender() + " ";
+                continue;
+            }
+
+            if (param instanceof Dob) {
+                userInput += "d/" + ((Dob) param).getDob() + " ";
+                continue;
+            }
+
+            if (param instanceof Tag) {
+                userInput += "t/" + ((Tag) param).tagName + " ";
+                continue;
+            }
+
+        }
+        return userInput;
+    }
+
 
 }

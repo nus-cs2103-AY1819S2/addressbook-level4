@@ -407,7 +407,7 @@ an instant value representing the deadline of testing this card again.
 ** User data will be updated based on their performance in quiz session. Generally speaking, if the user answer correctly, the `srsDueDate` of the current card will be carry-forwarded.
 
 .Explanation diagram for Leitner-System
-image::Leitner-system.png[width="600"]
+image::Leitner-system.png[width="400"]
 
 ==== SrsCardManager
 The `SrsCardManager` generates needed list of `QuizCard` when user wants to start a quiz. This class includes four methods for four different modes correspondingly as shown below.
@@ -418,7 +418,7 @@ The `SrsCardManager` generates needed list of `QuizCard` when user wants to star
 * Review mode: `sort()`
 
 .Activity diagram for session generation.
-image::SrsCardManagerGenerateActivityDiagram.png[width="700"]
+image::SrsCardManagerGenerateActivityDiagram.png[width="600"]
 
 [NOTE]
 ====

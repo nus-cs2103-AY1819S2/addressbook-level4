@@ -27,7 +27,6 @@ import seedu.address.logic.commands.SearchAdvancedPatientCommand;
 import seedu.address.logic.commands.SearchPatientApptStatusCommand;
 import seedu.address.logic.commands.SearchPatientCommand;
 import seedu.address.logic.commands.SearchPatientPidCommand;
-import seedu.address.logic.commands.SearchPatientTagCommand;
 import seedu.address.logic.commands.SearchPrescriptionCommand;
 import seedu.address.logic.commands.SelectDoctorCommand;
 import seedu.address.logic.commands.SelectPatientCommand;

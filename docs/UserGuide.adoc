@@ -364,7 +364,7 @@ directory.
 
 Format: `export FOLDER_INDEX FILENAME [MORE_INDEXES]`
 
-[IMPORTANT]
+[NOTE]
 The export command creates the new csv file in your project root directory.
 i.e The directory where your .jar file is located. +
 The `import command` imports csv files located in the same directory as well.

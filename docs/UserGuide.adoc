@@ -531,7 +531,7 @@ displayed in an active test session.
 * Answer matching is case insensitive.
 * Answering a flashcard will increase the total number of attempts. If your answer is correct, this action will also
 increase the number of correct attempts.
-* To answer **MCQ cards**, enter the number of option that you think is correct, rather than the option itself. +
+* To answer **MCQ cards**, enter the number of the option that you think is correct, rather than the option itself. +
 E.g. `ans 1` rather than `ans myanswer`
 ====
 

@@ -767,8 +767,8 @@ card is needed, can simply reference it using `currentTestedCardFolder.getIndex(
 possible violation of the Law of Demeter where an object should only interact with objects that are closely related to it.
 
 *Evaluation*:
-We went with alternative 1 since not a large amount of memory is taken up with just 1 extra card stored. As there will
-be a number of references to the `currentTestedCard`, it will be better to store them somewhere. Abiding by the Law
+We went with Alternative 1 since not a large amount of memory is taken up with just 1 extra card stored. As there will
+be several references to the `currentTestedCard`, it will be better to store them somewhere. Abiding by the Law
 of Demeter, `currentTestedCard` object will not be interacting with `currentTestedCardFolder`,  limiting its
 knowledge of that object which is encouraged according to the Principle of Least Knowledge.
 
@@ -787,7 +787,7 @@ the cards in it.
 
 [discrete]
 ====== UI
-To update the change in the `UI` to reflect that the user is a test session (app goes to full screen with question of
+To update the change in the UI to reflect that the user is a test session (app goes to full screen with question of
 the current card presented), the following methods are introduced.
 
 * `MainWindow#handleStartTestSession(Card card)` - creates a new `TestSession` page with the card specified and bring
@@ -813,7 +813,7 @@ Model component, with `Model#getState()` to check that user is inside a folder a
 (This is omitted from <<testcommandsequencediagram>> for simplicity.)
 
 [NOTE]
-If the user is not inside a folder, this `test` command would be rendered invalid. Step 4 would not proceed and an
+If the user is not inside a folder, this test command would be rendered invalid. Step 4 would not proceed and an
 error message is displayed.
 
 **Step 4**. After checking user is in a folder, `ModelManager#startTestSession()` method is invoked, which
@@ -832,8 +832,8 @@ card in the folder as `currentTestedCardIndex` is set to 0.
 4. `state` in `Model` is set to `IN_TEST` to specify that user is in a test session from now onwards.
 5. No change to `cardAlreadyAnswered` as it is by default false.
 
-**Step 5**. For `TestCommand` to obtain the first card to present in the test session, `ModelManager#getCurrentTestedCard` is
-invoked and the `Card`, `c`, is returned.
+**Step 5**. For `TestCommand` to obtain the first card to present in the test session,
+`ModelManager#getCurrentTestedCard()` is invoked and the `Card`, `c`, is returned.
 
 **Step 6**. With control now transferred back to the logic unit, `TestCommand` creates a `CommandResult` object, `r` with the type `START_TEST_SESSION`, and
 set `testSessionCard` in `CommandResult` to `c` obtained in Step 5.
@@ -847,7 +847,7 @@ set `testSessionCard` in `CommandResult` to `c` obtained in Step 5.
 user.
 
 [[testcommandsequencediagram]]
-.Component interactions for a `test` command
+.Component interactions for a test command
 image::TestCommandSequenceDiagram.png[width="800"]
 
 
@@ -896,7 +896,8 @@ then have to implicitly enter the folder to get access to the cards in it in ord
 Similar issue will arise for the end test session command where user will need to implicitly exit the folder.
 
 *Evaluation*:
-Overall, alternative 1 is a better choice following the Single Level of Abstraction Principle(SLAP) where a function should not mix different levels of abstractions. We can then better achieve higher cohesion and lower coupling.
+Overall, Alternative 1 is a better choice following the Single Level of Abstraction Principle(SLAP) where a function
+should not mix different levels of abstractions. We can then better achieve higher cohesion and lower coupling.
 Also, user being able to see the questions before the test session is not a big issue since the answer will not be shown unless user selects the card.
 
 
@@ -1065,7 +1066,7 @@ image::NextCommandSequenceDiagram.png[width="800"]
 ** Cons: User may not understand. It is not user-friendly as user has to keep track of which card it is at to prevent the exception thrown.
 
 *Evaluation*:
-With our target audience in mind, alternative 1 is the more user friendly and intuitive way to handle this scenario.
+With our target audience in mind, Alternative 1 is the more user friendly and intuitive way to handle this scenario.
 //end::testsession[]
 
 

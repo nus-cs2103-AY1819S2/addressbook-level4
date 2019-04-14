@@ -300,7 +300,7 @@ What each number displays: +
 
 
 // tag::Displayreq[]
-=== Display Course Requirements: `displayreq`
+=== Display course requirements: `displayreq`
 One of the core functions of GradTrak is to check whether the user has fulfilled his/her degree requirement.
 As of `v1.3` of the application, GradTrak currently only has course information of 3 Computer Science major Focus Areas, namely:
 
@@ -402,7 +402,7 @@ Format: `history`
 Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
 ====
 
-=== Listing all modules in GradTrak: `list`
+=== List all modules: `list`
 
 Shows a list of all modules in the module plan. +
 Format: `list`

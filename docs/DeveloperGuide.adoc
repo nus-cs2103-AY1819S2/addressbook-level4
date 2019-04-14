@@ -158,7 +158,7 @@ The sections below give more details of each component.
 image::UiClassDiagram.png[width="800"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
-//TODO: update UI class diagram
+
 The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
@@ -186,8 +186,8 @@ link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
 
-.Interactions Inside the Logic Component for the `delete 1` Command
-image::DeletePersonSdForLogic.png[width="800"]
+.Interactions inside the Logic Component for the `delete 1` Command
+image::DeleteModuleTakenSdForLogic.png[width="800"]
 
 [[Design-Model]]
 === Model component
@@ -582,9 +582,19 @@ image::RecModuleComparatorSequenceDiagram.png[width="800"]
 ** Pros: User can sort the list according to his own preferences
 ** Cons: Difficult to implement if several parameters for sorting is allowed; input method for the custom order is problematic
 
+===== Aspect: Format of recommendation
+* **Alternative 1 (current choice): Display a list of all eligible modules that contribute to course requirements**
+** Pros: User has a greater freedom of choice
+** Cons: User may be confused or unable to decide if the list is too long
+
+* **Alternative 2: Display `n` modules for each semester, where `n` is decided by the user**
+** Pros: User can plan modules for specific semesters easily and quickly
+** Cons: Algorithm required to plan for all semesters can be complex; user may not prefer the given plan
+
+
 ==== Possible Improvements
 . Allow the user to display a module's information (from `displaymod` command) using its index in the recommendation list
-. Allow the user to add a module to GradTrak using its index in the recommendation list
+. Allow the user to add a module to the module plan using its index in the recommendation list
 // end::rec[]
 
 // tag::semesterlimits[]

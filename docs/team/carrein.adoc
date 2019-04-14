@@ -16,7 +16,7 @@ Unlike other heavy image editors, FomoFoto has a gentle learning curve, removing
 === Summary of contributions
 
 ==== Major Enhancements:
-1. Importing of Images.
+1. Importing of images.
 
 ** *What it does:*
 Allow users to import images into FomoFoto for editing. Imported images are added to an Album in FomoFoto that can be opened for edits such as Image Transformation and Filters.
@@ -39,7 +39,7 @@ FomoFoto has an intuitive, human-centric design. Users are able to see the image
 *** `EXIF Profile Panel` - Displays core details such as Time and Location Taken about the opened image shown on the Image Panel.
 *** `Command History Panel` - Displays all previously applied edits on the opened image shown on the Image Panel.
 
-** *Highlights:* This enhancement is core to the operation of FomoFoto. Since we are dealing with images, it is paramount to show the item that is being worked on. Without it, there is no visual cue on if the edits being carried out is accurate. The implementation is complex as all edit commands needs to update graphical user interface instantly. Careful attention has been paid to ensure images are aligned accurately with a clean colour scheme.
+** *Highlights:* This enhancement is core to the operation of FomoFoto. Since we are dealing with images, it is paramount to show the item that is being worked on. Without it, there is no visual cue if the edits being carried out is accurate. The implementation is complex as all edit commands need to update the Graphical User Interface instantly. Careful attention has been paid to ensure images are aligned accurately with a clean colour scheme.
 
 ==== Minor Enhancements:
 1. Tab Command.
@@ -47,7 +47,7 @@ FomoFoto has an intuitive, human-centric design. Users are able to see the image
 
 2. Inclusion of `sample` image folder.
 ** Added a folder containing a list of valid and invalid images. These images can be used for command and feature testing.
-** Examples:
+** Example of sample images:
 *** `validJPGTest.jpg`
 *** `invalidPDFTest.pdf`
 

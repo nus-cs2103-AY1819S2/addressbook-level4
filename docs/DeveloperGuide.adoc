@@ -757,7 +757,7 @@ any deadlines assigned to it, its name, and directory.
 The `Select` feature has to following syntax:
 Format: `select INDEX`
 
-The inner workings of `SelectCommand` can be explained in the following steps.
+The inner workings of `SelectCommand` can be explained in the following steps should you need to modify it.
 
 * The `LogicManager` component invokes a `PdfBookParser` to parse the input command.
 ** An input command such as `select 1`.
@@ -778,14 +778,39 @@ The inner workings of `SelectCommand` can be explained in the following steps.
 // tag::sort[]
 === Sort feature
 ==== Current Implementation
-The sort feature is facilitated by `SortCommand`. `Enter functionality here`
+The sort feature is facilitated by `SortCommand` and `SortCommandParser`.
+The sort command allows the user to arrange the list of files tracked by the application in a specified order & criteria.
+The order can be ascending (`up`) or descending (`down`) while the criteria can be `name`, `deadline` or `size`.
 
-The `Sort` feature has to following syntax: `sort`
+The `Sort` feature has to following syntax:
+Format: `sort CRITERIA ORDER`
+Example:
 
-* Enter here
+* `sort deadline up`
+* `sort name down`
+
+Listed below is a brief explanation of the inner workings of the sort feature.
+* The `LogicManager` component invokes a `PdfBookParser` to parse the input command.
+** An input command such as `select 1`.
+* The `PdfBookParser` then decodes the instruction by identifying the keyword, which is
+`select` and creates a new `SordCommandParser` to parse the necessary parameters.
+* The `SordCommandParser` then parses both parameters and creates a `SordCommand` object that is
+returned to the `LogicManager` to execute.
+** The parameters are the `CRITERIA` and `ORDER` specified by the user.
+* The `LogicManager` supplies the `SortCommand` with the existing application `model` and
+`command history` and executes it.
+* The execution of the `SortCommand` contain the following steps:
+** The list of existing files are obtained from the `Model` component
+** This list is sorted with the given `CRITERIA` and `ORDER`.
+** The sorted list is set as the new default list of the `Model` component.
+* This change causes the invocation of the `UI` component to display the new list of files to the user.
+* Finally, upon succesful execution, a `CommandResult` is returned to the `LogicManager` for other operations.
+** If any errors occur mid-execution, a `CommandException` is thrown. These errors may occur due to:
+*** Inavlid parameter inputs such as invalid `CRITERIA` or `ORDER`.
 
 [NOTE]
-Enter note here
+All other operations carried out after `sort` that require an `INDEX` to be supplied must follow the newly
+set indexes of the files tracked by the application.
 
 // end::sort[]
 

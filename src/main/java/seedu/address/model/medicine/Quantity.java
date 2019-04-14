@@ -11,8 +11,8 @@ public class Quantity implements Comparable<Quantity> {
 
     public static final int MAX_QUANTITY = 1000000000;
     public static final int MIN_QUANTITY = 0;
-    public static final String MESSAGE_CONSTRAINTS = "Quantity should only contain positive numbers. Max Quantity "
-            + MAX_QUANTITY;
+    public static final String MESSAGE_CONSTRAINTS = "Quantity should only contain positive whole numbers. "
+            + "Max Quantity is " + MAX_QUANTITY;
     public static final String VALIDATION_REGEX = "\\d+";
     private final int value;
 

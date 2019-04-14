@@ -13,6 +13,7 @@ import seedu.address.commons.core.InformationPanelSettings.SortProperty;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.FileName;
 import seedu.address.commons.util.StringUtil;
+import seedu.address.commons.util.warning.WarningPanelPredicateType;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.medicine.BatchNumber;
 import seedu.address.model.medicine.Company;
@@ -159,13 +160,13 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code threshold} is invalid.
      */
-    public static Threshold parseThreshold(String threshold) throws ParseException {
+    public static Threshold parseThreshold(String threshold, WarningPanelPredicateType type) throws ParseException {
         requireNonNull(threshold);
         String trimmedThreshold = threshold.trim();
-        if (!Threshold.isValidThreshold(trimmedThreshold)) {
+        if (!Threshold.isValidThreshold(trimmedThreshold, type)) {
             throw new ParseException(Threshold.MESSAGE_CONSTRAINTS);
         }
-        return new Threshold(trimmedThreshold);
+        return new Threshold(trimmedThreshold, type);
     }
 
     /**
@@ -192,18 +193,20 @@ public class ParserUtil {
     public static SortProperty parseSortProperty(String sortProperty) throws ParseException {
         requireNonNull(sortProperty);
         String trimmedProperty = sortProperty.trim();
-        if (!SortProperty.isValidSortProperty(sortProperty)) {
+        if (!SortProperty.isValidSortProperty(trimmedProperty)) {
             throw new ParseException(SortProperty.MESSAGE_CONSTRAINTS);
         }
 
-        sortProperty = trimmedProperty.toUpperCase();
-        if (sortProperty.equals("BATCHNUMBER")) {
+        if (trimmedProperty.equalsIgnoreCase(SortProperty.BATCHNUMBER.toString())) {
             return SortProperty.BATCHNUMBER;
-        } else if (sortProperty.equals("QUANTITY")) {
+        }
+        if (trimmedProperty.equalsIgnoreCase(SortProperty.QUANTITY.toString())) {
             return SortProperty.QUANTITY;
-        } else {
+        }
+        if (trimmedProperty.equalsIgnoreCase(SortProperty.EXPIRY.toString())) {
             return SortProperty.EXPIRY;
         }
+        throw new ParseException("Unknown sort property");
     }
 
     /**
@@ -215,15 +218,16 @@ public class ParserUtil {
     public static SortDirection parseSortDirection(String sortDirection) throws ParseException {
         requireNonNull(sortDirection);
         String trimmedDirection = sortDirection.trim();
-        if (!SortDirection.isValidSortDirection(sortDirection)) {
+        if (!SortDirection.isValidSortDirection(trimmedDirection)) {
             throw new ParseException(SortDirection.MESSAGE_CONSTRAINTS);
         }
 
-        sortDirection = trimmedDirection.toUpperCase();
-        if (sortDirection.equals("ASCENDING")) {
+        if (trimmedDirection.equalsIgnoreCase(SortDirection.ASCENDING.toString())) {
             return SortDirection.ASCENDING;
-        } else {
+        }
+        if (trimmedDirection.equalsIgnoreCase(SortDirection.DESCENDING.toString())) {
             return SortDirection.DESCENDING;
         }
+        throw new ParseException("Unknown sort direction");
     }
 }

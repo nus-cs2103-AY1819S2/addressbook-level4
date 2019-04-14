@@ -18,7 +18,6 @@ public class InformationPanel extends UiPart<Region> {
     private static final String FXML = "InformationPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(getClass());
 
-    private BatchTable batchTable;
     private InformationPanelSettings informationPanelSettings;
 
     @FXML
@@ -57,7 +56,6 @@ public class InformationPanel extends UiPart<Region> {
 
         logger.fine("Information panel emptied");
         informationPanel.getChildren().clear();
-        batchTable = null;
     }
 
     /**
@@ -69,11 +67,6 @@ public class InformationPanel extends UiPart<Region> {
         }
 
         logger.fine("Information panel displaying details of " + medicine);
-        batchTable = new BatchTable(medicine, informationPanelSettings);
-        informationPanel.getChildren().add(batchTable.getRoot());
-    }
-
-    public BatchTable getBatchTable() {
-        return batchTable;
+        informationPanel.getChildren().add(new BatchTable(medicine, informationPanelSettings).getRoot());
     }
 }

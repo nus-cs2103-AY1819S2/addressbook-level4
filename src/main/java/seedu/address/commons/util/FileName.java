@@ -30,7 +30,7 @@ public class FileName {
     public static final String MESSAGE_CONSTRAINTS =
             "File Name (without including file extension) must start with an alphabet or number followed by "
                     + "alphabets, numbers, underscore or hyphen. It must not be a reserved word. "
-                    + "You can refer to the User Guide for more details.";
+                    + "You can type the help command to view the User Guide for more details.";
 
     /*
      * The characters of the file name must not contain any whitespace

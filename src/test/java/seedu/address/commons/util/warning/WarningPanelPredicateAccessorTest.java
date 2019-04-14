@@ -60,22 +60,23 @@ public class WarningPanelPredicateAccessorTest {
     @Test
     public void setDefaultPredicates_returnsFalse() {
         WarningPanelPredicateAccessor accessor = new WarningPanelPredicateAccessor();
-        Threshold otherThreshold = new Threshold("0");
+        Threshold otherExpiryThreshold = new Threshold("0", WarningPanelPredicateType.EXPIRY);
+        Threshold otherLowStockThreshold = new Threshold("0", WarningPanelPredicateType.LOW_STOCK);
 
         BatchExpiryThresholdPredicate batchExpiryPredicate;
         MedicineExpiryThresholdPredicate medicineExpiryPredicate;
         MedicineLowStockThresholdPredicate medicineLowStockPredicate;
 
         // different BatchExpiryPredicate -> returns false
-        batchExpiryPredicate = new BatchExpiryThresholdPredicate(otherThreshold);
+        batchExpiryPredicate = new BatchExpiryThresholdPredicate(otherExpiryThreshold);
         assertFalse(accessor.getBatchExpiryPredicate().equals(batchExpiryPredicate));
 
         // different MedicineExpiryPredicate -> returns false
-        medicineExpiryPredicate = new MedicineExpiryThresholdPredicate(otherThreshold);
+        medicineExpiryPredicate = new MedicineExpiryThresholdPredicate(otherExpiryThreshold);
         assertFalse(accessor.getMedicineExpiryPredicate().equals(medicineExpiryPredicate));
 
         // different MedicineLowStockPredicate -> returns false
-        medicineLowStockPredicate = new MedicineLowStockThresholdPredicate(otherThreshold);
+        medicineLowStockPredicate = new MedicineLowStockThresholdPredicate(otherLowStockThreshold);
         assertFalse(accessor.getMedicineLowStockPredicate().equals(medicineLowStockPredicate));
     }
 
@@ -84,7 +85,7 @@ public class WarningPanelPredicateAccessorTest {
         WarningPanelPredicateAccessor accessor = new WarningPanelPredicateAccessor();
 
         Threshold defaultThreshold = Model.DEFAULT_EXPIRY_THRESHOLD;
-        Threshold otherThreshold = new Threshold("0");
+        Threshold otherThreshold = new Threshold("0", WarningPanelPredicateType.EXPIRY);
 
         BatchExpiryThresholdPredicate defaultPredicate = new BatchExpiryThresholdPredicate(defaultThreshold);
         BatchExpiryThresholdPredicate otherPredicate = new BatchExpiryThresholdPredicate(otherThreshold);
@@ -110,7 +111,7 @@ public class WarningPanelPredicateAccessorTest {
         WarningPanelPredicateAccessor accessor = new WarningPanelPredicateAccessor();
 
         Threshold defaultThreshold = Model.DEFAULT_EXPIRY_THRESHOLD;
-        Threshold otherThreshold = new Threshold("0");
+        Threshold otherThreshold = new Threshold("0", WarningPanelPredicateType.EXPIRY);
 
         MedicineExpiryThresholdPredicate defaultPredicate = new MedicineExpiryThresholdPredicate(defaultThreshold);
         MedicineExpiryThresholdPredicate otherPredicate = new MedicineExpiryThresholdPredicate(otherThreshold);
@@ -136,7 +137,7 @@ public class WarningPanelPredicateAccessorTest {
         WarningPanelPredicateAccessor accessor = new WarningPanelPredicateAccessor();
 
         Threshold defaultThreshold = Model.DEFAULT_LOW_STOCK_THRESHOLD;
-        Threshold otherThreshold = new Threshold("0");
+        Threshold otherThreshold = new Threshold("0", WarningPanelPredicateType.LOW_STOCK);
 
         MedicineLowStockThresholdPredicate defaultPredicate = new MedicineLowStockThresholdPredicate(defaultThreshold);
         MedicineLowStockThresholdPredicate otherPredicate = new MedicineLowStockThresholdPredicate(otherThreshold);

@@ -30,12 +30,15 @@ public class NameTest {
         assertFalse(Name.isValidName(" ")); // spaces only
         assertFalse(Name.isValidName("^")); // only non-alphanumeric characters
         assertFalse(Name.isValidName("Paracetamol*")); // contains illegal non-alphanumeric characters
+        assertFalse(Name.isValidName("-Ibuprofen")); // start with a valid symbol
+        assertFalse(Name.isValidName("Long Medicine Nameeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee")); // long names
+
 
         // valid name
         assertTrue(Name.isValidName("Paracetamol")); // alphabets only
         assertTrue(Name.isValidName("12345")); // numbers only
         assertTrue(Name.isValidName("Benzoyl Peroxide 5%")); // alphanumeric characters and with '%'
         assertTrue(Name.isValidName("Co-codamol")); // With '-'
-        assertTrue(Name.isValidName("Acetaminophen and Hydrocodone")); // long names
+        assertTrue(Name.isValidName("Aspirin (5mg)")); // With '(' and ')'
     }
 }

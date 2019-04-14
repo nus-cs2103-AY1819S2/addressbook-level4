@@ -14,6 +14,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyInventory;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.medicine.Medicine;
 import seedu.address.storage.JsonInventoryStorage;
 import seedu.address.storage.UserPrefsStorage;
 import seedu.address.testutil.TestUtil;
@@ -95,6 +96,16 @@ public class TestApp extends MainApp {
         Model copy = new ModelManager((model.getInventory()), new UserPrefs());
         ModelHelper.setFilteredList(copy, model.getFilteredMedicineList());
         return copy;
+    }
+
+    /**
+     * Returns a defensive copy of the selectedMedicine.
+     */
+    public Medicine getSelectedMedicine() {
+        Medicine selectedMedicine = model.getSelectedMedicine();
+        return new Medicine(selectedMedicine.getName(), selectedMedicine.getCompany(),
+                selectedMedicine.getTotalQuantity(), selectedMedicine.getNextExpiry(), selectedMedicine.getTags(),
+                selectedMedicine.getBatches());
     }
 
     @Override

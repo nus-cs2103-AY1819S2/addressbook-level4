@@ -8,8 +8,9 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  * Guarantees: immutable; is valid as declared in {@link #isValidCompany(String)}
  */
 public class Company implements Comparable<Company> {
-
-    public static final String MESSAGE_CONSTRAINTS = "Company names can take any values, and it should not be blank";
+    public static final int MAX_LENGTH_COMPANY = 40;
+    public static final String MESSAGE_CONSTRAINTS = "Company names can take any values, and it should not be blank\n"
+            + "Max length: " + MAX_LENGTH_COMPANY + " characters.";
 
     /*
      * The first character of the company name must not be a whitespace,
@@ -34,7 +35,7 @@ public class Company implements Comparable<Company> {
      * Returns true if a given string is a valid company name.
      */
     public static boolean isValidCompany(String test) {
-        return test.matches(VALIDATION_REGEX);
+        return test.matches(VALIDATION_REGEX) && test.length() <= MAX_LENGTH_COMPANY;
     }
 
     @Override

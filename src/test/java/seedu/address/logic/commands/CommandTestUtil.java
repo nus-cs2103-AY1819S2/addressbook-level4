@@ -30,11 +30,12 @@ public class CommandTestUtil {
 
     public static final String VALID_NAME_AMOXICILLIN = "Amoxicillin";
     public static final String VALID_NAME_GABAPENTIN = "Gabapentin";
-    public static final String VALID_NAME_PARACETAMOL = "Paracetamol";
     public static final String VALID_QUANTITY_AMOXICILLIN = "111";
     public static final String VALID_QUANTITY_GABAPENTIN = "0";
+    public static final String VALID_QUANTITY_LISNOPRIL = "100";
     public static final String VALID_EXPIRY_AMOXICILLIN = "27/11/2019";
     public static final String VALID_EXPIRY_GABAPENTIN = "-";
+    public static final String VALID_EXPIRY_LISPINOL = "21/1/2020";
     public static final String VALID_COMPANY_AMOXICILLIN = "Merck & Co. (MSD)";
     public static final String VALID_COMPANY_GABAPENTIN = "Sanofi";
     public static final String VALID_COMPANY_LISNOPRIL = "Takeda Pharmaceutical Co.";
@@ -42,14 +43,16 @@ public class CommandTestUtil {
     public static final String VALID_TAG_FEVER = "fever";
     public static final String VALID_BATCHNUMBER_AMOXICILLIN = "s9c4xs9532";
     public static final String VALID_BATCHNUMBER_GABAPENTIN = "O26M997570";
+    public static final String VALID_BATCHNUMBER_LISNOPRIL = "ABC1234";
 
     public static final String NAME_DESC_AMOXICILLIN = " " + PREFIX_NAME + VALID_NAME_AMOXICILLIN;
     public static final String NAME_DESC_GABAPENTIN = " " + PREFIX_NAME + VALID_NAME_GABAPENTIN;
-    public static final String NAME_DESC_PARACETAMOL = " " + PREFIX_NAME + VALID_NAME_PARACETAMOL;
     public static final String QUANTITY_DESC_AMOXICILLIN = " " + PREFIX_QUANTITY + VALID_QUANTITY_AMOXICILLIN;
     public static final String QUANTITY_DESC_GABAPENTIN = " " + PREFIX_QUANTITY + VALID_QUANTITY_GABAPENTIN;
+    public static final String QUANTITY_DESC_LISNOPRIL = " " + PREFIX_QUANTITY + VALID_QUANTITY_LISNOPRIL;
     public static final String EXPIRY_DESC_AMOXICILLIN = " " + PREFIX_EXPIRY + VALID_EXPIRY_AMOXICILLIN;
     public static final String EXPIRY_DESC_GABAPENTIN = " " + PREFIX_EXPIRY + VALID_EXPIRY_GABAPENTIN;
+    public static final String EXPIRY_DESC_LISNOPRIL = " " + PREFIX_EXPIRY + VALID_EXPIRY_LISPINOL;
     public static final String COMPANY_DESC_AMOXICILLIN = " " + PREFIX_COMPANY + VALID_COMPANY_AMOXICILLIN;
     public static final String COMPANY_DESC_GABAPENTIN = " " + PREFIX_COMPANY + VALID_COMPANY_GABAPENTIN;
     public static final String COMPANY_DESC_LISNOPRIL = " " + PREFIX_COMPANY + VALID_COMPANY_LISNOPRIL;
@@ -57,6 +60,7 @@ public class CommandTestUtil {
     public static final String TAG_DESC_PAINKILER = " " + PREFIX_TAG + VALID_TAG_PAINKILLER;
     public static final String BATCHNUMBER_DESC_AMOXICILLIN = " " + PREFIX_BATCHNUMBER + VALID_BATCHNUMBER_AMOXICILLIN;
     public static final String BATCHNUMBER_DESC_GABAPENTIN = " " + PREFIX_BATCHNUMBER + VALID_BATCHNUMBER_GABAPENTIN;
+    public static final String BATCHNUMBER_DESC_LISNOPRIL = " " + PREFIX_BATCHNUMBER + VALID_BATCHNUMBER_LISNOPRIL;
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "Paraceta&mol"; // '&' not allowed in names
     public static final String INVALID_QUANTITY_DESC = " " + PREFIX_QUANTITY + "911a"; // 'a' not allowed in quantities
@@ -66,7 +70,7 @@ public class CommandTestUtil {
     public static final String INVALID_BATCHNUMBER_DESC = " " + PREFIX_BATCHNUMBER + "!4815%&"; // '!' not allowed
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
-    public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
+    public static final String PREAMBLE_NON_EMPTY = " NonEmptyPreamble";
 
     public static final EditCommand.EditMedicineDescriptor DESC_AMOXICILLIN;
     public static final EditCommand.EditMedicineDescriptor DESC_GABAPENTIN;

@@ -1,5 +1,6 @@
 package seedu.address.model.medicine;
 
+import static seedu.address.commons.util.AppUtil.checkArgument;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Collections;
@@ -20,6 +21,12 @@ import seedu.address.model.tag.Tag;
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Medicine implements Comparable<Medicine> {
+    // Limits
+    public static final int MAX_SIZE_TAG = 10;
+    public static final int MAX_SIZE_BATCH = 100000;
+    public static final String MESSAGE_CONSTRAINTS_TAGS = "Too many tags. Max number of tags: " + MAX_SIZE_TAG;
+    public static final String MESSAGE_CONSTRAINTS_BATCHES = "Too many batches. Max number of batches: "
+            + MAX_SIZE_BATCH;
 
     // Identity fields
     private final Name name;
@@ -36,13 +43,19 @@ public class Medicine implements Comparable<Medicine> {
      */
     public Medicine(Name name, Company company, Quantity quantity, Expiry expiry, Set<Tag> tags,
             Map<BatchNumber, Batch> batches) {
-        requireAllNonNull(name, company, quantity, expiry, tags);
+        requireAllNonNull(name, company, quantity, expiry, tags, batches);
+        checkArgument(isWithinLimits(tags, MAX_SIZE_TAG), MESSAGE_CONSTRAINTS_TAGS);
+        checkArgument(isWithinLimits(batches.keySet(), MAX_SIZE_BATCH), MESSAGE_CONSTRAINTS_BATCHES);
         this.name = name;
         this.company = company;
         this.totalQuantity = quantity;
         this.nextExpiry = expiry;
         this.tags.addAll(tags);
         this.batches.putAll(batches);
+    }
+
+    private boolean isWithinLimits(Set<?> set, int limit) {
+        return set.size() <= limit;
     }
 
     public Name getName() {

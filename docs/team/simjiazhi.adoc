@@ -26,7 +26,7 @@ I am in charge of developing the patient and consultation modules for this proje
 belonging to each patient.
 
 As consultation is a crucial aspect of a clinic's operation, it will be the main feature showcased in this document.
-The consultation process not only aid doctors in actual clinical operations, it is also the most integrated feature i have developed in QuickDocs.
+The consultation process not only expedite an actual clinical operation, it is also the most integrated feature i have developed in QuickDocs.
 
 === Main Features developed
 
@@ -34,8 +34,8 @@ The consultation process not only aid doctors in actual clinical operations, it 
 * *Code Contributed:* [https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#=undefined&search=simjiazhi[Functional code]]
 ** *What it does:* Doctors can record the patient symptoms and prescribe drugs to patients using one-shot commands on a single interface.
 ** *Why is it needed:* Doctors no longer need to navigate through multiple menus to perform these actions. Recording of symptoms and prescribing
-medicine can be done with minimal clicking and keystrokes. This will help to expedite the consultation process, and the doctor can tend to other patients more quickly.
-** *How is it convenient:* The diagnosis and prescription works in tandem with the command history. Doctors can
+medicine can be done with minimal keystrokes. This will help to expedite the consultation process, and the doctor can tend to other patients more quickly.
+** *How is it convenient:* The diagnosis and prescription synergizes with the command history. Doctors can
 simply navigate to the command previously entered, make changes before re-entering the diagnosis or prescription command to rectify errors or make changes.
 ** *Highlights:* The prescription command is integrated with the medicine inventory. If the clinic have insufficient amount of medicine to support the prescriptions, the
 doctor can be alerted and the incomplete prescription can be prevented.
@@ -49,9 +49,6 @@ It uses this mechanism to provide a more efficient way to make changes to the pe
 ** Features include the registration, update, search and deletion of patient particulars in QuickDocs
 * *Adapted the history command from the original sample application for use in QuickDocs*
 ** Allow editing and repeating of commands to be expedited by allowing users to navigate to previously entered command
-* *Added an indicator of ongoing consultation session*
-** Help remind the doctor to record diagnosis and prescribe medicine for the patient.
-
 
 === Other contributions:
 
@@ -61,6 +58,8 @@ are ready before the deadlines.
 * *Project management:*
 ** Managed releases from v1.2.1 to v1.4 (3 releases) for QuickDocs on GitHub
 ** Managed milestone goals and the issue tracker on QuickDocs' GitHub project page
+** Organize weekly meetings with the team to plan our strategies in tackling the weekly deliverables for
+the project
 
 * *Team collaboration:*
 ** Assisted in setting up integration tools for QuickDocs' Github projects such as coveralls and TravisCI
@@ -328,14 +327,24 @@ code volume.
 
 |===
 
-Although the selected option involve more inputs and lengthier commands, it guarantees the flexibility and efficiency
-QuickDocs aim to deliver for doctors in neighbourhood clinics.
+Although the selected option require more input and lengthier commands, it guarantees the flexibility and efficiency QuickDocs
+aim to deliver for doctors in neighbourhood clinics.
 
-Here are some of the factors considered when selecting the implementation:
+Here are some of the considerations taken before the decision was made:
 
-* QuickDocs require one shot commands to allow doctors to perform clinical operations more efficiently. However, it is possible for doctors to make mistakes with the one-shot commands, especially when there are so many parameters involved
-in a single command.
-* There are also interleaving operations that happen between modules, such as viewing past consultation records or
-checking medicine inventory in the midst of the consultation. This is why both flexibility and error recovery is taken into account when selecting the implementation method.
-* Although the selected option require more and lengthier commands to be entered, doctors can perform other operations while the consultation is ongoing (except starting another consultation). It is also convenient for
-the doctor to make changes to his erroneous commands.
+1. Since QuickDocs aim to provide a single interface for doctors to perform clinical operations more efficiently, the consultation
+process will require one shot commands to fulfill the efficiency requirement of the overall product.
+
+2. It is highly possible for doctors to make mistakes with the one-shot commands, especially when there are so many parameters involved
+in a single command. Therefore the implementation must provide a convenient form of error recovery.
+
+3. There could be interleaving operations between the modules, such as viewing past consultation records or
+checking medicine inventory in the midst of the consultation. The implementation must be flexible enough
+to allow cross module commands during a consultation.
+
+Although the selected option require more user input and involve lengthier commands, doctors can circumvent
+these pitfalls very easily.
+
+Using the current implementation, doctors can recover from erroneous commands very quickly by making use of the command history.
+They can also perform cross module operations during a consultation. As such, the selected implementation guarantees the flexibility
+and efficiency QuickDocs aim to deliver for doctors in neighbourhood clinics.

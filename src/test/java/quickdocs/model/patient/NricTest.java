@@ -41,10 +41,10 @@ public class NricTest {
         Assert.assertThrows(IllegalArgumentException.class, () -> new Nric(noFirstAndLastLetter));
 
         String noFirstLetter = "4963872H";
-        Assert.assertThrows(IllegalArgumentException.class, () -> new Nric(noFirstAndLastLetter));
+        Assert.assertThrows(IllegalArgumentException.class, () -> new Nric(noFirstLetter));
 
         String noLastLetter = "S4963872";
-        Assert.assertThrows(IllegalArgumentException.class, () -> new Nric(noFirstAndLastLetter));
+        Assert.assertThrows(IllegalArgumentException.class, () -> new Nric(noLastLetter));
     }
 
     @Test

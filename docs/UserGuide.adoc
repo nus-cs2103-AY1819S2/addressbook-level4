@@ -528,7 +528,7 @@ You can then call `listconsult` again with the consultation record's index to vi
 .Revisiting a specific consultation session
 image::listconsult_index.png[width="600"]
 
-{nbsp} +
+{sp}+
 
 '''
 
@@ -560,24 +560,24 @@ So what is suggestions mode? Why is that useful? The following example will illu
 
 [[suggestion_ug1]]
 .Display of detailed information
-image::suggestion_ug1.png[width='800']
+image::suggestion_ug1.png[width='600']
 
 * Now you want to type this command `listmed root\Internal\General\Flu` , which is a command to see detailed information about that directory, from scratch.
 
 * What you can do is to first type `listmed root\` to trigger the suggestion mode.
 
 .To trigger the suggestion mode
-image::suggestion_ug2.png[width='800']
+image::suggestion_ug2.png[width='600']
 
 * You can then press the page-down key to iterate through all subdirectories under 'root'. The input box will automatically be filled for you.
 
 .After pressing Page Down once
-image::suggestion_ug3.png[width='800']
+image::suggestion_ug3.png[width='600']
 
 * In this example, you can arrive at `listmed root\Internal` in just two Page Down keys.
 
 .After pressing Page Down twice
-image::suggestion_ug4.png[width='800']
+image::suggestion_ug4.png[width='600']
 
 * Doing this recursively at every stage, you can quickly arrive at the desired `listmed root\Internal\General\Flu`.
 
@@ -586,13 +586,15 @@ image::suggestion_ug4.png[width='800']
 * Do not worry! You can press page-up / page-down as well. Page up will bring you to the last valid sub-directory / medicine name as compared to your input according to alphabetic order. Page down will bring you to the next valid input.
 
 .Before pressing Page Up / Page Down
-image::suggestion_ug5.png[width='800']
+image::suggestion_ug5.png[width='600']
 
 .After pressiong Page Up, brings you to the last valid medicine: diphenhydramine
-image::suggestion_ug6.png[width='800']
+image::suggestion_ug6.png[width='600']
 
 .After pressing Page Down, brings you to your desired : guaifenesin
-image::suggestion_ug7.png[width='800']
+image::suggestion_ug7.png[width='600']
+
+{nbsp} +
 
 In short, instead of typing out every characters, you can iterate through your directories fast and easy when typing commands using the page-up and page-down keys!
 
@@ -789,6 +791,8 @@ image::alarm_medicine_after.png[width='600]
 
 `alarm root\high_blood_pressure\aspirin`
 
+{sp} +
+
 *Result:*
 
 As the path points to a directory, the sample command set the alarm level for all medicine under "fever" directory and all its subdirectories to 60. +
@@ -801,7 +805,7 @@ image::alarm_directory_after.png[width='600']
 
 - - -
 
-[[buymed, Buying a medicine]]
+[[buymed, Buy a medicine]]
 ==== Recording purchases of medicine: `buymed`
 
 As a doctor running your own clinic, you will certainly purchase medicine from time to time to keep your medicine storage updated. +
@@ -821,6 +825,8 @@ or{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp} *:* `buymed [PATH_OF_MEDICINE
 *Example:*
 
 `buymed aspirin 20 4.3` +
+
+{sp} +
 
 *Result:*
 
@@ -847,7 +853,7 @@ To make your life easier, QuickDocs automatically records every purchase you mad
 
 - - -
 
-[[setprice, set price for a medicine]]
+[[setprice, Set price for a medicine]]
 ==== Setting Price for a medicine: `setprice`
 
 Through QuickDocs, you have hundred percent freedom to set the price of your medicine via this simple command! +
@@ -867,6 +873,8 @@ or{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp} *:* `setprice [NAME_OF_MEDICI
 *Example:*
 
 `setprice aspirin 10.50`
+
+{sp} +
 
 *Result:*
 
@@ -1270,7 +1278,7 @@ only need to enter this command once, until you decide to change your consultati
 [NOTE]
 The default consultation fee in QuickDocs in S$30.00.
 
-
+{sp}+
 *Format:* `setconsultfee AMOUNT` +
 
 *Alias{nbsp}{nbsp}{nbsp}{nbsp}:* `setfee`
@@ -1324,11 +1332,6 @@ In the image below, the *display* area will return the statistics of the queried
 
 .Result example for command `statistics 012019 042019`
 image::statistics_sample.png[width="600"]
-'''
-
-==== Generate medical certificate: [coming in V2.0]
-
-You are able to generate a customised medical certificate for a specific patient with this command.
 
 '''
 

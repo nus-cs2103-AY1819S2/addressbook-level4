@@ -46,7 +46,7 @@ public class DiagnosePatientCommandTest {
     }
 
     @Test
-    public void noOngoingSession() {
+    public void diagnosePatient_noOngoingSession_throwsCommandException() {
         Assessment assessment = new Assessment("migrane");
         ArrayList<Symptom> symptoms = new ArrayList<>();
         symptoms.add(new Symptom("constant headache"));
@@ -57,7 +57,7 @@ public class DiagnosePatientCommandTest {
     }
 
     @Test
-    public void executeTest() {
+    public void execute() {
         Assessment assessment = new Assessment("migrane");
         ArrayList<Symptom> symptoms = new ArrayList<>();
         symptoms.add(new Symptom("constant headache"));

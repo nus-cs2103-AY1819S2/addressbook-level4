@@ -44,8 +44,6 @@ This is a note. Additional information that further explains a feature will be w
 `filepath`, `command` and `method` are all formatted with a grey background. Example: `help`, `getCurrentConsultation()`
 and `logic\LogicManager`
 
-=== Developer Guide Organization
-
 == Setting up
 
 === Prerequisites
@@ -190,24 +188,33 @@ image::QDUiClassDiagram.png[width="800"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `rootLayoutController` composed of a `Display`, `UserInput`, `InputFeedBack` and `ReminderListPanel` controls. +
+The UI aspect of QuickDocs is controlled by a single `rootLayoutController` that is responsible for handling the user interactions with
+the interface. It is composed of the `resultDisplay`, `userInputField`, `inputFeedbackArea`, `reminderListPanel` and
+the `currentSessionLabel` controls. +
 
+The `UI` component uses JavaFx UI framework. RootLayout is defined in the matching `.fxml` file that is in link:{repoURL}/src/main/resources/view[src/main/resources/view] folder.
+
+.Overview of QuickDoc's user interface
 image::uioverview.png[width="800"]
 
-1. `resultDisplay` will reflect the results of the command entered.
-2. `userInputField` is where the user can enter their commands.
-3. Should the command fail due to erroneous command input, instructions to rectify the command will be displayed on the `InputFeedbackArea`.
+1. `resultDisplay` will reflect the results of the command entered
+2. `userInputField` is where the user can enter their commands
+3. Should the command fail due to erroneous command input, instructions to rectify the command will be displayed on the `inputFeedbackArea`
 4. Appointments and Reminders are displayed on the `ReminderListPanel`. Appointments are coloured blue,
 medicine alarms are coloured red and other reminders are coloured beige.
 5. Current consultation sessions will be indicated on the `currentSessionLabel`.
 
-The `UI` component uses JavaFx UI framework. RootLayout is defined in the matching `.fxml` file that are in link:{repoURL}/src/main/resources/view[src/main/resources/view] folder.
+Since the commands entered by the user is done through the user interface, the `UI` component interacts with  the
+`Logic` specifically for the execution of commands. For details pertaining to the execution of commands, please refer to
+the section on the <<Design-Logic>, logic component>>
 
-The `UI` component,
+The flow of how the interaction between the two components are as follows:
 
-* Executes user commands using the `Logic` component.
-* `Logic` component will return results or issues encountered pertaining to the execution of the command.
-* These information will be reflected on the `Display` and `InputFeedback` respectively.
+1. The user types the command line on the `userInputField` and presses `Enter`
+2. The command line is sent to the `logic` component for execution
+3. Any results or issues encountered during the process of execution will be returned from the `Logic` component to the `UI` component
+4. `UI` will reflect the results or issues faced on the `resultDisplay` and the `inputFeedbackArea` respectively
+
 
 [[Design-Logic]]
 === Logic component
@@ -504,7 +511,6 @@ in the patient list, at the position specified.
 
 Lastly, if `listpat` is called without any search parameters, QuickDocs will simply list the first 50 patients in the patient list.
 
-
 === Consultation management module
 
 The consultation module consists of:
@@ -512,14 +518,16 @@ The consultation module consists of:
 1. *The consultation process*
 2. Listing of past patient consultation records
 
-The *consultation process* is the main feature for both the patient and consultation modules. It leverages on the actions made
-and forming the bulk of the processes in both modules.
-
 The listing of past patient consultation records is similar to the listing of patient records explained earlier, the only difference
 being it can only be filtered down by NRIC and viewed using indexing.
 
-As such we will only look at how the consultation processes is implemented in this document. The mechanisms behind the feature,
-the design and decision making for its implementation will be covered in this section.
+The *consultation process* on the other hand, comprises of four stages: starting, diagnosis, prescribing and ending the consultation session.
+It leverages on the actions done in the patient module and forms the bulk of the processes in the consultation module.
+
+The following section will provide a more in-depth exploration of how the consultation process is implemented. This includes:
+
+* The explanation of the design and mechanism behind the consultation process
+* The decision making process of selecting the current implementation
 
 ==== Current Implementation for the consultation process
 
@@ -553,7 +561,7 @@ Given below is an example usage scenario:
 
 image::dg-consultation/consultation1.png[width="800"]
 
-Step 1. A previously registered patient arrives and the doctor starts the session by
+*Step 1.* A previously registered patient arrives and the doctor starts the session by
 entering the consult command in this manner: `consult r/NRIC of the patient`. A message to indicate
 the start of the consultation will be shown in the results display.
 
@@ -563,7 +571,7 @@ same response
 
 image::dg-consultation/consultation2.png[width="800"]
 
-Step 2. The patient will tell the doctor what are his / her ailments. The doctor will record the symptoms
+*Step 2.* The patient will tell the doctor what are his / her ailments. The doctor will record the symptoms
 down. The doctor will then make the assessment of the illness the patient is having and execute the command by clicking
 on the `Enter` on the keyboard.
 
@@ -572,13 +580,13 @@ on the `Enter` on the keyboard.
 
 image::dg-consultation/consultation3.png[width="800"]
 
-Step 3. Should the patient inform the doctor of additional symptoms after the diagnosis is given, the doctor can simply press
+*Step 3.* Should the patient inform the doctor of additional symptoms after the diagnosis is given, the doctor can simply press
 the up and down key to display the previously entered command on the userInput area. The doctor can then add the new symptom in and
 press `Enter`, replacing the previously recorded diagnosis.
 
 image::dg-consultation/consultation4.png[width="800"]
 
-Step 4. The doctor will then add the medicine to the prescription list, followed by the quantities. Medicine are prepended by the `m/` prefix while
+*Step 4.* The doctor will then add the medicine to the prescription list, followed by the quantities. Medicine are prepended by the `m/` prefix while
 quantities are prefixed by `q/`.The order of the quantity entered corresponds with the order the medicine is added in the command:
 
 * `prescribe m/Dextromethorphan m/ibuprofen q/1 q/2` In this case q/1 represents one unit of Dextromethorphan cough syrup is issued while
@@ -590,9 +598,9 @@ the inputFeedback area. The command will not be executed and remains in the user
 
 image::dg-consultation/consultation5.png[width="800"]
 
-Step 5. Just like the diagnosis command, prescription can be replaced by reentering the command.
+*Step 5.* Just like the diagnosis command, prescription can be replaced by reentering the command.
 
-Step 6. After explaining the medicine intake to the patient, the doctor can then end the consultation session on QuickDocs by using the command
+*Step 6.* After explaining the medicine intake to the patient, the doctor can then end the consultation session on QuickDocs by using the command
 `endconsult`. No further changes to the consultation records can be made from this point on.
 
 The following sequence diagrams summarizes what happens when a user perform the entire consultation process, starting with the session initialisation:
@@ -605,7 +613,7 @@ image::dg-consultation/diagnosisSD.png[width="800"]
 
 prescribing the medicine to tackle the patient's condition:
 
-image::dg-consultation/consultationSD1.png[width="800"]
+image::dg-consultation/prescriptionSD.png[width="800"]
 
 finally, saving the consultation record into QuickDocs:
 
@@ -660,9 +668,9 @@ Doctor get prompted to enter prescription.
 Consultation is ended once prescription is recorded
 | Less likely to enter erroneous data as consultation is now broken down to different stages
 
-| Implementation will not be one-shot
+| The consultation will take a longer time to be completed
 
-Implementation is very inflexible, doctor can only diagnose and prescribe during the session, while other related actions
+Doctor can only diagnose and prescribe during the session, while other related actions
 (such as listing past records) can only be done after the consultation
 
 // row 3
@@ -687,7 +695,7 @@ Room for other commands to be executed while a session is ongoing.
 |
 Potentially more commands will be called when compared to the other options.
 
-diagnosis and prescription commands entered could be verbose and it will be hard to make changes.
+diagnosis and prescription commands entered could be verbose and doctors can make mistakes easily.
 
 | *Fragment diagnosis and prescription commands even more*
 | Same as the third alternative, but there are commands specific to the adding of symptoms in diagnosis, adding of medicine in prescription.
@@ -714,16 +722,23 @@ These are some of the considerations taken before the decision was made:
 1. Since QuickDocs aim to provide a single interface for doctors to perform clinical operations more efficiently, the consultation
 process will require one shot commands to fulfill the efficiency requirement of the overall product.
 
-2. However, it is possible for doctors to make mistakes with the one-shot commands, especially when there are so many parameters involved
-in a single command. We also noticed that there could be interleaving operations between the modules, such as viewing past consultation records or
-checking medicine inventory in the midst of the consultation. This is why both flexibility of cross module commands and error recovery is also
-also taken into account when selecting the implementation method.
+2. It is highly possible for doctors to make mistakes with the one-shot commands, especially when there are so many parameters involved
+in a single command. Therefore the implementation must provide a convenient form of error recovery.
 
-3. Although the selected option require more and lengthier commands to be entered to complete a single session, it does not limit the doctor to just consultation-related
-commands. Doctors are free to perform other operations while the consultation is ongoing (except starting another consultation). It is also convenient for
-the doctor to make changes to his erroneous commands.
+3. There could be interleaving operations between the modules, such as viewing past consultation records or
+checking medicine inventory in the midst of the consultation. The implementation must be flexible enough
+to allow cross module commands during a consultation.
 
-4. Implementing the consultation session in this way will guarantee the flexibility and efficiency that
+Although the selected option require more user input and involve lengthier commands, a doctor with fast typing speed will be able to
+circumvent the issues of slightly more verbose command lines easily.
+
+If the doctor enters an erroneous command or simply want to make changes, the command history can be used in conjunction with the
+one shot commands to make changes quickly.
+
+The selected option also do not restrict doctors to just consultation-related commands. He or she can perform other operations such as checking the inventory
+or view free appointment slots during the consultation itself.
+
+The selected implementation guarantees the flexibility and efficiency that
 QuickDocs aim to deliver for doctors in neighbourhood clinics.
 
 === Appointment management module
@@ -1314,6 +1329,8 @@ The list of unique medicine in `MedicineManager` is empty.
 [[medicineModule_example1]]
 image::medicineModule_example1.png[width='800']
 
+{nbsp} +
+
 Step 2: Via `adddirec root Internal`, a new directory called "Internal" is added under root. +
 
 The list of unique medicine is still empty.
@@ -1321,12 +1338,16 @@ The list of unique medicine is still empty.
 [[medicineModule_example2]]
 image::medicineModule_example2.png[width='800']
 
+{nbsp} +
+
 Step 3: Via a few more `adddirec` commands, the figure below is an illustration of a sample inventory's framework. +
 
 The list of unique medicine is still empty.
 
 [[medicineModule_example3.png]]
 image::medicineModule_example3.png[width='800']
+
+{nbsp} +
 
 Step 4: Now the user can add new medicines into the storage via `addmed root\Internal\General paracetamol p/40 q/50`. +
 
@@ -1338,6 +1359,8 @@ The list of unique medicine is also updated.
 [[listOfMedicine_example1]]
 image::listOfMedicine_example1.png[width='800']
 
+{nbsp} +
+
 Step 5: Via a few more `addmed` commands, some more new medicines are added to the inventory. The following figure shows the result after that
 
 [[medicineModule_example5]]
@@ -1347,6 +1370,8 @@ The list of unique medicine is also updated.
 
 [[listOfMedicine_example2]]
 image::listOfMedicine_example2.png[width='800']
+
+{nbsp} +
 
 Step 6: Now, the user found out that aspirin can also be used to treat high blood pressure and decides to put it under "Cardiology" as well. +
 
@@ -1362,7 +1387,9 @@ However, the list of unique medicine is not changed, as now new medicine is adde
 [[listOfMedicine_example3]]
 image:listOfMedicine_example2.png[width='800']
 
-{nbsp} +
+This six-step example illustrates the basic implementation of how medicines and directories are organized in QuickDocs.
+
+- - -
 
 When typing the directory path in the command box in the ui, QuickDocs supports intelligent suggestions about the next field. +
 
@@ -1389,7 +1416,7 @@ The figure below illustrates how this feature is implemented to make user's life
 .Sequence diagram illustrating the implementation of suggestion mode
 image::suggestion_diagram.png[width='800]
 
-{sp} +
+- - -
 
 QuickDocs also supports setting alarm level for medicines. Every time a medicine's storage falls below the designated level, a reminder is thrown. +
 
@@ -1468,9 +1495,6 @@ During operations on medicines, use name of medicine as a key to select the want
 Since QuickDocs aims to provide the most convenient experience given a large set of medicine in a clinic inventory, the medicine management module needs to provide a model that makes both typing commands, identifying the correct medicine and massive operation possible. +
 
 Combined with the <<medicineModule_example7, suggestion mode>>, the current design is the best way to implement all of the three.
-// tag::dataencryption[]
-
-// end::dataencryption[]
 
 === Logging
 

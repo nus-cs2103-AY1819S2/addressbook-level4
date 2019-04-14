@@ -24,8 +24,11 @@ public class AddPatientCommandTest {
     private ModelManager modelManager = new ModelManager();
     private final CommandHistory history = new CommandHistory();
 
+    private Patient patient1;
+
     @Before
     public void init() {
+        // simulate existing patient
         Name name = new Name("Peter Tan");
         Nric nric = new Nric("S9123456A");
         Email email = new Email("ptan@gmail.com");
@@ -34,12 +37,12 @@ public class AddPatientCommandTest {
         Gender gender = new Gender("M");
         Dob dob = new Dob("1991-01-01");
         ArrayList<Tag> tagList = new ArrayList<Tag>();
-        Patient patient1 = new Patient(name, nric, email, address, contact, gender, dob, tagList);
+        patient1 = new Patient(name, nric, email, address, contact, gender, dob, tagList);
         modelManager.addPatient(patient1);
     }
 
     @Test
-    public void executeValidAddPatient() {
+    public void addPatient_validAddPatient_success() {
         Name name = new Name("Peter Tan");
         Nric nric = new Nric("S9123456B");
         Email email = new Email("ptan@gmail.com");
@@ -65,7 +68,7 @@ public class AddPatientCommandTest {
     }
 
     @Test
-    public void executeDuplicateAddPatient() {
+    public void addPatient_duplicateNric_throwsCommandException() {
         Name name = new Name("Peter Tan");
         Nric nric = new Nric("S9123456A");
         Email email = new Email("ptan@gmail.com");
@@ -78,5 +81,32 @@ public class AddPatientCommandTest {
 
         quickdocs.testutil.Assert.assertThrows(CommandException.class, () ->
                 new AddPatientCommand(patient1).execute(modelManager, history));
+    }
+
+    @Test
+    public void equals() {
+
+        AddPatientCommand apc = new AddPatientCommand(patient1);
+        Assert.assertEquals(apc, apc);
+
+        //non command instance check
+        Assert.assertFalse(apc.equals(1));
+
+        //different object with same field values
+        AddPatientCommand apc2 = new AddPatientCommand(patient1);
+        Assert.assertEquals(apc, apc2);
+
+        //different object, different field values
+        Name name = new Name("Peter Tan");
+        Nric nric = new Nric("S9123456B");
+        Email email = new Email("ptan@gmail.com");
+        Address address = new Address("1 Simei Road");
+        Contact contact = new Contact("91111111");
+        Gender gender = new Gender("M");
+        Dob dob = new Dob("1991-01-01");
+        ArrayList<Tag> tagList = new ArrayList<Tag>();
+        Patient patient2 = new Patient(name, nric, email, address, contact, gender, dob, tagList);
+        AddPatientCommand apc3 = new AddPatientCommand(patient2);
+        Assert.assertFalse(apc.equals(apc3));
     }
 }

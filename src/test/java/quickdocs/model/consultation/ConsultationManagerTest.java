@@ -1,10 +1,12 @@
 package quickdocs.model.consultation;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import org.junit.Before;
 import org.junit.Test;
 
+import quickdocs.model.medicine.Medicine;
 import quickdocs.model.patient.Address;
 import quickdocs.model.patient.Contact;
 import quickdocs.model.patient.Dob;
@@ -92,6 +94,32 @@ public class ConsultationManagerTest {
         consultationManager.abortConsultation();
         org.junit.Assert.assertTrue(consultationManager.getCurrentConsultation() == null);
 
+    }
+
+    @Test
+    public void addConsultation() {
+        Patient patient = patientManager.getPatientByNric(patient1.getNric().toString());
+        //consultationManager.createConsultation(patient);
+
+        Consultation consultation = new Consultation(patient);
+
+
+        ArrayList<Symptom> symptoms = new ArrayList<>(Arrays.asList(new Symptom("Symptom 1")));
+        Assessment assessment1 = new Assessment("Assessment 1");
+        Diagnosis diagnosis1 = new Diagnosis(assessment1, symptoms);
+
+        ArrayList<Prescription> prescriptions = new ArrayList<>(Arrays.asList(
+                new Prescription(new Medicine("med1", 10), 1),
+                new Prescription(new Medicine("med2", 10), 1)
+        ));
+
+        consultation.setDiagnosis(diagnosis1);
+        consultation.setPrescriptions(prescriptions);
+
+        consultationManager.addConsultation(consultation);
+
+        //consultationManager.endConsultation();
+        org.junit.Assert.assertTrue(consultationManager.getConsultationList().size() == 1);
     }
 
 }

@@ -16,10 +16,10 @@ public class SymptomTest {
 
     @Test
     public void invalidSymptoms() {
-        Assert.assertThrows(IllegalArgumentException.class, ()->new Symptom(""));
-        Assert.assertThrows(IllegalArgumentException.class, ()->new Symptom(" "));
-        Assert.assertThrows(IllegalArgumentException.class, ()->new Symptom(",&/*"));
-        Assert.assertThrows(IllegalArgumentException.class, ()->new Symptom("Coughing&"));
+        Assert.assertThrows(IllegalArgumentException.class, () -> new Symptom(""));
+        Assert.assertThrows(IllegalArgumentException.class, () -> new Symptom(" "));
+        Assert.assertThrows(IllegalArgumentException.class, () -> new Symptom(",&/*"));
+        Assert.assertThrows(IllegalArgumentException.class, () -> new Symptom("Coughing&"));
     }
 
     @Test
@@ -32,5 +32,7 @@ public class SymptomTest {
 
         Symptom symptom3 = new Symptom("Runny nose");
         assertFalse(symptom1.equals(symptom3));
+
+        assertFalse(symptom1.equals("1"));
     }
 }

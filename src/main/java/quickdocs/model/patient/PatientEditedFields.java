@@ -120,31 +120,31 @@ public class PatientEditedFields {
      */
     public boolean checkNonNullFields(PatientEditedFields other) {
 
-        if ((name != null && other.getName().isPresent()) && name.equals(other.getName())) {
+        if ((name != null && other.getName().isPresent()) && !name.equals(other.getName().get())) {
             return false;
         }
 
-        if ((nric != null && other.getNric().isPresent()) && nric.equals(other.getNric())) {
+        if ((nric != null && other.getNric().isPresent()) && !nric.equals(other.getNric().get())) {
             return false;
         }
 
-        if ((email != null && other.getEmail().isPresent()) && email.equals(other.getEmail())) {
+        if ((email != null && other.getEmail().isPresent()) && !email.equals(other.getEmail().get())) {
             return false;
         }
 
-        if ((address != null && other.getAddress().isPresent()) && address.equals(other.getAddress())) {
+        if ((address != null && other.getAddress().isPresent()) && !address.equals(other.getAddress().get())) {
             return false;
         }
 
-        if ((contact != null && other.getContact().isPresent()) && contact.equals(other.getContact())) {
+        if ((contact != null && other.getContact().isPresent()) && !contact.equals(other.getContact().get())) {
             return false;
         }
 
-        if ((gender != null && other.getGender().isPresent()) && gender.equals(other.getGender())) {
+        if ((gender != null && other.getGender().isPresent()) && !gender.equals(other.getGender().get())) {
             return false;
         }
 
-        if ((dob != null && other.getDob().isPresent()) && dob.equals(other.getDob())) {
+        if ((dob != null && other.getDob().isPresent()) && !dob.equals(other.getDob().get())) {
             return false;
         }
 

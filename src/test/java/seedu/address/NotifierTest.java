@@ -7,6 +7,7 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 import seedu.address.ui.InitPanel;
+import seedu.address.ui.Notifier;
 
 public class NotifierTest {
     private final InitPanel initPanel = new InitPanel();

@@ -12,7 +12,7 @@ import javax.imageio.ImageIO;
 
 import org.apache.commons.io.FileUtils;
 
-import seedu.address.Notifier;
+import seedu.address.ui.Notifier;
 import seedu.address.model.image.Image;
 
 /**

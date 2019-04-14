@@ -59,25 +59,31 @@ image::startUI.png[]
 .  Refer to <<Features>> for details of each command.
 // end::quickstart[]
 
+// tag::userinterface1[]
+
 == Graphical User Interface Introduction
 [blue]#This section will explain to you the Graphical User Interface (GUI) of _In-Credit-Ble_ Finance Tracker.#
 The theme of the application has been set to `[fuchsia]#Light#`, which is different from the start up theme `[fuchsia]#Dark#`.
 
-.Graphical User Interface (When starting up)
-image::GUI_Diagram.png[width="600"]
-
-// tag::userinterface[]
 .Graphical User Interface (Upon using `summary` command)
 image::GUI_Diagram2.png[width="600"]
 
+// end::userinterface1[]
+
+.Graphical User Interface (When starting up)
+image::GUI_Diagram.png[width="600"]
+
+// tag::userinterface2[]
+
 There are a total of 7 elements in the Graphical User Interface in _In-Credit-Ble_ Finance Tracker
 as denoted by the different coloured boxes above. The elements will be explained below.
-// end::userinterface[]
+
+// end::userinterface2[]
 
 === Menu Bar
 .Menu Bar
 image::Menu_bar.png[width="300"]
-This element is denoted by the pink box in Figures 2 and 3.
+This element is denoted by the [fuchsia]#pink# box.
 
 The menu bar can be used to:
 
@@ -85,12 +91,13 @@ The menu bar can be used to:
 * Open the _Help_ page to view commands available under btn:[Help] tab
 * Change the colour theme of the application under btn:[Theme] tab
 
+// tag::userinterface3[]
 
 === Records List Panel
 .Record List Panel: Shows a list of your expense records
 image::Record_List_Panel.png[width="200"]
 
-This element is denoted by the yellow box in Figures 2 and 3.
+This element is denoted by the [yellow]#yellow# box.
 
 In the Record List Panel, the list of all your expenditures are recorded here.
 This panel is scrollable to view all your expense records.
@@ -102,11 +109,13 @@ use the command `[fuchsia]#list#`.
 Each record is tagged with an *index number* before the record name.
 The index is used in commands such as `[fuchsia]#delete#`, `[fuchsia]#edit#` and `[fuchsia]#select#`.
 
+// end::userinterface3[]
+
 === Budget Panel
 .Budget Panel: Shows your total spending against your total budget so far
 image::BudgetPanel.png[width="250"]
 
-This element is denoted by the green box in Figures 2 and 3.
+This element is denoted by the [green]#green# box.
 
 The budget panel gives you a simple yet effective overview of the total
 expenses spent so far against the budget that you set for yourself.
@@ -126,17 +135,17 @@ image::BudgetPanel_Orange.png[width="250"]
 .Budget progress bar turns red to give warning
 image::BudgetPanel_red.png[width="250"]
 
-* The budget progress bar will be *green* if you are still within your budget as shown in Figure 6.
-* The budget progress bar will turn *orange* if your expenditure is above 80% of your total budget
+* The budget progress bar will be [green]#*green*# if you are still within your budget as shown in Figure 6.
+* The budget progress bar will turn [orange]#*orange*# if your expenditure is above 80% of your total budget
 as shown in Figure 7.
-* The budget progress bar will turn *red* if your expenditure exceeded your budget as shown in Figure 8.
+* The budget progress bar will turn [red]#*red*# if your expenditure exceeded your budget as shown in Figure 8.
 
 
 === Browser Panel
 .Browser Panel: Shows the budget left, current spending and total budget
 image::browserpanel.png[width="250"]
 
-This element is denoted by the brown box in Figure 2.
+This element is denoted by the [maroon]#brown# box in Figure 2.
 
 The browser panel gives you a numerical summary of your total budget.
 
@@ -150,7 +159,7 @@ the amount you exceeded the budget set for yourself.
 .Summary Panel: Shows you a pie chart illustration of your current expenses
 image::summarypanel.png[width="400"]
 
-This element is denoted by the red box in Figure 3.
+This element is denoted by the [red]#red# box in Figure 3.
 
 The summary panel gives you a nice illustrated summary of your current spending so far in
 different categories. To change the browser panel to summary panel, use the `[fuchsia]#summary#` command.
@@ -161,7 +170,7 @@ To change back to the browser panel, simply enter the `[fuchsia]#summary#` comma
 .Command Box and Result Display
 image::commandbox_resultdisplay.png[width="450"]
 
-These elements are denoted by the black and blue boxes in Figures 2 and 3 respectively.
+These elements are denoted by the [black]#black# and [blue]#blue# boxes in Figures 2 and 3 respectively.
 
 The command box is the place for users to type in their commands.
 Refer to <<Features>> for details of each command.
@@ -173,7 +182,7 @@ This is where the allocated category budgets will be shown when `[fuchsia]#show#
 .Status Footer Bar
 image::statusfooterbar.png[]
 
-This element is denoted by the purple box in Figures 2 and 3.
+This element is denoted by the [purple]#purple# box in Figures 2 and 3.
 The left side of the status footer bar shows the time and date of the last update to the finance tracker.
 The right side of the status footer bar shows where the storage file for the updated data is saved to.
 
@@ -280,10 +289,15 @@ command shown in the next command
 
 [IMPORTANT]
 ====
-You can still spend over the category budget set, so as to see
-how much you have exceeded your budget allocated in that category. +
+You can still spend over the category budget set. The rationale is for you to be able to see
+how much you have exceeded your budget allocated in that category so that you will be able to better plan your
+expenditure in the future. +
+(For e.g. if you allocated $50.00 to `Clothes` and have yet to spend anything in the
+category, you can still spend more than $50.00 after setting the category budget) +
 
-You cannot set a budget smaller than the current spending in the category.
+However, if you have already spent an amount in the category, but have yet to set a budget for the category, it would
+not make sense for you to set a budget smaller than the current spending in the category. Thus an error message will be
+shown in Result Display if you attempt to do so.
 ====
 // end::allocate[]
 

@@ -536,8 +536,11 @@ image::UndoRedoActivityDiagram.png[width="650"]
 // end::undoredo[]
 
 // tag::budgetmanagement[]
+
 === Budget Management
+
 // tag::budgetclassdiagram[]
+
 This group of features allows the user to set a total budget and
 allocate a portion of the total budget to different categories.
 The current spending will increase when records are added.
@@ -548,6 +551,13 @@ The classes associated with Budget is shown in the class diagram below:
 
 .Class Diagram for Budget
 image::budget_classdiagram.png[width ="600"]
+
+The above diagram shows the structure of the classes associated with `Budget`.
+`TotalBudget` and `CategoryBudget` are sub-classes of `Budget` and `TotalBudget` can contain
+any number of `CategoryBudget`.
+
+As seen in the class diagram, the `CategoryBudget` in `TotalBudget` is kept in a `HashSet`.
+
 // end::budgetclassdiagram[]
 
 // tag::budget[]

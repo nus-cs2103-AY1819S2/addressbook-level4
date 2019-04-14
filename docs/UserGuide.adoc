@@ -20,7 +20,7 @@ By: `Team W17-3`      Since: `March 2019`      Licence: `MIT`
 
 == Introduction
 
-[aqua]#Welcome to the _In-Credit-Ble_ User Guide!# _In-Credit-Ble_ is your all-in-one application in managing and tracking your
+[blue]#Welcome to the _In-Credit-Ble_ User Guide!# _In-Credit-Ble_ is your all-in-one application in managing and tracking your
 personal finances. Our user-friendly interface will make it easy for you to see how much you can safely spend within your budget and be more aware
 of your spending habits. If you are a *fast typer*, *prefer to type* over using your mouse and *like to get things done
 efficiently*, then this is the product just for you! _In-Credit-Ble_ is designed for those who prefer to work with a
@@ -31,7 +31,7 @@ different features and shows you how to perform basic _In-Credit-Ble_ operations
 
 // tag::quickstart[]
 == Quick Start
-[aqua]#Follow these steps to get _In-Credit-Ble_ up and running on your computer in no time!#
+[blue]#Follow these steps to get _In-Credit-Ble_ up and running on your computer in no time!#
 
 .  Ensure you have [teal]#Java# version `[fuchsia]#9#` or later installed in your computer. You can download and install the required
    Java Development Kit
@@ -46,7 +46,7 @@ different features and shows you how to perform basic _In-Credit-Ble_ operations
 image::startUI.png[]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
-e.g. typing *`[fuchsia]#help#`* and pressing kbd:[Enter] will open the help window and show the list of commands.
+[navy]#e.g.# typing *`[fuchsia]#help#`* and pressing kbd:[Enter] will open the help window and show the list of commands.
 .  [teal]#Some example commands you can try#:
 
 * *`[fuchsia]#help#`* : opens the _In-Credit-Ble_ user guide
@@ -60,7 +60,7 @@ e.g. typing *`[fuchsia]#help#`* and pressing kbd:[Enter] will open the help wind
 // end::quickstart[]
 
 == Graphical User Interface Introduction
-[aqua]#This section will explain to you the Graphical User Interface (GUI) of _In-Credit-Ble_ Finance Tracker.#
+[blue]#This section will explain to you the Graphical User Interface (GUI) of _In-Credit-Ble_ Finance Tracker.#
 The theme of the application has been set to `[fuchsia]#Light#`, which is different from the start up theme `[fuchsia]#Dark#`.
 
 .Graphical User Interface (When starting up)
@@ -179,7 +179,7 @@ The right side of the status footer bar shows where the storage file for the upd
 
 [[Features]]
 == Features
-[aqua]#This section describes the various features _In-Credit-Ble_ has to offer.# Examples are also included to give you
+[blue]#This section describes the various features _In-Credit-Ble_ has to offer.# Examples are also included to give you
 step-by-step instructions on how to use the different commands.
 
 [IMPORTANT]
@@ -349,7 +349,7 @@ to let you know so
 * If you provide multiple categories ([navy]#e.g.# `[fuchsia]#spend n/Tshirt $/10.00 d/31/03/2019 c/Food c/Clothes#`),
 only the last category you provided will be taken (In the previous e.g, the command will
 add expense for `[fuchsia]#Clothes#` category).
-* Category names are case-insensitive. (e.g. `[fuchsia]#CLotHes#`, `[fuchsia]#clothes#` and `[fuchsia]#CLOTHES#` refer to the same
+* Category names are case-insensitive. ([navy]#e.g.# `[fuchsia]#CLotHes#`, `[fuchsia]#clothes#` and `[fuchsia]#CLOTHES#` refer to the same
 category and will be shown with the first character in uppercase and the rest of the characters
 in lowercase. In the above example, it will be shown as `[fuchsia]#Clothes#`)
 * Category name supplied must be https://en.wikipedia.org/wiki/Alphanumeric[alphanumeric]
@@ -822,7 +822,7 @@ the projected savings and expenses of future months, based on analysing your typ
 ==== Links to financial articles `[green]#[coming in v2.0]#`
 
 You will be able to list categories of financial articles that you are interested in
-(e.g. investment, stock market, taxes). Based on these categories, _In-Credit-Ble_ will use Google API to search for
+([navy]#e.g.# investment, stock market, taxes). Based on these categories, _In-Credit-Ble_ will use Google API to search for
 related articles for you to view.
 
 == FAQ
@@ -841,7 +841,7 @@ _In-Credit-Ble_  aims to support multi-currency transactions in [green]#v2.0#`.
 
 == Command Summary
 
-[aqua]#All of _In-Credit-Ble's_ commands are listed here!#
+[blue]#All of _In-Credit-Ble's_ commands are listed here!#
 
 === Budget Management
 [cols="22%,<23%,<25%,<30%",options="header",]

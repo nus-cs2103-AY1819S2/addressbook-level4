@@ -23,6 +23,11 @@ import seedu.address.model.tag.Tag;
 public class SampleDataUtil {
     public static final int NUM_SEMS = 10;
 
+
+    public static Semester getSampleCurrentSemester() {
+        return Semester.Y1S2;
+    }
+
     public static ModuleTaken[] getSampleModulesTaken() {
         return new ModuleTaken[] {
             new ModuleTaken(new ModuleInfoCode("CS1010"), Semester.valueOf("Y1S1"), Grade.valueOf("B"),
@@ -67,8 +72,8 @@ public class SampleDataUtil {
         for (ModuleTaken sampleModuleTaken : getSampleModulesTaken()) {
             sampleAb.addModuleTaken(sampleModuleTaken);
         }
-        //sampleAb.setSemesterLimits(getSampleSemesterLimits());
-        //sampleAb.setCurrentSemester(Semester.Y1S1);
+        sampleAb.setSemesterLimits(getSampleSemesterLimits());
+        sampleAb.setCurrentSemester(Semester.Y1S1);
         return sampleAb;
     }
 

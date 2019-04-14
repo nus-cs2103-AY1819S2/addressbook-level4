@@ -9,7 +9,10 @@
 
 == Overview
 
-This project portfolio page serves to document my contributions to The Food Diary, a software engineering project that was undertaken as part of the National University of Singapore (NUS) School of Computing’s Software Engineering module.
+This project portfolio page serves to document my contributions to The Food Diary, a software engineering project that
+was undertaken as part of the National University of Singapore (NUS) School of Computing’s Software Engineering module.
+In a team of five students, we worked on a well established application, Address Book 4, of ten thousand lines of code, and
+morphed it into the application we have now.
 
 The Food Diary is designed for food lovers whose wish to document their experiences at a restaurants in a fast and simple fashion.
 It serves as a journal, allowing the users to give reviews and ratings to the restaurant that they have been to.
@@ -41,6 +44,7 @@ If there is no internet, Food Diary will proceed to add or edit the restaurant w
 *** Updated sample data https://github.com/CS2103-AY1819S2-W17-1/main/pull/17[#17]
 ** Documentation:
 *** Updated README https://github.com/CS2103-AY1819S2-W17-1/main/pull/7[#7]
+*** Updated User Guide and Developer Guide on visitWeb feature https://github.com/CS2103-AY1819S2-W17-1/main/pull/106[#106] https://github.com/CS2103-AY1819S2-W17-1/main/pull/150[#150]
 ** Community:
 *** Actively looked through and approved PRs, providing constructive comments to codes https://github.com/CS2103-AY1819S2-W17-1/main/pull/103[#103], https://github.com/CS2103-AY1819S2-W17-1/main/pull/95[#95], https://github.com/CS2103-AY1819S2-W17-1/main/pull/148[#148]
 *** Actively test and find bugs that the application can possibly have. Made used of GitHub issue tracker to organise these findings. https://github.com/CS2103-AY1819S2-W17-1/main/issues/145[#145], https://github.com/CS2103-AY1819S2-W17-1/main/issues/65[#65]
@@ -54,6 +58,8 @@ If there is no internet, Food Diary will proceed to add or edit the restaurant w
 |===
 |_The user guide acts as a instruction manual for new users. For my part, I have implemented the visitWeb command feature and below shows an excerpt of Food Diary's User Guide that I added, which explains the usage of visitWeb._
 |===
+
+include::../UserGuide.adoc[tag=addedit]
 
 include::../UserGuide.adoc[tag=visitweb]
 

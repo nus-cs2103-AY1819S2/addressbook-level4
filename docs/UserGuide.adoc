@@ -87,6 +87,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 === Restaurant Features
 
+// tag::addedit[]
 ==== Adding a restaurant: `add`
 
 You can add a restaurant that is not found in the current list of restaurants. +
@@ -101,8 +102,9 @@ Format: `add n/NAME a/ADDRESS po/POSTAL CODE [p/PHONE] [e/EMAIL] [t/TAG]... [w/W
 
 Examples:
 
-* `add n/Astons p/66123024 e/astons@dummy.com a/Blk 30 Geylang Street 29, #06-40 po/267951 w/astons.com.sg`
+* `add n/Astons a/Blk 30 Geylang Street 29, #06-40 po/267951 p/66123024 e/astons@dummy.com w/astons.com.sg o/1000 to 2300`
 * `add n/Bangkok Jam p/65272758 e/bangkokjam@example.com a/Blk 30 Lorong 3 Serangoon Gardens, #07-18 po/018956 t/Spicy`
+* `add n/KFC a/Bukit Panjang Plaza po/670111`
 
 [NOTE]
 ====
@@ -114,7 +116,7 @@ When adding a restaurant with invalid Weblink, you will receive the following er
 
 image:InvalidWeblink.PNG[width=800]
 
-When adding a restaurant when there is no internet connection, the FoodDIary will add your restaurant without the Weblink.
+When adding a restaurant when there is no internet connection, the FoodDiary will add your restaurant without the Weblink.
 
 image:NoInternetAdd.PNG[width=800]
 
@@ -139,13 +141,14 @@ When you are editing the Weblink of a restaurant, FoodDiary will check whether t
 the FoodDiary will not edit the Weblink for you.
 ====
 
-When editing a restaurant with invalid Weblink, you will receive the following error message.
+When you are changing a restaurant's Weblink to an invalid Weblink, you will receive the following error message.
 
 image:InvalidWeblinkEdit.PNG[width=800]
 
-When adding a restaurant when there is no internet connection, the FoodDIary will add your restaurant without the Weblink.
+When you are editing a restaurant's Weblink with no internet connection, the FoodDiary will edit your restaurant without the Weblink.
 
 image:NoInternetEdit.PNG[width=800]
+// end::addedit[]
 
 ==== Deleting a restaurant: `delete`
 
@@ -380,11 +383,22 @@ A URL is a valid link to a website. It should be in this format: local-part.doma
 Examples:
 
 * `list` +
-`visitWeb 1` +
-Displays webpage of the restaurant at index 1 of list.
+`visitWeb 4` +
+This command displays webpage of the restaurant at index 4 of list as shown below.
+
+image::visitWeb.PNG[width=800]
+
 
 * `visitWeb www.jollibee.com.ph` +
-Displays webpage of Jollibee.
+This command displays webpage of Jollibee as shown below.
+
+image::visitWebJolliB.PNG[width="800"]
+
+
+
+[NOTE]
+You need to have internet connection to visit the website of the restaurant.
+
 // end::visitweb[]
 
 // tag::reviewcommands[]

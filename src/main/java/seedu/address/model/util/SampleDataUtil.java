@@ -33,59 +33,59 @@ import seedu.address.model.tag.Tag;
  */
 public class SampleDataUtil {
     public static Patient[] getSamplePatients() {
-        return new Patient[] {
-            new Patient(new Name("Tan Ah Ming"), new Gender("M"), new Age("29"), new Phone("87438807"),
-                new Address("Blk 30 Geylang Street 29 #06-40"),
-                getTagSet("foodpoisoning", "heatstroke")).changeAppointmentStatus(AppointmentStatus.ACTIVE),
-            new Patient(new Name("Bernice Yu Ye Sim"), new Gender("F"), new Age("23"), new Phone("99272758"),
-                new Address("Blk 30 Lorong 3 Serangoon Gardens #07-18"),
-                getTagSet("highbloodpressure", "stroke")).changeAppointmentStatus(AppointmentStatus.ACTIVE),
-            new Patient(new Name("David Li"), new Gender("M"), new Age("53"), new Phone("91031282"),
-                new Address("Blk 436 Serangoon Gardens Street 26 #16-43"),
-                getTagSet("diabetes", "fever", "lungcancer")),
-            new Patient(new Name("Charlie Oldman"), new Gender("M"), new Age("101"), new Phone("93210283"),
-                    new Address("Blk 11 Ang Mo Kio Street 74 #11-04"),
-                    getTagSet()),
-            new Patient(new Name("Irfan Ibrahim"), new Gender("M"), new Age("60"), new Phone("92492021"),
-                new Address("Blk 47 Tampines Street 20 #17-35"),
-                getTagSet("lungcancer", "fever")),
-            new Patient(new Name("Roy Balakrishnan"), new Gender("M"), new Age("6"), new Phone("92624417"),
-                new Address("Blk 45 Aljunied Street 85 #11-31"),
-                getTagSet("flu"))
+        return new Patient[]{
+                new Patient(new Name("Tan Ah Ming"), new Gender("M"), new Age("29"), new Phone("87438807"),
+                        new Address("Blk 30 Geylang Street 29 #06-40"),
+                        getTagSet("foodpoisoning", "heatstroke")).changeAppointmentStatus(AppointmentStatus.ACTIVE),
+                new Patient(new Name("Bernice Yu Ye Sim"), new Gender("F"), new Age("23"), new Phone("99272758"),
+                        new Address("Blk 30 Lorong 3 Serangoon Gardens #07-18"),
+                        getTagSet("highbloodpressure", "stroke")).changeAppointmentStatus(AppointmentStatus.ACTIVE),
+                new Patient(new Name("David Li"), new Gender("M"), new Age("53"), new Phone("91031282"),
+                        new Address("Blk 436 Serangoon Gardens Street 26 #16-43"),
+                        getTagSet("diabetes", "fever", "lungcancer")),
+                new Patient(new Name("Charlie Oldman"), new Gender("M"), new Age("101"), new Phone("93210283"),
+                        new Address("Blk 11 Ang Mo Kio Street 74 #11-04"),
+                        getTagSet()),
+                new Patient(new Name("Irfan Ibrahim"), new Gender("M"), new Age("60"), new Phone("92492021"),
+                        new Address("Blk 47 Tampines Street 20 #17-35"),
+                        getTagSet("lungcancer", "fever")),
+                new Patient(new Name("Roy Balakrishnan"), new Gender("M"), new Age("6"), new Phone("92624417"),
+                        new Address("Blk 45 Aljunied Street 85 #11-31"),
+                        getTagSet("flu"))
         };
     }
 
     public static Doctor[] getSampleDoctors() {
-        return new Doctor[] {
-            new Doctor(new Name("Alvin Tong"), new Phone("82352312"), new Gender("M"), new Year("2"),
-                    getSpecSet("acupuncture")),
-            new Doctor(new Name("Barney Ong"), new Phone("90534873"), new Gender("F"), new Year("22"),
-                    getSpecSet("acupuncture", "general")),
-            new Doctor(new Name("Cinderella Tan"), new Phone("90153481"), new Gender("F"), new Year("4"),
-                    getSpecSet("massage")),
-            new Doctor(new Name("Dominic Gong"), new Phone("92343211"), new Gender("M"), new Year("8"),
-                    getSpecSet("massage", "acupuncture")),
-            new Doctor(new Name("Ibe Tok"), new Phone("92492021"), new Gender("M"), new Year("11"),
-                    getSpecSet("acupuncture")),
-            new Doctor(new Name("Gabriel Teo"), new Phone("92624417"), new Gender("M"), new Year("5"),
-                    getSpecSet("general"))
+        return new Doctor[]{
+                new Doctor(new Name("Alvin Tong"), new Phone("82352312"), new Gender("M"), new Year("2"),
+                        getSpecSet("acupuncture")),
+                new Doctor(new Name("Barney Ong"), new Phone("90534873"), new Gender("F"), new Year("22"),
+                        getSpecSet("acupuncture", "general")),
+                new Doctor(new Name("Cinderella Tan"), new Phone("90153481"), new Gender("F"), new Year("4"),
+                        getSpecSet("massage")),
+                new Doctor(new Name("Dominic Gong"), new Phone("92343211"), new Gender("M"), new Year("8"),
+                        getSpecSet("massage", "acupuncture")),
+                new Doctor(new Name("Ibe Tok"), new Phone("92492021"), new Gender("M"), new Year("11"),
+                        getSpecSet("acupuncture")),
+                new Doctor(new Name("Gabriel Teo"), new Phone("92624417"), new Gender("M"), new Year("5"),
+                        getSpecSet("general"))
         };
     }
 
     public static MedicalHistory[] getSampleMedHists() {
-        return new MedicalHistory[] {
-            new MedicalHistory(new PersonId("1"), new PersonId("7"),
-                    new ValidDate("2019-03-03"), new WriteUp("The patient got a high fever.")),
-            new MedicalHistory(new PersonId("2"), new PersonId("7"),
-                    new ValidDate("2019-03-03"), new WriteUp("The patient had a sneeze.")),
-            new MedicalHistory(new PersonId("2"), new PersonId("8"),
-                    new ValidDate("2019-01-30"), new WriteUp("The patient had a stomachache. "
-                    + "I gave him some medicine to release the pain.")),
-            new MedicalHistory(new PersonId("3"), new PersonId("9"),
-                    new ValidDate("2019-04-03"), new WriteUp("Had a fever with sore throat. Sleeps late.")),
-            new MedicalHistory(new PersonId("4"), new PersonId("10"),
-                    new ValidDate("2019-02-25"),
-                    new WriteUp("Came down with a stomach flu, possibly due to eating expired food"))
+        return new MedicalHistory[]{
+                new MedicalHistory(new PersonId("1"), new PersonId("7"),
+                        new ValidDate("2019-03-03"), new WriteUp("The patient got a high fever.")),
+                new MedicalHistory(new PersonId("2"), new PersonId("7"),
+                        new ValidDate("2019-03-03"), new WriteUp("The patient had a sneeze.")),
+                new MedicalHistory(new PersonId("2"), new PersonId("8"),
+                        new ValidDate("2019-01-30"), new WriteUp("The patient had a stomachache. "
+                        + "I gave him some medicine to release the pain.")),
+                new MedicalHistory(new PersonId("3"), new PersonId("9"),
+                        new ValidDate("2019-04-03"), new WriteUp("Had a fever with sore throat. Sleeps late.")),
+                new MedicalHistory(new PersonId("4"), new PersonId("10"),
+                        new ValidDate("2019-02-25"),
+                        new WriteUp("Came down with a stomach flu, possibly due to eating expired food"))
         };
     }
 
@@ -142,7 +142,7 @@ public class SampleDataUtil {
         appointments[1] = appointment2;
         appointments[2] = appointment3;
         appointments[3] = appointment4;
-        
+
         return appointments;
     }
 }

@@ -12,6 +12,7 @@ import org.junit.rules.ExpectedException;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.JsonUtil;
 import seedu.address.model.FoodDiary;
+import seedu.address.model.restaurant.Restaurant;
 import seedu.address.testutil.TypicalRestaurants;
 
 public class JsonSerializableFoodDiaryTest {

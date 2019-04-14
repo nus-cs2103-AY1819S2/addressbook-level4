@@ -62,7 +62,7 @@ public class ListUnvisitedCommand extends Command {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof ListUnvisitedCommand // instanceof handles nulls
-                && postal == ((ListUnvisitedCommand) other).postal);
+                && postal.equals(((ListUnvisitedCommand) other).postal));
     }
 
 

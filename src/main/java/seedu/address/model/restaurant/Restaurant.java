@@ -211,7 +211,7 @@ public class Restaurant {
                 .append(getEmail())
                 .append(" Address: ")
                 .append(getAddress())
-                .append("Postal: ")
+                .append(" Postal: ")
                 .append(getPostal())
                 .append(" Weblink: ")
                 .append(getWeblink())

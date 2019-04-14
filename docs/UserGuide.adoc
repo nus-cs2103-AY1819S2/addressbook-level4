@@ -126,6 +126,13 @@ This section will describe the features of the game in more detail.
 Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
 ====
 
+[NOTE]
+====
+Some commands can only be executed at some part of the game, e.g. `attack` can only be executed
+when the battle is ongoing. If you try to enter a command that is not allowed at that point in
+time, the program will tell you so.
+====
+
 === General commands
 
 ==== Viewing help : `help`

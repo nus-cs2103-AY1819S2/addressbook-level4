@@ -879,7 +879,7 @@ https://pdfbox.apache.org/docs/2.0.1/javadocs/org/apache/pdfbox/pdmodel/encrypti
 https://pdfbox.apache.org/docs/2.0.1/javadocs/org/apache/pdfbox/pdmodel/encryption/StandardProtectionPolicy.html[_StandardProtectionPolicy_].
 
 [NOTE]
-An <<encrypted-file>> is a file that is protected with a password. The term `protected` and `encrypted` will be used interchangeably.
+An <<encrypted-file>> is a file that is protected with a password. The terms `protect` and `encrypt` will be used interchangeably.
 
 You can visit <<Encryption feature>> and <<Decryption feature>> to understand more about the respective feature.
 
@@ -920,7 +920,7 @@ are created. The password specified will be passed to `StandardProtectionPolicy`
 This sequence diagram demonstrates the <<main-success-scenario>> from the
 *LogicManager* to the end of *EncryptCommand* execution:
 
-image::EncryptCommandSequenceDiagram.png[width="700"]
+image::EncryptCommandSequenceDiagram.png[width="800"]
 
 ===== Design Considerations
 
@@ -928,16 +928,16 @@ image::EncryptCommandSequenceDiagram.png[width="700"]
 
 * Alternative 1 (current choice): Execute *DecryptCommand* then *EncryptCommand*
 
-Due to security reasons, it was decided to focus on encrypting an unprotected Pdf.
-You will need to <<Decryption feature>>
+** Due to security reasons, it was decided to focus on encrypting an unprotected Pdf.
+You will need to use <<Decryption feature>>
 before encrypting it with a new password. This is to ensure your intent in changing the password,
-as the current version *PDF++* does not provide `Forget Password` feature.
+as the current version *PDF++* does not support `Forget Password` feature.
 
-However, this process is inefficient as you will need to enter 2 commands instead of 1.
+** However, this process is inefficient as you will need to enter 2 commands instead of 1.
 
 * Alternative 2: Change password of an encrypted file
 
-This minimised the number of commands to be executed, but there are several security concerns as mentioned above.
+** This minimised the number of commands to be executed, but there are several security concerns as mentioned above.
 
 ===== A sophisticated protection system
 
@@ -991,7 +991,7 @@ Common reasons of error are:
 This sequence diagram demonstrates the <<main-success-scenario>> from the
 *LogicManager* to the end of *DecryptCommand* execution:
 
-image::DecryptCommandSequenceDiagram.png[width="700"]
+image::DecryptCommandSequenceDiagram.png[width="800"]
 
 ===== Design Considerations
 

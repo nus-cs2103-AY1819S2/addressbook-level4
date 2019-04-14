@@ -561,8 +561,6 @@ image::EncryptFeatureStep6Open.png[width="600"]
 
 ==== Decryption Guide
 
-==== Step-by-Step Guide -- decrypt
-
 Illustrate below is a sample usage scenario that provides a clear view to the inner workings
 of the Decrypt feature.
 
@@ -628,7 +626,7 @@ image::DecryptFeatureStep5InvalidPassword.png[width="600"]
 The file you selected will be decrypted with the
 password you specified.
 
-image::DecryptFeatureStep5Sucess.png[width="600"]
+image::DecryptFeatureStep5Success.png[width="600"]
 
 Step 6: If the command passes the validity check, the file you have selected is decrypted.
 You can open your file to see the result. Please refer to

@@ -1,4 +1,8 @@
-= Project Portfolio Page
+= LAU WEI TANG - PDF++ Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
 Lau Wei Tang;
 National University of Singapore
 :doctype: book

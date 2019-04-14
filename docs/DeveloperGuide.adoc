@@ -310,7 +310,7 @@ image::PrerequisiteString.png[width="800"]
 
 The input `prerequisite` usually comes in the format:
 
-image::PrerequisiteStringFormat.png[width="800"]
+ "Prerequisite":"[MA1312 or MA1521 or MA1505 or (MA1511 and MA1512)] and [ST2334 or ST2131 or ST2132] and [IS3106 or BT3103]"
 
 The input value is then split into an `array` using regular expressions:
 

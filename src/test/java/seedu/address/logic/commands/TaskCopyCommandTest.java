@@ -2,8 +2,8 @@ package seedu.address.logic.commands;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalData.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
 import org.junit.Test;
 
@@ -26,7 +26,8 @@ public class TaskCopyCommandTest {
         Task taskToCopy = model.getFilteredTaskList().get(0).copy();
         expectedModel.addTask(taskToCopy);
         String expectedMessage = String.format(TaskCopyCommand.MESSAGE_SUCCESS, taskToCopy);
-        assertCommandSuccess(new TaskCopyCommand(INDEX_FIRST_PERSON, 1), model, commandHistory, expectedMessage, expectedModel);
+        assertCommandSuccess(new TaskCopyCommand(INDEX_FIRST_PERSON, 1),
+                model, commandHistory, expectedMessage, expectedModel);
     }
 
     @Test
@@ -36,7 +37,8 @@ public class TaskCopyCommandTest {
         expectedModel.addTask(taskToCopy1);
         expectedModel.addTask(taskToCopy2);
         String expectedMessage = String.format(TaskCopyCommand.MESSAGE_SUCCESS, taskToCopy1);
-        assertCommandSuccess(new TaskCopyCommand(INDEX_FIRST_PERSON, 2), model, commandHistory, expectedMessage, expectedModel);
+        assertCommandSuccess(new TaskCopyCommand(INDEX_FIRST_PERSON, 2),
+                model, commandHistory, expectedMessage, expectedModel);
     }
 
     @Test

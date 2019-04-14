@@ -10,6 +10,7 @@ import static seedu.address.testutil.TypicalData.REORG;
 import static seedu.address.testutil.TypicalData.getTypicalAddressBook;
 
 import org.junit.Test;
+
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;

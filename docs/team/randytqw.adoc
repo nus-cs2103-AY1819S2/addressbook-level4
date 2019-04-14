@@ -20,13 +20,19 @@ In addition, FomoFoto is well maintained with high reliability and code quality 
 == Summary of contributions
 This section provides a summary of my coding, documentation and other contributions to FomoFoto, our team project.
 
-* *Major enhancement*: added *the ability to undo/redo transformations on an image*
+* *Major enhancement 1*: added *the ability to undo/redo transformations on an image*
 
 ** What it does: allows the user to undo previous transformations one at a time. Preceding undone transformations can be reversed by using the redo command.
 
 ** Justification: This feature improves the product significantly because a user can make mistakes by applying incorrect transformations and the app should provide a convenient way to rectify them.
 
 ** Highlights: Transformation history is stored as a list of commands so it takes up minimal space on the user's PC.
+
+* *Major enhancement 2*: added *the ability to export images to the user's PC*
+
+** What it does: allows the user to export an image in the album to a specified directory.
+
+** Justification: This feature improves the product significantly because the user can save his images outside of the application.
 
 * *Code contributed*: [https://github.com/CS2103-AY1819S2-W14-2/main/commits?author=randytqw[List of commits]]
 

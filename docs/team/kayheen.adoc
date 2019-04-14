@@ -37,7 +37,7 @@ This section provides a summary of my coding, documentation and miscellaneous co
 
 * *Minor Enhancement*: I added a feature where the `Image` returns a file type (e.g. JPEG, PNG), because edits to images are affected by the file type.
 
-* *Code Contributed*: https://github.com/CS2103-AY1819S2-W14-2/main/commits?author=kayheen[List of commits]
+* *Code Contributed*: https://github.com/CS2103-AY1819S2-W14-2/main/commits?author=kayheen[List of commits], https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#search=kay%20heen%20&sort=displayName&since=2019-02-10&until=2019-04-13&timeframe=day&reverse=false&repoSort=true[Project Code Dashboard]
 
 * *Other Contributions*:
 

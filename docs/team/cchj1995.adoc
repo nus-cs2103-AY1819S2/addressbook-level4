@@ -64,4 +64,5 @@ include::../UserGuide.adoc[tag=task_ppp_cchj1995]
 |_This section illustrates my contributions to TeethHub's Developer Guide. I have selected some exerpts for the task features to showcase my technical documentation skills and provide insight to the technical depths of my contributions._
 |===
 
-include::../DeveloperGuide.adoc[tag=task_cchj1995]
+include::../DeveloperGuide.adoc[tag=taskDG1_cchj1995]
+include::../DeveloperGuide.adoc[tag=taskDG2_cchj1995]

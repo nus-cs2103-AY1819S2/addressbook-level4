@@ -9,9 +9,9 @@
 
 == Overview
 
-As part of a Software Engineering module, my team and I were given an objective, to enhance an existing application known as AddressBoook4(AB4) or transform it into a different program. We decided to work towards transforming the application and the product of our efforts was TeethHub.
+As part of a Software Engineering module, my team and I were given an objective to enhance or morph an existing application known as AddressBoook4(AB4). We opted to transform the application and the product of our efforts was TeethHub.
 
-TeethHub was designed with a specific user group in mind, dentists who are proficient with computers and are morecomfortable with using a Command Line Interface(CLI) for interaction over a Graphical User Interface(GUI). TeethHub enables dentists to store, modify and interact with patients, records and tasks, all the while providing clear and useful graphical feedback to its user. Dentists can also import and export data in and out of the application to formats such as .json and .pdf. TeethHub was written in Java, building its graphical elements on JavaFX. As of v1.4, the application has roughly 20000 lines of codes, a difference of 10000 lines compared to AB4.
+TeethHub was designed for dentists who are proficient with computers and comfortable with using a Command Line Interface(CLI) for interaction over a Graphical User Interface(GUI). TeethHub enables dentists to store, modify and interact with patients, records and tasks, all the while providing clear and useful graphical feedback to its user. Dentists can also import and export data in and out of the application to formats such as .json and .pdf. TeethHub was written in Java, building its graphical elements on JavaFX. As of v1.4, the application has roughly 20000 lines of codes, a difference of 10000 lines compared to AB4.
 
 == Summary of contributions
 My role in the development of TeethHub was to cover two main aspects, task data management and GUI enhancement.
@@ -20,12 +20,12 @@ The main contributions listed here details how I covered these two aspects.
 * *Major implementation*: added *the task class and all its attributes*
 ** What it does: The entire task data structure enables TeethHub to store information pertaining to our users' tasks.
 ** Justification: As dentists, aside from having patients and records, our users will certainly have tasks that they are required to complete with certain tasks being related to their patients. By enabling TeethHub to handle the information for these tasks, users can enjoy the benefits of having all of their important information being in the one application.
-** Highlights: This implementation serves as a stepping stone for future developments to provide more interaction with task information. Comprehensive understanding of the existing application (AB4) was necessary for this implementation as it essentially creates a new type of data for the application. Every component involved in the reading, handling and storage process of persons had to be modified to do the same for the new data type.
+** Highlights: This implementation serves as a stepping stone for future developments to provide more interaction with task information. Comprehensive understanding of the existing application (AB4) was necessary for this implementation as it essentially creates a new type of data for the application.
 
 * *Major enhancement*: added *the ability to display a task calendar*
-** What it does: This enhancement allows the user to use a `taskcal` command to display a new popup window containing a calendar, a list of tasks and a commandbox. Users can see from the calendar, the dates in which they have tasks starting and ending. This is displayed to the user by highlighting dates that clash with a task's start and/or end date with the task's priority. Users can also navigate the calendar by keying in a date, or simply do task related commands. The task list will also update to show only tasks on the date selected by the user.
+** What it does: This enhancement allows the user to use a `taskcal` command to display a new popup window containing a calendar, a list of tasks and a commandbox. The displayed window provides users interactive information about their tasks, highlighting dates where tasks are present.
 ** Justification: This enhancement provides additional value and meaning to the task information TeethHub stores for its users. By giving users context for the tasks in the form of a calendar, users can more accurately view and plan their schedules as they have a clearer view of when they have tasks and how important are these tasks.
-** Highlights: This was the most challenging enhancement I had made to the application because it involved in-depth understanding of the program's GUI, considering the best means of displaying the calendar and the logical approach to finding the right dates to highlight. The initial stages of testing and development also produced many issues that had to be solved systematically.
+** Highlights: This was the most challenging enhancement I had made to the application because it involved in-depth understanding of the program's GUI, considering the best means of displaying the calendar and the logical approach to finding the right dates to highlight.
 
 * *Minor enhancement*: added taskadd, taskedit and taskdelete commands to provide users to have the most basic but essential interactions with the task information.
 

@@ -861,11 +861,19 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |Priority |As a ... |I want to ... |So that I can...
 |`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
 
-|`* * *` |user |add a new person |
+|`* * *` |HR |add a new person |
 
 |`* * *` |HR |delete a person |reject applicants not suited for the job
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |HR |find a person by name |locate details of persons without having to go through the entire list
+
+|`* * *` |HR |create a job posting |have a place to store and keep track of applicants' progress
+
+|`* * *` |HR |move people to the job posting |start to manage job applications
+
+|`* * *` |HR |move only selected people to jobs and application progress lists |more easily manage the progress of applications
+
+|`* * *` |HR |view all applicant progress of job application |know and keep track of who has applied for the job and their progress
 
 |`* * *` |HR |get the best people for a job |please my boss
 
@@ -875,9 +883,11 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |HR |arrange interview dates quickly |to be more efficient in finding the right person for the job
 
+|`* *` |HR |delete a job posting |maintain a cleaner interface
+
 |`* *` |HR |look at the list of applicants I have narrowed down |send them to boss for approval
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* *` |HR |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
 
 |`*` |user with many persons in the address book |sort persons by name |locate a person easily
 
@@ -914,6 +924,54 @@ Use case ends.
 ** 3a1. AddressBook shows an error message.
 +
 Use case resumes at step 2.
+
+=== Use case: Create and view Job opening
+
+*MSS*
+
+1. User requests to create a new job
+2. slaveFinder() creates the new job
+3. User requests to add people to the new job
+4. slaveFinder() shows updated job data
+5. User requests to view job information
+6. slaveFinder() changes view to job display panel
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. Job with name already exists
++
+Use case ends.
+
+* 3a. No people in database
+** 3a1. User adds people to database
++
+Use case resumes at step 3.
+
+=== Use case: Manage people in job opening
+
+*MSS*
+
+1. User requests to view job information
+2. slaveFinder() changes view to job display panel
+3. User selects a few people and requests to move them
+4. slaveFinder() moves the people and displays updated information
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. Job does not exist
++
+Use case ends.
+
+* 3a. No people in database
+** 3a1. User adds people to job
++
+Use case resumes at step 3.
 
 === Use case: Generate and show interview dates
 

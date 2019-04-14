@@ -263,7 +263,6 @@ ifndef::env-github[a| icon:check[role="green", size="2x"] a| RestOrRant exits an
 |===
 
 
-// tag::changemode[]
 === Changing Modes
 
 The commands in this section allow you to switch between modes to use the features that each mode provides.
@@ -291,6 +290,7 @@ ifdef::env-github[| :white_check_mark: a| The user interface switches to <<Resta
 ifndef::env-github[a| icon:check[role="green", size="2x"] a| The user interface switches to <<Restaurant Mode, Restaurant Mode>>.]
 |===
 
+// tag::tablemodecommand[]
 [[TM]]
 ==== Switching to Table Mode : `tableMode`
 
@@ -302,7 +302,7 @@ You can use this command to switch over to Table Mode for the specified table nu
 ****
 
 [NOTE]
-You can only access Table Mode for tables that exist in the restaurant and are currently occupied. The tables can be updated in <<Restaurant Mode, Restaurant Mode>>.
+You can only access Table Mode for tables that exist in the restaurant and are currently occupied. The tables can be updated in Restaurant Mode.
 
 [TIP]
 You can use this command in Table Mode if you are switching to a different table number.
@@ -320,6 +320,7 @@ The table number will also be displayed in the Current Mode portion of the statu
 
 image::TableMode_CM.png[]
 |===
+// end::tablemodecommand[]
 
 [[MM]]
 ==== Switching to Menu Mode : `menuMode`
@@ -355,7 +356,6 @@ The default Revenue Panel view is Daily when you first switch over to Statistics
 ifdef::env-github[a| :white_check_mark: a| The user interface switches to <<Statistics Mode, Statistics Mode>>.]
 ifndef::env-github[a| icon:check[role="green", size="2x"] a| The user interface switches to <<Statistics Mode, Statistics Mode>>.]
 |===
-// end::changemode[]
 
 // tag::restaurantmode[]
 === Restaurant Mode
@@ -493,6 +493,7 @@ The Order Panel will also be updated and you will now see 5 items displayed. As 
 
 image::AddToOrder_After.png[]
 |===
+// end::tablemode[]
 
 [[AddNote]]
 ==== Adding a note to an order item : `addNote` _(Coming in v2.0)_
@@ -657,8 +658,6 @@ image::Bill_UpdatedSeats.png[]
 |===
 
 // end::bill[]
-
-// end::tablemode[]
 
 // tag::menumode[]
 === Menu Mode

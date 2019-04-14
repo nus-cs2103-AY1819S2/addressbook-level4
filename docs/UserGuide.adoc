@@ -463,7 +463,7 @@ spent on all the results of the search will also be shown.
 
 *Alias*: `find`
 
-*Format*: `search -FLAG KEYWORD [MORE_KEYWORDS]`
+*Format*: `search FLAG KEYWORD [MORE_KEYWORDS]`
 
 ****
 *Examples*:
@@ -475,7 +475,7 @@ spent on all the results of the search will also be shown.
 
 [NOTE]
 ====
-* `FLAG` here refers to either `-name`, `-cat` or `date`.
+* `FLAG` here refers to either `-name`, `-cat` or `-date`.
 * Only one flag should be provided.
 ====
 // end::search[]
@@ -485,7 +485,7 @@ spent on all the results of the search will also be shown.
 
 You can choose to sort the list of entries by name, amount, date or category.
 
-*Format*: `sort -FLAG [ORDER]`
+*Format*: `sort FLAG [ORDER]`
 
 [NOTE]
 ====

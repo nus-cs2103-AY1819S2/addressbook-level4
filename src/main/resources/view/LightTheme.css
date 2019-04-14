@@ -206,8 +206,25 @@
 .menu-bar .label {
     -fx-font-size: 13pt;
     -fx-font-family: "Segoe UI Semilight";
-    -fx-text-fill: #f55e61;
+    -fx-text-fill: black;
     -fx-opacity: 1;
+}
+
+.menu-bar .menu:hover {
+    -fx-background-color: #f55e61;
+    -fx-text-fill: white;
+}
+
+.menu-bar .menu:showing {
+    -fx-background-color: #f55e61;
+}
+
+.menu-bar .menu-item:hover {
+    -fx-background-color: #f55e61;
+}
+
+.menu-bar .menu-item:showing {
+    -fx-background-color: #f55e61;
 }
 
 .menu .left-container {
@@ -382,6 +399,14 @@
 
 .scroll-bar:horizontal .increment-arrow, .scroll-bar:horizontal .decrement-arrow {
     -fx-padding: 8 1 8 1;
+}
+
+.scroll-pane {
+    -fx-background-color: white;
+}
+
+VBox {
+    -fx-background-color: white;
 }
 
 #cardPane {

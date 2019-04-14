@@ -65,14 +65,14 @@ public interface Logic {
      * Selected moduleTaken in the filtered moduleTaken list.
      * null if no moduleTaken is selected.
      *
-     * @see seedu.address.model.Model#selectedModuleTakenProperty()
+     * @see seedu.address.model.Model#selectedClassForPrintingProperty()
      */
     ReadOnlyProperty<ClassForPrinting> selectedPersonProperty();
 
     /**
      * Sets the selected moduleTaken in the filtered moduleTaken list.
      *
-     * @see seedu.address.model.Model#setSelectedModuleTaken(ClassForPrinting)
+     * @see seedu.address.model.Model#setSelectedClassForPrinting(ClassForPrinting)
      */
 
     void setSelectedPerson(ClassForPrinting moduleTaken);

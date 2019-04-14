@@ -145,10 +145,6 @@ After the medicine-quantity pairings are entered, the prescription to address th
 .Prescribing medicines to tackle the patient's current conditions
 image::prescription_after.png[width="400"]
 
-'''
-
-See the full
-
 == Contributions to the Developer Guide
 
 |===

@@ -34,6 +34,22 @@ My role in this project is to design and implement the medicine management modul
 
 The following is a list of notation used in this document and their respective meaning. +
 
+[width="800",cols="15%,85%",options="header"]
+|===================
+|Format |Meaning
+a|`command` |This is a user input to the application. It is formatted with a gray background.
+ifdef::env-github[]
+| :bulb: |This is a tip. Useful information pertaining to the features will be written here.
+| :information_source: | This is a note. Additional information that further explains a feature will be written here.
+| :warning: |This is a highlight. Ideas and explanation that I want to draw your attention to will be written here.
+endif::[]
+ifndef::env-github[]
+a| icon:lightbulb-o[role="icon-tip", size="2x"] | Tips and tricks that might be useful
+a| icon:info-circle[role="icon-note", size="2x"] | This is a note. Additional information that further explains a feature will be written here.
+a| icon:warning-circle[role="icon-important", size="2x"] |This is a highlight. Ideas and explanation that I want to draw your attention to will be written here.
+endif::[]
+|===
+
 [WARNING]
 This is a highlight. Ideas and explanation that I want to draw your attention to will be written here.
 
@@ -43,16 +59,218 @@ This is a tip. Useful information pertaining to the features will be written her
 [NOTE]
 This is a note. Additional information that further explains a feature will be written here. +
 
-=== Major Enhancements
+=== Major enhancements
 
 |===
-|_This sections illustrates my major contributions in this project, especially regarding to design and coding of medicine management module._
+|_This section illustrates my major contributions in this project, especially regarding to design and coding of medicine management module._
 |===
 
-* *Enhancement added:* I designed and implemented the medicine management module. +
+* *Enhancement 1:* I designed and implemented the medicine management module. +
 ** *What it does:* Medicine management is a key aspect of clinic management. My medicine management module allows the doctors to customize his/her medicine organization. It also supports a variety of commands to facilitate users in clinic management. +
 ** *Why is it needed:* With QuickDocs, doctors no longer need to go through tons of paperwork or sheets and sheets of Excel files to keep track of his medicine storage. All additions, modifications, prescriptions and organizations of medicines could be done on one single interface so that QuickDocs provides its users with the most convenience possible in managing their clinics. +
 ** *Highlights:* The medicine module is designed is in a directory format,  which supports quick search of medicines and mass operation of medicines without the need to type in lengthy commands. This will be explained further in details in
 //Todo: add link
 ** *Who / what to acknowledge:* My inspiration for organizing medicines in a directory format is adapted from the folder system in most of the common Operating systems such as Windows.
 
+* *Enhancement 2:* I added automatic completion feature to facilitate command typing.
+** *What it does:* With this feature, when typing commands related to medicine storage, the users no longer need to remember and type in the path by themselves; instead, they can press page-up and page-down to iterate through all possible sub-directories. +
+** *Why is it needed:* When the users intend to locate a medicine or directory in the medicine management module, they will need to key in the full path leading to their interested medicine or directory. This requires the users to remember spellings of directories and paths of medicines precisely. This contradicts the project's purpose which is to make users' like easier. Therefore to achieve maximum convenience for our users, I have implemented this autocompletion feature. +
+** *Highlights:* This feature requires seamless integration among three components of the product, namely the UI component, Logic component and the Model component. In my implementation, I followed the principle of abstraction closely, so that this feature is independent from the implementations of lower level modules and will work well with both existing commands and possible future commands. +
+
+* *Code contributed:* [https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#=undefined&search=Xue-Chenyang[Functional code]]
+
+=== Other contributions
+
+|===
+|_This section illustrates some other contributions I made in this project, including minor features added, project management and team collaboration._
+|===
+
+* *Minor features implemented:*
+** I implemented automatic alarm system so that whenever a medicine's amount falls below a threshold set by the user, an automatic reminder will appear in the side bar to remind the user to stock up that medicine. +
+** In some commands in medicine management module, to accommodate to users who know their medicines really well, I supported identifying medicines by their names only. +
+* *Project management:*
+** I assisted setting up of milestone objectives from v1.2 to v1.4. +
+** Working with my team, I managed issue trackers on GitHub page regarding to medicine management module. +
+* *Team collaboration:*
+** I analyzed the architecture of QuickDocs' prototype application, AddressBook Level 4. With the knowledge, I helped my teammates in understanding how our team should code our product.
+** I removed left over redundant AddressBook code for v1.4 releases to improve the efficiency and readability of the code. Additionally, I also refactored the names of packages in our products to more accurately reflect our product.
+https://github.com/CS2103-AY1819S2-W09-4/main/pull/138[#138],
+https://github.com/CS2103-AY1819S2-W09-4/main/pull/163[#163]
+** I reviewed pull requests https://github.com/CS2103-AY1819S2-W09-4/main/pull/35[#35] and https://github.com/CS2103-AY1819S2-W09-4/main/pull/98[#98] to improve the quality of our code.
+
+== Contribution to the User Guide
+
+|===
+|_In this sections, I will show a sample section of my contribution to the User Guide._ +
+_This sample section will cover the autocompletion feature and the most fundamental commands in medicine management which are adding directories and medicines._
+|===
+
+=== Suggestion mode in command typing
+
+In QuickDocs, as medicines are stored in directories format, you will need to key in the path to your interested directory/medicine from time to time. +
+
+For your convenience, QuickDocs actually provides a quick cut to key in these paths so that you do not need to type in every character by yourself! +
+
+As long as you are typing a command in medicine module and you have typed the name of the first parent directory followed by a `\` character, the suggestion mode is automatically turn on! +
+
+So what is suggestions mode? Why is that useful? The following example will illustrate the convenience it brings to you.
+
+* Suppose you have a directory 'Flu' under directory 'General' under directory 'Internal' under the root directory 'root' as illustrated below:
+
+[[suggestion_ug1]]
+.Display of detailed information
+image::suggestion_ug1.png[width='600']
+
+* Now you want to type this command `listmed root\Internal\General\Flu` , which is a command to see detailed information about that directory, from scratch.
+
+* What you can do is to first type `listmed root\` to trigger the suggestion mode.
+
+.To trigger the suggestion mode
+image::suggestion_ug2.png[width='600']
+
+* You can then press the page-down key to iterate through all subdirectories under 'root'. The input box will automatically be filled for you.
+
+.After pressing Page Down once
+image::suggestion_ug3.png[width='600']
+
+* In this example, you can arrive at `listmed root\Internal` in just two Page Down keys.
+
+.After pressing Page Down twice
+image::suggestion_ug4.png[width='600']
+
+* Doing this recursively at every stage, you can quickly arrive at the desired `listmed root\Internal\General\Flu`.
+
+* Suppose now you want to view the detailed information about a medicine called 'guaifenesin' under directory 'Flu'. You entered `listmed root\Internal\General\Flu\guai` only to realize that you forget the spelling of guaifenesin.
+
+* Do not worry! You can press page-up / page-down as well. Page up will bring you to the last valid sub-directory / medicine name as compared to your input according to alphabetic order. Page down will bring you to the next valid input.
+
+.Before pressing Page Up / Page Down
+image::suggestion_ug5.png[width='600']
+
+.After pressiong Page Up, brings you to the last valid medicine: diphenhydramine
+image::suggestion_ug6.png[width='600']
+
+.After pressing Page Down, brings you to your desired : guaifenesin
+image::suggestion_ug7.png[width='600']
+
+{nbsp} +
+
+In short, instead of typing out every characters, you can iterate through your directories fast and easy when typing commands using the page-up and page-down keys!
+
+[NOTE]
+In QuickDocs, names of directories and medicines are case-insensitive. So what appears in the suggestions may be in different cases from the actual name, but they will work the same.
+
+- - -
+
+[[adddirec, Add directory]]
+=== Add new directory into storage: `adddirec`
+
+By providing the path pointing to a specific directory, you can add a new directory under that directory. +
+
+The new directory will be an empty directory whose name is up to you to decide.
+
+[NOTE]
+The new directory's name should not contain white spaces or "\" characters.
+
+{sp} +
+
+*Format:* `adddirec [PATH OF THE PARENT DIRECORY] [NAME OF NEW DIRECTORY]` +
+
+*Alias{nbsp}{nbsp}{nbsp}{nbsp}:* `ad`
+
+{sp} +
+
+*Example:* +
+
+* `adddirec root fever` followed by `adddirec root\fever oral` +
+
+*Result:* +
+
+These commands add a new directory called fever to root, and then add another new directory called oral under fever. +
+
+There will be success messages confirming every successful addition of directories. +
+
+[[adddirec_after]]
+.Result of sample add directory command
+image::adddirec_after.png[width="600"]
+
+- - -
+
+[[addmed, Add medicine]]
+=== Add medicine into storage: `addmed`
+
+Through this command, you can either add a new medicine into the storage, or to place an existing medicine under another directory. +
+
+{sp} +
+
+You can add a new medicine by specifying where it should go to, its initial quantity and its price +
+
+*Format:* `addmed [PATH OF DIRECTORY TO ADD TO] [MEDICINE_NAME] [q/QUANTITY] [p/PRICE]` +
+
+*Alias{nbsp}{nbsp}{nbsp}{nbsp}:* `am`
+
+[NOTE]
+Directories and medicines under the same directory are now allowed to share the same name (case-insensitive).
+
+{sp} +
+
+*Example:* +
+
+`addmed root\fever paracetamol q/50 p/9.99`
+
+*Result:* +
+
+After you enter the command, if it is executed successfully, a confirmation message will appear.
+
+[[addmed_newmedicien_after]]
+.Sucess message of sample addmed command
+image::addmed_newmedicien_after.png[align="center" width="600"]
+
+{sp} +
+
+[NOTE]
+If you entered a medicine name that already exists in the storage in this format, a error message will pop up. +
+
+[[addmed_newMedicine_existing]]
+.Error message of adding an existing medicine in wrong format
+image::addmed_newMedicine_existing.png[width="600"]
+
+{sp} +
+
+You can also place an existing medicine into a directory. +
+
+*Format:* `addmed [PATH] [MEDICINE_NAME]`
+
+{sp} +
+
+*Example:* +
+
+`addmed root\headache paracetamol` +
+
+Assuming there already exists a medicine called paracetamol in the storage, you can place this medicine under root\headache via this command. +
+
+*Result:* +
+
+After you enter the command, if it is executed successfully, a confirmation message showing the detailed information of that medicine will appear.
+
+[[addmed_existing]]
+.Success message of sample addmed command
+image::addmed_existing.png[align="center" width="600"]
+
+{sp} +
+
+[NOTE]
+If you entered a medicine name that has not existed in the storage in this format, an error message will pop up.
+
+
+[[addmed_existing_nonExisting]]
+.Error message for adding new medicine in wrong format
+image::addmed_existing_nonExisting.png[align="center" width="600"]
+
+In this case, no medicine called aspirin has yet existed in the storage.
+
+=== Contribution to the Developer Guide
+
+|===
+|_In this section, I will showcase
+|===

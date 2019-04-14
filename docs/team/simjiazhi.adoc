@@ -147,6 +147,8 @@ image::prescription_after.png[width="400"]
 
 '''
 
+See the full
+
 == Contributions to the Developer Guide
 
 |===

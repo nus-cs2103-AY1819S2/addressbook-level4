@@ -20,7 +20,7 @@ By: `Team BrainTrain`      Since: `Jan 2019`      Licence: `MIT`
 // tag::evan[]
 == Introduction
 
-BrainTrain is an open-source spaced repetition flashcard application which makes *memorizing easy and efficient*. Research has shown that the Spaced-Repetition System (SRS) is *much more effective* than traditional memorization techniques. With BrainTrain, you will *learn more with less time*.
+BrainTrain is an open-source spaced repetition flashcard application which makes *memorising easy and efficient*. Research has shown that the Spaced-Repetition System (SRS) is *much more effective* than traditional memorization techniques. With BrainTrain, you will *learn more with less time*.
 
 BrainTrain is also a *portable* and *easy-to-navigate* desktop program. It is an *offline* application which you can use anywhere, even in places with limited or no Internet availability. It can be navigated and used via *easy-to-use* commands through the Command Line Interface (CLI). The CLI is supplemented by a minimalistic Graphical User Interface (GUI) which provides *helpful but non-distracting visual aid*. Together, the CLI and GUI provides an *effective and straightforward* way for you to use BrainTrain.
 
@@ -34,12 +34,12 @@ Start using BrainTrain today! To get started, read [<<Quick start>>] for install
 To begin using BrainTrain, follow the following set of instructions: +
 
 . Ensure that Java version `9` or later is installed on your Computer. You can download it link:https://www.oracle.com/technetwork/java/javase/downloads/java-archive-javase9-3934878.html[here].
-. Download the latest `braintrain.jar` file link:{repoURL}/releases[here].
+. Download the latest `braintrain.jar` file link:{repoURL}/releases[here]. It is located under "Assets".
 . Create a folder to use as the home folder for BrainTrain (e.g. `braintrain/`).
 . Move the downloaded file to the created folder.
 . You can **optionally** download a sample lesson here: link:https://github.com/CS2103-AY1819S2-W14-1/main/blob/master/src/test/data/country-capitals-asia.csv[`country-capitals-asia.csv`]. +
 Put the sample lesson into a `data` sub-folder within the `braintrain` folder (i.e. `braintrain/lessons/`).
-. Double-click the file to run BrainTrain. The GUI will appear in a few seconds.
+. Double-click BrainTrain with the file type as `Executable Jar File`. The GUI will appear in a few seconds.
 +
 .BrainTrain's GUI on first run
 [#img-firstlook]
@@ -48,7 +48,6 @@ image::UiFirstLook.png[width="790"]
 . Type the command <<help, `help`>> in the command box and press kbd:[Enter] to find out how to use BrainTrain commands.
 
 To learn more about BrainTrain commands, carry on to [<<Features>>].
-
 {empty} +
 
 // end::evan[]
@@ -382,6 +381,31 @@ Format: `\quit`
 
 {empty} +
 
+// tag::jeraldtsy[]
+[[usermode]]
+=== User Transfer mode
+
+You can use BrainTrain across different devices. This is an in-built feature that is automated in BrainTrain.
+
+==== Using BrainTrain across different devices
+
+To transfer your files: +
+
+. Store the `userdata` and `lessons` folder into your transfer device(thumbdrive etc.).
+. On another device, ensure that BrainTrain has been executed `at least once`.
+. Transfer and overwrite the `userdata` and `lessons` folder.
+. Your progress will be automatically imported on that device.
+
+==== Coming Soon(v2.0)
+
+Easily transfer files using import command to get files directly from a specific link without the use of transfer devices.
+Example : import User l/[INSERT_DESIRED_LINK_HERE]
+
+// end::jeraldtsy[]
+
+{empty} +
+
+// TODO
 == Troubleshooting
 
 *Q*: Why are my card values shown as `?????`? +
@@ -444,5 +468,10 @@ e.g. `deleteCard 2`
 * *Labelling the current flashcard as difficult*: `\difficult`
 * *Viewing the current flashcard's hint(s)*: `\hint`
 * *Quitting the quiz session*: `\quit`
+
+{empty} +
+
+=== User transfer
+* *Using BrainTrain on another device*
 
 {empty} +

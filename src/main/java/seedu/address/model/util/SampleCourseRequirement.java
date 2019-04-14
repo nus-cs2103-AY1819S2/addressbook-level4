@@ -7,6 +7,7 @@ import static seedu.address.model.course.CourseReqType.GE;
 import static seedu.address.model.course.CourseReqType.IE;
 import static seedu.address.model.course.CourseReqType.UE;
 
+import java.util.List;
 import java.util.stream.Stream;
 
 import seedu.address.model.course.CompositeRequirement;
@@ -143,7 +144,9 @@ public class SampleCourseRequirement {
             new PrimitiveRequirement("Mathematics", "Complete MA1521, MA1101R and ST2334",
                     CORE, MATH_CONDITIONS);
     public static final String SCIENCE_REGEX =
-            "^(?!(MA1521)|(ST2334)|(MA1101R))((MA|ST|PC|LSM|CM|FST)[1-9][0-9]{3}[A-Z]?)$";
+            "CM1121|CM1131|CM1417|LSM1102|LSM1105|LSM1106|LSM1301|LSM1302|PC1141|PC1142|PC1143|PC1144|PC1221|PC1222|"
+                    + "PC1432|MA2213|MA2214|CM1101|CM1111|CM1161|CM1191|CM1401|CM1402|CM1501|CM1502|LSM1303|LSM1306|"
+                    + "PC1421|PC1431|PC1433|MA1104|MA2104|MA2101|MA2108|MA2501|ST2132|ST2137";
     public static final Condition SCIENCE_CONDITION = new Condition(SCIENCE_REGEX);
     public static final CourseRequirement SCIENCE_REQUIREMENT = new PrimitiveRequirement(
             "Sciences", "Complete 1 Science module other than MA1521, MA1101R, ST2334",
@@ -182,4 +185,11 @@ public class SampleCourseRequirement {
     public static final CourseRequirement TOTAL_MODULE_COUNT =
             new PrimitiveRequirement("Unrestricted Electives",
             "Complete at least 40 modules to graduate", UE, COMPLETE_40_MODULES);
+
+    public static List<CourseRequirement> getTypicalRequirements() {
+        return List.of(UNIVERSITY_LEVEL_REQUIREMENT, COMPUTER_SCIENCE_FOUNDATION, FOCUS_AREA_ALGORITHMS,
+                INDUSTRIAL_SYSTEM_EXPERIENCE, COMPUTER_SYSTEM_TEAM_PROJECT, IT_PROFESSIONALISM,
+                MATH_REQUIREMENT, SCIENCE_REQUIREMENT, TOTAL_MODULE_COUNT);
+    }
+
 }

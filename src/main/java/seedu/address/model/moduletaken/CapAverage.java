@@ -32,13 +32,6 @@ public class CapAverage {
     }
 
     /**
-     * Returns if this {@code CapAverage} is no more than another CapAverage.
-     */
-    public boolean isWithin(CapAverage limit) {
-        return this.getCapLimit() <= limit.getCapLimit();
-    }
-
-    /**
      * Adds a cap into the list of caps to be averaged
      *
      * @param gradeCap The grade point to be added to the list of caps
@@ -61,6 +54,11 @@ public class CapAverage {
         return test.matches(VALIDATION_REGEX);
     }
 
+    /**
+     * Computes the average CAP of the list of WeightedGrades
+     *
+     * @return the average CAP
+     */
     public double getCapLimit() {
         if (weightedGrades.isEmpty()) {
             return 0;

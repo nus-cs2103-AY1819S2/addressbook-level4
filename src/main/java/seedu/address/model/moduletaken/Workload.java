@@ -4,6 +4,8 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Objects;
 
+import seedu.address.model.moduleinfo.ModuleInfoWorkload;
+
 /**
  * Represents the expected Workload of module selected as defined by the user
  * Guarantees: details are present and not null, field values are validated, immutable.
@@ -15,6 +17,17 @@ public class Workload {
     private final Hour labHour;
     private final Hour projectHour;
     private final Hour preparationHour;
+
+    /**
+     * For constructing a Workload based on converted information from ModuleInfoWorkload
+     */
+    public Workload(ModuleInfoWorkload moduleInfoWorkload) {
+        this.lectureHour = new Hour(String.valueOf(moduleInfoWorkload.getLecture()));
+        this.tutorialHour = new Hour(String.valueOf(moduleInfoWorkload.getTutorial()));
+        this.labHour = new Hour(String.valueOf(moduleInfoWorkload.getLab()));
+        this.projectHour = new Hour(String.valueOf(moduleInfoWorkload.getProject()));
+        this.preparationHour = new Hour(String.valueOf(moduleInfoWorkload.getPreparation()));
+    }
 
     /**
      * For populating the Module Taken with a default workload when the information is not provided.

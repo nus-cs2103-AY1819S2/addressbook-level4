@@ -111,7 +111,7 @@ The following sections explain the design of GradTrak.
 
 .Architecture Diagram
 image::Architecture.png[width="600"]
-
+//TODO: update
 The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
 
 [TIP]
@@ -139,10 +139,7 @@ Each of the four components above:
 * Defines its Application Programming Interface (API) in an `interface` with the same name as the Component.
 * Exposes its functionality using a `{Component Name}Manager` class.
 
-For example, the `Logic` component (see the class diagram given below) defines its API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
-
-.Class Diagram of the Logic Component
-image::LogicClassDiagram.png[width="800"]
+For example, the `Logic` component (see class diagram in Section 2.3) defines its API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
 
 [discrete]
 ==== How the architecture components interact with each other
@@ -189,8 +186,8 @@ link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
 
-.Interactions Inside the Logic Component for the `delete 1` Command
-image::DeletePersonSdForLogic.png[width="800"]
+.Interactions inside the Logic Component for the `delete 1` Command
+image::DeleteModuleTakenSdForLogic.png[width="800"]
 
 [[Design-Model]]
 === Model component
@@ -203,7 +200,10 @@ image::ModelClassDiagram.png[width="800"]
 The `Model`:
 
 * stores a `UserPref` object that represents the user's preferences.
+* stores a `UserInfo` object that represents user's information such as `Course` and `SemLimit`
 * stores the GradTrak data.
+* stores a filtered list of `ModuleInfo`, `RecModule` that represents a list of modules NUS offers
+* stores a `RequirementStatus` that keep tracks of the status of the requirement of the Course
 * exposes an unmodifiable `ObservableList<ModuleTaken>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
@@ -223,10 +223,10 @@ Within the `Storage` component there are *2* types of storage classes: +
 image::StorageClassDiagram.png[width="800"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
-
+//TODO: update class diagram
 The `Storage` component,
 
-* can save `UserPref` objects in json format and read it back.
+* can save `UserPref`, `UserInfo` objects in json format and read it back.
 * can save the GradTrak data in json format and read it back.
 
 [[Read-Only]]
@@ -234,12 +234,11 @@ The `Storage` component,
 .Structure of read only storage component
 image::moduleinfostorage.png[width="800"]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/Storage/ModuleInfoStorage.java[`ModuleInfoStorage.java`]
+*API* : link:{repoURL}/src/main/java/seedu/address/storage/ModuleInfoStorage/ModuleInfoStorage.java[`ModuleInfoStorage.java`]
+//todo: update class diagram
+The `ModuleInfoStorage` and `CourseStorage` is a read-only storage in `GradTrak`. It is only reads the list of module
+and course information saved in a JSON file and coverts them into `ModuleInfo` and `Course` objects stored in model.
 
-The ModuleInfoStorage is a read-only form of storage as it is only reads the list of module information saved in a JSON
-file and coverts them into `ModuleInfo` and the stores all the `ModuleInfo` into list called `ModuleInfoList`.
-
-* can only read `ModuleInfo` objects in json format.
 
 // end::storage[]
 
@@ -454,111 +453,197 @@ image::UndoRedoActivityDiagram.png[width="650"]
 // end::undoredo[]
 
 // tag::CourseRequirement[]
-=== Checking whether Course Requirement is fulfilled Feature
-
+=== Display Course Requirement feature
 ==== Current Implementation
-Users are able to check whether they have satisfied course requirements through a function `displayreq`.
-Similar to the implementation of the feature related to `displaymod`, when the application is
-launched, a JSON file containing pre-existing information on courses (either default or pre-defined by users) and their respective course requirement
-will loaded as `Course` objects and `CourseRequirement` interface (`Course` contains multiple `CourseRequirement` interface implementees)
-and stored in an `CourseList` inside of `ModelManager`. While the app does not support adding or removing courses and course requirements,
-users can still define their own course or course requirements by modifying the JSON file.
+The `displayreq` command allows the users to see all their course requirements and also check if the modules they have
+taken fulfils them. This command is currently facilitated by 2 classes in `Model`, `CourseRequirement` and
+`RequirementStatus`:
+
+===== `CourseRequirement` Interface
+As there are many different kinds of course requirements that can be found in NUS, it is difficult to iron down the common characteristic
+they all share. This can be seen in the examples found below:
 
 
-We employ the "Composite" design pattern for this class as there are desirable boolean binary operations such as
-"and", "or", that we would like to apply on two different requirements and we would want to regard the "simple" CourseRequirement,
-(one that can be achieved without "and", "or") and a more complicated one (one that can only be achieved with "and", "or") to be the same.
-As such the logical choice would be to make `CourseRequirement` an interface and its implementation is restricted to
-the `PrimitiveRequirement` and `CompositeRequirement` classes.
+.Computer Systems Team Project Requirement
+image::nus_requirement.PNG[width ="800"]
 
-image::CompositeDesignPattern.png[width==800]
+.Focus Area Requirement
+image::nus_requirement2.PNG[width="800"]
 
-As the name suggests,
-`CompositeRequirement` is made up of two other `CourseRequirements`, a `LogicalConnector` enumerations (which is used to represent
-logical binary operators such conjunctions and disjunctions). On the other hand, a `PrimitiveRequirement` is a standalone `CourseRequirement` implementation
-that contains a `Condition` class, which is really a helper class that is used to check whether a list of `ModuleInfoCode` can satisfy the `CourseRequirement`.
-The `Condition` class has the following attribute to decide whether the a condition of `PrimitiveRequirement` is fulfilled, namely one String, Regular Expression,
-and an integer `minToSatisfy`. We will further elaborate the details below.
+For the requirement shown in Figure 9, students just have to complete at least one of CS3203 or
+CS3216 and CS3217 or CS3281 and CS3282. Whereas for the requirement in Figure 10, students have to fulfill
+all of the conditions stated above. Even though these two conditions might seem quite different,
+we are still able to draw some key observations about what they have in common:
 
-There currently 3 ways that `CourseRequirement` provides information to the user:
+. Each requirement is composed of conjunction or disjunction of condition and each condition can
+be composed by conjunction and disjunction of other simpler conditions.
+. Conditions that cannot be further broken down into simpler conditions usually contains information on the list of
+modules that can be used to satisfy the condition and how many of the modules should be completed to satisfy the
+condition.
 
-* `isFulfilled()` -- a method that accepts a list of `ModuleInfoCode` and returns a `boolean` to indicate whether the list of
-`ModuleInfoCode` can satisfy the requirement.
-** For `PrimitiveRequirement`, if the number of distinct `ModuleInfoCode` satisfies the list of Regular Expression pre-defined in
-`Condition` class exceeds `minToSatisfy`, we define the `PrimitiveRequirement` to be satisfied.
-** Similarly, for `CompositeRequirement`, it depends on the `LogicalConnector`; if we have "and", then both `CourseRequirement` must be satisfied
-in order for `CompositeRequirement` to be satisfied and likewise for "or".
-* `percentageFulfilled()` -- a method that also accepts a list of ModuleInfoCode returns a `double` value on the percentage of completion of the
-`CourseRequirement`.
-** For `PrimitiveRequirement` this will be the proportion of distinct modules that satisfy at least one of the regular expression
-divided by `minToSatisfy`.
-** For `CompositeRequirement`, a `LogicalConnector` of "or" wil result in the max of the two requirements whereas for "and", we take average
-of both classes to approximate the degree of completion.
+These observations gives us some insight as to how we should design the interface. As such, the `CourseRequirement` interface follows a `Composite` design pattern. This is favoured as it allows
+us to treat individual and composition of `CourseRequirement` objects uniformly. The diagram below gives an overview of
+how `CourseRequirement` is implemented.
 
-* `getUnfulfilled()` -- a method that accepts a list of `ModuleInfoCode` and returns a list of Strings that matches regular expressions (defined under Condition) of the `ModuleInfoCode`
-that can be used to satisfy the `CourseRequirement`.
+.`CourseRequirement` class diagram
+image::CompositeDesignPattern.png[width="800"]
+
+This interface is implemented by 2 subclasses - `PrimitiveRequirement` and `CompositeRequirement`.
+The `PrimitiveRequirement` is the simplest building block for `CourseRequirement`. Each `PrimitiveRequirement` stores a
+list of `Condition` objects. A `Condition` object stores a `Java` `Pattern` and an `int`, `minToSatisfy`. A `Condition`
+is satisfied if there are at least `minToSatisfy` many distinct
+`ModuleInfoCode` that matches `Pattern` in it. `PrimitiveRequirement` is satisfied only if all `Condition` objects in the list are
+fulfilled.
+
+For instance in Figure 9, a suitable `Condition` for completing CS3216 and CS3217 would be
+a `Pattern` that accepts only CS3216 or CS3217, and a `minToSatisfy` of 2.
+
+
+
+The `CompositeRequirement` can replicate the behaviour of more complex course requirements. Each `CompositeRequirement`
+object contains two `CourseRequirement` objects. It also contains a `LogicalConnector` enumeration
+that tells the `CompositeRequirement` how two different `CourseRequirement` are composed using logical operations. For instance, for
+a list of `ModuleInfoCode` to satisfy a `CompositeRequirement` that has a `AND` `LogicalConnector`, the list must
+satisfy the both `CourseRequirement` objects contained in `CompositeRequirement`.
+
+There currently 3 methods that `CourseRequirement` provides information to the user:
+
+* `isFulfilled` -- a method that accepts a list of `ModuleInfoCode` and returns a `boolean` to indicate whether the list of
+`ModuleInfoCode` can satisfy the all the `CourseRequirement`
+
+** In `PrimitiveRequirement`, this is achieved by checking whether all the `ModuleInfoCode` satisfies all the
+`Condition` stored in it.
+
+** In `CompositeRequirement`, this is dependent on the `LogicalConnector` it has. It would return the value of
+first `CourseRequirement#isFulfilled` `LogicalConnector` second `CourseRequirement#isFulfilled`.
+
+* `percentageFulfilled` -- a method that also accepts a list of ModuleInfoCode returns a `double` value that represents the
+percentage of completion of the `CourseRequirement`
+** In `PrimitiveRequirement`, this is achieved by calculating the number of distinct modules that satisfy at least
+1 of the `Condition` in the list and divided by the sum of `minToSatisfy`.
+** This depends on the `LogicalConnector` in `CompositeRequirement`. If it is a `OR` connector, we return the maximum
+of the two. The `AND` logical connector returns the average of the degree of completion for both requirements.
+* `getUnfulfilled` -- a method that accepts a list of `ModuleInfoCode` and returns a list of RegExes from where none of the
+`ModuleInfoCode` matches. This method is used in the recommend feature.
+
+===== `RequirementStatus` Class
+The `RequirementStatus` is an association class that links a `CourseRequirement` with `VersionedGradTrak` in `Model`.
+This can be seen in the class diagram below:
+
+.`RequirementStatus` class diagram
+image::RequirementStatusClassDiagram.png[width="800"]
+
+
+It also stores the result of the associated `CourseRequirement` object's `isFulfilled` and `percentageFulfilled`
+methods acting on the list of `ModuleInfoCode`.
+
+
+Below is a sequence of execution when `displayreq` command is executed by the user:
+
+1. `Model#updateRequirementStatusList` is called. This clears the pre-existing `RequirementStatusList`
+and fills it with new `RequirementStatus` objects based on current `Course` and `ModulesTakenList`.
+
+2. `UI` calls `getRequirementStatusList` from `Logic` and retrieves the updated `RequirementStatusList`
+from `Model`. This list is displayed in the `ResultPanel`.
+
+The sequence diagram below summarises the execution as described above.
+
 
 ==== Design Considerations
-===== Aspect: How condition checks whether Course Requirement is fulfilled
-* **Alternative 1 (current choice): Checking Requirement fulfilled by only using `ModuleInfoCode` of
+
+===== Aspect: How `Condition` class checks if it is fulfilled.
+* **Current choice: Checking `Condition` fulfilled by only using `ModuleInfoCode` of
 `ModuleTaken`**
-** Pros: Easier to implement since we are restricting scope to only checking of strings
-** Cons: There could be 'corner cases' that we left out; actual NUS Course Requirement that we cannot represent by
-merely checking the module code.
+** Pros: Easy to implement since we are restricting scope to only checking whether strings match
+pattern in `Condition`
+** Cons: Possibility that the `CourseRequirement` class fails to check requirements that does not
+ not depend on `ModuleInfoCode`
 
 
-* ** Alternative 2: Checking Requirement fulfilled by accessing any attribute of `ModuleTaken`**
-** Pros: Increased flexibility allows for more powerful expressions and increased usability for users side
-** Cons: More Java classes/coding required (to Separate Responsibilities and Concerns) also means that more tests
-and storage components for different classes.
+* ** Alternative: Checking Requirement fulfilled by accessing any attribute of `ModuleTaken`**
+** Pros: Increased flexibility and easier to replicate actual NUS requirements that does not depend
+on `ModuleInfoCode`
+** Cons: Increased complexity to implement `CourseRequirement` class properly.
 
-Alternative 1 is chosen over alternative 2 because it is much easier to implement in terms of scope.
-Another reason why we chose alternative 1 over alternative 2 is due to the lack of time.
-For most cases, alternative 1 seems to be sufficient.
-However, in the future, we might extend the Condition class to check for other attributes of `ModuleTaken`.
+We chose the current choice over the alternative due to time constraints in the project. Moreover, our current choice
+is sufficient to replicate most NUS requirements accurately.
+
+===== Aspect: Choice of information stored in `Condition` class
+* **Current choice: `Condition` class stores a `Pattern` to check whether a requirement is satisfied**
+** Pros: Compact representation of which `ModuleInfoCode` fulfills the requirement
+** Cons: Difficult to find the correct regular expression for some `Condition.`
+
+* **Alternative: `Condition` class stores an exact list of `String` to check whether a condition is satisfied**
+** Pros: Easy and interpretive to use.
+** Cons: Might need to store a long list of `String` if many modules can fulfil the `Condition` eg: General Education
+Modules
+
+We chose our current choice over the alternative as it takes up much fewer space to store. Moreover, storing a pattern
+also improves performance time since each `ModuleInfoCode` is matched against a `Pattern` instead a list of `String`
+objects.
+
+==== Possible Improvements
+. Allow users to create and export their own `Course` and `CourseRequirement` objects.
+. Allow `Condition` to check its fulfillment access other attributes of a `ModuleTaken` object in the future.
 //end::CourseRequirement[]
 
-//tag::recommend[]
+// tag::rec[]
 === Module recommendation feature
 
-The module recommendation feature displays modules which the user the recommended to take based on existing GradTrak modules
-and specific course requirements. It generates a list of module codes together with its corresponding title and requirement
-type satisfied. The entire list is displayed on the Result Panel upon entering the `rec` command.
+The module recommendation feature displays modules which the user is recommended to read based on the current module plan
+and specific course requirements. It generates a list of module codes together with their corresponding titles and requirement
+types satisfied. The entire list is displayed on the Result Panel upon entering the `rec` command.
 
 ==== Current implementation
 
-Each recommended module is represented by a `RecModule` which contains a unique `ModuleInfoCode`, `ModuleInfoTitle` and its corresponding
-`CourseReqType` satisfied. When `ModelManager` is initialised, `Model#getObservableRecModuleList` is called which generates an
+Each recommended module is represented by a `RecModule` which contains a unique `ModuleInfo` and its corresponding
+`CourseReqType` satisfied, as shown in the diagram below.
+
+.`RecModule` class diagram
+image::RecModuleClassDiagram.png[width="400"]
+
+
+When `ModelManager` is initialised, `Model#getObservableRecModuleList` is called which generates an
 `ObservableList` of `RecModule` , one for each module in the entire `ModuleInfoList`. This list is wrapped in a `FilteredList`,
 which is further wrapped in a `SortedList`, both stored in `ModelManager`. At this point, all `RecModule` in the list contain an empty `CourseReqType` field.
 
 When the `rec` command is entered, the sequence of execution is as follows:
 
 .  `Model#updateRecModuleList` is called, which creates a `RecModulePredicate` given the user's `Course` and `GradTrak`, and a `RecModuleComparator`.
-.  The `RecModulePredicate` is applied to the `FilteredList` of `RecModule`.
-.. It first tests if the `ModuleInfoCode` in a `RecModule` (call it `codeToTest`) is eligible to be taken,
-using an `EligibleModulePredicate` which takes in `GradTrak`. Those `RecModule` corresponding to `ModuleTaken` in `GradTrak`
-which are already passed or to be taken in a future semester (non-failed modules) are filtered out at this stage.
+.  The `RecModulePredicate` is applied to the `FilteredList` of `RecModule`. In each test:
+.. An `EligibleModulePredicate` which takes in `GradTrak` tests if the `ModuleInfo` of this `RecModule` is eligible to be read.
+If the module is already present in GradTrak or does not have its prerequisites satisfied, this `RecModule` is filtered out.
+.. The `ModuleInfoCode` (call it `codeToTest`) of the `RecModule` is retrieved. +
+A `nonFailedCodeList` of `ModuleInfoCode` corresponding to non-failed `ModuleTaken` (already passed or to be read in a future semester) is also retrieved from `GradTrak`.
 .. The `codeToTest` is then passed into `Course#getCourseReqTypeOf`, which in turn calls `CourseRequirement#canFulfill` for each `CourseRequirement` listed in `Course`.
  A list of `CourseReqType` that the `codeToTest` can satisfy is returned.
 This `courseReqTypeList` is sorted by the priority of `CourseReqType` as defined in the `enum` class: `CORE`, `BD`, `IE`, `FAC`, `GE`, `UE`.
-.. A `nonFailedCodeList` of `ModuleInfoCode` corresponding to non-failed `ModuleTaken` is retrieved from `GradTrak`.
-For each `CourseReqType` in the `courseReqTypeList` (highest priority first):
+.. For each `CourseReqType` in the `courseReqTypeList` (highest priority first):
 ... `Course#isCodeContributing` is called, which takes in the `CourseReqType`, `nonFailedCodeList` and `codeToTest`.
 ... For each `CourseRequirement` listed in `Course` corresponding to the given `CourseReqType`, `CourseRequirement#getUnfulfilled`
 is called which takes in the `nonFailedCodeList` and returns an `unfulfilledRegexList` of RegExes not satisfied.
 ... If the `codeToTest` matches any of the RegExes in the
 `unfulfilledRegexList`, `Course#isCodeContributing` returns `true` and the loop for `courseReqTypeList` terminates.
 .. The `CourseReqType` of highest priority satisfied by `codeToTest` is then set into the `RecModule`. However, if the `codeToTest` does not
-contribute to any of the `CourseRequirement` listed in `Course`, the `RecModule` is filtered out.
+contribute to any of the `CourseRequirement` listed in `Course`, this `RecModule` is filtered out.
 . The `RecModuleComparator` is applied to the `SortedList` of `RecModule`. It sorts the list in decreasing priority of the
 `CourseReqType` satisfied by the `RecModule`. Those `RecModule` with equal priority are sorted by module level (the first numerical digit of its `ModuleInfoCode`),
-considering that lower level modules are usually taken first. In the case of equal priority and module level, lexicographical sorting is used.
-. The `SortedList` of `RecModule` is retrieved from the `ModelManager`. If it is empty, the user will be notified that all course requirements have been satisfied by the current GradTrak.
-Otherwise, it will be displayed to the user in the Result Panel.
+considering that lower level modules are usually read first. In the case of equal priority and module level, lexicographical sorting of its `ModuleInfoCode` is used.
+. The `SortedList` of `RecModule` is retrieved from `ModelManager` and displayed to the user in the Result Panel.
 
-If there are changes to `GradTrak` (adding, editing or deleting modules) or `Course` (changing the Course of study), the `rec` command
+If there are changes to `GradTrak` (adding, editing or deleting modules) or `Course` (changing the course of study), the `rec` command
 must be run again to reflect the updated recommendation list.
+
+The sequence diagrams summarising the above execution are shown below.
+
+.`RecCommand` sequence diagram
+image::RecCommandSequenceDiagram.png[width="1000"]
+
+.`RecModulePredicate` sequence diagram
+image::RecModulePredicateSequenceDiagram.png[width="800"]
+
+.`RecModuleComparator` sequence diagram
+image::RecModuleComparatorSequenceDiagram.png[width="800"]
 
 ==== Design Considerations
 ===== Aspect: Sorting of recommendation list
@@ -570,20 +655,20 @@ must be run again to reflect the updated recommendation list.
 ** Pros: User can sort the list according to his own preferences
 ** Cons: Difficult to implement if several parameters for sorting is allowed; input method for the custom order is problematic
 
-===== Aspect: How `CourseReqType` for each tested module is stored
-* **Alternative 1 (current choice): `CourseReqType` is stored in `RecModule` together with `ModuleInfoCode` and `ModuleInfoTitle`**
-** Pros: More organised; any additional information the user wishes to be displayed can also be stored in `RecModule`
-** Cons: More space required for creating `RecModule` for all modules
-* **Alternative 2 (previous choice): A `HashMap` of `ModuleInfoCode` to `CourseReqType` is stored; the map is reset before each `rec` command**
-** Pros: Only need to store `ModuleInfoCode` instead of `RecModule`
-** Cons: Retrieving other information of the module for displaying in the Result Panel is slightly problematic
+===== Aspect: Format of recommendation
+* **Alternative 1 (current choice): Display a list of all eligible modules that contribute to course requirements**
+** Pros: User has a greater freedom of choice
+** Cons: User may be confused or unable to decide if the list is too long
+
+* **Alternative 2: Display `n` modules for each semester, where `n` is decided by the user**
+** Pros: User can plan modules for specific semesters easily and quickly
+** Cons: Algorithm required to plan for all semesters can be complex; user may not prefer the given plan
+
 
 ==== Possible Improvements
-. Allow the user to display a module's information (from displaymod command) using its index in the recommendation list
-. Allow the user to add a module to GradTrak using its index in the recommendation list
-
-
-
+. Allow the user to display a module's information (from `displaymod` command) using its index in the recommendation list
+. Allow the user to add a module to the module plan using its index in the recommendation list
+// end::rec[]
 
 // tag::semesterlimits[]
 === Semester CAP and workload management feature
@@ -609,6 +694,9 @@ Modules taken before the current semester must have a finalized grade such that
 
 when the user tries to shift the current semester forward, the app will check through all the modules taken before the current semester to ensure that the maximum and minimum expected grades are set to be the same.
 or else the `cursem` command will fail and be rejected with an error message
+
+image::SetCurrentSemesterSequenceDiagram.png[width="1000"]
+image::SetSemesterLimitSequenceDiagram.png[width="1000"]
 
 //end::semestertracking[]
 
@@ -665,10 +753,10 @@ image::chrome_save_as_pdf.png[width="300"]
 [[Docs-SiteWideDocSettings]]
 === Site-wide Documentation Settings
 
-The link:{repoURL}/build.gradle[`build.gradle`] file specifies some project-specific https://asciidoctor.org/docs/user-manual/#attributes[asciidoc attributes] which affects how all documentation files within this project are rendered.
+The link:{repoURL}/build.gradle[`build.gradle`] file specifies some project-specific https://asciidoctor.org/docs/user-manual/#attributes[asciidoc attributes] which affect how all documentation files within this project are rendered.
 
 [TIP]
-Attributes left unset in the `build.gradle` file will use their *default value*, if any.
+Attributes left unset in the `build.gradle` file will use their *default values*, if any.
 
 [cols="1,2a,1", options="header"]
 .List of site-wide attributes
@@ -695,12 +783,12 @@ This will render the SE-EDU navigation bar at the top of the page, and add some 
 [[Docs-PerFileDocSettings]]
 === Per-file Documentation Settings
 
-Each `.adoc` file may also specify some file-specific https://asciidoctor.org/docs/user-manual/#attributes[asciidoc attributes] which affects how the file is rendered.
+Each `.adoc` file may also specify some file-specific https://asciidoctor.org/docs/user-manual/#attributes[asciidoc attributes] which affect how the file is rendered.
 
 Asciidoctor's https://asciidoctor.org/docs/user-manual/#builtin-attributes[built-in attributes] may be specified and used as well.
 
 [TIP]
-Attributes left unset in `.adoc` files will use their *default value*, if any.
+Attributes left unset in `.adoc` files will use their *default values*, if any.
 
 [cols="1,2a,1", options="header"]
 .List of per-file attributes, excluding Asciidoctor's built-in attributes
@@ -744,7 +832,7 @@ The SE-EDU team does not provide support for modified template files.
 There are three ways to run tests.
 
 [TIP]
-The most reliable way to run tests is the 3rd one. The first two methods might fail some GUI tests due to platform/resolution-specific idiosyncrasies.
+The most reliable way to run tests is the third one. The first two methods might fail some GUI tests due to platform/resolution-specific idiosyncrasies.
 
 *Method 1: Using IntelliJ JUnit test runner*
 
@@ -756,11 +844,11 @@ The most reliable way to run tests is the 3rd one. The first two methods might f
 * Open a console and run the command `gradlew clean allTests` (Mac/Linux: `./gradlew clean allTests`)
 
 [NOTE]
-See <<UsingGradle#, UsingGradle.adoc>> for more info on how to run tests using Gradle.
+See <<UsingGradle#, UsingGradle.adoc>> for more information on how to run tests using Gradle.
 
 *Method 3: Using Gradle (headless)*
 
-Thanks to the https://github.com/TestFX/TestFX[TestFX] library we use, our GUI tests can be run in the _headless_ mode. In the headless mode, GUI tests do not show up on the screen. That means the developer can do other things on the Computer while the tests are running.
+Thanks to the https://github.com/TestFX/TestFX[TestFX] library we use, our GUI tests can be run in the _headless_ mode. In the headless mode, GUI tests do not show up on the screen. That means the developer can do other things on the computer while the tests are running.
 
 To run tests in headless mode, open a console and run the command `gradlew clean headless allTests` (Mac/Linux: `./gradlew clean headless allTests`)
 
@@ -768,15 +856,15 @@ To run tests in headless mode, open a console and run the command `gradlew clean
 
 We have two types of tests:
 
-.  *GUI Tests* - These are tests involving the GUI. They include,
-.. _System Tests_ that test the entire App by simulating user actions on the GUI. These are in the `systemtests` package.
+.  *GUI Tests* - These are tests involving the GUI. They include:
+.. _System tests_ that test the entire App by simulating user actions on the GUI. These are in the `systemtests` package.
 .. _Unit tests_ that test the individual components. These are in `seedu.address.ui` package.
-.  *Non-GUI Tests* - These are tests not involving the GUI. They include,
+.  *Non-GUI Tests* - These are tests not involving the GUI. They include:
 ..  _Unit tests_ targeting the lowest level methods/classes. +
 e.g. `seedu.address.commons.StringUtilTest`
 ..  _Integration tests_ that are checking the integration of multiple code units (those code units are assumed to be working). +
 e.g. `seedu.address.storage.StorageManagerTest`
-..  Hybrids of unit and integration tests. These test are checking multiple code units as well as how the are connected together. +
+..  Hybrids of unit and integration tests. These tests are checking multiple code units as well as how they are connected together. +
 e.g. `seedu.address.logic.LogicManagerTest`
 
 
@@ -807,7 +895,7 @@ When a pull request has changes to asciidoc files, you can use https://www.netli
 
 Here are the steps to create a new release.
 
-.  Update the version courseReqCredits in link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp.java`].
+.  Update the version `courseReqCredits` in link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp.java`].
 .  Generate a JAR file <<UsingGradle#creating-the-jar-file, using Gradle>>.
 .  Tag the repo with the version courseReqCredits. e.g. `v0.1`
 .  https://help.github.com/articles/creating-releases/[Create a new release using GitHub] and upload the JAR file you created.
@@ -1103,13 +1191,13 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
 
 *Target user profile*:
 
-* has a need to manage a significant courseReqCredits of contacts
-* prefer desktop apps over other types
+* has a need to manage a significant `courseReqCredits` of contacts
+* prefer desktop applications over other types
 * can type fast
 * prefers typing over mouse input
-* is reasonably comfortable using CLI apps
+* is reasonably comfortable using CLI applications
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*: manage contacts faster than a typical mouse/GUI driven application
 
 [appendix]
 == User Stories
@@ -1123,7 +1211,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
 
-|`* * *` |student |add a module for the current semester|
+|`* * *` |student |add a module for the current semester |keep track of all the modules I intend to take
 
 |`* * *` |student |delete a module |remove modules that I am not taking
 
@@ -1131,11 +1219,15 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* *` |student |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
 
-|`* *` |student |view pre-requisites for a module |take the pre-requisites ahead of time
+|`* *` |student |view pre-requisites for a module |take the pre-requisite modules ahead of time
 
 |`* *` |student |add my modules in future semesters |plan ahead
 
-|`* *` |student |know my CAP |pull up my CAP
+|`* *` |student |know my current CAP |track my academic performance
+
+|`* *` |student |predict my maximum and minimum CAP for graduation |compare them against my current CAP and check my performance
+
+|`* *` |student |check the total workload for each semester |ensure an even distribution of workload across all semesters
 
 |`* *` |student |see a recommended list of modules I can take in order of priority |fulfil the graduation requirements on time
 
@@ -1276,25 +1368,90 @@ Use case ends.
 Use case ends.
 
 [discrete]
-=== Use case: Display module info
+=== Use case: Set Semester Limit for a semester
 
 *MSS*
 
-1.  Student keys command to find module code or keywords in the title of module.
-2.  System returns module given module code or keywords.
+1.  User enters a command to indicate the semester to set the limit as well as the limits to be set on the semester
+2.  System edits relevant details.
 +
 Use case ends.
 
-_{More to be added}_
+*Extensions*
+
+[none]
+* 1a. Semester provided is invalid
++
+[none]
+** 1a1. GT shows an error message.
++
+Use case ends.
+
+* 1b. Limit provided is invalid.
++
+[none]
+** 1b1. GT shows an error message.
++
+Use case ends.
+
+* 1c. Limit provided is out of order, such that the minimum limit is more than the maximum limit.
++
+[none]
+** 1c1. GT shows an error message.
++
+Use case ends.
+
+[discrete]
+=== Use case: Display NUS module information
+
+*MSS*
+
+1.  User enters `displaymod` to find an NUS module based on module code or keywords in the module title.
+2.  System returns full module information.
++
+Use case ends.
+
+[discrete]
+=== Use case: Recommend modules
+*MSS*
+
+1.  User enters `rec` command.
+2.  System returns a list of module codes (with title) that the user is recommended to take.
++
+Use case ends.
+
+[discrete]
+=== Use case: Find modules
+*MSS*
+
+1. User enters `find` command to search the module plan based on module code, semester, grade or finished status.
+2. System returns a list of modules in the module plan which satisfy the given parameters.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. User enters `find` without parameters.
++
+[none]
+** 1a1. System gives an "invalid command format" message and provides the correct format.
++
+Use case ends.
+
+* 1b. User enters an invalid grade or semester.
++
+[none]
+** 1b1. System rejects the command and provides the correct format for grade or semester.
++
+Use case ends.
 
 [appendix]
 == Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
-.  Should be able to hold up to 1000 modulesTaken without a noticeable sluggishness in performance for typical usage.
+.  Should be able to hold up to 1000 `modulesTaken` without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-
-_{More to be added}_
 
 [appendix]
 == Glossary
@@ -1302,30 +1459,10 @@ _{More to be added}_
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
 
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
-
-[appendix]
-== Product Survey
-
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
-
 [appendix]
 == Instructions for Manual Testing
 
-Given below are instructions to test the app manually.
+Given below are instructions to test the application manually.
 
 [NOTE]
 These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
@@ -1334,9 +1471,9 @@ These instructions only provide a starting point for testers to work on; testers
 
 . Initial launch
 
-.. Download the jar file and copy into an empty folder
+.. Download the jar file and copy it into an empty folder.
 .. Double-click the jar file +
-   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+   Expected: Shows the GUI with an empty module plan. The window size may not be optimum.
 
 . Saving window preferences
 
@@ -1344,26 +1481,14 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-_{ more test cases ... }_
+=== Deleting a module
 
-=== Deleting a person
+. Deleting a module while all `moduleTaken` are listed
 
-. Deleting a person while all modulesTaken are listed
-
-.. Prerequisites: List all modulesTaken using the `list` command. Multiple modulesTaken in the list.
+.. Prerequisites: List all `moduleTaken` using the `list` command.
 .. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+   Expected: First module is deleted from the list. Details of the deleted module are shown in the status message. Timestamp in the status bar is updated.
 .. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
+   Expected: No module is deleted. Error details are shown in the status message. Status bar remains the same.
+.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size or negative) +
    Expected: Similar to previous.
-
-_{ more test cases ... }_
-
-=== Saving data
-
-. Dealing with missing/corrupted data files
-
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
-
-_{ more test cases ... }_

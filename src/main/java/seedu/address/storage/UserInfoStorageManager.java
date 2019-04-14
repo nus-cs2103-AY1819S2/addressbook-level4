@@ -37,6 +37,7 @@ public class UserInfoStorageManager implements UserInfoStorage {
 
     @Override
     public Optional<UserInfo> readUserInfoFile(Path filePath) throws DataConversionException {
+        logger.info("Attempting to read file at " + filePath);
         requireNonNull(filePath);
         Optional<JsonAdaptedUserInfo> jsonUserInfo = JsonUtil.readJsonFile(filePath,
                 JsonAdaptedUserInfo.class);
@@ -63,6 +64,7 @@ public class UserInfoStorageManager implements UserInfoStorage {
 
     @Override
     public void saveUserInfo(UserInfo userInfo, Path filePath) throws IOException {
+        logger.info("Attempting to save file at " + filePath);
         requireNonNull(userInfo);
         requireNonNull(filePath);
         FileUtil.createIfMissing(filePath);

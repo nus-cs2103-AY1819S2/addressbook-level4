@@ -23,14 +23,14 @@ import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.SemLimit;
+import seedu.address.model.limits.SemesterLimit;
 import seedu.address.model.moduletaken.CapAverage;
 import seedu.address.model.moduletaken.Hour;
 
 /**
  * Edits the details of an semester grade and workload limits in the address book.
  */
-public class SetSemLimitCommand extends Command {
+public class SetSemesterLimitCommand extends Command {
 
     public static final String COMMAND_WORD = "setlimit";
 
@@ -59,71 +59,101 @@ public class SetSemLimitCommand extends Command {
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
 
     private final Index index;
-    private final EditSemLimitDescriptor editSemLimitDescriptor;
+    private final EditSemesterLimitDescriptor editSemesterLimitDescriptor;
 
     /**
      * @param index of the moduleTaken in the filtered moduleTaken list to edit
      * @param editLimitDescriptor details to edit the moduleTaken with
      */
-    public SetSemLimitCommand(Index index, EditSemLimitDescriptor editLimitDescriptor) {
+    public SetSemesterLimitCommand(Index index, EditSemesterLimitDescriptor editLimitDescriptor) {
         requireNonNull(index);
         requireNonNull(editLimitDescriptor);
 
         this.index = index;
-        this.editSemLimitDescriptor = new EditSemLimitDescriptor(editLimitDescriptor);
+        this.editSemesterLimitDescriptor = new EditSemesterLimitDescriptor(editLimitDescriptor);
     }
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
-        List<SemLimit> lastShownList = model.getSemLimitList();
+        List<SemesterLimit> lastShownList = model.getSemesterLimitList();
 
         if (index.getZeroBased() >= NUMSEM) {
             throw new CommandException(Messages.MESSAGE_INVALID_SEMESTER_LIMIT);
         }
 
-        SemLimit semLimitToEdit = lastShownList.get(index.getZeroBased());
-        SemLimit editedSemLimit = createEditedLimit(semLimitToEdit, editSemLimitDescriptor);
+        SemesterLimit semesterLimitToEdit = lastShownList.get(index.getZeroBased());
+        SemesterLimit editedSemesterLimit = createEditedLimit(semesterLimitToEdit, editSemesterLimitDescriptor);
 
-        model.setSemesterLimit(index.getZeroBased(), editedSemLimit);
+        if (editedSemesterLimit.getMinCap().getCapLimit()
+                > editedSemesterLimit.getMaxCap().getCapLimit()) {
+            throw new CommandException(Messages.MESSAGE_CAP_LIMIT_OUT_OF_ORDER);
+        }
+
+        if (editedSemesterLimit.getMinLectureHour().getHour()
+                > editedSemesterLimit.getMaxLectureHour().getHour()) {
+            throw new CommandException(Messages.MESSAGE_LECTURE_HOUR_LIMIT_OUT_OF_ORDER);
+        }
+
+        if (editedSemesterLimit.getMinTutorialHour().getHour()
+                > editedSemesterLimit.getMaxTutorialHour().getHour()) {
+            throw new CommandException(Messages.MESSAGE_TUTORIAL_HOUR_LIMIT_OUT_OF_ORDER);
+        }
+
+        if (editedSemesterLimit.getMinLabHour().getHour()
+                > editedSemesterLimit.getMaxLabHour().getHour()) {
+            throw new CommandException(Messages.MESSAGE_LAB_HOUR_LIMIT_OUT_OF_ORDER);
+        }
+
+        if (editedSemesterLimit.getMinProjectHour().getHour()
+                > editedSemesterLimit.getMaxProjectHour().getHour()) {
+            throw new CommandException(Messages.MESSAGE_PROJECT_HOUR_LIMIT_OUT_OF_ORDER);
+        }
+
+        if (editedSemesterLimit.getMinPreparationHour().getHour()
+                > editedSemesterLimit.getMaxPreparationHour().getHour()) {
+            throw new CommandException(Messages.MESSAGE_PREPARATION_HOUR_LIMIT_OUT_OF_ORDER);
+        }
+
+        model.setSemesterLimit(index.getZeroBased(), editedSemesterLimit);
         model.commitGradTrak();
-        return new CommandResult(String.format(MESSAGE_EDIT_LIMIT_SUCCESS, editedSemLimit));
+        return new CommandResult(String.format(MESSAGE_EDIT_LIMIT_SUCCESS, editedSemesterLimit));
     }
 
     /**
-     * Creates and returns a {@code SemLimit} with the details of {@code semLimitToEdit}
-     * edited with {@code EditSemLimitDescriptor}.
+     * Creates and returns a {@code SemesterLimit} with the details of {@code semesterLimitToEdit}
+     * edited with {@code EditSemesterLimitDescriptor}.
      */
-    private static SemLimit createEditedLimit(SemLimit semLimitToEdit,
-                                                  EditSemLimitDescriptor editSemLimitDescriptor) {
-        assert semLimitToEdit != null;
+    private static SemesterLimit createEditedLimit(SemesterLimit semesterLimitToEdit,
+                                                   EditSemesterLimitDescriptor editSemesterLimitDescriptor) {
+        assert semesterLimitToEdit != null;
 
-        CapAverage updatedMinCap = editSemLimitDescriptor
-                .getMinCap().orElse(semLimitToEdit.getMinCap());
-        CapAverage updatedMaxCap = editSemLimitDescriptor
-                .getMaxCap().orElse(semLimitToEdit.getMaxCap());
-        Hour updatedMinLectureHour = editSemLimitDescriptor
-                .getMinLectureHour().orElse(semLimitToEdit.getMinLectureHour());
-        Hour updatedMaxLectureHour = editSemLimitDescriptor
-                .getMaxLectureHour().orElse(semLimitToEdit.getMaxLectureHour());
-        Hour updatedMinTutorialHour = editSemLimitDescriptor
-                .getMinTutorialHour().orElse(semLimitToEdit.getMinTutorialHour());
-        Hour updatedMaxTutorialHour = editSemLimitDescriptor
-                .getMaxTutorialHour().orElse(semLimitToEdit.getMaxTutorialHour());
-        Hour updatedMinLabHour = editSemLimitDescriptor
-                .getMinLabHour().orElse(semLimitToEdit.getMinLabHour());
-        Hour updatedMaxLabHour = editSemLimitDescriptor
-                .getMaxLabHour().orElse(semLimitToEdit.getMaxLabHour());
-        Hour updatedMinProjectHour = editSemLimitDescriptor
-                .getMinProjectHour().orElse(semLimitToEdit.getMinProjectHour());
-        Hour updatedMaxProjectHour = editSemLimitDescriptor
-                .getMaxProjectHour().orElse(semLimitToEdit.getMaxProjectHour());
-        Hour updatedMinPreparationHour = editSemLimitDescriptor
-                .getMinPreparationHour().orElse(semLimitToEdit.getMinPreparationHour());
-        Hour updatedMaxPreparationHour = editSemLimitDescriptor
-                .getMaxPreparationHour().orElse(semLimitToEdit.getMaxPreparationHour());
+        CapAverage updatedMinCap = editSemesterLimitDescriptor
+                .getMinCap().orElse(semesterLimitToEdit.getMinCap());
+        CapAverage updatedMaxCap = editSemesterLimitDescriptor
+                .getMaxCap().orElse(semesterLimitToEdit.getMaxCap());
+        Hour updatedMinLectureHour = editSemesterLimitDescriptor
+                .getMinLectureHour().orElse(semesterLimitToEdit.getMinLectureHour());
+        Hour updatedMaxLectureHour = editSemesterLimitDescriptor
+                .getMaxLectureHour().orElse(semesterLimitToEdit.getMaxLectureHour());
+        Hour updatedMinTutorialHour = editSemesterLimitDescriptor
+                .getMinTutorialHour().orElse(semesterLimitToEdit.getMinTutorialHour());
+        Hour updatedMaxTutorialHour = editSemesterLimitDescriptor
+                .getMaxTutorialHour().orElse(semesterLimitToEdit.getMaxTutorialHour());
+        Hour updatedMinLabHour = editSemesterLimitDescriptor
+                .getMinLabHour().orElse(semesterLimitToEdit.getMinLabHour());
+        Hour updatedMaxLabHour = editSemesterLimitDescriptor
+                .getMaxLabHour().orElse(semesterLimitToEdit.getMaxLabHour());
+        Hour updatedMinProjectHour = editSemesterLimitDescriptor
+                .getMinProjectHour().orElse(semesterLimitToEdit.getMinProjectHour());
+        Hour updatedMaxProjectHour = editSemesterLimitDescriptor
+                .getMaxProjectHour().orElse(semesterLimitToEdit.getMaxProjectHour());
+        Hour updatedMinPreparationHour = editSemesterLimitDescriptor
+                .getMinPreparationHour().orElse(semesterLimitToEdit.getMinPreparationHour());
+        Hour updatedMaxPreparationHour = editSemesterLimitDescriptor
+                .getMaxPreparationHour().orElse(semesterLimitToEdit.getMaxPreparationHour());
 
-        return new SemLimit(updatedMinCap, updatedMaxCap,
+        return new SemesterLimit(updatedMinCap, updatedMaxCap,
                 updatedMinLectureHour, updatedMaxLectureHour, updatedMinTutorialHour, updatedMaxTutorialHour,
                 updatedMinLabHour, updatedMaxLabHour, updatedMinProjectHour, updatedMaxProjectHour,
                 updatedMinPreparationHour, updatedMaxPreparationHour);
@@ -137,21 +167,21 @@ public class SetSemLimitCommand extends Command {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof SetSemLimitCommand)) {
+        if (!(other instanceof SetSemesterLimitCommand)) {
             return false;
         }
 
         // state check
-        SetSemLimitCommand e = (SetSemLimitCommand) other;
-        return index == e.index
-                && editSemLimitDescriptor.equals(e.editSemLimitDescriptor);
+        SetSemesterLimitCommand e = (SetSemesterLimitCommand) other;
+        return index.equals(e.index)
+                && editSemesterLimitDescriptor.equals(e.editSemesterLimitDescriptor);
     }
 
     /**
      * Stores the details to edit the limit with. Each non-empty field value will replace the
      * corresponding field value of the limit.
      */
-    public static class EditSemLimitDescriptor {
+    public static class EditSemesterLimitDescriptor {
         private CapAverage minCap;
         private CapAverage maxCap;
         private Hour minLectureHour;
@@ -165,12 +195,12 @@ public class SetSemLimitCommand extends Command {
         private Hour minPreparationHour;
         private Hour maxPreparationHour;
 
-        public EditSemLimitDescriptor() {}
+        public EditSemesterLimitDescriptor() {}
 
         /**
          * Copy constructor.
          */
-        public EditSemLimitDescriptor(EditSemLimitDescriptor toCopy) {
+        public EditSemesterLimitDescriptor(EditSemesterLimitDescriptor toCopy) {
             setMinCap(toCopy.minCap);
             setMaxCap(toCopy.maxCap);
             setMinLectureHour(toCopy.minLectureHour);
@@ -189,7 +219,9 @@ public class SetSemLimitCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(minCap, maxCap, minLectureHour, maxLectureHour);
+            return CollectionUtil.isAnyNonNull(minCap, maxCap, minLectureHour, maxLectureHour,
+                    minTutorialHour, maxTutorialHour, minLabHour, maxLabHour, minProjectHour, maxProjectHour,
+                    minPreparationHour, maxPreparationHour);
         }
 
         public void setMinCap(CapAverage minCap) {
@@ -296,12 +328,12 @@ public class SetSemLimitCommand extends Command {
             }
 
             // instanceof handles nulls
-            if (!(other instanceof EditSemLimitDescriptor)) {
+            if (!(other instanceof EditSemesterLimitDescriptor)) {
                 return false;
             }
 
             // state check
-            EditSemLimitDescriptor e = (EditSemLimitDescriptor) other;
+            EditSemesterLimitDescriptor e = (EditSemesterLimitDescriptor) other;
 
             return getMinCap().equals(e.getMinCap())
                     && getMaxCap().equals(e.getMaxCap())

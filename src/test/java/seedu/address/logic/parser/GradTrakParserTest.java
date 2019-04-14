@@ -13,8 +13,9 @@ import org.junit.rules.ExpectedException;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.DeleteCommand;
+import seedu.address.logic.commands.DisplayreqCommand;
 import seedu.address.logic.commands.EditCommand;
-import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
+import seedu.address.logic.commands.EditCommand.EditModuleTakenDescriptor;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.FindCommand.FindModuleDescriptor;
@@ -23,10 +24,12 @@ import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
+import seedu.address.logic.commands.SetCourseCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.course.CourseName;
 import seedu.address.model.moduletaken.ModuleTaken;
-import seedu.address.testutil.EditPersonDescriptorBuilder;
+import seedu.address.testutil.EditModuleTakenDescriptorBuilder;
 import seedu.address.testutil.FindModuleDescriptorBuilder;
 import seedu.address.testutil.ModuleTakenBuilder;
 import seedu.address.testutil.PersonUtil;
@@ -60,7 +63,7 @@ public class GradTrakParserTest {
     @Test
     public void parseCommand_edit() throws Exception {
         ModuleTaken moduleTaken = new ModuleTakenBuilder().build();
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(moduleTaken).build();
+        EditModuleTakenDescriptor descriptor = new EditModuleTakenDescriptorBuilder(moduleTaken).build();
         EditCommand command = (EditCommand) parser.parseCommand(EditCommand.COMMAND_WORD + " "
                 + INDEX_FIRST_PERSON.getOneBased() + " " + PersonUtil.getEditPersonDescriptorDetails(descriptor));
         assertEquals(new EditCommand(INDEX_FIRST_PERSON, descriptor), command);
@@ -124,6 +127,19 @@ public class GradTrakParserTest {
     public void parseCommand_undoCommandWord_returnsUndoCommand() throws Exception {
         assertTrue(parser.parseCommand(UndoCommand.COMMAND_WORD) instanceof UndoCommand);
         assertTrue(parser.parseCommand("undo 3") instanceof UndoCommand);
+    }
+
+    @Test
+    public void parseCommand_setCourseCommandWord_returnsSetCourseCommand() throws Exception {
+        SetCourseCommand command = (SetCourseCommand) parser.parseCommand(SetCourseCommand.COMMAND_WORD + " "
+                + "Computer Science Algorithms");
+        assertEquals(command, new SetCourseCommand(new CourseName("Computer Science Algorithms")));
+    }
+
+    @Test
+    public void parseCommand_displayreqCommandWord_returnsDisplayCommand() throws Exception {
+        assertTrue(parser.parseCommand(DisplayreqCommand.COMMAND_WORD) instanceof DisplayreqCommand);
+        assertTrue(parser.parseCommand(DisplayreqCommand.COMMAND_WORD + " 3") instanceof DisplayreqCommand);
     }
 
     @Test

@@ -74,6 +74,7 @@ public class Condition {
         return moduleInfoCodes.stream()
                 .map(ModuleInfoCode::toString)
                 .filter(str-> pattern.matcher(str).matches())
+                .distinct()
                 .count() >= minToSatisfy;
     }
 
@@ -87,14 +88,15 @@ public class Condition {
     }
 
     /**
-     * Returns percentage, in range of [0, 1.0] of completion for this condition
-     * @param moduleInfoCodes a list of module codes to check completion percentage
-     * @return a double in range of [0,1.0] to see percentage of completion
+     * Returns number of distinct modules in list of ModuleInfoCodes that satisfy this requirement
+     * @param moduleInfoCodes a list of module codes to check how many distinct elements in the list matches pattern
+     * @return number of distinct module module codes that matches pattern
      */
     public int getNumCompleted(List<ModuleInfoCode> moduleInfoCodes) {
         return Math.toIntExact(Math.min(moduleInfoCodes.stream()
                 .map(ModuleInfoCode::toString)
                 .filter(str-> pattern.matcher(str).matches())
+                .distinct()
                 .count(), minToSatisfy));
     }
 

@@ -94,15 +94,17 @@ Format: `edit-p [INDEX] [n/NAME] [g/GENDER] [a/AGE] [p/PHONE] [adr/ADDRESS]`
 
 Examples:
 
-* `edit-patient 1 p/91234567` +
+* `edit-p 1 p/91234567` +
 Edits the phone number of the patient with ID of '1' to be `91234567`.
-* `edit-patient 2 n/Betsy Crower p/95678901` +
+* `edit-p 2 n/Betsy Crower p/95678901` +
 Edits the name and phone number of the patient with ID of '2' to be `Betsy Crower` and '95678901' respectively.
+* `edit-p 1 t/` +
+An empty tag removes all the current tags of the patient with ID of '1'.
 
-=== Search patient by name: `search-p`
+=== Search patient by name: `search-p-name`
 
 Search and return patient(s) whose names contain any of the given keywords. +
-Format: `search-patient [NAME]`
+Format: `search-p-name [NAME] [NAME2]`
 
 ****
 * The search is case insensitive. e.g `hans` will match `Hans`
@@ -117,9 +119,9 @@ e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
 
 Examples:
 
-* `search-p John` +
+* `search-p-name John` +
 Returns `john` and `John Doe`
-* `search-p Betsy Tim John` +
+* `search-p-name Betsy Tim John` +
 Returns any patient having names containing `Betsy`, `Tim`, or `John`
 
 === Search patient by pid: `search-pid`
@@ -156,31 +158,30 @@ Returns `John Doe` and `Tom Darl` who has appointment status of `ACTIVE`.
 
 === Advanced search patient by any info: `search-p-advanced`
 
-Search and return patient(s) whose info contain any of the given keywords,
-even if the keyword is only a substring of one of the patient's info +
-Use a quoted keyword to search when one of the patient's info
-must match exactly the keyword
+Search and return patient(s) whose detail contains all of the given keywords,
+even if the keyword is only a subword of the patient's info +
+Use a "quoted_keyword" to enforce fullword match to the patient's info
 Format: `search-p-advanced [keyword] ["quoted_keyword"]...`
 
 ****
 * The search is case insensitive. e.g `ALeX` will match `Alex`
 * The order of the keywords does not matter. e.g. `stroke cancer` will match `cancer stroke`
-* With "unquoted_keyword", partial words will be matched +
+* With "unquoted_keyword", subwords will be matched +
 e.g. `blood` will match `highbloodpressure`
 * With quoted keyword, only the full word will be matched +
 e.g. `"blood"` will not match `highbloodpressure`
-* "quoted_keyword" must be one word and contains no spaces
+* "quoted_keyword" must be one word and contain no spaces
 * All the keywords input must be present in a patient's info to be true.
 ****
 
 [TIP]
-A patient's info does not include his pid and appointment status
+A patient's info does not include the list index and "| pid:"
 
 Examples:
 
-* `search--padvanced blood "Doe"` +
+* `search-p-advanced blood "Doe"` +
 Returns `John Doe` who has a `highbloodpressure` tag
-* `search-advanced blood "Doe"` +
+* `search-p-advanced blood "Doe"` +
 Will not return `John Doeing` who has a `highbloodpressure` tag
 
 === Selecting an existing patient : `select-p`
@@ -681,10 +682,10 @@ PATIENT COMMANDS
 * *Delete an existing patient* : `delete-p [INDEX]` +
 e.g. `delete-patient 3`
 * *Edit an existing patient* : `edit-p [INDEX] [n/NAME] [g/GENDER] [a/AGE] [p/PHONE] [adr/ADDRESS] [t/TAG]` +
-* *Searching a patient by name* : `search-p [NAME]` +
+* *Searching a patient by name* : `search-p-name [NAME]` +
 * *Searching a patient by appt status* : `search-p-status [STATUS]` +
 * *Searching a patient by pid* : `search-pid [pid]` +
-* *Searching a patient (advanced)* : `search-p-ad [KEYWORD] ["QUOTED_KEYWORD"]` +
+* *Searching a patient (advanced)* : `search-p-advanced [KEYWORD] ["QUOTED_KEYWORD"]` +
 
 DOCTOR COMMANDS
 

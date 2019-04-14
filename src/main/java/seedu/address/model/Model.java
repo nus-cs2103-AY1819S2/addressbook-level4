@@ -339,16 +339,15 @@ public interface Model {
     ReadOnlyProperty<Appointment> selectedAppointmentProperty();
 
     /**
-     * Returns the selected patient in the filtered patient list.
-     * null if no patient is selected.
-     */
-
-    /**
      * Selected prescription in the filtered medHist list.
      * null if no medHist is selected.
      */
     ReadOnlyProperty<Prescription> selectedPrescriptionProperty();
 
+    /**
+     * Returns the selected patient in the filtered patient list.
+     * null if no patient is selected.
+     */
     Patient getSelectedPatient();
 
     /**

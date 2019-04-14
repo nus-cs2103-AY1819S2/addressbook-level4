@@ -140,7 +140,9 @@ public class Patient extends Person {
      */
     public String toAdvancedSearchString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getName())
+        builder.append(getId())
+                .append(" ")
+                .append(getName())
                 .append(" ")
                 .append(getGender())
                 .append(" ")
@@ -149,6 +151,8 @@ public class Patient extends Person {
                 .append(getPhone())
                 .append(" ")
                 .append(getAddress())
+                .append(" ")
+                .append(getAppointmentStatus())
                 .append(" ");
         for (Tag tag : getTags()) {
             String tagName = tag.toString().replaceAll("^\\[|\\]$", "");

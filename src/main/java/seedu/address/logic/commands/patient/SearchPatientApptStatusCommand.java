@@ -18,13 +18,13 @@ public class SearchPatientApptStatusCommand extends Command {
 
     public static final String COMMAND_WORD = "search-p-status";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Searches all patients whose appointment status "
-            + "is one of the following: ACTIVE, CANCELLED, COMPLETED or MISSED (not case-sensitive)\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Searches for patients whose appointment status "
+            + "is one of the following: ACTIVE, CANCELLED, COMPLETED or MISSED. (case-insensitive)\n"
             + "Parameters: [STATUS]\n"
             + "Example: " + COMMAND_WORD + " MISSED";
 
     public static final String MESSAGE_INVALID_STATUS = COMMAND_WORD + ":\n"
-            + "Please use only one of the following: ACTIVE, CANCELLED, COMPLETED or MISSED (case-insensitive)\n"
+            + "Please input only one of the following: ACTIVE, CANCELLED, COMPLETED or MISSED.\n"
             + "Parameters: [KEYWORD]\n";
 
     private final PatientApptStatusContainsKeywordsPredicate predicate;

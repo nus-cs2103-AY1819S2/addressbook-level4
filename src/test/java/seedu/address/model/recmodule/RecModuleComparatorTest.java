@@ -7,7 +7,6 @@ import static seedu.address.model.course.CourseReqType.CORE;
 import static seedu.address.model.course.CourseReqType.FAC;
 import static seedu.address.model.course.CourseReqType.GE;
 import static seedu.address.model.course.CourseReqType.IE;
-import static seedu.address.model.course.CourseReqType.UE;
 
 import org.junit.Test;
 
@@ -15,8 +14,8 @@ import seedu.address.testutil.RecModuleBuilder;
 
 public class RecModuleComparatorTest {
 
-    private RecModuleComparator comparator = new RecModuleComparator();
-    private RecModuleBuilder rmb = new RecModuleBuilder();
+    private final RecModuleComparator comparator = new RecModuleComparator();
+    private final RecModuleBuilder rmb = new RecModuleBuilder();
 
     @Test
     public void compareType() {
@@ -25,13 +24,11 @@ public class RecModuleComparatorTest {
         RecModule ie = rmb.create("CS2103T", IE);
         RecModule fac = rmb.create("CS2103T", FAC);
         RecModule ge = rmb.create("CS2103T", GE);
-        RecModule ue = rmb.create("CS2103T", UE);
 
         assertTrue(comparator.compare(core, bd) < 0);
         assertTrue(comparator.compare(bd, ie) < 0);
         assertTrue(comparator.compare(ie, fac) < 0);
         assertTrue(comparator.compare(fac, ge) < 0);
-        assertTrue(comparator.compare(ge, ue) < 0);
     }
 
     @Test
@@ -65,7 +62,7 @@ public class RecModuleComparatorTest {
     @Test
     public void compareMultiple() {
         RecModule rm1 = rmb.create("BAA6001", CORE);
-        RecModule rm2 = rmb.create("MA1521", UE);
+        RecModule rm2 = rmb.create("MA1521", FAC);
         /* different type -> compare type */
         assertTrue(comparator.compare(rm1, rm2) < 0);
 
@@ -74,8 +71,8 @@ public class RecModuleComparatorTest {
         /* same type -> different level -> compare level */
         assertTrue(comparator.compare(rm1, rm2) < 0);
 
-        rm1 = rmb.create("ACC1002", UE);
-        rm2 = rmb.create("YCC1111", UE);
+        rm1 = rmb.create("ACC1002", FAC);
+        rm2 = rmb.create("YCC1111", FAC);
         /* same type -> same level -> compare lexicographical order */
         assertTrue(comparator.compare(rm1, rm2) < 0);
     }

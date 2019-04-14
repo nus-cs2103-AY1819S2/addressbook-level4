@@ -413,7 +413,7 @@ Format: `list`
 
 Recommends a list of modules that can be read based on the current module plan and course requirements.
 Modules with unmet prerequisites or those already added (unless they have been failed) will not be recommended. +
-Recommended modules are displayed in order of requirement type satisfied: Core, Breadth & Depth, Industry Experience, Faculty, General Education, Unrestricted Electives.
+Recommended modules are displayed in order of requirement type satisfied: Core, Breadth & Depth, Industry Experience, Faculty, General Education.
 Modules with the same requirement type satisfied are sorted by level. +
 Format: `rec` +
 The figure below shows a sample recommendation list for a user studying Computer Science Algorithms.

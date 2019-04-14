@@ -2,26 +2,27 @@ package seedu.address.commons.util;
 
 import java.util.ArrayList;
 /**
- * Nodes for Prerequisite Tree
+ * Node for Prerequisite Tree
  */
 public class Node {
+
     private static final int HEAD_CHILD_INDEX = 0;
 
-    private boolean head;
+    private boolean isHead;
     private Node parent;
     private boolean isModule;
     private String nodeValue;
     private ArrayList<Node> childList;
 
     public Node(boolean isHead, boolean isModule, String value) {
-        this.head = isHead;
+        this.isHead = isHead;
         this.isModule = isModule;
         this.nodeValue = value;
         childList = new ArrayList<>();
     }
 
     public boolean isHead() {
-        return head;
+        return isHead;
     }
 
     public boolean isModule() {
@@ -33,15 +34,15 @@ public class Node {
      * @return boolean value if it has a parent or not
      */
     public boolean hasParent() {
-        return (parent == null);
+        return (parent != null);
     }
 
     public boolean isDummy() {
-        return (getValue().equals(" "));
+        return nodeValue.equals(" ");
     }
 
     public void setHead(boolean b) {
-        this.head = b;
+        this.isHead = b;
     }
 
     public String getValue() {
@@ -76,7 +77,7 @@ public class Node {
      * Method to check for nodes matching
      */
     public void checkChildren(ArrayList<String> modules, ArrayList<String> missingModules) {
-        if (childList.isEmpty()) {
+        if (hasNoChild()) {
             return;
         }
         if (isHead()) {
@@ -89,13 +90,16 @@ public class Node {
                     currNode.checkChildren(modules, missingModules);
                 } else {
                     for (int j = 0; j < modules.size(); j++) {
-                        if (modules.get(j).equals(currNode.getValue())) {
+                        /* the following condition is to account for modules ending with a letter but not
+                        reflected in the json file */
+                        if (modules.get(j).contains(currNode.nodeValue)
+                                || currNode.nodeValue.contains(modules.get(j))) {
                             return;
                         }
                     }
                     if (i == getChildList().size() - 1) {
                         //gives the last value of the OR list
-                        missingModules.add(currNode.getValue());
+                        missingModules.add(currNode.nodeValue);
                     }
                 }
             }
@@ -107,13 +111,14 @@ public class Node {
                     currNode.checkChildren(modules, missingModules);
                 } else {
                     for (int j = 0; j < modules.size(); j++) {
-                        if (modules.get(j).equals(currNode.getValue())) {
+                        if (modules.get(j).contains(currNode.nodeValue)
+                                || currNode.nodeValue.contains(modules.get(j))) {
                             found = true;
                             break;
                         }
                     }
                     if (!found) {
-                        missingModules.add(currNode.getValue());
+                        missingModules.add(currNode.nodeValue);
                     }
                 }
             }

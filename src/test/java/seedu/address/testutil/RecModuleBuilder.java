@@ -1,6 +1,7 @@
 package seedu.address.testutil;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -66,6 +67,47 @@ public class RecModuleBuilder {
         for (ModuleInfo moduleInfo : moduleInfoList.getObservableList()) {
             list.add(new RecModule(moduleInfo));
         }
+
+        return list;
+    }
+
+    /**
+     * Generates a sample list of {@code RecModule} for an empty {@code GradTrak}.
+     * @return a sample list of {@code RecModule} for an empty {@code GradTrak}.
+     */
+    public List<RecModule> getRecModulesForEmptyGradTrak() {
+        List<RecModule> list = new ArrayList<>();
+        for (String code : getRecCodeListForEmptyGradTrak()) {
+            list.add(create(code));
+        }
+
+        return list;
+    }
+
+    /**
+     * Generates a sample list of {@code RecModule} which satisfies UE.
+     * @return a sample list of {@code RecModule} which satisfies UE.
+     */
+    public List<RecModule> getUeModules() {
+        List<RecModule> list = new ArrayList<>();
+        for (String code : getUeCodeList()) {
+            list.add(create(code));
+        }
+
+        return list;
+    }
+
+    private List<String> getRecCodeListForEmptyGradTrak() {
+        List<String> list = new ArrayList<>();
+        Collections.addAll(list, "CS1101S", "IS1103", "MA1101R", "MA1521", "CP3200", "PC1144",
+                "GEH1001", "GEQ1000", "GER1000", "GES1002", "GET1001");
+
+        return list;
+    }
+
+    private List<String> getUeCodeList() {
+        List<String> list = new ArrayList<>();
+        Collections.addAll(list, "PC3130", "ACC4611", "VM5101", "BAA6001", "ACC1002", "YCC1111");
 
         return list;
     }

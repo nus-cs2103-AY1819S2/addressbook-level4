@@ -15,7 +15,7 @@ import seedu.address.model.job.JobName;
  */
 public class DisplayJobCommand extends Command {
 
-    public static final String COMMAND_WORD = "DisplayJob";
+    public static final String COMMAND_WORD = "displayJob";
     public static final String COMMAND_ALIAS = "dj";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": displays a list from a job. "

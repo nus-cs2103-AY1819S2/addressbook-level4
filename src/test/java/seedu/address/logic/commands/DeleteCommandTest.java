@@ -38,7 +38,7 @@ public class DeleteCommandTest {
 
         ModelManager expectedModel = new ModelManager(model.getCardCollection(), new UserPrefs());
         expectedModel.deleteFlashcard(flashcardToDelete);
-        expectedModel.commitCardCollection();
+        expectedModel.commitCardCollection(DeleteCommand.COMMAND_WORD);
 
         assertCommandSuccess(deleteCommand, model, commandHistory, expectedMessage, expectedModel);
     }
@@ -62,7 +62,7 @@ public class DeleteCommandTest {
 
         Model expectedModel = new ModelManager(model.getCardCollection(), new UserPrefs());
         expectedModel.deleteFlashcard(flashcardToDelete);
-        expectedModel.commitCardCollection();
+        expectedModel.commitCardCollection(DeleteCommand.COMMAND_WORD);
         showNoFlashcard(expectedModel);
 
         assertCommandSuccess(deleteCommand, model, commandHistory, expectedMessage, expectedModel);
@@ -87,18 +87,20 @@ public class DeleteCommandTest {
         DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_FLASHCARD);
         Model expectedModel = new ModelManager(model.getCardCollection(), new UserPrefs());
         expectedModel.deleteFlashcard(flashcardToDelete);
-        expectedModel.commitCardCollection();
+        expectedModel.commitCardCollection(DeleteCommand.COMMAND_WORD);
 
         // delete -> first flashcard deleted
         deleteCommand.execute(model, commandHistory);
 
         // undo -> reverts cardCollection back to previous state and filtered flashcard list to show all flashcards
         expectedModel.undoCardCollection();
-        assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
+        String undoMessageSuccess = String.format(UndoCommand.MESSAGE_SUCCESS, DeleteCommand.COMMAND_WORD);
+        assertCommandSuccess(new UndoCommand(), model, commandHistory, undoMessageSuccess, expectedModel);
 
         // redo -> same first flashcard deleted again
         expectedModel.redoCardCollection();
-        assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
+        String redoMessageSuccess = String.format(RedoCommand.MESSAGE_SUCCESS, DeleteCommand.COMMAND_WORD);
+        assertCommandSuccess(new RedoCommand(), model, commandHistory, redoMessageSuccess, expectedModel);
     }
 
     @Test
@@ -129,19 +131,21 @@ public class DeleteCommandTest {
         showFlashcardAtIndex(model, INDEX_SECOND_FLASHCARD);
         Flashcard flashcardToDelete = model.getFilteredFlashcardList().get(INDEX_FIRST_FLASHCARD.getZeroBased());
         expectedModel.deleteFlashcard(flashcardToDelete);
-        expectedModel.commitCardCollection();
+        expectedModel.commitCardCollection(DeleteCommand.COMMAND_WORD);
 
         // delete -> deletes second flashcard in unfiltered flashcard list / first flashcard in filtered flashcard list
         deleteCommand.execute(model, commandHistory);
 
         // undo -> reverts cardCollection back to previous state and filtered flashcard list to show all flashcards
         expectedModel.undoCardCollection();
-        assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
+        String undoMessageSuccess = String.format(UndoCommand.MESSAGE_SUCCESS, DeleteCommand.COMMAND_WORD);
+        assertCommandSuccess(new UndoCommand(), model, commandHistory, undoMessageSuccess, expectedModel);
 
         assertNotEquals(flashcardToDelete, model.getFilteredFlashcardList().get(INDEX_FIRST_FLASHCARD.getZeroBased()));
         // redo -> deletes same second flashcard in unfiltered flashcard list
         expectedModel.redoCardCollection();
-        assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
+        String redoMessageSuccess = String.format(RedoCommand.MESSAGE_SUCCESS, DeleteCommand.COMMAND_WORD);
+        assertCommandSuccess(new RedoCommand(), model, commandHistory, redoMessageSuccess, expectedModel);
     }
 
     @Test

@@ -106,13 +106,21 @@ public interface Model {
 
     /**
      * Restores the model's card collection to its previous state.
+     * @return  the command that makes change before and after undo.
      */
-    void undoCardCollection();
+    String undoCardCollection();
 
     /**
      * Restores the model's card collection to its previously undone state.
+     * @return  the command that makes change before and after redo.
      */
-    void redoCardCollection();
+    String redoCardCollection();
+
+    /**
+     * Saves the current card collection state for undo/redo.
+     * @param command the command that makes the change.
+     */
+    void commitCardCollection(String command);
 
     /**
      * Saves the current card collection state for undo/redo.
@@ -152,6 +160,11 @@ public interface Model {
     void setQuizMode(Integer quizMode);
 
     /**
+     * Sets the SRS mode.
+     */
+    void setIsQuizSrs(Boolean isQuizSrs);
+
+    /**
      * Gets the quiz mode flashcards.
      */
     ObservableList<Flashcard> getQuizFlashcards();
@@ -177,6 +190,11 @@ public interface Model {
      * @return the number of bad feedback in the current quiz mode
      */
     ReadOnlyProperty<Integer> getQuizBad();
+
+    /**
+     * @return is the current quiz session uses SRS mode.
+     */
+    ReadOnlyProperty<Boolean> getIsQuizSrs();
 
     /**
      * Resets the quiz statistics.

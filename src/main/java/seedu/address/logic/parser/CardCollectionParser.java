@@ -110,7 +110,7 @@ public class CardCollectionParser {
             return new StatsCommandParser().parse(arguments);
 
         case QuizCommand.COMMAND_WORD:
-            return new QuizCommand();
+            return new QuizCommandParser().parse(arguments);
 
         case GoodCommand.COMMAND_WORD:
             return new GoodCommand();

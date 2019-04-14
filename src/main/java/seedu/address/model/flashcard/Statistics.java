@@ -11,8 +11,8 @@ public class Statistics {
     public static final String MESSAGE_CONSTRAINTS = "Statistics string format must be in the form of: "
             + "`<number of success attempt> out of <total number of attempts> attempts.`";
 
-    private int attemptNumber;
-    private int successAttempt;
+    private final int attemptNumber;
+    private final int successAttempt;
 
     public Statistics(int successAttempt, int attemptNumber) {
         if (successAttempt > attemptNumber) {
@@ -58,28 +58,29 @@ public class Statistics {
     }
 
     /**
-     * update the statistics after a quiz is finished.
+     * Returns an updated statistics after a quiz is finished.
      *
      * @param isSuccess does the user guess the card from the quiz correctly.
+     * @return the modified statistics
      */
-    public void quizAttempt(boolean isSuccess) {
+    public Statistics quizAttempt(boolean isSuccess) {
+        int rSuccessAttempt = this.successAttempt;
+        int rAttemptNumber = this.attemptNumber + 1;
         if (isSuccess) {
-            successAttempt++;
+            rSuccessAttempt++;
         }
-        attemptNumber++;
+        return new Statistics(rSuccessAttempt, rAttemptNumber);
     }
 
     /**
      * merge two statistics by combining the attempt and success number.
      *
-     * @param oth
+     * @param oth the statistics to merge
      * @return new Statistics.
      */
     public Statistics merge(Statistics oth) {
-        Statistics merged = new Statistics();
-        merged.attemptNumber = this.attemptNumber + oth.attemptNumber;
-        merged.successAttempt = this.successAttempt + oth.successAttempt;
-        return merged;
+        return new Statistics(
+            this.successAttempt + oth.successAttempt, this.attemptNumber + oth.attemptNumber);
     }
 
     @Override

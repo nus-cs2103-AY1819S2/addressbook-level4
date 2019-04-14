@@ -14,7 +14,8 @@ import seedu.address.model.Model;
 public class RedoCommand extends Command {
 
     public static final String COMMAND_WORD = "redo";
-    public static final String MESSAGE_SUCCESS = "Redo success!";
+    public static final String MESSAGE_SUCCESS = "Redo success!\n"
+            + "Redo %s command";
     public static final String MESSAGE_FAILURE = "No more commands to redo!";
     private static final String MESSAGE_IN_QUIZ = "Cannot redo in quiz mode";
 
@@ -29,8 +30,8 @@ public class RedoCommand extends Command {
             throw new CommandException(MESSAGE_FAILURE);
         }
 
-        model.redoCardCollection();
+        String commandText = model.redoCardCollection();
         model.updateFilteredFlashcardList(PREDICATE_SHOW_ALL_FLASHCARDS);
-        return new CommandResult(MESSAGE_SUCCESS);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, commandText));
     }
 }

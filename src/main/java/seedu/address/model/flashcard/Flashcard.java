@@ -24,29 +24,37 @@ public class Flashcard {
     // Data fields
     private final Set<Tag> tags = new HashSet<>();
     private final Statistics statistics;
+    private final Proficiency proficiency;
 
     /**
      * Every field must be present and not null.
      */
-    public Flashcard(Face frontFace, Face backFace, Statistics statistics, Set<Tag> tags) {
-        requireAllNonNull(frontFace, backFace, statistics, tags);
+    public Flashcard(Face frontFace, Face backFace, Statistics statistics, Proficiency proficiency, Set<Tag> tags) {
+        requireAllNonNull(frontFace, backFace, statistics, proficiency, tags);
         this.frontFace = frontFace;
         this.backFace = backFace;
         this.imagePath = new ImagePath(Optional.empty());
         this.statistics = statistics;
+        this.proficiency = proficiency;
         this.tags.addAll(tags);
     }
 
     /**
      * Every field must be present and not null.
      */
-    public Flashcard(Face frontFace, Face backFace, ImagePath imagePath, Statistics statistics, Set<Tag> tags) {
-        requireAllNonNull(frontFace, backFace, statistics, tags);
+    public Flashcard(Face frontFace, Face backFace, ImagePath imagePath, Statistics statistics, Proficiency proficiency,
+                     Set<Tag> tags) {
+        requireAllNonNull(frontFace, backFace, statistics, tags, proficiency);
         this.frontFace = frontFace;
         this.backFace = backFace;
         this.imagePath = imagePath;
         this.statistics = statistics;
+        this.proficiency = proficiency;
         this.tags.addAll(tags);
+    }
+
+    public Proficiency getProficiency() {
+        return proficiency;
     }
 
     public Statistics getStatistics() {
@@ -71,6 +79,26 @@ public class Flashcard {
      */
     public Set<Tag> getTags() {
         return Collections.unmodifiableSet(tags);
+    }
+
+    /**
+     * Returns a flashcard with updated statistics and SRS info based on the result of the quiz.
+     *
+     * @param isSuccess success in quiz mode
+     * @param isQuizSrs is it srs mode in the quiz
+     * @return the modified flashcard
+     */
+    public Flashcard quizAttempt(boolean isSuccess, boolean isQuizSrs) {
+        Proficiency rProficiency = proficiency;
+        if (isQuizSrs) {
+            rProficiency = rProficiency.quizAttempt(isSuccess);
+        }
+        Statistics rStatistics = statistics.quizAttempt(isSuccess);
+        return new Flashcard(frontFace, backFace, imagePath, rStatistics, rProficiency, tags);
+    }
+
+    public boolean isIncludedInCurrentQuiz() {
+        return getProficiency().isIncludedInCurrentQuiz();
     }
 
     /**
@@ -109,7 +137,7 @@ public class Flashcard {
 
     @Override
     public int hashCode() {
-        return Objects.hash(getFrontFace(), getBackFace(), getImagePath(), getTags());
+        return Objects.hash(getFrontFace(), getBackFace(), getImagePath(), getTags(), getProficiency());
     }
 
     @Override

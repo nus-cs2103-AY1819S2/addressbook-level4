@@ -101,6 +101,10 @@ public class TestApp extends MainApp {
         return model.getQuizMode();
     }
 
+    public Boolean getModelIsQuizSrs() {
+        return model.getIsQuizSrs().getValue();
+    }
+
     public int getModelQuizFlashcardSize() {
         return model.getQuizFlashcards().size();
     }

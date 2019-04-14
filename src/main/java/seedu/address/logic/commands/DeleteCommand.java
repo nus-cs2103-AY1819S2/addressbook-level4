@@ -47,7 +47,7 @@ public class DeleteCommand extends Command {
 
         Flashcard flashcardToDelete = lastShownList.get(targetIndex.getZeroBased());
         model.deleteFlashcard(flashcardToDelete);
-        model.commitCardCollection();
+        model.commitCardCollection(DeleteCommand.COMMAND_WORD);
         return new CommandResult(String.format(MESSAGE_DELETE_FLASHCARD_SUCCESS, flashcardToDelete));
     }
 

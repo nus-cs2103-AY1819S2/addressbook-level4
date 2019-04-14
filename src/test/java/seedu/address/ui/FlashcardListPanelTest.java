@@ -19,11 +19,12 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.flashcard.Face;
 import seedu.address.model.flashcard.Flashcard;
+import seedu.address.model.flashcard.Proficiency;
 import seedu.address.model.flashcard.Statistics;
 
 public class FlashcardListPanelTest extends GuiUnitTest {
     private static final ObservableList<Flashcard> TYPICAL_FLASHCARDS =
-        FXCollections.observableList(getTypicalFlashcards());
+            FXCollections.observableList(getTypicalFlashcards());
 
     private static final long CARD_CREATION_AND_DELETION_TIMEOUT = 2500;
 
@@ -52,7 +53,7 @@ public class FlashcardListPanelTest extends GuiUnitTest {
         guiRobot.pauseForHuman();
 
         FlashcardListCardHandle expectedFlashcard =
-            flashcardListPanelHandle.getFlashcardCardHandle(INDEX_SECOND_FLASHCARD.getZeroBased());
+                flashcardListPanelHandle.getFlashcardCardHandle(INDEX_SECOND_FLASHCARD.getZeroBased());
         FlashcardListCardHandle selectedFlashcard = flashcardListPanelHandle.getHandleToSelectedCard();
         assertCardEquals(expectedFlashcard, selectedFlashcard);
     }
@@ -81,7 +82,8 @@ public class FlashcardListPanelTest extends GuiUnitTest {
             Face frontFace = new Face("a");
             Face backFace = new Face("b");
             Statistics statistics = new Statistics();
-            Flashcard flashcard = new Flashcard(frontFace, backFace, statistics, Collections.emptySet());
+            Proficiency proficiency = new Proficiency();
+            Flashcard flashcard = new Flashcard(frontFace, backFace, statistics, proficiency, Collections.emptySet());
             backingList.add(flashcard);
         }
         return backingList;
@@ -93,10 +95,10 @@ public class FlashcardListPanelTest extends GuiUnitTest {
      */
     private void initUi(ObservableList<Flashcard> backingList) {
         FlashcardListPanel flashcardListPanel =
-            new FlashcardListPanel(backingList, selectedFlashcard, selectedFlashcard::set);
+                new FlashcardListPanel(backingList, selectedFlashcard, selectedFlashcard::set);
         uiPartRule.setUiPart(flashcardListPanel);
 
         flashcardListPanelHandle = new FlashcardListPanelHandle(getChildNode(flashcardListPanel.getRoot(),
-            FlashcardListPanelHandle.FLASHCARD_LIST_VIEW_ID));
+                FlashcardListPanelHandle.FLASHCARD_LIST_VIEW_ID));
     }
 }

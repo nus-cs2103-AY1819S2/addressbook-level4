@@ -51,7 +51,9 @@ public class LogicManager implements Logic {
             Command command = cardCollectionParser.parseCommand(commandText);
             commandResult = command.execute(model, history);
         } finally {
-            history.add(commandText);
+            if (!commandText.trim().isEmpty()) {
+                history.add(commandText);
+            }
         }
 
         if (cardCollectionModified) {
@@ -122,6 +124,11 @@ public class LogicManager implements Logic {
     }
 
     @Override
+    public void setIsQuizSrs(Boolean isQuizSrs) {
+        model.setIsQuizSrs(isQuizSrs);
+    }
+
+    @Override
     public ReadOnlyProperty<Integer> quizGoodProperty() {
         return model.getQuizGood();
     }
@@ -129,5 +136,10 @@ public class LogicManager implements Logic {
     @Override
     public ReadOnlyProperty<Integer> quizBadProperty() {
         return model.getQuizBad();
+    }
+
+    @Override
+    public ReadOnlyProperty<Boolean> isQuizSrsProperty() {
+        return model.getIsQuizSrs();
     }
 }

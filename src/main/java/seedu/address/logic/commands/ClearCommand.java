@@ -25,7 +25,7 @@ public class ClearCommand extends Command {
             throw new CommandException(MESSAGE_IN_QUIZ);
         }
         model.setCardCollection(new CardCollection());
-        model.commitCardCollection();
+        model.commitCardCollection(ClearCommand.COMMAND_WORD);
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

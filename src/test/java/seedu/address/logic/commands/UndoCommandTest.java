@@ -18,6 +18,7 @@ public class UndoCommandTest {
     private final Model model = new ModelManager(getTypicalCardCollection(), new UserPrefs());
     private final Model expectedModel = new ModelManager(getTypicalCardCollection(), new UserPrefs());
     private final CommandHistory commandHistory = new CommandHistory();
+    private final String deleteFirstUndoMessage = String.format(UndoCommand.MESSAGE_SUCCESS, "delete 1");
 
     @Before
     public void setUp() {
@@ -33,11 +34,11 @@ public class UndoCommandTest {
     public void execute() {
         // multiple undoable states in model
         expectedModel.undoCardCollection();
-        assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccess(new UndoCommand(), model, commandHistory, deleteFirstUndoMessage, expectedModel);
 
         // single undoable state in model
         expectedModel.undoCardCollection();
-        assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccess(new UndoCommand(), model, commandHistory, deleteFirstUndoMessage, expectedModel);
 
         // no undoable states in model
         assertCommandFailure(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_FAILURE);

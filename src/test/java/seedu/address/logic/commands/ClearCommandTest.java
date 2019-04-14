@@ -19,7 +19,7 @@ public class ClearCommandTest {
     public void execute_emptyCardCollection_success() {
         Model model = new ModelManager();
         Model expectedModel = new ModelManager();
-        expectedModel.commitCardCollection();
+        expectedModel.commitCardCollection(ClearCommand.COMMAND_WORD);
 
         assertCommandSuccess(new ClearCommand(), model, commandHistory, ClearCommand.MESSAGE_SUCCESS, expectedModel);
     }
@@ -29,7 +29,7 @@ public class ClearCommandTest {
         Model model = new ModelManager(getTypicalCardCollection(), new UserPrefs());
         Model expectedModel = new ModelManager(getTypicalCardCollection(), new UserPrefs());
         expectedModel.setCardCollection(new CardCollection());
-        expectedModel.commitCardCollection();
+        expectedModel.commitCardCollection(ClearCommand.COMMAND_WORD);
 
         assertCommandSuccess(new ClearCommand(), model, commandHistory, ClearCommand.MESSAGE_SUCCESS, expectedModel);
     }

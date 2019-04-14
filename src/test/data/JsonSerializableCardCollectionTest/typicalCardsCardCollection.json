@@ -6,6 +6,7 @@
       "backFace": "Halo",
       "imagePath": "",
       "statistics": "9 out of 10 attempts.",
+      "proficiency" : "inactive until 0 proficiency level 3",
       "tagged": [
         "indonesian"
       ]
@@ -15,6 +16,7 @@
       "backFace": "Haha",
       "imagePath": "",
       "statistics": "4 out of 7 attempts.",
+      "proficiency" : "inactive until 0 proficiency level 3",
       "tagged": [
         "spanish"
       ]
@@ -24,6 +26,7 @@
       "backFace": "吃",
       "imagePath": "",
       "statistics": "0 out of 0 attempts.",
+      "proficiency" : "inactive until 0 proficiency level 0",
       "tagged": [
         "chinese"
       ]
@@ -33,6 +36,7 @@
       "backFace": "idk",
       "imagePath": "",
       "statistics": "0 out of 10 attempts.",
+      "proficiency" : "inactive until 0 proficiency level 0",
       "tagged": [
         "alevel",
         "physics"
@@ -43,6 +47,7 @@
       "backFace": "robincyu96@gmail.com",
       "imagePath": "",
       "statistics": "100 out of 100 attempts.",
+      "proficiency" : "inactive until 0 proficiency level 0",
       "tagged": []
     }
   ]

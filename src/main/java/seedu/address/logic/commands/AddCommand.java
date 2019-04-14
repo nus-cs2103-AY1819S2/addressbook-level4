@@ -58,7 +58,7 @@ public class AddCommand extends Command {
         }
 
         model.addFlashcard(toAdd);
-        model.commitCardCollection();
+        model.commitCardCollection(AddCommand.COMMAND_WORD);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 

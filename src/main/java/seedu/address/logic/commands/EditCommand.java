@@ -24,6 +24,7 @@ import seedu.address.model.Model;
 import seedu.address.model.flashcard.Face;
 import seedu.address.model.flashcard.Flashcard;
 import seedu.address.model.flashcard.ImagePath;
+import seedu.address.model.flashcard.Proficiency;
 import seedu.address.model.flashcard.Statistics;
 import seedu.address.model.tag.Tag;
 
@@ -80,7 +81,8 @@ public class EditCommand extends Command {
         Set<Tag> updatedTags = editFlashcardDescriptor.getTags().orElse(flashcardToEdit.getTags());
 
         Statistics statistics = flashcardToEdit.getStatistics(); // statistics cannot be edited
-        return new Flashcard(updatedFrontFace, updatedBackFace, updatedImagePath, statistics, updatedTags);
+        Proficiency proficiency = flashcardToEdit.getProficiency(); // proficiency cannot be edited
+        return new Flashcard(updatedFrontFace, updatedBackFace, updatedImagePath, statistics, proficiency, updatedTags);
     }
 
     @Override
@@ -104,7 +106,7 @@ public class EditCommand extends Command {
 
         model.updateFilteredFlashcardList(PREDICATE_SHOW_ALL_FLASHCARDS);
         model.setFlashcard(flashcardToEdit, editedFlashcard);
-        model.commitCardCollection();
+        model.commitCardCollection(EditCommand.COMMAND_WORD);
         return new CommandResult(String.format(MESSAGE_EDIT_FLASHCARD_SUCCESS, editedFlashcard));
     }
 

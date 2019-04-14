@@ -56,12 +56,12 @@ public class EditCommandSystemTest extends CardCollectionSystemTest {
 
         /* Case: undo editing the last flashcard in the list -> last flashcard restored */
         command = UndoCommand.COMMAND_WORD;
-        String expectedResultMessage = UndoCommand.MESSAGE_SUCCESS;
+        String expectedResultMessage = String.format(UndoCommand.MESSAGE_SUCCESS, EditCommand.COMMAND_WORD);
         assertCommandSuccess(command, model, expectedResultMessage);
 
         /* Case: redo editing the last flashcard in the list -> last flashcard edited again */
         command = RedoCommand.COMMAND_WORD;
-        expectedResultMessage = RedoCommand.MESSAGE_SUCCESS;
+        expectedResultMessage = String.format(RedoCommand.MESSAGE_SUCCESS, EditCommand.COMMAND_WORD);
         model.setFlashcard(getModel().getFilteredFlashcardList().get(INDEX_FIRST_FLASHCARD.getZeroBased()),
             editedFlashcard);
         assertCommandSuccess(command, model, expectedResultMessage);

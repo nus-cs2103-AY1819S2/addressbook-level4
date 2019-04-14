@@ -44,13 +44,13 @@ public class AddCommandSystemTest extends CardCollectionSystemTest {
 
         /* Case: undo adding Good to the list -> Good deleted */
         command = UndoCommand.COMMAND_WORD;
-        String expectedResultMessage = UndoCommand.MESSAGE_SUCCESS;
+        String expectedResultMessage = String.format(UndoCommand.MESSAGE_SUCCESS, AddCommand.COMMAND_WORD);
         assertCommandSuccess(command, model, expectedResultMessage);
 
         /* Case: redo adding Good to the list -> Good added again */
         command = RedoCommand.COMMAND_WORD;
         model.addFlashcard(toAdd);
-        expectedResultMessage = RedoCommand.MESSAGE_SUCCESS;
+        expectedResultMessage = String.format(RedoCommand.MESSAGE_SUCCESS, AddCommand.COMMAND_WORD);
         assertCommandSuccess(command, model, expectedResultMessage);
 
         /* Case: add a flashcard with all fields same as another flashcard in the card collection except name ->

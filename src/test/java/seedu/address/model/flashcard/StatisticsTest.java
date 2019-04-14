@@ -30,11 +30,13 @@ public class StatisticsTest {
     public void quizAttempt() {
         Statistics stats = new Statistics(1, 3);
 
-        stats.quizAttempt(true);
-        assertEquals(new Statistics(2, 4), stats);
+        Statistics result = stats.quizAttempt(true);
+        assertEquals(new Statistics(2, 4), result);
+        assertEquals(new Statistics(1, 3), stats);
 
-        stats.quizAttempt(false);
-        assertEquals(new Statistics(2, 5), stats);
+        result = stats.quizAttempt(false);
+        assertEquals(new Statistics(1, 4), result);
+        assertEquals(new Statistics(1, 3), stats);
     }
 
     @Test

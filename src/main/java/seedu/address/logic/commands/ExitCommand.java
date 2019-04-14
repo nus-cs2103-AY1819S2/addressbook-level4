@@ -18,6 +18,7 @@ public class ExitCommand extends Command {
         if (model.getQuizMode() != 0) {
             model.setQuizMode(0);
             model.setSelectedFlashcard(null);
+            model.commitCardCollection(QuizCommand.COMMAND_WORD);
             return new CommandResult(
                 String.format(MESSAGE_EXIT_QUIZ,
                     String.valueOf(model.getQuizGood().getValue()),

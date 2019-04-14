@@ -156,7 +156,7 @@ public class CommandTestUtil {
     public static void deleteFirstFlashcard(Model model) {
         Flashcard firstFlashcard = model.getFilteredFlashcardList().get(0);
         model.deleteFlashcard(firstFlashcard);
-        model.commitCardCollection();
+        model.commitCardCollection("delete 1");
     }
 
 }

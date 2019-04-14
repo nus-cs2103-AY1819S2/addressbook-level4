@@ -4,41 +4,41 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.layout.VBox?>
-<VBox xmlns:fx="http://javafx.com/fxml/1" alignment="CENTER" xmlns="http://javafx.com/javafx/11.0.1">
-    <Label fx:id="cardsRemaining" style="-fx-font-size: 64; -fx-text-fill: white;" text="41"/>
-    <Label fx:id="cardsRemainingLabel" style="-fx-font-size: 32; -fx-text-fill: white;" text="cards remaining"/>
-    <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-          prefHeight="70.0" prefWidth="120.0" style="-fx-background-color: #3e7b91#3e7b91; -fx-background-radius: 10;">
+<VBox xmlns:fx="http://javafx.com/fxml/1" alignment="TOP_CENTER" xmlns="http://javafx.com/javafx/11.0.1">
+    <Label fx:id="mode" style="-fx-font-size: 32; -fx-text-fill: white;" text="Review Mode">
+        <VBox.margin>
+            <Insets bottom="25.0"/>
+        </VBox.margin>
+    </Label>
+    <Label fx:id="cardsRemaining" style="-fx-font-size: 64; -fx-text-fill: white;" text="41" />
+    <Label fx:id="cardsRemainingLabel" style="-fx-font-size: 26; -fx-text-fill: white;" text="cards remaining"/>
+    <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="70.0" prefWidth="120.0" style="-fx-background-color: #3e7b91#3e7b91; -fx-background-radius: 10;">
         <children>
-            <Label style="-fx-font-size: 20; -fx-text-fill: white;" text="Good"/>
+            <Label style="-fx-font-size: 20; -fx-text-fill: white;" text="Good" />
             <Label fx:id="good" style="-fx-text-fill: white; -fx-font-size: 16;" text="0">
                 <VBox.margin>
-                    <Insets top="5.0"/>
+                    <Insets top="5.0" />
                 </VBox.margin>
             </Label>
         </children>
         <VBox.margin>
-            <Insets top="50.0"/>
+            <Insets top="30.0"/>
         </VBox.margin>
         <cursor>
-            <Cursor fx:constant="HAND"/>
+            <Cursor fx:constant="HAND" />
         </cursor>
     </VBox>
-    <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-          prefHeight="70.0" prefWidth="120.0" style="-fx-background-color: #ad3b24#ad3b24; -fx-background-radius: 10;">
+    <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="70.0" prefWidth="120.0" style="-fx-background-color: #ad3b24#ad3b24; -fx-background-radius: 10;">
         <children>
-            <Label style="-fx-font-size: 20; -fx-text-fill: white;" text="Bad"/>
+            <Label style="-fx-font-size: 20; -fx-text-fill: white;" text="Bad" />
             <Label fx:id="bad" style="-fx-text-fill: white; -fx-font-size: 16;" text="0">
                 <VBox.margin>
-                    <Insets top="5.0"/>
+                    <Insets top="5.0" />
                 </VBox.margin>
             </Label>
         </children>
         <VBox.margin>
-            <Insets top="20.0"/>
+            <Insets top="20.0" />
         </VBox.margin>
-        <cursor>
-            <Cursor fx:constant="HAND"/>
-        </cursor>
     </VBox>
 </VBox>

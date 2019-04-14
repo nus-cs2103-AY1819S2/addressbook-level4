@@ -48,7 +48,7 @@ public class EditCommandTest {
 
         Model expectedModel = new ModelManager(new CardCollection(model.getCardCollection()), new UserPrefs());
         expectedModel.setFlashcard(model.getFilteredFlashcardList().get(0), editedFlashcard);
-        expectedModel.commitCardCollection();
+        expectedModel.commitCardCollection(EditCommand.COMMAND_WORD);
 
         assertCommandSuccess(editCommand, model, commandHistory, expectedMessage, expectedModel);
     }
@@ -71,7 +71,7 @@ public class EditCommandTest {
 
         Model expectedModel = new ModelManager(new CardCollection(model.getCardCollection()), new UserPrefs());
         expectedModel.setFlashcard(lastFlashcard, editedFlashcard);
-        expectedModel.commitCardCollection();
+        expectedModel.commitCardCollection(EditCommand.COMMAND_WORD);
 
         assertCommandSuccess(editCommand, model, commandHistory, expectedMessage, expectedModel);
     }
@@ -84,7 +84,7 @@ public class EditCommandTest {
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_FLASHCARD_SUCCESS, editedFlashcard);
 
         Model expectedModel = new ModelManager(new CardCollection(model.getCardCollection()), new UserPrefs());
-        expectedModel.commitCardCollection();
+        expectedModel.commitCardCollection(EditCommand.COMMAND_WORD);
 
         assertCommandSuccess(editCommand, model, commandHistory, expectedMessage, expectedModel);
     }
@@ -103,7 +103,7 @@ public class EditCommandTest {
 
         Model expectedModel = new ModelManager(new CardCollection(model.getCardCollection()), new UserPrefs());
         expectedModel.setFlashcard(model.getFilteredFlashcardList().get(0), editedFlashcard);
-        expectedModel.commitCardCollection();
+        expectedModel.commitCardCollection(EditCommand.COMMAND_WORD);
 
         assertCommandSuccess(editCommand, model, commandHistory, expectedMessage, expectedModel);
     }
@@ -165,18 +165,20 @@ public class EditCommandTest {
         EditCommand editCommand = new EditCommand(INDEX_FIRST_FLASHCARD, descriptor);
         Model expectedModel = new ModelManager(new CardCollection(model.getCardCollection()), new UserPrefs());
         expectedModel.setFlashcard(flashcardToEdit, editedFlashcard);
-        expectedModel.commitCardCollection();
+        expectedModel.commitCardCollection(EditCommand.COMMAND_WORD);
 
         // edit -> first flashcard edited
         editCommand.execute(model, commandHistory);
 
         // undo -> reverts cardCollection back to previous state and filtered flashcard list to show all flashcards
         expectedModel.undoCardCollection();
-        assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
+        String undoMessageSuccess = String.format(UndoCommand.MESSAGE_SUCCESS, EditCommand.COMMAND_WORD);
+        assertCommandSuccess(new UndoCommand(), model, commandHistory, undoMessageSuccess, expectedModel);
 
         // redo -> same first flashcard edited again
         expectedModel.redoCardCollection();
-        assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
+        String redoMessageSuccess = String.format(RedoCommand.MESSAGE_SUCCESS, EditCommand.COMMAND_WORD);
+        assertCommandSuccess(new RedoCommand(), model, commandHistory, redoMessageSuccess, expectedModel);
     }
 
     @Test
@@ -211,19 +213,21 @@ public class EditCommandTest {
         showFlashcardAtIndex(model, INDEX_SECOND_FLASHCARD);
         Flashcard flashcardToEdit = model.getFilteredFlashcardList().get(INDEX_FIRST_FLASHCARD.getZeroBased());
         expectedModel.setFlashcard(flashcardToEdit, editedFlashcard);
-        expectedModel.commitCardCollection();
+        expectedModel.commitCardCollection(EditCommand.COMMAND_WORD);
 
         // edit -> edits second flashcard in unfiltered flashcard list / first flashcard in filtered flashcard list
         editCommand.execute(model, commandHistory);
 
         // undo -> reverts cardCollection back to previous state and filtered flashcard list to show all flashcards
         expectedModel.undoCardCollection();
-        assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
+        String undoMessageSuccess = String.format(UndoCommand.MESSAGE_SUCCESS, EditCommand.COMMAND_WORD);
+        assertCommandSuccess(new UndoCommand(), model, commandHistory, undoMessageSuccess, expectedModel);
 
         assertNotEquals(model.getFilteredFlashcardList().get(INDEX_FIRST_FLASHCARD.getZeroBased()), flashcardToEdit);
         // redo -> edits same second flashcard in unfiltered flashcard list
         expectedModel.redoCardCollection();
-        assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
+        String redoMessageSuccess = String.format(RedoCommand.MESSAGE_SUCCESS, EditCommand.COMMAND_WORD);
+        assertCommandSuccess(new RedoCommand(), model, commandHistory, redoMessageSuccess, expectedModel);
     }
 
     @Test

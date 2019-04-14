@@ -175,12 +175,17 @@ public class AddCommandTest {
         }
 
         @Override
-        public void undoCardCollection() {
+        public String undoCardCollection() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void redoCardCollection() {
+        public String redoCardCollection() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void commitCardCollection(String commandText) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -230,6 +235,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public void setIsQuizSrs(Boolean isQuizSrs) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void showNextQuizCard() {
             throw new AssertionError("This method should not be called.");
         }
@@ -241,6 +251,11 @@ public class AddCommandTest {
 
         @Override
         public ReadOnlyProperty<Integer> getQuizBad() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ReadOnlyProperty<Boolean> getIsQuizSrs() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -297,7 +312,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void commitCardCollection() {
+        public void commitCardCollection(String commandText) {
             // called by {@code AddCommand#execute()}
         }
 

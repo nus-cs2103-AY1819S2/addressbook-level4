@@ -9,51 +9,72 @@ import java.util.List;
 public class VersionedCardCollection extends CardCollection {
 
     private final List<ReadOnlyCardCollection> cardCollectionStateList;
+    private final List<String> commandHistory;
+
     private int currentStatePointer;
 
     public VersionedCardCollection(ReadOnlyCardCollection initialState) {
         super(initialState);
 
         cardCollectionStateList = new ArrayList<>();
+        commandHistory = new ArrayList<>();
         cardCollectionStateList.add(new CardCollection(initialState));
+        commandHistory.add("");
         currentStatePointer = 0;
     }
 
     /**
      * Saves a copy of the current {@code CardCollection} state at the end of the state list.
      * Undone states are removed from the state list.
+     * @param commandText The command that makes the change.
      */
-    public void commit() {
+    public void commit(String commandText) {
         removeStatesAfterCurrentPointer();
         cardCollectionStateList.add(new CardCollection(this));
+        commandHistory.add(commandText);
         currentStatePointer++;
         indicateModified();
     }
 
+    /**
+     * Saves a copy of the current {@code CardCollection} state at the end of the state list.
+     * Saves the command that makes the change.
+     * Undone states are removed from the state list.
+     */
+    public void commit() {
+        commit("");
+    }
+
     private void removeStatesAfterCurrentPointer() {
         cardCollectionStateList.subList(currentStatePointer + 1, cardCollectionStateList.size()).clear();
+        commandHistory.subList(currentStatePointer + 1, commandHistory.size()).clear();
     }
 
     /**
      * Restores the card collection to its previous state.
+     * @return The command that makes the change before and after undo.
      */
-    public void undo() {
+    public String undo() {
         if (!canUndo()) {
             throw new NoUndoableStateException();
         }
+        String command = commandHistory.get(currentStatePointer);
         currentStatePointer--;
         resetData(cardCollectionStateList.get(currentStatePointer));
+        return command;
     }
 
     /**
      * Restores the card collection to its previously undone state.
+     * @return The command that makes the change before and after redo.
      */
-    public void redo() {
+    public String redo() {
         if (!canRedo()) {
             throw new NoRedoableStateException();
         }
         currentStatePointer++;
         resetData(cardCollectionStateList.get(currentStatePointer));
+        return commandHistory.get(currentStatePointer);
     }
 
     /**
@@ -87,7 +108,8 @@ public class VersionedCardCollection extends CardCollection {
         // state check
         return super.equals(otherVersionedCardCollection)
             && cardCollectionStateList.equals(otherVersionedCardCollection.cardCollectionStateList)
-            && currentStatePointer == otherVersionedCardCollection.currentStatePointer;
+            && currentStatePointer == otherVersionedCardCollection.currentStatePointer
+            && commandHistory.equals(otherVersionedCardCollection.commandHistory);
     }
 
     /**

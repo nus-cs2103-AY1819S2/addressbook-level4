@@ -272,6 +272,10 @@ public abstract class CardCollectionSystemTest {
         return testApp.getModelQuizMode();
     }
 
+    Boolean getModelIsQuizSrs() {
+        return testApp.getModelIsQuizSrs();
+    }
+
     int getModelQuizFlashcardSize() {
         return testApp.getModelQuizFlashcardSize();
     }

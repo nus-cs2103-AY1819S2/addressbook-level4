@@ -32,6 +32,7 @@ public class ModelManager implements Model {
     private final SimpleObjectProperty<Integer> quizMode = new SimpleObjectProperty<>(0);
     private final SimpleObjectProperty<Integer> quizGood = new SimpleObjectProperty<>(0);
     private final SimpleObjectProperty<Integer> quizBad = new SimpleObjectProperty<>(0);
+    private final SimpleObjectProperty<Boolean> isQuizSrs = new SimpleObjectProperty<>(false);
     private ObservableList<Flashcard> quizFlashcards;
 
     /**
@@ -56,14 +57,14 @@ public class ModelManager implements Model {
     //=========== UserPrefs ==================================================================================
 
     @Override
-    public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
-        requireNonNull(userPrefs);
-        this.userPrefs.resetData(userPrefs);
+    public ReadOnlyUserPrefs getUserPrefs() {
+        return userPrefs;
     }
 
     @Override
-    public ReadOnlyUserPrefs getUserPrefs() {
-        return userPrefs;
+    public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
+        requireNonNull(userPrefs);
+        this.userPrefs.resetData(userPrefs);
     }
 
     @Override
@@ -91,13 +92,13 @@ public class ModelManager implements Model {
     //=========== CardCollection ================================================================================
 
     @Override
-    public void setCardCollection(ReadOnlyCardCollection cardCollection) {
-        versionedCardCollection.resetData(cardCollection);
+    public ReadOnlyCardCollection getCardCollection() {
+        return versionedCardCollection;
     }
 
     @Override
-    public ReadOnlyCardCollection getCardCollection() {
-        return versionedCardCollection;
+    public void setCardCollection(ReadOnlyCardCollection cardCollection) {
+        versionedCardCollection.resetData(cardCollection);
     }
 
     @Override
@@ -154,18 +155,23 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void undoCardCollection() {
-        versionedCardCollection.undo();
+    public String undoCardCollection() {
+        return versionedCardCollection.undo();
     }
 
     @Override
-    public void redoCardCollection() {
-        versionedCardCollection.redo();
+    public String redoCardCollection() {
+        return versionedCardCollection.redo();
+    }
+
+    @Override
+    public void commitCardCollection(String commandText) {
+        versionedCardCollection.commit(commandText);
     }
 
     @Override
     public void commitCardCollection() {
-        versionedCardCollection.commit();
+        versionedCardCollection.commit("");
     }
 
     //=========== Selected flashcard ============================================================================
@@ -265,6 +271,16 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public ReadOnlyProperty<Boolean> getIsQuizSrs() {
+        return isQuizSrs;
+    }
+
+    @Override
+    public void setIsQuizSrs(Boolean isQuizSrs) {
+        this.isQuizSrs.setValue(isQuizSrs);
+    }
+
+    @Override
     public void resetQuizStat() {
         quizGood.setValue(0);
         quizBad.setValue(0);
@@ -272,16 +288,16 @@ public class ModelManager implements Model {
 
     @Override
     public void addGoodFeedback() {
-        selectedFlashcard.getValue().getStatistics().quizAttempt(true);
+        Flashcard updatedFlashcard = selectedFlashcard.getValue().quizAttempt(true, isQuizSrs.getValue());
+        setFlashcard(selectedFlashcard.getValue(), updatedFlashcard);
         quizGood.setValue(quizGood.getValue() + 1);
-        commitCardCollection();
     }
 
     @Override
     public void addBadFeedback() {
-        selectedFlashcard.getValue().getStatistics().quizAttempt(false);
+        Flashcard updatedFlashcard = selectedFlashcard.getValue().quizAttempt(false, isQuizSrs.getValue());
+        setFlashcard(selectedFlashcard.getValue(), updatedFlashcard);
         quizBad.setValue(quizBad.getValue() + 1);
-        commitCardCollection();
     }
 
 

@@ -1,7 +1,10 @@
 package seedu.address.ui;
 
+import static seedu.address.logic.commands.SelectCommand.MESSAGE_SELECT_FLASHCARD_SUCCESS;
+
 import java.util.logging.Logger;
 
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
@@ -17,6 +20,7 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.flashcard.Flashcard;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -142,7 +146,7 @@ public class MainWindow extends UiPart<Stage> {
         cardViewPlaceholder.getChildren().add(cardViewPanel.getRoot());
 
         flashcardListPanel = new FlashcardListPanel(logic.getFilteredFlashcardList(), logic.selectedFlashcardProperty(),
-            logic::setSelectedFlashcard);
+            this::setSelectedFlashcard);
         flashcardListPanelPlaceholder.getChildren().add(flashcardListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
@@ -154,6 +158,15 @@ public class MainWindow extends UiPart<Stage> {
 
         CommandBox commandBox = new CommandBox(this::executeCommand, logic.getHistory());
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+    }
+
+    private void setSelectedFlashcard(Flashcard flashcard) {
+        ObservableList<Flashcard> filteredFlashcardList = logic.getFilteredFlashcardList();
+        int index = filteredFlashcardList.indexOf(flashcard) + 1;
+        String messageDisplay = String.format(MESSAGE_SELECT_FLASHCARD_SUCCESS, index,
+            filteredFlashcardList.get(index - 1).getStatistics().getSuccessRate() * 100);
+        resultDisplay.setFeedbackToUser(messageDisplay);
+        logic.setSelectedFlashcard(flashcard);
     }
 
     /**
@@ -185,7 +198,7 @@ public class MainWindow extends UiPart<Stage> {
     private void startQuizMode() {
         flashcardListPanelPlaceholder.getChildren().clear();
         QuizPanel quizPanel = new QuizPanel(logic.getQuizFlashcards(),
-            logic.quizGoodProperty(), logic.quizBadProperty());
+            logic.quizGoodProperty(), logic.quizBadProperty(), logic.isQuizSrsProperty());
         flashcardListPanelPlaceholder.getChildren().add(quizPanel.getRoot());
     }
 

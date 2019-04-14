@@ -89,7 +89,7 @@ public class LogicManagerTest {
         Flashcard expectedFlashcard = new FlashcardBuilder(GOOD).withTags().build();
         ModelManager expectedModel = new ModelManager();
         expectedModel.addFlashcard(expectedFlashcard);
-        expectedModel.commitCardCollection();
+        expectedModel.commitCardCollection(AddCommand.COMMAND_WORD);
         String expectedMessage = LogicManager.FILE_OPS_ERROR_MESSAGE + DUMMY_IO_EXCEPTION;
         assertCommandBehavior(CommandException.class, addCommand, expectedMessage, expectedModel);
         assertHistoryCorrect(addCommand);

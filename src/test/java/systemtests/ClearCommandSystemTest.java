@@ -25,7 +25,7 @@ public class ClearCommandSystemTest extends CardCollectionSystemTest {
 
         /* Case: undo clearing card collection -> original card collection restored */
         String command = UndoCommand.COMMAND_WORD;
-        String expectedResultMessage = UndoCommand.MESSAGE_SUCCESS;
+        String expectedResultMessage = String.format(UndoCommand.MESSAGE_SUCCESS, ClearCommand.COMMAND_WORD);
         assertCommandSuccess(command, expectedResultMessage, defaultModel);
         assertSelectedCardUnchanged();
 
@@ -35,13 +35,13 @@ public class ClearCommandSystemTest extends CardCollectionSystemTest {
 
         /* Case: undo clearing card collection -> original card collection restored */
         command = UndoCommand.COMMAND_WORD;
-        expectedResultMessage = UndoCommand.MESSAGE_SUCCESS;
+        expectedResultMessage = String.format(UndoCommand.MESSAGE_SUCCESS, ClearCommand.COMMAND_WORD);
         assertCommandSuccess(command, expectedResultMessage, defaultModel);
         assertSelectedCardUnchanged();
 
         /* Case: redo clearing card collection -> cleared */
         command = RedoCommand.COMMAND_WORD;
-        expectedResultMessage = RedoCommand.MESSAGE_SUCCESS;
+        expectedResultMessage = String.format(RedoCommand.MESSAGE_SUCCESS, ClearCommand.COMMAND_WORD);
         assertCommandSuccess(command, expectedResultMessage, new ModelManager());
         assertSelectedCardUnchanged();
 

@@ -48,13 +48,13 @@ public class DeleteCommandSystemTest extends CardCollectionSystemTest {
 
         /* Case: undo deleting the last flashcard in the list -> last flashcard restored */
         command = UndoCommand.COMMAND_WORD;
-        expectedResultMessage = UndoCommand.MESSAGE_SUCCESS;
+        expectedResultMessage = String.format(UndoCommand.MESSAGE_SUCCESS, DeleteCommand.COMMAND_WORD);
         assertCommandSuccess(command, modelBeforeDeletingLast, expectedResultMessage);
 
         /* Case: redo deleting the last flashcard in the list -> last flashcard deleted again */
         command = RedoCommand.COMMAND_WORD;
         removeFlashcard(modelBeforeDeletingLast, lastFlashcardIndex);
-        expectedResultMessage = RedoCommand.MESSAGE_SUCCESS;
+        expectedResultMessage = String.format(RedoCommand.MESSAGE_SUCCESS, DeleteCommand.COMMAND_WORD);
         assertCommandSuccess(command, modelBeforeDeletingLast, expectedResultMessage);
 
         /* Case: delete the middle flashcard in the list -> deleted */

@@ -1,8 +1,9 @@
 = Tan Mei Yen - Project Portfolio
-toc::[]
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
 
 == Introduction
-
 
 Hello! My name is Tan Mei Yen and I am currently a second year student studying Computer Science at National University of Singapore. +
 
@@ -26,9 +27,7 @@ Main Features of _Equipment Manager_:
 * Plan the most efficient route to take for visiting multiple locations
 
 
-== Summary of contributions
-
-'''
+== Summary Of Contributions
 
 This section is to provide a summary of my contributions to the project.
 
@@ -50,8 +49,8 @@ This section is to provide a summary of my contributions to the project.
 ** Credits: Code from `FindCommand` was referenced in the implementation of `FilterCommand`
 
 
-* *Enhancement 2*: added the ability to *sort the equipment list according to specified keywords*
-** What it does: The `sort` command allows the user to sort the equipment list by the given keywords:
+* *Enhancement 2*: added the ability to *sort the equipment list according to specified fields*
+** What it does: The `sort` command allows the user to sort the equipment list by the given fields:
 *** Name
 *** Date
 *** Serial Number
@@ -61,7 +60,7 @@ This section is to provide a summary of my contributions to the project.
 
 ** Highlights:
 *** The command is simple to use and allows the user to sort the list by their own preferences.
-*** If users were to forget what are the keywords available, error messages would guide them to execute the commands correctly.
+*** If users were to forget what are the fields available, error messages would guide them to execute the commands correctly.
 
 ** Filter Command: [https://github.com/CS2103-AY1819S2-W10-3/main/pull/94[#94]] [https://github.com/CS2103-AY1819S2-W10-3/main/pull/60[#60]] [https://github.com/CS2103-AY1819S2-W10-3/main/pull/52[#52]]
 ** Sort Command: [https://github.com/CS2103-AY1819S2-W10-3/main/pull/178[#178]] [https://github.com/CS2103-AY1819S2-W10-3/main/pull/75[#75]] [https://github.com/CS2103-AY1819S2-W10-3/main/pull/39[#39]]
@@ -99,7 +98,6 @@ This section is to provide a summary of my contributions to the project.
 
 
 == Contributions to the User Guide
-'''
 
 Given below are sections I contributed to the User Guide, which consists of documentation of filter and sort commands. They showcase my ability to write documentation targeting end-users.
 
@@ -110,7 +108,6 @@ include::../UserGuide.adoc[tag=filter]
 include::../UserGuide.adoc[tag=sort]
 
 == Contributions to the Developer Guide
-'''
 
 Given below are sections I contributed to the Developer Guide, which consists of documentation of filter and sort commands and user stories. They showcase my ability to write technical documentation and the technical depth of my contributions to the project.
 

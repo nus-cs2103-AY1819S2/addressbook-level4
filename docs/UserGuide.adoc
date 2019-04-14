@@ -50,7 +50,7 @@ The exclamation mark icon indicates any warnings that users can take note of whi
 // tag::quickstart[]
 == Quick Start
 
-To get Equipment manager up and running, simply follow these few steps.
+To get Equipment Manager up and running, simply follow these few steps.
 
 === Setting up of Equipment Manager
 
@@ -71,12 +71,12 @@ The GUI for _Equipment Manager_ as shown in <<GUI>> consists of nine regions:
 | [1] *Menu Bar* | Allow users to click `File` > `Exit` to exit the application and click `Help` to navigate to our User Guide page.
 | [2] *Command Box* | User enters the command in the command box. Refer to *User Guide* to learn all the available commands.
 | [3] *Message box* | The message box that shows the result after a command has been executed.
-| [4] *Status Bar* | Show the total number of equipments in the *Equipment Manager*.
-| [5] *Google Map*  | Google map serves as a visual representation for where equipments are at as well as showing user the possible routes to take.
+| [4] *Status Bar* | Show the total number of equipment in the *Equipment Manager*.
+| [5] *Google Map*  | Google map serves as a visual representation for where equipment are at as well as showing user the possible routes to take.
 | [6] *Equipment Details* panel | This panel shows summarized details on equipment
 | [7] *Equipment Details Page* | This is a HTML page where it shows more detailed information on an equipment.
 | [8] *Client Details* panel | This panel shows specifically information related to client such as the name and how many equipment the client owns.
-| [9] *My Work List* panel | This panels shows the work schedule of a person when the user assigns equipments whom the user want to carry out preventive maintenance work.
+| [9] *My Work List* panel | This panels shows the work schedule of a person when the user assigns equipment whom the user want to carry out preventive maintenance work.
 |===
 
 [TIP]
@@ -90,7 +90,7 @@ Please remember the naming convention for the different regions in GUI as they w
 | PHONE | The contact number of the client that owns the equipment. | Phone numbers should only contain numbers, and it should be at least 3 digits long
 | DATE | The due date for which maintenance work on the equipment should be carried out by then. | Should only contain numbers and hyphens, no blanks allowed. The correct format is  dd-MM-yyyy. For example, 03-05-2019 which means 3 May 2019.
 | ADDRESS | The address of the client that owns the equipment. |
-| SERIAL_NUMBER | The serial number of an equipment | All equipments have unique serial number and there should not be duplicated serial number.
+| SERIAL_NUMBER | The serial number of an equipment | All equipment have unique serial number and there should not be duplicated serial number.
 | TAG | Tag provides user with desired labels without any restriction on labelling format in *Equipment Manager*. An equipment can any number of tags (including 0).
 |===
 
@@ -144,29 +144,29 @@ Refer to <<EquipmentPara>> to understand each equipment's parameter when adding 
 Equipment that has overdue preventative maintenance dates are allowed to be added for tracking purposes.
 
 [TIP]
-As seen in <<duplicate>> below, under *Equipment details* panel, duplicated client details such as name, phone, address could be added and displayed because the details refer to a client's details who owns multiple equipments as long as the serial numbers of equipment are different. +
+As seen in <<duplicate>> below, under *Equipment details* panel, duplicated client details such as name, phone, address could be added and displayed because the details refer to a client's details who owns multiple equipment as long as the serial numbers of equipment are different. +
 Under *Client details* panel, duplicated client names will not appear in the panel because the *Client details* panel will only show distinct number of clients in the *Equipment Manager*.
 
 
 Example:
 
-The following shows user adding 1 equipment that is own by the client called Serangoon CC.
+The following shows user adding 1 equipment that is owned by the client called Serangoon CC.
 
-* `add-e n/Serangon CC p/64738499 pm/11-06-2019 a/10 Serangoon North Ave 2, Singapore 555877 s/A0293838X t/northeast`
+* `add-e n/Serangoon CC p/64738499 pm/11-06-2019 a/10 Serangoon North Ave 2, Singapore 555877 s/A0293838X t/northeast`
 
 .UI Result after adding an equipment own by Serangoon CC
 image::SerangoonCC.png[width="800"]
 
 
-The following shows user adding 2 equipments that are own by the same client called  Pending CC.
-Under *Equipment details* panel, 2 equipments of the same name Pending CC are displayed. Only the serial number is different which indicates 2 different equipment owned by Pending CC.
+The following shows user adding 2 equipment that are owned by the same client called  Pending CC.
+Under *Equipment details* panel, 2 equipment of the same name Pending CC are displayed. Only the serial number is different which indicates 2 different equipment owned by Pending CC.
 Under *Client details* panel, Pending CC is added to the panel after entering the `add-e` command.
 
 * `add-e n/Pending CC p/65060900 pm/22-04-2019 a/8 Pending Rd, Singapore 678295 s/A23234567X t/northwest` +
 `add-e n/Pending CC p/65060900 pm/22-04-2019 a/8 Pending Rd, Singapore 678295 s/61672453X t/northwest`
 
 [[duplicate]]
-.UI Result after adding 2 equipments owned by the same client
+.UI Result after adding 2 equipment owned by the same client
 image::PendingCC.png[width="800"]
 // end::add-e[]
 
@@ -227,8 +227,8 @@ Edits the client's phone number and address of the 1st equipment to be 91234567 
 * `edit 2 n/Hougang CC t/` +
 Edits the client name of the 2nd equipment to be Huogang CC and clears all existing tags.
 
-=== List all equipments:  `list-e`
-Shows a list of all equipments in the Equipment Manager. The result will be displayed in the panel labelled under *Equipment details*. +
+=== List all equipment:  `list-e`
+Shows a list of all equipment in the Equipment Manager. The result will be displayed in the panel labelled under *Equipment details*. +
 Format: `list-e`
 
 Example:
@@ -269,7 +269,7 @@ Selects the 1st equipment in the results of the find command.
 
 // tag::select-c[]
 === Selecting a client: `select-c`
-Selects the client identified by the index number used in the displayed client list panel. All the equipments own by the client will be displayed under *Equipment details* panel. +
+Selects the client identified by the index number used in the displayed client list panel. All the equipment owned by the client will be displayed under *Equipment details* panel. +
 Format: `select-c INDEX`
 
 * Selects the client at the specified INDEX and loads the client's equipment in the *Equipment details* panel. +
@@ -284,7 +284,7 @@ Selects the 2nd client in the equipment manager.
 
 // tag::display[]
 === Show in map: `display`
-Display entries on the list to the map. Addresses of the equipment will be taken to plot marker on map.
+Display entries on the list to the map. Addresses of the equipment will be taken to plot marker on map. +
 Format: `display`
 
 Example:
@@ -311,7 +311,7 @@ Examples:
 
 // tag::sort[]
 === Sorting the equipment list: `sort`
-Sort the current shown list.
+Sort the equipment list.
 
 Format: `sort [FIELD_NAME to be sorted by]`
 
@@ -416,7 +416,7 @@ Example:
 `delete-e 1`
 
 === Deleting a work list: `delete-w`
-Deletes the specified work list from the work list.
+Deletes the specified work list from the work list. +
 Format: `delete-w INDEX`
 
 Example:
@@ -569,7 +569,7 @@ For more details on what each command does, please refer to <<Features>>.
 |edit INDEX n/NAME p/PHONE pm/DATE a/ADDRESS s/SERIAL_NUMBER t/TAG…​
 |edit 1 n/Clementi Community Center
 
-|*List all equipments*
+|*List all equipment*
 |list-e
 |list-e
 

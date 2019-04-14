@@ -22,7 +22,7 @@ By: `Team W10-3`      Since: `Feb 2019`      Licence: `MIT`
 == Introduction
 Welcome to the Developer Guide for *Equipment Manager*!
 
-*Equipment Manager* is an application that allows engineers to keep track of the Preventive Maintenance schedule of all Resuscitation Devices in Singapore. It will help engineers to plan the number of equipment to carry out preventive maintenance, and also keep track on each equipment details such as status and location. +
+*Equipment Manager* is an application that allows engineers to keep track of the Preventive Maintenance schedule of all Resuscitation Devices in Singapore. It will help engineers plan the number of equipment to carry out preventive maintenance, and also keep track on each equipment details such as status and location. +
 
 Objectives of the application include:
 
@@ -250,7 +250,7 @@ This section describes some noteworthy details on how certain features are imple
 
 //tag::equipment[]
 === Equipment feature
-To provide users with the best understanding on the attributes of equipments in *Equipment Manager*,
+To provide users with the best understanding on the attributes of equipment in *Equipment Manager*,
 this section will provide a brief overview on the equipment details as well as how the details of an equipment are
 used for multiple features in the design of Equipment Manager. Not forgetting sharing some design considerations to make the best choice for *Equipment Manager*.
 
@@ -262,7 +262,7 @@ used for multiple features in the design of Equipment Manager. Not forgetting sh
 | Phone | The contact number of the client that owns the equipment. |
 | Date | The due date for which maintenance work on the equipment should be carried out by then. |
 | Address | The address of the client that owns the equipment. |
-| Serial Number | The serial number of an equipment | All equipments have unique serial number and there should not be duplicated serial number.
+| Serial Number | The serial number of an equipment | All equipment have unique serial number and there should not be duplicated serial number.
 |===
 
 ==== Current Usage of Equipment Details
@@ -304,8 +304,8 @@ With that, you may refer to <<Display feature>> to see how *Equipment Manager* w
 ===== Aspects: What attributes are important for equipment details to serve the purpose of *Equipment Manager*.
 
 * *Alternative 1 (current choice)*: Equipment details contain client details whom own the equipment and equipment unique serial number.
-** Pros: This allows users to know that each equipment has unique serial number and each client can own multiple equipments. Do not have to make major enhancement, save time on backend work.
-** Cons: Might be confusing to user if user is not clear how Equipment Manager works as it may seem like there is duplicated equipments.
+** Pros: This allows users to know that each equipment has unique serial number and each client can own multiple equipment. Do not have to make major enhancement, save time on backend work.
+** Cons: Might be confusing to user if user is not clear how Equipment Manager works as it may seem like there is duplicated equipment.
 
 * *Alternative 2*: Equipment details only has serial number and create a seperate class to store store name, phone, address, as client details.
 ** Pros: By reading the structure, it is clearer to user that the attributes describe equipment or client.
@@ -322,8 +322,8 @@ because attributes of client and equipment are being shared in order to for feat
 ==== Overview on Client details
 In Equipment Manager, there are `Name`, `Phone`, `Address` attributes stored under *Equipment details* that identify client details.
 
-* A client can 0 to numerous equipment which are identified by unique serial number but an equipment cannot be shared by multiple clients.
-** There is a `CountEquipment` method in *Equipment Manager* that counts the number of equipments that each client owns. Since *Equipment Details* panel showcases by each equipment, having a summarized details of each client, allows user to be more aware that the client might own more than 0, 1 or more than 1 equipment.
+* A client can have 0 to numerous equipment which are identified by unique serial number but an equipment cannot be shared by multiple clients.
+** There is a `CountEquipment` method in *Equipment Manager* that counts the number of equipment that each client owns. Since *Equipment Details* panel showcases by each equipment, having a summarized details of each client, allows user to be more aware that the client might own more than 0, 1 or more than 1 equipment.
 * Each address tells user where 0 to numerous equipment, which each client owns, are located at.
 
 ==== Current Usage of Client details
@@ -345,7 +345,7 @@ Step 4. `SelectClientCommand#execute()` is then called and set the selected clie
 
 Step 5. Using the `filter` feature, the model will use the `Name` attributes, filter the equipment list accordingly and displays the client's equipment in the *Equipment details* panel.
 
-Step 7. The model now contains additional client name and returns to GUI for display on *Client details* panel respectively. The model also contains filtered client's equipments and returns the GUI for display on *Equipment details* panel.
+Step 7. The model now contains additional client name and returns to GUI for display on *Client details* panel respectively. The model also contains filtered client's equipment and returns the GUI for display on *Equipment details* panel.
 
 [NOTE]
 The figure in Current Implementation of <<Equipment feature>> also explains how `AddCommand` contributes to the results shown in *Client Details* panel.
@@ -356,7 +356,7 @@ Refer to the *Design Considerations* in <<Equipment feature>> as we went through
 ===== Aspects: With a list of client displayed in *Client details* panel, how should the client's equipment details be displayed?
 
 * *Alternative 1 (current choice)*: Making use of the `filter` command to show client's equipment
-** Pros: Making use of exisiting *Equipment details* panel. Easier to implement with lesser changes to the storage, logic, model and ui components within the time constraint.
+** Pros: Making use of existing *Equipment details* panel. Easier to implement with lesser changes to the storage, logic, model and ui components within the time constraint.
 ** Cons: select followed by a filter command is stored in the history even though user did not use filter command. This is the trade off.
 
 * *Alternative 2*: Add a new equipment panel and card for displaying client's equipment when selecting the client
@@ -398,7 +398,7 @@ The following sequence diagram shows how the filter operation works:
 
 image::FilterCommandSequenceDiagram.png[width="800"]
 
-Example
+*Example*
 
 Given below is an example usage scenario of how the filter mechanism behaves at each step when filtering.
 
@@ -449,7 +449,7 @@ e.g: `filter n/jurong t/west`
 === Sort feature
 
 ==== Introduction
-We have implemented a `SortCommand` that allow users to sort the equipment list with specific keyword.
+We have implemented a `SortCommand` that allow users to sort the equipment list with specific field.
 
 The entries in the equipment list is ordered to the time when the entry is entered into the application by default such that the entry entered first is at the top of the equipment list and the latest entry entered is at the bottom of the equipment list.
 The `sort` mechanism allows user to view the equipment list according to their preferences.
@@ -458,16 +458,16 @@ The `SortCommand` is able to sort the equipment list according to the user's pre
 
 ==== Current Implementation
 
-The `sort` command sorts the list by specified keyword in lexicographical order.
+The `sort` command sorts the list by specified field in lexicographical order.
 
 Comparators that implement `java.util.Comparator` interface are used in the *sort* mechanism to perform the comparsion.
 
 The *sort* mechanism is supported by `SortCommandParser`. It implements `Parser` that implements the following operation:
 
 - `SortCommandParser#parse()` -  Checks the arguments for empty strings and throws a ParseException if empty string is found.
-It then splits the arguments and checks if the next string is a valid keyword, else, it will throw a ParseException.
+It then splits the arguments and checks if the next string is a valid field, else, it will throw a ParseException.
 
-Valid keywords:
+Valid fields:
 
 - name
 - date
@@ -491,13 +491,13 @@ Step 3. `SortCommandParser#parse()` creates a new `NameComparator()` object and 
 Step 4. `EquipmentManager#sortEquipmentList(comparator)` calls `UniqueEquipmentList#sortEquipmentList(comparator)`, which then
 uses FXCollection’s static method `sort()` to sort the equipment list by name.
 
-Step 5. The list is sorted by specified keyword (name) and returned to the GUI.
+Step 5. The list is sorted by specified field (name) and returned to the GUI.
 
 Test cases:
 
 - Input: `sort`
 
-Output: An error message will be shown to what keywords are available.
+Output: An error message will be shown to what fields are available.
 
 - Input: `sort name`
 
@@ -522,7 +522,7 @@ Output: The list is sorted in ascending order by the serial number of the equipm
 ==== Design Considerations
 *Implementation of `SortCommand`*
 
-* **Alternative 1 (current choice): **Sorts by specific keyword by using the Comparator interface.
+* **Alternative 1 (current choice): **Sorts by specific field by using the Comparator interface.
 ** Pros: Sorting can be done based on different fields (name, date, phone number and serial number)
 ** Cons: A new class that implements the interface Comparator needs to be created for the fields.
 
@@ -533,7 +533,7 @@ Output: The list is sorted in ascending order by the serial number of the equipm
 
 // tag::display[]
 === Display feature
-The display feature allow users to view the location of all equipments in the current shown list on map.
+The display feature allow users to view the location of all equipment in the current shown list on map.
 
 ==== Current Implementation
 
@@ -541,9 +541,9 @@ The following sequence diagram shows how the display operation works:
 
 image::DisplaySequenceDiagram.png[width="800"]
 
-Step 1. The user launches the application, the list of equipments will show in `UI` and stored in the `Model`.
+Step 1. The user launches the application, the list of equipment will show in `UI` and stored in the `Model`.
 
-Step 2. The user executes `display` command to show all the equipments on the map. The execution of `display` command will return a `CommandResult` indicating `display` which can be checked by `CommandResult#isDisplayMap()`. The `MainWindow` will check if the `CommandResult` is a display map command. Then `MainWindow#handleDisplayMap` will be called. `MainWindow#handleDisplayMap` will call `Logic#getFilteredPersonList()` to get the equipments list, and then call `Equipment#getCoordiantes()` on each equipments to get its coordinates.
+Step 2. The user executes `display` command to show all the equipment on the map. The execution of `display` command will return a `CommandResult` indicating `display` which can be checked by `CommandResult#isDisplayMap()`. The `MainWindow` will check if the `CommandResult` is a display map command. Then `MainWindow#handleDisplayMap` will be called. `MainWindow#handleDisplayMap` will call `Logic#getFilteredPersonList()` to get the equipment list, and then call `Equipment#getCoordiantes()` on each equipment to get its coordinates.
 
 Step 3. The `Equipment#getCoordiantes()` calls to `Google Map Geocoding API` with the address returned by `Equipment#getAddress()`. The API will return the coordinates of the address. This will be returned as the coordinates of the equipment.
 
@@ -557,17 +557,17 @@ Step 5. The webpage receive the coordinates in parameter form. It will first par
 ==== Design Considerations
 
 ===== Aspect: How to display the base map
-* **Alternative 1 (current choice):** Use separate webpage, pass the coordinates as parameters.
+* **Alternative 1 (current choice):** Use separate web page, pass the coordinates as parameters.
 ** Pros: Easy to implement. Flexible to add more functions. Many JavaScript libraries can be used.
 ** Cons: Unexpected behaviors would happen if the WebEngine cannot display the webpage properly.
 * **Alternative 2:** Use third party JavaFX map libraries.
-** Pros: No unexpected behaviors, and more consistant running on different platforms.
-** Cons: Harder to implement, less flexibility, and limit to extendsions.
+** Pros: No unexpected behaviors, and more consistent running on different platforms.
+** Cons: Harder to implement, less flexibility, and limit to extensions.
 // end::display[]
 
 // tag::uiug[]
 === User Interface (UI)
-The UI of *Equipment Manager* is a combination of JavaFx, HTML and CSS.
+The UI of *Equipment Manager* is a combination of JavaFX, HTML and CSS.
 This section describes our overall current implementation for UI as well as
 showing our thinking process for the UI in designs considerations section.
 
@@ -586,17 +586,17 @@ The user should be greeted by 9 different regions:
 | [2] *Command Box* | User enters the command in the command box. Refer to *User Guide* to learn all the available commands.
 | [3] *Message box* | The message box that shows the result after a command has been executed.
 | [4] *Status Bar* |
-| [5] *Google Map*  | Google map serves as a visual representation for where equipments are at as well as showing user the possible routes to take.
+| [5] *Google Map*  | Google map serves as a visual representation for where equipment are at as well as showing user the possible routes to take.
 | [6] *Equipment Result Panel* | This panel shows summarized details on equipment
 | [7] *Equipment Details Page* | This is a HTML page where it shows more detailed information on an equipment.
 | [8] *Client Result Panel* | This panel shows specifically information related to client such as the name and how many equipment the client owns.
-| [9] *Work list Result Panel* | This panels shows the work schedule of a person when the user assigns equipments whom the user want to carry out preventive maintenance work.
+| [9] *Work list Result Panel* | This panels shows the work schedule of a person when the user assigns equipment whom the user want to carry out preventive maintenance work.
 |===
 
 ===== Showcase Client details
 To avoid cluttering to many information in *Equipment Result Panel*,
 we decided to categorise information related to clients into *Client Result Panel*
-such as showing the name of the client and how many equipments the client owns as seen in the figure below.
+such as showing the name of the client and how many equipment the client owns as seen in the figure below.
 
 .Outcome of a showing client details when using `add-c` feature
 image:: AddClientDetailsUI.png[%autowidth]
@@ -609,7 +609,7 @@ on equipment. This means there are some information not shown in *Equipment Resu
 .Incorporating HTML in panel to show more equipment details
 image::equipmentdetailsUI.png[%autowidth]
 
-One of our main feature of *Equipment Manager* is the ability to have a visual representation on 1 or more equipments in a *Google Map*.
+One of our main feature of *Equipment Manager* is the ability to have a visual representation on 1 or more equipment in a *Google Map*.
 
 .Outcome of `display` feature on UI
 image::clientlocationsUI.png[%autowidth]
@@ -936,7 +936,7 @@ A project often depends on third-party libraries. For example, Address Book depe
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
 
-*Value proposition*: help plan an efficient route for busy engineers to multiple locations and also carrying preventive maintance on multiple equipments in a day.
+*Value proposition*: help plan an efficient route for busy engineers to multiple locations and also carrying preventive maintenance on multiple equipment in a day.
 
 //tag:userstories[]
 [appendix]
@@ -953,13 +953,13 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |user |delete an equipment or its specific details |remove equipment that is obsolete
 
-|`* * *` |user |have a work list where I can store the equipments I am working on |keep track of all the equipments that I am assigned to
+|`* * *` |user |have a work list where I can store the equipment I am working on |keep track of all the equipment that I am assigned to
 
 |`* * *` |user |delete work list |remove work list which indicates work completed and no longer need it for tracking progress
 
-|`* * *` |user |view details of all equipment |know how many equipments there are and what is the individual details of each equipment
+|`* * *` |user |view details of all equipment |know how many equipment there are and what is the individual details of each equipment
 
-|`* * *` |user |know how many clients have the equipment |track equipments in group based on client and how many equipment the client owns
+|`* * *` |user |know how many clients have the equipment |track equipment in group based on client and how many equipment the client owns
 |=======================================================================
 
 [discrete]
@@ -967,7 +967,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |user |filter the list based on some conditions |remove all irrelevant equipments and work list showing on the list
+|`* * *` |user |filter the list based on some conditions |remove all irrelevant equipment and work list showing on the list
 |=======================================================================
 
 [discrete]
@@ -1025,8 +1025,8 @@ _{More to be added}_
 
 *MSS*
 
-1.  User requests to list equipments
-2.  Equipment shows a list of equipments
+1.  User requests to list equipment
+2.  Equipment shows a list of equipment
 3.  User requests to delete a specific equipment in the list
 4.  *Equipment Manager* deletes the equipment
 +

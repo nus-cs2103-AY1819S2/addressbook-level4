@@ -49,7 +49,7 @@ public class SavePresetCommandTest {
             OpenCommandParser parser2 = new OpenCommandParser();
             parser2.parse("iu.jpg").execute(currentEdit, model, commandHistory);
         } catch (Exception e) {
-            System.out.println(e.toString());
+            e.printStackTrace();
         }
     }
     @Test
@@ -76,7 +76,7 @@ public class SavePresetCommandTest {
             String expectedMessage = Messages.MESSAGE_SAVEPRESET_SUCCESS + " " + toPrint.toString();
             assertCommandSuccess(command, model, commandHistory, expectedMessage, currentEdit);
         } catch (Exception e) {
-            System.out.println(e.toString());
+            e.printStackTrace();
         }
     }
     @Test
@@ -88,7 +88,7 @@ public class SavePresetCommandTest {
             String expectedMessage = Messages.MESSAGE_SAVEPRESET_FAIL_EMPTY;
             assertCommandFailure(command, model, commandHistory, expectedMessage, currentEdit);
         } catch (Exception e) {
-            System.out.println(e.toString());
+            e.printStackTrace();
         }
     }
     @Test
@@ -105,7 +105,7 @@ public class SavePresetCommandTest {
             SavePresetCommand savePresetCommand = savePresetCommandParser.parse("hi");
             savePresetCommand.execute(currentEdit, model, commandHistory);
         } catch (Exception e) {
-            System.out.println(e.toString());
+            e.printStackTrace();
         }
         //Save a preset with the same name "hi"
         try {
@@ -117,7 +117,7 @@ public class SavePresetCommandTest {
             String expectedMessage = Messages.MESSAGE_SAVEPRESET_FAIL_DUPLICATE;
             assertPresetCommandFailure(savePresetCommand, model, commandHistory, expectedMessage, currentEdit);
         } catch (Exception e) {
-            System.out.println(e.toString());
+            e.printStackTrace();
         }
     }
 

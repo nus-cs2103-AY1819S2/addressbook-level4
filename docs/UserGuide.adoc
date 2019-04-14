@@ -38,7 +38,7 @@ Follow the steps below to set up your computer to run FomoFoto:
 .  Double-click the JAR to start the application. The Graphical User Interface should appear in a few seconds.
 +
 .Home Page of FomoFoto
-image::ui.png[width="800"]
+image::ui.png[width="600"]
 +
 .  You have just successfully setup FomoFoto on your device. To see the command available in FomoFoto, refer to <<Features>> for details of each command. A step-by-step walkthrough of FomoFoto is available at the next section: <<A Walk Through>>.
 // end::QuickStart[]
@@ -47,13 +47,13 @@ image::ui.png[width="800"]
 == A Walk Through
 Let's start on our image editing journey. In this walk through, we will be demonstrating some simple commands to edit a sample image.
 
-.  Head over to this https://twistedsifter.files.wordpress.com/2012/03/squirrel-photobomb-banff.jpg[`link`] to get a suggested sample image to start from.
+.  Head over to this https://twistedsifter.files.wordpress.com/2012/03/squirrel-photobomb-banff.jpg[link] to get a suggested sample image to start from.
 
 .  Save the image in any desired folder you like on your device, like your Pictures folder for example. Name your image *squirrel.jpg*.
 
 .  Start FomoFoto by referring to <<Quick Start>>.
 
-.  Open the folder that the image file is stored in. Then, to get the file path of the image:
+.  Open the folder that the image file is stored in. Then, to get the filepath of the image:
 * In Windows: Hold on to the kbd:[Shift] key and *right click* on your image file. Click the option *Copy path*.
 * In Mac: Go to terminal and navigate to your image file. Type 'pwd' to get the filepath to your image file and copy paste.
 
@@ -62,7 +62,7 @@ Let's start on our image editing journey. In this walk through, we will be demon
 .Import Command
 image::import.PNG[width="912"]
 +
-.  Paste the file path by simultaneously pressing kbd:[Ctrl] and kbd:[V] keys.
+.  Paste the filepath of the image you would like to import.
 * In Windows: Remove the kbd:["] and kbd:["] signs at the two ends of the filepath.
 
 .  Ensure your final command looks similar to the figure below (filepath may differ):
@@ -102,7 +102,7 @@ image::brightnessCommand.PNG[width="915"]
 image::brightnessSuccess.PNG[width="917"]
 +
 
-.  Crop your photo by typing the following command: `crop 310 250 140 200`. Press kbd:[Enter]. Your image should look similar as the figure below.
+.  Crop your image by typing the following command: `crop 310 250 140 200`. Press kbd:[Enter]. Your image should look similar as the figure below.
 
 +
 .Crop Success
@@ -115,13 +115,13 @@ image::cropSuccess.PNG[width="918"]
 
 [[Features]]
 == Features
-This section describes all the commands available in FomoFoto and includes examples on how to use them.
+This section describes all the commands available in FomoFoto and examples on how to use them. Commands are listed in alphanumeric order.
 
 ====
 *Command Format*
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user. +
-e.g. For `import FILEPATH`, `FILEPATH` is a parameter which can be used as `import desktop/photoalbum/image1`.
+e.g. For `import FILEPATH`, `FILEPATH` is a parameter which can be used as `import desktop/imagealbum/image1`.
 * Items in square brackets are optional. +
 e.g `brightness [BRIGHTNESS_RATIO]` can be used as `brightness` or `brightness 0.9`.
 
@@ -143,7 +143,7 @@ Examples:
 // tag::BrightnessCommand[]
 === Brightness: `brightness`
 
-Adjusts the brightness of the opened image based on a decimal value. If the brightness value is not specified, a preset decimal value of 1.1 will be used. Any decimal value that is less than 1 (e.g. 0.5) will reduce the brightness of the image while any decimal value that is more than 1 (e.g. 1.9) will increase the brightness of the image. +
+Adjusts the brightness of the opened image based on a decimal value. If the brightness value is not specified, a preset decimal value of 1.1 will be used. Any positive decimal value that is less than 1 (e.g. 0.5) will reduce the brightness of the image while any decimal value that is above 1 (e.g. 1.9) will increase the brightness of the image. Negative decimal value will not be accepted.+
 Format: `brightness [BRIGHTNESS_RATIO]`
 
 Examples:
@@ -168,7 +168,7 @@ Clear does not remove the image currently being edited i.e. Images opened with t
 // tag::ContrastCommand[]
 === Contrast: `contrast`
 
-Adjusts the contrast of the opened image based on a decimal value. If the contrast value is not specified, a preset decimal value of 1.1 will be used. Any decimal value that is lower than 1 (e.g. 0.5) will reduce the contrast of the image while any decimal value that is higher than 1 (e.g. 1.9) will increase the contrast of the image.+
+Adjusts the contrast of the opened image based on a decimal value. If the contrast value is not specified, a preset decimal value of 1.1 will be used. Any positive decimal value that is lower than 1 (e.g. 0.5) will reduce the contrast of the image while any decimal value that is above 1 (e.g. 1.9) will increase the contrast of the image. Negative decimal value will not be accepted. +
 Format: `contrast CONTRAST_RATIO`
 
 Examples:
@@ -216,7 +216,7 @@ Format: `help`
 
 === Import an Image : `import`
 
-Imports images to FomoFoto's Album from a specified filepath or a directory. +
+Imports images to FomoFoto's Album from a specified filepath or a folder. +
 Format: `import FILEPATH`
 
 Example of single filepath import:
@@ -224,12 +224,12 @@ Example of single filepath import:
 * `import C:\Users\Addison\Desktop\sample.jpg`
 * `import C:\Home\sample.png`
 
-Example of directory import:
+Example of folder import:
 
 * `import C:\Users\Addison\Desktop`
 * `import C:\Home`
 
-For directory import, invalid files are skipped and only valid images will be imported.
+For folder import, invalid files are skipped and only valid images will be imported.
 
 [NOTE]
 Images should be of the following formats: `bmp`, `jpg` , `jpeg`, `png`, `tif`, `tiff` or `gif`. Images with `tif` or `tiff` formats are not rendered on screen due to a bug with Java but edits made will still be applied.
@@ -263,7 +263,6 @@ Example:
 
 Returns to a previously undone state. +
 Format: `redo`
-//end::Redo[]
 
 [NOTE]
 ====
@@ -288,7 +287,7 @@ Examples:
 // tag::RotateCommand[]
 === Rotate an Image : `rotate`
 
-Rotates the photo by a given degree provided by the user. Only 90, 180 or 270 degrees of rotation is allowed. +
+Rotates the image by a given degree provided by the user. Only 90, 180 or 270 degrees of rotation is allowed. +
 Format: `rotate ANGLE`
 
 Example:
@@ -349,7 +348,6 @@ Example:
 * `rotate 180` +
 `brightness 1.3` +
 `savepreset preset1` (saves `rotate 180` and `brightness 1.3` in a list of commands that can be used on other images)
-// end::Tab[]
 
 // tag::SetPreset[]
 === Set Preset: `setpreset`
@@ -363,7 +361,6 @@ Example:
 `savepreset preset1` (saves `rotate 180` and `brightness 1.3` in a list of commands that can be used on other images) +
 `open newImage.jpg`  (open a new image to edit on) +
 `setpreset preset1`  (applies the list of commands which consists of `rotate 180` and `brightness 1.3` on the newly opened image)
-// end::Tab[]
 
 // tag::Tab[]
 === Tab Switching: `tab`

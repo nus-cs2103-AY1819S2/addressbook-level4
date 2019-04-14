@@ -39,7 +39,7 @@ public class BlackWhiteCommandTest {
             OpenCommandParser parser2 = new OpenCommandParser();
             parser2.parse("iu.jpg").execute(currentEdit, model, commandHistory);
         } catch (Exception e) {
-            System.out.println(e.toString());
+            e.printStackTrace();
         }
     }
 
@@ -51,7 +51,7 @@ public class BlackWhiteCommandTest {
             String expectedMessage = Messages.MESSAGE_BLACKWHITE_SUCCESS;
             assertCommandSuccess(command, model, commandHistory, expectedMessage, currentEdit);
         } catch (Exception e) {
-            System.out.println(e.toString());
+            e.printStackTrace();
         }
     }
 

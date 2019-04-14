@@ -36,7 +36,7 @@ public class SaveCommandTest {
             ImportCommandParser parser = new ImportCommandParser();
             parser.parse("sample").execute(currentEdit, model, commandHistory);
         } catch (Exception e) {
-            System.out.println(e.toString());
+            e.printStackTrace();
         }
     }
 
@@ -47,7 +47,7 @@ public class SaveCommandTest {
             SaveCommand command = saveParser.parse("newImage.png");
             assertCommandFailure(command, model, commandHistory, MESSAGE_UNABLE_TO_SAVE, currentEdit);
         } catch (Exception e) {
-            System.out.println(e.toString());
+            e.printStackTrace();
         }
     }
 
@@ -61,7 +61,7 @@ public class SaveCommandTest {
             SaveCommand command = saveParser.parse("validPNGTest.png");
             assertCommandFailure(command, model, commandHistory, MESSAGE_DUPLICATE_FILE, currentEdit);
         } catch (Exception e) {
-            System.out.println(e.toString());
+            e.printStackTrace();
         }
     }
 
@@ -75,7 +75,7 @@ public class SaveCommandTest {
             String expectedMessage = String.format(SaveCommand.MESSAGE_SUCCESS, "newImage.png");
             assertCommandSuccess(command, model, commandHistory, expectedMessage, currentEdit);
         } catch (Exception e) {
-            System.out.println(e.toString());
+            e.printStackTrace();
         }
     }
 
@@ -89,7 +89,7 @@ public class SaveCommandTest {
             String expectedMessage = String.format(SaveCommand.MESSAGE_SUCCESS, "validPNGTest.png");
             assertCommandSuccess(command, model, commandHistory, expectedMessage, currentEdit);
         } catch (Exception e) {
-            System.out.println(e.toString());
+            e.printStackTrace();
         }
     }
 

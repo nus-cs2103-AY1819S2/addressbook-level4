@@ -32,7 +32,7 @@ public class ListFilesCommandTest {
             ImportCommandParser parser = new ImportCommandParser();
             parser.parse("sample").execute(currentEdit, model, commandHistory);
         } catch (Exception e) {
-            System.out.println(e.toString());
+            e.printStackTrace();
         }
     }
 
@@ -63,7 +63,7 @@ public class ListFilesCommandTest {
                     Arrays.toString(album.getFileNames()) + "\n" + ListFilesCommand.MESSAGE_SUCCESS);
             assertCommandSuccess(command, model, commandHistory, expectedMessage, currentEdit);
         } catch (Exception e) {
-            System.out.println(e.toString());
+            e.printStackTrace();
         }
     }
 

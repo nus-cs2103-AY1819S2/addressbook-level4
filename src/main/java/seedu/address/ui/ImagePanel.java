@@ -12,7 +12,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
-import seedu.address.Notifier;
 
 /**
  * The Image Panel of the App.
@@ -41,7 +40,7 @@ public class ImagePanel extends UiPart<Region> implements PropertyChangeListener
                 Image i = new Image(f.toURI().toURL().toExternalForm());
                 imageView.setImage(i);
             } catch (MalformedURLException e) {
-                System.out.println(e.toString());
+                e.printStackTrace();
             }
         }
     }

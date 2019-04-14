@@ -50,7 +50,7 @@ This will generate all resources required by the application and tests.
 . Open link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow.java`] and check for any code errors
 .. Due to an ongoing https://youtrack.jetbrains.com/issue/IDEA-189060[issue] with some of the newer versions of IntelliJ, code errors may be detected even if the project can be built and run successfully
 .. To resolve this, place your cursor over any of the code section highlighted in red. Press kbd:[ALT + ENTER], and select `Add '--add-modules=...' to module compiler options` for each error
-. Repeat this for the test folder as well (e.g. check link:{repoURL}/src/test/java/seedu/address/ui/HelpWindowTest.java[`HelpWindowTest.java`] for code errors, and if so, resolve it the same way)
+. Repeat this for the test directory as well (e.g. check link:{repoURL}/src/test/java/seedu/address/ui/HelpWindowTest.java[`HelpWindowTest.java`] for code errors, and if so, resolve it the same way)
 
 === Verifying the setup
 
@@ -115,7 +115,7 @@ image::Architecture.png[width="763", height="339"]
 The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
 
 [TIP]
-The `.pptx` files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder. To update a diagram, modify the diagram in the pptx file, select the objects of the diagram, and choose `Save as picture`.
+The `.pptx` files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] directory. To update a diagram, modify the diagram in the pptx file, select the objects of the diagram, and choose `Save as picture`.
 
 `Main` has only one class called link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp`]. It is responsible for,
 
@@ -170,10 +170,9 @@ The sections below give more details of each component.
 === UI component
 
 .Structure of the UI Component
-image::UiClassDiagram.png[width="800"]
+image::UiClassDiagram.png[width="600"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
-
 The UI consists of a `MainWindow` that is made up of the following
 components:
 
@@ -190,14 +189,14 @@ All components, including the `MainWindow`, inherit from the abstract `UiPart` c
 The `InformationPanel` comprises of three tabs:
 
 . Album Images
-- Displays all images currently opened in the `assets` folder and available for editing.
+- Displays all images currently opened in the `assets` directory and available for editing.
 . EXIF Profile
 - Displays all ancillary tags attached to the currently opened
 image such as metadata information like *Date and Time* and *Copyright information*.
 . Command History
 - Display all *Image Transformation* and *Image Filters* applied to the currently opened image.
 
-The `UI` component is supported by a `Notifier` class. The class implements Java's `propertyChangeListener` as means of drawing updates to the User Interface.
+The `UI` component is supplemented by a `Notifier` class. The class implements Java's `propertyChangeListener` as means of drawing updates to the User Interface.
 
 For example, the `ImageView` component draws updates to an opened image in the following sequence:
 
@@ -207,8 +206,7 @@ For example, the `ImageView` component draws updates to an opened image in the f
 . `ImageView` checks if the Property Name is pertaining to it and redraws the image shown by accessing `Album`.
 
 [NOTE]
-The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`InitPanel`] is specified in link:{repoURL}/src/main/resources/view/InitPanel.fxml[`InitPanel.fxml`]
-
+The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` directory.
 // end::ui[]
 
 [[Design-Logic]]
@@ -251,10 +249,10 @@ The Model component comprises of two main classes, `Album` and `CurrentEdit`.
 `CurrentEdit` Class:
 
 * stores an `Image` instance in `tempImage` and `originalImage` when an image is opened.
-* creates a copy of the opened image and the current edited image in `temp` folder.
+* creates a copy of the opened image and the current edited image in `temp` directory.
 * `tempImage` is updated each time a command to edit the image is called. (e.g. `RotateCommand`, `ContrastCommand`)
 * stores a list of commands that the user input after an image is opened.
-* contains methods to access `temp` folder.
+* contains methods to access `temp` directory.
 // end::DesignModel[]
 
 //tag::albumModel[]
@@ -263,7 +261,7 @@ The `Album` class is implemented using the Singleton pattern. This design choice
 The core functions of the `Album` class are listed below.
 
 * Stores a reference to all imported images as List.
-* Contains various helper method to access `assets folder`, the storage for the raw image files.
+* Contains various helper method to access `assets directory`, the storage for the raw image files.
 * Fires property changes to listeners attached to the `Notifier` to redraw UI elements.
 
 The Model also comprises of a smaller subclass, `Image`.
@@ -290,20 +288,20 @@ image:ModelClassBetterOopDiagram.png[width="800"]
 .Structure of the Storage Component
 image::StorageArchitectureDiagram.png[width="800"]
 
-The `assets` and `temp` folders form the storage component of FomoFoto.
+The `assets` and `temp` directories form the storage component of FomoFoto.
 
-*  The `assets` folder stores images that the user imported
-* The `temp` folder stores the image that the program is currently editing on.
-* The `Album` class contains methods to save and retrieve images from the `assets` folder.
+*  The `assets` directory stores images that the user imported
+* The `temp` directory stores the image that the program is currently editing on.
+* The `Album` class contains methods to save and retrieve images from the `assets` directory.
 * The `CurrentEdit` class contains methods to overwrite and retrieve the image that the program is currently editing on.
 // end::StorageComponent[]
 
 //tag::DetailsStorage[]
-The `assets` and `temp` folder from the storage component of FomoFoto. Both folder are created during runtime of the application.
+The `assets` and `temp` directory from the storage component of FomoFoto. Both directory are created during runtime of the application.
 
-The `assets` folder is created in the same directory where FomoFoto is first launched and persist between sessions. The `assets` folder is marked as `FomoFoto.assets`.
+The `assets` directory is created in the same directory where FomoFoto is first launched and persist between sessions. The `assets` directory is marked as `FomoFoto.assets`.
 
-The `temp` folder is created per FomoFoto session. The target folder for the `Temporary File` directory is in both Windows and OS X. The `temp` folder is removed on program exit.
+The `temp` directory is created per FomoFoto session. The target directory for the `Temporary File` directory is in both Windows and OS X. The `temp` directory is removed on program exit.
 
 [NOTE]
 If FomoFoto is not given the permissions to write `assets` and `temp` to their respective directories i.e. limited write permissions, the application might not function properly.
@@ -317,6 +315,36 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 == Implementation
 
 This section describes some noteworthy details on how certain features are implemented.
+
+// tag::Export[]
+=== Export Feature
+
+The `export` command exports a file in the album into a specified directory.
+
+==== Current Implementation
+The export function is facilitated by `Album`. It uses the following operations:
+
+* `Album#getImageFromList(String)` - returns an image from the album with name matching the input string and null if no image matches the input string.
+
+Given below is an example usage scenario and how the `export` mechanism behaves at each step.
+
+Step 1. The user executes `export f/iu.jpg d/C:\Users\randy\Desktop`.
+
+Step 2. `ExportCommandParser` checks if user has input the command correctly.
+
+Step 3. `Album#getImageFromList` checks if the file to be exported exists in the album and throws a `CommandException` if it does not exist.
+
+Step 4. `ExportCommand#validPath` checks if the specified directory is valid and throws a `CommandException` if it is not.
+
+Step 5. If file to be exported exists and directory is valid, the file will be copied to the directory.
+
+
+The following sequence diagram shows how the `save` command works:
+
+.Sequence Diagram for Save Command
+image::SaveCommandSequenceDiagram.png[width=800]
+
+// end::Export[]
 
 // tag::import[]
 === Import feature
@@ -339,7 +367,6 @@ Image file must adhere to a subset of the following formats as describe by its M
 
 [NOTE]
 Images with `.tif` or `.tiff` formats are not rendered on screen due to a limitation with JavaFX but edits made will still be applied.
-Support for additional formats will be available past V2.0.
 
 Images must also adhere to the following additional requirements:
 
@@ -350,17 +377,17 @@ Images must also adhere to the following additional requirements:
 [NOTE]
 Implementation of these checks can be found in `ImportCommandParser`.
 
-Images found in the given arguments will be copied to an `assets` folder created at runtime in FomoFoto's home directory. Details of this folder can be found here. This is facilitated by the `Album` class and `ImportCommandParser` and contains the follow operation:
+Images found in the given arguments will be copied to an `assets` directory created at runtime in FomoFoto's home directory. This is facilitated by the `Album` class and `ImportCommandParser` and contains the follow operation:
 
  * `Album#refreshAlbum()` - Fires a property change to all registered listeners. Listeners addressing this particular property will trigger and update accordingly.
  * `ImportCommandParser#parse(String)` - Takes in an absolute path, perform sanity checks on availability, size, format and copies the image to `assets` directory.
 
-Additionally, the `import sample` command is supported by the `ResourceWalker` class. This class traverses through a sample folder of valid image files and populates FomoFoto.
+Additionally, the `import sample` command is supported by the `ResourceWalker` class. This class traverses through a sample directory of valid image files and populates FomoFoto.
 
 Example usage scenario:
 
  1. User launches application and enters `import C:\Users\Addison\Desktop\sample.png`
- 2. `ImportCommandParser` takes in arguments and performs validation on given path. Image is copied to `assets` folder and added to Album if it is valid.
+ 2. `ImportCommandParser` takes in arguments and performs validation on given path. Image is copied to `assets` directory and added to Album if it is valid.
  3. `Album` display the imported image to UI by calling the `Notifier` class which calls on the display panel listening to the notifier.
  4. `InformationPanel` updates to reflect the imported image in the Album.
 
@@ -371,7 +398,7 @@ image::ImportSequenceDiagram.png[width=800]
 
 * *Alternative 1*: Import single images only.
 ** Pros: Easy to implement.
-** Cons: Importing multiple images from same folder needs repeated commands.
+** Cons: Importing multiple images from same directory needs repeated commands.
 
 * *Alternative 2 (Current Choice)*: Import images from directory as well.
 ** Pros: Can import many images without repeating the command.
@@ -386,11 +413,11 @@ This command allows the user to open a previously imported image for image-editi
 ==== Current Implementation
 The `open` function is facilitated by `Album` and `CurrentEdit`. It uses the following operations:
 
-* `Album#checkFileExist(String)` - Checks if file name specified by the `String` exists in assets folder.
+* `Album#checkFileExist(String)` - Checks if file name specified by the `String` exists in assets directory.
 
-* `Album#retrieveImage(String)` - Returns an `Image` specified by the `String` in assets folder.
+* `Album#retrieveImage(String)` - Returns an `Image` specified by the `String` in assets directory.
 
-* `CurrentEdit#openImage(Image)` - Creates two copies of the opened image in `temp` folder. The duplicated images are instantiated as `tempImage` and `originalImage`.
+* `CurrentEdit#openImage(Image)` - Creates two copies of the opened image in `temp` directory. The duplicated images are instantiated as `tempImage` and `originalImage`.
 
 * `CurrentEdit#updateExif()` - Updates the Exif data of the image.
 
@@ -407,9 +434,9 @@ Given below is an example usage scenario of how `open` behaves at each step as s
 
 Step 1. The user executes `open sample.png`.
 
-Step 2. `Album#checkFileExist(String)` is called to check if the file specified by the `String` is in `assets` folder. If it exists, `Album#retrieveImage(String)` is called to create an `Image` object from the specified file. Otherwise, `CommandException` is thrown.
+Step 2. `Album#checkFileExist(String)` is called to check if the file specified by the `String` is in `assets` directory. If it exists, `Album#retrieveImage(String)` is called to create an `Image` object from the specified file. Otherwise, `CommandException` is thrown.
 
-Step 3. The `Image` is passed to `CurrentEdit#openImage(Image)` to create two copies of it, named `temp_img.png` and `ori_img.png`, in `temp` folder. These copies are then instantiated as `tempImage` and `originalImage`.
+Step 3. The `Image` is passed to `CurrentEdit#openImage(Image)` to create two copies of it, named `temp_img.png` and `ori_img.png`, in `temp` directory. These copies are then instantiated as `tempImage` and `originalImage`.
 
 Step 4. `CurrentEdit#updateExif()` is called to updates the information of the opened image in the GUI.
 
@@ -423,29 +450,28 @@ Step 5. `CurrentEdit#displayTempImage()` is called to display the opened image o
 * *Alternative 1 (current choice)*: The user can only open and edit one image at a time.
 ** Advantages:
 *** Easy to implement.
-*** Saves space as `temp` folder only stores one original image and one temporary image.
+*** Saves space as `temp` directory only stores one original image and one temporary image.
 *** Clear to users that edits are done to the only opened image.
 ** Disadvantage: Only one image can be edited at a time.
 
 * *Alternative 2* : The user can open and edit multiple images.
 ** Advantage: Images can be edited simultaneously.
 ** Disadvantages:
-*** `open` has to distinguish whether user is opening an image from `assets` or `temp` folder.
+*** `open` has to distinguish whether user is opening an image from `assets` or `temp` directory.
 *** Requires many duplicates with different temporary names.
 *** May be confusing for the user.
 
 Alternative 1 was chosen as it is less complicated, requires lesser space and more user-friendly.
 
 
-
 === List Files Feature
 
-This command displays the names of all the files in `assets` folder.
+This command displays the names of all the files in `assets` directory.
 
 ==== Current Implementation
 The `listfiles` function is facilitated by `Album`. It uses the following operations:
 
-* `Album#getFileNames()` - Returns a list of all the files in `assets` folder.
+* `Album#getFileNames()` - Returns a list of all the files in `assets` directory.
 
 The following sequence diagram shows how `listfiles` works:
 
@@ -457,14 +483,14 @@ Given below is an example usage scenario of how `listfiles` behaves at each step
 
 Step 1. The user executes `listfiles`.
 
-Step 2. `Album#getFileNames()` accesses `assets` folder and returns all the file names in a `String` array.
+Step 2. `Album#getFileNames()` accesses `assets` directory and returns all the file names in a `String` array.
 
 Step 3. The `String` array is displayed on the GUI.
 
 
 ==== Design Considerations
 
-This command was created to allow the user to know what files are stored in `assets` folder so that the `FILENAME` can be easily referenced for `open`.
+This command was created to allow the user to know what files are stored in `assets` directory so that the `FILENAME` can be easily referenced for `open`.
 
 // end::OpenAndListFiles[]
 
@@ -476,25 +502,27 @@ The filter mechanism is facilitated by https://github.com/sksamuel/scrimage[`scr
 
 The image filters feature is facilitated by `CurrentEdit`. It uses the following operations:
 
-* `CurrentEdit#getTempImage` - Retrieves the temporary image `tempImage` which stores the filepath of the temporary image in `temp` folder, its history of edits [`List<Command>`] and its metadata.
+* `CurrentEdit#tempImageDoNotExist()` - Returns `true` if `tempImage` in `CurrentEdit` is null. `tempImage` is null only if `open` command is never called.
 
-* `CurrenEdit#updateTempImage` - Replaces the temporary image in `temp` folder with the newly edited image and update the `tempImage` instance in the class.
+* `CurrentEdit#getTempImage` - Retrieves the temporary image `tempImage` which stores the filepath of the temporary image in the `temp` directory, its history of edits [`List<Command>`] and its metadata.
 
-* `CurrentEdit#addCommand` - Adds this command to the edit history [`List<Command>`] in `tempImage` for the undo/redo function
+* `CurrentEdit#updateTempImage` - Replaces the temporary image in the `temp` directory with the newly edited image and update the `tempImage` instance in the class.
 
-* `CurrenEdit#displayTempImage()` - Displays the temporary image stored in directory: "src/main/resources/temp/".
+* `CurrentEdit#addCommand` - Adds this command to the edit history [`List<Command>`] in `tempImage` for the `undo/redo` command.
+
+* `CurrentEdit#displayTempImage()` - Displays the temporary image stored in the `temp` directory.
 
 The filter feature mainly consists of:
 
-* `ContrastCommand`: Applies a contrast ratio value on the targetted image. The contrast ratio value is preset to 1.1 if a specified ratio value is not given by the user.  A value above 1 (e.g 1.3) increases the contrast of the image while a positive value below 1 (e.g 0.5) decreases the contrast of the image.
-* `BrightnessCommand`: Applies a brightness ratio value on the targetted image. The brightness ratio value is preset to 1.1 if a specified ratio value is not given by the user. A value above 1 (e.g 1.3) increases the brightness of the image while a positive value below 1 (e.g 0.5) decreases the brightness of the image.
-* `BlackWhiteCommand`: Transforms targetted image to a black and white image through a threshold value. The brightness ratio value is preset to 127 if a specified ratio value is not given by the user. Pixels on the image lighter than the threshold value becomes white and pixels darker than the threshold value becomes black.
+* `ContrastCommand`: Applies a `double` contrast ratio value on the opened image. The `double` contrast ratio value is preset to 1.1 if a specified `double` ratio value is not given by the user.  A value above 1 (e.g 1.3) increases the contrast of the image while a positive value below 1 (e.g 0.5) reduces the contrast of the image.
+* `BrightnessCommand`: Applies a `double` brightness ratio value on the opened image. The `double` brightness ratio value is preset to 1.1 if a specified `double` ratio value is not given by the user. A value above 1 (e.g 1.3) increases the brightness of the image while a positive value below 1 (e.g 0.5) reduces the brightness of the image.
+* `BlackWhiteCommand`: Transforms the opened image to a black and white image given a threshold value. The threshold `integer` value is preset to 127 if a specified threshold is not given by the user. Pixels on the image lighter than the threshold value becomes white and pixels darker than the threshold value becomes black.
 
-The following describes main operations and processes for each command stated above.
+The following describes the main operations and processes for each command stated above.
 
 ==== Contrast Command
 
-This command calls for an adjustment of contrast on a targetted image. After adjusting the contrast, it adds this specific command called by the user to the `List<Commands>` belonging to `tempImage` found in `currentEdit` which saves the editing history of the targetted image.
+This command calls for an adjustment of contrast on an opened image. After adjusting the contrast, it adds this specific command called by the user to the `List<Commands>` belonging to the `tempImage` found in `currentEdit` which saves the editing history of the opened image.
 
 Given below is an example usage scenario and how the command should behave at each step. [This applies to the other image filter commands as well.]
 
@@ -505,39 +533,34 @@ Step 2. When the user enters the command (e.g. `contrast 0.3`), the entered comm
 [NOTE]
 If an invalid command is provided, a reminder of how to use the command will be given to the user and no command will be executed.
 
-Step 3. During execution, the `execute` method in the `contrastCommand` class invokes `currentEdit#getTempImage()` to get the `tempImage` from `currentEdit`.
+Step 3. During execution, the `execute` method in the `contrastCommand` class first invokes `currentEdit#tempImageDoNotExist` to check if an image is opened. If no image is opened, it will throw an error message to tell the user to open an image for editing first. Else, the `execute` method will invoke `currentEdit#getTempImage()` to get the `tempImage` from `currentEdit`.
 
-Step 4. Upon retrieving the `tempImage`, the `execute` method creates a `ContrastFilter` instance provided by the external libary [`scrimage`] which takes in a double-valued contrast ratio value. This `ContrastFilter` will then be applied on the image retrieved from the filepath: "src/main/resources/temp/" + `tempImage#getURL()`.
+Step 4. Upon retrieving the `tempImage`, the `execute` method creates a `ContrastFilter` instance provided by the external library [`scrimage`] which takes in a `double` contrast ratio value. This `ContrastFilter` will then be applied on the image retrieved from the filepath of `tempImage`.
 
-Step 5. After applying the `ContrastFilter` on the targetted image, `currentEdit#updateTempImage()` is invoked to save the newly edited image and replace the previous one in the filepath: "src/main/resources/temp/" + `tempImage#getURL()`.
+Step 5. After applying the `ContrastFilter` on the opened image, `currentEdit#updateTempImage()` is invoked to save the newly edited image and replace the previous one in the filepath of the `tempImage`.
 
-Step 6. The `execute` method then checks if the boolean `isNewCommand` is true. If it is `true`, it indicates that the command is a new contrast command called directly from the user and not through an `undo/redo` command which triggers Step 7 in the line below. Otherwise, the command's execution ends in this step.
+Step 6. The `execute` method then checks if the boolean `isNewCommand` is true. If it is `true`, it indicates that the command is a new contrast command called directly from the user and not through an `undo/redo` command. This triggers Step 7 in the line below. Otherwise, the command's execution ends in this step.
 
-Step 7. `isNewCommand` is set to `false` to signal that this command is not a new contrast command if it is executed again through the undo/redo function.
-`currentEdit#addCommand(this)` is invoked to add this command to the `List<Command>` in `tempImage` for the undo/redo function and `currentEdit#displayTempImage()` is used to display the edited image on the graphical user interface.
+Step 7. `isNewCommand` is set to `false` to signal that this command is not a new contrast command if it is executed again through the `undo/redo` command.
+`currentEdit#addCommand(this)` is invoked to add this command to the `List<Command>` in `tempImage` for the `undo/redo` function and `currentEdit#displayTempImage()` is used to display the edited image on the graphical user interface.
 
 ===== Design Considerations
 
- - Intermediate images have to be stored and edited in a temp folder first due to our `undo/redo` implementation.
+ - Images that are still being edited have to be stored and edited in a temp folder first due to our `undo/redo` implementation.
 
 .Sequence Diagram for Contrast Command
 image::ContrastCommandSequenceDiagram.png[width="800"]
 
 ==== Brightness Command
-This command calls for an adjustment of brightness on a targetted image. After adjusting the brightness, it adds this specific command called by the user to the `List<Commands>` belonging to `tempImage` found in `currentEdit` which saves the editing history of the targetted image.
+This command calls for an adjustment of brightness on an opened image. After adjusting the brightness, it adds this specific command called by the user to the `List<Commands>` belonging to the `tempImage` found in `currentEdit` which saves the editing history of the opened image.
 
-Refer to the example usage scenario and design considerations in <<Contrast Command>>
+Refer to the example usage scenario, sequence diagram and design considerations in <<Contrast Command>>.
 
-.Sequence Diagram for Brightness Command
-image::BrightnessCommandSequenceDiagram.png[width="800"]
 
 ==== BlackWhite Command
-This command calls for a transformation of a targetted image to a black and white image. After applying the black and white transformation, it adds this specific command called by the user to the `List<Commands>` belonging to `tempImage` found in `currentEdit` which saves the editing history of the targetted image.
+This command calls for a transformation of an opened image to a black and white image. After applying the black and white filter, it adds this specific command called by the user to the `List<Commands>` belonging to the `tempImage` found in `currentEdit` which saves the editing history of the opened image.
 
-Refer to the example usage scenario and design considerations in <<Contrast Command>>
-
-.Sequence Diagram for BlackWhite Command
-image::BlackWhiteCommandSequenceDiagram.png[width="800"]
+Refer to the example usage scenario, sequence diagram and design considerations in <<Contrast Command>>.
 // end::ImageFilter[]
 
 // tag::ImageManipulation[]
@@ -548,13 +571,15 @@ This segment involves manipulating the physical image itself, such as rotating, 
 
 The manipulation feature is facilitated by `CurrentEdit`. It uses the following operations:
 
- * `CurrentEdit#getTempImage` - Retrieves the temporary image `tempImage` which stores the filepath of the temporary image in `temp` folder, its history of edits [`List<Command>`] and its metadata.
+ * `CurrentEdit#tempImageDoNotExist()` - Returns `true` if `tempImage` in `CurrentEdit` is null. `tempImage` is null only if `open` command is never called.
 
- * `CurrenEdit#updateTempImage` - Replaces the temporary image in `temp` folder with the newly edited image and update the `tempImage` instance in the class.
+ * `CurrentEdit#getTempImage` - Retrieves the temporary image `tempImage` which stores the filepath of the temporary image in the `temp` directory, its history of edits [`List<Command>`] and its metadata.
 
- * `CurrentEdit#addCommand` - Adds this command to the edit history [`List<Command>`] in `tempImage` for the undo/redo function.
+ * `CurrentEdit#updateTempImage` - Replaces the temporary image in `temp` directory with the newly edited image and update the `tempImage` instance in the class.
 
- * `CurrenEdit#displayTempImage()` - Displays the temporary image stored in directory: "src/main/resources/temp/".
+ * `CurrentEdit#addCommand` - Adds this command to the edit history [`List<Command>`] in `tempImage` for the `undo/redo` command.
+
+ * `CurrentEdit#displayTempImage()` - Displays the temporary image stored in the `temp` directory.
 
 This manipulation feature mainly consists of:
 
@@ -565,7 +590,7 @@ This manipulation feature mainly consists of:
 The following describes main operations and processes for each command stated above.
 
 ==== Rotate Command
-This command allows the user to rotate the targetted image by specifying a degree (90, 180 or 270 only). Upon receiving an input degree from the user, the degree will be checked for its validity and will throw an error if the degree is not within the specified range. The command will then be added to the `List<Commands>` belonging to `tempImage` found in `currentEdit` which saves the editing history of the targetted image.
+This command allows the user to rotate the targeted image by specifying a degree (90, 180 or 270 only). Upon receiving an input degree from the user, the degree will be checked for its validity and will throw an error if the degree is not within the specified range. The command will then be added to the `List<Commands>` belonging to `tempImage` found in `currentEdit` which saves the editing history of the targeted image.
 
 Given below is an example usage scenario and how the command should behave at each step [This applies to the other image manipulation commands as well.]:
 
@@ -580,11 +605,11 @@ Step 3. During execution, the `execute` method in the `RotateCommand` class invo
 
 Step 4. Upon retrieving the `tempImage`, the `execute` method in `RotateCommand` gets a `BufferedImage` instance from `tempImage`.The method then calls the external library https://github.com/rkalla/imgscalr[`ImgScalr`]'s class `rotate` and passes the `BufferedImage` object in.
 
-Step 5. A `BufferedImage` object is returned from the external library and `currentEdit#updateTempImage()` is invoked to overwrite the current image in the filepath: "src/main/resources/temp/" + `tempImage#getUrl` with a new `BufferedImage` object.
+Step 5. A `BufferedImage` object is returned from the external library and `currentEdit#updateTempImage()` is invoked to save the newly edited `BufferedImage` and replace the previous image in the filepath of the `tempImage`.
 
-Step 6. The `execute` method then checks if the boolean `isNewCommand` is true. If it is true, it indicates that the command is a new `Rotate` command called directly from the user and not through an `Undo/Redo` command which triggers Step 7 in the line below. Otherwise, the command’s execution ends in this step.
+Step 6. The `execute` method then checks if the boolean `isNewCommand` is true. If it is true, it indicates that the command is a new `Rotate` command called directly from the user and not through an `undo/redo` command which triggers Step 7 in the line below. Otherwise, the command’s execution ends in this step.
 
-Step 7. `isNewCommand` is set to false to signal that this command is not a new rotate command if it is executed again through the `Undo/Redo` function. `currentEdit#addCommand(this)` is invoked to add this command to the `List<Command>` in `tempImage` for the `Undo/Redo` function and `currentEdit#displayTempImage()` is used to display the edited image on the graphical user interface. +
+Step 7. `isNewCommand` is set to false to signal that this command is not a new rotate command if it is executed again through the `undo/redo` command. `currentEdit#addCommand(this)` is invoked to add this command to the `List<Command>` in `tempImage` for the `undo/redo` function and `currentEdit#displayTempImage()` is used to display the edited image on the graphical user interface. +
 
 The diagram below illustrates how the `Rotate` Command works:
 
@@ -593,23 +618,17 @@ image::RotateCommandSequenceDiagram.png[width="800"]
 
 ==== Design Considerations
 
-* Intermediate images have to be stored and edited in a temp folder first due to our `Undo/Redo` implementation.
+* Images that are still being edited have to be stored and edited in a temp directory first due to our `undo/redo` implementation.
 
 ==== Crop Command
-This command allows the user to crop the targetted image by specifying the coordinates of the top left hand corner of the desired image, the width of the desired image and the height of the desired image. Upon receiving the inputs, the values will be checked for their validity and will throw an error if any value is not within the specified range. The command will then be added to the `List<Commands>` belonging to `tempImage` found in `currentEdit` which saves the editing history of the targetted image.
+This command allows the user to crop the targeted image by specifying the coordinates of the top left hand corner of the desired image, the width of the desired image and the height of the desired image. Upon receiving the inputs, the values will be checked for their validity and will throw an error if any value is not within the specified range. The command will then be added to the `List<Command>` belonging to `tempImage` found in `currentEdit` which saves the editing history of the targeted image.
 
-Refer to the example usage scenario and design considerations in <<Rotate Command>>.
-
-.Sequence Diagram for Crop Command
-image::CropCommandSequenceDiagram.png[width="800"]
+Refer to the example usage scenario, sequence diagram and design considerations in <<Rotate Command>>.
 
 ==== Resize Command
-This command allows the user to resize the targetted image by specifying the width and height of the desired image. Upon receiving the inputs, the values will be checked for their validity and will throw an error if any value is not within the specified range. The command will then be added to the `List<Commands>` belonging to `tempImage` found in `currentEdit` which saves the editing history of the targetted image.
+This command allows the user to resize the targeted image by specifying the width and height of the desired image. Upon receiving the inputs, the values will be checked for their validity and will throw an error if any value is not within the specified range. The command will then be added to the `List<Command>` belonging to `tempImage` found in `currentEdit` which saves the editing history of the targeted image.
 
-Refer to the example usage scenario and design considerations in <<Rotate Command>>.
-
-.Sequence Diagram for Resize Command
-image::ResizeCommandSequenceDiagram.png[width="800"]
+Refer to the example usage scenario, sequence diagram and design considerations in <<Rotate Command>>.
 
 // end::ImageManipulation[]
 
@@ -659,7 +678,7 @@ For redo, it will call `setRedo` and retrieve that command to apply it on the cu
 image::UndoRedoExecuteUndoStateListDiagram.png[width="600"]
 
 [NOTE]
-If the `Image#index` is 0, pointing to the initial photo, then there are no previous commands to restore. The `undo` command uses `CurrentEdit#canUndoTemp()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+If the `Image#index` is 0, pointing to the initial image, then there are no previous commands to restore. The `undo` command uses `CurrentEdit#canUndoTemp()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
 
 The following sequence diagram shows how the undo operation works:
 
@@ -698,30 +717,30 @@ Step 5. The user executes `saves`, which calls `CurrentEdit#saveToAssets()`. Thi
 // tag::Save[]
 === Save Feature
 
-This command applies the edits to the current image and saves it into `assets` folder.
+This command applies the edits to the current image and saves it into `assets` directory.
 
 ==== Current Implementation
 The `save` function is facilitated by `Album` and `CurrentEdit`. It uses the following operations:
 
-* `CurrentEdit#tempImageExist()` - Returns `true` if `tempImage` in `CurrentEdit` is null. `tempImage` is null only if `open` command was never called.
+* `CurrentEdit#tempImageDoNotExist()` - Returns `true` if `tempImage` in `CurrentEdit` is null. `tempImage` is null only if `open` command was never called.
 
 * `CurrentEdit#getTempImage()` - Returns the latest edited image stored in `tempImage` in `CurrentEdit`.
 
 * `CurrentEdit#getOriginalName()` - Returns the original name of opened image.
 
-* `CurrentEdit#overwriteOriginal(String)` - Replaces `ori_img.png` with `temp_img.png' in `temp` folder. Updates `originalImage` to `tempImage` and `originalImageName` to `String` in `CurrentEdit`.
+* `CurrentEdit#overwriteOriginal(String)` - Replaces `ori_img.png` with `temp_img.png' in `temp` directory. Updates `originalImage` to `tempImage` and `originalImageName` to `String` in `CurrentEdit`.
 
 * `CurrentEdit#deleteHistory()` - Clears the history in `CurrentEdit`.
 
 * `CurrentEdit#updateExif()` - Updates the Exif data of the new image.
 
-* `Album#checkFileExist(String)` - Checks if the file name specified by the `String` exists in assets folder.
+* `Album#checkFileExist(String)` - Checks if the file name specified by the `String` exists in assets directory.
 
-* `Album#saveToAssets(Image, String)` - Saves the `Image` as `String` into `assets` folder.
+* `Album#saveToAssets(Image, String)` - Saves the `Image` as `String` into `assets` directory.
 
 * `Album#populateAlbum()` - Updates list of images in `Album` class.
 
-* `Album#refreshAlbum()` - Updates and displays the latest images in `assets` folder on the GUI.
+* `Album#refreshAlbum()` - Updates and displays the latest images in `assets` directory on the GUI.
 
 
 The following sequence diagram shows how `save` works:
@@ -740,15 +759,15 @@ Step 3. `CurrentEdit#getTempImage()` is called to retrieve the `tempImage` from 
 
 Step 4. If the user did not input a `String` after `save` previously, `CurrentEdit#getOriginalName()` will retrieve the `originalImageName` from `CurrentEdit`. Otherwise, `Album#checkFileExist(String)` will be called to check if a file name is similar to `String`. If it is a duplicate, `CommandException` will be thrown.
 
-Step 5. `Album#saveToAssets(Image, String)` takes in the previously retrieved `Image` and `String` to create a new image file in `assets` folder.
+Step 5. `Album#saveToAssets(Image, String)` takes in the previously retrieved `Image` and `String` to create a new image file in `assets` directory.
 
-Step 6. `CurrentEdit#overwriteOriginal(String)` is called to update the files in `temp` folder and their respective instances in `CurrentEdit`.
+Step 6. `CurrentEdit#overwriteOriginal(String)` is called to update the files in `temp` directory and their respective instances in `CurrentEdit`.
 
 Step 7. `CurrentEdit#deleteHistory()` is called to delete the edit history in `CurrentEdit` so that the user can no longer perform `undo` on the saved image.
 
 Step 8.`CurrentEdit#updateExif()` is called to update the Exif data of the new image.
 
-Step 9. `Album#populateAlbum()` is called to update the list of image in `Album` class and to ensure it reflects all the files in `assets` folder.
+Step 9. `Album#populateAlbum()` is called to update the list of image in `Album` class and to ensure it reflects all the files in `assets` directory.
 
 Step 10.`Album#refreshAlbum()` is called to update the Information Panel on the GUI.
 
@@ -762,38 +781,16 @@ Step 10.`Album#refreshAlbum()` is called to update the Information Panel on the 
 ** Advantage: Convenient for user to `save` quickly without having to type a new name everytime.
 ** Disadvantage: The user may unintentionally overwrite the original image.
 
-Alternative 2 was chosen as the user is likely to use `save` frequently. Since the `assets` folder functions like an album, images can be re-imported if they are accidentally overwritten. The user is able to `save` easily and choose to resume editing immediately or at a later time.
+Alternative 2 was chosen as the user is likely to use `save` frequently. Since the `assets` directory functions like an album, images can be re-imported if they are accidentally overwritten. The user is able to `save` easily and choose to resume editing immediately or at a later time.
 // end::Save[]
 
-// tag::Export[]
-=== Export Feature
+//tag::SavePreset[]
+=== Save Preset Feature
+// end::SavePreset[]
 
-The `export` command exports a file in the album into a specified directory.
-
-==== Current Implementation
-The export function is facilitated by `Album`. It uses the following operations:
-
-* `Album#getImageFromList(String)` - returns an image from the album with name matching the input string and null if no image matches the input string.
-
-Given below is an example usage scenario and how the `export` mechanism behaves at each step.
-
-Step 1. The user executes `export f/iu.jpg d/C:\Users\randy\Desktop`.
-
-Step 2. `ExportCommandParser` checks if user has input the command correctly.
-
-Step 3. `Album#getImageFromList` checks if the file to be exported exists in the album and throws a `CommandException` if it does not exist.
-
-Step 4. `ExportCommand#validPath` checks if the specified directory is valid and throws a `CommandException` if it is not.
-
-Step 5. If file to be exported exists and directory is valid, the file will be copied to the directory.
-
-
-The following sequence diagram shows how the `save` command works:
-
-.Sequence Diagram for Save Command
-image::SaveCommandSequenceDiagram.png[width=800]
-
-// end::Export[]
+//tag::SetPreset[]
+=== Set Preset Feature
+// end::SetPreset[]
 
 //tag::WaterMark[]
 === WaterMark Feature
@@ -804,15 +801,17 @@ Each image can only have 1 watermark. If the user would like to edit the waterma
 
 ==== Current Implementation
 
-The manipulation feature is facilitated by `CurrentEdit` and `Image`. It uses the following operations:
+The manipulation feature is facilitated by `CurrentEdit`. It uses the following operations:
 
- * `CurrentEdit#getTempImage()` - Retrieves the temporary image `tempImage` which stores the filepath of the temporary image in `temp` folder, its history of edits [`List<Command>`] and its metadata.
+ * `CurrentEdit#tempImageDoNotExist()` - Returns `true` if `tempImage` in `CurrentEdit` is null. `tempImage` is null only if `open` command is never called.
 
- * `CurrenEdit#updateTempImage(BufferedImage)` - Replaces the temporary image in `temp` folder with the newly edited image and update the `tempImage` instance in the class.
+ * `CurrentEdit#getTempImage` - Retrieves the temporary image `tempImage` which stores the filepath of the temporary image in the `temp` directory, its history of edits [`List<Command>`] and its metadata.
 
- * `CurrentEdit#addCommand(Command)` - Adds this command to the edit history [`List<Command>`] in `tempImage` for the undo/redo function.
+ * `CurrentEdit#updateTempImage` - Replaces the temporary image in `temp` directory with the newly edited image and update the `tempImage` instance in the class.
 
- * `CurrenEdit#displayTempImage()` - Displays the temporary image stored in directory: "src/main/resources/temp/".
+ * `CurrentEdit#addCommand` - Adds this command to the edit history [`List<Command>`] in `tempImage` for the `undo/redo` command.
+
+ * `CurrentEdit#displayTempImage()` - Displays the temporary image stored in the `temp` directory.
 
  * `Image#hasWaterMark()` - Checks if the `Image` already has a watermark.
 
@@ -825,15 +824,15 @@ Step 1. When the user runs an open command to edit an image, it invokes a method
 Step 2. When the user enters the command (e.g. `wm FomoFoto`), the entered command is parsed and the command will be executed.
 
 [NOTE]
-If an invalid command is provided, a reminder of how to use the command will be given to the user and no command will be run.
+If an invalid command is provided, a reminder of how to use the command will be given to the user and no command will be executed.
 
 Step 3. During execution, the `execute` method in the `WaterMarkCommand` class invokes `currentEdit#getTempImage()` to get the `tempImage` from the `currentEdit`.
 
-Step 4. Upon retrieving the `tempImage`, the `execute` method in the `WaterMarkCommand` gets the  `BufferedImage` instance of the `tempImage` object and copies the `BufferedImage` object to a temporary `BufferedImage` object with the same width, height and image type. The `execute` method then initialises the necessary graphic properties using the `Graphics2D` Java class. The message is centralised and overlayed on the temporary `BufferedImage` object.
+Step 4. Upon retrieving the `tempImage`, the `execute` method in the `WaterMarkCommand` gets the  `BufferedImage` instance of the `tempImage` object and copies the `BufferedImage` object to a temporary `BufferedImage` object with the same width, height and image type. The `execute` method then initialises the necessary graphic properties using the `Graphics2D` Java class. The message is centralised and overlays the temporary `BufferedImage` object.
 
 Step 5. The `execute` method then checks for a few conditions listed below:
 
-. `isNewCommand`: Checks if the `WaterMark` command is from an input by the user, from an `Undo` or `Redo` command or from a `SetPreset` command.
+. `isNewCommand`: Checks if the `WaterMark` command is from an input by the user, from an `undo/redo` command or from a `SetPreset` command.
 . `isPreset`: Checks if the `WaterMark` command is from a Preset.
 . `initialImage#hasWaterMark()`: Checks if the `tempImage` already has a watermark.
 
@@ -847,7 +846,7 @@ Step 6. According to the above 3 conditions, the following combinations will res
 +
 
 +
-* Invokes `currentEdit#updateTempImage()` to overwrite the current image in filepath: "src/main/resources/temp/" + `tempImage#getUrl` with a new `BufferedImage` object.
+* Invokes `currentEdit#updateTempImage()` to  save the newly edited `BufferedImage` and replace the previous image in the filepath of the `tempImage`.
 +
 
 +
@@ -875,7 +874,7 @@ Step 6. According to the above 3 conditions, the following combinations will res
 +
 
 +
-* Invokes `currentEdit#updateTempImage()` to overwrite the current image in filepath: "src/main/resources/temp/" + `tempImage#getUrl` with a new `BufferedImage` object.
+* Invokes `currentEdit#updateTempImage()` to save the newly edited `BufferedImage` and replace the previous image in the filepath of the `tempImage`.
 +
 
 .  `isNewCommand` = `False` and `isPreset` = `True` and `initialImage#hasWaterMark()` = `False`:
@@ -888,7 +887,7 @@ Step 6. According to the above 3 conditions, the following combinations will res
 +
 
 +
-* Invokes `currentEdit#updateTempImage()` to overwrite the current image in filepath: "src/main/resources/temp/" + `tempImage#getUrl` with a new `BufferedImage` object.
+* Invokes `currentEdit#updateTempImage()` to save the newly edited `BufferedImage` and replace the previous image in the filepath of the `tempImage`.
 +
 
 . Anything else:
@@ -903,7 +902,7 @@ image::WaterMarkCommandSequenceDiagram.png[width="800"]
 
 ==== Design Considerations
 
-* Intermediate images have to be stored and edited in a temp folder first due to our `undo/redo` implementation.
+* Images that are still being edited have to be stored and edited in a temp directory first due to our `undo/redo` implementation.
 
 //end::WaterMark[]
 === Logging
@@ -944,7 +943,7 @@ We use https://www.google.com/chrome/browser/desktop/[Google Chrome] for convert
 Here are the steps to convert the project documentation files to PDF format.
 
 .  Follow the instructions in <<UsingGradle#rendering-asciidoc-files, UsingGradle.adoc>> to convert the AsciiDoc files in the `docs/` directory to HTML format.
-.  Go to your generated HTML files in the `build/docs` folder, right click on them and select `Open with` -> `Google Chrome`.
+.  Go to your generated HTML files in the `build/docs` directory, right click on them and select `Open with` -> `Google Chrome`.
 .  Within Chrome, click on the `Print` option in Chrome's menu.
 .  Set the destination to `Save as PDF`, then click `Save` to save a copy of the file in PDF format. For best results, use the settings indicated in the screenshot below.
 
@@ -1037,7 +1036,7 @@ The most reliable way to run tests is the 3rd one. The first two methods might f
 
 *Method 1: Using IntelliJ JUnit test runner*
 
-* To run all tests, right-click on the `src/test/java` folder and choose `Run 'All Tests'`
+* To run all tests, right-click on the `src/test/java` directory and choose `Run 'All Tests'`
 * To run a subset of tests, you can right-click on a test package, test class, or a test and choose `Run 'ABC'`
 
 *Method 2: Using Gradle*
@@ -1111,294 +1110,18 @@ A project often depends on third-party libraries. For example, Address Book depe
 
 [[GetStartedProgramming]]
 [appendix]
-== Suggested Programming Tasks to Get Started
-
-Suggested path for new programmers:
-
-1. First, add small local-impact (i.e. the impact of the change does not go beyond the component) enhancements to one component at a time. Some suggestions are given in <<GetStartedProgramming-EachComponent>>.
-
-2. Next, add a feature that touches multiple components to learn how to implement an end-to-end feature across all components. <<GetStartedProgramming-RemarkCommand>> explains how to go about adding such a feature.
-
-[[GetStartedProgramming-EachComponent]]
-=== Improving each component
-
-Each individual exercise in this section is component-based (i.e. you would not need to modify the other components to get it to work).
-
-[discrete]
-==== `Logic` component
-
-*Scenario:* You are in charge of `logic`. During dog-fooding, your team realize that it is troublesome for the user to type the whole command in order to execute a command. Your team devise some strategies to help cut down the amount of typing necessary, and one of the suggestions was to implement aliases for the command words. Your job is to implement such aliases.
-
-[TIP]
-Do take a look at <<Design-Logic>> before attempting to modify the `Logic` component.
-
-. Add a shorthand equivalent alias for each of the individual commands. For example, besides typing `clear`, the user can also type `c` to remove all persons in the list.
-+
-****
-* Hints
-** Just like we store each individual command word constant `COMMAND_WORD` inside `*Command.java` (e.g.  link:{repoURL}/src/main/java/seedu/address/logic/commands/FindCommand.java[`FindCommand#COMMAND_WORD`], link:{repoURL}/src/main/java/seedu/address/logic/commands/DeleteCommand.java[`DeleteCommand#COMMAND_WORD`]), you need a new constant for aliases as well (e.g. `FindCommand#COMMAND_ALIAS`).
-** link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser`] is responsible for analyzing command words.
-* Solution
-** Modify the switch statement in link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser#parseCommand(String)`] such that both the proper command word and alias can be used to execute the same intended command.
-** Add new tests for each of the aliases that you have added.
-** Update the user guide to document the new aliases.
-** See this https://github.com/se-edu/addressbook-level4/pull/785[PR] for the full solution.
-****
-
-[discrete]
-==== `Model` component
-
-*Scenario:* You are in charge of `model`. One day, the `logic`-in-charge approaches you for help. He wants to implement a command such that the user is able to remove a particular tag from everyone in the address book, but the model API does not support such a functionality at the moment. Your job is to implement an API method, so that your teammate can use your API to implement his command.
-
-[TIP]
-Do take a look at <<Design-Model>> before attempting to modify the `Model` component.
-
-. Add a `removeTag(Tag)` method. The specified tag will be removed from everyone in the address book.
-+
-****
-* Hints
-** The link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model`] and the link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`] API need to be updated.
-** Think about how you can use SLAP to design the method. Where should we place the main logic of deleting tags?
-**  Find out which of the existing API methods in  link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`] and link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`] classes can be used to implement the tag removal logic. link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`] allows you to update a person, and link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`] allows you to update the tags.
-* Solution
-** Implement a `removeTag(Tag)` method in link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`]. Loop through each person, and remove the `tag` from each person.
-** Add a new API method `deleteTag(Tag)` in link:{repoURL}/src/main/java/seedu/address/model/ModelManager.java[`ModelManager`]. Your link:{repoURL}/src/main/java/seedu/address/model/ModelManager.java[`ModelManager`] should call `AddressBook#removeTag(Tag)`.
-** Add new tests for each of the new public methods that you have added.
-** See this https://github.com/se-edu/addressbook-level4/pull/790[PR] for the full solution.
-****
-
-[discrete]
-==== `Ui` component
-
-*Scenario:* You are in charge of `ui`. During a beta testing session, your team is observing how the users use your address book application. You realize that one of the users occasionally tries to delete non-existent tags from a contact, because the tags all look the same visually, and the user got confused. Another user made a typing mistake in his command, but did not realize he had done so because the error message wasn't prominent enough. A third user keeps scrolling down the list, because he keeps forgetting the index of the last person in the list. Your job is to implement improvements to the UI to solve all these problems.
-
-[TIP]
-Do take a look at <<Design-Ui>> before attempting to modify the `UI` component.
-
-. Use different colors for different tags inside person cards. For example, `friends` tags can be all in brown, and `colleagues` tags can be all in yellow.
-+
-**Before**
-+
-image::getting-started-ui-tag-before.png[width="300"]
-+
-**After**
-+
-image::getting-started-ui-tag-after.png[width="300"]
-+
-****
-* Hints
-** The tag labels are created inside link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[the `PersonCard` constructor] (`new Label(tag.tagName)`). https://docs.oracle.com/javase/8/javafx/api/javafx/scene/control/Label.html[JavaFX's `Label` class] allows you to modify the style of each Label, such as changing its color.
-** Use the .css attribute `-fx-background-color` to add a color.
-** You may wish to modify link:{repoURL}/src/main/resources/view/DarkTheme.css[`DarkTheme.css`] to include some pre-defined colors using css, especially if you have experience with web-based css.
-* Solution
-** You can modify the existing test methods for `PersonCard` 's to include testing the tag's color as well.
-** See this https://github.com/se-edu/addressbook-level4/pull/798[PR] for the full solution.
-*** The PR uses the hash code of the tag names to generate a color. This is deliberately designed to ensure consistent colors each time the application runs. You may wish to expand on this design to include additional features, such as allowing users to set their own tag colors, and directly saving the colors to storage, so that tags retain their colors even if the hash code algorithm changes.
-****
-
-. Modify link:{repoURL}/src/main/java/seedu/address/commons/events/ui/NewResultAvailableEvent.java[`NewResultAvailableEvent`] such that link:{repoURL}/src/main/java/seedu/address/ui/ResultDisplay.java[`ResultDisplay`] can show a different style on error (currently it shows the same regardless of errors).
-+
-**Before**
-+
-image::getting-started-ui-result-before.png[width="200"]
-+
-**After**
-+
-image::getting-started-ui-result-after.png[width="200"]
-+
-****
-* Hints
-** link:{repoURL}/src/main/java/seedu/address/commons/events/ui/NewResultAvailableEvent.java[`NewResultAvailableEvent`] is raised by link:{repoURL}/src/main/java/seedu/address/ui/CommandBox.java[`CommandBox`] which also knows whether the result is a success or failure, and is caught by link:{repoURL}/src/main/java/seedu/address/ui/ResultDisplay.java[`ResultDisplay`] which is where we want to change the style to.
-** Refer to link:{repoURL}/src/main/java/seedu/address/ui/CommandBox.java[`CommandBox`] for an example on how to display an error.
-* Solution
-** Modify link:{repoURL}/src/main/java/seedu/address/commons/events/ui/NewResultAvailableEvent.java[`NewResultAvailableEvent`] 's constructor so that users of the event can indicate whether an error has occurred.
-** Modify link:{repoURL}/src/main/java/seedu/address/ui/ResultDisplay.java[`ResultDisplay#handleNewResultAvailableEvent(NewResultAvailableEvent)`] to react to this event appropriately.
-** You can write two different kinds of tests to ensure that the functionality works:
-*** The unit tests for `ResultDisplay` can be modified to include verification of the color.
-*** The system tests link:{repoURL}/src/test/java/systemtests/AddressBookSystemTest.java[`AddressBookSystemTest#assertCommandBoxShowsDefaultStyle() and AddressBookSystemTest#assertCommandBoxShowsErrorStyle()`] to include verification for `ResultDisplay` as well.
-** See this https://github.com/se-edu/addressbook-level4/pull/799[PR] for the full solution.
-*** Do read the commits one at a time if you feel overwhelmed.
-****
-
-. Modify the link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] to show the total number of people in the address book.
-+
-**Before**
-+
-image::getting-started-ui-status-before.png[width="500"]
-+
-**After**
-+
-image::getting-started-ui-status-after.png[width="500"]
-+
-****
-* Hints
-** link:{repoURL}/src/main/resources/view/StatusBarFooter.fxml[`StatusBarFooter.fxml`] will need a new `StatusBar`. Be sure to set the `GridPane.columnIndex` properly for each `StatusBar` to avoid misalignment!
-** link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] needs to initialize the status bar on application start, and to update it accordingly whenever the address book is updated.
-* Solution
-** Modify the constructor of link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] to take in the number of persons when the application just started.
-** Use link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter#handleAddressBookChangedEvent(AddressBookChangedEvent)`] to update the number of persons whenever there are new changes to the addressbook.
-** For tests, modify link:{repoURL}/src/test/java/guitests/guihandles/StatusBarFooterHandle.java[`StatusBarFooterHandle`] by adding a state-saving functionality for the total number of people status, just like what we did for save location and sync status.
-** For system tests, modify link:{repoURL}/src/test/java/systemtests/AddressBookSystemTest.java[`AddressBookSystemTest`] to also verify the new total number of persons status bar.
-** See this https://github.com/se-edu/addressbook-level4/pull/803[PR] for the full solution.
-****
-
-[discrete]
-==== `Storage` component
-
-*Scenario:* You are in charge of `storage`. For your next project milestone, your team plans to implement a new feature of saving the address book to the cloud. However, the current implementation of the application constantly saves the address book after the execution of each command, which is not ideal if the user is working on limited internet connection. Your team decided that the application should instead save the changes to a temporary local backup file first, and only upload to the cloud after the user closes the application. Your job is to implement a backup API for the address book storage.
-
-[TIP]
-Do take a look at <<Design-Storage>> before attempting to modify the `Storage` component.
-
-. Add a new method `backupAddressBook(ReadOnlyAddressBook)`, so that the address book can be saved in a fixed temporary location.
-+
-****
-* Hint
-** Add the API method in link:{repoURL}/src/main/java/seedu/address/storage/AddressBookStorage.java[`AddressBookStorage`] interface.
-** Implement the logic in link:{repoURL}/src/main/java/seedu/address/storage/StorageManager.java[`StorageManager`] and link:{repoURL}/src/main/java/seedu/address/storage/JsonAddressBookStorage.java[`JsonAddressBookStorage`] class.
-* Solution
-** See this https://github.com/se-edu/addressbook-level4/pull/594[PR] for the full solution.
-****
-
-[[GetStartedProgramming-RemarkCommand]]
-=== Creating a new command: `remark`
-
-By creating this command, you will get a chance to learn how to implement a feature end-to-end, touching all major components of the app.
-
-*Scenario:* You are a software maintainer for `addressbook`, as the former developer team has moved on to new projects. The current users of your application have a list of new feature requests that they hope the software will eventually have. The most popular request is to allow adding additional comments/notes about a particular contact, by providing a flexible `remark` field for each contact, rather than relying on tags alone. After designing the specification for the `remark` command, you are convinced that this feature is worth implementing. Your job is to implement the `remark` command.
-
-==== Description
-Edits the remark for a person specified in the `INDEX`. +
-Format: `remark INDEX r/[REMARK]`
-
-Examples:
-
-* `remark 1 r/Likes to drink coffee.` +
-Edits the remark for the first person to `Likes to drink coffee.`
-* `remark 1 r/` +
-Removes the remark for the first person.
-
-==== Step-by-step Instructions
-
-===== [Step 1] Logic: Teach the app to accept 'remark' which does nothing
-Let's start by teaching the application how to parse a `remark` command. We will add the logic of `remark` later.
-
-**Main:**
-
-. Add a `RemarkCommand` that extends link:{repoURL}/src/main/java/seedu/address/logic/commands/Command.java[`Command`]. Upon execution, it should just throw an `Exception`.
-. Modify link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser`] to accept a `RemarkCommand`.
-
-**Tests:**
-
-. Add `RemarkCommandTest` that tests that `execute()` throws an Exception.
-. Add new test method to link:{repoURL}/src/test/java/seedu/address/logic/parser/AddressBookParserTest.java[`AddressBookParserTest`], which tests that typing "remark" returns an instance of `RemarkCommand`.
-
-===== [Step 2] Logic: Teach the app to accept 'remark' arguments
-Let's teach the application to parse arguments that our `remark` command will accept. E.g. `1 r/Likes to drink coffee.`
-
-**Main:**
-
-. Modify `RemarkCommand` to take in an `Index` and `String` and print those two parameters as the error message.
-. Add `RemarkCommandParser` that knows how to parse two arguments, one index and one with prefix 'r/'.
-. Modify link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser`] to use the newly implemented `RemarkCommandParser`.
-
-**Tests:**
-
-. Modify `RemarkCommandTest` to test the `RemarkCommand#equals()` method.
-. Add `RemarkCommandParserTest` that tests different boundary values
-for `RemarkCommandParser`.
-. Modify link:{repoURL}/src/test/java/seedu/address/logic/parser/AddressBookParserTest.java[`AddressBookParserTest`] to test that the correct command is generated according to the user input.
-
-===== [Step 3] Ui: Add a placeholder for remark in `PersonCard`
-Let's add a placeholder on all our link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`] s to display a remark for each person later.
-
-**Main:**
-
-. Add a `Label` with any random text inside link:{repoURL}/src/main/resources/view/PersonListCard.fxml[`PersonListCard.fxml`].
-. Add FXML annotation in link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`] to tie the variable to the actual label.
-
-**Tests:**
-
-. Modify link:{repoURL}/src/test/java/guitests/guihandles/PersonCardHandle.java[`PersonCardHandle`] so that future tests can read the contents of the remark label.
-
-===== [Step 4] Model: Add `Remark` class
-We have to properly encapsulate the remark in our link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`] class. Instead of just using a `String`, let's follow the conventional class structure that the codebase already uses by adding a `Remark` class.
-
-**Main:**
-
-. Add `Remark` to model component (you can copy from link:{repoURL}/src/main/java/seedu/address/model/person/Address.java[`Address`], remove the regex and change the names accordingly).
-. Modify `RemarkCommand` to now take in a `Remark` instead of a `String`.
-
-**Tests:**
-
-. Add test for `Remark`, to test the `Remark#equals()` method.
-
-===== [Step 5] Model: Modify `Person` to support a `Remark` field
-Now we have the `Remark` class, we need to actually use it inside link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`].
-
-**Main:**
-
-. Add `getRemark()` in link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`].
-. You may assume that the user will not be able to use the `add` and `edit` commands to modify the remarks field (i.e. the person will be created without a remark).
-. Modify link:{repoURL}/src/main/java/seedu/address/model/util/SampleDataUtil.java/[`SampleDataUtil`] to add remarks for the sample data (delete your `data/addressbook.json` so that the application will load the sample data when you launch it.)
-
-===== [Step 6] Storage: Add `Remark` field to `JsonAdaptedPerson` class
-We now have `Remark` s for `Person` s, but they will be gone when we exit the application. Let's modify link:{repoURL}/src/main/java/seedu/address/storage/JsonAdaptedPerson.java[`JsonAdaptedPerson`] to include a `Remark` field so that it will be saved.
-
-**Main:**
-
-. Add a new JSON field for `Remark`.
-
-**Tests:**
-
-. Fix `invalidAndValidPersonAddressBook.json`, `typicalPersonsAddressBook.json`, `validAddressBook.json` etc., such that the JSON tests will not fail due to a missing `remark` field.
-
-===== [Step 6b] Test: Add withRemark() for `PersonBuilder`
-Since `Person` can now have a `Remark`, we should add a helper method to link:{repoURL}/src/test/java/seedu/address/testutil/PersonBuilder.java[`PersonBuilder`], so that users are able to create remarks when building a link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`].
-
-**Tests:**
-
-. Add a new method `withRemark()` for link:{repoURL}/src/test/java/seedu/address/testutil/PersonBuilder.java[`PersonBuilder`]. This method will create a new `Remark` for the person that it is currently building.
-. Try and use the method on any sample `Person` in link:{repoURL}/src/test/java/seedu/address/testutil/TypicalPersons.java[`TypicalPersons`].
-
-===== [Step 7] Ui: Connect `Remark` field to `PersonCard`
-Our remark label in link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`] is still a placeholder. Let's bring it to life by binding it with the actual `remark` field.
-
-**Main:**
-
-. Modify link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`]'s constructor to bind the `Remark` field to the `Person` 's remark.
-
-**Tests:**
-
-. Modify link:{repoURL}/src/test/java/seedu/address/ui/testutil/GuiTestAssert.java[`GuiTestAssert#assertCardDisplaysPerson(...)`] so that it will compare the now-functioning remark label.
-
-===== [Step 8] Logic: Implement `RemarkCommand#execute()` logic
-We now have everything set up... but we still can't modify the remarks. Let's finish it up by adding in actual logic for our `remark` command.
-
-**Main:**
-
-. Replace the logic in `RemarkCommand#execute()` (that currently just throws an `Exception`), with the actual logic to modify the remarks of a person.
-
-**Tests:**
-
-. Update `RemarkCommandTest` to test that the `execute()` logic works.
-
-==== Full Solution
-
-See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-by-step solution.
-
-[appendix]
 == Product Scope
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
-* can type fast
-* prefers typing over mouse input
-* is reasonably comfortable using CLI apps
+* Needs a quick way to perform simple edits on images.
+* Needs to view tagged information on an image.
+* Prefer desktop apps over other types
+* Can type fast
+* Prefers typing over mouse input
+* Is reasonably comfortable using CLI apps
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*: Edit photos quicker and more intuitively than a typical mouse/GUI driven app. Also provides a easy way to view tagged metadata on images.
 
 // tag::UserStories[]
 [appendix]
@@ -1411,27 +1134,27 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |Priority |As a ... |I want to ... |So that I can...
 |`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the application
 
-|`* * *` |user |adjust the brightness of my photo |make it brighter or darker
+|`* * *` |user |adjust the brightness of my image |make it brighter or darker
 
-|`* * *` |user |adjust the contrast of my photo |
+|`* * *` |user |adjust the contrast of my image |
 
-|`* * *` |user |resize my photo |
+|`* * *` |user |resize my image |
 
-|`* * *` |user |crop my photo |trim it into my desired dimensions
+|`* * *` |user |crop my image |trim it into my desired dimensions
 
-|`* * *` |user |rotate my photo |change its orientation
+|`* * *` |user |rotate my image |change its orientation
 
 |`* * *` |user |undo and redo my edits |revert or recover my changes
 
 |`* * *` |user |be able to save my image |continue editing it the future
 
-|`* * *` |user |import my photo |store a copy of the photo in the application for editing
+|`* * *` |user |import my image |store a copy of the image in the application for editing
 
-|`* * *` |user |export my photo|save my edited photos to my computer
+|`* * *` |user |export my image|save my edited images to my computer
 
-|`* * *` |user |open a photo stored in the application for editing |
+|`* * *` |user |open a image stored in the application for editing |
 
-|`* *` |user |list the names of the photos stored in the application |know what photos are currently stored inside
+|`* *` |user |list the names of the images stored in the application |know what images are currently stored inside
 
 |=======================================================================
 // end::UserStories[]
@@ -1439,98 +1162,91 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
-
 [discrete]
-=== Use case: Editing an image
+=== Use case: View Image
 
-*MSS*
-
-1.  User imports an image
-2.  User opens the image
-3.  User specifies transformations using the CLI
-4.  FomoFoto shows a preview of the transformations
-5.  User can decide to save the image or not
+1. User import an image.
+2. User opens the image.
+3. Image is displayed on GUI.
 +
 Use case ends.
 
 *Extensions*
 
-[none]
-* 2a. The image cannot be opened. FomoFoto shows an error message.
+* 1a. The filepath does not contain an image. FomoFoto throws an error message.
++
+Use case ends.
+* 2a. The image name does not exist in Album. FomoFoto throws an error message.
 +
 Use case ends.
 
-* 3a. User is unsatisfied by transformation. User can undo the transformation.
-+
-[none]
-** 3a1. AddressBook shows an error message.
-+
-Use case resumes at step 2.
+=== Use case: View Metadata
 
-[discrete]
-=== Use case: Editing an image
-
-*MSS*
-
-1.  User imports an image
-2.  User opens the image
-3.  User specifies transformations using the CLI
-4.  FomoFoto shows a preview of the transformations
-5.  User can decide to save the image or not
+1. User import an image.
+2. User opens the image.
+3. Image is displayed on GUI.
+4. Switch tab to view Metadata.
 +
 Use case ends.
 
 *Extensions*
 
-[none]
-* 2a. The image cannot be opened. FomoFoto shows an error message.
+* 1a. The filepath does not contain an image. FomoFoto throws an error message.
++
+Use case ends.
+* 2a. The image name does not exist in Album. FomoFoto throws an error message.
 +
 Use case ends.
 
-* 3a. User is unsatisfied by transformation. User can undo the transformation.
-+
-[none]
-** 3a1. AddressBook shows an error message.
-+
-Use case resumes at step 2.
+=== Use case: Edit Image
 
-_{More to be added}_
+1. User import an image.
+2. User opens the image.
+3. Image is displayed on GUI.
+4. User applies an image filter.
++
+Use case ends.
+
+*Extensions*
+
+* 1a. The filepath does not contain an image. FomoFoto throws an error message.
++
+Use case ends.
+* 2a. The image name does not exist in Album. FomoFoto throws an error message.
++
+Use case ends.
+* 4a. The arguments for filters are invalid. FomoFoto throws an error message.
++
+Use case ends.
+
+=== Use case: Export Image
+
+1. User save image to Album.
+2. User export image from Album.
++
+Use case ends.
+
+*Extensions*
+
+* 1a. The image name does not exist in Album. FomoFoto throws an error message.
++
+Use case ends.
+* 2a. The filepath for export is invalid. FomoFoto throws an error message.
++
+Use case ends.
 
 [appendix]
 == Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+.  Should be able to hold up to 100 images without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-
-_{More to be added}_
 
 [appendix]
 == Glossary
 
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
-
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
-
-[appendix]
-== Product Survey
-
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
 
 [appendix]
 == Instructions for Manual Testing
@@ -1542,38 +1258,70 @@ These instructions only provide a starting point for testers to work on; testers
 
 === Launch and Shutdown
 
-. Initial launch
+. Initial launch.
 
-.. Download the jar file and copy into an empty folder
+.. Download the jar file and copy into an empty directory.
 .. Double-click the jar file +
-   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+   Expected: Shows the GUI with an empty Album. The window size may not be optimum.
 
-. Saving window preferences
+. Saving window preferences.
 
 .. Resize the window to an optimum size. Move the window to a different location. Close the window.
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-_{ more test cases ... }_
+. Shutdown and relaunch.
 
-=== Deleting a person
+.. Shutdown the application by typing `exit` or closing the window.
+.. Relaunch the jar file.
+   Expected: Shows the GUI with any previously opened images in the Album.
 
-. Deleting a person while all persons are listed
+=== Importing an image
+. Prerequisites: Given FILEPATH should be an image or a directory with images.
 
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
-.. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
-   Expected: Similar to previous.
+. Import a sample list of images.
+.. Enter `import sample` +
+   Expected: GUI should populate Album Images with a sample list of images.
 
-_{ more test cases ... }_
+. Import a single image.
+.. Enter `import FILEPATH` +
+   Expected: GUI should populate Album Images with image from indicated filepath.
 
-=== Saving data
+. Import a directory.
+.. Enter `import FILEPATH` +
+   Expected: GUI should populate Album Images with images from indicated directory.
 
-. Dealing with missing/corrupted data files
+=== Opening an image
+. Prerequisites: An album should contain at least a single imported image.
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
+. Open an image from Album.
+.. Enter `open IMAGE_NAME` +
+   Expected: GUI should open and display image from Album.
 
-_{ more test cases ... }_
+=== Editing an image
+. Prerequisites: An image should be opened.
+
+. Apply contrast on an opened image.
+.. Enter `contrast` +
+   Expected: GUI should apply edit to the opened image with default contrast value.
+
+=== Undoing an edit
+. Prerequisites: An image should at least one edit applied to it.
+
+. Undo a previously applied edit.
+.. Enter `undo` +
+   Expected: GUI should refresh the opened image to its previous state.
+
+=== Saving an image
+. Prerequisites: An image should be opened.
+
+. Save an opened image.
+.. Enter `save` +
+   Expected: GUI should save the currently opened image as an image in Album with the same name.
+
+=== Export an image
+. Prerequisites: Given FILEPATH should be an a valid, writable path. Album should contain at least a single imported image.
+
+. Export an image from Album.
+.. Enter `export f/IMAGE_NAME d/DIRECTORY_NAME` +
+   Expected: GUI should export the selected Album image to target directory.

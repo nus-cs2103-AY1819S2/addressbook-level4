@@ -14,7 +14,7 @@ public class Race {
 
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Not among list of possible races.";
+            "Not among list of possible races: [Chinese, Malay, Indian, Others]";
     private static final String[] POSSIBLE_RACES = {"Chinese", "Malay", "Indian", "Others"};
     private static final TreeSet<String> POSSIBLE_RACES_TREE = new TreeSet<>(Arrays.asList(POSSIBLE_RACES));
     public final String value;

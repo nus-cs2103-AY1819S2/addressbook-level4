@@ -14,7 +14,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PASTJOB;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_RACE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SCHOOL;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Set;
 
@@ -24,7 +23,6 @@ import seedu.address.model.person.JobsApply;
 import seedu.address.model.person.KnownProgLang;
 import seedu.address.model.person.PastJob;
 import seedu.address.model.person.Person;
-import seedu.address.model.tag.Tag;
 
 
 /**
@@ -68,9 +66,6 @@ public class PersonUtil {
             s -> sb.append(PREFIX_JOBSAPPLY + s.value + " ")
         );
         sb.append(PREFIX_INTERVIEWSCORES + person.getInterviewScores().value + " ");
-        person.getTags().stream().forEach(
-            s -> sb.append(PREFIX_TAG + s.tagName + " ")
-        );
         return sb.toString();
     }
 
@@ -114,15 +109,7 @@ public class PersonUtil {
             }
         }
         descriptor.getInterviewScores().ifPresent(interviewScores -> sb.append(PREFIX_INTERVIEWSCORES)
-                .append(interviewScores.value).append(" "));
-        if (descriptor.getTags().isPresent()) {
-            Set<Tag> tags = descriptor.getTags().get();
-            if (tags.isEmpty()) {
-                sb.append(PREFIX_TAG).append(" ");
-            } else {
-                tags.forEach(s -> sb.append(PREFIX_TAG).append(s.tagName).append(" "));
-            }
-        }
+            .append(interviewScores.value).append(" "));
         return sb.toString();
     }
 }

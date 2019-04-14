@@ -196,8 +196,7 @@ public class Person {
                 && otherPerson.getJobsApply().equals(getJobsApply())
                 && otherPerson.getInterviewScores().equals(getInterviewScores())
                 && otherPerson.getMajor().equals(getMajor())
-                && otherPerson.getGrade().equals(getGrade())
-                && otherPerson.getTags().equals(getTags());
+                && otherPerson.getGrade().equals(getGrade());
     }
 
     @Override

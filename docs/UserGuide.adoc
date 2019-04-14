@@ -18,7 +18,7 @@ By: `Team 15-3`      Since: `Feb 2019`      Licence: `MIT`
 
 == Introduction
 
-slaveFinder() is for those who *prefer to use a desktop app for managing contacts*. More importantly, slaveFinder() is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, slaveFinder() can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+slaveFinder() is a resume management software for those who *prefer to use a desktop app for managing contacts*. More importantly, slaveFinder() is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, slaveFinder() can get your resume management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
 
 == Quick Start
 
@@ -34,9 +34,8 @@ image::Ui.png[width="790"]
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com nric/S9671597H g/Male r/Indian a/311, Clementi Ave 2, #02-25 s/NUS m/Computer Science gr/4.76 j/Software-Engineer is/1,2,3,4,5 kpl/Python pj/Software Engineer` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
+* *`list`* : lists all applicants and job openings
+* *`clear`* : clears the software of all applicants and job openings
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
@@ -48,8 +47,8 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 *Command Format*
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
+* Items in square brackets are optional e.g `n/NAME [pj/PASTJOB]` can be used as `n/John Doe pj/Software-Engineer` or as `n/John Doe`.
+* Items with `…`​ after them can be used multiple times including zero times e.g. `[pj/PASTJOB]...` can be used as `{nbsp}` (i.e. 0 times), `pj/Software-Engineer`, `pj/Software-Engineer pj/Web-Developer` etc.
 * Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 ====
 === Basic Command
@@ -60,43 +59,56 @@ Format: `help`
 
 ==== Adding a person: `add`
 
+Viet Phone: 86128655 Email: pdnm@cp.com Nric: S0129574R Gender: Male Race: Others Address: 123 Disney School: NUS Major: Computer Science Grade: 5.00 Interview Scores: No Record Past jobs:  Known Programming Languag
+
 Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS g/GENDER r/RACE m/MAJOR s/SCHOOL [pj/PAST_JOB]... [t/TAG]...`
+Format: `add n/NAME p/PHONE_NUMBER nric/NRIC e/EMAIL a/ADDRESS g/GENDER r/RACE m/MAJOR s/SCHOOL gr/GRADE j/JOBS_APPLY`
 
 [TIP]
-* A person can have any number of tags (including 0)
-* A person can have any number of past jobs (including 0)
+* `n/`: Name should only contain alphanumeric characters and spaces, and should not be empty.
+* `a/`: Address can take any values, but should not be empty.
+* `nric/`: NRIC must be unique. It must start with S, followed by exactly 7 numbers, and end with an alpabet in capital letter. It should not be empty.
+* `p/`: Phone numbers should only contain numbers, and it should be at least 3 digits long, and should not be empty.
+* `e/`: Email should be of the format local-part@domain, and should not be empty. "E.g. example@gmail.com"
+* `g/`: Gender should only be "Female", "Male" or "Others", and should not be empty.
+* `r/`: Race should only be "Chinese", "Malay", "Indian" or "Others", and should not be empty.
+* `gr/`: Grade should only contain positive numbers, and must be in exactly 2 decimal place. E.g. "4.64"
+* `s/`: School can take any values, but should not be empty.
+* `m/`: Major should only contain alphanumeric characters and spaces, and should not be empty.
+* `j/`: Jobs Apply must only contain one word. If two or more words, have to be connected by a dash. E.g. "Software-Engineer". It should not be empty. It can take more than 1 value. E.g. "j/Manager j/Sweeper"
+* `is/`: Interview scores field is optional, and must be exactly 5 set of numbers, each seperated by a comma. E.g. "1,2,3,4,5"
+* `kpl/`: Known Programming Language field is optional. It can take any values, and can take more than 1 value. E.g. "kpl/Java kpl/Python"
+* `pj/`: Past jobs field is optional, and past job must only contain one word. If two or more words, have to be connected by a dash. E.g. "Software-Engineer". It can take more than 1 value E.g. "pj/Manager pj/Sweeper"
 
 Examples:
 
-* `n/John Doe p/98765432 e/johnd@example.com nric/S9671597H g/Male r/Indian a/311, Clementi Ave 2, #02-25 s/NUS m/Computer Science gr/4.76 j/Software-Engineer is/1,2,3,4,5 kpl/Python pj/Software Engineer`
+* `add n/John p/91757536 nric/S8761230Q e/john@example.com a/123 Disneyland g/Male r/Malay m/Psychology s/NUS gr/4.33 j/Manager`
+* `add n/Betty p/123 nric/S4444455Y e/betty@bet.com a/321 USS g/Female r/Others m/Life Science s/NTU gr/0.44 j/Helper is/1,2,1,10,5 kpl/Java pj/Chief-Executive-Officer`
 
 ==== Listing all persons : `list`
 
 Shows a list of all job openings and applicants in the slave system. +
 Format: `list`
 
-* `Useful after using search/find/displayJob which shows a subset of the list.`
+* `Useful after using filter/displayJob which shows a subset of the list.`
 
 ==== Editing a person : `edit`
 
 Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [g/GENDER] [r/RACE] [s/SCHOOL] [pj/PAST_JOBS] [t/TAG]...`
+Format: `edit INDEX n/NAME p/PHONE_NUMBER nric/NRIC e/EMAIL a/ADDRESS g/GENDER r/RACE m/MAJOR s/SCHOOL gr/GRADE j/JOBS_APPLY`
 
 ****
 * Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
+* Editting fields that allows more than 1 value will entirely replace the existing values.
 * Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
 ****
 
 Examples:
 
 * `edit 1 p/91234567 e/johndoe@example.com` +
 Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+* `edit 2 n/Betsy Crower` pj/Manager +
+Edits the name of the 2nd person to be `Betsy Crower` and clears all existing past jobs and replace it with 'Manager".
 ==== Listing entered commands : `history`
 
 Lists all the commands that you have entered in reverse chronological order. +
@@ -115,24 +127,15 @@ Format: `undo`
 
 [NOTE]
 =====
-Undoable commands: those commands that modify the address book's content (`add`, `delete`, `edit` and `clear`).
+Undoable commands: those commands that modify the address book's content (`add`, `delete`, `edit`, `clear`, `createJob`, `deleteJob`, generateInterviews, setMaxInterviewsADay, setBlockOutDates, clearInterviews, filter, delete filter ).
 =====
 
 Examples:
 
-* `delete 1` +
+* `edit 1 n/Johnny` +
 `list` +
-`undo` (reverses the `delete 1` command) +
+`undo` (reverses the `edit 1 n/Johnny` command) +
 
-* `select 1` +
-`list` +
-`undo` +
-The `undo` command fails as there are no undoable commands executed previously.
-
-* `delete 1` +
-`clear` +
-`undo` (reverses the `clear` command) +
-`undo` (reverses the `delete 1` command) +
 
 ==== Redoing the previously undone command : `redo`
 
@@ -141,19 +144,19 @@ Format: `redo`
 
 Examples:
 
-* `delete 1` +
-`undo` (reverses the `delete 1` command) +
-`redo` (reapplies the `delete 1` command) +
+* `edit 1 n/Johnny` +
+`undo` (reverses the `edit 1 n/Johnny` command) +
+`redo` (reapplies the `edit 1 n/Johnny` command) +
 
-* `delete 1` +
+* `edit 1 n/Johnny` +
 `redo` +
 The `redo` command fails as there are no `undo` commands executed previously.
 
-* `delete 1` +
+* `edit 1 n/Johnny` +
 `clear` +
 `undo` (reverses the `clear` command) +
-`undo` (reverses the `delete 1` command) +
-`redo` (reapplies the `delete 1` command) +
+`undo` (reverses the `edit 1 n/Johnny` command) +
+`redo` (reapplies the `edit 1 n/Johnny` command) +
 `redo` (reapplies the `clear` command) +
 // end::undoredo[]
 
@@ -256,9 +259,8 @@ Lang,Lang,Lang
 pastJob,pastJob,pastJob
 jobsApply,jobsApply,jobsApply
 interviewScore
-tag,tag,tag
 ```
-* All fields are to be populated, except for Programming Languages, Past Jobs, Jobs Applied, and Tags
+* All fields are to be populated, except for Programming Languages, Past Jobs, and Jobs Applied
 ** For these fields, specify any number of items (zero or more), separated by commas
 * All the resume documents should be stored in one folder.
 * If the new added people is a new person to our company, slaveFinder will crawl the data from resume and add him/her as ADD command.
@@ -334,36 +336,58 @@ Format : `switchjob JOBNAME`
 ==== Filter results : `filter`
 
 Filter the people displayed on the Person List. Each filer has a name and can be delete, diplay result always base on all filter request. +
-Format: `filter FILTERLISTNAME [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [g/GENDER] [r/RACE] [s/SCHOOL] [pj/PAST_JOBS] [t/TAG]...`
+Format: `filter [FILTERLISTNAME] fn/FILTERNAME [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [g/GENDER] [r/RACE] [s/SCHOOL] [pj/PAST_JOBS]...`
 
 ****
+* Filter have two mode, when Screen is All JOb Showing Screen (Jobs Open List shows), FILTERLISTNAME should be empty.
+* When Screen is Job Detail Screen (4 job lists shows), FILTERLISTNAME is needed.
 * FILTERLISTNAME indicate which Job list this command will used.
-* FILTERLISTNAME can be full name of the job lists suach as "Applicant", "KIV", "Interview", "Shortlist".
-* FILTERLISTNAME also can be prefix of the job lists suach as "a", "k", "i", "s".
+* FILTERLISTNAME can be full name of the job lists such as "Applicant", "KIV", "Interview", "Shortlist".
+* FILTERLISTNAME also can be prefix of the job lists such as "a", "k", "i", "s".
 * Multiple filters can be added to filter people. All the filter labels will show on the display board.
 * Display board always display people base on all undeleted filters.
 ****
 
-==== Delete a filter : `deletefilter` `Coming in v1.4`
+Examples:
+
+* `filter fn/nus s/nus` + 
+Shows all persons whose school is NUS. 
+
+==== Delete a filter : `deleteFilter`
 
 Delete a filter showing on the display board and renew the update display people list. +
-Format: `deletefilter FILTERNAME1 FILTERNAME2...`
+Format: `deleteFilter FILTERNAME`
 
 ****
 * Multiple filters can be deleted in one command.
 * Display board always display people base on all undeleted filters.
 ****
+Examples:
+
+* `filter fn/nus s/nus` + 
+Shows all persons whose school is NUS. 
+* `deleteFilter nus`
+Shows all persons.
 
 ==== Display Analytics : `analytics`
 
-Display the analytics of applicants for desired job list (applicant, kiv, interview, shortlist, all applicants)
-Format : `analytics LISTNAME` or  `analytics`
+Display the analytics of applicants for desired job list (applicant, kiv, interview, shortlist) or all applicants
+Format : `analytics LISTNAME` or  `analytics` (for all applicants)
 
 ****
-* LISTNAME indicate which Job list this command will used.
+* LISTNAME indicate which Job list this command will be used.
 * LISTNAME can are the names of job lists such as "applicant", "kiv", "interview", "shortlist".
 * If no LISTNAME is entered, the analytis of all applicants in the slave system will be shown.
+* If have never used the `DisplayJob` command before, using `analytics LISTNAME` will be empty analytics.
+* If on all applicants and all jobs page, `analytics LISTNAME` will display analytics on the job last displayed using command `DisplayJob`
+
 ****
+
+Examples:
+
+* `analytics applicant` 
+* `analytics kiv`
+* `analytics`
 
 ==== Select people into "Interview" List: `selectInterview` `Coming in v1.4`
 
@@ -385,7 +409,7 @@ Selects the 2nd person and 4th people to the "Interview" list.
 * `selectInterview all`
 Selects all the people on the Person Display List to the "Interview" list.
 
-==== Select people into "To be sent to boss" List: `selectfinal` `Coming in v1.4`
+==== Select people into "To be sent to boss" List: `selectfinal` `Coming in v2.0`
 
 Select people from display board to the Job Hiring Process's "To be sent to boss" List +
 Format : `selectInterview [INDEX] [INDEX-INDEX] [all]`
@@ -421,7 +445,7 @@ Sets the block out dates(unavailable dates) which the interviewer is not availab
 Shows the list of dates which the interviewees in slaveFinder() are assigned.
 
 // end::interviews[]
-==== Generate a final report for the Job Hiring Process : `report` `Coming in v1.4`
+==== Generate a final report for the Job Hiring Process : `report` `Coming in v2.0`
 
 Generate `report.txt` to show 3 categories of applicants for a specific role:
 "Applied", "Interview", "To be sent to boss". in a Job Hiring Process. +
@@ -436,19 +460,19 @@ Format : `report JOBNAME`
 
 == Command Summary
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS g/GENDER r/RACE m/MAJOR s/SCHOOL [pj/PAST_JOB]... [t/TAG]...` +
+* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS g/GENDER r/RACE m/MAJOR s/SCHOOL [pj/PAST_JOB]... ` +
 e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665
 g/Male r/Chinese m/MATH s/NUS pj/Professor t/friend t/colleague`
 * *Clear* : `clear`
 * *Delete* : `delete INDEX` +
 e.g. `delete 3`
 * *Edit* : `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS]
-[g/GENDER] [r/RACE] [s/SCHOOL] [pj/PAST_JOBS] [t/TAG]...` +
+[g/GENDER] [r/RACE] [s/SCHOOL] [pj/PAST_JOBS] ` +
 e.g. `edit 2 n/James Lee e/jameslee@example.com`
 * *Find* : `find KEYWORD [MORE_KEYWORDS]` +
 e.g. `find James Jake`
 * *Search* : `search [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS]
-[g/GENDER] [r/RACE] [s/SCHOOL] [pj/PAST_JOBS] [t/TAG]...` +
+[g/GENDER] [r/RACE] [s/SCHOOL] [pj/PAST_JOBS] ` +
 e.g. `search s/NUS`
 * *List* : `list`
 * *Help* : `help`
@@ -461,7 +485,7 @@ e.g.`select 2`
 * *Read to slaveFinder()* : `readAll`
 * *Get ranked list* : `getRankedList`
 * *Filter search results* : `filter [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS]
-[g/GENDER] [r/RACE] [s/SCHOOL] [pj/PAST_JOBS] [t/TAG]...` +
+[g/GENDER] [r/RACE] [s/SCHOOL] [pj/PAST_JOBS] ` +
 e.g. `filter r/Chinese`
 * *Display Hiring Process* : `displayProcess`
 * *Display Analytics* : `analytics LISTNAME` or `analytics`

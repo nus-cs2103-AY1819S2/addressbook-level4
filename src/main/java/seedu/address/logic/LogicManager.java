@@ -37,7 +37,6 @@ public class LogicManager implements Logic {
         battleshipParser = new BattleshipParser();
         this.statistics = model.getPlayerStats();
 
-        // Set addressBookModified to true whenever the models' address book is modified.
         this.statistics.setStorage(storage);
     }
 
@@ -67,6 +66,7 @@ public class LogicManager implements Logic {
     /**
      * keeps track of specific commands for statistics (eg. attack).
      */
+    @Override
     public void addToStatistics (String commandText) {
         String commandKeyword = commandText.split(" ")[0]; // Take first word
         if (commandKeyword.matches("attack|shoot|fire|hit  ")) {

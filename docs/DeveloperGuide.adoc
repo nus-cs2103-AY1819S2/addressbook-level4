@@ -1125,7 +1125,7 @@ A project often depends on third-party libraries. For example, Address Book depe
 [appendix]
 == User Stories
 // tag::UserStories[]
-This section lists the user stories behind the feastures of our application.
+This section lists the user stories behind the features of our application.
 
 Priorities:
 
@@ -1161,7 +1161,6 @@ Priorities:
 |`* * *` |As a user, I want to export my image so that I can save my edited images to my computer.| `export`
 
 |`* *` |As a frequent user, I want to create presets of edits so that I can easily apply a set of edits to my photos.| `savepreset`, `setpreset`
-
 
 |`* *` |As a user, I want to list the names of the images imported into the application so that I know what images are currently stored inside.| `listfiles`
 

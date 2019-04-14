@@ -1,4 +1,4 @@
-= Wee Soo Jun - Project Portfolio
+= Chiu Yu Hua - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
@@ -9,31 +9,55 @@
 
 == Overview
 
-slaveFinder() is a desktop address book application used for people in the HR department of a company to help them filter people and schedule interviews. It also helps with analytics of the hiring process in the company.
+slaveFinder() is a resume management application that helps recruiters manage most of the hiring process. It allows recruiters to easily look for quality job applicants through convenient filtering of resumes' various fields, and sort these applicants into different parts of the selection process. Other features include automated scheduling of interviews based on recruiter's availability and analytics of job applicants.
 
 == Summary of contributions
 
-* *Major enhancement*: added *Interview scheduling*
-** What it does: allows the user to schedule interviews with block out dates.
-** Justification: This feature improves the product significantly because a user can improve his/her productivity as the app can take over the task of scheduling to the app.
-** Highlights:
-** Credits:
+* *Major enhancement 1*: added *Analytics* feature end-to-end
+** What it does: 
+*** Consolidates and breaksdown the various fields data of applicants, such as gender breakdown, number of applicants in each school, number of applicants in each major and average grade. 
+*** Analytics can be done on specific lists in the selection process, such as only on applicants that were interviewed or selected for the job. `analytics applicant`, `analytics kiv`, `analytics interview`, `analytics shortlist`, `analytics` 
+** Justification: 
+*** Recruiters often want to know the quality of applicants that apply to their company, and use this data to improve their hiring process or recruit marketing strategies.
+*** Furthermore, many companies are concerned about diviersity in their team. Such analytics can inform them if they are getting (or selecting) a sufficiently diversed pool of applicants.
+** Highlights: In addition to processing the various fields data in corresponding lists, analytics data is presented in a visually intuitive manner consisting of different charts to suit the nature of the person field.
++
+image::analytics.png[width="790"]
 
-* *Minor enhancement*: Added a school field which helped in the ranking and filtering of individuals for interviews
 
-* *Code contributed*:
+* *Major enhancement 2*: restructured the original AB4 UI code to suit the context of slaveFinder(), and provide UI component for various commands added by other team members. 
+** What it does: 
+*** Consist of two scenes: First scene shows 2 panels consisting of a list of all applicants and a list of all job openings. Second scene shows 4 panels, each representing a specific part in the hiring process for a specific job opening: "Applicants, KIV, Interviewed, Shortlist". 
+*** Filtering of applicants through field data is also shown visually on software, where filtered keywords are "stored" (and removed when needed) above the corresponding lists.
+** Justification: Being able to filter applicants and sort them according to the selection process is the core value add of our software, and hence essential to be visually represented and for user to interact with each list accordingly. 
+** Highlights: Enable UI for the following commands:
+*** `DisplayJob`: Switch UI scene to show 4 panels for specific job
+*** `list`: Switch UI scene to show all applicants and all job openings
+*** `filter`: Filter keywords stored above corresponding lists
+*** `deleteFilter` & `clearFilter`: remove filter keywords stored above corresponding lists
+*** `movePerson`, `addPerson`: allows Person to be moved and displayed at various list on the `applicantsPanel`, `kivPanel`, `interviewPanel`, `shortListPanel`
+*** `createJob`: allows new job to be added as a `JobCard` on the `JobsPanel`
+*** `analytics`: new window that displays analytics data on different charts.
+
+* *Minor enhancement*: Added Person Fields: Gender, Race, NRIC, Grade, InterviewScores, JobApply, as required by resumes of job applicants (https://github.com/CS2103-AY1819S2-W15-3/main/pull/85[#85])
+
+* *Minor enhancement*: Make person field `NRIC` the unique identifier of `Person` and create `UniqueNRICMap` to allow convenient obtaining of `Person` via NRIC. (https://github.com/CS2103-AY1819S2-W15-3/main/pull/85[#85])
+
+* *Minor enhancement*: Enhance `list` command to list both jobs and persons. (https://github.com/CS2103-AY1819S2-W15-3/main/pull/200[#200])
+
+* *Code contributed*: https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#=undefined&search=chiuyuhua[Functional and Tests]
 
 * *Other contributions*:
 
-** Project management:
-*** Managed release `v1.3` on GitHub
-** Enhancements to existing features:
+** Enhancements to existing features: 
+*** Updated the GUI color scheme (https://github.com/CS2103-AY1819S2-W15-3/main/pull/200[#200])
+*** Wrote additional tests to increase coverage by 4% (https://github.com/CS2103-AY1819S2-W15-3/main/pull/247[#247], (https://github.com/CS2103-AY1819S2-W15-3/main/pull/85[#85])
 ** Documentation:
-*** Updated Model Component image of slaveFinder()
+*** Update the UI component class diagram and Sequence Diagram in DG and enhance existing contents in UG. (https://github.com/CS2103-AY1819S2-W15-3/main/pull/254[#254], https://github.com/CS2103-AY1819S2-W15-3/main/pull/238[#238], https://github.com/CS2103-AY1819S2-W15-3/main/pull/239[#239], https://github.com/CS2103-AY1819S2-W15-3/main/pull/201[#201], https://github.com/CS2103-AY1819S2-W15-3/main/pull/110[#110])
+
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com/CS2103-AY1819S2-W15-3/main/pull/44[#44]
-** Tools:
-*** Integrated TravisCI, Appveyor, Codacy, and Coveralls to team repo
+*** PRs reviewed (with non-trivial review comments): https://github.com/CS2103-AY1819S2-W15-3/main/pull/84[#84] https://github.com/CS2103-AY1819S2-W15-3/main/pull/124[#124]
+*** Reported bugs and suggestions for other teams in class (https://github.com/nus-cs2103-AY1819S2/pe-dry-run/issues/589[1], https://github.com/nus-cs2103-AY1819S2/pe-dry-run/issues/693[2], https://github.com/nus-cs2103-AY1819S2/pe-dry-run/issues/555[3], https://github.com/nus-cs2103-AY1819S2/pe-dry-run/issues/431[4], https://github.com/nus-cs2103-AY1819S2/pe-dry-run/issues/114[5], https://github.com/nus-cs2103-AY1819S2/pe-dry-run/issues/230[6])
 
 
 == Contributions to the User Guide
@@ -43,7 +67,55 @@ slaveFinder() is a desktop address book application used for people in the HR de
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=interviews]
+==== Display Analytics : `analytics`
+
+Display the analytics of applicants for desired job list (applicant, kiv, interview, shortlist) or all applicants. +
+Format : `analytics LISTNAME` or  `analytics` (for all applicants)
+
+****
+* LISTNAME indicate which Job list this command will be used.
+* LISTNAME can are the names of job lists such as "applicant", "kiv", "interview", "shortlist".
+* If no LISTNAME is entered, the analytis of all applicants in the slave system will be shown.
+* If have never used the `DisplayJob` command before, using `analytics LISTNAME` will be empty analytics.
+* If on all applicants and all jobs page, `analytics LISTNAME` will display analytics on the job last displayed using command `DisplayJob`
+
+****
+
+Examples:
+
+* `analytics applicant`
+* `analytics kiv`
+* `analytics`
+
+==== Adding a person: `add`
+
+Adds a person to the address book +
+Format: `add n/NAME p/PHONE_NUMBER nric/NRIC e/EMAIL a/ADDRESS g/GENDER r/RACE m/MAJOR s/SCHOOL gr/GRADE j/JOBS_APPLY`
+
+****
+[TIP]
+* `n/`: Name should only contain alphanumeric characters and spaces, and should not be empty.
+* `a/`: Address can take any values, but should not be empty.
+* `nric/`: NRIC must be unique. It must start with S, followed by exactly 7 numbers, and end with an alpabet in capital letter. It should not be empty.
+* `p/`: Phone numbers should only contain numbers, and it should be at least 3 digits long, and should not be empty.
+* `e/`: Email should be of the format local-part@domain, and should not be empty. "E.g. example@gmail.com"
+* `g/`: Gender should only be "Female", "Male" or "Others", and should not be empty.
+* `r/`: Race should only be "Chinese", "Malay", "Indian" or "Others", and should not be empty.
+* `gr/`: Grade should only contain positive numbers, and must be in exactly 2 decimal place. E.g. "4.64"
+* `s/`: School can take any values, but should not be empty.
+* `m/`: Major should only contain alphanumeric characters and spaces, and should not be empty.
+* `j/`: Jobs Apply must only contain one word. If two or more words, have to be connected by a dash. E.g. "Software-Engineer". It should not be empty. It can take more than 1 value. E.g. "j/Manager j/Sweeper"
+* `is/`: Interview scores field is optional, and must be exactly 5 set of numbers, each seperated by a comma. E.g. "1,2,3,4,5"
+* `kpl/`: Known Programming Language field is optional. It can take any values, and can take more than 1 value. E.g. "kpl/Java kpl/Python"
+* `pj/`: Past jobs field is optional, and past job must only contain one word. If two or more words, have to be connected by a dash. E.g. "Software-Engineer". It can take more than 1 value E.g. "pj/Manager pj/Sweeper"
+****
+
+Examples:
+
+* `add n/John p/91757536 nric/S8761230Q e/john@example.com a/123 Disneyland g/Male r/Malay m/Psychology s/NUS gr/4.33 j/Manager`
+* `add n/Betty p/123 nric/S4444455Y e/betty@bet.com a/321 USS g/Female r/Others m/Life Science s/NTU gr/0.44 j/Helper is/1,2,1,10,5 kpl/Java pj/Chief-Executive-Officer`
+
+
 
 
 == Contributions to the Developer Guide
@@ -52,7 +124,42 @@ include::../UserGuide.adoc[tag=interviews]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=interviews]
+=== Analytics Feature
+==== Current Implementation
+
+The analytics is facilicated by the Analytics class. Analytics data are generated in real time depending on the specific job currently on display in the software by the user. Hence it will not be saved as states in the `versionedAddressBook`. It pulls required person list to generate data from Model, which consists of lists: `displayedFilter`, `activeJobAllApplicants`, `activeJobKiv`, `activeJobInterview`, `activeJobShortist`. An `Analytics` object will be created by Analytics class, storing the various required data generated, and pass it to Logic and UI for display.  
+
+Given below is the sequence diagram for `analytics`:
+
+image::AnalyticsDiagram.png[width="790"]
+
+[[Design-Ui]]
+=== UI component
+
+.Structure of the UI Component
+image::UiComponentClassDiagram.png[width="800"]
+
+*API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
+
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter`, `JobListPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+
+The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
+
+The `UI` component,
+
+* Executes user commands using the `Logic` component.
+* Listens for changes to `Model` data so that the UI can be updated with the modified data.
+
+=== Use case: View Analytics
+
+*MSS*
+
+1. User requests to display various lists of applicants from one of the jobs in all job openings lists
+2. slaveFinder() shows lists of persons for specific job
+3. User requests to view analytics for specific list of persons
+4. slaveFinder() shows analytics results
++
+Use case ends.
 
 
 

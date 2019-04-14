@@ -28,7 +28,7 @@ and be more aware of their spending habits.
 This developer guide specifies the design and implementation of _In-Credit-Ble_. The intended audience of
 this document is the developers, designers and software testers of our application.
 
-Please continue on to the <<Setting Up, [blue]#Setting Up#>> section to get started. You can also read <<AboutUs#, [blue]#AboutUs.adoc#>>
+Please continue on to the <<Setting Up, [underline blue]#Setting Up#>> section to get started. You can also read <<AboutUs#, [blue]#AboutUs.adoc#>>
 and <<ContactUs#, [blue]#ContactUs.adoc#>> for more information on how to contact us!
 
 == Setting Up
@@ -68,7 +68,7 @@ This will generate all resources required by the application and tests.
 === Verifying the setup
 
 . Run `[fuchsia]#seedu.finance.MainApp#` and try a few commands
-. <<Testing,[blue]#Run the tests#>> to ensure they all pass.
+. <<Testing,[underline blue]#Run the tests#>> to ensure they all pass.
 
 === Configurations to do before writing code
 
@@ -91,7 +91,7 @@ After forking the repo, the documentation will still refer to the `[fuchsia]#CS2
 
 If you plan to develop this fork as a separate product (i.e. instead of contributing to `[fuchsia]#In-Credit-Ble#`), you should do the following:
 
-. Configure the <<Docs-SiteWideDocSettings, [blue]#site-wide documentation settings#>> in link:{repoURL}/build.gradle[`[blue]#build.gradle#`], such as the `[fuchsia]#site-name#`, to suit your own project.
+. Configure the <<Docs-SiteWideDocSettings, [underline blue]#site-wide documentation settings#>> in link:{repoURL}/build.gradle[`[blue]#build.gradle#`], such as the `[fuchsia]#site-name#`, to suit your own project.
 
 . Replace the URL in the attribute `[fuchsia]#repoURL#` in link:{repoURL}/docs/DeveloperGuide.adoc[`[blue]#DeveloperGuide.adoc#`] and link:{repoURL}/docs/UserGuide.adoc[`[blue]#UserGuide.adoc#`] with the URL of your fork.
 
@@ -114,8 +114,8 @@ Having both Travis and AppVeyor ensures your App works on both Unix-based platfo
 
 When you are ready to start coding,
 
-1. Get some sense of the overall design by reading [blue]#<<Design-Architecture>>#.
-2. Take a look at [blue]#<<GetStartedProgramming>>#.
+1. Get some sense of the overall design by reading [underline blue]#<<Design-Architecture>>#.
+2. Take a look at [underline blue]#<<GetStartedProgramming>>#.
 
 
 == Design

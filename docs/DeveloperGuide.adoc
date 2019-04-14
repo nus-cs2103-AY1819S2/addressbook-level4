@@ -190,7 +190,9 @@ in the form of `ReadOnlyHealthWorkerBook` and `ReadOnlyRequestBook`.
 [NOTE]
 As a more OOP model, we store a list of `Request` objects in `Request Book`, which stores the details of every request, including the patient's details, request date and status.
 In addition, each `Request` also stores a `Set` of `Conditions` of the patient. +
-image:ModelClassBetterOopDiagram.png[width="800"]
+Similarly for `HealthWorker`, the list of `HealthWorker` is stored in a
+`HealthWorkerBook`, and each `Specialisation` that the `HealthWorker` has is
+stored in a `Set` that is contained in the `Skills` class.
 
 // tag::storage[]
 [[Design-Storage]]

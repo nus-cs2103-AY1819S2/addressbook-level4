@@ -318,19 +318,19 @@ image::RegexSplitter.png[width="400"]
 
 This helps with the arrangement of the `ModuleTree` as shown below: +
 
-.Step 1 The first index `String` is used to create a minor tree
+.Step 1:The first index `String` is used to create a minor tree
 image::prerequisiteStep1.png[width="600"]
 
-.Step 2 Since the previous `String` ended with a "OR" the next `String` is made and added as a child to the predecessor.
+.Step 2:Since the previous `String` ended with a "OR" the next `String` is made and added as a child to the predecessor.
 image::prerequisiteStep2.png[width="600"]
 
-.Step 3 The next `String` is a lone "AND" operator thus it supersedes as the new root node.
+.Step 3:The next `String` is a lone "AND" operator thus it supersedes as the new root node.
 image::prerequisiteStep3.png[width="600"]
 
-.Step 4 The subsequent minor tree is added to the root node.
+.Step 4:The subsequent minor tree is added to the root node.
 image::prerequisiteStep4.png[width="600"]
 
-.Step 5 Finally, since the next operator is same as the current root operator the next minor tree is added as a child.
+.Step 5:Finally, since the next operator is same as the current root operator the next minor tree is added as a child.
 image::prerequisiteStepFinal.png[width="600"]
 
 
@@ -339,10 +339,10 @@ The final part of this entire process is storing all the `ModuleInfo` objects in
 an `ObservableList<>`, this is done so that we can take advantage of the `FilteredList<>` class by filtering the list using
 `Predicates`. +
 
-During initial launch, after each module's information is converted into `ModuleInfo` objects, it will be added to a
+During initial launch, after each module's information is converted into a `ModuleInfo` object, it will be added to a
 `ModuleInfoList` object which contains an `ArrayList<ModuleInfo>`. After all the modules are added into `ModuleInfoList`,
 `ModuleInfoList` will be passed into `ModelManager` and will be converted into an `ObservableList<>` called `allModules`.
- Following that, a `FilteredList<>` object called `displaylist` will constructed from the `allModules` `ObservableList<>`.
+ Following that, a `FilteredList<>` object called `displaylist` will also be constructed from the `allModules` `ObservableList<>`.
 
 image::Observable.png[width="800"]
 

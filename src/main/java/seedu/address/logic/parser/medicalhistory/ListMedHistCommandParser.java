@@ -1,4 +1,4 @@
-package seedu.address.logic.parser.medicalHistory;
+package seedu.address.logic.parser.medicalhistory;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE_OF_MEDHIST;
@@ -7,7 +7,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PATIENT_ID;
 
 import java.util.Optional;
 
-import seedu.address.logic.commands.medicalHistory.ListMedHistCommand;
+import seedu.address.logic.commands.medicalhistory.ListMedHistCommand;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Parser;

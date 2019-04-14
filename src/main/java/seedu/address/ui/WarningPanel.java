@@ -18,17 +18,17 @@ import seedu.address.model.medicine.Medicine;
 public class WarningPanel extends UiPart<Region> {
     private static final String FXML = "WarningPanel.fxml";
     private static final Logger logger = LogsCenter.getLogger(WarningPanel.class);
-    private final WarningPanelPredicateAccessor predicateAccessor;
+    private final WarningPanelPredicateAccessor warningPanelPredicateAccessor;
 
     @FXML
     private VBox warningVBox;
 
     public WarningPanel(ObservableList<Medicine> expiringMedicineList,
                         ObservableList<Medicine> lowQuantityMedicineList,
-                        WarningPanelPredicateAccessor predicateAccessor) {
+                        WarningPanelPredicateAccessor warningPanelPredicateAccessor) {
         super(FXML);
 
-        this.predicateAccessor = predicateAccessor;
+        this.warningPanelPredicateAccessor = warningPanelPredicateAccessor;
         setUpVBox(expiringMedicineList, lowQuantityMedicineList);
 
     }
@@ -42,13 +42,13 @@ public class WarningPanel extends UiPart<Region> {
         expiringListTitle.getStyleClass().add("label-warning-panel");
         warningVBox.getChildren().addAll(expiringListTitle,
                 new WarningListView(expiringMedicineList,
-                WarningPanelPredicateType.EXPIRY, predicateAccessor).getRoot());
+                WarningPanelPredicateType.EXPIRY, warningPanelPredicateAccessor).getRoot());
 
         Label lowQuantityListTitle = new Label(String.format("%-40s", "Low in Stock")); //right-pad title
         lowQuantityListTitle.getStyleClass().add("label-warning-panel");
         warningVBox.getChildren().addAll(lowQuantityListTitle,
                 new WarningListView(lowStockMedicineList,
-                WarningPanelPredicateType.LOW_STOCK, predicateAccessor).getRoot());
+                WarningPanelPredicateType.LOW_STOCK, warningPanelPredicateAccessor).getRoot());
 
     }
 

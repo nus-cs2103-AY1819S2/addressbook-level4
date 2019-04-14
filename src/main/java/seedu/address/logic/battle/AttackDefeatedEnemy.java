@@ -13,10 +13,10 @@ public class AttackDefeatedEnemy extends AttackResult {
         super(attacker, target, cell);
         this.destroyedShipName = destroyedShipName;
 
-        succeeds = true;
-        hitsShip = true;
-        destroysShip = true;
-        winsGame = true;
+        succeeds(true);
+        hitsShip(true);
+        destroysShip(true);
+        winsGame(true);
     }
 
     @Override

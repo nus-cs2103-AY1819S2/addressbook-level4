@@ -8,33 +8,37 @@ import seedu.address.model.player.Player;
 
 /**
  * API of the Battle component
- *
+ * <br>
  * The Battle component manages the battle between a human player and an enemy player.
  */
 public interface Battle {
     /**
-     * Begins the game and gives all players a Map View.
+     * Begins the battle.
      */
-    public void beginGame();
+    void beginGame();
 
     /**
-     * Handles the human player attacking another player.
+     * Handles the human player attacking the computer enemy.
+     * @param coord The coordinate that the human attacks
      * @return Result of the player attack.
      */
-    public AttackResult humanPerformAttack(Coordinates coord);
+    AttackResult humanPerformAttack(Coordinates coord);
 
     /**
-     * Ends the player turn and causes the AI to make its attack.
+     * Causes the AI to make its attack(s).
+     * @return a list of the results of the computer's attacks, in order
      */
-    public List<AttackResult> takeComputerTurns();
+    List<AttackResult> takeComputerTurns();
 
     /**
      * Returns the human player.
+     * @return the human player
      */
     Player getHumanPlayer();
 
     /**
-     * Returns the computer player.
+     * Returns the computer enemy player.
+     * @return the enemy player
      */
     Enemy getEnemyPlayer();
 }

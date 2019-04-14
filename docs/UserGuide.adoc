@@ -133,7 +133,6 @@ image::CheckLimitDisplay.png[width="1000"]
 
 ****
 * This command also analyzes and prints workload information.
-* This command is undoable
 ****
 
 === Check workload limits: `cklimit`
@@ -193,11 +192,11 @@ Sets the current semester to the second semester of year 3.
 
 * `cursem GRAD` +
 Sets the current semester to the graduated semester.
-// end::SetCurrentSemester[]
 
 ****
 * This command is undoable and redoable
 ****
+// end::SetCurrentSemester[]
 
 === Delete module: `delete`
 
@@ -482,15 +481,15 @@ Some students have a desired CAP for graduation. They may like to plan their mod
 GradTrak can keep track of their CAP limit preferences so that it is possible to help them detect whether their current module plan fulfils their preferences.
 
 [NOTE]
-The `cklimit` command allows the user to check their limit preferences agains their current module plan.
+The `cklimit` command allows the user to check their limit preferences against their current module plan.
 
 The `setlimit` command allows you to set the minimum and maximum preferred CAP for a semester. +
 Format: `setlimit SEMESTER [mincap/MIN_CAP] [maxcap/MAX_CAP]`
 
 ****
 * Parameters can be in any order, but the semester must be entered first.
+* The given semester must be a valid semester from year 1 to 5, in either the first or second semester.
 * At least one field to be edited must be given.
-* Given semester must be a valid semester from year 1 to 5, in either the first or second semester.
 * Newly edited limits must be not be out of order. Minimum CAP must not be more than maximum CAP
 ****
 
@@ -515,8 +514,8 @@ Format: `setlimit SEMESTER [minlec/MIN_LECTURE_HOURS] [maxlec/MAX_LECTURE_HOURS]
 
 ****
 * Parameters can be in any order, but the semester must be entered first.
+* The given semester must be a valid semester from year 1 to 5, in either the first or second semester.
 * At least one field to be edited must be given.
-* Semester set must be a valid semester from year 1 to 5, in either the first or second semester.
 * Newly edited limits must be not be out of order such that the following requirements are met:
 ** Minimum lecture hours must not be more than the maximum lecture hours
 ** Minimum tutorial hours must not be more than the maximum tutorial hours

@@ -276,7 +276,7 @@ Format: `clear`
 === Pinning a contact : `pin`
 
 Pins a contact. +
-Limited to a maximum of 5 contacts, these contacts will always be showing in a pinned list at the top of the side panel. +
+Limited to a maximum of 5 contacts, these contacts will always be showing in a pin list at the top of the side panel. +
 Format: `pin INDEX`
 
 ****
@@ -316,7 +316,28 @@ Format: `unpin INDEX`
 Example:
 
 * `unpin 1` +
-Unpins the 1st contact in the pinned list.
+Unpins the 1st contact in the pin list.
+
+=== Selecting a pinned contact : `pinselect`
+
+Select a pinned contact identified by the index number used in the displayed pin list.
+Format: `pinselect INDEX`
+
+****
+* Selects the contact at the specified `INDEX` and displays all the contact and property information, as well as the address location of the associated property on the Google Maps(TM) window panel.
+* The index refers to the index number shown in the displayed pin list.
+* The index *must be a positive integer no greater than `5` and the number of contacts in the pin list, whichever is bigger.
+****
+
+[NOTE]
+====
+Go to <<GoogleMaps>> for more details of the Google Maps(TM) display.
+====
+
+Examples:
+
+* `pinselect 2` +
+Selects the 2nd contact in the pin book.
 // end::pinunpinfeatures[]
 
 // tag::archivefeatures[]

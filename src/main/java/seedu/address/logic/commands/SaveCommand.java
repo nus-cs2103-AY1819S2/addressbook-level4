@@ -34,7 +34,7 @@ public class SaveCommand extends Command {
     public CommandResult execute(CurrentEdit currentEdit, Model model, CommandHistory history) throws CommandException {
         requireNonNull(currentEdit);
 
-        if (currentEdit.tempImageExist()) {
+        if (currentEdit.tempImageDoNotExist()) {
             throw new CommandException(MESSAGE_UNABLE_TO_SAVE);
         }
 

@@ -52,7 +52,7 @@ public interface CurrentEdit {
 
     void clearTemp();
 
-    boolean tempImageExist();
+    boolean tempImageDoNotExist();
 
     void updateHistory();
 

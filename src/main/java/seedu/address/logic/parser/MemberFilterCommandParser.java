@@ -2,9 +2,10 @@ package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
+import java.util.Arrays;
+
 import seedu.address.logic.commands.MemberFilterCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-
 
 /**
  * Parses input arguments and creates a new MemberFilterCommand object
@@ -26,13 +27,13 @@ public class MemberFilterCommandParser implements Parser<MemberFilterCommand> {
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, MemberFilterCommand.MESSAGE_USAGE));
         }
 
-        String[] input = trimmedArgs.split("\\s+");
+        String[] input = trimmedArgs.split(" ");
         if (input.length < 2 || !isCriteriaValid(input[0])) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, MemberFilterCommand.MESSAGE_USAGE));
         }
-
-        return new MemberFilterCommand(new FilterCriteriaContainsKeywordPredicate(trimmedArgs));
+        String[] criteriaAndKeyword = combineKeywords(input);
+        return new MemberFilterCommand(criteriaAndKeyword);
 
     }
 
@@ -46,5 +47,17 @@ public class MemberFilterCommandParser implements Parser<MemberFilterCommand> {
             }
         }
         return false;
+    }
+
+    /**
+     *  Concatenate keywords from the input.
+     */
+    private String[] combineKeywords(String[] input) {
+        String[] keywordsArray = Arrays.copyOfRange(input, 1, input.length);
+        String keywords = String.join(" ", keywordsArray);
+        String[] criteriaAndKeyword = new String[2];
+        criteriaAndKeyword[0] = input[0]; //store criteria
+        criteriaAndKeyword[1] = keywords; //store keywords
+        return criteriaAndKeyword;
     }
 }

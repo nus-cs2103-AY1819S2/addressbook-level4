@@ -10,16 +10,15 @@ import seedu.address.commons.util.StringUtil;
  */
 
 public class YearOfStudyContainsKeywordsPredicate implements Predicate<Person> {
-    private final List<String> keywords;
+    private final String keywords;
 
-    public YearOfStudyContainsKeywordsPredicate(List<String> keywords) {
+    public YearOfStudyContainsKeywordsPredicate(String keywords) {
         this.keywords = keywords;
     }
 
     @Override
     public boolean test(Person person) {
-        return keywords.stream()
-                .allMatch(keyword -> StringUtil.equalsWordIgnoreCase(person.getYearOfStudy().value, keyword));
+        return keywords.equalsIgnoreCase(person.getYearOfStudy().value);
     }
 
     @Override

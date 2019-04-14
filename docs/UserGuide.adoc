@@ -882,8 +882,8 @@ image::setprice_after.png[width='600']
 Using external APIs, the users could view more detailed information about any medicine.
 
 '''
-=== Appointment and Reminders
-The appointment and reminder modules give you more control over your busy schedule, featuring commands such as adding, removing,
+=== Appointments and Reminders
+The Appointment and Reminder module give you more control over your busy schedule, featuring commands such as adding, removing,
 and searching appointments and reminders. There is also a command to list out all free appointment timings to help you choose
 your appointment timings more wisely.
 
@@ -892,17 +892,17 @@ You will never forget about any appointments or tasks again! +
 '''
 [[addapp]]
 ==== Adding appointments: `addapp`
-After a consultation session, you may want to schedule a follow-up appointment with your patient. You can use `addapp`
-to create an appointment with an existing patient in QuickDocs to add to your schedule.
+After a consultation session, you may want to schedule a follow-up appointment with your patient. You can do so
+with `addapp` to create an appointment with an existing patient in QuickDocs to add to your schedule.
 
 [TIP]
 The `<<freeapp, freeapp>>` command may be useful for you to first list out all free appointment timings for a given range of dates
-before choosing an appropriate appointment timing.
+before choosing an appropriate appointment timing!
 
 [NOTE]
-To ensure that you do not forget about about any future appointments, QuickDocs will automatically create a reminder for
+To ensure that you do not forget about any future appointments, QuickDocs will automatically create a reminder for
 the added appointment. You may not notice this reminder as it will only appear on your reminder sidebar closer to the date
-of the actual appointment (on the week of the appointment date)!
+of the actual appointment (on the week of the appointment date).
 
 {sp} +
 *Format:* `addapp r/NRIC d/DATE s/START e/END c/COMMENT` +
@@ -910,8 +910,8 @@ of the actual appointment (on the week of the appointment date)!
 *Alias{nbsp}{nbsp}{nbsp}{nbsp}:* `aa` +
 
 [NOTE]
-The format for a valid date is strictly YYYY-MM-DD (including the dashes) and a valid time is strictly HH:MM (including the colon).
-If unsure, you can refer to the example below.
+The format for a valid date is strictly `YYYY-MM-DD` (including the dashes) and a valid time is strictly `HH:MM` (including the colon).
+If unsure, you may refer to the example below.
 
 {sp} +
 *Example and results:*
@@ -952,7 +952,7 @@ you want to see either by specifying a `FORMAT` and a `DATE`, or by specifying a
 
 {sp} +
 *Format:* `listapp f/FORMAT d/DATE` +
-or{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp} *:* `listapp r/NRIC` +
+or{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp} *:* `listapp r/NRIC` +
 *Alias{nbsp}{nbsp}{nbsp}{nbsp}:* `la` +
 
 [NOTE]
@@ -999,11 +999,11 @@ image::ug-app_rem/listapp_week.png[width="600"]
 ==== Deleting appointments: `deleteapp`
 If the patient would like to change the appointment date, or if there is a mistake in the appointment details, you can
 delete the existing scheduled appointment with `deleteapp` and then create a new appointment.
-Deletion of an appointment is final!
+*Deletion of an appointment is final!*
 
 [NOTE]
 QuickDocs will automatically delete the corresponding reminder created for the deleted appointment, if it still exists,
-so you don't have to worry about any discrepancies with your sidebar!
+so you don't have to worry about any discrepancies with your reminder sidebar!
 
 {sp} +
 *Format:* `deleteapp d/DATE s/START` +
@@ -1077,7 +1077,8 @@ Lists all free appointment slots in the month of the given date, July 2019. +
 
 *Result:* +
 
-The free appointment slots will be ordered by time and listed on the main display of QuickDocs, as demonstrated in the diagram below:
+The free appointment slots will be ordered by date and time and will be listed on the main display of QuickDocs,
+as demonstrated in the diagram below:
 
 .Listing free appointment slots on the week of 23rd July 2019.
 image::ug-app_rem/freeapp_week.png[width="600"]
@@ -1133,7 +1134,7 @@ with your mouse and all its details will be displayed as well!
 
 {sp} +
 *Format:* `listrem f/FORMAT d/DATE` +
-or{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp} *:* `listrem i/INDEX` +
+or{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp} *:* `listrem i/INDEX` +
 *Alias{nbsp}{nbsp}{nbsp}{nbsp}:* `lr` +
 
 {sp} +
@@ -1160,7 +1161,8 @@ Monday and ends on a Sunday. +
 Lists all reminders in the month of the given date, July 2019. +
 {sp} +
 
-The filtered reminders will be ordered by time and listed on the main display of QuickDocs, as demonstrated in the diagram below:
+The filtered reminders will be ordered by date and time and will be listed on the reminder sidebar,
+as demonstrated in the diagram below:
 
 .Listing reminders scheduled on the week of 31st July 2019.
 image::ug-app_rem/listrem_week.png[width="600"]
@@ -1170,7 +1172,7 @@ image::ug-app_rem/listrem_week.png[width="600"]
 * `listrem i/3` +
 
 In the screenshot above, the details of the third reminder is not fully displayed!
-Use this command to display, on the main display, the details of the third reminder listed on the sidebar as
+Use the above command to display, on the main display, the details of the third reminder listed on the sidebar as
 demonstrated in the diagram below:
 
 .Displaying details of the third reminder.
@@ -1182,12 +1184,16 @@ image::ug-app_rem/listrem_single.png[width="600"]
 ==== Deleting reminders: `deleterem`
 If you would like to clear out your reminder sidebar after a task is completed, you can do so using the `deleterem` command.
 Each reminder on the sidebar are identified with an `INDEX`, which you can use to specify the reminder to be deleted.
-Deletion of a reminder is final!
+*Deletion of a reminder is final!*
 
 {sp} +
 *Format:* `deleterem INDEX` +
 
 *Alias{nbsp}{nbsp}{nbsp}{nbsp}:* `dr` +
+
+[NOTE]
+We do not need to include the `INDEX` prefix, `i/`, as opposed to the `<<listrem, listrem>>` command. This is
+because `deleterem` only accepts one parameter, `INDEX`, while `<<listem, listrem>>` can accept more than one.
 
 {sp} +
 *Example and results:*

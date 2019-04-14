@@ -365,17 +365,66 @@ Upon every subtraction or addition of medicine quantity in the inventory, the `M
 
 [[Design-Storage]]
 === Storage component
+The `Storage` component of QuickDocs allows data to be saved and read from a json file.
 
+==== Structure of the Storage Component
 .Structure of the Storage Component
 image::StorageClassDiagram.png[width="800"]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
+*API* : link:{repoURL}/src/main/java/quickdocs/storage/Storage.java[`Storage.java`]
 
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
 * can save all the QuickDocs data in json format into a single json file and read it back
 ** this json file contains 8 different lists, with each list consisting of only one of the 8 main `JsonAdapted` Class objects.
+
+==== When does QuickDocs read your data?
+All data are stored in a json file, with a default filepath `data/quickdocs.json`. This filepath can be
+customised in the `preferences.json` file.
+
+When QuickDocs is launched, all information in the `quickdocs.json` file will be read. As mentioned in the previous
+section, the json file contains 8 different lists, and each list will have their information converted to their
+corresponding model types by their respective `toModelType()` methods of the 8 different `JsonAdapted` classes.
+
+These converted objects will then be added into their respective class managers.
+As mentioned in the <<Design-Model, Model Component>> section, the `QuickDocs` class is responsible for storing
+all these data as it holds all the different class managers.
+
+Note that there are only 6 managers but there are 8 `JsonAdapted` classes. This is because converted
+`JsonAdaptedStatistics` and `JsonAdaptedMonthStatistics` objects are both stored in the `StatisticsManager`.
+Similarly, both `JsonAdaptedMedicine` and `JsonAdaptedDirectory` objects are stored in `MedicineManager`.
+
+===== Starting QuickDocs with no data
+If the `quickdocs.json` is not found, or contains any errors such that any information cannot be converted to its
+corresponding model type, QuickDocs will be launched in a clean slate. If it is the case that the json file
+is erroneous, it will not be deleted, however it will be overwritten if any saving occurs during the current session.
+
+==== When does QuickDocs save your data?
+QuickDocs saves data whenever there is modification of any information in the current session.
+
+Note that the user mainly interacts with QuickDocs by executing commands, and only some user commands will modify
+its data. For example, commands such as `listmed`, to list medicines, or `listapp`, to list appointments,
+will not affect the data. However, commands such as `editpat`, to edit a patient's particulars, or `addapp`, to add
+an appointment, will change the information stored in QuickDocs.
+
+Hence, only methods that modifies data will indicate to the `QuickDocs` class that a modification occurred. All methods
+that interact with the various class managers are contained in the `ModelManager` class, which holds a reference to
+the main `QuickDocs` object and references to all class managers. The following are the steps taken when one of
+these methods, in this case `Model#addApp()`, is called, which leads to data being saved:
+
+. `Model#addApp()` adds the provided `Appointment` into `AppointmentManager`.
+. `Model#addApp()` then calls `QuickDocs#indicateModification()`, providing the `boolean true` argument. This
+indicates that a change in data has occurred, which did happened since a new `Appointment` object had been added.
+. `LogicManager#execute()` checks if any modification occurred, through the `QuickDocs#isModified()` method, which
+in this case returns `true`.
+. `LogicManager#execute()` then saves the new modified QuickDocs data by calling `Storage#saveQuickDocs()`, providing
+it with the `QuickDocs` object. The new modified data will now overwrite all data stored in the `quickdocs.json` file.
+
+===== Design considerations
+We chose this implementation to ensure that no data will be lost due to any unforeseen circumstances. For example,
+if QuickDocs is closed unexpectedly, no data will be lost as any change in information has already been saved when
+that modification occurred.
 
 [[Design-Commons]]
 === Common classes
@@ -772,19 +821,19 @@ to be listed.
 In this case, the user only provides the NRIC of a patient together with the `listapp` command. The following steps
 will then be taken:
 
-. The `ListAppCommandParser` class parses the user input into an `NRIC` object, to create a `ListAppCommand` object with this
+. The `ListAppCommandParser` class parses the user input into an `NRIC` object, creating a `ListAppCommand` object with this
 `NRIC` field.
 . `ListAppCommand` executes:
 * Firstly, it retrieves the patient with the provided `NRIC`, if exists, by calling `Model#getPatientByNric()`.
 * `Model#listApp()` will then be called, providing it with the patient retrieved.
-. `Model#listApp()` then calls `AppointmentManager#listAppointments()`, providing it with the patient, which will return
+. `Model#listApp()` then calls `AppointmentManager#listAppointments()`, providing it with the patient, which returns
 a `String` of all the given patient's appointment information.
 
 [NOTE]
 `Model#listApp()` and `AppointmentManager#listAppointments()` are overloaded methods, having different method
 signatures based on their parameters. One implementation takes in two `LocalDate` parameters, `start` and `end`, while
 the other implementation takes in a single `Patient` object. This allows the same method name to be called, and list
-appointments by either providing a range of dates or a valid patient.
+appointments by either providing a range of dates or a valid patient respectively.
 
 [[deleteapp]]
 ==== Deleting appointments
@@ -808,8 +857,8 @@ in `AppointmentManager`.
 Before deciding on an appointment timing, the user can execute the `freeapp` command to list out all the timings available for
 a new appointment booking.
 
-===== Command format
-The `freeapp` command takes in two parameters: +
+===== Command format: `freeapp f/FORMAT d/DATE`
+We can see that the `freeapp` command takes in two parameters: +
 
 . `FORMAT`: can be `day`, `week`, or `month` +
 . `DATE`: a valid date
@@ -823,7 +872,7 @@ constructs a `FreeAppCommand` object with the `start` and `end` fields.
 
 [NOTE]
 If the user does not specify a `FORMAT` and `DATE`, `FORMAT` will default to `month` and `DATE` will default to the
-current date, meaning that the current month's free appointment slots will be displayed.
+next month's date, meaning that free appointment slots for the whole of the following month will be displayed.
 
 ===== Current Implementation
 The search is facilitated by the `AppointmentManager` class which stores all created `Appointments` in an `ArrayList`.
@@ -833,8 +882,8 @@ The search is facilitated by the `AppointmentManager` class which stores all cre
 Given below are the steps taken when `listFreeSlots()` is called.
 
 Step 1. The method `listFreeSlots()` takes in the two arguments, `start` and `end`, which have been mentioned previously.
-Firstly, `listFreeSlots()` calls `getFreeSlots()`, providing it with the same two arguments, to retrieve the
-free slots before it can parse them into a `String`.
+Firstly, `listFreeSlots()` calls `getFreeSlots()`, providing it with the same two arguments, to retrieve a `List` of
+free `Slots` before it can parse them into a `String`.
 
 .Given search range from start to end date
 image::dg-appointment/freeapp1.png[width="800"]
@@ -853,7 +902,6 @@ These appointments are sorted by date and time, with the earliest appointment on
 .Selected appointments on start date
 image::dg-appointment/freeapp3.png[width="800"]
 
-{sp} +
 [NOTE]
 Since the appointments are already sorted, we do not need to search through the whole appointment list to
 find appointments present on the `start` date. We can simply go through the list from the beginning
@@ -873,7 +921,6 @@ In this `freeapp` context, these slots created represents a time period without 
 .Slots created to fill in empty time slots
 image::dg-appointment/freeapp4.png[width="800"]
 
-{sp} +
 [NOTE]
 Slots will only be created for timings during office hours (09:00 to 18:00). This is to prevent any possible
 inconvenience caused if the user accidentally decides on a timing outside of office hours.
@@ -914,7 +961,7 @@ month, they do not have to check what the last date of the month is in order to 
 ===== Alternatives Considered
 Listed below are the methods considered to implement the `freeapp` command.
 
-[cols="1,2a,1, 1", options="header"]
+[cols="1,2,2,3", options="header"]
 |===
 |Alternative |Description |Pros | Cons
 // row 1
@@ -931,9 +978,9 @@ this list will still have to be created from scratch, defeating the purpose of m
 // row 2
 |*Generate free slots only when required*
 
-*(Chosen implementation)*
+(Chosen implementation)
 |We will only generate a list of free slots when the `freeapp` command is called. This list will be a one-time use
-only and will not be stored in QuickDocs Storage.
+only and will not be stored in QuickDocs storage.
 |The user is given the flexibility to specify the range of dates to list the free slots, as this list is generated
 on the spot, and is not limited to the dates of a pre-determined list.
 |Since the generated list of free slots is not stored, extra work will be done in generating the same free slots
@@ -964,7 +1011,6 @@ will be displayed on the reminder side bar, and are colour coded as such:
 * [red]#Red#: Reminder to stock up on a medicine
 * [yellow]#Beige#: Any other personal reminders
 
-
 Listed below are the commands that the reminder module features:
 
 . Adding a reminder, `addrem`
@@ -991,7 +1037,7 @@ Only the `title`, `date` and `start` attributes are compulsory fields for a remi
 The user can take note of a task to do by creating a reminder using the `addrem` command. As mentioned in the
 <<rem, Reminders>> section, only the `title`, `date` and `start` attributes are compulsory fields and must be
 specified together with the `addrem` command. Fields `end` and `comment` are optional. Below are the steps taken
-after the user executes the command.
+after the user executes the `addrem` command.
 
 . The `AddRemCommandParser` class parses the user input into 3 to 5 `Reminder` fields.
 . The `Reminder` object is constructed by the parser with the given fields.
@@ -1013,11 +1059,11 @@ Some reminders will be created and added automatically.
 
 . Appointment reminders
 * When an appointment is added, a reminder for this appointment will be generated automatically.
-More information can be found in the <<addapp, Adding an appointment>> section.
+More information can be found in the <<addapp, adding an appointment>> section.
 . Low medicine alarm reminders
 * The user is able to set a threshold for each medicine in the inventory by using the `alarm` command. When the quantity
 of a medicine drops below its threshold, a reminder will be created to alert the user of the low medicine quantity. More
-information can be found in the <<med, Medicine implementation>> section.
+information can be found in the <<med, medicine implementation>> section.
 
 [[listrem]]
 ==== Listing reminders

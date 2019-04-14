@@ -19,9 +19,6 @@ public class AttackFailed extends AttackResult {
         winsGame = false;
     }
 
-    /**
-     * Returns a String representation of the attack result.
-     */
     @Override
     public String resultString() {
         return String.format("failed: %s", reason);

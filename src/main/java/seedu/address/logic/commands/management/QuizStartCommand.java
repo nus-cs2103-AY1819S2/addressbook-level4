@@ -47,7 +47,6 @@ public class QuizStartCommand extends QuizCommand {
     public static final String MESSAGE_COUNT = "Not enough cards in current lesson.\nSet the count to the maximum"
             + " number for you by default.";
     private Session session;
-    private QuizModel quizModel;
 
     /**
      * Constructs a {@link QuizCommand} to start the specified {@link Quiz}
@@ -69,7 +68,7 @@ public class QuizStartCommand extends QuizCommand {
      * @return messages to show whether the quiz starts correctly.
      */
     public CommandResult executeActual(Model model, CommandHistory history) throws CommandException {
-        this.quizModel = requireQuizModel(model);
+        QuizModel quizModel = requireQuizModel(model);
 
         StringBuilder sb = new StringBuilder();
         if (session.getCount() > session.getSrsCards().size()) {

@@ -146,12 +146,15 @@ The `Model` component consists of two components:
 *  `Album` which stores the pool of images that has been imported into the App.
 *  `CurrentEdit` which holds the image that the App is currently editing in-memory.
 
+// end::Architecture[]
+
 For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
 
 .Class Diagram of the Logic Component
 image::LogicClassDiagram.png[width="800"]
 
 [discrete]
+// tag::ArchiInteraction[]
 ==== How the architecture components interact with each other
 
 The _Sequence Diagrams_ below show how the components interact with each other for the scenarios where the user issues the commands `import C:\Users\XXX\Desktop\Pictures` and `rotate 90`.
@@ -163,7 +166,7 @@ image::SDforImportcommand.png[width="800"]
 image::SDforRotatecommand.png[width="800"]
 
 The sections below give more details of each component.
-// end::Architecture[]
+// end::ArchiInteraction[]
 
 [[Design-Ui]]
 // tag::uione[]

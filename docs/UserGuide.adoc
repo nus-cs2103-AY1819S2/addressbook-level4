@@ -111,9 +111,8 @@ image::brightnessSuccess.PNG[width="917"]
 image::cropSuccess.PNG[width="918"]
 +
 
-// end::AWalkThrough[]
-
 .  Save your edits by typing command: `save`.
+// end::AWalkThrough[]
 
 [[Features]]
 == Features

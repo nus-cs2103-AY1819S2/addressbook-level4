@@ -11,10 +11,8 @@ import java.util.ArrayList;
 import java.util.Optional;
 import java.util.function.Predicate;
 
-import seedu.address.commons.core.Messages;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.comparators.SortRating;
-import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.restaurant.Restaurant;
 

@@ -9,22 +9,15 @@ import javafx.beans.property.ReadOnlyProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.scene.layout.Region;
 import seedu.address.logic.DeckShuffler;
-import seedu.address.logic.commands.BackCommand;
-import seedu.address.logic.commands.Command;
-import seedu.address.logic.commands.ExitCommand;
-import seedu.address.logic.commands.HelpCommand;
-import seedu.address.logic.commands.HistoryCommand;
-import seedu.address.logic.commands.OpenDeckCommand;
-import seedu.address.logic.commands.ShowAnswerCommand;
-import seedu.address.logic.parser.GenerateQuestionCommandParser;
-import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.logic.parser.StudyViewParser;
+import seedu.address.logic.parser.ViewStateParser;
 import seedu.address.model.deck.Card;
 import seedu.address.model.deck.Deck;
 import seedu.address.ui.StudyPanel;
 import seedu.address.ui.UiPart;
 
 /**
- * ViewState of the Application during a Study session.
+ * ViewState of TopDeck during a study session.
  */
 public class StudyView implements ViewState {
     public final List<Card> listOfCards;
@@ -47,28 +40,6 @@ public class StudyView implements ViewState {
         // TODO
         activeDeck = null;
         listOfCards = null;
-    }
-
-    @Override
-    public Command parse(String commandWord, String arguments) throws ParseException {
-        switch (commandWord) {
-            case OpenDeckCommand.COMMAND_WORD:
-                return new OpenDeckCommand(activeDeck);
-            case BackCommand.COMMAND_WORD:
-                return new BackCommand();
-            case ExitCommand.COMMAND_WORD:
-                return new ExitCommand();
-            case HelpCommand.COMMAND_WORD:
-                return new HelpCommand();
-            case HistoryCommand.COMMAND_WORD:
-                return new HistoryCommand();
-            default:
-                if (getCurrentStudyState() == StudyState.QUESTION) {
-                    return new ShowAnswerCommand(commandWord + arguments);
-                } else {
-                    return new GenerateQuestionCommandParser(this).parse(commandWord);
-                }
-        }
     }
 
     public Deck getActiveDeck() {
@@ -147,6 +118,12 @@ public class StudyView implements ViewState {
         getCurrentCard().addDifficulty(rating);
     }
 
+    @Override
+    public ViewStateParser getViewStateParser() {
+        return new StudyViewParser(this);
+    }
+
+    @Override
     public UiPart<Region> getPanel() {
         return new StudyPanel(textShown, currentStudyState, userAnswer);
     }

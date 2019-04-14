@@ -9,9 +9,7 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
-import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.Model;
 
 /**
  * Parses user input.
@@ -28,10 +26,11 @@ public class TopDeckParser {
      * Parses user input into command for execution.
      *
      * @param userInput full user input string
+     * @param viewStateParser the state-specific parser
      * @return the command based on the user input
      * @throws ParseException if the user input does not conform the expected format
      */
-    public Command parseCommand(String userInput, Model model) throws ParseException {
+    public Command parseCommand(String userInput, ViewStateParser viewStateParser) throws ParseException {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches() && !userInput.equals("")) {
             throw new ParseException(
@@ -44,11 +43,9 @@ public class TopDeckParser {
             arguments = matcher.group("arguments");
         }
         try {
-            return model.parse(commandWord, arguments);
+            return viewStateParser.parse(commandWord, arguments);
         } catch (ParseException e) {
             switch (commandWord) {
-                case ListCommand.COMMAND_WORD:
-                    return new ListCommand(model.getViewState());
                 case HistoryCommand.COMMAND_WORD:
                     return new HistoryCommand();
                 case ExitCommand.COMMAND_WORD:

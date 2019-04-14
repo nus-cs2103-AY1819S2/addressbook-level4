@@ -197,7 +197,7 @@ image such as metadata information like *Date and Time* and *Copyright informati
 . Command History
 - Display all *Image Transformation* and *Image Filters* applied to the currently opened image.
 
-The `UI` component is supported by a `Notifier` class. The class implements Java's `propertyChangeListener` as means of drawing updates to the User Interface.
+The `UI` component is supplemented by a `Notifier` class. The class implements Java's `propertyChangeListener` as means of drawing updates to the User Interface.
 
 For example, the `ImageView` component draws updates to an opened image in the following sequence:
 
@@ -207,8 +207,7 @@ For example, the `ImageView` component draws updates to an opened image in the f
 . `ImageView` checks if the Property Name is pertaining to it and redraws the image shown by accessing `Album`.
 
 [NOTE]
-The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` directory. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`InitPanel`] is specified in link:{repoURL}/src/main/resources/view/InitPanel.fxml[`InitPanel.fxml`]
-
+The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` directory.
 // end::ui[]
 
 [[Design-Logic]]
@@ -369,7 +368,6 @@ Image file must adhere to a subset of the following formats as describe by its M
 
 [NOTE]
 Images with `.tif` or `.tiff` formats are not rendered on screen due to a limitation with JavaFX but edits made will still be applied.
-Support for additional formats will be available past V2.0.
 
 Images must also adhere to the following additional requirements:
 
@@ -380,7 +378,7 @@ Images must also adhere to the following additional requirements:
 [NOTE]
 Implementation of these checks can be found in `ImportCommandParser`.
 
-Images found in the given arguments will be copied to an `assets` directory created at runtime in FomoFoto's home directory. Details of this directory can be found here. This is facilitated by the `Album` class and `ImportCommandParser` and contains the follow operation:
+Images found in the given arguments will be copied to an `assets` directory created at runtime in FomoFoto's home directory. This is facilitated by the `Album` class and `ImportCommandParser` and contains the follow operation:
 
  * `Album#refreshAlbum()` - Fires a property change to all registered listeners. Listeners addressing this particular property will trigger and update accordingly.
  * `ImportCommandParser#parse(String)` - Takes in an absolute path, perform sanity checks on availability, size, format and copies the image to `assets` directory.

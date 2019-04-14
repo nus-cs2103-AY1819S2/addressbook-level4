@@ -28,7 +28,6 @@ public class DeleteCommandSystemTest extends FinanceTrackerSystemTest {
     public void delete() {
 
         /* ----------------- Performing delete operation while an unfiltered list is being shown -------------------- */
-        
 
         /* Case: delete the first record in the list, command with leading spaces and trailing spaces -> deleted */
 

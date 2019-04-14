@@ -14,7 +14,7 @@ public class AssessmentTest {
     }
 
     @Test
-    public void invalidSymptoms() {
+    public void constructor_invalidSymptoms_throwIllegalArgumentException() {
         Assert.assertThrows(IllegalArgumentException.class, ()->new Assessment(""));
         Assert.assertThrows(IllegalArgumentException.class, ()->new Assessment(" "));
         Assert.assertThrows(IllegalArgumentException.class, ()->new Assessment(",&/*"));
@@ -23,6 +23,7 @@ public class AssessmentTest {
 
     @Test
     public void equals() {
+
         Assessment assessment1 = new Assessment("Influenza");
         assertTrue(assessment1.equals(assessment1));
 
@@ -31,6 +32,8 @@ public class AssessmentTest {
 
         Assessment assessment3 = new Assessment("Diarrhea");
         assertFalse(assessment1.equals(assessment3));
+
+        assertFalse(assessment1.equals("abc"));
     }
 
 }

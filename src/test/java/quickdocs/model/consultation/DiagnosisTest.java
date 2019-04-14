@@ -8,7 +8,7 @@ import org.junit.Test;
 public class DiagnosisTest {
 
     @Test
-    public void diagnosisCreation() {
+    public void constructor_validDiagnosis_success() {
 
         Assessment testAssessment = new Assessment("Test");
         ArrayList <Symptom> testSymptoms = new ArrayList<>();

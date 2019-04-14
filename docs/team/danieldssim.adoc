@@ -26,14 +26,13 @@ slaveFinder() is a desktop address book application used for people in the HR de
 * *Other contributions*:
 
 ** Project management:
-*** Managed release `v1.3` on GitHub
-** Enhancements to existing features:
+*** Managed Issue Tracker by linking pull requests to issues
+*** Set-Up milestones 1.1 and 1.2
+** Enhancements to existing features: 
 ** Documentation:
-*** Updated Model Component image of slaveFinder()
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com/CS2103-AY1819S2-W15-3/main/pull/44[#44]
 ** Tools:
-*** Integrated TravisCI, Appveyor, Codacy, and Coveralls to team repo
+
 
 
 == Contributions to the User Guide

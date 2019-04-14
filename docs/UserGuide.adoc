@@ -803,18 +803,50 @@ image::reminder_command.png[]
 
 === Getting health condition statistics: `statistics`
 
-It is imperative for you to know which health conditions have been seeing an increasing trend, as well as take note of
-those which have been experiencing a decline. The `statistics` command allows you to view all health conditions that
-have been registered on HealthHub, and also their respective numbers of occurrences.
+We understand that it is imperative for you to know which health conditions have been seeing an increasing trend, as
+well as take note of those which have been experiencing a decline. The `statistics` command allows you to view all
+health conditions that have been registered on HealthHub, and also their respective numbers of occurrences.
 
-Format: `statistics`
+Format: `statistics` -> this command displays a list of all health conditions that you have typed into HealthHub, and
+shows each health condition’s related number of occurrences.
 
-The following image is what you will see when you type in the statistics command.
+[NOTE]
+====
+statistics will only show any useful information related to frequency of health conditions after you have added at least
+1 request for homecare on HealthHub. If there are no homecare requests made, the statistics panel will display the
+following:
+====
 
-image::statistics_command.png[]
+image::empty_statistics.png[]
+
+Example of usage:
+
+Let’s say that no commands have been issued yet and HealthHub is on a clean slate with no prior records of requests.
+Suppose as an administrative staff, you input the following commands as your first 2 requests for homecare into
+HealthHub:
+
+`add request n/John Doe i/S8974421C p/98765432 a/123 Brick Road, #01-01 dt/01-01-2019 14:50:00 c/Diabetes
+c/Physiotherapy`
+
+`add request n/Dohn Joe i/S9874421C p/98675432 a/Sheares Hall, #01-01 dt/06-05-2019 10:10:00 c/AIDS c/Physiotherapy`
+
+You can then subsequently type in the following command:
+
+`statistics`
+
+Voila! A list of health conditions (namely, the ones which were typed in the 2 abovementioned requests Physiotherapy,
+Diabetes, AIDS) will be generated and will be displayed in descending order of occurrences. The following screen is what
+you can expect to see after typing in the 3 commands.
+
+image::normal_statistics.png[]
 
 As you can see, based on the requests already registered in the request panel on the left, the statistics command shows
 that the health condition Physiotherapy has showed up twice, whereas both Diabetes and AIDS have showed up once each.
+It is also worth noting that `statistics` is fully integrated with all request-related commands. This means that
+regardless of how many commands you may decide to employ (such as `add`, `edit`, `delete`, `undo`, `redo`, `clr`),
+`statistics` will automatically update itself and always provide real-time accurate statistical data of the health
+conditions.
+
 Upon collating such data, you can feedback and make suggestions to the hospital to increase or decrease training in
 certain departments. Furthermore, you can even use this data as a basis for the health sector to ramp up efforts in its
 Work Skills Qualification certification for certain healthcare skills to be taught to new aspiring healthcare

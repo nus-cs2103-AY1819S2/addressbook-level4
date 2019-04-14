@@ -840,7 +840,7 @@ The Open feature's format is: `open FILE_PATH`
 5. OpenCommand checks for if the requested file is a ".json" file, if the file exists, if it is a file, or if it can be read. +
 6. OpenCommand calls the existing readAddressBook().
 
-image::OpenCommandSequenceDiagram.jpg[width="870"]
+image::OpenCommandSequenceDiagram.png[width="870"]
 
 ==== Import feature
 As TeethHub already has a built-in auto-load when starting the program, the implemented Import feature makes use of it. +

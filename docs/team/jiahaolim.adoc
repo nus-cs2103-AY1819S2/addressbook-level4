@@ -5,16 +5,16 @@
 
 == PROJECT: TeethHub
 
-In a Software Engineering module, my team was given the task to morph the given AddressBook 4 into an application of our choice. The result was TeethHub.
+In a Software Engineering module, my team was given the brownfield task to morph the given AddressBook 4 into an application of our choice. The result was TeethHub.
 
 === Overview
 
 TeethHub is designed for Dentists who prefer type commands over clicking on a Graphical User Interface(GUI). It is still possible to perform some actions by clicking on the GUI, but only in very limited capacity. For example, the user can select patients and records by clicking on them, but they would need to type the edit commands to edit them.
 
 As of version 1.4: +
-TeethHub allows Dentists to manage patient information, records of each patient and tasks for the dentist.
+TeethHub allows Dentists to manage patient information, records of each patient and tasks for the dentist. +
 TeethHub allows Dentists to manage multiple databases through File Management. File Management also allows exporting to a PDF file. +
-TeethHub displays the latest teeth information in the form of an image that follows the *Universal Numbering System* dental notation.
+TeethHub displays the latest teeth information in the form of an image that follows the *Universal Numbering System* dental notation. +
 TeethHub displays statistics generated from all patients and records stored in it.
 
 The GUI of TeethHub is created with JavaFX. TeethHub is written in Java, and has about 20,000 lines of code. +
@@ -59,8 +59,10 @@ E.g. The user enters `add`. TeethHub will ask them if they meant `patientadd` or
 ** Documentation:
 *** Added Welcome message to User Guide.
 *** Edited prerequisites, quick start guide in User Guide.
+*** Proofread User Guide.
 *** Reordered original order of Commands and Feature to the current version in User Guide.
 *** Edited Design Considerations for existing undo/redo feature to conform to the new format agreed on by my team.
+*** Proofread and edited README.adoc.
 ** Community:
 *** Reported bugs and suggestions for other teams in the class (Examples: https://github.com/cs2103-ay1819s2-w09-3/main/issues/181[1], https://github.com/cs2103-ay1819s2-w09-3/main/issues/183[2], https://github.com/cs2103-ay1819s2-w09-3/main/issues/176[3], https://github.com/cs2103-ay1819s2-w09-3/main/issues/177[4])
 ** Tools:
@@ -290,7 +292,7 @@ The Open feature's format is: `open FILE_PATH`
 5. OpenCommand checks for if the requested file is a ".json" file, if the file exists, if it is a file, or if it can be read. +
 6. OpenCommand calls the existing readAddressBook().
 
-image::OpenCommandSequenceDiagram.jpg[width="870"]
+image::OpenCommandSequenceDiagram.png[width="870"]
 
 ==== Import feature
 As TeethHub already has a built-in auto-load when starting the program, the implemented Import feature makes use of it. +

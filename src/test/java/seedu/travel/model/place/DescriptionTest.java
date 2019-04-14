@@ -1,6 +1,8 @@
 package seedu.travel.model.place;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
@@ -40,5 +42,14 @@ public class DescriptionTest {
         assertTrue(Description.isValidDescription("I love this place.")); // ends with a symbol
         assertTrue(Description.isValidDescription("I love this place     ")); // ends with trailing spaces
         assertTrue(Description.isValidDescription("I love this place. It reminds me of home")); // Multiple sentences
+    }
+
+    @Test
+    public void hashCodeTest() {
+        Description test1 = new Description("I love this place");
+        Description test2 = new Description("I love this place. It reminds me of home");
+
+        assertEquals(test1.hashCode(), test1.hashCode());
+        assertNotEquals(test1.hashCode(), test2.hashCode());
     }
 }

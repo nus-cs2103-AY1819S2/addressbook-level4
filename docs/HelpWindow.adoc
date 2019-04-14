@@ -1,3 +1,5 @@
 :no-site-header:
 
 include::UserGuide.adoc[]
+
+include::../docs/CountryCodes.adoc[]

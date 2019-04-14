@@ -22,9 +22,9 @@ public class GenerateCommand extends Command {
     // tag::execute[]
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
-        model.setChartDisplayed(true);
-        model.commitTravelBuddy();
-        if (model.getFilteredPlaceList().isEmpty()) {
+        model.setChartDisplayed(true); // <1>
+        model.commitTravelBuddy(); // <2>
+        if (model.getFilteredPlaceList().isEmpty()) { // <3>
             return new CommandResult(MESSAGE_EMPTY);
         } else {
             return new CommandResult(MESSAGE_SUCCESS);

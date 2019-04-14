@@ -10,89 +10,116 @@ ifdef::env-github[]
 :experimental:
 endif::[]
 :toc-placement: preamble
+:repoURL: https://github.com/CS2103-AY1819S2-W11-3/main
+:source-highlighter: rouge
 
 image::prembagda.png[width="150", align="left"]
 {empty}[https://github.com/PremBagda[Github]] | [https://www.linkedin.com/in/prembagdawala/[LinkedIn]]
 
 = PROJECT: TravelBuddy
 
-This project portfolio serves to document my contribution to *TravelBuddy*, a desktop application developed as a
-Software Engineering team project for the National University of Singapore (NUS) module CS2103T. The
-link:https://cs2103-ay1819s2-w11-3.github.io/main/AboutUs.html[team] comprised of 4 NUS computer science students,
+This project portfolio serves to document my contribution to *TravelBuddy*, a desktop application. It was
+developed as a team project for the National University of Singapore (NUS) module CS2103T Software Engineering.
+My
+link:https://cs2103-ay1819s2-w11-3.github.io/main/AboutUs.html[team] consisted of 4 NUS Computer Science undergraduates,
 including myself.
 
-The application was developed over the span of 8 weeks in Academic Year 18/19 Semester 2 using an iterative approach.
+The application was developed over a span of 8 weeks in Academic Year 18/19 Semester 2 using an iterative approach.
 During that time, we
 were
 asked to morph an existing desktop application link:https://se-education.org/addressbook-level4/[AddressBook Level 4],
 which is made up of 10KLoC in Java. One main user requirement was the preference of the user to interact with the
-application using Command Line Interface (CLI) rather than a Graphical User Interface (GUI). The final product we
-created is link:https://travelbuddy-cs2103.netlify.com/[TravelBuddy], which is detailed below.
+application using Command Line Interface (CLI) rather than Graphical User Interface (GUI). The final product that my team developed is link:https://travelbuddy-cs2103.netlify.com/[TravelBuddy], which is detailed below.
 
 '''
 
 == Overview
 
 TravelBuddy is a travel journal desktop application for travel enthusiasts to record places which they have previously
-visited. With the recorded data, travellers can search for places visited based on specified filters such as rating
-and tags. Using the data, the application can analyse travel history and generate statistics. Users
+visited. With the recorded data, travelers can search for places visited based on specified filters such as rating
+and tags. Additionally, the application can also analyse travel history and generate statistics. Users
 can also store their
 travel photos on TravelBuddy, which can help them remember and reminisce the places they have visited before.
 
-My role in the project was to design and write the code for the Create, Read, Update and Delete (CRUD) feature. The
-following
-sections showcase, in
-greater detail, my contributions and enhancements added to TravelBuddy, as well as the documentation of these enhancements in the User Guide and Developer Guide.
+My role in the project was to design and write code for the Create, Read, Update and Delete (CRUD) feature. The
+following sections showcase, in greater detail, my contributions and enhancements to TravelBuddy. They also include
+documentation of these enhancements in the user and developer guide.
 
 == Summary of Contributions
 
 === Major Enhancement
-The major enhancement I added was *the ability to add, list, edit and delete places in Travelbuddy*
+The major enhancement I added was, *the ability to add, list, edit and delete places in TravelBuddy*.
 
 *What it does*: It allows users to add, list, edit and delete places in TravelBuddy.
 
-*Justification*: The user needs to be able to add the places into TravelBuddy. When the user applies some filters
-such as rating, a limited number of places would be shown. In order for the user to see all the places again, the
-list command would be used. The user may make some mistakes when adding a place, for which the edit command can be
-used to rectify the mistake. The user may have accidentally added a place, for which the delete command allows the user
+*Justification:*
+
+* The user needs to be able to `add` places to TravelBuddy.
+* When the user applies a filter
+such as filter by a country, a limited number of places would be shown. The `list` command will allow the user to see
+all the places again.
+* The user may make some mistakes when adding a place. The `edit` command will allow the user to rectify those mistakes.
+* The user may accidentally add a place. The `delete` command allows the user
 to remove the specific place.
 
-*Highlights*: This enhancement involved a large amount of refactoring and careful crafting of test cases to test
-thoroughly the Date Visited field.
+*Highlights*: This enhancement involved a large amount of refactoring and careful crafting of test cases in order to
+test thoroughly the `DateVisited` field.
 
-*Overall code contributed*: link:https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#search=Prem&sort=displayName&since=2019-02-10&until=2019-04-10&timeframe=day&reverse=false&repoSort=true[Commits]
+*Overall code contributed*: [link:https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#search=Prem&sort=displayName&since=2019-02-10&until=2019-04-10&timeframe=day&reverse=false&repoSort=true[Project Code Dashboard]]
 
 === Minor Enhancement
-The minor enhancement I did was to convert the Person object from the original code base to a Place object.
+The minor enhancement I did was to convert the `Person` object from the original code base to a `Place` object.
 
-*Code contributed to minor enhancement*: link:https://github.com/CS2103-AY1819S2-W11-3/main/commit/436363babbf8fd7458afb5957bae481f4656fa58[Convert Place to Person]
-
+*Code contributed to minor enhancement*: link:https://github.com/CS2103-AY1819S2-W11-3/main/pull/46[[Functional Code]]
 
 === Other contributions
 
 The table below documents the various other contributions that I made to TravelBuddy.
 
-[width="100%",cols="20%,<80%"]
+[[OtherContributions]]
+[width="100%",cols="20%,<80%", reftext="Table 2.3.1", caption="Table 2.3.1: "]
+.Details of Other Contributions
 |=======================================================================
 |*Project management*
-a|As the leader, I spearheaded project planning and managed the project scope. I conducted weekly meetings and
+a|* As Team Lead, I spearheaded the project planning and managed the project scope. Additionally, I conducted weekly
+meetings and
 managed the scheduling of tasks so as to prevent merge conflicts.
+* Managed a release on GitHub (Release: link:{repoURL}/releases/tag/v1.3[`v1.3`])
 
 |*Enhancements to existing features*
-a|Updated tests and wrote additional tests to convert people in address book to places in TravelBuddy and improve coverage: +
-https://github.com/cs2103-ay1819s2-w11-3/main/pull/50[#50], https://github.com/CS2103-AY1819S2-W11-3/main/pull/115[#115]
+a|Added colors to tag labels so that they can be differentiated easily:
+https://github.com/CS2103-AY1819S2-W11-3/main/pull/8[#8]
 
 |*Documentation*
-a|* Updated AboutUs with the responsibilities of team members: https://github.com/cs2103-ay1819s2-w11-3/main/pull/12[#12]
-* Updated the User Guide with features I added and FAQ section: https://github.com/cs2103-ay1819s2-w11-3/main/pull/53[#53], https://github.com/cs2103-ay1819s2-w11-3/main/pull/63[#63], https://github.com/cs2103-ay1819s2-w11-3/main/pull/77[#77], https://github.com/cs2103-ay1819s2-w11-3/main/pull/85[#85], https://github.com/CS2103-AY1819S2-W11-3/main/pull/174[#174]
-* Updated the User Guide with a command cheatsheet: https://github.com/cs2103-ay1819s2-w11-3/main/pull/101[#101]
-* Updated the Developer Guide with features I added and diagrams for illustration purposes: https://github.com/cs2103-ay1819s2-w11-3/main/pull/68[#68], https://github.com/cs2103-ay1819s2-w11-3/main/pull/85[#85], https://github.com/cs2103-ay1819s2-w11-3/main/pull/101[#101], https://github.com/CS2103-AY1819S2-W11-3/main/pull/162[#162], https://github.com/CS2103-AY1819S2-W11-3/main/pull/174[#174]
-* Fixed documentation errors found during testing: https://github.com/CS2103-AY1819S2-W11-3/main/pull/135[#135]
+a|
+* Updated the User Guide with the features I added:
+https://github.com/cs2103-ay1819s2-w11-3/main/pull/70[#70],
+https://github.com/cs2103-ay1819s2-w11-3/main/pull/72[#72],
+https://github.com/cs2103-ay1819s2-w11-3/main/pull/106[#106]
+
+* Updated the User Guide with list of country codes:
+https://github.com/cs2103-ay1819s2-w11-3/main/pull/101[#101]
+
+* Updated the Developer Guide with features I added and diagrams for illustration purposes:
+https://github.com/cs2103-ay1819s2-w11-3/main/pull/55[#55],
+https://github.com/cs2103-ay1819s2-w11-3/main/pull/72[#72],
+https://github.com/cs2103-ay1819s2-w11-3/main/pull/86[#86],
+https://github.com/cs2103-ay1819s2-w11-3/main/pull/99[#99],
+https://github.com/cs2103-ay1819s2-w11-3/main/pull/104[#104],
+https://github.com/cs2103-ay1819s2-w11-3/main/pull/185[#185]
 
 |*Community*
-a|* Reviewed pull requests (with non-trivial review comments): https://github.com/cs2103-ay1819s2-w11-3/main/pull/84[#84]
-* Reported bugs and helped to fix bugs: https://github.com/cs2103-ay1819s2-w11-3/main/pull/82[#82], https://github.com/CS2103-AY1819S2-W11-3/main/pull/118[#118], https://github.com/CS2103-AY1819S2-W11-3/main/pull/161[#161]
-* Tested other projects and reported bugs: https://github.com/CS2103-AY1819S2-T12-4/main/issues/223[#223], https://github.com/CS2103-AY1819S2-T12-4/main/issues/225[#225], https://github.com/CS2103-AY1819S2-T12-4/main/issues/227[#227], https://github.com/CS2103-AY1819S2-T12-4/main/issues/231[#231], https://github.com/CS2103-AY1819S2-T12-4/main/issues/238[#238], https://github.com/CS2103-AY1819S2-T12-4/main/issues/240[#240], https://github.com/CS2103-AY1819S2-T12-4/main/issues/246[#246], https://github.com/CS2103-AY1819S2-T12-4/main/issues/248[#248]
+a|* Fixed UI related bug: https://github.com/CS2103-AY1819S2-W11-3/main/pull/125[#125]
+* Fixed general bugs found during testing: https://github.com/CS2103-AY1819S2-W11-3/main/pull/167[#167]
+* Tested other projects, reported bugs and suggested improvements:
+https://github.com/cs2103-ay1819s2-w13-2/main/issues/159[#159],
+https://github.com/cs2103-ay1819s2-w13-2/main/issues/161[#161],
+https://github.com/cs2103-ay1819s2-w13-2/main/issues/166[#166],
+https://github.com/cs2103-ay1819s2-w13-2/main/issues/171[#171],
+https://github.com/cs2103-ay1819s2-w13-2/main/issues/172[#172],
+https://github.com/cs2103-ay1819s2-w13-2/main/issues/173[#173],
+https://github.com/cs2103-ay1819s2-w13-2/main/issues/174[#174],
+https://github.com/cs2103-ay1819s2-w13-2/main/issues/176[#176]
 |=======================================================================
 
 == Contributions to the User Guide
@@ -101,12 +128,13 @@ The original User Guide was updated to match the enhancements implemented in Tra
 
 |===
 |_Given below is the start of an excerpt from the User Guide which I had contributed. They demonstrate my ability to
-write easy-to-follow documentation targeting end-users._
+write easy-to-follow documentation that targets end-users._
 |===
 
-include::../UserGuide.adoc[tag=crud]
-
-include::../UserGuide.adoc[tag=delete]
+include::../UserGuide.adoc[tag=crudAdd]
+include::../UserGuide.adoc[tag=crudDelete]
+include::../UserGuide.adoc[tag=crudList]
+include::../UserGuide.adoc[tag=crudEdit]
 
 |===
 |This marks the end of the excerpt from the User Guide.

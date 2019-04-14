@@ -3,6 +3,7 @@ package seedu.travel.storage;
 import static org.junit.Assert.assertNotEquals;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -185,7 +186,7 @@ public class JsonChartBookStorageTest {
     }
 
     @Test
-    public void saveCountryChart_nullFilePath_throwsNullPointerException() {
+    public void saveCountryChart_nullFilePath_throwsNullPointerException() throws IOException {
         JsonChartBookStorage testChartBookStorage = new JsonChartBookStorage(TEST_DATA_FOLDER,
                 TEST_DATA_FOLDER, TEST_DATA_FOLDER);
         thrown.expect(NullPointerException.class);

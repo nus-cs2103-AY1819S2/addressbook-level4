@@ -160,14 +160,16 @@ image::UiClassDiagram.png[width="800"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`,
+`MainPanel`, `LessonListPanel`, `QuizResultPanel` etc. All these, including the `MainWindow`,
+inherit from the abstract `UiPart` class.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
 The `UI` component,
 
 * Executes user commands using the `Logic` component.
-* Listens for changes to `Model` data so that the UI can be updated with the modified data.
+* Listens for changes to `Logic` so that the UI can be updated with the modified data.
 
 [[Design-Logic]]
 === Logic component
@@ -182,16 +184,19 @@ link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 .  `Logic` uses either the `ManagementModeParser` or `QuizModeParser` class to parse the user command.
 ..  If `ManagementParser` is used to parse the user command:
 ...  This results in a `ManagementCommand` object which is executed by the `LogicManager`.
-...  The command execution can affect the `Model` (e.g. adding a person).
+...  The command execution can affect the `ManagementModel` (e.g. adding a lesson).
 ..  If `QuizModeParser` is used to parse the user command:
 ...  This results in a `QuizCommand` object which is executed by the `LogicManager`.
 ...  The command execution can affect the `QuizModel` (e.g. answering a question).
-.  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
-.  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
+.  The result of the command execution is encapsulated as a `CommandResult` object which is
+passed back to the `UI`.
+.  In addition, the `CommandResult` object can also instruct the `UI` to perform certain actions,
+ such as displaying help to the user.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
-
-.Interactions Inside the Logic Component for the `delete 1` Command
+Given below is the Sequence Diagram for interactions within the `Logic` component for the
+`execute("edit")` API call.
+//todo update this sequence diagram
+.Interactions Inside the Logic Component for the `edit` Command
 image::DeletePersonSdForLogic.png[width="800"]
 
 [[Design-ManagementModel]]
@@ -205,6 +210,7 @@ image::ManagementModelClassDiagram.png[width="800"]
 The `ManagementModel`,
 
 * stores a `UserPref` object which represents the user's preferences.
+* stores the in-memory user SRS data in `User`.
 * stores the in-memory lessons in `LessonList`.
 * depends on none of the other components.
 
@@ -438,6 +444,8 @@ new list of cards based on the `mode` indicated by the user. The generated list 
 learning both the values. Accordingly to the mode that the user have chosen, the cards will be
 displayed differently.
 
+// end::quiz[]
+
 In the four different modes:
 
 * **Preview**: both the question and answer are shown to the user
@@ -513,8 +521,11 @@ private void generatePreview() {
     }
 }
 ----
-
+// tag::quiz[]
 ==== [ANSWER]
+.High-level sequence diagram for the `ANSWER` command, an example of completing a quiz.
+image::AnwerComponetSequenceDiagram.png[width="800"]
+
 The `[ANSWER]` feature is facilitated by `QuizAnswerCommand`. The command takes in user input
 as answer to be processed later.
 
@@ -571,6 +582,9 @@ public CommandResult execute(Model model, CommandHistory history) throws Command
 
 ----
 
+// end::quiz[]
+
+
 ==== \quit
 The `\quit` will force quit the current quiz and save the attempted question to the location that
 the user have specified in `UserPref`, by default it will saved to `\data\user\savedata.csv`. Once
@@ -604,7 +618,6 @@ word as answer without restricting the possible choices. In certain question, it
 answer to be "start". Hence by choosing alternative 1, the choice of answer is the least
 restricted. Also, by running the quiz in a different mode, it allows the user to have intuitive
 interaction in quiz mode.
-// end::quiz[]
 
 === Logging
 
@@ -983,10 +996,10 @@ Use case ends.
 == Non-functional requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
-.  Should be able to hold up to 1000 lessons without a noticeable sluggishness in performance for typical usage.
+.  Should be able to hold up to 1000 cards in multiple lessons without a noticeable sluggishness in
+performance for typical usage.
+.  Should be able to load 1000 cards within 7 seconds.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-
-_{More to be added}_
 
 [appendix]
 == Glossary
@@ -1147,5 +1160,3 @@ Below is a test cases you can perform to test the `QuizStatusCommand` for the Qu
 . Dealing with missing/corrupted data files
 
 .. _{explain how to simulate a missing/corrupted file and the expected behavior}_
-
-_{ more test cases ... }_

@@ -137,6 +137,7 @@ Starting a quiz session with multiple lessons [coming in v2.0]
 * Example: `start 1 2 c/5 c/5 m/learn`
 ** Starts a quiz with 5 words from the first lesson and 5 words from the second lesson in `LEARN` mode.
 // end::start[]
+
 // tag::evan[]
 [[listLessons]]
 ==== Listing all lessons: `listLessons`
@@ -419,6 +420,8 @@ image::quiz-command-examples/difficult.PNG[width="500"]
 .Expected result of card labelled as difficult.
 image::quiz-command-examples/not-difficult.PNG[width="500"]
 
+// end::quiz[]
+
 ==== Viewing help: `\help`
 
 Displays usage information on all quiz mode commands and acceptable inputs for answering cards. +
@@ -438,6 +441,7 @@ Example:
 .Expected result revealing the hint of the card.
 image::quiz-command-examples/hint.PNG[width="500"]
 
+// tag::quiz[]
 ==== Quitting the quiz session: `\quit`
 
 Quits the current quiz session and switches back to `management mode`. +
@@ -454,6 +458,7 @@ Format: `\quit`
 image::quiz-command-examples/quit.PNG[width="500"]
 
 {empty} +
+// end::quiz[]
 
 ==== Viewing the status of the current quiz: `\status`
 
@@ -484,8 +489,6 @@ streak.
 
 .Expected result of viewing the status of a quiz after answering a question correctly.
 image::quiz-command-examples/status.PNG[width="500"]
-
-// end::quiz[]
 
 {empty} +
 

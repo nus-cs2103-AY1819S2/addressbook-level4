@@ -11,13 +11,21 @@ documentation and other contributions.
 
 == Overview
 
+As part of the Software Engineering Module, CS2103T, at National University of Singapore, the
+team comprises of 5 members were tasked to develop and enhance an existing
+https://github.com/se-edu/addressbook-level4[address book application] within 7
+weeks.
+
+We were given a choice to morph the existing address book to any application we want and we chose
+ to develop *BrainTrain*, which will be detailed below.
+
 BrainTrain is a spaced repetition flashcard application which makes memorizing easy and efficient.
 Research has shown that the Spaced-Repetition System (SRS) is more effective than traditional
 memorization techniques. With it, you will be able to learn more with less time. User interaction
 happens through Command Line Interface (CLI) and it has a minimal Graphical User Interface (GUI)
-created with JavaFX. It is written in Java, and has about 10 kLoC.
+created with JavaFX. It is written in Java, and has about 16 kLoC.
 
-My role in BrainTrain is to design and manage the app's quiz mode. The following sections
+My role in BrainTrain is to design and manage the app's Quiz mode. The following sections
 give a summary of how I have contributed to the project and showcases my ability to write both
 the user and developer guide.
 
@@ -56,14 +64,17 @@ the list of lesson available.
 * *Other contributions*:
 
 ** Project management:
-*** Managed 2 out of 4 releases `v1.1` and `v1.4` on GitHub
+*** Managed 3 out of 6 releases `v1.1`, `v1.3.1` and `v1.4` on GitHub
 
 ** Team contribution:
 *** Integrated `AddressBook` features with `BrainTrain` (https://github.com/CS2103-AY1819S2-W14-1/main/pull/33[#33])
-*** Wrote system tests to increase coverage from 88% to 95% (https://github.com/CS2103-AY1819S2-W14-1/main/pull/175[#175])
+*** Contributed to `HelpCommand`, `ListLessonCommand`, `OpenLessonCommand` and `QuizAnswerCommand`
+system tests to increase coverage from 88% to 95%
+(https://github.com/CS2103-AY1819S2-W14-1/main/pull/175[#175])
 
 ** Documentation:
-*** Updated class and sequence diagrams to match the current implementation
+*** Updated Architecture, Logic, UI and QuizModel component diagram to match the current
+implementation.
 
 ** Community:
 *** PRs reviewed with comments:
@@ -98,4 +109,6 @@ _End of extract of quiz mode_
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
+_Start of extract of quiz mode_
 include::../DeveloperGuide.adoc[tag=quiz]
+_End of extract of quiz mode_

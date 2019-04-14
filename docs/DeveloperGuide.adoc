@@ -275,6 +275,38 @@ The appointment object is then sent to the Model layer.
 The Storage layer will convert the appointment Java object into the JSON file format using the format specified in `JsonAdaptedAppointment`.
 The next time the application is opened, the Storage layer will use `JsonAdaptedAppointment` again to convert appointments in the JSON file back into appointment objects.
 
+=== Sort Medical History Features
+==== Current Implementation
+The sort medical history feature is enable bt the classes: `MedicalHistory`, `ValidDate`, `SortMedHistCommand`, `SortMedHistCommandParser`
+
+* `MedicalHistory` - This is an entity class used to store information regarding patients' medical histories of seeing doctors.
+An Medical History object stores patient id, doctor id, corresponding patient, corresponding doctor, date, and writeup.
+
+* `ValidDate` - This is an entity class used to represent a valid date of medical history. Using `java.time.LocalDate`,
+this class ensures the date of a `Medical History` is today or a valid past date existing in the calender. This class also enable comparing two medical histories based on the date of occurrence.
+
+* `SortMedHistCommandParser` - This is a class parsing a user's optional input string to an `SortMedHistCommand` object.
+This class checks if the user's input string is valid ("", "ASC" or "DESC") before creating an object using input string.
+
+* `SortMedHistCommand` - This is a class where the execution of sort medical history command happens.
+It interacts with Model components to execute sorting of `UniqueMedHistList` object stored in `docX` object.
+
+Given below is the Sequence Diagram for interactions within the Logic and Model components for the "sort-med-hist" command:
+
+image::SortMedHistSequenceDiagram.png[width="800"]
+
+Steps:
+
+. When a user enters "sort-med-hist ..." in command box, execute() function of `LogicManager` is called by Ui component.
+Then, parseCommand() function of `docXparser` matches the input string with a command type. Here, the command type is sort medical history.
+
+. Based on the command type, corresponding command parser `SortMedHistCommandParser` is created. Function inside is then called to parse the argument string after command word "sort-med-hist".
+Here, `SortMedHistCommandParser` checks the argument string is either "" or "ASC" or "DESC". If valid, the argument string will be used to construct `SortMedHistCommand`.
+
+. The `LogicManager` then calls the execution of `SortMedHistCommand`, which interacts with Model component. In Model component, the internal list of medical histories in `UniqueMedHistList` is sorted.
+Through a `ListChangeListener`, Ui component is updated the changes of medical history list order. Then the sorted list of medical histories will be displayed in user interface.
+
+
 // tag::dataencryption[]
 === [Proposed] Data Encryption
 

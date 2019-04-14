@@ -405,9 +405,9 @@ image::ImportSequenceDiagram.png[width=800]
 ** Cons: Can result in errors if too many images are imported or images are of alternative formats.
 // end::import[]
 
-// tag::OpenAndListFiles[]
-=== Open Feature
 
+=== Open Feature
+// tag::DGOpen[]
 This command allows the user to open a previously imported image for image-editing.
 
 ==== Current Implementation
@@ -424,13 +424,11 @@ The `open` function is facilitated by `Album` and `CurrentEdit`. It uses the fol
 * `CurrentEdit#displayTempImage()` - Displays the temporary image stored in directory: "src/main/resources/temp/".
 
 
-The following sequence diagram shows how `open` works:
 
-[[sequencediagram_open]]
 .Sequence Diagram for Open Command +
 image::OpenCommandSequenceDiagram.png[width=800]
 
-Given below is an example usage scenario of how `open` behaves at each step as shown in <<sequencediagram_open>>.
+Given below is an example usage scenario of how `open` behaves at each step as shown in the figure above.
 
 Step 1. The user executes `open sample.png`.
 
@@ -462,9 +460,10 @@ Step 5. `CurrentEdit#displayTempImage()` is called to display the opened image o
 *** May be confusing for the user.
 
 Alternative 1 was chosen as it is less complicated, requires lesser space and more user-friendly.
-
+// end::DGOpen[]
 
 === List Files Feature
+// tag::DGListFiles[]
 
 This command displays the names of all the files in `assets` directory.
 
@@ -473,13 +472,12 @@ The `listfiles` function is facilitated by `Album`. It uses the following operat
 
 * `Album#getFileNames()` - Returns a list of all the files in `assets` directory.
 
-The following sequence diagram shows how `listfiles` works:
 
 [[sequencediagram_listfiles]]
 .Sequence Diagram for ListFiles +
 image::ListFilesCommandSequenceDiagram.png[width=800]
 
-Given below is an example usage scenario of how `listfiles` behaves at each step as shown in <<sequencediagram_listfiles>>.
+Given below is an example usage scenario of how `listfiles` behaves at each step as shown in the figure above..
 
 Step 1. The user executes `listfiles`.
 
@@ -492,7 +490,7 @@ Step 3. The `String` array is displayed on the GUI.
 
 This command was created to allow the user to know what files are stored in `assets` directory so that the `FILENAME` can be easily referenced for `open`.
 
-// end::OpenAndListFiles[]
+// end::DGListFiles[]
 
 // tag::ImageFilter[]
 === Image Filters
@@ -714,9 +712,9 @@ Step 5. The user executes `saves`, which calls `CurrentEdit#saveToAssets()`. Thi
 // end::undoredo[]
 
 
-// tag::Save[]
-=== Save Feature
 
+=== Save Feature
+// tag::DGSave[]
 This command applies the edits to the current image and saves it into `assets` directory.
 
 ==== Current Implementation
@@ -743,13 +741,10 @@ The `save` function is facilitated by `Album` and `CurrentEdit`. It uses the fol
 * `Album#refreshAlbum()` - Updates and displays the latest images in `assets` directory on the GUI.
 
 
-The following sequence diagram shows how `save` works:
-
-[[sequencediagram_save]]
 .Sequence Diagram for Save Command
 image::SaveCommandSequenceDiagram.png[width=800]
 
-Given below is an example usage scenario of how `save` behaves at each step as shown in <<sequencediagram_save>>.
+Given below is an example usage scenario of how `save` behaves at each step as shown in the figure above.
 
 Step 1. The user executes `save`.
 
@@ -782,7 +777,7 @@ Step 10.`Album#refreshAlbum()` is called to update the Information Panel on the 
 ** Disadvantage: The user may unintentionally overwrite the original image.
 
 Alternative 2 was chosen as the user is likely to use `save` frequently. Since the `assets` directory functions like an album, images can be re-imported if they are accidentally overwritten. The user is able to `save` easily and choose to resume editing immediately or at a later time.
-// end::Save[]
+// end::DGSave[]
 
 //tag::SavePreset[]
 === Save Preset Feature
@@ -1123,38 +1118,49 @@ A project often depends on third-party libraries. For example, Address Book depe
 
 *Value proposition*: Edit photos quicker and more intuitively than a typical mouse/GUI driven app. Also provides a easy way to view tagged metadata on images.
 
-// tag::UserStories[]
+
 [appendix]
 == User Stories
+// tag::UserStories[]
+This section lists the user stories behind the feastures of our application.
 
-Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
+Priorities:
 
-[width="59%",cols="22%,<23%,<25%,<30%",options="header",]
+* `* * *` -- High (must have)
+* `* *` -- Medium (nice to have)
+* `*` -- Low (unlikely to have)
+
+[width="59%",cols="10%,<70%,<20%",options="header",]
 |=======================================================================
-|Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the application
+|Priority |User Story| Feature Implemented
+|`* * *` |As a new user, I want to see usage instructions so that I can refer to instructions when I forget how to use the application. | `help`
 
-|`* * *` |user |adjust the brightness of my image |make it brighter or darker
+|`* * *` |As a user, I want to import my image so that I can store a copy of the image in the application.| `import`
 
-|`* * *` |user |adjust the contrast of my image |
+|`* * *` |As a user, I want to open an image stored in the application for editing.| `open`
 
-|`* * *` |user |resize my image |
+|`* * *` |As a user, I want to adjust the brightness of my image so that I can make it brighter or darker.| `brightness`
 
-|`* * *` |user |crop my image |trim it into my desired dimensions
+|`* * *` |As a user, I want to apply a black and white filter to my photo for aesthetics.| `brightness`
 
-|`* * *` |user |rotate my image |change its orientation
+|`* * *` |As a user, I want to adjust the contrast of my image. | `constrast`
 
-|`* * *` |user |undo and redo my edits |revert or recover my changes
+|`* * *` |As a user, I want to crop my image so that I can trim it into my desired dimensions.| `crop`
 
-|`* * *` |user |be able to save my image |continue editing it the future
+|`* * *` |As a user, I want to resize my image. | `resize`
 
-|`* * *` |user |import my image |store a copy of the image in the application for editing
+|`* * *` |As a user, I want to rotate my image so that I can change its orientation.| `rotate`
 
-|`* * *` |user |export my image|save my edited images to my computer
+|`* * *` |As a user, I want to undo and redo my edits so that I can revert or recover my changes. |`undo`, `redo`
 
-|`* * *` |user |open a image stored in the application for editing |
+|`* * *` |As a user, I want to save my image so that I can have a new image or continue editing it the future.| `save`
 
-|`* *` |user |list the names of the images stored in the application |know what images are currently stored inside
+|`* * *` |As a user, I want to export my image so that I can save my edited images to my computer.| `export`
+
+|`* *` |As a frequent user, I want to create presets of edits so that I can easily apply a set of edits to my photos.| `savepreset`, `setpreset`
+
+
+|`* *` |As a user, I want to list the names of the images imported into the application so that I know what images are currently stored inside.| `listfiles`
 
 |=======================================================================
 // end::UserStories[]

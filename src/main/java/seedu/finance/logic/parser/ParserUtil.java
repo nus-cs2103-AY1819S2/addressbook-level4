@@ -68,9 +68,6 @@ public class ParserUtil {
         if (!Amount.isValidAmount(trimmedAmount)) {
             throw new ParseException(Amount.MESSAGE_CONSTRAINTS);
         }
-        if (!Amount.isSmallerThanMax(trimmedAmount)) {
-            throw new ParseException(Amount.AMOUNT_CONSTRAINTS);
-        }
         return new Amount(trimmedAmount);
     }
 

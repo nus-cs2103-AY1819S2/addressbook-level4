@@ -31,14 +31,13 @@ public class AmountTest {
         assertFalse(Amount.isValidAmount(" ")); // spaces only
         assertFalse(Amount.isValidAmount("123.3435")); // 2 dp only
         assertFalse(Amount.isValidAmount("0")); // Non-Positive number
-        assertFalse(Amount.isSmallerThanMax("100000000.01")); // larger than 100 000 000
+        assertFalse(Amount.isValidAmount("100000000.01")); // larger than 100 000 000
 
         // valid amounts
         assertTrue(Amount.isValidAmount("123"));
         assertTrue(Amount.isValidAmount("123.20")); // 2 dp only
         assertTrue(Amount.isValidAmount("1")); // one character
-        assertTrue(Amount.isValidAmount("2147483648.50")); // long amount
-        assertTrue(Amount.isSmallerThanMax("100000000")); // max amount allowed
+        assertTrue(Amount.isValidAmount("100000000")); // max amount allowed
     }
 
     @Test

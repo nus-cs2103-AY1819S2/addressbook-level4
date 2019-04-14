@@ -11,7 +11,8 @@ import static seedu.finance.commons.util.AppUtil.checkArgument;
 public class Amount {
 
     public static final String MESSAGE_CONSTRAINTS = "Amount is a positive number, "
-            + "with either 2 decimal place or none.";
+            + "with either 2 decimal place or none.\n"
+            + "Amount must not be larger than $100 000 000.";
 
     public static final String AMOUNT_CONSTRAINTS = "Amount must not be larger than $100 000 000.";
     public static final String VALIDATION_REGEX = "(([1-9]\\d{0,2}(,\\d{3})*)|(([1-9]\\d*)?\\d))(\\.\\d\\d)?$";
@@ -35,17 +36,10 @@ public class Amount {
      * Returns if a given string is a valid amount.
      */
     public static boolean isValidAmount(String test) {
-        if (test.matches(VALIDATION_REGEX)) {
+        if (test.matches(VALIDATION_REGEX) && Double.parseDouble(test) <= MAX_AMOUNT) {
             return Double.parseDouble(test) > 0;
         }
         return false;
-    }
-
-    /**
-     * return true if amount is within 100 million
-     */
-    public static boolean isSmallerThanMax(String test) {
-        return Double.parseDouble(test) <= MAX_AMOUNT;
     }
 
     public Double getValue() {

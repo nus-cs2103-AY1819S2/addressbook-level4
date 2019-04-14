@@ -119,8 +119,6 @@ Example:
 
 The goto command specifies a patient by index, and brings the user to the records mode, where all dental records of the specified patient are listed.
 
-Record-related commands can then be executed in this mode.
-
 Format: `goto 1`
 
 * Goes into records mode and displays all dental records of patient 1.

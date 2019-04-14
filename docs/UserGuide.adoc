@@ -148,7 +148,7 @@ Learn more about <<studyviewc, Study View>>.
 ====
 
 // tag::decksview[]
-=== Decks View [[decksviews]]
+=== Decks View [[decksviewc]]
 
 In this view you can create, edit and find decks. This is the default view when TopDeck is first launched.
 
@@ -465,7 +465,7 @@ image::card_ug_diagrams/find_card_2.png[width="800"]
 
 **Outcome**: Adds the image as a question to the card at `INDEX`
 
-=== Study View
+=== Study View [[studyviewc]]
 
 Study View can be accessed using any of these commands:
 

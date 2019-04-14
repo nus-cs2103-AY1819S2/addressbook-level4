@@ -1,6 +1,6 @@
 package seedu.address.logic.commands;
 
-import static org.junit.Assert.assertEquals;
+//import static org.junit.Assert.assertEquals;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -45,6 +45,9 @@ public class StatsCommandTest {
         history = new CommandHistory();
         logic = new LogicManager(model, storage);
     }
+
+
+
 
     @Test
     public void execute_success() throws CommandException {

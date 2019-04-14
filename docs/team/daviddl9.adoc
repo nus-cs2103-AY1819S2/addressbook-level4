@@ -172,11 +172,17 @@ The assign request feature allows an administrator to assign a request to a part
 
 The following sequence diagram shows the sequence flow from the `LogicManager` to the `ModelManager` when a user enters a `assign request` command:
 
-image::assignreq.png[width=800]
+image::assignreq.png[]
 Figure 3.3.1.1 Sequence diagram to illustrate `Logic` component interactions for `assign request` command.
 
-image::assignreq1.png[width=800]
+image::assignReqToHw.png[]
 Figure 3.3.1.2 Sequence diagram to illustrate `Logic` and `Model` component interactions for [blue]`AssignRequestCommand`.
+
+image::addHwRequestDates.png[]
+Figure 3.3.1.3 Sequence diagram illustrates addition of the relevant `Date` objects into the `TreeSet<Date>` of the `healthWorker`.
+
+image::checkConflictingRequests.png[]
+Figure 3.3.1.4 Sequence diagram illustrates interaction between `AssignRequestCommand` and `healthWorkerAppointments`
 
 1. When `LogicManager` receives the `execute` command, it calls the `parseCommand` method in `RequestBookParser`.
 2. `RequestBookParser` will receive `assign` as the command and instantiate `AssignRequestCommandParser` to further parse the command.
@@ -190,7 +196,7 @@ to that healthWorker are less than 2 hours apart), a `CommandException` is throw
 
 ==== Design Consideration
 
-===== Aspect: Ensuring no clashing requests assigned to healthworkers - Data Structure and implementation
+===== Aspect: Algorithm in ensuring no clashing requests assigned to healthworkers - Data Structure and implementation
 * Alternative 1 (current choice): Using a Balanced Binary Search Tree (java `TreeSet`) to keep track of the [blue]`RequestDate` of each request attended to by a particular `healthWorker`.
 ** Reasoning: Since the allowed time interval between 2 consecutive requests should be at least 2 hours, this allows us to take advantage
 of the fact that we only need to keep track of the start time of requests. Hence we can utilise the `ceiling()`, `contains()` and `floor()` methods of the `TreeSet`, which runs effeciently in O(log N) time. Here is the code snippet that implements this:

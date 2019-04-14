@@ -548,6 +548,25 @@ public class ParserUtil {
         throw new ParseException("Wrong number of arguments");
     }
 
+    public static String[] parseRecordMc(String arg) throws ParseException {
+        String[] args = arg.trim().split("\\s+");
+        String[] results = new String[] { "-1", "2" };
+
+        if (args.length > 2) throw new ParseException("Wrong input numbers!");
+
+        results[0] = parseIndex(args[0]).getOneBased() + "";
+
+        if (args.length > 1) {
+            try {
+                results[1] = Integer.parseInt(args[1]) + "";
+            } catch (NumberFormatException e) {
+                throw new ParseException("Invalid days of rest");
+            }
+        }
+
+        return results;
+    }
+
     /**
      * Parses a {@code String desc} into a {@code Description}.
      * Leading and trailing whitespaces will be trimmed.

@@ -623,16 +623,18 @@ Given below is an example usage scenario and how the undo/redo mechanism behaves
 
 Step 1. The user opens an image. The `Image` will be initialized with an empty commandHistory List.
 
+.State list diagram for undo/redo
 image::UndoRedoStartingStateListDiagram.png[width="600"]
 
 Step 2. The user executes a series of transformations on the image. These transformations are stored in the commandHistory list and for each transformation stored, the index is incremented by 1 to point to that transformation.
 
+.First Transformation
 image::UndoRedoNewCommand1StateListDiagram.png[width="600"]
-
+.Second Transformation
 image::UndoRedoNewCommand2StateListDiagram.png[width="600"]
 
 Step 3. The user wants to undo the previous transformation by using the `undo` command. It will call `CurrentEdit#replaceTempWithOriginal()` which will replace the edited image in temp folder with the original image. It will then call `CurrentEdit#setUndoTemp()` to set the index in `tempImage` to the required index and retrieve the list with `CurrentEdit#getHistoryTemp()`. Using the list, it will apply the commands onto the original image till it reaches the command just before the set index.
-
+.Undo transformation
 image::UndoRedoNewCommand3StateListDiagram.png[width="600"]
 
 [NOTE]
@@ -641,14 +643,14 @@ If a command fails its execution, it will return the image before undo was calle
 Step 4. After executing Undo, `index` will be less than size of commandHistory. If redo is not executed before a new command is added, all commands in the list after `index` will be deleted.
 
 For redo, it will call `setRedo` and retrieve that command to apply it on the current image.
-
+.State List diagram
 image::UndoRedoExecuteUndoStateListDiagram.png[width="600"]
 
 [NOTE]
 If the `Image#index` is 0, pointing to the initial photo, then there are no previous commands to restore. The `undo` command uses `CurrentEdit#canUndoTemp()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
 
 The following sequence diagram shows how the undo operation works:
-
+.Sequence Diagram
 image::UndoRedoSequenceDiagram.png[width="600"]
 
 The `redo` command does the opposite -- it calls `CurrentEdit#setRedoTemp()`, which shifts the `index` once to the right, pointing to the previously undone command, and executes that command to perform the transformation.

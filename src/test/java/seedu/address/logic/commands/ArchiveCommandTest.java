@@ -70,6 +70,7 @@ public class ArchiveCommandTest {
         expectedModel.archivePerson(personToArchive);
         expectedModel.commitBooks();
         expectedModel.setSelectedPerson(null);
+        showNoPerson(expectedModel);
 
         assertCommandSuccess(archiveCommand, model, commandHistory, expectedMessage, expectedModel);
     }
@@ -174,6 +175,15 @@ public class ArchiveCommandTest {
 
         // different person -> returns false
         assertFalse(archiveFirstCommand.equals(archiveSecondCommand));
+    }
+
+    /**
+     * Updates {@code model}'s filtered list to show no one.
+     */
+    private void showNoPerson(Model model) {
+        model.updateFilteredPersonList(p -> false);
+
+        assertTrue(model.getFilteredPersonList().isEmpty());
     }
 
 }

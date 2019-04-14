@@ -47,7 +47,8 @@ public class QuizModelManagerTest {
     @Test
     public void getSessionFields() {
         modelManager.init(quiz, SESSION_LEARNT_BEFORE);
-        assertEquals("01-01-Learn", modelManager.getName());
+        assertEquals("default", modelManager.getName());
+        assertEquals(1, modelManager.getIndex());
         assertEquals(1, modelManager.getCount());
         assertEquals(QuizMode.LEARN, modelManager.getMode());
         assertEquals(List.of(new SrsCardBuilder().build()), modelManager.getQuizSrsCards());

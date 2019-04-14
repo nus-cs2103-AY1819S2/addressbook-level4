@@ -8,7 +8,7 @@ import static seedu.address.testutil.TypicalSession.SESSION_REVIEW_2;
 
 import org.junit.Test;
 
-import seedu.address.logic.commands.quiz.QuizStartCommand;
+import seedu.address.logic.commands.management.QuizStartCommand;
 import seedu.address.model.modelmanager.Model;
 import seedu.address.model.modelmanager.QuizModel;
 import seedu.address.model.quiz.Quiz;
@@ -17,7 +17,7 @@ public class QuizAnswerCommandSystemTest extends BrainTrainSystemTest {
     @Test
     public void answer() {
         // starts the quiz
-        executeCommand(QuizStartCommand.COMMAND_WORD + " n/sampleData c/2 m/REVIEW\n");
+        executeCommand(QuizStartCommand.COMMAND_WORD + " 1 c/2 m/REVIEW\n");
 
         /* Case: some invalid quiz command in braintrain
          * -> fails, invalid command

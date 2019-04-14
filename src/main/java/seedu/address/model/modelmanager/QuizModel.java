@@ -18,6 +18,10 @@ public interface QuizModel extends Model {
      * Return mode of {@link Session}.
      */
     QuizMode getMode();
+    /**
+     *
+     */
+    int getIndex();
 
     /**
      * Return card count of {@link Session}.

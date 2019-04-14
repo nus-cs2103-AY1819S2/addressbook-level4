@@ -36,10 +36,10 @@ import seedu.address.logic.commands.management.ExitCommand;
 import seedu.address.logic.commands.management.HelpCommand;
 import seedu.address.logic.commands.management.HistoryCommand;
 import seedu.address.logic.commands.management.OpenLessonCommand;
+import seedu.address.logic.commands.management.QuizStartCommand;
 import seedu.address.logic.commands.management.ReloadLessonsCommand;
 import seedu.address.logic.commands.quiz.QuizAnswerCommand;
 import seedu.address.logic.commands.quiz.QuizQuitCommand;
-import seedu.address.logic.commands.quiz.QuizStartCommand;
 import seedu.address.logic.commands.quiz.QuizStatusCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.UserPrefs;
@@ -94,33 +94,13 @@ public class LogicManagerTest {
         LessonList lessonList = new LessonList();
         lessonList.addLesson(new LessonBuilder().build());
         storage.saveLessonList(lessonList);
-        assertEquals(1, storage.readLessonList().get().getLessons().size());
+        assertEquals(1, storage.readLessonList().orElse(new LessonList()).getLessons().size());
         assertCommandSuccess(ReloadLessonsCommand.COMMAND_WORD , ReloadLessonsCommand.MESSAGE_SUCCESS, managementModel);
         assertCommandSuccess(DeleteLessonCommand.COMMAND_WORD + " 1",
             String.format(DeleteLessonCommand.MESSAGE_SUCCESS , "Capitals"),
             managementModel);
-        assertEquals(0, storage.readLessonList().get().getLessons().size());
+        assertEquals(0, storage.readLessonList().orElse(new LessonList()).getLessons().size());
     }
-
-    //some linux issue lol so travis fails TODO
-    /*
-    @Test
-    public void execute_deleteCommandInvalidFile_throwsIoExceptions() throws ParseException,
-        CommandException {
-        LessonList lessonList = new LessonList();
-        lessonList.addLesson(new LessonBuilder().build());
-        storage.saveLessonList(lessonList);
-        File file = new File(storage.getLessonListFolderPath().resolve("Capitals.csv").toString());
-        file.setReadOnly();
-        assertCommandSuccess(ReloadLessonsCommand.COMMAND_WORD , ReloadLessonsCommand.MESSAGE_SUCCESS, managementModel);
-        logic.execute(DeleteLessonCommand.COMMAND_WORD + " 1");
-        // some unknown issue broke the original test on linux so now we have this
-        assertEquals(0, managementModel.getLessons().size());
-        assertCommandSuccess(ReloadLessonsCommand.COMMAND_WORD , ReloadLessonsCommand.MESSAGE_SUCCESS, managementModel);
-        assertEquals(1, managementModel.getLessons().size());
-    }
-    */
-
     @Test
     public void execute_saveCommandInvalidFile_throwsIoExceptions() throws ParseException, CommandException {
         LessonList lessonList = new LessonList();
@@ -160,8 +140,8 @@ public class LogicManagerTest {
         managementModel = new ManagementModelManager(new UserPrefs(), lessonList, new User());
         logic = new LogicManager(managementModel, quizModel, storage);
 
-        assertCommandSuccess(QuizStartCommand.COMMAND_WORD + " n/Capitals c/2 m/PREVIEW",
-                "Starting new quiz", expectedMgmtMgr);
+        assertCommandSuccess(QuizStartCommand.COMMAND_WORD + " 1 c/2 m/PREVIEW",
+                "Starting new quiz\nCurrent lesson: Capitals", expectedMgmtMgr);
     }
 
     @Test

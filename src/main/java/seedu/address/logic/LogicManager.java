@@ -12,7 +12,7 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.commands.management.ChangeThemeCommand;
-import seedu.address.logic.commands.quiz.QuizStartCommand;
+import seedu.address.logic.commands.management.QuizStartCommand;
 import seedu.address.logic.parser.ManagementModeParser;
 import seedu.address.logic.parser.QuizModeParser;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -137,6 +137,10 @@ public class LogicManager implements Logic {
         return quizModel.isQuizDone() ? Mode.MANAGEMENT : Mode.QUIZ;
     }
 
+    @Override
+    public String getCurrentLessonName() {
+        return quizModel.getName();
+    }
     @Override
     public List<Lesson> getLessons() {
         return managementModel.getLessons();

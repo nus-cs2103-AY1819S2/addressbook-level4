@@ -51,6 +51,10 @@ public class QuizModelManager implements QuizModel {
     public QuizMode getMode() {
         return session.getMode();
     }
+    @Override
+    public int getIndex() {
+        return session.getLessonIndex();
+    }
 
     @Override
     public int getCount() {

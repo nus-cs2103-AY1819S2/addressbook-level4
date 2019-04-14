@@ -29,6 +29,7 @@ public class SaveCommandParserTest {
         String validGif = "sample.gif";
         String validBmp = "sample.bmp";
         String validTif = "sample.tif";
+        String validTiff = "sample.tiff";
 
         SaveCommandParser parser = new SaveCommandParser();
         assertParseSuccess(parser, validJpg, new SaveCommand("sample.jpg"));
@@ -37,6 +38,7 @@ public class SaveCommandParserTest {
         assertParseSuccess(parser, validGif, new SaveCommand("sample.gif"));
         assertParseSuccess(parser, validBmp, new SaveCommand("sample.bmp"));
         assertParseSuccess(parser, validTif, new SaveCommand("sample.tif"));
+        assertParseSuccess(parser, validTiff, new SaveCommand("sample.tiff"));
     }
 
     @Test

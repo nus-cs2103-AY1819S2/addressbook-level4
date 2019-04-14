@@ -358,7 +358,8 @@ in lowercase (in the above example, it will be shown as `Clothes`)
 and cannot contain special characters such as `:<>;\/|?~^%$#@`
 * Date cannot be a date in the future. Addition of future expenses are not allowed.
 * If no date is inputted, current local date will be used instead.
-* Description is limited to 40 characters.
+* Name, category and description inputs are limited to 40 characters each.
+* Amount cannot be larger than $100 000 000.
 * Order of the different parameters does not matter.
 
 ====
@@ -388,6 +389,8 @@ Index refers to the index number shown in the list.
 * `INDEX` must be within the total number of records that are displayed.
 * At least one of the optional fields must be provided.
 * Date cannot be a future date.
+* Name, category and description inputs are limited to 40 characters each.
+* Amount cannot be larger than $100 000 000.
 * Order of parameters inputted does not matter.
 * Existing values will be updated to the input values.
 ====

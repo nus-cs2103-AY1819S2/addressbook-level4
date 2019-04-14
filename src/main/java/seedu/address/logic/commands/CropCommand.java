@@ -43,10 +43,10 @@ public class CropCommand extends Command {
     @Override
     public CommandResult execute(CurrentEdit currentEdit,
                                  Model model, CommandHistory history) throws CommandException {
-        Image initialImage = currentEdit.getTempImage();
-        if (initialImage == null) {
+        if (currentEdit.tempImageDoNotExist()) {
             throw new CommandException(Messages.MESSAGE_DID_NOT_OPEN);
         }
+        Image initialImage = currentEdit.getTempImage();
         try {
             BufferedImage initImage = initialImage.getBufferedImage();
             BufferedImage finalImage = Scalr.crop(initImage, xCoord, yCoord, width, height);

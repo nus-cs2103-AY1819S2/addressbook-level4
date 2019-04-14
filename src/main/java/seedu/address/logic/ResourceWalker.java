@@ -1,5 +1,5 @@
 /* @@author Carrein */
-package seedu.address;
+package seedu.address.logic;
 
 import static seedu.address.commons.core.Config.ASSETS_FOLDER_TEMP_NAME;
 

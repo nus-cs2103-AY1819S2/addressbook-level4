@@ -12,7 +12,7 @@ import seedu.address.model.cell.Coordinates;
 import seedu.address.model.cell.Status;
 
 /**
- * Wraps all data at the map grid level
+ * Represents a mapGrid of a player. A {@code MapGrid} acts as a container of {@Cell} objects.
  */
 public class MapGrid {
 
@@ -34,6 +34,7 @@ public class MapGrid {
     // 2D map grid operations
     /**
      * Initialises the 2D Map from the given 2D Cell array
+     * @param map to initialise the map from.
      */
     public void initialise(Cell[][] map) {
         this.size = map.length;
@@ -45,7 +46,8 @@ public class MapGrid {
     }
 
     /**
-     * Returns a copy of the map grid
+     * Returns a copy of the MapGrid in a 2D array format. Any changes done to the copy will not affect the internal grid.
+     * @return copy of the map.
      */
     public Cell[][] get2dArrayMapGridCopy() {
         Cell[][] mapCopy = new Cell[size][size];
@@ -57,6 +59,7 @@ public class MapGrid {
 
     /**
      * Returns a 2D array of {@code Status} which represents the view of this map from this map owner's perspective.
+     * @return statuses of cells.
      */
     public Status[][] getPlayerMapView() {
         Status[][] playerMapView = new Status[size][size];
@@ -72,6 +75,7 @@ public class MapGrid {
     /**
      * Returns a 2D array of {@code Status} which represents the view of this map from
      * the perspective of the enemy of this map's owner.
+     * @return statuses of cells.
      */
     public Status[][] getEnemyMapView() {
         Status[][] enemyMapView = new Status[size][size];
@@ -88,6 +92,8 @@ public class MapGrid {
 
     /**
      * Utility function to do a deep copy of a 2D array
+     * @param output 2D array to copy to.
+     * @param toBeCopied 2D array to copy from.
      */
     private void copy2dArray(Cell[][] output, Cell[][] toBeCopied) {
         for (int i = 0; i < size; i++) {
@@ -98,25 +104,25 @@ public class MapGrid {
     }
 
     /**
-     * Returns map size
+     * Returns map size.
+     * @return map size.
      */
     public int getMapSize() {
-        return this.size;
+        return cellGrid.length;
     }
 
     // UI operations
-
     /**
-     * Used to Update the UI.
      * A listener will be added to this observable value in the UI.
      * Once this value changes the UI will be updated.
+     * @return observableValue for the UI to listen to.
      */
     public ObservableBooleanValue getObservableValue() {
         return uiUpdateSwitch;
     }
 
     /**
-     * Change the ObservableValue to trigger the UI change
+     * Updates the UI.
      */
     public void updateUi() {
         if (uiUpdateSwitch.getValue() == false) {
@@ -127,9 +133,9 @@ public class MapGrid {
     }
 
     //// cell-level operations
-
     /**
-     * Returns the cell in the given coordinates
+     * Returns the cell in the given coordinates.
+     * @param coordinates of the cell.
      */
     private Cell getCell(Coordinates coordinates) {
         return cellGrid[coordinates.getRowIndex().getZeroBased()][coordinates.getColIndex().getZeroBased()];
@@ -154,7 +160,9 @@ public class MapGrid {
     }
 
     /**
-     * Attack a specified cell. Returns true if a ship was hit otherwise false.
+     * Attack a specified cell.
+     * @param coordinates of the cell.
+     * @return boolean which specifies hit or miss.
      */
     public boolean attackCell(Coordinates coordinates) throws ArrayIndexOutOfBoundsException {
         if (coordinates.getColIndex().getOneBased() > getMapSize()) {
@@ -197,7 +205,6 @@ public class MapGrid {
     }
 
     //// util methods
-
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object

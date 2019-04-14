@@ -10,7 +10,10 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.Mode;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.menu.Code;
 import seedu.address.model.menu.MenuItem;
+import seedu.address.model.menu.Name;
+import seedu.address.model.menu.Price;
 import seedu.address.model.menu.ReadOnlyMenu;
 import seedu.address.model.order.OrderItem;
 import seedu.address.model.statistics.Bill;
@@ -68,14 +71,14 @@ public class BillCommand extends Command {
         }
 
         bill = calculateBill(model);
+        model.setRecentBill(bill);
         createOrUpdateRevenue(model, bill);
         updateStatusOfTable(model);
         model.clearOrderItemsFrom(tableToBill.getTableNumber());
-        model.setRecentBill(bill);
-
         model.updateTables();
         model.updateStatistics();
         model.updateOrders();
+        model.updateMenu();
         return new CommandResult(String.format(MESSAGE_SUCCESS, bill), false, false, Mode.BILL_MODE);
     }
 
@@ -102,17 +105,21 @@ public class BillCommand extends Command {
                 throw new CommandException(MESSAGE_MENU_ITEM_NOT_PRESENT);
             }
             menuItem = opt.get();
-            menu.updateMenuItemQuantity(menuItem, orderItem.getQuantityOrdered());
-            receipt.append(menuItem.getCode().itemCode)
+            int quantity = orderItem.getQuantityOrdered();
+            menu.updateMenuItemQuantity(menuItem, quantity);
+            Code code = menuItem.getCode();
+            Name name = menuItem.getName();
+            Price price = menuItem.getPrice();
+            receipt.append(code.toString())
                     .append("  ")
-                    .append(menuItem.getName().itemName)
+                    .append(name.toString())
                     .append("\n $")
-                    .append(menuItem.getPrice().itemPrice)
+                    .append(price.toString())
                     .append("   x ")
-                    .append(orderItem.getQuantityOrdered())
+                    .append(quantity)
                     .append("\n\n");
 
-            totalBill += Float.parseFloat(menuItem.getPrice().toString()) * orderItem.getQuantityOrdered();
+            totalBill += Float.parseFloat(price.toString()) * quantity;
         }
         receipt.append("Total Bill: $ ").append(String.format("%.2f", totalBill)).append("\n");
         return new Bill(tableToBill.getTableNumber(), totalBill, receipt.toString());

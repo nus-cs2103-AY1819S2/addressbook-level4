@@ -890,7 +890,7 @@ image::EncryptCommandActivityDiagram.png[width="600"]
 . The Pdf specified via the index is retrieved from the PdfBook.
 . A `File` object is created for the Pdf.
 . The `File` will be loaded as https://pdfbox.apache.org/docs/2.0.1/javadocs/org/apache/pdfbox/pdmodel/PDDocument.html[_PDDocument_],
-which is an indicator that the `File` is a *PDF* file that is uncorrupted and
+which is an indicator that the `File` is a *PDF* document that is uncorrupted and
 not protected with a password.
 .. Error in loading Pdf as *PDDocument* would throw an *IOException*. Common reasons of error are:
 ... File not found in location
@@ -932,7 +932,7 @@ will not comprises your privacy has been found.
 ===== Future Implementation
 
 There are concerns of accidental encryption of a file with a wrong password. In *PDF++* v2.0,
-the encrypt command will prompt you to re-enter the password as a form of confirmation message.
+the *EncryptCommand* will prompt you to re-enter the password as a form of confirmation message.
 If there is a mismatch of the two passwords entered, the command will not be executed.
 
 ==== Decryption feature
@@ -941,7 +941,7 @@ If there is a mismatch of the two passwords entered, the command will not be exe
 
 [NOTE]
 The current Implementation of *DecryptCommand* is very similar to <<Encryption feature>>.
-The part where it is implemented differently will be specifically mentioned for your convenience.
+The part where it is implemented differently will be specifically marked with a `*` for your convenience.
 
 The `decrypt` feature is facilitated by both *DecryptCommand* and *DecryptCommandParser*.
 
@@ -953,51 +953,46 @@ image::DecryptCommandActivityDiagram.png[width="600"]
 .. If the index is invalid, a *CommandException* will be thrown and the execution ends.
 . The Pdf specified via the index is retrieved from the PdfBook.
 . A `File` object is created for the Pdf.
-. The `File` will be loaded as https://pdfbox.apache.org/docs/2.0.1/javadocs/org/apache/pdfbox/pdmodel/PDDocument.html[_PDDocument_],
-which is an indicator that the `File` is a *PDF* file that is uncorrupted and
-not protected with a password.
-.. Error in loading Pdf as *PDDocument* would throw an *IOException*. Common reasons of error are:
+. The `File` will be loaded as https://pdfbox.apache.org/docs/2.0.1/javadocs/org/apache/pdfbox/pdmodel/PDDocument.html[_PDDocument_]
+with the specified password, which is an indicator that the `File` is a *PDF* document that is uncorrupted, protected and the password
+provided is valid *.
+.. Error in loading Pdf as *PDDocument* would throw an *IOException* and invalid password would throw an *CommandException*.
+Common reasons of error are:
 ... File not found in location
 ... Lack of user permissions to open File
-... Protected File
+... Unprotected File *
 ... Corrupted File
+... Wrong password *
 .. Thrown IOException is intercepted, a *CommandException* will be thrown and the execution ends.
-. https://pdfbox.apache.org/docs/2.0.1/javadocs/org/apache/pdfbox/pdmodel/encryption/AccessPermission.html[_AccessPermission_], and
-https://pdfbox.apache.org/docs/2.0.1/javadocs/org/apache/pdfbox/pdmodel/encryption/StandardProtectionPolicy.html[_StandardProtectionPolicy_]
-are created. The password specified will be passed to `StandardProtectionPolicy` for the purpose of setting security settings for the
-`PDDocument`.
-. A protected Pdf will be saved and closed.
-.. Error in encrypting the file will throw an *IOException*. Common reasons of error are:
-... Excessive long password
-... Empty password
-.. Thrown IOException is intercepted, a *CommandException* will be thrown and the execution ends.
+. Upon success loading of the PDDocument, the security will be removed. *
+. An unprotected * Pdf will be saved and closed.
 . The Pdf is recorded in the <<Model component>> and the changes are saved.
-. A *CommandResult* is returned upon successful exception of *EncryptCommand*.
+. A *CommandResult* is returned upon successful exception of *DecryptCommand*.
 
 This sequence diagram demonstrates the <<main-success-scenario>> from the
-*LogicManager* to the end of *EncryptCommand* execution:
+*LogicManager* to the end of *DecryptCommand* execution:
 
 image::DecryptCommandSequenceDiagram.png[width="700"]
 
 ===== Consideration
 
-There were considerations to allow for changing of password through the *EncryptCommand*. However, due to security reasons,
-it was decided to focus on encrypting and unprotected Pdf. You will need to <<Decrypt feature>>
-before encrypting it with a new password. This is to ensure your intent in changing the password,
-as the current version *PDF++* does not provide `Forget Password` feature.
+There were considerations to allow for 2-Factor Authentication (2FA) for *DecryptCommand*.
+If unauthorised personnel obtained the password of your files through illegal means,
+they can potentially set the file with a new password. This will hinder your access to
+your files. This ensures that only you/any authorised personnel can decrypt your files.
 
 Furthermore, in ensuring a sophisticated protection system, several other features were introduced.
 
-. <<History feature>> will not show the executed `EncryptCommand` which includes the password of the file.
+. <<History feature>> will not show the executed `DecryptCommand` which includes the password of the file.
 . The <<Undo/Redo feature [Coming in v2.0]>> is temporarily disabled until a solution that
 will not comprises your privacy has been found.
-. Pressing up in the command box will not show the `EncryptCommand` that was previously executed.
+. Pressing up in the command box will not show the `DecryptCommand` that was previously executed.
 
 ===== Future Implementation
 
-There are concerns of accidental encryption of a file with a wrong password. In *PDF++* v2.0,
-the encrypt command will prompt you to re-enter the password as a form of confirmation message.
-If there is a mismatch of the two passwords entered, the command will not be executed.
+In *PDF++* v2.0, the *DecryptCommand* will support for the 2FA feature as mentioned above.
+If this feature is highly demanded, this feature will be implemented to *EncryptCommand* too.
+
 
 
 

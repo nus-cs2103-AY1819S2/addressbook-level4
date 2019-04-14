@@ -655,7 +655,7 @@ For redo, it will call `setRedo` and retrieve that command to apply it on the cu
 image::UndoRedoExecuteUndoStateListDiagram.png[width="800"]
 
 [NOTE]
-If the `Image#index` is 0, pointing to the initial photo, then there are no previous commands to restore. The `undo` command uses `CurrentEdit#canUndoTemp()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+If the `Image#index` is 0, pointing to the initial image, then there are no previous commands to restore. The `undo` command uses `CurrentEdit#canUndoTemp()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
 
 The following sequence diagram shows how the undo operation works:
 
@@ -1379,27 +1379,27 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |Priority |As a ... |I want to ... |So that I can...
 |`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the application
 
-|`* * *` |user |adjust the brightness of my photo |make it brighter or darker
+|`* * *` |user |adjust the brightness of my image |make it brighter or darker
 
-|`* * *` |user |adjust the contrast of my photo |
+|`* * *` |user |adjust the contrast of my image |
 
-|`* * *` |user |resize my photo |
+|`* * *` |user |resize my image |
 
-|`* * *` |user |crop my photo |trim it into my desired dimensions
+|`* * *` |user |crop my image |trim it into my desired dimensions
 
-|`* * *` |user |rotate my photo |change its orientation
+|`* * *` |user |rotate my image |change its orientation
 
 |`* * *` |user |undo and redo my edits |revert or recover my changes
 
 |`* * *` |user |be able to save my image |continue editing it the future
 
-|`* * *` |user |import my photo |store a copy of the photo in the application for editing
+|`* * *` |user |import my image |store a copy of the image in the application for editing
 
-|`* * *` |user |export my photo|save my edited photos to my computer
+|`* * *` |user |export my image|save my edited images to my computer
 
-|`* * *` |user |open a photo stored in the application for editing |
+|`* * *` |user |open a image stored in the application for editing |
 
-|`* *` |user |list the names of the photos stored in the application |know what photos are currently stored inside
+|`* *` |user |list the names of the images stored in the application |know what images are currently stored inside
 
 |=======================================================================
 // end::UserStories[]

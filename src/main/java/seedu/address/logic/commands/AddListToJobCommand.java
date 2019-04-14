@@ -82,6 +82,8 @@ public class AddListToJobCommand extends Command {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
             || (other instanceof AddListToJobCommand // instanceof handles nulls
-            && toAdd.equals(((AddListToJobCommand) other).toAdd));
+            && to.equals(((AddListToJobCommand) other).to)
+            && from.equals(((AddListToJobCommand) other).from)
+            && (toAdd == null || toAdd.equals(((AddListToJobCommand) other).toAdd)));
     }
 }

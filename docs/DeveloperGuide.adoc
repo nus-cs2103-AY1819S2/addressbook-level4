@@ -473,10 +473,16 @@ The Battle feature is split between several packages:
   * `seedu.address.battle.result`: the attack result classes are implemented here.
     These classes are returned by `Battle#humanPerformAttack(coordinates)` and
     `Battle#takeComputerTurn()`.
-  * `BeginCommand`, and `AttackCommand` handle the player's interaction
+  * `BeginCommand` and `AttackCommand` handle the player's interaction
     with this component.
 
+In the following sections, we will explain the workings of each of these
+different packages.
+
 ==== Implementation of battle state
+
+.State diagram of the application
+image::BattleStateDiagram.png[width=800]
 
 In this program, there are certain commands that may only be executed at
 specific phases of the game (e.g. `attack` must only be used when battling,
@@ -493,17 +499,16 @@ In addition, certain commands may change the battle state - for example, `start`
 changes the battle state from `PLAYER_PUT_SHIP` to `ENEMY_PUT_SHIP` then finally
 to `PLAYER_ATTACK`.
 
-Below can be found the state diagram of the application, and the sequence
-diagram showing the execution of a command.
-
-.State diagram of the application
-image::BattleStateDiagram.png[width=800]
 
 ==== Implementation of the `BattleManager` class
 
 The `BattleManager` class contains four important methods, detailed as follows.
 
 ===== `void startGame()`
+
+.Sequence diagram of the `startGame` method
+image::StartGameSequenceDiagram.png[width=800]
+
 `startGame` is called when the player begins the battle (via `BeginCommand`,
 see next section for more details).
 
@@ -512,15 +517,22 @@ which causes the enemy to place its ships and set up other data structures.
 For more information, please see the "Enemy AI Feature" section below.
 
 ===== `AttackResult performAttack(Player, Player, Coordinates)`
+
+.Sequence diagram of the `performAttack` method
+image::PerformAttackSequenceDiagram.png[width=800]
+
 `performAttack` is the method that actually performs the attack from one
 player to another. It takes in an attacker `Player`, a target `Player` and
 the attacked `Coordinates`, and returns an `AttackResult`. (See section
-3.3.3 for the description of `AttackResult`.)
+3.3.3 for the description of what `AttackResult` is returned in what scenario.)
 
 This method is an internal method, used by both `humanPerformAttack` and
 `takeComputerTurn`.
 
 ===== `AttackResult humanPerformAttack(Coordinates)`
+
+.Sequence diagram of the `humanPerformAttack` method
+image::HumanPerformAttackSequenceDiagram.png[width=800]
 
 `humanPerformAttack` is called when the player makes an attack (via
 `AttackCommand`, see below.)
@@ -530,6 +542,9 @@ attacker, the computer player as the target and the argument coordinate
 as the attacked coordinate.
 
 ===== `List<AttackResult> takeComputerTurn()`
+
+.Sequence diagram of the `takeComputerTurn` method
+image::TakeComputerTurnSequenceDiagram.png[width=800]
 
 `takeComputerTurn` is called after the player makes an attack but misses
 (via `AttackCommand`, see below). As mentioned in the game rules, after
@@ -579,10 +594,10 @@ then the `attack` command to attack the enemy.
 The following sequence diagrams show what happens when the user enters
 the `begin` command, then the `attack a1` command.
 
-.Sequence diagram of beginning the battle.
+.Sequence diagram of `begin`.
 image::BeginSequenceDiagram.png[width=800]
 
-.Sequence diagram of attacking the cell a1.
+.Sequence diagram of `attack a1`.
 image::AttackSequenceDiagram.png[width=800]
 
 ==== Design Considerations

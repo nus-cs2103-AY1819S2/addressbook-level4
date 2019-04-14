@@ -161,7 +161,7 @@ image::UiClassDiagramV1.3.png[width="800"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `RestaurantListPanel`, `StatusBarFooter`, `BrowserPanel`, 'ReviewListPanel', etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `RestaurantListPanel`, `StatusBarFooter`, `BrowserPanel`, `ReviewListPanel`, etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
@@ -318,7 +318,9 @@ image::ListUnvisitedSequenceDiagram.png[width="800"]
 // end::listUnvisitedDG[]
 
 // tag::selectDG[]
-=== `select` feature which selects a restaurant and displays all of its information
+=== Select feature
+
+The `select` feature displays all of a restaurant's information when a restaurant is selected.
 
 ==== Current Implementation
 The `select` feature is a pre-existing one from AddressBook Level 4.
@@ -326,7 +328,7 @@ The enhancement made is to improve the User Experience by displaying increased q
 
 The following is the chain of activities that happen when the `select` command is executed.
 
-image::SelectActivityDiagram.png[width="800"]
+image::SelectSequenceDiagram.png[width="800"]
 
 The `selection` mechanism is facilitated by...
 
@@ -369,7 +371,7 @@ Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Sinc
 
 The following activity diagram summarizes what happens when a user executes a new command:
 
-image::SelectSequenceDiagram.png[width="800"]
+image::SelectActivityDiagram.png[width="800"]
 
 ==== Design Considerations
 

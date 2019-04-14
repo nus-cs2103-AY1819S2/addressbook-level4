@@ -32,7 +32,7 @@ The following shows a summary of the contributions I made to this team project.
 ** *Justification*: This feature improves the product significantly because a user can now immediately see his/her personal ratings across all the visits they have made for a restaurant.
 ** *Highlights*: This enhancement required in-depth analysis of other alternatives before structuring its model. Additionally, it relied heavily on XML-based user interface markup language, FXML. Thus, I had to learn pick up this language from scratch to display this new `UiPart`.
 The implementation was also challenging as it involved multiple components, namely `Model`, `Logic` and `Ui`, for it to work.
-** *Code Contributed*:
+** *Code Contributed*: https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#=undefined&search=weixin-koh[Code Contributed]
 *** Functional Code: https://github.com/CS2103-AY1819S2-W17-1/main/pull/103[#103]
 *** Test Code: *[TBC]*
 

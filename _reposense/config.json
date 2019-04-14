@@ -1,7 +1,4 @@
 {
-	"ignoreGlobList": ["about-us/**", "**index.html"],
-	"formats": ["adoc", "cs", "css", "fxml", "gradle", "html", "java", "js", "json", "jsp", "md", "py", "tag", "txt", "xml", "jade", "scss", "yml"],
-	"ignoreCommitList": [ ],
 	"authors":
 	[
 		{

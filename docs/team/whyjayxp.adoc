@@ -17,13 +17,16 @@ This includes allocating tables to customers, handling orders, tracking item ava
 We split the application into four main features: Tables, Orders, Menu and Statistics. Each team member was in charge of one feature and mine was the Orders feature.
 I also conceptualised and implemented the Mode system alongside my team members.
 
-I will be sharing more about the Orders and Modes features in the following sections, as well as extracting the relevant parts of the User Guide and Developer Guide that I wrote for these features.
+I will be sharing more about the Orders feature and Mode system in the following sections, as well as extracting the relevant parts of the User Guide and Developer Guide that I wrote for these features.
 
 You may refer to the table below for the symbols and formatting used in this portfolio.
 
 [width="70%",cols="^15%,85%"]
 |===
 a| `code` | A grey highlight with monospaced font indicates a command that can be typed into the command box of the application.
+a| [.java]#name# | A blue highlight with monospaced font indicates a reference to the codebase. This could be a component, class, method, attribute or file name.
+a| icon:check[role="green", size="2x"] | A green tick indicates the expected result that you should see after executing a command in the application.
+a| icon:lightbulb-o[role="icon-tip", size="2x"] | A lightbulb indicates tips and tricks that might be useful to the user.
 a| icon:info-circle[role="icon-note", size="2x"] | A blue information symbol indicates additional information for that section that is good to know.
 |===
 
@@ -39,7 +42,7 @@ a| icon:info-circle[role="icon-note", size="2x"] | A blue information symbol ind
 ** Justification: Restaurant front-end staff will need this core feature as keeping track of orders is one of the crucial front-end operations that restaurants have to manage. This feature allow orders to be handled more efficiently so that customers can be promptly attended to and served.
 ** Highlights: -
 
-* *Other enhancement added (Modes feature)*: I conceptualised the Mode system and added features related to the changing of modes.
+* *Other enhancement added (Mode system)*: I conceptualised the Mode system and added features related to the changing of modes.
 ** What it does: RestOrRant has four modes for each of the four features. Users can switch between modes to use the other features by using commands, such as the `restaurantMode` and `tableMode` commands that I implemented.
 ** Justification: Translating our main features into different application modes provides a functional and visual distinction between the features and makes RestOrRant more organised and clear for its users. The Mode system also allows us to provide users with only the relevant displays for each feature instead of overwhelming users with all the information at one shot.
 ** Highlights: -
@@ -53,15 +56,18 @@ a| icon:info-circle[role="icon-note", size="2x"] | A blue information symbol ind
 *** Set up the issues tracker on GitHub for our project
 *** Managed the integration of code by ensuring the compatibility of merged Pull Requests
 ** Enhancements to existing features:
-*** Updated the GUI colour scheme and implemented the ability to switch between colour schemes for the different modes
-*** Wrote additional tests for existing features
+*** Updated the GUI colour scheme and implemented the ability to switch between colour schemes for the different modes [https://github.com/cs2103-ay1819s2-w09-3/main/pull/128[#128]]
 ** Documentation:
-*** Did tweaks to existing contents of the User Guide
-**** Reorganised and rewrote the Introduction and Quick Start section
-**** Split commands into their respective modes to present a clearer structure
-**** Revamped Command Summary into table form for ease of reference
+*** Updated the README page [https://github.com/cs2103-ay1819s2-w09-3/main/pull/150[#150]]
+*** Updated the User Guide
+**** Revamped the User Guide in terms of structure and cosmetics, as well as rewrote the Introduction and Quick Start sections [https://github.com/cs2103-ay1819s2-w09-3/main/pull/192[#192]]
+**** Reorganised Command Summary into table form for ease of reference [https://github.com/cs2103-ay1819s2-w09-3/main/pull/156[#156]]
+**** Split commands into their respective modes for a clearer presentation [https://github.com/cs2103-ay1819s2-w09-3/main/pull/124[#124]]
+*** Updated the Developer Guide
+**** Revamped the Developer Guide in terms of structure and cosmetics [https://github.com/cs2103-ay1819s2-w09-3/main/pull/194[#194]]
+**** Rewrote the Introduction section [https://github.com/cs2103-ay1819s2-w09-3/main/pull/150[#150]]
 ** Community:
-*** PRs reviewed (with non-trivial review comments)
+*** PRs reviewed (with non-trivial review comments) [https://github.com/cs2103-ay1819s2-w09-3/main/pull/151[#151]] [https://github.com/cs2103-ay1819s2-w09-3/main/pull/186[#186]] [https://github.com/cs2103-ay1819s2-w09-3/main/pull/190[#190]]
 ** Tools:
 *** Set up GitHub, Travis, AppVeyor and Coveralls for our project
 *** Set up auto-publishing of docs
@@ -72,7 +78,7 @@ a| icon:info-circle[role="icon-note", size="2x"] | A blue information symbol ind
 | This section shows the additions that I have made to the User Guide to provide information about how the Modes and Orders features work.
 |===
 
-include::../UserGuide.adoc[tag=changemode]
+include::../UserGuide.adoc[tag=tablemodecommand]
 
 include::../UserGuide.adoc[tag=tablemode]
 
@@ -84,3 +90,7 @@ As the implementation for the Orders feature is similar to the basic add, delete
 |===
 
 include::../DeveloperGuide.adoc[tag=changemode]
+
+include::../DeveloperGuide.adoc[tag=orders]
+
+include::../DeveloperGuide.adoc[tag=clearorder]

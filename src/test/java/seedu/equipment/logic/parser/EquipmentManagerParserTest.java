@@ -24,7 +24,6 @@ import seedu.equipment.logic.commands.ExitCommand;
 import seedu.equipment.logic.commands.FindCommand;
 import seedu.equipment.logic.commands.HelpCommand;
 import seedu.equipment.logic.commands.HistoryCommand;
-import seedu.equipment.logic.commands.ListClientCommand;
 import seedu.equipment.logic.commands.ListEquipmentCommand;
 import seedu.equipment.logic.commands.ListWorkListCommand;
 import seedu.equipment.logic.commands.RedoCommand;
@@ -124,13 +123,6 @@ public class EquipmentManagerParserTest {
         assertTrue(parser.parseCommand(ListWorkListCommand.COMMAND_WORD) instanceof ListWorkListCommand);
         assertTrue(parser.parseCommand(ListWorkListCommand.COMMAND_WORD + " 3")
                 instanceof ListWorkListCommand);
-    }
-
-    @Test
-    public void parseCommand_listc() throws Exception {
-        assertTrue(parser.parseCommand(ListClientCommand.COMMAND_WORD) instanceof ListClientCommand);
-        assertTrue(parser.parseCommand(ListClientCommand.COMMAND_WORD + " 3")
-                instanceof ListClientCommand);
     }
 
     @Test

@@ -284,9 +284,6 @@ The following sequence diagram shows how the *add equipment* operation works:
 .Sequence diagram for `AddCommand`
 image::AddCommandSD.png[width="800"]
 
-Step 1
-
-
 Given below is an example usage scenario of how the adding of equipment details mechanism behaves at each step after carrying out `add-e`.
 
 Step 1. The user launches the application.
@@ -333,27 +330,38 @@ In Equipment Manager, there are `Name`, `Phone`, `Address` attributes stored und
 As mentioned in <<Current Usage of Equipment Details>>, the `Address` which belong to the client address, are used in features like `DisplayCommand` and `SelectCommand`.
 
 ==== Current implementation
-There is `AddClientCommand` that is supported by  `AddClientCommandParser`.
-This adding of client details mechanism is facilitated by `VersionedEquipmentManager` which extends the  `Equipment Manager`.
+There is `SelectClientCommand` that is supported by  `SelectClientCommandParser`.
+This selection of client details mechanism is facilitated by `VersionedEquipmentManager` which extends the  `Equipment Manager`.
 
-Given below is an example usage scenario of how the adding of client details mechanism behaves at each step after carrying out `add-c`.
+Given below is an example usage scenario of how the selection of client details mechanism behaves at each step after carrying out `select-c`.
 
 Step 1. The user launches the application.
 
-Step 2. The user executes `add-c n/Pending CC` command.
+Step 2. The user executes `select-c 1` command.
 
-Step 3. After `EquipmentManagerParser` detects `add-c` as the command word, a `AddClientCommandParser#parse()` is called.
+Step 3. After `EquipmentManagerParser` detects `select-c` as the command word, a `SelectClientCommandParser#parse()` is called.
 
-Step 4. `AddClientCommand#execute()` is then called.
+Step 4. `SelectClientCommand#execute()` is then called and set the selected client in the model with the filtered client list.
 
-Step 5. The parser will parse the `Name` attributes and add into client details in the model.
+Step 5. Using the `filter` feature, the model will use the `Name` attributes, filter the equipment list accordingly and displays the client's equipment in the *Equipment details* panel.
 
-Step 7. The model now contains additional client name and returns to GUI for display on *Client details* panels respectively.
+Step 7. The model now contains additional client name and returns to GUI for display on *Client details* panel respectively. The model also contains filtered client's equipments and returns the GUI for display on *Equipment details* panel.
 
-In addition, the figure in Current Implementation of <<Equipment feature>> also explains how `AddCommand` contributes to the results shown in *Client Details* panel.
+[NOTE]
+The figure in Current Implementation of <<Equipment feature>> also explains how `AddCommand` contributes to the results shown in *Client Details* panel.
 
 ==== Design Considerations
 Refer to the *Design Considerations* in <<Equipment feature>> as we went through the same design considerations to come out with equipment and client details separation.
+
+===== Aspects: With a list of client displayed in *Client details* panel, how should the client's equipment details be displayed?
+
+* *Alternative 1 (current choice)*: Making use of the `filter` command to show client's equipment
+** Pros: Making use of exisiting *Equipment details* panel. Easier to implement with lesser changes to the storage, logic, model and ui components within the time constraint.
+** Cons: select followed by a filter command is stored in the history even though user did not use filter command. This is the trade off.
+
+* *Alternative 2*: Add a new equipment panel and card for displaying client's equipment when selecting the client
+** Pros: Do not have the issue of filter command being tracked in history even though user did not use the filter command.
+** Cons: Too many different panels in one main window display may cause confusion and lower user's experience.
 //end::client[]
 
 //tag::filter[]
@@ -937,18 +945,21 @@ A project often depends on third-party libraries. For example, Address Book depe
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
 
 [discrete]
-=== CRUD
+=== Add, Edit, Delete, List (Basic CRUD commands)
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
+|`* * *` |user |add an equipment and its specific details |keep track of the details of an equipment
+
 |`* * *` |user |delete an equipment or its specific details |remove equipment that is obsolete
 
-|`* * *` |user |delete worklist |remove worklist which indicates work completed and no longer need it for tracking progress
+|`* * *` |user |have a work list where I can store the equipments I am working on |keep track of all the equipments that I am assigned to
 
-|`* * *` |user |have a worklist where I can store the equipments I am working on |keep track of all the equipments that I am assigned to
+|`* * *` |user |delete work list |remove work list which indicates work completed and no longer need it for tracking progress
 
-|`* * *` |user |want to view details of an equipment | so that i can retrieve more details information about a particular equipment
+|`* * *` |user |view details of all equipment |know how many equipments there are and what is the individual details of each equipment
 
+|`* * *` |user |know how many clients have the equipment |track equipments in group based on client and how many equipment the client owns
 |=======================================================================
 
 [discrete]
@@ -956,7 +967,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |user |filter the list based on some conditions |remove all irrelevant equipments and worklist showing on the list
+|`* * *` |user |filter the list based on some conditions |remove all irrelevant equipments and work list showing on the list
 |=======================================================================
 
 [discrete]
@@ -993,12 +1004,11 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`*` |user |see my past commands |keep track of what I have searched on
 
-|`*` |user |autocomplete my command queries |get the information that I want faster
-
 |`*` |user |change command keywords |use the words that I prefer
 
 |`*` |user |redo or undo my past commands |correct any mistakes I have made
 
+|`*` |user |autocomplete my command queries |get the information that I want faster
 |=======================================================================
 
 _{More to be added}_

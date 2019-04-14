@@ -141,10 +141,11 @@ Each of the first three components do the following:
 * Exposes its functionality using a `{Component Name}Manager` class.
 
 
-The `Model` component consists of two components:
+The `Model` component consists of three components:
 
 *  `Album` which stores the pool of images that has been imported into the App.
 *  `CurrentEdit` which holds the image that the App is currently editing in-memory.
+*  `TransformationSet` which stores the preset commands created by the user to edit the image.
 
 // end::Architecture[]
 
@@ -247,9 +248,9 @@ image::ModelComponents.png[width="800"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/model/CurrentEdit.java[`CurrentEdit.java`], link:{repoURL}/src/main/java/seedu/address/model/Album.java[`Album.java`], link:{repoURL}/src/main/java/seedu/address/model/Album.java[`Image.java`]
 
-The Model component comprises of two main classes, `Album` and `CurrentEdit`.
+The Model component comprises of three main classes, `CurrentEdit`, `TransformationSet` and `Album`.
 
-`CurrentEdit` Class:
+The core functions of the `CurrentEdit` Class are listed below:
 
 * stores an `Image` instance in `tempImage` and `originalImage` when an image is opened.
 * creates a copy of the opened image and the current edited image in `temp` directory.
@@ -258,13 +259,20 @@ The Model component comprises of two main classes, `Album` and `CurrentEdit`.
 * contains methods to access `temp` directory.
 // end::DesignModel[]
 
-//tag::albumModel[]
-The `Album` class is implemented using the Singleton pattern. This design choice was purposely made as only a single instance of `Album` should reside in FomoFoto any any one time. This design also reduces the need for passing instance variables across all logic and model components.
+The `TransformationSet` class is implemented using the Singleton pattern. This design choice was made to ensure that only a single instance of `TransformationSet` is used in FomoFoto at runtime. This design also eliminates redundant passing of instance variables of `TransformationSet` across all logic and model components.
 
-The core functions of the `Album` class are listed below.
+The core functions of the `Transformation` class are listed below:
+
+* Stores a reference to all the preset commands saved by the user as a HashMap that contains a `String` as a key and a `List<Command>`as a value.
+* Contains various helper methods to access the HashMap that stores the preset commands.
+
+//tag::albumModel[]
+The `Album` class is also implemented using the Singleton pattern. This design choice was purposely made as only a single instance of `Album` should reside in FomoFoto at any one time. This design also reduces the need for passing instance variables across all logic and model components.
+
+The core functions of the `Album` class are listed below:
 
 * Stores a reference to all imported images as List.
-* Contains various helper method to access the `assets` directory, the storage for the raw image files.
+* Contains various helper methods to access the `assets` directory, the storage for the raw image files.
 * Fires property changes to listeners attached to the `Notifier` to redraw UI elements.
 
 The Model also comprises of a smaller subclass, `Image`.
@@ -283,6 +291,7 @@ As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person`
  +
 image:ModelClassBetterOopDiagram.png[width="800"]
 ////
+
 
 // tag::StorageComponent[]
 [[Design-Storage]]
@@ -637,88 +646,6 @@ Refer to the example usage scenario, sequence diagram and design considerations 
 
 // end::ImageManipulation[]
 
-// tag::undoredo[]
-=== Undo/Redo feature
-==== Current Implementation
-
-The undo/redo mechanism is facilitated by `Image`. It contains a list of commands applied to the current image. Additionally, it implements the following operations:
-
-* `Image#addHistory()` -- Saves the current edit command into commandHistory list and increments index.
-* `Image#setUndo()` -- Decreases index by 1.
-* `Image#setRedo()` -- Increases index by 1.
-* `Image#getHistory()` -- Returns commandHistory as List.
-* `Image#getSubHistory()` -- Returns commandHistory sublist using index to track which commands should be included.
-* `Image#canUndo()` -- Returns true if index > 0.
-* `Image#canRedo()` -- Returns true if index < CommandHistory.size().
-
-These operations are exposed in the `CurrentEdit` interface as `CurrentEdit#addCommand()`, `CurrentEdit#setUndoTemp()`, `CurrentEdit#setRedoTemp()`, `CurrentEdit#getHistoryTemp()`, `CurrentEdit#getSubHistoryTemp()`, `CurrentEdit#canUndoTemp()` and `CurrentEdit#canRedoTemp()` respectively.
-
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
-
-Step 1. The user opens an image. The `Image` will be initialized with an empty commandHistory List.
-
-.State list diagram for undo/redo
-image::UndoRedoStartingStateListDiagram.png[width="600"]
-
-Step 2. The user executes a series of transformations on the image. These transformations are stored in the commandHistory list and for each transformation stored, the index is incremented by 1 to point to that transformation.
-
-.First Transformation
-image::UndoRedoNewCommand1StateListDiagram.png[width="600"]
-.Second Transformation
-image::UndoRedoNewCommand2StateListDiagram.png[width="600"]
-
-Step 3. The user wants to undo the previous transformation by using the `undo` command. It will call `CurrentEdit#replaceTempWithOriginal()` which will replace the edited image in temp folder with the original image. It will then call `CurrentEdit#setUndoTemp()` to set the index in `tempImage` to the required index and retrieve the list with `CurrentEdit#getHistoryTemp()`. Using the list, it will apply the commands onto the original image till it reaches the command just before the set index.
-
-.Undo transformation
-image::UndoRedoNewCommand3StateListDiagram.png[width="600"]
-
-[NOTE]
-If a command fails its execution, it will return the image before undo was called and produce an error message.
-
-Step 4. After executing Undo, `index` will be less than size of commandHistory. If redo is not executed before a new command is added, all commands in the list after `index` will be deleted.
-
-For redo, it will call `setRedo` and retrieve that command to apply it on the current image.
-
-.State List diagram
-image::UndoRedoExecuteUndoStateListDiagram.png[width="600"]
-
-[NOTE]
-If the `Image#index` is 0, pointing to the initial image, then there are no previous commands to restore. The `undo` command uses `CurrentEdit#canUndoTemp()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
-
-The following sequence diagram shows how the undo operation works:
-
-.Sequence Diagram
-image::UndoRedoSequenceDiagram.png[width="600"]
-
-The `redo` command does the opposite -- it calls `CurrentEdit#setRedoTemp()`, which shifts the `index` once to the right, pointing to the previously undone command, and executes that command to perform the transformation.
-
-[NOTE]
-If the `index` is at index `commandHistory.size()`, pointing to the latest image state, then there are no undone transformation to restore. The `redo` command uses `CurrentEdit#canRedoTemp()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
-
-Step 5. The user executes `saves`, which calls `CurrentEdit#saveToAssets()`. This replaces the original image with the temp image since a name is not specified. When this happens, the user can no longer call `undo` as there is no original image to work on. The command history is also cleared.
-
-==== Design Considerations
-
-===== Aspect: How undo & redo executes
-
-* *Alternative 1:* Saves each transformation as a separate image.
-** Pros: Easy to implement.
-** Cons: May have performance issues in terms of memory usage.
-* *Alternative 2(current choice):* Save all transformation in a list and apply them when undo/redo is called. We chose this method as we do not want our application to take up too much space in the PC.
-** Pros: Will use less memory
-** Cons: We must ensure that the implementation of each individual command are correct.
-
-===== Aspect: Data structure to support the undo/redo commands
-
-* *Alternative 1 (current choice):* Use a list to store the history of commands. We chose this so as to preserve good object oriented programming principles.
-** Pros: Easy for new computer science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `Image`.
-* *Alternative 2:* Use `HistoryManager` for undo/redo
-** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
-** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates single responsibility principle and separation of concerns as `HistoryManager` now needs to do two different things.
-// end::undoredo[]
-
-
 // tag::Save[]
 === Save Feature
 
@@ -903,6 +830,87 @@ Step 6. Lastly, `CurrentEdit#addCommand(this)` is invoked to add this command to
 In the end, the first alternative is chosen as we want users to see the immediate effect of the commands so that they can make changes or undo the edits if they do not like what they see.
 
 // end::SetPreset[]
+
+// tag::undoredo[]
+=== Undo/Redo feature
+==== Current Implementation
+
+The undo/redo mechanism is facilitated by `Image`. It contains a list of commands applied to the current image. Additionally, it implements the following operations:
+
+* `Image#addHistory()` -- Saves the current edit command into commandHistory list and increments index.
+* `Image#setUndo()` -- Decreases index by 1.
+* `Image#setRedo()` -- Increases index by 1.
+* `Image#getHistory()` -- Returns commandHistory as List.
+* `Image#getSubHistory()` -- Returns commandHistory sublist using index to track which commands should be included.
+* `Image#canUndo()` -- Returns true if index > 0.
+* `Image#canRedo()` -- Returns true if index < CommandHistory.size().
+
+These operations are exposed in the `CurrentEdit` interface as `CurrentEdit#addCommand()`, `CurrentEdit#setUndoTemp()`, `CurrentEdit#setRedoTemp()`, `CurrentEdit#getHistoryTemp()`, `CurrentEdit#getSubHistoryTemp()`, `CurrentEdit#canUndoTemp()` and `CurrentEdit#canRedoTemp()` respectively.
+
+Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
+
+Step 1. The user opens an image. The `Image` will be initialized with an empty commandHistory List.
+
+.State list diagram for undo/redo
+image::UndoRedoStartingStateListDiagram.png[width="600"]
+
+Step 2. The user executes a series of transformations on the image. These transformations are stored in the commandHistory list and for each transformation stored, the index is incremented by 1 to point to that transformation.
+
+.First Transformation
+image::UndoRedoNewCommand1StateListDiagram.png[width="600"]
+.Second Transformation
+image::UndoRedoNewCommand2StateListDiagram.png[width="600"]
+
+Step 3. The user wants to undo the previous transformation by using the `undo` command. It will call `CurrentEdit#replaceTempWithOriginal()` which will replace the edited image in temp folder with the original image. It will then call `CurrentEdit#setUndoTemp()` to set the index in `tempImage` to the required index and retrieve the list with `CurrentEdit#getHistoryTemp()`. Using the list, it will apply the commands onto the original image till it reaches the command just before the set index.
+
+.Undo transformation
+image::UndoRedoNewCommand3StateListDiagram.png[width="600"]
+
+[NOTE]
+If a command fails its execution, it will return the image before undo was called and produce an error message.
+
+Step 4. After executing Undo, `index` will be less than size of commandHistory. If redo is not executed before a new command is added, all commands in the list after `index` will be deleted.
+
+For redo, it will call `setRedo` and retrieve that command to apply it on the current image.
+
+.State List diagram
+image::UndoRedoExecuteUndoStateListDiagram.png[width="600"]
+
+[NOTE]
+If the `Image#index` is 0, pointing to the initial image, then there are no previous commands to restore. The `undo` command uses `CurrentEdit#canUndoTemp()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+
+The following sequence diagram shows how the undo operation works:
+
+.Sequence Diagram
+image::UndoRedoSequenceDiagram.png[width="600"]
+
+The `redo` command does the opposite -- it calls `CurrentEdit#setRedoTemp()`, which shifts the `index` once to the right, pointing to the previously undone command, and executes that command to perform the transformation.
+
+[NOTE]
+If the `index` is at index `commandHistory.size()`, pointing to the latest image state, then there are no undone transformation to restore. The `redo` command uses `CurrentEdit#canRedoTemp()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+
+Step 5. The user executes `saves`, which calls `CurrentEdit#saveToAssets()`. This replaces the original image with the temp image since a name is not specified. When this happens, the user can no longer call `undo` as there is no original image to work on. The command history is also cleared.
+
+==== Design Considerations
+
+===== Aspect: How undo & redo executes
+
+* *Alternative 1:* Saves each transformation as a separate image.
+** Pros: Easy to implement.
+** Cons: May have performance issues in terms of memory usage.
+* *Alternative 2(current choice):* Save all transformation in a list and apply them when undo/redo is called. We chose this method as we do not want our application to take up too much space in the PC.
+** Pros: Will use less memory
+** Cons: We must ensure that the implementation of each individual command are correct.
+
+===== Aspect: Data structure to support the undo/redo commands
+
+* *Alternative 1 (current choice):* Use a list to store the history of commands. We chose this so as to preserve good object oriented programming principles.
+** Pros: Easy for new computer science student undergraduates to understand, who are likely to be the new incoming developers of our project.
+** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `Image`.
+* *Alternative 2:* Use `HistoryManager` for undo/redo
+** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
+** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates single responsibility principle and separation of concerns as `HistoryManager` now needs to do two different things.
+// end::undoredo[]
 
 //tag::WaterMark[]
 === WaterMark Feature

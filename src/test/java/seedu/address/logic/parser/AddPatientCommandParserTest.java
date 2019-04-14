@@ -35,13 +35,14 @@ import static seedu.address.testutil.TypicalPatients.BOB;
 
 import org.junit.Test;
 
-import seedu.address.logic.commands.AddPatientCommand;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Age;
+import seedu.address.logic.commands.patient.AddPatientCommand;
+import seedu.address.logic.parser.patient.AddPatientCommandParser;
 import seedu.address.model.person.Gender;
 import seedu.address.model.person.Name;
-import seedu.address.model.person.Patient;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.patient.Address;
+import seedu.address.model.person.patient.Age;
+import seedu.address.model.person.patient.Patient;
 import seedu.address.model.tag.Tag;
 import seedu.address.testutil.PatientBuilder;
 

@@ -1,5 +1,5 @@
 /* @@author wayneswq */
-package seedu.address.model.person;
+package seedu.address.model.person.patient;
 
 import java.util.List;
 import java.util.function.Predicate;

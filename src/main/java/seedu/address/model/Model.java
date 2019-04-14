@@ -10,8 +10,8 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.medicalhistory.MedicalHistory;
 import seedu.address.model.person.Doctor;
-import seedu.address.model.person.Patient;
 import seedu.address.model.person.PersonId;
+import seedu.address.model.person.patient.Patient;
 import seedu.address.model.prescription.Prescription;
 
 
@@ -19,63 +19,87 @@ import seedu.address.model.prescription.Prescription;
  * The API of the Model component.
  */
 public interface Model {
-    /** {@code Predicate} that always evaluate to true */
+    /**
+     * {@code Predicate} that always evaluate to true
+     */
     Predicate<Patient> PREDICATE_SHOW_ALL_PATIENTS = unused -> true;
 
-    /** {@code Predicate} that always evaluate to true */
+    /**
+     * {@code Predicate} that always evaluate to true
+     */
     Predicate<Doctor> PREDICATE_SHOW_ALL_DOCTORS = unused -> true;
 
-    /** {@code Predicate} that always evaluate to true */
+    /**
+     * {@code Predicate} that always evaluate to true
+     */
     Predicate<MedicalHistory> PREDICATE_SHOW_ALL_MEDHISTS = unused -> true;
 
-    /** {@code Predicate} that always evaluate to true */
+    /**
+     * {@code Predicate} that always evaluate to true
+     */
     Predicate<Appointment> PREDICATE_SHOW_ALL_APPOINTMENTS = unused -> true;
 
-    /** {@code Predicate} that always evaluate to true */
+    /**
+     * {@code Predicate} that always evaluate to true
+     */
     Predicate<Prescription> PREDICATE_SHOW_ALL_PRESCRIPTIONS = unused -> true;
 
-    /** {@code Comparator} that sort medical history by date in ascending order from oldest to newest. */
+    /**
+     * {@code Comparator} that sort medical history by date in ascending order from oldest to newest.
+     */
     Comparator<MedicalHistory> COMPARATOR_MED_HIST_DATE_ASC = new MedHistDateAscComparator();
 
-    /** {@code Comparator} that sort medical history by date in decending order from newest to oldest. */
+    /**
+     * {@code Comparator} that sort medical history by date in decending order from newest to oldest.
+     */
     Comparator<MedicalHistory> COMPARATOR_MED_HIST_DATE_DESC = new MedHistDateDescComparator();
 
-    /** {@code Comparator} that sort prescriptions by date in ascending order from oldest to newest. */
+    /**
+     * {@code Comparator} that sort prescriptions by date in ascending order from oldest to newest.
+     */
     Comparator<Prescription> COMPARATOR_PRESC_DATE_ASC = new PrescriptionDateAscComparator();
 
-    /** {@code Comparator} that sort prescriptions by date in descending order from newest to oldest. */
+    /**
+     * {@code Comparator} that sort prescriptions by date in descending order from newest to oldest.
+     */
     Comparator<Prescription> COMPARATOR_PRESC_DATE_DESC = new PrescriptionDateDescComparator();
 
-    /** Comparater of Medical History
+    /**
+     * Comparater of Medical History
      * Medical history with older date is larger than medical history with newer date.
      */
     class MedHistDateAscComparator implements Comparator<MedicalHistory> {
-        public int compare (MedicalHistory mh1, MedicalHistory mh2) {
+        public int compare(MedicalHistory mh1, MedicalHistory mh2) {
             return mh1.getDate().date.compareTo(mh2.getDate().date);
         }
     }
-    /** Comparater of Medical History
+
+    /**
+     * Comparater of Medical History
      * Medical history with newer date is larger than medical history with older date.
      */
     class MedHistDateDescComparator implements Comparator<MedicalHistory> {
-        public int compare (MedicalHistory mh1, MedicalHistory mh2) {
+        public int compare(MedicalHistory mh1, MedicalHistory mh2) {
             return mh2.getDate().date.compareTo(mh1.getDate().date);
         }
     }
 
-    /** Comparator of Prescription
+    /**
+     * Comparator of Prescription
      * Prescriptions with older date is larger than prescription with newer date.
      */
     class PrescriptionDateAscComparator implements Comparator<Prescription> {
-        public int compare (Prescription p1, Prescription p2) {
+        public int compare(Prescription p1, Prescription p2) {
             return p1.getDate().date.compareTo(p2.getDate().date);
         }
     }
-    /** Comparator of Prescription
+
+    /**
+     * Comparator of Prescription
      * Prescription with newer date is larger than prescription with older date.
      */
     class PrescriptionDateDescComparator implements Comparator<Prescription> {
-        public int compare (Prescription p1, Prescription p2) {
+        public int compare(Prescription p1, Prescription p2) {
             return p2.getDate().date.compareTo(p1.getDate().date);
         }
     }
@@ -115,7 +139,9 @@ public interface Model {
      */
     void setDocX(ReadOnlyDocX docX);
 
-    /** Returns the DocX */
+    /**
+     * Returns the DocX
+     */
     ReadOnlyDocX getDocX();
 
     /**
@@ -218,38 +244,50 @@ public interface Model {
      */
     void setPrescription(Prescription target, Prescription editedPrescription);
 
-    /** Returns an unmodifiable view of the filtered patient list */
+    /**
+     * Returns an unmodifiable view of the filtered patient list
+     */
     ObservableList<Patient> getFilteredPatientList();
 
-    /** Returns an unmodifiable view of the filtered medical history list */
+    /**
+     * Returns an unmodifiable view of the filtered medical history list
+     */
     ObservableList<MedicalHistory> getFilteredMedHistList();
 
-    /** Returns an unmodifiable view of the filtered doctor list */
+    /**
+     * Returns an unmodifiable view of the filtered doctor list
+     */
     ObservableList<Doctor> getFilteredDoctorList();
 
-    /** Returns an unmodifiable view of the filtered appointment list */
+    /**
+     * Returns an unmodifiable view of the filtered appointment list
+     */
     ObservableList<Appointment> getFilteredAppointmentList();
 
     /**
      * Updates the filter of the filtered patient list to filter by the given {@code predicate}.
+     *
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredPatientList(Predicate<Patient> predicate);
 
     /**
      * Updates the filter of the filtered medical history list to filter by the given {@code predicate}.
+     *
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredMedHistList(Predicate<MedicalHistory> predicate);
 
     /**
      * Updates the filter of the filtered doctor list to filter by the given {@code predicate}.
+     *
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredDoctorList(Predicate<Doctor> predicate);
 
     /**
      * Updates the filter of the filtered patient list to filter by the given {@code predicate}.
+     *
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredAppointmentList(Predicate<Appointment> predicate);
@@ -260,11 +298,14 @@ public interface Model {
      */
     void sortFilteredMedHistList(Comparator<MedicalHistory> medicalHistoryComparator);
 
-    /** Returns an unmodifiable view of the filtered prescription list */
+    /**
+     * Returns an unmodifiable view of the filtered prescription list
+     */
     ObservableList<Prescription> getFilteredPrescriptionList();
 
     /**
      * Updates the filter of the filtered prescription list to filter by the given {@code predicate}.
+     *
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredPrescriptionList(Predicate<Prescription> predicate);

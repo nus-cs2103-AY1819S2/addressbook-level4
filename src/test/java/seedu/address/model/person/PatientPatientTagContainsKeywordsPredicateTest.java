@@ -9,6 +9,7 @@ import java.util.List;
 
 import org.junit.Test;
 
+import seedu.address.model.person.patient.PatientNameContainsKeywordsPredicate;
 import seedu.address.testutil.PatientBuilder;
 
 public class PatientPatientTagContainsKeywordsPredicateTest {

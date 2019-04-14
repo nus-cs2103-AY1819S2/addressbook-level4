@@ -1,5 +1,5 @@
 /* @@author wayneswq */
-package seedu.address.model.person;
+package seedu.address.model.person.patient;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
@@ -9,6 +9,11 @@ import java.util.Objects;
 import java.util.Set;
 
 import seedu.address.model.appointment.AppointmentStatus;
+import seedu.address.model.person.Gender;
+import seedu.address.model.person.Name;
+import seedu.address.model.person.Person;
+import seedu.address.model.person.PersonId;
+import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
 
 /**

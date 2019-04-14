@@ -1,9 +1,10 @@
 /* @@author wayneswq */
-package seedu.address.logic.parser;
+package seedu.address.logic.parser.patient;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
-import seedu.address.logic.commands.SearchPatientPidCommand;
+import seedu.address.logic.commands.patient.SearchPatientPidCommand;
+import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.PersonId;
 import seedu.address.model.person.RecordContainsPatientIdPredicate;

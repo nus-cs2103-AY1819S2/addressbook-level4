@@ -11,11 +11,11 @@ import org.junit.Test;
 
 import guitests.GuiRobot;
 import guitests.guihandles.HelpWindowHandle;
-import seedu.address.logic.commands.DeletePatientCommand;
 import seedu.address.logic.commands.HelpCommand;
-import seedu.address.logic.commands.SelectPatientCommand;
-import seedu.address.ui.PatientInfoPanel;
+import seedu.address.logic.commands.patient.DeletePatientCommand;
+import seedu.address.logic.commands.patient.SelectPatientCommand;
 import seedu.address.ui.StatusBarFooter;
+import seedu.address.ui.patient.PatientInfoPanel;
 
 /**
  * A system test class for the help window, which contains interaction with other UI components.

@@ -15,7 +15,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.appointment.AppointmentStatus;
-import seedu.address.model.person.Patient;
+import seedu.address.model.person.patient.Patient;
 
 /**
  * Change the status of an Appointment.

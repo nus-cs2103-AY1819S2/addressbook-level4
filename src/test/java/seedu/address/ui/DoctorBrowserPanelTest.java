@@ -3,7 +3,7 @@
 //import guitests.guihandles.BrowserPanelHandle;
 //import javafx.beans.property.SimpleObjectProperty;
 //import seedu.address.model.person.Doctor;
-//import seedu.address.model.person.Patient;
+//import seedu.address.model.person.patient.Patient;
 //
 //import java.net.URL;
 //

@@ -1,4 +1,4 @@
-package seedu.address.logic.commands;
+package seedu.address.logic.commands.patient;
 
 import static java.util.Objects.requireNonNull;
 
@@ -7,9 +7,11 @@ import java.util.List;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
+import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.person.Patient;
+import seedu.address.model.person.patient.Patient;
 
 /**
  * Deletes a patient identified using it's displayed index from the docX.

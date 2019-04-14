@@ -2,7 +2,7 @@ package seedu.address.testutil;
 
 import seedu.address.model.DocX;
 import seedu.address.model.person.Doctor;
-import seedu.address.model.person.Patient;
+import seedu.address.model.person.patient.Patient;
 
 /**
  * A utility class to help with building DocX objects.

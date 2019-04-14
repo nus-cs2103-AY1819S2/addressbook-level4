@@ -412,8 +412,6 @@ public class FilterCommandIntegrationTest {
         expectedModel.commitAddressBook();
         assertCommandSuccess(commandFilter, model, commandHistory, FilterCommand.MESSAGE_FILTER_PERSON_SUCCESS,
                 expectedModel);
-        System.out.println("e:" + expectedModel.getFilteredPersonList());
-        System.out.println("a:" + model.getFilteredPersonList());
 
         // sorting by names takes place - success
         String expectedMessage = "Sorted all persons by name";
@@ -428,31 +426,27 @@ public class FilterCommandIntegrationTest {
         }
         expectedModel.commitAddressBook();
         assertCommandSuccess(commandSort, model, commandHistory, expectedMessage, expectedModel);
-        System.out.println("e1:" + expectedModel.getFilteredPersonList());
-        System.out.println("a1:" + model.getFilteredPersonList());
 
         // filter reverse takes place - success
         commandFilter = new FilterCommand(criterionClearAndReverse, TYPE_REVERSE);
         expectedModel.reverseFilter();
         expectedModel.commitAddressBook();
-        System.out.println("e2:" + expectedModel.getFilteredPersonList());
-        System.out.println("a2:" + model.getFilteredPersonList());
         assertCommandSuccess(commandFilter, model, commandHistory, FilterCommand.MESSAGE_FILTER_REVERSE_SUCCESS,
                 expectedModel);
 
         // sorting by reverse names takes place - success
         expectedMessage = "Sorted all persons by reverse name";
+        SortWord typeReverse = new SortWord("reverse name");
+        SortCommand commandReverseSort = new SortCommand(typeReverse);
         SortMethod sortReverseNameCommand = new SortName();
         sortReverseNameCommand.execute(expectedModel.getAddressBook().getPersonList(), "reverse name");
-        sortedPersons = sortReverseNameCommand.getList();
+        sortedPersons = SortUtil.reversePersonList(sortReverseNameCommand.getList());
         expectedModel.deleteAllPerson();
         for (Person newPerson : sortedPersons) {
             expectedModel.addPersonWithFilter(newPerson);
         }
         expectedModel.commitAddressBook();
-        System.out.println("e3:" + expectedModel.getFilteredPersonList());
-        System.out.println("a3:" + model.getFilteredPersonList());
-        assertCommandSuccess(commandSort, model, commandHistory, expectedMessage, expectedModel);
+        assertCommandSuccess(commandReverseSort, model, commandHistory, expectedMessage, expectedModel);
 
         // filter clear takes place - success
         commandFilter = new FilterCommand(criterionClearAndReverse, TYPE_CLEAR);

@@ -52,10 +52,8 @@ public class LogicManager implements Logic {
             Command command = topDeckParser.parseCommand(commandText, model.getViewState().getViewStateParser());
             commandResult = command.execute(model, history);
             if (command instanceof GenerateQuestionCommand) {
-                storage.saveTopDeck(model.getTopDeck());
+                topDeckModified = true;
             }
-        } catch (IOException ioe) {
-            throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         } finally {
             history.add(commandText);
         }
@@ -68,7 +66,6 @@ public class LogicManager implements Logic {
                 throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
             }
         }
-
         return commandResult;
     }
 

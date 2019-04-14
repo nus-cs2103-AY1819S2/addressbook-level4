@@ -14,8 +14,8 @@ import seedu.address.model.review.Review;
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Summary {
+    public static final Float NO_RATING = (float) -1;
     private static final DecimalFormat ONE_DP = new DecimalFormat("#.#");
-    private static final Float NO_RATING = (float) -1;
 
     // Data fields
     private Float avgRating;

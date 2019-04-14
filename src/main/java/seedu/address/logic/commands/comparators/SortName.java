@@ -7,7 +7,7 @@ import seedu.address.model.restaurant.Restaurant;
 /**
  * Implements Comparator for sorting {@code Restaurant} based on its {@code AvgRating}
  */
-class SortName implements Comparator<Restaurant> {
+public class SortName implements Comparator<Restaurant> {
 
     /**
      * Compares two restaurants to determine which should be before the other.

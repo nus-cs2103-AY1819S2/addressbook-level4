@@ -11,8 +11,10 @@ import java.util.ArrayList;
 import java.util.Optional;
 import java.util.function.Predicate;
 
+import seedu.address.commons.core.Messages;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.comparators.SortRating;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.restaurant.Restaurant;
 
@@ -38,7 +40,7 @@ public class SortCommand extends Command {
             + "Example: " + COMMAND_WORD + " " + PREFIX_ORDER + "asc " + PREFIX_LIMIT + "3";
 
     public static final String MESSAGE_SUCCESS_ALL = "Sorted all restaurants in %1$s order";
-    public static final String MESSAGE_SUCCESS_LIMIT = "Sorted %1$s restaurant(s) in %2$s order";
+    public static final String MESSAGE_SUCCESS_LIMIT = "Sorted restaurant(s) with %1$s rating(s) in %2$s order";
 
     private Order order;
     private Optional<Limit> limit;
@@ -49,19 +51,24 @@ public class SortCommand extends Command {
      */
     public SortCommand(Order order, Optional<Limit> limit) {
         this.order = order;
-        if (limit.isPresent()) {
+        boolean limitIsPresent = limit.isPresent();
+        boolean isOrderAsc = order.equals(new Order(ORDER_ASC));
+        boolean isOrderDes = order.equals(new Order(ORDER_DES));
+
+        if (limitIsPresent) {
             this.limit = Optional.ofNullable(limit.get());
-            if (order.equals(new Order(ORDER_ASC))) {
+
+            if (isOrderAsc) {
                 this.commandMessage = String.format(MESSAGE_SUCCESS_LIMIT,
-                        "the top " + limit.get().toInteger(), FEEDBACK_ASC);
-            } else {
+                        "the bottom " + limit.get().toInteger(), FEEDBACK_ASC);
+            } else if (isOrderDes) {
                 this.commandMessage = String.format(MESSAGE_SUCCESS_LIMIT,
                         "the top " + limit.get().toInteger(), FEEDBACK_DES);
             }
         } else {
-            if (order.equals(new Order(ORDER_ASC))) {
+            if (isOrderAsc) {
                 this.commandMessage = String.format(MESSAGE_SUCCESS_ALL, FEEDBACK_ASC);
-            } else {
+            } else if (isOrderDes) {
                 this.commandMessage = String.format(MESSAGE_SUCCESS_ALL, FEEDBACK_DES);
             }
         }
@@ -69,12 +76,15 @@ public class SortCommand extends Command {
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
+        boolean limitIsPresent = limit != null;
+        boolean isOrderAsc = order.equals(new Order(ORDER_ASC));
+        boolean isOrderDes = order.equals(new Order(ORDER_DES));
 
         requireNonNull(model);
         model.sortRestaurantList(new SortRating(order));
 
         // Filter the sorted list to only show those within the limited range
-        if (limit == null) {
+        if (!limitIsPresent) {
             model.updateFilteredRestaurantList(PREDICATE_SHOW_ALL_RESTAURANTS);
         } else {
             int limitInt = limit.get().toInteger();
@@ -84,11 +94,11 @@ public class SortCommand extends Command {
             if (limitInt < uniqueRatings.size()) {
                 float ratingBorder = model.getUniqueRatings().get(limitInt);
 
-                if (order.equals(new Order(ORDER_ASC))) {
+                if (isOrderAsc) {
                     Predicate<Restaurant> predicateShowLimitedAsc = (r) ->
                             r.getSummary().getAvgRating() < ratingBorder;
                     model.updateFilteredRestaurantList(predicateShowLimitedAsc);
-                } else {
+                } else if (isOrderDes) {
                     Predicate<Restaurant> predicateShowLimitedDes = (r) ->
                             r.getSummary().getAvgRating() > ratingBorder;
                     model.updateFilteredRestaurantList(predicateShowLimitedDes);
@@ -97,8 +107,8 @@ public class SortCommand extends Command {
                 // Else, just show all
                 model.updateFilteredRestaurantList(PREDICATE_SHOW_ALL_RESTAURANTS);
             }
-
         }
+
         model.commitFoodDiary();
 
         return new CommandResult(this.commandMessage);

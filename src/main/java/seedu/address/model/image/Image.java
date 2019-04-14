@@ -127,6 +127,7 @@ public class Image {
     public void setWaterMark(boolean x) {
         hasWaterMark = x;
     }
+    /* @@author randytqw */
 
     public List<Command> getCommandHistory() {
         return commandHistory;
@@ -206,6 +207,7 @@ public class Image {
         return index < commandHistory.size();
     }
 
+    /* @@author */
 
     /**
      * A basic representation of the Image's fields.

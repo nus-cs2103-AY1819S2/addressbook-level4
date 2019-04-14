@@ -405,6 +405,7 @@ The following code snippet shows how the `memberAdd` command is executed:
 <1> Check if member already exists in Club Manager.
 <2> Check if the matric number entered is unique.
 <3> Add member to Club Manager.
+
 // end::memberadd[]
 
 ===== `memberFilter` Command
@@ -413,8 +414,29 @@ The memberFilter command retrieves members (based on a filter criteria) from the
 Below is a step-by-step process on how the `memberFilter` command works on execution:
 
 * Step 1: The user executes the `memberFilter` command.
-* Step 2: The `memberFilter` command will check if the filter category entered by the user is valid. Note that this is case-insensitive.
-* Step 3: The `memberFilter` command will then call the Model
+* Step 2: The `memberFilter` command parser will check if the filter category entered by the user is valid. Note that this is case-insensitive.
+* Step 3: Thereafter, the `memberFilter` command parser will concatenate the keywords (if there are more than one keyword). This will allow users to filter majors with multiple words.
+* Step 4: The `memberFilter` command will then call `Model#updateFilteredPersonList` to filter the member's list based on the given criteria.
+* Step 4 (Continued): In this process, based on the criteria provided, the relevant predicate class
+(e.g. YearOfStudyContainsKeywordsPredicate) will be used and its test method will be called to test if the member in the member's list has an exact match of the given keyword. This gradually filters the member's list. Do note, however,
+the list generated will given as it is (no sorting carried out). Depending on the initial ordering of the member's list, the list may or may not appear to be sorted.
+* Step 5: The `memberFilter` command will then call `Model#getFilteredPersonList()` to get the filtered member's list.
+* Step 6: Finally, the memberFilter command provides a success message to indicate that the member's list has been successfully filtered.
+
+====== Design Considerations
+*Aspect:* List Management
+To execute command, there are various ways. Below are some options:
+
+* *Alternative 1 (current choice)*: Go through Model Component
+
+** Pros : Reduce reliance on logic for heavy data management.
+** Cons : Could be challenging to implement necessary methods at the model component.
+
+* *Alternative 2*: Go through Logic Component
+
+** Pros: Easy to implement by retrieving the `UniquePersonList` to perform data management.
+** Cons: Defeats the purpose of having logic and model components. The model component will be underused, while the logic component will be overused.
+
 
 ===== `memberList` Command
 The memberList command retrieves all the members in the UniquePersonList and displays all these members on the PersonListPanel.

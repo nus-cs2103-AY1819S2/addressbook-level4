@@ -29,7 +29,7 @@ Information in a box like this represents additional useful information related 
 == Summary of contributions
 This section shows a summary of my coding, documentation, and other helpful contributions to the team project.
 
-*Feature implemented*: I implemented the functionalities of a test session.
+*Major feature*: I implemented the functionalities of a test session.
 
 * What it does: This allows users to  begin and end a test session. While inside a test session, flashcard questions
 will be displayed, and student can input an answer or choose to reveal the answer before moving on to the next

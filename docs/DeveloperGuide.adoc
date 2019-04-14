@@ -164,6 +164,7 @@ image::UiClassDiagram.png[width="800"]
 `UI` consists of a `MainWindow` made up of many parts as seen above e.g.`CommandBox`, `ResultDisplay`, `CardMainScreen`,
 `StatusBarFooter`, `BrowserPanel` etc. All these parts, including the `MainWindow`, inherit from the abstract `UiPart`
 class.
+//end::UIdesign[]
 
 The `UI` component uses JavaFx UI framework.
 The layout of these UI parts are defined in matching `.fxml` files located in the `src/main/resources/view` folder.
@@ -173,7 +174,7 @@ The `UI` component,
 
 * Uses `Logic` component to execute user commands.
 * Listens for changes to `Model` data to update UI with the modified data.
-//end::UIdesign[]
+
 
 [[Design-Logic]]
 === Logic component
@@ -928,12 +929,10 @@ updated score.
 ====== UI
 To update the change in the `UI` to show the user the result of the marked answer, whether it is correct or wrong, the following methods are introduced.
 
-* `MainWindow#handleCorrectAnswer()` - invokes `TestSession#handleCorrectAnswer()`
-* `MainWindow#handleWrongAnswer()` - invokes `TestSession#handleWrongAnswer()`
-* `TestSession#handleCorrectAnswer()` - updates current `TestSession` page to green colour background with correct
-answer and correct answer description
-* `TestSession#handleWrongAnswer()` - updates current `TestSession` page to red colour background with correct answer
-and wrong answer description
+* `MainWindow#handleCorrectAnswer()` - updates current `TestSession` page to green colour background with correct
+answer and correct answer description.
+* `MainWindow#handleWrongAnswer()` - updates current `TestSession` page to red colour background with correct answer
+and wrong answer description.
 
 [discrete]
 ====== Example Usage of answer command
@@ -942,9 +941,8 @@ To illustrate how the components interact, below is a walkthrough of a typical u
 <<answercommandsequencediagram>> is a sequence diagram that summarises `Model` and `Logic` interactions, namely steps 1
 to 8.
 
-**Step 1**. User is in a test session and wants to answer the question on the card currently presented by executing a
-`ans
- four`.
+**Step 1**. User is in a test session and wants to answer the question on the card currently presented by executing
+`ans four`.
 
 **Step 2**. An `AnswerCommand` object is created and `LogicManager` executes the `AnswerCommand`, storing the result and
 then transferring control to the Model component, with `Model#getState()` and
@@ -1038,7 +1036,7 @@ A `next` command will be equivalent to an `end` command. `ModelManager#endTestSe
 proceed. Instead, step 3 and onwards of the <<exampleusageofendcommand>> takes over.
 
 * Case 2: Method returns true.
-For `NextCommand` to obtain the next card to present in the test session, `ModelManager#getCurrentTestedCard` is
+For `NextCommand` to obtain the next card to present in the test session, `ModelManager#getCurrentTestedCard()` is
 invoked and the `Card`, `c`, is returned.
 
 **Step 5**. With control now transferred back to the logic unit, `NextCommand` creates a `CommandResult` object, `r` with

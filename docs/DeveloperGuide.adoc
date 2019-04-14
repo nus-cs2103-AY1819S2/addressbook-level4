@@ -249,19 +249,38 @@ This section describes some noteworthy details on how certain features are imple
 
 // tag::datastorage[]
 === Data storage feature
-The data storage feature manages the saving of data, such as lessons and user progress, to disk for the application. This lets the user keep their progress between usage sessions.
-
 ==== Current Implementation
-All data storage components implement public functions that are called through Storage, with no user commands currently implemented. These functions include saving and reading of files, with an option for changing the default directory where each kind of data is saved.
+The data CSV Storage features implements the following functions:
 
-NOTE: These functions are automatically performed on opening/closing the Session.
+* Parsing user data into the correct format for file saving
+* Parsing file into the correct format for user data
+
+NOTE: These functions are automatically performed on opening/closing the application. File I/O is handled in CSVUtil class
+
+==== Csv User Format
+.Data flow diagram for User saving
+image::CsvUserStorage.png[width="800"]
+
+The user is parsed by CsvUserStorage, which is converted between User and List<String[]> format. List<String[]> format
+is the primary format handled by CsvUtil for reading and writing to CSV files.
+
+A few noteworthy main components saved into a CSV file for UserStorage are listed below.
+
+==== Hashcode
+This is the question hashcode. Every question will have a unique hashcode.
+
+==== SRSDueDate
+This is the srsDueDate for each question. The questions with a nearer due-date will be generated first in the quiz.
+
+==== Difficult
+These are questions that are labelled difficult by the user.
 
 ==== Design Considerations
-* ** Alternative 1(Current choice): Automate importing/exporting when session is open/close
+* ** Alternative 1(Current choice):** Automate importing/exporting when session is open/close
 ** Pros: Lesser commands to manage.
 ** Cons: Opening and closing may take up a lot of time if file is very big.
 
-* **Alternative 2: Individual commands for user to toggle with to import and export files when desired
+* **Alternative 2:** Individual commands for user to toggle with to import and export files when desired
 ** Pros: More control given to user
 ** Cons: Accidental overwriting of files may occur.
 // end::datastorage[]

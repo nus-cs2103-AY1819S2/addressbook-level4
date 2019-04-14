@@ -137,27 +137,6 @@ Examples:
 * `search-pid 1` +
 Returns `John Doe` who has pid of `1`.
 
-=== Search patient by tags: `search-p-tag`
-
-Search and return patient(s) whose tags contain any of the given keywords. +
-Format: `search-p-tag [tagName1] [tagName2]...`
-
-****
-* The search is case insensitive. e.g `HighBloodPressure` will match `highbloodpressure`
-* The order of the keywords does not matter. e.g. `stroke cancer` will match `cancer stroke`
-* Only the tagName is searched.
-* Only full words will be matched e.g. `high` will not match `highbloodpressure`
-* Patients matching at least one keyword will be returned +
-e.g. `diabetic` will return all patients with `diabetic` as one of their tags
-****
-
-Examples:
-
-* `search-p-tag diabetic` +
-Returns `John Doe` who has both `diabetic` and `stroke` tags
-* `search-p-tag diabetic stroke` +
-Returns `Tim Muller` who has only `diabetic` tag
-
 === Search patient by appt status: `search-p-status`
 
 Search and return patient(s) whose appointment status matches the specified keyword. +
@@ -695,7 +674,6 @@ PATIENT COMMANDS
 e.g. `delete-patient 3`
 * *Edit an existing patient* : `edit-p [INDEX] [n/NAME] [g/GENDER] [a/AGE] [p/PHONE] [adr/ADDRESS] [t/TAG]` +
 * *Searching a patient by name* : `search-p [NAME]` +
-* *Searching a patient by tags* : `search-p-tag [TAG]` +
 * *Searching a patient by appt status* : `search-p-status [STATUS]` +
 * *Searching a patient by pid* : `search-pid [pid]` +
 * *Searching a patient (advanced)* : `search-p-ad [KEYWORD] ["QUOTED_KEYWORD"]` +

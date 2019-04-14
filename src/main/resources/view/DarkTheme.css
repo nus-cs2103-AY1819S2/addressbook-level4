@@ -26,6 +26,7 @@
 
 .label-card {
     -fx-wrap-text: true;
+    -fx-text-alignment: CENTER;
     -fx-opacity: 1;
 }
 

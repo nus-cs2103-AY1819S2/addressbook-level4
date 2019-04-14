@@ -68,9 +68,9 @@ https://github.com/cs2103-ay1819s2-w10-4/main/pull/106[#106])
 https://github.com/cs2103-ay1819s2-w10-4/main/pull/127[#127])
 
 * Community:
-** PRs reviewed with non-trivial review comment:
+** PRs reviewed with non-trivial review comments:
 https://github.com/cs2103-ay1819s2-w10-4/main/pull/65[#65] (suggested another method of implementation),
-https://github.com/cs2103-ay1819s2-w10-4/main/pull/46[#46] (explained why travis CI was failing)
+https://github.com/cs2103-ay1819s2-w10-4/main/pull/46[#46] (explained why Travis CI was failing)
 ** Conducted manual testing, reported bugs and offered suggestions for our team: https://github.com/cs2103-ay1819s2-w10-4/main/issues/117[#117], https://github.com/cs2103-ay1819s2-w10-4/main/issues/119[#119],
 https://github.com/cs2103-ay1819s2-w10-4/main/issues/120[#120], https://github.com/cs2103-ay1819s2-w10-4/main/issues/121[#121], https://github.com/cs2103-ay1819s2-w10-4/main/issues/123[#123], https://github.com/cs2103-ay1819s2-w10-4/main/issues/124[#124],
 https://github.com/cs2103-ay1819s2-w10-4/main/issues/125[#125], https://github.com/cs2103-ay1819s2-w10-4/main/issues/134[#134]
@@ -81,6 +81,13 @@ https://github.com/CS2103-AY1819S2-W14-1/main/issues/165[#165], https://github.c
 We had to update the original addressbook User Guide with instructions for Know-It-All enhancements that we
 had added. The following is an excerpt from our updated Know-It-All User Guide, showing additions that I have made for
 the test session feature.
+
+=== Command Format
+* Words in `UPPER_CASE` are the parameters to be supplied by you e.g. in `addfolder FOLDER_NAME`,
+`FOLDER_NAME` is a parameter which can be used as `add Human Anatomy`.
+
+* Items in square brackets are optional e.g `HINTS` in `add q/QUESTION a/ANSWER [h/HINTS]`.
+
 
 include::../UserGuide.adoc[tag=testoperations]
 

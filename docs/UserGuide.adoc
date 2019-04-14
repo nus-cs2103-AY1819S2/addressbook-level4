@@ -458,8 +458,8 @@ After memorising the content of the flashcards, it is helpful to test how much i
 
 ==== Test flashcards in a folder : `test`
 
-You will enter a test session, where the display area enters a fullscreen and you will be presented flashcard questions
- one by one, as depicted in the figure below.
+You will enter a test session, where the display area enters a fullscreen and you will be presented flashcard
+questions and hints (if any) one by one. You should see a screen like the figure below.
 
 .A successful test command will display a test session page
 image::startTestSessionPage.png[width="500"]

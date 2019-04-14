@@ -527,7 +527,7 @@ Color sceheme and certain font sizes of the Calendar are done using Cascading St
 
 The following swimlane activity diagram illustrates the process in which the application goes through to create and display the interactive calendar for the user:
 
-image::TaskCalendarSwimLaneDiagram.png[width=""]
+image::TaskCalendarSwimLaneDiagram.png[height="500"]
 
 ==== Design Considerations
 

@@ -54,23 +54,27 @@ public class WarningCommandParserTest {
         // missing quantity prefix
         assertParseFailure(parser, " " + Model.DEFAULT_LOW_STOCK_THRESHOLD.value, expectedMessage);
 
-        // space in word "show"
-        assertParseFailure(parser, " " + "sh ow", expectedMessage);
-
         // all fields missing
         assertParseFailure(parser, "", expectedMessage);
     }
 
     @Test
     public void parse_invalidValue_failure() {
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, WarningCommand.MESSAGE_USAGE);
+
         // invalid expiry
         assertParseFailure(parser, INVALID_EXPIRY_DESC, Threshold.MESSAGE_CONSTRAINTS);
 
         // invalid quantity
         assertParseFailure(parser, INVALID_QUANTITY_DESC, Threshold.MESSAGE_CONSTRAINTS);
 
+        // space in word "show"
+        assertParseFailure(parser, " " + "sh ow", expectedMessage);
+
         // non-empty preamble
+        assertParseFailure(parser, PREAMBLE_NON_EMPTY + PREFIX_QUANTITY + Model.DEFAULT_LOW_STOCK_THRESHOLD.value,
+                expectedMessage);
         assertParseFailure(parser, PREAMBLE_NON_EMPTY + PREFIX_EXPIRY + Model.DEFAULT_EXPIRY_THRESHOLD.value,
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, WarningCommand.MESSAGE_USAGE));
+                expectedMessage);
     }
 }

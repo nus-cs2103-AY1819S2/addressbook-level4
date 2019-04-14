@@ -549,7 +549,7 @@ Data encryption is likely to be implemented in future versions of the MediTabs i
 === Warning Panel
 ==== Current Implementation
 
-The warning panel is driven by the `MainWindow` which creates `WarningPanel` that extends `UiPart`. The `WarningPanel` then creates two `WarningListView` where the list of expiring medicine and list of medicine low in stock will reside. The lists updates themselves when there are any changes made to the inventory. Each item of a list is represented by a `WarningCard`.
+The warning panel is driven by the `MainWindow` which creates `WarningPanel` that extends `UiPart`. The `WarningPanel` contains two `WarningListView` objects, where the lists for expiring medicine and medicine low in stock will reside. Both lists updates in real time when any changes made to the inventory. Each item of a list is represented by a `WarningCard` object.
 
 The following are implemented:
 

@@ -2,7 +2,7 @@ package seedu.address.model.activity;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
-
+//@@author minernchan
 /**
  * Represents an Activity's Location
  * Guarantees: immutable; is valid as declared in {@link #isValidLocation(String)}

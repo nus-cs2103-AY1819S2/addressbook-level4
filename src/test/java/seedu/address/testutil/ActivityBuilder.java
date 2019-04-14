@@ -5,7 +5,7 @@ import seedu.address.model.activity.ActivityDateTime;
 import seedu.address.model.activity.ActivityDescription;
 import seedu.address.model.activity.ActivityLocation;
 import seedu.address.model.activity.ActivityName;
-
+//@@author minernchan
 /**
  * A utility class to help with building Activity objects.
  */

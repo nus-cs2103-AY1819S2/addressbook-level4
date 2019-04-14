@@ -17,7 +17,7 @@ import seedu.address.logic.commands.ActivityDeleteCommand;
  * therefore should be covered by the ParserUtilTest.
  */
 public class ActivityDeleteCommandParserTest {
-
+    //@@author minernchan
     private ActivityDeleteCommandParser parser = new ActivityDeleteCommandParser();
 
     @Test

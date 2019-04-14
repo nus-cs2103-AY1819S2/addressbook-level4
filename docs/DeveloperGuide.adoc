@@ -211,7 +211,7 @@ The `Model`:
 As a more OOP model, we can store a `Tag` list in `GradTrak`, which `ModuleTaken` can reference. This would allow `GradTrak` to only require one `Tag` object per unique `Tag`, instead of each `ModuleTaken` needing their own `Tag` object. An example of how such a model may look like is given below. +
  +
 image:ModelClassBetterOopDiagram.png[width="800"]
-
+//tag::storage[]
 [[Design-Storage]]
 === Storage component
 Within the `Storage` component there are *2* types of storage classes: +
@@ -240,6 +240,8 @@ The `ModuleInfoStorage` and `CourseStorage` is a read-only storage in `GradTrak`
 and course information saved in a JSON file and coverts them into `ModuleInfo` and `Course` objects stored in model.
 
 
+// end::storage[]
+
 [[Design-Commons]]
 === Common classes
 
@@ -249,7 +251,7 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
-//tag::displaymod[]
+// tag::displaymod[]
 === Displaymod feature
 ==== Current implementation
 `displaymod` is a command that displays a module's information based on the user's search. The main reason for implementing
@@ -368,7 +370,7 @@ image::keywords.png[width="600"]
 * **Alternative considered:** Sticking to `ArrayList<>`
 ** Pros: Easy to handle as it is a simple data structure.
 ** Cons: Harder to search for `ModuleInfo` objects based on codes and keywords.
-
+// end::displaymod[]
 
 // tag::undoredo[]
 === Undo/Redo feature

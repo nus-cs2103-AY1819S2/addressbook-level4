@@ -213,6 +213,7 @@ Examples:
 * `delete 1` +
 Deletes the first module on the most recently displayed list.
 
+// tag::Displaymod[]
 === Display module information: `displaymod`
 
 The `displaymod` command shows all the modules that are available in NUS based on the user's search. This command simply
@@ -297,7 +298,7 @@ What each number displays: +
 *5.* Contains the *prerequisite tree* for each module. +
 *6.* Contains *workload* load information, the values are meant to be read as *Hours*.
 
-
+// end::Displaymod[]
 
 // tag::Displayreq[]
 === Display course requirements: `displayreq`

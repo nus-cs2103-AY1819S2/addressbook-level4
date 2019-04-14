@@ -15,6 +15,7 @@ import quickdocs.commons.exceptions.IllegalValueException;
 import quickdocs.commons.util.JsonUtil;
 import quickdocs.model.QuickDocs;
 import quickdocs.testutil.TypicalPatients;
+import quickdocs.testutil.TypicalStatistics;
 
 public class JsonSerializableQuickDocsTest {
 
@@ -120,13 +121,13 @@ public class JsonSerializableQuickDocsTest {
         thrown.expectMessage(JsonSerializableQuickDocs.MESSAGE_DUPLICATE_REMINDER);
         dataFromFile.toModelType();
     }
-    /*
+
     @Test
     public void toModelType_typicalStatisticsFile_success() throws Exception {
         JsonSerializableQuickDocs dataFromFile = JsonUtil.readJsonFile(TYPICAL_STATISTICS_FILE,
                 JsonSerializableQuickDocs.class).get();
         QuickDocs quickDocsFromFile = dataFromFile.toModelType();
-        QuickDocs typicalStatisticsQuickDocs = getTypicalStatisticsQuickDocs();
+        QuickDocs typicalStatisticsQuickDocs = TypicalStatistics.getTypicalStatisticsQuickDocs();
         assertEquals(quickDocsFromFile, typicalStatisticsQuickDocs);
     }
 
@@ -137,5 +138,4 @@ public class JsonSerializableQuickDocsTest {
         thrown.expect(IllegalArgumentException.class);
         dataFromFile.toModelType();
     }
-    */
 }

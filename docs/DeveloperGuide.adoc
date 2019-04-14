@@ -563,9 +563,9 @@ A project often depends on third-party libraries. For example, Address Book depe
 [appendix]
 == Product Scope
 
-*Target user profile*:
+*Target user profile*: HR Executive
 
-* has a need to manage a significant number of contacts
+* has a need to manage a significant number of job openings and applicants
 * prefer desktop apps over other types
 * can type fast
 * prefers typing over mouse input

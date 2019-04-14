@@ -28,8 +28,8 @@ and be more aware of their spending habits.
 This developer guide specifies the design and implementation of _In-Credit-Ble_. The intended audience of
 this document is the developers, designers and software testers of our application.
 
-Please continue on to the <<Setting Up, Setting Up>> section to get started. You can also read <<AboutUs#, AboutUs.adoc>>
-and <<ContactUs#, ContactUs.adoc>> for more information on how to contact us!
+Please continue on to the <<Setting Up, [blue]#Setting Up#>> section to get started. You can also read <<AboutUs#, [blue]#AboutUs.adoc#>>
+and <<ContactUs#, [blue]#ContactUs.adoc#>> for more information on how to contact us!
 
 == Setting Up
 
@@ -38,7 +38,7 @@ and <<ContactUs#, ContactUs.adoc>> for more information on how to contact us!
 . *JDK `[fuchsia]#9#`* or later
 +
 [WARNING]
-JDK `[fuchsia]#10#` on Windows will fail to run tests in <<UsingGradle#Running-Tests, headless mode>> due to a https://github.com/javafxports/openjdk-jfx/issues/66[JavaFX bug].
+JDK `[fuchsia]#10#` on Windows will fail to run tests in <<UsingGradle#Running-Tests, [blue]#headless mode#>> due to a https://github.com/javafxports/openjdk-jfx/issues/66[[blue]#JavaFX bug#].
 Windows developers are highly recommended to use JDK `[fuchsia]#9#`.
 
 . *IntelliJ* IDE
@@ -55,26 +55,26 @@ Do not disable them. If you have disabled them, go to menu:File[Settings > Plugi
 .. Click menu:Configure[Project Defaults > Project Structure]
 .. Click btn:[New...] and find the directory of the JDK
 . Click btn:[Import Project]
-. Locate the `build.gradle` file and select it. Click btn:[OK]
+. Locate the `[fuchsia]#build.gradle#` file and select it. Click btn:[OK]
 . Click btn:[Open as Project]
 . Click btn:[OK] to accept the default settings
 . Open a console and run the command `[fuchsia]#gradlew processResources#` (Mac/Linux: `[fuchsia]#./gradlew processResources#`). It should finish with the `[fuchsia]#BUILD SUCCESSFUL#` message. +
 This will generate all resources required by the application and tests.
 . Open link:{repoURL}/src/main/java/seedu/finance/ui/MainWindow.java[`[blue]#MainWindow.java#`] and check for any code errors
-.. Due to an ongoing https://youtrack.jetbrains.com/issue/IDEA-189060[issue] with some of the newer versions of IntelliJ, code errors may be detected even if the project can be built and run successfully
+.. Due to an ongoing https://youtrack.jetbrains.com/issue/IDEA-189060[[blue]#issue#] with some of the newer versions of IntelliJ, code errors may be detected even if the project can be built and run successfully
 .. To resolve this, place your cursor over any of the code section highlighted in [red]#red#. Press kbd:[ALT + ENTER], and select btn:[Add '--add-modules=...' to module compiler options] for each error
 . Repeat this for the test folder as well (e.g. check link:{repoURL}/src/test/java/seedu/finance/ui/HelpWindowTest.java[`[blue]#HelpWindowTest.java#`] for code errors, and if so, resolve it the same way)
 
 === Verifying the setup
 
 . Run `[fuchsia]#seedu.finance.MainApp#` and try a few commands
-. <<Testing,Run the tests>> to ensure they all pass.
+. <<Testing,[blue]#Run the tests#>> to ensure they all pass.
 
 === Configurations to do before writing code
 
 ==== Configuring the coding style
 
-This project follows https://github.com/oss-generic/process/blob/master/docs/CodingStandards.adoc[oss-generic coding standards]. IntelliJ's default style is mostly compliant with ours but it uses a different import order from ours. To rectify,
+This project follows https://github.com/oss-generic/process/blob/master/docs/CodingStandards.adoc[[blue]#oss-generic coding standards#]. IntelliJ's default style is mostly compliant with ours but it uses a different import order from ours. To rectify,
 
 . Go to menu:File[Settings...] (Windows/Linux), or menu:IntelliJ IDEA[Preferences...] (macOS)
 . Select menu:Editor[Code Style > Java]
@@ -83,7 +83,7 @@ This project follows https://github.com/oss-generic/process/blob/master/docs/Cod
 * For btn:[Class count to use import with '\*'] and btn:[Names count to use static import with '*']: Set to `[fuchsia]#999#` to prevent IntelliJ from contracting the import statements
 * For btn:[Import Layout]: The order is `[fuchsia]#import static all other imports#`, `[fuchsia]#import java.\*#`, `[fuchsia]#import javax.*#`, `[fuchsia]#import org.\*#`, `[fuchsia]#import com.*#`, `[fuchsia]#import all other imports#`. Add a btn:[<blank line>] between each `[fuchsia]#import#`
 
-Optionally, you can follow the <<UsingCheckstyle#, UsingCheckstyle.adoc>> document to configure Intellij to check style-compliance as you write code.
+Optionally, you can follow the <<UsingCheckstyle#, [blue]#UsingCheckstyle.adoc#>> document to configure Intellij to check style-compliance as you write code.
 
 ==== Updating documentation to match your fork
 
@@ -91,21 +91,21 @@ After forking the repo, the documentation will still refer to the `[fuchsia]#CS2
 
 If you plan to develop this fork as a separate product (i.e. instead of contributing to `[fuchsia]#In-Credit-Ble#`), you should do the following:
 
-. Configure the <<Docs-SiteWideDocSettings, site-wide documentation settings>> in link:{repoURL}/build.gradle[`[blue]#build.gradle#`], such as the `[fuchsia]#site-name#`, to suit your own project.
+. Configure the <<Docs-SiteWideDocSettings, [blue]#site-wide documentation settings#>> in link:{repoURL}/build.gradle[`[blue]#build.gradle#`], such as the `[fuchsia]#site-name#`, to suit your own project.
 
 . Replace the URL in the attribute `[fuchsia]#repoURL#` in link:{repoURL}/docs/DeveloperGuide.adoc[`[blue]#DeveloperGuide.adoc#`] and link:{repoURL}/docs/UserGuide.adoc[`[blue]#UserGuide.adoc#`] with the URL of your fork.
 
 
 ==== Setting up CI
 
-Set up Travis to perform Continuous Integration (CI) for your fork. See <<UsingTravis#, UsingTravis.adoc>> to learn how to set it up.
+Set up Travis to perform Continuous Integration (CI) for your fork. See <<UsingTravis#, [blue]#UsingTravis.adoc#>> to learn how to set it up.
 
-After setting up Travis, you can optionally set up coverage reporting for your team fork (see <<UsingCoveralls#, UsingCoveralls.adoc>>).
+After setting up Travis, you can optionally set up coverage reporting for your team fork (see <<UsingCoveralls#, [blue]#UsingCoveralls.adoc#>>).
 
 [NOTE]
 Coverage reporting could be useful for a team repository that hosts the final version but it is not that useful for your personal fork.
 
-Optionally, you can set up AppVeyor as a second CI (see <<UsingAppVeyor#, UsingAppVeyor.adoc>>).
+Optionally, you can set up AppVeyor as a second CI (see <<UsingAppVeyor#, [blue]#UsingAppVeyor.adoc#>>).
 
 [NOTE]
 Having both Travis and AppVeyor ensures your App works on both Unix-based platforms and Windows-based platforms (Travis is Unix-based and AppVeyor is Windows-based)
@@ -114,8 +114,8 @@ Having both Travis and AppVeyor ensures your App works on both Unix-based platfo
 
 When you are ready to start coding,
 
-1. Get some sense of the overall design by reading <<Design-Architecture>>.
-2. Take a look at <<GetStartedProgramming>>.
+1. Get some sense of the overall design by reading [blue]#<<Design-Architecture>>#.
+2. Take a look at [blue]#<<GetStartedProgramming>>#.
 
 
 == Design

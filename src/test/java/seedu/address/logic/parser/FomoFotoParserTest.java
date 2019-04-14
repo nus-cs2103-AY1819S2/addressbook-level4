@@ -20,11 +20,11 @@ import seedu.address.logic.commands.RotateCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
-public class AddressBookParserTest {
+public class FomoFotoParserTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
-    private final AddressBookParser parser = new AddressBookParser();
+    private final FomoFotoParser parser = new FomoFotoParser();
 
     @Ignore
     @Test

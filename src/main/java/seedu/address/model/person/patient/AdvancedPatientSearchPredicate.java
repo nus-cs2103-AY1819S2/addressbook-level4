@@ -19,7 +19,7 @@ public class AdvancedPatientSearchPredicate implements Predicate<Patient> {
     @Override
     public boolean test(Patient patient) {
         return keywords.stream()
-                .allMatch(keyword -> StringUtil.containsAnySubwordIgnoreCase(
+                .allMatch(keyword -> StringUtil.containsSubwordOrQuotedFullwordIgnoreCase(
                         patient.toAdvancedSearchString(), keyword));
     }
 

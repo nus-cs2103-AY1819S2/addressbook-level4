@@ -367,7 +367,7 @@ and cannot contain special characters such as `:<>;\/|?~^%$#@`
 // tag::edit[]
 ==== Editing an entry: `edit`
 
-You can easily edit any part of an existing entry in the records. +
+You can easily edit any part of an existing records in _In-Credit-Ble_. +
 Index refers to the index number shown in the list.
 
 *Alias*: `e`
@@ -379,6 +379,19 @@ Index refers to the index number shown in the list.
 
 * `edit 2 $/10.10`
 * `edit 1 n/burger c/Food`
+* `edit 1 r/Best meal I have ever eaten`
+****
+
+You can remove the description of any records by giving inputting empty parameter.
+
+****
+*Example of removing description*:
+
+* `edit 1 r/`
+
+.Example of removing the description from a record
+image::RemoveDescriptionExample.png[width ="600"]
+
 ****
 
 [NOTE]
@@ -387,7 +400,7 @@ Index refers to the index number shown in the list.
 * `INDEX` *must be a positive integer* 1, 2, 3, ...
 * `INDEX` must be within the total number of records that are displayed.
 * At least one of the optional fields must be provided.
-* Date cannot be a future date.
+* Date inputted cannot be a date later than the present date.
 * Order of parameters inputted does not matter.
 * Existing values will be updated to the input values.
 ====
@@ -446,20 +459,19 @@ Deleted entries can be recovered via the `undo` command.
 
 You can see all the entries you have entered, as long as they are not deleted entries.
 
-[TIP]
-This command can be used to reset
-the list after you filter the records using the `search` command.
-
 *Alias*: `l`, `ls`
 
 *Format*: `list`
 // end::list[]
 
 // tag::search[]
-==== Locating entry based on name/category: `search`
+==== Searching an entry based on name/category/date: `search`
 
 You can easily search for entries in the records using a name, category or date as keywords. The total sum of money
 spent on all the results of the search will also be shown.
+
+[TIP]
+Make use of the `list` command to reset the records after you filter the records using the `search` command.
 
 *Alias*: `find`
 
@@ -468,9 +480,18 @@ spent on all the results of the search will also be shown.
 ****
 *Examples*:
 
-* `search -cat Transport`
+* `search -cat Accessories`
 * `search -name cake bread`
 * `search -date 10/10/2001`
+
+.Example of searching the a long list of records by the category "Accessories".
+image::SearchByCategoryExample.png[width ="600"]
+
+The total amount of money spent on the searched record will also be shown in the result display.
+
+.Total spent on searched records shown in result display.
+image::TotalSpentInResultDisplay.png[width ="600"]
+
 ****
 
 [NOTE]
@@ -492,7 +513,6 @@ You can choose to sort the list of entries by name, amount, date or category. +
 ====
 * `FLAG` here refers to either `-name`, `-amount`, `-date` or `-cat`.
 * Only one flag should be provided.
-
 * `[ORDER]` refers to either `-asc` or `-desc`.
 ** `-asc` for ascending order.
 ** `-desc` for descending order.

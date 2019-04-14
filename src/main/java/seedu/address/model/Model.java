@@ -205,59 +205,29 @@ public interface Model {
     void updateFilteredPinnedPersonList(Predicate<Person> predicate);
 
     /**
-     * Returns true if the model has previous address book states to restore.
+     * Returns true if the model has previous book states to restore.
      */
-    boolean canUndoAddressBook();
+    boolean canUndoBooks();
 
     /**
-     * Returns true if the model has undone address book states to restore.
+     * Returns true if the model has undone book states to restore.
      */
-    boolean canRedoAddressBook();
+    boolean canRedoBooks();
 
     /**
-     * Restores the model's address book to its previous state.
+     * Restores all the model's books to its previous state.
      */
-    void undoAddressBook();
+    void undoBooks();
 
     /**
-     * Restores the model's address book to its previously undone state.
+     * Restores all the model's books to its previously undone state.
      */
-    void redoAddressBook();
+    void redoBooks();
 
     /**
-     * Saves the current address book state for undo/redo.
+     * Saves the current book states for undo/redo.
      */
-    void commitAddressBook();
-
-    /**
-     * Restores the model's archive book to its previous state.
-     */
-    void undoArchiveBook();
-
-    /**
-     * Restores the model's archive book to its previously undone state.
-     */
-    void redoArchiveBook();
-
-    /**
-     * Saves the current archive book state for undo/redo.
-     */
-    void commitArchiveBook();
-
-    /**
-     * Restores the model's pin book to its previous state.
-     */
-    void undoPinBook();
-
-    /**
-     * Restores the model's pin book to its previously undone state.
-     */
-    void redoPinBook();
-
-    /**
-     * Saves the current pin book state for undo/redo.
-     */
-    void commitPinBook();
+    void commitBooks();
 
     /**
      * Selected person in the filtered person list.

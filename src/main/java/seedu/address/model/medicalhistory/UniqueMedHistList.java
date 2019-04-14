@@ -13,6 +13,8 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.model.medicalhistory.exceptions.DuplicateMedHistException;
 import seedu.address.model.medicalhistory.exceptions.MedHistNotFoundException;
+import seedu.address.model.person.Doctor;
+import seedu.address.model.person.Patient;
 import seedu.address.model.person.PersonId;
 
 
@@ -82,15 +84,58 @@ public class UniqueMedHistList implements Iterable<MedicalHistory> {
         internalList.set(index, editedMedHist);
     }
 
+    /**
+     * When patient is modified, update patient info in medical history
+     */
+    public void setEditedPatient(PersonId toEdit, Patient editedPatient) {
+        requireAllNonNull(toEdit);
+        requireAllNonNull(editedPatient);
+
+        FilteredList<MedicalHistory> medHistNeedToEdit = internalList.filtered(x -> x.getPatientId().equals(toEdit));
+        MedicalHistory modifiedMedHist;
+
+        int numberOfOccurrence = medHistNeedToEdit.size();
+        for (int i = 0; i < numberOfOccurrence; i++) {
+            modifiedMedHist = medHistNeedToEdit.get(i);
+            int indexToReplace = internalList.indexOf(modifiedMedHist);
+            modifiedMedHist.setPatient(editedPatient);
+            // this approach forces the listeners to be notified.
+            internalList.set(indexToReplace, modifiedMedHist);
+        }
+    }
+
+    /**
+     * When doctor is modified, update doctor info in medical history
+     */
+    public void setEditedDoctor(PersonId toEdit, Doctor editedDoctor) {
+        requireAllNonNull(toEdit);
+        requireAllNonNull(editedDoctor);
+
+        FilteredList<MedicalHistory> medHistNeedToEdit = internalList.filtered(x -> x.getDoctorId().equals(toEdit));
+        MedicalHistory modifiedMedHist;
+
+        int numberOfOccurrence = medHistNeedToEdit.size();
+        for (int i = 0; i < numberOfOccurrence; i++) {
+            modifiedMedHist = medHistNeedToEdit.get(i);
+            int indexToReplace = internalList.indexOf(modifiedMedHist);
+            modifiedMedHist.setDoctor(editedDoctor);
+            // this approach forces the listeners to be notified.
+            internalList.set(indexToReplace, modifiedMedHist);
+        }
+    }
+
+    /**
+     * When patient is deleted, set patient to null in medical history
+     */
     public void setPatientToNull(PersonId deleted) {
         requireAllNonNull(deleted);
 
-        FilteredList<MedicalHistory> setToNull = internalList.filtered(x -> x.getPatientId().equals(deleted));
+        FilteredList<MedicalHistory> medHistToSet = internalList.filtered(x -> x.getPatientId().equals(deleted));
         MedicalHistory modifiedMedHist;
 
-        int numberOfOccurrence = setToNull.size();
+        int numberOfOccurrence = medHistToSet.size();
         for (int i = 0; i < numberOfOccurrence; i++) {
-            modifiedMedHist = setToNull.get(i);
+            modifiedMedHist = medHistToSet.get(i);
             int indexToReplace = internalList.indexOf(modifiedMedHist);
             modifiedMedHist.setPatient(null);
             // this approach forces the listeners to be notified.
@@ -98,14 +143,17 @@ public class UniqueMedHistList implements Iterable<MedicalHistory> {
         }
     }
 
+    /**
+     * When doctor is deleted, set doctor to null in medical history
+     */
     public void setDoctorToNull(PersonId deleted) {
         requireAllNonNull(deleted);
-        FilteredList<MedicalHistory> setToNull = internalList.filtered(x -> x.getDoctorId().equals(deleted));
+        FilteredList<MedicalHistory> medHistToSet = internalList.filtered(x -> x.getDoctorId().equals(deleted));
         MedicalHistory modifiedMedHist;
 
-        int numberOfOccurrence = setToNull.size();
+        int numberOfOccurrence = medHistToSet.size();
         for (int i = 0; i < numberOfOccurrence; i++) {
-            modifiedMedHist = setToNull.get(i);
+            modifiedMedHist = medHistToSet.get(i);
             int indexToReplace = internalList.indexOf(modifiedMedHist);
             modifiedMedHist.setDoctor(null);
             // this approach forces the listeners to be notified.

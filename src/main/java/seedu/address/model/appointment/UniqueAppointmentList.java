@@ -11,6 +11,8 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.model.appointment.exceptions.AppointmentNotFoundException;
 import seedu.address.model.appointment.exceptions.DuplicateAppointmentException;
+import seedu.address.model.person.Doctor;
+import seedu.address.model.person.Patient;
 import seedu.address.model.person.PersonId;
 
 /**
@@ -85,6 +87,48 @@ public class UniqueAppointmentList implements Iterable<Appointment> {
         }
 
         internalList.setAll(appointments);
+    }
+
+    /**
+     * When patient is modified, update patient info in appointment
+     */
+    public void setEditedPatient(PersonId toEdit, Patient editedPatient) {
+        requireAllNonNull(toEdit);
+        requireAllNonNull(editedPatient);
+
+        FilteredList<Appointment> appointmentsToSet = internalList
+                .filtered(x -> x.getPatientId().patientId.equals(toEdit));
+        Appointment modifiedAppointment;
+
+        int numberOfOccurrence = appointmentsToSet.size();
+        for (int i = 0; i < numberOfOccurrence; i++) {
+            modifiedAppointment = appointmentsToSet.get(i);
+            int indexToReplace = internalList.indexOf(modifiedAppointment);
+            modifiedAppointment.setPatient(editedPatient);
+            // this approach forces the listeners to be notified.
+            internalList.set(indexToReplace, modifiedAppointment);
+        }
+    }
+
+    /**
+     * When doctor is modified, update doctor info in appointment
+     */
+    public void setEditedDoctor(PersonId toEdit, Doctor editedDoctor) {
+        requireAllNonNull(toEdit);
+        requireAllNonNull(editedDoctor);
+
+        FilteredList<Appointment> appointmentsToSet = internalList
+                .filtered(x -> x.getDoctorId().doctorId.equals(toEdit));
+        Appointment modifiedAppointment;
+
+        int numberOfOccurrence = appointmentsToSet.size();
+        for (int i = 0; i < numberOfOccurrence; i++) {
+            modifiedAppointment = appointmentsToSet.get(i);
+            int indexToReplace = internalList.indexOf(modifiedAppointment);
+            modifiedAppointment.setDoctor(editedDoctor);
+            // this approach forces the listeners to be notified.
+            internalList.set(indexToReplace, modifiedAppointment);
+        }
     }
 
     /**

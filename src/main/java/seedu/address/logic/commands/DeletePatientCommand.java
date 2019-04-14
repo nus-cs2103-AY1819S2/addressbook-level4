@@ -44,7 +44,7 @@ public class DeletePatientCommand extends Command {
         model.deletePatient(patientToDelete);
         model.commitDocX();
         return new CommandResult(String.format(MESSAGE_DELETE_PATIENT_SUCCESS, patientToDelete),
-                CommandResult.DeletionOrNot.DELETION);
+                CommandResult.RefreshOrNot.REFRESH);
     }
 
     @Override

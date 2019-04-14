@@ -23,9 +23,9 @@ public class MedicineCard extends UiPart<Region> {
     @FXML
     private Label id;
     @FXML
-    private Label quantity;
-    @FXML
     private Label company;
+    @FXML
+    private Label quantity;
     @FXML
     private Label expiry;
     @FXML
@@ -36,8 +36,8 @@ public class MedicineCard extends UiPart<Region> {
         this.medicine = medicine;
         id.setText(displayedIndex + ". ");
         name.setText(medicine.getName().fullName);
-        quantity.setText(medicine.getTotalQuantity().toString());
         company.setText(medicine.getCompany().companyName);
+        quantity.setText(medicine.getTotalQuantity().toString());
         expiry.setText(medicine.getNextExpiry().toString());
         medicine.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
     }

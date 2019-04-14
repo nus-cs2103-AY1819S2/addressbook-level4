@@ -35,7 +35,7 @@ public class TypicalCards {
     public static final Card FIONA = new CardBuilder().withQuestion("Fiona Kunz").withAnswer("9482427").withScore("2/3")
             .build();
     public static final Card GEORGE = new CardBuilder().withQuestion("George Best").withAnswer("9482442")
-            .withScore("1/2").build();
+            .withScore("1/2").withOptions("an answer", "another answer").build();
 
     // Manually added
     public static final Card HOON = new CardBuilder().withQuestion("Hoon Meier").withAnswer("8482424").withScore("0/0")

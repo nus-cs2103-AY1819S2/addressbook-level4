@@ -921,7 +921,7 @@ Comparison is not case-sensitive
 ====== Logic
 To facilitate the update of score after marking the card, we introduce the following method in `ModelManager`.
 
-* `ModelManager#AnswerCommand#createScoredCard(Card cardToMark, boolean markCorrect)` - creates a new card with the
+* `ModelManager#createScoredCard(Card cardToMark, boolean markCorrect)` - creates a new card with the
 updated score.
 
 [discrete]
@@ -1689,7 +1689,7 @@ These instructions only provide a starting point for testers to work on; testers
 //    Expected: Similar to previous.
 
 // tag::testmanualtesting[]
-=== Starting a test session
+=== Starting and ending a test session
 
 . Start a test session while inside a folder
 
@@ -1705,6 +1705,18 @@ These instructions only provide a starting point for testers to work on; testers
 .. Test case: `test` when not inside a folder (prerequisite not fulfilled, like being in the home directory, already
 in a test session or in report display) +
    Expected: The error `Command can only be executed in folder` is shown in the status message. Status bar
+   remains the same.
+
+. Ends a current test session
+
+.. Prerequisites: Enter a test session by typing `test` when inside a folder. Display area enters fullscreen and
+lowest scoring flashcard question and hints are displayed. Tester can also be in any state in the test session
+.. Test case: `end` +
+   Expected: Ends the current test session, where the display area exits fullscreen and be back inside the folder. `End
+   Test Session` is shown on the status message and status bar shows that tester is back inside the folder.
+.. Test case: `end` when not inside a test or report (prerequisite not fulfilled, like being in the home directory or
+ in a folder) +
+   Expected: The error `This command is not valid outside a test or report` is shown in the status message. Status bar
    remains the same.
 
 [[answerquestionintest]]
@@ -1746,19 +1758,6 @@ lowest scoring flashcard question and hints are displayed. Answer the current qu
 .. Test case: `next`  when prerequisite is not fulfilled where the current question is not yet answered or revealed +
    Expected: The error `Next command is valid only when this question has been answered` is shown in the status message. Status bar remains the same.
 
-=== Ending a test session
-
-. Ends a current test session
-
-.. Prerequisites: Enter a test session by typing `test` when inside a folder. Display area enters fullscreen and
-lowest scoring flashcard question and hints are displayed. Tester can also be in any state in the test session
-.. Test case: `end` +
-   Expected: Ends the current test session, where the display area exits fullscreen and be back inside the folder. `End
-   Test Session` is shown on the status message and status bar shows that tester is back inside the folder.
-.. Test case: `end` when not inside a test or report (prerequisite not fulfilled, like being in the home directory or
- in a folder) +
-   Expected: The error `This command is not valid outside a test or report` is shown in the status message. Status bar
-   remains the same.
 // end::testmanualtesting[]
 
 //tag::foldermanualtesting[]

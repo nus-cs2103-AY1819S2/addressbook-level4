@@ -256,7 +256,7 @@ public class ParserUtilTest {
         thrown.expect(ParseException.class);
         parseMaxInterviewsADay(INVALID_MAX_INTERVIEWS_NEGINTEGER);
     }
-    
+
     @Test
     public void isValidDate_validDate_returnsTrue() {
         boolean actual = isValidDate(VALID_DATE);

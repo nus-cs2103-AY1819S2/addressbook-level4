@@ -782,7 +782,7 @@ The `history` feature has to following syntax:
 // end::History[]
 
 // tag::undoredo[]
-=== Undo/Redo feature
+=== Undo/Redo feature [Coming in v2.0]
 ==== Current Implementation
 
 The undo/redo mechanism is facilitated by `VersionedPdfBook`.
@@ -865,12 +865,145 @@ image::UndoRedoActivityDiagram.png[width="650"]
 === File Protection
 
 PDF++ has a robust in-built file protection system which allows you to encrypt or decrypt any
-PDF files you want. Both encrypt and decrypt feature are facilitated by both `EncryptCommand /
-DecryptCommand` and `EncryptCommandParser / DecryptCommandParser`.
+PDF files you want. These features utilises the
+https://pdfbox.apache.org/download.cgi#20x[_Apache PDFBox® library_], specifically the
+https://pdfbox.apache.org/docs/2.0.1/javadocs/org/apache/pdfbox/pdmodel/PDDocument.html[_PDDocument_],
+https://pdfbox.apache.org/docs/2.0.1/javadocs/org/apache/pdfbox/pdmodel/encryption/AccessPermission.html[_AccessPermission_], and
+https://pdfbox.apache.org/docs/2.0.1/javadocs/org/apache/pdfbox/pdmodel/encryption/StandardProtectionPolicy.html[_StandardProtectionPolicy_].
 
-For encryption, you can
-select the file on the list that you wish to encrypt with a password you specified. Likewise,
-for decryption, you have to enter the password of the encrypted file that you wish to decrypt.
+[NOTE]
+An <<encrypted-file>> is a file that is protected with a password. The term `protected` and `encrypted` will be used interchangeably.
+
+You can visit <<Encryption feature>> and <<Decryption feature>> to understand more about the respective feature.
+
+==== Encryption feature
+
+===== Current Implementation
+The `encrypt` feature is facilitated by both *EncryptCommand* and *EncryptCommandParser*.
+
+The implementation of the *EncryptCommand* execution is summarised in the following activity diagram:
+
+image::EncryptCommandActivityDiagram.png[width="600"]
+
+. The provided index is checked for validity i.e. referring to a specific Pdf in PdfBook.
+.. If the index is invalid, a *CommandException* will be thrown and the execution ends.
+. The Pdf specified via the index is retrieved from the PdfBook.
+. A `File` object is created for the Pdf.
+. The `File` will be loaded as https://pdfbox.apache.org/docs/2.0.1/javadocs/org/apache/pdfbox/pdmodel/PDDocument.html[_PDDocument_],
+which is an indicator that the `File` is a *PDF* file that is uncorrupted and
+not protected with a password.
+.. Error in loading Pdf as *PDDocument* would throw an *IOException*. Common reasons of error are:
+... File not found in location
+... Lack of user permissions to open File
+... Protected File
+... Corrupted File
+.. Thrown IOException is intercepted, a *CommandException* will be thrown and the execution ends.
+. https://pdfbox.apache.org/docs/2.0.1/javadocs/org/apache/pdfbox/pdmodel/encryption/AccessPermission.html[_AccessPermission_], and
+https://pdfbox.apache.org/docs/2.0.1/javadocs/org/apache/pdfbox/pdmodel/encryption/StandardProtectionPolicy.html[_StandardProtectionPolicy_]
+are created. The password specified will be passed to `StandardProtectionPolicy` for the purpose of setting security settings for the
+`PDDocument`.
+. A protected Pdf will be saved and closed.
+.. Error in encrypting the file will throw an *IOException*. Common reasons of error are:
+... Excessive long password
+... Empty password
+.. Thrown IOException is intercepted, a *CommandException* will be thrown and the execution ends.
+. The Pdf is recorded in the <<Model component>> and the changes are saved.
+. A *CommandResult* is returned upon successful exception of *EncryptCommand*.
+
+This sequence diagram demonstrates the <<main-success-scenario>> from the
+*LogicManager* to the end of *EncryptCommand* execution:
+
+image::EncryptCommandSequenceDiagram.png[width="700"]
+
+===== Consideration
+
+There were considerations to allow for changing of password through the *EncryptCommand*. However, due to security reasons,
+it was decided to focus on encrypting and unprotected Pdf. You will need to <<Decrypt feature>>
+before encrypting it with a new password. This is to ensure your intent in changing the password,
+as the current version *PDF++* does not provide `Forget Password` feature.
+
+Furthermore, in ensuring a sophisticated protection system, several other features were introduced.
+
+. <<History feature>> will not show the executed `EncryptCommand` which includes the password of the file.
+. The <<Undo/Redo feature [Coming in v2.0]>> is temporarily disabled until a solution that
+will not comprises your privacy has been found.
+. Pressing up in the command box will not show the `EncryptCommand` that was previously executed.
+
+===== Future Implementation
+
+There are concerns of accidental encryption of a file with a wrong password. In *PDF++* v2.0,
+the encrypt command will prompt you to re-enter the password as a form of confirmation message.
+If there is a mismatch of the two passwords entered, the command will not be executed.
+
+==== Decryption feature
+
+===== Current Implementation
+
+[NOTE]
+The current Implementation of *DecryptCommand* is very similar to <<Encryption feature>>.
+The part where it is implemented differently will be specifically mentioned for your convenience.
+
+The `decrypt` feature is facilitated by both *DecryptCommand* and *DecryptCommandParser*.
+
+The implementation of the `DecryptCommand` execution is summarised in the following activity diagram.
+
+image::DecryptCommandActivityDiagram.png[width="600"]
+
+. The provided index is checked for validity i.e. referring to a specific Pdf in PdfBook.
+.. If the index is invalid, a *CommandException* will be thrown and the execution ends.
+. The Pdf specified via the index is retrieved from the PdfBook.
+. A `File` object is created for the Pdf.
+. The `File` will be loaded as https://pdfbox.apache.org/docs/2.0.1/javadocs/org/apache/pdfbox/pdmodel/PDDocument.html[_PDDocument_],
+which is an indicator that the `File` is a *PDF* file that is uncorrupted and
+not protected with a password.
+.. Error in loading Pdf as *PDDocument* would throw an *IOException*. Common reasons of error are:
+... File not found in location
+... Lack of user permissions to open File
+... Protected File
+... Corrupted File
+.. Thrown IOException is intercepted, a *CommandException* will be thrown and the execution ends.
+. https://pdfbox.apache.org/docs/2.0.1/javadocs/org/apache/pdfbox/pdmodel/encryption/AccessPermission.html[_AccessPermission_], and
+https://pdfbox.apache.org/docs/2.0.1/javadocs/org/apache/pdfbox/pdmodel/encryption/StandardProtectionPolicy.html[_StandardProtectionPolicy_]
+are created. The password specified will be passed to `StandardProtectionPolicy` for the purpose of setting security settings for the
+`PDDocument`.
+. A protected Pdf will be saved and closed.
+.. Error in encrypting the file will throw an *IOException*. Common reasons of error are:
+... Excessive long password
+... Empty password
+.. Thrown IOException is intercepted, a *CommandException* will be thrown and the execution ends.
+. The Pdf is recorded in the <<Model component>> and the changes are saved.
+. A *CommandResult* is returned upon successful exception of *EncryptCommand*.
+
+This sequence diagram demonstrates the <<main-success-scenario>> from the
+*LogicManager* to the end of *EncryptCommand* execution:
+
+image::DecryptCommandSequenceDiagram.png[width="700"]
+
+===== Consideration
+
+There were considerations to allow for changing of password through the *EncryptCommand*. However, due to security reasons,
+it was decided to focus on encrypting and unprotected Pdf. You will need to <<Decrypt feature>>
+before encrypting it with a new password. This is to ensure your intent in changing the password,
+as the current version *PDF++* does not provide `Forget Password` feature.
+
+Furthermore, in ensuring a sophisticated protection system, several other features were introduced.
+
+. <<History feature>> will not show the executed `EncryptCommand` which includes the password of the file.
+. The <<Undo/Redo feature [Coming in v2.0]>> is temporarily disabled until a solution that
+will not comprises your privacy has been found.
+. Pressing up in the command box will not show the `EncryptCommand` that was previously executed.
+
+===== Future Implementation
+
+There are concerns of accidental encryption of a file with a wrong password. In *PDF++* v2.0,
+the encrypt command will prompt you to re-enter the password as a form of confirmation message.
+If there is a mismatch of the two passwords entered, the command will not be executed.
+
+
+
+For encryption, you can select the file on the list that you wish to encrypt
+with a password you specified. Likewise, for decryption, you have to enter the
+password of the encrypted file that you wish to decrypt.
 
 The Encrypt and Decrypt feature has the following syntax:
 
@@ -932,7 +1065,7 @@ image::EncryptFeatureStep5Sucess.png[width="600"]
 Step 6: If the command passes the validity check, the file you have selected is encrypted.
 You can open your file to see the result. Please refer to <<Open feature>> for the `open` feature.
 
-image::EncryptCommandActivityDiagram.png[width="600"]
+
 
 ==== Step-by-Step Guide -- decrypt
 Illustrate below is a sample usage scenario that provides a clear view to the inner workings
@@ -984,7 +1117,7 @@ image::DecryptFeatureStep5Sucess.png[width="600"]
 Step 6: If the command passes the validity check, the file you have selected is decrypted.
 You can open your file to see the result. Please refer to <<Open feature>> for the `open` feature.
 
-image::DecryptCommandActivityDiagram.png[width="600"]
+
 // end::fileprotection[]
 
 === Logging
@@ -1627,6 +1760,14 @@ Windows, Linux, Unix, OS-X
 
 [[private-contact-detail]] Private contact detail::
 A contact detail that is not meant to be shared with others
+
+[[encrypted-file]] Encrypted file::
+A file that is protected with a password
+
+[[main-success-scenario]] Main Success Scenario::
+The expected sequence of events assuming that nothing goes wrong
+
+
 
 [appendix]
 == Instructions for Manual Testing

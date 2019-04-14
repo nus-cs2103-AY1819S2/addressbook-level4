@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_APPT_STATUS;
 
 import java.util.List;
+import java.util.ListIterator;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
@@ -64,8 +65,6 @@ public class MarkAppointmentCommand extends Command {
         Appointment appointmentToChange = lastShownList.get(index.getZeroBased());
         Appointment changedAppointment = createChangedAppointment(appointmentToChange, changedAppointmentDescriptor);
 
-        Patient patientStatusToChange = appointmentToChange.getPatient();
-
         if (!appointmentToChange.isSameAppointment(changedAppointment) && model.hasAppointment(changedAppointment)) {
             throw new CommandException(MESSAGE_DUPLICATE_APPT);
         }
@@ -80,18 +79,47 @@ public class MarkAppointmentCommand extends Command {
             throw new CommandException(AppointmentStatus.MESSAGE_CONSTRAINT_PAST);
         }
 
-        if (patientStatusToChange != null) {
-            Patient changedPatient =
-                    patientStatusToChange.changeAppointmentStatus(changedAppointment.getAppointmentStatus());
-
-            model.setPatient(patientStatusToChange, changedPatient);
-            model.commitDocX();
-        }
-
         model.setAppointment(appointmentToChange, changedAppointment);
         model.commitDocX();
+
+        Patient patientToChange = appointmentToChange.getPatient();
+        updatePatient(model, patientToChange, changedAppointment.getAppointmentStatus());
+
         return new CommandResult(String.format(MESSAGE_MARK_APPT_SUCCESS, changedAppointment));
     }
+
+
+    /**
+     * Cascade the effect of the changed appointment status to the Patient
+     */
+    //@@author wayneswq
+    private void updatePatient(Model model, Patient patientToChange, AppointmentStatus changedStatus) {
+
+        List<Appointment> lastShownList = model.getFilteredAppointmentList();
+        if (patientToChange != null) { // make sure patient is not deleted
+            // update patient's appointment status
+            Patient changedPatient =
+                    patientToChange.changeAppointmentStatus(changedStatus);
+            model.setPatient(patientToChange, changedPatient);
+            model.commitDocX();
+
+            // find whether the patient has any other active appointments
+            ListIterator<Appointment> appointmentListIterator = lastShownList.listIterator();
+            while (appointmentListIterator.hasNext()) {
+                Appointment currentAppointment = appointmentListIterator.next();
+
+                if (currentAppointment.getPatient().equals(patientToChange)
+                        && currentAppointment.getAppointmentStatus().equals(AppointmentStatus.ACTIVE)) {
+                    changedPatient =
+                            patientToChange.changeAppointmentStatus(AppointmentStatus.ACTIVE);
+                    model.setPatient(patientToChange, changedPatient);
+                    model.commitDocX();
+                    break;
+                }
+            }
+        }
+    }
+
 
     /**
      * Creates and returns a {@code Appointment} with the details of {@code appointmentToChange}

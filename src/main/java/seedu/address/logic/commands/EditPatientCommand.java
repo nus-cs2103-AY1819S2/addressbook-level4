@@ -1,3 +1,4 @@
+/* @@author wayneswq */
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
@@ -194,7 +195,6 @@ public class EditPatientCommand extends Command {
         public Optional<Phone> getPhone() {
             return Optional.ofNullable(phone);
         }
-
 
         public void setAddress(Address address) {
             this.address = address;

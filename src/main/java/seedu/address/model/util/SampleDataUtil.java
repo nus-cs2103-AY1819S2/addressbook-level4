@@ -10,6 +10,7 @@ import seedu.address.model.appointment.Appointment;
 import seedu.address.model.appointment.AppointmentDate;
 import seedu.address.model.appointment.AppointmentDoctorId;
 import seedu.address.model.appointment.AppointmentPatientId;
+import seedu.address.model.appointment.AppointmentStatus;
 import seedu.address.model.appointment.AppointmentTime;
 import seedu.address.model.appointment.FutureAppointment;
 import seedu.address.model.medicalhistory.MedicalHistory;
@@ -32,30 +33,30 @@ import seedu.address.model.tag.Tag;
  */
 public class SampleDataUtil {
     public static Patient[] getSamplePatients() {
-        return new Patient[] {
+        return new Patient[]{
             new Patient(new Name("Tan Ah Ming"), new Gender("M"), new Age("29"), new Phone("87438807"),
-                new Address("Blk 30 Geylang Street 29 #06-40"),
-                getTagSet("foodpoisoning", "heatstroke")),
+                    new Address("Blk 30 Geylang Street 29 #06-40"),
+                    getTagSet("foodpoisoning", "heatstroke")).changeAppointmentStatus(AppointmentStatus.ACTIVE),
             new Patient(new Name("Bernice Yu Ye Sim"), new Gender("F"), new Age("23"), new Phone("99272758"),
-                new Address("Blk 30 Lorong 3 Serangoon Gardens #07-18"),
-                getTagSet("highbloodpressure", "stroke")),
+                    new Address("Blk 30 Lorong 3 Serangoon Gardens #07-18"),
+                    getTagSet("highbloodpressure", "stroke")).changeAppointmentStatus(AppointmentStatus.ACTIVE),
             new Patient(new Name("David Li"), new Gender("M"), new Age("53"), new Phone("91031282"),
-                new Address("Blk 436 Serangoon Gardens Street 26 #16-43"),
-                getTagSet("diabetes", "fever", "lungcancer")),
+                    new Address("Blk 436 Serangoon Gardens Street 26 #16-43"),
+                    getTagSet("diabetes", "fever", "lungcancer")),
             new Patient(new Name("Charlie Oldman"), new Gender("M"), new Age("101"), new Phone("93210283"),
                     new Address("Blk 11 Ang Mo Kio Street 74 #11-04"),
                     getTagSet()),
             new Patient(new Name("Irfan Ibrahim"), new Gender("M"), new Age("60"), new Phone("92492021"),
-                new Address("Blk 47 Tampines Street 20 #17-35"),
-                getTagSet("lungcancer", "fever")),
+                    new Address("Blk 47 Tampines Street 20 #17-35"),
+                    getTagSet("lungcancer", "fever")),
             new Patient(new Name("Roy Balakrishnan"), new Gender("M"), new Age("6"), new Phone("92624417"),
-                new Address("Blk 45 Aljunied Street 85 #11-31"),
-                getTagSet("flu"))
+                    new Address("Blk 45 Aljunied Street 85 #11-31"),
+                    getTagSet("flu"))
         };
     }
 
     public static Doctor[] getSampleDoctors() {
-        return new Doctor[] {
+        return new Doctor[]{
             new Doctor(new Name("Alvin Tong"), new Phone("82352312"), new Gender("M"), new Year("2"),
                     getSpecSet("acupuncture")),
             new Doctor(new Name("Barney Ong"), new Phone("90534873"), new Gender("F"), new Year("22"),
@@ -72,7 +73,7 @@ public class SampleDataUtil {
     }
 
     public static MedicalHistory[] getSampleMedHists() {
-        return new MedicalHistory[] {
+        return new MedicalHistory[]{
             new MedicalHistory(new PersonId("1"), new PersonId("7"),
                     new ValidDate("2019-03-03"), new WriteUp("The patient got a high fever.")),
             new MedicalHistory(new PersonId("2"), new PersonId("7"),
@@ -127,15 +128,15 @@ public class SampleDataUtil {
     public static Appointment[] getAppointments() {
         Appointment[] appointments = new Appointment[4];
         Appointment appointment1 = new FutureAppointment(new AppointmentPatientId("1"),
-                new AppointmentDoctorId("7"), new AppointmentDate("2019-06-01"), new AppointmentTime("09:00"));
+            new AppointmentDoctorId("7"), new AppointmentDate("2019-06-01"), new AppointmentTime("09:00"));
         Appointment appointment2 = new FutureAppointment(new AppointmentPatientId("2"),
-                new AppointmentDoctorId("8"), new AppointmentDate("2019-06-01"), new AppointmentTime("10:00"));
+            new AppointmentDoctorId("8"), new AppointmentDate("2019-06-01"), new AppointmentTime("10:00"));
 
 
         Appointment appointment3 = new Appointment(new AppointmentPatientId("1"),
-                new AppointmentDoctorId("7"), new AppointmentDate("2019-02-01"), new AppointmentTime("09:00"));
+            new AppointmentDoctorId("7"), new AppointmentDate("2019-02-01"), new AppointmentTime("09:00"));
         Appointment appointment4 = new Appointment(new AppointmentPatientId("2"),
-                new AppointmentDoctorId("8"), new AppointmentDate("2019-02-01"), new AppointmentTime("10:00"));
+            new AppointmentDoctorId("8"), new AppointmentDate("2019-02-01"), new AppointmentTime("10:00"));
 
         appointments[0] = appointment1;
         appointments[1] = appointment2;

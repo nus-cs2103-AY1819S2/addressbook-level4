@@ -41,7 +41,7 @@ public class StringUtil {
 
     /**
      * Returns true if the {@code sentence} contains the {@code word}.
-     *   Ignores cas
+     *   Ignores case and a sub-word matched will return true
      *   <br>examples:<pre>
      *       differs rom above:
      *       containsWordIgnoreCase("ABc def", "AB") == true //not a full word match

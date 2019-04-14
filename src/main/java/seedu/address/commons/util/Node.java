@@ -34,7 +34,7 @@ public class Node {
      * @return boolean value if it has a parent or not
      */
     public boolean hasParent() {
-        return (parent == null);
+        return (parent != null);
     }
 
     public boolean isDummy() {

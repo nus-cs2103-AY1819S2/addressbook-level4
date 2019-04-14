@@ -7,6 +7,7 @@
 ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
+:source-highlighter: rouge
 endif::[]
 
 == Overview
@@ -26,7 +27,7 @@ My role was to design and implement the [blue]`Request` related commands and fea
 Note the following symbols and formatting used in this document:
 
 `add` A grey highlight (called a mark-up) indicates that this is a command that can be inputted into the command line and executed by the application. +
-[blue]`Request` Blue text with a grey highlight indicates a component, class or object in the architecture of the application.
+`Request` Red text beginning with a capital letter indicates a component, class or object in the architecture of the application.
 
 == Summary of contributions
 
@@ -45,8 +46,7 @@ Note the following symbols and formatting used in this document:
 ** What it does: Allows the admin to assign Healthworkers to requests, and complete any ongoing requests.
 ** Justification: These features are necessary for the product, and allows the administrator manage all patient requests by assigning the relevant healthworker with the appropriate skill sets.
 ** Highlights: Creation of these features required thorough understanding of how the existing details of the [blue]`Logic` and [blue]`Model` components,
-as knowledge of how information is cached in the application's memory was essential to allow for rapid assigning. Implemented index-based assigning, which improved effeciency
- by 30% (each `assign` request command runs in O(1) time).
+as knowledge of how information is cached in the application's memory was essential to allow for rapid assigning. Also implemented a scheduling algorithm that allows users to ensure that requests assigned to `HealthWorker`s are at least 2 hours apart.
 
 * *Minor enhancement*: added a filter command that allows the user to navigate through all requests stored by filtering by a specific value.
 

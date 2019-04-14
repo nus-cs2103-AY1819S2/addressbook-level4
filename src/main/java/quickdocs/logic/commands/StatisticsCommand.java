@@ -10,7 +10,7 @@ import quickdocs.model.Model;
 import quickdocs.model.record.Statistics;
 
 /**
- * Gets the Statistics of the  clinic.
+ * Gets the Statistics of the clinic.
  */
 public class StatisticsCommand extends Command {
 

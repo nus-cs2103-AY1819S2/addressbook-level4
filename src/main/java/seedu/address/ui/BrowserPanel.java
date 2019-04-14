@@ -9,7 +9,6 @@ import javafx.stage.Stage;
 
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.NoInternetException;
-import seedu.address.commons.util.WebUtil;
 import seedu.address.model.restaurant.Weblink;
 
 /**
@@ -68,7 +67,7 @@ public class BrowserPanel extends UiPart<Stage> {
      */
     public void loadPage(Weblink weblink) {
         // Load restaurant page when selected restaurant changes.
-        loadPage(WebUtil.prependHttps(weblink.value));
+        loadPage(weblink.value);
     }
 
     /**

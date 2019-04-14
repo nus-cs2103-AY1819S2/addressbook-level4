@@ -10,8 +10,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Weblink {
 
     public static final String NO_WEBLINK_STRING = "No weblink added";
-    public static final String INVALID_URL_MESSAGE = "%1$s is not found. Please enter a correct weblink";
-    private static final String SPECIAL_CHARACTERS = "!#$%&'*+/=?`{|}~^.-";
+    private static final String SPECIAL_CHARACTERS = "!#$%&'*+/=?`{|}~^-";
     public static final String MESSAGE_CONSTRAINTS = "Weblinks should be of the format https://local-part.domain "
             + "and adhere to the following constraints:\n"
             + "1. The local-part should only contain alphanumeric characters and these special characters, excluding "
@@ -22,7 +21,7 @@ public class Weblink {
             + "    - start and end with alphanumeric characters\n"
             + "    - consist of alphanumeric characters, a period or a hyphen for the characters in between, if any.";
     // alphanumeric and special characters
-    private static final String OPTIONAL_PROTOCOL_REGEX = "^(https://)?";
+    private static final String OPTIONAL_PROTOCOL_REGEX = "^(https://|http://)?";
     private static final String LOCAL_PART_REGEX = "[\\w" + SPECIAL_CHARACTERS + "]+";
     private static final String AT_LEAST_ONE_DOMAIN_REGEX = "\\.";
     private static final String DOMAIN_FIRST_CHARACTER_REGEX = "[^\\W_]"; // alphanumeric characters except underscore
@@ -66,7 +65,7 @@ public class Weblink {
         if (isDefault()) {
             return EMPTY_STRING;
         } else {
-            return value;
+            return value.replaceAll("https://", "").replaceAll("http://", "");
         }
     }
 

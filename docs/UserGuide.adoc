@@ -87,12 +87,14 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 === Restaurant Features
 
+// tag::addedit[]
 ==== Adding a restaurant: `add`
 
-Add a restaurant that is not found in the current list of restaurants. +
-Format: `add n/NAME p/PHONE e/EMAIL a/ADDRESS po/POSTAL CODE [t/TAG]... [w/WEBLINK] [o/OPENING_HOURS]`
+You can add a restaurant that is not found in the current list of restaurants. +
+Format: `add n/NAME a/ADDRESS po/POSTAL CODE [p/PHONE] [e/EMAIL] [t/TAG]... [w/WEBLINK] [o/OPENING_HOURS]`
 
 ****
+* To add a restaurant, the minimal information you need to have is their name, address and postal code.
 * A restaurant can have any number of tags (including 0)
 * A restaurant can have a weblink or none
 * A restaurant can have one opening hours or none
@@ -100,12 +102,25 @@ Format: `add n/NAME p/PHONE e/EMAIL a/ADDRESS po/POSTAL CODE [t/TAG]... [w/WEBLI
 
 Examples:
 
-* `add n/Astons p/66123024 e/astons@dummy.com a/Blk 30 Geylang Street 29, #06-40 po/267951 w/astons.com.sg`
+* `add n/Astons a/Blk 30 Geylang Street 29, #06-40 po/267951 p/66123024 e/astons@dummy.com w/astons.com.sg o/1000 to 2300`
 * `add n/Bangkok Jam p/65272758 e/bangkokjam@example.com a/Blk 30 Lorong 3 Serangoon Gardens, #07-18 po/018956 t/Spicy`
+* `add n/KFC a/Bukit Panjang Plaza po/670111`
+
+[NOTE]
+====
+When you are adding in the Weblink, FoodDiary will check whether the Weblink is valid for you. You need to have internet connection else,
+the FoodDiary will proceed to add the restaurant without the Weblink.
+====
+
+When adding a restaurant when there is no internet connection, the FoodDiary will add your restaurant without the Weblink.
+
+image:NoInternetAdd.PNG[width=640]
+
+_Image 1.1 Result of adding a Restaurant with Weblink but there is no internet connection_
 
 ==== Editing details of a restaurant  : `edit`
 
-Edit the details of a restaurant identified by the index number used in the list. +
+You can edit the details of a restaurant identified by the index number used in the list. +
 Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [po/POSTAL] [t/TAG]... [w/WEBLINK] [o/OPENING HOURS]`
 
 ****
@@ -117,6 +132,18 @@ Examples:
 
 * `edit 2 n/MACS` +
 Changes the name of the second restaurant in the list to `MACS`.
+
+[NOTE]
+====
+When you are editing the Weblink of a restaurant, FoodDiary will check whether the Weblink is valid for you. You need to have internet connection else,
+the FoodDiary will not edit the Weblink for you.
+====
+
+When you are changing a restaurant's Weblink to an invalid Weblink, you will receive the following error message.
+
+When you are editing a restaurant's Weblink with no internet connection, the FoodDiary will edit your restaurant without the Weblink.
+
+// end::addedit[]
 
 ==== Deleting a restaurant: `delete`
 
@@ -317,9 +344,10 @@ Returns restaurants with any category matching `$`, `casual` or `western`.
 // tag::visitweb[]
 ==== Display website of selected restaurant : `visitWeb`
 
-Display the website of a restaurant identified by the index number used in the list based on its weblink. +
-Format: `visitWeb INDEX`
+The restaurants website can serve as your reference when you are adding it into your restaurant list or when writing a review for the restaurant.
 
+You can display the website of a restaurant identified by the index number used in the list based on its weblink. +
+Format: `visitWeb INDEX`
 
 [NOTE]
 ====
@@ -327,11 +355,10 @@ Format: `visitWeb INDEX`
 * The index *must be a positive integer* 1, 2, 3, ...
 ====
 
-Display the website of any restaurant by entering its url. +
+You can also display the website of any restaurant by entering its url. +
 Format: `visitWeb URL` +
 
-This allows users to visit website of any restaurant before they are entered into the list of restaurants in the `FoodDiary`.
-The purpose of this feature is so that users can reference from restaurants website when adding details of the restaurant into `FoodDiary`
+This allows you to visit website of any restaurant before they are entered into the list of restaurants in the `FoodDiary`.
 
 Website is displayed on a browser window which shows upon visitWeb command.
 
@@ -351,11 +378,18 @@ A URL is a valid link to a website. It should be in this format: local-part.doma
 Examples:
 
 * `list` +
-`visitWeb 1` +
-Displays webpage of the restaurant at index 1 of list.
+`visitWeb 4` +
 
 * `visitWeb www.jollibee.com.ph` +
-Displays webpage of Jollibee.
+This command displays webpage of Jollibee as shown below.
+
+image::visitWebJolliB.PNG[width="640"]
+
+_Image 1.1 Result of `visitWeb www.jollibee.com.ph`_
+
+[NOTE]
+You need to have internet connection to visit the website of the restaurant.
+
 // end::visitweb[]
 
 // tag::reviewcommands[]

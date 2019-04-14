@@ -415,6 +415,7 @@ image::MoveCommandActivityDiagram.png[width="600"]
 // end::move[]
 
 // tag::merge[]
+[#merge-feature]
 === Merge feature
 ==== Current Implementation
 The `merge` feature is facilitated by both *MergeCommand* and *MergeCommandParser*.
@@ -645,10 +646,10 @@ The list feature is facilitated by *ListCommand*.
 This feature will display all of the files currently stored within the application at the
 main interface. By default, all of the files will be displayed when the application is
 started. However, the display of the interface can be changed to reflect the results of
-<<Find feature>> or <<Filter feature>>.
+<<find-feature, Find feature>> or <<filter-feature, Filter feature>>.
 
 [NOTE]
-Certain features such as <<Merge feature>> rely on the index of the file(s) displayed on
+Certain features such as <<merge-feature, Merge Feature>> rely on the index of the file(s) displayed on
 the main interface. Since the `find` or `filter` feature would list a sample of all
 the files at the main interface, no commands can be executed on the files not included in
 the results. Hence, the `list` feature is added to allow for a "reset" of the view of the files.
@@ -660,6 +661,7 @@ The `List` feature has to following syntax:
 // end::list[]
 
 // tag::find[]
+[#find-feature]
 === Find feature
 ==== Current Implementation
 The `find` feature is facilitated by *FindCommand* and *FindCommandParser*.
@@ -729,10 +731,11 @@ improve the ability of the application to look through content even if they are 
 // end::find[]
 
 // tag::filter[]
+[#filter-feature]
 === Filter feature
 ==== Current Implementation
 The `filter` feature is facilitated by *FilterCommand* and *FilterCommandParser*.
-This feature is similar to <<Find feature>> in that it lists a subset of all the files
+This feature is similar to <<find-feature, Find feature>> in that it lists a subset of all the files
 in the application, except that it will list the files based on the tag of the file.
 
 The `filter` feature has to following syntax:
@@ -757,6 +760,8 @@ any deadlines assigned to it, its name, and directory.
 The `Select` feature has to following syntax:
 Format: `select INDEX`
 
+==== Feature Breakdown
+
 The inner workings of `SelectCommand` can be explained in the following steps should you need to modify it.
 
 * The `LogicManager` component invokes a `PdfBookParser` to parse the input command.
@@ -769,9 +774,9 @@ The inner workings of `SelectCommand` can be explained in the following steps sh
 `command history` and executes it.
 * The execution of the `SelectCommand` sets the `selectedPdf` property of the model.
 ** This change causes the invocation of the `UI` component to display the selected item to the user.
-* Finally, upon succesfful execution, a `CommandResult` is returned to the `LogicManager` for other operations.
+* Finally, upon successful execution, a `CommandResult` is returned to the `LogicManager` for other operations.
 ** If any errors occur mid-execution, a `CommandException` is thrown. These errors may occur due to:
-*** Inavlid parameter inputs.
+*** Invalid parameter inputs.
 
 // end::select[]
 
@@ -789,7 +794,10 @@ Example:
 * `sort deadline up`
 * `sort name down`
 
+==== Feature Breakdown
+
 Listed below is a brief explanation of the inner workings of the sort feature.
+
 * The `LogicManager` component invokes a `PdfBookParser` to parse the input command.
 ** An input command such as `select 1`.
 * The `PdfBookParser` then decodes the instruction by identifying the keyword, which is
@@ -804,9 +812,9 @@ returned to the `LogicManager` to execute.
 ** This list is sorted with the given `CRITERIA` and `ORDER`.
 ** The sorted list is set as the new default list of the `Model` component.
 * This change causes the invocation of the `UI` component to display the new list of files to the user.
-* Finally, upon succesful execution, a `CommandResult` is returned to the `LogicManager` for other operations.
+* Finally, upon successful execution, a `CommandResult` is returned to the `LogicManager` for other operations.
 ** If any errors occur mid-execution, a `CommandException` is thrown. These errors may occur due to:
-*** Inavlid parameter inputs such as invalid `CRITERIA` or `ORDER`.
+*** Invalid parameter inputs such as invalid `CRITERIA` or `ORDER`.
 
 [NOTE]
 All other operations carried out after `sort` that require an `INDEX` to be supplied must follow the newly
@@ -817,14 +825,47 @@ set indexes of the files tracked by the application.
 // tag::tag[]
 === Tag feature
 ==== Current Implementation
-The tag feature is facilitated by `TagCommand`. `Enter functionality here`
+The tag feature is facilitated by `TagCommand` and the `TagCommandParser`.
+This allows users to set tags to files that are tracked by the application that allows them to easily organize and
+view these files with other operations supported by our application such as the <<filter-feature, Filter Feature>>.
+In order to perform the Tag Command the user needs to specify a `PREFX` that is denoted by `-a` or `r` to signify the
+addition or removal of a tag. The `INDEX` that refers to the file that the user wishes to interact with and the tags
+themselves that are represented in the `t/TAG` format where `TAG` text that the user wishes to use as a tag.
 
-The `Tag` feature has to following syntax: `tag t/`
+The `Tag` feature has to following syntax:
+Format: `tag PREFIX INDEX t/TAG...`
 
-* Enter here
+Example:
+* `tag 1 -a t/SEROCKS`
+* `tag 1 -r t/SEROCKS`
+* `tag 2 -a t/Urgent t/Resume`
 
-[NOTE]
-Enter note here
+==== Feature Breakdown
+
+The inner workings of `TagCommand` can be briefly explained in the following steps should you need to modify it.
+
+* The `LogicManager` component invokes a `PdfBookParser` to parse the input command.
+** An input command such as `select 1`.
+* The `PdfBookParser` then decodes the instruction by identifying the keyword, which is
+`select` and creates a new `TagCommandParser` to parse the necessary parameters.
+* The `TagCommandParser` then parses the relevant parameters and creates a new
+`SortCommand` object that is returned to the `LogicManager` to execute. The parsed parameters include:
+** `PREFIX` which, as mentioned above, indicates if the tag is to be added or removed from the file.
+** `INDEX` which indicates to the command which file that the user wishes to interact with.
+** `t/TAG` which contain the name of the tag(s) that the user wishes to add to the specified file.
+* The `LogicManager` supplies the `TagCommand` with the existing application `model` and
+`command history` and executes it.
+* The execution of the `TagCommand` contain the following steps:
+** The file that the user wishes to add the tags to is obtained from the `model`.
+** The parsed `tag(s)` are added to the chosen file.
+** The `model` is then updated with the newly modified file.
+** Changes are reflected in the `UI` component by new labels forming under the name of the file.
+* Finally, upon successful execution, a `CommandResult` is returned to the `LogicManager` for other operations.
+** If any errors occur mid-execution, a `CommandException` is thrown. These errors may occur due to:
+*** Invalid parameter inputs.
+
+[CAUTION]
+The `Tag Feature` only allows for tags that do not contain spaces and are alphanumeric.
 
 // end::tag[]
 

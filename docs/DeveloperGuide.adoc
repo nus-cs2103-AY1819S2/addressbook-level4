@@ -442,7 +442,7 @@ Furthermore, every time any record of the specified patient is modified, a new i
 
 // end::patient_kyler[]
 
-// tag::task_cchj1995[]
+// tag::taskDG1_cchj1995[]
 === Task Management and related commands
 Our user can also utilize TeethHub to store manage and interact with tasks aside from patients. Dentists would often have tasks that needs to be completed or performed and the implementation of the `Task` data object allows TeethHub to provide its user with the ability to manage these tasks and have them interact with their patient's details when necessary as well. The main commands added with the data object serve to provide the user with a way to manage and view the tasks stored in the application.
 
@@ -462,6 +462,7 @@ Task has an attribute called `LinkedPatient` which stores the `NAME` and `NRIC` 
 The following class diagram details the relevant attributes for a `Task` object along with the multiplicity association between the classes:
 
 image::TaskClassDiagramFinal.png[width=""]
+// end::taskDG1_cchj1995[]
 
 ==== Task interaction feature (Basic)
 
@@ -486,6 +487,7 @@ The following sequence diagram illustrates the stated generic command execution 
 
 image::GenericSequenceDiagram.png[width=""]
 
+//tag::taskDG2_cchj1995[]
 ==== Task Autocomplete feature
 
 The `taskdone` command is a feature implemented to allow the user to automatically complete a task of his/her choice, setting it to `COMPLETED`. The command also allows the user to automatically add a record to the task's `LinkedPatient` upon completion of the task. This feature makes use of the `Model` by calling its methods `setTask()` and `setPerson()` to perform additional interactions with both task and patient respectively.
@@ -520,6 +522,9 @@ Closing the Main Window whilst the Task Calendar popup is showing will also clos
 The calendar is generated with modifications to the date cells being done during the generation process. Modifications to the date cells (e.g. changing font colors, overlaying a circle) are done to highlight date cells with the color of task priority. The class `CalendarWindow` uses a `HashMap` with the date, as the key and priority number, as a value,to store the start date and end date information from tasks stored in TeethHub, replacing the stored value with a highest priority value between the duplicates. This enables the date cells to be compared with the stored values amidst the generation process, choosing which date cells to highlight with the highest priority color. 
 
 The UI components of this feature are implemented using classes from `JavaFX` with the most important component being `DatePicker` which allows a calendar to be drawn up and displayed to the user. The implementation overrides the `updateItem()` method from `DatePicker` to enable modifications to be done to the date cells in the calendar.
+
+[NOTE]
+Color sceheme and certain font sizes of the Calendar are done using Cascading Style Sheets (CSS) in a `Calendar.CSS` file found under resources. Changes can be made to the CSS file to change color schemes of the calendar if needed
 
 The following swimlane activity diagram illustrates the process in which the application goes through to create and display the interactive calendar for the user:
 
@@ -568,7 +573,7 @@ image::TaskCalendarSwimLaneDiagram.png[height="500"]
 *** Alternative Cons: Other elements displayed in the Main Window have to be shrunk along with the calendar's contents to make space for the task calendar to be viewed. Main Window would be displaying too many things.
 ** **Choice Justification**: Shrinking all elements in the Main Window would adversely affect the visibility of other important features the application provdies such as the patient's information, the list of patients and list of tasks. This reduces the user experience as content cannot be clearly seen. Following the traditional usage of a calendar, most people typically look at a calendar when the need arises such as planning or scheduling. It would be better for a command to be provided and show the user a clear and distinct calendar only when he/she requires it, making the current choice ideal.
 
-// end::task_cchj1995[]
+// end::taskDG2_cchj1995[]
 
 // tag::undoredo[]
 === Undo/Redo feature

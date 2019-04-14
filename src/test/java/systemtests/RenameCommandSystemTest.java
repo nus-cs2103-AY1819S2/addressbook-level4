@@ -47,7 +47,7 @@ import seedu.pdf.model.pdf.Pdf;
 //import seedu.pdf.testutil.PdfBuilder;
 //import seedu.pdf.testutil.PdfUtil;
 
-public class RenameCommandSystemTest extends AddressBookSystemTest {
+public class RenameCommandSystemTest extends PdfBookSystemTest {
 
     /*
 
@@ -272,9 +272,9 @@ public class RenameCommandSystemTest extends AddressBookSystemTest {
      * 4. Asserts that the status bar's sync status changes.<br>
      * 5. Asserts that the command box has the default style class.<br>
      * Verifications 1 and 2 are performed by
-     * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
-     * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
-     * @see AddressBookSystemTest#assertSelectedCardChanged(Index)
+     * {@code PdfBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
+     * @see PdfBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
+     * @see PdfBookSystemTest#assertSelectedCardChanged(Index)
      */
     private void assertCommandSuccess(String command, Model expectedModel, String expectedResultMessage,
             Index expectedSelectedCardIndex) {
@@ -297,8 +297,8 @@ public class RenameCommandSystemTest extends AddressBookSystemTest {
      * 3. Asserts that the browser url, selected card and status bar remain unchanged.<br>
      * 4. Asserts that the command box has the error style.<br>
      * Verifications 1 and 2 are performed by
-     * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
-     * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
+     * {@code PdfBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
+     * @see PdfBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
     private void assertCommandFailure(String command, String expectedResultMessage) {
         Model expectedModel = getModel();

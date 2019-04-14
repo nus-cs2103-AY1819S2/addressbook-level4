@@ -13,7 +13,7 @@ import seedu.pdf.model.pdf.Pdf;
 import seedu.pdf.model.util.SampleDataUtil;
 import seedu.pdf.testutil.TestUtil;
 
-public class SampleDataTest extends AddressBookSystemTest {
+public class SampleDataTest extends PdfBookSystemTest {
     /**
      * Returns null to force test app to load data of the file in {@code getDataFileLocation()}.
      */

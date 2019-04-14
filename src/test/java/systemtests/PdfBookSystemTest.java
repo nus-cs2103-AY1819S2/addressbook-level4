@@ -44,7 +44,7 @@ import seedu.pdf.ui.CommandBox;
  * A system test class for PdfBook, which provides access to handles of GUI components and helper methods
  * for test verification.
  */
-public abstract class AddressBookSystemTest {
+public abstract class PdfBookSystemTest {
     @ClassRule
     public static ClockRule clockRule = new ClockRule();
 

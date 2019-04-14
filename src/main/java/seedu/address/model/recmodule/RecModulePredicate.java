@@ -7,6 +7,7 @@ import java.util.function.Predicate;
 import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.EligibleModulePredicate;
 import seedu.address.model.GradTrak;
 import seedu.address.model.course.Course;
 import seedu.address.model.course.CourseReqType;
@@ -30,10 +31,10 @@ public class RecModulePredicate implements Predicate<RecModule> {
 
     @Override
     public boolean test(RecModule recModule) {
-        /* ineligible module
+        /* ineligible module */
         if (!(new EligibleModulePredicate(gradTrak).test(recModule.getModuleInfo()))) {
             return false;
-        }*/
+        }
 
         ModuleInfoCode codeToTest = recModule.getCode();
         List<ModuleInfoCode> nonFailedCodeList = gradTrak.getNonFailedCodeList();
@@ -48,5 +49,13 @@ public class RecModulePredicate implements Predicate<RecModule> {
         }
 
         return false;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof RecModulePredicate // instanceof handles nulls
+                && course.equals(((RecModulePredicate) other).course)
+                && gradTrak.equals(((RecModulePredicate) other).gradTrak)); // state check
     }
 }

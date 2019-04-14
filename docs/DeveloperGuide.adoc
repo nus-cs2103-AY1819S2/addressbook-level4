@@ -158,7 +158,7 @@ The sections below give more details of each component.
 image::UiClassDiagram.png[width="800"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
-//TODO: update UI class diagram
+
 The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
@@ -186,8 +186,8 @@ link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
 
-.Interactions Inside the Logic Component for the `delete 1` Command
-image::DeletePersonSdForLogic.png[width="800"]
+.Interactions inside the Logic Component for the `delete 1` Command
+image::DeleteModuleTakenSdForLogic.png[width="800"]
 
 [[Design-Model]]
 === Model component
@@ -229,14 +229,16 @@ The `Storage` component,
 * can save `UserPref`, `UserInfo` objects in json format and read it back.
 * can save the GradTrak data in json format and read it back.
 
+[[Read-Only]]
 ==== Read only storage
 .Structure of read only storage component
 image::moduleinfostorage.png[width="800"]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage/ModuleInfoStorage.java[`ModuleInfoStorage.java`]
+*API* : link:{repoURL}/src/main/java/seedu/address/storage/ModuleInfoStorage/ModuleInfoStorage.java[`ModuleInfoStorage.java`]
 //todo: update class diagram
 The `ModuleInfoStorage` and `CourseStorage` is a read-only storage in `GradTrak`. It is only reads the list of module
 and course information saved in a JSON file and coverts them into `ModuleInfo` and `Course` objects stored in model.
+
 
 [[Design-Commons]]
 === Common classes
@@ -249,54 +251,123 @@ This section describes some noteworthy details on how certain features are imple
 
 //tag::displaymod[]
 === Displaymod feature
-==== Current Implementation
+==== Current implementation
+`displaymod` is a command that displays a module's information based on the user's search. The main reason for implementing
+such a feature is so that users can have immediate access to all available modules in NUS instead of searching through the
+internet.
 
-The `displaymod` is a search function that displays all available information with regards to the module codes the user types
-into the command box.
+==== Creation of `ModuleInfo`
+Most of the processing of this feature is done during the launch of the application. The modules are created as a object
+called `ModuleInfo`. These objects only contain vital information of a particular module and nothing else. This to ensure that
+only information relevant students are displayed. This process is done with aid of the `Storage` class, to be more exact
+it uses <<Read-Only>> extracting all the data from `allModule.Json` file found in the `resources` folder. +
 
-When the application is launched, a JSON file containing all of NUS module information is then converted
-into an Object Class called ModuleInfo individually and stored into an ObservableList<ModuleInfo> called ModuleInfoList.
+The figure below shows the class diagram for `ModuleInfo` :
 
-image::ConversionModuleInfo.png[width="800"]
+image::ModuleInfoclass.png[width="800"]
 
-The usage of ModuleInfoList is only temporary as it is passed into `ModelManager` and then converted into an ObservableList<>.
+As seen from above the `ModuleInfo` class is made up of 8 other classes: +
+|===
 
-[NOTE]
-The purpose of having ModuleInfoList is not only for temporary use; it also serves as form of Error handling if the application
-is unable to find the location of the JSON file containing all of the module information, a blank ModuleInfoList is handed to the
-ModelManager.
+|`ModuleInfoCode`  |`ModuleInfoDepartment`
+| `ModuleInfoTitle` |`ModuleInfoWorkload`
+|`ModuleInfoCredits` |`ModuleInfoPrerequisite`
+|`ModuleInfoDescription`|`ModuleInfoPreclusion` *For V2.0*
+
+|===
+
+The information found in the modules are separated into their own class to maintain modularity in the
+code. All of these objects are created in the construction of the `ModuleInfo` Object. +
+
+image::moduleinfoconstructor.png[width="800"]
+
+==== Generating prerequisite trees
+Within the `ModuleInfo` class, the `ModuleInfoPrerequisite` class requires the most pre-processing. If users wishes to take
+a particular module, they have to check if they can satisfy the prerequisites, thus presenting the prerequisite tree is
+paramount to the `ModuleInfo` class. +
+
+`ModuleInfoPrerequisite` contains a custom data structure called `ModuleTree` which can be found in the
+`commons.Util` package. It was place in the `commons` package since it was a data structure and other functions
+or feature may require the `ModuleTree` *i.e.* when adding/deleting modules from user's `ModuleTaken` list. +
+
+The `ModuleTree` data structure consist of "smaller" objects called `Node`, which can also be found in `commons.Util`.
+`Node` can represent one of the following information: +
+
+*1.* *Head* : The head/root of the `ModuleTree` which holds a `value` of the module code of the "larger" `ModuleInfo` object. +
+
+*2.* *Operator* : Either "OR" or "AND" to indicate if only one of the module is required to fulfill the prerequisite or
+all of the listed modules are required respectively. +
+
+*3.* *Module Code* : The module code that is required to meet the prerequisite. +
+
+image::PrerequisiteTreeAnnotated.png[width="600"]
+
+The `generatePrerequisiteTree()` function is called after the `ModuleInfoPrerequisite` object has been created, since
+the `ModuleTree` is dependent on the `String` input `prereq` which later be saved as `prerequisiteString`. +
+
+image::PrerequisiteString.png[width="800"]
+
+The input `prerequisite` usually comes in the format:
+
+ "Prerequisite":"[MA1312 or MA1521 or MA1505 or (MA1511 and MA1512)] and [ST2334 or ST2131 or ST2132] and [IS3106 or BT3103]"
+
+The input value is then split into an `array` using regular expressions:
+
+image::RegexSplitter.png[width="400"]
+
+This helps with the arrangement of the `ModuleTree` as shown below: +
+
+.Step 1:The first index `String` is used to create a minor tree
+image::prerequisiteStep1.png[width="600"]
+
+.Step 2:Since the previous `String` ended with a "OR" the next `String` is made and added as a child to the predecessor.
+image::prerequisiteStep2.png[width="600"]
+
+.Step 3:The next `String` is a lone "AND" operator thus it supersedes as the new root node.
+image::prerequisiteStep3.png[width="600"]
+
+.Step 4:The subsequent minor tree is added to the root node.
+image::prerequisiteStep4.png[width="600"]
+
+.Step 5:Finally, since the next operator is same as the current root operator the next minor tree is added as a child.
+image::prerequisiteStepFinal.png[width="600"]
+
+
+==== Making it into a list
+The final part of this entire process is storing all the `ModuleInfo` objects into a list. Currently, we did this using
+an `ObservableList<>`, this is done so that we can take advantage of the `FilteredList<>` class by filtering the list using
+`Predicates`. +
+
+During initial launch, after each module's information is converted into a `ModuleInfo` object, it will be added to a
+`ModuleInfoList` object which contains an `ArrayList<ModuleInfo>`. After all the modules are added into `ModuleInfoList`,
+`ModuleInfoList` will be passed into `ModelManager` and will be converted into an `ObservableList<>` called `allModules`.
+ Following that, a `FilteredList<>` object called `displaylist` will also be constructed from the `allModules` `ObservableList<>`.
 
 image::Observable.png[width="800"]
 
-This is done as `ObservableList<>` comes with a `FilteredList<>` feature: which wraps an ObservableList and filters the contents
-based on `predicates`.
+Whenever the user searches for a particular `ModuleInfo` , the `ObservableList<>` is always ready and the `FilteredList<>`
+will be updated using a `Predicate` List generated from the user's search keywords.
 
-* `Predicates` -- All search keywords i.e *Module Code* is saved as a list of `predicates`.
+image::keywords.png[width="600"]
 
-This allows for easier search throughout the list of all Module Information, as the User can search for multiple modules in
-a single search.
+==== Design considerations
+===== Aspect: ModuleTree data structure
+* **Current implementation :** Custom Module tree data structure
+** Pros: Able to handle "AND" or "OR" operations found in the prerequisite Tree.
+** Cons: Takes a extremely long time to implement and design. Not to mention extremely error-prone.
 
-The FilteredList is then collected and the ModuleInfo Objects will be formatted into Strings so that the information required
-is displayed by the UI.
+* **Alternative considered :** Use a current `JDK` `Tree` data structure
+** Pros: Easy to deploy into current code base.
+** Cons: Unable to deal with special operations like "AND" or "OR".
 
-==== Design Considerations
-===== Aspect: How Displaymod executes
-* **Current Implementation :** Searches based on Module Codes Only
-** Pros: Searches is slightly faster since its only based on Module Codes
-** Cons: Limited search since it requires User to know Module Codes beforehand.
-
-* **Future Implementation :** Search based on keywords
-** Pros: User can search for Modules based on keywords thus require no prior knowledge on a particular module code
-** Cons: Have to combine all module information into a single String and search for keywords; slower searches.
-
-==== Aspect: Data Structure Used
+==== Aspect: Storing `ModuleInfo` objects in an `ObservableList<>`
 * **Current Implementation :** `ObservableList<>` is used
 ** Pros: Allows for `FilteredList<>` to be used based on predicates; easy implementation.
 ** Cons: Requires additional classes to be implemented to handle the use of `Predicates`.
 
-* **Alternative :** Sticking to the `ArrayList<>`
+* **Alternative considered:** Sticking to `ArrayList<>`
 ** Pros: Easy to handle as it is a simple data structure.
-** Cons: Harder to search for specific Keywords(future implementation)
+** Cons: Harder to search for `ModuleInfo` objects based on codes and keywords.
 
 
 // tag::undoredo[]
@@ -517,7 +588,7 @@ objects.
 // tag::rec[]
 === Module recommendation feature
 
-The module recommendation feature displays modules which the user is recommended to read based on existing GradTrak modules
+The module recommendation feature displays modules which the user is recommended to read based on the current module plan
 and specific course requirements. It generates a list of module codes together with their corresponding titles and requirement
 types satisfied. The entire list is displayed on the Result Panel upon entering the `rec` command.
 
@@ -582,9 +653,19 @@ image::RecModuleComparatorSequenceDiagram.png[width="800"]
 ** Pros: User can sort the list according to his own preferences
 ** Cons: Difficult to implement if several parameters for sorting is allowed; input method for the custom order is problematic
 
+===== Aspect: Format of recommendation
+* **Alternative 1 (current choice): Display a list of all eligible modules that contribute to course requirements**
+** Pros: User has a greater freedom of choice
+** Cons: User may be confused or unable to decide if the list is too long
+
+* **Alternative 2: Display `n` modules for each semester, where `n` is decided by the user**
+** Pros: User can plan modules for specific semesters easily and quickly
+** Cons: Algorithm required to plan for all semesters can be complex; user may not prefer the given plan
+
+
 ==== Possible Improvements
-. Allow the user to display a module's information (from displaymod command) using its index in the recommendation list
-. Allow the user to add a module to GradTrak using its index in the recommendation list
+. Allow the user to display a module's information (from `displaymod` command) using its index in the recommendation list
+. Allow the user to add a module to the module plan using its index in the recommendation list
 // end::rec[]
 
 // tag::CheckLimit[]
@@ -743,10 +824,10 @@ image::chrome_save_as_pdf.png[width="300"]
 [[Docs-SiteWideDocSettings]]
 === Site-wide Documentation Settings
 
-The link:{repoURL}/build.gradle[`build.gradle`] file specifies some project-specific https://asciidoctor.org/docs/user-manual/#attributes[asciidoc attributes] which affects how all documentation files within this project are rendered.
+The link:{repoURL}/build.gradle[`build.gradle`] file specifies some project-specific https://asciidoctor.org/docs/user-manual/#attributes[asciidoc attributes] which affect how all documentation files within this project are rendered.
 
 [TIP]
-Attributes left unset in the `build.gradle` file will use their *default value*, if any.
+Attributes left unset in the `build.gradle` file will use their *default values*, if any.
 
 [cols="1,2a,1", options="header"]
 .List of site-wide attributes
@@ -773,12 +854,12 @@ This will render the SE-EDU navigation bar at the top of the page, and add some 
 [[Docs-PerFileDocSettings]]
 === Per-file Documentation Settings
 
-Each `.adoc` file may also specify some file-specific https://asciidoctor.org/docs/user-manual/#attributes[asciidoc attributes] which affects how the file is rendered.
+Each `.adoc` file may also specify some file-specific https://asciidoctor.org/docs/user-manual/#attributes[asciidoc attributes] which affect how the file is rendered.
 
 Asciidoctor's https://asciidoctor.org/docs/user-manual/#builtin-attributes[built-in attributes] may be specified and used as well.
 
 [TIP]
-Attributes left unset in `.adoc` files will use their *default value*, if any.
+Attributes left unset in `.adoc` files will use their *default values*, if any.
 
 [cols="1,2a,1", options="header"]
 .List of per-file attributes, excluding Asciidoctor's built-in attributes
@@ -822,7 +903,7 @@ The SE-EDU team does not provide support for modified template files.
 There are three ways to run tests.
 
 [TIP]
-The most reliable way to run tests is the 3rd one. The first two methods might fail some GUI tests due to platform/resolution-specific idiosyncrasies.
+The most reliable way to run tests is the third one. The first two methods might fail some GUI tests due to platform/resolution-specific idiosyncrasies.
 
 *Method 1: Using IntelliJ JUnit test runner*
 
@@ -834,11 +915,11 @@ The most reliable way to run tests is the 3rd one. The first two methods might f
 * Open a console and run the command `gradlew clean allTests` (Mac/Linux: `./gradlew clean allTests`)
 
 [NOTE]
-See <<UsingGradle#, UsingGradle.adoc>> for more info on how to run tests using Gradle.
+See <<UsingGradle#, UsingGradle.adoc>> for more information on how to run tests using Gradle.
 
 *Method 3: Using Gradle (headless)*
 
-Thanks to the https://github.com/TestFX/TestFX[TestFX] library we use, our GUI tests can be run in the _headless_ mode. In the headless mode, GUI tests do not show up on the screen. That means the developer can do other things on the Computer while the tests are running.
+Thanks to the https://github.com/TestFX/TestFX[TestFX] library we use, our GUI tests can be run in the _headless_ mode. In the headless mode, GUI tests do not show up on the screen. That means the developer can do other things on the computer while the tests are running.
 
 To run tests in headless mode, open a console and run the command `gradlew clean headless allTests` (Mac/Linux: `./gradlew clean headless allTests`)
 
@@ -846,15 +927,15 @@ To run tests in headless mode, open a console and run the command `gradlew clean
 
 We have two types of tests:
 
-.  *GUI Tests* - These are tests involving the GUI. They include,
-.. _System Tests_ that test the entire App by simulating user actions on the GUI. These are in the `systemtests` package.
+.  *GUI Tests* - These are tests involving the GUI. They include:
+.. _System tests_ that test the entire App by simulating user actions on the GUI. These are in the `systemtests` package.
 .. _Unit tests_ that test the individual components. These are in `seedu.address.ui` package.
-.  *Non-GUI Tests* - These are tests not involving the GUI. They include,
+.  *Non-GUI Tests* - These are tests not involving the GUI. They include:
 ..  _Unit tests_ targeting the lowest level methods/classes. +
 e.g. `seedu.address.commons.StringUtilTest`
 ..  _Integration tests_ that are checking the integration of multiple code units (those code units are assumed to be working). +
 e.g. `seedu.address.storage.StorageManagerTest`
-..  Hybrids of unit and integration tests. These test are checking multiple code units as well as how the are connected together. +
+..  Hybrids of unit and integration tests. These tests are checking multiple code units as well as how they are connected together. +
 e.g. `seedu.address.logic.LogicManagerTest`
 
 
@@ -885,7 +966,7 @@ When a pull request has changes to asciidoc files, you can use https://www.netli
 
 Here are the steps to create a new release.
 
-.  Update the version courseReqCredits in link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp.java`].
+.  Update the version `courseReqCredits` in link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp.java`].
 .  Generate a JAR file <<UsingGradle#creating-the-jar-file, using Gradle>>.
 .  Tag the repo with the version courseReqCredits. e.g. `v0.1`
 .  https://help.github.com/articles/creating-releases/[Create a new release using GitHub] and upload the JAR file you created.
@@ -1181,13 +1262,13 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
 
 *Target user profile*:
 
-* has a need to manage a significant courseReqCredits of contacts
-* prefer desktop apps over other types
+* has a need to manage a significant `courseReqCredits` of contacts
+* prefer desktop applications over other types
 * can type fast
 * prefers typing over mouse input
-* is reasonably comfortable using CLI apps
+* is reasonably comfortable using CLI applications
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*: manage contacts faster than a typical mouse/GUI driven application
 
 [appendix]
 == User Stories
@@ -1402,25 +1483,56 @@ Use case ends.
 Use case ends.
 
 [discrete]
-=== Use case: Display module info
+=== Use case: Display NUS module information
 
 *MSS*
 
-1.  Student keys command to find module code or keywords in the title of module.
-2.  System returns module given module code or keywords.
+1.  User enters `displaymod` to find an NUS module based on module code or keywords in the module title.
+2.  System returns full module information.
 +
 Use case ends.
 
-_{More to be added}_
+[discrete]
+=== Use case: Recommend modules
+*MSS*
+
+1.  User enters `rec` command.
+2.  System returns a list of module codes (with title) that the user is recommended to take.
++
+Use case ends.
+
+[discrete]
+=== Use case: Find modules
+*MSS*
+
+1. User enters `find` command to search the module plan based on module code, semester, grade or finished status.
+2. System returns a list of modules in the module plan which satisfy the given parameters.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. User enters `find` without parameters.
++
+[none]
+** 1a1. System gives an "invalid command format" message and provides the correct format.
++
+Use case ends.
+
+* 1b. User enters an invalid grade or semester.
++
+[none]
+** 1b1. System rejects the command and provides the correct format for grade or semester.
++
+Use case ends.
 
 [appendix]
 == Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
-.  Should be able to hold up to 1000 modulesTaken without a noticeable sluggishness in performance for typical usage.
+.  Should be able to hold up to 1000 `modulesTaken` without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-
-_{More to be added}_
 
 [appendix]
 == Glossary
@@ -1428,30 +1540,10 @@ _{More to be added}_
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
 
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
-
-[appendix]
-== Product Survey
-
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
-
 [appendix]
 == Instructions for Manual Testing
 
-Given below are instructions to test the app manually.
+Given below are instructions to test the application manually.
 
 [NOTE]
 These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
@@ -1460,9 +1552,9 @@ These instructions only provide a starting point for testers to work on; testers
 
 . Initial launch
 
-.. Download the jar file and copy into an empty folder
+.. Download the jar file and copy it into an empty folder.
 .. Double-click the jar file +
-   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+   Expected: Shows the GUI with an empty module plan. The window size may not be optimum.
 
 . Saving window preferences
 
@@ -1470,26 +1562,14 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-_{ more test cases ... }_
+=== Deleting a module
 
-=== Deleting a person
+. Deleting a module while all `moduleTaken` are listed
 
-. Deleting a person while all modulesTaken are listed
-
-.. Prerequisites: List all modulesTaken using the `list` command. Multiple modulesTaken in the list.
+.. Prerequisites: List all `moduleTaken` using the `list` command.
 .. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+   Expected: First module is deleted from the list. Details of the deleted module are shown in the status message. Timestamp in the status bar is updated.
 .. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
+   Expected: No module is deleted. Error details are shown in the status message. Status bar remains the same.
+.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size or negative) +
    Expected: Similar to previous.
-
-_{ more test cases ... }_
-
-=== Saving data
-
-. Dealing with missing/corrupted data files
-
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
-
-_{ more test cases ... }_

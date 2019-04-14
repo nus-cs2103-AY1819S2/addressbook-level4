@@ -1058,8 +1058,9 @@ a|<<ClearMenu, `clearMenu`>> a| `*clear*` a| `clearMenu` a| Clears all items fro
 a|<<ToggleAvailability, `toggleAvailability`>> +
 _(Coming in v2.0)_
 a| t a|`toggleAvailability ITEM_CODE` a| `toggleAvailability W06` +
-- Makes W06 unavailable for ordering if initially available +
-- Makes W06 available for ordering if initially unavailable
+
+* Makes W06 unavailable for ordering if initially available
+* Makes W06 available for ordering if initially unavailable
 |=======================================================================
 
 === Statistics Mode

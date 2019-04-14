@@ -27,10 +27,14 @@
         </Label>
         <Label fx:id="name" text="\$first" styleClass="cell_big_label" />
       </HBox>
-      <FlowPane fx:id="tags" />
-      <Label fx:id="quantity" styleClass="cell_small_label" text="\$quantity" />
       <Label fx:id="company" styleClass="cell_small_label" text="\$company" />
+      <Label fx:id="quantity" styleClass="cell_small_label" text="\$quantity" />
       <Label fx:id="expiry" styleClass="cell_small_label" text="\$expiry" />
+      <FlowPane fx:id="tags" alignment="CENTER_LEFT">
+        <padding>
+          <Insets top="3" bottom="1" />
+        </padding>
+      </FlowPane>
     </VBox>
   </GridPane>
 </HBox>

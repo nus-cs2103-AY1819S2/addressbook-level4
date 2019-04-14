@@ -894,6 +894,7 @@ Similar to `CommandMode`, the various `CommandType` enums are:
 ** `CommandType.REQUEST_COMMAND`
 
 
+
 Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
 
 Step 1. The user launches the application for the first time. The `VersionedRequestBook` and `VersionedHealthWorkerBook` will be initialized with the initial state,
@@ -911,7 +912,7 @@ The `VersionedHealthWorkerBook` is unaffected.
 image::rbafterdelete.png[width="800"]
 image::mchafterdelete.png[width="800"]
 
-Step 3. The user executes `add h n/David ...` to add a new healthworker. The `add h` command also calls `Model#commit(HEALTHWORKER_COMMAND)`, causing a modified healthworker book state to be saved into the `healthWorkerBookStateList` and the `currentStatePointer` is shifted to the newly inserted healthworker book state.
+Step 3. The user executes `add h n/David ...` to add a new healthworker. The `add h` command also calls `Model#commit(HEALTHWORKER_COMMAND)`, causing a modified health worker book state to be saved into the `healthWorkerBookStateList` and the `currentStatePointer` is shifted to the new health worker book state.
 The enum `HEALTHWORKER_COMMAND` is added into the `modifyCommandHistory` list of the `ModifyCommandHistory` class.
 The `VersionedRequestBook` is unaffected.
 
@@ -940,7 +941,8 @@ The `redo` command does the opposite -- it calls `Model#redo()`, which first obt
 [NOTE]
 If the `currentStatePointer` of both `VersionedBook` s are pointing to the latest state, then there are no undone book states to restore. The `redo` command uses `Model#canRedo()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
 
-Step 5. The user then decides to execute the command `list r`. Commands that do not modify the address book, such as `list r`, will not call `Model#commit()`, `Model#undo()` or `Model#redo()`. Thus, the `VersionedBook` s do not change.
+Step 5. The user then decides to execute the command `list r`. Commands that do not modify the books, such as `list r`,
+will not call `Model#commit()`, `Model#undo()` or `Model#redo()`. Thus, the `VersionedBook` s and `ModyfiCommandHistory` do not change.
 
 image::rbafterlist.png[width="800"]
 
@@ -983,9 +985,9 @@ Traversing these irrelevant commands to find the next undoable command will take
 |=======================================================================
 Implementation | Use a command history to keep track
 of the type of book that was modified It is represented as a list of `CommandType`.(Current implementation) | Use a list of pairs. Each state is represented as a pair which stores the `currentStatePointer` of each book.
-|Pros| Easily scalable to include more than two books. AS the developer can simply add an extra `CommandType`
+|Pros| Easily scalable to include more than two books. As the developer can simply add an extra `CommandType`
 and extra cases for switch statements.| Supports commands that change multiple books at once since it keeps track of all states.
-|Cons| Unable to handle commands that change multiple books at once. We assume that only one `currentStatePointer` can change per undo/redo.| Keeping a pair of integers takes up more memory as compared to keeping a single enum.
+|Cons| Unable to handle commands that change multiple books at once. We assume that only one `currentStatePointer` can change per undo/redo.| Keeping a multiple integers takes up more memory as compared to keeping a single enum.
 |=======================================================================
 
 // end::undoredo[]

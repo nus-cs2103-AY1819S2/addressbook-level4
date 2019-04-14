@@ -25,9 +25,9 @@ public class InitialiseMapCommand extends Command {
     public static final int MAXIMUM_MAP_SIZE = 10;
     public static final int MINIMUM_MAP_SIZE = 6;
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Initialise the map to specified size. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Initialise the map to specified size.\n"
             + "Parameters: "
-            + "MAPSIZE (must be a positive integer)\n"
+            + String.format("MAPSIZE (must be between %d to %d, inclusive)\n", MINIMUM_MAP_SIZE, MAXIMUM_MAP_SIZE)
             + "Example: " + COMMAND_WORD + " "
             + "8 ";
 
@@ -89,7 +89,7 @@ public class InitialiseMapCommand extends Command {
         for (int i = 0; i < mapSize; i++) {
             for (int j = 0; j < mapSize; j++) {
 
-                cellGrid[i][j] = new Cell(new Coordinates(0, 0));
+                cellGrid[i][j] = new Cell(new Coordinates(i, j));
             }
         }
         return cellGrid;
@@ -98,6 +98,5 @@ public class InitialiseMapCommand extends Command {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof InitialiseMapCommand); // instanceof handles nulls
-                //&& toAdd.equals(((InitialiseMapCommand) other).toAdd));
     }
 }

@@ -47,7 +47,7 @@ public class PrescriptionCommandTest {
     }
 
     @Test
-    public void noConsultation() {
+    public void prescription_noOngoingConsultation_throwsCommandException() {
         // no consultation
         ArrayList<String> medList = new ArrayList<>();
         ArrayList<Integer> qtyList = new ArrayList<>();
@@ -60,7 +60,7 @@ public class PrescriptionCommandTest {
     }
 
     @Test
-    public void noMedFound() {
+    public void prescription_medNotFound_throwsCommandException() {
         ArrayList<String> medList = new ArrayList<>();
         ArrayList<Integer> qtyList = new ArrayList<>();
         medList.add("nasal spray");
@@ -73,7 +73,7 @@ public class PrescriptionCommandTest {
     }
 
     @Test
-    public void insufficientMed() {
+    public void prescription_insufficientMed_throwsCommandException() {
         ArrayList<String> medList = new ArrayList<>();
         ArrayList<Integer> qtyList = new ArrayList<>();
         medList.add("antibiotics");
@@ -86,7 +86,7 @@ public class PrescriptionCommandTest {
     }
 
     @Test
-    public void successfulPrescription() {
+    public void prescription_validPrescription_success() {
         ArrayList<String> medList = new ArrayList<>();
         ArrayList<Integer> qtyList = new ArrayList<>();
         medList.add("antibiotics");

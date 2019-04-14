@@ -528,7 +528,7 @@ You can then call `listconsult` again with the consultation record's index to vi
 .Revisiting a specific consultation session
 image::listconsult_index.png[width="600"]
 
-{nbsp} +
+{sp}+
 
 '''
 
@@ -791,6 +791,8 @@ image::alarm_medicine_after.png[width='600]
 
 `alarm root\high_blood_pressure\aspirin`
 
+{sp} +
+
 *Result:*
 
 As the path points to a directory, the sample command set the alarm level for all medicine under "fever" directory and all its subdirectories to 60. +
@@ -823,6 +825,8 @@ or{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp} *:* `buymed [PATH_OF_MEDICINE
 *Example:*
 
 `buymed aspirin 20 4.3` +
+
+{sp} +
 
 *Result:*
 
@@ -869,6 +873,8 @@ or{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp} *:* `setprice [NAME_OF_MEDICI
 *Example:*
 
 `setprice aspirin 10.50`
+
+{sp} +
 
 *Result:*
 
@@ -1272,7 +1278,7 @@ only need to enter this command once, until you decide to change your consultati
 [NOTE]
 The default consultation fee in QuickDocs in S$30.00.
 
-
+{sp}+
 *Format:* `setconsultfee AMOUNT` +
 
 *Alias{nbsp}{nbsp}{nbsp}{nbsp}:* `setfee`
@@ -1326,11 +1332,6 @@ In the image below, the *display* area will return the statistics of the queried
 
 .Result example for command `statistics 012019 042019`
 image::statistics_sample.png[width="600"]
-'''
-
-==== Generate medical certificate: [coming in V2.0]
-
-You are able to generate a customised medical certificate for a specific patient with this command.
 
 '''
 

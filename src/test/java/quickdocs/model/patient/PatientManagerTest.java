@@ -33,7 +33,7 @@ public class PatientManagerTest {
     }
 
     @Test
-    public void testDuplicates() {
+    public void isDuplicate_noDuplicate_returnsTrue() {
         Name name = new Name("Pepper Toh");
         Nric nric = new Nric("S9123456A");
         Email email = new Email("ptoh@gmail.com");
@@ -44,14 +44,24 @@ public class PatientManagerTest {
         ArrayList<Tag> tagList = new ArrayList<Tag>();
         Patient patient1 = new Patient(name, nric, email, address, contact, gender, dob, tagList);
         Assert.assertTrue(patientManager.isDuplicatePatient(patient1));
+    }
 
-        Nric nric2 = new Nric("S9123456B");
-        Patient patient2 = new Patient(name, nric2, email, address, contact, gender, dob, tagList);
+    @Test
+    public void isDuplicate_haveDuplicate_returnsFalse() {
+        Name name = new Name("Pepper Toh");
+        Nric nric = new Nric("S9123456B");
+        Email email = new Email("ptoh@gmail.com");
+        Address address = new Address("2 Simei Road");
+        Contact contact = new Contact("92222222");
+        Gender gender = new Gender("F");
+        Dob dob = new Dob("1993-03-03");
+        ArrayList<Tag> tagList = new ArrayList<Tag>();
+        Patient patient2 = new Patient(name, nric, email, address, contact, gender, dob, tagList);
         assertFalse(patientManager.isDuplicatePatient(patient2));
     }
 
     @Test
-    public void testAddPatients() {
+    public void addPatient_validAddPatient_patientAdded() {
         Name name = new Name("Pepper Toh");
         Nric nric = new Nric("S9123456A");
         Email email = new Email("ptoh@gmail.com");
@@ -66,10 +76,13 @@ public class PatientManagerTest {
     }
 
     @Test
-    public void testEmptyListCheck() {
+    public void isPatientListEmpty_isEmpty_returnsTrue() {
         patientManager = new PatientManager();
         Assert.assertTrue(patientManager.isPatientListEmpty());
+    }
 
+    @Test
+    public void isPatientListEmpty_notEmpty_returnsFalse() {
         Name name = new Name("Pepper Toh");
         Nric nric = new Nric("S9123456A");
         Email email = new Email("ptoh@gmail.com");
@@ -84,7 +97,7 @@ public class PatientManagerTest {
     }
 
     @Test
-    public void checkIndex() {
+    public void checkValidIndex() {
 
         Assert.assertTrue(patientManager.checkValidIndex(0));
 
@@ -96,7 +109,7 @@ public class PatientManagerTest {
     }
 
     @Test
-    public void editDuplicate() {
+    public void checkDuplicatePatientAfterEdit() {
         Name name = new Name("Pepper Toh");
         Nric nric = new Nric("S9123456B");
         Email email = new Email("ptoh@gmail.com");
@@ -118,8 +131,8 @@ public class PatientManagerTest {
         Dob dob2 = new Dob("1991-01-01");
         ArrayList<Tag> tagList2 = new ArrayList<Tag>();
         Patient editedPatient = new Patient(name2, nric2, email2, address2, contact2, gender2, dob2, tagList2);
-
         Assert.assertTrue(patientManager.checkDuplicatePatientAfterEdit(0, editedPatient));
+
         Nric nric3 = new Nric("S9123456C");
         editedPatient = new Patient(name2, nric3, email2, address2, contact2, gender2, dob2, tagList2);
         assertFalse(patientManager.checkDuplicatePatientAfterEdit(1, editedPatient));

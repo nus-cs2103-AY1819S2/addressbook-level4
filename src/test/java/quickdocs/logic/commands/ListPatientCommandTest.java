@@ -59,10 +59,8 @@ public class ListPatientCommandTest {
     }
 
     @Test
-    public void noPatientsToList() {
-
+    public void listPatient_noPatients_throwsCommandException() {
         // empty patient list
-
         ListPatientCommand listcommand = new ListPatientCommand();
         modelManager = new ModelManager();
         quickdocs.testutil.Assert.assertThrows(CommandException.class, () ->
@@ -70,7 +68,7 @@ public class ListPatientCommandTest {
     }
 
     @Test
-    public void noPatientFoundName() {
+    public void listPatient_noMatchingName_throwsCommandException() {
         ListPatientCommand listcommand = new ListPatientCommand("Ba", false);
         quickdocs.testutil.Assert.assertThrows(CommandException.class, () ->
                 listcommand.execute(modelManager, history));
@@ -78,30 +76,15 @@ public class ListPatientCommandTest {
         ListPatientCommand listcommand2 = new ListPatientCommand("@@@", false);
         quickdocs.testutil.Assert.assertThrows(CommandException.class, () ->
                 listcommand2.execute(modelManager, history));
-    }
 
-    @Test
-    public void findPatientByIndex() {
-        // invalid index
-        ListPatientCommand listcommand = new ListPatientCommand(50);
+        // no patients have "ang" in their names
+        ListPatientCommand listPatientCommand = new ListPatientCommand("ang", true);
         quickdocs.testutil.Assert.assertThrows(CommandException.class, () ->
-                listcommand.execute(modelManager, history));
-
-        try {
-            ListPatientCommand listcommand2 = new ListPatientCommand(1);
-            CommandResult cr = listcommand2.execute(modelManager, history);
-            StringBuilder sb = new StringBuilder();
-            sb.append("Listing patients:\n");
-            sb.append("==============================\n");
-            sb.append(patient1.toString());
-            Assert.assertEquals(sb.toString(), cr.getFeedbackToUser());
-        } catch (Exception ce) {
-            Assert.fail();
-        }
+                listPatientCommand.execute(modelManager, history));
     }
 
     @Test
-    public void findPatientsStartingWithJ() {
+    public void listPatient_nameSequenceMatch_success() {
         try {
             ListPatientCommand listPatientCommand = new ListPatientCommand("J", true);
 
@@ -125,31 +108,13 @@ public class ListPatientCommandTest {
                     + "\n");
             sb.append("\n");
 
-            // list all patients starting with j
+            // list all patients containing j
             Assert.assertEquals(listPatientCommand.execute(modelManager, history).getFeedbackToUser(),
                     sb.toString());
-        } catch (Exception e) {
-            Assert.fail();
-        }
-    }
 
-    @Test
-    public void findPatientsStartingWithJo() {
-        try {
-            // list a single patient that fulfills the search criteria
-            Name name = new Name("John Tan");
-            Nric nric = new Nric("S9123456A");
-            Email email = new Email("jtan@gmail.com");
-            Address address = new Address("1 Simei Road");
-            Contact contact = new Contact("91111111");
-            Gender gender = new Gender("M");
-            Dob dob = new Dob("1991-01-01");
-            ArrayList<Tag> tagList = new ArrayList<Tag>();
-            tagList.add(new Tag("Diabetes"));
-            Patient patient1 = new Patient(name, nric, email, address, contact, gender, dob, tagList);
-
-            ListPatientCommand listPatientCommand = new ListPatientCommand("Jo", true);
-            StringBuilder sb = new StringBuilder();
+            // list patients whose name contains jo
+            listPatientCommand = new ListPatientCommand("Jo", true);
+            sb = new StringBuilder();
             sb.append("Listing patients:\n");
             sb.append("==============================\n");
             sb.append(patient1.toString());
@@ -163,29 +128,37 @@ public class ListPatientCommandTest {
     }
 
     @Test
-    public void invalidNameSearch() {
-
-        // no patients have "ang" in their names
-        ListPatientCommand listPatientCommand = new ListPatientCommand("ang", true);
+    public void listPatient_invalidIndex_throwsCommandException() {
+        // invalid index
+        ListPatientCommand listcommand = new ListPatientCommand(50);
         quickdocs.testutil.Assert.assertThrows(CommandException.class, () ->
-                listPatientCommand.execute(modelManager, history));
-
-        // permitted, but nothing will be return since no name will have symbols in them
-        ListPatientCommand listPatientCommand2 = new ListPatientCommand("@", true);
-        quickdocs.testutil.Assert.assertThrows(CommandException.class, () ->
-                listPatientCommand2.execute(modelManager, history));
+                listcommand.execute(modelManager, history));
     }
 
     @Test
-    public void noPatientWithGivenNric() {
+    public void listPatient_validIndex_throwsCommandException() {
+        try {
+            ListPatientCommand listcommand2 = new ListPatientCommand(1);
+            CommandResult cr = listcommand2.execute(modelManager, history);
+            StringBuilder sb = new StringBuilder();
+            sb.append("Listing patients:\n");
+            sb.append("==============================\n");
+            sb.append(patient1.toString());
+            Assert.assertEquals(sb.toString(), cr.getFeedbackToUser());
+        } catch (Exception ce) {
+            Assert.fail();
+        }
+    }
 
+    @Test
+    public void listPatient_nricNotPresent_throwsCommandException() {
         ListPatientCommand listPatientCommand = new ListPatientCommand("S88", false);
         quickdocs.testutil.Assert.assertThrows(CommandException.class, () ->
                 listPatientCommand.execute(modelManager, history));
     }
 
     @Test
-    public void nricListing() {
+    public void listPatient_nricPresent_throwsCommandException() {
         try {
             ListPatientCommand listPatientCommand = new ListPatientCommand("S91", false);
 
@@ -215,17 +188,6 @@ public class ListPatientCommandTest {
 
             // list a single patient that fulfills the search criteria
 
-            Name name = new Name("John Tan");
-            Nric nric = new Nric("S9123456A");
-            Email email = new Email("jtan@gmail.com");
-            Address address = new Address("1 Simei Road");
-            Contact contact = new Contact("91111111");
-            Gender gender = new Gender("M");
-            Dob dob = new Dob("1991-01-01");
-            ArrayList<Tag> tagList = new ArrayList<Tag>();
-            tagList.add(new Tag("Diabetes"));
-            Patient patient1 = new Patient(name, nric, email, address, contact, gender, dob, tagList);
-
             listPatientCommand = new ListPatientCommand("S912", false);
             sb = new StringBuilder();
             sb.append("Listing patients:\n");
@@ -241,12 +203,15 @@ public class ListPatientCommandTest {
     }
 
     @Test
-    public void noPatientsFoundWithTag() {
+    public void listPatient_noPatientWithTag_throwsCommandException() {
         Tag tag = new Tag("Gout");
         ListPatientCommand listPatientCommand = new ListPatientCommand(tag);
         quickdocs.testutil.Assert.assertThrows(CommandException.class, () ->
                 listPatientCommand.execute(modelManager, history));
+    }
 
+    @Test
+    public void listPatient_incompleteTag_throwsCommandException() {
         //incomplete tags
         Tag tag2 = new Tag("Diab");
         ListPatientCommand listPatientCommand2 = new ListPatientCommand(tag2);
@@ -255,7 +220,7 @@ public class ListPatientCommandTest {
     }
 
     @Test
-    public void tagListing() {
+    public void listPatient_validAndPresentTag_throwsCommandException() {
 
         try {
             Tag tag = new Tag("Diabetes");
@@ -283,7 +248,7 @@ public class ListPatientCommandTest {
     }
 
     @Test
-    public void listFiftyPatients() {
+    public void listPatient_noArgs_success() {
 
         try {
             StringBuilder sb = new StringBuilder();
@@ -313,7 +278,45 @@ public class ListPatientCommandTest {
         } catch (CommandException ce) {
             Assert.fail();
         }
+    }
 
+    @Test
+    public void equals() {
+        ListPatientCommand lpc = new ListPatientCommand();
+        Assert.assertEquals(lpc, lpc);
 
+        Assert.assertNotEquals(lpc, 1);
+
+        // default case
+        ListPatientCommand lpc2 = new ListPatientCommand();
+        Assert.assertEquals(lpc, lpc2);
+
+        // index check
+        lpc = new ListPatientCommand(1);
+        lpc2 = new ListPatientCommand(1);
+        Assert.assertEquals(lpc, lpc2);
+        lpc2 = new ListPatientCommand(2);
+        Assert.assertNotEquals(lpc, lpc2);
+
+        // name check
+        lpc = new ListPatientCommand("name1", true);
+        lpc2 = new ListPatientCommand("name1", true);
+        Assert.assertEquals(lpc, lpc2);
+        lpc2 = new ListPatientCommand("name2", true);
+        Assert.assertNotEquals(lpc, lpc2);
+
+        // nric check
+        lpc = new ListPatientCommand("1", false);
+        lpc2 = new ListPatientCommand("1", false);
+        Assert.assertEquals(lpc, lpc2);
+        lpc2 = new ListPatientCommand("2", false);
+        Assert.assertNotEquals(lpc, lpc2);
+
+        // tag check
+        lpc = new ListPatientCommand(new Tag("a"));
+        lpc2 = new ListPatientCommand(new Tag("a"));
+        Assert.assertEquals(lpc, lpc2);
+        lpc2 = new ListPatientCommand(new Tag("b"));
+        Assert.assertNotEquals(lpc, lpc2);
     }
 }

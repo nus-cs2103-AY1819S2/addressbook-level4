@@ -79,6 +79,6 @@ public class Dob {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Dob // instanceof handles nulls
-                && dob.toString().equals(((Dob) other).getDob())); // state check
+                && dob.toString().equals(((Dob) other).getDob().toString())); // state check
     }
 }

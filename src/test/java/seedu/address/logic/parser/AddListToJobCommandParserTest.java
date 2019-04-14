@@ -8,7 +8,6 @@ import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSucces
 import org.junit.Test;
 
 import seedu.address.logic.commands.AddListToJobCommand;
-import seedu.address.logic.commands.MovePeopleCommand;
 import seedu.address.model.job.JobListName;
 import seedu.address.model.job.JobName;
 
@@ -51,8 +50,8 @@ public class AddListToJobCommandParserTest {
     @Test
     public void parse_noArgs_throwsParseException() {
         assertParseFailure(parser, " ",
-                MovePeopleCommand.MESSAGE_NO_DESTINATION
-                        + String.format(MESSAGE_INVALID_COMMAND_FORMAT, MovePeopleCommand.MESSAGE_USAGE));
+                AddListToJobCommand.MESSAGE_NO_DESTINATION
+                        + String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddListToJobCommand.MESSAGE_USAGE));
     }
 
 }

@@ -35,7 +35,7 @@ public class SortListWithDuplicates {
         }
         SortDuplicateList sortedDupList = new SortDuplicateList(dupPersonList, secondarySortMethod, type);
         orderedPersonList.addAll(sortedDupList.getList());
-        this.newList =  orderedPersonList;
+        this.newList = orderedPersonList;
     }
 
     public List<Person> getList() {

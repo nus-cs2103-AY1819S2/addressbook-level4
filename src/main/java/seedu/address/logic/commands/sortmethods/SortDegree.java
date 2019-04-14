@@ -1,10 +1,10 @@
 package seedu.address.logic.commands.sortmethods;
 
-import seedu.address.model.person.Person;
-
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+
+import seedu.address.model.person.Person;
 
 
 /**
@@ -15,6 +15,9 @@ public class SortDegree implements SortMethod {
 
     private List<Person> newList;
 
+    /**
+     * alters the newList to contain persons in newly sorted order
+     */
     public void execute(List<Person> lastShownList, String... type) {
         Comparator<Person> personDegreeComparator = Comparator.comparing(Person::degreeToValue);
         List<Person> initialSortedList = SortUtil.sortPersons(lastShownList, personDegreeComparator);

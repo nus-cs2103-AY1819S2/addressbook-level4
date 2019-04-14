@@ -14,6 +14,9 @@ public class SortEducation implements SortMethod {
 
     private List<Person> newList;
 
+    /**
+     * alters the newList to contain persons in newly sorted order
+     */
     public void execute(List<Person> lastShownList, String... type) {
         Comparator<Person> personEducationComparator = Comparator.comparing(Person::educationToString);
         List<Person> initialSortedList = SortUtil.sortPersons(lastShownList, personEducationComparator);

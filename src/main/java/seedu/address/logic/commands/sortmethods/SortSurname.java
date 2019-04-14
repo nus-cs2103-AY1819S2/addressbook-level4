@@ -1,6 +1,5 @@
 package seedu.address.logic.commands.sortmethods;
 
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
@@ -16,6 +15,9 @@ public class SortSurname implements SortMethod {
 
     private List<Person> newList;
 
+    /**
+     * alters the newList to contain persons in newly sorted order
+     */
     public void execute(List<Person> lastShownList, String... type) {
         Comparator<Person> personSurnameComparator = Comparator.comparing(Person::surnameToString);
         List<Person> initialSortedList = SortUtil.sortPersons(lastShownList, personSurnameComparator);

@@ -16,8 +16,14 @@ import java.util.List;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
-import static seedu.address.testutil.TypicalPersons.*;
+import static seedu.address.testutil.TypicalPersons.ALICE;
+import static seedu.address.testutil.TypicalPersons.BENSON;
+import static seedu.address.testutil.TypicalPersons.CARL;
+import static seedu.address.testutil.TypicalPersons.DANIEL;
+import static seedu.address.testutil.TypicalPersons.ELLE;
+import static seedu.address.testutil.TypicalPersons.FIONA;
+import static seedu.address.testutil.TypicalPersons.GEORGE;
+import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code FindCommand}.
@@ -29,7 +35,18 @@ public class SortCommandIntegrationTest {
     private List<Person> correctPersonOrder = new ArrayList<>();
 
     /**
-     * Use The sort by name method since they are already ordered
+     * Method for modifying the expected model from a list sorted as per input
+     */
+    private void expectedModelFromSort(List<Person> correctPersonOrder) {
+        expectedModel.deleteAllPerson();
+        for (Person newPerson : correctPersonOrder) {
+            expectedModel.addPersonWithFilter(newPerson);
+        }
+        expectedModel.commitAddressBook();
+    }
+
+    /**
+     * Use The sort by name method, since they are already ordered, after a trivial edit
      */
     @Test
     public void execute_sortNames_After_Edit_success() {
@@ -46,11 +63,12 @@ public class SortCommandIntegrationTest {
         SortWord type = new SortWord("name");
         SortCommand command = new SortCommand(type);
         expectedModel.deleteAllPerson();
-        correctPersonOrder = Arrays.asList(editedPerson, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE);
+        expectedModelFromSort(Arrays.asList(editedPerson, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
         for (Person newPerson : correctPersonOrder) {
             expectedModel.addPersonWithFilter(newPerson);
         }
         expectedModel.commitAddressBook();
         assertCommandSuccess(command, model, commandHistory, expectedMessageTwo, expectedModel);
     }
+
 }

@@ -15,6 +15,9 @@ public class SortName implements SortMethod {
 
     private List<Person> newList;
 
+    /**
+     * alters the newList to contain persons in newly sorted order
+     */
     public void execute(List<Person> lastShownList, String... type) {
         Comparator<Person> personNameComparator = Comparator.comparing(Person::nameToString);
         this.newList = SortUtil.sortPersons(lastShownList, personNameComparator);

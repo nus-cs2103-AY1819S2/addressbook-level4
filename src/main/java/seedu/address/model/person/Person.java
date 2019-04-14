@@ -2,10 +2,8 @@ package seedu.address.model.person;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedHashSet;
-import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -264,9 +262,9 @@ public class Person {
         return getName().toString();
     }
 
-     /**
-     * Returns just the first name of the Persons name as a string
-     */
+    /**
+    * Returns just the first name of the Persons name as a string
+    */
     public String firstNameToString() {
         String fullName = nameToString();
         int firstSpace = fullName.indexOf(" ");

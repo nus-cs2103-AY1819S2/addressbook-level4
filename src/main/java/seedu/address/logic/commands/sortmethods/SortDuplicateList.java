@@ -1,9 +1,9 @@
 package seedu.address.logic.commands.sortmethods;
 
-import seedu.address.model.person.Person;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import seedu.address.model.person.Person;
 
 /**
  * Takes a list of persons and sorts the list of persons according to the {@code secondarySortMethod}
@@ -14,11 +14,6 @@ public class SortDuplicateList {
 
     private List<Person> newList;
 
-    private void getSortedPersons(SortMethod command, List<Person> lastShownList, String... type) {
-        command.execute(lastShownList, type);
-        this.newList = command.getList();
-    }
-
     public SortDuplicateList(List<Person> dupPersonList, SortMethod secondarySortMethod, String... type) {
         if (dupPersonList.size() == 1) {
             this.newList = new ArrayList<>();
@@ -26,6 +21,11 @@ public class SortDuplicateList {
         } else {
             getSortedPersons(secondarySortMethod, dupPersonList, type);
         }
+    }
+
+    private void getSortedPersons(SortMethod command, List<Person> lastShownList, String... type) {
+        command.execute(lastShownList, type);
+        this.newList = command.getList();
     }
 
     public List<Person> getList() {

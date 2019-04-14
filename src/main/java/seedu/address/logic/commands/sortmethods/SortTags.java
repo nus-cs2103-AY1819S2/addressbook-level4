@@ -18,6 +18,9 @@ public class SortTags implements SortMethod {
 
     private List<Person> newList;
 
+    /**
+     * alters the newList to contain persons in newly sorted order
+     */
     public void execute(List<Person> lastShownList, String... type) {
         String prefix = type[0].substring(0, 1);
         //Modify each Person to organise tags alphabetically

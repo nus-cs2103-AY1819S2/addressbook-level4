@@ -619,9 +619,9 @@ Doctor get prompted to enter prescription.
 Consultation is ended once prescription is recorded
 | Less likely to enter erroneous data as consultation is now broken down to different stages
 
-| Implementation will not be one-shot
+| The consultation will take a longer time to be completed
 
-Implementation is very inflexible, doctor can only diagnose and prescribe during the session, while other related actions
+Doctor can only diagnose and prescribe during the session, while other related actions
 (such as listing past records) can only be done after the consultation
 
 // row 3
@@ -646,7 +646,7 @@ Room for other commands to be executed while a session is ongoing.
 |
 Potentially more commands will be called when compared to the other options.
 
-diagnosis and prescription commands entered could be verbose and it will be hard to make changes.
+diagnosis and prescription commands entered could be verbose and doctors can make mistakes easily.
 
 | *Fragment diagnosis and prescription commands even more*
 | Same as the third alternative, but there are commands specific to the adding of symptoms in diagnosis, adding of medicine in prescription.

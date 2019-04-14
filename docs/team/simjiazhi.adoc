@@ -299,9 +299,9 @@ Doctor get prompted to enter prescription.
 Consultation is ended once prescription is recorded
 | Less likely to enter erroneous data as consultation is now broken down to different stages
 
-| Implementation will not be one-shot
+| Commands will take a longer time to complete
 
-Implementation is very inflexible, doctor can only diagnose and prescribe during the session, while other related actions
+Doctors can only diagnose and prescribe during the session, while other related actions
 (such as listing past records) can only be done after the consultation
 
 // row 3
@@ -322,7 +322,7 @@ Other commands can be executed while a session is ongoing.
 |
 Potentially more commands will be called when compared to the other options.
 
-diagnosis and prescription commands entered could be verbose and it will be hard to make changes.
+diagnosis and prescription commands entered could be verbose and doctors might make mistakes more easily.
 
 | *Fragment diagnosis and prescription commands even more*
 | Same as the third alternative, but there are commands specific to the adding of symptoms in diagnosis, adding of medicine in prescription.
@@ -341,9 +341,6 @@ code volume.
 
 |===
 
-Although the selected option require more input and lengthier commands, it guarantees the flexibility and efficiency QuickDocs
-aim to deliver for doctors in neighbourhood clinics.
-
 Here are some of the considerations taken before the decision was made:
 
 1. Since QuickDocs aim to provide a single interface for doctors to perform clinical operations more efficiently, the consultation
@@ -356,9 +353,11 @@ in a single command. Therefore the implementation must provide a convenient form
 checking medicine inventory in the midst of the consultation. The implementation must be flexible enough
 to allow cross module commands during a consultation.
 
-Although the selected option require more user input and involve lengthier commands, doctors can circumvent
-these pitfalls very easily.
+The selected option features lengthier one-shot commands and this could lead to doctors making mistakes more easily.
+However, doctors can recover from erroneous commands very quickly by making use of the command history.
 
-Using the current implementation, doctors can recover from erroneous commands very quickly by making use of the command history.
-They can also perform cross module operations during a consultation. As such, the selected implementation guarantees the flexibility
-and efficiency QuickDocs aim to deliver for doctors in neighbourhood clinics.
+While a consultation session is ongoing, doctors can still perform operations beyond the consultation module as well, and not just be
+restricted to diagnosing the patient or prescribing medicine.
+
+As the selected option guarantees the flexibility and efficiency QuickDocs aim to deliver for doctors in neighbourhood clinics,
+it is currently implemented to help doctors conduct their consultation sessions much more smoothly.

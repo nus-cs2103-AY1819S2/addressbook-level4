@@ -84,8 +84,8 @@ public class AnswerCommandTest {
         CommandResult expectedCommandResult = new CommandResult(AnswerCommand.MESSAGE_ANSWER_SUCCESS,
                 CommandResult.Type.ANSWER_CORRECT);
 
-        model.testCardFolder();
-        expectedModel.testCardFolder();
+        model.startTestSession();
+        expectedModel.startTestSession();
 
         while (model.getCurrentTestedCard().getCardType() != Card.CardType.MCQ) {
             model.testNextCard();
@@ -125,8 +125,8 @@ public class AnswerCommandTest {
 
     @Test
     public void execute_testMcqCardGiveStringNotNumber_fail() {
-        model.testCardFolder();
-        expectedModel.testCardFolder();
+        model.startTestSession();
+        expectedModel.startTestSession();
 
         while (model.getCurrentTestedCard().getCardType() != Card.CardType.MCQ) {
             model.testNextCard();

@@ -91,33 +91,13 @@ public class LogicManagerTest {
         LessonList lessonList = new LessonList();
         lessonList.addLesson(new LessonBuilder().build());
         storage.saveLessonList(lessonList);
-        assertEquals(1, storage.readLessonList().get().getLessons().size());
+        assertEquals(1, storage.readLessonList().orElse(new LessonList()).getLessons().size());
         assertCommandSuccess(ReloadLessonsCommand.COMMAND_WORD , ReloadLessonsCommand.MESSAGE_SUCCESS, managementModel);
         assertCommandSuccess(DeleteLessonCommand.COMMAND_WORD + " 1",
             String.format(DeleteLessonCommand.MESSAGE_SUCCESS , "Capitals"),
             managementModel);
-        assertEquals(0, storage.readLessonList().get().getLessons().size());
+        assertEquals(0, storage.readLessonList().orElse(new LessonList()).getLessons().size());
     }
-
-    //some linux issue lol so travis fails TODO
-    /*
-    @Test
-    public void execute_deleteCommandInvalidFile_throwsIoExceptions() throws ParseException,
-        CommandException {
-        LessonList lessonList = new LessonList();
-        lessonList.addLesson(new LessonBuilder().build());
-        storage.saveLessonList(lessonList);
-        File file = new File(storage.getLessonListFolderPath().resolve("Capitals.csv").toString());
-        file.setReadOnly();
-        assertCommandSuccess(ReloadLessonsCommand.COMMAND_WORD , ReloadLessonsCommand.MESSAGE_SUCCESS, managementModel);
-        logic.execute(DeleteLessonCommand.COMMAND_WORD + " 1");
-        // some unknown issue broke the original test on linux so now we have this
-        assertEquals(0, managementModel.getLessons().size());
-        assertCommandSuccess(ReloadLessonsCommand.COMMAND_WORD , ReloadLessonsCommand.MESSAGE_SUCCESS, managementModel);
-        assertEquals(1, managementModel.getLessons().size());
-    }
-    */
-
     @Test
     public void execute_saveCommandInvalidFile_throwsIoExceptions() throws ParseException, CommandException {
         LessonList lessonList = new LessonList();

@@ -287,34 +287,75 @@ These are questions that are labelled difficult by the user.
 
 
 // tag::csvstorage[]
-=== CSV storage feature
+=== CSV lesson storage feature
 ==== Current Implementation
 The lesson CSV storage feature implements the following functions:
 
-* Parsing lesson data into the correct format for saving
-* Parsing data from file into lessons
+* Parsing lesson data into a list of string arrays, which is a format OpenCSV accepts for saving to CSV.
+* Parsing a list of string arrays back into lesson data, as retrieved from opencsv.
 
 Actual file I/O is handled in the CsvUtil class, which uses the opencsv library to read/write CSV files.
 
-==== CSV Format
-.Data flow diagram for Lessons saving
-image::CsvStorageDiagram.png[width="800"]
+==== CSV Lesson Format
+.High-level sequence diagram for the `reloadLessons` command, an example of lesson loading
+image::CsvLessonStorageSequenceDiagram.png[width="800"]
 
 Lessons are parsed by CsvLessonListStorage, being converted between Lesson and List<String[]> formats. The List<String[]> format is the primary format handled by CsvUtil for reading and writing to CSV files.
 
-For lessons, there are three main components when saved to a CSV file.
+For lessons, there are three main sections when saved to a CSV file.
 
 ===== Name
-Lesson names are equivalent to their filenames.
+A lesson's name in BrainTrain is equivalent to its file name.
 
 A lesson named "French" would be saved as French.csv, and vice-versa.
 
 ===== Header
-The header stores the set up information for the lesson. For more information on the format of lessons, please read `TODO`
+The header is represented in the file as the first two lines. Each line represents a specific set of data, as outlined below.
 
-Core fields start with `CORE_ESCAPE` character, `\*`. When a field without `*` is found, all subsequent fields are assumed to be optional.
+The first line represents the type of the corresponding column. Each column can have three types:
 
-Question and answer fields have the `QUESTION_ESCAPE` character, `?`, and `ANSWER_ESCAPE` character, `@`, respectively after the core character, `*`.
+. *Tested* +
+This marks the column as a core value. The first two instances of *Tested* in the file will be used in quizzes, and all remaining Tested values are treated as *Not Tested*.
+. *Not Tested* +
+This marks the column as a core value. However, unlike *Tested*, they will not be tested in quizzes, but can be chosen to be tested.
+. *Hint* +
+The values here will appear when the user uses the hint command during the quiz. However, values here are strictly optional, and can be left empty.
+
+NOTE: Core values require every value in that column to be non-empty. This guarantees that the user will be tested on something should they change which fields are tested.
+
+This is a code snippet from the parsing of the header data.
+
+    for (int i = 0; i < headerArray.length; i++) {
+        if (headerArray[i].isEmpty()) {
+            headerArray[i] = " ";
+        }
+    }
+    int coreCount = 0;
+    int index = 0;
+    while (index < headerArray.length) {
+        String headerChar = headerArray[index].toLowerCase().substring(0, 1);
+        if (headerChar.equals(HEADER_CORE_QA)) {
+            if (questionIndex == -1) {
+                questionIndex = index;
+            } else if (answerIndex == -1) {
+                answerIndex = index;
+            }
+            coreCount++;
+        } else if (headerChar.equals(HEADER_CORE_NOT_QA)) {
+            coreCount++;
+        } else if (!headerChar.equals(HEADER_OPTIONAL)) {
+            return returnValues;
+        }
+        index++;
+    }
+
+As seen at the beginning of the while loop, header values are actually treated as single case-insensitive characters. This means an experienced user may simply enter those letters as a shortcut.
+
+{empty} +
+
+The second line represents the name of each column as shown to the user. Any names left blank are automatically replaced with Unnamed.
+
+Any discrepancies in the number of types and the number of names will result in the lesson not being loaded.
 
 ===== Card Data
 
@@ -324,12 +365,23 @@ All remaining data is treated as card data. Any invalid data found in memory or 
 
 ===== Aspect: Choice of file type
 * **Alternative 1 (current choice):** Save as CSV
-** Pros: Allows the user to edit lesson data in an external program such as Excel, which provides a user-friendly spreadsheet interface.
-** Cons: Lack of data verification within the file, JSON already implemented
+** Pros: User is able to modify lesson data in a more advanced external spreadsheet tool like Excel
+** Cons: Lack of data verification within the file, JSON is already implemented in original code
 * **Alternative 2:** Save as JSON
-** Pros: Can ensure all values are filled out correctly
-** Cons: Difficult for user to edit
+** Pros: All values can be verified through the file
+** Cons: Difficult for user to edit manually
 
+Alternative 1 was chosen as ease of use is a high priority for the project. Most computer users are familiar with the Microsoft Office suite of applications, such as Word and Excel. As Excel allows CSV files to be shown in a spreadsheet, it was intended that users use Excel alongside BrainTrain for easy lesson management.
+
+===== Aspect: Handling of invalid data
+* **Alternative 1 (current choice):** Skip over specific lesson/card
+** Pros: User data is not automatically overwritten
+** Cons: User has to manually fix any issues with their data
+* **Alternative 2:** Automatically fix data
+** Pros: Ease of use for user
+** Cons: Automatic fix may not be as desired by user
+
+Alternative 1 was chosen as creators are expected to have some skill in data editing. Normal users would ideally only download lessons from a creator, and would not be familiar enough with the lesson data to fix any issues.
 // end::csvstorage[]
 
 
@@ -995,47 +1047,16 @@ remember it better
 [appendix]
 == Use cases
 
-
-[discrete]
-=== Use case: Export a lesson
-
-*MSS*
-
-1. User finds the lesson he wishes to export by using list or find command.
-2. User uses export command.
-3. App displays the location where the exported csv file is saved to.
-
-+
-Use case ends.
-
-*Extensions*
-
-[none]
-* 2a. User inputs invalid lesson name.
-+
-[none]
-** 2a1. Step 2 repeats until a valid lesson is found.
-+
-Use case resumes at step 3.
-
-* 2b. App is unable to save due to permissions, invalid format, etc
-+
-[none]
-** 2b1. App notifies User of the error.
-** 2b2. Step 2 repeats until the file is able to be saved.
-+
-Use case resumes at step 3.
-
 [discrete]
 === Use case: Import a lesson
 
 *MSS*
 
-1. User downloads file from a source (e.g Internet, other users).
-2. User uses import command.
-3. App loads the file as a lesson into the app shows the content of the lesson.
-4. App requests confirmation.
-5. App saves lesson to user profile.
+. User downloads file from a source (e.g Internet, other users).
+. User moves the file to the lessons folder.
+. User enters `reloadLessons` command.
+. App loads the file as a lesson.
+. App shows loaded lessons in the UI.
 
 +
 Use case ends.
@@ -1043,26 +1064,12 @@ Use case ends.
 *Extensions*
 
 [none]
-* 2a. User inputs invalid file path, file is not found or file is not valid.
+* 3a. User inputs invalid file.
 +
 [none]
-** 2a1. Step 2 repeats until a valid file is found.
+** 3a1. App continues loading other lessons.
 +
-Use case resumes at step 3.
-
-* 3a. App fails to load the file due to interruption, etc
-+
-[none]
-** 3a1. App tells user cause of failure.
-** 3a2. Step 2 repeats until a valid file is successfully loaded.
-+
-Use case resumes at step 3.
-
-* 4a. User declines
-+
-[none]
-+
-** Use case ends
+Use case resumes at step 5.
 
 [discrete]
 === Use case: Test poorly memorised questions

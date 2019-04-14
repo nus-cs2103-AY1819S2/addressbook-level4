@@ -15,7 +15,7 @@ slaveFinder() is a resume management application that helps recruiters manage mo
 
 * *Major enhancement 1*: added *Analytics* feature end-to-end
 ** What it does:
-*** Consolidates and breaksdown the various fields data of applicants, such as gender breakdown, number of applicants in each school, number of applicants in each major and average grade. 
+*** Consolidates and breaksdown the various fields data of applicants, such as gender breakdown, number of applicants in each school, number of applicants in each major and average grade.
 *** Analytics can be done on specific lists in the selection process, such as only on applicants that were interviewed or selected for the job. `analytics applicant`, `analytics kiv`, `analytics interview`, `analytics shortlist`, `analytics`
 ** Justification:
 *** Recruiters often want to know the quality of applicants that apply to their company, and use this data to improve their hiring process or recruit marketing strategies.

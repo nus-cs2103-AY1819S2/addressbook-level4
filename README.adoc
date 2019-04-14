@@ -2,7 +2,7 @@
 ifdef::env-github,env-browser[:relfileprefix: docs/]
 
 https://travis-ci.org/cs2103-ay1819s2-w14-4/main[image:https://travis-ci.org/cs2103-ay1819s2-w14-4/main.svg?branch=master[Build Status]]
-https://ci.appveyor.com/project/crumpledpaper/main[image:https://ci.appveyor.com/api/projects/status/5gj2bbi8m22402im?svg=true[Build status]]
+https://ci.appveyor.com/project/monikernemo/main[image:https://ci.appveyor.com/api/projects/status/5gj2bbi8m22402im?svg=true[Build status]]
 https://coveralls.io/github/cs2103-ay1819s2-w14-4/main?branch=master[image:https://coveralls.io/repos/github/cs2103-ay1819s2-w14-4/main/badge.svg?branch=master[Coverage Status]]
 https://www.codacy.com/app/crumpledpaper/main?utm_source=github.com&utm_medium=referral&utm_content=cs2103-ay1819s2-w14-4/main&utm_campaign=Badge_Grade[image:https://api.codacy.com/project/badge/Grade/8252478d5ba54270b64ad69074a826b8[Codacy Badge]]
 
@@ -23,16 +23,21 @@ NUS graduation tracker is an application to aid School of Computing students to 
 == Plan Modules
 * Plan when to take modules throughout your undergraduate studies
 * Recommends which modules to read based on module prerequisites and specialization
-* Able to account for Exchange Programmes, NUS Overseas College & Gap Year etc.
 
 == Managing C.A.P
-* Track Number of S/U credits left and recommends when to use them
-* Provides minimum grades required for current and future semesters to hit your desired C.A.P
-* Even predict your potential C.A.P
+* Tracks your C.A.P. for each semester
+* Set goals for your C.A.P.
+* Calculates minimum expected, maximum C.A.P. based on expected grades
+
+== Managing Workload
+* Tracks your workload for each semester
+* Tracks the amount of time you spent on lecture, preparation, project and many others!
 
 == Specializations
-* Ability to choose your specialization and GradTrak will aid to reach your goal based on the specialization requirements
-* Recommend potential FYP projects based on selected specialization and modules read
+* Choose your course of study from one of the following three Computer Science Major programs:
+** Computer Science Algorithms
+** Computer Science Artificial Intelligence
+** Computer Science Software Engineering
 
 == Site Map
 

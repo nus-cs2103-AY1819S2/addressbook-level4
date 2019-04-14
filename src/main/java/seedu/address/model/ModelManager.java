@@ -414,10 +414,7 @@ public class ModelManager implements Model {
      */
     public void updateRequirementStatusList() {
         requirementStatusList.updateRequirementStatus(
-                versionedGradTrak.getModulesTakenList()
-                        .stream()
-                        .map(ModuleTaken::getModuleInfoCode)
-                        .collect(Collectors.toList()));
+                versionedGradTrak.getNonFailedCodeList());
     }
 
     @Override

@@ -213,6 +213,7 @@ Examples:
 * `delete 1` +
 Deletes the first module on the most recently displayed list.
 
+// tag::Displaymod[]
 === Display module information: `displaymod`
 
 The `displaymod` command shows all the modules that are available in NUS based on the user's search. This command simply
@@ -297,27 +298,27 @@ What each number displays: +
 *5.* Contains the *prerequisite tree* for each module. +
 *6.* Contains *workload* load information, the values are meant to be read as *Hours*.
 
-
+// end::Displaymod[]
 
 // tag::Displayreq[]
 === Display course requirements: `displayreq`
 One of the core functions of GradTrak is to check whether the user has fulfilled his/her degree requirement.
-As of `v1.3` of the application, GradTrak currently only has course information of 3 Computer Science major Focus Areas, namely:
+As of `v1.4` of the application, GradTrak currently only has course information of 3 Computer Science major Focus Areas, namely:
 
 * Algorithms
 * Artificial Intelligence
 * Software Engineering
 
-You may refer to the guide on `study` command to understand how to set your current course of study.
+The course of study can be changed by using the `study` command which will be outlined in the later sections of this guide.
 
-This command uses information of the modules the user has already taken or is planning to take in the future semesters,
-keyed in through the `add` command. It displays to the user the degree to which they have completed their course requirements
-and other relevant information. This can be seen in the annotated screenshot below:
+Based off the modules you have passed and completed, or have planned to take in the future semesters, this command
+displays to you the degree to which you have completed your course requirements. It also displays other relevant
+information regarding your course's requirements. This can be seen in the annotated screenshot below:
 
 .Annotated screenshot when `displayreq` is invoked
 image::displayreqcommand.png[width = "800"]
 
-These information are displayed in the result panel when `displayreq` is invoked:
+These information are displayed in the result panel when `displayreq` is keyed in:
 
 . Name of the course requirement. +
 . Description of the course requirement. Gives an overview of the modules the user should take to fulfill the requirement. +
@@ -461,12 +462,12 @@ from the courses mentioned below:
 * Computer Science Software Engineering
 ****
 
-Examples:
+Example:
 
 * `study Computer Science Algorithms` +
 Sets the course of study to Computer Science with Focus Area Algorithms. Invoking `study` command again will change your course of study.
 
-More courses will be rolled out in GradTrak in its future iteration.
+More courses will be rolled out in GradTrak in the future.
 // end::study[]
 
 // tag::SetSemesterLimit[]

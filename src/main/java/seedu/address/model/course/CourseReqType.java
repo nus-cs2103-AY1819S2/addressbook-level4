@@ -14,7 +14,6 @@ public enum CourseReqType {
     UE("Unrestricted Elective");
 
     private final String printedType;
-
     CourseReqType(String printedType) {
         this.printedType = printedType;
     }

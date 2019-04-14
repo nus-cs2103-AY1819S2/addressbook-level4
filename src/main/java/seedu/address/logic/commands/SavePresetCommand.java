@@ -10,7 +10,6 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.CurrentEdit;
 import seedu.address.model.Model;
 import seedu.address.model.TransformationSet;
-import seedu.address.model.image.Image;
 
 /**
  * This command allows users to save a preset of commands.
@@ -36,11 +35,10 @@ public class SavePresetCommand extends Command {
     @Override
     public CommandResult execute(CurrentEdit currentEdit, Model model, CommandHistory history)
         throws CommandException {
-        List<Command> presetList = new ArrayList<>();
-        Image initialImage = currentEdit.getTempImage();
-        if (initialImage == null) {
+        if (currentEdit.tempImageDoNotExist()) {
             throw new CommandException(Messages.MESSAGE_DID_NOT_OPEN);
         }
+        List<Command> presetList = new ArrayList<>();
         List<Command> commandList = currentEdit.getTempSubHistory();
         for (Command command: commandList) {
             if (!(command instanceof SetPresetCommand)) {

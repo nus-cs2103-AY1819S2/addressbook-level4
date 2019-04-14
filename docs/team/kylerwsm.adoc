@@ -5,7 +5,7 @@
 
 == PROJECT: TeethHub
 
-In a software engineering module in school, my team was given a brownfield development task to enhance an application: The AddressBook 4.
+In a software engineering module in school, my team was given a brownfield development task to enhance an existing application: The AddressBook 4.
 
 My team and I took a step further, to morph the provided application into one of our choice. The result was TeethHub.
 

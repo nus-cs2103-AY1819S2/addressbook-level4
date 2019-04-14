@@ -65,7 +65,7 @@ public class EditPatientParserTest {
     public void parseEditPatient_validEdit_success() {
 
         Nric editedNric = new Nric("S9123456B");
-        String userInput = nric + createTestInput(name, editedNric, email, address, contact, gender, dob);
+        String userInput = nric + createTestInput(name, editedNric, email, address, contact, gender, dob, tag);
 
         PatientEditedFields peft = new PatientEditedFields();
         peft.setName(new Name("Peter Tan"));
@@ -75,6 +75,9 @@ public class EditPatientParserTest {
         peft.setContact(new Contact("91111111"));
         peft.setGender(new Gender("M"));
         peft.setDob(new Dob("1999-09-09"));
+        ArrayList<Tag> peftTagList = new ArrayList<Tag>();
+        peftTagList.add(new Tag("Diabetes"));
+        peft.setTagList(peftTagList);
 
         assertParseSuccess(parser, userInput, new EditPatientCommand(nric, peft));
     }

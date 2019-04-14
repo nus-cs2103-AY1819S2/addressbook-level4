@@ -334,9 +334,14 @@ The ship management feature handles the following:
 * Putting ships on the map grid and ensuring that ships are placed in valid areas on the map grid.
 * Keeping track of the status of ships in the player.
 
-A `Battleship` is a class representing a ship that can be placed on the map grid. A `FleetEntry` class is internally used to store the `Battleship` in a player's `Fleet`. `FleetEntry` is a nested class within `Fleet` that contains a `Battleship`, its head `Coordinates` and its `Orientation` on the map grid.
+[NOTE]
+====
+The Ship Management feature is named as such to avoid confusion with the main title of the game, Battleship. In this section, the words "battleship" and "ship" are used interchangeably. The capitalised word `Battleship` in monospace font is used to refer to the Java class.
+====
 
-The length of the ship varies depending on the type of ship. The user can tag a battleship using a `t/[TAG]` parameter in the `put` command. Tagging a ship is optional. +
+`Battleship` is a class representing a ship that can be placed on the map grid. A `FleetEntry` class is internally used to store the `Battleship` in a player's `Fleet`. `FleetEntry` is a nested class within `Fleet` that contains a `Battleship`, its head `Coordinates` and its `Orientation` on the map grid.
+
+The length of the ship varies depending on the type of ship. The user can tag a ship using a `t/[TAG]` parameter in the `put` command. Tagging a ship is optional. +
 
 There are three types of ships and the number of each ship depends on the size of the map. The relationship between map size and the number of each ship is illustrated in the table below.
 
@@ -359,25 +364,24 @@ The `put` command puts a ship on the map grid, specified by the __head coordinat
 
 The head coordinates are the coordinates of the top-most and left-most cell of a ship. When coordinates are specified in the `put` command, they refer to the head coordinates of the ship.
 
-image:BattleshipHeadExample.png[width=800, height=300]
+image:BattleshipHeadExample.png[width=400]
 ====
 
 The following operations are called when the `put` command is called.
 
-* `performChecks()` - Performs boundary checks on the map grid to ensure that the battleship can be placed on the map.
-* `putShip()` - Puts the battleship into the cell.
-* `getCell()` - Gets the cell that is specified by the coordinates provided by the user.
+* `performChecks()` - Performs checks to ensure that the ship can be put on the map.
+* `putShip()` - Puts the ship into the cell.
 
-The boundary checks are essential to the functionality of both the human player and the computer player. This is because `BoundaryValueChecker` is used by the computer player when it is deploying its own ships after the human player has ended his or her turn. `BoundaryValueChecker` relies on four separate methods to perform its checks. They are:
+The boundary checks are essential to the functionality of both the human and computer player. This is because `BoundaryValueChecker` is used by the human player in the `put` command, while the computer player when it is deploying its own ships after the human player has ended his or her turn. `BoundaryValueChecker` relies on four separate methods to perform its checks. They are:
 
 1. `isHeadWithinBounds()` - Checks if the head coordinates falls within the map grid.
 1. `isBodyWithinBounds()` - Checks if the body of the ship falls within the map grid.
-1. `isBattleshipAbsent()` - Checks if there are no _other_ ships that are situated on the head coordinates.
-1. `isClear()` - Checks if there are no _other_ ships that situated along the body of the ship.
+1. `isBattleshipAbsent()` - Checks if there are no other ships that are situated on the head coordinates.
+1. `isClear()` - Checks if there are no other ships that situated along the body of the ship.
 
-These methods check both the horizontal and vertical boundaries when a ship is being deployed. They also distinguish between the head and body of a ship in order to provide more specific feedback for the user.
+These methods check both the horizontal and vertical boundaries when a ship is being deployed. They also distinguish between the head and body of a ship in order to provide more specific feedback for the user. For the methods `isBattleshipAbsent()` and `isClear()`, `BoundaryValueChecker` calls the `getCellStatus()` method of the `mapGrid` object to obtain the status of `Cell` to carry out its checks.
 
-The following sequence diagram illustrates what happens when the `put` command is called.
+Once `BoundaryValueChecker` has finished its checks and if there are no exceptions thrown, the `put` command proceeds to call the `putShip()` method of the `mapGrid` object to put the ship on the map grid. It then updates the `Fleet` in the human player. The following sequence diagram illustrates what happens when the `put` command is called.
 
 .Sequence diagram of putting a battleship on the map.
 image::PutShipSequenceDiagram.png[width=800]
@@ -388,7 +392,7 @@ Ships can be tagged. You can list all the tags used by battleships that have bee
 
 [source,java]
 ----
-include::../src/main/java/seedu/address/model/Player/Fleet.java[lines=170..179]
+include::../src/main/java/seedu/address/model/Player/Fleet.java[lines=170..180]
 ----
 
 The sequence diagram below shows how the tags are listed.

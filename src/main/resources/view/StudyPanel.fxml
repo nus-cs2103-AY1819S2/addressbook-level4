@@ -29,10 +29,6 @@
                             <!-- Ensures that the label text is never truncated -->
                             <Region fx:constant="USE_PREF_SIZE"/>
                         </minHeight>
-                        <minWidth>
-                            <!-- Ensures that the label text is never truncated -->
-                            <Region fx:constant="USE_PREF_SIZE"/>
-                        </minWidth>
                     </Label>
                 </children>
             </HBox>
@@ -41,7 +37,12 @@
                     <Insets bottom="20" left="20" right="20" top="20"/>
                 </padding>
                 <Region minHeight="10"/>
-                <Label fx:id="rateDifficulty" styleClass="ratingLabel"/>
+                <Label fx:id="rateDifficulty" styleClass="ratingLabel">
+                    <minHeight>
+                        <!-- Ensures that the label text is never truncated -->
+                        <Region fx:constant="USE_PREF_SIZE"/>
+                    </minHeight>
+                </Label>
                 <Region minHeight="10"/>
                 <HBox>
                     <Label text="1" styleClass="ratingLabel"/><Region minWidth="10" HBox.hgrow="ALWAYS"/>

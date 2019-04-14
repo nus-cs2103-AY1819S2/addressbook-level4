@@ -5,16 +5,16 @@
 
 == PROJECT: TeethHub
 
-In a Software Engineering module, my team was given the task to morph the given AddressBook 4 into an application of our choice. The result was TeethHub.
+In a Software Engineering module, my team was given the brownfield task to morph the given AddressBook 4 into an application of our choice. The result was TeethHub.
 
 === Overview
 
 TeethHub is designed for Dentists who prefer type commands over clicking on a Graphical User Interface(GUI). It is still possible to perform some actions by clicking on the GUI, but only in very limited capacity. For example, the user can select patients and records by clicking on them, but they would need to type the edit commands to edit them.
 
 As of version 1.4: +
-TeethHub allows Dentists to manage patient information, records of each patient and tasks for the dentist.
+TeethHub allows Dentists to manage patient information, records of each patient and tasks for the dentist. +
 TeethHub allows Dentists to manage multiple databases through File Management. File Management also allows exporting to a PDF file. +
-TeethHub displays the latest teeth information in the form of an image that follows the *Universal Numbering System* dental notation.
+TeethHub displays the latest teeth information in the form of an image that follows the *Universal Numbering System* dental notation. +
 TeethHub displays statistics generated from all patients and records stored in it.
 
 The GUI of TeethHub is created with JavaFX. TeethHub is written in Java, and has about 20,000 lines of code. +

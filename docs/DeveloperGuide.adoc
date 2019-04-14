@@ -257,8 +257,8 @@ This section describes some noteworthy details on how certain features are imple
 // tag::displaymod[]
 === Displaymod feature
 ==== Current implementation
-`displaymod` is a command that displays a module's information based on the user's search. The main reason for implementing
-such a feature is so that users can have immediate access to all available modules in NUS instead of searching through the
+`displaymod` is a command that displays the information of a module based on the search by the student. The main reason for implementing
+such a feature is so that students can have immediate access to all available modules in NUS instead of searching through the
 internet.
 
 ==== Creation of `ModuleInfo`
@@ -287,13 +287,13 @@ code. All of these objects are created in the construction of the `ModuleInfo` O
 image::moduleinfoconstructor.png[width="800"]
 
 ==== Generating prerequisite trees
-Within the `ModuleInfo` class, the `ModuleInfoPrerequisite` class requires the most pre-processing. If users wishes to take
+Within the `ModuleInfo` class, the `ModuleInfoPrerequisite` class requires the most pre-processing. If a student wishes to take
 a particular module, they have to check if they can satisfy the prerequisites, thus presenting the prerequisite tree is
 paramount to the `ModuleInfo` class. +
 
 `ModuleInfoPrerequisite` contains a custom data structure called `ModuleTree` which can be found in the
 `commons.Util` package. It was place in the `commons` package since it was a data structure and other functions
-or feature may require the `ModuleTree` *i.e.* when adding/deleting modules from user's `ModuleTaken` list. +
+or feature may require the `ModuleTree` *i.e.* when adding/deleting modules from the `ModuleTaken` list of the student. +
 
 The `ModuleTree` data structure consist of "smaller" objects called `Node`, which can also be found in `commons.Util`.
 `Node` can represent one of the following information: +
@@ -350,8 +350,8 @@ During initial launch, after each module's information is converted into a `Modu
 
 image::Observable.png[width="800"]
 
-Whenever the user searches for a particular `ModuleInfo` , the `ObservableList<>` is always ready and the `FilteredList<>`
-will be updated using a `Predicate` List generated from the user's search keywords.
+Whenever the student searches for a particular `ModuleInfo` , the `ObservableList<>` is always ready and the `FilteredList<>`
+will be updated using a `Predicate` List generated from the keywords searched by the student.
 
 image::keywords.png[width="600"]
 
@@ -391,27 +391,27 @@ These operations are exposed in the `Model` interface as `Model#commitGradTrak()
 
 Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
 
-Step 1. The user launches the application for the first time. The `VersionedGradTrak` will be initialized with the initial GradTrak state, and the `currentStatePointer` pointing to that single GradTrak state.
+Step 1. The student launches the application for the first time. The `VersionedGradTrak` will be initialized with the initial GradTrak state, and the `currentStatePointer` pointing to that single GradTrak state.
 
 image::UndoRedoStartingStateListDiagram.png[width="800"]
 
-Step 2. The user executes `delete 5` command to delete the 5th module in the GradTrak. The `delete` command calls `Model#commitGradTrak()`, causing the modified state of the GradTrak after the `delete 5` command executes to be saved in the `GradTrakStateList`, and the `currentStatePointer` is shifted to the newly inserted GradTrak state.
+Step 2. The student executes `delete 5` command to delete the 5th module in the GradTrak. The `delete` command calls `Model#commitGradTrak()`, causing the modified state of the GradTrak after the `delete 5` command executes to be saved in the `GradTrakStateList`, and the `currentStatePointer` is shifted to the newly inserted GradTrak state.
 
 image::UndoRedoNewCommand1StateListDiagram.png[width="800"]
 
-Step 3. The user executes `add c/CS2103T ...` to add a new module. The `add` command also calls `Model#commitGradTrak()`, causing another modified GradTrak state to be saved into the `gradTrakStateList`.
+Step 3. The student executes `add c/CS2103T ...` to add a new module. The `add` command also calls `Model#commitGradTrak()`, causing another modified GradTrak state to be saved into the `gradTrakStateList`.
 
 image::UndoRedoNewCommand2StateListDiagram.png[width="800"]
 
 [NOTE]
 If a command fails its execution, it will not call `Model#commitGradTrak()`, so the GradTrak state will not be saved into the `gradTrakStateList`.
 
-Step 4. The user now decides that adding the module was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoGradTrak()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous GradTrak state, and restores the GradTrak to that state.
+Step 4. The student now decides that adding the module was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoGradTrak()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous GradTrak state, and restores the GradTrak to that state.
 
 image::UndoRedoExecuteUndoStateListDiagram.png[width="800"]
 
 [NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial GradTrak state, then there are no previous GradTrak states to restore. The `undo` command uses `Model#canUndoGradTrak()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+If the `currentStatePointer` is at index 0, pointing to the initial GradTrak state, then there are no previous GradTrak states to restore. The `undo` command uses `Model#canUndoGradTrak()` to check if this is the case. If so, it will return an error to the student rather than attempting to perform the undo.
 
 The following sequence diagram shows how the undo operation works:
 
@@ -420,17 +420,17 @@ image::UndoRedoSequenceDiagram.png[width="800"]
 The `redo` command does the opposite -- it calls `Model#redoGradTrak()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the GradTrak to that state.
 
 [NOTE]
-If the `currentStatePointer` is at index `gradTrakStateList.size() - 1`, pointing to the latest GradTrak state, then there are no undone GradTrak states to restore. The `redo` command uses `Model#canRedoGradTrak()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+If the `currentStatePointer` is at index `gradTrakStateList.size() - 1`, pointing to the latest GradTrak state, then there are no undone GradTrak states to restore. The `redo` command uses `Model#canRedoGradTrak()` to check if this is the case. If so, it will return an error to the student rather than attempting to perform the redo.
 
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the GradTrak, such as `list`, will usually not call `Model#commitGradTrak()`, `Model#undoGradTrak()` or `Model#redoGradTrak()`. Thus, the `gradTrakStateList` remains unchanged.
+Step 5. The student then decides to execute the command `list`. Commands that do not modify the GradTrak, such as `list`, will usually not call `Model#commitGradTrak()`, `Model#undoGradTrak()` or `Model#redoGradTrak()`. Thus, the `gradTrakStateList` remains unchanged.
 
 image::UndoRedoNewCommand3StateListDiagram.png[width="800"]
 
-Step 6. The user executes `clear`, which calls `Model#commitGradTrak()`. Since the `currentStatePointer` is not pointing at the end of the `gradTrakStateList`, all GradTrak states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add c/CS2103T ...` command. This is the behavior that most modern desktop applications follow.
+Step 6. The student executes `clear`, which calls `Model#commitGradTrak()`. Since the `currentStatePointer` is not pointing at the end of the `gradTrakStateList`, all GradTrak states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add c/CS2103T ...` command. This is the behavior that most modern desktop applications follow.
 
 image::UndoRedoNewCommand4StateListDiagram.png[width="800"]
 
-The following activity diagram summarizes what happens when a user executes a new command:
+The following activity diagram summarizes what happens when a student executes a new command:
 
 image::UndoRedoActivityDiagram.png[width="650"]
 
@@ -458,7 +458,7 @@ image::UndoRedoActivityDiagram.png[width="650"]
 // tag::CourseRequirement[]
 === Display Course Requirement feature
 ==== Current Implementation
-The `displayreq` command allows the users to see all their course requirements and also check if the modules they have
+The `displayreq` command allows the students to see all their course requirements and also check if the modules they have
 taken fulfils them. This command is currently facilitated by 2 classes in `Model`, `CourseRequirement` and
 `RequirementStatus`:
 
@@ -509,7 +509,7 @@ that tells the `CompositeRequirement` how two different `CourseRequirement` are 
 a list of `ModuleInfoCode` to satisfy a `CompositeRequirement` that has a `AND` `LogicalConnector`, the list must
 satisfy the both `CourseRequirement` objects contained in `CompositeRequirement`.
 
-There currently 3 methods that `CourseRequirement` provides information to the user:
+There currently 3 methods that `CourseRequirement` provides information to the student:
 
 * `isFulfilled()` -- a method that accepts a list of `ModuleInfoCode` and returns a `boolean` to indicate whether the list of
 `ModuleInfoCode` can satisfy the all the `CourseRequirement`
@@ -541,7 +541,7 @@ It also stores the result of the associated `CourseRequirement` object's `isFulf
 methods acting on the list of `ModuleInfoCode`.
 
 
-Below is a sequence of execution when `displayreq` command is executed by the user:
+Below is a sequence of execution when `displayreq` command is executed by the student:
 
 1. `Model#updateRequirementStatusList` is called. This updates the pre-existing `RequirementStatusList`
 and fills it with new `RequirementStatus` objects based on current `nonFailedCodeList` from `GradTrak`.
@@ -588,14 +588,14 @@ also improves performance time since each `ModuleInfoCode` is compared against o
 list of `String` objects.
 
 ==== Possible Improvements
-. Allow users to create and export their own `Course` and `CourseRequirement` objects.
+. Allow students to create and export their own `Course` and `CourseRequirement` objects.
 . Allow `Condition` to check its fulfillment by accessing other attributes of a `ModuleTaken` object in the future.
 //end::CourseRequirement[]
 
 // tag::rec[]
 === Module recommendation feature
 
-The module recommendation feature displays modules which the user is recommended to read based on the current module plan
+The module recommendation feature displays modules which the student is recommended to read based on the current module plan
 and specific course requirements. It generates a list of module codes together with their corresponding titles and requirement
 types satisfied. The entire list is displayed on the Result Panel upon entering the `rec` command.
 
@@ -614,7 +614,7 @@ which is further wrapped in a `SortedList`, both stored in `ModelManager`. At th
 
 When the `rec` command is entered, the sequence of execution is as follows:
 
-.  `Model#updateRecModuleList` is called, which creates a `RecModulePredicate` given the user's `Course` and `GradTrak`, and a `RecModuleComparator`.
+.  `Model#updateRecModuleList` is called, which creates a `RecModulePredicate` given the student's `Course` and `GradTrak`, and a `RecModuleComparator`.
 .  The `RecModulePredicate` is applied to the `FilteredList` of `RecModule`. In each test:
 .. An `EligibleModulePredicate` which takes in `GradTrak` tests if the `ModuleInfo` of this `RecModule` is eligible to be read.
 If the module is already present in GradTrak or does not have its prerequisites satisfied, this `RecModule` is filtered out.
@@ -634,7 +634,7 @@ contribute to any of the `CourseRequirement` listed in `Course`, this `RecModule
 . The `RecModuleComparator` is applied to the `SortedList` of `RecModule`. It sorts the list in decreasing priority of the
 `CourseReqType` satisfied by the `RecModule`. Those `RecModule` with equal priority are sorted by module level (the first numerical digit of its `ModuleInfoCode`),
 considering that lower level modules are usually read first. In the case of equal priority and module level, lexicographical sorting of its `ModuleInfoCode` is used.
-. The `SortedList` of `RecModule` is retrieved from `ModelManager` and displayed to the user in the Result Panel.
+. The `SortedList` of `RecModule` is retrieved from `ModelManager` and displayed to the student in the Result Panel.
 
 If there are changes to `GradTrak` (adding, editing or deleting modules) or `Course` (changing the course of study), the `rec` command
 must be run again to reflect the updated recommendation list.
@@ -656,7 +656,7 @@ image::RecModuleComparatorSequenceDiagram.png[width="800"]
 ** Pros: Easy to implement and modify
 ** Cons: User may have his own order of priority that differs from the default one
 
-* **Alternative 2: Recommendation list can be sorted by a custom order defined by the user**
+* **Alternative 2: Recommendation list can be sorted by a custom order defined by the student**
 ** Pros: User can sort the list according to his own preferences
 ** Cons: Difficult to implement if several parameters for sorting is allowed; input method for the custom order is problematic
 
@@ -665,14 +665,14 @@ image::RecModuleComparatorSequenceDiagram.png[width="800"]
 ** Pros: User has a greater freedom of choice
 ** Cons: User may be confused or unable to decide if the list is too long
 
-* **Alternative 2: Display `n` modules for each semester, where `n` is decided by the user**
+* **Alternative 2: Display `n` modules for each semester, where `n` is decided by the student**
 ** Pros: User can plan modules for specific semesters easily and quickly
-** Cons: Algorithm required to plan for all semesters can be complex; user may not prefer the given plan
+** Cons: Algorithm required to plan for all semesters can be complex; student may not prefer the given plan
 
 
 ==== Possible Improvements
-. Allow the user to display a module's information (from `displaymod` command) using its index in the recommendation list
-. Allow the user to add a module to the module plan using its index in the recommendation list
+. Allow the student to display a module's information (from `displaymod` command) using its index in the recommendation list
+. Allow the student to add a module to the module plan using its index in the recommendation list
 // end::rec[]
 
 // tag::CheckLimit[]
@@ -683,7 +683,7 @@ image::RecModuleComparatorSequenceDiagram.png[width="800"]
 The `cklimit` command is able to calculate the CAP and workload information of the current module plan and display the results in a report together with the preferred limits set by the student for comparison.
 
 The `LimitChecker` class does all the computation and generation of the report.
-It makes use of the following classes:
+It makes use of the following classes as input:
 
 * `Semester`
 * `ObservableList` of `SemesterLimit`
@@ -697,7 +697,7 @@ The CAP of the student is calculated using the formula below
 .Formula for CAP calculation
 image::modular-system.png[width="800"]
 
-GradTrak uses the Classes `CapAverage`, `WeightedGrade`, and `ModuleInfoCredits` to store and manipulate the variables for calculation.
+GradTrak uses the classes `CapAverage`, `WeightedGrade`, and `ModuleInfoCredits` to store and manipulate the variables for calculation.
 
 The `CapAverage` class contains an `ArrayList` of `WeightedGrade`.
 Each weight grade has a CAP score and information on the number of Modular Credits weighted by the score.
@@ -728,8 +728,8 @@ image::ClassForPrintingUsageExample.png[width="800"]
 The current choice was chosen because the student will become more experienced and familiar GradTrak over time and be less confused by the result page. Scrolling up and down the page is easier than having to type two commands alternatively to view the limits.
 
 ==== Possible Improvements
-. Check if any row has their minimum or maximum limits violated and highlight them to user
-. Style the table to suit the theme of the app so that the user has a better experience using the app
+. Check if any row has their minimum or maximum limits violated and highlight them to student
+. Style the table to suit the theme of the app so that the student has a better experience using the app
 //end::CheckLimit[]
 
 // tag::SetCurrentSemester[]
@@ -737,7 +737,7 @@ The current choice was chosen because the student will become more experienced a
 
 ==== Current Implementation
 
-The `cursem` command allows the user to track the current semester using GradTrak. This indicates completion of all modules in the previous semesters and includes them in the current CAP computation during the `cklimit` command.
+The `cursem` command allows the student to track the current semester using GradTrak. This indicates completion of all modules in the previous semesters and includes them in the current CAP computation during the `cklimit` command.
 
 The interaction of how the `cursem` command interacts with the system is shown below as a sequence diagram.
 
@@ -768,7 +768,7 @@ The current choice was chosen because it will be worth the effort to restructure
 
 ==== Current Implementation
 
-The `setlimit` command allows the user to set CAP limits and workload limits for each semester. This helps the student manage the difficulty and time required of the modules taken. Various types of limits can be set, such as the minimum and maximum amount of weekly lecture hours, tutorial hours, lab hours, project hours, and preparation hours acceptable for each semester, as well as the minimum and maximum CAP acceptable for the semester.
+The `setlimit` command allows the student to set CAP limits and workload limits for each semester. This helps the student manage the difficulty and time required of the modules taken. Various types of limits can be set, such as the minimum and maximum number of weekly lecture hours, tutorial hours, lab hours, project hours, and preparation hours acceptable for each semester, as well as the minimum and maximum CAP acceptable for the semester.
 
 The interaction of how the `setlimit` command interacts with the system is shown below as a sequence diagram.
 
@@ -796,7 +796,7 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 [[Implementation-Configuration]]
 === Configuration
 
-Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
+Certain properties of the application can be controlled (e.g student prefs file location, logging level) through the configuration file (default: `config.json`).
 
 == Documentation
 
@@ -1072,7 +1072,7 @@ Use case ends.
 * 1a. Student enters invalid grade.
 +
 [none]
-** 1a1. GT prompts user that grade is invalid.
+** 1a1. GT informs student that grade is invalid.
 +
 Use case resumes at step 1.
 
@@ -1080,7 +1080,7 @@ Use case resumes at step 1.
 * 1b. Student enters invalid module code.
 +
 [none]
-** 1b1. GT prompts user that module code is invalid.
+** 1b1. GT informs student that module code is invalid.
 +
 Use case resumes at step 1.
 
@@ -1088,7 +1088,7 @@ Use case resumes at step 1.
 * 1c. Student enters invalid semester.
 +
 [none]
-** 1c1. GT prompts user that semester is invalid.
+** 1c1. GT informs student that semester is invalid.
 +
 Use case resumes at step 1.
 
@@ -1096,7 +1096,7 @@ Use case resumes at step 1.
 * 1d. Student enters module that is already in list of completed modules and same semester.
 +
 [none]
-** 1d1. GT prompts user that there is a repeat of module code.
+** 1d1. GT informs student that there is a repeat of module code.
 +
 Use case ends.
 
@@ -1208,7 +1208,7 @@ Use case ends.
 *MSS*
 
 1.  User enters `rec` command.
-2.  System returns a list of module codes (with title) that the user is recommended to take.
+2.  System returns a list of module codes (with title) that the student is recommended to take.
 +
 Use case ends.
 
@@ -1252,7 +1252,7 @@ Use case ends.
 *MSS*
 
 1.  User enters `study` command with some course parameter.
-2.  System changes course of study to course intended by user.
+2.  System changes course of study to course intended by student.
 +
 Use case ends.
 
@@ -1261,12 +1261,12 @@ Use case ends.
 
 * 1a. User enters `study` with courses not inside of GT.
 [none]
-** 1a1. System informs user that no such course is available. +
+** 1a1. System informs student that no such course is available. +
 Use case ends.
 [none]
 * 1b. User enters `study` without parameter. +
 [none]
-** 1b1. System informs user of the right command format. +
+** 1b1. System informs student of the right command format. +
 Use case ends.
 
 

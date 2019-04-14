@@ -824,15 +824,15 @@ Step 1. When the user runs an open command to edit an image, it invokes a method
 Step 2. When the user enters the command (e.g. `wm FomoFoto`), the entered command is parsed and the command will be executed.
 
 [NOTE]
-If an invalid command is provided, a reminder of how to use the command will be given to the user and no command will be run.
+If an invalid command is provided, a reminder of how to use the command will be given to the user and no command will be executed.
 
 Step 3. During execution, the `execute` method in the `WaterMarkCommand` class invokes `currentEdit#getTempImage()` to get the `tempImage` from the `currentEdit`.
 
-Step 4. Upon retrieving the `tempImage`, the `execute` method in the `WaterMarkCommand` gets the  `BufferedImage` instance of the `tempImage` object and copies the `BufferedImage` object to a temporary `BufferedImage` object with the same width, height and image type. The `execute` method then initialises the necessary graphic properties using the `Graphics2D` Java class. The message is centralised and overlayed on the temporary `BufferedImage` object.
+Step 4. Upon retrieving the `tempImage`, the `execute` method in the `WaterMarkCommand` gets the  `BufferedImage` instance of the `tempImage` object and copies the `BufferedImage` object to a temporary `BufferedImage` object with the same width, height and image type. The `execute` method then initialises the necessary graphic properties using the `Graphics2D` Java class. The message is centralised and overlays the temporary `BufferedImage` object.
 
 Step 5. The `execute` method then checks for a few conditions listed below:
 
-. `isNewCommand`: Checks if the `WaterMark` command is from an input by the user, from an `Undo` or `Redo` command or from a `SetPreset` command.
+. `isNewCommand`: Checks if the `WaterMark` command is from an input by the user, from an `undo/redo` command or from a `SetPreset` command.
 . `isPreset`: Checks if the `WaterMark` command is from a Preset.
 . `initialImage#hasWaterMark()`: Checks if the `tempImage` already has a watermark.
 
@@ -846,7 +846,7 @@ Step 6. According to the above 3 conditions, the following combinations will res
 +
 
 +
-* Invokes `currentEdit#updateTempImage()` to overwrite the current image in filepath: "src/main/resources/temp/" + `tempImage#getUrl` with a new `BufferedImage` object.
+* Invokes `currentEdit#updateTempImage()` to  save the newly edited `BufferedImage` and replace the previous image in the filepath of the `tempImage`.
 +
 
 +
@@ -874,7 +874,7 @@ Step 6. According to the above 3 conditions, the following combinations will res
 +
 
 +
-* Invokes `currentEdit#updateTempImage()` to overwrite the current image in filepath: "src/main/resources/temp/" + `tempImage#getUrl` with a new `BufferedImage` object.
+* Invokes `currentEdit#updateTempImage()` to save the newly edited `BufferedImage` and replace the previous image in the filepath of the `tempImage`.
 +
 
 .  `isNewCommand` = `False` and `isPreset` = `True` and `initialImage#hasWaterMark()` = `False`:
@@ -887,7 +887,7 @@ Step 6. According to the above 3 conditions, the following combinations will res
 +
 
 +
-* Invokes `currentEdit#updateTempImage()` to overwrite the current image in filepath: "src/main/resources/temp/" + `tempImage#getUrl` with a new `BufferedImage` object.
+* Invokes `currentEdit#updateTempImage()` to save the newly edited `BufferedImage` and replace the previous image in the filepath of the `tempImage`.
 +
 
 . Anything else:
@@ -902,7 +902,7 @@ image::WaterMarkCommandSequenceDiagram.png[width="800"]
 
 ==== Design Considerations
 
-* Intermediate images have to be stored and edited in a temp directory first due to our `undo/redo` implementation.
+* Images that are still being edited have to be stored and edited in a temp directory first due to our `undo/redo` implementation.
 
 //end::WaterMark[]
 === Logging

@@ -862,7 +862,7 @@ Since these commands changes the user interface, a huge portion of their mechani
 Once the revenue observable list and boolean variables are passed into [.java]#StatisitcsFlowPanel#, the function
 checks which boolean variable is true. Lets assume that [.java]#isDaily# is true for `daily` command. The function
 enters a while loop that iterates through the revenue list until at most 30 [.java]#DailyRevenue# are created
-and added to an list of [.java]#DailyRevenue#s.
+and added to an list of [.java]#DailyRevenue#.
 
 [NOTE]
 The list of [.java]#DailyRevenue# generated is sorted in a chronological descending order of the date.
@@ -969,8 +969,7 @@ Since this application is catered to existing restaurants with messy front-end m
 - *Pros*: Efficient and fast. +
 - *Cons*: Uses more temporary storage. +
 
-Since the user input will eventually be parsed as an integer during its validation check, there is no need to
-restrict the day and month inputs to 2 digits.
+We chose this design as it not only reduces the lines of codes, but also efficiently obtains the needed string.
 
 | Switch case +
 - *Pros*: Use less temporary storage. +

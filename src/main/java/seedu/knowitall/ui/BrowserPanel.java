@@ -40,7 +40,6 @@ public class BrowserPanel extends UiPart<Region> {
 
     public BrowserPanel(ObservableValue<Card> selectedCard) {
         super(FXML);
-        
         // Load card page when selected card changes.
         selectedCard.addListener((observable, oldValue, newValue) -> {
             if (newValue == null) {

@@ -1,5 +1,6 @@
 package seedu.address.logic.parser;
 
+import static seedu.address.commons.core.Messages.MESSAGE_EMPTY_KEYWORD;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
@@ -106,6 +107,11 @@ public class PatientFindCommandParserTest {
     public void parseFailure_validNameArgs_throwsParseException() {
         assertParseFailure(parser, "CS ASDASDSAFD n/alice Bob", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
             PatientFindCommand.MESSAGE_USAGE));
+    }
+
+    @Test
+    public void parseFailure_emptyKeyword_throwsParseException() {
+        assertParseFailure(parser, "CS n/", MESSAGE_EMPTY_KEYWORD);
     }
 
     @Test
@@ -227,5 +233,4 @@ public class PatientFindCommandParserTest {
         assertParseSuccess(parser, " sex/ \n M da/NIL nokr/Mother Father \t nokn/Alex nokp/984 999 \t "
             + "noka/Street 4 tag/Healthy Teeth", expectedPatientFindCommand);
     }
-    //TODO: Add in tests for the other Attribute predicates
 }

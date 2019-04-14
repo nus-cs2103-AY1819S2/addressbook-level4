@@ -30,18 +30,10 @@ public class StatsCommand extends Command {
 
     private Patient toStat;
     private Index index;
-    private boolean isIndex;
-
-    public StatsCommand(Patient person) {
-        requireNonNull(person);
-        toStat = person;
-        this.isIndex = false;
-    }
 
     public StatsCommand(Index index) {
         requireNonNull(index);
         this.index = index;
-        this.isIndex = true;
     }
 
     @Override
@@ -73,6 +65,6 @@ public class StatsCommand extends Command {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
             || (other instanceof StatsCommand // instanceof handles nulls
-            && toStat.equals(((StatsCommand) other).toStat));
+            && index.equals(((StatsCommand) other).index));
     }
 }

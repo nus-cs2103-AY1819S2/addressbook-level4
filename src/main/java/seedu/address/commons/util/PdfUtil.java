@@ -3,7 +3,6 @@ package seedu.address.commons.util;
 import static java.util.Objects.requireNonNull;
 
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Path;
@@ -51,7 +50,7 @@ public class PdfUtil {
     private static final PDFont MCITALIC_FONT = PDType1Font.TIMES_ITALIC;
     private static final int FONT_SIZE = 12;
     private static final int LINE_SPACING = 3;
-    private static final String TEETH_IMAGE_PATH = "images" + File.separator + "tooth.png";
+    private static final String TEETH_IMAGE_PATH = "images/tooth.png";
 
     /**
      * Saves the PdfAdaptedPerson and PdfAdaptedTask objects to the specified PDF file.

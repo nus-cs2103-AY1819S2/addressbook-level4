@@ -95,7 +95,7 @@ Your data is saved in the `data/` folder by default. Like any other software app
 *Command Format*
 
 * Commands are written in monospaced font, e.g. `sort`
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `addfolder FOLDER_NAME`, `FOLDER_NAME` is a parameter which can be used as `add Human Anatomy`.
+* Words in `UPPER_CASE` are the parameters to be supplied by you e.g. in `addfolder FOLDER_NAME`, `FOLDER_NAME` is a parameter which can be used as `add Human Anatomy`.
 * Items in square brackets are optional e.g `HINTS` in `add q/QUESTION a/ANSWER [h/HINTS]`.
 * Items with `…​` after them can be used multiple times including zero times e.g. in `add q/QUESTION a/ANSWER [i/INCORRECT_OPTION]...`, you can include zero or more `i/INCORRECT_OPTIONs`.
 * Parameters can be in any order e.g. if the command specifies `q/QUESTION a/ANSWER`, `a/ANSWER q/QUESTION` is also acceptable.
@@ -137,7 +137,7 @@ Format: `addfolder FOLDER_NAME`
 Examples:
 
 * `addfolder Nervous System` +
-Creates a folder with the name "Nervous System". The user can then enter the folder with the `cd` command and begin adding cards.
+Creates a folder with the name "Nervous System". You can then enter the folder with the `cd` command and begin adding cards.
 
 ==== Remove folder : `deletefolder`
 
@@ -208,7 +208,7 @@ Examples:
 
 **Adding Fill-In-The-Blanks style card** `Coming in v2.0`
 
-Allows the user to add a card with blanks for multiple answers to be given during a test session. Questions for such cards would include underscores "_", each signifying a blank to be filled with an answer.
+Allows you to add a card with blanks for multiple answers to be given during a test session. Questions for such cards would include underscores "_", each signifying a blank to be filled with an answer.
 
 Format: ``add q/QUESTION_WITH_BLANKS a/ANSWER_1/ANSWER_2/ANSWER_3...`
 
@@ -218,7 +218,7 @@ Example:
 
 **Adding images to cards** `Coming in v2.0`
 
-Allows the user to add images to cards to supplement the text content of the card.
+Allows you to add images to cards to supplement the text content of the card.
 
 Format: `add q/QUESTION a/ANSWER [img/IMAGE_FILE_PATH]...`
 
@@ -651,8 +651,8 @@ Format: `exit`
 * [[folder]] **Folder**: A collections of flashcards, grouped topically. There are no
 sub-folders.
 * [[testsession]] **Test Session**: A session where all flashcards in a folder are queued to have their
-questions displayed. The user is required to key in an answer for each question.
-* [[cardscore]]  **Card Score**: The number of correct answers divided by the number of attempts for a single card. When the user is tested on a card,
+questions displayed. You are required to key in an answer for each question.
+* [[cardscore]]  **Card Score**: The number of correct answers divided by the number of attempts for a single card. When you are tested on a card,
 this number is automatically calculated and recorded.
 * [[testscore]] **test score**: The number of cards correctly answered over number of cards attempted during a test session. This number is automatically recorded after each test session.
 * [[homedirectory]] **Home Directory**: The home page where all the folders are listed. From here, users can enter folders to view cards.

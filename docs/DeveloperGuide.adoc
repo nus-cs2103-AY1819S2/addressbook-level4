@@ -803,15 +803,17 @@ Each image can only have 1 watermark. If the user would like to edit the waterma
 
 ==== Current Implementation
 
-The manipulation feature is facilitated by `CurrentEdit` and `Image`. It uses the following operations:
+The manipulation feature is facilitated by `CurrentEdit`. It uses the following operations:
 
- * `CurrentEdit#getTempImage()` - Retrieves the temporary image `tempImage` which stores the filepath of the temporary image in `temp` directory, its history of edits [`List<Command>`] and its metadata.
+ * `CurrentEdit#tempImageDoNotExist()` - Returns `true` if `tempImage` in `CurrentEdit` is null. `tempImage` is null only if `open` command is never called.
 
- * `CurrenEdit#updateTempImage(BufferedImage)` - Replaces the temporary image in `temp` directory with the newly edited image and update the `tempImage` instance in the class.
+ * `CurrentEdit#getTempImage` - Retrieves the temporary image `tempImage` which stores the filepath of the temporary image in the `temp` directory, its history of edits [`List<Command>`] and its metadata.
 
- * `CurrentEdit#addCommand(Command)` - Adds this command to the edit history [`List<Command>`] in `tempImage` for the undo/redo function.
+ * `CurrentEdit#updateTempImage` - Replaces the temporary image in `temp` directory with the newly edited image and update the `tempImage` instance in the class.
 
- * `CurrenEdit#displayTempImage()` - Displays the temporary image stored in directory: "src/main/resources/temp/".
+ * `CurrentEdit#addCommand` - Adds this command to the edit history [`List<Command>`] in `tempImage` for the `undo/redo` command.
+
+ * `CurrentEdit#displayTempImage()` - Displays the temporary image stored in the `temp` directory.
 
  * `Image#hasWaterMark()` - Checks if the `Image` already has a watermark.
 

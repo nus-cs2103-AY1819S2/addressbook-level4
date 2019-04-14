@@ -23,8 +23,10 @@ import seedu.address.storage.Storage;
  */
 public class LogicManager implements Logic {
     public static final String FILE_OPS_ERROR_MESSAGE = "Could not save data to file: ";
-    public static final String INVALID_LIST_SHOWN_MAIN = "Invalid list displayed. Switch to main person list first!";
-    public static final String INVALID_LIST_SHOWN_ARCHIVE = "Invalid list displayed. Switch to archive list first!";
+    public static final String INVALID_LIST_SHOWN_MAIN_REQUIRED = "Invalid list displayed."
+            + " Switch to main person list first or enter 'archive...' commands!";
+    public static final String INVALID_LIST_SHOWN_ARCHIVE_REQUIRED = "Invalid list displayed."
+            + " Switch to archive list first!";
     private final Logger logger = LogsCenter.getLogger(LogicManager.class);
 
     private final Model model;
@@ -204,18 +206,22 @@ public class LogicManager implements Logic {
         model.setSelectedArchivedPerson(null);
     }
 
-    @Override
-    public void checkListShown(Command command) throws CommandException {
+    /**
+     * Checks if the valid list is shown, else throws INVALID_LIST_SHOWN CommandException.
+     */
+    private void checkListShown(Command command) throws CommandException {
         if ((command.requiresMainList()) && archiveShown) {
-            throw new CommandException(INVALID_LIST_SHOWN_MAIN);
+            throw new CommandException(INVALID_LIST_SHOWN_MAIN_REQUIRED);
         }
         if ((command.requiresArchiveList()) && !archiveShown) {
-            throw new CommandException(INVALID_LIST_SHOWN_ARCHIVE);
+            throw new CommandException(INVALID_LIST_SHOWN_ARCHIVE_REQUIRED);
         }
     }
 
-    @Override
-    public void setArchiveShown(CommandResult commandResult) {
+    /**
+     * Sets if the archive is shown or not.
+     */
+    private void setArchiveShown(CommandResult commandResult) {
         this.archiveShown = commandResult.getArchiveShown();
     }
 }

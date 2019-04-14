@@ -38,7 +38,7 @@ public class MovePeopleCommandParser implements Parser<MovePeopleCommand> {
 
         if (to == JobListName.EMPTY) {
             throw new ParseException(MovePeopleCommand.MESSAGE_NO_DESTINATION
-                   + String.format(MESSAGE_INVALID_COMMAND_FORMAT, MovePeopleCommand.MESSAGE_USAGE));
+                    + String.format(MESSAGE_INVALID_COMMAND_FORMAT, MovePeopleCommand.MESSAGE_USAGE));
         }
 
         try {
@@ -48,7 +48,7 @@ public class MovePeopleCommandParser implements Parser<MovePeopleCommand> {
                     + String.format(MESSAGE_INVALID_COMMAND_FORMAT, MovePeopleCommand.MESSAGE_USAGE));
         }
 
-        if(fromString.matches("[A-z]+")) {
+        if (fromString.matches("[A-z]+")) {
             from = ParserUtil.parseJobListName(fromString);
             try {
                 indexString = args.split("\\b\\s")[2].trim();

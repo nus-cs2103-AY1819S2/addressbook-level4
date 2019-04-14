@@ -84,7 +84,7 @@ public class MovePeopleCommand extends Command {
             }
             tempJob = model.getActiveJob();
         } else {
-            if(!model.getIsAllJobScreen()) {
+            if (!model.getIsAllJobScreen()) {
                 throw new CommandException(MESSAGE_DISPLAYING_JOB_ERROR);
             }
             tempJob = new Job(toAdd);

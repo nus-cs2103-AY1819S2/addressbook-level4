@@ -45,7 +45,7 @@ module code, semester, grade or finished status.
 *** Helped to proofread and polish the language of the User Guide and Developer Guide
 *** Edited some old diagrams from AddressBook for the purpose of GradTrak (https://github.com/cs2103-ay1819s2-w14-4/main/pull/80[#80])
 ** Community:
-*** Helped with my teammate's feature (checking of graduation requirements) which is closely related to mine (https://github.com/cs2103-ay1819s2-w14-4/main/pull/91/files[#91], https://github.com/cs2103-ay1819s2-w14-4/main/pull/100[#100])
+*** Helped with my teammates' features (checking of prerequisites and graduation requirements) which are closely related to mine (https://github.com/cs2103-ay1819s2-w14-4/main/pull/91/files[#91], https://github.com/cs2103-ay1819s2-w14-4/main/pull/100[#100], https://github.com/cs2103-ay1819s2-w14-4/main/pull/172[#172])
 *** Reported bugs and suggested improvements for other teams in the class (e.g. https://github.com/CS2103-AY1819S2-T12-2/main/issues/64[1], https://github.com/CS2103-AY1819S2-T12-2/main/issues/68[2], https://github.com/CS2103-AY1819S2-T12-2/main/issues/71[3])
 
 == Contributions to the User Guide

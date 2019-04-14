@@ -304,26 +304,36 @@ Sort the current shown list.
 
 Format: `sort [FIELD_NAME to be sorted by]`
 
-The user can sort the current shown list with specified field.
+The user can sort the equipment list with specified field.
 
 The sort parameters are case-insensitive.
 
 By default, `sort` sorts the list by name in lexicographical order.
 
 [TIP]
-Equipment, client, and work list can only be sorted by preventive maintenance date of the equipment and phone number of the client.
+Equipment list can only be sorted by `name`, `date`, `phone` and `serial`.
 
 For example,
 
-* `sort` +
-Returns the list sorted by name.
+image::sortName.png[width="800"]
+* `sort name` +
+Returns the list sorted in alphabetical order of the client's name.
 
-
+image::sortDate.png[width="800"]
 * `sort date` +
-Returns the list sorted according to the preventative maintenance date of the equipment.
+Returns the list sorted in an ascending order of the preventative maintenance date of the equipment.
 
+image::sortPhone.png[width="800"]
 * `sort phone` +
 Returns the list sorted by phone number of the client.
+
+image::sortSerial.png[width="800"]
+* `sort serial` +
+Returns the list sorted by serial number of the equipment.
+
+|===
+| image:exclamation.png[width="40"] |This command only works on the overall equipment list and not the current shown equipment list.
+|===
 
 
 // end::sort[]
@@ -335,43 +345,49 @@ Filter the current shown list which match the given keywords.
 Format: `filter [n/NAME_KEYWORD]...[t/TAG_KEYWORD]...[a/ADDRESS_KEYWORD]`
 
 - At least *one* keyword must be provided.
-- Filtering multiple keywords of the same prefix will return equipment/client whose attribute corresponding to the prefix contain
+- Filtering multiple keywords of the same prefix will return equipment whose attribute corresponding to the prefix contain
  any one of the keywords.
-- Filtering with keywords of different prefixes will return only equipment/client that matches with any of the keywords of
+- Filtering with keywords of different prefixes will return only equipment that matches with any of the keywords of
  the different prefixes.
-- The filter is case insensitive, e.g. jurong will match Jurong.
+- The filter is case insensitive, e.g. hougang will match Hougang.
 
 
 [TIP]
-* The user can filter the list with any specified fields, and can filter by multiple fields and keywords.
-* Equipment, client, and work list can all be filtered, by any fields of them.
+* The user can filter the equipment list with any specified fields, and can filter by multiple fields and keywords.
 
 |===
-| image:exclamation.png[width="40"] |This command only works on the overall list and not the current shown list.
+| image:exclamation.png[width="40"] |This command only works on the overall equipment list and not the current shown equipment list.
 |===
 
 For example,
 
-* `filter n/jurong` +
-Returns any equipment whose name contains jurong.
+image::filtername.png[width="800"]
+* `filter n/hougang` +
+Returns any equipment whose name consists of 'hougang'.
 
-* `filter a/bedok north` +
-Returns any equipment whose address contains bedok north.
+image::filteraddress.png[width="800"]
+* `filter a/bedok` +
+Returns any equipment whose address consists of 'bedok'.
 
-* `filter pm/20 May` +
-Returns any equipment whose preventative maintenance date contains 20 May.
+image::filterdate.png[width="800"]
+* `filter pm/27-09` +
+Returns any equipment whose preventative maintenance date consists of '27-09'.
 
-* `filter s/9888` +
-Returns any equipment whose phone number contains 9888.
+image::filterphone.png[width="800"]
+* `filter p/6783` +
+Returns any equipment whose phone number consists of 6783.
 
-* `filter s/A200` +
-Returns any equipment whose serial number contains A200.
+image::filterserial.png[width="800"]
+* `filter s/03071` +
+Returns any equipment whose serial number consists of 03071.
 
+image::filtertags.png[width="800"]
 * `filter t/urgent t/west` +
-Returns any equipment whose tags contains urgent and west.
+Returns any equipment details whose tags consists of urgent or west.
 
-* `filter n/jurong a/blk 123 t/urgent` +
-Returns any equipment whose names that either contains jurong, address that contains blk 123, or whose tags contains urgent.
+image::filtermultiple.png[width="800"]
+* `filter n/tampines a/41 t/urgent` +
+Returns any equipment details that either consists of tampines, address that consists of 41, or whose tags consists of urgent.
 
 // end::filter[]
 

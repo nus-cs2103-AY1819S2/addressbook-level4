@@ -368,22 +368,22 @@ Refer to the *Design Considerations* in <<Equipment feature>> as we went through
 === Filter feature
 
 ==== Introduction
-We have implemented a `FilterCommand` that allow users to filter the current shown list with the specified fields.
+We have implemented a `FilterCommand` that allow users to filter the equipment list with the specified fields.
 
-The filter feature allow users to filter the overall list with any specified fields, and also can filter by multiple fields.
+The filter feature allow users to filter the equipment list with any specified fields, and also can filter by multiple fields.
 
-The `FilterCommand` is able to filter the overall list according to the user's preference at a time.
+The `FilterCommand` is able to filter the equipment list according to the user's preference at a time.
 
 ==== Current Implementation
 
 The *filter* mechanism is supported by `FilterCommandParser`. It implements `Parser` that implements the following operation:
 
-- `FilterCommand#execute()`  -  Checks the arguments for empty strings and throws a ParseException if empty string is found.
+- `FilterCommandParser#parse()`  -  Checks the arguments for empty strings and throws a ParseException if empty string is found.
 It then splits the arguments using `ArgumentTokenizer#tokenize()` and returns an ArgumentMultimap. Keywords of the same prefix are then grouped using `ArgumentMultimap#getAllValues()`.
 
 The *filter* mechanism is also facilitated by `FilterCommand`. It extends `Command` and implements the following operation:
 
-`FilterCommand#execute()`  — Executes the command by updating the current `FilteredPersonList` with the `EquipmentContainsKeywordPredicate`.
+`FilterCommand#execute()`  —  Executes the command by updating the current `FilteredPersonList` with the `EquipmentContainsKeywordPredicate`.
 
 `EquipmentContainsKeywordsPredicate` takes in the lists of keywords for the following:
 
@@ -393,6 +393,8 @@ The *filter* mechanism is also facilitated by `FilterCommand`. It extends `Comma
 - Phone
 - Tags
 - Serial Number
+
+The following sequence diagram shows how the filter operation works:
 
 image::FilterCommandSequenceDiagram.png[width="800"]
 
@@ -416,17 +418,20 @@ attributes - serial number, tags, address, name, preventive maintenance date, ph
 
 Step 7. The argument is filtered against the predicate and returned to the GUI.
 
+[TIP]
+`FilterCommand` only filters the equipment list.
+
 ==== Design Considerations
 *Implementation of `FilterCommand`*
 
 * **Alternative 1 (current choice):** Require user to prepend every keyword argument with the appropriate attribute prefix.
 Supports multiple fields in the same command.
-** Pros: It is easy to implement and easy to match keyword against a Equipment if the matching attribute is known.
+** Pros: It is easy to implement and easy to match keyword against an equipment if the matching attribute is known.
 ** Pros: User has more control over the results returned.
 ** Pros: User can also filter by multiple fields.
 e.g: `filter n/jurong t/west`
 ** Cons: User is required to type slightly more.
-** Cons: It only filters the overall list.
+** Cons: It only filters the equipment list.
 
 * **Alternative 2:** filter by specific fields
 
@@ -444,23 +449,59 @@ e.g: `filter n/jurong t/west`
 === Sort feature
 
 ==== Introduction
-We have implemented a `SortCommand` that allow users to sort the current shown list with specific fields.
+We have implemented a `SortCommand` that allow users to sort the equipment list with specific keyword.
+
+The entries in the equipment list is ordered to the time when the entry is entered into the application by default such that the entry entered first is at the top of the equipment list and the latest entry entered is at the bottom of the equipment list.
+The `sort` mechanism allows user to view the equipment list according to their preferences.
+
+The `SortCommand` is able to sort the equipment list according to the user's preferences at a time.
 
 ==== Current Implementation
 
-`SortCommand` sorts the list by specified field in lexicographical order.
+The `sort` command sorts the list by specified keyword in lexicographical order.
 
-Step 1. The user launches the application and add equipment.
+Comparators that implement `java.util.Comparator` interface are used in the *sort* mechanism to perform the comparsion.
 
-Step 2. The user executes `sort [FIELD]`
+The *sort* mechanism is supported by `SortCommandParser`. It implements `Parser` that implements the following operation:
 
-Step 3. The list is sorted by specified field and returned to the GUI.
+- `SortCommandParser#parse()` -  Checks the arguments for empty strings and throws a ParseException if empty string is found.
+It then splits the arguments and checks if the next string is a valid keyword, else, it will throw a ParseException.
+
+Valid keywords:
+
+- name
+- date
+- phone
+- serial
+
+The following sequence diagram shows how the sort operation works:
+
+image::SortCommandSequenceDiagram.png[width="800"]
+
+Example
+
+Given below is an example usage scenario of how the sort mechanism behaves at each step when sorting.
+
+Step 1. The user launches the application.
+
+Step 2. The user executes `sort name` command to sort the equipment list by name.
+
+Step 3. `SortCommandParser#parse()` creates a new `NameComparator()` object and passes it into `SortCommand`.
+
+Step 4. `EquipmentManager#sortEquipmentList(comparator)` calls `UniqueEquipmentList#sortEquipmentList(comparator)`, which then
+uses FXCollection’s static method `sort()` to sort the equipment list by name.
+
+Step 5. The list is sorted by specified keyword (name) and returned to the GUI.
 
 Test cases:
 
 - Input: `sort`
 
-Output: By default, the list is sorted in alphabetical order of the client names.
+Output: An error message will be shown to what keywords are available.
+
+- Input: `sort name`
+
+Output: The list is sorted in the name in alphabetical order.
 
 - Input: `sort date`
 
@@ -468,20 +509,23 @@ Output: The list is sorted in ascending order by the the preventative maintenanc
 
 - Input: `sort phone`
 
-Output: The list is sorted in ascending order by the phone numbers of the client.
+Output: The list is sorted in ascending order by the phone number of the client.
 
+- Input: `sort serial`
 
+Output: The list is sorted in ascending order by the serial number of the equipment.
 
 [TIP]
-`SortCommand` only supports sorting by date and phone number.
+`SortCommand` only sorts the equipment list.
 
 
 ==== Design Considerations
 *Implementation of `SortCommand`*
 
-* **Alternative 1 (current choice):** Sorts by specific field.
-** Pros: Easy to implement. Flexible to add more functions. Many JavaScript libraries can be used.
-** Cons: The overall list is not 100% sorted by specific field
+* **Alternative 1 (current choice): **Sorts by specific keyword by using the Comparator interface.
+** Pros: Sorting can be done based on different fields (name, date, phone number and serial number)
+** Cons: A new class that implements the interface Comparator needs to be created for the fields.
+
 * **Alternative 2:** Sort by client name
 ** Pros: Overall list is sorted fully by client name
 ** Cons: Unable to sort other specific fields such as serial number of the equipment.
@@ -609,7 +653,7 @@ Step 1. The user launches the application for the first time. The `VersionedEqui
 
 image::UndoRedoStartingStateListDiagram.png[width="800"]
 
-Step 2. The user executes `delete-e 5` command to delete the 5th equipment in the *Equipment Manager*. The `delete` command calls `Model#commitEquipmentManager()`, causing the modified state of the *Equipment Manager* after the `delete 5` command executes to be saved in the `equipmentManagerStateList`, and the `currentStatePointer` is shifted to the newly inserted *Equipment Manager*r state.
+Step 2. The user executes `delete-e 5` command to delete the 5th equipment in the *Equipment Manager*. The `delete-e` command calls `Model#commitEquipmentManager()`, causing the modified state of the *Equipment Manager* after the `delete-e 5` command executes to be saved in the `equipmentManagerStateList`, and the `currentStatePointer` is shifted to the newly inserted *Equipment Manager*r state.
 
 image::UndoRedoNewCommand1StateListDiagram.png[width="800"]
 
@@ -640,7 +684,7 @@ Step 5. The user then decides to execute the command `list`. Commands that do no
 
 image::UndoRedoNewCommand3StateListDiagram.png[width="800"]
 
-Step 6. The user executes `clear`, which calls `Model#commitEquipmentManager()`. Since the `currentStatePointer` is not pointing at the end of the `equipmentManagerStateList`, all *Equipment Manager* states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
+Step 6. The user executes `clear`, which calls `Model#commitEquipmentManager()`. Since the `currentStatePointer` is not pointing at the end of the `equipmentManagerStateList`, all *Equipment Manager* states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/Clementi CC ...` command. This is the behavior that most modern desktop applications follow.
 
 image::UndoRedoNewCommand4StateListDiagram.png[width="800"]
 
@@ -656,7 +700,7 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ** Pros: Easy to implement.
 ** Cons: May have performance issues in terms of memory usage.
 * **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the equipment being deleted).
+** Pros: Will use less memory (e.g. for `delete-e`, just save the equipment being deleted).
 ** Cons: We must ensure that the implementation of each individual command are correct.
 
 ===== Aspect: Data structure to support the undo/redo commands

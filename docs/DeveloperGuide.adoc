@@ -651,9 +651,30 @@ customers' orders and automatically save the revenue in the restaurant's statist
 Other commands like <<Trends, `yearly`>>, <<Trends, `monthly`>>, <<Trends, `daily`>> and <<Revenue, `revenue`>>
 commands allow the manager to retrieve and study the restaurant's statistical data trends. +
 
-The following class diagram illustrates the relationship between the Model components in Statistics.
+// tag::statisticsclasses[]
+[[StatsClasses]]
+==== Classes for Statistics feature in Model
 
-.Class diagram for Model components in Statistics feature
+The Statistics feature was implemented with the introduction of a new set of classes to [.java]#Model#.
+A new [.java]#Statistics# class encapsulates all the methods and classes related to this feature. It also contains a
+listener that is used to update the storage when any modification is made to the statistics. The [.java]#Statistics#
+object is stored in [.java]#RestOrRant# and it exposes a read-only interface [.java]#ReadOnlyStatistics# to allow the
+other components to retrieve statistics-related information while maintaining data integrity.
+
+[.java]#Statistics# contains a [.java]#RevenueList#, which contains a list of all the revenue recorded in the
+restaurant, represented by [.java]#Revenue# objects. Each [.java]#Revenue# object consists of 3 objects:
+
+* [.java]#Year# indicates the year revenue was earned
+* [.java]#Month# indicates the month revenue was earned
+* [.java]#Day# indicates the day revenue was earned
+
+[.java]#YearlyRevenue#, [.java]#MonthlyRevenue# and  [.java]#DailyRevenue# are classes that extends [.java]#Revenue# to inherit its properties.
+Hence, they are all uniquely identified by [.java]#Year#, [.java]#Month# and [.java]#Day#.
+Similarly, [.java]#Date# and [.java]#Bill# also consists and are identified by the above 3 objects.
+
+The Statistics Class Diagram below shows the relationship between the classes.
+
+.Statistics Class diagram in Model component
 image::Statistics_ModelClassDiagram.png[width="700"]
 
 // end::statisticsintro[]
@@ -672,14 +693,14 @@ that specific date. These data are stored when the <<Bill, `bill`>> command is c
 - *Pros*: Less storage space used. +
 - *Cons*: No record of bill. Impossible to retrieve receipts. +
 
+In a restaurant, it is unlikely that a customer will request for a refund after consuming and paying for the meal.
+Even if there are complaints about the meal, they will demand for a newly cook dish before calling for the bill.
+Hence, we did not see the need to store receipts in the storage and chose this design.
+
 |Stores bill which comprises of the day, month, year, bill, table number and receipt. +
 - *Pros*: Able to retrieve data of bills. +
 - *Cons*: More storage space for lists of bills for each day.+
 |=======================================================================
-
-In a restaurant, it is unlikely that a customer will request for a refund after consuming and paying for the meal.
-Even if there are complaints about the meal, they will demand for a newly cook dish before calling for the bill.
-Hence, we did not see the need to store receipts in the storage and implemented Alternative 1.
 
 // end::statisticsstorage[]
 // tag::bill[]
@@ -806,16 +827,16 @@ the Menu Items in [.java]#Menu#menuItems# and calculate the bill. +
 - *Pros*: Efficient as it only iterates through the list once. +
 - *Cons*: The code can be further break into different functions. +
 
+We chose this design to prioritize efficiency in this use case. Since `bill` command is only
+called when the customer is ready to pay and leave the restaurant, it is better for the payment process to
+be swift.
+
 | Create different functions that specifically calculates the bill, creates a bill receipt and update the quantity of
  menu items ordered. +
 - *Pros*: Adheres to a better abstract design of the code. +
 - *Cons*: Inefficient due to multiple iteration of the [.java]#FilteredOrderItemList#. Given a long list of order
 items, this design will be impractical. +
 |=======================================================================
-
-We implemented Alternative 1 to prioritize efficiency in this use case. Since `bill` command is only
-called when the customer is ready to pay and leave the restaurant, it is better for the payment process to
-be swift.
 
 // end::bill[]
 // tag::trends[]
@@ -838,21 +859,58 @@ image::Trend_ActivityDiagram.png[]
 Since these commands changes the user interface, a huge portion of their mechanism is dependent on [
 .java]#StatisitcsFlowPanel#. It determines the layout and arrangement of the revenue cards displayed.
 
+Once the revenue observable list and boolean variables are passed into [.java]#StatisitcsFlowPanel#, the function
+checks which boolean variable is true. Lets assume that [.java]#isDaily# is true for `daily` command. The function
+enters a while loop that iterates through the revenue list until at most 30 [.java]#DailyRevenue# are created
+and added to an list of [.java]#DailyRevenue#s.
+
+[NOTE]
+The list of [.java]#DailyRevenue# generated is sorted in a chronological descending order of the date.
+Hence, even if there are no revenue recorded on a specific date, a [.java]#DailyRevenue# is still created and added to
+the list.
+
+After which, the list of [.java]#DailyRevenue# is iterated to generate [.java]#DailyStatisticsCard# for each [
+.java]#DailyRevenue#. These [.java]#DailyStatisticsCard# are added to the [
+.java]#StatisticsFlowPanel#statisticsFlowPane# to update the user interface.
+
 ===== Design Considerations
 
 [width="90%",cols="20%,40%,40%",options="header",]
 |=======================================================================
 | Aspect | Alternative 1 | Alternative 2
-| Arrangement of XXXStatisticsCard +
-| XXXStatisticsCard are arranged in descending order.+
-- *Pros*: The most recent card is visible to the user without scrolling.+
-- *Cons*: +
+| Arrangement of [.java]#[XXX]StatisticsCard# +
+| [.java]#[XXX]StatisticsCard# are arranged in descending order. +
+- *Pros*: The most recent card is visible to the user without scrolling. +
+- *Cons*: Viewing dates in a descending order might make it difficult to study trends. +
 
-|  +
-- *Pros*:  +
-- *Cons*:  +
+| [.java]#[XXX]StatisticsCard# are arranged in ascending order. +
+- *Pros*: Provides a sense of familiarity as the order is similar to that of a calendar. +
+- *Cons*: Users have to scroll to the end to view the latest revenue. +
 
+| Limit the number of [.java]#[XXX]StatisticsCard# +
+| Maximum [.java]#[XXX]StatisticsCard# shown is 30. +
+- *Pros*: Prevents overflow of data. No longer have to scroll through multiple [.java]#[XXX]StatisticsCard# +
+- *Cons*: Cannot view revenue from the other dates. +
+
+| Display all [.java]#[XXX]StatisticsCard# created from stored revenue data. +
+- *Pros*: All revenue is available in a single page. +
+- *Cons*: Might experience overflow of data in the user interface. User might have to scroll to the revenue +
+
+| Create additional [.java]#[XXX]StatisticsCard# with $0 revenue. +
+| Display all [.java]#[XXX]StatisticsCard# in chronological order. +
+- *Pros*: Gives user a bigger picture of the restaurant's recent earning trends. +
+- *Cons*: Takes up space. It might be unnecessary information to the user. +
+
+| Only display all [.java]#[XXX]StatisticsCard# created from stored revenue data. +
+- *Pros*: More revenue figures are presented to the user. +
+- *Cons*: Might appear too cluttered making it difficult to study revenue trends. +
 |=======================================================================
+
+The current implementation uses the designs in Alternative 1. However, in version 2.0, the application will take the
+pros of Alternative 2 designs and incorporate them to the current implementation. To help users better study the
+revenue trend, v2.0 will allow users to call the commands with an argument that indicates the month or year they want
+. The display will arrange the [.java]#DailyStatisticsCard# in a calender view with 7 columns for each day. A limit
+of 31 [.java]#DailyStatisticsCard# will be used to replicate a calendar and prevent overflowing.
 
 // end::trends[]
 
@@ -860,33 +918,70 @@ Since these commands changes the user interface, a huge portion of their mechani
 [[Revenue]]
 ==== Getting the revenue
 
-Statistical revenue data are stored in the
 ===== Current Implementation
 
+When the user enters the `revenue` command, the command is parsed and a [.java]#RevenueCommand# object is created.
+
+[.java]#RevenueCommand#execute()# is then called, which in turn calls [.java]#Model#getFilteredRevenueList()# to
+obtain the list of revenue stored in the Storage. To create convenience and efficiency in the execution of the
+`revenue` command, 4 different types of argument combinations are provided for the users to obtain the desired revenue.
+The activity diagram illustrates the cause of actions for different argument inputs.
 
 .Revenue Activity Diagram
 image::Revenue_ActivityDiagram.png[]
 
-The overall implementation of [.java]#RevenueCommand#
+The above activity diagram summarizes the overall implementation of [.java]#RevenueCommand#. Depending on the user
+arguments, the function creates a new [.java]#Revenue# and iterate through the revenue list to search for revenue of
+the same year, month or day. If the revenue is the same as the new [.java#]Revenue#, its total revenue is added to the
+new [.java]#Revenue#. After which, the new [.java]#Revenue# is used to generate the [.java]#CommandResult# output
+string.
+
 ===== Design Considerations
 
 [width="90%",cols="20%,40%,40%",options="header",]
 |=======================================================================
 | Aspect | Alternative 1 | Alternative 2
-|
-| d +
+| Validation regex of Year, Month and Day
+| Allow single and double digits +
 - *Pros*:  +
 - *Cons*: +
 
-w
-|  +
+Since the user input will eventually be parsed as an integer during its validation check, there is no need to
+restrict the day and month inputs to 2 digits.
+
+|Restricts to double digit  +
 - *Pros*:  +
-- *Cons*:  +
+- *Cons*: User has to type more. +
 
 |=======================================================================
 
 // end::revenue[]
+// tag::date[]
+===== Validating Date
 
+Even though [.java]#Year#, [.java]#Month# and [.java]#Day# have their own restrictions and validation checks, [
+.java]#Date# is needed to check that the combination of the 3 objects produces a valid and exiting date in the
+calendar. One of the interesting checks is finding out which year is a lunar year that has 29 days in February.
+
+[source, java]
+----
+public static boolean isLeapYear(String year) {
+    requireNonNull(year);
+    return (((Integer.parseInt(year) % 4 == 0) // <1>
+        && (Integer.parseInt(year) % 100 != 0)) // <2>
+        || Integer.parseInt(year) % 400 == 0); // <3>
+}
+
+----
+
+In the method above, [.java]#Year#isLeapYear# calculates the year that is a leap year. Let's walk through this method
+ to understand how it is calculated:
+
+<1> It checks that the year is a multiple of 4. (Since it occurs every 4 years)
+<2> It checks that the year is not a multiple of 100.
+<3> It checks that the year is a multiple of 400.
+
+// end::date
 // end::statistics[]
 
 === Logging

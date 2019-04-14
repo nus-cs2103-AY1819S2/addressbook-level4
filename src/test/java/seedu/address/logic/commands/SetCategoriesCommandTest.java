@@ -9,6 +9,7 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_RESTAURANT;
 import static seedu.address.testutil.TypicalRestaurants.getTypicalFoodDiary;
 
 import java.util.List;
+
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -113,7 +114,8 @@ public class SetCategoriesCommandTest {
     public void execute_validIndexUnfilteredList_reviewsUnchanged() throws Exception {
         Restaurant beforeCategoriesSet = model.getFilteredRestaurantList().get(INDEX_FIRST_RESTAURANT.getZeroBased());
         List<Review> reviewsBeforeCommand = beforeCategoriesSet.getReviews();
-        SetCategoriesCommand categoriesCommand = new SetCategoriesCommand(INDEX_FIRST_RESTAURANT, TypicalCategories.VALID_ALL_SET);
+        SetCategoriesCommand categoriesCommand = new SetCategoriesCommand(INDEX_FIRST_RESTAURANT,
+                TypicalCategories.VALID_ALL_SET);
 
         categoriesCommand.execute(model, commandHistory);
 

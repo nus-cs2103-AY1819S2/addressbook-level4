@@ -297,9 +297,14 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ==== Current Implementation
 
 The Job feature is facilitated by the Job class and UniqueJobList Class.
-UniqueJobList contains Jobs by composition while Jobs contains Person by aggregation.
+UniqueJobList contains Jobs by composition while Jobs contains Person by aggregation. The main Database contains one uniqueJobList which holds all the current job openings.
 
 image::uniqueJobListCompositeJobAggregatePerson.png[width="650"]
+
+==== Storage Implementation
+
+Storage of the Job relies on the JsonAdaptedJob and the JsonAdaptedJobPersonList classes to store and load jobs. Instead of storing a Person in the job, due to the relationship of aggregation,
+the Nric is stored instead. At load time, the UniqueJobList is only created after the UniquePersonList has been created and fills the jobs using the data from UniquePersonList. 
 
 // tag::interviews[]
 === Interviews Feature

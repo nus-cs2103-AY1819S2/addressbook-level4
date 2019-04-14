@@ -2,7 +2,6 @@
 
 <?import java.net.URL?>
 <?import javafx.scene.Scene?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.layout.StackPane?>
@@ -10,23 +9,17 @@
 <?import javafx.geometry.Insets?>
 
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.Region?>
 
 <?import javafx.scene.layout.HBox?>
 
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.FlowPane?>
-
-
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TableColumn?>
+
 <fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8" xmlns:fx="http//javafx.com/fxm/1"
-         title="OurTeeth" minWidth="450" minHeight="600" onCloseRequest="#handleExit">
+         title="TeethHub" minWidth="450" minHeight="600" onCloseRequest="#handleExit">
     <icons>
-        <Image url="@/images/address_book_32.png" />
+        <Image url="@/images/tooth.png" />
     </icons>
     <scene>
         <Scene>
@@ -53,7 +46,7 @@
                     </Label>
                 </GridPane>
 
-                <HBox VBox.vgrow="ALWAYS" fx:id="detailsBox" minHeight="100" maxHeight="100" alignment="CENTER">
+                <HBox VBox.vgrow="ALWAYS" fx:id="detailsBox" minHeight="100" maxHeight="300" alignment="CENTER">
                     <SplitPane>
                         <VBox VBox.vgrow="ALWAYS" fx:id="patientBox" alignment="CENTER" minWidth="100"
                               styleClass="pane-with-border">
@@ -69,32 +62,35 @@
                             <Label fx:id="email" styleClass="cell_small_label" text="\$email" />
                         </VBox>
 
-                        <VBox VBox.vgrow="ALWAYS" fx:id="recordsBox" alignment="CENTER" minWidth="200" maxHeight="200"
+                        <VBox VBox.vgrow="ALWAYS" fx:id="recordsBox" alignment="CENTER" minWidth="200" maxHeight="300"
                               styleClass="pane-with-border">
                             <padding>
                                 <Insets top="5" right="10" bottom="5" left="10" />
                             </padding>
                             <Label fx:id="recordTitle" text="Latest Record stats" styleClass="cell_big_label" />
 
-                            <TableView fx:id="recordStatTable" maxWidth="200" minWidth="200">
-                                <columns>
-                                    <TableColumn maxWidth="100" text="Procedure" styleClass="cell_small_label" />
-                                    <TableColumn maxWidth="100" text="Number" styleClass="cell_small_label" />
-                                </columns>
-                            </TableView>
+                            <TableView fx:id="recordStatTable" maxWidth="200" minWidth="200" />
+
                         </VBox>
 
-                        <VBox VBox.vgrow="ALWAYS" fx:id="teethBox" alignment="CENTER" minWidth="100"
+                        <VBox VBox.vgrow="ALWAYS" fx:id="teethBox" alignment="CENTER" minWidth="100" minHeight="200"
                               styleClass="pane-with-border">
                             <padding>
                                 <Insets top="5" right="10" bottom="5" left="10" />
                             </padding>
                             <Label fx:id="teethTitle" text="Latest Teeth View" styleClass="cell_big_label" />
+
+                            <StackPane fx:id="teethHolder" prefWidth="200" minHeight="200">
+                                <padding>
+                                    <Insets top="10" right="10" bottom="10" left="10" />
+                                </padding>
+                            </StackPane>
+
                         </VBox>
                     </SplitPane>
                 </HBox>
 
-                <HBox VBox.vgrow="ALWAYS" fx:id="chartsBox" minHeight="100" maxHeight="100" alignment="CENTER">
+                <HBox HBox.hgrow="ALWAYS" fx:id="chartsBox" minHeight="100" maxHeight="300" alignment="CENTER">
                     <padding>
                         <Insets top="20" right="10" bottom="5" left="10" />
                     </padding>
@@ -103,9 +99,7 @@
                             <Insets top="5" right="10" bottom="5" left="10" />
                         </padding>
 
-                        <HBox styleClass="pane-with-border">
-                            <Label text="Bar Chart Placeholder" styleClass="cell_big_label" />
-                        </HBox>
+                        <VBox styleClass="pane-with-border" fx:id="barChartBox" />
 
                         <HBox styleClass="pane-with-border">
                             <Label text="Pie Chat Placeholder" styleClass="cell_big_label" />

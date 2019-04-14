@@ -8,6 +8,7 @@ import seedu.address.model.datetime.DateBase;
 import seedu.address.model.datetime.RecordDate;
 import seedu.address.model.description.Description;
 import seedu.address.model.person.Name;
+import seedu.address.model.record.Procedure;
 import seedu.address.model.record.Record;
 
 /**
@@ -17,6 +18,8 @@ class JsonAdaptedRecord {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Record's %s field is missing!";
 
+    private final String procedure;
+
     private final String doctorName;
 
     private final String description;
@@ -24,9 +27,11 @@ class JsonAdaptedRecord {
     private final String recordDate;
 
     @JsonCreator
-    public JsonAdaptedRecord(@JsonProperty("doctor") String doctorName,
+    public JsonAdaptedRecord(@JsonProperty("procedure") String procedure,
+                             @JsonProperty("doctor") String doctorName,
                              @JsonProperty("recordDate") String recordDate,
                              @JsonProperty("description") String description) {
+        this.procedure = procedure;
         this.doctorName = doctorName;
         this.recordDate = recordDate;
         this.description = description;
@@ -39,6 +44,7 @@ class JsonAdaptedRecord {
         this.doctorName = source.getDoctorName().toString();
         this.recordDate = source.getRecordDate().getRawFormat();
         this.description = source.getDescription().toString();
+        this.procedure = source.getProcedure().toString();
     }
 
     /**
@@ -48,6 +54,14 @@ class JsonAdaptedRecord {
      * Limitations: If there are multiple constraints violated, only the first will be reported.
      */
     public Record toModelType() throws IllegalValueException {
+
+        if (procedure == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                Procedure.class.getSimpleName()));
+        }
+        if (!Procedure.isValidProcedure(procedure)) {
+            throw new IllegalValueException(Procedure.MESSAGE_CONSTRAINTS);
+        }
 
         if (doctorName == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "doctor"));
@@ -73,7 +87,7 @@ class JsonAdaptedRecord {
             throw new IllegalValueException(DateBase.MESSAGE_CONSTRAINTS);
         }
 
-        return new Record(doctorName, description, recordDate);
+        return new Record(doctorName, description, recordDate, procedure);
     }
 
 }

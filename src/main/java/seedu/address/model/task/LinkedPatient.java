@@ -15,6 +15,10 @@ public class LinkedPatient {
                                                     + "patient list\n"
                                                     + "Example: pat/1 or pat/3";
 
+    public static final String MESSAGE_ADDITIONAL_CONSTRAINT = "To link a patient to a task, please ensure you are in "
+                                                    + "patient mode so that you can see the patient index. "
+                                                    + "To go to patient mode, use the back command.\n";
+
     private Name fullname;
     private Nric nric;
 

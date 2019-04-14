@@ -121,6 +121,16 @@ public class LogicManager implements Logic {
     }
 
     @Override
+    public ReadOnlyProperty<Record> selectedRecordProperty() {
+        return model.selectedRecordProperty();
+    }
+
+    @Override
+    public void setSelectedRecord(Record record) {
+        model.setSelectedRecord(record);
+    }
+
+    @Override
     public ReadOnlyProperty<Person> selectedPersonProperty() {
         return model.selectedPersonProperty();
     }

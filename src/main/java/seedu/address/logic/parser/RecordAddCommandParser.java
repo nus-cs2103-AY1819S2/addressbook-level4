@@ -2,12 +2,15 @@ package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESC;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PROCEDURE;
 
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.RecordAddCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.description.Description;
+import seedu.address.model.record.Procedure;
+import seedu.address.model.record.Record;
 
 /**
  * Parses input arguments and creates a new RecordAddCommand object
@@ -20,15 +23,18 @@ public class RecordAddCommandParser implements Parser<RecordAddCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public RecordAddCommand parse(String args) throws ParseException {
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_DESC);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_PROCEDURE, PREFIX_DESC);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_DESC) || !argMultimap.getPreamble().isEmpty()) {
+        if (!arePrefixesPresent(argMultimap, PREFIX_DESC, PREFIX_PROCEDURE) || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, RecordAddCommand.MESSAGE_USAGE));
         }
 
+        Procedure procedure = ParserUtil.parseProcedure(argMultimap.getValue(PREFIX_PROCEDURE).get());
         Description description = ParserUtil.parseDesc(argMultimap.getValue(PREFIX_DESC).get());
 
-        return new RecordAddCommand(description);
+        Record record = new Record(procedure, description);
+
+        return new RecordAddCommand(record);
     }
 
     /**

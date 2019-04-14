@@ -65,6 +65,21 @@ public interface Logic {
     void setGuiSettings(GuiSettings guiSettings);
 
     /**
+     * Selected record in the filtered record list.
+     * null if no record is selected.
+     *
+     * @see seedu.address.model.Model#selectedRecordProperty()
+     */
+    ReadOnlyProperty<Record> selectedRecordProperty();
+
+    /**
+     * Sets the selected record in the filtered record list.
+     *
+     * @see seedu.address.model.Model#setSelectedRecord(Record)
+     */
+    void setSelectedRecord(Record record);
+
+    /**
      * Selected person in the filtered person list.
      * null if no person is selected.
      *

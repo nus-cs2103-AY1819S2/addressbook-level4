@@ -21,22 +21,22 @@ import seedu.address.storage.ParsedInOut;
 import seedu.address.storage.StorageManager;
 
 /**
- * Imports records to a text file.
+ * Imports data to a text file.
  */
 public class ImportCommand extends Command {
 
     public static final String COMMAND_WORD = "import";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Imports specific patients by index from a .json or .pdf file in the \"data\" folder, "
+            + ": Imports the specified patients by index from a .json file in the \"data\" folder, "
             + "and appends them to the current list. \n"
-            + "Parameters: FILENAME [INDEX_RANGE(must be a positive integer) OR all]\n"
-            + "Example: " + COMMAND_WORD + " records1.json + 1-5"
-            + "Example: " + COMMAND_WORD + " records1.json + 1,3,5"
-            + "Example: " + COMMAND_WORD + " records1.json + 1,3-5"
-            + "Example: " + COMMAND_WORD + " records1.json + all";
+            + "Parameters: FILEPATH [INDEX_RANGE(must be a positive integer) OR all]\n"
+            + "Example: " + COMMAND_WORD + " folder/data1.json + 1-5\n"
+            + "Example: " + COMMAND_WORD + " folder/data1.json + 1,3,5\n"
+            + "Example: " + COMMAND_WORD + " data1.json + 1,3-5\n"
+            + "Example: " + COMMAND_WORD + " data1.json + all";
 
-    public static final String MESSAGE_SUCCESS = "Imported the records!";
+    public static final String MESSAGE_SUCCESS = "File imported!";
 
     private final ParsedInOut parsedInput;
 

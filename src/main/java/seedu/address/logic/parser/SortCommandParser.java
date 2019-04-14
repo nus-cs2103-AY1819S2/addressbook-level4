@@ -28,7 +28,6 @@ public class SortCommandParser implements Parser<SortCommand> {
 
         if (MainWindow.isGoToMode()) {
             //Record Sorting
-            System.out.println("Testing");
             Comparator<Record> recordComparator;
             try {
                 recordComparator = RecordComparator.getRecordComparator(inputArr[0]);

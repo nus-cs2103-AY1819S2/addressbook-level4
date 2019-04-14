@@ -1,0 +1,100 @@
+= Keith Sim - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: TeethHub
+
+---
+
+== Overview
+
+TeethHub is a desktop patient-record application meant for tech-savvy dental practitioners who
+prefer interacting with Command-Line Interfaces (CLI) based programs over Graphical User Interface (GUI) based ones.
+
+The user interacts with it using a CLI, and it has a GUI created with JavaFX to display data for the user.
+ It is written in Java, and has about 10 kLoC.
+
+== Summary of contributions
+
+* *Major enhancement*: added *the ability to sort displayed data*
+** What it does: allows the user to sort either patient or record data according to their desired parameter and sort
+order depending on the mode it's in.
+** Justification: A user can have large amounts of data stored within the program. This feature improves the product
+significantly by allow the user to view that data in the desired parameter order so that it becomes easier for the
+user to locate them.
+** Highlights: This feature automatically switches the type of data (patient or record) that it sorts
+depending on the mode the program is in. This feature reorders the stored data within the json storage
+                file as well.
+
+* *Major enhancement*: added *the ability to find patients and records through all available parameters*
+** What it does: allows the user to find a desired patient or record based on the specified parameter(s) and keywords.
+The user can additionally choose if they want the search to be case sensitive, and if the search should find data
+containing at least one keyword or if the search should find data that contains all keywords.
+
+** Justification: A user can have large amounts of data stored within the program. This feature allows the user
+greater refinement over the parameters to find a particular desired patient.
+** Highlights: This feature automatically switches the type of data (patient or record) that it searches through
+depending on the mode the program is in.
+
+* *Major enhancement*: added *the ability to view a patient's statistics report*
+** What it does: allows the user to view a detailed report of the select patient containing their latest teeth, all
+linked user information, as well as a breakdown of their associated records.
+** Justification: A patient might be a frequent visitor to the user's dental practice, hence the user may want a
+detailed report so that they can analyze potential trends.
+** Highlights: This feature has three different ways of record data visualization; a simple table; a bar chart, and a
+ pie chart.
+
+* *Minor enhancement*: added a Next Of Kin class as an attribute for a patient.
+* *Minor enhancement*: added a Procedure class as an attribute for a record.
+
+* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+
+* *Other contributions*:
+
+** Project management:
+*** Created and maintained the group project repository
+*** Managed releases `v1.1` - `v1.4` (6 releases) on GitHub
+*** Responsible for approving and merging the PR of fellow teammates
+*** Created majority of open issues and distributed responsibilities for the issues to relevant team members
+*** Created and assigned relevant tags to issues within the project
+
+** Enhancements to existing features:
+*** Updated README to reflect information for TeethHub instead of AddressBook4
+*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests
+https://github.com[#36], https://github.com[#38])
+** Documentation:
+*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+** Community:
+*** PRs reviewed (with non-trivial review comments)
+*** Reported bugs and suggestions for other team members https://github.com/CS2103-AY1819S2-W17-2/main/issues/58[#58]
+https://github.com/CS2103-AY1819S2-W17-2/main/issues/106[#106]
+** Tools:
+*** Integrated a web page & documentation checker (Netlify) to the team repository
+*** Integrated a new Github plugin (TravisCI) to verify test cases to the team repo
+*** Integrated a new Github plugin (Coveralls) to determine the extend of test case coverage of our code to the team
+repo
+
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=viewingInfo]
+
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=findimplement]
+include::../DeveloperGuide.adoc[tag=storyusers]
+
+---
+
+

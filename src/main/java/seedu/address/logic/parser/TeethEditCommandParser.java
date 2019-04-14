@@ -9,13 +9,13 @@ import seedu.address.model.patient.Teeth;
 import seedu.address.model.patient.Tooth;
 
 /**
- * Parses input arguments and creates a new EditCommand object
+ * Parses input arguments and creates a new PatientEditCommand object
  */
 public class TeethEditCommandParser implements Parser<TeethEditCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the EditCommand
-     * and returns an EditCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the PatientEditCommand
+     * and returns an PatientEditCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
     public TeethEditCommand parse(String args) throws ParseException {

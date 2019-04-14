@@ -14,6 +14,8 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.TaskEditCommand;
 import seedu.address.logic.commands.TaskEditCommand.EditTaskDescriptor;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.task.LinkedPatient;
+import seedu.address.ui.MainWindow;
 
 /**
  * Parses input arguments and creates a new TaskEditCommand object
@@ -69,6 +71,10 @@ public class TaskEditCommandParser implements Parser<TaskEditCommand> {
         }
 
         if (argMultimap.getValue(PREFIX_LINKEDPATIENT).isPresent()) {
+            if (MainWindow.isGoToMode()) {
+                throw new ParseException(LinkedPatient.MESSAGE_ADDITIONAL_CONSTRAINT
+                        + LinkedPatient.MESSAGE_CONSTRAINTS);
+            }
             editTaskDescriptor.setPatientIndex(ParserUtil.parseLinkedPatientIndex(argMultimap
                     .getValue(PREFIX_LINKEDPATIENT).get()));
         } else {

@@ -3,11 +3,12 @@ package seedu.address.logic.parser;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESC;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PROCEDURE;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.RecordEditCommand;
+import seedu.address.logic.commands.RecordEditCommand.EditRecordDescriptor;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.description.Description;
 
 /**
  * Parses input arguments and creates a new RecordEditCommand object
@@ -22,7 +23,7 @@ public class RecordEditCommandParser implements Parser<RecordEditCommand> {
     public RecordEditCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_DESC);
+                ArgumentTokenizer.tokenize(args, PREFIX_DESC, PREFIX_PROCEDURE);
 
         Index index;
 
@@ -33,14 +34,20 @@ public class RecordEditCommandParser implements Parser<RecordEditCommand> {
                     RecordEditCommand.MESSAGE_USAGE), pe);
         }
 
-        Description editDescription;
+        EditRecordDescriptor editRecordDescriptor = new EditRecordDescriptor();
         if (argMultimap.getValue(PREFIX_DESC).isPresent()) {
-            editDescription = ParserUtil.parseDesc(argMultimap.getValue(PREFIX_DESC).get());
-        } else {
+            editRecordDescriptor.setDescription(ParserUtil.parseDesc(argMultimap.getValue(PREFIX_DESC).get()));
+        }
+        if (argMultimap.getValue(PREFIX_PROCEDURE).isPresent()) {
+            editRecordDescriptor.setProcedure(ParserUtil.parseProcedure(argMultimap.getValue(PREFIX_PROCEDURE).get()));
+        }
+
+        if (!editRecordDescriptor.isAnyFieldEditted()) {
             throw new ParseException(RecordEditCommand.MESSAGE_NOT_EDITED);
         }
 
-        return new RecordEditCommand(index, editDescription);
+        return new RecordEditCommand(index, editRecordDescriptor);
     }
+
 
 }

@@ -18,22 +18,22 @@ import seedu.address.storage.ParsedInOut;
 import seedu.address.storage.StorageManager;
 
 /**
- * Exports records to a text file.
+ * Exports data to a text file.
  */
 public class ExportCommand extends Command {
 
     public static final String COMMAND_WORD = "export";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Exports specific patients by index to .json or .pdf file in the \"data\" folder, "
+            + ": Exports the specified patients by index to .json or .pdf file in the \"data\" folder, "
             + "overwriting if filename exists \n"
-            + "Parameters: FILENAME [INDEX_RANGE(must be a positive integer) OR all]\n"
-            + "Example: " + COMMAND_WORD + " records1.json + 1-5"
-            + "Example: " + COMMAND_WORD + " records1.pdf + 1,3,5"
-            + "Example: " + COMMAND_WORD + " records1.json + 1,3-5"
-            + "Example: " + COMMAND_WORD + " records1.pdf + all";
+            + "Parameters: FILEPATH [INDEX_RANGE(must be a positive integer) OR all]\n"
+            + "Example: " + COMMAND_WORD + " folder/data1.json + 1-5\n"
+            + "Example: " + COMMAND_WORD + " folder/data1.pdf + 1,3,5\n"
+            + "Example: " + COMMAND_WORD + " data1.json + 1,3-5\n"
+            + "Example: " + COMMAND_WORD + " data1.pdf + all";
 
-    public static final String MESSAGE_SUCCESS = "Exported the records!";
+    public static final String MESSAGE_SUCCESS = "File exported!";
 
     private final ParsedInOut parsedInput;
 

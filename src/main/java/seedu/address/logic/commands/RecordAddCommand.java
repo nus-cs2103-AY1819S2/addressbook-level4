@@ -2,11 +2,11 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESC;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PROCEDURE;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.description.Description;
 import seedu.address.model.patient.Patient;
 import seedu.address.model.record.Record;
 import seedu.address.ui.MainWindow;
@@ -17,11 +17,13 @@ import seedu.address.ui.MainWindow;
 public class RecordAddCommand extends Command {
 
     public static final String COMMAND_WORD = "recordadd";
+    public static final String COMMAND_WORD2 = "radd";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a new dental record to a patient. "
-            + "Parameters: "
-            + PREFIX_DESC + "Description \n"
-            + "Example: " + COMMAND_WORD + " "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + " or " + COMMAND_WORD2
+            + ": Adds a new dental record to a patient. "
+            + "Parameters: " + PREFIX_PROCEDURE + "PROCEDURE "
+            + PREFIX_DESC + "DESCRIPTION \n"
+            + "Example: " + COMMAND_WORD + " " + PREFIX_PROCEDURE + "Other-Checkup "
             + PREFIX_DESC + "Patient went through all four wisdom tooth extraction today ";
 
     public static final String MESSAGE_SUCCESS = "New record added to %1$s";
@@ -31,16 +33,16 @@ public class RecordAddCommand extends Command {
     public static final String MESSAGE_ERROR = "Please specify the patient using the goto command first";
 
     private final Patient toAdd;
-    private final Description description;
+    private Record addRecord;
 
     /**
      * Creates an RecordAddCommand to add a new dental record to a specified {@code Patient}
-     * @param description the description of the record to be added.
+     * @param record the record to be added.
      */
-    public RecordAddCommand(Description description) {
-        requireNonNull(description);
+    public RecordAddCommand(Record record) {
+        requireNonNull(record);
         toAdd = MainWindow.getRecordPatient();
-        this.description = description;
+        this.addRecord = record;
     }
 
     /**
@@ -56,10 +58,9 @@ public class RecordAddCommand extends Command {
         if (MainWindow.isGoToMode() && toAdd != null) {
             requireNonNull(model);
 
-            Record record = new Record(description);
-            boolean isDuplicate = model.hasRecord(record);
+            boolean isDuplicate = model.hasRecord(this.addRecord);
 
-            model.addRecord(record);
+            model.addRecord(this.addRecord);
 
             if (isDuplicate) {
                 return new CommandResult(String.format(MESSAGE_DUPLICATE_RECORD, toAdd.getName()));

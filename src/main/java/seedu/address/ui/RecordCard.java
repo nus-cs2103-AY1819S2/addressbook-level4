@@ -28,6 +28,8 @@ public class RecordCard extends UiPart<Region> {
     @FXML
     private Label id;
     @FXML
+    private Label procedure;
+    @FXML
     private Label recordDate;
     @FXML
     private Label nameOfDentist;
@@ -37,8 +39,9 @@ public class RecordCard extends UiPart<Region> {
     public RecordCard(Record record, int displayedIndex) {
         super(FXML);
         this.record = record;
-        id.setText(displayedIndex + ". Dated on");
+        id.setText(displayedIndex + ".");
         recordDate.setText(record.getRecordDate().getDate());
+        procedure.setText(record.getProcedure().toString() + " on");
         nameOfDentist.setText("By Dentist: " + record.getDoctorName().fullName);
         description.setText("Session Description: \n" + record.getDescription().value);
     }

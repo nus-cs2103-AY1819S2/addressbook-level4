@@ -16,8 +16,10 @@ import seedu.address.ui.CalendarWindow;
 public class TaskCalendarCommand extends Command {
 
     public static final String COMMAND_WORD = "taskcal";
+    public static final String COMMAND_WORD2 = "tcal";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + "Displays a Calendar that highlights days with tasks\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + " or " + COMMAND_WORD2
+                                                            + "Displays a Calendar that highlights days with tasks\n"
                                                             + "Given date should be in dd-mm-yyyy format\n"
                                                             + "Example: " + COMMAND_WORD + " "
                                                             + "13-05-2019\n"

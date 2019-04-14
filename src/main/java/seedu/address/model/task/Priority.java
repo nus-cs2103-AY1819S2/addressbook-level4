@@ -11,7 +11,7 @@ public enum Priority {
     COMPLETED("completed", 0);
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Priority can either be high, med or low in any case but with the exact same spelling. "
+            "Priority can either be high, med, low or completed in any case but with the exact same spelling. "
                     + "The default priority level for a task will be low if you do not specify a priority";
 
     private final String priorityType;

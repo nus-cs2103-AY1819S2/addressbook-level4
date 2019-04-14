@@ -193,16 +193,26 @@ public class DocX implements ReadOnlyDocX {
 
         patients.setPatient(target, editedPatient);
         updateMedHistWhenPatientIsUpdated(target.getId(), editedPatient);
+        updateAppointmentWhenPatientIsUpdated(target.getId(), editedPatient);
         indicateModified();
     }
 
     /**
-     * When patient is modified, update patient infon in medical history
+     * When patient is modified, update patient info in medical history
      */
     public void updateMedHistWhenPatientIsUpdated(PersonId patientId, Patient editedPatient) {
         requireNonNull(patientId);
 
         medHists.setEditedPatient(patientId, editedPatient);
+    }
+
+    /**
+     * When patient is modified, update patient info in appointment
+     */
+    public void updateAppointmentWhenPatientIsUpdated(PersonId patientId, Patient editedPatient) {
+        requireNonNull(patientId);
+
+        appointments.setEditedPatient(patientId, editedPatient);
     }
 
     // appointment operations
@@ -271,6 +281,7 @@ public class DocX implements ReadOnlyDocX {
 
         doctors.setDoctor(target, editedDoctor);
         updateMedHistWhenDoctorIsUpdated(target.getId(), editedDoctor);
+        updateAppointmentWhenDoctorIsUpdated(target.getId(), editedDoctor);
         indicateModified();
     }
 
@@ -281,6 +292,15 @@ public class DocX implements ReadOnlyDocX {
         requireNonNull(doctorId);
 
         medHists.setEditedDoctor(doctorId, editedDoctor);
+    }
+
+    /**
+     * When doctor is modified, update doctor info in appointment
+     */
+    public void updateAppointmentWhenDoctorIsUpdated(PersonId doctorId, Doctor editedDoctor) {
+        requireNonNull(doctorId);
+
+        appointments.setEditedDoctor(doctorId, editedDoctor);
     }
 
     /**

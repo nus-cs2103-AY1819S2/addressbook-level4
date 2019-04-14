@@ -130,12 +130,12 @@ public class UniqueMedHistList implements Iterable<MedicalHistory> {
     public void setPatientToNull(PersonId deleted) {
         requireAllNonNull(deleted);
 
-        FilteredList<MedicalHistory> setToNull = internalList.filtered(x -> x.getPatientId().equals(deleted));
+        FilteredList<MedicalHistory> medHistToSet = internalList.filtered(x -> x.getPatientId().equals(deleted));
         MedicalHistory modifiedMedHist;
 
-        int numberOfOccurrence = setToNull.size();
+        int numberOfOccurrence = medHistToSet.size();
         for (int i = 0; i < numberOfOccurrence; i++) {
-            modifiedMedHist = setToNull.get(i);
+            modifiedMedHist = medHistToSet.get(i);
             int indexToReplace = internalList.indexOf(modifiedMedHist);
             modifiedMedHist.setPatient(null);
             // this approach forces the listeners to be notified.
@@ -148,12 +148,12 @@ public class UniqueMedHistList implements Iterable<MedicalHistory> {
      */
     public void setDoctorToNull(PersonId deleted) {
         requireAllNonNull(deleted);
-        FilteredList<MedicalHistory> setToNull = internalList.filtered(x -> x.getDoctorId().equals(deleted));
+        FilteredList<MedicalHistory> medHistToSet = internalList.filtered(x -> x.getDoctorId().equals(deleted));
         MedicalHistory modifiedMedHist;
 
-        int numberOfOccurrence = setToNull.size();
+        int numberOfOccurrence = medHistToSet.size();
         for (int i = 0; i < numberOfOccurrence; i++) {
-            modifiedMedHist = setToNull.get(i);
+            modifiedMedHist = medHistToSet.get(i);
             int indexToReplace = internalList.indexOf(modifiedMedHist);
             modifiedMedHist.setDoctor(null);
             // this approach forces the listeners to be notified.

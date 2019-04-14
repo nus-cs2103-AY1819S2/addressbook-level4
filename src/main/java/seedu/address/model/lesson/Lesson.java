@@ -118,7 +118,7 @@ public class Lesson {
         int optionalStart = noOfCoreHeaders;
         int optionalEnd = headers.size();
 
-        if (optionalStart == 0) {
+        if (noOfCoreHeaders == headers.size()) {
             optionals = new ArrayList<>();
         } else {
             optionals = headers.subList(optionalStart, optionalEnd);
@@ -348,14 +348,14 @@ public class Lesson {
     public void addCard(List<String> fields) {
         requireAllNonNull(fields);
 
-        List<String> cores = fields.subList(0, coreHeaders.size());
-
-        int optionalStart = fields.size() - coreHeaders.size() + 1;
-
-        if (optionalStart == 0) {
-            addCard(new Card(cores));
+        if (fields.size() == coreHeaders.size()) {
+            addCard(new Card(fields));
         } else {
-            List<String> optionals = fields.subList(optionalStart, fields.size());
+            List<String> cores = fields.subList(0, coreHeaders.size());
+            int optionalStart = coreHeaders.size();
+            int optionalEnd = fields.size();
+
+            List<String> optionals = fields.subList(optionalStart, optionalEnd);
             addCard(new Card(cores, optionals));
         }
     }

@@ -20,7 +20,9 @@ By: `Team 15-3`      Since: `Feb 2019`      Licence: `MIT`
 == Introduction
 
 slaveFinder() is a resume management application that helps recruiters manage most of the hiring process. +
+
 The application is optimized for those who prefer to work with a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, slaveFinder() can get your resume management tasks done faster than traditional GUI apps. +
+
 Interested? Jump to the <<Quick Start>> to get started or <<Command Summary>> for the list of commands. Enjoy!
 
 == Quick Start
@@ -30,11 +32,11 @@ Interested? Jump to the <<Quick Start>> to get started or <<Command Summary>> fo
 .  Copy the file to the folder you want to use as the home folder for your Address Book.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 .  There are two main Screen for this Software. +
-All Jobs Screen: Two main List will show in this Screen, one is for applicants, the other is for All open Jobs
+All Jobs Screen: Two main list will show in this screen, one is for all applicants, the other is for all jobs openings.
 +
 image::Ui.png[width="790"]
 +
-Job Detail Screen: Four main List will show in this Screen, they are all applicants list and represent four stages of hiring process in one Job.
+Job Detail Screen: Four main lists will show in this screen, they are all applicants list and represent four stages of hiring process in a specific job.
 +
 image::DisplayJob.png[width="790"]
 +
@@ -129,17 +131,15 @@ Opens the CV of the 2nd applicants showing on Allicants List in Job Detail Scree
 
 ==== Adding a person: `add`
 
-Viet Phone: 86128655 Email: pdnm@cp.com Nric: S0129574R Gender: Male Race: Others Address: 123 Disney School: NUS Major: Computer Science Grade: 5.00 Interview Scores: No Record Past jobs:  Known Programming Languag
-
 Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER nric/NRIC e/EMAIL a/ADDRESS g/GENDER r/RACE m/MAJOR s/SCHOOL gr/GRADE j/JOBS_APPLY [is/INTERVIEWSCORES] [j/JOBS_APPLY]... [kpl/KnowPROGLANG]... [pj/PASTJOB]...`
+Format: `add n/NAME p/PHONE_NUMBER nric/NRIC e/EMAIL a/ADDRESS g/GENDER r/RACE m/MAJOR s/SCHOOL gr/GRADE j/JOBS_APPLY`
 
 ****
 [TIP]
 * This command can only be used when All Jobs Screen shows. You can add applicants into All Aplicants list
-* `n/`: Name should only contain alphanumeric characters and spaces, and should not be empty.
-* `a/`: Address can take any values, but should not be empty.
-* `nric/`: NRIC must be unique. It must start with S, followed by exactly 7 numbers, and end with an alpabet in capital letter. It should not be empty.
+* `n/`: *Name* should only contain alphanumeric characters and spaces, and should not be empty.
+* `a/`: *Address* can take any values, but should not be empty.
+* `nric/`: *NRIC* must be unique. It must start with S, followed by exactly 7 numbers, and end with an alpabet in capital letter. It should not be empty.
 * `p/`: *Phone* numbers should only contain numbers, and it should be at least 3 digits long, and should not be empty.
 * `e/`: *Email* should be of the format local-part@domain, and should not be empty. "E.g. example@gmail.com"
 * `g/`: *Gender* should only be "Female", "Male" or "Others", and should not be empty.
@@ -160,7 +160,7 @@ Examples:
 
 ==== Listing all persons : `list`
 
-Shows a list of all job openings and applicants in the slave system. +
+Shows a list of all job openings and applicants in slaveFinder(). +
 Format: `list`
 
 * Useful after using filter/displayJob which shows a subset of the all applicants list.
@@ -169,12 +169,6 @@ Format: `list`
 
 Edits an existing person in slaveFinder(). +
 Format: `edit INDEX n/NAME p/PHONE_NUMBER nric/NRIC e/EMAIL a/ADDRESS g/GENDER r/RACE m/MAJOR s/SCHOOL gr/GRADE j/JOBS_APPLY`
-=======
-=======
-==== Editing a person : `edit`
-
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE_NUMBER] [nric/NRIC] [e/EMAIL] [a/ADDRESS] [g/GENDER] [r/RACE] [m/MAJOR] [s/SCHOOL] [gr/GRADE] [is/INTERVIEWSCORES] [j/JOBS_APPLY]... [kpl/KnowPROGLANG]... [pj/PASTJOB]...`
 
 ****
 * This command can only be used when All Jobs Screen shows. You can edit applicants in All Aplicants list
@@ -243,7 +237,7 @@ Format: `clear`
 === Job Related Features
 
 
-==== Create a Job Hiring Process: `createjob`
+==== Create a Job Hiring Process: `createJob`
 
 Create a Job hiring process with four person lists: "Applicants", "KIV", "Interview", "Shortlist". +
 Format : `createJob [jn/JOBNAME]`
@@ -253,13 +247,13 @@ Format : `createJob [jn/JOBNAME]`
 * All people in the storage who want to apply this job will automatically be added in "Applied" list.
 ****
 
-==== Delete the Job Hiring Process : `deletejob`
+==== Delete the Job Hiring Process : `deleteJob`
 
 Delete a Job Hiring Process and all its information +
 Format : `deleteJob [jn/JOBNAME]`
 
 
-==== Displays one of the four persons list in a job : `DisplayJob`
+==== Displays one of the four persons list in a job : `displayJob`
 
 Displays  a Job +
 Format : `displayJob  [jn/JOBNAME]`

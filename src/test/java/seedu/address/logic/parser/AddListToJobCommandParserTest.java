@@ -24,31 +24,31 @@ public class AddListToJobCommandParserTest {
     private AddListToJobCommandParser parser = new AddListToJobCommandParser();
 
     @Test
-    public void parse_allArgs_returnsMovePersonCommand() {
+    public void parseAllArgsReturnsMovePersonCommand() {
         assertParseSuccess(parser, " k a jn/Teacher",
                 new AddListToJobCommand(new JobName(VALID_JOB_NAME_TEACHER), JobListName.KIV, JobListName.APPLICANT));
     }
 
     @Test
-    public void parse_oneArgJobName_returnsMovePersonCommand() {
+    public void parseOneArgJobNameReturnsMovePersonCommand() {
         assertParseSuccess(parser, " k jn/Teacher",
                 new AddListToJobCommand(new JobName(VALID_JOB_NAME_TEACHER), JobListName.KIV, JobListName.EMPTY));
     }
 
     @Test
-    public void parse_oneArg_returnsMovePersonCommand() {
+    public void parseOneArgReturnsMovePersonCommand() {
         assertParseSuccess(parser, " k",
                 new AddListToJobCommand(null, JobListName.KIV, JobListName.EMPTY));
     }
 
     @Test
-    public void parse_twoArgs_returnsMovePersonCommand() {
+    public void parseTwoArgsReturnsMovePersonCommand() {
         assertParseSuccess(parser, " k a",
                 new AddListToJobCommand(null, JobListName.KIV, JobListName.APPLICANT));
     }
 
     @Test
-    public void parse_noArgs_throwsParseException() {
+    public void parseNoArgsThrowsParseException() {
         assertParseFailure(parser, " ",
                 AddListToJobCommand.MESSAGE_NO_DESTINATION
                         + String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddListToJobCommand.MESSAGE_USAGE));

@@ -1,5 +1,7 @@
 package seedu.address.logic.commands;
 
+import java.util.Comparator;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
@@ -15,6 +17,8 @@ public class Statistics {
 
     private static Map<String, Integer> statistics = new TreeMap<>();
 
+    private static Map<String, Integer> sortedMap = new LinkedHashMap<>();
+
     /**
      * Returns the number of times the specific condition has appeared in added requests
      *
@@ -27,6 +31,7 @@ public class Statistics {
 
     public static void clearStatistics() {
         statistics.clear();
+        sortedMap.clear();
     }
 
     /**
@@ -44,6 +49,7 @@ public class Statistics {
                 statistics.remove(conditionName);
             }
         }
+        sortStatistics();
     }
 
     /**
@@ -59,12 +65,25 @@ public class Statistics {
             Integer count = statistics.get(conditionName);
             statistics.put(conditionName, (count == null) ? 1 : count + 1);
         }
+        sortStatistics();
+    }
+
+    /**
+     * Sorts statistics tree map in reverse order of value (Key: condition name,
+     * Value: number of occurrences) -> condition with highest incidence rate will
+     * appear at the top of the outputted list
+     */
+    public static void sortStatistics() {
+        sortedMap.clear();
+        statistics.entrySet()
+                .stream()
+                .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
+                .forEachOrdered(x -> sortedMap.put(x.getKey(), x.getValue()));
     }
 
     public static Set<Map.Entry<String, Integer>> getEntrySet() {
         return statistics.entrySet();
     }
-
 
     /**
      * Displays all conditions in a standard format
@@ -75,7 +94,7 @@ public class Statistics {
         if (statistics.isEmpty()) {
             return MESSAGE_EMPTY_STATISTICS;
         }
-        for (Map.Entry<String, Integer> statistic : statistics.entrySet()) {
+        for (Map.Entry<String, Integer> statistic : sortedMap.entrySet()) {
             stringBuilder.append(statistic.getKey())
                     .append(": ").append(statistic.getValue()).append(" occurences\n");
         }

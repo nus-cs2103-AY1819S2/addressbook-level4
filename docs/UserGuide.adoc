@@ -483,7 +483,8 @@ spent on all the results of the search will also be shown.
 // tag::sort[]
 ==== Sorting the entries according to name/amount/date/category: `sort`
 
-You can choose to sort the list of entries by name, amount, date or category.
+You can choose to sort the list of entries by name, amount, date or category. +
+`Sort` has effect on the entire list of entries (instead of a filtered list).
 
 *Format*: `sort FLAG [ORDER]`
 
@@ -537,11 +538,12 @@ List will be sorted by name in reverse lexicographical order.
 // tag::reverse[]
 ==== Reversing the entries: `reverse`
 
-You can also reverse the order of the list of entries in the records.
+You can also reverse the order of the list of entries in the records. +
+`Reverse` has effect on the entire list of entries (instead of a filtered list).
 
 *Alias*: `rev`
 
-*Format*: reverse
+*Format*: `reverse`
 
 .Name sorted in descending order
 image::reverseExample.png[width ="600"]

@@ -25,7 +25,7 @@ public class AllocateCommand extends Command {
             + "Existing budget for the category will be overwritten by the input\n"
             + "Parameters: " + PREFIX_AMOUNT + "AMOUNT " + PREFIX_CATEGORY + "CATEGORY\n"
             + "Example: " + COMMAND_WORD + " " + PREFIX_AMOUNT + "100.10 "
-            + PREFIX_CATEGORY + "Food ";
+            + PREFIX_CATEGORY + "Food\n";
 
     public static final String MESSAGE_SUCCESS = "%s category budget set to $%.2f";
 

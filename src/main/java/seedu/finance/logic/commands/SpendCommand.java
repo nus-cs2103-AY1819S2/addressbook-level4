@@ -35,7 +35,7 @@ public class SpendCommand extends Command {
             + PREFIX_AMOUNT + "123.23 "
             + PREFIX_DATE + "12/02/2002 "
             + PREFIX_CATEGORY + "Food "
-            + PREFIX_DESCRIPTION + "Lunch with friends ";
+            + PREFIX_DESCRIPTION + "Lunch with friends\n";
 
     public static final String MESSAGE_SUCCESS = "New record added: %1$s";
     public static final String MESSAGE_SUCCESS_EXCEED_BUDGET = "Your spending in %s "

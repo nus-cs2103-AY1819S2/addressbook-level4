@@ -80,8 +80,7 @@ a|* Improved readability to existing contents of the User Guide +
 (Pull request: link:{repoURL}/pull/165[#165]) +
 * Added {websiteURL}/UserGuide.html#command-glossary-and-shortcuts[Command Glossary and Shortcuts] to the User Guide +
 (Pull request: link:{repoURL}/pull/163[#163])
-* Added {websiteURL}/DeveloperGuide.html#user-stories[User Stories] and {websiteURL}/DeveloperGuide.html#use-cases[Use Cases] to the Developer Guide +
-(Pull request: link:{repoURL}/pull/170[#170])
+* Added {websiteURL}/DeveloperGuide.html#user-stories[user stories], {websiteURL}/DeveloperGuide.html#use-cases[use cases] and {websiteURL}/DeveloperGuide.html#non-functional-requirements[non-functional requirements] to the Developer Guide (Pull requests: link:{repoURL}/pull/170[#170] and link:{repoURL}/pull/192[#192])
 
 |*Community*
 a|* Reviewed a teammates' pull requests (with non-trivial review comments) +

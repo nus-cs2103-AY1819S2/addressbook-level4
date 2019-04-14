@@ -72,7 +72,7 @@ public class ImportCommandParser implements Parser<ImportCommand> {
                                 album.addToImageList(path);
                                 FileUtils.copyFileToDirectory(file, directory);
                             } catch (IOException e) {
-                               e.printStackTrace();
+                                e.printStackTrace();
                             }
                         }
                     }
@@ -90,7 +90,7 @@ public class ImportCommandParser implements Parser<ImportCommand> {
                                     FileUtils.copyFileToDirectory(file, directory);
                                     album.addToImageList(args);
                                 } catch (IOException e) {
-                                   e.printStackTrace();
+                                    e.printStackTrace();
                                 }
                             } else {
                                 throw new ParseException(Messages.MESSAGE_DUPLICATE_FILE);

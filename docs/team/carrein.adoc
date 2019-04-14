@@ -101,7 +101,8 @@ https://github.com[#187], https://github.com[#193], https://github.com[#230], ht
 
 == Quick Start
 '''
-include::../UserGuide.adoc[tag=QuickStart]
+include::../UserGuide.adoc[tag=QuickStartOne]
+include::../UserGuide.adoc[tag=QuickStartTwo]
 
 == Import Command
 '''

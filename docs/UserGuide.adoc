@@ -170,6 +170,11 @@ Format: `list`
 Edits an existing person in slaveFinder(). +
 Format: `edit INDEX n/NAME p/PHONE_NUMBER nric/NRIC e/EMAIL a/ADDRESS g/GENDER r/RACE m/MAJOR s/SCHOOL gr/GRADE j/JOBS_APPLY`
 =======
+=======
+==== Editing a person : `edit`
+
+Edits an existing person in the address book. +
+Format: `edit INDEX [n/NAME] [p/PHONE_NUMBER] [nric/NRIC] [e/EMAIL] [a/ADDRESS] [g/GENDER] [r/RACE] [m/MAJOR] [s/SCHOOL] [gr/GRADE] [is/INTERVIEWSCORES] [j/JOBS_APPLY]... [kpl/KnowPROGLANG]... [pj/PASTJOB]...`
 
 ****
 * This command can only be used when All Jobs Screen shows. You can edit applicants in All Aplicants list
@@ -204,7 +209,10 @@ Examples:
 Returns `john` and `John Doe`
 * `find Betsy Tim John` +
 Returns any person having names `Betsy`, `Tim`, or `John`
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> 7f902801e729e859ef75d2d419eadce56a68f9d5
 
 ==== Deleting a person : `delete`
 
@@ -226,7 +234,10 @@ Deletes the 2nd person in slaveFinder().
 * `find Betsy` +
 `delete 1` +
 Deletes the 1st person in the results of the `find` command.
+<<<<<<< HEAD
 
+=======
+>>>>>>> 7f902801e729e859ef75d2d419eadce56a68f9d5
 
 ==== Clearing all entries : `clear`
 

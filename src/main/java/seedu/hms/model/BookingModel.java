@@ -5,7 +5,7 @@ import java.util.function.Predicate;
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.hms.model.booking.Booking;
-import seedu.hms.model.booking.ServiceType;
+import seedu.hms.model.booking.serviceType.ServiceType;
 
 /**
  * The API of the Model component.
@@ -23,6 +23,8 @@ public interface BookingModel extends Model {
      * null if no booking is selected.
      */
     Booking getSelectedBooking();
+
+    boolean hasServiceType(ServiceType st);
 
     /**
      * Sets the selected booking in the filtered booking list.
@@ -73,6 +75,34 @@ public interface BookingModel extends Model {
     void setBooking(int target, Booking editedBooking);
 
     /**
+     * Deletes the given booking.
+     * The booking must exist in the hms book.
+     */
+    void deleteServiceType(int target);
+
+    /**
+     * Deletes the given booking.
+     * The booking must exist in the hms book.
+     */
+    void deleteServiceType(ServiceType st);
+
+    /**
+     * Adds the given booking.
+     * {@code booking} must not already exist in the hms book.
+     */
+    void addServiceType(ServiceType serviceType);
+
+    /**
+     * Replaces the given booking {@code target} with {@code editedBooking}.
+     * {@code target} must exist in the hms book.
+     * The booking identity of {@code editedBooking} must not be the same as another existing booking in the hms
+     * book.
+     */
+    void setServiceType(int target, ServiceType editedServiceType);
+
+    ServiceType getServiceType(String serviceName);
+
+    /**
      * Selected serviceType in the serviceType list.
      * null if no service type is selected.
      */
@@ -93,5 +123,11 @@ public interface BookingModel extends Model {
      * Clears all the bookings present in the {@code hotelManagementSystem}.
      */
     void setClearBooking(ReadOnlyHotelManagementSystem hotelManagementSystem);
+
+    /**
+     * Clears all the service types present in the {@code hotelManagementSystem}.
+     */
+    void setClearServiceTypes(ReadOnlyHotelManagementSystem hotelManagementSystem);
+
 
 }

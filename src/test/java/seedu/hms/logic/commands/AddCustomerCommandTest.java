@@ -38,7 +38,8 @@ public class AddCustomerCommandTest {
         CustomerModel modelStub =
             new CustomerManager(new VersionedHotelManagementSystem(getTypicalHotelManagementSystem()),
                 new UserPrefs());
-        Customer validCustomer = new CustomerBuilder().build();
+        Customer validCustomer = new CustomerBuilder().withName("Tejas").withIdNum("Z4264533")
+            .withEmail("tejasbhuwania@gmail.com").withPhone("9830240327").build();
 
         CommandResult commandResult = new AddCustomerCommand(validCustomer).execute(modelStub, commandHistory);
 
@@ -49,7 +50,8 @@ public class AddCustomerCommandTest {
 
     @Test
     public void execute_duplicateCustomer_throwsCommandException() throws Exception {
-        Customer validCustomer = new CustomerBuilder().build();
+        Customer validCustomer = new CustomerBuilder().withName("Tejas").withIdNum("Z4264533")
+            .withEmail("tejasbhuwania@gmail.com").withPhone("9830240327").build();
         AddCustomerCommand addCommand = new AddCustomerCommand(validCustomer);
         CustomerModel modelStub =
             new CustomerManager(new VersionedHotelManagementSystem(getTypicalHotelManagementSystem()),

@@ -11,8 +11,9 @@ import java.util.Optional;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.hms.model.booking.exceptions.BookingNotFoundException;
-import seedu.hms.model.booking.exceptions.ServiceFullException;
-import seedu.hms.model.booking.exceptions.ServiceUnavailableException;
+import seedu.hms.model.booking.serviceType.ServiceType;
+import seedu.hms.model.booking.serviceType.exceptions.ServiceFullException;
+import seedu.hms.model.booking.serviceType.exceptions.ServiceUnavailableException;
 import seedu.hms.model.customer.Customer;
 import seedu.hms.model.util.TimeRange;
 
@@ -60,6 +61,7 @@ public class BookingList implements Iterable<Booking> {
 
     /**
      * Removes bookings with payer as customer and removes customer from other associated bookings
+     *
      * @param key
      */
     public void removeCustomer(Customer key) {
@@ -73,6 +75,30 @@ public class BookingList implements Iterable<Booking> {
                 b.getOtherUsers().ifPresent(l -> l.remove(key));
                 this.setBooking(i, new Booking(b.getService(), b.getTiming(), b.getPayer(),
                     b.getOtherUsers(), b.getComment()));
+            }
+        }
+        internalList.removeAll(bookingsToRemove);
+    }
+
+    public void setServiceType(ServiceType oldServiceType, ServiceType newServiceType) {
+        for (int i = 0; i < internalList.size(); i++) {
+            Booking b = internalList.get(i);
+            if (b.getService().equals(oldServiceType)) {
+                this.setBooking(i, new Booking(newServiceType, b.getTiming(), b.getPayer(), b.getOtherUsers(),
+                    b.getComment()));
+            }
+        }
+    }
+
+    /**
+     * Removes all bookings that are associated with a specific service type.
+     */
+    public void removeServiceTpe(ServiceType serviceType) {
+        List<Booking> bookingsToRemove = new ArrayList<>();
+        for (int i = 0; i < internalList.size(); i++) {
+            Booking b = internalList.get(i);
+            if (b.getService().equals(serviceType)) {
+                bookingsToRemove.add(b);
             }
         }
         internalList.removeAll(bookingsToRemove);

@@ -194,13 +194,14 @@ public abstract class HotelManagementSystemSystemTest {
     }
 
     //Todo: ServiceTypeAndRoomTypeListPanel
+
     /**
      * Asserts that the browser's url is changed to display the details of the customer in the customer list panel at
      * {@code expectedSelectedCardIndex}, and only the card at {@code expectedSelectedCardIndex} is selected.
      *
      * @see BrowserPanelHandle#isUrlChanged()
      * @see CustomerListPanelHandle#isSelectedCustomerCardChanged()
-     * */
+     */
     protected void assertSelectedCardChanged(Index expectedSelectedCardIndex) {
         getCustomerListPanel().navigateToCard(getCustomerListPanel().getSelectedCardIndex());
         String selectedCardName = getCustomerListPanel().getHandleToSelectedCard().getName();

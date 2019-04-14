@@ -42,6 +42,7 @@ public class AddCustomerCommandIntegrationTest {
             new VersionedHotelManagementSystem(model.getHotelManagementSystem()), new UserPrefs());
         expectedModel.addCustomer(validCustomer);
         expectedModel.commitHotelManagementSystem();
+        expectedModel.setSelectedCustomer(validCustomer);
 
         assertCommandSuccess(new AddCustomerCommand(validCustomer), model, commandHistory,
             String.format(AddCustomerCommand.MESSAGE_SUCCESS, validCustomer), expectedModel);

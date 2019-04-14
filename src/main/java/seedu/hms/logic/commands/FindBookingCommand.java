@@ -26,13 +26,19 @@ public class FindBookingCommand extends BookingCommand {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all bookings belonging to the selected "
         + "customer\n"
-        + "Parameters: CUSTOMER_IDENTIFICATION_NUMBER\n"
+        + "Parameters: "
+        + "[" + PREFIX_IDENTIFICATION_NUMBER + "CUSTOMER_IDENTIFICATION_NUMBER] "
+        + "[" + PREFIX_SERVICE + "SERVICE_TYPE] "
+        + "[" + PREFIX_TIMING + "TIME_RANGE]\n"
         + "Example: " + COMMAND_WORD + " "
         + PREFIX_IDENTIFICATION_NUMBER + "1234567 "
-        + "[" + PREFIX_SERVICE + "GYM] "
-        + "[" + PREFIX_TIMING + "10 - 11]";
+        + PREFIX_SERVICE + "GYM "
+        + PREFIX_TIMING + "10 - 11";
 
     private final Predicate<Booking> bookingPredicate;
+    private final BookingContainsPayerPredicate bookingContainsPayerPredicate;
+    private final BookingWithTypePredicate bookingWithTypePredicate;
+    private final BookingWithinTimePredicate bookingWithinTimePredicate;
 
     public FindBookingCommand(BookingContainsPayerPredicate bookingContainsPayerPredicate,
                               BookingWithTypePredicate bookingWithTypePredicate,
@@ -40,6 +46,9 @@ public class FindBookingCommand extends BookingCommand {
         this.bookingPredicate = (bookingTested) -> bookingContainsPayerPredicate.test(bookingTested)
             && bookingWithTypePredicate.test(bookingTested)
             && bookingWithinTimePredicate.test(bookingTested);
+        this.bookingContainsPayerPredicate = bookingContainsPayerPredicate;
+        this.bookingWithinTimePredicate = bookingWithinTimePredicate;
+        this.bookingWithTypePredicate = bookingWithTypePredicate;
     }
 
     @Override
@@ -54,6 +63,9 @@ public class FindBookingCommand extends BookingCommand {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
             || (other instanceof FindBookingCommand // instanceof handles nulls
-            && bookingPredicate.equals(((FindBookingCommand) other).bookingPredicate)); // state check
+            && bookingContainsPayerPredicate.equals(((FindBookingCommand) other).bookingContainsPayerPredicate)
+            && bookingWithTypePredicate.equals(((FindBookingCommand) other).bookingWithTypePredicate)
+            && bookingWithinTimePredicate.equals(((FindBookingCommand) other).bookingWithinTimePredicate)); // state
+            // check
     }
 }

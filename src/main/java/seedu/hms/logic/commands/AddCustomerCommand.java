@@ -27,14 +27,14 @@ public class AddCustomerCommand extends CustomerCommand {
         + PREFIX_NAME + "NAME "
         + PREFIX_PHONE + "PHONE "
         + PREFIX_EMAIL + "EMAIL "
-        + PREFIX_IDENTIFICATION_NUMBER + "IDENTIFICATION "
-        + PREFIX_DATE_OF_BIRTH + "DATE OF BIRTH "
-        + PREFIX_ADDRESS + "ADDRESS "
+        + PREFIX_IDENTIFICATION_NUMBER + "IDENTIFICATION_NO "
+        + "[" + PREFIX_DATE_OF_BIRTH + "DATE OF BIRTH] "
+        + "[" + PREFIX_ADDRESS + "ADDRESS] "
         + "[" + PREFIX_TAG + "TAG]...\n"
         + "Example: " + COMMAND_WORD + " "
         + PREFIX_NAME + "John Doe "
         + PREFIX_PHONE + "98765432 "
-        + PREFIX_EMAIL + "jd@ex.com "
+        + PREFIX_EMAIL + "jd@eox.com "
         + PREFIX_IDENTIFICATION_NUMBER + "A123456Q "
         + PREFIX_DATE_OF_BIRTH + "28/05/1999 "
         + PREFIX_ADDRESS + "311, Clementi Ave 2"
@@ -63,6 +63,7 @@ public class AddCustomerCommand extends CustomerCommand {
 
         model.addCustomer(toAdd);
         model.commitHotelManagementSystem();
+        model.setSelectedCustomer(toAdd);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 

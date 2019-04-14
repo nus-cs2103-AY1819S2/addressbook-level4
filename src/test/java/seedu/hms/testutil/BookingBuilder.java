@@ -10,7 +10,7 @@ import java.util.Optional;
 import java.util.Set;
 
 import seedu.hms.model.booking.Booking;
-import seedu.hms.model.booking.ServiceType;
+import seedu.hms.model.booking.serviceType.ServiceType;
 import seedu.hms.model.customer.Customer;
 import seedu.hms.model.util.TimeRange;
 
@@ -32,7 +32,7 @@ public class BookingBuilder {
     private Optional<String> comment;
 
     public BookingBuilder() {
-        this.service = ServiceType.GYM;
+        this.service = new ServiceType(50, new TimeRange(8, 22), "Gym", 7.0);
         this.timing = new TimeRange(14, 16);
         this.payer = AMY;
         this.otherUsers = Optional.of(new ArrayList<>());
@@ -123,6 +123,7 @@ public class BookingBuilder {
 
     /**
      * Build the booking.
+     *
      * @return a booking
      */
     public Booking build() {

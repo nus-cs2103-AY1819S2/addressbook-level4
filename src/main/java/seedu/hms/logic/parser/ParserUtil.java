@@ -12,7 +12,9 @@ import java.util.Set;
 import seedu.hms.commons.core.index.Index;
 import seedu.hms.commons.util.StringUtil;
 import seedu.hms.logic.parser.exceptions.ParseException;
-import seedu.hms.model.booking.ServiceType;
+import seedu.hms.model.BookingModel;
+import seedu.hms.model.ReservationModel;
+import seedu.hms.model.booking.serviceType.ServiceType;
 import seedu.hms.model.customer.Address;
 import seedu.hms.model.customer.Customer;
 import seedu.hms.model.customer.DateOfBirth;
@@ -20,7 +22,7 @@ import seedu.hms.model.customer.Email;
 import seedu.hms.model.customer.IdentificationNo;
 import seedu.hms.model.customer.Name;
 import seedu.hms.model.customer.Phone;
-import seedu.hms.model.reservation.RoomType;
+import seedu.hms.model.reservation.roomType.RoomType;
 import seedu.hms.model.tag.Tag;
 import seedu.hms.model.util.DateRange;
 import seedu.hms.model.util.TimeRange;
@@ -86,8 +88,8 @@ public class ParserUtil {
     public static DateOfBirth parseDateOfBirth(String dob) throws ParseException {
         requireNonNull(dob);
         String trimmedDob = dob.trim();
-        if (!DateOfBirth.isValidDob(trimmedDob)) {
-            throw new ParseException(DateOfBirth.MESSAGE_CONSTRAINTS);
+        if (!(DateOfBirth.isValidDob(trimmedDob).getKey())) {
+            throw new ParseException(DateOfBirth.isValidDob(trimmedDob).getValue());
         }
         return new DateOfBirth(trimmedDob);
     }
@@ -158,20 +160,14 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code roomName} is invalid.
      */
-    public static RoomType parseRoom(String roomName) throws ParseException {
+    public static RoomType parseRoom(String roomName, ReservationModel reservationModel) throws ParseException {
         requireNonNull(roomName);
         String trimmedRoomName = roomName.trim();
-        switch (trimmedRoomName) {
-        case "SINGLE ROOM":
-            return RoomType.SINGLE;
-        case "DOUBLE ROOM":
-            return RoomType.DOUBLE;
-        case "DELUXE ROOM":
-            return RoomType.DELUXE;
-        case "FAMILY SUITE":
-            return RoomType.SUITE;
-        default:
-            throw new ParseException(String.format("Room Type %s doesn't exist!", trimmedRoomName));
+        RoomType parsedRoomType = reservationModel.getRoomType(trimmedRoomName);
+        if (parsedRoomType == null) {
+            throw new ParseException("Room type does not exist!");
+        } else {
+            return parsedRoomType;
         }
     }
 
@@ -181,20 +177,14 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code serviceName} is invalid.
      */
-    public static ServiceType parseService(String serviceName) throws ParseException {
+    public static ServiceType parseService(String serviceName, BookingModel bookingModel) throws ParseException {
         requireNonNull(serviceName);
         String trimmedServiceName = serviceName.trim();
-        switch (trimmedServiceName) {
-        case "GYM":
-            return ServiceType.GYM;
-        case "SWIMMING POOL":
-            return ServiceType.POOL;
-        case "SPA":
-            return ServiceType.SPA;
-        case "GAMES ROOM":
-            return ServiceType.GAMES;
-        default:
-            throw new ParseException(String.format("Service Type %s doesn't exist!", trimmedServiceName));
+        ServiceType parsedServiceType = bookingModel.getServiceType(trimmedServiceName);
+        if (parsedServiceType == null) {
+            throw new ParseException("Service does not exist!");
+        } else {
+            return parsedServiceType;
         }
     }
 
@@ -220,7 +210,7 @@ public class ParserUtil {
             if (startHour < 0 || startHour > 23 || endHour < 0 || endHour > 23) {
                 throw new ParseException("Hour does not lie in the valid range of 0 - 23");
             }
-            if (startHour > endHour) {
+            if (startHour >= endHour) {
                 throw new ParseException("End hour must be after start hour");
             }
         }
@@ -263,7 +253,8 @@ public class ParserUtil {
         requireNonNull(customerIndices);
         final List<Customer> result = new ArrayList<>();
         for (String customerIndex : customerIndices) {
-            result.add(customers.get(Integer.parseInt(customerIndex) - 1));
+            Customer customer = parseOtherCustomer(customerIndex, customers);
+            result.add(customer);
         }
         return Optional.of(result);
     }
@@ -278,5 +269,58 @@ public class ParserUtil {
             tagSet.add(parseTag(tagName));
         }
         return tagSet;
+    }
+
+    /**
+     * Parses a {@code String customerIndex} into a {@code Customer} using the {@code customers}.
+     * Leading and trailing whitespaces will be trimmed.
+     */
+    public static Customer parseOtherCustomer(String customerIndex, List<Customer> customers) throws ParseException {
+        requireNonNull(customerIndex);
+        try {
+            int index = Integer.parseInt(customerIndex);
+            return customers.get(index - 1);
+        } catch (Exception e) {
+            throw new ParseException(String.format("Invalid customer index for other users: %s", customerIndex));
+        }
+    }
+
+    /**
+     * Parses {@code String s} into a {@code capacity}.
+     */
+    public static int parseCapacity(String s) throws ParseException {
+        int c = Integer.parseInt(s.trim());
+        if (c <= 0) {
+            throw new ParseException("Capacity must be positive");
+        }
+        return c;
+    }
+
+    /**
+     * Parses {@code String s} into a {@code rate}.
+     */
+    public static double parseRate(String s) throws ParseException {
+        Double r = Double.parseDouble(s.trim());
+        if (r <= 0) {
+            throw new ParseException("Rate must be positive");
+        }
+        return r;
+    }
+
+    /**
+     * Parses a {@code String type} into a {@code Name}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code name} is invalid.
+     */
+    public static String parseType(String name) throws ParseException {
+        requireNonNull(name);
+        String trimmedName = name.trim();
+
+        if ((name.length() > 20) || !Name.isValidName(trimmedName)) {
+            throw new ParseException("Names should only contain alphanumeric characters and spaces, and it "
+                + "should not be blank. The length should be less than 15.");
+        }
+        return name;
     }
 }

@@ -15,9 +15,11 @@ import seedu.hms.logic.commands.AddReservationCommand;
 import seedu.hms.logic.parser.exceptions.ParseException;
 import seedu.hms.model.CustomerManager;
 import seedu.hms.model.CustomerModel;
+import seedu.hms.model.ReservationManager;
+import seedu.hms.model.ReservationModel;
 import seedu.hms.model.customer.Customer;
 import seedu.hms.model.reservation.Reservation;
-import seedu.hms.model.reservation.RoomType;
+import seedu.hms.model.reservation.roomType.RoomType;
 import seedu.hms.model.util.DateRange;
 
 /**
@@ -39,7 +41,7 @@ public class AddReservationCommandParser implements Parser<AddReservationCommand
      *
      * @throws ParseException if the user input does not conform the expected format
      */
-    public AddReservationCommand parse(String args, CustomerModel customerModel)
+    public AddReservationCommand parse(String args, CustomerModel customerModel, ReservationModel reservationModel)
         throws ParseException {
         ArgumentMultimap argMultimap =
             ArgumentTokenizer.tokenize(args, PREFIX_ROOM, PREFIX_DATES, PREFIX_PAYER, PREFIX_CUSTOMERS,
@@ -51,7 +53,7 @@ public class AddReservationCommandParser implements Parser<AddReservationCommand
                 AddReservationCommand.MESSAGE_USAGE));
         }
 
-        RoomType roomType = ParserUtil.parseRoom(argMultimap.getValue(PREFIX_ROOM).get());
+        RoomType roomType = ParserUtil.parseRoom(argMultimap.getValue(PREFIX_ROOM).get(), reservationModel);
         DateRange dates = ParserUtil.parseDates(argMultimap.getValue(PREFIX_DATES).get());
         Customer payer = ParserUtil.parseCustomer(argMultimap.getValue(PREFIX_PAYER).get(),
             customerModel.getFilteredCustomerList());
@@ -71,7 +73,7 @@ public class AddReservationCommandParser implements Parser<AddReservationCommand
      * @throws ParseException if the user input does not conform the expected format
      */
     public AddReservationCommand parse(String args) throws ParseException {
-        return parse(args, new CustomerManager());
+        return parse(args, new CustomerManager(), new ReservationManager());
     }
 
 }

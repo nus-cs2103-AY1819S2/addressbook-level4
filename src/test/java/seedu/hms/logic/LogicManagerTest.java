@@ -77,7 +77,7 @@ public class LogicManagerTest {
 
     @Test
     public void execute_commandExecutionError_throwsCommandException() {
-        String deleteCommand = "deletecustomer 9";
+        String deleteCommand = "delete-customer 9";
         assertCommandException(deleteCommand, MESSAGE_INVALID_CUSTOMER_DISPLAYED_INDEX);
         assertHistoryCorrect(deleteCommand);
     }
@@ -108,6 +108,7 @@ public class LogicManagerTest {
         CustomerManager expectedModel = new CustomerManager();
         expectedModel.addCustomer(expectedCustomer);
         expectedModel.commitHotelManagementSystem();
+        expectedModel.setSelectedCustomer(expectedCustomer);
         String expectedMessage = LogicManager.FILE_OPS_ERROR_MESSAGE + DUMMY_IO_EXCEPTION;
         assertCommandBehavior(CommandException.class, addCommand, expectedMessage, expectedModel);
         assertHistoryCorrect(addCommand);

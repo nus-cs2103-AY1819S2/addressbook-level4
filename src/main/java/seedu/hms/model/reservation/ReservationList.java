@@ -12,7 +12,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.hms.model.customer.Customer;
 import seedu.hms.model.reservation.exceptions.ReservationNotFoundException;
-import seedu.hms.model.reservation.exceptions.RoomFullException;
+import seedu.hms.model.reservation.roomType.RoomType;
+import seedu.hms.model.reservation.roomType.exceptions.RoomFullException;
 import seedu.hms.model.util.DateRange;
 
 /**
@@ -48,6 +49,16 @@ public class ReservationList implements Iterable<Reservation> {
             }
         }
         return Optional.empty();
+    }
+
+    public void setRoomType(RoomType oldRoomType, RoomType newRoomType) {
+        for (int i = 0; i < internalList.size(); i++) {
+            Reservation b = internalList.get(i);
+            if (b.getRoom().equals(oldRoomType)) {
+                this.setReservation(i, new Reservation(newRoomType, b.getDates(), b.getPayer(), b.getOtherUsers(),
+                    b.getComment()));
+            }
+        }
     }
 
     /**
@@ -106,7 +117,8 @@ public class ReservationList implements Iterable<Reservation> {
     }
 
     /**
-     * Removes bookings with payer as customer and removes customer from other associated bookings
+     * Removes reservations with payer as customer and removes customer from other associated bookings
+     *
      * @param key
      */
     public void removeCustomer(Customer key) {
@@ -120,6 +132,20 @@ public class ReservationList implements Iterable<Reservation> {
                 r.getOtherUsers().ifPresent(l -> l.remove(key));
                 this.setReservation(i, new Reservation(r.getRoom(), r.getDates(), r.getPayer(),
                     r.getOtherUsers(), r.getComment()));
+            }
+        }
+        internalList.removeAll(reservationsToRemove);
+    }
+
+    /**
+     * Removes all reservations with associated room type
+     */
+    public void removeRoomType(RoomType roomType) {
+        List<Reservation> reservationsToRemove = new ArrayList<>();
+        for (int i = 0; i < internalList.size(); i++) {
+            Reservation r = internalList.get(i);
+            if (r.getRoom().equals(roomType)) {
+                reservationsToRemove.add(r);
             }
         }
         internalList.removeAll(reservationsToRemove);
@@ -156,9 +182,20 @@ public class ReservationList implements Iterable<Reservation> {
 
     @Override
     public boolean equals(Object other) {
-        return other == this // short circuit if same object
-            || (other instanceof ReservationList // instanceof handles nulls
-            && internalList.equals(((ReservationList) other).internalList));
+        if (other == this) {
+            return true;
+        }
+        if (!(other instanceof ReservationList)) {
+            return false;
+        }
+        ReservationList ob = (ReservationList) other;
+        boolean eq = true;
+        for (int i = 0; i < internalList.size(); i++) {
+            if (!internalList.get(i).equals(ob.internalList.get(i))) {
+                eq = false;
+            }
+        }
+        return eq;
     }
 
     @Override

@@ -127,7 +127,6 @@ public class Customer {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        System.out.println(getDateOfBirth());
         builder.append(getName())
             .append(" Phone: ")
             .append(getPhone())

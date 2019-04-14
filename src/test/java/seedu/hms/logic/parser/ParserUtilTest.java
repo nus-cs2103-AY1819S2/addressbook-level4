@@ -3,6 +3,7 @@ package seedu.hms.logic.parser;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.hms.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
+import static seedu.hms.testutil.TypicalCustomers.getTypicalHotelManagementSystem;
 import static seedu.hms.testutil.TypicalIndexes.INDEX_FIRST_CUSTOMER;
 
 import java.util.Arrays;
@@ -15,13 +16,20 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.hms.logic.parser.exceptions.ParseException;
+import seedu.hms.model.BookingManager;
+import seedu.hms.model.ReservationManager;
+import seedu.hms.model.UserPrefs;
+import seedu.hms.model.VersionedHotelManagementSystem;
+import seedu.hms.model.booking.serviceType.ServiceType;
 import seedu.hms.model.customer.Address;
 import seedu.hms.model.customer.DateOfBirth;
 import seedu.hms.model.customer.Email;
 import seedu.hms.model.customer.IdentificationNo;
 import seedu.hms.model.customer.Name;
 import seedu.hms.model.customer.Phone;
+import seedu.hms.model.reservation.roomType.RoomType;
 import seedu.hms.model.tag.Tag;
+import seedu.hms.model.util.TimeRange;
 import seedu.hms.testutil.Assert;
 
 public class ParserUtilTest {
@@ -252,4 +260,76 @@ public class ParserUtilTest {
 
         assertEquals(expectedTagSet, actualTagSet);
     }
+
+    @Test
+    public void parseCapacity_throwsParseException() throws Exception {
+        thrown.expect(ParseException.class);
+        ParserUtil.parseCapacity("-1");
+    }
+
+    @Test
+    public void parseRate_throwsParseException() throws Exception {
+        thrown.expect(ParseException.class);
+        ParserUtil.parseRate("-1");
+    }
+
+    @Test
+    public void parseTiming_invalidArgs_throwsParseException() throws Exception {
+        thrown.expect(ParseException.class);
+        ParserUtil.parseTiming("0");
+    }
+
+    @Test
+    public void parseTiming_invalidHours_throwsParseException() throws Exception {
+        thrown.expect(ParseException.class);
+        ParserUtil.parseTiming("15-14");
+        ParserUtil.parseTiming("0-25");
+    }
+
+    @Test
+    public void parseDatesThrowsParseException() throws Exception {
+        thrown.expect(ParseException.class);
+        ParserUtil.parseDates("14/05/2019");
+    }
+
+    @Test
+    public void parseRoomTypeThrowsParseException() throws Exception {
+        thrown.expect(ParseException.class);
+        ParserUtil.parseRoom("SQUARE ROOM", new ReservationManager(
+            new VersionedHotelManagementSystem(getTypicalHotelManagementSystem()), new UserPrefs()));
+    }
+
+    @Test
+    public void parseRoomType_validValue_returnsRoomType() throws Exception {
+        RoomType roomType = new RoomType(100, "Single room", 500.0);
+        assertEquals(roomType, ParserUtil.parseRoom(roomType.getName(), new ReservationManager(
+            new VersionedHotelManagementSystem(getTypicalHotelManagementSystem()), new UserPrefs())));
+    }
+
+    @Test
+    public void parseServiceTypeThrowsParseException() throws Exception {
+        thrown.expect(ParseException.class);
+        ParserUtil.parseService("SALOON", new BookingManager(
+            new VersionedHotelManagementSystem(getTypicalHotelManagementSystem()), new UserPrefs()));
+    }
+
+    @Test
+    public void parseServiceType_validValue_returnsServiceType() throws Exception {
+        ServiceType serviceType = new ServiceType(50, new TimeRange(8, 22), "Gym", 7.0);
+        assertEquals(serviceType, ParserUtil.parseService(serviceType.getName(), new BookingManager(
+            new VersionedHotelManagementSystem(getTypicalHotelManagementSystem()), new UserPrefs())));
+    }
+
+    @Test
+    public void parseType_validValueWithoutWhitespace_returnsType() throws Exception {
+        String type = "SERVICE";
+        assertEquals(type, ParserUtil.parseType("SERVICE"));
+    }
+
+    @Test
+    public void parseTypeThrowsParseException() throws Exception {
+        thrown.expect(ParseException.class);
+        ParserUtil.parseType("QW ERTYUI O OPPY YTRR");
+    }
+
 }

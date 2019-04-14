@@ -12,6 +12,8 @@ import seedu.hms.commons.core.index.Index;
 import seedu.hms.logic.commands.EditBookingCommand;
 import seedu.hms.logic.commands.EditBookingCommand.EditBookingDescriptor;
 import seedu.hms.logic.parser.exceptions.ParseException;
+import seedu.hms.model.BookingManager;
+import seedu.hms.model.BookingModel;
 import seedu.hms.model.CustomerManager;
 import seedu.hms.model.CustomerModel;
 
@@ -26,7 +28,8 @@ public class EditBookingCommandParser implements Parser<EditBookingCommand> {
      *
      * @throws ParseException if the user input does not conform the expected format
      */
-    public EditBookingCommand parse(String args, CustomerModel customerModel) throws ParseException {
+    public EditBookingCommand parse(String args, CustomerModel customerModel, BookingModel bookingModel)
+        throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
             ArgumentTokenizer.tokenize(args, PREFIX_SERVICE, PREFIX_TIMING, PREFIX_PAYER,
@@ -43,7 +46,8 @@ public class EditBookingCommandParser implements Parser<EditBookingCommand> {
 
         EditBookingDescriptor editBookingDescriptor = new EditBookingDescriptor();
         if (argMultimap.getValue(PREFIX_SERVICE).isPresent()) {
-            editBookingDescriptor.setServiceType(ParserUtil.parseService(argMultimap.getValue(PREFIX_SERVICE).get()));
+            editBookingDescriptor.setServiceType(ParserUtil.parseService(argMultimap.getValue(PREFIX_SERVICE).get(),
+                bookingModel));
         }
         if (argMultimap.getValue(PREFIX_TIMING).isPresent()) {
             editBookingDescriptor.setTiming(ParserUtil.parseTiming(argMultimap.getValue(PREFIX_TIMING).get()));
@@ -74,6 +78,6 @@ public class EditBookingCommandParser implements Parser<EditBookingCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public EditBookingCommand parse(String args) throws ParseException {
-        return parse(args, new CustomerManager());
+        return parse(args, new CustomerManager(), new BookingManager());
     }
 }

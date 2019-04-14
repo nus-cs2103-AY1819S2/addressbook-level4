@@ -1,4 +1,4 @@
-package seedu.hms.model.reservation.exceptions;
+package seedu.hms.model.reservation.roomType.exceptions;
 
 /**
  * Signals that the operation will result in a reservation outside the room's operational hours.

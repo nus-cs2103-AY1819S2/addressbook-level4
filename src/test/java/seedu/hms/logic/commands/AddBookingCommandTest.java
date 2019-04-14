@@ -36,14 +36,14 @@ public class AddBookingCommandTest {
     @Test
     public void execute_customerAcceptedByModel_addSuccessful() throws Exception {
         BookingModel modelStub =
-                new BookingManager(new VersionedHotelManagementSystem(getTypicalHotelManagementSystem()),
-                        new UserPrefs());
+            new BookingManager(new VersionedHotelManagementSystem(getTypicalHotelManagementSystem()),
+                new UserPrefs());
         Booking validBooking = new BookingBuilder().build();
 
         CommandResult commandResult = new AddBookingCommand(validBooking).execute(modelStub, commandHistory);
 
         assertEquals(String.format(AddBookingCommand.MESSAGE_SUCCESS, validBooking),
-                commandResult.getFeedbackToUser());
+            commandResult.getFeedbackToUser());
         assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
     }
 

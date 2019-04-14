@@ -7,6 +7,8 @@ import static seedu.hms.logic.parser.CliSyntax.PREFIX_TIMING;
 
 import seedu.hms.logic.commands.FindBookingCommand;
 import seedu.hms.logic.parser.exceptions.ParseException;
+import seedu.hms.model.BookingManager;
+import seedu.hms.model.BookingModel;
 import seedu.hms.model.booking.BookingContainsPayerPredicate;
 import seedu.hms.model.booking.BookingWithTypePredicate;
 import seedu.hms.model.booking.BookingWithinTimePredicate;
@@ -22,10 +24,10 @@ public class FindBookingCommandParser implements Parser<FindBookingCommand> {
      *
      * @throws ParseException if the user input does not conform the expected format
      */
-    public FindBookingCommand parse(String args) throws ParseException {
+    public FindBookingCommand parse(String args, BookingModel bookingModel) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_IDENTIFICATION_NUMBER,
-                        PREFIX_SERVICE, PREFIX_TIMING);
+            ArgumentTokenizer.tokenize(args, PREFIX_IDENTIFICATION_NUMBER,
+                PREFIX_SERVICE, PREFIX_TIMING);
 
         if (!argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindBookingCommand.MESSAGE_USAGE));
@@ -34,7 +36,7 @@ public class FindBookingCommandParser implements Parser<FindBookingCommand> {
         BookingContainsPayerPredicate bookingContainsPayerPredicate;
         if (argMultimap.getValue(PREFIX_IDENTIFICATION_NUMBER).isPresent()) {
             bookingContainsPayerPredicate = new BookingContainsPayerPredicate(
-                    ParserUtil.parseIdNum(argMultimap.getValue(PREFIX_IDENTIFICATION_NUMBER).get()).toString());
+                ParserUtil.parseIdNum(argMultimap.getValue(PREFIX_IDENTIFICATION_NUMBER).get()).toString());
         } else {
             bookingContainsPayerPredicate = new BookingContainsPayerPredicate("");
         }
@@ -42,7 +44,7 @@ public class FindBookingCommandParser implements Parser<FindBookingCommand> {
         BookingWithTypePredicate bookingWithTypePredicate;
         if (argMultimap.getValue(PREFIX_SERVICE).isPresent()) {
             bookingWithTypePredicate = new BookingWithTypePredicate(
-                    ParserUtil.parseService(argMultimap.getValue(PREFIX_SERVICE).get()).getName());
+                ParserUtil.parseService(argMultimap.getValue(PREFIX_SERVICE).get(), bookingModel).getName());
         } else {
             bookingWithTypePredicate = new BookingWithTypePredicate("");
         }
@@ -52,8 +54,13 @@ public class FindBookingCommandParser implements Parser<FindBookingCommand> {
         BookingWithinTimePredicate bookingWithinTimePredicate = new BookingWithinTimePredicate(timeRange);
 
         return new FindBookingCommand(bookingContainsPayerPredicate,
-                bookingWithTypePredicate,
-                bookingWithinTimePredicate);
+            bookingWithTypePredicate,
+            bookingWithinTimePredicate);
+    }
+
+    @Override
+    public FindBookingCommand parse(String args) throws ParseException {
+        return parse(args, new BookingManager());
     }
 
 

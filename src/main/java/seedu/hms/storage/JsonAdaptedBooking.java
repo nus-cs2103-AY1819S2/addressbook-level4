@@ -10,7 +10,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.hms.commons.exceptions.IllegalValueException;
 import seedu.hms.model.booking.Booking;
-import seedu.hms.model.booking.ServiceType;
+import seedu.hms.model.booking.serviceType.ServiceType;
 import seedu.hms.model.customer.Customer;
 import seedu.hms.model.util.TimeRange;
 
@@ -64,13 +64,13 @@ class JsonAdaptedBooking {
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted customer.
      */
-    public Booking toModelType() throws IllegalValueException {
+    public Booking toModelType(List<JsonAdaptedServiceType> serviceTypes) throws IllegalValueException {
         List<Customer> others = new ArrayList<>();
         for (JsonAdaptedCustomer user : otherUsers) {
             others.add(user.toModelType());
         }
 
-        if (service == null) {
+        if (service == null || serviceTypes.indexOf(service) == -1) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                 ServiceType.class.getSimpleName()));
         }
@@ -83,8 +83,8 @@ class JsonAdaptedBooking {
         if (payer == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "payer"));
         }
-        return new Booking(service.toModelType(), timing.toModelType(), payer.toModelType(), Optional.of(others),
-            "".equals(comment) ? Optional.empty() : Optional.of(comment));
+        return new Booking(serviceTypes.get(serviceTypes.indexOf(service)).toModelType(), timing.toModelType(),
+            payer.toModelType(), Optional.of(others), "".equals(comment) ? Optional.empty() : Optional.of(comment));
     }
 
 }

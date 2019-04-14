@@ -104,6 +104,7 @@ When you are ready to start coding,
 1. Get some sense of the overall design by reading <<Design-Architecture>>.
 2. Take a look at <<GetStartedProgramming>>.
 
+// tag:architecture[]
 == Design
 
 [[Design-Architecture]]
@@ -144,10 +145,10 @@ Each of the four components
 [discrete]
 ==== How the architecture components interact with each other
 
-The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete-booking 1`.
+The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete-customer 1`.
 
-.Component interactions for `delete-booking 1` command
-image::logic-sequence-diagram.png[width="600"]
+.Component interactions for `delete-customer 1` command
+image::LogicComponentSequenceDiagram.png[width="600"]
 
 The sections below give more details of each component.
 
@@ -155,11 +156,11 @@ The sections below give more details of each component.
 === UI component
 
 .Structure of the UI Component
-image::ui-class-diagram.png[width:"1200"]
+image::UiClassDiagram.png[width:"1200"]
 
 *API* : link:{repoURL}/blob/master/src/main/java/seedu/hms/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `CustomerListPanel`, `StatusBarFooter` etc.
+The UI consists of a `MainWindow` that is made up of parts e.g.`StatsWindow`, `HelpWindow`, `ResultDisplay`, `CustomerListPanel`, `StatusBarFooter` etc.
 All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/blob/master/src/main/java/seedu/hms/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/blob/master/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
@@ -168,10 +169,10 @@ The `UI` component uses JavaFx UI framework. The layout of these UI parts are de
 
 ==== How the UI updates itself
 This is handled by the link:{repoURL}/blob/master/src/main/java/seedu/hms/commons/util/InvalidationListenerManager.java[`InvalidationListenerManager`].
-It is basically a list of `InvalidationListeners` linked to three lists - `UniqueCustomerList`, `BookingList` and `ReservationList`.
-A listener is added for each of the three lists when the `HotelManagementSystem` is set up using the
+It is basically a list of `InvalidationListeners` linked to three lists - `UniqueCustomerList`, `BookingList`, `ReservationList`, `RoomTypeList` and `ServiceTypeList`.
+A listener is added for each of the five lists when the `HotelManagementSystem` is set up using the
 link:https://github.com/cs2103-ay1819s2-t12-1/main/blob/90e374cb6e0dbafa2854fbc82792444434744a42/src/main/java/seedu/hms/model/HotelManagementSystem.java#L251[`addListener()`] method.
-Whenever a change is made to any of these three lists of the `HotelManagementSystem`, all the listeners are called
+Whenever a change is made to any of these five lists of the `HotelManagementSystem`, all the listeners are called
 using the link:https://github.com/cs2103-ay1819s2-t12-1/main/blob/90e374cb6e0dbafa2854fbc82792444434744a42/src/main/java/seedu/hms/model/HotelManagementSystem.java#L263[`indicateModified()`] method.
 Thus, the internal listeners when called update the UI automatically.
 
@@ -208,6 +209,10 @@ In addition, the `CommandResult` object can also instruct the User-Interface to 
 
 .Structure of the Model Component
 image::ModelClassDiagram.png[width:"600"]
+
+
+.Structure of the CustomerModel Component
+image::CustomerModelDiagram.png[width="200"]
 
 *API* : link:{repoURL}/blob/master/src/main/java/seedu/hms/model/Model.java[`Model.java`]
 
@@ -247,6 +252,7 @@ The `Storage` component,
 === Common classes
 
 Classes used by multiple components are in the `seedu.hms.commons` package.
+// end:architecture[]
 
 == Implementation
 
@@ -346,6 +352,7 @@ The reason we use identification number(ID) instead of name or other factors is 
 ** Cons: Requiring more work and the old abstraction may break.
 // end::filteringBooking[]
 
+// tag::bill-generation[]
 === Generating Bill for Customer functionality
 ==== Current Implementation
 
@@ -377,12 +384,16 @@ creating more work.
 
 ==== Aspect: Memory storage for bill
 
-* **Alternate 1 (current choice):** Bill doesn't get stored
+* **Alternate 1 (current choice):** Bill doesn't get stored.
 ** Pros: No work required to be done for storing the bills.
 ** Cons: If a new feature gets implemented, which requires history of bills, system will not be able to provide it.
-* **Alternative 2:**
+* **Alternative 2:** Bill gets stored.
 ** Pros: If bill history is required for a new feature, system will be able to provide it.
 ** Cons: Lot of work needs to be done for creating the storage of bills.
+
+.Component interactions for `generate-bill-customer 1` command
+image::GenerateBillLogicSequenceDiagram.png[width="600"]
+// end::bill-generation[]
 
 // tag::undoredo[]
 === Undo/Redo feature
@@ -974,6 +985,7 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
 *Value proposition*: manage contacts faster than a typical mouse/GUI driven app
 
 [appendix]
+// tag::user-stories[]
 == User Stories
 
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
@@ -1036,7 +1048,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`*` |hotel management staff |sort customers by name |locate a customer easily
 |=======================================================================
 
-_{More to be added}_
+// end::user-stories[]
 
 [appendix]
 == Use Cases
@@ -1402,8 +1414,6 @@ Steps 3 - 3a1 are repeated till a valid index is provided.
 .  Should be able to hold up to 1000 customers without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 
-_{More to be added}_
-
 [appendix]
 == Glossary
 
@@ -1457,7 +1467,7 @@ These instructions only provide a starting point for testers to work on; testers
 .. Test case: `add-customer` +
    Expected: No customer is added. Error details shown in the status message. Status bar remains the same.
 .. Other incorrect commands to try: `addcustomer n/test name`, `addcustomer n/123 456`...
-.. Test case: `addcustomer ...` followed by the details of an existing customer +
+.. Test case: `add-customer ...` followed by the details of an existing customer +
    Expected: No customer is added. Message shows "This customer already exists in the hms book". Status bar remains the same.
 
 ==== Deleting a customer
@@ -1634,3 +1644,14 @@ Deleting a room type while all room types are listed
    Expected: Bill is generated for customer at index 1. Bill amount for reservation and booking and total amount shown in the status message. Timestamp in the status bar is updated.
 .. Other incorrect generate bill for customer commands to try: `gbc`, `g-b-c`, `gb-c x` (where x is larger than the list size).. +
    Expected: Bill is not generated. Error details shown in the status message. Status bar remains the same.
+
+=== Switching tab
+
+. Switching tabs in the application.
+
+.. Test case: `st 1 2` +
+   Expected : Switches to Reservation tab in first panel and the appropriate message is displayed. Status bar remains the same.
+.. Test case: `st 1 0` +
+   Expected : No switch is made. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect switch tab commands to try: `st`, `st 1`, `st 1 2 3` ... +
+   Expected: Similar to previous.

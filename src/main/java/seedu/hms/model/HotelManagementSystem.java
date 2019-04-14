@@ -13,14 +13,14 @@ import javafx.collections.ObservableList;
 import seedu.hms.commons.util.InvalidationListenerManager;
 import seedu.hms.model.booking.Booking;
 import seedu.hms.model.booking.BookingList;
-import seedu.hms.model.booking.ServiceType;
-import seedu.hms.model.booking.ServiceTypeList;
+import seedu.hms.model.booking.serviceType.ServiceType;
+import seedu.hms.model.booking.serviceType.ServiceTypeList;
 import seedu.hms.model.customer.Customer;
 import seedu.hms.model.customer.UniqueCustomerList;
 import seedu.hms.model.reservation.Reservation;
 import seedu.hms.model.reservation.ReservationList;
-import seedu.hms.model.reservation.RoomType;
-import seedu.hms.model.reservation.RoomTypeList;
+import seedu.hms.model.reservation.roomType.RoomType;
+import seedu.hms.model.reservation.roomType.RoomTypeList;
 import seedu.hms.model.util.TimeRange;
 
 /**
@@ -90,6 +90,22 @@ public class HotelManagementSystem implements ReadOnlyHotelManagementSystem {
     }
 
     /**
+     * Replaces the contents of the reservation list with {@code reservations}.
+     */
+    public void setServiceTypes(List<ServiceType> serviceTypes) {
+        this.serviceTypes.setServiceTypes(serviceTypes);
+        indicateModified();
+    }
+
+    /**
+     * Replaces the contents of the reservation list with {@code reservations}.
+     */
+    public void setRoomTypes(List<RoomType> roomTypes) {
+        this.roomTypes.setRoomTypes(roomTypes);
+        indicateModified();
+    }
+
+    /**
      * Resets the existing data of this {@code HotelManagementSystem} with {@code newData}.
      */
     public void resetData(ReadOnlyHotelManagementSystem newData) {
@@ -98,6 +114,8 @@ public class HotelManagementSystem implements ReadOnlyHotelManagementSystem {
         setCustomers(newData.getCustomerList());
         setBookings(newData.getBookingList());
         setReservations(newData.getReservationList());
+        setServiceTypes(newData.getServiceTypeList());
+        setRoomTypes(newData.getRoomTypeList());
     }
 
     /**
@@ -110,7 +128,25 @@ public class HotelManagementSystem implements ReadOnlyHotelManagementSystem {
     }
 
     /**
-     * Resets the existing booking data of this {@code HotelManagementSystem} with {@code newData}
+     * Resets the existing room types data of this {@code HotelManagementSystem} with {@code newData}
+     */
+    public void resetDataRoomTypes(ReadOnlyHotelManagementSystem newData) {
+        requireNonNull(newData);
+
+        setRoomTypes(newData.getRoomTypeList());
+    }
+
+    /**
+     * Resets the existing service types data of this {@code HotelManagementSystem} with {@code newData}
+     */
+    public void resetDataServiceTypes(ReadOnlyHotelManagementSystem newData) {
+        requireNonNull(newData);
+
+        setServiceTypes(newData.getServiceTypeList());
+    }
+
+    /**
+     * Resets the existing reservation data of this {@code HotelManagementSystem} with {@code newData}
      */
     public void resetDataReservation(ReadOnlyHotelManagementSystem newData) {
         requireNonNull(newData);
@@ -125,6 +161,22 @@ public class HotelManagementSystem implements ReadOnlyHotelManagementSystem {
     public boolean hasCustomer(Customer customer) {
         requireNonNull(customer);
         return customers.contains(customer);
+    }
+
+    /**
+     * Returns true if a customer with the same identity as {@code customer} exists in the hms book.
+     */
+    public boolean hasServiceType(ServiceType st) {
+        requireNonNull(st);
+        return serviceTypes.contains(st);
+    }
+
+    /**
+     * Returns true if a customer with the same identity as {@code customer} exists in the hms book.
+     */
+    public boolean hasRoomType(RoomType st) {
+        requireNonNull(st);
+        return roomTypes.contains(st);
     }
 
     /**
@@ -208,6 +260,88 @@ public class HotelManagementSystem implements ReadOnlyHotelManagementSystem {
         indicateModified();
     }
 
+    //// service type level operations
+
+    /**
+     * Adds a booking to the hms book.
+     */
+    public void addServiceType(ServiceType p) {
+        serviceTypes.add(p);
+        indicateModified();
+    }
+
+    /**
+     * Replaces the serviceType at the given {@code serviceTypeIndex} in the list with {@code editedServiceType}.
+     * {@code serviceTypeIndex} must be within the list of serviceTypes.
+     */
+    public void setServiceType(int serviceTypeIndex, ServiceType editedServiceType) {
+        requireNonNull(editedServiceType);
+        ServiceType oldServiceType = serviceTypes.asUnmodifiableObservableList().get(serviceTypeIndex);
+        serviceTypes.setServiceType(serviceTypeIndex, editedServiceType);
+        bookings.setServiceType(oldServiceType, editedServiceType);
+        indicateModified();
+    }
+
+    /**
+     * Removes {@code key} from this {@code HotelManagementSystem}.
+     * {@code key} must exist in the hms book.
+     */
+    public void removeServiceType(int removeIndex) {
+        serviceTypes.remove(removeIndex);
+        indicateModified();
+    }
+
+    /**
+     * Removes {@code serviceType} from this {@code HotelManagementSystem}.
+     * {@code serviceType} must exist in the hms book.
+     */
+    public void removeServiceType(ServiceType b) {
+        serviceTypes.remove(b);
+        bookings.removeServiceTpe(b);
+        indicateModified();
+    }
+
+    //// service type level operations
+
+    /**
+     * Adds a booking to the hms book.
+     */
+    public void addRoomType(RoomType p) {
+        roomTypes.add(p);
+        indicateModified();
+    }
+
+    /**
+     * Replaces the roomType at the given {@code roomTypeIndex} in the list with {@code editedRoomType}.
+     * {@code roomTypeIndex} must be within the list of roomTypes.
+     */
+    public void setRoomType(int roomTypeIndex, RoomType editedRoomType) {
+        requireNonNull(editedRoomType);
+        RoomType oldRoomType = roomTypes.asUnmodifiableObservableList().get(roomTypeIndex);
+        roomTypes.setRoomType(roomTypeIndex, editedRoomType);
+        reservations.setRoomType(oldRoomType, editedRoomType);
+        indicateModified();
+    }
+
+    /**
+     * Removes {@code key} from this {@code HotelManagementSystem}.
+     * {@code key} must exist in the hms book.
+     */
+    public void removeRoomType(int removeIndex) {
+        roomTypes.remove(removeIndex);
+        indicateModified();
+    }
+
+    /**
+     * Removes {@code roomType} from this {@code HotelManagementSystem}.
+     * {@code roomType} must exist in the hms book.
+     */
+    public void removeRoomType(RoomType b) {
+        roomTypes.remove(b);
+        reservations.removeRoomType(b);
+        indicateModified();
+    }
+
     //// reservation-level operations
 
     /**
@@ -247,6 +381,7 @@ public class HotelManagementSystem implements ReadOnlyHotelManagementSystem {
         indicateModified();
     }
 
+
     @Override
     public void addListener(InvalidationListener listener) {
         invalidationListenerManager.addListener(listener);
@@ -271,7 +406,7 @@ public class HotelManagementSystem implements ReadOnlyHotelManagementSystem {
             .collect(Collectors.groupingBy(Booking::getService, Collectors.counting()))
             .entrySet().stream().sorted(Collections.reverseOrder(Map.Entry.comparingByValue()))
             .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e2,
-                    LinkedHashMap::new));
+                LinkedHashMap::new));
     }
 
     public Map<RoomType, Long> getPopularRoomTypes() {
@@ -332,7 +467,7 @@ public class HotelManagementSystem implements ReadOnlyHotelManagementSystem {
      * Return a string to represent the hms book.
      */
     public String toString() {
-        return customers.asUnmodifiableObservableList().size() + " customers";
+        return (customers.asUnmodifiableObservableList().size() + " customers").trim();
         // TODO: refine later
     }
 

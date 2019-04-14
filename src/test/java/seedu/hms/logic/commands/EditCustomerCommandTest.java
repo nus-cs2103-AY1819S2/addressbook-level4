@@ -223,7 +223,8 @@ public class EditCustomerCommandTest {
      */
     @Test
     public void executeUndoRedoValidIndexFilteredListSameCustomerEdited() throws Exception {
-        Customer editedCustomer = new CustomerBuilder().build();
+        Customer editedCustomer = new CustomerBuilder().withName("Tejas").withIdNum("Z4264533")
+            .withEmail("tejasbhuwania@gmail.com").withPhone("9830240327").build();
         EditCustomerCommand.EditCustomerDescriptor descriptor = new EditCustomerDescriptorBuilder(editedCustomer)
             .build();
         EditCustomerCommand editCustomerCommand = new EditCustomerCommand(INDEX_FIRST_CUSTOMER, descriptor);

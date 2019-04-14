@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
+import seedu.hms.model.booking.serviceType.ServiceType;
 import seedu.hms.model.customer.Customer;
 import seedu.hms.model.util.TimeRange;
 

@@ -55,7 +55,7 @@ public class CustomerUtil {
         descriptor.getEmail().ifPresent(email -> sb.append(PREFIX_EMAIL).append(email.value).append(" "));
         descriptor.getIdNum().ifPresent(identificationNo -> sb.append(PREFIX_IDENTIFICATION_NUMBER)
             .append(identificationNo.value).append(" "));
-        descriptor.getAddress().ifPresent(hms -> sb.append(PREFIX_ADDRESS).append(hms.value).append(" "));
+        descriptor.getAddress().ifPresent(address -> sb.append(PREFIX_ADDRESS).append(address.value).append(" "));
         if (descriptor.getTags().isPresent()) {
             Set<Tag> tags = descriptor.getTags().get();
             if (tags.isEmpty()) {

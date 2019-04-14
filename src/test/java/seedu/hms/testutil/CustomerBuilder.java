@@ -19,10 +19,10 @@ import seedu.hms.model.util.SampleDataUtil;
 public class CustomerBuilder {
 
     public static final String DEFAULT_NAME = "Alice Pauline";
-    public static final String DEFAULT_PHONE = "85355255";
-    public static final String DEFAULT_DOB = "01/02/1986";
-    public static final String DEFAULT_EMAIL = "alice@gmail.com";
-    public static final String DEFAULT_IDENTIFICATION_N0 = "T1223453A";
+    public static final String DEFAULT_PHONE = "94351253";
+    public static final String DEFAULT_DOB = "30/12/1999";
+    public static final String DEFAULT_EMAIL = "alice@example.com";
+    public static final String DEFAULT_IDENTIFICATION_N0 = "1231212A";
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
 
     private Name name;

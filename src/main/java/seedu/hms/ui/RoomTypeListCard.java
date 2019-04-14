@@ -3,7 +3,7 @@ package seedu.hms.ui;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
-import seedu.hms.model.reservation.RoomType;
+import seedu.hms.model.reservation.roomType.RoomType;
 
 //import javafx.scene.layout.HBox;
 

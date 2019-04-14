@@ -10,9 +10,10 @@ import static seedu.hms.logic.parser.CliSyntax.PREFIX_TIMING;
 import seedu.hms.logic.CommandHistory;
 import seedu.hms.logic.commands.exceptions.CommandException;
 import seedu.hms.model.BookingModel;
+import seedu.hms.model.Model;
 import seedu.hms.model.booking.Booking;
-import seedu.hms.model.booking.exceptions.ServiceFullException;
-import seedu.hms.model.booking.exceptions.ServiceUnavailableException;
+import seedu.hms.model.booking.serviceType.exceptions.ServiceFullException;
+import seedu.hms.model.booking.serviceType.exceptions.ServiceUnavailableException;
 
 /**
  * Adds a booking to the hms book.
@@ -55,6 +56,8 @@ public class AddBookingCommand extends BookingCommand {
         requireNonNull(model);
         try {
             model.addBooking(toAdd);
+            model.updateFilteredBookingList(Model.PREDICATE_SHOW_ALL_BOOKINGS);
+            model.setSelectedBooking(toAdd);
         } catch (ServiceUnavailableException e) {
             return new CommandResult(MESSAGE_SERVICE_UNAVAILABLE);
         } catch (ServiceFullException e) {

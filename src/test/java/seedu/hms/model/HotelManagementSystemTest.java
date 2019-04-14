@@ -23,11 +23,11 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.hms.model.booking.Booking;
-import seedu.hms.model.booking.ServiceType;
+import seedu.hms.model.booking.serviceType.ServiceType;
 import seedu.hms.model.customer.Customer;
 import seedu.hms.model.customer.exceptions.DuplicateCustomerException;
 import seedu.hms.model.reservation.Reservation;
-import seedu.hms.model.reservation.RoomType;
+import seedu.hms.model.reservation.roomType.RoomType;
 import seedu.hms.testutil.CustomerBuilder;
 
 public class HotelManagementSystemTest {

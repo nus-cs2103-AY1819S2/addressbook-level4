@@ -1,4 +1,4 @@
-package seedu.hms.model.reservation.exceptions;
+package seedu.hms.model.reservation.roomType.exceptions;
 
 import seedu.hms.model.util.DateRange;
 

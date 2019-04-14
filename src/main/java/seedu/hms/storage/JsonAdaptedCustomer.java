@@ -42,7 +42,7 @@ class JsonAdaptedCustomer {
     public JsonAdaptedCustomer(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
                                @JsonProperty("dob") String dob,
                                @JsonProperty("email") String email, @JsonProperty("idnum") String idnum,
-                               @JsonProperty("hms") String address,
+                               @JsonProperty("address") String address,
                                @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.name = name;
         this.phone = phone;
@@ -122,8 +122,8 @@ class JsonAdaptedCustomer {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                 DateOfBirth.class.getSimpleName()));
         }
-        if (!DateOfBirth.isValidDob(dob)) {
-            throw new IllegalValueException(DateOfBirth.MESSAGE_CONSTRAINTS);
+        if (!(DateOfBirth.isValidDob(dob).getKey())) {
+            throw new IllegalValueException(DateOfBirth.isValidDob(dob).getValue());
         }
         return new DateOfBirth(dob);
     }

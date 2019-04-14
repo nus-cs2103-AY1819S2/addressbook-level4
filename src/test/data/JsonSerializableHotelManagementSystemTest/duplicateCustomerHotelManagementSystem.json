@@ -6,7 +6,7 @@
       "dob": "30/12/1999",
       "email": "alice@example.com",
       "idnum": "12334535",
-      "hms": "123, Jurong West Ave 6, #08-111",
+      "address": "123, Jurong West Ave 6, #08-111",
       "tagged": [
         "friends"
       ]
@@ -17,11 +17,15 @@
       "email": "pauline@example.com",
       "dob": "30/12/1999",
       "idnum": "12334535",
-      "hms": "4th street"
+      "address": "4th street"
     }
   ],
   "bookings": [
   ],
   "reservations": [
+  ],
+  "serviceTypes": [
+  ],
+  "roomTypes": [
   ]
 }

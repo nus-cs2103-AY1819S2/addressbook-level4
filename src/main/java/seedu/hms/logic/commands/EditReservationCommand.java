@@ -16,13 +16,12 @@ import seedu.hms.commons.core.index.Index;
 import seedu.hms.commons.util.CollectionUtil;
 import seedu.hms.logic.CommandHistory;
 import seedu.hms.logic.commands.exceptions.CommandException;
-import seedu.hms.logic.parser.exceptions.ParseException;
 import seedu.hms.model.ReservationModel;
 import seedu.hms.model.customer.Customer;
 import seedu.hms.model.reservation.Reservation;
-import seedu.hms.model.reservation.RoomType;
-import seedu.hms.model.reservation.exceptions.RoomFullException;
-import seedu.hms.model.reservation.exceptions.RoomUnavailableException;
+import seedu.hms.model.reservation.roomType.RoomType;
+import seedu.hms.model.reservation.roomType.exceptions.RoomFullException;
+import seedu.hms.model.reservation.roomType.exceptions.RoomUnavailableException;
 import seedu.hms.model.util.DateRange;
 
 /**
@@ -40,10 +39,11 @@ public class EditReservationCommand extends ReservationCommand {
         + "[" + PREFIX_PAYER + "PAYER INDEX]\n"
         + "[" + PREFIX_CUSTOMERS + "CUSTOMER INDEX(s)...] "
         + "[" + PREFIX_COMMENT + "COMMENT]\n"
-        + "Example: " + COMMAND_WORD + " "
+        + "Example: " + COMMAND_WORD + " 1 "
         + PREFIX_ROOM + "GYM "
         + PREFIX_PAYER + "2 "
-        + PREFIX_CUSTOMERS + "1,3 "
+        + PREFIX_CUSTOMERS + "1 "
+        + PREFIX_CUSTOMERS + "3 "
         + PREFIX_COMMENT + "Edited second reservation to add reservations and change payer and room\n";
 
     public static final String MESSAGE_EDIT_RESERVATION_SUCCESS = "Reservation edited: %1$s";
@@ -144,8 +144,7 @@ public class EditReservationCommand extends ReservationCommand {
          * Copy constructor.
          * A defensive copy of {@code tags} is used internally.
          */
-        public EditReservationDescriptor(EditReservationCommand.EditReservationDescriptor toCopy)
-            throws ParseException {
+        public EditReservationDescriptor(EditReservationCommand.EditReservationDescriptor toCopy) {
             setRoomType(toCopy.roomType);
             setDates(toCopy.dates);
             setPayer(toCopy.payer);

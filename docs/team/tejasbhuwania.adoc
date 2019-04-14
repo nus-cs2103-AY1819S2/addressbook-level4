@@ -1,0 +1,79 @@
+= Tejas Bhuwania - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+image:tejas2805.png[width="150", align="right"]
+
+
+== PROJECT: HMS+
+
+---
+
+== Overview
+
+HMS+ is a hotel management system made for hotels to manage their customers and their relevant transactions.
+The hotel staff interacts with it using a Command Line Interface (CLI), and it has a Graphical User Interface (GUI) created with JavaFX.
+It is written in Java and has around 15k LOC.
+
+== Summary of contributions
+
+* *Major enhancement*: Added the complete backend for the bill generating commands.
+** What it does: It allows the hotel staff to generate bills for the customers.
+** Justification: This is important for the application as this generates the bill for the amenities used by the customer during his stay in the hotel.
+** Highlights: This enhancement allows the user to generate bills for a specific customer, a specific booking or a specific reservation. I had
+to make sure that I use the already implemented reservation and booking models while creating the newer bill model and make sure that the model has access to all bookings and reservations
+simultaneously so that it can generate the bill based on the command entered by the user.
+** Credits: I mainly used the concepts from the existing codebase and those that were taught in CS2103T to implement my features.
+** Related Files:
+*** https://github.com/cs2103-ay1819s2-t12-1/main/tree/master/src/main/java/seedu/hms/model/bill[Bill Model]
+
+* *Minor enhancements*:
+** Implemented the https://github.com/cs2103-ay1819s2-t12-1/main/pull/131[clear hotel management system command], https://github.com/cs2103-ay1819s2-t12-1/main/pull/134[the clear reservation command] and https://github.com/cs2103-ay1819s2-t12-1/main/pull/124[the clear booking command] so that the user can have an easy access to an empty database.
+** Implemented the https://github.com/cs2103-ay1819s2-t12-1/main/pull/81[Date of Birth] and https://github.com/cs2103-ay1819s2-t12-1/main/pull/28[Identification Number] fields for Customer keeping in mind that
+as a Hotel Management System these are important fields to identify a customer.
+** Made the UI more understandable to a first time user. https://github.com/cs2103-ay1819s2-t12-1/main/pull/145[#145], https://github.com/cs2103-ay1819s2-t12-1/main/pull/146[#146]
+
+* *Other contributions*:
+
+** Project management:
+*** Did the jar release for Dry Run of CS2103 Practical Exam.
+*** Created a separate issue for all the user stories with labels, milestones and assignees. https://github.com/cs2103-ay1819s2-t12-1/main/issues/82[#82] to https://github.com/cs2103-ay1819s2-t12-1/main/issues/110[#110]
+*** Reviewed and approved several PRs. https://github.com/cs2103-ay1819s2-t12-1/main/pull/173[#173]
+*** Reported and fixed bugs along with suggestions for team-mates. https://github.com/cs2103-ay1819s2-t12-1/main/pull/175[#175]
+*** Kept on updating the user guide based on the features getting implemented in the application.
+** Enhancements to existing features:
+*** Added aliases for each command so that the user can type a shorter version of the same command. https://github.com/cs2103-ay1819s2-t12-1/main/pull/2[#2]
+*** Made the Address field of a customer https://github.com/cs2103-ay1819s2-t12-1/main/pull/132[optional] for the user to input.
+** Documentation:
+*** Added Prefix list to the user guide so that the user can easily refer to the prefixes in case required.
+*** Added color-coding to the user guide so that the user can easily understand the difference between the command word, the command prefixes and the command parameters.
+
+** Tools:
+*** Set Up Asciidoctor. This helps in converting asciidocs to html files and viewing how will the file look as a Web page.
+
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=introduction]
+
+include::../UserGuide.adoc[tag=generation-bill-commands]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=user-stories]
+
+include::../DeveloperGuide.adoc[tag=bill-generation]
+
+== Achievements and Learnings
+
+
+

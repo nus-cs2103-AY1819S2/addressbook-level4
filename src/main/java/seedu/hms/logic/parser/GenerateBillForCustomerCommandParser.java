@@ -19,10 +19,12 @@ import seedu.hms.model.CustomerModel;
 import seedu.hms.model.bill.Bill;
 import seedu.hms.model.booking.Booking;
 import seedu.hms.model.booking.BookingContainsPayerPredicate;
+import seedu.hms.model.booking.serviceType.ServiceType;
 import seedu.hms.model.customer.Customer;
 import seedu.hms.model.customer.IdentificationNo;
 import seedu.hms.model.reservation.Reservation;
 import seedu.hms.model.reservation.ReservationContainsPayerPredicate;
+import seedu.hms.model.reservation.roomType.RoomType;
 
 /**
  * Parses input arguments and creates a new GenerateBillForCustomerCommand object
@@ -65,7 +67,8 @@ public class GenerateBillForCustomerCommandParser implements Parser<GenerateBill
         bookingPredicate = bookingContainsPayerPredicate;
         billModel.updateFilteredBookingList(bookingPredicate);
         ObservableList<Booking> bookingObservableList = billModel.getFilteredBookingList();
-        HashMap<String, Pair<Double, Integer>> bookingBill = billModel.generateHashMapForBooking(bookingObservableList);
+        HashMap<ServiceType, Pair<Double, Integer>> bookingBill =
+            billModel.generateHashMapForBooking(bookingObservableList);
 
         //Reservation bill
         ReservationContainsPayerPredicate reservationContainsPayerPredicate =
@@ -74,16 +77,10 @@ public class GenerateBillForCustomerCommandParser implements Parser<GenerateBill
         reservationPredicate = reservationContainsPayerPredicate;
         billModel.updateFilteredReservationList(reservationPredicate);
         ObservableList<Reservation> reservationObservableList = billModel.getFilteredReservationList();
-        HashMap<String, Pair<Double, Long>> reservationBill =
+        HashMap<RoomType, Pair<Double, Long>> reservationBill =
             billModel.generateHashMapForReservation(reservationObservableList);
 
-        // total amount for booking
-        double amountBooking = billModel.generateBillForBooking(bookingObservableList);
-
-        //total amount for reservation
-        double amountReservation = billModel.generateBillForReservation(reservationObservableList);
-
-        Bill bill = new Bill(customer, amountReservation, amountBooking, bookingBill, reservationBill);
+        Bill bill = new Bill(customer, bookingBill, reservationBill);
 
         return new GenerateBillForCustomerCommand(bookingContainsPayerPredicate, reservationContainsPayerPredicate,
             bill);

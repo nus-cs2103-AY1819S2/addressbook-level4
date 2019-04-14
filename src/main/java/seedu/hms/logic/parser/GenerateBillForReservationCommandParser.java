@@ -1,8 +1,10 @@
 package seedu.hms.logic.parser;
 
 import static seedu.hms.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.hms.logic.parser.CliSyntax.PREFIX_DATES;
 import static seedu.hms.logic.parser.CliSyntax.PREFIX_ROOM;
 
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.function.Predicate;
@@ -17,12 +19,17 @@ import seedu.hms.model.BillManager;
 import seedu.hms.model.BillModel;
 import seedu.hms.model.CustomerManager;
 import seedu.hms.model.CustomerModel;
+import seedu.hms.model.ReservationManager;
+import seedu.hms.model.ReservationModel;
 import seedu.hms.model.bill.Bill;
 import seedu.hms.model.customer.Customer;
 import seedu.hms.model.customer.IdentificationNo;
 import seedu.hms.model.reservation.Reservation;
 import seedu.hms.model.reservation.ReservationContainsPayerPredicate;
+import seedu.hms.model.reservation.ReservationWithDatePredicate;
 import seedu.hms.model.reservation.ReservationWithTypePredicate;
+import seedu.hms.model.reservation.roomType.RoomType;
+import seedu.hms.model.util.DateRange;
 
 /**
  * Parses input arguments and creates a new GenerateBillForReservationCommand object
@@ -34,10 +41,11 @@ public class GenerateBillForReservationCommandParser implements Parser<GenerateB
      *
      * @throws ParseException if the user input does not conform the expected format
      */
-    public GenerateBillForReservationCommand parse(String args, CustomerModel customerModel, BillModel billModel)
+    public GenerateBillForReservationCommand parse(String args, CustomerModel customerModel, BillModel billModel,
+                                                   ReservationModel reservationModel)
         throws ParseException {
         ArgumentMultimap argMultimap =
-            ArgumentTokenizer.tokenize(args, PREFIX_ROOM);
+            ArgumentTokenizer.tokenize(args, PREFIX_ROOM, PREFIX_DATES);
 
         Index index;
         try {
@@ -64,34 +72,46 @@ public class GenerateBillForReservationCommandParser implements Parser<GenerateB
         ReservationWithTypePredicate reservationWithTypePredicate;
         if (argMultimap.getValue(PREFIX_ROOM).isPresent()) {
             reservationWithTypePredicate = new ReservationWithTypePredicate(
-                ParserUtil.parseRoom(argMultimap.getValue(PREFIX_ROOM).get()).getName());
+                ParserUtil.parseRoom(argMultimap.getValue(PREFIX_ROOM).get(), reservationModel).getName());
         } else {
             reservationWithTypePredicate = new ReservationWithTypePredicate("");
         }
 
         //Search in whole day if timing is not provided
-        //        DateRange dateRange = ParserUtil.parseDates(argMultimap.getValue(PREFIX_DATES)
-        //            .orElse("01/01/0001-31/12/9999"));
-        //        ReservationWithDatePredicate reservationWithDatePredicate = new ReservationWith
-        // DatePredicate(dateRange);
+        String currentDate = Integer.toString(Calendar.getInstance().getTime().getDate());
+        String currentMonth = Integer.toString(Calendar.getInstance().getTime().getMonth() + 1);
+        String currentYear = Integer.toString(Calendar.getInstance().getTime().getYear() + 1900);
+        String currentDay = String.format("%s/%s/%s", currentDate, currentMonth, currentYear);
+
+        Calendar oneYearAfterCurrentDate = Calendar.getInstance();
+        for (int i = 0; i < 364; i++) {
+            oneYearAfterCurrentDate.setTimeInMillis(
+                oneYearAfterCurrentDate.getTimeInMillis() + 24 * 60 * 60 * 1000);
+        }
+        String oneYearAfterCurrentDateDate = Integer.toString(oneYearAfterCurrentDate.getTime().getDate());
+        String oneYearAfterCurrentDateMonth = Integer.toString(oneYearAfterCurrentDate.getTime().getMonth() + 1);
+        String oneYearAfterCurrentDateYear = Integer.toString(oneYearAfterCurrentDate.getTime().getYear() + 1900);
+        String oneYearAfterCurrentDay = String.format("%s/%s/%s", oneYearAfterCurrentDateDate,
+            oneYearAfterCurrentDateMonth, oneYearAfterCurrentDateYear);
+
+        DateRange dateRange = ParserUtil.parseDates(argMultimap.getValue(PREFIX_DATES)
+            .orElse(currentDay + "-" + oneYearAfterCurrentDay));
+        ReservationWithDatePredicate reservationWithDatePredicate =
+            new ReservationWithDatePredicate(dateRange);
 
         //Reservation bill
         Predicate<Reservation> reservationPredicate;
         reservationPredicate = (reservationTested) -> reservationContainsPayerPredicate.test(reservationTested)
-            && reservationWithTypePredicate.test(reservationTested);
-        //     && reservationWithDatePredicate.test(reservationTested);
+            && reservationWithTypePredicate.test(reservationTested)
+            && reservationWithDatePredicate.test(reservationTested);
         billModel.updateFilteredReservationList(reservationPredicate);
         ObservableList<Reservation> reservationObservableList = billModel.getFilteredReservationList();
-        HashMap<String, Pair<Double, Long>> reservationBill =
+        HashMap<RoomType, Pair<Double, Long>> reservationBill =
             billModel.generateHashMapForReservation(reservationObservableList);
 
-        //total amount for reservation
-        double amountReservation = billModel.generateBillForReservation(reservationObservableList);
-
-        Bill bill = new Bill(customer, amountReservation, new HashMap<>(), reservationBill);
+        Bill bill = new Bill(customer, new HashMap<>(), reservationBill);
         return new GenerateBillForReservationCommand(reservationContainsPayerPredicate,
-            reservationWithTypePredicate,
-            //      reservationWithDatePredicate,
+            reservationWithTypePredicate, reservationWithDatePredicate,
             bill);
     }
 
@@ -102,7 +122,7 @@ public class GenerateBillForReservationCommandParser implements Parser<GenerateB
      * @throws ParseException if the user input does not conform the expected format
      */
     public GenerateBillForReservationCommand parse(String args) throws ParseException {
-        return parse(args, new CustomerManager(), new BillManager());
+        return parse(args, new CustomerManager(), new BillManager(), new ReservationManager());
     }
 
 }

@@ -17,7 +17,7 @@ public class Name {
     /*
      * Ensures the name of the file has to be valid and of an image type.
      */
-    public static final String VALIDATION_REGEX = "([^\\s]+(\\.(?i)(jpg|png|gif|bmp|tiff|tif))$)";
+    public static final String VALIDATION_REGEX = "([^\\s]+(\\.(?i)(jpg|jpeg|png|gif|bmp|tiff|tif))$)";
 
     public final String baseName;
     public final String extName;

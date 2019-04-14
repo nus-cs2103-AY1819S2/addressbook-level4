@@ -68,7 +68,6 @@ public class SetPresetCommand extends Command {
             }
         }
 
-
         if (this.isNewCommand) {
             this.isNewCommand = false;
             currentEdit.addCommand(this);

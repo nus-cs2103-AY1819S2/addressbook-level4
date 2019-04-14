@@ -174,14 +174,41 @@ image::UiClassDiagram.png[width="800"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of the following
+components:
 
-The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
+ * `CommandBox`
+ * `ResultDisplay`
+ * `ImagePanel`
+ * `InitPanel`
+ * `InformationPanel`
+ * `StatusBarFooter`
+ * `HelpWindow`
 
-The `UI` component,
+All components, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
-* Executes user commands using the `Logic` component.
-* Listens for changes to `Model` data so that the UI can be updated with the modified data.
+The `InformationPanel` comprises of three tabs:
+
+. Album Images
+- Displays all images currently opened in the `assets` folder and available for editing.
+. EXIF Profile
+- Displays all ancillary tags attached to the currently opened
+image such as metadata information like *Date and Time* and *Copyright information*.
+. Command History
+- Display all *Image Transformation* and *Image Filters* applied to the currently opened image.
+
+The `UI` component is supported by a `Notifier` class. The class implements Java's `propertyChangeListener` as means of drawing updates to the User Interface.
+
+For example, the `ImageView` component draws updates to an opened image in the following sequence:
+
+. Register the `ImageView` component with the `Notifier` class.
+. `Notifier` is called when `Open` command is executed with a given Property Name.
+. `Notifier` fires an alert with the Property Name to all registered listener.
+. `ImageView` checks if the Property Name is pertaining to it and redraws the image shown by accessing `Album`.
+
+[NOTE]
+The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`InitPanel`] is specified in link:{repoURL}/src/main/resources/view/InitPanel.fxml[`InitPanel.fxml`]
+
 // end::ui[]
 
 [[Design-Logic]]
@@ -217,15 +244,9 @@ image::LogicRotateSd.png[width="800"]
 .Structure of the Model Component
 image::ModelComponents.png[width="800"]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/model/CurrentEdit.java[`CurrentEdit.java`], link:{repoURL}/src/main/java/seedu/address/model/Album.java[`Album.java`]
+*API* : link:{repoURL}/src/main/java/seedu/address/model/CurrentEdit.java[`CurrentEdit.java`], link:{repoURL}/src/main/java/seedu/address/model/Album.java[`Album.java`], link:{repoURL}/src/main/java/seedu/address/model/Album.java[`Image.java`]
 
-The Model component consists of `Album` class and `CurrentEdit` class.
-
-`Album` Class:
-
-* stores imported images as a list of images.
-* contains methods to access `assets` folder.
-
+The Model component comprises of two main classes, `Album` and `CurrentEdit`.
 
 `CurrentEdit` Class:
 
@@ -235,6 +256,25 @@ The Model component consists of `Album` class and `CurrentEdit` class.
 * stores a list of commands that the user input after an image is opened.
 * contains methods to access `temp` folder.
 // end::DesignModel[]
+
+//tag::albumModel[]
+The `Album` class is implemented using the Singleton pattern. This design choice was purposely made as only a single instance of `Album` should reside in FomoFoto any any one time. This design also reduces the need for passing instance variables across all logic and model components.
+
+The core functions of the `Album` class are listed below.
+
+* Stores a reference to all imported images as List.
+* Contains various helper method to access `assets folder`, the storage for the raw image files.
+* Fires property changes to listeners attached to the `Notifier` to redraw UI elements.
+
+The Model also comprises of a smaller subclass, `Image`.
+
+The `Image` class encapsulates the fields of a raw image file. This design choice allows for better abstraction between classes and easy reuse between commands.
+
+The core functions of the `Image` class are listed below.
+
+* Validation checks to see if raw image is a valid Image.
+* Keeps a command history of edits executed on this Image.
+//end::albumModel[]
 
 ////
 [NOTE]
@@ -258,6 +298,17 @@ The `assets` and `temp` folders form the storage component of FomoFoto.
 * The `CurrentEdit` class contains methods to overwrite and retrieve the image that the program is currently editing on.
 // end::StorageComponent[]
 
+//tag::DetailsStorage[]
+The `assets` and `temp` folder from the storage component of FomoFoto. Both folder are created during runtime of the application.
+
+The `assets` folder is created in the same directory where FomoFoto is first launched and persist between sessions. The `assets` folder is marked as `FomoFoto.assets`.
+
+The `temp` folder is created per FomoFoto session. The target folder for the `Temporary File` directory is in both Windows and OS X. The `temp` folder is removed on program exit.
+
+[NOTE]
+If FomoFoto is not given the permissions to write `assets` and `temp` to their respective directories i.e. limited write permissions, the application might not function properly.
+//end::DetailsStorage[]
+
 [[Design-Commons]]
 === Common classes
 
@@ -269,32 +320,62 @@ This section describes some noteworthy details on how certain features are imple
 
 // tag::import[]
 === Import feature
-The Import Command allow users to import a file of image format into FomoFoto for editing.
+The Import Command allow users to import a file of an image format into FomoFoto for editing.
 
 ==== Current implementation
-The implementation of the import feature is largely similar to that of linux's `cp` command, with the exception the output path is fixed. It is facilitated by he `ModelManager` and `ImportCommandParser` and contains the follow operation:
+The implementation of the import feature allows for users to either:
 
- * `Model#displayImage(Image)` - Retrives the image from `assets` folder by `Image` name field.
- * `ImportCommandParser#parse(String)` - Takes in an absolute path and copies the image to `assets` directory.
+ * Import a single image file.
+ * Import all image files in a directory.
+ * Import a sample list of image files.
+
+Image file must adhere to a subset of the following formats as describe by its MIME type standardized in IETF's RFC 6838:
+
+* `.bmp`
+* `.jpeg` or `.jpg`
+* `.png`
+* `.tif` or `.tiff`
+* `.gif`
+
+[NOTE]
+Images with `.tif` or `.tiff` formats are not rendered on screen due to a limitation with JavaFX but edits made will still be applied.
+Support for additional formats will be available past V2.0.
+
+Images must also adhere to the following additional requirements:
+
+. Not be hidden or prepended by a `.` dot identifier.
+. Not be over 10MB in size.
+. Not have the same name of an existing image in the Album.
+
+[NOTE]
+Implementation of these checks can be found in `ImportCommandParser`.
+
+Images found in the given arguments will be copied to an `assets` folder created at runtime in FomoFoto's home directory. Details of this folder can be found here. This is facilitated by the `Album` class and `ImportCommandParser` and contains the follow operation:
+
+ * `Album#refreshAlbum()` - Fires a property change to all registered listeners. Listeners addressing this particular property will trigger and update accordingly.
+ * `ImportCommandParser#parse(String)` - Takes in an absolute path, perform sanity checks on availability, size, format and copies the image to `assets` directory.
+
+Additionally, the `import sample` command is supported by the `ResourceWalker` class. This class traverses through a sample folder of valid image files and populates FomoFoto.
 
 Example usage scenario:
 
- 1. User launches application and enters `import C:\Users\images\sample.png`
- 2. `ImportCommandParser` takes in arguments and performs validation on given path. Image is copied to `assets` folder if the path is valid.
- 3. `Model` display the imported image to UI by calling the `Notifier` class which calls on the display panel listening to the notifier.
- 4. `ImagePanel` updates to reflect the imported image.
+ 1. User launches application and enters `import C:\Users\Addison\Desktop\sample.png`
+ 2. `ImportCommandParser` takes in arguments and performs validation on given path. Image is copied to `assets` folder and added to Album if it is valid.
+ 3. `Album` display the imported image to UI by calling the `Notifier` class which calls on the display panel listening to the notifier.
+ 4. `InformationPanel` updates to reflect the imported image in the Album.
 
+.Sequence Diagram for Import Command
 image::ImportSequenceDiagram.png[width=800]
 
 ==== Design Considerations
 
-* *Alternative 1 (current choice)*: Import images with absolute path.
-** Pros: Easy and clement implementation.
-** Cons: Limited to single image import.
+* *Alternative 1*: Import single images only.
+** Pros: Easy to implement.
+** Cons: Importing multiple images from same folder needs repeated commands.
 
-* *Alternative 2* : Open images within a directory.
+* *Alternative 2 (Current Choice)*: Import images from directory as well.
 ** Pros: Can import many images without repeating the command.
-** Cons: Can result in errors in too mny images or images are of alternative formats.
+** Cons: Can result in errors if too many images are imported or images are of alternative formats.
 // end::import[]
 
 // tag::OpenAndListFiles[]
@@ -552,17 +633,19 @@ Given below is an example usage scenario and how the undo/redo mechanism behaves
 
 Step 1. The user opens an image. The `Image` will be initialized with an empty commandHistory List.
 
-image::UndoRedoStartingStateListDiagram.png[width="800"]
+.State list diagram for undo/redo
+image::UndoRedoStartingStateListDiagram.png[width="600"]
 
 Step 2. The user executes a series of transformations on the image. These transformations are stored in the commandHistory list and for each transformation stored, the index is incremented by 1 to point to that transformation.
 
-image::UndoRedoNewCommand1StateListDiagram.png[width="800"]
-
-image::UndoRedoNewCommand2StateListDiagram.png[width="800"]
+.First Transformation
+image::UndoRedoNewCommand1StateListDiagram.png[width="600"]
+.Second Transformation
+image::UndoRedoNewCommand2StateListDiagram.png[width="600"]
 
 Step 3. The user wants to undo the previous transformation by using the `undo` command. It will call `CurrentEdit#replaceTempWithOriginal()` which will replace the edited image in temp folder with the original image. It will then call `CurrentEdit#setUndoTemp()` to set the index in `tempImage` to the required index and retrieve the list with `CurrentEdit#getHistoryTemp()`. Using the list, it will apply the commands onto the original image till it reaches the command just before the set index.
-
-image::UndoRedoNewCommand3StateListDiagram.png[width="800"]
+.Undo transformation
+image::UndoRedoNewCommand3StateListDiagram.png[width="600"]
 
 [NOTE]
 If a command fails its execution, it will return the image before undo was called and produce an error message.
@@ -570,15 +653,15 @@ If a command fails its execution, it will return the image before undo was calle
 Step 4. After executing Undo, `index` will be less than size of commandHistory. If redo is not executed before a new command is added, all commands in the list after `index` will be deleted.
 
 For redo, it will call `setRedo` and retrieve that command to apply it on the current image.
-
-image::UndoRedoExecuteUndoStateListDiagram.png[width="800"]
+.State List diagram
+image::UndoRedoExecuteUndoStateListDiagram.png[width="600"]
 
 [NOTE]
 If the `Image#index` is 0, pointing to the initial photo, then there are no previous commands to restore. The `undo` command uses `CurrentEdit#canUndoTemp()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
 
 The following sequence diagram shows how the undo operation works:
-
-image::UndoRedoSequenceDiagram.png[width="800"]
+.Sequence Diagram
+image::UndoRedoSequenceDiagram.png[width="600"]
 
 The `redo` command does the opposite -- it calls `CurrentEdit#setRedoTemp()`, which shifts the `index` once to the right, pointing to the previously undone command, and executes that command to perform the transformation.
 
@@ -589,7 +672,7 @@ Step 5. The user executes `saves`, which calls `CurrentEdit#saveToAssets()`. Thi
 
 The following activity diagram summarizes what happens when a user executes a new command:
 
-image::UndoRedoActivityDiagram.png[width="650"]
+image::UndoRedoActivityDiagram.png[width="600"]
 
 ==== Design Considerations
 
@@ -681,6 +764,36 @@ Step 10.`Album#refreshAlbum()` is called to update the Information Panel on the 
 
 Alternative 2 was chosen as the user is likely to use `save` frequently. Since the `assets` folder functions like an album, images can be re-imported if they are accidentally overwritten. The user is able to `save` easily and choose to resume editing immediately or at a later time.
 // end::Save[]
+
+// tag::Export[]
+=== Export Feature
+
+The `export` command exports a file in the album into a specified directory.
+
+==== Current Implementation
+The export function is facilitated by `Album`. It uses the following operations:
+
+* `Album#getImageFromList(String)` - returns an image from the album with name matching the input string and null if no image matches the input string.
+
+Given below is an example usage scenario and how the `export` mechanism behaves at each step.
+
+Step 1. The user executes `export f/iu.jpg d/C:\Users\randy\Desktop`.
+
+Step 2. `ExportCommandParser` checks if user has input the command correctly.
+
+Step 3. `Album#getImageFromList` checks if the file to be exported exists in the album and throws a `CommandException` if it does not exist.
+
+Step 4. `ExportCommand#validPath` checks if the specified directory is valid and throws a `CommandException` if it is not.
+
+Step 5. If file to be exported exists and directory is valid, the file will be copied to the directory.
+
+
+The following sequence diagram shows how the `save` command works:
+
+.Sequence Diagram for Save Command
+image::SaveCommandSequenceDiagram.png[width=800]
+
+// end::Export[]
 
 //tag::WaterMark[]
 === WaterMark Feature

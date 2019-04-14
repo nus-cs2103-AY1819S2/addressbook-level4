@@ -35,7 +35,8 @@ Recruit Me is a Java Desktop GUI application that is specifically designed for a
 *** Shows the matching CV for selected person, if there is an available CV in the storage for that person.
 *** If no CV is present for the selected person, it shows the placeholder page with the message: No CV is available.
 ** *Justification:*
-*** This feature gives the user a better chance to see more important information about the candidate easily. It is a nice-to-have feature.
+*** This feature gives the user a better chance to see more important information about the candidate easily.
+*** It is a nice-to-have feature.
 ** *Highlights:*
 *** This feature affects the GUI related parts of the code and also the test codes related to them. Thus, after this enhancement, all the related parts are observed for any possible errors and also unit and integration tests are corrected.
 ** *Related Pull Requests for This Feature:*
@@ -45,47 +46,44 @@ Recruit Me is a Java Desktop GUI application that is specifically designed for a
 
 * *Minor enhancement*:
 ** Managed releases `v1.3`, `v1.3.1` and `v1.4`
-** Some minor changes are made for the methods in AddressBook, ModelManager and VersionedAddressBook classes that AddCommand, DeleteCommand and EditCommand uses for the compatibility with filtering process:
-** Fixed almost all failing system tests / GUI related tests / Edit Command tests in every update process of the process:
-** Travis Checkstyle errors and some test errors are fixed:
-** Updated README page and UI.png in each next step of the project:
+** Some minor changes are made for the methods in `AddressBook, ModelManager and VersionedAddressBook` classes that `AddCommand, DeleteCommand and EditCommand` uses for the compatibility with filtering process:
+** Fixed almost all failing `system tests / GUI related tests / Edit Command tests` in every update process of the process:
+** `Travis Checkstyle errors` are fixed mostly by me:
 
-== Other contributions:
+== Contributions to the User Guide:
 
-* Contributions to the User Guide
-
-** Filtering process is added to the User guide as a new section.
-*** Usage forms are added with some examples.
-*** An explanation about the purpose of its function is explained.
-** For the newly implemented CV showing process, a section is added.
-*** Some explanation about the current progress about the feature is included.
-*** The enhancements needed for this feature for v2.0 is included.
-** About multiple person addition (planned for v2.0) a new section is added.
-** Updated `Add Command / List Command / Select Command Sections`.
-** The changes can be seen in:
-*** `UserGuide -> Features -> Filtering Recruit Me: filter` +
+* Filtering process is added to the User guide as a new section.
+** Usage forms are added with some examples.
+** An explanation about the purpose of its function is explained.
+* For the newly implemented CV showing process, a section is added.
+** Some explanation about the current progress about the feature is included.
+** The enhancements needed for this feature for v2.0 is included.
+* About multiple person addition (planned for v2.0) a new section is added.
+* Updated `Add Command / List Command / Select Command Sections`.
+* The changes can be seen in:
+** `UserGuide -> Features -> Filtering Recruit Me: filter` +
 include::../UserGuide.adoc[tag=filter]
-*** `UserGuide -> Features -> Filtering Recruit Me: filter clear` +
+** `UserGuide -> Features -> Filtering Recruit Me: filter clear` +
 include::../UserGuide.adoc[tag=filterclear]
-*** `UserGuide -> Features -> Filtering Recruit Me: filter reverse` +
+** `UserGuide -> Features -> Filtering Recruit Me: filter reverse` +
 include::../UserGuide.adoc[tag=filterreverse]
-*** `UserGuide -> Features -> Showing and Updating the CV for a Person` +
+** `UserGuide -> Features -> Showing and Updating the CV for a Person` +
 include::../UserGuide.adoc[tag=cvview]
-*** `UserGuide -> Features -> Adding Multiple Persons [coming in v2.0]` +
+** `UserGuide -> Features -> Adding Multiple Persons [coming in v2.0]` +
 include::../UserGuide.adoc[tag=addmultiplepersons]
 
-* Contributions to the Developer Guide
+== Contributions to the Developer Guide:
 
-** A new section for filtering is added to the developer guide.
-** Implementation of filtering process, other alternatives and implementation of tests are explained.
-** Some of the use cases and user stories are updated.
-** The changes can be seen in `DeveloperGuide -> Implementation -> Filter or/and/clear feature`
+* A new section for filtering is added to the developer guide.
+* Implementation of filtering process, other alternatives and implementation of tests are explained.
+* Some of the use cases and user stories are updated.
+* The changes can be seen in `DeveloperGuide -> Implementation -> Filter or/and/clear feature`
 
-* Contributions to the README.doc
+== Contributions to README:
 
-** Explanation of the application is updated.
-** Some parts about the changes in every version is updated.
-** UI.png is updated.
-** For every new version, the progresses are updated.
+* Explanation of the application is updated.
+* Some parts about the changes in every version is updated.
+* UI.png is updated.
+* For every new version, the progresses are updated.
 include::../../README.adoc[]
 

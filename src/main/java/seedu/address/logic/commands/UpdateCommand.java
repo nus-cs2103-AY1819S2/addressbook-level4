@@ -35,7 +35,7 @@ public class UpdateCommand extends Command {
             + "Parameters: INDEX "
             + PREFIX_BATCHNUMBER + "BATCH_NUMBER "
             + "[" + PREFIX_QUANTITY + "QUANTITY] "
-            + "[" + PREFIX_EXPIRY + "EXPIRY]\n"
+            + "[" + PREFIX_EXPIRY + "EXPIRY_DATE]\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_BATCHNUMBER + "HH-156224 "
             + PREFIX_QUANTITY + "40 "

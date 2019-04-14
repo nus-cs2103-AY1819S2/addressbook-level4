@@ -3,12 +3,26 @@
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-== About the Project: TeethHub
+== PROJECT: TeethHub
 
-TeethHub is a desktop application specially designed for tech-savvy dentists, who prefers to use the command line interface, as opposed to the traditional graphical user interface.
+In a software engineering module in school, my team was given a brownfield development task to enhance an application: The AddressBook 4.
+
+My team and I took a step further, to morph the provided application into one of our choice. The result was TeethHub.
+
+== Overview
+
+TeethHub is a desktop application specially designed for tech-savvy dentists, who prefers to use the command line interface.
 
 The user interacts with the application through the type via the command line interface, and graphical representations of the stored data will be shown.
 The program is written in Java.
+
+As of version 1.4: +
+TeethHub allows Dentists to manage patient information, records of each patient and tasks for the dentist. TeethHub can also export them to a PDF file. +
+TeethHub displays the latest teeth information in the form of an image that follows the *Universal Numbering System* dental notation.
+TeethHub displays statistics generated from all patients and records stored in it.
+
+The GUI of TeethHub is created with JavaFX. TeethHub is written in Java, and has about 20,000 lines of code. +
+TeethHub was morphed from AddressBook 4, which had about 10,000 lines of code.
 
 == Summary of contributions
 
@@ -37,12 +51,18 @@ The implementation too was demanding, as many factors need to be considered.
 
 ** Project management:
 *** Managed releases `v1.1` - `v1.4` (4 releases) on GitHub
-*** Ran manual testings and reported found bugs and issues on the group reposition on GitHub (i.e. #57, #58)
+
 ** Enhancements to existing features:
 *** Added a new GUI to allow users to interact with a specific patient's dental records.
 *** Wrote additional tests for new features to significantly increase coverage (~1%).
+
+** Contributions to team members' enhancements:
+*** Suggested the idea of using user-interface switching, which is essential to user experience.
+*** Suggested the idea to use various color tagging to denote tooth conditions of patients.
+*** Ran manual testings and reported found bugs and issues on the group reposition on GitHub (e.g. https://github.com/CS2103-AY1819S2-W17-2/main/issues/57[1], https://github.com/CS2103-AY1819S2-W17-2/main/issues/58[2]).
+
 ** Community:
-*** Reported bugs and suggestions for other teams in the class (during the mock and actual practical examinations)
+*** Reported bugs and suggestions for other teams in the class (e.g. https://github.com/nus-cs2103-AY1819S2/pe-dry-run/issues/117[1], https://github.com/nus-cs2103-AY1819S2/pe-dry-run/issues/415[2])
 
 == Contributions to the User Guide
 

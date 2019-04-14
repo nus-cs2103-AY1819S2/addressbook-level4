@@ -39,8 +39,8 @@ public class AddReservationCommand extends ReservationCommand {
         + PREFIX_COMMENT + "Need one more pillow.\n";
 
     public static final String MESSAGE_SUCCESS = "New reservation added: %1$s";
-    public static final String MESSAGE_ROOM_FULL = "The room has been booked fully during your requested hours";
-    public static final String MESSAGE_ROOM_UNAVAILABLE = "The room is not available during your requested hours";
+    public static final String MESSAGE_ROOM_FULL = "The room has been booked fully during your requested date range";
+    public static final String MESSAGE_ROOM_UNAVAILABLE = "The room is not available during your requested date range";
 
     private final Reservation toAdd;
 

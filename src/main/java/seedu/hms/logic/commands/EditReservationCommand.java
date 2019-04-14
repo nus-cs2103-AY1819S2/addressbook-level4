@@ -48,8 +48,8 @@ public class EditReservationCommand extends ReservationCommand {
 
     public static final String MESSAGE_EDIT_RESERVATION_SUCCESS = "Reservation edited: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_ROOM_FULL = "The room has been booked fully during your requested hours";
-    public static final String MESSAGE_ROOM_UNAVAILABLE = "The room is not available during your requested hours";
+    public static final String MESSAGE_ROOM_FULL = "The room has been booked fully during your requested date range";
+    public static final String MESSAGE_ROOM_UNAVAILABLE = "The room is not available during your requested date range";
 
     private final EditReservationDescriptor editReservationDescriptor;
     private final Index index;

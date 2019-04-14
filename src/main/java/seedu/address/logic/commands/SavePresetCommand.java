@@ -10,7 +10,6 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.CurrentEdit;
 import seedu.address.model.Model;
 import seedu.address.model.TransformationSet;
-import seedu.address.model.image.Image;
 
 /**
  * This command allows users to save a preset of commands.

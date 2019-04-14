@@ -1,8 +1,7 @@
 package seedu.address.logic.parser;
 
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_JOBNAME;
-
-import java.util.stream.Stream;
 
 import seedu.address.logic.commands.AddListToJobCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -25,46 +24,27 @@ public class AddListToJobCommandParser implements Parser<AddListToJobCommand> {
                 ArgumentTokenizer.tokenize(args, PREFIX_JOBNAME);
 
         JobListName toListName;
-        JobListName fromListName;
+        JobListName fromListName = JobListName.EMPTY;
         JobName toAdd;
-        String preambleString = argMultimap.getPreamble();
-        String toListNameString = preambleString.split("\\s+")[0].trim();
-        try {
-            toListName = ParserUtil.parseJobListName(toListNameString);
-            if (toListName == JobListName.EMPTY) {
-                throw new ParseException(String.format(AddListToJobCommand.MESSAGE_NO_DESTINATION,
-                        AddListToJobCommand.MESSAGE_USAGE));
-            }
-        } catch (ParseException pe) {
-            throw new ParseException(String.format(AddListToJobCommand.MESSAGE_NO_DESTINATION,
-                    AddListToJobCommand.MESSAGE_USAGE), pe);
+
+        toListName = ParserUtil.parseJobListName(args.split("\\b\\s")[0].trim());
+
+        if (toListName == JobListName.EMPTY) {
+            throw new ParseException(AddListToJobCommand.MESSAGE_NO_DESTINATION
+                    + String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddListToJobCommand.MESSAGE_USAGE));
         }
+
         try {
-            String fromListNameString = preambleString.split("\\s+")[1].trim();
-            fromListName = ParserUtil.parseJobListName(fromListNameString);
-            try {
-                toAdd = ParserUtil.parseJobName(argMultimap.getValue(PREFIX_JOBNAME).get());
-            } catch (Exception noJob) {
-                toAdd = null;
-            }
-        } catch (Exception noSource) {
-            fromListName = JobListName.STUB;
-            try {
-                toAdd = ParserUtil.parseJobName(argMultimap.getValue(PREFIX_JOBNAME).get());
-            } catch (Exception noJob) {
-                toAdd = null;
-            }
+            toAdd = ParserUtil.parseJobName(argMultimap.getValue(PREFIX_JOBNAME).get());
+        } catch (Exception noJob) {
+            toAdd = null;
+        }
+
+        if ((toAdd == null && args.split("\\b\\s").length > 1) || args.split("\\b\\s").length > 2) {
+            fromListName = ParserUtil.parseJobListName(args.split("\\b\\s")[1].trim());
         }
 
         return new AddListToJobCommand(toAdd, toListName, fromListName);
-    }
-
-    /**
-     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
-     * {@code ArgumentMultimap}.
-     */
-    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
 
 }

@@ -127,4 +127,10 @@ public interface ReservationModel extends Model {
      * Clears all the reservations present in the {@code hotelManagementSystem}.
      */
     void setClearReservation(ReadOnlyHotelManagementSystem hotelManagementSystem);
+
+
+    /**
+     * Clears all the room types present in the {@code hotelManagementSystem}.
+     */
+    void setClearRoomTypes(ReadOnlyHotelManagementSystem hotelManagementSystem);
 }

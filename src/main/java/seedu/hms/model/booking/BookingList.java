@@ -61,6 +61,7 @@ public class BookingList implements Iterable<Booking> {
 
     /**
      * Removes bookings with payer as customer and removes customer from other associated bookings
+     *
      * @param key
      */
     public void removeCustomer(Customer key) {
@@ -87,6 +88,20 @@ public class BookingList implements Iterable<Booking> {
                     b.getComment()));
             }
         }
+    }
+
+    /**
+     * Removes all bookings that are associated with a specific service type.
+     */
+    public void removeServiceTpe(ServiceType serviceType) {
+        List<Booking> bookingsToRemove = new ArrayList<>();
+        for (int i = 0; i < internalList.size(); i++) {
+            Booking b = internalList.get(i);
+            if (b.getService().equals(serviceType)) {
+                bookingsToRemove.add(b);
+            }
+        }
+        internalList.removeAll(bookingsToRemove);
     }
 
     /**

@@ -162,7 +162,7 @@ Format: `sort CATEGORY [CATEGORY_RESTRICTOR] ORDER`
 [NOTE]
 ====
 `CATEGORY` List: `n`, `sp`, `rp` +
-`CATEGORY_RESTRICTOR`: `<NAME`, `>NAME`, `<SELLING_PRICE`, `>SELLING_PRICE`, `<RENTAL_PRICE`, `>RENTAL_PRICE` +
+`CATEGORY_RESTRICTOR` List: `<NAME`, `>NAME`, `<SELLING_PRICE`, `>SELLING_PRICE`, `<RENTAL_PRICE`, `>RENTAL_PRICE` +
 `ORDER` List: `ascending`, `decreasing`
 ====
 
@@ -241,8 +241,8 @@ Example: `edit 2 n/James Lee p/87654321 rp/1700 t/MRT t/Park`
 
 * *Tenant:* +
 Format: `edit INDEX_TENANT [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [r/REMARKS]` +
-Example: `edit 2 n/James Lee p/87654321 r/`
-** Edits the name and phone number of the 2nd contact to be `James Lee` and `87654321` respectively and clears existing remarks.
+Example: `edit 2 n/James Lee p/87654321 `
+** Edits the name and phone number of the 2nd contact to be `James Lee` and `87654321` respectively.
 
 [NOTE]
 ====
@@ -348,7 +348,7 @@ Format: `pinselect INDEX`
 ****
 * Selects the contact at the specified `INDEX` and displays all the contact and property information, as well as the address location of the associated property on the Google Maps(TM) window panel.
 * The index refers to the index number shown in the displayed pin list.
-* The index *must be a positive integer no greater than `5` and the number of contacts in the pin list, whichever is bigger.
+* The index must be a positive integer no greater than `5` and the number of contacts in the pin list, whichever is bigger.
 ****
 
 [NOTE]
@@ -365,7 +365,7 @@ Selects the 2nd contact in the pin book.
 // tag::archivefeatures[]
 === Archiving a contact : `archive`
 
-Moves the specified contact to the archive from the normal contact book. +
+Moves the specified contact from the normal contact book to the archive . +
 Archived contacts can *only* be accessed through a archive search function. +
 Format: `archive INDEX`
 
@@ -419,7 +419,7 @@ Go to <<GoogleMaps>> for more details of the Google Maps(TM) display.
 Examples:
 
 * `archivelist` +
-`select 2` +
+`archiveselect 2` +
 Selects the 2nd contact in the archive book.
 
 === Searching for archived contact(s) : `archivesearch`
@@ -455,7 +455,7 @@ Example:
 `unarchive 2` +
 Moves the the 2nd contact from the archived contacts list back into the contact book.
 * `archivesearch James` +
-`select 1` +
+`unarchive 1` +
 Moves the 1st contact in the results of the `archivesearch` command from the archive back into the contact book.
 
 === Clearing all entries in archive: `archiveclear`

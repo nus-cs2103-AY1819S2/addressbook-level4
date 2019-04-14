@@ -13,11 +13,11 @@ import seedu.address.model.appointment.UniqueAppointmentList;
 import seedu.address.model.medicalhistory.MedicalHistory;
 import seedu.address.model.medicalhistory.UniqueMedHistList;
 import seedu.address.model.person.Doctor;
-import seedu.address.model.person.patient.Patient;
 import seedu.address.model.person.PersonId;
 import seedu.address.model.person.PersonIdCounter;
 import seedu.address.model.person.UniqueDoctorList;
 import seedu.address.model.person.UniquePatientList;
+import seedu.address.model.person.patient.Patient;
 import seedu.address.model.prescription.Prescription;
 import seedu.address.model.prescription.UniquePrescriptionList;
 
@@ -41,8 +41,7 @@ public class DocX implements ReadOnlyDocX {
      *
      * Note that non-static init blocks are not recommended to use. There are other ways to avoid duplication
      * among constructors.
-     */
-    {
+     */ {
         patients = new UniquePatientList();
         doctors = new UniqueDoctorList();
         medHists = new UniqueMedHistList();
@@ -316,6 +315,7 @@ public class DocX implements ReadOnlyDocX {
     }
 
     //// medical history-level operations
+
     /**
      * Set Patient in medical history to null if the patient is deleted
      */
@@ -376,6 +376,7 @@ public class DocX implements ReadOnlyDocX {
     }
 
     //// prescription-level operations
+
     /**
      * Set Doctor in prescription to null if the patient is deleted
      */
@@ -495,7 +496,6 @@ public class DocX implements ReadOnlyDocX {
     public PersonIdCounter getPersonIdCounter() {
         return personIdCounter;
     }
-
 
 
     @Override

@@ -17,13 +17,13 @@ import seedu.address.model.appointment.AppointmentStatus;
 import seedu.address.model.appointment.AppointmentTime;
 import seedu.address.model.medicalhistory.ValidDate;
 import seedu.address.model.medicalhistory.WriteUp;
-import seedu.address.model.person.patient.Address;
-import seedu.address.model.person.patient.Age;
 import seedu.address.model.person.Gender;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.PersonId;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Year;
+import seedu.address.model.person.patient.Address;
+import seedu.address.model.person.patient.Age;
 import seedu.address.model.prescription.Description;
 import seedu.address.model.prescription.Medicine;
 import seedu.address.model.tag.Specialisation;
@@ -39,6 +39,7 @@ public class ParserUtil {
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
      * trimmed.
+     *
      * @throws ParseException if the specified index is invalid (not non-zero unsigned integer).
      */
     public static Index parseIndex(String oneBasedIndex) throws ParseException {
@@ -168,6 +169,7 @@ public class ParserUtil {
         }
         return new Address(trimmedAddress);
     }
+
     /**
      * Parses a {@code String description} into a {@code description}.
      * Leading and trailing whitespaces will be trimmed.

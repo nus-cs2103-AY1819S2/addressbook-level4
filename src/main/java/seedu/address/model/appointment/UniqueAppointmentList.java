@@ -12,8 +12,8 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.model.appointment.exceptions.AppointmentNotFoundException;
 import seedu.address.model.appointment.exceptions.DuplicateAppointmentException;
 import seedu.address.model.person.Doctor;
-import seedu.address.model.person.patient.Patient;
 import seedu.address.model.person.PersonId;
+import seedu.address.model.person.patient.Patient;
 
 /**
  * Supports a minimal set of list operations.
@@ -69,6 +69,7 @@ public class UniqueAppointmentList implements Iterable<Appointment> {
 
     /**
      * Replace the content of the list with another list.
+     *
      * @param replacement the new list to replace the current list
      */
     public void setAppointments(UniqueAppointmentList replacement) {
@@ -133,6 +134,7 @@ public class UniqueAppointmentList implements Iterable<Appointment> {
 
     /**
      * Set the underlying patient object of the appointments whose patient was deleted to null.
+     *
      * @param deleted id of the deleted patient
      */
     public void setPatientToNull(PersonId deleted) {
@@ -153,6 +155,7 @@ public class UniqueAppointmentList implements Iterable<Appointment> {
 
     /**
      * Set the underlying doctor object of the appointments whose doctor was deleted to null.
+     *
      * @param deleted id of the deleted doctor
      */
     public void setDoctorToNull(PersonId deleted) {

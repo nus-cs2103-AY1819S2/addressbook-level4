@@ -4,8 +4,8 @@ import java.util.Objects;
 
 import seedu.address.model.medicalhistory.ValidDate;
 import seedu.address.model.person.Doctor;
-import seedu.address.model.person.patient.Patient;
 import seedu.address.model.person.PersonId;
+import seedu.address.model.person.patient.Patient;
 
 /**
  * Represents a Prescription in the docX.
@@ -26,8 +26,8 @@ public class Prescription {
     private Medicine medicine;
 
     //Constructor
-    public Prescription (PersonId patientId, PersonId doctorId, ValidDate date,
-                         Medicine medicine, Description description) {
+    public Prescription(PersonId patientId, PersonId doctorId, ValidDate date,
+                        Medicine medicine, Description description) {
 
         this.patientId = patientId;
         this.doctorId = doctorId;
@@ -90,6 +90,7 @@ public class Prescription {
                 && otherPrescription.getDescription().equals(this.getDescription())
                 && otherPrescription.getMedicine().getName().equals(this.getMedicine().getName());
     }
+
     /**
      * Returns true if both prescriptions have the same medicine, patientId, doctorId and description
      */

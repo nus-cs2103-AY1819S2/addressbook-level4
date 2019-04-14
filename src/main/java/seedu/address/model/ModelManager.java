@@ -21,10 +21,10 @@ import seedu.address.model.appointment.exceptions.AppointmentNotFoundException;
 import seedu.address.model.medicalhistory.MedicalHistory;
 import seedu.address.model.medicalhistory.exceptions.MedHistNotFoundException;
 import seedu.address.model.person.Doctor;
-import seedu.address.model.person.patient.Patient;
 import seedu.address.model.person.PersonId;
 import seedu.address.model.person.exceptions.DoctorNotFoundException;
 import seedu.address.model.person.exceptions.PatientNotFoundException;
+import seedu.address.model.person.patient.Patient;
 import seedu.address.model.prescription.Prescription;
 import seedu.address.model.prescription.exceptions.PrescriptionNotFoundException;
 
@@ -388,7 +388,7 @@ public class ModelManager implements Model {
 
             boolean wasSelectedPatientReplaced =
                     change.wasReplaced() && change.getAddedSize() == change.getRemovedSize()
-                    && change.getRemoved().contains(selectedPatient.getValue());
+                            && change.getRemoved().contains(selectedPatient.getValue());
             if (wasSelectedPatientReplaced) {
                 // Update selectedPatient to its new value.
                 int index = change.getRemoved().indexOf(selectedPatient.getValue());

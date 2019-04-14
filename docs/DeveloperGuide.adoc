@@ -1319,12 +1319,12 @@ Use case ends.
 Use case ends.
 
 [discrete]
-=== Use case: Display module info
+=== Use case: Display NUS module information
 
 *MSS*
 
-1.  Student keys command to find module code or keywords in the title of module.
-2.  System returns module given module code or keywords.
+1.  User enters `displaymod` to find an NUS module based on module code or keywords in the module title.
+2.  System returns full module information.
 +
 Use case ends.
 
@@ -1332,8 +1332,36 @@ Use case ends.
 === Use case: Recommend modules
 *MSS*
 
-1. User enters `rec` command.
-2.
+1.  User enters `rec` command.
+2.  System returns a list of module codes (with title) that the user is recommended to take.
++
+Use case ends.
+
+[discrete]
+=== Use case: Find modules
+*MSS*
+
+1. User enters `find` command to search the module plan based on module code, semester, grade or finished status.
+2. System returns a list of modules in the module plan which satisfy the given parameters.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. User enters `find` without parameters.
++
+[none]
+** 1a1. System gives an "invalid command format" message and provides the correct format.
++
+Use case ends.
+
+* 1b. User enters an invalid grade or semester.
++
+[none]
+** 1b1. System rejects the command and provides the correct format for grade or semester.
++
+Use case ends.
 
 [appendix]
 == Non Functional Requirements

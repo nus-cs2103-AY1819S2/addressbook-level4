@@ -4,7 +4,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.knowitall.commons.core.Messages.MESSAGE_INVALID_ANSWER_COMMAND;
 import static seedu.knowitall.commons.core.Messages.MESSAGE_INVALID_COMMAND_OUTSIDE_FULLSCREEN;
-import static seedu.knowitall.logic.commands.AnswerCommand.MESSAGE_INT_EXPECTED_NOT_STRING;
+import static seedu.knowitall.logic.commands.AnswerCommand.MESSAGE_OPTION_NUMBER_EXPECTED;
 import static seedu.knowitall.logic.commands.CommandTestUtil.VALID_ANSWER_1;
 import static seedu.knowitall.logic.commands.CommandTestUtil.VALID_ANSWER_2;
 import static seedu.knowitall.logic.commands.CommandTestUtil.assertCommandFailure;
@@ -136,8 +136,9 @@ public class AnswerCommandTest {
             expectedModel.testNextCard();
         }
 
-        AnswerCommand answerCommand = new AnswerCommand(new Answer(VALID_ANSWER_1));
-        assertCommandFailure(answerCommand, model, commandHistory, MESSAGE_INT_EXPECTED_NOT_STRING);
+        Card testedCard = model.getCurrentTestedCard();
+        AnswerCommand answerCommand = new AnswerCommand(testedCard.getAnswer());
+        assertCommandFailure(answerCommand, model, commandHistory, MESSAGE_OPTION_NUMBER_EXPECTED);
     }
 
     @Test

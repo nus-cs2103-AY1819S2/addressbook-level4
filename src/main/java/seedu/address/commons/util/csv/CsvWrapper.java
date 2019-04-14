@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.FileAlreadyExistsException;
+import java.nio.file.FileSystemException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -78,6 +79,10 @@ public class CsvWrapper {
         } catch (FileAlreadyExistsException fae) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + csvFileName + ".csv" + " already exists in \""
                     + DEFAULT_EXPORT_FOLDER_NAME + "\" directory.");
+        } catch (FileSystemException fse) {
+            throw new CommandException((FILE_OPS_ERROR_MESSAGE + fse.getClass().getName() + ": " + fse.getReason()
+                    + "One possible reason is the specified file name "
+                    + "is too long for your current operating system's file system."));
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }

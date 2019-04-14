@@ -934,24 +934,47 @@ The above activity diagram summarizes the overall implementation of [.java]#Reve
 arguments, the function creates a new [.java]#Revenue# and iterate through the revenue list to search for revenue of
 the same year, month or day. If the revenue is the same as the new [.java#]Revenue#, its total revenue is added to the
 new [.java]#Revenue#. After which, the new [.java]#Revenue# is used to generate the [.java]#CommandResult# output
-string.
+string where the calculated figure will be returned.
 
 ===== Design Considerations
 
 [width="90%",cols="20%,40%,40%",options="header",]
 |=======================================================================
 | Aspect | Alternative 1 | Alternative 2
-| Validation regex of Year, Month and Day
-| Allow single and double digits +
-- *Pros*:  +
-- *Cons*: +
+| Validation regex of Month and Day
+| Allow single and double digits. +
+- *Pros*: Users type less, providing convenience. +
 
 Since the user input will eventually be parsed as an integer during its validation check, there is no need to
 restrict the day and month inputs to 2 digits.
 
 |Restricts to double digit  +
-- *Pros*:  +
+- *Pros*: Easier to store and present date in a standardize format like 01-Jan-2000 rather than 1-Jan-2000. +
 - *Cons*: User has to type more. +
+
+| Validation regex of Year
+| Only allow four digits that are greater than 2000. +
+- *Pros*: Specific restrictions prevents the possibility of making nonsensical typos. +
+- *Cons*: Less flexibility. +
+
+Since this application is catered to existing restaurants with messy front-end management, there is no need to accept
+ dates that are way before the 2000s.
+
+|No restrictions  +
+- *Pros*: Type less. +
+- *Cons*: Users have more freedom to make queries that are not beneficial to them. +
+
+| Switch case versus Array
+| Store months in string format in an Array +
+- *Pros*: Efficient and fast. +
+- *Cons*: Uses more temporary storage. +
+
+Since the user input will eventually be parsed as an integer during its validation check, there is no need to
+restrict the day and month inputs to 2 digits.
+
+| Switch case +
+- *Pros*: Use less temporary storage. +
+- *Cons*: Checks through every case if it only passes the last case. +
 
 |=======================================================================
 

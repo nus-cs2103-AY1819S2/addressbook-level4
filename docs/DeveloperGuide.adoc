@@ -264,7 +264,8 @@ only information relevant students are displayed. This process is done with aid 
 it uses <<Read-Only>> extracting all the data from `allModule.Json` file found in the `resources` folder. +
 
 The figure below shows the class diagram for `ModuleInfo` :
-image:://insert class diagram
+
+image::ModuleInfoclass.png[width="800"]
 
 As seen from above the `ModuleInfo` class is made up of 8 other classes: +
 |===
@@ -339,14 +340,16 @@ an `ObservableList<>`, this is done so that we can take advantage of the `Filter
 `Predicates`. +
 
 During initial launch, after each module's information is converted into `ModuleInfo` objects, it will be added to a
- `ModuleInfoList` object which contains an `ArrayList<ModuleInfo>`. After all the modules are added into `ModuleInfoList`,
- `ModuleInfoList` will be passed into `ModelManager` and will be converted into an `ObservableList<>` called `allModules`.
+`ModuleInfoList` object which contains an `ArrayList<ModuleInfo>`. After all the modules are added into `ModuleInfoList`,
+`ModuleInfoList` will be passed into `ModelManager` and will be converted into an `ObservableList<>` called `allModules`.
  Following that, a `FilteredList<>` object called `displaylist` will constructed from the `allModules` `ObservableList<>`.
- image:: //djj
 
- Whenever the user searches for a particular `ModuleInfo` , the `ObservableList<>` is always ready and the `FilteredList<>`
- will be updated using a `Predicate` List generated from the user's search keywords.
- image::///keywords
+image::Observable.png[width="800"]
+
+Whenever the user searches for a particular `ModuleInfo` , the `ObservableList<>` is always ready and the `FilteredList<>`
+will be updated using a `Predicate` List generated from the user's search keywords.
+
+image::keywords.png[width="600"]
 
 ==== Design considerations
 ===== Aspect: ModuleTree data structure

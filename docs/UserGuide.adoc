@@ -961,9 +961,9 @@ Using Figure 3 as an example, the date `29-03-2019` is colored in red which matc
 You can execute task related commands such as `taskadd`, `taskedit`, `taskdelete` and `tasklist` from the command box in this window to interact with tasks. 
 
 [NOTE]
-====
+==========================================================================================================================================
 Executing the `taskcal` command inside this popup window without specifying a date will cause the calendar to load into the current date.
-====
+==========================================================================================================================================
 The top pane of the calendar has clickable arrows that lets you change the calendar page to display the dates for different months and years. Figure 4 below shows a focused view of the calendar's top pane:
 
 image::TaskCalendarUG2.png[width=""]

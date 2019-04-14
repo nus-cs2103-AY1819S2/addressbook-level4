@@ -444,8 +444,6 @@ new list of cards based on the `mode` indicated by the user. The generated list 
 learning both the values. Accordingly to the mode that the user have chosen, the cards will be
 displayed differently.
 
-// end::quiz[]
-
 In the four different modes:
 
 * **Preview**: both the question and answer are shown to the user
@@ -467,6 +465,7 @@ image::quiz-command-examples/quiz-learn.PNG[width="670"]
 * **Difficult**: similar to preview mode but only contains questions that have been labelled as
 difficult.
 
+// end::quiz[]
 The following code shows how are the cards generated:
 [source,java]
 ----
@@ -600,6 +599,7 @@ question you have gotten correct in this quiz and which question you are current
 .Sequence diagram for status feature
 image::QuizStatusCommandSequenceDiagram.png[width="800"]
 
+// tag::quiz[]
 ==== Design Considerations
 
 ===== Aspect: Quiz and management commands execution
@@ -618,6 +618,7 @@ word as answer without restricting the possible choices. In certain question, it
 answer to be "start". Hence by choosing alternative 1, the choice of answer is the least
 restricted. Also, by running the quiz in a different mode, it allows the user to have intuitive
 interaction in quiz mode.
+// end::quiz[]
 
 === Logging
 

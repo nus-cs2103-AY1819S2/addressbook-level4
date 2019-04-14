@@ -399,6 +399,7 @@ image::quiz-command-examples/answer-end.PNG[width="500"]
 
 {empty} +
 
+// end::quiz[]
 ==== Labelling the current card as difficult: `\difficult`
 Labels the current card as difficult. +
 Format: `\difficult`
@@ -419,8 +420,6 @@ image::quiz-command-examples/difficult.PNG[width="500"]
 
 .Expected result of card labelled as difficult.
 image::quiz-command-examples/not-difficult.PNG[width="500"]
-
-// end::quiz[]
 
 ==== Viewing help: `\help`
 

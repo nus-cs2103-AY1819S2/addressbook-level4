@@ -633,17 +633,19 @@ Given below is an example usage scenario and how the undo/redo mechanism behaves
 
 Step 1. The user opens an image. The `Image` will be initialized with an empty commandHistory List.
 
-image::UndoRedoStartingStateListDiagram.png[width="800"]
+.State list diagram for undo/redo
+image::UndoRedoStartingStateListDiagram.png[width="600"]
 
 Step 2. The user executes a series of transformations on the image. These transformations are stored in the commandHistory list and for each transformation stored, the index is incremented by 1 to point to that transformation.
 
-image::UndoRedoNewCommand1StateListDiagram.png[width="800"]
-
-image::UndoRedoNewCommand2StateListDiagram.png[width="800"]
+.First Transformation
+image::UndoRedoNewCommand1StateListDiagram.png[width="600"]
+.Second Transformation
+image::UndoRedoNewCommand2StateListDiagram.png[width="600"]
 
 Step 3. The user wants to undo the previous transformation by using the `undo` command. It will call `CurrentEdit#replaceTempWithOriginal()` which will replace the edited image in temp folder with the original image. It will then call `CurrentEdit#setUndoTemp()` to set the index in `tempImage` to the required index and retrieve the list with `CurrentEdit#getHistoryTemp()`. Using the list, it will apply the commands onto the original image till it reaches the command just before the set index.
-
-image::UndoRedoNewCommand3StateListDiagram.png[width="800"]
+.Undo transformation
+image::UndoRedoNewCommand3StateListDiagram.png[width="600"]
 
 [NOTE]
 If a command fails its execution, it will return the image before undo was called and produce an error message.
@@ -651,15 +653,15 @@ If a command fails its execution, it will return the image before undo was calle
 Step 4. After executing Undo, `index` will be less than size of commandHistory. If redo is not executed before a new command is added, all commands in the list after `index` will be deleted.
 
 For redo, it will call `setRedo` and retrieve that command to apply it on the current image.
-
-image::UndoRedoExecuteUndoStateListDiagram.png[width="800"]
+.State List diagram
+image::UndoRedoExecuteUndoStateListDiagram.png[width="600"]
 
 [NOTE]
 If the `Image#index` is 0, pointing to the initial photo, then there are no previous commands to restore. The `undo` command uses `CurrentEdit#canUndoTemp()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
 
 The following sequence diagram shows how the undo operation works:
-
-image::UndoRedoSequenceDiagram.png[width="800"]
+.Sequence Diagram
+image::UndoRedoSequenceDiagram.png[width="600"]
 
 The `redo` command does the opposite -- it calls `CurrentEdit#setRedoTemp()`, which shifts the `index` once to the right, pointing to the previously undone command, and executes that command to perform the transformation.
 
@@ -670,7 +672,7 @@ Step 5. The user executes `saves`, which calls `CurrentEdit#saveToAssets()`. Thi
 
 The following activity diagram summarizes what happens when a user executes a new command:
 
-image::UndoRedoActivityDiagram.png[width="650"]
+image::UndoRedoActivityDiagram.png[width="600"]
 
 ==== Design Considerations
 
@@ -762,6 +764,36 @@ Step 10.`Album#refreshAlbum()` is called to update the Information Panel on the 
 
 Alternative 2 was chosen as the user is likely to use `save` frequently. Since the `assets` folder functions like an album, images can be re-imported if they are accidentally overwritten. The user is able to `save` easily and choose to resume editing immediately or at a later time.
 // end::Save[]
+
+// tag::Export[]
+=== Export Feature
+
+The `export` command exports a file in the album into a specified directory.
+
+==== Current Implementation
+The export function is facilitated by `Album`. It uses the following operations:
+
+* `Album#getImageFromList(String)` - returns an image from the album with name matching the input string and null if no image matches the input string.
+
+Given below is an example usage scenario and how the `export` mechanism behaves at each step.
+
+Step 1. The user executes `export f/iu.jpg d/C:\Users\randy\Desktop`.
+
+Step 2. `ExportCommandParser` checks if user has input the command correctly.
+
+Step 3. `Album#getImageFromList` checks if the file to be exported exists in the album and throws a `CommandException` if it does not exist.
+
+Step 4. `ExportCommand#validPath` checks if the specified directory is valid and throws a `CommandException` if it is not.
+
+Step 5. If file to be exported exists and directory is valid, the file will be copied to the directory.
+
+
+The following sequence diagram shows how the `save` command works:
+
+.Sequence Diagram for Save Command
+image::SaveCommandSequenceDiagram.png[width=800]
+
+// end::Export[]
 
 //tag::WaterMark[]
 === WaterMark Feature

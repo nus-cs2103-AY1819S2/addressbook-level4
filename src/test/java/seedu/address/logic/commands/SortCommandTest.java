@@ -3,10 +3,8 @@ package seedu.address.logic.commands;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalRestaurants.getTypicalFoodDiary;
 
-import java.util.List;
 import java.util.Optional;
 
 import org.junit.Test;
@@ -14,13 +12,10 @@ import org.junit.Test;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.SortCommand.Limit;
 import seedu.address.logic.commands.SortCommand.Order;
-import seedu.address.logic.commands.comparators.SortRating;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.PostalDataSet;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.review.Review;
-import seedu.address.testutil.TypicalReviews;
 
 
 /**

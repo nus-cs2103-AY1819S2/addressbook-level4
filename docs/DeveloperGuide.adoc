@@ -742,7 +742,7 @@ The `save` function is facilitated by `Album` and `CurrentEdit`. It uses the fol
 
 * `Album#populateAlbum()` - Updates list of images in `Album` class.
 
-* `Album#refreshAlbum()` - Updates and displays the latest images in `assets` directory on the GUI this is latest.
+* `Album#refreshAlbum()` - Updates and displays the latest images in `assets` directory on the GUI.
 
 
 .Sequence Diagram for Save Command

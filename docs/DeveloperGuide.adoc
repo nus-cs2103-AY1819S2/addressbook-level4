@@ -305,7 +305,7 @@ Lessons are parsed by CsvLessonListStorage, being converted between Lesson and L
 For lessons, there are three main sections when saved to a CSV file.
 
 ===== Name
-Lesson names are equivalent to their file names.
+A lesson's name in BrainTrain is equivalent to its file name.
 
 A lesson named "French" would be saved as French.csv, and vice-versa.
 

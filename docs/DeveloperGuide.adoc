@@ -292,12 +292,12 @@ These are questions that are labelled difficult by the user.
 The lesson CSV storage feature implements the following functions:
 
 * Parsing lesson data into a list of string arrays, which is a format OpenCSV accepts for saving to CSV.
-* Parsing a list of string arrays back into lesson data, as retrieved from opencsv.
+* Parsing a list of string arrays back into lesson data, as retrieved from OpenCSV.
 
-Actual file I/O is handled in the CsvUtil class, which uses the opencsv library to read/write CSV files.
+Actual file I/O is handled in the CsvUtil class, which uses the OpenCSV library to read/write CSV files.
 
 ==== CSV Lesson Format
-.High-level sequence diagram for the `reloadLessons` command, an example of lesson loading
+.High-level sequence diagram for the `reload` command, an example of lesson loading
 image::CsvLessonStorageSequenceDiagram.png[width="800"]
 
 Lessons are parsed by CsvLessonListStorage, being converted between Lesson and List<String[]> formats. The List<String[]> format is the primary format handled by CsvUtil for reading and writing to CSV files.
@@ -360,6 +360,12 @@ Any discrepancies in the number of types and the number of names will result in 
 ===== Card Data
 
 All remaining data is treated as card data. Any invalid data found in memory or from the file is skipped over.
+
+===== Summary
+.Activity diagram for the `reload` command, highlighting failure conditions
+image::ReloadActivityDiagram.png[width="800"]
+
+As shown in the above diagram, data that is read in from a file goes through various checks before it is loaded into the application. Any invalid data is skipped over, with an entry in the logs explaining the cause of failure.
 
 ==== Design Considerations
 
@@ -1054,7 +1060,7 @@ remember it better
 
 . User downloads file from a source (e.g Internet, other users).
 . User moves the file to the lessons folder.
-. User enters `reloadLessons` command.
+. User enters `reload` command.
 . App loads the file as a lesson.
 . App shows loaded lessons in the UI.
 

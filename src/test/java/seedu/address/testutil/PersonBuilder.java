@@ -74,15 +74,9 @@ public class PersonBuilder {
      * and set it to the {@code Person} that we are building.
      */
     public PersonBuilder withSkills(String ... skills) {
-        this.tags.addAll(SampleDataUtil.getTagSet(Arrays.asList(skills), null, null));
-        return this;
-    }
-
-    /**
-     * Changes the skills to directly given values
-     */
-    public PersonBuilder changeSkills(String ... skills) {
-        this.tags = SampleDataUtil.getTagSet(Arrays.asList(skills), null, null);
+        Set otherTags = this.tags;
+        Set newTags = SampleDataUtil.getTagSet(Arrays.asList(skills), null, null);
+        otherTags.addAll(newTags);
         return this;
     }
 

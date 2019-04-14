@@ -147,7 +147,8 @@ Learn more about <<studyviewc, Study View>>.
   will be accepted. I.e. If you entered add n/nameOne n/nameTwo, the new deck will have the name "nameTwo".
 ====
 
-=== Decks View [[decksviewc]]
+// tag::decksview[]
+=== Decks View [[decksviews]]
 
 In this view you can create, edit and find decks. This is the default view when TopDeck is first launched.
 
@@ -171,8 +172,7 @@ The deck should appear at the bottom of the list.
 
 Before:
 
-image::deck_ug_diagrams/add_deck_1.png[width="200"]
-
+image:deck_ug_diagrams/add_deck_1.png[width="200"]
 
 After:
 
@@ -210,11 +210,11 @@ image::deck_ug_diagrams/delete_deck_2.png[width="200"]
 
 Before:
 
-image::deck_ug_diagrams/edit_deck_1.png[width="800"]
+image::deck_ug_diagrams/edit_deck_1(1).png[width="200"]
 
 After:
 
-image::deck_ug_diagrams/edit_deck_2.png[width="800"]
+image::deck_ug_diagrams/edit_deck_2(2).png[width="200"]
 
 ==== Finding a deck by name: `find`
 
@@ -226,11 +226,11 @@ image::deck_ug_diagrams/edit_deck_2.png[width="800"]
 
 Before:
 
-image::deck_ug_diagrams/find_deck_1.png[width="800"]
+image::deck_ug_diagrams/find_deck_1(1).png[width="200"]
 
 After:
 
-image::deck_ug_diagrams/find_deck_2.png[width="800"]
+image::deck_ug_diagrams/find_deck_2(2).png[width="200"]
 
 ==== Listing all decks: `list`
 
@@ -238,9 +238,9 @@ image::deck_ug_diagrams/find_deck_2.png[width="800"]
 
 **Outcome**: Displays a list of all decks.
 
-image::deck_ug_diagrams/list_deck_1.png[width="800"]
+image::deck_ug_diagrams/list_deck_1(1).png[width="200"]
 
-image::deck_ug_diagrams/list_deck_2.png[width="800"]
+image::deck_ug_diagrams/list_deck_2(2).png[width="200"]
 
 
 ==== Navigating into a deck: `open`
@@ -251,7 +251,7 @@ image::deck_ug_diagrams/list_deck_2.png[width="800"]
 
 **Example**: `open 1`
 
-image::deck_ug_diagrams/open_deck.png[width="800"]
+image::deck_ug_diagrams/open_deck(1).png[width="200"]
 
 ==== Studying a deck: `study`
 
@@ -261,7 +261,7 @@ image::deck_ug_diagrams/open_deck.png[width="800"]
 
 **Example**: `study 1`
 
-image::deck_ug_diagrams/study_deck.png[width="800"]
+image::deck_ug_diagrams/study_deck(1).png[width="200"]
 
 ==== Import a deck: `import`
 
@@ -278,17 +278,17 @@ Format: `import FILEPATH`
 Say you want to import a deck called "Economics" and you have the Economics.json file in the
 same folder as TopDeck.jar.
 
-image::deck_ug_diagrams/import_deck_1.png[width="350"]
+image::deck_ug_diagrams/import_deck_1.png[width="320"]
 
 * Simply  enter `import Economics` and TopDeck will import the deck "Economics".
 
 Before:
 
-image::deck_ug_diagrams/import_deck_2.png[width="800"]
+image::deck_ug_diagrams/import_deck_2(2).png[width="200"]
 
 After:
 
-image::deck_ug_diagrams/import_deck_3.png[width="800"]
+image::deck_ug_diagrams/import_deck_3(3).png[width="200"]
 
 ==== Export a deck: `export`
 
@@ -305,22 +305,22 @@ Example:
 
 * 1. First, display all the decks in TopDeck using `list`. +
 
-image::deck_ug_diagrams/list_deck_2.png[width="800"]
+image::deck_ug_diagrams/list_deck_2(2).png[width="200"]
 
 * 2. Say you want to export "History" (the 3rd deck), simply enter the command: `export 3`. You should see the
 following message:
 
-image::deck_ug_diagrams/export_deck_1.png[width="800"]
+image::deck_ug_diagrams/export_deck_1.png[width="450"]
 
 "Economics.json" will be created in the same directory as the TopDeck.jar file. +
 
-image::deck_ug_diagrams/export_deck_2.png[width="350"]
+image::deck_ug_diagrams/export_deck_2.png[width="320"]
 
 ==== Selecting a deck: `select`
 
 Currently select does not do much. However, we will be adding more functionality
 for select in v2.0. Refer to <<Upcoming Features>> for more details.
-
+// end::decksview[]
 
 === Cards View [[cardsviewc]]
 

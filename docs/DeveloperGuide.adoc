@@ -372,6 +372,7 @@ We must ensure that the implementation of each command is correct.
 decided to go with a stateful implementation. However being stateful allows for more features like our study mode in
 the future. The following design considerations for card management will better illustrate why we decided to go with
 this approach.
+// end::deck[]
 
 // tag::card[]
 === Card management

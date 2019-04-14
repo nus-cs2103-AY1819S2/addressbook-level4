@@ -215,7 +215,7 @@ Deletes the first module on the most recently displayed list.
 
 === Display module information: `displaymod`
 
-The `displaymod` command shows all modules that is available in NUS based on the user's search. This command simply
+The `displaymod` command shows all the modules that are available in NUS based on the user's search. This command simply
 shows modules straight from NUS's database of modules and does not check if the user has met the prerequisites to read
 a particular module.
 

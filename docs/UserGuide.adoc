@@ -379,7 +379,7 @@ and cannot contain special characters such as `:<>;\/|?~^%$#@`
 // tag::edit[]
 ==== Editing an entry: `edit`
 
-You can easily edit any part of an existing records in _In-Credit-Ble_. +
+You can easily edit any part of an existing entries in _In-Credit-Ble_. +
 Index refers to the index number shown in the list.
 
 *Alias*: `e`
@@ -394,14 +394,14 @@ Index refers to the index number shown in the list.
 * `edit 1 r/Best meal I have ever eaten`
 ****
 
-You can remove the description of any records by giving inputting empty parameter.
+You can remove the description of any entries by inputting an empty parameter for description.
 
 ****
 *Example of removing description*:
 
 * `edit 1 r/`
 
-.Example of removing the description from a record
+.Example of removing the description from a entries
 image::RemoveDescriptionExample.png[width ="600"]
 
 ****
@@ -487,7 +487,8 @@ You can easily search for entries in the records using a name, category or date 
 spent on all the results of the search will also be shown.
 
 [TIP]
-Make use of the `list` command to show the full list of records again after filtering the records using the `search` command.
+Make use of the `list` command to show the full list of records again after filtering the records using the `search`
+command.
 
 *Alias*: `find`
 
@@ -503,7 +504,7 @@ Make use of the `list` command to show the full list of records again after filt
 .Example of searching the a long list of records by the category "Accessories".
 image::SearchByCategoryExample.png[width ="600"]
 
-The total amount of money spent on the searched record will also be shown in the result display.
+The total amount of money spent on the searched entries will also be shown in the result display.
 
 .Total spent on searched records shown in result display.
 image::TotalSpentInResultDisplay.png[width ="600"]

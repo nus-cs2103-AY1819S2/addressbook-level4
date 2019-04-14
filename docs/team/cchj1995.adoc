@@ -72,4 +72,4 @@ include::../UserGuide.adoc[tag=dataencryption]
 |_This section illustrates my contributions to TeethHub's Developer Guide. I have selected some exerpts for the task features to showcase my technical documentation skills and provide insight to the technical depths of my contributions.
 |===
 
-include::../DeveloperGuide.adoc[tag=task_cchj1995[]]
+include::../DeveloperGuide.adoc[tag=task_cchj1995]

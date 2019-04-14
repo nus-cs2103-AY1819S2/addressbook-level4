@@ -159,7 +159,7 @@ The sections below give more details of each component.
 .Structure of the UI Component
 image::UiClassDiagram.png[width="800"]
 
-*API* : link:{repoURL}/src/main/java/seedu/knowitall/ui/Ui.java[`Ui.java`]
+*API* : https://github.com/cs2103-ay1819s2-w10-4/main/blob/master/src/main/java/seedu/knowitall/ui/Ui.java[`Ui.java`]
 
 `UI` consists of a `MainWindow` made up of many parts as seen above e.g.`CommandBox`, `ResultDisplay`, `CardMainScreen`,
 `StatusBarFooter`, `BrowserPanel` etc. All these parts, including the `MainWindow`, inherit from the abstract `UiPart`
@@ -182,8 +182,7 @@ The `UI` component,
 .Structure of the Logic Component
 image::LogicClassDiagram.png[width="800"]
 
-*API* :
-link:{repoURL}/src/main/java/seedu/knowitall/logic/Logic.java[`Logic.java`]
+*API* : https://github.com/cs2103-ay1819s2-w10-4/main/blob/master/src/main/java/seedu/knowitall/logic/Logic.java[`Logic.java`]
 
 .  `Logic` uses the `CardFolderParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
@@ -203,7 +202,7 @@ image::DeleteCardSdForLogic.png[width="800"]
 .Structure of the Model Component
 image::ModelClassDiagram.png[width="800"]
 
-*API* : link:{repoURL}/src/main/java/seedu/knowitall/model/Model.java[`Model.java`]
+*API* : https://github.com/cs2103-ay1819s2-w10-4/main/blob/master/src/main/java/seedu/knowitall/model/Model.java[`Model.java`]
 
 The `Model`,
 
@@ -226,7 +225,7 @@ image:ModelClassBetterOopDiagram.png[width="800"]
 .Structure of the Storage Component
 image::StorageClassDiagram.png[width="800"]
 
-*API* : link:{repoURL}/src/main/java/seedu/knowitall/storage/Storage.java[`Storage.java`]
+*API* : https://github.com/cs2103-ay1819s2-w10-4/main/blob/master/src/main/java/seedu/knowitall/storage/Storage.java[`Storage.java`]
 
 The `Storage` component,
 

@@ -24,9 +24,9 @@ The figure below explains the symbols and formatting used in this document
 
 [frame=none, grid=none]
 |===
-|`-NAME` | Words in `UPPER_CASE` are parameters to be supplied by the user (e.g. `sort -NAME`)
-|`[ORDER]` | Words in square brackets are optional
-|`SortCommandParser#parse()| `parse()` method in `SortCommandParser`
+| `-NAME` | Words in `UPPER_CASE` are parameters to be supplied by the user (e.g. `sort -NAME`)
+| `[ORDER]` | Words in square brackets are optional
+| `SortCommandParser#parse()`| `parse()` method in `SortCommandParser`
 |===
 
 == Summary of contributions

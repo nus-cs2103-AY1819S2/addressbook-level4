@@ -168,8 +168,6 @@ public class MainWindow extends UiPart<Stage> {
         } else {
             budgetPanel.setLightThemes(theme);
         }
-
-        budgetPanel.update(logic.getBudget());
         browserPanel.updateBudget(logic.getBudget());
 
         summaryPanel = new SummaryPanel(
@@ -177,6 +175,16 @@ public class MainWindow extends UiPart<Stage> {
                 logic.getSummaryPeriod(),
                 logic.getPeriodAmount()
         );
+        Thread thread = new Thread(() -> {
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException ie) {
+                logger.info("Timer Interrupted");
+            }
+            budgetPanel.update(logic.getBudget());
+            logger.info("Budget Panel Updated");
+        });
+        thread.start();
     }
 
     /**

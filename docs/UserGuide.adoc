@@ -213,7 +213,7 @@ You can use this command to set a budget for the current instance of _In-Credit-
 [NOTE]
 ====
 * The budget set must contain a valid amount. A valid amount is a positive number with
-0 or 2 decimal places.
+0 or 2 decimal places. Amount entered cannot be larger than 100000000.
 * If you provide multiple amounts (e.g. `set $/30 $/50`), only the last amount you provided will
 be used to set the budget (`$/50` in the example). Only the last amount needs to be a valid
 amount (e.g. `set $/1a $/10` works while `set $/10 $/1a` does not).
@@ -233,7 +233,7 @@ UI as clean as possible without extra panels for past budgets.
 [IMPORTANT]
 ====
 * Take note that you can spend over the budget set and set a budget lower than current spending. The
-ratianole is for you to be able to see how much you have exceeded your budget set to better plan your
+rationale is for you to be able to see how much you have exceeded your budget set to better plan your
 expenditure in the future since the App is unable to stop you from spending.
 * The budget you set must be higher than or equal to the sum of the budgets allocated to individual
 category. The rationale is that it would be pointless to set an overall budget if individual category
@@ -259,6 +259,7 @@ You can use this command to set a budget for a category in _In-Credit-Ble_ Finan
 ****
 [NOTE]
 ====
+* Amount entered cannot be larger than 100000000.
 * If you provide multiple categories (e.g. `allocate $/50.00 c/Food c/Clothes`),
 only the last category you provided will be taken (in the previous e.g., the command will
 set budget for `Clothes` category. Your last category must be of correct format (see below)
@@ -354,7 +355,8 @@ in lowercase (in the above example, it will be shown as `Clothes`)
 and cannot contain special characters such as `:<>;\/|?~^%$#@`
 * Date cannot be a date in the future. Addition of future expenses are not allowed.
 * If no date is inputted, current local date will be used instead.
-* Description is limited to 40 characters.
+* Name, category and description inputs are limited to 40 characters each.
+* Amount entered cannot be larger than 100000000.
 * Order of the different parameters does not matter.
 
 ====
@@ -396,6 +398,8 @@ image::RemoveDescriptionExample.png[width ="600"]
 * `INDEX` *must be a positive integer* 1, 2, 3, ...
 * `INDEX` must be within the total number of records that are displayed.
 * At least one of the optional fields must be provided.
+* Name, category and description inputs are limited to 40 characters each.
+* Amount entered cannot be larger than 100000000.
 * Date inputted cannot be a date later than the present date.
 * Order of parameters inputted does not matter.
 * Existing values will be updated to the input values.

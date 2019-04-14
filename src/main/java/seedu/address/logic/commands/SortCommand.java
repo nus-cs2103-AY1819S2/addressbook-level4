@@ -10,8 +10,8 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.sortmethods.SortDegree;
 import seedu.address.logic.commands.sortmethods.SortEducation;
 import seedu.address.logic.commands.sortmethods.SortGpa;
-import seedu.address.logic.commands.sortmethods.SortName;
 import seedu.address.logic.commands.sortmethods.SortMethod;
+import seedu.address.logic.commands.sortmethods.SortName;
 import seedu.address.logic.commands.sortmethods.SortSurname;
 import seedu.address.logic.commands.sortmethods.SortTagNumber;
 import seedu.address.logic.commands.sortmethods.SortTags;
@@ -64,44 +64,36 @@ public class SortCommand extends Command {
         return input;
     }
 
-    private void getSortedPersons(SortMethod command, List<Person> lastShownList, String... type) {
+    private void processSortMethod(SortMethod command, List<Person> lastShownList, String... type) {
         command.execute(lastShownList, type);
         this.sortedPersons = command.getList();
         this.isNewListPresent = true;
     }
 
     /**
-     * Processes the sort command
+     * Processes the sort command and calls processSortMethod based on the sort command
      *
      * @param model
      */
     private void processCommand(Model model) {
         List<Person> lastShownList = model.getAddressBook().getPersonList();
-        //Maybe use switch statement here?
         String commandInput = checkReverse();
 
         if (commandInput.equals("name")) {
-            getSortedPersons(new SortName(), lastShownList);
+            processSortMethod(new SortName(), lastShownList);
         } else if (commandInput.equals("surname")) {
-            getSortedPersons(new SortSurname(), lastShownList);
+            processSortMethod(new SortSurname(), lastShownList);
         } else if (commandInput.equals("skills") || commandInput.equals("endorsements")
                 || commandInput.equals("positions")) {
-            getSortedPersons(new SortTags(), lastShownList, commandInput);
+            processSortMethod(new SortTags(), lastShownList, commandInput);
         } else if (commandInput.equals("gpa")) {
-            getSortedPersons(new SortGpa(), lastShownList);
-            //TODO: remove this print statement
-            //Temporarily add print statement here since the gpa is not being printed to the GUI
-            //Note: this is performed before any reversal
-            System.out.println(sortedPersons);
+            processSortMethod(new SortGpa(), lastShownList);
         } else if (commandInput.equals("education")) {
-            getSortedPersons(new SortEducation(), lastShownList);
-            //TODO: remove this print statement
-            //Temporarily add print statement here since the education is not being printed to the GUI
-            System.out.println(sortedPersons);
+            processSortMethod(new SortEducation(), lastShownList);
         } else if (commandInput.substring(commandInput.lastIndexOf(" ") + 1).equals("number")) {
-            getSortedPersons(new SortTagNumber(), lastShownList, commandInput);
+            processSortMethod(new SortTagNumber(), lastShownList, commandInput);
         } else if (commandInput.equals("degree")) {
-            getSortedPersons(new SortDegree(), lastShownList);
+            processSortMethod(new SortDegree(), lastShownList);
         } else {
             logger.info("Invalid sort input and cannot be processed.");
         }

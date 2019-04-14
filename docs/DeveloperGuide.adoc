@@ -249,7 +249,7 @@ This section describes some noteworthy details on how certain features are imple
 ==== Current Implementation
 
 ClubManager is designed to manage members and activities and allow the user to link members to the activities.
-To syncronize the user interface to show appropriate information when users are doing different operation and to minimize confusion the following feature has been added.
+To synchronize the user interface to show appropriate information when users are doing different operation and to minimize confusion the following feature has been added.
 With the implementation of modes of operations which only allows commands to be executed in their respective modes.
 
 For example when ClubManager is in Member Mode, only member commands can be called (for example memberAdd, memberEdit etc.)
@@ -367,13 +367,12 @@ image::UndoRedoActivityDiagram.png[width="650"]
 
 // end::undoredo[]
 
-
 === Member List Feature
 The Member's List is a core feature that underpins Club Manager's role as a CCA management system.
 To ensure versatility and enhance the usefulness of this list, a number of commands have been introduced to facilitate the management of members. These commands include: `MemberAdd`, `MemberDelete`, `MemberEdit`, `MemberFilter`, `MemberFind`, `MemberList`, `MemberSelect`, and `MemberSort`.
 
 ==== Current Implementation
-
+// tag:: memberadd[]
 ===== `memberAdd` Command
 This command takes in a number of parameters that are contact and student information pertaining to the member. The `MemberAddCommandParser` can parse requires that all field are present, in the required format, with the exception of tags which are optional.
 
@@ -406,11 +405,50 @@ The following code snippet shows how the `memberAdd` command is executed:
 <1> Check if member already exists in Club Manager.
 <2> Check if the matric number entered is unique.
 <3> Add member to Club Manager.
+// end::memberadd[]
 
-[discrete]
-//tag::membersort[]
+===== `memberFilter` Command
+The memberFilter command retrieves members (based on a filter criteria) from the UniquePersonList and displays these members on the PersonListPanel.
+
+Below is a step-by-step process on how the `memberFilter` command works on execution:
+
+* Step 1: The user executes the `memberFilter` command.
+* Step 2: The `memberFilter` command will check if the filter category entered by the user is valid. Note that this is case-insensitive.
+* Step 3: The `memberFilter` command will then call the Model
+
+===== `memberList` Command
+The memberList command retrieves all the members in the UniquePersonList and displays all these members on the PersonListPanel.
+
+Below is a step-by-step process on how the `memberList` command works on execution:
+* Step 1: The user executes the `memberList` command.
+* Step 2: The `memberList` command will then call the Model
+
+==== Design Considerations
+*Aspect:* List Management
+To execute command, there are various ways. Below are some options:
+
+* *Alternative 1 (current choice)*: Go through Model Component
+
+** Pros : Reduce reliance on logic for heavy data management.
+** Cons : Could be challenging to implement necessary methods at the model component.
+
+* *Alternative 2*: Go through Logic Component
+
+** Pros: Easy to implement by retrieving the `UniquePersonList` to perform data management.
+** Cons: Defeats the purpose of having logic and model components. The model component will be underused, while the logic component will be overused.
+
+==== `memberSelect` Command
+The memberSelect command selects a member (based on index) on the UniquePersonList.
+
+Below is a step-by-step process on how the `memberSelect` command works on execution:
+
+* Step 1: The user executes the `memberSelect` command by specifying the index of the member that the user would like to select.
+* Step 2:
+* Step 3:
+
+// tag::membersort[]
 === MemberSort
-[discrete]
+
 ==== Current Implementation
 image::MemberSortCommand_LogicComponentSequenceDiagram.png[width="800"]
 * The `memberSort` command extends from command, and modifies the uniquePersonList which is an observable list.
@@ -420,7 +458,7 @@ sorting criteria provided.
 
 * If the user input matches, the uniquePersonList will be sorted based on that criteria
 If the user input does not match, then an error message will be prompted to the user.
-//end::membersort[]
+// end::membersort[]
 
 // tag::memberexport[]
 === MemberExport
@@ -1108,6 +1146,8 @@ We now have everything set up... but we still can't modify the remarks. Let's fi
 See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-by-step solution.
 
 [appendix]
+
+//tag::productscope
 == Product Scope
 
 *Target user profile*:
@@ -1128,7 +1168,10 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
 
 . Improve the data collection accuracy and efficiency in the member management process.
 
+//end::productscope
+
 [appendix]
+//tag::userstories
 == User Stories
 
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
@@ -1172,8 +1215,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |CCA main committee member |create an activity list |see the upcoming events
 |=======================================================================
-
-_{More to be added}_
+//end::userstories
 
 [appendix]
 == Use Cases
@@ -1565,6 +1607,7 @@ Use case ends.
 _{More to be added}_
 
 [appendix]
+//tag::non-functional-requirements
 == Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
@@ -1572,8 +1615,10 @@ _{More to be added}_
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 
 _{More to be added}_
-
+//end::non-functional-requirements
 [appendix]
+
+//tag::glossary
 == Glossary
 
 This section is designed to provide you with definitions for
@@ -1601,7 +1646,9 @@ Windows, Linux, Unix, OS-X
 
 [[Sub-Committee-Member]] Sub-Committee Member::
 A person who is an active member of the CCA, but do not play any organiser role.
+//end::glossary
 
+//tag::product-survey
 [appendix]
 == Product Survey
 
@@ -1622,6 +1669,7 @@ Cons:
 * Interface could be more intuitive e.g. allowing preview of corporate members.
 
 * No training document provided. Users have to contact the support manager for “how to” questions.
+//end::product-survey
 
 [appendix]
 == Instructions for Manual Testing

@@ -35,9 +35,10 @@ Club Manager is catered for *CCA leaders* and is used for managing CCA members a
 * Corrected any team-related documentation issues.
 * Updated issues tracker for member management features including features that are not done by me.
 * Updated README and AboutUs page.
-* Provided UI Walkthrough in the User Guide.
+* Provided UI Walk-through in the User Guide.
 * Designed a logo for the Club Manager Application.
-
+* Made cosmetic changes to the command summary in User Guide by categorising the commands.
+* Did up the user stories, non-functional requirements, glossary, and product survey in the Developer Guide.
 *Community Contributions*
 
 * Actively reviewed teammates' PRs.
@@ -61,7 +62,10 @@ include::../UserGuide.adoc[tag=membersort]
 |===
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
+
+include::../DeveloperGuide.adoc[tag=memberadd]
 include::../DeveloperGuide.adoc[tag=membersort]
+
 
 == PROJECT: PowerPointLabs
 

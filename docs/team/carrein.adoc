@@ -69,10 +69,10 @@ https://github.com/CS2103-AY1819S2-W14-2/main/releases/tag/v1.3[v1.3]
 
 ==== Enhancements to Existing Features:
 *** Additional unit tests for existing features to increase overall coverage: +
-https://github.com/CS2103-AY1819S2-W14-2/main/issues/[#187], https://github.com/CS2103-AY1819S2-W14-2/main/issues/[#193], https://github.com/CS2103-AY1819S2-W14-2/main/issues/[#230], https://github.com/CS2103-AY1819S2-W14-2/main/issues/[#236]
+https://github.com/CS2103-AY1819S2-W14-2/main/issues/187[#187], https://github.com/CS2103-AY1819S2-W14-2/main/issues/193[#193], https://github.com/CS2103-AY1819S2-W14-2/main/issues/230[#230], https://github.com/CS2103-AY1819S2-W14-2/main/issues/236[#236]
 
 ==== Documentation:
-*** Addendum tweaks to existing contents of the User Guide: https://github.com/CS2103-AY1819S2-W14-2/main/issues/[#236]
+*** Addendum tweaks to existing contents of the User Guide: https://github.com/CS2103-AY1819S2-W14-2/main/issues/236[#236]
 
 ==== Community:
 *** Core PRs Contributed: +

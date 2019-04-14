@@ -1070,7 +1070,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is `In-Credit-Ble` and the *User* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is `[fuchsia]#In-Credit-Ble#` and the *User* is the `[fuchsia]#user#`, unless specified otherwise)
 
 [discrete]
 === Use case: Setting a budget for the month
@@ -1262,7 +1262,7 @@ Use case ends with message to let _User_ know there are no entries in _System_
 [appendix]
 == Non Functional Requirements
 
-.  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
+.  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `[fuchsia]#9#` or higher installed.
 .  Should work on both 32-bit and 64-bit environments.
 .  Should be able to hold up to 1000 expenditure records without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
@@ -1288,7 +1288,7 @@ The list of all entries stored in the application
 [appendix]
 == Product Survey
 
-*Monefy - Money Manager*
+*[fuchsia]#Monefy - Money Manager#*
 
 Author: Aimbity AS
 
@@ -1305,7 +1305,7 @@ Cons:
 * Do not have an option for reminder
 * Do not have a feature for recurrent spending
 
-*Money Lover: Expense Tracker & Budget Planner*
+*[fuchsia]#Money Lover: Expense Tracker & Budget Planner#*
 
 Author: Finsify
 
@@ -1323,7 +1323,7 @@ Cons:
 * Unable to edit a transaction
 * Budgets are based per account
 
-*Seedly - Personal Finance App*
+*[fuchsia]#Seedly - Personal Finance App#*
 
 Author: Seedly Pte Ltd
 

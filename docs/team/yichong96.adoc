@@ -66,7 +66,9 @@ part of the "commas" within the card field itself.
 *** Wrote additional tests for existing features to increase coverage from 78.379% to 81.079 (Pull requests https://github.com[#105])
 ** Community:
 *** PRs reviewed (with non-trivial review comments): https://github.com/cs2103-ay1819s2-w10-4/main/pull/60[#60], https://github.com/cs2103-ay1819s2-w10-4/main/pull/2[#2]
-
+*** Conducted manual testing for other team's projects. Reported bugs and gave suggestions on how to improve their product
+: https://github.com/nus-cs2103-AY1819S2/pe-dry-run/issues/903[#903],
+https://github.com/nus-cs2103-AY1819S2/pe-dry-run/issues/816[#816], https://github.com/nus-cs2103-AY1819S2/pe-dry-run/issues/772[#772]
 
 
 === Contributions to the User Guide

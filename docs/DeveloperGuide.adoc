@@ -285,10 +285,12 @@ This constructor copies the private attributes of the given `Cell` parameter.
 {empty} +
 The following sequence diagram shows what happens when the "initialise map" command is used.:
 
+.Sequence diagram of initialising the maps
 image::InitialiseMapCommandSequenceDiagram.png[width=800]
 
 The following activity diagram shows when the "initialise map" command can be used:
 
+.Activity diagram displaying when the user can initialise the maps
 image::InitActivityDiagram.png[width=800]
 
 {empty} +
@@ -1064,13 +1066,13 @@ A project often depends on third-party libraries. For example, Address Book depe
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
+* likes retro games
 * prefer desktop apps over other types
 * can type fast
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*: able to play Battleship using a computer
 
 [appendix]
 == User Stories

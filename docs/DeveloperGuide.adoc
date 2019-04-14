@@ -645,7 +645,6 @@ This product aims to help real estate agents manage large amount of customer and
 * *How does it make the the user's life easier?* +
 With a proper address book app, real estate agents can quickly and conveniently search for their customers’ contact details, as well as essential property information to speed up their business process.
 
-// tag::userstories[]
 [appendix]
 == User Stories
 
@@ -672,9 +671,17 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |organised user |categorise my contacts into different groups (i.e. buyers, sellers, landlords, tenants) |keep track of my customers better
 
+// tag::archiveuserstories[]
 |`* * *` |clean user |archive contacts when I currently do not need them |keep contacts for later use
 
+|`* * *` |efficient user |see the list of contacts which I have archived |check which contacts I have in my archive
+
+|`* * *` |real estate agent |unarchive contacts |retrieve contacts which I need again
+// end::archiveuserstories[]
+
 |`* * *` |forgetful user |pin important contacts to the top of the lists |see which contacts are the most important for me to attend to
+
+|`* * *` |efficient user |unpin contacts from the top of the lists when they are no longer of priority |focus on the other important contacts which have not yet been attended to
 
 |`* * *` |user who prefers visuals |select a contact and see the address (if any) of the contact on the Google Map applet within the app |visualise the location of the property and search for directions to the location
 
@@ -702,9 +709,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`*` |user who prefers visuals |upload and store photos of a specific property |view the property on-the-go
 |=======================================================================
-// end::userstories[]
 
-// tag::usecases[]
 [appendix]
 == Use Cases
 
@@ -1034,6 +1039,7 @@ Use case resumes at step 1.
 +
 Use case resumes at step 1.
 
+// tag::archiveusecases[]
 [discrete]
 === Use case: Archive contact
 
@@ -1177,6 +1183,7 @@ Use case ends.
 ** 1a3. TheRealApp displays the requested list.
 +
 Use case resumes at step 1.
+// end::archiveusecases[]
 
 [discrete]
 === Use case: View history
@@ -1239,7 +1246,6 @@ Use case ends.
 3. User confirms the exit.
 +
 Use case ends.
-// end::usecases[]
 
 [appendix]
 == Non Functional Requirements

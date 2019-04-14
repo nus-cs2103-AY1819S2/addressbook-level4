@@ -50,7 +50,7 @@ public class SetSemesterLimitCommand extends Command {
             + "[" + PREFIX_MIN_PROJECT_HOUR + "PROJECT HOUR] "
             + "[" + PREFIX_MAX_PROJECT_HOUR + "PROJECT HOUR] "
             + "[" + PREFIX_MIN_PREPARATION_HOUR + "PREPARATION HOUR] "
-            + "[" + PREFIX_MAX_PREPARATION_HOUR + "PREPARATION HOUR]...\n "
+            + "[" + PREFIX_MAX_PREPARATION_HOUR + "PREPARATION HOUR]...\n"
             + "Example: " + COMMAND_WORD + " Y3S1 "
             + PREFIX_MIN_CAP + "3.27 "
             + PREFIX_MIN_LAB_HOUR + "2.5";

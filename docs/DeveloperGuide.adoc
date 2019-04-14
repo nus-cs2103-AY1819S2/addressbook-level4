@@ -600,52 +600,57 @@ The pros outweighs the cons as despite the number of variables during runtime, i
 // end::addtomenu[]
 
 // tag::statistics[]
+// tag::statisticsintro[]
 [[Statistics]]
 === Statistics feature
 
 The Statistics feature allows users to perform queries that deal with the restaurant's statistical data, mainly the
-revenue earned and the popularity of menu items. With the Statistics feature, restaurant front-end staff can bill the
-customers' orders and automatically save the revenue earned in the restaurant's statistics using the <<Bill, `bill`>>
+revenue earned and the popularity of menu items. With Statistics feature, restaurant front-end staffs can bill the
+customers' orders and automatically save the revenue in the restaurant's statistics storage using the <<Bill, `bill`>>
  command.
 Other commands like <<Yearly, `yearly`>>, <<Monthly, `monthly`>>, <<Daily, `daily`>> and <<Revenue, `revenue`>>
-commands allow the manager to retrieve and study the restaurant's statistical data.
+commands allow the manager to retrieve and study the restaurant's statistical data trends. +
 
+The following class diagram illustrates the relationship between the Model components in Statistics.
+
+.Class diagram for Model components in Statistics feature
+image::Statistics_ModelClassDiagramAnnotated.png[width="700"]
+
+// end::statisticsintro[]
 // tag::bill[]
 [[Bill]]
 ==== Billing an order
 
-The Bill mechanism can only be executed under Table Mode such that users can call the bill that is unique to a
- table without specifying it. The table number was specified when <<ChangeToTableMode, switching over to Table Mode>>.
-  To understand how the table number is specified, you may refer to the <<CurrentTable, elaboration>> on this
-  function in the Orders feature.
+Each [.java]#Bill# is unique to a Table. Hence, the `bill` mechanism can only be executed under Table Mode.
+ The [.java]#Table# and its [.java]#TableNumber# was specified when <<ChangeToTableMode, switching over to Table Mode>>.
+  The way [.java]#TableNumber# is specified is <<CurrentTable, explained in Orders feature>>.
 
-After the `bill` command is called, it will internally switch to <<BillMode, Bill Mode>> where the receipt of
- the specified table will be displayed. Concurrently, the bill mechanism excesses functions from Table, Order, Menu and
+Once the `bill` command is called, it will internally switch to <<BillMode, Bill Mode>> where the receipt of
+ the specified table is displayed. Concurrently, the bill mechanism excesses functions from Table, Order, Menu and
  Statistics to execute the following:
 
-* *Table*: Update specified table's occupancy to accomodate new customers.
-* *Order*: Clear the order list unique to the specified table.
-* *Menu*: Saves the quantity of menu item ordered in the Menu storage (menu.json in /data folder).
-* *Statistics*: Saves the revenue earned in the Statistics Storage (statistics.json in /data folder).
+* *Table*: Updates specified table's occupancy to accomodate new customers.
+* *Order*: Clears the order list unique to the specified table.
+* *Menu*: Saves the quantity of menu items ordered in the Menu storage (/data/menu.json).
+* *Statistics*: Saves the revenue in the Statistics Storage (/data/statistics.json).
 
 ===== Current Implementation
 
 The main crust of Bill mechanism is implemented in [.java]#BillCommand#. Just like any other commands, [
 .java]#BillCommand#execute()# overrides
 [.java]#Command#execute()# which is called in [.java]#LogicManger#. It takes in the current mode, model and command
-history which will provide the necessary functions it will need to execute the command properly.
+history which will provide the necessary functions it will need to execute the command prpoperly with the following
+operations:
 
-Additionally, it implements the following essential operations:
-
-* [.java]#BillCommand#calculateBill()# -- Creates a bill with a receipt of all the menu items ordered and updates the
- quantity of menu items ordered in the [.java]#Menu#menuItems#.
+* [.java]#BillCommand#calculateBill()# -- Creates a bill with a receipt of all menu items ordered and updates the
+ quantity of menu items ordered in [.java]#Menu#menuItems#.
 * [.java]#BillCommand#createOrUpdateRevenue()# -- Either saves the bill as a new [.java]#DailyRevenue# or updates an
 existing [.java]#Revenue# in the [.java]#Statistics#revenueList#.
 * [.java]#BillCommand#updateStatusOfTable()# -- Updates the occupancy of the specified table to indicate that it has
-zero pax and resets the specified table to null.
+zero pax and resets the selected table to null.
 * [.java]#Model#clearOrderItemsFrom()# -- Clears the order list to prepare for the next customer.
 
-The following sequence diagram gives you an overview of how the operations above work together to execute `bill` command.
+This sequence diagram provides an overview of how the operations above work together to execute `bill` command.
 
 .Sequence diagram for executing the bill command
 image::Bill_SequenceDiagram.png[width="700"]
@@ -653,41 +658,40 @@ image::Bill_SequenceDiagram.png[width="700"]
 To give you a better understanding of the sequence diagram, the following is a usage scenario and how the bill
 mechanism behaves at each step.
 
-Step 1. +
-Let's assume that the user is already in Table Mode 1. This means that the current table is Table 1. Before the
+*Step 1.*
+Let's assume that the user is in Table Mode 1. This means Table 1 is the selected table. Before the
 `bill` command can be executed successfully, [.java]#BillCommand#execute()# conducts 2 checks. +
 
 1. Checks that current table obtained from [.java]#Model#getSelectedTable()# exists.
 2. Checks that all order items in [
 .java]#Model#getFilteredOrderItemList()# have been served. The status of the order item is determined via [.java]#Model#getOrderItemStatus()#.
 
-Step 2. +
-Assuming that the command passes all checks, the user can successfully pass [.java]#Model# into [
-.java]#BillCommand#calculateBill()# to calculate the [.java]#BillCommand#tableToBill#'s bill. Let's refer to the
-function's sequence diagram below.
+*Step 2.*
+Given that the command passes all checks, the user can successfully run [
+.java]#BillCommand#calculateBill()# to assign a new calculated bill to [.java]#BillCommand#tableToBill#. Let's
+refer to the function's sequence diagram below.
 
 .Sequence diagram for calculating the bill
 image::Bill_CalculateBill.png[width="700"]
 
 [.java]#BillCommand#calculateBill()# calls both [.java]#Model#getFilteredOrderItemList# and [
 .java]#ReadOnlyRestOrRant#getMenu()# to obtain the table’s list of orders and the restaurant’s menu.
-After which, it iterates through the [.java]#orderItemList# to obtain individual [.java]#orderItems# and
+After which, it iterates through the list of orders to obtain individual [.java]#OrderItem# and
 executes the following in each iteration:
 
-* Obtain the [.java]#menuItem# by passing the code of the OrderItem into [.java]#Menu#getItemFromCode#.
-* Retrieves the quantity of [.java]#orderItems# ordered using [.java]OrderItem#getQuantityOrdered()#.
-* Update the quantity of menu item ordered using [.java]#ReadOnlyMenu#updateMenuItemQuantity()#.
-* Create a [.java]#Receipt# that appends the [.java]#MenuItem#getCode()#, [.java]#MenuItem#getName()#, [
+* Gets [.java]#MenuItem# by passing the Code of the [.java]#OrderItem# into [.java]#Menu#getItemFromCode()#.
+* Retrieves the quantity of [.java]#OrderItem# ordered using [.java]#OrderItem#getQuantityOrdered()#.
+* Updates the quantity of menu item ordered using [.java]#ReadOnlyMenu#updateMenuItemQuantity()#.
+* Creates a [.java]#receipt# that appends the [.java]#MenuItem#getCode()#, [.java]#MenuItem#getName()#, [
 .java]#MenuItem#getPrice()# and the quantity retrieved previously.
-* Appends the price of each dish multiplied by the quantity ordered to the bill.
+* Adds the price of each [.java]#MenuItem# multiplied by the quantity ordered to the total bill.
 
-After the iterating through the [.java]#orderItemList#, the receipt will append the final calculation of the total
-bill and the function will return a new [.java]#Bill# that contains the updated [.java]#tableNumber#, [.java]#totalBill# and
-[.java]#receipt#. This new Bill will be assigned to [.java]#BillCommand#bill# as well as the model's recent bill via [
-.java]#Model#setRecentBill()# (This step is needed when changing the user interface to Bill Mode).
+After iterating through the list of orders, [.java]#receipt# appends the final calculation of the total
+bill and the function returns a new [.java]#Bill# that contains the updated [.java]#tableNumber#, [.java]#totalBill# and
+[.java]#receipt#. This new [.java]#Bill# will be assigned to [.java]#BillCommand#bill# and passed into [
+.java]#Model#setRecentBill()# to update the Model's recent bill (This step is needed when changing the user interface to Bill Mode).
 
-Now that [.java]#BillCommand#bill# is updated, it is passed into [.java]#BillCommand#createOrUpdateRevenue()# to
-eventually store the calculated bill in [.java]#Statistics#revenueList#. Refer to the function's sequence diagram below.
+Now that [.java]#BillCommand#bill# is updated, it is passed into [.java]#BillCommand#createOrUpdateRevenue()# to store the calculated bill in [.java]#Statistics#revenueList#. Refer to the function's sequence diagram below.
 
 .Sequence diagram for creating or updating revenue in the Statistics revenue list
 image::Bill_CreateOrUpdateRevenue.png[width="550"]
@@ -697,20 +701,20 @@ As shown above, [.java]#BillCommand#createOrUpdateRevenue()# creates a [.java]#D
 If it is true that [.java]#DailyRevenue# exists, the function iterates through the [
 .java]#Model#getFilteredRevenueList()# and searches for a an existing [.java]#Revenue# that has the same year, month and
 day as the [.java]#DailyRevenue#. Once the [.java]#Revenue# is found, [.java]#Revenue#addToRevenue()# is used to add the
- total revenue of the [.java]#DailyRevenue# into [.java]#Revenue#. Otherwise, the [.java]#DailyRevenue# is added into
+ total bill of the [.java]#DailyRevenue# into [.java]#Revenue#. Otherwise, the [.java]#DailyRevenue# is added into
   the [.java]#Statistics#revenueList# via [.java]#Model#addRevenue()#.
 
 Now, that the necessary data are updated in the internal list of Menu and Statistics, [.java]#BillCommand#execute()#
 calls [
 .java]#BillCommand#updateStatusOfTable()# and  [.java]#Model#clearOrderItemsFrom()# to make the table available for
-new customers. Refer to the sequence diagram below to have a better understanding of [
-.java]#BillCommand#updateStatusOfTable()#.
+new customers.
 
 .Sequence diagram for updating the status of the table
 image::Bill_UpdateStatusOfTable.png[width="550"]
 
-As shown in the sequence diagram, other than updating the [.java]#Table#TableStatus#, the program has to set the
-selected table to null as the current table is no longer in use in the present state of the Restaurant.
+[.java]#BillCommand#updateStatusOfTable()# updates the table status by creating a new [.java]#Table# with an updated
+[.java]#TableStatus# and replace the existing [.java]#Table# with the new one. After the table is updated, the program
+ sets the selected table to null to indicate that the table is no longer in use.
 
 Once these essential functions are executed, [.java]#BillCommand#execute()# moves on to indicate that the
 Tables, Orders, Menu and Statistics data have been modified via [.java]#Model#updateTables()#, [
@@ -724,7 +728,7 @@ receipt of the recent Bill.
 Internally the program switches to Bill Mode. However, this mode is not shown to the user as a Table Mode to avoid
 confusion.
 
-Step 3. Once the user is in Bill Mode, they can execute and mode commands like `RM`, `TM` and `MM`.
+*Step 3.* Once the user is in Bill Mode, they can execute and mode commands like `RM`, `TM` and `MM`.
 
 ===== Design Considerations
 

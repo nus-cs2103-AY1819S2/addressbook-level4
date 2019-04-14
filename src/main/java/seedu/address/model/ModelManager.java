@@ -232,12 +232,19 @@ public class ModelManager implements Model {
         requireAllNonNull(target, editedPatient);
 
         versionedDocX.setPatient(target, editedPatient);
+        updateFilteredMedHistList(PREDICATE_SHOW_ALL_MEDHISTS);
+        setSelectedMedHist(null);
+        updateFilteredAppointmentList(PREDICATE_SHOW_ALL_APPOINTMENTS);
     }
 
     @Override
     public void setDoctor(Doctor target, Doctor editedDoctor) {
         requireAllNonNull(target, editedDoctor);
+
         versionedDocX.setDoctor(target, editedDoctor);
+        updateFilteredMedHistList(PREDICATE_SHOW_ALL_MEDHISTS);
+        setSelectedMedHist(null);
+        updateFilteredAppointmentList(PREDICATE_SHOW_ALL_APPOINTMENTS);
     }
 
     @Override

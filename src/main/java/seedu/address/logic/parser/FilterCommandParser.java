@@ -96,7 +96,7 @@ public class FilterCommandParser implements Parser<FilterCommand> {
 
         if ("0".equals(text) || "highschool".equals(text)) {
             return "0";
-        } else if (arg.equals(text) || "associates".equals(text)) {
+        } else if ("1".equals(text) || "associates".equals(text)) {
             return "1";
         } else if ("2".equals(text) || "bachelors".equals(text)) {
             return "2";

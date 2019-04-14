@@ -9,53 +9,54 @@
 
 == About the project
 
-RestOrRant is a project that was tasked to my team and I for a Software Engineering project. Given a basic command line
-interface address book, we had the choice of enhancing or morphing it into a desktop application that caters to
-specific users' needs.
+RestOrRant is a command line application that my team and I had to work on for a Software Engineering project.
+Given a basic code for an address book, we had the choice of enhancing or morphing it into a desktop application that
+ caters to specific users' needs.
 
-My team and I chose to morph the address book into, RestOrRant (ROR), a restaurant management application for
-restaurant managers, waiters and cashiers. It is designed for them to perform front-end operations more conveniently and
-efficiently. ROR allows them to manage tables, orders, menu and statistical data using the Command Line Interface (CLI).
+We decided to morph it into RestOrRant (ROR), a restaurant management application for
+restaurant managers, waiters and cashiers. It is designed for them to perform front-end operations more efficiently like
+ managing tables, handling orders, tracking menu availability and calculating statistical data using the Command
+ Line Interface (CLI).
 
-Constraints we had to work with: +
+RestOrRant is split into 4 main features: Tables, Orders, Menu and Statistics. *Restaurant Mode*, *Table
+Mode*, *Menu Mode* and *Statistics Mode* are modes meant to handle these 4 features respectively. Each of us are in
+charge of one feature and mine was Statistics. In the following sections, I will be elaborating more on my
+contributions and extract relevant parts from the User and Developer Guides that I wrote for the Statistics feature.+
 
-* It is assumed that users are familiar with Command Line Interfaces (CLI). +
-* We had to adopt the coding style of the address book that was given to us. +
-* A desktop application written in Java with around 10 kLoC. It also has a GUI created with JavaFX. +
-
-My role encompasses managing the UI, project deadlines and any features related to the RestOrRant Statistics. This
-include bill, revenue, menu item popularity, etc.
-
-The following sections illustrates a detailed analysis of the enhancements.
+Overall, my role in this project encompasses managing the UI component, the Statistics feature, project deadline and
+deliverable.
 
 == Summary of contributions
 This is a summary of the coding, documentation and other helpful contributions to the team project.
 
-* *Major enhancement*
-** Calling for bill
-** Calling for revenue
-* *Minor enhancement*
+. *Major Commands implemented*
 
-
-. *Calling for bill*: added *the ability to calculate and record the bill of a specific table.*
+.. *Calling for bill*: added *the ability to calculate and record the bill of a specific table.*
 ** What it does: allows the user calculate and record the total bill accumulated from the table's orders.
 ** Justification: This feature is necessary to update the restaurant revenue, status of the specified tables and the
 popularity of the menu items that were ordered.
 ** Highlights: This command is only usable in Table Mode.
 
-. *Calling for revenue*: added *the ability to get revenue from the specified year, month and date*
+.. *Calling for revenue*: added *the ability to get revenue from the specified year, month and date*
 ** What it does: allows the user to get the required revenue the user specifies.
 ** Justification: This feature allows the restaurent manager to conveniently calculate and obtain the revenue
 he/she wants. It also eliminates the possibility of human errors when calculating the revenue.
 ** Highlights: This command is only usable for dates, months and years that are valid. In the case where no
 date, month or year is specified, the current day's revenue will be returned.
 
-* *Minor enhancement*: Create a Bill Mode that displays a receipt for the user.
+.. *Calling for yearly, monthly and daily*: added *the ability to get revenue from the specified year, month and date*
+** What it does: allows the user to get the required revenue the user specifies.
+** Justification: This feature allows the restaurent manager to conveniently calculate and obtain the revenue
+he/she wants. It also eliminates the possibility of human errors when calculating the revenue.
+** Highlights: This command is only usable for dates, months and years that are valid. In the case where no
+date, month or year is specified, the current day's revenue will be returned.
 
-* *Code contributed*: Please refer to theses links to view my code +
+. *Minor enhancement*: Create a Bill Mode that displays a receipt for the user.
+
+. *Code contributed*: Please refer to theses links to view my code +
 [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
 
-* *Other contributions*:
+. *Other contributions*:
 
 ** Project management:
 *** Ensures that the User Guide and Developer Guide are completed according to what was required.
@@ -76,14 +77,13 @@ https://github.comcs2103-ay1819s2-w09-3/main/pull/121[#121], https://github
 
 == Contributions to the User Guide
 
-
 |===
 |_Given below are sections I contributed to the User Guide._
 |===
 
-include::../UserGuide.adoc[tag=bill]
+include::../UserGuide.adoc[tag=statisticsMode]
 
-include::../UserGuide.adoc[tag=statisticsmode]
+include::../UserGuide.adoc[tag=bill]
 
 == Contributions to the Developer Guide
 

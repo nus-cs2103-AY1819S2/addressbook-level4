@@ -276,9 +276,10 @@ As seen from above the `ModuleInfo` class is made up of 8 other classes: +
 
 |===
 
-The information found in the modules are seperated into their own class to maintain modularity in the
-code. All of these objects are created in the construction of the `ModuleInfo` Object.
-image:: //constructor
+The information found in the modules are separated into their own class to maintain modularity in the
+code. All of these objects are created in the construction of the `ModuleInfo` Object. +
+
+image::moduleinfoconstructor.png[width="800"]
 
 ==== Generating prerequisite trees
 Within the `ModuleInfo` class, the `ModuleInfoPrerequisite` class requires the most pre-processing. If users wishes to take
@@ -291,25 +292,45 @@ or feature may require the `ModuleTree` *i.e.* when adding/deleting modules from
 
 The `ModuleTree` data structure consist of "smaller" objects called `Node`, which can also be found in `commons.Util`.
 `Node` can represent one of the following information: +
+
 *1.* *Head* : The head/root of the `ModuleTree` which holds a `value` of the module code of the "larger" `ModuleInfo` object. +
+
 *2.* *Operator* : Either "OR" or "AND" to indicate if only one of the module is required to fulfill the prerequisite or
 all of the listed modules are required respectively. +
+
 *3.* *Module Code* : The module code that is required to meet the prerequisite. +
 
-image:: annotatedexample
+image::PrerequisiteTreeAnnotated.png[width="600"]
 
 The `generatePrerequisiteTree()` function is called after the `ModuleInfoPrerequisite1 object has been created, since
 the `ModuleTree` is dependent on the `String` input `prerequisite`. +
-image:://creation
+
+image::PrerequisiteString.png[width="800"]
 
 The input `prerequisite` usually comes in the format:
-image::// formatstring
 
-The input value is then split into an `array` using regualr expressions:
-image:://regeesplit
+image::PrerequisiteStringFormat.png[width="400"]
 
-This helps with the arrangement of the `ModuleTree`:
-image:: step-by-step
+The input value is then split into an `array` using regular expressions:
+
+image::RegexSplitter.png[width="400"]
+
+This helps with the arrangement of the `ModuleTree` as shown below: +
+
+.Step 1 The first index `String` is used to create a minor tree
+image::prerequisiteStep1.png[width="600"]
+
+.Step 2 Since the previous `String` ended with a "OR" the next `String` is made and added as a child to the predecessor.
+image::prerequisiteStep2.png[width="600"]
+
+.Step 3 The next `String` is a lone "AND" operator thus it supersedes as the new root node.
+image::prerequisiteStep3.png[width="600"]
+
+.Step 4 The subsequent minor tree is added to the root node.
+image::prerequisiteStep4.png[width="600"]
+
+.Step 5 Finally, since the next operator is same as the current root operator the next minor tree is added as a child.
+image::prerequisiteStepFinal.png[width="600"]
 
 
 ==== Making it into a list
@@ -321,14 +342,14 @@ During initial launch, after each module's information is converted into `Module
  `ModuleInfoList` object which contains an `ArrayList<ModuleInfo>`. After all the modules are added into `ModuleInfoList`,
  `ModuleInfoList` will be passed into `ModelManager` and will be converted into an `ObservableList<>` called `allModules`.
  Following that, a `FilteredList<>` object called `displaylist` will constructed from the `allModules` `ObservableList<>`.
- image:: //
+ image:: //djj
 
  Whenever the user searches for a particular `ModuleInfo` , the `ObservableList<>` is always ready and the `FilteredList<>`
  will be updated using a `Predicate` List generated from the user's search keywords.
- //image::///keywords
+ image::///keywords
 
 ==== Design considerations
-===== Aspect: ModuleTree data dtructure
+===== Aspect: ModuleTree data structure
 * **Current implementation :** Custom Module tree data structure
 ** Pros: Able to handle "AND" or "OR" operations found in the prerequisite Tree.
 ** Cons: Takes a extremely long time to implement and design. Not to mention extremely error-prone.

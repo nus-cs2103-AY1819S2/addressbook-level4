@@ -2,10 +2,13 @@
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
+:xrefstyle: full
+ifdef::env-github[]
+:tip-caption: :bulb:
 :note-caption: :information_source:
-:warning-caption: :warning:
+endif::[]
 
-Hello! I am Aaron, an undergraduate studying Computer Science in the National University of Singapore. This is my
+Hello everyone! I am Aaron, an undergraduate studying Computer Science in the National University of Singapore. This is my
 portfolio that documents the various contributions I have made to a Software Engineering project that my team have
 embarked on, QuickDocs.
 
@@ -14,18 +17,14 @@ QuickDocs is a desktop application that provides doctors with greater control in
 It assists them in their daily tasks such as facilitating patient consultations, managing medicine inventory,
 scheduling appointments, keeping track of reminders and monitoring financial statistics.
 
-These features can be summarized into four main modules:
+These features can be summarized into four main modules: *Patients and Consultations*, *Medicine inventory*,
+*Appointments and Reminders* and *Administration and Statistics* modules.
 
-* Patients and Consultations module
-* Medicine inventory module
-* Appointments and Reminders module
-* Administration and Statistics module
-
-QuickDocs has a Graphical User Interface (GUI) however most of the user interaction takes place via a Command
+QuickDocs has a Graphical User Interface (GUI), however most of the user interaction takes place via a Command
 Line Interface (CLI). It was built in Java and JavaFX and was morphed from an existing Address Book application.
 
-== Notation
-Here are some of the notations that will be used in this portfolio:
+== Notations
+Before you carry on, take note of these notations that will be used throughout this portfolio:
 
 * Text in `grey background` indicates either written code or user input.
 
@@ -35,42 +34,38 @@ This is a tip, to inform you of useful information.
 [NOTE]
 This is a note, to provide you with any additional information about a feature.
 
-== Summary of contributions
+== Summary of Contributions
 |===
-This section provides you with a summary of both technical and non-technical contributions that I have made
+|This section provides you with a summary of both technical and non-technical contributions that I have made
 throughout the development of QuickDocs.
 |===
 
+*Appointments and Reminders* +
 Out of the four main modules that comprises QuickDocs, I was in charge of developing the Appointments and Reminders
-module.
+module. This module allows doctors to schedule appointments with their patients and ensure that they are organised
+neatly, with no conflicting timings with existing ones. Additionally, doctors will no longer forget about upcoming
+to-dos or appointments in the midst of their busy schedule, as they can note them down and be notified of them
+through their reminder sidebar.
 
-==== Appointments
-Doctors can schedule appointments with their patients and ensure that they are organised neatly, with no conflicting
-timings with existing ones.
-
-==== Reminders
-Doctors will not forget about upcoming to-dos by recording them down on their reminder sidebar.
-
-The following are the summarized features of the Appointments and Reminders module:
+*Appointments and Reminders module features* +
+The following are the summarized features of this module:
 
 * `add`, `delete` and `list` commands for both Appointments and Reminders to register them into QuickDocs.
 * Automatic generation of reminders for upcoming appointments or alerts to stock up for a particular medicine.
 * The `freeapp` command that lists out all free timings available to book an appointment, given a search range of dates.
 * Displaying reminders on the reminder sidebar of the User Interface (UI).
 
-=== Major Enhancements
-
-* *Creation of the `freeapp` command*
-* *Code Contributed:* [https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#=undefined&search=simjiazhi[Functional code]]
+=== Major Enhancement: Creation of `freeapp` command
 ** *What it does:* Doctors can list out all free appointment slots for a particular range of dates.
 ** *Why is it needed:* Before the doctor schedules an appointment with his/her patient, they must first agree on a
 suitable date and time. Typically, the doctor has to look through his/her whole schedule of appointments and figure
 out an appropriate timing from there. With `freeapp`, the doctor is only one command away from viewing all free
-timings for a given range of dates. The doctor can then view the results with the patient and quickly come to an
-agreement. QuickDocs does the thinking instead!
-** *Highlights:* To make `freeapp` even more convenient, the user does not have to be bothered with the specific dates
+timings for a given range of dates. The doctor can then view these timings with the patient and quickly come to an
+agreement - QuickDocs does the thinking instead!
+** *Highlights:* To make `freeapp` even more convenient, the doctor does not have to be bothered with the specific dates
 to search. Instead, he/she only has to provide a single `DATE` and a `FORMAT`, which can either be `day`, `week`, or
-`month`.
+`month`. If the `FORMAT` specified was either `week` or `month`, `freeapp` will then list out the free timings for
+all neighboring dates of the given `DATE`.
 
 === Minor Enhancements:
 * *Creation of the reminder sidebar*
@@ -89,7 +84,7 @@ the doctor.
 
 === Other contributions:
 * *Project Management:*
-** Helped to manage the milestone goals and the issue tracker on QuickDocs' GitHub project page.
+** Helped to manage team milestone goals and issue trackers on QuickDocs' GitHub project page.
 
 * *Designing QuickDoc's User Interface (UI):*
 ** At the start of the project, I assisted the team in designing the layout and structure of QuickDoc's UI
@@ -100,8 +95,7 @@ that is currently implemented.
 execute commands to load QuickDocs with sample data for every new session. Hence I helped to create sample Patient,
 Appointment, and Reminder data that were loaded at every QuickDocs launch -
 https://github.com/CS2103-AY1819S2-W09-4/main/pull/55/commits/99d3b8767dafcd254ee53a47764f7365d7fce199[Sample Data]
-** Assisted the team in designing the Storage mechanism, allowing QuickDocs to save and read data from a json file.
-** Moreover, I helped to write the test cases for the Storage component after it was implemented by a teammate -
+** Helped to write the test cases for the Storage component after it was implemented by my teammate -
 https://github.com/CS2103-AY1819S2-W09-4/main/pull/123/commits/4b332c1dfb308c1abd1612b7ca13a3635e4e69aa[JsonSerializableQuickDocsTest],
 https://github.com/CS2103-AY1819S2-W09-4/main/pull/123/commits/472b3acf6e724fde67282388bd34397de0fb9275[JsonQuickDocsStorageTest]
 
@@ -117,21 +111,21 @@ https://github.com/nus-cs2103-AY1819S2/pe-dry-run/issues/906[1],
 https://github.com/nus-cs2103-AY1819S2/pe-dry-run/issues/734[2],
 https://github.com/nus-cs2103-AY1819S2/pe-dry-run/issues/567[3]
 
-* *Tools:*
+* *Setting Up Tools:*
 ** Assisted in setting up the continuous integration plugin TravisCI for the team's QuickDocs repository on GitHub.
 
 == Contributions to the User Guide
 
 |===
 |This section consists of my additions to QuickDoc's User Guide, showcasing my ability to write documentation targeted
-to end users that might have limited technical knowledge. I will only be showcasing some commands relating to
-Appointments, however the full User Guide can be found
+at end users that might have limited technical knowledge. I will only be showcasing a truncated version of the
+commands relating to Appointments, however the full User Guide can be found
 https://github.com/CS2103-AY1819S2-W09-4/main/blob/master/docs/UserGuide.adoc[here].
 |===
 
 
 === Appointment and Reminders
-The appointment and reminder modules give you more control over your busy schedule, featuring commands such as adding, removing,
+The Appointment and Reminder module give you more control over your busy schedule, featuring commands such as adding, removing,
 and searching appointments and reminders. There is also a command to list out all free appointment timings to help you choose
 your appointment timings more wisely.
 
@@ -140,17 +134,17 @@ You will never forget about any appointments or tasks again! +
 '''
 [[addapp]]
 ==== Adding appointments: `addapp`
-After a consultation session, you may want to schedule a follow-up appointment with your patient. You can use `addapp`
-to create an appointment with an existing patient in QuickDocs to add to your schedule.
+After a consultation session, you may want to schedule a follow-up appointment with your patient. You can do so
+with `addapp` to create an appointment with an existing patient in QuickDocs to add to your schedule.
 
 [TIP]
 The `<<freeapp, freeapp>>` command may be useful for you to first list out all free appointment timings for a given range of dates
-before choosing an appropriate appointment timing.
+before choosing an appropriate appointment timing!
 
 [NOTE]
-To ensure that you do not forget about about any future appointments, QuickDocs will automatically create a reminder for
+To ensure that you do not forget about any future appointments, QuickDocs will automatically create a reminder for
 the added appointment. You may not notice this reminder as it will only appear on your reminder sidebar closer to the date
-of the actual appointment (on the week of the appointment date)!
+of the actual appointment (on the week of the appointment date).
 
 {sp} +
 *Format:* `addapp r/NRIC d/DATE s/START e/END c/COMMENT` +
@@ -158,8 +152,8 @@ of the actual appointment (on the week of the appointment date)!
 *Alias{nbsp}{nbsp}{nbsp}{nbsp}:* `aa` +
 
 [NOTE]
-The format for a valid date is strictly YYYY-MM-DD (including the dashes) and a valid time is strictly HH:MM (including the colon).
-If unsure, you can refer to the example below.
+The format for a valid date is strictly `YYYY-MM-DD` (including the dashes) and a valid time is strictly `HH:MM` (including the colon).
+If unsure, you may refer to the example below.
 
 {sp} +
 *Example and results:*
@@ -175,116 +169,18 @@ main display as demonstrated in the diagram below:
 .The main display after adding an appointment
 image::ug-app_rem/addapp_success.png[width="600"]
 
-{sp} +
-
 The addition of the appointment could have failed as there is a conflict in timing with another existing appointment.
 QuickDocs will display a message in the input feedback box notifying you of this error, as demonstrated in the diagram below.
 
 .Adding an appointment that has conflicting timing with an existing appointment
 image::ug-app_rem/addapp_clash.png[width="600"]
-{sp} +
 
-
-Another reason for failing to add an appointment could be due to the appointment timing being outside of office hours
-which is from 9am to 6pm. QuickDocs will alert you of this error, as demonstrated in the diagram below:
-
-.Adding an appointment that is not within the office hours, from 9am to 6pm
-image::ug-app_rem/addapp_officehour.png[width="600"]
-
-'''
-[[listapp]]
-==== Listing appointments: `listapp`
-You can list all past and future appointments that you have added using the `listapp` command. The appointments will be ordered and
-listed, with the earliest appointment at the top and the latest at the bottom. You can filter the appointments
-you want to see either by specifying a `FORMAT` and a `DATE`, or by specifying an existing patient's `NRIC`.
-
-{sp} +
-*Format:* `listapp f/FORMAT d/DATE` +
-or{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp} *:* `listapp r/NRIC` +
-*Alias{nbsp}{nbsp}{nbsp}{nbsp}:* `la` +
-
-[NOTE]
-The valid keywords for `FORMAT` are only `day`, `week`, or `month`.
-
-{sp} +
-*Examples:*
-
-* `listapp` +
-
-By default, `listapp` will list all appointments scheduled in the current week if there are no keywords provided. +
-{sp} +
-
-* `listapp f/day d/2019-07-23` +
-
-Lists all appointments scheduled on 23rd July 2019. +
-{sp} +
-
-* `listapp f/week d/2019-07-23` +
-
-Lists all appointments scheduled on the given week of 23rd July 2019, which is from 22nd to 28th July. A week starts on a
-Monday and ends on a Sunday. +
-{sp} +
-
-* `listapp f/month d/2019-07-23` +
-
-Lists all appointments scheduled in the month of the given date, July 2019. +
-{sp} +
-
-* `listapp r/S9123456A` +
-
-Lists all appointments allocated to the patient with NRIC S9123456A, if this patient is registered in QuickDocs. +
-{sp} +
-
-*Result:*
-
-The filtered appointments will be ordered by time and listed on the main display of QuickDocs, as demonstrated in the diagram below:
-
-.Listing appointments scheduled on the week of 23rd July 2019.
-image::ug-app_rem/listapp_week.png[width="600"]
-
-'''
-[[deleteapp]]
-==== Deleting appointments: `deleteapp`
-If the patient would like to change the appointment date, or if there is a mistake in the appointment details, you can
-delete the existing scheduled appointment with `deleteapp` and then create a new appointment.
-Deletion of an appointment is final!
-
-[NOTE]
-QuickDocs will automatically delete the corresponding reminder created for the deleted appointment, if it still exists,
-so you don't have to worry about any discrepancies with your sidebar!
-
-{sp} +
-*Format:* `deleteapp d/DATE s/START` +
-
-*Alias{nbsp}{nbsp}{nbsp}{nbsp}:* `da` +
-
-[NOTE]
-Since there cannot be any overlapping appointment timings, you are able to uniquely identify any appointment with
-just the `DATE` and `START` time of the appointment.
-
-{sp} +
-*Example and results*:
-
-* `deleteapp d/2019-07-23 s/16:00` +
-
-This command will delete the appointment created on 23rd July 2019 with a start time of 4pm, if it exists. If successful,
-QuickDocs will display the details of the deleted appointment on the main display, as demonstrated in the diagram below:
-
-.Deleting an existing appointment in QuickDocs successfully
-image::ug-app_rem/deleteapp_success.png[width="600"]
-{sp} +
-
-If the given appointment was not found, QuickDocs will display an error message on the input feedback display,
-as demonstrated in the diagram below. Use the `<<listapp, listapp>>` command to find existing appointments for a given date!
-
-.Deleting a non-existent appointment in QuickDocs
-image::ug-app_rem/deleteapp_failure.png[width="600"]
 
 '''
 [[freeapp]]
 ==== List free appointment slots: `freeapp`
 [[fa, freeapp]]
-Unsure of what appointment timings are available in your schedule? Instead of using `<<listapp, listapp>>` to display all existing
+Unsure of what appointment timings are available in your schedule? Instead of using `listapp` to display all existing
 appointments, use `freeapp` instead to display a more intuitive list of free appointment slots -
 QuickDocs does the thinking for you!
 
@@ -297,7 +193,7 @@ You can filter the free slots you want to see by specifying a `FORMAT` and a `DA
 *Alias{nbsp}{nbsp}{nbsp}{nbsp}:* `fa` +
 
 [NOTE]
-Similar to `<<listapp, listapp>>`, the valid keywords for `FORMAT` are only `day`, `week`, or `month`.
+Similar to `listapp`, the valid keywords for `FORMAT` are only `day`, `week`, or `month`.
 
 {sp} +
 *Examples:* +
@@ -307,25 +203,16 @@ Similar to `<<listapp, listapp>>`, the valid keywords for `FORMAT` are only `day
 By default, `freeapp` will list all free appointment slots for the next month if there are no keywords provided. +
 {sp} +
 
-* `freeapp f/day d/2019-07-23` +
-
-Lists all free appointment slots on 23rd July 2019. +
-{sp} +
-
 * `freeapp f/week d/2019-07-23` +
 
 Lists all free appointment slots on the given week of 23rd July 2019, which is from 22nd to 28th July. A week starts on a
 Monday and ends on a Sunday. +
+
 {sp} +
-
-* `freeapp f/month d/2019-07-23` +
-
-Lists all free appointment slots in the month of the given date, July 2019. +
-{sp} +
-
 *Result:* +
 
-The free appointment slots will be ordered by time and listed on the main display of QuickDocs, as demonstrated in the diagram below:
+The free appointment slots will be ordered by date and time and will be listed on the main display of QuickDocs,
+as demonstrated in the diagram below:
 
 .Listing free appointment slots on the week of 23rd July 2019.
 image::ug-app_rem/freeapp_week.png[width="600"]
@@ -334,18 +221,18 @@ image::ug-app_rem/freeapp_week.png[width="600"]
 
 |===
 |This section includes my additions to QuickDoc's Developer Guide, showcasing my ability to write technical
-documentation targeted for developers. I will be describing my implementation of the `freeapp` command, however I also
-explained the technicalities of the Storage component and the Appointment and Reminder module, more of which can be
-found
+documentation targeted at future developers. I will be describing my implementation of the `freeapp` command,
+however I also explained the technicalities of the Storage component and the Appointment and Reminder module,
+more of which can be found
 https://github.com/CS2103-AY1819S2-W09-4/main/blob/master/docs/DeveloperGuide.adoc[here].
 |===
 
-==== Free appointment slots
+=== Free appointment slots
 Before deciding on an appointment timing, the user can execute the `freeapp` command to list out all the timings available for
 a new appointment booking.
 
-===== Command format
-The `freeapp` command takes in two parameters: +
+==== Command format: `freeapp f/FORMAT d/DATE`
+We can see that the `freeapp` command takes in two parameters: +
 
 . `FORMAT`: can be `day`, `week`, or `month` +
 . `DATE`: a valid date
@@ -359,9 +246,9 @@ constructs a `FreeAppCommand` object with the `start` and `end` fields.
 
 [NOTE]
 If the user does not specify a `FORMAT` and `DATE`, `FORMAT` will default to `month` and `DATE` will default to the
-current date, meaning that the current month's free appointment slots will be displayed.
+next month's date, meaning that free appointment slots for the whole of the following month will be displayed.
 
-===== Current Implementation
+==== Current Implementation
 The search is facilitated by the `AppointmentManager` class which stores all created `Appointments` in an `ArrayList`.
 `AppointmentManager` contains the method `listFreeSlots()` which firstly calls `AppointmentManager#getFreeSlots()`.
 `getFreeSlots()` is the main method that implements the logic behind `freeapp`.
@@ -369,8 +256,8 @@ The search is facilitated by the `AppointmentManager` class which stores all cre
 Given below are the steps taken when `listFreeSlots()` is called.
 
 Step 1. The method `listFreeSlots()` takes in the two arguments, `start` and `end`, which have been mentioned previously.
-Firstly, `listFreeSlots()` calls `getFreeSlots()`, providing it with the same two arguments, to retrieve the
-free slots before it can parse them into a `String`.
+Firstly, `listFreeSlots()` calls `getFreeSlots()`, providing it with the same two arguments, to retrieve a `List` of
+free `Slots` before it can parse them into a `String`.
 
 .Given search range from start to end date
 image::dg-appointment/freeapp1.png[width="800"]
@@ -389,7 +276,6 @@ These appointments are sorted by date and time, with the earliest appointment on
 .Selected appointments on start date
 image::dg-appointment/freeapp3.png[width="800"]
 
-{sp} +
 [NOTE]
 Since the appointments are already sorted, we do not need to search through the whole appointment list to
 find appointments present on the `start` date. We can simply go through the list from the beginning
@@ -409,7 +295,6 @@ In this `freeapp` context, these slots created represents a time period without 
 .Slots created to fill in empty time slots
 image::dg-appointment/freeapp4.png[width="800"]
 
-{sp} +
 [NOTE]
 Slots will only be created for timings during office hours (09:00 to 18:00). This is to prevent any possible
 inconvenience caused if the user accidentally decides on a timing outside of office hours.
@@ -426,15 +311,13 @@ image::dg-appointment/freeapp5.png[width="800"]
 Step 6. After all the slots are added, we return `freeSlots` to the caller function `listFreeSlots()`,
 to generate a `String` that represents all the free slots to be appended onto the main display of the UI.
 
-{sp} +
-
 We can summarize the steps taken after the `freeapp` command is called in the Sequence Diagram below:
 
 .Sequence diagram when `freeapp` is called
 image::dg-appointment/freeapp_SD.png[width="800"]
 
 
-===== Design Considerations
+==== Design Considerations
 Listed below are some of the considerations we took when designing the `freeapp` command.
 
 1. This feature was implemented for the convenience of the user in choosing a valid appointment slot with his/her patient.
@@ -447,10 +330,10 @@ range of dates to search, and can simply specify a rough date and be provided wi
 dates if the `FORMAT` given is `week` or `month`. Moreover, if the user wants to list all free slots for the whole
 month, they do not have to check what the last date of the month is in order to specify the end date.
 
-===== Alternatives Considered
+==== Alternatives Considered
 Listed below are the methods considered to implement the `freeapp` command.
 
-[cols="1,2a,1, 1", options="header"]
+[cols="1,2,2,3", options="header"]
 |===
 |Alternative |Description |Pros | Cons
 // row 1
@@ -467,9 +350,9 @@ this list will still have to be created from scratch, defeating the purpose of m
 // row 2
 |*Generate free slots only when required*
 
-*(Chosen implementation)*
+(Chosen implementation)
 |We will only generate a list of free slots when the `freeapp` command is called. This list will be a one-time use
-only and will not be stored in QuickDocs Storage.
+only and will not be stored in QuickDocs storage.
 |The user is given the flexibility to specify the range of dates to list the free slots, as this list is generated
 on the spot, and is not limited to the dates of a pre-determined list.
 |Since the generated list of free slots is not stored, extra work will be done in generating the same free slots

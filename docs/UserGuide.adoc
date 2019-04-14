@@ -21,10 +21,10 @@ By: `Team W14-3`      Since: `Jan 2019`      Licence: `MIT`
 // tag::intro[]
 == Introduction
 
-Ships ahoy! Battleship is a simple computer-based remake of the classic Battleship game, for people who want to have the
-joy of playing Battleships without the hassle and fuss of dealing with physical game pieces.
+Ships ahoy! Battleship is a simple computer-based remake of the classic Battleship game. It is for people who want to have the joy of playing Battleships without the hassle and fuss of dealing with physical game pieces.
 
 Battleship is optimised for people who want to use a Command Line Interface (CLI), while still retaining the benefits of a Graphical User Interface (GUI).
+
 It can guarantee many hours of fun, especially between those long and boring periods of the day. Can't wait to get started? Head over to <<Quick Start>> to fire away!
 
 [NOTE]
@@ -35,7 +35,7 @@ An interface is how a user interacts with the computer. For example, you can use
 A Command Line Interface (CLI) interacts with the user by accepting words that are typed in by the user. Conversely, a Graphical User Interface (GUI) interacts with the user visually. It uses icons and graphics to show the user what the program is doing.
 ====
 
-Battleship, as you will see, is a hybrid application. It combines both a CLI and GUI, meaning that the user must type in commands but will see the changes caused by those commands graphically.
+As you will see, Battleship is a hybrid application. It combines both a CLI and GUI, meaning that the user must type in commands but will see the changes caused by those commands graphically.
 
 // end::intro[]
 
@@ -176,6 +176,7 @@ image::maplegend.png[width=400]
 // end::map[]
 
 // tag::ship[]
+
 ==== Ship Management:
 ===== Placing a ship on the map: `put`
 
@@ -188,17 +189,17 @@ Examples:
 * `put n/Destroyer c/a1 r/vertical`
 * `put n/Aircraft Carrier c/b1 r/h t/tag1` +
 
-The head of a battleship refers to the top-most and left-most cell of the battleship. When coordinates are specified in the `put` command, it specifies the coordinates of the head of the battleship, as shown in the figure below.
+The head of a battleship is the top-most and left-most cell of the battleship. When coordinates are specified in the `put` command, it specifies the coordinates of the head of the battleship, as shown in the figure below.
 
 .The coordinates of the `put` command refer to the coordinates of the battleship head.
 image::BattleshipHeadExample2.png[width=800]
 
-The orientation of the ship can be horizontal or vertical. The orientation of the battleship must be specified. It may be shortened to `h` or `v`. +
+The orientation of the ship can be `horizontal` or `vertical`. This may be shortened to `h` or `v`, respectively. The orientation of the battleship must be specified. +
 
-When putting a ship on the map grid, you should not specify the head coordinates such that:
+When putting a ship on the map grid, you should specify the head coordinates such that:
 
-* The ship falls outside the map grid.
-* The ship collides with another ship that has already been placed on the map grid.
+* The ship falls within the map grid.
+* The ship does not collide with another ship that is already on the map grid.
 
 // end::ship[]
 

@@ -13,12 +13,12 @@ ifndef::env-github[]
 image::images/Ui.png[width="600"]
 endif::[]
 
-* This is a desktop TeethHub application. It has a GUI but most of the user interactions happen using a CLI (Command
+* This is TeethHub. TeethHub is targeted towards Dentists who prefer to type.
+* The primary function of TeethHub is to manage and store patient information and their records, and to display a representation of each patient's teeth. 
+* TeethHub can also export these information to PDF and display statistics generated from these information.
+* TeethHub is a desktop application. It has a GUI but most of the user interactions happen using a CLI (Command
 Line Interface).
-* Targeted towards Dentists who prefer to type.
-* It is developed in Java through the efforts of a five man team from NUS
-* It is *written in OOP fashion*.
-
+* TeethHub is developed *in an OOP fashion* in Java through the efforts of a five man team from NUS: https://cs2103-ay1819s2-w17-2.github.io/main/AboutUs.html[Jonathan Choo, Keith Sim, Kyler Wong, Lim Jia Hao and Wang Debang]
 
 == Site Map
 
@@ -30,10 +30,10 @@ Line Interface).
 
 == Acknowledgements
 
-* This application uses the base https://github.com/se-edu/addressbook-level4[AddressBook 4] created by
+* This application is morphed from the base https://github.com/se-edu/addressbook-level4[AddressBook 4] created by
 _NUS se-edu team_.
 * Some parts of this sample application were inspired by the excellent http://code.makery.ch/library/javafx-8-tutorial/[Java FX tutorial] by
 _Marco Jakob_.
-* Libraries used: https://github.com/TestFX/TestFX[TextFX], https://github.com/FasterXML/jackson[Jackson], https://github.com/google/guava[Guava], https://github.com/junit-team/junit5[JUnit5]
+* Libraries used: https://github.com/TestFX/TestFX[TextFX], https://github.com/FasterXML/jackson[Jackson], https://github.com/google/guava[Guava], https://github.com/junit-team/junit5[JUnit5], https://pdfbox.apache.org/[Apache PDFBox], https://commons.apache.org/proper/commons-logging/[Apache Commons Logging]
 
 == Licence : link:LICENSE[MIT]

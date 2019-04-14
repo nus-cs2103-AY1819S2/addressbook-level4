@@ -561,11 +561,11 @@ The following are some of the operations implemented:
 
 Given below is how the warning panel GUI is initialised on start up.
 
-Step 1. User launches MediTabs, invoking `MainWindow#fillInnerPart()`. The `MainWindow` class calls `Logic#getExpiringMedicinesList()`, `Logic#getLowStockMedicinesList()` and `Logic#getWarningPanelPredicateAccessor()` to obtain the two `ObservableList<Medicine>` to be displayed in the warning panel and the predicate accessor used in this session.
+Step 1. User launches MediTabs, invoking `MainWindow#fillInnerPart`. The `MainWindow` class calls `Logic#getExpiringMedicinesList`, `Logic#getLowStockMedicinesList` and `Logic#getWarningPanelPredicateAccessor` to obtain the two `ObservableList<Medicine>` to be displayed in the warning panel and the predicate accessor used in this session.
 
 Step 2. The `WarningPanel` is initialised with the objects obtained in Step 1, and constructs a `VBox`.
 
-Step 3. The `WarningPanel` self-invokes `setUpVBox(ObservableList<Medicine>, ObservableList<Medicine>)` to populate the VBox with `WarningListView` objects for display. There will be two `WarningListView` objects, each initialised with its corresponding `ObservableList<Medicine>`, a list descriptor and the predicate accessor.
+Step 3. The `WarningPanel` self-invokes `setUpVBox` to populate the `VBox` with `WarningListView` objects for display. There will be two `WarningListView` objects, each initialised with its corresponding `ObservableList<Medicine>`, a list descriptor and the predicate accessor.
 
 Step 4. The `WarningListView` configures a `ListView<Medicine>` object to display elements in the `ObservableList<Medicine>`. Every `ListView<Medicine>` cell is populated by a `WarningListViewCell` object.
 
@@ -576,6 +576,40 @@ The sequence diagram below summarises the above mentioned mechanism.
 [[fig-WarningPanelSequenceDiagram]]
 .Sequence diagram illustrating initialisation of the warning panel on start up
 image::WarningPanelSequenceDiagram.png[width="1000"]
+
+===== Input handling
+
+The basic flow of the `warning` command in two scenarios are as such:
+
+====== To change a threshold used by the warning panel
+
+Step 1. The user enters the command `warning e/10` to change the threshold for expiring medicine batches.
+
+Step 2. The command is parsed and a `WarningCommand` object is created with the type and value of the new threshold to be set.
+
+Step 3. The `WarningCommand#execute` method is invoked. The type and value of the new threshold is passed into `Model#changeWarningPanelListThreshold`.
+
+Step 4. Threshold for expiring medicine batches is changed.
+
+Step 5. The expiring/expired batch list in the warning panel is updated accordingly.
+
+Step 6. The new set of thresholds is shown in the result display box.
+
+====== To display thresholds currently in use
+
+Step 1. The user enters the command `warning show`.
+
+Step 2. The command is parsed and a `WarningCommand` object is created to show current threshold levels.
+
+Step 3. The `WarningCommand#execute` method is invoked.
+
+Step 4. The current thresholds used are shown in the result display box.
+
+The activity diagram below summarises what happens when a user execute the `warning` command:
+
+[[fig-WarningPanelActivityDiagram]]
+.Activity diagram illustrating what happens when a user executes the `warning` command
+image::WarningCommandActivityDiagram.png[width="800"]
 
 ==== Design Considerations
 

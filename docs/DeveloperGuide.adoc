@@ -744,7 +744,7 @@ session.
 *** `ModelManager#getCurrentTestedCard()` - returns the `currentTestedCard`.
 
 * `cardAlreadyAnswered`
-** A boolean variable to indicate if the user has already execute a valid answer command for the current card.
+** A boolean variable to indicate if the user has already executed a valid answer command for the current card.
 ** Related methods:
 *** `ModelManager#setCardAsAnswered()` - set `cardAlreadyAnswered` to true.
 *** `ModelManager#setCardAsNotAnswered()` - set `cardAlreadyAnswered` to false.

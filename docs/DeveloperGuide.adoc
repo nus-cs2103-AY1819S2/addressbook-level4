@@ -380,9 +380,6 @@ this approach.
 A Card consists of a question, an answer, its difficulty and the respective tags associated with it.
 Card's are deemed as equal if they have the same question to prevent the user from
 creating same question twice or to have 2 different answer for the same question.
-Cards are stored inside a `Deck` as a list of unique cards.
-The Create, Read, Update and Delete (CRUD) operation of a card in a chosen `Deck` is thus a modification of
-the chosen `Deck`.
 
 In order to facilitate the CRUD operations, `CardsView` contains `activeDeck` which is a reference to the
 current deck that we are modifying.
@@ -434,14 +431,11 @@ of functions carried out and returns the newly edited deck to `ModelManager`:
     }
 
 [NOTE]
-All other CRUD operations works similarly except for the model call. Instead of
-`Model#addCard(Card card, Deck deck)`, `Model#deleteCard(Card target, Deck deck)` or
-`Model#setCard(Card target, Card newCard, Deck deck)` is called instead. Similarly,
-instead of `VersionedTopDeck.addCard(Card card, Deck activeDeck)`,
+All other CRUD operations works similarly. Instead of `VersionedTopDeck.addCard(Card card, Deck activeDeck)`,
 `VersionedTopDeck.deleteCard(Card target, Deck activeDeck)` or
 `VersionedTopDeck.setCard(Card target, Card newCard, Deck activeDeck)` is called.
 
-Given below is an example usage scenario and how the add operation works and how it
+Given below is an example usage scenario of how the add operation works and how it
 interacts with Undo/Redo:
 
 Step 1. The user starts up the application and is in the `DecksView`. The user then

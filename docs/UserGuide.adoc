@@ -418,7 +418,7 @@ This is done by putting `"` around `KEYWORD`. There should not be any `"` charac
 
 [CAUTION]
 The entire phrase inside `"` will be matched word for word. For example, `find "Is there a question"`
-will show the question with the entire phrase `Is there a question` and the phrase
+will display the questions with the entire phrase `Is there a question` and the question
 `Is there a question?` will not be matched due to the extra `?`
 
 **Example**:

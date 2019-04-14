@@ -97,7 +97,7 @@ https://github.com/cs2103-ay1819s2-w11-1/main/pull/148[#148])
 
 == Contributions to the User Guide
 We had to update the original User Guide with new instructions for the different enhancements implemented.
-The following is an extract from that I have written for Card's Management from **TopDeck User Guide**.
+The following is an extract from **TopDeck User Guide** that I have written.
 
 (Start of extract)
 
@@ -138,32 +138,14 @@ TopDeck also provides an auto-complete feature for the `edit` command.
 Users need only type `edit INDEX` and TopDeck will fill up the commandline
 for the user to edit accordingly.
 
-Below is a walk-through of the `edit` command:
-
-Suppose the user adds a new card with a typo:
-
-image::card_ug_diagrams/edit_card_1.png[width="800"]
-
-The user can then retrieve the full detail of the card by simply typing
-`edit 2` and pressing enter. The following would appear
-
-image::card_ug_diagrams/edit_card_2.png[width="800"]
-
-The user can then edit and correct the mistake made.
-
-image::card_ug_diagrams/edit_card_3.png[width="800"]
-
-This would be the end result:
-
-image::card_ug_diagrams/edit_card_4.png[width="800"]
-
 ==== Finding a card in the active deck by name: `find`
 
 **Format**: `find KEYWORD [KEYWORD]...`
 
-**Search for phrases**: TopDeck provides users the ability to search for
+**Search for phrases**: TopDeck provides the user the ability to search for
 specific question by searching for a whole phrase instead of only individual words.
-This is done by putting `"` around `KEYWORD`.
+This is done by putting `"` around `KEYWORD`. There should not be any `"` character in
+`KEYWORD`. Searching using phrases only searches the question.
 
 **Outcome**: Lists all cards within the current deck containing `KEYWORD` in its text.
 
@@ -173,7 +155,7 @@ This is done by putting `"` around `KEYWORD`.
 
 [CAUTION]
 The entire phrase inside `"` will be matched word for word. For example, `find "Is there a question"`
-will show the question with the entire phrase `Is there a question` and the phrase
+will display the questions with the entire phrase `Is there a question` and the question
 `Is there a question?` will not be matched due to the extra `?`
 
 **Example**:
@@ -188,7 +170,7 @@ image::card_ug_diagrams/find_card_1.png[width="800"]
 
 Below is the result of executing this command:
 
-image::card_ug_diagrams/find_card_2.png[width="800"]
+image::card_ug_diagrams/find_card_2.png[width="800", height="200"]
 
 (End of extract)
 
@@ -241,14 +223,11 @@ of functions carried out and returns the newly edited deck to `ModelManager`:
     }
 
 [NOTE]
-All other CRUD operations works similarly except for the model call. Instead of
-`Model#addCard(Card card, Deck deck)`, `Model#deleteCard(Card target, Deck deck)` or
-`Model#setCard(Card target, Card newCard, Deck deck)` is called instead. Similarly,
-instead of `VersionedTopDeck.addCard(Card card, Deck activeDeck)`,
+All other CRUD operations works similarly. Instead of `VersionedTopDeck.addCard(Card card, Deck activeDeck)`,
 `VersionedTopDeck.deleteCard(Card target, Deck activeDeck)` or
 `VersionedTopDeck.setCard(Card target, Card newCard, Deck activeDeck)` is called.
 
-Given below is an example usage scenario and how the add operation works and how it
+Given below is an example usage scenario of how the add operation works and how it
 interacts with Undo/Redo:
 
 Step 1. The user starts up the application and is in the `DecksView`. The user then
@@ -257,7 +236,7 @@ executes the `open 1` command to open the first deck(D1 in the figure). This sho
 `CardsView.activeDeck` to point to the first deck as per figure 4.3.1. For more information, refer to
 the Deck feature.
 
-image::card_dg_fig/card_fig_1.png[width="800", caption="Figure 1"]
+image::card_dg_fig/card_fig_1.png[width="800", height="150", caption="Figure 1"]
 
 Step 2. The user executes `add q/question a/answer` to add the new card into the current deck.
 The `add` command is parsed and calls `Model#addCard(Card card, Deck deck)`.

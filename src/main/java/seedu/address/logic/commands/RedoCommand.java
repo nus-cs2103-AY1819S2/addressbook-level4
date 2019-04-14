@@ -19,21 +19,6 @@ public class RedoCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Redo success!";
     public static final String MESSAGE_FAILURE = "No more commands to redo!";
 
-    /*
-    @Override
-    public CommandResult execute(CurrentEdit currentEdit, Album album,
-                                 Model model, CommandHistory history) throws CommandException {
-        requireNonNull(model);
-
-        if (!model.canRedoAddressBook()) {
-            throw new CommandException(MESSAGE_FAILURE);
-        }
-
-        model.redoAddressBook();
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        return new CommandResult(MESSAGE_SUCCESS);
-    }*/
-
     @Override
     public CommandResult execute(CurrentEdit currentEdit,
                                  Model model, CommandHistory history) throws CommandException {

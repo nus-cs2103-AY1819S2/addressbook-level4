@@ -14,6 +14,8 @@ import seedu.hms.logic.commands.AddServiceTypeCommand;
 import seedu.hms.logic.commands.ClearBookingCommand;
 import seedu.hms.logic.commands.ClearHotelManagementSystemCommand;
 import seedu.hms.logic.commands.ClearReservationCommand;
+import seedu.hms.logic.commands.ClearRoomTypeCommand;
+import seedu.hms.logic.commands.ClearServiceTypeCommand;
 import seedu.hms.logic.commands.Command;
 import seedu.hms.logic.commands.DeleteBookingCommand;
 import seedu.hms.logic.commands.DeleteCustomerCommand;
@@ -151,6 +153,14 @@ public class HotelManagementSystemParser {
         case ClearReservationCommand.COMMAND_WORD:
         case ClearReservationCommand.COMMAND_ALIAS:
             return new ClearReservationCommand();
+
+        case ClearServiceTypeCommand.COMMAND_WORD:
+        case ClearServiceTypeCommand.COMMAND_ALIAS:
+            return new ClearServiceTypeCommand();
+
+        case ClearRoomTypeCommand.COMMAND_WORD:
+        case ClearRoomTypeCommand.COMMAND_ALIAS:
+            return new ClearRoomTypeCommand();
 
         case FindNameCommand.COMMAND_WORD:
         case FindNameCommand.COMMAND_ALIAS:

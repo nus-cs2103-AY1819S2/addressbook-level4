@@ -127,6 +127,11 @@ public class ReservationManager implements ReservationModel {
         versionedHotelManagementSystem.resetDataReservation(hotelManagementSystem);
     }
 
+    @Override
+    public void setClearRoomTypes(ReadOnlyHotelManagementSystem hotelManagementSystem) {
+        versionedHotelManagementSystem.resetDataRoomTypes(hotelManagementSystem);
+    }
+
     public void deleteRoomType(int roomTypeIndex) {
         versionedHotelManagementSystem.removeRoomType(roomTypeIndex);
     }
@@ -155,7 +160,7 @@ public class ReservationManager implements ReservationModel {
 
     public RoomType getRoomType(String serviceName) {
         requireNonNull(serviceName);
-        for (RoomType st: roomTypeList) {
+        for (RoomType st : roomTypeList) {
             if (st.getName().equalsIgnoreCase(serviceName)) {
                 return st;
             }

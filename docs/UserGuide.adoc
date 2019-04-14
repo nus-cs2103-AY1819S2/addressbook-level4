@@ -217,7 +217,7 @@ Format: `help`
 
 === Import an image : `import`
 
-Imports images to FomoFoto's Album from a specified filepath or a directory. +
+Imports images to FomoFoto's Album from a specified filepath or a folder. +
 Format: `import FILEPATH`
 
 Example of single filepath import:
@@ -225,12 +225,12 @@ Example of single filepath import:
 * `import C:\Users\Addison\Desktop\sample.jpg`
 * `import C:\Home\sample.png`
 
-Example of directory import:
+Example of folder import:
 
 * `import C:\Users\Addison\Desktop`
 * `import C:\Home`
 
-For directory import, invalid files are skipped and only valid images will be imported.
+For folder import, invalid files are skipped and only valid images will be imported.
 
 [NOTE]
 Images should be of the following formats: `bmp`, `jpg` , `jpeg`, `png`, `tif`, `tiff` or `gif`. Images with `tif` or `tiff` formats are not rendered on screen due to a bug with Java but edits made will still be applied.

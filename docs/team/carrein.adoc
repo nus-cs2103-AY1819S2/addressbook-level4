@@ -56,7 +56,7 @@ FomoFoto has an intuitive, human-centric design. Users are able to see the image
 ** Breaks down imported images in FomoFoto to an extensible Image class which is added to an Album. This ensures all images are valid and allows the creation of other commands by tapping on Album's methods.
 
 ==== Code Contributed:
-* https://github.com/CS2103-AY1819S2-W14-2/main/commits?author=carrein[List of commits].
+* https://github.com/CS2103-AY1819S2-W14-2/main/commits?author=carrein[List of commits]
 * https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#search=carrein[Project Code Dashboard]
 
 '''
@@ -73,7 +73,7 @@ https://github.com/CS2103-AY1819S2-W14-2/main/releases/tag/v1.3[v1.3]
 https://github.com[#187], https://github.com[#193], https://github.com[#230], https://github.com[#236]
 
 ==== Documentation:
-*** Addendum tweaks to existing contents of the User Guide: https://github.com[#236].
+*** Addendum tweaks to existing contents of the User Guide: https://github.com[#236]
 
 ==== Community:
 *** Core PRs Contributed: +

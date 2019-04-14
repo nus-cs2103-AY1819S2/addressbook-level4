@@ -36,7 +36,11 @@ public class ModelManagerTest {
         assertEquals(new UserPrefs(), modelManager.getUserPrefs());
         assertEquals(new GuiSettings(), modelManager.getGuiSettings());
         assertEquals(new AddressBook(), new AddressBook(modelManager.getAddressBook()));
+        assertEquals(new AddressBook(), new AddressBook(modelManager.getArchiveBook()));
+        assertEquals(new AddressBook(), new AddressBook(modelManager.getPinBook()));
         assertEquals(null, modelManager.getSelectedPerson());
+        assertEquals(null, modelManager.getSelectedArchivedPerson());
+        assertEquals(null, modelManager.getSelectedPinPerson());
     }
 
     @Test
@@ -86,6 +90,32 @@ public class ModelManagerTest {
     }
 
     @Test
+    public void setArchiveBookFilePath_nullPath_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
+        modelManager.setArchiveBookFilePath(null);
+    }
+
+    @Test
+    public void setArchiveBookFilePath_validPath_setsArchiveBookFilePath() {
+        Path path = Paths.get("archive/book/file/path");
+        modelManager.setArchiveBookFilePath(path);
+        assertEquals(path, modelManager.getArchiveBookFilePath());
+    }
+
+    @Test
+    public void setPinBookFilePath_nullPath_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
+        modelManager.setPinBookFilePath(null);
+    }
+
+    @Test
+    public void setPinBookFilePath_validPath_setsPinBookFilePath() {
+        Path path = Paths.get("pin/book/file/path");
+        modelManager.setPinBookFilePath(path);
+        assertEquals(path, modelManager.getPinBookFilePath());
+    }
+
+    @Test
     public void hasPerson_nullPerson_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
         modelManager.hasPerson(null);
@@ -100,6 +130,42 @@ public class ModelManagerTest {
     public void hasPerson_personInAddressBook_returnsTrue() {
         modelManager.addPerson(ALICE);
         assertTrue(modelManager.hasPerson(ALICE));
+    }
+
+    @Test
+    public void hasPersonArchive_nullPerson_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
+        modelManager.hasPersonArchive(null);
+    }
+
+    @Test
+    public void hasPersonArchive_personNotInArchiveBook_returnsFalse() {
+        assertFalse(modelManager.hasPersonArchive(ALICE));
+    }
+
+    @Test
+    public void hasPersonArchive_personInArchiveBook_returnsTrue() {
+        modelManager.addPerson(ALICE);
+        modelManager.archivePerson(ALICE);
+        assertTrue(modelManager.hasPersonArchive(ALICE));
+    }
+
+    @Test
+    public void hasPersonPin_nullPerson_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
+        modelManager.hasPersonPin(null);
+    }
+
+    @Test
+    public void hasPersonPin_personNotInAddressBook_returnsFalse() {
+        assertFalse(modelManager.hasPersonPin(ALICE));
+    }
+
+    @Test
+    public void hasPersonPin_personInAddressBook_returnsTrue() {
+        modelManager.addPerson(ALICE);
+        modelManager.pinPerson(ALICE);
+        assertTrue(modelManager.hasPersonPin(ALICE));
     }
 
     @Test
@@ -150,11 +216,43 @@ public class ModelManagerTest {
     }
 
     @Test
+    public void setSelectedArchivedPerson_personNotInFilteredArchivedPersonList_throwsPersonNotFoundException() {
+        thrown.expect(PersonNotFoundException.class);
+        modelManager.setSelectedArchivedPerson(ALICE);
+    }
+
+    @Test
+    public void setSelectedArchivedPerson_personInFilteredArchivedPersonList_setsSelectedArchivedPerson() {
+        modelManager.addPerson(ALICE);
+        modelManager.archivePerson(ALICE);
+        assertEquals(Collections.singletonList(ALICE), modelManager.getFilteredArchivedPersonList());
+        modelManager.setSelectedArchivedPerson(ALICE);
+        assertEquals(ALICE, modelManager.getSelectedArchivedPerson());
+    }
+
+    @Test
+    public void setSelectedPinPerson_personNotInFilteredPinPersonList_throwsPersonNotFoundException() {
+        thrown.expect(PersonNotFoundException.class);
+        modelManager.setSelectedPinPerson(ALICE);
+    }
+
+    @Test
+    public void setSelectedPinPerson_personInFilteredPinPersonList_setsSelectedPinPerson() {
+        modelManager.addPerson(ALICE);
+        modelManager.pinPerson(ALICE);
+        assertEquals(Collections.singletonList(ALICE), modelManager.getFilteredPinnedPersonList());
+        modelManager.setSelectedPinPerson(ALICE);
+        assertEquals(ALICE, modelManager.getSelectedPinPerson());
+    }
+
+    @Test
     public void equals() {
         AddressBook addressBook = new AddressBookBuilder().withPerson(ALICE).withPerson(BENSON).build();
-        AddressBook archiveBook = new AddressBookBuilder().build();
-        AddressBook pinBook = new AddressBookBuilder().build();
+        AddressBook archiveBook = new AddressBookBuilder().withPerson(ALICE).withPerson(BENSON).build();
+        AddressBook pinBook = new AddressBookBuilder().withPerson(ALICE).withPerson(BENSON).build();
         AddressBook differentAddressBook = new AddressBook();
+        AddressBook differentArchiveBook = new AddressBook();
+        AddressBook differentPinBook = new AddressBook();
         UserPrefs userPrefs = new UserPrefs();
 
         // same values -> returns true
@@ -173,6 +271,12 @@ public class ModelManagerTest {
 
         // different addressBook -> returns false
         assertFalse(modelManager.equals(new ModelManager(differentAddressBook, archiveBook, pinBook, userPrefs)));
+
+        // different archiveBook -> returns false
+        assertFalse(modelManager.equals(new ModelManager(addressBook, differentArchiveBook, pinBook, userPrefs)));
+
+        // different pinBook -> returns false
+        assertFalse(modelManager.equals(new ModelManager(addressBook, archiveBook, differentPinBook, userPrefs)));
 
         // different filteredList -> returns false
         String[] keywords = ALICE.getName().fullName.split("\\s+");

@@ -70,7 +70,6 @@ public class ArchiveCommandTest {
         expectedModel.archivePerson(personToArchive);
         expectedModel.commitBooks();
         expectedModel.setSelectedPerson(null);
-        //showNoPerson(expectedModel);
 
         assertCommandSuccess(archiveCommand, model, commandHistory, expectedMessage, expectedModel);
     }
@@ -101,7 +100,7 @@ public class ArchiveCommandTest {
         // archive -> first person archived
         archiveCommand.execute(model, commandHistory);
 
-        // undo -> reverts books back to previous state and filtered person list to show all persons
+        // undo -> reverts books back to previous state
         expectedModel.undoBooks();
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
@@ -145,7 +144,7 @@ public class ArchiveCommandTest {
         // archive -> archives second person in unfiltered person list / first person in filtered person list
         archiveCommand.execute(model, commandHistory);
 
-        // undo -> reverts addressbook back to previous state and filtered person list to show all persons
+        // undo -> reverts books back to previous state
         expectedModel.undoBooks();
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
@@ -177,12 +176,4 @@ public class ArchiveCommandTest {
         assertFalse(archiveFirstCommand.equals(archiveSecondCommand));
     }
 
-    /**
-     * Updates {@code model}'s filtered list to show no one.
-     */
-    private void showNoPerson(Model model) {
-        model.updateFilteredPersonList(p -> false);
-
-        assertTrue(model.getFilteredPersonList().isEmpty());
-    }
 }

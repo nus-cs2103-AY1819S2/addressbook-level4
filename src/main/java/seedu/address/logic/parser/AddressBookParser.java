@@ -45,7 +45,10 @@ public class AddressBookParser {
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 
     /**
-     * Used to test whether the arguments of a command is null
+     * Used to deal with arguments commands
+     *
+     * @param arguments arguments of user input string
+     * @throws ParseException if the user input parameters that contains keywords
      */
     public void dealArguments(String arguments) throws ParseException {
 

@@ -22,7 +22,7 @@ slaveFinder() is a resume management application that helps recruiters manage mo
 *** Furthermore, many companies are concerned about diviersity in their team. Such analytics can inform them if they are getting (or selecting) a sufficiently diversed pool of applicants.
 ** Highlights: In addition to processing the various fields data in corresponding lists, analytics data is presented in a visually intuitive manner consisting of different charts to suit the nature of the person field.
 +
-image::analytics.png[width="790"]
+image::analytics.PNG[width="790"]
 
 
 * *Major enhancement 2*: restructured the original AB4 UI code to suit the context of slaveFinder(), and provide UI component for various commands added by other team members.

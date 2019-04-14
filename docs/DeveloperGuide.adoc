@@ -968,13 +968,15 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |user |delete an equipment or its specific details |remove equipment that is obsolete
+|`* * *` |user |create, update, and delete an equipment or its specific details | keep the equipment information full and up-to-date.
 
-|`* * *` |user |delete worklist |remove worklist which indicates work completed and no longer need it for tracking progress
+|`* * *` |user |create, update, and delete an worklist | use worklist for tracking progress and tasks
 
-|`* * *` |user |have a worklist where I can store the equipments I am working on |keep track of all the equipments that I am assigned to
+|`* * *` |user |have a worklist where I can store the equipments I am working on | keep track of all the equipments that I am assigned to
 
 |`* * *` |user |want to view details of an equipment | so that i can retrieve more details information about a particular equipment
+
+|`* * *` |user |want to know names of the clients | so that i can get a clear view of my customers and their respective equipments
 
 |=======================================================================
 
@@ -983,7 +985,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |user |filter the list based on some conditions |remove all irrelevant equipments and worklist showing on the list
+|`* * *` |user |filter the list based on some conditions |remove all irrelevant equipments showing on the list
 |=======================================================================
 
 [discrete]
@@ -999,9 +1001,9 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* *` |user |know how to get to the location where the equipment is at |navigate to the address of the equipment easily
+|`* *` |user |know the location where the equipment is at | have a direct visual sense of the location of the equipment
 
-|`* *` |user |have a visual representation of areas I am visiting |have quick overview on information
+|`* *` |user |have a visual representation of all equipments in the list |have quick overview on information
 
 |`*` |user |plan efficient routes between multiple locations |increase productivity, cut transportation costs, improve maintenance services
 
@@ -1016,8 +1018,6 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |new user |be able to understand the UI without much instruction |spend my time on the program features
 
-|`* *` |user |receive notifications on the equipment that is due for preventive maintenance |know which equipment requires preventive maintenance as soon as possible
-
 |`*` |user |see my past commands |keep track of what I have searched on
 
 |`*` |user |autocomplete my command queries |get the information that I want faster
@@ -1027,8 +1027,6 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`*` |user |redo or undo my past commands |correct any mistakes I have made
 
 |=======================================================================
-
-_{More to be added}_
 //end:userstories[]
 
 

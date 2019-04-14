@@ -13,7 +13,6 @@ public class Syntax {
     public static final Prefix PREFIX_HINT = new Prefix("h/");
 
     // Used by Start command
-    public static final Prefix PREFIX_START_NAME = new Prefix("n/");
     public static final Prefix PREFIX_START_COUNT = new Prefix("c/");
     public static final Prefix PREFIX_START_MODE = new Prefix("m/");
 

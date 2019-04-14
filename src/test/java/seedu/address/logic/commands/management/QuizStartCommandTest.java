@@ -1,7 +1,9 @@
-package seedu.address.logic.commands.quiz;
+package seedu.address.logic.commands.management;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
+import static seedu.address.commons.core.Messages.MESSAGE_OPENED_LESSON;
+import static seedu.address.logic.commands.management.QuizStartCommand.MESSAGE_LESSON;
 import static seedu.address.testutil.TypicalCards.CARD_BELGIUM;
 import static seedu.address.testutil.TypicalCards.CARD_JAPAN;
 
@@ -19,6 +21,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.lesson.Lesson;
 import seedu.address.model.modelmanager.ManagementModel;
 import seedu.address.model.modelmanager.ManagementModelManager;
+import seedu.address.model.modelmanager.ManagementModelStub;
 import seedu.address.model.modelmanager.QuizModel;
 import seedu.address.model.modelmanager.QuizModelManager;
 import seedu.address.model.quiz.Quiz;
@@ -34,6 +37,8 @@ import seedu.address.testutil.SrsCardBuilder;
 
 public class QuizStartCommandTest {
     private static final CommandHistory commandHistory = new CommandHistory();
+    private static final String MESSAGE_COUNT = "Not enough cards in current lesson.\nSet the count to the maximum"
+            + " number for you by default.";
 
     @Rule
     public final ExpectedException thrown = ExpectedException.none();
@@ -42,6 +47,24 @@ public class QuizStartCommandTest {
     public void constructor_throwsNullPointerException () {
         Assert.assertThrows(NullPointerException.class, () ->
                 new QuizStartCommand(null));
+    }
+    /**
+     * A ManagementModel stub which always rejects reload lessons.
+     */
+    private class MgtModelStubWithOpenedLesson extends ManagementModelStub {
+        @Override
+        public boolean isThereOpenedLesson() {
+            return true;
+        }
+    }
+    @Test
+    public void execute_modelWithOpenedLesson_closeUnsuccessful() throws CommandException {
+        MgtModelStubWithOpenedLesson modelStub = new MgtModelStubWithOpenedLesson();
+        // attempt to reload lessons but there is an opened lesson ->
+        // ask user to close opened lesson first
+        thrown.expect(CommandException.class);
+        thrown.expectMessage(MESSAGE_OPENED_LESSON);
+        new QuizStartCommand(new SessionBuilder().build()).execute(modelStub, null);
     }
     @Test
     public void execute_correctModel() throws CommandException {
@@ -55,7 +78,15 @@ public class QuizStartCommandTest {
     public void execute_lessonExist() throws Exception {
         ManagementModel managementModel = new ManagementModelManager();
         final Session session = new SessionBuilder().build();
-        thrown.expectMessage("Lesson is not found. Please try another one.");
+        thrown.expectMessage("Lesson index is out of range. Please try a smaller one.");
+        CommandResult commandResult = new QuizStartCommand(session).execute(managementModel, commandHistory);
+        assertNull(commandResult);
+    }
+    @Test
+    public void execute_lessonExistAnother() throws Exception {
+        ManagementModel managementModel = new ManagementModelManager();
+        final Session session = new SessionBuilder(new Session(0, 1, QuizMode.LEARN)).build();
+        thrown.expectMessage("Lesson index is out of range. Please try a larger one.");
         CommandResult commandResult = new QuizStartCommand(session).execute(managementModel, commandHistory);
         assertNull(commandResult);
     }
@@ -68,9 +99,9 @@ public class QuizStartCommandTest {
         managementModel.addCardSrsData(new CardSrsData(CARD_BELGIUM.hashCode(), 1, 1,
                 Instant.ofEpochMilli(123), true));
         SrsCard srsCard = new SrsCardBuilder().build();
-        Session session = new SessionBuilder(new Session("Capitals", 1, QuizMode.DIFFICULT,
+        Session session = new SessionBuilder(new Session(1, 1, QuizMode.DIFFICULT,
                 List.of(srsCard))).build();
-        Session sessionMoreCount = new SessionBuilder(new Session("Capitals", 3, QuizMode.DIFFICULT,
+        Session sessionMoreCount = new SessionBuilder(new Session(1, 3, QuizMode.DIFFICULT,
                 List.of(srsCard))).build();
         CommandResult commandResult = new QuizStartCommand(session).execute(managementModel, commandHistory);
         assertEquals("Starting new quiz", commandResult.getFeedbackToUser());
@@ -93,7 +124,7 @@ public class QuizStartCommandTest {
         failManagementModel.addCardSrsData(new CardSrsData(CARD_JAPAN.hashCode(), 1, 1,
                 Instant.ofEpochMilli(123), false));
         SrsCard srsCard = new SrsCardBuilder().build();
-        Session session = new SessionBuilder(new Session("Capitals", 1, QuizMode.LEARN,
+        Session session = new SessionBuilder(new Session(1, 1, QuizMode.LEARN,
                 List.of(srsCard))).build();
         CommandResult commandResult = new QuizStartCommand(session).execute(managementModel, commandHistory);
         assertEquals("Starting new quiz", commandResult.getFeedbackToUser());
@@ -114,7 +145,7 @@ public class QuizStartCommandTest {
         failManagementModel.addCardSrsData(new CardSrsData(CARD_BELGIUM.hashCode(), 1, 1,
                 Instant.now().plus(Duration.ofHours(1234)), false));
         SrsCard srsCard = new SrsCardBuilder().build();
-        Session session = new SessionBuilder(new Session("Capitals", 1, QuizMode.REVIEW,
+        Session session = new SessionBuilder(new Session(1, 1, QuizMode.REVIEW,
                 List.of(srsCard))).build();
         CommandResult commandResult = new QuizStartCommand(session).execute(managementModel, commandHistory);
         assertEquals("Starting new quiz", commandResult.getFeedbackToUser());
@@ -147,7 +178,9 @@ public class QuizStartCommandTest {
         CommandResult result = quizStartCommand.executeActual(actualModel, commandHistory);
         assertEquals(expectedCommandResult, result);
         assertEquals(expectedCommandHistory, commandHistory);
-
+        session.setCount(10);
+        CommandResult largeCount = new QuizStartCommand(session).executeActual(expectedModel, commandHistory);
+        assertEquals(MESSAGE_COUNT + MESSAGE_LESSON + "default", largeCount.getFeedbackToUser());
     }
 
     @Test

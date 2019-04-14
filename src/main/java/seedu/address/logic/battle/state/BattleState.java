@@ -21,7 +21,7 @@ public enum BattleState {
      */
     PLAYER_ATTACK("You are currently planning attack..."),
     /**
-     * The human player is currently planning their attack.
+     * The enemy player is currently planning their attack.
      */
     ENEMY_ATTACK("Enemy is currently planning attack..."),
     /**
@@ -29,7 +29,7 @@ public enum BattleState {
      */
     PLAYER_WIN("You have won!"),
     /**
-     * The human player has lost the game..
+     * The enemy player has won the game.
      */
     ENEMY_WIN("You have lost...");
     /**
@@ -42,7 +42,16 @@ public enum BattleState {
         this.description = description;
     }
 
+    /**
+     * Gets a human-readable description of the battle state.
+     * @return a human-readable description of the battle state
+     */
     public String getDescription() {
+        return description;
+    }
+
+    @Override
+    public String toString() {
         return description;
     }
 }

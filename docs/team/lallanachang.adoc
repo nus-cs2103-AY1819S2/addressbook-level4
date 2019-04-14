@@ -51,23 +51,29 @@ Besides designing and writing codes, I also contributed to the project in the fo
 ** Updated explanation and diagrams in user guide and developer guide to match the current implementation.
 ** Sorted out and updated use stories and cases in develop guide. (Pull request link:{pullURL}14[#14])
 
+* Enhancement to existing feature:
+** Updated the Graphical User Interface representation for the quiz system. (Pull request link:{pullURL}176[#176])
+
 * Project management:
+** Followed team's internal schedule and updated the codes before each milestone.
 
 * Community:
+** PRs reviewed with comments: (examples: Pull request link:{pullURL}86[#86], link:{pullURL}107[#107])
+** Reported bugs and offered suggestion for the project. (examples: https://github.com/CS2103-AY1819S2-W14-1/main/issues/98[#98], https://github.com/CS2103-AY1819S2-W14-1/main/issues/128[#128])
 
 == Contributions to the User Guide
 
-
 |===
-|_Given below are sections I contributed to the User Guide, showing development that I have made for the `start` feature. They showcase my ability to write documentation targeting end-users._
+|Given below are sections I contributed to the User Guide, showing development that I have made for the `start` feature. They showcase my ability to write documentation targeting end-users.
+|The sections also contain an excerpt for the starting multiple lessons feature that I have planned for the next version (v2.0) of BrainTrain.
 |===
 
-//include::../UserGuide.adoc[tag=start]
+include::../UserGuide.adoc[tag=lei]
 
 == Contributions to the Developer Guide
 
 |===
-|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|_Given below are sections I contributed to the Developer Guide, showing implementation I have made for the `session` feature. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
 include::../DeveloperGuide.adoc[tag=session]

@@ -1,3 +1,4 @@
+/* @@author thamsimun */
 package seedu.address.logic.parser;
 
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
@@ -33,3 +34,4 @@ public class BlackWhiteCommandParserTest {
             BlackWhiteCommand.MESSAGE_USAGE));
     }
 }
+/* @@author*/

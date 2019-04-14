@@ -53,4 +53,12 @@ public class SaveCommand extends Command {
         album.refreshAlbum();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toName));
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this
+                || (other instanceof SaveCommand)
+                && (this.toName.equals(((SaveCommand) other).toName));
+    }
 }
+

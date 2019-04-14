@@ -17,7 +17,7 @@ public class Name {
     /*
      * Ensures the name of the file has to be valid and of an image type.
      */
-    public static final String VALIDATION_REGEX = "([^\\s]+(\\.(?i)(jpg|png|gif|bmp|tiff|tif))$)";
+    public static final String VALIDATION_REGEX = "([^\\s]+(\\.(?i)(jpg|jpeg|png|gif|bmp|tiff|tif))$)";
 
     public final String baseName;
     public final String extName;
@@ -28,7 +28,7 @@ public class Name {
      *
      * @param baseName A valid base name.
      * @param extName  A valid extension.
-     * @param fullName  A valid extension.
+     * @param fullName A valid extension.
      */
     public Name(String baseName, String extName, String fullName) {
         requireNonNull(baseName);
@@ -65,8 +65,9 @@ public class Name {
     }
 
     @Override
-    public int hashCode() {
-        return this.toString().hashCode();
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof Name // instanceof handles nulls
+                && fullName.equals(((Name) other).fullName)); // state check
     }
-
 }

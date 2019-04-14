@@ -314,17 +314,17 @@ image::randommap.png[width="300"]
 //tag::commandsummary[]
 == Command Summary
 
-[width="200%",cols="<30%,<70%,50%, 50",options="header",]
+[width="200%",cols="<30%,<40%,50%,20%",options="header",]
 |=======================================================================
 |Feature |Format |Purpose   | Example
-|*Attack*| `attack [coordinate]` |Attacks a selected cell on the enemy map.| `attack c1`
-|*Game manual*| `help` |Opens up the help guide window. | `help`
-|*Create map of size 6-10*| `init [integer_size]` | Initializes the map grid. | `init 8`
-|*List ships*| `list` |List all available battleships | `list`
-|*List tags*| `listTags` |List all available battleships by tags | `listTags`
-|*Put ship on map*| `put n/NAME r/ORIENTATION c/COORDINATE [optional]t/TAG` |Place your battleship on the map. | `put n/Destroyer r/vertical c/a1 t/myfleet`
-|*View statistics*| `stats` |Opens a Statistics Window. | `stats`
-|*Start game*| `start game` |Let enemy place ships on enemy grid. | `start game`
+|*Attack*| `attack COORDINATE` |Attacks a selected cell on the enemy map.| `attack c1`
+|*Display manual*| `help` |Opens up the help guide window. | `help`
+|*Create map of size 6-10*| `init MAP_SIZE` | Initializes the map grid. | `init 8`
+|*List ships*| `list [n/NAME] [t/TAGS]` |Lists all available battleships, optionally filtering by name and tag(s)| `list`
+|*List tags*| `listTags` |Lists all tags.| `listTags`
+|*Put ship on map*| `put n/NAME r/ORIENTATION c/COORDINATE [t/TAGS]` | Places a battleship on the specified position on the map, optionally adding tag(s). | `put n/Destroyer r/vertical c/a1 t/myfleet`
+|*View statistics*| `stats` | Opens the Statistics window. | `stats`
+|*Start battle*| `start` | Begins the battle. | `start`
 |=======================================================================
 //end::commandsummary[]
 

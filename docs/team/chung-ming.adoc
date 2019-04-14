@@ -50,7 +50,7 @@ The enhancement required an in-depth analysis of various design alternatives. Th
 
 *Credits:* link:https://github.com/google/gson[Gson], a third-party library, was used in the enhancement of this product to convert Java Objects into JSON and back.
 
-*Code contributed to the major enhancement*: [link:https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#search=chung-ming&sort=displayName&since=2019-02-10&until=2019-04-10&timeframe=day&reverse=false&repoSort=true[RepoSense]] [link:{repoURL}/pulls?utf8=%E2%9C%93&q=is%3Apr+author%3Achung-ming+-label%3Atype.MinorEnhancement+-label%3Atype.Testing[Functional code]] [link:{repoURL}/pulls?utf8=%E2%9C%93&q=is%3Apr+author%3Achung-ming+label%3Atype.Testing[Test code]]
+*Code contributed to the major enhancement*: [link:https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#search=chung-ming&sort=displayName&since=2019-02-10&timeframe=day&reverse=false&repoSort=true[RepoSense]] [link:{repoURL}/pulls?utf8=%E2%9C%93&q=is%3Apr+author%3Achung-ming+-label%3Atype.MinorEnhancement+-label%3Atype.Testing[Functional code]] [link:{repoURL}/pulls?utf8=%E2%9C%93&q=is%3Apr+author%3Achung-ming+label%3Atype.Testing[Test code]]
 
 === Minor Enhancement
 

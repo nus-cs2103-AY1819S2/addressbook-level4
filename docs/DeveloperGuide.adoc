@@ -620,7 +620,7 @@ image::RotateCommandSequenceDiagram.png[width="800"]
 
 ==== Design Considerations
 
-* Intermediate images have to be stored and edited in a temp directory first due to our `undo/redo` implementation.
+* Images that are still being edited have to be stored and edited in a temp directory first due to our `undo/redo` implementation.
 
 ==== Crop Command
 This command allows the user to crop the targeted image by specifying the coordinates of the top left hand corner of the desired image, the width of the desired image and the height of the desired image. Upon receiving the inputs, the values will be checked for their validity and will throw an error if any value is not within the specified range. The command will then be added to the `List<Command>` belonging to `tempImage` found in `currentEdit` which saves the editing history of the targeted image.

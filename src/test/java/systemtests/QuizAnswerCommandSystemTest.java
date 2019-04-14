@@ -3,6 +3,7 @@ package systemtests;
 import static seedu.address.commons.core.Messages.MESSAGE_LESSON_COMMANDS;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.logic.commands.quiz.QuizAnswerCommand.MESSAGE_CORRECT;
+import static seedu.address.logic.commands.quiz.QuizAnswerCommand.MESSAGE_SUCCESS;
 import static seedu.address.model.util.SampleCards.SAMPLE_1_CARD_1_CORE_1;
 import static seedu.address.model.util.SampleCards.SAMPLE_1_CARD_1_CORE_2;
 import static seedu.address.model.util.SampleCards.SAMPLE_1_CARD_2_CORE_1;
@@ -15,7 +16,7 @@ import java.util.List;
 import org.junit.Test;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.management.QuizStartCommand;
+import seedu.address.logic.commands.management.StartCommand;
 import seedu.address.model.lesson.Lesson;
 import seedu.address.model.modelmanager.ManagementModel;
 import seedu.address.model.modelmanager.Model;
@@ -38,7 +39,7 @@ public class QuizAnswerCommandSystemTest extends BrainTrainSystemTest {
             }
         }
 
-        StringBuilder sb = new StringBuilder(QuizStartCommand.COMMAND_WORD);
+        StringBuilder sb = new StringBuilder(StartCommand.COMMAND_WORD);
         sb.append(" ").append(index.getOneBased()).append(" c/2 m/REVIEW \n");
         executeCommand(sb.toString());
 
@@ -85,9 +86,17 @@ public class QuizAnswerCommandSystemTest extends BrainTrainSystemTest {
          * -> answer 4th and last question
          */
         command = SAMPLE_1_CARD_1_CORE_1;
-        // switch back to management mode
-        expectedResultMessage = MESSAGE_LESSON_COMMANDS;
+        expectedResultMessage = MESSAGE_CORRECT + MESSAGE_SUCCESS;
         expectedModel.updateTotalAttemptsAndStreak(1, command);
+        expectedModel.setResultDisplay(true);
+        assertCommandSuccess(command, expectedResultMessage, expectedModel);
+
+        /* Case: exit quiz mode
+         * -> returns to management mode
+         */
+        command = "any valid answer input works";
+        expectedResultMessage = MESSAGE_LESSON_COMMANDS;
+        expectedModel.setResultDisplay(false);
         expectedModel.updateUserProfile(expectedModel.end());
 
         assertCommandSuccess(command, expectedResultMessage, expectedModel);

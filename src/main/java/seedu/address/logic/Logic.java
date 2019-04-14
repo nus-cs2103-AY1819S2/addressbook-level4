@@ -67,4 +67,9 @@ public interface Logic {
      * Returns the user prefs' theme.
      */
     String getTheme();
+
+    /**
+     * Returns the list of QuizCard from Quiz.
+     */
+    List<QuizCard> getQuizCardList();
 }

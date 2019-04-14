@@ -113,6 +113,13 @@ public class QuizModelManagerTest {
     }
 
     @Test
+    public void getQuizCardList() {
+        modelManager.init(quiz, SESSION_DEFAULT_2);
+
+        assertEquals(quiz.getOriginalQuizCardList(), modelManager.getQuizCardList());
+    }
+
+    @Test
     public void toggleIsCardDifficult() {
         modelManager.init(quiz, SESSION_DEFAULT_2);
 
@@ -135,8 +142,20 @@ public class QuizModelManagerTest {
         modelManager.init(quiz, SESSION_DEFAULT_2);
         assertFalse(modelManager.isQuizDone());
 
+        modelManager.setResultDisplay(false);
         modelManager.end();
         assertTrue(modelManager.isQuizDone());
+    }
+
+    @Test
+    public void setResultDisplay() {
+        modelManager.init(quiz, SESSION_DEFAULT_2);
+
+        modelManager.setResultDisplay(true);
+        assertTrue(modelManager.isResultDisplay());
+
+        modelManager.setResultDisplay(false);
+        assertFalse(modelManager.isResultDisplay());
     }
 
     @Test
@@ -147,8 +166,6 @@ public class QuizModelManagerTest {
 
         // before doing any question
         List<List<Integer>> expected = new ArrayList<>();
-        expected.add(Arrays.asList(0, 0, 0, 0));
-        expected.add(Arrays.asList(1, 0, 0, 0));
 
         assertEquals(expected, modelManager.end());
 

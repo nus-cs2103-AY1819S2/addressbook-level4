@@ -4,6 +4,7 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
+import seedu.address.logic.commands.management.StartCommand;
 import seedu.address.model.quiz.QuizCard;
 import seedu.address.model.quiz.QuizMode;
 import seedu.address.model.srscard.SrsCard;
@@ -96,7 +97,7 @@ public class Session {
     }
 
     /**
-     * Creates the session when user input a {@link seedu.address.logic.commands.management.QuizStartCommand}
+     * Creates the session when user input a {@link StartCommand}
      * @param index {@code index} shows the index of the {@link seedu.address.model.lesson.Lesson}
      *                           in {@link seedu.address.model.lesson.LessonList}
      * @param cardCount number of cards that users want to be tested

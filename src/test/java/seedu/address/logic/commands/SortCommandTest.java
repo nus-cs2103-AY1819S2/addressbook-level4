@@ -186,7 +186,6 @@ public class SortCommandTest {
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
     }
 
-    
     @Test
     public void execute_sortGpa_success() {
         String expectedMessage = String.format("Sorted all persons by gpa");

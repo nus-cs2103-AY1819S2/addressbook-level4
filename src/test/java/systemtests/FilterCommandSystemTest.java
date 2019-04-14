@@ -1,16 +1,19 @@
 package systemtests;
 
+import static org.junit.Assert.assertFalse;
 import static seedu.address.commons.core.Messages.MESSAGE_PERSONS_LISTED_OVERVIEW;
 import static seedu.address.logic.commands.CommandTestUtil.FILTERNAME_DESC;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.model.job.JobListName.APPLICANT_NAME;
 import static seedu.address.testutil.TypicalObjects.BENSON;
+import static seedu.address.testutil.TypicalObjects.CARL;
 import static seedu.address.testutil.TypicalObjects.DANIEL;
 import static seedu.address.testutil.TypicalObjects.KEYWORD_MATCHING_MEIER;
 
 import org.junit.Test;
 
 import seedu.address.logic.commands.ClearFilterCommand;
+import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.FilterCommand;
 import seedu.address.model.Model;
 

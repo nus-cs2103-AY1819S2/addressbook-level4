@@ -149,6 +149,7 @@ public class DeleteFilterCommandTest {
 
     @Test
     public void execute_filterNameNotFoundDetailJob_fail() {
+        model.setIsAllJobScreen(false);
         DeleteFilterCommand deleteFilterCommandApplicant = new DeleteFilterCommand(APPLICANT, VALID_FILTERNAME);
         DeleteFilterCommand deleteFilterCommandInterview = new DeleteFilterCommand(INTERVIEW, VALID_FILTERNAME);
         DeleteFilterCommand deleteFilterCommandKiv = new DeleteFilterCommand(KIV, VALID_FILTERNAME);

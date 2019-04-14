@@ -161,7 +161,7 @@ To change back to the browser panel, simply enter the `[fuchsia]#summary#` comma
 .Command Box and Result Display
 image::commandbox_resultdisplay.png[width="450"]
 
-These elements are denoted by the black and blue boxes in Figures 2 and 3 respectively.
+These elements are denoted by the black and maroon boxes in Figures 2 and 3 respectively.
 
 The command box is the place for users to type in their commands.
 Refer to <<Features>> for details of each command.
@@ -201,7 +201,7 @@ step-by-step instructions on how to use the different commands.
 // tag::set[]
 ==== Setting a budget: `[fuchsia]#set#`
 
-[aqua]#You can use this command to set a budget for the current instance of _In-Credit-Ble_ Finance Tracker.# +
+[maroon]#You can use this command to set a budget for the current instance of _In-Credit-Ble_ Finance Tracker.# +
 
 *Format*: `[fuchsia]#set $/AMOUNT#`
 
@@ -245,7 +245,7 @@ budgets are going to exceed it.
 // tag::allocate[]
 ==== Allocating budget based on categories: `[fuchsia]#allocate#`
 
-[aqua]#You can use this command to set a budget for a category in _In-Credit-Ble_ Finance Tracker.# +
+[maroon]#You can use this command to set a budget for a category in _In-Credit-Ble_ Finance Tracker.# +
 
 *Alias*: `[fuchsia]#allo#`
 
@@ -273,7 +273,7 @@ sense to set a budget that is below the amount that you have already spent on th
 For example, if you have spent $50.50 on the cateogry `[fuchsia]#Food#`, you will receive an error message when you try to
 `[fuchsia]#allocate#` $40.00 to the category `[fuchsia]#Food#`.
 * Category name supplied must be https://en.wikipedia.org/wiki/Alphanumeric[alphanumeric]
-and cannot contain special characters such as `[fuchsia]#:<>;\/|?~^%$#@#`
+and cannot contain special characters such as `*:<>;\/|?~^%$@#*`
 * For you to see the category budgets and the current spending in each of the allocated category budget, use the `[fuchsia]#show#`
 command shown in the next command
 ====
@@ -290,7 +290,7 @@ You cannot set a budget smaller than the current spending in the category.
 // tag::show[]
 ==== Showing allocated budget and spending in categories: `[fuchsia]#show#`
 
-[aqua]#You can use this command to see your current spending and the category budget allocated in
+[maroon]#You can use this command to see your current spending and the category budget allocated in
 _In-Credit-Ble_ Finance Tracker.# +
 
 *Alias*: `[fuchsia]#showCatBudget#`
@@ -329,31 +329,31 @@ to let you know so
 === Expense Entry Management
 
 // tag::spend[]
-==== Adding an expense: `spend`
+==== Adding an expense: `[fuchsia]#spend#`
 
-You can keep track of how much you have spent by adding an expense entry to _In-Credit-Ble_.
+[maroon]#You can keep track of how much you have spent by adding an expense entry to _In-Credit-Ble_.#
 
-*Alias*: `add`
+*Alias*: `[fuchsia]#add#`
 
-*Format*: `spend n/NAME $/AMOUNT [d/DATE] c/CATEGORY [r/DESCRIPTION]`
+*Format*: `[fuchsia]#spend n/NAME $/AMOUNT [d/DATE] c/CATEGORY [r/DESCRIPTION]#`
 
 ****
-*Examples*:
+*[navy]#Examples#*:
 
-* `spend n/cake $/5.50 d/15/03/2019 c/Food r/Birthday celebration`
-* `spend n/movie $/10 d/16/03/2019 c/Entertainment r/Avengers: End Game`
+* `[fuchsia]#spend n/cake $/5.50 d/15/03/2019 c/Food r/Birthday celebration#`
+* `[fuchsia]#spend n/movie $/10 d/16/03/2019 c/Entertainment r/Avengers: End Game#`
 ****
 
 [NOTE]
 ====
-* If you provide multiple categories (e.g. `spend n/Tshirt $/10.00 d/31/03/2019 c/Food c/Clothes`),
-only the last category you provided will be taken. (In the previous e.g., the command will
-add expense for `Clothes` category.)
-* Category names are case-insensitive. (e.g. `CLotHes`, `clothes` and `CLOTHES` refer to the same
+* If you provide multiple categories ([navy]#e.g.# `[fuchsia]#spend n/Tshirt $/10.00 d/31/03/2019 c/Food c/Clothes#`),
+only the last category you provided will be taken (In the previous e.g, the command will
+add expense for `[fuchsia]#Clothes#` category).
+* Category names are case-insensitive. (e.g. `[fuchsia]#CLotHes#`, `[fuchsia]#clothes#` and `[fuchsia]#CLOTHES#` refer to the same
 category and will be shown with the first character in uppercase and the rest of the characters
-in lowercase (in the above example, it will be shown as `Clothes`)
+in lowercase. In the above example, it will be shown as `Clothes`)
 * Category name supplied must be https://en.wikipedia.org/wiki/Alphanumeric[alphanumeric]
-and cannot contain special characters such as `:<>;\/|?~^%$#@`
+and cannot contain special characters such as `*:<>;\/|?~^%$#@*`
 * Date cannot be a date in the future. Addition of future expenses are not allowed.
 * If no date is inputted, current local date will be used instead.
 * Name, category and description inputs are limited to 40 characters each.
@@ -364,29 +364,29 @@ and cannot contain special characters such as `:<>;\/|?~^%$#@`
 // end::spend[]
 
 // tag::edit[]
-==== Editing an entry: `edit`
+==== Editing an entry: `[fuchsia]#edit#`
 
-You can easily edit any part of an existing records in _In-Credit-Ble_. +
+[maroon]#You can easily edit any part of an existing records in _In-Credit-Ble_.# +
 Index refers to the index number shown in the list.
 
-*Alias*: `e`
+*Alias*: `[fuchsia]#e#`
 
-*Format*: `edit INDEX [n/NAME] [$/AMOUNT] [d/DATE] [c/CATEGORY] [r/DESCRIPTION]`
+*Format*: `[fuchsia]#edit INDEX [n/NAME] [$/AMOUNT] [d/DATE] [c/CATEGORY] [r/DESCRIPTION]#`
 
 ****
-*Examples*:
+*[navy]#Examples#*:
 
-* `edit 2 $/10.10`
-* `edit 1 n/burger c/Food`
-* `edit 1 r/Best meal I have ever eaten`
+* `[fuchsia]#edit 2 $/10.10`#
+* `[fuchsia]#edit 1 n/burger c/Food#`
+* `[fuchsia]#edit 1 r/Best meal I have ever eaten#`
 ****
 
 You can remove the description of any records by giving inputting empty parameter.
 
 ****
-*Example of removing description*:
+*[navy]#Example of removing description#*:
 
-* `edit 1 r/`
+* `[fuchsia]#edit 1 r/#`
 
 .Example of removing the description from a record
 image::RemoveDescriptionExample.png[width ="600"]
@@ -395,9 +395,9 @@ image::RemoveDescriptionExample.png[width ="600"]
 
 [NOTE]
 ====
-* `INDEX` here refers to the index number shown in the displayed records.
-* `INDEX` *must be a positive integer* 1, 2, 3, ...
-* `INDEX` must be within the total number of records that are displayed.
+* `[fuchsia]#INDEX#` here refers to the index number shown in the displayed records.
+* `[fuchsia]#INDEX#` *must be a positive integer* 1, 2, 3, ...
+* `[fuchsia]#INDEX#` must be within the total number of records that are displayed.
 * At least one of the optional fields must be provided.
 * Name, category and description inputs are limited to 40 characters each.
 * Amount entered cannot be larger than 100000000.
@@ -409,83 +409,83 @@ image::RemoveDescriptionExample.png[width ="600"]
 
 // tag::select[]
 
-==== Selecting an entry: `select`
+==== Selecting an entry: `[fuchsia]#select#`
 
-You can select an existing entry in the records to view its details by specifying the entry's index number.
+[maroon]#You can select an existing entry in the records to view its details by specifying the entry's index number.#
 
-*Alias*: `s`, `sel`
+*Alias*: `[fuchsia]##`, `[fuchsia]#sel#`
 
-*Format*: `select INDEX`
+*Format*: `[fuchsia]#select INDEX#`
 
 ****
-*Example*:
+*[navy]#Example#*:
 
-* `select 3`
+* `[fuchsia]#select 3#`
 ****
 
 [NOTE]
 ====
-* `INDEX` here refers to the index number shown in the displayed records.
-* `INDEX` *must be a positive integer* 1, 2, 3, ...
+* `[fuchsia]#INDEX#` here refers to the index number shown in the displayed records.
+* `[fuchsia]#INDEX#` *must be a positive integer* 1, 2, 3, ...
 ====
 
 // end::select[]
 
 // tag::delete[]
-==== Deleting an entry: `delete`
+==== Deleting an entry: `[fuchsia]#delete#`
 
-You can delete an entry in the record by specifying the entry's index number.
+[maroon]#You can delete an entry in the record by specifying the entry's index number.#
 Deleted entries can be recovered via the `undo` command.
 
-*Alias*: `d`, `del`
+*Alias*: `[fuchsia]#d#`, `[fuchsia]#del#`
 
-*Format*: `delete INDEX`
+*Format*: `[fuchsia]#delete INDEX#`
 
 ****
-*Example*:
+*[navy]#Example#*:
 
-* `delete 2`
+* `[fuchsia]#delete 2#`
 ****
 
 [NOTE]
 ====
-* `INDEX` here refers to the index number shown in the displayed records.
-* `INDEX` *must be a positive integer* 1, 2, 3, ...
-* `INDEX` must be within the total number of records that are displayed.
+* `[fuchsia]#INDEX#` here refers to the index number shown in the displayed records.
+* `[fuchsia]#INDEX#` *must be a positive integer* 1, 2, 3, ...
+* `[fuchsia]#INDEX#` must be within the total number of records that are displayed.
 ====
 // end::delete[]
 
 === Records Management
 
 // tag::list[]
-==== Listing all entries: `list`
+==== Listing all entries: `[fuchsia]#list#`
 
-You can see all the entries you have entered, as long as they are not deleted entries.
+[maroon]#You can see all the entries you have entered, as long as they are not deleted entries#.
 
-*Alias*: `l`, `ls`
+*Alias*: `[fuchsia]#l#`, `[fuchsia]#ls#`
 
-*Format*: `list`
+*Format*: `[fuchsia]#list#`
 // end::list[]
 
 // tag::search[]
-==== Searching an entry based on name/category/date: `search`
+==== Searching an entry based on name/category/date: `[fuchsia]#search#`
 
-You can easily search for entries in the records using a name, category or date as keywords. The total sum of money
+[maroon]#You can easily search for entries in the records using a name, category or date as keywords#. The total sum of money
 spent on all the results of the search will also be shown.
 
 [TIP]
-Make use of the `list` command to show the full list of records again after filtering the records using the `search` command.
+Make use of the `[fuchsia]#list#` command to show the full list of records again after filtering the records using the `[fuchsia]#search#` command.
 
-*Alias*: `find`
+*Alias*: `[fuchsia]#find#`
 
-*Format*: `search FLAG KEYWORD [MORE_KEYWORDS]`
+*Format*: `[fuchsia]#search FLAG KEYWORD [MORE_KEYWORDS]#`
 
 ****
-*Examples*:
+*[navy]#Examples#*:
 
-* `search -cat Accessories`
-* `search -name cake bread`
-* `search -date 10/10/2001`
+* `[fuchsia]#search -cat Accessories#`
+* `[fuchsia]#search -name cake bread#`
+* `[fuchsia]#search -date 10/10/2001#`
 
 .Example of searching the a long list of records by the category "Accessories".
 image::SearchByCategoryExample.png[width ="600"]
@@ -499,49 +499,49 @@ image::TotalSpentInResultDisplay.png[width ="600"]
 
 [NOTE]
 ====
-* `FLAG` here refers to either `-name`, `-cat` or `-date`.
+* `[fuchsia]#FLAG#` here refers to either `[fuchsia]#-name#`, `[fuchsia]#-cat#` or `[fuchsia]#-date#`.
 * Only one flag should be provided.
 * If you do not input parameters after the flag, the search result will return with empty list
 ====
 // end::search[]
 
 // tag::sort[]
-==== Sorting the entries according to name/amount/date/category: `sort`
+==== Sorting the entries according to name/amount/date/category: `[fuchsia]#sort#`
 
-You can choose to sort the list of entries by name, amount, date or category. +
-`Sort` has effect on the entire list of entries (instead of a filtered list).
+[maroon]#You can choose to sort the list of entries by name, amount, date or category.# +
+`[fuchsia]#Sort#` has effect on the entire list of entries (instead of a filtered list).
 
-*Format*: `sort FLAG [ORDER]`
+*Format*: `[fuchsia]#sort FLAG [ORDER]#`
 
 [NOTE]
 ====
-* `FLAG` here refers to either `-name`, `-amount`, `-date` or `-cat`.
+* `[fuchsia]#FLAG#` here refers to either `[fuchsia]#-name#`, `[fuchsia]#-amount#`, `[fuchsia]#-date#` or `[fuchsia]#-cat#`.
 * Only one flag should be provided.
-* `[ORDER]` refers to either `-asc` or `-desc`.
-** `-asc` for ascending order.
-** `-desc` for descending order.
-* `[ORDER]` is optional. If not supplied, default ordering is implied.
-* Order of parameters supplied matters. (FLAG must be before ORDER)
+* `[fuchsia]#[ORDER]#` refers to either `[fuchsia]#-asc#` or `[fuchsia]#-desc#`.
+** `[fuchsia]#-asc#` for ascending order.
+** `[fuchsia]#-desc#` for descending order.
+* `[fuchsia]#[ORDER]#` is optional. If not supplied, default ordering is implied.
+* Order of parameters supplied matters. (`[fuchsia]#FLAG#` must be before `[fuchsia]#ORDER#`)
 ====
 
 ****
-*Examples (default ordering)*:
+*[navy]#Examples# (default ordering)*:
 
-* `sort -name`: +
+* `[fuchsia]#sort -name#`: +
 Sorts the list of records by name in lexicographical order (ascending order)
-* `sort -amount`: +
+* `[fuchsia]#sort -amount#`: +
 Sorts the list of records by amount from largest to smallest (descending order)
-* `sort -date`: +
+* `[fuchsia]#sort -date#`: +
 Sorts the list of records by date with the latest at the top (descending order)
-* `sort -cat`: +
+* `[fuchsia]#sort -cat#`: +
 Sorts the list of records by category in lexicographical order (ascending order)
 
-.Examples of `sort` command (default ordering)
+.Examples of `[fuchsia]#sort#` command (default ordering)
 image::sortExamples.png[width ="900"]
 
-*More examples*:
+*[navy]#More examples#*:
 
-* `sort -name -desc`: +
+* `[fuchsia]#sort -name -desc#`: +
 Sorts list of records by name in reverse lexicographical order.
 
 .Name sorted in descending order
@@ -551,23 +551,23 @@ image::sortNameDescExample.png[width ="300"]
 ****
 
 [TIP]
-To sort any list conveniently in the reverse order, use the `reverse` command! +
-`sort -name` +
-`reverse` +
+To sort any list conveniently in the reverse order, use the `[fuchsia]#reverse#` command! +
+`[fuchsia]#sort -name#` +
+`[fuchsia]#reverse#` +
 List will be sorted by name in reverse lexicographical order.
 
 
 // end::sort[]
 
 // tag::reverse[]
-==== Reversing the entries: `reverse`
+==== Reversing the entries: `[fuchsia]#reverse#`
 
-You can also reverse the order of the list of entries in the records. +
-`Reverse` has effect on the entire list of entries (instead of a filtered list).
+[maroon]#You can also reverse the order of the list of entries in the records.# +
+`[fuchsia]#Reverse#` has effect on the entire list of entries (instead of a filtered list).
 
-*Alias*: `rev`
+*Alias*: `[fuchsia]#rev#`
 
-*Format*: `reverse`
+*Format*: `[fuchsia]#reverse#`
 
 .Name sorted in descending order
 image::reverseExample.png[width ="600"]
@@ -575,29 +575,29 @@ image::reverseExample.png[width ="600"]
 // end::reverse[]
 
 // tag::summary[]
-==== Showing summary of records: `summary`
+==== Showing summary of records: `[fuchsia]#summary#`
 
-You can see the summary of your previous expenditures represented as a pie chart, with
+[maroon]#You can see the summary of your previous expenditures represented as a pie chart#, with
 each sector representing a category. Each sector is labelled with name and total expenditure for the category,
 allowing you to have a clear overview of how your spending habit is like.
 
 By default, _In-Credit-Ble_ will display the browser panel when you first open the application.
-Entering the `summary` command in the command box will allow you to switch from the browser view mode to the summary view mode, as shown in the diagram below.
+Entering the `[fuchsia]#summary#` command in the command box will allow you to switch from the browser view mode to the summary view mode, as shown in the diagram below.
 
-.Summary panel is displayed when user enters the  `summary` command
+.Summary panel is displayed when user enters the  `[fuchsia]#summary#` command
 image::summaryUI.png[width ="800"]
 
-You can also specify a report period by stating the number of days or months via the `PERIOD_AMOUNT` and `PERIOD` parameters. However, these parameters are optional.
+You can also specify a report period by stating the number of days or months via the `[fuchsia]#PERIOD_AMOUNT#` and `[fuchsia]#PERIOD#` parameters. However, these parameters are optional.
 
-To exit the summary view mode, simply type `summary` in the command box again.
+To exit the summary view mode, simply type `[fuchsia]#summary#` in the command box again.
 Your screen should change back to the browser view mode as shown in the diagram below.
 
-.Exits from summary view mode when user enters the  `summary` command again
+.Exits from summary view mode when user enters the  `[fuchsia]#summary#` command again
 image::summaryUI_2.png[width ="800"]
 
-*Alias*: `overview`
+*Alias*: `[fuchsia]#overview#`
 
-*Format*: `summary [#/PERIOD_AMOUNT] [p/PERIOD]`
+*Format*: `[fuchsia]#summary [#/PERIOD_AMOUNT] [p/PERIOD]#`
 
 [NOTE]
 ====
@@ -607,13 +607,13 @@ image::summaryUI_2.png[width ="800"]
 ====
 
 ****
-*Examples*:
+*[navy]#Examples#*:
 
-* `summary`: +
+* `[fuchsia]#summary#`: +
 Shows summary of expenses in the past 7 days
-* `summary #/3 p/d`: +
+* `[fuchsia]#summary #/3 p/d#`: +
 Shows summary of expenses in the past 3 days
-* `summary #/7 p/m`: +
+* `[fuchsia]#summary #/7 p/m#`: +
 Shows summary of expenses in the past 7 months
 ****
 
@@ -625,34 +625,34 @@ Shows summary of expenses in the past 7 months
 
 
 // tag::setfile[]
-==== Changing FinanceTracker data storage location: `setfile`
-You can change the file used to store the data of the application. Essentially,
+==== Changing FinanceTracker data storage location: `[fuchsia]#setfile#`
+[maroon]#You can change the file used to store the data of the application.# Essentially,
 you can maintain multiple sets of expenditure and budget data for multiple users
 or profiles. +
 
 In addition, one user can also have multiple files for a recurring period (weeks, months etc.)
 for the user the manage their budget based on a time period his/her liking.
 
-*Format*: `setfile f/FILENAME`
+*Format*: `[fuchsia]#setfile f/FILENAME#`
 
 ****
-*Examples*:
+*[navy]#Examples#*:
 
-* `setfile f/Daily Expenses`
-* `setfile f/JohnDoe`
-* `setfile f/Personal Finances.April.2019`
-* `setfile f/Company June Petty Cash Finances`
+* `[fuchsia]#setfile f/Daily Expenses#`
+* `[fuchsia]#setfile f/JohnDoe#`
+* `[fuchsia]#setfile f/Personal Finances.April.2019#`
+* `[fuchsia]#setfile f/Company June Petty Cash Finances#`
 ****
 
 [NOTE]
 ====
-* The filename should not contain any file paths (e.g. /data/file) or extensions
-(e.g. file.json). The filename must also be 250 characters or lesser and should not
+* The filename should not contain any file paths ([navy]#e.g.# /data/file) or extensions
+([navy]#e.g.# file.json). The filename must also be 250 characters or lesser and should not
 contain any special characters or be left blank.
-* If multiple filenames are provided (e.g. `setfile f/file1 f/file2`) only the last
-filename provided will be taken in as the filename (`file2` in this example).
+* If multiple filenames are provided ([navy]#e.g.# `[fuchsia]#setfile f/file1 f/file2#`) only the last
+filename provided will be taken in as the filename (`[fuchsia]#file2#` in this example).
 Only the last filename needs to be a valid filename
-(e.g. `setfile f/$file f/file` works while `set f/file f/$file` does not).
+([navy]#e.g.# `[fuchsia]#setfile f/$file f/file#` works while `[fuchsia]#set f/file f/$file#` does not).
 * If the file specified by the filename does not already exist, a new blank file
 will be created with no data in the Finance Tracker. Otherwise, the data stored
 in the file will be loaded into the Finance Tracker.
@@ -662,100 +662,100 @@ in the file will be loaded into the Finance Tracker.
 
 
 // tag::help[]
-==== Viewing help: `help`
+==== Viewing help: `[fuchsia]#help#`
 
-Forgotten which commands to use? You can easily find the commands you need to navigate the software
+[maroon]#Forgotten which commands to use?# You can easily find the commands you need to navigate the software
 by using the following command:
 
-*Format*: `help`
+*Format*: `[fuchsia]#help#`
 // end::help[]
 
 // tag::undoredo[]
-==== Undoing previous command : `undo`
+==== Undoing previous command : `[fuchsia]#undo#`
 
-You can restore the program to the state before the previous _undoable_ command was executed.
+[maroon]#You can restore the program to the state before the previous _undoable_ command was executed.#
 
-*Alias*: `u`
+*Alias*: `[fuchsia]#u#`
 
-*Format*: `undo`
+*Format*: `[fuchsia]#undo#`
 
 ****
-*Examples*:
+*[navy]#Examples#*:
 
-* `delete 1` +
-`list` +
-`undo` (reverses the `delete 1` command) +
+* `[fuchsia]#delete 1#` +
+`[fuchsia]#list#` +
+`[fuchsia]#undo#` (reverses the `[fuchsia]#delete 1#` command) +
 
-* `select 1` +
-`list` +
-`undo` +
-The `undo` command fails as there are no undoable commands executed previously.
+* `[fuchsia]#select 1#` +
+`[fuchsia]#list#` +
+`[fuchsia]#undo#` +
+The `[fuchsia]#undo#` command fails as there are no undoable commands executed previously.
 
-* `delete 1` +
-`clear` +
-`undo` (reverses the `clear` command) +
-`undo` (reverses the `delete 1` command) +
+* `[fuchsia]#delete 1#` +
+`[fuchsia]#clear#` +
+`[fuchsia]#undo#` (reverses the `[fuchsia]#clear#` command) +
+`[fuchsia]#undo#` (reverses the `[fuchsia]#delete 1#` command) +
 ****
 [NOTE]
 ====
 _Undoable_ commands:
 
 * commands that modify the finance tracker's content +
-(`set`, `allocate`, `spend`, `edit`, `delete`,
- `sort`, `reverse`, `setfile`, `clear`).
+(`[fuchsia]#set#`, `[fuchsia]#allocate#`, `[fuchsia]#spend#`, `[fuchsia]#edit#`, `[fuchsia]#delete#`,
+ `[fuchsia]#sort#`, `[fuchsia]#reverse#`, `[fuchsia]#setfile#`, `[fuchsia]#clear#`).
 ====
 
-==== Redoing the previously undone command : `redo`
+==== Redoing the previously undone command : `[fuchsia]#redo#`
 
-You can reverse the most recent `undo` command.
+[maroon]#You can reverse the most recent `undo` command#.
 
-*Alias*: `r`
+*Alias*: `[fuchsia]#r#`
 
-*Format*: `redo`
+*Format*: `[fuchsia]#redo#`
 ****
-*Examples*:
+*[navy]#Examples#*:
 
-* `delete 1` +
-`undo` (reverses the `delete 1` command) +
-`redo` (reapplies the `delete 1` command) +
+* `[fuchsia]#delete 1#` +
+`[fuchsia]#undo#` (reverses the `[fuchsia]#delete 1#` command) +
+`[fuchsia]#redo#` (reapplies the `[fuchsia]#delete 1#` command) +
 
-* `delete 1` +
-`redo` +
-The `redo` command fails as there are no `undo` commands executed previously.
+* `[fuchsia]#delete 1#` +
+`[fuchsia]#redo#` +
+The `[fuchsia]#redo#` command fails as there are no `[fuchsia]#undo#` commands executed previously.
 
-* `delete 1` +
-`clear` +
-`undo` (reverses the `clear` command) +
-`undo` (reverses the `delete 1` command) +
-`redo` (reapplies the `delete 1` command) +
-`redo` (reapplies the `clear` command) +
+* `[fuchsia]#delete 1#` +
+`[fuchsia]#clear#` +
+`[fuchsia]#undo#` (reverses the `[fuchsia]#clear#` command) +
+`[fuchsia]#undo#` (reverses the `[fuchsia]#delete 1#` command) +
+`[fuchsia]#redo#` (reapplies the `[fuchsia]#delete 1#` command) +
+`[fuchsia]#redo#` (reapplies the `[fuchsia]#clear#` command) +
 ****
 // end::undoredo[]
 
 // tag::theme[]
-==== Changing theme of application: `theme`
+==== Changing theme of application: `[fuchsia]#theme#`
 
-You can change the theme of the application with pre-set colour themes specified.
+[maroon]#You can change the theme of the application with pre-set colour themes specified.#
 
-*Alias*: `colour`
+*Alias*: `[fuchsia]#colour#`
 
-*Format*: `theme COLOURTHEME`
+*Format*: `[fuchsia]#theme COLOURTHEME#`
 
 ****
-*Examples*:
+*[navy]#Examples#*:
 
-* `theme DARK`
-* `theme BlUE`
-* `theme pink`
+* `[fuchsia]#theme DARK#`
+* `[fuchsia]#theme maroon#`
+* `[fuchsia]#theme pink#`
 ****
 
 image::themes.gif[]
 
 [NOTE]
 ====
-* Valid themes include: `Dark`, `Light`, `Blue`, `Pink`
-* The theme name is case-insensitive (`BlUE`, `BLUE`, `blue` or `bLUE` etc. all refer
-to `Blue`)
+* Valid themes include: `[fuchsia]#Dark#`, `[fuchsia]#Light#`, `[fuchsia]#maroon#`, `[fuchsia]#Pink#`
+* The theme name is case-insensitive (`[fuchsia]#maroon`, `maroon`, `maroon` or `maroon` etc. all refer
+to `maroon`)
 * You can also change the theme of the application by choosing the theme under
 the menu bar.
 * You *cannot* undo/redo this command.

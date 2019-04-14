@@ -224,14 +224,12 @@ public class ModelManager implements Model {
     public void archivePerson(Person target) {
         versionedArchiveBook.addPerson(target);
         versionedAddressBook.removePerson(target);
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
     }
 
     @Override
     public void unarchivePerson(Person target) {
         versionedAddressBook.addPerson(target);
         versionedArchiveBook.removePerson(target);
-        updateFilteredArchivedPersonList(PREDICATE_SHOW_ALL_PERSONS);
     }
 
     //=========== PinBook ====================================================================================

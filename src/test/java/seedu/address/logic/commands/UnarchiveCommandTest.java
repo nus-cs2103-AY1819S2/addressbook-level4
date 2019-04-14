@@ -70,6 +70,7 @@ public class UnarchiveCommandTest {
         expectedModel.unarchivePerson(personToUnarchive);
         expectedModel.commitBooks();
         expectedModel.setSelectedArchivedPerson(null);
+        showNoPerson(expectedModel);
 
         assertCommandSuccess(unarchiveCommand, model, commandHistory, expectedMessage, expectedModel);
     }
@@ -175,6 +176,15 @@ public class UnarchiveCommandTest {
 
         // different person -> returns false
         assertFalse(unarchiveFirstCommand.equals(unarchiveSecondCommand));
+    }
+
+    /**
+     * Updates {@code model}'s filtered archived list to show no one.
+     */
+    private void showNoPerson(Model model) {
+        model.updateFilteredArchivedPersonList(p -> false);
+
+        assertTrue(model.getFilteredArchivedPersonList().isEmpty());
     }
 
 }

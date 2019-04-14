@@ -45,9 +45,7 @@ public class UnpinCommand extends Command {
 
         if (lastShownPinList.contains(personToUnpin)) {
             model.unpinPerson(personToUnpin);
-            model.commitAddressBook();
-            model.commitArchiveBook();
-            model.commitPinBook();
+            model.commitBooks();
             model.setSelectedPinPerson(null);
             model.setSelectedPerson(personToUnpin);
         } else {

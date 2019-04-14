@@ -21,9 +21,7 @@ public class ClearCommandTest {
     public void execute_emptyAddressBook_success() {
         Model model = new ModelManager();
         Model expectedModel = new ModelManager();
-        expectedModel.commitAddressBook();
-        expectedModel.commitArchiveBook();
-        expectedModel.commitPinBook();
+        expectedModel.commitBooks();
 
         assertCommandSuccess(new ClearCommand(), model, commandHistory, ClearCommand.MESSAGE_SUCCESS, expectedModel);
     }
@@ -35,9 +33,7 @@ public class ClearCommandTest {
         Model expectedModel = new ModelManager(getTypicalAddressBook(), getTypicalArchiveBook(),
                 getTypicalPinBook(), new UserPrefs());
         expectedModel.setAddressBook(new AddressBook());
-        expectedModel.commitAddressBook();
-        expectedModel.commitArchiveBook();
-        expectedModel.commitPinBook();
+        expectedModel.commitBooks();
 
         assertCommandSuccess(new ClearCommand(), model, commandHistory, ClearCommand.MESSAGE_SUCCESS, expectedModel);
     }

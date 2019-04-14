@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_COMMAND_CANNOT_USE;
 
 import java.util.List;
 
@@ -37,6 +38,10 @@ public class DeleteCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
+        boolean isAllJobsScreen = model.getIsAllJobScreen();
+        if (!isAllJobsScreen) {
+            throw new CommandException(MESSAGE_COMMAND_CANNOT_USE);
+        }
         List<Person> lastShownList = model.getFilteredPersonList();
 
         if (targetIndex.getZeroBased() >= lastShownList.size()) {

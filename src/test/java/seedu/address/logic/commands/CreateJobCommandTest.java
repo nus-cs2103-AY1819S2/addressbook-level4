@@ -246,6 +246,26 @@ public class CreateJobCommandTest {
         }
 
         @Override
+        public void clearJobFilteredListsApplicant() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void clearJobFilteredListsInterview() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void clearJobFilteredListsKiv() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void clearJobFilteredListsShortlist() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ReadOnlyProperty<Job> selectedJobProperty() {
             throw new AssertionError("This method should not be called.");
         }

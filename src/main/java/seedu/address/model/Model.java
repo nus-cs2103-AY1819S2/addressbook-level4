@@ -166,6 +166,26 @@ public interface Model {
     void clearPredicateAllPersons();
 
     /**
+     * clear Predicate to Applicants
+     */
+    void clearJobFilteredListsApplicant();
+
+    /**
+     * clear Predicate to Interview
+     */
+    void clearJobFilteredListsInterview();
+
+    /**
+     * clear Predicate to ShortList
+     */
+    void clearJobFilteredListsShortlist();
+
+    /**
+     * clear Predicate to Kiv
+     */
+    void clearJobFilteredListsKiv();
+
+    /**
      * remove Predicate to JobShortlist
      */
     void removePredicateJobShortlist(String predicateName);
@@ -184,6 +204,7 @@ public interface Model {
      * remove Predicate to JobAllApplicants
      */
     void removePredicateJobAllApplicants(String predicateName);
+
     /**
      * Returns one of the UniqueFilterList in the job
      */
@@ -209,12 +230,17 @@ public interface Model {
      */
     ObservableList<Person> getFilteredPersonList();
 
-    /** Returns an unmodifiable view of the filtered  people list in job
-     * @param list*/
+    /**
+     * Returns an unmodifiable view of the filtered  people list in job
+     *
+     * @param list
+     */
 
     ObservableList<Person> getJobsList(JobListName list);
 
-    /** Returns an unmodifiable view of the filtered job list */
+    /**
+     * Returns an unmodifiable view of the filtered job list
+     */
     ObservableList<Job> getAllJobs();
 
     /**
@@ -238,7 +264,6 @@ public interface Model {
 
     /**
      * Updates the filter of the active filtered person list to filter.
-     *
      */
     void updateFilteredPersonList();
 
@@ -254,7 +279,6 @@ public interface Model {
 
     /**
      * Updates the filter of the JobInterview filtered person list to filter by the given {@code predicate}.
-     *
      */
     void updateJobInterviewFilteredPersonList();
 
@@ -338,13 +362,11 @@ public interface Model {
     Person getSelectedPerson();
 
     /**
-     *
      * return whether it is at the all jobs screen ordisplay job screen
      */
     boolean getIsAllJobScreen();
 
     /**
-     *
      * set whether it is at the all jobs screen ordisplay job screen
      */
     void setIsAllJobScreen(boolean staus);

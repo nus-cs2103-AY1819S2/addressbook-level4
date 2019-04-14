@@ -2,7 +2,7 @@
   "healthWorkers" : [ {
     "name" : "myname",
     "phone" : "98765432",
-    "nric" : "S1234569A",
+    "nric" : "S4567893M",
     "organization" : "SGH",
     "skills" : "GENERAL_PRACTICE ORTHOPAEDIC "
   }, {
@@ -40,7 +40,7 @@
     "phone" : "98164782",
     "nric" : "F9876543Z",
     "organization" : "Africa",
-    "skills" : "PHYSIOTHERAPY ENDOCRINOLOGY "
+    "skills" : "ENDOCRINOLOGY PHYSIOTHERAPY "
   }, {
     "name" : "Terence Sim",
     "phone" : "91238894",
@@ -64,6 +64,6 @@
     "phone" : "93750182",
     "nric" : "S1111222G",
     "organization" : "NUH",
-    "skills" : "PHYSIOTHERAPY ORTHOPAEDIC "
+    "skills" : "ORTHOPAEDIC PHYSIOTHERAPY "
   } ]
 }

@@ -12,7 +12,8 @@ In a Software Engineering module, my team was given the task to morph the given 
 TeethHub is designed for Dentists who prefer type commands over clicking on a Graphical User Interface(GUI). It is still possible to perform some actions by clicking on the GUI, but only in very limited capacity. For example, the user can select patients and records by clicking on them, but they would need to type the edit commands to edit them.
 
 As of version 1.4: +
-TeethHub allows Dentists to manage patient information, records of each patient and tasks for the dentist. TeethHub can also export them to a PDF file. +
+TeethHub allows Dentists to manage patient information, records of each patient and tasks for the dentist.
+TeethHub allows Dentists to manage multiple databases through File Management. File Management also allows exporting to a PDF file. +
 TeethHub displays the latest teeth information in the form of an image that follows the *Universal Numbering System* dental notation.
 TeethHub displays statistics generated from all patients and records stored in it.
 
@@ -71,6 +72,21 @@ E.g. The user enters `add`. TeethHub will ask them if they meant `patientadd` or
 |====
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |====
+
+== Introduction
+
+Welcome to TeethHub!
+If you are a dental practitioner who prefers to use a Command Line Interface (CLI),
+then TeethHub is an application for you!
+
+TeethHub works primarily through a CLI while having elements of a Graphical User Interface (GUI).
+For example, you can select patients and records by clicking on them, but you would need to type the edit commands to edit them.
+TeethHub allows you to keep track of your patient's particulars along with their dental records.
+An image of each patient's teeth will also be displayed according to what you input for each tooth's status(Absent, Problem, Healthy).
+In addition to that, TeethHub also allows you to keep track of your upcoming tasks, just like a calendar.
+
+Interested in trying TeethHub out? Check out <<prerequisites>> to see what programs you need in order for TeethHub to work properly.
+If you’re confident in your computer set-up, jump to <<quick-start-guide>> to begin!
 
 === File Management
 
@@ -224,6 +240,7 @@ In v1.6, TeethHub will have a new command for you to upload images.
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |====
 
+== Implementation
 === File Management
 Although TeethHub already has a built-in auto-load and auto-save, implementing file management would give the user more flexibility with managing data. +
 PDF export is also implemented so that the user would have an easier time making sense of the data when offline.
@@ -389,7 +406,3 @@ image::SuggestionFeatureAddPatientMode.png[width="236"]
 *** **Alternative Pros:** Only 1 implementation, as opposed to an implementation for each Common command. +
 *** **Alternative Cons:** Might be rude.
 ** **Choice Justification:** We chose the current implementation as we occasionally found ourselves and other users typing `add` to add something, `edit` to edit something and so on. This implementation was designed to tackle this issue.
-
-include::../DeveloperGuide.adoc[tag=storyuserJH]
-
-include::../DeveloperGuide.adoc[tag=manualtestingJH]

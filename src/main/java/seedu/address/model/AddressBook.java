@@ -131,6 +131,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         requireNonNull(editedRecord);
 
         records.setRecord(target, editedRecord);
+        MainWindow.getRecordPatient().setRecord(target, editedRecord);
         indicateModified();
     }
 

@@ -76,7 +76,6 @@ public class TaskEditCommand extends Command {
         if (index.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
-
         Task taskToEdit = lastShownList.get(index.getZeroBased());
         Task editedTask = createEditedTask(taskToEdit, editTaskDescriptor, model);
 
@@ -93,7 +92,6 @@ public class TaskEditCommand extends Command {
         }
 
         model.setTask(taskToEdit, editedTask);
-        //model.updateFilteredTaskList(PREDICATE_SHOW_ALL_TASKS);
         model.commitAddressBook();
         return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, editedTask.getTitle()));
     }
@@ -163,6 +161,7 @@ public class TaskEditCommand extends Command {
         private TimeCustom endTime;
         private Priority priority;
         private Index patientIndex;
+        private LinkedPatient linkedPatient;
 
         public EditTaskDescriptor() {}
 
@@ -245,6 +244,11 @@ public class TaskEditCommand extends Command {
 
         public void setPatientIndex(Index index) {
             this.patientIndex = index;
+        }
+
+        //For testing
+        public void setLinkedPatient(LinkedPatient linkedPatient) {
+            this.linkedPatient = linkedPatient;
         }
 
         @Override

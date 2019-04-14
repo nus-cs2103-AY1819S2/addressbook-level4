@@ -52,18 +52,19 @@ public class PatientCopyCommand extends Command {
         }
 
         Person personToCopy = lastShownList.get(index.getZeroBased());
-        Person copyPerson;
+        Person copyPerson = null;
 
         requireNonNull(personToCopy);
-        if (personToCopy instanceof Patient) {
-            copyPerson = personToCopy.copy();
-        } else {
-            throw new PersonIsNotPatient();
-        }
 
         for (int i = 0; i < numOfCopies; i++) {
+            if (personToCopy instanceof Patient) {
+                copyPerson = personToCopy.copy();
+            } else {
+                throw new PersonIsNotPatient();
+            }
             model.addPerson(copyPerson);
         }
+
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         model.commitAddressBook();
         return new CommandResult(String.format(MESSAGE_SUCCESS, copyPerson));

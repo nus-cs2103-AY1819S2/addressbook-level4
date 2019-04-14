@@ -12,15 +12,12 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.person.Person;
-import seedu.address.storage.AddressBookStorage;
-import seedu.address.storage.InOutAddressBookStorage;
 import seedu.address.storage.ParsedInOut;
-import seedu.address.storage.StorageManager;
 
 /**
  * Exports data to a text file.
  */
-public class ExportCommand extends Command {
+public class ExportCommand extends OutCommand {
 
     public static final String COMMAND_WORD = "export";
 
@@ -33,12 +30,10 @@ public class ExportCommand extends Command {
             + "Example: " + COMMAND_WORD + " data1.json + 1,3-5\n"
             + "Example: " + COMMAND_WORD + " data1.pdf + all";
 
-    public static final String MESSAGE_SUCCESS = "File exported!";
-
-    private final ParsedInOut parsedInput;
+    public static final String MESSAGE_SUCCESS = " exported!";
 
     public ExportCommand(ParsedInOut parsedInput) {
-        this.parsedInput = parsedInput;
+        super(parsedInput);
     }
 
     @Override
@@ -48,33 +43,14 @@ public class ExportCommand extends Command {
             new SaveCommand(parsedInput).execute(model, history);
         } else {
             try {
+                fileValidation(parsedInput.getFile());
                 writeFile(createTempAddressBook(model, parsedInput.getParsedIndex()));
             } catch (IOException e) {
                 throw new CommandException(e.getMessage());
             }
             model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         }
-        return new CommandResult(MESSAGE_SUCCESS);
-    }
-
-    /**
-     * writeFile() writes or overwrites a file with the contents of the current address book.
-     */
-    private void writeFile(Model model) throws IOException {
-
-        AddressBookStorage addressBookStorage = new InOutAddressBookStorage(parsedInput.getFile().toPath());
-
-        StorageManager storage = new StorageManager(addressBookStorage, null);
-
-        try {
-            if (parsedInput.getType().equals("json")) {
-                storage.saveAddressBook(model.getAddressBook());
-            } else if (parsedInput.getType().equals("pdf")) {
-                storage.saveAsPdf(model.getAddressBook());
-            }
-        } catch (IOException e) {
-            throw new IOException(e.getMessage());
-        }
+        return new CommandResult(parsedInput.getFile() + MESSAGE_SUCCESS);
     }
 
     /**

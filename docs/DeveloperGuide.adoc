@@ -355,7 +355,7 @@ specified to be searched.
 * **Alternative 2:** `Patient` and `Record` would each have an individual associated `ContainsKeywordsPredicate` that
  acts as a "class of classes" that contains each respective paramater predicate class within itself.
 
-// end::findimplement
+// end::findimplement[]
 
 === Logging
 

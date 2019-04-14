@@ -3,13 +3,12 @@ package seedu.address.logic;
 import java.nio.file.Path;
 
 import javafx.collections.ObservableList;
-import javafx.scene.layout.Region;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReadOnlyTopDeck;
-import seedu.address.ui.UiPart;
+import seedu.address.ui.MainPanel;
 
 /**
  * API of the Logic component
@@ -58,5 +57,5 @@ public interface Logic {
      */
     void setGuiSettings(GuiSettings guiSettings);
 
-    UiPart<Region> getPanel();
+    MainPanel getPanel();
 }

@@ -18,6 +18,7 @@ import seedu.address.model.ListViewState;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyTopDeck;
 import seedu.address.storage.Storage;
+import seedu.address.ui.MainPanel;
 import seedu.address.ui.UiPart;
 
 /**
@@ -104,7 +105,7 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public UiPart<Region> getPanel() {
+    public MainPanel getPanel() {
         return model.getViewState().getPanel();
     }
 }

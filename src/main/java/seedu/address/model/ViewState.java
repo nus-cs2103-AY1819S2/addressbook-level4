@@ -1,8 +1,7 @@
 package seedu.address.model;
 
-import javafx.scene.layout.Region;
 import seedu.address.logic.parser.ViewStateParser;
-import seedu.address.ui.UiPart;
+import seedu.address.ui.MainPanel;
 
 /**
  * The state. States must minimally provide policies for parsing and rendering.
@@ -19,5 +18,5 @@ public interface ViewState {
     /**
      * Construct a Panel object to render this state in the UI.
      */
-    UiPart<Region> getPanel();
+    MainPanel getPanel();
 }

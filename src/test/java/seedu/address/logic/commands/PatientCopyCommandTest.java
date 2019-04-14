@@ -1,6 +1,12 @@
 package seedu.address.logic.commands;
 
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+
 import org.junit.Test;
+
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
@@ -8,11 +14,6 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.Person;
-
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 public class PatientCopyCommandTest {
 
@@ -25,7 +26,8 @@ public class PatientCopyCommandTest {
         Person personToCopy = model.getFilteredPersonList().get(0).copy();
         expectedModel.addPerson(personToCopy);
         String expectedMessage = String.format(PatientCopyCommand.MESSAGE_SUCCESS, personToCopy);
-        assertCommandSuccess(new PatientCopyCommand(INDEX_FIRST_PERSON, 1), model, commandHistory, expectedMessage, expectedModel);
+        assertCommandSuccess(new PatientCopyCommand(INDEX_FIRST_PERSON, 1),
+                model, commandHistory, expectedMessage, expectedModel);
     }
 
     @Test
@@ -35,7 +37,8 @@ public class PatientCopyCommandTest {
         expectedModel.addPerson(personToCopy1);
         expectedModel.addPerson(personToCopy2);
         String expectedMessage = String.format(PatientCopyCommand.MESSAGE_SUCCESS, personToCopy1);
-        assertCommandSuccess(new PatientCopyCommand(INDEX_FIRST_PERSON, 2), model, commandHistory, expectedMessage, expectedModel);
+        assertCommandSuccess(new PatientCopyCommand(INDEX_FIRST_PERSON, 2),
+                model, commandHistory, expectedMessage, expectedModel);
     }
 
     @Test

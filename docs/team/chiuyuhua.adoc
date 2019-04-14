@@ -89,7 +89,7 @@ Examples:
 
 == Introduction
 
-slaveFinder() is a resume management application that helps recruiters manage most of the hiring process. . + 
+slaveFinder() is a resume management application that helps recruiters manage most of the hiring process. +
 The application is optimized for those who prefer to work with a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, slaveFinder() can get your resume management tasks done faster than traditional GUI apps. +
 Interested? Jump to the <<Quick Start>> to get started or <<Command Summary>> for the list of commands. Enjoy!
 
@@ -99,7 +99,7 @@ Interested? Jump to the <<Quick Start>> to get started or <<Command Summary>> fo
 * `*createJob* jn/Manager`: creates new job opening `Manager`.
 * `*addAll* a jn/Manager` : adds all applicants in the database to the `applicants` list of job `Manager`.
 * `*displayJob* jn/Manager`: displays the selection process for job opening `Manager`
-* `*list*` : Goes back to the list of all applicants and job openings. 
+* `*list*` : Goes back to the list of all applicants and job openings.
 
 ==== Adding a person: `add`
 

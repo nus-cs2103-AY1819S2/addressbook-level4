@@ -6,15 +6,18 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.rules.TemporaryFolder;
 
+import seedu.address.commons.util.JsonUtil;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.LogicManager;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
+import seedu.address.storage.JsonSerializableStatistics;
 import seedu.address.storage.JsonStatisticsStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.StorageManager;
@@ -27,7 +30,7 @@ public class SaveCommandTest {
     private static final IOException DUMMY_IO_EXCEPTION = new IOException("dummy exception");
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonSerializableStatistics");
     private static final Path STATS_FILE = TEST_DATA_FOLDER.resolve("statsTest.json"); // all 0
-    private static final Path STATS_FILE_2 = TEST_DATA_FOLDER.resolve("statsTest2.json"); // all 0
+    private static final Path STATS_FILE_2 = TEST_DATA_FOLDER.resolve("statsTest2.json"); // all 1, 1
     private static final Path STATS_FILE_3 = TEST_DATA_FOLDER.resolve("statsTest3.json"); //hit 1 , miss 2
 
 
@@ -40,6 +43,17 @@ public class SaveCommandTest {
     private Model model;
     private CommandHistory history;
     private LogicManager logic;
+
+    @Before
+    // Setup JSON files
+    public void setUp_json() throws IOException {
+        JsonUtil.saveJsonFile(new JsonSerializableStatistics("0", "0", "0",
+                "0", "0"), STATS_FILE);
+        JsonUtil.saveJsonFile(new JsonSerializableStatistics("1", "1", "0",
+                "0", "0"), STATS_FILE_2);
+        JsonUtil.saveJsonFile(new JsonSerializableStatistics("1", "2", "0",
+                "0", "0"), STATS_FILE_3);
+    }
 
     public void setUp_same() throws Exception {
         JsonStatisticsStorage statisticsStorage = new JsonStatisticsStorage(STATS_FILE); // all 0
@@ -118,4 +132,22 @@ public class SaveCommandTest {
                 + '\n'
                 + "Current Game : 0.0", commandResult.getFeedbackToUser());
     }
+
+    public class JsonObject {
+        private int hitCount = 0;
+        private int missCount = 0;
+        private int movesMade = 0;
+        private int enemyShipsDestroyed = 0;
+        private int attackCount = 0;
+
+        JsonObject(int hit, int miss, int moves, int ships, int attack) {
+            this.hitCount = hit;
+            this.missCount = miss;
+            this.movesMade = moves;
+            this.enemyShipsDestroyed = ships;
+            this.attackCount = attack;
+        }
+    }
 }
+
+

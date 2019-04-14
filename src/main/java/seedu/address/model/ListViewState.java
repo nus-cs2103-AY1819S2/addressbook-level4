@@ -7,8 +7,9 @@ import seedu.address.logic.ListItem;
 
 /**
  * A ListViewState is a ViewState with a user interface containing a list that fulfills the following properties:
- * 1. The contents of the list can be arbitrarily concealed and revealed by the user.
- * 2. Up to one item in the list can be selected by the user.
+ * 1. The list should be homogeneous, holding items of type {@code T}
+ * 2. The items in the list can be arbitrarily concealed and revealed.
+ * 3. Up to one item in the list can be selected by the user.
  */
 
 public interface ListViewState<T extends ListItem> extends ViewState {

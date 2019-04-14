@@ -17,7 +17,7 @@ import seedu.address.ui.ListPanel;
 import seedu.address.ui.UiPart;
 
 /**
- * Stores the state of the Card's view.
+ * ViewState of TopDeck when browsing a list of cards from a specific deck.
  */
 public class CardsView implements ListViewState<Card> {
 

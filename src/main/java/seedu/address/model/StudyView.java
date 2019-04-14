@@ -17,7 +17,7 @@ import seedu.address.ui.StudyPanel;
 import seedu.address.ui.UiPart;
 
 /**
- * ViewState of the Application during a Study session.
+ * ViewState of TopDeck during a study session.
  */
 public class StudyView implements ViewState {
     public final List<Card> listOfCards;

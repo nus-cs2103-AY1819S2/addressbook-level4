@@ -49,7 +49,7 @@ image::ui.png[width="800"]
 == A Walk Through
 Let's start on our image editing journey. In this walk through, we will be demonstrating some simple commands to edit a sample image.
 
-.  Head over to this https://twistedsifter.files.wordpress.com/2012/03/squirrel-photobomb-banff.jpg[`link`] to get a suggested sample image to start from.
+.  Head over to this https://twistedsifter.files.wordpress.com/2012/03/squirrel-photobomb-banff.jpg[link] to get a suggested sample image to start from.
 
 .  Save the image in any desired folder you like on your device, like your Pictures folder for example. Name your image *squirrel.jpg*.
 
@@ -117,7 +117,7 @@ image::cropSuccess.PNG[width="918"]
 
 [[Features]]
 == Features
-This section describes all the commands available in FomoFoto and includes examples on how to use them.
+This section describes all the commands available in FomoFoto and examples on how to use them. Commands are listed in alphanumeric order.
 
 ====
 *Command Format*

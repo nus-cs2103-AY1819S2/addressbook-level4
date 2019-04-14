@@ -28,8 +28,8 @@ public class TaskSortCommand extends Command {
             + "Parameters: sortField [sortOrder]\n"
             + "Example 1: tasksort starttime\n"
             + "Example 2: tasksort priority desc";
-    private static final String MESSAGE_SORT_TASK_SUCCESS = "Tasks sorted by %s in %s order";
-    private static final String MESSAGE_SORT_TASK_WRONG_FILED = "Supporting fields are: starttime, endtime, priority.";
+    public static final String MESSAGE_SORT_TASK_SUCCESS = "Tasks sorted by %s in %s order";
+    public static final String MESSAGE_SORT_TASK_WRONG_FILED = "Supporting fields are: starttime, endtime, priority.";
 
     private final String sortField;
     private final boolean isAscending;

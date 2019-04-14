@@ -1,21 +1,5 @@
 package seedu.address.logic.commands;
 
-import org.junit.Test;
-import seedu.address.logic.CommandHistory;
-import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.Model;
-import seedu.address.model.ModelManager;
-import seedu.address.model.UserPrefs;
-import seedu.address.model.datetime.DateCustom;
-import seedu.address.model.datetime.TimeCustom;
-import seedu.address.model.person.Person;
-import seedu.address.model.task.Priority;
-import seedu.address.model.task.Task;
-
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.List;
-
 import static org.junit.Assert.assertEquals;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.TaskSortCommand.MESSAGE_SORT_TASK_SUCCESS;
@@ -24,6 +8,21 @@ import static seedu.address.testutil.TypicalData.CLEANING;
 import static seedu.address.testutil.TypicalData.EXTRACT;
 import static seedu.address.testutil.TypicalData.REORG;
 import static seedu.address.testutil.TypicalData.getTypicalAddressBook;
+
+import org.junit.Test;
+import seedu.address.logic.CommandHistory;
+import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.Model;
+import seedu.address.model.ModelManager;
+import seedu.address.model.UserPrefs;
+import seedu.address.model.datetime.DateCustom;
+import seedu.address.model.datetime.TimeCustom;
+import seedu.address.model.task.Priority;
+import seedu.address.model.task.Task;
+
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.List;
 
 public class TaskSortCommandTest {
 

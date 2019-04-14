@@ -44,7 +44,7 @@ import seedu.address.model.person.patient.Patient;
 import seedu.address.testutil.TypicalDoctors;
 import seedu.address.testutil.TypicalPatients;
 import seedu.address.ui.CommandBox;
-import seedu.address.ui.PatientInfoPanel;
+import seedu.address.ui.patient.PatientInfoPanel;
 
 /**
  * A system test class for DocX, which provides access to handles of GUI components and helper methods

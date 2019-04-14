@@ -1,4 +1,4 @@
-package seedu.address.ui;
+package seedu.address.ui.patient;
 
 import static java.util.Objects.requireNonNull;
 
@@ -15,6 +15,7 @@ import javafx.scene.web.WebView;
 import seedu.address.MainApp;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.person.patient.Patient;
+import seedu.address.ui.UiPart;
 
 /**
  * The Browser Panel of the App.

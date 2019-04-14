@@ -17,6 +17,8 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.ui.appointment.AppointmentListPanel;
+import seedu.address.ui.patient.PatientInfoPanel;
+import seedu.address.ui.patient.PatientListPanel;
 
 /**
  * The Main Window. Provides the basic application layout containing

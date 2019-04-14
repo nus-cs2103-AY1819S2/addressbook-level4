@@ -10,6 +10,7 @@ import org.junit.Test;
 import guitests.guihandles.PatientCardHandle;
 import seedu.address.model.person.patient.Patient;
 import seedu.address.testutil.PatientBuilder;
+import seedu.address.ui.patient.PatientCard;
 
 public class PatientCardTest extends GuiUnitTest {
 

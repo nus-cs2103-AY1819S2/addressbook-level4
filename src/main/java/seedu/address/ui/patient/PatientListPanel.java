@@ -1,4 +1,4 @@
-package seedu.address.ui;
+package seedu.address.ui.patient;
 
 import java.util.Objects;
 import java.util.function.Consumer;
@@ -12,6 +12,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.person.patient.Patient;
+import seedu.address.ui.UiPart;
 
 /**
  * Panel containing the list of patients.

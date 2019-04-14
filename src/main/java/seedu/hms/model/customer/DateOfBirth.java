@@ -78,7 +78,8 @@ public class DateOfBirth {
             intYear = Integer.parseInt(year);
             intDay = Integer.parseInt(day);
             intMonth = Integer.parseInt(month);
-            if (intYear > currentYear && currentDay <= intDay && intMonth <= currentMonth) {
+            if ((intYear >= currentYear && currentDay < intDay && intMonth >= currentMonth)
+                || intYear >= currentYear && intMonth > currentMonth) {
                 return new Pair<>(false, "Date of birth can't exceed current date.");
             }
             if (intYear > currentYear || intYear < 1) {

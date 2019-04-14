@@ -136,10 +136,10 @@ public class Customer {
             .append(getIdNum())
             .append(!getDateOfBirth().toString().equals("") ? " Date of Birth: " : "")
             .append(getDateOfBirth())
-            .append(!getAddress().toString().equals("") ? " Address: " : "")
-            .append(getAddress())
             .append(!getTags().isEmpty() ? " Tags: " : "");
         getTags().forEach(builder::append);
+        builder.append("\n").append(!getAddress().toString().equals("") ? " Address: " : "")
+            .append(getAddress());
         return builder.toString();
     }
 

@@ -146,13 +146,16 @@ The `Model` component consists of two components:
 *  `Album` which stores the pool of images that has been imported into the App.
 *  `CurrentEdit` which holds the image that the App is currently editing in-memory.
 
+// end::Architecture[]
+
 For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
 
 .Class Diagram of the Logic Component
 image::LogicClassDiagram.png[width="800"]
 
 [discrete]
-==== How the architecture components interact with each other
+// tag::ArchiInteraction[]
+==== How the Architecture Components Interact with Each Other
 
 The _Sequence Diagrams_ below show how the components interact with each other for the scenarios where the user issues the commands `import C:\Users\XXX\Desktop\Pictures` and `rotate 90`.
 
@@ -163,7 +166,7 @@ image::SDforImportcommand.png[width="800"]
 image::SDforRotatecommand.png[width="800"]
 
 The sections below give more details of each component.
-// end::Architecture[]
+// end::ArchiInteraction[]
 
 [[Design-Ui]]
 // tag::ui[]
@@ -614,7 +617,7 @@ The diagram below illustrates how the `Rotate` Command works:
 .Sequence Diagram for Rotate Command
 image::RotateCommandSequenceDiagram.png[width="800"]
 
-==== Design Considerations
+===== Design Considerations
 
 * Images that are still being edited have to be stored and edited in a temp directory first due to our `undo/redo` implementation.
 
@@ -892,7 +895,7 @@ Step 6. According to the above 3 conditions, the following combinations will res
 
 The diagram below illustrates how the WaterMark Command works:
 
-.Sequence Diagram for WaterMark Command (Note: Some classes have been omitted for clarity of the diagram)
+.Sequence Diagram for WaterMark Command
 image::WaterMarkCommandSequenceDiagram.png[width="800"]
 
 ==== Design Considerations

@@ -109,9 +109,8 @@ image::brightnessSuccess.PNG[width="917"]
 image::cropSuccess.PNG[width="918"]
 +
 
-// end::AWalkThrough[]
-
 .  Save your edits by typing command: `save`.
+// end::AWalkThrough[]
 
 
 [[Features]]
@@ -400,7 +399,7 @@ Undoable commands: those commands that modify the image (`rotate`, `crop`, `resi
 // tag::WaterMarkCommand[]
 === WaterMark : `wm`
 
-Adds a watermark to the image with a (C) at the start of the input message. +
+Adds a watermark to the image with a (C) at the start of the input message. Should the message be too long to fit within the width of the image, the message will get cut off. +
 Format: `wm MESSAGE`
 
 [NOTE]
@@ -455,6 +454,8 @@ e.g. `bw 127` +
 
 * *Brightness* `brightness [BRIGHTNESS_RATIO]` +
 e.g. `brightness 0.8` +
+
+* *Clear* `clear` +
 
 * *Contrast* `contrast [CONTRAST_RATIO]` +
 e.g. `contrast 1.9` +

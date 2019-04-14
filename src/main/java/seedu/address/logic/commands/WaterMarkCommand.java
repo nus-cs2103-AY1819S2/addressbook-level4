@@ -41,34 +41,14 @@ public class WaterMarkCommand extends Command {
     @Override
     public CommandResult execute(CurrentEdit currentEdit,
                                  Model model, CommandHistory history) throws CommandException {
-        Image initialImage = currentEdit.getTempImage();
-        if (initialImage == null) {
+        if (currentEdit.tempImageDoNotExist()) {
             throw new CommandException(Messages.MESSAGE_DID_NOT_OPEN);
         }
+        Image initialImage = currentEdit.getTempImage();
         BufferedImage bufferedImage = initialImage.getBufferedImage();
         String type = initialImage.getFileType();
-
-        // determine image type and handle correct transparency
-        int imageType = "png".equalsIgnoreCase(type) ? BufferedImage.TYPE_INT_ARGB : BufferedImage.TYPE_INT_RGB;
-        BufferedImage watermarked = new BufferedImage(bufferedImage.getWidth(), bufferedImage.getHeight(), imageType);
-
-        // initializes necessary graphic properties
-        Graphics2D w = (Graphics2D) watermarked.getGraphics();
-        w.drawImage(bufferedImage, 0, 0, null);
-        AlphaComposite alphaChannel = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.4f);
-        w.setComposite(alphaChannel);
-        w.setColor(Color.GRAY);
-        w.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 30));
-        FontMetrics fontMetrics = w.getFontMetrics();
-        Rectangle2D rect = fontMetrics.getStringBounds(text, w);
-
-        // calculate centre of the image
-        int centerX = (bufferedImage.getWidth() - (int) rect.getWidth()) / 2;
-        int centerY = bufferedImage.getHeight() / 2;
-
-        // add text overlay to the image
-        w.drawString(text, centerX, centerY);
-        w.dispose();
+        // calls the internal method to add a watermark to the initial image.
+        BufferedImage watermarked = initGraphicProperties(bufferedImage, type);
         if (this.isNewCommand) {
             // this is when user types in a new command on the commandline.
             this.isNewCommand = false;
@@ -79,7 +59,7 @@ public class WaterMarkCommand extends Command {
             currentEdit.updateTempImage(watermarked);
             currentEdit.addCommand(this);
             currentEdit.displayTempImage();
-        } else { //for undo- redo commands
+        } else {
             //this is when undo redo or when preset and image has no watermark.
             if (!isPreset || !initialImage.hasWaterMark()) {
                 initialImage.setWaterMark(true);
@@ -92,6 +72,37 @@ public class WaterMarkCommand extends Command {
         return new CommandResult(Messages.MESSAGE_WATERMARK_SUCCESS);
     }
 
+    /**
+     * Initialises the watermarked image.
+     * @param bufferedImage the initial buffered image.
+     * @param type the image type of the initial buffered image
+     * @return the watermarked image.
+     */
+    private BufferedImage initGraphicProperties(BufferedImage bufferedImage, String type) {
+
+        // determine image type and handle correct transparency
+        int imageType = "png".equalsIgnoreCase(type) ? BufferedImage.TYPE_INT_ARGB : BufferedImage.TYPE_INT_RGB;
+        BufferedImage watermarked = new BufferedImage(bufferedImage.getWidth(), bufferedImage.getHeight(), imageType);
+        // initializes necessary graphic properties
+        Graphics2D w = (Graphics2D) watermarked.getGraphics();
+        w.drawImage(bufferedImage, 0, 0, null);
+        AlphaComposite alphaChannel = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.4f);
+        w.setComposite(alphaChannel);
+        w.setColor(Color.GRAY);
+        w.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 32));
+        FontMetrics fontMetrics = w.getFontMetrics();
+        Rectangle2D rect = fontMetrics.getStringBounds(text, w);
+
+        // calculate centre of the image
+        int centerX = (bufferedImage.getWidth() - (int) rect.getWidth()) / 2;
+        int centerY = bufferedImage.getHeight() / 2;
+
+        // add text overlay to the image
+        w.drawString(text, centerX, centerY);
+        w.dispose();
+        return watermarked;
+    }
+
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
@@ -102,6 +113,4 @@ public class WaterMarkCommand extends Command {
     public String toString() {
         return "wm " + text;
     }
-
-
 }

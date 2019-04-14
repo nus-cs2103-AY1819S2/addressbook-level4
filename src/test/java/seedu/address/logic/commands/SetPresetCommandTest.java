@@ -109,6 +109,7 @@ public class SetPresetCommandTest {
                     Image initialImage = currentEdit.getTempImage();
                     List<Command> listBefore = initialImage.getSubHistory();
                     currentEdit.replaceTempWithOriginal();
+                    currentEdit.getTempImage().setWaterMark(false);
                     for (Command pastCommand: listBefore) {
                         pastCommand.execute(currentEdit, model, commandHistory);
                     }

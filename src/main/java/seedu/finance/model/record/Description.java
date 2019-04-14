@@ -8,7 +8,7 @@ import static java.util.Objects.requireNonNull;
  */
 public class Description {
     public static final String MESSAGE_CONSTRAINTS =
-            "Description should not be longer than 40 characters long.";
+            "Description should not be longer than 40 characters.";
 
     public final String value;
 

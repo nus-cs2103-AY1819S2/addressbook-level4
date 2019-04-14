@@ -253,60 +253,29 @@ public class AddCommandTest {
         }
 
         @Override
-        public boolean canUndoAddressBook() {
+        public boolean canUndoBooks() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public boolean canRedoAddressBook() {
+        public boolean canRedoBooks() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void undoAddressBook() {
+        public void undoBooks() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void redoAddressBook() {
+        public void redoBooks() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void commitAddressBook() {
+        public void commitBooks() {
             throw new AssertionError("This method should not be called.");
         }
-
-        @Override
-        public void undoArchiveBook() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void redoArchiveBook() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void commitArchiveBook() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void undoPinBook() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void redoPinBook() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void commitPinBook() {
-            throw new AssertionError("This method should not be called.");
-        }
-
 
         @Override
         public ReadOnlyProperty<Person> selectedPersonProperty() {
@@ -397,17 +366,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void commitAddressBook() {
-            // called by {@code AddCommand#execute()}
-        }
-
-        @Override
-        public void commitArchiveBook() {
-            // called by {@code AddCommand#execute()}
-        }
-
-        @Override
-        public void commitPinBook() {
+        public void commitBooks() {
             // called by {@code AddCommand#execute()}
         }
 

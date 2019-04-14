@@ -77,9 +77,7 @@ public class AddCommand extends Command {
         }
 
         model.addPerson(toAdd);
-        model.commitAddressBook();
-        model.commitArchiveBook();
-        model.commitPinBook();
+        model.commitBooks();
         model.setSelectedPinPerson(null);
         model.setSelectedPerson(toAdd);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));

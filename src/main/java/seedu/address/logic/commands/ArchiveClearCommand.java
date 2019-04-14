@@ -19,9 +19,7 @@ public class ArchiveClearCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
         model.setArchiveBook(new AddressBook());
-        model.commitAddressBook();
-        model.commitArchiveBook();
-        model.commitPinBook();
+        model.commitBooks();
         return new CommandResult(MESSAGE_SUCCESS, false, false , true);
     }
 

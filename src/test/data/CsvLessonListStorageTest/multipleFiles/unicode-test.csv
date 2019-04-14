@@ -1,4 +1,5 @@
-﻿*@テストああ,*?CapitalName,CountryCode,ContinentName
-Afghanistan,Kabul,AF,Asia
-Bahrain,Manama,BH,Asia
-テスト,テスト,BD,Asia
+﻿TESTED,NOT TESTED,TESTED,HINT,HINT
+テストああ,Please,CapitalName,CountryCode,ContinentName
+Afghanistan,Don't,Kabul,AF,Asia
+Bahrain,Break,Manama,BH,Asia
+テスト,Me,テスト,BD,Asia

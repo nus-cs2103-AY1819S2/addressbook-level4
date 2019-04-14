@@ -16,8 +16,8 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     public static final String DARK_THEME = "view/DarkTheme.css";
 
     private GuiSettings guiSettings = new GuiSettings();
-    private Path lessonListFolderPath = Paths.get("data");
-    private Path userFilePath = Paths.get("data", "user", "savedata.csv");
+    private Path lessonListFolderPath = Paths.get("lessons");
+    private Path userFilePath = Paths.get("userdata", "savedata.csv");
     private String theme = LIGHT_THEME;
 
     /**

@@ -146,7 +146,7 @@ Format: `exit`
 
 // tag::map[]
 
-=== Preparation Phase
+=== Preparation phase
 This section describes the commands used in the preparation phase.
 
 ==== Initialising the map : `init`
@@ -257,7 +257,7 @@ The list of tags is given in square brackets.
 // end::listTags[]
 
 // tag::battle[]
-=== Battle Phase
+=== Battle phase
 
 ==== Beginning the battle: `begin`
 
@@ -304,7 +304,7 @@ Example:
 == Coming in v2.0
 
 // tag::upcomingmap[]
-=== Special Map Shapes
+=== Special map shapes
 The player will be allowed to use maps that are randomised in shape. This adds an extra layer of challenge and fun for the player.
 
 The player will not be able to place their ships on the black tiles. The enemy AI will also have a randomised map that will not be the same as the player. The player will not be able to see the shape of the enemy map and can shoot black cells which will be counted as a miss.

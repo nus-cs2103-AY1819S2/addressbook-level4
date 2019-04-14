@@ -358,7 +358,7 @@ Step 3. A `CommandResult` with type `ENTERED_REPORT` is returned by the `ReportC
 
 Below is a sequence diagram, summarizing the above operations.
 
-.Sequence Diagram for Report Command.
+.Sequence Diagram for Report Command
 image:ReportCommandSequenceDiagram.png[width="800"]
 
 Step 4. The `CommandResult` is passed to UI, which now has to render the new screen. It does so by getting the current
@@ -377,7 +377,7 @@ Step 5. The `ReportDisplay` is rendered by `fullScreenPlaceholder`.
 
 Below is a sequence diagram summarizing steps 4 and 5. The interactions with Java FXML elements are omitted for clarity.
 
-.Sequence diagram for Report Display.
+.Sequence diagram for Report Display
 image:ReportDisplaySequenceDiagram.png[width="800"]
 
 ==== Design Considerations

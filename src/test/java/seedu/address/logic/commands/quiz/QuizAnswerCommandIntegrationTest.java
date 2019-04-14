@@ -27,6 +27,9 @@ import seedu.address.model.quiz.Quiz;
 import seedu.address.model.quiz.QuizCard;
 import seedu.address.testutil.Assert;
 
+/**
+ * Contains integration tests with QuizModel for QuizAnswerCommand.
+ */
 public class QuizAnswerCommandIntegrationTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();

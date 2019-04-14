@@ -16,6 +16,9 @@ import seedu.address.model.modelmanager.QuizModelManager;
 import seedu.address.model.quiz.Quiz;
 import seedu.address.testutil.Assert;
 
+/**
+ * Contains integration tests with the QuizModel and unit tests for QuizDifficultCommand.
+ */
 public class QuizDifficultCommandTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();

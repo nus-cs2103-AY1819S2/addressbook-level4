@@ -545,7 +545,7 @@ Step 5. After applying the `ContrastFilter` on the opened image, `currentEdit#up
 Step 6. The `execute` method then checks if the boolean `isNewCommand` is true. If it is `true`, it indicates that the command is a new contrast command called directly from the user and not through an `undo/redo` command. This triggers Step 7 in the line below. Otherwise, the command's execution ends in this step.
 
 Step 7. `isNewCommand` is set to `false` to signal that this command is not a new contrast command if it is executed again through the `undo/redo` command.
-`currentEdit#addCommand(this)` is invoked to add this command to the `List<Command>` in `tempImage` for the undo/redo function and `currentEdit#displayTempImage()` is used to display the edited image on the graphical user interface.
+`currentEdit#addCommand(this)` is invoked to add this command to the `List<Command>` in `tempImage` for the `undo/redo` function and `currentEdit#displayTempImage()` is used to display the edited image on the graphical user interface.
 
 ===== Design Considerations
 
@@ -593,7 +593,7 @@ This manipulation feature mainly consists of:
 The following describes main operations and processes for each command stated above.
 
 ==== Rotate Command
-This command allows the user to rotate the targetted image by specifying a degree (90, 180 or 270 only). Upon receiving an input degree from the user, the degree will be checked for its validity and will throw an error if the degree is not within the specified range. The command will then be added to the `List<Commands>` belonging to `tempImage` found in `currentEdit` which saves the editing history of the targetted image.
+This command allows the user to rotate the targeted image by specifying a degree (90, 180 or 270 only). Upon receiving an input degree from the user, the degree will be checked for its validity and will throw an error if the degree is not within the specified range. The command will then be added to the `List<Commands>` belonging to `tempImage` found in `currentEdit` which saves the editing history of the targeted image.
 
 Given below is an example usage scenario and how the command should behave at each step [This applies to the other image manipulation commands as well.]:
 
@@ -608,11 +608,11 @@ Step 3. During execution, the `execute` method in the `RotateCommand` class invo
 
 Step 4. Upon retrieving the `tempImage`, the `execute` method in `RotateCommand` gets a `BufferedImage` instance from `tempImage`.The method then calls the external library https://github.com/rkalla/imgscalr[`ImgScalr`]'s class `rotate` and passes the `BufferedImage` object in.
 
-Step 5. A `BufferedImage` object is returned from the external library and `currentEdit#updateTempImage()` is invoked to overwrite the current image in the filepath: "src/main/resources/temp/" + `tempImage#getUrl` with a new `BufferedImage` object.
+Step 5. A `BufferedImage` object is returned from the external library and `currentEdit#updateTempImage()` is invoked to save the newly edited `BufferedImage` and replace the previous image in the filepath of the `tempImage`.
 
-Step 6. The `execute` method then checks if the boolean `isNewCommand` is true. If it is true, it indicates that the command is a new `Rotate` command called directly from the user and not through an `Undo/Redo` command which triggers Step 7 in the line below. Otherwise, the command’s execution ends in this step.
+Step 6. The `execute` method then checks if the boolean `isNewCommand` is true. If it is true, it indicates that the command is a new `Rotate` command called directly from the user and not through an `undo/redo` command which triggers Step 7 in the line below. Otherwise, the command’s execution ends in this step.
 
-Step 7. `isNewCommand` is set to false to signal that this command is not a new rotate command if it is executed again through the `Undo/Redo` function. `currentEdit#addCommand(this)` is invoked to add this command to the `List<Command>` in `tempImage` for the `Undo/Redo` function and `currentEdit#displayTempImage()` is used to display the edited image on the graphical user interface. +
+Step 7. `isNewCommand` is set to false to signal that this command is not a new rotate command if it is executed again through the `Undo/Redo` function. `currentEdit#addCommand(this)` is invoked to add this command to the `List<Command>` in `tempImage` for the `undo/redo` function and `currentEdit#displayTempImage()` is used to display the edited image on the graphical user interface. +
 
 The diagram below illustrates how the `Rotate` Command works:
 
@@ -621,23 +621,17 @@ image::RotateCommandSequenceDiagram.png[width="800"]
 
 ==== Design Considerations
 
-* Intermediate images have to be stored and edited in a temp directory first due to our `Undo/Redo` implementation.
+* Intermediate images have to be stored and edited in a temp directory first due to our `undo/redo` implementation.
 
 ==== Crop Command
-This command allows the user to crop the targetted image by specifying the coordinates of the top left hand corner of the desired image, the width of the desired image and the height of the desired image. Upon receiving the inputs, the values will be checked for their validity and will throw an error if any value is not within the specified range. The command will then be added to the `List<Commands>` belonging to `tempImage` found in `currentEdit` which saves the editing history of the targetted image.
+This command allows the user to crop the targeted image by specifying the coordinates of the top left hand corner of the desired image, the width of the desired image and the height of the desired image. Upon receiving the inputs, the values will be checked for their validity and will throw an error if any value is not within the specified range. The command will then be added to the `List<Command>` belonging to `tempImage` found in `currentEdit` which saves the editing history of the targeted image.
 
-Refer to the example usage scenario and design considerations in <<Rotate Command>>.
-
-.Sequence Diagram for Crop Command
-image::CropCommandSequenceDiagram.png[width="800"]
+Refer to the example usage scenario, sequence diagram and design considerations in <<Rotate Command>>.
 
 ==== Resize Command
-This command allows the user to resize the targetted image by specifying the width and height of the desired image. Upon receiving the inputs, the values will be checked for their validity and will throw an error if any value is not within the specified range. The command will then be added to the `List<Commands>` belonging to `tempImage` found in `currentEdit` which saves the editing history of the targetted image.
+This command allows the user to resize the targeted image by specifying the width and height of the desired image. Upon receiving the inputs, the values will be checked for their validity and will throw an error if any value is not within the specified range. The command will then be added to the `List<Command>` belonging to `tempImage` found in `currentEdit` which saves the editing history of the targeted image.
 
-Refer to the example usage scenario and design considerations in <<Rotate Command>>.
-
-.Sequence Diagram for Resize Command
-image::ResizeCommandSequenceDiagram.png[width="800"]
+Refer to the example usage scenario, sequence diagram and design considerations in <<Rotate Command>>.
 
 // end::ImageManipulation[]
 

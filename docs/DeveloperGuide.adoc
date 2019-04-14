@@ -671,15 +671,20 @@ well as the content of the text within the files prior to revealing the results.
 
 The `find` feature has to following syntax:
 
-[.big]#`find <KEYWORD> ...`#
+Format: [.big]#`find <KEYWORD> ...`#
 
 * `<KEYWORD>` refers to the word that the application will use as reference to find
 files. There must be at least one provided.
 
+Example:
+* `find Resume`
+* `find Introduction`
+
+==== Feature Breakdown
+
 .Find Command Activity Diagram
 image::FindCommandActivityDiagram.png[width="600"]
 
-==== Feature Breakdown
 The following image briefly summarises the interactions of the `find` command with
 some of its immediate components.
 
@@ -740,13 +745,38 @@ in the application, except that it will list the files based on the tag of the f
 
 The `filter` feature has to following syntax:
 
-[.big]#`filter t/<TAG> ...`#
+Format: [.big]#`filter t/<TAG> ...`#
 
 * `<TAG>` refers to a tag that is valid, i.e. a tag that was previously set on a file.
 * All tags need to have the prefix #/t# to differentiate between each tag.
 
+==== Feature Breakdown
+
 .Filter Command Activity Diagram
 image::FilterCommandActivityDiagram.png[width="600"]
+
+The inner workings of `FilterCommand` can be explained in the following steps should you need to modify it.
+Given that they are extremely similar to that of the <<find-feature, Find Feature>>, you may refer to that should
+you need more information.
+
+* The `LogicManager` component invokes a `PdfBookParser` to parse the input command.
+** An input command such as `filter t/school t/lecture`.
+* The `PdfBookParser` then decodes the instruction by identifying the keyword, which is
+`select` and creates a new `FilterCommandParser` to parse the necessary parameters.
+** These parameters are mainly each tag specified as `t/TAG`
+** The `FilterCommandParser` creates a predicate `TagContainsKeywordsPredicate` which tests each file
+if it contains the specified tags.
+* The `FilterCommandParser` then parses the parameter, `FilterCommand` object that is returned to
+the `LogicManager` to execute.
+* The `LogicManager` supplies the `FilterCommand` with the existing application `model` and
+`command history` and executes it.
+* The execution of the `FilterCommand` mainly contains the following step.
+** Provides `model` with the newly formed `TagContainsKeyworkdsPredicate` to update the list of files with only
+those that contain the input tags.
+** This change causes the invocation of the `UI` component to display the selected item to the user.
+* Finally, upon successful execution, a `CommandResult` is returned to the `LogicManager` for other operations.
+** If any errors occur mid-execution, a `CommandException` is thrown. These errors may occur due to:
+*** Invalid parameter inputs.
 
 // end::filter[]
 
@@ -799,10 +829,10 @@ Example:
 Listed below is a brief explanation of the inner workings of the sort feature.
 
 * The `LogicManager` component invokes a `PdfBookParser` to parse the input command.
-** An input command such as `select 1`.
+** An input command such as `sort deadline up`.
 * The `PdfBookParser` then decodes the instruction by identifying the keyword, which is
-`select` and creates a new `SordCommandParser` to parse the necessary parameters.
-* The `SordCommandParser` then parses both parameters and creates a `SordCommand` object that is
+`select` and creates a new `SortCommandParser` to parse the necessary parameters.
+* The `SortCommandParser` then parses both parameters and creates a `SortCommand` object that is
 returned to the `LogicManager` to execute.
 ** The parameters are the `CRITERIA` and `ORDER` specified by the user.
 * The `LogicManager` supplies the `SortCommand` with the existing application `model` and
@@ -845,7 +875,7 @@ Example:
 The inner workings of `TagCommand` can be briefly explained in the following steps should you need to modify it.
 
 * The `LogicManager` component invokes a `PdfBookParser` to parse the input command.
-** An input command such as `select 1`.
+** An input command such as `tag 1 -a t/SEROCKS`.
 * The `PdfBookParser` then decodes the instruction by identifying the keyword, which is
 `select` and creates a new `TagCommandParser` to parse the necessary parameters.
 * The `TagCommandParser` then parses the relevant parameters and creates a new

@@ -93,5 +93,9 @@ image::ModelClassDiagram.png[width="800"]
 include::../DeveloperGuide.adoc[tag=map]
 
 ---
+
+include::../DeveloperGuide.adoc[tag=mapuse]
+
+---
 === Instructions for Manual Testing
 include::../DeveloperGuide.adoc[tag=maptest]

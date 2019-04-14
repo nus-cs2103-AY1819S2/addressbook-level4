@@ -1,11 +1,14 @@
 package seedu.hms.model.booking.serviceType;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.hms.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Iterator;
+import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.hms.model.booking.serviceType.exceptions.DuplicateServiceTypeException;
 import seedu.hms.model.booking.serviceType.exceptions.ServiceTypeNotFoundException;
 
 /**
@@ -20,10 +23,21 @@ public class ServiceTypeList implements Iterable<ServiceType> {
             FXCollections.unmodifiableObservableList(internalList);
 
     /**
+     * Returns true if the list contains an equivalent customer as the given argument.
+     */
+    public boolean contains(ServiceType toCheck) {
+        requireNonNull(toCheck);
+        return internalList.stream().anyMatch(toCheck::equals);
+    }
+
+    /**
      * Adds a ServiceType to the list.
      */
     public void add(ServiceType toAdd) {
         requireNonNull(toAdd);
+        if (contains(toAdd)) {
+            throw new DuplicateServiceTypeException();
+        }
         internalList.add(toAdd);
     }
 
@@ -39,6 +53,20 @@ public class ServiceTypeList implements Iterable<ServiceType> {
             throw new ServiceTypeNotFoundException();
         }
         internalList.set(serviceTypeIndex, editedServiceType);
+    }
+
+    public void setServiceTypes(ServiceTypeList replacement) {
+        requireNonNull(replacement);
+        internalList.setAll(replacement.internalList);
+    }
+
+    /**
+     * Replaces the contents of this list with {@code Bookings}.
+     * {@code Bookings} must not contain duplicate Bookings.
+     */
+    public void setServiceTypes(List<ServiceType> serviceTypes) {
+        requireAllNonNull(serviceTypes);
+        internalList.setAll(serviceTypes);
     }
 
     /**

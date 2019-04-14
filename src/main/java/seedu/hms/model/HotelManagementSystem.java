@@ -90,6 +90,22 @@ public class HotelManagementSystem implements ReadOnlyHotelManagementSystem {
     }
 
     /**
+     * Replaces the contents of the reservation list with {@code reservations}.
+     */
+    public void setServiceTypes(List<ServiceType> serviceTypes) {
+        this.serviceTypes.setServiceTypes(serviceTypes);
+        indicateModified();
+    }
+
+    /**
+     * Replaces the contents of the reservation list with {@code reservations}.
+     */
+    public void setRoomTypes(List<RoomType> roomTypes) {
+        this.roomTypes.setRoomTypes(roomTypes);
+        indicateModified();
+    }
+
+    /**
      * Resets the existing data of this {@code HotelManagementSystem} with {@code newData}.
      */
     public void resetData(ReadOnlyHotelManagementSystem newData) {
@@ -98,12 +114,8 @@ public class HotelManagementSystem implements ReadOnlyHotelManagementSystem {
         setCustomers(newData.getCustomerList());
         setBookings(newData.getBookingList());
         setReservations(newData.getReservationList());
-        for (ServiceType st : newData.getServiceTypeList()) {
-            serviceTypes.add(st);
-        }
-        for (RoomType rt : newData.getRoomTypeList()) {
-            roomTypes.add(rt);
-        }
+        setServiceTypes(newData.getServiceTypeList());
+        setRoomTypes(newData.getRoomTypeList());
     }
 
     /**
@@ -131,6 +143,22 @@ public class HotelManagementSystem implements ReadOnlyHotelManagementSystem {
     public boolean hasCustomer(Customer customer) {
         requireNonNull(customer);
         return customers.contains(customer);
+    }
+
+    /**
+     * Returns true if a customer with the same identity as {@code customer} exists in the hms book.
+     */
+    public boolean hasServiceType(ServiceType st) {
+        requireNonNull(st);
+        return serviceTypes.contains(st);
+    }
+
+    /**
+     * Returns true if a customer with the same identity as {@code customer} exists in the hms book.
+     */
+    public boolean hasRoomType(RoomType st) {
+        requireNonNull(st);
+        return roomTypes.contains(st);
     }
 
     /**

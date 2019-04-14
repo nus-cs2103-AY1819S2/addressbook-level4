@@ -29,9 +29,9 @@ public class EditServiceTypeCommand extends BookingCommand {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits a service type in the hotel management system.\n"
         + "Parameters: SERVICE TYPE INDEX (to edit) "
         + "[" + PREFIX_NAME + "SERVICE NAME] "
-        + PREFIX_TIMING + "OPERATIONAL HOURS(HH - HH in 24 hour format)] "
-        + PREFIX_CAPACITY + "CAPACITY OF SERVICE]"
-        + PREFIX_RATE + "RATE PER HOUR]\n"
+        + "[" + PREFIX_TIMING + "OPERATIONAL HOURS(HH - HH in 24 hour format)] "
+        + "[" + PREFIX_CAPACITY + "CAPACITY OF SERVICE] "
+        + "[" + PREFIX_RATE + "RATE PER HOUR]\n"
         + "Example: " + COMMAND_WORD + " 1 "
         + PREFIX_NAME + "BILLIARDS "
         + PREFIX_TIMING + "08 - 18 "
@@ -40,6 +40,7 @@ public class EditServiceTypeCommand extends BookingCommand {
 
     public static final String MESSAGE_EDIT_SERVICE_TYPE_SUCCESS = "Service Type edited: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
+    public static final String MESSAGE_DUPLICATE_SERVICE_TYPE = "This service type already exists in the hms book";
 
     private final EditServiceTypeDescriptor editServiceTypeDescriptor;
     private final Index index;
@@ -83,6 +84,11 @@ public class EditServiceTypeCommand extends BookingCommand {
 
         ServiceType serviceTypeToEdit = lastShownList.get(index.getZeroBased());
         ServiceType editedServiceType = createEditedServiceType(serviceTypeToEdit, editServiceTypeDescriptor);
+
+        if (!serviceTypeToEdit.equals(editedServiceType) && model.hasServiceType(editedServiceType)) {
+            throw new CommandException(MESSAGE_DUPLICATE_SERVICE_TYPE);
+        }
+
         model.setServiceType(index.getZeroBased(), editedServiceType);
         model.commitHotelManagementSystem();
         return new CommandResult(String.format(MESSAGE_EDIT_SERVICE_TYPE_SUCCESS, editedServiceType));

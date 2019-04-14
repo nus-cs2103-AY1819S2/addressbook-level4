@@ -25,8 +25,9 @@ public class FindReservationCommand extends ReservationCommand {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all reservations belonging to the selected "
         + "customer\n"
-        + "Parameters: CUSTOMER_IDENTIFICATION_NUMBER "
-        + "[" + PREFIX_ROOM + "ROOM TYPE]\n "
+        + "Parameters: "
+        + "[" + PREFIX_IDENTIFICATION_NUMBER + "CUSTOMER_IDENTIFICATION_NUMBER] "
+        + "[" + PREFIX_ROOM + "ROOM TYPE]"
         + "[" + PREFIX_DATES + "DATES(DD/MM/YYYY - DD/MM/YYYY)]\n"
         + "Example: " + COMMAND_WORD + " "
         + PREFIX_IDENTIFICATION_NUMBER + "1234567 "

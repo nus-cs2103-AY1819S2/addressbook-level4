@@ -34,7 +34,7 @@ public class AddCustomerCommand extends CustomerCommand {
         + "Example: " + COMMAND_WORD + " "
         + PREFIX_NAME + "John Doe "
         + PREFIX_PHONE + "98765432 "
-        + PREFIX_EMAIL + "jd@ex.com "
+        + PREFIX_EMAIL + "jd@eox.com "
         + PREFIX_IDENTIFICATION_NUMBER + "A123456Q "
         + PREFIX_DATE_OF_BIRTH + "28/05/1999 "
         + PREFIX_ADDRESS + "311, Clementi Ave 2"

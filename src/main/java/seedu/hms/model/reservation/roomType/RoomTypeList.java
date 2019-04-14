@@ -1,11 +1,14 @@
 package seedu.hms.model.reservation.roomType;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.hms.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Iterator;
+import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.hms.model.reservation.roomType.exceptions.DuplicateRoomTypeException;
 import seedu.hms.model.reservation.roomType.exceptions.RoomTypeNotFoundException;
 
 /**
@@ -20,10 +23,21 @@ public class RoomTypeList implements Iterable<RoomType> {
             FXCollections.unmodifiableObservableList(internalList);
 
     /**
+     * Returns true if the list contains an equivalent customer as the given argument.
+     */
+    public boolean contains(RoomType toCheck) {
+        requireNonNull(toCheck);
+        return internalList.stream().anyMatch(toCheck::equals);
+    }
+
+    /**
      * Adds a RoomType to the list.
      */
     public void add(RoomType toAdd) {
         requireNonNull(toAdd);
+        if (contains(toAdd)) {
+            throw new DuplicateRoomTypeException();
+        }
         internalList.add(toAdd);
     }
 
@@ -38,6 +52,20 @@ public class RoomTypeList implements Iterable<RoomType> {
             throw new RoomTypeNotFoundException();
         }
         internalList.set(roomTypeIndex, editedRoomType);
+    }
+
+    public void setRoomTypes(RoomTypeList replacement) {
+        requireNonNull(replacement);
+        internalList.setAll(replacement.internalList);
+    }
+
+    /**
+     * Replaces the contents of this list with {@code Bookings}.
+     * {@code Bookings} must not contain duplicate Bookings.
+     */
+    public void setRoomTypes(List<RoomType> roomTypes) {
+        requireAllNonNull(roomTypes);
+        internalList.setAll(roomTypes);
     }
 
     /**

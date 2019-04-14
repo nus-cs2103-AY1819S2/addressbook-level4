@@ -549,52 +549,54 @@ The classes associated with Budget is shown in the class diagram below:
 .Class Diagram for Budget
 image::budget_classdiagram.png[]
 // end::budgetclassdiagram[]
+
 // tag::budget[]
 ==== Setting a Budget
-This feature allows the particular user to set a budget for the FinanceTracker. The user
-may only set the budget once and increase or decrease it later.
+This feature allows the user to set a budget for the FinanceTracker. The budget can be changed by setting
+the budget again.
 
 Given below is a sequence diagram and step by step explanation of how Finance Tracker
-creates a budget when the user sets a budget.
+creates a budget when the user uses the `set` command to set a budget.
 
 .Sequence diagram of user setting a budget
-image::SetCommandSequenceDiagram.png[width="800"]
+image::SetSequenceDiagram.jpg[width="800"]
 
-. The user enters a Set command (e.g. set $/120). The command is received by MainWindow and
-the method `LogicManager#execute()` is called. The argument of the command ($/120) is passed to
-`FinanceTrackerParser#parseCommand` method to handle.
-. The `FinanceTrackerParser#parseCommand` creates a `SetCommandParser` object and passes the command
-arguments into `SetCommandParser#parse()` method. The argument is checked to be in the correct format
-by `ParserUtil.parseAmount()` before `SetCommandParser#parse()` creates a `SetCommand` with the argument
-parsed into an amount passed in.
-. The `SetCommand` object is passed back to `LogicManager#execute()` and it calls the `SetCommand#execute()`
-to excute the logic to create the budget. The method creates a `Budget` object with the amount and passes
-the budget object into the `Model` by calling `ModelManager#addBudget()`.
-. `ModelManager#addBudget()` calls `FinanceTracker#addBudget()` to set the Budget of the FinanceTracker for
-the current user of the app. `FinanceTracker#addBudget()` uses the `Budget#set()` method to set the Budget of
-the app using the amount put in the inital command before returning to the `SetCommand#execute()` in the `Logic`
-of the app.
-. `SetCommand#execute()` now creates a `CommandResult` object to convey a message to be pushed to the UI and user.
-The `commandresult` object created is passed back to `LogicManager#execute()` and then back to `MainWindow#executeCommand()`.
-. `MainWindow#executeCommand()` checks whether there is a need to update the budget in the UI by calling `commandResult#isChangeBudget()`
-and getting a `true` boolean return from the method for the set command. The `#handleChangeBudget()` within `MainWindow` is called
-since `MainWindow#executeCommand()` notes that budget is changed.
-. `MainWindow#handleChangeBudget()` calls `LogicManager#getBudget()` to get the current budget of the FinanceTracker. The budget is then
-passed as argument into the `BrowserPanel#updateBudget()` method which will reflect the budget set by the command in the UI. The current budget
-will be the same as the total budget when it is set.
+. The user enters a Set command (e.g. set $/120). The command passed down and received by the `LogicManager`.
+. The `LogicManger` calls the `FinanceTrackerParser#ParseCommand()` method which creates a `SetCommandParser`
+object. The `FinanceTrackerParser#ParseCommand()` method then calls the `SetCommandParser#parse()` method,
+passing in the amount argument entered by the user ("120" in example).
+. `SetCommandParser#parse()` calls `ParserUtil#ParseAmount()` to handle the parsing of the amount. The method
+checks if the argument is a valid amount value and throws an exception if it is not. If there are no exceptions,
+`ParserUtil#ParseAmount()` returns the processed amount string. `SetCommandParser#parse()` then creates a
+`SetCommand` with the processed amount ("120" in example) and the new `SetCommand` gets passed back to the
+`LogicManager`.
+. Now that the command is processed, `LogicManager#execute()` calls `SetCommand#execute()` to execute the command.
+`SetCommand#execute()` creates a new `Budget` object initialised with the amount (budget of 120 created in example).
+The `Budget` object (labelled p) is then passed to the `ModelManager` by the `ModelManager#addBudget()` method.
+. `ModelManager#addBudget()` calls `FinanceTracker#addBudget()` to update the budget of the current instance of the
+Finance Tracker. `FinanceTracker#addBudget()` updates the `TotalBudget` object field (labelled q) in `FinanceTracker`
+by calling `TotalBudget#updateBudget()` and passing the `Budget p` and the records stored in the `FinanceTracker`.
+. `TotalBudget#updateBudget()` first gets the budget data (totalBudget, currentBudget) from `Budget p` and sets it using
+`TotalBudget#set()` (total budget of app is now 120 in example). It then updates the current budget and spending based on
+the records that was stored and passed in by the `FinanceTracker`.
+. Once `TotalBudget q` has finished updating, control is passed all the way back to `SetCommand#execute()` which will create
+a `CommandResult` (labelled result). The result is passed back to `LogicManager#execute` and all the way to the user to show
+that the budget has been set (Budget set to 120 in example).
+. Although not shown in the diagram, the UI is then updated with the new budget. The UI update of budget data will be
+covered in <<Updating the UI with Budget Data>>.
 
 
 ==== Design Consideration
-The logic for keeping track of budgets can be implemented in different ways for individual categories.
+Aspect: Updating budget data after Record updates
 
-* *Solution 1*: Keep a list of expenditure for individual categories and budget allocations in one Budget class.
-** Pros: Easier to maintain one Budget object.
-** Cons: Iterating through the list could be slow if there are a lot of categories. Lists could be confusing to maintain.
+* *Solution 1*: Maintaining one updateBudget method to update current expenditure and budget left based on
+iterating through changed record list.
+** Pros: Easier to implement and manage a single method.
+** Cons: Updates for even single addition/edit/deletion of record could be slow if record list gets too large.
 
-* *Solution 2*: Create Budget classes to keep track of expenditure and budget for individual categories.
-** Pros: More human readable to maintain Budget classes with names of categories.
-** Cons: Budget classes for individual categories need to be iterated through to get totals leading to slow UI updates each time values are changed.
-
+* *Solution 2*: Maintain individual methods for each update of budget data (add/edit/remove records) (Current Implementation)
+** Pros: App would run updates faster with more targeted methods.
+** Cons: More code and test cases to be written to implement and maintain several methods for updating budget.
 //end::budget[]
 
 // tag::categorybudget[]
@@ -606,7 +608,6 @@ executes when a user sets a category budget.
 
 .Sequence diagram of user setting a category budget
 image::AllocateSequenceDiagram.png[width="800"]
-
 
 . User enters command `allocate $/10 c/Food`. The command is received by `FinanceBookParser`
 . FinanceTrackerParser will then create a `AllocateCommandParser` Object
@@ -656,6 +657,46 @@ budgets
 . An `Iterator` is then used to iterate through the set of `CategoryBudgets` and the `currentSpending` is printed with
 the `totalBudget` allocated to the `CategoryBudget`.
 // end::show[]
+
+//tag::budgetupdateui[]
+==== Updating the UI with Budget Data
+Previous sections have covered how the budget of the Finance Tracker is updated within the App. This section aims
+to give a overview of the logic for updating the User Interface of the App to reflect the budget updates to the
+user.
+
+To explain the update, an Activity Diagram accompanied with a step-by-step walk-through is proved. The Activity Diagram is modelled after `MainWindow#execute()` which calls the appropriate
+methods to update the budget UI.
+
+.Activity diagram of the UI being updated after budget data changes
+image::BudgetUpdateUiActivityDiagram.jpg[]
+
+. The command is first executed by the `LogicManager`. The execution of commands will update the budget data
+in the Finance Tracker as specified in previous sections. The success message of the command is then displayed to the user
+(Result of command that user typed).
+. There is then a conditional check on whether the command has changed the budget data (Based on CommandResult
+passed back from command execution). For brevity and based on the scope of the section, the other conditional checks
+for the command will be excluded.
+List of Commands that change budget: `spend`, `edit`, `delete`, `set`, `allocate`, `clear`, `setfile`, `undo`, `redo`
+. When it has been determined that the command has altered budget data, 3 components of the UI need to be updated before
+continuing. If you are unfamiliar with the components of the UI, refer to the
+https://github.com/CS2103-AY1819S2-W17-3/main/blob/master/docs/UserGuide.adoc#graphical-user-interface-introduction[Graphical User Interface] section of our User Guide.
+.. *BudgetPanel*:
+The BudgetPanel consists of 2 sections, the Budget Bar and the text below the bar. The bar and text is updated with
+data retrieved from the `Logic` component of the App, with the changes to Budget Bar being animated. The colour of
+the bar is then set based on the difference in current spending and total budget set (Red: Budget Exceeded, Yellow: Spending is
+>= 80% of budget, Green: Spending is <80% of budget).
+.. *Browser Panel*:
+The BrowserPanel only contains text and is updated similar to the text in the BudgetPanel.
+.. *Summary Panel*:
+The SummaryPanel consists of a pie chart. If the updated budget data shows no expense recorded within the specified time period,
+text explaining that there is no recorded expenses is shown to the user instead. Else, the summary data is updated and the pie
+chart is edited to reflect changes in the expenditures. Refer to <<Summary>> for a more detailed explanation of the implementation
+of the feature.
+. After the UI is updated, there is another check to see if the command given was `summary`. If it was, the current Panel being
+displayed (BrowserPanel or SummaryPanel) is swapped to the other panel. Again, refer to the Summary section below for more implementation
+details.
+. The method ends by returning the CommandResult that was returned from the execution of command to the MainApp.
+//end::budgetupdateui[]
 //end::budgetmanagement[]
 
 

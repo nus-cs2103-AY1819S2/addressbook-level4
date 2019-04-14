@@ -21,7 +21,7 @@ By: `Team W09-3`      Since: `Feb 2019`      Licence: `MIT`
 
 == Introduction
 
-RestOrRant (ROR) is a desktop restaurant management application that allows *restaurant managers, waiters and cashiers* to perform *restaurant front-end operations* more efficiently. With ROR, you can easily manage table allocation, handle orders, track item availability and check restaurant statistics.
+RestOrRant (ROR) is a desktop restaurant management application that allows *restaurant managers, waiters and cashiers* to perform *restaurant front-end operations* more efficiently. With ROR, you can easily manage table allocation, handle orders, track menu item availability and check restaurant statistics.
 
 RestOrRant mainly uses a *Command Line Interface* (CLI) to perform operations, but it also boasts a Graphical User Interface (GUI) to provide you with visual information for ease of reference.
 
@@ -29,11 +29,11 @@ Interested? Head over to <<Quick Start>> to get started with RestOrRant!
 
 == Quick Start
 
-Welcome to RestOrRant! If you are just starting out, this quick start section will help you get RestOrRant up and running in no time at all and equip you with the basics so that you can quickly enjoy and master the features that ROR has to offer.
+Welcome to RestOrRant! If you are just starting out, this quick start section will help you get RestOrRant up and running in no time at all. It will equip you with the basics so that you can quickly enjoy and master the features that ROR has to offer.
 
 === Using the User Guide
 
-This User Guide is filled with information to help you set up and make the most of RestOrRant. You will be able to learn more about the <<Modes and Commands, commands>> that are available for you, together with examples of how they work. These commands are also consolidated into a <<Command Summary, summary>> for your convenience.
+This User Guide is filled with information to help you set up and make the most of RestOrRant. You will be able to learn more about the <<Modes and Commands, commands>> that are available for you, together with examples of how they are used. These commands are also consolidated into a <<Command Summary, summary>> for your convenience.
 
 To complement your reading experience, you may find it useful to refer to the table below for the different symbols and formatting used throughout this guide.
 
@@ -59,7 +59,7 @@ endif::[]
 These steps will guide you in installing RestOrRant on your computer.
 
 . Ensure you have Java version `9` or later installed in your computer.
-[TIP]
+[NOTE]
 You can download the latest Java version link:https://www.oracle.com/technetwork/java/javase/downloads/index.html[here].
 
 . Download the latest `restorrant.jar` link:{repoURL}/releases[here].
@@ -207,7 +207,7 @@ ifndef::env-github[a| icon:check[role="green", size="2x"] a| The help window wil
 [[History]]
 ==== Viewing history : `history`
 
-You can easily view all the past commands used by you or your other colleagues by using this command, which will display the list of past commands in reverse chronological order.
+You can easily view all the past commands used by you or your other colleagues by using this command, which will display the list of past commands in reverse chronological order (the last used one will appear first).
 ****
 *Format*: `history` +
 *Shortcut*: `h`
@@ -362,17 +362,35 @@ ifndef::env-github[a| icon:check[role="green", size="2x"] a| The user interface 
 In Restaurant Mode, which is the default mode, you can perform table-related operations and view the order items across all tables.
 
 image::RMUi.png[width="790"]
+The function of the side and main panels are as follows:
+
+* *Order Panel*: This panel shows you the list of items ordered by all tables in RstOrRant, arranged in chronological order. This means that items that were ordered first appears at the top of the list. It also indicates the quantity left to serve for each item, and the background turns dark when the item is fully served.
+* *Table  Panel*: This panel gives you an overview of all tables in RestOrRant with their table numbers and respective occupancies.
+
+[NOTE]
+The light coloured tables represent unoccupied tables. +
+The slightly darker coloured tables represent occupied tables. +
+The very dark coloured tables represent unusable tables.
+
+Here are the commands that you can use in this mode to efficiently handle the orders in your restaurant.
 
 [[AddTable]]
 ==== Adding tables : `addTable`
 
-Adds tables to the restaurant. +
-Format: `addTable NUMBER_OF_SEATS [NUMBER_OF_SEATS]...`
+As you set up RestOrRant to reflect your physical restaurant or add tables in the event that there are new tables in your restaurant, this command allows you to add tables in RestOrRant by specifying the number of seats at the table.
+
+[NOTE]
+The maximum number of tables that can be added is 400.
 
 ****
-* Table number increases sequentially starting from 1.
-* There is no limit to the number of tables that can be added.
+* *Format*: `addTable NUMBER_OF_SEATS [NUMBER_OF_SEATS]...`
+* *Shortcut*: `add`
 ****
+
+[NOTE]
+Table number increases sequentially starting from 1.
+[TIP]
+You can add multiple tables at once. This means all of your tables can be added with a single command!
 
 Examples:
 
@@ -421,7 +439,7 @@ Format: `clearTable`
 ****
 
 [[SpaceFor]]
-==== Getting available tables for customers : `spaceFor` _(Coming in v2.0)_
+==== Getting available tables for customers : `spaceFor`
 
 Searches the restaurant for the table that best fits the number of customers to be seated. +
 Format: `spaceFor NUMBER_OF_CUSTOMERS`

@@ -439,7 +439,7 @@ Step 2. `Album#checkFileExist(String)` is called to check if the file specified 
 
 Step 3. The `Image` is passed to `CurrentEdit#openImage(Image)` to create two copies of it, named `temp_img.png` and `ori_img.png`, in `temp` directory. These copies are then instantiated as `tempImage` and `originalImage`.
 
-Step 4. `CurrentEdit#updateExif()` is called to updates the information of the opened image in the GUI.
+Step 4. `CurrentEdit#updateExif()` is called to update the information of the opened image in the GUI.
 
 Step 5. `CurrentEdit#displayTempImage()` is called to display the opened image on the GUI.
 

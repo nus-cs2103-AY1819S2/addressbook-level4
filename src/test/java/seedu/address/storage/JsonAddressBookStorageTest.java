@@ -2,10 +2,10 @@ package seedu.address.storage;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static seedu.address.testutil.TypicalPersons.ALICE;
-import static seedu.address.testutil.TypicalPersons.HOON;
-import static seedu.address.testutil.TypicalPersons.IDA;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalApparels.ARMANY;
+import static seedu.address.testutil.TypicalApparels.BOBYIN;
+import static seedu.address.testutil.TypicalApparels.SHIRT1;
+import static seedu.address.testutil.TypicalApparels.getTypicalAddressBook;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -84,14 +84,14 @@ public class JsonAddressBookStorageTest {
         assertEquals(original, new AddressBook(readBack));
 
         // Modify data, overwrite exiting file, and read back
-        original.addPerson(HOON);
-        original.removePerson(ALICE);
+        original.addApparel(ARMANY);
+        original.removeApparel(SHIRT1);
         jsonAddressBookStorage.saveAddressBook(original, filePath);
         readBack = jsonAddressBookStorage.readAddressBook(filePath).get();
         assertEquals(original, new AddressBook(readBack));
 
         // Save and read without specifying file path
-        original.addPerson(IDA);
+        original.addApparel(BOBYIN);
         jsonAddressBookStorage.saveAddressBook(original); // file path not specified
         readBack = jsonAddressBookStorage.readAddressBook().get(); // file path not specified
         assertEquals(original, new AddressBook(readBack));

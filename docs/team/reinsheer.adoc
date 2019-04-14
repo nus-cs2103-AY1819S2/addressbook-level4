@@ -1,0 +1,46 @@
+= Tan Yiren Eugene - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: Fashion Match
+
+---
+
+== Overview
+
+Fashion Match is a desktop wardrobe management application used as a guide for your fashion necessities. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 19.7 kLoC.
+
+== Summary of contributions
+
+* *Major enhancement*: intending to add major statistic command by v1.4
+** What it does: gives basic statistics to user for visualisation purposes, for example he knows his top worn apparel
+** Justification: This feature improves the product significantly because a user can have greater clarity for his wardrobe and allows the user to be more aware of his usage patterns
+** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
+
+* *Minor enhancement*: nil
+
+* *Code contributed*: refactoring and test cases
+
+
+* *Other contributions*:
+** Refactored entire AddressBook to become Fashion Match
+** Fix test cases that resulted from the refactoring of AddressBook
+** Managed release of `v1.3`, reviewed and merged all PRs from week 10 saturday onwards on GitHub
+** Cleanup of the Developer Guide from AddressBook4 to Fashion Match: https://github.com/CS2103-AY1819S2-W15-1/main/pull/8
+
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+Entire structure in v1.1

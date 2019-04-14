@@ -1,0 +1,77 @@
+= Raffles Andrison - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: Fashion Match
+
+---
+
+== Overview
+
+Fashion Match is a desktop apparels matching application that recommends user the appropriate combination of apparels based on their the apparels they owned. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+
+== Summary of contributions
+
+* *Major enhancement*: added the Apparel Management feature which comprises of sort and list. Sort feature allows user to sort by name, colour or clothing type. As for list, it is an improved version of the previous list feature. The new list allows user to supply options in order to list the apparels according to the parameter supplied by the user.
+** What it does: allows the user sort the apparels in any valid way. To find out about the valid way of sorting, user can simply type `sort options` which output all the valid sorting options.
+** Justification: This feature improves the product significantly because a user might want to arrange the apparels in a certain order for easy viewing.
+** Highlights: This enhancement affects existing commands and commands to be added in future. The implementation taps on existing command. Truly adopt the spirit of "Don't reinvent the wheel".
+** Credits: None.
+
+* *Minor enhancement*: added a <name of command> command that allows the user to <Do what>.
+
+* *Code contributed*:
+*Apparel*: [https://github.com/CS2103-AY1819S2-W15-1/main/blob/master/src/main/java/seedu/address/model/apparel/Apparel.java[Functional code]]
+*ApparelTest*: [https://github.com/CS2103-AY1819S2-W15-1/main/blob/master/src/test/java/seedu/address/model/apparel/ApparelTest.java[Functional code]]
+*Color*: [https://github.com/CS2103-AY1819S2-W15-1/main/blob/master/src/main/java/seedu/address/model/apparel/Color.java[Functional code]]
+*ColorValue*: [https://github.com/CS2103-AY1819S2-W15-1/main/blob/master/src/main/java/seedu/address/model/apparel/ColorValue.java[Functional code]]
+*ClothingType*: [https://github.com/CS2103-AY1819S2-W15-1/main/blob/master/src/main/java/seedu/address/model/apparel/ClothingType.java[Functional code]]
+*ClothingTypeTest*: [https://github.com/CS2103-AY1819S2-W15-1/main/blob/master/src/test/java/seedu/address/model/apparel/ClothingTypeTest.java[Test code]]
+*ClothingTypeValue*: [https://github.com/CS2103-AY1819S2-W15-1/main/blob/master/src/main/java/seedu/address/model/apparel/ClothingType.java[Functional code]]
+*SortCommand*: [https://github.com/CS2103-AY1819S2-W15-1/main/blob/master/src/main/java/seedu/address/logic/commands/SortCommand.java[Functional code]]
+*SortCommandParser*: [https://github.com/CS2103-AY1819S2-W15-1/main/blob/master/src/main/java/seedu/address/logic/parser/SortCommandParser.java[Functional code]]
+*SortCommandTest*: [https://github.com/CS2103-AY1819S2-W15-1/main/blob/master/src/test/java/seedu/address/logic/commands/SortCommandTest.java[Test code]]
+
+* *Other contributions*:
+
+** Project management:
+*** Set up team development environment.
+*** Managed releases `v1.1` (1 release) on GitHub
+** Graphical User Interface:
+*** Created all apparel icons with all valid colours.
+*** Enable selected apparel from the list to be displayed on the browser panel.
+** Enhancements to existing features:
+*** Updated the display of apparel name on GUI by capitalising the name (Pull requests https://github.com/CS2103-AY1819S2-W15-1/main/pull/65[#65])
+*** Refactoring of existing classes to suit Fashion Match need. (Pull requests https://github.com/CS2103-AY1819S2-W15-1/main/pull/93[#93])
+** Documentation:
+*** Wrote the first version of user guide on Google Doc before it was keyed into GitHub.
+*** Cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+** Community:
+*** PRs reviewed: https://github.com/CS2103-AY1819S2-W15-1/main/pull/42[#42], https://github.com/CS2103-AY1819S2-W15-1/main/pull/50[#50], https://github.com/CS2103-AY1819S2-W15-1/main/pull/51[#51]
+** Tools:
+*** {to be added in future update}
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=sort]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+
+|===
+
+include::../DeveloperGuide.adoc[tag=sort]
+
+
+== PROJECT: PowerPointLabs
+
+---
+
+_{Optionally, you may include other projects in your portfolio.}_

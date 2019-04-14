@@ -7,16 +7,16 @@ import java.util.List;
 import javafx.beans.InvalidationListener;
 import javafx.collections.ObservableList;
 import seedu.address.commons.util.InvalidationListenerManager;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.UniquePersonList;
+import seedu.address.model.apparel.Apparel;
+import seedu.address.model.apparel.UniqueApparelList;
 
 /**
  * Wraps all data at the address-book level
- * Duplicates are not allowed (by .isSamePerson comparison)
+ * Duplicates are not allowed (by .isSameApparel comparison)
  */
 public class AddressBook implements ReadOnlyAddressBook {
 
-    private final UniquePersonList persons;
+    private final UniqueApparelList apparels;
     private final InvalidationListenerManager invalidationListenerManager = new InvalidationListenerManager();
 
     /*
@@ -27,7 +27,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      *   among constructors.
      */
     {
-        persons = new UniquePersonList();
+        apparels = new UniqueApparelList();
     }
 
     public AddressBook() {}
@@ -43,11 +43,11 @@ public class AddressBook implements ReadOnlyAddressBook {
     //// list overwrite operations
 
     /**
-     * Replaces the contents of the person list with {@code persons}.
-     * {@code persons} must not contain duplicate persons.
+     * Replaces the contents of the apparel list with {@code apparels}.
+     * {@code apparels} must not contain duplicate apparels.
      */
-    public void setPersons(List<Person> persons) {
-        this.persons.setPersons(persons);
+    public void setApparels(List<Apparel> apparels) {
+        this.apparels.setApparels(apparels);
         indicateModified();
     }
 
@@ -57,37 +57,38 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void resetData(ReadOnlyAddressBook newData) {
         requireNonNull(newData);
 
-        setPersons(newData.getPersonList());
+        setApparels(newData.getApparelList());
     }
 
-    //// person-level operations
+    //// apparel-level operations
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
+     * Returns true if a apparel with the same identity as {@code apparel} exists in the address book.
      */
-    public boolean hasPerson(Person person) {
-        requireNonNull(person);
-        return persons.contains(person);
+    public boolean hasApparel(Apparel apparel) {
+        requireNonNull(apparel);
+        return apparels.contains(apparel);
     }
 
     /**
-     * Adds a person to the address book.
-     * The person must not already exist in the address book.
+     * Adds a apparel to the address book.
+     * The apparel must not already exist in the address book.
      */
-    public void addPerson(Person p) {
-        persons.add(p);
+    public void addApparel(Apparel p) {
+        apparels.add(p);
         indicateModified();
     }
 
     /**
-     * Replaces the given person {@code target} in the list with {@code editedPerson}.
+     * Replaces the given apparel {@code target} in the list with {@code editedApparel}.
      * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     * The apparel identity of {@code editedApparel} must not be
+     * the same as another existing apparel in the address book.
      */
-    public void setPerson(Person target, Person editedPerson) {
-        requireNonNull(editedPerson);
+    public void setApparel(Apparel target, Apparel editedApparel) {
+        requireNonNull(editedApparel);
 
-        persons.setPerson(target, editedPerson);
+        apparels.setApparel(target, editedApparel);
         indicateModified();
     }
 
@@ -95,8 +96,8 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Removes {@code key} from this {@code AddressBook}.
      * {@code key} must exist in the address book.
      */
-    public void removePerson(Person key) {
-        persons.remove(key);
+    public void removeApparel(Apparel key) {
+        apparels.remove(key);
         indicateModified();
     }
 
@@ -121,24 +122,24 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     @Override
     public String toString() {
-        return persons.asUnmodifiableObservableList().size() + " persons";
+        return apparels.asUnmodifiableObservableList().size() + " apparels";
         // TODO: refine later
     }
 
     @Override
-    public ObservableList<Person> getPersonList() {
-        return persons.asUnmodifiableObservableList();
+    public ObservableList<Apparel> getApparelList() {
+        return apparels.asUnmodifiableObservableList();
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof AddressBook // instanceof handles nulls
-                && persons.equals(((AddressBook) other).persons));
+                && apparels.equals(((AddressBook) other).apparels));
     }
 
     @Override
     public int hashCode() {
-        return persons.hashCode();
+        return apparels.hashCode();
     }
 }

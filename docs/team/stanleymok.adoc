@@ -1,0 +1,81 @@
+= Stanley Joseph Mok Yao Quan - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: Fashion Match
+
+---
+
+== Overview
+
+Fashion Match is a desktop wardrobe management application used as a guide for your fashion necessities. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 19.7 kLoC.
+
+== Summary of contributions
+
+* *Major enhancement*: added *the ability to make available and unavailable certain apparel, or the ability to wash and dirty certain apparel*, where available and wash keywords can be used interchangebly like unavailable and dirty.
+** What it does: allows the user to change an apparel's availability status, whether it should be dirty or clean.
+** Justification: This feature improves the product significantly because it similates the wardrobe's laundry basket; if available, it is clean and has not been worn; if unavailable, it similates a dirty apparel in the laundry basket.
+** Highlights: This enhancement affects existing commands like the recommendation class of commands and commands to be added in future. It required an in-depth analysis of the n-level design architecture in ab4. The implementation too was challenging as it required changes to existing commands, and is modelled after the EditCommand.java class.
+** Credits: _none_, as i simply had to model the AvailableCommand.java and UnavailableCommand.java classes after EditCommand.java class
+
+* *Minor enhancement*: Enabled alternative, more intuitive command words to be used in place of available and unavailable: *wash* and *dirty*.
+
+* *Code contributed*:
+
+*Available command*: https://github.com/CS2103-AY1819S2-W15-1/main/blob/master/src/main/java/seedu/address/logic/commands/AvailableCommand.java[Functional code]
+
+*Unavailable command*: https://github.com/CS2103-AY1819S2-W15-1/main/blob/master/src/main/java/seedu/address/logic/commands/UnavailableCommand.java[Functional code]
+
+*Parser* for available command: https://github.com/CS2103-AY1819S2-W15-1/main/blob/master/src/main/java/seedu/address/logic/parser/AvailableCommandParser.java[Functional code]
+
+*Parser* for unavailable command: https://github.com/CS2103-AY1819S2-W15-1/main/blob/master/src/main/java/seedu/address/logic/parser/UnavailableCommandParser.java[Functional code]
+
+*Available* command test: https://github.com/CS2103-AY1819S2-W15-1/main/blob/master/src/main/java/seedu/address/logic/commands/AvailableCommand.java[Test code]
+
+*Unavailable* command test: https://github.com/CS2103-AY1819S2-W15-1/main/blob/master/src/test/java/seedu/address/logic/commands/UnavailableCommandTest.java[Test code]
+
+*Stub* class: https://github.com/CS2103-AY1819S2-W15-1/main/blob/master/src/test/java/seedu/address/logic/commands/CommandTestUtilExtra.java[Test code]
+
+*Stub* class: https://github.com/CS2103-AY1819S2-W15-1/main/blob/master/src/test/java/seedu/address/testutil/AvailableApparelDescriptorBuilder.java[Test code]
+
+*Stub* class: https://github.com/CS2103-AY1819S2-W15-1/main/blob/master/src/test/java/seedu/address/testutil/UnavailableApparelDescriptorBuilder.java[Test code]
+
+* *Other contributions*: Created 2 classes for testing: AvailableCommandTest.java, UnavailableCommandTest.java and 3 other classes as stubs for dependency injection: CommandTestUtilExtra.java, AvailableApparelDescriptorBuilder.java and UnavailableApparelDescriptorBuilder.java
+
+** Project management:
+*** Managed release of `v1.2`, reviewed and merged all PRs from week 8 wednesday - week 10 friday on GitHub
+** Enhancements to existing features:
+*** Updated the apparel UI card to display the availability status and its usage count. (Pull requests https://github.com/CS2103-AY1819S2-W15-1/main/pull/79[#1], https://github.com/CS2103-AY1819S2-W15-1/main/pull/69[#2])
+*** Created 5 classes.
+2 for testing: AvailableCommandTest.java, UnavailableCommandTest.java and
+3 other classes as stubs for dependency injection: CommandTestUtilExtra.java, AvailableApparelDescriptorBuilder.java and UnavailableApparelDescriptorBuilder.java (Pull requests https://github.com/CS2103-AY1819S2-W15-1/main/pull/79[#1], https://github.com/CS2103-AY1819S2-W15-1/main/pull/92[#3])
+** Documentation:
+*** Cleanup of the User Guide from ab4 to Fashion Match: https://github.com/CS2103-AY1819S2-W15-1/main/pull/9[#4] https://github.com/CS2103-AY1819S2-W15-1/main/pull/96[#5]
+** Community:
+*** PRs reviewed (with non-trivial review comments): https://github.com/CS2103-AY1819S2-W15-1/main/pull/59[#6]
+*** Reported bugs and suggestions for other teams in the class (examples: )
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+Available/wash command:
+include::../UserGuide.adoc[tag=available]
+
+Unavailable/dirty command:
+include::../UserGuide.adoc[tag=unavailable]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+Available/wash command:
+include::../DeveloperGuide.adoc[tag=unavailable]
+
+Unavailable/dirty command:
+include::../DeveloperGuide.adoc[tag=unavailable]

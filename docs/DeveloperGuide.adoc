@@ -291,7 +291,7 @@ These are questions that are labelled difficult by the user.
 ==== Current Implementation
 The lesson CSV storage feature implements the following functions:
 
-* Parsing lesson data into the a list of string arrays, which is a format opencsv accepts for saving to CSV.
+* Parsing lesson data into a list of string arrays, which is a format OpenCSV accepts for saving to CSV.
 * Parsing a list of string arrays back into lesson data, as retrieved from opencsv.
 
 Actual file I/O is handled in the CsvUtil class, which uses the opencsv library to read/write CSV files.

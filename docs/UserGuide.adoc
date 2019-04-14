@@ -658,7 +658,7 @@ sub-folders.
 questions displayed. You are required to key in an answer for each question.
 * [[cardscore]]  **Card Score**: The number of correct answers divided by the number of attempts for a single card. When you are tested on a card,
 this number is automatically calculated and recorded.
-* [[testscore]] **test score**: The number of cards correctly answered over number of cards attempted during a test session. This number is automatically recorded after each test session.
+* [[testscore]] **Test score**: The number of cards correctly answered over number of cards attempted during a test session. This number is automatically recorded after each test session.
 * [[homedirectory]] **Home Directory**: The home page where all the folders are listed. From here, users can enter folders to view cards.
 * [[index]] **Index**: The unique number associated with an item in a list. The first item in a list has an index of 1.
 

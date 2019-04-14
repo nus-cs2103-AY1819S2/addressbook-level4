@@ -41,10 +41,10 @@ public class WaterMarkCommand extends Command {
     @Override
     public CommandResult execute(CurrentEdit currentEdit,
                                  Model model, CommandHistory history) throws CommandException {
-        Image initialImage = currentEdit.getTempImage();
-        if (initialImage == null) {
+        if (currentEdit.tempImageDoNotExist()) {
             throw new CommandException(Messages.MESSAGE_DID_NOT_OPEN);
         }
+        Image initialImage = currentEdit.getTempImage();
         BufferedImage bufferedImage = initialImage.getBufferedImage();
         String type = initialImage.getFileType();
         // calls the internal method to add a watermark to the initial image.

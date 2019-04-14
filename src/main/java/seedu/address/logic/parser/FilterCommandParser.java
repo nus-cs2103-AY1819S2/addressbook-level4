@@ -92,17 +92,17 @@ public class FilterCommandParser implements Parser<FilterCommand> {
      */
     private String degreeInputControl(String arg) {
 
-        arg = arg.trim().replace(" ", "").toLowerCase();
+        String text = arg.trim().replace(" ", "").toLowerCase();
 
-        if (arg.equals("0") || arg.equals("highschool")) {
+        if ("0".equals(text) || "highschool".equals(text)) {
             return "0";
-        } else if (arg.equals("1") || arg.equals("associates")) {
+        } else if (arg.equals(text) || "associates".equals(text)) {
             return "1";
-        } else if (arg.equals("2") || arg.equals("bachelors")) {
+        } else if ("2".equals(text) || "bachelors".equals(text)) {
             return "2";
-        } else if (arg.equals("3") || arg.equals("masters")) {
+        } else if ("3".equals(text) || "masters".equals(text)) {
             return "3";
-        } else if (arg.equals("4") || arg.equals("phd")) {
+        } else if ("4".equals(text) || "phd".equals(text)) {
             return "4";
         }
 

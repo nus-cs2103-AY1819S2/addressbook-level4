@@ -77,15 +77,15 @@ public class Person {
     public int getDegreeAsInteger() {
         String degreeLevel = degree.value.trim().toLowerCase().replace(" ", "");
 
-        if (degreeLevel.equals("highschool")) {
+        if ("highschool".equals(degreeLevel)) {
             return 0;
-        } else if (degreeLevel.equals("associates")) {
+        } else if ("associates".equals(degreeLevel)) {
             return 1;
-        } else if (degreeLevel.equals("bachelors")) {
+        } else if ("bachelors".equals(degreeLevel)) {
             return 2;
-        } else if (degreeLevel.equals("masters")) {
+        } else if ("masters".equals(degreeLevel)) {
             return 3;
-        } else if (degreeLevel.equals("phd")) {
+        } else if ("phd".equals(degreeLevel)) {
             return 4;
         }
 

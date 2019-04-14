@@ -67,7 +67,7 @@ This section provides the summary of the contributions that I have made to the p
 
 
 |===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users. Note that the horizontal lines indicate that they are taken from different sections of the User Guide.__
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users. Note that the horizontal lines indicate that they are taken from different sections of the User Guide._
 |===
 
 include::../UserGuide.adoc[tag=map]

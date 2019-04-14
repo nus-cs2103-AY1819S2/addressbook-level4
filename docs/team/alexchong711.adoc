@@ -47,14 +47,16 @@ Before being able to check their plan against their preferences, the user must f
 == Contributions to the User Guide
 
 |===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users, such that technical terms describing how the application works are reduced as end-users are only concerned with how the application can help them.
+
+The guide will include how users can use the application to manage their CAP and workload expectations while planning for the modules to take._
 |===
+
+include::../UserGuide.adoc[tag=CheckLimit]
 
 include::../UserGuide.adoc[tag=SetCurrentSemester]
 
 include::../UserGuide.adoc[tag=SetSemesterLimit]
-
-include::../UserGuide.adoc[tag=CheckLimit]
 
 |===
 |_End of extract of my contributions to the User Guide._
@@ -63,7 +65,9 @@ include::../UserGuide.adoc[tag=CheckLimit]
 == Contributions to the Developer Guide
 
 |===
-|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project. This is so that future developers who wish to maintain and update my code will able to do so easily after reading the guide and understanding how the application works.
+
+The guide will include sequence diagrams about how the `cklimit`, `cursem`, and `setlimit` commands interact with the system, as well as class diagrams that describe the architecture of the system._
 |===
 
 include::../DeveloperGuide.adoc[tag=semestertracking]
@@ -71,9 +75,3 @@ include::../DeveloperGuide.adoc[tag=semestertracking]
 |===
 |_End of extract of my contributions to the Developer Guide._
 |===
-
-== PROJECT: Cuckoo Hash
-An experimental assignment from https://www.comp.nus.edu.sg/~gilbert/CS5330/[CS5330 - Randomised Algorithm]
-to investigate various effects of different Cuckoo Hash schemes.
-https://www.comp.nus.edu.sg/~gilbert/CS5330/2019/psets/ExperimentalAlgorithms.pdf[More information on assignment here]
-and https://github.com/monikernemo/CS5330-Experimental-Assignment[more on the codes of the implementation here]

@@ -17,6 +17,9 @@ import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.CardsView;
 
+/**
+ * Parser used by CardsView.
+ */
 public class CardsViewParser implements ViewStateParser {
 
     private CardsView cardsView;

@@ -10,6 +10,9 @@ import seedu.address.logic.commands.ShowAnswerCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.StudyView;
 
+/**
+ * Parser used by StudyView.
+ */
 public class StudyViewParser implements ViewStateParser {
 
     private StudyView studyView;

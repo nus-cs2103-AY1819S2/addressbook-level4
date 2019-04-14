@@ -21,6 +21,9 @@ import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.DecksView;
 
+/**
+ * Parser used by DecksView.
+ */
 public class DecksViewParser implements ViewStateParser {
 
     private DecksView decksView;
@@ -29,6 +32,7 @@ public class DecksViewParser implements ViewStateParser {
         this.decksView = decksView;
     }
 
+    @Override
     public Command parse(String commandWord, String arguments) throws ParseException {
         switch (commandWord) {
             case AddDeckCommand.COMMAND_WORD:

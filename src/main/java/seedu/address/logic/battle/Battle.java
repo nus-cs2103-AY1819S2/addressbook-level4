@@ -19,22 +19,26 @@ public interface Battle {
 
     /**
      * Handles the human player attacking the computer enemy.
+     * @param coord The coordinate that the human attacks
      * @return Result of the player attack.
      */
     AttackResult humanPerformAttack(Coordinates coord);
 
     /**
      * Causes the AI to make its attack(s).
+     * @return a list of the results of the computer's attacks, in order
      */
     List<AttackResult> takeComputerTurns();
 
     /**
      * Returns the human player.
+     * @return the human player
      */
     Player getHumanPlayer();
 
     /**
      * Returns the computer player.
+     * @return the enemy player
      */
     Enemy getEnemyPlayer();
 }

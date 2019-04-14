@@ -1,6 +1,6 @@
 package systemtests;
 
-import static guitests.guihandles.WebViewUtil.waitUntilBrowserLoaded;
+import static guitests.guihandles.WebViewUtil.waitUntilInfoPanelLoaded;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 //import static org.junit.Assert.assertTrue;
@@ -11,8 +11,7 @@ import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_UPDATED;
 import static seedu.address.ui.testutil.GuiTestAssert.assertHealthWorkerListMatching;
 import static seedu.address.ui.testutil.GuiTestAssert.assertRequestListMatching;
 
-//import java.nio.file.Path;
-
+import java.nio.file.Path;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
@@ -37,16 +36,24 @@ import seedu.address.commons.core.index.Index;
 //import seedu.address.logic.commands.ClearCommand;
 //import seedu.address.logic.commands.FilterHealthWorkerCommand;
 //import seedu.address.logic.commands.ListHealthWorkerCommand;
+import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.SelectCommand;
+import seedu.address.logic.commands.request.DeleteRequestCommand;
+import seedu.address.logic.commands.request.FilterRequestCommand;
+import seedu.address.logic.commands.request.ListRequestCommand;
+import seedu.address.model.HealthWorkerBook;
 import seedu.address.model.Model;
+import seedu.address.model.RequestBook;
+import seedu.address.testutil.TypicalHealthWorkers;
+import seedu.address.testutil.TypicalRequests;
 import seedu.address.ui.AutoCompleteTextField;
 import seedu.address.ui.InfoPanel;
 
 /**
- * A system test class for AddressBook, which provides access to handles of GUI components and helper methods
- * for test verification.
+ * A system test class for HealthWorkerBook and RequestBook, which provides access to handles of GUI components and
+ * helper methods for test verification.
  */
-public abstract class AddressBookSystemTest {
+public abstract class HealthHubSystemTest {
     @ClassRule
     public static ClockRule clockRule = new ClockRule();
 
@@ -66,10 +73,11 @@ public abstract class AddressBookSystemTest {
     @Before
     public void setUp() {
         setupHelper = new SystemTestSetupHelper();
-        //testApp = setupHelper.setupApplication(this::getInitialData, getDataFileLocation());
+        testApp = setupHelper.setupApplication(this::getInitialHealthWorkerData, getHealthWorkerDataFileLocation(),
+                this::getInitialRequestData, getRequestDataFileLocation());
         mainWindowHandle = setupHelper.setupMainWindowHandle();
 
-        waitUntilBrowserLoaded(getInfoPanel());
+        waitUntilInfoPanelLoaded(getInfoPanel());
         assertApplicationStartingStateIsCorrect();
     }
 
@@ -79,18 +87,32 @@ public abstract class AddressBookSystemTest {
     }
 
     /**
-     * Returns the data to be loaded into the file in {@link #getDataFileLocation()}.
+     * Returns the health worker book data to be loaded into the file {@link #getHealthWorkerDataFileLocation()}
      */
-    //protected AddressBook getInitialData() {
-    //return TypicalPersons.getTypicalAddressBook();
-    //}
+    protected HealthWorkerBook getInitialHealthWorkerData() {
+        return TypicalHealthWorkers.getTypicalHealthWorkerBook();
+    }
 
     /**
-     * Returns the directory of the data file.
+     * Returns the request book data to be loaded into the file {@link #getRequestDataFileLocation()}
      */
-    //protected Path getDataFileLocation() {
-    //return TestApp.SAVE_LOCATION_FOR_TESTING;
-    //}
+    protected RequestBook getInitialRequestData() {
+        return TypicalRequests.getTypicalRequestBook();
+    }
+
+    /**
+     * Returns the directory of the health worker data file.
+     */
+    protected Path getHealthWorkerDataFileLocation() {
+        return TestApp.SAVE_LOCATION_FOR_TESTING_HEALTHWORKERBOOK;
+    }
+
+    /**
+     * Returns the directory of the health worker data file.
+     */
+    protected Path getRequestDataFileLocation() {
+        return TestApp.SAVE_LOCATION_FOR_TESTING_REQUESTBOOK;
+    }
 
     public MainMenuHandle getMainMenu() {
         return mainWindowHandle.getMainMenu();
@@ -102,6 +124,10 @@ public abstract class AddressBookSystemTest {
 
     public CommandBoxHandle getCommandBox() {
         return mainWindowHandle.getCommandBox();
+    }
+
+    public ResultDisplayHandle getResultDisplay() {
+        return mainWindowHandle.getResultDisplay();
     }
 
     public RequestListPanelHandle getRequestListPanel() {
@@ -120,10 +146,6 @@ public abstract class AddressBookSystemTest {
         return mainWindowHandle.getStatusBarFooter();
     }
 
-    public ResultDisplayHandle getResultDisplay() {
-        return mainWindowHandle.getResultDisplay();
-    }
-
     /**
      * Executes {@code command} in the application's {@code CommandBox}.
      * Method returns after UI components have been updated.
@@ -133,43 +155,48 @@ public abstract class AddressBookSystemTest {
         // Injects a fixed clock before executing a command so that the time stamp shown in the status bar
         // after each command is predictable and also different from the previous command.
         clockRule.setInjectedClockToCurrentTime();
-
         mainWindowHandle.getCommandBox().run(command);
-
-        waitUntilBrowserLoaded(getInfoPanel());
+        waitUntilInfoPanelLoaded(getInfoPanel());
     }
 
     /**
-     * Displays all persons in the address book.
+     * Displays all requests in the request book.
      */
-    //protected void showAllPersons() {
-    //  executeCommand(ListHealthWorkerCommand.COMMAND_WORD);
-    //assertEquals(getModel().getAddressBook().getPersonList().size(), getModel().getFilteredPersonList().size());
-    //}
+    protected void showAllRequests() {
+        executeCommand(ListCommand.COMMAND_WORD + " " + ListRequestCommand.COMMAND_OPTION);
+
+        // for some reason list command has to be executed twice due to non-deterministic behaviour of command box
+        executeCommand(ListCommand.COMMAND_WORD + " " + ListRequestCommand.COMMAND_OPTION);
+        assertEquals(getModel().getRequestBook().getRequestList().size(), getModel().getFilteredRequestList().size());
+    }
 
     /**
-     * Displays all persons with any parts of their names matching {@code keyword} (case-insensitive).
+     * Displays all patients with any parts of their names matching {@code keyword} (case-insensitive).
      */
-    //protected void showPersonsWithName(String keyword) {
-    //executeCommand(FilterHealthWorkerCommand.COMMAND_WORD + " " + keyword);
-    //  assertTrue(getModel().getFilteredPersonList().size() < getModel().getAddressBook().getPersonList().size());
-    //}
+    protected void showPatientsWithName(String keyword) {
+        executeCommand(FilterRequestCommand.COMMAND_WORD + " request n/" + keyword);
+        // assertTrue(getModel().getFilteredRequestList().size()
+        //        < getModel().getRequestBook().getRequestList().size());
+    }
 
     /**
-     * Selects the person at {@code index} of the displayed list.
+     * Selects the request at {@code index} of the displayed list.
      */
-    protected void selectPerson(Index index) {
+    protected void selectRequest(Index index) {
         executeCommand(SelectCommand.COMMAND_WORD + " " + index.getOneBased());
         assertEquals(index.getZeroBased(), getRequestListPanel().getSelectedCardIndex());
     }
 
     /**
-     * Deletes all persons in the address book.
+     * Deletes all requests in the request book.
      */
-    //protected void deleteAllPersons() {
-    //  executeCommand(ClearCommand.COMMAND_WORD);
-    //assertEquals(0, getModel().getAddressBook().getPersonList().size());
-    //}
+    protected void deleteAllRequests() {
+        int size = getModel().getRequestBook().getRequestList().size();
+        for (int i = 0; i < size; i++) {
+            executeCommand(DeleteRequestCommand.COMMAND_WORD + " " + DeleteRequestCommand.COMMAND_OPTION + " " + 1);
+        }
+        assertEquals(0, getModel().getRequestBook().getRequestList().size());
+    }
 
     /**
      * Asserts that the {@code CommandBox} displays {@code expectedCommandInput}, the {@code ResultDisplay} displays
@@ -191,7 +218,7 @@ public abstract class AddressBookSystemTest {
      */
     private void rememberStates() {
         StatusBarFooterHandle statusBarFooterHandle = getStatusBarFooter();
-        getInfoPanel().rememberUrl();
+        getInfoPanel().rememberContent();
         statusBarFooterHandle.rememberSaveLocation();
         statusBarFooterHandle.rememberSyncStatus();
         getRequestListPanel().rememberSelectedRequestCard();
@@ -220,12 +247,12 @@ public abstract class AddressBookSystemTest {
     }
 
     /**
-     * Asserts that the info panel's url and the selected card in the person list panel remain unchanged.
-     * @see InfoPanelHandle#isUrlChanged()
+     * Asserts that the info panel's content and the selected card in the request list panel remains unchanged.
+     * @see InfoPanelHandle#isLoadedContentChanged()
      * @see RequestListPanelHandle#isSelectedRequestCardChanged()
      */
     protected void assertSelectedCardUnchanged() {
-        assertFalse(getInfoPanel().isUrlChanged());
+        //assertFalse(getInfoPanel().isLoadedContentChanged());
         assertFalse(getRequestListPanel().isSelectedRequestCardChanged());
     }
 
@@ -253,6 +280,15 @@ public abstract class AddressBookSystemTest {
     }
 
     /**
+     * Asserts that the status bar sync and saved statuses are changed.
+     */
+    protected void assertStatusBarChanged() {
+        StatusBarFooterHandle handle = getStatusBarFooter();
+        assertTrue(handle.isSaveLocationChanged());
+        assertTrue(handle.isSyncStatusChanged());
+    }
+
+    /**
      * Asserts that only the sync status in the status bar was changed to the timing of
      * {@code ClockRule#getInjectedClock()}, while the save location remains the same.
      */
@@ -272,10 +308,8 @@ public abstract class AddressBookSystemTest {
         assertEquals("", getCommandBox().getInput());
         assertEquals("", getResultDisplay().getText());
         assertRequestListMatching(getRequestListPanel(), getModel().getFilteredRequestList());
-        assertHealthWorkerListMatching(getHealthWorkerListPanel(), getModel().getFilteredHealthWorkerList());
         assertEquals(InfoPanel.DEFAULT_PAGE, getInfoPanel().getLoadedUrl());
-        //assertEquals(Paths.get(".").resolve(testApp.getStorageSaveLocation()).toString(),
-        //      getStatusBarFooter().getSaveLocation());
+        assertHealthWorkerListMatching(getHealthWorkerListPanel(), getModel().getFilteredHealthWorkerList());
         assertEquals(SYNC_STATUS_INITIAL, getStatusBarFooter().getSyncStatus());
     }
 

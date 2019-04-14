@@ -4,9 +4,14 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_ANDY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BETTY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NRIC_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NRIC_ANDY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.address.testutil.TypicalRequests.ALICE_REQUEST;
 import static seedu.address.testutil.TypicalRequests.BENSON_REQUEST;
+import static seedu.address.testutil.TypicalRequests.DANIEL_REQUEST;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -175,5 +180,38 @@ class UniqueRequestListTest {
     public void asUnmodifiableObservableList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () ->
             uniqueRequestList.asUnmodifiableObservableList().remove(0));
+    }
+
+    @Test
+    public void isAssigned() {
+        Request assignedRequest = new RequestBuilder().withHealthWorker(VALID_NAME_BETTY)
+                .withStatus("ONGOING").build();
+        uniqueRequestList.add(DANIEL_REQUEST);
+        uniqueRequestList.add(assignedRequest);
+
+        // not assigned
+        assertFalse(uniqueRequestList.isAssigned(VALID_NAME_ANDY));
+
+        // assigned ongoing request
+        assertTrue(uniqueRequestList.isAssigned(VALID_NAME_BETTY));
+
+        Request completedRequest = new RequestBuilder(BENSON_REQUEST).withStatus("COMPLETED")
+                .withName(VALID_NAME_ANDY).build();
+        uniqueRequestList.add(completedRequest);
+
+        // completed request
+        assertFalse(uniqueRequestList.isAssigned(VALID_NAME_ANDY));
+    }
+
+    @Test
+    public void updateHealthWorker() {
+        uniqueRequestList.add(ALICE_REQUEST);
+        uniqueRequestList.add(BENSON_REQUEST);
+
+        uniqueRequestList.updateHealthWorker(VALID_NRIC_ANDY, VALID_NRIC_AMY);
+        UniqueRequestList copyList = new UniqueRequestList();
+        copyList.add(new RequestBuilder(ALICE_REQUEST).withHealthWorker(VALID_NRIC_AMY).build());
+        copyList.add(BENSON_REQUEST);
+        assertEquals(copyList, uniqueRequestList);
     }
 }

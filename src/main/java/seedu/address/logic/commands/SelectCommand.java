@@ -19,7 +19,7 @@ public class SelectCommand extends Command {
     public static final String COMMAND_WORD = "select";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Selects the request identified by the index number used in the displayed requestA list.\n"
+            + ": Selects the request identified by the index number used in the displayed request list.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 

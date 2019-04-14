@@ -48,7 +48,7 @@ Responsibilities: Managing the storage related classes and its associated depend
 
 === Tay Hui Chun
 image::huichun66.png[width="150", align="left"]
-{empty}[http://github.com/huichun66[github]] [<<huichun#, portfolio>>]
+{empty}[http://github.com/huichun66[github]] [<<huichun66#, portfolio>>]
 
 Role: User Interface Developer +
 Responsibilities: Responsible for the UI of the main app and its different interactions.

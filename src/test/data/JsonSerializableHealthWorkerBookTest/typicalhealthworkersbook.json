@@ -12,11 +12,11 @@
     "name" : "Betty Meier",
     "phone" : "98761232",
     "email" : "betty@example.com",
-    "nric" : "S8312942G",
+    "nric" : "S8176952L",
     "address" : "312, Clementi Ave 2, #02-25",
     "tagged" : [ "Stroke", "Eldercare" ],
-    "organization" : "NUH",
-    "skills" : "GENERAL_PRACTICE ORTHOPAEDIC "
+    "organization" : "CGH",
+    "skills" : "GENERAL_PRACTICE ORTHOPAEDIC"
   }, {
     "name" : "Carlie Kurz",
     "phone" : "95358463",
@@ -30,10 +30,10 @@
     "name" : "Paniel Meier",
     "phone" : "87652133",
     "email" : "panda@example.com",
-    "nric" : "S8412942G",
+    "nric" : "S9701568T",
     "address" : "10th street",
     "tagged" : [ "Doctor" ],
-    "organization" : "NUH",
+    "organization" : "SGH",
     "skills" : "PHYSIOTHERAPY HAEMATOLOGY"
   }, {
     "name" : "Ella Meyer",
@@ -42,7 +42,7 @@
     "nric" : "S9112942G",
     "address" : "michegan ave",
     "tagged" : [ "Nurse", "Dementia" ],
-    "organization" : "NUH",
+    "organization" : "SGH",
     "skills" : "ANAESTHESIOLOGY PHYSIOTHERAPY"
   }, {
     "name" : "Fione Kunz",
@@ -51,7 +51,7 @@
     "nric" : "S7812942G",
     "address" : "little tokyo",
     "tagged" : [ "Alzheimers", "Nurse" ],
-    "organization" : "NUH",
+    "organization" : "TTSH",
     "skills" : "GENERAL_PRACTICE "
   }, {
     "name" : "George Best",
@@ -60,7 +60,7 @@
     "nric" : "S8812942G",
     "address" : "4th street",
     "tagged" : [ "Cancer" ],
-    "organization" : "NUH",
+    "organization" : "TTSH",
     "skills" : "GENERAL_PRACTICE "
   } ]
 }

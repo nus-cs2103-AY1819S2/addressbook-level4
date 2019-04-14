@@ -134,7 +134,8 @@ public class EditCommandParser implements Parser<EditCommand> {
             descriptor.setConditions(ParserUtil.parseConditions(argMultimap.getAllValues(PREFIX_CONDITION)));
         }
         if (argMultimap.getValue(PREFIX_STATUS).isPresent()) {
-            descriptor.setRequestStatus(ParserUtil.parseRequestStatus(argMultimap.getValue(PREFIX_STATUS).get()));
+            descriptor.setRequestStatus(ParserUtil.parseRequestStatus(argMultimap.getValue(PREFIX_STATUS)
+                .get().toUpperCase()));
         }
 
         if (!descriptor.isAnyFieldEdited()) {

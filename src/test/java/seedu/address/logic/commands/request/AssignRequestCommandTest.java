@@ -77,17 +77,38 @@ class AssignRequestCommandTest {
             assignedHealthWorker);
 
         Model expectedModel = new ModelManager(model.getHealthWorkerBook(), model.getRequestBook(), new UserPrefs());
-        // todo needs model.updateHealthworker()
+        // TODO: needs model.updateHealthworker()
         expectedModel.updateRequest(validRequest, toAssign);
         expectedModel.commitRequestBook();
 
-        assertEquals(toAssign.getHealthStaff(), assignedHealthWorker.getName().toString());
+        assertEquals(toAssign.getHealthStaff(), assignedHealthWorker.getNric().toString());
         assertCommandSuccess(assignRequestCommand, model, commandHistory, expectedMessage,
             expectedModel);
     }
 
     @Test
-    public void execute_orderIndexTooLarge_throwsCommandException() {
+    public void execute_requestConflictingTiming_throwsCommandException() {
+        Set<Index> requestIds = new HashSet<>();
+        requestIds.add(Index.fromOneBased(5));
+        requestIds.add(Index.fromOneBased(6));
+        AssignRequestCommand assignRequestCommand =
+            new AssignRequestCommand(validHealthWorkerIndex, requestIds);
+
+        // same timing and same healthworker -> throws exception
+        assertThrows(CommandException.class, () -> assignRequestCommand.execute(model,
+            commandHistory), Messages.MESSAGE_HEALTHWORKER_OCCUPIED_CANNOT_ASSIGN);
+
+
+        // timing differ by less than 2 hours and same healthworker -> throws exception
+        requestIds.remove(Index.fromOneBased(5));
+        requestIds.add(Index.fromOneBased(7));
+        assertThrows(CommandException.class, () -> assignRequestCommand.execute(model,
+            commandHistory), Messages.MESSAGE_HEALTHWORKER_OCCUPIED_CANNOT_ASSIGN);
+
+    }
+
+    @Test
+    public void execute_requestIndexTooLarge_throwsCommandException() {
         Set<Index> requestIds = new HashSet<>();
         requestIds.add(outOfBoundRequestIndex);
         AssignRequestCommand assignRequestCommand =

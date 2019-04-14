@@ -24,12 +24,12 @@ import seedu.address.ui.InfoPanel;
 public class SetReminderCommand extends Command {
 
     public static final String COMMAND_WORD = "setreminder";
-    public static final String INVALID_TIME_FORMAT = "Reminder should only be in t/<hh:mm> m/<message> format, with "
+    public static final String INVALID_TIME_FORMAT = "Reminder should only be in t/<hh:mm:ss> m/<message> format, with "
             + "time consisting of only digits.";
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Sets a reminder to go off after adding hh:mm to the current time. \n"
+            + ": Sets a reminder to notify user after adding hh:mm:ss to the current time. \n"
             + "Reminder only goes off during this session state. It will disappear after exiting the app. \n"
-            + "Example: " + COMMAND_WORD + " t/05:00 m/call patient Akshay for his request appointment.";
+            + "Example: " + COMMAND_WORD + " t/05:00:00 m/call patient Akshay for his request appointment.";
 
     public static final String MESSAGE_REMINDER_SUCCESS = "Set reminder to alert at: %1$s";
 

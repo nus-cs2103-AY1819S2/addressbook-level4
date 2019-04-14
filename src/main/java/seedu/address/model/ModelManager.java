@@ -232,12 +232,15 @@ public class ModelManager implements Model {
         requireAllNonNull(target, editedPatient);
 
         versionedDocX.setPatient(target, editedPatient);
+        setSelectedMedHist(null);
     }
 
     @Override
     public void setDoctor(Doctor target, Doctor editedDoctor) {
         requireAllNonNull(target, editedDoctor);
+
         versionedDocX.setDoctor(target, editedDoctor);
+        setSelectedMedHist(null);
     }
 
     @Override

@@ -13,21 +13,21 @@ import java.util.regex.Pattern;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.ArchiveClearCommand;
 import seedu.address.logic.commands.ArchiveCommand;
-import seedu.address.logic.commands.ArchiveFindCommand;
 import seedu.address.logic.commands.ArchiveListCommand;
+import seedu.address.logic.commands.ArchiveSearchCommand;
 import seedu.address.logic.commands.ArchiveSelectCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.ExitCommand;
-import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.PinCommand;
 import seedu.address.logic.commands.PinSelectCommand;
 import seedu.address.logic.commands.RedoCommand;
+import seedu.address.logic.commands.SearchCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.UnarchiveCommand;
 import seedu.address.logic.commands.UndoCommand;
@@ -53,8 +53,8 @@ public class AddressBookParser {
     public void dealArguments(String arguments) throws ParseException {
 
         String[] commandList = {"help", "add", "list", "select", "edit", "delete", "clear", "pin", "unpin", "pinselect",
-                                "archive", "archivelist", "archiveselect", "unarchive", "archiveclear", "archivefind",
-                                "history", "redo", "undo", "exit", "find"};
+                                "archive", "archivelist", "archiveselect", "unarchive", "archiveclear", "archivesearch",
+                                "history", "redo", "undo", "exit", "search"};
 
 
         ArrayList<String> command = new ArrayList<>(Arrays.asList(commandList));
@@ -110,8 +110,8 @@ public class AddressBookParser {
             dealArguments(arguments);
             return new ClearCommand();
 
-        case FindCommand.COMMAND_WORD:
-            return new FindCommandParser().parse(arguments);
+        case SearchCommand.COMMAND_WORD:
+            return new SearchCommandParser().parse(arguments);
 
         case ListCommand.COMMAND_WORD:
             dealArguments(arguments);
@@ -131,8 +131,8 @@ public class AddressBookParser {
             dealArguments(arguments);
             return new ArchiveClearCommand();
 
-        case ArchiveFindCommand.COMMAND_WORD:
-            return new ArchiveFindCommandParser().parse(arguments);
+        case ArchiveSearchCommand.COMMAND_WORD:
+            return new ArchiveSearchCommandParser().parse(arguments);
 
         case UnarchiveCommand.COMMAND_WORD:
             return new UnarchiveCommandParser().parse(arguments);

@@ -5,9 +5,9 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_PERSONS_LISTED_OVERVIEW;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.TypicalPersons.CATHY;
-import static seedu.address.testutil.TypicalPersons.DIANA;
-import static seedu.address.testutil.TypicalPersons.ENID;
+import static seedu.address.testutil.TypicalPersons.CARL;
+import static seedu.address.testutil.TypicalPersons.ELLE;
+import static seedu.address.testutil.TypicalPersons.FIONA;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalPersons.getTypicalArchiveBook;
 import static seedu.address.testutil.TypicalPersons.getTypicalPinBook;
@@ -24,9 +24,9 @@ import seedu.address.model.UserPrefs;
 import seedu.address.model.person.PersonContainsKeywordsPredicate;
 
 /**
- * Contains integration tests (interaction with the Model) for {@code ArchiveFindCommand}.
+ * Contains integration tests (interaction with the Model) for {@code SearchCommand}.
  */
-public class ArchiveFindCommandTest {
+public class SearchCommandTest {
     private Model model = new ModelManager(getTypicalAddressBook(), getTypicalArchiveBook(),
             getTypicalPinBook(), new UserPrefs());
     private Model expectedModel = new ModelManager(getTypicalAddressBook(), getTypicalArchiveBook(),
@@ -40,44 +40,44 @@ public class ArchiveFindCommandTest {
         PersonContainsKeywordsPredicate secondPredicate =
                 new PersonContainsKeywordsPredicate(Collections.singletonList("second"));
 
-        ArchiveFindCommand archiveFindFirstCommand = new ArchiveFindCommand(firstPredicate);
-        ArchiveFindCommand archiveFindSecondCommand = new ArchiveFindCommand(secondPredicate);
+        SearchCommand findFirstCommand = new SearchCommand(firstPredicate);
+        SearchCommand findSecondCommand = new SearchCommand(secondPredicate);
 
         // same object -> returns true
-        assertTrue(archiveFindFirstCommand.equals(archiveFindFirstCommand));
+        assertTrue(findFirstCommand.equals(findFirstCommand));
 
         // same values -> returns true
-        ArchiveFindCommand archiveFindFirstCommandCopy = new ArchiveFindCommand(firstPredicate);
-        assertTrue(archiveFindFirstCommand.equals(archiveFindFirstCommandCopy));
+        SearchCommand findFirstCommandCopy = new SearchCommand(firstPredicate);
+        assertTrue(findFirstCommand.equals(findFirstCommandCopy));
 
         // different types -> returns false
-        assertFalse(archiveFindFirstCommand.equals(1));
+        assertFalse(findFirstCommand.equals(1));
 
         // null -> returns false
-        assertFalse(archiveFindFirstCommand.equals(null));
+        assertFalse(findFirstCommand.equals(null));
 
         // different person -> returns false
-        assertFalse(archiveFindFirstCommand.equals(archiveFindSecondCommand));
+        assertFalse(findFirstCommand.equals(findSecondCommand));
     }
 
     @Test
     public void execute_zeroKeywords_noPersonFound() {
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 0);
         PersonContainsKeywordsPredicate predicate = preparePredicate(" ");
-        ArchiveFindCommand command = new ArchiveFindCommand(predicate);
-        expectedModel.updateFilteredArchivedPersonList(predicate);
+        SearchCommand command = new SearchCommand(predicate);
+        expectedModel.updateFilteredPersonList(predicate);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
-        assertEquals(Collections.emptyList(), model.getFilteredArchivedPersonList());
+        assertEquals(Collections.emptyList(), model.getFilteredPersonList());
     }
 
     @Test
     public void execute_multipleKeywords_multiplePersonsFound() {
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 3);
-        PersonContainsKeywordsPredicate predicate = preparePredicate("cathy diana enid ");
-        ArchiveFindCommand command = new ArchiveFindCommand(predicate);
-        expectedModel.updateFilteredArchivedPersonList(predicate);
+        PersonContainsKeywordsPredicate predicate = preparePredicate("Kurz Elle Kunz");
+        SearchCommand command = new SearchCommand(predicate);
+        expectedModel.updateFilteredPersonList(predicate);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(CATHY, DIANA, ENID), model.getFilteredArchivedPersonList());
+        assertEquals(Arrays.asList(CARL, ELLE, FIONA), model.getFilteredPersonList());
     }
 
     /**

@@ -8,21 +8,21 @@ import seedu.address.model.Model;
 import seedu.address.model.person.PersonContainsKeywordsPredicate;
 
 /**
- * Finds and lists all persons in address book whose name contains any of the argument keywords.
+ * Searches and lists all persons in address book whose name contains any of the argument keywords.
  * Keyword matching is case insensitive.
  */
-public class ArchiveFindCommand extends Command {
+public class ArchiveSearchCommand extends Command {
 
-    public static final String COMMAND_WORD = "archivefind";
+    public static final String COMMAND_WORD = "archivesearch";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds in the archive all persons whose "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Searches in the archive all persons whose "
             + "names/phone/email/remark/address/tags contain any of the specified keywords (case-insensitive) and "
             + "displays them as a list with index numbers.\n"
             + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
             + "Example: " + COMMAND_WORD + " alice 96521418 clementi 4room";
     private final PersonContainsKeywordsPredicate predicate;
 
-    public ArchiveFindCommand(PersonContainsKeywordsPredicate predicate) {
+    public ArchiveSearchCommand(PersonContainsKeywordsPredicate predicate) {
         this.predicate = predicate;
     }
 
@@ -48,7 +48,7 @@ public class ArchiveFindCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof ArchiveFindCommand // instanceof handles nulls
-                && predicate.equals(((ArchiveFindCommand) other).predicate)); // state check
+                || (other instanceof ArchiveSearchCommand // instanceof handles nulls
+                && predicate.equals(((ArchiveSearchCommand) other).predicate)); // state check
     }
 }

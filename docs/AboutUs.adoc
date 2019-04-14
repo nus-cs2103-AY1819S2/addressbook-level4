@@ -14,7 +14,7 @@ image::yongxiang1095.png[width="150", align="left"]
 {empty}[http://github.com/yongxiang1095[github]] [<<yongxiang1095#, portfolio>>]
 
 Role: Team Lead +
-Responsibilities: Scheduling and Tracking + Documentation + UI
+Responsibilities: Scheduling and Tracking + Documentation + UI + Code Quality +
 Features: Archive, Select
 
 '''
@@ -24,7 +24,7 @@ image::tanlongbin.png[width="150", align="left"]
 {empty}[https://github.com/tanlongbin[github]] [<<tanlongbin#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Deliverables and Deadlines + Integration + Code Quality +
+Responsibilities: Deliverables and Deadlines + Model + Integration + Testing +
 Features: Add, Edit, Find
 
 '''

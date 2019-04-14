@@ -8,28 +8,28 @@ import java.util.Arrays;
 
 import org.junit.Test;
 
-import seedu.address.logic.commands.ArchiveFindCommand;
+import seedu.address.logic.commands.ArchiveSearchCommand;
 import seedu.address.model.person.PersonContainsKeywordsPredicate;
 
-public class ArchiveFindCommandParserTest {
+public class ArchiveSearchCommandParserTest {
 
-    private ArchiveFindCommandParser parser = new ArchiveFindCommandParser();
+    private ArchiveSearchCommandParser parser = new ArchiveSearchCommandParser();
 
     @Test
     public void parse_emptyArg_throwsParseException() {
         assertParseFailure(parser, "     ", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                ArchiveFindCommand.MESSAGE_USAGE));
+                ArchiveSearchCommand.MESSAGE_USAGE));
     }
 
     @Test
     public void parse_validArgs_returnsArchiveFindCommand() {
         // no leading and trailing whitespaces
-        ArchiveFindCommand expectedArchiveFindCommand =
-                new ArchiveFindCommand(new PersonContainsKeywordsPredicate(Arrays.asList("Alice", "Bob")));
-        assertParseSuccess(parser, "Alice Bob", expectedArchiveFindCommand);
+        ArchiveSearchCommand expectedArchiveSearchCommand =
+                new ArchiveSearchCommand(new PersonContainsKeywordsPredicate(Arrays.asList("Alice", "Bob")));
+        assertParseSuccess(parser, "Alice Bob", expectedArchiveSearchCommand);
 
         // multiple whitespaces between keywords
-        assertParseSuccess(parser, " \n Alice \n \t Bob  \t", expectedArchiveFindCommand);
+        assertParseSuccess(parser, " \n Alice \n \t Bob  \t", expectedArchiveSearchCommand);
     }
 
 }

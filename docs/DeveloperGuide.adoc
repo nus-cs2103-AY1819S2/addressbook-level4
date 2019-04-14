@@ -733,7 +733,7 @@ The steps involved in the execution of this command are:
 
 Similar to the command to edit reviews, execution of this command requires the user to select a restaurant from the displayed list.
 
-Command format: `deleteReview INDEX`, where `INDEX` refers to the index of the review to be deleted from the selected resutaurant.
+Command format: `deleteReview INDEX`, where `INDEX` refers to the index of the review to be deleted from the selected restaurant.
 
 The implementation is a combination of the add and edit review commands: the selected restaurant is copied to a new restaurant object with a new list of reviews without the review to be deleted. This new restaurant object then replaces the selected restaurant in the model.
 // end::reviewcommandsdg[]

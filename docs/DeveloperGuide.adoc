@@ -1834,7 +1834,7 @@ Expected: Similar to previous.
 Expected: No task is edited. Error details shown in the status message stating an unknown command.
 ... Other incorrect taskadd commands to try: `tasedit`, `taskedit/ti/Test task sd/today st/1200 et/1300 pri/HIGH` +
 Expected: Similar to previous.
-  
+
 === Deleting a task
 
 . Deleting a task while all tasks are listed

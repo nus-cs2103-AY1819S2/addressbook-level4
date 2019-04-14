@@ -1641,7 +1641,7 @@ _{More to be added}_
 [[folder]] **Folder**: A collections of flashcards, grouped topically. There are no
 sub-folders.
 
-[[folderscore]] **Folder Score**: The average of all <<cardscore, card scores>> in a folder after a test session. This number is automatically recorded after each test session.
+[[folderscore]] **Test score**: The number of cards correctly answered over number of cards attempted during a test session. This number is automatically recorded after each test session.
 
 [[homedirectory]] **Home Directory**: The home page where all the folders are listed. From here, users can enter folders to view cards.
 

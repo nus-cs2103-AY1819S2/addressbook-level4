@@ -48,10 +48,16 @@ Responsibilities: Records IO
 
 === Jonathan Choo
 image::cchj1995.png[width="150", align="left"]
-{empty}[http://github.com/cchj1995[github]] [<<cchj1995#, portfolio>>]
+{nbsp} +
+*Choo Chun Hoe Jonathan*,{nbsp} _Developer / Tester_ {nbsp}{nbsp}{nbsp}{nbsp}{nbsp}``https://github.com/cchj1995[GitHub]``{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}``<<cchj1995#, Portfolio>>``
+{nbsp} +
+{nbsp} +
 
-Role: Developer +
-Responsibilities: Login
+Responsibilities::
+* Create new Task data type to be managed by TeethHub
+* Develop functions and features for task management and interaction
+* Implement and update Graphical User Interface layout
+* Provide GUI elements to support features needing graphical feedback
 
 '''
 

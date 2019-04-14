@@ -851,7 +851,7 @@ Similar to `CommandMode`, the various `CommandType` enums are:
 
 ** `CommandType.HEALTHWORKER_COMMAND`
 ** `CommandType.REQUEST_COMMAND`
-
+** `CommandType.HEALTHWORKER_AND_REQUEST_COMMAND`
 
 
 Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
@@ -893,7 +893,7 @@ If the `currentStatePointer` of both `VersionedHealthWorkerBook` and `VersionedR
 
 The following sequence diagram shows how the undo operation works:
 
-image::UndoRedoSequenceDiagram.png[width="800"]
+image::UndoRedoSeqDiagram.png[width="800"]
 
 The `redo` command does the opposite -- it calls `Model#redo()`, which first obtains the command type by calling `ModifyCommandHistory#getRedoCommand()` and based on the returned command type it shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the respective book to that state.
 
@@ -913,7 +913,7 @@ image::mchafteroverride.png[width="800"]
 
 The following activity diagram summarizes what happens when a user executes a new command:
 
-image::UndoRedoActivityDiagram.png[width="650"]
+image::UndoRedoActDiagram.png[width="650"]
 
 ==== Design Considerations
 
@@ -946,7 +946,7 @@ Implementation | Use a command history to keep track
 of the type of book that was modified It is represented as a list of `CommandType`.(Current implementation) | Use a list of pairs. Each state is represented as a pair which stores the `currentStatePointer` of each book.
 |Pros| Easily scalable to include more than two books. As the developer can simply add an extra `CommandType`
 and extra cases for switch statements.| Supports commands that change multiple books at once since it keeps track of all states.
-|Cons| Unable to handle commands that change multiple books at once. We assume that only one `currentStatePointer` can change per undo/redo.| Keeping a multiple integers takes up more memory as compared to keeping a single enum.
+|Cons| Unable to scale as well if there are many commands that modifies multiple books at once.| Keeping multiple integers takes up more memory as compared to keeping a single enum.
 |=======================================================================
 
 // end::undoredo[]
@@ -1420,8 +1420,6 @@ Use case ends.
 .  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 
-_{More to be added}_
-
 [appendix]
 == Glossary
 
@@ -1454,6 +1452,8 @@ These instructions only provide a starting point for testers to work on; testers
 .. Resize the window to an optimum size. Move the window to a different location. Close the window.
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
+
+
 
 === Adding a `HealthWorker
 
@@ -1538,5 +1538,24 @@ variants of the `filter healthworker` command may be used in place of this.
 === Saving data
 
 . Dealing with missing/corrupted data files
+.. If data file is missing, the app will retrieve a list of sample data internally. It will be saved upon exit.
+.. If any of the data is corrupted, the app will start with empty books, adding a health worker
+or request will overwrite the corrupted file.
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
+=== Undoing a command
+. Undo a command that has been executed
+.. Prerequisites: A command that modifies the data has been executed already, for example `delete r 1`.
+.. Test case: `undo` +
+Expected: The request has been deleted will appear back inside the list in its original position.
+.. Test case: `undo` without any prerequisites +
+Expected: The application will show an error message: No more commands to undo!
+
+=== Redoing a command
+. Redo an undone command
+.. Prerequisites: A successful undo command have to be executed already.
+.. Test case: `redo` +
+Expected: The application will redo the undone command.
+.. Test case: `redo` without prerequisites+
+Expected: The application will show an error message: No more commands to redo!
+
+

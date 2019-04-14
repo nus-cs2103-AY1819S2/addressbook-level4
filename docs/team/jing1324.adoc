@@ -36,6 +36,12 @@ Hence, in order to maintain the functionality as well as to improve the scalabil
 It is complicated to implement due to the various design considerations (See below for contributions in Developer's Guide ).
 ** Credits: https://se-education.org/addressbook-level4/[AddressBook] for the original implementation of the undo/redo feature.
 
+* *Enhancement 2*: Reimplemented storage component
+** What is does: Stores all requests and health workers data into `json` text files whenever any of the data is edited or when app is closed.
+** Justification: Storage is a necessary key feature in our app, having a storage system containing information of health workers and requests saves
+a lot of time when the user wants to view the information of a specific request or health worker. He can simply filter for the conditions he want using the app
+instead of searching the documents manually.
+** Credits: https://se-education.org/addressbook-level4/[AddressBook] for the original implementation of the storage component.
 
 * *Code contributed*: [https://github.com/CS2103-AY1819S2-W09-2/main/blob/master/src/main/java/seedu/address/model/ModelManager.java[ModelManager]]
  [https://github.com/CS2103-AY1819S2-W09-2/main/blob/master/src/main/java/seedu/address/model/ModifyCommandHistory.java[ModifyCommandHistory]]
@@ -48,7 +54,7 @@ It is complicated to implement due to the various design considerations (See bel
 * *Other contributions*:
 
 ** Enhancements to existing features:
-*** Modified `Complete` command to support undo/redo features
+*** Modified `Complete` command and `EditHealthWorker` command to support undo/redo features
 ** Community:
 *** Consolidated a list of broken tests in the Issue tracker: https://github.com/CS2103-AY1819S2-W09-2/main/issues/130[#130]
 *** Bug reports: https://github.com/CS2103-AY1819S2-W09-2/main/issues/160[#160], https://github.com/CS2103-AY1819S2-W09-2/main/issues/159[#159]
@@ -63,13 +69,16 @@ It is complicated to implement due to the various design considerations (See bel
 |_The following sections of the user guide were written by me. Do take a look._
 |===
 
+include::../UserGuide.adoc[tag=releasenotes-1.4]
 include::../UserGuide.adoc[tag=undoredo]
+include::../UserGuide.adoc[tag=releasenotes-1.4]
+
 
 
 == Contributions to the Developer Guide
 
 |===
-|_The following sections of the developer's guide were written by me. Please do take a look._
+|_The following sections of the developer's guide were written by me. Please take a look._
 |===
 
 include::../DeveloperGuide.adoc[tag=storage]

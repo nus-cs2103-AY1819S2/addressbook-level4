@@ -35,10 +35,19 @@ public class ModifyCommandHistory {
         this.currStatePointer++;
     }
 
+    /**
+     * Return the command to undo
+     * @return The type of command that is to be undone
+     */
     public CommandType getUndoCommand() {
         assert(this.currStatePointer > NOT_MODIFIED_YET);
         return this.modifyCommandHistory.get(currStatePointer);
     }
+
+    /**
+     * Return the command to undo
+     * @return The type of command that is to be undone
+     */
 
     public CommandType getRedoCommand() {
         assert(this.currStatePointer < modifyCommandHistory.size());

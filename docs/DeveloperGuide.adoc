@@ -304,7 +304,26 @@ image::uniqueJobListCompositeJobAggregatePerson.png[width="650"]
 ==== Storage Implementation
 
 Storage of the Job relies on the JsonAdaptedJob and the JsonAdaptedJobPersonList classes to store and load jobs. Instead of storing a Person in the job, due to the relationship of aggregation,
-the Nric is stored instead. At load time, the UniqueJobList is only created after the UniquePersonList has been created and fills the jobs using the data from UniquePersonList. 
+the Nric is stored instead. At load time, the UniqueJobList is only created after the UniquePersonList has been created and fills the jobs using the data from UniquePersonList.
+
+
+==== Design considerations
+
+===== How to associate job with the vanilla AB4 structure
+* **Alternative 1 (current choice):** Store under addressbook class
+** Pros: Can easily adapt methods of add, delete, undo and redo to work with job
+** Cons: Violates Single responsibility principle as addressbook class now manages both Job and Person data
+* **Alternative 2:** Create an overarching class that contains both addressbook which is a database of Person(s) as well as a Job container class.
+** Pros: Reduced coupling
+** Cons: Implementation of an overarching class would require a major overhaul of current system especially Logic and UI components
+
+===== How to store Person in Job in JSON file
+* **Alternative 1 (current choice):** Store only one unique person identifier and retrieve person
+** Pros: Saves space extremely significantly by avoiding repeat of data due to many jobs having the same person
+** Cons: When loading, requires more time and violates Law of Demeter as Job class now has access to UniquePersonList which is a class contained in Addressbook
+* **Alternative 2:** Store full person data in Job
+** Pros: Faster loading and adheres to Law of Demeter as the Job does not access more that what it is associated with
+** Cons: Greater memory usage
 
 // tag::interviews[]
 === Interviews Feature

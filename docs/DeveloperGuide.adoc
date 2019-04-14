@@ -433,15 +433,15 @@ The reverse command provides a convenient way for users to sort their entries in
 
 This is how the reverse command is implemented:
 
-. `LogicManager#execute(_"reverse"_)` calls `FinanceTrackerParser#parseCommand(_"reverse"_)`.
-. `FinanceTrackerParser#parseCommand(_"reverse"_)` creates a `ReverseCommand` object, _r_.
-. _r_ is passed back to the `FinanceTrackerParser`, and then back to the `LogicManager`.
-. `LogicManager#execute(_"reverse"_)` then moves on to call `ReverseCommand#execute()`.
-. `ReverseCommand#execute()` calls `Model#reverseFilteredRecordList()`.
-. `Model#reverseFilteredRecordList()` calls `FinanceTracker#reverseRecordList()`.
-. `FinanceTracker#reverseRecordList()` calls `UniqueRecordList#reverseList()`.
-. `UniqueRecordList#reverseList()` uses `FXCollection`’s static method `reverse()` to reverse the list of records.
-. `ReverseCommand#execute()` then creates a `CommandResult` object and returns it back to the `LogicManager`.
+. `[fuchsia]#LogicManager#execute(_"reverse"_)#` calls `[fuchsia]#FinanceTrackerParser#parseCommand(_"reverse"_)#`.
+. `[fuchsia]#FinanceTrackerParser#parseCommand(_"reverse"_)#` creates a `[fuchsia]#ReverseCommand#` object, _r_.
+. _r_ is passed back to the `[fuchsia]#FinanceTrackerParser#`, and then back to the `[fuchsia]#LogicManager#`.
+. `[fuchsia]#LogicManager#execute(_"reverse"_)#` then moves on to call `[fuchsia]#ReverseCommand#execute()#`.
+. `[fuchsia]#ReverseCommand#execute()#` calls `[fuchsia]#Model#reverseFilteredRecordList()#`.
+. `[fuchsia]#Model#reverseFilteredRecordList()#` calls `[fuchsia]#FinanceTracker#reverseRecordList()#`.
+. `[fuchsia]#FinanceTracker#reverseRecordList()#` calls `[fuchsia]#UniqueRecordList#reverseList()#`.
+. `[fuchsia]#UniqueRecordList#reverseList()#` uses `[fuchsia]#FXCollection#`’s static method `[fuchsia]#reverse()#` to reverse the list of records.
+. `[fuchsia]#ReverseCommand#execute()#` then creates a `[fuchsia]#CommandResult#` object and returns it back to the `[fuchsia]#LogicManager#`.
 
 .Sequence Diagram of Reverse Command
 image::ReverseSequenceDiagram.png[width="800"]
@@ -452,61 +452,61 @@ image::ReverseSequenceDiagram.png[width="800"]
 === Undo/Redo feature
 ==== Current Implementation
 
-The undo/redo mechanism is facilitated by `VersionedFinanceTracker`.
-It extends `FinanceTracker` with an undo/redo history, stored internally as a `FinanceTrackerStateList` and `currentStatePointer`.
+The undo/redo mechanism is facilitated by `[fuchsia]#VersionedFinanceTracker#`.
+It extends `[fuchsia]#FinanceTracker#` with an undo/redo history, stored internally as a `[fuchsia]#FinanceTrackerStateList#` and `[fuchsia]#currentStatePointer#`.
 Additionally, it implements the following operations:
 
-* `VersionedFinanceTracker#commit()` -- Saves the current finance tracker state in its history.
-* `VersionedFinanceTracker#undo()` -- Restores the previous finance tracker state from its history.
-* `VersionedFinanceTracker#redo()` -- Restores a previously undone finance tracker state from its history.
+* `[fuchsia]#VersionedFinanceTracker#commit()#` -- Saves the current finance tracker state in its history.
+* `[fuchsia]#VersionedFinanceTracker#undo()#` -- Restores the previous finance tracker state from its history.
+* `[fuchsia]#VersionedFinanceTracker#redo()#` -- Restores a previously undone finance tracker state from its history.
 
-These operations are exposed in the `Model` interface as `Model#commitFinanceTracker()`, `Model#undoFinanceTracker()` and `Model#redoFinanceTracker()` respectively.
+These operations are exposed in the `[fuchsia]#Model#` interface as `[fuchsia]#Model#commitFinanceTracker()#`, `[fuchsia]#Model#undoFinanceTracker()#` and `[fuchsia]#Model#redoFinanceTracker()#` respectively.
 
 Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
 
 *Step 1.* +
-The user launches the application for the first time. The `VersionedFinanceTracker` will be initialized with the initial finance tracker state, and the `currentStatePointer` pointing to that single finance tracker state.
+The user launches the application for the first time. The `[fuchsia]#VersionedFinanceTracker#` will be initialized with the initial finance tracker state, and the `[fuchsia]#currentStatePointer#` pointing to that single finance tracker state.
 
 image::UndoRedoStartingStateListDiagram.png[width="800"]
 
 *Step 2.* +
-The user executes `delete 5` command to delete the 5th record in the finance tracker. The `delete` command calls `Model#commitFinanceTracker()`, causing the modified state of the finance tracker after the `delete 5` command executes to be saved in the `financeTrackerStateList`, and the `currentStatePointer` is shifted to the newly inserted finance tracker state.
+The user executes `[fuchsia]#delete 5#` command to delete the 5th record in the finance tracker. The `[fuchsia]#delete#` command calls `[fuchsia]#Model#commitFinanceTracker()#`, causing the modified state of the finance tracker after the `[fuchsia]#delete 5#` command executes to be saved in the `[fuchsia]#financeTrackerStateList#`, and the `[fuchsia]#currentStatePointer#` is shifted to the newly inserted finance tracker state.
 
 image::UndoRedoNewCommand1StateListDiagram.png[width="800"]
 
 *Step 3.* +
-The user executes `spend n/burger ...` to add a new record. The `spend` command also calls `Model#commitFinanceTracker()`, causing another modified finance tracker state to be saved into the `financeTrackerStateList`.
+The user executes `[fuchsia]#spend n/burger ...#` to add a new record. The `[fuchsia]#spend#` command also calls `[fuchsia]#Model#commitFinanceTracker()#`, causing another modified finance tracker state to be saved into the `[fuchsia]#financeTrackerStateList#`.
 
 image::UndoRedoNewCommand2StateListDiagram.png[width="800"]
 
 [NOTE]
-If a command fails its execution, it will not call `Model#commitFinanceTracker()`, so the finance tracker state will not be saved into the `financeTrackerStateList`.
+If a command fails its execution, it will not call `[fuchsia]#Model#commitFinanceTracker()#`, so the finance tracker state will not be saved into the `[fuchsia]#financeTrackerStateList#`.
 
 *Step 4.* +
-The user now decides that adding the record was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoFinanceTracker()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous finance tracker state, and restores the finance tracker to that state.
+The user now decides that adding the record was a mistake, and decides to undo that action by executing the `[fuchsia]#undo#` command. The `[fuchsia]#undo#` command will call `[fuchsia]#Model#undoFinanceTracker()#`, which will shift the `[fuchsia]#currentStatePointer#` once to the left, pointing it to the previous finance tracker state, and restores the finance tracker to that state.
 
 image::UndoRedoExecuteUndoStateListDiagram.png[width="800"]
 
 [NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial finance tracker state, then there are no previous finance tracker states to restore.
-The `undo` command uses `Model#canUndoFinanceTracker()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+If the `[fuchsia]#currentStatePointer#` is at index 0, pointing to the initial finance tracker state, then there are no previous finance tracker states to restore.
+The `[fuchsia]#undo#` command uses `[fuchsia]#Model#canUndoFinanceTracker()#` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
 
 The following sequence diagram shows how the undo operation works:
 
 image::UndoRedoSequenceDiagram.png[width="800"]
 
-The `redo` command does the opposite -- it calls `Model#redoFinanceTracker()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the finance tracker to that state.
+The `[fuchsia]#redo#` command does the opposite -- it calls `[fuchsia]#Model#redoFinanceTracker()#`, which shifts the `[fuchsia]#currentStatePointer#` once to the right, pointing to the previously undone state, and restores the finance tracker to that state.
 
 [NOTE]
-If the `currentStatePointer` is at index `financeTrackerStateList.size() - 1`, pointing to the latest finance tracker state, then there are no undone finance tracker states to restore. The `redo` command uses `Model#canRedoFinanceTracker()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+If the `[fuchsia]#currentStatePointer#` is at index `[fuchsia]#financeTrackerStateList.size() - 1#`, pointing to the latest finance tracker state, then there are no undone finance tracker states to restore. The `[fuchsia]#redo#` command uses `[fuchsia]#Model#canRedoFinanceTracker()#` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
 
 *Step 5.* +
-The user then decides to execute the command `list`. Commands that do not modify the finance tracker, such as `list`, will usually not call `Model#commitFinanceTracker()`, `Model#undoFinanceTracker()` or `Model#redoFinanceTracker()`. Thus, the `financeTrackerStateList` remains unchanged.
+The user then decides to execute the command `[fuchsia]#list#`. Commands that do not modify the finance tracker, such as `[fuchsia]#list#`, will usually not call `[fuchsia]#Model#commitFinanceTracker()#`, `[fuchsia]#Model#undoFinanceTracker()#` or `[fuchsia]#Model#redoFinanceTracker()#`. Thus, the `[fuchsia]#financeTrackerStateList#` remains unchanged.
 
 image::UndoRedoNewCommand3StateListDiagram.png[width="800"]
 
 *Step 6.* +
-The user executes `clear`, which calls `Model#commitFinanceTracker()`. Since the `currentStatePointer` is not pointing at the end of the `financeTrackerStateList`, all finance tracker states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `spend n/burger ...` command. This is the behavior that most modern desktop applications follow.
+The user executes `[fuchsia]#clear#`, which calls `[fuchsia]#Model#commitFinanceTracker()#`. Since the `[fuchsia]#currentStatePointer#` is not pointing at the end of the `[fuchsia]#financeTrackerStateList#`, all finance tracker states after the `[fuchsia]#currentStatePointer#` will be purged. We designed it this way because it no longer makes sense to redo the `[fuchsia]#spend n/burger ...#` command. This is the behavior that most modern desktop applications follow.
 
 image::UndoRedoNewCommand4StateListDiagram.png[width="800"]
 
@@ -522,17 +522,17 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ** Pros: Easy to implement.
 ** Cons: May have performance issues in terms of memory usage.
 * **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the record being deleted).
+** Pros: Will use less memory (e.g. for `[fuchsia]#delete#`, just save the record being deleted).
 ** Cons: We must ensure that the implementation of each individual command are correct.
 
 ===== Aspect: Data structure to support the undo/redo commands
 
 * **Alternative 1 (current choice):** Use a list to store the history of finance tracker states.
 ** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedFinanceTracker`.
-* **Alternative 2:** Use `HistoryManager` for undo/redo
+** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `[fuchsia]#HistoryManager#` and `[fuchsia]#VersionedFinanceTracker#`.
+* **Alternative 2:** Use `[fuchsia]#HistoryManager#` for undo/redo
 ** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
-** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
+** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `[fuchsia]#HistoryManager#` now needs to do two different things.
 // end::undoredo[]
 
 // tag::budgetmanagement[]

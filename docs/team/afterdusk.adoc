@@ -1,62 +1,112 @@
 = Au Liang Jun - Project Portfolio
-:site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-== PROJECT: Know-It-All
+== image:Logo.png[width=50] Know-It-All
+:icons: font
 
----
+== About the Project
 
-== Overview
+Know-It-All is a flashcard application borne from CS2103T, a software engineering course spanning 13 weeks. We were tasked to take an existing addressbook application and either enhance it or morph it into a different product. After 4 developmental milestones, the result is Know-It-All, a digital flashcard solution that helps users store and organise their learning material. With an easy to use interface and convenient sharing functionality, Know-It-All iss designed to help students perform rote learning more efficiently. From cramming in between lessons to focused study, the interactive test session boosts the effectiveness of repetition and recall for memorisation. Download Know-It-All https://github.com/cs2103-ay1819s2-w10-4/main/releases[here]!
 
-Know-It-All is a flashcard application that helps users store and organise their learning material. With an easy to use interface and a storage solution that supports content sharing, Know-It-All is designed to help students perform rote learning more efficiently. From cramming in between lessons to focused study, the in-built test session boosts the effectiveness of repetition and recall for memorisation. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+My role in the project was to implement a folder system, so that users could group together multiple sets of flashcards. Apart from writing code, I maintained the User Guide, Developer Guide and project GitHub repository. Most importantly, I synergised with my team members to work productively and help everyone achieve their goals.
 
-== Summary of contributions
-* *Major enhancement*: added *the ability to have flashcard folders*
-** What it does: allows the user to create folders that store separate sets of flashcards. Folders can be renamed and deleted.
-** Justification: This feature allows the user to logically group flashcards of the same topic together, separate from flashcards of other topics. This significantly improves the product as it enables better organisation, which is crucial for efficiency and ease of use.
-** Highlights: The enhancement affected all components extensively. For some components, the architecture had to be redesigned, and the multiple options to do so had to be carefully considered and assessed. The implementation was also challenging due to the tightly coupled nature of classes within each component, and the inherent and widespread changes to architecture required a deep understanding of how every component worked.
+In this document, the following style elements from the respective documentation are present:
 
-* *Code contributed*: [https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#search=afterdusk[Collated code]]
-//*** Wrote additional tests for existing features to increase coverage from ____% to ____% (Pull request https://github.com/cs2103-ay1819s2-w10-4/main/pull/104[#104])
-* *Other contributions*:
+`test`: Command to be executed or a component, class or object in the architecture of the application.
 
-** Project management:
-*** Created GitHub organisation and team repository, issue labels, milestones and https://github.com/cs2103-ay1819s2-w10-4/main/projects/1[project board]
-*** Managed and tagged milestones `v1.1` to `v1.2`
+[NOTE]
+Important information that should be noted.
 
-** Documentation:
-*** Introduced an about section and populated the command summary and glossary sections in the User Guide. Also revised the format of the User Guide to be more consistent (Pull request https://github.com/cs2103-ay1819s2-w10-4/main/pull/90[#90])
-*** Wrote user stories to set project requirements, which were eventually ported over to the Developer Guide and GitHub issues (Pull request https://github.com/cs2103-ay1819s2-w10-4/main/pull/53[#53]).
+[TIP]
+Useful tips that can help if you get stuck.
+
+=====
+Useful information for a deeper understanding of the current topic.
+=====
+
+== Summary of Contributions
+*Major Enhancement*: I added the ability to have *flashcard folders*
+
+* What it does: allows the user to create folders that store separate sets of flashcards. Folders can be renamed and deleted.
+* Justification: This feature allows the user to logically group flashcards of the same topic together, separate from flashcards of other topics. This significantly improves the product as it enables better organisation, which is crucial for efficiency and ease of use.
+* Highlights: The enhancement affected all components extensively. For some components, the architecture had to be redesigned, and the multiple options to do so had to be carefully considered and assessed. The implementation was also challenging due to the tightly coupled nature of classes within each component, and the non-trivial changes to architecture required both a deep and broad understanding of how every component worked.
+
+*Code Contributed*: Please click https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#search=afterdusk[here] to see samples of my functional and test code.
+
+** The tests I wrote increased coverage from 80% to 84% (Pull requests https://github.com/cs2103-ay1819s2-w10-4/main/pull/104[#104], https://github.com/cs2103-ay1819s2-w10-4/main/pull/177[#177])
+
+// *Other contributions:*
+// [cols="1,4"]
+// |===
+// a|Project Management
+// a|
+// ** Created GitHub organisation and team repository, issue labels, milestones and https://github.com/cs2103-ay1819s2-w10-4/main/projects/1[project board]
+// ** Managed and tagged milestones `v1.1` to `v1.2`
+
+// a|Documentation
+// a|
+// ** User Guide:
+// *** Introduced an About section (later renamed to How To Use this Guide) and populated the Command Summary and Glossary sections. Also revised the document format be more consistent (Pull request https://github.com/cs2103-ay1819s2-w10-4/main/pull/90[#90])
+// *** Rewrote and added annotated UI images to Quick Start to improve clarity (Pull request https://github.com/cs2103-ay1819s2-w10-4/main/pull/180[#180])
+
+// ** Developer Guide:
+// *** Wrote user stories to set project requirements, which were eventually ported over to GitHub issues for project management (Pull request https://github.com/cs2103-ay1819s2-w10-4/main/pull/53[#53])
+// *** Contributed to use cases (Pull request https://github.com/cs2103-ay1819s2-w10-4/main/pull/104[#104])
+
+// a|Community
+// a|
+// ** Performed the initial refactoring of code to flashcard context (Pull requests https://github.com/cs2103-ay1819s2-w10-4/main/pull/37[#37])
+// ** Reviewed over 20 PRs, spotting potential errors and making suggestions (Pull requests https://github.com/cs2103-ay1819s2-w10-4/main/pull/128[#128], https://github.com/cs2103-ay1819s2-w10-4/main/pull/178[#178])
+// ** Made bug reports to notify teammates of bugs related to their components (Issues https://github.com/cs2103-ay1819s2-w10-4/main/issues/118[#118], https://github.com/cs2103-ay1819s2-w10-4/main/issues/122[#122], https://github.com/cs2103-ay1819s2-w10-4/main/issues/136[#136], https://github.com/cs2103-ay1819s2-w10-4/main/issues/169[#169]) and addressed/assigned bug reports from external testers
+// ** Integrated a GitHub plugin (Netlify) to the team repo
+// |===
+*Other Contributions*:
+
+* Project Management:
+** Created GitHub organisation and team repository, issue labels, milestones and https://github.com/cs2103-ay1819s2-w10-4/main/projects/1[project board]
+** Managed and tagged milestones `v1.1` to `v1.2`
+
+* Documentation:
+** User Guide:
+*** Introduced an About section (later renamed to How To Use this Guide) and populated the Command Summary and Glossary sections. Also revised the document format be more consistent (Pull request https://github.com/cs2103-ay1819s2-w10-4/main/pull/90[#90])
+*** Rewrote and added annotated UI images to Quick Start to improve clarity (Pull request https://github.com/cs2103-ay1819s2-w10-4/main/pull/180[#180])
+
+** Developer Guide:
+*** Wrote user stories to set project requirements, which were eventually ported over to GitHub issues for project management (Pull request https://github.com/cs2103-ay1819s2-w10-4/main/pull/53[#53])
 *** Contributed to use cases (Pull request https://github.com/cs2103-ay1819s2-w10-4/main/pull/104[#104])
 
-** Community:
-*** Performed the initial refactoring of code to flashcard context (Pull requests https://github.com/cs2103-ay1819s2-w10-4/main/pull/37[#37])
-** Tools:
-*** Integrated a GitHub plugin (Netlify) to the team repo
+* Community:
+** Performed the initial refactoring of code to flashcard context (Pull requests https://github.com/cs2103-ay1819s2-w10-4/main/pull/37[#37])
+** Reviewed over 20 pull requests, spotting potential errors and making suggestions (Pull requests https://github.com/cs2103-ay1819s2-w10-4/main/pull/128[#128], https://github.com/cs2103-ay1819s2-w10-4/main/pull/178[#178])
+** Made bug reports to notify teammates of bugs related to their components (Issues https://github.com/cs2103-ay1819s2-w10-4/main/issues/118[#118], https://github.com/cs2103-ay1819s2-w10-4/main/issues/122[#122], https://github.com/cs2103-ay1819s2-w10-4/main/issues/136[#136], https://github.com/cs2103-ay1819s2-w10-4/main/issues/169[#169]) and addressed/assigned bug reports from external testers
+** Integrated a GitHub plugin (Netlify) to the team repo
 
 == Contributions to the User Guide
 
 
-|===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
-|===
+=====
+_As we morphed the product, we kept the user guide up to date with the features we implemented. To showcase my technical writing skills, I have included an excerpt of my notable contributions, namely Quick Start and the new folder-related commands._
+=====
 
-include::../UserGuide.adoc[tag=introabout]
+// include::../UserGuide.adoc[tag=introabout]
+
+include::../UserGuide.adoc[tag=quickstart]
 
 include::../UserGuide.adoc[tag=folderoperations]
 
-include::../UserGuide.adoc[tag=glossarycmdsummary]
+//include::../UserGuide.adoc[tag=glossarycmdsummary]
 
 == Contributions to the Developer Guide
 
-
-|===
-|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
-|===
+=====
+_We also kept the Developer Guide updated so that potential developers and enthusiast users could better understand the design and implementation of our app. To show the technical depth of my contributions while keeping this document brief, I have once again only included the more notable excerpts._
+=====
 
 include::../DeveloperGuide.adoc[tag=modeldesign]
 
 include::../DeveloperGuide.adoc[tag=folders]
 
 include::../DeveloperGuide.adoc[tag=folderusecases]
+
+include::../DeveloperGuide.adoc[tag=foldermanualtesting]

@@ -848,12 +848,9 @@ Take note of the following:
   
 [NOTE]
 ============================================================
-Edit will not go through if task becomes a duplicate after
-the change.
+Edit will not go through if task becomes a duplicate after the change.
 
-Tasks are considered duplicates if they have the *exact*
-same TITLE, START DATE, START TIME, END TIME and
-LINKED PATIENT
+Tasks are considered duplicates if they have the *exact* same TITLE, START DATE, START TIME, END TIME and LINKED PATIENT
 ============================================================
 
 [TIP]
@@ -930,8 +927,9 @@ Figure 2: Image showing the added record after completing a task
 You can use the `undo` command to set a completed task back to its original priority. However, the added record will remain in the patient as of the current implementation of TeethHub. 
 
 [NOTE]
+====
 If you use the `redo` command immediately after the `undo` command, the task will be set back to being completed, but a new record will not be added. You can execute another `taskdone` command after the `undo`  to add another record to the linked patient.
-
+====
 Example:
 
 * `taskdone 2`
@@ -963,8 +961,9 @@ Using Figure 3 as an example, the date `29-03-2019` is colored in red which matc
 You can execute task related commands such as `taskadd`, `taskedit`, `taskdelete` and `tasklist` from the command box in this window to interact with tasks. 
 
 [NOTE]
+====
 Executing the `taskcal` command inside this popup window without specifying a date will cause the calendar to load into the current date.
-
+====
 The top pane of the calendar has clickable arrows that lets you change the calendar page to display the dates for different months and years. Figure 4 below shows a focused view of the calendar's top pane:
 
 image::TaskCalendarUG2.png[width=""]

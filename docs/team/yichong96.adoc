@@ -34,14 +34,10 @@ user and developer guides in relation to these enhancements.
 The figures below shows us the main Graphical User Interface of Know-It-All,
 along with the annotations for each User Interface component.
 
+=== Legend
+NOTE: This admonition contains important information pertaining to the usage of the commands.
 
-[.left]
-.Home directory, flashcard folders list.
-image::inHomeUiPPP.png[width ="400"]
-
-[.right]
-.in folder, flashcards list
-image::inFolderUiPPP.png[width = '400']
+`
 
 == Summary of contributions
 This section contains a summary of my contributions to the project;

@@ -37,7 +37,12 @@ public class ParserUtil {
         boolean numeric = trimmedCount.matches("\\d+");
         if (numeric) {
             try {
-                return Integer.parseInt(trimmedCount);
+                int validCount = Integer.parseInt(trimmedCount);
+                if (validCount < 1) {
+                    throw new ParseException("Count should not be less than 1 in a single lesson.");
+                } else {
+                    return validCount;
+                }
             } catch (NumberFormatException e) {
                 throw new ParseException(
                         "Count of number should be a valid integer less than MAX_INTEGER (2147483647).");

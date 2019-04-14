@@ -37,7 +37,7 @@ public class Session {
             throw new IllegalArgumentException("Invalid name");
         }
         if (cardCount < CARD_COUNT_MINIMUM) {
-            throw new IllegalArgumentException("CardCount should not zero");
+            throw new IllegalArgumentException("CardCount should not be less than 1 in a single session");
         }
         if ((mode != QuizMode.LEARN) & (mode != QuizMode.REVIEW) & (mode != QuizMode.PREVIEW)
             & (mode != QuizMode.DIFFICULT)) {
@@ -53,7 +53,7 @@ public class Session {
             throw new IllegalArgumentException("Invalid name");
         }
         if (cardCount < CARD_COUNT_MINIMUM) {
-            throw new IllegalArgumentException("CardCount should not be less than five in a single session");
+            throw new IllegalArgumentException("CardCount should not be less than 1 in a single session");
         }
         if ((mode != QuizMode.LEARN) & (mode != QuizMode.REVIEW) & (mode != QuizMode.PREVIEW)
             & (mode != QuizMode.DIFFICULT)) {

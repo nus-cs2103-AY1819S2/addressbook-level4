@@ -63,7 +63,7 @@ This will generate all resources required by the application and tests.
 . Open link:{repoURL}/src/main/java/seedu/finance/ui/MainWindow.java[`[blue]#MainWindow.java#`] and check for any code errors
 .. Due to an ongoing https://youtrack.jetbrains.com/issue/IDEA-189060[[blue]#issue#] with some of the newer versions of IntelliJ, code errors may be detected even if the project can be built and run successfully
 .. To resolve this, place your cursor over any of the code section highlighted in [red]#red#. Press kbd:[ALT + ENTER], and select btn:[Add '--add-modules=...' to module compiler options] for each error
-. Repeat this for the test folder as well (e.g. check link:{repoURL}/src/test/java/seedu/finance/ui/HelpWindowTest.java[`[blue]#HelpWindowTest.java#`] for code errors, and if so, resolve it the same way)
+. Repeat this for the test folder as well ([navy]#e.g.# check link:{repoURL}/src/test/java/seedu/finance/ui/HelpWindowTest.java[`[blue]#HelpWindowTest.java#`] for code errors, and if so, resolve it the same way)
 
 === Verifying the setup
 
@@ -179,7 +179,7 @@ image::UiClassDiagram.png[width="700"]
 
 *API* : link:{repoURL}/src/main/java/seedu/finance/ui/Ui.java[`[blue]#Ui.java#`]
 
-The UI consists of a `[fuchsia]#MainWindow#` that is made up of parts e.g.`[fuchsia]#CommandBox#`, `[fuchsia]#ResultDisplay#`, `[fuchsia]#RecordListPanel#`,
+The UI consists of a `[fuchsia]#MainWindow#` that is made up of parts [navy]#e.g.# `[fuchsia]#CommandBox#`, `[fuchsia]#ResultDisplay#`, `[fuchsia]#RecordListPanel#`,
 `[fuchsia]#StatusBarFooter#`, `[fuchsia]#BrowserPanel#`, `[fuchsia]#BudgetPanel#`, `[fuchsia]#SummaryPanel#` etc. All these, including the `[fuchsia]#MainWindow#`,
 inherit from the abstract `[fuchsia]#UiPart#` class.
 
@@ -205,7 +205,7 @@ link:{repoURL}/src/main/java/seedu/finance/logic/Logic.java[`[blue]#Logic.java#`
 
 .  `[fuchsia]#Logic#` uses the `[fuchsia]#FinanceTrackerParser#` class to parse the user command.
 .  This results in a `[fuchsia]#Command#` object which is executed by the `[fuchsia]#LogicManager#`.
-.  The command execution can affect the `[fuchsia]#Model#` (e.g. adding a record).
+.  The command execution can affect the `[fuchsia]#Model#` ([navy]#e.g.# adding a record).
 .  The result of the command execution is encapsulated as a `[fuchsia]#CommandResult#` object which is passed back to the `[fuchsia]#Ui#`.
 .  In addition, the `[fuchsia]#CommandResult#` object can also instruct the `[fuchsia]#Ui#` to perform certain actions, such as displaying
 help to the user.
@@ -227,7 +227,7 @@ The `[fuchsia]#Model#` component,
 
 * stores a `[fuchsia]#UserPref#` object that represents the user's preferences.
 * stores the Finance Tracker data.
-* exposes an unmodifiable `[fuchsia]#ObservableList<Record>#` that can be 'observed' e.g. the UI can be bound to this list so
+* exposes an unmodifiable `[fuchsia]#ObservableList<Record>#` that can be 'observed' [navy]#e.g.# the UI can be bound to this list so
 that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 // end::model[]
@@ -522,7 +522,7 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ** Pros: Easy to implement.
 ** Cons: May have performance issues in terms of memory usage.
 * **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `[fuchsia]#delete#`, just save the record being deleted).
+** Pros: Will use less memory ([navy]#e.g.# for `[fuchsia]#delete#`, just save the record being deleted).
 ** Cons: We must ensure that the implementation of each individual command are correct.
 
 ===== Aspect: Data structure to support the undo/redo commands
@@ -815,7 +815,7 @@ We are using `[fuchsia]#java.util.logging#` package for logging. The `[fuchsia]#
 * `[fuchsia]#SEVERE#` : Critical problem detected which may possibly cause the termination of the application
 * `[fuchsia]#WARNING#` : Can continue, but with caution
 * `[fuchsia]#INFO#` : Information showing noteworthy actions by the application
-* `[fuchsia]#FINE#` : Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size
+* `[fuchsia]#FINE#` : Details that is not usually noteworthy but may be useful in debugging [navy]#e.g.# print the actual list instead of just its size
 
 [[Implementation-Configuration]]
 === Configuration
@@ -999,7 +999,7 @@ Here are the steps to create a new release.
 
 .  Update the version number in link:{repoURL}/src/main/java/seedu/address/MainApp.java[`[blue]#MainApp.java#`].
 .  Generate a JAR file <<UsingGradle#creating-the-jar-file, [blue]#using Gradle#>>.
-.  Tag the repo with the version number. e.g. `[fuchsia]#v0.1#`
+.  Tag the repo with the version number. [navy]#e.g.# `[fuchsia]#v0.1#`
 .  https://help.github.com/articles/creating-releases[[blue]#Create a new release using GitHub#] and upload the JAR file you created.
 
 === Managing Dependencies

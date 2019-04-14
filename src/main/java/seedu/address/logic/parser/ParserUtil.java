@@ -193,18 +193,17 @@ public class ParserUtil {
     public static SortProperty parseSortProperty(String sortProperty) throws ParseException {
         requireNonNull(sortProperty);
         String trimmedProperty = sortProperty.trim();
-        if (!SortProperty.isValidSortProperty(sortProperty)) {
+        if (!SortProperty.isValidSortProperty(trimmedProperty)) {
             throw new ParseException(SortProperty.MESSAGE_CONSTRAINTS);
         }
 
-        sortProperty = trimmedProperty.toLowerCase();
-        if (sortProperty.equals(SortProperty.BATCHNUMBER.toString())) {
+        if (trimmedProperty.equalsIgnoreCase(SortProperty.BATCHNUMBER.toString())) {
             return SortProperty.BATCHNUMBER;
         }
-        if (sortProperty.equals(SortProperty.QUANTITY.toString())) {
+        if (trimmedProperty.equalsIgnoreCase(SortProperty.QUANTITY.toString())) {
             return SortProperty.QUANTITY;
         }
-        if (sortProperty.equals(SortProperty.EXPIRY.toString())) {
+        if (trimmedProperty.equalsIgnoreCase(SortProperty.EXPIRY.toString())) {
             return SortProperty.EXPIRY;
         }
         throw new ParseException("Unknown sort property");
@@ -219,15 +218,14 @@ public class ParserUtil {
     public static SortDirection parseSortDirection(String sortDirection) throws ParseException {
         requireNonNull(sortDirection);
         String trimmedDirection = sortDirection.trim();
-        if (!SortDirection.isValidSortDirection(sortDirection)) {
+        if (!SortDirection.isValidSortDirection(trimmedDirection)) {
             throw new ParseException(SortDirection.MESSAGE_CONSTRAINTS);
         }
 
-        sortDirection = trimmedDirection.toLowerCase();
-        if (sortDirection.equals(SortDirection.ASCENDING.toString())) {
+        if (trimmedDirection.equalsIgnoreCase(SortDirection.ASCENDING.toString())) {
             return SortDirection.ASCENDING;
         }
-        if (sortDirection.equals(SortDirection.DESCENDING.toString())) {
+        if (trimmedDirection.equalsIgnoreCase(SortDirection.DESCENDING.toString())) {
             return SortDirection.DESCENDING;
         }
         throw new ParseException("Unknown sort direction");

@@ -111,7 +111,7 @@ public class LogicManager implements Logic {
 
             if (command instanceof StartCommand) {
                 StartCommand startCommand = (StartCommand) command;
-                commandResult = startCommand.executeActual(quizModel, history);
+                commandResult = startCommand.executeQuiz(quizModel, history);
             }
 
             if (command instanceof ChangeThemeCommand) {

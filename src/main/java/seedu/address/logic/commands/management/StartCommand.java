@@ -68,7 +68,7 @@ public class StartCommand extends QuizCommand {
      *
      * @return messages to show whether the quiz starts correctly.
      */
-    public CommandResult executeActual(Model model, CommandHistory history) throws CommandException {
+    public CommandResult executeQuiz(QuizModel model, CommandHistory history) throws CommandException {
         QuizModel quizModel = requireQuizModel(model);
 
         StringBuilder sb = new StringBuilder();

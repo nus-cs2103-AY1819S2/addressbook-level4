@@ -1,5 +1,5 @@
 /* @@author Carrein */
-package seedu.address;
+package seedu.address.ui;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;

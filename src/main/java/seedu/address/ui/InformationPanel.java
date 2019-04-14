@@ -12,7 +12,6 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.Region;
-import seedu.address.Notifier;
 import seedu.address.logic.commands.Command;
 import seedu.address.model.Album;
 import seedu.address.model.image.Image;

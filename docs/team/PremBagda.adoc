@@ -87,21 +87,39 @@ managed the scheduling of tasks so as to prevent merge conflicts.
 * Managed a release on GitHub (Release: link:{repoURL}/releases/tag/v1.3[`v1.3`])
 
 |*Enhancements to existing features*
-a|Added colors to tag labels so that they can be differentiated easily: https://github.com/CS2103-AY1819S2-W11-3/main/pull/8[#8]
+a|Added colors to tag labels so that they can be differentiated easily:
+https://github.com/CS2103-AY1819S2-W11-3/main/pull/8[#8]
 
 |*Documentation*
 a|
-* Updated the User Guide with the features I added: https://github.com/cs2103-ay1819s2-w11-3/main/pull/70[#70],
-https://github.com/cs2103-ay1819s2-w11-3/main/pull/72[#72], https://github.com/cs2103-ay1819s2-w11-3/main/pull/106[#106]
-* Updated the User Guide with list of country codes: https://github.com/cs2103-ay1819s2-w11-3/main/pull/101[#101]
-* Updated the Developer Guide with features I added and diagrams for illustration purposes: https://github.com/cs2103-ay1819s2-w11-3/main/pull/55[#55], https://github.com/cs2103-ay1819s2-w11-3/main/pull/72[#72],
-https://github.com/cs2103-ay1819s2-w11-3/main/pull/86[#86], https://github.com/cs2103-ay1819s2-w11-3/main/pull/99[#99], https://github.com/cs2103-ay1819s2-w11-3/main/pull/104[#104],
+* Updated the User Guide with the features I added:
+https://github.com/cs2103-ay1819s2-w11-3/main/pull/70[#70],
+https://github.com/cs2103-ay1819s2-w11-3/main/pull/72[#72],
+https://github.com/cs2103-ay1819s2-w11-3/main/pull/106[#106]
+
+* Updated the User Guide with list of country codes:
+https://github.com/cs2103-ay1819s2-w11-3/main/pull/101[#101]
+
+* Updated the Developer Guide with features I added and diagrams for illustration purposes:
+https://github.com/cs2103-ay1819s2-w11-3/main/pull/55[#55],
+https://github.com/cs2103-ay1819s2-w11-3/main/pull/72[#72],
+https://github.com/cs2103-ay1819s2-w11-3/main/pull/86[#86],
+https://github.com/cs2103-ay1819s2-w11-3/main/pull/99[#99],
+https://github.com/cs2103-ay1819s2-w11-3/main/pull/104[#104],
 https://github.com/cs2103-ay1819s2-w11-3/main/pull/185[#185]
 
 |*Community*
 a|* Fixed UI related bug: https://github.com/CS2103-AY1819S2-W11-3/main/pull/125[#125]
 * Fixed general bugs found during testing: https://github.com/CS2103-AY1819S2-W11-3/main/pull/167[#167]
-* Tested other projects, reported bugs and suggested improvements: https://github.com/cs2103-ay1819s2-w13-2/main/issues/159[#159], https://github.com/cs2103-ay1819s2-w13-2/main/issues/161[#161], https://github.com/cs2103-ay1819s2-w13-2/main/issues/166[#166], https://github.com/cs2103-ay1819s2-w13-2/main/issues/171[#171], https://github.com/cs2103-ay1819s2-w13-2/main/issues/172[#172], https://github.com/cs2103-ay1819s2-w13-2/main/issues/173[#173], https://github.com/cs2103-ay1819s2-w13-2/main/issues/174[#174], https://github.com/cs2103-ay1819s2-w13-2/main/issues/176[#176]
+* Tested other projects, reported bugs and suggested improvements:
+https://github.com/cs2103-ay1819s2-w13-2/main/issues/159[#159],
+https://github.com/cs2103-ay1819s2-w13-2/main/issues/161[#161],
+https://github.com/cs2103-ay1819s2-w13-2/main/issues/166[#166],
+https://github.com/cs2103-ay1819s2-w13-2/main/issues/171[#171],
+https://github.com/cs2103-ay1819s2-w13-2/main/issues/172[#172],
+https://github.com/cs2103-ay1819s2-w13-2/main/issues/173[#173],
+https://github.com/cs2103-ay1819s2-w13-2/main/issues/174[#174],
+https://github.com/cs2103-ay1819s2-w13-2/main/issues/176[#176]
 |=======================================================================
 
 == Contributions to the User Guide

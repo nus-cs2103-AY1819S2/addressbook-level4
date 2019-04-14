@@ -292,6 +292,15 @@ The following activity diagram summarizes what happens when a user executes a ne
 
 image::UndoRedoActivityDiagram.png[width="650"]
 
+// tag::jobs[]
+=== Job Feature
+==== Current Implementation
+
+The Job feature is facilitated by the Job class and UniqueJobList Class.
+UniqueJobList contains Jobs by composition while Jobs contains Person by aggregation.
+
+image::uniqueJobListCompositeJobAggregatePerson[width="650"]
+
 // tag::interviews[]
 === Interviews Feature
 ==== Current Implementation

@@ -88,7 +88,7 @@ public class EditRequestCommand extends EditCommand implements RequestCommand {
             }
 
             for (Request request : model.getFilteredRequestList()) {
-                if (updatedHealthWorker!= null && updatedHealthWorker.equals(request.getHealthStaff())) {
+                if (updatedHealthWorker != null && updatedHealthWorker.equals(request.getHealthStaff())) {
                     healthWorkerDates.add(request.getRequestDate().getDate());
                 }
             }

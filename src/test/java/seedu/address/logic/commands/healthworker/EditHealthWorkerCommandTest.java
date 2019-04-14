@@ -9,9 +9,6 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BETTY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BETTY;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import seedu.address.logic.commands.RedoCommand;
-import seedu.address.logic.commands.UndoCommand;
-import seedu.address.model.CommandType;
 import static seedu.address.testutil.TypicalHealthWorkers.getTypicalHealthWorkerBook;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND;
@@ -25,6 +22,9 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.EditHealthWorkerCommand;
 import seedu.address.logic.commands.EditHealthWorkerCommand.EditHealthWorkerDescriptor;
 import seedu.address.logic.commands.HealthWorkerCommand;
+import seedu.address.logic.commands.RedoCommand;
+import seedu.address.logic.commands.UndoCommand;
+import seedu.address.model.CommandType;
 import seedu.address.model.HealthWorkerBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
@@ -36,7 +36,7 @@ import seedu.address.testutil.HealthWorkerBuilder;
 public class EditHealthWorkerCommandTest {
 
     private Model model = new ModelManager(getTypicalHealthWorkerBook(),
-        getTypicalRequestBook(), new UserPrefs());
+            getTypicalRequestBook(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
@@ -76,7 +76,7 @@ public class EditHealthWorkerCommandTest {
                 editedHealthWorker);
 
         Model expectedModel = new ModelManager(
-            new HealthWorkerBook(model.getHealthWorkerBook()), model.getRequestBook(), new UserPrefs());
+                new HealthWorkerBook(model.getHealthWorkerBook()), model.getRequestBook(), new UserPrefs());
         expectedModel.setHealthWorker(lastHealthWorker, editedHealthWorker);
         expectedModel.commitHealthWorkerBook();
         expectedModel.commitRequestBook();
@@ -94,7 +94,7 @@ public class EditHealthWorkerCommandTest {
                 editedHealthWorker);
 
         Model expectedModel = new ModelManager(
-            new HealthWorkerBook(model.getHealthWorkerBook()), model.getRequestBook(), new UserPrefs());
+                new HealthWorkerBook(model.getHealthWorkerBook()), model.getRequestBook(), new UserPrefs());
         expectedModel.commitHealthWorkerBook();
         expectedModel.commitRequestBook();
         assertCommandSuccess(editHealthWorkerCommand, model, commandHistory, expectedMessage, expectedModel);
@@ -113,7 +113,7 @@ public class EditHealthWorkerCommandTest {
                 editedHealthWorker);
 
         Model expectedModel = new ModelManager(
-            new HealthWorkerBook(model.getHealthWorkerBook()), model.getRequestBook(), new UserPrefs());
+                new HealthWorkerBook(model.getHealthWorkerBook()), model.getRequestBook(), new UserPrefs());
         expectedModel.setHealthWorker(model.getFilteredHealthWorkerList().get(0), editedHealthWorker);
         expectedModel.commitHealthWorkerBook();
         expectedModel.commitRequestBook();
@@ -161,7 +161,7 @@ public class EditHealthWorkerCommandTest {
         EditHealthWorkerCommand editHealthWorkerCommand = new EditHealthWorkerCommand(INDEX_FIRST, descriptor);
 
         Model expectedModel = new ModelManager(
-            new HealthWorkerBook(model.getHealthWorkerBook()), model.getRequestBook(), new UserPrefs());
+                new HealthWorkerBook(model.getHealthWorkerBook()), model.getRequestBook(), new UserPrefs());
         expectedModel.updateRequestOnNameEdit(toEdit.getNric().toString(), editedHealthWorker.getNric().toString());
         expectedModel.setHealthWorker(toEdit, editedHealthWorker);
 
@@ -172,50 +172,50 @@ public class EditHealthWorkerCommandTest {
         // undo
         expectedModel.undo();
         assertCommandSuccess(new UndoCommand(), model, commandHistory,
-              UndoCommand.MESSAGE_SUCCESS, expectedModel);
+                UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
         // redo
         expectedModel.redo();
         assertCommandSuccess(new RedoCommand(), model, commandHistory,
-        RedoCommand.MESSAGE_SUCCESS, expectedModel);
+                RedoCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
     @Test
     public void execute_undoRedo_invalidIndex() {
 
-    Index outOfBounds = Index.fromOneBased(model.getFilteredHealthWorkerList().size() + 1);
-    EditHealthWorkerDescriptor descriptor = new EditHealthWorkerDescriptorBuilder().withName(VALID_NAME_BETTY)
-          .build();
-    EditHealthWorkerCommand editHealthWorkerCommand = new EditHealthWorkerCommand(outOfBounds, descriptor);
+        Index outOfBounds = Index.fromOneBased(model.getFilteredHealthWorkerList().size() + 1);
+        EditHealthWorkerDescriptor descriptor = new EditHealthWorkerDescriptorBuilder().withName(VALID_NAME_BETTY)
+                .build();
+        EditHealthWorkerCommand editHealthWorkerCommand = new EditHealthWorkerCommand(outOfBounds, descriptor);
 
-    assertCommandFailure(editHealthWorkerCommand, model, commandHistory,
-     Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        assertCommandFailure(editHealthWorkerCommand, model, commandHistory,
+                Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
 
-    assertCommandFailure(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_FAILURE);
-    assertCommandFailure(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_FAILURE);
+        assertCommandFailure(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_FAILURE);
+        assertCommandFailure(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_FAILURE);
     }
 
     @Test
     public void execute_undoRedo_filteredList() throws Exception {
-    HealthWorker editedHealthWorker = new HealthWorkerBuilder().build();
-    EditHealthWorkerDescriptor descriptor = new EditHealthWorkerDescriptorBuilder(editedHealthWorker).build();
-    EditHealthWorkerCommand editHealthWorkerCommand = new EditHealthWorkerCommand(INDEX_FIRST, descriptor);
-    Model expectedModel = new ModelManager(new HealthWorkerBook(model.getHealthWorkerBook()),
-            model.getRequestBook(), new UserPrefs());
+        HealthWorker editedHealthWorker = new HealthWorkerBuilder().build();
+        EditHealthWorkerDescriptor descriptor = new EditHealthWorkerDescriptorBuilder(editedHealthWorker).build();
+        EditHealthWorkerCommand editHealthWorkerCommand = new EditHealthWorkerCommand(INDEX_FIRST, descriptor);
+        Model expectedModel = new ModelManager(new HealthWorkerBook(model.getHealthWorkerBook()),
+                model.getRequestBook(), new UserPrefs());
 
-    HealthWorker toEdit = model.getFilteredHealthWorkerList().get(INDEX_FIRST.getZeroBased());
-    expectedModel.updateRequestOnNameEdit(toEdit.getNric().toString(), editedHealthWorker.getNric().toString());
-    expectedModel.setHealthWorker(toEdit, editedHealthWorker);
-    expectedModel.commit(CommandType.HEALTHWORKER_AND_REQUEST_COMMAND);
+        HealthWorker toEdit = model.getFilteredHealthWorkerList().get(INDEX_FIRST.getZeroBased());
+        expectedModel.updateRequestOnNameEdit(toEdit.getNric().toString(), editedHealthWorker.getNric().toString());
+        expectedModel.setHealthWorker(toEdit, editedHealthWorker);
+        expectedModel.commit(CommandType.HEALTHWORKER_AND_REQUEST_COMMAND);
 
-    editHealthWorkerCommand.execute(model, commandHistory);
+        editHealthWorkerCommand.execute(model, commandHistory);
 
-    expectedModel.undo();
-    assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
+        expectedModel.undo();
+        assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
-    assertEquals(model.getFilteredHealthWorkerList().get(INDEX_FIRST.getZeroBased()), toEdit);
-    expectedModel.redo();
-    assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
+        assertEquals(model.getFilteredHealthWorkerList().get(INDEX_FIRST.getZeroBased()), toEdit);
+        expectedModel.redo();
+        assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
     @Test

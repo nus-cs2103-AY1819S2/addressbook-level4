@@ -302,7 +302,7 @@ You can use this command to switch over to Table Mode for the specified table nu
 ****
 
 [NOTE]
-You can only access Table Mode for tables that exist in the restaurant and are currently occupied. The tables can be updated in <<Restaurant Mode, Restaurant Mode>>.
+You can only access Table Mode for tables that exist in the restaurant and are currently occupied. The tables can be updated in Restaurant Mode.
 
 [TIP]
 You can use this command in Table Mode if you are switching to a different table number.

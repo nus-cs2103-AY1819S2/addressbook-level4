@@ -447,13 +447,13 @@ image::EditPaxActivityDiagram.png[width="800"]
 
 // end::editpax[]
 
-// tag::orders[]
 === Orders feature
 
 The Orders feature allows restaurant front-end staff to take orders from customers using the <<AddToOrder, `addToOrder`>> command,
 as well as remove incorrectly inputted orders using the <<DeleteFromOrder, `deleteFromOrder`>> or <<ClearOrder, `clearOrder`>> commands.
 They can track the current list of items ordered for each table (in Table Mode) or across all tables (in Restaurant Mode) and update their serving statuses with the <<Serve, `serve`>> command.
 
+// tag::orders[]
 [[OrdersClasses]]
 ==== Classes for Orders feature in Model
 

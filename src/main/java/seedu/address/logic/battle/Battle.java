@@ -37,7 +37,7 @@ public interface Battle {
     Player getHumanPlayer();
 
     /**
-     * Returns the computer player.
+     * Returns the computer enemy player.
      * @return the enemy player
      */
     Enemy getEnemyPlayer();

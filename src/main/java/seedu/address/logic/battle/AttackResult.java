@@ -6,8 +6,15 @@ import seedu.address.model.player.Player;
 
 /**
  * An AttackResult represents the end result of an attack.
+ * <br>
+ * Attributes of an {@code AttackResult} should be accessed by the getter methods, e.g. {@code isSuccessful}.
+ * Subclasses of {@code AttackResult} should call the setter methods in their constructor.
+ * For example, see the code of {@link AttackMissed}.
  */
 public abstract class AttackResult {
+    /**
+     * Format string for printing the details of an attack.
+     */
     public static final String ATTACK = "Attack by player %s on cell %s of player %s ";
 
     // refactoring the way of handling attributes to enable a declarative style
@@ -68,7 +75,7 @@ public abstract class AttackResult {
     }
 
     /**
-     * Checks if this AttackResult is of an attack which hit
+     * Checks if this AttackResult is of an attack which hit or miss
      * (guess they never miss, huh?)
      * @return {@code true} if the attack damaged a ship, {@code false otherwise}
      */

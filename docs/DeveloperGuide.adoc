@@ -303,14 +303,14 @@ all of the listed modules are required respectively. +
 
 image::PrerequisiteTreeAnnotated.png[width="600"]
 
-The `generatePrerequisiteTree()` function is called after the `ModuleInfoPrerequisite1 object has been created, since
-the `ModuleTree` is dependent on the `String` input `prerequisite`. +
+The `generatePrerequisiteTree()` function is called after the `ModuleInfoPrerequisite` object has been created, since
+the `ModuleTree` is dependent on the `String` input `prereq` which later be saved as `prerequisiteString`. +
 
 image::PrerequisiteString.png[width="800"]
 
 The input `prerequisite` usually comes in the format:
 
-image::PrerequisiteStringFormat.png[width="400"]
+image::PrerequisiteStringFormat.png[width="800"]
 
 The input value is then split into an `array` using regular expressions:
 

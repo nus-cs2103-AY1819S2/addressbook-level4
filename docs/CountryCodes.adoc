@@ -12,7 +12,6 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/CS2103-AY1819S2-W11-3/main
 
-
 // tag::countrycodesdoc[]
 [discrete]
 [[TOP]]

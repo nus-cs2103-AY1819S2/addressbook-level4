@@ -11,7 +11,10 @@ ifdef::env-github[]
 endif::[]
 :toc-placement: preamble
 :repoURL: https://github.com/CS2103-AY1819S2-W11-3/main
+:websiteURL: https://cs2103-ay1819s2-w11-3.github.io/main
 :source-highlighter: rouge
+:doctype: article
+:reproducible:
 
 image::prembagda.png[width="150", align="left"]
 {empty}[https://github.com/PremBagda[Github]] | [https://www.linkedin.com/in/prembagdawala/[LinkedIn]]
@@ -74,7 +77,7 @@ The minor enhancement I did was to convert the `Person` object from the original
 
 === Other contributions
 
-The table below documents the various other contributions that I made to TravelBuddy.
+The <<OtherContributions>> below documents the various other contributions that I made to TravelBuddy.
 
 [[OtherContributions]]
 [width="100%",cols="20%,<80%", reftext="Table 2.3.1", caption="Table 2.3.1: "]
@@ -127,8 +130,9 @@ https://github.com/cs2103-ay1819s2-w13-2/main/issues/176[#176]
 The original User Guide was updated to match the enhancements implemented in TravelBuddy.
 
 |===
-|_Given below is the start of an excerpt from the User Guide which I had contributed. They demonstrate my ability to
-write easy-to-follow documentation that targets end-users._
+| Given below is the start of an excerpt from the link:{websiteURL}/UserGuide.html[User Guide] which I had
+contributed. They demonstrate my ability to
+write easy-to-follow documentation that targets end-users.
 |===
 
 include::../UserGuide.adoc[tag=crudAdd]
@@ -137,19 +141,20 @@ include::../UserGuide.adoc[tag=crudList]
 include::../UserGuide.adoc[tag=crudEdit]
 
 |===
-|This marks the end of the excerpt from the User Guide.
+| This marks the end of the excerpt from the link:{websiteURL}/UserGuide.html[User Guide].
 |===
 
 == Contributions to the Developer Guide
 The original Developer Guide was updated to match the logic of the enhancements implemented in TravelBuddy.
 |===
-|_Given below is the start of an excerpt from the Developer Guide which I had contributed. They demonstrate my ability to
-  write technical documentation and the technical depth of my contributions to the project._
+|Given below is the start of an excerpt from the link:{websiteURL}/DeveloperGuide.html[Developer Guide] which I had
+contributed. They demonstrate my ability to
+  write technical documentation and the technical depth of my contributions to the project.
 |===
 
 include::../DeveloperGuide.adoc[tag=countrycode]
 
 |===
-|This marks the end of the excerpt from the Developer Guide.
+|This marks the end of the excerpt from the link:{websiteURL}/DeveloperGuide.html[Developer Guide].
 |===
 

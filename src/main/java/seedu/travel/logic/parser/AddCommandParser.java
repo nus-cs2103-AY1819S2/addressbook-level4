@@ -36,15 +36,22 @@ public class AddCommandParser implements Parser<AddCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public AddCommand parse(String args) throws ParseException {
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_COUNTRY_CODE,
-            PREFIX_DATE_VISITED, PREFIX_RATING, PREFIX_DESCRIPTION, PREFIX_ADDRESS, PREFIX_PHOTO, PREFIX_TAG);
+        // tag::multiArgs[]
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_NAME,
+            PREFIX_COUNTRY_CODE, PREFIX_DATE_VISITED, PREFIX_RATING,
+            PREFIX_DESCRIPTION, PREFIX_ADDRESS,
+            PREFIX_PHOTO, PREFIX_TAG);
+        // end::multiArgs[]
 
+        // tag::parseException[]
         // Mandatory fields in "add" command
-        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_COUNTRY_CODE, PREFIX_DATE_VISITED, PREFIX_ADDRESS,
-            PREFIX_RATING, PREFIX_DESCRIPTION)
-                || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_COUNTRY_CODE,
+            PREFIX_DATE_VISITED, PREFIX_ADDRESS,
+            PREFIX_RATING, PREFIX_DESCRIPTION) || !argMultimap.getPreamble().isEmpty()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                AddCommand.MESSAGE_USAGE));
         }
+        // end::parseException[]
 
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
         CountryCode countryCode = ParserUtil.parseCountryCode(argMultimap.getValue(PREFIX_COUNTRY_CODE).get());

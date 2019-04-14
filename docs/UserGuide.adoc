@@ -31,7 +31,7 @@ different features and shows you how to perform basic _In-Credit-Ble_ operations
 
 // tag::quickstart[]
 == Quick Start
-Follow these steps to get _In-Credit-Ble_ up and running on your computer in no time!
+[aqua]#Follow these steps to get _In-Credit-Ble_ up and running on your computer in no time!#
 
 .  Ensure you have [teal]#Java# version `[fuchsia]#9#` or later installed in your computer. You can download and install the required
    Java Development Kit
@@ -39,7 +39,7 @@ Follow these steps to get _In-Credit-Ble_ up and running on your computer in no 
 .  Download the latest `[fuchsia]#In-Credit-Ble.jar#` file link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for your finance tracker.
 .  Double-click the file to start the app. The GUI should appear in a few seconds as shown below.
-   The In-Credit-Ble finance tracker is loaded with example expense records and budget is still not set.
+   The _In-Credit-Ble_ finance tracker is loaded with example expense records and budget is still not set.
 
 +
 .UI upon launching the application
@@ -50,17 +50,17 @@ e.g. typing *`[fuchsia]#help#`* and pressing kbd:[Enter] will open the help wind
 .  [teal]#Some example commands you can try#:
 
 * *`[fuchsia]#help#`* : opens the _In-Credit-Ble_ user guide
-* *`[fuchsia]#clear#`* : clears the existing Finance Tracker to start with a Finance Tracker with no expense records
+* *`[fuchsia]#clear#`* : clears the existing Finance Tracker to start a Finance Tracker with no expense records
 * *`[fuchsia]#set#`* : sets the total budget for Finance Tracker
 * *`[fuchsia]#allocate#`* : allocates budget to a certain category (within the total budget)
-* *`[fuchsia]#spend#`* : adds an expense record to the finance tracker
+* *`[fuchsia]#spend#`* : adds an expense record to the Finance Tracker
 
 
 .  Refer to <<Features>> for details of each command.
 // end::quickstart[]
 
 == Graphical User Interface Introduction
-This section will explain to you the Graphical User Interface (GUI) of _In-Credit-Ble_ Finance Tracker.
+[aqua]#This section will explain to you the Graphical User Interface (GUI) of _In-Credit-Ble_ Finance Tracker.#
 The theme of the application has been set to `[fuchsia]#Light#`, which is different from the start up theme `[fuchsia]#Dark#`.
 
 .Graphical User Interface (When starting up)
@@ -95,7 +95,7 @@ This element is denoted by the yellow box in Figures 2 and 3.
 In the Record List Panel, the list of all your expenditures are recorded here.
 This panel is scrollable to view all your expense records.
 
-To find specific records based on `[fuchsia]#name#`, `[fuchsia]#category#`, `[fuchsia]#amount#` or `[fuchsia]#date#`, use the `[fuchsia]#search#` command.
+To find specific records based on `[fuchsia]#name#`, `[fuchsia]#category#` or `[fuchsia]#date#`, use the `[fuchsia]#search#` command.
 To list all your expense records again after searching for particular records,
 use the command `[fuchsia]#list#`.
 
@@ -154,7 +154,7 @@ This element is denoted by the red box in Figure 3.
 
 The summary panel gives you a nice illustrated summary of your current spending so far in
 different categories. To change the browser panel to summary panel, use the `[fuchsia]#summary#` command.
-To change back to the browser panel, simply type in the `[fuchsia]#summary#` command once again.
+To change back to the browser panel, simply enter the `[fuchsia]#summary#` command once again.
 
 
 === Command Box and Result Display
@@ -179,7 +179,7 @@ The right side of the status footer bar shows where the storage file for the upd
 
 [[Features]]
 == Features
-This section describes the various features _In-Credit-Ble_ has to offer. Examples are also included to give you
+[aqua]#This section describes the various features _In-Credit-Ble_ has to offer.# Examples are also included to give you
 step-by-step instructions on how to use the different commands.
 
 [IMPORTANT]
@@ -199,35 +199,35 @@ step-by-step instructions on how to use the different commands.
 === Budget Management
 
 // tag::set[]
-==== Setting a budget: `set`
+==== Setting a budget: `[fuchsia]#set#`
 
-You can use this command to set a budget for the current instance of _In-Credit-Ble_ Finance Tracker. +
+[aqua]#You can use this command to set a budget for the current instance of _In-Credit-Ble_ Finance Tracker.# +
 
-*Format*: `set $/AMOUNT`
+*Format*: `[fuchsia]#set $/AMOUNT#`
 
 ****
-*Examples*:
+*[navy]#Examples#*:
 
-* `set $/500`
-* `set $/500.50`
+* `[fuchsia]#set $/500#`
+* `[fuchsia]#set $/500.50#`
 ****
 [NOTE]
 ====
 * The budget set must contain a valid amount. A valid amount is a positive number with
 0 or 2 decimal places. Amount entered cannot be larger than 100000000.
-* If you provide multiple amounts (e.g. `set $/30 $/50`), only the last amount you provided will
-be used to set the budget (`$/50` in the example). Only the last amount needs to be a valid
-amount (e.g. `set $/1a $/10` works while `set $/10 $/1a` does not).
+* If you provide multiple amounts ([navy]#e.g.# `[fuchsia]#set $/30 $/50#`), only the last amount you provided will
+be used to set the budget (`[fuchsia]#$/50#` in the example). Only the last amount needs to be a valid
+amount ([navy]#e.g.# `[fuchsia]#set $/1a $/10#` works while `[fuchsia]#set $/10 $/1a#` does not).
 * If a budget was previously set, the old budget will be overwritten by the new budget specified
-by the `set` command.
+by the `[fuchsia]#set#` command.
 * The budget you set and current spending will be displayed in the <<Budget Panel>>.
 * You can only work with one budget for each instance of Finance Tracker. You are able
- to adjust this budget using the `set` command again by indicating a different amount.
-* If you want to have a new budget for a different month, you can use the `setfile` command
-detailed in <<Changing FinanceTracker data storage location: `setfile`>>.
+ to adjust this budget using the `[fuchsia]#set#` command again by indicating a different amount.
+* If you want to have a new budget for a different month, you can use the `[fuchsia]#setfile#` command
+detailed in <<Changing FinanceTracker data storage location: `[fuchsia]#setfile#`>>.
 * The rationale is to keep the
 UI as clean as possible without extra panels for past budgets.
-* You can use `allocate` to set various category sub-budgets for categories
+* You can use `[fuchsia]#allocate#` to set various category sub-budgets for categories.
 
 ====
 
@@ -243,38 +243,38 @@ budgets are going to exceed it.
 // end::set[]
 
 // tag::allocate[]
-==== Allocating budget based on categories: `allocate`
+==== Allocating budget based on categories: `[fuchsia]#allocate#`
 
-You can use this command to set a budget for a category in _In-Credit-Ble_ Finance Tracker. +
+[aqua]#You can use this command to set a budget for a category in _In-Credit-Ble_ Finance Tracker.# +
 
-*Alias*: `allo`
+*Alias*: `[fuchsia]#allo#`
 
-*Format*: `allocate $/AMOUNT c/CATEGORY`
+*Format*: `[fuchsia]#allocate $/AMOUNT c/CATEGORY#`
 ****
-*Examples*:
+*[navy]#Examples#*:
 
-* `allocate $/50 c/Dining`
-* `allocate $/100 c/CloThEs`
-* `allocate $/100.10 c/FOOD`
-* `allo $/123.10 c/GiRLfrIEND`
+* `[fuchsia]#allocate $/50 c/Dining#`
+* `[fuchsia]#allocate $/100 c/CloThEs#`
+* `[fuchsia]#allocate $/100.10 c/FOOD#`
+* `[fuchsia]#allo $/123.10 c/GiRLfrIEND#`
 ****
 [NOTE]
 ====
 * Amount entered cannot be larger than 100000000.
-* If you provide multiple categories (e.g. `allocate $/50.00 c/Food c/Clothes`),
+* If you provide multiple categories ([navy]#e.g.# `[fuchsia]#allocate $/50.00 c/Food c/Clothes#`),
 only the last category you provided will be taken (in the previous e.g., the command will
-set budget for `Clothes` category. Your last category must be of correct format (see below)
-* Category names are case-insensitive. (e.g. `CLotHes`, `clothes` and `CLOTHES` refer to `Clothes`)
+set budget for `[fuchsia]#Clothes#` category. Your last category must be of the correct format (see below).
+* Category names are case-insensitive. ([navy]#e.g.# `[fuchsia]#CLotHes#`, `[fuchsia]#clothes#` and `[fuchsia]#CLOTHES#` refer to `[fuchsia]#Clothes#`).
 * If a budget was previously set for the category, the old category budget will be replaced
-by the new `allocate` command
+by the new `[fuchsia]#allocate#` command.
 * The category budget that you allocate should be more than current spending in that category as it would not make
 sense to set a budget that is below the amount that you have already spent on that category.
 +
-For example, if you have spent $50.50 on the cateogry `Food`, you will receive an error message when you try to
-`allocate` $40.00 to the category `Food`.
+For example, if you have spent $50.50 on the cateogry `[fuchsia]#Food#`, you will receive an error message when you try to
+`[fuchsia]#allocate#` $40.00 to the category `[fuchsia]#Food#`.
 * Category name supplied must be https://en.wikipedia.org/wiki/Alphanumeric[alphanumeric]
-and cannot contain special characters such as `:<>;\/|?~^%$#@`
-* For you to see the category budgets and the current spending in each of the allocated category budget, use the `show`
+and cannot contain special characters such as `[fuchsia]#:<>;\/|?~^%$#@#`
+* For you to see the category budgets and the current spending in each of the allocated category budget, use the `[fuchsia]#show#`
 command shown in the next command
 ====
 
@@ -288,33 +288,33 @@ You cannot set a budget smaller than the current spending in the category.
 // end::allocate[]
 
 // tag::show[]
-==== Showing allocated budget and spending in categories: `show`
+==== Showing allocated budget and spending in categories: `[fuchsia]#show#`
 
-You can use this command to see your current spending and the category budget allocated  in
-_In-Credit-Ble_ Finance Tracker. +
+[aqua]#You can use this command to see your current spending and the category budget allocated in
+_In-Credit-Ble_ Finance Tracker.# +
 
-*Alias*: `showCatBudget`
+*Alias*: `[fuchsia]#showCatBudget#`
 
-*Format*: `show`, `showCatBudget`
+*Format*: `[fuchsia]#show#`, `[fuchsia]#showCatBudget#`
 
 ****
-*Example*:
+*[navy]#Example#*:
 
 * The following example will show you an example of what will be listed given the following budget allocation
 and expenditure in the following categories:
-** `set $/500`
-** `allocate $/100 c/CloThEs`
-** `allocate $/100.10 c/FOOD`
-** `allo $/123.10 c/GiRLfrIEND`
-** `spend n/Buffet $/50.00 c/Food`
-** `spend n/Versace Jacket $/95.00 c/Clothes`
-** `spend n/Girlfriend gift $/99.99 c/Girlfriend`
-** `show`
+** `[fuchsia]#set $/500#`
+** `[fuchsia]#allocate $/100 c/CloThEs#`
+** `[fuchsia]#allocate $/100.10 c/FOOD#`
+** `[fuchsia]#allo $/123.10 c/GiRLfrIEND#`
+** `[fuchsia]#spend n/Buffet $/50.00 c/Food#`
+** `[fuchsia]#spend n/Versace Jacket $/95.00 c/Clothes#`
+** `[fuchsia]#spend n/Girlfriend gift $/99.99 c/Girlfriend#`
+** `[fuchsia]#show#`
 * The following will be displayed on the *Result Display* +
 _(See Graphical User Interface Introduction (GUI) if you are
 unsure of the elements of the GUI):_
 
-.Example of `show` command
+.Example of `[fuchsia]#show#` command
 image::show_example.png[width ="300"]
 ****
 

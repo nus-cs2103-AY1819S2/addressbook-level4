@@ -70,7 +70,6 @@ public class QuizModelManager implements QuizModel {
     public void updateUserProfile(List<List<Integer>> quizInformation) {
         List<CardSrsData> cardSrsDataList = session.updateUserProfile(quizInformation);
 
-        // TODO addCardSrsData should support add list of cards.
         for (CardSrsData cardSrsData : cardSrsDataList) {
             managementModel.addCardSrsData(cardSrsData);
         }

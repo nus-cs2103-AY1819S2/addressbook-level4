@@ -19,7 +19,6 @@ public class Quiz {
     private List<QuizCard> generatedQuizCardList;
     private QuizMode mode;
     private QuizCard currentQuizCard;
-    private int currOrignalQuizCardIndex;
     private int currentCardIndex;
     private int generatedCardSize;
     private boolean isQuizDone;
@@ -48,7 +47,7 @@ public class Quiz {
     /**
      * Generates a list of cards based on the chosen cards given by session.
      */
-    private List<QuizCard> generate() {
+    private void generate() {
         generatedQuizCardList = new ArrayList<>();
 
         switch (mode) {
@@ -71,7 +70,6 @@ public class Quiz {
         }
 
         generatedCardSize = generatedQuizCardList.size();
-        return generatedQuizCardList;
     }
 
     /**
@@ -102,6 +100,39 @@ public class Quiz {
         }
     }
 
+    public int getQuizTotalAttempts() {
+        return quizTotalAttempts;
+    }
+
+    public int getQuizTotalCorrectQuestions() {
+        return quizTotalCorrectQuestions;
+    }
+
+    public String getCurrentProgress() {
+        return (currentCardIndex + 1) + "/" + generatedCardSize;
+    }
+
+    public QuizCard getCurrentQuizCard() {
+        requireNonNull(currentQuizCard);
+        return currentQuizCard;
+    }
+
+    public List<String> getOpt() {
+        return currentQuizCard.getOpt();
+    }
+
+    public List<QuizCard> getOriginalQuizCardList() {
+        return originalQuizCardList;
+    }
+
+    public void setQuizDone() {
+        isQuizDone = true;
+    }
+
+    public boolean isQuizDone() {
+        return isQuizDone;
+    }
+
     public List<QuizCard> getGeneratedQuizCardList() {
         return generatedQuizCardList;
     }
@@ -121,20 +152,10 @@ public class Quiz {
 
         if (currentCardIndex < generatedCardSize) {
             currentQuizCard = generatedQuizCardList.get(currentCardIndex);
-            this.currOrignalQuizCardIndex = currentQuizCard.getIndex();
             return currentQuizCard;
         }
 
         throw new IndexOutOfBoundsException("No cards left.");
-    }
-
-    public String getCurrentProgress() {
-        return (currentCardIndex + 1) + "/" + generatedCardSize;
-    }
-
-    public QuizCard getCurrentQuizCard() {
-        requireNonNull(currentQuizCard);
-        return currentQuizCard;
     }
 
     /**
@@ -157,14 +178,6 @@ public class Quiz {
         return isCorrect;
     }
 
-    public int getQuizTotalAttempts() {
-        return quizTotalAttempts;
-    }
-
-    public int getQuizTotalCorrectQuestions() {
-        return quizTotalCorrectQuestions;
-    }
-
     /**
      * Toggles between if the card labeled difficult.
      * @param index of the card
@@ -175,17 +188,6 @@ public class Quiz {
         sessionCard.toggleIsCardDifficult();
 
         return sessionCard.isCardDifficult();
-    }
-
-    public List<String> getOpt() {
-        return currentQuizCard.getOpt();
-    }
-
-    /**
-     * Returns the current session.
-     */
-    public List<QuizCard> getOriginalQuizCardList() {
-        return originalQuizCardList;
     }
 
     /**
@@ -206,14 +208,6 @@ public class Quiz {
         }
 
         return session;
-    }
-
-    public void setQuizDone() {
-        isQuizDone = true;
-    }
-
-    public boolean isQuizDone() {
-        return isQuizDone;
     }
 
     @Override

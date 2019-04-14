@@ -4,14 +4,13 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static seedu.address.logic.commands.quiz.QuizAnswerCommand.MESSAGE_CORRECT;
+import static seedu.address.logic.commands.quiz.QuizCommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalSession.SESSION_DEFAULT_2;
 import static seedu.address.testutil.TypicalSession.SESSION_DEFAULT_2_ACTUAL;
 import static seedu.address.testutil.TypicalSession.SESSION_PREVIEW_2;
 import static seedu.address.testutil.TypicalSession.SESSION_PREVIEW_2_ACTUAL;
 import static seedu.address.testutil.TypicalSession.SESSION_REVIEW_2;
 import static seedu.address.testutil.TypicalSession.SESSION_REVIEW_2_ACTUAL;
-
-import java.util.List;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -32,7 +31,6 @@ public class QuizAnswerCommandTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
-    private List<QuizCard> validQuizCard;
     private Quiz quizActual;
     private Quiz quizExpected;
     private CommandHistory commandHistory = new CommandHistory();
@@ -78,8 +76,7 @@ public class QuizAnswerCommandTest {
         QuizCard card = expectedModel.getNextCard();
         card.isCorrect(answer);
 
-        QuizCommandTestUtil.assertCommandSuccess(quizAnswerCommand, actualModel, commandHistory,
-            "", expectedModel);
+        assertCommandSuccess(quizAnswerCommand, actualModel, commandHistory, "", expectedModel);
     }
 
     @Test
@@ -101,7 +98,7 @@ public class QuizAnswerCommandTest {
         expectedModel.getNextCard();
         expectedModel.getNextCard();
 
-        QuizCommandTestUtil.assertCommandSuccess(quizAnswerCommand, actualModel, commandHistory,
+        assertCommandSuccess(quizAnswerCommand, actualModel, commandHistory,
             "", expectedModel);
 
         // view result for preview quiz
@@ -109,15 +106,14 @@ public class QuizAnswerCommandTest {
 
         CommandResult commandResult = new CommandResult(QuizAnswerCommand.MESSAGE_SUCCESS, true, false, false);
 
-        QuizCommandTestUtil.assertCommandSuccess(quizAnswerCommand, actualModel, commandHistory,
+        assertCommandSuccess(quizAnswerCommand, actualModel, commandHistory,
             commandResult, expectedModel);
 
         // complete preview quiz
         expectedModel.setResultDisplay(false);
         expectedModel.end();
 
-        QuizCommandTestUtil.assertCommandSuccess(quizAnswerCommand, actualModel, commandHistory,
-            "", expectedModel);
+        assertCommandSuccess(quizAnswerCommand, actualModel, commandHistory, "", expectedModel);
     }
 
     @Test
@@ -142,8 +138,7 @@ public class QuizAnswerCommandTest {
         expectedModel.updateTotalAttemptsAndStreak(1, answer);
         expectedModel.getNextCard();
 
-        QuizCommandTestUtil.assertCommandSuccess(quizAnswerCommand, actualModel, commandHistory,
-            MESSAGE_CORRECT, expectedModel);
+        assertCommandSuccess(quizAnswerCommand, actualModel, commandHistory, MESSAGE_CORRECT, expectedModel);
     }
 
     @Test
@@ -171,22 +166,19 @@ public class QuizAnswerCommandTest {
         QuizCard card = expectedModel.getNextCard();
 
         String expectedMessage = MESSAGE_CORRECT;
-        QuizCommandTestUtil.assertCommandSuccess(quizAnswerCommand, actualModel, commandHistory,
-            expectedMessage, expectedModel);
+        assertCommandSuccess(quizAnswerCommand, actualModel, commandHistory, expectedMessage, expectedModel);
 
         // wrong
         quizAnswerCommand = new QuizAnswerCommand(wrongAns);
         expectedModel.updateTotalAttemptsAndStreak(1, wrongAns);
 
         expectedMessage = String.format(QuizAnswerCommand.MESSAGE_WRONG_ONCE, wrongAns);
-        QuizCommandTestUtil.assertCommandSuccess(quizAnswerCommand, actualModel, commandHistory,
-            expectedMessage, expectedModel);
+        assertCommandSuccess(quizAnswerCommand, actualModel, commandHistory, expectedMessage, expectedModel);
 
         // wrong twice
         expectedModel.updateTotalAttemptsAndStreak(1, wrongAns);
         expectedMessage = String.format(QuizAnswerCommand.MESSAGE_WRONG, wrongAns, card.getAnswer());
-        QuizCommandTestUtil.assertCommandSuccess(quizAnswerCommand, actualModel, commandHistory,
-            expectedMessage, expectedModel);
+        assertCommandSuccess(quizAnswerCommand, actualModel, commandHistory, expectedMessage, expectedModel);
 
         // view quiz result
         quizAnswerCommand = new QuizAnswerCommand("Japan");
@@ -199,14 +191,12 @@ public class QuizAnswerCommandTest {
 
         expectedMessage = MESSAGE_CORRECT + QuizAnswerCommand.MESSAGE_SUCCESS;
 
-        QuizCommandTestUtil.assertCommandSuccess(quizAnswerCommand, actualModel, commandHistory,
-            expectedMessage, expectedModel);
+        assertCommandSuccess(quizAnswerCommand, actualModel, commandHistory, expectedMessage, expectedModel);
 
         // complete the quiz
         expectedModel.setResultDisplay(false);
         expectedModel.end();
-        QuizCommandTestUtil.assertCommandSuccess(quizAnswerCommand, actualModel, commandHistory,
-            "", expectedModel);
+        assertCommandSuccess(quizAnswerCommand, actualModel, commandHistory, "", expectedModel);
 
     }
 
@@ -241,29 +231,24 @@ public class QuizAnswerCommandTest {
         expectedModel.updateTotalAttemptsAndStreak(1, wrongAns);
 
         String expectedMessage = String.format(QuizAnswerCommand.MESSAGE_WRONG_ONCE, wrongAns);
-        QuizCommandTestUtil.assertCommandSuccess(quizAnswerCommand, actualModel, commandHistory,
-            expectedMessage, expectedModel);
+        assertCommandSuccess(quizAnswerCommand, actualModel, commandHistory, expectedMessage, expectedModel);
 
         // wrong twice
         expectedModel.updateTotalAttemptsAndStreak(1, wrongAns);
         expectedMessage = String.format(QuizAnswerCommand.MESSAGE_WRONG, wrongAns, correctAns);
-        QuizCommandTestUtil.assertCommandSuccess(quizAnswerCommand, actualModel, commandHistory,
-            expectedMessage, expectedModel);
+        assertCommandSuccess(quizAnswerCommand, actualModel, commandHistory, expectedMessage, expectedModel);
 
         // correct
         expectedModel.updateTotalAttemptsAndStreak(1, correctAns);
         expectedModel.setResultDisplay(true);
         expectedMessage = MESSAGE_CORRECT + QuizAnswerCommand.MESSAGE_SUCCESS;
         quizAnswerCommand = new QuizAnswerCommand(correctAns);
-        QuizCommandTestUtil.assertCommandSuccess(quizAnswerCommand, actualModel, commandHistory,
-            expectedMessage, expectedModel);
+        assertCommandSuccess(quizAnswerCommand, actualModel, commandHistory, expectedMessage, expectedModel);
 
         // complete the quiz
         expectedModel.setResultDisplay(false);
         expectedModel.end();
-        QuizCommandTestUtil.assertCommandSuccess(quizAnswerCommand, actualModel, commandHistory,
-            "", expectedModel);
-
+        assertCommandSuccess(quizAnswerCommand, actualModel, commandHistory, "", expectedModel);
     }
 
     @Test

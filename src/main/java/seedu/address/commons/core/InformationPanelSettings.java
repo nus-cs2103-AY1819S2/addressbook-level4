@@ -62,9 +62,9 @@ public class InformationPanelSettings {
          * Returns true if a given string is a valid sort property.
          */
         public static boolean isValidSortProperty(String sortProperty) {
-            return sortProperty.toUpperCase().equals("BATCHNUMBER")
-                    || sortProperty.toUpperCase().equals("QUANTITY")
-                    || sortProperty.toUpperCase().equals("EXPIRY");
+            return sortProperty.equalsIgnoreCase(BATCHNUMBER.toString())
+                    || sortProperty.equalsIgnoreCase(QUANTITY.toString())
+                    || sortProperty.equalsIgnoreCase(EXPIRY.toString());
         }
 
         @Override
@@ -85,8 +85,8 @@ public class InformationPanelSettings {
          * Returns true if a given string is a valid sort direction.
          */
         public static boolean isValidSortDirection(String sortDirection) {
-            return sortDirection.toUpperCase().equals("ASCENDING")
-                    || sortDirection.toUpperCase().equals("DESCENDING");
+            return sortDirection.equalsIgnoreCase(ASCENDING.toString())
+                    || sortDirection.equalsIgnoreCase(DESCENDING.toString());
         }
 
         @Override

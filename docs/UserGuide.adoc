@@ -137,7 +137,11 @@ Format: `addfolder FOLDER_NAME`
 Examples:
 
 * `addfolder Nervous System` +
-Creates a folder with the name "Nervous System". You can then enter the folder with the `cd` command and begin adding cards.
+Creates a folder with the name "Nervous System". The UI should appear like the following after the command is executed.
+
+image:AnnotatedAddFolderUI.png[width=500]
+
+You can then enter the folder with the `cd` command and begin adding cards.
 
 ==== Remove folder : `deletefolder`
 

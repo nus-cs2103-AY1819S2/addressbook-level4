@@ -20,7 +20,7 @@ public class CheckLimitCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
         model.updateFilteredModulesTakenList(PREDICATE_SHOW_ALL_PERSONS);
-        ClassForPrinting s = model.checkLimit();
+        ClassForPrinting s = model.checkLimit(model.getModuleInfoList());
         model.setSelectedModuleTaken(s);
         model.setSelectedModuleTaken(s);
         return new CommandResult(MESSAGE_SUCCESS);

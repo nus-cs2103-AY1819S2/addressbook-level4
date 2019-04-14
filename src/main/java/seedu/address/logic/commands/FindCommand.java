@@ -103,6 +103,26 @@ public class FindCommand extends Command {
         }
 
         @Override
+        public String toString() {
+            String feedback = "";
+
+            if (subCode != null) {
+                feedback += "Code: " + subCode + " | ";
+            }
+            if (semester != null) {
+                feedback += "Semester: " + semester + " | ";
+            }
+            if (grade != null) {
+                feedback += "Grade: " + grade + " | ";
+            }
+            if (isFinished != null) {
+                feedback += "Finished: " + isFinished + " | ";
+            }
+
+            return feedback;
+        }
+
+        @Override
         public boolean equals(Object object) {
             if (object == this) {
                 return true;

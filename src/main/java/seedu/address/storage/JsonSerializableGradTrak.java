@@ -11,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.GradTrak;
 import seedu.address.model.ReadOnlyGradTrak;
-import seedu.address.model.SemLimit;
+import seedu.address.model.limits.SemesterLimit;
 import seedu.address.model.moduletaken.ModuleTaken;
 import seedu.address.model.moduletaken.Semester;
 
@@ -61,6 +61,8 @@ class JsonSerializableGradTrak {
      */
     public GradTrak toModelType() throws IllegalValueException {
         GradTrak gradTrak = new GradTrak();
+        gradTrak.setCurrentSemester(Semester.getSemesterByZeroIndex(currentSemesterIndex));
+        gradTrak.setModulesTaken(new ArrayList<>());
         for (JsonAdaptedModuleTaken jsonAdaptedModuleTaken : modulesTaken) {
             ModuleTaken moduleTaken = jsonAdaptedModuleTaken.toModelType();
             if (gradTrak.hasModuleTaken(moduleTaken)) {
@@ -68,12 +70,12 @@ class JsonSerializableGradTrak {
             }
             gradTrak.addModuleTaken(moduleTaken);
         }
+        List<SemesterLimit> semList = new ArrayList<>();
         for (JsonAdaptedSemesterLimits jsonAdaptedSemesterLimits : semesterLimitList) {
-            SemLimit semLimit = jsonAdaptedSemesterLimits.toModelType();
-            gradTrak.addSemesterLimit(semLimit);
+            semList.add(jsonAdaptedSemesterLimits.toModelType());
         }
-        gradTrak.setCurrentSemester(Semester.getSemesterByZeroIndex(currentSemesterIndex));
-        return gradTrak;
+        gradTrak.setSemesterLimits(semList);
+        return new GradTrak(gradTrak);
     }
 
 }

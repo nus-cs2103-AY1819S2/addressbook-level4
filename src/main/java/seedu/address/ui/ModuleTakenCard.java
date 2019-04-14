@@ -10,9 +10,9 @@ import seedu.address.model.moduletaken.ModuleTaken;
 /**
  * An UI component that displays information of a {@code ModuleTaken}.
  */
-public class PersonCard extends UiPart<Region> {
+public class ModuleTakenCard extends UiPart<Region> {
 
-    private static final String FXML = "PersonListCard.fxml";
+    private static final String FXML = "ModuleTakenListCard.fxml";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -39,7 +39,7 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private FlowPane tags;
 
-    public PersonCard(ModuleTaken moduleTaken, int displayedIndex) {
+    public ModuleTakenCard(ModuleTaken moduleTaken, int displayedIndex) {
         super(FXML);
         this.moduleTaken = moduleTaken;
         id.setText(displayedIndex + ". ");
@@ -58,12 +58,12 @@ public class PersonCard extends UiPart<Region> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof PersonCard)) {
+        if (!(other instanceof ModuleTakenCard)) {
             return false;
         }
 
         // state check
-        PersonCard card = (PersonCard) other;
+        ModuleTakenCard card = (ModuleTakenCard) other;
         return id.getText().equals(card.id.getText())
                 && moduleTaken.equals(card.moduleTaken);
     }

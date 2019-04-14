@@ -21,7 +21,7 @@ public class SetCurrentSemesterCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Sets the current semester of the "
             + "user while ensuring all the grades have been finalized in the previous semesters.\n"
             + "Parameters: SEMESTER \n "
-            + "Example: " + COMMAND_WORD + " Y3S3 ";
+            + "Example: " + COMMAND_WORD + " Y3S2 ";
 
     public static final String MESSAGE_EDIT_LIMIT_SUCCESS = "Edited Semester: %1$s";
 

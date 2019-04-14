@@ -12,7 +12,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import java.util.Set;
 
 import seedu.address.logic.commands.AddCommand;
-import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
+import seedu.address.logic.commands.EditCommand.EditModuleTakenDescriptor;
 import seedu.address.logic.commands.FindCommand.FindModuleDescriptor;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.model.moduletaken.ModuleTaken;
@@ -46,9 +46,9 @@ public class PersonUtil {
     }
 
     /**
-     * Returns the part of command string for the given {@code EditPersonDescriptor}'s details.
+     * Returns the part of command string for the given {@code EditModuleTakenDescriptor}'s details.
      */
-    public static String getEditPersonDescriptorDetails(EditPersonDescriptor descriptor) {
+    public static String getEditPersonDescriptorDetails(EditModuleTakenDescriptor descriptor) {
         StringBuilder sb = new StringBuilder();
         descriptor.getModuleInfoCode().ifPresent(infoCode ->
                 sb.append(PREFIX_MODULE_INFO_CODE).append(infoCode.toString()).append(" "));

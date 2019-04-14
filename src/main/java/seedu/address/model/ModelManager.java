@@ -24,6 +24,8 @@ import seedu.address.model.course.CourseList;
 import seedu.address.model.course.CourseName;
 import seedu.address.model.course.RequirementStatus;
 import seedu.address.model.course.RequirementStatusList;
+import seedu.address.model.limits.LimitChecker;
+import seedu.address.model.limits.SemesterLimit;
 import seedu.address.model.moduleinfo.CodeContainsKeywordsPredicate;
 
 import seedu.address.model.moduleinfo.ModuleInfo;
@@ -52,6 +54,7 @@ public class ModelManager implements Model {
     //Model Information List for Model Manager to have Module Info List and list to be printed for displaymod
     private final ObservableList<ModuleInfo> allModules;
     private final FilteredList<ModuleInfo> displayList;
+    private final ModuleInfoList moduleInfoList;
     private final SimpleObjectProperty<ModuleInfo> selectedModuleInfo = new SimpleObjectProperty<>();
 
     private final ObservableList<Course> allCourses;
@@ -82,6 +85,7 @@ public class ModelManager implements Model {
         //Get an non Modifiable List of all modules and use a filtered list based on that to search for modules
         this.allModules = moduleInfoList.getObservableList();
         this.displayList = new FilteredList<>(this.allModules);
+        this.moduleInfoList = moduleInfoList;
         updateDisplayList(new CodeContainsKeywordsPredicate(null));
 
         // Initialise list of RecModule
@@ -98,11 +102,11 @@ public class ModelManager implements Model {
         //for now default course will be Computer Science Algorithms
         this.course = userInfo.getCourse();
         this.requirementStatusList = new RequirementStatusList();
-        requirementStatusList.updateCourseRequirements(course,
+        requirementStatusList.updateRequirementStatus(course,
                 versionedGradTrak.getModulesTakenList()
                         .stream()
                         .map(ModuleTaken::getModuleInfoCode)
-                        .collect(Collectors.toList()), allModules);
+                        .collect(Collectors.toList()));
     }
 
     public ModelManager() {
@@ -114,7 +118,7 @@ public class ModelManager implements Model {
     public void setCourse(CourseName courseName) {
         requireNonNull(courseName);
         course = courseList.getCourse(courseName);
-        requirementStatusList.updateCourseRequirements(course, getModuleInfoCodeList(), allModules);
+        requirementStatusList.updateRequirementStatus(course, getModuleInfoCodeList());
         userInfo.setCourse(course);
     }
 
@@ -207,9 +211,9 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void setSemesterLimit(int index, SemLimit editedSemLimit) {
-        requireAllNonNull(index, editedSemLimit);
-        versionedGradTrak.setSemesterLimit(index, editedSemLimit);
+    public void setSemesterLimit(int index, SemesterLimit editedSemesterLimit) {
+        requireAllNonNull(index, editedSemesterLimit);
+        versionedGradTrak.setSemesterLimit(index, editedSemesterLimit);
     }
 
     @Override
@@ -230,11 +234,11 @@ public class ModelManager implements Model {
     }
 
     /**
-     * Returns an unmodifiable view of the list of {@code SemLimit} backed by the internal list of
+     * Returns an unmodifiable view of the list of {@code SemesterLimit} backed by the internal list of
      * {@code versionedAddressBook}
      */
     @Override
-    public ObservableList<SemLimit> getSemLimitList() {
+    public ObservableList<SemesterLimit> getSemesterLimitList() {
         return versionedGradTrak.getSemesterLimitList();
     }
 
@@ -249,8 +253,9 @@ public class ModelManager implements Model {
      * that shows where their CAP and workload limits are violated.
      */
     @Override
-    public ClassForPrinting checkLimit() {
-        return new LimitChecker(getCurrentSemester(), getSemLimitList(), getFilteredModulesTakenList());
+    public ClassForPrinting checkLimit(ModuleInfoList moduleInfoList) {
+        return new LimitChecker(getCurrentSemester(), getSemesterLimitList(),
+                getFilteredModulesTakenList(), moduleInfoList);
     }
 
     //=========== Undo/Redo =================================================================================
@@ -320,6 +325,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public ModuleInfoList getModuleInfoList() {
+        return moduleInfoList;
+    }
+
+    @Override
     public ModuleInfo getSelectedModuleInfo() {
         return selectedModuleInfo.getValue();
     }
@@ -354,7 +364,7 @@ public class ModelManager implements Model {
     private static ObservableList<RecModule> getObservableRecModuleList(ObservableList<ModuleInfo> moduleInfoList) {
         ArrayList<RecModule> recModuleList = new ArrayList<>();
         for (ModuleInfo moduleInfo : moduleInfoList) {
-            recModuleList.add(new RecModule(moduleInfo.getModuleInfoCode(), moduleInfo.getModuleInfoTitle()));
+            recModuleList.add(new RecModule(moduleInfo));
         }
 
         return FXCollections.observableArrayList(recModuleList);
@@ -393,12 +403,19 @@ public class ModelManager implements Model {
     //=========== Display completed requirement =======================================================================
     @Override
     public ObservableList<RequirementStatus> getRequirementStatusList() {
-        requirementStatusList.updateModuleInfoCodes(
+        updateRequirementStatusList();
+        return this.requirementStatusList.getRequirementStatusList();
+    }
+
+    /**
+     * Updates the requirement status in requirement status list with the latest module taken information
+     */
+    public void updateRequirementStatusList() {
+        requirementStatusList.updateRequirementStatus(
                 versionedGradTrak.getModulesTakenList()
                         .stream()
                         .map(ModuleTaken::getModuleInfoCode)
                         .collect(Collectors.toList()));
-        return this.requirementStatusList.getRequirementStatusList();
     }
 
     @Override

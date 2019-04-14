@@ -15,7 +15,7 @@ import seedu.address.model.recmodule.RecModule;
  */
 public class DisplayRecModuleList extends UiPart<Region> {
     private static final String FXML = "DisplayRecModuleList.fxml";
-    private final Logger logger = LogsCenter.getLogger(PersonListPanel.class);
+    private final Logger logger = LogsCenter.getLogger(ModuleTakenListPanel.class);
 
     @FXML
     private ListView<RecModule> recModuleListView;

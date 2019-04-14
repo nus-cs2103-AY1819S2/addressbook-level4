@@ -59,11 +59,11 @@ public interface CourseRequirement {
 
     /**
      * Returns a composite CourseRequirement whose boolean methods returns
-     * first.booleanMethod() && second.booleanMethod()
-     * for instance: first.And(second).canFulfill(moduleInfo)
-     * returns the same value as first.canFulfill(moduleInfo) && second.canFulfill(moduleInfo)
+     * this.booleanMethod() && other.booleanMethod()
+     * for instance: this.and(other).canFulfill(moduleInfo)
+     * returns the same value as this.canFulfill(moduleInfo) && other.canFulfill(moduleInfo).
      * @param other CourseRequirement to combine
-     * @return new CourseRequirement whose boolean method returns first.booleanMethod() && second.booleanMethod()
+     * @return new CourseRequirement whose boolean method returns this.booleanMethod() && other.booleanMethod()
      */
     CourseRequirement and(CourseRequirement other);
 

@@ -9,7 +9,7 @@ import seedu.address.model.course.Condition;
  */
 public class ConditionBuilder {
 
-    public static final int DEFAULT_MIN_TO_SATISFY = 5;
+    public static final int DEFAULT_MIN_TO_SATISFY = 1;
     public static final Pattern DEFAULT_PATTERN = Pattern.compile("GEH1[0-9]{3}[A-Z]?");
     private int minToSatisfy;
     private Pattern pattern;

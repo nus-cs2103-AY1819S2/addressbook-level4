@@ -133,21 +133,6 @@ public class SaveCommandTest {
                 + "Current Game : 0.0", commandResult.getFeedbackToUser());
     }
 
-    public class JsonObject {
-        private int hitCount = 0;
-        private int missCount = 0;
-        private int movesMade = 0;
-        private int enemyShipsDestroyed = 0;
-        private int attackCount = 0;
-
-        JsonObject(int hit, int miss, int moves, int ships, int attack) {
-            this.hitCount = hit;
-            this.missCount = miss;
-            this.movesMade = moves;
-            this.enemyShipsDestroyed = ships;
-            this.attackCount = attack;
-        }
-    }
 }
 
 

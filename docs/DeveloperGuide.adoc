@@ -399,11 +399,11 @@ The `open` function is facilitated by `Album` and `CurrentEdit`. It uses the fol
 
 The following sequence diagram shows how `open` works:
 
-
+[[sequencediagram_open]]
 .Sequence Diagram for Open Command +
 image::OpenCommandSequenceDiagram.png[width=800]
 
-Given below is an example usage scenario of how `open` behaves at each step as shown in _Figure 11_.
+Given below is an example usage scenario of how `open` behaves at each step as shown in <<sequencediagram_open>>.
 
 Step 1. The user executes `open sample.png`.
 
@@ -449,11 +449,11 @@ The `listfiles` function is facilitated by `Album`. It uses the following operat
 
 The following sequence diagram shows how `listfiles` works:
 
-
+[[sequencediagram_listfiles]]
 .Sequence Diagram for ListFiles +
 image::ListFilesCommandSequenceDiagram.png[width=800]
 
-Given below is an example usage scenario of how `listfiles` behaves at each step as shown in _Figure 11_.
+Given below is an example usage scenario of how `listfiles` behaves at each step as shown in <<sequencediagram_listfiles>>.
 
 Step 1. The user executes `listfiles`.
 
@@ -726,10 +726,11 @@ The `save` function is facilitated by `Album` and `CurrentEdit`. It uses the fol
 
 The following sequence diagram shows how `save` works:
 
-.Sequence Diagram for Save Command +
+[[sequencediagram_save]]
+.Sequence Diagram for Save Command
 image::SaveCommandSequenceDiagram.png[width=800]
 
-Given below is an example usage scenario of how `save` behaves at each step as shown in _Figure 19_.
+Given below is an example usage scenario of how `save` behaves at each step as shown in <<sequencediagram_save>>.
 
 Step 1. The user executes `save`.
 

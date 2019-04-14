@@ -204,10 +204,6 @@ public class CurrentEditManager implements CurrentEdit {
         return tempImage.getCommand();
     }
 
-    public List<Command> getSubHistoryTemp() {
-        return tempImage.getSubHistory();
-    }
-
     /* @@author itszp */
     /**
      * Creates originalImage instance of {@code image} located in temp_folder.

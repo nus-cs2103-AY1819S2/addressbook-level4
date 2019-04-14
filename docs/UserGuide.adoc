@@ -101,48 +101,69 @@ Adds the module CS2103T, to be taken in the first semester of year 1, to the mod
 * `add c/CS2103T s/Y2S2 max/B_MINUS` +
 Adds the module CS2103T, to be taken in the second semester of year 2 with expected max grade B-, to the module plan.
 
+****
+* This command is undoable and redoable
+****
+
 // tag::CheckLimit[]
 === Check CAP limits: `cklimit`
 
 To find out if their current plans are suitable in maintaining their CAP for each semester, users would like to: +
 
-* know what their current CAP is.
-* be able to estimate their minimum and maximum projected CAP based on their estimated grade range for each module
-* know if any semesters have modules that have too many difficult modules that would pull down their cap unexpectedly, or too many easy modules that could be distributed to other semesters to maintain and more steady and predictable CAP for all semesters.
+* Know what their current CAP is.
+* Be able to estimate their minimum and maximum projected CAP based on their estimated grade range for each module
+* Find out if any semester has too many difficult modules that would pull down their CAP unexpectedly, or too many easy modules that could be distributed to other semesters to maintain a more steady and predictable CAP for all semesters.
 
 GradTrak is able to consolidate all the information about the modules they plan to take and the limit preferences they have for each semester. This allows the user to run a CAP analysis on their current module plan and generate the results to be printed all in one page on their screen.
 
-The cklimit command calculates the expected minimum and maximum CAP of each semester and checks them against the limit preferences set by the user. +
+[NOTE]
+The `edit` command allows users indicate their expected minimum and maximum grades for each module they plan to take.
+
+[NOTE]
+The `setlimit` command allows users indicate their CAP preferences for each semester.
+
+The `cklimit` command calculates the expected minimum and maximum CAP of each semester and checks them against the limit preferences set by the user. +
 Format: `cklimit`
 
 The image below shows the display after using the `cklimit` command
 
+.Results of `cklimit` is displayed
 image::CheckLimitDisplay.png[width="1000"]
-Figure 2000000000000000000000. Results of `cklimit` is displayed
 
-[NOTE]
-This command also analyzes and prints workload information.
+
+****
+* This command also analyzes and prints workload information.
+* This command is undoable
+****
 
 === Check workload limits: `cklimit`
 
 To find out if their current plans are optimized in workload distribution, users would like to: +
 
-* know how many hours of workload their current module plan has for each semester in total.
-* find out if any semester is too heavy or light on any type of workload that could suggest a reallocation of modules to redistribute the workload across all semesters.
+* Know what is the total number of workload hours for each semester in their current module plan.
+* Find out if any semester is too heavy or light on any type of workload that could suggest a reallocation of modules to redistribute the workload across all semesters.
 
 GradTrak is able to consolidate all the information about the modules they plan to take and what limit preferences they have for each semester. This allows the user to run a workload analysis on their current module plan and generate the results to be printed all in one page on their screen.
 
-The cklimit command calculates the total expected weekly workload of each semester and checks against the limit preferences set by the user. +
-Format: `cklimit` +
-
-The image below shows the display after using the `cklimit` command and scrolling down the result page to the workload information:
-
-image::CheckLimitScrolledDownDisplay.png[width="1000"]
-Figure 2000000000000000000001. Results of `cklimit` is displayed after scrolling down the result page
+[NOTE]
+The `edit` command allows users indicate their expected workloads for each module they plan to take.
 
 [NOTE]
-This command also analyzes and prints CAP information
+The `setlimit` command allows users indicate their workload preferences for each semester.
+
+The `cklimit` command calculates the total expected weekly workload of each semester and checks against the limit preferences set by the user. +
+Format: `cklimit` +
+
+The image below shows the display after using the `cklimit` command and scrolling down the result page to the section on workload information:
+
+.Results of `cklimit` is displayed after scrolling down the result page
+image::CheckLimitScrolledDownDisplay.png[width="1000"]
+
+****
+* This command also analyzes and prints CAP information
+****
 // end::CheckLimit[]
+
 
 === Clear all data entered: `clear`
 
@@ -151,14 +172,21 @@ Format: `clear`
 
 // tag::SetCurrentSemester[]
 === Set the current semester: `cursem`
+GradTrak keeps track of the current semester of the user and considers all modules taken before the current semester to be completed.
+All completed modules must have a finalized grade and will be included in the calculation of the current CAP during the `cklimit` command.
 
-Indicates that the previous semesters are completed and can be included in the current CAP computation. +
+After the user receives the results of the modules they took in the latest semester, they can confirm the grades attained in that semester and update GradTrak with their final grades.
+They can then inform GradTrak of their current semester to indicate completion of all modules in the previous semesters, so that the calculation of their current CAP will be updated as well.
+
+The `cursem` command updates GradTrak with the current semester. +
 Format: `cursem SEMESTER`
 
-Constraints for the command input:
-
+****
 * The given semester must be a valid semester from year 1 to 5, in either the first or second semester, or GRAD if the user has completed all semesters.
 * All modules taken in the previous semesters must have a finalized grade. The minimum expected grade and maximum expected grade must be the same.
+****
+
+Examples:
 
 * `cursem Y3S2` +
 Sets the current semester to the second semester of year 3.
@@ -166,6 +194,10 @@ Sets the current semester to the second semester of year 3.
 * `cursem GRAD` +
 Sets the current semester to the graduated semester.
 // end::SetCurrentSemester[]
+
+****
+* This command is undoable and redoable
+****
 
 === Delete module: `delete`
 
@@ -176,6 +208,7 @@ or +
 
 ****
 * Shows a message if the given module code is not found.
+* This command is undoable and redoable
 ****
 
 Examples:
@@ -316,6 +349,10 @@ Examples:
 * `edit 2 min/A_PLUS` +
 Changes the expected min grade of the second module in the most recently displayed list to A+.
 
+****
+* This command is undoable and redoable
+****
+
 === Exit the program: `exit`
 
 Exits the program. +
@@ -440,25 +477,32 @@ More courses will be rolled out in GradTrak in its future iteration.
 // tag::SetSemesterLimit[]
 === Set the CAP limit: `setlimit`
 
-Some students have a desired CAP for graduation. They may like to plan modules to take that ensures that their cap remains at a suitable range at all times. This helps to ensure that they can easily apply for programs with minimum CAP requirements such as the Student Exchange Program, or NUS Overseas Challenge, or maintain the CAP requirement of their scholarship for each semester.
+Some students have a desired CAP for graduation. They may like to plan their modules such that it helps them to keep their CAP at a suitable range at all times. This helps to ensure that they can easily apply for programs with minimum CAP requirements such as the Student Exchange Program, or NUS Overseas Challenge, or maintain the CAP requirement of their scholarship for each semester.
 
 GradTrak can keep track of their CAP limit preferences so that it is possible to help them detect whether their current module plan fulfils their preferences.
 
+[NOTE]
+The `cklimit` command allows the user to check their limit preferences agains their current module plan.
+
 The `setlimit` command allows you to set the minimum and maximum preferred CAP for a semester. +
-Format: `setlimit s/SEMESTER [mincap/MIN_CAP] [maxcap/MAX_CAP]`
+Format: `setlimit SEMESTER [mincap/MIN_CAP] [maxcap/MAX_CAP]`
 
-Constraints for the command input:
-
+****
+* Parameters can be in any order, but the semester must be entered first.
+* At least one field to be edited must be given.
 * Given semester must be a valid semester from year 1 to 5, in either the first or second semester.
 * Newly edited limits must be not be out of order. Minimum CAP must not be more than maximum CAP
+****
 
 Examples:
 
 * `setlimit s/Y1S1 mincap/2.52 maxcap/5` +
 This sets the minimum CAP acceptable to 2.52 and maximum CAP acceptable to 5.00 for the first semester in year 1.
 
-[NOTE]
-This command also able to set workload limits for each semester.
+****
+* This command also able to set workload limits for each semester.
+* This command is undoable and redoable
+****
 
 === Set the workload limit: `setlimit`
 
@@ -467,10 +511,11 @@ Some students who do not have a strong programming background may be slightly un
 GradTrak can keep track of their workload limit preferences for each semester so that it is possible to help them detect whether their current module plan fulfils their preferences. Various types of workload limits  such as total number of weekly lecture hours, tutorial hours, lab hours, project hours, and preparation hours can be tracked.
 
 The `setlimit` command allows you to set the minimum and maximum total weekly workload limits for a semester. +
-Format: `setlimit s/SEMESTER [minlec/MIN_LECTURE_HOURS] [maxlec/MAX_LECTURE_HOURS] [mintut/MIN_TUTORIAL_HOURS] [maxtut/MAX_TUTORIAL_HOURS] [minlab/MIN_LAB_HOURS] [maxlab/MAX_LAB_HOURS] [minproj/MIN_PROJ_HOURS] [maxproj/MAX_PROJ_HOURS] [minprep/MIN_PREP_HOURS] [maxprep/MAX_PREP_HOURS]`
+Format: `setlimit SEMESTER [minlec/MIN_LECTURE_HOURS] [maxlec/MAX_LECTURE_HOURS] [mintut/MIN_TUTORIAL_HOURS] [maxtut/MAX_TUTORIAL_HOURS] [minlab/MIN_LAB_HOURS] [maxlab/MAX_LAB_HOURS] [minproj/MIN_PROJ_HOURS] [maxproj/MAX_PROJ_HOURS] [minprep/MIN_PREP_HOURS] [maxprep/MAX_PREP_HOURS]`
 
-Constraints for the command input:
-
+****
+* Parameters can be in any order, but the semester must be entered first.
+* At least one field to be edited must be given.
 * Semester set must be a valid semester from year 1 to 5, in either the first or second semester.
 * Newly edited limits must be not be out of order such that the following requirements are met:
 ** Minimum lecture hours must not be more than the maximum lecture hours
@@ -478,14 +523,18 @@ Constraints for the command input:
 ** Minimum lab hours must not be more than the maximum lab hours
 ** Minimum project hours must not be more than the maximum project hours
 ** Minimum preparation hours must not be more than the maximum preparation hours
+****
 
 Examples:
 
 * `setlimit s/Y1S2 minlec/2.5 maxproj/3 maxprep/12` +
 This sets the minimum number of weekly lecture hours acceptable to 2.5 and maximum number of weekly project hours acceptable to 3 for the second semester in year 1.
 
-[NOTE]
-This command also able to set CAP limits for each semester.
+****
+* This command also able to set CAP limits for each semester.
+* This command is undoable and redoable
+****
+
 // end::SetSemesterLimit[]
 
 === Undo previous command: `undo`
@@ -535,21 +584,14 @@ Retrieves the latest information of all modules from CORS.
 
 == Command Summary
 
-
-* *Add*: `add c/MODULE_CODE s/SEMESTER [g/MIN_GRADE_EXPECTED MAX_GRADE_EXPECTED]` +
-          or +
-          `add c/MODULE_CODE s/SEMESTER [g/GRADE_OBTAINED]` +
+* *Add*: `add c/MODULE_CODE s/SEMESTER
 * *Cklimit*: `cklimit`
 * *Clear*: `clear`
 * *Cursem*: `cursem s/SEMESTER`
-* *Delete*: `delete c/MODULE_CODE` +
-or +
-`delete INDEX` +
-* *Displaymod*: `displaym o/OPTIONS [MORE_ARGUMENTS]` +
+* *Delete*: `delete INDEX` +
+* *Displaymod*: `displaym o/OPTIONS [MORE_ARGUMENTS]`
 * *Displayreq*: `displayreq`
-* *Edit*: `edit c/MODULE_CODE [s/NEW_SEMESTER] [g/NEW_GRADE_OBTAINED]` +
-or +
-`edit INDEX [s/NEW_SEMESTER] [g/NEW_GRADE_OBTAINED]` +
+* *Edit*: `edit INDEX [s/NEW_SEMESTER]
 * *Exit*: `exit`
 * *Find*: `find [c/MODULE_CODE] [s/SEMESTER] [g/GRADE] [f/IS_FINISHED]`
 * *Help*: `help`
@@ -558,5 +600,5 @@ or +
 * *Recommend*: `rec`
 * *Redo*: `redo`
 * *Set*: `study COURSE` +
-* *Setlimit*: `setlimit s/SEMESTER [g/MIN_GRADE MAX_GRADE] [lec/MIN_LECTURE_HOURS MAX_LECTURE_HOURS] [tut/MIN_TUTORIAL_HOURS MAX_TUTORIAL_HOURS] [lab/MIN_LAB_HOURS MAX_LAB_HOURS] [proj/MIN_PROJ_HOURS MAX_PROJ_HOURS] [prep/MIN_PREP_HOURS MAX_PREP_HOURS]`
+* *Setlimit*: `setlimit SEMESTER [mincap/MIN_CAP] [maxcap/MAX_CAP] [minprep/MIN_PREP_HOURS] [maxprep/MAX_PREP_HOURS]`
 * *Undo*: `undo`

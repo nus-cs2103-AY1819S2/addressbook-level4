@@ -35,7 +35,7 @@ public class MainWindow extends UiPart<Stage> {
 
     private Stage primaryStage;
     private Logic logic;
-    private String currScene;
+    private boolean isAllJobScreen;
 
     // Independent Ui parts residing in this Ui container
     private PersonListPanel allApplicantsListPanel;
@@ -191,7 +191,7 @@ public class MainWindow extends UiPart<Stage> {
      */
 
     private void switchToAllJobsScene() throws IOException {
-        currScene = "allJobs";
+        isAllJobScreen = true;
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/displayAllScene.fxml"));
         loader.setController(this);
         primaryStage.setScene(loader.load());
@@ -202,7 +202,7 @@ public class MainWindow extends UiPart<Stage> {
      */
 
     private void switchToDisplayJobScene() throws IOException {
-        currScene = "displayJobs";
+        isAllJobScreen = false;
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/displayJobScene.fxml"));
         loader.setController(this);
         primaryStage.setScene(loader.load());
@@ -314,7 +314,8 @@ public class MainWindow extends UiPart<Stage> {
      */
     private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
         try {
-            CommandResult commandResult = logic.execute(commandText);
+
+            CommandResult commandResult = logic.execute(commandText, isAllJobScreen);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 

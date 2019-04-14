@@ -120,8 +120,10 @@ This section describes all the commands available in FomoFoto and includes examp
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `import FILEPATH`, `FILEPATH` is a parameter which can be used as `import desktop/photoalbum/image1`.
-* Items in square brackets are optional e.g `brightness [BRIGHTNESS_RATIO]` can be used as `brightness or as `brightness 0.9`.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user. +
+e.g. For `import FILEPATH`, `FILEPATH` is a parameter which can be used as `import desktop/photoalbum/image1`.
+* Items in square brackets are optional. +
+e.g `brightness [BRIGHTNESS_RATIO]` can be used as `brightness` or `brightness 0.9`.
 
 ====
 
@@ -242,12 +244,12 @@ Additionally, images must also adhere to the following additional requirements:
 // tag::ListAndOpen[]
 === List Files: `listfiles`
 
-Lists all files in assets folder. +
+Lists all the names of the files in the album. +
 Format: `listfiles`
 
 === Open an image : `open`
 
-Opens an image inside assets folder for editing. +
+Opens an image from the album for editing. +
 Format: `open FILENAME`
 
 Example:
@@ -306,12 +308,28 @@ Example:
 // tag::UserSave[]
 === Save image : `save`
 
-Applies and saves your edits. +
-Format: `save` or `save FILENAME`
+
+Applies your edits and saves the image. +
+Format: `save [FILENAME]`
 
 Example:
 
-* `save MyNewImage.png`
+* `save`
+* `save newname.jpg`
+
+[NOTE]
+====
+For a file name to be valid, it must end with either of the following: `.jpg`, `.png`, `.gif`, `.bmp`, `.jpeg`, `.tif` or `tiff`.
+====
+
+.Invalid Save Name
+image::ug_invalidsave.PNG[width="800"]
+
+.Valid Save Name
+image::ug_validsave.PNG[width="800"]
+
+_Figure 10_ shows an example of how FomoFoto does not allow saving with invalid names. Ensure that your file name is valid before saving. There should be a message to indicate that the save is successful as seen in _Figure 11_. To overwrite the original image, simply use `save` without the file name.
+
 // end::UserSave[]
 
 // tag::Tab[]
@@ -430,7 +448,7 @@ e.g. `rotate 270` +
 * *Resize* `resize WIDTH HEIGHT` +
 e.g. `resize 100 200` +
 
-* *Save* `save` or `save FILENAME` +
+* *Save* `save [FILENAME]` +
 e.g. `save MyNewImage.png` +
 
 * *Tab* `tab` +

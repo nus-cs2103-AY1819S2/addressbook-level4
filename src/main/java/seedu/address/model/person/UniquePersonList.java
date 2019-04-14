@@ -6,7 +6,6 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
-import java.util.function.Predicate;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -114,13 +113,13 @@ public class UniquePersonList implements Iterable<Person> {
     /**
      * Sorts the Member's list based on a given predicate.
      */
-    public void sortList(Predicate<String> predicate) {
-        requireNonNull(predicate);
+    public void sortList(String input) {
+        requireNonNull(input);
 
         FXCollections.sort(internalList, new Comparator <Person> () {
             @Override
             public int compare(Person o1, Person o2) {
-                String sortCriteria = predicate.toString().toLowerCase();
+                String sortCriteria = input.toString().toLowerCase();
                 Pair<String, String> test = getCriteria(sortCriteria, o1, o2);
                 int result = 1;
                 result = test.getKey().compareTo(test.getValue());

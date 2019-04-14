@@ -14,7 +14,7 @@ students. +
 
 Initially we were given a base code https://github.com/nus-cs2103-AY1819S2/addressbook-level4[Address Book - Level 4] which
 we had the choice of either morphing into something entirely different or enhance the current code. My team and I decided to
-challenge ourselves and decided to morph it into https://github.com/cs2103-ay1819s2-w14-4/main[GradTrak]. +
+challenge ourselves and morph it into https://github.com/cs2103-ay1819s2-w14-4/main[GradTrak]. +
 
 My team and I had to complete the application within 6 weeks. The final products came out as intended with minor hiccups
 or problems.
@@ -41,6 +41,8 @@ that fit the prerequisite tree.
 
 * *Code Contributed* : [https://github.com/cs2103-ay1819s2-w14-4/main/tree/master/src/main/java/seedu/address/model/moduleinfo[functional code]] [https://github.com[Test code]]
 
+* *Code Contributions on Dashboard* : https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#=undefined&search=anand270294[Contributions]
+
 * *Other Contributions*:
 ** Project Management:
 *** Set up Issue Tracker
@@ -62,7 +64,7 @@ that fit the prerequisite tree.
 
 |===
 |_Given below are sections I contributed to the User Guide which will show my ability to write to end-users who have no prior knowledge
-to programming. This section of the guide does not delve into the technical aspects of this application, only showing instructions on how
+on programming. This section of the guide does not delve into the technical aspects of this application, only showing instructions on how
 to navigate through GradTrak.
 This sections shows how users can search for modules available in NUS currently and the limitations of this feature._
 |===
@@ -73,10 +75,10 @@ include::../UserGuide.adoc[tag=Displaymod]
 == Contributions to the Developer Guide
 
 |===
-|_Given below are sections I contributed to the Developer Guide, which is showcase my ability to write technical documentations.
+|Given below are sections I contributed to the Developer Guide, which is showcase my ability to write technical documentations.
 This section will contain information on how the `ModuleInfo` class is implemented and how the custom data structure `ModuleTree`
 has be designed to aid with displaying relevant information for students. This documentation will allow readers to understand the
-backend of this application and potentially aid them in improving this product or even morphing it again. _
+backend of this application and potentially aid them in improving this product or even morphing it again.
 |===
 
 include::../DeveloperGuide.adoc[tag=storage]

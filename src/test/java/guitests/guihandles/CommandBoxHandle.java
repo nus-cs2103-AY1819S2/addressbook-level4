@@ -34,6 +34,20 @@ public class CommandBoxHandle extends NodeHandle<TextField> {
     }
 
     /**
+     * Enters the given command in the Command Box followed by the {@code keyEvent} and presses enter.
+     */
+    public void run(String command, KeyCode keyEvent) {
+        click();
+        guiRobot.interact(() -> getRootNode().setText(command));
+        guiRobot.pauseForHuman();
+
+        guiRobot.type(keyEvent);
+        guiRobot.pauseForHuman();
+
+        guiRobot.type(KeyCode.ENTER);
+    }
+
+    /**
      * Returns the list of style classes present in the command box.
      */
     public ObservableList<String> getStyleClass() {

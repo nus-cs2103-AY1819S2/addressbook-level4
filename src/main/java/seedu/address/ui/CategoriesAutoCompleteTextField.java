@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 import javafx.fxml.FXML;
@@ -11,6 +12,7 @@ import javafx.geometry.Side;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.Prefix;
 import seedu.address.model.restaurant.categories.Categories;
@@ -19,6 +21,8 @@ import seedu.address.model.restaurant.categories.Categories;
  * A custom text field component that supports autocomplete for categories.
  */
 public class CategoriesAutoCompleteTextField extends TextField {
+
+    private final Logger logger = LogsCenter.getLogger(getClass());
 
     @FXML
     private ContextMenu suggestions;
@@ -33,6 +37,7 @@ public class CategoriesAutoCompleteTextField extends TextField {
      * Hides the autocomplete context menu.
      */
     public void hideAutoComplete() {
+        logger.fine("hiding autocomplete suggestions");
         suggestions.hide();
     }
 
@@ -49,10 +54,11 @@ public class CategoriesAutoCompleteTextField extends TextField {
             List<MenuItem> menuItemsToBeAdded = convertSuggestionsToMenuItems(retrievedSuggestions);
             suggestions.getItems().clear();
             suggestions.getItems().addAll(menuItemsToBeAdded);
+            logger.fine("showing autocomplete suggestions");
             suggestions.show(CategoriesAutoCompleteTextField.this, Side.BOTTOM,
                     current.getInputMethodRequests().getTextLocation(0).getX(), 0);
         } else {
-            suggestions.hide();
+            hideAutoComplete();
         }
     }
 
@@ -61,6 +67,7 @@ public class CategoriesAutoCompleteTextField extends TextField {
      */
     private List<String> retrieveRelevantSuggestions(PrefixInputPair pair) {
         requireNonNull(pair);
+        logger.fine("prefix detected: " + pair.getPrefix());
         return Categories.getCategoriesSuggestions(pair.getPrefix()).stream()
                 .filter(entry -> StringUtil.containsSubstringIgnoreCase(entry, pair.getInput()))
                 .collect(Collectors.toList());
@@ -78,7 +85,7 @@ public class CategoriesAutoCompleteTextField extends TextField {
                     resultMenuItem.setOnAction((event) -> {
                         setText(trimInput(getText()) + result);
                         CategoriesAutoCompleteTextField.this.positionCaret(getText().length());
-                        suggestions.hide();
+                        hideAutoComplete();
                     });
                     return resultMenuItem;
                 }).collect(Collectors.toList());

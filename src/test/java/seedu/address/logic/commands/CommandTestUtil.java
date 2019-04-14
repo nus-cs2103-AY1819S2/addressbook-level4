@@ -41,9 +41,10 @@ public class CommandTestUtil {
     public static final String VALID_POSTAL_BOB = "439922";
     public static final String VALID_TAG_HUSBAND = "husband";
     public static final String VALID_TAG_FRIEND = "friend";
-    public static final String VALID_WEBLINK_AMY = "No weblink added";
-    public static final String VALID_WEBLINK_BOB = "No weblink added";
+    public static final String VALID_WEBLINK_AMY = "https://www.google.com";
+    public static final String VALID_WEBLINK_BOB = "https://www.google.com";
     public static final String VALID_OPENING_HOURS = "0900 to 2300";
+    public static final String VALID_OPENING_HOURS_TWO = "0900 to 2301";
     public static final String VALID_CUISINE_FAST_FOOD = "Fast Food";
     public static final String VALID_OCCASION_CASUAL = "Casual";
     public static final String VALID_PRICE_RANGE = "$$$";
@@ -61,6 +62,7 @@ public class CommandTestUtil {
     public static final String WEBLINK_DESC_AMY = " " + PREFIX_WEBLINK + VALID_WEBLINK_AMY;
     public static final String WEBLINK_DESC_BOB = " " + PREFIX_WEBLINK + VALID_WEBLINK_BOB;
     public static final String OPENING_HOURS_DESC = " " + PREFIX_OPENING_HOURS + VALID_OPENING_HOURS;
+    public static final String OPENING_HOURS_DESC_TWO = " " + PREFIX_OPENING_HOURS + VALID_OPENING_HOURS_TWO;
     public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
     public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
 
@@ -70,6 +72,12 @@ public class CommandTestUtil {
     public static final String INVALID_ADDRESS_DESC = " " + PREFIX_ADDRESS; // empty string not allowed for addresses
     public static final String INVALID_POSTAL_DESC = " " + PREFIX_POSTAL + "12345"; // needs 6 numbers
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
+    public static final String INVALID_WEBLINK_DESC = " " + PREFIX_WEBLINK + "asdasdajdad"; // not in valid url form
+    public static final String INVALID_WEBLINK = " " + PREFIX_WEBLINK + "www.asdadjas.com"; // not a valid
+    public static final String INVALID_OPENING_HOURS = " "
+            + PREFIX_OPENING_HOURS + "0000 to 3000"; // hours should be 0000 to 2359
+    public static final String INVALID_SAME_OPENING_HOURS = " "
+            + PREFIX_OPENING_HOURS + "1200 to 1200"; // should be 24hrs instead
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";

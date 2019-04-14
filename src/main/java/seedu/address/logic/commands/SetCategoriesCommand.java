@@ -35,7 +35,7 @@ public class SetCategoriesCommand extends Command {
             + PREFIX_OCCASION + "Wedding"
             + PREFIX_PRICE_RANGE + "$$$$";
 
-    public static final String MESSAGE_SET_CUISINE_SUCCESS = "Categories Set for Restaurant: %1$s";
+    public static final String MESSAGE_SET_CATEGORIES_SUCCESS = "Categories Set for Restaurant: %1$s";
 
     private final Index index;
     private final Categories categories;
@@ -65,7 +65,7 @@ public class SetCategoriesCommand extends Command {
         model.setRestaurant(restaurantToUpdateCategory, restaurantWithCategoryUpdated);
         model.updateFilteredRestaurantList(PREDICATE_SHOW_ALL_RESTAURANTS);
         model.commitFoodDiary();
-        return new CommandResult(String.format(MESSAGE_SET_CUISINE_SUCCESS, restaurantWithCategoryUpdated));
+        return new CommandResult(String.format(MESSAGE_SET_CATEGORIES_SUCCESS, restaurantWithCategoryUpdated));
     }
 
     @Override

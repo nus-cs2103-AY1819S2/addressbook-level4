@@ -758,6 +758,114 @@ The command `add` is in lower-case. Mixed-case or upper-case commands are not re
 // TODO: Add decision.
 // end::countrycode[]
 
+// tag::photosFeature[]
+
+=== Photos Feature
+
+The Photo feature gives users the ability to attach an existing image file to any Place object,
+which is then displayed in the `ExpandedPlacePanel` when the `select` command is called on a particular Place.
+
+==== Current Implementation
+
+This feature is currently integrated as part of the `add` and `edit` commands. It works by accepting the user entered
+absolute file path of the image as an `add` and `edit` command parameter, specified by the prefix `p/`.
+
+<<Figure 4.4.1>> below is a sequence of steps, illustrating the interaction between various classes when the add command is
+used to include a photo with a newly created place.
+
+[[AddPhotoActivityDiagram]]
+[reftext="Figure 4.2.1.1"]
+[caption="Figure 4.4.1: Add Photo Activity Diagram"]
+.Activity diagram for photo feature
+image::AddPhotoActivityDiagram.PNG[width="800"]
+
+Step 1: The user enters the command `add n/Himeiji Castle cc/JPN dv/15/12/2017 r/5 d/Wow.
+a/Kyoto t/castle p/C:\Users\Shaun\Pictures\castle-photo.jpg`.
+
+Step 2 - 5: Identical to `add` command sequence, please refer to <<<Add Feature>>> for details
+
+Step 6: The `AddCommandParser` interprets the arguments, and checks the file path input using `ParserUtil.parsePhoto()`.
+
+Step 7: `parsePhoto()` then trims any leading whitespace. It also trims a single leading and trailing double quotation mark `"`.
+This is for ease of use with the Windows 10 File Explorer *Copy Path* Home menu function, which returns the filepath of the selected file
+wrapped with double quotation marks `"`.
+
+Step 8.1: As the `photo` parameter is optional for `add` command, if photo prefix `p/` is not used, `AddCommandParser`
+calls the 2nd overloaded `Place()` constructor to create a `Place` with a special string `EMPTY_PHOTO_PATH` in the `Photo` attribute.
+
+Step 8.2.1: If photo prefix 'p/' is used, he validity of the filepath is then checked with the `Photo.isValidPhotoFilepath()` method.
+The method relies on using `ImageIO.read()` to try opening the file using the provided `filepath` string.
+If the filepath is invalid or the file cannot be opened, then `ImageIO.read()` throws a `IOException`.
+The exception is caught, control returns to parsePhoto() and a ParseException is thrown.
+
+Step 8.2.2: Else, control returns to `parseUtil.parsePhoto()`. It uses the all-parameter `Place()` constructor to create
+a `Place` object, using the `Photo` parameter and other parameters.
+
+[NOTE]
+A valid filepath must be an absolute file path; it starts with the drive-letter (eg. `C:\\`), and ends with the file name and extension (eg. `castle-photo.jpg`).
+Supported filepaths are `.jpg` `.png` and `.bmp`, which are filepaths supported by `ImageIO.read()` and the Java `Image` class.
+
+// TODO: code snippet comparing
+
+Step 9: When the `select` command is executed, the UI component `ExpandedPlacePanel` receives the `Place` object. It then uses the `photo.filepath` attribute to create a
+JavaFX `Image` object, which is then displayed in a ImageView panel at the top of `ExpandedPlacePanel` using the `setImage()` method.
+
+===== Example: Using `add` to include a photo
+
+Given below is an example usage scenario and what the user will see in the GUI.
+
+Step 1.Input `add n/Himeiji Castle cc/JPN dv/15/12/2017 r/5 d/Wow. a/Kyoto t/castle p/C:\Users\Michael\Pictures\castle-photo.jpg`
+
+[[addPhotoBefore]]
+[reftext="Figure 4.4.2"]
+[caption="Figure 4.4.2: "]
+.Before the `add` command is executed
+image::addPhotoBefore.png[width="800"]
+
+Step 2. The user inputs `selects 4`.
+
+[[addPhotoAfter]]
+[reftext="Figure 4.4.3"]
+[caption="Figure 4.4.3: "]
+.After the `add` command is executed and the newly added Place "Himeiji Castle" is selected
+image::addPhotoAfter.png[width="800"]
+
+==== Design Considerations
+
+===== Decision: What type of file path input should the `add` and `edit` command accept for the photo parameter (prefix `p/`)?
+
+[width="100%",cols="16%,<50%,<50%",options="header"]
+|=======================================================================
+
+|
+|*Implementation 1: Absolute Filepath +
+(current choice)*
+|*Implementation 2: Filename and Extension Only*
+
+|*Description*
+|Accept the entire absolute file path of the image to be added/replaced
+|Accept only file name and file extension of the image to be added/replaced, but requiring the images to be located in the
+directory of the JAR executable, or some other pre-defined directory.
+
+|*Pros*
+|*Ease-of-use*. This approach is more user-friendly, as users do not need to type an additional `generate` command after changes are made to the Place list. +
+
+|*Scalability*. This approach is does not require images to be copied or moved from their existing directory to a new directory. Instead, by using
+`Alt-Tab`, Windows 10 File Explorer `Copy Path` function, `Ctrl-C` + `Ctrl-V`, and the `edit` command, users can quickly attach multiple photos to existing places.
+
+|*Cons*
+|*Ease-of-use*. This approach is Less user-friendly as users will  have to manually type in the name and extension of each image file added, +
+or otherwise rename the file to `Ctrl-C` + `Ctrl-V` the file name, and manually type in the extension.
+
+|*Scalability*. For a large number of image files, this approach requires the user spent extra time moving files from their existing directory to
+the new pre-specified directory. If moving files is not an option, then addition storage space is required for all the copied files. +
+
+|=======================================================================
+
+
+// end::photosFeature[]
+
+
 // tag::chartFeature[]
 === Chart Feature
 

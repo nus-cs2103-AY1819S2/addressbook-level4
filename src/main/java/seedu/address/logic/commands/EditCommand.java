@@ -1,6 +1,12 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.commands.AddCommand.MESSAGE_DUPLICATE_IDENTITY_FIELD;
+import static seedu.address.logic.commands.AddCommand.MESSAGE_DUPLICATE_IDENTITY_FIELD_ARCHIVE;
+import static seedu.address.logic.commands.AddCommand.MESSAGE_DUPLICATE_IDENTITY_FIELD_PIN;
+import static seedu.address.logic.commands.AddCommand.MESSAGE_DUPLICATE_PERSON;
+import static seedu.address.logic.commands.AddCommand.MESSAGE_DUPLICATE_PERSON_ARCHIVE;
+import static seedu.address.logic.commands.AddCommand.MESSAGE_DUPLICATE_PERSON_PIN;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
@@ -48,30 +54,30 @@ public class EditCommand extends Command {
     public static final String MESSAGE_USAGE_BUYER = "Parameters for buyer: INDEX (must be a positive integer) "
             + "[" + PREFIX_NAME + "NAME] " + "[" + PREFIX_PHONE + "PHONE] " + "[" + PREFIX_EMAIL + "EMAIL] "
             + "[" + PREFIX_REMARK + "REMARK] \n"
-            + "Example for buyer: " + COMMAND_WORD + " 1 " + PREFIX_PHONE + "91234567 " + PREFIX_EMAIL
-            + "johndoe@example.com " + PREFIX_REMARK + "updated phone and email\n";
+            + "Example for buyer: " + COMMAND_WORD + " 1 " + PREFIX_PHONE + "82536172 " + PREFIX_EMAIL
+            + "tommyh@example.com " + PREFIX_REMARK + "updated phone and email\n";
 
     public static final String MESSAGE_USAGE_SELLER = "Parameters for seller: INDEX (must be a positive integer) "
             + "[" + PREFIX_NAME + "NAME] " + "[" + PREFIX_PHONE + "PHONE] " + "[" + PREFIX_EMAIL + "EMAIL] "
             + "[" + PREFIX_REMARK + "REMARK] " + "[" + PREFIX_ADDRESS + "ADDRESS] "
             + "[" + PREFIX_SELLINGPRICE + "SELLING_PRICE] " + "[" + PREFIX_TAG + "TAG]...\n"
-            + "Example for seller: " + COMMAND_WORD + " 1 " + PREFIX_PHONE + "91234567 " + PREFIX_EMAIL
-            + "johndoe@example.com " + PREFIX_ADDRESS + "Block 323 Clementi Road #11-12 "
+            + "Example for seller: " + COMMAND_WORD + " 1 " + PREFIX_PHONE + "82515472 " + PREFIX_EMAIL
+            + "stanleyking@example.com " + PREFIX_ADDRESS + "Blk 11 Marsiling Dr, #11-04"
             + PREFIX_REMARK + "updated phone, email and address for property\n";
 
     public static final String MESSAGE_USAGE_LANDLORD = "Parameters for landlord: INDEX (must be a positive integer) "
             + "[" + PREFIX_NAME + "NAME] " + "[" + PREFIX_PHONE + "PHONE] " + "[" + PREFIX_EMAIL + "EMAIL] "
             + "[" + PREFIX_REMARK + "REMARK] " + "[" + PREFIX_ADDRESS + "ADDRESS] "
             + "[" + PREFIX_RENTALPRICE + "RENTAL_PRICE] " + "[" + PREFIX_TAG + "TAG]...\n"
-            + "Example for landlord: " + COMMAND_WORD + " 1 " + PREFIX_PHONE + "91234567 " + PREFIX_EMAIL
-            + "johndoe@example.com " + PREFIX_ADDRESS + "Block 323 Clementi Road #11-12 "
+            + "Example for landlord: " + COMMAND_WORD + " 1 " + PREFIX_PHONE + "97628592 " + PREFIX_EMAIL
+            + "kellyang@example.com " + PREFIX_ADDRESS + "112 Jalan Bukit Merah #07-02 "
             + PREFIX_REMARK + "updated phone, email and address for property\n";
 
     public static final String MESSAGE_USAGE_TENANT = "Parameters for tenant: INDEX (must be a positive integer) "
             + "[" + PREFIX_NAME + "NAME] " + "[" + PREFIX_PHONE + "PHONE] " + "[" + PREFIX_EMAIL + "EMAIL] "
             + "[" + PREFIX_REMARK + "REMARK] \n"
-            + "Example for tenant: " + COMMAND_WORD + " 1 " + PREFIX_PHONE + "91234567 " + PREFIX_EMAIL
-            + "johndoe@example.com " + PREFIX_REMARK + "updated phone and email\n";
+            + "Example for tenant: " + COMMAND_WORD + " 1 " + PREFIX_PHONE + "97649382 " + PREFIX_EMAIL
+            + "bobkoh@example.com " + PREFIX_REMARK + "updated phone and email\n";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the person identified "
             + "by the index number used in the displayed person list. "
@@ -80,9 +86,6 @@ public class EditCommand extends Command {
 
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Person: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.";
-    public static final String MESSAGE_DUPLICATE_IDENTITY_FIELD = "Customer with one or more duplicate identity "
-            + "field already exists in address book";
     private static final String MESSAGE_ILLEGAL_EDIT_COMMAND = "One or more of the parameters are not applicable for "
             + "the selected customer.\n";
 
@@ -128,11 +131,22 @@ public class EditCommand extends Command {
                 throw new CommandException(MESSAGE_ILLEGAL_EDIT_COMMAND + MESSAGE_USAGE_TENANT);
             }
         }
-        if (!personToEdit.equals(editedPerson) && model.hasPerson(editedPerson)) {
-            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+        if (!personToEdit.equals(editedPerson)) {
+            if (model.hasPerson(editedPerson)) {
+                throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+            } else if (model.hasPersonArchive(editedPerson)) {
+                throw new CommandException(MESSAGE_DUPLICATE_PERSON_ARCHIVE);
+            } else if (model.hasPersonPin(editedPerson)) {
+                throw new CommandException(MESSAGE_DUPLICATE_PERSON_PIN);
+            }
         }
+
         if (model.hasEditedPerson(personToEdit, editedPerson)) {
             throw new CommandException(MESSAGE_DUPLICATE_IDENTITY_FIELD);
+        } else if (model.hasEditedPersonArchive(personToEdit, editedPerson)) {
+            throw new CommandException(MESSAGE_DUPLICATE_IDENTITY_FIELD_ARCHIVE);
+        } else if (model.hasEditedPersonPin(personToEdit, editedPerson)) {
+            throw new CommandException(MESSAGE_DUPLICATE_IDENTITY_FIELD_PIN);
         }
 
         model.setPerson(personToEdit, editedPerson);

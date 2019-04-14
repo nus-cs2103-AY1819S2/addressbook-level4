@@ -1,6 +1,7 @@
 package guitests.guihandles;
 
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import com.google.common.collect.ImmutableMultiset;
@@ -9,6 +10,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
 import seedu.address.model.person.Person;
+import seedu.address.model.tag.SkillsTag;
 
 /**
  * Provides a handle to a person card in the person list panel.
@@ -97,6 +99,7 @@ public class PersonCardHandle extends NodeHandle<Node> {
      * Returns true if this handle contains {@code person}.
      */
     public boolean equals(Person person) {
+
         return getName().equals(person.getName().fullName)
                 && getAddress().equals("Address - " + person.getAddress().value)
                 && getPhone().equals("Phone - " + person.getPhone().value)
@@ -104,8 +107,7 @@ public class PersonCardHandle extends NodeHandle<Node> {
                 && getEducation().equals("School - " + person.getEducation().university)
                 && getDegree().equals("Degree - " + person.getDegree().value)
                 && getGpa().equals("GPA - " + person.getGpa().value)
-                && ImmutableMultiset.copyOf(getTags()).equals(ImmutableMultiset.copyOf(person.getTags().stream()
-                        .map(tag -> tag.tagName)
-                        .collect(Collectors.toList())));
+                && ImmutableMultiset.copyOf(getTags()).equals(ImmutableMultiset.copyOf(person.getTags()
+                .stream().map(tag -> tag.unlabelledTagName).collect(Collectors.toList())));
     }
 }

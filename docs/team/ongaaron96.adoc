@@ -114,6 +114,10 @@ https://github.com/nus-cs2103-AY1819S2/pe-dry-run/issues/567[3]
 * *Setting Up Tools:*
 ** Assisted in setting up the continuous integration plugin TravisCI for the team's QuickDocs repository on GitHub.
 
+=== Code Contributed:
+You can view all my code contributions to QuickDocs in full by clicking the link
+https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#=undefined&search=ongaaron96[here].
+
 == Contributions to the User Guide
 
 |===

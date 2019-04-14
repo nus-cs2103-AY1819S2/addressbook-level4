@@ -21,14 +21,14 @@ can reference the website while writing a review.
 == Summary of contributions
 
 * *Major enhancement*: added *the ability to visit website of restaurants*
-** What it does: allows users to view website of visited and unvisited restaurants.
+** What it does: This feature allows users to view website of visited and unvisited restaurants.
 ** Justification:
-*** This feature allows users to reference restaurant's website while writing a review for the restaurant.
-*** Also, users can search up for restaurants website in the application so that they can fill in details such as their opening hours and price range when adding the restaurant to their list.
+*** Since users may not remember every details of the restaurant, the feature to display website of restaurants allow users to reference restaurant's website while writing a review for the restaurant.
 ** Highlights: This feature requires understanding of java.net library and also handling tricky errors that can arise when connecting to the internet to load websites.
 ** Credits: Used java.net package to validate websites before allowing users to add them into restaurant class.
 
 * *Minor enhancement*: Enhance add and edit function to validate weblink before adding restaurant into Food Diary.
+If there is no internet, Food Diary will proceed to add or edit the restaurant without the weblink. This way, no restaurants with invalid weblink will be added.
 
 * *Code contributed*: Here's a https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#search=wklee96&sort=displayName&since=2019-02-10&until=2019-04-04&timeframe=day&reverse=false&repoSort=true[link] to my code on the Project Code Dashboard.
 ** Project management:
@@ -36,16 +36,16 @@ can reference the website while writing a review.
 *** Create a dummy GitHub account perform Continuous Integration for our project.
 *** Managed release of v1.2
 ** Enhancements to existing features:
+*** Changed fields of add command to be optional so that users can add restaurants with minimal information. https://github.com/CS2103-AY1819S2-W17-1/main/pull/152[#152]
 *** Added Opening Hour class and Weblink class as new parameters for Restaurant https://github.com/CS2103-AY1819S2-W17-1/main/pull/29[#29], https://github.com/CS2103-AY1819S2-W17-1/main/pull/17[#17]
-*** AddCommand prevents users to enter invalid Weblink that may
 *** Updated sample data https://github.com/CS2103-AY1819S2-W17-1/main/pull/17[#17]
 ** Documentation:
 *** Updated README https://github.com/CS2103-AY1819S2-W17-1/main/pull/7[#7]
 ** Community:
-*** Actively looked through and approved PRs, providing constructive comments to codes https://github.com/CS2103-AY1819S2-W17-1/main/pull/103[#103], https://github.com/CS2103-AY1819S2-W17-1/main/pull/95[#95]
-*** Raised issues in issue tracker
+*** Actively looked through and approved PRs, providing constructive comments to codes https://github.com/CS2103-AY1819S2-W17-1/main/pull/103[#103], https://github.com/CS2103-AY1819S2-W17-1/main/pull/95[#95], https://github.com/CS2103-AY1819S2-W17-1/main/pull/148[#148]
+*** Actively test and find bugs that the application can possibly have. Made used of GitHub issue tracker to organise these findings. https://github.com/CS2103-AY1819S2-W17-1/main/issues/145[#145], https://github.com/CS2103-AY1819S2-W17-1/main/issues/65[#65]
 ** Tools:
-*** Enabled auto-publishing of documentation for our project
+*** Enabled auto-publishing of documentation for our project.
 
 
 == Contributions to the User Guide

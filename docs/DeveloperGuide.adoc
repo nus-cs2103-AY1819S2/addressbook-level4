@@ -507,7 +507,7 @@ The image filters feature is facilitated by `CurrentEdit`. It uses the following
 
 * `CurrentEdit#tempImageDoNotExist()` - Returns `true` if `tempImage` in `CurrentEdit` is null. `tempImage` is null only if `open` command is never called.
 
-* `CurrentEdit#getTempImage` - Retrieves the temporary image `tempImage` which stores the filepath of the temporary image in the `temp` directory, its history of edits [`List<Command>`] and its metadata.
+* `CurrentEdit#getTempImage` - Retrieves the temporary image `tempImage` which stores the filepath of the temporary image, its history of edits [`List<Command>`] and its metadata.
 
 * `CurrentEdit#updateTempImage` - Replaces the temporary image in the `temp` directory with the newly edited image and update the `tempImage` instance in the class.
 
@@ -525,34 +525,35 @@ The following describes the main operations and processes for each command state
 
 ==== Contrast Command
 
-This command calls for an adjustment of contrast on an opened image. After adjusting the contrast, it adds this specific command called by the user to the `List<Commands>` belonging to the `tempImage` found in `currentEdit` which saves the editing history of the opened image.
+This command calls for an adjustment of contrast on an opened image. After adjusting the contrast, it adds this specific command called by the user to the `List<Commands>` belonging to the `tempImage` found in `CurrentEdit` which saves the editing history of the opened image.
 
-Given below is an example usage scenario and how the command should behave at each step. [This applies to the other image filter commands as well.]
+[[sequencediagram_contrast]]
+.Sequence Diagram for Contrast Command
+image::ContrastCommandSequenceDiagram.png[width="800"]
 
-Step 1. When the user runs an `open` command to edit an image, it invokes a method which creates an instance of an `Image` that stores the filepath of the image, its history of edits [`List<Command>`] and its metadata. This `Image` object is saved under the variable name `tempImage` in `currentEdit` for editing.
+Given below is an example usage scenario of how `contrast` behaves at each step as shown in <<sequencediagram_contrast>>. [This applies to the other image filter commands as well.]
+
+Step 1. When the user runs an `open` command to edit an image, it invokes a method which creates an instance of an `Image` that stores the filepath of the image, its history of edits [`List<Command>`] and its metadata. This `Image` object is saved under the variable name `tempImage` in `CurrentEdit` for editing.
 
 Step 2. When the user enters the command (e.g. `contrast 0.3`), the entered command is parsed and the command will be executed.
 
 [NOTE]
 If an invalid command is provided, a reminder of how to use the command will be given to the user and no command will be executed.
 
-Step 3. During execution, the `execute` method in the `contrastCommand` class first invokes `currentEdit#tempImageDoNotExist` to check if an image is opened. If no image is opened, it will throw an error message to tell the user to open an image for editing first. Else, the `execute` method will invoke `currentEdit#getTempImage()` to get the `tempImage` from `currentEdit`.
+Step 3. During execution, the `execute` method in the `ContrastCommand` class first invokes `CurrentEdit#tempImageDoNotExist` to check if an image is opened. If no image is opened, it will throw an error message to tell the user to open an image for editing first. Else, the `execute` method will invoke `CurrentEdit#getTempImage()` to get the `tempImage` from `CurrentEdit`.
 
 Step 4. Upon retrieving the `tempImage`, the `execute` method creates a `ContrastFilter` instance provided by the external library [`scrimage`] which takes in a `double` contrast ratio value. This `ContrastFilter` will then be applied on the image retrieved from the filepath of `tempImage`.
 
-Step 5. After applying the `ContrastFilter` on the opened image, `currentEdit#updateTempImage()` is invoked to save the newly edited image and replace the previous one in the filepath of the `tempImage`.
+Step 5. After applying the `ContrastFilter` on the opened image, `CurrentEdit#updateTempImage()` is invoked to save the newly edited image and replace the previous one in the filepath of the `tempImage`.
 
 Step 6. The `execute` method then checks if the boolean `isNewCommand` is true. If it is `true`, it indicates that the command is a new contrast command called directly from the user and not through an `undo/redo` command. This triggers Step 7 in the line below. Otherwise, the command's execution ends in this step.
 
 Step 7. `isNewCommand` is set to `false` to signal that this command is not a new contrast command if it is executed again through the `undo/redo` command.
-`currentEdit#addCommand(this)` is invoked to add this command to the `List<Command>` in `tempImage` for the undo/redo function and `currentEdit#displayTempImage()` is used to display the edited image on the graphical user interface.
+`CurrentEdit#addCommand(this)` is invoked to add this command to the `List<Command>` in `tempImage` for the undo/redo function and `CurrentEdit#displayTempImage()` is used to display the edited image on the graphical user interface.
 
 ===== Design Considerations
 
- - Images that are still being edited have to be stored and edited in a temp folder first due to our `undo/redo` implementation.
-
-.Sequence Diagram for Contrast Command
-image::ContrastCommandSequenceDiagram.png[width="800"]
+ * Intermediate images that are still being edited have to be stored in a temp folder first due to our `undo/redo` implementation.
 
 ==== Brightness Command
 This command calls for an adjustment of brightness on an opened image. After adjusting the brightness, it adds this specific command called by the user to the `List<Commands>` belonging to the `tempImage` found in `currentEdit` which saves the editing history of the opened image.
@@ -576,7 +577,7 @@ The manipulation feature is facilitated by `CurrentEdit`. It uses the following 
 
  * `CurrentEdit#tempImageDoNotExist()` - Returns `true` if `tempImage` in `CurrentEdit` is null. `tempImage` is null only if `open` command is never called.
 
- * `CurrentEdit#getTempImage` - Retrieves the temporary image `tempImage` which stores the filepath of the temporary image in the `temp` directory, its history of edits [`List<Command>`] and its metadata.
+ * `CurrentEdit#getTempImage` - Retrieves the temporary image `tempImage` which stores the filepath of the temporary image, its history of edits [`List<Command>`] and its metadata.
 
  * `CurrentEdit#updateTempImage` - Replaces the temporary image in `temp` directory with the newly edited image and update the `tempImage` instance in the class.
 
@@ -793,12 +794,119 @@ Step 10.`Album#refreshAlbum()` is called to update the Information Panel on the 
 Alternative 2 was chosen as the user is likely to use `save` frequently. Since the `assets` directory functions like an album, images can be re-imported if they are accidentally overwritten. The user is able to `save` easily and choose to resume editing immediately or at a later time.
 // end::Save[]
 
-//tag::SavePreset[]
-=== Save Preset Feature
+// tag::SavePreset[]
+=== SavePreset Feature
+
+This feature saves a list of commands that were applied to the opened image under a specified name so that they can be applied to other images in the future.
+
+==== Current Implementation
+The `savepreset` function is facilitated by `CurrentEdit` and `TransformationSet`. It uses the following operations:
+
+* `CurrentEdit#tempImageDoNotExist()` - Returns `true` if `tempImage` in `CurrentEdit` is null. `tempImage` is null only if `open` command is never called.
+
+* `CurrentEdit#getTempSubHistory()` - Retrieves the `List<Command>` from the `tempImage` in `CurrentEdit`.
+
+* `TransformationSet#isPresent(String)` - Returns true if there is already a `List<Command>` saved under the same preset name.
+
+* `TransformationSet#addTransformation(String, List<Command>)` - Saves the `List<Command>` to the `transformationMap` in `TransformationSet` under the specified preset name.
+
+The following sequence diagram shows how `savepreset` works:
+
+[[sequencediagram_savepreset]]
+.Sequence Diagram for Save Preset Command
+image::SavePresetCommandSequenceDiagram.png[width=800]
+
+Given below is an example usage scenario of how `savepreset` behaves at each step as shown in <<sequencediagram_savepreset>>.
+
+Step 1. When the user enters the command (e.g. `savepreset preset1`), the entered command is parsed and the command will be executed.
+
+[NOTE]
+If an invalid command is provided, a reminder of how to use the command will be given to the user and no command will be executed.
+
+Step 2. During execution, the `execute` method in the `SavePresetCommand` class first invokes `CurrentEdit#tempImageDoNotExist` to check if an image is opened. If no image is opened, an error message will be displayed to remind the user to open an image for editing first.
+
+Step 3. If an image is opened, the `execute` method will invoke `CurrentEdit#getTempSubHistory()` to retrieve the `List<Command>` from the `tempImage` in `CurrentEdit` which consists of the image editing commands used on the opened image.
+
+Step 4. If the `List<Command>` is empty, an error message will be displayed to indicate that the opened image is not edited yet and thus there are no commands to be saved as a preset.
+
+Step 5. `TransformationSet#isPresent(String)` is then invoked to check if the preset name specified by the user is used previously. If it is used previously, an error message will be displayed to tell the user to specify a different preset name.
+
+Step 6. Lastly, the method `TransformationSet#addTransformation(String, List<Command>)` is called to add the `List<Command` in the `TransformationSet`, saving it as a preset of commands that can be used in the future with the `setpreset` command.
+
+
+==== Design Considerations
+* *Alternative 1 (current choice)*: The user can only save a preset of commands after applying these edits on an opened image.
+** Pros: The user can view the effects of the commands on an image first before deciding to save it as a preset.
+** Cons: It might be inconvenient for users who already have the list of commands they want to save as a preset beforehand and do not have to test them out.
+
+* *Alternative 2*: The user can save a preset of commands by typing out all the commands in a row without testing them on an image.
+** Pros: It will be convenient for professional editors as they do not have to test the commands out on an opened image first.
+** Cons: Beginners in image editing will have a hard time finding the right commands to save as a preset without testing them out first.
+
+In the end, the first alternative is chosen for this application because our photo editor, FomoFoto, is mainly designed for basic photo editing and thus should be more suitable for beginners to use.
+
 // end::SavePreset[]
 
-//tag::SetPreset[]
-=== Set Preset Feature
+// tag::SetPreset[]
+=== SetPreset Feature
+This feature applies a preset list of commands that were saved previously using the `savepreset` command on the opened image.
+
+==== Current Implementation
+The `setpreset` function is facilitated by `CurrentEdit` and `TransformationSet`. It uses the following operations:
+
+* `CurrentEdit#addCommand(Command)` - Adds this command to the edit history [`List<Command>`] in `tempImage` for the `undo/redo` command.
+
+* `CurrentEdit#displayTempImage()` - Displays the temporary image stored in the temporary directory.
+
+* `CurrentEdit#getTempImage()` - Retrieves the temporary image `tempImage` which stores the filepath of the temporary image, its history of edits [`List<Command>`] and its metadata.
+
+* `CurrentEdit#replaceTempWithOriginal()` - Replaces the temporary image in the filepath of the `tempImage` with the original image.
+
+* `CurrentEdit#tempImageDoNotExist()` - Returns `true` if `tempImage` in `CurrentEdit` is null. `tempImage` is null only if `open` command is never called.
+
+* `TransformationSet#findTransformation(String)` - Retrieves the `List<Command>` in the `transformationMap` with the specified preset name.
+
+* `TransformationSet#hasWaterMarkCommand(String)` - Returns true if the `List<Command>` contains a `WaterMarkCommand`.
+
+* `TransformationSet#isPresent(String)` - Returns true if there is a `List<Command>` saved under the given preset name.
+
+The following sequence diagram shows how `savepreset` works:
+
+[[sequencediagram_setpreset]]
+.Sequence Diagram for Set Preset Command
+image::SetPresetCommandSequenceDiagram.png[width=800]
+
+Given below is an example usage scenario of how `setpreset` behaves at each step as shown in <<sequencediagram_setpreset>>.
+
+Step 1. When the user enters the command (e.g. `setpreset preset1`), the entered command is parsed and the command will be executed.
+
+[NOTE]
+If an invalid command is provided, a reminder of how to use the command will be given to the user and no command will be executed.
+
+Step 2. During execution, the `execute` method in the `SetPresetCommand` class first invokes `CurrentEdit#tempImageDoNotExist` to check if an image is opened. If no image is opened, an error message will be displayed to remind the user to open an image for editing first.
+
+Step 3. If an image is opened, the `execute` method will invoke `CurrentEdit#getTempImage()` to retrieve the `tempImage` from `CurrentEdit`.
+
+Step 4. `TransformationSet#isPresent(String)` is then invoked to check if there is a preset of commands saved under the name specified by the user. If the method returns false, an error message will be displayed to inform the user that there is no preset of commands saved under the name he/she specified.
+
+Step 5. Else, the method `TransformationSet#findTransformation(String)` is called to retrieve the `List<Command>` saved under the specified preset name. Also, `TransformationSet#hasWaterMarkCommand(String)` is also invoked to check if the `List<Command>` has a `WaterMarkCommand`.
+
+Step 6. Commands in the `List<Command>` will be executed one by one to apply the respective edits to the opened image. If any of the commands throws an exception (e.g. If a watermark is already applied on an image, the execution of a preset of commands which contains a `WaterMarkCommand` on the same image will throw an error message to indicate that there is already a watermark.), the method `CurrentEdit#replaceTempWithOriginal` will undo all the changes made to the image.
+
+Step 6. Lastly, `CurrentEdit#addCommand(this)` is invoked to add this command to the `List<Command>` in `tempImage` for the undo/redo function and `CurrentEdit#displayTempImage()` is used to display the edited image on the graphical user interface.
+
+==== Design Considerations
+
+* *Alternative 1 (current choice)*: Allows user to apply the preset of commands on only one image (the image that is opened) at each time.
+** Pros: The user will be able to see the immediate effect of the commands on the image.
+** Cons: The user have to set the preset of commands on each images one by one which takes a longer time.
+
+* *Alternative 2*: Allows user to apply the preset of commands on multiple images.
+** Pros: The user can save time by applying the commands on many images in just one command instead of having to do it one by one.
+** Cons: The effects of the commands on the images are not shown immediately to the user and user will not be able to determine if the preset of commands is suitable for each of the images.
+
+In the end, the first alternative is chosen as we want users to see the immediate effect of the commands so that they can make changes or undo the edits if they do not like what they see.
+
 // end::SetPreset[]
 
 //tag::WaterMark[]

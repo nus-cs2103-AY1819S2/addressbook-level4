@@ -2,7 +2,7 @@ package seedu.address.logic.commands.management;
 
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static seedu.address.commons.core.Messages.MESSAGE_OPENED_LESSON;
+import static seedu.address.commons.core.Messages.MESSAGE_LESSON_VIEW_COMMAND;
 import static seedu.address.logic.commands.management.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.management.ListLessonsCommand.MESSAGE_NO_LESSONS;
 import static seedu.address.logic.commands.management.ManagementCommand.MESSAGE_EXPECTED_MODEL;
@@ -57,7 +57,7 @@ public class ListLessonsCommandTest {
 
         // attempt to list all lessons when in Lesson View mode (opened lesson) -> exception thrown
         thrown.expect(CommandException.class);
-        thrown.expectMessage(MESSAGE_OPENED_LESSON);
+        thrown.expectMessage(MESSAGE_LESSON_VIEW_COMMAND);
         new ListLessonsCommand().execute(modelStub, commandHistory);
     }
 

@@ -2,7 +2,7 @@ package seedu.address.logic.commands.management;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
-import static seedu.address.commons.core.Messages.MESSAGE_OPENED_LESSON;
+import static seedu.address.commons.core.Messages.MESSAGE_LESSON_VIEW_COMMAND;
 import static seedu.address.logic.commands.management.QuizStartCommand.MESSAGE_LESSON;
 import static seedu.address.testutil.TypicalCards.CARD_BELGIUM;
 import static seedu.address.testutil.TypicalCards.CARD_JAPAN;
@@ -63,14 +63,14 @@ public class QuizStartCommandTest {
         // attempt to reload lessons but there is an opened lesson ->
         // ask user to close opened lesson first
         thrown.expect(CommandException.class);
-        thrown.expectMessage(MESSAGE_OPENED_LESSON);
+        thrown.expectMessage(MESSAGE_LESSON_VIEW_COMMAND);
         new QuizStartCommand(new SessionBuilder().build()).execute(modelStub, null);
     }
     @Test
     public void execute_correctModel() throws CommandException {
         QuizModel quizModel = new QuizModelManager();
         Session session = new SessionBuilder().build();
-        thrown.expectMessage("Expected ManagementModel but received QuizModel instead.");
+        thrown.expectMessage("Expected QuizModel but received ManagementModel instead.");
         CommandResult commandResult = new QuizStartCommand(session).execute(quizModel, commandHistory);
         assertNull(commandResult);
     }
@@ -156,7 +156,7 @@ public class QuizStartCommandTest {
         assertNull(wrongCommandResult);
     }
     @Test
-    public void executeActual_learn_success() {
+    public void executeActual_learn_success() throws CommandException {
         Lesson lesson = new LessonBuilder().build();
         final Session session = new SessionBuilder(new Session("Capitals", 2,
                 QuizMode.LEARN, List.of(new SrsCardBuilder().build(),
@@ -184,7 +184,7 @@ public class QuizStartCommandTest {
     }
 
     @Test
-    public void executeActual_review_success() {
+    public void executeActual_review_success() throws CommandException {
         Lesson lesson = new LessonBuilder().build();
         final Session session = new SessionBuilder(new Session("Capitals", 2,
             QuizMode.REVIEW, List.of(new SrsCardBuilder().build(),

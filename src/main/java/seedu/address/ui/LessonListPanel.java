@@ -15,7 +15,6 @@ import seedu.address.model.lesson.Lesson;
  */
 public class LessonListPanel extends UiPart<Region> {
     private static final String FXML = "LessonListPanel.fxml";
-    //private final Logger logger = LogsCenter.getLogger(LessonListPanel.class);
 
     @FXML
     private ListView<Lesson> lessonListView;
@@ -68,10 +67,6 @@ public class LessonListPanel extends UiPart<Region> {
             } else {
                 setGraphic(new LessonCard(lesson, getIndex() + 1).getRoot());
             }
-        }
-
-        public int getViewItemCount() {
-            return lessonListView.getItems().size();
         }
     }
 

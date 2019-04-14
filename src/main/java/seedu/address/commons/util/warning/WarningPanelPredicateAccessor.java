@@ -4,8 +4,8 @@ import java.util.function.Predicate;
 
 import seedu.address.model.Model;
 import seedu.address.model.medicine.Batch;
-import seedu.address.model.medicine.predicates.BatchExpiryThresholdPredicate;
 import seedu.address.model.medicine.Medicine;
+import seedu.address.model.medicine.predicates.BatchExpiryThresholdPredicate;
 import seedu.address.model.medicine.predicates.MedicineExpiryThresholdPredicate;
 import seedu.address.model.medicine.predicates.MedicineLowStockThresholdPredicate;
 import seedu.address.model.threshold.Threshold;

@@ -231,18 +231,19 @@ The `Storage` component,
 [[Design-Battle]]
 === Battle component
 
-.Structure of the Battle Component
-image::StorageClassDiagram.png[width="800"]
+.Structure of the `Battle` Component and interactions with `Model` and `Logic`
+image::BattleClassDiagram.png[width="800"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/logic/battle/Battle.java[`Battle.java`]
 
-The `Battle` component,
+The `Battle` component:
 
 * keeps track of the progress of the battle,
 * restricts the computer to place its ships at the correct time,
 * allows the user and the computer enemy to attack each other and maintain proper turn-taking while doing so.
 
-As the
+As the battle involves many different components (map, player, etc.),
+this component cannot be reduced to just one interface class of `Battle`.
 
 
 // end::battle[]
@@ -457,7 +458,6 @@ An `ArrayList` of `FleetEntry` objects is used for storage, where `FleetEntry` c
 
 // tag::battle[]
 === Battle Feature
-==== Current Implementation
 The Battle feature handles the following:
 
 * keeping track of the stage of the battle, and ensuring that the player does not
@@ -467,20 +467,143 @@ The Battle feature handles the following:
 
 The Battle feature is split between several packages:
 
-  * `seedu.address.battle`: the main `Battle` class is implemented here
+  * `seedu.address.battle`: the main `Battle` class is implemented here.
   * `seedu.address.battle.state`: the battle state classes are implemented here, and
     can be stored and retrieved via `Model`.
   * `seedu.address.battle.result`: the attack result classes are implemented here.
     These classes are returned by `Battle#humanPerformAttack(coordinates)` and
     `Battle#takeComputerTurn()`.
-  * `BeginCommand`, `AttackCommand` and `EndTurnCommand` handle the player's interaction
+  * `BeginCommand` and `AttackCommand` handle the player's interaction
     with this component.
 
-The sequence diagram of what happens when the user enters the `begin` command is as follows:
+In the following sections, we will explain the workings of each of these
+different packages.
+
+==== Implementation of battle state
+
+.State diagram of the application
+image::BattleStateDiagram.png[width=800]
+
+In this program, there are certain commands that may only be executed at
+specific phases of the game (e.g. `attack` must only be used when battling,
+not while placing ships). To implement this, the battle state must be tracked.
+
+The battle state is implemented as a `BattleState` enumeration, and stored
+within the `Model`. When `LogicManager` executes a `Command` object, it checks
+whether that command is allowed to be executed in the current state using
+`Command#canExecuteIn(BattleState)`. Only if the command is allowed to execute
+does `LogicManager` then call `Command#execute` - if it is not, then execution
+is prevented and the user is notified.
+
+In addition, certain commands may change the battle state - for example, `start`
+changes the battle state from `PLAYER_PUT_SHIP` to `ENEMY_PUT_SHIP` then finally
+to `PLAYER_ATTACK`.
 
 
-.Sequence diagram of beginning the battle.
+==== Implementation of the `BattleManager` class
+
+The `BattleManager` class contains four important methods, detailed as follows.
+
+===== `void startGame()`
+
+.Sequence diagram of the `startGame` method
+image::StartGameSequenceDiagram.png[width=800]
+
+`startGame` is called when the player begins the battle (via `BeginCommand`,
+see next section for more details).
+
+`startGame` prepares the `Enemy` for battle by calling `Enemy#prepEnemy`,
+which causes the enemy to place its ships and set up other data structures.
+For more information, please see the "Enemy AI Feature" section below.
+
+===== `AttackResult performAttack(Player, Player, Coordinates)`
+
+.Sequence diagram of the `performAttack` method
+image::PerformAttackSequenceDiagram.png[width=800]
+
+`performAttack` is the method that actually performs the attack from one
+player to another. It takes in an attacker `Player`, a target `Player` and
+the attacked `Coordinates`, and returns an `AttackResult`. (See section
+3.3.3 for the description of what `AttackResult` is returned in what scenario.)
+
+This method is an internal method, used by both `humanPerformAttack` and
+`takeComputerTurn`.
+
+===== `AttackResult humanPerformAttack(Coordinates)`
+
+.Sequence diagram of the `humanPerformAttack` method
+image::HumanPerformAttackSequenceDiagram.png[width=800]
+
+`humanPerformAttack` is called when the player makes an attack (via
+`AttackCommand`, see below.)
+
+This method simply calls `performAttack` with the human player as the
+attacker, the computer player as the target and the argument coordinate
+as the attacked coordinate.
+
+===== `List<AttackResult> takeComputerTurn()`
+
+.Sequence diagram of the `takeComputerTurn` method
+image::TakeComputerTurnSequenceDiagram.png[width=800]
+
+`takeComputerTurn` is called after the player makes an attack but misses
+(via `AttackCommand`, see below). As mentioned in the game rules, after
+the player misses the computer may begin to attack until it misses, and
+this method implements that functionality.
+
+==== Implementation of attack result
+
+The representation of the result of an attack is the class `AttackResult` and
+its subclasses. To help the receiver in deciphering the attack result without
+needing to resort to `instanceof`, methods are provided to test for attributes
+such as whether the attack is a hit.
+
+The methods are:
+
+    * `isSuccessful`: tests whether the attack actually completed
+    * `isHit`: tests whether the attack damaged a ship
+    * `isDestroy`: tests whether the attack destroyed the ship
+    * `isWin`: tests whether the attack caused the attacker to win
+
+A summary of each type of `AttackResult` can be seen from the following table:
+
+[width="88%",cols="22%,66%",options="header",]
+|=======================================================================
+|Result type          |Scenario
+|`AttackFailed`       |The `Coordinates` provided was out of bounds, or
+                       some error occurred during the attack.
+|`AttackMissed`       |The attack did not hit an enemy ship.
+|`AttackHit`          |The attack hit an enemy ship but did not sink it.
+|`AttackDestroyedShip`|The attack hit an enemy ship and sank it,
+                       but the enemy still has ships remaining.
+|`AttackDefeatedEnemy`|The attack hit the last of the enemy's ships and sank
+                       it, resulting in a victory for the attacker.
+|=======================================================================
+
+
+==== Implementation of player interaction via commands
+
+.Use case diagram of the `Battle` Component.
+image::BattleUseCaseDiagram.png[width=800]
+
+.Activity diagram of the process of battling.
+image::BattleActivityDiagram.png[width=800]
+
+The upper diagram is a use case diagram which shows briefly the possible
+interactions between the user and the application during the battling phase.
+Below is a more detailed activity diagram of what happens when the
+user does battle against the computer enemy. As shown, the player
+does battle by using the `begin` command to initiate the battle,
+then the `attack` command to attack the enemy.
+
+The following sequence diagrams show what happens when the user enters
+the `begin` command, then the `attack a1` command.
+
+.Sequence diagram of `begin`.
 image::BeginSequenceDiagram.png[width=800]
+
+.Sequence diagram of `attack a1`.
+image::AttackSequenceDiagram.png[width=800]
 
 ==== Design Considerations
 * **Alternative 1 (current choice):** +
@@ -491,6 +614,10 @@ image::BeginSequenceDiagram.png[width=800]
   and return it, then call an internal method to actually perform the attack.
 ** Pros:
 *** Command logic is abstracted into places where it can be reused by the AI.
+*** Flow of program is clear - it always is a higher level component calling a lower-level component. +
+    (e.g. when the player types in an Attack command, user interacts with `UI`, which calls `Logic`,
+    which calls `Model` and `BattleManager`,
+    which call the lowest level classes `Map` and `Player`)
 ** Cons:
 *** The `Model` component now contains game logic (`BattleManager`) within it.
 * **Alternative 2:** +
@@ -503,9 +630,13 @@ image::BeginSequenceDiagram.png[width=800]
 ** Pros:
 *** The game's model and logic are kept separate from each other.
 ** Cons:
-*** AttackCommand is now state-dependent (the state being the current attacking player) which
+*** `AttackCommand` is now state-dependent (the state being the current attacking player) which
     can more easily lead to bugs and race conditions.
 
++
+In the end, we decided to implement Option 1. Even though some team members preferred either option,
+we decided that `Logic` and `Model` not being kept separate was a worthy tradeoff
+for the advantages of Option 1.
 
 // end::battle[]
 

@@ -39,6 +39,7 @@ If you’re confident in your computer set-up, jump to <<quick-start-guide>> to 
 Before downloading and installing TeethHub, you will need the following programs installed:
 
 * Java Runtime Environment version *9* or later.
+* Adobe Acrobat Reader DC or any PDF reader if you wish to save or export your TeethHub data to PDF.
 
 Once you have it installed, you can now proceed to <<quick-start-guide>>!
 
@@ -218,8 +219,6 @@ TeethHub automatically saves all data in TeethHub.json when you close the progra
 However, you can manage them manually with `open`, `save`, `import` and `export`. +
  +
 *When we mention "data", we mean the patients list and their respective records plus the task list.* +
-*.json files hold data that TeethHub can read. Use this to "save" or "load" your progress.* +
-*.pdf files are easier for people to read. Use this if you are printing out a physical copy.* +
  +
 You can use `open` to open another .json file that you may have transferred over from another computer. +
  +
@@ -229,9 +228,36 @@ You can use `import` to add specific patients from another .json file to your cu
  +
 You can use `export` to save specific patients to a .json or .pdf file.
 
+[NOTE]
+============================================================
+Look for your *saved* or *exported* files in the "data" folder. +
+This is also where TeethHub looks for your files when you use `open` or `import`.
+============================================================
+
+[NOTE]
+============================================================
+The File Management Commands uses the following keywords!
+
+`FILE_PATH`: +
+Any letters in the English alphabet and numbers are allowed. +
+Allowed special characters are: +
+`! @ # $ % ^ & ( ) _ + - = { } [ ] ; ' , .` +
+Special characters *NOT* allowed are: +
+`< > : " | ? *`
+
+`INDEX_RANGE`: +
+Any positive integers (numbers with no decimals, must be greater than 0) are allowed.
+You can use commas (no space) to choose multiple individual indexes. e.g. `1,3,5` for 1 and 3 and 5 +
+You can use dash (no space) to choose a range of indexes. e.g. `3-5` for 3 to 5. `1-3-5` is not allowed, just use `1-5`. +
+You can use a combination of commas and dashes to choose a range as well. e.g. `1-3,5` for 1 to 3 and 5. +
+You can also type `all` instead to import/export everything.
+============================================================
+
 ==== open
-Opens the file in the specified file path and overwrites the current data. +
-** Note that 'open' always searches inside the data folder.** +
+
+image::OpenImportFeature3.png[width="522"]
+
+`open` Opens a file of your choice and overwrites the current data with the file contents. +
 ** You can only open .json files.**
 
 Format: `open FILE_PATH`
@@ -239,19 +265,17 @@ Format: `open FILE_PATH`
 Examples:
 
 * `open data1.json` +
-Replaces the current data with the data in "data1.json".
+This replaces the current data of TeethHub with the data in "data1.json".
 
 * `open february/data2.json` +
-Replaces the current data with the data in "data2.json" found in the "february" folder.
+This replaces the current data of TeethHub with the data in "data2.json" found in the "february" folder.
 
 
 ==== save
-Saves the current data to the specified file path. +
-** Note that 'save' always saves inside the data folder. If no such file path exists,
-it will be created. +
-Otherwise, it will overwrite the existing file.** +
+`save` Saves the current data to a file of your choice. +
+All Tasks are also saved to that file. +
 ** You can only save to .json and .pdf.** +
-.json files allow you to <<open, open>> or <<import, import>> them. +
+.json files allow you to `open` or `import` them. +
 .pdf files are easier to read, but you cannot open or import them with TeethHub.
 
 Format: `save FILE_PATH`
@@ -259,15 +283,17 @@ Format: `save FILE_PATH`
 Examples:
 
 * `save data1.json` +
-Saves the current data to "data1.json".
+This saves the data currently in TeethHub to "data1.json".
 
 * `save february/data2.pdf` +
-Saves the current data to "data2.json" found in the "february" folder.
+This saves the data currently in TeethHub to "data2.json" in the "february" folder.
 
 
 ==== import
-Opens the file in the specified file path and adds the specified patients to the current data. +
-** Note that 'import' always searches inside the data folder.** +
+
+image::OpenImportFeature4.png[width="522"]
+
+`import` Opens a file of your choice and adds patients of your choice to the current data. +
 ** You can only import .json files. **
 
 Format: `import FILE_PATH INDEX_RANGE`
@@ -275,28 +301,28 @@ Format: `import FILE_PATH INDEX_RANGE`
 Examples:
 
 * `import data1.json 1` +
-Adds patient 1 from "data1.json" to the current data.
+This adds patient 1 from "data1.json" to the current data of TeethHub.
 
 * `import february/data1.json 1` +
-Adds patient 1 from "data1.json" found in the "february" folder to the current data.
+This adds patient 1 from "data1.json" found in the "february" folder to the current data of TeethHub.
 
 * `import data1.json 1,4` +
-Adds patient 1 and patient 4 from "data1.json" to the current data.
+This adds patient 1 and patient 4 from "data1.json" to the current data of TeethHub.
 
 * `import data1.json 1-4` +
-Adds patient 1 to patient 4 from "data1.json" to the current data.
+This adds patient 1 to patient 4 from "data1.json" to the current data of TeethHub.
 
 * `import data1.json 1,3-5` +
-Adds patient 1 and patient 3 to patient 5 from "data1.json" to the current data.
+This adds patient 1 and patient 3 to patient 5 from "data1.json" to the current data of TeethHub.
 
+* `import data1.json all` +
+This adds all patients from "data1.json" to the current data of TeethHub.
 
 ==== export
-Saves the specified patients in the current data to the specified file path. +
-** Note that 'export' always saves inside the data folder. If no such file path exists,
-it will be created. +
-Otherwise, it will overwrite the existing file.** +
+`export` Saves patients of your choice in the current data to a file of your choice. +
+All Tasks are also saved to that file. +
 ** You can only export to .json and .pdf.** +
-.json files allow you to <<open, open>> or <<import, import>> them. +
+.json files allow you to `open` or `import` them. +
 .pdf files are easier to read, but you cannot open or import them with TeethHub.
 
 Format: `export FILE_PATH INDEX_RANGE`
@@ -304,22 +330,22 @@ Format: `export FILE_PATH INDEX_RANGE`
 Examples:
 
 * `export data1.json 1` +
-Saves patient 1 from the current data to "data1.json".
+This saves patient 1 currently in TeethHub to "data1.json".
 
 * `export february/data1.pdf 1` +
-Saves patient 1 from the current data to "data1.pdf" found in the "february" folder.
+This saves patient 1 currently in TeethHub to "data1.pdf" in the "february" folder.
 
 * `export data1.json 1,4` +
-Saves patient 1 and patient 4 from the current data to "data1.json".
+This saves patient 1 and patient 4 currently in TeethHub to "data1.json".
 
 * `export data1.pdf 1-4` +
-Saves patient 1 to patient 4 from the current data to "data1.pdf".
+This saves patient 1 to patient 4 currently in TeethHub to "data1.pdf".
 
 * `export data1.pdf 1,3-5` +
-Saves patient 1 and patient 3 to patient 5 from the current data to "data1.pdf".
+This saves patient 1 and patient 3 to patient 5 currently in TeethHub to "data1.pdf".
 
 * `export data1.json all` +
-Writes all entries from the address book to data1.json. +
+This saves all patients currently in TeethHub to "data1.json".
 
 === Patient Management
 
@@ -823,13 +849,54 @@ Examples:
 ////
 // end::viewingInfo[]
 
+=== Suggestion Commands
+Sometimes, you may forget the exact way to type some commands or you may get confused. +
+After all, Patient Management has `patientadd`, Records Management has `recordadd` and Task Management has `taskadd`! +
+Even worse, some commands cannot be used in certain modes. +
+If this ever happens, you can either open the <<help, help>> window again, or simply type out their common word due to our suggestion commands!
+
+The Suggestion commands are: `add`, `clear`, `copy`, `delete`, `edit`, `find`, `list`, `select` and `sort`.
+
+Suppose if you want to add something but you have forgotten the exact command. +
+Simply enter `add`, and TeethHub will ask you if you meant `patientadd` or `recordadd` or `taskadd`. +
+Don't worry about the commands that cannot be used in your current mode; the Suggestion commands will only suggest commands that can be used in your current mode.
+
+For example, if you were to type `add` in Patient Mode, you will see `patientadd` and `taskadd`:
+
+image::SuggestionFeatureAddPatientMode.png[width="236"]
+
+If you were to type `add` in Record Mode, you will see `recordadd` and `taskadd` instead:
+
+image::SuggestionFeatureAddRecordMode.png[width="236"]
+
+== Patient Teeth per record [Coming in v1.5]
+
+Currently, TeethHub stores and displays the latest teeth image of each patient.
+We understand that you may want to see teeth changes over time.
+In v1.5, TeethHub will be able to store and display a teeth image for each record.
+
+== Adding images to records [Coming in v1.6]
+
+Currently, TeethHub is not equipped to accept images from you.
+We understand that you may want to store x-rays of teeth or other relevant images you have taken.
+In v1.6, TeethHub will have a new command for you to upload images.
+
+== Spell-Checker Functionality [Coming in v1.7]
+
+Currently, TeethHub does not have a spell checker.
+It would be great if TeethHub would automatically correct an improperly typed command(e.g. sirt to sort).
+In v1.7, TeethHub will have a spell checker functionality.
+
+== Placeholder [Coming in v1.8]
+
+== Placeholder [Coming in v1.9]
+
 == Cloud Functionality [Coming in v2.0]
+
+Currently, TeethHub is not connected to a cloud.
 To increase data redundancy and reduce the risk of data being lost,
-you will be able to synchronise your data with a cloud account.
-
-== Spell-Checker Functionality [Coming in v2.0]
-
-Automatically correct an improperly typed command(e.g. sirt to sort).
+you should be able to synchronise your data with a cloud account.
+In v2.0, TeethHub will be synchronized with a cloud server.
 
 == Frequently Asked Questions (FAQ)
 

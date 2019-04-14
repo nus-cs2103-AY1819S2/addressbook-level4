@@ -817,7 +817,7 @@ statistics will only show any useful information related to frequency of health 
 following:
 ====
 
-image::empty_statistics.png[]
+image::empty_statistics.PNG[]
 
 Example of usage:
 
@@ -838,7 +838,7 @@ Voila! A list of health conditions (namely, the ones which were typed in the 2 a
 Diabetes, AIDS) will be generated and will be displayed in descending order of occurrences. The following screen is what
 you can expect to see after typing in the 3 commands.
 
-image::normal_statistics.png[]
+image::normal_statistics.PNG[]
 
 As you can see, based on the requests already registered in the request panel on the left, the statistics command shows
 that the health condition Physiotherapy has showed up twice, whereas both Diabetes and AIDS have showed up once each.

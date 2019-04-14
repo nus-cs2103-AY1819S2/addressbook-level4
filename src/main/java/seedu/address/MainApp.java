@@ -1,5 +1,6 @@
 package seedu.address;
 
+import static seedu.address.logic.commands.Statistics.undoRedoStatistics;
 import static seedu.address.logic.commands.Statistics.updateStatistics;
 
 import java.io.IOException;
@@ -76,12 +77,7 @@ public class MainApp extends Application {
 
         model = initModelManager(storage, userPrefs);
 
-        ReadOnlyRequestBook requestBook = model.getRequestBook();
-        ObservableList<Request> requestList = requestBook.getRequestList();
-        for (Request request : requestList) {
-            Set<Condition> conditionSet = request.getConditions();
-            updateStatistics(conditionSet);
-        }
+        undoRedoStatistics(model);
 
         logic = new LogicManager(model, storage);
 

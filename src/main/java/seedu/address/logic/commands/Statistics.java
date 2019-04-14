@@ -6,6 +6,10 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 
+import javafx.collections.ObservableList;
+import seedu.address.model.Model;
+import seedu.address.model.ReadOnlyRequestBook;
+import seedu.address.model.request.Request;
 import seedu.address.model.tag.Condition;
 
 /**
@@ -86,8 +90,20 @@ public class Statistics {
                 .forEachOrdered(x -> sortedMap.put(x.getKey(), x.getValue()));
     }
 
-    public static Set<Map.Entry<String, Integer>> getEntrySet() {
-        return statistics.entrySet();
+    /**
+     * Integrated method with Undo/Redo commands. Takes an ObservableList of all
+     * requests and extracts health conditions from each request. updateStatistics is then
+     * called to modify statistics to the current state of requests
+     */
+    public static void undoRedoStatistics(Model model) {
+        ReadOnlyRequestBook requestBook = model.getRequestBook();
+        ObservableList<Request> requestList = requestBook.getRequestList();
+        clearStatistics();
+        for (Request request : requestList) {
+            Set<Condition> conditionSet = request.getConditions();
+            updateStatistics(conditionSet);
+        }
+        sortStatistics();
     }
 
     /**

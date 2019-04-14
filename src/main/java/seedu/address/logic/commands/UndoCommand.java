@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.commands.Statistics.clearStatistics;
+import static seedu.address.logic.commands.Statistics.undoRedoStatistics;
 import static seedu.address.logic.commands.Statistics.updateStatistics;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_HEALTHWORKERS;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_REQUESTS;
@@ -40,13 +41,7 @@ public class UndoCommand extends Command {
         model.updateFilteredHealthWorkerList(PREDICATE_SHOW_ALL_HEALTHWORKERS);
         model.updateFilteredRequestList(PREDICATE_SHOW_ALL_REQUESTS);
 
-        ReadOnlyRequestBook requestBook = model.getRequestBook();
-        ObservableList<Request> requestList = requestBook.getRequestList();
-        clearStatistics();
-        for (Request request : requestList) {
-            Set<Condition> conditionSet = request.getConditions();
-            updateStatistics(conditionSet);
-        }
+        undoRedoStatistics(model);
 
         return new CommandResult(MESSAGE_SUCCESS);
     }

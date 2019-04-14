@@ -528,26 +528,9 @@ You can then call `listconsult` again with the consultation record's index to vi
 .Revisiting a specific consultation session
 image::listconsult_index.png[width="600"]
 
-'''
-
-==== Generate prescription list [coming in v2.0]
-
-The prescription list can be printed out for the pharmacists to expedite medicine preparation. The pharmacists can refer
-to the printed prescription list and prepare the medicines for the patient to collect after payment.
+{sp}+
 
 '''
-
-==== Generate medical certificate: [coming in v2.0]
-
-You can print out a customised medical certificate for the patient, listing the symptoms and also the number of sick leave days.
-
-'''
-
-==== Generate invoice: [coming in v2.0]
-
-Generates the invoice for a given prescription. After selecting the patient, select the consultation to view in detail and then select the desired prescription.
-
-{empty} +
 
 === Medicine Management
 You can manage your medicine storage all by your wishes! QuickDocs allows you to organise your medicines in a directory format much like the folders in Windows OS! +
@@ -1342,8 +1325,26 @@ In the image below, the *display* area will return the statistics of the queried
 .Result example for command `statistics 012019 042019`
 image::statistics_sample.png[width="600"]
 
-{empty} +
 '''
+
+==== Generate prescription list [coming in v2.0]
+
+The prescription list can be printed out for the pharmacists to expedite medicine preparation. The pharmacists can refer
+to the printed prescription list and prepare the medicines for the patient to collect after payment.
+
+'''
+
+==== Generate medical certificate: [coming in v2.0]
+
+You can print out a customised medical certificate for the patient, listing the symptoms and also the number of sick leave days.
+
+'''
+
+==== Generate invoice: [coming in v2.0]
+
+Generates the invoice for a given prescription. After selecting the patient, select the consultation to view in detail and then select the desired prescription.
+
+{empty} +
 
 == Frequently Asked Questions (FAQ)
 [qanda]

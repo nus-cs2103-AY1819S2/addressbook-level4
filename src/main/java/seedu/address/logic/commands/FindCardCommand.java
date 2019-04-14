@@ -19,8 +19,13 @@ public class FindCardCommand extends Command {
     public static final String MESSAGE_USAGE =
             COMMAND_WORD + ": Finds all cards whose questions contain any of "
                     + "the specified keywords (case-insensitive) and displays them as a list with index "
-                    + "numbers.\n" + "Parameters: KEYWORD [MORE_KEYWORDS]...\n" + "Example: " + COMMAND_WORD
-                    + " alice bob charlie";
+                    + "numbers.\n" + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
+                    + "KEYWORD can come in the form of a single word or in the form of \"KEYWORD\" "
+                    + "where KEYWORD is a phrase that will be matched word for word with the question.\n"
+                    + "When using FIND in the form of \"KEYWORD\", there can only be \" at the start and at the "
+                    + "end of the search input.\n"
+                    + "Example: " + COMMAND_WORD
+                    + " alice \"bob charlie\"";
 
     private final CardsView cardsView;
     private final QuestionContainsKeywordsPredicate predicate;

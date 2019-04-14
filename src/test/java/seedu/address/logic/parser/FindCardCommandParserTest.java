@@ -38,15 +38,32 @@ public class FindCardCommandParserTest {
     }
 
     @Test
+    public void parse_emptyQuotedArg_throwsParseException() {
+        assertParseFailure(parser, "\"\"",
+            String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCardCommand.MESSAGE_USAGE));
+    }
+
+    @Test
+    public void parse_extraQuoteInArg_throwsParseException() {
+        assertParseFailure(parser, "\"This should\" fail\"",
+            String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCardCommand.MESSAGE_USAGE));
+    }
+
+    @Test
     public void parse_validArgs_returnsFindCommand() {
         // no leading and trailing whitespaces
         FindCardCommand expectedFindCommand = new FindCardCommand((CardsView) model.getViewState(),
                                                                   new QuestionContainsKeywordsPredicate(
-                                                                          Arrays.asList("Alice", "Bob")));
-        assertParseSuccess(parser, "Alice Bob", expectedFindCommand);
+                                                                          Arrays.asList("Alice", "Bob", "Charlie")));
+
+        assertParseSuccess(parser, "Alice Bob Charlie", expectedFindCommand);
+
+        assertParseSuccess(parser, "\"Alice\" \"Bob\" \"Charlie\"", expectedFindCommand);
+
+        assertParseSuccess(parser, "\"Alice\" \"Bob\" Charlie", expectedFindCommand);
 
         // multiple whitespaces between keywords
-        assertParseSuccess(parser, " \n Alice \n \t Bob  \t", expectedFindCommand);
+        assertParseSuccess(parser, " \n Alice \n \t Bob  \t    Charlie", expectedFindCommand);
     }
 
 }

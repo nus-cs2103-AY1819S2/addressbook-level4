@@ -1,7 +1,6 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Optional;
 
@@ -36,7 +35,7 @@ public class DeleteFromOrderCommand extends Command {
      * Creates a DeleteFromOrderCommand to remove the order item specified by the item code.
      */
     public DeleteFromOrderCommand(Code itemCode) {
-        requireAllNonNull(itemCode);
+        requireNonNull(itemCode);
         this.itemCode = itemCode;
     }
 

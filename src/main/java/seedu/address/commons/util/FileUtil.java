@@ -10,8 +10,16 @@ import java.nio.file.Paths;
  * Writes and reads files
  */
 public class FileUtil {
-
     private static final String CHARSET = "UTF-8";
+
+    /**
+     * This is a static-methods-only (utility) class which should not be instantiated.
+     * Note that this is not a singleton class given that not even a single instance is allowed.
+     *
+     * Throws an {@link InstantiationError} when accessed to prevent instantiation
+     * via new, clone(), reflection and serialization.
+     */
+    private FileUtil() { }
 
     /**
      * Returns true if {@code path} can be converted into a {@code Path} via {@link Paths#get(String)},

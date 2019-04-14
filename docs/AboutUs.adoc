@@ -4,9 +4,11 @@
 :imagesDir: images
 :stylesDir: stylesheets
 
-BrainTrain was developed by the https://github.com/CS2103-AY1819S2-W14-1[Team BrainTrain]. +
+BrainTrain was developed by https://cs2103-ay1819s2-w14-1.github.io/main/AboutUs.html[Team BrainTrain]. +
+
 {empty} +
-We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
+
+We are a team based in the link:http://www.comp.nus.edu.sg[School of Computing], link:http://www.nus.edu.sg[National University of Singapore].
 
 == Project Team
 
@@ -41,8 +43,8 @@ Responsibilities: Deliverables and deadlines
 image::digipie.png[width="150", align="left"]
 {empty}[http://www.evantay.com[homepage]] [http://github.com/DigiPie[github]] [<<digipie#, portfolio>>]
 
-Role: Developer +
-Responsibilities: Management System and Documentation
+Role: Documentation Lead +
+Responsibilities: Card Management System and Project Documentation
 
 '''
 
@@ -51,4 +53,4 @@ image::lallanachang.png[width="150", align="left"]
 {empty}[https://github.com/lallanachang[github]] [<<lallanachang#, portfolio>>]
 
 Role: Developer +
-Responsibilities: SRS System
+Responsibilities: Spaced-Repetition System (SRS)

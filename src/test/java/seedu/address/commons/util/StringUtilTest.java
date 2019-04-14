@@ -2,9 +2,12 @@ package seedu.address.commons.util;
 
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.commons.util.StringUtil.hasEmptyStrings;
+import static seedu.address.commons.util.StringUtil.truncateString;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -171,5 +174,30 @@ public class StringUtilTest {
         strings.add("Hi");
         strings.add("Bye");
         assertFalse(hasEmptyStrings(strings));
+    }
+
+    @Test
+    public void truncateString_stringLessThanMaxLength_noTruncation() {
+        String s = "Hello";
+
+        // same length as max length -> no truncation
+        assertEquals(s, truncateString(s, s.length()));
+
+        // smaller length than max length -> no truncation
+        assertEquals(s, truncateString(s, s.length() + 1));
+
+        // smaller length than max length -> no truncation
+        assertEquals(s, truncateString(s, Integer.MAX_VALUE));
+    }
+
+    @Test
+    public void truncateString_stringMoreThanMaxLength_returnTruncated() {
+        String s = "Hello World";
+        String expectedOutput = "He...";
+        String actualOutput = truncateString(s, 5);
+
+        // larger length than max length -> truncation
+        assertNotEquals(s, actualOutput);
+        assertEquals(actualOutput, expectedOutput);
     }
 }

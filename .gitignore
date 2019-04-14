@@ -9,8 +9,9 @@ lib/*
 *.log.*
 *.csv
 /config.json
-src/test/data/sandbox/
 preferences.json
+/preferences.json
+src/test/data/sandbox/
 .DS_Store
 ./screenshot*.png
 classes/

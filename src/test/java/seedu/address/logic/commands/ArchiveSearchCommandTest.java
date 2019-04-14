@@ -24,9 +24,9 @@ import seedu.address.model.UserPrefs;
 import seedu.address.model.person.PersonContainsKeywordsPredicate;
 
 /**
- * Contains integration tests (interaction with the Model) for {@code ArchiveFindCommand}.
+ * Contains integration tests (interaction with the Model) for {@code ArchiveSearchCommand}.
  */
-public class ArchiveFindCommandTest {
+public class ArchiveSearchCommandTest {
     private Model model = new ModelManager(getTypicalAddressBook(), getTypicalArchiveBook(),
             getTypicalPinBook(), new UserPrefs());
     private Model expectedModel = new ModelManager(getTypicalAddressBook(), getTypicalArchiveBook(),
@@ -40,14 +40,14 @@ public class ArchiveFindCommandTest {
         PersonContainsKeywordsPredicate secondPredicate =
                 new PersonContainsKeywordsPredicate(Collections.singletonList("second"));
 
-        ArchiveFindCommand archiveFindFirstCommand = new ArchiveFindCommand(firstPredicate);
-        ArchiveFindCommand archiveFindSecondCommand = new ArchiveFindCommand(secondPredicate);
+        ArchiveSearchCommand archiveFindFirstCommand = new ArchiveSearchCommand(firstPredicate);
+        ArchiveSearchCommand archiveFindSecondCommand = new ArchiveSearchCommand(secondPredicate);
 
         // same object -> returns true
         assertTrue(archiveFindFirstCommand.equals(archiveFindFirstCommand));
 
         // same values -> returns true
-        ArchiveFindCommand archiveFindFirstCommandCopy = new ArchiveFindCommand(firstPredicate);
+        ArchiveSearchCommand archiveFindFirstCommandCopy = new ArchiveSearchCommand(firstPredicate);
         assertTrue(archiveFindFirstCommand.equals(archiveFindFirstCommandCopy));
 
         // different types -> returns false
@@ -64,7 +64,7 @@ public class ArchiveFindCommandTest {
     public void execute_zeroKeywords_noPersonFound() {
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 0);
         PersonContainsKeywordsPredicate predicate = preparePredicate(" ");
-        ArchiveFindCommand command = new ArchiveFindCommand(predicate);
+        ArchiveSearchCommand command = new ArchiveSearchCommand(predicate);
         expectedModel.updateFilteredArchivedPersonList(predicate);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
         assertEquals(Collections.emptyList(), model.getFilteredArchivedPersonList());
@@ -74,7 +74,7 @@ public class ArchiveFindCommandTest {
     public void execute_multipleKeywords_multiplePersonsFound() {
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 3);
         PersonContainsKeywordsPredicate predicate = preparePredicate("cathy diana enid ");
-        ArchiveFindCommand command = new ArchiveFindCommand(predicate);
+        ArchiveSearchCommand command = new ArchiveSearchCommand(predicate);
         expectedModel.updateFilteredArchivedPersonList(predicate);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
         assertEquals(Arrays.asList(CATHY, DIANA, ENID), model.getFilteredArchivedPersonList());

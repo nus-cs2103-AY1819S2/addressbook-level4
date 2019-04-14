@@ -8,13 +8,12 @@ import java.util.function.Predicate;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
-import javafx.scene.layout.Region;
 import seedu.address.logic.parser.CardsViewParser;
 import seedu.address.logic.parser.ViewStateParser;
 import seedu.address.model.deck.Card;
 import seedu.address.model.deck.Deck;
 import seedu.address.ui.ListPanel;
-import seedu.address.ui.UiPart;
+import seedu.address.ui.MainPanel;
 
 /**
  * ViewState of TopDeck when browsing a list of cards from a specific deck.
@@ -65,7 +64,7 @@ public class CardsView implements ListViewState<Card> {
     }
 
     @Override
-    public UiPart<Region> getPanel() {
+    public MainPanel getPanel() {
         return new ListPanel<>(getFilteredList(), selectedCard, this::setSelectedItem);
     }
 

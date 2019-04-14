@@ -5,7 +5,6 @@ import java.nio.file.Path;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
-import javafx.scene.layout.Region;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
@@ -18,7 +17,7 @@ import seedu.address.model.ListViewState;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyTopDeck;
 import seedu.address.storage.Storage;
-import seedu.address.ui.UiPart;
+import seedu.address.ui.MainPanel;
 
 /**
  * The main LogicManager of the app.
@@ -104,7 +103,7 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public UiPart<Region> getPanel() {
+    public MainPanel getPanel() {
         return model.getViewState().getPanel();
     }
 }

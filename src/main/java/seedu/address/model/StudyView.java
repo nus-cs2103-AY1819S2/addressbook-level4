@@ -6,15 +6,14 @@ import java.util.Objects;
 
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.scene.layout.Region;
 import seedu.address.logic.DeckShuffler;
 import seedu.address.logic.parser.StudyViewParser;
 import seedu.address.logic.parser.ViewStateParser;
 import seedu.address.model.deck.Card;
 import seedu.address.model.deck.Deck;
 import seedu.address.model.deck.exceptions.EmptyDeckException;
+import seedu.address.ui.MainPanel;
 import seedu.address.ui.StudyPanel;
-import seedu.address.ui.UiPart;
 
 /**
  * ViewState of TopDeck during a study session.
@@ -116,7 +115,7 @@ public class StudyView implements ViewState {
     }
 
     @Override
-    public UiPart<Region> getPanel() {
+    public MainPanel getPanel() {
         return new StudyPanel(textShown, currentStudyState, userAnswer);
     }
 

@@ -71,9 +71,8 @@ public class ImportCommandParser implements Parser<ImportCommand> {
                                 File file = new File(path);
                                 album.addToImageList(path);
                                 FileUtils.copyFileToDirectory(file, directory);
-                                System.out.println("✋ IMPORTED: " + path);
                             } catch (IOException e) {
-                                System.out.println(e.toString());
+                               e.printStackTrace();
                             }
                         }
                     }
@@ -90,9 +89,8 @@ public class ImportCommandParser implements Parser<ImportCommand> {
                                     File file = new File(args);
                                     FileUtils.copyFileToDirectory(file, directory);
                                     album.addToImageList(args);
-                                    System.out.println("✋ IMPORTED: " + args);
                                 } catch (IOException e) {
-                                    System.out.println(e.toString());
+                                   e.printStackTrace();
                                 }
                             } else {
                                 throw new ParseException(Messages.MESSAGE_DUPLICATE_FILE);
@@ -182,7 +180,6 @@ public class ImportCommandParser implements Parser<ImportCommand> {
      */
     public boolean isLarge(String url) {
         File file = new File(url);
-        System.out.println(file.length());
         return file.length() > MAX_FILE_SIZE;
     }
 

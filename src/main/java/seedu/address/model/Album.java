@@ -94,7 +94,6 @@ public class Album {
         String tempPath = null;
         try {
             String tDir = System.getProperty("user.dir") + File.separator + ASSETS_FOLDER_TEMP_NAME;
-            System.out.println(tDir);
             File assetsFolder = new File(tDir);
             tempPath = assetsFolder.getAbsolutePath() + File.separator;
             if (!assetsFolder.exists()) {
@@ -158,7 +157,6 @@ public class Album {
      */
     public boolean checkFileExist(String args) {
         File file = new File(assetsFilepath + args);
-        System.out.println(file.getAbsolutePath());
         return (file.isFile());
     }
 
@@ -194,7 +192,7 @@ public class Album {
             FileUtils.copyFileToDirectory(outputFile, saveDirectory, false);
             outputFile.delete();
         } catch (IOException e) {
-            System.out.println(e.toString());
+            e.printStackTrace();
         }
     }
     /* @@author*/

@@ -56,7 +56,7 @@ public class SetPresetCommandTest {
             SavePresetCommandParser savePresetCommandParser = new SavePresetCommandParser();
             savePresetCommandParser.parse("success").execute(currentEdit, model, commandHistory);
         } catch (Exception e) {
-            System.out.println(e.toString());
+            e.printStackTrace();
         }
     }
 
@@ -77,7 +77,7 @@ public class SetPresetCommandTest {
             String expectedMessage = Messages.MESSAGE_SETPRESET_SUCCESS + " " + toPrint.toString();
             assertCommandSuccess(setPresetCommand, model, commandHistory, expectedMessage, currentEdit);
         } catch (Exception e) {
-            System.out.println(e.toString());
+            e.printStackTrace();
         }
     }
 
@@ -89,7 +89,7 @@ public class SetPresetCommandTest {
             String expectedMessage = Messages.MESSAGE_SETPRESET_FAIL_NOTFOUND;
             assertCommandFailure(setPresetCommand, model, commandHistory, expectedMessage, currentEdit);
         } catch (Exception e) {
-            System.out.println(e.toString());
+            e.printStackTrace();
         }
 
     }
@@ -112,16 +112,13 @@ public class SetPresetCommandTest {
                     for (Command pastCommand: listBefore) {
                         pastCommand.execute(currentEdit, model, commandHistory);
                     }
-                    System.out.println("hihihihi");
                     expectedMessage = "Error in [" + editCommand.toString() + "]:\n"
                         + exception.toString().substring(58);
                 }
             }
-            System.out.println(expectedMessage);
-            System.out.println(currentEdit.getTempImage().toString());
             assertPresetCommandFailure(setPresetCommand, model, commandHistory, expectedMessage, currentEdit);
         } catch (Exception e) {
-            System.out.println(e.toString());
+            e.printStackTrace();
         }
     }
 }

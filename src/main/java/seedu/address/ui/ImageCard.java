@@ -45,7 +45,7 @@ public class ImageCard extends UiPart<Region> {
         try {
             thumbnail.setImage(new javafx.scene.image.Image(file.toURI().toURL().toExternalForm()));
         } catch (MalformedURLException e) {
-            System.out.println(e.toString());
+            e.printStackTrace();
         }
         name.setText("\uD83D\uDDBC " + image.getName().getFullName());
         height.setText("Height: " + image.getHeight().value + " px");

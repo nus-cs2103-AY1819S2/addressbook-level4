@@ -37,7 +37,7 @@ public class UndoCommandTest {
             assertCommandFailure(new UndoCommand(), model, commandHistory, Messages.MESSAGE_DID_NOT_OPEN,
                 currentEdit);
         } catch (CommandException e) {
-            System.out.println(e.toString());
+            e.printStackTrace();
         }
         //set up
         try {
@@ -46,7 +46,7 @@ public class UndoCommandTest {
             OpenCommandParser openParser = new OpenCommandParser();
             openParser.parse("iu.jpg").execute(currentEdit, model, commandHistory);
         } catch (Exception e) {
-            System.out.println(e.toString());
+            e.printStackTrace();
         }
 
         //No Undoable states
@@ -55,7 +55,7 @@ public class UndoCommandTest {
             assertCommandFailure(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_FAILURE,
                 currentEdit);
         } catch (Exception e) {
-            System.out.println(e.toString());
+            e.printStackTrace();
         }
         try {
             ContrastCommandParser contrastParser = new ContrastCommandParser();
@@ -68,7 +68,7 @@ public class UndoCommandTest {
             // assertCommandSuccess(command2, model, commandHistory, Messages.MESSAGE_BRIGHTNESS_SUCCESS, currentEdit);
             assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, currentEdit);
         } catch (Exception e) {
-            System.out.println(e.toString());
+            e.printStackTrace();
         }
         /*
         // multiple undoable states in model

@@ -1,4 +1,4 @@
-package seedu.address.logic.battle;
+package seedu.address.battle.result;
 
 import seedu.address.model.cell.Coordinates;
 import seedu.address.model.player.Player;

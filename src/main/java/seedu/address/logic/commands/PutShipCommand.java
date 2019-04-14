@@ -8,7 +8,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_ORIENTATION;
 import java.util.EnumSet;
 
 import seedu.address.logic.CommandHistory;
-import seedu.address.logic.battle.state.BattleState;
+import seedu.address.battle.state.BattleState;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.BoundaryValueChecker;
 import seedu.address.model.MapGrid;

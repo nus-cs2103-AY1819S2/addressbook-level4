@@ -6,10 +6,10 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 
-import seedu.address.logic.battle.AttackDestroyedShip;
-import seedu.address.logic.battle.AttackHit;
-import seedu.address.logic.battle.AttackMissed;
-import seedu.address.logic.battle.AttackResult;
+import seedu.address.battle.result.AttackDestroyedShip;
+import seedu.address.battle.result.AttackHit;
+import seedu.address.battle.result.AttackMissed;
+import seedu.address.battle.result.AttackResult;
 import seedu.address.model.player.Player;
 import seedu.address.model.statistics.PlayerStatistics;
 import seedu.address.testutil.TypicalIndexes;

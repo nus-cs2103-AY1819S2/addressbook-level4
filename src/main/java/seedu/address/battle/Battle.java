@@ -1,7 +1,8 @@
-package seedu.address.logic.battle;
+package seedu.address.battle;
 
 import java.util.List;
 
+import seedu.address.battle.result.AttackResult;
 import seedu.address.model.cell.Coordinates;
 import seedu.address.model.player.Enemy;
 import seedu.address.model.player.Player;
@@ -37,7 +38,8 @@ public interface Battle {
     Player getHumanPlayer();
 
     /**
-     * Returns the computer enemy player.
+     * Returns the computer enemy
+     * player.
      * @return the enemy player
      */
     Enemy getEnemyPlayer();

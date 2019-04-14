@@ -6,7 +6,7 @@ import java.util.EnumSet;
 import java.util.Set;
 
 import seedu.address.logic.CommandHistory;
-import seedu.address.logic.battle.state.BattleState;
+import seedu.address.battle.state.BattleState;
 import seedu.address.model.Model;
 import seedu.address.model.tag.Tag;
 

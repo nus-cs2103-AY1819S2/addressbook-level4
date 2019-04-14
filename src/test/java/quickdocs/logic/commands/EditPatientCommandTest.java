@@ -133,6 +133,32 @@ public class EditPatientCommandTest {
         }
     }
 
+    @Test
+    public void equals() {
+        PatientEditedFields peft = new PatientEditedFields();
+        peft.setNric(new Nric("S9123456Z"));
+        EditPatientCommand epc = new EditPatientCommand(patient1.getNric(), peft);
+
+        // same object
+        Assert.assertEquals(epc, epc);
+
+        // object compared with is different type
+        Assert.assertFalse(epc.equals(1));
+
+        // same field details
+        Nric otherNric = patient1.getNric();
+        PatientEditedFields peft2 = new PatientEditedFields();
+        peft2.setNric(new Nric("S9123456Z"));
+        EditPatientCommand epc2 = new EditPatientCommand(otherNric, peft2);
+        Assert.assertEquals(epc, epc2);
+
+        // different field details
+        PatientEditedFields peft3 = new PatientEditedFields();
+        peft3.setNric(new Nric("S9123456D"));
+        EditPatientCommand epc3 = new EditPatientCommand(otherNric, peft3);
+        Assert.assertFalse(epc.equals(epc3));
+    }
+
     /**
      * Create a patient object with just the strings for the fields
      *

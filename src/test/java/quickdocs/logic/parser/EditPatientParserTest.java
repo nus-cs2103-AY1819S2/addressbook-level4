@@ -75,7 +75,6 @@ public class EditPatientParserTest {
         peft.setContact(new Contact("91111111"));
         peft.setGender(new Gender("M"));
         peft.setDob(new Dob("1999-09-09"));
-        peft.setTagList(tagList);
 
         assertParseSuccess(parser, userInput, new EditPatientCommand(nric, peft));
     }

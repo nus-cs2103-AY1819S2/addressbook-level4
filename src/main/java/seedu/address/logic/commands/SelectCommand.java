@@ -41,7 +41,7 @@ public class SelectCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_MODULETAKEN_DISPLAYED_INDEX);
         }
 
-        model.setSelectedModuleTaken(filteredModuleTakenList.get(targetIndex.getZeroBased()));
+        model.setSelectedClassForPrinting(filteredModuleTakenList.get(targetIndex.getZeroBased()));
         return new CommandResult(String.format(MESSAGE_SELECT_PERSON_SUCCESS, targetIndex.getOneBased()));
 
     }

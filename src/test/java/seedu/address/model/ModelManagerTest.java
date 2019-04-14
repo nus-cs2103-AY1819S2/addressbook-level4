@@ -107,7 +107,7 @@ public class ModelManagerTest {
     @Test
     public void deletePerson_personIsSelectedAndFirstPersonInFilteredPersonList_selectionCleared() {
         modelManager.addModuleTaken(CS2103T);
-        modelManager.setSelectedModuleTaken(CS2103T);
+        modelManager.setSelectedClassForPrinting(CS2103T);
         modelManager.deleteModuleTaken(CS2103T);
         assertEquals(null, modelManager.getSelectedClassForPrinting());
     }
@@ -117,7 +117,7 @@ public class ModelManagerTest {
         modelManager.addModuleTaken(CS2103T);
         modelManager.addModuleTaken(DEFAULT_MODULE_CS1010);
         assertEquals(Arrays.asList(CS2103T, DEFAULT_MODULE_CS1010), modelManager.getFilteredModulesTakenList());
-        modelManager.setSelectedModuleTaken(DEFAULT_MODULE_CS1010);
+        modelManager.setSelectedClassForPrinting(DEFAULT_MODULE_CS1010);
         modelManager.deleteModuleTaken(DEFAULT_MODULE_CS1010);
         assertEquals(CS2103T, modelManager.getSelectedClassForPrinting());
     }
@@ -125,7 +125,7 @@ public class ModelManagerTest {
     @Test
     public void setPerson_personIsSelected_selectedPersonUpdated() {
         modelManager.addModuleTaken(CS2103T);
-        modelManager.setSelectedModuleTaken(CS2103T);
+        modelManager.setSelectedClassForPrinting(CS2103T);
         ModuleTaken updatedAlice = new ModuleTakenBuilder(CS2103T)
                 .withExpectedMinGrade(VALID_EXPECTED_MIN_GRADE_CS1010).build();
         modelManager.setModuleTaken(CS2103T, updatedAlice);
@@ -141,14 +141,14 @@ public class ModelManagerTest {
     @Test
     public void setSelectedPerson_personNotInFilteredPersonList_throwsPersonNotFoundException() {
         thrown.expect(ModuleTakenNotFoundException.class);
-        modelManager.setSelectedModuleTaken(CS2103T);
+        modelManager.setSelectedClassForPrinting(CS2103T);
     }
 
     @Test
     public void setSelectedPerson_personInFilteredPersonList_setsSelectedPerson() {
         modelManager.addModuleTaken(CS2103T);
         assertEquals(Collections.singletonList(CS2103T), modelManager.getFilteredModulesTakenList());
-        modelManager.setSelectedModuleTaken(CS2103T);
+        modelManager.setSelectedClassForPrinting(CS2103T);
         assertEquals(CS2103T, modelManager.getSelectedClassForPrinting());
     }
 

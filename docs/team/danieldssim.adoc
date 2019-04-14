@@ -28,7 +28,7 @@ slaveFinder() is a desktop address book application used for people in the HR de
 ** Project management:
 *** Managed Issue Tracker by linking pull requests to issues
 *** Set-Up milestones 1.1 and 1.2
-** Enhancements to existing features: 
+** Enhancements to existing features:
 ** Documentation:
 ** Community:
 ** Tools:

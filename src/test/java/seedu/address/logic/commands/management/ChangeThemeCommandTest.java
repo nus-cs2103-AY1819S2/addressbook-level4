@@ -1,7 +1,7 @@
 package seedu.address.logic.commands.management;
 
-import static seedu.address.logic.commands.management.ChangeThemeCommand.MESSAGE_SUCCESS;
-import static seedu.address.logic.commands.management.CommandTestUtil.assertCommandSuccess;
+import static org.junit.Assert.assertEquals;
+import static seedu.address.model.UserPrefs.DARK_THEME;
 
 import org.junit.Test;
 
@@ -10,6 +10,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.modelmanager.ManagementModel;
 import seedu.address.model.modelmanager.ManagementModelManager;
+import seedu.address.model.modelmanager.ManagementModelStub;
 import seedu.address.model.modelmanager.Model;
 import seedu.address.model.modelmanager.QuizModelManager;
 import seedu.address.testutil.Assert;
@@ -27,10 +28,22 @@ public class ChangeThemeCommandTest {
     }
 
     @Test
-    public void execute_help_success() {
-        CommandResult expectedCommandResult = new CommandResult(String.format(MESSAGE_SUCCESS, "dark"));
-        expectedManagementModel.changeTheme();
-        assertCommandSuccess(new ChangeThemeCommand(), managementModel, commandHistory,
-            expectedCommandResult, expectedManagementModel);
+    public void execute_changeTheme_success() throws Exception {
+        MgtModelStub modelStub = new MgtModelStub();
+
+        CommandResult commandResult = new ChangeThemeCommand().execute(modelStub, commandHistory);
+
+        assertEquals(String.format(ChangeThemeCommand.MESSAGE_SUCCESS, "dark"),
+            commandResult.getFeedbackToUser());
+    }
+
+    /**
+     * A ManagementModel stub which always accept changing theme to dark.
+     */
+    private class MgtModelStub extends ManagementModelStub {
+        @Override
+        public String changeTheme() {
+            return DARK_THEME;
+        }
     }
 }

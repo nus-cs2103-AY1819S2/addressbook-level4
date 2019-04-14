@@ -21,9 +21,9 @@ import seedu.address.logic.commands.management.HistoryCommand;
 import seedu.address.logic.commands.management.ListCardsCommand;
 import seedu.address.logic.commands.management.ListLessonsCommand;
 import seedu.address.logic.commands.management.QuitLessonCommand;
-import seedu.address.logic.commands.management.QuizStartCommand;
 import seedu.address.logic.commands.management.ReloadLessonsCommand;
 import seedu.address.logic.commands.management.SetLessonTestValuesCommand;
+import seedu.address.logic.commands.management.StartCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 public class ManagementModeParserTest {
@@ -34,7 +34,7 @@ public class ManagementModeParserTest {
 
     @Test
     public void parseCommand_start() throws Exception {
-        assertTrue(parser.parse("start 1 c/15 m/LEARN") instanceof QuizStartCommand);
+        assertTrue(parser.parse("start 1 c/15 m/LEARN") instanceof StartCommand);
     }
     @Test
     public void parseCommand_exit() throws Exception {

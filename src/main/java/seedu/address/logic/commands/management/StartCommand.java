@@ -2,6 +2,7 @@ package seedu.address.logic.commands.management;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_LESSON_VIEW_COMMAND;
+import static seedu.address.logic.commands.management.ManagementCommand.requireManagementModel;
 import static seedu.address.logic.parser.Syntax.PREFIX_START_COUNT;
 import static seedu.address.logic.parser.Syntax.PREFIX_START_MODE;
 
@@ -31,7 +32,7 @@ import seedu.address.model.user.CardSrsData;
  * It requires a {@link QuizModel} to be passed into the {@link #execute(Model, CommandHistory)}
  * command.
  */
-public class QuizStartCommand extends QuizCommand {
+public class StartCommand extends QuizCommand {
     public static final String COMMAND_WORD = "start";
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + "Parameters: "
@@ -53,7 +54,7 @@ public class QuizStartCommand extends QuizCommand {
      *
      * @param session to be opened.
      */
-    public QuizStartCommand(Session session) {
+    public StartCommand(Session session) {
         requireNonNull(session);
         this.session = session;
     }
@@ -67,7 +68,7 @@ public class QuizStartCommand extends QuizCommand {
      *
      * @return messages to show whether the quiz starts correctly.
      */
-    public CommandResult executeActual(Model model, CommandHistory history) throws CommandException {
+    public CommandResult executeQuiz(QuizModel model, CommandHistory history) throws CommandException {
         QuizModel quizModel = requireQuizModel(model);
 
         StringBuilder sb = new StringBuilder();
@@ -98,12 +99,8 @@ public class QuizStartCommand extends QuizCommand {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
-        // CommandException will be thrown if and only if LogicManager passes in the incorrect Model
-        // In other words, only incorrect code will result in a CommandException being thrown
-        if (!(model instanceof ManagementModel)) {
-            throw new CommandException(MESSAGE_EXPECTED_MODEL);
-        }
-        ManagementModel mgtModel = (ManagementModel) model;
+        ManagementModel mgtModel = requireManagementModel(model);
+
         if (mgtModel.isThereOpenedLesson()) {
             throw new CommandException(MESSAGE_LESSON_VIEW_COMMAND);
         }

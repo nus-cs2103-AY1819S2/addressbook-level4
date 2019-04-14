@@ -199,14 +199,17 @@ public class QuizCardTest {
 
     @Test
     public void quizCardToString() {
+        final QuizCard validQuizCard = new QuizCard(QUESTION, ANSWER, HINTS,
+            QUESTION_HEADER, ANSWER_HEADER);
         final QuizCard copyValidQuizCard = new QuizCard(QUESTION, ANSWER, HINTS,
             QUESTION_HEADER, ANSWER_HEADER);
         final QuizCard diffQuizCard = new QuizCard("A", "B", HINTS,
             QUESTION_HEADER, ANSWER_HEADER);
 
-        assertEquals(VALID_QUIZCARD.toString(), copyValidQuizCard.toString());
-        assertNotEquals(VALID_QUIZCARD.toString(), diffQuizCard.toString());
-        assertNotEquals(VALID_QUIZCARD.toString(), VALID_QUIZCARD_INDEX.toString());
+        assertEquals(validQuizCard.toString(), copyValidQuizCard.toString());
+        assertNotEquals(validQuizCard.toString(), diffQuizCard.toString());
+        assertNotEquals(validQuizCard.toString(), VALID_QUIZCARD_INDEX.toString());
     }
 
 }
+

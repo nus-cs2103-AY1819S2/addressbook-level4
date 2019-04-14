@@ -19,7 +19,7 @@ By: `Team CS2103-AY1819S2-W16-2`      Since: `Mar 2019`      Licence: `MIT`
 == Introduction
 
 *The Real App* is an enhanced Address Book designed primarily for *real estate agents* who need to store large number of client contacts as well as property information.
-You can *store* contact details for each of your specialised named contacts, as well as essential information for the associated property.
+You can *store* contact details for each of your specialised named clients, as well as essential information for the associated property.
 You can *search* for contact information using keywords.
 You can *pin* important contacts and even *archive* them when you no longer need them.
 *Select* your contact to display the location of the associated property on Google Maps(TM), so you know exactly where it is!
@@ -145,36 +145,39 @@ Examples:
 * `list` +
 `select 2` +
 Selects the 2nd contact in the contact book.
-* `find James` +
+* `search James` +
 `select 1` +
-Selects the 1st contact in the results of the `find` command.
-* `sort` +
+Selects the 1st contact in the results of the `search` command.
+* `search seller` +
 `select 3` +
-Selects the 3rd contact in the sorted list displayed earlier.
+Selects the 3rd contact in the results of the `search` command.
 // end::selectfeatures[]
 
 // tag::sortfeatures[]
 === Displaying a sorted list of contacts by specified category : `sort` `[coming in v2.0]`
 
 Shows a list of all contacts in the contact book, sorted according to a specified category. +
-Format: `sort CATEGORY [CATEGORY_MODIFIER] ORDER`
+Format: `sort CATEGORY [CATEGORY_RESTRICTOR] ORDER`
 
 [NOTE]
 ====
 `CATEGORY` List: `n`, `sp`, `rp` +
-`CATEGORY_MODIFIER`: `<NAME`, `>NAME`, `<SELLING_PRICE`, `>SELLING_PRICE`, `<RENTAL_PRICE`, `>RENTAL_PRICE` +
-`ORDER` List: `increasing`, `decreasing`
+`CATEGORY_RESTRICTOR`: `<NAME`, `>NAME`, `<SELLING_PRICE`, `>SELLING_PRICE`, `<RENTAL_PRICE`, `>RENTAL_PRICE` +
+`ORDER` List: `ascending`, `decreasing`
 ====
 
 ****
 * Sort methods:
-** Sort by contact name `n` greater or smaller than `specified name` in increasing/decreasing alphabetical order
-** Sort by selling price of property `sp` greater or smaller than `specified selling price` in increasing/decreasing order
-** Sort by rental price of property `rp` greater or smaller than `specified rental price` in increasing/decreasing order
+** Sort by contact name `n` greater or smaller than `specified name` in ascending/decreasing alphabetical order
+** Sort by selling price of property `sp` greater or smaller than `specified selling price` in ascending/decreasing order
+** Sort by rental price of property `rp` greater or smaller than `specified rental price` in ascending/decreasing order
 ****
 
-Example: `sort sp <540000 increasing` +
-Displays the contact list sorted by price less than $540,000 in increasing order.
+Example: `sort sp <540000 ascending` +
+Displays the contact list sorted by price less than $540,000 in ascending order.
+
+Example: `sort n ascending` +
+Displays the contact list sorted by name in ascending alphabetical order.
 // end::sortfeatures[]
 
 // tag::searchfeatures[]
@@ -278,9 +281,9 @@ Examples:
 * `list` +
 `delete 2` +
 Deletes the 2nd contact in the contact book.
-* `find James` +
+* `search James` +
 `delete 1` +
-Deletes the 1st contact in the results of the `find` command.
+Deletes the 1st contact in the results of the `search` command.
 * `sort` +
 `delete 3` +
 Deletes the 3rd contact in the sorted list displayed earlier.
@@ -314,12 +317,12 @@ Examples:
 * `list` +
 `pin 2` +
 Pins the 2nd contact in the contact book.
-* `find James` +
+* `search James` +
 `pin 1` +
-Pins the 1st contact in the results of the `find` command.
-* `find clementi` +
-`pin 3` +
-Pins the 3rd contact in the results of the `find` command.
+Pins the 1st contact in the results of the `search` command.
+* `search seller` +
+`select 3` +
+Selects the 3rd contact in the results of the `search` command.
 
 === Unpinning a contact : `unpin`
 
@@ -384,12 +387,12 @@ Examples:
 * `list` +
 `archive 2` +
 Archives the 2nd contact in the contact book.
-* `find James` +
+* `search James` +
 `archive 1` +
-Archives the 1st contact in the results of the `find` command.
-* `list` +
+Archives the 1st contact in the results of the `search` command.
+* `search seller` +
 `archive 3` +
-Archives the 3rd contact in the contact book.
+Archives the 3rd contact in the results of the `search` command.
 
 === Listing all archived contacts : `archivelist`
 
@@ -422,7 +425,7 @@ Selects the 2nd contact in the archive book.
 === Searching for archived contact(s) : `archivesearch`
 
 Searches the archive and finds contact(s) whose information contains any of the keyword(s). +
-Format: `archivefind KEYWORD [KEYWORD]...`
+Format: `archivesearch KEYWORD [KEYWORD]...`
 
 [NOTE]
 ====
@@ -431,7 +434,7 @@ Format: `archivefind KEYWORD [KEYWORD]...`
 
 Example:
 
-* `archivefind James Seller` +
+* `archivesearch James Seller` +
 Returns any contact with information fields matching keywords `James` and/or `Seller`
 
 === Unarchiving a contact : `unarchive`
@@ -451,9 +454,9 @@ Example:
 * `archivelist` +
 `unarchive 2` +
 Moves the the 2nd contact from the archived contacts list back into the contact book.
-* `archivefind James` +
+* `archivesearch James` +
 `select 1` +
-Moves the 1st contact in the results of the `archivefind` command from the archive back into the contact book.
+Moves the 1st contact in the results of the `archivesearch` command from the archive back into the contact book.
 
 === Clearing all entries in archive: `archiveclear`
 
@@ -617,11 +620,11 @@ User can set a password, which will be required when logging into the app.
 * *Redo* : `redo`
 * *Select* : `select INDEX`
 ** e.g.`select 2`
-* *Sort* : `sort CATEGORY CATEGORY_MODIFIER ORDER`
+* *Sort* : `sort CATEGORY CATEGORY_RESTRICTOR ORDER`
 ** `CATEGORY` List: `n`, `sp`, `rp`
-** `CATEGORY_MODIFIER`: `<NAME`, `>NAME`, `<SELLING_PRICE`, `>SELLING_PRICE`, `<RENTAL_PRICE`, `>RENTAL_PRICE` +
-** `ORDER` List: `increasing`, `decreasing`
-** e.g. `sort sp >500000 increasing`
+** `CATEGORY_RESTRICTOR`: `<NAME`, `>NAME`, `<SELLING_PRICE`, `>SELLING_PRICE`, `<RENTAL_PRICE`, `>RENTAL_PRICE` +
+** `ORDER` List: `ascending`, `decreasing`
+** e.g. `sort sp >500000 ascending`
 * *Unarchive* : `unarchive INDEX`
 ** e.g. `unarchive 1`
 * *Undo* : `undo`

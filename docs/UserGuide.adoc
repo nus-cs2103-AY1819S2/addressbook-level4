@@ -547,7 +547,7 @@ in response to the card displayed below, choosing option 2 will give the right a
 
 .Answering an MCQ card
 image::AnsweringMcqCard.png[width="500"]
-
+//end::testoperations[]
 ==== Reveal answer to a flashcard : `reveal`
 If you have no clue what the answer is, this command immediately reveals the correct answer, as seen in the figure
 below. You will not need attempt any answer before being presented the correct answer.
@@ -599,7 +599,6 @@ Format: `end`
 [NOTE]
 For the final <<testscore, test score>> to be recorded, you must have attempted at least 1/4 of cards in the
  card folder. If there are less than 4 cards, any number of cards attempted will be recorded.
-//end::testoperations[]
 
 
 //tag::reportoperations[]

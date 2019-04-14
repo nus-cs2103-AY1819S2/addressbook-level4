@@ -98,6 +98,5 @@ public class InitialiseMapCommand extends Command {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof InitialiseMapCommand); // instanceof handles nulls
-                //&& toAdd.equals(((InitialiseMapCommand) other).toAdd));
     }
 }

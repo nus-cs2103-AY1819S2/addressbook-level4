@@ -88,7 +88,7 @@ public class EditRequestCommand extends EditCommand implements RequestCommand {
             }
 
             for (Request request : model.getFilteredRequestList()) {
-                if (updatedHealthWorker.equals(request.getHealthStaff())) {
+                if (updatedHealthWorker != null && updatedHealthWorker.equals(request.getHealthStaff())) {
                     healthWorkerDates.add(request.getRequestDate().getDate());
                 }
             }
@@ -156,7 +156,6 @@ public class EditRequestCommand extends EditCommand implements RequestCommand {
     public void edit(Model model, Object toEdit, Object edited) {
         model.setRequest((Request) toEdit, (Request) edited);
         model.updateFilteredRequestList(Model.PREDICATE_SHOW_ALL_REQUESTS);
-        //model.commitRequestBook();
         commitRequestBook(model);
     }
 

@@ -191,9 +191,16 @@ public class ModelManager implements Model {
         case HEALTHWORKER_COMMAND:
             versionedHealthWorkerBook.undo();
             break;
+
         case REQUEST_COMMAND:
             versionedRequestBook.undo();
             break;
+
+        case HEALTHWORKER_AND_REQUEST_COMMAND:
+            versionedRequestBook.undo();
+            versionedHealthWorkerBook.undo();
+            break;
+
         default:
         }
     }
@@ -210,6 +217,12 @@ public class ModelManager implements Model {
         case REQUEST_COMMAND:
             versionedRequestBook.redo();
             break;
+
+        case HEALTHWORKER_AND_REQUEST_COMMAND:
+            versionedRequestBook.redo();
+            versionedHealthWorkerBook.redo();
+            break;
+
         default:
         }
     }
@@ -225,6 +238,12 @@ public class ModelManager implements Model {
         case REQUEST_COMMAND:
             commitRequestBook();
             break;
+
+        case HEALTHWORKER_AND_REQUEST_COMMAND:
+            commitRequestBook();
+            commitHealthWorkerBook();
+            break;
+
         default:
         }
     }

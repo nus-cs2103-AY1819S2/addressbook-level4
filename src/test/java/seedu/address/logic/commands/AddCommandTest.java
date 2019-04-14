@@ -479,6 +479,12 @@ public class AddCommandTest {
             this.person = person;
         }
 
+        //This method will modified in v2.0
+        @Override
+        public boolean getIsAllJobScreen() {
+            return true;
+        }
+
         @Override
         public boolean hasPerson(Person person) {
             requireNonNull(person);
@@ -502,6 +508,12 @@ public class AddCommandTest {
         public void addPerson(Person person) {
             requireNonNull(person);
             personsAdded.add(person);
+        }
+
+        //This method will modified in v2.0
+        @Override
+        public boolean getIsAllJobScreen() {
+            return true;
         }
 
         @Override

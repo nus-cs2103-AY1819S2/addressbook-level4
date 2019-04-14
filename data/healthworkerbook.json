@@ -1,8 +1,8 @@
 {
   "healthWorkers" : [ {
-    "name" : "Rohan Tay",
+    "name" : "S1234567L",
     "phone" : "98765432",
-    "nric" : "S9999999G",
+    "nric" : "S1234567L",
     "organization" : "SGH",
     "skills" : "ORTHOPAEDIC GENERAL_PRACTICE "
   }, {
@@ -16,7 +16,7 @@
     "phone" : "90098264",
     "nric" : "S7491023J",
     "organization" : "SGH",
-    "skills" : "PAEDIATRIC "
+    "skills" : "ORTHOPAEDIC GENERAL_PRACTICE "
   }, {
     "name" : "Jin Stackoverflow",
     "phone" : "88888888",

@@ -379,9 +379,34 @@ This command takes in a number of parameters that are contact and student inform
 
 Below is a step-by-step process on how the memberAdd command works on execution:
 
-* Step 1: The User executes the memberAdd command
-* Step 2: The memberAdd command calls the `Model#hasPerson()` to prevent duplicated members from being added to the member's list.
-* Step 3: Then, the memberAdd call `Model#hasMatricNumber`
+* *Step 1:* The User executes the memberAdd command
+* *Step 2:* The memberAdd command calls the `Model#hasPerson()` to prevent duplicated members from being added to the member's list.
+* *Step 3:* Then, the memberAdd call `Model#hasMatricNumber` to prevent duplication of matric number within the member's list. This is because matric number are unique and no two students have the same matric number.
+* *Step 4:* Once these verification have been completed, the `memberAdd` command calls `Model#addPerson` to proceed with adding the member to the member's list.
+* *Step 5:* The `memberAdd` calls `Model#commitAddressBook()` to finalise the changes made to the patient record.
+* *Step 6:* Finally, the `memberAdd` command provides a success message to indicate that the member has been successfully added to Club Manager.
+
+The following code snippet shows how the `memberAdd` command is executed:
+[source,java]
+----
+    @Override
+    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
+        requireNonNull(model);
+
+        if (model.hasPerson(toAdd)) { # <1>
+            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+        } else if (model.hasMatricNumber(toAdd.getMatricNumber())) { # <2>
+            throw new CommandException(MESSAGE_DUPLICATE_MATRICNUMBER);
+        }
+        model.addPerson(toAdd); # <3>
+        model.commitAddressBook();
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+    }
+----
+<1> Check if member already exists in Club Manager.
+<2> Check if the matric number entered is unique.
+<3> Add member to Club Manager.
+
 [discrete]
 //tag::membersort[]
 === MemberSort

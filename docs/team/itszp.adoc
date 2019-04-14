@@ -90,6 +90,7 @@ https://github.com/CS2103-AY1819S2-W14-2/main/issues/224[#224]
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 === *Features*
+'''
 include::../UserGuide.adoc[tag=FeaturesHeader]
 
 
@@ -110,13 +111,17 @@ include::../UserGuide.adoc[tag=UGSave]
 |===
 
 === *Open Feature*
+'''
 include::../DeveloperGuide.adoc[tag=DGOpen]
 
 === *List Files Feature*
+'''
 include::../DeveloperGuide.adoc[tag=DGListFiles]
 
 === *Save Feature*
+'''
 include::../DeveloperGuide.adoc[tag=DGSave]
 
 === *Appendix B: User Stories*
+'''
 include::../DeveloperGuide.adoc[tag=UserStories]

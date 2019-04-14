@@ -16,7 +16,7 @@ image::carrein.png[width="150", align="left"]
 *Role:* +
 Team Lead +
 *Responsibilities:* +
-User Interface and Model designi
+User Interface and Model Design
 
 '''
 

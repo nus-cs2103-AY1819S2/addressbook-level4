@@ -55,6 +55,7 @@ public class SetPresetCommand extends Command {
                 toPrint.append("[" + command.toString() + "]");
                 command.execute(currentEdit, model, history);
             } catch (CommandException exception) {
+
                 String exceptionString = exception.toString().substring(58);
                 throw new CommandException("Error in [" + command.toString() + "]:\n" + exceptionString);
             }

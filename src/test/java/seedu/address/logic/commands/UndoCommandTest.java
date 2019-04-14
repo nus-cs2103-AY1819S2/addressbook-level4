@@ -63,6 +63,8 @@ public class UndoCommandTest {
             assertCommandSuccess(command1, model, commandHistory, Messages.MESSAGE_CONTRAST_SUCCESS, currentEdit);
             assertCommandSuccess(command2, model, commandHistory, Messages.MESSAGE_BRIGHTNESS_SUCCESS, currentEdit);
             assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, currentEdit);
+            assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, currentEdit);
+            assertCommandFailure(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_FAILURE, currentEdit);
         } catch (Exception e) {
             System.out.println(e.toString());
         }

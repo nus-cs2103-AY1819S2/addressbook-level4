@@ -73,4 +73,14 @@ public class ExportCommand extends Command {
         }
         return -1;
     }
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+            || (other instanceof ExportCommand // instanceof handles nulls
+            && isValuesEqual(other));
+    }
+    private boolean isValuesEqual(Object other) {
+        ExportCommand temp = (ExportCommand) other;
+        return this.filename.equals(temp.filename) && this.path.equals(temp.path);
+    }
 }

@@ -77,10 +77,10 @@ public class FilterCommandParser implements Parser<FilterCommand> {
      * Method that parses a string of parameters into a list of predicates for filtering health workers in a list.
      */
     public static List<Predicate> parseHealthWorkerPredicates(String args) throws ParseException {
-        ArgumentMultimap argumentMultimap = ArgumentTokenizer.tokenize(args, PREFIX_NAME,
+        ArgumentMultimap argumentMultimap = ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_NRIC,
                 PREFIX_SKILLS, PREFIX_ORGANIZATION);
 
-        if (!anyPrefixPresent(argumentMultimap, PREFIX_NAME,
+        if (!anyPrefixPresent(argumentMultimap, PREFIX_NAME, PREFIX_NRIC,
                 PREFIX_SKILLS, PREFIX_ORGANIZATION)) {
             throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
                     FilterHealthWorkerCommand.MESSAGE_USAGE));
@@ -94,6 +94,10 @@ public class FilterCommandParser implements Parser<FilterCommand> {
         if (argumentMultimap.getValue(PREFIX_ORGANIZATION).isPresent()) {
             predicateList.add(x -> ((HealthWorker) x).getOrganization().contains(argumentMultimap
                     .getValue(PREFIX_ORGANIZATION).get()));
+        }
+        if (argumentMultimap.getValue(PREFIX_NRIC).isPresent()) {
+            predicateList.add(x -> ((HealthWorker) x).getNric().contains(argumentMultimap
+                    .getValue(PREFIX_NRIC).get()));
         }
         if (argumentMultimap.getValue(PREFIX_SKILLS).isPresent()) {
             Set<Specialisation> otherSkills = new HashSet<>();

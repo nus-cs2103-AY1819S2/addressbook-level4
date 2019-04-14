@@ -74,8 +74,7 @@ public class TypicalHealthWorkers {
             .withNric("S1234567B"))
             .withOrganization("NUH").build();
 
-    private TypicalHealthWorkers() {
-    } // prevents instantiation
+    private TypicalHealthWorkers() { } // prevents instantiation
 
     /**
      * Returns an {@code HealthWorkerBook} with all the typical persons.

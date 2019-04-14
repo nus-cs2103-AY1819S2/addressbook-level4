@@ -39,6 +39,13 @@ public class Nric {
         return test.matches(VALIDATION_REGEX);
     }
 
+    /**
+     * Method that returns true if the nric field contains the specified substring, regardless of case
+     */
+    public boolean contains(String substring) {
+        return this.nric.toLowerCase().contains(substring.toLowerCase());
+    }
+
     @Override
     public String toString() {
         return this.nric;

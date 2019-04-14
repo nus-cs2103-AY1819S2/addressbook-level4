@@ -25,7 +25,7 @@ import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.ImportResumesCommand;
 import seedu.address.logic.commands.ListCommand;
-import seedu.address.logic.commands.MovePersonCommand;
+import seedu.address.logic.commands.MovePeopleCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.RemoveFromListCommand;
 import seedu.address.logic.commands.SetBlockOutDatesCommand;
@@ -169,11 +169,11 @@ public class AddressBookParser {
         case DisplayJobCommand.COMMAND_ALIAS:
             return new DisplayJobCommandParser().parse(arguments);
 
-        case MovePersonCommand.COMMAND_WORD:
-            return new MovePersonCommandParser().parse(arguments);
+        case MovePeopleCommand.COMMAND_WORD:
+            return new MovePeopleCommandParser().parse(arguments);
 
-        case MovePersonCommand.COMMAND_ALIAS:
-            return new MovePersonCommandParser().parse(arguments);
+        case MovePeopleCommand.COMMAND_ALIAS:
+            return new MovePeopleCommandParser().parse(arguments);
 
         case DeleteJobCommand.COMMAND_WORD:
             return new DeleteJobCommandParser().parse(arguments);

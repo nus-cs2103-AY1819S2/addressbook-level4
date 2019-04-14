@@ -297,6 +297,13 @@ Format: `display`
 Example:
 
 * `display`
+
+[NOTE]
+====
+The addresses (address of equipments and the origin address) will be interpreted to match Google Map data.
+The `equipments` with invalid addresses in Google Map will not be shown on the map as well.
+The display may take a few seconds.
+====
 // end::display[]
 
 // tag::sort[]
@@ -406,15 +413,22 @@ With multiple destinations that you plan to visit for preventive maintenance, us
 ****
 * A visual representation on the map of the most efficient route you can take
 * A list of location to visit in order.
+* A suggested travel order to all `equipments` listed in the `Equipment Details` panel.
 ****
-Format: `route /[worklist id]`
+Format: `route [origin address]`
 
 Examples:
 
 * `list-w` +
-`route 120`
+`route School of Computing, NUS, Singapore 117417`
 
-    Note to editor: add a png example of the routing of worklist id 120.
+[NOTE]
+====
+The addresses (address of equipments and the origin address) will be interpreted to match Google Map data.
+The `equipments` with invalid addresses in Google Map will not be shown on the map as well.
+The suggest order is marked on map with Alphabets start with B, and the suggest route is travel from A (Overlapped with the largest alphabet, so A may not be visible on map), to the largest alphabet in increasing order.
+The `origin address` must include the country name, and it is suggested to include the postal code.
+====
 
 === Listing entered commands: `history`
 Lists all the commands that you have entered in reverse chronological order.

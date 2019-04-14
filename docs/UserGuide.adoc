@@ -71,7 +71,7 @@ The GUI for _Equipment Manager_ as shown in <<GUI>> consists of nine regions:
 | [1] *Menu Bar* | Allow users to click `File` > `Exit` to exit the application and click `Help` to navigate to our User Guide page.
 | [2] *Command Box* | User enters the command in the command box. Refer to *User Guide* to learn all the available commands.
 | [3] *Message box* | The message box that shows the result after a command has been executed.
-| [4] *Status Bar* |
+| [4] *Status Bar* | Show the total number of equipments in the *Equipment Manager*.
 | [5] *Google Map*  | Google map serves as a visual representation for where equipments are at as well as showing user the possible routes to take.
 | [6] *Equipment Details* panel | This panel shows summarized details on equipment
 | [7] *Equipment Details Page* | This is a HTML page where it shows more detailed information on an equipment.
@@ -84,12 +84,12 @@ Please remember the naming convention for the different regions in GUI as they w
 
 === About an equipment
 |===
-| *Attributes* | *Description* | *Things to Note*
-| Name | The client's name who owns the equipment. |
-| Phone | The contact number of the client that owns the equipment. |
-| Date | The due date for which maintenance work on the equipment should be carried out by then. |
-| Address | The address of the client that owns the equipment. |
-| Serial Number | The serial number of an equipment | All equipments have unique serial number and there should not be duplicated serial number.
+| *Parameters* | *Description* | *Things to Note*
+| NAME | The client's name who owns the equipment. | Name should only contain alphanumeric characters and spaces, and it should not be blank.
+| PHONE | The contact number of the client that owns the equipment. | Phone numbers should only contain numbers, and it should be at least 3 digits long
+| DATE | The due date for which maintenance work on the equipment should be carried out by then. | Should only contain numbers and hyphens, no blanks allowed. The correct format is  dd-MM-yyyy. For example, 03-05-2019 which means 3 May 2019.
+| ADDRESS | The address of the client that owns the equipment. |
+| SERIAL_NUMBER | The serial number of an equipment | All equipments have unique serial number and there should not be duplicated serial number.
 |===
 
 === Entering a command
@@ -114,10 +114,10 @@ Refer to <<Features>> for details of each command.
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add-e n/NAME`, `NAME` is a parameter which can be used as `add-e n/Clementi CC`.
 * Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/Clementi CC t/urgent` or as `n/Clementi CC`.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE`, `p/PHONE n/NAME` is also acceptable.
 ====
 
 === Viewing help : `help`
@@ -132,7 +132,7 @@ If it is your first time reading this, then good job on opening the User Guide!
 
 === Adding an equipment: `add-e`
 Adds an equipment to the *Equipment Manager*. The result of adding an equipment will be reflected on the panel labelled under *Equipment details* and *Client details*.  +
-Format: `add-e n/NAME p/PHONE_NUMBER pm/DATE a/ADDRESS s/SERIAL_NUMBER t/TAG`
+Format: `add-e n/NAME p/PHONE pm/DATE a/ADDRESS s/SERIAL_NUMBER t/TAG`
 
 [NOTE]
 An equipment can any number of tags (including 0). +

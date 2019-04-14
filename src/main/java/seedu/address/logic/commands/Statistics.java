@@ -15,8 +15,10 @@ public class Statistics {
 
     private static final String MESSAGE_EMPTY_STATISTICS = "Conditions and their related occurences are not available";
 
+    //statistics will be ordering health conditions by key
     private static Map<String, Integer> statistics = new TreeMap<>();
 
+    //sortedMap will be ordering the health conditions by their corresponding number of occurrences
     private static Map<String, Integer> sortedMap = new LinkedHashMap<>();
 
     /**
@@ -29,6 +31,9 @@ public class Statistics {
         return statistics.getOrDefault(condition.toString().toUpperCase(), 0);
     }
 
+    /**
+     * Clears records on both statistics and sortedMap
+     */
     public static void clearStatistics() {
         statistics.clear();
         sortedMap.clear();

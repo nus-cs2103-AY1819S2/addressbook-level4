@@ -6,9 +6,9 @@ import javafx.beans.value.ObservableValue;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
-import javafx.scene.web.WebView;
 import seedu.knowitall.commons.core.LogsCenter;
 import seedu.knowitall.model.card.Card;
 import seedu.knowitall.model.card.Option;
@@ -25,7 +25,7 @@ public class BrowserPanel extends UiPart<Region> {
     private final Logger logger = LogsCenter.getLogger(getClass());
 
     @FXML
-    private WebView browser;
+    private ScrollPane scrollPane;
     @FXML
     private GridPane cardPage;
     @FXML

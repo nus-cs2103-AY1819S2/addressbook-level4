@@ -291,7 +291,8 @@ This class checks if the user's input string is valid ("", "ASC" or "DESC") befo
 * `SortMedHistCommand` - This is a class where the execution of sort medical history command happens.
 It interacts with Model components to execute sorting of `UniqueMedHistList` object stored in `docX` object.
 
-Given below is the Sequence Diagram for interactions within the `Logic` and `Model` components for the "sort-med-hist" command:
+Given below is the Sequence Diagram for interactions within the Logic and Model components for the "sort-med-hist" command:
+
 image::SortMedHistSequenceDiagram.png[width="800"]
 
 Steps:

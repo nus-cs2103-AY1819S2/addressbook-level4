@@ -1355,56 +1355,56 @@ These instructions only provide a starting point for testers to work on; testers
 
 . Initial launch
 
-.. Download the JAR file and copy into an empty folder
-.. Double-click the JAR file +
-   Expected: Shows the GUI with a set of sample records. The window size may not be optimum.
+.. Download the [fuchsia]#JAR# file and copy into an empty folder
+.. Double-click the [fuchsia]#JAR# file +
+   Expected: Shows the [fuchsia]#GUI# with a set of sample records. The window size may not be optimum.
 
 . Saving window preferences
 
 .. Resize the window to an optimum size. Move the window to a different location. Close the window.
-.. Re-launch the application by double-clicking the JAR file. +
+.. Re-launch the application by double-clicking the [fuchsia]#JAR# file. +
    Expected: The most recent window size and location is retained.
 
 === Setting a budget
 . Setting a initial budget
-.. Test case: `set $/500` +
+.. Test case: `[fuchsia]#set $/500#` +
    Expected: The budget is set to $500. The Budget Panel and Browser Panel are updated accordingly.
-.. Test case: `set $/500.50` +
+.. Test case: `[fuchsia]#set $/500.50#` +
    Expected: The budget is changed to $500.50. The Budget Panel and Browser Panel are updated accordingly.
-.. Test case: `set 500` +
+.. Test case: `[fuchsia]#set 500#` +
    Expected: The budget is not changed. Error details shown in the status message. Status bar remains the same.
-.. Test case: `set $/$500` +
+.. Test case: `[fuchsia]#set $/$500#` +
    Expected: The budget is not changed. Error details shown in status message about amount.
-.. Test case: `set $/-1` +
+.. Test case: `[fuchsia]#set $/-1#` +
    Expected: Similar to previous
-.. Test case: `set $/0` +
+.. Test case: `[fuchsia]#set $/0#` +
    Expected: Similar to previous
 
 === Allocating category budgets and showing allocated category budgets
 
 . Allocating category budget (no spending in category; we assume that total budget set is $500)
-.. Test case: `allocate $/50 c/Shopping`, then `show` +
-   Expected: Category Budget is allocated in Shopping category. Result Display shows current spending over budget
+.. Test case: `[fuchsia]#allocate $/50 c/Shopping#`, then `[fuchsia]#show#` +
+   Expected: Category Budget is allocated in `[fuchsia]#Shopping#` category. Result Display shows current spending over budget
    for allocated category budgets
-.. Test case: `allo $/30 c/Transport`, then `show` +
-   Expected: Category Budget is allocated in `Transport` category. Result Display shows current spending over budget
+.. Test case: `[fuchsia]#allo $/30 c/Transport#`, then `[fuchsia]#show#` +
+   Expected: Category Budget is allocated in `[fuchsia]#Transport#` category. Result Display shows current spending over budget
    for allocated category budgets
-.. Test case: `allocate $/30 c/Books c/Movies`, then `show` +
-   Expected: Category Budget allocated in `Movies` category. Result Display current spending over budget
+.. Test case: `[fuchsia]#allocate $/30 c/Books c/Movies#`, then `[fuchsia]#show#` +
+   Expected: Category Budget allocated in `[fuchsia]#Movies#` category. Result Display current spending over budget
    for allocated category budgets
-.. Test case: `allocate $/$30 c/Holiday` +
+.. Test case: `[fuchsia]#allocate $/$30 c/Holiday#` +
    Expected: Category Budget not allocated. Error details shown in status message.
-.. Test case: `allocate $/30 c/Holiday In Melbourne` +
+.. Test case: `[fuchsia]#allocate $/30 c/Holiday In Melbourne#` +
    Expected: Category Budget not allocated. Error details shown in status message.
-.. Test case: `allocate $/600 c/School` +
+.. Test case: `[fuchsia]#allocate $/600 c/School#` +
    Expected: Category Budget not allocated. Category Budget more than Total budget. Error details in status message.
 
 . Allocating category budget (previously had spending in the category) +
-Assume that `Food` category has $16.50 spent so far
-.. Test case: `allocate $/17 c/Food`
+Assume that `[fuchsia]#Food#` category has $16.50 spent so far
+.. Test case: `[fuchsia]#allocate $/17 c/Food#` +
    Expected: Category Budget allocated in Food category. Result Display shows current spending over budget for allocated
    category budgets
-.. Test case: `allocate $/10 c/Food`
+.. Test case: `[fuchsia]#allocate $/10 c/Food#` +
    Expected: Category Budget not allocated. Current Spending in category more than user input for category budget.
    Error details shown in status message.
 
@@ -1412,75 +1412,75 @@ Assume that `Food` category has $16.50 spent so far
 
 . Adding an entry no matter what is listed.
 
-.. Test case: `spend n/Chicken Rice $/5.50 c/Food d/1/4/2019 r/Tasty` +
+.. Test case: `[fuchsia]#spend n/Chicken Rice $/5.50 c/Food d/1/4/2019 r/Tasty#` +
    Expected: Entry is added to the back of the list. Timestamp in the status bar is updated.
-.. Test case: `spend n/Tshirt $/10.00 d/31/03/2019 c/Food c/Clothes` +
+.. Test case: `[fuchsia]#spend n/Tshirt $/10.00 d/31/03/2019 c/Food c/Clothes#` +
    Expected: Entry is added to the back of the list. Category recorded down is Clothes. Timestamp in the status bar is updated.
-.. Test case: `spend n/Chicken Rice $/5.50 c/Food` +
+.. Test case: `[fuchsia]#spend n/Chicken Rice $/5.50 c/Food#` +
    Expected: Entry is added to the back of the list. Since date is not supplied, today’s date will be recorded.
    Timestamp in the status bar is updated.
-.. Test case: `add n/Chicken Rice $/5.50 c/Food` +
+.. Test case: `[fuchsia]#add n/Chicken Rice $/5.50 c/Food#` +
    Expected: Entry is added to the back of the list. Since date is not supplied, today’s date will be recorded.
    Timestamp in the status bar is updated.
-.. Test case: `spend n/Chicken Rice $/5.50` +
+.. Test case: `[fuchsia]#spend n/Chicken Rice $/5.50#` +
    Expected: No entry is added. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect spend commands to try: `spend n/Chicken Rice c/Food`, `spend $.5.50 c/Food`, `spend n/Chicken Rice $/5.5 c/Food`,
-   `spend n/Chicken Rice $/5.50 c/Food d/12/12/2045`, `spend n/Chicken Rice $/$5.50 c/Food` +
+.. Other incorrect spend commands to try: `[fuchsia]#spend n/Chicken Rice c/Food#`, `[fuchsia]#spend $.5.50 c/Food#`, `[fuchsia]#spend n/Chicken Rice $/5.5 c/Food#`,
+   `[fuchsia]#spend n/Chicken Rice $/5.50 c/Food d/12/12/2045#`, `[fuchsia]#spend n/Chicken Rice $/$5.50 c/Food#` +
    Expected: Similar to previous
 
 === Editing an expense
 . Edit an entry while all entries are listed
 
-.. Prerequisites: List all entries using the `list` command. The list must have some entries in it.
+.. Prerequisites: List all entries using the `[fuchsia]#list#` command. The list must have some entries in it.
 .. Editing one parameter of an entry.
-... Test case: `edit 1 n/test` +
+... Test case: `[fuchsia]#edit 1 n/test#` +
     Expected: The name of the first entry is being changed to test. Time stamp in the status bar is updated.
-... Test case: `edit 1 d/01/02/2003` +
+... Test case: `[fuchsia]#edit 1 d/01/02/2003#` +
     Expected: The date of the first entry is being changed to 01/02/2003. Time stamp in the status bar is updated.
-... Test case: `edit 1 $/100` +
+... Test case: `[fuchsia]#edit 1 $/100#` +
     Expected: The amount spent of the first entry is changed to $100. The budget shown in the budget panel and the
     browser panel is updated. Time stamp in the status bar is updated.
-... Test case: `edit 1 c/Test.` +
+... Test case: `[fuchsia]#edit 1 c/Test#` +
     Expected: The category of the first entry is changed to Test. Time stamp in the status bar is updated.
-... Test case: `edit 1 r/Testing testing` +
+... Test case: `[fuchsia]#edit 1 r/Testing testing#` +
     Expected: The description of the first entry is changed to "Testing testing". Time stamp in the status bar is updated.
 
 .. Editing more than one parameter of an entry
-... Test case: `edit 1 n/test1 $/123` +
+... Test case: `[fuchsia]#edit 1 n/test1 $/123#` +
     Expected: The first entry is being changed based on the command. The budget shown in the budget panel and the
     browser panel is updated. Time stamp in the status bar is updated.
-... Test case: `edit 1 n/test2 $/1234 d/01/01/2001` +
+... Test case: `[fuchsia]#edit 1 n/test2 $/1234 d/01/01/2001#` +
     Expected: Similar to previous.
-... Test case: `edit 1 n/test3 $/12345 d/01/01/2002 c/Test1` +
+... Test case: `[fuchsia]#edit 1 n/test3 $/12345 d/01/01/2002 c/Test1#` +
     Expected: Similar to previous.
-... Test case: `edit 1 n/test4 $/123456 d/01/01/2003 c/Test2 r/Testing test` +
+... Test case: `[fuchsia]#edit 1 n/test4 $/123456 d/01/01/2003 c/Test2 r/Testing test#` +
     Expected: Similar to previous.
 
 .. Removing description for an entry
 ... Prerequisites: The first entry of the list must have a description.
-... Test case: `edit 1 r/`
+... Test case: `[fuchsia]#edit 1 r/#` +
     Expected: The description for the first entry is removed.
 
 .. Invalid command due to index
-... Test case: `edit 0 n/test`
+... Test case: `[fuchsia]#edit 0 n/test#` +
     Expected: No entry is edited. Error details shown in the status message. Status bar remains the same.
 
 .. Invalid command due to parameters
-... Test case: `edit 1 $/test`
+... Test case: `[fuchsia]#edit 1 $/test#` +
     Expected: No entry is added. Error details shown in the status message. Status bar remains the same.
-... Other incorrect edit commands to try: `edit 1 d/01/01/2045`, `edit 1 $/$100`,
-    `edit 1 r/12345678901234567890123456789012345678901`.
+... Other incorrect edit commands to try: `[fuchsia]#edit 1 d/01/01/2045#`, `[fuchsia]#edit 1 $/$100#`,
+    `[fuchsia]#edit 1 r/12345678901234567890123456789012345678901#`.
 
 === Deleting an entry
 
 . Deleting an entry while all entries are listed.
 
-.. Prerequisites: List all entries using the `list` command. Multiple entries in the list.
-.. Test case: `delete 1` +
+.. Prerequisites: List all entries using the `[fuchsia]#list#` command. Multiple entries in the list.
+.. Test case: `[fuchsia]#delete 1#` +
    Expected: First entry is deleted from the list. Details of the deleted entry shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
+.. Test case: `[fuchsia]#delete 0#` +
    Expected: No entry is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size), `delete three` +
+.. Other incorrect delete commands to try: `[fuchsia]#delete#`, `[fuchsia]#delete x#` (where x is larger than the list size), `[fuchsia]#delete three#` +
    Expected: Similar to previous.
 
 === Searching an entry
@@ -1488,44 +1488,44 @@ Assume that `Food` category has $16.50 spent so far
 [NOTE]
 In order for the expected results of the test to be accurate, please input the following commands below to set up your
 finance tracker. +
-1. `clear` +
-2. `spend n/Chicken Rice $/5.50 c/Food d/1/4/2019` +
-3. `spend n/Chicken Rice $/5.50 c/Food d/2/4/2019` +
-4. `spend n/Cupcakes $/2.50 c/Food d/2/4/2019` +
-5. `spend n/Tshirt $/15 c/Clothes d/1/4/2019` +
-6. `spend n/Jeans $/40 c/Clothes d/2/4/2019`
+1. `[fuchsia]#clear#` +
+2. `[fuchsia]#spend n/Chicken Rice $/5.50 c/Food d/1/4/2019#` +
+3. `[fuchsia]#spend n/Chicken Rice $/5.50 c/Food d/2/4/2019#` +
+4. `[fuchsia]#spend n/Cupcakes $/2.50 c/Food d/2/4/2019#` +
+5. `[fuchsia]#spend n/Tshirt $/15 c/Clothes d/1/4/2019#` +
+6. `[fuchsia]#spend n/Jeans $/40 c/Clothes d/2/4/2019#`
 
 . Searching for an entry or entries in a list.
 
 .. Prerequisites: There must already be entries that are shown in the record list panel. Please set up the finance
-   tracker as shown in the NOTE above.
+   tracker as shown in the [fuchsia]#NOTE# above.
 .. Search by name
-... Test case: `search -name chicken rice` +
+... Test case: `[fuchsia]#search -name chicken rice#` +
     Expected: 2 records are shown in the records list panel. The result display shows that the total spent on the
     searched records is $11.00.
-... Test case: `search -name chicken` +
+... Test case: `[fuchsia]#search -name chicken#` +
     Expected: Same as previous.
 .. Search by category
-... Test case: `search -cat clothes` +
+... Test case: `[fuchsia]#search -cat clothes#` +
     Expected: 2 records are shown in the records list panel. The result display shows that the total spent on the
     searched records is $55.00.
 .. Search by date
-... Test case: `search -date 2/4/2019` +
+... Test case: `[fuchsia]#search -date 2/4/2019#` +
     Expected: 3 records are shown in the records list panel. The result display shows that the total spent on the
     searched records is $48.00.
-... Test case: `search -date 5/4/2019` +
+... Test case: `[fuchsia]#search -date 5/4/2019#` +
     Expected: 0 records are shown in the records list panel. The result display shows that the total spent on the
     searched records is $0.00.
 .. Search with no records shown
-... No matches in the keywords: `search -date 5/4/2019` +
+... No matches in the keywords: `[fuchsia]#search -date 5/4/2019#` +
     Expected: 0 records are shown in the records list panel. The result display shows that the total spent on the
     searched records is $0.00.
-... No parameters inputted after the search flag: `search -date` +
+... No parameters inputted after the search flag: `[fuchsia]#search -date#` +
     Expected: Same as previous.
 .. Invalid search command
-... Test case: `search -cat -date`
+... Test case: `[fuchsia]#search -cat -date#`
     Expected: Error message is shown. The records list panel remains the same.
-... Other incorrect sort commands to try: `search -food`, `search -cat -food`, `search -cat -date -name`.
+... Other incorrect search commands to try: `[fuchsia]#search -food#`, `[fuchsia]#search -cat -food#`, `[fuchsia]#search -cat -date -name#`.
 
 
 === Sorting the entries
@@ -1533,46 +1533,38 @@ finance tracker. +
 . Sort entries by name
 
 .. Prerequisites: List must have some entries in it.
-.. Test case: `sort -name` +
+.. Test case: `[fuchsia]#sort -name#` +
    Expected: List is sorted by name in lexicographical order. Timestamp in the status bar is updated.
-.. Test case: `sort -name -desc` +
+.. Test case: `[fuchsia]#sort -name -desc#` +
    Expected: List is sorted by name in reverse lexicographical order. Timestamp in the status bar is updated.
-.. Test case: `sort -name -asc` +
+.. Test case: `[fuchsia]#sort -name -asc#` +
    Expected: List is sorted by name in lexicographical order. Timestamp in the status bar is updated.
-.. Test case: `sort -asc -name` +
+.. Test case: `[fuchsia]#sort -asc -name#` +
    Expected: List will not be sorted. Error message is shown. Status bar remains the same.
-.. Other incorrect sort commands to try: `sort -desc -name`, `sort -name -inc`, `sort -name -asc a-z` +
+.. Other incorrect sort commands to try: `[fuchsia]#sort -desc -name#`, `[fuchsia]#sort -name -inc#`, `[fuchsia]#sort -name -asc a-z#` +
    Expected: Similar to previous.
 
 . Sort entries by amount
 
 .. Prerequisites: List must have some entries in it.
-.. Test case: `sort -amount` +
+.. Test case: `[fuchsia]#sort -amount#` +
    Expected: List is sorted by amount in descending order. Timestamp in the status bar is updated.
-.. Test case: `sort -amount -asc` +
+.. Test case: `[fuchsia]#sort -amount -asc#` +
    Expected: List is sorted by amount in ascending order. Timestamp in the status bar is updated.
-.. Test case: `sort -amount -desc` +
+.. Test case: `[fuchsia]#sort -amount -desc#` +
    Expected: List is sorted by amount in descending order. Timestamp in the status bar is updated.
-.. Test case: `sort -asc -amount` +
+.. Test case: `[fuchsia]#sort -asc -amount#` +
    Expected: List will not be sorted. Error message is shown. Status bar remains the same.
-.. Other incorrect sort commands to try: `sort -desc -amount`, `sort -amount -inc`, `sort -name -amount` +
+.. Other incorrect sort commands to try: `[fuchsia]#sort -desc -amount#`, `[fuchsia]#sort -amount -inc#`, `[fuchsia]#sort -name -amount#` +
    Expected: Similar to previous.
 
 === Changing the Finance Tracker data storage location
 [NOTE]
-In order to test this command, please take note the name of the json file you are currently on. The name of the file can
-be seen at the right side of the status bar. By default, the json file is "finance.json".
+In order to test this command, please take note the name of the [fuchsia]#json# file you are currently on. The name of the file can
+be seen at the right side of the status bar. By default, the json file is "[fuchsia]#finance.json#".
 
 . Changing the file name
-.. Test case: `setfile f/testfile`
+.. Test case: `[fuchsia]#setfile f/testfile#` +
    Expected: A new finance tracker file will be created with no records in the records list and the budget will be shown
-   as $0.00. You can type in the command `setfile f/finance`(or the name of the previous file) to retrieve the original
+   as $0.00. You can type in the command `[fuchsia]#setfile f/finance#` (or the name of the previous file) to retrieve the original
    finance tracker that you were previously on.
-
-=== Saving data
-
-. Dealing with missing/corrupted data files
-
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
-
-

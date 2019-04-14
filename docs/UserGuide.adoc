@@ -904,7 +904,6 @@ Example:
 *`tasksort starttime desc`
 
 // tag::task_ppp_cchj1995[]
-
 ==== taskdone
 Sets a task to `[green]#complete#`, marking the completion of the task.
 
@@ -936,7 +935,6 @@ Example:
 * `taskdone 2`
 * `<<taskcal, taskcal>>` +
   `taskdone 1`
-
 
 ==== taskcal
 Creates a popup window with a list of tasks on the left hand side of the window and a calendar on the right hand side. The calendar will load the dates for the month and year of the given date.

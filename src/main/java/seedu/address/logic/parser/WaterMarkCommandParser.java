@@ -16,7 +16,7 @@ public class WaterMarkCommandParser implements Parser<WaterMarkCommand> {
      */
     public WaterMarkCommand parse(String args) throws ParseException {
         args = args.trim();
-        if (args.equals("")) {
+        if ("".equals(args)) {
             throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
                     WaterMarkCommand.MESSAGE_USAGE));
         }

@@ -710,6 +710,30 @@ The components involved in the execution of this command include:
 
 The EditReviewDescriptor class can contain optional fields. This is so that the command does not have to modify every field in a Review and users can specify which field they would like to modify.
 
+The steps involved in the execution of this command are:
+
+* Step 1: Create the EditReviewDescriptor based on input arguments.
+
+* Step 2: Retrieve the currently selected restaurant from the model.
+
+* Step 3: Create a new restaurant based on the currently selected restaurant and the EditReviewDescriptor
+
+* Step 4: Replace the selected restaurant with the new restaurant object in the model.
+
+===== Design Considerations
+
+* Alternative 1: Have users input the index of the restaurant into the command instead of having to select a restaurant first
+|=====================
+| Considering the technical aspect, there is not much of a difference between the two implementations. However, this design decision took into account the fact that users most likely had to select the restaurant to look at the review they wish to edit before editing it. As such, it reduces the arguments input by the user, and makes use of what is likely going to happen anyways (the selection of the restaurant).
+|=====================
+
+==== Delete Reviews
+
+Similar to the command to edit reviews, execution of this command requires the user to select a restaurant from the displayed list.
+
+Command format: `deleteReview INDEX`, where INDEX refers to the index of the review to be deleted from the selected resutaurant.
+
+The implementation is a combination of the add and edit review commands: the selected restaurant is copied to a new restaurant object with a new list of reviews without the review to be deleted. This new restaurant object then replaces the selected restaurant in the model.
 // end::reviewcommandsdg[]
 
 // tag::visitweb[]

@@ -19,7 +19,8 @@ endif::[]
 By: `Team W17-3`      Since: `March 2019`      Licence: `MIT`
 
 == Introduction
-Welcome to the _In-Credit-Ble_ User Guide! _In-Credit-Ble_ is your all-in-one application in managing and tracking your
+
+[aqua]#Welcome to the _In-Credit-Ble_ User Guide!# _In-Credit-Ble_ is your all-in-one application in managing and tracking your
 personal finances. Our user-friendly interface will make it easy for you to see how much you can safely spend within your budget and be more aware
 of your spending habits. If you are a *fast typer*, *prefer to type* over using your mouse and *like to get things done
 efficiently*, then this is the product just for you! _In-Credit-Ble_ is designed for those who prefer to work with a
@@ -32,10 +33,10 @@ different features and shows you how to perform basic _In-Credit-Ble_ operations
 == Quick Start
 Follow these steps to get _In-Credit-Ble_ up and running on your computer in no time!
 
-.  Ensure you have Java version `9` or later installed in your computer. You can download and install the required
+.  Ensure you have [teal]#Java# version `[fuchsia]#9#` or later installed in your computer. You can download and install the required
    Java Development Kit
    link:https://www.oracle.com/technetwork/java/javase/downloads/java-archive-javase9-3934878.html[here]
-.  Download the latest `In-Credit-Ble.jar` file link:{repoURL}/releases[here].
+.  Download the latest `[fuchsia]#In-Credit-Ble.jar#` file link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for your finance tracker.
 .  Double-click the file to start the app. The GUI should appear in a few seconds as shown below.
    The In-Credit-Ble finance tracker is loaded with example expense records and budget is still not set.
@@ -45,14 +46,14 @@ Follow these steps to get _In-Credit-Ble_ up and running on your computer in no 
 image::startUI.png[]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
-e.g. typing *`help`* and pressing kbd:[Enter] will open the help window and show the list of commands.
-.  Some example commands you can try:
+e.g. typing *`[fuchsia]#help#`* and pressing kbd:[Enter] will open the help window and show the list of commands.
+.  [teal]#Some example commands you can try#:
 
-* *`help`* : opens the _In-Credit-Ble_ user guide
-* *`clear`* : clears the existing Finance Tracker to start with a Finance Tracker with no expense records
-* *`set`* : sets the total budget for Finance Tracker
-* *`allocate`* : allocates budget to a certain category (within the total budget)
-* *`spend`* : adds an expense record to the finance tracker
+* *`[fuchsia]#help#`* : opens the _In-Credit-Ble_ user guide
+* *`[fuchsia]#clear#`* : clears the existing Finance Tracker to start with a Finance Tracker with no expense records
+* *`[fuchsia]#set#`* : sets the total budget for Finance Tracker
+* *`[fuchsia]#allocate#`* : allocates budget to a certain category (within the total budget)
+* *`[fuchsia]#spend#`* : adds an expense record to the finance tracker
 
 
 .  Refer to <<Features>> for details of each command.
@@ -60,7 +61,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window and show
 
 == Graphical User Interface Introduction
 This section will explain to you the Graphical User Interface (GUI) of _In-Credit-Ble_ Finance Tracker.
-The theme of the application has been set to `Light`, which is different from the start up theme `Dark`.
+The theme of the application has been set to `[fuchsia]#Light#`, which is different from the start up theme `[fuchsia]#Dark#`.
 
 .Graphical User Interface (When starting up)
 image::GUI_Diagram.png[width="600"]
@@ -80,9 +81,9 @@ This element is denoted by the pink box in Figures 2 and 3.
 
 The menu bar can be used to:
 
-* Exit the program under `File` tab
-* Open the Help page to view commands available under `Help` tab
-* Change the colour theme of the application under `Theme` tab
+* Exit the program under btn:[File] tab
+* Open the _Help_ page to view commands available under btn:[Help] tab
+* Change the colour theme of the application under btn:[Theme] tab
 
 
 === Records List Panel
@@ -94,12 +95,12 @@ This element is denoted by the yellow box in Figures 2 and 3.
 In the Record List Panel, the list of all your expenditures are recorded here.
 This panel is scrollable to view all your expense records.
 
-To find specific records based on `name`, `category`, `amount` or `date`, use the `search` command.
+To find specific records based on `[fuchsia]#name#`, `[fuchsia]#category#`, `[fuchsia]#amount#` or `[fuchsia]#date#`, use the `[fuchsia]#search#` command.
 To list all your expense records again after searching for particular records,
-use the command `list`
+use the command `[fuchsia]#list#`.
 
 Each record is tagged with an *index number* before the record name.
-The index is used in command such as `delete`, `edit` and `select`
+The index is used in commands such as `[fuchsia]#delete#`, `[fuchsia]#edit#` and `[fuchsia]#select#`.
 
 === Budget Panel
 .Budget Panel: Shows your total spending against your total budget so far
@@ -115,8 +116,8 @@ the budget panel will change colour according to how close you are to your budge
 
 See:
 
-* `set` command to see how to set a budget in the finance tracker
-* `spend` command to see how to add expense records into the finance tracker.
+* `[fuchsia]#set#` command to see how to set a budget in the finance tracker
+* `[fuchsia]#spend#` command to see how to add expense records into the finance tracker
 
 
 .Budget progress bar turns orange to give warning
@@ -125,10 +126,10 @@ image::BudgetPanel_Orange.png[width="250"]
 .Budget progress bar turns red to give warning
 image::BudgetPanel_red.png[width="250"]
 
-* The budget progress bar will be *green* if you are still within your budget as shown in Figure 6
+* The budget progress bar will be *green* if you are still within your budget as shown in Figure 6.
 * The budget progress bar will turn *orange* if your expenditure is above 80% of your total budget
-as shown in Figure 7
-* The budget progress bar will turn *red* if your expenditure exceeded your budget as shown in Figure 8
+as shown in Figure 7.
+* The budget progress bar will turn *red* if your expenditure exceeded your budget as shown in Figure 8.
 
 
 === Browser Panel
@@ -152,8 +153,8 @@ image::summarypanel.png[width="400"]
 This element is denoted by the red box in Figure 3.
 
 The summary panel gives you a nice illustrated summary of your current spending so far in
-different categories. To change the browser panel to summary panel, use the `summary` command.
-To change back to the browser panel, simply type in the `summary` command once again.
+different categories. To change the browser panel to summary panel, use the `[fuchsia]#summary#` command.
+To change back to the browser panel, simply type in the `[fuchsia]#summary#` command once again.
 
 
 === Command Box and Result Display
@@ -166,7 +167,7 @@ The command box is the place for users to type in their commands.
 Refer to <<Features>> for details of each command.
 
 The result box displays the results after each command is executed.
-This is where the allocated category budgets will be shown when `show` command is executed.
+This is where the allocated category budgets will be shown when `[fuchsia]#show#` command is executed.
 
 === Status Footer Bar
 .Status Footer Bar
@@ -183,16 +184,16 @@ step-by-step instructions on how to use the different commands.
 
 [IMPORTANT]
 ====
-*Command Format*
+*[navy]#Command Format#*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `set $/AMOUNT`,
-`AMOUNT` is a parameter which can be used as `set $/200.00`.
-* Items in square brackets are optional e.g `search KEYWORD [MORE_KEYWORDS]` can be used as `search clothes` or as
-`search cake lunch`.
-* Items with `…`​ after them can be used multiple times including zero times.
+* Words in `[fuchsia]#UPPER_CASE#` are the parameters to be supplied by the user [navy]#e.g.# in `[fuchsia]#set $/AMOUNT#`,
+`[fuchsia]#AMOUNT#` is a parameter which can be used as `[fuchsia]#set $/200.00#`.
+* Items in square brackets are optional [navy]#e.g# `[fuchsia]#search FLAG KEYWORD [MORE_KEYWORDS]#` can be used as `[fuchsia]#search -cat clothes#` or as
+`[fuchsia]#search -name cake lunch#`.
+* Items with `[fuchsia]#…#`​ after them can be used multiple times including zero times.
 * If you provide more than the number of specified parameters
-(e.g. `set $/500 $/400` or `spend n/Chicken n/Duck $/10 $/20 c/Food c/Lunch`), the latest parameter is taken
-(e.g. Budget is set to $400, Record added is Name: Duck, Amount: $20, Category: Lunch)
+([navy]#e.g.# `[fuchsia]#set $/500 $/400#` or `[fuchsia]#spend n/Chicken n/Duck $/10 $/20 c/Food c/Lunch#`), the latest parameter is taken
+([navy]#e.g.# Budget is set to $400, Record added is Name: Duck, Amount: $20, Category: Lunch)
 ====
 
 === Budget Management

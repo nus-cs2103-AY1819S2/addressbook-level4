@@ -181,6 +181,19 @@ This feature can be improved to support medical databases of different countries
 Due to the nature of medical inventories, the integrity of data stored is of utmost importance. The next release will feature data encryption to keep your inventory safe and keep unauthorised users away. With this feature, you will be required to log in with a password to view and edit your inventory. This feature can be disabled if it is not required for your needs.
 // end::dataencryption[]
 
+==== Preview of results
+
+. Preview of results for Export and Label Commands to be available in the UI.
+- Current implementation: You may have to manually search for the external files created in their respective folders. +
+- In v2.0, a snapshot of the resulting files will be previewed under the UI for easier reference. This further streamline the inventory management and improve your usability.
+- Below is a mock up on how the UI may look like with the features integrated.
+
+image::MockUp.png[width="790"]
+
+==== Importing pictures
+. Import of pictures to aid in the medicine identification.
+- Pictures and snapshot of the medicine may be added to MediTabs such that it is easier for you to identify what the physical medicine looks like.
+
 [[Commands]]
 == Commands
 
@@ -443,12 +456,11 @@ Open the PDF file under the PDF folder to view and print your selected medicine.
 - Label will include name of medicine and standard label template. +
 This includes the company that manufactured it, expiry date and the tags that was set with it. +
 - Your format for using the command should follow: `label INDEX [f/FILE_NAME]`
-
+- File name is optional.
 ****
 * Outputs the label for the medicine at the specified INDEX.
 * If no file name is specified, the default file name is `to_print`.
 * The index refers to the index number shown in the displayed medicine list.
-* The index must be a positive integer 1, 2, 3, …
 
 ****
 
@@ -456,25 +468,29 @@ All PDF files can be found under the PDF folder
 
 image::mainPDF.png[width="790"]
 
+Fig 5.12.1 PDF folder highlighted
 
 Examples:
 
-.  Open up the software interface. (Fig 5.12.1)
+.  Open up the software interface. (Fig 5.12.2)
++
+image::blankUI.png[width="790"]
++
+Fig 5.12.2 Software interface
++
+. Key in  `list` followed by +
+`label 1`. +
+This selects the 1st medicine in the inventory and output the information to a default PDF file named `to_print`.
 
-.  Using the keyboard, enter the commands followed by hitting the enter key for each command.
-* `list` followed by +
-`label 2` +
-This will allow you to select the 2nd medicine in the inventory and output the information to a default file named `to_print`.
-+
-image::label2_taken.png[width="790"]
-+
-Fig 5.12.1 Software interface
-+
 - A confirmation message will be shown to indicate to you that it have been successfully labeled.
 +
-.  You can open the file in the PDF folder with your preferred PDF reader to print the medicine information. (Fig 5.12.2)
+image::ConfirmationMessage.png[width="790"]
 +
-image::label2.png[width="790"]
+.  You can open the file in the PDF folder (Fig 5.12.1) with your preferred PDF reader to print the medicine information.
++
+A example below of how the label information will look like (Fig 5.12.2)
++
+image::label1.png[width="790"]
 +
 Fig 5.12.2 Medicine information
 +
@@ -483,7 +499,7 @@ Fig 5.12.2 Medicine information
 `label 1 f/Simvastatin` +
 Similar to the example above, the 1st medicine information will be output to a file name `Simvastatin`. (Fig 5.12.3)
 +
-image::label1.png[width="790"]
+image::label2.png[width="790"]
 +
 Fig 5.12.3 Simvastatin medicine information
 +

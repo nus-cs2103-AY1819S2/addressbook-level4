@@ -79,9 +79,9 @@ public class SaveCommand extends Command {
         } else {
             return new CommandResult(MESSAGE_SUCCESS_WORST
             + '\n'
-            + String.format("Current Game : %.1f%%" + this.playerStats.getAccuracy() * 100
+            + String.format("Current Game : %.1f%%", this.playerStats.getAccuracy() * 100)
             + '\n'
-            + String.format("Previous Game : %.1f%%", pastAccuracy * 100)));
+            + String.format("Previous Game : %.1f%%", pastAccuracy * 100));
         }
 
     }

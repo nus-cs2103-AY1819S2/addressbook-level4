@@ -98,7 +98,7 @@ Component and the implementation details and design considerations for the test 
 
 include::../DeveloperGuide.adoc[tag=UIdesign]
 
-include::../DeveloperGuide.adoc[tag=testsession]
+include::../DeveloperGuide.adoc[tag=testcommand]
 
 === Use Cases
 include::../DeveloperGuide.adoc[tag=testsessionusecases]

@@ -723,7 +723,7 @@ image::ChangeCommandSequenceDiagram.png[width="600"]
 *Evaluation*: This matter is highly subjective and conflicting feedback was received during testing. However, we believe that our target audience, a user familiar with the command line, would be more used to navigation with a single command and as such would prefer Alternative 1.
 //end::folders[]
 
-//tag::testsession[]
+//tag::testcommand[]
 === Test Session feature
 
 ==== Overall Current Implementation
@@ -850,7 +850,7 @@ user.
 [[testcommandsequencediagram]]
 .Component interactions for a test command
 image::TestCommandSequenceDiagram.png[width="800"]
-
+//end::testcommand[]
 
 [[exampleusageofendcommand]]
 [discrete]
@@ -880,6 +880,7 @@ the type `END_TEST_SESSION`.
 `MainWindow#handleEndTestSession()` to delete the current `testSession` page, presenting `cardMainScreen` page at the
 back (the screen the user was seeing before entering the test session) to the user.
 
+//tag::testdesign[]
 ===== Design Considerations
 ====== Aspect: Way to execute a test/end command
 
@@ -903,6 +904,7 @@ Overall, Alternative 1 is a better choice following the Single Level of Abstract
 should not mix different levels of abstractions. We can then better achieve higher cohesion and lower coupling.
 Also, user being able to see the questions before the test session is not a big issue since the answer will not be shown unless user selects the card.
 
+//end::testdesign[]
 
 ==== Answer Command
 ===== Current Implementation
@@ -1067,7 +1069,7 @@ image::NextCommandSequenceDiagram.png[width="800"]
 
 *Evaluation*:
 With our target audience in mind, Alternative 1 is the more user friendly and intuitive way to handle this scenario.
-//end::testsession[]
+
 
 
 // tag::undoredo[]
@@ -1717,6 +1719,8 @@ lowest scoring flashcard question and hints are displayed. Tester can also be in
    Expected: The error `This command is not valid outside a test or report` is shown in the status message. Status bar
    remains the same.
 
+// end::testmanualtesting[]
+
 [[answerquestionintest]]
 === Answering a question in a test session
 
@@ -1756,7 +1760,6 @@ lowest scoring flashcard question and hints are displayed. Answer the current qu
 .. Test case: `next`  when prerequisite is not fulfilled where the current question is not yet answered or revealed +
    Expected: The error `Next command is valid only when this question has been answered` is shown in the status message. Status bar remains the same.
 
-// end::testmanualtesting[]
 
 //tag::foldermanualtesting[]
 === Folder operations

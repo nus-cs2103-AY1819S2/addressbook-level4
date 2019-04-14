@@ -362,8 +362,8 @@ Format: `filter [FILTERLISTNAME] fn/FILTERNAME [n/NAME] [p/PHONE] [e/EMAIL] [a/A
 
 Examples:
 
-* `filter fn/nus s/nus` + 
-Shows all persons whose school is NUS. 
+* `filter fn/nus s/nus` +
+Shows all persons whose school is NUS.
 
 ==== Delete a filter : `deleteFilter`
 
@@ -376,8 +376,8 @@ Format: `deleteFilter FILTERNAME`
 ****
 Examples:
 
-* `filter fn/nus s/nus` + 
-Shows all persons whose school is NUS. 
+* `filter fn/nus s/nus` +
+Shows all persons whose school is NUS.
 * `deleteFilter nus`
 Shows all persons.
 
@@ -397,7 +397,7 @@ Format : `analytics LISTNAME` or  `analytics` (for all applicants)
 
 Examples:
 
-* `analytics applicant` 
+* `analytics applicant`
 * `analytics kiv`
 * `analytics`
 

@@ -447,6 +447,26 @@ public class AddCommandTest {
         }
 
         @Override
+        public void clearJobFilteredListsApplicant() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void clearJobFilteredListsInterview() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void clearJobFilteredListsKiv() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void clearJobFilteredListsShortlist() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void updateFilteredPersonList() {
             throw new AssertionError("This method should not be called.");
         }
@@ -479,6 +499,12 @@ public class AddCommandTest {
             this.person = person;
         }
 
+        //This method will modified in v2.0
+        @Override
+        public boolean getIsAllJobScreen() {
+            return true;
+        }
+
         @Override
         public boolean hasPerson(Person person) {
             requireNonNull(person);
@@ -502,6 +528,12 @@ public class AddCommandTest {
         public void addPerson(Person person) {
             requireNonNull(person);
             personsAdded.add(person);
+        }
+
+        //This method will modified in v2.0
+        @Override
+        public boolean getIsAllJobScreen() {
+            return true;
         }
 
         @Override

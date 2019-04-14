@@ -31,14 +31,16 @@ public class DeleteFilterCommand extends Command {
 
     public static final String MESSAGE_USAGE_DETAIL_SCREEN = COMMAND_WORD
         + ": Deletes the filter identified by the filter name used in the displayed person list.\n"
-        + "Parameters: [FilterList] NameFilterName \n"
+        + "Parameters: FilterList NameFilterName \n"
         + "Example: " + COMMAND_WORD + " Applicant Chinese\n"
         + "The alias \"d\" can be used instead.\n"
         + "Example: " + COMMAND_ALIAS + "Applicant Chinese\n";
 
     public static final String MESSAGE_DELETE_FILTER_SUCCESS = "Deleted Filter: %1$s";
     public static final String MESSAGE_LACK_LISTNAME =
-        "Filter Command in Display Job page need indicate job list\n%1$s";
+        "Delete Filter Command in Display Job page need indicate job list\n%1$s";
+    public static final String MESSAGE_REDUNDANT_LISTNAME =
+        "Delete Filter Command in All Jobs page no need indicate job list\n%1$s";
     public static final String MESSAGE_CANOT_FOUND_TARGET_FILTER = "The filter you want to delete can not found\n%1$s";
 
     private final String targetName;
@@ -55,9 +57,7 @@ public class DeleteFilterCommand extends Command {
         UniqueFilterList predicateList;
         boolean isAllJobScreen = model.getIsAllJobScreen();
         boolean hasListName = filterListName != EMPTY;
-        if (!isAllJobScreen && !hasListName) {
-            throw new CommandException(String.format(MESSAGE_LACK_LISTNAME, MESSAGE_USAGE_DETAIL_SCREEN));
-        }
+        checkException(isAllJobScreen, hasListName);
         switch (filterListName) {
         case APPLICANT:
             try {
@@ -111,6 +111,21 @@ public class DeleteFilterCommand extends Command {
         }
         return new CommandResult(String.format(MESSAGE_DELETE_FILTER_SUCCESS, targetName), filterListName,
             predicateList);
+    }
+
+    /**
+     * @param isAllJobScreen Indicate the current screen, true if screen on all jobs screen
+     * @param hasListName    Indicate whether command parser parse the List name
+     * @throws CommandException throw exception and catch by function excute()
+     */
+    private void checkException(boolean isAllJobScreen, boolean hasListName)
+        throws CommandException {
+        String showMessage = isAllJobScreen ? MESSAGE_USAGE_ALLJOB_SCREEN : MESSAGE_USAGE_DETAIL_SCREEN;
+        if (!isAllJobScreen && !hasListName) {
+            throw new CommandException(String.format(MESSAGE_LACK_LISTNAME, showMessage));
+        } else if (isAllJobScreen && hasListName) {
+            throw new CommandException(String.format(MESSAGE_REDUNDANT_LISTNAME, showMessage));
+        }
     }
 
     @Override

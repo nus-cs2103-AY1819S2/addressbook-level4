@@ -745,7 +745,7 @@ The `[fuchsia]#redo#` command fails as there are no `[fuchsia]#undo#` commands e
 *[navy]#Examples#*:
 
 * `[fuchsia]#theme DARK#`
-* `[fuchsia]#theme maroon#`
+* `[fuchsia]#theme BLUE#`
 * `[fuchsia]#theme pink#`
 ****
 
@@ -753,9 +753,9 @@ image::themes.gif[]
 
 [NOTE]
 ====
-* Valid themes include: `[fuchsia]#Dark#`, `[fuchsia]#Light#`, `[fuchsia]#maroon#`, `[fuchsia]#Pink#`
-* The theme name is case-insensitive (`[fuchsia]#maroon`, `maroon`, `maroon` or `maroon` etc. all refer
-to `maroon`)
+* Valid themes include: `[fuchsia]#Dark#`, `[fuchsia]#Light#`, `[fuchsia]#Blue#`, `[fuchsia]#Pink#`
+* The theme name is case-insensitive (`[fuchsia]#BlUE#`, `[fuchsia]#BLUE#`, `[fuchsia]#blue#` or `[fuchsia]#blUE#` etc. all refer
+to `[fuchsia]#Blue#`)
 * You can also change the theme of the application by choosing the theme under
 the menu bar.
 * You *cannot* undo/redo this command.
@@ -765,29 +765,29 @@ image::themeMenuBar.png[]
 ====
 
 // end::theme[]
-==== Listing entered commands: `history`
+==== Listing entered commands: `[fuchsia]#history#`
 
-You can list all the commands you have entered in reverse chronological order.
+[maroon]#You can list all the commands you have entered in reverse chronological order.#
 
-*Alias*: `h`, `hist`
+*Alias*: `[fuchsia]#h#`, `[fuchsia]#hist#`
 
-*Format*: `history`
+*Format*: `[fuchsia]#history#`
 
-==== Clearing all entries : `clear`
+==== Clearing all entries : `[fuchsia]#clear#`
 
-You can delete all existing entries in the records and reset your budget to $0.00.
+[maroon]#You can delete all existing entries in the records and reset your budget to $0.00.#
 
-*Alias*: `c`, `clr`
+*Alias*: `[fuchsia]#c#`, `[fuchsia]#clr#`
 
-*Format*: `clear`
+*Format*: `[fuchsia]#clear#`
 
-==== Exiting the program : `exit`
+==== Exiting the program : `[fuchsia]#exit#`
 
-You can quit the program at any point in time when you use this command.
+[maroon]#You can quit the program at any point in time when you use this command.#
 
-*Alias*: `quit`
+*Alias*: `[fuchsia]#quit#`
 
-*Format*: `exit`
+*Format*: `[fuchsia]#exit#`
 
 ==== Saving the data
 
@@ -797,14 +797,14 @@ the data. There is no need for you to save manually.
 // tag::upcomingFeatures[]
 === Upcoming Features
 
-==== Login Feature `[coming in v2.0]`
+==== Login Feature `[[green]#coming in v2.0#]`
 _In-Credit-Ble_ will implement a login feature so that your data and personal finance records will remain safe and secure.
 Your personal data will be encrypted and stored in your own account that can also be secured with a password.
 
 With this feature, multiple users will be able to use _In-Credit-Ble_ on the same computer without being able to access or modify each other's data.
 // end::upcomingFeatures[]
 
-==== Separate expenditures based on methods of payment (Cash, Visa, DBS PayLah) `[coming in v2.0]`
+==== Separate expenditures based on methods of payment (Cash, Visa, DBS PayLah) `[[green]#coming in v2.0#]`
 
 _In-Credit-Ble_ will link up with secure methods of payment to allow tracking of your cashless transactions.
 These include, but not limited to, payment services such as DBS PayLah, Visa/MasterCard, Amex and Paypal.
@@ -813,13 +813,13 @@ By paying through these third-party applications, your transactions will automat
 and recorded as entries in _In-Credit-Ble_.
 
 // tag::savingpatterns[]
-==== Establish saving patterns based on record and derive projected savings/expenses in a time span `[coming in v2.0]`
+==== Establish saving patterns based on record and derive projected savings/expenses in a time span `[[fuchsia]#coming in v2.0#]`
 
 Your monthly finance records will be archived at the end of the month. This information will be used to derive
 the projected savings and expenses of future months, based on analysing your typical spending patterns.
 // end::savingpatterns[]
 
-==== Links to financial articles `[coming in v2.0]`
+==== Links to financial articles `[[fuchsia]#coming in v2.0#]`
 
 You will be able to list categories of financial articles that you are interested in
 (e.g. investment, stock market, taxes). Based on these categories, _In-Credit-Ble_ will use Google API to search for
@@ -827,17 +827,17 @@ related articles for you to view.
 
 == FAQ
 
-*Q*: How do I transfer my data to another Computer?
+*Q*: [navy]#How do I transfer my data to another Computer?#
 
 *A*: You can install the app in the other computer and overwrite the empty data file it creates with the file
 that contains the data of your previous _In-Credit-Ble_ folder.
 
-*Q*: Will the application support different currency?
+*Q*: [navy]#Will the application support different currency?#
 
 *A*: At the current version, the application is unable to support transactions record in different currency.
 You will need to calculate and enter your input based on your local currency.
 
-_In-Credit-Ble_  aims to support multi-currency transactions in `v2.0`.
+_In-Credit-Ble_  aims to support multi-currency transactions in [green]#v2.0#`.
 
 == Command Summary
 

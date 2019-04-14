@@ -206,7 +206,7 @@ public class ModuleInfoPrerequisites {
     /**
      * Creates a branch of the main prerequisite Tree
      * @param sequence
-     * @return
+     * @return Node pesudoHead
      */
     public Node createMinorTree(String sequence) {
         Node pesudoHead = new Node(false, false, "");

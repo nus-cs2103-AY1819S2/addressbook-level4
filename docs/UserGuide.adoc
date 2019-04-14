@@ -397,7 +397,61 @@ Examples:
 * File matching at least one keyword will be returned
 ****
 
-// tag::dataencryption[]
+[#find-feature]
+=== Finding Content: `find`
+
+The find command allows you to `find` for files that contain a keyword or phrase
+OR `find` files which contain the entered keyword or phrase inside it.
+
+[#find-format]
+Format: `find KEYWORD`
+
+Examples:
+
+* `find Introduction` +
+* `find Author: George RR Martin`
+
+==== Step-By-Step Guide
+If, for example, you wish to locate the files that contain the word `Introduction`
+in its name or files that contain the word `Introduction` in its internal content.
+You may carry out the following steps in-order to get your desired list of files.
+
+* When you open the application, the image below illustrates the screen you might see initially.
+
+[NOTE]
+Files you observe may be different and depends on the actions you have previously carried out on our application
+
+image::UGFindFeatureImage1.png[width="600"]
+
+* As shown by the image, your application should contain an existing list of files.
+* Next you are to key in the `find` command followed by the keyword as illustrated by the command
+<<find-feature, format>>.
+* Finally, press kbd:[Enter] and give the application a short time to sieve through all the files
+it manages and locate the relevant ones for you.
+* Once the application is done with the task, the following screen should be visible to you.
+
+image::UGFindFeatureImage2.png[width="600"]
+
+* As seen in the image, the files that are relevant to your search will be displayed on the top
+left. These files are those that contain the keyword `Introduction` in its name, and files which
+contain the keyword within its content.
+
+* The application also shows you other useful information such as, the number of files that
+match the criteria you enetered into the application.
+
+* And with that you have successfully utilized the `find` feature.
+
+[CAUTION]
+When there are many files tracked by the application or if the files tracked by the application
+are contain many pages, the `find` command might take a little longer to operate. Hence if your
+operating system warns you that the application is not responding, please give the application some time
+to finish its operation.
+
+[WARNING]
+As part of a security measure, all files that are encrypted will not be subject to the `find` command.
+This will prevent any information about your secure files from being leaked.
+
+//tag::dataencryption[]
 === File Protection: `encrypt` & `decrypt`
 The command `encrypt` allow you to lock your files such that they cannot be accessed without a password that you had specified. Similarly, the command `decrypt` will let you remove the password that you had set for the file.
 
@@ -472,7 +526,6 @@ image::EncryptFeatureStep5Sucess.png[width="600"]
 
 Step 6: If the command passes the validity check, the file you have selected is encrypted.
 You can open your file to see the result. Please refer to <<Open feature>> for the `open` feature.
-
 
 
 ==== Step-by-Step Guide -- decrypt

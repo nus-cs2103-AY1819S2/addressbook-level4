@@ -30,11 +30,14 @@ public class RoomTypeListCard extends UiPart<Region> {
     private Label number;
     @FXML
     private Label ratePerDay;
+    @FXML
+    private Label id;
 
-    public RoomTypeListCard(RoomType roomType) {
+    public RoomTypeListCard(RoomType roomType, int displayedIndex) {
         super(FXML);
         this.roomType = roomType;
         roomTypeName.setText(roomType.getName());
+        id.setText(displayedIndex + ". ");
         number.setText("Number of rooms: " + Integer.toString(roomType.getNumberOfRooms()));
         ratePerDay.setText("Rate per day: " + roomType.getRatePerDay());
     }

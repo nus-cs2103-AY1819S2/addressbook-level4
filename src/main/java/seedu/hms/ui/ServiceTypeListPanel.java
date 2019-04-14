@@ -64,7 +64,7 @@ public class ServiceTypeListPanel extends UiPart<Region> {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new ServiceTypeListCard(serviceType).getRoot());
+                setGraphic(new ServiceTypeListCard(serviceType, getIndex() + 1).getRoot());
             }
         }
     }

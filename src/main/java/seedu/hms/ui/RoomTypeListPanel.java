@@ -65,7 +65,7 @@ public class RoomTypeListPanel extends UiPart<Region> {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new RoomTypeListCard(roomType).getRoot());
+                setGraphic(new RoomTypeListCard(roomType, getIndex() + 1).getRoot());
             }
         }
     }

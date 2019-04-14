@@ -45,13 +45,15 @@ This application is a Java Desktop GUI application that is specifically designed
 - **In Version 1.4**:
 * Basic CV presentation is added to the GUI. If there is a CV added for that person in the database, then it will be shown.
 * Integration tests are written for filtering, also some additions and improvements in unit tests implemented.
+* Reversing the filtered list is added.
 * Endorsement command is completed including the test codes.
 * Education (Schools), GPA and the degree levels of candidates can be seen through GUI.
 * Some improvements in sort command are made and new tests for sort command are written.
+* Failing system tests are fixed.
 
 - **In Version 1.3**:
 ** Unit tests for filtering processes are written.
-** Additional sorting functionality by name, last name, gpa, education, and skills
+** Additional sorting functionality by name, last name, gpa, education, and skills.
 ** Endorse Command written and tested.
 
 - **In Version 1.2**:

@@ -112,17 +112,11 @@ When you are adding in the Weblink, FoodDiary will check whether the Weblink is 
 the FoodDiary will proceed to add the restaurant without the Weblink.
 ====
 
-When adding a restaurant with invalid Weblink, you will receive the following error message.
-
-image:InvalidWeblink.PNG[width=640]
-
-_Image 1.1 Result of adding a Restaurant with invalid Weblink_
-
 When adding a restaurant when there is no internet connection, the FoodDiary will add your restaurant without the Weblink.
 
 image:NoInternetAdd.PNG[width=640]
 
-_Image 1.2 Result of adding a Restaurant with Weblink but there is no internet connection_
+_Image 1.1 Result of adding a Restaurant with Weblink but there is no internet connection_
 
 ==== Editing details of a restaurant  : `edit`
 
@@ -385,12 +379,6 @@ Examples:
 
 * `list` +
 `visitWeb 4` +
-This command displays website of the restaurant at index 4 of list as shown below.
-
-image::visitWeb.PNG[width=640]
-
-_Image 1.1 Result of `visitWeb 4`_
-
 
 * `visitWeb www.jollibee.com.ph` +
 This command displays webpage of Jollibee as shown below.

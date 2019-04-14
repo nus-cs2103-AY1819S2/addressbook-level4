@@ -359,6 +359,7 @@ Format: `undo`
 ====
 Undoable commands: those commands that modify the image (`rotate`, `crop`, `resize`, `brightness`, `contrast` and `bw`).
 ====
+// end::Undo[]
 
 // tag::WaterMarkCommand[]
 === WaterMark : `wm`

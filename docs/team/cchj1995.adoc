@@ -19,12 +19,17 @@ The main contributions listed here details how I covered these two aspects.
 
 * *Major implementation*: added *the task class and all its attributes*
 ** What it does: The entire task data structure enables TeethHub to store information pertaining to our users' tasks.
-** Justification: As dentists, aside from having patients and records, our users will certainly have tasks that they are required to complete with certain tasks being related to their patients. By enabling TeethHub to handle the information for these tasks, users can enjoy the benefits of having all of their important information being in the one application.
+** Justification: As dentists, aside from having patients and records, our users will have tasks that they are required to complete. By enabling TeethHub to handle the information for these tasks, users can enjoy the benefits of having all of their important information being in the one application.
 ** Highlights: This implementation serves as a stepping stone for future developments to provide more interaction with task information. Comprehensive understanding of the existing application (AB4) was necessary for this implementation as it essentially creates a new type of data for the application.
+
+* *Major enhancement*: added *the ability to link a task to a patient*
+** What it does: This enhancement enables users to provide a link between a task and a patient by being specified as one of the task's attributes either upon creation of a task or by modifiying a task's information.
+** Justification: This enhancement allows users to experience a cohesion between the information they have on TeethHub. In the real world, a dentist's task often relates to a patient and by enabling TeethHub to emulate the same experience, the application can provide greater value to the user.
+** Highlights: This enhancement proved to be rather demanding as it involved augmenting and changing existing commands that modified or removed a patient. The challenge was in ensuring the linked task did not directly affect the linked patient when modified or deleted, while changing a linked patient had to change the task linked to it automatically.
 
 * *Major enhancement*: added *the ability to display a task calendar*
 ** What it does: This enhancement allows the user to use a `taskcal` command to display a new popup window containing a calendar, a list of tasks and a commandbox. The displayed window provides users interactive information about their tasks, highlighting dates where tasks are present.
-** Justification: This enhancement provides additional value and meaning to the task information TeethHub stores for its users. By giving users context for the tasks in the form of a calendar, users can more accurately view and plan their schedules as they have a clearer view of when they have tasks and how important are these tasks.
+** Justification: This enhancement provides additional value and meaning to the task information TeethHub stores for its users. By giving users context for the tasks in the form of a calendar, users can more accurately view and plan their schedules as they have a clearer view of when they have tasks and how important are these tasks. This would provide users value and meaning to the data that TeethHub stores.
 ** Highlights: This was the most challenging enhancement I had made to the application because it involved in-depth understanding of the program's GUI, considering the best means of displaying the calendar and the logical approach to finding the right dates to highlight.
 
 * *Minor enhancement*: added taskadd, taskedit and taskdelete commands to provide users to have the most basic but essential interactions with the task information.
@@ -36,6 +41,7 @@ The main contributions listed here details how I covered these two aspects.
 * *Other contributions*:
 
 ** Enhancements to existing features:
+*** Updated TeethHub's application icon
 *** Modified GUI layout to fit TeethHub's own layout (layout designed by teammate)
 *** Added new implementations to existing patientedit and patiendelete commands to work with task
 *** Wrote tests for new features to increase coverage by ~7%

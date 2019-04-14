@@ -457,7 +457,7 @@ Storing information of all objects does not change between `Task` and `Person` c
 Task has an attribute called `LinkedPatient` which stores the `NAME` and `NRIC` of a patient. This is to allow tasks to be bound to a patient and facilliate another implementation `taskdone` .
 
 
-The following class diagram details the relevant attributes for a `Task` object along with the multiplicity association between the classes:
+The following class diagram details the attributes `Task` and the multiplicity association between the classes:
 
 image::TaskClassDiagramFinal.png[width=""]
 // end::taskDG1_cchj1995[]
@@ -509,12 +509,16 @@ image::TaskDoneSequenceDiagram.png[width=""]
 
 ==== Task Calendar feature
 
-The `taskcal` command is a feature implemented to allow the user to view task related data in a more interactive and helpful manner. Executing the command creates a popup window with the list of tasks on the left side and a calendar on the right side. The popup window will also have a commandbox where the user is able to key in task related commands, dates in the format of `dd-mm-yyyy` to navigate the calendar or exit and help as miscelleanous commands.This feature also enables the user to find tasks depending on the `date` they provide in the commandbox or the date cell they click on such that the task list will update to show users the tasks with start dates and/or end dates on the selected date cell.
+The `taskcal` command is a feature implemented to allow the user to view task related data in a more interactive and helpful manner. Executing the command creates a popup window with the list of tasks on the left side and a calendar on the right side. The popup window will also have a commandbox where the user is able to key in task related commands, dates in the format of `dd-mm-yyyy` to navigate the calendar or exit and help as miscelleanous commands.
+
+This feature also enables the user to find tasks depending on the `date` they provide in the commandbox or the date cell they click on such that the task list will update to show users the tasks with start dates and/or end dates on the selected date cell.
 
 [NOTE]
 Closing the Main Window whilst the Task Calendar popup is showing will also close the popup automatically. This is implemented intentionally as the popup is designed to be an extension of the Main Window, not a standalone window.
 
-The calendar is generated with modifications to the date cells being done during the generation process. Modifications to the date cells (e.g. changing font colors, overlaying a circle) are done to highlight date cells with the color of task priority. The class `CalendarWindow` uses a `HashMap` with the date, as the key and priority number, as a value,to store the start date and end date information from tasks stored in TeethHub, replacing the stored value with a highest priority value between the duplicates. This enables the date cells to be compared with the stored values amidst the generation process, choosing which date cells to highlight with the highest priority color.
+The calendar is generated with modifications to the date cells being done during the generation process. Modifications to the date cells (e.g. changing font colors, overlaying a circle) are done to highlight date cells with the color of task priority.
+
+The class `CalendarWindow` uses a `HashMap` with the date, as the key and priority number, as a value,to store the start date and end date information from tasks stored in TeethHub, replacing the stored value with a highest priority value between the duplicates. This enables the date cells to be compared with the stored values amidst the generation process, choosing which date cells to highlight with the highest priority color.
 
 The UI components of this feature are implemented using classes from `JavaFX` with the most important component being `DatePicker` which allows a calendar to be drawn up and displayed to the user. The implementation overrides the `updateItem()` method from `DatePicker` to enable modifications to be done to the date cells in the calendar.
 
@@ -523,7 +527,8 @@ Color sceheme and certain font sizes of the Calendar are done using Cascading St
 
 The following swimlane activity diagram illustrates the process in which the application goes through to create and display the interactive calendar for the user:
 
-image::TaskCalendarSwimLaneDiagram.png[height="500"]
+image::TaskCalendarSwimLaneDiagram.png[width=""]
+{nbsp}
 
 ==== Design Considerations
 

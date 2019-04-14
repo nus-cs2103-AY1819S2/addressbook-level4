@@ -1420,8 +1420,6 @@ Use case ends.
 .  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 
-_{More to be added}_
-
 [appendix]
 == Glossary
 
@@ -1454,6 +1452,8 @@ These instructions only provide a starting point for testers to work on; testers
 .. Resize the window to an optimum size. Move the window to a different location. Close the window.
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
+
+
 
 === Adding a `HealthWorker
 
@@ -1538,5 +1538,24 @@ variants of the `filter healthworker` command may be used in place of this.
 === Saving data
 
 . Dealing with missing/corrupted data files
+.. If data file is missing, the app will retrieve a list of sample data internally. It will be saved upon exit.
+.. If any of the data is corrupted, the app will start with empty books, adding a health worker
+or request will overwrite the corrupted file.
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
+=== Undoing a command
+. Undo a command that has been executed
+.. Prerequisites: A command that modifies the data has been executed already, for example `delete r 1`.
+.. Test case: `undo` +
+Expected: The request has been deleted will appear back inside the list in its original position.
+.. Test case: `undo` without any prerequisites +
+Expected: The application will show an error message: No more commands to undo!
+
+=== Redoing a command
+. Redo an undone command
+.. Prerequisites: A successful undo command have to be executed already.
+.. Test case: `redo` +
+Expected: The application will redo the undone command.
+.. Test case: `redo` without prerequisites+
+Expected: The application will show an error message: No more commands to redo!
+
+

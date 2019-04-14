@@ -71,13 +71,14 @@ instead of searching the documents manually.
 
 include::../UserGuide.adoc[tag=releasenotes-1.4]
 include::../UserGuide.adoc[tag=undoredo]
+include::../UserGuide.adoc[tag=releasenotes-1.4]
 
 
 
 == Contributions to the Developer Guide
 
 |===
-|_The following sections of the developer's guide were written by me. Please do take a look._
+|_The following sections of the developer's guide were written by me. Please take a look._
 |===
 
 include::../DeveloperGuide.adoc[tag=storage]

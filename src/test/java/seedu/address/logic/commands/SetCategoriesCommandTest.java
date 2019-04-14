@@ -8,6 +8,8 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_RESTAURANT;
 import static seedu.address.testutil.TypicalRestaurants.getTypicalFoodDiary;
 
+import java.util.List;
+import org.junit.Assert;
 import org.junit.Test;
 
 import seedu.address.commons.core.Messages;
@@ -23,6 +25,7 @@ import seedu.address.model.restaurant.categories.Categories;
 import seedu.address.model.restaurant.categories.Cuisine;
 import seedu.address.model.restaurant.categories.Occasion;
 import seedu.address.model.restaurant.categories.PriceRange;
+import seedu.address.model.review.Review;
 import seedu.address.testutil.RestaurantBuilder;
 import seedu.address.testutil.TypicalCategories;
 
@@ -94,15 +97,28 @@ public class SetCategoriesCommandTest {
         expectedModel.setRestaurant(restaurantToSet, updatedRestaurant);
         expectedModel.commitFoodDiary();
 
-        // edit -> first restaurant edited
+        // setCategories -> first restaurant's categories set
         categoriesCommand.execute(model, commandHistory);
 
         // undo -> reverts fooddiary back to previous state and filtered restaurant list to show all restaurants
         expectedModel.undoFoodDiary();
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
-        // redo -> same first restaurant edited again
+        // redo -> same first restaurant set again
         expectedModel.redoFoodDiary();
         assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
+    }
+
+    @Test
+    public void execute_validIndexUnfilteredList_reviewsUnchanged() throws Exception {
+        Restaurant beforeCategoriesSet = model.getFilteredRestaurantList().get(INDEX_FIRST_RESTAURANT.getZeroBased());
+        List<Review> reviewsBeforeCommand = beforeCategoriesSet.getReviews();
+        SetCategoriesCommand categoriesCommand = new SetCategoriesCommand(INDEX_FIRST_RESTAURANT, TypicalCategories.VALID_ALL_SET);
+
+        categoriesCommand.execute(model, commandHistory);
+
+        Restaurant afterCategoriesSet = model.getFilteredRestaurantList().get(INDEX_FIRST_RESTAURANT.getZeroBased());
+        List<Review> reviewsAfterCommand = afterCategoriesSet.getReviews();
+        Assert.assertEquals(reviewsBeforeCommand, reviewsAfterCommand);
     }
 }

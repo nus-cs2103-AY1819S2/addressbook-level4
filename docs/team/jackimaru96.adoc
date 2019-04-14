@@ -179,7 +179,9 @@ To see the rest of the contributions I made to the DG, click the below link. +
 
 === Budget Class Diagrams
 include::../DeveloperGuide.adoc[tag=budgetclassdiagram]
+
 ---
+
 === CategoryBudget Implementation
 include::../DeveloperGuide.adoc[tag=categorybudget]
 

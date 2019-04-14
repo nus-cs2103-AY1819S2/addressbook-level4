@@ -631,13 +631,31 @@ Website can be displayed on the `BrowserPanel` with `visitWeb` command.
 ==== visitWeb `INDEX`
 Visits website of `Restaurant` selected by user.
 
-* Restaurants has a field `Weblink` which contains the URL of the restaurant website.
-* Weblink have to be valid https or http link before browser can display the website.
-* Upon `visitWeb` command, `Parser` in the `Logic` component will call `VisitWebCommandParser` to parse index into
-`VisitWebCommand`.
-* `Model` will then set Restaurant of the input index as selected Restaurant.
-* `BrowserPanel` of `UI` component will listen to this change in selected Restaurant and thus, display website of
- Restaurant on the `BrowserPanel`.
+Restaurants contains a `Weblink` field which encapsulates the Url of the restaurant website.
+
+[NOTE]
+When restaurant is added to Food Diary, the `Weblink` added with the restaurant is checked by `WebUtil` to ensure that the `Weblink` is a Url that belongs to a website that exists.
+If the protocol is absent, `WebUtil` will check if the `Weblink` uses HTTP or HTTPS protocol and append to it. This will be hidden from the user.
+If there is no internet connection, `WebUtil` is unable to validate `Weblink` and Food Diary will add the restaurant without the `Weblink`.
+
+Upon `visitWeb INDEX` command, `Weblink` of the Restaurant at the selected index will be retrieved and passed into
+`BrowerPanel` of `UI` to load the website of the restaurant as a pop-up window.
+Since website of restaurant might be taken down after it has been added to the restaurant, there is a need to validate the `Weblink` again before passing it to `BrowserPanel`.
+
+The following steps illustrates the sequence to `visitWeb INDEX` command with reference to the sequence diagram below:
+
+1. `Weblink` is retrieved from the selectedRestaurant inside `Model` component.
+2. Using `WebUtil` utility class in `Commons` component, check if there is internet connection so validate and display the website.
+3. If there is no internet connection, inform user.
+4. Validate `Weblink` by pinging its Url and checking the HTTP response code.
+
+[NOTE]
+HTTP response codes: +
+2XX SUCCESS - Weblink is valid +
+3XX REDIRECTED - Weblink redirects user to the correct Website and hence is valid +
+4XX, 5XX (Error) - Weblink is invalid
+
+5. Pass `Weblink` to `BrowserPanel` through `CommandResult` and invoke `WebView` engine to display website.
 
 The following sequence diagram shows how the visitWeb `index` works:
 

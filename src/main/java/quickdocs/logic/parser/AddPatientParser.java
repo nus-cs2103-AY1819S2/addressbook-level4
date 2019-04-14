@@ -47,12 +47,12 @@ public class AddPatientParser implements Parser<AddPatientCommand> {
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_NRIC, PREFIX_DOB, PREFIX_ADDRESS, PREFIX_EMAIL,
                         PREFIX_CONTACT, PREFIX_GENDER, PREFIX_TAG);
 
-        boolean prefixesPresent = arePrefixesPresent(argMultimap, PREFIX_NAME,
+        boolean arePrefixesPresent = arePrefixesPresent(argMultimap, PREFIX_NAME,
                 PREFIX_NRIC, PREFIX_DOB, PREFIX_ADDRESS, PREFIX_EMAIL,
                 PREFIX_CONTACT, PREFIX_GENDER);
-        boolean preamblePresent = argMultimap.getPreamble().isEmpty();
+        boolean isPreambleMissing = argMultimap.getPreamble().isEmpty();
 
-        if (!prefixesPresent || !preamblePresent) {
+        if (!arePrefixesPresent || !isPreambleMissing) {
             throw new ParseException(INVALID_ADD_ARGUMENTS);
         }
 

@@ -29,7 +29,7 @@ public class AddPatientParserTest {
     }
 
     @Test
-    public void successfulAddPatient() {
+    public void parseAddPatient_validInput_success() {
 
         Name name = new Name("Peter Tan");
         Nric nric = new Nric("S9123456A");
@@ -40,20 +40,16 @@ public class AddPatientParserTest {
         Dob dob = new Dob("1999-09-09");
         ArrayList<Tag> tagList = new ArrayList<Tag>();
 
-        String userInput = " n/" + name.getName() + " "
-                + "r/" + nric.getNric() + " "
-                + "e/" + email.getEmail() + " "
-                + "a/" + address.getAddress() + " "
-                + "c/" + contact.getContact() + " "
-                + "g/" + gender.getGender() + " "
-                + "d/" + dob.getDob();
+        String userInput = createTestInput(name, nric, email, address, contact, gender, dob);
+
         Patient patient1 = new Patient(name, nric, email, address, contact, gender, dob, tagList);
         assertParseSuccess(parser, userInput,
                 new AddPatientCommand(patient1));
     }
 
     @Test
-    public void invalidPatientAdding() {
+    public void parseAddPatient_insufficientInputs_failure() {
+
         Name name = new Name("Peter Tan");
         Nric nric = new Nric("S9123456A");
         Email email = new Email("ptan@gmail.com");
@@ -61,17 +57,78 @@ public class AddPatientParserTest {
         Contact contact = new Contact("91111111");
         Gender gender = new Gender("M");
         Dob dob = new Dob("1999-09-09");
-        ArrayList<Tag> tagList = new ArrayList<Tag>();
 
-        // missing gender
-        String userInput = " n/" + name.getName() + " "
-                + "r/" + nric.getNric() + " "
-                + "e/" + email.getEmail() + " "
-                + "a/" + address.getAddress() + " "
-                + "c/" + contact.getContact() + " "
-                + "d/" + dob.getDob();
+        // missing parameters starting from name
+        String userInput = createTestInput(nric, email, address, contact, gender, dob);
         assertParseFailure(parser, userInput, AddPatientParser.INVALID_ADD_ARGUMENTS);
 
+        userInput = createTestInput(name, email, address, contact, gender, dob);
+        assertParseFailure(parser, userInput, AddPatientParser.INVALID_ADD_ARGUMENTS);
+
+        userInput = createTestInput(name, nric, address, contact, gender, dob);
+        assertParseFailure(parser, userInput, AddPatientParser.INVALID_ADD_ARGUMENTS);
+
+        userInput = createTestInput(name, nric, email, contact, gender, dob);
+        assertParseFailure(parser, userInput, AddPatientParser.INVALID_ADD_ARGUMENTS);
+
+        userInput = createTestInput(name, nric, email, address, gender, dob);
+        assertParseFailure(parser, userInput, AddPatientParser.INVALID_ADD_ARGUMENTS);
+
+        userInput = createTestInput(name, nric, email, address, contact, dob);
+        assertParseFailure(parser, userInput, AddPatientParser.INVALID_ADD_ARGUMENTS);
+
+        userInput = createTestInput(name, nric, email, address, contact, gender);
+        assertParseFailure(parser, userInput, AddPatientParser.INVALID_ADD_ARGUMENTS);
+
+    }
+
+    /**
+     * To produce the userInput for parsing testing
+     *
+     * @param params one or more parameters to be added to parse into an AddPatientCommand
+     * @return the string input to be supplied into the AddPatientParser
+     */
+    public String createTestInput(Object... params) {
+        String userInput = " ";
+
+        for (Object param : params) {
+
+            if (param instanceof Name) {
+                userInput += "n/" + ((Name) param).getName() + " ";
+                continue;
+            }
+
+            if (param instanceof Nric) {
+                userInput += "r/" + ((Nric) param).getNric() + " ";
+                continue;
+            }
+
+            if (param instanceof Email) {
+                userInput += "e/" + ((Email) param).getEmail() + " ";
+                continue;
+            }
+
+            if (param instanceof Address) {
+                userInput += "a/" + ((Address) param).getAddress() + " ";
+                continue;
+            }
+
+            if (param instanceof Contact) {
+                userInput += "c/" + ((Contact) param).getContact() + " ";
+                continue;
+            }
+
+            if (param instanceof Gender) {
+                userInput += "g/" + ((Gender) param).getGender() + " ";
+                continue;
+            }
+
+            if (param instanceof Dob) {
+                userInput += "d/" + ((Dob) param).getDob() + " ";
+                continue;
+            }
+        }
+        return userInput;
     }
 
 }

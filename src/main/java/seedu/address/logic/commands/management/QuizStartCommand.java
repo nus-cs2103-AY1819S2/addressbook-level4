@@ -1,7 +1,7 @@
 package seedu.address.logic.commands.management;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.core.Messages.MESSAGE_OPENED_LESSON;
+import static seedu.address.commons.core.Messages.MESSAGE_LESSON_VIEW_COMMAND;
 import static seedu.address.logic.parser.Syntax.PREFIX_START_COUNT;
 import static seedu.address.logic.parser.Syntax.PREFIX_START_MODE;
 
@@ -11,6 +11,7 @@ import java.util.List;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.commands.quiz.QuizCommand;
 import seedu.address.model.lesson.Lesson;
 import seedu.address.model.lesson.LessonList;
 import seedu.address.model.modelmanager.ManagementModel;
@@ -25,12 +26,12 @@ import seedu.address.model.srscard.SrsCard;
 import seedu.address.model.user.CardSrsData;
 
 /**
- * This implements a {@link ManagementCommand} which starts a {@link Quiz}.
+ * This implements a {@link QuizCommand} which starts a {@link Quiz}.
  *
- * It requires a {@link ManagementModel} to be passed into the {@link #execute(Model, CommandHistory)}
+ * It requires a {@link QuizModel} to be passed into the {@link #execute(Model, CommandHistory)}
  * command.
  */
-public class QuizStartCommand extends ManagementCommand {
+public class QuizStartCommand extends QuizCommand {
     public static final String COMMAND_WORD = "start";
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + "Parameters: "
@@ -46,9 +47,10 @@ public class QuizStartCommand extends ManagementCommand {
     public static final String MESSAGE_COUNT = "Not enough cards in current lesson.\nSet the count to the maximum"
             + " number for you by default.";
     private Session session;
+    private QuizModel quizModel;
 
     /**
-     * Constructs a {@link ManagementCommand} to start the specified {@link Quiz}
+     * Constructs a {@link QuizCommand} to start the specified {@link Quiz}
      *
      * @param session to be opened.
      */
@@ -66,7 +68,9 @@ public class QuizStartCommand extends ManagementCommand {
      *
      * @return messages to show whether the quiz starts correctly.
      */
-    public CommandResult executeActual(QuizModel model, CommandHistory history) {
+    public CommandResult executeActual(Model model, CommandHistory history) throws CommandException {
+        this.quizModel = requireQuizModel(model);
+
         StringBuilder sb = new StringBuilder();
         if (session.getCount() > session.getSrsCards().size()) {
             session.setCount(session.getSrsCards().size());
@@ -78,8 +82,8 @@ public class QuizStartCommand extends ManagementCommand {
         }
         List<QuizCard> quizCards = session.generateSession();
         Quiz quiz = new Quiz(quizCards, session.getMode());
-        model.init(quiz, session);
-        model.getNextCard();
+        quizModel.init(quiz, session);
+        quizModel.getNextCard();
 
         return new CommandResult(sb.toString(), true, false, false);
     }
@@ -102,7 +106,7 @@ public class QuizStartCommand extends ManagementCommand {
         }
         ManagementModel mgtModel = (ManagementModel) model;
         if (mgtModel.isThereOpenedLesson()) {
-            throw new CommandException(MESSAGE_OPENED_LESSON);
+            throw new CommandException(MESSAGE_LESSON_VIEW_COMMAND);
         }
         LessonList lessonList = mgtModel.getLessonList();
         List<Lesson> lessons = lessonList.getLessons();

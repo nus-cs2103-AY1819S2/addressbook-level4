@@ -7,11 +7,17 @@ import static seedu.address.model.util.SampleCards.SAMPLE_1_CARD_1_CORE_1;
 import static seedu.address.model.util.SampleCards.SAMPLE_1_CARD_1_CORE_2;
 import static seedu.address.model.util.SampleCards.SAMPLE_1_CARD_2_CORE_1;
 import static seedu.address.model.util.SampleCards.SAMPLE_1_CARD_2_CORE_2;
+import static seedu.address.model.util.SampleLessons.SAMPLE_1_NAME;
 import static seedu.address.testutil.TypicalSession.SESSION_REVIEW_2;
+
+import java.util.List;
 
 import org.junit.Test;
 
+import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.management.QuizStartCommand;
+import seedu.address.model.lesson.Lesson;
+import seedu.address.model.modelmanager.ManagementModel;
 import seedu.address.model.modelmanager.Model;
 import seedu.address.model.modelmanager.QuizModel;
 import seedu.address.model.quiz.Quiz;
@@ -20,7 +26,21 @@ public class QuizAnswerCommandSystemTest extends BrainTrainSystemTest {
     @Test
     public void answer() {
         // starts the quiz
-        executeCommand(QuizStartCommand.COMMAND_WORD + " 1 c/2 m/REVIEW\n");
+        ManagementModel expectedMgtModel = getManagementModel();
+        List<Lesson> lessons = expectedMgtModel.getLessons();
+
+        // Find the sample 1 lesson's index
+        Index index = Index.fromZeroBased(0);
+        for (int i = 0; i < lessons.size(); i++) {
+            if (lessons.get(i).getName().equals(SAMPLE_1_NAME)) {
+                index = Index.fromZeroBased(i);
+                break;
+            }
+        }
+
+        StringBuilder sb = new StringBuilder(QuizStartCommand.COMMAND_WORD);
+        sb.append(" ").append(index.getOneBased()).append(" c/2 m/REVIEW \n");
+        executeCommand(sb.toString());
 
         /* Case: some invalid quiz command in braintrain
          * -> fails, invalid command

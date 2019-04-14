@@ -5,8 +5,6 @@
 
 == Project Title: FomoFoto
 === Overview
-My team and I were tasked with enhancing a basic command line Address Book for our Software Engineering project. We decided to morph the project into a image editor. +
-
 FomoFoto is a robust yet simple image-editing tool. Users interact with the application through worded commands from their keyboard, and receive visual feedback from it through the displayed image on the application. +
 
 Unlike other heavy image editors, FomoFoto has a gentle learning curve, removing clutter while still retaining essential features. All features and their implementations are well documented in guides for both users and developers respectively.
@@ -25,12 +23,12 @@ Allow users to import images into FomoFoto for editing. Imported images are adde
 This feature is core to the operation of FomoFoto. Without the ability to import images, an image editor cannot function properly since there is no image to modify.
 
 ** *Highlights:*
-This enhancement is tough to implement as it requires many checks to ensure the image is valid. Files that are not of an image format are not allowed to be imported. Images that are extremely big are not allowed to be imported as the limitation of the JavaFX library means the program might run out of space. Users are also given the flexibility to import a single image or an entire directory.
+This enhancement is tough to implement as it requires many checks to ensure the image is valid. Images which do not fit the rule set such as wrong name formats are rejected. Users are also given the flexibility to import a single image or a directory.
 
 2. Overall user interaction and interface/experience design.
 
 ** *What it does:*
-FomoFoto has an intuitive, human-centric design. Users are able to see the images they are editing, the information of images in the Album, their details and all edits applied. All Graphical User Interface elements are updated in real-time using a Notifier which allows commands to interact easily and draw updates on the interface.
+FomoFoto has an intuitive, human-centric design. Users are able to see the images they are editing, the information of images in the Album, their details and all edits applied.
 
 ** *Justification:* A good user interface facilitates easy usage of the editor. Users are able to get a good overview on the edits they are doing simply by observing the image and information available on screen. This feature comprises of five components:
 *** `Initial Panel` - Contains a quick start message on FomoFoto's first start, giving users a high level overview on the commands available.
@@ -39,7 +37,7 @@ FomoFoto has an intuitive, human-centric design. Users are able to see the image
 *** `EXIF Profile Panel` - Displays core details such as Time and Location Taken about the opened image shown on the Image Panel.
 *** `Command History Panel` - Displays all previously applied edits on the opened image shown on the Image Panel.
 
-** *Highlights:* This enhancement is core to the operation of FomoFoto. Since we are dealing with images, it is paramount to show the item that is being worked on. Without it, there is no visual cue if the edits being carried out is accurate. The implementation is complex as all edit commands need to update the Graphical User Interface instantly. Careful attention has been paid to ensure images are aligned accurately with a clean colour scheme.
+** *Highlights:* This enhancement is core to the operation of FomoFoto. Since we are dealing with images, it is paramount to show the item that is being worked on. Without it, there is no visual cue if the edits being carried out is accurate. Careful attention has been paid to ensure images are aligned accurately with a clean colour scheme.
 
 ==== Minor Enhancements:
 1. Tab Command.
@@ -110,10 +108,6 @@ include::../UserGuide.adoc[tag=QuickStartTwo]
 '''
 include::../UserGuide.adoc[tag=Import]
 
-=== Clear Command
-'''
-include::../UserGuide.adoc[tag=ClearCommand]
-
 === Tab Command
 '''
 include::../UserGuide.adoc[tag=Tab]
@@ -130,7 +124,8 @@ include::../DeveloperGuide.adoc[tag=albumModel]
 
 === User Interface Overhaul
 '''
-include::../DeveloperGuide.adoc[tag=ui]
+include::../DeveloperGuide.adoc[tag=uione]
+include::../DeveloperGuide.adoc[tag=uitwo]
 
 === Import and ImportParser Class
 '''

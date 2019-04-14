@@ -4,7 +4,6 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.function.Predicate;
 
 import javafx.beans.InvalidationListener;
 import javafx.collections.FXCollections;
@@ -127,8 +126,8 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Replaces the contents of the person list with {@code persons}.
      * {@code persons} must not contain duplicate persons.
      */
-    public void sortAddressBook(Predicate<String> predicate) {
-        this.persons.sortList(predicate);
+    public void sortAddressBook(String input) {
+        this.persons.sortList(input);
         indicateModified();
     }
 

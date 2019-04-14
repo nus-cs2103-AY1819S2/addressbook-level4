@@ -49,9 +49,6 @@ public class SetPresetCommand extends Command {
         }
         List<Command> presetList = transformationSet.findTransformation(presetName);
         this.hasWaterMarkCommand = transformationSet.hasWaterMarkCommand(presetName);
-        initialImage.getUrl();
-
-        System.out.print(presetList);
         StringBuilder toPrint = new StringBuilder();
         for (Command command: presetList) {
             try {

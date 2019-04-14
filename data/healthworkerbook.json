@@ -1,10 +1,10 @@
 {
   "healthWorkers" : [ {
-    "name" : "S1234567L",
+    "name" : "myname",
     "phone" : "98765432",
-    "nric" : "S3216547M",
+    "nric" : "S6549872M",
     "organization" : "SGH",
-    "skills" : "ORTHOPAEDIC GENERAL_PRACTICE "
+    "skills" : "GENERAL_PRACTICE ORTHOPAEDIC "
   }, {
     "name" : "David Dev",
     "phone" : "89047389",
@@ -16,7 +16,7 @@
     "phone" : "90098264",
     "nric" : "S7491023J",
     "organization" : "SGH",
-    "skills" : "ORTHOPAEDIC GENERAL_PRACTICE "
+    "skills" : "GENERAL_PRACTICE ORTHOPAEDIC "
   }, {
     "name" : "Jin Stackoverflow",
     "phone" : "88888888",

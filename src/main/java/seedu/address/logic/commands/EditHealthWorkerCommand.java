@@ -66,6 +66,7 @@ public class EditHealthWorkerCommand extends EditCommand implements HealthWorker
         }
 
         edit(model, toEdit, edited);
+        commitHealthWorkerBook(model);
         return new CommandResult(String.format(MESSAGE_EDIT_HEALTHWORKER_SUCCESS, edited));
     }
 

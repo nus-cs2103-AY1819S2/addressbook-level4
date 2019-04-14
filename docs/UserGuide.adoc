@@ -652,6 +652,7 @@ A convenient cheat sheet of commands
 |`delete INDEX` | Deletes the deck at INDEX.
 |`edit INDEX n/NAME` | Edits the name of the deck at INDEX.
 |`find NAME` | Finds a deck by name.
+|`list` | Displays a list of all available decks.
 |`open INDEX` | Navigates into the deck at INDEX. +
 Use `back` to navigate out of the deck.
 |`study INDEX` | Studying the deck at INDEX.
@@ -671,6 +672,7 @@ functionality will be added in v2.0)
 |`edit INDEX [q/QUESTION]-[a/ANSWER]` | Edits the details of the card at INDEX. +
 At least one parameter must be present.
 |`find NAME` | Finding a card in the active deck by name.
+|`list` | Displays a list of all available cards.
 |`study` | Studying the active deck.
 |=======================================================================
 
@@ -679,20 +681,19 @@ At least one parameter must be present.
 [width="100%",cols="20%,<30%"]
 |=======================================================================
 |`back` | Returning to deck view after studying.
-|`deck` | Opens the deck in cards view.
+|`open` | Opens the deck in cards view.
 |=======================================================================
 
 
 === Global Commands
 [width="100%",cols="20%,<30%"]
 |=======================================================================
-|`clear` | Clear all decks and cards.
+|`clear` | Clear all decks and cards. (Disabled in study view)
 |`exit` | Exits the program.
 |`help` | Lists all available commands and their respective formats.
 |`history` | List all entered commands in reverse chronological order.
-|`list` | Displays a list of all available decks. If inside a deck displays all cards in that deck.
-|`redo` | Redo previously undone command.
-|`undo` | Undo previous command.
+|`redo` | Redo previously undone command. (Disabled in study view)
+|`undo` | Undo previous command. (Disabled in study view)
 |=======================================================================
 
 === Switching Views
@@ -700,7 +701,7 @@ At least one parameter must be present.
 [width="100%",cols="20%,<30%"]
 |=======================================================================
 |`back` | Cards/study view to Decks view.
-|`deck` | Study view to cards view.
+|`open` | Study view to cards view.
 |`open DECK_INDEX` | Decks view to cards view
 |`study` | Cards view to study view.
 |`study DECK_INDEX` | Decks view to study view.

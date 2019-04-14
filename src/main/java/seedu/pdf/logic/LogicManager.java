@@ -59,7 +59,7 @@ public class LogicManager implements Logic {
         }
 
         if (pdfBookModified) {
-            logger.info("Address book modified, saving to file.");
+            logger.info("Pdf book modified, saving to file.");
             try {
                 storage.savePdfBook(model.getPdfBook());
             } catch (IOException ioe) {

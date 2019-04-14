@@ -96,7 +96,7 @@ public class VersionedPdfBook extends PdfBook {
      */
     public static class NoUndoableStateException extends RuntimeException {
         private NoUndoableStateException() {
-            super("Current state pointer at start of addressBookState list, unable to undo.");
+            super("Current state pointer at start of pdfBookState list, unable to undo.");
         }
     }
 
@@ -105,7 +105,7 @@ public class VersionedPdfBook extends PdfBook {
      */
     public static class NoRedoableStateException extends RuntimeException {
         private NoRedoableStateException() {
-            super("Current state pointer at end of addressBookState list, unable to redo.");
+            super("Current state pointer at end of pdfBookState list, unable to redo.");
         }
     }
 }

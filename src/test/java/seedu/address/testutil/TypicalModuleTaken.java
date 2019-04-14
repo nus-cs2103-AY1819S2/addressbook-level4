@@ -246,6 +246,7 @@ public class TypicalModuleTaken {
         algoBdList.add(new ModuleTakenBuilder().withModuleInfoCode("CS3236").build());
         algoBdList.add(new ModuleTakenBuilder().withModuleInfoCode("CS4231").build());
         algoBdList.add(new ModuleTakenBuilder().withModuleInfoCode("CS3233").build());
+        algoBdList.add(new ModuleTakenBuilder().withModuleInfoCode("CS2107").build());
         algoBdList.add(new ModuleTakenBuilder().withModuleInfoCode("CS4257").build());
         algoBdList.add(new ModuleTakenBuilder().withModuleInfoCode("CS4268").build());
 
@@ -259,6 +260,7 @@ public class TypicalModuleTaken {
         aiBdList.add(new ModuleTakenBuilder().withModuleInfoCode("CS3244").build());
         aiBdList.add(new ModuleTakenBuilder().withModuleInfoCode("CS4243").build());
         aiBdList.add(new ModuleTakenBuilder().withModuleInfoCode("CS4231").build());
+        aiBdList.add(new ModuleTakenBuilder().withModuleInfoCode("CS2107").build());
         aiBdList.add(new ModuleTakenBuilder().withModuleInfoCode("CS4257").build());
 
         return aiBdList;
@@ -267,9 +269,10 @@ public class TypicalModuleTaken {
     public static List<ModuleTaken> getSeBdList() {
         List<ModuleTaken> seBdList = new ArrayList<>();
 
-        seBdList.add(new ModuleTakenBuilder().withModuleInfoCode("CS3213").build());
+        seBdList.add(new ModuleTakenBuilder().withModuleInfoCode("CS3219").build());
         seBdList.add(new ModuleTakenBuilder().withModuleInfoCode("CS4211").build());
         seBdList.add(new ModuleTakenBuilder().withModuleInfoCode("CS4231").build());
+        seBdList.add(new ModuleTakenBuilder().withModuleInfoCode("CS2107").build());
         seBdList.add(new ModuleTakenBuilder().withModuleInfoCode("CS4257").build());
 
         return seBdList;

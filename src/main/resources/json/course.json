@@ -500,7 +500,7 @@
       "requirementType" : "BD",
       "conditions" : [ {
         "minToSatisfy" : "3",
-        "pattern" : "(CS2103T?)|(CS3213)|(CS3219)|(CS4211)|(CS4218)|(CS4239)"
+        "pattern" : "(CS2103T?)|(CS3219)|(CS4211)|(CS4218)|(CS4239)"
       }, {
         "minToSatisfy" : "1",
         "pattern" : "(CS4211)|(CS4218)|(CS4239)"

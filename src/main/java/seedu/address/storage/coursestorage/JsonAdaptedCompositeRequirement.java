@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.course.CompositeRequirement;
+import seedu.address.model.course.CompositeRequirement.LogicalConnector;
 import seedu.address.model.course.CourseReqType;
 import seedu.address.model.course.CourseRequirement;
 import seedu.address.model.course.PrimitiveRequirement;
@@ -61,28 +62,33 @@ public class JsonAdaptedCompositeRequirement implements JsonAdaptedCourseRequire
      */
     @Override
     public CourseRequirement toModelType() throws IllegalValueException {
-        if (first == null) {
-            throw new IllegalValueException(
-                    String.format(MISSING_FIELD_MESSAGE_FORMAT, "first requirement"));
-        }
+        try {
+            if (first == null) {
+                throw new IllegalValueException(
+                        String.format(MISSING_FIELD_MESSAGE_FORMAT, "first requirement"));
+            }
 
-        if (second == null) {
-            throw new IllegalValueException(
-                    String.format(MISSING_FIELD_MESSAGE_FORMAT, "second requirement"));
-        }
+            if (second == null) {
+                throw new IllegalValueException(
+                        String.format(MISSING_FIELD_MESSAGE_FORMAT, "second requirement"));
+            }
 
-        if (logicalConnector == null) {
-            throw new IllegalValueException(
-                    String.format(MISSING_FIELD_MESSAGE_FORMAT, "Logical Connector"));
-        }
+            if (logicalConnector == null) {
+                throw new IllegalValueException(
+                        String.format(MISSING_FIELD_MESSAGE_FORMAT, LogicalConnector.class.getSimpleName()));
+            }
 
-        if (courseReqType == null) {
-            throw new IllegalValueException(
-                    String.format(MISSING_FIELD_MESSAGE_FORMAT, "Course Requirement Type"));
-        }
+            if (courseReqType == null) {
+                throw new IllegalValueException(
+                        String.format(MISSING_FIELD_MESSAGE_FORMAT, CourseReqType.class.getSimpleName()));
+            }
 
-        return new CompositeRequirement(first.toModelType(), second.toModelType(),
-                CompositeRequirement.LogicalConnector.valueOf(logicalConnector),
-                CourseReqType.valueOf(courseReqType));
+            LogicalConnector connector = LogicalConnector.valueOf(logicalConnector);
+            CourseReqType type = CourseReqType.valueOf(courseReqType);
+
+            return new CompositeRequirement(first.toModelType(), second.toModelType(), connector, type);
+        } catch (IllegalArgumentException e) {
+            throw new IllegalValueException(e.getMessage());
+        }
     }
 }

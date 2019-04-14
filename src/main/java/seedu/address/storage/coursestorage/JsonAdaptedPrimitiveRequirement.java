@@ -31,8 +31,7 @@ public class JsonAdaptedPrimitiveRequirement implements JsonAdaptedCourseRequire
     public JsonAdaptedPrimitiveRequirement(@JsonProperty("requirementName") String requirementName,
                                            @JsonProperty("requirementDescription") String requirementDescription,
                                            @JsonProperty("requirementType") String requirementType,
-                                           @JsonProperty("conditions") List<JsonAdaptedCondition> conditions
-                                           ) {
+                                           @JsonProperty("conditions") List<JsonAdaptedCondition> conditions) {
         this.requirementName = requirementName;
         this.requirementDescription = requirementDescription;
         this.conditions = conditions;
@@ -62,32 +61,37 @@ public class JsonAdaptedPrimitiveRequirement implements JsonAdaptedCourseRequire
      */
     @Override
     public CourseRequirement toModelType() throws IllegalValueException {
-        if (this.requirementName == null) {
-            throw new IllegalValueException(
-                    String.format(MISSING_FIELD_MESSAGE_FORMAT, "requirementName"));
+        try {
+            if (this.requirementName == null) {
+                throw new IllegalValueException(
+                        String.format(MISSING_FIELD_MESSAGE_FORMAT, "requirementName"));
+            }
+
+            if (this.requirementDescription == null) {
+                throw new IllegalValueException(
+                        String.format(MISSING_FIELD_MESSAGE_FORMAT, "requirementDescription"));
+            }
+
+            if (this.conditions == null) {
+                throw new IllegalValueException(
+                        String.format(MISSING_FIELD_MESSAGE_FORMAT, Condition.class.getSimpleName()));
+            }
+
+            if (this.requirementType == null) {
+                throw new IllegalValueException(
+                        String.format(MISSING_FIELD_MESSAGE_FORMAT, "requirementType"));
+            }
+            CourseReqType courseReqType = CourseReqType.valueOf(requirementType);
+            final List<Condition> modelConditions = new ArrayList<>();
+            for (JsonAdaptedCondition condition : conditions) {
+                modelConditions.add(condition.toModelType());
+            }
+            return new PrimitiveRequirement(requirementName, requirementDescription,
+                    courseReqType, modelConditions.toArray(new Condition[0]));
+        } catch (IllegalArgumentException e) {
+            throw new IllegalValueException(e.getMessage());
         }
 
-        if (this.requirementDescription == null) {
-            throw new IllegalValueException(
-                String.format(MISSING_FIELD_MESSAGE_FORMAT, "requirementDescription"));
-        }
-
-        if (this.conditions == null) {
-            throw new IllegalValueException(
-                String.format(MISSING_FIELD_MESSAGE_FORMAT, "condition"));
-        }
-
-        if (this.requirementType == null) {
-            throw new IllegalValueException(
-                String.format(MISSING_FIELD_MESSAGE_FORMAT, "requirementType"));
-        }
-
-        final List<Condition> modelConditions = new ArrayList<>();
-        for (JsonAdaptedCondition condition: conditions) {
-            modelConditions.add(condition.toModelType());
-        }
-        return new PrimitiveRequirement(requirementName, requirementDescription,
-        CourseReqType.valueOf(requirementType), modelConditions.toArray(new Condition[0]));
 
     }
 }

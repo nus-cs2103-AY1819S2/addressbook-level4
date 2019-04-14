@@ -23,7 +23,7 @@ public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a moduleTaken to the address book. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a moduleTaken to GradTrak. "
             + "Parameters: "
             + PREFIX_MODULE_INFO_CODE + "ModuleInfoCode "
             + PREFIX_SEMESTER + "SEMESTER "

@@ -332,8 +332,8 @@ Format: `filter [FILTERLISTNAME] fn/FILTERNAME [n/NAME] pp/PHONE_NUMBER] [nric/N
 * FILTERLISTNAME can be full name of the job lists such as "Applicant", "KIV", "Interview", "Shortlist".
 * FILTERLISTNAME also can be prefix of the job lists such as "a", "k", "i", "s".
 * Multiple filters can be added to filter people. All the filter labels will show on the Filter Panel.
-* Applicant List always display people base on all undeleted filters. Persons matching all filters will be returned (i.e. `AND`) 
-* The filter can be an empty filter without any filtering parameter. e.g. `filter fn/empty` All applicants will be matched in empty filter. 
+* Applicant List always display people base on all undeleted filters. Persons matching all filters will be returned (i.e. `AND`)
+* The filter can be an empty filter without any filtering parameter. e.g. `filter fn/empty` All applicants will be matched in empty filter.
 * Filter Name can be any valid String except the String cotaining parameter's prefixes
 ** For example, `^_^`, `Gender: Male, School: NUS`, `naming is difficult!` can all be a valid filter name.
 ** But `s/nus`, `valid filtername n/` can not be a valid filter name and the string after the prefix will be regraded as corresponded information and parse into System.
@@ -378,7 +378,7 @@ Format: `deleteFilter [FILTERLISTNAME] FILTERNAME`
 * FILTERLISTNAME can be full name of the job lists such as "Applicant", "KIV", "Interview", "Shortlist".
 * FILTERLISTNAME also can be prefix of the job lists such as "a", "k", "i", "s".
 * You can only delete one filter perin one command. The filter label you delete will disappear on the Filter Panel.
-* Applicants List always display people base on all undeleted filters.Persons matching all filters will be returned (i.e. `AND`) 
+* Applicants List always display people base on all undeleted filters.Persons matching all filters will be returned (i.e. `AND`)
 ****
 Examples:
 
@@ -438,9 +438,9 @@ Examples:
 * `analytics kiv`
 * `analytics`
 
-=== Schedule Interviews and Generate Final Report Related Features
-
 // tag::interviews[]
+=== Interview Related Features
+
 ==== Generate Interview Dates : `generateInterviews`
 
 Generate interview dates for applicants in slaveFinder().

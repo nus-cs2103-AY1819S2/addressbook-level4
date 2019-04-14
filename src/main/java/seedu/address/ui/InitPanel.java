@@ -10,7 +10,6 @@ import javafx.scene.Node;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.text.TextFlow;
-import seedu.address.Notifier;
 
 /**
  * The initial text panel for FomoFoto.

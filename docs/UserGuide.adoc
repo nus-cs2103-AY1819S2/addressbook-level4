@@ -90,7 +90,7 @@ the need for you to perform these actions manually on your files yourselves.
 Format: `help` +
 The help command displays this current page for any references you may need or questions that you may require answers to.
 
-=== Importing a file: `add`
+=== Adding a file: `add`
 
 The add command allows you to add a file through TI into to the application, or through the GUI. +
 The added file will appear in the Files Section, highlighted in green, shown above. +
@@ -397,6 +397,7 @@ Examples:
 * File matching at least one keyword will be returned
 ****
 
+// tag::fileprotection[]
 [#find-feature]
 === Finding Content: `find`
 
@@ -437,7 +438,7 @@ left. These files are those that contain the keyword `Introduction` in its name,
 contain the keyword within its content.
 
 * The application also shows you other useful information such as, the number of files that
-match the criteria you enetered into the application.
+match the criteria you entered into the application.
 
 * And with that you have successfully utilized the `find` feature.
 
@@ -453,47 +454,60 @@ This will prevent any information about your secure files from being leaked.
 
 //tag::dataencryption[]
 === File Protection: `encrypt` & `decrypt`
-The command `encrypt` allow you to lock your files such that they cannot be accessed without a password that you had specified. Similarly, the command `decrypt` will let you remove the password that you had set for the file.
 
-Format: `encrypt INDEX password/PASSWORD` [To Encrypt a file] +
-Format: `decrypt INDEX password/PASSWORD` [To Decrypt a file] +
+PDF++ offers native support for file protection.
+The command `encrypt` allows you to protect your files with a password such that
+they cannot be accessed without a password that you had specified.
+Similarly, the command `decrypt` allows you to remove the password that
+you had set for the file.
+
+[NOTE]
+The terms `protect` and `encrypt` have the same meaning and will be used
+interchangeably.
+
+The *Encrypt* and *Decrypt* feature has the following syntax:
+
+Encryption: `encrypt INDEX password/PASSWORD`
+
+Decryption: `decrypt INDEX password/PASSWORD`
+
+* `INDEX` refers to the index of the file on the list that you wish to encrypt/decrypt.
+it must be
+
+1. A positive number, and
+2. A number within the range of number of documents in PDF++.
+
+** For example, if there are 2 documents in the app,
+
+*** Valid index: 1, 2
+*** Invalid index: -1, 0, "NotANumber"
+
+* `password/` refers to the command immediately following after this prefix is the password
+of the file
+
+* `PASSWORD` refers to the password
+1. you wish to encrypt your file with, or
+2. of the encrypted file that you wish to decrypt
 
 Examples:
 
 * `encrypt 2 password/ThisIsNotASecurePassword`
 * `decrypt 2 password/ThisIsNotASecurePassword`
 
-For encryption, you can select the file on the list that you wish to encrypt
-with a password you specified. Likewise, for decryption, you have to enter the
-password of the encrypted file that you wish to decrypt.
+Please refer to <<Encryption Guide>> or <<Decryption Guide>>
+for help in using these features.
 
-The Encrypt and Decrypt feature has the following syntax:
-
-Encryption: `encrypt INDEX password/PASSWORD`
-
-Decryption: `decrypt INDEX password/PASSWORD`
-
-* `INDEX` refers to the index of the file on the list that you wish to encrypt/decrypt
-* `password/` refers to the command immediately following after this prefix is the password
-of the file
-
-* `PASSWORD` refers to the password you wish to encrypt your file with / of the encrypted file
-you want to decrypt.
-
-[NOTE]
-Please ensure that you have entered the correct password as undo & redo functions do not work
-with encrypt & decrypt.
-
-Please refer to `Step-by-Step Guide -- encrypt` for encryption guide and `Step-by-Step Guide --
-decrypt` for decryption guide.
-
-==== Step-by-Step Guide -- encrypt
-Illustrate below is a sample usage scenario that provides a clear view to the inner workings
+==== Encryption Guide
+Illustrated below is a sample usage scenario that provides a clear view to the inner workings
 of the Encrypt feature.
 
-Step 1: The user launches the application with either an existing set of `Pdf` or a new
-sample set of `Pdf` stored within as shown below. Please refer to <<Add feature>> for guide
-in how you can add your files into PDF++.
+Step 1: The user launches the application with either
+
+1. an empty list, or
+2. an existing set of `Pdf` as shown below
+
+Please refer to <<Adding a file: `add`>> for guide
+in how you can add your files into PDF++ that you wish to encrypt.
 
 image::EncryptFeatureStep1Default.png[width="600"]
 
@@ -501,43 +515,70 @@ Step 2: You select the file that you wish to encrypt via the INDEX on the list.
 
 image::EncryptFeatureStep2Index.png[width="600"]
 
-Step 3: Enter the `encrypt` command into the CLI interface, following the outlined syntax as
+Step 3: Enter the `encrypt` command into the text box, following the outlined syntax as
 illustrated below.
 
 image::EncryptFeatureStep3UserInput.png[width="600"]
 
-Step 4: Upon hitting enter to execute the command, the `EncryptCommandParser` parses the input
-into several components that are required to be executed by the `EncryptCommand`.
+Step 4: Upon hitting kbd:[enter] to execute the command, the `EncryptCommandParser`
+breaks down the input into several components that are required to be
+executed by the `EncryptCommand`.
 
-Upon parsing, the parser then creates a new `EncryptCommand` that will be executed according
+Upon analysing the input, the parser then creates a new `EncryptCommand` that will be executed according
 to your input.
 
 Step 5: Upon receiving the necessary information from the parser, which includes the INDEX and
 PASSWORD, the `EncryptCommand` first checks if the INDEX is valid.
 
-* `INDEX` is invalid or out of bound.
+* `INDEX` is not a number.
 
-image::EncryptFeatureStep5InvalidIndex.png[width="600"]
+image::EncryptFeatureStep5NotANumberIndex.png[width="600"]
+
+* `INDEX` is not within the number of documents in the list.
+
+image::EncryptFeatureStep5IndexOutOfBound.png[width="600"]
+
+Then checks if the PASSWORD is valid.
+
+* `PASSWORD` is empty or a space.
+
+image::EncryptFeatureStep5InvalidPassword.png[width="600"]
 
 * `INDEX` and `PASSWORD` are both valid. The file you selected will be encrypted with the
 password you specified.
 
-image::EncryptFeatureStep5Sucess.png[width="600"]
+[NOTE]
+Upon successful encryption, there will be a lock icon at the bottom right of the card
+to indicate that the file is an encrypted file.
+
+image::EncryptFeatureStep5Success.png[width="600"]
 
 Step 6: If the command passes the validity check, the file you have selected is encrypted.
-You can open your file to see the result. Please refer to <<Open feature>> for the `open` feature.
+You can open your file to see the result. Please refer to
+<<Opening a file : `open`>> for the `open` feature.
 
+image::EncryptFeatureStep6Open.png[width="600"]
+
+==== Decryption Guide
 
 ==== Step-by-Step Guide -- decrypt
+
 Illustrate below is a sample usage scenario that provides a clear view to the inner workings
 of the Decrypt feature.
 
 [TIP]
 `decrypt` feature is very similar to `encrypt` feature.
 
-Step 1: The user launches the application with either an existing set of `Pdf` or a new
-sample set of `Pdf` stored within as shown below. Please refer to <<Add feature>> for guide
-in how you can add your files into PDF++.
+[NOTE]
+`decrypt` feature will not work on files that are not encrypted.
+
+Step 1: The user launches the application with either
+
+1. an empty list, or
+2. an existing set of `Pdf` as shown below
+
+Please refer to <<Adding a file: `add`>> for guide
+in how you can add your files into PDF++ that you wish to encrypt.
 
 image::DecryptFeatureStep1Default.png[width="600"]
 
@@ -545,23 +586,36 @@ Step 2: You select the file that you wish to decrypt via the INDEX on the list.
 
 image::DecryptFeatureStep2Index.png[width="600"]
 
-Step 3: Enter the `decrypt` command into the CLI interface, following the outlined syntax as
-illustrate below.
+Step 3: Enter the `decrypt` command into the text box, following the outlined syntax as
+illustrated below.
 
 image::DecryptFeatureStep3UserInput.png[width="600"]
 
-Step 4: Upon hitting enter to execute the command, the `DecryptCommandParser` parses the input
-into several components that are required to be executed by the `DecryptCommand`.
+Step 4: Upon hitting kbd:[enter] to execute the command, the `DecryptCommandParser`
+breaks down the input into several components that are required to be
+executed by the `DecryptCommand`.
 
-Upon parsing, the parser then creates a new `DecryptCommand` that will be executed according
+Upon analysing the input, the parser then creates a new `DecryptCommand` that will be executed according
 to your input.
 
 Step 5: Upon receiving the necessary information from the parser, which includes the INDEX and
 PASSWORD, the `DecryptCommand` first checks if the INDEX is valid.
 
-* `INDEX` is invalid or out of bound.
+* `INDEX` is not a number.
 
-image::DecryptFeatureStep5InvalidIndex.png[width="600"]
+image::DecryptFeatureStep5NotANumberIndex.png[width="600"]
+
+* `INDEX` is not within the number of documents in the list.
+
+image::DecryptFeatureStep5IndexOutOfBound.png[width="600"]
+
+Then checks whether the file specified is encrypted
+
+* File is not encrypted.
+
+image::DecryptFeatureStep5NotEncrypted.png[width="600"]
+
+Finally, checks if the PASSWORD is valid.
 
 * `PASSWORD` is invalid
 [NOTE]
@@ -570,17 +624,17 @@ without the password.
 
 image::DecryptFeatureStep5InvalidPassword.png[width="600"]
 
-* `INDEX` and `PASSWORD` are both valid. The file you selected will be decrypted with the
+* `INDEX` and `PASSWORD` are both valid, and the file is encrypted.
+The file you selected will be decrypted with the
 password you specified.
 
 image::DecryptFeatureStep5Sucess.png[width="600"]
 
 Step 6: If the command passes the validity check, the file you have selected is decrypted.
-You can open your file to see the result. Please refer to <<Open feature>> for the `open` feature.
+You can open your file to see the result. Please refer to
+<<Opening a file : `open`>> for the `open` feature.
 
-
-
-// end::dataencryption[]
+// end::fileprotection[]
 
 === Merging Files: `merge`
 With the `merge` command , you can merge two or more files into a new single file.

@@ -60,7 +60,7 @@ Let's start on our image editing journey. In this walk through, we will be demon
 .  Go back to the FomoFoto application. Import the image into FomoFoto by typing as follows:
 +
 .Import Command
-image::import.PNG[width="600"]
+image::import.PNG[width="700"]
 +
 .  Paste the filepath of the image you would like to import.
 * In Windows: Remove the kbd:["] and kbd:["] signs at the two ends of the filepath.
@@ -68,45 +68,45 @@ image::import.PNG[width="600"]
 .  Ensure your final command looks similar to the figure below (filepath may differ):
 +
 .Import with Filepath
-image::importCommand.PNG[width="600"]
+image::importCommand.PNG[width="700"]
 +
 
 .  Press kbd:[Enter] to execute the import command. Your image should be now displayed on the Album tab on the FomoFoto application as shown in the figure below.
 +
 .Import Success
-image::importSuccess.PNG[width="600"]
+image::importSuccess.PNG[width="700"]
 +
 
 .  Open the imported image in FomoFoto by typing as follows:
 +
 .Open Command
-image::open.PNG[width="600"]
+image::open.PNG[width="700"]
 +
 
 .  Press kbd:[Enter] to execute the open command. Your image should be now displayed on the FomoFoto application as shown in the figure below.
 +
 .Open Success
-image::openImage.PNG[width="600"]
+image::openImage.PNG[width="700"]
 +
 
 .  Increase the brightness of the image by typing the following command: `brightness 2.0`. This doubles the brightness of the image.
 
 +
 .Brightness Command
-image::brightnessCommand.PNG[width="600"]
+image::brightnessCommand.PNG[width="700"]
 +
 
 .  Press kbd:[Enter]. Your image should be brighter as shown in the figure below.
 +
 .Brightness Success
-image::brightnessSuccess.PNG[width="600"]
+image::brightnessSuccess.PNG[width="700"]
 +
 
 .  Crop your image by typing the following command: `crop 310 250 140 200`. Press kbd:[Enter]. Your image should look similar as the figure below.
 
 +
 .Crop Success
-image::cropSuccess.PNG[width="600"]
+image::cropSuccess.PNG[width="700"]
 +
 
 .  Save your edits by typing command: `save`.

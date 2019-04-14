@@ -440,6 +440,134 @@ Changes to the patient class does not significantly affect the goto command.
 However, the patient class is mutable, and accidental changes to its attributes by other classes or methods can occur.
 // end::patient_kyler[]
 
+// tag::taskDG1_cchj1995[]
+=== Task Management and related commands
+Our user can also utilize TeethHub to store manage and interact with tasks aside from patients. Dentists would often have tasks that needs to be completed or performed and the implementation of the `Task` data object allows TeethHub to provide its user with the ability to manage these tasks and have them interact with their patient's details when necessary as well. The main commands added with the data object serve to provide the user with a way to manage and view the tasks stored in the application.
+
+This segment will explain the main features of the a new data type `Task` that TeethHub handle. Key implementation details and the design considerations when designing these features will also be covered.
+==== Task storage and attributes
+The `Task` class is a new type of object that is meant to represent any task a dentist would have to perform. `Task` objects are kept in a list and handled by the `UniqueTaskList` class. This follows the same process as the `Patient` class and by extension, the `Person` class which has a `UniquePersonList` handling a list of `Person` objects.
+
+Storing information of all objects does not change between `Task` and `Person` classes and both are stored into a `TeethHub.json` file. Attributes for `Task` are instantiated as objects with their own methods to validate the user's input much like the current implementation of `Patient`/`Person` .
+
+
+[NOTE]
+Task has an attribute called `LinkedPatient` which stores the `NAME` and `NRIC` of a patient. This is to allow tasks to be bound to a patient and facilliate another implementation `taskdone` .
+
+
+The following class diagram details the relevant attributes for a `Task` object along with the multiplicity association between the classes:
+
+image::TaskClassDiagramFinal.png[width=""]
+// end::taskDG1_cchj1995[]
+==== Task interaction feature (Basic)
+Essential commands for basic interaction with the tasks such as, `taskadd`, `taskedit` and `taskdelete` are implemented in a similar fashion as compared to existing commands. All three commands extend from the abstract class `Command` and follow the same execution flow as `patientadd`, `patientedit` and `patientdelete`.
+
+The generic execution flow of these commands mostly involve the `Logic` and `Model` component of the application and the order can be detailed as follows:
+
+. User's input command gets sent to LogicManager.
+. LogicManager sends to AddressBookParser to check command validity.
+. AddressBookParser creates a CommandParser(typically named `commandclassnameParser` like `TaskAddCommandParser`) to check the arguments.
+. CommandParser creates an instance of the Command and sends it back to LogicManager.
+. LogicManager calls the method to execute the Command.
+. Command executes and calls methods from Model to interact with the `Task` objects.
+. Result from the command's execution gets sent back to the UI and eventually the user.
+
+
+[NOTE]
+Adding and editing tasks may involved additional calls to `Model` if the user specifies a patient to link to the task as the application will have to extract unique information from the `Patient` to store in the task
+
+
+The following sequence diagram illustrates the stated generic command execution flow and the components involved:
+
+image::GenericSequenceDiagram.png[width=""]
+
+//tag::taskDG2_cchj1995[]
+==== Task Autocomplete feature
+
+The `taskdone` command is a feature implemented to allow the user to automatically complete a task of his/her choice, setting it to `COMPLETED`. The command also allows the user to automatically add a record to the task's `LinkedPatient` upon completion of the task. This feature makes use of the `Model` by calling its methods `setTask()` and `setPerson()` to perform additional interactions with both task and patient respectively.
+
+The general process followed during the command's execution is as follows:
+
+. User runs a valid `taskdone` command on a task with a linkedpatient
+. Command gets parsed properly and reaches the execution stage within `TaskDoneCommand`
+. New task gets created with the exact same attributes as the task to be completed.
+. New task is set to COMPLETED
+. setTask method is called to replace the task to be completed with the new task
+. TeethHub's stored list of patients is searched to look for a patient matching the task's linked patient's NRIC
+. Retrieves the found patient and adds a record to the patient.
+. setPerson method is called to replace the matching patient with the new patient who has the added record.
+. Command execution ends and result is returned back to the user.
+
+[NOTE]
+The current `patientedit` and `patientdelete` commands have been modified to update tasks linked to a patient when said patient gets modified or deleted. However, to keep in line with the concept of Defensive Programming, the execution still check and inform the user in an event where the `LinkedPatient` cannot be found.
+
+The following sequence diagram illustrates an example where command executes on task with the index `1`:
+
+image::TaskDoneSequenceDiagram.png[width=""]
+
+==== Task Calendar feature
+
+The `taskcal` command is a feature implemented to allow the user to view task related data in a more interactive and helpful manner. Executing the command creates a popup window with the list of tasks on the left side and a calendar on the right side. The popup window will also have a commandbox where the user is able to key in task related commands, dates in the format of `dd-mm-yyyy` to navigate the calendar or exit and help as miscelleanous commands.This feature also enables the user to find tasks depending on the `date` they provide in the commandbox or the date cell they click on such that the task list will update to show users the tasks with start dates and/or end dates on the selected date cell.
+
+[NOTE]
+Closing the Main Window whilst the Task Calendar popup is showing will also close the popup automatically. This is implemented intentionally as the popup is designed to be an extension of the Main Window, not a standalone window.
+
+The calendar is generated with modifications to the date cells being done during the generation process. Modifications to the date cells (e.g. changing font colors, overlaying a circle) are done to highlight date cells with the color of task priority. The class `CalendarWindow` uses a `HashMap` with the date, as the key and priority number, as a value,to store the start date and end date information from tasks stored in TeethHub, replacing the stored value with a highest priority value between the duplicates. This enables the date cells to be compared with the stored values amidst the generation process, choosing which date cells to highlight with the highest priority color.
+
+The UI components of this feature are implemented using classes from `JavaFX` with the most important component being `DatePicker` which allows a calendar to be drawn up and displayed to the user. The implementation overrides the `updateItem()` method from `DatePicker` to enable modifications to be done to the date cells in the calendar.
+
+[NOTE]
+Color sceheme and certain font sizes of the Calendar are done using Cascading Style Sheets (CSS) in a `Calendar.CSS` file found under resources. Changes can be made to the CSS file to change color schemes of the calendar if needed
+
+The following swimlane activity diagram illustrates the process in which the application goes through to create and display the interactive calendar for the user:
+
+image::TaskCalendarSwimLaneDiagram.png[height="500"]
+
+==== Design Considerations
+
+===== Aspect: Storing the task class
+
+* **Current implementation:** Tasks are stored in the same json file as patients.
+** **Alternative:** Store the tasks in a seperate json file
+*** Alternative Pros: Very unlikely to have a very large json file by saving different data types to a different file.The single json file that stores the data will not become too large if there are too many patients and/or tasks. Reduces the likelihood that the size of the json file will exceed the limit of certain file systems like FAT-32 with a limit of 4GB, which would result in the application being unable to save to the file.
+*** Alternative Cons: Increases time spent opening a seperate json file. This results in more I/O work for application, decreasing application load time.Complicated to implement and affects future storage and I/O features. Implementation would affect I/O features that may need to read from the files to export both patients and tasks. Sets a precedent where new data types added in the future should be stored seperately for consistency, which would affect `export` and `import` commands as they have to be changed to read a new file to export/import.
+** **Choice Justification**: Most operating systems these days utilize a filesystem that allows for filesizes far beyond 4GB. The limit can go up to 2^64 bytes in NTFS for example and in almost all cases, it is unlikely for the a dentist to have such a large number of patients and tasks. Compared to the cons of the alternative where performance and increased likelihood of issues in the futre, the pros that the alternative offers do not seem valid enough to justify using it over the current choice.
+
+
+===== Aspect: Representing the Priority class attribute for Task
+
+* **Current implementation:** Java's special Enumeration (Enum) class is used for the Priority class
+** **Alternative:** Use a normal class type, with string as inner attribute for Priority.
+*** Alternative Pros: Priorities can be named anything the user desires such as "code red", "code blue" for example. Easy to implement as it functions similarly to how `name` and `title` works.
+*** Alternative Cons: Priority tracking depends on the user's own memory of what he/she named them and sees as a higher priority, making it difficult for the program to display the appropriate color for priorities to benefit users. Goes against good programming practice which is to use enum for values that should not be changed and Enum is typically used to store priority types.
+** **Choice Justification**: Priorities being represented as "high", "med" and "low" is a common case and as such, most if not all people should be able to understand the naming convention. While giving freedom to the user is typically beneficial, in this case, it prevents the application from providing better more value to the user. The current choice uses terms that are understandable whilst providing benefits to the user by enabling a consistent colored display of priority tags.
+
+==== Aspect: Modifying task and patient when executing `taskdone` command
+
+* **Current implementation:** Target task and patient are replaced with new instances with priority changed and record added respectively.
+** **Alternative:** Modify the target task and linked patient directly.
+*** Alternative Pros: Easy to implement as they already have methods to perform the operations Requires less operations to execute the command, leading to performance increase.
+*** Alternative Cons: Completing a task does not work with undo and redo due to the way the model is implemented.
+** **Choice Justification**: The current choice enables undo and redo to work with the task autocomplete feature, enabling tasks to be un-completed by using the undo command. This is important as the user could potentially key the wrong index when completing a task and wish to undo the command without having to manually edit the task. From tests done with the alternative, the performance increase is also  negligible at best. The lack of a strong benefit does not make up for the inability to undo/redo making the alternative less desirable as compared to the current choice.
+
+==== Aspect: Data strcuture to support Task Calendar generation
+
+* **Current implementation:** HashMap is used to store dates that have task's starting and/or ending.
+** **Alternative:**  Use an ArrayList to store the dates instead.
+*** Alternative Pros: Does not require its stored values to have an `equals()` method. Lower memory consuption as there is no need to store both a key and a value. Retrieves elements with `get()` in O(1) time with a specified index.
+*** Alternative Cons: Checking if an element exists within is O(n) time as the entire arraylist needs to be checked. Requires knowing the actual index in order to utilize the benefit of an O(1) retrieval.
+** **Choice Justification**: The generation of the calendar page requires a data structure that can check if a particular date is contained within itself in order to decide whether a date cell should be highlighted or not. Arraylist would be slower in this case as it would have to peform an O(n) every time a task gets iterated compared to the O(1) a HashMap offers. There is also no need to implement an `equals()` method for the DateCustom object to be stored as it is already implemented to ensure that there are no duplicate tasks. In this case, the current choices is a much better fit as compared to arraylist to support the calendar feature.
+
+==== Aspect: Method of displaying Task Calendar
+
+* **Current implementation:** Task Calendar window is displayed in a seperate popup.
+** **Alternative:** Display the calendar in another pane in the Main Window.
+*** Alternative Pros: Everything can be shown at one glance to the user. No need to shuffle between windows. No need for a command to make the calendar show.
+*** Alternative Cons: Other elements displayed in the Main Window have to be shrunk along with the calendar's contents to make space for the task calendar to be viewed. Main Window would be displaying too many things.
+** **Choice Justification**: Shrinking all elements in the Main Window would adversely affect the visibility of other important features the application provdies such as the patient's information, the list of patients and list of tasks. This reduces the user experience as content cannot be clearly seen. Following the traditional usage of a calendar, most people typically look at a calendar when the need arises such as planning or scheduling. It would be better for a command to be provided and show the user a clear and distinct calendar only when he/she requires it, making the current choice ideal.
+
+// end::taskDG2_cchj1995[]
+
 // tag::undoredo[]
 === Undo/Redo feature
 The undo/redo mechanism is facilitated by `VersionedAddressBook`.
@@ -1359,11 +1487,25 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`* * *` |user |clear all dental records of a patient | protect the privacy of my patients
 // end::patient_user_stories_kyler[]
 
+<<<<<<< HEAD
+// tag::task_user_stories_cchj1995[]
+=======
+>>>>>>> b9fb0223463b82e5a0cae61472649c312488ef34
 |`* * *` |user |add a new task |keep track of what I need to do
 
 |`* * *` |user |delete a task |remove tasks that I have already completed or no longer need to do
 
 |`* * *` |user |edit a task |change details of certain tasks that I have already added
+
+|`* * *` |user |link a patient to a task | differentiate between tasks that are meant for a patient and normal tasks
+
+|`* * *` |user | set a task to complete | mark a task as done without needing to edit it again and add a record automatically if the task is linked to a patient
+
+|`* * *` |user | add a record automatically upon completing a task | save time after completing a task that relates a patient by having the record added automatically
+
+|`* * *` |user | view tasks in a calendar | see all the dates in which I have tasks starting or ending, keeping better track of urgency of tasks and deadlines
+
+end::task_user_stories_cchj1995[]
 
 |`* * *` |user |see a statistics report on each patient's dental history |have an easier time understanding their potential problems
 
@@ -1655,6 +1797,56 @@ _{ more test cases ... }_
 ... Other incorrect recorddelete commands to try: `recorddelete`, `record delete`, `recorddelete x` (where x is larger than the list size), `recorddelete y` (where y is a negative number), `recorddelete z` (where z is not an integer) +
    Expected: Similar to previous.
 // end::manual_patient_kyler[]
+
+// tag::manualTesting_cchj1995[]
+=== Adding a task
+
+. Adding a new task while all tasks are listed
+
+.. Prerequisites: List all tasks using the `tasklist` command Tasks should all be displayed in the task list. No tasks with the exact same attributes as the test cases are present in the list.
+... Test case: `taskadd ti/Test task sd/today st/1200 et/1300 pri/HIGH` +
+   Expected: Task with the title "Test task" is added for with the current date as the start date and end date, a start time of 1200, end time of 1300 and a high priority tag displayed in red, should be added at the bottom of the list of all tasks.
+... Test case: `taskadd ti/Test task 2 sd/11-05-2019 ed/16-05-2019 ti/Test task 2 st/1200 et/1300` +
+   Expected: Task with the title "Test task 2" is added with a start date of 11-05-2019, an end date of 16-05-2019, a start time of 1200, end time of 1300 and a high priority tag displayed in red, should be added at the bottom of the list of all tasks.
+... Test case: `taskadd ti/Test task 2 st/1200 et/1300` +
+   Expected: No task is added. Error details shown in the status message showing proper command usage.
+... Test case: `taskaddti/Test task 2 st/1200 et/1300` +
+   Expected: No task is added. Error details shown in the status message stating an unknown command.
+... Other incorrect taskadd commands to try: `task add`, `taskad d ti/Test task sd/today st/1200 et/1300 pri/HIGH` +
+Expected: Similar to previous.
+
+=== Editing a task
+
+. Editing a new task while all tasks are listed
+
+.. Prerequisites: List all tasks using the `tasklist` command. There are more than 3 tasks present. Tasks should all be displayed in the task list. No tasks with the exact same attributes as the test cases are present in the list.
+... Test case: `taskedit 1 ti/New Edited Title` +
+   Expected: First task in the list of tasks has its title changed to "New Edited Title".
+... Test case: `taskedit 2 ti/New Edited Title 2 sd/today ed/today` +
+   Expected: Second task in the list of tasks has its title changed to "New Edited Title 2", its start date and end date changed to the current date.
+... Test case: `taskedit 3 ti/New Edited Title 3 sd/today ed/today st/1300 et/1200` +
+   Expected: No task is edited. Error details shown in the status message stating that start time cannot be before end time if start date is the same as the end date.
+... Test case: `taskedit x ti/New Edited Title` (where x is larger than the number of tasks listed) +
+   Expected: No task is edited. Error details shown in the status message stating that the task index provided is invalid.
+... Test case: `task edit 1 ti/New Edited Title 4` +
+Expected: No task is edited. Error details shown in the status message stating an unknown command.
+... Other incorrect taskadd commands to try: `tasedit`, `taskedit/ti/Test task sd/today st/1200 et/1300 pri/HIGH` +
+Expected: Similar to previous.
+
+=== Deleting a task
+
+. Deleting a task while all tasks are listed
+
+.. Prerequisites: List all tasks using the `tasklist` command Tasks should all be displayed in the task list.
+... Test case: `taskdelete 1` +
+   Expected: First task is deleted from the list. Details of the deleted task are shown in the result display box.
+... Test case: `taskdelete 0` +
+   Expected: No record is deleted. Error details shown in the status message showing invalid command format.
+... Test case: `taskdelete0` +
+   Expected: No record is deleted. Error details shown in the status message stating an unknown command.
+... Other incorrect recorddelete commands to try: `taskdel`, `task delete` +
+   Expected: Similar to previous.
+// end::manualTesting_cchj1995[]
 
 // tag::manualtestingJH[]
 === Exporting data

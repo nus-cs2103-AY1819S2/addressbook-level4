@@ -690,40 +690,28 @@ Example:
 // end::patient_management_kyler[]
 
 === Task Management
-==== taskadd
-Adds a task to the application's list of tasks.
 
-Format: `taskadd PARAMETERS` or `tadd PARAMETERS`
+In addition to patients, TeethHub also helps you store, display and manage your tasks so that you can improve your overall efficiency. Much like patients, you can interact with your tasks using specific commands to perform essential functions like adding, editing and deleting a task.
 
-You can specify information that describes the task you wish to add by
-keying in certain tags after the `taskadd` command. Do note the following:
+TeethHub helps you handle and differentiate the many tasks you might have by giving every task certain attributes that define them. You will need to know the various attributes a task can have before proceding to the commands that you can use to work with your tasks. Not to worry though, most attributes are basic information such as title of the task, the date and times of the task, making them very intuitive and easy to work with.
 
-* All parameters have certain patterns that **MUST** be followed. +
-
-* Some parameters are mandatory when adding a task. +
-
-* Non-mandatory tasks will be assigned a default value if not specified.
-
-
-Table 1 shows the list of parameters along with their respective descriptions.
-Mandatory parameters are marked with an asterisk `*` in the attribute section of the table.
-
-
+Table 1 below shows the list of parameters along with their respective descriptions.
+Some attributes are bolded and marked with an asterisk `*`. These are **mandatory** attributes that should be provided when adding a task for the first time.
 
 .Task parameters
 |===
 |Attribute |Description |Tag |Example
 
-|Title*
+|*Title**
 |General description for the task to be added.
 
 You can provide any alphanumeric characters and the special characters:
 `( ,@, !, ?, ., -` when giving the title for the task. Other characters not specified will not be allowed
 due to security reasons.
-|ti/TEXT
+|ti/
 |ti/Tooth Extraction
 
-|Start date*
+*|Start date**
 |The date in which the task is set to begin.
 
 You should provide the start date in the format `DD-MM-YYYY` and should not be a date that is BEFORE the current date.
@@ -735,7 +723,7 @@ For example, `31-04-2019` will be flagged as invalid as there are only 30 days i
 As of the current version, 29th of February in a leap year (29-02-2019) is not accepted as a valid input, but will be
 implemented in future versions.
 
-|sd/DD-MM-YYYY
+|sd/
 |sd/19-12-2019
 
 |End date
@@ -748,57 +736,80 @@ You can also use the keyword `today` as an input which will use the current date
 Other validity checks for the end date are the same as that of start date.
 
 Default value if not specified: Task's start date.
-|ed/DD-MM-YYYY
+|ed/
 |ed/19-12-2019
 
-|Start time*
+|*Start time**
 |The specific time in which the task is set to begin.
 
 You should provide the time in the format `HHMM` (hours and minutes) and should also follow standard time values.
 
-Only *real* time values are accepted as valid inputs. For example, values such as `1265` or `2500` are not valid as
+Only *possible* time values are accepted as valid inputs. For example, values such as `1265` or `2500` are not valid as
 these are not time values used in the current world.
-|st/HHMM
+|st/
 |st/0845
 
-|End time*
+|*End time**
 |The specific time in which the task is set to end.
 
 You should provide the time in the format `HHMM` (hours and minutes) and should also follow standard time values.
 If the task's start date and end date are the same, the end time should also not be BEFORE the start time.
 
 Other validity checks for the end time are the same as that of the start time.
-|et/HHMM
+|et/
 |et/1245
 
 |Priority
 |The priority level of the task to be performed.
 
-You should provide the priority as `high`, `med`, `low` or `completed` in either upper or lowercase.
+You can provide the priority as `high`, `med`, `low` or `completed` in either upper or lowercase.
 Tasks with different priority will be marked with different colored labels on the task list.
 High priority will be marked [red]#red#, Medium priority be marked [orange]#orange# and
 Low priority will be marked [yellow]#yellow#. Completed tasks will be marked with [green]#green#.
 
 Default value if not specified: [yellow]#Low#
-|pri/PRIORITY
+|pri/
 |pri/high
 
 |Patient
 |The patient to be linked to the task. Linking a patient to a task, enables the <<taskdone, taskdone>> command to
  automatically add a record upon execution.
 
-The patient's index must be a valid POSITIVE integer and it can be found in the patient list next to the name.
+The patient's index must be a valid POSITIVE number and it can be found in the patient list next to the name.
 If you want to set a task's linked patient to none, you can give this parameter
 a value of `0` when using the <<taskedit, taskedit>> command. This parameter should not be included in task adding or
 task editing when in <<goto, goto>> mode as the patient list is not visible in that mode. +
 
-If a linked patient is <<edit, edited>> pr <<delete, deleted>>, the affected tasks will be updated accordingly.
+
+If a linked patient is <<edit, edited>>, fret not, TeethHub automatically updates the tasks for you.
+
+If a patient is <<delete, deleted>> , you will be greeted with an alert box to let you decide between deleting the tasks associated with the patient, or setting those tasks to have no patient linked to them.
 
 Default value if not specified: 0 (indicates that no patient is linked to the task)
-|pat/INDEX
+|pat/
 |pat/2
 
 |===
+
+With knowledge of the attributes that make up a task, you can now get to the actual interaction process, the task related commands.
+
+==== taskadd
+Adds a task to the application's list of tasks.
+
+Format: `taskadd PARAMETERS` or `tadd PARAMETERS`
+
+You can specify information that describes the task you wish to add by
+keying in certain tags after the `taskadd` command. The `PARAMETERS` here refer to the task's attributes to be provided using their relevant tags.
+
+Do note the following:
+
+* All parameters have certain patterns that **MUST** be followed. +
+
+* Some parameters are mandatory when adding a task. +
+
+* Non-mandatory attributes will be assigned a default value if not specified.
+
+*Mandatory* fields are TITLE `ti/`, START DATE `sd/`, START TIME `st/` and END TIME `et/`
 
 [NOTE]
 ============================================================
@@ -808,6 +819,10 @@ Tasks are considered duplicates if they have the *exact*
 same TITLE, START DATE, START TIME, END TIME and
 LINKED PATIENT
 ============================================================
+
+
+[TIP]
+You can use the `<<undo, undo>>` command to undo the results of this command, or `<<redo,redo>>` command to redo it.
 
 Examples:
 
@@ -823,13 +838,28 @@ Edits a task currently stored in the application
 
 Format: `taskedit INDEX PARAMETERS` or `tedit INDEX PARAMETERS`
 
+You can edit any attribute of the tasks as you wish and you can even provide multiple paramters in a single command and they will all be edited accordingly.
+
+Take note of the following:
+
 * Index of a task shown in the list **MUST** be specified +
-* Index should be a positive integer (e.g. 1,2...5)
+* Index should be a positive number (e.g. 1,2,3..)
 * Index of the tasks will be shown next to task's title in the task list
 * Input tag of the field to modify followed by the new value to replace the old value
-* Multiple fields can be provided in a single command and they will all be edited.
-* Refer to *Table 1* in <<taskadd, taskadd>> to see the fields that can be modified
+* Refer to *Table 1* above to see all the fields that can be modified
   along with their format and restrictions
+
+[NOTE]
+============================================================
+Edit will not go through if task becomes a duplicate after the change.
+
+Tasks are considered duplicates if they have the *exact*
+same TITLE, START DATE, START TIME, END TIME and
+LINKED PATIENT
+============================================================
+
+[TIP]
+You can use the `<<undo, undo>>` command to undo the results of this command, or `<<redo,redo>>` command to redo it.
 
 Examples:
 
@@ -847,8 +877,13 @@ Deletes a task from the task list
 Format: `taskdelete 2` or `tdelete 2`
 
 * Index of a task shown in the list **MUST** be specified +
-* Index should be a positive integer (e.g. 1,2...5)
+* Index should be a positive number (e.g. 1,2...5)
 * Index of the tasks will be shown next to task's title in the task list
+
+You can delete tasks even if they are not completed or even if the task's start date has not come to pass. For tasks with a patient linked to them, you can safely delete the task if you wish to as it has no effect on the patient linked to the task.
+
+[TIP]
+You can use the `<<undo, undo>>` command to undo the results of this command, or `<<redo,redo>>` command to redo it.
 
 Example:
 
@@ -872,26 +907,72 @@ Example:
 
 *`tasksort starttime desc`
 
+// tag::task_ppp_cchj1995[]
+
 ==== taskdone
 Sets a task to `[green]#complete#`, marking the completion of the task.
-Executing this command on a patient that has a patient linked to it will automatically add a record to the patient.
 
 Format: `taskdone INDEX`
 
+Tasks marked as complete will have their priority replaced with a green tag that says COMPLETED as illustrated by Figure 1 below:
+
+image::Taskdone.png[width=""]
+
+Figure 1: Image showing the change in a task's priority tag after completion.
+
+
+If you execute this command on a task with a patient linked to it, TeethHub will help you add a record to the patient automatically.
+The added record will use the task's title as its description. Figure 2 shows you an example of the outcome of running the command on a task with a linked patient.
+
+image::Taskdone2.png[width=""]
+
+Figure 2: Image showing the added record after completing a task.
+
+[NOTE]
+You can use the `undo` command to set a completed task back to its original priority. However, the added record will remain in the patient as of the current implementation of TeethHub.
+
+[NOTE]
+====
+If you use the `redo` command immediately after the `undo` command, the task will be set back to being completed, but a new record will not be added. You can execute another `taskdone` command after the `undo`  to add another record to the linked patient.
+====
+Example:
+
+* `taskdone 2`
+* `<<taskcal, taskcal>>` +
+  `taskdone 1`
+
+
 ==== taskcal
-Creates a popup window with a list of tasks on the left hand side of the window and a calendar on the right hand side.
-There will also be a command box below the calendar, allowing you to execute task commands from this window as well.
+Creates a popup window with a list of tasks on the left hand side of the window and a calendar on the right hand side. The calendar will load the dates for the month and year of the given date.
+There will also be a command box below the calendar, allowing you to execute task mangement commands and navigate to other dates.
+
+[NOTE]
+Executing the command without specifying a date will cause the calendar to load into the current date.
 
 format: `taskcal` or `taskcal DD-MM-YYYY`
 
-You will see day cells in the calendar highlighted in color of the highest priority task for that day.
-The top pane of the calendar has clickable buttons that lets you display the dates for different months and years.
+Figure 3 below shows the the displayed window and its key components
 
-You can also click on a numbered date cell which will select it and the task display panel will be updated to show tasks that have either their
-`start date` or `end date` on that date. You can also key in a specific date in the format `DD-MM-YYYY` into the
-command box `e.g. 30-03-2019` and that day will be selected.
+image::TaskCalendarUG.png[width=""]
 
-Executing the command without specifying a date will cause the current date to be selected by default.
+Figure 3: Image showing the entire task calendar window with labelled components
+
+
+As seen from Figure 3, you can view tasks that either start or end on a particular date from the task list. You can also see in the calendar pane that certain date cells highlighted in colored circles. These signify that there are tasks on those particular dates. The cells are colored according to the highest priority task for the date. This also means that you do not have any tasks that start or have their deadlines on dates that are not marked with a colored circle.
+
+
+Using Figure 3 as an example, the date `29-03-2019` is colored in red which matches the highest priority task on that day which is `HIGH`. You can also focus into any of the dates in the calendar to change the task list to display the tasks for that date. To choose a date to focus into, you can either key a date directly into the command box in the format `DD-MM-YYYY`, or simply click on the date cells with a mouse.
+
+You can execute task related commands such as `taskadd`, `taskedit`, `taskdelete` and `tasklist` from the command box in this window to interact with tasks.
+
+[NOTE]
+Executing the `taskcal` command inside this popup window without specifying a date will cause the calendar to load into the current date.
+
+The top pane of the calendar has clickable arrows that lets you change the calendar page to display the dates for different months and years. Figure 4 below shows a focused view of the calendar's top pane:
+
+image::TaskCalendarUG2.png[width=""]
+
+// end::task_ppp_cchj1995[]
 
 ////
 ==== taskfind

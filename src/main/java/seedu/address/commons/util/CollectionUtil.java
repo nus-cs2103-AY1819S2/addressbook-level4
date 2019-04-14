@@ -11,6 +11,11 @@ import java.util.stream.Stream;
  * Utility methods related to Collections
  */
 public class CollectionUtil {
+    /**
+     * This is a static-methods-only (utility) class which should not be instantiated.
+     * Note that this is not a singleton class given that not even a single instance is allowed.
+     */
+    private CollectionUtil() { }
 
     /** @see #requireAllNonNull(Collection) */
     public static void requireAllNonNull(Object... items) {

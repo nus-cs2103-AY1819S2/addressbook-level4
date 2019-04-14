@@ -9,9 +9,8 @@ import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.logic.commands.management.ChangeThemeCommand.MESSAGE_SUCCESS;
 import static seedu.address.logic.commands.management.HistoryCommand.MESSAGE_NO_HISTORY;
 import static seedu.address.logic.commands.quiz.QuizAnswerCommand.MESSAGE_CORRECT;
-import static seedu.address.logic.parser.Syntax.PREFIX_CORE_ANSWER;
-import static seedu.address.logic.parser.Syntax.PREFIX_CORE_QUESTION;
 import static seedu.address.logic.parser.Syntax.PREFIX_LESSON_NAME;
+import static seedu.address.logic.parser.Syntax.PREFIX_TEST;
 import static seedu.address.testutil.LessonBuilder.DEFAULT_CORE_HEADER_1;
 import static seedu.address.testutil.LessonBuilder.DEFAULT_CORE_HEADER_2;
 import static seedu.address.testutil.LessonBuilder.DEFAULT_NAME;
@@ -29,12 +28,12 @@ import org.junit.rules.TemporaryFolder;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.commands.management.AddLessonCommand;
-import seedu.address.logic.commands.management.CloseLessonCommand;
 import seedu.address.logic.commands.management.DeleteLessonCommand;
+import seedu.address.logic.commands.management.EditLessonCommand;
 import seedu.address.logic.commands.management.ExitCommand;
 import seedu.address.logic.commands.management.HelpCommand;
 import seedu.address.logic.commands.management.HistoryCommand;
-import seedu.address.logic.commands.management.OpenLessonCommand;
+import seedu.address.logic.commands.management.QuitLessonCommand;
 import seedu.address.logic.commands.management.QuizStartCommand;
 import seedu.address.logic.commands.management.ReloadLessonsCommand;
 import seedu.address.logic.commands.quiz.QuizAnswerCommand;
@@ -109,9 +108,9 @@ public class LogicManagerTest {
         assertCommandSuccess(ReloadLessonsCommand.COMMAND_WORD , ReloadLessonsCommand.MESSAGE_SUCCESS, managementModel);
         CommandResult expected = new CommandResult(LogicManager.FAIL_SAVE_LESSONS_MESSAGE
             + LogicManager.CHECK_LOGS_MESSAGE);
-        logic.execute(OpenLessonCommand.COMMAND_WORD + " 1");
+        logic.execute(EditLessonCommand.COMMAND_WORD + " 1");
         assertEquals(expected.getFeedbackToUser(),
-            logic.execute(CloseLessonCommand.COMMAND_WORD).getFeedbackToUser());
+            logic.execute(QuitLessonCommand.COMMAND_WORD).getFeedbackToUser());
     }
 
     @Test
@@ -393,8 +392,8 @@ public class LogicManagerTest {
     public void testManagementInputOutput() {
         String command = AddLessonCommand.COMMAND_WORD + " "
                 + PREFIX_LESSON_NAME + DEFAULT_NAME + " "
-                + PREFIX_CORE_QUESTION + DEFAULT_CORE_HEADER_1 + " "
-                + PREFIX_CORE_ANSWER + DEFAULT_CORE_HEADER_2;
+                + PREFIX_TEST + DEFAULT_CORE_HEADER_1 + " "
+                + PREFIX_TEST + DEFAULT_CORE_HEADER_2;
 
         try {
             CommandResult commandResult = logic.execute(command);

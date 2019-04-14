@@ -100,7 +100,11 @@ based on filter conditions they input.
  solutions that were considered were firstly, storing all the filter
  conditions into a `List<Predicate`, while the second solution involved
  condensing all the filter conditions into a single `Predicate` using Java's
- `Predicate` and `Function` library methods.
+ `Predicate` and `Function` library methods. The considerations for each
+ solution are as follows:
+
+include::../DeveloperGuide.adoc[tag=filterHealthWorkerTable]
+
 *** Weighing both the pros and cons of both design considerations, I decided to
  go with composing multiple `Predicates` into a single `Predicate` by using
  the functional programming paradigm through Java's `Predicate` and
@@ -165,8 +169,6 @@ HealthHub, we have also extensively updated the User Guide to allow for users
 
 The following sections details my contribution to the User Guide up til
 HealthHub version release v1.4.
-
-include::../UserGuide.adoc[tag=addHealthWorker]
 
 include::../UserGuide.adoc[tag=filterHealthWorker]
 

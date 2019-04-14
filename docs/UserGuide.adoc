@@ -329,10 +329,16 @@ Example:
 This command lets you exit the program. +
 Format: `exit`
 
-=== Retrieving information about a file:
+=== Retrieving information about a file: `select`
 
-In order to see a little more information on a file, clicking the file in the Files Section, highlighted in green, allows you to view more information pertaining to that file. +
+Select a file to see a more information about file.
+
+Alternatively, clicking the file in the Files Section, highlighted in green, allows you to view more information pertaining to that file. +
 This information will be displayed in the Upcoming Deadlines Area, highlighted in red. +
+
+Format: `select INDEX`
+
+Example: `select 3`
 
 === Setting a deadline for the file : `deadline`
 
@@ -386,17 +392,6 @@ Examples:
 * Only full words will be matched e.g. `Urgent` will not match `UrgentFiles`
 * File matching at least one keyword will be returned
 ****
-
-// tag::undoredo[]
-=== Undo & redo command: `undo` & `redo`
-The `undo` and `redo` commands allow you to reverse an action that was previously done on our application. +
-
-WARNING: You *CANNOT* Undo or Redo an encrpytion command.
-This functionality has been disabled for security reasons. +
-
-Format: `undo` [To Undo an Action] +
-Format: `redo` [To Redo an Action]
-// end::undoredo[]
 
 // tag::dataencryption[]
 === Encrypting & Decryption: `encrypt` & `decrypt`
@@ -491,18 +486,22 @@ e.g. `open 3`
 e.g. `delete 4`
 * *Move* : `move INDEX d/LOCATION`
 e.g. `move 3 d/C:\User\Jeremy\Downloads`
-* *Tag* : `tag INDEX t/TAG…` +
-e.g. `tag 3 t/DijkstraGraph t/Tutorial t/CS2040`
-* *Filter* : `filter tx/KEYWORD...` +
-e.g. `filter tx/GraphsDFS`
-* *Deadline* : `deadline INDEX DATE` or `deadline INDEX` +
-e.g. `deadline 3 20-02-2019` , `deadline 2`
+* *Tag* : `tag -a INDEX t/TAG…` or `tag -r INDEX t/TAG` +
+e.g. `tag 3 -a t/DijkstraGraph t/Tutorial`, `tag 1 -r t/Homework`
+* *Filter* : `filter t/KEYWORD...` +
+e.g. `filter t/GraphsDFS`
+* *Deadline* : `deadline INDEX date/DATE` or `deadline INDEX done` or `deadline INDEX remove` +
+e.g. `deadline 3 date/20-02-2019` , `deadline 2 done`, `deadline 2 remove`
+* *Select* : `select INDEX` +
+e.g. `select 3`
 * *Encrypt* : `encrypt INDEX password/PASSWORD` +
 e.g. `encrypt 2 password/superPASSWORD`
 * *Decrypt* : `decrypt INDEX password/PASSWORD` +
 e.g. `decrypt 2 password/superPASSWORD`
 * *Merge* : `merge INDEX INDEX...` +
 e.g `merge 1 2 1`
+* *Sort* : `sort CRITERIA ORDER` +
+e.g `sort name down`, `sort deadline up`, `sort size down`
 * *Help* : `help`
 * *Exit* : `exit`
 

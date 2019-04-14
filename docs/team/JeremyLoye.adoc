@@ -145,3 +145,4 @@ to write technical documentation that is comprehensive and easy to understand fo
 |===
 
 include::../DeveloperGuide.adoc[tag=budget]
+include::../DeveloperGuide.adoc[tag=budgetupdateui]

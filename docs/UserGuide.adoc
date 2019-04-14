@@ -616,6 +616,8 @@ Example:
 * `recordlist` +
 Shows details of all records.
 
+// tag::rfindClear[]
+
 ==== Record Find
 
 Shows patients whose data contains any of the given keywords according to a specified parameter.
@@ -633,6 +635,8 @@ Example:
 
 * `rfind pro/Braces` +
 Show all the patients with a procedure containing the keyword Braces.
+
+// end::rfindClear[]
 
 ==== Record Clear
 

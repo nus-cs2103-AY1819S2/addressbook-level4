@@ -92,6 +92,8 @@ friendly documentation through the showcase of a few important sections._
 
 include::../UserGuide.adoc[tag=viewingInfo]
 
+include::../UserGuide.adoc[tag=rfindClear]
+
 
 == Contributions to the Developer Guide
 

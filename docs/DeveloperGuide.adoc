@@ -676,7 +676,7 @@ image::RecModuleComparatorSequenceDiagram.png[width="800"]
 The `cklimit` command is able to calculate the CAP and workload information of the current module plan and display the results in a report together with the preferred limits set by the student for comparison.
 
 The `LimitChecker` class does all the computation and generation of the report.
-It makes use of the following classes:
+It makes use of the following classes as input:
 
 * `Semester`
 * `ObservableList` of `SemesterLimit`
@@ -690,7 +690,7 @@ The CAP of the student is calculated using the formula below
 .Formula for CAP calculation
 image::modular-system.png[width="800"]
 
-GradTrak uses the Classes `CapAverage`, `WeightedGrade`, and `ModuleInfoCredits` to store and manipulate the variables for calculation.
+GradTrak uses the classes `CapAverage`, `WeightedGrade`, and `ModuleInfoCredits` to store and manipulate the variables for calculation.
 
 The `CapAverage` class contains an `ArrayList` of `WeightedGrade`.
 Each weight grade has a CAP score and information on the number of Modular Credits weighted by the score.

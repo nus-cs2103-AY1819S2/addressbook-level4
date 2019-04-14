@@ -201,22 +201,22 @@ public class AddCommandSystemTest extends FoodDiarySystemTest {
         assertCommandFailure(command, Tag.MESSAGE_CONSTRAINTS);
 
         /* Case: Weblink added is not in proper Url form -> rejected */
-        command = AddCommand.COMMAND_WORD+ NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY
+        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY
                 + POSTAL_DESC_AMY + INVALID_WEBLINK_DESC;
         assertCommandFailure(command, Weblink.MESSAGE_CONSTRAINTS);
 
         /* Case: Weblink added cannot be found -> rejected */
-        command = AddCommand.COMMAND_WORD+ NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY
+        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY
                 + POSTAL_DESC_AMY + INVALID_WEBLINK;
         assertCommandFailure(command, String.format(WebUtil.INVALID_URL_MESSAGE, INVALID_WEBLINK.substring(3)));
 
         /* Case: invalid OpeningHours -> rejected */
-        command = AddCommand.COMMAND_WORD+ NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY
+        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY
                 + POSTAL_DESC_AMY + INVALID_OPENING_HOURS;
         assertCommandFailure(command, OpeningHours.MESSAGE_CONSTRAINTS);
 
         /* Case: invalid OpeningHours -> rejected */
-        command = AddCommand.COMMAND_WORD+ NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY
+        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY
                 + POSTAL_DESC_AMY + INVALID_SAME_OPENING_HOURS;
         assertCommandFailure(command, OpeningHours.MESSAGE_CONSTRAINTS);
     }

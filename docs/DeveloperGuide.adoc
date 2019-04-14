@@ -267,11 +267,11 @@ Here, inputs that do not require access to the model is validated, such as ensur
 A new `AddAppointmentCommand` object is created.
 
 . The Logic layer then executes the `AddAppointmentCommand`. Here, the appointment is checked against existing appointments in the model to ensure there are no duplicates.
-The appointment object is then sent to the model layer.
+The appointment object is then sent to the Model layer.
 
-. The model adds the appointment to its internal list, and the UI layer is notified and updated through an `InvalidationListener`.
+. The model adds the appointment to its internal list. The internal list is a `javafx.collections.ObservableList` and the UI layer through a `ListChangeListener` is notified and updated following the observer pattern.
 
-. The Logic layer then stores the new appointment to disk using the Storage layer.
+. The Logic layer will be notified that the model has been modified through an `InvalidationListener` and then it stores the new appointment to disk using the Storage layer.
 The Storage layer will convert the appointment Java object into the JSON file format using the format specified in `JsonAdaptedAppointment`.
 The next time the application is opened, the Storage layer will use `JsonAdaptedAppointment` again to convert appointments in the JSON file back into appointment objects.
 

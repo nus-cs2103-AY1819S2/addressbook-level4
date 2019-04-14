@@ -32,7 +32,7 @@ public class FutureAppointment extends Appointment {
      *
      * @return true if the appointment is in the future.
      */
-    private boolean isFuture() {
+    public boolean isFuture() {
         LocalDateTime currentDateTime = LocalDateTime.now();
         LocalDateTime appointmentDateTime = LocalDateTime.of(super.getDate().date, super.getTime().time);
 

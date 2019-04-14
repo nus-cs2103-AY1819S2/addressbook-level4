@@ -104,6 +104,6 @@ public class SummaryInfoVBoxHandle extends NodeHandle<Node> {
                 && getPhone().equals(PHONE_PLACEHOLDER + restaurant.getPhone().value)
                 && getEmail().equals(EMAIL_PLACEHOLDER + restaurant.getEmail().value)
                 && getOpeningHours().equals(OPENING_HOURS_PLACEHOLDER + restaurant.getOpeningHours().value)
-                && getWeblink().equals(WEBLINK_PLACEHOLDER + restaurant.getWeblink().value);
+                && getWeblink().equals(WEBLINK_PLACEHOLDER + restaurant.getWeblink().toString());
     }
 }

@@ -75,8 +75,6 @@ public class SortCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
         boolean limitIsPresent = limit != null;
-        boolean isOrderAsc = order.equals(new Order(ORDER_ASC));
-        boolean isOrderDes = order.equals(new Order(ORDER_DES));
 
         requireNonNull(model);
         model.sortRestaurantList(new SortRating(order));
@@ -85,31 +83,45 @@ public class SortCommand extends Command {
         if (!limitIsPresent) {
             model.updateFilteredRestaurantList(PREDICATE_SHOW_ALL_RESTAURANTS);
         } else {
-            int limitInt = limit.get().toInteger();
-            ArrayList<Float> uniqueRatings = model.getUniqueRatings();
-
-            // If limit < number of Restaurants, need to filter
-            if (limitInt < uniqueRatings.size()) {
-                float ratingBorder = model.getUniqueRatings().get(limitInt);
-
-                if (isOrderAsc) {
-                    Predicate<Restaurant> predicateShowLimitedAsc = (r) ->
-                            r.getSummary().getAvgRating() < ratingBorder;
-                    model.updateFilteredRestaurantList(predicateShowLimitedAsc);
-                } else if (isOrderDes) {
-                    Predicate<Restaurant> predicateShowLimitedDes = (r) ->
-                            r.getSummary().getAvgRating() > ratingBorder;
-                    model.updateFilteredRestaurantList(predicateShowLimitedDes);
-                }
-            } else {
-                // Else, just show all
-                model.updateFilteredRestaurantList(PREDICATE_SHOW_ALL_RESTAURANTS);
-            }
+            filterToLimit(model, limit, order);
         }
 
         model.commitFoodDiary();
 
         return new CommandResult(this.commandMessage);
+    }
+
+    /**
+     * Creates a Predicate to sort and then filter the restaurant list to the
+     * restaurants with the top {@code limit} number of ratings, ordered in
+     * {@code order}.
+     */
+    private void filterToLimit(Model model, Optional<Limit> limit, Order order) {
+        boolean isOrderAsc = order.equals(new Order(ORDER_ASC));
+        boolean isOrderDes = order.equals(new Order(ORDER_DES));
+
+        int limitInt = limit.get().toInteger();
+        ArrayList<Float> uniqueRatings = model.getUniqueRatings();
+
+        // If limit < number of Restaurants, need to filter
+        if (limitInt < uniqueRatings.size()) {
+            float ratingBorder = model.getUniqueRatings().get(limitInt);
+
+            if (isOrderAsc) {
+                Predicate<Restaurant> predicateShowLimitedAsc = (r) ->
+                        r.getSummary().getAvgRating() < ratingBorder;
+                model.updateFilteredRestaurantList(predicateShowLimitedAsc);
+            } else if (isOrderDes) {
+                Predicate<Restaurant> predicateShowLimitedDes = (r) ->
+                        r.getSummary().getAvgRating() > ratingBorder;
+                model.updateFilteredRestaurantList(predicateShowLimitedDes);
+            }
+        } else {
+            // Else, just show all
+            model.updateFilteredRestaurantList(PREDICATE_SHOW_ALL_RESTAURANTS);
+        }
+
+
     }
 
     @Override

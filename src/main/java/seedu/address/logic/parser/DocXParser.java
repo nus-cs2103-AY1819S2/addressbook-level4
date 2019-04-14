@@ -96,9 +96,6 @@ public class DocXParser {
         case SearchPatientPidCommand.COMMAND_WORD:
             return new SearchPatientPidCommandParser().parse(arguments);
 
-        case SearchPatientTagCommand.COMMAND_WORD:
-            return new SearchPatientTagCommandParser().parse(arguments);
-
         case SearchPatientApptStatusCommand.COMMAND_WORD:
             return new SearchPatientApptStatusCommandParser().parse(arguments);
 

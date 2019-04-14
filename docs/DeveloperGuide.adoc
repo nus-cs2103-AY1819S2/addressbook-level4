@@ -411,7 +411,7 @@ image::ImportSequenceDiagram.png[width=800]
 
 === Open Feature
 // tag::DGOpen[]
-This command allows the user to open a previously imported image for image-editing.
+This command allows the user to open a previously imported image for editing.
 
 ==== Current Implementation
 The `open` function is facilitated by `Album` and `CurrentEdit`. It uses the following operations:
@@ -424,7 +424,7 @@ The `open` function is facilitated by `Album` and `CurrentEdit`. It uses the fol
 
 * `CurrentEdit#updateExif()` - Updates the Exif data of the image.
 
-* `CurrentEdit#displayTempImage()` - Displays the temporary image stored in directory: "src/main/resources/temp/".
+* `CurrentEdit#displayTempImage()` - Displays the temporary image stored in the `temp` directory.
 
 
 
@@ -439,7 +439,7 @@ Step 2. `Album#checkFileExist(String)` is called to check if the file specified 
 
 Step 3. The `Image` is passed to `CurrentEdit#openImage(Image)` to create two copies of it, named `temp_img.png` and `ori_img.png`, in `temp` directory. These copies are then instantiated as `tempImage` and `originalImage`.
 
-Step 4. `CurrentEdit#updateExif()` is called to update the information of the opened image in the GUI.
+Step 4. `CurrentEdit#updateExif()` is called to update the information of the opened image.
 
 Step 5. `CurrentEdit#displayTempImage()` is called to display the opened image on the GUI.
 
@@ -466,6 +466,7 @@ Alternative 1 was chosen as it is less complicated, requires lesser space and mo
 // end::DGOpen[]
 
 === List Files Feature
+
 // tag::DGListFiles[]
 
 This command displays the names of all the files in `assets` directory.
@@ -480,7 +481,7 @@ The `listfiles` function is facilitated by `Album`. It uses the following operat
 .Sequence Diagram for ListFiles +
 image::ListFilesCommandSequenceDiagram.png[width=800]
 
-Given below is an example usage scenario of how `listfiles` behaves at each step as shown in the figure above..
+Given below is an example usage scenario of how `listfiles` behaves at each step as shown in the figure above.
 
 Step 1. The user executes `listfiles`.
 
@@ -729,7 +730,7 @@ The `save` function is facilitated by `Album` and `CurrentEdit`. It uses the fol
 
 * `CurrentEdit#getOriginalName()` - Returns the original name of opened image.
 
-* `CurrentEdit#overwriteOriginal(String)` - Replaces `ori_img.png` with `temp_img.png' in `temp` directory. Updates `originalImage` to `tempImage` and `originalImageName` to `String` in `CurrentEdit`.
+* `CurrentEdit#overwriteOriginal(String)` - Replaces `ori_img.png` with `temp_img.png` in `temp` directory. Updates `originalImage` to `tempImage` and `originalImageName` to `String` in `CurrentEdit`.
 
 * `CurrentEdit#deleteHistory()` - Clears the history in `CurrentEdit`.
 

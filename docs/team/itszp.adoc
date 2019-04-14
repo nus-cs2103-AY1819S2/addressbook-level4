@@ -27,7 +27,7 @@ This section provides a summary of my coding, documentation and other contributi
 
 ** _Why it is important:_ This feature is essential as it enables users to choose which image they want to edit. Upon using the `open` command, the chosen image is displayed prominently in the main window of the application, allowing users to know which image they are about to apply their edits on.
 
-** _Highlights:_ The `open` command duplicates the opened image in a temporary folder so that users are able to recover the original image should they decide to abandon their edits or in the unlikely event of an application crash. Therefore, this enhancement requires in depth analysis on how the temporary image is stored. When an image is opened, two copies named `ori_img.png` and `temp_img.png` are created in the temporary folder. Subsequent edits will update and overwrite `temp_img.png` while `ori_img.png` is used for `undo` and `redo` operations.
+** _Highlights:_ The `open` command duplicates the opened image in a temporary folder so that users are able to recover the original image should they decide to abandon their edits or in the unlikely event of an application crash. Therefore, this enhancement requires in-depth analysis on how the temporary image is stored. When an image is opened, two copies named `ori_img.png` and `temp_img.png` are created in the temporary folder. Subsequent edits will update and overwrite `temp_img.png` while `ori_img.png` is used for `undo` and `redo` operations.
 
 === *Major Enhancement* -- Added the feature to save an image.
 
@@ -111,9 +111,12 @@ include::../UserGuide.adoc[tag=UGSave]
 
 === *Open Feature*
 include::../DeveloperGuide.adoc[tag=DGOpen]
+
 === *List Files Feature*
 include::../DeveloperGuide.adoc[tag=DGListFiles]
+
 === *Save Feature*
 include::../DeveloperGuide.adoc[tag=DGSave]
+
 === *Appendix B: User Stories*
 include::../DeveloperGuide.adoc[tag=UserStories]

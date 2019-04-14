@@ -11,6 +11,9 @@ import java.util.stream.Collectors;
 import javafx.collections.ObservableList;
 import seedu.hms.logic.stats.Stats;
 
+/**
+ * An item in the stats.
+ */
 public abstract class StatsItem {
     protected String title;
     protected int longest;
@@ -25,8 +28,18 @@ public abstract class StatsItem {
         return (this.title != null ? this.title : "");
     }
 
+    /**
+     * Generate a Category-Quantity map.
+     * @param isDesc Whether the map should be in descending order.
+     * @return A Category-Quantity map.
+     */
     public abstract Map<String, Long> calcResult(boolean isDesc);
 
+    /**
+     * Generate a text report for this StatsItem
+     * @param isDesc Whether the map should be in descending order.
+     * @return A string for the text report.
+     */
     public String toTextReport(boolean isDesc) {
         StringBuilder sb = new StringBuilder();
         Map<String, Long> m = calcResult(isDesc);

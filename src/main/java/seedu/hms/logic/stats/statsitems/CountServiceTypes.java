@@ -4,6 +4,9 @@ import java.util.Map;
 
 import seedu.hms.logic.stats.Stats;
 
+/**
+ * Count the most popular service types.
+ */
 public class CountServiceTypes extends StatsItem {
     public CountServiceTypes(Stats s) {
         super(s);

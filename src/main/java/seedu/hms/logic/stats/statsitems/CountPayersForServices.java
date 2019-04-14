@@ -4,6 +4,9 @@ import java.util.Map;
 
 import seedu.hms.logic.stats.Stats;
 
+/**
+ * Count the most frequent payers for services.
+ */
 public class CountPayersForServices extends StatsItem {
     public CountPayersForServices(Stats s) {
         super(s);

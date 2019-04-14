@@ -4,6 +4,9 @@ import java.util.Map;
 
 import seedu.hms.logic.stats.Stats;
 
+/**
+ * Count the most popular room types.
+ */
 public class CountRoomTypes extends StatsItem {
     public CountRoomTypes(Stats s) {
         super(s);

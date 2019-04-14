@@ -4,6 +4,9 @@ import java.util.Map;
 
 import seedu.hms.logic.stats.Stats;
 
+/**
+ * Count the most frequent payers for reservations.
+ */
 public class CountPayersForReservations extends StatsItem {
     public CountPayersForReservations(Stats s) {
         super(s);

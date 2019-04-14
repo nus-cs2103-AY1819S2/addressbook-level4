@@ -2,11 +2,7 @@ package seedu.hms.logic.stats;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
 import java.util.logging.Logger;
 
 import seedu.hms.commons.core.LogsCenter;
@@ -16,7 +12,6 @@ import seedu.hms.logic.stats.statsitems.CountRoomTypes;
 import seedu.hms.logic.stats.statsitems.CountServiceTypes;
 import seedu.hms.logic.stats.statsitems.StatsItem;
 import seedu.hms.model.ReadOnlyHotelManagementSystem;
-import seedu.hms.model.booking.serviceType.ServiceType;
 
 /**
  * Provide stats for a specific hms
@@ -40,6 +35,10 @@ public class Stats {
         return String.format("%-" + n + "s", s);
     }
 
+    /**
+     * Generate a text report for all the StatsItems.
+     * @return A string of the text report.
+     */
     public String toTextReport() {
         final StringBuilder sb = new StringBuilder();
         for (StatsItem si : statsitems) {

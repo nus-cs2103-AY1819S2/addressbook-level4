@@ -25,6 +25,7 @@ import guitests.guihandles.CommandBoxHandle;
 import guitests.guihandles.MainMenuHandle;
 import guitests.guihandles.MainWindowHandle;
 import guitests.guihandles.RestaurantListPanelHandle;
+import guitests.guihandles.RestaurantSummaryPanelHandle;
 import guitests.guihandles.ResultDisplayHandle;
 import guitests.guihandles.ReviewListPanelHandle;
 import guitests.guihandles.StatusBarFooterHandle;
@@ -104,6 +105,10 @@ public abstract class FoodDiarySystemTest {
 
     public ReviewListPanelHandle getReviewListPanel() {
         return mainWindowHandle.getReviewListPanel();
+    }
+
+    public RestaurantSummaryPanelHandle getRestaurantSummaryPanel() {
+        return mainWindowHandle.getRestaurantSummaryPanel();
     }
 
     public MainMenuHandle getMainMenu() {

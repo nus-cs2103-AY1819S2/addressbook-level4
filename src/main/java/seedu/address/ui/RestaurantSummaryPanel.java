@@ -30,13 +30,15 @@ public class RestaurantSummaryPanel extends UiPart<Region> {
 
     // Panes
     @FXML
+    private BorderPane summaryPane;
+    @FXML
     private VBox titleVbox;
     @FXML
     private VBox infoVbox;
     @FXML
-    private BorderPane summaryPane;
+    private VBox placeholderVbox;
     @FXML
-    private VBox panel;
+    private ImageView placeholderImg;
 
     // Field to be added to panel VBox
     @FXML
@@ -86,13 +88,13 @@ public class RestaurantSummaryPanel extends UiPart<Region> {
      */
     public void loadPlaceholder() {
         // Create placeholder
-        ImageView placeholder = new ImageView(new Image("/images/summary.png"));
+        placeholderImg.setImage(new Image("/images/summary.png"));
         panelName.setText("Select a restaurant to see its summary in this panel!");
-        panel.getChildren().setAll(panelName);
+        placeholderVbox.getChildren().setAll(panelName);
 
         // Add placeholder into summaryPane
-        summaryPane.setTop(panel);
-        summaryPane.setCenter(placeholder);
+        summaryPane.setTop(placeholderVbox);
+        summaryPane.setCenter(placeholderImg);
     }
 
     /**

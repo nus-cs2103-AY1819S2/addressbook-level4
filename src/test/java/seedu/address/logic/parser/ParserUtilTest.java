@@ -1,8 +1,11 @@
 package seedu.address.logic.parser;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
+import static seedu.address.logic.parser.ParserUtil.isLeapYear;
+import static seedu.address.logic.parser.ParserUtil.isValidDate;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
 import java.util.Arrays;
@@ -35,6 +38,22 @@ public class ParserUtilTest {
     private static final String VALID_EMAIL = "rachel@example.com";
     private static final String VALID_TAG_1 = "friend";
     private static final String VALID_TAG_2 = "neighbour";
+
+    private static final String VALID_DATE = "01/01/2020";
+    private static final String VALID_DATE_31 = "31/01/2020";
+    private static final String VALID_DATE_30 = "30/04/2020";
+    private static final String VALID_DATE_LEAP_YEAR = "29/02/2020";
+    private static final String INVALID_DATE_SYNTAX = "1/1/2020";
+    private static final String INVALID_DATE_NON_LEAP_YEAR = "29/02/2019";
+    private static final String INVALID_DATE_MONTH = "01/13/2020";
+    private static final String INVALID_DAY_32 = "32/01/2020";
+    private static final String INVALID_DAY_31 = "31/04/2020";
+    private static final String INVALID_DAY_0 = "00/01/2020";
+
+    private static final int LEAP_YEAR_DIVISIBLE_BY_FOUR_BUT_NOT_HUNDRED = 2020;
+    private static final int LEAP_YEAR_DIVISIBLE_BY_FOUR_AND_HUNDRED_AND_FOUR_HUNDRED = 2000;
+    private static final int YEAR_DIVISIBLE_BY_FOUR_AND_HUNDRED_BUT_NOT_FOUR_HUNDRED = 2100;
+    private static final int NON_LEAP_YEAR = 2001;
 
     private static final String WHITESPACE = " \t\r\n";
 
@@ -203,5 +222,89 @@ public class ParserUtilTest {
         Set<Tag> expectedTagSet = new HashSet<Tag>(Arrays.asList(new Tag(VALID_TAG_1), new Tag(VALID_TAG_2)));
 
         assertEquals(expectedTagSet, actualTagSet);
+    }
+
+    @Test
+    public void isValidDate_validDate_returnsTrue() {
+        boolean actual = isValidDate(VALID_DATE);
+        assertTrue(actual);
+    }
+
+    @Test
+    public void isValidDate_validDate31_returnsTrue() {
+        boolean actual = isValidDate(VALID_DATE_31);
+        assertTrue(actual);
+    }
+
+    @Test
+    public void isValidDate_validDate30_returnsTrue() {
+        boolean actual = isValidDate(VALID_DATE_30);
+        assertTrue(actual);
+    }
+
+    @Test
+    public void isValidDate_validDateLeapYear_returnsTrue() {
+        boolean actual = isValidDate(VALID_DATE_LEAP_YEAR);
+        assertTrue(actual);
+    }
+
+    @Test
+    public void isValidDate_invalidDateMonth_returnsFalse() {
+        boolean actual = isValidDate(INVALID_DATE_MONTH);
+        assertFalse(actual);
+    }
+
+    @Test
+    public void isValidDate_invalidDay32_returnsFalse() {
+        boolean actual = isValidDate(INVALID_DAY_32);
+        assertFalse(actual);
+    }
+
+    @Test
+    public void isValidDate_invalidDay31_returnsFalse() {
+        boolean actual = isValidDate(INVALID_DAY_31);
+        assertFalse(actual);
+    }
+
+    @Test
+    public void isValidDate_invalidDateSyntax_returnsFalse() {
+        boolean actual = isValidDate(INVALID_DATE_SYNTAX);
+        assertFalse(actual);
+    }
+
+    @Test
+    public void isValidDate_invalidDateLeapYear_returnsFalse() {
+        boolean actual = isValidDate(INVALID_DATE_NON_LEAP_YEAR);
+        assertFalse(actual);
+    }
+
+    @Test
+    public void isValidDate_invalidDate0_returnsFalse() {
+        boolean actual = isValidDate(INVALID_DAY_0);
+        assertFalse(actual);
+    }
+
+    @Test
+    public void isLeapYear_leapYear_returnsTrue() {
+        boolean actual = isLeapYear(LEAP_YEAR_DIVISIBLE_BY_FOUR_BUT_NOT_HUNDRED);
+        assertTrue(actual);
+    }
+
+    @Test
+    public void isLeapYear_centurialLeapYear_returnsTrue() {
+        boolean actual = isLeapYear(LEAP_YEAR_DIVISIBLE_BY_FOUR_AND_HUNDRED_AND_FOUR_HUNDRED);
+        assertTrue(actual);
+    }
+
+    @Test
+    public void isLeapYear_centurialLeapYear_returnsFalse() {
+        boolean actual = isLeapYear(YEAR_DIVISIBLE_BY_FOUR_AND_HUNDRED_BUT_NOT_FOUR_HUNDRED);
+        assertFalse(actual);
+    }
+
+    @Test
+    public void isLeapYear_yearNotDivisibleByFour_returnsFalse() {
+        boolean actual = isLeapYear(NON_LEAP_YEAR);
+        assertFalse(actual);
     }
 }

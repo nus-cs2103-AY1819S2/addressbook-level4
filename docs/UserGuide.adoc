@@ -366,7 +366,7 @@ image::RMUi.png[width="790"]
 The function of the order and table panels are as follows:
 
 * *Order Panel*: This panel shows you the list of items ordered by all tables in RstOrRant, arranged in chronological order. This means that items that were ordered first appears at the top of the list. It also indicates the quantity left to serve for each item, and the background turns dark when the item is fully served.
-* *Table  Panel*: This panel gives you an overview of all tables in RestOrRant with their table numbers and respective occupancies.
+* *Table  Panel*: This panel gives you an overview of all tables in ROR with their table numbers and respective occupancies.
 
 [NOTE]
 The light coloured tables represent unoccupied tables. +
@@ -378,7 +378,7 @@ Here are the commands that you can use in this mode to efficiently manage the ta
 [[AddTable]]
 ==== Adding tables : `addTable`
 
-As you set up RestOrRant to reflect your physical restaurant or add tables in the event that there are new tables in your restaurant, this command allows you to add tables in RestOrRant by specifying the number of seats at each table.
+As you set up ROR to reflect your physical restaurant or add tables in the event that there are new tables in your restaurant, this command allows you to add tables in ROR by specifying the number of seats at each table.
 
 [NOTE]
 The maximum number of tables that can be added is 400.
@@ -399,7 +399,7 @@ ifdef::env-github[| :white_check_mark: a|]
 ifndef::env-github[a| icon:check[role="green", size="2x"] a|]
 You will see a success message in the Results Display and the new tables will be displayed in the table panel.
 
-a| a| For example, RestOrRant initially has 35 tables when you open it for the first time as shown in the image below.
+a| a| For example, ROR initially has 35 tables when you open it for the first time as shown in the image below.
 
 image::AddTableExampleBefore.png[]
 
@@ -417,17 +417,17 @@ a| a| Alternatively, you can add also add just one table at a time. For example,
 [[EditPax]]
 ==== Editing the occupancy : `editPax`
 
-During the operation of your restaurant, this command helps you to update the occupancies of the tables in RestOrRant when customers enter your restaurant.
+During the operation of your restaurant, this command helps you to update the occupancies of the tables in ROR when customers enter your restaurant.
 
 [IMPORTANT]
-Changing the table's occupancy to 0 will automatically clear all records of its orders which will not be included in RestOrRant's statistics.
+Changing the table's occupancy to 0 will automatically clear all records of its orders which will not be included in ROR's statistics.
 
 ****
 * *Format*: `editPax TABLE_NUMBER NUMBER_OF_CUSTOMERS`
 ****
 
 [NOTE]
-The specified table has to exist in RestOrRant and your specified number of customers cannot be greater than the number of seats available at the table.
+The specified table has to exist in ROR and your specified number of customers cannot be greater than the number of seats available at the table.
 
 [width="100%",cols="5%,95%", grid=none]
 |===
@@ -435,7 +435,7 @@ ifdef::env-github[| :white_check_mark: a|]
 ifndef::env-github[a| icon:check[role="green", size="2x"] a|]
 You will see a success message in the Results Display and the updated table will be displayed in the table panel.
 
-a| a| For example, Table 1 in RestOrRant is initially unoccupied as shown below where the table's status is 0/2.
+a| a| For example, Table 1 in ROR is initially unoccupied as shown below where the table's status is 0/2.
 
 image::EditPaxExampleBefore.png[]
 
@@ -451,7 +451,7 @@ image::EditPaxExampleAfter.png[]
 [[EditSeats]]
 ==== Editing the available seats : `editSeats`
 
-In the event that there are changes to any table in your restaurant in terms of the number of seats at the table, this command can help you make sure RestOrRant is updated to reflect your physical restaurant.
+In the event that there are changes to any table in your restaurant in terms of the number of seats at the table, this command can help you make sure ROR is updated to reflect your physical restaurant.
 
 [TIP]
 You can use this command to change the number of seats at a table to 0 to represent an unusable table. This would be useful if a table is broken or you decide to remove a table without re-numbering all the other tables.
@@ -461,7 +461,7 @@ You can use this command to change the number of seats at a table to 0 to repres
 ****
 
 [NOTE]
-The specified table has to exist in RestOrRant and the specified number of seats has to be more than the number of customers already seated at the table.
+The specified table has to exist in ROR and the specified number of seats has to be more than the number of customers already seated at the table.
 
 [width="100%",cols="5%,95%", grid=none]
 |===
@@ -469,7 +469,7 @@ ifdef::env-github[| :white_check_mark: a|]
 ifndef::env-github[a| icon:check[role="green", size="2x"] a|]
 You will see a success message in the Results Display and the updated table will be displayed in the table panel.
 
-a| a| For example, Table 2 in RestOrRant is initially occupied as shown below where the table's status is 2/2.
+a| a| For example, Table 2 in ROR is initially occupied as shown below where the table's status is 2/2.
 
 image::EditSeatsExampleBefore.png[]
 
@@ -485,7 +485,7 @@ image::EditSeatsExampleAfter.png[]
 [[ClearTable]]
 ==== Clearing all the tables : `clearTable`
 
-In the event that you have undergone massive changes in the restaurant, you can use this command to remove all tables in RestOrRant.
+In the event that you have undergone massive changes in the restaurant, you can use this command to remove all tables in ROR.
 
 [NOTE]
 This command checks if the restaurant is completely unoccupied before clearing the tables so you don't have to worry about any accidents.
@@ -507,7 +507,7 @@ ifdef::env-github[| :white_check_mark: a|]
 ifndef::env-github[a| icon:check[role="green", size="2x"] a|]
 You will see a success message in the Results Display and all tables will be removed from the table panel.
 
-a| a| For example, when all the customers have left the restaurant, RestOrRant will have all unoccupied tables as shown below.
+a| a| For example, when all the customers have left the restaurant, ROR will have all unoccupied tables as shown below.
 
 image::ClearTableExampleBefore.png[]
 

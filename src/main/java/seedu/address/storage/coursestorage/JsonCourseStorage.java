@@ -24,7 +24,7 @@ public class JsonCourseStorage implements CourseStorage {
     private String inputStreamPath;
 
 
-    public JsonCourseStorage(String inputStreamPath) {
+    public  JsonCourseStorage(String inputStreamPath) {
         this.inputStreamPath = inputStreamPath;
     }
 

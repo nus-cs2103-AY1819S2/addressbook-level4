@@ -80,6 +80,10 @@ and `Request`, I had to rework the existing implementation of `CommandParser`
  HealthHub via the `CommandParser` class paved the way for other teammates to
  use the new revised `CommandParser` class for the development of their features
   as well.
+** Adjusted the implementation for `FilterCommandParser`, `ListCommandParser`
+and `DeleteCommandParser` implemented by my teammates use `CommandMode` to
+for a more seamless integration of the `filter`, `list` and `delete` commands
+ into HealthHub.
 
 * Added the functionality to filter `HealthWorker` objects in the HealthHub
 system using various fields.
@@ -111,9 +115,9 @@ based on filter conditions they input.
 
 *Minor Enhancements*:
 
-* Adjusted the implementation for `FilterCommandParser`, `ListCommandParser`
-and `DeleteCommandParser` implemented by my teammates to for a more seamless
- integration of the `filter`, `list` and `delete` commands into HealthHub.
+* Added the ability for users to perform Create, Read, Update and Delete
+(CRUD) operations for health workers in HealthHub by implementing the `add
+healthworker`, `edit healthworker` and `delete healthworker` commands.
 * Wrote incremental integration tests for existing features in HealthHub, as
 well as features implemented by my teammates to ensure that the logic and
 model components in HealthHub are integrated together smoothly without hiccups.

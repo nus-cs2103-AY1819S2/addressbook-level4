@@ -13,13 +13,14 @@ import seedu.address.model.activity.ActivityDateTimePredicate;
  */
 public class ActivityFilterCommand extends ActivityCommand {
     public static final String COMMAND_WORD = "activityFilter";
+    public static final String COMMAND_ALIAS = "aFilter";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + " ：Filters the activities that is the given "
             + "number of days away from today (inclusive) and displays them as a list with index numbers.\n "
             + "Filter conditions: + is to filter future activities and - is to filter activities.\n"
             + "Parameters: CONDITION NUMBEROFDAYS \n"
             + "Example: " + COMMAND_WORD + " + 100";
-    public static final String MESSAGE_INCORECT_DAYS = "The NUMBEROFDAYS input must be integers.";
+    public static final String MESSAGE_INCORECT_DAYS = "The NUMBEROFDAYS input must be positive integers.";
     public static final String MESSAGE_NO_CONDITION = "Filter condition must be specified by + or -";
 
     public final ActivityDateTimePredicate predicate;

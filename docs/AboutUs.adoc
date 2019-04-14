@@ -41,13 +41,14 @@ Other Roles
 
 === Kevin Yeong Yu Heng
 image::A0143487X-Kevin.png[width="150", align="left"]
-{empty}[http://github.com/A0143487X-Kevin[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/A0143487X-Kevin[github]] [<<A0143487X-Kevin#, portfolio>>]
 
 Role: Developer (Integrator) +
 Responsibilities:
 
 * In charge of UI.
-* Working on mode change feature and import/export feature.
+* Development of mode of operation architecture and feature.
+* Working on file handling and export features.
 
 '''
 

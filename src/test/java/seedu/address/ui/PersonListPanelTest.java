@@ -88,7 +88,7 @@ public class PersonListPanelTest extends GuiUnitTest {
             Phone phone = new Phone("61234567");
             Email email = new Email("a@aa");
             Address address = new Address("a");
-            Gender gender = new Gender("male");
+            Gender gender = new Gender("Male");
             YearOfStudy yearOfStudy = new YearOfStudy("1");
             Major major = new Major(("Computer Science"));
             Person person = new Person(name, matricNumber, phone, email, address, gender, yearOfStudy, major,

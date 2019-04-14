@@ -18,5 +18,8 @@
         <Text fx:id="gender" styleClass="member-details-text"/>
         <Text fx:id="yearOfStudy" styleClass="member-details-text"/>
         <Text fx:id="major" styleClass="member-details-text"/>
+        <Text fx:id="statistics" styleClass="member-details-title"/>
+        <Text fx:id="attendedActivitiesCounter" styleClass="member-details-text"/>
+        <Text fx:id="participationRate" styleClass="member-details-text"/>
     </VBox>
 </StackPane>

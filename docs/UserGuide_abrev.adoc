@@ -1,0 +1,716 @@
+= ClubManager - User Guide
+:site-section: UserGuide
+:toc:
+:toc-title:
+:toclevels: 3
+:toc-placement: preamble
+:sectnums:
+:imagesDir: images
+:stylesDir: stylesheets
+:xrefstyle: full
+:experimental:
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+endif::[]
+:repoURL: https://github.com/cs2103-ay1819s2-w13-2/main
+
+By: `W13-2`      Since: `Jan 2019`      Licence: `MIT`
+
+== Introduction
+
+ClubManager is for Co-Curricular Activities (CCAs) leaders who *prefer to use a desktop app for managing their members
+and activities*. More importantly, ClubManager is *optimized for those who prefer to work with a Command Line Interface*
+(CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, ClubManager can get
+your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get
+started. Enjoy!
+
+== Quick Start
+
+.  Ensure you have Java version `9` or later installed in your Computer.
+.  Download the latest `clubmanager.jar` link:{repoURL}/releases[here].
+.  Copy the file to the folder you want to use as the home folder for your ClubManager.
+.  Double-click the file to start the app. The GUI should appear in a few seconds.
++
+image::Ui.png[width="790"]
+image::Ui2.png[width="790"]
++
+.  Type the command in the command box and press kbd:[Enter] to execute it. +
+e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
+.  Some example commands you can try:
+
+* *`memberList`* : lists all members (only in member mode)
+* *`memberAdd n/James Ong mn/A0123456Y p/98765432 e/jamesong@example.com a/123, Jurong West Ave 6, #08-111 g/male y/2 m/mathematics`
+* : adds a member named
+`James Ong` to the ClubManager.
+* *`memberDelete 3`* : deletes the 3rd member shown in the current member list
+* *`exit`* : exits the app
+
+.  Refer to <<Features>> for details of each command.
+
+== User Interface Walkthrough
+
+This section is designed to guide you through how the user interface and components in Club Manager works.
+
+Here is an example of how Club Manager in member mode looks like:
+
+image::memberUiWalkthrough.png[width="100%"]
+
+Here is an example of how Club Manager in activity mode looks like:
+
+image::activityUiWalkthrough.png[width="100%"]
+
+In total, there are:
+
+* *5 General Parts:*
+
+** <<#Menu-Bar, Menu Bar>>
+
+** <<#Result-Display, Result Display>>
+
+** <<#Command-Box, Command Box>>
+
+** <<#SSB, Sync Status Bar>>
+
+** Mode Status.
+
+* *3 Member Mode-specific Parts:*
+
+** List of Members
+** Member Information Display Panel
+** List of Activities Attended By Selected Member.
+
+* *4 Activity Mode-specific Parts:*
+** List of Activities
+** Activity Information Display Panel
+** List of Members Attending Selected Activity
+** List of Members Not Attending Selected Activity.
+
+[[Menu-Bar]]
+=== Menu Bar
+The *Menu Bar* provide you quick access to functions as below.
+
+Here are the available options currently:
+
+* File: Provide access to file functions.
+
+* Exit: Exit the program.
+
+* Help: Show Club Manager tutorial.
+
+You can also press F1 to show Club Manager User Guide.
+
+[[Command-Box]]
+=== Command Box
+
+The *Command Box* is the place where you can input the commands.
+
+[[Result-Display]]
+=== Result Display
+
+The *Result Display* shows information relating to the result of the command.
+
+[[Features]]
+== Features
+====
+*Command Format*
+
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
+* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/Swimming` or as `n/John Doe`.
+* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/Swimming`, `t/Running t/Hockey` etc.
+====
+
+=== General Features
+
+//tag::mode[]
+==== Get / Set the mode of ClubManager: `mode`
+
+ClubManager operates in 2 modes. This function allows user to check the mode and change the mode +
+[width="100%",cols="25%,55%, <20%",options="header",]
+|=======================================================================
+|Mode| Definition | Example of allowed commands
+|`member`| Member Management Mode
+
+This mode allows the user to manage members in ClubManager
+ | `memberAdd`,  `memberFind`
+ |`activity`| Activity Management Mode
+
+ This mode allows the user to manage members in ClubManager
+  | `activityAdd`, `activityList`, `activitySelect`
+|=======================================================================
+
+*Format:*
+
+* `mode [MODE_CHOICE]`
+
+[NOTE]
+====
+If MODE_CHOICE is left blank, returns current mode
+====
+
+*Examples:*
+
+* `mode`
+Returns current management mode of ClubManager
+* `mode activity`
+Changes current management mode of ClubManager to Activity
+* `mode member`
+Changes current management mode of ClubManager to Member
+
+//end::mode[]
+
+==== Clearing all entries : `clear`
+
+Clears all entries from the Club Manager. +
+Format: `clear`
+
+==== Exiting the program : `exit`
+
+Exits the program. +
+Format: `exit`
+
+
+==== Viewing help : `help`
+Displays a list of commands and the help messages to guide the user.
+Format: `help`
+
+==== Listing entered commands : `history`
+
+Lists all the commands that you have entered in reverse chronological order. +
+Format: `history`
+
+[NOTE]
+====
+Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
+====
+
+
+=== Member Management Features
+
+image::memberCommands.png[width="100%"]
+
+==== Adding a member: `memberAdd` or `mAdd`
+
+You can add members to ClubManager. +
+[width="100%",cols="30%,<50%, <50%",options="header",]
+|=======================================================================
+|Information of Member| Definition | Example
+|`Name`| NAME refers to the name of the member.
+
+Only alphabets are accepted. | John Sim
+|`Matric Number`| MATRIC_NUMBER refers to the member's matriculation number.
+
+Matric Number is a string of 9 alphanumeric characters.
+
+For the first alphabet of the Matric Number, only the uppercase letter A or uppercase letter U will be accepted.
+This will be followed by a 7 digits. The final character is an uppercase alphabet which has tally with the alphabet generated by our checksum generator.
+
+If an error occurs, it could mean that a wrong final character of the Matric Number has been inputted.
+| A0123456Z
+
+|`Phone Number`| PHONE_NUMBER refers to the member's phone number.
+
+Only 8 digits are accepted. The first digit of the phone number has to begin with 6, 8, 9.| 91234567
+|`Email Address`| EMAIL_ADDRESS refers to the member's student/personal email address| johnsim@example.com
+|`Address`| ADDRESS refers to the member's home address.
+
+Alphanumeric and Special characters are acceptable.| Jurong East Avenue 1 Block 2 #03-04
+|`Gender`| GENDER refers to the sex of the member.
+
+Only "Male" or "Female" is accepted (case-insensitive)|Male
+|`Year of Study`| YEAR_OF_STUDY refers to the academic level (in years)
+in which the member is currently studying.
+
+Only a single digit is accepted. This digit has to be between the range 1 to 6 (both inclusive)| 2
+
+|`Major`| MAJOR refers to the field of discipline in which member is currently enrolled in.
+
+Only alphabets are accepted.| Chemistry
+
+|`Tags`|TAGS refers to the hobbies and interests of the member.
+
+Only Alphabets are acceptable, restricted to a single word.
+
+A member can have any number of tags (including 0).|Swimming
+|=======================================================================
+
+*Format:*
+* `memberAdd n/NAME mn/MATRIC_NUMBER p/PHONE_NUMBER e/EMAIL a/ADDRESS g/GENDER y/YEAR_OF_STUDY m/MAJOR [t/TAG]...`
+
+*Examples:*
+
+* `memberAdd n/James Ong mn/A0123456J p/98765432 e/jamesong@example.com a/123, Jurong West Ave 6, #08-111 g/male y/2 m/mathematics`
+* `memberAdd n/Jane Lim mn/A0654321J p/91324756 e/janelim@example.com a/123, Sengkang Ave 6, #02-123 g/Female y/3  m/physics t/Swimming`
+
+==== Deleting a member : `memberDelete` or `mDelete`
+
+Deletes the specified member from ClubManager. +
+Format: `memberDelete INDEX`
+
+****
+* Deletes the member at the specified `INDEX`.
+* The index refers to the index number shown in the displayed member list.
+* The index *must be a positive integer* 1, 2, 3, ...
+****
+
+Examples:
+
+* `memberList` +
+`memberDelete 2` +
+Deletes the 2nd member in ClubManager.
+* `memberFind name Betsy` +
+`memberDelete 1` +
+Deletes the 1st member in the results of the `find` command.
+
+==== Editing a member : `memberEdit` or `mEdit`
+
+Edits an existing member in ClubManager. +
+Format: `memberEdit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [g/GENDER] [yos/YEAR_OF_STUDY] [m/MAJOR] [t/TAG]...`
+
+****
+* Edits the member at the specified `INDEX`. The index refers to the index number shown in the displayed member list.
+The index *must be a positive integer* 1, 2, 3, ...
+* At least one of the optional fields must be provided.
+* Existing values will be updated to the input values.
+* NOTE: Matriculation Number cannot be edited
+* You can remove all the member's tags by typing `t/` without specifying any tags after it.
+****
+
+Examples:
+
+* `memberEdit 1 p/91234567 e/johndoe@example.com` +
+Edits the phone number and email address of the 1st member to be `91234567` and `johndoe@example.com` respectively.
+
+* `memberEdit 2 n/Betsy Crower t/` +
+Edits the name of the 2nd member to be `Betsy Crower` and clears all existing tags.
+
+==== Locating members by name: `memberFind` or `mFind`
+
+Finds members whose names contain any of the given keywords. +
+Format: `memberFind CRITERIA KEYWORD [MORE_KEYWORDS]`
+
+****
+* The search is case insensitive. e.g `hans` will match `Hans`
+* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
+* Partial or full words will be matched e.g. `Han` will match `Hans`
+* members matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+* CRITERIA could be "name" or "matricnum" only (case insensitive)
+****
+
+Examples:
+
+* `memberFind name John` +
+Returns `john` and `John Doe`
+* `memberFind name Betsy Tim John` +
+Returns any member having names `Betsy`, `Tim`, or `John`
+* `memberFind matricnum A0` +
+Returns all members (matric num starts with A0)
+
+==== Listing members : `memberList` or mList`
+
+Shows a list of all members in ClubManager. +
+Format: `memberList`
+
+==== Selecting a member : `memberSelect`
+
+Selects the member identified by the index number used in the displayed member list. +
+Format: `memberSelect INDEX`
+
+****
+* Selects the member and loads the members page of the member at the specified `INDEX`.
+* The index refers to the index number shown in the displayed member list.
+* The index *must be a positive integer* `1, 2, 3, ...`
+****
+
+Examples:
+
+* `list` +
+`memberSelect 2` +
+Selects the 2nd person in the club manager.
+
+image::memberSelectCommand.png[width="790"]
+
+//tag::membersort[]
+==== Sort members’ list : `memberSort` or `mSort`
+
+Sort the members list by a member’s attribute in ascending order
+
+*Format*
+
+[width="59%",cols="30%,<50%",options="header",]
+|=======================================================================
+|Sort By | Command Example
+|`Name` |memberSort name
+|`Gender` |memberSort Gender
+|`Year of Study` |memberSort yearOfStudy
+|`Major` |memberSort major
+|=======================================================================
+
+****
+* Sorts the member list according to the specified sorting criteria. The attribute refers to the name, matric number, phone number, email, year of study, and major. There can only be a single attribute provided.
+* At least one of the sorting criteria are provided.
+* Members will be sorted in ascending order based on the sorting criteria.
+* Within each of the sort criteria, the members are further sorted by name in ascending order.
+****
+****
+* Sorts the member at the specified attribute. The attribute refers to the name, admin number, phone number, email, year of study, and major. There can only be a single attribute provided.
+* At least one of the attributes are provided.
+* Members will be sorted in ascending order based on the attribute.
+****
+
+Example:
+
+* `memberList` +
+`memberSort name` +
+Sorts the list by name.
+
+image::MemberSortCommand_sortby_name.png[width="790"]
+
+* `memberList` +
+`memberSort yearOfStudy` +
+Sorts the list by year of study.
+
+image::MemberSortCommand_sortby_yearofstudy.png[width="790"]
+
+//end::membersort[]
+
+//tag::memberexport[]
+==== Exporting details of a member : `memberExport` or `mExport`
+
+Export the details of the member identified by the index number used in the displayed member list. +
+Format: `memberExport INDEX`
+
+****
+* Exports the details of member at the specified `INDEX`.
+* The index refers to the index number shown in the displayed member list.
+* The index *must be a positive integer* `1, 2, 3, ...`
+****
+
+Examples:
+
+* `memberList` +
+`memberExport 2` +
+Export the details of the 2nd person in the address book.
+* `memberFind name Betsy` +
+`memberExport 1` +
+Export the details of the 1st member in the results of the `find` command.
+
+image::MemberExportExample.png[width="1000"]
+
+[NOTE]
+====
+The exported file will be stored in the same directory where ClubManager is installed in.
+
+File name with the following format:
+NameOfPerson_xxxxx_exportedOnDDMMYYYY_HHMMSS.html
+====
+//end::memberexport[]
+
+=== Activity Management Features
+//tag::activityAdd[]
+==== Adding an activity : `activityAdd` or `aAdd`
+Adds a new activity to the activity list +
+[width="100%",cols="30%,<50%, <50%",options="header",]
+|=======================================================================
+|Information of Activity| Definition | Example
+|`ActivityName`| ACTIVITY_NAME refers to the name of the activity.
+ Only alphabets are accepted. | Sentosa Outing
+|`ActivityDateTime`| DATETIME refers to the date and time of the activity
+Activity Date and time should be in "dd/MM/YYYY HHMM" format, where dd, MM, YYYY refers
+to day of month, month and year respectively. HH refers to the hour in 24 hour format (
+0-23). | 28/02/2019 2359
+|`ActivityLocation`| LOCATION refers to the location of an activity|Kent Ridge MRT
+|`ActivityDescription`| DESCRIPTION refers to the detailed description of the activity
+|Meeting at MRT before leaving together.
+|=======================================================================
+Format: `activityAdd n/ACTIVITY_NAME d/DATETIME l/LOCATION [de/DESCRIPTION] ...`
+
+****
+* Inputing description is optional. If no description is found, the default description will be
+"More details to be added."
+* The added activity will be displayed at the sorted position according to its time. +
+The most recent ongoing activities will be display on top while the most recent completed activity will be at
+the bottom of the list.
+* Activities with the same time and location cannot be added.
+****
+
+Example:
+
+* `activityAdd n/Sentosa Outing d/16/02/2019 1000 l/Harbour Front MRT de/Bring swim suits.`
+* `activityAdd n/HTML workshop d/14/02/2019 l/ICube Auditorium`
+
+(image omitted) +
+Adding activity to the correct position based on the time.
+// end::activityAdd[]
+
+// tag::activityAddMember[]
+
+==== Add a member to activity `activityAddMember` or `aAddM`
+Adds an existing member to an existing activity to indicate that they will be going for the activity.
+Format: `activityAddMember ACTIVITY_INDEX MATRIC_NO`
+
+****
+* Adds a member to the activity at the specified `ACTIVITY_INDEX` which refers to the index number shown in the displayed activity list.
+* The index *must be a positive integer* 1, 2, 3, ...
+* MATRIC_NO must be a currently existing entry in any existing member’s MATRIC_NO information column in the member list.
+****
+Examples:
+
+* `activityAddMember 1 A1234567N` +
+Adds the member with matric number `A1234567N` to the attending list for activity 1.
+// end::activityAddMember[]
+
+// tag::activityDelete[]
+
+==== Delete an activity `activityDelete` or `aDelete`
+Deletes an existing activity in the activity list
+Format: `activityDelete ACTIVITY_INDEX`
+
+****
+* Deletes the activity at the specified `ACTIVITY_INDEX` which refers to the index number shown in the displayed activity list.
+* The index *must be a positive integer* 1, 2, 3, ...
+****
+
+Examples:
+
+* `activityDelete 1` +
+Deletes the first activity in the displayed activity list
+// end::activityDelete[]
+
+// tag::activityDeleteMember[]
+
+==== Delete a member from activity `activityDeleteMember` or `aDeleteM`
+Removes an existing member who has already indicated that he/she will be attending the activity from the attending list of the activity.
+Format: `activityDeleteMember ACTIVITY_INDEX MATRIC_NO`
+
+****
+* Removes a member from the attending list of the activity at the specified `ACTIVITY_INDEX` which refers to the index number shown in the displayed activity list.
+* The index *must be a positive integer* 1, 2, 3, ...
+* MATRIC_NO must be a currently existing entry in the specified activity’s attending list.
+****
+Examples:
+
+* `activityDeleteMember 1 A1234567N` +
+Removes the member with matric number A1234567N from activity 1’s attending list.
+// end::activityDeleteMember[]
+
+==== Edit an activity: `activityEdit` or `aEdit`
+Edits an existing activity in the activity list
+Format: `activityEdit ACTIVITY_INDEX [n/ACTIVITY_NAME] [d/DATE] [t/TAG] … `
+
+****
+* Edits the activity at the specified `ACTIVITY_INDEX` which refers to the index number shown in the displayed activity list.
+* The index *must be a positive integer* 1, 2, 3, ...
+* At least one of the optional fields must be provided.
+* Existing values will be updated to the input values.
+* When editing tags, the existing tags of the activity will be removed i.e adding of tags is not cumulative.
+* You can remove all the activity’s tags by typing `t/` without specifying any tags after it.
+
+****
+Examples:
+
+* `activityEdit 1 d/13022019` +
+Edits the date of the first activity to be 13 Feb 2019.
+* `activityEdit 2 t/` +
+Clears all existing tags of the second activity.
+
+//tag::activityFilter[]
+
+==== Filtering activities by date: `activityFilter` or `aFilter`
+
+Filters the activities that is the given number of days away from today (inclusive)
+and displays them as a list with index numbers.
+Format: `activityFilter CONDITION NUMBEROFDAYS`
+
+****
+* The filter condition must be specified. `+` is to filter future activities and `-` is to filter past activities.
+* `NUMBEROFDAYS` refers to the range of days from the current date.
+* `NUMBEROFDAYS` *must be a postive integer* `1 2 3`
+****
+
+Examples:
+
+* `activityFilter + 7` +
+Returns future activities scheduled in the next 7 days (including today)
+* `activityFilter - 30` +
+Returns past activities from the last 30 days (inclusive).
+
+==== Finding activities by criteria: `activityFind` or `aFind`
+
+Finds all activities whose attribute contain any of the specified keywords
+(case-insensitive) and displays them as a list with index numbers. +
+Format: `activityFind [PREFIX] KEYWORD [MORE_KEYWORDS] [NEXT_PREFIX KEYWORD] [MORE_KEYWORDS]`
+
+****
+* The search is case insensitive. e.g `workshop` will match `Workshop`
+* The order of the keywords does not matter. e.g. `Talk Seminar` will match `Seminar Talk`
+* The search parameter is determined by the prefixes.  `n/` searches for match in ActivityName; `l/` searches for match in
+ActivityLocation; `de/` searches for matches in ActivityDescription.
+* If no prefix is provided, the activities with any fields matching the keywords would be returned.
+* Only full words will be matched e.g. `CS` will not match `CSS`
+* For a specific prefix, activities matching at least one keyword will be returned (i.e. `OR` search within the prefix).
+e.g. `HTML workshop` will return `HTML camp`, `CSS workshop`
+* If more than one prefixes are entered, only activities matching all the prefixes' conditions will be returned
+(i.e. `AND` search between prefixes). e.g. `n/Sentosa Dance l/Icube MRT` will only return activities with name that contains
+`Sentosa` or `Dance` and location that contains `Icube` or `MRT`.
+****
+
+Examples:
+
+* `activityFind de/ free` +
+Returns activities with description `Free food` and `Free giveaway`
+* `activityFind n/ HTML CSS Javascript` +
+Returns any activity having names `HTML`, `CSS`, or `Javascript`
+* `activityFind n/Workshop Lecture l/Auditorium` +
+Returns any activity having name `Workshop` or `Lecture`, and the location is `Auditorium`
+
+==== Listing all activities : `activityList` or `aList`
+
+Shows a list of all activities in the activity list. +
+Format: `activityList`
+
+****
+If the status of some activities have changed from `ONGOING` to `COMPLETED`, the
+`activityList` command will automatically update the status of these activities.
+****
+
+(image omitted)
+
+==== Selecting an activity : `activitySelect` or `aSelect`
+
+Selects the activity identified by the index number used in the displayed activity list. +
+Format: `activitySelect ACTIVITY_INDEX`
+
+****
+* Selects the activity and displays the specific details of the activity at the specified `ACTIVITY_INDEX`.
+* The index refers to the index number shown in the displayed activity list.
+* The index *must be a positive integer* `1, 2, 3, ...`
+****
+
+Examples:
+
+* `activityList` +
+`activitySelect 2` +
+Selects the 2nd person in the displayed activity list.
+* `activityFind workshop` +
+`activitySelect 1` +
+Selects the 1st activity in the results of the `find` command.
+//end::activityFilter[]
+
+//tag::activityexport[]
+==== Exporting details of an activity : `activityExport` or `aExport`
+
+Export the details of the activity identified by the index number used in the displayed activity list. +
+Format: `activityExport INDEX`
+
+****
+* Exports the details of activity at the specified `INDEX`.
+* The index refers to the index number shown in the displayed activity list.
+* The index *must be a positive integer* `1, 2, 3, ...`
+****
+
+Examples:
+
+* `activityList` +
+`activityExport 2` +
+Export the details of the 2nd activity in the address book.
+* `memberFind name Swimming Class` +
+`activityExport 1` +
+Export the details of the 1st activity in the results of the `find` command.
+
+image::ActivityExportExample.png[width="1000"]
+
+[NOTE]
+====
+The exported file will be stored in the same directory where ClubManager is installed in.
+
+File name with the following format:
+NameOfActivity_xxxxx_exportedOnDDMMYYYY_HHMMSS.html
+====
+//end::activityexport[]
+
+=== Saving the data
+
+Address book data are saved in the hard disk automatically after any command that changes the data. +
+There is no need to save manually.
+
+== FAQ
+
+*Q*: How do I transfer my data to another Computer? +
+*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+
+== Command Summary
+This section provides a comprehensive list of commands that ClubManager offers.
+
+=== General Commands
+* *Clear* : `clear`
+* *Mode* : `mode [MODE_CHOICE]` +
+e.g. `mode member`
+* *Help* : `help`
+* *History* : `history`
+
+=== Member Management Commands
+
+* *Add a member* : `memberAdd n/NAME mn/MATRIC_NUMBER p/PHONE_NUMBER e/EMAIL g/GENDER yos/YEAR_OF_STUDY m/MAJOR [t/TAG]...` +
+e.g. `memberAdd n/James Ong mn/A0123456Y p/98765432 e/jamesong@example.com g/male yos/1 m/mathematics`
+* *Delete a member* : `memberDelete INDEX` +
+e.g. `memberDelete 3`
+* *Edit a member* : `memberEdit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS]
+[mn/MATRIC_NUMBER] [yos/YEAR_OF_STUDY] [m/MAJOR] [t/TAG]...` +
+e.g. `memberEdit 2 n/James Lee e/jameslee@example.com`
+* *Find a member* : `memberFind CRITERIA KEYWORD [MORE_CRITERIA] [MORE_KEYWORDS]` +
+e.g. `memberFind name John`
+
+* *List all members* : `memberList`
+* *Select a member* : `memberSelect INDEX` +
+e.g.`memberSelect 2`
+* *Sort the member list* : `memberSort [NAME] [GENDER] [YEAR_OF_STUDY] [MAJOR]` +
+e.g. `memberSort name`
+* *Export a member* : `memberExport INDEX` +
+e.g.`memberExport 2`
+
+=== Activity Management Commands
+* *Add a activity* : `activityAdd n/gACTIVITY_NAME d/DATETIME l/LOCATION [de/DESCRIPTION] ...` +
+e.g. `activityAdd n/Sentosa Outing d/16/02/2019 1000 l/Harbour Front MRT de/Bring swim suits.`
+* *Add a member to activity* : `activityAddMember ACTIVITY_INDEX MATRIC_NO` +
+e.g. `activityAddMember 1 A1234567N`
+* *Delete an activity* : ``activityDelete ACTIVITY_INDEX`` +
+e.g. `activityDelete 1`
+* *Delete a member from activity* : `activityDeleteMember ACTIVITY_INDEX MATRIC_NUMBER` +
+e.g. `activityDeleteMember 1 A1234567N`
+* *Edit an activity* : `activityEdit ACTIVITY_INDEX [n/ACTIVITY_NAME] [d/DATE] [t/TAG] … ` +
+e.g. `activityEdit 1 d/13022019`
+* *Find an activity* : `activityFind [PREFIX] KEYWORD [MORE_KEYWORDS] [NEXT_PREFIX KEYWORD] [MORE_KEYWORDS]` +
+e.g. `activityFind n/ Workshop`
+* *Filtering activities* : `activityFilter CONDITION NUMBER_OF_DAYS` +
+e.g. `activityFilter + 30`
+* *List all the activities* : `activityList`
+* *Select an activity* : `activitySelect ACTIVITY_INDEX` +
+e.g. `activitySelect 2`
+* *Exports an activity* : `activityExport ACTIVITY_INDEX` +
+e.g. `activityExport 1`
+
+=== Command Alias
+
+Alias for command keywords can be used in place of full text commands.
+
+* Member Functions
+** `memberAdd` or `mAdd`
+** `memberDelete` or 'mDelete'
+** `memberEdit` or `mEdit`
+** `memberFind` or `mFind`
+** `memberList` or `mList`
+** `memberSelect` or `mSelect`
+** `memberSort` or `mSort`
+** `memberExport` or `mExport`
+* Activity Functions
+** `activityAdd` or `aAdd`
+** `activityAddMember` or `aAddM`
+** `activityDelete` or `aDelete`
+** `activityDeleteMember` or `aDeleteM`
+** `activityEdit` or `aEdit`
+** `activityFind` or `aFind`
+** `activityFilter` or `aFilter`
+** `activityList` or `aList`
+** `activitySelect` or `aSelect`
+** `activityExport` or `aExport`

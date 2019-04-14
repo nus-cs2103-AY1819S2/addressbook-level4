@@ -1,42 +1,30 @@
 package systemtests;
 
-import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.GENDER_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.GENDER_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_PHONE_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.MAJOR_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.MAJOR_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.MATRICNUMBER_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.MATRICNUMBER_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.MATRICNUMBER_DESC_CINDY;
-import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_RUNNING;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_SWIMMING;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_MATRICNUMBER_CINDY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_SWIMMING;
-import static seedu.address.logic.commands.CommandTestUtil.YEAROFSTUDY_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.YEAROFSTUDY_DESC_BOB;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
-import static seedu.address.testutil.TypicalPersons.AMY;
 import static seedu.address.testutil.TypicalPersons.BOB;
 import static seedu.address.testutil.TypicalPersons.KEYWORD_MATCHING_MEIER;
 
@@ -69,9 +57,11 @@ public class MemberEditCommandSystemTest extends AddressBookSystemTest {
          */
         Index index = INDEX_FIRST_PERSON;
         String command = " " + MemberEditCommand.COMMAND_WORD + "  " + index.getOneBased() + "  " + NAME_DESC_BOB + "  "
-                + MATRICNUMBER_DESC_BOB + PHONE_DESC_BOB + " " + EMAIL_DESC_BOB + "  " + ADDRESS_DESC_BOB + " "
-                + GENDER_DESC_BOB + YEAROFSTUDY_DESC_BOB + MAJOR_DESC_BOB + TAG_DESC_SWIMMING + " ";
-        Person editedPerson = new PersonBuilder(BOB).withTags(VALID_TAG_SWIMMING).build();
+                 + PHONE_DESC_BOB + "  " + MAJOR_DESC_BOB + "  " + EMAIL_DESC_BOB + "  "
+                + ADDRESS_DESC_BOB + " " + GENDER_DESC_BOB + YEAROFSTUDY_DESC_BOB + MAJOR_DESC_BOB + TAG_DESC_SWIMMING
+                + " ";
+        Person editedPerson = new PersonBuilder(BOB).withMatricNumber("A0123123B")
+                .withTags(VALID_TAG_SWIMMING).build();
         assertCommandSuccess(command, index, editedPerson);
 
         /* Case: undo editing the last person in the list -> last person restored */
@@ -85,33 +75,15 @@ public class MemberEditCommandSystemTest extends AddressBookSystemTest {
         model.setPerson(getModel().getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased()), editedPerson);
         assertCommandSuccess(command, model, expectedResultMessage);
 
-        /* Case: edit a person with new values same as existing values -> edited */
-        command = MemberEditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + MATRICNUMBER_DESC_BOB
-                + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB + GENDER_DESC_BOB + YEAROFSTUDY_DESC_BOB
-                + MAJOR_DESC_BOB + TAG_DESC_RUNNING + TAG_DESC_SWIMMING;
-        assertCommandSuccess(command, index, BOB);
-
-        /* Case: edit a person with new values same as another person's values but with different name & matricNumber
-         -> edited */
-        assertTrue(getModel().getAddressBook().getPersonList().contains(BOB));
-        index = INDEX_SECOND_PERSON;
-        assertNotEquals(getModel().getFilteredPersonList().get(index.getZeroBased()), BOB);
-        command = MemberEditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_AMY + MATRICNUMBER_DESC_CINDY
-                + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB + GENDER_DESC_BOB + YEAROFSTUDY_DESC_BOB
-                + MAJOR_DESC_BOB + TAG_DESC_RUNNING + TAG_DESC_SWIMMING;
-        editedPerson = new PersonBuilder(BOB).withName(VALID_NAME_AMY)
-                .withMatricNumber(VALID_MATRICNUMBER_CINDY).build();
-        assertCommandSuccess(command, index, editedPerson);
-
         /* Case: edit a person with new values same as another person's values but with different phone and email
          * -> edited
          */
         index = INDEX_SECOND_PERSON;
-        command = MemberEditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + MATRICNUMBER_DESC_CINDY
-                + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_BOB + GENDER_DESC_BOB + YEAROFSTUDY_DESC_BOB
+        command = MemberEditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_AMY
+                + EMAIL_DESC_AMY + ADDRESS_DESC_BOB + GENDER_DESC_BOB + YEAROFSTUDY_DESC_BOB
                 + MAJOR_DESC_BOB + TAG_DESC_RUNNING + TAG_DESC_SWIMMING;
         editedPerson = new PersonBuilder(BOB).withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY)
-                .withMatricNumber(VALID_MATRICNUMBER_CINDY).build();
+                .withMatricNumber("A0222222B").build();
         assertCommandSuccess(command, index, editedPerson);
 
         /* Case: clear tags -> cleared */
@@ -139,21 +111,6 @@ public class MemberEditCommandSystemTest extends AddressBookSystemTest {
         int invalidIndex = getModel().getAddressBook().getPersonList().size();
         assertCommandFailure(MemberEditCommand.COMMAND_WORD + " " + invalidIndex + NAME_DESC_BOB,
                 Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
-
-        /* --------------------- Performing edit operation while a person card is selected -------------------------- */
-
-        /* Case: selects first card in the person list, edit a person -> edited, card selection remains unchanged but
-         * browser url changes
-         */
-        showAllPersons();
-        index = INDEX_FIRST_PERSON;
-        selectPerson(index);
-        command = MemberEditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_AMY + MATRICNUMBER_DESC_AMY
-                + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY + GENDER_DESC_AMY + YEAROFSTUDY_DESC_AMY
-                + MAJOR_DESC_AMY + TAG_DESC_SWIMMING;
-        // this can be misleading: card selection actually remains unchanged but the
-        // browser's url is updated to reflect the new person's name
-        assertCommandSuccess(command, index, AMY, index);
 
         /* --------------------------------- Performing invalid edit operation -------------------------------------- */
 

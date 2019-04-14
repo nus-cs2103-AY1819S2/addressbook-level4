@@ -27,6 +27,7 @@ public class DeleteCommandSystemTest extends FinanceTrackerSystemTest {
     @Test
     public void delete() {
 
+
         /* ----------------- Performing delete operation while an unfiltered list is being shown -------------------- */
 
 

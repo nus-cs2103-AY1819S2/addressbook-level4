@@ -583,7 +583,9 @@ Entering the `summary` command in the command box will allow you to switch from 
 .Summary panel is displayed when user enters the  `summary` command
 image::summaryUI.png[width ="800"]
 
-You can also specify a report period by stating the number of days or months via the `PERIOD_AMOUNT` and `PERIOD` parameters. However, these parameters are optional.
+You can also specify a report period by stating the number of days or months via the `PERIOD_AMOUNT` and `PERIOD` parameters.
+`PERIOD_AMOUNT` refers to a positive integer, whereas `PERIOD` refers to a "day" or "month", represented as "d" and "m" respectively.
+However, these parameters are optional.
 
 To exit the summary view mode, simply type `summary` in the command box again.
 Your screen should change back to the browser view mode as shown in the diagram below.

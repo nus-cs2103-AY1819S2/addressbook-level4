@@ -46,7 +46,7 @@ public class DoctorCard extends UiPart<Region> {
         this.doctor = doctor;
         id.setText(displayedIndex + ". ");
         name.setText(doctor.getName().fullName);
-        did.setText(doctor.getIdToString());
+        did.setText("| did: " + doctor.getIdToString());
         gender.setText(doctor.getGender().value);
         year.setText(doctor.getYear().value);
         phone.setText(doctor.getPhone().value);

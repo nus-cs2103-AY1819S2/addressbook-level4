@@ -17,6 +17,9 @@
             <padding>
                 <Insets top="5" right="5" bottom="5" left="15"/>
             </padding>
+            <HBox spacing="5" alignment="CENTER_RIGHT">
+                <Label fx:id="did" styleClass="cell_small_label" text="\$did" />
+            </HBox>
             <HBox spacing="5" alignment="CENTER_LEFT">
                 <Label fx:id="id" styleClass="cell_big_label">
                     <minWidth>
@@ -26,9 +29,6 @@
                 </Label>
                 <Label text="Dr."></Label>
                 <Label fx:id="name" text="\$first" styleClass="cell_big_label"/>
-                <Label styleClass="cell_small_label" text="( did:"></Label>
-                <Label fx:id="did" text="\$did" styleClass="cell_small_label" />
-                <Label styleClass="cell_small_label" text=")"></Label>
             </HBox>
             <HBox spacing="5" alignment="CENTER_LEFT">
                 <Label fx:id="gender" styleClass="cell_small_label" text="\$gender" />

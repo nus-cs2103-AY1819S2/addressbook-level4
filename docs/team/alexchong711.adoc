@@ -71,7 +71,9 @@ The guide will include sequence diagrams about how the `cklimit`, `cursem`, and 
 |===
 
 include::../DeveloperGuide.adoc[tag=CheckLimit]
+
 include::../DeveloperGuide.adoc[tag=SetCurrentSemester]
+
 include::../DeveloperGuide.adoc[tag=SetSemesterLimit]
 
 |===

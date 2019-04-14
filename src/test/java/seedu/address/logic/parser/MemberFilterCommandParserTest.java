@@ -21,8 +21,11 @@ public class MemberFilterCommandParserTest {
 
     @Test
     public void parse_validArgs_returnsFilterCommand() {
+        String[] input = new String[2];
+        input[0] = "yearofstudy";
+        input[1] = "2";
         MemberFilterCommand expectedFilterCommand =
-                new MemberFilterCommand(new FilterCriteriaContainsKeywordPredicate(("yearOfStudy 2")));
+                new MemberFilterCommand(input);
         assertParseSuccess(parser, "yearOfStudy 2", expectedFilterCommand);
         assertParseFailure(parser, "year 1", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                 MemberFilterCommand.MESSAGE_USAGE));

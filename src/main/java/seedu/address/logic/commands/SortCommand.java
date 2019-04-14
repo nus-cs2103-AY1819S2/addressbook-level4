@@ -1,18 +1,15 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DIRECTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PROPERTY;
 
 import seedu.address.commons.core.InformationPanelSettings;
-import seedu.address.commons.core.InformationPanelSettings.SortDirection;
-import seedu.address.commons.core.InformationPanelSettings.SortProperty;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 
 /**
- * Sorts the batch table according to the entered property and direction.
+ * Changes the property and direction that the batch table in information panel is sorted by.
  */
 public class SortCommand extends Command {
 
@@ -31,24 +28,21 @@ public class SortCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Batch table sorted with %s.";
 
-    private final SortProperty sortProperty;
-    private final SortDirection sortDirection;
+    private final InformationPanelSettings informationPanelSettings;
 
     /**
-     * Creates an AddCommand to add the specified {@code Medicine}
+     * Creates a SortCommand to change the {@code informationPanelSettings}
      */
-    public SortCommand(SortProperty sortProperty, SortDirection sortDirection) {
-        requireAllNonNull(sortProperty, sortDirection);
+    public SortCommand(InformationPanelSettings informationPanelSettings) {
+        requireNonNull(informationPanelSettings);
 
-        this.sortProperty = sortProperty;
-        this.sortDirection = sortDirection;
+        this.informationPanelSettings = informationPanelSettings;
     }
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
 
-        InformationPanelSettings informationPanelSettings = new InformationPanelSettings(sortProperty, sortDirection);
         model.setInformationPanelSettings(informationPanelSettings);
         return new CommandResult(String.format(MESSAGE_SUCCESS, informationPanelSettings));
     }
@@ -57,8 +51,7 @@ public class SortCommand extends Command {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof SortCommand // instanceof handles nulls
-                && sortProperty.equals(((SortCommand) other).sortProperty)
-                && sortDirection.equals(((SortCommand) other).sortDirection));
+                && informationPanelSettings.equals(((SortCommand) other).informationPanelSettings));
     }
 }
 

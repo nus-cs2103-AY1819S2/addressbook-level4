@@ -7,7 +7,6 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.medicine.Batch;
 import seedu.address.model.medicine.BatchNumber;
 import seedu.address.model.medicine.Expiry;
-import seedu.address.model.medicine.Name;
 import seedu.address.model.medicine.Quantity;
 
 /**
@@ -52,7 +51,7 @@ class JsonAdaptedBatch {
                     BatchNumber.class.getSimpleName()));
         }
         if (!BatchNumber.isValidBatchNumber(batchNumber)) {
-            throw new IllegalValueException(Name.MESSAGE_CONSTRAINTS);
+            throw new IllegalValueException(BatchNumber.MESSAGE_CONSTRAINTS);
         }
         final BatchNumber modelBatchNumber = new BatchNumber(batchNumber);
 

@@ -18,6 +18,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_COMPANY_GABAPEN
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_GABAPENTIN;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FEVER;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_PAINKILLER;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.address.testutil.TypicalMedicines.GABAPENTIN;
@@ -49,7 +50,7 @@ public class AddCommandParserTest {
 
         // multiple companies - last company accepted
         assertParseSuccess(parser, NAME_DESC_GABAPENTIN + COMPANY_DESC_AMOXICILLIN + COMPANY_DESC_GABAPENTIN
-                        + TAG_DESC_FEVER, new AddCommand(expectedMedicine));
+                + TAG_DESC_FEVER, new AddCommand(expectedMedicine));
 
         // multiple tags - all accepted
         Medicine expectedMedicineMultipleTags = new MedicineBuilder(GABAPENTIN)
@@ -75,7 +76,7 @@ public class AddCommandParserTest {
 
         // missing company prefix
         assertParseFailure(parser, NAME_DESC_GABAPENTIN + QUANTITY_DESC_GABAPENTIN + EXPIRY_DESC_GABAPENTIN
-                        + VALID_COMPANY_GABAPENTIN, expectedMessage);
+                + VALID_COMPANY_GABAPENTIN, expectedMessage);
 
         // all prefixes missing
         assertParseFailure(parser, VALID_NAME_GABAPENTIN + VALID_COMPANY_GABAPENTIN, expectedMessage);
@@ -102,5 +103,16 @@ public class AddCommandParserTest {
         assertParseFailure(parser, PREAMBLE_NON_EMPTY + NAME_DESC_GABAPENTIN + COMPANY_DESC_GABAPENTIN
                 + TAG_DESC_PAINKILER + TAG_DESC_FEVER, String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                 AddCommand.MESSAGE_USAGE));
+    }
+
+    @Test
+    public void parse_tooManyTags_failure() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(NAME_DESC_GABAPENTIN).append(COMPANY_DESC_GABAPENTIN);
+        for (int i = 0; i < Medicine.MAX_SIZE_TAG + 1; i++) {
+            sb.append(" ").append(PREFIX_TAG).append(i);
+        }
+        assertParseFailure(parser, sb.toString(), String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                Medicine.MESSAGE_CONSTRAINTS_TAGS));
     }
 }

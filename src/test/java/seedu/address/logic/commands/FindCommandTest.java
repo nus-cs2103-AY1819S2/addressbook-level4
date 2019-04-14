@@ -43,7 +43,7 @@ public class FindCommandTest {
     @Test
     public void execute_nameContainsKeywordsPredicate_medicineFound() {
         String expectedMessage = String.format(MESSAGE_MEDICINES_LISTED_OVERVIEW, 1);
-        Predicate<Medicine> predicate = preparePredicate(PREFIX_NAME, "Acetaminophen");
+        Predicate<Medicine> predicate = preparePredicate(PREFIX_NAME, ACETAMINOPHEN.toString());
         FindCommand command = new FindCommand(predicate);
         expectedModel.updateFilteredMedicineList(predicate);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
@@ -53,7 +53,7 @@ public class FindCommandTest {
     @Test
     public void execute_companyContainsKeywordsPredicate_medicineFound() {
         String expectedMessage = String.format(MESSAGE_MEDICINES_LISTED_OVERVIEW, 1);
-        Predicate<Medicine> predicate = preparePredicate(PREFIX_COMPANY, "Takeda");
+        Predicate<Medicine> predicate = preparePredicate(PREFIX_COMPANY, LISINOPRIL.getCompany().toString());
         FindCommand command = new FindCommand(predicate);
         expectedModel.updateFilteredMedicineList(predicate);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
@@ -63,7 +63,8 @@ public class FindCommandTest {
     @Test
     public void execute_tagContainsKeywordsPredicate_medicineFound() {
         String expectedMessage = String.format(MESSAGE_MEDICINES_LISTED_OVERVIEW, 1);
-        Predicate<Medicine> predicate = preparePredicate(PREFIX_TAG, "inflammation");
+        String tag = IBUPROFEN.getTags().iterator().next().tagName;
+        Predicate<Medicine> predicate = preparePredicate(PREFIX_TAG, tag);
         FindCommand command = new FindCommand(predicate);
         expectedModel.updateFilteredMedicineList(predicate);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
@@ -73,7 +74,8 @@ public class FindCommandTest {
     @Test
     public void execute_batchContainsKeywordsPredicate_medicineFound() {
         String expectedMessage = String.format(MESSAGE_MEDICINES_LISTED_OVERVIEW, 1);
-        Predicate<Medicine> predicate = preparePredicate(PREFIX_BATCHNUMBER, "A030F21");
+        String batch = PREDNISONE.getBatches().keySet().iterator().next().toString();
+        Predicate<Medicine> predicate = preparePredicate(PREFIX_BATCHNUMBER, batch);
         FindCommand command = new FindCommand(predicate);
         expectedModel.updateFilteredMedicineList(predicate);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
@@ -83,7 +85,8 @@ public class FindCommandTest {
     @Test
     public void execute_multipleKeywords_multipleMedicinesFound() {
         String expectedMessage = String.format(MESSAGE_MEDICINES_LISTED_OVERVIEW, 3);
-        Predicate<Medicine> predicate = preparePredicate(PREFIX_NAME, "Acetaminophen Lisinopril Prednisone");
+        Predicate<Medicine> predicate = preparePredicate(PREFIX_NAME, ACETAMINOPHEN.toString() + " "
+                + LISINOPRIL.toString() + " " + PREDNISONE.toString());
         FindCommand command = new FindCommand(predicate);
         expectedModel.updateFilteredMedicineList(predicate);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);

@@ -24,10 +24,11 @@ public class SortCommandTest {
     public void execute_success() {
         SortProperty sortProperty = SortProperty.EXPIRY;
         SortDirection sortDirection = SortDirection.DESCENDING;
-        SortCommand sortCommand = new SortCommand(sortProperty, sortDirection);
+        InformationPanelSettings informationPanelSettings = new InformationPanelSettings(sortProperty, sortDirection);
+
+        SortCommand sortCommand = new SortCommand(informationPanelSettings);
 
         Model expectedModel = new ModelManager(new Inventory(model.getInventory()), new UserPrefs());
-        InformationPanelSettings informationPanelSettings = new InformationPanelSettings(sortProperty, sortDirection);
         expectedModel.setInformationPanelSettings(informationPanelSettings);
         String expectedMessage = String.format(SortCommand.MESSAGE_SUCCESS, informationPanelSettings);
         assertCommandSuccess(sortCommand, model, commandHistory, expectedMessage, expectedModel);
@@ -35,13 +36,15 @@ public class SortCommandTest {
 
     @Test
     public void equals() {
-        SortCommand sortCommand = new SortCommand(SortProperty.QUANTITY, SortDirection.DESCENDING);
+        InformationPanelSettings informationPanelSettings = new InformationPanelSettings(SortProperty.QUANTITY,
+                SortDirection.DESCENDING);
+        SortCommand sortCommand = new SortCommand(informationPanelSettings);
 
         // same object -> returns true
         assertTrue(sortCommand.equals(sortCommand));
 
         // same values -> returns true
-        SortCommand sortCommandCopy = new SortCommand(SortProperty.QUANTITY, SortDirection.DESCENDING);
+        SortCommand sortCommandCopy = new SortCommand(informationPanelSettings);
         assertTrue(sortCommand.equals(sortCommandCopy));
 
         // different types -> returns false
@@ -50,8 +53,9 @@ public class SortCommandTest {
         // null -> returns false
         assertFalse(sortCommand.equals(null));
 
-        // different medicine -> returns false
-        SortCommand otherSortCommand = new SortCommand(SortProperty.EXPIRY, SortDirection.DESCENDING);
+        // different values -> returns false
+        SortCommand otherSortCommand = new SortCommand(new InformationPanelSettings(SortProperty.EXPIRY,
+                SortDirection.DESCENDING));
         assertFalse(sortCommand.equals(otherSortCommand));
     }
 }

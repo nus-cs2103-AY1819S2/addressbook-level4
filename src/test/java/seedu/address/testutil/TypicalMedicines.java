@@ -33,7 +33,7 @@ public class TypicalMedicines {
     public static final Medicine ACETAMINOPHEN = new MedicineBuilder().withName("Acetaminophen").withCompany("Pfizer")
             .withQuantity("0").withExpiry("-").build();
     public static final Medicine LEVOTHYROXINE = new MedicineBuilder().withName("Levothyroxine Sodium")
-            .withCompany("3M Pharmaceuticals").withQuantity("533").withExpiry("13/08/2019").withTags("thyroid")
+            .withCompany("3M Pharmaceuticals").withQuantity("533").withExpiry("31/07/2019").withTags("thyroid")
             .withBatches("GKP1684", "233", "13/08/2019", "GKP1685", "300", "15/08/2019", "GKP1682", "5", "31/07/2019")
             .build();
     public static final Medicine LISINOPRIL = new MedicineBuilder().withName("Lisinopril")

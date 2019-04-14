@@ -1,6 +1,6 @@
 package seedu.address.testutil;
 
-import seedu.address.logic.commands.medicalHistory.EditMedHistCommand;
+import seedu.address.logic.commands.medicalhistory.EditMedHistCommand;
 import seedu.address.model.medicalhistory.MedicalHistory;
 import seedu.address.model.medicalhistory.WriteUp;
 

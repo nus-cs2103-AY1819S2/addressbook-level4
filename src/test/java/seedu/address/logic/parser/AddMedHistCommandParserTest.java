@@ -4,8 +4,8 @@ import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSucces
 
 import org.junit.Test;
 
-import seedu.address.logic.commands.medicalHistory.AddMedHistCommand;
-import seedu.address.logic.parser.medicalHistory.AddMedHistCommandParser;
+import seedu.address.logic.commands.medicalhistory.AddMedHistCommand;
+import seedu.address.logic.parser.medicalhistory.AddMedHistCommandParser;
 import seedu.address.model.medicalhistory.MedicalHistory;
 import seedu.address.model.medicalhistory.ValidDate;
 import seedu.address.model.medicalhistory.WriteUp;

@@ -36,22 +36,22 @@ import seedu.address.logic.commands.SortPrescriptionCommand;
 import seedu.address.logic.commands.appointment.AddAppointmentCommand;
 import seedu.address.logic.commands.appointment.ListAppointmentCommand;
 import seedu.address.logic.commands.appointment.MarkAppointmentCommand;
-import seedu.address.logic.commands.medicalHistory.AddMedHistCommand;
-import seedu.address.logic.commands.medicalHistory.EditMedHistCommand;
-import seedu.address.logic.commands.medicalHistory.ListMedHistCommand;
-import seedu.address.logic.commands.medicalHistory.SearchMedHistCommand;
-import seedu.address.logic.commands.medicalHistory.SelectMedHistCommand;
-import seedu.address.logic.commands.medicalHistory.SortMedHistCommand;
+import seedu.address.logic.commands.medicalhistory.AddMedHistCommand;
+import seedu.address.logic.commands.medicalhistory.EditMedHistCommand;
+import seedu.address.logic.commands.medicalhistory.ListMedHistCommand;
+import seedu.address.logic.commands.medicalhistory.SearchMedHistCommand;
+import seedu.address.logic.commands.medicalhistory.SelectMedHistCommand;
+import seedu.address.logic.commands.medicalhistory.SortMedHistCommand;
 import seedu.address.logic.parser.appointment.AddAppointmentCommandParser;
 import seedu.address.logic.parser.appointment.ListAppointmentCommandParser;
 import seedu.address.logic.parser.appointment.MarkAppointmentCommandParser;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.logic.parser.medicalHistory.AddMedHistCommandParser;
-import seedu.address.logic.parser.medicalHistory.EditMedHistCommandParser;
-import seedu.address.logic.parser.medicalHistory.ListMedHistCommandParser;
-import seedu.address.logic.parser.medicalHistory.SearchMedHistCommandParser;
-import seedu.address.logic.parser.medicalHistory.SelectMedHistCommandParser;
-import seedu.address.logic.parser.medicalHistory.SortMedHistCommandParser;
+import seedu.address.logic.parser.medicalhistory.AddMedHistCommandParser;
+import seedu.address.logic.parser.medicalhistory.EditMedHistCommandParser;
+import seedu.address.logic.parser.medicalhistory.ListMedHistCommandParser;
+import seedu.address.logic.parser.medicalhistory.SearchMedHistCommandParser;
+import seedu.address.logic.parser.medicalhistory.SelectMedHistCommandParser;
+import seedu.address.logic.parser.medicalhistory.SortMedHistCommandParser;
 
 /**
  * Parses user input.

@@ -74,8 +74,8 @@ public class Prescription {
     }
 
     /**
-     * Returns true if both medicalHistory have the same identity and data fields.
-     * This defines a stronger notion of equality between two medicalHistory.
+     * Returns true if both medicalhistory have the same identity and data fields.
+     * This defines a stronger notion of equality between two medicalhistory.
      */
     @Override
     public boolean equals(Object other) {

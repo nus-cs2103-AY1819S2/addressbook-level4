@@ -1,4 +1,4 @@
-package seedu.address.logic.commands.medicalHistory;
+package seedu.address.logic.commands.medicalhistory;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE_OF_MEDHIST;

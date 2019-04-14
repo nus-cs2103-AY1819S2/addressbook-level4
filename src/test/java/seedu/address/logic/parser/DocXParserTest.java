@@ -41,7 +41,7 @@ import seedu.address.logic.commands.SearchPatientCommand;
 import seedu.address.logic.commands.SelectDoctorCommand;
 import seedu.address.logic.commands.SelectPatientCommand;
 import seedu.address.logic.commands.appointment.AddAppointmentCommand;
-import seedu.address.logic.commands.medicalHistory.AddMedHistCommand;
+import seedu.address.logic.commands.medicalhistory.AddMedHistCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.appointment.AppointmentDate;
 import seedu.address.model.appointment.AppointmentDoctorId;

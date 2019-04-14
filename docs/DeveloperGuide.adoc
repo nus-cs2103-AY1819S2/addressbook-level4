@@ -19,7 +19,7 @@ By: `Team W17-3`      Since: `March 2019`      Licence: `MIT`
 
 == Introduction
 
-Welcome to the _In-Credit-Ble_ Developer Guide!
+[blue]#Welcome to the _In-Credit-Ble_ Developer Guide!#
 
 _In-Credit-Ble_ is a finance tracker application created to simplify the managing and tracking
 of the user’s personal finances. With _In-Credit-Ble_, users will be able to stick to their budget
@@ -35,11 +35,11 @@ and <<ContactUs#, ContactUs.adoc>> for more information on how to contact us!
 
 === Prerequisites
 
-. *JDK `9`* or later
+. *JDK `[fuchsia]#9#`* or later
 +
 [WARNING]
-JDK `10` on Windows will fail to run tests in <<UsingGradle#Running-Tests, headless mode>> due to a https://github.com/javafxports/openjdk-jfx/issues/66[JavaFX bug].
-Windows developers are highly recommended to use JDK `9`.
+JDK `[fuchsia]#10#` on Windows will fail to run tests in <<UsingGradle#Running-Tests, headless mode>> due to a https://github.com/javafxports/openjdk-jfx/issues/66[JavaFX bug].
+Windows developers are highly recommended to use JDK `[fuchsia]#9#`.
 
 . *IntelliJ* IDE
 +
@@ -58,16 +58,16 @@ Do not disable them. If you have disabled them, go to menu:File[Settings > Plugi
 . Locate the `build.gradle` file and select it. Click btn:[OK]
 . Click btn:[Open as Project]
 . Click btn:[OK] to accept the default settings
-. Open a console and run the command `gradlew processResources` (Mac/Linux: `./gradlew processResources`). It should finish with the `BUILD SUCCESSFUL` message. +
+. Open a console and run the command `[fuchsia]#gradlew processResources#` (Mac/Linux: `[fuchsia]#./gradlew processResources#`). It should finish with the `[fuchsia]#BUILD SUCCESSFUL#` message. +
 This will generate all resources required by the application and tests.
-. Open link:{repoURL}/src/main/java/seedu/finance/ui/MainWindow.java[`MainWindow.java`] and check for any code errors
+. Open link:{repoURL}/src/main/java/seedu/finance/ui/MainWindow.java[`[blue]#MainWindow.java#`] and check for any code errors
 .. Due to an ongoing https://youtrack.jetbrains.com/issue/IDEA-189060[issue] with some of the newer versions of IntelliJ, code errors may be detected even if the project can be built and run successfully
-.. To resolve this, place your cursor over any of the code section highlighted in red. Press kbd:[ALT + ENTER], and select btn:[Add '--add-modules=...' to module compiler options] for each error
-. Repeat this for the test folder as well (e.g. check link:{repoURL}/src/test/java/seedu/finance/ui/HelpWindowTest.java[`HelpWindowTest.java`] for code errors, and if so, resolve it the same way)
+.. To resolve this, place your cursor over any of the code section highlighted in [red]#red#. Press kbd:[ALT + ENTER], and select btn:[Add '--add-modules=...' to module compiler options] for each error
+. Repeat this for the test folder as well (e.g. check link:{repoURL}/src/test/java/seedu/finance/ui/HelpWindowTest.java[`[blue]#HelpWindowTest.java#`] for code errors, and if so, resolve it the same way)
 
 === Verifying the setup
 
-. Run `seedu.finance.MainApp` and try a few commands
+. Run `[fuchsia]#seedu.finance.MainApp#` and try a few commands
 . <<Testing,Run the tests>> to ensure they all pass.
 
 === Configurations to do before writing code
@@ -80,20 +80,20 @@ This project follows https://github.com/oss-generic/process/blob/master/docs/Cod
 . Select menu:Editor[Code Style > Java]
 . Click on the btn:[Imports] tab to set the order
 
-* For btn:[Class count to use import with '\*'] and btn:[Names count to use static import with '*']: Set to `999` to prevent IntelliJ from contracting the import statements
-* For btn:[Import Layout]: The order is `import static all other imports`, `import java.\*`, `import javax.*`, `import org.\*`, `import com.*`, `import all other imports`. Add a btn:[<blank line>] between each `import`
+* For btn:[Class count to use import with '\*'] and btn:[Names count to use static import with '*']: Set to `[fuchsia]#999#` to prevent IntelliJ from contracting the import statements
+* For btn:[Import Layout]: The order is `[fuchsia]#import static all other imports#`, `[fuchsia]#import java.\*#`, `[fuchsia]#import javax.*#`, `[fuchsia]#import org.\*#`, `[fuchsia]#import com.*#`, `[fuchsia]#import all other imports#`. Add a btn:[<blank line>] between each `[fuchsia]#import#`
 
 Optionally, you can follow the <<UsingCheckstyle#, UsingCheckstyle.adoc>> document to configure Intellij to check style-compliance as you write code.
 
 ==== Updating documentation to match your fork
 
-After forking the repo, the documentation will still refer to the `CS2103-AY1819S2-W17-3/main` repo.
+After forking the repo, the documentation will still refer to the `[fuchsia]#CS2103-AY1819S2-W17-3/main#` repo.
 
-If you plan to develop this fork as a separate product (i.e. instead of contributing to `In-Credit-Ble`), you should do the following:
+If you plan to develop this fork as a separate product (i.e. instead of contributing to `[fuchsia]#In-Credit-Ble#`), you should do the following:
 
-. Configure the <<Docs-SiteWideDocSettings, site-wide documentation settings>> in link:{repoURL}/build.gradle[`build.gradle`], such as the `site-name`, to suit your own project.
+. Configure the <<Docs-SiteWideDocSettings, site-wide documentation settings>> in link:{repoURL}/build.gradle[`[blue]#build.gradle#`], such as the `[fuchsia]#site-name#`, to suit your own project.
 
-. Replace the URL in the attribute `repoURL` in link:{repoURL}/docs/DeveloperGuide.adoc[`DeveloperGuide.adoc`] and link:{repoURL}/docs/UserGuide.adoc[`UserGuide.adoc`] with the URL of your fork.
+. Replace the URL in the attribute `[fuchsia]#repoURL#` in link:{repoURL}/docs/DeveloperGuide.adoc[`[blue]#DeveloperGuide.adoc#`] and link:{repoURL}/docs/UserGuide.adoc[`[blue]#UserGuide.adoc#`] with the URL of your fork.
 
 
 ==== Setting up CI

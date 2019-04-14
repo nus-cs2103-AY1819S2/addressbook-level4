@@ -16,7 +16,7 @@ import java.util.List;
 import org.junit.Test;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.management.QuizStartCommand;
+import seedu.address.logic.commands.management.StartCommand;
 import seedu.address.model.lesson.Lesson;
 import seedu.address.model.modelmanager.ManagementModel;
 import seedu.address.model.modelmanager.Model;
@@ -39,7 +39,7 @@ public class QuizAnswerCommandSystemTest extends BrainTrainSystemTest {
             }
         }
 
-        StringBuilder sb = new StringBuilder(QuizStartCommand.COMMAND_WORD);
+        StringBuilder sb = new StringBuilder(StartCommand.COMMAND_WORD);
         sb.append(" ").append(index.getOneBased()).append(" c/2 m/REVIEW \n");
         executeCommand(sb.toString());
 

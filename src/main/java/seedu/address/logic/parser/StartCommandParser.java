@@ -6,7 +6,7 @@ import static seedu.address.logic.parser.Syntax.PREFIX_START_MODE;
 
 import java.util.stream.Stream;
 
-import seedu.address.logic.commands.management.QuizStartCommand;
+import seedu.address.logic.commands.management.StartCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.quiz.QuizMode;
 import seedu.address.model.session.Session;
@@ -25,24 +25,24 @@ public class StartCommandParser implements Parser {
      * @throws ParseException if the user input does not conform the expected format
      */
     @Override
-    public QuizStartCommand parse(String args) throws ParseException {
+    public StartCommand parse(String args) throws ParseException {
         String[] splited = args.split("\\s+");
         ArgumentMultimap argMultimap =
             ArgumentTokenizer.tokenize(args, PREFIX_START_COUNT, PREFIX_START_MODE);
         if (!arePrefixesPresent(argMultimap, PREFIX_START_MODE)) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, QuizStartCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, StartCommand.MESSAGE_USAGE));
         }
         int index;
         try {
             index = Integer.parseInt(splited[1]);
         } catch (NumberFormatException e) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, QuizStartCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, StartCommand.MESSAGE_USAGE));
         }
         int count = ParserUtil.parseCount(argMultimap.getValue(PREFIX_START_COUNT)
             .orElse(String.valueOf(Session.CARD_COUNT_MINIMUM)));
         QuizMode mode = ParserUtil.parseMode(argMultimap.getValue(PREFIX_START_MODE).get());
         Session session = new Session(index, count, mode);
-        return new QuizStartCommand(session);
+        return new StartCommand(session);
     }
 
     /**

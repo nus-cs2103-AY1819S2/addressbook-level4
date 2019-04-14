@@ -32,7 +32,7 @@ import seedu.address.model.user.CardSrsData;
  * It requires a {@link QuizModel} to be passed into the {@link #execute(Model, CommandHistory)}
  * command.
  */
-public class QuizStartCommand extends QuizCommand {
+public class StartCommand extends QuizCommand {
     public static final String COMMAND_WORD = "start";
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + "Parameters: "
@@ -54,7 +54,7 @@ public class QuizStartCommand extends QuizCommand {
      *
      * @param session to be opened.
      */
-    public QuizStartCommand(Session session) {
+    public StartCommand(Session session) {
         requireNonNull(session);
         this.session = session;
     }

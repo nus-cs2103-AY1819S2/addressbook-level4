@@ -35,8 +35,8 @@ import seedu.address.logic.commands.management.ExitCommand;
 import seedu.address.logic.commands.management.HelpCommand;
 import seedu.address.logic.commands.management.HistoryCommand;
 import seedu.address.logic.commands.management.QuitLessonCommand;
-import seedu.address.logic.commands.management.QuizStartCommand;
 import seedu.address.logic.commands.management.ReloadLessonsCommand;
+import seedu.address.logic.commands.management.StartCommand;
 import seedu.address.logic.commands.quiz.QuizAnswerCommand;
 import seedu.address.logic.commands.quiz.QuizQuitCommand;
 import seedu.address.logic.commands.quiz.QuizStatusCommand;
@@ -139,7 +139,7 @@ public class LogicManagerTest {
         managementModel = new ManagementModelManager(new UserPrefs(), lessonList, new User());
         logic = new LogicManager(managementModel, quizModel, storage);
 
-        assertCommandSuccess(QuizStartCommand.COMMAND_WORD + " 1 c/2 m/PREVIEW",
+        assertCommandSuccess(StartCommand.COMMAND_WORD + " 1 c/2 m/PREVIEW",
                 "Starting new quiz\nCurrent lesson: Capitals", expectedMgmtMgr);
     }
 

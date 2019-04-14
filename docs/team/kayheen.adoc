@@ -87,6 +87,8 @@ include::../UserGuide.adoc[tag=WaterMarkCommand]
 
 include::../DeveloperGuide.adoc[tag=Architecture]
 
+include::../DeveloperGuide.adoc[tag=ArchiInteraction]
+
 include::../DeveloperGuide.adoc[tag=ImageManipulation]
 
 include::../DeveloperGuide.adoc[tag=WaterMark]

@@ -24,7 +24,7 @@ For new users, jump to <<Quick Start>> for an overview on how to use FomoFoto an
 
 
 == Quick Start
-// tag::QuickStartOne[]
+// tag::QuickStart[]
 System Requirements:
 
 * *Windows 10 or newer / OS X 10.8 or newer.*
@@ -36,14 +36,12 @@ Follow the steps below to set up your computer to run FomoFoto:
 .  Download the latest FomoFoto.jar https://github.com/CS2103-AY1819S2-W14-2/main/releases[here].
 .  Copy the JAR to the folder you want to use as the home folder for your FomoFoto application.
 .  Double-click the JAR to start the application. The Graphical User Interface should appear in a few seconds.
-// end::QuickStartOne[]
 +
 .Home Page of FomoFoto
 image::ui.png[width="800"]
 +
-// tag::QuickStartTwo[]
 .  You have just successfully setup FomoFoto on your device. To see the command available in FomoFoto, refer to <<Features>> for details of each command. A step-by-step walkthrough of FomoFoto is available at the next section: <<A Walk Through>>.
-// end::QuickStartTwo[]
+// end::QuickStart[]
 
 // tag::AWalkThrough[]
 == A Walk Through
@@ -111,9 +109,8 @@ image::brightnessSuccess.PNG[width="917"]
 image::cropSuccess.PNG[width="918"]
 +
 
-// end::AWalkThrough[]
-
 .  Save your edits by typing command: `save`.
+// end::AWalkThrough[]
 
 [[Features]]
 == Features
@@ -396,7 +393,7 @@ Undoable commands: those commands that modify the image (`rotate`, `crop`, `resi
 // tag::WaterMarkCommand[]
 === WaterMark : `wm`
 
-Adds a watermark to the image with a (C) at the start of the input message. +
+Adds a watermark to the image with a (C) at the start of the input message. Should the message be too long to fit within the width of the image, the message will get cut off. +
 Format: `wm MESSAGE`
 
 [NOTE]
@@ -451,6 +448,8 @@ e.g. `bw 127` +
 
 * *Brightness* `brightness [BRIGHTNESS_RATIO]` +
 e.g. `brightness 0.8` +
+
+* *Clear* `clear` +
 
 * *Contrast* `contrast [CONTRAST_RATIO]` +
 e.g. `contrast 1.9` +

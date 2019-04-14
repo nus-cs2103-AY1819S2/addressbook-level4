@@ -152,7 +152,6 @@ public class UniqueRequestList implements Iterable<Request> {
                 Request editedRequest = new Request(request);
                 editedRequest.setHealthStaff(newNric);
                 setRequest(request, editedRequest);
-
             }
         }
     }

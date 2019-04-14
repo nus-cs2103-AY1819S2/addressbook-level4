@@ -37,7 +37,8 @@ public class CsvWrapper {
     public static final String DEFAULT_EXPIRED_NOTIFICATION = "[EXPIRED]";
     public static final String DEFAULT_LOW_STOCK_NOTIFICATION = "[LOW STOCK]";
     // The reason for the limitation to 255 characters for file name is due to the limitations
-    // set by Windows (MAX_PATH limitation in Windows https://en.wikipedia.org/wiki/Filename#Comparison_of_filename_limitations
+    // set by Windows (MAX_PATH limitation
+    // in Windows https://en.wikipedia.org/wiki/Filename#Comparison_of_filename_limitations
     // and also different file systems supports up to different characters.
     // There is no universal way of solving this problem to
     // allow portability between different operating systems such as Windows, Linux and macOS due to this limitation,

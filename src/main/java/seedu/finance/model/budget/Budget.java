@@ -41,14 +41,6 @@ public class Budget {
         this.currentSpendings = totalBudget - currentBudget;
     }
 
-    public Budget(double totalBudget, double currentSpending, double currentBudget) {
-        checkArgument(isValidBudget(totalBudget, currentBudget));
-
-        this.totalBudget = totalBudget;
-        this.currentBudget = currentBudget;
-        this.currentSpendings = currentSpending;
-    }
-
     public Budget(Budget budget) {
         requireNonNull(budget);
 
@@ -155,8 +147,19 @@ public class Budget {
     }
 
     @Override
-    public boolean equals(Object budget) {
-        Budget otherBudget = (Budget) budget;
-        return this.totalBudget == otherBudget.totalBudget;
+    public boolean equals(Object other) {
+        // short circuit if same object
+        if (other == this) {
+            return true;
+        }
+
+        // instanceof handles null
+        if (!(other instanceof Budget)) {
+            return false;
+        }
+
+        Budget otherBudget = (Budget) other;
+        return this.totalBudget == otherBudget.totalBudget
+                && this.currentBudget == otherBudget.currentBudget;
     }
 }

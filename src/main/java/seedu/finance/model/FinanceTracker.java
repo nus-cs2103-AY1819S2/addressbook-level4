@@ -180,7 +180,8 @@ public class FinanceTracker implements ReadOnlyFinanceTracker {
 
     @Override
     public String toString() {
-        return records.asUnmodifiableObservableList().size() + " records";
+        return records.asUnmodifiableObservableList().size() + " records\n"
+                + "budget: " + budget;
     }
 
     @Override

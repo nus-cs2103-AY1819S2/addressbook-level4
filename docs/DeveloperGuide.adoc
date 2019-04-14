@@ -117,7 +117,7 @@ When you are ready to start coding,
 1. Get some sense of the overall design by reading <<Design-Architecture>>.
 2. Take a look at <<GetStartedProgramming>>.
 
-// tag::design[]
+
 == Design
 
 [[Design-Architecture]]
@@ -158,7 +158,7 @@ For example, the `Logic` component (see the class diagram given below) defines i
 exposes its functionality using the `LogicManager.java` class.
 
 .Class Diagram of the Logic Component
-image::LogicClassDiagram.png[width="800"]
+image::LogicClassDiagram.png[width="700"]
 
 [discrete]
 ==== How do the architecture components interact with each other?
@@ -170,11 +170,12 @@ image::SDforDeleteRecord.png[width="800"]
 
 The sections below give more details of each component.
 
+// tag::UI[]
 [[Design-Ui]]
 === UI component
 
 .Structure of the UI Component
-image::UiClassDiagram.png[width="800"]
+image::UiClassDiagram.png[width="700"]
 
 *API* : link:{repoURL}/src/main/java/seedu/finance/ui/Ui.java[`Ui.java`]
 
@@ -189,13 +190,15 @@ The `UI` component,
 
 * Executes user commands using the `Logic` component.
 * Listens for changes to `Model` data so that the UI can be updated with the modified data.
+// end::UI[]
 
+// tag::logic[]
 [[Design-Logic]]
 === Logic component
 
 [[fig-LogicClassDiagram]]
 .Structure of the Logic Component
-image::LogicClassDiagram.png[width="800"]
+image::LogicClassDiagram.png[width="700"]
 
 *API* :
 link:{repoURL}/src/main/java/seedu/finance/logic/Logic.java[`Logic.java`]
@@ -206,17 +209,17 @@ link:{repoURL}/src/main/java/seedu/finance/logic/Logic.java[`Logic.java`]
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 .  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying
 help to the user.
-
+// end::logic[]
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
 
 .Interactions Inside the Logic Component for the `delete 1` Command
 image::DeletePersonSdForLogic.png[width="800"]
-
+// tag::model[]
 [[Design-Model]]
 === Model component
 
 .Structure of the Model Component
-image::ModelClassDiagram.png[width="800"]
+image::ModelClassDiagram.png[width="700"]
 
 *API* : link:{repoURL}/src/main/java/seedu/finance/model/Model.java[`Model.java`]
 
@@ -227,12 +230,14 @@ The `Model` component,
 * exposes an unmodifiable `ObservableList<Record>` that can be 'observed' e.g. the UI can be bound to this list so
 that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
+// end::model[]
 
+// tag::storage[]
 [[Design-Storage]]
 === Storage component
 
 .Structure of the Storage Component
-image::StorageClassDiagram.png[width="800"]
+image::StorageClassDiagram.png[width="700"]
 
 *API* : link:{repoURL}/src/main/java/seedu/finance/storage/Storage.java[`Storage.java`]
 
@@ -240,12 +245,13 @@ The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
 * can save the Finance Tracker data in json format and read it back.
+// end::storage[]
 
 [[Design-Commons]]
 === Common classes
 
 Classes used by multiple components are in the `seedu.financetracker.commons` package.
-// end::design[]
+
 
 
 == Implementation
@@ -260,31 +266,48 @@ or date.
 
 This implementation is under `Logic` and `Model` Component.
 
+==== Current Implementation
+The sort command uses predicates that implement`java.util.Predicate` interface which will be used to filter the records
+that are inputted into the finance tracker. Each of these predicates contains a `List<String>` of keywords and a `test()`
+command that is used to test if a record satisfy the conditions set in the predicate. These predicates are found in the `Model` component.
+
+.Predicates implemented in `Model` component
+[cols="1,1"]
+|===
+|Types of predicate |Functions|
+`CategoryContainsKeywordsPredicate` | Filter out records by a given category |
+`DateContainsKeywordsPredicate` | Filter out records by a given date |
+`NameContainsKeywordPredicate` | Filter out records with names that matches a keyword |
+|===
+
+Below is the UML sequence diagram and a step-by-step explanation of an example usage scenario.
+
 .Sequence Diagram of Search Command
 image::SearchCommandSequenceDiagram.png[width="800"]
 
-==== Current Implementation
+1. User enters a search command (eg.`search -cat food`). The command is received by the UI components and the method
+`LogicManger#execute()` is called.
 
-1. User enters command `search -FLAG food`. The command is received by `FinanceTrackerParser`,
-which then creates a `SearchCommandParser` Object and calls `SearchCommandParser#parse()` method.
+2. The command is received by `FinanceTrackerParser`, which then creates a
+`SearchCommandParser` Object and calls `SearchCommandParser#parse()` method.
 
-2. Depending on the `-FLAG` that is entered by the user, `SearchCommandParser` will create different predicates that
-correspond to the `-FLAG`.
+3. Depending on the `-FLAG` that is entered by the user, `SearchCommandParser` will create different predicates objects
+that correspond to the `-FLAG`.
 * If `-cat` is inputted, `CategoryContainsKeywordsPredicate` will be created.
 * If `-date` is inputted, `DateContainsKeywordPredicate` will be created.
 * If `-name` is inputted, `NameContainsKeywordPredicate` will be created.
 
-3. A `SearchCommand` Object with the correct predicate Object as parameter is created and returned to the
-`LogicManager`.
+4. A `SearchCommand` Object with the correct predicate Object as parameter is created and returned to the
+`FinanceTrackerParser` and then to the `LogicManager`.
 
-4. `LogicManager` then calls `SearchCommand#execute()`, which calls Model#updateFilteredExpenseList() method
-to update the predicate of FilterList<Record>. FilterList now contains a new set of records which is filtered by the
-new predicate.
+5. `LogicManager` then calls `SearchCommand#execute()`, which calls `Model#updateFilteredExpenseList()` method
+to update the predicate of `FilterList<Record>`. `FilterList<Record> now contains a new set of records which is filtered
+by the new predicate.
 
-5. `SearchCommand` then calls `getFilteredRecordList` method to access the filtered records in an
+6. `SearchCommand` then calls `getFilteredRecordList` method to access the filtered records in an
 `ObservableList<Record>` in order to calculate the sum of the money that is spent in all the filtered records.
 
-6. Then the record list panel will show a set of records according to the keywords. A `CommandResult` is then created
+7. Then the record list panel will show a set of records according to the keywords. A `CommandResult` is then created
 and returned to `Logic Manager`.
 
 ==== Design Consideration
@@ -302,9 +325,14 @@ will hold all the records that correspond to these category or dates.
 ** Pros: Very efficient, each time the command is called, just need to retrieve the list of the wanted field.
 ** Cons: Need to change the original architecture of storage to introduce storing of different list corresponding to
 each tag. Will take up more space if there is many different tags.
+
+We have implemented *Alternative 1* as we want the search function to be more dynamic and more generic to accept
+accept different kind of search in the future implementation. If we were to choose *Alternative 2*, the search
+conditions will only be restricted to category and date where it is likely for different records to have the same
+value (eg. same date or same category). However, it is not feasible to create a different list for every single name
+that is inputted into the finance tracker.
+
 // end::search[]
-
-
 
 // tag::sort[]
 === Sort feature
@@ -419,10 +447,6 @@ This is how the reverse command is implemented:
 image::ReverseSequenceDiagram.png[width="800"]
 
 // end::reverse[]
-
-
-
-
 
 // tag::undoredo[]
 === Undo/Redo feature
@@ -637,12 +661,12 @@ the `totalBudget` allocated to the `CategoryBudget`.
 
 // tag::summary[]
 === Summary
+The summary feature shows an overview of your previous expenditures in a pie chart. Each sector of the chart represents a category, labelled with the name and total expenditure for each category.
 
-The summary feature shows an overview of your previous expenditures in an Aster Plot chart, which works similarly to a pie chart. Each sector of the chart represents a category. The radius of each sector indicates the total budget amount allocated for a particular category, while the coloured area of the sector denotes the amount spent for that category. This allows users to easily perceive whether their spending is within their budget for each category.
+You can also set a report period by indicating the number of days or months. Specifying a report period is optional. If no parameters are defined, data of expenditures in the past week (ie. the last 7 days) will be displayed in the pie chart by default.
 
 ==== Implementation
-The summary feature intends to use a D3.js graph to display the data. This will help contribute to the aesthetics and user-friendliness of displaying the data in In-Credit-Ble.
-The implementation of the Summary command can be divided into two phases – preparation and execution. Given below is an explanation of how the summary mechanism behaves at each phase, although it has not been fully implemented yet.
+The implementation of the Summary command can be divided into two phases – preparation and execution. Given below is an explanation of how the summary mechanism behaves at each phase.
 
 ===== Preparation
 In the preparation phase, the application will parse the command. Below is the UML Sequence diagram and a step-by-step explanation of the preparation stage.
@@ -650,28 +674,64 @@ In the preparation phase, the application will parse the command. Below is the U
 .Sequence diagram of the preparation stage in the summary mechanism
 image::SummarySequenceDiagram.png[width="800"]
 
-1.	User first enters the command `summary`. This command is received by `FinanceTrackerParser`, which  then calls `SummaryCommandParser#parse()` to create `SummaryCommand`.
-2.	`SummaryCommand`  is then returned to `LogicManager`.
-3.	`LogicManager` then calls `SummaryCommand#execute()`, which will then trigger the process of retrieving the data to be displayed.
+1.	User first enters the command `summary #/7 p/d`. This command is received by `FinanceTrackerParser`, which then calls `SummaryCommandParser#parse()` to create `SummaryCommand`.
+2.	If no parameters are provided by the user, `SummaryCommand#SummaryCommand()` is called to create `SummaryCommand` with the default parameters of ` periodAmount ` as `7` and `period` as `d`. Otherwise, `SummaryCommand#SummaryCommand(periodAmount, period)` is called to create `SummaryCommand` with the specified parameters.
+3.	`SummaryCommand` then checks if the parameters are valid. If any parameter is invalid, an exception will be thrown, and an error message will be shown to the user. Else, the parameters are stored in instance variables and `SummaryCommand` is returned to `LogicManager`.
+4.	`LogicManager` then calls `SummaryCommand#execute()`, which updates the variables `RecordSummaryPredicate`, `summaryPeriod` and `periodAmount` in `ModelManager`.
 
 ===== Execution
-In the execution phase, the program accesses the `Budget` class to retrieve the data to be displayed. It will then finally map this data to graph the Aster Plot chart and display it. Below is the UML sequence diagram and a step-by-step explanation of the execution stage.
+In the execution phase, the program handles `ShowSummaryRequestEvent` posted by `SummaryCommand` to retrieve the data to be displayed. The data will be rendered as a JavaFX `PieChart` and then displayed. Below is the UML sequence diagram and a step-by-step explanation of the execution stage.
 
 .Sequence diagram of the execution stage in the summary mechanism
 image::SummarySequenceDiagram2.png[width="800"]
 
-1.	The`handleShowSummary` will be handled by `MainWindow#handleShowSummary()`, which will call `GraphPanel#execute()` and pass the data as parameters by calling `Logic#getTotalBudget()` and `Logic#getCategoryBudget()`.
-2.	`Logic#getTotalBudget()` and `Logic#getCategoryBudget()` will get their respective data by calling the method of the same name in `Model`.
-3.	Once the parameters are passed into GraphPanel#execute(), StackPane#getData()#clear() is called to clear any display elements in StackPane. D3.js is used to render the charts.
+1.	The`handleShowSummary` will be handled by `MainWindow#handleShowSummary()`, which will call `SummaryPanel#setData()` and pass the data as parameters by calling `Logic#getRecordSummary()`, `Logic#getSummaryPeriod()`  and `Logic#getPeriodAmount()`.
+2.	`Logic#getRecordSummary()` gets the filtered record list by calling `Model#getRecordSummary()`, which returns an unmodifiable ObservableList, only containing only expenses in the last 7 days.
+3.	`Logic#getRecordSummary()` then organises the data into a `LinkedHashMap<String, Double>`, where the key value pair represents category and cost.
+4.	`Logic#getSummaryPeriod()`  and `Logic#getPeriodAmount()` get their respective data by calling the method of the same name in `Model`.
+5.	Once the parameters are passed into `SummaryPanel#setData()`, `StackPane#getChildren()#clear()` is called to clear any display elements in `StackPane`. JavaFX’s `PieChart` is then used to render the summary pie chart. There are two possible scenarios which could happen:
+i) If the data received is empty, a `Text` object is generated and `StackPane#getChildren()#add()` is called, which informs the user that there are no expenditures.
+ii)	Else, `SummaryPanel#setSummaryData()` will be called, which generates a Pie Chart and calls `StackPane#getChildren()#add()`, which adds it to `StackPane`. This is shown in the code snippet below:
+
+    public void setSummaryData(LinkedHashMap<String, Double> summaryData) {
+            PieChart pieChart = new PieChart();
+            Set<String> keySet = summaryData.keySet();
+            for (String s : keySet) {
+                pieChart.getData().add(new PieChart.Data(s, summaryData.get(s)));
+            }
+            for (int i = 0; i < pieChart.getData().size(); i++) {
+                PieChart.Data data = pieChart.getData().get(i);
+                data.getNode().getStyleClass().add(getPieChartColorStyleFor(data.getName()));
+                data.nameProperty().bind(Bindings.concat(data.getName(), " - $",
+                                        String.format("%.2f", data.getPieValue())));
+            }
+            pieChart.setLegendSide(Side.BOTTOM);
+            chartArea.getChildren().add(pieChart);
+    }
 
 ==== Design Consideration
 ===== Aspect: Representation for Summary of Expenditure
-An aster plot graph will be used to display the information in the main window. Using such a graph will allow for sufficient space should users decide to add more categories in the future. Hovering over the different sectors in the aster plot graph will display the corresponding category. If possible, the colours used for the category in the aster plot graph should be the same colour palette used for the category labels.
+
+* *Alternative 1 (current choice)*: Represent summary of expenses using a pie chart
+
+.Current Implementation of Summary Panel using JavaFX's `PieChart`
+image::summaryPanel.png[width="600"]
+
+** Pros: Labels can act as a legend as well as there might be categories with similar colours. This will help the user to easily identify the expenditures in different categories.
+** Cons: If there are too many categories, the labels may not show up as it will clash with the other labels. The data presented may also become too cluttered as well.
+
+* *Alternative 2 (planned for `[v2.0]`)*: Represent summary of expenses using an Aster Plot graph
+
+In `v2.0` of _In-Credit-Ble_, the summary feature intends to use a D3.js Aster Plot graph to display the summary of expenditures instead of the current pie chart. This will help contribute to the aesthetics and user-friendliness of displaying the data in _In-Credit-Ble_.
 
 .Example of Aster Plot Graph
 image::asterPlot.png[width="400"]
 
-Initially, we were considering using a pie chart instead. However, using an aster plot graph will be more effective in showing the user what is the remaining budget amount for each category.
+Each sector of the chart represents a category. The area of each sector indicates the total budget amount allocated for a particular category, while the coloured area of the sector denotes the amount spent for that category. On mouseover of each sector, a pop-up display of the category name and amount spent for each category will be shown. The colours used for the category in the aster plot graph should also correspond to the same colour palette used for the category labels.
+
+** Pros: More effective in showing the user what is the remaining budget amount for each category. It also allows users to easily perceive whether their spending is within their budget for each category.
+** Cons: Difficult to implement as it requires linking to D3, a third party JavaScript library for data visualisations via HTML, SVG, and CSS.
+
 //end::summary[]
 
 // tag::theme[]
@@ -1242,27 +1302,74 @@ These instructions only provide a starting point for testers to work on; testers
 
 . Initial launch
 
-.. Download the jar file and copy into an empty folder
-.. Double-click the jar file +
-   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+.. Download the JAR file and copy into an empty folder
+.. Double-click the JAR file +
+   Expected: Shows the GUI with a set of sample records. The window size may not be optimum.
 
 . Saving window preferences
 
 .. Resize the window to an optimum size. Move the window to a different location. Close the window.
-.. Re-launch the application by double-clicking the jar file. +
+.. Re-launch the application by double-clicking the JAR file. +
    Expected: The most recent window size and location is retained.
 
+=== Adding an expense
 
-=== Deleting a record
+. Adding an entry no matter what is listed.
 
-. Deleting a record while all records are listed
+.. Test case: `spend n/Chicken Rice $/5.50 c/Food d/1/4/2019 r/Tasty` +
+   Expected: Entry is added to the back of the list. Timestamp in the status bar is updated.
+.. Test case: `spend n/Tshirt $/10.00 d/31/03/2019 c/Food c/Clothes` +
+   Expected: Entry is added to the back of the list. Category recorded down is Clothes. Timestamp in the status bar is updated.
+.. Test case: `spend n/Chicken Rice $/5.50 c/Food` +
+   Expected: Entry is added to the back of the list. Since date is not supplied, today’s date will be recorded. Timestamp in the status bar is updated.
+.. Test case: `add n/Chicken Rice $/5.50 c/Food` +
+   Expected: Entry is added to the back of the list. Since date is not supplied, today’s date will be recorded. Timestamp in the status bar is updated.
+.. Test case: `spend n/Chicken Rice $/5.50` +
+   Expected: No entry is added. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect spend commands to try: `spend n/Chicken Rice c/Food`, `spend $.5.50 c/Food`, `spend n/Chicken Rice $/5.5 c/Food`, `spend n/Chicken Rice $/5.50 c/Food d/12/12/2045` +
+   Expected: Similar to previous
 
-.. Prerequisites: List all records using the `list` command. Multiple records in the list.
+
+=== Deleting an entry
+
+. Deleting an entry while all entries are listed
+
+.. Prerequisites: List all entries using the `list` command. Multiple entries in the list.
 .. Test case: `delete 1` +
-   Expected: First record is deleted from the list. Details of the deleted record shown in the status message. Timestamp in the status bar is updated.
+   Expected: First entry is deleted from the list. Details of the deleted entry shown in the status message. Timestamp in the status bar is updated.
 .. Test case: `delete 0` +
-   Expected: No record is deleted. Error details shown in the status message. Status bar remains the same.
+   Expected: No entry is deleted. Error details shown in the status message. Status bar remains the same.
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size), `delete three` +
+   Expected: Similar to previous.
+
+=== Sorting the entries
+
+. Sort entries by name
+
+.. Prerequisites: List must have some entries in it.
+.. Test case: `sort -name` +
+   Expected: List is sorted by name in lexicographical order. Timestamp in the status bar is updated.
+.. Test case: `sort -name -desc` +
+   Expected: List is sorted by name in reverse lexicographical order. Timestamp in the status bar is updated.
+.. Test case: `sort -name -asc` +
+   Expected: List is sorted by name in lexicographical order. Timestamp in the status bar is updated.
+.. Test case: `sort -asc -name` +
+   Expected: List will not be sorted. Error message is shown. Status bar remains the same.
+.. Other incorrect sort commands to try: `sort -desc -name`, `sort -name -inc`, `sort -name -asc a-z` +
+   Expected: Similar to previous.
+
+. Sort entries by amount
+
+.. Prerequisites: List must have some entries in it.
+.. Test case: `sort -amount` +
+   Expected: List is sorted by amount in descending order. Timestamp in the status bar is updated.
+.. Test case: `sort -amount -asc` +
+   Expected: List is sorted by amount in ascending order. Timestamp in the status bar is updated.
+.. Test case: `sort -amount -desc` +
+   Expected: List is sorted by amount in descending order. Timestamp in the status bar is updated.
+.. Test case: `sort -asc -amount` +
+   Expected: List will not be sorted. Error message is shown. Status bar remains the same.
+.. Other incorrect sort commands to try: `sort -desc -amount`, `sort -amount -inc`, `sort -name -amount` +
    Expected: Similar to previous.
 
 

@@ -375,7 +375,8 @@ public class ModelManager implements Model {
      */
     private void ensureSelectedModuleTakenIsValid(ListChangeListener.Change<? extends ModuleTaken> change) {
         while (change.next()) {
-            if (selectedClassForPrinting.getValue() == null || !(selectedClassForPrinting.getValue() instanceof ModuleTaken)) {
+            if (selectedClassForPrinting.getValue() == null
+                    || !(selectedClassForPrinting.getValue() instanceof ModuleTaken)) {
                 // null is always a valid selected moduleTaken, so we do not need to check that it is valid anymore.
                 return;
             }
@@ -396,7 +397,8 @@ public class ModelManager implements Model {
             if (wasSelectedPersonRemoved) {
                 // Select the moduleTaken that came before it in the list,
                 // or clear the selection if there is no such moduleTaken.
-                selectedClassForPrinting.setValue(change.getFrom() > 0 ? change.getList().get(change.getFrom() - 1) : null);
+                selectedClassForPrinting.setValue(
+                        change.getFrom() > 0 ? change.getList().get(change.getFrom() - 1) : null);
             }
         }
     }

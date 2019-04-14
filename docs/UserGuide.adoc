@@ -328,16 +328,16 @@ For a file name to be valid, it must end with either of the following: `.jpg`, `
 ====
 
 
-
+[[invalid_save_name]]
 .Invalid Save Name
 image::ugInvalidsave.png[width="800"]
 
-
+[[valid_save_name]]
 .Valid Save Name
 image::ugValidsave.png[width="800"]
 
 
-_Figure 10_ shows an example of how FomoFoto does not allow saving with invalid names. Ensure that your file name is valid before saving. There should be a message to indicate that the save is successful as seen in _Figure 11_. To overwrite the original image, simply use `save` without the file name.
+<<invalid_save_name>> shows an example of how FomoFoto does not allow saving with invalid names. Ensure that your file name is valid before saving. There should be a message to indicate that the save is successful as seen in <<valid_save_name>> . To overwrite the original image, simply use `save` without the file name.
 
 // end::UserSave[]
 

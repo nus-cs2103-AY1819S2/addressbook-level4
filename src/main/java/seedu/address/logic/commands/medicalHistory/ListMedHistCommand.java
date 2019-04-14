@@ -41,7 +41,8 @@ public class ListMedHistCommand extends Command {
             + PREFIX_DATE_OF_MEDHIST + "2018-03-02";
 
     public static final String MESSAGE_SUCCESS =
-            "Listed all medical histories filtered by specified constraint(s) if any. Write up of medical histories are not be shown in the list.";
+            "Listed all medical histories filtered by specified constraint(s) if any. "
+                    + "Write up of medical histories are not be shown in the list.";
 
     private final ListMedHistDescriptor listMedHistDescriptor;
 
@@ -56,6 +57,7 @@ public class ListMedHistCommand extends Command {
         Predicate<MedicalHistory> predicateListMedHistIsDid;
         Predicate<MedicalHistory> predicateListMedHistIsDate;
 
+        // set patient id filter
         if (listMedHistDescriptor.getPatientId().isPresent()) {
             PersonId patientId = listMedHistDescriptor.getPatientId().get();
             Patient patientWithId = model.getPatientById(patientId);
@@ -67,6 +69,7 @@ public class ListMedHistCommand extends Command {
             predicateListMedHistIsPid = medHist -> true;
         }
 
+        // set doctor id filter
         if (listMedHistDescriptor.getDoctorId().isPresent()) {
             PersonId doctorId = listMedHistDescriptor.getDoctorId().get();
             Doctor doctorWithId = model.getDoctorById(doctorId);
@@ -79,6 +82,7 @@ public class ListMedHistCommand extends Command {
             predicateListMedHistIsDid = medHist -> true;
         }
 
+        // set medical history filter
         if (listMedHistDescriptor.getDate().isPresent()) {
             predicateListMedHistIsDate = x -> x.getDate().equals(listMedHistDescriptor.getDate().get());
         } else {

@@ -1,30 +1,32 @@
 package systemtests;
 
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.address.logic.commands.management.OpenLessonCommand.MESSAGE_SUCCESS;
+import static seedu.address.logic.commands.management.EditLessonCommand.MESSAGE_SUCCESS;
 
 import org.junit.Test;
 
-import seedu.address.logic.commands.management.OpenLessonCommand;
+import seedu.address.commons.core.index.Index;
+import seedu.address.logic.commands.management.EditLessonCommand;
 import seedu.address.model.modelmanager.ManagementModel;
 import seedu.address.model.modelmanager.Model;
 
-public class OpenLessonCommandSystemTest extends BrainTrainSystemTest {
+public class EditLessonCommandSystemTest extends BrainTrainSystemTest {
     @Test
-    public void open() {
+    public void edit() {
         /* Case: invalid command
          * -> fails, invalid command
          */
         String command = "someinvalidcommand";
         assertCommandFailure(command, MESSAGE_UNKNOWN_COMMAND);
 
-        /* Case: opens lesson at index 1
-         * -> opens lesson
+        /* Case: edits lesson at index 1
+         * -> edits lesson
          */
-        command = OpenLessonCommand.COMMAND_WORD + " 1";
+        Index index = Index.fromZeroBased(0);
+        command = EditLessonCommand.COMMAND_WORD + " " + index.getOneBased();
         ManagementModel expectedModel = getManagementModel();
-        assertCommandSuccess(command, expectedModel);
-
+        String expectedLesson = expectedModel.getLesson(index.getZeroBased()).getName();
+        assertCommandSuccess(command, expectedModel, expectedLesson);
     }
 
     /**
@@ -37,8 +39,8 @@ public class OpenLessonCommandSystemTest extends BrainTrainSystemTest {
      * selected card updated accordingly, depending on {@code cardStatus}.
      * @see BrainTrainSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
-    private void assertCommandSuccess(String command, ManagementModel expectedModel) {
-        String expectedResultMessage = String.format(MESSAGE_SUCCESS, "sampleData", true);
+    private void assertCommandSuccess(String command, ManagementModel expectedModel, String expectedLesson) {
+        String expectedResultMessage = String.format(MESSAGE_SUCCESS, expectedLesson, true);
         executeCommand(command);
         assertApplicationDisplaysExpected("", expectedResultMessage, expectedModel);
         assertCommandBoxShowsDefaultStyle();

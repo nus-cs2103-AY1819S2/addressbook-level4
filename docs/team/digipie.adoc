@@ -1,25 +1,23 @@
-= Evan Tay - Project Portfolio for BrainTrain
+= Evan Tay - Project Portfolio for BrainTrain +
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
-:toc:
-:toclevels: 1
-:toc-title: Table of contents
-:toc-placement: manual
 :sectnums:
 :repoURL: https://github.com/CS2103-AY1819S2-W14-1/main
 :pullURL: https://github.com/CS2103-AY1819S2-W14-1/main/pull/
 :seeduURL: https://github.com/se-edu/addressbook-level4
 
-== Introduction
+Github username: link:https://github.com/DigiPie[DigiPie] | Email: mailto:evantay@comp.nus.edu.sg[evantay@comp.nus.edu.sg] | Website: link:http://evantay.com/[www.evantay.com]
+
+== Introduction +
 The purpose of this portfolio is to demonstrate my software engineering competency by showcasing my code and documentation contributions to the link:{repoURL}[BrainTrain project].
 
-=== Overview
+=== Overview +
 The BrainTrain project was developed by a team of 5 students over seven weeks, under the National University of Singapore's link:{seeduURL}[CS2103T: Software Engineering module]. +
 
 CS2103T students were given the option of enhancing an link:{seeduURL}[existing addressbook application] or morphing it into another product. We chose to morph it into a https://en.wikipedia.org/wiki/Spaced_repetition[spaced-repetition] flashcard application because we wanted to further challenge ourselves and improve our software engineering skills.
 
-=== What is BrainTrain
+=== What is BrainTrain +
 
 BrainTrain is a flashcard application which makes *memorizing easy and efficient*. link:https://www.theguardian.com/education/2016/jan/23/spaced-repetition-a-hack-to-make-your-brain-store-information[Research] has shown that the Spaced-Repetition System (SRS) is much more effective than traditional memorization techniques. With BrainTrain, you will *learn more with less time*.
 
@@ -34,51 +32,68 @@ Main features of BrainTrain:
 - You can also create lessons in your preferred spreadsheet application and import them as `.csv` files with ease.
 - You can attempt flashcard lessons in BrainTrain's quiz mode and your user-specific data (e.g. spaced-repetition information) will be saved automatically.
 
-== Summary of contributions
-My role was to design, document, and code the Card Management System. My secondary role was to manage the overall project documentation. The following is a list of my key contributions to the project.
+== Summary of contributions +
+My primary responsibility was to design, develop and test the Card Management System. My secondary responsibility was to act as the project's documentation lead. The following is a list of my key contributions to the project.
 
-=== Major enhancement
-My largest contribution to the project was the implementation of the Card Management System:
+=== Major enhancement +
+My largest contribution to the project was the implementation of the Card Management System (CMS): +
 
-* What it does: The system allows the user to manage flashcard lessons.
-** Users can view, add and delete lessons using the `listLessons`, `addLesson` and `deleteLesson` commands.
-** Users can open a lesson for editing and close it to save changes using the `openLesson` and `closeLesson` commands.
-** Users can view, add and delete flashcards using the `listCards`, `addCard` and `deleteCard` commands.
-* Justification: Users need to be able to create and edit lessons in order to use the BrainTrain application for spaced-repetition flashcard learning.
-* Highlights: Pull request link:{pullURL}85[#85], link:{pullURL}107[#107] and link:{pullURL}113[#113]
-* Code contributed: [https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#=undefined&search=digipie[Functional code]]
+* Context: In BrainTrain, each lesson contains a set of flashcards of the same type and topic.
+* What it does: CMS provides users with the ability to add, edit and delete lessons in *Lesson View* and *Card View* modes.
+* In *Lesson View*, users can:
+** Add and delete lessons by using the `addLesson` and `deleteLesson` commands.
+** Open a lesson in *Card View* for editing by using the `edit` command.
+** List the full details of all lessons by using the `listLessons` command.
+* In *Card View*, users can:
+** Add and delete flashcards by using the `addCard` and `deleteCard` commands.
+** Set the 2 test values to be tested in quiz mode for all flashcards in the lesson by using the `set` command.
+** Quit *Card View* and return to *Lesson View* by using the `quit` command.
+** List the full details of all cards by using the `listCards` command.
+* Justification: Users need to be able to create and edit content in order to use BrainTrain for flashcard learning.
+* Most significant pull requests: link:{pullURL}113[#113], link:{pullURL}173[#173] and link:{pullURL}180[#180]
+* Code contributed: https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#=undefined&search=digipie[View on RepoSense] +
 
-=== Minor enhancement
-My second largest contribution to the project was the implementation of the Graphical User Interface representation for the Card Management System:
+=== Minor enhancement +
+My second largest contribution to the project was the implementation of the Graphical User Interface representation for the Card Management System: +
 
-* What it does: Displays all lessons as a list and also the opened lesson's flashcards.
-* Justification: Users are able to view all lessons and the flashcards they contain easily and at a glance.
-* Code contributed: [https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#=undefined&search=digipie[Functional code]]
+* What it does: Displays all lessons as a list in *Lesson View*, and also displays a lesson's details and its flashcards in *Card View*.
+* Justification: Users are able to view all lessons and their flashcards easily.
+* In *Lesson View*, users can view all lessons and their details (e.g. number of cards):
 
-=== Other contributions
+.*Lesson View*
+image::digipie/lesson_view.png[width="384"]
+
+* In *Card View*, users can view the opened lesson's details and its flashcards:
+
+.*Card View*
+image::digipie/card_view.png[width="384"]
+
+* Code contributed: https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#=undefined&search=digipie[View on RepoSense] +
+
+=== Other contributions +
 In addition to designing and writing code, I also contributed to the project through the following means:
 
 * Documentation:
-** Wrote the User Guide's Introduction and Quick Start sections (Pull request link:{pullURL}15[#15], link:{pullURL}85[#85] and link:{pullURL}113[#113])
-** Edited the User Guide and Developer Guide for overall coherency and consistency (Pull request
-link:{pullURL}20[#20], https://github.com/CS2103-AY1819S2-link:{pullURL}85[#85] and link:{pullURL}107[#107])
-* Project management:
-** Managed product releases `v1.2.1` and `v1.3`
-** Closed milestone `v1.3`
-* Software architecture:
-** Performed major refactor of `seedu.address.logic` package structure and design to improve workflow for entire team (Pull request link:{pullURL}/85[#85])
-* Community:
-** Fixed a bug in teammate's pull request (Pull request link:{pullURL}33[#33])
-** Reviewed pull requests with constructive feedback (Pull request link:{pullURL}37[#37], link:{pullURL}108[#108] and link:{pullURL}132[#132] and link:{pullURL}133[#133])
-//** Reported bugs for other teams in the class
-//* Tools:
+As the documentation lead, I ensured overall consistency and coherency for the project's user guide and developer guide by,
+** Writing the User Guide's Introduction and Quick Start sections (see link:{pullURL}15[#15], link:{pullURL}85[#85],  link:{pullURL}113[#113] and link:{pullURL}180[#180])
+** Editing the User Guide and Developer Guide for overall coherency as editor (see
+link:{pullURL}20[#20], https://github.com/CS2103-AY1819S2-link:{pullURL}85[#85], link:{pullURL}107[#107] and link:{pullURL}180[#180])
+* Project management: I assisted the team lead in managing 2 product releases and milestone `v1.3` by,
+** Managing product releases `v1.2.1` and `v1.3.0`
+** Coordinating team for milestone `v1.3`
+* Software architecture: I improved existing code to improve overall project quality and team workflow by,
+** Implementing major refactor of `seedu.address.logic` package structure and design to improve workflow for entire team (see  link:{pullURL}/85[#85])
+** Performing major overhaul of `seedu.address.model.util` package to improve modularity and extensibility of sample data generation (see link:{pullURL}/180[#180])
+* Community: I worked with my team to resolve problems and achieve greater code quality by,
+** Assisting teammates in fixing their bugs (see link:{pullURL}33[#33] and link:{pullURL}97[#97])
+** Reviewing teammates' pull requests with non-trivial, constructive feedback (see link:{pullURL}37[#37], link:{pullURL}108[#108], link:{pullURL}132[#132], link:{pullURL}133[#133], link:{pullURL}139[#139] and link:{pullURL}175[#175])
 
-== Contributions to the User Guide
-In addition to updating the User Guide with the newly added Card Management System commands, I also wrote the Introduction and Quick Start sections, and edited the document to ensure overall consistency. I have listed some of my key contributions to it as excerpts below:
+== Contributions to the User Guide +
+In addition to updating the User Guide with the newly added Card Management System commands, I also wrote the Introduction and Quick Start sections, and edited the document to ensure overall consistency. I have listed some of my key contributions to the document as excerpts below:
 
 include::../UserGuide.adoc[tag=evan]
 
-== Contributions to the Developer Guide
+== Contributions to the Developer Guide +
 On top of updating the Developer Guide with the Card Management System design and implementation details, I also edited the document to ensure overall consistency. I have listed some of my key contributions to the document as excerpts below:
 
 include::../DeveloperGuide.adoc[tag=evan]

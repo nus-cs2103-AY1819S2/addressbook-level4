@@ -2,7 +2,7 @@ package seedu.address.logic.commands.management;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_INDEX;
-import static seedu.address.commons.core.Messages.MESSAGE_OPENED_LESSON;
+import static seedu.address.commons.core.Messages.MESSAGE_LESSON_VIEW_COMMAND;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
@@ -69,7 +69,7 @@ public class DeleteLessonCommand extends ManagementCommand {
         int toDeleteIndex = targetIndex.getZeroBased();
 
         if (mgtModel.isThereOpenedLesson()) {
-            throw new CommandException(MESSAGE_OPENED_LESSON);
+            throw new CommandException(MESSAGE_LESSON_VIEW_COMMAND);
         }
 
         try {
@@ -94,6 +94,7 @@ public class DeleteLessonCommand extends ManagementCommand {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof DeleteLessonCommand // instanceof handles nulls
-                && targetIndex.getZeroBased() == ((DeleteLessonCommand) other).targetIndex.getZeroBased());
+                && targetIndex.getZeroBased()
+                == ((DeleteLessonCommand) other).targetIndex.getZeroBased());
     }
 }

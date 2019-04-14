@@ -2,6 +2,7 @@ package seedu.address.logic.commands.management;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
+import static seedu.address.commons.core.Messages.MESSAGE_CARD_VIEW_COMMAND;
 import static seedu.address.logic.commands.management.AddCardCommand.MESSAGE_DUPLICATE_CARD;
 import static seedu.address.logic.commands.management.ManagementCommand.MESSAGE_EXPECTED_MODEL;
 import static seedu.address.model.lesson.Lesson.EXCEPTION_CORE_SIZE_MISMATCH;
@@ -112,6 +113,7 @@ public class AddCardCommandTest {
 
         // add valid card but there is no open lesson -> command exception thrown
         thrown.expect(CommandException.class);
+        thrown.expectMessage(MESSAGE_CARD_VIEW_COMMAND);
         new AddCardCommand(validCard).execute(modelStub, commandHistory);
     }
 

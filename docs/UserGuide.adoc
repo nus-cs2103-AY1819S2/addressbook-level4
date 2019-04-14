@@ -55,7 +55,7 @@ Let's start on our image editing journey. In this walk through, we will be demon
 
 .  Start FomoFoto by referring to <<Quick Start>>.
 
-.  Open the folder that the image file is stored in. Then, to get the file path of the image:
+.  Open the folder that the image file is stored in. Then, to get the filepath of the image:
 * In Windows: Hold on to the kbd:[Shift] key and *right click* on your image file. Click the option *Copy path*.
 * In Mac: Go to terminal and navigate to your image file. Type 'pwd' to get the filepath to your image file and copy paste.
 
@@ -64,7 +64,7 @@ Let's start on our image editing journey. In this walk through, we will be demon
 .Import Command
 image::import.PNG[width="912"]
 +
-.  Paste the file path by simultaneously pressing kbd:[Ctrl] and kbd:[V] keys.
+.  Paste the filepath of the image you would like to import.
 * In Windows: Remove the kbd:["] and kbd:["] signs at the two ends of the filepath.
 
 .  Ensure your final command looks similar to the figure below (filepath may differ):

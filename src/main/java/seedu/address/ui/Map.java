@@ -32,33 +32,41 @@ public abstract class Map extends UiPart<Region> {
         super(FXML);
 
         modelUpdateObservable.addListener(observable -> {
-            int size = mapGrid.getMapSize();
-            Status[][] mapView = getMapView(mapGrid);
-            columnLabel = 1;
-            rowLabel = 'A';
-
-            grid.getChildren().clear();
-
-            for (int i = 0; i < size + 1; i++) {
-                HBox row = new HBox();
-                for (int j = 0; j < size + 1; j++) {
-                    StackPane sp;
-                    // First row and column are used for labels
-                    if (i == 0 && j == 0) {
-                        sp = getUiCell("", Color.WHITE);
-                    } else if (i == 0) { // if first row
-                        sp = getRowLabelCell();
-                    } else if (j == 0) {
-                        sp = getColumnLabelCell();
-                    } else {
-                        sp = getUiCell("", getColor(mapView[i - 1][j - 1]));
-                    }
-
-                    row.getChildren().add(sp);
-                }
-                grid.getChildren().add(row);
-            }
+            refreshMap(mapGrid);
         });
+    }
+
+    /**
+     * Refreshes the map in the UI
+     * @param mapGrid to be displayed.
+     */
+    private void refreshMap(MapGrid mapGrid) {
+        int size = mapGrid.getMapSize();
+        Status[][] mapView = getMapView(mapGrid);
+        columnLabel = 1;
+        rowLabel = 'A';
+
+        grid.getChildren().clear();
+
+        for (int i = 0; i < size + 1; i++) {
+            HBox row = new HBox();
+            for (int j = 0; j < size + 1; j++) {
+                StackPane sp;
+                // First row and column are used for labels
+                if (i == 0 && j == 0) {
+                    sp = getUiCell("", Color.WHITE);
+                } else if (i == 0) { // if first row
+                    sp = getRowLabelCell();
+                } else if (j == 0) {
+                    sp = getColumnLabelCell();
+                } else {
+                    sp = getUiCell("", getColor(mapView[i - 1][j - 1]));
+                }
+
+                row.getChildren().add(sp);
+            }
+            grid.getChildren().add(row);
+        }
     }
 
     private StackPane getUiCell(String label, Color fillColour) {

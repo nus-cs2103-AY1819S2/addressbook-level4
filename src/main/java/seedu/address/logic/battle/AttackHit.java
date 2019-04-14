@@ -10,10 +10,10 @@ public class AttackHit extends AttackResult {
     public AttackHit(Player attacker, Player target, Coordinates cell) {
         super(attacker, target, cell);
 
-        succeeds = true;
-        hitsShip = true;
-        destroysShip = false;
-        winsGame = false;
+        succeeds(true);
+        hitsShip(true);
+        destroysShip(false);
+        winsGame(false);
     }
 
     @Override

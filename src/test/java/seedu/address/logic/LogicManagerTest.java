@@ -20,7 +20,6 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
-//import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.statistics.PlayerStatistics;
 import seedu.address.storage.JsonStatisticsStorage;
@@ -46,6 +45,16 @@ public class LogicManagerTest {
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.newFile().toPath());
         StorageManager storage = new StorageManager(userPrefsStorage, statisticsStorage);
         logic = new LogicManager(model, storage);
+    }
+
+    @Test
+    public void addToStatistics_success() {
+        PlayerStatistics newPlayerStats = new PlayerStatistics();
+        newPlayerStats.addAttack();
+        newPlayerStats.addMove();
+        logic.addToStatistics("attack");
+        assertEquals(newPlayerStats.getAttacksMade(), model.getPlayerStats().getAttacksMade());
+        assertEquals(newPlayerStats.getMovesMade(), model.getPlayerStats().getMovesMade());
     }
 
     @Test

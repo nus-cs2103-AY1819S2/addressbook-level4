@@ -59,21 +59,21 @@ public class FleetTest {
     public void testGetDestroyerBattleship() {
         Fleet destroyerOnlyFleet = new Fleet(5, 0, 0);
         assertEquals(destroyerOnlyFleet.getDeployedFleet(),
-                testFleet.getListOfDestroyerBattleship());
+                testFleet.getListOfBattleship(DestroyerBattleship.class));
     }
 
     @Test
     public void testGetCruiserBattleship() {
         Fleet cruiserOnlyFleet = new Fleet(0, 2, 0);
         assertEquals(cruiserOnlyFleet.getDeployedFleet(),
-                testFleet.getListOfCruiserBattleship());
+                testFleet.getListOfBattleship(CruiserBattleship.class));
     }
 
     @Test
     public void testGetAircraftCarrierBattleship() {
         Fleet aircraftCarrierOnlyFleet = new Fleet(0, 0, 1);
         assertEquals(aircraftCarrierOnlyFleet.getDeployedFleet(),
-                testFleet.getListOfAircraftCarrierBattleship());
+                testFleet.getListOfBattleship(AircraftCarrierBattleship.class));
     }
 
     @Test

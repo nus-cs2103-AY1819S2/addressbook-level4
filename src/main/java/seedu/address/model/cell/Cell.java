@@ -7,7 +7,7 @@ import java.util.Optional;
 
 import seedu.address.model.battleship.Battleship;
 /**
- * Represents a Cell in the map grid.
+ * Represents a {@code Cell} in the {@code MapGrid}.
  */
 public class Cell {
 
@@ -51,6 +51,7 @@ public class Cell {
 
     /**
      * Put a battleship in this cell. Battleship must be present and not null.
+     * @param battleship to place on the cell.
      */
     public void putShip(Battleship battleship) {
         requireNonNull(battleship);
@@ -58,7 +59,8 @@ public class Cell {
     }
 
     /**
-     * Returns the {@code Status} of this cell
+     * Returns the {@code Status} of this cell.
+     * @return status of the cell.
      */
     public Status getStatus() {
         if (battleship.isPresent()) {
@@ -94,14 +96,15 @@ public class Cell {
 
     /**
      * Returns the ship in this cell.
+     * @return {@code Optional} of {@Code Battleship} in this cell.
      */
     public Optional<Battleship> getBattleship() {
         return battleship;
     }
 
     /**
-     * Returns true if both persons have the same identity and data fields.
-     * This defines a stronger notion of equality between two persons.
+     * Returns true if both cells has the same coordinates and battleship.
+     * This defines a stronger notion of equality between two cells.
      */
     @Override
     public boolean equals(Object other) {

@@ -58,18 +58,20 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window and show
 .  Refer to <<Features>> for details of each command.
 // end::quickstart[]
 
-
 == Graphical User Interface Introduction
 This section will explain to you the Graphical User Interface (GUI) of _In-Credit-Ble_ Finance Tracker.
 The theme of the application has been set to `Light`, which is different from the start up theme `Dark`.
 
 .Graphical User Interface (When starting up)
 image::GUI_Diagram.png[width="600"]
+
+// tag::userinterface[]
 .Graphical User Interface (Upon using `summary` command)
 image::GUI_Diagram2.png[width="600"]
 
 There are a total of 7 elements in the Graphical User Interface in _In-Credit-Ble_ Finance Tracker
-as denoted by the different coloured boxes in Figures 2 and 3.
+as denoted by the different coloured boxes above. The elements will be explained below.
+// end::userinterface[]
 
 === Menu Bar
 .Menu Bar
@@ -82,7 +84,7 @@ The menu bar can be used to:
 * Open the Help page to view commands available under `Help` tab
 * Change the colour theme of the application under `Theme` tab
 
-// tag::userinterface[]
+
 === Records List Panel
 .Record List Panel: Shows a list of your expense records
 image::Record_List_Panel.png[width="200"]
@@ -99,7 +101,6 @@ use the command `list`
 Each record is tagged with an *index number* before the record name.
 The index is used in command such as `delete`, `edit` and `select`
 
-// end::userinterface[]
 === Budget Panel
 .Budget Panel: Shows your total spending against your total budget so far
 image::BudgetPanel.png[width="250"]
@@ -261,10 +262,8 @@ You can use this command to set a budget for a category in _In-Credit-Ble_ Finan
 * Amount entered cannot be larger than 100000000.
 * If you provide multiple categories (e.g. `allocate $/50.00 c/Food c/Clothes`),
 only the last category you provided will be taken (in the previous e.g., the command will
-set budget for `Clothes` category. In addition, your last category must be of correct format (see below)
-* Category names are case-insensitive. (e.g. `CLotHes`, `clothes` and `CLOTHES` refer to the same
-category and will be shown with the first character in uppercase and the rest of the characters
-in lowercase (in the above example, it will be shown as `Clothes`)
+set budget for `Clothes` category. Your last category must be of correct format (see below)
+* Category names are case-insensitive. (e.g. `CLotHes`, `clothes` and `CLOTHES` refer to `Clothes`)
 * If a budget was previously set for the category, the old category budget will be replaced
 by the new `allocate` command
 * The category budget that you allocate should be more than current spending in that category as it would not make
@@ -280,14 +279,10 @@ command shown in the next command
 
 [IMPORTANT]
 ====
-Take note that you can still spend over the category budget set. The rationale is for you to be able to see
-how much you have exceeded your budget allocated in that category so that you will be able to better plan your
-expenditure in the future. (For e.g. if you allocated $50.00 to `Clothes` and have yet to spend anything in the
-category, you can still spend more than $50.00 after setting the category budget) +
+You can still spend over the category budget set, so as to see
+how much you have exceeded your budget allocated in that category. +
 
-However, if you have already spent an amount in the category, but have yet to set a budget for the category, it would
-not make sense for you to set a budget smaller than the current spending in the category. Thus an error message will be
-shown in Result Display if you attempt to do so.
+You cannot set a budget smaller than the current spending in the category.
 ====
 // end::allocate[]
 

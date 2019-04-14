@@ -12,19 +12,7 @@ image::jackimaru96_pp.png[120,120,float="left"]
 This page aims to showcase my contributions to the project
 *In-Credit-Ble* under module _CS2103T_. I will be giving you an introduction to *In-Credit-Ble*,
 followed by summarising my contributions. Lastly, I will be showing you the relevant sections of User Guide (UG) and
-Development Guide (DG) that I documented.  I hope that after reading through this page, you will have a better
-understanding of my contributions to this project. +
-
-This project was developed with the following utilities:
-
---
-image::github_icon.png[65,90,float="left"]
-image::java.png[70,90,float="left"]
-image::junit5-logo.png[66,90,float="left"]
-image::json.png[67,90, float="left"]
-image::travis.png[66,90]
---
-
+Development Guide (DG) that I documented.
 ====
 
 == PROJECT: In-Credit-Ble (Finance Tracker)
@@ -104,10 +92,7 @@ budget
 ==== Notable Contributions
 ** *Project Management*
 *** *Manging Issue Tracker*
-**** Added the necessary issue type labels as specified by course requirement. +
-(e.g. `type.Story`, `type.Enhancement`, `status.onGoing`, `status.Completed`, `priorityHigh`)
-**** Managed issue trackers:
-***** To see the issue trackers I managed, click
+**** To see the issue trackers I managed, click
 https://github.com/CS2103-AY1819S2-W17-3/main/issues?q=is%3Aissue+author%3AJackimaru96+is%3Aclosed[here!]
 
 ==== Community
@@ -136,8 +121,7 @@ how to use our application. +
 [NOTE]
 ====
 To allow users to get started with our application with ease, I've created the `Quick Start` and
-`Graphical User Interface Introduction` (GUI) sections. This section shows how I am able to use diagrams
-to support my writing so that users can have visual aids to guide their understanding. +
+`Graphical User Interface Introduction` (GUI) sections.
 
 Due to page limit constraints, I will only be listing a part of the `Graphical User Interface Introduction`.
 To see the rest of the contributions I made to the User Guide, click the below link.
@@ -156,11 +140,9 @@ include::../UserGuide.adoc[tag=userinterface]
 The following sections extracted from the User Guide are the instructions to users on how to use the features that I have
 implemented for this project. It includes the `allocate`, `show` and `theme` commands.
 These three sections show my ability to describe the feature in simple terms that new users are able to comprehend.
-In addition, examples on how to use the commands are also included so that the users are able to
-follow in a sequential manner. +
 
 Due to page limit constraints, I will only be listing the major portion of my contribution.
-To see the rest of the contributions I made to the User Guide, click the below link. +
+To see the full sections, click the below link. +
 
 1) https://github.com/CS2103-AY1819S2-W17-3/main/blob/master/docs/UserGuide.adoc#showing-allocated-budget-and-spending-in-categories-show[`show` command] +
 2) https://github.com/CS2103-AY1819S2-W17-3/main/blob/master/docs/UserGuide.adoc#changing-theme-of-application-theme[`theme` command]

@@ -89,10 +89,13 @@ Having satisfied the prerequisites, you can now set up ROR in your computer by f
 . Click btn:[OK] to accept the default settings
 . Open a console and run the command `gradlew processResources` (Mac/Linux: `./gradlew processResources`). It should finish with the *BUILD SUCCESSFUL* message. +
 This will generate all resources required by the application and tests.
-. Open link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[[.java]#MainWindow.java#] and check for any code errors
+. Open link:{repoURL}/blob/master/src/main/java/seedu/address/ui/MainWindow.java[[.java]#MainWindow.java#] and check for
+any code errors
 .. Due to an ongoing https://youtrack.jetbrains.com/issue/IDEA-189060[issue] with some of the newer versions of IntelliJ, code errors may be detected even if the project can be built and run successfully
 .. To resolve this, place your cursor over any of the code section highlighted in red. Press kbd:[ALT + ENTER], and select btn:[Add '--add-modules=...' to module compiler options] for each error
-. Repeat this for the test folder as well (e.g. check link:{repoURL}/src/test/java/seedu/address/ui/HelpWindowTest.java[[.java]#HelpWindowTest.java#] for code errors, and if so, resolve it the same way)
+. Repeat this for the test folder as well (e.g. check
+link:{repoURL}/blob/master/src/test/java/seedu/address/ui/HelpWindowTest.java[[.java]#HelpWindowTest.java#] for code
+errors, and if so, resolve it the same way)
 
 === Verifying the setup
 
@@ -207,7 +210,7 @@ The UI component (Figure 4) handles the User Interface of ROR.
 .Structure of the UI Component
 image::UiClassDiagram.png[width="800"]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[[.java]#Ui.java#]
+*API* : link:{repoURL}/blob/master/src/main/java/seedu/address/ui/Ui.java[[.java]#Ui.java#]
 
 The UI consists of a [.java]#MainWindow# that is made up of parts such as [.java]#CommandBox#, [.java]#ResultDisplay# and [.java]#StatusBarFooter#. All these, including the [.java]#MainWindow#, inherit from the abstract [.java]#UiPart# class. Not all the parts are displayed to the user at the same time (eg. [.java]#TableFlowPanel# is not shown together with [.java]#StatisticsFlowPanel#). The parts that are shown depends on the <<Modes, mode>>.
 
@@ -228,7 +231,7 @@ The Logic component (Figure 5) deals with the logic behind the execution of comm
 image::LogicClassDiagram.png[width="800"]
 
 *API* :
-link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[[.java]#Logic.java#]
+link:{repoURL}/blob/master/src/main/java/seedu/address/logic/Logic.java[[.java]#Logic.java#]
 
 *  [.java]#Logic# uses the [.java]#RestOrRantParser# class to parse the user command.
 *  This results in a [.java]#Command# object which is executed by the [.java]#LogicManager#.
@@ -249,7 +252,7 @@ The Model component (Figure 7) keeps a model of the current state of ROR in memo
 .Structure of the Model Component
 image::ModelClassDiagram.png[width="800"]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[[.java]#Model.java#]
+*API* : link:{repoURL}/blob/master/src/main/java/seedu/address/model/Model.java[[.java]#Model.java#]
 
 The [.java]#Model# :
 
@@ -266,7 +269,7 @@ The Storage component (Figure 8) manages the storing and retrieving of data on l
 .Structure of the Storage Component
 image::StorageClassDiagram.png[width="800"]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[[.java]#Storage.java#]
+*API* : link:{repoURL}/blob/master/src/main/java/seedu/address/storage/Storage.java[[.java]#Storage.java#]
 
 The [.java]#Storage# component:
 
@@ -596,95 +599,209 @@ The pros outweighs the cons as despite the number of variables during runtime, i
 
 // end::addtomenu[]
 
-// tag::statistics
+// tag::statistics[]
+[[Statistics]]
 === Statistics feature
 
-The Statistics feature allows users to perform queries that deals with the restaurant's statistical data, mainly the
-revenue earned and the popularity of menu items. Restaurant front-end staff can bill the customers' orders and save the
-revenue earned in the restaurant's statistics using the <<Bill, `bill`>> command.
+The Statistics feature allows users to perform queries that deal with the restaurant's statistical data, mainly the
+revenue earned and the popularity of menu items. With the Statistics feature, restaurant front-end staff can bill the
+customers' orders and automatically save the revenue earned in the restaurant's statistics using the <<Bill, `bill`>>
+ command.
 Other commands like <<Yearly, `yearly`>>, <<Monthly, `monthly`>>, <<Daily, `daily`>> and <<Revenue, `revenue`>>
-commands allow the manager to retrieve and study the restaurant's statistical data like the popularity of the dishes
-and the revenue earned.
+commands allow the manager to retrieve and study the restaurant's statistical data.
 
 // tag::bill[]
 [[Bill]]
 ==== Billing an order
 
-The Bill mechanism can only be executed under Table Mode where users are allowed to call the bill that is unique to a
- specific table. The table number was specified when <<ChangeToTableMode, switching over to Table Mode>>. To understand how the table number is specified, you may refer
-to the <<CurrentTable, elaboration>> on this function in the Orders feature.
+The Bill mechanism can only be executed under Table Mode such that users can call the bill that is unique to a
+ table without specifying it. The table number was specified when <<ChangeToTableMode, switching over to Table Mode>>.
+  To understand how the table number is specified, you may refer to the <<CurrentTable, elaboration>> on this
+  function in the Orders feature.
 
-After the command is called, it will internally switch to the <<BillMode, Bill Mode>> to display the receipt of the
-specified table. Concurrently, it saves the revenue earned and updates the specified table's occupancy and orders to accomodate new customers.
+After the `bill` command is called, it will internally switch to <<BillMode, Bill Mode>> where the receipt of
+ the specified table will be displayed. Concurrently, the bill mechanism excesses functions from Table, Order, Menu and
+ Statistics to execute the following:
+
+* *Table*: Update specified table's occupancy to accomodate new customers.
+* *Order*: Clear the order list unique to the specified table.
+* *Menu*: Saves the quantity of menu item ordered in the Menu storage (menu.json in /data folder).
+* *Statistics*: Saves the revenue earned in the Statistics Storage (statistics.json in /data folder).
 
 ===== Current Implementation
 
-The main crust of Bill mechanism is implemented in [.java]#BillCommand#. [.java]#BillCommand#execute()# overrides
-[.java]#Command#execcute()# which is called in [.java]#LogicManger#. It takes in the current mode, model and command
+The main crust of Bill mechanism is implemented in [.java]#BillCommand#. Just like any other commands, [
+.java]#BillCommand#execute()# overrides
+[.java]#Command#execute()# which is called in [.java]#LogicManger#. It takes in the current mode, model and command
 history which will provide the necessary functions it will need to execute the command properly.
 
-Additionally, it implements the following operations:
+Additionally, it implements the following essential operations:
 
-* [.java]#BillCommand#calculateBill()# -- Creates a bill with a receipt of all the menu items ordered the calculated
-total bill that is unique to the specified table.
-* [.java]#BillCommand#updateRevenue()# -- Either saves the bill as a new [.java]#DailyRevenue#  or updates an
-existing [.java]#Revenue# in the Statistics storage ([.java]#statistics.json# file in the /data folder).
+* [.java]#BillCommand#calculateBill()# -- Creates a bill with a receipt of all the menu items ordered and updates the
+ quantity of menu items ordered in the [.java]#Menu#menuItems#.
+* [.java]#BillCommand#createOrUpdateRevenue()# -- Either saves the bill as a new [.java]#DailyRevenue# or updates an
+existing [.java]#Revenue# in the [.java]#Statistics#revenueList#.
 * [.java]#BillCommand#updateStatusOfTable()# -- Updates the occupancy of the specified table to indicate that it has
-zero pax.
-* [.java]#BillCommand#updateOrderList()# -- Clears the order list to prepare for the next customer.
+zero pax and resets the specified table to null.
+* [.java]#Model#clearOrderItemsFrom()# -- Clears the order list to prepare for the next customer.
 
-The following sequence diagram shows the relevant parts of what happens when the user executes `bill` command:
+The following sequence diagram gives you an overview of how the operations above work together to execute `bill` command.
 
-.Sequence diagram for executing bill
-image::BillCommandSequenceDiagram.png[width="500"]
+.Sequence diagram for executing the bill command
+image::Bill_SequenceDiagram.png[width="700"]
 
-To give you a better understanding of the bill mechanism, the following is a usage scenario and how the bill
-mechanism behaves at each step. The `bill` or `b` command is executed in 2 simple steps.
+To give you a better understanding of the sequence diagram, the following is a usage scenario and how the bill
+mechanism behaves at each step.
 
-Step 1. Users are only allowed to use the `bill` command in *Table Mode*. Let's assume that the user is already in
-Table Mode 1. This means that the current table is Table 1. Before the `bill` command can be executed successfully,
-[.java]#BillCommand#execute()# checks that all order items in the order item list have been served.
+Step 1. +
+Let's assume that the user is already in Table Mode 1. This means that the current table is Table 1. Before the
+`bill` command can be executed successfully, [.java]#BillCommand#execute()# conducts 2 checks. +
 
-image::Bill_AllServedDiagram.png[width="800"]
+1. Checks that current table obtained from [.java]#Model#getSelectedTable()# exists.
+2. Checks that all order items in [
+.java]#Model#getFilteredOrderItemList()# have been served. The status of the order item is determined via [.java]#Model#getOrderItemStatus()#.
 
-Step 2. Given that all order items are served, the user can successfully execute the `bill` command to bill the
-orders of the current Table.
-The `bill` command gets
-the details of the current table using `Model#getSelectedTable()` and checks that the table exists. If it is true that the table exists, it calls both `Model#getFilteredOrderItemList` and `ReadOnlyRestOrRant#geMenu()` to obtain the table’s list of orders and the restaurant’s menu to pass into `BillCommand#calculateBill()`.
+Step 2. +
+Assuming that the command passes all checks, the user can successfully pass [.java]#Model# into [
+.java]#BillCommand#calculateBill()# to calculate the [.java]#BillCommand#tableToBill#'s bill. Let's refer to the
+function's sequence diagram below.
 
-`BillCommand#calculateBill()` will iterate through the `orderItemList` to obtain individual `orderItems` and execute the following in each iteration:
-* Obtain the `menuItem` by passing the code of the OrderItem into `Menu#getItemFromCode`.
-* Create a `Receipt` that appends the `MenuItem#getCode()`, `MenuItem#getName()`, `MenuItem#getPrice()` and `OrderItem#getQuantity()`.
-* Add the price of each dish multiplied by the quantity ordered to the bill.
+.Sequence diagram for calculating the bill
+image::Bill_CalculateBill.png[width="700"]
 
-After the iterating through the `orderItemList`, the receipt will append the final calculation of the total bill and the function will return a new Bill that contains the updated `tableNumber`, `totalBill` and `receipt`. This new Bill will be assigned as the recent bill that was created via `Model#setRecentBill()`. Format of the receipt should be as follows:
+[.java]#BillCommand#calculateBill()# calls both [.java]#Model#getFilteredOrderItemList# and [
+.java]#ReadOnlyRestOrRant#getMenu()# to obtain the table’s list of orders and the restaurant’s menu.
+After which, it iterates through the [.java]#orderItemList# to obtain individual [.java]#orderItems# and
+executes the following in each iteration:
 
-image::BillReceipt.png[width="300"]
+* Obtain the [.java]#menuItem# by passing the code of the OrderItem into [.java]#Menu#getItemFromCode#.
+* Retrieves the quantity of [.java]#orderItems# ordered using [.java]OrderItem#getQuantityOrdered()#.
+* Update the quantity of menu item ordered using [.java]#ReadOnlyMenu#updateMenuItemQuantity()#.
+* Create a [.java]#Receipt# that appends the [.java]#MenuItem#getCode()#, [.java]#MenuItem#getName()#, [
+.java]#MenuItem#getPrice()# and the quantity retrieved previously.
+* Appends the price of each dish multiplied by the quantity ordered to the bill.
 
+After the iterating through the [.java]#orderItemList#, the receipt will append the final calculation of the total
+bill and the function will return a new [.java]#Bill# that contains the updated [.java]#tableNumber#, [.java]#totalBill# and
+[.java]#receipt#. This new Bill will be assigned to [.java]#BillCommand#bill# as well as the model's recent bill via [
+.java]#Model#setRecentBill()# (This step is needed when changing the user interface to Bill Mode).
 
-Now that the bill is calculated, the `BillCommand` has to store the calculated data in the `Statistics` storage. If a `DailyRevenue` with the same `Day`, `Month` and `Year` exists in the `DailyRevenueList`, the program calls `BillCommand#updateDailyRevenue()` to add the total bill to the recorded total daily revenue. On the other hand, if no matching Daily Revenue is found, the program will create a new Daily Revenue from the details of the new bill and store it in the statistics storage using `Model#addDailyRevenue`.
+Now that [.java]#BillCommand#bill# is updated, it is passed into [.java]#BillCommand#createOrUpdateRevenue()# to
+eventually store the calculated bill in [.java]#Statistics#revenueList#. Refer to the function's sequence diagram below.
 
-`BillCommand#updateStatusOfTable()` takes in the `Model` as an argument and creates a new Table with the updated `TableStatus`. This is done by calling `TableStatus#changeOccupancy(). After which, `Model#setTable()` is called to replace the current `Table` with the new `Table` that has the updated `TableStatus`.
+.Sequence diagram for creating or updating revenue in the Statistics revenue list
+image::Bill_CreateOrUpdateRevenue.png[width="550"]
 
+As shown above, [.java]#BillCommand#createOrUpdateRevenue()# creates a [.java]#DailyRevenue# with the bill's year, month and day.
+ It checks if the newly created [.java]#DailyRevenue# exists in the [.java]#Statistics#revenueList# via [.java]#Model#hasRevenue()#.
+If it is true that [.java]#DailyRevenue# exists, the function iterates through the [
+.java]#Model#getFilteredRevenueList()# and searches for a an existing [.java]#Revenue# that has the same year, month and
+day as the [.java]#DailyRevenue#. Once the [.java]#Revenue# is found, [.java]#Revenue#addToRevenue()# is used to add the
+ total revenue of the [.java]#DailyRevenue# into [.java]#Revenue#. Otherwise, the [.java]#DailyRevenue# is added into
+  the [.java]#Statistics#revenueList# via [.java]#Model#addRevenue()#.
 
-Lastly, `BillCommand#updateOrderList` is called to empty the order list of the current `Table`. Below is illustrates the final result that derived from executing the `bill` command.
+Now, that the necessary data are updated in the internal list of Menu and Statistics, [.java]#BillCommand#execute()#
+calls [
+.java]#BillCommand#updateStatusOfTable()# and  [.java]#Model#clearOrderItemsFrom()# to make the table available for
+new customers. Refer to the sequence diagram below to have a better understanding of [
+.java]#BillCommand#updateStatusOfTable()#.
 
-image::BillMode.png[width="650"]
+.Sequence diagram for updating the status of the table
+image::Bill_UpdateStatusOfTable.png[width="550"]
 
+As shown in the sequence diagram, other than updating the [.java]#Table#TableStatus#, the program has to set the
+selected table to null as the current table is no longer in use in the present state of the Restaurant.
 
-Step 3. Once the user is in BillMode, they can change their execute any commands that are related to StatisticsMode or manually change their mode to `Restaurant Mode`, `TableMode` and `MenuMode`.
+Once these essential functions are executed, [.java]#BillCommand#execute()# moves on to indicate that the
+Tables, Orders, Menu and Statistics data have been modified via [.java]#Model#updateTables()#, [
+.java]#Model#updateOrders()#, [.java]#Model#updateMenu()#, [.java]#Model#updateStatistics()#. After which it returns
+the [.java]#CommandResult# to [.java]#LogicManager#excute()# where the it will check if the Tables, Orders, Menu
+and Statistics data have been modified and updates the storage accordingly. The same [.java]#CommandResult# is
+returned to [.java]#MainWindow#executeCommand()# where the user interface switches to Bill Mode to display the
+receipt of the recent Bill.
 
 [NOTE]
-The command will not execute the functions stated above until it has confirmed that the user is in `TableMode` and the current table exists.
-* If the user is in the wrong mode, the program will return a `CommandException` with the message “Incorrect Mode, unable to execute command. Enter tableMode.”.
-* If the current table does not exist, the program will return a `CommandException` with the message “This table does not exist.”.
+Internally the program switches to Bill Mode. However, this mode is not shown to the user as a Table Mode to avoid
+confusion.
 
+Step 3. Once the user is in Bill Mode, they can execute and mode commands like `RM`, `TM` and `MM`.
 
-The following activity diagram summarizes what happens when a user executes a the `bill` command:
+===== Design Considerations
 
-To add: BillActivityDiagram.png[width="650"]
+[width="90%",cols="20%,40%,40%",options="header",]
+|=======================================================================
+| Aspect | Alternative 1 | Alternative 2
+| CalculateBill function
+| The function iterates through the [.java]#FilteredOrderItemList# to append the receipt, update quantity ordered of
+the Menu Items in [
+.java]#Menu#menuItems# and calculate the bill. +
+- *Pros*: Efficient as it only iterates through the list once. +
+- *Cons*: The code can be break into different functions that specifically calculates the bill, creates a
+bill receipt and update the quantity of menu items ordered. +
+
+| Each table has its own [.java]#UniqueOrderItemList# to store the order items for that table. +
+- *Pros*: Adheres to a better abstract design of the code. +
+- *Cons*: Inefficient due to multiple iteration of the [.java]#FilteredOrderItemList#. Given a long list of order
+items, this design will be impractical. +
+
+|=======================================================================
+We chose Alternative 1 as we decided to prioritize efficiency in this use case. `bill` command is only
+called when the customer is ready to pay and leave the restaurant. Hence, it is expected for the payment process to
+be swift.
 
 // end::bill[]
+
+// tag::trends[]
+[[Revenue]]
+==== Changing Statistics Mode display
+===== Current Implementation
+
+The overall implementation of [.java]#RevenueCommand#
+===== Design Considerations
+
+[width="90%",cols="20%,40%,40%",options="header",]
+|=======================================================================
+| Aspect | Alternative 1 | Alternative 2
+| S
+| d +
+- *Pros*:  +
+- *Cons*: +
+
+w
+|  +
+- *Pros*:  +
+- *Cons*:  +
+
+|=======================================================================
+
+// end::trends[]
+
+// tag::revenue[]
+[[Revenue]]
+==== Getting the revenue
+===== Current Implementation
+
+The overall implementation of [.java]#RevenueCommand#
+===== Design Considerations
+
+[width="90%",cols="20%,40%,40%",options="header",]
+|=======================================================================
+| Aspect | Alternative 1 | Alternative 2
+| S
+| d +
+- *Pros*:  +
+- *Cons*: +
+
+w
+|  +
+- *Pros*:  +
+- *Cons*:  +
+
+|=======================================================================
+
+// end::revenue[]
+
+// end::statistics[]
 
 === Logging
 
@@ -1413,7 +1530,7 @@ the order items are not served.
    Expected: Revenue of year 2019 will be calculated.
 .. Test case: `revenue d/1 y/2019` or `r d/1 y/2019` +
    Expected: No revenue are calculated. Error message is shown in the Results Display.
-.. Other invalid test cases: `revenue d/1`, `revenue m/1`, `revenue d/1 m/1`, `revenue d/29 m/2 y/2019`
+.. Other invalid test cases: `revenue m/1`, `revenue d/1`, `revenue m/1 d/1`, `revenue y/2019 m/2 d/29`
 
 === Data storage
 

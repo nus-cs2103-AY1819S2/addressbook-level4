@@ -78,12 +78,12 @@ public class FilterCommandIntegrationTest {
     private CommandHistory commandHistory = new CommandHistory();
     private Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
 
-    private String[] criterionClearAndReverse = {null, null, null, null, null, null, null, null, null};
-    private String[] criterion1 = {null, null, null, null, "Java, C++", null, "2.6", "NUS", null};
-    private String[] criterion2 = {"e", "5", null, null, null, null, null, null, "2"};
-    private String[] criterion3 = {null, null, "a@", "street", null, "Manager, Developer", null, null, null};
-    private String[] criterion4 = {null, null, null, null, "Java", null, "2.6", null, null};
-    private String[] criterion5 = {null, null, "h", "street", null, null, null, null, null};
+    private String[] criterionClearAndReverse = {null, null, null, null, null, null, null, null, null, null};
+    private String[] criterion1 = {null, null, null, null, "Java, C++", null, "2.6", "NUS", null, null};
+    private String[] criterion2 = {"e", "5", null, null, null, null, null, null, "2", "2"};
+    private String[] criterion3 = {null, null, "a@", "street", null, "Manager, Developer", null, null, null, null};
+    private String[] criterion4 = {null, null, null, null, "Java", null, "2.6", null, null, null};
+    private String[] criterion5 = {null, null, "h", "street", null, null, null, null, null, "2"};
 
     /**
      * Divides the tags string to an array with separated tags
@@ -109,7 +109,7 @@ public class FilterCommandIntegrationTest {
         FilterCommand commandFilter = new FilterCommand(criterion1, TYPE_AND);
         expectedModel.filterAnd(criterion1[0], criterion1[1], criterion1[2], criterion1[3],
                 divideTagsFromString(criterion1[4]), divideTagsFromString(criterion1[5]),
-                criterion1[8], criterion1[6], criterion1[7]);
+                criterion1[8], criterion1[6], criterion1[7], criterion1[9]);
         expectedModel.commitAddressBook();
         assertCommandSuccess(commandFilter, model, commandHistory,
                 FilterCommand.MESSAGE_FILTER_PERSON_SUCCESS, expectedModel);
@@ -117,7 +117,7 @@ public class FilterCommandIntegrationTest {
         commandFilter = new FilterCommand(criterion2, TYPE_OR);
         expectedModel.filterOr(criterion2[0], criterion2[1], criterion2[2], criterion2[3],
                 divideTagsFromString(criterion1[4]), divideTagsFromString(criterion1[5]),
-                criterion2[8], criterion2[6], criterion2[7]);
+                criterion2[8], criterion2[6], criterion2[7], criterion2[9]);
         expectedModel.commitAddressBook();
         assertCommandSuccess(commandFilter, model, commandHistory,
                 FilterCommand.MESSAGE_FILTER_PERSON_SUCCESS, expectedModel);
@@ -187,7 +187,7 @@ public class FilterCommandIntegrationTest {
         FilterCommand commandFilter = new FilterCommand(criterion3, TYPE_OR);
         expectedModel.filterOr(criterion3[0], criterion3[1], criterion3[2], criterion3[3],
                 divideTagsFromString(criterion3[4]), divideTagsFromString(criterion3[5]),
-                criterion3[8], criterion3[6], criterion3[7]);
+                criterion3[8], criterion3[6], criterion3[7], criterion3[9]);
         expectedModel.commitAddressBook();
         assertCommandSuccess(commandFilter, model, commandHistory,
                 FilterCommand.MESSAGE_FILTER_PERSON_SUCCESS, expectedModel);
@@ -275,7 +275,7 @@ public class FilterCommandIntegrationTest {
         FilterCommand commandFilter = new FilterCommand(criterion3, TYPE_OR);
         expectedModel.filterOr(criterion3[0], criterion3[1], criterion3[2], criterion3[3],
                 divideTagsFromString(criterion3[4]), divideTagsFromString(criterion3[5]),
-                criterion3[8], criterion3[6], criterion3[7]);
+                criterion3[8], criterion3[6], criterion3[7], criterion3[9]);
         expectedModel.commitAddressBook();
         assertCommandSuccess(commandFilter, model, commandHistory,
                 FilterCommand.MESSAGE_FILTER_PERSON_SUCCESS, expectedModel);
@@ -356,7 +356,7 @@ public class FilterCommandIntegrationTest {
         FilterCommand commandFilter = new FilterCommand(criterion2, TYPE_AND);
         expectedModel.filterAnd(criterion2[0], criterion2[1], criterion2[2], criterion2[3],
                 divideTagsFromString(criterion2[4]), divideTagsFromString(criterion2[5]),
-                criterion2[8], criterion2[6], criterion2[7]);
+                criterion2[8], criterion2[6], criterion2[7], criterion2[9]);
         expectedModel.commitAddressBook();
         assertCommandSuccess(commandFilter, model, commandHistory,
                 FilterCommand.MESSAGE_FILTER_PERSON_SUCCESS, expectedModel);
@@ -399,7 +399,7 @@ public class FilterCommandIntegrationTest {
         FilterCommand commandFilter = new FilterCommand(criterion1, TYPE_OR);
         expectedModel.filterOr(criterion1[0], criterion1[1], criterion1[2], criterion1[3],
                 divideTagsFromString(criterion1[4]), divideTagsFromString(criterion1[5]),
-                criterion1[8], criterion1[6], criterion1[7]);
+                criterion1[8], criterion1[6], criterion1[7], criterion1[9]);
         expectedModel.commitAddressBook();
         assertCommandSuccess(commandFilter, model, commandHistory,
                 FilterCommand.MESSAGE_FILTER_PERSON_SUCCESS, expectedModel);
@@ -407,7 +407,7 @@ public class FilterCommandIntegrationTest {
         commandFilter = new FilterCommand(criterion3, TYPE_AND);
         expectedModel.filterAnd(criterion3[0], criterion3[1], criterion3[2], criterion3[3],
                 divideTagsFromString(criterion3[4]), divideTagsFromString(criterion3[5]),
-                criterion3[8], criterion3[6], criterion3[7]);
+                criterion3[8], criterion3[6], criterion3[7], criterion3[9]);
         expectedModel.commitAddressBook();
         assertCommandSuccess(commandFilter, model, commandHistory, FilterCommand.MESSAGE_FILTER_PERSON_SUCCESS,
                 expectedModel);
@@ -482,7 +482,7 @@ public class FilterCommandIntegrationTest {
         FilterCommand commandFilter = new FilterCommand(criterion1, TYPE_OR);
         expectedModel.filterOr(criterion1[0], criterion1[1], criterion1[2], criterion1[3],
                 divideTagsFromString(criterion1[4]), divideTagsFromString(criterion1[5]),
-                criterion1[8], criterion1[6], criterion1[7]);
+                criterion1[8], criterion1[6], criterion1[7], criterion1[9]);
         expectedModel.commitAddressBook();
         assertCommandSuccess(commandFilter, model, commandHistory,
                 FilterCommand.MESSAGE_FILTER_PERSON_SUCCESS, expectedModel);
@@ -562,7 +562,7 @@ public class FilterCommandIntegrationTest {
         FilterCommand commandFilter = new FilterCommand(criterion2, TYPE_AND);
         expectedModel.filterAnd(criterion2[0], criterion2[1], criterion2[2], criterion2[3],
                 divideTagsFromString(criterion2[4]), divideTagsFromString(criterion2[5]),
-                criterion2[8], criterion2[6], criterion2[7]);
+                criterion2[8], criterion2[6], criterion2[7], criterion2[9]);
         expectedModel.commitAddressBook();
         assertCommandSuccess(commandFilter, model, commandHistory,
                 FilterCommand.MESSAGE_FILTER_PERSON_SUCCESS, expectedModel);
@@ -614,7 +614,7 @@ public class FilterCommandIntegrationTest {
         FilterCommand commandFilter = new FilterCommand(criterion4, TYPE_AND);
         expectedModel.filterAnd(criterion4[0], criterion4[1], criterion4[2], criterion4[3],
                 divideTagsFromString(criterion4[4]), divideTagsFromString(criterion4[5]),
-                criterion4[8], criterion4[6], criterion4[7]);
+                criterion4[8], criterion4[6], criterion4[7], criterion4[9]);
         expectedModel.commitAddressBook();
         assertCommandSuccess(commandFilter, model, commandHistory,
                 FilterCommand.MESSAGE_FILTER_PERSON_SUCCESS, expectedModel);
@@ -623,7 +623,7 @@ public class FilterCommandIntegrationTest {
         commandFilter = new FilterCommand(criterion5, TYPE_OR);
         expectedModel.filterOr(criterion5[0], criterion5[1], criterion5[2], criterion5[3],
                 divideTagsFromString(criterion5[4]), divideTagsFromString(criterion5[5]),
-                criterion5[8], criterion5[6], criterion5[7]);
+                criterion5[8], criterion5[6], criterion5[7], criterion5[9]);
         expectedModel.commitAddressBook();
         assertCommandSuccess(commandFilter, model, commandHistory,
                 FilterCommand.MESSAGE_FILTER_PERSON_SUCCESS, expectedModel);

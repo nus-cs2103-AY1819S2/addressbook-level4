@@ -74,6 +74,24 @@ public class Person {
         return degree;
     }
 
+    public int getDegreeAsInteger() {
+        String degreeLevel = degree.value.trim().toLowerCase().replace(" ", "");
+
+        if (degreeLevel.equals("highschool")) {
+            return 0;
+        } else if (degreeLevel.equals("associates")) {
+            return 1;
+        } else if (degreeLevel.equals("bachelors")) {
+            return 2;
+        } else if (degreeLevel.equals("masters")) {
+            return 3;
+        } else if (degreeLevel.equals("phd")) {
+            return 4;
+        }
+
+        return -1;
+    }
+
     public Address getAddress() {
         return address;
     }

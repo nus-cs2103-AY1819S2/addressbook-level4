@@ -25,7 +25,6 @@ public class FilterCommand extends Command {
             + "all the filters.";
     public static final String MESSAGE_FILTER_PERSON_SUCCESS = "The Address Book is filtered.";
     public static final String MESSAGE_FILTER_REVERSE_SUCCESS = "The filtering is reversed.";
-    public static final String MESSAGE_NOT_FILTERED = "Filtering is not successful!";
     public static final String MESSAGE_NO_FILTER_TO_CLEAR = "There is no filter to clear.";
     public static final String MESSAGE_NO_FILTER_TO_REVERSE = "There is no filter to reverse.";
     public static final String MESSAGE_USAGE =
@@ -59,6 +58,7 @@ public class FilterCommand extends Command {
     private String education;
     private String address;
     private String endorseCount;
+    private String degreeLevel;
     private boolean isFilterCleared;
 
     public FilterCommand(String[] criterion, int processNumber) {
@@ -71,6 +71,7 @@ public class FilterCommand extends Command {
         gpa = criterion[6];
         education = criterion[7];
         endorseCount = criterion[8];
+        degreeLevel = criterion[9];
         isFilterCleared = false;
 
         if (criterion[4] != null) {
@@ -102,11 +103,13 @@ public class FilterCommand extends Command {
         if (processNum == 1) {
             // or statement will be processed
             isFilterCleared = false;
-            model.filterOr(name, phone, email, address, skillList, posList, endorseCount, gpa, education);
+            model.filterOr(name, phone, email, address, skillList, posList,
+                    endorseCount, gpa, education, degreeLevel);
         } else if (processNum == 2) {
             // and statement will be processed
             isFilterCleared = false;
-            model.filterAnd(name, phone, email, address, skillList, posList, endorseCount, gpa, education);
+            model.filterAnd(name, phone, email, address, skillList, posList,
+                    endorseCount, gpa, education, degreeLevel);
         } else if (processNum == 3) {
             // reverse statement will be processed
             isFilterCleared = false;
@@ -169,7 +172,9 @@ public class FilterCommand extends Command {
                 && ((gpa == null && ((FilterCommand) other).gpa == null)
                 || gpa.equals(((FilterCommand) other).gpa))
                 && ((endorseCount == null && ((FilterCommand) other).endorseCount == null)
-                || endorseCount.equals(((FilterCommand) other).endorseCount)))) {
+                || endorseCount.equals(((FilterCommand) other).endorseCount))
+                && ((degreeLevel == null && ((FilterCommand) other).degreeLevel == null)
+                || degreeLevel.equals(((FilterCommand) other).degreeLevel)))) {
             return true;
         }
 

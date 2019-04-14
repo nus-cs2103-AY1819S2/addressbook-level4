@@ -35,7 +35,7 @@ public class CliSyntax {
     public static final Prefix PREFIX_FILTER_GPA = new Prefix("gpa<");
     public static final Prefix PREFIX_FILTER_GPA_REVERSE = new Prefix(">gpa");
     public static final Prefix PREFIX_FILTER_DEGREE = new Prefix("deg<");
-    public static final Prefix PREFIX_FILTER_GPA_DEGREE = new Prefix(">deg");
+    public static final Prefix PREFIX_FILTER_DEGREE_REVERSE = new Prefix(">deg");
     public static final Prefix PREFIX_FILTER_EDUCATION = new Prefix("edu<");
     public static final Prefix PREFIX_FILTER_EDUCATION_REVERSE = new Prefix(">edu");
 

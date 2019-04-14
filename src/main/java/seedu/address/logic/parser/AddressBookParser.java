@@ -44,14 +44,30 @@ public class AddressBookParser {
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 
     /**
-     * Used to test whether the arguments of a command is null
+     * Used to deal with null arguments commands
+     *
+     * @param arguments arguments of user input string
+     * @throws ParseException if the user input parameters after commands that expect no arguments
+     */
+    public void judgeNullArgument(String arguments) throws ParseException {
+
+        if (!"".equals(arguments)) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
+        }
+
+    }
+
+    /**
+     * Used to deal with concatenation of commands
+     *
+     * @param arguments arguments of user input string
+     * @throws ParseException if the user input more than one commands
      */
     public void dealArguments(String arguments) throws ParseException {
 
         String[] commandList = {"help", "add", "list", "select", "edit", "delete", "clear", "pin", "unpin", "pinselect",
                                 "archive", "archivelist", "archiveselect", "unarchive", "archiveclear", "history",
                                 "redo", "undo", "exit", "find"};
-
 
         ArrayList<String> command = new ArrayList<>(Arrays.asList(commandList));
         Iterator<String> iterator = command.iterator();
@@ -67,6 +83,7 @@ public class AddressBookParser {
                 }
             }
         }
+
     }
 
     /**
@@ -103,6 +120,7 @@ public class AddressBookParser {
             return new PinCommandParser().parse(arguments);
 
         case ClearCommand.COMMAND_WORD:
+            judgeNullArgument(arguments);
             dealArguments(arguments);
             return new ClearCommand();
 
@@ -110,10 +128,12 @@ public class AddressBookParser {
             return new FindCommandParser().parse(arguments);
 
         case ListCommand.COMMAND_WORD:
+            judgeNullArgument(arguments);
             dealArguments(arguments);
             return new ListCommand();
 
         case ArchiveCommand.COMMAND_WORD:
+            judgeNullArgument(arguments);
             return new ArchiveCommandParser().parse(arguments);
 
         case ArchiveListCommand.COMMAND_WORD:
@@ -124,6 +144,7 @@ public class AddressBookParser {
             return new ArchiveSelectCommandParser().parse(arguments);
 
         case ArchiveClearCommand.COMMAND_WORD:
+            judgeNullArgument(arguments);
             dealArguments(arguments);
             return new ArchiveClearCommand();
 
@@ -131,18 +152,22 @@ public class AddressBookParser {
             return new UnarchiveCommandParser().parse(arguments);
 
         case HistoryCommand.COMMAND_WORD:
+            judgeNullArgument(arguments);
             dealArguments(arguments);
             return new HistoryCommand();
 
         case ExitCommand.COMMAND_WORD:
+            judgeNullArgument(arguments);
             dealArguments(arguments);
             return new ExitCommand();
 
         case HelpCommand.COMMAND_WORD:
+            judgeNullArgument(arguments);
             dealArguments(arguments);
             return new HelpCommand();
 
         case UndoCommand.COMMAND_WORD:
+            judgeNullArgument(arguments);
             dealArguments(arguments);
             return new UndoCommand();
 
@@ -150,6 +175,7 @@ public class AddressBookParser {
             return new UnpinCommandParser().parse(arguments);
 
         case RedoCommand.COMMAND_WORD:
+            judgeNullArgument(arguments);
             dealArguments(arguments);
             return new RedoCommand();
 

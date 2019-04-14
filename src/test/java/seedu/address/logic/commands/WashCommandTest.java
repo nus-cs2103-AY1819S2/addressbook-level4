@@ -26,7 +26,7 @@ import seedu.address.model.apparel.Apparel;
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for EditCommand.
  */
-public class AvailableCommandTest {
+public class WashCommandTest {
 
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
     private Model dirtyModel = new ModelManager(getDirtyAddressBook(), new UserPrefs());
@@ -34,12 +34,12 @@ public class AvailableCommandTest {
 
     @Test
     public void execute_wash_success() {
-        AvailableCommand availableCommand = new AvailableCommand(INDEX_FIRST_APPAREL);
+        WashCommand washCommand = new WashCommand(INDEX_FIRST_APPAREL);
 
         Apparel apparelToWash = dirtyModel.getFilteredApparelList().get(0);
         Apparel apparelAfterWash = apparelToWash.setWashed();
 
-        String expectedMessage = String.format(AvailableCommand.MESSAGE_CLEAN_APPAREL_SUCCESS,
+        String expectedMessage = String.format(WashCommand.MESSAGE_CLEAN_APPAREL_SUCCESS,
                 INDEX_FIRST_APPAREL.getOneBased(), apparelAfterWash);
 
         // reset
@@ -49,7 +49,7 @@ public class AvailableCommandTest {
         expectedModel.setPerson(apparelToWash, new Apparel(apparelToWash).setWorn());
         expectedModel.commitAddressBook();
 
-        assertCommandSuccess(availableCommand, dirtyModel, commandHistory, expectedMessage, expectedModel);
+        assertCommandSuccess(washCommand, dirtyModel, commandHistory, expectedMessage, expectedModel);
     }
 
     @Test
@@ -62,20 +62,20 @@ public class AvailableCommandTest {
         cleanApparelInFilteredList.setWashed();
         model.setPerson(apparelInFilteredList, cleanApparelInFilteredList);
 
-        AvailableCommand availableCommand = new AvailableCommand(INDEX_FIRST_APPAREL);
+        WashCommand washCommand = new WashCommand(INDEX_FIRST_APPAREL);
 
-        String expectedMessage = String.format(AvailableCommand.MESSAGE_APPAREL_ALREADY_CLEAN_OCD,
+        String expectedMessage = String.format(WashCommand.MESSAGE_APPAREL_ALREADY_CLEAN_OCD,
                 INDEX_FIRST_APPAREL.getOneBased(), cleanApparelInFilteredList);
 
-        assertCommandFailure(availableCommand, model, commandHistory, expectedMessage);
+        assertCommandFailure(washCommand, model, commandHistory, expectedMessage);
     }
 
     @Test
     public void execute_invalidPersonIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredApparelList().size() + 1);
-        AvailableCommand availableCommand = new AvailableCommand(outOfBoundIndex);
+        WashCommand washCommand = new WashCommand(outOfBoundIndex);
 
-        assertCommandFailure(availableCommand, model, commandHistory, Messages.MESSAGE_INVALID_APPAREL_DISPLAYED_INDEX);
+        assertCommandFailure(washCommand, model, commandHistory, Messages.MESSAGE_INVALID_APPAREL_DISPLAYED_INDEX);
     }
 
     /**
@@ -89,10 +89,10 @@ public class AvailableCommandTest {
         // ensures that outOfBoundIndex is still in bounds of address book list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getApparelList().size());
 
-        AvailableCommand availableCommand = new AvailableCommand(outOfBoundIndex);
+        WashCommand washCommand = new WashCommand(outOfBoundIndex);
 
         try {
-            availableCommand.execute(model, commandHistory);
+            washCommand.execute(model, commandHistory);
             Assert.fail("CommandException should be thrown.");
         } catch (CommandException ce) {
             // do nothing
@@ -102,10 +102,10 @@ public class AvailableCommandTest {
     @Test
     public void executeUndoRedo_invalidIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredApparelList().size() + 1);
-        AvailableCommand availableCommand = new AvailableCommand(outOfBoundIndex);
+        WashCommand washCommand = new WashCommand(outOfBoundIndex);
 
         // execution failed -> address book state not added into model
-        assertCommandFailure(availableCommand, model, commandHistory, Messages.MESSAGE_INVALID_APPAREL_DISPLAYED_INDEX);
+        assertCommandFailure(washCommand, model, commandHistory, Messages.MESSAGE_INVALID_APPAREL_DISPLAYED_INDEX);
 
         // single address book state in model -> undoCommand and redoCommand fail
         assertCommandFailure(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_FAILURE);

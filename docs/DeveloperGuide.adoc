@@ -231,19 +231,19 @@ Classes used by multiple components are in the `seedu.fashionmatch.commons` pack
 
 This section describes some noteworthy details on how certain features are implemented.
 
-// tag::available[]
-=== Make Available feature
-Set availability status to available.
+// tag::wash[]
+=== Wash feature
+Set availability status to clean.
 ==== Current Implementation
 _{More to be added}_
-// end::available[]
+// end::wash[]
 
-// tag::unavailable[]
-=== Make Unavailable feature
-Set availability status to unavailable.
+// tag::Wear[]
+=== Wear feature
+Set availability status to Worn.
 ==== Current Implementation
 _{More to be added}_
-// end::unavailable[]
+// end::Wear[]
 
 // tag::sort[]
 === Sort Apparel feature

@@ -24,7 +24,7 @@ import seedu.address.model.apparel.Apparel;
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for EditCommand.
  */
-public class UnavailableCommandTest {
+public class WearCommandTest {
 
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
     private Model dirtyModel = new ModelManager(getDirtyAddressBook(), new UserPrefs());
@@ -37,9 +37,9 @@ public class UnavailableCommandTest {
         Apparel wornApparel = new Apparel(apparelToWear);
         wornApparel.use();
 
-        UnavailableCommand unavailableCommand = new UnavailableCommand(INDEX_SECOND_APPAREL);
+        WearCommand wearCommand = new WearCommand(INDEX_SECOND_APPAREL);
 
-        String expectedMessage = String.format(UnavailableCommand.MESSAGE_WEAR_APPAREL_SUCCESS,
+        String expectedMessage = String.format(WearCommand.MESSAGE_WEAR_APPAREL_SUCCESS,
                 INDEX_SECOND_APPAREL.getOneBased(), wornApparel);
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
@@ -48,7 +48,7 @@ public class UnavailableCommandTest {
         expectedModel.commitAddressBook();
 
         System.out.println(expectedMessage);
-        assertCommandSuccess(unavailableCommand, model, commandHistory, expectedMessage, expectedModel);
+        assertCommandSuccess(wearCommand, model, commandHistory, expectedMessage, expectedModel);
     }
 
     @Test
@@ -59,7 +59,7 @@ public class UnavailableCommandTest {
         Apparel wornAgainApparel = new Apparel(wornApparelInFilteredList);
         wornAgainApparel.use();
 
-        UnavailableCommand unavailableCommand = new UnavailableCommand(INDEX_FIRST_APPAREL);
+        WearCommand wearCommand = new WearCommand(INDEX_FIRST_APPAREL);
 
         String[] randomMessages = generateRandomResponses(INDEX_FIRST_APPAREL.getOneBased(), wornAgainApparel);
 
@@ -68,7 +68,7 @@ public class UnavailableCommandTest {
                 .get(INDEX_FIRST_APPAREL.getZeroBased()), wornAgainApparel);
         expectedModel.commitAddressBook();
 
-        assertCommandSuccess(unavailableCommand, dirtyModel, commandHistory, randomMessages, expectedModel);
+        assertCommandSuccess(wearCommand, dirtyModel, commandHistory, randomMessages, expectedModel);
     }
 
     /**
@@ -81,19 +81,19 @@ public class UnavailableCommandTest {
         // with global array of messages from unavailable class
         String[] randomMessages = new String[7];
 
-        randomMessages[0] = String.format(UnavailableCommand.MESSAGE_WEAR_APPAREL_THOUGH_WORN_SUCCESS_1,
+        randomMessages[0] = String.format(WearCommand.MESSAGE_WEAR_APPAREL_THOUGH_WORN_SUCCESS_1,
                 index, wornApparel);
-        randomMessages[1] = String.format(UnavailableCommand.MESSAGE_WEAR_APPAREL_THOUGH_WORN_SUCCESS_2,
+        randomMessages[1] = String.format(WearCommand.MESSAGE_WEAR_APPAREL_THOUGH_WORN_SUCCESS_2,
                 index, wornApparel);
-        randomMessages[2] = String.format(UnavailableCommand.MESSAGE_WEAR_APPAREL_THOUGH_WORN_SUCCESS_3,
+        randomMessages[2] = String.format(WearCommand.MESSAGE_WEAR_APPAREL_THOUGH_WORN_SUCCESS_3,
                 index, wornApparel);
-        randomMessages[3] = String.format(UnavailableCommand.MESSAGE_WEAR_APPAREL_THOUGH_WORN_SUCCESS_4,
+        randomMessages[3] = String.format(WearCommand.MESSAGE_WEAR_APPAREL_THOUGH_WORN_SUCCESS_4,
                 index, wornApparel);
-        randomMessages[4] = String.format(UnavailableCommand.MESSAGE_WEAR_APPAREL_THOUGH_WORN_SUCCESS_5,
+        randomMessages[4] = String.format(WearCommand.MESSAGE_WEAR_APPAREL_THOUGH_WORN_SUCCESS_5,
                 index, wornApparel);
-        randomMessages[5] = String.format(UnavailableCommand.MESSAGE_WEAR_APPAREL_THOUGH_WORN_SUCCESS_6,
+        randomMessages[5] = String.format(WearCommand.MESSAGE_WEAR_APPAREL_THOUGH_WORN_SUCCESS_6,
                 index, wornApparel);
-        randomMessages[6] = String.format(UnavailableCommand.MESSAGE_WEAR_APPAREL_THOUGH_WORN_SUCCESS_7,
+        randomMessages[6] = String.format(WearCommand.MESSAGE_WEAR_APPAREL_THOUGH_WORN_SUCCESS_7,
                 index, wornApparel);
 
         return randomMessages;
@@ -103,9 +103,9 @@ public class UnavailableCommandTest {
     public void execute_invalidPersonIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredApparelList().size() + 1);
 
-        UnavailableCommand unavailableCommand = new UnavailableCommand(outOfBoundIndex);
+        WearCommand wearCommand = new WearCommand(outOfBoundIndex);
 
-        assertCommandFailure(unavailableCommand, model, commandHistory,
+        assertCommandFailure(wearCommand, model, commandHistory,
                 Messages.MESSAGE_INVALID_APPAREL_DISPLAYED_INDEX);
     }
 
@@ -120,9 +120,9 @@ public class UnavailableCommandTest {
         // ensures that outOfBoundIndex is still in bounds of address book list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getApparelList().size());
 
-        UnavailableCommand unavailableCommand = new UnavailableCommand(outOfBoundIndex);
+        WearCommand wearCommand = new WearCommand(outOfBoundIndex);
 
-        assertCommandFailure(unavailableCommand, model, commandHistory,
+        assertCommandFailure(wearCommand, model, commandHistory,
                                 Messages.MESSAGE_INVALID_APPAREL_DISPLAYED_INDEX);
     }
 
@@ -130,13 +130,13 @@ public class UnavailableCommandTest {
     public void executeUndoRedo_validIndexUnfilteredList_success() throws Exception {
         Apparel apparelToEdit = model.getFilteredApparelList().get(INDEX_FIRST_APPAREL.getZeroBased());
         Apparel wornApparel = new Apparel(apparelToEdit.use());
-        UnavailableCommand unavailableCommand = new UnavailableCommand(INDEX_FIRST_APPAREL);
+        WearCommand wearCommand = new WearCommand(INDEX_FIRST_APPAREL);
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.setPerson(apparelToEdit, wornApparel);
         expectedModel.commitAddressBook();
 
         // edit -> first apparel edited
-        unavailableCommand.execute(model, commandHistory);
+        wearCommand.execute(model, commandHistory);
 
         // undo -> reverts address book back to previous state and filtered apparel list to show all persons
         expectedModel.undoAddressBook();
@@ -150,10 +150,10 @@ public class UnavailableCommandTest {
     @Test
     public void executeUndoRedo_invalidIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredApparelList().size() + 1);
-        UnavailableCommand unavailableCommand = new UnavailableCommand(outOfBoundIndex);
+        WearCommand wearCommand = new WearCommand(outOfBoundIndex);
 
         // execution failed -> address book state not added into model
-        assertCommandFailure(unavailableCommand, model, commandHistory,
+        assertCommandFailure(wearCommand, model, commandHistory,
                 Messages.MESSAGE_INVALID_APPAREL_DISPLAYED_INDEX);
 
         // single address book state in model -> undoCommand and redoCommand fail
@@ -170,7 +170,7 @@ public class UnavailableCommandTest {
      */
     @Test
     public void executeUndoRedo_validIndexFilteredList_samePersonEdited() throws Exception {
-        UnavailableCommand unavailableCommand = new UnavailableCommand(INDEX_FIRST_APPAREL);
+        WearCommand wearCommand = new WearCommand(INDEX_FIRST_APPAREL);
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
 
         showApparelAtIndex(model, INDEX_SECOND_APPAREL);
@@ -180,7 +180,7 @@ public class UnavailableCommandTest {
         expectedModel.commitAddressBook();
 
         // edit -> edits second apparel in unfiltered apparel list / first apparel in filtered apparel list
-        unavailableCommand.execute(model, commandHistory);
+        wearCommand.execute(model, commandHistory);
 
         // undo -> reverts address book back to previous state and filtered apparel list to show all persons
         expectedModel.undoAddressBook();

@@ -1,6 +1,6 @@
 package seedu.address.testutil;
 
-import seedu.address.logic.commands.UnavailableCommand.UnavailablePersonDescriptor;
+import seedu.address.logic.commands.WearCommand.UnavailablePersonDescriptor;
 import seedu.address.model.apparel.Apparel;
 import seedu.address.model.apparel.ClothingType;
 import seedu.address.model.apparel.Color;

@@ -398,8 +398,6 @@ Users would be able to save their favourite outfits or apparels so that they can
 
 * *Add* `add n/NAME c/COLOR t/CLOTHINGTYPE` +
 e.g. `add n/Bright Tshirt c/Yellow t/Top`
-* *Available* : `available INDEX` +
-e.g. `available 1`
 * *Clear* : `clear`
 * *Delete* : `delete INDEX` +
 e.g. `delete 3`
@@ -422,6 +420,8 @@ e.g. `select 2`
 * *Something* : `something COLOR` +
 e.g. `something RED`
 * *Stats* : `stats`
-* *Unavailable* : `unavailable INDEX` +
-e.g. `unavailable 2`
 * *Undo* : `undo`
+* *Wash* : `wash INDEX` +
+e.g. `wash 1`
+* *Wear* : `wear INDEX` +
+e.g. `wear 1`

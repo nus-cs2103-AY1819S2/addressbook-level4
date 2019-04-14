@@ -7,7 +7,6 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
-import java.util.Random;
 import java.util.Set;
 
 import seedu.address.commons.core.Messages;
@@ -25,33 +24,18 @@ import seedu.address.model.tag.Tag;
 /**
  * Edits the details of an existing apparel in the address book.
  */
-public class UnavailableCommand extends Command {
+public class WashCommand extends Command {
 
-    public static final String COMMAND_WORD = "unavailable";
-    public static final String ALTERNATE_COMMAND_WORD = "wear";
+    public static final String COMMAND_WORD = "available";
+    public static final String ALTERNATE_COMMAND_WORD = "wash";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Sets the availability of the apparel identified "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Resets the cleanliness of the apparel identified "
             + "by the index number used in the displayed apparel list. "
             + "Parameters: INDEX (must be a positive integer) "
             + "Example: " + COMMAND_WORD + " 1 or " + ALTERNATE_COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_WEAR_APPAREL_SUCCESS = "Apparel %1$d. worn: \n%2$s";
-    public static final String MESSAGE_WEAR_APPAREL_THOUGH_WORN_SUCCESS_1 = "Apparel %1$d. worn again: \n%2$s"
-            + "\nWould definitely suggest washing soon.";
-    public static final String MESSAGE_WEAR_APPAREL_THOUGH_WORN_SUCCESS_2 = "Apparel %1$d. worn again: \n%2$s"
-            + "\nBut hey, don't sit next to me.";
-    public static final String MESSAGE_WEAR_APPAREL_THOUGH_WORN_SUCCESS_3 = "Apparel %1$d. worn again: \n%2$s"
-            + "\nBy the way, are you allergic to soap?";
-    public static final String MESSAGE_WEAR_APPAREL_THOUGH_WORN_SUCCESS_4 = "Apparel %1$d. worn again: \n%2$s"
-            + "\nWash your clothes, clean your room, and confront the devils in your house.";
-    public static final String MESSAGE_WEAR_APPAREL_THOUGH_WORN_SUCCESS_5 = "Apparel %1$d. worn again: \n%2$s"
-            + "\nI can smell you from a mile away, and guess what? It's not a good smell.";
-    public static final String MESSAGE_WEAR_APPAREL_THOUGH_WORN_SUCCESS_6 = "Apparel %1$d. worn again: \n%2$s"
-            + "\n... There's a river 2 miles away, just go swim in it.";
-    public static final String MESSAGE_WEAR_APPAREL_THOUGH_WORN_SUCCESS_7 = "Apparel %1$d. worn again: \n%2$s"
-            + "\nDon't wear it to a date, please.";
-
-    public static final String MESSAGE_SWITCH_CASE_ERROR = "Something went wrong with the switch case.";
+    public static final String MESSAGE_CLEAN_APPAREL_SUCCESS = "Apparel %1$d. washed: \n%2$s";
+    public static final String MESSAGE_APPAREL_ALREADY_CLEAN_OCD = "Apparel %1$d. already washed: \n%2$s";
     public static final String MESSAGE_DUPLICATE_APPAREL = "This apparel already exists in the address book.";
 
     private final Index index;
@@ -59,7 +43,7 @@ public class UnavailableCommand extends Command {
     /**
      * @param index of the apparel in the filtered apparel list to edit
      */
-    public UnavailableCommand(Index index) {
+    public WashCommand(Index index) {
         requireNonNull(index);
         this.index = index;
     }
@@ -73,50 +57,21 @@ public class UnavailableCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_APPAREL_DISPLAYED_INDEX);
         }
 
-        Apparel apparelToWear = lastShownList.get(index.getZeroBased());
+        Apparel apparelToWash = lastShownList.get(index.getZeroBased());
 
-        Apparel wornApparel = new Apparel(apparelToWear).use();
+        if (apparelToWash.isAvailable()) {
+            throw new CommandException(String.format(MESSAGE_APPAREL_ALREADY_CLEAN_OCD,
+                    index.getOneBased(), apparelToWash));
+        }
 
-        model.setPerson(apparelToWear, wornApparel);
+        Apparel washedApparel = new Apparel(apparelToWash).setWashed();
+
+        model.setPerson(apparelToWash, washedApparel);
         model.updateFilteredApparelList(PREDICATE_SHOW_ALL_APPARELS);
         model.commitAddressBook();
 
-        if (!apparelToWear.isAvailable()) {
-            Random random = new Random();
-            int number = random.nextInt(7); // 0-6
-            number++; // 1-7
-
-            switch(number) {
-
-            case 1:
-                return new CommandResult(String.format(MESSAGE_WEAR_APPAREL_THOUGH_WORN_SUCCESS_1,
-                            index.getOneBased(), wornApparel));
-            case 2:
-                return new CommandResult(String.format(MESSAGE_WEAR_APPAREL_THOUGH_WORN_SUCCESS_2,
-                            index.getOneBased(), wornApparel));
-            case 3:
-                return new CommandResult(String.format(MESSAGE_WEAR_APPAREL_THOUGH_WORN_SUCCESS_3,
-                            index.getOneBased(), wornApparel));
-            case 4:
-                return new CommandResult(String.format(MESSAGE_WEAR_APPAREL_THOUGH_WORN_SUCCESS_4,
-                            index.getOneBased(), wornApparel));
-            case 5:
-                return new CommandResult(String.format(MESSAGE_WEAR_APPAREL_THOUGH_WORN_SUCCESS_5,
-                            index.getOneBased(), wornApparel));
-            case 6:
-                return new CommandResult(String.format(MESSAGE_WEAR_APPAREL_THOUGH_WORN_SUCCESS_6,
-                            index.getOneBased(), wornApparel));
-            case 7:
-                return new CommandResult(String.format(MESSAGE_WEAR_APPAREL_THOUGH_WORN_SUCCESS_7,
-                            index.getOneBased(), wornApparel));
-            default:
-                break;
-            }
-            throw new CommandException(MESSAGE_SWITCH_CASE_ERROR);
-        } else {
-            return new CommandResult(String.format(MESSAGE_WEAR_APPAREL_SUCCESS,
-                                                    index.getOneBased(), wornApparel));
-        }
+        return new CommandResult(String.format(MESSAGE_CLEAN_APPAREL_SUCCESS, index.getOneBased(),
+                washedApparel));
     }
 
     @Override
@@ -127,12 +82,12 @@ public class UnavailableCommand extends Command {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof UnavailableCommand)) {
+        if (!(other instanceof WashCommand)) {
             return false;
         }
 
         // state check
-        UnavailableCommand e = (UnavailableCommand) other;
+        WashCommand e = (WashCommand) other;
         return index.equals(e.index);
     }
 
@@ -140,20 +95,20 @@ public class UnavailableCommand extends Command {
      * Stores the details to edit the apparel with. Each non-empty field value will replace the
      * corresponding field value of the apparel.
      */
-    public static class UnavailablePersonDescriptor {
+    public static class AvailablePersonDescriptor {
         private Name name;
         private Color color;
         private ClothingType clothingType;
         private Address address;
         private Set<Tag> tags;
 
-        public UnavailablePersonDescriptor() {}
+        public AvailablePersonDescriptor() {}
 
         /**
          * Copy constructor.
          * A defensive copy of {@code tags} is used internally.
          */
-        public UnavailablePersonDescriptor(UnavailablePersonDescriptor toCopy) {
+        public AvailablePersonDescriptor(AvailablePersonDescriptor toCopy) {
             setName(toCopy.name);
             setColor(toCopy.color);
             setClothingType(toCopy.clothingType);
@@ -218,12 +173,12 @@ public class UnavailableCommand extends Command {
             }
 
             // instanceof handles nulls
-            if (!(other instanceof UnavailablePersonDescriptor)) {
+            if (!(other instanceof AvailablePersonDescriptor)) {
                 return false;
             }
 
             // state check
-            UnavailablePersonDescriptor e = (UnavailablePersonDescriptor) other;
+            AvailablePersonDescriptor e = (AvailablePersonDescriptor) other;
 
             return getName().equals(e.getName())
                     && getColor().equals(e.getColor())

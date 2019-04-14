@@ -27,10 +27,10 @@ public class CommandTestUtilExtra {
     public static final String VALID_TYPE_TOP = "Top";
     public static final String VALID_TYPE_BOTTOM = "Bottom";
 
-    public static final AvailableCommand.AvailablePersonDescriptor DESC_ANDY;
-    public static final AvailableCommand.AvailablePersonDescriptor DESC_BOBBY;
-    public static final UnavailableCommand.UnavailablePersonDescriptor DESC_CONNY;
-    public static final UnavailableCommand.UnavailablePersonDescriptor DESC_DENDI;
+    public static final WashCommand.AvailablePersonDescriptor DESC_ANDY;
+    public static final WashCommand.AvailablePersonDescriptor DESC_BOBBY;
+    public static final WearCommand.UnavailablePersonDescriptor DESC_CONNY;
+    public static final WearCommand.UnavailablePersonDescriptor DESC_DENDI;
 
     static {
         DESC_ANDY = new AvailableApparelDescriptorBuilder().withName(VALID_NAME_A)

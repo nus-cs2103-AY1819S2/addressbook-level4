@@ -1,6 +1,6 @@
 package seedu.address.testutil;
 
-import seedu.address.logic.commands.AvailableCommand.AvailablePersonDescriptor;
+import seedu.address.logic.commands.WashCommand.AvailablePersonDescriptor;
 import seedu.address.model.apparel.Apparel;
 import seedu.address.model.apparel.ClothingType;
 import seedu.address.model.apparel.Color;

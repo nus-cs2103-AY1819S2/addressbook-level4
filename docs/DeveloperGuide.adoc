@@ -583,11 +583,16 @@ A summary of each type of `AttackResult` can be seen from the following table:
 
 ==== Implementation of player interaction via commands
 
+.Use case diagram of the `Battle` Component.
+image::BattleUseCaseDiagram.png[width=800]
+
 .Activity diagram of the process of battling.
 image::BattleActivityDiagram.png[width=800]
 
-The above figure is a high-level overview of what happens when the
-user does battle against the computer enemy. As shown above, the player
+The upper diagram is a use case diagram which shows briefly the possible
+interactions between the user and the application during the battling phase.
+Below is a more detailed activity diagram of what happens when the
+user does battle against the computer enemy. As shown, the player
 does battle by using the `begin` command to initiate the battle,
 then the `attack` command to attack the enemy.
 

@@ -5,13 +5,13 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.job.JobListName;
 
 /**
- * Parses input arguments and creates a new DeleteCommand object
+ * Parses input arguments and creates a new DeleteFilterCommand object
  */
 public class DeleteFilterCommandParser implements Parser<DeleteFilterCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the DeleteCommand
-     * and returns an DeleteCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the DeleteFilterCommand
+     * and returns an DeleteFilterCommand object for execution.
      *
      * @throws ParseException if the user input does not conform the expected format
      */

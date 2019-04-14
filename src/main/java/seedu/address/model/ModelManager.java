@@ -386,9 +386,25 @@ public class ModelManager implements Model {
 
     @Override
     public void clearJobFilteredLists() {
+        clearJobFilteredListsApplicant();
+        clearJobFilteredListsKiv();
+        clearJobFilteredListsInterview();
+        clearJobFilteredListsShortlist();
+    }
+    @Override
+    public void clearJobFilteredListsApplicant() {
         filterListJobAllApplicants = new UniqueFilterList();
+    }
+    @Override
+    public void clearJobFilteredListsKiv() {
         filterListJobKiv = new UniqueFilterList();
+    }
+    @Override
+    public void clearJobFilteredListsInterview() {
         filterListJobInterview = new UniqueFilterList();
+    }
+    @Override
+    public void clearJobFilteredListsShortlist() {
         filterListJobShortlist = new UniqueFilterList();
     }
 

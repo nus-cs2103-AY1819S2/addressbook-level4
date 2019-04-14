@@ -447,6 +447,26 @@ public class AddCommandTest {
         }
 
         @Override
+        public void clearJobFilteredListsApplicant() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void clearJobFilteredListsInterview() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void clearJobFilteredListsKiv() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void clearJobFilteredListsShortlist() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void updateFilteredPersonList() {
             throw new AssertionError("This method should not be called.");
         }

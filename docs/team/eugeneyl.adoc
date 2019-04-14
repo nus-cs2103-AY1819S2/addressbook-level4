@@ -3,14 +3,13 @@
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-//[#img-ProfilePhoto]
-//image::eugeneyl.png[width="75",float = left]
+[#img-ProfilePhoto]
+image::eugeneyl.png[width="75",float = left]
 --
-This page aims to showcase my contribution to the project _In-Credit-Ble_ in tandem with the software engineering
+This page aims to showcase my contribution to the project _In-Credit-Ble_ done in tandem with the software engineering
 module (CS2103T). I will first give an introduction to _In-Credit-Ble_, followed by highlighting the key contributions
 that i have made in the application. Lastly, I will be including the relevant sections of the User Guide(UG) and
-Development Guide(DG) that I documented. I hope that this document will provide you with a better understanding of my
-contribution in _In-Credit-Ble_.
+Development Guide(DG) that I documented.
 --
 
 == PROJECT: In-Credit-Ble
@@ -19,12 +18,12 @@ contribution in _In-Credit-Ble_.
 
 _In-Credit-Ble_ is a Finance Tracker created in order to assist fellow university students who have difficulty keeping
 track of their daily expenses due to the multitude of micro-transactions that they encounter in their daily life. By
-creating a finance tracker with an intuitive and easy-to-use User Interface, we hope to help these students by providing
-them with a hassle-free platform to manage their expenses.
+creating a finance tracker with an intuitive and easy-to-use User Interface (UI), we hope to help these students by
+providing them with a hassle-free platform to manage their expenses.
 
 _In-Credit-Ble_ was developed by a team of five students from the National University of Singapore
-as part of a Software Engineering module (CS2103T). In a short span of 3 months, we have to understand the basic
-structure of a software and adapt the source code of a addressBook into our finance tracker application.
+as part of a Software Engineering module (CS2103T). In a short span of 3 months, we understood the basic
+structure of a software and adapted the source code of an address book into our finance tracker application.
 I will be documenting my contributions to this project through the major and minor features implemented for
 _In-Credit-Ble_.
 
@@ -36,26 +35,26 @@ _In-Credit-Ble_.
 
 === Features Enhancements
 
-==== Major Enhancement: Implemented the search feature
+==== Major Enhancement: Implementation of the search feature
 
 I added the ability to find records based on name, category or dates.
 
-*What it does*: The `search` command allows the user to search for records based on keyword that correspond to the
-records' name, category or date depending on the flag that user input. The total sum of money spent on all the
-filtered results of the search is also displayed to allow user to know how much money he/ she has spent on a
+*What it does*: The `search` command allows the user to search for entries based on keyword that correspond to the
+entries' name, category or date depending on the user's choice. The total sum of money spent on all the
+filtered entries of the search is also displayed to allow user to know how much money he/ she has spent on a
 particular type of transaction.
 
-*Justification*: In the midst of numerous records that the user has recorded in the application, this function will
-allow the user to filter out certain transactions record that he/ she is interested in or want to review.
-Having the sum of money spent on these records will also allow the user to have a better understanding of his/ her
-transaction for a particular category, date or item.
+*Justification*: In the midst of numerous entries that the user has recorded in the application, this function will
+allow the user to filter out certain transactions record that he/ she is interested in or wants to review.
+Having the total sum of money spent on these records will allow the user to have a better understanding of his/ her
+spending for a particular category, date or item.
 
 *Highlights*: This enhancement can be triggered using the 'search' command. This feature is also expandable in
 filtering out different kind of records by adding additional predicates in which the user can search with.
 (Searching based on amount).
 
 ==== Minor Enhancement:
-1. Introduced the function to add, edit or delete the `description` parameter of the records using the already
+1. Introduced the function to add, edit or delete the `description` parameter of the entries using the already
 implemented `edit` command.
 ** *What it does*: Allows user to make changes to the description of the any of the entries that he/ she has inputted
 into _In-Credit-Ble_.
@@ -67,8 +66,8 @@ easier.
 the user can add the necessary changes after the description prefix(`r/`). If the user wants to remove the description,
 he/ she can input the description prefix with nothing after it.
 
-2. Allow the `Spend` command to take in current date by default.
-**  *What it does*: If the user does not key in the `date` field in the spend function, the current date will
+2. Improved the `Spend` command to take in current date by default.
+**  *What it does*: If the user does not key in the `date` field when using the `spend` command, the current date will
 automatically be taken as the `date` instead.
 ** *Justification*: Since a transaction will usually be inputted into _In-Credit_Ble_ on the day of the transaction,
 having this function allow the user to key in one less parameter when recording his/ her numerous transactions, making
@@ -87,7 +86,7 @@ https://github.com/CS2103-AY1819S2-W17-3/main/pull/191[#191])
 ** Wrote the automated tests for the `set` command and added additional tests for `allocate` command.
 (Pull Request: https://github.com/CS2103-AY1819S2-W17-3/main/pull/194[#194])
 * Documentation:
-** Made edits to the user guide to ensure consistency between the application and the documentations. (Pull Request:
+** Edited the user guide to ensure consistency between the application and the documentations. (Pull Request:
 https://github.com/CS2103-AY1819S2-W17-3/main/pull/146[#146])
 ** Updated the application description in the ReadMe document so that users know what In-Credit-Ble is for.
 (Pull Request: https://github.com/CS2103-AY1819S2-W17-3/main/pull/9[#9])
@@ -105,14 +104,14 @@ https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#search=eugeneyl[Code Con
 
 == Contributions to the User Guide
 |===
-|_This next section will include my contribution to the User Guide. It showcases my ability in documenting a
-reader-friendly User Guide that is designed for new users of _In-Credit-Ble_ to understand the functionality available
-in our application._
+|_This next section will include my contribution to the User Guide. This showcases my ability in documenting a
+reader-friendly User Guide that is designed for new users of _In-Credit-Ble_ to understand the different functionality
+available in our application._
 |===
 
-I contributed to the User Guide documenting the `search` and `edit` command. These portions highlights the functions,
-usage and other relevant information about the 2 commands. These portion highlights my ability to explain these features
-in ways that a new user will be able to grasps.
+I documented the `edit` and `search` command in the user guide. These portions highlights the functions,
+usage and other relevant information about the 2 commands and it is explained in ways that a new user will be able to
+grasps.
 
 === 1) Description of Search Command
 
@@ -124,14 +123,14 @@ include::../UserGuide.adoc[tag=edit]
 
 == Contributions to the Developer Guide
 |===
-|_Tis last section will include my contribution to the Developer Guide. It showcases my ability in writing a technical
+|_This last section will include my contribution to the Developer Guide. It showcases my ability in writing a technical
 documentation and also demonstrate the technical depth of my code contribution._
 |===
 
 === Application Design
 |===
-|I constructed the class diagrams for the different components of the _In-Credit-Ble_ and explained the interaction within
-these components. This will allow developers who wish to contribute to our project to easily understand how our
+|I constructed the class diagrams for the different components of the _In-Credit-Ble_ and explained the interaction
+within these components. This will allow developers who wish to contribute to our project to easily understand how our
 application is designed. Due to page constraints, I will only be showing the edits that I made to the `Logic`
 and the `Model` component. To see the contributions I made in documenting the other components of the application,
 please visit the links below.
@@ -146,10 +145,10 @@ include::../DeveloperGuide.adoc[tag=model]
 
 === Implementation of Search Command
 |===
-|I documented the design of `Search` command to give the readers a better understanding of how the `search` command is
-implemented and the interactions between the various components of the application in order for the `search` command
-to be executed. I also listed the design considerations of the `search` command so that the reader understands why
-the current implementation is chosen instead of the alternative.
+|I also documented the design of `Search` command to give the readers a better understanding of how the `search` command
+is implemented and the interactions between the various components of the application in order for the `search` command
+to be executed. I also listed the design considerations of the `search` command in order to explain why the current
+implementation is chosen instead of the alternative.
 |===
 
 include::../DeveloperGuide.adoc[tag=search]

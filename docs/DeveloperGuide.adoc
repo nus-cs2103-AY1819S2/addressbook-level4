@@ -1372,30 +1372,12 @@ These instructions only provide a starting point for testers to work on; testers
 .. Test case: `set $/500.50` +
    Expected: The budget is changed to $500.50. The Budget Panel and Browser Panel are updated accordingly.
 .. Test case: `set 500` +
-   Expected: The budget is not changed. Error details shown in the status message. Status barremains the same.
+   Expected: The budget is not changed. Error details shown in the status message. Status bar remains the same.
 .. Test case: `set $/$500` +
    Expected: The budget is not changed. Error details shown in status message about amount.
 .. Test case: `set $/-1` +
    Expected: Similar to previous
 .. Test case: `set $/0` +
-   Expected: Similar to previous
-
-=== Adding an expense
-
-. Adding an entry no matter what is listed.
-
-.. Test case: `spend n/Chicken Rice $/5.50 c/Food d/1/4/2019 r/Tasty` +
-   Expected: Entry is added to the back of the list. Timestamp in the status bar is updated.
-.. Test case: `spend n/Tshirt $/10.00 d/31/03/2019 c/Food c/Clothes` +
-   Expected: Entry is added to the back of the list. Category recorded down is Clothes. Timestamp in the status bar is updated.
-.. Test case: `spend n/Chicken Rice $/5.50 c/Food` +
-   Expected: Entry is added to the back of the list. Since date is not supplied, today’s date will be recorded. Timestamp in the status bar is updated.
-.. Test case: `add n/Chicken Rice $/5.50 c/Food` +
-   Expected: Entry is added to the back of the list. Since date is not supplied, today’s date will be recorded. Timestamp in the status bar is updated.
-.. Test case: `spend n/Chicken Rice $/5.50` +
-   Expected: No entry is added. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect spend commands to try: `spend n/Chicken Rice c/Food`, `spend $.5.50 c/Food`, `spend n/Chicken Rice $/5.5 c/Food`,
-`spend n/Chicken Rice $/5.50 c/Food d/12/12/2045`, `spend n/Chicken Rice $/$5.50 c/Food` +
    Expected: Similar to previous
 
 === Allocating category budgets and showing allocated category budgets
@@ -1426,10 +1408,72 @@ Assume that `Food` category has $16.50 spent so far
    Expected: Category Budget not allocated. Current Spending in category more than user input for category budget.
    Error details shown in status message.
 
+=== Adding an expense
+
+. Adding an entry no matter what is listed.
+
+.. Test case: `spend n/Chicken Rice $/5.50 c/Food d/1/4/2019 r/Tasty` +
+   Expected: Entry is added to the back of the list. Timestamp in the status bar is updated.
+.. Test case: `spend n/Tshirt $/10.00 d/31/03/2019 c/Food c/Clothes` +
+   Expected: Entry is added to the back of the list. Category recorded down is Clothes. Timestamp in the status bar is updated.
+.. Test case: `spend n/Chicken Rice $/5.50 c/Food` +
+   Expected: Entry is added to the back of the list. Since date is not supplied, today’s date will be recorded.
+   Timestamp in the status bar is updated.
+.. Test case: `add n/Chicken Rice $/5.50 c/Food` +
+   Expected: Entry is added to the back of the list. Since date is not supplied, today’s date will be recorded.
+   Timestamp in the status bar is updated.
+.. Test case: `spend n/Chicken Rice $/5.50` +
+   Expected: No entry is added. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect spend commands to try: `spend n/Chicken Rice c/Food`, `spend $.5.50 c/Food`, `spend n/Chicken Rice $/5.5 c/Food`,
+   `spend n/Chicken Rice $/5.50 c/Food d/12/12/2045`, `spend n/Chicken Rice $/$5.50 c/Food` +
+   Expected: Similar to previous
+
+=== Editing an expense
+. Edit an entry while all entries are listed
+
+.. Prerequisites: List all entries using the `list` command. The list must have some entries in it.
+.. Editing one parameter of an entry.
+... Test case: `edit 1 n/test` +
+    Expected: The name of the first entry is being changed to test. Time stamp in the status bar is updated.
+... Test case: `edit 1 d/01/02/2003` +
+    Expected: The date of the first entry is being changed to 01/02/2003. Time stamp in the status bar is updated.
+... Test case: `edit 1 $/100` +
+    Expected: The amount spent of the first entry is changed to $100. The budget shown in the budget panel and the
+    browser panel is updated. Time stamp in the status bar is updated.
+... Test case: `edit 1 c/Test.` +
+    Expected: The category of the first entry is changed to Test. Time stamp in the status bar is updated.
+... Test case: `edit 1 r/Testing testing` +
+    Expected: The description of the first entry is changed to "Testing testing". Time stamp in the status bar is updated.
+
+.. Editing more than one parameter of an entry
+... Test case: `edit 1 n/test1 $/123` +
+    Expected: The first entry is being changed based on the command. The budget shown in the budget panel and the
+    browser panel is updated. Time stamp in the status bar is updated.
+... Test case: `edit 1 n/test2 $/1234 d/01/01/2001` +
+    Expected: Similar to previous.
+... Test case: `edit 1 n/test3 $/12345 d/01/01/2002 c/Test1` +
+    Expected: Similar to previous.
+... Test case: `edit 1 n/test4 $/123456 d/01/01/2003 c/Test2 r/Testing test` +
+    Expected: Similar to previous.
+
+.. Removing description for an entry
+... Prerequisites: The first entry of the list must have a description.
+... Test case: `edit 1 r/`
+    Expected: The description for the first entry is removed.
+
+.. Invalid command due to index
+... Test case: `edit 0 n/test`
+    Expected: No entry is edited. Error details shown in the status message. Status bar remains the same.
+
+.. Invalid command due to parameters
+... Test case: `edit 1 $/test`
+    Expected: No entry is added. Error details shown in the status message. Status bar remains the same.
+... Other incorrect edit commands to try: `edit 1 d/01/01/2045`, `edit 1 $/$100`,
+    `edit 1 r/12345678901234567890123456789012345678901`.
 
 === Deleting an entry
 
-. Deleting an entry while all entries are listed
+. Deleting an entry while all entries are listed.
 
 .. Prerequisites: List all entries using the `list` command. Multiple entries in the list.
 .. Test case: `delete 1` +
@@ -1438,6 +1482,51 @@ Assume that `Food` category has $16.50 spent so far
    Expected: No entry is deleted. Error details shown in the status message. Status bar remains the same.
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size), `delete three` +
    Expected: Similar to previous.
+
+=== Searching an entry
+
+[NOTE]
+In order for the expected results of the test to be accurate, please input the following commands below to set up your
+finance tracker. +
+1. `clear` +
+2. `spend n/Chicken Rice $/5.50 c/Food d/1/4/2019` +
+3. `spend n/Chicken Rice $/5.50 c/Food d/2/4/2019` +
+4. `spend n/Cupcakes $/2.50 c/Food d/2/4/2019` +
+5. `spend n/Tshirt $/15 c/Clothes d/1/4/2019` +
+6. `spend n/Jeans $/40 c/Clothes d/2/4/2019`
+
+. Searching for an entry or entries in a list.
+
+.. Prerequisites: There must already be entries that are shown in the record list panel. Please set up the finance
+   tracker as shown in the NOTE above.
+.. Search by name
+... Test case: `search -name chicken rice` +
+    Expected: 2 records are shown in the records list panel. The result display shows that the total spent on the
+    searched records is $11.00.
+... Test case: `search -name chicken` +
+    Expected: Same as previous.
+.. Search by category
+... Test case: `search -cat clothes` +
+    Expected: 2 records are shown in the records list panel. The result display shows that the total spent on the
+    searched records is $55.00.
+.. Search by date
+... Test case: `search -date 2/4/2019` +
+    Expected: 3 records are shown in the records list panel. The result display shows that the total spent on the
+    searched records is $48.00.
+... Test case: `search -date 5/4/2019` +
+    Expected: 0 records are shown in the records list panel. The result display shows that the total spent on the
+    searched records is $0.00.
+.. Search with no records shown
+... No matches in the keywords: `search -date 5/4/2019` +
+    Expected: 0 records are shown in the records list panel. The result display shows that the total spent on the
+    searched records is $0.00.
+... No parameters inputted after the search flag: `search -date` +
+    Expected: Same as previous.
+.. Invalid search command
+... Test case: `search -cat -date`
+    Expected: Error message is shown. The records list panel remains the same.
+... Other incorrect sort commands to try: `search -food`, `search -cat -food`, `search -cat -date -name`.
+
 
 === Sorting the entries
 
@@ -1469,6 +1558,16 @@ Assume that `Food` category has $16.50 spent so far
 .. Other incorrect sort commands to try: `sort -desc -amount`, `sort -amount -inc`, `sort -name -amount` +
    Expected: Similar to previous.
 
+=== Changing the Finance Tracker data storage location
+[NOTE]
+In order to test this command, please take note the name of the json file you are currently on. The name of the file can
+be seen at the right side of the status bar. By default, the json file is "finance.json".
+
+. Changing the file name
+.. Test case: `setfile f/testfile`
+   Expected: A new finance tracker file will be created with no records in the records list and the budget will be shown
+   as $0.00. You can type in the command `setfile f/finance`(or the name of the previous file) to retrieve the original
+   finance tracker that you were previously on.
 
 === Saving data
 

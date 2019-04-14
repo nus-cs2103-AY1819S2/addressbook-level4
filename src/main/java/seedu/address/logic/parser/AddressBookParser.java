@@ -13,6 +13,7 @@ import java.util.regex.Pattern;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.ArchiveClearCommand;
 import seedu.address.logic.commands.ArchiveCommand;
+import seedu.address.logic.commands.ArchiveFindCommand;
 import seedu.address.logic.commands.ArchiveListCommand;
 import seedu.address.logic.commands.ArchiveSelectCommand;
 import seedu.address.logic.commands.ClearCommand;
@@ -49,8 +50,8 @@ public class AddressBookParser {
     public void dealArguments(String arguments) throws ParseException {
 
         String[] commandList = {"help", "add", "list", "select", "edit", "delete", "clear", "pin", "unpin", "pinselect",
-                                "archive", "archivelist", "archiveselect", "unarchive", "archiveclear", "history",
-                                "redo", "undo", "exit", "find"};
+                                "archive", "archivelist", "archiveselect", "unarchive", "archiveclear", "archivefind",
+                                "history", "redo", "undo", "exit", "find"};
 
 
         ArrayList<String> command = new ArrayList<>(Arrays.asList(commandList));
@@ -126,6 +127,9 @@ public class AddressBookParser {
         case ArchiveClearCommand.COMMAND_WORD:
             dealArguments(arguments);
             return new ArchiveClearCommand();
+
+        case ArchiveFindCommand.COMMAND_WORD:
+            return new ArchiveFindCommandParser().parse(arguments);
 
         case UnarchiveCommand.COMMAND_WORD:
             return new UnarchiveCommandParser().parse(arguments);

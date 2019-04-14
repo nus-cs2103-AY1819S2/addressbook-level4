@@ -10,10 +10,12 @@ import seedu.address.model.review.Review;
  */
 public class EditReviewDescriptorBuilder {
 
+    private static final Entry DEFAULT_ENTRY = new Entry("Standard restaurant");
+    private static final Rating DEFAULT_RATING = new Rating("3");
     private EditReviewDescriptor descriptor;
 
     public EditReviewDescriptorBuilder() {
-        descriptor = new EditReviewDescriptor();
+        this(new Review(DEFAULT_ENTRY, DEFAULT_RATING));
     }
 
     public EditReviewDescriptorBuilder(EditReviewDescriptor descriptor) {

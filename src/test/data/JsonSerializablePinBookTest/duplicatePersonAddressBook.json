@@ -1,0 +1,23 @@
+{
+  "persons" : [ {
+    "name" : "Alice Pauline",
+    "phone" : "95352563",
+    "email" : "alice@example.com",
+    "remark" : "Alice is a seller",
+    "address" : null,
+    "customer" : "buyer",
+    "sellingPrice" : null,
+    "rentalPrice" : null,
+    "tagged" : [ ]
+  }, {
+    "name" : "Alice Pauline",
+    "phone" : "95352563",
+    "email" : "alice@example.com",
+    "remark" : "Alice is a seller",
+    "address" : null,
+    "customer" : "buyer",
+    "sellingPrice" : null,
+    "rentalPrice" : null,
+    "tagged" : [ ]
+  } ]
+}

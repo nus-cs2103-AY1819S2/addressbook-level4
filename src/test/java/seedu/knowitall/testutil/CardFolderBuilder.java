@@ -16,6 +16,10 @@ public class CardFolderBuilder {
         cardFolder = new CardFolder(TypicalCards.getTypicalFolderOneName());
     }
 
+    public CardFolderBuilder(String cardFolderName) {
+        cardFolder = new CardFolder(cardFolderName);
+    }
+
     public CardFolderBuilder(CardFolder cardFolder) {
         this.cardFolder = cardFolder;
     }

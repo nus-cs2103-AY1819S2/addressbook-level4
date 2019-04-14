@@ -152,7 +152,7 @@ The _Sequence Diagram_ below shows how the components interact with each other f
 image::SDforDeleteCard.png[width="800"]
 
 The sections below give more details of each component.
-
+//tag::UIdesign[]
 [[Design-Ui]]
 === UI component
 
@@ -161,14 +161,19 @@ image::UiClassDiagram.png[width="800"]
 
 *API* : link:{repoURL}/src/main/java/seedu/knowitall/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `CardListPanel`, `StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+`UI` consists of a `MainWindow` made up of many parts as seen above e.g.`CommandBox`, `ResultDisplay`, `CardMainScreen`,
+`StatusBarFooter`, `BrowserPanel` etc. All these parts, including the `MainWindow`, inherit from the abstract `UiPart`
+class.
 
-The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/knowitall/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
+The `UI` component uses JavaFx UI framework.
+The layout of these UI parts are defined in matching `.fxml` files located in the `src/main/resources/view` folder.
+For example, the layout of the link:{repoURL}/src/main/java/seedu/knowitall/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
 The `UI` component,
 
-* Executes user commands using the `Logic` component.
-* Listens for changes to `Model` data so that the UI can be updated with the modified data.
+* Uses `Logic` component to execute user commands.
+* Listens for changes to `Model` data to update UI with the modified data.
+//end::UIdesign[]
 
 [[Design-Logic]]
 === Logic component
@@ -203,8 +208,9 @@ image::ModelClassDiagram.png[width="800"]
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores a list of `VersionedCardFolders` representing the folders that the user has.
+* stores a list of `VersionedCardFolders` representing the folders that the user has. These `VersionedCardFolders` in turn each store a list of `Cards`. Each `Card` stores information about a single question.
 * exposes unmodifiable instances of `FilteredList<Card>` and `FilteredList<VersionedCardFolder>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* exposes two instances of `SimpleObjectProperty<Card>`, which represent the current cards being selected and being tested, if any.
 * does not depend on any of the other three components.
 
 //end::modeldesign[]
@@ -224,8 +230,8 @@ image::StorageClassDiagram.png[width="800"]
 
 The `Storage` component,
 
-* can save `UserPref` objects in json format and read it back.
-* can save `CardFolder` data in json format and read it back.
+* can save `UserPref` objects in json format and read it back. It maintains a single instance of `UserPrefStorage`.
+* can save `CardFolder` data in json format and read it back. It holds a list of `CardFolderStorage` objects, each handling the storage functions of a single `CardFolder`.
 
 [[Design-Commons]]
 === Common classes
@@ -540,7 +546,7 @@ A folder is another layer of abstraction over a `CardFolder`. Where we dealt wit
 Folders in the application are achieved via enhancements from the AddressBook implementation. The changes span across all four components (UI, Logic, Model and Storage).
 
 ===== Model
-Previously, an instance of `ModelManager` contains only a single `VersionedCardFolder`, holding the current and previous state of the `CardFolder`. To support multiple folders, `ModelManager` now holds an `ObservableList` of `CardFolders`. The change is illustrated in the figure below, with the original implementation on the left and new implementation on the right.
+Previously, an instance of `ModelManager` contained only a single `VersionedCardFolder`, holding the current and previous state of the `CardFolder`. To support multiple folders, `ModelManager` now holds an `ObservableList` of `CardFolders`. The change is illustrated in the figure below, with the original implementation on the left and new implementation on the right.
 
 image::ModelEnhancementDiagram.png[width="800"]
 
@@ -552,7 +558,7 @@ To allow users to operate on multiple `CardFolders`, the following notable metho
 * `ModelManager#enterFolder(int index)` - Specifies the active `CardFolder` for operations to be performed on via the index in `ModelManager`’s list and sets the boolean `inFolder` to `true` to denote that user is inside a folder.
 * `ModelManager#exitFolderToHome()` - Sets the boolean `inFolder` to `false` to indicate that the user is at the home directory.
 * `ModelManager#renameFolder(int index, String newName)` - Renames the folder at the specified index in the `ModelManager's` list to the new name.
-* `ModelManager#isInFolder()` - Returns true if the `ModelManager` is currently inside a folder.
+* `ModelManager#getState()` - Returns the current state of the `ModelManager`. The possible states are {`IN_FOLDER`, `IN_HOMEDIR`, `IN_TEST`, `IN_REPORT`}.
 
 ===== Storage
 Similarly, the `StorageManager` needs to represent each `CardFolder` separately. In the same manner as in the Model component, we introduce a list of `JsonCardFolderStorages`. The change is illustrated in the figure below, with the original implementation on the left and new implementation on the right.
@@ -576,9 +582,12 @@ To illustrate how the Model, Storage and Logic components interact, below is a w
 * Step 2. As with every command, the command parser reads the input and generates the relevant `Command` object, in this case an `AddFolderCommand`. The object is returned to the `LogicManager`.
 
 [NOTE]
-If the input is invalid (e.g. user did not provide a folder name), Step 2 would not proceed and an error message is displayed. The Model and Storage components will not be modified.
+If the input is invalid (e.g. user did not provide a folder name or provided one that violated the constraints of folder names), Step 2 would not proceed and an error message is displayed. The Model and Storage components would not be modified.
 
-* Step 3. The `LogicManager` executes the `AddFolderCommand`, storing the result and then transferring control to the Model component with the `ModelManager#addFolder()` method.
+* Step 3. The `LogicManager` executes the `AddFolderCommand`, Before transferring control to the Model component with the `ModelManager#addFolder()` method, a few checks are performed to ensure that the user is inside a folder and the model does not already have a folder with the same name (not shown in sequence diagram).
+
+[NOTE]
+If any of the aforementioned checks do not success, Step 3 would end in a Command Exception being thrown and would not proceed. Model and Storage components would not be modified.
 
 * Step 4. The `ModelManager` creates a `VersionedCardFolder` to represent the newly created folder, storing a reference to its currently empty list of cards. Before returning control to the Logic component, `ModelManager#indicateModified()` is invoked to notify listeners in the `LogicManager` that the list of `CardFolders` have changed.
 
@@ -586,7 +595,7 @@ If the input is invalid (e.g. user did not provide a folder name), Step 2 would 
 
 * Step 6. Before handing over control to Storage, the `LogicManager` obtains the information to save and the path to save to with `ModelManager#getCardFolders()` and `ModelManager#getCardFoldersFilesPath()` respectively. It then passes these objects as parameters when it calls `StorageManager#saveCardFolders()`.
 
-* Step 7. The Storage component receives control, with the `StorageManager` clearing the directory at the specified path and creating `JsonCardFolderStorage` objects with path names equivalent to the names of the folders it has received. It then proceeds to invoke `JsonCardFolderStorage#saveCardFolder()` on all the `JsonCardFolderStorage` to save all the folders before returning to the `LogicManager`.
+* Step 7. The Storage component receives control, with the `StorageManager` clearing the directory of data files at the specified path and creating `JsonCardFolderStorage` objects with path names equivalent to the names of the folders it has received. It then proceeds to invoke `JsonCardFolderStorage#saveCardFolder()` on all the `JsonCardFolderStorage` to save all the folders before returning to the `LogicManager`.
 
 [NOTE]
 If the path provided by the Model Component is invalid, the Storage component throws an exception and an error message is displayed. The changes made to Model are not saved and the command does not execute successfully.
@@ -632,6 +641,8 @@ image::EnterFolderGUISequenceDiagram.png[width="800"]
 ** Pros: Easy to implement.
 ** Cons: Not scalable, will be computationally expensive to perform folder operations when there are many cards and/or folders.
 
+*Evaluation*: On the account of how computationally expensive it would be to parse through thousands of cards every card or folder operation, the first alternative was chosen and time was set aside to overcome the technical challenge of implementing the choice.
+
 ===== Aspect: Folder identification
 * **Alternative 1**: Use a unique folder name
 ** Pros: Easier to implement.
@@ -643,13 +654,17 @@ image::EnterFolderGUISequenceDiagram.png[width="800"]
 ** Pros: Reaps the benefits of both approaches without the disadvantages.
 ** Cons: Difficult to implement and for future developers to grasp the difference between the two types of comparisons.
 
+*Evaluation*: While it was difficult the implement, Alternative 3 was chosen due to the immense limitations of the first two approaches. The third alternative had little to no downside apart from requiring time to understand and implement.
+
 ===== Aspect: Storage file name and folder name
 * **Alternative 1**: Let folder name be the file name of the storage file
 ** Pros: Less ambiguity as to how file name is related to folder name, able to find storage file path with folder name.
-** Cons: Harder to retrieve folder name from the file as it requires parsing the path, more prone to data corruption as file name could be modified when application is running.
+** Cons: Harder to retrieve folder name from the file as it requires parsing the path, more prone to data corruption as file name could be modified when application is running (although this could be overcome with some OS-level syscalls to lock the file).
 * **Alternative 2 (current choice)**: Let file name be independent of folder name, which is stored inside the storage file itself
 ** Pros: Easier to implement and avoids dependency on existing storage files after application starts.
 ** Cons: When saving folders from Model, it is difficult to match folders with existing storage files. Hence, rather than saving the modified folder, it is more feasible to clear the directory and save all folders. This is computationally expensive and may not be scalable beyond a certain size.
+
+*Evaluation*: While in the long-run, the first alternative appears to better decision, time limitations make the Alternative 2 good enough for most practical use cases. The saved time was used to implement other features.
 
 ===== Aspect: What folders to generate in the event corrupted storage files are encountered
 * **Alternative 1**: Display a sample folder
@@ -660,7 +675,9 @@ image::EnterFolderGUISequenceDiagram.png[width="800"]
 ** Cons: If all data is corrupted, an empty application is presented to the user.
 * **Alternative 3 (current choice)**: Mixed approach, display all non-corrupted folders unless all data is corrupted, in which case display sample folder
 ** Pros: Has the advantages but not the disadvantages of Alternatives 1 and 2.
-** Cons: Challenging to implement.
+** Cons: More difficult to implement, developers will need to pay special attention to understand this behaviour.
+
+*Evaluation*: Alternative 3 is the most logical decision because it achieves the important objectives of retaining non-corrupted user data, while always ensuring there is data for the user to work with even if he/she is starting the application for the first time.
 
 === Navigating folders
 
@@ -675,7 +692,7 @@ The state of the application with regard to navigation (i.e. whether a user is i
 
 Please refer to the User Guide for the full list of commands under both categories.
 
-To keep track of navigation state, a boolean `inFolder` is maintained by the `ModelManager`. Other components may retrieve the current state with `ModelManager#isInFolder()`. This is also how the `Command` objects determines whether the command is executable in the present navigation state.
+To keep track of navigation state, an enum `State` is maintained by the `ModelManager`. Other components may retrieve the current state with `ModelManager#getState()`. This is also how the `Command` objects determines whether the command is executable in the present navigation state.
 
 ===== Change Directory Command
 
@@ -686,12 +703,12 @@ The change directory command has the following formats:
 1. `cd ..` - Returns the user to the home directory. This command can only be executed when the user is inside a folder.
 2. `cd FOLDER_INDEX` - Enters the folder specified by `FOLDER_INDEX`. This command can only be executed from the home directory, when the user is not in any folder.
 
-When a `cd` command is executed, the Logic component parses the command and creates a `ChangeDirectoryCommand` object. If the command is of the first format, `ChangeDirectoryCommand()` is invoked without any arguments and the boolean `isExitingFolder` is set to `true`. If the command is of the second format, the overloaded constructor `ChangeCommand(FOLDER_INDEX)` is instead called and `isExitingFolder` is set to `false`.
+When a `cd` command is executed, the Logic component parses the command and creates a `ChangeDirectoryCommand` object. If the command is of the first format, `ChangeDirectoryCommand()` is invoked without any arguments and the boolean `isExitingFolder` is set to `true`. If the command is of the second format, the overloaded constructor `ChangeDirectoryCommand(FOLDER_INDEX)` is instead called and `isExitingFolder` is set to `false`.
 
 `ChangeDirectoryCommand#execute()` is then invoked. The value of `isExitingFolder` will determine the corresponding methods in `ModelManager` that are called (`exitFoldersToHome()` or `enterFolder()`). The sequence diagram in <<changecommandsequencediagram>> illustrates this conditional choice and the interactions involved with each option.
 
 [[changecommandsequencediagram]]
-.Component interactions for `change` command
+.Component interactions for `cd` command
 image::ChangeCommandSequenceDiagram.png[width="600"]
 
 ==== Design Considerations
@@ -703,10 +720,10 @@ image::ChangeCommandSequenceDiagram.png[width="600"]
 ** Pros: Commands would function similar to other commands in the application.
 ** Cons: Harder for the user to get acquainted with as there are two separate commands with logically similar functionality; introduces redundancy.
 
+*Evaluation*: This matter is highly subjective and conflicting feedback was received during testing. However, we believe that our target audience, a user familiar with the command line, would be more used to navigation with a single command and as such would prefer Alternative 1.
 //end::folders[]
 
-
-//tag::testcommand[]
+//tag::testsession[]
 === Test Session feature
 
 ==== Overall Current Implementation
@@ -750,7 +767,7 @@ card is needed, can simply reference it using `currentTestedCardFolder.getIndex(
 ** Cons: Not so reader friendly. Need to keep accessing the list using the index which can potentially lead to
 possible violation of the Law of Demeter where an object should only interact with objects that are closely related to it.
 
-Evaluation of the 2 alternatives:
+**Evaluation of the 2 alternatives**:
 We went with alternative 1 since not a large amount of memory is taken up with just 1 extra card stored. As there will
 be a number of references to the `currentTestedCard`, it will be better to store them somewhere. Abiding by the Law
 of Demeter, `currentTestedCard` object will not be interacting with `currentTestedCardFolder`,  limiting its
@@ -765,7 +782,7 @@ knowledge of that object which is encouraged according to the Principle of Least
 ====== Model
 The main logic for  `test` and `end` command is carried out in `ModelManager` with the following methods:
 
-* `ModelManager#testCardFolder()` - begins a test session on the current card folder user is in and implicitly sorts
+* `ModelManager#startTestSession()` - begins a test session on the current card folder user is in and implicitly sorts
 the cards in it.
 * `ModelManager#endTestSession()` - ends the current test session.
 
@@ -800,7 +817,7 @@ Model component, with `Model#getState()` to check that user is inside a folder a
 If the user is not inside a folder, this `test` command would be rendered invalid. Step 4 would not proceed and an
 error message is displayed.
 
-**Step 4**. After checking user is in a folder, `ModelManager#testCardFolder()` method is invoked, which
+**Step 4**. After checking user is in a folder, `ModelManager#startTestSession()` method is invoked, which
 does the following:
 
 1. `currentTestedCardFolder` is set to the current folder the user is in, by invoking `getCardList()` from the active
@@ -834,7 +851,6 @@ user.
 .Component interactions for a `test` command
 image::TestCommandSequenceDiagram.png[width="800"]
 
-//end::testcommand[]
 
 [[exampleusageofendcommand]]
 [discrete]
@@ -864,7 +880,6 @@ the type `END_TEST_SESSION`.
 `MainWindow#handleEndTestSession()` to delete the current `testSession` page, presenting `cardMainScreen` page at the
 back (the screen the user was seeing before entering the test session) to the user.
 
-//tag::testcommanddesign[]
 ===== Design Considerations
 ====== Aspect: Way to execute a test/end command
 
@@ -881,11 +896,10 @@ enter folder command as well.
 then have to implicitly enter the folder to get access to the cards in it in order to display them, creating a dependency between test and enter folder command.
 Similar issue will arise for the end test session command where user will need to implicitly exit the folder.
 
-Evaluation of the two alternatives:
+**Evaluation of the two alternatives**:
 Overall, alternative 1 is a better choice following the Single Level of Abstraction Principle(SLAP) where a function should not mix different levels of abstractions. We can then better achieve higher cohesion and lower coupling.
 Also, user being able to see the questions before the test session is not a big issue since the answer will not be shown unless user selects the card.
 
-//end::testcommanddesign[]
 
 ==== Answer Command
 ===== Current Implementation
@@ -1051,9 +1065,9 @@ image::NextCommandSequenceDiagram.png[width="800"]
 ** Pros: Most correct way to do it since there is no next card to display.
 ** Cons: User may not understand. It is not user-friendly as user has to keep track of which card it is at to prevent the exception thrown.
 
-Evaluation of the two alternatives:
+**Evaluation of the two alternatives**:
 With our target audience in mind, alternative 1 is the more user friendly and intuitive way to handle this scenario.
-
+//end::testsession[]
 
 
 // tag::undoredo[]
@@ -1423,7 +1437,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 *MSS*
 
-1. Student begins a test session.
+1. Student is inside a folder and begins a test session.
 2. System presents the question on the lowest-performing flashcard first.
 3. Student inputs his/her answer.
 4. System indicates whether student’s answer is correct or wrong and shows the answer of the flashcard.
@@ -1652,7 +1666,7 @@ These instructions only provide a starting point for testers to work on; testers
 
 .. Download the jar file and copy into an empty folder
 .. Double-click the jar file +
-   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+   Expected: Shows the GUI with a sample folder. The window size may not be optimal.
 
 . Saving window preferences
 
@@ -1660,26 +1674,159 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-_{ more test cases to be added ... }_
+// === Deleting a card
 
-=== Deleting a card
+// . Deleting a card while all cards are listed
 
-. Deleting a card while all cards are listed
+// .. Prerequisites: List all cards using the `list` command. Multiple cards in the list.
+// .. Test case: `delete 1` +
+//    Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+// .. Test case: `delete 0` +
+//    Expected: No card is deleted. Error details shown in the status message. Status bar remains the same.
+// .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
+//    Expected: Similar to previous.
 
-.. Prerequisites: List all cards using the `list` command. Multiple cards in the list.
-.. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No card is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
+// tag::testmanualtesting[]
+=== Starting a test session
+
+. Start a test session while inside a folder
+
+.. Prerequisites: Enter a folder using the `cd` command. For example, `cd 1` will enter the first folder. All the cards
+ in the folder are listed.
+.. Test case: `test` +
+   Expected: Enters a test session, where the display area enters a fullscreen and the lowest scoring
+   flashcard question and hints (if any) will be displayed first. `In Test Session` is shown on the status message
+   and status bar.
+.. Test case: `test` on an empty folder (this folder has no cards) +
+   Expected: The error `This command is not valid on an empty folder` is shown in the status message. Status bar
+   remains the same (still in folder).
+.. Test case: `test` when not inside a folder (prerequisite not fulfilled, like being in the home directory, already
+in a test session or in report display) +
+   Expected: The error `Command can only be executed in folder` is shown in the status message. Status bar
+   remains the same.
+
+[[answerquestionintest]]
+=== Answering a question in a test session
+
+. Input an answer to a question inside a test session
+
+.. Prerequisites: Enter a test session by typing `test` when inside a folder. Display area enters fullscreen and
+lowest scoring flashcard question and hints are displayed
+.. Test case: `ans x` where x can be anything but empty for **non-MCQ cards** +
+   Expected: If the correct answer to the flashcard question is `x`, a green page with correct
+   attempt notification will be displayed. Otherwise, a red page with wrong answer notification will be displayed.
+   For both cases, status bar remains the same to be still in test session
+.. Test case: `ans x` where x can be any integers for **MCQ cards** +
+   Expected: If the option number with the correct answer to the flashcard question is `x`, a green
+   page with correct attempt notification will be displayed. Otherwise, a red page with wrong answer notification
+   will be displayed. For both cases, status bar remains the same to be still in test session
+.. Test case: `ans x` where x is not an integer and not empty for **MCQ cards** +
+   Expected: The error `MCQ question expects option number as answer` is shown in the status message. Status bar remains the same.
+.. Test case: `ans`  +
+   Expected: The error `Invalid Command Format` is shown in the status message. Status bar remains the same.
+.. Test case: `ans x` and type `ans y` again where x and y can be anything for **non-MCQ cards** +
+   Expected: Cannot input an attempt to an already answered question. The error `Answer command is valid only when a
+   question is displayed` is shown in the status message. Status bar remains the same.
+
+=== Navigating to the next question in a test session
+
+. Go to the next question in a test session after answering the current question
+
+.. Prerequisites: Enter a test session by typing `test` when inside a folder. Display area enters fullscreen and
+lowest scoring flashcard question and hints are displayed. Answer the current question by following
+<<answerquestionintest>> or reveal the answer so the current card has already been tested.
+.. Test case: `next` where there are still cards left untested +
+   Expected: Next lowest scoring question and hints (if any) are displayed. Status bar remains the same to be still
+   in test session.
+.. Test case: `next` where there are no more cards left to test +
+   Expected: Ends the current test session, so display area exits fullscreen and status bar changes to reflect tester
+    is back inside a folder.
+.. Test case: `next`  when prerequisite is not fulfilled where the current question is not yet answered or revealed +
+   Expected: The error `Next command is valid only when this question has been answered` is shown in the status message. Status bar remains the same.
+
+=== Ending a test session
+
+. Ends a current test session
+
+.. Prerequisites: Enter a test session by typing `test` when inside a folder. Display area enters fullscreen and
+lowest scoring flashcard question and hints are displayed. Tester can also be in any state in the test session
+.. Test case: `end` +
+   Expected: Ends the current test session, where the display area exits fullscreen and be back inside the folder. `End
+   Test Session` is shown on the status message and status bar shows that tester is back inside the folder.
+.. Test case: `end` when not inside a test or report (prerequisite not fulfilled, like being in the home directory or
+ in a folder) +
+   Expected: The error `This command is not valid outside a test or report` is shown in the status message. Status bar
+   remains the same.
+// end::testmanualtesting[]
+
+//tag::foldermanualtesting[]
+=== Folder operations
+
+. Adding a folder
+.. Prerequisites: You must be at the home directory (status bar should read `In Home Directory`) and have only one folder called "Sample Folder". To get this configuration, you can delete all data files except for the jar file and relaunch the application.
+.. Test case: `addfolder Folder 1` +
+   Expected: A folder by the name of "Folder 1" is added. Status message confirms that the folder added, and the new folder can be found in the list of folders.
+.. Test case: `addfolder Sample Folder` +
+   Expected: No folder is added. Error details shown in the status message.
+.. Other incorrect addfolder commands to try: `addfolder`, `addfolder Special/Chars`, `addfolder x` (where x is string longer than 50 characters) +
    Expected: Similar to previous.
 
-_{ more test cases to be added ... }_
+. Deleting a folder
+.. Prerequisites: You must be at the home directory (status bar should read `In Home Directory`) and have at least one folder.
+.. Test case: `deletefolder 1` +
+   Expected: The folder at index 1 is deleted. Status message confirms that the folder is deleted, and the folder can no longer be found in the list of folders.
+.. Test case: `deletefolder 0` +
+   Expected: No folder is deleted. Error details shown in the status message.
+.. Other incorrect deletefolder commands to try: `deletefolder`, `deletefolder Sample Folder`, `deletefolder x` (where x is larger than the list length) +
+   Expected: Similar to previous.
+
+. Renaming a folder
+.. Prerequisites: You must be at the home directory (status bar should read `In Home Directory`) and have at least one folder called "Sample Folder", and no folder called "New Name".
+.. Test case: `editfolder x New Name` (where x is the index of a folder that is not Sample Folder) +
+   Expected: The folder at index x is renamed to "New Name". Status message confirms that renaming operation succeeded.
+.. Test case: `editfolder x Sample Folder` (where x is the index of Sample Folder) +
+   Expected: The folder at index x is renamed to its original name. Status message confirms that renaming operation succeeded.
+.. Test case: `editfolder x Sample Folder` (where x is not the index of Sample Folder) +
+   Expected: The folder at index x is not renamed. Error details shown in the status message.
+.. Other incorrect editfolder commands to try: `editfolder`, `editfolder New Name 1`, `editfolder x New Name` (where x is larger than the list length) +
+   Expected: No folder is renamed. Error details shown in the status message.
+
+. Persistence of folder operations
+.. Prerequisites: You must be at the home directory (status bar should read `In Home Directory`) and know where the data files are stored. By default, this will be at the `data/` directory at the path of the jar file.
+.. Test case: `addfolder x` (where x is the name not used by any existing folder) +
+   Expected: A new json by the name of `x.json` appears in the data directory.
+.. Test case: `deletefolder 1` +
+   Expected: The json with the same file name as the deleted folder is no longer present in the data directory. No other files in the directory are affected.
+.. Test case: `editfolder 1 x` (where x is a name not used by any existing folder) +
+   Expected: The json with the original name of the edited folder is no longer present in the data directory, replaced with a json with the new folder name.  No other files in the directory are affected.
+
+=== Navigating in and out of folders
+
+. Entering a folder
+.. Prerequisites: You must be at the home directory (status bar should read `In Home Directory`) and have at least one folder.
+.. Test case: `cd 1` +
+   Expected: Folder 1 is entered. Status message confirms this and UI is updated.
+.. Test case: `cd x` (where x is larger than the list length) +
+   Expected: No folder is entered. Error details shown in the status message.
+.. Other incorrect cd commands to try: `cd`, `cd Sample Folder`, `cd ..` +
+   Expected: Similar to previous.
+
+. Exiting a folder
+.. Prerequisites: You must be inside a folder (status bar should read `Inside Folder: x` where `x` is the name of the folder you are in).
+.. Test case: `cd ..` +
+   Expected: The folder is exited and you return to the home directory. Status message confirms this and UI is updated.
+.. Test case: `cd x` (where x is any combination of characters other than "..") +
+   Expected: The folder is not exited. Error details shown in the status message.
+.. Other incorrect cd commands to try: `cd`, `cd Home` +
+   Expected: Similar to previous.
 
 === Saving data
 
 . Dealing with missing/corrupted data files
+.. Prerequisites: You must know where the data files are stored. By default, this will be at the `data/` directory at the path of the jar file.
+.. Test case: Delete the data directory and launch the app +
+   Expected: A sample folder is present when the app launches.
+.. Test case: Insert a non-json file/corrupted json file in the data directory and launch the app +
+   Expected: The valid json files have folders with their corresponding names present. The non-json file/corrupted json file remains unaffected.
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
-
-_{ more test cases to be added ... }_
+//end::foldermanualtesting[]

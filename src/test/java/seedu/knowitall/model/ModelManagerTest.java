@@ -2,6 +2,7 @@ package seedu.knowitall.model;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static seedu.knowitall.logic.commands.CommandTestUtil.VALID_ANSWER_2;
@@ -30,6 +31,7 @@ import org.junit.rules.ExpectedException;
 
 import javafx.collections.transformation.FilteredList;
 import seedu.knowitall.commons.core.GuiSettings;
+import seedu.knowitall.model.card.Answer;
 import seedu.knowitall.model.card.Card;
 import seedu.knowitall.model.card.QuestionContainsKeywordsPredicate;
 import seedu.knowitall.model.card.exceptions.CardNotFoundException;
@@ -39,10 +41,13 @@ import seedu.knowitall.testutil.TypicalCards;
 import seedu.knowitall.testutil.TypicalIndexes;
 
 public class ModelManagerTest {
+    public static final String CORRECT_ANSWER_TO_GEORGE = "9482442";
+    public static final String WRONG_ANSWER_TO_GEORGE = "9482441";
+
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
-    private ModelManager model;
+    private ModelManager modelManager;
 
     @Before
     public void setUp() {
@@ -50,21 +55,24 @@ public class ModelManagerTest {
         cardFolders.add(TypicalCards.getTypicalFolderOne());
         cardFolders.add(TypicalCards.getTypicalFolderTwo());
         cardFolders.add(TypicalCards.getEmptyCardFolder());
-        model = new ModelManager(cardFolders);
-        model.enterFolder(cardFolders.size() - 1);
+        modelManager = new ModelManager(cardFolders);
+        modelManager.enterFolder(cardFolders.size() - 1);
     }
 
     @Test
     public void constructor() {
-        assertEquals(new UserPrefs(), model.getUserPrefs());
-        assertEquals(new GuiSettings(), model.getGuiSettings());
-        assertNull(model.getSelectedCard());
+        assertEquals(new UserPrefs(), modelManager.getUserPrefs());
+        assertEquals(new GuiSettings(), modelManager.getGuiSettings());
+        assertNull(modelManager.getSelectedCard());
+        assertNull(modelManager.getCurrentTestedCard());
+        assertNull(modelManager.getCurrentTestedCardFolder());
+        assertEquals(0, modelManager.getNumAnsweredCorrectly());
     }
 
     @Test
     public void setUserPrefs_nullUserPrefs_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        model.setUserPrefs(null);
+        modelManager.setUserPrefs(null);
     }
 
     @Test
@@ -72,56 +80,56 @@ public class ModelManagerTest {
         UserPrefs userPrefs = new UserPrefs();
         userPrefs.setcardFolderFilesPath(Paths.get("knowitall/book/file/path"));
         userPrefs.setGuiSettings(new GuiSettings(1, 2, 3, 4));
-        model.setUserPrefs(userPrefs);
-        assertEquals(userPrefs, model.getUserPrefs());
+        modelManager.setUserPrefs(userPrefs);
+        assertEquals(userPrefs, modelManager.getUserPrefs());
 
-        // Modifying userPrefs should not modify model's userPrefs
+        // Modifying userPrefs should not modify modelManager's userPrefs
         UserPrefs oldUserPrefs = new UserPrefs(userPrefs);
         userPrefs.setcardFolderFilesPath(Paths.get("new/knowitall/book/file/path"));
-        assertEquals(oldUserPrefs, model.getUserPrefs());
+        assertEquals(oldUserPrefs, modelManager.getUserPrefs());
     }
 
     @Test
     public void setGuiSettings_nullGuiSettings_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        model.setGuiSettings(null);
+        modelManager.setGuiSettings(null);
     }
 
     @Test
     public void setGuiSettings_validGuiSettings_setsGuiSettings() {
         GuiSettings guiSettings = new GuiSettings(1, 2, 3, 4);
-        model.setGuiSettings(guiSettings);
-        assertEquals(guiSettings, model.getGuiSettings());
+        modelManager.setGuiSettings(guiSettings);
+        assertEquals(guiSettings, modelManager.getGuiSettings());
     }
 
     @Test
     public void setcardFolderFilesPath_nullPath_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        model.setcardFolderFilesPath(null);
+        modelManager.setcardFolderFilesPath(null);
     }
 
     @Test
     public void setcardFolderFilesPath_validPath_setscardFolderFilesPath() {
         Path path = Paths.get("knowitall/book/file/path");
-        model.setcardFolderFilesPath(path);
-        assertEquals(path, model.getcardFolderFilesPath());
+        modelManager.setcardFolderFilesPath(path);
+        assertEquals(path, modelManager.getcardFolderFilesPath());
     }
 
     @Test
     public void hasFolder_existingFolder_returnsTrue() {
         String folderName = TypicalCards.getTypicalFolderOneName();
-        assertTrue(model.hasFolder(folderName));
+        assertTrue(modelManager.hasFolder(folderName));
     }
     @Test
     public void hasFolder_nonExistingFolder_returnsFalse() {
         String nonExistentFolderName = "Non-existent folder";
-        assertFalse(model.hasFolder(nonExistentFolderName));
+        assertFalse(modelManager.hasFolder(nonExistentFolderName));
     }
 
     @Test
     public void hasFolder_nullFolder_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        model.hasFolder(null);
+        modelManager.hasFolder(null);
     }
 
     @Test
@@ -130,111 +138,111 @@ public class ModelManagerTest {
                 TypicalCards.getEmptyCardFolder());
         Model expectedModel = new ModelManager(cardFolders);
 
-        model.exitFolderToHome();
-        model.deleteFolder(TypicalIndexes.INDEX_SECOND_CARD_FOLDER.getZeroBased());
-        assertEquals(expectedModel, model);
+        modelManager.exitFolderToHome();
+        modelManager.deleteFolder(TypicalIndexes.INDEX_SECOND_CARD_FOLDER.getZeroBased());
+        assertEquals(expectedModel, modelManager);
     }
 
     @Test
     public void deleteFolder_nonExistingFolder_throwsAssertionError() {
         thrown.expect(AssertionError.class);
 
-        model.deleteFolder(3);
+        modelManager.deleteFolder(3);
     }
 
     @Test
     public void addFolder_nonExistingFolder_folderAdded() {
         List<ReadOnlyCardFolder> cardFolders = new ArrayList<>();
         cardFolders.add(TypicalCards.getTypicalFolderOne());
-        model = new ModelManager(cardFolders);
-        model.exitFolderToHome();
-        model.addFolder(new CardFolder(TypicalCards.getTypicalFolderTwoName()));
+        modelManager = new ModelManager(cardFolders);
+        modelManager.exitFolderToHome();
+        modelManager.addFolder(new CardFolder(TypicalCards.getTypicalFolderTwoName()));
 
         cardFolders.add(new CardFolder(TypicalCards.getTypicalFolderTwoName()));
         Model expectedModel = new ModelManager(cardFolders);
-        assertEquals(expectedModel, model);
+        assertEquals(expectedModel, modelManager);
     }
 
     @Test
     public void addFolder_existingFolder_throwsDuplicateException() {
         thrown.expect(DuplicateCardFolderException.class);
-        model.addFolder(new CardFolder(TypicalCards.getTypicalFolderOneName()));
+        modelManager.addFolder(new CardFolder(TypicalCards.getTypicalFolderOneName()));
     }
 
     @Test
     public void addFolder_nullFolder_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        model.addFolder(null);
+        modelManager.addFolder(null);
     }
 
     @Test
     public void hasCard_nullCard_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        model.hasCard(null);
+        modelManager.hasCard(null);
     }
 
     @Test
     public void hasCard_cardNotInCardFolder_returnsFalse() {
-        assertFalse(model.hasCard(ALICE));
+        assertFalse(modelManager.hasCard(ALICE));
     }
 
     @Test
     public void hasCard_cardInCardFolder_returnsTrue() {
-        model.addCard(ALICE);
-        assertTrue(model.hasCard(ALICE));
+        modelManager.addCard(ALICE);
+        assertTrue(modelManager.hasCard(ALICE));
     }
 
     @Test
     public void deleteCard_cardIsSelectedAndFirstCardInFilteredCardList_selectionCleared() {
-        model.addCard(ALICE);
-        model.setSelectedCard(ALICE);
-        model.deleteCard(ALICE);
-        assertEquals(null, model.getSelectedCard());
+        modelManager.addCard(ALICE);
+        modelManager.setSelectedCard(ALICE);
+        modelManager.deleteCard(ALICE);
+        assertNull(modelManager.getSelectedCard());
     }
 
     @Test
     public void deleteCard_cardIsSelectedAndSecondCardInFilteredCardList_firstCardSelected() {
-        model.addCard(ALICE);
-        model.addCard(CARD_2);
-        assertEquals(Arrays.asList(ALICE, CARD_2), model.getActiveFilteredCards());
-        model.setSelectedCard(CARD_2);
-        model.deleteCard(CARD_2);
-        assertEquals(ALICE, model.getSelectedCard());
+        modelManager.addCard(ALICE);
+        modelManager.addCard(CARD_2);
+        assertEquals(Arrays.asList(ALICE, CARD_2), modelManager.getActiveFilteredCards());
+        modelManager.setSelectedCard(CARD_2);
+        modelManager.deleteCard(CARD_2);
+        assertEquals(ALICE, modelManager.getSelectedCard());
     }
 
     @Test
     public void setCard_cardIsSelected_selectedCardUpdated() {
-        model.addCard(ALICE);
-        model.setSelectedCard(ALICE);
+        modelManager.addCard(ALICE);
+        modelManager.setSelectedCard(ALICE);
         Card updatedAlice = new CardBuilder(ALICE).withAnswer(VALID_ANSWER_2).build();
-        model.setCard(ALICE, updatedAlice);
-        assertEquals(updatedAlice, model.getSelectedCard());
+        modelManager.setCard(ALICE, updatedAlice);
+        assertEquals(updatedAlice, modelManager.getSelectedCard());
     }
 
     @Test
     public void sortCards_byScore() {
-        model.addCard(FIONA);
-        model.addCard(GEORGE);
-        model.sortFilteredCard(COMPARATOR_ASC_SCORE_CARDS);
+        modelManager.addCard(FIONA);
+        modelManager.addCard(GEORGE);
+        modelManager.sortFilteredCard(COMPARATOR_ASC_SCORE_CARDS);
         // Fiona should be sorted after George because higher score
-        Card lastCard = model.getActiveFilteredCards().get(model.getActiveFilteredCards().size() - 1);
+        Card lastCard = modelManager.getActiveFilteredCards().get(modelManager.getActiveFilteredCards().size() - 1);
         assertEquals(FIONA, lastCard);
     }
 
     @Test
     public void sortCards_byQuestionLexicographic() {
-        model.addCard(FIONA);
-        model.addCard(GEORGE);
-        model.sortFilteredCard(COMPARATOR_LEXICOGRAPHIC_CARDS);
-        // Fiona should be sorted after George because higher score
-        Card lastCard = model.getActiveFilteredCards().get(model.getActiveFilteredCards().size() - 1);
+        modelManager.addCard(FIONA);
+        modelManager.addCard(GEORGE);
+        modelManager.sortFilteredCard(COMPARATOR_LEXICOGRAPHIC_CARDS);
+        // George should be sorted after Fiona by lexicographic order of questions
+        Card lastCard = modelManager.getActiveFilteredCards().get(modelManager.getActiveFilteredCards().size() - 1);
         assertEquals(GEORGE, lastCard);
     }
 
     @Test
     public void getActiveFilteredCardList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
-        model.getActiveFilteredCards().remove(0);
+        modelManager.getActiveFilteredCards().remove(0);
     }
 
     @Test
@@ -247,35 +255,102 @@ public class ModelManagerTest {
                         .map(folder -> new FilteredList<>(folder.getCardList()))
                         .collect(Collectors.toList());
 
-        assertEquals(filteredCardsList, model.getFilteredCardsList());
+        assertEquals(filteredCardsList, modelManager.getFilteredCardsList());
     }
 
     @Test
     public void setSelectedCard_cardNotInFilteredCardList_throwsCardNotFoundException() {
         thrown.expect(CardNotFoundException.class);
-        model.setSelectedCard(ALICE);
+        modelManager.setSelectedCard(ALICE);
     }
 
     @Test
     public void setSelectedCard_cardInFilteredCardList_setsSelectedCard() {
-        model.addCard(ALICE);
-        assertEquals(Collections.singletonList(ALICE), model.getActiveFilteredCards());
-        model.setSelectedCard(ALICE);
-        assertEquals(ALICE, model.getSelectedCard());
+        modelManager.addCard(ALICE);
+        assertEquals(Collections.singletonList(ALICE), modelManager.getActiveFilteredCards());
+        modelManager.setSelectedCard(ALICE);
+        assertEquals(ALICE, modelManager.getSelectedCard());
+    }
+
+    @Test
+    public void startTestSession_isInEmptyFolder_throwsEmptyCardFolderException() {
+        thrown.expect(EmptyCardFolderException.class);
+        modelManager.startTestSession();
+    }
+
+    @Test
+    public void startTestSession_isInNonEmptyFolder_startsTestSession() {
+        setUpTwoCardsForTestSession();
+        assertEquals(GEORGE, modelManager.getCurrentTestedCard());
+        assertEquals(Model.State.IN_TEST, modelManager.getState());
+        assertNotNull(modelManager.getCurrentTestedCardFolder());
+        assertEquals(0, modelManager.getNumAnsweredCorrectly());
+        Card lastCard = modelManager.getActiveFilteredCards().get(modelManager.getActiveFilteredCards().size() - 1);
+        assertEquals(FIONA, lastCard);
+    }
+
+    @Test
+    public void endTestSession_isInTestSession_endsTestSession() {
+        setUpTwoCardsForTestSession();
+        modelManager.endTestSession();
+        assertEquals(Model.State.IN_FOLDER, modelManager.getState());
+        assertNull(modelManager.getCurrentTestedCard());
+        assertNull(modelManager.getCurrentTestedCardFolder());
+        assertFalse(modelManager.isCardAlreadyAnswered());
+        assertEquals(0, modelManager.getNumAnsweredCorrectly());
     }
 
     @Test
     public void setCurrentTestedCard_cardNotInFilteredCardList_throwsCardNotFoundException() {
         thrown.expect(CardNotFoundException.class);
-        model.setSelectedCard(ALICE);
+        modelManager.setCurrentTestedCard(ALICE);
     }
 
     @Test
-    public void setCurrentTestedCard_cardInFilteredCardList_setsSelectedCard() {
-        model.addCard(ALICE);
-        assertEquals(Collections.singletonList(ALICE), model.getActiveFilteredCards());
-        model.setCurrentTestedCard(ALICE);
-        assertEquals(ALICE, model.getCurrentTestedCard());
+    public void setCurrentTestedCard_cardInFilteredCardList_setsCurrentTestedCard() {
+        modelManager.addCard(ALICE);
+        assertEquals(Collections.singletonList(ALICE), modelManager.getActiveFilteredCards());
+        modelManager.setCurrentTestedCard(ALICE);
+        assertEquals(ALICE, modelManager.getCurrentTestedCard());
+    }
+
+    @Test
+    public void markAttemptedAnswer_wrongAnswer_noChangeCorrectAnswerAttempts() {
+        setUpTwoCardsForTestSession();
+        Answer attempt = new Answer(WRONG_ANSWER_TO_GEORGE);
+        int beforeNumAnsweredCorrectly = modelManager.getNumAnsweredCorrectly();
+        modelManager.markAttemptedAnswer(attempt);
+
+        assertEquals(beforeNumAnsweredCorrectly, modelManager.getNumAnsweredCorrectly());
+    }
+
+    @Test
+    public void markAttemptedAnswer_correctAnswer_increaseCorrectAnswerAttempts() {
+        setUpTwoCardsForTestSession();
+        Answer attempt = new Answer(CORRECT_ANSWER_TO_GEORGE);
+        int beforeNumAnsweredCorrectly = modelManager.getNumAnsweredCorrectly();
+        modelManager.markAttemptedAnswer(attempt);
+
+        assertEquals(beforeNumAnsweredCorrectly + 1, modelManager.getNumAnsweredCorrectly());
+    }
+
+    @Test
+    public void testNextCard_hasANextCard_testsNextCard() {
+        setUpTwoCardsForTestSession();
+        modelManager.setCardAsAnswered();
+        modelManager.testNextCard();
+
+        assertNotNull(modelManager.getCurrentTestedCard());
+        assertFalse(modelManager.isCardAlreadyAnswered());
+    }
+
+    @Test
+    public void testNextCard_noNextCard_doesNotTestNextCard() {
+        setUpOneCardForTestSession();
+        modelManager.setCardAsAnswered();
+        modelManager.testNextCard();
+
+        assertTrue(modelManager.isCardAlreadyAnswered());
     }
 
     @Test
@@ -285,45 +360,56 @@ public class ModelManagerTest {
         UserPrefs userPrefs = new UserPrefs();
 
         // same values -> returns true
-        model = new ModelManager(Collections.singletonList(cardFolder), userPrefs);
+        modelManager = new ModelManager(Collections.singletonList(cardFolder), userPrefs);
         ModelManager modelManagerCopy = new ModelManager(Collections.singletonList(cardFolder), userPrefs);
-        assertTrue(model.equals(modelManagerCopy));
+        assertTrue(modelManager.equals(modelManagerCopy));
 
         // same object -> returns true
-        assertTrue(model.equals(model));
+        assertTrue(modelManager.equals(modelManager));
 
         // null -> returns false
-        assertFalse(model.equals(null));
+        assertFalse(modelManager.equals(null));
 
         // different types -> returns false
-        assertFalse(model.equals(5));
+        assertFalse(modelManager.equals(5));
 
         // different cardFolder -> returns false
-        assertFalse(model.equals(new ModelManager(Collections.singletonList(differentCardFolder), userPrefs)));
+        assertFalse(modelManager.equals(new ModelManager(Collections.singletonList(differentCardFolder), userPrefs)));
 
         // different filteredList -> returns false
         String[] keywords = ALICE.getQuestion().fullQuestion.split("\\s+");
-        model.enterFolder(TypicalIndexes.INDEX_FIRST_CARD_FOLDER.getZeroBased());
-        model.updateFilteredCard(new QuestionContainsKeywordsPredicate(Arrays.asList(keywords)));
+        modelManager.enterFolder(TypicalIndexes.INDEX_FIRST_CARD_FOLDER.getZeroBased());
+        modelManager.updateFilteredCard(new QuestionContainsKeywordsPredicate(Arrays.asList(keywords)));
 
         Model differentModel = new ModelManager(Collections.singletonList(cardFolder), userPrefs);
         differentModel.enterFolder(TypicalIndexes.INDEX_FIRST_CARD_FOLDER.getZeroBased());
-        assertFalse(model.equals(differentModel));
+        assertFalse(modelManager.equals(differentModel));
 
-        // resets model to initial state for upcoming tests
-        model.updateFilteredCard(PREDICATE_SHOW_ALL_CARDS);
+        // resets modelManager to initial state for upcoming tests
+        modelManager.updateFilteredCard(PREDICATE_SHOW_ALL_CARDS);
 
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();
         differentUserPrefs.setcardFolderFilesPath(Paths.get("differentFilePath"));
-        assertFalse(model.equals(new ModelManager(Collections.singletonList(cardFolder), differentUserPrefs)));
+        assertFalse(modelManager.equals(new ModelManager(Collections.singletonList(cardFolder), differentUserPrefs)));
 
         // filteredList sorted differently -> returns true
-        model.sortFilteredCard(COMPARATOR_ASC_SCORE_CARDS);
+        modelManager.sortFilteredCard(COMPARATOR_ASC_SCORE_CARDS);
 
         ModelManager sameModel = new ModelManager(Collections.singletonList(cardFolder), userPrefs);
         sameModel.enterFolder(TypicalIndexes.INDEX_FIRST_CARD_FOLDER.getZeroBased());
-        assertTrue(model.equals(sameModel));
+        assertTrue(modelManager.equals(sameModel));
 
+    }
+
+    private void setUpTwoCardsForTestSession() {
+        modelManager.addCard(FIONA);
+        modelManager.addCard(GEORGE);
+        modelManager.startTestSession();
+    }
+
+    private void setUpOneCardForTestSession() {
+        modelManager.addCard(FIONA);
+        modelManager.startTestSession();
     }
 }

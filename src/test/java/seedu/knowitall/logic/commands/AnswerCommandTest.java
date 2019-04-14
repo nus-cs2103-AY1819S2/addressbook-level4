@@ -65,9 +65,8 @@ public class AnswerCommandTest {
     public void execute_correctAnswerAttempt_markCorrect() {
         CommandResult expectedCommandResult = new CommandResult(AnswerCommand.MESSAGE_ANSWER_SUCCESS,
                 CommandResult.Type.ANSWER_CORRECT);
-
-        model.testCardFolder();
-        expectedModel.testCardFolder();
+        model.startTestSession();
+        expectedModel.startTestSession();
 
         Card testedCard = model.getCurrentTestedCard();
         AnswerCommand answerCommand = new AnswerCommand(testedCard.getAnswer());
@@ -111,8 +110,8 @@ public class AnswerCommandTest {
         CommandResult expectedCommandResult = new CommandResult(AnswerCommand.MESSAGE_ANSWER_SUCCESS,
                 CommandResult.Type.ANSWER_WRONG);
 
-        model.testCardFolder();
-        expectedModel.testCardFolder();
+        model.startTestSession();
+        expectedModel.startTestSession();
 
         Card testedCard = model.getCurrentTestedCard();
         AnswerCommand answerCommand = new AnswerCommand(new Answer(VALID_ANSWER_2));
@@ -152,7 +151,7 @@ public class AnswerCommandTest {
     public void execute_invalidAnswerAfterAnsweredAttempt_fail() {
         String expectedMessage = String.format(MESSAGE_INVALID_ANSWER_COMMAND);
 
-        model.testCardFolder();
+        model.startTestSession();
 
         Card testedCard = model.getCurrentTestedCard();
         AnswerCommand answerCommand = new AnswerCommand(testedCard.getAnswer());

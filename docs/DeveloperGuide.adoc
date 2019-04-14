@@ -157,8 +157,9 @@ The sections below give more details of each component.
 .Structure of the UI Component
 image::UiClassDiagram.png[width="800"]
 
-*API* : link:{repoURL}/blob/master/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
-//TODO: update UI class diagram
+
+*API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
+
 The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
@@ -186,8 +187,8 @@ link:{repoURL}/blob/master/src/main/java/seedu/address/logic/Logic.java[`Logic.j
 
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
 
-.Interactions Inside the Logic Component for the `delete 1` Command
-image::DeletePersonSdForLogic.png[width="800"]
+.Interactions inside the Logic Component for the `delete 1` Command
+image::DeleteModuleTakenSdForLogic.png[width="800"]
 
 [[Design-Model]]
 === Model component
@@ -518,7 +519,7 @@ objects.
 // tag::rec[]
 === Module recommendation feature
 
-The module recommendation feature displays modules which the user is recommended to read based on existing GradTrak modules
+The module recommendation feature displays modules which the user is recommended to read based on the current module plan
 and specific course requirements. It generates a list of module codes together with their corresponding titles and requirement
 types satisfied. The entire list is displayed on the Result Panel upon entering the `rec` command.
 
@@ -583,9 +584,19 @@ image::RecModuleComparatorSequenceDiagram.png[width="800"]
 ** Pros: User can sort the list according to his own preferences
 ** Cons: Difficult to implement if several parameters for sorting is allowed; input method for the custom order is problematic
 
+===== Aspect: Format of recommendation
+* **Alternative 1 (current choice): Display a list of all eligible modules that contribute to course requirements**
+** Pros: User has a greater freedom of choice
+** Cons: User may be confused or unable to decide if the list is too long
+
+* **Alternative 2: Display `n` modules for each semester, where `n` is decided by the user**
+** Pros: User can plan modules for specific semesters easily and quickly
+** Cons: Algorithm required to plan for all semesters can be complex; user may not prefer the given plan
+
+
 ==== Possible Improvements
 . Allow the user to display a module's information (from `displaymod` command) using its index in the recommendation list
-. Allow the user to add a module to GradTrak using its index in the recommendation list
+. Allow the user to add a module to the module plan using its index in the recommendation list
 // end::rec[]
 
 // tag::semesterlimits[]
@@ -671,10 +682,10 @@ image::chrome_save_as_pdf.png[width="300"]
 [[Docs-SiteWideDocSettings]]
 === Site-wide Documentation Settings
 
-The link:{repoURL}/build.gradle[`build.gradle`] file specifies some project-specific https://asciidoctor.org/docs/user-manual/#attributes[asciidoc attributes] which affects how all documentation files within this project are rendered.
+The link:{repoURL}/build.gradle[`build.gradle`] file specifies some project-specific https://asciidoctor.org/docs/user-manual/#attributes[asciidoc attributes] which affect how all documentation files within this project are rendered.
 
 [TIP]
-Attributes left unset in the `build.gradle` file will use their *default value*, if any.
+Attributes left unset in the `build.gradle` file will use their *default values*, if any.
 
 [cols="1,2a,1", options="header"]
 .List of site-wide attributes
@@ -701,12 +712,12 @@ This will render the SE-EDU navigation bar at the top of the page, and add some 
 [[Docs-PerFileDocSettings]]
 === Per-file Documentation Settings
 
-Each `.adoc` file may also specify some file-specific https://asciidoctor.org/docs/user-manual/#attributes[asciidoc attributes] which affects how the file is rendered.
+Each `.adoc` file may also specify some file-specific https://asciidoctor.org/docs/user-manual/#attributes[asciidoc attributes] which affect how the file is rendered.
 
 Asciidoctor's https://asciidoctor.org/docs/user-manual/#builtin-attributes[built-in attributes] may be specified and used as well.
 
 [TIP]
-Attributes left unset in `.adoc` files will use their *default value*, if any.
+Attributes left unset in `.adoc` files will use their *default values*, if any.
 
 [cols="1,2a,1", options="header"]
 .List of per-file attributes, excluding Asciidoctor's built-in attributes
@@ -750,7 +761,7 @@ The SE-EDU team does not provide support for modified template files.
 There are three ways to run tests.
 
 [TIP]
-The most reliable way to run tests is the 3rd one. The first two methods might fail some GUI tests due to platform/resolution-specific idiosyncrasies.
+The most reliable way to run tests is the third one. The first two methods might fail some GUI tests due to platform/resolution-specific idiosyncrasies.
 
 *Method 1: Using IntelliJ JUnit test runner*
 
@@ -762,11 +773,11 @@ The most reliable way to run tests is the 3rd one. The first two methods might f
 * Open a console and run the command `gradlew clean allTests` (Mac/Linux: `./gradlew clean allTests`)
 
 [NOTE]
-See <<UsingGradle#, UsingGradle.adoc>> for more info on how to run tests using Gradle.
+See <<UsingGradle#, UsingGradle.adoc>> for more information on how to run tests using Gradle.
 
 *Method 3: Using Gradle (headless)*
 
-Thanks to the https://github.com/TestFX/TestFX[TestFX] library we use, our GUI tests can be run in the _headless_ mode. In the headless mode, GUI tests do not show up on the screen. That means the developer can do other things on the Computer while the tests are running.
+Thanks to the https://github.com/TestFX/TestFX[TestFX] library we use, our GUI tests can be run in the _headless_ mode. In the headless mode, GUI tests do not show up on the screen. That means the developer can do other things on the computer while the tests are running.
 
 To run tests in headless mode, open a console and run the command `gradlew clean headless allTests` (Mac/Linux: `./gradlew clean headless allTests`)
 
@@ -774,15 +785,15 @@ To run tests in headless mode, open a console and run the command `gradlew clean
 
 We have two types of tests:
 
-.  *GUI Tests* - These are tests involving the GUI. They include,
-.. _System Tests_ that test the entire App by simulating user actions on the GUI. These are in the `systemtests` package.
+.  *GUI Tests* - These are tests involving the GUI. They include:
+.. _System tests_ that test the entire App by simulating user actions on the GUI. These are in the `systemtests` package.
 .. _Unit tests_ that test the individual components. These are in `seedu.address.ui` package.
-.  *Non-GUI Tests* - These are tests not involving the GUI. They include,
+.  *Non-GUI Tests* - These are tests not involving the GUI. They include:
 ..  _Unit tests_ targeting the lowest level methods/classes. +
 e.g. `seedu.address.commons.StringUtilTest`
 ..  _Integration tests_ that are checking the integration of multiple code units (those code units are assumed to be working). +
 e.g. `seedu.address.storage.StorageManagerTest`
-..  Hybrids of unit and integration tests. These test are checking multiple code units as well as how the are connected together. +
+..  Hybrids of unit and integration tests. These tests are checking multiple code units as well as how they are connected together. +
 e.g. `seedu.address.logic.LogicManagerTest`
 
 
@@ -813,7 +824,7 @@ When a pull request has changes to asciidoc files, you can use https://www.netli
 
 Here are the steps to create a new release.
 
-.  Update the version courseReqCredits in link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp.java`].
+.  Update the version `courseReqCredits` in link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp.java`].
 .  Generate a JAR file <<UsingGradle#creating-the-jar-file, using Gradle>>.
 .  Tag the repo with the version courseReqCredits. e.g. `v0.1`
 .  https://help.github.com/articles/creating-releases/[Create a new release using GitHub] and upload the JAR file you created.
@@ -831,13 +842,13 @@ A project often depends on third-party libraries. For example, GradTrak depends 
 
 *Target user profile*:
 
-* has a need to manage a significant courseReqCredits of contacts
-* prefer desktop apps over other types
+* has a need to manage a significant `courseReqCredits` of contacts
+* prefer desktop applications over other types
 * can type fast
 * prefers typing over mouse input
-* is reasonably comfortable using CLI apps
+* is reasonably comfortable using CLI applications
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*: manage contacts faster than a typical mouse/GUI driven application
 
 [appendix]
 == User Stories
@@ -851,7 +862,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
 
-|`* * *` |student |add a module for the current semester|
+|`* * *` |student |add a module for the current semester |keep track of all the modules I intend to take
 
 |`* * *` |student |delete a module |remove modules that I am not taking
 
@@ -859,11 +870,15 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* *` |student |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
 
-|`* *` |student |view pre-requisites for a module |take the pre-requisites ahead of time
+|`* *` |student |view pre-requisites for a module |take the pre-requisite modules ahead of time
 
 |`* *` |student |add my modules in future semesters |plan ahead
 
-|`* *` |student |know my CAP |pull up my CAP
+|`* *` |student |know my current CAP |track my academic performance
+
+|`* *` |student |predict my maximum and minimum CAP for graduation |compare them against my current CAP and check my performance
+
+|`* *` |student |check the total workload for each semester |ensure an even distribution of workload across all semesters
 
 |`* *` |student |see a recommended list of modules I can take in order of priority |fulfil the graduation requirements on time
 
@@ -1004,25 +1019,90 @@ Use case ends.
 Use case ends.
 
 [discrete]
-=== Use case: Display module info
+=== Use case: Set Semester Limit for a semester
 
 *MSS*
 
-1.  Student keys command to find module code or keywords in the title of module.
-2.  System returns module given module code or keywords.
+1.  User enters a command to indicate the semester to set the limit as well as the limits to be set on the semester
+2.  System edits relevant details.
 +
 Use case ends.
 
-_{More to be added}_
+*Extensions*
+
+[none]
+* 1a. Semester provided is invalid
++
+[none]
+** 1a1. GT shows an error message.
++
+Use case ends.
+
+* 1b. Limit provided is invalid.
++
+[none]
+** 1b1. GT shows an error message.
++
+Use case ends.
+
+* 1c. Limit provided is out of order, such that the minimum limit is more than the maximum limit.
++
+[none]
+** 1c1. GT shows an error message.
++
+Use case ends.
+
+[discrete]
+=== Use case: Display NUS module information
+
+*MSS*
+
+1.  User enters `displaymod` to find an NUS module based on module code or keywords in the module title.
+2.  System returns full module information.
++
+Use case ends.
+
+[discrete]
+=== Use case: Recommend modules
+*MSS*
+
+1.  User enters `rec` command.
+2.  System returns a list of module codes (with title) that the user is recommended to take.
++
+Use case ends.
+
+[discrete]
+=== Use case: Find modules
+*MSS*
+
+1. User enters `find` command to search the module plan based on module code, semester, grade or finished status.
+2. System returns a list of modules in the module plan which satisfy the given parameters.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. User enters `find` without parameters.
++
+[none]
+** 1a1. System gives an "invalid command format" message and provides the correct format.
++
+Use case ends.
+
+* 1b. User enters an invalid grade or semester.
++
+[none]
+** 1b1. System rejects the command and provides the correct format for grade or semester.
++
+Use case ends.
 
 [appendix]
 == Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
-.  Should be able to hold up to 1000 modulesTaken without a noticeable sluggishness in performance for typical usage.
+.  Should be able to hold up to 1000 `modulesTaken` without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-
-_{More to be added}_
 
 [appendix]
 == Glossary
@@ -1030,30 +1110,10 @@ _{More to be added}_
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
 
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
-
-[appendix]
-== Product Survey
-
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
-
 [appendix]
 == Instructions for Manual Testing
 
-Given below are instructions to test the app manually.
+Given below are instructions to test the application manually.
 
 [NOTE]
 These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
@@ -1062,9 +1122,9 @@ These instructions only provide a starting point for testers to work on; testers
 
 . Initial launch
 
-.. Download the jar file and copy into an empty folder
+.. Download the jar file and copy it into an empty folder.
 .. Double-click the jar file +
-   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+   Expected: Shows the GUI with an empty module plan. The window size may not be optimum.
 
 . Saving window preferences
 
@@ -1072,26 +1132,14 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-_{ more test cases ... }_
+=== Deleting a module
 
-=== Deleting a person
+. Deleting a module while all `moduleTaken` are listed
 
-. Deleting a person while all modulesTaken are listed
-
-.. Prerequisites: List all modulesTaken using the `list` command. Multiple modulesTaken in the list.
+.. Prerequisites: List all `moduleTaken` using the `list` command.
 .. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+   Expected: First module is deleted from the list. Details of the deleted module are shown in the status message. Timestamp in the status bar is updated.
 .. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
+   Expected: No module is deleted. Error details are shown in the status message. Status bar remains the same.
+.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size or negative) +
    Expected: Similar to previous.
-
-_{ more test cases ... }_
-
-=== Saving data
-
-. Dealing with missing/corrupted data files
-
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
-
-_{ more test cases ... }_

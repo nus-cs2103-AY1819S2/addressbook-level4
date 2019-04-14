@@ -672,7 +672,7 @@ Thus, there is a need to validate this `Weblink` with the help of `WebUtil`.
 The following sequence diagram shows how the visitWeb `weblink` works:
 
 image::VisitWebUrlSequenceDiagram.png[width="800"]
-_Figure 2.2 Sequence diagram of visitWeb `weblink` command_
+_Figure 2.1 Sequence diagram of visitWeb `weblink` command_
 
 
 To illustrate the level of checks done in visiting web further, the command is broken down into the following steps.
@@ -690,17 +690,26 @@ Step 4. Display website on browser window.
 The following activity diagram shows the steps of visitWeb command:
 
 image::VisitWebUrlActivityDiagram.png[width="400"]
-_Figure 2.1 Activity diagram of visitWeb `weblink` command_
+_Figure 2.2 Activity diagram of visitWeb `weblink` command_
 
 ==== Enhancements
 * Before loading the website, the `weblink` will be validated by checking it's HTTP response code.
 * If response code is above 400, it suggests that the `weblink` is not found and that there is an error requesting the website if response code is above 500
 * Also, a `NoInternetException` is thrown if internet is absent. This is done by pinging to a Google as a reliable web server. If application fails to get a response,
-we can say that there is high chance that internet connection is poor and hence `NoInternetException` is thrown.
+we can say that there is high chance that there is no internet connection and hence `NoInternetException` is thrown.
 
 ==== Design considerations
 * To reduce coupling of `Weblink` to `AddCommandParser`, `EditCommandParsers` in `Logic`, and also `BrowserPanel` in `UI` component, a `WebUtil` class is implemented under Util of Commons component.
-This `WebUtil` comprises of functions such as prepending https to weblinks without it and also validates the weblink.
+
+`WebUtil` supports the following functions:
+
+1. `hasInternetConnection()` - Check if there is internet connection by pinging Google.
+
+2. `isUrlValid(String url)` - Checks if the input String is a valid Url with successful response code.
+
+3. `validateAndAppend(String url)` - Checks input Url if it uses HTTP or HTTPS protocol and append it to the Url.
+
+
 // end::visitweb[]
 
 // tag::dataencryption[]

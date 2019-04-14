@@ -1,8 +1,8 @@
 package quickdocs.model.record;
 
-import java.math.BigDecimal;
-
 import static org.junit.Assert.assertEquals;
+
+import java.math.BigDecimal;
 
 import org.junit.jupiter.api.Test;
 

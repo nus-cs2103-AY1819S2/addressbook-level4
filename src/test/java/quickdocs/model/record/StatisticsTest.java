@@ -1,13 +1,12 @@
 package quickdocs.model.record;
 
+import static org.junit.Assert.assertEquals;
+
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import static org.junit.Assert.assertEquals;
-
 import org.junit.jupiter.api.BeforeEach;
-
 import org.junit.jupiter.api.Test;
 
 import quickdocs.model.consultation.Assessment;
@@ -16,7 +15,6 @@ import quickdocs.model.consultation.Prescription;
 import quickdocs.model.consultation.Symptom;
 import quickdocs.model.medicine.Medicine;
 import quickdocs.testutil.Assert;
-import quickdocs.testutil.TypicalStatistics;
 
 class StatisticsTest {
     private StatisticsManager statisticsManager;

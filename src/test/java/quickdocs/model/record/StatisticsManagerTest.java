@@ -1,18 +1,18 @@
 package quickdocs.model.record;
 
+import static org.junit.Assert.assertEquals;
+
 import java.math.BigDecimal;
 import java.time.Clock;
 import java.time.Instant;
 import java.time.YearMonth;
 import java.time.ZoneId;
 
-import static org.junit.Assert.assertEquals;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import quickdocs.testutil.TypicalStatistics;
 import quickdocs.testutil.Assert;
+import quickdocs.testutil.TypicalStatistics;
 
 class StatisticsManagerTest {
     private static StatisticsManager statisticsManager;

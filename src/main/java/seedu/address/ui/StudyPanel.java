@@ -7,7 +7,6 @@ import javafx.css.PseudoClass;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.StudyView;
@@ -16,7 +15,7 @@ import seedu.address.model.StudyView;
 /**
  * The Study Panel of the App.
  */
-public class StudyPanel extends UiPart<Region> {
+public class StudyPanel extends MainPanel {
 
     private static final String FXML = "StudyPanel.fxml";
     private static final PseudoClass ANSWER = PseudoClass.getPseudoClass("answer");

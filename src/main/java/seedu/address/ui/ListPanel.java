@@ -9,7 +9,6 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
-import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.ListItem;
 import seedu.address.model.deck.Card;
@@ -18,7 +17,7 @@ import seedu.address.model.deck.Deck;
 /**
  * Panel containing the list of cards.
  */
-public class ListPanel<T extends ListItem> extends UiPart<Region> {
+public class ListPanel<T extends ListItem> extends MainPanel {
     private static final String FXML = "ListPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(ListPanel.class);
 

@@ -72,6 +72,9 @@ public class Course {
             if (!courseReq.getType().equals(reqType)) {
                 continue;
             }
+            if (courseReq.isFulfilled(nonFailedCodeList)) {
+                return false;
+            }
             List<String> unfulfilledRegexList = courseReq.getUnfulfilled(nonFailedCodeList);
             if (unfulfilledRegexList.stream().anyMatch(regex -> moduleInfoCode.toString().matches(regex))) {
                 return true;

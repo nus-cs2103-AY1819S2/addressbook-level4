@@ -57,35 +57,35 @@ public class SampleDataUtil {
 
     public static Doctor[] getSampleDoctors() {
         return new Doctor[]{
-                new Doctor(new Name("Alvin Tong"), new Phone("82352312"), new Gender("M"), new Year("2"),
-                        getSpecSet("acupuncture")),
-                new Doctor(new Name("Barney Ong"), new Phone("90534873"), new Gender("F"), new Year("22"),
-                        getSpecSet("acupuncture", "general")),
-                new Doctor(new Name("Cinderella Tan"), new Phone("90153481"), new Gender("F"), new Year("4"),
-                        getSpecSet("massage")),
-                new Doctor(new Name("Dominic Gong"), new Phone("92343211"), new Gender("M"), new Year("8"),
-                        getSpecSet("massage", "acupuncture")),
-                new Doctor(new Name("Ibe Tok"), new Phone("92492021"), new Gender("M"), new Year("11"),
-                        getSpecSet("acupuncture")),
-                new Doctor(new Name("Gabriel Teo"), new Phone("92624417"), new Gender("M"), new Year("5"),
-                        getSpecSet("general"))
+            new Doctor(new Name("Alvin Tong"), new Phone("82352312"), new Gender("M"), new Year("2"),
+                    getSpecSet("acupuncture")),
+            new Doctor(new Name("Barney Ong"), new Phone("90534873"), new Gender("F"), new Year("22"),
+                    getSpecSet("acupuncture", "general")),
+            new Doctor(new Name("Cinderella Tan"), new Phone("90153481"), new Gender("F"), new Year("4"),
+                    getSpecSet("massage")),
+            new Doctor(new Name("Dominic Gong"), new Phone("92343211"), new Gender("M"), new Year("8"),
+                    getSpecSet("massage", "acupuncture")),
+            new Doctor(new Name("Ibe Tok"), new Phone("92492021"), new Gender("M"), new Year("11"),
+                    getSpecSet("acupuncture")),
+            new Doctor(new Name("Gabriel Teo"), new Phone("92624417"), new Gender("M"), new Year("5"),
+                    getSpecSet("general"))
         };
     }
 
     public static MedicalHistory[] getSampleMedHists() {
         return new MedicalHistory[]{
-                new MedicalHistory(new PersonId("1"), new PersonId("7"),
-                        new ValidDate("2019-03-03"), new WriteUp("The patient got a high fever.")),
-                new MedicalHistory(new PersonId("2"), new PersonId("7"),
-                        new ValidDate("2019-03-03"), new WriteUp("The patient had a sneeze.")),
-                new MedicalHistory(new PersonId("2"), new PersonId("8"),
-                        new ValidDate("2019-01-30"), new WriteUp("The patient had a stomachache. "
-                        + "I gave him some medicine to release the pain.")),
-                new MedicalHistory(new PersonId("3"), new PersonId("9"),
-                        new ValidDate("2019-04-03"), new WriteUp("Had a fever with sore throat. Sleeps late.")),
-                new MedicalHistory(new PersonId("4"), new PersonId("10"),
-                        new ValidDate("2019-02-25"),
-                        new WriteUp("Came down with a stomach flu, possibly due to eating expired food"))
+            new MedicalHistory(new PersonId("1"), new PersonId("7"),
+                    new ValidDate("2019-03-03"), new WriteUp("The patient got a high fever.")),
+            new MedicalHistory(new PersonId("2"), new PersonId("7"),
+                    new ValidDate("2019-03-03"), new WriteUp("The patient had a sneeze.")),
+            new MedicalHistory(new PersonId("2"), new PersonId("8"),
+                    new ValidDate("2019-01-30"), new WriteUp("The patient had a stomachache. "
+                    + "I gave him some medicine to release the pain.")),
+            new MedicalHistory(new PersonId("3"), new PersonId("9"),
+                    new ValidDate("2019-04-03"), new WriteUp("Had a fever with sore throat. Sleeps late.")),
+            new MedicalHistory(new PersonId("4"), new PersonId("10"),
+                    new ValidDate("2019-02-25"),
+                    new WriteUp("Came down with a stomach flu, possibly due to eating expired food"))
         };
     }
 
@@ -128,15 +128,15 @@ public class SampleDataUtil {
     public static Appointment[] getAppointments() {
         Appointment[] appointments = new Appointment[4];
         Appointment appointment1 = new FutureAppointment(new AppointmentPatientId("1"),
-                new AppointmentDoctorId("7"), new AppointmentDate("2019-06-01"), new AppointmentTime("09:00"));
+            new AppointmentDoctorId("7"), new AppointmentDate("2019-06-01"), new AppointmentTime("09:00"));
         Appointment appointment2 = new FutureAppointment(new AppointmentPatientId("2"),
-                new AppointmentDoctorId("8"), new AppointmentDate("2019-06-01"), new AppointmentTime("10:00"));
+            new AppointmentDoctorId("8"), new AppointmentDate("2019-06-01"), new AppointmentTime("10:00"));
 
 
         Appointment appointment3 = new Appointment(new AppointmentPatientId("1"),
-                new AppointmentDoctorId("7"), new AppointmentDate("2019-02-01"), new AppointmentTime("09:00"));
+            new AppointmentDoctorId("7"), new AppointmentDate("2019-02-01"), new AppointmentTime("09:00"));
         Appointment appointment4 = new Appointment(new AppointmentPatientId("2"),
-                new AppointmentDoctorId("8"), new AppointmentDate("2019-02-01"), new AppointmentTime("10:00"));
+            new AppointmentDoctorId("8"), new AppointmentDate("2019-02-01"), new AppointmentTime("10:00"));
 
         appointments[0] = appointment1;
         appointments[1] = appointment2;

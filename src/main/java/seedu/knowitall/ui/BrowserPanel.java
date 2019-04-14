@@ -3,7 +3,6 @@ package seedu.knowitall.ui;
 import java.util.logging.Logger;
 
 import javafx.beans.value.ObservableValue;
-import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -41,9 +40,6 @@ public class BrowserPanel extends UiPart<Region> {
 
     public BrowserPanel(ObservableValue<Card> selectedCard) {
         super(FXML);
-
-        // To prevent triggering events for typing inside the loaded Web page.
-        getRoot().setOnKeyPressed(Event::consume);
 
         // Load card page when selected card changes.
         selectedCard.addListener((observable, oldValue, newValue) -> {

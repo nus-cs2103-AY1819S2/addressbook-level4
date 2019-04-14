@@ -12,9 +12,9 @@ import seedu.address.model.Model;
 /**
  * Clears the tables in the restaurant if all tables are not occupied.
  */
-public class ClearTableCommand extends Command {
+public class ClearTablesCommand extends Command {
 
-    public static final String COMMAND_WORD = "clearTable";
+    public static final String COMMAND_WORD = "clearTables";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD;
 
@@ -26,19 +26,19 @@ public class ClearTableCommand extends Command {
     public static final String MESSAGE_FAILURE = "There are no tables to clear.";
 
     /**
-     * Creates a ClearTableCommand to remove all table(s).
+     * Creates a ClearTablesCommand to remove all table(s).
      */
-    public ClearTableCommand() { }
+    public ClearTablesCommand() { }
 
     @Override
     public CommandResult execute(Mode mode, Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
         StringBuilder sbFinalOutput = new StringBuilder(MESSAGE_SUCCESS);
-        if (!model.isRestaurantEmpty()) {
-            throw new CommandException(INVALID_RESTAURANT_STATE);
-        }
         if (model.getRestOrRant().getTables().getTableList().isEmpty()) {
             throw new CommandException(MESSAGE_FAILURE);
+        }
+        if (!model.isRestaurantEmpty()) {
+            throw new CommandException(INVALID_RESTAURANT_STATE);
         }
 
         model.setTables(new ArrayList<>());

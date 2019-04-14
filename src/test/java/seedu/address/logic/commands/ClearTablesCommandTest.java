@@ -20,7 +20,7 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.table.Table;
 import seedu.address.testutil.TableBuilder;
 
-public class ClearTableCommandTest {
+public class ClearTablesCommandTest {
 
     public static final String UNOCCUPIED_TABLE_STATUS = "0/4";
 
@@ -29,8 +29,8 @@ public class ClearTableCommandTest {
     @Test
     public void execute_noTablesInRestaurant_failure() {
         Model model = new ModelManager();
-        assertCommandFailure(Mode.RESTAURANT_MODE, new ClearTableCommand(), model, commandHistory,
-                ClearTableCommand.MESSAGE_FAILURE);
+        assertCommandFailure(Mode.RESTAURANT_MODE, new ClearTablesCommand(), model, commandHistory,
+                ClearTablesCommand.MESSAGE_FAILURE);
     }
 
     @Test
@@ -41,8 +41,8 @@ public class ClearTableCommandTest {
         Model expectedModel = new ModelManager();
         expectedModel.addTable(table);
 
-        assertCommandFailure(Mode.RESTAURANT_MODE, new ClearTableCommand(), model, commandHistory,
-                ClearTableCommand.INVALID_RESTAURANT_STATE);
+        assertCommandFailure(Mode.RESTAURANT_MODE, new ClearTablesCommand(), model, commandHistory,
+                ClearTablesCommand.INVALID_RESTAURANT_STATE);
     }
 
     @Test
@@ -52,8 +52,8 @@ public class ClearTableCommandTest {
         model.addTable(table);
         Model expectedModel = new ModelManager();
 
-        assertCommandSuccess(Mode.RESTAURANT_MODE, new ClearTableCommand(), model, commandHistory,
-                ClearTableCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccess(Mode.RESTAURANT_MODE, new ClearTablesCommand(), model, commandHistory,
+                ClearTablesCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
     @Test
@@ -69,8 +69,8 @@ public class ClearTableCommandTest {
         model.addTable(new TableBuilder(TABLE8).withTableStatus(UNOCCUPIED_TABLE_STATUS).build());
         Model expectedModel = new ModelManager();
 
-        assertCommandSuccess(Mode.RESTAURANT_MODE, new ClearTableCommand(), model, commandHistory,
-                ClearTableCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccess(Mode.RESTAURANT_MODE, new ClearTablesCommand(), model, commandHistory,
+                ClearTablesCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
 }

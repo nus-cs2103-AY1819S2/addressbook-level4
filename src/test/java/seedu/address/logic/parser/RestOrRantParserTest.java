@@ -19,7 +19,7 @@ import seedu.address.logic.commands.AddToMenuCommand;
 import seedu.address.logic.commands.AddToOrderCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.ClearOrderCommand;
-import seedu.address.logic.commands.ClearTableCommand;
+import seedu.address.logic.commands.ClearTablesCommand;
 import seedu.address.logic.commands.DeleteFromMenuCommand;
 import seedu.address.logic.commands.DeleteFromOrderCommand;
 import seedu.address.logic.commands.EditPaxCommand;
@@ -145,19 +145,19 @@ public class RestOrRantParserTest {
     @Test
     public void parseCommand_clearTable() throws Exception {
         assertTrue(parser.parseCommand(Mode.RESTAURANT_MODE,
-                ClearTableCommand.COMMAND_WORD) instanceof ClearTableCommand);
-        assertTrue(parser.parseCommand(Mode.RESTAURANT_MODE, "clear") instanceof ClearTableCommand);
+                ClearTablesCommand.COMMAND_WORD) instanceof ClearTablesCommand);
+        assertTrue(parser.parseCommand(Mode.RESTAURANT_MODE, "clear") instanceof ClearTablesCommand);
         assertTrue(parser.parseCommand(Mode.RESTAURANT_MODE,
-                ClearTableCommand.COMMAND_WORD + " 3") instanceof ClearTableCommand);
-        assertTrue(parser.parseCommand(Mode.RESTAURANT_MODE, "clear" + " 3") instanceof ClearTableCommand);
+                ClearTablesCommand.COMMAND_WORD + " 3") instanceof ClearTablesCommand);
+        assertTrue(parser.parseCommand(Mode.RESTAURANT_MODE, "clear" + " 3") instanceof ClearTablesCommand);
         try {
-            parser.parseCommand(Mode.TABLE_MODE, ClearTableCommand.COMMAND_WORD);
+            parser.parseCommand(Mode.TABLE_MODE, ClearTablesCommand.COMMAND_WORD);
             throw new AssertionError("The expected ParseException was not thrown.");
         } catch (ParseException pe) {
             assertEquals(MESSAGE_INVALID_MODE, pe.getMessage());
         }
         try {
-            parser.parseCommand(Mode.MENU_MODE, ClearTableCommand.COMMAND_WORD);
+            parser.parseCommand(Mode.MENU_MODE, ClearTablesCommand.COMMAND_WORD);
             throw new AssertionError("The expected ParseException was not thrown.");
         } catch (ParseException pe) {
             assertEquals(MESSAGE_INVALID_MODE, pe.getMessage());

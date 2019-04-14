@@ -6,10 +6,10 @@ import java.util.ArrayList;
 
 import org.junit.Test;
 
-import seedu.address.logic.commands.ClearTableCommand;
+import seedu.address.logic.commands.ClearTablesCommand;
 import seedu.address.model.Model;
 
-public class ClearTableCommandSystemTest extends RestOrRantSystemTest {
+public class ClearTablesCommandSystemTest extends RestOrRantSystemTest {
 
     @Test
     public void clear() {
@@ -19,14 +19,14 @@ public class ClearTableCommandSystemTest extends RestOrRantSystemTest {
          * spaces -> cleared
          */
         clearOccupancy();
-        assertCommandSuccess("   " + ClearTableCommand.COMMAND_WORD + " ab12   ");
+        assertCommandSuccess("   " + ClearTablesCommand.COMMAND_WORD + " ab12   ");
 
         /* Case: clear empty restaurant -> rejected */
-        assertCommandFailure(ClearTableCommand.COMMAND_WORD, ClearTableCommand.MESSAGE_FAILURE);
+        assertCommandFailure(ClearTablesCommand.COMMAND_WORD, ClearTablesCommand.MESSAGE_FAILURE);
 
         /* Case: clear occupied restaurant -> rejected */
         occupyTables();
-        assertCommandFailure(ClearTableCommand.COMMAND_WORD, ClearTableCommand.INVALID_RESTAURANT_STATE);
+        assertCommandFailure(ClearTablesCommand.COMMAND_WORD, ClearTablesCommand.INVALID_RESTAURANT_STATE);
 
         /* Case: mixed case command word -> rejected */
         clearOccupancy();
@@ -35,20 +35,20 @@ public class ClearTableCommandSystemTest extends RestOrRantSystemTest {
 
     /**
      * Executes {@code command} and verifies that the command box displays an empty string, the result display
-     * box displays {@code ClearTableCommand#MESSAGE_SUCCESS} and the model related components equal to an empty model.
+     * box displays {@code ClearTablesCommand#MESSAGE_SUCCESS} and the model related components equal to an empty model.
      * These verifications are done by
      * {@code RestOrRantSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
      * Also verifies that the command box has the default style class and the status bar's sync status changes.
      * @see RestOrRantSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
     private void assertCommandSuccess(String command) {
-        assertCommandSuccess(command, ClearTableCommand.MESSAGE_SUCCESS);
+        assertCommandSuccess(command, ClearTablesCommand.MESSAGE_SUCCESS);
     }
 
     /**
      * Performs the same verification as {@code assertCommandSuccess(String)} except that the result box displays
      * {@code expectedResultMessage} and the model related components equal to {@code expectedModel}.
-     * @see ClearTableCommandSystemTest#assertCommandSuccess(String)
+     * @see ClearTablesCommandSystemTest#assertCommandSuccess(String)
      */
     private void assertCommandSuccess(String command, String expectedResultMessage) {
         Model expectedModel = getModel();

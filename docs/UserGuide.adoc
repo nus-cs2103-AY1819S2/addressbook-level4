@@ -21,7 +21,7 @@ By: `Team W09-3`      Since: `Feb 2019`      Licence: `MIT`
 
 == Introduction
 
-RestOrRant (ROR) is a desktop restaurant management application that allows *restaurant managers, waiters and cashiers* to perform *restaurant front-end operations* more efficiently. With ROR, you can easily manage table allocation, handle orders, track menu item availability and check restaurant statistics.
+RestOrRant (ROR) is a desktop restaurant management application that allows *restaurant managers, waiters and cashiers* to perform *restaurant front-end operations* more efficiently. With ROR, you can easily manage table allocation, handle orders, track item availability and check restaurant statistics.
 
 RestOrRant mainly uses a *Command Line Interface* (CLI) to perform operations, but it also boasts a Graphical User Interface (GUI) to provide you with visual information for ease of reference.
 
@@ -482,8 +482,8 @@ Table 2 in the table panel will then display the updated table information as sh
 image::EditSeatsExampleAfter.png[]
 |===
 
-[[ClearTable]]
-==== Clearing all the tables : `clearTable`
+[[ClearTables]]
+==== Clearing all the tables : `clearTables`
 
 In the event that you have undergone massive changes in the restaurant, you can use this command to remove all tables in ROR.
 
@@ -497,7 +497,7 @@ Clearing all the tables and adding them back using the <<AddTable, addTable>> co
 This command is irreversible! In the event that you accidentally cleared your tables, you have to use the `addTable` command to add all the tables back.
 
 ****
-* *Format*: `clearTable`
+* *Format*: `clearTables`
 * *Shortcut*: `clear`
 ****
 
@@ -509,11 +509,11 @@ You will see a success message in the Results Display and all tables will be rem
 
 a| a| For example, when all the customers have left the restaurant, ROR will have all unoccupied tables as shown below.
 
-image::ClearTableExampleBefore.png[]
+image::ClearTablesExampleBefore.png[]
 
-After you enter the command `clearTable`, a success message will be displayed and the table panel will become completely empty as shown below.
+After you enter the command `clearTables`, a success message will be displayed and the table panel will become completely empty as shown below.
 
-image::ClearTableExampleAfter.png[]
+image::ClearTablesExampleAfter.png[]
 |===
 
 [[SpaceFor]]
@@ -1034,7 +1034,7 @@ a|<<EditPax, `editPax`>> a| - a| `editPax TABLE_NUMBER NUMBER_OF_CUSTOMERS` a| `
 Updates Table 1 to have 2 diners
 a|<<EditSeats, `editSeats`>> a| - a| `editSeats TABLE_NUMBER NUMBER_OF_SEATS` a| `editSeats 1 5` +
 Updates Table 1 to have 5 seats
-a|<<ClearTable, `clearTable`>> a| `*clear*` a| `clearTable` a| Clears all the tables in RestOrRant
+a|<<ClearTables, `clearTables`>> a| `*clear*` a| `clearTables` a| Clears all the tables in RestOrRant
 a|<<SpaceFor, `spaceFor`>> a| - a| `spaceFor NUMBER_OF_CUSTOMERS` a| `spaceFor 3` +
 Allocates a table for 3 customers
 |=======================================================================

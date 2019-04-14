@@ -67,10 +67,10 @@ public class QuizStartCommandTest {
         new QuizStartCommand(new SessionBuilder().build()).execute(modelStub, null);
     }
     @Test
-    public void execute_correctModel() throws CommandException {
+    public void execute_wrongModel() throws CommandException {
         QuizModel quizModel = new QuizModelManager();
         Session session = new SessionBuilder().build();
-        thrown.expectMessage("Expected QuizModel but received ManagementModel instead.");
+        thrown.expectMessage("Expected ManagementModel but received QuizModel instead.");
         CommandResult commandResult = new QuizStartCommand(session).execute(quizModel, commandHistory);
         assertNull(commandResult);
     }

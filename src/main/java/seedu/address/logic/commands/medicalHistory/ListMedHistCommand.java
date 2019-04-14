@@ -41,7 +41,7 @@ public class ListMedHistCommand extends Command {
             + PREFIX_DATE_OF_MEDHIST + "2018-03-02";
 
     public static final String MESSAGE_SUCCESS =
-            "Listed all medical histories. Write up of medical histories are not be shown in the list.";
+            "Listed all medical histories filtered by specified constraint(s) if any. Write up of medical histories are not be shown in the list.";
 
     private final ListMedHistDescriptor listMedHistDescriptor;
 

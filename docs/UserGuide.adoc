@@ -363,13 +363,15 @@ Adds a medical history +
 Format: `add-med-hist pid/PATIENT_ID did/DOCTOR_ID d/DATE sw/SHORT_WRITEUP`
 
 ****
-* To veiw the list of medical histories, execute "list-med-hist" first.
+* To veiw the list of medical histories, please *execute `list-med-hist` command* first.
 * Medical history with attending patient, attending doctor, date and write up form doctor will be added to docX.
-* PATIENT_ID and DOCTOR_ID must be existing id in patient and doctor list.
-* Date of visit must be a valid date in calender and must be a past day or today. Cannot be a day in the future.
-* Two medical histories with the same PATIENT_ID, DOCTOR_ID and DATE are not allowed. On the same day, only one medical history can be maintained between a doctor and a patient. If the patient see one doctor more than one times on the same day, can edit the write up of the medical history.
+* *PATIENT_ID and DOCTOR_ID* must be existing id in patient list and doctor list.
+* *Date* of visit must be a valid date in calender and must be a past day or today. Medical history is medical treatment that has taken place.
+* Two medical histories with *the same PATIENT_ID, DOCTOR_ID and DATE* are not allowed.
+On the same day, only one medical history can be maintained between a doctor and a patient.
+If a patient see a doctor more than one times on the same day, users only need to edit the write up of existing medical history. (see `edit-med-hist` command)
 * However, a patient can have multiple medical histories with different doctors on the same day.
-* Write up is doctor's description about the medical record. Write up can be edited by "edit-med-hist" command.
+* *Write up* is doctor's description about the medical record. Only write up can be edited by "edit-med-hist" command.
 
 
 ****
@@ -385,28 +387,32 @@ Show a list of all medical histories or medical histories with specified constra
 Format: `list-med-hist [pid/PATIENT_ID] [did/DOCTOR_ID] [d/DATE]`
 
 ****
-* PATIENT_ID and DOCTOR_ID must be existing id in patient and doctor list.
-* Date must be a valid date in calender and must be a past day or today.
-* If there is no medical history satisfying all specified constraints, an empty list will be shown.
-* Write up of medical history will not be shown in the list. Can view all details of one medical history by "select-med-hist" command.
-* If medical histories in the list have deleted patient or deleted doctor, patient or doctor field will show "Patient Deleted" or "Doctor Deleted".
+* PATIENT_ID, DOCTOR_ID and DATE are *optional*. `list-med-hist ` without specified constraints will list all medical histories.
+* *PATIENT_ID and DOCTOR_ID* must be existing id in patient and doctor list. If a patient/doctor is deleted, user will not be able to list medical history of this patient/doctor. The id of deleted patient/doctor is regarded as *invalid id*.
+* *Date* must be a valid date in calender and must be a past day or today.
+* If there is *no medical history* satisfying all specified constraints, an empty list will be shown.
+* Write up of medical history will not be shown in the list. Users can view all details of one medical history by `select-med-hist` command.
+* If medical histories in the list have *deleted patient or deleted doctor*, "Patient Deleted" or "Doctor Deleted" will replace the previous shown id in patient or doctor field.
 
 
 ****
 
 Examples:
 
-* 'list-med-hist': show all medical histories in docX
-* 'list-med-hist pid/1': show all medical histories of patient with id 1. If patient with id 1 is already deleted or not in docX, an error will be shown.
+* `list-med-hist`: show all medical histories in docX
+* `list-med-hist pid/1`: show all medical histories of patient with id 1. If patient with id 1 is already deleted or not in docX, an error will be shown.
+* `list-med-hist pid/1 d/2019-03-03`: show all medical histories of patient with id 1 which happened on 2019-03-03
 
 === Editing write up of medical history: `edit-med-hist`
 
-Edit the write up of medical history with specified index. +
+Edit the write up of medical history with specified index in medical history list. +
 Format: `edit-med-hist INDEX sw/EDITED_WRITEUP`
 
 ****
-* Execute "list-med-hist" first to check the index of the medical history you want to edit before execute "edit-med-hist" command.
-* Can only edit write up of medical history. Patient id, doctor id and date are immutable.
+* Please *execute `list-med-hist`* to find the index of the medical history you want to edit *before execute `edit-med-hist` command*.
+* *INDEX* should be a valid existing index in the displayed list.
+* Users can *only edit write up* of medical history. Patient id, doctor id and date of a medical history are immutable.
+* To view the edited write up, please execute `select-med-hist` command to view details.
 
 
 ****
@@ -421,8 +427,8 @@ Sort medical history by date in ascending order or descending order. +
 Format: `sort-med-hist [ASC/DESC]`
 
 ****
-* To view the sorted list, execute "list-med-hist" command.
-* When new medical history is added to docX, it will be added to the end of list. You can sort again to make the list in order.
+* To view the sorted list, execute `list-med-hist` command.
+* When a new medical history is added to docX, it will be added to *the end of list*. You can sort again to make the list be in order.
 * If "ASC" or "DESC" is not specified in the command, the default order will be descending order(DESC). Medical histories will be listed from newest date to oldest date.
 * If "DESC" is specified, the order will be descending order. Medical histories will be listed from newest date to oldest date.
 * If "ASC" is specified, the order will be ascending order. Medical histories will be listed from oldest date or newest date.
@@ -443,11 +449,12 @@ Finds medical history(ies) whose write up contains any of the given keywords. +
 Format: `search-med-hist KEYWORD`
 
 ****
-* To view the result of searching command is not shown, "list-med-hist" command must be executed before searching command.
+* If the list of medical history is not yet shown. Before searching, `list-med-hist` command must be executed to view the searching result.
 * The search is case insensitive. e.g `hans` will match `Hans`
 * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
 * Only full words will be matched e.g. `Han` will not match `Hans`
 * Write ups of the medical history matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+* If there is no medical history whose write up contains any of the keywords, an empty list will be shown.
 * Each keyword should not be in quotation mark. There should be one space between two keywords.
 ****
 
@@ -455,22 +462,23 @@ Examples:
 
 * `search-med-hist fever` +
 Returns all medical history with the write up containing the keyword `fever`
-* `search-med-hist fever sorethroat` +
-Returns all medical history with the write up containing either 'fever' or 'sorethroat' or both keywords.
+* `search-med-hist fever sore` +
+Returns all medical history with the write up containing either 'fever' or 'sore' or both keywords.
 
 === Viewing a certain medical history: `select-med-hist`
 
-View the full specified medical history with index in displayed list. +
+View details specified medical history with index in displayed list. +
 Format: `select-med-hist index`
 
 ****
-* Display the full medical history with the specified index.
+* Display details of medical history with the specified index, including patient information, doctor information and full write up.
+* *INDEX* should be a valid existing index in the displayed list.
 ****
 
 Examples:
 
 * `select-med-hist 1` +
-Returns full write up of the medical history with index 1 in medical history list.
+Returns details of the medical history with index 1 in medical history list.
 
 === Adding an appointment: `add-appt`
 Adds an appointment between a patient and a doctor +

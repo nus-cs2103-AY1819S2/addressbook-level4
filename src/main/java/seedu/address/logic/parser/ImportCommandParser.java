@@ -13,8 +13,8 @@ import javax.imageio.ImageIO;
 
 import org.apache.commons.io.FileUtils;
 
-import seedu.address.logic.ResourceWalker;
 import seedu.address.commons.core.Messages;
+import seedu.address.logic.ResourceWalker;
 import seedu.address.logic.commands.ImportCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Album;

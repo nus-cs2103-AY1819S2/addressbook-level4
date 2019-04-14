@@ -14,9 +14,9 @@ import org.apache.commons.io.FileUtils;
 import com.google.common.io.Files;
 import com.sksamuel.scrimage.nio.JpegWriter;
 
-import seedu.address.ui.Notifier;
 import seedu.address.logic.commands.Command;
 import seedu.address.model.image.Image;
+import seedu.address.ui.Notifier;
 
 
 /**

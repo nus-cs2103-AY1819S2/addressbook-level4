@@ -12,8 +12,8 @@ import javax.imageio.ImageIO;
 
 import org.apache.commons.io.FileUtils;
 
-import seedu.address.ui.Notifier;
 import seedu.address.model.image.Image;
+import seedu.address.ui.Notifier;
 
 /**
  * Represents an Album of Images in an ArrayList.

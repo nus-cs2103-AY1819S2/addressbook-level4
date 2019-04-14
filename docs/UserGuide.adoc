@@ -150,7 +150,7 @@ Some of the parameters have restrictions and they are stated below.
 * `NUMBER_OF_SEATS` and `NUMBER_OF_CUSTOMERS` have to be
 * `ITEM_CODE` has to be in the form of an uppercase alphabet followed by a double digit integer.
 * `QUANTITY` has to be a whole number between 0 and 2,000,000 inclusive.
-* `ITEM_NAME` has to be in the form of alphanumeric characters and spaces, and should not be blank.
+* `ITEM_NAME` has to be in the form of only alphabets, numbers and spaces, and should not be blank.
 * `ITEM_PRICE` has to be a nonnegative rational number with 2 decimal digits.
 * `YEAR` has to be a 4 digit whole number within 2000 and the current year.
 * `MONTH` has to be a whole number within 1 to 12.

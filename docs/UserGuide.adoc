@@ -396,7 +396,7 @@ Undoable commands: those commands that modify the image (`rotate`, `crop`, `resi
 // tag::WaterMarkCommand[]
 === WaterMark : `wm`
 
-Adds a watermark to the image with a (C) at the start of the input message. +
+Adds a watermark to the image with a (C) at the start of the input message. Should the message be too long to fit within the width of the image, the message will get cut off. +
 Format: `wm MESSAGE`
 
 [NOTE]

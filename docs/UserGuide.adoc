@@ -82,35 +82,50 @@ Alternatively, press kbd:[F1] to display usage information on all commands.
 ==== Starting a quiz session: `start`
 
 Starts a new quiz session. +
-Format: `start n/NAME [c/COUNT] m/MODE`
+Format: `start LESSON_INDEX [c/COUNT] m/MODE`
 
 Usage rules:
 
-* You can optionally specify the `COUNT` parameter. `COUNT` sets the number of cards to be tested in the quiz session. If no `COUNT` is specified, by default 1 card is tested.
-* The name field is used to choose lesson.
-* You must specify `MODE`. `MODE` sets the testing mode of the quiz session. The three available modes are `LEARN`, `PREVIEW`, `REVIEW` and `DIFFICULT`.
-. `LEARN`: Displays new cards with both question and answer shown, before testing begins and only question or answer are shown.
-. `PREVIEW`: Displays both question and answer of all flashcards. You will not be tested.
-. `REVIEW`: Tests the words based on the spaced-repetition algorithm - flashcards with the earliest test date are tested first.
-. `DIFFICULT`: Displays cards you previously labelled as difficult with both question and answer shown. You will not be tested.
+[NOTE]
+====
+The `start` command only works when there is no opened lesson in the system. Otherwise you need to close the opened lesson first.
+====
+* You must specify the index of lesson to be started. If your input index is out of range of current Lesson List, an error will be thrown.
+* You can optionally specify the `COUNT` parameter. `COUNT` sets the number of cards to be tested in the quiz session.
+** If no `COUNT` is specified, by default 1 card is tested.
+** If `COUNT` is larger than the size of the current lesson, the `COUNT` will be reset to be the size of the lesson by default.
+* You must specify index and count as a valid number which should be less than the MAXIMUM_INTEGER(0*7ffffffff), otherwise an error will be thrown.
+* You must specify `MODE`. `MODE` sets the testing mode of the quiz session. The four available modes are `LEARN`, `PREVIEW`, `REVIEW` and `DIFFICULT`.
+. `LEARN`: Displays new cards with both question and answer before test begins, and then only question is shown to test you. If you have already learned all the cards in current lesson, an error of no more new card to learn will be thrown.
+. `PREVIEW`: Displays both question and answer of flashcards. You will not be tested.
+. `REVIEW`: Tests the words based on the spaced-repetition algorithm, which means that flashcards with the earliest test date are tested first. If no card has due date before current time, an error of no card for review will be thrown.
+. `DIFFICULT`: Displays cards you previously labelled as difficult with both question and answer shown. You will not be tested. If no card has been labelled as difficult, an error of no difficult card will be thrown.
 
 [NOTE]
 ====
-Flashcards are tested based on the link:https://en.wikipedia.org/wiki/Spaced_repetition[Space-Repetition technique].
+In review mode, flashcards are tested based on the link:https://en.wikipedia.org/wiki/Spaced_repetition[Space-Repetition technique].
 ====
 
 Examples:
 
-* `start n/country-capitals m/LEARN` +
-Starts a quiz in `LEARN` mode with the 'country-capitals' lesson.
-* `start n/country-capitals-asia c/20 m/PREVIEW` +
-Starts a quiz containing 20 cards in `PREVIEW` mode with the 'country-capitals-asia' lesson.
+* `start 1 m/LEARN` +
+Starts a quiz in `LEARN` mode. Cards will be chosen from the first lesson in lesson list. Since count is not specified, the quiz will only contain one card by default.
+* `start 2 c/20 m/PREVIEW` +
+Starts a quiz containing 20 cards chosen from the second lesson in lesson list in `PREVIEW` mode, which only displays question and answer together one time.
 
 [NOTE]
 ====
 After you start a quiz session with the `start` command, BrainTrain will switch to <<quizmode, `quiz
 mode`>> and you will only be allowed to enter <<quizmode, `quiz mode`>> commands.
 ====
+
+Starting a quiz session with multiple lessons [coming in v2.0]
+
+* Format: `start LESSON_INDEX_1 LESSON_INDEX_2 [c/COUNT1] [c/COUNT2] m/MODE`
+* You can start a quiz session with cards from more than one lesson. The sequence of cards will be random instead of following the sequence of lessons to increase the difficulty for you to memorize.
+* Example: `start 1 2 c/5 c/5 m/learn`
+** Starts a quiz with 5 words from the first lesson and 5 words from the second lesson in `LEARN` mode.
+
 // tag::evan[]
 [[listLessons]]
 ==== Listing all lessons: `listLessons`
@@ -376,8 +391,8 @@ If the file is saved without `UTF-8` encoding, the data may be saved as `?????`,
 
 === Management mode
 * *Viewing help*: `help`
-* *Starting quiz session*: `start n/NAME [c/COUNT] m/MODE` +
-e.g. `start n/country-capitals c/15 m/LEARN`
+* *Starting a quiz session*: `start LESSON_INDEX [c/COUNT] m/MODE` +
+e.g. `start 1 c/15 m/LEARN`
 * *Listing all lessons*: `listLessons`
 * *Adding a lesson*: `addLesson n/NAME q/QUESTION CORE a/ANSWER CORE [c/CORE]... [o/OPTIONAL]...` +
 e.g. `addLesson n/Capitals of the world q/Country a/Capital c/Language o/Hint`

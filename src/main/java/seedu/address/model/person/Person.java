@@ -70,7 +70,27 @@ public class Person {
         return gpa;
     }
 
-    public Degree getDegree() { return degree; }
+    public Degree getDegree() {
+        return degree;
+    }
+
+    public int getDegreeAsInteger() {
+        String degreeLevel = degree.value.trim().toLowerCase().replace(" ", "");
+
+        if ("highschool".equals(degreeLevel)) {
+            return 0;
+        } else if ("associates".equals(degreeLevel)) {
+            return 1;
+        } else if ("bachelors".equals(degreeLevel)) {
+            return 2;
+        } else if ("masters".equals(degreeLevel)) {
+            return 3;
+        } else if ("phd".equals(degreeLevel)) {
+            return 4;
+        }
+
+        return -1;
+    }
 
     public Address getAddress() {
         return address;

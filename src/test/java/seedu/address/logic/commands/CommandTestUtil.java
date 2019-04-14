@@ -3,10 +3,10 @@ package seedu.address.logic.commands;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DEGREE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EDUCATION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GPA;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DEGREE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SKILL;
@@ -45,6 +45,7 @@ public class CommandTestUtil {
     public static final String VALID_DEGREE_BOB = "Bachelors";
     public static final String VALID_SKILL_JAVA = "Java";
     public static final String VALID_SKILL_PYTHON = "Python";
+    public static final String VALID_ENDORSEMENT = "Mark Zuckerberg";
 
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
@@ -81,9 +82,10 @@ public class CommandTestUtil {
     static {
         DESC_AMY = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)
                 .withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY)
-                .withSkills(VALID_SKILL_PYTHON).build();
+                .withEducation(VALID_EDUCATION_AMY).withDegree(VALID_DEGREE_AMY).withSkills(VALID_SKILL_PYTHON).build();
         DESC_BOB = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB)
                 .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
+                .withEducation(VALID_EDUCATION_BOB).withDegree(VALID_DEGREE_BOB)
                 .withSkills(VALID_SKILL_JAVA, VALID_SKILL_PYTHON).build();
     }
 
@@ -98,6 +100,7 @@ public class CommandTestUtil {
         CommandHistory expectedCommandHistory = new CommandHistory(actualCommandHistory);
         try {
             CommandResult result = command.execute(actualModel, actualCommandHistory);
+            System.out.println("acs:" + actualModel.getFilteredPersonList());
             assertEquals(expectedCommandResult, result);
             assertEquals(expectedModel, actualModel);
             assertEquals(expectedCommandHistory, actualCommandHistory);
@@ -113,7 +116,6 @@ public class CommandTestUtil {
     public static void assertCommandSuccess(Command command, Model actualModel, CommandHistory actualCommandHistory,
             String expectedMessage, Model expectedModel) {
         CommandResult expectedCommandResult = new CommandResult(expectedMessage);
-        System.out.println("acs:" + actualModel.getFilteredPersonList());
         assertCommandSuccess(command, actualModel, actualCommandHistory, expectedCommandResult, expectedModel);
     }
 

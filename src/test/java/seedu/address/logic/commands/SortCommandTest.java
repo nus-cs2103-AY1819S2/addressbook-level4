@@ -1,8 +1,10 @@
 package seedu.address.logic.commands;
 
+import static seedu.address.logic.commands.CommandTestUtil.VALID_ENDORSEMENT;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
+import static seedu.address.testutil.TypicalIndexes.INDEX_SEVENTH_PERSON;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BENSON;
 import static seedu.address.testutil.TypicalPersons.CARL;
@@ -39,6 +41,17 @@ public class SortCommandTest {
     private List<Person> correctPersonOrder = new ArrayList<>();
 
     /**
+     * Method for modifying the expected model from a list sorted as per input
+     */
+    private void expectedModelFromSort(List<Person> correctPersonOrder) {
+        expectedModel.deleteAllPerson();
+        for (Person newPerson : correctPersonOrder) {
+            expectedModel.addPersonWithFilter(newPerson);
+        }
+        expectedModel.commitAddressBook();
+    }
+
+    /**
      * Sort by name.
      * i. Make two names similar, initially in wrong order. Check the sort orders them as desired.
      *        2nd person: Alex Meier
@@ -54,22 +67,31 @@ public class SortCommandTest {
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedBenson);
         expectedModel.setPerson(model.getFilteredPersonList().get(1), editedBenson);
         expectedModel.commitAddressBook();
-        System.out.println(expectedModel.getFilteredPersonList());
         assertCommandSuccess(editCommand, model, commandHistory, expectedMessage, expectedModel);
 
         String expectedMessageTwo = String.format("Sorted all persons by name");
         SortWord type = new SortWord("name");
-        SortCommand command = new SortCommand(type);
-        expectedModel.deleteAllPerson();
-        correctPersonOrder = Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE);
-        for (Person newPerson : correctPersonOrder) {
-            expectedModel.addPersonWithFilter(newPerson);
-        }
-        expectedModel.commitAddressBook();
-        assertCommandSuccess(command, model, commandHistory, expectedMessageTwo, expectedModel);
+        SortCommand sortCommand = new SortCommand(type);
+        expectedModelFromSort(Arrays.asList(editedBenson, ALICE, CARL, DANIEL, ELLE, FIONA, GEORGE));
+        assertCommandSuccess(sortCommand, model, commandHistory, expectedMessageTwo, expectedModel);
         // ii.
+        Person editedAlex = new PersonBuilder()
+                .withName("Fiona Kunzz").build();
+        EditCommand.EditPersonDescriptor descriptorTwo = new EditPersonDescriptorBuilder(editedAlex).build();
+        EditCommand editCommandTwo = new EditCommand(INDEX_FIRST_PERSON, descriptorTwo);
+        String expectedMessageThree = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedAlex);
+        expectedModel.setPerson(model.getFilteredPersonList().get(0), editedAlex);
+        expectedModel.commitAddressBook();
+        assertCommandSuccess(editCommandTwo, model, commandHistory, expectedMessageThree, expectedModel);
+
+        SortCommand sortCommandTwo = new SortCommand(type);
+        expectedModelFromSort(Arrays.asList(ALICE, CARL, DANIEL, ELLE, FIONA, editedAlex, GEORGE));
+        assertCommandSuccess(sortCommandTwo, model, commandHistory, expectedMessageTwo, expectedModel);
     }
 
+    /**
+     * Test for sorting names in reverse order
+     */
     @Test
     public void execute_sortReverseNames_success() {
         //TODO: Look at situation for matching surnames
@@ -85,12 +107,12 @@ public class SortCommandTest {
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
     }
 
+    /**
+     * Sort by surname.
+     * Edit typical persons so that three have same surname to see if subsequent first name sorting occurs
+     */
     @Test
     public void execute_sortSurnames_success() {
-        //TODO: Look at situation for matching surnames
-        // The edit SortCommandIntegrationTest must be working
-        // Edit three of the persons to have matching surnames to test subsequent first name sorting
-
         String Surname  = GEORGE.surnameToString();
         Person editedAlice = new PersonBuilder()
                 .withName(model.getFilteredPersonList().get(0).firstNameToString() + " " + Surname).build();
@@ -117,12 +139,7 @@ public class SortCommandTest {
         String expectedMessageThree = String.format("Sorted all persons by surname");
         SortWord type = new SortWord("surname");
         SortCommand command = new SortCommand(type);
-        expectedModel.deleteAllPerson();
-        correctPersonOrder = Arrays.asList(ALICE, BENSON, GEORGE, FIONA, CARL, DANIEL, ELLE);
-        for (Person newPerson : correctPersonOrder) {
-            expectedModel.addPersonWithFilter(newPerson);
-        }
-        expectedModel.commitAddressBook();
+        expectedModelFromSort(Arrays.asList(editedAlice, editedBenson, GEORGE, FIONA, CARL, DANIEL, ELLE));
         assertCommandSuccess(command, model, commandHistory, expectedMessageThree, expectedModel);
     }
 
@@ -141,17 +158,17 @@ public class SortCommandTest {
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
     }
 
+    /**
+     * Sort by education.
+     * Typical persons already has persons with duplicate education and so already demands subsequent sorting which
+     *     can be checked.
+     */
     @Test
     public void execute_sortEducation_success() {
         String expectedMessage = String.format("Sorted all persons by education");
         SortWord type = new SortWord("education");
         SortCommand command = new SortCommand(type);
-        expectedModel.deleteAllPerson();
-        correctPersonOrder = Arrays.asList(FIONA, ELLE, CARL, BENSON, ALICE, DANIEL, GEORGE);
-        for (Person newPerson : correctPersonOrder) {
-            expectedModel.addPersonWithFilter(newPerson);
-        }
-        expectedModel.commitAddressBook();
+        expectedModelFromSort(Arrays.asList(FIONA, ELLE, CARL, BENSON, ALICE, DANIEL, GEORGE));
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
     }
 
@@ -169,6 +186,7 @@ public class SortCommandTest {
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
     }
 
+    
     @Test
     public void execute_sortGpa_success() {
         String expectedMessage = String.format("Sorted all persons by gpa");

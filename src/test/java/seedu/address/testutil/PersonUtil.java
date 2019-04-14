@@ -1,13 +1,21 @@
 package seedu.address.testutil;
 
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DEGREE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EDUCATION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_GPA;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_POS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_SKILL;
+
 import java.util.Set;
 
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.address.model.person.Person;
 import seedu.address.model.tag.SkillsTag;
-
-import static seedu.address.logic.parser.CliSyntax.*;
 
 /**
  * A utility class for Person.
@@ -33,9 +41,14 @@ public class PersonUtil {
         sb.append(PREFIX_GPA + person.getGpa().value + " ");
         sb.append(PREFIX_DEGREE + person.getDegree().value + " ");
         sb.append(PREFIX_ADDRESS + person.getAddress().value + " ");
-        person.getTags().stream().forEach(
-            s -> sb.append(PREFIX_SKILL + s.tagName + " ")
-        );
+        for (SkillsTag tag : person.getTags()) {
+            if (tag.toString().charAt(1) == 's') {
+                sb.append(PREFIX_SKILL + tag.tagName + " ");
+            } else {
+                sb.append(PREFIX_POS + tag.tagName + " ");
+            }
+        }
+        // person.getTags().stream().forEach(s -> sb.append(PREFIX_SKILL + s.tagName + " "));
         return sb.toString();
     }
 

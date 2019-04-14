@@ -78,12 +78,13 @@ As the documentation lead, I ensured overall consistency and coherency for the p
 ** Writing the User Guide's Introduction and Quick Start sections (see link:{pullURL}15[#15], link:{pullURL}85[#85],  link:{pullURL}113[#113] and link:{pullURL}180[#180])
 ** Editing the User Guide and Developer Guide for overall coherency as editor (see
 link:{pullURL}20[#20], https://github.com/CS2103-AY1819S2-link:{pullURL}85[#85], link:{pullURL}107[#107] and link:{pullURL}180[#180])
-* Project management: I assisted the team lead in managing 2 product releases and milestone `v1.3` by,
-** Managing product releases `v1.2.1` and `v1.3.0`
-** Coordinating team for milestone `v1.3`
-* Software architecture: I improved existing code to improve overall project quality and team workflow by,
+* Project management: I assisted the team lead, <<eugenefdw#, Eugene>> by,
+** Managing product releases link:{repoURL}/releases/tag/v1.2.1[v1.2.1] and link:{repoURL}/releases/tag/v1.3[v1.3.0]
+** Coordinating team for milestone link:{repoURL}/milestone/4[v1.3]
+* Team-wide contributions: I contributed to the overall project by,
 ** Implementing major refactor of `seedu.address.logic` package structure and design to improve workflow for entire team (see  link:{pullURL}/85[#85])
 ** Performing major overhaul of `seedu.address.model.util` package to improve modularity and extensibility of sample data generation (see link:{pullURL}/180[#180])
+** Assisting fellow developer <<halcyoneee#, Tze Ting>> on designing the app's light and dark themes (see link:{pullURL}180[#180])
 * Community: I worked with my team to resolve problems and achieve greater code quality by,
 ** Assisting teammates in fixing their bugs (see link:{pullURL}33[#33] and link:{pullURL}97[#97])
 ** Reviewing teammates' pull requests with non-trivial, constructive feedback (see link:{pullURL}37[#37], link:{pullURL}108[#108], link:{pullURL}132[#132], link:{pullURL}133[#133], link:{pullURL}139[#139] and link:{pullURL}175[#175])

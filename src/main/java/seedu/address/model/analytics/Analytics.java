@@ -78,7 +78,7 @@ public class Analytics {
         for (int i = 1; i < 6; i++) {
             XYChart.Series<String, Float> question = new XYChart.Series<>();
             question.setName("Q" + i);
-            question.getData().add(new XYChart.Data<>("", scores.get(i-1)));
+            question.getData().add(new XYChart.Data<>("", scores.get(i - 1)));
             charts.add(question);
         }
         data.addAll(charts);

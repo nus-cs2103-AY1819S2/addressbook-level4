@@ -659,7 +659,7 @@ HTTP response codes: +
 
 The following sequence diagram shows how the visitWeb `index` works:
 
-image::VisitWebSequenceDiagram.png[width="800"]
+image::VisitWebSequenceDiagram.png[width="640"]
 _Figure 1.1 Sequence diagram of visitWeb `INDEX` command_
 
 ==== visitWeb `weblink`
@@ -671,7 +671,7 @@ Thus, there is a need to validate this `Weblink` with the help of `WebUtil`.
 
 The following sequence diagram shows how the visitWeb `weblink` works:
 
-image::VisitWebUrlSequenceDiagram.png[width="800"]
+image::VisitWebUrlSequenceDiagram.png[width="640"]
 _Figure 2.1 Sequence diagram of visitWeb `weblink` command_
 
 
@@ -689,7 +689,7 @@ Step 4. Display website on browser window.
 
 The following activity diagram shows the steps of visitWeb command:
 
-image::VisitWebUrlActivityDiagram.png[width="400"]
+image::VisitWebUrlActivityDiagram.png[width="240"]
 _Figure 2.2 Activity diagram of visitWeb `weblink` command_
 
 ==== Enhancements

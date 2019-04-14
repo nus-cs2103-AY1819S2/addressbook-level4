@@ -132,6 +132,7 @@ You can view help by click the `Help button on the Menu Bar.
 
 If it is your first time reading this, then good job on opening the User Guide!
 
+// tag::add-e[]
 === Adding an equipment: `add-e`
 Adds an equipment to the *Equipment Manager*. The result of adding an equipment will be reflected on the panel labelled under *Equipment details* and *Client details*.  +
 Format: `add-e n/NAME p/PHONE pm/DATE a/ADDRESS s/SERIAL_NUMBER t/TAG`
@@ -167,6 +168,7 @@ Under *Client details* panel, Pending CC is added to the panel after entering th
 [[duplicate]]
 .UI Result after adding 2 equipments owned by the same client
 image::PendingCC.png[width="800"]
+// end::add-e[]
 
 === Creating a new work list: `add-w`
 Create a worklist in the Equipment Manager by giving the worklist an ID +

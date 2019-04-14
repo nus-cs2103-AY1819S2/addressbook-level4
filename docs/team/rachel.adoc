@@ -91,6 +91,8 @@ The implementation was challenging as this enhancement requires many changes in 
 
 include::../UserGuide.adoc[tag=quickstart]
 
+include::../UserGuide.adoc[tag=add-e]
+
 include::../UserGuide.adoc[tag=select-c]
 
 include::../UserGuide.adoc[tag=glossary]

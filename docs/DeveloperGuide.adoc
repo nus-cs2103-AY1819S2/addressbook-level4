@@ -299,7 +299,7 @@ image::UndoRedoActivityDiagram.png[width="650"]
 The Job feature is facilitated by the Job class and UniqueJobList Class.
 UniqueJobList contains Jobs by composition while Jobs contains Person by aggregation.
 
-image::uniqueJobListCompositeJobAggregatePerson[width="650"]
+image::uniqueJobListCompositeJobAggregatePerson.png[width="650"]
 
 // tag::interviews[]
 === Interviews Feature

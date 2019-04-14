@@ -41,17 +41,11 @@ Recruit Me is a Java Desktop GUI application that is specifically designed for a
 ** About multiple person addition (planned for v2.0) a new section is added.
 ** Updated Add Command Section in User Guide.
 ** The changes can be seen in:
-include::UserGuide.adoc[tag=filter]
-include::UserGuide.adoc[tag=filterclear]
-include::UserGuide.adoc[tag=filterreverse]
-include::UserGuide.adoc[tag=cvview]
-include::UserGuide.adoc[tag=addmultiplepersons]
-
-*** `UserGuide -> Features -> Filtering Recruit Me: filter`
-*** `UserGuide -> Features -> Filtering Recruit Me: filter clear`
-*** `UserGuide -> Features -> Filtering Recruit Me: filter reverse`
-*** `UserGuide -> Features -> Showing and Updating the CV for a Person`
-*** `UserGuide -> Features -> Adding Multiple Persons [coming in v2.0]`
+*** `UserGuide -> Features -> Filtering Recruit Me: filter` - include::UserGuide.adoc[tag=filter]
+*** `UserGuide -> Features -> Filtering Recruit Me: filter clear` - include::UserGuide.adoc[tag=filterclear]
+*** `UserGuide -> Features -> Filtering Recruit Me: filter reverse` - include::UserGuide.adoc[tag=filterreverse]
+*** `UserGuide -> Features -> Showing and Updating the CV for a Person` - include::UserGuide.adoc[tag=cvview]
+*** `UserGuide -> Features -> Adding Multiple Persons [coming in v2.0]` - include::UserGuide.adoc[tag=addmultiplepersons]
 
 * Contributions to the Developer Guide
 

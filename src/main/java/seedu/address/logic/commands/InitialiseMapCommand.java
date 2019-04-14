@@ -81,16 +81,15 @@ public class InitialiseMapCommand extends Command {
     }
 
     /**
-     * Initialise the 2D array given the map size
+     * Create a 2D array of {@Cell} which will be used to initialise the map.
      */
     private Cell[][] initialise2dArray(int mapSize) {
         Cell[][] cellGrid = new Cell[mapSize][mapSize];
-        char row = 'a';
 
         for (int i = 0; i < mapSize; i++) {
             for (int j = 0; j < mapSize; j++) {
 
-                cellGrid[i][j] = new Cell(new Coordinates(String.format("%c%d", row + i, j + 1)));
+                cellGrid[i][j] = new Cell(new Coordinates(0, 0));
             }
         }
         return cellGrid;

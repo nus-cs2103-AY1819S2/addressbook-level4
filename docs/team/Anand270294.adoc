@@ -80,4 +80,5 @@ backend of this application and potentially aid them in improving this product o
 |===
 
 include::../DeveloperGuide.adoc[tag=storage]
+
 include::../DeveloperGuide.adoc[tag=displaymod]

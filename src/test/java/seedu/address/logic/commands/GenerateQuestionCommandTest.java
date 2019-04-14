@@ -1,37 +1,51 @@
 package seedu.address.logic.commands;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_RATING_HELLO;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalCards.getTypicalDeck;
+import static seedu.address.testutil.TypicalCards.getTypicalTopDeck;
 
 import org.junit.Before;
+import org.junit.Test;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.StudyView;
+import seedu.address.model.UserPrefs;
+import seedu.address.model.deck.Card;
 
 public class GenerateQuestionCommandTest {
-    private Model model = new ModelManager();
-    private Model expectedModel = new ModelManager();
+    private Model model = new ModelManager(getTypicalTopDeck(), new UserPrefs());
+    private Model expectedModel = new ModelManager(getTypicalTopDeck(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
-    private StudyView studyView;
 
     @Before
     public void initializeStudyView() {
         model.studyDeck(getTypicalDeck());
         assertTrue(model.isAtStudyView());
-        studyView = (StudyView) model.getViewState();
         expectedModel.studyDeck(getTypicalDeck());
         assertTrue(expectedModel.isAtStudyView());
     }
-    //TODO
-    //    @Test
-    //    public void execute_showAnswer_success() {
-    //        CommandResult expectedCommandResult = new CommandResult("");
-    //        StudyView studyView = (StudyView) expectedModel.getViewState();
-    //        studyView.setCurrentStudyState(StudyView.StudyState.QUESTION);
-    //        assertCommandSuccess(new ShowAnswerCommand(VALID_ANSWER_HELLO), model, commandHistory,
-    //                             expectedCommandResult, expectedModel);
-    //    }
+
+    @Test
+    public void execute_generateQuestion_success() {
+        CommandResult expectedCommandResult = new CommandResult("");
+        StudyView studyView = (StudyView) model.getViewState();
+        Card prevCard = studyView.getCurrentCard();
+
+        StudyView expectedStudyView = (StudyView) expectedModel.getViewState();
+        expectedStudyView.generateCard();
+        expectedStudyView.setCurrentStudyState(StudyView.StudyState.QUESTION);
+
+        assertCommandSuccess(new GenerateQuestionCommand(studyView, VALID_RATING_HELLO), model,
+                             commandHistory, expectedCommandResult, expectedModel);
+
+        //card rating is updated
+        assertEquals(prevCard.getDifficultyObj().getTotalRating(), VALID_RATING_HELLO);
+        prevCard.resetDifficulty();
+    }
 
 }

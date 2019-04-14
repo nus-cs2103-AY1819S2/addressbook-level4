@@ -1,7 +1,6 @@
 package seedu.address.logic.commands;
 
 import seedu.address.logic.CommandHistory;
-import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.StudyView;
 
@@ -19,11 +18,17 @@ public class GenerateQuestionCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
-        studyView.addRating(rating);
+    public CommandResult execute(Model model, CommandHistory history) {
+        studyView.getCurrentCard().addDifficulty(rating);
         studyView.generateCard();
         studyView.setCurrentStudyState(StudyView.StudyState.QUESTION);
-        studyView.updateTextShown();
         return new CommandResult("");
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof GenerateQuestionCommand // instanceof handles nulls
+                && rating == ((GenerateQuestionCommand) other).rating);
     }
 }

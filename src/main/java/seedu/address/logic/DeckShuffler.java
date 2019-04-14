@@ -26,6 +26,14 @@ public class DeckShuffler {
         itCounter = 0;
     }
 
+    public DeckShuffler(DeckShuffler deckShuffler) {
+        this.deck = deckShuffler.getDeck();
+        Deck shuffledDeck = new Deck(deck);
+        this.cards = shuffledDeck.getCards().internalList;
+        this.shuffleCards();
+        this.itCounter = deckShuffler.itCounter;
+    }
+
     /**
      * Gets the activeDeck in deckShuffler
      */
@@ -74,8 +82,7 @@ public class DeckShuffler {
         }
         // state check
         DeckShuffler other = (DeckShuffler) obj;
-        return Objects.equals(deck, other.deck)
-                && itCounter == other.itCounter;
+        return Objects.equals(deck, other.deck) && itCounter == other.itCounter;
     }
 
     @Override

@@ -112,4 +112,9 @@ public class Card implements ListItem {
         difficulty.addDifficulty(rating);
     }
 
+    public void resetDifficulty() {
+        difficulty.resetDifficulty();
+    }
+
+
 }

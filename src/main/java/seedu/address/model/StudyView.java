@@ -2,7 +2,6 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.List;
 import java.util.Objects;
 
 import javafx.beans.property.ReadOnlyProperty;
@@ -13,6 +12,7 @@ import seedu.address.logic.parser.StudyViewParser;
 import seedu.address.logic.parser.ViewStateParser;
 import seedu.address.model.deck.Card;
 import seedu.address.model.deck.Deck;
+import seedu.address.model.deck.exceptions.EmptyDeckException;
 import seedu.address.ui.StudyPanel;
 import seedu.address.ui.UiPart;
 
@@ -20,7 +20,6 @@ import seedu.address.ui.UiPart;
  * ViewState of TopDeck during a study session.
  */
 public class StudyView implements ViewState {
-    public final List<Card> listOfCards;
     private final Deck activeDeck;
     private final SimpleObjectProperty<StudyState> currentStudyState = new SimpleObjectProperty<>();
     private final SimpleObjectProperty<String> textShown = new SimpleObjectProperty<>();
@@ -28,19 +27,27 @@ public class StudyView implements ViewState {
     private Card currentCard;
     private DeckShuffler deckShuffler;
 
-    public StudyView(Deck deck) {
+    public StudyView(Deck deck) throws EmptyDeckException {
+        if (deck.isEmpty()) {
+            throw new EmptyDeckException("Unable to create study view with empty deck");
+        }
         this.activeDeck = deck;
-        listOfCards = deck.getCards().internalList;
-        setCurrentStudyState(StudyState.QUESTION);
         this.deckShuffler = new DeckShuffler(activeDeck);
         generateCard();
+        setCurrentStudyState(StudyState.QUESTION);
     }
 
     public StudyView(StudyView studyView) {
-        // TODO
-        activeDeck = null;
-        listOfCards = null;
+        this.activeDeck = studyView.getActiveDeck();
+        this.deckShuffler = new DeckShuffler(studyView.getDeckShuffler());
+        this.setCurrentCard(studyView.getCurrentCard());
+        this.setCurrentStudyState(studyView.getCurrentStudyState());
     }
+
+    public DeckShuffler getDeckShuffler() {
+        return deckShuffler;
+    }
+
 
     public Deck getActiveDeck() {
         return activeDeck;
@@ -56,20 +63,16 @@ public class StudyView implements ViewState {
     public void setCurrentCard(Card card) {
         requireNonNull(card);
         currentCard = card;
+        updateTextShown();
     }
 
     /**
      * Generates the next card to be studied.
      */
     public void generateCard() {
-        setCurrentCard(deckShuffler.generateCard());
-        updateTextShown();
+        Card card = deckShuffler.generateCard();
+        setCurrentCard(card);
     }
-
-    public ReadOnlyProperty<StudyState> studyStateProperty() {
-        return currentStudyState;
-    }
-
 
     public StudyState getCurrentStudyState() {
         return currentStudyState.getValue();
@@ -78,12 +81,13 @@ public class StudyView implements ViewState {
     public void setCurrentStudyState(StudyState state) {
         requireNonNull(state);
         currentStudyState.setValue(state);
+        updateTextShown();
     }
 
     /**
      * Updates the text shown in the UI.
      */
-    public void updateTextShown() {
+    private void updateTextShown() {
         String text = (getCurrentStudyState() == StudyState.QUESTION) ? currentCard
                 .getQuestion() : currentCard.getAnswer();
         textShown.setValue(text);
@@ -97,14 +101,6 @@ public class StudyView implements ViewState {
         return textShown;
     }
 
-    /**
-     * Returns the user's answer
-     */
-    public ReadOnlyProperty<String> userAnswerProperty() {
-        return userAnswer;
-    }
-
-
     public String getUserAnswer() {
         return userAnswer.getValue();
     }
@@ -112,10 +108,6 @@ public class StudyView implements ViewState {
     public void setUserAnswer(String answer) {
         requireNonNull(answer);
         userAnswer.setValue(answer);
-    }
-
-    public void addRating(int rating) {
-        getCurrentCard().addDifficulty(rating);
     }
 
     @Override
@@ -141,8 +133,8 @@ public class StudyView implements ViewState {
         }
         // state check
         StudyView other = (StudyView) obj;
-        return Objects.equals(currentStudyState.getValue(), other.currentStudyState.getValue())
-                && Objects.equals(deckShuffler, other.deckShuffler);
+        return Objects.equals(currentStudyState.getValue(), other.currentStudyState.getValue()) && Objects
+                .equals(deckShuffler, other.deckShuffler);
     }
 
     @Override
@@ -154,4 +146,6 @@ public class StudyView implements ViewState {
      * The type of possible states that the study view can have.
      */
     public enum StudyState { QUESTION, ANSWER }
+
+
 }

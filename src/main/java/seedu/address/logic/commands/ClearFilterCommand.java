@@ -73,7 +73,7 @@ public class ClearFilterCommand extends Command {
             predicateList = model.getPredicateLists(SHORTLIST);
             break;
         default:
-            model.clearJobFilteredLists();
+            model.clearPredicateAllPersons();
             model.updateFilteredPersonList();
             predicateList = model.getPredicateLists(EMPTY);
         }

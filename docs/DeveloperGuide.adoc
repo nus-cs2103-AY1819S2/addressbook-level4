@@ -595,7 +595,7 @@ Reviews are a core feature of the application. Each review is specific to a rest
 
 ==== Add Reviews
 
-This command adds a review to a restaurant specified by the INDEX argument.
+This command adds a review to a restaurant specified by the `INDEX` argument.
 
 Command format: `addReview INDEX re/(ENTRY) rr/(RATING)`
 
@@ -605,13 +605,13 @@ The functionality of the addReview command can be better understood with the fol
 
 image::AddReviewActivityDiagram.png[width="1000"]
 
-The Restaurant class contains a list of reviews. Adding a Review to a restaurant would entail adding a review to this list to the specified restaurant.
+The `Restaurant` class contains a list of reviews. Adding a review to a restaurant would entail adding a review to this list to the specified restaurant.
 
 Implementing this feature involved the following major components:
 
-. FoodDiaryParser was modified to accept the command to add a review.
-. AddReviewCommandParser class to parse the command into the separate fields. The new Review is constructed here, and AddReviewCommand is constructed here with the new Review and Index.
-. AddReviewCommand class, which extends Command and takes in the Index of the restaurant and the Review to be added. This component handles the execution logic and interactions with the model. The execution steps are detailed below.
+. `FoodDiaryParser` was modified to accept the command to add a review.
+. `AddReviewCommandParser` class to parse the command into the separate fields. The new Review is constructed here, and AddReviewCommand is constructed here with the new Review and Index.
+. `AddReviewCommand` class, which extends `Command` and takes in the index of the restaurant and the Review to be added. This component handles the execution logic and interactions with the model. The execution steps are detailed below.
 
 The execution of this command involves:
 
@@ -635,12 +635,12 @@ Plausible alternative implementations to the functionality are discussed in this
 * Alternative 1: Add reviews directly to the same restaurant object's list rather than creating a new restaurant by object copy
 |=====================
 | Pros | Less expensive operation to simply modify the same objects list of reviews
-| Cons | Requires modification of the Restaurant class to include a setter method for reviews and increases the risk of unauthorised modification of restaurant data.
+| Cons | Requires modification of the `Restaurant` class to include a setter method for reviews and increases the risk of unauthorised modification of restaurant data.
 |=====================
 
 * Alternative 2: Have users select the restaurant they wish to review rather than indicate it as an index
 |=====================
-| Pros | Reduce complexity of the AddReview command by 1 argument
+| Pros | Reduce complexity of the `AddReview` command by 1 argument
 | Cons | Users will have to either input a command or use their mouse to click to select the restaurant, which are unnecessary steps.
 |=====================
 
@@ -648,7 +648,7 @@ Plausible alternative implementations to the functionality are discussed in this
 
 This is a command to add pre-defined reviews with a shorter and simpler syntax. It is especially useful for people in a rush and who do not wish to enter the whole review.
 
-Users need only specify the INDEX of the restaurant they want to add the review to, and a NUMBER representing the default review they wish to leave. For example, "addR 1 2" will add the default review of rating 2 to the 1st restaurant on the list.
+Users need only specify the `INDEX` of the restaurant they want to add the review to, and a `NUMBER` representing the default review they wish to leave. For example, "addR 1 2" will add the default review of rating 2 to the 1st restaurant on the list.
 
 Command format: `addR INDEX NUMBER`
 
@@ -662,18 +662,18 @@ image::AddDefaultReviewActivityDiagram.png[width="1000"]
 
 Implementing this feature involved the following components:
 
-. FoodDiaryParser modified to accept the addR command (to add default review)
-. AddDefaultReviewCommandParser class to read the INDEX and NUMBER
-. AddDefaultReviewCommand class to execute the logic of the command.
-. Most Importantly, AddDefaultReviewUtil class, which stores the default values for the default reviews to be added.
+. `FoodDiaryParser` modified to accept the addR command (to add default review)
+. `AddDefaultReviewCommandParser` class to read the INDEX and NUMBER
+. `AddDefaultReviewCommand` class to execute the logic of the command.
+. Most Importantly, `AddDefaultReviewUtil` class, which stores the default values for the default reviews to be added.
 
-The review Entry, which is composed of a String value, will be taken from the AddDefaultReviewUtil class. The review Rating used is the indicated NUMBER in the command. A new Review object is created from these two attributes and added.
+The review `Entry`, which is composed of a String value, will be taken from the `AddDefaultReviewUtil` class. The review `Rating` used is the indicated `NUMBER` in the command. A new `Review` object is created from these two attributes and added.
 
 ===== Design Considerations
 
 These alternatives were considered as well:
 
-* Alternative 1: Adding a review directly from the new AddDefaultReviewCommand instead of creating an AddReviewCommand
+* Alternative 1: Adding a review directly from the new `AddDefaultReviewCommand` instead of creating an `AddReviewCommand`
 
 |=====================
 | Pros | Reduces coupling between the two command classes.
@@ -691,38 +691,40 @@ These alternatives were considered as well:
 
 This command allows the modification of exiting reviews in The Food Diary.
 
-Command format: `editReview INDEX [re/ENTRY] [rr/RATING]`, where INDEX refers to the index of the review to edit in the selected restaurant, ENTRY and RATING are optional, but at least one of the two fields must be specified.
+Command format: `editReview INDEX [re/ENTRY] [rr/RATING]`, where `INDEX` refers to the index of the review to edit in the selected restaurant, `ENTRY` and `RATING` are optional, but at least one of the two fields must be specified.
 
 ===== Current Implementation
 
 Executing this command requires the user to select the restaurant whose review is to be edited. This can be done via the select command or by a mouse click on the application GUI.
 
-Do refer to the sequence diagram below for a clearer picture of the implementation of this command. Note that the interaction between the EditReviewCommand and the Model is left out as it is the same as the one in AddReviewCommand above.
+Do refer to the sequence diagram below for a clearer picture of the implementation of this command. Note that the interaction between the `EditReviewCommand` and the `Model` is left out as it is the same as the one in `AddReviewCommand` above.
 
 image::EditReviewSequenceDiagram.png[width="1000"]
 
 The components involved in the execution of this command include:
 
-. Modifying FoodDiaryParser to accept tbe editReview command
-. EditReviewCommandParser class to parse the command with the optional fields
-. EditReviewCommand class to handle to logic of the execution of the command
-. EditReviewDescriptor class to store the changes for the different fields of the review
+. Modifying `FoodDiaryParser` to accept tbe editReview command
+. `EditReviewCommandParser` class to parse the command with the optional fields
+. `EditReviewCommand` class to handle to logic of the execution of the command
+. `EditReviewDescriptor` class to store the changes for the different fields of the review
 
-The EditReviewDescriptor class can contain optional fields. This is so that the command does not have to modify every field in a Review and users can specify which field they would like to modify.
+The `EditReviewDescriptor` class can contain optional fields. This is so that the command does not have to modify every field in a review and users can specify which field they would like to modify.
 
 The steps involved in the execution of this command are:
 
-* Step 1: Create the EditReviewDescriptor based on input arguments.
+* Step 1: Creating the `EditReviewDescriptor` based on input arguments.
 
-* Step 2: Retrieve the currently selected restaurant from the model.
+* Step 2: Retrieving the currently selected restaurant from the model.
 
-* Step 3: Create a new restaurant based on the currently selected restaurant and the EditReviewDescriptor
+* Step 3: Creating a new restaurant based on the currently selected restaurant and the `EditReviewDescriptor`
 
-* Step 4: Replace the selected restaurant with the new restaurant object in the model.
+* Step 4: Replacing the selected restaurant with the new restaurant object in the model.
 
 ===== Design Considerations
 
+
 * Alternative 1: Have users input the index of the restaurant into the command instead of having to select a restaurant first
+
 |=====================
 | Considering the technical aspect, there is not much of a difference between the two implementations. However, this design decision took into account the fact that users most likely had to select the restaurant to look at the review they wish to edit before editing it. As such, it reduces the arguments input by the user, and makes use of what is likely going to happen anyways (the selection of the restaurant).
 |=====================
@@ -731,7 +733,7 @@ The steps involved in the execution of this command are:
 
 Similar to the command to edit reviews, execution of this command requires the user to select a restaurant from the displayed list.
 
-Command format: `deleteReview INDEX`, where INDEX refers to the index of the review to be deleted from the selected resutaurant.
+Command format: `deleteReview INDEX`, where `INDEX` refers to the index of the review to be deleted from the selected resutaurant.
 
 The implementation is a combination of the add and edit review commands: the selected restaurant is copied to a new restaurant object with a new list of reviews without the review to be deleted. This new restaurant object then replaces the selected restaurant in the model.
 // end::reviewcommandsdg[]

@@ -282,7 +282,6 @@ Classes used by multiple components are in the [.java]#seedu.address.commons# pa
 
 This section describes some noteworthy details on how our features are implemented.
 
-// tag::changemode[]
 === Mode System
 
 ==== Modes
@@ -301,13 +300,14 @@ To use the different features, we have also implemented mode-changing commands f
 There is also a *Bill Mode* available for your use as a developer, although the existence of this mode is not shared with the users. The Bill Mode displays the receipt and is only used after the `bill` command is executed in RestOrRant.
 
 [NOTE]
-Although the `bill` command is used in Table Mode, it is considered a Statistics feature rather than an Orders feature as it involves calculation for the revenue.
+Although the `bill` command is used in Table Mode, it is considered a <<Statistics feature, Statistics feature>> rather than an Orders feature as it involves calculation for the revenue.
 
+// tag::changemode[]
 ==== Current Implementation
 
 ===== Changing modes in general
 
-The modes of the application are defined using a [.java]#Mode# enum and the current mode of the application is stored as a private attribute [.java]#Mode mode# in [.java]#LogicManager#. Users can switch between modes in ROR using the `{XXX}Mode` command, such as `menuMode` and `tableMode`. When the mode of the application is changed, we need to update the:
+The modes of the application are defined using a [.java]#Mode# enum and the current mode of the application is stored as a private attribute [.java]#mode# in [.java]#LogicManager#. Users can switch between modes in ROR using the `{XXX}Mode` command, such as `menuMode` and `tableMode`. When the mode of the application is changed, we need to update the:
 
 * [.java]#Logic# component so that the [.java]#mode# attribute in [.java]#LogicManager# reflects the new current mode, since this is used to check if a command can be executed,
 * [.java]#UI# component so that the panels display the information that is relevant to the mode.
@@ -327,28 +327,30 @@ For commands that do not involve a change in mode, [.java]#CommandResult#newMode
 
 [[ChangeToTableMode]]
 ===== Changing to Table Mode for a specific table
-All the mode-changing commands take no parameters except for Table Mode. When the user wants to perform order-related operations (eg. add an item to the table's order), the user will first have to switch to Table Mode by typing the `tableMode` command (or its shortcut command `TM`) followed by the table number of the table that the user wants to perform actions on.
-
-[NOTE]
-The `tableMode` command can be used from any mode, even in Table Mode of a different table number. If the application is already in Table Mode of the same table number, or if the table specified by the table number is unoccupied, an error message will be shown to the user.
+All the mode-changing commands take no parameters except for Table Mode. When the user wants to perform order-related operations (eg. add an item to the table's order), the user will first have to switch to Table Mode by typing the `tableMode` command (or its shortcut `TM`) followed by the table number of the table that the user wants to perform actions on.
 
 The following sequence diagram shows the relevant parts of what happens when a user executes the `tableMode 3` command:
 
 .Component interactions for `tableMode 3` command
 image::TableModeSequenceDiagram.png[width="800"]
 
-The [.java]#Logic# and [.java]#UI# component interactions work in a similar way to the other mode-changing commands and the implementation is mentioned above. The only difference is the parsing of the argument *3* into a [.java]#TableNumber# object that indicates the table number of the target table to switch to. This [.java]#TableNumber# object is stored as an attribute in [.java]#`TableModeCommand#.
+The [.java]#Logic# and [.java]#UI# component interactions work in a similar way to the other mode-changing commands and the implementation is mentioned above. The only difference is the parsing of the argument *3* into a [.java]#TableNumber# object that indicates the table number of the target table to switch to. This [.java]#TableNumber# object is stored as an attribute in [.java]#TableModeCommand#.
 
-Let's focus on what happens to the [.java]#Model# component when the [.java]#TableModeCommand# is executed. The relevant parts of the sequence diagram has been extracted out and shown in the diagram below.
+Let's focus on what happens to the [.java]#Model# component when [.java]#TableModeCommand#execute()# is called. The relevant parts of the sequence diagram has been extracted out and shown in the diagram below.
 
 .Interaction between Logic and Model components for `tableMode 3` command
 image::TableModeModelSequenceDiagram.png[width="800"]
 
-It first retrieves the [.java]#Table# that corresponds to its [.java]#TableNumber# attribute. This is done by going through [.java]#Model#getRestOrRant()# to obtain the [.java]#ReadOnlyRestOrRant#, whose [.java]#getTables()# method can be called to retrieve [.java]#ReadOnlyTables# that contains the list of all the tables in the restaurant. The [.java]#Table# can then be retrieved by passing [.java]#TableNumber# into [.java]#ReadOnlyTables#getTableFromNumber()#.
+It first retrieves the [.java]#Table# in RestOrRant that corresponds to its [.java]#TableNumber# attribute.
+The list of tables are stored within the [.java]#Tables# object in [.java]#RestOrRant#. The read only versions of these objects can be obtained from [.java]#Model#getRestOrRant()# and then [.java]#ReadOnlyRestOrRant#getTables()#. The desired [.java]#Table# object can then be retrieved by passing [.java]#TableNumber# into [.java]#ReadOnlyTables#getTableFromNumber()#.
 
-The [.java]#Table# is then set as the selected table in [.java]#Model# using [.java]#Model#setSelectedTable()#. This is to keep track of the current table so that the Table Mode commands like `addToOrder` and `bill` can easily perform their operations by getting the table from [.java]#Model#getSelectedTable()#.
+The [.java]#Table# is then set as the selected table in [.java]#Model# using [.java]#Model#setSelectedTable()#. This is to keep track of the current table so that the Table Mode commands like `addToOrder` and `bill` can easily perform their operations by <<CurrentTable, getting the table from [.java]#Model#getSelectedTable()#>>.
 
 After which, [.java]#Model#updateFilteredOrderItemList()# is called to update the filtered list such that it only contains order items ordered by the chosen table. This will then update the item list panel in the UI to display only the order items that were ordered by the chosen table.
+
+[NOTE]
+[.java]#TableModeCommand#execute()# also checks to ensure that the application is not already in Table Mode of the same table number, the table number specified is valid, and the desired table is occupied.
+
 
 ==== Design Considerations
 
@@ -391,7 +393,6 @@ We decided to go ahead with this implementation as we feel that from a user's po
 - *Cons*: Makes the commands longer to type.
 
 |=======================================================================
-
 // end::changemode[]
 
 === Tables feature
@@ -452,47 +453,81 @@ The Orders feature allows restaurant front-end staff to take orders from custome
 as well as remove incorrectly inputted orders using the <<DeleteFromOrder, `deleteFromOrder`>> or <<ClearOrder, `clearOrder`>> commands.
 They can track the current list of items ordered for each table (in Table Mode) or across all tables (in Restaurant Mode) and update their serving statuses with the <<Serve, `serve`>> command.
 
+// tag::orders[]
+[[OrdersClasses]]
+==== Classes for Orders feature in Model
+
+The Orders feature was implemented with the introduction of a new set of classes to [.java]#Model#.
+A new [.java]#Orders# class encapsulates all the methods and classes related to this feature. It also contains a listener that is used to update the storage when any modification is made to the orders. The [.java]#Orders# object is stored in [.java]#RestOrRant# and it exposes a read-only interface [.java]#ReadOnlyOrders# to allow the other components to retrieve order-related information while maintaining data integrity.
+
+[.java]#Orders# contains a [.java]#UniqueOrderItemList#, which contains a list of all the items ordered across all the tables in the restaurant, represented by [.java]#OrderItem# objects. Each [.java]#OrderItem# object consists of 4 objects:
+
+* [.java]#TableNumber# indicates the table number of the table that ordered the item
+* [.java]#OrderItemStatus# tracks the quantity ordered and the quantity that has yet to be served
+* [.java]#Code# indicates the item code and is used to identify the item ordered
+* [.java]#Name# indicates the item name and is used for display in the UI
+
+[.java]#OrderItem# objects are uniquely identified by [.java]#TableNumber#, [.java]#Code# and [.java]#Name# as each table can only have one order entry for each item.
+
+The Orders Class Diagram below shows the relationship between the classes.
+
+.Orders Class Diagram in the Model component
+image::OrdersModelClassDiagram.png[width="800"]
+
 [[CurrentTable]]
 ==== Getting the table number
 
-The Orders feature allows users to perform order-related operations for a specific table. The table number was specified when <<ChangeToTableMode, switching over to Table Mode>>.
+The Orders feature allows users to perform order-related operations for a specific table. The table number of that table is specified when <<ChangeToTableMode, switching over to Table Mode>>.
 
 [NOTE]
 The table number is stored so that users do not need to keep specifying it when typing the commands.
 
-Hence, all the commands in the Orders feature will have to retrieve the table number from [.java]#Model# first before they can perform their functions. The current table is stored as a [.java]#Table# object in [.java]#Model#, which is retrieved by calling [.java]#Model#getSelectedTable()#.
-The [.java]#TableNumber# can then be retrieved from that [.java]#Table#. The sequence diagram for this operation is shown below.
+As a result, all the commands in the Orders feature will have to retrieve the table number from [.java]#Model# first before they can perform their functions. The current table is stored as a [.java]#Table# object in [.java]#Model#, which is retrieved by calling [.java]#Model#getSelectedTable()#.
+The table number, which is represented by a [.java]#TableNumber# object, can then be retrieved from that [.java]#Table#. The sequence diagram for this operation is shown below.
 
 .Sequence diagram for retrieving the table number
-image::CurrentTableSequenceDiagram.png[width="500"]
+image::CurrentTableSequenceDiagram.png[width="400"]
+// end::orders[]
 
 [[AddToOrder]]
 ==== Adding to an order
 
+The user may want to add new order items to a specific table's order and this can be done with the `addToOrder` command.
+
 The interaction between the components for this function is similar to <<AddToMenu, adding to menu>>. A key difference in function is that `addToMenu` only adds 1 menu item each time, but `addToOrder` allows multiple and duplicate items to be added in a single command.
 
-Order items are stored in a list. When `addToOrder W09 3 W12 1` is keyed in, the command is parsed by [.java]#AddToOrderCommandParser# to check if the arguments are in valid format. They are then converted into a list of [.java]#Code# item codes and a list of [.java]#Integer# quantities, which are stored in the [.java]#AddToOrderCommand# object returned by the parser.
+Suppose the user wants to add 3 "W09 Chicken Wings" and 1 "W12 French Fries" to the order. When `addToOrder W09 3 W12 1` is keyed in, the command is parsed by [.java]#AddToOrderCommandParser# to check if the arguments are in valid format. They are then converted into a list of [.java]#Code# item codes and a list of [.java]#Integer# quantities, which are stored in the [.java]#AddToOrderCommand# object returned by the parser.
 
-When [.java]#AddToOrderCommand#execute()# is called, the item codes in the [.java]#Code# list are processed one by one.
-For each item code, the [.java]#MenuItem# with the [.java]#Code# will be retrieved from the [.java]#Model# component to check if it exists in the menu. Otherwise, an error is returned and the subsequent item codes in the list are not processed.
+When [.java]#AddToOrderCommand#execute()# is called, the [.java]#Code# objects in the list are processed one by one. For each [.java]#Code#:
 
-If the item is found in the menu, it will then attempt to find an [.java]#OrderItem# with the same [.java]#Code# in the current table. If an order of that item already exists, the quantity will be updated in the list using [.java]#Model#setOrderItem()#. Otherwise, the new item will be added to the list using [.java]#Model#addOrderItem()#.
+. It attempts to retrieve a [.java]#MenuItem# object that contains the given [.java]#Code# from [.java]#Model# to check if the item exists in the menu. If it does not exist, an error is returned and the subsequent item codes in the list are not processed.
+
+. It thens attempt to find an [.java]#OrderItem# object with the given [.java]#Code# and the <<CurrentTable, current [.java]#TableNumber#>> to see if that item has already been ordered by the table. If it already exists, the quantity will be updated in the [.java]#UniqueOrderItemList# using [.java]#Model#setOrderItem()#. A new [.java]#OrderItem# with a new [.java]#OrderItemStatus# will be created to replace the existing one. Otherwise, a new [.java]#OrderItem# will be added to the [.java]#UniqueOrderItemList# using [.java]#Model#addOrderItem()#.
 
 [[DeleteFromOrder]]
 ==== Deleting from an order
 
+The user may want to remove an order item from a specific table's order and this can be done with the `deleteFromOrder` command.
 
+The interaction between the components for this function is similar to <<DeleteFromMenu, deleting from menu>>.
 
+Suppose the user wants to delete "W09 Chicken Wings" from the order. When `deleteFromOrder W09` is keyed in, the command is parsed by [.java]#DeleteFromOrderCommandParser# to check if the item code is in valid format. It is then converted into a [.java]#Code# object which is stored in the [.java]#DeleteFromOrderCommand# object returned by the parser.
 
+When [.java]#DeleteFromOrderCommand#execute()# is called, it will use the [.java]#Code# to check whether the item exists in the menu and whether the current table has ordered the item.
+If the [.java]#OrderItem# is found, it will be deleted from the [.java]#UniqueOrderItemList# using [.java]#Model#deleteOrderItem()#.
+
+// tag::clearorder[]
 [[ClearOrder]]
 ==== Clearing an order
+
+The user may want to remove all the order items from a specific table's order and this can be done with the `clearOrder` command.
 
 ===== Current Implementation
 
 When the user enters the `clearOrder` command, the command is parsed and a [.java]#ClearOrderCommand# object is created.
 
-[.java]#ClearOrderCommand#execute()# is then called, which in turn calls [.java]#Model#clearOrderItemsFrom()# with the <<CurrentTable, current table number>>.
-In fact, [.java]#Model# acts as a facade and forwards the call to [.java]#Orders#clearOrderItemsFrom()#. That method's source code is replicated below.
+[.java]#ClearOrderCommand#execute()# is then called, which in turn calls [.java]#Model#clearOrderItemsFrom()# with the <<CurrentTable, current TableNumber>>.
+[.java]#Model# acts as a facade and forwards the call to [.java]#Orders#clearOrderItemsFrom()#, and that method's source code is replicated below.
 
 [source, java]
 ----
@@ -512,8 +547,8 @@ public void clearOrderItemsFrom(TableNumber tableNumber) {
 
 In the method above, [.java]#orderItems# is a [.java]#UniqueOrderItemList# that contains all the order items from all the tables. Let's walk through this method to see how the main functionality of `clearOrder` is implemented:
 
-<1> It first loops through all the items in the [.java]#UniqueOrderItemList# and retrieves the items with the current table number.
-<2> It then deletes these items from the [.java]#UniqueOrderItemList#.
+<1> It first loops through all the items in the [.java]#UniqueOrderItemList# and stores the [.java]#OrderItem# objects with the current [.java]#TableNumber# into a new list.
+<2> It then deletes the items in this list from the [.java]#UniqueOrderItemList#.
 <3> Finally, it triggers the listener in [.java]#Orders# to indicate that the order item list has been modified. This signals to the [.java]#LogicManager# to update the storage data files by calling [.java]#Storage#saveOrders()#.
 
 The sequence diagram for when a user executes the `clearOrder` command is shown below.
@@ -538,17 +573,20 @@ Furthermore, it also provides the benefit of arranging the order items across al
 - *Cons*: Difficult to keep track of so many lists. May be space inefficient to create multiple [.java]#UniqueOrderItemList# if each list only has a few items. +
 
 |=======================================================================
+// end::clearorder[]
 
 [[Serve]]
 ==== Serving items in an order
 
-The interaction between the components for this function is similar to <<EditPax, editing the occupancy at a table>>.
+The user may want to mark order items from a specific table's order as served and this can be done with the `serve` command.
 
-Suppose 3 "W09 Chicken Wings" has been ordered by the current table. When `serve W09 2` is keyed in, the command is parsed by [.java]#ServeCommandParser# to check if the arguments are in valid format. The valid [.java]#Code# item code and [.java]#Integer# quantity are then stored in the [.java]#ServeCommand# object returned by the parser.
+The interaction between the components for this function is similar to <<EditPax, editing the occupancy of a table>>.
 
-When [.java]#ServeCommand#execute()# is called, it will use the item code to check whether the item code exists in the menu and in the current table's order.
-If the order item is found and the quantity served is valid, a new [.java]#OrderItem# object will be created with a new [.java]#OrderItemStatus# that reflects the new quantities.
-[.java]#Model#setOrderItem()# is then used to replace the old [.java]#OrderItem# object with the new one.
+Suppose 3 "W09 Chicken Wings" have been ordered by the table and the user wants to mark 2 of them as served. When `serve W09 2` is keyed in, the command is parsed by [.java]#ServeCommandParser# to check if the arguments are in valid format. The valid [.java]#Code# item code and [.java]#Integer# quantity are then stored in the [.java]#ServeCommand# object returned by the parser.
+
+When [.java]#ServeCommand#execute()# is called, it will use the [.java]#Code# to check whether the item exists in the menu and whether the current table has ordered the item.
+If the [.java]#OrderItem# is found and the quantity served is valid, a new [.java]#OrderItem# object will be created with a new [.java]#OrderItemStatus# that reflects the new quantities.
+[.java]#Model#setOrderItem()# is then used to replace the old [.java]#OrderItem# object in the [.java]#UniqueOrderItemList# with the new one.
 
 
 === Menu feature

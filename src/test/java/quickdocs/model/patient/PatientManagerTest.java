@@ -61,7 +61,7 @@ public class PatientManagerTest {
     }
 
     @Test
-    public void addPatient_validAddPatient_patientAdded(){
+    public void addPatient_validAddPatient_patientAdded() {
         Name name = new Name("Pepper Toh");
         Nric nric = new Nric("S9123456A");
         Email email = new Email("ptoh@gmail.com");

@@ -447,6 +447,7 @@ Furthermore, every time any record of the specified patient is modified, a new i
 Our user can also utilize TeethHub to store manage and interact with tasks aside from patients. Dentists would often have tasks that needs to be completed or performed and the implementation of the `Task` data object allows TeethHub to provide its user with the ability to manage these tasks and have them interact with their patient's details when necessary as well. The main commands added with the data object serve to provide the user with a way to manage and view the tasks stored in the application.
 
 This segment will explain the main features of the a new data type `Task` that TeethHub handle. Key implementation details and the design considerations when designing these features will also be covered.
+
 ==== Task storage and attributes
 The `Task` class is a new type of object that is meant to represent any task a dentist would have to perform. `Task` objects are kept in a list and handled by the `UniqueTaskList` class. This follows the same process as the `Patient` class and by extension, the `Person` class which has a `UniquePersonList` handling a list of `Person` objects.
 

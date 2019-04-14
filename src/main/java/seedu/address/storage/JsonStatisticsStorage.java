@@ -64,7 +64,6 @@ public class JsonStatisticsStorage implements StatisticsStorage {
      * @param filePath location of the data. Cannot be null.
      */
     public void saveStatisticsData(PlayerStatistics statisticsData, Path filePath) throws IOException {
-        //System.out.println("Inside JsonStatisticsStorage saveStatisticsData");
         requireNonNull(statisticsData);
         requireNonNull(filePath);
 

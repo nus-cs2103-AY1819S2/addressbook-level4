@@ -76,5 +76,4 @@ public class JsonEquipmentManagerStorage implements EquipmentManagerStorage {
         FileUtil.createIfMissing(filePath);
         JsonUtil.saveJsonFile(new JsonSerializableEquipmentManager(addressBook), filePath);
     }
-
 }

@@ -150,14 +150,23 @@ Other enhancements made to Health Hub include:
 
 * `setreminder` command: Allows the user to set and register reminders in the
  application.
-* `undo/redo` command: Undo a previous action or redo everything.
+* `undo/redo` command: Undo a previous action or redo a previously undone action.
 
 For more explicit information on the `filter`,`setreminder` and `undo/redo`
 command, visit <<Features>>, under Filtering Health Workers/Requests.
 
+// tag::releasenotes-1.4[]
 === v1.4 Release Notes
 
-v1.4 to be released
+With the release of version 1.4, we decided to improve our current features by making them more dynamic and automated to reduce the manual work of changing the data.
+
+* The health worker field inside requests now shows the NRIC of the health worker instead of the name in previous versions.
+
+* Editing the NRIC of a health worker will dynamically change the health staff field  of all requests assigned to the health worker.
+
+* Users can assign multiple requests to a health worker only if the requests are at least 2 hours apart.
+
+// end::releasenotes-1.4[]
 
 // tag::releasenotes-2.0[]
 === v2.0 Release Notes
@@ -191,6 +200,10 @@ The following description of the features and commands are prototypes and specif
 can be used as `n/John Doe c/Claustrophobia` or as `n/John Doe`.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `s/<specialisation>...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
 * Parameters can be in any order e.g. if the command specifies `n/<name> p/<phone_number>`, `p/<phonenumber> n/<name>` is also acceptable.
+
+[NOTE]
+Our application does not support command chaining. Inputting multiple commands onto the same line will result in only the first command to be executed.
+For example, calling `list r undo` will only list the requests and not execute the `undo` command.
 
 === Viewing Help : `help`
 
@@ -252,7 +265,7 @@ the request and the type of service requested.
 // tag::addHealthWorker[]
 === Adding requests/health workers: `add`
 
-Before you can jump right intWo the core feature of our application and
+Before you can jump right into the core feature of our application and
 streamline the process of adding requests from patients and to assign
 requests to experts in the medical field, it is essential to first ensure
 that the respective health staff and patients are registered in the system
@@ -402,6 +415,7 @@ worker list to be `91234567` and `John Doe` respectively. +
 
 // end::editHealthWorker[]
 healthworker` command with valid inputs.
+
 
 ==== *Editing a request*
 
@@ -742,6 +756,26 @@ Examples:
 * `complete 1` +
 Marks the first request in the list as completed.
 
+// tag::undoredo[]
+=== Undoing Commands : `undo`
+If you wish to undo a mistake that you had made while entering commands,
+you can restore the lists to the state before the command was called using the `undo` command.
+
+Format: `undo`
+
+[NOTE]
+====
+* The `undo` command can only be used to undo commands that modify the lists such as `add`, `delete` and `edit`.
+* For commands that affects the display such as `filter`, you can use `list` command to get back the original list.
+====
+
+=== Redoing undone commands : `redo`
+If you wish to redo a command that you have previously undone, you can use the `redo` command.
+
+Format: `redo`
+
+
+// end::undoredo[]
 === Listing previous commands : `history`
 
 In the case where you have been using the application for a while now, and
@@ -803,18 +837,50 @@ image::reminder_command.png[]
 
 === Getting health condition statistics: `statistics`
 
-It is imperative for you to know which health conditions have been seeing an increasing trend, as well as take note of
-those which have been experiencing a decline. The `statistics` command allows you to view all health conditions that
-have been registered on HealthHub, and also their respective numbers of occurrences.
+We understand that it is imperative for you to know which health conditions have been seeing an increasing trend, as
+well as take note of those which have been experiencing a decline. The `statistics` command allows you to view all
+health conditions that have been registered on HealthHub, and also their respective numbers of occurrences.
 
-Format: `statistics`
+Format: `statistics` -> this command displays a list of all health conditions that you have typed into HealthHub, and
+shows each health condition’s related number of occurrences.
 
-The following image is what you will see when you type in the statistics command.
+[NOTE]
+====
+statistics will only show any useful information related to frequency of health conditions after you have added at least
+1 request for homecare on HealthHub. If there are no homecare requests made, the statistics panel will display the
+following:
+====
 
-image::statistics_command.png[]
+image::empty_statistics.PNG[]
+
+Example of usage:
+
+Let’s say that no commands have been issued yet and HealthHub is on a clean slate with no prior records of requests.
+Suppose as an administrative staff, you input the following commands as your first 2 requests for homecare into
+HealthHub:
+
+`add request n/John Doe i/S8974421C p/98765432 a/123 Brick Road, #01-01 dt/01-01-2019 14:50:00 c/Diabetes
+c/Physiotherapy`
+
+`add request n/Dohn Joe i/S9874421C p/98675432 a/Sheares Hall, #01-01 dt/06-05-2019 10:10:00 c/AIDS c/Physiotherapy`
+
+You can then subsequently type in the following command:
+
+`statistics`
+
+Voila! A list of health conditions (namely, the ones which were typed in the 2 abovementioned requests Physiotherapy,
+Diabetes, AIDS) will be generated and will be displayed in descending order of occurrences. The following screen is what
+you can expect to see after typing in the 3 commands.
+
+image::normal_statistics.PNG[]
 
 As you can see, based on the requests already registered in the request panel on the left, the statistics command shows
 that the health condition Physiotherapy has showed up twice, whereas both Diabetes and AIDS have showed up once each.
+It is also worth noting that `statistics` is fully integrated with all request-related commands. This means that
+regardless of how many commands you may decide to employ (such as `add`, `edit`, `delete`, `undo`, `redo`, `clr`),
+`statistics` will automatically update itself and always provide real-time accurate statistical data of the health
+conditions.
+
 Upon collating such data, you can feedback and make suggestions to the hospital to increase or decrease training in
 certain departments. Furthermore, you can even use this data as a basis for the health sector to ramp up efforts in its
 Work Skills Qualification certification for certain healthcare skills to be taught to new aspiring healthcare
@@ -882,6 +948,6 @@ to the `\data` folder of the app directory.
 |`undo`
 |undos the previous action
 |`redo`
-|redos everything
+|redos the previous undone command
 |===
 // end::summary[]

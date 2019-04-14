@@ -18,6 +18,7 @@ import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.EditCommand;
+import seedu.address.logic.commands.Statistics;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Address;
@@ -87,7 +88,7 @@ public class EditRequestCommand extends EditCommand implements RequestCommand {
             }
 
             for (Request request : model.getFilteredRequestList()) {
-                if (updatedHealthWorker.equals(request.getHealthStaff())) {
+                if (updatedHealthWorker != null && updatedHealthWorker.equals(request.getHealthStaff())) {
                     healthWorkerDates.add(request.getRequestDate().getDate());
                 }
             }
@@ -143,6 +144,9 @@ public class EditRequestCommand extends EditCommand implements RequestCommand {
             throw new CommandException(MESSAGE_DUPLICATE_REQUEST);
         }
 
+        Statistics.deleteStatistics(requestToEdit.getConditions());
+        Statistics.updateStatistics(editedRequest.getConditions());
+
         edit(model, requestToEdit, editedRequest);
         return new CommandResult(String.format(MESSAGE_EDIT_REQUEST_SUCCESS, editedRequest));
         // List<Request> lastShownList = model.getF()
@@ -152,7 +156,6 @@ public class EditRequestCommand extends EditCommand implements RequestCommand {
     public void edit(Model model, Object toEdit, Object edited) {
         model.setRequest((Request) toEdit, (Request) edited);
         model.updateFilteredRequestList(Model.PREDICATE_SHOW_ALL_REQUESTS);
-        //model.commitRequestBook();
         commitRequestBook(model);
     }
 

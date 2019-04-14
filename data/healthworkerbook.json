@@ -1,10 +1,10 @@
 {
   "healthWorkers" : [ {
-    "name" : "Rohan Tay",
+    "name" : "myname",
     "phone" : "98765432",
-    "nric" : "S9999999G",
+    "nric" : "S4567893M",
     "organization" : "SGH",
-    "skills" : "ORTHOPAEDIC GENERAL_PRACTICE "
+    "skills" : "GENERAL_PRACTICE ORTHOPAEDIC "
   }, {
     "name" : "David Dev",
     "phone" : "89047389",
@@ -16,7 +16,7 @@
     "phone" : "90098264",
     "nric" : "S7491023J",
     "organization" : "SGH",
-    "skills" : "PAEDIATRIC "
+    "skills" : "GENERAL_PRACTICE ORTHOPAEDIC "
   }, {
     "name" : "Jin Stackoverflow",
     "phone" : "88888888",
@@ -40,13 +40,13 @@
     "phone" : "98164782",
     "nric" : "F9876543Z",
     "organization" : "Africa",
-    "skills" : "ENDOCRINOLOGY PHYSIOTHERAPY "
+    "skills" : "PHYSIOTHERAPY ENDOCRINOLOGY "
   }, {
     "name" : "Terence Sim",
     "phone" : "91238894",
     "nric" : "S1874810J",
     "organization" : "NUS",
-    "skills" : "CARDIOLOGY NEUROLOGY "
+    "skills" : "NEUROLOGY CARDIOLOGY "
   }, {
     "name" : "Aaron Tan",
     "phone" : "81940213",

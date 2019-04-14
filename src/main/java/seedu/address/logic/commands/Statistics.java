@@ -1,9 +1,15 @@
 package seedu.address.logic.commands;
 
+import java.util.Comparator;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 
+import javafx.collections.ObservableList;
+import seedu.address.model.Model;
+import seedu.address.model.ReadOnlyRequestBook;
+import seedu.address.model.request.Request;
 import seedu.address.model.tag.Condition;
 
 /**
@@ -13,7 +19,11 @@ public class Statistics {
 
     private static final String MESSAGE_EMPTY_STATISTICS = "Conditions and their related occurences are not available";
 
+    //statistics will be ordering health conditions by key
     private static Map<String, Integer> statistics = new TreeMap<>();
+
+    //sortedMap will be ordering the health conditions by their corresponding number of occurrences
+    private static Map<String, Integer> sortedMap = new LinkedHashMap<>();
 
     /**
      * Returns the number of times the specific condition has appeared in added requests
@@ -25,8 +35,12 @@ public class Statistics {
         return statistics.getOrDefault(condition.toString().toUpperCase(), 0);
     }
 
+    /**
+     * Clears records on both statistics and sortedMap
+     */
     public static void clearStatistics() {
         statistics.clear();
+        sortedMap.clear();
     }
 
     /**
@@ -44,6 +58,7 @@ public class Statistics {
                 statistics.remove(conditionName);
             }
         }
+        sortStatistics();
     }
 
     /**
@@ -59,12 +74,37 @@ public class Statistics {
             Integer count = statistics.get(conditionName);
             statistics.put(conditionName, (count == null) ? 1 : count + 1);
         }
+        sortStatistics();
     }
 
-    public static Set<Map.Entry<String, Integer>> getEntrySet() {
-        return statistics.entrySet();
+    /**
+     * Sorts statistics tree map in reverse order of value (Key: condition name,
+     * Value: number of occurrences) -> condition with highest incidence rate will
+     * appear at the top of the outputted list
+     */
+    public static void sortStatistics() {
+        sortedMap.clear();
+        statistics.entrySet()
+                .stream()
+                .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
+                .forEachOrdered(x -> sortedMap.put(x.getKey(), x.getValue()));
     }
 
+    /**
+     * Integrated method with Undo/Redo commands. Takes an ObservableList of all
+     * requests and extracts health conditions from each request. updateStatistics is then
+     * called to modify statistics to the current state of requests
+     */
+    public static void undoRedoStatistics(Model model) {
+        ReadOnlyRequestBook requestBook = model.getRequestBook();
+        ObservableList<Request> requestList = requestBook.getRequestList();
+        clearStatistics();
+        for (Request request : requestList) {
+            Set<Condition> conditionSet = request.getConditions();
+            updateStatistics(conditionSet);
+        }
+        sortStatistics();
+    }
 
     /**
      * Displays all conditions in a standard format
@@ -75,7 +115,7 @@ public class Statistics {
         if (statistics.isEmpty()) {
             return MESSAGE_EMPTY_STATISTICS;
         }
-        for (Map.Entry<String, Integer> statistic : statistics.entrySet()) {
+        for (Map.Entry<String, Integer> statistic : sortedMap.entrySet()) {
             stringBuilder.append(statistic.getKey())
                     .append(": ").append(statistic.getValue()).append(" occurences\n");
         }

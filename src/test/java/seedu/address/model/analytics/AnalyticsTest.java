@@ -15,9 +15,11 @@ import seedu.address.model.person.Person;
 
 public class AnalyticsTest {
 
-    /* -------------------Performs analytics on empty person list------------------------------------------*/
+    private List<Person> personList = new ArrayList<>();
     private List<Person> emptyList = Collections.emptyList();
     private Analytics emptyAnalytics = new Analytics(emptyList);
+
+    /* -------------------Performs analytics on empty person list------------------------------------------*/
 
     @Test
     public void generateMeanGradeData_withEmptyPersonList_generatesEmptyData() {
@@ -75,7 +77,6 @@ public class AnalyticsTest {
     }
 
     /*------------------------Perform analytics on person list with person----------------------------------*/
-    private List<Person> personList = new ArrayList<>();
 
     @Test
     public void generateMeanGradeData_withPerson_generatesCorrectPersonData() {
@@ -91,7 +92,7 @@ public class AnalyticsTest {
         personList.add(ALICE);
         Analytics personAnalytics = new Analytics(personList);
         for (int i = 0; i < 5; i++) {
-            Float score = Float.parseFloat(ALICE.getInterviewScores().getInterviewScore(i+1));
+            Float score = Float.parseFloat(ALICE.getInterviewScores().getInterviewScore(i + 1));
             Float analyticsScore = personAnalytics.generateInterviewScoresData().get(i).getData().get(0).getYValue();
             assertEquals(score, analyticsScore);
         }

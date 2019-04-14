@@ -428,7 +428,7 @@ Interview dates cannot be generated again if they are already present.
 Dates generated exclude weekends and block out dates(see below).
 Format : `generateInterviews`
 
-==== Clear Interview Dates : `clearInterviews`
+=== Clear Interview Dates : `clearInterviews`
 
 Clears the list of generated interview dates.
 
@@ -440,12 +440,12 @@ Sets the maximum number of interviews to be generated in a day.
 
 Sets the block out dates(unavailable dates) which the interviewer is not available for interviews to be scheduled.
 
-==== Show interviews dates : `showInterviews`
+=== Show interviews dates : `showInterviews`
 
 Shows the list of dates which the interviewees in slaveFinder() are assigned.
 
 // end::interviews[]
-==== Generate a final report for the Job Hiring Process : `report` `Coming in v2.0`
+=== Generate a final report for the Job Hiring Process : `report` `Coming in v2.0`
 
 Generate `report.txt` to show 3 categories of applicants for a specific role:
 "Applied", "Interview", "To be sent to boss". in a Job Hiring Process. +

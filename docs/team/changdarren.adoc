@@ -47,28 +47,23 @@ other helpful contributions to the team project.
 Enhancement added: I added the ability for users to add, delete and edit cards.
 Along with the usual CRUD operation, I also added a find and clear feature for the cards.
 
-* Justification: A user should be able to execute basic CRUD operations on a deck
-of cards to customize the study session that the user will experience. A find feature will help
-the user to locate the specific card especially when  they want to recall the question or
-answer to the specific question. A clear feature will allow the user to remove all the cards
-quickly in a deck when the user wants to recreate the whole deck.
+* Justification: A user should be able to modify a deck to customize the study session that the
+user will experience. A find feature will help the user to locate the specific card especially when
+they want to recall the question or answer to the specific question.
 
 * Highlights: The CRUD operation has to work with the existing commands and
 data structure in AB4. This was challenging as the `Undo` and `Redo` methods in the
 original application leverages on the immutability of the data structure.
-The card list however is an object in a deck and all card related operation
-is a modification of the current deck. As such, there was a need to ensure that
-both requirements will be fulfilled.
 Also, our application maintains a state object which the UI is dependent on. As such, there is
 also a need to ensure both the state of the application and the model is consistent with each other
 after every command.
 
 * Credits: The edit command has an auto-complete feature which was implemented
-by my team mate  Wei Heng.
+by my teammate  Wei Heng.
 
 **Code contributed:**
 
-https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#search=ChangDarren&sort=displayName&since=2019-02-10&until=2019-04-02&timeframe=day&reverse=false&repoSort=true[My Reposense Dashboard]
+https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#search=changdarren&sort=displayName&since=2019-02-10&until=2019-04-14&timeframe=day&reverse=false&repoSort=true[My Reposense Dashboard]
 
 https://github.com/cs2103-ay1819s2-w11-1/main/commits?author=ChangDarren[My Github Page]
 
@@ -102,23 +97,14 @@ https://github.com/cs2103-ay1819s2-w11-1/main/pull/148[#148])
 
 == Contributions to the User Guide
 We had to update the original User Guide with new instructions for the different enhancements implemented.
-The following is an excerpt from that I have written for Card's Management from **TopDeck User Guide**.
+The following is an extract from that I have written for Card's Management from **TopDeck User Guide**.
+
+(Start of extract)
 
 === Cards View
 
 These commands are only available in cards view.
 In this section, the active deck is the deck used in the `open` command.
-
-[NOTE]
-The Footer Bar will continue to track the number of decks in the app.
-
-==== Selecting a card in the active deck: `select`
-
-**Format**: `select INDEX`
-
-**Outcome**: Selects the card in the deck with index at `INDEX`
-
-**Example**: `select 1`
 
 ==== Adding a card to the active deck: `add`
 
@@ -138,14 +124,6 @@ image::card_ug_diagrams/add_card_1.png[width="800"]
 After:
 
 image::card_ug_diagrams/add_card_2.png[width="800"]
-
-==== Deleting a card in the active deck: `delete`
-
-**Format**: `delete INDEX`
-
-**Outcome**: Deletes the card at `INDEX`
-
-**Example**: `delete 2`
 
 ==== Editing a card in the active deck: `edit`
 
@@ -212,56 +190,14 @@ Below is the result of executing this command:
 
 image::card_ug_diagrams/find_card_2.png[width="800"]
 
-==== Clearing all cards in the active deck: `clear`
-
-**Format**: `clear`
-
-**Outcome**: Clears all of the cards in the deck.
-
-==== Listing all cards in the active deck: `list`
-
-**Format**: `list`
-
-**Outcome**: Displays a list of all cards in the deck.
-
-==== Studying the active deck: `study`
-
-**Format**: `study`
-
-**Outcome**: Enters study view with the current deck.
-
-==== Returning to decks view: `back`
-
-**Format**: `back`
-
-**Outcome**: Returns to decks view.
-
-==== [To be implemented in V2.0] Adding a picture to a card
-
-**Format**: `addImg INDEX IMAGEPATH`
-
-**Outcome**: Adds the image as a question to the card at `INDEX`
+(End of extract)
 
 == Contributions to the Developer Guide
-The following section shows my additions to the **TopDeck Developer Guide** for the Card Management features.
+The following section is an extract of my additions to **TopDeck Developer Guide**.
+
+(Start of extract)
 
 === Card management
-==== Data structure
-
-A Card consists of a question, an answer, its difficulty and the respective tags associated with it.
-Card's are deemed as equal if they have the same question to prevent the user from
-creating same question twice or to have 2 different answer for the same question.
-Cards are stored inside a `Deck` as a list of unique cards.
-The Create, Read, Update and Delete (CRUD) operation of a card in a chosen `Deck` is thus a modification of
-the chosen `Deck`.
-
-In order to facilitate the CRUD operations, `CardsView` contains `activeDeck` which is a reference to the
-current deck that we are modifying.
-
-[NOTE]
-Before any Card related operation can be executed, `ViewState` in ModelManager has to be of type `CardsView`.
-For more information refer to the section on ViewState management.
-
 ==== Current implementation
 
 Card management is currently facilitated by `Model` which implements the following operations:
@@ -339,32 +275,6 @@ image::card_dg_fig/card_fig_3.png[width="800", caption="Figure 3"]
 Step 4. Once that is done, the `ModelManager.filteredItems` list and the UI is being updated to
 reflect the change.
 
-Step 5. Now the user executes `undo`. This results in the CurrentStatePointer to point
-to the previous TopDeck as per figure 4.3.4
-
-image::card_dg_fig/card_fig_4.png[width="800", caption="Figure 4"]
-
-Step 6. Using D3, the application will get D1 in TopDeck that is pointed to by CurrentStatePointer.
-A new CardsView(CardsView3) is then created and points to D1 as per figure 4.3.5. The application
-then updates `ModelManager.filteredItems` and the UI is being updated.
-
-image::card_dg_fig/card_fig_5.png[width="800", caption="Figure 5"]
-
-Step 7. Now, the user executes redo. This results in the the CurrentStatePointer to point
-to the next TopDeck as per figure 4.3.6
-
-image::card_dg_fig/card_fig_6.png[width="800", caption="Figure 6"]
-
-Step 8. Using D1, the application will get D3 in TopDeck that is pointed to by CurrentStatePointer.
-   A new CardsView(CardsView4) is then created and points to D3 as per figure 4.3.7. The application
-   then updates `ModelManager.filteredItems` and the UI is being updated.
-
-image::card_dg_fig/card_fig_7.png[width="800", caption="Figure 7"]
-
-Step 9. Below is the final state of `ModelManager`:
-
-image::card_dg_fig/card_fig_8.png[width="800", caption="Figure 8"]
-
 Below is a sequence diagram to illustrate the sequence of activities upon calling
 `Model#addCard(Card card, Deck deck)`:
 
@@ -403,6 +313,8 @@ will have to be re-implemented to store the previous commands and the object cha
 
 * **Reason for choice 1:** Choice one was chosen in order to retain the Undo/Redo function and to
 leverage on the original architecture instead of changing it.
+
+(End of extract)
 
 // end::card[]
 

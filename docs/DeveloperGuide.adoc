@@ -1128,7 +1128,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
 
-|`* * *` |student |add a module for the current semester|
+|`* * *` |student |add a module for the current semester |keep track of all the modules I intend to take
 
 |`* * *` |student |delete a module |remove modules that I am not taking
 
@@ -1136,11 +1136,15 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* *` |student |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
 
-|`* *` |student |view pre-requisites for a module |take the pre-requisites ahead of time
+|`* *` |student |view pre-requisites for a module |take the pre-requisite modules ahead of time
 
 |`* *` |student |add my modules in future semesters |plan ahead
 
-|`* *` |student |know my CAP |pull up my CAP
+|`* *` |student |know my current CAP |track my academic performance
+
+|`* *` |student |predict my maximum and minimum CAP for graduation |compare them against my current CAP and check my performance
+
+|`* *` |student |check the total workload for each semester |ensure an even distribution of workload across all semesters
 
 |`* *` |student |see a recommended list of modules I can take in order of priority |fulfil the graduation requirements on time
 
@@ -1277,6 +1281,40 @@ Use case ends.
 +
 [none]
 ** 1b1. GT shows an error message.
++
+Use case ends.
+
+[discrete]
+=== Use case: Set Semester Limit for a semester
+
+*MSS*
+
+1.  User enters a command to indicate the semester to set the limit as well as the limits to be set on the semester
+2.  System edits relevant details.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. Semester provided is invalid
++
+[none]
+** 1a1. GT shows an error message.
++
+Use case ends.
+
+* 1b. Limit provided is invalid.
++
+[none]
+** 1b1. GT shows an error message.
++
+Use case ends.
+
+* 1c. Limit provided is out of order, such that the minimum limit is more than the maximum limit.
++
+[none]
+** 1c1. GT shows an error message.
 +
 Use case ends.
 

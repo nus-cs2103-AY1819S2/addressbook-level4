@@ -27,7 +27,6 @@ Before being able to check their plan against their preferences, the user must f
 
 * *Minor enhancement*: added the ability to shift the current semester when grades have been finalized. The current semester indicates that all modules taken in previous semesters have been completed and should be included in the calculation of the current CAP.
 
-
 * *Code contributed*: [https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#search=alexchong711[Reposense]]
 
 * *Other contributions*:
@@ -35,7 +34,6 @@ Before being able to check their plan against their preferences, the user must f
 ** https://github.com/cs2103-ay1819s2-w14-4/main/pulls?utf8=%E2%9C%93&q=is%3Apr+is%3Aclosed+reviewed-by%3Aalexchong711[Pull Requests Reviewed]
 
 ** Project Management
-*** Set up milestones, issue tracker
 *** Put up user stories
 
 ** Refactored Code
@@ -48,16 +46,31 @@ Before being able to check their plan against their preferences, the user must f
 
 == Contributions to the User Guide
 
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
 include::../UserGuide.adoc[tag=SetCurrentSemester]
 
 include::../UserGuide.adoc[tag=SetSemesterLimit]
 
 include::../UserGuide.adoc[tag=CheckLimit]
 
+|===
+|_End of extract of my contributions to the User Guide._
+|===
+
 == Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
 
 include::../DeveloperGuide.adoc[tag=semestertracking]
 
+|===
+|_End of extract of my contributions to the Developer Guide._
+|===
 
 == PROJECT: Cuckoo Hash
 An experimental assignment from https://www.comp.nus.edu.sg/~gilbert/CS5330/[CS5330 - Randomised Algorithm]

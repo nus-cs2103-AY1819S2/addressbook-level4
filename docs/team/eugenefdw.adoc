@@ -2,24 +2,37 @@
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
+:toc:
+:toclevels: 1
+:toc-title: Table of contents
+:toc-placement: manual
+:sectnums:
+:repoURL: https://github.com/CS2103-AY1819S2-W14-1/main
+:pullURL: https://github.com/CS2103-AY1819S2-W14-1/main/pull/
+:seeduURL: https://github.com/se-edu/addressbook-level4
 
-== PROJECT: BrainTrain
+== Introduction
 
 This project portfolio highlights my various contributions to the BrainTrain project, including code, documentation and administrative matters.
 
----
+=== Overview of project requirements
+BrainTrain was developed as part of the CS2103T Software Engineering module at the National University of Singapore. My team of 5 were given seven weeks to develop our application, built off of https://github.com/se-edu/addressbook-level4[an existing address book application].
 
-== Overview of BrainTrain
+We were expected to apply industry-standard practices and tools such as Github and Continuous Integration. Beyond the application, we were also required to document our work in a User Guide and Developer Guide.
 
-BrainTrain is a memorisation tool made for students and other learners, especially in content-heavy subjects. BrainTrain is a flashcard application that implements a Spaced Repetition System (SRS) to test the user over time. This allows you to remember various things in a shorter amount of time, yet also ensuring that you remember it long-term as you use the application.
+=== Overview of BrainTrain
 
-BrainTrain was built on top of an existing command line based address book application, as part of a software engineering project.
+BrainTrain is a memorisation tool made for students and other learners, especially in content-heavy subjects, such as language vocabulary, science terminology and others.
 
-My role was to design and manage the storage of Lesson data in BrainTrain. The following sections will highlight some of the choices I made and the reasons behind them, and various other contributions to the administration and documentation of the project.
+BrainTrain is a flashcard application that implements a https://en.wikipedia.org/wiki/Spaced_repetition[Spaced Repetition System] (SRS) to test the user over time. This allows you to remember various things in a short amount of time, yet also assist in memorization long-term as you continuously use the application.
 
 == Summary of contributions
 
-* *Major enhancement*: Added the ability to *save and load Lesson data to Comma-Separated Value (CSV) files*
+My role was to design and manage the storage of Lesson data in BrainTrain. The following sections will highlight some of the choices I made and the reasons behind them, and various other contributions to the administration and documentation of the project.
+
+=== *Major enhancement*
+Added the ability to save and load Lesson data to Comma-Separated Value (CSV) files
+
 ** What it does: Allows the user to save and load flashcard lesson data to CSV files, which are easy to edit in a spreadsheet format.
 ** Justification: `*TODO FROM HERE ONWARDS*` This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
 ** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
@@ -27,47 +40,106 @@ My role was to design and manage the storage of Lesson data in BrainTrain. The f
 
 * *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Code contributed*: [https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#search=eugenefdw[RepoSense]]
 
 * *Other contributions*:
 
 ** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
-** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
-** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
-** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
-** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
+*** Led the team, setting deadlines for milestones and other tasks and contacting mentors as needed
+*** Set up the repository
+*** Set up branch protection, issue labels, milestones on the repository
+*** Set up AppVeyor, Codacy, Coveralls, Travis on the repository
 
-_{you can add/remove categories in the list above}_
+
+** Enhancements to existing features:
+** Documentation:
+*** Updated User Guide and Developer guide: https://github.com/CS2103-AY1819S2-W14-1/main/pull/78[#78], https://github.com/CS2103-AY1819S2-W14-1/main/pull/99[#99] , https://github.com/CS2103-AY1819S2-W14-1/main/pull/121[#121]
+** Community:
+*** PRs reviewed (with non-trivial review comments): https://github.com/CS2103-AY1819S2-W14-1/main/pull/32[#32], https://github.com/CS2103-AY1819S2-W14-1/main/pull/129[#129], https://github.com/CS2103-AY1819S2-W14-1/main/pull/180[#180]
+*** Contributed to forum discussions (examples:  https://github.com/nus-cs2103-AY1819S2/forum/issues/43[1], https://github.com/nus-cs2103-AY1819S2/forum/issues/44[2])
+*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com/cs2103-ay1819s2-w09-1/main/issues/117[1], https://github.com/cs2103-ay1819s2-w09-1/main/issues/122[2], https://github.com/cs2103-ay1819s2-w09-1/main/issues/130[3])
+** Tools:
+*** Integrated a third party library (opencsv) to the project (https://github.com/CS2103-AY1819S2-W14-1/main/pull/21[#21], https://github.com/CS2103-AY1819S2-W14-1/main/pull/28[#28])
+*** Set up a team Discord channel with the Github Bot for notifications
 
 == Contributions to the User Guide
 
+{empty} +
 
-|===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
-|===
+==== Reloading all lessons: `reloadLessons`
+Reloads all lessons from the lessons folder. The default folder is `/lessons/`, found next to `braintrain.jar`.
 
-//include::../UserGuide.adoc[tag=undoredo]
+Format: `reloadLessons`
+
+Steps:
+
+. You have a newly downloaded .csv lesson file, `new_lesson.csv`, with no lessons currently loaded.
++
+.A new lesson file.
+[#img-csv]
+image::reloadLessons_0_csv.png[]
+.No lessons are currently loaded.
+[#img-csv]
+image::reloadLessons_1_empty.png[]
+
+. You drag the new file into the `/lessons/` folder.
++
+.Dragging the file.
+[#img-csv]
+image::reloadLessons_2_drag.png[]
+
+. You enter `reloadLessons` into the app, and the new lesson appears.
++
+.Reloading lessons.
+[#img-csv]
+image::reloadLessons_3_reload.png[]
+
+. You verify again with `listLessons`.
++
+.New lesson has been loaded.
+[#img-csv]
+image::reloadLessons_4_list.png[]
+
+[NOTE]
+====
+Lessons are automatically reloaded when you open the application.
+====
+
+If the lesson does not appear, please check the <<Troubleshooting>> section.
+
+{empty} +
+
+---
+
+==== Troubleshooting
+
+{empty} +
+
+*Q*: Why are my card values shown as `?????`? +
+*A*: If your lesson contains non-English characters such as:
+
+* Characters with accents: `à`
+* Non-English words : `こんにちは` `السلام عليكم` `你好`
+
+This can be fixed by opening the lesson file in your preferred spreadsheet application (e.g. Excel), and then saving it as `CSV UTF-8 (Comma delimited) (*.csv)`. UTF encoding allows a computer to show non-English characters. +
+****
+The default encoding setting is unable to process special characters. As a result, you will need to save it as a `UTF-8` encoded file.
+
+Note that externally created lesson files have to be saved with UTF-8 encoding before using them in BrainTrain. +
+If the files are saved without `UTF-8` encoding, any non-English data may be saved as `?????`, and the data will be lost.
+****
+
+---
+
+*Q*: Why are my lessons not loading? +
+*A*: Please verify if the location of BrainTrain is suitable. Depending on your computer's permissions and security settings, places such as the Desktop may not be usable, and your operating system may prevent BrainTrain from loading the lesson files.
+
+If BrainTrain still does not load lessons despite trying other locations, please contact Team BrainTrain at https://github.com/CS2103-AY1819S2-W14-1/main/issues[our issue tracker] or email us at eugenef@u.nus.edu, and attach any generated braintrain.log files.
+
+{empty} +
 
 == Contributions to the Developer Guide
 
 |===
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
-
-//include::../DeveloperGuide.adoc[tag=undoredo]
-
-== PROJECT: PowerPointLabs
-
----
-
-_{Optionally, you may include other projects in your portfolio.}_

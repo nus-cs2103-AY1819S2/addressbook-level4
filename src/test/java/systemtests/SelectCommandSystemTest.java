@@ -1,22 +1,22 @@
 package systemtests;
 
 import static org.junit.Assert.assertTrue;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_PDF_DISPLAYED_INDEX;
-import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.address.logic.commands.SelectCommand.MESSAGE_SELECT_PDF_SUCCESS;
-import static seedu.address.testutil.TestUtil.getLastIndex;
-import static seedu.address.testutil.TestUtil.getMidIndex;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PDF;
-import static seedu.address.testutil.TypicalPdfs.KEYWORD_MATCHING_MEIER;
+import static seedu.pdf.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.pdf.commons.core.Messages.MESSAGE_INVALID_PDF_DISPLAYED_INDEX;
+import static seedu.pdf.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.pdf.logic.commands.SelectCommand.MESSAGE_SELECT_PDF_SUCCESS;
+import static seedu.pdf.testutil.TestUtil.getLastIndex;
+import static seedu.pdf.testutil.TestUtil.getMidIndex;
+import static seedu.pdf.testutil.TypicalIndexes.INDEX_FIRST_PDF;
+import static seedu.pdf.testutil.TypicalPdfs.KEYWORD_MATCHING_MEIER;
 
 import org.junit.Test;
 
-import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.RedoCommand;
-import seedu.address.logic.commands.SelectCommand;
-import seedu.address.logic.commands.UndoCommand;
-import seedu.address.model.Model;
+import seedu.pdf.commons.core.index.Index;
+import seedu.pdf.logic.commands.RedoCommand;
+import seedu.pdf.logic.commands.SelectCommand;
+import seedu.pdf.logic.commands.UndoCommand;
+import seedu.pdf.model.Model;
 
 public class SelectCommandSystemTest extends AddressBookSystemTest {
     @Test
@@ -54,14 +54,14 @@ public class SelectCommandSystemTest extends AddressBookSystemTest {
 
         /* ------------------------ Perform select operations on the shown filtered list ---------------------------- */
 
-        /* Case: filtered pdf list, select index within bounds of address book but out of bounds of pdf list
+        /* Case: filtered pdf list, select index within bounds of pdf book but out of bounds of pdf list
          * -> rejected
          */
         showPersonsWithName(KEYWORD_MATCHING_MEIER);
         int invalidIndex = getModel().getPdfBook().getPdfList().size();
         assertCommandFailure(SelectCommand.COMMAND_WORD + " " + invalidIndex, MESSAGE_INVALID_PDF_DISPLAYED_INDEX);
 
-        /* Case: filtered pdf list, select index within bounds of address book and pdf list -> selected */
+        /* Case: filtered pdf list, select index within bounds of pdf book and pdf list -> selected */
         Index validIndex = Index.fromOneBased(1);
         assertTrue(validIndex.getZeroBased() < getModel().getFilteredPdfList().size());
         command = SelectCommand.COMMAND_WORD + " " + validIndex.getOneBased();
@@ -92,7 +92,7 @@ public class SelectCommandSystemTest extends AddressBookSystemTest {
         /* Case: mixed case command word -> rejected */
         assertCommandFailure("SeLeCt 1", MESSAGE_UNKNOWN_COMMAND);
 
-        /* Case: select from empty address book -> rejected */
+        /* Case: select from empty pdf book -> rejected */
         deleteAllPersons();
         assertCommandFailure(SelectCommand.COMMAND_WORD + " " + INDEX_FIRST_PDF.getOneBased(),
                 MESSAGE_INVALID_PDF_DISPLAYED_INDEX);

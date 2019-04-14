@@ -38,7 +38,7 @@
           </image>
         </ImageView>
       </GridPane>
-      <!--<Label fx:id="address" styleClass="cell_small_label" text="\$address" />
+      <!--<Label fx:id="pdf" styleClass="cell_small_label" text="\$pdf" />
       <Label fx:id="email" styleClass="cell_small_label" text="\$email" />-->
     </VBox>
   </GridPane>

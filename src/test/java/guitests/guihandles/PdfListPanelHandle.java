@@ -6,7 +6,7 @@ import java.util.Set;
 
 import javafx.scene.Node;
 import javafx.scene.control.ListView;
-import seedu.address.model.pdf.Pdf;
+import seedu.pdf.model.pdf.Pdf;
 
 /**
  * Provides a handle for {@code PdfListPanel} containing the list of {@code PdfCard}.

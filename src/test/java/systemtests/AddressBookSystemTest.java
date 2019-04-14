@@ -4,9 +4,9 @@ import static guitests.guihandles.WebViewUtil.waitUntilBrowserLoaded;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_INITIAL;
-import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_UPDATED;
-import static seedu.address.ui.testutil.GuiTestAssert.assertListMatching;
+import static seedu.pdf.ui.StatusBarFooter.SYNC_STATUS_INITIAL;
+import static seedu.pdf.ui.StatusBarFooter.SYNC_STATUS_UPDATED;
+import static seedu.pdf.ui.testutil.GuiTestAssert.assertListMatching;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -28,17 +28,17 @@ import guitests.guihandles.MainWindowHandle;
 import guitests.guihandles.PdfListPanelHandle;
 import guitests.guihandles.ResultDisplayHandle;
 import guitests.guihandles.StatusBarFooterHandle;
-import seedu.address.TestApp;
-import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.ClearCommand;
-import seedu.address.logic.commands.FindCommand;
-import seedu.address.logic.commands.ListCommand;
-import seedu.address.logic.commands.SelectCommand;
-import seedu.address.model.Model;
-import seedu.address.model.PdfBook;
-import seedu.address.testutil.TypicalPdfs;
-import seedu.address.ui.BrowserPanel;
-import seedu.address.ui.CommandBox;
+import seedu.pdf.TestApp;
+import seedu.pdf.commons.core.index.Index;
+import seedu.pdf.logic.commands.ClearCommand;
+import seedu.pdf.logic.commands.FindCommand;
+import seedu.pdf.logic.commands.ListCommand;
+import seedu.pdf.logic.commands.SelectCommand;
+import seedu.pdf.model.Model;
+import seedu.pdf.model.PdfBook;
+import seedu.pdf.testutil.TypicalPdfs;
+import seedu.pdf.ui.BrowserPanel;
+import seedu.pdf.ui.CommandBox;
 
 /**
  * A system test class for PdfBook, which provides access to handles of GUI components and helper methods
@@ -134,7 +134,7 @@ public abstract class AddressBookSystemTest {
     }
 
     /**
-     * Displays all persons in the address book.
+     * Displays all persons in the pdf book.
      */
     protected void showAllPersons() {
         executeCommand(ListCommand.COMMAND_WORD);
@@ -158,7 +158,7 @@ public abstract class AddressBookSystemTest {
     }
 
     /**
-     * Deletes all persons in the address book.
+     * Deletes all persons in the pdf book.
      */
     protected void deleteAllPersons() {
         executeCommand(ClearCommand.COMMAND_WORD);

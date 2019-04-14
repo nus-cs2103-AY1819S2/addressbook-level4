@@ -1,16 +1,16 @@
 package systemtests;
 
-import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.address.testutil.TypicalPdfs.KEYWORD_MATCHING_MEIER;
+import static seedu.pdf.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.pdf.testutil.TypicalPdfs.KEYWORD_MATCHING_MEIER;
 
 import org.junit.Test;
 
-import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.ClearCommand;
-import seedu.address.logic.commands.RedoCommand;
-import seedu.address.logic.commands.UndoCommand;
-import seedu.address.model.Model;
-import seedu.address.model.ModelManager;
+import seedu.pdf.commons.core.index.Index;
+import seedu.pdf.logic.commands.ClearCommand;
+import seedu.pdf.logic.commands.RedoCommand;
+import seedu.pdf.logic.commands.UndoCommand;
+import seedu.pdf.model.Model;
+import seedu.pdf.model.ModelManager;
 
 public class ClearCommandSystemTest extends AddressBookSystemTest {
 
@@ -18,7 +18,7 @@ public class ClearCommandSystemTest extends AddressBookSystemTest {
     public void clear() {
         final Model defaultModel = getModel();
 
-        /* Case: clear non-empty address book, command with leading spaces and trailing alphanumeric characters and
+        /* Case: clear non-empty pdf book, command with leading spaces and trailing alphanumeric characters and
          * spaces -> cleared
          */
         assertCommandSuccess("   " + ClearCommand.COMMAND_WORD + " ab12   ");
@@ -42,13 +42,13 @@ public class ClearCommandSystemTest extends AddressBookSystemTest {
         assertCommandSuccess(ClearCommand.COMMAND_WORD);
         assertSelectedCardDeselected();
 
-        /* Case: filters the pdf list before clearing -> entire address book cleared */
+        /* Case: filters the pdf list before clearing -> entire pdf book cleared */
         executeCommand(UndoCommand.COMMAND_WORD); // restores the original pdf book
         showPersonsWithName(KEYWORD_MATCHING_MEIER);
         assertCommandSuccess(ClearCommand.COMMAND_WORD);
         assertSelectedCardUnchanged();
 
-        /* Case: clear empty address book -> cleared */
+        /* Case: clear empty pdf book -> cleared */
         assertCommandSuccess(ClearCommand.COMMAND_WORD);
         assertSelectedCardUnchanged();
 

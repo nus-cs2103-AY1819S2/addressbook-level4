@@ -315,7 +315,7 @@ The header is represented in the file as the first two lines. Each line represen
 The first line represents the type of the corresponding column. Each column can have three types:
 
 . *Tested* +
-This marks the column as a core value. The first two instances of Tested in the file will be used in quizzes, and all remaining Tested values are treated as Not Tested.
+This marks the column as a core value. The first two instances of *Tested* in the file will be used in quizzes, and all remaining Tested values are treated as *Not Tested*.
 . *Not Tested* +
 This marks the column as a core value. However, unlike *Tested*, they will not be tested in quizzes, but can be chosen to be tested.
 . *Hint* +

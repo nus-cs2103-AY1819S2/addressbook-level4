@@ -82,6 +82,7 @@ The GUI for _Equipment Manager_ as shown in <<GUI>> consists of nine regions:
 [TIP]
 Please remember the naming convention for the different regions in GUI as they will be used to explain when explaining Equipment Manager.
 
+[[EquipmentPara]]
 === About Equipment Parameters
 |===
 | *Parameters* | *Description* | *Things to Note*
@@ -90,7 +91,7 @@ Please remember the naming convention for the different regions in GUI as they w
 | DATE | The due date for which maintenance work on the equipment should be carried out by then. | Should only contain numbers and hyphens, no blanks allowed. The correct format is  dd-MM-yyyy. For example, 03-05-2019 which means 3 May 2019.
 | ADDRESS | The address of the client that owns the equipment. |
 | SERIAL_NUMBER | The serial number of an equipment | All equipments have unique serial number and there should not be duplicated serial number.
-| TAG | Tag provides user with desired labels without any restriction on labelling format in *Equipment Manager*
+| TAG | Tag provides user with desired labels without any restriction on labelling format in *Equipment Manager*. An equipment can any number of tags (including 0).
 |===
 
 === Entering a command
@@ -136,17 +137,18 @@ Adds an equipment to the *Equipment Manager*. The result of adding an equipment 
 Format: `add-e n/NAME p/PHONE pm/DATE a/ADDRESS s/SERIAL_NUMBER t/TAG`
 
 [NOTE]
-An equipment can any number of tags (including 0). +
-DATE is the annual due date for maintenance work to be carried out by and it should be entered in a numerical date format of `DD-MM-YYY` including the hyphens.
-
-[TIP]
-In the panel under the *Equipment details* label, duplicated names could be added and displayed on the panel because the name refer to a client's name who owns multiple equipments as long as the serial numbers of equipment are different.
-
-[TIP]
-In the panel under the *Client details* label, duplicated names will not appear in the panel because the client details panel only shows distinct number of clients.
+Refer to <<EquipmentPara>> to understand each equipment's parameter when adding an equipment detail.
 
 [TIP]
 Equipment that has overdue preventative maintenance dates are allowed to be added for tracking purposes.
+
+[TIP]
+As seen in the image below, under *Equipment details* panel, duplicated client details such as name, phone, address could be added and displayed because the details refer to a client's details who owns multiple equipments as long as the serial numbers of equipment are different.
+
+
+[TIP]
+As seen in the image below, under *Client details* panel, duplicated client names will not appear in the panel because the *Client details* panel will only show distinct number of clients in the *Equipment Manager*.
+
 
 Example:
 

@@ -505,7 +505,7 @@ The general process followed during the command's execution is as follows:
 [NOTE]
 The current `patientedit` and `patientdelete` commands have been modified to update tasks linked to a patient when said patient gets modified or deleted. However, to keep in line with the concept of Defensive Programming, the execution still check and inform the user in an event where the `LinkedPatient` cannot be found.
 
-The following sequence diagram further highlights the flow and main components involved in command's execution of a task with the index `1`:
+The following sequence diagram illustrates an example where command executes on task with the index `1`:
 
 image::TaskDoneSequenceDiagram.png[width=""]
 

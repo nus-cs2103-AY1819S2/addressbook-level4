@@ -408,6 +408,7 @@ The following code snippet shows how the `memberAdd` command is executed:
 
 // end::memberadd[]
 
+// tag:memberfilter[]
 ===== `memberFilter` Command
 *Logic Component*
 
@@ -445,7 +446,9 @@ To check if the user input matches the correct criteria, there are various ways.
 
 ** Pros: More time efficient as only one check is required.
 ** Cons: Less logical and could prove to be confusing to the developer.
+// end::memberfilter[]
 
+// tag::memberlist[]
 ===== `memberList` Command
 The `memberList` command retrieves all the members in the `UniquePersonList` and displays all these members on the `PersonListPanel`.
 
@@ -453,7 +456,9 @@ Below is a step-by-step process on how the `memberList` command works on executi
 * Step 1: The user executes the `memberList` command.
 * Step 2: The `memberList` command will then call the `Model#UpdateFilteredPersonList()` to retrieve all the members in the UniquePersonList.
 * Step 3: The `memberList` provide the command success message to indicate that the member list has been successfully listed.
+//end::memberlist[]
 
+// tag::memberselect[]
 ==== `memberSelect` Command
 The memberSelect command selects a member (based on index) on the UniquePersonList.
 
@@ -462,6 +467,7 @@ Below is a step-by-step process on how the `memberSelect` command works on execu
 * Step 1: The user executes the `memberSelect` command by specifying the index of the member that the user would like to select.
 * Step 2: The `memberSelect` command
 * Step 3:
+//end::memberselect[]
 
 // tag::membersort[]
 === MemberSort

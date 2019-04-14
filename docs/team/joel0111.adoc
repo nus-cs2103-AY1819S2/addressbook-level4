@@ -65,7 +65,8 @@ include::../UserGuide.adoc[tag=membersort]
 
 include::../DeveloperGuide.adoc[tag=memberadd]
 include::../DeveloperGuide.adoc[tag=membersort]
-
+include::../DeveloperGuide.adoc[tag=memberfilter]
+include::../DeveloperGuide.adoc[tag=memberlist]
 
 == PROJECT: PowerPointLabs
 

@@ -5,9 +5,9 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static seedu.address.ui.testutil.GuiTestAssert.assertListMatching;
+import static seedu.address.ui.testutil.GuiTestAssert.assertListMatchingSystemTest;
 
-// import org.junit.Test;
+import org.junit.Test;
 
 import guitests.GuiRobot;
 import guitests.guihandles.HelpWindowHandle;
@@ -28,9 +28,7 @@ public class HelpCommandSystemTest extends AddressBookSystemTest {
 
     private final GuiRobot guiRobot = new GuiRobot();
 
-    /**
-     * TODO: fix system test problem: @Test
-     */
+    @Test
     public void openHelpWindow() {
         //use accelerator
         getCommandBox().click();
@@ -67,7 +65,7 @@ public class HelpCommandSystemTest extends AddressBookSystemTest {
         assertCommandBoxShowsDefaultStyle();
         assertNotEquals(HelpCommand.SHOWING_HELP_MESSAGE, getResultDisplay().getText());
         assertNotEquals(BrowserPanel.DEFAULT_PAGE, getBrowserPanel().getLoadedUrl());
-        assertListMatching(getPersonListPanel(), getModel().getFilteredPersonList());
+        assertListMatchingSystemTest(getPersonListPanel(), getModel().getFilteredPersonList());
 
         // assert that the status bar too is updated correctly while the help window is open
         // note: the select command tested above does not update the status bar

@@ -24,6 +24,7 @@ import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
 import static seedu.address.logic.commands.CommandTestUtil.SKILL_DESC_JAVA;
 import static seedu.address.logic.commands.CommandTestUtil.SKILL_DESC_PYTHON;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DEGREE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
@@ -49,7 +50,8 @@ public class AddCommandParserTest {
 
     @Test
     public void parse_allFieldsPresent_success() {
-        Person expectedPerson = new PersonBuilder(BOB).withSkills(VALID_SKILL_PYTHON).build();
+        Person expectedPerson = new PersonBuilder(BOB).changeSkills(VALID_SKILL_PYTHON).withDegree(VALID_DEGREE_BOB)
+                .build();
 
         // whitespace only preamble
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
@@ -87,7 +89,7 @@ public class AddCommandParserTest {
     @Test
     public void parse_optionalFieldsMissing_success() {
         // zero tags
-        Person expectedPerson = new PersonBuilder(AMY).withSkills().build();
+        Person expectedPerson = new PersonBuilder(AMY).changeSkills().build();
         assertParseSuccess(parser, NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + EDUCATION_DESC_AMY
                         + GPA_DESC_AMY + DEGREE_DESC_AMY + ADDRESS_DESC_AMY, new AddCommand(expectedPerson));
     }

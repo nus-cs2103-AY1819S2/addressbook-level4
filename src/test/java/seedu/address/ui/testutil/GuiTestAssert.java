@@ -37,11 +37,45 @@ public class GuiTestAssert {
         assertEquals("Phone - " + expectedPerson.getPhone().value, actualCard.getPhone());
         assertEquals("Email - " + expectedPerson.getEmail().value, actualCard.getEmail());
         assertEquals("Address - " + expectedPerson.getAddress().value, actualCard.getAddress());
-        assertEquals(expectedPerson.getTags().stream().map(tag -> tag.tagName).collect(Collectors.toList()),
-                actualCard.getTags());
         assertEquals("School - " + expectedPerson.getEducation().toString(), actualCard.getEducation());
         assertEquals("GPA - " + expectedPerson.getGpa().value, actualCard.getGpa());
         assertEquals("Degree - " + expectedPerson.getDegree().value, actualCard.getDegree());
+        assertEquals(expectedPerson.getTags().stream().map(tag -> tag.tagName).collect(Collectors.toList()),
+                actualCard.getTags());
+    }
+
+    /**
+     * Asserts that {@code actualCard} displays the details of {@code expectedPerson}.
+     */
+    public static void assertCardDisplaysPersonSystemTest(Person expectedPerson, PersonCardHandle actualCard) {
+        assertEquals(expectedPerson.getName().fullName, actualCard.getName());
+        assertEquals("Phone - " + expectedPerson.getPhone().value, actualCard.getPhone());
+        assertEquals("Email - " + expectedPerson.getEmail().value, actualCard.getEmail());
+        assertEquals("Address - " + expectedPerson.getAddress().value, actualCard.getAddress());
+        assertEquals("School - " + expectedPerson.getEducation().toString(), actualCard.getEducation());
+        assertEquals("GPA - " + expectedPerson.getGpa().value, actualCard.getGpa());
+        assertEquals("Degree - " + expectedPerson.getDegree().value, actualCard.getDegree());
+        assertEquals(expectedPerson.getTags().stream().map(tag -> tag.unlabelledTagName).collect(Collectors.toList()),
+                actualCard.getTags());
+    }
+
+    /**
+     * Asserts that the list in {@code personListPanelHandle} displays the details of {@code persons} correctly and
+     * in the correct order.
+     */
+    public static void assertListMatchingSystemTest(PersonListPanelHandle personListPanelHandle, List<Person> persons) {
+        assertListMatchingSystemTest(personListPanelHandle, persons.toArray(new Person[0]));
+    }
+
+    /**
+     * Asserts that the list in {@code personListPanelHandle} displays the details of {@code persons} correctly and
+     * in the correct order.
+     */
+    public static void assertListMatchingSystemTest(PersonListPanelHandle personListPanelHandle, Person... persons) {
+        for (int i = 0; i < persons.length; i++) {
+            personListPanelHandle.navigateToCard(i);
+            assertCardDisplaysPersonSystemTest(persons[i], personListPanelHandle.getPersonCardHandle(i));
+        }
     }
 
     /**

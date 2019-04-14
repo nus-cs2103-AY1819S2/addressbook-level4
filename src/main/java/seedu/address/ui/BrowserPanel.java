@@ -29,6 +29,10 @@ public class BrowserPanel extends UiPart<Region> {
     public static final URL PLACEHOLDER_PAGE = requireNonNull(MainApp.class.getResource(FXML_FILE_FOLDER
             + "html/placeholder.html"));
 
+    // for testing purposes
+    public static final URL BENSONMEIER_PAGE = requireNonNull(MainApp.class.getResource(FXML_FILE_FOLDER
+            + "html/bensonmeier.html"));
+
     private static final String FXML = "BrowserPanel.fxml";
     private static final String DELIM = "%20";
 

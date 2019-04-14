@@ -141,7 +141,7 @@ To see the rest of the contributions I made to the User Guide, click the below l
 
 include::../UserGuide.adoc[tag=userinterface1]
 include::../UserGuide.adoc[tag=userinterface2]
-
+include::../UserGuide.adoc[tag=userinterface3]
 ---
 
 === `Allocate`, `Show` and `Theme` Commands

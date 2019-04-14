@@ -548,6 +548,8 @@ The classes associated with Budget is shown in the class diagram below:
 
 .Class Diagram for Budget
 image::budget_classdiagram.png[width ="600"]
+
+The above diagram shows how each of the classes
 // end::budgetclassdiagram[]
 
 // tag::budget[]

@@ -117,12 +117,12 @@ public class LogicManager implements Logic {
 
     @Override
     public ReadOnlyProperty<ClassForPrinting> selectedPersonProperty() {
-        return model.selectedModuleTakenProperty();
+        return model.selectedClassForPrintingProperty();
     }
 
     @Override
     public void setSelectedPerson(ClassForPrinting moduleTaken) {
-        model.setSelectedModuleTaken(moduleTaken);
+        model.setSelectedClassForPrinting(moduleTaken);
     }
 
     @Override

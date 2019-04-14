@@ -70,7 +70,9 @@ include::../UserGuide.adoc[tag=SetSemesterLimit]
 The guide will include sequence diagrams about how the `cklimit`, `cursem`, and `setlimit` commands interact with the system, as well as class diagrams that describe the architecture of the system._
 |===
 
-include::../DeveloperGuide.adoc[tag=semestertracking]
+include::../DeveloperGuide.adoc[tag=CheckLimit]
+include::../DeveloperGuide.adoc[tag=SetCurrentSemester]
+include::../DeveloperGuide.adoc[tag=SetSemesterLimit]
 
 |===
 |_End of extract of my contributions to the Developer Guide._

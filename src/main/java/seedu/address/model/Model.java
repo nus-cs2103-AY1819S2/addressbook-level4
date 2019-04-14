@@ -163,7 +163,7 @@ public interface Model {
      * Selected moduleTaken in the filtered moduleTaken list.
      * null if no moduleTaken is selected.
      */
-    ReadOnlyProperty<ClassForPrinting> selectedModuleTakenProperty();
+    ReadOnlyProperty<ClassForPrinting> selectedClassForPrintingProperty();
 
     /**
      * Returns the selected moduleTaken in the filtered moduleTaken list.
@@ -174,7 +174,7 @@ public interface Model {
     /**
      * Sets the selected moduleTaken in the filtered moduleTaken list.
      */
-    void setSelectedModuleTaken(ClassForPrinting classForPrinting);
+    void setSelectedClassForPrinting(ClassForPrinting classForPrinting);
 
     /**
      * Returns an Observable list of all module information from storage

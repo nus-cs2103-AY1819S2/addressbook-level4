@@ -49,7 +49,7 @@ public class ModelManager implements Model {
     private final VersionedGradTrak versionedGradTrak;
     private final UserPrefs userPrefs;
     private final FilteredList<ModuleTaken> filteredModulesTaken;
-    private final SimpleObjectProperty<ClassForPrinting> selectedModuleTaken = new SimpleObjectProperty<>();
+    private final SimpleObjectProperty<ClassForPrinting> selectedClassForPrinting = new SimpleObjectProperty<>();
 
     //Model Information List for Model Manager to have Module Info List and list to be printed for displaymod
     private final ObservableList<ModuleInfo> allModules;
@@ -288,22 +288,22 @@ public class ModelManager implements Model {
     //=========== Selected moduleTaken ===========================================================================
 
     @Override
-    public ReadOnlyProperty<ClassForPrinting> selectedModuleTakenProperty() {
-        return selectedModuleTaken;
+    public ReadOnlyProperty<ClassForPrinting> selectedClassForPrintingProperty() {
+        return selectedClassForPrinting;
     }
 
     @Override
     public ClassForPrinting getSelectedClassForPrinting() {
-        return selectedModuleTaken.getValue();
+        return selectedClassForPrinting.getValue();
     }
 
     @Override
-    public void setSelectedModuleTaken(ClassForPrinting classForPrinting) {
+    public void setSelectedClassForPrinting(ClassForPrinting classForPrinting) {
         if (classForPrinting != null && classForPrinting instanceof ModuleTaken
                 && !filteredModulesTaken.contains(classForPrinting)) {
             throw new ModuleTakenNotFoundException();
         }
-        selectedModuleTaken.setValue(classForPrinting);
+        selectedClassForPrinting.setValue(classForPrinting);
     }
 
     //=========== Module Info List ===========================================================================
@@ -371,32 +371,32 @@ public class ModelManager implements Model {
     }
 
     /**
-     * Ensures {@code selectedModuleTaken} is a valid moduleTaken in {@code filteredModulesTaken}.
+     * Ensures {@code selectedClassForPrinting} is a valid moduleTaken in {@code filteredModulesTaken}.
      */
     private void ensureSelectedModuleTakenIsValid(ListChangeListener.Change<? extends ModuleTaken> change) {
         while (change.next()) {
-            if (selectedModuleTaken.getValue() == null || !(selectedModuleTaken.getValue() instanceof ModuleTaken)) {
+            if (selectedClassForPrinting.getValue() == null || !(selectedClassForPrinting.getValue() instanceof ModuleTaken)) {
                 // null is always a valid selected moduleTaken, so we do not need to check that it is valid anymore.
                 return;
             }
 
             boolean wasSelectedModuleTakenReplaced = change.wasReplaced()
                     && change.getAddedSize() == change.getRemovedSize()
-                    && change.getRemoved().contains(selectedModuleTaken.getValue());
+                    && change.getRemoved().contains(selectedClassForPrinting.getValue());
             if (wasSelectedModuleTakenReplaced) {
-                // Update selectedModuleTaken to its new value.
-                int index = change.getRemoved().indexOf(selectedModuleTaken.getValue());
-                selectedModuleTaken.setValue(change.getAddedSubList().get(index));
+                // Update selectedClassForPrinting to its new value.
+                int index = change.getRemoved().indexOf(selectedClassForPrinting.getValue());
+                selectedClassForPrinting.setValue(change.getAddedSubList().get(index));
                 continue;
             }
 
             boolean wasSelectedPersonRemoved = change.getRemoved().stream()
                     .anyMatch(removedPerson
-                        -> ((ModuleTaken) selectedModuleTaken.getValue()).isSameModuleTaken(removedPerson));
+                        -> ((ModuleTaken) selectedClassForPrinting.getValue()).isSameModuleTaken(removedPerson));
             if (wasSelectedPersonRemoved) {
                 // Select the moduleTaken that came before it in the list,
                 // or clear the selection if there is no such moduleTaken.
-                selectedModuleTaken.setValue(change.getFrom() > 0 ? change.getList().get(change.getFrom() - 1) : null);
+                selectedClassForPrinting.setValue(change.getFrom() > 0 ? change.getList().get(change.getFrom() - 1) : null);
             }
         }
     }
@@ -449,7 +449,7 @@ public class ModelManager implements Model {
         return versionedGradTrak.equals(other.versionedGradTrak)
                 && userPrefs.equals(other.userPrefs)
                 && filteredModulesTaken.equals(other.filteredModulesTaken)
-                && Objects.equals(selectedModuleTaken.get(), other.selectedModuleTaken.get())
+                && Objects.equals(selectedClassForPrinting.get(), other.selectedClassForPrinting.get())
                 && recModuleList.equals(other.recModuleList)
                 && course.equals(other.course)
                 && requirementStatusList.equals(other.requirementStatusList)

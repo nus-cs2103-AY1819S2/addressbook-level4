@@ -32,6 +32,7 @@ public class TypicalRestaurants {
             .withAddress("123, Jurong West Ave 6, #08-111").withEmail("alice@example.com")
             .withPostal("123456")
             .withPhone("94351253")
+
             .withTags("friends")
             //.withReviews("sucks","5","2019-03-18T09:22:07.138")
             .build();

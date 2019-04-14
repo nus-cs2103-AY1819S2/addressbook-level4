@@ -12,7 +12,7 @@ public class Postal {
 
     public static final String MESSAGE_CONSTRAINTS =
             "Postal Code should only contain numbers, and it should 6 digits long";
-    public static final String VALIDATION_REGEX = "\\d{6,}";
+    public static final String VALIDATION_REGEX = "\\d{6}";
     public final String value;
 
     /**

@@ -182,22 +182,23 @@ public class Restaurant {
         if (!(other instanceof Restaurant)) {
             return false;
         }
-
         Restaurant otherRestaurant = (Restaurant) other;
         return otherRestaurant.getName().equals(getName())
                 && otherRestaurant.getPhone().equals(getPhone())
                 && otherRestaurant.getEmail().equals(getEmail())
                 && otherRestaurant.getAddress().equals(getAddress())
+                && otherRestaurant.getPostal().equals(getPostal())
                 && otherRestaurant.getTags().equals(getTags())
                 && otherRestaurant.getWeblink().equals(getWeblink())
                 && otherRestaurant.getOpeningHours().equals(getOpeningHours())
                 && otherRestaurant.getReviews().equals(getReviews());
+
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags, weblink, openingHours, reviews);
+        return Objects.hash(name, phone, email, address, postal, tags, weblink, openingHours, reviews);
     }
 
     @Override
@@ -210,6 +211,8 @@ public class Restaurant {
                 .append(getEmail())
                 .append(" Address: ")
                 .append(getAddress())
+                .append("Postal: ")
+                .append(getPostal())
                 .append(" Weblink: ")
                 .append(getWeblink())
                 .append(" Opening Hours: ")

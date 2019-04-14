@@ -27,7 +27,8 @@ import systemtests.ModelHelper;
 public class TestApp extends MainApp {
 
     public static final Path SAVE_LOCATION_FOR_TESTING = TestUtil.getFilePathInSandboxFolder("sampleData.json");
-
+    public static final Path DEFAULT_POSTAL_DATA_FILE_FOR_TESTING =
+            TestUtil.getFilePathInSandboxFolder("postalData.json");
     protected static final Path DEFAULT_PREF_FILE_LOCATION_FOR_TESTING =
             TestUtil.getFilePathInSandboxFolder("pref_testing.json");
     protected Supplier<ReadOnlyFoodDiary> initialDataSupplier = () -> null;
@@ -57,6 +58,14 @@ public class TestApp extends MainApp {
         Config config = super.initConfig(configFilePath);
         config.setUserPrefsFilePath(DEFAULT_PREF_FILE_LOCATION_FOR_TESTING);
         return config;
+    }
+
+    protected PostalDataSet readPostaData(){
+        try {
+            return storage.getPostalData().get();
+        } catch (DataConversionException dce) {
+            throw new AssertionError("Data is not in the FoodDiary format.", dce);
+        }
     }
 
     @Override

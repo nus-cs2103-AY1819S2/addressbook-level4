@@ -52,4 +52,5 @@ public class ListUnvisitedCommandTest {
                 ListUnvisitedCommand.MESSAGE_INVALID_POSTAL_DATA, expectedModel);
     }
 
+
 }

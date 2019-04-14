@@ -9,8 +9,8 @@ Battleship CLI is an implementation of the classic game Battleship.
 
 As part of a group project in the module https://nus-cs2103-ay1819s2.github.io/cs2103-website/index.html[CS2103] in NUS,
 my group had to morph an existing product, https://github.com/nus-cs2103-AY1819S2/addressbook-level4[`addressbook-level4`],
-into a new product, and we chose to morph it into an Battleships, while keeping the original product's
-distinctive feature of being operated through the command-line.
+into a new product while keeping the original product's distinctive feature of being operated through the command-line.
+My group chose to morph it into a command-line based Battleships application.
 
 My role in the team was to design and implement the `Battle` feature, which:
 
@@ -21,10 +21,16 @@ The following sections illustrate the feature in more detail, as well as the rel
 
 == Summary of contributions
 
-* *Major enhancement*: added *the battle feature of the game*
-** What it does: it allows the player to make attacks, and ensures that the player and enemy take turns with each other.
-** Justification: the battle feature is important as it is one of the two important phases of Battleship, along with the placing of ships.
-** Highlights: [placeholder]
+* *Major enhancement*: implemented *the logic for the battle stage of the game* +
+  The battle is one of the two important phases of Battleship, along with the placing of ships.
+  Via the battle feature, the user will be able to launch attacks at the enemy, and the enemy launch
+  attacks at the user. Cruically, it ensures that the user and enemy take their turns in the correct
+  order.
+* *Minor enhancement*: added *the ability to prevent commands from being executed at inappropriate times* +
+  Preventing the user from executing certain commands at certain times (e.g. the user should not
+  be placing ships when the battle is already in progress) will ensure the correct progression of
+  the game, as well as prevent the game from entering an invalid state.
+
 
 * *Code contributed*: Here are my [https://github.com/CS2103-AY1819S2-W14-3/main/commits/master?author=s-tr[code commits]].
 

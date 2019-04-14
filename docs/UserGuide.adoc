@@ -360,10 +360,13 @@ To transfer your files: +
 . Transfer and overwrite the `userdata` and `lessons` folder.
 . Your progress will be automatically imported on that device.
 
-==== Coming Soon(v2.0)
+==== Coming in v2.0
 
-Easily transfer files using import command to get files directly from a specific link without the use of transfer devices.
-Example : import User l/[INSERT_DESIRED_LINK_HERE]
+Easily transfer files using import command to get files directly from a specific link without the use of transfer devices. +
+The usage of hard drives to transfer and pull documents has reduced overtime as new cloud storage are introduced. Thus, with this new feature,
+it will help to pull the user file and lessons from links.
+Example : `import User l/[INSERT_DESIRED_LINK_HERE]`
+
 
 // end::jeraldtsy[]
 

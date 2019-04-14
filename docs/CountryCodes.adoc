@@ -1,6 +1,5 @@
-= TravelBuddy - List of Country Codes
+= 7. List of Country Codes
 :site-section: CountryCodes
-:sectnums:
 :imagesDir: images
 :stylesDir: stylesheets
 :sourceDir: ../src/main/java
@@ -13,14 +12,19 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/CS2103-AY1819S2-W11-3/main
 
+
+// tag::countrycodesdoc[]
+[discrete]
 [[TOP]]
 
 Find by Country Name: <<A,A>> <<B,B>> <<C,C>> <<D,D>> <<E,E>> <<F,F>> <<G,G>> <<H,H>> <<I,I>> <<J,J>> <<K,K>>
 <<L,L>>
 <<M,M>> <<N,N>> <<O,O>> <<P,P>> <<Q,Q>> <<R,R>> <<S,S>> <<T,T>> <<U,U>> <<V,V>> <<W,W>> <<Y,Y>> <<Z,Z>>
+[discrete]
 [[A]]
+[discrete]
 == A
-<<TOP,Back to top>>
+<<TOP,Back to top of list>>
 [width="60%",cols="40%,20%"]
 |=======================================================================
 |**Country Name** | *Country Code*
@@ -41,9 +45,11 @@ Find by Country Name: <<A,A>> <<B,B>> <<C,C>> <<D,D>> <<E,E>> <<F,F>> <<G,G>> <<
 |*Azerbaijan* | AZE
 |=======================================================================
 
+[discrete]
 [[B]]
+[discrete]
 == B
-<<TOP,Back to top>>
+<<TOP,Back to top of list>>
 [width="60%",cols="40%,20%"]
 |=======================================================================
 |*Bahamas* | BHS
@@ -69,9 +75,11 @@ Find by Country Name: <<A,A>> <<B,B>> <<C,C>> <<D,D>> <<E,E>> <<F,F>> <<G,G>> <<
 |*Burkina Faso* | BFA
 |*Burundi* | BDI
 |=======================================================================
+[discrete]
 [[C]]
+[discrete]
 == C
-<<TOP,Back to top>>
+<<TOP,Back to top of list>>
 [width="60%",cols="40%,20%"]
 |=======================================================================
 |*Cambodia* | KHM
@@ -97,9 +105,11 @@ Find by Country Name: <<A,A>> <<B,B>> <<C,C>> <<D,D>> <<E,E>> <<F,F>> <<G,G>> <<
 |*Czech Republic* | CZE
 |*Côte d'Ivoire* | CIV
 |=======================================================================
+[discrete]
 [[D]]
+[discrete]
 == D
-<<TOP,Back to top>>
+<<TOP,Back to top of list>>
 [width="60%",cols="40%,20%"]
 |=======================================================================
 |*Denmark* | DNK
@@ -107,9 +117,11 @@ Find by Country Name: <<A,A>> <<B,B>> <<C,C>> <<D,D>> <<E,E>> <<F,F>> <<G,G>> <<
 |*Dominica* | DMA
 |*Dominican Republic* | DOM
 |=======================================================================
+[discrete]
 [[E]]
+[discrete]
 == E
-<<TOP,Back to top>>
+<<TOP,Back to top of list>>
 [width="60%",cols="40%,20%"]
 |=======================================================================
 |*Ecuador* | ECU
@@ -120,9 +132,11 @@ Find by Country Name: <<A,A>> <<B,B>> <<C,C>> <<D,D>> <<E,E>> <<F,F>> <<G,G>> <<
 |*Estonia* | EST
 |*Ethiopia* | ETH
 |=======================================================================
+[discrete]
 [[F]]
+[discrete]
 == F
-<<TOP,Back to top>>
+<<TOP,Back to top of list>>
 [width="60%",cols="40%,20%"]
 |=======================================================================
 |*Falkland Islands* | FLK
@@ -134,9 +148,11 @@ Find by Country Name: <<A,A>> <<B,B>> <<C,C>> <<D,D>> <<E,E>> <<F,F>> <<G,G>> <<
 |*French Polynesia* | PYF
 |*French Southern Territories* | ATF
 |=======================================================================
+[discrete]
 [[G]]
+[discrete]
 == G
-<<TOP,Back to top>>
+<<TOP,Back to top of list>>
 [width="60%",cols="40%,20%"]
 |=======================================================================
 |*Gabon* | GAB
@@ -156,9 +172,11 @@ Find by Country Name: <<A,A>> <<B,B>> <<C,C>> <<D,D>> <<E,E>> <<F,F>> <<G,G>> <<
 |*Guinea-Bissau* | GNB
 |*Guyana* | GUY
 |=======================================================================
+[discrete]
 [[H]]
+[discrete]
 == H
-<<TOP,Back to top>>
+<<TOP,Back to top of list>>
 [width="60%",cols="40%,20%"]
 |=======================================================================
 |*Haiti* | HTI
@@ -167,9 +185,11 @@ Find by Country Name: <<A,A>> <<B,B>> <<C,C>> <<D,D>> <<E,E>> <<F,F>> <<G,G>> <<
 |*Hong Kong* | HKG
 |*Hungary* | HUN
 |=======================================================================
+[discrete]
 [[I]]
+[discrete]
 == I
-<<TOP,Back to top>>
+<<TOP,Back to top of list>>
 [width="60%",cols="40%,20%"]
 |=======================================================================
 |*Iceland* | ISL
@@ -182,9 +202,11 @@ Find by Country Name: <<A,A>> <<B,B>> <<C,C>> <<D,D>> <<E,E>> <<F,F>> <<G,G>> <<
 |*Israel* | ISR
 |*Italy* | ITA
 |=======================================================================
+[discrete]
 [[J]]
-== J
-<<TOP,Back to top>>
+[discrete]
+= J
+<<TOP,Back to top of list>>
 [width="60%",cols="40%,20%"]
 |=======================================================================
 |*Jamaica* | JAM
@@ -192,9 +214,11 @@ Find by Country Name: <<A,A>> <<B,B>> <<C,C>> <<D,D>> <<E,E>> <<F,F>> <<G,G>> <<
 |*Jersey* | JEY
 |*Jordan* | JOR
 |=======================================================================
+[discrete]
 [[K]]
+[discrete]
 == K
-<<TOP,Back to top>>
+<<TOP,Back to top of list>>
 [width="60%",cols="40%,20%"]
 |=======================================================================
 |*Kazakhstan* | KAZ
@@ -203,9 +227,11 @@ Find by Country Name: <<A,A>> <<B,B>> <<C,C>> <<D,D>> <<E,E>> <<F,F>> <<G,G>> <<
 |*Kuwait* | KWT
 |*Kyrgyzstan* | KGZ
 |=======================================================================
+[discrete]
 [[L]]
+[discrete]
 == L
-<<TOP,Back to top>>
+<<TOP,Back to top of list>>
 [width="60%",cols="40%,20%"]
 |=======================================================================
 |*Laos* | LAO
@@ -218,9 +244,11 @@ Find by Country Name: <<A,A>> <<B,B>> <<C,C>> <<D,D>> <<E,E>> <<F,F>> <<G,G>> <<
 |*Lithuania* | LTU
 |*Luxembourg* | LUX
 |=======================================================================
+[discrete]
 [[M]]
+[discrete]
 == M
-<<TOP,Back to top>>
+<<TOP,Back to top of list>>
 [width="60%",cols="40%,20%"]
 |=======================================================================
 |*Macao* | MAC
@@ -247,9 +275,11 @@ Find by Country Name: <<A,A>> <<B,B>> <<C,C>> <<D,D>> <<E,E>> <<F,F>> <<G,G>> <<
 |*Mozambique* | MOZ
 |*Myanmar* | MMR
 |=======================================================================
+[discrete]
 [[N]]
+[discrete]
 == N
-<<TOP,Back to top>>
+<<TOP,Back to top of list>>
 [width="60%",cols="40%,20%"]
 |=======================================================================
 |*Namibia* | NAM
@@ -268,16 +298,20 @@ Find by Country Name: <<A,A>> <<B,B>> <<C,C>> <<D,D>> <<E,E>> <<F,F>> <<G,G>> <<
 |*Northern Mariana Islands* | MNP
 |*Norway* | NOR
 |=======================================================================
+[discrete]
 [[O]]
+[discrete]
 == O
-<<TOP,Back to top>>
+<<TOP,Back to top of list>>
 [width="60%",cols="40%,20%"]
 |=======================================================================
 |*Oman* | OMN
 |=======================================================================
+[discrete]
 [[P]]
+[discrete]
 == P
-<<TOP,Back to top>>
+<<TOP,Back to top of list>>
 [width="60%",cols="40%,20%"]
 |=======================================================================
 |*Pakistan* | PAK
@@ -293,16 +327,20 @@ Find by Country Name: <<A,A>> <<B,B>> <<C,C>> <<D,D>> <<E,E>> <<F,F>> <<G,G>> <<
 |*Portugal* | PRT
 |*Puerto Rico* | PRI
 |=======================================================================
+[discrete]
 [[Q]]
+[discrete]
 == Q
-<<TOP,Back to top>>
+<<TOP,Back to top of list>>
 [width="60%",cols="40%,20%"]
 |=======================================================================
 |*Qatar* | QAT
 |=======================================================================
+[discrete]
 [[R]]
+[discrete]
 == R
-<<TOP,Back to top>>
+<<TOP,Back to top of list>>
 [width="60%",cols="40%,20%"]
 |=======================================================================
 |*Reunion* | REU
@@ -310,9 +348,11 @@ Find by Country Name: <<A,A>> <<B,B>> <<C,C>> <<D,D>> <<E,E>> <<F,F>> <<G,G>> <<
 |*Russia* | RUS
 |*Rwanda* | RWA
 |=======================================================================
+[discrete]
 [[S]]
+[discrete]
 == S
-<<TOP,Back to top>>
+<<TOP,Back to top of list>>
 [width="60%",cols="40%,20%"]
 |=======================================================================
 |*Saint Barthélemy* | BLM
@@ -350,9 +390,11 @@ Find by Country Name: <<A,A>> <<B,B>> <<C,C>> <<D,D>> <<E,E>> <<F,F>> <<G,G>> <<
 |*Switzerland* | CHE
 |*Syria* | SYR
 |=======================================================================
+[discrete]
 [[T]]
+[discrete]
 == T
-<<TOP,Back to top>>
+<<TOP,Back to top of list>>
 [width="60%",cols="40%,20%"]
 |=======================================================================
 |*Taiwan* | TWN
@@ -371,9 +413,11 @@ Find by Country Name: <<A,A>> <<B,B>> <<C,C>> <<D,D>> <<E,E>> <<F,F>> <<G,G>> <<
 |*Turks And Caicos Islands* | TCA
 |*Tuvalu* | TUV
 |=======================================================================
+[discrete]
 [[U]]
+[discrete]
 == U
-<<TOP,Back to top>>
+<<TOP,Back to top of list>>
 [width="60%",cols="40%,20%"]
 |=======================================================================
 |*U.S. Virgin Islands* | VIR
@@ -386,9 +430,11 @@ Find by Country Name: <<A,A>> <<B,B>> <<C,C>> <<D,D>> <<E,E>> <<F,F>> <<G,G>> <<
 |*Uruguay* | URY
 |*Uzbekistan* | UZB
 |=======================================================================
+[discrete]
 [[V]]
+[discrete]
 == V
-<<TOP,Back to top>>
+<<TOP,Back to top of list>>
 [width="60%",cols="40%,20%"]
 |=======================================================================
 |*Vanuatu* | VUT
@@ -396,28 +442,34 @@ Find by Country Name: <<A,A>> <<B,B>> <<C,C>> <<D,D>> <<E,E>> <<F,F>> <<G,G>> <<
 |*Venezuela* | VEN
 |*Vietnam* | VNM
 |=======================================================================
+[discrete]
 [[W]]
-== W
-<<TOP,Back to top>>
+[discrete]
+= W
+<<TOP,Back to top of list>>
 [width="60%",cols="40%,20%"]
 |=======================================================================
 |*Wallis And Futuna* | WLF
 |*Western Sahara* | ESH
 |=======================================================================
+[discrete]
 [[Y]]
+[discrete]
 == Y
-<<TOP,Back to top>>
+<<TOP,Back to top of list>>
 [width="60%",cols="40%,20%"]
 |=======================================================================
 |*Yemen* | YEM
 |=======================================================================
+[discrete]
 [[Z]]
+[discrete]
 == Z
-<<TOP,Back to top>>
+<<TOP,Back to top of list>>
 [width="60%",cols="40%,20%"]
 |=======================================================================
 |*Zambia* | ZMB
 |*Zimbabwe* | ZWE
 |=======================================================================
-
+// end::countrycodesdoc[]
 {sp} +

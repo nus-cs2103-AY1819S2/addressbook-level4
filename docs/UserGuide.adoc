@@ -289,10 +289,9 @@ Format: `exit`
 
 // tag::upcomingmap[]
 === Special Map Shapes
-The player will be allowed to use maps that are randomised in shape. This adds an extra layer of challenge and fun for the player. 
+The player will be allowed to use maps that are randomised in shape. This adds an extra layer of challenge and fun for the player.
 
 The player will not be able to place their ships on the black tiles. The enemy AI will also have a randomised map that will not be the same as the player. The player will not be able to see the shape of the enemy map and can shoot black cells which will be counted as a miss.
-
 
 The image below shows an example of a randomised map.
 

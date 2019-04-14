@@ -50,7 +50,7 @@ public class LogicManager implements Logic {
 
         CommandResult commandResult;
         try {
-            Command command = topDeckParser.parseCommand(commandText, model);
+            Command command = topDeckParser.parseCommand(commandText, model.getViewState().getViewStateParser());
             commandResult = command.execute(model, history);
             if (command instanceof GenerateQuestionCommand) {
                 storage.saveTopDeck(model.getTopDeck());

@@ -1,14 +1,10 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_CARDS;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_DECKS;
 
 import seedu.address.logic.CommandHistory;
-import seedu.address.model.CardsView;
-import seedu.address.model.DecksView;
+import seedu.address.model.ListViewState;
 import seedu.address.model.Model;
-import seedu.address.model.ViewState;
 
 /**
  * Lists all decks to the user.
@@ -20,22 +16,19 @@ public class ListCommand extends Command {
     public static final String MESSAGE_DECK_SUCCESS = "Listed all decks";
     public static final String MESSAGE_CARD_SUCCESS = "Listed all cards";
 
-    private final ViewState viewState;
+    private final ListViewState listViewState;
 
-    public ListCommand(ViewState viewState) {
-        this.viewState = viewState;
+    public ListCommand(ListViewState listViewState) {
+        this.listViewState = listViewState;
     }
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
+        listViewState.updateFilteredList(unused -> true);
         if (model.isAtDecksView()) {
-            DecksView decksView = (DecksView) viewState;
-            decksView.updateFilteredList(PREDICATE_SHOW_ALL_DECKS);
             return new CommandResult(MESSAGE_DECK_SUCCESS);
         } else {
-            CardsView cardsView = (CardsView) viewState;
-            cardsView.updateFilteredList(PREDICATE_SHOW_ALL_CARDS);
             return new CommandResult(MESSAGE_CARD_SUCCESS);
         }
 

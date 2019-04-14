@@ -8,15 +8,8 @@ import javafx.beans.property.ReadOnlyProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.scene.layout.Region;
 import seedu.address.logic.DeckShuffler;
-import seedu.address.logic.commands.BackCommand;
-import seedu.address.logic.commands.Command;
-import seedu.address.logic.commands.ExitCommand;
-import seedu.address.logic.commands.HelpCommand;
-import seedu.address.logic.commands.HistoryCommand;
-import seedu.address.logic.commands.OpenDeckCommand;
-import seedu.address.logic.commands.ShowAnswerCommand;
-import seedu.address.logic.parser.GenerateQuestionCommandParser;
-import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.logic.parser.StudyViewParser;
+import seedu.address.logic.parser.ViewStateParser;
 import seedu.address.model.deck.Card;
 import seedu.address.model.deck.Deck;
 import seedu.address.model.deck.exceptions.EmptyDeckException;
@@ -24,7 +17,7 @@ import seedu.address.ui.StudyPanel;
 import seedu.address.ui.UiPart;
 
 /**
- * ViewState of the Application during a Study session.
+ * ViewState of TopDeck during a study session.
  */
 public class StudyView implements ViewState {
     private final Deck activeDeck;
@@ -76,6 +69,7 @@ public class StudyView implements ViewState {
     public DeckShuffler getDeckShuffler() {
         return deckShuffler;
     }
+
 
     public Deck getActiveDeck() {
         return activeDeck;
@@ -138,6 +132,12 @@ public class StudyView implements ViewState {
         userAnswer.setValue(answer);
     }
 
+    @Override
+    public ViewStateParser getViewStateParser() {
+        return new StudyViewParser(this);
+    }
+
+    @Override
     public UiPart<Region> getPanel() {
         return new StudyPanel(textShown, currentStudyState, userAnswer);
     }

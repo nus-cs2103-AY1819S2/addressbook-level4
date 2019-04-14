@@ -21,11 +21,9 @@ import seedu.address.storage.JsonRequestBookStorage;
 import seedu.address.storage.UserPrefsStorage;
 import seedu.address.testutil.TestUtil;
 import systemtests.ModelHelper;
-//import systemtests.ModelHelper;
 
 /**
- * This class is meant to override some properties of MainApp so that it will be suited for
- * testing
+ * This class is meant to override some properties of MainApp so that it will be suited for testing
  */
 public class TestApp extends MainApp {
 
@@ -137,7 +135,8 @@ public class TestApp extends MainApp {
      * Returns a defensive copy of the model.
      */
     public Model getModel() {
-        Model copy = new ModelManager(model.getHealthWorkerBook(), model.getRequestBook(), model.getUserPrefs());
+        Model copy = new ModelManager(model.getHealthWorkerBook(), model.getRequestBook(),
+                model.getUserPrefs());
         ModelHelper.setFilteredRequestList(copy, model.getFilteredRequestList());
         return copy;
     }

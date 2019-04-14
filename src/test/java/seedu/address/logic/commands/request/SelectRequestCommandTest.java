@@ -42,8 +42,6 @@ class SelectRequestCommandTest {
         assertExecutionFailure(outOfBoundsIndex, Messages.MESSAGE_INVALID_REQUEST_DISPLAYED_INDEX);
     }
 
-    // TODO show request at index - Hui Chun
-
     @Test
     public void equals() {
         SelectRequestCommand selectFirstCommand = new SelectRequestCommand(INDEX_FIRST);

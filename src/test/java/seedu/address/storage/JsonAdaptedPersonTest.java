@@ -8,6 +8,7 @@ import org.junit.Test;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.person.Name;
+import seedu.address.model.person.Nric;
 import seedu.address.model.person.Phone;
 import seedu.address.testutil.Assert;
 
@@ -17,6 +18,7 @@ public class JsonAdaptedPersonTest {
     private static final String INVALID_ADDRESS = " ";
     private static final String INVALID_EMAIL = "example.com";
     private static final String INVALID_TAG = "#friend";
+
 
     private static final String VALID_NAME = BENSON.getName().toString();
     private static final String VALID_PHONE = BENSON.getPhone().toString();
@@ -58,6 +60,10 @@ public class JsonAdaptedPersonTest {
         Assert.assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
     }
 
-    // TODO: add tests for Nric.
-
+    @Test
+    public void toModelType_nullNric_throwsIllegalValueException() {
+        JsonAdaptedPerson person = new JsonAdaptedPerson(VALID_NAME, VALID_PHONE, null);
+        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Nric.class.getSimpleName());
+        Assert.assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
+    }
 }

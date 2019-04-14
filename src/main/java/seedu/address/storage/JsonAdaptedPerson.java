@@ -66,7 +66,7 @@ class JsonAdaptedPerson {
         final Phone modelPhone = new Phone(phone);
 
         if (nric == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Address.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Nric.class.getSimpleName()));
         }
         if (!Nric.isValidNric(nric)) {
             throw new IllegalValueException(Address.MESSAGE_CONSTRAINTS);

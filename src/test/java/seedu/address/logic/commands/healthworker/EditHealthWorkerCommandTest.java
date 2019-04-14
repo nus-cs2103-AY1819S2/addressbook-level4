@@ -175,7 +175,8 @@ public class EditHealthWorkerCommandTest {
 
     //@Test
     //public void execute_undoRedo_invalidIndex() {
-    //TODO: to be reestablished once undo and redo are done
+    //
+    // TODO: to be reestablished once undo and redo are done
     //Index outOfBounds = Index.fromOneBased(model.getFilteredHealthWorkerList().size() + 1);
     //EditHealthWorkerDescriptor descriptor = new EditHealthWorkerDescriptorBuilder().withName(VALID_NAME_BETTY)
     //      .build();

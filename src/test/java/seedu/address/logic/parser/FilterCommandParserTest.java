@@ -7,9 +7,11 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_REQUEST_COMMAN
 import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.MODE_HEALTHWORKER;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_ANDY;
+import static seedu.address.logic.commands.CommandTestUtil.NRIC_DESC_ANDY;
 import static seedu.address.logic.commands.CommandTestUtil.ORGANIZATION_DESC_ANDY;
 import static seedu.address.logic.commands.CommandTestUtil.SKILLS_DESC_ANDY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_ANDY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NRIC_ANDY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ORGANIZATION_ANDY;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
@@ -108,6 +110,7 @@ public class FilterCommandParserTest {
         Predicate<HealthWorker> secondPredicate = x -> x.getOrganization().contains(VALID_ORGANIZATION_ANDY);
         Predicate<HealthWorker> thirdPredicate = x -> x.getSkills().containsAll(Arrays.asList(
                 Specialisation.GENERAL_PRACTICE, Specialisation.PHYSIOTHERAPY));
+        Predicate<HealthWorker> fourthPredicate = x -> x.getNric().contains(VALID_NRIC_ANDY);
 
         // filter by name
         List<Predicate> predicateList = Arrays.asList(firstPredicate);
@@ -135,6 +138,16 @@ public class FilterCommandParserTest {
                 .reducePredicates(predicateList)).collect(Collectors.toList()), getTypicalHealthStaff()
                 .stream().filter(FilterHealthWorkerCommand.reducePredicates(newPredicateList))
                 .collect(Collectors.toList()));
+
+        // filter by nric
+        predicateList = Arrays.asList(fourthPredicate);
+        newPredicateList = FilterCommandParser.parseHealthWorkerPredicates(NRIC_DESC_ANDY);
+
+        assertEquals(getTypicalHealthStaff().stream().filter(FilterHealthWorkerCommand
+                .reducePredicates(predicateList)).collect(Collectors.toList()), getTypicalHealthStaff()
+                .stream().filter(FilterHealthWorkerCommand.reducePredicates(newPredicateList))
+                .collect(Collectors.toList()));
+
 
         // filter by multiple
         predicateList = Arrays.asList(firstPredicate, secondPredicate);

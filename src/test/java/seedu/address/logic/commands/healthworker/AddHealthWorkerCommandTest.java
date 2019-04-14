@@ -262,6 +262,16 @@ public class AddHealthWorkerCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
+        @Override
+        public void updateRequestOnNameEdit(String oldNric, String newNric) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean isAssigned(String name) {
+            throw new AssertionError("This method should not be called.");
+        }
+
         /**
          * Adds the given request.
          * {@code request} must not already exist in the request book.

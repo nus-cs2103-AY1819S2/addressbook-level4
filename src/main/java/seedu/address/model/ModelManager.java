@@ -34,7 +34,6 @@ public class ModelManager implements Model {
 
     private final FilteredList<HealthWorker> filteredHealthWorkers;
 
-    // TODO make the relevant changes to the model manager
     // TODO get versionedAddressBook tests to pass
     private final FilteredList<Request> filteredRequests;
     private final SimpleObjectProperty<Person> selectedPerson = new SimpleObjectProperty<>();
@@ -160,11 +159,14 @@ public class ModelManager implements Model {
         return userPrefs.getHealthWorkerBookFilePath();
     }
 
-    /**
-     * Checks if the provided HealthWorker nric string as been assigned to any existing request.
-     */
-    public boolean isAssigned(String nric) {
-        return this.versionedRequestBook.isAssigned(nric);
+    @Override
+    public boolean isAssigned(String name) {
+        return this.versionedRequestBook.isAssigned(name);
+    }
+
+    @Override
+    public void updateRequestOnNameEdit(String oldNric, String newNric) {
+        this.versionedRequestBook.updateHealthWorker(oldNric, newNric);
     }
 
     //=========== Undo/Redo =================================================================================
@@ -227,11 +229,12 @@ public class ModelManager implements Model {
         }
     }
 
+
     //=========== Implemented methods for Request through the Model interface  ==============================
 
     @Override
     public ObservableList<Request> getFilteredRequestList() {
-        return this.filteredRequests;
+        return filteredRequests;
     }
 
     /**

@@ -40,10 +40,13 @@ public class HealthWorkerCard extends UiPart<Region> {
     private Label name;
 
     @FXML
-    private Label phone;
+    private Label organisation;
 
     @FXML
-    private Label organisation;
+    private Label nric;
+
+    @FXML
+    private Label phone;
 
     @FXML
     private FlowPane specialisations;
@@ -55,6 +58,7 @@ public class HealthWorkerCard extends UiPart<Region> {
         this.id.setText(displayedIndex + ". ");
         this.name.setText(worker.getName().toString());
         this.organisation.setText("(" + worker.getOrganization().toString() + ")");
+        this.nric.setText(worker.getNric().toString());
         this.phone.setText(worker.getPhone().toString());
         this.worker.getSkills().getSkills().forEach(s ->
             specialisations.getChildren().add(new Label(s.toString().toLowerCase())));

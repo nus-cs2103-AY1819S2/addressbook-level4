@@ -143,6 +143,18 @@ public class UniqueRequestList implements Iterable<Request> {
     }
 
     /**
+     * Updates the healthStaff field in Request object when the name of the correposnding HealthWorker object is
+     * updated.
+     */
+    public void updateHealthWorker(String oldNric, String newNric) {
+        for (Request request : this.internalList) {
+            if (Objects.equals(request.getHealthStaff(), oldNric)) {
+                request.setHealthStaff(newNric);
+            }
+        }
+    }
+
+    /**
      * Returns an iterator over elements of type {@code T}.
      *
      * @return an Iterator.

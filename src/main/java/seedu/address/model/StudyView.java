@@ -44,28 +44,6 @@ public class StudyView implements ViewState {
         this.setCurrentStudyState(studyView.getCurrentStudyState());
     }
 
-    @Override
-    public Command parse(String commandWord, String arguments) throws ParseException {
-        switch (commandWord) {
-            case OpenDeckCommand.COMMAND_WORD:
-                return new OpenDeckCommand(activeDeck);
-            case BackCommand.COMMAND_WORD:
-                return new BackCommand();
-            case ExitCommand.COMMAND_WORD:
-                return new ExitCommand();
-            case HelpCommand.COMMAND_WORD:
-                return new HelpCommand();
-            case HistoryCommand.COMMAND_WORD:
-                return new HistoryCommand();
-            default:
-                if (getCurrentStudyState() == StudyState.QUESTION) {
-                    return new ShowAnswerCommand(commandWord + arguments);
-                } else {
-                    return new GenerateQuestionCommandParser(this).parse(commandWord);
-                }
-        }
-    }
-
     public DeckShuffler getDeckShuffler() {
         return deckShuffler;
     }

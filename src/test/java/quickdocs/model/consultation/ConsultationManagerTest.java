@@ -99,7 +99,10 @@ public class ConsultationManagerTest {
     @Test
     public void addConsultation() {
         Patient patient = patientManager.getPatientByNric(patient1.getNric().toString());
-        consultationManager.createConsultation(patient);
+        //consultationManager.createConsultation(patient);
+
+        Consultation consultation = new Consultation(patient);
+
 
         ArrayList<Symptom> symptoms = new ArrayList<>(Arrays.asList(new Symptom("Symptom 1")));
         Assessment assessment1 = new Assessment("Assessment 1");
@@ -110,10 +113,12 @@ public class ConsultationManagerTest {
                 new Prescription(new Medicine("med2", 10), 1)
         ));
 
-        consultationManager.diagnosePatient(diagnosis1);
-        consultationManager.prescribeMedicine(prescriptions);
+        consultation.setDiagnosis(diagnosis1);
+        consultation.setPrescriptions(prescriptions);
 
-        consultationManager.endConsultation();
+        consultationManager.addConsultation(consultation);
+
+        //consultationManager.endConsultation();
         org.junit.Assert.assertTrue(consultationManager.getConsultationList().size() == 1);
     }
 

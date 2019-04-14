@@ -170,7 +170,7 @@ The sections below give more details of each component.
 === UI component
 
 .Structure of the UI Component
-image::UiClassDiagram.png[width="600"]
+image::UiClassDiagram.png[width="800"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 The UI consists of a `MainWindow` that is made up of the following
@@ -261,7 +261,7 @@ The `Album` class is implemented using the Singleton pattern. This design choice
 The core functions of the `Album` class are listed below.
 
 * Stores a reference to all imported images as List.
-* Contains various helper method to access `assets directory`, the storage for the raw image files.
+* Contains various helper method to access the `assets` directory, the storage for the raw image files.
 * Fires property changes to listeners attached to the `Notifier` to redraw UI elements.
 
 The Model also comprises of a smaller subclass, `Image`.

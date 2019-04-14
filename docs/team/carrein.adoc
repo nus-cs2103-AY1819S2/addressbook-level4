@@ -95,9 +95,8 @@ https://github.com/CS2103-AY1819S2-W14-2/main/issues/187[#187], https://github.c
 == Contributions to the User Guide
 
 |===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|_The section below showcases my contributions towards the User Guide._
 |===
-
 
 === Quick Start
 '''
@@ -114,8 +113,9 @@ include::../UserGuide.adoc[tag=Tab]
 == Contributions to the Developer Guide
 
 |===
-|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|_The section below showcases my contributions towards the Developer Guide._
 |===
+
 
 === Album and Image Class
 '''

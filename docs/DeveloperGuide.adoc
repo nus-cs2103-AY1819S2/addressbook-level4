@@ -166,14 +166,13 @@ The sections below give more details of each component.
 // end::Architecture[]
 
 [[Design-Ui]]
-// tag::uione[]
+// tag::ui[]
 === UI component
 
 .Structure of the UI Component
 image::UiClassDiagram.png[width="600"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
-// end::uione[]
 The UI consists of a `MainWindow` that is made up of the following
 components:
 
@@ -185,7 +184,6 @@ components:
  * `StatusBarFooter`
  * `HelpWindow`
 
-// tag::uitwo[]
 All components, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
 The `InformationPanel` comprises of three tabs:
@@ -209,7 +207,7 @@ For example, the `ImageView` component draws updates to an opened image in the f
 
 [NOTE]
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` directory.
-// end::uitwo[]
+// end::ui[]
 
 [[Design-Logic]]
 === Logic component

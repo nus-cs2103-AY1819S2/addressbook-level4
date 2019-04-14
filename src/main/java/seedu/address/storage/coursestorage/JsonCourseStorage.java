@@ -2,16 +2,12 @@ package seedu.address.storage.coursestorage;
 
 import static java.util.Objects.requireNonNull;
 
-import java.io.IOException;
-import java.nio.file.Path;
-import java.util.List;
 import java.util.Optional;
 import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.JsonUtil;
 import seedu.address.model.course.CourseList;
 
@@ -24,7 +20,7 @@ public class JsonCourseStorage implements CourseStorage {
     private String inputStreamPath;
 
 
-    public  JsonCourseStorage(String inputStreamPath) {
+    public JsonCourseStorage(String inputStreamPath) {
         this.inputStreamPath = inputStreamPath;
     }
 
@@ -53,16 +49,5 @@ public class JsonCourseStorage implements CourseStorage {
     @Override
     public Optional<CourseList> readCourseFile() throws DataConversionException {
         return readCourseFile(inputStreamPath);
-    }
-
-    /**
-     * Temporary use will remove
-     */
-    public void saveCourse(List<JsonAdaptedCourse> courseList, Path filePath) throws IOException {
-        requireNonNull(courseList);
-        requireNonNull(filePath);
-
-        FileUtil.createIfMissing(filePath);
-        JsonUtil.saveJsonFile(new JsonSerializableCourseList(courseList), filePath);
     }
 }

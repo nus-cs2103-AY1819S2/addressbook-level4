@@ -72,6 +72,14 @@ public class JsonAdaptedCourse {
                     String.format(MISSING_FIELD_MESSAGE_FORMAT, CourseDescription.class.getSimpleName()));
         }
 
+        if (!CourseName.isValidCourseName(name)) {
+            throw new IllegalValueException(CourseName.MESSAGE_CONSTRAINTS);
+        }
+
+        if (!CourseDescription.isValidCourseDescription(description)) {
+            throw new IllegalValueException(CourseDescription.MESSAGE_CONSTRAINTS);
+        }
+
         final CourseName courseName = new CourseName(name);
         final CourseDescription courseDescription = new CourseDescription(description);
         final List<CourseRequirement> requirements = new ArrayList<>();

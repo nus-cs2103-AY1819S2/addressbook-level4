@@ -1006,45 +1006,49 @@ If you were to type `add` in Record Mode, you will see `recordadd` and `taskadd`
 
 image::SuggestionFeatureAddRecordMode.png[width="236"]
 
-== Patient Teeth per record [Coming in v1.5]
+== Planned Implementations
+
+=== Patient Teeth per record [Coming in v1.5]
 
 Currently, TeethHub stores and displays the latest teeth image of each patient.
 We understand that you may want to see teeth changes over time.
 In v1.5, TeethHub will be able to store and display a teeth image for each record.
 
-== Adding images to records [Coming in v1.6]
+=== Adding images to records [Coming in v1.6]
 
 Currently, TeethHub is not equipped to accept images from you.
 We understand that you may want to store x-rays of teeth or other relevant images you have taken.
 In v1.6, TeethHub will have a new command for you to upload images.
 
-== Spell-Checker Functionality [Coming in v1.7]
+=== Spell-Checker Functionality [Coming in v1.7]
+Currently, TeethHub does not have a spell checker.
+It would be great if TeethHub would automatically correct an improperly typed command(e.g. sirt to sort).
+In v1.7, TeethHub will have a spell checker functionality.
+
+=== Store procedure costs and fees [Coming in v1.8]
+TeethHub currently allows users to store procedural records and tasks.
+Eventually, TeethHub would be able to allow its user to customize costs to
+each procedure and tasks.
+
+=== Bill Generation [Coming in v1.9]
+TeethHub would eventually be able to help its user calculate and generate bills
+when a patient finishes a check-up or procedure done by its user. This allows our
+users to integrate billings with patients and tasks, allowing all necessary
+interactions to be done on TeethHub.
 
 // tag::2.0_kyler[]
-== Support for Primary Teeth Type [Coming in v2.0]
+=== Support for Primary Teeth Type [Coming in v2.0]
 
 To allow the application to truly be able to cater for all dental patients of our user.
 
-== Implementation of Other Teeth Numbering Standards [Coming in v2.0]
+=== Implementation of Other Teeth Numbering Standards [Coming in v2.0]
 
 TeethHub can adopt other common teeth numbering standards such as the ISO System or Palmer notation method.
 This allows our users to pick the numbering standard they are most familiar with.
 
 // end::2.0_kyler[]
 
-== Cloud Functionality [Coming in v2.0]
-To increase data redundancy and reduce the risk of data being lost,
-you will be able to synchronise your data with a cloud account.
-
-Currently, TeethHub does not have a spell checker.
-It would be great if TeethHub would automatically correct an improperly typed command(e.g. sirt to sort).
-In v1.7, TeethHub will have a spell checker functionality.
-
-== Placeholder [Coming in v1.8]
-
-== Placeholder [Coming in v1.9]
-
-== Cloud Functionality [Coming in v2.0]
+=== Cloud Functionality [Coming in v2.0]
 
 Currently, TeethHub is not connected to a cloud.
 To increase data redundancy and reduce the risk of data being lost,

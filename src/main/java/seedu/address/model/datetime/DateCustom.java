@@ -49,15 +49,6 @@ public class DateCustom implements DateBuilder, Comparable<DateCustom> {
     }
 
     /**
-     *  Returns false if the given date is before the current date
-     * @param test the date to be tested
-     */
-    public static boolean isDateBeforeToday(String test) {
-        String currentDateString = LocalDate.now().format(DateTimeFormatter.ofPattern(getFormat()));
-        return dateCompare(test, currentDateString);
-    }
-
-    /**
      * Returns true if the two dates are the same
      * @param date
      */

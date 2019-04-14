@@ -13,9 +13,15 @@ As part of a Software Engineering module, my team and I were given an objective 
 
 TeethHub was designed for dentists who are proficient with computers and comfortable with using a Command Line Interface(CLI) for interaction over a Graphical User Interface(GUI). Dentists can store, modify, interact and even export their patients, records and tasks, all the while enjoying clear graphical feedback. TeethHub was written in Java, building its graphical elements on JavaFX. As of v1.4, the application has roughly 20000 lines of codes, a difference of 10000 lines compared to AB4.
 
+In the next three sections, I will be detailing a summary of my contributions,
+excerpts from my documentation work for TeethHub's User Guide and Developer's Guide.
+
 == Summary of contributions
-My role in the development of TeethHub was to cover two main aspects, task data management and GUI enhancement.
-The main contributions listed here details how I covered these two aspects.
+
+|===
+|_This section provides a concise idea of my contributions to TeethHub's development.
+The contents follows a flow of major to minor contributions ending off with a list of other contributions._
+|===
 
 * *Major implementation*: added *the task class and all its attributes*
 ** What it does: The entire task data structure enables TeethHub to store information pertaining to our users' tasks.
@@ -29,7 +35,7 @@ The main contributions listed here details how I covered these two aspects.
 
 * *Major enhancement*: added *the ability to display a task calendar*
 ** What it does: This enhancement allows the user to use a `taskcal` command to display a new popup window containing a calendar, a list of tasks and a commandbox. The displayed window provides users interactive information about their tasks, highlighting dates where tasks are present.
-** Justification: This enhancement provides additional value and meaning to the task information TeethHub stores for its users. By giving users context for the tasks in the form of a calendar, users can more accurately view and plan their schedules as they have a clearer view of when they have tasks and how important are these tasks. This would provide users value and meaning to the data that TeethHub stores.
+** Justification: This enhancement provides additional value and meaning to the task information TeethHub stores for its users. By giving users context for the tasks in the form of a calendar, users can more accurately view and plan their schedules as they have a clearer view of when they have tasks and how important are these tasks.
 ** Highlights: This was the most challenging enhancement I had made to the application because it involved in-depth understanding of the program's GUI, considering the best means of displaying the calendar and the logical approach to finding the right dates to highlight.
 
 * *Minor enhancement*: added taskadd, taskedit and taskdelete commands to provide users to have the most basic but essential interactions with the task information.
@@ -41,7 +47,6 @@ The main contributions listed here details how I covered these two aspects.
 * *Other contributions*:
 
 ** Enhancements to existing features:
-*** Updated TeethHub's application icon
 *** Modified GUI layout to fit TeethHub's own layout (layout designed by teammate)
 *** Added new implementations to existing patientedit and patiendelete commands to work with task
 *** Wrote tests for new features to increase coverage by ~7%
@@ -57,9 +62,10 @@ The main contributions listed here details how I covered these two aspects.
 
 == Contributions to the User Guide
 
-
 |===
-|_This section illustrates my contributions to TeethHub's User Guide. I have selected some exerpts for the task features to showcase my end-user focused documentation skills._
+|_This section illustrates some of my contributions to TeethHub's User Guide.
+The excerpts are instructions for *taskdone* and **taskcal** commands
+that I believe strongly highlights my end-user focused documentation skills._
 |===
 
 include::../UserGuide.adoc[tag=task_ppp_cchj1995]
@@ -67,7 +73,9 @@ include::../UserGuide.adoc[tag=task_ppp_cchj1995]
 == Contributions to the Developer Guide
 
 |===
-|_This section illustrates my contributions to TeethHub's Developer Guide. I have selected some exerpts for the task features to showcase my technical documentation skills and provide insight to the technical depths of my contributions._
+|_This section illustrates some of my contributions to TeethHub's Developer Guide.
+The excerpts are technical documentations for most of my **Task** features that I believe
+accurately showcases the technical depths of my contributions._
 |===
 
 include::../DeveloperGuide.adoc[tag=taskDG1_cchj1995]

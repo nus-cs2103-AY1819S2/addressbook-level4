@@ -187,7 +187,7 @@ Example:
 
 === Removing an equipment from a work list: `remove`
 Removes an equipment from a working list in the Equipment Manager +
-Format: `remove i/WorkListID s/EquipmentSerialNumber`
+Format: `remove i/WorkListID s/SERIAL_NUMBER`
 
 [NOTE]
 Please make sure that the respective Equipment and WorkList exist in the equipment manager.
@@ -289,7 +289,7 @@ With multiple destinations that you plan to visit for preventive maintenance, us
 * A visual representation on the map of the most efficient route you can take
 * A list of location to visit in order.
 ****
-Format: `route /[worklist id]`
+Format: `route [worklist id]`
 
 Examples:
 
@@ -533,72 +533,90 @@ For more details on what each command does, please refer to <<Features>>.
 .General Commands
 [[generaltable]]
 |===
-|Command |Format
+|Command |Format |Example
 
 |*Help*
 |help
+|help
 
 |*Adding an equipment*
-|add-e
+|add-e n/NAME p/PHONE_NUMBER pm/DATE a/ADDRESS s/SERIAL_NUMBER t/TAG
+|add-e n/Clementi CC p/67762517 pm/10-06-2019 a/220 Clementi Ave 4, Singapore 129880 s/A008844L t/west
 
 |*Creating a new Work List*
-|add-w
+|add-w d/DATE a/ASSIGNEE i/ID
+|add-w d/09-05-2019 a/Mei Yen i/13
 
 |*Putting an equipment into work list*
-|put
+|put i/WorkListID s/SERIAL_NUMBER
+|put i/1 s/A008812X
 
 |*Removing an equipment from work list*
-|remove
+|remove i/WorkListID s/SERIAL_NUMBER
+|remove i/1 s/A008866X
 
 |*Editing an equipment*
-|edit-e
+|edit INDEX n/NAME p/PHONE pm/DATE a/ADDRESS s/SERIAL_NUMBER t/TAG…​
+|edit 1 n/Clementi Community Center
 
 |*List all equipments*
+|list-e
 |list-e
 
 |*List all work list*
 |list-w
+|list-w
 
 |*Selecting an Equipment or work list*
-|select
+|select INDEX
+|select 1
 
 |*Selecting a client*
-|select-c
-
-|*Locating equipment by location*
-|find
+|select-c INDEX
+|select-c 2
 
 |*Show equipment location(s) in map*
 |display
+|display
 
 |*Route planning*
-|route
+|route /[worklist id]
+|route 120
 
 |*Sort the equipment list*
-|sort
+|sort [FIELD_NAME to be sorted by]
+|sort name
 
 |*Filtering the equipment list*
-|filter
+|filter [n/NAME_KEYWORD]…​[t/TAG_KEYWORD]…​[a/ADDRESS_KEYWORD]
+|filter n/hougang
 
 |*Deleting an equipment*
-|delete-e
+|delete-e INDEX
+|delete-e 1
 
 |*Deleting a work list*
-|delete-w
+|delete-w INDEX
+|delete-w 2
 
 |*Listing entered commands*
+|history
 |history
 
 |*Undoing previous commands*
 |undo
+|undo
 
 |*Redoing all the previously undone command*
+|redo
 |redo
 
 |*Clearing all entries*
 |clear
+|clear
 
 |*Exit the program*
+|exit
 |exit
 |===
 // end::commandsummary[]

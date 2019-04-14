@@ -654,6 +654,7 @@ If a command fails its execution, it will return the image before undo was calle
 Step 4. After executing Undo, `index` will be less than size of commandHistory. If redo is not executed before a new command is added, all commands in the list after `index` will be deleted.
 
 For redo, it will call `setRedo` and retrieve that command to apply it on the current image.
+
 .State List diagram
 image::UndoRedoExecuteUndoStateListDiagram.png[width="600"]
 
@@ -661,6 +662,7 @@ image::UndoRedoExecuteUndoStateListDiagram.png[width="600"]
 If the `Image#index` is 0, pointing to the initial image, then there are no previous commands to restore. The `undo` command uses `CurrentEdit#canUndoTemp()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
 
 The following sequence diagram shows how the undo operation works:
+
 .Sequence Diagram
 image::UndoRedoSequenceDiagram.png[width="600"]
 
@@ -671,15 +673,11 @@ If the `index` is at index `commandHistory.size()`, pointing to the latest image
 
 Step 5. The user executes `saves`, which calls `CurrentEdit#saveToAssets()`. This replaces the original image with the temp image since a name is not specified. When this happens, the user can no longer call `undo` as there is no original image to work on. The command history is also cleared.
 
-The following activity diagram summarizes what happens when a user executes a new command:
-
-image::UndoRedoActivityDiagram.png[width="600"]
-
 ==== Design Considerations
 
 ===== Aspect: How undo & redo executes
 
-* *Alternative 1:* Saves the each transformation as a separate image.
+* *Alternative 1:* Saves each transformation as a separate image.
 ** Pros: Easy to implement.
 ** Cons: May have performance issues in terms of memory usage.
 * *Alternative 2(current choice):* Save all transformation in a list and apply them when undo/redo is called. We chose this method as we do not want our application to take up too much space in the PC.
@@ -688,12 +686,12 @@ image::UndoRedoActivityDiagram.png[width="600"]
 
 ===== Aspect: Data structure to support the undo/redo commands
 
-* *Alternative 1 (current choice):* Use a list to store the history of commands. We chose this so as to preserve good Object Oriented Programming principles.
-** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
+* *Alternative 1 (current choice):* Use a list to store the history of commands. We chose this so as to preserve good object oriented programming principles.
+** Pros: Easy for new computer science student undergraduates to understand, who are likely to be the new incoming developers of our project.
 ** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `Image`.
 * *Alternative 2:* Use `HistoryManager` for undo/redo
 ** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
-** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
+** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates single responsibility principle and separation of concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
 

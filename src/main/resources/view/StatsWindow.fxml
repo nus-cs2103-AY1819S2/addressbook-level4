@@ -7,11 +7,21 @@
 <?import javafx.scene.layout.*?>
 
 
+<?import javafx.scene.control.Label?>
 <fx:root xmlns:fx="http://javafx.com/fxml/1" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8"
-         title="Statistics" minWidth="500" minHeight="700" maximized="false">
+         title="Statistics" maximized="false">
     <scene>
         <Scene>
-            <TextArea fx:id="statsTextArea"/>
+            <HBox>
+                <VBox minWidth="400">
+                    <Label fx:id="statsTextLabel" style="-fx-font-size: 16px">Text Report</Label>
+                    <TextArea fx:id="statsTextArea" minHeight="700" style="-fx-font-family: monospace"/>
+                </VBox>
+                <VBox minWidth="10"></VBox>
+                <VBox minWidth="400">
+                    <Label fx:id="statsChartsLabel" style="-fx-font-size: 16px">Charts</Label>
+                </VBox>
+            </HBox>
         </Scene>
     </scene>
 </fx:root>

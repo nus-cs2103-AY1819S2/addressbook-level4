@@ -6,6 +6,7 @@ import java.util.logging.Logger;
 
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
 import seedu.hms.commons.core.LogsCenter;
@@ -21,14 +22,19 @@ public class StatsWindow extends UiPart<Stage> {
     public final Stats stats;
 
     @FXML
+    private Label statsTextLabel;
+
+    @FXML
     private TextArea statsTextArea;
+
+    @FXML
+    private Label statsChartsLabel;
 
     public StatsWindow(Stage root, Stats stats) {
         super(FXML, root);
         this.stats = stats;
         requireNonNull(stats);
 
-        statsTextArea.setStyle("-fx-font-family: monospace");
         updateText();
         // Update the text area
         stats.getHms().addListener(observable -> updateText());

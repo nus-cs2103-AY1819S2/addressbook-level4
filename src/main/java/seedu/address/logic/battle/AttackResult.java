@@ -61,6 +61,7 @@ public abstract class AttackResult {
 
     /**
      * Checks if this AttackResult is of an attack which succeeded
+     * @return {@code true} if the attack was successful (managed to hit a cell), {@code false otherwise}
      */
     public final boolean isSuccessful() {
         return succeeds;
@@ -69,6 +70,7 @@ public abstract class AttackResult {
     /**
      * Checks if this AttackResult is of an attack which hit
      * (guess they never miss, huh?)
+     * @return {@code true} if the attack damaged a ship, {@code false otherwise}
      */
     public final boolean isHit() {
         return hitsShip;
@@ -76,6 +78,7 @@ public abstract class AttackResult {
 
     /**
      * Checks if this AttackResult is of an attack which destroyed a ship
+     * @return {@code true} if the attack destroyed a ship, {@code false otherwise}
      */
     public final boolean isDestroy() {
         return destroysShip;
@@ -83,6 +86,7 @@ public abstract class AttackResult {
 
     /**
      * Checks if this AttackResult is of a winning attack
+     * @return {@code true} if the attack caused the attacker to win the game, {@code false otherwise}
      */
     public final boolean isWin() {
         return winsGame;

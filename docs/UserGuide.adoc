@@ -332,7 +332,7 @@ image::ugInvalidsave.png[width="800"]
 +
 .Valid Save Name
 image::ugValidsave.png[width="800"]
-+
+
 
 _Figure 10_ shows an example of how FomoFoto does not allow saving with invalid names. Ensure that your file name is valid before saving. There should be a message to indicate that the save is successful as seen in _Figure 11_. To overwrite the original image, simply use `save` without the file name.
 

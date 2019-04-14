@@ -14,6 +14,7 @@ public class LabelCommand extends Command {
 
     public static final String COMMAND_WORD = "label";
     public static final String DEFAULT_FILENAME = "to_print";
+    public static final int MAX_LENGTH_FILENAME = 60;
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Prints the Medicine name and description in PDF format using its index.\n"

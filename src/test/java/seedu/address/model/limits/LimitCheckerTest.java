@@ -1,11 +1,21 @@
 package seedu.address.model.limits;
 
 import static org.junit.Assert.assertEquals;
+import static seedu.address.testutil.TypicalModuleTaken.getTypicalGradTrak;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.logic.CommandHistory;
+import seedu.address.logic.commands.CheckLimitCommand;
+import seedu.address.logic.commands.CommandResult;
+import seedu.address.model.Model;
+import seedu.address.model.ModelManager;
+import seedu.address.model.UserInfo;
+import seedu.address.model.UserPrefs;
+import seedu.address.model.course.CourseList;
 import seedu.address.model.moduleinfo.ModuleInfo;
 import seedu.address.model.moduleinfo.ModuleInfoCredits;
 import seedu.address.model.moduleinfo.ModuleInfoList;
@@ -19,6 +29,18 @@ public class LimitCheckerTest {
     public static final int CAP_TABLE_COL_COUNT = 4;
     public static final int WORKLOAD_TABLE_ROW_COUNT = 5;
     public static final int WORKLOAD_TABLE_COL_COUNT = 3;
+
+    private Model model;
+    private Model expectedModel;
+    private CommandHistory commandHistory = new CommandHistory();
+
+    @Before
+    public void setUp() {
+        model = new ModelManager(getTypicalGradTrak(), new UserPrefs(),
+                new ModuleInfoList(), new CourseList(), new UserInfo());
+        expectedModel = new ModelManager(model.getGradTrak(), new UserPrefs(),
+                new ModuleInfoList(), new CourseList(), new UserInfo());
+    }
 
     @Test
     public void constructor() {
@@ -211,5 +233,9 @@ public class LimitCheckerTest {
             htmlLimits.append("</table>\n");
         }
         assertEquals(limitChecker.getPrintable(), htmlLimits.toString());
+
+        CommandResult commandResult = new CheckLimitCommand().execute(model, commandHistory);
+
+        assertEquals(CheckLimitCommand.MESSAGE_SUCCESS, commandResult.getFeedbackToUser());
     }
 }

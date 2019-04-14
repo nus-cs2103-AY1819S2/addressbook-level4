@@ -17,10 +17,10 @@ public class SearchPatientPidCommand extends Command {
 
     public static final String COMMAND_WORD = "search-pid";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Searches for a patient whose pid matches any of the"
-            + "pid input and displays him/her\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Searches for a patient whose pid matches the "
+            + "pid input.\n"
             + "Parameters: [PID]\n"
-            + "Example: " + COMMAND_WORD + " 7";
+            + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_MORE_THAN_ONE_PID = COMMAND_WORD + ": Please input only one pid\n"
             + "Parameters: [PID]\n";

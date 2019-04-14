@@ -99,7 +99,7 @@ Edits the phone number of the patient with ID of '1' to be `91234567`.
 * `edit-patient 2 n/Betsy Crower p/95678901` +
 Edits the name and phone number of the patient with ID of '2' to be `Betsy Crower` and '95678901' respectively.
 
-=== Search patient by name: `search-p`
+=== Search patient by name: `search-p-name`
 
 Search and return patient(s) whose names contain any of the given keywords. +
 Format: `search-patient [NAME]`
@@ -681,7 +681,7 @@ PATIENT COMMANDS
 * *Delete an existing patient* : `delete-p [INDEX]` +
 e.g. `delete-patient 3`
 * *Edit an existing patient* : `edit-p [INDEX] [n/NAME] [g/GENDER] [a/AGE] [p/PHONE] [adr/ADDRESS] [t/TAG]` +
-* *Searching a patient by name* : `search-p [NAME]` +
+* *Searching a patient by name* : `search-p-name [NAME]` +
 * *Searching a patient by appt status* : `search-p-status [STATUS]` +
 * *Searching a patient by pid* : `search-pid [pid]` +
 * *Searching a patient (advanced)* : `search-p-ad [KEYWORD] ["QUOTED_KEYWORD"]` +

@@ -48,10 +48,10 @@ public class SampleDataUtil {
                     getTagSet()),
             new Patient(new Name("Irfan Ibrahim"), new Gender("M"), new Age("60"), new Phone("92492021"),
                     new Address("Blk 47 Tampines Street 20 #17-35"),
-                    getTagSet("lungcancer", "fever")),
-            new Patient(new Name("Roy Balakrishnan"), new Gender("M"), new Age("6"), new Phone("92624417"),
-                    new Address("Blk 45 Aljunied Street 85 #11-31"),
-                    getTagSet("flu"))
+                    getTagSet("throatcancer", "runnerknee", "active")),
+            new Patient(new Name("Thomas Richasukuvech Dile"), new Gender("M"), new Age("6"), new Phone("92624417"),
+                    new Address("Princesep Street Tower Building 96"),
+                    getTagSet("flu", "hyperactive"))
         };
     }
 

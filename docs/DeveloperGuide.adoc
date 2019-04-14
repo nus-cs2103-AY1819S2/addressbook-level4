@@ -192,6 +192,7 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
 image::DeletePersonSdForLogic.png[width="800"]
 
 [[Design-Model]]
+// tag::model[]
 === Model component
 
 .Structure of the Model Component
@@ -206,10 +207,7 @@ The `Model`,
 * exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
-[NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
- +
-image:ModelClassBetterOopDiagram.png[width="800"]
+// end::model[]
 
 [[Design-Storage]]
 // tag::storage[]
@@ -359,10 +357,9 @@ The `put` command puts a ship on the map grid, specified by the __head coordinat
 ====
 *__What are the head coordinates?__*
 
-The head coordinate of a ship refers to the top-most and left-most cell of the ship. When coordinates are specified in the `put` command, it specifies the coordinates of the head of the ship, as shown in the figure below.
+The head coordinates are the coordinates of the top-most and left-most cell of a ship. When coordinates are specified in the `put` command, they refer to the head coordinates of the ship.
 
-.The coordinates of the battleship head are always the top-most and left-most coordinates.
-image:BattleshipHeadExample.png[width=800]
+image:BattleshipHeadExample.png[width=800, height=300]
 ====
 
 The following operations are called when the `put` command is called.
@@ -378,12 +375,7 @@ The boundary checks are essential to the functionality of both the human player 
 1. `isBattleshipAbsent()` - Checks if there are no _other_ ships that are situated on the head coordinates.
 1. `isClear()` - Checks if there are no _other_ ships that situated along the body of the ship.
 
-These methods check both the horizontal and vertical boundaries when a ship is being deployed. They also distinguish between the head and body of a ship in order to provide more specific feedback for the user. A code snippet is provided to illustrate an example of one such check, `isHeadWithinBounds()`.
-
-[source,java]
-----
-include::../src/main/java/seedu/address/model/BoundaryValueChecker.java[lines=78..85]
-----
+These methods check both the horizontal and vertical boundaries when a ship is being deployed. They also distinguish between the head and body of a ship in order to provide more specific feedback for the user.
 
 The following sequence diagram illustrates what happens when the `put` command is called.
 
@@ -408,24 +400,17 @@ image::ListTagsSequenceDiagram.png[width=800]
 
 Ships that have been deployed can also be listed in four different ways:
 
-
-[width="100%",options="header"]
-|====================
-|List|Example
-|All ships|`list`
-|Ships with certain tags| `list t/tag1 t/tag2`
-|Certain ships| `list n/destroyer n/cruiser`
-|Certain ships with certain tags| `list n/destroyer n/cruiser t/tag1 t/tag2`
-|====================
+. List all ships: `list`
+. List ships with certain tags: `list t/t1 t/t2`
+. List certain ships: `list n/destroyer n/cruiser`
+. List certain ships with certain tags: `list n/destroyer n/cruiser t/t1 t/t2`
 
 The set of unique tags and the set of unique names are presented to the `ListCommand` as an `Optional` class. This is because both sets may be empty. In such cases, instead of redudantly checking whether each `fleetEntry` contains the ship and an empty set, `ListCommand` simply returns the entire fleet.
 
-The `list` command can list certain ships with certain tags by taking the filtering the list of deployed ships. The following sequence diagram shows how deployed battleships are listed when the `list` command is entered into the command line.
+The `list` command can list certain ships with certain tags by filtering the list of deployed ships. The following sequence diagram shows how deployed battleships are listed when the `list` command is entered into the command line.
 
 .Sequence diagram of listing battleships deployed on the map.
 image::ListShipSequenceDiagram.png[]
-
-The use case diagram below illustrates the design considerations that have gone into the design of the `list` command.
 
 ==== Activity Diagram
 Ship management functions throughout the entirety of the game. As there are multiple states during the game, it is beneficial to visualise the operations of the `put`, `listTags` and `list` commands with respect to the different game states. The activity diagram below illustrates these operations.
@@ -444,6 +429,10 @@ Two separate `Battleship` and `BattleshipPart` objects are used. The `Battleship
 ** Pros: Clearer separation between the body of the Battleship and the Battleship itself.
 ** Cons: Difficult to handle hits on the cell.
 
+// end::ship[]
+
+// tag::ship_aspect_2[]
+
 ===== Aspect: How a ship is stored in each player's fleet
 * **Current choice:** +
 An `ArrayList` of `FleetEntry` objects is used for storage, where `FleetEntry` contains a reference to the `Battleship`, its `Orientation` and `Coordinates` of the head coordinates. The `FleetEntry` class is a nested class in `Fleet`. Whenever a `Fleet` method is called, it accesses the `ArrayList` of `FleetEntry` to obtain information about the `Battleship` and its position on the `MapGrid`.
@@ -453,7 +442,7 @@ An `ArrayList` of `FleetEntry` objects is used for storage, where `FleetEntry` c
 ** Pros: Easier to implement and provides a cleaner design.
 ** Cons: Harder check position of `Battleship` on the map grid. In order to do so, a separate data structure must be created to store the coordinates and orientation of the battleship. This data structure then has to be aligned with the original `ArrayList` that stores the battleship.
 
-// end::ship[]
+// end::ship_aspect_2[]
 
 // tag::battle[]
 === Battle Feature

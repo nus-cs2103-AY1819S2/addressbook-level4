@@ -200,6 +200,9 @@ When putting a ship on the map grid, you should not specify the head coordinates
 * The ship falls outside the map grid.
 * The ship collides with another ship that has already been placed on the map grid.
 
+// end::ship[]
+
+// tag::list[]
 ===== Listing all ships : `list`
 
 Shows a list of all the player's battleships that are have been deployed on the map. There are four ways of using the `list` command:
@@ -224,7 +227,9 @@ Input:      list n/destroyer t/blueFleet t/greenFleet
 Output:     destroyer (3/3) at g5 vertical [redFleet][blueFleet][greenFleet]
             destroyer (3/3) at c3 horizontal [blueFleet][greenFleet]
 ----
+// end::list[]
 
+// tag::listTags[]
 ===== List all tags: `listTags`
 
 Lists all the tags that have been used to tag the battleships deployed on the map. +
@@ -234,7 +239,7 @@ Examples: `listTags`
 
 The list of tags is given in square brackets.
 
-// end::ship[]
+// end::listTags[]
 
 // tag::battle[]
 === Battle Phase

@@ -22,9 +22,9 @@ My role in the team was to design and implement the Ship Management feature. The
 *** The `listTags` command allows the user to list down all the tags that have been used on ships.
 ** Justification: The Ship Manager feature is crucial to the game as it works together with the map grid to allow both the human player and the computer player to interact in a turn-taking game. Furthermore, behind the scenes, the  feature also implements the `Coordinates` and `Orientation` classes for the other features to work. Finally, the feature also implements code for boundary value checking, which is used by the Battle Manager feature and Computer Enemy feature.
 
-** Highlights:
-*** Implements coordinates and orientation: Behind the scenes, the feature implements the `Coordinates` and `Orientation` classes that are used by the Battle Manager feature and the Computer Enemy feature.
-*** Implements boundary-value checking of the map grid: The feature implements code for checking the boundaries of the map grid for a given ship, which is used by the Battle Manager feature and the Computer Enemy feature to implement turn-taking in the game.
+// ** Highlights:
+// *** Implements coordinates and orientation: Behind the scenes, the feature // implements the `Coordinates` and `Orientation` classes that are used by // the Battle Manager feature and the Computer Enemy feature.
+// *** Implements boundary-value checking of the map grid: The feature // implements code for checking the boundaries of the map grid for a given ship, // which is used by the Battle Manager feature and the Computer Enemy feature // to implement turn-taking in the game.
 
 * *Code contributed*: Here are my https://github.com/CS2103-AY1819S2-W14-3/main/commits/master?author=iwle[code commits] and https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#search=iwle&sort=displayName&timeframe=day&reverse=false&repoSort=true[RepoSense].
 
@@ -58,10 +58,9 @@ https://github.com/cs2103-ay1819s2-t12-1/main/issues/187[#187], https://github.c
 
 
 |===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users. I have ommited the entries for `ListTags` and `List`. You may refer to the User Guide for more information_.
 |===
 include::../UserGuide.adoc[tag=intro]
-include::../UserGuide.adoc[tag=quickstart]
 include::../UserGuide.adoc[tag=ship]
 
 == Contributions to the Developer Guide
@@ -70,6 +69,7 @@ include::../UserGuide.adoc[tag=ship]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
+include::../DeveloperGuide.adoc[tag=model]
 include::../DeveloperGuide.adoc[tag=ship]
 
 ---

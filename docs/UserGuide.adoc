@@ -183,6 +183,19 @@ This feature can be improved to support medical databases of different countries
 Due to the nature of medical inventories, the integrity of data stored is of utmost importance. The next release will feature data encryption to keep your inventory safe and keep unauthorised users away. With this feature, you will be required to log in with a password to view and edit your inventory. This feature can be disabled if it is not required for your needs.
 // end::dataencryption[]
 
+==== Preview of results
+
+. Preview of results for Export and Label Commands to be available in the UI.
+- Current implementation: You may have to manually search for the external files created in their respective folders. +
+- In v2.0, a snapshot of the resulting files will be previewed under the UI for easier reference. This further streamline the inventory management and improve your usability.
+- Below is a mock up on how the UI may look like with the features integrated.
+
+image::MockUp.png[width="790"]
+
+==== Importing pictures
+. Import of pictures to aid in the medicine identification.
+- Pictures and snapshot of the medicine may be added to MediTabs such that it is easier for you to identify what the physical medicine looks like.
+
 [[Commands]]
 == Commands
 
@@ -573,22 +586,6 @@ Format: `exit`
 
 Inventory data is saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
-
-=== Coming in v2.0
-
-. Preview of results for Export and Label Commands to be available in the UI.
-- Current implementation: You may have to manually search for the external files created in their respective folders. +
-- In v2.0, a snapshot of the resulting files will be previewed under the UI for easier reference. This further streamline the inventory management and improve your usability.
-- Below is a mock up on how the UI may look like with the features integrated.
-
-image::MockUp.png[width="790"]
-
-. Import of pictures to aid in the medicine identification.
-- Pictures and snapshot of the medicine may be added to MediTabs such that it is easier for you to identify what the physical medicine looks like.
-
-. Analytical features to help predict when and how much the pharmacist have to order a new batch of medicine.
-- Meditabs will analyse the history of individual medicine, such as how much quantity is dispensed and what frequency you reorder the medicine.
-- This will help further streamline the management and allow you to focus on treating on your patients.
 
 // tag::FAQ[]
 == Frequently Asked Questions (FAQ)

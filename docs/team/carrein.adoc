@@ -101,8 +101,7 @@ https://github.com/CS2103-AY1819S2-W14-2/main/issues/187[#187], https://github.c
 
 === Quick Start
 '''
-include::../UserGuide.adoc[tag=QuickStartOne]
-include::../UserGuide.adoc[tag=QuickStartTwo]
+include::../UserGuide.adoc[tag=QuickStart]
 
 === Import Command
 '''

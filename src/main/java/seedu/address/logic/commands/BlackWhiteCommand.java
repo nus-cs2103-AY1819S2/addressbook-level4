@@ -47,10 +47,11 @@ public class BlackWhiteCommand extends Command {
     public CommandResult execute(CurrentEdit currentEdit, Model model, CommandHistory history)
         throws CommandException {
 
-        seedu.address.model.image.Image initialImage = currentEdit.getTempImage();
-        if (initialImage == null) {
+        if (currentEdit.tempImageDoNotExist()) {
             throw new CommandException(Messages.MESSAGE_DID_NOT_OPEN);
         }
+        seedu.address.model.image.Image initialImage = currentEdit.getTempImage();
+
         if (threshold.isPresent()) {
             BufferedOpFilter bwFilter =
                 new ThresholdFilter(threshold.getAsInt(), 0xffffff, 0x000000);

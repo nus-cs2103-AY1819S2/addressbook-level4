@@ -23,13 +23,14 @@ public class SetPresetCommand extends Command {
     private String presetName;
     private boolean isNewCommand;
     private boolean hasWaterMarkCommand;
-    private boolean canRedo;
 
     /**
      * Creates a PresetCommand object.
      * @param presetName name given to the preset set by user
      */
     public SetPresetCommand(String presetName) {
+        setCommandName(COMMAND_WORD);
+        setArguments(presetName);
         this.presetName = presetName;
         this.isNewCommand = true;
         this.hasWaterMarkCommand = false;

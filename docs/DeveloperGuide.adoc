@@ -409,6 +409,14 @@ The following code snippet shows how the `memberAdd` command is executed:
 // end::memberadd[]
 
 ===== `memberFilter` Command
+*Logic Component*
+
+image::MemberFilter_Logic.png[width=100%]
+
+*Model Component*
+
+image::MemberFilter_Model.png[width=100%]
+
 The memberFilter command retrieves members (based on a filter criteria) from the UniquePersonList and displays these members on the PersonListPanel.
 
 Below is a step-by-step process on how the `memberFilter` command works on execution:
@@ -424,40 +432,27 @@ the list generated will given as it is (no sorting carried out). Depending on th
 * Step 6: Finally, the memberFilter command provides a success message to indicate that the member's list has been successfully filtered.
 
 ====== Design Considerations
-*Aspect:* List Management
-To execute command, there are various ways. Below are some options:
+*Aspect:* Predicate Classes
 
-* *Alternative 1 (current choice)*: Go through Model Component
+To check if the user input matches the correct criteria, there are various ways. Below are some options:
 
-** Pros : Reduce reliance on logic for heavy data management.
-** Cons : Could be challenging to implement necessary methods at the model component.
+* *Alternative 1 (current choice)*: Check through MemberFilterCommandParser Class
 
-* *Alternative 2*: Go through Logic Component
+** Pros : More organised and logical as parser classes handle the user input.
+** Cons : May be less efficient as check has to go through loops.
 
-** Pros: Easy to implement by retrieving the `UniquePersonList` to perform data management.
-** Cons: Defeats the purpose of having logic and model components. The model component will be underused, while the logic component will be overused.
+* *Alternative 2*: Check through individual predicate classes.
 
+** Pros: More time efficient as only one check is required.
+** Cons: Less logical and could prove to be confusing to the developer.
 
 ===== `memberList` Command
-The memberList command retrieves all the members in the UniquePersonList and displays all these members on the PersonListPanel.
+The `memberList` command retrieves all the members in the `UniquePersonList` and displays all these members on the `PersonListPanel`.
 
 Below is a step-by-step process on how the `memberList` command works on execution:
 * Step 1: The user executes the `memberList` command.
-* Step 2: The `memberList` command will then call the Model
-
-==== Design Considerations
-*Aspect:* List Management
-To execute command, there are various ways. Below are some options:
-
-* *Alternative 1 (current choice)*: Go through Model Component
-
-** Pros : Reduce reliance on logic for heavy data management.
-** Cons : Could be challenging to implement necessary methods at the model component.
-
-* *Alternative 2*: Go through Logic Component
-
-** Pros: Easy to implement by retrieving the `UniquePersonList` to perform data management.
-** Cons: Defeats the purpose of having logic and model components. The model component will be underused, while the logic component will be overused.
+* Step 2: The `memberList` command will then call the `Model#UpdateFilteredPersonList()` to retrieve all the members in the UniquePersonList.
+* Step 3: The `memberList` provide the command success message to indicate that the member list has been successfully listed.
 
 ==== `memberSelect` Command
 The memberSelect command selects a member (based on index) on the UniquePersonList.
@@ -465,7 +460,7 @@ The memberSelect command selects a member (based on index) on the UniquePersonLi
 Below is a step-by-step process on how the `memberSelect` command works on execution:
 
 * Step 1: The user executes the `memberSelect` command by specifying the index of the member that the user would like to select.
-* Step 2:
+* Step 2: The `memberSelect` command
 * Step 3:
 
 // tag::membersort[]
@@ -481,6 +476,20 @@ sorting criteria provided.
 * If the user input matches, the uniquePersonList will be sorted based on that criteria
 If the user input does not match, then an error message will be prompted to the user.
 // end::membersort[]
+
+==== Design Considerations
+*Aspect:* List Management
+To execute command, there are various ways. Below are some options:
+
+* *Alternative 1 (current choice)*: Go through Model Component
+
+** Pros : Reduce reliance on logic for heavy data management.
+** Cons : Could be challenging to implement necessary methods at the model component.
+
+* *Alternative 2*: Go through Logic Component
+
+** Pros: Easy to implement by retrieving the `UniquePersonList` to perform data management.
+** Cons: Defeats the purpose of having logic and model components. The model component will be underused, while the logic component will be overused.
 
 // tag::memberexport[]
 === MemberExport

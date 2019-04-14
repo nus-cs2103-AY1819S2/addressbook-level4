@@ -20,18 +20,19 @@ public class DeletePatientParserTest {
     }
 
     @Test
-    public void invalidCommand() {
-        // no prefixes
+    public void parseDeletePatient_noPrefix_failure() {
         assertParseFailure(parser, " S11111111A", DeletePatientParser.INVALID_DELETE_ARGUMENT);
+    }
 
-        // invalid prefix
+    @Test
+    public void parseDeletePatient_invalidPrefix_failure() {
         assertParseFailure(parser, " A/S9123456A", DeletePatientParser.INVALID_DELETE_ARGUMENT);
+    }
 
-        // invalid Nric
-        assertParseFailure(parser, "", DeletePatientParser.INVALID_DELETE_ARGUMENT);
-
-        assertParseFailure(parser, "    ", DeletePatientParser.INVALID_DELETE_ARGUMENT);
-
+    @Test
+    public void parseDeletePatient_invalidNric_throwsIllegalArgumentException() {
+        Assert.assertThrows(IllegalArgumentException.class, ()->parser.parse(" r/"));
+        Assert.assertThrows(IllegalArgumentException.class, ()->parser.parse(" r/   "));
         Assert.assertThrows(IllegalArgumentException.class, ()->parser.parse(
                 " r/S11111111A"));
 
@@ -47,7 +48,7 @@ public class DeletePatientParserTest {
     }
 
     @Test
-    public void validCommand() {
+    public void parseDeletePatient_validNric_success() {
         assertParseSuccess(parser, " r/S1234567A", new DeletePatientCommand(new Nric("S1234567A")));
     }
 

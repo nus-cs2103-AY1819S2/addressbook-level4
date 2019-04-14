@@ -22,32 +22,41 @@ public class ListPatientParserTest {
     }
 
     @Test
-    public void defaultConstruction() {
+    public void parseListPatient_noArgs_success() {
         String userInput = " ";
         assertParseSuccess(parser, userInput, new ListPatientCommand());
     }
 
     @Test
-    public void constructionByIndex() {
+    public void parseListPatient_index_success() {
         String userInput = "1";
         assertParseSuccess(parser, userInput, new ListPatientCommand(1));
+    }
 
+    @Test
+    public void parseListPatient_invalidIndex_failure() {
         //invalid index
-        userInput = "a";
+        String userInput = "a";
         assertParseFailure(parser, userInput, ListPatientParser.INDEX_NUMERIC);
     }
 
     @Test
-    public void cornerCaseIndex() {
+    public void parseListPatient_indexOverflow_throwParseException() {
         String userInput = "2147483649";
         assertThrows(ParseException.class, () -> parser.parse(userInput));
+    }
 
+    @Test
+    public void parseListPatient_negativeIndex_throwParseException() {
         String userInput2 = "-2147483649";
         assertThrows(ParseException.class, () -> parser.parse(userInput2));
+    }
 
-        // limitation of QuickDocs only allow checks of up to 2^63
-        // any value beyond Long's max value will be delegated to the throwing
-        // of NumberFormatException when the value is assigned to a long variable
+    @Test
+    public void parseListPatient_indexLongOverflow_throwNumberFormatException() {
+        // QuickDocs detect integer overflow using a long variable
+        // if the value goes beyond long's max value, which is 2^63
+        // exception throwing will be delegated to Java's NumberFormatException
         String userInput3 = "92233720368547758011";
         assertThrows(NumberFormatException.class, () -> parser.parse(userInput3));
     }
@@ -56,27 +65,32 @@ public class ListPatientParserTest {
     // to be parsed in to allow pattern checking when searching for records
     // same applies for nric
     @Test
-    public void constructionByName() {
-
+    public void parseListPatient_listByName_success() {
         String userInput = " n/Be";
         assertParseSuccess(parser, userInput, new ListPatientCommand("Be", true));
     }
 
     @Test
-    public void constructionByNric() {
+    public void parseListPatient_listByNric_success() {
         String userInput = " r/S92";
         assertParseSuccess(parser, userInput, new ListPatientCommand("S92", false));
     }
 
     @Test
-    public void constructionByTag() {
+    public void parseListPatient_listByTag_success() {
         String userInput = " t/Diabetes";
         Tag tag = new Tag("Diabetes");
         assertParseSuccess(parser, userInput, new ListPatientCommand(tag));
     }
 
     @Test
-    public void multiArgParsing() {
+    public void parseListPatient_invalidTag_failure() {
+        String userInput = " t/D1@b3t35";
+        assertThrows(IllegalArgumentException.class, () -> parser.parse(userInput));
+    }
+
+    @Test
+    public void parseListPatient_multiArgs_success() {
         // QuickDocs only allow 1 parameter listing as of v1.4
         // only first parameter will be used to filter search result
 
@@ -91,8 +105,6 @@ public class ListPatientParserTest {
         } catch (Exception e) {
             Assert.fail();
         }
-
-
     }
 
 }

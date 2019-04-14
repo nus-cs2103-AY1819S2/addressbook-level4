@@ -39,16 +39,15 @@ public class DeletePatientCommandTest {
     }
 
     @Test
-    public void noPatientFound() {
+    public void deletePatient_noPatientFound_throwsCommandException() {
         DeletePatientCommand dc = new DeletePatientCommand(new Nric("S9123456B"));
         Assert.assertThrows(CommandException.class, ()-> dc.execute(modelManager, history));
     }
 
     @Test
-    public void patientFound() {
+    public void deletePatient_patientFound_success() {
 
         DeletePatientCommand dc = new DeletePatientCommand(new Nric("S9123456A"));
-
         try {
             CommandResult cr = dc.execute(modelManager, history);
             org.junit.Assert.assertEquals(cr.getFeedbackToUser(),
@@ -63,12 +62,15 @@ public class DeletePatientCommandTest {
     @Test
     public void equalsTest() {
         DeletePatientCommand dc = new DeletePatientCommand(new Nric("S9123456A"));
-        org.junit.Assert.assertTrue(dc.equals(dc));
+        org.junit.Assert.assertEquals(dc, dc);
 
-        org.junit.Assert.assertFalse(dc.equals(new Object()));
+        org.junit.Assert.assertNotEquals(dc, "abc");
 
         DeletePatientCommand dc2 = new DeletePatientCommand(new Nric("S9123456A"));
-        org.junit.Assert.assertTrue(dc.equals(dc2));
+        org.junit.Assert.assertEquals(dc, dc2);
+
+        dc2 = new DeletePatientCommand(new Nric("S9123456B"));
+        org.junit.Assert.assertNotEquals(dc, dc2);
     }
 
 }

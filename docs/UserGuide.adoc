@@ -196,7 +196,11 @@ Example:
 |===
 
 ==== stat
-Generates a statistics report based on the specified patient's data.
+image::StatWindow.png[width="500"]
+
+Generates a statistics report based on the specified patient's data. The generated report will contain all extended
+patient information, a breakdown of all the records linked to the select patient parse in three different formats; a
+table of records; a bar chart visualization; and a pie chart visualization.
 
 Format: `stat INDEX`
 

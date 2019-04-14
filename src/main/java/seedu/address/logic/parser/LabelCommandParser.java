@@ -1,9 +1,11 @@
 package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_COMMAND_EXCEED_LIMIT;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import static seedu.address.logic.commands.LabelCommand.DEFAULT_FILENAME;
+import static seedu.address.logic.commands.LabelCommand.MAX_LENGTH_FILENAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FILE;
 
 import seedu.address.commons.core.index.Index;
@@ -33,6 +35,10 @@ public class LabelCommandParser implements Parser<LabelCommand> {
                 fileName = new FileName(DEFAULT_FILENAME);
             }
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
+
+            if (fileName.toString().length() > MAX_LENGTH_FILENAME) {
+                throw new ParseException(String.format(MESSAGE_COMMAND_EXCEED_LIMIT, LabelCommand.MESSAGE_USAGE));
+            }
         } catch (ParseException pe) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, LabelCommand.MESSAGE_USAGE), pe);

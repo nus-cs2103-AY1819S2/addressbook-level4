@@ -4,14 +4,9 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import static seedu.address.logic.commands.CommandTestUtil.VALID_JOB_NAME_TEACHER;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
-
-import java.util.ArrayList;
 
 import org.junit.Test;
 
-import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.AddListToJobCommand;
 import seedu.address.logic.commands.MovePeopleCommand;
 import seedu.address.model.job.JobListName;
@@ -36,19 +31,19 @@ public class AddListToJobCommandParserTest {
     }
 
     @Test
-    public void parse_2Args_returnsMovePersonCommand() {
+    public void parse_oneArgJobName_returnsMovePersonCommand() {
         assertParseSuccess(parser, " k jn/Teacher",
                 new AddListToJobCommand(new JobName(VALID_JOB_NAME_TEACHER), JobListName.KIV, JobListName.EMPTY));
     }
 
     @Test
-    public void parse_1arg_returnsMovePersonCommand() {
+    public void parse_oneArg_returnsMovePersonCommand() {
         assertParseSuccess(parser, " k",
                 new AddListToJobCommand(null, JobListName.KIV, JobListName.EMPTY));
     }
 
     @Test
-    public void parse_2arg_returnsMovePersonCommand() {
+    public void parse_twoArgs_returnsMovePersonCommand() {
         assertParseSuccess(parser, " k a",
                 new AddListToJobCommand(null, JobListName.KIV, JobListName.APPLICANT));
     }

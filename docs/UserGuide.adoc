@@ -324,12 +324,11 @@ For a file name to be valid, it must end with either of the following: `.jpg`, `
 ====
 
 
-+
+
 .Invalid Save Name
 image::ugInvalidsave.png[width="800"]
-+
 
-+
+
 .Valid Save Name
 image::ugValidsave.png[width="800"]
 

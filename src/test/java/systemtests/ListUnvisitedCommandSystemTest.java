@@ -3,6 +3,7 @@ package systemtests;
 import static org.junit.Assert.assertFalse;
 import static seedu.address.commons.core.Messages.MESSAGE_RESTAURANTS_LISTED_OVERVIEW;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.address.logic.commands.CommandTestUtil.POSTAL_DESC_AMY;
 import static seedu.address.testutil.TypicalRestaurants.BENSON;
 import static seedu.address.testutil.TypicalRestaurants.CARL;
 import static seedu.address.testutil.TypicalRestaurants.DANIEL;
@@ -16,6 +17,7 @@ import org.junit.Test;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.FindCommand;
+import seedu.address.logic.commands.ListUnvisitedCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.model.Model;
@@ -28,7 +30,7 @@ public class ListUnvisitedCommandSystemTest extends FoodDiarySystemTest {
         /* Case: find multiple restaurants in food diary, command with leading spaces and trailing spaces
          * -> 2 restaurants found
          */
-        String command = "   " + FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_MEIER + "   ";
+        String command = "   " + ListUnvisitedCommand.COMMAND_WORD + " " + POSTAL_DESC_AMY + "   ";
         Model expectedModel = getModel();
         ModelHelper.setFilteredList(expectedModel, BENSON, DANIEL); // first names of Benson and Daniel are "Meier"
         assertCommandSuccess(command, expectedModel);

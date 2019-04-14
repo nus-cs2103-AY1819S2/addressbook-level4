@@ -76,6 +76,7 @@ public class ClearFilterCommand extends Command {
             model.clearPredicateAllPersons();
             model.updateFilteredPersonList();
             predicateList = model.getPredicateLists(EMPTY);
+            break;
         }
         return new CommandResult(MESSAGE_CLEAR_FILTER_SUCCESS, filterListName, predicateList);
     }

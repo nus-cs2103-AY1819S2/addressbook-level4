@@ -31,7 +31,7 @@ image::DisplayJob.png[width="790"]
 image::Ui.png[width="790"]
 +
 .  The GUI should start with some data preloaded to allow easier trying out of system
-.  Type the command `clear` to start with an empty addressbook instead. 
+.  Type the command `clear` to start with an empty addressbook instead.
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:

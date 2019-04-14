@@ -34,7 +34,7 @@ public class DeleteFilterCommand extends Command {
         + "Parameters: FilterList NameFilterName \n"
         + "Example: " + COMMAND_WORD + " Applicant Chinese\n"
         + "The alias \"d\" can be used instead.\n"
-        + "Example: " + COMMAND_ALIAS + "Applicant Chinese\n";
+        + "Example: " + COMMAND_ALIAS + " Applicant Chinese\n";
 
     public static final String MESSAGE_DELETE_FILTER_SUCCESS = "Deleted Filter: %1$s";
     public static final String MESSAGE_LACK_LISTNAME =

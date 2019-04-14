@@ -112,7 +112,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         showPersonsWithName(KEYWORD_MATCHING_MEIER);
         int invalidIndex = getModel().getFilteredPersonList().size() + OUTBOUND_VALUE;
         assertCommandFailure(EditCommand.COMMAND_WORD + " " + invalidIndex + NAME_DESC_BOB,
-            Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            String.format(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX, EditCommand.MESSAGE_USAGE));
 
 
         /* --------------------------------- Performing invalid edit operation -------------------------------------- */
@@ -128,7 +128,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         /* Case: invalid index (size + 1) -> rejected */
         invalidIndex = getModel().getFilteredPersonList().size() + 1;
         assertCommandFailure(EditCommand.COMMAND_WORD + " " + invalidIndex + NAME_DESC_BOB,
-            Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            String.format(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX, EditCommand.MESSAGE_USAGE));
 
         /* Case: missing index -> rejected */
         assertCommandFailure(EditCommand.COMMAND_WORD + NAME_DESC_BOB,

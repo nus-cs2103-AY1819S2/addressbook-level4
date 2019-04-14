@@ -127,7 +127,7 @@ public class CommandTestUtil {
     public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
     public static final String JOBNAME_SE = " " + PREFIX_JOBNAME + VALID_JOB_NAME_SE;
     public static final String JOBNAME_TEACHER = " " + PREFIX_JOBNAME + VALID_JOB_NAME_TEACHER;
-    public static final String FILTERNAME_DESC = " " + PREFIX_FILTERNAME + VALID_FILTERNAME;
+    public static final String FILTERNAME_DESC = " " + PREFIX_FILTERNAME + VALID_FILTERNAME + " ";
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones

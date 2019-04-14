@@ -664,13 +664,10 @@ _Figure 1.1 Sequence diagram of visitWeb `INDEX` command_
 
 ==== visitWeb `weblink`
 Visits website entered by user.
+This allows user to visit website of restaurant that are not added to the FoodDiary.
 
-* A `weblink` is a valid Url of websites of restaurants.
-* Users can visit website of any restaurant through visitWeb command by entering the `weblink` as a parameter.
-* Upon `visitWeb` command, `Parser` in the `Logic` component will call `VisitWebCommandParser` to parse `weblink` into
-`VisitWebCommand`.
-* This `weblink` will be passed to CommandResult which is passed to `MainWindow` in `UI` component.
-* `MainWindow` will then load the `weblink` through `BrowserPanel`.
+The difference between this command and the previous is that, the `Weblink` is directly passed into `VisitWebCommand` instead of the `INDEX` of the restaurant.
+Thus, there is a need to validate this `Weblink` with the help of `WebUtil`.
 
 The following sequence diagram shows how the visitWeb `weblink` works:
 
@@ -680,7 +677,9 @@ _Figure 2.2 Sequence diagram of visitWeb `weblink` command_
 
 To illustrate the level of checks done in visiting web further, the command is broken down into the following steps.
 
-Step 1. FoodLover enters visitWeb `weblink` command.
+Step 1. FoodLover enters visitWeb `Weblink` command.
+
+Step 2. FoodDiary checks if the entered `Weblink` is in the correct Url form. Else, display error message and show example of the correct form of `Weblink`
 
 Step 2. FoodDiary checks if internet connection is present. If not, throw `NoInternetException` and show error message.
 

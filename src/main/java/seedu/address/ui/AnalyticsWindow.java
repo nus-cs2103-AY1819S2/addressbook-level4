@@ -80,7 +80,7 @@ public class AnalyticsWindow extends UiPart<Stage> {
         raceChart.setData(analytics.generateRaceData());
         schoolChart.setData(analytics.generateSchoolData());
         majorChart.setData(analytics.generateMajorData());
-        pastJobsChart.setData(analytics.generateJobApplicationData());
+        pastJobsChart.setData(analytics.generatePastJobData());
     }
 
     /**

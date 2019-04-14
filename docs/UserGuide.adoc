@@ -61,6 +61,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window and show
 
 == Graphical User Interface Introduction
 This section will explain to you the Graphical User Interface (GUI) of _In-Credit-Ble_ Finance Tracker.
+The theme of the application has been set to `Light`, which is different from the start up theme `Dark`.
 
 .Graphical User Interface (When starting up)
 image::GUI_Diagram.png[width="600"]
@@ -218,10 +219,14 @@ amount (e.g. `set $/1a $/10` works while `set $/10 $/1a` does not).
 * If a budget was previously set, the old budget will be overwritten by the new budget specified
 by the `set` command.
 * The budget you set and current spending will be displayed in the <<Budget Panel>>.
-* Only one budget may be set for each instance of the Finance Tracker. The rationale is to keep the
-UI as clean as possible without extra panels for past budgets. You can either use `allocate` to set
-various category sub-budgets or create a new instance of he Finance Tracker with the `setfile` command
+* You can only work with one budget for each instance of Finance Tracker. You are able
+ to adjust this budget using the `set` command again by indicating a different amount.
+* If you want to have a new budget for a different month, you can use the `setfile` command
 detailed in <<Changing FinanceTracker data storage location: `setfile`>>.
+* The rationale is to keep the
+UI as clean as possible without extra panels for past budgets.
+* You can use `allocate` to set various category sub-budgets for categories
+
 ====
 
 [IMPORTANT]
@@ -255,12 +260,17 @@ You can use this command to set a budget for a category in _In-Credit-Ble_ Finan
 ====
 * If you provide multiple categories (e.g. `allocate $/50.00 c/Food c/Clothes`),
 only the last category you provided will be taken (in the previous e.g., the command will
-set budget for `Clothes` category.
+set budget for `Clothes` category. In addition, your last category must be of correct format (see below)
 * Category names are case-insensitive. (e.g. `CLotHes`, `clothes` and `CLOTHES` refer to the same
 category and will be shown with the first character in uppercase and the rest of the characters
 in lowercase (in the above example, it will be shown as `Clothes`)
 * If a budget was previously set for the category, the old category budget will be replaced
 by the new `allocate` command
+* The category budget that you allocate should be more than current spending in that category as it would not make
+sense to set a budget that is below the amount that you have already spent on that category.
++
+For example, if you have spent $50.50 on the cateogry `Food`, you will receive an error message when you try to
+`allocate` $40.00 to the category `Food`.
 * Category name supplied must be https://en.wikipedia.org/wiki/Alphanumeric[alphanumeric]
 and cannot contain special characters such as `:<>;\/|?~^%$#@`
 * For you to see the category budgets and the current spending in each of the allocated category budget, use the `show`
@@ -271,14 +281,20 @@ command shown in the next command
 ====
 Take note that you can still spend over the category budget set. The rationale is for you to be able to see
 how much you have exceeded your budget allocated in that category so that you will be able to better plan your
-expenditure in the future.
+expenditure in the future. (For e.g. if you allocated $50.00 to `Clothes` and have yet to spend anything in the
+category, you can still spend more than $50.00 after setting the category budget) +
+
+However, if you have already spent an amount in the category, but have yet to set a budget for the category, it would
+not make sense for you to set a budget smaller than the current spending in the category. Thus an error message will be
+shown in Result Display if you attempt to do so.
 ====
 // end::allocate[]
 
 // tag::show[]
 ==== Showing allocated budget and spending in categories: `show`
 
-You can use this command to see the budget allocated to and spending in categories in _In-Credit-Ble_ Finance Tracker. +
+You can use this command to see your current spending and the category budget allocated  in
+_In-Credit-Ble_ Finance Tracker. +
 
 *Alias*: `showCatBudget`
 
@@ -287,7 +303,7 @@ You can use this command to see the budget allocated to and spending in categori
 ****
 *Example*:
 
-* The following example will show what will be listed given the following budget allocation
+* The following example will show you an example of what will be listed given the following budget allocation
 and expenditure in the following categories:
 ** `set $/500`
 ** `allocate $/100 c/CloThEs`
@@ -312,21 +328,6 @@ image::show_example.png[width ="300"]
 to let you know so
 ====
 // end::show[]
-
-// tag::increase[]
-//==== Increasing the budget: `increase`
-//
-//You can increase your budget limit for the month/week by the specified amount.
-//
-//*Format*: `increase $/AMOUNT`
-//
-//****
-//*Examples*:
-//
-//* `increase $/10.10`
-//* `increase $/100`
-//****
-// end::increase[]
 
 === Expense Entry Management
 
@@ -407,25 +408,27 @@ image::RemoveDescriptionExample.png[width ="600"]
 // end::edit[]
 
 // tag::select[]
-//==== Selecting an entry: `select`
-//
-//You can select an existing entry in the records to view its details by specifying the entry's index number.
-//
-//*Alias*: `s`, `sel`
-//
-//*Format*: `select INDEX`
-//
-//****
-//*Example*:
-//
-//* `select 3`
-//****
-//
-//[NOTE]
-//====
-//* `INDEX` here refers to the index number shown in the displayed records.
-//* `INDEX` *must be a positive integer* 1, 2, 3, ...
-//====
+
+==== Selecting an entry: `select`
+
+You can select an existing entry in the records to view its details by specifying the entry's index number.
+
+*Alias*: `s`, `sel`
+
+*Format*: `select INDEX`
+
+****
+*Example*:
+
+* `select 3`
+****
+
+[NOTE]
+====
+* `INDEX` here refers to the index number shown in the displayed records.
+* `INDEX` *must be a positive integer* 1, 2, 3, ...
+====
+
 // end::select[]
 
 // tag::delete[]
@@ -471,7 +474,7 @@ You can easily search for entries in the records using a name, category or date 
 spent on all the results of the search will also be shown.
 
 [TIP]
-Make use of the `list` command to reset the records after you filter the records using the `search` command.
+Make use of the `list` command to show the full list of records again after filtering the records using the `search` command.
 
 *Alias*: `find`
 
@@ -498,6 +501,7 @@ image::TotalSpentInResultDisplay.png[width ="600"]
 ====
 * `FLAG` here refers to either `-name`, `-cat` or `-date`.
 * Only one flag should be provided.
+* If you do not input parameters after the flag, the search result will return with empty list
 ====
 // end::search[]
 
@@ -517,7 +521,7 @@ You can choose to sort the list of entries by name, amount, date or category. +
 ** `-asc` for ascending order.
 ** `-desc` for descending order.
 * `[ORDER]` is optional. If not supplied, default ordering is implied.
-* Order of parameters supplied matters.
+* Order of parameters supplied matters. (FLAG must be before ORDER)
 ====
 
 ****
@@ -624,7 +628,10 @@ Shows summary of expenses in the past 7 months
 ==== Changing FinanceTracker data storage location: `setfile`
 You can change the file used to store the data of the application. Essentially,
 you can maintain multiple sets of expenditure and budget data for multiple users
-or profiles.
+or profiles. +
+
+In addition, one user can also have multiple files for a recurring period (weeks, months etc.)
+for the user the manage their budget based on a time period his/her liking.
 
 *Format*: `setfile f/FILENAME`
 
@@ -695,7 +702,7 @@ _Undoable_ commands:
 
 * commands that modify the finance tracker's content +
 (`set`, `allocate`, `spend`, `edit`, `delete`,
- `sort`, `reverse`, `setfile`, `clear`, `description`).
+ `sort`, `reverse`, `setfile`, `clear`).
 ====
 
 ==== Redoing the previously undone command : `redo`
@@ -851,7 +858,7 @@ _In-Credit-Ble_  aims to support multi-currency transactions in `v2.0`.
 | Add expense | `spend n/NAME $/AMOUNT [d/DATE] c/CATEGORY [r/Description]` | `add` | `spend n/movie $/10
   d/16/03/2019 c/Entertainment r/Avengers: Endgame`
 | Edit an entry | `edit INDEX [n/NAME] [$/AMOUNT] [d/DATE] [c/CATEGORY] [r/DESCRIPTION]` | `e` | `edit 1 n/burger c/Food`
-//| Select an entry | `select INDEX` | `s`, `sel` | `select 3`
+| Select an entry | `select INDEX` | `s`, `sel` | `select 3`
 | Delete an entry | `delete INDEX` | `d`, `del` | `delete 2`
 
 |=======================================================================
@@ -880,7 +887,7 @@ Shows summary for past 5 days
 | Help | `help` | - | -
 | Undo previous command | `undo` | `u` | -
 | Redo previously undone command | `redo` | `r` | -
-| Change colour theme of application | `theme COLOURTHEME` | `colour` | theme light
+| Change colour theme of application | `theme COLOURTHEME` | `colour` | `theme light`
 | List entered commands | `history` | `h`, `hist` | -
 | Clear all entries | `clear` | `c`, `clr` | -
 | Exit the program | `exit` | `quit` | -

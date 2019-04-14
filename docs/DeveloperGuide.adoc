@@ -668,7 +668,7 @@ To explain the update, an Activity Diagram accompanied with a step-by-step walk-
 methods to update the budget UI.
 
 .Activity diagram of the UI being updated after budget data changes
-image::BudgetUpdateUiActivityDiagram.jpg[]
+image::BudgetUiUpdateActivityDiagram.png[]
 
 . The command is first executed by the `LogicManager`. The execution of commands will update the budget data
 in the Finance Tracker as specified in previous sections. The success message of the command is then displayed to the user
@@ -1353,6 +1353,21 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the application by double-clicking the JAR file. +
    Expected: The most recent window size and location is retained.
 
+=== Setting a budget
+. Setting a initial budget
+.. Test case: `set $/500` +
+   Expected: The budget is set to $500. The Budget Panel and Browser Panel are updated accordingly.
+.. Test case: `set $/500.50` +
+   Expected: The budget is changed to $500.50. The Budget Panel and Browser Panel are updated accordingly.
+.. Test case: `set 500` +
+   Expected: The budget is not changed. Error details shown in the status message. Status barremains the same.
+.. Test case: `set $/$500` +
+   Expected: The budget is not changed. Error details shown in status message about amount.
+.. Test case: `set $/-1` +
+   Expected: Similar to previous
+.. Test case: `set $/0` +
+   Expected: Similar to previous
+
 === Adding an expense
 
 . Adding an entry no matter what is listed.
@@ -1367,8 +1382,37 @@ These instructions only provide a starting point for testers to work on; testers
    Expected: Entry is added to the back of the list. Since date is not supplied, today’s date will be recorded. Timestamp in the status bar is updated.
 .. Test case: `spend n/Chicken Rice $/5.50` +
    Expected: No entry is added. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect spend commands to try: `spend n/Chicken Rice c/Food`, `spend $.5.50 c/Food`, `spend n/Chicken Rice $/5.5 c/Food`, `spend n/Chicken Rice $/5.50 c/Food d/12/12/2045` +
+.. Other incorrect spend commands to try: `spend n/Chicken Rice c/Food`, `spend $.5.50 c/Food`, `spend n/Chicken Rice $/5.5 c/Food`,
+`spend n/Chicken Rice $/5.50 c/Food d/12/12/2045`, `spend n/Chicken Rice $/$5.50 c/Food` +
    Expected: Similar to previous
+
+=== Allocating category budgets and showing allocated category budgets
+
+. Allocating category budget (no spending in category; we assume that total budget set is $500)
+.. Test case: `allocate $/50 c/Shopping`, then `show` +
+   Expected: Category Budget is allocated in Shopping category. Result Display shows current spending over budget
+   for allocated category budgets
+.. Test case: `allo $/30 c/Transport`, then `show` +
+   Expected: Category Budget is allocated in `Transport` category. Result Display shows current spending over budget
+   for allocated category budgets
+.. Test case: `allocate $/30 c/Books c/Movies`, then `show` +
+   Expected: Category Budget allocated in `Movies` category. Result Display current spending over budget
+   for allocated category budgets
+.. Test case: `allocate $/$30 c/Holiday` +
+   Expected: Category Budget not allocated. Error details shown in status message.
+.. Test case: `allocate $/30 c/Holiday In Melbourne` +
+   Expected: Category Budget not allocated. Error details shown in status message.
+.. Test case: `allocate $/600 c/School` +
+   Expected: Category Budget not allocated. Category Budget more than Total budget. Error details in status message.
+
+. Allocating category budget (previously had spending in the category) +
+Assume that `Food` category has $16.50 spent so far
+.. Test case: `allocate $/17 c/Food`
+   Expected: Category Budget allocated in Food category. Result Display shows current spending over budget for allocated
+   category budgets
+.. Test case: `allocate $/10 c/Food`
+   Expected: Category Budget not allocated. Current Spending in category more than user input for category budget.
+   Error details shown in status message.
 
 
 === Deleting an entry

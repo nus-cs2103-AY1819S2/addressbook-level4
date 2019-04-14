@@ -34,6 +34,7 @@ public interface Logic {
      */
     List<Lesson> getLessons();
 
+    String getCurrentLessonName();
     Lesson getOpenedLesson();
 
     /**

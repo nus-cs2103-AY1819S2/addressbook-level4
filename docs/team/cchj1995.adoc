@@ -13,45 +13,53 @@ As part of a Software Engineering module, my team and I were given an objective,
 
 TeethHub was designed with a specific user group in mind, dentists who are proficient with computers and are morecomfortable with using a Command Line Interface(CLI) for interaction over a Graphical User Interface(GUI). TeethHub enables dentists to store, modify and interact with patients, records and tasks, all the while providing clear and useful graphical feedback to its user. Dentists can also import and export data in and out of the application to formats such as .json and .pdf. TeethHub was written in Java, building its graphical elements on JavaFX. As of v1.4, the application has roughly 20000 lines of codes, a difference of 10000 lines compared to AB4.
 
-My role in the development of TeethHub was to cover two main aspects, task data management and GUI enhancement. I developed implementations and features involving interactions with tasks in the application along with creating pertinent graphical feedback. The following segment is a detailed summary of my contributions.
+My role in the development of TeethHub was to cover two main aspects, task data management and GUI enhancement. I developed implementations and features involving interactions with tasks in the application along with creating pertinent graphical feedback for the user. The following segment is a concise summary of my contributions.
 
 == Summary of contributions
+The contributions here involve my own features, helping teammates, testing, and community contributions just to name a few.
 
-* *Major enhancement*: added *the ability to undo/redo previous commands*
-** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
-** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+* *Major implementation*: added *the task class and all its attributes*
+** What it does: The entire task data structure enables TeethHub to store information pertaining to our users' tasks.
+** Justification: As dentists, aside from having patients and records, our users will certainly have tasks that they are required to complete with certain tasks being related to their patients. By enabling TeethHub to handle the information for these tasks, users can enjoy the benefits of having all of their important information being in the one application.
+** Highlights: This implementation serves as a stepping stone for future developments to provide more interaction with task information. Comprehensive understanding of the existing application (AB4) was necessary for this implementation as it essentially creates a new type of data for the application. Every component involved in the reading, handling and storage process of persons had to be modified to do the same for the new data type.
 
-* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
+* *Major enhancement*: added *the ability to link a task to a patient*
+** What it does: This enhancement enables users to provide a link between a task and a patient by being specified as one of the task's attributes either upon creation of a task or by modifiying a task's information.
+** Justification: This enhancement allows users to experience a cohesion between the information they have on TeethHub. In the real world, a dentist's task often relates to a patient and by enabling TeethHub to emulate the same experience, the application can provide greater value to the user.
+** Highlights: I found this enhancement to be rather demanding as it involved enhancements and changes to existing commands that modified or removed a patient. The challenge was in ensuring the linked task did not directly affect the linked patient when modified or deleted, while changing a linked patient had to change the task linked to it automatically.
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Major enhancement*: added *the ability to display a task calendar*
+** What it does: This enhancement allows the user to use a `taskcal` command to display a new popup window containing a calendar, a list of tasks and a commandbox. Users can see from the calendar, the dates in which they have tasks starting and ending. This is displayed to the user by highlighting dates that clash with a task's start and/or end date with the task's priority. Users can also navigate the calendar by keying in a date, or simply do task related commands. The task list will also update to show only tasks on the date selected by the user.
+** Justification: This enhancement provides additional value and meaning to the task information TeethHub stores for its users. By giving users context for the tasks in the form of a calendar, users can more accurately view and plan their schedules as they have a clearer view of when they have tasks and how important are these tasks.
+** Highlights: This was the most challenging enhancement I had made to the application because it involved in-depth understanding of the program's GUI, considering the best means of displaying the calendar and the logical approach to finding the right dates to highlight. The initial stages of testing and development also produced many issues that had to be solved systematically.
+
+* *Minor enhancement*: added taskadd, taskedit and taskdelete commands to provide users to have the most basic but essential interactions with the task information.
+
+* *Minor enhancement*: added a taskdone command to enable users to automatically set a task to complete and add a record to its linked patient (if any).
+
+* *Code contributed*: [https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#=undefined&search=cchj1995[Reposense]]
 
 * *Other contributions*:
 
-** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
 ** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
-** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
-** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
-** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
+*** Modified GUI layout to fit TeethHub's own layout (layout designed by teammate)
+*** Added new implementations to existing patientedit and patiendelete commands to work with task
+*** Wrote tests for new features to increase coverage by ~7%
 
-_{you can add/remove categories in the list above}_
+** Contributions to team members' enhancements:
+*** Provided code to flatten and overlay images of teeth, resulting image used in teammates features.
+*** Added GUI panel to display Teeth feature using flattened image.
+*** Added GUI panel to display Patient and Record information. 
+*** Reported, suggested solutions and fixed bugs for own team (E.g. https://github.com/CS2103-AY1819S2-W17-2/main/issues/106#issuecomment-478082206[Date bug], https://github.com/CS2103-AY1819S2-W17-2/main/issues/106#issuecomment-478637428[Record bug] and https://github.com/CS2103-AY1819S2-W17-2/main/pull/108[Bug fixes] )
+
+** Community:
+*** Reported bugs and suggestions for another team in a Practical Exam (PE) dry run. (E.g. https://github.com/nus-cs2103-AY1819S2/pe-dry-run/issues/921[Sort suggestion], https://github.com/nus-cs2103-AY1819S2/pe-dry-run/issues/795[Error Message bug], https://github.com/nus-cs2103-AY1819S2/pe-dry-run/issues/175[UI display bug]
 
 == Contributions to the User Guide
 
 
 |===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|_This section illustrates my contributions to TeethHub's User Guide. I have selected some exerpts for the task features to showcase my end-user focused documentation skills._
 |===
 
 include::../UserGuide.adoc[tag=undoredo]
@@ -61,16 +69,7 @@ include::../UserGuide.adoc[tag=dataencryption]
 == Contributions to the Developer Guide
 
 |===
-|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|_This section illustrates my contributions to TeethHub's Developer Guide. I have selected some exerpts for the task features to showcase my technical documentation skills and provide insight to the technical depths of my contributions.
 |===
 
-include::../DeveloperGuide.adoc[tag=undoredo]
-
-include::../DeveloperGuide.adoc[tag=dataencryption]
-
-
-== PROJECT: PowerPointLabs
-
----
-
-_{Optionally, you may include other projects in your portfolio.}_
+include::../DeveloperGuide.adoc[tag=task_cchj1995[]]

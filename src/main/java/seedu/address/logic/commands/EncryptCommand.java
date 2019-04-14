@@ -27,7 +27,7 @@ public class EncryptCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Encrypts the the pdf identified "
             + "by the index number used in the displayed pdf list. "
-            + "Please ensure that the file is not encrypted.\n"
+            + "Please ensure that the file is not encrypted and password is not empty or excessively long.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_PASSWORD + "PASSWORD]\n"
             + "Example: " + COMMAND_WORD + " 1 "

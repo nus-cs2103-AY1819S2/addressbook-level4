@@ -31,7 +31,7 @@ public class EncryptCommandParserTest {
         // no prefix and password
         assertParseFailure(parser, "1", MESSAGE_INVALID_FORMAT);
 
-        // no password
+        // no password prefix
         assertParseFailure(parser, "1" + PASSWORD_1_VALID, MESSAGE_INVALID_FORMAT);
 
         // no password

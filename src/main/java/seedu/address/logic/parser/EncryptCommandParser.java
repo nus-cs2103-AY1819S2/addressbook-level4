@@ -41,6 +41,10 @@ public class EncryptCommandParser implements Parser<EncryptCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EncryptCommand.MESSAGE_USAGE));
         }
 
+        if (argMultimap.getValue(PREFIX_PASSWORD).get().equals("")) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EncryptCommand.MESSAGE_USAGE));
+        }
+
         password = argMultimap.getValue(PREFIX_PASSWORD).get();
         return new EncryptCommand(index, password);
     }

@@ -552,13 +552,18 @@ If the order item is found and the quantity served is valid, a new [.java]#Order
 
 
 === Menu feature
-
+The Menu feature allows restaurant managers to take add items to the menu using the `addToMenu` command, as well as remove menu items as needed using the `deleteFromMenu` or `clearMenu` commands. They can track the current list of available items in the menu (with the UI displays in Table Mode and Menu Mode).
 // tag::addtomenu[]
 [[AddToMenu]]
 ==== Adding to menu
 ===== Current Implementation
 
 The menu items in the menu are stored as a list. Adding a new menu item to the menu is done by adding to the existing list.
+
+The sequence diagram for when a user executes the `addToMenu` command is shown below.
+
+.Component interactions for `addToMenu` command
+image::ClearOrderSequenceDiagram.png[width="800"]
 
 The command is read as a text string from the command box and then is executed by calling `executeCommand`, which passes this string to the Logic component by calling `execute`.
 

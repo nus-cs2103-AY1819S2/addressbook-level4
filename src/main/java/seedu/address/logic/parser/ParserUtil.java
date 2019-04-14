@@ -486,7 +486,7 @@ public class ParserUtil {
     }
 
     /**
-     * Check if the date range provided is valid.value
+     * Check if the date range provided is valid.
      */
     protected static boolean isValidValueRange(String range) {
         requireNonNull(range);

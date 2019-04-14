@@ -6,6 +6,7 @@ import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
 import static seedu.address.logic.parser.ParserUtil.isLeapYear;
 import static seedu.address.logic.parser.ParserUtil.isValidDate;
+import static seedu.address.logic.parser.ParserUtil.parseMaxInterviewsADay;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
 import java.util.Arrays;
@@ -38,6 +39,12 @@ public class ParserUtilTest {
     private static final String VALID_EMAIL = "rachel@example.com";
     private static final String VALID_TAG_1 = "friend";
     private static final String VALID_TAG_2 = "neighbour";
+
+    private static final int POSITIVE_MAX_INTERVIEWS = 3;
+    private static final String POSITIVE_MAX_INTERVIEWS_STRING = "3";
+    private static final String WHITESPACE_MAX_INTERVIEWS = " 3 ";
+    private static final String INVALID_MAX_INTERVIEWS_NONINTEGER = "HELLO";
+    private static final String INVALID_MAX_INTERVIEWS_NEGINTEGER = "-1";
 
     private static final String VALID_DATE = "01/01/2020";
     private static final String VALID_DATE_31 = "31/01/2020";
@@ -224,6 +231,32 @@ public class ParserUtilTest {
         assertEquals(expectedTagSet, actualTagSet);
     }
 
+    @Test
+    public void parseMaxInterviewsADay_positiveMaxInterviews_returnsMaxInterviewsADay() throws Exception {
+        int expected = POSITIVE_MAX_INTERVIEWS;
+        int actual = parseMaxInterviewsADay(POSITIVE_MAX_INTERVIEWS_STRING);
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void parseMaxInterviewsADay_whitespaceMaxInterviews_returnsMaxInterviewsADay() throws Exception {
+        int expected = POSITIVE_MAX_INTERVIEWS;
+        int actual = parseMaxInterviewsADay(WHITESPACE_MAX_INTERVIEWS);
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void parseMaxInterviewsADay_invalidMaxInterviewsNonInteger_throwsParseException() throws Exception {
+        thrown.expect(ParseException.class);
+        parseMaxInterviewsADay(INVALID_MAX_INTERVIEWS_NONINTEGER);
+    }
+
+    @Test
+    public void parseMaxInterviewsADay_invalidMaxInterviewsNegInteger_throwsParseException() throws Exception {
+        thrown.expect(ParseException.class);
+        parseMaxInterviewsADay(INVALID_MAX_INTERVIEWS_NEGINTEGER);
+    }
+    
     @Test
     public void isValidDate_validDate_returnsTrue() {
         boolean actual = isValidDate(VALID_DATE);

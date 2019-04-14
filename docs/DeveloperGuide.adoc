@@ -592,6 +592,9 @@ The module recommendation feature displays modules which the user is recommended
 and specific course requirements. It generates a list of module codes together with their corresponding titles and requirement
 types satisfied. The entire list is displayed on the Result Panel upon entering the `rec` command.
 
+[NOTE]
+Modules which satisfy only Unrestricted Electives are not included to prevent the list from being too long.
+
 ==== Current implementation
 
 Each recommended module is represented by a `RecModule` which contains a unique `ModuleInfo` and its corresponding
@@ -615,7 +618,7 @@ If the module is already present in GradTrak or does not have its prerequisites 
 A `nonFailedCodeList` of `ModuleInfoCode` corresponding to non-failed `ModuleTaken` (already passed or to be read in a future semester) is also retrieved from `GradTrak`.
 .. The `codeToTest` is then passed into `Course#getCourseReqTypeOf`, which in turn calls `CourseRequirement#canFulfill` for each `CourseRequirement` listed in `Course`.
  A list of `CourseReqType` that the `codeToTest` can satisfy is returned.
-This `courseReqTypeList` is sorted by the priority of `CourseReqType` as defined in the `enum` class: `CORE`, `BD`, `IE`, `FAC`, `GE`, `UE`.
+This `courseReqTypeList` is sorted by the priority of `CourseReqType` as defined in the `enum` class: `CORE`, `BD`, `IE`, `FAC`, `GE`.
 .. For each `CourseReqType` in the `courseReqTypeList` (highest priority first):
 ... `Course#isCodeContributing` is called, which takes in the `CourseReqType`, `nonFailedCodeList` and `codeToTest`.
 ... For each `CourseRequirement` listed in `Course` corresponding to the given `CourseReqType`, `CourseRequirement#getUnfulfilled`

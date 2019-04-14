@@ -1,7 +1,7 @@
 package seedu.address.logic.commands;
 
+import static org.junit.Assert.assertEquals;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalData.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
@@ -22,23 +22,29 @@ public class TaskCopyCommandTest {
     private final CommandHistory commandHistory = new CommandHistory();
 
     @Test
-    public void copy_oneTask_success() {
+    public void copy_oneTask_success() throws Exception {
         Task taskToCopy = expectedModel.getFilteredTaskList().get(0).copy();
         expectedModel.addTask(taskToCopy);
         String expectedMessage = String.format(TaskCopyCommand.MESSAGE_SUCCESS, taskToCopy);
-        assertCommandSuccess(new TaskCopyCommand(INDEX_FIRST_PERSON, 1),
-                model, commandHistory, expectedMessage, expectedModel);
+        CommandResult commandResult = new TaskCopyCommand(INDEX_FIRST_PERSON, 1)
+                .execute(model, commandHistory);
+        assertEquals(expectedMessage, commandResult.getFeedbackToUser());
+        assertEquals(model.getFilteredTaskList().toString(),
+                expectedModel.getFilteredTaskList().toString());
     }
 
     @Test
-    public void copy_twoTasks_success() {
+    public void copy_twoTasks_success() throws Exception {
         Task taskToCopy1 = expectedModel.getFilteredTaskList().get(0).copy();
         Task taskToCopy2 = expectedModel.getFilteredTaskList().get(0).copy();
         expectedModel.addTask(taskToCopy1);
         expectedModel.addTask(taskToCopy2);
         String expectedMessage = String.format(TaskCopyCommand.MESSAGE_SUCCESS, taskToCopy1);
-        assertCommandSuccess(new TaskCopyCommand(INDEX_FIRST_PERSON, 2),
-                model, commandHistory, expectedMessage, expectedModel);
+        CommandResult commandResult = new TaskCopyCommand(INDEX_FIRST_PERSON, 2)
+                .execute(model, commandHistory);
+        assertEquals(expectedMessage, commandResult.getFeedbackToUser());
+        assertEquals(model.getFilteredTaskList().toString(),
+                expectedModel.getFilteredTaskList().toString());
     }
 
     @Test

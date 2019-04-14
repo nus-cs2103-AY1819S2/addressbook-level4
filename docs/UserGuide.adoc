@@ -452,6 +452,8 @@ e.g. `bw 127` +
 * *Brightness* `brightness [BRIGHTNESS_RATIO]` +
 e.g. `brightness 0.8` +
 
+* *Clear* `clear` +
+
 * *Contrast* `contrast [CONTRAST_RATIO]` +
 e.g. `contrast 1.9` +
 

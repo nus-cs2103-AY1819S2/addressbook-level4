@@ -56,18 +56,20 @@ public class AddPatientParser implements Parser<AddPatientCommand> {
             throw new ParseException(INVALID_ADD_ARGUMENTS);
         }
 
-        Name name = new Name(argMultimap.getValue(PREFIX_NAME).get().trim());
-        Nric nric = new Nric(argMultimap.getValue(PREFIX_NRIC).get().trim());
-        Email email = new Email(argMultimap.getValue(PREFIX_EMAIL).get().trim());
-        Address address = new Address(argMultimap.getValue(PREFIX_ADDRESS).get().trim());
-        Contact contact = new Contact(argMultimap.getValue(PREFIX_CONTACT).get().trim());
-        Gender gender = new Gender(argMultimap.getValue(PREFIX_GENDER).get().trim());
-        Dob dob = new Dob(argMultimap.getValue(PREFIX_DOB).get().trim());
-        ArrayList<Tag> tagList = parseTags(argMultimap.getAllValues(PREFIX_TAG));
-
         Patient patient;
+
         try {
+
+            Name name = new Name(argMultimap.getValue(PREFIX_NAME).get().trim());
+            Nric nric = new Nric(argMultimap.getValue(PREFIX_NRIC).get().trim());
+            Email email = new Email(argMultimap.getValue(PREFIX_EMAIL).get().trim());
+            Address address = new Address(argMultimap.getValue(PREFIX_ADDRESS).get().trim());
+            Contact contact = new Contact(argMultimap.getValue(PREFIX_CONTACT).get().trim());
+            Gender gender = new Gender(argMultimap.getValue(PREFIX_GENDER).get().trim());
+            Dob dob = new Dob(argMultimap.getValue(PREFIX_DOB).get().trim());
+            ArrayList<Tag> tagList = parseTags(argMultimap.getAllValues(PREFIX_TAG));
             patient = new Patient(name, nric, email, address, contact, gender, dob, tagList);
+
         } catch (IllegalArgumentException Iae) {
             throw new ParseException(Iae.getMessage());
         }

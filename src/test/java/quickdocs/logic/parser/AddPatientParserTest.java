@@ -40,7 +40,15 @@ public class AddPatientParserTest {
         Dob dob = new Dob("1999-09-09");
         ArrayList<Tag> tagList = new ArrayList<Tag>();
 
-        String userInput = createTestInput(name, nric, email, address, contact, gender, dob);
+        //tags
+        Tag tag1 = new Tag("Diabetes");
+        Tag tag2 = new Tag("Highbloodpressure");
+        Tag tag3 = new Tag("Asthma");
+        tagList.add(tag1);
+        tagList.add(tag2);
+        tagList.add(tag3);
+
+        String userInput = createTestInput(name, nric, email, address, contact, gender, dob, tag1, tag2, tag3);
 
         Patient patient1 = new Patient(name, nric, email, address, contact, gender, dob, tagList);
         assertParseSuccess(parser, userInput,
@@ -126,6 +134,10 @@ public class AddPatientParserTest {
             if (param instanceof Dob) {
                 userInput += "d/" + ((Dob) param).getDob() + " ";
                 continue;
+            }
+
+            if (param instanceof Tag) {
+                userInput += "t/" + ((Tag) param).tagName + " ";
             }
         }
         return userInput;

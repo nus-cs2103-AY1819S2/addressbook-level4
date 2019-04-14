@@ -1,4 +1,4 @@
-= Baris Batuhan- Project Portfolio
+= Baris Batuhan Topal - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets

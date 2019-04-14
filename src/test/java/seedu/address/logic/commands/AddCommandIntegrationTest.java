@@ -40,6 +40,7 @@ public class AddCommandIntegrationTest {
         expectedModel.commitAddressBook();
         expectedModel.commitArchiveBook();
         expectedModel.commitPinBook();
+        expectedModel.setSelectedPerson(validPerson);
 
         assertCommandSuccess(new AddCommand(validPerson), model, commandHistory,
                 String.format(AddCommand.MESSAGE_SUCCESS, validPerson), expectedModel);

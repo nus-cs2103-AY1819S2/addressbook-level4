@@ -395,6 +395,26 @@ image::PinUnpinActivityDiagram.png[width="1200"]
 ==== Current Implementation
 This section explains the implementation of all archive related features.
 
+===== Archive/Unarchive
+The following sequence diagram shows how the archive operation works:
+
+image::ArchiveSequenceDiagram.png[width="800"]
+
+The `unarchive` command does the opposite -- it calls `addPerson(p)` of the `versionedArchiveBook` and `removePerson(p)` of the `versionedAddressBook` instead.
+
+===== Archive List
+The `archivelist` command displays the archive list. This has to be carefully implemented to work hand-in-hand  with `list`. More importantly, to implement a separate archive list that can be swapped with the main list requires careful designing.  _{To be added}_
+
+===== Archive Select
+The `archiveselect` command is implemented the same as 'select'.
+
+When `unarchive` is performed on a person that has been selected by `archiveselect`, `archiveselect` is set to be `null`, so no person will be selected.
+
+_{To be added}_
+
+===== Archive Clear
+The `archiveclear` command is implemented the same as `clear` where a new empty `archiveBook` is created by calling `Model#setArchiveBook(new AddressBook())`.
+
 ==== Design Considerations
 // end::archive[]
 
@@ -642,11 +662,13 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |efficient user |find a contact by using any details (e.g. name/phone/tags etc.) |locate details of contacts without having to go through the entire list
 
-|`* * *` |sloppy user |add and edit a contact in the app without having to specify certain information (i.e. some fields are optional) |add and edit a contact even if I do not have the complete contact information
-
 |`* * *` |real estate agent |add property information to each contact |link my customers to the property that they buying/selling/renting
 
 |`* * *` |real estate agent |search and filter contacts by the address of their associated property |find all properties within the same area, e.g. search for "Woodlands" should return all contacts with "Woodlands" in their address
+
+|`* * *` |real estate agent |add and update financial information of properties that can be bought/sold/rented |use the information to better determine which properties to buy/sell based on price, and match customers who are looking for certain prices
+
+|`* * *` |efficient user |search and filter by financial information of properties |see which properties can meet my customers' expectation, as well as my own, in terms of price
 
 |`* * *` |organised user |categorise my contacts into different groups (i.e. buyers, sellers, landlords, tenants) |keep track of my customers better
 
@@ -654,21 +676,19 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |forgetful user |pin important contacts to the top of the lists |see which contacts are the most important for me to attend to
 
-|`* *` |efficient user |display contacts sorted by specific categories |locate contacts and/or properties easily
+|`* * *` |user who prefers visuals |select a contact and see the address (if any) of the contact on the Google Map applet within the app |visualise the location of the property and search for directions to the location
 
-|`* *` |real estate agent |add and update financial information of properties that can be bought/sold/rented |use the information to better determine which properties to buy/sell based on price, and match customers who are looking for certain prices
-
-|`* *` |efficient user |search and filter by financial information of properties |see which properties can meet my customers' expectation, as well as my own, in terms of price
+|`* *` |sloppy user |add and edit a contact in the app without having to specify certain information (i.e. some fields are optional) |add and edit a contact even if I do not have the complete contact information
 
 |`* *` |forgetful user |add rental period information for tenants |be reminded when the rental agreement is expiring
+
+|`* *` |efficient user |display contacts sorted by specific categories |locate contacts and/or properties easily
 
 |`* *` |efficient user |check all my properties sorted in ascending or descending order by price or size |compare across my properties to buy/sell based on price or size
 
 |`* *` |real estate agent |link sellers to buyers, and landlords to tenants through properties |see all customers linked to a certain property
 
 |`* *` |efficient user |search for properties with address within a 1 km radius of a specific address |filter out properties near a given location
-
-|`* *` |user who prefers visuals |select a contact and see the address (if any) of the contact on the Google Map applet within the app |visualise the location of the property and search for directions to the location
 
 |`*` |responsible user |password-protect the app and/or encrypt individual data |protect my contacts' personal information from access by unauthorised people
 
@@ -706,7 +726,7 @@ Use case ends.
 *MSS*
 
 1. User requests to add contact, with any additional information.
-2. TheRealApp adds contact into the contact list.
+2. TheRealApp adds contact into the contact list and displays the added contact in the displayed contact list.
 +
 Use case ends.
 
@@ -716,6 +736,15 @@ Use case ends.
 * 1a. A field is invalid.
 [none]
 ** 1a1. The RealApp shows an error message.
++
+Use case resumes at step 1.
+
+* 1b. The list displayed is invalid.
++
+[none]
+** 1b1. TheRealApp shows an error message.
+** 1b2. User requests for the valid list.
+** 1b3. TheRealApp displays the requested list.
 +
 Use case resumes at step 1.
 
@@ -755,6 +784,15 @@ Use case ends.
 +
 Use case resumes at step 1.
 
+* 1b. The list displayed is invalid.
++
+[none]
+** 1b1. TheRealApp shows an error message.
+** 1b2. User requests for the valid list.
+** 1b3. TheRealApp displays the requested list.
++
+Use case resumes at step 1.
+
 [discrete]
 === Use case: Display contact list sorted in a specific category
 
@@ -779,6 +817,15 @@ Use case ends.
 +
 Use case resumes at step 1.
 
+* 1c. The list displayed is invalid.
++
+[none]
+** 1c1. TheRealApp shows an error message.
+** 1c2. User requests for the valid list.
+** 1c3. TheRealApp displays the requested list.
++
+Use case resumes at step 1.
+
 [discrete]
 === Use case: Find contact
 
@@ -798,6 +845,15 @@ Use case ends.
 +
 Use case resumes from step 1.
 
+* 1b. The list displayed is invalid.
++
+[none]
+** 1b1. TheRealApp shows an error message.
+** 1b2. User requests for the valid list.
+** 1b3. TheRealApp displays the requested list.
++
+Use case resumes at step 1.
+
 [discrete]
 === Use case: Edit contact
 
@@ -816,10 +872,20 @@ Use case ends.
 ** 1a1. The RealApp shows an error message.
 +
 Use case resumes at step 1.
+
 * 1b. The given index is invalid.
 +
 [none]
 ** 1b1. TheRealApp shows an error message.
++
+Use case resumes at step 1.
+
+* 1c. The list displayed is invalid.
++
+[none]
+** 1c1. TheRealApp shows an error message.
+** 1c2. User requests for the valid list.
+** 1c3. TheRealApp displays the requested list.
 +
 Use case resumes at step 1.
 
@@ -892,6 +958,16 @@ Use case resumes at step 3.
 +
 Use case ends.
 
+[none]
+* 1a. The list displayed is invalid.
++
+[none]
+** 1a1. TheRealApp shows an error message.
+** 1a2. User requests for the valid list.
+** 1a3. TheRealApp displays the requested list.
++
+Use case resumes at step 1.
+
 [discrete]
 === Use case: Pin contact
 
@@ -946,6 +1022,15 @@ Use case ends.
 +
 [none]
 ** 1b1. TheRealApp shows an error message.
++
+Use case resumes at step 1.
+
+* 1c. The list displayed is invalid.
++
+[none]
+** 1c1. TheRealApp shows an error message.
+** 1c2. User requests for the valid list.
+** 1c3. TheRealApp displays the requested list.
 +
 Use case resumes at step 1.
 
@@ -1011,6 +1096,15 @@ Use case ends.
 +
 Use case resumes at step 1.
 
+* 1b. The list displayed is invalid.
++
+[none]
+** 1b1. TheRealApp shows an error message.
+** 1b2. User requests for the valid list.
+** 1b3. TheRealApp displays the requested list.
++
+Use case resumes at step 1.
+
 [discrete]
 === Use case: Find archived contact
 
@@ -1029,6 +1123,15 @@ Use case ends.
 ** 1a1. The RealApp shows an error message.
 +
 Use case resumes from step 1.
+
+* 1b. The list displayed is invalid.
++
+[none]
+** 1b1. TheRealApp shows an error message.
+** 1b2. User requests for the valid list.
+** 1b3. TheRealApp displays the requested list.
++
+Use case resumes at step 1.
 
 [discrete]
 === Use case: Unarchive contact
@@ -1065,6 +1168,15 @@ Use case resumes at step 3.
 2. TheRealApp clears the entire archived contact list.
 +
 Use case ends.
+
+* 1a. The list displayed is invalid.
++
+[none]
+** 1a1. TheRealApp shows an error message.
+** 1a2. User requests for the valid list.
+** 1a3. TheRealApp displays the requested list.
++
+Use case resumes at step 1.
 
 [discrete]
 === Use case: View history
@@ -1164,8 +1276,6 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-_{ more test cases ... }_
-
 === Deleting a person
 
 . Deleting a person while all persons are listed
@@ -1177,8 +1287,6 @@ _{ more test cases ... }_
    Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
    Expected: Similar to previous.
-
-_{ more test cases ... }_
 
 === Selecting a person
 

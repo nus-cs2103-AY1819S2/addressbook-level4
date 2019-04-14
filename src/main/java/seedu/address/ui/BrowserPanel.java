@@ -66,22 +66,10 @@ public class BrowserPanel extends UiPart<Region> {
                     browserLabel.setText(NO_CONTACT_SELECTED);
                     loadDefaultPage();
                     return;
-                } else {
-                    if (newValue instanceof Buyer || newValue instanceof Tenant) {
-                        browserLabel.setText(NO_ADDRESS_AVAILABLE);
-                        loadDefaultPage();
-                        return;
-                    }
-                    if (newValue instanceof Seller && ((Seller) newValue).getAddress().value == null) {
-                        browserLabel.setText(NO_ADDRESS_AVAILABLE);
-                        loadDefaultPage();
-                        return;
-                    }
-                    if (newValue instanceof Landlord && ((Landlord) newValue).getAddress().value == null) {
-                        browserLabel.setText(NO_ADDRESS_AVAILABLE);
-                        loadDefaultPage();
-                        return;
-                    }
+                } else if (personWontLoadMaps(newValue)) {
+                    browserLabel.setText(NO_ADDRESS_AVAILABLE);
+                    loadDefaultPage();
+                    return;
                 }
 
                 browserLabel.setText(newValue.getName().fullName + "'s Map Location:");
@@ -105,22 +93,10 @@ public class BrowserPanel extends UiPart<Region> {
                     browserLabel.setText(NO_CONTACT_SELECTED);
                     loadDefaultPage();
                     return;
-                } else {
-                    if (newValue instanceof Buyer || newValue instanceof Tenant) {
-                        browserLabel.setText(NO_ADDRESS_AVAILABLE);
-                        loadDefaultPage();
-                        return;
-                    }
-                    if (newValue instanceof Seller && ((Seller) newValue).getAddress().value == null) {
-                        browserLabel.setText(NO_ADDRESS_AVAILABLE);
-                        loadDefaultPage();
-                        return;
-                    }
-                    if (newValue instanceof Landlord && ((Landlord) newValue).getAddress().value == null) {
-                        browserLabel.setText(NO_ADDRESS_AVAILABLE);
-                        loadDefaultPage();
-                        return;
-                    }
+                } else if (personWontLoadMaps(newValue)) {
+                    browserLabel.setText(NO_ADDRESS_AVAILABLE);
+                    loadDefaultPage();
+                    return;
                 }
 
                 browserLabel.setText(newValue.getName().fullName + "'s Map Location:");
@@ -144,22 +120,10 @@ public class BrowserPanel extends UiPart<Region> {
                     browserLabel.setText(NO_CONTACT_SELECTED);
                     loadDefaultPage();
                     return;
-                } else {
-                    if (newValue instanceof Buyer || newValue instanceof Tenant) {
-                        browserLabel.setText(NO_ADDRESS_AVAILABLE);
-                        loadDefaultPage();
-                        return;
-                    }
-                    if (newValue instanceof Seller && ((Seller) newValue).getAddress().value == null) {
-                        browserLabel.setText(NO_ADDRESS_AVAILABLE);
-                        loadDefaultPage();
-                        return;
-                    }
-                    if (newValue instanceof Landlord && ((Landlord) newValue).getAddress().value == null) {
-                        browserLabel.setText(NO_ADDRESS_AVAILABLE);
-                        loadDefaultPage();
-                        return;
-                    }
+                } else if (personWontLoadMaps(newValue)) {
+                    browserLabel.setText(NO_ADDRESS_AVAILABLE);
+                    loadDefaultPage();
+                    return;
                 }
 
                 browserLabel.setText(newValue.getName().fullName + "'s Map Location:");
@@ -172,6 +136,15 @@ public class BrowserPanel extends UiPart<Region> {
         });
 
         loadDefaultPage();
+    }
+
+    /**
+     * Returns true if person cannot load Google Map due to null address.
+     */
+    private boolean personWontLoadMaps(Person newValue) {
+        return newValue instanceof Buyer || newValue instanceof Tenant
+                || (newValue instanceof Seller && ((Seller) newValue).getAddress().value == null)
+                || (newValue instanceof Landlord && ((Landlord) newValue).getAddress().value == null);
     }
 
     /**

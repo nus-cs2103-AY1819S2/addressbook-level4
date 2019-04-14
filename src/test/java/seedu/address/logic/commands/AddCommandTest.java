@@ -415,6 +415,16 @@ public class AddCommandTest {
         public ReadOnlyAddressBook getAddressBook() {
             return new AddressBook();
         }
+
+        @Override
+        public void setSelectedPinPerson(Person person) {
+            // called by {@code AddCommand#execute()}
+        }
+
+        @Override
+        public void setSelectedPerson(Person person) {
+            // called by {@code AddCommand#execute()}
+        }
     }
 
 }

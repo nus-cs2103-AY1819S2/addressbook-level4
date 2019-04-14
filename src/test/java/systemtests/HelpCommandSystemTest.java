@@ -65,10 +65,6 @@ public class HelpCommandSystemTest extends AddressBookSystemTest {
         assertNotEquals(BrowserPanel.DEFAULT_PAGE, getBrowserPanel().getLoadedUrl());
         assertListMatching(getPersonListPanel(), getModel().getFilteredPersonList());
 
-        // assert that the status bar too is updated correctly while the help window is open
-        // note: the select command tested above does not update the status bar
-        //executeCommand(DeleteCommand.COMMAND_WORD + " " + INDEX_FIRST_BUYER.getOneBased());
-        //assertNotEquals(StatusBarFooter.SYNC_STATUS_INITIAL, getStatusBarFooter().getSyncStatus());
     }
 
     @Test

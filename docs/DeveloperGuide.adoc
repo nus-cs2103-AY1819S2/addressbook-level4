@@ -357,7 +357,7 @@ e.g. if the input is `ale`, the person with the name `Alex, aLex, ALEX, alexandr
 * *`EDUCATION:`* It can take any English alphabet character and also `space` character. It checks if the entered criteria is *contained* in the school/education of the persons in the list.
 * *`SKILLS and POSITIONS:`*
 ** It can take any number of ASCII characters more than 0 (except "," in the `skill/position` itself).
-** Multiple `skills/positions` can be entered with using one `PREFIX` and one `REVERSE PREFIX` as long as the `skills/positions` are separated with `, `.
+** Multiple `skills/positions` can be entered with using one `PREFIX` and one `REVERSE PREFIX` as long as the `skills/positions` are separated with ",".
 ** Controls, if the given `skills/positions` are *contained* in the actual `skills/positions` of the persons in the list.
 * *`ENDORSEMENT-COUNT:`* It takes a positive `integer`. If the given number as an input is less than or equal to the number of endorsements (it is just the process, where a person recommended by someone) the person has, then this person is shown.
 * *`DEGREE-LEVEL:`*
@@ -383,7 +383,7 @@ image::sequence-diagram-filter.png[width="800"]
 . Since there are 10 different fields that can be filtered, a `String array` with size 10, called *criterion*, is created and the values are set to " " in initialization.
 . If the type is `clear` or `reverse`, a new `FilterCommand` object is called with passing the `criterion` array and the `process-type-holding-integer` for that method. If it is not, followings take place.
 . The prefixes are searched. For each of the fields, these controls are made:
-** Checked if the 'PREFIX' exists in the input for the searched field.
+** Checked if the `PREFIX` exists in the input for the searched field.
 ** If it is, then `REVERSE PREFIX` for that field is also searched and if that is also found, it is checked that if the `PREFIX` is placed before `REVERSE PREFIX`.
 ** If it is not, or if the search cannot reach to this step, then an invalid input message is shown.
 ** If the steps are passed successfully, the element in the `criterion` array for this field will be changed to the value `"available"` +
@@ -391,7 +391,7 @@ e.g. if the input is `filter or phone<57>phone`, then the `PREFIX` and `REVERSE 
 ** Since the parser looks for the first occurrence of `PREFIX` and `REVERSE PREFIX`, if there are multiple filtering parts for the searched criteria, then the first one will be taken.
 . For the available fields (the ones with the regarding `criterion` indexes are set to `"available"`), an input check is made for the the text between the `PREFIX` and `REVERSE PREFIX`. For the non-available filtering conditions, the value in `criterion` for the related field is set to `null`.
 . If the parameters does not pass the input check, an error is thrown, which says the input is in invalid form. If they passes the input check, then the index for the regarding field in `criterion` array is set to the text value between the `PREFIX` and `REVERSE PREFIX`. +
-e.g. the 1st index of `criterion is set to `"57"` regarding to the example above.
+e.g. the 1st index of `criterion` is set to `57` regarding to the example above.
 . FilterCommand function is called. In the parameters `criterion` and `process-type-holding-integer` passed to the object constructor.
 
 * *Working Principle of `FilterCommand` Class*

@@ -28,7 +28,7 @@ if (JavaVersion.current() == JavaVersion.VERSION_1_10
 }
 
 // Specifies the entry point of the application
-mainClassName = 'seedu.address.MainApp'
+mainClassName = 'seedu.pdf.MainApp'
 
 sourceCompatibility = JavaVersion.VERSION_1_9
 targetCompatibility = JavaVersion.VERSION_1_9
@@ -145,24 +145,24 @@ test {
         }
 
         if (runNonGuiTests) {
-            test.include 'seedu/address/commons/**'
-            test.include 'seedu/address/logic/**'
-            test.include 'seedu/address/model/**'
-            test.include 'seedu/address/storage/**'
-            test.include 'seedu/address/testutil/**'
-            test.include 'seedu/address/AppParametersTest**'
-            test.include 'seedu/address/TestApp**'
+            test.include 'seedu/pdf/commons/**'
+            test.include 'seedu/pdf/logic/**'
+            test.include 'seedu/pdf/model/**'
+            test.include 'seedu/pdf/storage/**'
+            test.include 'seedu/pdf/testutil/**'
+            test.include 'seedu/pdf/AppParametersTest**'
+            test.include 'seedu/pdf/TestApp**'
         }
 
         if (runGuiTests) {
             test.exclude 'systemtests/**'
-            test.exclude 'seedu/address/ui/**'
-            test.exclude 'seedu/address/ui/PdfListPanelTest**'
-            test.exclude 'seedu/address/ui/PdfCardTest**'
+            test.exclude 'seedu/pdf/ui/**'
+            test.exclude 'seedu/pdf/ui/PdfListPanelTest**'
+            test.exclude 'seedu/pdf/ui/PdfCardTest**'
         }
 
         if (!runGuiTests) {
-            test.exclude 'seedu/address/ui/**'
+            test.exclude 'seedu/pdf/ui/**'
         }
     }
 }

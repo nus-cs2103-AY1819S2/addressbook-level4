@@ -1,23 +1,23 @@
 package systemtests;
 
-import static seedu.address.logic.commands.CommandTestUtil.DIR_2_VALID;
-import static seedu.address.logic.commands.CommandTestUtil.FILEPATH_1_VALID;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_FILE;
-import static seedu.address.testutil.TypicalPdfs.SAMPLE_PDF_1;
-import static seedu.address.testutil.TypicalPdfs.SAMPLE_PDF_2;
-import static seedu.address.testutil.TypicalPdfs.SAMPLE_PDF_2_DUPLICATE;
+import static seedu.pdf.logic.commands.CommandTestUtil.DIR_2_VALID;
+import static seedu.pdf.logic.commands.CommandTestUtil.FILEPATH_1_VALID;
+import static seedu.pdf.logic.parser.CliSyntax.PREFIX_FILE;
+import static seedu.pdf.testutil.TypicalPdfs.SAMPLE_PDF_1;
+import static seedu.pdf.testutil.TypicalPdfs.SAMPLE_PDF_2;
+import static seedu.pdf.testutil.TypicalPdfs.SAMPLE_PDF_2_DUPLICATE;
 
 import org.junit.Test;
 
-import seedu.address.logic.commands.AddCommand;
-import seedu.address.logic.commands.RedoCommand;
-import seedu.address.logic.commands.UndoCommand;
-import seedu.address.model.Model;
-import seedu.address.model.pdf.Pdf;
-import seedu.address.testutil.PdfBuilder;
-import seedu.address.testutil.PdfUtil;
+import seedu.pdf.logic.commands.AddCommand;
+import seedu.pdf.logic.commands.RedoCommand;
+import seedu.pdf.logic.commands.UndoCommand;
+import seedu.pdf.model.Model;
+import seedu.pdf.model.pdf.Pdf;
+import seedu.pdf.testutil.PdfBuilder;
+import seedu.pdf.testutil.PdfUtil;
 
-public class AddCommandSystemTest extends AddressBookSystemTest {
+public class AddCommandSystemTest extends PdfBookSystemTest {
 
     @Test
     public void add() {
@@ -25,7 +25,7 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
 
         /* ------------------------ Perform add operations on the shown unfiltered list ----------------------------- */
 
-        /* Case: add a pdf without tags to a non-empty address book, command with leading spaces and trailing spaces
+        /* Case: add a pdf without tags to a non-empty pdf book, command with leading spaces and trailing spaces
          * -> added
          */
         Pdf toAdd = SAMPLE_PDF_1;
@@ -54,7 +54,7 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
         command = PdfUtil.getAddCommand(toAdd);
         assertCommandSuccess(command, toAdd);
 
-        /* Case: add to empty address book -> added */
+        /* Case: add to empty pdf book -> added */
         deleteAllPersons();
         assertCommandSuccess(SAMPLE_PDF_1);
 
@@ -98,7 +98,7 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
         command = PdfUtil.getAddCommand(toAdd);
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_PDF);
 
-        *//* Case: add a duplicate pdf except with different address -> rejected *//*
+        *//* Case: add a duplicate pdf except with different pdf -> rejected *//*
         toAdd = new PdfBuilder(HOON).withDirectory(VALID_ADDRESS_BOB).build();
         command = PdfUtil.getAddCommand(toAdd);
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_PDF);
@@ -119,7 +119,7 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
         command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + ADDRESS_DESC_AMY;
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 
-        *//* Case: missing address -> rejected *//*
+        *//* Case: missing pdf -> rejected *//*
         command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY;
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 
@@ -139,7 +139,7 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
         command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + INVALID_EMAIL_DESC + ADDRESS_DESC_AMY;
         assertCommandFailure(command, Email.MESSAGE_CONSTRAINTS);
 
-        *//* Case: invalid address -> rejected *//*
+        *//* Case: invalid pdf -> rejected *//*
         command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + INVALID_ADDRESS_DESC;
         assertCommandFailure(command, Address.MESSAGE_CONSTRAINTS);
 
@@ -160,8 +160,8 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
      * 5. Browser url and selected card remain unchanged.<br>
      * 6. Status bar's sync status changes.<br>
      * Verifications 1, 3 and 4 are performed by
-     * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
-     * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
+     * {@code PdfBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
+     * @see PdfBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
     private void assertCommandSuccess(Pdf toAdd) {
         assertCommandSuccess(PdfUtil.getAddCommand(toAdd), toAdd);
@@ -204,8 +204,8 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
      * 4. {@code Storage} and {@code PdfListPanel} remain unchanged.<br>
      * 5. Browser url, selected card and status bar remain unchanged.<br>
      * Verifications 1, 3 and 4 are performed by
-     * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
-     * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
+     * {@code PdfBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
+     * @see PdfBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
     private void assertCommandFailure(String command, String expectedResultMessage) {
         Model expectedModel = getModel();

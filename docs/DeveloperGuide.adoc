@@ -533,10 +533,13 @@ Step 5. The `SummaryCommand` executes. The command will traverse all books in th
 
 * **Alternative 1 (current choice):** Model manager in charge of data processing, then return the result to the command.
 ** Pros: This prevents the command from accessing data managed by the model manager, thus independency of different parts is guaranteed.
-** Cons: More methods are introduced into the model manager. To get include more information in the summary, not only the summary command should be modified, but also more information query methodS should be added in THE `Model`.
-* **Alternative 2:** Model manager pass the whole Bookshelf to the command, then command process the data according to this list.
-** Pros: More flexible as the command can extract any information it desires.
+** Cons: More methods are introduced into the model manager. To include more information in the summary, not only the summary command should be modified, but also more information query methodS should be added in The `Model`. This somehow break the abstraction.
+* **Alternative 2:** Model manager passes the whole bookshelf to the command, then command process the data according to this list.
+** Pros: More flexible as the command can extract any information it desires. Whenever we want the summary to include more information, we just directly fetch the data from the copy of the bookshelf.
 ** Cons: This approach is unsafe and may lead to more bugs as it violates the principle of independence.
+* **Alternative 3:** Model manager creates a list of the copies of the books in the bookshelf and passes it to the command.
+** Pros: More flexible as the command can read whatever information desired, while keep the bookshelf safe from any unintended modification.
+** Cons: The manager no longer has control over what information is accessible to the command, thus may still expose some sensitive information. Besides, making a copy of the whole list is not practical when there are many books in the bookshelf.
 
 // end::summary[]
 

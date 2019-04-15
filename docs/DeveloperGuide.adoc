@@ -908,7 +908,7 @@ Given below is an example usage scenario of the automatic save and compare featu
 
 1. Upon winning a game, a user will be presented with the following screen.
 
-image::StatsWinScreen.PNG[width=500]
+image::StatsWinScreen.PNG[width=350]
 Notice the displayed 'Statistics Analysis' section that displays a comparison of the player's accuracy in the current game and
 the previous game.
 

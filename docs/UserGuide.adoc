@@ -187,6 +187,7 @@ This feature can be improved to support medical databases of different countries
 Due to the nature of medical inventories, the integrity of data stored is of utmost importance. The next release will feature data encryption to keep your inventory safe and keep unauthorised users away. With this feature, you will be required to log in with a password to view and edit your inventory. This feature can be disabled if it is not required for your needs.
 // end::dataencryption[]
 
+// tag::previewresults[]
 ==== Preview of results
 
 . Preview of results for Export and Label Commands to be available in the UI.
@@ -195,10 +196,13 @@ Due to the nature of medical inventories, the integrity of data stored is of utm
 - Below is a mock up on how the UI may look like with the features integrated.
 
 image::MockUp.png[width="790"]
+// end::previewresults[]
 
+// tag::importpictures[]
 ==== Importing pictures
 . Import of pictures to aid in the medicine identification.
 - Pictures and snapshot of the medicine may be added to MediTabs such that it is easier for you to identify what the physical medicine looks like.
+// end::importpictures[]
 
 [[Commands]]
 == Commands
@@ -479,7 +483,7 @@ This includes the company that manufactured it, expiry date and the tags that wa
 
 All PDF files can be found under the PDF folder
 
-image::mainPDF.png[width="790"]
+image::folderPDF.png[width="790"]
 
 Fig 5.12.1 PDF folder highlighted
 
@@ -487,7 +491,7 @@ Examples:
 
 .  Open up the software interface. (Fig 5.12.2)
 +
-image::blankUI.png[width="790"]
+image::Ui.png[width="790"]
 +
 Fig 5.12.2 Software interface
 +

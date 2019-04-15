@@ -120,6 +120,7 @@ The menu bar can be used to:
 
 {bl}
 // tag::userinterface3[]
+
 === Records List Panel
 // end::userinterface3[]
 {bl}

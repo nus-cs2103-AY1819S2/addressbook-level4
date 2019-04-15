@@ -13,27 +13,29 @@ Fashion Match is a desktop wardrobe management application used as a guide for y
 
 == Summary of contributions
 
-* *Major enhancement*: added *the ability to make available and unavailable certain apparel, or the ability to wash and dirty certain apparel*, where available and wash keywords can be used interchangebly like unavailable and dirty.
-** What it does: allows the user to change an apparel's availability status, whether it should be dirty or clean.
-** Justification: This feature improves the product significantly because it similates the wardrobe's laundry basket; if available, it is clean and has not been worn; if unavailable, it similates a dirty apparel in the laundry basket.
-** Highlights: This enhancement affects existing commands like the recommendation class of commands and commands to be added in future. It required an in-depth analysis of the n-level design architecture in ab4. The implementation too was challenging as it required changes to existing commands, and is modelled after the EditCommand.java class.
-** Credits: _none_, as i simply had to model the AvailableCommand.java and UnavailableCommand.java classes after EditCommand.java class
+* *Major enhancement*: added *the ability to make wash and wear certain apparels*.
+** What it does: allows the user to indicate whether an apparel's is clean or worn.
+** Justification: This feature improves the product significantly because it similates the wardrobe and the laundry basket; if clean, it is hanging clean and has not been worn; if worn, it has been put in the laundry basket.
+** Highlights: This enhancement affects existing commands like the recommendation class of commands and the statistics commands. It required an in-depth analysis of the n-level design architecture in ab4. The implementation too was challenging as it required changes to existing commands, and is modelled after the EditCommand.java class.
+** Credits: _none_, as i simply had to model the WashCommand.java and WearCommand.java classes after EditCommand.java class
 
-* *Minor enhancement*: Enabled alternative, more intuitive command words to be used in place of available and unavailable: *wash* and *dirty*.
+* *Minor enhancement*: Learnt CSS and HTML for CS2103 to take charge of the UI Design aspect. Raffles did the back-end code, i was in charge of user experience. I did the front end, adjusting the fonts and the anchorpane settings, and choosing the right colours finding the right hexcode values for our app.
+** Used photoshop skills to remove background white image from jpg image. Resized images. Did this for all 64 of tops, bottoms, belts, and shoes images in the our resources/images folder. Tedious work but worth it.
+** Commissioned my artist friend to do the default image seen when Fashion Match first loads up. Titled firstpage.png in resources/image folder.
 
 * *Code contributed*:
 
-*Available command*: https://github.com/CS2103-AY1819S2-W15-1/main/blob/master/src/main/java/seedu/address/logic/commands/AvailableCommand.java[Functional code]
+*Wash command*: https://github.com/CS2103-AY1819S2-W15-1/main/blob/master/src/main/java/seedu/address/logic/commands/WashCommand.java[Functional code]
 
-*Unavailable command*: https://github.com/CS2103-AY1819S2-W15-1/main/blob/master/src/main/java/seedu/address/logic/commands/UnavailableCommand.java[Functional code]
+*Wear command*: https://github.com/CS2103-AY1819S2-W15-1/main/blob/master/src/main/java/seedu/address/logic/commands/WearCommand.java[Functional code]
 
-*Parser* for available command: https://github.com/CS2103-AY1819S2-W15-1/main/blob/master/src/main/java/seedu/address/logic/parser/AvailableCommandParser.java[Functional code]
+*Parser* for available command: https://github.com/CS2103-AY1819S2-W15-1/main/blob/master/src/main/java/seedu/address/logic/parser/WashCommandParser.java[Functional code]
 
-*Parser* for unavailable command: https://github.com/CS2103-AY1819S2-W15-1/main/blob/master/src/main/java/seedu/address/logic/parser/UnavailableCommandParser.java[Functional code]
+*Parser* for unavailable command: https://github.com/CS2103-AY1819S2-W15-1/main/blob/master/src/main/java/seedu/address/logic/parser/WearCommandParser.java[Functional code]
 
-*Available* command test: https://github.com/CS2103-AY1819S2-W15-1/main/blob/master/src/main/java/seedu/address/logic/commands/AvailableCommand.java[Test code]
+*Wash* command test: https://github.com/CS2103-AY1819S2-W15-1/main/blob/master/src/main/java/seedu/address/logic/commands/WashCommand.java[Test code]
 
-*Unavailable* command test: https://github.com/CS2103-AY1819S2-W15-1/main/blob/master/src/test/java/seedu/address/logic/commands/UnavailableCommandTest.java[Test code]
+*Wear* command test: https://github.com/CS2103-AY1819S2-W15-1/main/blob/master/src/test/java/seedu/address/logic/commands/WearCommandTest.java[Test code]
 
 *Stub* class: https://github.com/CS2103-AY1819S2-W15-1/main/blob/master/src/test/java/seedu/address/logic/commands/CommandTestUtilExtra.java[Test code]
 
@@ -54,7 +56,7 @@ Fashion Match is a desktop wardrobe management application used as a guide for y
 *** Cleanup of the User Guide from ab4 to Fashion Match: https://github.com/CS2103-AY1819S2-W15-1/main/pull/9[#4] https://github.com/CS2103-AY1819S2-W15-1/main/pull/96[#5]
 ** Community:
 *** PRs reviewed (with non-trivial review comments): https://github.com/CS2103-AY1819S2-W15-1/main/pull/59[#6]
-*** Reported bugs and suggestions for other teams in the class (examples: )
+*** Reported bugs and suggestions for other teams in the class: https://github.com/cs2103-ay1819s2-w11-4/main/issues/128[#7] https://github.com/cs2103-ay1819s2-w11-4/main/issues/118[#8] https://github.com/cs2103-ay1819s2-w11-4/main/issues/114[#9] https://github.com/cs2103-ay1819s2-w11-4/main/issues/124[#10]
 
 == Contributions to the User Guide
 

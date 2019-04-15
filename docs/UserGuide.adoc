@@ -145,10 +145,18 @@ Format: `wash INDEX` or `available INDEX`
 
 Examples:
 
-* `wash 1` +
-Makes available the 1st apparel in the list if it was worn.
-* `available 2` +
-Does nothing if the 2nd apparel in the list is already clean.
+* `wash 5` +
+Resets cleanliness status of the fifth apparel in the list if it was worn.
++
+image::washWornBefore.jpg[width="790"]
++
+image::washWornAfter.jpg[width="790"]
++
+* `wash 5` +
+Does not allow cleaning if the fifth apparel in the list is already clean.
++
+image::washClean.jpg[width="790"]
++
 
 // tag::wear[]
 === Wearing a piece of apparel : `wear` or `unavailable`
@@ -160,18 +168,30 @@ Format: `wash INDEX` or `unavailable INDEX`
 * Makes the apparel's status worn at the specified `INDEX`. The index refers to the index number shown in the displayed apparel list.
 * Apparel will be made worn whether it was worn or clean before the command.
 * Feedback message gently advices you to not be a dirty bum if you wear a worn apparel even if its belts or shoes.
+* Random message guilting you for being dirty is shown to user.
 * Increases the 'Times Worn' counter by 1.
 * The index *must be a positive integer* 1, 2, 3, ...
 ****
 
 Examples:
 
-* `wear 1` +
-Makes worn the 1st apparel in the list.
+* `wear 5` +
+Sets status of the fifth apparel in the list to 'Worn'.
 Increases its times worn by 1.
-* `unavailable 2` +
-Makes available the 2nd apparel in the list.
++
+image::wearCleanBefore.jpg[width="790"]
++
+image::wearCleanAfter.jpg[width="790"]
++
+* `wear 5` +
+Sets status of the fifth apparel in the list to 'Worn' even if it's already worn.
 Increases its times worn by 1.
+One of the seven random messages shown below.
++
+image::wearAgainBefore.jpg[width="790"]
++
+image::wearAgainAfter.jpg[width="790"]
++
 
 === Locating apparels by name: `find`
 

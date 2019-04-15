@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * Represents a partial of Card, only contains the necessary information for Quiz.
+ * Represents the QuizCard used in {@link Quiz}.
  */
 public class QuizCard {
 
@@ -26,23 +26,6 @@ public class QuizCard {
     private boolean isWrongTwice;
     private boolean isCardDifficult;
 
-    private QuizCard(int index, String question, String answer, List<String> opt, String questionHeader,
-                     String answerHeader, QuizMode quizMode) {
-        requireAllNonNull(index, question, answer, quizMode, questionHeader, answerHeader);
-        checkArgument(!question.trim().isEmpty() && !answer.trim().isEmpty(), MESSAGE_CONSTRAINTS);
-
-        this.index = index;
-        this.question = question;
-        this.answer = answer;
-        this.questionHeader = questionHeader;
-        this.answerHeader = answerHeader;
-        this.opt = opt;
-        this.quizMode = quizMode;
-        this.isWrongTwice = false;
-        this.hasAttemptedBefore = false;
-        this.isCardDifficult = false;
-    }
-
     public QuizCard(String question, String answer, List<String> opt, String questionHeader, String answerHeader) {
         requireAllNonNull(question, answer, opt, questionHeader, answerHeader);
         checkArgument(!question.trim().isEmpty() && !answer.trim().isEmpty(), MESSAGE_CONSTRAINTS);
@@ -55,6 +38,26 @@ public class QuizCard {
         this.index = -1;
         this.totalAttempts = 0;
         this.streak = 0;
+        this.isCardDifficult = false;
+    }
+
+    private QuizCard(int index, String question, String answer, List<String> opt, String questionHeader,
+                     String answerHeader, QuizMode quizMode) {
+        requireAllNonNull(index, question, answer, quizMode, questionHeader, answerHeader);
+        checkArgument(!question.trim().isEmpty() && !answer.trim().isEmpty(), MESSAGE_CONSTRAINTS);
+
+        this.index = index;
+        this.question = question;
+        this.answer = answer;
+        this.questionHeader = questionHeader;
+        this.answerHeader = answerHeader;
+        this.opt = opt;
+        this.quizMode = quizMode;
+
+        this.totalAttempts = -1;
+        this.streak = -1;
+        this.isWrongTwice = false;
+        this.hasAttemptedBefore = false;
         this.isCardDifficult = false;
     }
 
@@ -106,9 +109,6 @@ public class QuizCard {
         return answerHeader;
     }
 
-    /**
-     * Returns if the card labeled difficult.
-     */
     public boolean isCardDifficult() {
         return isCardDifficult;
     }
@@ -174,12 +174,19 @@ public class QuizCard {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("Question: " + question + "\n");
-        sb.append("Answer: " + answer + "\n");
-        sb.append("Optionals: " + opt + "\n");
-        sb.append("Index: " + index + "\n");
-        sb.append("Total attempts: " + totalAttempts + "\n");
-        sb.append("Streak: " + streak + "\n");
+
+        sb.append(questionHeader + ": " + question + "\n");
+        sb.append(answerHeader + ": " + answer + "\n");
+        sb.append("hints: " + opt + "\n");
+
+        if (index == -1) {
+            sb.append("Total attempts: " + totalAttempts + "\n");
+            sb.append("Streak: " + streak + "\n");
+            sb.append("isWrongTwice: " + isWrongTwice + "\n");
+        } else {
+            sb.append("Index: " + index + "\n");
+        }
+
         return sb.toString();
     }
 }

@@ -12,7 +12,7 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.commands.management.ChangeThemeCommand;
-import seedu.address.logic.commands.quiz.QuizStartCommand;
+import seedu.address.logic.commands.management.StartCommand;
 import seedu.address.logic.parser.ManagementModeParser;
 import seedu.address.logic.parser.QuizModeParser;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -109,9 +109,9 @@ public class LogicManager implements Logic {
                 }
             }
 
-            if (command instanceof QuizStartCommand) {
-                QuizStartCommand quizStartCommand = (QuizStartCommand) command;
-                commandResult = quizStartCommand.executeActual(quizModel, history);
+            if (command instanceof StartCommand) {
+                StartCommand startCommand = (StartCommand) command;
+                commandResult = startCommand.executeQuiz(quizModel, history);
             }
 
             if (command instanceof ChangeThemeCommand) {
@@ -138,6 +138,10 @@ public class LogicManager implements Logic {
     }
 
     @Override
+    public String getCurrentLessonName() {
+        return quizModel.getName();
+    }
+    @Override
     public List<Lesson> getLessons() {
         return managementModel.getLessons();
     }
@@ -155,6 +159,11 @@ public class LogicManager implements Logic {
     @Override
     public String getTotalCorrectAndTotalAttempts() {
         return quizModel.getQuizTotalCorrectQuestions() + " out of " + quizModel.getQuizTotalAttempts();
+    }
+
+    @Override
+    public List<QuizCard> getQuizCardList() {
+        return quizModel.isResultDisplay() ? quizModel.getQuizCardList() : null;
     }
 
     @Override

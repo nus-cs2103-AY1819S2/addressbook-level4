@@ -3,7 +3,7 @@ package seedu.address.logic.commands.management;
 import static java.util.Objects.requireNonNull;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
-import static seedu.address.commons.core.Messages.MESSAGE_OPENED_LESSON;
+import static seedu.address.commons.core.Messages.MESSAGE_LESSON_VIEW_COMMAND;
 import static seedu.address.logic.commands.management.AddLessonCommand.MESSAGE_DUPLICATE_NAME;
 import static seedu.address.logic.commands.management.ManagementCommand.MESSAGE_EXPECTED_MODEL;
 import static seedu.address.model.lesson.LessonList.EXCEPTION_INVALID_INDEX;
@@ -78,7 +78,7 @@ public class AddLessonCommandTest {
         // attempt to add valid lesson but there is an opened lesson ->
         // ask user to close opened lesson first
         thrown.expect(CommandException.class);
-        thrown.expectMessage(MESSAGE_OPENED_LESSON);
+        thrown.expectMessage(MESSAGE_LESSON_VIEW_COMMAND);
         new AddLessonCommand(validLesson).execute(modelStub, commandHistory);
     }
 

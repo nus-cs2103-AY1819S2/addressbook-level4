@@ -14,7 +14,7 @@ import seedu.address.model.card.Card;
  */
 public class LessonList {
     //Static fields
-    public static final String EXCEPTION_INVALID_INDEX = "Invalid index: %1$s";
+    public static final String EXCEPTION_INVALID_INDEX = "Invalid index: %1$s.";
 
     // Data fields
     /**
@@ -166,6 +166,15 @@ public class LessonList {
      */
     public List<String> getOpenedLessonOptionalHeaders() {
         return openedLesson.getOptionalHeaders();
+    }
+
+    /**
+     * @param questionCoreIndex the index of the question in the {link Card} objects' list of cores.
+     * @param answerCodeIndex the index of the answer in the {link Card} objects' list of cores.
+     */
+    public void setOpenedLessonQuestionAnswer(int questionCoreIndex, int answerCodeIndex) {
+        requireNonNull(openedLesson);
+        openedLesson.setQuestionAnswerIndices(questionCoreIndex, answerCodeIndex);
     }
 
     /**

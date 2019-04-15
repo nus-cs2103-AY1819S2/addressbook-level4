@@ -2,7 +2,7 @@ package seedu.address.logic.commands.management;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
-import static seedu.address.commons.core.Messages.MESSAGE_NO_OPENED_LESSON;
+import static seedu.address.commons.core.Messages.MESSAGE_CARD_VIEW_COMMAND;
 import static seedu.address.logic.commands.management.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.management.ListLessonsCommand.MESSAGE_NO_LESSONS;
 
@@ -24,7 +24,7 @@ import seedu.address.testutil.LessonBuilder;
 
 /**
  * Integration tests for the {@link AddLessonCommand}, {@link DeleteLessonCommand}, {@link ListLessonsCommand},
- * {@link OpenLessonCommand}, {@link ListCardsCommand} and {@link CloseLessonCommand}
+ * {@link EditLessonCommand}, {@link ListCardsCommand} and {@link QuitLessonCommand}
  * which are executed using an actual {@link ManagementModelManager}.
  */
 public class ManagementCommandsIntegrationTest {
@@ -60,7 +60,7 @@ public class ManagementCommandsIntegrationTest {
             // Given that there are no cards to list
             throw new AssertionError("Command should throw CommandException");
         } catch (CommandException e) {
-            assertEquals(e.getMessage(), MESSAGE_NO_OPENED_LESSON);
+            assertEquals(e.getMessage(), MESSAGE_CARD_VIEW_COMMAND);
         }
 
         // Step 3: addLesson
@@ -95,10 +95,10 @@ public class ManagementCommandsIntegrationTest {
     }
 
     /**
-     * Tests {@link AddLessonCommand}, {@link DeleteLessonCommand}, {@link OpenLessonCommand} and
-     * {@link CloseLessonCommand} with {@link ManagementModelManager}.
+     * Tests {@link AddLessonCommand}, {@link DeleteLessonCommand}, {@link EditLessonCommand} and
+     * {@link QuitLessonCommand} with {@link ManagementModelManager}.
      *
-     * <br><br>Opening and closing a lesson with {@link OpenLessonCommand} and {@link CloseLessonCommand}
+     * <br><br>Opening and closing a lesson with {@link EditLessonCommand} and {@link QuitLessonCommand}
      * should not prevent deletion of lesson by using {@link DeleteLessonCommand}.
      */
     @Test
@@ -111,7 +111,7 @@ public class ManagementCommandsIntegrationTest {
         // Step 2: openLesson
         // opens valid lesson -> lesson opened successfully
         Index toOpenIndex = Index.fromZeroBased(0);
-        new OpenLessonCommand(toOpenIndex).execute(model, commandHistory);
+        new EditLessonCommand(toOpenIndex).execute(model, commandHistory);
 
         // lesson opened successfully -> success feedback
         assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
@@ -129,7 +129,7 @@ public class ManagementCommandsIntegrationTest {
 
         // Step 4: closeLesson
         // close opened lesson -> lesson closed successfully
-        new CloseLessonCommand().execute(model, commandHistory);
+        new QuitLessonCommand().execute(model, commandHistory);
 
         // openedLesson is now null
         assertNull(model.getOpenedLesson());
@@ -141,7 +141,7 @@ public class ManagementCommandsIntegrationTest {
             // Given that there are no cards to list
             throw new AssertionError("Command should throw CommandException");
         } catch (CommandException e) {
-            assertEquals(e.getMessage(), MESSAGE_NO_OPENED_LESSON);
+            assertEquals(e.getMessage(), MESSAGE_CARD_VIEW_COMMAND);
         }
 
         // Step 6: deleteLesson

@@ -23,6 +23,12 @@ public class CsvUtil {
     private static final Logger logger = LogsCenter.getLogger(CsvUtil.class);
 
     /**
+     * This is a static-methods-only (utility) class which should not be instantiated.
+     * Note that this is not a singleton class given that not even a single instance is allowed.
+     */
+    private CsvUtil() { }
+
+    /**
      * Returns a list of String arrays from the given file or null object if the file is not found.
      *
      * Files are automatically assumed to be UTF-8 encoded, and BOMs are checked for and removed.

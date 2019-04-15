@@ -81,9 +81,9 @@ public class StorageManagerTest {
          */
         LessonList original = new LessonList();
         storageManager.setLessonListFolderPath(NO_VALID_FILES_FOLDER);
-        LessonList retrieved = storageManager.readLessonList().get();
+        LessonList retrieved = storageManager.readLessonList().orElse(new LessonList());
         assertEquals(original, retrieved);
-        retrieved = storageManager.readLessonList(NO_VALID_FILES_FOLDER).get();
+        retrieved = storageManager.readLessonList(NO_VALID_FILES_FOLDER).orElse(new LessonList());
         assertEquals(original, retrieved);
         assertEquals(0, storageManager.saveLessonList(retrieved));
         assertEquals(0, storageManager.saveLessonList(retrieved, NO_VALID_FILES_FOLDER));

@@ -16,6 +16,7 @@ import seedu.address.model.user.CardSrsData;
 
 /**
  * Represents a management of cards manager.
+ * It will be used to generate list of {@link SrsCard} for different modes and updating user data after quiz.
  */
 public class SrsCardsManager {
     private Lesson lesson;
@@ -23,12 +24,24 @@ public class SrsCardsManager {
     private List<SrsCard> srsCards;
     private List<List<Integer>> quizInformation;
     private Instant currentDate;
+
+    /**
+     * Creates a manager to generate {@link SrsCard}.
+     * @param lesson {@link Lesson} of flashcards.
+     * @param cardData user information of {@link CardSrsData}.
+     */
     public SrsCardsManager(Lesson lesson, HashMap<Integer, CardSrsData> cardData) {
         requireAllNonNull(lesson, cardData);
         this.lesson = lesson;
         this.cardData = cardData;
     }
 
+    /**
+     * Creates a manager to update {@link CardSrsData}。
+     * @param srsCards list of {@link SrsCard}.
+     * @param quizInformation results obtained from {@link seedu.address.model.quiz.Quiz}.
+     * @param currentDate shows the current time as an Instant.
+     */
     public SrsCardsManager(List<SrsCard> srsCards, List<List<Integer>> quizInformation, Instant currentDate) {
         requireAllNonNull(srsCards, quizInformation);
         this.quizInformation = quizInformation;
@@ -38,6 +51,7 @@ public class SrsCardsManager {
 
     /**
      * Show the cards in lesson in order for PREVIEW mode.
+     * @retun list of {@link SrsCard} for PREVIEW mode.
      */
     public List<SrsCard> preview() {
         List<Card> cards = lesson.getCards();
@@ -53,6 +67,7 @@ public class SrsCardsManager {
 
     /**
      * Shows the cards in lesson only labelled as difficult.
+     * @return List of {@link SrsCard} for DIFFICULT mode.
      */
     public List<SrsCard> previewDifficult() {
         List<Card> cards = lesson.getCards();
@@ -69,6 +84,7 @@ public class SrsCardsManager {
 
     /**
      * Generate a list of new cards for LEARN mode.
+     * @return List of {@link SrsCard} for LEARN mode.
      */
     public List<SrsCard> learn() {
         List<Card> cards = lesson.getCards();
@@ -88,6 +104,7 @@ public class SrsCardsManager {
     /**
      * Sorts all cards in this lesson based on their srsDueDate.
      * Generate cards for review mode based on srs value.
+     * @return List of {@link SrsCard} for REVIEW mode.
      */
     public List<SrsCard> sort() {
         List<Card> cards = lesson.getCards();
@@ -126,6 +143,7 @@ public class SrsCardsManager {
 
     /**
      * Updates fields of each cardData class based on the result of quiz system.
+     * @return List of updated {@link CardSrsData} based on {@code quizInformation}.
      */
     public List<CardSrsData> updateCardData() {
         List<CardSrsData> updatedCardData = new ArrayList<>();

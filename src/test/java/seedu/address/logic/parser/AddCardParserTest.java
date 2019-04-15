@@ -5,8 +5,8 @@ import static seedu.address.logic.commands.management.CommandTestUtil.PREAMBLE_N
 import static seedu.address.logic.commands.management.CommandTestUtil.PREAMBLE_WHITESPACE;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.address.logic.parser.Syntax.PREFIX_CORE;
-import static seedu.address.logic.parser.Syntax.PREFIX_OPTIONAL;
+import static seedu.address.logic.parser.Syntax.PREFIX_HINT;
+import static seedu.address.logic.parser.Syntax.PREFIX_TEST;
 import static seedu.address.testutil.TypicalCards.CARD_JAPAN_CORE1;
 import static seedu.address.testutil.TypicalCards.CARD_JAPAN_CORE2;
 import static seedu.address.testutil.TypicalCards.CARD_JAPAN_OPT1;
@@ -19,9 +19,9 @@ import seedu.address.testutil.CardBuilder;
 import seedu.address.testutil.TypicalCards;
 
 public class AddCardParserTest {
-    private static final String CARD_CORE_1 = " " + PREFIX_CORE + CARD_JAPAN_CORE1;
-    private static final String CARD_CORE_2 = " " + PREFIX_CORE + CARD_JAPAN_CORE2;
-    private static final String CARD_OPT_1 = " " + PREFIX_OPTIONAL + CARD_JAPAN_OPT1;
+    private static final String CARD_CORE_1 = " " + PREFIX_TEST + CARD_JAPAN_CORE1;
+    private static final String CARD_CORE_2 = " " + PREFIX_TEST + CARD_JAPAN_CORE2;
+    private static final String CARD_OPT_1 = " " + PREFIX_HINT + CARD_JAPAN_OPT1;
     private String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCardCommand.MESSAGE_USAGE);
     private AddCardParser addCardParser = new AddCardParser();
     private Card card = TypicalCards.CARD_JAPAN;

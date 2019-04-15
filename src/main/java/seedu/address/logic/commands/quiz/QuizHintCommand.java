@@ -11,7 +11,7 @@ import seedu.address.model.modelmanager.Model;
 import seedu.address.model.modelmanager.QuizModel;
 
 /**
- * Displays a list of hints of the current card
+ * Displays a list of hints of the current card.
  */
 public class QuizHintCommand extends QuizCommand {
     public static final String COMMAND_WORD = "\\hint";

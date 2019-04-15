@@ -1,4 +1,5 @@
-﻿*CountryName,*CapitalName,CountryCode,ContinentName
+﻿TESTED,TESTED,HINT,HINT
+CountryName,CapitalName,CountryCode,ContinentName
 Afghanistan,Kabul,AF,Asia
 Aland Islands,Mariehamn,AX,Europe
 Albania,Tirana,AL,Europe

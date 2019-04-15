@@ -31,6 +31,9 @@ import seedu.address.testutil.Assert;
 import seedu.address.testutil.CardBuilder;
 import seedu.address.testutil.SessionBuilder;
 
+/**
+ * Contains integration tests with the QuizModel for QuizHintCommand.
+ */
 public class QuizHintCommandTest {
     private QuizModel actualModel = new QuizModelManager(new ManagementModelManager());
     private QuizModel expectedModel = new QuizModelManager(new ManagementModelManager());

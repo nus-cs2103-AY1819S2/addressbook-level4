@@ -3,7 +3,7 @@ package seedu.address.logic.commands.management;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static seedu.address.commons.core.Messages.MESSAGE_NO_OPENED_LESSON;
+import static seedu.address.commons.core.Messages.MESSAGE_CARD_VIEW_COMMAND;
 import static seedu.address.logic.commands.management.ListCardsCommand.MESSAGE_NO_CARDS;
 import static seedu.address.logic.commands.management.ManagementCommand.MESSAGE_EXPECTED_MODEL;
 
@@ -38,7 +38,7 @@ public class ListCardsCommandTest {
 
         // attempt to list all cards when there is no opened lesson -> error message
         thrown.expect(CommandException.class);
-        thrown.expectMessage(MESSAGE_NO_OPENED_LESSON);
+        thrown.expectMessage(MESSAGE_CARD_VIEW_COMMAND);
         new ListCardsCommand().execute(modelStub, commandHistory);
     }
 

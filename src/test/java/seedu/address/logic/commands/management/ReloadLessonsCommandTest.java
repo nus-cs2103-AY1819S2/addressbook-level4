@@ -2,7 +2,7 @@ package seedu.address.logic.commands.management;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
-import static seedu.address.commons.core.Messages.MESSAGE_OPENED_LESSON;
+import static seedu.address.commons.core.Messages.MESSAGE_LESSON_VIEW_COMMAND;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -40,7 +40,7 @@ public class ReloadLessonsCommandTest {
         // attempt to reload lessons but there is an opened lesson ->
         // ask user to close opened lesson first
         thrown.expect(CommandException.class);
-        thrown.expectMessage(MESSAGE_OPENED_LESSON);
+        thrown.expectMessage(MESSAGE_LESSON_VIEW_COMMAND);
         new ReloadLessonsCommand().execute(modelStub, null);
     }
 

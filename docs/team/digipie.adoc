@@ -1,84 +1,243 @@
-= Evan Tay - Project Portfolio for BrainTrain
+= Evan Tay - Project portfolio for BrainTrain +
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
-:toc:
-:toclevels: 1
-:toc-title: Table of contents
-:toc-placement: manual
 :sectnums:
 :repoURL: https://github.com/CS2103-AY1819S2-W14-1/main
 :pullURL: https://github.com/CS2103-AY1819S2-W14-1/main/pull/
 :seeduURL: https://github.com/se-edu/addressbook-level4
+:webURL: https://cs2103-ay1819s2-w14-1.github.io/main/
 
-== Introduction
+== Introduction +
 The purpose of this portfolio is to demonstrate my software engineering competency by showcasing my code and documentation contributions to the link:{repoURL}[BrainTrain project].
 
-=== Overview
+=== Overview +
 The BrainTrain project was developed by a team of 5 students over seven weeks, under the National University of Singapore's link:{seeduURL}[CS2103T: Software Engineering module]. +
 
-CS2103T students were given the option of enhancing an link:{seeduURL}[existing addressbook application] or morphing it into another product. We chose to morph it into a https://en.wikipedia.org/wiki/Spaced_repetition[spaced-repetition] flashcard application because we wanted to further challenge ourselves and improve our software engineering skills.
+CS2103T students were given the option of enhancing an link:{seeduURL}[existing addressbook application] or morphing it into another product. We chose to morph it into a https://en.wikipedia.org/wiki/Spaced_repetition[spaced-repetition] card application because we wanted to further challenge ourselves and improve our software engineering skills.
 
-=== What is BrainTrain
+=== What is BrainTrain +
 
-BrainTrain is a flashcard application which makes *memorizing easy and efficient*. link:https://www.theguardian.com/education/2016/jan/23/spaced-repetition-a-hack-to-make-your-brain-store-information[Research] has shown that the Spaced-Repetition System (SRS) is much more effective than traditional memorization techniques. With BrainTrain, you will *learn more with less time*.
+BrainTrain is a *spaced-repetition card application* which makes *memorizing easy and effective*. With BrainTrain's link:https://www.theguardian.com/education/2016/jan/23/spaced-repetition-a-hack-to-make-your-brain-store-information[Spaced Repetition System (SRS)] optimizing your card revision intervals, you will be able to *learn more in less time*.
 
-Who is it for:
+== Summary of contributions +
+My primary responsibility was to design and develop the *Card Management System*. My secondary responsibility was to act as the project's *documentation lead*. In the following sub-sections, you will find a summary of my key contributions to the project.
 
-- Learners who need to memorise content (e.g. Japanese vocabulary, human anatomy, operating system concepts)
-- Educators who want to create flashcard lessons for their students
+=== Major enhancement +
+My largest contribution to the project was the implementation of the *Card Management System*: +
 
-Main features of BrainTrain:
+* Context: In BrainTrain, each lesson contains a set of cards of the same type and topic.
+* What it does: It provides users with the ability to add, edit and delete lessons in *Lesson View* and *Card View* modes.
+* In *Lesson View*, users can:
+** Add and delete lessons by using the `addLesson` and `deleteLesson` commands
+** Open a lesson in *Card View* for editing by using the `edit` command
+** List the full details of all lessons by using the `listLessons` command
+* In *Card View*, users can:
+** Add and delete cards by using the `addCard` and `deleteCard` commands
+** Set the 2 test values to be tested in quiz mode for all cards in the lesson by using the `set` command
+** List the full details of all cards by using the `listCards` command
+** Quit *Card View* and return to *Lesson View* by using the `quit` command
+* Justification: Users need to be able to create and manage content in order to use BrainTrain for card learning.
+* Most significant pull requests: link:{pullURL}113[#113], link:{pullURL}173[#173] and link:{pullURL}180[#180]
+* Code contributed: https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#=undefined&search=digipie[View on RepoSense] +
 
-- You can add, edit and delete flashcard lessons in BrainTrain's management mode.
-- You can also create lessons in your preferred spreadsheet application and import them as `.csv` files with ease.
-- You can attempt flashcard lessons in BrainTrain's quiz mode and your user-specific data (e.g. spaced-repetition information) will be saved automatically.
+=== Minor enhancement +
+My second largest contribution was the Graphical User Interface (GUI) representation for the Card Management System: +
 
-== Summary of contributions
-My role was to design, document, and code the Card Management System. My secondary role was to manage the overall project documentation. The following is a list of my key contributions to the project.
+* What it does: Displays all lessons and their relevant details in *Lesson View*, and the details and cards of the lesson being edited in *Card View*.
+** In *Lesson View*, users can view all lessons and their details (e.g. number of cards).
+** In *Card View*, users can view the opened lesson's details and its cards.
+* Justification: The GUI representation of lessons and cards provides users with the ability to view all relevant details at a glance.
+* Code contributed: https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#=undefined&search=digipie[View on RepoSense] +
 
-=== Major enhancement
-My largest contribution to the project was the implementation of the Card Management System:
-
-* What it does: The system allows the user to manage flashcard lessons.
-** Users can view, add and delete lessons using the `listLessons`, `addLesson` and `deleteLesson` commands.
-** Users can open a lesson for editing and close it to save changes using the `openLesson` and `closeLesson` commands.
-** Users can view, add and delete flashcards using the `listCards`, `addCard` and `deleteCard` commands.
-* Justification: Users need to be able to create and edit lessons in order to use the BrainTrain application for spaced-repetition flashcard learning.
-* Highlights: Pull request link:{pullURL}85[#85], link:{pullURL}107[#107] and link:{pullURL}113[#113]
-* Code contributed: [https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#=undefined&search=digipie[Functional code]]
-
-=== Minor enhancement
-My second largest contribution to the project was the implementation of the Graphical User Interface representation for the Card Management System:
-
-* What it does: Displays all lessons as a list and also the opened lesson's flashcards.
-* Justification: Users are able to view all lessons and the flashcards they contain easily and at a glance.
-* Code contributed: [https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#=undefined&search=digipie[Functional code]]
-
-=== Other contributions
+=== Other contributions +
 In addition to designing and writing code, I also contributed to the project through the following means:
 
-* Documentation:
-** Wrote the User Guide's Introduction and Quick Start sections (Pull request link:{pullURL}15[#15], link:{pullURL}85[#85] and link:{pullURL}113[#113])
-** Edited the User Guide and Developer Guide for overall coherency and consistency (Pull request
-link:{pullURL}20[#20], https://github.com/CS2103-AY1819S2-link:{pullURL}85[#85] and link:{pullURL}107[#107])
-* Project management:
-** Managed product releases `v1.2.1` and `v1.3`
-** Closed milestone `v1.3`
-* Software architecture:
-** Performed major refactor of `seedu.address.logic` package structure and design to improve workflow for entire team (Pull request link:{pullURL}/85[#85])
-* Community:
-** Fixed a bug in teammate's pull request (Pull request link:{pullURL}33[#33])
-** Reviewed pull requests with constructive feedback (Pull request link:{pullURL}37[#37], link:{pullURL}108[#108] and link:{pullURL}132[#132] and link:{pullURL}133[#133])
-//** Reported bugs for other teams in the class
-//* Tools:
+* *Documentation:*
+As the documentation lead, I ensured overall quality for the project's documentation by,
+** Writing the User Guide's Introduction and Quick Start sections (see link:{pullURL}15[#15], link:{pullURL}85[#85], and link:{pullURL}180[#180]).
+** Editing the User Guide and Developer Guide for overall coherency as editor (see
+link:{pullURL}20[#20], https://github.com/CS2103-AY1819S2-link:{pullURL}85[#85], and link:{pullURL}180[#180]).
+* *Project management:* I assisted the team lead, <<eugenefdw#, Eugene>> by,
+** Managing product releases link:{repoURL}/releases/tag/v1.2.1[v1.2.1] and link:{repoURL}/releases/tag/v1.3[v1.3.0].
+** Coordinating team for milestone link:{repoURL}/milestone/4[v1.3].
+* *Software architecture:* I contributed to the overall project by,
+** Performing major refactor of `seedu.address.logic` and `seedu.address.model.util` package structure and design to improve workflow for entire team (see  link:{pullURL}/85[#85], link:{pullURL}/180[#180]).
+** Co-designing the app's light and dark theme with fellow developer <<halcyoneee#, Tze Ting>> (see link:{pullURL}180[#180]).
+* *Community:* I worked with my team to resolve problems together by,
+** Assisting teammates in fixing their bugs (see link:{pullURL}33[#33] and link:{pullURL}97[#97]).
+** Reviewing teammates' pull requests with constructive feedback (see link:{pullURL}37[#37], link:{pullURL}139[#139] and link:{pullURL}175[#175]).
 
-== Contributions to the User Guide
-In addition to updating the User Guide with the newly added Card Management System commands, I also wrote the Introduction and Quick Start sections, and edited the document to ensure overall consistency. I have listed some of my key contributions to it as excerpts below:
+== Contributions to the user guide +
+I have listed some of my key contributions to the link:{webURL}UserGuide.html[user guide] as excerpts below: +
 
-include::../UserGuide.adoc[tag=evan]
+=== Excerpt: Adding a lesson: `addLesson` +
+_Click link:{webURL}UserGuide.html#addLesson[here] to view this section in the user guide._
 
-== Contributions to the Developer Guide
-On top of updating the Developer Guide with the Card Management System design and implementation details, I also edited the document to ensure overall consistency. I have listed some of my key contributions to the document as excerpts below:
+Adds a lesson which is used to store cards of the same type and topic. +
+Format: `addLesson n/NAME t/TEST t/TEST [t/TEST]... [h/HINT]...`
 
-include::../DeveloperGuide.adoc[tag=evan]
+[NOTE]
+====
+This command only works in lesson view. If you are currently editing a lesson in card view, you have to use the <<quit, `quit`>> command to return to lesson view before you can use this command.
+====
+
+Usage rules:
+
+* You must specify at least 2 `TEST` values. Flashcards added to this lesson must have corresponding `TEST` values.
+** For example, a lesson for memorising _muscle anatomy_ will have three `TEST` values: 'Muscle', 'Action' and 'Innervation'.
+** By default, the first 2 `TEST` values ('Muscle' and 'Action') will be tested when the lesson is started in quiz mode.
+** You can set the 2 `TEST` values to be tested by using the <<set, `set`>> command.
+* You can specify 0 or more `HINT` values (e.g. 'Muscle Group').
+** `HINT` values are displayed during quiz mode when you enter <<hint, `\hint`>>.
+
+Examples:
+
+* `addLesson n/Capitals of the world t/Country t/Capital t/Language h/Hint`
+** Adds a lesson named 'Capitals of the world' with 3 `TEST` values and 1 `HINT` value.
+* `addLesson n/Chinese vocabulary t/English t/Chinese`
+** Adds a lesson named 'Chinese vocabulary' with 2 `TEST` values.
+
+=== Excerpt: Editing a lesson in card view: `edit` +
+_Click link:{webURL}UserGuide.html#openLesson[here] to view this section in the user guide._
+
+Editing a lesson in card view: `edit` +
+Opens the lesson at the specified INDEX in Card View for editing. +
+Format: `openLesson INDEX`
+
+[NOTE]
+====
+In Card View, users will be able to use the following commands: <<set, `set`>>, <<addCard, `addCard`>>, <<deleteCard, `deleteCard`>> and <<listCards, `listCards`>>.
+====
+
+Example:
+
+.BrainTrain with sample lessons loaded
+image::edit_lesson.png[width=384]
+
+In the above scenario, the command `edit 1` will open the first lesson in the numbered list, 'Sample-Capitals' in Card View for editing.
+
+=== Excerpt: Deleting a card: `deleteCard` +
+_Click link:{webURL}UserGuide.html#deleteCard[here] to view this section in the user guide._
+
+Deletes the card at the specified INDEX of the numbered card list. +
+Format: `deleteCard INDEX`
+
+[NOTE]
+====
+This command only works in card view. You have to open a lesson in card view for editing with the <<edit, `edit`>> command before you can use this command.
+====
+
+Example:
+
+.BrainTrain with sample cards loaded
+image::delete_card.png[width=384]
+
+In the above scenario, the command `deleteCard 2` will delete the second card in the numbered list, 'Orbicularis oculi / Facial nerve'.
+
+== Contributions to the developer guide +
+I have listed some of my key contributions to the link:{webURL}DeveloperGuide.html[developer guide] as excerpts below: +
+
+=== Excerpt: Management feature (overview) +
+_Click link:{webURL}DeveloperGuide.html#mgtOverview[here] to view this section in the developer guide._
+
+Management feature provides users with the ability to add, edit and delete lessons in *Lesson View* and *Card View* modes.
+
+==== Lesson View +
+In *Lesson View*, users can:
+
+* `addLesson` - Adds a lesson to the list of lessons loaded in-memory.
+* `deleteLesson` - Deletes a lesson from the list of lessons loaded in-memory.
+* `edit` - Opens a lesson in *Card View* for editing
+* `listLessons` - Lists all cards with full details
+
+{empty} +
+
+==== Card View +
+In *Card View*, users can:
+
+* `addCard` - Adds a card to the lesson opened in *Card View*.
+* `deleteCard` - Deletes a card from the lesson opened in *Card View*.
+* `set` - Sets the 2 test values to be tested in quiz mode for all cards in the lesson
+* `listCards` - Lists all cards with full details
+* `quit` - Quits *Card View* and returns to *Lesson View*
+
+In the subsequent sub-sections, I will discuss the 3 major model classes used to manage lessons and flashcards, `Card.java`, `Lesson.java`, and `LessonList.java`. These classes are also used by the <<lessonStorageFeature, Lesson Storage Feature>> and <<sessionFeature, Session Feature>>.
+
+=== Excerpt: Card class +
+_Click link:{webURL}DeveloperGuide.html#cardClass[here] to view this section in the developer guide._
+
+An instance of link:{repoURL}/src/main/java/seedu/address/model/card/Card.java[`Card.java`] represents a flashcard which contains 2 or more test values and 0 or more hint values. It takes in a list of test values, and optionally a list of hint values.
+
+The following code shows how the card is generated:
+
+[NOTE]
+====
+Test and hint values are referred to as core and optional values internally. These terms are interchangeable.
+====
+
+[source,java]
+----
+/**
+  * Creates a {@code Card} which represents a flash card.
+  *
+  * @param cores {@link #cores} a {@code Card} must have.
+  * @param optionals {@link #optionals} a {@code Card} can have.
+  */
+ public Card(List<String> cores, List<String> optionals) {
+     requireAllNonNull(cores, optionals);
+     this.cores = new ArrayList<>();
+     this.cores.addAll(cores);
+     this.optionals = new ArrayList<>();
+     this.optionals.addAll(optionals);
+     hashCode = generateHashCode();
+ }
+
+ /**
+  * Creates a {@code Card} which represents a flash card.
+  *
+  * @param cores {@link #cores} a {@code Card} must have.
+  */
+ public Card(List<String> cores) {
+     // Generates a Card without optionals.
+ }
+----
+
+These 2 constructors are called by the `Lesson.java` which generates a list of cards.
+
+=== Excerpt: Add card command: `addCard` +
+_Click link:{webURL}DeveloperGuide.html#addCard[here] to view this section in the developer guide._
+
+The `addCard` command adds a card to the lesson which is being edited in *Card View*. +
+
+For example:
+
+* Given a lesson on country capitals which has 2 test values, 'Country' and 'Capital', and 1 hint value, 'Hint'.
+* If a user wants to add a flashcard to this lesson, he would enter `addCard t/Korea t/Seoul h/S`.
+
+How it will look like to the user after entering the command:
+
+.Expected result after the card is added
+image::ui_add_card_after.png[width="512"]
+
+Given the above example, the following sequence of interactions will occur within the `Logic` component.
+
+.Sequence diagram of the `addCard t/Korea t/Seoul h/S` command
+image::sd_add_card.png[width="800"]
+
+=== Excerpt: Aspect: contextual management commands +
+_Click link:{webURL}DeveloperGuide.html#mgtConsiderations[here] to view this section in the developer guide._
+
+* **Alternative 1 (current choice):** Only lesson-related commands are allowed in *Lesson View* sub-management mode, and only card-related commands are allowed in *Card View* sub-management mode.
+** Pros: The user need not specify which lesson he is adding or deleting cards from. It is clear which lesson is currently being edited.
+** Con: Tedious to implement given that it requries significant refactoring of the base code provided.
+
+* **Alternative 2:** A single management mode where all lesson and card-related commands can be executed.
+** Pro: This is significantly easier to implement give that no major refactoring is requred.
+** Con: This compromises the user experience.
+
+**Alternative 1** was chosen because it will vastly improve the user experience. For example, if a user were to need to add multiple cards to a specific lesson, alternative 2 would require the user to enter the lesson's index or name for each `addCard` command (e.g. `addCard n/Sample-Capitals t/Korea t/Seoul` where 'Sample-Capitals' is the lesson's name). +
+
+On the other hand, alternative 1 only requires the user to open the lesson for editing in *Card View* once, before calling the `addCard` commands. These `addCard` commands will not require the user to specify which lesson to add the cards to. +
+
+Hence by choosing alternative 1, the user experience was vastly improved given that the user interface is easier to use.

@@ -11,6 +11,7 @@ import seedu.address.model.user.CardSrsData;
 
 /**
  * Represents a flashcard contains both core fields(question and answer) and srs data.
+ * It will be generated based on {@link Lesson} and {@link CardSrsData}.
  */
 public class SrsCard {
     private Card card;
@@ -19,6 +20,13 @@ public class SrsCard {
     private int questionIndex;
     private int answerIndex;
 
+    /**
+     * Creates a {@code srsCard} which represents a flashcard with user data.
+     *
+     * @param card the flash card information from {@link Lesson}.
+     * @param cardData the srs user data informaation from {@link CardSrsData}.
+     * @param lesson the {@link Lesson} of the needed cards for the {@code questionIndex} and {@code answerIndex}.
+     */
     public SrsCard(Card card, CardSrsData cardData, Lesson lesson) {
         requireAllNonNull(card, cardData, lesson);
         this.card = card;
@@ -28,6 +36,11 @@ public class SrsCard {
         questionIndex = lesson.getQuestionCoreIndex();
         answerIndex = lesson.getAnswerCoreIndex();
     }
+
+    /**
+     * Returns the needed attributes.
+     * @return Different attributes that will be needed later.
+     */
     public String getQuestion() {
         return card.getCore(questionIndex);
     }
@@ -72,6 +85,12 @@ public class SrsCard {
     public Lesson getLesson() {
         return lesson;
     }
+    /**
+     * Returns true if both are {@code srsCard} objects, and are the same object or have the same {@link #hashCode}.
+     *
+     * @param obj object to be compared for equality with this {@code srsCard}
+     * @return true if the specified object is a {@code srsCard} identical to this {@code srsCard}
+     */
     @Override
     public boolean equals(Object obj) {
         SrsCard other = (SrsCard) obj;

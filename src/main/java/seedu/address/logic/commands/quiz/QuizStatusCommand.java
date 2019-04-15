@@ -9,7 +9,7 @@ import seedu.address.model.modelmanager.Model;
 import seedu.address.model.modelmanager.QuizModel;
 
 /**
- * Displays the total attempts, streak and progress of the current session
+ * Displays the total attempts, streak and progress of the current session.
  */
 public class QuizStatusCommand extends QuizCommand {
     public static final String COMMAND_WORD = "\\status";

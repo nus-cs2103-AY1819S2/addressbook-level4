@@ -1,4 +1,4 @@
-= BrainTrain - Developer Guide
+= BrainTrain - Developer guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -7,6 +7,7 @@
 :imagesDir: images
 :stylesDir: stylesheets
 :xrefstyle: full
+:experimental:
 ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
@@ -17,15 +18,36 @@ endif::[]
 
 By: `Team BrainTrain`      Since: `Jan 2019`      Licence: `MIT`
 
-== Setting up
+== Introduction +
 
-=== Prerequisites
+This is the Developer Guide for BrainTrain. This assumes you're already familiar with the User Guide, and are interested in contributing to this project. +
+
+Other skills useful for contributing to BrainTrain are as follows: +
+
+. Good Java knowledge
+. Familiarity with Object-Oriented Programming (OOP)
+. Familiarity with Github
+. Experience with Command Line Interface based applications
+
+Whether you have any, none or all of the skills above, you will first need to set up a few things before being able to start work on the project.
+
+=== How does BrainTrain work +
+
+This is a brief explanation of how BrainTrain works:
+
+. You can attempt cards in quiz mode, these cards whereby a *question* is displayed to you, and you type in the *answer*.
+. You can group multiple cards in a single package called a *lesson*. You can have multiple lessons.
+. You can manage lessons in management mode or alternatively do so in your preferred spreadsheet application.
+
+== Setting up +
+
+=== Prerequisites +
 
 . *JDK `9`* or later
 +
 [WARNING]
 JDK `10` on Windows will fail to run tests in <<UsingGradle#Running-Tests, headless mode>> due to a https://github.com/javafxports/openjdk-jfx/issues/66[JavaFX bug].
-Windows developers are highly recommended to use JDK `9`.
+Windows developers should use JDK `9`.
 
 . *IntelliJ* IDE
 +
@@ -36,7 +58,8 @@ Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plu
 
 === Setting up the project in your computer
 
-. Fork this repo, and clone the fork to your computer
+. Fork this repo
+. Clone the fork to your computer
 . Open IntelliJ (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project dialog first)
 . Set up the correct JDK version for Gradle
 .. Click `Configure` > `Project Defaults` > `Project Structure`
@@ -45,7 +68,7 @@ Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plu
 . Locate the `build.gradle` file and select it. Click `OK`
 . Click `Open as Project`
 . Click `OK` to accept the default settings
-. Open a console and run the command `gradlew processResources` (Mac/Linux: `./gradlew processResources`). It should finish with the `BUILD SUCCESSFUL` message. +
+. Open a console and run the command `gradlew processResources` (for Mac/Linux: `./gradlew processResources`). It should finish with the `BUILD SUCCESSFUL` message. +
 This will generate all resources required by the application and tests.
 . Open link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow.java`] and check for any code errors
 .. Due to an ongoing https://youtrack.jetbrains.com/issue/IDEA-189060[issue] with some of the newer versions of IntelliJ, code errors may be detected even if the project can be built and run successfully
@@ -72,16 +95,6 @@ This project follows https://github.com/oss-generic/process/blob/master/docs/Cod
 
 Optionally, you can follow the <<UsingCheckstyle#, UsingCheckstyle.adoc>> document to configure Intellij to check style-compliance as you write code.
 
-==== Updating documentation to match your fork
-
-After forking the repo, the documentation will still have the SE-EDU branding and refer to the `se-edu/addressbook-level4` repo.
-
-If you plan to develop this fork as a separate product (i.e. instead of contributing to `se-edu/addressbook-level4`), you should do the following:
-
-. Configure the <<Docs-SiteWideDocSettings, site-wide documentation settings>> in link:{repoURL}/build.gradle[`build.gradle`], such as the `site-name`, to suit your own project.
-
-. Replace the URL in the attribute `repoURL` in link:{repoURL}/docs/DeveloperGuide.adoc[`DeveloperGuide.adoc`] and link:{repoURL}/docs/UserGuide.adoc[`UserGuide.adoc`] with the URL of your fork.
-
 ==== Setting up CI
 
 Set up Travis to perform Continuous Integration (CI) for your fork. See <<UsingTravis#, UsingTravis.adoc>> to learn how to set it up.
@@ -96,26 +109,20 @@ Optionally, you can set up AppVeyor as a second CI (see <<UsingAppVeyor#, UsingA
 [NOTE]
 Having both Travis and AppVeyor ensures your app works on both Unix-based platforms and Windows-based platforms (Travis is Unix-based and AppVeyor is Windows-based)
 
-==== Getting started with coding
-
-When you are ready to start coding,
-
-1. Get some sense of the overall design by reading <<Design-Architecture>>.
-2. Take a look at <<GetStartedProgramming>>.
-
 == Design
 
 [[Design-Architecture]]
 === Architecture
 
-.Architecture Diagram
+.Architecture diagram
 image::Architecture.png[width="600"]
-
-The *_Architecture Diagram_* given above explains the high-level design of the app. Given below is a quick overview of each component.
 
 [TIP]
 The `.pptx` files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder. To update a diagram, modify the diagram in the pptx file, select the objects of the diagram, and choose `Save as picture`.
 
+The *_architecture diagram_* given above illustrates the high-level design of the BrainTrain app. It shows the key components of the app, and how they interact with one another.
+
+==== Brief overview of key components
 * `Main` has only one class called link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp`] which is responsible for:
 
 ** Initializing the components in the correct sequence and connecting them at app launch.
@@ -124,9 +131,9 @@ The `.pptx` files used to create diagrams in this document can be found in the l
 * <<Design-Commons,*`Commons`*>> is a collection of classes which provides useful utility methods used by multiple other components.
 The following class plays an important role at the architecture level:
 
-** `LogsCenter` : Used by many classes to write log messages to the app's log file.
+** `LogsCenter` : Used by numerous classes to write log messages to the app's log file.
 * <<Design-Ui,*`UI`*>>: Handles the user interface.
-* <<Design-Logic,*`Logic`*>>: Executes commands.
+* <<Design-Logic,*`Logic`*>>: Handles the command executions.
 * <<Design-ManagementModel,*`ManagementModel`*>>: Handles the in-memory data of management mode.
 * <<Design-QuizModel,*`QuizModel`*>>: Handles the in-memory data of quiz mode.
 * <<Design-Storage,*`Storage`*>>: Reads and writes data to the hard disk.
@@ -136,82 +143,94 @@ The <<Design-Ui,*`UI`*>>, <<Design-Logic,*`Logic`*>>, <<Design-ManagementModel,*
 * Has an API in the form of an Java interface named after the component.
 * Has its functionality exposed through a Java class named `{Component Name}Manager`.
 
-For example, the `Logic` component (refer to class diagram below) defines it's API in the `Logic.java`, interface and exposes its functionality through the `LogicManager.java` class.
+For example, the `Logic` component (refer to figure 2 below) has it's API defined in the `Logic.java` interface, and exposes its functionality through the `LogicManager.java` class.
 
-.Class Diagram of the Logic Component
+.Structure of the `Logic` component
 image::LogicClassDiagram.png[width="800"]
 
 [discrete]
-==== How the architecture components interact with each other
+[[componentInteractions]]
+==== How do the key components interact
+In this section, an example of how the key components interact when the user issues the command `deleteLesson 1` is shown.
 
-The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
+.Sequence diagram of the `deleteLesson 1` command
+image::sd_delete_lesson.png[width="800"]
 
-.Component interactions for `delete 1` command
-image::SDforDeletePerson.png[width="800"]
-
-The sections below give more details of each component.
+Sequence diagrams such as the one above will be provided throughout the developer guide when it is important to highlight how the key components interact. Subsequent sections provide more details on each key component.
 
 [[Design-Ui]]
 === UI component
 
-.Structure of the UI Component
+.Structure of the `UI` Component
 image::UiClassDiagram.png[width="800"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The `UI` consists of a `MainWindow` which is made up of the following parts: `CommandBox`, `ResultDisplay`,
+`MainPanel`, `LessonListPanel`, `QuizResultPanel`, etc. All these parts, including the `MainWindow`,
+inherit from the `UiPart` abstract class.
 
-The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
+The `UI` component uses the *JavaFx* `UI` framework. The layouts for these `UI` parts are defined in corresponding `.fxml` files in the `src/main/resources/view` folder. For example, the layout for  link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in the link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`].
 
 The `UI` component,
 
-* Executes user commands using the `Logic` component.
-* Listens for changes to `Model` data so that the UI can be updated with the modified data.
+* passes user input to the `Logic` component for command execution.
+* listens for changes to `Logic` and updates if data is changed.
 
 [[Design-Logic]]
-=== Logic component
+=== Logic component +
 
 [[fig-LogicClassDiagram]]
-.Structure of the Logic Component
+.Structure of the `Logic` component
 image::LogicClassDiagram.png[width="800"]
 
 *API* :
 link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses either the `ManagementModeParser` or `QuizModeParser` class to parse the user command.
-..  If `ManagementParser` is used to parse the user command:
+.  `Logic` uses either `ManagementModeParser` or `QuizModeParser` class to parse the user command.
+..  If `ManagementModeParser` is used to parse the user command:
 ...  This results in a `ManagementCommand` object which is executed by the `LogicManager`.
-...  The command execution can affect the `Model` (e.g. adding a person).
+...  The command execution can affect the `ManagementModel` (e.g. adding a lesson).
 ..  If `QuizModeParser` is used to parse the user command:
 ...  This results in a `QuizCommand` object which is executed by the `LogicManager`.
 ...  The command execution can affect the `QuizModel` (e.g. answering a question).
-.  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
-.  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
+.  The result of the command execution is encapsulated as a `CommandResult` object which is
+returned to the `UI`.
+.  In addition, the `CommandResult` object might also instruct the `UI` to perform certain actions,
+ such as displaying the user guide to the user.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
+[[logicInteractions]]
+==== How do the logic sub-components interact
+In this section, an example of how the `Logic` sub-components interact when the user issues the command `addCard t/Korea t/Seoul h/S` is shown.
 
-.Interactions Inside the Logic Component for the `delete 1` Command
-image::DeletePersonSdForLogic.png[width="800"]
+.'Sample-Capitals' lesson opened in card view
+image::ui_add_card.png[width="512"]
+
+Given the above example, the following sequence of interactions will occur within the `Logic` component.
+
+.Sequence diagram of the `addCard t/Korea t/Seoul h/S` command
+image::sd_add_card.png[width="800"]
 
 [[Design-ManagementModel]]
-=== ManagementModel component
+=== ManagementModel component +
 
-.Structure of the ManagementModel Component
+.Structure of the ManagementModel component
 image::ManagementModelClassDiagram.png[width="800"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/model/modelmanager/ManagementModel.java[`ManagementModel.java`]
 
 The `ManagementModel`,
 
+* stores a `LessonList` object which represents a list of `Lesson` objects.
 * stores a `UserPref` object which represents the user's preferences.
-* stores the in-memory lessons in `LessonList`.
-* depends on none of the other components.
+* stores the in-memory user SRS data in `User`.
+* does not depend on any other components.
 
 [[Design-QuizModel]]
-=== QuizModel component
+=== QuizModel component +
 
 .Structure of the QuizModel Component
-image::QuizModelClassDiagram.png[width="500"]
+image::QuizModelClassDiagram.png[width="800"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/model/modelmanager/QuizModel.java[`QuizModel.java`]
 
@@ -219,13 +238,11 @@ The `QuizModel`,
 
 * stores a `Quiz` object that represents a list of `QuizCard`.
 * stores a `Session` object that represents a list of `SrsCard`.
-* stores a `QuizUiDisplayFormatter` object that represents the information needed to display to Ui
-
-It does not depend on any of the other four components.
-
+* stores a `ManagementModelManager` object that represents the `ManagementModel` component.
+* depends on only the `ManagementModel` component.
 
 [[Design-Storage]]
-=== Storage component
+=== Storage component +
 
 .Structure of the Storage Component
 image::StorageClassDiagram.png[width="800"]
@@ -234,177 +251,694 @@ image::StorageClassDiagram.png[width="800"]
 
 The `Storage` component,
 
-* can save user preferences in json format and read it back.
-* can save lesson data in csv format and read it back.
-* can save the user's SRS data in csv format and read it back.
+* saves lesson data in `.csv` format and read it back.
+* saves user preferences in `.json` format and read it back.
+* saves the user's SRS data in `.csv` format and read it back.
 
-[[Design-Commons]]
-=== Common classes
-
-Classes used by multiple components are in the `seedu.address.commons` package.
-
-== Implementation
+== Implementation +
 
 This section describes some noteworthy details on how certain features are implemented.
 
 // tag::datastorage[]
-=== Data storage feature
-The data storage feature manages the saving of data, such as lessons and user progress, to disk for the application. This lets the user keep their progress between usage sessions.
+=== User storage feature +
+The user storage features implements the following functions:
 
-==== Current Implementation
-All data storage components implement public functions that are called through Storage, with no user commands currently implemented. These functions include saving and reading of files, with an option for changing the default directory where each kind of data is saved.
+* Parsing user data into the correct format for file saving
+* Parsing file into the correct format for user data
 
-NOTE: These functions are automatically performed on opening/closing the Session.
+NOTE: These functions are automatically performed on opening/closing the application. File I/O is handled in the `CSVUtil` class.
 
-==== Design Considerations
-* ** Alternative 1(Current choice): Automate importing/exporting when session is open/close
+==== User format +
+.Data flow diagram for user import and export
+image::CsvUserStorage.png[width="800"]
+
+The user is parsed by `CsvUserStorage`, which is converted between User and List<String[]> format. List<String[]> format is the primary format handled by `CsvUtil` for reading and writing to `.csv` files.
+
+A few noteworthy mentions of the main components saved into a `.csv` file for UserStorage are listed below.
+
+==== Hashcode +
+This is the question hashcode. Every question will have a unique hashcode for identification.
+
+==== SRSDueDate +
+This is the srsDueDate generated for that question. Questions with a nearer due-date will be generated first in the quiz.
+
+==== Difficult +
+These are questions that are labelled difficult by the user. Users are able to specifically practise questions that they have labelled difficult in session.
+
+==== Sequence diagram for user storage
+Below is a sequence diagram of how a file is parsed into BrainTrain
+
+.Sequence diagram of how a file is imported when BrainTrain application starts
+image::CsvUserStorageSequenceDiagram.png[width="800"]
+
+==== Code snippet +
+The following code snippet shows how the user data is obtained:
+[source,java]
+----
+private Optional<CardSrsData> parseStringIntoCard(String[] cardArray) throws
+            NumberFormatException, DateTimeParseException {
+
+        for (int i = 0; i < cardArray.length - 1; i++) {
+            if (cardArray[i].isEmpty()) {
+                logger.warning("There are empty values in the file");
+                return Optional.empty();
+            }
+        }
+
+        try {
+            hashCode = Integer.parseInt(cardArray[0]);
+            numOfAttempts = Integer.parseInt(cardArray[1]);
+            streak = Integer.parseInt(cardArray[2]);
+            srs = Instant.parse(cardArray[3]);
+            isDifficult = cardArray[4].equals("true");
+
+            if (hashCode == ZERO) {
+                logger.warning("Hashcode cannot be 0 in " + filePath.toString());
+                return Optional.empty();
+            }
+
+        } catch (NumberFormatException e) {
+            logger.warning("Values are not correct in " + filePath.toString());
+            return Optional.empty();
+
+        }
+
+        card = new CardSrsData(hashCode, numOfAttempts, streak, srs, isDifficult);
+
+        return Optional.of(card);
+    }
+
+----
+
+==== Design considerations +
+* ** Alternative 1 (Current choice):** Automate importing/exporting when session is open/close
 ** Pros: Lesser commands to manage.
 ** Cons: Opening and closing may take up a lot of time if file is very big.
 
-* **Alternative 2: Individual commands for user to toggle with to import and export files when desired
+* **Alternative 2:** Individual commands for user to toggle with to import and export files when desired
 ** Pros: More control given to user
-** Cons: Accidental overwriting of files may occur.
+** Cons: Accidental overwriting of files may occur. Furthermore, if users are not able to parse in values correctly, the file will not be saved. This is troublesome for users who are not tech-savvy.
+
 // end::datastorage[]
 
-
 // tag::csvstorage[]
-=== CSV storage feature
-==== Current Implementation
+[[lessonStorageFeature]]
+=== Lesson storage feature
+==== Current implementation +
 The lesson CSV storage feature implements the following functions:
 
-* Parsing lesson data into the correct format for saving
-* Parsing data from file into lessons
+* Parsing lesson data into a list of string arrays, which is a format OpenCSV accepts for saving to CSV.
+* Parsing a list of string arrays back into lesson data, as retrieved from OpenCSV.
 
-Actual file I/O is handled in the CsvUtil class, which uses the opencsv library to read/write CSV files.
+Actual file I/O is handled in the CsvUtil class, which uses the OpenCSV library to read/write `.csv` files.
 
-==== CSV Format
-.Data flow diagram for Lessons saving
-image::CsvStorageDiagram.png[width="800"]
+{empty} +
 
-Lessons are parsed by CsvLessonListStorage, being converted between Lesson and List<String[]> formats. The List<String[]> format is the primary format handled by CsvUtil for reading and writing to CSV files.
+==== Csv lesson format +
+.High-level sequence diagram for the `reload` command, an example of lesson loading
+image::CsvLessonStorageSequenceDiagram.png[width="800"]
 
-For lessons, there are three main components when saved to a CSV file.
+Lessons are parsed by CsvLessonListStorage, being converted between Lesson and List<String[]> formats. The List<String[]> format is the primary format handled by CsvUtil for reading and writing to `.csv` files.
 
-===== Name
-Lesson names are equivalent to their filenames.
+For lessons, there are three main sections when saved to a `.csv` file.
 
-A lesson named "French" would be saved as French.csv, and vice-versa.
+===== Name +
+A lesson's name in BrainTrain is equivalent to its file name. +
+A lesson named "French" would be saved as "French.csv", and vice-versa.
 
-===== Header
-The header stores the set up information for the lesson. For more information on the format of lessons, please read `TODO`
+===== Header +
+The header is represented in the file as the first two lines. Each line represents a specific set of data, as outlined below.
 
-Core fields start with `CORE_ESCAPE` character, `\*`. When a field without `*` is found, all subsequent fields are assumed to be optional.
+The first line represents the type of the corresponding column. Each column can have three types:
 
-Question and answer fields have the `QUESTION_ESCAPE` character, `?`, and `ANSWER_ESCAPE` character, `@`, respectively after the core character, `*`.
+. *Tested* +
+This marks the column as a core value. By default, the first two instances of *Tested* in the file will be tested in quiz mode. All remaining Tested values are treated as *Not Tested*.
+. *Not Tested* +
+This marks the column as a core value. However, unlike *Tested*, they will not be tested in quiz mode. You can use the `set` command to change this.
+. *Hint* +
+This marks the column as a hint value. *Hint* values will appear when the user enters the `\hint` command in quiz mode. Values here are optional and can be left empty.
 
-===== Card Data
+NOTE: Core values require every value in that column to be non-empty. This guarantees that the user will be tested on something, should they change which fields are tested.
 
-All remaining data is treated as card data. Any invalid data found in memory or from the file is skipped over.
+This is a code snippet from the parsing of the header data.
 
-==== Design Considerations
+[source,java]
+----
+for (int i = 0; i < headerArray.length; i++) {
+    if (headerArray[i].isEmpty()) {
+        headerArray[i] = " ";
+    }
+}
+int coreCount = 0;
+int index = 0;
+while (index < headerArray.length) {
+    String headerChar = headerArray[index].toLowerCase().substring(0, 1);
+    if (headerChar.equals(HEADER_CORE_QA)) {
+        if (questionIndex == -1) {
+            questionIndex = index;
+        } else if (answerIndex == -1) {
+            answerIndex = index;
+        }
+        coreCount++;
+    } else if (headerChar.equals(HEADER_CORE_NOT_QA)) {
+        coreCount++;
+    } else if (!headerChar.equals(HEADER_OPTIONAL)) {
+        return returnValues;
+    }
+    index++;
+}
+----
 
-===== Aspect: Choice of file type
-* **Alternative 1 (current choice):** Save as CSV
-** Pros: Allows the user to edit lesson data in an external program such as Excel, which provides a user-friendly spreadsheet interface.
-** Cons: Lack of data verification within the file, JSON already implemented
+As seen at the beginning of the while loop, header values are actually treated as single case-insensitive characters. This means an experienced user may simply enter those letters as a shortcut. +
+
+The second line represents the name of each column as shown to the user. Any names left blank are automatically replaced with Unnamed. +
+Any discrepancies in the number of types and the number of names will result in the lesson not being loaded. +
+
+===== Card data +
+All remaining data is treated as card data. Any invalid data found in memory or from the file is skipped over. +
+
+===== Summary +
+
+.Activity diagram for the `reload` command, highlighting failure conditions
+image::ReloadActivityDiagram.png[width="800"]
+
+As shown in the above diagram, data that is read in from a file goes through various checks before it is loaded into the application. Any invalid data is skipped over, with an entry in the logs explaining the cause of failure.
+
+{empty} +
+
+==== Design considerations
+
+===== Aspect: choice of file type +
+* **Alternative 1 (current choice):** Save as `.csv`
+** Pros: User is able to modify lesson data in a more advanced external spreadsheet tool like Excel
+** Cons: Lack of data verification within the file, JSON is already implemented in original code
 * **Alternative 2:** Save as JSON
-** Pros: Can ensure all values are filled out correctly
-** Cons: Difficult for user to edit
+** Pros: All values can be verified through the file
+** Cons: Difficult for user to edit manually
+
+Alternative 1 was chosen as ease of use is a high priority for the project. Most computer users are familiar with the Microsoft Office suite of applications, such as Word and Excel. As Excel allows `.csv` files to be shown in a spreadsheet, it was intended that users use Excel alongside BrainTrain for easy lesson management.
+
+===== Aspect: handling of invalid data +
+* **Alternative 1 (current choice):** Skip over specific lesson/card
+** Pros: User data is not automatically overwritten
+** Cons: User has to manually fix any issues with their data
+* **Alternative 2:** Automatically fix data
+** Pros: Ease of use for user
+** Cons: Automatic fix may not be as desired by user
+
+Alternative 1 was chosen as creators are expected to have some skill in data editing. Normal users would ideally only download lessons from a creator, and would not be familiar enough with the lesson data to fix any issues.
+
+{empty} +
 
 // end::csvstorage[]
 
+// tag::evan-mgt[]
+[[mgtOverview]]
+=== Management feature +
+Management feature provides users with the ability to add, edit and delete lessons in *Lesson View* and *Card View* modes.
+
+==== Lesson View +
+In *Lesson View*, users can:
+
+* `addLesson` - Adds a lesson to the list of lessons loaded in-memory.
+* `deleteLesson` - Deletes a lesson from the list of lessons loaded in-memory.
+* `edit` - Opens a lesson in *Card View* for editing
+* `listLessons` - Lists all cards with full details
+
+{empty} +
+
+==== Card View +
+In *Card View*, users can:
+
+* `addCard` - Adds a card to the lesson opened in *Card View*.
+* `deleteCard` - Deletes a card from the lesson opened in *Card View*.
+* `set` - Sets the 2 test values to be tested in quiz mode for all cards in the lesson
+* `listCards` - Lists all cards with full details
+* `quit` - Quits *Card View* and returns to *Lesson View*
+
+In the subsequent sub-sections, I will discuss the 3 major model classes used to manage lessons and flashcards, `Card.java`, `Lesson.java`, and `LessonList.java`. These classes are also used by the <<lessonStorageFeature, Lesson Storage Feature>> and <<sessionFeature, Session Feature>>.
+
+{empty} +
+
+[[cardClass]]
+==== Card class +
+An instance of link:{repoURL}/src/main/java/seedu/address/model/card/Card.java[`Card.java`] represents a flashcard which contains 2 or more test values and 0 or more hint values. It takes in a list of test values, and optionally a list of hint values.
+
+The following code shows how the card is generated:
+
+[NOTE]
+====
+Test and hint values are referred to as core and optional values internally. These terms are interchangeable.
+====
+
+[source,java]
+----
+/**
+  * Creates a {@code Card} which represents a flash card.
+  *
+  * @param cores {@link #cores} a {@code Card} must have.
+  * @param optionals {@link #optionals} a {@code Card} can have.
+  */
+ public Card(List<String> cores, List<String> optionals) {
+     requireAllNonNull(cores, optionals);
+     this.cores = new ArrayList<>();
+     this.cores.addAll(cores);
+     this.optionals = new ArrayList<>();
+     this.optionals.addAll(optionals);
+     hashCode = generateHashCode();
+ }
+
+ /**
+  * Creates a {@code Card} which represents a flash card.
+  *
+  * @param cores {@link #cores} a {@code Card} must have.
+  */
+ public Card(List<String> cores) {
+     // Generates a Card without optionals.
+ }
+----
+
+These 2 constructors are called by the `Lesson.java` which generates a list of cards.
+
+{empty} +
+
+==== Lesson class +
+An instance of link:{repoURL}/src/main/java/seedu/address/model/lesson/Lesson.java[`Lesson.java`] represents a lesson which contains multiple flashcards of the same type and topic. This lesson can be loaded into quiz mode for testing.
+
+The following code shows how cards are generated by the lesson:
+
+[source,java]
+----
+/**
+ * Adds a {@link Card} object to the lesson.
+ * {@code fields} are separated into two separate sub-lists of cores and optionals based on
+ * {@link #coreHeaders}'s {@code size()}.
+ *
+ * @param fields the {@link Card}'s cores and optionals in this order
+ */
+public void addCard(List<String> fields) {
+    requireAllNonNull(fields);
+    if (fields.size() == coreHeaders.size()) {
+        addCard(new Card(fields));
+    } else {
+        List<String> cores = fields.subList(0, coreHeaders.size());
+        int optionalStart = coreHeaders.size();
+        int optionalEnd = fields.size();
+        List<String> optionals = fields.subList(optionalStart, optionalEnd);
+        addCard(new Card(cores, optionals));
+    }
+}
+
+/**
+ * Adds {@link Card} objects to the lesson.
+ *
+ * @param cards a list of {@link Card} objects to be added to the lesson
+ */
+public void addCards(List<Card> cards) {
+    for (Card card: cards) {
+        addCard(card);
+    }
+}
+----
+
+The `addCards(List<Card> cards)` method is called by the `LessonList.java` which generates a list of lessons.
+
+{empty} +
+
+==== LessonList class +
+An instance of link:{repoURL}/src/main/java/seedu/address/model/lesson/LessonList.java[`LessonList.java`] represents a list of lessons. It has helper functions to assist with the management of lessons.
+
+The following code shows how the `Main`, `Storage`, `Logic`, and `ManagementModel` key components use the `LessonList.java` class.
+
+===== Usage by the `Main` and `Storage` key components +
+When the `Main` component loads upon app launch, it triggers the `Storage` component which loads lessons from the hard disk into memory by calling the `LessonList()` constructor, the `addLesson(Lesson lesson)` and other methods.
+
+[source,java]
+----
+/**
+ * Creates a new {@link LessonList} which is used to store a list of {@link Lesson} objects.
+ */
+public LessonList() {
+    lessons = new ArrayList<>();
+}
+
+/**
+ * Adds a {@link Lesson} object to {@link #lessons}.
+ *
+ * @param lesson {@link Lesson} to be added to {@link #lessons}
+ */
+public void addLesson(Lesson lesson) {
+    requireNonNull(lesson);
+    lessons.add(lesson);
+}
+----
+
+===== Usage by the `Logic` and `ManagementModel` key components +
+When the `Logic` component parses an `addCard` command, it triggers the `ManagementModel` component to use the `addCardToOpenedLesson(Card card)` to add a card to the lesson opened for editing in *Card View*.
+
+[source,java]
+----
+/**
+ * Adds a {@link Card} to the {@link #openedLesson}.
+ *
+ * @param card {@link Card} to be added to the {@link #openedLesson}
+ */
+public void addCardToOpenedLesson(Card card) {
+    requireAllNonNull(openedLesson, card);
+    openedLesson.addCard(card);
+}
+----
+
+{empty} +
+
+[[addCard]]
+==== Add card command: `addCard` +
+The `addCard` command adds a card to the lesson which is being edited in *Card View*. +
+
+For example:
+
+* Given a lesson on country capitals which has 2 test values, 'Country' and 'Capital', and 1 hint value, 'Hint'.
+* If a user wants to add a flashcard to this lesson, he would enter `addCard t/Korea t/Seoul h/S`.
+
+How it will look like to the user after entering the command:
+
+.Expected result after the card is added
+image::ui_add_card_after.png[width="512"]
+
+Given the above example, the following sequence of interactions will occur within the `Logic` component.
+
+.Sequence diagram of the `addCard t/Korea t/Seoul h/S` command
+image::sd_add_card.png[width="800"]
+
+{empty} +
+
+[[mgtConsiderations]]
+==== Design consideration +
+
+===== Aspect: contextual management commands +
+* **Alternative 1 (current choice):** Only lesson-related commands are allowed in *Lesson View* sub-management mode, and only card-related commands are allowed in *Card View* sub-management mode.
+** Pros: The user need not specify which lesson he is adding or deleting cards from. It is clear which lesson is currently being edited.
+** Con: Tedious to implement given that it requries significant refactoring of the base code provided.
+
+* **Alternative 2:** A single management mode where all lesson and card-related commands can be executed.
+** Pro: This is significantly easier to implement give that no major refactoring is requred.
+** Con: This compromises the user experience.
+
+**Alternative 1** was chosen because it will vastly improve the user experience. For example, if a user were to need to add multiple cards to a specific lesson, alternative 2 would require the user to enter the lesson's index or name for each `addCard` command (e.g. `addCard n/Sample-Capitals t/Korea t/Seoul` where 'Sample-Capitals' is the lesson's name). +
+
+On the other hand, alternative 1 only requires the user to open the lesson for editing in *Card View* once, before calling the `addCard` commands. These `addCard` commands will not require the user to specify which lesson to add the cards to. +
+
+Hence by choosing alternative 1, the user experience was vastly improved given that the user interface is easier to use.
+
+// end::evan-mgt[]
 
 // tag::session[]
-=== Session feature
+[[sessionFeature]]
+=== Session feature +
 Session feature generates cards for users in quiz session based on their requirement.
 
-==== Current Implementation
-The session feature implements the following functions:
+==== Current implementation +
+Session feature implements the following functions and commands:
 
-* Combining data from lesson and user together.
-* Generating a list of cards for quiz based on SRS(Space-Repetition technique) method and updating user data after quiz ends.
+* Combining data from lesson and user storage together.
+* SrsCardManager:
+** Generating a list of cards for quiz based on different modes and SRS (Space-Repetition technique) method.
+** Updating user data after quiz ends.
+* `start` - An input with lesson index, count of cards and mode parameters.
 
-==== SRS method
+==== SRS method +
 The SRS method allows users to be tested with the most urgent questions. The method gives each card a `srsDueDate` field which contains
 an instant value representing the deadline of testing this card again.
 
-The SRS method updates users profile using link:https://en.wikipedia.org/wiki/Leitner_system[Leitner_system].
+* The SRS method updates users profile using link:https://en.wikipedia.org/wiki/Leitner_system[Leitner_system].
+** There are several levels in the Leitner_system. The lower the level is, the more urgent the card is. When the user answers correctly, the level of that card will increase by one. Otherwise it will decrease by one.
+** User data will be updated based on their performance in quiz session. Generally speaking, if the user answer correctly, the `srsDueDate` of the current card will be carry-forwarded.
 
-==== Design Consideration
+.Explanation diagram for Leitner-System
+image::Leitner-system.png[width="300"]
 
-===== Aspect: SRS method for updating
+==== SrsCardManager +
+The `SrsCardManager` generates needed list of `QuizCard` when the user wants to start a quiz. This class includes four methods for four different modes correspondingly as shown below.
+
+* Difficult mode: `previewDifficult()`
+* Preview mode: `preview()`
+* Learn mode: `learn()`
+* Review mode: `sort()`
+
+The following activity diagram summarizes what happens when the user executes a new `StartCommand`.
+
+.Activity diagram for session generation
+image::SrsCardManagerGenerateActivityDiagram.png[width="500"]
+
+[NOTE]
+====
+link:https://en.wikipedia.org/wiki/Spaced_repetition[Space-Repetition technique] is only applied in review mode.
+====
+
+The `SrsCardManager` also updates user data using `UpdateCardData()` after receiving results from `Quiz`.
+
+====  Management start command: `start` +
+
+The `start` command starts a quiz session based on input parameters. It will analyze the current storage information and then generate the list of `QuizCard` using `SrsCardManager`. It will test the 2 values set to be tested for the lesson. The generating rules are different for different `QuizMode` as explained in a subsequent section. Once the `start` command have succeeded running, the system will switch to the quiz mode.
+
+The `start` command needs users to specify `LessonIndex`, `CardCount` and `QuizMode` parameter.
+
+The following sequence diagram shows the interaction between the various classes when the user starts a sample quiz:
+
+.Sequence diagram for start feature
+image::QuizStartCommandSequenceDiagram.png[width="800"]
+
+==== Design consideration
+
+===== Aspect: SRS method for updating +
+
 * **Alternative 1: Leinter System (current choice)**
 ** Pros: Efficient in calculation and easy to understand.
 ** Cons: The time interval between levels cannot be long.
 * **Alternative 2: Pimsleur's graduated-interval recall**
-** Pros: Short times interval between the first few repetitions.
-** Cons: No level attribute to value the element clearly.
-* Alternative 1 was chosen because it clearly displays the due date in several levels.
+** Pros: Short time interval between the first few repetitions.
+** Cons: No level attribute to group the element clearly.
+* Alternative 1 was chosen because it clearly displays the due date in several levels. Developers can also understand it easily since the actions for updating is simple. Besides, the system does not require the testing interval of the same card to be very small.
+
+===== Aspect: data storage to support the SRS system +
+
+* **Alternative 1: The system saves the due time into several levels and stores in a hashmap with card's hashcode (current choice)**
+** Pros: It is easier to update the user progress using Leinter System since the levels are already stored.
+** Cons: The system needs to generate the range of due time for each level by default and the range may be unreasonable.
+* **Alternative 2: The system saves the due time and hashcode of cards directly in a 2D array**
+** Pros: It is clearer to see the match between card and its due time with same hashcode.
+** Cons: It is more difficult to set the updated due time for each single card.
+* Alternative 1 was chosen because the quiz only passes back information of total attempts and total number of correct answers. It is hard to generate an algorithm to update due time for each single card with only these quiz information. Thus, grouping cards as different levels and updating due time under different levels can solve this problem more efficiently.
+
+===== Aspect: review mode +
+
+* **Alternative 1: Starts test directly (current choice)**
+** Pros: Users can focus on the tests directly.
+** Cons: No time for them to have a quick reminder.
+* **Alternative 2: Starts with previewing questions and answers**
+** Pros: Users can recall the cards before testing.
+** Cons: The difficulty level becomes lower.
+* Alternative 1 was chosen because users are supposed to enter the test directly when they are reviewing cards. They can then judge their memorizing results in a most accurate level.
 
 //end::session[]
 
 
 
 // tag::quiz[]
-=== Quiz feature
+=== Quiz feature +
 Quiz feature allows users to enter quiz related commands and answer.
 
-==== Current Implementation
+==== Current implementation +
 The quiz feature processes the following inputs:
 
 * `[ANSWER]...` - An input without a prefix `\` is treated as an answer.
-* `\difficult` - Labels current question in quiz as difficult or not.
-* `\help` - Lists all commands in quiz and inputs the program will accept.
-* `\hint` - Reveals additional information to help user to solve the question.
-* `\quit` - Quits a quiz and save attempted progress.
-* `\status` - Lists current status and lesson progress of user.
+* `\difficult` - Labels current question as difficult or not.
+* `\help` - Lists all quiz commands and inputs which will be accepted.
+* `\hint` - Reveals additional information to help the user to answer the question.
+* `\quit` - Quits quiz mode and saves attempt progress.
+* `\status` - Lists current quiz progress.
 
-==== [ANSWER]
+==== Quiz class +
+
+link:{repoURL}/src/main/java/seedu/address/model/quiz/Quiz.java[`Quiz.java`] holds all the in-memory
+quiz data. It takes in a list of <<card,cards>> from `Session`. Then, it generates an expanded list of cards based on the `mode` indicated by the user. The generated list of cards in both
+`review` and `learn` mode includes cards which questions and answers are flipped. This to ensure that users are
+memorizing both question and answer values. According to the mode which the user has chosen, the cards will be
+displayed differently as seen below.
+
+In the four different modes:
+
+* **Preview**: both the question and answer are shown to the user.
+
+.Question displayed in `preview` mode.
+image::quiz-command-examples/quiz-preview.PNG[width="300"]
+
+* **Review**: only the question is shown as the user needs to answer the question.
+
+.Question displayed in `review` mode.
+image::quiz-command-examples/quiz-review.PNG[width="300"]
+
+* **Learn**: is a combination of preview and review, the user sees both the question and
+answer as in `preview` mode, before attempting the question with the answer hidden as in `review` mode.
+
+.Question displayed in `learn` mode.
+image::quiz-command-examples/quiz-learn.PNG[width="670"]
+
+* **Difficult**: similar to preview mode but only contains questions which have been labelled as
+difficult.
+
+// end::quiz[]
+The following code shows how the cards are generated:
+[source,java]
+----
+private List<QuizCard> generate() {
+    generatedQuizCardList = new ArrayList<>();
+
+    switch (mode) {
+    case PREVIEW:
+        generatePreview();
+        break;
+    case LEARN:
+        // Learn is a combination of preview + review
+        generatePreview();
+        generateReview();
+        break;
+    case REVIEW:
+        generateReview();
+        break;
+    case DIFFICULT:
+        generatePreview();
+        break;
+    default:
+        break;
+    }
+
+    generatedCardSize = generatedQuizCardList.size();
+    return generatedQuizCardList;
+}
+
+private void generateReview() {
+    QuizCard currentCard;
+    for (int i = 0; i < originalQuizCardList.size(); i++) {
+        currentCard = originalQuizCardList.get(i);
+        generatedQuizCardList.add(
+            currentCard.generateOrderedQuizCardWithIndex(i, QuizMode.REVIEW));
+    }
+
+    for (int i = 0; i < originalQuizCardList.size(); i++) {
+        currentCard = originalQuizCardList.get(i);
+        generatedQuizCardList.add(
+            currentCard.generateFlippedQuizCardWithIndex(i));
+    }
+}
+
+private void generatePreview() {
+    QuizCard currentCard;
+
+    for (int i = 0; i < originalQuizCardList.size(); i++) {
+        currentCard = originalQuizCardList.get(i);
+        generatedQuizCardList.add(
+            currentCard.generateOrderedQuizCardWithIndex(i, QuizMode.PREVIEW));
+    }
+}
+----
+// tag::quiz[]
+====  Quiz answer command: `[ANSWER]` +
+.High-level sequence diagram for the `ANSWER` command, an example of completing a quiz.
+image::AnwerComponetSequenceDiagram.png[width="800"]
+
 The `[ANSWER]` feature is facilitated by `QuizAnswerCommand`. The command takes in user input
-as answer to be processed later.
+as answer, which will be processed later when the command is executed.
 
 The following sequence diagram shows the interaction between the various classes when the user
-answers a question:
+answered the question correctly:
 
 .Sequence diagram for answer feature
-image::QuizAnswerCommandSequenceDiagram.png[width="800"]
+image::QuizAnswerCommandSequenceDiagram.png[width="900"]
 
-==== \quit
-The `\quit` will force quit the current quiz and save the attempted question to the location that
-the user have specified in `UserPref`, by default it will saved to `\data\user\savedata.csv`. Once
-the `\quit` command have succeeded running, it will return back to the `ManagementMode`.
+In the `execute` method of the `QuizAnswerCommand`, the following steps can be performed:
+
+1. Quiz result +
+This step checks if the user is shown the result, this is performed because the quiz can only end after
+the result has been shown. Once the quiz ends, BrainTrain will save the progress of the quiz
+to the file specified by the user.
+
+2. Handling of answer +
+This step checks if the answer should be handled, if user is in `PREVIEW` mode it will not be
+handled. Otherwise, the total attempts and streak of the question will be updated depending on whether the question has been answered correctly.
+
+3. Handling of next question +
+This step verifies that the question has been answered correctly, and checks if there are still questions
+left for the current quiz. Depending on the check, it will then displays the next question or the quiz result.
+
+The following code shows how the steps could be performed:
+
+[source,java]
+----
+public CommandResult execute(Model model, CommandHistory history) throws CommandException {
+    requireNonNull(model);
+    this.quizModel = requireQuizModel(model);
+    this.card = quizModel.getCurrentQuizCard();
+    this.isCurrentCardWrong = false;
+
+    StringBuilder sb = new StringBuilder();
+
+    if (quizModel.isResultDisplay()) {
+        endQuiz();
+        return new CommandResult("", true, false, false);
+    }
+
+    if (card.isWrongTwice() || card.getQuizMode() != QuizMode.PREVIEW) {
+        sb.append(handleCurrentCardAnswer());
+    }
+
+    if (!isCurrentCardWrong) {
+        String result = handleIfCardLeft();
+        sb.append(result);
+    }
+
+    return new CommandResult(sb.toString(), true, false, false);
+}
+
+----
+
+// end::quiz[]
+
+====  Quiz quit command: `\quit` +
+The `\quit` will force quit the current quiz and save the attempted questions to the location which
+the user has specified in `UserPref`. By default it will be saved to `\userdata\savedata.csv`. Once
+the `\quit` command is completed, the user will be returned to the management mode.
 
 .Sequence diagram for quit feature
 image::QuizQuitCommandSequenceDiagram.png[width="800"]
 
-==== \status
-The `\status` feature lists the total number of attempts you have attempted, total number of
-question you have gotten correct in this quiz and which question you are currently on.
+====  Quiz status command: `\status` +
+The `\status` feature lists the total number of attempts you have made, total number of
+question you have gotten correct, and which question you are currently on.
 
 .Sequence diagram for status feature
 image::QuizStatusCommandSequenceDiagram.png[width="800"]
 
-==== Design Considerations
+// tag::quiz[]
+==== Design considerations
 
-===== Aspect: How Quiz executes
+===== Aspect: quiz and management commands execution +
 * **Alternative 1 (current choice):** Run quiz in a different mode
-** Pros: Least restricted choice of answer.
-** Cons: Tedious to implement.
+** Pro: Least restricted choice of answer and great user experience.
+** Con: Tedious to implement.
 
 * **Alternative 2:** Run quiz together with the rest of the commands
-** Pros: Easy to implement.
-** Cons: Restricted answer. Answer cannot start with words already listed as management commands
+** Pro: Easy to implement.
+** Con: Restricted answer and compromised user experience. Answer cannot start with words already
+reserved for management commands.
 (e.g. `start`)
 
-**Alternative 1** is chosen because it allows the user to have a more comprehensive choice of
-word as
-answer without restricting the possible choices. In certain question, it is possible for the
-answer to be "start". Hence by choosing alternative 1, the choice of answer is the least
-restricted. Also, by running the quiz in a different mode, it allows the user to concentrate on the quiz
-without having unrelated display as distraction.
+**Alternative 1** is chosen because it allows the user to have a more flexible choice of
+word. For certain questions, it is possible for the answer to be "start". Hence by choosing alternative 1, the choice of answer will not be restricted. Also, by running the quiz in a different mode, it allows the user to have intuitive
+interaction in quiz mode.
 // end::quiz[]
 
-=== Logging
+=== Logging +
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
 
@@ -420,27 +954,27 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 * `FINE` : Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size
 
 [[Implementation-Configuration]]
-=== Configuration
+=== Configuration +
 
 Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
 
-== Documentation
+== Documentation +
 
-We use asciidoc for writing documentation.
+We used AsciiDoc for writing documentation.
 
 [NOTE]
-We chose asciidoc over Markdown because asciidoc, although a bit more complex than Markdown, provides more flexibility in formatting.
+We chose AsciiDoc over Markdown because AsciiDoc, although a bit more complex than Markdown, provides more flexibility in formatting.
 
-=== Editing documentation
+=== Editing documentation +
 
 See <<UsingGradle#rendering-asciidoc-files, UsingGradle.adoc>> to learn how to render `.adoc` files locally to preview the end result of your edits.
 Alternatively, you can download the AsciiDoc plugin for IntelliJ, which allows you to preview the changes you have made to your `.adoc` files in real-time.
 
-=== Publishing documentation
+=== Publishing documentation +
 
 See <<UsingTravis#deploying-github-pages, UsingTravis.adoc>> to learn how to deploy GitHub Pages using Travis.
 
-=== Converting documentation to PDF format
+=== Converting documentation to PDF format +
 
 We use https://www.google.com/chrome/browser/desktop/[Google Chrome] for converting documentation to PDF format, as Chrome's PDF engine preserves hyperlinks used in webpages.
 
@@ -455,9 +989,9 @@ Here are the steps to convert the project documentation files to PDF format.
 image::chrome_save_as_pdf.png[width="300"]
 
 [[Docs-SiteWideDocSettings]]
-=== Site-wide documentation settings
+=== Site-wide documentation settings +
 
-The link:{repoURL}/build.gradle[`build.gradle`] file specifies some project-specific https://asciidoctor.org/docs/user-manual/#attributes[asciidoc attributes] which affects how all documentation files within this project are rendered.
+The link:{repoURL}/build.gradle[`build.gradle`] file specifies some project-specific https://AsciiDoctor.org/docs/user-manual/#attributes[AsciiDoc attributes] which affects how all documentation files within this project are rendered.
 
 [TIP]
 Attributes left unset in the `build.gradle` file will use their *default value*, if any.
@@ -485,7 +1019,7 @@ This will render the SE-EDU navigation bar at the top of the page, and add some 
 |===
 
 [[Docs-PerFileDocSettings]]
-=== Per-file documentation settings
+=== Per-file documentation settings +
 
 Each `.adoc` file may also specify some file-specific https://asciidoctor.org/docs/user-manual/#attributes[asciidoc attributes] which affects how the file is rendered.
 
@@ -513,7 +1047,7 @@ _{asterisk} Official SE-EDU projects only_
 
 |===
 
-=== Site template
+=== Site template +
 
 The files in link:{repoURL}/docs/stylesheets[`docs/stylesheets`] are the https://developer.mozilla.org/en-US/docs/Web/CSS[CSS stylesheets] of the site.
 You can modify them to change some properties of the site's design.
@@ -531,7 +1065,7 @@ The SE-EDU team does not provide support for modified template files.
 [[Testing]]
 == Testing
 
-=== Running tests
+=== Running tests +
 
 There are three ways to run tests.
 
@@ -556,7 +1090,7 @@ Thanks to the https://github.com/TestFX/TestFX[TestFX] library we use, our GUI t
 
 To run tests in headless mode, open a console and run the command `gradlew clean headless allTests` (Mac/Linux: `./gradlew clean headless allTests`)
 
-=== Types of tests
+=== Types of tests +
 
 We have two types of tests:
 
@@ -572,7 +1106,7 @@ e.g. `seedu.address.storage.StorageManagerTest`
 e.g. `seedu.address.logic.LogicManagerTest`
 
 
-=== Troubleshooting testing
+=== Troubleshooting testing +
 **Problem: `HelpWindowTest` fails with a `NullPointerException`.**
 
 * Reason: One of its dependencies, `HelpWindow.html` in `src/main/resources/docs` is missing.
@@ -580,22 +1114,22 @@ e.g. `seedu.address.logic.LogicManagerTest`
 
 == Dev ops
 
-=== Build automation
+=== Build automation +
 
 See <<UsingGradle#, UsingGradle.adoc>> to learn how to use Gradle for build automation.
 
-=== Continuous integration
+=== Continuous integration +
 
 We use https://travis-ci.org/[Travis CI] and https://www.appveyor.com/[AppVeyor] to perform _Continuous Integration_ on our projects. See <<UsingTravis#, UsingTravis.adoc>> and <<UsingAppVeyor#, UsingAppVeyor.adoc>> for more details.
 
-=== Coverage reporting
+=== Coverage reporting +
 
 We use https://coveralls.io/[Coveralls] to track the code coverage of our projects. See <<UsingCoveralls#, UsingCoveralls.adoc>> for more details.
 
-=== Documentation previews
-When a pull request has changes to asciidoc files, you can use https://www.netlify.com/[Netlify] to see a preview of how the HTML version of those asciidoc files will look like when the pull request is merged. See <<UsingNetlify#, UsingNetlify.adoc>> for more details.
+=== Documentation previews +
+When a pull request has changes to AsciiDoc files, you can use https://www.netlify.com/[Netlify] to see a preview of how the HTML version of those AsciiDoc files will look like when the pull request is merged. See <<UsingNetlify#, UsingNetlify.adoc>> for more details.
 
-=== Making a release
+=== Making a release +
 
 Here are the steps to create a new release.
 
@@ -604,7 +1138,7 @@ Here are the steps to create a new release.
 .  Tag the repo with the version number. e.g. `v0.1`
 .  https://help.github.com/articles/creating-releases/[Create a new release using GitHub] and upload the JAR file you created.
 
-=== Managing dependencies
+=== Managing dependencies +
 
 A project often depends on third-party libraries. For example, Address Book depends on the https://github.com/FasterXML/jackson[Jackson library] for JSON parsing. Managing these _dependencies_ can be automated using Gradle. For example, Gradle can download the dependencies automatically, which is better than these alternatives:
 
@@ -612,284 +1146,8 @@ A project often depends on third-party libraries. For example, Address Book depe
 . Include those libraries in the repo (this bloats the repo size)
 . Require developers to download those libraries manually (this creates extra work for developers)
 
-[[GetStartedProgramming]]
 [appendix]
-== Suggested programming tasks to get started
-
-Suggested path for new programmers:
-
-1. First, add small local-impact (i.e. the impact of the change does not go beyond the component) enhancements to one component at a time. Some suggestions are given in <<GetStartedProgramming-EachComponent>>.
-
-2. Next, add a feature that touches multiple components to learn how to implement an end-to-end feature across all components. <<GetStartedProgramming-RemarkCommand>> explains how to go about adding such a feature.
-
-[[GetStartedProgramming-EachComponent]]
-=== Improving each component
-
-Each individual exercise in this section is component-based (i.e. you would not need to modify the other components to get it to work).
-
-[discrete]
-==== `Logic` component
-
-*Scenario:* You are in charge of `logic`. During dog-fooding, your team realize that it is troublesome for the user to type the whole command in order to execute a command. Your team devise some strategies to help cut down the amount of typing necessary, and one of the suggestions was to implement aliases for the command words. Your job is to implement such aliases.
-
-[TIP]
-Do take a look at <<Design-Logic>> before attempting to modify the `Logic` component.
-
-. Add a shorthand equivalent alias for each of the individual commands. For example, besides typing `clear`, the user can also type `c` to remove all persons in the list.
-+
-****
-* Hints
-** Just like we store each individual command word constant `COMMAND_WORD` inside `*Command.java` (e.g.  link:{repoURL}/src/main/java/seedu/address/logic/commands/FindCommand.java[`FindCommand#COMMAND_WORD`], link:{repoURL}/src/main/java/seedu/address/logic/commands/DeleteCommand.java[`DeleteCommand#COMMAND_WORD`]), you need a new constant for aliases as well (e.g. `FindCommand#COMMAND_ALIAS`).
-** link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser`] is responsible for analyzing command words.
-* Solution
-** Modify the switch statement in link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser#parseCommand(String)`] such that both the proper command word and alias can be used to execute the same intended command.
-** Add new tests for each of the aliases that you have added.
-** Update the user guide to document the new aliases.
-** See this https://github.com/se-edu/addressbook-level4/pull/785[PR] for the full solution.
-****
-
-[discrete]
-==== `ManagementModel` component
-
-*Scenario:* You are in charge of `managementModel`. One day, the `logic`-in-charge approaches you for help. He wants to implement a command such that the user is able to remove a particular `core` from the opened lesson's headers and also from all its cards, but the `managementModel` API does not support such a functionality at the moment. Your job is to implement an API method, so that your teammate can use your API to implement his command.
-
-[TIP]
-Do take a look at <<Design-ManagementModel>> before attempting to modify the `Model` component.
-
-Add a `removeCoreFromlesson(String core)` method. The specified core will be removed from the opened lesson's headers and from all its cards.
-****
-* Hints
-** The link:{repoURL}/src/main/java/seedu/address/model/modelmanager/ManagementModel.java[ManagementModel], link:{repoURL}/src/main/java/seedu/address/model/lesson/LessonList.java[LessonList] and link:{repoURL}/src/main/java/seedu/address/model/lesson/Lesson.java[Lesson] need to be updated.
-** Think about how you can use SLAP to design the method. Where should we place the main logic of deleting cores?
-**  Find out which of the existing API methods in  link:{repoURL}/src/main/java/seedu/address/model/lesson/LessonList.java[LessonList] and link:{repoURL}/src/main/java/seedu/address/model/lesson/Lesson.java[Lesson] classes can be used to implement the core removal logic.
-* Suggested solution
-** Implement a `removeCoreFromlesson(String core)` method in link:{repoURL}/src/main/java/seedu/address/managementModel/AddressBook.java[`AddressBook`]. Loop through each person, and remove the `tag` from each person.
-** Add a new method `removeCoreFromlesson(String core)` in link:{repoURL}/src/main/java/seedu/address/model/lesson/LessonList.java[LessonList]. Your {repoURL}/src/main/java/seedu/address/model/modelmanager/ManagementModel.java[ManagementModel] should call `Lessonlist#removeCoreFromlesson(String core)`.
-** Add new tests for each of the new public methods that you have added.
-****
-
-[discrete]
-==== `Ui` component
-
-*Scenario:* You are in charge of `ui`. During a beta testing session, your team is observing how the users use your address book application. You realize that one of the users occasionally tries to delete non-existent tags from a contact, because the tags all look the same visually, and the user got confused. Another user made a typing mistake in his command, but did not realize he had done so because the error message wasn't prominent enough. A third user keeps scrolling down the list, because he keeps forgetting the index of the last person in the list. Your job is to implement improvements to the UI to solve all these problems.
-
-[TIP]
-Do take a look at <<Design-Ui>> before attempting to modify the `UI` component.
-
-. Use different colors for different tags inside person cards. For example, `friends` tags can be all in brown, and `colleagues` tags can be all in yellow.
-+
-**Before**
-+
-image::getting-started-ui-tag-before.png[width="300"]
-+
-**After**
-+
-image::getting-started-ui-tag-after.png[width="300"]
-+
-****
-* Hints
-** The tag labels are created inside link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[the `PersonCard` constructor] (`new Label(tag.tagName)`). https://docs.oracle.com/javase/8/javafx/api/javafx/scene/control/Label.html[JavaFX's `Label` class] allows you to modify the style of each Label, such as changing its color.
-** Use the .css attribute `-fx-background-color` to add a color.
-** You may wish to modify link:{repoURL}/src/main/resources/view/DarkTheme.css[`DarkTheme.css`] to include some pre-defined colors using css, especially if you have experience with web-based css.
-* Solution
-** You can modify the existing test methods for `PersonCard` 's to include testing the tag's color as well.
-** See this https://github.com/se-edu/addressbook-level4/pull/798[PR] for the full solution.
-*** The PR uses the hash code of the tag names to generate a color. This is deliberately designed to ensure consistent colors each time the application runs. You may wish to expand on this design to include additional features, such as allowing users to set their own tag colors, and directly saving the colors to storage, so that tags retain their colors even if the hash code algorithm changes.
-****
-
-. Modify link:{repoURL}/src/main/java/seedu/address/commons/events/ui/NewResultAvailableEvent.java[`NewResultAvailableEvent`] such that link:{repoURL}/src/main/java/seedu/address/ui/ResultDisplay.java[`ResultDisplay`] can show a different style on error (currently it shows the same regardless of errors).
-+
-**Before**
-+
-image::getting-started-ui-result-before.png[width="200"]
-+
-**After**
-+
-image::getting-started-ui-result-after.png[width="200"]
-+
-****
-* Hints
-** link:{repoURL}/src/main/java/seedu/address/commons/events/ui/NewResultAvailableEvent.java[`NewResultAvailableEvent`] is raised by link:{repoURL}/src/main/java/seedu/address/ui/CommandBox.java[`CommandBox`] which also knows whether the result is a success or failure, and is caught by link:{repoURL}/src/main/java/seedu/address/ui/ResultDisplay.java[`ResultDisplay`] which is where we want to change the style to.
-** Refer to link:{repoURL}/src/main/java/seedu/address/ui/CommandBox.java[`CommandBox`] for an example on how to display an error.
-* Solution
-** Modify link:{repoURL}/src/main/java/seedu/address/commons/events/ui/NewResultAvailableEvent.java[`NewResultAvailableEvent`] 's constructor so that users of the event can indicate whether an error has occurred.
-** Modify link:{repoURL}/src/main/java/seedu/address/ui/ResultDisplay.java[`ResultDisplay#handleNewResultAvailableEvent(NewResultAvailableEvent)`] to react to this event appropriately.
-** You can write two different kinds of tests to ensure that the functionality works:
-*** The unit tests for `ResultDisplay` can be modified to include verification of the color.
-*** The system tests link:{repoURL}/src/test/java/systemtests/AddressBookSystemTest.java[`AddressBookSystemTest#assertCommandBoxShowsDefaultStyle() and AddressBookSystemTest#assertCommandBoxShowsErrorStyle()`] to include verification for `ResultDisplay` as well.
-** See this https://github.com/se-edu/addressbook-level4/pull/799[PR] for the full solution.
-*** Do read the commits one at a time if you feel overwhelmed.
-****
-
-. Modify the link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] to show the total number of people in the address book.
-+
-**Before**
-+
-image::getting-started-ui-status-before.png[width="500"]
-+
-**After**
-+
-image::getting-started-ui-status-after.png[width="500"]
-+
-****
-* Hints
-** link:{repoURL}/src/main/resources/view/StatusBarFooter.fxml[`StatusBarFooter.fxml`] will need a new `StatusBar`. Be sure to set the `GridPane.columnIndex` properly for each `StatusBar` to avoid misalignment!
-** link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] needs to initialize the status bar on application start, and to update it accordingly whenever the address book is updated.
-* Solution
-** Modify the constructor of link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] to take in the number of persons when the application just started.
-** Use link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter#handleAddressBookChangedEvent(AddressBookChangedEvent)`] to update the number of persons whenever there are new changes to the addressbook.
-** For tests, modify link:{repoURL}/src/test/java/guitests/guihandles/StatusBarFooterHandle.java[`StatusBarFooterHandle`] by adding a state-saving functionality for the total number of people status, just like what we did for save location and sync status.
-** For system tests, modify link:{repoURL}/src/test/java/systemtests/AddressBookSystemTest.java[`AddressBookSystemTest`] to also verify the new total number of persons status bar.
-** See this https://github.com/se-edu/addressbook-level4/pull/803[PR] for the full solution.
-****
-
-[discrete]
-==== `Storage` component
-
-*Scenario:* You are in charge of `storage`. For your next project milestone, your team plans to implement a new feature of saving the address book to the cloud. However, the current implementation of the application constantly saves the address book after the execution of each command, which is not ideal if the user is working on limited internet connection. Your team decided that the application should instead save the changes to a temporary local backup file first, and only upload to the cloud after the user closes the application. Your job is to implement a backup API for the address book storage.
-
-[TIP]
-Do take a look at <<Design-Storage>> before attempting to modify the `Storage` component.
-
-. Add a new method `backupAddressBook(ReadOnlyAddressBook)`, so that the address book can be saved in a fixed temporary location.
-+
-****
-* Hint
-** Add the API method in link:{repoURL}/src/main/java/seedu/address/storage/AddressBookStorage.java[`AddressBookStorage`] interface.
-** Implement the logic in link:{repoURL}/src/main/java/seedu/address/storage/StorageManager.java[`StorageManager`] and link:{repoURL}/src/main/java/seedu/address/storage/JsonAddressBookStorage.java[`JsonAddressBookStorage`] class.
-* Solution
-** See this https://github.com/se-edu/addressbook-level4/pull/594[PR] for the full solution.
-****
-
-[[GetStartedProgramming-RemarkCommand]]
-=== Creating a new command: `remark`
-
-By creating this command, you will get a chance to learn how to implement a feature end-to-end, touching all major components of the app.
-
-*Scenario:* You are a software maintainer for `addressbook`, as the former developer team has moved on to new projects. The current users of your application have a list of new feature requests that they hope the software will eventually have. The most popular request is to allow adding additional comments/notes about a particular contact, by providing a flexible `remark` field for each contact, rather than relying on tags alone. After designing the specification for the `remark` command, you are convinced that this feature is worth implementing. Your job is to implement the `remark` command.
-
-==== Description
-Edits the remark for a person specified in the `INDEX`. +
-Format: `remark INDEX r/[REMARK]`
-
-Examples:
-
-* `remark 1 r/Likes to drink coffee.` +
-Edits the remark for the first person to `Likes to drink coffee.`
-* `remark 1 r/` +
-Removes the remark for the first person.
-
-==== Step-by-step Instructions
-
-===== [Step 1] Logic: Teach the app to accept 'remark' which does nothing
-Let's start by teaching the application how to parse a `remark` command. We will add the logic of `remark` later.
-
-**Main:**
-
-. Add a `RemarkCommand` that extends link:{repoURL}/src/main/java/seedu/address/logic/commands/Command.java[`Command`]. Upon execution, it should just throw an `Exception`.
-. Modify link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser`] to accept a `RemarkCommand`.
-
-**Tests:**
-
-. Add `RemarkCommandTest` that tests that `execute()` throws an Exception.
-. Add new test method to link:{repoURL}/src/test/java/seedu/address/logic/parser/AddressBookParserTest.java[`AddressBookParserTest`], which tests that typing "remark" returns an instance of `RemarkCommand`.
-
-===== [Step 2] Logic: Teach the app to accept 'remark' arguments
-Let's teach the application to parse arguments that our `remark` command will accept. E.g. `1 r/Likes to drink coffee.`
-
-**Main:**
-
-. Modify `RemarkCommand` to take in an `Index` and `String` and print those two parameters as the error message.
-. Add `RemarkCommandParser` that knows how to parse two arguments, one index and one with prefix 'r/'.
-. Modify link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser`] to use the newly implemented `RemarkCommandParser`.
-
-**Tests:**
-
-. Modify `RemarkCommandTest` to test the `RemarkCommand#equals()` method.
-. Add `RemarkCommandParserTest` that tests different boundary values
-for `RemarkCommandParser`.
-. Modify link:{repoURL}/src/test/java/seedu/address/logic/parser/AddressBookParserTest.java[`AddressBookParserTest`] to test that the correct command is generated according to the user input.
-
-===== [Step 3] Ui: Add a placeholder for remark in `PersonCard`
-Let's add a placeholder on all our link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`] s to display a remark for each person later.
-
-**Main:**
-
-. Add a `Label` with any random text inside link:{repoURL}/src/main/resources/view/PersonListCard.fxml[`PersonListCard.fxml`].
-. Add FXML annotation in link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`] to tie the variable to the actual label.
-
-**Tests:**
-
-. Modify link:{repoURL}/src/test/java/guitests/guihandles/PersonCardHandle.java[`PersonCardHandle`] so that future tests can read the contents of the remark label.
-
-===== [Step 4] Model: Add `Remark` class
-We have to properly encapsulate the remark in our link:{repoURL}/src/main/java/seedu/address/managementModel/person/Person.java[`Person`] class. Instead of just using a `String`, let's follow the conventional class structure that the codebase already uses by adding a `Remark` class.
-
-**Main:**
-
-. Add `Remark` to managementModel component (you can copy from link:{repoURL}/src/main/java/seedu/address/managementModel/person/Address.java[`Address`], remove the regex and change the names accordingly).
-. Modify `RemarkCommand` to now take in a `Remark` instead of a `String`.
-
-**Tests:**
-
-. Add test for `Remark`, to test the `Remark#equals()` method.
-
-===== [Step 5] Model: Modify `Person` to support a `Remark` field
-Now we have the `Remark` class, we need to actually use it inside link:{repoURL}/src/main/java/seedu/address/managementModel/person/Person.java[`Person`].
-
-**Main:**
-
-. Add `getRemark()` in link:{repoURL}/src/main/java/seedu/address/managementModel/person/Person.java[`Person`].
-. You may assume that the user will not be able to use the `add` and `edit` commands to modify the remarks field (i.e. the person will be created without a remark).
-. Modify link:{repoURL}/src/main/java/seedu/address/managementModel/util/SampleDataUtil.java/[`SampleDataUtil`] to add remarks for the sample data (delete your `data/addressbook.json` so that the application will load the sample data when you launch it.)
-
-===== [Step 6] Storage: Add `Remark` field to `JsonAdaptedPerson` class
-We now have `Remark` s for `Person` s, but they will be gone when we exit the application. Let's modify link:{repoURL}/src/main/java/seedu/address/storage/JsonAdaptedPerson.java[`JsonAdaptedPerson`] to include a `Remark` field so that it will be saved.
-
-**Main:**
-
-. Add a new JSON field for `Remark`.
-
-**Tests:**
-
-. Fix `invalidAndValidPersonAddressBook.json`, `typicalPersonsAddressBook.json`, `validAddressBook.json` etc., such that the JSON tests will not fail due to a missing `remark` field.
-
-===== [Step 6b] Test: Add withRemark() for `PersonBuilder`
-Since `Person` can now have a `Remark`, we should add a helper method to link:{repoURL}/src/test/java/seedu/address/testutil/PersonBuilder.java[`PersonBuilder`], so that users are able to create remarks when building a link:{repoURL}/src/main/java/seedu/address/managementModel/person/Person.java[`Person`].
-
-**Tests:**
-
-. Add a new method `withRemark()` for link:{repoURL}/src/test/java/seedu/address/testutil/PersonBuilder.java[`PersonBuilder`]. This method will create a new `Remark` for the person that it is currently building.
-. Try and use the method on any sample `Person` in link:{repoURL}/src/test/java/seedu/address/testutil/TypicalPersons.java[`TypicalPersons`].
-
-===== [Step 7] Ui: Connect `Remark` field to `PersonCard`
-Our remark label in link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`] is still a placeholder. Let's bring it to life by binding it with the actual `remark` field.
-
-**Main:**
-
-. Modify link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`]'s constructor to bind the `Remark` field to the `Person` 's remark.
-
-**Tests:**
-
-. Modify link:{repoURL}/src/test/java/seedu/address/ui/testutil/GuiTestAssert.java[`GuiTestAssert#assertCardDisplaysPerson(...)`] so that it will compare the now-functioning remark label.
-
-===== [Step 8] Logic: Implement `RemarkCommand#execute()` logic
-We now have everything set up... but we still can't modify the remarks. Let's finish it up by adding in actual logic for our `remark` command.
-
-**Main:**
-
-. Replace the logic in `RemarkCommand#execute()` (that currently just throws an `Exception`), with the actual logic to modify the remarks of a person.
-
-**Tests:**
-
-. Update `RemarkCommandTest` to test that the `execute()` logic works.
-
-==== Full Solution
-
-See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-by-step solution.
-
-[appendix]
-== Product scope
+== Product scope +
 
 *Target user profile*:
 
@@ -907,7 +1165,7 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
 *Value proposition*: Flashcard integrated with <<srs,SRS>> that assists in memorization
 
 [appendix]
-== User stories
+== User stories +
 
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
 
@@ -926,22 +1184,30 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |user |export my current progress |I can keep my progress between different devices
 
-|`* * *` |user |start multiple lessons |I can see all the question at once
-
 |`* * *` |user |reset my progress |I can start anew
 
 |`* * *` |user |see my current progress |I know which questions I frequently get it right or wrong
 
 |`* * *` |user |be give multiple chances to answer |I am given some leeway for mistyping
 
-|`* * *` |user |add tags to the lessons |I can search based on the tags
-
 |`* * *` |user |start a lesson |I can start to memorise
+
+|`* * *` |user |see a hint if I am not sure about the answer |I can have a deeper impression
+
+|`* * *` |user |exit a quit any time |I can save my progress and continue next time.
 
 |`* * *` |user |view correct answer and explanation if I answered wrongly |I can understand and
 remember it better
 
-|`* *` |user |see a hint if I am not sure about the answer |I can have a deeper impression
+|`* * *` |user |view the cards from the lesson at a glance|I can manage the lesson's cards easily
+
+|`* * *` |user |view all the lessons at a glance|I can easily manage the lessons easily
+
+|`* * *` |Creator |change the testable values|I can choose which values to tested.
+
+|`* *` |user |add tags to the lessons |I can search based on the tags
+
+|`* *` |user |start multiple lessons |I can see all the question at once
 
 |`* *` |user |limit how many questions I’m given at one go |I can have shorter/longer sessions
 
@@ -974,17 +1240,18 @@ remember it better
 |=======================================================================
 
 [appendix]
-== Use cases
-
+== Use cases +
 
 [discrete]
-=== Use case: Export a lesson
+=== Use case: import a lesson +
 
 *MSS*
 
-1. User finds the lesson he wishes to export by using list or find command.
-2. User uses export command.
-3. App displays the location where the exported csv file is saved to.
+. User downloads file from a source (e.g Internet, other users).
+. User moves the file to the lessons folder.
+. User restarts App.
+. App loads the file as a lesson.
+. App shows loaded lessons in the UI.
 
 +
 Use case ends.
@@ -992,61 +1259,15 @@ Use case ends.
 *Extensions*
 
 [none]
-* 2a. User inputs invalid lesson name.
+* 3a. User inputs invalid file.
 +
 [none]
-** 2a1. Step 2 repeats until a valid lesson is found.
+** 3a1. App continues loading other lessons.
 +
-Use case resumes at step 3.
-
-* 2b. App is unable to save due to permissions, invalid format, etc
-+
-[none]
-** 2b1. App notifies User of the error.
-** 2b2. Step 2 repeats until the file is able to be saved.
-+
-Use case resumes at step 3.
+Use case resumes at step 5.
 
 [discrete]
-=== Use case: Import a lesson
-
-*MSS*
-
-1. User downloads file from a source (e.g Internet, other users).
-2. User uses import command.
-3. App loads the file as a lesson into the app shows the content of the lesson.
-4. App requests confirmation.
-5. App saves lesson to user profile.
-
-+
-Use case ends.
-
-*Extensions*
-
-[none]
-* 2a. User inputs invalid file path, file is not found or file is not valid.
-+
-[none]
-** 2a1. Step 2 repeats until a valid file is found.
-+
-Use case resumes at step 3.
-
-* 3a. App fails to load the file due to interruption, etc
-+
-[none]
-** 3a1. App tells user cause of failure.
-** 3a2. Step 2 repeats until a valid file is successfully loaded.
-+
-Use case resumes at step 3.
-
-* 4a. User declines
-+
-[none]
-+
-** Use case ends
-
-[discrete]
-=== Use case: Test poorly memorised questions
+=== Use case: test poorly memorised questions +
 
 *MSS*
 
@@ -1072,12 +1293,12 @@ Use case ends.
 Use case resumes at step 3.
 
 [discrete]
-=== Use case: Start multiple lessons
+=== Use case: start a review quiz +
 
 *MSS*
 
-1. User finds specified lessons.
-2. User starts lessons by lesson names.
+1. User finds specified lesson.
+2. User starts quiz by lesson name.
 3. App displays questions for User to answer.
 4. User to input his answer.
 5. App displays the correct answer.
@@ -1089,35 +1310,42 @@ Use case ends.
 *Extensions*
 
 [none]
-* 3a. App detects no questions to be tested now.
+* 3a. App detects no questions to be reviewed now.
 +
 [none]
-** 3a1. App prompts User to continue testing all questions.
-** 3a2. User enter yes.
+** 3a1. App prompts User no questions to be reviewed now.
+
 +
-Use case resumes at step 3.
+Use case ends.
 
 
 [appendix]
-== Non-functional requirements
+== Non-functional requirements +
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
-.  Should be able to hold up to 1000 lessons without a noticeable sluggishness in performance for typical usage.
+.  Should be able to hold up to 1000 cards in multiple lessons without a noticeable sluggishness in
+performance for typical usage.
+.  Should be able to load 1000 cards within 7 seconds.
+.  Product is not required to handle mass data editing (i.e no spreadsheet editing functionality)
+.  User data (both lessons and SRS data) should be easily portable
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 
-_{More to be added}_
-
 [appendix]
-== Glossary
+== Glossary +
+
+[[card]] Card::
+A card contains 2 or more `TEST` values and 0 or more `HINT` values. When a card is tested in
+quiz mode, 2 of its `TEST` values will be tested as a question-answer pair. `HINT` values will be
+shown when the `\hint` command is entered.
 
 [[lesson]] Lesson::
-A labelled set of <<question,questions>>.
+A lesson contains <<card,cards>> of the same type and topic. It has 2 or more `TEST` values and 0
+ or more `HINT` values. Cards added to this lesson must have corresponding `TEST` values, but need
+ not have matching `HINT` values. By default, the first 2 `TEST` values of cards in this lesson will
+ be tested when the lesson is started in quiz mode. You can change this by using the `set` command.
 
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
-
-[[question]] Question::
-A set of values, where one value is given as a prompt to the user, and another value is used as the correct answer for that given question. Other values may be shown to supplement the question.
 
 [[session]] Session::
 User’s current learning progress
@@ -1126,14 +1354,14 @@ User’s current learning progress
 The technique of gradually delaying or accelerating the testing of content based on the user’s success.
 
 [appendix]
-== Instructions for manual testing
+== Instructions for manual testing +
 
 Given below are instructions to test the app manually.
 
 [NOTE]
 These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
 
-=== Launch and shutdown
+=== Launch and shutdown +
 
 . Initial launch
 
@@ -1147,26 +1375,224 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-_{ more test cases ... }_
+=== Changing theme +
 
-=== Deleting a person
+Changing from light theme to dark theme.
 
-. Deleting a person while all persons are listed
+. `changeTheme` +
 
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
-.. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
-   Expected: Similar to previous.
+. Exit and start `BrainTrain` again. +
+   Expected: The theme have changed to dark theme and persist beyond restart.
 
-_{ more test cases ... }_
+=== Adding a lesson +
 
-=== Saving data
+. Test case (successful): `addLesson n/Capitals of the world t/Country t/Capital t/Language h/Hint` +
+    Expected: The lesson is added and appears on the user interface. +
+    Exit the BrainTrain app, and launch it again. +
+    Expected: The lesson 'Capitals of the world' is loaded on app launch.
+. Test case (unsuccessful): `addLesson t/Country t/Capital t/Language h/Hint` +
+    Expected: No lesson is added because name is missing. Error details are shown to the user.
+. Test case (unsuccessful): `addLesson n/Capitals t/Country h/Language h/Hint` +
+    Expected: No lesson is added because there is only 1 test value. Error details are shown to the user.
 
-. Dealing with missing/corrupted data files
+=== Deleting a lesson +
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
+. Prerequisite: There is at least 1 lesson loaded in-memory.
+. Test case (successful): `deleteLesson 1` +
+    Expected: The first lesson is deleted and no longer appears on the user interface. +
+    Exit the BrainTrain app, and launch it again. +
+    Expected: The lesson is permanently gone and does not re-appear on app restart.
+. Test case (unsuccessful): `deleteLesson 0` +
+    Expected: No lesson is deleted because of invalid index. Error details are shown to the user.
+. Other incorrect `deleteLesson` commands to try: `deleteLesson`, `deleteLesson x` where x is larger than the number of lessons loaded in-memory
 
-_{ more test cases ... }_
+=== Editing a lesson +
+
+. Prerequisite: There is at least 1 lesson loaded in-memory.
+. Test case (successful): `edit 1` +
+    Expected: The first lesson is opened in Card View for editing. +
+. Test case (unsuccessful): `edit 0` +
+    Expected: No lesson is opened for editing because of invalid index. Error details are shown to the user.
+. Other incorrect `edit` commands to try: `edit`, `edit x` where x is larger than the number of lessons loaded in-memory.
+
+=== Setting a lesson's test pair +
+
+. Prerequisite steps:
+.. Enter `addLesson n/Capitals of the world t/Country t/Capital t/Language h/Hint` to create a lesson
+.. Enter `edit x` where x is the number of the lesson added
+.. Enter `addCard t/Australia t/Canberra t/English h/Starts with C` to add a card
+.. Enter `addCard t/Korea t/Seoul t/Korean` to add another card
+. Test case (successful): `set 1 3` +
+    Expected: The user interface indicates that 'Country' and 'Language' are the 2 test values to be tested.
+. Test case (successful): `set 3 2` +
+    Expected: The user interface indicates that 'Language' and 'Capital' are the 2 test values to be tested.
+. Test case (unsuccessful): `set 0 2` +
+    Expected: No setting is done because of invalid index. Error details are shown to the user.
+. Test case (unsuccessful): `set 1 5` +
+    Expected: No setting is done because the lesson only has 3 test values, and there is no test value at index 5. Error details are shown to the user.
+. Other incorrect `set` commands to try: `set`, `set x y` where x or y is larger than the number of test values the lesson has.
+
+=== Adding a card +
+
+Adding a card.
+
+. Prerequisite steps:
+.. Enter `addLesson n/Capitals of the world t/Country t/Capital t/Language h/Hint` to create a lesson
+.. Enter `edit x` where x is the number of the lesson added
+. Test case (successful): `addCard t/Australia t/Canberra t/English h/Starts with C` +
+    Expected: The card is added and appears on the user interface. +
+. Test case (successful): `addCard t/Korea t/Seoul t/Korean` +
+    Expected: The card is added and appears on the user interface. +
+. Test case (unsuccessful): `addCard t/English h/Starts with C` +
+    Expected: No card is added because there is only 1 test value and all cards require at least 2 test values. Error details are shown to the user.
+. Test case (unsuccessful): `addCard t/Australia t/Canberra h/Starts with C` +
+    Expected: No card is added because there is only 2 test value but the lesson requires 3. Error details are shown to the user.
+
+=== Deleting a card +
+
+Deleting a card.
+
+. Prerequisite steps:
+.. Enter `addLesson n/Capitals of the world t/Country t/Capital t/Language h/Hint` to create a lesson
+.. Enter `edit x` where x is the number of the lesson added
+.. Enter `addCard t/Australia t/Canberra t/English h/Starts with C` to add a card
+.. Enter `addCard t/Korea t/Seoul t/Korean` to add another card
+. Test case (successful): `deleteCard 1` +
+    Expected: The first card is deleted and no longer appears on the user interface. +
+. Test case (unsuccessful): `deleteCard 0` +
+    Expected: No card is deleted because of invalid index. Error details are shown to the user.
+. Test case (unsuccessful): `deleteCard 100` +
+    Expected: No card is deleted because of invalid index. Error details are shown to the user.
+. Other incorrect `deleteCard` commands to try: `deleteCard`, `deleteCard x` where x is larger than the number of cards in the opened lesson.
+
+//tag::session[]
+=== Starting a new quiz +
+
+Below are some test cases you can perform to test the `StartCommand` for the Management feature.
+
+. Prerequisite: The system is in the management mode and there is no opened lesson currently.
+. Test case:
+.. `start 1 m/preview` +
+   Expected: The system and GUI change to `Quiz mode`. Starting new quiz. Current lesson is the first lesson in the list. Besides, only one card will be previewed in the quiz.
+.. `start 3 c/1 m/learn` +
+   Expected: The system and GUI change to `Quiz mode`. Starting new quiz. Current lesson is the third lesson in the list. Besides, only one card will be learnt in the quiz.
+
+//end::session[]
+=== Answering a question in a quiz +
+
+Below are some test cases you can perform to test the `QuizAnswerCommand` for the Quiz feature. +
+
+. Answering questions in `learn` mode
+.. Prerequisite: A quiz have already started. +
+   Start a quiz, for example `start 1 c/1 m/learn` +
+   Replace lesson name with a lesson of your choice. +
+   Answer the question according to the question from the specified lesson.
+
+.. Test case:  +
+... kbd:[enter] or anything without the prefix `\` followed by kbd:[enter] +
+    Expected: Shown the question for answering. +
+
+... `brussels` +
+    Expected: Answered the question correct. Total correct question updated.
+
+... `belgiu` +
+    Expected: Answered the question wrongly once. Total correct question updated.
+
+... `belgiuu` +
+    Expected: Answered the question wrongly twice and shown the correct answer. Total correct
+    question updated.
+
+. Answering questions in `review` mode
+.. Prerequisite: A quiz have already started. +
+   Start a quiz, for example `start 1 c/1 m/review` +
+   Replace lesson name with a lesson of your choice. +
+   Answer the question according to the question from the specified lesson.
+
+.. Test case:
+... `brussels` +
+    Expected: Answered the question correct. Total correct question updated.
+
+... `belgiu` +
+    Expected: Answered the question wrongly once. Total correct question updated.
+
+... `belgiuu` +
+    Expected: Answered the question wrongly twice and shown the correct answer. Total correct
+    question updated.
+
+. Answering questions in `preview` mode
+.. Prerequisite: A quiz have already started. +
+   Start a quiz, for example `start 1 c/1 m/preview` +
+   Replace lesson name with a lesson of your choice. +
+   Answer the question according to the question from the specified lesson.
+
+.. Test case:
+... kbd:[enter] or anything without the prefix `\` followed by kbd:[enter] +
+    Expected: Shown the next question for previewing. +
+
+=== Labelling a question as difficult in a quiz +
+
+Below is a test case you can perform to test the `QuizDifficultCommand` for the Quiz feature. +
+
+. Prerequisite: A quiz have already started. +
+   Start a quiz, for example `start 1 c/1 m/learn` +
+   Replace the lesson name with a lesson of your choice. +
+
+. Test case:  +
+.. `\difficult` +
+    Expected: Card labelled as difficult. +
+
+.. `\difficult` +
+    Expected: Card labelled as not difficult. +
+
+=== Viewing hint in a quiz +
+
+Below is a test case you can perform to test the `QuizHintCommand` for the Quiz feature. +
+
+. Prerequisite: A quiz have already started. +
+   Start a quiz, for example `start 1 c/1 m/review` +
+   Replace the lesson name with a lesson of your choice. +
+
+. Test case: `\hint` +
+  Expected: Shown the hint for this question. +
+
+=== Quitting the quiz +
+
+Below are some test cases you can perform to test the `QuizQuitCommand` for the Quiz feature. +
+
+Prerequisite: A quiz have already started. +
+Start a quiz, for example `start 1 c/1 m/review` +
+Replace lesson name with a lesson of your choice. +
+Answer the question according to the question from the specified lesson.
+
+. Test case: `\quit` +
+  Expected: Shown the result of the quiz and saved the progress of 0 attempted question.
+
+. Test case: `brussels` +
+  `\quit` +
+  Expected: Shown the result of the quiz and saved the progress of 1 attempted question.
+
+=== Viewing status in a quiz +
+
+Below is a test cases you can perform to test the `QuizStatusCommand` for the Quiz feature. +
+
+. Prerequisite: A quiz have already started. +
+   Start a quiz, for example `start 1 c/1 m/learn` +
+   Replace the lesson name with a lesson of your choice. +
+
+. Test case: `\status` +
+  Expected: Shown the quiz progress. +
+
+// tag::datastorage[]
+
+==== Saving user data +
+
+. Ensuring that there is a save user file generated. The file should be generated under `/userdata/savedata`
+
+.. Prerequisites: The user has at least started on a quiz once.
+.. NOTE: There will be 5 unique notations generated in the `savedata` file. It is arranged in an array as such [hashcode, number of attempts, streak, SRS date, isDifficult]
+.. Test case: Open the `savedata` file and modify `hashcode = 0` +
+   Expected: Launch braintrain.jar again and open braintrain.log. There should be a warning message stating: `"WARNING: There are empty values in the file"` +
+   Other incorrect cases: Setting `number of attempts < 0` or `streak < 0`. +
+// end::datastorage[]
+
+

@@ -30,13 +30,17 @@ public class MainPanel extends UiPart<Region> {
         super(FXML);
     }
 
+    /**
+     * Displays the current testing card and status information in the main panel.
+     * @param quizCard the current testing quizCard.
+     * @param totalCorrectAndTotalAttempts the current status stored in totalCorrectAndTotalAttempts.
+     */
     public void setFeedbackToUser(QuizCard quizCard, String totalCorrectAndTotalAttempts) {
         mainPanel.getChildren().clear();
 
         if (quizCard != null) {
             this.quizCard = quizCard;
             this.totalCorrectAndTotalAttempts = totalCorrectAndTotalAttempts;
-
             QuizMode mode = quizCard.getQuizMode();
             Text questionAnswer = new Text();
 
@@ -51,7 +55,6 @@ public class MainPanel extends UiPart<Region> {
                     setTotalCorrect();
                     break;
                 }
-
                 mainPanel.getChildren().add(questionAnswer);
                 setAnswerPrompt();
                 setTotalCorrect();

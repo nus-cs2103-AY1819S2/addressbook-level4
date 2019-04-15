@@ -15,7 +15,11 @@ public class LessonCardTest extends GuiUnitTest {
     @Test
     public void display() {
         // no optionals
-        Lesson lessonWithNotOptionals = new LessonBuilder().withNoOptionalHeaders().build();
+        Lesson lessonWithNotOptionals = new LessonBuilder()
+                .withCoreHeaders("A", "B", "C")
+                .withNoOptionalHeaders()
+                .withNoCards()
+                .build();
         LessonCard lessonCard = new LessonCard(lessonWithNotOptionals, 1);
         uiPartRule.setUiPart(lessonCard);
         assertCardDisplay(lessonCard, lessonWithNotOptionals, 1);

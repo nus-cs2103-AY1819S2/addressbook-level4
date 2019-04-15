@@ -1,7 +1,7 @@
 package seedu.address.logic.commands.management;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.core.Messages.MESSAGE_OPENED_LESSON;
+import static seedu.address.commons.core.Messages.MESSAGE_LESSON_VIEW_COMMAND;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.CommandResult;
@@ -19,7 +19,7 @@ public class ReloadLessonsCommand extends ManagementCommand {
     /**
      * The word a user must enter to call this command.
      */
-    public static final String COMMAND_WORD = "reloadLessons";
+    public static final String COMMAND_WORD = "reload";
     /**
      * Instructions on command usage and parameters.
      */
@@ -28,7 +28,7 @@ public class ReloadLessonsCommand extends ManagementCommand {
     /**
      * Feedback message displayed to the user upon successful execution of this command
      */
-    public static final String MESSAGE_SUCCESS = "Reloaded all lessons from file";
+    public static final String MESSAGE_SUCCESS = "Reloaded all lessons from the data folder.";
 
     /**
      * Executes the command which reloads the lessons from file into memory.
@@ -44,7 +44,7 @@ public class ReloadLessonsCommand extends ManagementCommand {
         ManagementModel mgtModel = requireManagementModel(model);
 
         if (mgtModel.isThereOpenedLesson()) {
-            throw new CommandException(MESSAGE_OPENED_LESSON);
+            throw new CommandException(MESSAGE_LESSON_VIEW_COMMAND);
         }
 
         return new CommandResult(MESSAGE_SUCCESS, CommandResult.UpdateStorage.LOAD);

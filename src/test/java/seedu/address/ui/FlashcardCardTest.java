@@ -9,6 +9,7 @@ import org.junit.Test;
 import guitests.guihandles.FlashcardCardHandle;
 import seedu.address.model.card.Card;
 import seedu.address.testutil.CardBuilder;
+import seedu.address.testutil.TypicalCards;
 
 public class FlashcardCardTest extends GuiUnitTest {
 
@@ -22,7 +23,7 @@ public class FlashcardCardTest extends GuiUnitTest {
 
     @Test
     public void equals() {
-        Card card = new CardBuilder().build();
+        Card card = TypicalCards.CARD_MULTI;
         FlashcardCard cardCard = new FlashcardCard(card, 0, 0, 1);
 
         // same card, same index -> returns true
@@ -39,7 +40,7 @@ public class FlashcardCardTest extends GuiUnitTest {
         assertNotEquals(cardCard, new Object());
 
         // same card with same index but different index -> returns true
-        Card differentCard = new CardBuilder().build();
+        Card differentCard = new CardBuilder(card).build();
         assertEquals(cardCard, new FlashcardCard(differentCard, 0, 0, 1));
     }
 

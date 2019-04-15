@@ -11,7 +11,7 @@ import seedu.address.model.quiz.QuizCard;
 import seedu.address.model.quiz.QuizMode;
 
 /**
- * Processes user answer
+ * Processes user answer.
  */
 public class QuizAnswerCommand extends QuizCommand {
     public static final String COMMAND_WORD = "answer";
@@ -20,7 +20,8 @@ public class QuizAnswerCommand extends QuizCommand {
     public static final String MESSAGE_WRONG_ONCE = "Your answer %1$s is wrong, "
             + "you have one more chance to answer it.\n";
     public static final String MESSAGE_WRONG = "Your answer is %1$s but the correct answer is %2$s.\n";
-    public static final String MESSAGE_SUCCESS = "You have completed all the questions in this quiz.\n";
+    public static final String MESSAGE_SUCCESS = "You have completed all the questions in this quiz.\n"
+        + "Press Enter to exit quiz mode.\n";
 
     private String answer;
     private QuizModel quizModel;
@@ -41,11 +42,12 @@ public class QuizAnswerCommand extends QuizCommand {
 
         StringBuilder sb = new StringBuilder();
 
-        if (card.isWrongTwice()) {
-            sb.append(handleCurrentCardAnswer());
+        if (quizModel.isResultDisplay()) {
+            endQuiz();
+            return new CommandResult("", true, false, false);
         }
 
-        if (card.getQuizMode() != QuizMode.PREVIEW) {
+        if (card.isWrongTwice() || card.getQuizMode() != QuizMode.PREVIEW) {
             sb.append(handleCurrentCardAnswer());
         }
 
@@ -61,7 +63,7 @@ public class QuizAnswerCommand extends QuizCommand {
      * Handles next available card or end the quiz.
      */
     private String handleIfCardLeft () {
-        return quizModel.hasCardLeft() ? handleNextCard() : endQuiz();
+        return quizModel.hasCardLeft() ? handleNextCard() : handleDisplayResult();
     }
 
     /**
@@ -101,13 +103,19 @@ public class QuizAnswerCommand extends QuizCommand {
     /**
      * Updates user data when quiz end.
      */
-    private String endQuiz() {
-        if (card.getQuizMode() == QuizMode.PREVIEW) {
-            // don't need to update card of 0 attempts
-            quizModel.end();
-        } else {
+    private void endQuiz() {
+        quizModel.setResultDisplay(false);
+
+        if (card.isWrongTwice() || card.getQuizMode() != QuizMode.PREVIEW) {
             quizModel.updateUserProfile(quizModel.end());
         }
+    }
+
+    /**
+     * Sets true to display a list of quiz card with their stats.
+     */
+    private String handleDisplayResult() {
+        quizModel.setResultDisplay(true);
 
         return MESSAGE_SUCCESS;
     }

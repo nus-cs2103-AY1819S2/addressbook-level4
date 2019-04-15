@@ -6,7 +6,7 @@ import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailur
 
 import org.junit.Test;
 
-import seedu.address.logic.commands.quiz.QuizStartCommand;
+import seedu.address.logic.commands.management.StartCommand;
 
 
 public class StartCommandParserTest {
@@ -14,9 +14,9 @@ public class StartCommandParserTest {
     @Test
     public void parse_emptyArg_throwsParseException() {
         assertParseFailure(parser, "     ", format(MESSAGE_INVALID_COMMAND_FORMAT,
-                QuizStartCommand.MESSAGE_USAGE));
-        assertParseFailure(parser, "start n/02-03-LEARN c/15 m/LEARN", format(MESSAGE_INVALID_COMMAND_FORMAT,
-                QuizStartCommand.MESSAGE_USAGE));
+                StartCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, "start 1i c/15 m/LEARN", format(MESSAGE_INVALID_COMMAND_FORMAT,
+                StartCommand.MESSAGE_USAGE));
     }
     //TODO:
     /*@Test

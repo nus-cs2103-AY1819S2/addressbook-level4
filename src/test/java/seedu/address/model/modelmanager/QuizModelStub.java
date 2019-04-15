@@ -37,6 +37,12 @@ public class QuizModelStub implements QuizModel {
     /**
      * This method should not be called.
      */
+    public int getIndex() {
+        throw new AssertionError("This method should not be called.");
+    }
+    /**
+     * This method should not be called.
+     */
     public String getQuestionHeader() {
         throw new AssertionError("This method should not be called.");
     }
@@ -139,6 +145,21 @@ public class QuizModelStub implements QuizModel {
 
     @Override
     public void updateUserProfile(List<List<Integer>> quizInformation) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public List<QuizCard> getQuizCardList() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public boolean isResultDisplay() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void setResultDisplay(boolean resultDisplay) {
         throw new AssertionError("This method should not be called.");
     }
 

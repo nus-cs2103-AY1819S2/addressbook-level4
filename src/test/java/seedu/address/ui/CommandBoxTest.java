@@ -13,12 +13,12 @@ import javafx.scene.input.KeyCode;
 
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.commands.quiz.QuizStartCommand;
+import seedu.address.logic.commands.management.StartCommand;
 
 
 public class CommandBoxTest extends GuiUnitTest {
 
-    private static final String COMMAND_THAT_SUCCEEDS = QuizStartCommand.COMMAND_WORD;
+    private static final String COMMAND_THAT_SUCCEEDS = StartCommand.COMMAND_WORD;
     private static final String COMMAND_THAT_FAILS = "invalid command";
 
     private ArrayList<String> defaultStyleOfCommandBox;
@@ -43,7 +43,7 @@ public class CommandBoxTest extends GuiUnitTest {
         defaultStyleOfCommandBox = new ArrayList<>(commandBoxHandle.getStyleClass());
 
         errorStyleOfCommandBox = new ArrayList<>(defaultStyleOfCommandBox);
-        errorStyleOfCommandBox.add(CommandBox.ERROR_STYLE_CLASS);
+        errorStyleOfCommandBox.add(CommandBox.STYLE_CLASS_ERROR);
     }
 
     @Test

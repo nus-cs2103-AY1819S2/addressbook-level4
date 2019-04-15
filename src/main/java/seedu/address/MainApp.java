@@ -191,6 +191,7 @@ public class MainApp extends Application {
 
         if (initializedLessonList.getLessons().size() == 0) {
             initializedLessonList = SampleDataUtil.getSampleBrainTrain();
+            storage.saveLessonList(initializedLessonList);
         }
 
         logger.info(initializedLessonList.getLessons().size() + " lessons loaded.");

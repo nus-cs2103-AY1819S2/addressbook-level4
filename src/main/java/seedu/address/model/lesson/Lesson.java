@@ -31,10 +31,8 @@ public class Lesson {
     public static final int DEFAULT_INDEX_ANSWER = 1;
 
     public static final String EXCEPTION_INVALID_NAME = "Invalid name supplied.";
-    public static final String EXCEPTION_INVALID_INDEX = "Invalid index: %1$s";
+    public static final String EXCEPTION_INVALID_INDEX = "Invalid index: %1$s.";
     public static final String EXCEPTION_INVALID_CORE_SIZE = "Invalid number of core headers supplied.";
-    public static final String EXCEPTION_INVALID_CORE = "Invalid core header supplied.";
-    public static final String EXCEPTION_INVALID_OPT = "Invalid optional header supplied.";
     public static final String EXCEPTION_CORE_SIZE_MISMATCH =
         "The cores of the card to be added do not match the core headers of this lesson.";
 
@@ -116,12 +114,14 @@ public class Lesson {
         List<String> optionals;
 
         cores = headers.subList(0, noOfCoreHeaders);
-        int optionalStart = headers.size() - noOfCoreHeaders + 1;
 
-        if (optionalStart == 0) {
+        int optionalStart = noOfCoreHeaders;
+        int optionalEnd = headers.size();
+
+        if (noOfCoreHeaders == headers.size()) {
             optionals = new ArrayList<>();
         } else {
-            optionals = headers.subList(optionalStart, headers.size());
+            optionals = headers.subList(optionalStart, optionalEnd);
         }
 
         setName(name);
@@ -239,7 +239,8 @@ public class Lesson {
      */
     public void setQuestionCoreIndex(int index) {
         if (index < 0 || index >= coreHeaders.size()) {
-            throw new IllegalArgumentException(String.format(EXCEPTION_INVALID_INDEX, index));
+            throw new IllegalArgumentException(String.format(EXCEPTION_INVALID_INDEX,
+                    index + 1));
         }
 
         questionCoreIndex = index;
@@ -250,7 +251,8 @@ public class Lesson {
      */
     public void setAnswerCoreIndex(int index) {
         if (index < 0 || index >= coreHeaders.size()) {
-            throw new IllegalArgumentException(String.format(EXCEPTION_INVALID_INDEX, index));
+            throw new IllegalArgumentException(String.format(EXCEPTION_INVALID_INDEX,
+                    index + 1));
         }
 
         answerCoreIndex = index;
@@ -346,14 +348,14 @@ public class Lesson {
     public void addCard(List<String> fields) {
         requireAllNonNull(fields);
 
-        List<String> cores = fields.subList(0, coreHeaders.size());
-
-        int optionalStart = fields.size() - coreHeaders.size() + 1;
-
-        if (optionalStart == 0) {
-            addCard(new Card(cores));
+        if (fields.size() == coreHeaders.size()) {
+            addCard(new Card(fields));
         } else {
-            List<String> optionals = fields.subList(optionalStart, fields.size());
+            List<String> cores = fields.subList(0, coreHeaders.size());
+            int optionalStart = coreHeaders.size();
+            int optionalEnd = fields.size();
+
+            List<String> optionals = fields.subList(optionalStart, optionalEnd);
             addCard(new Card(cores, optionals));
         }
     }

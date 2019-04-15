@@ -7,7 +7,7 @@ import static seedu.address.testutil.TypicalIndices.INDEX_FIRST;
 
 import org.junit.Test;
 
-import seedu.address.logic.commands.management.OpenLessonCommand;
+import seedu.address.logic.commands.management.EditLessonCommand;
 
 public class OpenLessonParserTest {
 
@@ -16,12 +16,12 @@ public class OpenLessonParserTest {
     @Test
     public void parse_validArgs_returnsOpenCommand() {
         assertParseSuccess(parser, "" + INDEX_FIRST.getOneBased(),
-                new OpenLessonCommand(INDEX_FIRST));
+                new EditLessonCommand(INDEX_FIRST));
     }
 
     @Test
     public void parse_invalidArgs_throwsParseException() {
         assertParseFailure(parser, "a",
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, OpenLessonCommand.MESSAGE_USAGE));
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditLessonCommand.MESSAGE_USAGE));
     }
 }

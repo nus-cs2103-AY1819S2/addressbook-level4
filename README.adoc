@@ -14,27 +14,32 @@ ifndef::env-github[]
 image::images/Ui.png[width="600"]
 endif::[]
 
-* This is a desktop flashcard application. It has a GUI but most of the user
-interactions happen using a CLI (Command Line Interface).
+BrainTrain is a *spaced-repetition flashcard application* which makes *memorizing easy and effective*. With BrainTrain's link:https://www.theguardian.com/education/2016/jan/23/spaced-repetition-a-hack-to-make-your-brain-store-information[Spaced Repetition System (SRS)] optimizing your flashcard revision intervals, you will be able to *learn more in less time*.
 
-* It is an open-source spaced repetition flashcard application which makes memorizing easy and
-efficient.
+*Who is it for:*
 
-* Research has shown that the Spaced-Repetition System (SRS) is more effective than traditional
-memorization techniques
+- Anyone who needs to memorise anything (e.g. Japanese vocabulary, the periodic table, the human anatomy). BrainTrain's card system is *content-agnostic* and *flexible*. It accommodates all forms of learning you may require.
+- Anyone who needs to create flashcards for educational purposes. BrainTrain's cards are grouped as lessons which can be *easily imported and exported*. These lessons are also saved in `.csv` files which you *can edit in your favourite spreadsheet application* (e.g. Excel).
 
-== Site Map
+*Main features of BrainTrain:*
 
-* <<UserGuide#, User Guide>>
-* <<DeveloperGuide#, Developer Guide>>
-* <<AboutUs#, About Us>>
-* <<ContactUs#, Contact Us>>
+- You can manage flashcard lessons in BrainTrain's management mode or alternatively do so in your preferred spreadsheet application.
+- You can attempt flashcard lessons in BrainTrain's quiz mode which will track and manage your user-specific spaced-repetition data automatically.
+
+*To start using BrainTrain:* +
+Follow the instructions in the <<UserGuide#Quick-start, User guide: Quick start>> section.
+
+== Site map
+
+* <<UserGuide#, User guide>>
+* <<DeveloperGuide#, Developer guide>>
+* <<AboutUs#, About us>>
+* <<ContactUs#, Contact us>>
 
 == Acknowledgements
-
-* AddressBook-Level4 project created by SE-EDU initiative at https://github.com/se-edu/
-* Some parts of this sample application were inspired by the excellent http://code.makery.ch/library/javafx-8-tutorial/[Java FX tutorial] by
-_Marco Jakob_.
-* Libraries used: https://github.com/TestFX/TestFX[TextFX], https://github.com/FasterXML/jackson[Jackson], https://github.com/google/guava[Guava], https://github.com/junit-team/junit5[JUnit5], http://opencsv.sourceforge.net/[opencsv]
+* BrainTrain is built upon the _AddressBook-Level4_ project created by the link:https://github.com/se-edu/[SE-EDU initiative].
+* Parts of this application were inspired by _Marco Jakob_'s http://code.makery.ch/library/javafx-8-tutorial/[Java FX tutorial].
+* BrainTrain icon is made by https://www.freepik.com/[Freepik] from https://www.flaticon.com/[Flaticon]
+* Libraries used: https://github.com/TestFX/TestFX[TextFX], https://github.com/FasterXML/jackson[Jackson], https://github.com/google/guava[Guava], https://github.com/junit-team/junit5[JUnit5], http://opencsv.sourceforge.net/[OpenCSV]
 
 == Licence : link:LICENSE[MIT]

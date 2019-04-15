@@ -2,61 +2,86 @@
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
+:toc:
+:toclevels: 1
+:toc-title: Table of contents
+:toc-placement: manual
+:sectnums:
+:repoURL: https://github.com/CS2103-AY1819S2-W14-1/main
+:pullURL: https://github.com/CS2103-AY1819S2-W14-1/main/pull/
+:seeduURL: https://github.com/se-edu/addressbook-level4
 
-== PROJECT: BrainTrain
+== Introduction
 
 This project portfolio highlights my various contributions to the BrainTrain project, including code, documentation and administrative matters.
 
----
+=== Overview of project requirements
+BrainTrain was developed as part of the CS2103T Software Engineering module at the National University of Singapore. My team of 5 were given seven weeks to develop our application, built off of https://github.com/se-edu/addressbook-level4[an existing address book application].
 
-== Overview of BrainTrain
+We were expected to apply industry-standard practices and tools such as Github and Continuous Integration. Beyond the application, we were also required to document our work in a User Guide and Developer Guide.
 
-BrainTrain is a memorisation tool made for students and other learners, especially in content-heavy subjects. BrainTrain is a flashcard application that implements a Spaced Repetition System (SRS) to test the user over time. This allows you to remember various things in a shorter amount of time, yet also ensuring that you remember it long-term as you use the application.
+=== Overview of BrainTrain
 
-BrainTrain was built on top of an existing command line based address book application, as part of a software engineering project.
+BrainTrain is a memorisation tool made for students and other learners, especially in content-heavy subjects, such as language vocabulary, science terminology and others.
 
-My role was to design and manage the storage of Lesson data in BrainTrain. The following sections will highlight some of the choices I made and the reasons behind them, and various other contributions to the administration and documentation of the project.
+BrainTrain is a flashcard application that implements a https://en.wikipedia.org/wiki/Spaced_repetition[Spaced Repetition System] (SRS) to test the user over time. This allows you to remember various things in a short amount of time, yet also assist in memorization long-term as you continuously use the application.
 
 == Summary of contributions
 
-* *Major enhancement*: Added the ability to *save and load Lesson data to Comma-Separated Value (CSV) files*
-** What it does: Allows the user to save and load flashcard lesson data to CSV files, which are easy to edit in a spreadsheet format.
-** Justification: `*TODO FROM HERE ONWARDS*` This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+My role was to design and manage the storage of Lesson data in BrainTrain. The following sections will highlight some of the choices I made and the reasons behind them, and various other contributions to the administration and documentation of the project.
 
-* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
+=== *Major enhancement*
+Added the ability to save and load Lesson data to Comma-Separated Value (CSV) files.
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+** *What it does*: Allows the user to save and load flashcard lesson data to CSV files.
+** *Justification*: CSV files can be opened in an external editor, such as Excel. Given that a lesson may have up to hundreds of cards, managing the lesson through row by row editing would be tedious for a user. An external spreadsheet editor would be more suited to editing large amounts of data.
+** *Credits*: The OpenCSV library, which handles actual file I/O.
+** *Relevant pull requests*: https://github.com/CS2103-AY1819S2-W14-1/main/pull/28[#28], https://github.com/CS2103-AY1819S2-W14-1/main/pull/35[#35], https://github.com/CS2103-AY1819S2-W14-1/main/pull/78[#78], https://github.com/CS2103-AY1819S2-W14-1/main/pull/121[#121], https://github.com/CS2103-AY1819S2-W14-1/main/pull/179[#179]
 
-* *Other contributions*:
+{empty} +
+
+=== *Minor enhancement*
+Added the `reload` command.
+
+** *What it does*: Allows the user to manually reload lessons from their hard disk.
+** *Justification*: The user would be able to modify existing lessons or download new lessons without having to close and open the application.
+** *Relevant pull requests*: https://github.com/CS2103-AY1819S2-W14-1/main/pull/121[#121]
+
+{empty} +
+
+** *Code contributed*: [https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#search=eugenefdw[RepoSense]]
+
+=== *Other contributions*:
 
 ** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
-** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
+*** Led the team, setting deadlines for milestones and other tasks and contacting mentors as needed
+*** Set up team's Github repository
+*** Set up branch protection, issue labels, milestones on the repository
+*** Set up AppVeyor, Codacy, Coveralls, Travis on the repository
 ** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+*** Updated User Guide and Developer guide: https://github.com/CS2103-AY1819S2-W14-1/main/pull/78[#78], https://github.com/CS2103-AY1819S2-W14-1/main/pull/99[#99] , https://github.com/CS2103-AY1819S2-W14-1/main/pull/121[#121]
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
+*** PRs reviewed (with non-trivial review comments): https://github.com/CS2103-AY1819S2-W14-1/main/pull/32[#32], https://github.com/CS2103-AY1819S2-W14-1/main/pull/129[#129], https://github.com/CS2103-AY1819S2-W14-1/main/pull/180[#180]
+*** Contributed to forum discussions (examples:  https://github.com/nus-cs2103-AY1819S2/forum/issues/43[1], https://github.com/nus-cs2103-AY1819S2/forum/issues/44[2])
+*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com/cs2103-ay1819s2-w09-1/main/issues/117[1], https://github.com/cs2103-ay1819s2-w09-1/main/issues/122[2], https://github.com/cs2103-ay1819s2-w09-1/main/issues/130[3])
 ** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
-
-_{you can add/remove categories in the list above}_
+*** Integrated a third party library (opencsv) to the project (https://github.com/CS2103-AY1819S2-W14-1/main/pull/21[#21], https://github.com/CS2103-AY1819S2-W14-1/main/pull/28[#28])
+*** Set up a team Discord channel with the Github Bot for notifications
 
 == Contributions to the User Guide
-
 
 |===
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
+{empty} +
 
-//include::../UserGuide.adoc[tag=undoredo]
+[discrete]
+include::../UserGuide.adoc[tag=eugene]
+---
+[discrete]
+include::../UserGuide.adoc[tag=eugene_troubleshoot]
+
+{empty} +
 
 == Contributions to the Developer Guide
 
@@ -64,10 +89,6 @@ _{you can add/remove categories in the list above}_
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-//include::../DeveloperGuide.adoc[tag=undoredo]
+{empty} +
 
-== PROJECT: PowerPointLabs
-
----
-
-_{Optionally, you may include other projects in your portfolio.}_
+include::../DeveloperGuide.adoc[tag=csvstorage]

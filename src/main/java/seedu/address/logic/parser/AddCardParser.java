@@ -1,8 +1,8 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.Syntax.PREFIX_CORE;
-import static seedu.address.logic.parser.Syntax.PREFIX_OPTIONAL;
+import static seedu.address.logic.parser.Syntax.PREFIX_HINT;
+import static seedu.address.logic.parser.Syntax.PREFIX_TEST;
 
 import java.util.ArrayList;
 import java.util.stream.Stream;
@@ -23,16 +23,16 @@ public class AddCardParser implements Parser<AddCardCommand> {
      */
     public AddCardCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_CORE, PREFIX_OPTIONAL);
+                ArgumentTokenizer.tokenize(args, PREFIX_TEST, PREFIX_HINT);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_CORE)
+        if (!arePrefixesPresent(argMultimap, PREFIX_TEST)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     AddCardCommand.MESSAGE_USAGE));
         }
 
-        ArrayList<String> coreHeaders = new ArrayList<>(argMultimap.getAllValues(PREFIX_CORE));
-        ArrayList<String> optHeaders = new ArrayList<>(argMultimap.getAllValues(PREFIX_OPTIONAL));
+        ArrayList<String> coreHeaders = new ArrayList<>(argMultimap.getAllValues(PREFIX_TEST));
+        ArrayList<String> optHeaders = new ArrayList<>(argMultimap.getAllValues(PREFIX_HINT));
 
         Card card = new Card(coreHeaders, optHeaders);
         return new AddCardCommand(card);

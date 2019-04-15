@@ -1,6 +1,7 @@
 package seedu.address.ui.testutil;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,6 +55,11 @@ public class GuiTestAssert {
         List<String> headers = actualCard.getHeaders();
         List<String> headersToCompare = new ArrayList<>(expectedLesson.getCoreHeaders());
         headersToCompare.addAll(expectedLesson.getOptionalHeaders());
+
+        for (int i = 0; i < expectedLesson.getCoreHeaderSize(); i++) {
+            headersToCompare.set(i, (i + 1) + ". " + headersToCompare.get(i));
+        }
+
         assertEquals(headers, headersToCompare);
     }
 
@@ -68,7 +74,12 @@ public class GuiTestAssert {
         List<String> headers = actualCard.getHeaders();
         List<String> headersToCompare = new ArrayList<>(expectedCard.getCores());
         headersToCompare.addAll(expectedCard.getOptionals());
-        assertEquals(headers, headersToCompare);
+
+        int i = 0;
+        for (String s: headersToCompare) {
+            assertTrue(headers.get(i).contains(s));
+            i++;
+        }
     }
 
     /**

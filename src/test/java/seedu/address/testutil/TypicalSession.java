@@ -19,7 +19,9 @@ public class TypicalSession {
     public static final SrsCard SRS_CARD_JAPAN = new SrsCard(CARD_JAPAN, new CardSrsData(CARD_JAPAN.hashCode(), 1,
         1, Instant.now().plus(Duration.ofHours(2)), false), LESSON_DEFAULT);
 
-    public static final Session SESSION_DEFAULT = new SessionBuilder().build();
+    public static final Session SESSION_DEFAULT = new SessionBuilder()
+        .withSrsCards(List.of(new SrsCardBuilder().build()))
+        .build();
     public static final Session SESSION_DEFAULT_2 = new SessionBuilder()
         .withCount(2)
         .withSrsCards(List.of(

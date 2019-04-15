@@ -11,8 +11,8 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import seedu.address.commons.core.GuiSettings;
 import seedu.address.battle.state.BattleState;
+import seedu.address.commons.core.GuiSettings;
 
 public class ModelManagerTest {
     @Rule

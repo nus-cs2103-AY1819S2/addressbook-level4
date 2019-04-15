@@ -896,7 +896,7 @@ image::StatsWindowUpdatedSS.PNG[width=300]
 
 Besides the pop-up window, the data is also captured in the command-line result box.
 
-image::StatsCommandBox.PNG[width=300]
+image::StatsCommandBox.PNG[width=200]
 
 The following sequence diagram summarizes what happens when a User invokes the `stats` command.
 

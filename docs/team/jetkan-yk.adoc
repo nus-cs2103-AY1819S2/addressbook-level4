@@ -54,12 +54,12 @@ track of their upcoming tasks.
 Set or remove a deadline for the file, specified by the index of the file that is next to the name of the file in the Files Section. +
 A file's deadline is located under its name and has 4 colours to indicate the amount of time you have before it is due. +
 
-The colour Green, indicates that there is more than `7` days till the deadline is due, as shown below. +
+The colour Green, indicates that there are more than `7` days till the deadline is due, as shown below. +
 
 .Deadline Colour Green
 image::UGDeadlineFar.png[width="300"]
 
-The colour Orange, indicates that you have `7` or less days till it is due. As shown below. +
+The colour Orange, indicates that you have `7` or fewer days till it is due. As shown below. +
 
 .Deadline Colour Orange
 image::UGDeadlineNear.png[width="300"]

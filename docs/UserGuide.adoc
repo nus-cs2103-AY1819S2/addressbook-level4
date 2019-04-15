@@ -552,8 +552,7 @@ To transfer your files: +
 === Importing data from website [Coming in v2.0]
 
 Easily transfer files using import command to get files directly from a specific link without the use of transfer devices. +
-The usage of hard drives to transfer and pull documents has reduced overtime as new cloud storage are introduced. Thus, with this new feature,
-it will help to pull the user file and lessons from links.
+The usage of hard drives to transfer and pull documents has reduced overtime as new cloud storage are introduced. Thus, with this new feature, it will help to pull the user file and lessons from links. +
 Example : `import User l/[INSERT_DESIRED_LINK_HERE]`
 
 // end::jeraldtsy[]

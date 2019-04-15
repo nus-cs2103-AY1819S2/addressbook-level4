@@ -349,7 +349,7 @@ Swap any two apparels.
 Simulating an event in the real world where users swap the position of two apparels.
 
 ==== Current Implementation
-The sort command takes in two parameters: INDEX_A and INDEX_B
+The swap command takes in two parameters: INDEX_A and INDEX_B
 
 * Index_A  : The first apparel to be swapped.
 * Index_B : The second apparel to be swapped.

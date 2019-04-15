@@ -602,10 +602,19 @@ image::ClearCommandActivityDiagram.png[width="600"]
 // tag::deadline[]
 === Deadline feature
 ==== Current Implementation
-The `deadline` feature is facilitated by both *DeadlineCommand* and *DeadlineCommandParser*
+The `deadline` feature is facilitated by both *Deadline*, *DeadlineCommand* and *DeadlineCommandParser*
 This feature allows you to set or remove deadlines of the file specified by you from PDF++.
 The deadlines will be recorded and displayed both in the list of files as well as in the information panel
 for each individual file.
+
+The implementation of the *Deadline* model can be represented in the following class diagram:
+
+.Deadline Class Diagram
+image::DeadlineClassDiagram.png[width="200"]
+
+A *Deadline* model has a https://docs.oracle.com/javase/8/docs/api/java/time/LocalDate.html[_Java.time.LocalDate_]
+`date` attribute and a `boolean isDone`. The `date` is the date for the deadline assigned to the file, the `isDone` attribute
+evaluates to `true` if the deadline is set to be done, `false` if it is not done.
 
 The implementation of the *DeadlineCommand* execution can be summarised in the following activity diagram:
 
@@ -627,18 +636,12 @@ image::DeadlineCommandActivityDiagram.png[width="600"]
 
 This sequence diagram demonstrates the interactions involved from start of *DeadlineCommandParser* to end of *DeadlineCommand* execution:
 
-.Deadline Command Sequence Diagram
+.Interactions Inside the Logic Component for the `deadline 1 done` Command
 image::DeadlineCommandSequenceDiagram.png[width="600"]
 
 [TIP]
 After a deadline has been added to the PDF file specified, the date will be color coded according to days
 remaining from the current day until the deadline date.
-
-.Deadline Class Diagram
-image::DeadlineClassDiagram.png[width="200"]
-
-Step 1: From the main interface, the user chooses a file that they wish to set a deadline,
-enters the `deadline` command into the CLI Interface, following the outlined Syntax mentioned.
 
 ==== Considerations
 

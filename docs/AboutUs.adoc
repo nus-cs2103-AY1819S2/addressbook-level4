@@ -4,7 +4,7 @@
 :imagesDir: images
 :stylesDir: stylesheets
 
-In-credit-ble is currently being developed by https://github.com/orgs/cs2103-ay1819s2-w17-3/people[W17-3] team for the CS2103 Software Engineering project.
+In-Credit-Ble is a Finance Tracker desktop application developed by https://github.com/orgs/cs2103-ay1819s2-w17-3/people[W17-3] team for the CS2103 Software Engineering project.
 
 '''
 
@@ -56,6 +56,6 @@ image::jackimaru96.png[width="150", align="left"]
 {empty}[https://cs2103-ay1819s2-w17-3.github.io/main/team/jackimaru96.html[portfolio]]
 
 Role: Developer +
-Responsibilities: Documentation
+Responsibilities: Documentation and Project Management
 
 '''

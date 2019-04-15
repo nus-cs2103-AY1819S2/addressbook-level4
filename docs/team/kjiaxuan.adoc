@@ -30,14 +30,10 @@ The figure below explains the symbols and formatting used in this document
 | `[fuchsia]#SortCommandParser#parse()#`| `[fuchsia]#parse()#` method in `[fuchsia]#SortCommandParser#`
 |===
 
-{bl}
-{bl}
-
 == Summary of contributions
 
 This section contains a description of some enhancements I made, and a summary of my contributions.
 
-{bl}
 
 === Enhancement added
 
@@ -62,12 +58,9 @@ These enhancements work with existing commands such as `[fuchsia]#edit#` and `[f
 it may be easier to find an entry (_In-Credit-Ble_ has a `[fuchsia]#search#` function too!).
 These enhancements are also compatible with _In-Credit-Ble_’s `[fuchsia]#undo#` and `[fuchsia]#redo#` functions.
 
-{bl}
-
 === Code contributed
 Click https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#=undefined&search=kjiaxuan[here] to see the code I contributed to the _In-Credit-Ble_ project!
 
-{bl}
 
 === Other contributions
 * Enhancements:
@@ -88,6 +81,8 @@ https://github.com/CS2103-AY1819S2-W17-3/main/pull/106[#106],
 https://github.com/CS2103-AY1819S2-W17-3/main/pull/110[#110],
 https://github.com/CS2103-AY1819S2-W17-3/main/pull/229[#229])
 
+{bl}
+
 * Community:
 ** PRs reviewed: https://github.com/CS2103-AY1819S2-W17-3/main/pull/63[#63],
 https://github.com/CS2103-AY1819S2-W17-3/main/pull/64[#64],
@@ -95,7 +90,6 @@ https://github.com/CS2103-AY1819S2-W17-3/main/pull/99[#99],
 https://github.com/CS2103-AY1819S2-W17-3/main/pull/121[#121],
 https://github.com/CS2103-AY1819S2-W17-3/main/pull/191[#191]
 
-{bl}
 {bl}
 
 == Contributions to the User Guide
@@ -107,8 +101,8 @@ include::../UserGuide.adoc[tag=sort]
 include::../UserGuide.adoc[tag=reverse]
 
 {bl}
-{bl}
 
+<<<
 == Contributions to the Developer Guide
 
 These are additions I made to _In-Credit-Ble_'s Developer Guide for the `[fuchsia]#reverse#` and `[fuchsia]#sort#` features.

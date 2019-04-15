@@ -27,6 +27,8 @@ public class SortCommandParser implements Parser<SortCommand> {
             if (token.length > 1) {
                 if (token[1].equalsIgnoreCase("desc")) {
                     desc = true;
+                } else {
+                    throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.MESSAGE_USAGE));
                 }
             }
             SortOption sortOption = ParserUtil.parseSortValue(token[0]);

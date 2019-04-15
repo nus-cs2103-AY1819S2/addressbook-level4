@@ -34,7 +34,7 @@ The order is from Ongoing to Completed, within the same status the activities ar
 ** Update UI display for activity list and activity details. https://github.com/cs2103-ay1819s2-w13-2/main/pull/154[#154]
 ** Update Storage for storing attendance in activity.
 
-* *Code contributed*: [https://github.com/CS2103-AY1819S2-W13-2/main/commits?author=ivyyangyq[Functional code]] [https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#search=ivyyangyq&sort=displayName&since=2019-02-10&until=2019-04-2&timeframe=day&reverse=false&repoSort=true[RepoSense]]
+* *Code contributed*: [https://github.com/CS2103-AY1819S2-W13-2/main/commits?author=ivyyangyq[Functional code]] [https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#search=ivyyangyq&sort=displayName&since=2019-02-10&until=2019-04-15&timeframe=day&reverse=false&repoSort=true[RepoSense]]
 
 * *Other contributions*:
 

@@ -1022,13 +1022,12 @@ _{More to be added}_
 
 For all use cases below, the *System* is the *Equipment Manager* and the *Actor* is the `user`, unless specified otherwise.
 
-[discrete]
 // tag::selectClientUC[]
 === Use Case: Select Client
 
 *MSS*
 
-image::SelectClientUC.png[%autowidth]
+image::SelectClientUC.png[width="250"]
 
 1.  User selects the client name under Client details panel
 2.  The client name under Client details panel is selected

@@ -322,11 +322,12 @@ This feature allows users to move person between contact list and pin list. To u
 
 * `pin 2`
 
-The command above put the 2nd contact in the contact book to the topped pin list.
+The command above put the 2nd contact in the contact list to the topped pin list.
 
 * `unpin 1`
 
 The command above put the 1st contact in the pin list back to the contact list.
+
 
 What's more, it also allow users to select some contact in the pin list and display address location on the Google Maps(TM) browser window. To use this feature, the users need to enter `pinselect` command, with the `INDEX`(in the pin list) of the contact to be selected.
 
@@ -366,7 +367,7 @@ When `pin` and `unpin` are performed, the pinned/unpinned contact is being selec
 ** Pros: Easy to implement.
 ** Cons: May have performance issues in terms of memory usage.
 * **Alternative 2 (current choice):** Commands excepts `pin`, `unpin`, `pinselect` command doesn't work on the pinned person.
-** Pros: Easy to implement。
+** Pros: Easy to implement.
 ** Cons: Users must filter pin list contacts' information through eyes.
 
 ===== Aspect: How undo & redo executes

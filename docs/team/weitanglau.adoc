@@ -1,8 +1,8 @@
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
-= Project Portfolio
-Lau Wei Tang
+== Project Portfolio - Lau Wei Tang image:{imagesDir}/github-icon.png[width=30, link=https://github.com/WeiTangLau, top="70%"]
+
 
 // URIs:
 :uri-pdfplusplus: http://github.com/CS2103-AY1819S2-T12-4/main
@@ -17,7 +17,6 @@ Lau Wei Tang
 Welcome to my Project Portfolio. This document provides you with an
 overview
 
-image:{imagesDir}/github-icon.png[width=45, link=https://github.com/WeiTangLau, top="70%"]
 
 {uri-pdfplusplus}[((PDF++))]
 
@@ -33,7 +32,7 @@ concepts or look from my language module for files with writing tips. However, c
 File Management System (FMS), such as File Explorer in Windows, has its limitations
 in the categorisation of files. Even for organised users, it is ineffective to
 make a constant effort maintaining the documents in an orderly manner, and inefficient
-switching between folders to look for the files of interest. My team and I
+switching between folders to look for the files of their interest. My team and I
 recognised this limitation and decided to work on building an elaborated FMS, PDF++.
 
 === Project Scope
@@ -111,11 +110,29 @@ PDF++ not only supports several essential features, such as {uri-add}[add] and
 For File Protection System, I have incorporated both `encrypt` and
 `decrypt` features and other improvements that enforces the security of the application.
 
-* `Encrypt` command allows users to protect their PDF files
+
+* `Encrypt` command allows users to protect their PDF files that is in the application.
+
+
+
+
+
+Format: `Encrypt INDEX password/PASSWORD`
+
+Examples:
+
+* Valid Examples:
+** Encrypt 1 password/anyValidPassword
+
+* Invalid Examples:
+** Encrypt -1 password/anyValidPassword (invalid password)
+** Encrypt 1 password/ (no password specified)
+
 
 * `Decrypt` command allows users to remove the password of their protected PDF files
 
-*
+
+
 
 
 
@@ -156,13 +173,17 @@ other contributions
 //Insert description as well as abstract from the User Guide
 This section includes my contributions to the documentation of the User Guide
 
-=== File Protection System
+==== File Protection System
 
 In order to ensure that our users' interest is not compromised, I have to
 
 
 
+.Lock icon on Encrypted Files
+image::EncryptFeatureStep5Success.png[width="400"]
 
+.File has been encrypted
+image::{imagesDir}/EncryptFeatureStep6Open.png[width="400"]
 
 
 ----
@@ -174,6 +195,10 @@ Proposed enhancement for v2.0
 
 === [underline]#4. Contributions to the Developer Guide#
 Insert description as well as abstract from the Developer Guide
+
+==== File Protection System
+
+image:{imagesDir}/EncryptCommandSequenceDiagram.png[width="800"]
 
 ----
 Include some enhancement made using abstract from the Developer Guide

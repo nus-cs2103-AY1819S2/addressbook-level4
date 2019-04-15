@@ -493,6 +493,10 @@ The `delete` feature is facilitated by both *DeleteCommand* and *DeleteCommandPa
 This feature performs either a _soft_ or _hard_ remove operation on a file in the application
 based on the index provided.
 
+The implementation of the *DeleteCommand* execution can be summarised in the following activity diagram:
+
+image::DeleteCommandActivityDiagram.png[width="600"]
+
 * _Soft_ delete is defined as removing a file from the application but not from the local filesystem;
 the physical file is left intact within the user's operating system, but the user will not be able to access or
 use the features of the application on said file - unless it is added back to the application.

@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static java.util.logging.Level.INFO;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_EMPLOYEES;
 
 import java.util.Collections;
@@ -8,7 +9,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.logging.Logger;
 
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
@@ -37,6 +40,8 @@ public class EditEmployeeCommand extends EditCommand {
     public static final String MESSAGE_EDIT_EMPLOYEE_SUCCESS = "Edited Employee: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_EMPLOYEE = "This employee already exists in the pocket project.";
+
+    private static final Logger logger = LogsCenter.getLogger(Employee.class);
 
     private final Index index;
     private final EditEmployeeDescriptor editEmployeeDescriptor;
@@ -72,6 +77,8 @@ public class EditEmployeeCommand extends EditCommand {
         model.setEmployee(employeeToEdit, editedEmployee);
         model.updateFilteredEmployeeList(PREDICATE_SHOW_ALL_EMPLOYEES);
         model.commitPocketProject();
+
+        logger.log(INFO, "EditedEmployee:" + editedEmployee);
         return new CommandResult(String.format(MESSAGE_EDIT_EMPLOYEE_SUCCESS, editedEmployee));
     }
 

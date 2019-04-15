@@ -41,6 +41,7 @@ public class GenerateAnalyticsCommand extends Command {
         requireNonNull(model);
         Analytics analytics;
         switch (listName) {
+
         case APPLICANT:
             analytics = model.generateAnalytics(APPLICANT);
             break;

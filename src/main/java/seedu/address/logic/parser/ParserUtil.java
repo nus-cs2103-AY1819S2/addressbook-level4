@@ -450,7 +450,6 @@ public class ParserUtil {
         int month = Integer.parseInt(date.substring(3, 5));
         int year = Integer.parseInt(date.substring(6, 10));
 
-        ArrayList<Integer> monthsWith31Days = new ArrayList<>(Arrays.asList(1, 3, 5, 7, 8, 10, 12));
         ArrayList<Integer> monthsWith30Days = new ArrayList<>(Arrays.asList(4, 6, 9, 11));
 
         //Leap year check

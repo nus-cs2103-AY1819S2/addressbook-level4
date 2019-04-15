@@ -97,3 +97,6 @@ _Click link:{webURL}DeveloperGuide.html#componentInteractions[here] to view this
 
 === Excerpt: How do the logic sub-components interact +
 _Click link:{webURL}DeveloperGuide.html#logicInteractions[here] to view this section in the developer guide._
+
+=== Excerpt: Management feature +
+_Click link:{webURL}DeveloperGuide.html#mgtFeature[here] to view this section in the developer guide._

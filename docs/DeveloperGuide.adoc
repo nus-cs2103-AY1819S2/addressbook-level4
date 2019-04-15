@@ -1279,12 +1279,10 @@ specific month is queried, update the latest statistics and return it.
 |The individual records are unable to be retrieved. However, the current implementation has no need to retrieve individual records.
 |===
 
+[[med]]
 === Storing medicines in inventory
 
 One essential aspect of clinic management is about managing medicine storage of the clinic. QuickDocs' medicine management module supports customized medicine organization via a browser-like directory format.
-
-[[med]]
-=== Storing medicines in inventory
 
 ==== Current implementation
 

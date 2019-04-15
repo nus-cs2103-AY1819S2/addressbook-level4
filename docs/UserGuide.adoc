@@ -244,54 +244,110 @@ skill is that which appears first when the person's skills have been ordered alp
 Methodology:
 .Individual Sort Command Methods
 |===
-|Command |Sort Comparison |Sort Effect |Example
+|CLI Command |Sort Comparison |Sort Effect |Example
 
 |`sort name`
-|Compares the Christian name first and then the surname
+|Christian name first, then the surname
 |Alphabetical
-|_`Adam Smith` shall come before `Shaun Adams` and `Adam Blacksmith` shall come before `Adam Smith`._
+|_ `Adam Smith` shall come before `Shaun Adams` and `Adam Blacksmith` shall come before `Adam Smith`._
 
 |`sort surname`
-|Compares the surname only
+|Surname
 |Alphabetical
-|_`Ben Adams` shall come before `Adam Black`._
+|_ `Ben Adams` shall come before `Adam Black`._
+
+|`sort education`
+|Education name
+|Alphabetical, case-insensitive
+|_ `Charlotte Green (NTU)` shall come before `Adam Smith (NUS)`._
+
+|`sort gpa`
+|GPA
+|Decreasing numeric value
+|_ `Adam Smith (3.1)` shall come before `Charlotte Green (3.9)`._
+
+|`sort skills`
+|Arranges each person's skills alphabetically and then arranges the people based on their skills
+|Alphabetical, case-insensitive
+|_ `Peter Parker (Python, Debugging)` shall come before `Charlotte Oliveiro (Java)` since `Debugging` comes before `Java`._
+
+|`sort positions`
+|Arranges each person's positions alphabetically and then arranges the people based on their positions
+|Alphabetical, case-insensitive
+|_ `Charlotte Oliveiro (Project Consultant, Crime Analyst)` shall come before `Peter Parker (Databases)` since `Crime Analyst` comes before `Databases`._
+
+|`sort endorsements`
+|Arranges each person's endorsements alphabetically and then arranges the people based on their endorsements
+|Alphabetical, case-insensitive
+|_ `Irfan Ibrahim (Warren Buffett, Jeff Bezos)` shall come before `Alex Yeoh (Mark Cuban, Steve Jobs)` since `Jeff Bezos` comes before `Mark Cuban`._
+
+|`sort skill number`
+|Number of skills
+|Decreasing numeric value
+|_ `Peter Parker (Python, Debugging)` shall come before `Charlotte Oliveiro (Java)` since `Peter Parker` has two skills whereas `Charlotte Oliveiro` only has one._
+
+|`sort position number`
+|Number of positions
+|Decreasing numeric value
+|_ `Charlotte Oliveiro (Project Consultant, Crime Analyst)` shall come before `Peter Parker (Databases)` since `Charlotte Oliveiro` has had two positions whereas `Peter Parker` only has one._
+
+|`sort endorsement number`
+|Number of endorsements
+|Decreasing numeric value
+|_ `Irfan Ibrahim (Warren Buffett, Jeff Bezos)` shall come before `Bruce Wayne (Thomas Wayne)` since `Irfan Ibrahim` has two endorsements whereas `Bruce Wayne` only has one._
+
+|`sort reverse [KEYWORD]`
+|Reverses the ordering caused by the KEYWORD
+| -
+|_ `sort reverse gpa` will cause `Adam Smith (3.1)` to come after `Charlotte Green (3.9)`._
 |===
+
+_Intelligent Sorting: _
+It is possible for persons to share the same information (_e.g. both have the same GPA_).
+
+For this situation a subsequent sorting method to sort these persons is chosen based on what the user, wanting a certain initial sort method, is likely to be interested in.
+
+Since persons in the address book cannot have the same full name, this shall always differentiate persons and so is used as the final sorting method.
+
+.Flow pattern for the sorting methods
+|===
+|Initial Sort Method |Subsequent Sort Method _(for persons with same value after first sort method) |Secondary Subsequent Sort Method _(for persons with same value after first and subsequent sort method)
+|Name
+| -
+| -
+
+|Surname
+|Name
+| -
+
+|Skills, Positions, Endorsements
+|Name
+| -
+
+|Skills, Positions, Endorsements Number
+|Skills, Positions, Endorsements respectively
+|Name
+
+|Gpa
+|Name
+| -
+
+|Degree
+|GPA
+|Name
+
+|Education
+|GPA
+|Name
+|===
+
 ****
-* The `sort surname` command compares the surname only. +
-If two surnames match, then the previous relative ordering of the two shall be kept. +
-_e.g. `Ben Adams` shall come before `Adam Black`._
-* The `sort education` command sorts the persons by the alphabetical ordering of their education (case-insensitive). +
-_e.g. `Charlotte Green (NTU)` shall come before `Adam Smith (NUS)`._
-* The `sort gpa` command sorts the persons by increasing gpa numeric value. +
-_e.g. `Adam Smith (3.1)` shall come before `Charlotte Green (3.9)`._
-* The `sort skills` arranges each person's skills alphabetically and then arranges the people based on their skills in alphabetical order (case-insensitive). +
-_e.g. `Peter Parker (Python, Debugging)` shall come before `Charlotte Oliveiro (Java)` +
-since `Debugging` comes before `Java`._
-* The `sort positions` arranges each person's positions alphabetically and then arranges the people based on their positions in alphabetical order. +
-_e.g. `Charlotte Oliveiro (Project Consultant, Crime Analyst)` shall come before `Peter Parker (Databases)` +
-since `Crime Analyst` comes before `Databases`._
-* The `sort endorsements` arranges each person's endorsements alphabetically and then arranges the people based on their endorsements in alphabetical order (case-insensitive). +
-_e.g. `Irfan Ibrahim (Warren Buffett, Jeff Bezos)` shall come before `Alex Yeoh (Mark Cuban, Steve Jobs)` +
-since `Jeff Bezos` comes before `Mark Cuban`._
-* The `sort skill number` arranges persons based on the number of skills they have from most to fewest.+
-_e.g. `Peter Parker (Python, Debugging)` shall come before `Charlotte Oliveiro (Java)` +
-since `Peter Parker` has two skills where as `Charlotte Oliveiro` only has one._
-* The `sort position number` arranges persons based on the number of positions they have from most to fewest.+
-_e.g. `Charlotte Oliveiro (Project Consultant, Crime Analyst)` shall come before `Peter Parker (Databases)` +
-since `Charlotte Oliveiro` has had two positions where as `Peter Parker` only has one._
-* The `sort endorsement number` arranges persons based on the number of endorsements they have from most to fewest. +
-_e.g. `Irfan Ibrahim (Warren Buffett, Jeff Bezos)` shall come before `Bruce Wayne (Thomas Wayne)` +
-since `Irfan Ibrahim` has two endorsements where as `Bruce Wayne` only has one._
-* The `reverse` keyword can be used in conjunction with any of the above keywords and it shall reverse the ordering. +
-_e.g. The `sort reverse surname` command shall result in `Adam Black` coming before `Ben Adams`._
-* If the sorting method has two persons with the same value _(e.g. both persons have two endorsements in the 'sort +
-endorsement number' command)_, then the previous relative ordering of the two shall be kept.
 * The `sort` command is compatible with the `filter` command. +
 If the Address Book contains ten persons, but the filter has selected just three persons, then only the three persons shall be ordered and returned with the new index numbers. +
 Additional filters can be applied within the sort.
 * The `sort` command is partially compatible with the `find` command. +
 If the Address Book is currently sorted according to a certain method, the `find` command shall return the persons, according to the specified find keyword, ordered by the previous sort method. +
-If the Address Book has currently _found_ certain persons from the `find` command, an additional sort shall sort all those in the address book and not just those that have been _found_.
+If the Address Book has currently _found_ certain persons from the `find` command, a subsequent sort shall sort all those in the address book and not just those that have been _found_.
 Should the user wish to just sort a few people, the `filter` command should be used as outlined above.
 * The `sort` command is compatible with all other commands (add/clear/delete/edit/exit/help/history/list/redo/select/undo). +
 It shall not automatically update the returned list of persons. For example adding a person shall simply add them to the end of the list of persons.

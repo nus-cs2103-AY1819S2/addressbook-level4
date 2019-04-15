@@ -489,9 +489,26 @@ Step7. Then, execute() will get the filtered list of appointments and the desire
 // end::doctorcommands[]
 
 
-=== Sort Medical History Features
+=== Medical History Management Features
+
 ==== Current Implementation
-The sort medical history feature is enable bt the classes: `MedicalHistory`, `ValidDate`, `SortMedHistCommand`, `SortMedHistCommandParser`
+`Medical History` is one of the core aspects of the application. It is used to track patients' medical records of seeing doctors.
+`Medical History` and it's management features enable the build of relationships between `Patient` and `Doctor`.
+
+The following features are implemented in current version of docX. The main classes and methods in *Logic* and *Model* components used to implement these features are shown below:
+
+* Add medical history command: enabled by `MedicalHistory`, `AddMedHistCommand`, `AddMedHistCommandParser`, `Model#addMedHist`
+* List medical history command: enabled by `ListMedHistCommand`, `ListMedHistCommandParser`, `Model#updateFilteredMedHistList`
+* Sort medical history command: enabled by `ValidDate`, `SortMedHistCommand`, `SortMedHistCommandParser`, `Model#sortFilteredMedHistList`
+* Edit medical history command: enabled by `EditMedHistCommand`, `EditMedHistCommandParser`, `Model#setMedHist`
+* Search medical history command: enabled by `SearchMedHistCommand`, `SearchMedHistCommandParser`, `Model#updateFilteredMedHistList`
+* Select medical history command: enabled by `SelectMedHistCommand`, `SelectMedHistCommandParser`, `Model#setSelectedMedHist`
+
+
+==== Example Command: Sort Medical History Command
+Sort medical history command enable users to sort medical history list by date of occurrence. This part will explain the workflow and implementation of sort medical history command in details.
+
+The implementation of sort medical history feature involving these classes: `MedicalHistory`, `ValidDate`, `SortMedHistCommand`, `SortMedHistCommandParser`
 
 * `MedicalHistory` - This is an entity class used to store information regarding patients' medical histories of seeing doctors.
 An Medical History object stores patient id, doctor id, corresponding patient, corresponding doctor, date, and writeup.

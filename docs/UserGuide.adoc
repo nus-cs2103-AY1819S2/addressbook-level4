@@ -506,19 +506,30 @@ To transfer your files: +
 . Transfer and overwrite the `userdata` and `lessons` folder.
 . Your progress will be automatically imported on that device.
 
-==== Coming in v2.0
+{empty} +
+
+== Future enhancements
+
+=== Importing data from website [Coming in v2.0]
 
 Easily transfer files using import command to get files directly from a specific link without the use of transfer devices. +
 The usage of hard drives to transfer and pull documents has reduced overtime as new cloud storage are introduced. Thus, with this new feature,
 it will help to pull the user file and lessons from links.
 Example : `import User l/[INSERT_DESIRED_LINK_HERE]`
 
-
 // end::jeraldtsy[]
+
+=== Supporting timer countdown in quiz mode [Coming in v2.0]
+
+User will see a 10 seconds timer countdown when answering a question (e.g. learn or review mode).
+
+=== Supporting auto generation of mcq in quiz mode [Coming in v2.0]
+
+BrainTrain will auto generate a list of mcq options depending on the list of values in the
+user specified lesson.
 
 {empty} +
 
-// TODO
 == Troubleshooting
 
 *Q*: Why are my card values shown as `?????`? +

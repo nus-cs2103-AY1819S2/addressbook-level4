@@ -85,7 +85,7 @@ image::UserGuide_ApplicationInterface.png[width="1000"]
 * After selecting a medicine, information about the medicine will be displayed in the information panel.
 
 // tag::uiwarningpanel[]
-*Warnings Panel*
+*Warning Panel*
 
 * Displays a list of medicines running low on stock and a list of expiring/expired medicine batches.
 * Warnings will be logged in the warnings panel until changes are made to medicines and/or batches displayed, or to the thresholds controlling what is displayed.

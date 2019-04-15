@@ -394,7 +394,7 @@ specifications laid out in <<Including a photo when adding a place with `p/`>>
 * The search is case insensitive. e.g `national` will match `National`.
 * The order of the keywords does not matter. e.g. `University National of Singapore` will match `National University of Singapore`.
 * Only full words will be matched. e.g. `Nation` will not match `National`
-* Places matching at least one keyword will be returned (i.e. `OR` search). e.g. `National Museum` will return `National Museum of Singapore` and `National University Hospital`.
+* Places matching at least one keyword will be returned. e.g. `National Museum` will return `National Museum of Singapore` and `National University Hospital`.
 
 *Example:* `search Singapore` +
 Executes a search for places that contain the keyword `Singapore` in its name. +
@@ -437,7 +437,7 @@ image::PPPsearchrating.png[width="400"]
 
 * The search is case insensitive. e.g `Temple` will match `temple`.
 * Only full words will be matched e.g. `temp` will not match `temple`.
-* Places tagged with at least one matching keyword will be returned (i.e. `OR` search). e.g. `temple school` will return places tagged with `temple` or `school`.
+* Places tagged with at least one matching keyword will be returned. e.g. `temple school` will return places tagged with `temple` or `school`.
 
 *Example:* `searcht distillery` +
 Executes a search for places that are tagged with `distillery`. +
@@ -479,11 +479,11 @@ image::PPPsearchcountry.png[width="400"]
 *Preconditions:* Given below are preconditions that must be met for the `searchyear` command to work:
 
 * The search year is bounded from 1900 to the current year.
-* The year keywords for `searchyear` can be entered as a range. e.g `2010-2017` will return all the places visited from `2010` to `2017`.
+* The year keywords for `searchyear` can be entered as a range. e.g `sy 2010-2017` will return all the places visited from 2010 to 2017.
 
 *Example:* `searchyear 2016` +
 Executes a search for places visited in the year `2016`. +
-From <<searchYearFigure>> below, using `searchyear 2016` will return all places in your TravelBuddy that you visited in the year `2016`.
+From <<searchYearFigure>> below, using `searchyear 2016` will return all places in your TravelBuddy that you visited in the year 2016.
 
 [[searchYearFigure]]
 [reftext="Figure 4.10.1"]

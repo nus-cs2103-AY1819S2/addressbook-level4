@@ -41,7 +41,7 @@ For Windows developers, <<jdk, Java>> version `10` will fail to run tests in hea
 
 * *Install IntelliJ IDE*
 [NOTE]
-By default, <<ide, IntelliJ>> already has both Gradle and JavaFx plugins installed. As TravelBuddy will be making use of them, please do not disable them. If you have disabled them, go to `File` > `Settings` > `Plugins` to re-enable them.
+By default, <<ide, IntelliJ>> already has both Gradle and JavaFX plugins installed. As TravelBuddy will be making use of them, please do not disable them. If you have disabled them, go to `File` > `Settings` > `Plugins` to re-enable them.
 
 
 === Setting Up the Project in Your Computer
@@ -184,10 +184,7 @@ link:{repoURL}/tree/master/src/main/java/seedu/travel/ui/Ui.java[`Ui.java`]
 .Structure of the UI component
 image::UiClassDiagram.png[width="800"]
 
-The `UI` component, as seen in <<UiClassDiagram>>, uses the JavaFx UI framework. The *layout* of these UI parts are
-defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the
-link:{repoURL}/tree/master/src/main/java/seedu/travel/ui/MainWindow.java[`MainWindow`] is specified in
-link:{repoURL}/tree/master/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
+The `UI` component, as seen in <<UiClassDiagram>>, uses the JavaFX UI framework. The *layout* of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/travel/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
 The `UI` component *controllers* are found in the `src/main/java/seedu/travel/ui` folder. Each class corresponds to a
  specific `.fxml` file.
@@ -449,7 +446,7 @@ The control flow of the sequence diagram above is as follows:
 [source, java]
 String[] nameKeywords = trimmedArgs.split("\\s+");
 return new SearchCommand(new NameContainsKeywordsPredicate(Arrays.asList(nameKeywords)));
-** A NameContainsKeywordPredicate will be instantiated with the array of arguments as the predicate, which will be used to check if any of the places in TravelBuddy matches the user's input.
+** A `NameContainsKeywordPredicate` will be instantiated with the array of arguments as the predicate, which will be used to check if any of the places in TravelBuddy matches the user's input.
 +
 [source, java]
 public boolean test(Place place) {
@@ -682,16 +679,16 @@ Given below is a comparison between the alternatives of the data structure used 
 |Use `HashMap` to map keywords to each place.
 
 |*Pros*
-|*Ease-of-implementation*: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
+|*Ease-of-implementation*: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project. +
 *Refined results*: This approach provides more refined results as it narrows down the search scope to the user's query.
 
-|*Faster search*: Faster searching as HashMap lookup runs in O(1) time.
+|*Faster search*: Faster searching as `HashMap` lookup runs in O(1) time.
 
 |*Cons*
 |*Slower search*: This approach is less efficient as the entire list needs to be searched through.
-|*Memory-consuming*. This approach requires more memory as a separate HashMap needs to be stored.
+|*Memory-consuming*. This approach requires more memory as a separate `HashMap` needs to be stored.
 |=======================================================================
-*Decision*: Alternative 1 of using a list is preferred as it uses less memory compared to alternative 2. Moreover, future contributors are likely to be student undergraduates, so a simple data structure would be more optimal for educational purposes.
+*Decision*: Alternative 1 of using a list is preferred as it uses less memory compared to Alternative 2. Moreover, future contributors are likely to be student undergraduates, so a simple data structure would be more optimal for educational purposes.
 // end::search[]
 
 // tag::countrycode[]

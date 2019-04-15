@@ -23,13 +23,14 @@ By: `Team W17-3`      Since: `March 2019`      Licence: `MIT`
 == Introduction
 
 {bl}
-[blue]#Welcome to the _In-Credit-Ble_ User Guide!# _In-Credit-Ble_ is a desktop application that you can use to track your
-personal finances. Our user-friendly interface will make it easy for you to see how much you can safely spend within your
+[blue]#Welcome to the _In-Credit-Ble_ User Guide!# _In-Credit-Ble_ is a desktop application designed to help university
+students who have difficulty managing their finances due to their many daily transactions.
+
+Our user-friendly interface will make it easy for you to see how much you can safely spend within your
 budget and be more aware of your spending habits. _In-Credit-Ble_ provides you with features such as having a budget bar
 to show how much you have spent compared to a budget that you have previously set, and showing of a summary of your
-transactions in a pie chart. If you are an university student who finds it hard to keep track of all your many transactions,
-_In-Credit-Ble_ is the application just for you!
-
+transactions in a pie chart. If you are an individual who prefers to typing using a Command Line Interface(CLI), then
+_In-Credit-Ble_ is the application for you!
 
 This user guide shows you how to get started using _In-Credit-Ble_. It also provides in-depth documentation on the
 different features and shows you how to perform basic _In-Credit-Ble_ operations.

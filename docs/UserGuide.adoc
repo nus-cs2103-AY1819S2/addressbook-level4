@@ -21,11 +21,11 @@ By: `Team W14-3`      Since: `Jan 2019`      Licence: `MIT`
 // tag::intro[]
 == Introduction
 
-Ships ahoy! Battleship is a simple computer-based remake of the classic Battleship game. It is for people who want to have the joy of playing Battleships without the hassle and fuss of dealing with physical game pieces.
+Ships ahoy! Battleship is a simple computer-based remake of the classic Battleship game.
+It is for people who want to experience the joy of playing Battleships without the hassle and fuss of dealing with physical game pieces.
 
 Battleship is optimised for people who want to use a Command Line Interface (CLI), while still retaining the benefits of a Graphical User Interface (GUI).
-
-It can guarantee many hours of fun, especially between those long and boring periods of the day. Can't wait to get started? Head over to <<Quick Start>> to fire away!
+It's a single-player game, and provides a fully functional computerised enemy player for the player to play against, guaranteeing many hours of fun! Can't wait to get started? Head over to <<Quick Start>> to fire away!
 
 [NOTE]
 ====
@@ -52,8 +52,8 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  To begin playing, first initialise the map to a size between 6 to 10. eg: `init 6`.
 .  Deploy your battleships:
 ..  Deploy your aircraft carrier: `put n/aircraft carrier c/a1 r/h`
-..  Deploy your cruiser: `put n/cruiser c/c1 r/h`
-..  Deploy your destroyer: `put n/destroyer c/e1 r/h`
+..  Deploy your cruiser(s): `put n/cruiser c/c1 r/h`
+..  Deploy your destroyer(s): `put n/destroyer c/e1 r/h`
 .  Start the game: `start game`
 .  Shoot the enemy's map at a specific cell. eg: `shoot a1`
 
@@ -75,7 +75,7 @@ Sink all your opponent's battleships before they sink yours.
 *Captain, deploy ships!*
 
 Depending on the chosen size of the map, as specified through the `init <map_size>` command,
-the player will be given different numbers of each ship.
+you will be given different numbers of each ship.
 
 The ships available are:
 
@@ -91,19 +91,19 @@ image::mapSizeFleetSize.png[width=550]
 ====
 *Ready, aim, fire!*
 
-The Player will always be given the first turn.
-The Player may fire shots at the enemy map through the command `shoot`, for example `shoot a1`.
+You will always be given the first turn.
+You may fire shots at the enemy map through the command `shoot`, for example `shoot a1`.
 
-If the shot hits a ship, the Player may continue taking shots until they miss.
+If the shot hits a ship, you may continue taking shots until they miss.
 Upon a miss, the turn will be handed over to the enemy.
 The same goes for the enemy - the enemy will take its shot automatically, firing until it misses, before
-passing the turn back to the Player.
+passing the turn back to you.
 ====
 
 ====
 *Good Game!*
 
-Whoever is first to destroy all their opponent's ship will be declared the winner.
+Whoever is first to destroy all their opponent's ships will be declared the winner.
 Had fun? You can view the game statistics with the command `stats`.
 ====
 // end::gamerules[]
@@ -116,7 +116,7 @@ This section will describe the features of the game in more detail.
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `init MAP_SIZE`, `MAP_SIZE` is a parameter which can be used as `init 10`.
+* Words in `UPPER_CASE` are the parameters to be supplied by you e.g. in `init MAP_SIZE`, `MAP_SIZE` is a parameter which can be used as `init 10`.
 * Items in square brackets are optional e.g `put n/NAME [t/TAG]` can be used as `put n/Destroyer t/bestship` or as `put n/Destroyer`.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/alpha`, `t/best t/captain` etc.
 * Parameters can be in any order e.g. if the command specifies `n/NAME c/COORDINATES`, `c/COORDINATES n/NAME` is also acceptable.

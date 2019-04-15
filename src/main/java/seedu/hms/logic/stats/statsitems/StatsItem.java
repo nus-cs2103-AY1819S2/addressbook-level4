@@ -29,6 +29,9 @@ public abstract class StatsItem {
     public String getTitle() {
         return (this.title != null ? this.title : "");
     }
+    public Map<String, Long> getMap() {
+        return this.map;
+    }
 
     /**
      * Generate a Category-Quantity map.

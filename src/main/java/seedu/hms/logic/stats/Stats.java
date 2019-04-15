@@ -61,4 +61,8 @@ public class Stats {
     public ReadOnlyHotelManagementSystem getHms() {
         return hms;
     }
+
+    public List<StatsItem> getStatsitems() {
+        return statsitems;
+    }
 }

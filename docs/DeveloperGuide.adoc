@@ -20,11 +20,11 @@ By: `Team T12-3`      Since: `Feb 2019`      Licence: `MIT`
 // tag::introduction[]
 == Introduction
 
-Welcome to the _MediTabs Developer Guide_. You can find step by step instructions on how to set up MediTabs project on your computer and modify the project to suit your needs. You can also find out more about the development process of MediTabs such as its design and implementation. Interested? You can jump to <<Setting up>> to get started. Enjoy!
+Welcome to the _MediTabs Developer Guide_. This guide contains step by step instructions on how to set up the MediTabs project on your computer and modify the project to suit your needs. You can also find out more about the technical aspects of MediTabs such as its design rationales and implementation details. Interested? You can jump to <<Setting up>> to get started. Enjoy!
 
 === What is MediTabs
 
-MediTabs is a desktop application, developed using Java, for managing medicine stock taking. You can use MediTabs in your clinics to easily keep track of your medicine inventory and take note of important information such as which medicines are low in stock, expiring soon or have expired.
+MediTabs is a desktop application, developed using Java, for managing medicine stock taking. It was created to provide pharmacist with a straightforward and efficient way to keep track of and maintain their medicine inventory. With MediTabs, pharmacist can easily organize medicine details and take note of important information such as which medicines are low in stock, expiring soon or have expired. MediTabs also contains functionality to help pharmacists with tasks which require medicine data such as medicine labelling and inventory analysis.
 
 MediTabs supports Windows, Linux and macOS operating systems.
 
@@ -212,7 +212,7 @@ link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 === Model component
 
 .Structure of the Model Component
-image::ModelClassDiagram.png[width="800"]
+image::ModelClassDiagram.png[width="900"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
 
@@ -223,14 +223,17 @@ The `Model`,
 * exposes an unmodifiable `ObservableList<Medicine>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
-Given below an object diagram to better illustrate how a medicine is stored in the `Model` component.
+// tag::modelcomponentobjectdiagram[]
+Given below is an object diagram to better illustrate how details of a medicine is stored in the `Model` component.
 
 .An example of how the medicine "Paracetamol" could be represented by the `Medicine` class.
-image::ModelMedicineObjectDiagram.png[width="800"]
+image::ModelMedicineObjectDiagram.png[width="900"]
+
+// end::modelcomponentobjectdiagram[]
 
 [NOTE]
 As a more OOP model, we can store a `Tag` list in `Inventory`, which `Medicine` can reference. This would allow `Inventory` to only require one `Tag` object per unique `Tag`, instead of each `Medicine` needing their own `Tag` object. An example of how such a model may look like is given below. +
-+
+ +
 image:ModelClassBetterOopDiagram.png[width="800"]
 
 [[Design-Storage]]
@@ -262,35 +265,42 @@ This section provides you with some description of how certain key features of o
 ==== Current Implementation
 
 The information panel is mainly driven by `InformationPanel` which extends `UiPart` with an added mechanism to interact with the currently selected medicine and information panel settings.
-It implements the following operations:
+It implements the following main operations:
 
-* `InformationPanel#showSelectedInformation(Medicine medicine)` -- Creates and displays a `BatchTable` that contains information of the selected medicine and its batches. Values in the `BatchTable` are sorted according to `SortProperty` and `SortDirection` specified in the `InformationPanelSettings`.
-* `InformationPanel#emptyInformationPanel()` -- Deletes the `BatchTable` being displayed (if any) to show an empty pane.
+* `InformationPanel#showSelectedInformation(Medicine medicine)` -- Creates and displays a `BatchTable` that contains information of the selected medicine and its batches. Values in the `BatchTable` are sorted according to `SortProperty` and `SortDirection` specified in `InformationPanelSettings` stored in `InformationPanel`.
+* `InformationPanel#emptyInformationPanel()` -- Deletes the `BatchTable` being displayed to show an empty pane.
 
-These operations are hidden and are only triggered when the value of the selected medicine or information panel settings changes.
-The `InformationPanel` is initialized with the selected medicine and information panel settings as `ObservableValue<Medicine>` and ObservableValue<InformationPanelSettings` objects with`ChangeListener` objects are added to them.
-`ChangeListener#changed(ObservableValue<? extends T> observable, T oldValue, T newValue)` is called whenever the values in either of the `ObservableValue` objects changes.
+These operations are hidden and are only triggered when the value of the selected medicine or information panel settings changes. The `InformationPanel` is initialized with the selected medicine and information panel settings passed in as `ObservableValue<Medicine>` and `ObservableValue<InformationPanelSettings` objects and `ChangeListener` objects are added to them. `ChangeListener#changed(ObservableValue<? extends T> observable, T oldValue, T newValue)` is called whenever the values in either of the `ObservableValue` objects changes.
 
-Given below is a diagram showing the execution of `InformationPanel` when a change to the selected medicine occurs:
+Given below is a diagram showing the execution of `InformationPanel` when a change to the selected medicine occurs. `informationPanel` variable seen in the diagram is a `StackPane` object used to display the created `BatchTable` by adding it as a child node.
 
-image::InformationPanelSequenceDiagram.png[width="800"]
+.Sequence Diagram for InformationPanel when a change in selected medicine occurs
+image::InformationPanelSequenceDiagram.png[width="1000"]
 
 Given below is an example usage scenario and how the information panel behaves at each step when the selected medicine changes.
 
-Step 1. The user launches the application for the first time. An empty `InformationPanel` is displayed.
+Step 1. The user launches the application. The selected medicine is always null when the application is launched. An empty `InformationPanel` is displayed.
 
-Step 2. The user executes `select 1` command to select the 1st medicine in the inventory. Since the new value is not null, `InformationPanel#showSelectedInformation(Medicine medicine)` is called.
+Step 2. The user executes `select 1` command to select the 1st medicine in the inventory. Since the new value is not null, `InformationPanel#showSelectedInformation(Medicine medicine)` is called. A new `BatchTable` with information of the selected medicine is created and displayed.
 
 [NOTE]
 An `update` command will also cause `ChangeListener#changed(ObservableValue<? extends T> observable, T oldValue, T newValue)` to be called as although the same medicine is still selected, the medicine is replaced in the `Inventory` with updated fields.
 
-Step 3. The user executes `find n/Paracetamol ...`. The `find` command deselects the selected medicine and the new value is null. Only `InformationPanel#emptyInformationPanel()` is called.
+Step 3. The user executes `find n/Paracetamol`. The `find` command deselects the selected medicine and the new value is null. Only `InformationPanel#emptyInformationPanel()` is executed.
 
-Given below is another example usage scenario and how the information panel behaves with the `sort` command.
+Changes to the information panel settings results in a similar sequence of events, except the new value of `InformationPanelSettings` is saved in `InformationPanel` before `InformationPanel#display()` is called.
 
-Step 1. The user launches the application for the first time. The `InformationPanel` is initialized with `InformationPanelSettings` stored in `UserPrefs`.
+Given below is another example usage scenario of how the information panel interacts with `InformationPanelSettings` and the `sort` command.
 
-Step 2. The user executes `sort p/quantity d/ascending` command to sort all batch tables by quantity in ascending order. The `sort` command calls `Model#setInformationPanelSettings(InformationPanelSettings informationPanelSettings))` which changes the value of the `InformationPanelSettings` in `Model`. `InformationPanel#Display(Medicine medicine)` is called because of the changed value.
+Step 1. The user launches the application. `InformationPanelSettings` stored in `Model` is passed as an `ObservableValue<InformationPanelSettings>` to initialize the `InformationPanel`.
+
+Step 2. The user executes `sort p/quantity d/ascending` command to sort all batch tables by quantity in ascending order. The `sort` command calls `Model#setInformationPanelSettings(InformationPanelSettings informationPanelSettings))` which changes the value of the `InformationPanelSettings` in `Model`. The new `InformationPanelSettings` is saved in `InformationPanel`. If the selected medicine is not null, `InformationPanel#showSelectedInformation(Medicine medicine)` is called. Given below is an activity diagram to show how the saved `InformationPanelSettings` is used to sort the `BatchTable` during its initialization. A `TableView` object populated with the details of the selected medicine is created before the sorting takes place.
+
+.Activity Diagram demonstrating how BatchTable is sorted during initialization
+image::InformationPanelActivityDiagram.png[width="900"]
+
+[NOTE]
+For more information on the `TableView` class, you may refer to its API https://docs.oracle.com/javase/8/javafx/api/javafx/scene/control/TableView.html[here].
 
 ==== Design Considerations
 
@@ -301,7 +311,7 @@ Step 2. The user executes `sort p/quantity d/ascending` command to sort all batc
 ** Cons: May have performance issues in terms of time needed to retrieve the information and build the table, especially if number of batches becomes huge.
 * **Alternative 2:** Save created `BatchTables` as a field in `Medicine`.
 ** Pros: Save time needed for creating the `BatchTable` for faster response time.
-** Cons: More memory needed to store `BatchTable`. Complicated implementation.
+** Cons: More memory needed to store `BatchTable`. `BatchTable` may still have to be recreated if the details of the `Medicine` are changed after the `BatchTable` has been created.
 // end::informationpanel[]
 
 // tag::exportcommand[]
@@ -943,9 +953,9 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |pharmacist |view batch details easily |get batch information quickly
 
-|`* * *` |pharmacist |add new and existing medicine to the inventory |keep my inventory updated
+|`* * *` |pharmacist |add new medicine to the inventory |keep my inventory updated
 
-|`* * *` |pharmacist |delete medicine |remove medicine that have expired or are no longer need
+|`* * *` |pharmacist |delete medicine |remove medicine that have become obsolete
 
 |`* * *` |pharmacist |edit inventory level |keep my inventory updated
 
@@ -961,13 +971,13 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* *` |pharmacist |view purchase and sales history |forecast sales and performance
 
-|`* *` |pharmacist |view manufacturers' contact details |find out who to contact for more stock quickly
+|`*` |pharmacist |view manufacturers' contact details |find out who to contact for more stock quickly
 
-|`* *` |pharmacist |be redirected to a mailer to email manufacturers |restock quickly
+|`*` |pharmacist |be redirected to a mailer to email manufacturers |restock quickly
 
-|`* *` |pharmacist |be recommended dosage |recommend dosage based on patient's profile
+|`*` |pharmacist |be recommended dosage |recommend dosage based on patient's profile
 
-|`* *` |pharmacist |have a task list |set reminders for myself
+|`*` |pharmacist |have a task list |set reminders for myself
 
 |`*` |pharmacist |save information on medicine's usage |remind myself of its usage
 
@@ -1039,7 +1049,7 @@ Use case resume at step 2.
 +
 [none]
 ** 2a1. An error message is shown.
-** 2a2. System requests expiry date be entered for new batches.
+** 2a2. System requests both quantity and expiry date be entered for new batches.
 ** 2a3. Pharmacist repeats request with the required input.
 +
 Use case resume at step 3.
@@ -1062,7 +1072,7 @@ Use case ends.
 +
 [none]
 ** 1a1. Pharmacist uses the `find` function to look for medicine listing.
-** 1a2. System list the search results.
+** 1a2. System lists the search results.
 ** 1a3. Pharmacist notes the index of the medicine listing from the search result.
 +
 Use case resume at step 2.
@@ -1139,6 +1149,62 @@ Expected: First entry is deleted from the list. Details of the deleted entry sho
 Expected: No medicine is deleted. Error details shown in the status message. Status bar remains the same.
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) +
 Expected: Similar to previous.
+
+//tag::updatetesting[]
+=== Updating batch details of a medicine
+
+. Updating a medicine with a new batch while all medicines are listed
+
+.. Prerequisites: List all medicines using the `list` command. Multiple medicines in the list. All batch numbers used for testing should not exist in the batch records of the selected medicine. Use `select 1` to load the information page.
+.. Test case: `update 1 b/A q/1 e/1/1/2020` (valid input) +
+Expected: New batch is added to the batch table shown in the information panel. Details of the added batch shown in the status message. Total quantity should increase by `1`. Next expiry of medicine should change if `01/01/2020` is earlier.
+.. Test case: `update 1 q/1 e/1/1/2020` (missing batch number) +
+Expected: Error details shown in the status message. No changes to medicine. Status bar remains the same.
+.. Test case: `update 1 b/B e/1/1/2020` (missing quantity) +
+Expected: Error details shown in the status message. No changes to medicine. Status bar remains the same.
+.. Test case: `update 1 b/B q/1`  (missing expiry) +
+Expected: Error details shown in the status message. No changes to medicine. Status bar remains the same.
+//end::updatetesting[]
+
+.. Test case: `update 1 b/- q/A e/1/1/2020` (invalid batch number) +
+Expected: Error details shown in the status message. No changes to medicine. Status bar remains the same.
+.. Test case: `update 1 b/B q/10000000000000 e/1/1/2020` (invalid quantity - max quantity exceeded) +
+Expected: Error details shown in the status message. No changes to medicine. Status bar remains the same.
+.. Test case: `update 1 b/B q/1 e/1/1/10000` (invalid expiry) +
+Expected: Error details shown in the status message. No changes to medicine. Status bar remains the same.
+.. Test case: `update 1 b/B q/0 e/1/1/2020` (zero quantity) +
+Expected: Error details shown in the status message. No changes to medicine. Status bar remains the same.
+.. Test case: `update 1 b/B q/1 e/1/1/1995` (passed date for expiry) +
+Expected: Error details shown in the status message. No changes to medicine. Status bar remains the same.
+.. Test case: `update 1 b/B q/1 e/29/2/2019` (invalid leap year) +
+Expected: Error details shown in the status message. No changes to medicine. Status bar remains the same.
+.. Test case: `update 1 b/B q/1 e/29/2/2020` (valid leap year)   +
+Expected: New batch is added to the batch table shown in the information panel. Details of the added batch shown in the status message. Total quantity should increase by `1`. Next expiry of medicine should change if `29/02/2020` is earlier.
+.. Test case: `update 1 e/29/2/2020 q/1 b/C` (different order of arguments)   +
+Expected: New batch is added to the batch table shown in the information panel. Details of the added batch shown in the status message. Total quantity should increase by `1`. Next expiry of medicine should change if `29/02/2020` is earlier.
+
+. Updating a medicine with a existing batch while all medicines are listed
+
+.. Prerequisites: List all medicines using the `list` command. Multiple medicines in the list. Batch number used for testing should already exist in the batch records of the selected medicine (B is added in the tests above). Use `select 1` to load the information page.
+.. Test case: `update 1 b/B q/10` (missing expiry allowed) +
+Expected: batch is updated in batch table shown in the information panel with quantity changed to `10`. Details of the updated batch shown in the status message. Total quantity should increase by `9`. Next expiry should not change.
+.. Test case: `update 1 b/B e/1/1/2020` (missing quantity allowed) +
+Expected: batch is updated in batch table shown in the information panel with expiry changed to `01/01/2020`. Details of the updated batch shown in the status message. Total quantity should not change. Next expiry of medicine should change if `01/01/2020` is earlier.
+
+. Updating a medicine by removing an existing batch while all medicines are listed
+
+.. Prerequisites: List all medicines using the `list` command. Multiple medicines in the list. Batch number used for testing should already exist in the batch records of the selected medicine (B is added in the tests above). Use `select 1` to load the information page.
+.. Test case: `update 1 b/B q/0` (valid input) +
+Expected: batch is removed from batch table shown in the information panel. Details of the removed batch shown in the status message. Total quantity should be reduced by `10`. Next expiry should be updated if batch removed had the closest expiry date.
+
+. Updating a medicine by adding a new batch while medicine list is filtered
+
+.. Prerequisites: use `find` command to filter the list. Recommended `find t/ fever`. Batch number used for testing should not exist in the batch records of the selected medicine. Use `select 1` to load the information page.
+.. Test case: `update 1 b/D q/1 e/1/1/2020` (valid input) +
+Expected: batch is added to batch table shown in the information panel. Details of the added batch shown in the status message. Total quantity should increase by `1`. Next expiry should be updated if batch removed had the closest expiry date. Filtered list should remain filtered.
+.. Test case: `update 1 b/E q/1 e/1/1/2020 b/F b/G q/2 e/2/1/2020`  (more than one valid input) +
+Expected: batch `G` is added to batch table shown in the information panel as last valid input is taken. Details of the added batch shown in the status message. Total quantity should increase by `2`. Next expiry of medicine should change if `02/01/2020` is earlier. Filtered list should remain filtered.
+=======
 
 // tag::exportcommandtest[]
 === Exporting as CSV file format

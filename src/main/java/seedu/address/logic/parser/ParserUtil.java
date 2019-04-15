@@ -121,7 +121,7 @@ public class ParserUtil {
     public static Expiry parseExpiry(String expiry) throws ParseException {
         requireNonNull(expiry);
         String trimmedExpiry = expiry.trim();
-        if (!Expiry.isValidDate(trimmedExpiry)) {
+        if (trimmedExpiry.equals("-") || !Expiry.isValidDate(trimmedExpiry)) {
             throw new ParseException(Expiry.MESSAGE_CONSTRAINTS);
         }
         return new Expiry(trimmedExpiry);

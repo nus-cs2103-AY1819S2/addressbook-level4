@@ -18,23 +18,24 @@ endif::[]
 == About the Project
 
 
-For our Software Engineering module CS2103T, our team was tasked to modify or enhance the addressbook program into
+For our Software Engineering module CS2103T, our four-person team was tasked to modify or enhance the addressbook program into
 our software of choice. We morphed it into TopDeck, a general purpose flash card application, which
 allows users store flash cards in decks, and study these flash cards later.
 
-My role was to design the Study Sessions. The following sections will describe my contributions in
+My role was to implement study sessions. The following sections will describe my contributions in
 greater detail, as well as the sections I've added to the user and developer guides with regards
 to these enhancements.
 
 == Summary of Contributions
 
-This section shows a summary of my coding, documentation, and other helpful contributions to the team project.
+This section shows a summary of the coding, documentation, and other helpful contributions I have done to contribute
+to the team project.
 
-**Enhancement added:** I added the Study View to study a deck of flash cards.
+**Enhancement added:** I added `Study View` to study a deck of flash cards.
 
 * What it does: The study session allows users to study a deck of cards. This is done by presenting
 users with random questions from cards in a deck. Once the users have recalled their answers, they can choose to
-reveal the answers. Cards do not repeat until the whole deck has been viewed.
+reveal the answers to the questions. Cards do not repeat until the whole deck has been viewed.
 
 * Justification: In order for a flash card application to aid users in memory tasks, there has to be a mode where the users
 can test their own knowledge. This mode allows users to randomise viewing of questions and then

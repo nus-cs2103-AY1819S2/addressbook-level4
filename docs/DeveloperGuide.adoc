@@ -1846,15 +1846,54 @@ _{ more test cases ... }_
 
 . Deleting a person while all persons are listed
 
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
-.. Test case: `delete 1` +
+.. Prerequisites: List all persons using the `memberList` command. Multiple persons in the list.
+.. Test case: `memberDelete 1` +
    Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
+.. Test case: `memberDelete 0` +
    Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
    Expected: Similar to previous.
 
 _{ more test cases ... }_
+
+=== Activity List Feature
+
+. Adding an activity to the activity list - `activityAdd`
+
+.. Prerequisites: The ClubManager in `mode activity`. The activity to add is not already in the list.
+No duplicated activities or time and location clash for the activity to add.
+.. Test case: `activityAdd n/Test activity d/25/06/2019 1900 l/NUS de/test activity` +
+   Expected: Activity added to the correct location in the list.
+.. Test case: activityAdd n/Test activity d/25/06/2019 2500 l/NUS de/test activity` +
+   Expected: Error message with prompt for correct time input format.
+.. Other incorrect activity add commands to try: `activityAdd`, `activityAdd x/` (where x
+is an invalid prefix), `activityAdd n/Some activity d/20/03/2019 1000 d/30/03/2019 2039 l/here`
+(activity with duplicated prefix) ... +
+    Expected: Error message.
+
+. Finding activities based on keywords - `activityFind`
+
+.. Prerequisites: The ClubManager in `mode activity`. Some activities matching the keywords are in
+the activity list.
+.. Test case: `activityFind CS2103` +
+   Expected: Activities with `CS2103` in `name` or `location` or `description` are listed
+.. Test case: `activityFind n/Movie Outing` +
+   Expected: Activities with name containing either `Movie` or `Outing` will be listed.
+.. Test case: `activityFind d/20/02/2019 0910` +
+   Expected: Error message.
+.. Other incorrect input for `activityFind` command: `activityFind`, `activityFind n/` +
+   Expected: Error message
+
+. Filtering activities - `activityFilter`
+
+.. Prerequisites: The ClubManager in `mode activity`. Some activities in the activity list.
+.. Test case: `activityFilter + 30` +
+   Expected: Upcoming activities in the next 30 days are listed.
+.. Test case: `activityFilter -3` +
+   Expected: Error message in result display about incorrect result format.
+.. Other incorrect input for `activityFilter` command: `activityFilter + 0`,
+`activityFilter + randomsomething` +
+   Expected: Same as above.
 
 === Saving data
 

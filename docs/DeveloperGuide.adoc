@@ -959,7 +959,7 @@ image::UndoRedoActDiagram.png[width="650"]
 ===== Aspect: How undo & redo executes
 [width="100%",cols="1, 5, 5",options="header"]
 |=======================================================================
-Implementation |Saves the entire book (Current implementation) | Individual command knows how to undo/redo by itself.
+|Implementation |Saves the entire book (Current implementation) | Individual command knows how to undo/redo by itself.
 |Pros| Less prone to bugs since the we are switching between different versions of the books. | Will use less memory (e.g. for `delete`, just save the person being deleted).
 |Cons| May have performance issues in terms of memory usage especially for
 large numbers of health workers and requests.| Every command will have their own implementation of undo and some of them are slow hence it causes performance issues.
@@ -971,8 +971,8 @@ there is a large number of requests).|
 ===== Aspect: Data structure to support the undo/redo commands
 [width="100%",cols="1, 5, 5",options="header"]
 |=======================================================================
-Implementation | Use a list to store the history of book states.(Current implementation) | Use `HistoryManager` for undo/redo
-|Pros|  Undo and redo commands runs faster since it only involves the switching of the state pointer.| Supports multiple books with the `HistoryManager` alone since we are undoing from the command history.
+|Implementation | Use a list to store the history of book states.(Current implementation) | Use `HistoryManager` for undo/redo
+|Pros| Undo and redo commands runs faster since it only involves the switching of the state pointer.| Supports multiple books with the `HistoryManager` alone since we are undoing from the command history.
 |Cons| Need multiple `VersionedBook` s. One or each type of book.|  `HistoryManager` keeps a record of all commands, even if they are invalid or commands that does not call `Model#commit()`.
 Traversing these irrelevant commands to find the next undoable command will take a long time especially if size of history is large.|
 |=======================================================================
@@ -980,7 +980,7 @@ Traversing these irrelevant commands to find the next undoable command will take
 ===== Aspect: Data structure to handle multiple `VersionedBooks`
 [width="100%",cols="1, 5, 5",options="header"]
 |=======================================================================
-Implementation | Use a command history to keep track
+|Implementation | Use a command history to keep track
 of the type of book that was modified It is represented as a list of `CommandType`.(Current implementation) | Use a list of pairs. Each state is represented as a pair which stores the `currentStatePointer` of each book.
 |Pros| Easily scalable to include more than two books. As the developer can simply add an extra `CommandType`
 and extra cases for switch statements.| Supports commands that change multiple books at once since it keeps track of all states.
@@ -1177,12 +1177,9 @@ Implementation | Use a `TreeSet` datastructure | Use a `SuffixTree` datastructur
 |Pros| Implements the `NavigatableSet` interface and guarantees that elements are stored in sorted order, also allows for _O(log n)_ time complexity for dynamic searching of elements  | Made for features like autocompletion, allows particularly fast implementation of `String` operations
 |Cons| _none at the moment_ | difficult to comprehend and implement
 |=======================================================================
-
-
 // end::autocomplete[]
 
 == Logging
-
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
 
 * The logging level can be controlled using the `logLevel` setting in the configuration file (See <<Implementation-Configuration>>)
@@ -1578,7 +1575,6 @@ Use case ends.
 
 [discrete]
 === Use case: Delete requests
-
 1. User wants to delete a request that is expired or invalid.
 [none]
 * 1.a. Specified request is not in Application

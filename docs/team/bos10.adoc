@@ -42,6 +42,9 @@ highscore feature in the game.
 
 * *Code contributed*: View my https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#=undefined&search=bos10[Project Dashboard] and my Github https://github.com/CS2103-AY1819S2-W14-3/main/commits/master?author=bos10[commits].
 
+* *Minor enhancement*: added the *elapsed time panel to update the duration of the game in real-time*
+
+
 * *Other contributions*:
 
 ** Project management:

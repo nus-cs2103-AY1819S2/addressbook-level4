@@ -203,7 +203,9 @@ public class Fleet {
      */
     public List<FleetEntry> getByTags(Set<Tag> tagSet) {
         return this.getDeployedFleet().stream()
-                .filter(fleetEntry -> fleetEntry.getBattleship().getTags().containsAll(tagSet))
+                .filter(fleetEntry -> fleetEntry.getBattleship()
+                        .getTags()
+                        .containsAll(tagSet))
                 .collect(Collectors.toList());
     }
 

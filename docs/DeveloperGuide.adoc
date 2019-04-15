@@ -2,8 +2,10 @@
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
+:toclevels: 4
 :toc-placement: preamble
 :sectnums:
+:sectnumlevels: 4
 :imagesDir: images
 :stylesDir: stylesheets
 :xrefstyle: full
@@ -146,10 +148,10 @@ image::LogicClassDiagram.png[width="800"]
 [discrete]
 ==== How the architecture components interact with each other
 
-The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
+The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `attack a1`.
 
-.Component interactions for `delete 1` command
-image::SDforDeletePerson.png[width="800"]
+.Component interactions for `attack a1` command
+image::HighLevelAttackDiagram.png[width="800"]
 
 The sections below give more details of each component.
 
@@ -186,11 +188,6 @@ link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 .  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("listTags")` API call.
-
-.Interactions Inside the Logic Component for the `listTags` Command
-image::ListTagsSdForLogic.png[width="800"]
-
 [[Design-Model]]
 // tag::model[]
 === Model component
@@ -198,23 +195,26 @@ image::ListTagsSdForLogic.png[width="800"]
 .Structure of the Model Component
 image::ModelClassDiagram.png[width="800"]
 
+// end::model[]
+
 *API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
 
+// tag::model2[]
 The `Model` component,
 
 * stores a `UserPref` object that represents the user's preferences.
 * stores a `PlayerStatistics` object that represents the user's statistics.
-* manages the players, maps and battleships in the game
+* manages the players, maps and ships in the game
 * does not depend on any of the other three components.
 
-// end::model[]
+// end::model2[]
 
 [[Design-Storage]]
 // tag::storage[]
 === Storage component
 
 .Structure of the Storage Component
-image::StorageClassDiagram.png[width="800"]
+image::StorageClassDiagram.png[width="700"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
 
@@ -234,6 +234,8 @@ image::BattleClassDiagram.png[width="800"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/logic/battle/Battle.java[`Battle.java`]
 
+// end::battle[]
+
 The `Battle` component:
 
 * keeps track of the progress of the battle,
@@ -244,7 +246,6 @@ As the battle involves many different components (map, player, etc.),
 this component cannot be reduced to just one interface class of `Battle`.
 
 
-// end::battle[]
 
 [[Design-Commons]]
 === Common classes
@@ -257,30 +258,37 @@ This section describes some noteworthy details on how certain features are imple
 
 // tag::map[]
 === Map feature
-==== Current implementation
+
+The map feature handles the interactions of the game in the map level. The map feature does the following:
+
+* Initialise both players' maps.
+* Allow placing of ships in the cells.
+* Allow attacking of cells.
+
+==== Implementation of map initialisation
 The map feature is facilitated by `MapGrid` and `Cell`.
 The map grid is stored internally in `MapGrid` as a 2D array of `Cell` objects.
-`MapGrid` implements the following method to initialise the map.
+`MapGrid` implements the following method to initialise the map:
 
 * `MapGrid#initialise(Cell[][] map)` -- initialises the map using the given `Cell` 2D array.
 
-Below is the code snippet for the `initialise` method
+Below is the code snippet for the `initialise` method. `cellGrid` is the internal 2D array comprising of `Cell` objects. +
+The method `copy2dArray` copies the `map` parameter passed in to the internal `cellGrid`
+
 [source,java]
 ----
 include::../src/main/java/seedu/address/model/MapGrid.java[lines=39..46]
 ----
-`cellGrid` is the internal 2D array comprising of `Cell` objects. +
-The method `copy2dArray` copies the `map` parameter passed in to the internal `cellGrid`
 
-Below is the code snippet for the `copy2dArray` method.
+{empty} +
+
+Below is the code snippet for the `copy2dArray` method. The `copy2dArray` method creates a new `Cell` object for each of the input `Cell` objects.
+The copying is done using a constructor in `Cell` that takes in a parameter `Cell`.
+This constructor copies the private attributes of the given `Cell` parameter.
 [source,java]
 ----
 include::../src/main/java/seedu/address/model/MapGrid.java[lines=99..105]
 ----
-
-The `copy2dArray` method creates a new `Cell` object for each of the input `Cell` objects.
-The copying is done using a constructor in `Cell` that takes in a parameter `Cell`.
-This constructor copies the private attributes of the given `Cell` parameter.
 
 {empty} +
 The following sequence diagram shows what happens when the "initialise map" command is used.:
@@ -288,12 +296,40 @@ The following sequence diagram shows what happens when the "initialise map" comm
 .Sequence diagram of initialising the maps
 image::InitialiseMapCommandSequenceDiagram.png[width=800]
 
-The following activity diagram shows when the "initialise map" command can be used:
+The following activity diagram shows when the "initialise map" command can be used by the user:
 
 .Activity diagram displaying when the user can initialise the maps
 image::InitActivityDiagram.png[width=800]
 
 {empty} +
+
+==== Implementation of the `Cell` class
+The cells are the lowest-level feature of the game and is represented by the `Cell` class. Each `Cell` allows one ship to be placed on it but the same ship can be referenced from multiple `Cell` objects. `Cell` also allows receiving of an attack and will propagate the attack call to the `Battleship` in it. To support the above, the following methods are available:
+
+* `void putShip(Battleship ship)` - places a ship in the `Cell`.
+* `boolean receiveAttack()` - receives an attack and returns true if it's a hit, false otherwise.
+
+Also, each `Cell` has a `Status` attribute which is an `enum` of the following:
+
+[cols="1,3", options="header"]
+|===
+| Status | Description
+| HIDDEN | This cell has not been hit.
+| EMPTY | This cell is empty and has not been hit.
+| EMPTYHIT | This cell has been hit before, and is empty.
+| SHIP | This cell has a ship in it.
+| SHIPHIT | This cell has been hit before, and there is a damaged ship here.
+| DESTROYED | This cell has been hit before, and the ship here has been destroyed.
+|===
+
+The `Status` of a `Cell` can be checked through the following method:
+
+* `Status getStatus()` - returns the `Status` of the `Cell`.
+
+The `Status` is used by several higher level functionality such as:
+
+* the UI to know what colour should a `Cell` be displayed as.
+* placing ships to check whether a ship has already been placed.
 
 ==== Design considerations
 ===== Aspect: How the maps are initialised
@@ -328,19 +364,29 @@ Simpler implementation means the likelihood of bugs being introduced is less whe
 
 {empty} +
 
-// tag::ship[]
+// tag::putShip1[]
 
 === Ship Management feature
-==== Current implementation
-The ship management feature handles the following:
-
-* Putting ships on the map grid and ensuring that ships are placed in valid areas on the map grid.
-* Keeping track of the status of ships in the player.
 
 [NOTE]
 ====
 The Ship Management feature is named as such to avoid confusion with the main title of the game, Battleship. In this section, the words "battleship" and "ship" are used interchangeably. The capitalised word `Battleship` in monospace font is used to refer to the Java class.
 ====
+
+==== Current Implementation
+The ship management feature handles the following:
+
+* Putting ships on the map grid and ensuring that ships are placed in valid areas on the map grid.
+* Keeping track of the status of ships in the player.
+
+We can see the use case scenarios in the diagram below.
+
+// end::putShip1[]
+
+.Use case diagram for Ship Management
+image::ShipManagementUseCaseDiagram.png[]
+
+// tag::putShip2[]
 
 `Battleship` is a class representing a ship that can be placed on the map grid. A `FleetEntry` class is internally used to store the `Battleship` in a player's `Fleet`. `FleetEntry` is a nested class within `Fleet` that contains a `Battleship`, its head `Coordinates` and its `Orientation` on the map grid.
 
@@ -358,52 +404,67 @@ There are three types of ships and the number of each ship depends on the size o
 
 The management of ships can be carried out with three commands, namely `put`, `listTags` and `list`.
 
-===== 3.2.1.1 Putting ships
+===== Putting ships
 
 The `put` command puts a ship on the map grid, specified by the __head coordinates__.
+
+// end::putShip2[]
+
+// tag::putShipHeadCoordinates[]
 
 ====
 *__What are the head coordinates?__*
 
 The head coordinates are the coordinates of the top-most and left-most cell of a ship. When coordinates are specified in the `put` command, they refer to the head coordinates of the ship.
 
-image:BattleshipHeadExample.png[width=400]
+
+image:BattleshipHeadExample.png[width=800]
 ====
+
+// end::putShipHeadCoordinates[]
+
+// tag::putShip3[]
 
 The following operations are called when the `put` command is called.
 
 * `performChecks()` - Performs checks to ensure that the ship can be put on the map.
 * `putShip()` - Puts the ship into the cell.
 
-The boundary checks are essential to the functionality of both the human and computer player. This is because `BoundaryValueChecker` is used by the human player in the `put` command, while the computer player when it is deploying its own ships after the human player has ended his or her turn. `BoundaryValueChecker` relies on four separate methods to perform its checks. They are:
+The boundary checks are essential to the functionality of both the human and computer player. This is because `BoundaryValueChecker` is used by the human player in the `put` command and when the computer player deploying its own ships after the human player's turn has ended. `BoundaryValueChecker` relies on four separate methods to perform its checks. They are:
 
 1. `isHeadWithinBounds()` - Checks if the head coordinates falls within the map grid.
 1. `isBodyWithinBounds()` - Checks if the body of the ship falls within the map grid.
 1. `isBattleshipAbsent()` - Checks if there are no other ships that are situated on the head coordinates.
 1. `isClear()` - Checks if there are no other ships that situated along the body of the ship.
 
-These methods check both the horizontal and vertical boundaries when a ship is being deployed. They also distinguish between the head and body of a ship in order to provide more specific feedback for the user. For the methods `isBattleshipAbsent()` and `isClear()`, `BoundaryValueChecker` calls the `getCellStatus()` method of the `mapGrid` object to obtain the status of `Cell` to carry out its checks.
+These methods check the horizontal and vertical boundaries when a ship is being deployed. They distinguish between the head and body of a ship in order to provide more specific feedback for the user. For the methods `isBattleshipAbsent()` and `isClear()`, `BoundaryValueChecker` calls the `getCellStatus()` method of the `mapGrid` object to obtain the status of `Cell` for checks.
 
-Once `BoundaryValueChecker` has finished its checks and if there are no exceptions thrown, the `put` command proceeds to call the `putShip()` method of the `mapGrid` object to put the ship on the map grid. It then updates the `Fleet` in the human player. The following sequence diagram illustrates what happens when the `put` command is called.
+Once `BoundaryValueChecker` has finished its checks and there are no exceptions thrown, the `put` command proceeds to call the `putShip()` method of the `mapGrid` object to put the ship on the map grid. It then updates the `Fleet` in the human player. The following sequence diagram shows what happens when the `put` command is called.
 
-.Sequence diagram of putting a battleship on the map.
-image::PutShipSequenceDiagram.png[width=800]
+// end::putShip3[]
 
-===== 3.2.1.2 Listing tags
+.Sequence diagram of putting a ship on the map.
+image::PutShipSequenceDiagram.png[width=800, align="center"]
 
-Ships can be tagged. You can list all the tags used by battleships that have been deployed on the map grid with the `listTags` command. The command uses the `getAllTags()` method of the `Fleet` class. The code snippet below shows the operation of the `getAllTags()` method. The method returns a list of all the unique tags present in the player's fleet of deployed ships.
+
+// tag::listTags[]
+
+===== Listing tags
+
+Ships can be tagged. You can list all the tags used by ships that have been deployed on the map grid with the `listTags` command. The command uses the `getAllTags()` method of the `Fleet` class. The code snippet below shows the operation of the `getAllTags()` method. The method returns a list of all the unique tags present in the player's fleet of deployed ships.
 
 [source,java]
 ----
-include::../src/main/java/seedu/address/model/Player/Fleet.java[lines=170..180]
+include::../src/main/java/seedu/address/model/player/Fleet.java[lines=204..209]
 ----
 
-The sequence diagram below shows how the tags are listed.
 
-.Sequence diagram of listing battleship tags.
-image::ListTagsSequenceDiagram.png[width=800]
+// end::listTags[]
 
-===== 3.2.1.3 Listing ships
+
+// tag::listShips[]
+
+===== Listing ships
 
 Ships that have been deployed can also be listed in four different ways:
 
@@ -414,29 +475,40 @@ Ships that have been deployed can also be listed in four different ways:
 
 The set of unique tags and the set of unique names are presented to the `ListCommand` as an `Optional` class. This is because both sets may be empty. In such cases, instead of redudantly checking whether each `fleetEntry` contains the ship and an empty set, `ListCommand` simply returns the entire fleet.
 
-The `list` command can list certain ships with certain tags by filtering the list of deployed ships. The following sequence diagram shows how deployed battleships are listed when the `list` command is entered into the command line.
+The `list` command can list certain ships with certain tags by filtering the list of deployed ships. The following sequence diagram shows how deployed ships are listed when the `list` command is entered into the command line.
 
-.Sequence diagram of listing battleships deployed on the map.
-image::ListShipSequenceDiagram.png[]
+// end::listShips[]
 
-==== Activity diagram
+.Sequence diagram of listing ships deployed on the map.
+image::ListShipSequenceDiagram.png[ align="center"]
+
+// tag::ship_activity[]
+
+==== Activity Diagram
 Ship management functions throughout the entirety of the game. As there are multiple states during the game, it is beneficial to visualise the operations of the `put`, `listTags` and `list` commands with respect to the different game states. The activity diagram below illustrates these operations.
 
-.Activity diagram of ship management throughout the game.
-image::ShipManagementActivityDiagram.png[]
+// end::ship_activity[]
 
-==== Design considerations
+.Activity diagram of ship management throughout the game.
+image::ShipManagementActivityDiagram.png[height=400, align="center"]
+
+// tag::ship_aspect_1[]
+
+==== Design Considerations
+
+
+
 ===== Aspect: How a ship is placed on the map
 * **Current choice:** +
- The same `Battleship` object is put in multiple cells. Each cell contains a reference to the same `Battleship` object. When a battleship on the `Cell` needs to be modified, the `Battleship` attribute in the `Cell` is accessed.
+ The same `Battleship` object is put in multiple cells. Each cell contains a reference to the same `Battleship` object. When a ship on the `Cell` needs to be modified, the `Battleship` attribute in the `Cell` is accessed.
 ** Pros: This allows any cell that is hit to access the same `Battleship` object without having to separately find the `Battleship` object.
 ** Cons: Difficult to keep track of each `Battleship` position.
 * **Alternative:** +
 Two separate `Battleship` and `BattleshipPart` objects are used. The `BattleshipPart` object represents the body of the `Battleship` and contains an attribute that points to the `Battleship`. When a battleship on the `Cell` needs to be modified, the `BattleshipPart` is accessed, which then accesses the main `Battleship` object.
-** Pros: Clearer separation between the body of the Battleship and the Battleship itself.
+** Pros: Clearer separation between the body of the ship and the ship itself.
 ** Cons: Difficult to handle hits on the cell.
 
-// end::ship[]
+// end::ship_aspect_1[]
 
 // tag::ship_aspect_2[]
 
@@ -447,11 +519,11 @@ An `ArrayList` of `FleetEntry` objects is used for storage, where `FleetEntry` c
 ** Cons: Harder to implement, as a nested class has to be implemented from scratch, compared to using an `ArrayList`.
 * **Alternative:** `ArrayList` of `Battleship`.
 ** Pros: Easier to implement and provides a cleaner design.
-** Cons: Harder check position of `Battleship` on the map grid. In order to do so, a separate data structure must be created to store the coordinates and orientation of the battleship. This data structure then has to be aligned with the original `ArrayList` that stores the battleship.
+** Cons: Harder check position of `Battleship` on the map grid. In order to do so, a separate data structure must be created to store the coordinates and orientation of the ship. This data structure then has to be aligned with the original `ArrayList` that stores the ships.
 
 // end::ship_aspect_2[]
 
-// tag::battle[]
+// tag::battle_aspect_1[]
 === Battle feature
 The Battle feature handles the following:
 
@@ -463,10 +535,10 @@ The Battle feature handles the following:
 The Battle feature is split between several packages:
 
   * `seedu.address.battle`: the main `Battle` class is implemented here.
-  * `seedu.address.battle.state`: the battle state classes are implemented here, and
+  * `seedu.address.battle.state`: the `BattleState` class is implemented here, and
     can be stored and retrieved via `Model`.
   * `seedu.address.battle.result`: the attack result classes are implemented here.
-    These classes are returned by `Battle#humanPerformAttack(coordinates)` and
+    These classes are returned by `Battle#humanPerformAttack(Coordinates)` and
     `Battle#takeComputerTurn()`.
   * `BeginCommand` and `AttackCommand` handle the player's interaction
     with this component.
@@ -496,13 +568,13 @@ to `PLAYER_ATTACK`.
 
 
 ==== Implementation of the `BattleManager` class
-
+// end::battle_aspect_1[]
 The `BattleManager` class contains four important methods, detailed as follows.
 
 ===== `void startGame()`
 
 .Sequence diagram of the `startGame` method
-image::StartGameSequenceDiagram.png[width=800]
+image::StartGameSequenceDiagram.png[width=600]
 
 `startGame` is called when the player begins the battle (via `BeginCommand`,
 see next section for more details).
@@ -527,7 +599,7 @@ This method is an internal method, used by both `humanPerformAttack` and
 ===== `AttackResult humanPerformAttack(Coordinates)`
 
 .Sequence diagram of the `humanPerformAttack` method
-image::HumanPerformAttackSequenceDiagram.png[width=800]
+image::HumanPerformAttackSequenceDiagram.png[width=300]
 
 `humanPerformAttack` is called when the player makes an attack (via
 `AttackCommand`, see below.)
@@ -536,6 +608,7 @@ This method simply calls `performAttack` with the human player as the
 attacker, the computer player as the target and the argument coordinate
 as the attacked coordinate.
 
+// tag::battle_aspect_2[]
 ===== `List<AttackResult> takeComputerTurn()`
 
 .Sequence diagram of the `takeComputerTurn` method
@@ -601,8 +674,8 @@ image::BeginSequenceDiagram.png[width=800]
 image::AttackSequenceDiagram.png[width=800]
 
 ==== Design considerations
-* **Alternative 1 (current choice):** +
-  `BattleManager` is stored under `Model`. Every time `Attack`, `EndTurn` or `Begin` commands
+* **Current choice:** +
+  `BattleManager` is stored under `Model`. Every time `Attack` or `Begin` commands
   are executed, they will use this `BattleManager` to actually perform the actions,
   with the logic in the `Command`-s mostly being error handling. +
   When AI performs attacks, the `BattleManager` will call the AI to compute its attack
@@ -615,8 +688,8 @@ image::AttackSequenceDiagram.png[width=800]
     which call the lowest level classes `Map` and `Player`)
 ** Cons:
 *** The `Model` component now contains game logic (`BattleManager`) within it.
-* **Alternative 2:** +
-  `BattleManager` is stored under `Logic`. Every time `Attack`, `EndTurn` or `Begin` commands
+* **Alternative** +
+  `BattleManager` is stored under `Logic`. Every time `Attack` or `Begin` commands
   are executed, they will perform the action using the logic coded within themselves, not
   interfacing with `BattleManager`. +
   When AI performs attacks, the `BattleManager` will create these commands and execute them.
@@ -633,9 +706,13 @@ In the end, we decided to implement Option 1. Even though some team members pref
 we decided that `Logic` and `Model` not being kept separate was a worthy tradeoff
 for the advantages of Option 1.
 
-// end::battle[]
+// end::battle_aspect_2[]
 
 === Enemy AI feature
+
+The enemy player serves as a computerised opponent for this single-player game.
+
+// tag::enemyCurrentImplementation[]
 ==== Current implementation
 The Enemy AI feature is currently implemented as an extension of the Player class,
 and serves as the opponent player since `Battleship` is a single-player game.
@@ -645,25 +722,31 @@ which is invoked by the command `start game`.
 
 We can see these scenarios here:
 
-image::EnemyDeployingUseCaseDiagram.png[width=650]
+.Use Case Diagram for Enemy Deploying Ships
+image::EnemyDeployingUseCaseDiagram.png[width=600]
 
 The Enemy AI also supports the ability for the enemy to automatically and intelligently shoot
 the player's map when the player ends their turn, encapsulated by these scenarios:
 
-image::EnemyShootingUseCaseDiagram.png[width=650]
+
+.Use Case Diagram for Enemy Shooting
+image::EnemyShootingUseCaseDiagram.png[width=600]
 
 Note that the Enemy AI feature does not contain any explicit commands to be
 entered by the Player. Its methods are called by other features instead, and does its
 magic in the background.
+// end::enemyCurrentImplementation[]
 
 
+// tag::enemyInitialiseMap[]
 
-*Initialising Enemy MapGrid*
+==== Initialisation of Enemy MapGrid
 
 The Enemy AI has the method `populateMapGrid()` which is called by the method `prepEnemy()`,
 which is in turn called by the Battle Manager when the Player enters the command `start game`.
 
 
+.Sequence Diagram for prepEnemy()
 image::PrepEnemySequenceDiagram.png[width=800]
 
 It can be seen from the above sequence diagram that `populateMapGrid()` goes on to call the methods
@@ -683,20 +766,24 @@ enemy ships and put them on the enemy map grid.
 
 **Sequence Diagram for `placeAirCraftCarrier()`**
 
+.Sequence Diagram for placeAirCraftCarrier()
 image::PlaceAirCraftCarrierSequenceDiagram.png[width=800]
 
 **Sequence Diagram for `placeMultipleDestroyerAndCruiser()`**
 
+.Sequence Diagram for placeMultipleDestroyerAndCruiser()
 image::PlaceMultipleDestroyerAndCruiserSequenceDiagram.png[width=800]
 
 
-`populateMapGrid()` will generate randomised battleships based on the number of battleships
+`populateMapGrid()` will generate randomised ships based on the number of ships
 available to it for the current game, as specified in its Parent class - Player.
-The number of battleships available to the Enemy AI is congruent to the number of battleships
-available to the Player. The exact number of the different types of battleships is decided from on
+The number of ships available to the Enemy AI is congruent to the number of ships
+available to the Player. The exact number of the different types of ships is decided from on
 a formula that is based on the map size specified by the player in the `init` command.
+// end::enemyInitialiseMap[]
 
-*Calculating Coordinate to Attack*
+// tag::enemyShoot[]
+==== Calculation of Coordinate to Attack
 
 The Enemy AI has the method `enemyShootAt()` that is invoked when the player ends their turn upon a miss.
 The Enemy AI will attempt to generate a random Coordinate to attack,
@@ -707,6 +794,7 @@ increase its accuracy upon detecting a successful hit on any part of a ship.
 The following activity diagram illustrates the conditions taken into account by the Enemy AI as part of its shooting algorithm, and shows
 how it decides on which Coordinate to target, depending on the success of previous hits.
 
+.Activity Diagram of the Enemy Shooting Process
 image::EnemyShootingActivityDiagram.png[width=800]
 
 
@@ -718,11 +806,13 @@ consist of at least one of each White or Black coordinates.
 
 The Black-White groupings of Coordinates through the concept of parity is illustrated here in the following diagram:
 
+.Checkered Board illusrating concept of parity
 image::CheckeredBoard.png[width=650]
 
 Once the Enemy hits a Coordinate that has a ship on it, it will note down every valid Coordinate that is cardinal (to the North, South, East and West) to the
 cell that was discovered to hold a ship.
 
+.Examples of valid and invalid cardinal coordinates
 image::CardinalCoordinates.png[width=650]
 
 The validity of these cardinal Coordinates are evaluated by checking if they are within the bounds of the map grid, and
@@ -730,20 +820,29 @@ whether they have not been hit before. If these two conditions are satisfied, th
 will from that point shoot everything in the `watchlist`, until the ship that it is targeting is destroyed.
 
 When the Enemy AI detects that it has successfully destroyed the Player ship, it will empty out the `watchlist`, and go back to scouting the
-map for another part of the Player ship, by randomly targetting coordinates in the Black cells, as illustrated in the previous image.
+map for another part of the Player ship, by randomly targeting coordinates in the Black cells, as illustrated in the previous image.
 
+The following code snippet gives a clearer view of how the algorithm flows for the enemy shooting strategy:
+[source,java]
+----
+include::../src/main/java/seedu/address/model/player/Enemy.java[lines=85..105]
+----
 
 __Note: All actions taken by the Enemy AI are seeded by a pseudo-random generator.
 Thus, its behaviour will be different for every game session.__
 
+// end::enemyShoot[]
+
+// tag::enemyDesign[]
 
 ==== Design considerations
-* **Alternative 1 (current choice):** seed all methods with pseudo-random seed/
+* **Current choice:** seed all methods with pseudo-random seed
 ** Pros: each game will be a different experience
 ** Cons: testing will be more difficult
-* **Alternative 2:** pre-calculate and hardcode the actions the Enemy AI performs
+* **Alternative:** pre-calculate and hardcode the actions the Enemy AI performs
 ** Pros: testing is made very much easier
 ** Cons: games would be less dynamic since the enemy's behaviour is non-organic
+// end::enemyDesign[]
 
 // tag::stats[]
 === Statistics feature
@@ -781,12 +880,12 @@ Step 3. Input `stats` into the command-line and press enter to obtain the curren
 
 Inputting `stats` :
 
-image::inputStatsCommandSS.png[width=400]
+image::inputStatsCommandSS.png[width=200]
 
 Pop-up window for `stats` :
 
-image::StatsWindowSS.png[width=800]
-Figure 33. Screenshot of empty statistics pop-up window.
+.Screenshot of empty statistics pop-up window.
+image::StatsWindowSS.png[width=350]
 
 There should not be any valid data at the moment as the game as not started.
 
@@ -794,24 +893,24 @@ Step 4. Now proceed with the game and perform an attack. Input `attack a1`.
 
 Step 5. Invoke the `stats` command again to view the updated statistics of the attack result.
 
-image::StatsWindowUpdatedSS.PNG[width=800]
-Figure 34. Screenshot of populated statistics pop-up window.
+.Screenshot of populated statistics pop-up window.
+image::StatsWindowUpdatedSS.PNG[width=350]
 
 Besides the pop-up window, the data is also captured in the command-line result box.
 
-image::StatsCommandBox.PNG[width=400]
+image::StatsCommandBox.PNG[width=200]
 
 The following sequence diagram summarizes what happens when a User invokes the `stats` command.
 
-image::StatsSequenceDiagram.PNG[width=1000 ]
-Figure 35. Sequence diagram of `stats` command.
+.Sequence diagram of `stats` command.
+image::StatsSequenceDiagram.PNG[width=600 ]
 
 ==== Save and Compare
 Given below is an example usage scenario of the automatic save and compare feature.
 
 1. Upon winning a game, a user will be presented with the following screen.
 
-image::StatsWinScreen.PNG[width=650]
+image::StatsWinScreen.PNG[width=350]
 Notice the displayed 'Statistics Analysis' section that displays a comparison of the player's accuracy in the current game and
 the previous game.
 
@@ -823,26 +922,28 @@ new game.
 The following sequence diagram summarizes what happens at the end of a game and an automatic save is
 performed.
 
-image::SaveSequenceDiag.PNG[width=800]
-Figure 36. Sequence diagram of how the statistics data is saved.
+.Sequence diagram of how the statistics data is saved.
+image::SaveSequenceDiag.PNG[width=350]
 
-The following sequence diagram summarizes what happens at the end of the game and an automatic reading of previous
+The following sequence diagram summarizes what happens at the end of the game where an automatic reading of previous
 statistics data is performed.
 
-image::ReadSequenceDiagram.PNG[width=800]
-Figure 37. Sequence diagram of how the previous statistics data is read from storage.
+.Sequence diagram of how the previous statistics data is read from storage.
+image::ReadSequenceDiagram.PNG[width=350]
 
 ==== Activity Diagram
 The following Activity Diagram shows when the `stats` command can be used.
 
-image::StatisticsActivityDiagram.png[width=1000]
-Figure 38. Activity Diagram of the statistics feature.
+.Activity Diagram of the statistics feature.
+image::StatisticsActivityDiagram.png[width=450]
+
 
 ==== Use Case Diagram
 The following use-case diagram captures the behaviour of the statistics feature.
 
-image::StatsUseCaseDiag.PNG[width=500]
-Figure 39. Use case diagram on the statistics feature.
+
+.Use case diagram on the statistics feature.
+image::StatsUseCaseDiag.PNG[width=250]
 
 
 ==== Design considerations
@@ -1049,14 +1150,14 @@ See <<UsingGradle#, UsingGradle.adoc>> to learn how to use Gradle for build auto
 
 We use https://travis-ci.org/[Travis CI] and https://www.appveyor.com/[AppVeyor] to perform _Continuous Integration_ on our projects. See <<UsingTravis#, UsingTravis.adoc>> and <<UsingAppVeyor#, UsingAppVeyor.adoc>> for more details.
 
-=== Coverage reporting
+=== Coverage reports
 
 We use https://coveralls.io/[Coveralls] to track the code coverage of our projects. See <<UsingCoveralls#, UsingCoveralls.adoc>> for more details.
 
 === Documentation previews
 When a pull request has changes to asciidoc files, you can use https://www.netlify.com/[Netlify] to see a preview of how the HTML version of those asciidoc files will look like when the pull request is merged. See <<UsingNetlify#, UsingNetlify.adoc>> for more details.
 
-=== Making a release
+=== Release
 
 Here are the steps to create a new release.
 
@@ -1065,7 +1166,7 @@ Here are the steps to create a new release.
 .  Tag the repo with the version number. e.g. `v0.1`
 .  https://help.github.com/articles/creating-releases/[Create a new release using GitHub] and upload the JAR file you created.
 
-=== Managing dependencies
+=== Dependency management
 
 A project often depends on third-party libraries. For example, Address Book depends on the https://github.com/FasterXML/jackson[Jackson library] for JSON parsing. Managing these _dependencies_ can be automated using Gradle. For example, Gradle can download the dependencies automatically, which is better than these alternatives:
 
@@ -1094,42 +1195,44 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new player |see usage instructions |refer to instructions when I forget how to use the App
+|`* * *` |new player |see usage instructions |know how to begin using the App
 
-|`* * *` | player |initialise a new game board / map|start a new game
+|`* * *` |existing player |see usage instructions |refer to instructions when I forget how to use the App
 
-|`* * *` | player | put a battleship on the map |play the game
+|`* * *` | player | initialise a new game board / map| start a new game
 
-|`* * *` | player | tag my battleships | manage my battleships during the game
+|`* * *` | player | initialise a new game board / map| play again after I finish
 
-|`* * *` | player | list my battleships | check the status of my battleships during the game
+|`* * *` | player | put a ships on the map | play the game
 
-|`* * *` | player | list my battleships by tag | check the status of specific battleships during the game
+|`* *` | player | see where my ships are on the map |have a visual representation of the game
+
+|`* *` | player | tag my ships | manage my ships during the game
+
+|`* *` | player | list my ships | check the status of my ships during the game
+
+|`* *` | player | list my ships by tag | check the status of specific ships during the game
+
+|`* * *` | player | begin the battle | fight the enemy
+
+|`* * *` | player | attack the enemy | destroy the enemy's ships and win
 
 |`* *` | player | see how many enemy ships I have destroyed | know how many more enemy ships to find
 
-|`* *` | player | see game statistics | know how i am performing in the game
+|`* *` | player | see game statistics | know how I am performing in the game
 
-|`* *` | player | compare scores with previous games | know if i am getting better at winning the game
-
-|`* * *` | user | see where my battleships are on the map |have a visual representation of the game
-
-|`* * *` | user | list my battleships |know the status of my fleet
-
-|`* * *` | player | end my turn |the enemy can start its turn
+|`* *` | player | compare scores with previous games | know if I am getting better at winning the game
 
 |=======================================================================
-
-_{More to be added}_
 
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `Battleship` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `Battleship` application and the *Actor* is the `user`, unless specified otherwise)
 
 // tag::mapuse[]
 
-=== Use case: Initialise Maps
+=== Initialise Maps
 
 *MSS*
 
@@ -1150,12 +1253,12 @@ Use case resumes at step 1.
 
 // end::mapuse[]
 
-=== Use case: Put Battleship
+=== Put ship
 
 *MSS*
 
-1. User requests to add battleship to given coordinate specified.
-2. Battleship adds a ship to the given coordinate specified, in the cell.
+1. User requests to add ship to given coordinate specified.
+2. Game adds a ship to the given coordinate specified, in the cell.
 +
 Use case ends.
 
@@ -1164,12 +1267,12 @@ Use case ends.
 [none]
 * 2a. If there is a ship present in the cell, show an error.
 
-=== Use case: List Battleship
+=== List ships
 
 *MSS*
 
-1. User requests to list battleships deployed on map.
-2. Shows all of the user's battleships deployed on map.
+1. User requests to list ships deployed on map.
+2. Game shows all of the user's ships deployed on map.
 +
 Use case ends.
 
@@ -1178,30 +1281,89 @@ Use case ends.
 [none]
 * 2a. If there are no ships deployed, inform the user.
 
-=== Use case: List tags that Battleships have
+// tag::mssListTags[]
+
+=== List all tags that ships have
 
 *MSS*
 
-1. User requests to list tags of battleships that have already been deployed on map.
-2. Shows all of the tags of battleships that have already been deployed on map.
+1. User requests to list tags of ships that have already been deployed on map.
+2. Game shows all of the tags of ships that have already been deployed on map.
 +
 Use case ends.
 
-=== Use case: List Battleships by tag
+// end::mssListTags[]
+
+// tag::mssListShip[]
+
+=== List ships by tag
 
 *MSS*
 
-1. User requests to list battleships deployed on map that have certain tags.
-2. Shows all of the user's battleships deployed on map that have certain tags.
+1. User requests to list ships deployed on map that have certain tags.
+2. Game shows all of the user's ships deployed on map that have certain tags.
++
+Use case ends.
+
+// end::mssListShip[]
+
+*Extensions*
+
+[none]
+* 2a. If there are no ships deployed, inform the user.
+
+// tag::beginusecase[]
+
+=== Begin the battle
+
+*MSS*
+
+1. User requests to begin the battle.
+2. Game instructs the enemy to place their ships.
+3. Game displays that the battle has begun.
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 2a. If there are no ships deployed, inform the user.
+* 2a. The user has not placed any ships.
+[none]
+** 2a1. The game prevents the user from starting the battle, and
+        informs them to place at least one ship.
+
+// end::beginusecase[]
+
+// begin::attackusecase[]
+
+=== Attack the enemy
+
+*MSS*
+
+1. User requests to attack a specific cell.
+2. Game performs an attack on the specified cell on the enemy map.
+3. Game displays the result of the user's attacks, and the enemy's attack(s) if any.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The user has already attacked the cell before.
++
+[none]
+** 2a1. The game prevents the user from attacking the cell and prompts them for another.
+[none]
+* 2b. The user attacks a cell that is invalid, or a cell that is not on the map.
++
+[none]
+** 2b1. The game prevents the user from attacking the cell and prompts them for another.
+[none]
+
+// end::attackusecase[]
+
 //tag::StatsUseCase[]
-=== Use case: See game statistics
+=== See game statistics
 *MSS*
 
 1. User requests to display current gameplay statistics
@@ -1217,7 +1379,7 @@ Use case ends.
 [none]
 ** 2a1. A single statement indicating no statistical data yet is displayed in the command box.
 
-=== Use case: Compare scores with previous games
+=== Compare scores with previous games
 *MSS*
 
 1. User wins a game.
@@ -1234,17 +1396,8 @@ Use case ends.
 ** 2a1. A single statement indicating no statistical data yet is displayed in the command box.
 
 //end::StatsUseCase[]
-=== Use case: End player turn
 
-*MSS*
-
-1. User requests for enemy to start turn.
-2. User's turn is automatically ended.
-3. Enemy player turn starts.
-+
-Use case ends.
-
-=== Use case: Play enemy turn
+=== Play enemy turn
 
 *Actor:* `enemy player`
 
@@ -1255,7 +1408,6 @@ Use case ends.
 3. Enemy turn ends.
 4. Control is given back to Player
 
-_{More to be added}_
 
 [appendix]
 == Non Functional Requirements
@@ -1297,7 +1449,7 @@ These instructions only provide a starting point for testers to work on; testers
 
 // tag::maptest[]
 
-=== Initialising the maps
+=== Initialise the maps
 . Initialising the maps after launching the game
 
 .. Test case: `init 7` +
@@ -1316,16 +1468,66 @@ These instructions only provide a starting point for testers to work on; testers
 
 . Putting a ship on the map after initialising the map.
 
-.. Prerequisites: There are ships in your fleet ready to be deployed. This means that the number of battleships in the fleet is more than 0. The map is initialised to a size between 6 and 10.
+.. Prerequisites: There are ships in your fleet ready to be deployed. This means that the number of ship in the fleet is more than 0. The map is initialised to a size between 6 and 10.
 .. Test case: `put n/destroyer r/horizontal c/b1` +
-   Expected: Destroyer battleship of size 3 will be put horizontally on coordinates `b1`, `b2` and `b3`. The map is updated with 3 black cells on each of these coordinates representing the Destroyer battleship.
+   Expected: Destroyer ship of size 3 will be put horizontally on coordinates `b1`, `b2` and `b3`. The map is updated with 3 black cells on each of these coordinates representing the Destroyer ship.
 .. Test case: `put n/aircraft carrier r/horizontal c/c1 t/bluefleet` +
-   Expected: Aircraft Carrier battleship of size 5 will be put horizontally on coordinates `c1`, `c2`, `c3`, `c4` and `c5`. The map is updated with 5 black cells on each of these coordinates representing the Aircraft Carrier battleship.
+   Expected: Aircraft Carrier ship of size 5 will be put horizontally on coordinates `c1`, `c2`, `c3`, `c4` and `c5`. The map is updated with 5 black cells on each of these coordinates representing the Aircraft Carrier ship.
 .. Test case: `put n/aircraft carrier r/horizontal c/e1 t/nomore` +
-   Expected: No battleship is put down on the map. Error details shown in the status message. Map remains the same.
+   Expected: No ship is put down on the map. Error details shown in the status message. Map remains the same.
 
 // end::shiptest[]
 
+// tag::starttest[]
+
+=== Starting the battle
+
+. To test `begin`, we will test that it is only able to be executed at certain times.
+  Please follow the following steps in order.
+
+.. Start the application, then execute `begin`. +
+   Expected result: The battle does not begin, and an error message is displayed in the result box.
+.. Execute `init 6`, then execute `begin`. +
+   Expected result: The battle does not begin, and an error message is displayed in the result box.
+.. Place one or more ships using `put`, then execute `begin`. +
+   Expected result: the battle successfully begins and a message stating as such is displayed.
+.. Execute `begin` again.
+   Expected result: an error message is displayed in the result box.
+
+// end::starttest[]
+
+// tag::battletest[]
+
+=== Attacking
+
+. To test `attack`, we will need to play through the game.
+  Please follow the following steps in order.
+
+.. Start the application, then execute `attack`. +
+   Expected result: no attack is executed, and an error message is displayed.
+.. Execute `init 6`, and place your ships on the board.
+.. Execute `begin`.
+.. Make an attack on a square that is out of bounds, e.g. `attack a9`. +
+   Expected result: no attack is executed, and
+   a prompt to select another cell is displayed.
+.. Make an attack on a valid square that **misses**. +
+   Expected result: the attacked square on the enemy map turns dark blue, and
+   a "miss" message is displayed. The enemy also makes one or more moves.
+.. Make an attack on a square you have already attacked.
+   Expected result: no attack is executed, and
+   a prompt to select another cell is displayed.
+.. Make an attack on a valid square that **hits**.  +
+   Expected result: the attacked square on the enemy map turns orange, and
+   a "hit" message is displayed.
+.. Make an attack that **destroys a ship**. +
+   Expected result: the destroyed ship on the enemy map turns red, and
+   a "destroy" message is displayed.
+.. Destroy all the enemy's ships. +
+   Expected result: a "win" message is displayed.
+.. Start another battle, then have all your ships be destroyed by the enemy. +
+   Expected result: a "lose" message is displayed.
+
+// end::battletest[]
 
 // tag::statstest[]
 === Viewing the statistics

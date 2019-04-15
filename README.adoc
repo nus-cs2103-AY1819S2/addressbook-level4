@@ -1,8 +1,9 @@
 = Battleship
 ifdef::env-github,env-browser[:relfileprefix: docs/]
 
+https://travis-ci.org/CS2103-AY1819S2-W14-3/main[image:https://travis-ci.org/CS2103-AY1819S2-W14-3/main.svg?branch=master[Build Status]]
 https://github.com/CS2103-AY1819S2-W14-3/main[image:https://travis-ci.org/CS2103-AY1819S2-W14-3/main.svg?branch=master[Build Status]]
-https://github.com/CS2103-AY1819S2-W14-3/main[image:https://coveralls.io/repos/github/CS2103-AY1819S2-W14-3/main/badge.svg?branch=master[Coverage Status]]
+https://coveralls.io/github/CS2103-AY1819S2-W14-3/main[image:https://coveralls.io/repos/github/CS2103-AY1819S2-W14-3/main/badge.svg?branch=master[Coverage Status]]
 
 
 ifdef::sdsdds[]
@@ -23,7 +24,7 @@ endif::[]
 * One can play the classic Battleship game against the computer on this app.
 * This application is designed for people who want to play Battleship but prefer to use the command-line or are otherwise unable to operate a GUI.
 ** This project is written in an OOP style.
-** Support for _Build Automation_ using Gradle and for _Continuous Integration_ using Travis CI.
+** This project supports _Build Automation_ using Gradle and _Continuous Integration_ using Travis CI.
 
 == Site Map
 

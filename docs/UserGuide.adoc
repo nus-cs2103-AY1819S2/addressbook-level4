@@ -18,14 +18,16 @@ endif::[]
 
 By: `Team W14-3`      Since: `Jan 2019`      Licence: `MIT`
 
-// tag::intro[]
-== Introduction
 
-Ships ahoy! Battleship is a simple computer-based remake of the classic Battleship game. It is for people who want to have the joy of playing Battleships without the hassle and fuss of dealing with physical game pieces.
+== Introduction
+// tag::intro[]
+Ships ahoy! Battleship is a simple computer-based remake of the classic Battleship game.
+
+It is for people who want to experience the joy of playing Battleships without the hassle and fuss of dealing with physical game pieces.
 
 Battleship is optimised for people who want to use a Command Line Interface (CLI), while still retaining the benefits of a Graphical User Interface (GUI).
 
-It can guarantee many hours of fun, especially between those long and boring periods of the day. Can't wait to get started? Head over to <<Quick Start>> to fire away!
+It's a single-player game, and provides a fully functional computerised enemy player for the player to play against, guaranteeing many hours of fun! Can't wait to get started? Head over to <<Quick Start>> to fire away!
 
 [NOTE]
 ====
@@ -49,19 +51,21 @@ As you will see, Battleship is a hybrid application. It combines both a CLI and 
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 .  Type commands in the command box and press kbd:[Enter] to execute them. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
-.  To begin playing, first initialise the map to a size between 6 to 10. eg: `init 6`.
+.  Initialise the map to a size between 6 to 10. eg: `init 6`.
 .  Deploy your battleships:
 ..  Deploy your aircraft carrier: `put n/aircraft carrier c/a1 r/h`
-..  Deploy your cruiser: `put n/cruiser c/c1 r/h`
-..  Deploy your destroyer: `put n/destroyer c/e1 r/h`
+..  Deploy your cruiser(s): `put n/cruiser c/c1 r/h`
+..  Deploy your destroyer(s): `put n/destroyer c/e1 r/h`
 .  Start the game: `start game`
 .  Shoot the enemy's map at a specific cell. eg: `shoot a1`
 
 The game will go on until either party's ships are totally destroyed.
 
+// end::quickstart[]
+
 Refer to <<Features>> for details of each command.
 
-// end::quickstart[]
+
 
 == Game Rules
 // tag::gamerules[]
@@ -69,13 +73,13 @@ This section will describe the game rules and how to play the classic Battleship
 ====
 *Goal*
 
-Sink all your opponent's battleships before they sink yours.
+Sink all your opponent's ships before they sink yours.
 ====
 ====
 *Captain, deploy ships!*
 
 Depending on the chosen size of the map, as specified through the `init <map_size>` command,
-the player will be given different numbers of each ship.
+you will be given different numbers of each ship.
 
 The ships available are:
 
@@ -83,29 +87,31 @@ The ships available are:
 * Destroyer: size 3
 * Aircraft Carrier: size 5
 
-Here are the respective number of each ship in your fleet, depending
-on your map size.
+Depending on your map size, your fleet will have different numbers of each ship.
 
 image::mapSizeFleetSize.png[width=550]
 ====
 ====
 *Ready, aim, fire!*
 
-The Player will always be given the first turn.
-The Player may fire shots at the enemy map through the command `shoot`, for example `shoot a1`.
+After you have placed all your ships, enter `begin` to start the battle.
 
-If the shot hits a ship, the Player may continue taking shots until they miss.
+You will always be given the first turn.
+You may fire shots at the enemy map through the command `shoot`, for example `shoot a1`.
+
+If the shot hits a ship, you may continue taking shots until they miss.
 Upon a miss, the turn will be handed over to the enemy.
 The same goes for the enemy - the enemy will take its shot automatically, firing until it misses, before
-passing the turn back to the Player.
+passing the turn back to you.
 ====
 
 ====
 *Good Game!*
 
-Whoever is first to destroy all their opponent's ship will be declared the winner.
+Whoever is first to destroy all their opponent's ships will be declared the winner.
 Had fun? You can view the game statistics with the command `stats`.
 ====
+// end::gamerules[]
 
 
 [[Features]]
@@ -115,7 +121,7 @@ This section will describe the features of the game in more detail.
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `init MAP_SIZE`, `MAP_SIZE` is a parameter which can be used as `init 10`.
+* Words in `UPPER_CASE` are the parameters to be supplied by you e.g. in `init MAP_SIZE`, `MAP_SIZE` is a parameter which can be used as `init 10`.
 * Items in square brackets are optional e.g `put n/NAME [t/TAG]` can be used as `put n/Destroyer t/bestship` or as `put n/Destroyer`.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/alpha`, `t/best t/captain` etc.
 * Parameters can be in any order e.g. if the command specifies `n/NAME c/COORDINATES`, `c/COORDINATES n/NAME` is also acceptable.
@@ -135,6 +141,8 @@ time, the program will tell you so.
 
 === General commands
 
+This section describes commands that can be executed at any point of time during the game.
+
 ==== Viewing help : `help`
 Opens a help window that displays this User Guide. +
 Format: `help`
@@ -149,21 +157,21 @@ Format: `exit`
 === Preparation phase
 This section describes the commands used in the preparation phase.
 
-==== Initialising the map : `init`
+==== Initialising the maps : `init`
 
-Initialises both player's maps to the specified size. The size of the maps must be between 6 and 10, inclusive. +
+The `init` command initialises both your map and the enemy AI's map to the size that you specify. The size of the maps must be between 6 and 10, inclusive. +
 
 Format: `init MAP_SIZE` +
 Example: `init 10`
 
 ****
 * The `init` command can be used at any point in time during gameplay. When used in the middle of a game, the `init` command functions like a "new game" command and will reset the board to a clean state.
-* Each cell is represented by its coordinates e.g "b1".
+* Each cell is represented by its coordinates e.g "b1". The coordinates will be used by the other commands to refer to a cell.
 ****
 
 _Figure 1_ below shows how the maps will be displayed in the UI.
 
-.Player and enemy maps
+.The maps as displayed in the UI
 image::initmapresult.png[width=750]
 
 {empty} +
@@ -189,38 +197,42 @@ image::maplegend.png[width=400]
 
 // end::map[]
 
-// tag::ship[]
+// tag::ship1[]
 
-==== Managing ships:
+==== Managing ships: `put`, `list`, `listTags`
 ===== Placing a ship on the map: `put`
 
-Adds a battleship onto the player's map. The coordinates specified is the position of the ship's head. +
+Adds a ship onto your map. The coordinates specified is the position of the ship's head. +
 
 Format: `put n/NAME c/COORDINATES r/ORIENTATION [t/TAGS]` +
 
 Examples:
 
-* `put n/Destroyer c/a1 r/vertical`
-* `put n/Aircraft Carrier c/b1 r/h t/tag1` +
+* `put n/destroyer c/a1 r/vertical`
+* `put n/aircraft carrier c/b1 r/h t/tag1` +
 
-The head of a battleship is the top-most and left-most cell of the battleship. When coordinates are specified in the `put` command, it specifies the coordinates of the head of the battleship, as shown in the figure below.
+The head of a ship is the top-most and left-most cell of the ship. When coordinates are specified in the `put` command, it specifies the coordinates of the head of the ship, as shown in the figure below.
 
-.The coordinates of the `put` command refer to the coordinates of the battleship head.
-image::BattleshipHeadExample2.png[width=800]
+// end::ship1[]
 
-The orientation of the ship can be `horizontal` or `vertical`. This may be shortened to `h` or `v`, respectively. The orientation of the battleship must be specified. +
+.The coordinates of the `put` command refer to the coordinates of the ship head.
+image::BattleshipHeadExample2.png[width=400, align="center"]
+
+// tag::ship2[]
+
+The orientation of the ship can be `horizontal` or `vertical`. This may be shortened to `h` or `v`, respectively. The orientation of the ship must be specified. +
 
 When putting a ship on the map grid, you should specify the head coordinates such that:
 
 * The ship falls within the map grid.
 * The ship does not collide with another ship that is already on the map grid.
 
-// end::ship[]
+// end::ship2[]
 
 // tag::list[]
 ===== Listing all ships : `list`
 
-Shows a list of all the player's battleships that are have been deployed on the map. There are four ways of using the `list` command:
+Shows a list of all of your ships that have been deployed on the map. There are four ways of using the `list` command:
 
 1. List all ships: `list`.
 2. List ships that match certain tags: `list t/[TAGS]`.
@@ -234,7 +246,7 @@ Examples:
 * `list n/destroyer`
 * `list n/destroyer n/cruiser t/blueFleet t/greenFleet`
 
-The list will show the battleship's head coordinate, the battleship's orientation, and the battleship's tags in square brackets. The format of each entry in the list is: `[NAME] [CURRENT LIFE] at [HEAD COORDINATE] [ORIENTATION] [TAGS]`. An example is given below.
+The list will show the ship's head coordinate, the ship's orientation, and the ship's tags in square brackets. The format of each entry in the list is: `[NAME] [CURRENT LIFE] at [HEAD COORDINATE] [ORIENTATION] [TAGS]`. An example is given below.
 
 [source,text]
 ----
@@ -247,12 +259,9 @@ Output:     destroyer (3/3) at g5 vertical [redFleet][blueFleet][greenFleet]
 // tag::listTags[]
 ===== Listing all tags: `listTags`
 
-Lists all the tags that have been used to tag the battleships deployed on the map. +
+Lists all the tags that have been used to tag the ship deployed on the map. +
 
-Format: `listTags` +
-Examples: `listTags`
-
-The list of tags is given in square brackets.
+Format: `listTags`
 
 // end::listTags[]
 
@@ -297,24 +306,21 @@ Retrieves the gameplay statistics data displays them on a pop-up window.
 
 Format: `stats`
 
-Example:
-
-* `stats`
-
 ****
 * The pop-up window will contain a bar chart visualisation of your game play data
-* The pop-up window does not update itself when it is opened and the `stats` command must be called again to display updated
-values.
+* To reload the statistics data, you must close the current pop-up window and call the `stats` command again
+to display the updated values.
 ****
 // end::stats[]
 
-== Coming in v2.0
-
 // tag::upcomingmap[]
-=== Special map shapes
-The player will be allowed to use maps that are randomised in shape. This adds an extra layer of challenge and fun for the player.
+== Features Coming in v2.0
+This section describes features that have not been implemented yet and are scheduled to be released in version 2.0.
 
-The player will not be able to place their ships on the black tiles. The enemy AI will also have a randomised map that will not be the same as the player. The player will not be able to see the shape of the enemy map and can shoot black cells which will be counted as a miss.
+=== Special map shapes
+You will be allowed to use maps that are randomised in shape. This adds an extra layer of challenge and fun.
+
+Both yourself and the enemy AI will not be able to place ships on the grey tiles. The enemy AI will also have a randomised map that will not be the same as your map. You will not be able to see the shape of the enemy map and can shoot grey cells which will be counted as a miss.
 
 The image below shows an example of a randomised map.
 
@@ -323,10 +329,38 @@ image::randommap.png[width="300"]
 
 // end::upcomingmap[]
 
-== FAQ
+// tag::upcomingQuickStart[]
+=== Quick start
+Randomly deploys the all of your ships onto the map and starts the battle. +
 
-*Q*: How are you today? +
-*A*: I'm fine and dandy thank you very much.
+Format: `quickStart`
+
+// end::upcomingQuickStart[]
+
+// tag::upcomingPattern[]
+=== Save and load pattern of deployed ships
+Save and load the pattern that you used to deploy your ships. +
+
+Format: `pattern i/OPTION p/PATTERN]` +
+Examples:
+
+* `pattern i/save`
+* `pattern i/load p/circle`
+
+// end::upcomingPattern[]
+// tag::v2stats[]
+=== Display high score across games
+Display the high score across more than two games. +
+
+Format: `stats highscore t/ATTRIBUTE` +
+Examples:
+
+* `stats highscore t/time` +
+Display game data from the game that won in the shortest amount of time
+* `stats highscore t/accuracy` +
+Display game data from the game with the highest accuracy.
+
+// end::v2stats[]
 
 //tag::commandsummary[]
 == Command Summary
@@ -337,9 +371,9 @@ image::randommap.png[width="300"]
 |*Attack*| `attack COORDINATE` |Attacks a selected cell on the enemy map.| `attack c1`
 |*Display manual*| `help` |Opens up the help guide window. | `help`
 |*Create map of size 6-10*| `init MAP_SIZE` | Initializes the map grid. | `init 8`
-|*List ships*| `list [n/NAME] [t/TAG]…` |Lists all available battleships, optionally filtering by name and tag(s)| `list`
+|*List ships*| `list [n/NAME] [t/TAG]…` |Lists all available ships, optionally filtering by name and tag(s)| `list`
 |*List tags*| `listTags` |Lists all tags.| `listTags`
-|*Put ship on map*| `put n/NAME r/ORIENTATION c/COORDINATE [t/TAG]…` | Places a battleship on the specified position on the map, optionally adding tag(s). | `put n/Destroyer r/vertical c/a1 t/myfleet`
+|*Put ship on map*| `put n/NAME r/ORIENTATION c/COORDINATE [t/TAG]…` | Places a ship on the specified position on the map, optionally adding tag(s). | `put n/Destroyer r/vertical c/a1 t/myfleet`
 |*View statistics*| `stats` | Opens the Statistics window. | `stats`
 |*Start battle*| `start` | Begins the battle. | `start`
 |=======================================================================

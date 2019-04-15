@@ -2,31 +2,35 @@
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
+:sectnums:
 
-Hello there! My name is Ian and I am one of the developers of the Battleship game. The following document is a Project Portfolio Page of my contributions to Battleship.
+Hello there! My name is Ian and I am one of the developers for the Battleship game. The following document is a Project Portfolio Page of my contributions to the application.
 
 == Project Overview
 
-Battleship is the product of a semester-long project, in which my team was tasked with adapting an existing phone addressbook application into an application of our choice. Our game, Battleship, is a revival of the classic retro game Battleships, where players try to destroy each other's ships by guessing the positions of their opponent's battleships.
+Battleship is the product of a semester-long project, in which my team was tasked with adapting an existing phone addressbook application into an application of our choice. The project was part of a module on software engineering that I read at the National University of Singapore (NUS). The application, Battleship, is a revival of the classic retro game Battleships, where players try to destroy each other’s ships by guessing the positions of their opponent’s battleships.
 
-In Battleship, however, players have the opportunity to use both a Command Line Interface (CLI) and a Graphical User Interface (GUI) to play the game. The GUI was created with JavaFX and the application code is rigorously tested to ensure a high quality of code.
+In our Battleship application, however, players have the opportunity to use both a Command Line Interface (CLI) and a Graphical User Interface (GUI) to play the game. The GUI was created with JavaFX and the application code was rigorously tested to ensure a high quality of code.
 
 My role in the team was to design and implement the Ship Management feature. The feature allows players to manage their ships during the game. The Ship Manager feature consists of the commands `put`, `list` and `listTags`. Together, these three commands provide an intuitive way for players to interact with their own ships. The following sections illustrate the feature in more detail, as well as the relevant sections I have added to the user and developer guides in relation to this feature.
+
+_You can find out more about the Battleship application https://cs2103-ay1819s2-w14-3.github.io/main/[here]_.
 
 == Summary of contributions
 
 * *Major enhancement*: I added the Ship Management feature of the game.
-** What it does: The Ship Management feature consists of three commands, `put`, `list`, and `listTags`.
-*** The `put` command allows the user to place a ship on the map grid. The user is also given the option of tagging the ships. The ship can be a `cruiser` of length 2, a `cruiser` of length 3, or an `aircraft carrier` of length 5.
+** What it does: The Ship Management feature consists of three commands (`put`, `list` and `listTags`) and the classes representing the battleship, coordinates, orientation and player fleet.
+*** The `put` command allows the user to place a ship on the map grid. The user is also given the option of tagging the ships. The ship can be a `cruiser` of length 2, a `destroyer` of length 3, or an `aircraft carrier` of length 5.
 *** The `list` command allows the user to list down the ships that have been placed on the map grid. The user can filter the list by the `name` of the ship or by specific `tags`.
 *** The `listTags` command allows the user to list down all the tags that have been used on ships.
-** Justification: The Ship Manager feature is crucial to the game as it works together with the map grid to allow both the human player and the computer player to interact in a turn-taking game. Behind the scenes, the  feature also implements the `Coordinates` and `Orientation` classes for the other features to work. Furthermore, the feature implements boundary value checking that is used by the Battle Manager and Computerised Enemy feature.
+** Justification: The Ship Manager feature is crucial to the game as it works together with the map grid to allow both the human player and the computer player to interact in a turn-taking game. Behind the scenes, the  feature also implements the `Coordinates`, `Orientation` and `Fleet` classes for other features to work. Furthermore, the feature implements boundary value checking that is used by the Battle Manager and Computerised Enemy feature.
+** Highlights: The other features rely on the functionality provided by the Ship Management feature. It also makes ship management highly intuitive for the player.
 
 // ** Highlights:
-// *** Implements coordinates and orientation: Behind the scenes, the feature // implements the `Coordinates` and `Orientation` classes that are used by // the Battle Manager feature and the Computer Enemy feature.
+// *** Implements coordinates and orientation: Behind the scenes, the feature // implements the `Coordinates`, `Orientation` and `Fleet` classes that are used by // the Battle Manager feature and the Computer Enemy feature.
 // *** Implements boundary-value checking of the map grid: The feature // implements code for checking the boundaries of the map grid for a given ship, // which is used by the Battle Manager feature and the Computer Enemy feature // to implement turn-taking in the game.
 
-* *Code contributed*: Here are my https://github.com/CS2103-AY1819S2-W14-3/main/commits/master?author=iwle[code commits] and https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#search=iwle[RepoSense].
+* *Code contributed*: Here are my https://github.com/CS2103-AY1819S2-W14-3/main/commits/master?author=iwle[code commits] and my https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#search=iwle[RepoSense statistics].
 
 * *Other contributions*:
 
@@ -38,17 +42,31 @@ My role in the team was to design and implement the Ship Management feature. The
 ** Community:
 *** Contributed actively in issue tracking: https://github.com/CS2103-AY1819S2-W14-3/main/issues/created_by/iwle[issues] created by me.
 *** Contributed actively in forum discussions: https://github.com/nus-cs2103-AY1819S2/forum/issues/created_by/iwle[discussions] raised by me.
-*** Reported bugs and suggestions for other teams in the class: https://bit.ly/2v4qari[bugs] found by me.
+*** Reported bugs and suggestions for other teams: https://bit.ly/2v4qari[bugs] found by me.
 ** Tools: Integrated Travis CI Bot and Coveralls Checker with team repository.
 
 == Contributions to the User Guide
 
 
 |===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users. I have ommited the entries for `ListTags` and `List`. You may refer to the User Guide for more information_.
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
+
+=== Introduction
+
 include::../UserGuide.adoc[tag=intro]
-include::../UserGuide.adoc[tag=ship]
+
+=== Features
+
+include::../UserGuide.adoc[tag=ship1]
+
+.The coordinates of the `put` command refer to the coordinates of the ship head.
+image::BattleshipHeadExample2.png[width=400, align="left"]
+
+include::../UserGuide.adoc[tag=ship2]
+
+//include::../UserGuide.adoc[tag=list]
+//include::../UserGuide.adoc[tag=listTags]
 
 == Contributions to the Developer Guide
 
@@ -56,7 +74,47 @@ include::../UserGuide.adoc[tag=ship]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=model]
-include::../DeveloperGuide.adoc[tag=ship]
+.Model diagram that I co-authored with team member Erjill Sison.
+image::ModelClassDiagram.png[width="400", align="left"]
 
----
+include::../DeveloperGuide.adoc[tag=putShip1]
+// ====
+// *__What are the head coordinates?__*
+//
+// The head coordinates are the coordinates of the top-most and left-most cell of a ship. // // When coordinates are specified in the `put` command, they refer to the head coordinates of the ship.
+//
+//image:BattleshipHeadExample.png[width=400, align="left"]
+//====
+
+include::../DeveloperGuide.adoc[tag=putShip2]
+
+.Use case diagram for Ship Management
+image::ShipManagementUseCaseDiagram.png[width=400, align="left"]
+
+include::../DeveloperGuide.adoc[tag=putShip3]
+
+.Sequence diagram of putting a ship on the map.
+image::PutShipSequenceDiagram.png[align="left"]
+
+include::../DeveloperGuide.adoc[tag=listTags]
+include::../DeveloperGuide.adoc[tag=listShips]
+
+.Sequence diagram of listing ships deployed on the map.
+image::ListShipSequenceDiagram.png[ align="left"]
+
+include::../DeveloperGuide.adoc[tag=ship_activity]
+.Activity diagram of ship management throughout the game.
+image::ShipManagementActivityDiagram.png[width=600, align="left"]
+
+include::../DeveloperGuide.adoc[tag=ship_aspect_1]
+// include::../DeveloperGuide.adoc[tag=ship_aspect_2]
+
+== Instructions for Manual Testing
+include::../DeveloperGuide.adoc[tag=shiptest]
+
+== Use Cases
+include::../DeveloperGuide.adoc[tag=mssListTags]
+include::../DeveloperGuide.adoc[tag=mssListShip]
+
+
+

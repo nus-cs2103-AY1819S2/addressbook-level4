@@ -30,7 +30,7 @@ Responsibilities: Map management feature
 
 === Esther Chong
 image::s-tr.png[width="150", align="left"]
-{empty}[http://github.com/s-tr[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/s-tr[github]] [<<s-tr#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Battle management feature
@@ -39,7 +39,7 @@ Responsibilities: Battle management feature
 
 === Ian Wu
 image::iwle.png[width="150", align="left"]
-{empty}[http://github.com/iwle[github]] [<<ianwu#, portfolio>>]
+{empty}[http://github.com/iwle[github]] [<<iwle#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Ship management feature
@@ -48,7 +48,7 @@ Responsibilities: Ship management feature
 
 === Lucy Chan
 image::lucydotc.png[width="150", align="left"]
-{empty}[http://github.com/lucydotc[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/lucydotc[github]] [<<lucydotc#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Computer Enemy management feature

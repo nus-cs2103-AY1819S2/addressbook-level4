@@ -367,14 +367,23 @@ image::UndoRedoActivityDiagram.png[width="650"]
 
 // end::undoredo[]
 
+//tag::memberlistfeature
 === Member List Feature
 The Member's List is a core feature that underpins Club Manager's role as a CCA management system.
 To ensure versatility and enhance the usefulness of this list, a number of commands have been introduced to facilitate the management of members. These commands include: `MemberAdd`, `MemberDelete`, `MemberEdit`, `MemberFilter`, `MemberFind`, `MemberList`, `MemberSelect`, and `MemberSort`.
 
 ==== Current Implementation
-// tag:: memberadd[]
+===== Model Component
+
+image::person-attributes.png[width=100%]
+
+// end::memberlistfeature
+
+// tag::memberadd[]
 ===== `memberAdd` Command
 This command takes in a number of parameters that are contact and student information pertaining to the member. The `MemberAddCommandParser` can parse requires that all field are present, in the required format, with the exception of tags which are optional.
+
+image::memberadd_validation.png[width=100%]
 
 Below is a step-by-step process on how the memberAdd command works on execution:
 
@@ -446,6 +455,10 @@ To check if the user input matches the correct criteria, there are various ways.
 
 ** Pros: More time efficient as only one check is required.
 ** Cons: Less logical and could prove to be confusing to the developer.
+
+====== Future Implementation
+* For future implementation, the `memberFilter` command could allow more than one filter, which will further allow the user to target a specific subset of members.
+
 // end::memberfilter[]
 
 // tag::memberlist[]
@@ -465,8 +478,10 @@ The memberSelect command selects a member (based on index) on the UniquePersonLi
 Below is a step-by-step process on how the `memberSelect` command works on execution:
 
 * Step 1: The user executes the `memberSelect` command by specifying the index of the member that the user would like to select.
-* Step 2: The `memberSelect` command
-* Step 3:
+* Step 2: The `memberSelect` command will call `model#getFilteredPersonList to retrieve the member's list.
+* Step 3: Next, the `memberSelect` command will call `model#setSelectedPerson` from which the given index will be used to pin point the specific
+member in the filteredPersonList.
+* Step 4: Finally, the `memberSelect` command will show a command success message to indicate the member at the specified index has been successfully selected.
 //end::memberselect[]
 
 // tag::membersort[]

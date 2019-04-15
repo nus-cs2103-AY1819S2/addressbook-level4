@@ -18,7 +18,7 @@ public class ReviewTitle {
      * otherwise " " (a blank string) becomes a valid input.
      */
     public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum}\\*\\,\\.\\?\\'\\&\\(\\) ]*";
-    public static final int MAX_LENGTH = 70;
+    public static final int MAX_LENGTH = 50;
 
     public final String fullName;
 

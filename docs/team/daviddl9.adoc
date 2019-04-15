@@ -217,11 +217,10 @@ of of this by only keeping track of the start time of requests. Hence we can uti
 
     healthWorkerAppointments.add(date);
 ```
+Here is a pictorial representation of the algorithm:
 
 image::assignRegionCheck.png[]
-Figure 3.3.1.5 Shows visualisation of time ranges that are valid.
-
-The above mentioned code snippet checks that there are not clashing requests that fall within the red region, as depicted in Figure 3.3.1.5.
+Figure 3.3.1.5 Shows the visualisation of time ranges that are valid.
 
 * Alternative 2: For each request to be assigned, manually iterate through the Request list to ensure that there are not clashing dates.
 Pros: Easy to implement

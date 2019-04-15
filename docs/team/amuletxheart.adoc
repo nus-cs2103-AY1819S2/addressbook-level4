@@ -21,36 +21,36 @@ It is written in Java, and has about 10 kLoC.
 ** Justification: This is a core feature to allow appointments to be managed in an organized manner.
 ** Highlights: Appointments can be prone to many issues as it deals with date and time. Therefore, extreme care must be
 taken when handling user input to prevent any issues with invalid date and time combinations. Also there are numerous
-constraints, such as new appointments can only be created during business hours, in the future and patients can only
+constraints, such as new appointments can only be created during business hours, be in the future and patients can only
 complete their appointments after they are over.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
 
-* *Minor enhancement*: enhanced the user interface to include 4 sections, a section to display patients, a section to
+* *Minor enhancement*:
+** UI: Enhanced the user interface to include 4 sections, a section to display patients, a section to
 display doctors, a section to display medical history, a section to display appointments. Also added the ability to
-switch an entire panel to display the current relevant content. Helped to resolve several technical issues with
-implementing a unique ID for both patients and doctors.
+switch an entire panel to display the current relevant content.
+** Model: Utilized the singleton design pattern is synchronize the generation of unique patient and doctor IDs across
+the entire application to ensure there are no duplicate IDs.
 
 * *Code contributed*: https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#=undefined&search=amuletxheart
 
 * *Other contributions*:
 
 ** Project management:
-*** Managed releases `v1.2` - `v1.4` (3 releases) on GitHub
-** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
-** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
-** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
-** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
+*** Managed releases `v1.1` - `v1.4` (4 releases) on https://github.com/cs2103-ay1819s2-w13-1/main/releases[Github]
+*** Managed disputes regarding features and missed internal deadlines between teammates.
 
-_{you can add/remove categories in the list above}_
+** Documentation:
+*** Updated the AboutUs and ContactUs page with correct photos and links (https://github.com/cs2103-ay1819s2-w13-1/main/pull/6[#6])
+*** Wrote the user stories and use case sections of the DeveloperGuide (https://github.com/cs2103-ay1819s2-w13-1/main/pull/49[#49])
+** Community:
+*** PRs reviewed and gave suggestions to improve workflow and boost productivity
+(examples: https://github.com/cs2103-ay1819s2-w13-1/main/pull/112#issuecomment-478952215[1],
+https://github.com/cs2103-ay1819s2-w13-1/main/pull/212#pullrequestreview-226341679[2])
+*** Assigned user stories and tasks to team members (https://github.com/cs2103-ay1819s2-w13-1/main/issues?utf8=%E2%9C%93&q=is%3Aissue+author%3Aamuletxheart[list])
+*** Reported bugs and suggestions for other teams in the class (https://github.com/nus-cs2103-AY1819S2/pe-dry-run/issues/created_by/amuletxheart[list])
+*** Parts of the appointment management features I added were utilized by several teammates
+(examples: https://github.com/cs2103-ay1819s2-w13-1/main/blob/master/src/main/java/seedu/address/logic/commands/patient/SearchPatientApptStatusCommand.java[1],
+https://github.com/cs2103-ay1819s2-w13-1/main/blob/master/src/main/java/seedu/address/logic/commands/doctor/DoctorMatchCommand.java[2])
 
 == Contributions to the User Guide
 
@@ -59,9 +59,8 @@ _{you can add/remove categories in the list above}_
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=undoredo]
-
-include::../UserGuide.adoc[tag=dataencryption]
+include::../UserGuide.adoc[tag=appointment]
+include::../UserGuide.adoc[tag=appointmentsummary]
 
 == Contributions to the Developer Guide
 
@@ -69,13 +68,8 @@ include::../UserGuide.adoc[tag=dataencryption]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=undoredo]
+include::../DeveloperGuide.adoc[tag=componentinteraction]
+include::../DeveloperGuide.adoc[tag=logiccomponent]
+include::../DeveloperGuide.adoc[tag=appointment]
+include::../DeveloperGuide.adoc[tag=appointmentmanualtesting]
 
-include::../DeveloperGuide.adoc[tag=dataencryption]
-
-
-== PROJECT: PowerPointLabs
-
----
-
-_{Optionally, you may include other projects in your portfolio.}_

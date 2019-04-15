@@ -144,6 +144,7 @@ For example, the `Logic` component (see the class diagram given below) defines i
 image::LogicClassDiagram.png[width="800"]
 
 [discrete]
+// tag::componentinteraction[]
 ==== How the architecture components interact with each other
 
 The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user
@@ -153,6 +154,8 @@ issues the command `add-appt pid/1 did/7 d/2019-06-01 t/09:00`.
 image::LogicComponentSequenceDiagram-AddAppointment.png[width="800"]
 
 The sections below give more details of each component.
+
+// end::componentinteraction[]
 
 [[Design-Ui]]
 === UI component
@@ -172,6 +175,7 @@ The `UI` component,
 * Listens for changes to `Model` data so that the UI can be updated with the modified data.
 
 [[Design-Logic]]
+// tag::logiccomponent[]
 === Logic component
 
 [[fig-LogicClassDiagram]]
@@ -194,6 +198,8 @@ UI or Model is omitted or simplified for clarity.
 
 .Interactions Inside the Logic Component for the `add-appt ...` Command
 image::AddAppointmentSequenceDiagramForLogic.png[width="800"]
+
+// end::logiccomponent[]
 
 [[Design-Model]]
 === Model component
@@ -561,7 +567,6 @@ Here, `SortMedHistCommandParser` checks the argument string is either "" or "ASC
 . The `LogicManager` then calls the execution of `SortMedHistCommand`, which interacts with Model component. In Model component, the internal list of medical histories in `UniqueMedHistList` is sorted.
 Through a `ListChangeListener`, Ui component is updated the changes of medical history list order. Then the sorted list of medical histories will be displayed in user interface.
 
-
 === Add Appointment Feature
 Appointments are created to facilitate future appointments between patients and doctors.
 A patient can have none or multiple appointments, a doctor can have none or multiple appointments.
@@ -608,6 +613,8 @@ The appointment object is then sent to the Model layer.
 . The Logic layer will be notified that the model has been modified through an `InvalidationListener` and then it stores the new appointment to disk using the Storage layer.
 The Storage layer will convert the appointment Java object into the JSON file format using the format specified in `JsonAdaptedAppointment`.
 The next time the application is opened, the Storage layer will use `JsonAdaptedAppointment` again to convert appointments in the JSON file back into appointment objects.
+
+// end::appointment[]
 
 === Prescriptions
 Prescriptions are used to keep track of what kind of medicine a doctor suggest a particular patient to take. they
@@ -1732,9 +1739,21 @@ These instructions only provide a starting point for testers to work on; testers
    Expected: New patient/doctor is added to the end of the list with a unique ID generated for the contact. Details of the added contact shown in the status message. Timestamp in the status bar is updated.
 .. Test case:
 
+// tag::appointmentmanualtesting[]
 === Appointment
+. Adding a new appointment
 
-. Marking an appointment as "CANCELLED"
+.. Prerequisites: There are existing patients and doctors in the system.
+.. Test case: `add-appt pid/1 did/7 d/2019-06-01 t/09:00` +
+   Expected: A new appointment with the given patient, doctor, date and time is added.
+.. Test case: `add-appt` +
+   Expected: No appointment is added. All fields must be filled and not left empty. The correct command format is shown.
+.. Other incorrect add-appt commands to try: `add-appt pid/1 did/7`, `add-appt d/2019-06-01 t/09:00`. +
+   Expected: Similar to previous.
+.. Test case: `add-appt add-appt pid/1 did/7 d/2019-02-29 t/30:00` +
+  Expected: No appointment is added. The date and time should be in the valid format and be a valid date on the calendar.
+
+. Marking an appointment as "CANCELLED" (or back to ACTIVE)
 
 .. Prerequisites: List all appointments using the `list-appt` command. All appointments are in the list.
 .. Test case: `mark-appt 1 s/CANCELLED` +
@@ -1743,3 +1762,21 @@ These instructions only provide a starting point for testers to work on; testers
    Expected: No appointment is changed. A list of valid appointment status that can be input is shown.
 .. Other incorrect mark-appt commands to try: `mark-appt`, `mark-appt 1 s/123`. +
    Expected: Similar to previous.
+
+. Listing appointments
+
+.. Prerequisites: There are existing appointments in the system.
+.. Test case: `list-appt` +
+   Expected: All appointments in the system are shown.
+.. Test case: `list-appt pid/1` +
+   Expected: Appointments made by patient ID 1 are shown.
+.. Test case: `list-appt did/7` +
+   Expected: Appointments made by doctor ID 7 are shown.
+.. Test case: `list-appt c/PAST` +
+   Expected: Only appointments in the past are shown.
+.. Test case: `list-appt d/2019-06-99` +
+   Expected: No appointments are shown. A message prompting the user to enter the correct command format is shown.
+.. Other incorrect list-appt commands to try: `list-appt t/99:00`, `list-appt s/ASDF`, `list-appt c/TOMORROW`. +
+   Expected: Similar to previous.
+
+// end::appointmentmanualtesting[]

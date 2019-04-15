@@ -469,6 +469,8 @@ Examples:
 * `select-med-hist 1` +
 Returns details of the medical history with index 1 in medical history list.
 
+// tag::appointment[]
+
 === Adding an appointment: `add-appt`
 Adds an appointment between a patient and a doctor +
 Format: `add-appt pid/PATIENT_ID did/DOCTOR_ID d/DATE_OF_APPT t/START_TIME`
@@ -546,6 +548,7 @@ The appointment with INDEX 1 is cancelled.
 * `mark-appt 3 s/MISSED` +
 The appointment with INDEX 3 was missed. Note that this can only be done to elapsed appointments.
 
+// end::appointment[]
 
 === Adding a prescription: `add-presc`
 
@@ -751,6 +754,7 @@ e.g. `search-med-hist fever`
 * *Select a medical history* : `select-med-hist INDEX ` +
 e.g. `select-med-hist 1`
 
+// tag::appointmentsummary[]
 APPOINTMENT COMMANDS
 
 * *Add a new appointment* `add-appt pid/PATIENT_ID did/DOCTOR_ID d/DATE_OF_APPT t/START_TIME` +
@@ -760,7 +764,7 @@ e.g. `add-appt pid/1 did/1 d/2019-06-01 t/09:00`
 e.g. `list-appt`
 * *Changing an appointment status* : `mark-appt INDEX s/NEW_STATUS`
 e.g. `mark-appt 1 s/CANCELLED`
-
+// end::appointmentsummary[]
 
 PRESCRIPTION COMMANDS
 

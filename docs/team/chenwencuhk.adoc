@@ -37,7 +37,7 @@
 *** Resolve command concatenation problem.(Pull requests https://github.com/CS2103-AY1819S2-W16-2/main/pull/130[#130])
 *** Wrote tests for new and existing features to increase coverage greatly (Pull requests https://github.com/CS2103-AY1819S2-W16-2/main/pull/122[#122], https://github.com/CS2103-AY1819S2-W16-2/main/pull/133[#133], https://github.com/CS2103-AY1819S2-W16-2/main/pull/142[#142], https://github.com/CS2103-AY1819S2-W16-2/main/pull/143[#143])
 ** Community:
-*** Reported bugs and suggestions for other teams in the class. (https://github.com/CS2103-AY1819S2-W09-4/main/issues/148[#148], https://github.com/CS2103-AY1819S2-W09-4/main/issues/155[#155], https://github.com/CS2103-AY1819S2-W09-4/main/issues/158[#158])
+*** Reported bugs and suggestions for other teams in the class. (Pull requests https://github.com/CS2103-AY1819S2-W09-4/main/issues/148[#148], https://github.com/CS2103-AY1819S2-W09-4/main/issues/155[#155], https://github.com/CS2103-AY1819S2-W09-4/main/issues/158[#158])
 
 == Contributions to the User Guide
 

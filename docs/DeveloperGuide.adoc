@@ -1340,6 +1340,52 @@ These instructions only provide a starting point for testers to work on; testers
 
 // end::shiptest[]
 
+// tag::battletest[]
+
+=== Battling
+
+. To test `begin`, we will test that it is only able to be executed at certain times.
+  Please follow the following steps in order.
+
+.. Start the application, then execute `begin`. +
+   Expected result: The battle does not begin, and an error message is displayed in the result box.
+.. Execute `init 6`, then execute `begin`. +
+   Expected result: The battle does not begin, and an error message is displayed in the result box.
+.. Place one or more ships using `put`, then execute `begin`. +
+   Expected result: the battle successfully begins and a message stating as such is displayed.
+.. Execute `begin` again.
+   Expected result: an error message is displayed in the result box.
+
+=== Attacking
+
+. To test `attack`, we will need to play through the game.
+  Please follow the following steps in order.
+
+.. Start the application, then execute `attack`. +
+   Expected result: no attack is executed, and an error message is displayed.
+.. Execute `init 6`, and place your ships on the board.
+.. Execute `begin`.
+.. Make an attack on a square that is out of bounds, e.g. `attack a9`. +
+   Expected result: no attack is executed, and
+   a prompt to select another cell is displayed.
+.. Make an attack on a valid square that **misses**. +
+   Expected result: the attacked square on the enemy map turns dark blue, and
+   a "miss" message is displayed. The enemy also makes one or more moves.
+.. Make an attack on a square you have already attacked.
+   Expected result: no attack is executed, and
+   a prompt to select another cell is displayed.
+.. Make an attack on a valid square that **hits**.  +
+   Expected result: the attacked square on the enemy map turns orange, and
+   a "hit" message is displayed.
+.. Make an attack that **destroys a ship**. +
+   Expected result: the destroyed ship on the enemy map turns red, and
+   a "destroy" message is displayed.
+.. Destroy all the enemy's ships. +
+   Expected result: a "win" message is displayed.
+.. Have all your ships be destroyed by the enemy. +
+   Expected result: a "lose" message is displayed.
+
+// end::battletest[]
 
 // tag::statstest[]
 === Viewing the statistics

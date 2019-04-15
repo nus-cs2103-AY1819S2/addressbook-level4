@@ -31,22 +31,9 @@ Recruit Me is a Java Desktop GUI application that is specifically designed for a
 *** https://github.com/CS2103-AY1819S2-W16-4/main/pull/139[#139] , https://github.com/CS2103-AY1819S2-W16-4/main/pull/119[#119] , https://github.com/CS2103-AY1819S2-W16-4/main/pull/121[#121] , https://github.com/CS2103-AY1819S2-W16-4/main/pull/119[#119] , https://github.com/CS2103-AY1819S2-W16-4/main/pull/115[#115] , https://github.com/CS2103-AY1819S2-W16-4/main/pull/101[#101] , https://github.com/CS2103-AY1819S2-W16-4/main/pull/100[#100] , https://github.com/CS2103-AY1819S2-W16-4/main/pull/70[#70] ,
 https://github.com/CS2103-AY1819S2-W16-4/main/pull/59[#59] , https://github.com/CS2103-AY1819S2-W16-4/main/pull/54[#54] , https://github.com/CS2103-AY1819S2-W16-4/main/pull/37[#37] , https://github.com/CS2103-AY1819S2-W16-4/main/pull/30[#30] , https://github.com/CS2103-AY1819S2-W16-4/main/pull/27[#27] , https://github.com/CS2103-AY1819S2-W16-4/main/pull/26[#26] , https://github.com/CS2103-AY1819S2-W16-4/main/pull/19[#19] , https://github.com/CS2103-AY1819S2-W16-4/main/pull/2[#2]
 
-* *Major enhancement*: added *CV representation* for selected persons
-** *What it does:*
-*** Shows the matching CV for selected person, if there is an available CV in the storage for that person.
-*** If no CV is present for the selected person, it shows the placeholder page with the message: No CV is available.
-** *Justification:*
-*** This feature gives the user a better chance to see more important information about the candidate easily.
-*** It is a nice-to-have feature.
-** *Highlights:*
-*** This feature affects the GUI related parts of the code and also the test codes related to them. Thus, after this enhancement, all the related parts are observed for any possible errors and also unit and integration tests are corrected.
-** *Related Pull Request for This Feature:*
-*** https://github.com/CS2103-AY1819S2-W16-4/main/pull/121[#121]
-** *Note:* This feature has only a basic implementation. In the UserGuide, you can see what is included and what is planned to be done for v2.0.
-
-
 * *Minor enhancement*:
-** Managed releases `v1.3`, `v1.3.1` and `v1.4`
+** added CV representation for selected persons. Shows the matching CV for selected person, if there is an available CV in the storage for that person
+*** https://github.com/CS2103-AY1819S2-W16-4/main/pull/121[#121]
 ** Some minor changes are made for the methods in `AddressBook, ModelManager and VersionedAddressBook` classes that `AddCommand, DeleteCommand and EditCommand` uses for the compatibility with filtering process.
 ** Fixed almost all failing `system tests / GUI related tests / Edit Command tests` in every update process of the process:
 *** https://github.com/CS2103-AY1819S2-W16-4/main/pull/140[#140] , https://github.com/CS2103-AY1819S2-W16-4/main/pull/133[#133] , https://github.com/CS2103-AY1819S2-W16-4/main/pull/113[#113], https://github.com/CS2103-AY1819S2-W16-4/main/pull/73[#73]
@@ -68,24 +55,15 @@ https://github.com/CS2103-AY1819S2-W16-4/main/pull/59[#59] , https://github.com/
 * The changes can be seen in:
 ** `UserGuide -> Features -> Filtering Recruit Me: filter` :
 include::../UserGuide.adoc[tag=filter]
-** `UserGuide -> Features -> Filtering Recruit Me: filter clear` :
-include::../UserGuide.adoc[tag=filterclear]
-** `UserGuide -> Features -> Filtering Recruit Me: filter reverse` :
-include::../UserGuide.adoc[tag=filterreverse]
 ** `UserGuide -> Features -> Showing and Updating the CV for a Person` :
 include::../UserGuide.adoc[tag=cvview]
-** `UserGuide -> Features -> Adding Multiple Persons [coming in v2.0]` :
-include::../UserGuide.adoc[tag=addmultiplepersons]
 
 == Contributions to the Developer Guide:
 
-* A new section for filtering is added to the developer guide: `DeveloperGuide -> Implementation -> Filter or/and/clear/reverse feature` :
+* A new section for filtering is added to the developer guide,iImplementation of the whole process including testing is explained in detail: +
+`DeveloperGuide -> Implementation -> Filter or/and/clear/reverse feature` :
 include::../DeveloperGuide.adoc[tag=filter]
-** 2 diagrams about filtering implementation is added,
-** Definition of basic types and keywords for the `filter command` are made,
-** Implementation of the whole process is explained in detail,
-** Alternative approaches and their disadvantages are discussed,
-** Explanation of the important aspects of unit and integration testing processes are included.
-* Some of the use cases and user stories are updated.
+
+
 
 

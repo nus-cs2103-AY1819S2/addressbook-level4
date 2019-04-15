@@ -13,7 +13,7 @@ public class Messages {
     public static final String MESSAGE_NO_REVIEWS = "There are no reviews for this restaurant.";
     public static final String MESSAGE_RESTAURANTS_LISTED_OVERVIEW = "%1$d restaurants listed!";
     public static final String MESSAGE_NO_RESTAURANT_SELECTED = "No restaurant selected";
-    public static final String MESSAGE_CHANGE_WEBLINK = "%1$s is not found. Please change weblink of selected "
+    public static final String MESSAGE_CHANGE_WEBLINK = "%1$s is not found. Please add or update weblink of selected "
             + "restaurant using edit command.";
     public static final String MESSAGE_ADD_NO_INTERNET = "There is no internet connection hence FoodDiary is "
             + "unable to verify your weblink. Restaurant has been added without the input weblink.\n";

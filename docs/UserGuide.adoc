@@ -16,14 +16,13 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/cs2103-ay1819s2-w17-1/main
 
-image::userguide.png[width="600"]
-
 By: `W17-1`      Since: `Feb 2019`      Licence: `MIT`
 
 // tag::introductionUG[]
 == Welcome to The Food Diary
 
-If you would like to get use the Food Diary straightaway, jump to the <<Quick Start>> to get started.
+image::userguide.png[float=right, width="450"]
+If you would like to get use the Food Diary straightaway, jump to the <<Quick Start>> to get started
 
 **What is the Food Diary? **
 
@@ -116,11 +115,9 @@ When you are adding in the Weblink, the Food Diary will check whether the Weblin
 the Food Diary will proceed to add the restaurant without the Weblink.
 ====
 
-If you are adding a restaurant when there is no internet connection, the Food Diary will add your restaurant without the Weblink.
-
 image:NoInternetAdd.PNG[width=640]
 
-_Image 1.1 Result of adding a Restaurant with Weblink when there is no internet connection_
+_Image 1.1 When there is no internet connection, adding a restaurant with weblink will display this result_
 
 ==== Editing details of a restaurant  : `edit`
 
@@ -145,7 +142,7 @@ the Food Diary will not edit the Weblink for you.
 
 When you are changing a restaurant's Weblink to an invalid Weblink, you will receive the following error message.
 
-When you are editing a restaurant's Weblink with no internet connection, the FoodDiary will edit your restaurant without the Weblink.
+When you are editing a restaurant's Weblink with no internet connection, the FoodDiary will edit your restaurant but not the Weblink.
 
 // end::addedit[]
 
@@ -456,7 +453,6 @@ Examples:
 
 * `addReview 2 re/Peach Pie was amazing rr/4`
 
-
 ==== Editing a specified review : `editReview`
 
 Edit selected fields in a specified entry. +
@@ -473,26 +469,16 @@ Steps to execute `editReview` command:
 
 * From the main screen of the application, first select a restaurant by clicking on it with the mouse or using the `select INDEX` command.
 
-image::UG_editReview_start.png[width="480"]
-_Figure 3. The above screenshot shows the case when no restaurant is selected_
-
 image::UG_editReview_selected_restaurant.png[width="480"]
-_Figure 4. Upon selecting a restaurant, the reviews of the restaurant will show on the review panel, and the rightmost browser panel will show the webpage of the restaurant (if available)_
+_Figure 1. Upon selecting a restaurant, the reviews of the restaurant will show on the review panel, and the rightmost browser panel will show the webpage of the restaurant (if available)_
 
-* Following the above, enter the command:
-
-image::UG_editReview_selected_restaurant_entered_command.png[width="480"]
-_Figure 5. Enter the command in the command box as shown near the top of the application_
-
-* Upon successful execution of the command:
+* Following the above, enter the command. Upon successful execution of the command:
 
 image::UG_editReview_command_executed.png[width="480"]
-_Figure 6. The above screenshot shows the end-product of the successful execution of `editReview` command_
+_Figure 2. The above screenshot shows the end-product of the successful execution of `editReview` command_
 
 Examples:
 
-* `editReview 1 rr/3` +
-Edits the rating of the 1st review to be `3`.
 * `editReview 2 re/Food isn't the best` +
 Edits the comment of the second review to `Food isn't the best`
 * `editReview 2 re/Food isn't the best rr/4` +
@@ -517,12 +503,10 @@ Deletes the 2nd review of the selected restaurant in the Food Diary.
 
 In a real hurry? Fear not because The Food Diary has built in default reviews! You can use this command to quickly add a review with minimal typing. The command and syntax to add default reviews is much shorter and simpler than the normal `addReview` command.
 
-These default reviews are representative of the rating scale from 1 - 5. There is a default review entry associated with each default review rating. They are as follows:
+These default reviews are representative of the rating scale from 1 - 5. There is a default review entry associated with each default review rating. They range from:
 
-* Default review of rating 1: "Very poor, never ever go again."
-* Default review of rating 2: "Below average, try not to go again."
-* Default review of rating 3: "Average, normal."
-* Default review of rating 4: "Good, would go again."
+* Default review of rating 1: "Very poor, never ever go again." to
+
 * Default review of rating 5: "Excellent, must go again."
 
 Format: `addR INDEX NUMBER`

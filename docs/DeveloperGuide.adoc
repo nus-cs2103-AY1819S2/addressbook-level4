@@ -15,12 +15,11 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/cs2103-ay1819s2-w17-1/main
 
-image::developerguide.png[width="600"]
-
 By: `W17-1`      Since: `Feb 2019`      Licence: `MIT`
 
 == Welcome to the Food Diary
 
+image::developerguide.png[float=right, width="450"]
 Welcome to the *Food Diary*! The *Food Diary* is a desktop app for storing your personal food reviews and obtain food recommendations based on your past reviews.
 
 This developer guide contains information on the mechanics of all of the features of the *Food Diary* and is thus suited for developers of all levels to learn the inner workings of our application and how to effectively build on them.
@@ -31,7 +30,7 @@ If you would like to improve on the *Food Diary*, here's a good place to start!
 
 Callouts are boxes with important information regarding the usage of the Food Diary. These 3 callouts are used throughout our User Guide.
 [NOTE]
-This is a *note*. A warning indicates important additional information that should be read.
+This is a *note*. A note indicates important additional information that should be read.
 
 [TIP]
 This is a *tip*. A tip indicates good to know information that would improve your user experience
@@ -669,31 +668,19 @@ Command format: `addReview INDEX re/(ENTRY) rr/(RATING)`
 
 The functionality of the addReview command can be better understood with the following activity diagram:
 
-image::AddReviewActivityDiagram.png[width="1000"]
-
-The `Restaurant` class contains a list of reviews. Adding a review to a restaurant would entail adding a review to this list to the specified restaurant.
-
-Implementing this feature involved the following major components:
-
-. `FoodDiaryParser` was modified to accept the command to add a review.
-. `AddReviewCommandParser` class to parse the command into the separate fields. The new Review is constructed here, and AddReviewCommand is constructed here with the new Review and Index.
-. `AddReviewCommand` class, which extends `Command` and takes in the index of the restaurant and the Review to be added. This component handles the execution logic and interactions with the model. The execution steps are detailed below.
+image::AddReviewActivityDiagram.png[width="500"]
 
 The execution of this command involves:
 
 Step 1. Retrieving the last shown list from the `Model` and retrieving the restaurant indicated by the index from the last shown list.
 
-Step 2. Creating a new list of reviews that copies everything from the original restaurant's list of reviews.
+Step 2. Creating a new list of reviews that copies everything from the original restaurant's list of reviews and inserting the new review into the list and creating a new restaurant object with the new list.
 
-Step 3. Inserting the new review into the list.
-
-Step 4. Creating a new restaurant object with the new list.
-
-Step 5. Replacing the original restaurant with the new restaurant object in the model.
+Step 3. Replacing the original restaurant with the new restaurant object in the model.
 
 Refer to the sequence diagram below for an illustration of how this command is executed.
 
-image::AddReviewSequenceDiagram.png[width="1000"]
+image::AddReviewSequenceDiagram.png[width="750"]
 
 ===== Design considerations
 Plausible alternative implementations to the functionality are discussed in this section to illustrate the thought process and rationale behind our design decisions. You may wish to consider these ideas when further developing this application.
@@ -702,12 +689,6 @@ Plausible alternative implementations to the functionality are discussed in this
 |=====================
 | Pros | Less expensive operation to simply modify the same objects list of reviews
 | Cons | Requires modification of the `Restaurant` class to include a setter method for reviews and increases the risk of unauthorised modification of restaurant data.
-|=====================
-
-* Alternative 2: Have users select the restaurant they wish to review rather than indicate it as an index
-|=====================
-| Pros | Reduce complexity of the `AddReview` command by 1 argument
-| Cons | Users will have to either input a command or use their mouse to click to select the restaurant, which are unnecessary steps.
 |=====================
 
 ==== AddDefault Reviews
@@ -722,35 +703,16 @@ Command format: `addR INDEX NUMBER`
 
 The Food Diary currently supports 5 default reviews, each corresponding to a rating from 1-5 inclusive. Do have a look at the User Guide for these 5 entries!
 
-The following activity diagram will give a clearer picture of the implementation of this command:
-
-image::AddDefaultReviewActivityDiagram.png[width="1000"]
-
-Implementing this feature involved the following components:
-
-. `FoodDiaryParser` modified to accept the addR command (to add default review)
-. `AddDefaultReviewCommandParser` class to read the INDEX and NUMBER
-. `AddDefaultReviewCommand` class to execute the logic of the command.
-. Most Importantly, `AddDefaultReviewUtil` class, which stores the default values for the default reviews to be added.
-
 The review `Entry`, which is composed of a String value, will be taken from the `AddDefaultReviewUtil` class. The review `Rating` used is the indicated `NUMBER` in the command. A new `Review` object is created from these two attributes and added.
 
 ===== Design Considerations
 
-These alternatives were considered as well:
+This alternative was considered as well:
 
 * Alternative 1: Adding a review directly from the new `AddDefaultReviewCommand` instead of creating an `AddReviewCommand`
 
 |=====================
-| Pros | Reduces coupling between the two command classes.
-| Cons | Violates the DRY (Don't Repeat Yourself) Principle, as the code to add a review will be repeated.
-|=====================
-
-* Alternative 2: Storing default review objects instead of only the review entry strings
-
-|=====================
-| Pros | Easier and more efficient retrieval of default reviews.
-| Cons | The timestamps of the default reviews will be constant, and will not indicate accurately the time of the creation of the new default review.
+| However, this violates the DRY (Don't Repeat Yourself) Principle, as the code to add a review will be repeated.
 |=====================
 
 ==== Edit Reviews
@@ -761,18 +723,11 @@ Command format: `editReview INDEX [re/ENTRY] [rr/RATING]`, where `INDEX` refers 
 
 ===== Current Implementation
 
-Executing this command requires the user to select the restaurant whose review is to be edited. This can be done via the select command or by a mouse click on the application GUI.
-
 Do refer to the sequence diagram below for a clearer picture of the implementation of this command. Note that the interaction between the `EditReviewCommand` and the `Model` is left out as it is the same as the one in `AddReviewCommand` above.
 
-image::EditReviewSequenceDiagram.png[width="1000"]
+image::EditReviewSequenceDiagram.png[width="750"]
 
-The components involved in the execution of this command include:
-
-. Modifying `FoodDiaryParser` to accept tbe editReview command
-. `EditReviewCommandParser` class to parse the command with the optional fields
-. `EditReviewCommand` class to handle to logic of the execution of the command
-. `EditReviewDescriptor` class to store the changes for the different fields of the review
+The components involved in the execution of this command include the `FoodDiaryParser`, the `EditReviewCommandParser` and the `EditReviewCommand` class itself. The main difference from the `AddReviewCommand` is the `EditReviewDescriptor` class, which is used to store the changes for the review.
 
 The `EditReviewDescriptor` class can contain optional fields. This is so that the command does not have to modify every field in a review and users can specify which field they would like to modify.
 
@@ -795,6 +750,8 @@ The steps involved in the execution of this command are:
 | Considering the technical aspect, there is not much of a difference between the two implementations. However, this design decision took into account the fact that users most likely had to select the restaurant to look at the review they wish to edit before editing it. As such, it reduces the arguments input by the user, and makes use of what is likely going to happen anyways (the selection of the restaurant).
 |=====================
 
+// end::reviewcommandsdg[]
+
 ==== Delete Reviews
 
 Similar to the command to edit reviews, execution of this command requires the user to select a restaurant from the displayed list.
@@ -802,7 +759,7 @@ Similar to the command to edit reviews, execution of this command requires the u
 Command format: `deleteReview INDEX`, where `INDEX` refers to the index of the review to be deleted from the selected restaurant.
 
 The implementation is a combination of the add and edit review commands: the selected restaurant is copied to a new restaurant object with a new list of reviews without the review to be deleted. This new restaurant object then replaces the selected restaurant in the model.
-// end::reviewcommandsdg[]
+
 
 // tag::visitweb[]
 === Visit Webpage Feature
@@ -1676,6 +1633,49 @@ _{ more test cases ... }_
 .. Test case: `setCategories c/ oc/ pr/` +
    Expected: No categories are set. Error details shown in status message.
 // end::categorization[]
+
+=== Visiting website of a restaurant
+
+==== Visiting website of restaurant inside the restaurant list
+
+Prerequisites:
+
+* The select restaurant must have a weblink.
+* There must be internet connection to display the weblink.
+
+.. Test case: `visitWeb 3` +
+   Expected: Website of Restaurant 3, Sunday Folks, from the sample data will be displayed on the pop-up window.
+.. Test case: `visitWeb 5` +
+   Expected: Since no weblink is added for Nipong Naepong, error message shown in the status message, indicating
+   that a weblink is not found.
+.. Test case: `visitWeb 21` +
+   Expected: Since there is only 20 restaurants in the sample data, an error message will be shown, indicating that the
+   index provided is invalid +
+
+
+
+==== Visiting website of restaurant that is not in the restaurant list
+
+Prerequisites:
+
+* The weblink you input must be in the correct form and is a valid Url.
+* There must be internet connection to display the weblink.
+
+.. Test case: `visitWeb www.kfc.com.sg` +
+   Expected: Website of KFC will be displayed on the pop-up window.
+.. Test case: `visitWeb asdjasdjasd` +
+   Expected: Since weblink provided is not in proper Url form, an error message indicating that the weblink is not in
+   the correct form and examples of weblinks will be provided.
+.. Test case: `visitWeb www.asdjasdjasd.com` +
+   Expected: Since weblink provided is invalid, an error message indicating that the weblink cannot be reached will be
+   displayed.
+
+==== You can test the following command in airplane mode on your device to mimic no internet connection
+
+.. Test case: `visitWeb 3` +
+   Expected: Error message showing no internet connection found is displayed in the status message.
+.. Test case: `visitWeb www.kfc.com.sg` +
+   Expected: Error message showing no internet connection found is displayed in the status message.
 
 === Saving data
 

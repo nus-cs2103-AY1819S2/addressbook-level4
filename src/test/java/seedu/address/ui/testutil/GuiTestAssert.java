@@ -37,9 +37,7 @@ public class GuiTestAssert {
      */
     public static void assertCardDisplaysRestaurant(Restaurant expectedRestaurant, RestaurantCardHandle actualCard) {
         assertEquals(expectedRestaurant.getName().fullName, actualCard.getName());
-        assertEquals(expectedRestaurant.getPhone().value, actualCard.getPhone());
-        assertEquals(expectedRestaurant.getEmail().value, actualCard.getEmail());
-        assertEquals(expectedRestaurant.getAddress().value, actualCard.getAddress());
+        assertEquals(expectedRestaurant.getAddress().toString(), actualCard.getAddress());
         assertEquals(expectedRestaurant.getTags().stream().map(tag -> tag.tagName).collect(Collectors.toList()),
                 actualCard.getTags());
     }

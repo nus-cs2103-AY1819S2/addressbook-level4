@@ -94,17 +94,6 @@ Displays the help text for all available commands.
 
 Format: `help`
 
-// tag::dentist_kyler[]
-
-==== dentist
-
-You can specify the name you want to reflect in your patients' dental record when you create them.
-
-* If there is no dentist name specified, the program will prompt you to enter one.
-
-* This should only happen once, during the first start-up of the application.
-// end::dentist_kyler[]
-
 ==== history
 Lists all the commands that have been entered since starting the
 application in reverse chronological order.

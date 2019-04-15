@@ -60,9 +60,15 @@ public class EquipmentManager implements ReadOnlyEquipmentManager {
      */
     public void setEquipment(List<Equipment> equipment) {
         this.equipment.setEquipments(equipment);
+
         List<Name> nameList = new ArrayList<>();
-        for (Equipment eqpt : equipment) {
-            nameList.add(eqpt.getName());
+
+        if (equipment.size() != 0) {
+            for (Equipment eqpt : equipment) {
+                nameList.add(eqpt.getName());
+            }
+        } else {
+            nameList.clear();
         }
         this.name.setClient(nameList);
         indicateModified();
@@ -73,7 +79,6 @@ public class EquipmentManager implements ReadOnlyEquipmentManager {
      */
     public void resetData(ReadOnlyEquipmentManager newData) {
         requireNonNull(newData);
-
         setEquipment(newData.getEquipmentList());
     }
 

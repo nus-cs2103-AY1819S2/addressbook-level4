@@ -53,11 +53,11 @@ public class EquipmentCard extends UiPart<Region> {
         super(FXML);
         this.equipment = equipment;
         id.setText(displayedIndex + ". ");
-        name.setText(equipment.getName().name);
-        phone.setText(equipment.getPhone().value);
-        address.setText(equipment.getAddress().value);
-        serialNumber.setText(equipment.getSerialNumber().serialNumber);
-        date.setText(equipment.getDate().toString());
+        name.setText("Client Name: " + equipment.getName().name);
+        phone.setText("Phone: " + equipment.getPhone().value);
+        address.setText("Address: " + equipment.getAddress().value);
+        serialNumber.setText("Serial Number: " + equipment.getSerialNumber().serialNumber);
+        date.setText("Date: " + equipment.getDate().toString());
         equipment.getTags().forEach(tag -> {
             String tagName = tag.tagName;
             tags.getChildren().add(new Label(tagName));

@@ -2,7 +2,7 @@
 :site-section: DeveloperGuide
 :toc: left
 :toc-title: Contents
-:toc-placement: preamble
+:toclevels: 3
 :sectnums:
 :imagesDir: images
 :stylesDir: stylesheets
@@ -324,11 +324,11 @@ bookings in real-time in the UI as has been explained before.
 
 ===== Aspect: How should the API be structured
 
-* **Alternative 1 (current choice):** Every model has a seperate interface which implements
+* **Alternative 1 (current choice):** Every model has a separate interface which implements
                                       the `Model` interface
 ** Pros: Every model has access to the GUI and User Preferences.
 ** Cons: Some models have unnecessary methods.
-* **Alternative 2:** All the model APIs will be seperate and there will be no Model Interface.
+* **Alternative 2:** All the model APIs will be separate and there will be no Model Interface.
 ** Pros: Better separation and less scope for errors.
 ** Cons: Lot of refactoring required.
 //end::new-model[]
@@ -381,6 +381,12 @@ a customer model or a booking model. Limited by this, we cannot get access to cu
 same time in one command. To implement the function without changing the base abstraction, we used identification number
 to check whether the payer of the booking is the customer we are selecting instead of using the index of a customer.
 The reason we use identification number(ID) instead of name or other factors is that the ID of one customer is unique.
+
+The `FindBookingCommand` involves the use of multiple components of the HMS+ application. The figure below shows the
+high level [underline]#Sequence Diagram# for the `FindBookingCommand`.
+
+.High Level Sequence Diagram for the  `find-booking id/A0176684J` command
+image::FindBookingSequenceDiagram.png[width="600"]
 
 ==== Design Considerations
 
@@ -484,7 +490,7 @@ of the customer whose bill is to be generated. The figure below depicts the Sequ
 image::gbcLogicDiagram.png[width="800"]
 
 The `GenerateBillForCustomerCommand#execute()` method invokes the `updateBill(bill)` method from the `BillModel`.
- Complying with the rules of <<abstraction>>, the Logic component calls on Model to handle the internal details for updation.
+ Complying with the rules of <<abstraction>>, the Logic component calls on Model to handle the internal details for updating.
 
 The code used for generating the [underline]#booking bill# for the customer is shown in the snippet below:
 
@@ -691,7 +697,7 @@ See <<UsingTravis#deploying-github-pages, UsingTravis.adoc>> to learn how to dep
 
 === Converting Documentation to PDF format
 
-We use https://www.google.com/chrome/browser/desktop/[Google Chrome] for converting documentation to PDF format, as Chrome's PDF engine preserves hyperlinks used in webpages.
+We use https://www.google.com/chrome/browser/desktop/[Google Chrome] for converting documentation to PDF format, as Chrome's PDF engine preserves hyperlinks used in web pages.
 
 Here are the steps to convert the project documentation files to PDF format.
 
@@ -865,7 +871,7 @@ Here are the steps to create a new release.
 
 === Managing Dependencies
 
-A project often depends on third-party libraries. For example, Address Book depends on the https://github.com/FasterXML/jackson[Jackson library] for JSON parsing. Managing these _dependencies_ can be automated using Gradle. For example, Gradle can download the dependencies automatically, which is better than these alternatives:
+A project often depends on third-party libraries. For example, Hotel Management System depends on the https://github.com/FasterXML/jackson[Jackson library] for JSON parsing. Managing these _dependencies_ can be automated using Gradle. For example, Gradle can download the dependencies automatically, which is better than these alternatives:
 
 [loweralpha]
 . Include those libraries in the repo (this bloats the repo size)
@@ -949,11 +955,11 @@ image::getting-started-ui-tag-after.png[width="300"]
 +
 ****
 * Hints
-** The tag labels are created inside link:{repoURL}/blob/master/src/main/java/seedu/hms/ui/PersonCard.java[the `PersonCard` constructor] (`new Label(tag.tagName)`). https://docs.oracle.com/javase/8/javafx/api/javafx/scene/control/Label.html[JavaFX's `Label` class] allows you to modify the style of each Label, such as changing its color.
+** The tag labels are created inside link:{repoURL}/blob/master/src/main/java/seedu/hms/ui/CustomerCard.java[the `CustomerCard` constructor] (`new Label(tag.tagName)`). https://docs.oracle.com/javase/8/javafx/api/javafx/scene/control/Label.html[JavaFX's `Label` class] allows you to modify the style of each Label, such as changing its color.
 ** Use the .css attribute `-fx-background-color` to add a color.
 ** You may wish to modify link:{repoURL}/blob/master/src/main/resources/view/DarkTheme.css[`DarkTheme.css`] to include some pre-defined colors using css, especially if you have experience with web-based css.
 * Solution
-** You can modify the existing test methods for `PersonCard` 's to include testing the tag's color as well.
+** You can modify the existing test methods for `CustomerCard` 's to include testing the tag's color as well.
 ** See this https://github.com/se-edu/addressbook-level4/pull/798[PR] for the full solution.
 *** The PR uses the hash code of the tag names to generate a color. This is deliberately designed to ensure consistent colors each time the application runs. You may wish to expand on this design to include additional features, such as allowing users to set their own tag colors, and directly saving the colors to storage, so that tags retain their colors even if the hash code algorithm changes.
 ****
@@ -1072,19 +1078,19 @@ for `RemarkCommandParser`.
 . Modify link:{repoURL}/blob/master/src/test/java/seedu/hms/logic/parser/HotelManagementSystemParserTest.java[`HotelManagementSystemParserTest`] to test that the correct command is generated according to the user input.
 
 ===== [Step 3] Ui: Add a placeholder for remark in `CustomerCard`
-Let's add a placeholder on all our link:{repoURL}/blob/master/src/main/java/seedu/hms/ui/PersonCard.java[`CustomerCard`] s to display a remark for each customer later.
+Let's add a placeholder on all our link:{repoURL}/blob/master/src/main/java/seedu/hms/ui/CustomerCard.java[`CustomerCard`] s to display a remark for each customer later.
 
 **Main:**
 
-. Add a `Label` with any random text inside link:{repoURL}/blob/master/src/main/resources/view/PersonListCard.fxml[`PersonListCard.fxml`].
-. Add FXML annotation in link:{repoURL}/blob/master/src/main/java/seedu/hms/ui/PersonCard.java[`PersonCard`] to tie the variable to the actual label.
+. Add a `Label` with any random text inside link:{repoURL}/blob/master/src/main/resources/view/CustomerListCard.fxml[`CustomerListCard.fxml`].
+. Add FXML annotation in link:{repoURL}/blob/master/src/main/java/seedu/hms/ui/CustomerCard.java[`CustomerCard`] to tie the variable to the actual label.
 
 **Tests:**
 
-. Modify link:{repoURL}/blob/master/src/test/java/guitests/guihandles/PersonCardHandle.java[`PersonCardHandle`] so that future tests can read the contents of the remark label.
+. Modify link:{repoURL}/blob/master/src/test/java/guitests/guihandles/CustomerCardHandle.java[`CustomerCardHandle`] so that future tests can read the contents of the remark label.
 
 ===== [Step 4] Model: Add `Remark` class
-We have to properly encapsulate the remark in our link:{repoURL}/blob/master/src/main/java/seedu/hms/model/customer/Person.java[`Person`] class. Instead of just using a `String`, let's follow the conventional class structure that the codebase already uses by adding a `Remark` class.
+We have to properly encapsulate the remark in our link:{repoURL}/blob/master/src/main/java/seedu/hms/model/customer/Customer.java[`Customer`] class. Instead of just using a `String`, let's follow the conventional class structure that the codebase already uses by adding a `Remark` class.
 
 **Main:**
 
@@ -1095,17 +1101,17 @@ We have to properly encapsulate the remark in our link:{repoURL}/blob/master/src
 
 . Add test for `Remark`, to test the `Remark#equals()` method.
 
-===== [Step 5] Model: Modify `Person` to support a `Remark` field
-Now we have the `Remark` class, we need to actually use it inside link:{repoURL}/blob/master/src/main/java/seedu/hms/model/customer/Person.java[`Person`].
+===== [Step 5] Model: Modify `Customer` to support a `Remark` field
+Now we have the `Remark` class, we need to actually use it inside link:{repoURL}/blob/master/src/main/java/seedu/hms/model/customer/Customer.java[`Customer`].
 
 **Main:**
 
-. Add `getRemark()` in link:{repoURL}/blob/master/src/main/java/seedu/hms/model/customer/Person.java[`Person`].
+. Add `getRemark()` in link:{repoURL}/blob/master/src/main/java/seedu/hms/model/customer/Customer.java[`Customer`].
 . You may assume that the user will not be able to use the `add` and `edit` commands to modify the remarks field (i.e. the customer will be created without a remark).
 . Modify link:{repoURL}/blob/master/src/main/java/seedu/hms/model/util/SampleDataUtil.java/[`SampleDataUtil`] to add remarks for the sample data (delete your `data/hotelManagementSystem.json` so that the application will load the sample data when you launch it.)
 
-===== [Step 6] Storage: Add `Remark` field to `JsonAdaptedPerson` class
-We now have `Remark` s for `Person` s, but they will be gone when we exit the application. Let's modify link:{repoURL}/blob/master/src/main/java/seedu/hms/storage/JsonAdaptedPerson.java[`JsonAdaptedPerson`] to include a `Remark` field so that it will be saved.
+===== [Step 6] Storage: Add `Remark` field to `JsonAdaptedCustomer` class
+We now have `Remark` s for `Customer` s, but they will be gone when we exit the application. Let's modify link:{repoURL}/blob/master/src/main/java/seedu/hms/storage/JsonAdaptedCustomer.java[`JsonAdaptedCustomer`] to include a `Remark` field so that it will be saved.
 
 **Main:**
 
@@ -1113,26 +1119,26 @@ We now have `Remark` s for `Person` s, but they will be gone when we exit the ap
 
 **Tests:**
 
-. Fix `invalidAndValidPersonHotelManagementSystem.json`, `typicalPersonsHotelManagementSystem.json`, `validHotelManagementSystem.json` etc., such that the JSON tests will not fail due to a missing `remark` field.
+. Fix `invalidAndValidCustomerHotelManagementSystem.json`, `typicalCustomersHotelManagementSystem.json`, `validHotelManagementSystem.json` etc., such that the JSON tests will not fail due to a missing `remark` field.
 
-===== [Step 6b] Test: Add withRemark() for `PersonBuilder`
-Since `Person` can now have a `Remark`, we should add a helper method to link:{repoURL}/blob/master/src/test/java/seedu/hms/testutil/PersonBuilder.java[`PersonBuilder`], so that users are able to create remarks when building a link:{repoURL}/blob/master/src/main/java/seedu/hms/model/customer/Person.java[`Person`].
+===== [Step 6b] Test: Add withRemark() for `CustomerBuilder`
+Since `Customer` can now have a `Remark`, we should add a helper method to link:{repoURL}/blob/master/src/test/java/seedu/hms/testutil/CustomerBuilder.java[`CustomerBuilder`], so that users are able to create remarks when building a link:{repoURL}/blob/master/src/main/java/seedu/hms/model/customer/Customer.java[`Customer`].
 
 **Tests:**
 
-. Add a new method `withRemark()` for link:{repoURL}/blob/master/src/test/java/seedu/hms/testutil/PersonBuilder.java[`PersonBuilder`]. This method will create a new `Remark` for the customer that it is currently building.
-. Try and use the method on any sample `Person` in link:{repoURL}/blob/master/src/test/java/seedu/hms/testutil/TypicalPersons.java[`TypicalPersons`].
+. Add a new method `withRemark()` for link:{repoURL}/blob/master/src/test/java/seedu/hms/testutil/CustomerBuilder.java[`CustomerBuilder`]. This method will create a new `Remark` for the customer that it is currently building.
+. Try and use the method on any sample `Customer` in link:{repoURL}/blob/master/src/test/java/seedu/hms/testutil/TypicalCustomers.java[`TypicalCustomers`].
 
-===== [Step 7] Ui: Connect `Remark` field to `PersonCard`
-Our remark label in link:{repoURL}/blob/master/src/main/java/seedu/hms/ui/PersonCard.java[`PersonCard`] is still a placeholder. Let's bring it to life by binding it with the actual `remark` field.
+===== [Step 7] Ui: Connect `Remark` field to `CustomerCard`
+Our remark label in link:{repoURL}/blob/master/src/main/java/seedu/hms/ui/CustomerCard.java[`CustomerCard`] is still a placeholder. Let's bring it to life by binding it with the actual `remark` field.
 
 **Main:**
 
-. Modify link:{repoURL}/blob/master/src/main/java/seedu/hms/ui/PersonCard.java[`PersonCard`]'s constructor to bind the `Remark` field to the `Person` 's remark.
+. Modify link:{repoURL}/blob/master/src/main/java/seedu/hms/ui/CustomerCard.java[`CustomerCard`]'s constructor to bind the `Remark` field to the `Customer` 's remark.
 
 **Tests:**
 
-. Modify link:{repoURL}/blob/master/src/test/java/seedu/hms/ui/testutil/GuiTestAssert.java[`GuiTestAssert#assertCardDisplaysPerson(...)`] so that it will compare the now-functioning remark label.
+. Modify link:{repoURL}/blob/master/src/test/java/seedu/hms/ui/testutil/GuiTestAssert.java[`GuiTestAssert#assertCardDisplaysCustomer(...)`] so that it will compare the now-functioning remark label.
 
 ===== [Step 8] Logic: Implement `RemarkCommand#execute()` logic
 We now have everything set up... but we still can't modify the remarks. Let's finish it up by adding in actual logic for our `remark` command.
@@ -1159,8 +1165,8 @@ HMS+ is targeted at hotels which want to use a single, highly customizable integ
 Hotels have hundreds of customers with each customer having their own service bookings, room reservations and
 their payments. +
 
-This is why these hotels use different softwares to keep a track of customer's bookings and reservations and
-accordingly their payments. With time, it becomes difficult to keep a track of everything using different softwares.
+This is why these hotels use different software to keep a track of customer's bookings and reservations and
+accordingly their payments. With time, it becomes difficult to keep a track of everything using different software.
 
 HMS+ provides hotels with a one-stop shop for all their managerial and organization needs.
 
@@ -1278,7 +1284,7 @@ Use case ends.
 1.  The actor requests all the reservations in the system.
 2.  The system lists the reservations requested.
 3.  The actor requests to edit a reservation at a specified index.
-4.  The system editss the reservation.
+4.  The system edits the reservation.
 +
 Use case resumes at step 3.
 
@@ -1360,7 +1366,7 @@ Use case ends.
 1.  The actor requests all the bookings in the system.
 2.  The system lists the bookings requested.
 3.  The actor requests to edit a booking at a specified index.
-4.  The system editss the booking.
+4.  The system edits the booking.
 +
 Use case resumes at step 3.
 
@@ -1452,7 +1458,7 @@ Use case ends.
 1.  The actor requests all the room-types in the system.
 2.  The system lists the room-types requested.
 3.  The actor requests to edit a room-type at a specified index.
-4.  The system editss the room-type.
+4.  The system edits the room-type.
 +
 Use case resumes at step 3.
 
@@ -1546,7 +1552,7 @@ Use case ends.
 1.  The actor requests all the services in the system.
 2.  The system lists the services requested.
 3.  The actor requests to edit a service at a specified index.
-4.  The system editss the service.
+4.  The system edits the service.
 +
 Use case resumes at step 3.
 
@@ -1892,7 +1898,7 @@ These instructions only provide a starting point for testers to work on; testers
 
 . Deleting a customer while all customers are listed.
 
-.. Prerequisites: List all customers using the `list-customers` command. Multiple customers in the list or atleast 1.
+.. Prerequisites: List all customers using the `list-customers` command. Multiple customers in the list or at least 1.
 .. Test case: `delete-customer 1` +
    Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
 .. Test case: `delete-customer 0` +
@@ -2068,7 +2074,7 @@ Deleting a room type while all room types are listed
 
 . Generating booking bill for a customer based on index, or service type, or booking hours.
 
-.. Prerequisites: At-least one customer who has atleast one booking in the database.
+.. Prerequisites: At-least one customer who has at least one booking in the database.
 .. Test case: `gb-b` +
    Expected: Bill is not generated. Error details shown in the status message. Status bar remains the same.
 .. Test case: `gb-b 1` +

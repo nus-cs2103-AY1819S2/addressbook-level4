@@ -1301,20 +1301,27 @@ Use case ends.
 2. All data including personnel and upcoming duties is wiped and shown on the MainWindow UI
 
 
-// end::usecase5[]
+
 
 [discrete]
 === Use case 7 (Admin): Approve swapping of duties
 
 *MSS*
 
-1.
-2.
-3.
-4. +
+1. The user logs into the system.
+2. PersonnelDatabase shows a list of swap requests.
+3. The user approves a swap request.
+4. PersonnelDatabase swaps the corresponding persons in respective duties.
+5. PersonnelDatabase deletes the request from the system.
++
 Use case ends.
 
 *Extensions*
+
+[none]
+* 2a. There are no duty swap requests.
++
+Use case ends.
 
 [discrete]
 === Use case 8 (General user): See own duties
@@ -1344,10 +1351,7 @@ Use case ends.
 +
 Use case ends
 
-+
-Use case ends.
-
-*Extensions*
+// end::usecase5[]
 
 [discrete]
 === Use case 9 (General user): Block some dates for duties next month

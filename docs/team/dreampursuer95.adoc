@@ -60,6 +60,5 @@ include::../DeveloperGuide.adoc[tag=userstories]
 include::../DeveloperGuide.adoc[tag=usecase1]
 include::../DeveloperGuide.adoc[tag=usecase2]
 include::../DeveloperGuide.adoc[tag=usecase5]
-include::../DeveloperGuide.adoc[tag=usecase10]
 
 ---

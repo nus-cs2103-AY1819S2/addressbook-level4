@@ -301,9 +301,10 @@ Example:
 * `stats`
 // end::stats[]
 
-== Coming in v2.0
-
 // tag::upcomingmap[]
+== Coming in v2.0
+This section describes features that have not been implemented yet and are scheduled to be released in version 2.0.
+
 === Special map shapes
 The player will be allowed to use maps that are randomised in shape. This adds an extra layer of challenge and fun for the player.
 

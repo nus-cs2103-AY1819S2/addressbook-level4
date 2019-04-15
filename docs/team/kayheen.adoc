@@ -72,11 +72,7 @@ include::../UserGuide.adoc[tag=RotateCommand]
 
 include::../UserGuide.adoc[tag=WaterMarkCommand]
 
-=== Other Works Contributed to the User Guide
-* Crop Command
-* Resize Command
-
-== Contributions to the Developer Guide
+== 4. Contributions to the Developer Guide
 
 |===
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
@@ -89,3 +85,7 @@ include::../DeveloperGuide.adoc[tag=ArchiInteraction]
 include::../DeveloperGuide.adoc[tag=ImageManipulation]
 
 include::../DeveloperGuide.adoc[tag=WaterMark]
+
+== 5. Other Works Contributed to the User Guide and Developer Guide not Mentioned Above
+* Crop Command
+* Resize Command

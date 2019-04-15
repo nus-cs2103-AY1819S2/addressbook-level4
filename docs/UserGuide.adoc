@@ -153,7 +153,7 @@ Format: `addfolder FOLDER_NAME`
 
 ====
 * The newly created folder will not contain any cards.
-* Folder names must be unique, between 1 and 50 characters, and only contain letters, numbers and whitespace. Attempting to add a folder with any of the above rules violated will result in an error.
+* Folder names must be unique, between 1 and 50 characters, and only contain letters, numbers and whitespace. Folder names with the same characters but different capitalisation are non-unique. Attempting to add a folder with any of the above rules violated will result in an error.
 * Each folder and its cards are stored independently in the directory specified in `preferences.json`. By default, this is the `data/` directory.
 ====
 
@@ -191,6 +191,7 @@ Format: `editfolder FOLDER_INDEX NEW_FOLDER_NAME`
 
 ====
 * The new name of the folder cannot be the same as an existing folder, and must adhere to the rules specified in <<addfolder>>.
+* You are allowed to rename an existing folder to a different capitalisation of its own name.
 ====
 
 Examples:

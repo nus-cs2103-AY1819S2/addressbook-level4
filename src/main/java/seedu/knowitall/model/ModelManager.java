@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
+import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
@@ -204,7 +205,9 @@ public class ModelManager implements Model {
     public boolean hasFolder(String name) {
         requireNonNull(name);
 
-        return folders.stream().anyMatch(folder -> folder.getFolderName().equals(name));
+        return folders.stream()
+                .map(folder -> folder.getFolderName().toLowerCase())
+                .anyMatch(folderName -> folderName.equals(name.toLowerCase()));
     }
 
     @Override

@@ -16,12 +16,16 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.PostalDataSet;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.restaurant.Restaurant;
+import seedu.address.model.review.Entry;
+import seedu.address.model.review.Rating;
 import seedu.address.model.review.Review;
 import seedu.address.testutil.EditReviewDescriptorBuilder;
 import seedu.address.testutil.RestaurantBuilder;
 import seedu.address.testutil.ReviewBuilder;
 
 public class EditReviewCommandTest {
+    private static final String DEFAULT_ENTRY = "Amazing place";
+    private static final String DEFAULT_RATING = "4";
     private Model model = new ModelManager(getTypicalFoodDiary(), new UserPrefs(), new PostalDataSet());
     private CommandHistory commandHistory = new CommandHistory();
 
@@ -35,7 +39,8 @@ public class EditReviewCommandTest {
 
         String expectedMessage = String.format(Messages.MESSAGE_NO_RESTAURANT_SELECTED);
 
-        EditReviewDescriptor editReviewDescriptor = new EditReviewDescriptorBuilder().build();
+        EditReviewDescriptor editReviewDescriptor = new EditReviewDescriptorBuilder().withEntry(DEFAULT_ENTRY)
+                .withRating(DEFAULT_RATING).build();
         EditReviewCommand editReviewCommand = new EditReviewCommand(Index.fromZeroBased(0), editReviewDescriptor);
 
         assertCommandFailure(editReviewCommand, model, commandHistory, expectedMessage);
@@ -48,7 +53,8 @@ public class EditReviewCommandTest {
 
         String expectedMessage = String.format(Messages.MESSAGE_NO_REVIEWS);
 
-        EditReviewDescriptor editReviewDescriptor = new EditReviewDescriptorBuilder().build();
+        EditReviewDescriptor editReviewDescriptor = new EditReviewDescriptorBuilder().withEntry(DEFAULT_ENTRY)
+                .withRating(DEFAULT_RATING).build();
         EditReviewCommand editReviewCommand = new EditReviewCommand(Index.fromZeroBased(0), editReviewDescriptor);
 
         assertCommandFailure(editReviewCommand, model, commandHistory, expectedMessage);
@@ -63,7 +69,8 @@ public class EditReviewCommandTest {
         model.setRestaurant(firstRestaurantInModel, initialRestaurant);
         model.setSelectedRestaurant(initialRestaurant);
 
-        EditReviewDescriptor editReviewDescriptor = new EditReviewDescriptorBuilder().build();
+        EditReviewDescriptor editReviewDescriptor = new EditReviewDescriptorBuilder().withEntry(DEFAULT_ENTRY)
+                .withRating(DEFAULT_RATING).build();
         EditReviewCommand editReviewCommand = new EditReviewCommand(Index.fromZeroBased(1), editReviewDescriptor);
 
         String expectedMessage = String.format(Messages.MESSAGE_INVALID_REVIEW_INDEX);

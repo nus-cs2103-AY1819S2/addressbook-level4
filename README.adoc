@@ -25,7 +25,7 @@ _In-Credit-Ble_'s key features:
 
 * Intuitive and easy to use user interface allowing you to add new records fast.
 * Easily record the transaction to track where all your transactions.
-* Overall view of on your financial transaction through aster plot chart which shows how much of your budget you have spent.
+* Overall view of on your financial transaction via a pie chart which shows a breakdown of your expenditures.
 
 Sold yet? Find out more through the <<UserGuide#, User Guide>>!
 

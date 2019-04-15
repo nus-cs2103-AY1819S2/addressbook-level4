@@ -43,8 +43,9 @@ image::ui.png[width="800"]
 .  You have just successfully setup FomoFoto on your device. To see the command available in FomoFoto, refer to <<Features>> for details of each command. A step-by-step walkthrough of FomoFoto is available at the next section: <<A Walk Through>>.
 // end::QuickStart[]
 
-// tag::AWalkThrough[]
+
 == A Walk Through
+// tag::AWalkThrough[]
 Let's start on our image editing journey. In this walk through, we will be demonstrating some simple commands to edit a sample image.
 
 .  Head over to this https://twistedsifter.files.wordpress.com/2012/03/squirrel-photobomb-banff.jpg[link] to get a suggested sample image to start from.
@@ -291,9 +292,9 @@ Examples:
 `redo` (runs `crop 2 3 500 500` command again)
 // end::Redo[]
 
-// tag::RotateCommand[]
-=== Rotate an Image : `rotate`
 
+=== Rotate an Image : `rotate`
+// tag::RotateCommand[]
 Rotates the image by a given degree provided by the user. Only 90, 180 or 270 degrees of rotation is allowed. +
 Format: `rotate ANGLE`
 
@@ -398,9 +399,9 @@ Undoable commands: those commands that modify the image (`rotate`, `crop`, `resi
 ====
 // end::Undo[]
 
-// tag::WaterMarkCommand[]
-=== WaterMark : `wm`
 
+=== WaterMark : `wm`
+// tag::WaterMarkCommand[]
 Adds a watermark to the image with a (C) at the start of the input message. Should the message be too long to fit within the width of the image, the message will be cut off. +
 Format: `wm MESSAGE`
 

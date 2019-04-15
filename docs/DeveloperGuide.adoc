@@ -506,7 +506,6 @@ The following features are implemented in current version of docX. The main clas
 * Search medical history command: enabled by `SearchMedHistCommand`, `SearchMedHistCommandParser`, `Model#updateFilteredMedHistList`
 * Select medical history command: enabled by `SelectMedHistCommand`, `SelectMedHistCommandParser`, `Model#setSelectedMedHist`
 
-
 ==== Example Command: Sort Medical History Command
 Sort medical history command enable users to sort medical history list by date of occurrence. This part will explain the workflow and implementation of sort medical history command in details.
 

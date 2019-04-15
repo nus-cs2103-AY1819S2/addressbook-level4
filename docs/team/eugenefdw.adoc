@@ -75,6 +75,7 @@ Added the `reload` command.
 |===
 {empty} +
 
+[discrete]
 include::../UserGuide.adoc[tag=eugene]
 ---
 [discrete]

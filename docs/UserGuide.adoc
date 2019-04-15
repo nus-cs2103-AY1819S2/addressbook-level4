@@ -187,7 +187,7 @@ Deletes the second lesson in the numbered list displayed by `listLessons`.
 // end::evan[]
 // tag::eugene[]
 
-==== Reloading all lessons: `reloadLessons`
+==== Reloading all lessons: `reload`
 Reloads all lessons from the lessons folder. The default lessons folder is `/lessons/`, found next to `braintrain.jar`.
 
 Format: `reload`
@@ -197,24 +197,24 @@ Steps:
 . You have a newly downloaded .csv lesson file, `new_lesson.csv`, with no lessons currently loaded.
 +
 .A new lesson file.
-image::reloadLessons_0_csv.png[]
+image::reload_0_csv.png[]
 .No lessons are currently loaded.
-image::reloadLessons_1_empty.png[]
+image::reload_1_empty.png[]
 
 . You drag the new file into the `/lessons/` folder.
 +
 .Dragging the file.
-image::reloadLessons_2_drag.png[]
+image::reload_2_drag.png[]
 
 . You enter `reload` into the app, and the new lesson appears.
 +
 .Reloading lessons.
-image::reloadLessons_3_reload.png[]
+image::reload_3_reload.png[width="400"]
 
 . You verify again with `listLessons`.
 +
 .New lesson has been loaded.
-image::reloadLessons_4_list.png[]
+image::reload_4_list.png[width="400"]
 
 [NOTE]
 ====
@@ -557,7 +557,7 @@ e.g. `start 1 c/15 m/LEARN`
 e.g. `addLesson n/Capitals of the world q/Country a/Capital c/Language o/Hint`
 * *Deleting a lesson*: `deleteLesson INDEX` +
 e.g. `deleteLesson 2`
-* *Reloading all lessons*: `reloadLessons`
+* *Reloading all lessons*: `reload`
 * *Opening a lesson*: `openLesson INDEX` +
 e.g. `openLesson 1`
 * *Closing a lesson*: `closeLesson`

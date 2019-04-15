@@ -44,8 +44,8 @@ public class RenameCommand extends Command {
     public static final String MESSAGE_EDIT_PDF_SUCCESS = "Renamed Pdf:\n%1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_PDF = "This pdf already exists in the pdf book.";
-    public static final String MESSAGE_DUPLICATE_PDF_DIRECTORY = "There exists another %s with in %s.";
-    public static final String MESSAGE_EDIT_PDF_FAILURE = "Unable to Edit PDF.";
+    public static final String MESSAGE_DUPLICATE_PDF_DIRECTORY = "There exists another %s within %s.";
+    public static final String MESSAGE_RENAME_PDF_FAILURE = "Unable to Edit PDF.";
 
     private final Index index;
     private final EditPdfDescriptor editPdfDescriptor;
@@ -75,20 +75,12 @@ public class RenameCommand extends Command {
         Pdf pdfToEdit = lastShownList.get(index.getZeroBased());
         Pdf editedPdf = createEditedPdf(pdfToEdit, editPdfDescriptor);
 
-        if (isOsUnix()) {
-            if (!pdfToEdit.getName().getFullName().equals(editedPdf.getName().getFullName())
-                    && Paths.get(pdfToEdit.getDirectory().getDirectory(), editedPdf.getName().getFullName())
-                    .toAbsolutePath().toFile().exists()) {
-                //(isFileExists(editedPdf))) {
-                throw new CommandException(String.format(MESSAGE_DUPLICATE_PDF_DIRECTORY,
-                        editedPdf.getName().getFullName(), pdfToEdit.getDirectory().getDirectory()));
-            }
-        } else {
-            if (!pdfToEdit.getName().getFullName().equals(editedPdf.getName().getFullName())
-                    && (isFileExists(editedPdf))) {
-                throw new CommandException(String.format(MESSAGE_DUPLICATE_PDF_DIRECTORY,
-                        editedPdf.getName().getFullName(), pdfToEdit.getDirectory().getDirectory()));
-            }
+        if (!pdfToEdit.getName().getFullName().equals(editedPdf.getName().getFullName())
+                && Paths.get(editedPdf.getDirectory().getDirectory(), editedPdf.getName().getFullName())
+                  .toAbsolutePath().toFile().exists()) {
+
+            throw new CommandException(String.format(MESSAGE_DUPLICATE_PDF_DIRECTORY,
+                editedPdf.getName().getFullName(), pdfToEdit.getDirectory().getDirectory()));
         }
 
         if (pdfToEdit.isSamePdf(editedPdf) || model.hasPdf(editedPdf)) {
@@ -99,26 +91,13 @@ public class RenameCommand extends Command {
         File newFile = Paths.get(editedPdf.getDirectory().getDirectory(), editedPdf.getName().getFullName()).toFile();
 
         if (!oldFile.renameTo(newFile)) {
-            throw new CommandException(MESSAGE_EDIT_PDF_FAILURE);
+            throw new CommandException(MESSAGE_RENAME_PDF_FAILURE);
         }
 
         model.setPdf(pdfToEdit, editedPdf);
         model.updateFilteredPdfList(PREDICATE_SHOW_ALL_PDFS);
         model.commitPdfBook();
         return new CommandResult(String.format(MESSAGE_EDIT_PDF_SUCCESS, editedPdf.toString()));
-    }
-
-    /**
-     * Returns true is the system is unix environment, false otherwise.
-     */
-    private static boolean isOsUnix() {
-        String osName = System.getProperty("os.name");
-        return osName.contains("linux")
-                || osName.contains("mpe/ix")
-                || osName.contains("freebsd")
-                || osName.contains("irix")
-                || osName.contains("digital unix")
-                || osName.contains("unix");
     }
 
     /**

@@ -229,7 +229,7 @@ Deletes the patient with current list index of '3' in the docX.
 * `delete-p 2` +
 Deletes the patient with current list index of '2' in the docX.
 
-tag::doctorcommands[]
+// tag::doctorcommands[]
 === Adding a doctor: `add-d`
 
 Adds a doctor to docX +
@@ -331,6 +331,7 @@ Format: `match-d s/SPECIALISATION d/DESIRED_DATE_OF_APPT t/DESIRED_START_TIME_OF
 
 ****
 * Search can only be done with 1 specialisation.
+* Only full words are matched. e.g. `acupun` will not match `acupuncture`
 * `DESIRED_DATE_OF_APPT` is in the format `YYYY-MM-DD`.
 * `DESIRED_START_TIME_OF_APPT` is in the 24-hour format as `HH:mm`.
 ****
@@ -342,7 +343,7 @@ Lists the doctors who has the specialisation of `acupuncture` and is free on 2nd
 * `match-d s/general d/2019-10-04 t/15:00` +
 Lists the doctors who has the specialisation of `general` and is free on 4th October 2019 at 3pm.
 
-end::doctorcommands[]
+// end::doctorcommands[]
 
 === Adding a medical history: `add-med-hist`
 

@@ -256,7 +256,7 @@ public class TypicalPdfs {
     private TypicalPdfs() {} // prevents instantiation
 
     /**
-     * Returns an {@code PdfBook} with all the typical persons.
+     * Returns an {@code PdfBook} with all the typical pdfs.
      */
     public static PdfBook getTypicalPdfBook() {
         PdfBook pdfBook = new PdfBook();

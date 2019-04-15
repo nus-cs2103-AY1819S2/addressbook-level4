@@ -39,7 +39,7 @@ public class MergeCommand extends Command {
             + "Parameters: INDEX1 (must be a positive integer) INDEX2 ...\n"
             + "Example: " + COMMAND_WORD + " 1 9 7 3";
 
-    private static final String MESSAGE_MERGE_PDF_SUCCESS = "Merged PDFs into new PDF: %1$s";
+    private static final String MESSAGE_MERGE_PDF_SUCCESS = "Merged PDFs into new PDF:\n%1$s";
     private static final String MESSAGE_MERGE_PDF_ENCRYPT = "One or more of selected PDFs is encrypted.";
     private static final String MESSAGE_MERGE_PDF_FAIL = "Merging of PDFs encountered an error and stopped.";
 

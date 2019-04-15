@@ -32,14 +32,14 @@ public class DeleteCommandSystemTest extends PdfBookSystemTest {
         /* Case: delete the first pdf in the list, command with leading spaces and trailing spaces -> deleted */
         Model expectedModel = getModel();
         String command = "     " + DeleteCommand.COMMAND_WORD + "      " + INDEX_FIRST_PDF.getOneBased() + "       ";
-        Pdf deletedPdf = removePerson(expectedModel, INDEX_FIRST_PDF);
+        Pdf deletedPdf = removePdf(expectedModel, INDEX_FIRST_PDF);
         String expectedResultMessage = String.format(MESSAGE_DELETE_PDF_SUCCESS, deletedPdf);
         assertCommandSuccess(command, expectedModel, expectedResultMessage);
 
         /* Case: delete the last pdf in the list -> deleted */
         Model modelBeforeDeletingLast = getModel();
-        Index lastPersonIndex = getLastIndex(modelBeforeDeletingLast);
-        assertCommandSuccess(lastPersonIndex);
+        Index lastPdfIndex = getLastIndex(modelBeforeDeletingLast);
+        assertCommandSuccess(lastPdfIndex);
 
         /* Case: undo deleting the last pdf in the list -> last pdf restored */
         command = UndoCommand.COMMAND_WORD;
@@ -48,18 +48,18 @@ public class DeleteCommandSystemTest extends PdfBookSystemTest {
 
         /* Case: redo deleting the last pdf in the list -> last pdf deleted again */
         command = RedoCommand.COMMAND_WORD;
-        removePerson(modelBeforeDeletingLast, lastPersonIndex);
+        removePdf(modelBeforeDeletingLast, lastPdfIndex);
         expectedResultMessage = RedoCommand.MESSAGE_SUCCESS;
         assertCommandSuccess(command, modelBeforeDeletingLast, expectedResultMessage);
 
         /* Case: delete the middle pdf in the list -> deleted */
-        Index middlePersonIndex = getMidIndex(getModel());
-        assertCommandSuccess(middlePersonIndex);
+        Index middlePdfIndex = getMidIndex(getModel());
+        assertCommandSuccess(middlePdfIndex);
 
         /* ------------------ Performing delete operation while a filtered list is being shown ---------------------- */
 
         /* Case: filtered pdf list, delete index within bounds of pdf book and pdf list -> deleted */
-        showPersonsWithName(KEYWORD_MATCHING_MEIER);
+        showPdfWithName(KEYWORD_MATCHING_MEIER);
         Index index = INDEX_FIRST_PDF;
         assertTrue(index.getZeroBased() < getModel().getFilteredPdfList().size());
         assertCommandSuccess(index);
@@ -67,7 +67,7 @@ public class DeleteCommandSystemTest extends PdfBookSystemTest {
         /* Case: filtered pdf list, delete index within bounds of pdf book but out of bounds of pdf list
          * -> rejected
          */
-        showPersonsWithName(KEYWORD_MATCHING_MEIER);
+        showPdfWithName(KEYWORD_MATCHING_MEIER);
         int invalidIndex = getModel().getPdfBook().getPdfList().size();
         command = DeleteCommand.COMMAND_WORD + " " + invalidIndex;
         assertCommandFailure(command, MESSAGE_INVALID_PDF_DISPLAYED_INDEX);
@@ -75,13 +75,13 @@ public class DeleteCommandSystemTest extends PdfBookSystemTest {
         /* --------------------- Performing delete operation while a pdf card is selected ------------------------ */
 
         /* Case: delete the selected pdf -> pdf list panel selects the pdf before the deleted pdf */
-        showAllPersons();
+        showAllPdfs();
         expectedModel = getModel();
         Index selectedIndex = getLastIndex(expectedModel);
         Index expectedIndex = Index.fromZeroBased(selectedIndex.getZeroBased() - 1);
-        selectPerson(selectedIndex);
+        selectPdf(selectedIndex);
         command = DeleteCommand.COMMAND_WORD + " " + selectedIndex.getOneBased();
-        deletedPdf = removePerson(expectedModel, selectedIndex);
+        deletedPdf = removePdf(expectedModel, selectedIndex);
         expectedResultMessage = String.format(MESSAGE_DELETE_PDF_SUCCESS, deletedPdf);
         assertCommandSuccess(command, expectedModel, expectedResultMessage, expectedIndex);
 
@@ -115,7 +115,7 @@ public class DeleteCommandSystemTest extends PdfBookSystemTest {
      * Removes the {@code Pdf} at the specified {@code index} in {@code model}'s pdf book.
      * @return the removed pdf
      */
-    private Pdf removePerson(Model model, Index index) {
+    private Pdf removePdf(Model model, Index index) {
         Pdf targetPdf = getPdf(model, index);
         model.deletePdf(targetPdf);
         return targetPdf;
@@ -128,7 +128,7 @@ public class DeleteCommandSystemTest extends PdfBookSystemTest {
      */
     private void assertCommandSuccess(Index toDelete) {
         Model expectedModel = getModel();
-        Pdf deletedPdf = removePerson(expectedModel, toDelete);
+        Pdf deletedPdf = removePdf(expectedModel, toDelete);
         String expectedResultMessage = String.format(MESSAGE_DELETE_PDF_SUCCESS, deletedPdf);
 
         assertCommandSuccess(

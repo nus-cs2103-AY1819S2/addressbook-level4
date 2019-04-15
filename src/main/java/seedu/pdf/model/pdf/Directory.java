@@ -33,7 +33,7 @@ public class Directory {
     }
 
     /**
-     * Returns if a given string is a valid email.
+     * Returns if a given string is a valid directory.
      */
     public static boolean isValidDirectory(String test) {
         return test.matches(VALIDATION_REGEX)

@@ -31,7 +31,7 @@ public class DecryptCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_PASSWORD + "SecuredPassword";
 
-    public static final String MESSAGE_DECRYPT_PDF_SUCCESS = "Decrypted PDF: %1$s";
+    public static final String MESSAGE_DECRYPT_PDF_SUCCESS = "Decrypted PDF:\n%1$s";
     public static final String MESSAGE_DECRYPT_PDF_FAILURE = "%1$sdid not get decrypted successfully.\n"
             + "Please check your if the file exists and the password is correct.";
     public static final String MESSAGE_DECRYPT_PDF_ALREADY_DECRYPTED_FAILURE = "%1$sis already decrypted.";

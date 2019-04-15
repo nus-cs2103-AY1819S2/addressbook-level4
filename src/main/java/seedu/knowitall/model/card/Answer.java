@@ -43,7 +43,7 @@ public class Answer {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Answer // instanceof handles nulls
-                && fullAnswer.equals(((Answer) other).fullAnswer)); // state check
+                && fullAnswer.toLowerCase().equals(((Answer) other).fullAnswer.toLowerCase())); // state check
     }
 
     @Override

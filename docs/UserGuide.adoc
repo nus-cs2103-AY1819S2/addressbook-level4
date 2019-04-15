@@ -1141,9 +1141,9 @@ download it from there.
 
 == Command Summary
 
-* *Patient Add* : `patientadd PARAMETERS…​` +
-e.g. `add n/John Choo p/98425871 e/jonC@example.com a/IDA street, block
-13, #02-05 ic/S1234567H age/32 dob/26021987 nokn/Jacky Choo
+* *Patient Add* : `patientadd PARAMETERS…` +
+e.g. `patientadd n/John Choo p/98425871 e/jonC@example.com a/IDA street, block
+13, #02-05 ic/S1234567H dob/26021987 nokn/Jacky Choo
 nokp/84875215 nokr/Father noka/same`
 
 * *Patient Clear* : `patientclear` +
@@ -1181,11 +1181,6 @@ e.g. `export mnt/clinicRecords.txt 1,3-5`
 
 * *Import* : `import FILE_PATH INDEX_RANGE` +
 e.g. `import \mnt\newData.json 1,3-5`
-
-* *List* : `list`
-
-* *Login* : `login USERNAME PASSWORD` +
-e.g `login kthSIM cavities!2`
 
 * *Open* : `open FILE_PATH` +
 e.g. `Open mnt/sample/newData.json`
@@ -1230,7 +1225,6 @@ e.g. `taskdone 1`
 
 * *Task calendar*: `taskcal INDEX` +
 e.g. `taskcal 11-11-2019`
-
 
 * *Tasksort* `tasksort starttime/endtime/priority [asce/desc]`
 e.g. `tasksort endtime`

@@ -391,9 +391,10 @@ Examples:
 * `memberList` +
 `memberSelect 2` +
 Selects the 2nd person in the club manager.
+//end::memberselect[]
 
 image::memberSelectCommand.png[width=70%]
-//end::memberselect[]
+
 
 //tag::membersort[]
 ==== Sort members’ list : `memberSort` or `mSort`

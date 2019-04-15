@@ -1142,8 +1142,8 @@ download it from there.
 == Command Summary
 
 * *Patient Add* : `patientadd PARAMETERS…` +
-e.g. `patientadd n/John Choo p/98425871 e/jonC@example.com a/IDA street, block
-13, #02-05 ic/S1234567H dob/26021987 nokn/Jacky Choo
+e.g. `patientadd n/John Choo sex/M p/98425871 e/jonC@example.com a/IDA street, block
+13, #02-05 ic/S1234567H dob/26-02-1987 nokn/Jacky Choo
 nokp/84875215 nokr/Father noka/same`
 
 * *Patient Clear* : `patientclear` +

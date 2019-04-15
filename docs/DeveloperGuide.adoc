@@ -904,6 +904,7 @@ Figure 38. Activity Diagram of the statistics feature.
 ==== Use Case Diagram
 The following use-case diagram captures the behaviour of the statistics feature.
 
+image::StatsUseCaseDiag.PNG[width=500]
 Figure 39. Use case diagram on the statistics feature.
 
 

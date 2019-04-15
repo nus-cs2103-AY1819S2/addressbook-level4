@@ -621,14 +621,14 @@ You will see a success message in the Results Display and the updated order item
 
 a| a| For example, Table 5 initially has 4 items in the Order Panel as shown below. Note that the quantity of Coke ordered is 1.
 
-image::Order_Before.png[]
+image::AddToOrder_Before.png[width="300"]
 
 Suppose the customers at Table 5 want to order 1 more Cheeseburger and 1 more Coke. After executing `addToOrder W07 1 W13 1`, you will see a success message in the Results Display, as shown below.
 
 image::AddToOrder_RD.png[]
 The Order Panel will also be updated and you will now see 5 items displayed. As seen in the image below, 1 portion of Cheeseburger has been added as the 5th item, while the quantity of Coke ordered has been updated from 1 to 2.
 
-image::AddToOrder_After.png[]
+image::AddToOrder_After.png[width="300"]
 |===
 // end::tablemode[]
 
@@ -653,14 +653,14 @@ You will see a success message in the Results Display and the deleted order item
 
 a| a| For example, Table 5 initially has 4 items in the Order Panel as shown below. Note that Coke has been ordered by the table.
 
-image::Order_Before.png[]
+image::AddToOrder_Before.png[width="300"]
 
 Suppose the customers at Table 5 decide not to order Coke anymore. After executing `deleteFromOrder W13`, you will see a success message in the Results Display, as shown below.
 
 image::DeleteFromOrder_RD.png[]
 The Order Panel will also be updated and you will now only see 3 items displayed. As seen in the image below, Coke has been removed from the order.
 
-image::DeleteFromOrder_After.png[]
+image::DeleteFromOrder_After.png[width="300"]
 |===
 
 [[ClearOrder]]
@@ -684,14 +684,14 @@ You will see a success message in the Results Display and the Order Panel will b
 
 a| a| For example, Table 5 initially has 4 items in the Order Panel as shown below.
 
-image::Order_Before.png[]
+image::Order_Before.png[width="300"]
 
 After executing `clearOrder`, you will see a success message in the Results Display, as shown below.
 
 image::ClearOrder_RD.png[]
 The Order Panel will now be empty, as seen in the image below.
 
-image::ClearOrder_After.png[]
+image::ClearOrder_After.png[width="300"]
 |===
 
 [[Serve]]
@@ -718,14 +718,14 @@ You will see a success message in the Results Display and the order item's quant
 
 a| a| For example, Table 5 initially has 4 items in the Order Panel as shown below. Note that there are still 2 Prawn Burgers that have yet to be served.
 
-image::Order_Before.png[]
+image::Serve_Before.png[width="300"]
 
 Suppose the Prawn Burgers have been served and you want to update their serving status in RestOrRant. After executing `serve W03 2`, you will see a success message in the Results Display, as shown below.
 
 image::Serve_RD.png[]
 The Order Panel will also be updated and you can see from the image below that there are no more quantities of Prawn Burger to serve. Since it is fully served, the background of the Prawn Burger item has turned dark.
 
-image::Serve_After.png[]
+image::Serve_After.png[width="300"]
 |===
 
 // tag::bill[]
@@ -1189,7 +1189,7 @@ Removes A02 from the menu
 a|<<ClearMenu, `clearMenu`>> a| `*clear*` a| `clearMenu` a| Clears all items from the menu
 a|<<ToggleAvailability, `toggleAvailability`>> +
 _(Coming in v2.0)_
-a| t a|`toggleAvailability ITEM_CODE` a| `toggleAvailability W06` +
+a| `*t*` a|`toggleAvailability ITEM_CODE` a| `toggleAvailability W06` +
 
 * Makes W06 unavailable for ordering if initially available
 * Makes W06 available for ordering if initially unavailable

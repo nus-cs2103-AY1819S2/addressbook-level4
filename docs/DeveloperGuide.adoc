@@ -489,8 +489,6 @@ To be updated later
 
 To be updated later
 
-
-
 === CRUD Doctor features
 
 Doctor is one of the two valid types of Persons to be stored in the docX record.

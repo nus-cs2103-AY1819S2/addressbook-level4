@@ -472,6 +472,8 @@ image::quiz-command-examples/not-difficult.PNG[width="500"]
 Displays usage information on all quiz mode commands and acceptable inputs for answering cards. +
 Format: `\help`
 
+// tag::quiz[]
+
 [[hint]]
 ==== Viewing the current card's hint(s): `\hint`
 
@@ -486,7 +488,6 @@ Example:
 .Expected result revealing the hint of the card.
 image::quiz-command-examples/hint.PNG[width="500"]
 
-// tag::quiz[]
 ==== Quitting the quiz session: `\quit`
 
 Quits the current quiz session and switches back to `management mode`. +

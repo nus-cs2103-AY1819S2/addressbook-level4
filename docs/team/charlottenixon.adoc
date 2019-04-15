@@ -14,9 +14,9 @@ Recruit Me is a desktop application designed for . It is an adaptation of Addres
 == Summary of contributions
 
 * *Major enhancement*: added *GPA and Education Parameter*
-** What it does: _{Allows users to input their GPA and Education attributs}_.
-** Justification: _{It is important for the employeers to be able to know the protential employees GPA and education}_.
-** Highlights: _{Employees can see on the contact this information}_.
+** What it does: _{Allows users to input their GPA, Education, as well as their highest level of degree as attributs to their profile}_.
+** Justification: _{It is important for the employeers to be able to know the protential employees GPA, education and degree}_.
+** Highlights: _{Employees can see this information on the contact this information}_.
 
 * *Minor enhancement*: _{CV}_.
 

@@ -1189,7 +1189,7 @@ Expected: No changes to warning panel. Error details shown in the status message
 Expected: Similar to previous.
 
 // tag::labeltest[]
-=== Labeling medicine information onto a PDF file 
+=== Labeling medicine information onto a PDF file
 
 . Output a medicine information onto a PDF file using default name.
 

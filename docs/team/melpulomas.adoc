@@ -6,12 +6,13 @@
 == PROJECT: MediTabs
 
 == Introduction
-This  Project Portfolio shows my contributions to the group project, such as features and documentation.
+This  Project Portfolio shows my contributions to the group project, such as features and documentation. I was in charge of the of the logic component, which mainly focus on the command features of the project. This project is under a core module of software engineering in the my school.
 
 
 == Overview
 
 The group project, Meditabs, is a medicine inventory management for pharmacist to streamline the process of handling the stick taking process. The user mainly uses the Command-Line Interface (CLI) to interact.
+Upon looking  at user case, we implemented a label function to allow the pharmacist to print out the medicine information. This is for easier management for the physical medicine itself.
 
 == Summary of contributions
 

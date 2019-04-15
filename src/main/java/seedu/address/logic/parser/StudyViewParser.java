@@ -35,7 +35,7 @@ public class StudyViewParser implements ViewStateParser {
             case HistoryCommand.COMMAND_WORD:
                 return new HistoryCommand();
             default:
-                if (studyView.getCurrentStudyState() == StudyView.StudyState.QUESTION) {
+                if (studyView.isInQuestionState()) {
                     return new ShowAnswerCommand(commandWord + arguments);
                 } else {
                     return new GenerateQuestionCommandParser(studyView).parse(commandWord);

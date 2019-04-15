@@ -13,6 +13,7 @@ public class GenerateQuestionCommandParser implements Parser<GenerateQuestionCom
 
     public static final String MESSAGE_INVALID_RATING = "Answer is not an integer.";
     public static final String MESSAGE_EXCEED_RATING = "Rating exceeds range (1-5).";
+
     private final StudyView studyView;
 
     public GenerateQuestionCommandParser(StudyView studyView) {

@@ -150,6 +150,7 @@ You may find a more precise decription of the commands used in cards view <<card
 ====
 
 // tag::decksview[]
+
 === Decks view [[decksviewc]]
 
 In this view you can create, edit and find decks. This is the default view when TopDeck is first launched.
@@ -469,7 +470,8 @@ image::card_ug_diagrams/find_card_2.png[width="800"]
 
 **Outcome**: Adds the image as a question to the card at `INDEX`
 
-=== Study view
+
+=== Study View [[studyviewc]]
 
 Study view can be accessed using any of these commands:
 
@@ -485,19 +487,20 @@ Study view presents Flash Cards in two phases, namely <<qnphase, Question Phase>
 Study view starts off in Question Phase, which displays the question in this user interface:
 
 .Study view's Question Phase
-image::study_ug_diagrams/question.png[width="800"]
+image::study_ug_diagrams/question.png[width="600"]
 
 
-As seen above, the question is displayed in a blue flash card.
+As seen above, the question to be answered is displayed in a dark blue flash card.
 
 
 [NOTE]
-Currently, questions are chosen this way: TopDeck shuffles the deck and displays all cards until the entire deck
+Currently, questions are chosen this way: TopDeck shuffles the deck and displays cards one at a time until the entire deck
 has been viewed. Topdeck repeats this endlessly until you choose to <<studyback, end your study session>>.
 
-You may choose to attempt the question by typing your answer into the Command Box.
+You may attempt the question by typing your answer into the Command Box,
+which now doubles as an Answer Box.
  Once you're ready to see the answer, hit kbd:[Enter]. Your attempt will be recorded and
- TopDeck goes into Answer Phase.
+ TopDeck will enter Answer Phase.
 
 
 
@@ -510,12 +513,17 @@ user interface:
 image::study_ug_diagrams/answer.png[width="800"]
 
 
-The correct answer is displayed in a white flash card. Your attempt is displayed on the top right hand side for your own comparison.
+As seen from the figure, the correct answer is displayed on a white flash card.
+Your attempt is shown on top next to the card for your own comparison.
 
 Additionally, a prompt asks you to rate the difficulty of that flash card.
-You should input your rating into the Command Box.
+You should input your rating into the Command Box which now doubles as a Rating Box.
 
-During both phases, the following commands are available:
+Once you've typed in your rating, hit kbd:[Enter]. Your rating will be recorded and this
+value will contribute to average difficulty statistic seen in cards view.
+Immediately after that, TopDeck will reenter Question Phase.
+
+During both phases, the following commands are available to end your study session:
 
 ==== Returning to decks view: `back` [[studyback]]
 
@@ -528,6 +536,7 @@ During both phases, the following commands are available:
 **Format**: `open`
 
 **Outcome**: Opens the deck in cards view.
+
 
 === Global commands
 

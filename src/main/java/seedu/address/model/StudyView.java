@@ -77,6 +77,10 @@ public class StudyView implements ViewState {
         return currentStudyState.getValue();
     }
 
+    public boolean isInQuestionState() {
+        return currentStudyState.getValue() == StudyState.QUESTION;
+    }
+
     public void setCurrentStudyState(StudyState state) {
         requireNonNull(state);
         currentStudyState.setValue(state);

@@ -21,7 +21,10 @@ public class SortCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Sort the apparels based on the given option.\n"
             + "Example: sort name\n"
-            + "Outcome: apparel list sorted in ascending order of the name.\n";
+            + "Outcome: apparel list sorted in ascending order of the name.\n"
+            + "To sort in descending order, add a optional parameter called 'desc'\n"
+            + "Example: sort name desc\n"
+            + "Outcome: apparel list sorted in descending order of the name.\n";
 
 
     public static final String MESSAGE_SORT_APPAREL_SUCCESS = "Apparels sorted";

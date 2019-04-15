@@ -629,6 +629,7 @@ An example is shown below:
 image::ReportDisplay.png[width="790"]
 
 **Resizable graph** `Coming in v2.0`
+
 The report display is currently best viewed with the window in full screen. Otherwise, you may need to use the horizontal and vertical
 scroll bars to view the graph and questions. Hang tight, a display that changes in size is coming soon!
 

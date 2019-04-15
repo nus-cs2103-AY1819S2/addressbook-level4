@@ -100,6 +100,12 @@ public class LogicManagerTest {
         //logic.getFilteredPersonList().remove(0);
     }
 
+    @Test
+    public void getMapsTest() {
+        assertEquals(logic.getEnemyMapGrid(), model.getEnemyMapGrid());
+        assertEquals(logic.getHumanMapGrid(), model.getHumanMapGrid());
+    }
+
     /**
      * Executes the command, confirms that no exceptions are thrown and that the result message is correct.
      * Also confirms that {@code expectedModel} is as specified.

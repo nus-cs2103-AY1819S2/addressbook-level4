@@ -64,6 +64,7 @@ public class BatchTable extends UiPart<Region> {
         setColumnWidth();
         populateTable(selectedMedicine);
         sortTable(informationPanelSettings);
+        disableSortingByClicks(); // To prevent sorting without change to InformationPanelSettings
     }
 
     private void setDescriptionTexts(Medicine selectedMedicine) {
@@ -132,7 +133,9 @@ public class BatchTable extends UiPart<Region> {
         }
 
         table.getSortOrder().add(column);
+    }
 
+    private void disableSortingByClicks() {
         numberColumn.setSortable(false);
         quantityColumn.setSortable(false);
         expiryColumn.setSortable(false);

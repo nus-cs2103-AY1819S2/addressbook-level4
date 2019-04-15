@@ -230,6 +230,18 @@ public class GradTrak implements ReadOnlyGradTrak {
     }
 
     @Override
+    public ArrayList<String> getMissingPrerequisitesWithoutModule(ModuleTree moduleTree, ModuleTaken moduleTaken) {
+        ArrayList<String> codeStringList = new ArrayList<>();
+        for (ModuleInfoCode code : getNonFailedCodeList()) {
+            if (!code.equals(moduleTaken.getModuleInfoCode())) {
+                codeStringList.add(code.toString());
+            }
+        }
+
+        return moduleTree.checkPrerequisites(codeStringList);
+    }
+
+    @Override
     public void addListener(InvalidationListener listener) {
         invalidationListenerManager.addListener(listener);
     }

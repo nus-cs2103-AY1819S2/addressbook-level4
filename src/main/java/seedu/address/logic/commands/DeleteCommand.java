@@ -24,6 +24,7 @@ public class DeleteCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted ModuleTaken: %1$s";
+    public static final String MESSAGE_PREREQUISITE_VIOLATED = "Failed, this module is a prerequisite for other modules";
 
     private final Index targetIndex;
 
@@ -41,7 +42,11 @@ public class DeleteCommand extends Command {
         }
 
         ModuleTaken moduleTakenToDelete = lastShownList.get(targetIndex.getZeroBased());
-        model.deleteModuleTaken(moduleTakenToDelete);
+        if (model.canDeleteModuleTaken(moduleTakenToDelete)) {
+            model.deleteModuleTaken(moduleTakenToDelete);
+        } else {
+            throw new CommandException(MESSAGE_PREREQUISITE_VIOLATED);
+        }
         model.commitGradTrak();
         return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, moduleTakenToDelete));
     }

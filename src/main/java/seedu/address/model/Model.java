@@ -92,6 +92,11 @@ public interface Model {
     boolean isEligibleModuleTaken(ModuleTaken moduleTaken);
 
     /**
+     * Returns true if deleting the moduleTaken will not cause other prerequisites to be unsatisfied
+     */
+    boolean canDeleteModuleTaken(ModuleTaken moduleTaken);
+
+    /**
      * Deletes the given moduleTaken.
      * The moduleTaken must exist in the GradTrak .
      */

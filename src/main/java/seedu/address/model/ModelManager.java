@@ -19,6 +19,7 @@ import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.util.ModuleTree;
 import seedu.address.model.course.Course;
 import seedu.address.model.course.CourseList;
 import seedu.address.model.course.CourseName;
@@ -198,6 +199,23 @@ public class ModelManager implements Model {
         requireNonNull(moduleTaken);
         ModuleInfo moduleInfo = moduleInfoList.getModule(moduleTaken.getModuleInfoCode().value);
         return new EligibleModulePredicate(versionedGradTrak).test(moduleInfo);
+    }
+
+    @Override
+    public boolean canDeleteModuleTaken(ModuleTaken moduleTaken) {
+        requireNonNull(moduleTaken);
+        for (ModuleTaken module : versionedGradTrak.getModulesTakenList()) {
+            if (module.equals(moduleTaken)) {
+                continue;
+            }
+            ModuleInfo moduleInfo = moduleInfoList.getModule(module.getModuleInfoCode().value);
+            ModuleTree moduleTree = moduleInfo.getModuleInfoPrerequisite().getModuleTree();
+            if (!versionedGradTrak.getMissingPrerequisitesWithoutModule(moduleTree, moduleTaken).isEmpty()) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     @Override

@@ -46,7 +46,8 @@ https://github.com/CS2103-AY1819S2-W14-1/main/pull/43[#42],
 https://github.com/CS2103-AY1819S2-W14-1/main/pull/96[#96],
 https://github.com/CS2103-AY1819S2-W14-1/main/pull/108[#108],
 https://github.com/CS2103-AY1819S2-W14-1/main/pull/129[#129],
-https://github.com/CS2103-AY1819S2-W14-1/main/pull/175[#175]
+https://github.com/CS2103-AY1819S2-W14-1/main/pull/175[#175],
+https://github.com/CS2103-AY1819S2-W14-1/main/pull/186[#186]
 
 * *Minor enhancement*: Implementation of quiz mode display to user and changing between the
 two dark and light theme.
@@ -59,7 +60,7 @@ over dark theme, they can choose either one easily that persists beyond app rest
 The user just need to focus solely on going through the flashcard without having to care about
 the list of lesson available.
 
-* *Code contributed*: [https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#=undefined&search=halcyoneee[RepoSense]]
+* *Code contributed*: [https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#search=halcyoneee[RepoSense]]
 
 * *Other contributions*:
 
@@ -74,7 +75,7 @@ system tests to increase coverage from 88% to 95%
 
 ** Documentation:
 *** Updated Architecture, Logic, UI and QuizModel component diagram to match the current
-implementation.
+implementation. https://github.com/CS2103-AY1819S2-W14-1/main/pull/186[#186]
 
 ** Community:
 *** PRs reviewed with comments:
@@ -94,21 +95,27 @@ https://github.com/cs2103-ay1819s2-w09-1/main/issues/140[#140])
 
 == Contributions to the User Guide
 
-
 |===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|_Given below are an extract of my contributions on Quiz Mode to the User Guide. They showcase my
+ ability to write documentation targeting our end-user - Students and Creators._
 |===
 
 _Start of extract of quiz mode_
 include::../UserGuide.adoc[tag=quiz]
 _End of extract of quiz mode_
 
+Click to read the full https://cs2103-ay1819s2-w14-1.github.io/main/UserGuide.html[User Guide].
+
 == Contributions to the Developer Guide
 
 |===
-|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|_Given below are an extract of my contribution on Quiz Mode to the Developer Guide. They
+showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
 _Start of extract of quiz mode_
+
 include::../DeveloperGuide.adoc[tag=quiz]
 _End of extract of quiz mode_
+
+Click to read the full https://cs2103-ay1819s2-w14-1.github.io/main/DeveloperGuide.html[Developer Guide].

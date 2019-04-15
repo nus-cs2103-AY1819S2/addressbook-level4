@@ -67,9 +67,8 @@ This project is morphed from link:https://github.com/nus-cs2103-AY1819S2/address
 |_Given below are some example sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=display]
-
 include::../UserGuide.adoc[tag=route]
+More contribution to User Guild here: link:https://cs2103-ay1819s2-w10-3.github.io/main/UserGuide.html#show-in-map-code-display-code[display]
 
 == Contributions to the Developer Guide
 

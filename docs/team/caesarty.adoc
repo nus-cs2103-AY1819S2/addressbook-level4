@@ -168,9 +168,6 @@ Shows all persons whose school is NUS and major is CS in Interview List in Job D
 * `clearFilter ` +
 Shows all persons in Interview List in Job Detail Screen.
 
-include::../UserGuide.adoc[tag=filter]
-
-include::../UserGuide.adoc[tag=openCV]
 
 == Contributions to the Developer Guide
 
@@ -338,10 +335,5 @@ Use case resumes at step 2.
 .. Other incorrect filter commands to try: `filter a`, `filter fn/CS`,`filter b fn/CS`
    Expected: Similar to previous.
 
-include::../DeveloperGuide.adoc[tag=filter]
-
-include::../DeveloperGuide.adoc[tag=filterUseCase]
-
-include::../DeveloperGuide.adoc[tag=filterManualTest]
 
 

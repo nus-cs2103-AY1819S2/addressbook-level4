@@ -371,6 +371,12 @@ The Storage layer will convert the appointment Java object into the JSON file fo
 The next time the application is opened, the Storage layer will use `JsonAdaptedAppointment` again to convert appointments in the JSON file back into appointment objects.
 
 === Sort Medical History Features
+Sort medical history command enable users to sort medical history list by date of occurrence.
+
+Given below is the Activity Diagram for sort medical history command. It shows the workflow on a high level:
+
+image::SortMedHistActivityDiagram.png[width="800"]
+
 ==== Current Implementation
 The sort medical history feature is enable bt the classes: `MedicalHistory`, `ValidDate`, `SortMedHistCommand`, `SortMedHistCommandParser`
 
@@ -386,7 +392,7 @@ This class checks if the user's input string is valid ("", "ASC" or "DESC") befo
 * `SortMedHistCommand` - This is a class where the execution of sort medical history command happens.
 It interacts with Model components to execute sorting of `UniqueMedHistList` object stored in `docX` object.
 
-Given below is the Sequence Diagram for interactions within the Logic and Model components for the "sort-med-hist" command:
+Given below is the Sequence Diagram for interactions within the Logic and Model components for the "sort-med-hist ..." command:
 
 image::SortMedHistSequenceDiagram.png[width="800"]
 

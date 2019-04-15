@@ -4,25 +4,23 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Optional;
 
-import seedu.address.model.Model;
 import seedu.address.model.PostalData;
+import seedu.address.model.PostalDataSet;
 import seedu.address.model.restaurant.Restaurant;
 
 /**
  * Sorts Resturant based on distance from given postal code.
  */
 public class SortDistanceComparator implements Comparator<Restaurant> {
-    private HashMap<Integer, Double> distanceData;
-    private PostalData current;
-    private double x;
-    private double y;
-    private Model model;
-    public SortDistanceComparator(Model model, int postal) {
-        this.model = model;
+    private HashMap<String, Double> distanceData;
+    private double userX;
+    private double userY;
+    private PostalDataSet postalDataSet;
+    public SortDistanceComparator(PostalDataSet postalDataSet, PostalData postalOfUser) {
+        this.postalDataSet = postalDataSet;
         distanceData = new HashMap<>();
-        current = model.getPostalData(postal).get();
-        x = current.getX();
-        y = current.getY();
+        userX = postalOfUser.getX();
+        userY = postalOfUser.getY();
     }
 
     /**
@@ -33,16 +31,11 @@ public class SortDistanceComparator implements Comparator<Restaurant> {
      */
 
     public int compare(Restaurant firstRestaurant, Restaurant secondRestaurant) {
-        int postalA = (Integer.parseInt(firstRestaurant.getPostal().value));
-        int postalB = (Integer.parseInt(secondRestaurant.getPostal().value));
+        String postalA = firstRestaurant.getPostal().value;
+        String postalB = secondRestaurant.getPostal().value;
 
-        checkHashMap(postalA);
-        checkHashMap(postalB);
-
-
-        double distA = distanceData.get(postalA);
-        double distB = distanceData.get(postalB);
-
+        double distA = checkDistanceFromUser(postalA);
+        double distB = checkDistanceFromUser(postalB);
 
         if (distA - distB > 0) {
             return 1;
@@ -58,17 +51,21 @@ public class SortDistanceComparator implements Comparator<Restaurant> {
      * @param postal
      * check if a given postal is in the HashMap else put it in otherwise.
      */
-    private void checkHashMap(int postal) {
+    private double checkDistanceFromUser(String postal) {
         if (!distanceData.containsKey(postal)) {
-            Optional<PostalData> postalDataA = model.getPostalData(postal);
-            if (postalDataA.isPresent()) {
-                double aX = postalDataA.get().getX();
-                double aY = postalDataA.get().getY();
-                double distance = (aX - x) * (aX - x) + (aY - y) * (aY - y);
+            Optional<PostalData> postalData = postalDataSet.getPostalData(postal);
+            if (postalData.isPresent()) {
+                double restaurantX = postalData.get().getX();
+                double restaurantY = postalData.get().getY();
+                double distance = calculateDistance(restaurantX, restaurantY, userX, userY);
                 distanceData.put(postal, distance);
             } else {
                 distanceData.put(postal, Double.MAX_VALUE);
             }
         }
+        return distanceData.get(postal);
+    }
+    private double calculateDistance(double firstX, double firstY, double secondX, double secondY) {
+        return Math.pow((firstX - secondX), 2) + Math.pow((firstY - secondY), 2);
     }
 }

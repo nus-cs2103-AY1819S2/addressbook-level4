@@ -19,7 +19,7 @@ endif::[]
 By: `W17-1`      Since: `Feb 2019`      Licence: `MIT`
 
 // tag::introductionUG[]
-== Welcome to the Food Diary
+== Welcome to The Food Diary
 
 If you would like to get use the Food Diary straightaway, jump to the <<Quick Start>> to get started
 
@@ -178,18 +178,18 @@ Returns a list of all the restaurants in the Food Diary.
 // tag::listUnvisitedUG[]
 ==== Listing all restaurants that you haven't visited : `listUnvisited`
 
-Shows a list of all restaurants that hasn't been reviewed by you, ranked based on the proximity to a given postal code. +
+Shows a list of all restaurants that hasn't been reviewed by you, ranked based on the proximity to the postal code provided by you. +
 Format: `listUnvisited po/POSTAL_CODE`
 
 [NOTE]
 ====
-Calculation of proximity is based on postal codes. If no postal code or an invalid postal code is provided for a restaurant, it will appear at the bottom of the list.
+Calculation of proximity is based on postal code provided for the restaurant. If no postal code or an invalid postal code is provided for a restaurant, it will appear at the bottom of the list.
 ====
 
 Examples:
 
 * `listUnvisited po/267951` +
-Returns all the restaurants that has no reviews ranked based on the proximity to a given postal code
+Returns all the restaurants that has no reviews ranked based on the proximity to a postal code `267951`.
 
 [TIP]
 ====
@@ -529,6 +529,7 @@ Examples:
 * Example of profile statistics is shown below:
 
 image:viewCommand.png[width="790"]
+
 _Figure 7. Your profile statistics will be reflected in the result command box as pointed out in the picture above_
 
 // end::nameUG[]

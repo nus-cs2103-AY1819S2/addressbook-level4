@@ -10,6 +10,7 @@ import seedu.address.model.restaurant.Email;
 import seedu.address.model.restaurant.Name;
 import seedu.address.model.restaurant.OpeningHours;
 import seedu.address.model.restaurant.Phone;
+import seedu.address.model.restaurant.Postal;
 import seedu.address.model.restaurant.Restaurant;
 import seedu.address.model.restaurant.Weblink;
 import seedu.address.model.tag.Tag;
@@ -38,6 +39,7 @@ public class EditRestaurantDescriptorBuilder {
         descriptor.setPhone(restaurant.getPhone());
         descriptor.setEmail(restaurant.getEmail());
         descriptor.setAddress(restaurant.getAddress());
+        descriptor.setPostal(restaurant.getPostal());
         descriptor.setTags(restaurant.getTags());
     }
 
@@ -56,6 +58,15 @@ public class EditRestaurantDescriptorBuilder {
         descriptor.setPhone(new Phone(phone));
         return this;
     }
+
+    /**
+     * Sets the {@code Postal} of the {@code EditRestaurantDescriptor} that we are building.
+     */
+    public EditRestaurantDescriptorBuilder withPostal(String postal) {
+        descriptor.setPostal(new Postal(postal));
+        return this;
+    }
+
 
     /**
      * Sets the {@code Email} of the {@code EditRestaurantDescriptor} that we are building.

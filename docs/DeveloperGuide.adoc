@@ -936,7 +936,7 @@ The manipulation feature is facilitated by `CurrentEdit`. It uses the following 
 
  * `Image#setWaterMark(boolean)` - Sets the `Image` object's `hasWaterMark` field accordingly, if the `Image` object has or does not have a watermark.
 
- The diagram below illustrates how the WaterMark Command works:
+The diagram below illustrates how the WaterMark Command works:
 
  .Sequence Diagram for WaterMark Command
  image::WaterMarkCommandSequenceDiagram.png[width="800"]

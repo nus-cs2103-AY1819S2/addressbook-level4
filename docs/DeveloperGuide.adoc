@@ -219,7 +219,7 @@ The `Model` component,
 === Storage component
 
 .Structure of the Storage Component
-image::StorageClassDiagram.png[width="500"]
+image::StorageClassDiagram.png[width="700"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
 
@@ -905,7 +905,7 @@ image::StatsCommandBox.PNG[width=200]
 The following sequence diagram summarizes what happens when a User invokes the `stats` command.
 
 .Sequence diagram of `stats` command.
-image::StatsSequenceDiagram.PNG[width=500 ]
+image::StatsSequenceDiagram.PNG[width=600 ]
 
 ==== Save and Compare
 Given below is an example usage scenario of the automatic save and compare feature.

@@ -6,6 +6,7 @@
 :stylesheet: xavier.css
 //Credits Yeo Zhuan Yu for allowing the use of his stylesheet
 :sourceDir: https://cs2103-ay1819s2-w09-1.github.io/main/
+:xrefstyle: short
 
 image::ngweixin.png[width="200", align="left"]
 {empty}[https://github.com/ngweixin[GitHub]]

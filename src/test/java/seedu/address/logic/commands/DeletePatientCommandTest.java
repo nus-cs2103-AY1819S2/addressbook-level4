@@ -14,10 +14,11 @@ import org.junit.Test;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
+import seedu.address.logic.commands.patient.DeletePatientCommand;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.person.Patient;
+import seedu.address.model.person.patient.Patient;
 
 /**
  * Contains integration tests (interaction with the Model) and unit tests for

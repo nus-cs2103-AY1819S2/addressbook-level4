@@ -9,8 +9,8 @@ import seedu.address.model.medicalhistory.MedicalHistory;
 import seedu.address.model.medicalhistory.ValidDate;
 import seedu.address.model.medicalhistory.WriteUp;
 import seedu.address.model.person.Doctor;
-import seedu.address.model.person.Patient;
 import seedu.address.model.person.PersonId;
+import seedu.address.model.person.patient.Patient;
 
 /**
  * A utility class containing a list of {@code Medical History} objects to be used in tests.
@@ -20,7 +20,7 @@ public class TypicalMedHists {
     public static final MedicalHistory MED_HIST1 = new MedicalHistory(new PersonId("1"), new PersonId("7"),
             new ValidDate("2019-03-03"), new WriteUp("The patient got a high fever."));
     public static final MedicalHistory MED_HIST2 = new MedicalHistory(new PersonId("2"), new PersonId("7"),
-                    new ValidDate("2019-03-03"), new WriteUp("The patient had a sneeze."));
+            new ValidDate("2019-03-03"), new WriteUp("The patient had a sneeze."));
     public static final MedicalHistory MED_HIST3 = new MedicalHistory(new PersonId("2"), new PersonId("8"),
             new ValidDate("2019-01-30"), new WriteUp("The patient had a stomachache. "
             + "I gave him some medicine to release the pain."));
@@ -64,7 +64,8 @@ public class TypicalMedHists {
     public static final Doctor GAN = new DoctorBuilder().withName("Gan Chong").withPhone("94824421")
             .withGender("F").withYear("8").build();
 
-    private TypicalMedHists() {} // prevents instantiation
+    private TypicalMedHists() {
+    } // prevents instantiation
 
     /**
      * Returns an {@code DocX} with all the typical Medical History.

@@ -9,9 +9,9 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Set;
 
-import seedu.address.logic.commands.AddPatientCommand;
-import seedu.address.logic.commands.EditPatientCommand.EditPatientDescriptor;
-import seedu.address.model.person.Patient;
+import seedu.address.logic.commands.patient.AddPatientCommand;
+import seedu.address.logic.commands.patient.EditPatientCommand.EditPatientDescriptor;
+import seedu.address.model.person.patient.Patient;
 import seedu.address.model.tag.Tag;
 
 /**

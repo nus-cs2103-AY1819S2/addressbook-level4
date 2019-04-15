@@ -11,7 +11,7 @@ import guitests.guihandles.PatientListPanelHandle;
 import guitests.guihandles.ResultDisplayHandle;
 //import javax.print.Doc;
 
-import seedu.address.model.person.Patient;
+import seedu.address.model.person.patient.Patient;
 
 
 /**

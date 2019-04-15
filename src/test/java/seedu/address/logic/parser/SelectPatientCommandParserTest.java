@@ -7,7 +7,8 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
 import org.junit.Test;
 
-import seedu.address.logic.commands.SelectPatientCommand;
+import seedu.address.logic.commands.patient.SelectPatientCommand;
+import seedu.address.logic.parser.patient.SelectPatientCommandParser;
 
 /**
  * Test scope: similar to {@code DeletePatientCommandParserTest}.

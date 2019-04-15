@@ -5,7 +5,6 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_GENDER_STEVEN;
-//import static seedu.address.model.Model.PREDICATE_SHOW_ALL_DOCTORS;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PATIENTS;
 import static seedu.address.testutil.TypicalDoctors.ALVINA;
 import static seedu.address.testutil.TypicalDoctors.STEVEN;
@@ -24,14 +23,16 @@ import org.junit.rules.ExpectedException;
 
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.person.Doctor;
-//import seedu.address.model.person.DoctorNameContainsKeywordsPredicate;
-import seedu.address.model.person.Patient;
-import seedu.address.model.person.PatientNameContainsKeywordsPredicate;
 import seedu.address.model.person.exceptions.DoctorNotFoundException;
 import seedu.address.model.person.exceptions.PatientNotFoundException;
+import seedu.address.model.person.patient.Patient;
+import seedu.address.model.person.patient.PatientNameContainsKeywordsPredicate;
 import seedu.address.testutil.DocXBuilder;
 import seedu.address.testutil.DoctorBuilder;
 import seedu.address.testutil.PatientBuilder;
+
+//import static seedu.address.model.Model.PREDICATE_SHOW_ALL_DOCTORS;
+//import seedu.address.model.person.DoctorNameContainsKeywordsPredicate;
 
 public class ModelManagerTest {
     @Rule

@@ -15,7 +15,9 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.appointment.AppointmentStatus;
 import seedu.address.model.appointment.FutureAppointment;
+import seedu.address.model.person.patient.Patient;
 
 /**
  * Adds a new appointment between a patient and doctor.
@@ -67,6 +69,12 @@ public class AddAppointmentCommand extends Command {
 
         model.addAppointment(appointment);
         model.commitDocX();
+
+        Patient patientToChange = appointment.getPatient();
+        Patient changedPatient = patientToChange.changeAppointmentStatus(AppointmentStatus.ACTIVE);
+        model.setPatient(patientToChange, changedPatient);
+        model.commitDocX();
+
         return new CommandResult(String.format(MESSAGE_SUCCESS, appointment));
     }
 

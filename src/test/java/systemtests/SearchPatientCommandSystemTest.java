@@ -14,8 +14,8 @@ import java.util.List;
 import org.junit.Test;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.DeletePatientCommand;
-import seedu.address.logic.commands.SearchPatientCommand;
+import seedu.address.logic.commands.patient.DeletePatientCommand;
+import seedu.address.logic.commands.patient.SearchPatientCommand;
 import seedu.address.model.Model;
 import seedu.address.model.tag.Tag;
 

@@ -12,7 +12,7 @@ import java.util.stream.Stream;
 import seedu.address.logic.commands.AddPrescriptionCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 //import seedu.address.model.person.Doctor;
-//import seedu.address.model.person.Patient;
+//import seedu.address.model.person.patient.Patient;
 import seedu.address.model.medicalhistory.ValidDate;
 import seedu.address.model.person.PersonId;
 import seedu.address.model.prescription.Description;

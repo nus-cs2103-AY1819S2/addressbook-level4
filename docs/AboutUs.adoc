@@ -41,9 +41,7 @@ image::bendymochi.png[width="150", align="left"]
 Role: Developer +
 Responsibilities:
 
-* Filter
-* Sort
-* Commands
+* Filter and Sort Commands
 * Documentation
 * UI
 

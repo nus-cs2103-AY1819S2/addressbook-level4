@@ -1,7 +1,7 @@
 package seedu.equipment.logic.commands;
 
 import static org.junit.Assert.assertEquals;
-import static seedu.equipment.testutil.TypicalEquipments.getTypicalAddressBook;
+import static seedu.equipment.testutil.TypicalEquipments.getTypicalEquipmentManager;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -20,7 +20,7 @@ public class DisplayCommandTest {
 
     @Before
     public void setUp() {
-        model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        model = new ModelManager(getTypicalEquipmentManager(), new UserPrefs());
         expectedModel = new ModelManager(model.getEquipmentManager(), new UserPrefs());
     }
 

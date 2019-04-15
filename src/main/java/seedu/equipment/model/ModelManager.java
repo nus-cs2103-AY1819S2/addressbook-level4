@@ -48,7 +48,7 @@ public class ModelManager implements Model {
 
         versionedEquipmentManager = new VersionedEquipmentManager(equipmentManager);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredEquipments = new FilteredList<>(versionedEquipmentManager.getPersonList());
+        filteredEquipments = new FilteredList<>(versionedEquipmentManager.getEquipmentList());
         filteredEquipments.addListener(this::ensureSelectedPersonIsValid);
         filteredWorkList = new FilteredList<>(versionedEquipmentManager.getWorkListList());
         filteredClient = new FilteredList<>(versionedEquipmentManager.getClientList());
@@ -110,7 +110,7 @@ public class ModelManager implements Model {
     @Override
     public boolean hasEquipment(Equipment equipment) {
         requireNonNull(equipment);
-        return versionedEquipmentManager.hasPerson(equipment);
+        return versionedEquipmentManager.hasEquipment(equipment);
     }
 
     @Override

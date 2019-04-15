@@ -41,7 +41,7 @@ public class SampleDataUtil {
         };
     }
 
-    public static ReadOnlyEquipmentManager getSampleAddressBook() {
+    public static ReadOnlyEquipmentManager getSampleEquipmentManager() {
         EquipmentManager sampleAb = new EquipmentManager();
         for (Equipment sampleEquipment : getSamplePersons()) {
             sampleAb.addPerson(sampleEquipment);

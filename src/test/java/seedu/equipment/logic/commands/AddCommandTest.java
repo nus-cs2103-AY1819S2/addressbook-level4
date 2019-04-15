@@ -120,7 +120,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void setEquipmentManagerFilePath(Path addressBookFilePath) {
+        public void setEquipmentManagerFilePath(Path equipmentManagerFilePath) {
 
             throw new AssertionError("This method should not be called.");
         }
@@ -153,7 +153,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void setEquipmentManager(ReadOnlyEquipmentManager newData) {
+        public void setEquipmentManager(ReadOnlyEquipmentManager equipmentManager) {
 
             throw new AssertionError("This method should not be called.");
         }
@@ -365,19 +365,19 @@ public class AddCommandTest {
     /**
      * A Model stub that always accept the equipment being added.
      */
-    private class ModelStubAcceptingPersonAdded extends ModelStub {
-        final ArrayList<Equipment> personsAdded = new ArrayList<>();
+    private class ModelStubAcceptingEquipmentAdded extends ModelStub {
+        final ArrayList<Equipment> equipmentAdded = new ArrayList<>();
 
         @Override
         public boolean hasEquipment(Equipment equipment) {
             requireNonNull(equipment);
-            return personsAdded.stream().anyMatch(equipment::isSameEquipment);
+            return equipmentAdded.stream().anyMatch(equipment::isSameEquipment);
         }
 
         @Override
         public void addEquipment(Equipment equipment) {
             requireNonNull(equipment);
-            personsAdded.add(equipment);
+            equipmentAdded.add(equipment);
         }
 
         @Override

@@ -38,7 +38,7 @@ public class TypicalWorkLists {
     }
 
     /**
-     * Returns an {@code EquipmentManager} with all the typical persons.
+     * Returns an {@code EquipmentManager} with all the typical equipment.
      */
     public static EquipmentManager getTypicalEquipmentManager() {
         EquipmentManager ab = new EquipmentManager();

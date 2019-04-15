@@ -576,6 +576,11 @@ An appointment cannot overlap with a patient's or doctor's existing appointments
 This is determined if the date and time overlaps.
 An appointment must specify a patient ID, doctor ID, date and time.
 
+The following class diagram shows the modelling of appointments in our application. Details in Patient and Doctor are
+omitted for clarity.
+
+image::AppointmentClassDiagram.png[width="800"]
+
 ==== Current Implementation
 The add appointment feature is enabled by the classes: `Appointment`, `FutureAppointment`,
 `AddAppointmentCommandParser`, `AddAppointmentCommand` and `JsonAdaptedAppointment`.

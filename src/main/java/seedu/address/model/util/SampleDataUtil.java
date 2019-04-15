@@ -1,7 +1,6 @@
 package seedu.address.model.util;
 
 import java.util.Arrays;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -23,13 +22,10 @@ import seedu.address.model.tag.Condition;
 import seedu.address.model.tag.Skills;
 import seedu.address.model.tag.Specialisation;
 
-
 /**
- * Contains utility methods for populating {@code RequestBook} and {@code HealthWorkerBooknew  sample data.
+ * Contains utility methods for populating {@code RequestBook} and {@code HealthWorkerBook} new sample data.
  */
 public class SampleDataUtil {
-
-    private static final String VALID_NRIC = "S8312942G";
 
     public static final HealthWorker ANDY = new HealthWorker(
             new Name("Andy Tan"),
@@ -87,14 +83,14 @@ public class SampleDataUtil {
             new Skills(new Skills(new HashSet<>(Arrays.asList(Specialisation.UROLOGY,
                     Specialisation.PAEDIATRIC)))));
 
- public static final Request ALICE_REQUEST = new Request(
-        new Name("Alice Pauline"),
-         new Nric("S9670515H"),
-         new Phone("94351253"),
-         new Address("123, Jurong West Ave 6, #08-111"),
-         new RequestDate("01-01-2019 10:00:00"),
-         getConditionSet("Physiotherapy"),
-         new RequestStatus("ONGOING"),
+    public static final Request ALICE_REQUEST = new Request(
+            new Name("Alice Pauline"),
+            new Nric("S9670515H"),
+            new Phone("94351253"),
+            new Address("123, Jurong West Ave 6, #08-111"),
+            new RequestDate("01-01-2019 10:00:00"),
+            getConditionSet("Physiotherapy"),
+            new RequestStatus("ONGOING"),
             ANDY.getNric().toString()
         );
 
@@ -181,8 +177,7 @@ public class SampleDataUtil {
             new RequestDate("02-01-2019 15:00:00"),
             getConditionSet("Palliative"),
             new RequestStatus("COMPLETED"),
-            ELLA.getNric().toString();
-    );
+            ELLA.getNric().toString());
 
     public static final Request NEA_REQUEST = new Request(
             new Name("Nea Karlsson"),
@@ -192,12 +187,13 @@ public class SampleDataUtil {
             new RequestDate("25-03-2019 10:00:00"),
             getConditionSet("Physiotherapy"),
             new RequestStatus("ONGOING"),
-            ELLA.getNric().toString();
-    );
+            ELLA.getNric().toString());
+
+    private static final String VALID_NRIC = "S8312942G";
 
     public static HealthWorker[] getSampleHealthWorkers() {
         return new HealthWorker[] {
-           ANDY,BETTY,CARLIE,PANIEL,ELLA,FIONE,GEORGE
+            ANDY, BETTY, CARLIE, PANIEL, ELLA, FIONE, GEORGE
         };
     }
 
@@ -210,6 +206,8 @@ public class SampleDataUtil {
     }
     public static Request[] getSampleRequests() {
         return new Request[] {
+            ALICE_REQUEST, BENSON_REQUEST, CARL_REQUEST, DANIEL_REQUEST, EMMANUEL_REQUEST,
+            FRANCIS_REQUEST, GLADYS_REQUEST, HEPZHI_REQUEST, INDIANA_REQUEST, JANE_REQUEST
 
         };
     }

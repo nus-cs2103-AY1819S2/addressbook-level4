@@ -20,20 +20,15 @@ By: `RecruitMe`      Since: `January 2019`      Licence: `MIT`
 
 === Prerequisites
 
-. *JDK `9`* (revision `1.9.4` or later)
-+
 [NOTE]
-Only JDK 9 is supported. +
+*JDK `9`* (revision `1.9.4` or later). Only JDK 9 is supported. +
 This app will not work with later major JDK releases such as JDK 10, 11, etc.
 
 [NOTE]
 If the tests are failing due to a system error with Java9, then try to run with Java8.
 
-+
-. *IntelliJ* IDE
-+
 [NOTE]
-IntelliJ by default has Gradle and JavaFx plugins installed. +
+Run the application through *IntelliJ* IDE. IntelliJ by default has Gradle and JavaFx plugins installed. +
 Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plugins` to re-enable them.
 
 
@@ -368,11 +363,7 @@ separate tags featured on different lines instead of the current List of tags th
 * The new view will improve the UI design to make the tags more organized and clear.
 
 
-image::filterDiagram.png[width="800"]
-.Sequence Diagram of the Filtering Command
-=======
 === Filter or/and/clear/reverse feature
-
 
 *Usage Format Regarding Current Implementation:*
 
@@ -537,6 +528,7 @@ The testing methods for filtering is written for 3 different parts:
 * Each test case at least contains filtering with `or - success` or `and - success`, `clear - success` and `clear - failure`, `reverse - success` and `reverse - failure`.
 * Also for every interacting command, *failure* and *success* cases are both investigated.
 // end::filter[]
+
 
 // tag::sort[]
 === Sort Commands

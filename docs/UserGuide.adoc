@@ -839,6 +839,7 @@ the customised message to "to call patient John Doe for his appointment".
 image::reminder_command.png[]
 // end::setreminder[]
 
+// tag::statistics[]
 === Getting health condition statistics: `statistics`
 
 We understand that it is imperative for you to know which health conditions have been seeing an increasing trend, as
@@ -916,6 +917,8 @@ Upon collating such data, you can feedback and make suggestions to the hospital 
 certain departments. Furthermore, you can even use this data as a basis for the health sector to ramp up efforts in its
 Work Skills Qualification certification for certain healthcare skills to be taught to new aspiring healthcare
 professionals.
+
+// end::statistics[]
 
 === Exiting the program : `exit`
 

@@ -38,10 +38,13 @@ public class DisplaymodCommandPaserTest {
 
     @Test
     public void parse_invalidInput_failure() {
-        String invalidInput = "CS1010";
+        String invalidInput = " c/C1010";
         assertParseFailure(parser, invalidInput, String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                 DisplaymodCommand.MESSAGE_USAGE));
-        invalidInput = "software+Engineering";
+        invalidInput = " c/CS1010 CS2103T";
+        assertParseFailure(parser, invalidInput, String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                DisplaymodCommand.MESSAGE_USAGE));
+        invalidInput = " n/software Engineering";
         assertParseFailure(parser, invalidInput, String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                 DisplaymodCommand.MESSAGE_USAGE));
     }
@@ -70,9 +73,6 @@ public class DisplaymodCommandPaserTest {
         predicates = new CodeContainsKeywordsPredicate(Collections.singletonList("Software+Engineering"));
         expectedCmd = new DisplaymodCommand(predicates);
         assertParseSuccess(parser, validMultiWordInput, expectedCmd);
-
-
-
     }
 
     @Test

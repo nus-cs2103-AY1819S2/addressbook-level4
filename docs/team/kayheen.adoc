@@ -10,6 +10,7 @@ My team and I were tasked with enhancing a basic command line AddressBook for ou
 
 FomoFoto is a robust yet simple image-editing tool. Users interact with the application through worded commands from their keyboard, and receive visual response through the displayed image on the application. Unlike other heavy image editors, FomoFoto has a gentle learning curve as it removes clutter by providing the more essential features. The features and implementations are well documented in guides for users and developers respectively. In addition, FomoFoto is well maintained with high reliability and code quality as it is covered by rigorous tests and checks.
 
+'''
 === 2. Summary of Contributions
 This section provides a summary of my coding, documentation and miscellaneous contributions to FomoFoto, our team project.
 
@@ -67,12 +68,15 @@ https://github.com/CS2103-AY1819S2-W16-2/main/issues/117[#117],
 |===
 
 ==== 3.1 A Walk Through
+'''
 include::../UserGuide.adoc[tag=AWalkThrough]
 
 ==== 3.2 Rotate an Image : `rotate`
+'''
 include::../UserGuide.adoc[tag=RotateCommand]
 
 ==== 3.3 WaterMark : `wm`
+'''
 include::../UserGuide.adoc[tag=WaterMarkCommand]
 
 === 4. Contributions to the Developer Guide
@@ -82,12 +86,15 @@ include::../UserGuide.adoc[tag=WaterMarkCommand]
 |===
 
 ==== 4.1 How the Architecture Components Interact with Each Other
+'''
 include::../DeveloperGuide.adoc[tag=ArchiInteraction]
 
 ==== 4.2 Image Manipulation
+'''
 include::../DeveloperGuide.adoc[tag=ImageManipulation]
 
 ==== 4.3 WaterMark Feature
+'''
 include::../DeveloperGuide.adoc[tag=WaterMark]
 
 === 5. Other Works Contributed to the User Guide and Developer Guide not Mentioned Above

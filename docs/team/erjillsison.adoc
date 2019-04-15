@@ -74,7 +74,6 @@ This section provides the summary of the contributions that I have made to the p
 include::../UserGuide.adoc[tag=map]
 
 ---
-=== Upcoming Feature in v2.0
 
 include::../UserGuide.adoc[tag=upcomingmap]
 

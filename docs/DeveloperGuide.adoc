@@ -303,6 +303,7 @@ The following activity diagram summarizes what happens when a user executes a ne
 
 image::UndoRedoActivityDiagram.png[width="650"]
 
+==== Design Considerations
 ===== Aspect: How undo & redo executes
 
 * **Alternative 1 (current choice):** Saves the entire address book.
@@ -770,6 +771,8 @@ Use case ends.
 +
 Use case resumes at step 3.
 
+// tag::interviewsUseCases[]
+
 === Use case: Generate and show interview dates
 
 *MSS*
@@ -817,6 +820,8 @@ Use case ends.
 * 3c. Previous interview dates are recovered.
 +
 Use case ends.
+
+// end::interviewsUseCases[]
 
 === Use case: Search person
 

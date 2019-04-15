@@ -673,9 +673,10 @@ image::RecModuleComparatorSequenceDiagram.png[width="800"]
 ** Cons: Algorithm required to plan for all semesters can be complex; student may not prefer the given plan
 
 
-==== Possible Improvements
+==== Possible Enhancements
 . Allow the student to display a module's information (from `displaymod` command) using its index in the recommendation list
 . Allow the student to add a module to the module plan using its index in the recommendation list
+. Enable recommendation of Unrestricted Electives based on personal interests of the user
 // end::rec[]
 
 // tag::CheckLimit[]

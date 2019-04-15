@@ -370,13 +370,13 @@ Format: `find [c/MODULE_CODE] [s/SEMESTER] [g/GRADE] [f/IS_FINISHED]`
 Examples:
 
 * `find c/CS` +
-Lists all CS modules in the module plan.
+Lists all modules with "CS" in their codes.
 
-.Finding CS modules
+.Finding modules with "CS"
 image::find(c).png[width="800"]
 
 * `find s/Y1S2` +
-Lists all modules in Y1S2 in the module plan.
+Lists all modules in Y1S2.
 
 .Finding modules in Y1S2
 image::find(s).png[width="800"]
@@ -411,12 +411,20 @@ Format: `list`
 // tag::rec[]
 === Recommend module: `rec`
 
-Recommends a list of modules that can be read based on the current module plan and course requirements.
-Modules with unmet prerequisites or those already added (unless they have been failed) will not be recommended. +
-Recommended modules are displayed in order of requirement type satisfied: Core, Breadth & Depth, Industry Experience, Faculty, General Education.
-Modules with the same requirement type satisfied are sorted by level. +
-Format: `rec` +
-The figure below shows a sample recommendation list for a user studying Computer Science Algorithms.
+Recommends modules that can be read based on the current module plan and course requirements. +
+Format: `rec`
+
+****
+* Modules with unmet prerequisites or those already added (except for failed modules) will not be recommended.
+* Recommended modules are displayed in order of requirement type satisfied: _Core_, _Breadth & Depth_, _Industry Experience_, _Faculty_, _General Education_.
+Modules with the same requirement type satisfied are sorted by level.
+****
+
+[NOTE]
+====
+If any change is made to the course or module plan, enter `rec` again to update the recommendation list.
+====
+The figure below shows a sample recommendation list for a user studying Computer Science Algorithms with an empty module plan.
 
 .Recommendation list for Computer Science Algorithms
 image::recommend.png[width="800"]

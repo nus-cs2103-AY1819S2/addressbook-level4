@@ -4,7 +4,7 @@
 :stylesDir: ../stylesheets
 
 == Introduction
-image::bos10.png[width="150", align="left"]
+image::bos10.png[width="120", align="left"]
 Hello! My name is Boston, a Year 2 Computer Science student at the National University of Singapore (NUS). This portfolio documents the CS2103T Software Engineering project I have been actively involved in over the past semester. The experience has exposed me to new technologies and helped me to develop relevant skills en route to being a Software Engineer.
 
 == Project Overview : Battleship

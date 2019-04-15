@@ -72,13 +72,13 @@ public class PdfBookTest {
     }
 
     @Test
-    public void hasPdf_personInPdfBook_returnsTrue() {
+    public void hasPdf_pdfInPdfBook_returnsTrue() {
         pdfBook.addPdf(SAMPLE_PDF_7);
         assertTrue(pdfBook.hasPdf(SAMPLE_PDF_7));
     }
 
     @Test
-    public void hasPdf_personWithSameIdentityFieldsInPdfBook_returnsTrue() {
+    public void hasPdf_pdfWithSameIdentityFieldsInPdfBook_returnsTrue() {
         pdfBook.addPdf(SAMPLE_PDF_7);
         Pdf editedPdf = new PdfBuilder(SAMPLE_PDF_7).build();
         assertTrue(pdfBook.hasPdf(editedPdf));

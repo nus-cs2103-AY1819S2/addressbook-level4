@@ -11,7 +11,7 @@ public class VersionedPdfBook extends PdfBook {
     private final List<ReadOnlyPdfBook> pdfBookStateList;
     private int currentStatePointer;
 
-    public VersionedPdfBook(ReadOnlyPdfBook initialState) {
+    VersionedPdfBook(ReadOnlyPdfBook initialState) {
         super(initialState);
 
         pdfBookStateList = new ArrayList<>();
@@ -23,7 +23,7 @@ public class VersionedPdfBook extends PdfBook {
      * Saves a copy of the current {@code PdfBook} state at the end of the state list.
      * Undone states are removed from the state list.
      */
-    public void commit() {
+    void commit() {
         removeStatesAfterCurrentPointer();
         pdfBookStateList.add(new PdfBook(this));
         currentStatePointer++;
@@ -60,14 +60,14 @@ public class VersionedPdfBook extends PdfBook {
     /**
      * Returns true if {@code undo()} has pdf book states to undo.
      */
-    public boolean canUndo() {
+    boolean canUndo() {
         return currentStatePointer > 0;
     }
 
     /**
      * Returns true if {@code redo()} has pdf book states to redo.
      */
-    public boolean canRedo() {
+    boolean canRedo() {
         return currentStatePointer < pdfBookStateList.size() - 1;
     }
 
@@ -94,7 +94,7 @@ public class VersionedPdfBook extends PdfBook {
     /**
      * Thrown when trying to {@code undo()} but can't.
      */
-    public static class NoUndoableStateException extends RuntimeException {
+    static class NoUndoableStateException extends RuntimeException {
         private NoUndoableStateException() {
             super("Current state pointer at start of pdfBookState list, unable to undo.");
         }
@@ -103,7 +103,7 @@ public class VersionedPdfBook extends PdfBook {
     /**
      * Thrown when trying to {@code redo()} but can't.
      */
-    public static class NoRedoableStateException extends RuntimeException {
+    static class NoRedoableStateException extends RuntimeException {
         private NoRedoableStateException() {
             super("Current state pointer at end of pdfBookState list, unable to redo.");
         }

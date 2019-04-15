@@ -38,7 +38,7 @@ public class DeleteCommand extends Command {
             + "Parameters(Hard Delete): INDEX (must be a positive integer) hard\n"
             + "Example: " + COMMAND_WORD + " 1 OR " + COMMAND_WORD + " 1 hard";
 
-    public static final String MESSAGE_DELETE_PDF_SUCCESS = "Deleted PDF: %1$s";
+    public static final String MESSAGE_DELETE_PDF_SUCCESS = "Deleted PDF:\n%1$s";
     public static final String MESSAGE_DELETE_HARD_FAIL = "PDF unable to be deleted at filesystem.";
 
     private final Index targetIndex;

@@ -33,7 +33,7 @@ public class PdfBook implements ReadOnlyPdfBook {
     public PdfBook() {}
 
     /**
-     * Creates an PdfBook using the Persons in the {@code toBeCopied}
+     * Creates an PdfBook using the Pdfs in the {@code toBeCopied}
      */
     public PdfBook(ReadOnlyPdfBook toBeCopied) {
         this();

@@ -19,7 +19,7 @@ import seedu.pdf.model.pdf.Pdf;
 @JsonRootName(value = "pdfbook")
 class JsonSerializablePdfBook {
 
-    public static final String MESSAGE_DUPLICATE_PDF = "Pdf list contains duplicate pdf(s).";
+    private static final String MESSAGE_DUPLICATE_PDF = "Pdf list contains duplicate pdf(s).";
 
     private final List<JsonAdaptedPdf> pdfs = new ArrayList<>();
 
@@ -36,7 +36,7 @@ class JsonSerializablePdfBook {
      *
      * @param source future changes to this will not affect the created {@code JsonSerializablePdfBook}.
      */
-    public JsonSerializablePdfBook(ReadOnlyPdfBook source) {
+    JsonSerializablePdfBook(ReadOnlyPdfBook source) {
         pdfs.addAll(source.getPdfList().stream().map(JsonAdaptedPdf::new).collect(Collectors.toList()));
     }
 
@@ -45,7 +45,7 @@ class JsonSerializablePdfBook {
      *
      * @throws IllegalValueException if there were any data constraints violated.
      */
-    public PdfBook toModelType() throws IllegalValueException {
+    PdfBook toModelType() throws IllegalValueException {
         PdfBook pdfBook = new PdfBook();
         for (JsonAdaptedPdf jsonAdaptedPdf : pdfs) {
             Pdf pdf = jsonAdaptedPdf.toModelType();

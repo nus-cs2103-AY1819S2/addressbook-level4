@@ -53,15 +53,15 @@ public class PdfCardHandle extends NodeHandle<Node> {
         return nameLabel.getText();
     }
 
-    public String getAddress() {
+    public String getDirectory() {
         return directoryLabel.getText();
     }
 
-    public String getPhone() {
+    public String getDeadline() {
         return deadlineLabel.getText();
     }
 
-    public String getEmail() {
+    public String getSize() {
         return sizeLabel.getText();
     }
 

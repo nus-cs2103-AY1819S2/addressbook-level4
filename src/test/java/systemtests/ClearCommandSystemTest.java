@@ -38,13 +38,13 @@ public class ClearCommandSystemTest extends PdfBookSystemTest {
 
         /* Case: selects first card in pdf list and clears pdf book -> cleared and no card selected */
         executeCommand(UndoCommand.COMMAND_WORD); // restores the original pdf book
-        selectPerson(Index.fromOneBased(1));
+        selectPdf(Index.fromOneBased(1));
         assertCommandSuccess(ClearCommand.COMMAND_WORD);
         assertSelectedCardDeselected();
 
         /* Case: filters the pdf list before clearing -> entire pdf book cleared */
         executeCommand(UndoCommand.COMMAND_WORD); // restores the original pdf book
-        showPersonsWithName(KEYWORD_MATCHING_MEIER);
+        showPdfWithName(KEYWORD_MATCHING_MEIER);
         assertCommandSuccess(ClearCommand.COMMAND_WORD);
         assertSelectedCardUnchanged();
 

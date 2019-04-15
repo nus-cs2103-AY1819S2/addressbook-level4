@@ -32,7 +32,7 @@ public class EncryptCommand extends Command {
             + "[" + PREFIX_PASSWORD + "PASSWORD]\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_PASSWORD + "NewSecuredPassword";
-    public static final String MESSAGE_ENCRYPT_PDF_SUCCESS = "Encrypted PDF: %1$s";
+    public static final String MESSAGE_ENCRYPT_PDF_SUCCESS = "Encrypted PDF:\n%1$s";
     public static final String MESSAGE_ENCRYPT_PDF_FAILURE = "%1$sdid not get encrypted successfully.\n"
             + "Please check if the file is not already encrypted and it exists.";
     public static final int ENCRYPTION_KEY_LENGTH = 128;

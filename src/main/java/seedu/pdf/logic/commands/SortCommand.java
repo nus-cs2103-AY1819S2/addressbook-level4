@@ -7,9 +7,8 @@ import seedu.pdf.model.Model;
 import seedu.pdf.model.PdfBook;
 import seedu.pdf.model.pdf.Pdf;
 
-
 /**
- * Sorts all PDF files in alphabetical or deadline order.
+ * Sorts all PDF files in alphabetical or deadline or file size order.
  */
 public class SortCommand extends Command {
     public static final String COMMAND_WORD = "sort";

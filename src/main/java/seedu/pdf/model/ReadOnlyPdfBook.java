@@ -10,8 +10,8 @@ import seedu.pdf.model.pdf.Pdf;
 public interface ReadOnlyPdfBook extends Observable {
 
     /**
-     * Returns an unmodifiable view of the persons list.
-     * This list will not contain any duplicate persons.
+     * Returns an unmodifiable view of the pdf list.
+     * This list will not contain any duplicate pdfs.
      */
     ObservableList<Pdf> getPdfList();
 

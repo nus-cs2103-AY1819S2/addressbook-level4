@@ -540,7 +540,7 @@ a| a| For example, in the sample layout we provided, the next available table th
 
 image::SpaceFor_Before.png[width="500",align="center"]
 
-Suppose, 3 customers enter your restaurant and you want to quickly locate an available table for them, you can simply use the `spaceFor 3` command. A success message will be displayed if there is an available table for 3 as shown below. 
+Suppose, 3 customers enter your restaurant and you want to quickly locate an available table for them, you can simply use the `spaceFor 3` command. A success message will be displayed if there is an available table for 3 as shown below.
 
 image::SpaceFor_RD.png[]
 In the Table Panel, you will see that Table 25 will have been updated to the correct occupancy and changed to a slightly darker colour to indicate that it is occupied.
@@ -568,7 +568,7 @@ ifdef::env-github[| :white_check_mark: a|]
 ifndef::env-github[a| icon:check[role="green", size="2x"] a|]
 You will see a success message in the Results Display.
 a| a| For example, after executing `reserve c/5 n/John Doe d/28 m/2 y/2019 t/1900`, the following confirmation message will appear:
-"Table 4 is available and has been reserved for John Doe at 1900H on 28/2/2019." 
+"Table 4 is available and has been reserved for John Doe at 1900H on 28/2/2019."
 |===
 
 // tag::tablemode[]

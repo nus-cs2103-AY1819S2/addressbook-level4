@@ -52,19 +52,24 @@ E.g. The user enters `add`. TeethHub will ask them if they meant `patientadd` or
 *** Came up with idea of the Copy feature.
 *** Came up with idea of overlaying images to display teeth for the Teeth feature.
 *** Created all images used by the Teeth feature.
-*** Reported bugs and suggestions for own team (Example: https://github.com/CS2103-AY1819S2-W17-2/main/issues/106#issuecomment-480783456[Copy bug])
+*** Reported bugs and suggestions for own team. (Example: https://github.com/CS2103-AY1819S2-W17-2/main/issues/106#issuecomment-480783456[Copy bug])
 
 ** Enhancements to existing features:
 *** Wrote tests for new features to increase coverage by 6%~7%.
+*** Renamed AddressBook 4 to TeethHub.
 ** Documentation:
+*** Renamed AddressBook 4 to TeethHub in User Guide.
 *** Added Welcome message to User Guide.
 *** Edited prerequisites, quick start guide in User Guide.
 *** Proofread User Guide.
 *** Reordered original order of Commands and Feature to the current version in User Guide.
-*** Edited Design Considerations for existing undo/redo feature to conform to the new format agreed on by my team.
+*** Edited Design Considerations for existing undo/redo feature to conform to the new format agreed on by my team in Developer Guide.
+*** Added Use Cases for File Management commands in Developer Guide.
+*** Added User Stories for File Management commands, Suggestion commands and adding user images to records[Planned Implementation v1.6] in Developer Guide.
+*** Added Manual Testing for Open and Export commands in Developer Guide.
 *** Proofread and edited README.adoc.
 ** Community:
-*** Reported bugs and suggestions for other teams in the class (Examples: https://github.com/cs2103-ay1819s2-w09-3/main/issues/181[1], https://github.com/cs2103-ay1819s2-w09-3/main/issues/183[2], https://github.com/cs2103-ay1819s2-w09-3/main/issues/176[3], https://github.com/cs2103-ay1819s2-w09-3/main/issues/177[4])
+*** Reported bugs and suggestions for other teams in the class. (Examples: https://github.com/cs2103-ay1819s2-w09-3/main/issues/181[1], https://github.com/cs2103-ay1819s2-w09-3/main/issues/183[2], https://github.com/cs2103-ay1819s2-w09-3/main/issues/176[3], https://github.com/cs2103-ay1819s2-w09-3/main/issues/177[4])
 ** Tools:
 *** Integrated a third party library (Apache PDFBox) to the project.
 
@@ -92,10 +97,14 @@ If you’re confident in your computer set-up, jump to <<quick-start-guide>> to 
 
 === File Management
 
-TeethHub automatically saves all data in TeethHub.json when you close the program.
+TeethHub automatically saves all data to TeethHub.json when you close the program.
 However, you can manage them manually with `open`, `save`, `import` and `export`. +
  +
 *When we mention "data", we mean the patients list and their respective records plus the task list.* +
+
+*.json files hold data that TeethHub can read. Use this to "save" or "load" your progress.* +
+*.pdf files are easier for people to read. Use this if you are printing out a physical copy.* +
+
  +
 You can use `open` to open another .json file that you may have transferred over from another computer. +
  +
@@ -142,10 +151,10 @@ Format: `open FILE_PATH`
 Examples:
 
 * `open data1.json` +
-This replaces the current data of TeethHub with the data in "data1.json".
+This replaces the current data of TeethHub with the contents of "data1.json".
 
 * `open february/data2.json` +
-This replaces the current data of TeethHub with the data in "data2.json" found in the "february" folder.
+This replaces the current data of TeethHub with the contents of "data2.json" found in the "february" folder.
 
 
 ==== save
@@ -224,17 +233,22 @@ This saves patient 1 and patient 3 to patient 5 currently in TeethHub to "data1.
 * `export data1.json all` +
 This saves all patients currently in TeethHub to "data1.json".
 
-== Patient Teeth per record [Coming in v1.5]
+== Planned Implementations
 
+=== Patient Teeth per record [Coming in v1.5]
 Currently, TeethHub stores and displays the latest teeth image of each patient.
 We understand that you may want to see teeth changes over time.
 In v1.5, TeethHub will be able to store and display a teeth image for each record.
 
-== Adding images to records [Coming in v1.6]
-
+=== Adding images to records [Coming in v1.6]
 Currently, TeethHub is not equipped to accept images from you.
 We understand that you may want to store x-rays of teeth or other relevant images you have taken.
 In v1.6, TeethHub will have a new command for you to upload images.
+
+=== Spell-Checker Functionality [Coming in v1.7]
+Currently, TeethHub does not have a spell checker.
+It would be great if TeethHub would automatically correct an improperly typed command(e.g. sirt to sort).
+In v1.7, TeethHub will have a spell checker functionality.
 
 === Contributions to the Developer Guide
 

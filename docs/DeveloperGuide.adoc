@@ -1889,6 +1889,10 @@ are not allowed." is shown in message box. No file is created/overwritten.
    Expected: A .json file named *test.json* is created/overwritten in the "data" folder. When opened in text viewer (like Notepad), only the patients that correspond to index 1, index 3 *and* index 5 in TeethHub should be present, along with all tasks.
 ... Test case: `export test.json 1,3-5` +
    Expected: A .json file named *test.json* is created/overwritten in the "data" folder. When opened in text viewer (like Notepad), only the patient that corresponds to index 1 *and* index 3 *to* index 5 in TeethHub should be present, along with all tasks.
+... Test case: `export test.json 1-3-5` +
+   Expected: Error message "Invalid index range! Please input a positive unsigned index range." is shown in message box. No file is created/overwritten.
+... Test case: `export test.json 1,,5` +
+   Expected: Error message "Invalid index range! Please input a positive unsigned index range." is shown in message box. No file is created/overwritten.
 ... Test case: `export test.json all` +
    Expected: A .json file named *test.json* is created/overwritten in the "data" folder. When opened in text viewer (like Notepad), all in TeethHub should be present, along with all tasks. Result should be the same as using `save test.json`.
 

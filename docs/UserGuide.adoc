@@ -102,7 +102,7 @@ Type the command in the Command Box and press kbd:[Enter] to execute it. +
 
 * *`help`*: opens up user guide
 * *`list-e`*: lists all equipment details
-* **`add-e`**`n/Clementi CC p/6776 2517 d/01-05-2019 a/220 Clementi Ave 4, Singapore 129880 Rd s/X14DH9283` : adds a contact named `Clementi CC` to the *Equipment Manager*.
+* **`add-e`**`n/Clementi CC p/67762517 pm/01-05-2019 a/220 Clementi Ave 4, Singapore 129880 Rd s/X14DH9283` : adds a contact named `Clementi CC` to the *Equipment Manager*.
 * **`delete-e`**`3`: deletes the 3rd equipment detail shown in the current list
 * *`exit`*: exits the app
 
@@ -294,25 +294,20 @@ Format: `display`
 Example:
 
 * `display`
+
+[NOTE]
+====
+The addresses (address of equipments and the origin address) will be interpreted to match Google Map data.
+The `equipments` with invalid addresses in Google Map will not be shown on the map as well.
+The display may take a few seconds.
+====
+
+Screen shot after typing command `display`:
+
+image::display-screenshot.png[width="800"]
 // end::display[]
 
-
-=== Route planning: `route`
-With multiple destinations that you plan to visit for preventive maintenance, using the route command can return you with the following details: +
-****
-* A visual representation on the map of the most efficient route you can take
-* A list of location to visit in order.
-****
-Format: `route [worklist id]`
-
-Examples:
-
-* `list-w` +
-`route 120`
-
-    Note to editor: add a png example of the routing of worklist id 120.
-
-
+// tag::shortsort[]
 // tag::sort[]
 === Sorting the equipment list: `sort`
 Sort the equipment list.
@@ -330,19 +325,20 @@ Equipment list can only be sorted by `name`, `date`, `phone` and `serial`.
 
 For example,
 
-image::sortName.png[width="800"]
+image::sortName.png[width="450"]
 * `sort name` +
 Returns the list sorted in alphabetical order of the client's name.
 
-image::sortDate.png[width="800"]
+// end::shortsort[]
+image::sortDate.png[width="450"]
 * `sort date` +
 Returns the list sorted in an ascending order of the preventative maintenance date of the equipment.
 
-image::sortPhone.png[width="800"]
+image::sortPhone.png[width="450"]
 * `sort phone` +
 Returns the list sorted by phone number of the client.
 
-image::sortSerial.png[width="800"]
+image::sortSerial.png[width="450"]
 * `sort serial` +
 Returns the list sorted by serial number of the equipment.
 
@@ -354,6 +350,7 @@ Returns the list sorted by serial number of the equipment.
 // end::sort[]
 
 // tag::filter[]
+// tag::shortfilter[]
 === Filtering the equipment list: `filter`
 Filter the current shown list which match the given keywords.
 
@@ -376,31 +373,33 @@ Format: `filter [n/NAME_KEYWORD]...[t/TAG_KEYWORD]...[a/ADDRESS_KEYWORD]`
 
 For example,
 
-image::filtername.png[width="800"]
+image::filtername.png[width="400"]
 * `filter n/hougang` +
 Returns any equipment whose name consists of 'hougang'.
 
-image::filteraddress.png[width="800"]
+// end::shortfilter[]
+
+image::filteraddress.png[width="400"]
 * `filter a/bedok` +
 Returns any equipment whose address consists of 'bedok'.
 
-image::filterdate.png[width="800"]
+image::filterdate.png[width="400"]
 * `filter pm/27-09` +
 Returns any equipment whose preventative maintenance date consists of '27-09'.
 
-image::filterphone.png[width="800"]
+image::filterphone.png[width="400"]
 * `filter p/6783` +
 Returns any equipment whose phone number consists of 6783.
 
-image::filterserial.png[width="800"]
+image::filterserial.png[width="400"]
 * `filter s/03071` +
 Returns any equipment whose serial number consists of 03071.
 
-image::filtertags.png[width="800"]
+image::filtertags.png[width="400"]
 * `filter t/urgent t/west` +
 Returns any equipment details whose tags consists of urgent or west.
 
-image::filtermultiple.png[width="800"]
+image::filtermultiple.png[width="400"]
 * `filter n/tampines a/41 t/urgent` +
 Returns any equipment details that either consists of tampines, address that consists of 41, or whose tags consists of urgent.
 
@@ -432,6 +431,34 @@ Example:
 
 === Enabling notification: `notify` [Coming in v2.0]
 Notifies you when an equipment is due for preventive maintenance in 2 days. You can choose to get notifications or not.
+
+// tag::route[]
+=== Route planning: `route`
+With multiple destinations that you plan to visit for preventive maintenance, using the route command can return you with the following details: +
+****
+* A visual representation on the map of the most efficient route you can take
+* A list of location to visit in order.
+* A suggested travel order to all `equipments` listed in the `Equipment Details` panel.
+****
+Format: `route [origin address]`
+
+Examples:
+
+* `list-w` +
+`route School of Computing, NUS, Singapore 117417`
+
+[NOTE]
+====
+The addresses (address of equipments and the origin address) will be interpreted to match Google Map data.
+The `equipments` with invalid addresses in Google Map will not be shown on the map as well.
+The suggest order is marked on map with Alphabets start with B, and the suggest route is travel from A (Overlapped with the largest alphabet, so A may not be visible on map), to the largest alphabet in increasing order.
+The `origin address` must include the country name, and it is suggested to include the postal code.
+====
+
+Screen shot after typing command `route School of Computing, NUS, Singapore 117417`:
+
+image::route-planning-screenshot.png[width="800"]
+// end::route[]
 
 === Listing entered commands: `history`
 Lists all the commands that you have entered in reverse chronological order.

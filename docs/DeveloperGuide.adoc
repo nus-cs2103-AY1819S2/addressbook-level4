@@ -250,25 +250,27 @@ This section describes some noteworthy details on how certain features are imple
 
 //tag::equipment[]
 === Equipment feature
-To provide users with the best understanding on the attributes of equipment in *Equipment Manager*,
+To provide users with the best understanding on the parameters of equipment in *Equipment Manager*,
 this section will provide a brief overview on the equipment details as well as how the details of an equipment are
 used for multiple features in the design of Equipment Manager. Not forgetting sharing some design considerations to make the best choice for *Equipment Manager*.
 
 ==== Overview on Equipment details
 
 |===
-| *Attributes* | *Description* | *Things to Note*
-| Name | The client's name who owns the equipment. |
-| Phone | The contact number of the client that owns the equipment. |
-| Date | The due date for which maintenance work on the equipment should be carried out by then. |
-| Address | The address of the client that owns the equipment. |
-| Serial Number | The serial number of an equipment | All equipment have unique serial number and there should not be duplicated serial number.
+| *Equipment Parameters* | *Description* | *Things to Note*
+| NAME | The client's name who owns the equipment. | Name should only contain alphanumeric characters and spaces, and it should not be blank.
+| PHONE | The contact number of the client that owns the equipment. | Phone numbers should only contain numbers, and it should be at least 3 digits long
+| DATE | The due date for which maintenance work on the equipment should be carried out by then. | Should only contain numbers and hyphens, no blanks allowed. The correct format is  dd-MM-yyyy. For example, 03-05-2019 which means 3 May 2019.
+| ADDRESS | The address of the client that owns the equipment. |
+| SERIAL_NUMBER | The serial number of an equipment | All equipment have unique serial number and there should not be duplicated serial number.
+| TAG | Tag provides user with desired labels without any restriction on labelling format in *Equipment Manager*. An equipment can any number of tags (including 0).
 |===
 
-==== Current Usage of Equipment Details
-In order to allow users to keep track of the Preventive Maintenance schedule and carry out features provided by Equipment Manager, we have implemented the following commands with the usage of the attributes of an equipment as mentioned in the previous section.
 
-*An example of how the attributes of equipment are used:*
+==== Current Usage of Equipment Details
+In order to allow users to keep track of the Preventive Maintenance schedule and carry out features provided by Equipment Manager, we have implemented the following commands with the usage of the equipment parameters as mentioned in the previous section.
+
+*An example of how the parameters of equipment are used:*
 
 * When user execute the `AddCommand` or `EditCommand`, there are equipment details stored in *Equipment Manager*.
 * When user uses command like `DisplayCommand`, *Equipment Manager* will need to use the address details to provide visual representation of the location of client that owns the equipment.
@@ -288,7 +290,7 @@ Given below is an example usage scenario of how the adding of equipment details 
 
 Step 1. The user launches the application.
 
-Step 2. The user executes `add-e n/Pending CC d/01-05-2019 p/99887766 a/Pending Rd s/XDH1429387 t/north-west` command.
+Step 2. The user executes `add-e n/Pending CC pm/01-05-2019 p/99887766 a/8 Pending Rd, Singapore 678295 s/XDH1429387 t/north-west` command.
 
 Step 3. After `EquipmentManagerParser` detects `add-e` as the command word, a `AddCommandParser#parse()` is called.
 
@@ -391,7 +393,7 @@ because attributes of client and equipment are being shared in order to for feat
 In Equipment Manager, there are `Name`, `Phone`, `Address` attributes stored under *Equipment details* that identify client details.
 
 * A client can have 0 to numerous equipment which are identified by unique serial number but an equipment cannot be shared by multiple clients.
-** There is a `CountEquipment` method in *Equipment Manager* that counts the number of equipment that each client owns. Since *Equipment Details* panel showcases by each equipment, having a summarized details of each client, allows user to be more aware that the client might own more than 0, 1 or more than 1 equipment.
+** By using `select-c` to select the desired client name in *Client details* pabel, we can view a list of equipments that are owned by the client.
 * Each address tells user where 0 to numerous equipment, which each client owns, are located at.
 
 ==== Current Usage of Client details
@@ -565,11 +567,11 @@ Test cases:
 
 - Input: `sort`
 
-Output: An error message will be shown to what fields are available.
+Output: An error message will be displayed to show what are the fields available.
 
 - Input: `sort name`
 
-Output: The list is sorted in the name in alphabetical order.
+Output: The list is sorted by the name in alphabetical order.
 
 - Input: `sort date`
 
@@ -605,6 +607,10 @@ The display feature allow users to view the location of all equipment in the cur
 
 ==== Current Implementation
 
+The following activity diagram shows each action is done by which component.
+
+image::DisplayActivityDiagram.png[width="800"]
+
 The following sequence diagram shows how the display operation works:
 
 image::DisplaySequenceDiagram.png[width="800"]
@@ -613,25 +619,96 @@ Step 1. The user launches the application, the list of equipment will show in `U
 
 Step 2. The user executes `display` command to show all the equipment on the map. The execution of `display` command will return a `CommandResult` indicating `display` which can be checked by `CommandResult#isDisplayMap()`. The `MainWindow` will check if the `CommandResult` is a display map command. Then `MainWindow#handleDisplayMap` will be called. `MainWindow#handleDisplayMap` will call `Logic#getFilteredPersonList()` to get the equipment list, and then call `Equipment#getCoordiantes()` on each equipment to get its coordinates.
 
-Step 3. The `Equipment#getCoordiantes()` calls to `Google Map Geocoding API` with the address returned by `Equipment#getAddress()`. The API will return the coordinates of the address. This will be returned as the coordinates of the equipment.
+Step 3. The `Equipment#getCoordiantes()` calls to `Google Map Geocoding API` with the address returned by `Equipment#getAddress()`. The API will return the coordinates of the address. This will be returned as the coordinates of the equipment. The coordinates will be stored for future use.
 
 [NOTE]
 `Google Map Geocoding API` is not free to use. You need to have your own API key to use the API. You may check link:https://developers.google.com/maps/documentation/javascript/geocoding[`Google Map Platform - Geocoding Service`]
 
-Step 4. The coordinates are constructed to form a URL and call a webpages in `BrowserPanel` to display the map. Currently the map is stord under `/docs/staticpages/` which will be copied and published by Travis CI robot to `github pages`. You may either use your own `github pages` URL by changing `BrowserPanel#MAP_PAGE_BASE_URL` to your own `github pages` URL, or use the current URL published by `CS2103-AY1819S2-W10-3` team.
+Step 4. The coordinates are constructed to form a URL and call a web page in `BrowserPanel` to display the map. Currently the map is stored as `/docs/staticpages/DisplayGmap.html` which will be copied and published by Travis CI robot to `github pages`. You may either use your own `github pages` URL by changing `BrowserPanel#MAP_MULTIPLE_POINT_BASE_URL` to your own `github pages` URL, or use the current URL published by `CS2103-AY1819S2-W10-3` team.
 
-Step 5. The webpage receive the coordinates in parameter form. It will first parse the parameters. The standard form of parameters is `?coordinates=[[1.3012,103.1233], [1.4323, 103.2012]]&otherfields=["abc", "def"]`. The map may be extended to handle more functions, however the current parameter paraser can only handle parameters in the standard format. For now, only coordinates is used, other parameters will be ignored.
+Step 5. The webpage receive the coordinates in parameter form. It will first parse the parameters. The standard form of parameters is `?coordinates=[[1.3012,103.1233], [1.4323, 103.2012]]&otherfields=["abc", "def"]`. The number of elements in other parameters must match the number of elements in the `coordinates` parameter. The map may be extended to handle more functions, however the current parameter parser can only handle parameters in this standard format. For now, only coordinates are used, other parameters will be ignored.
 
 ==== Design Considerations
 
 ===== Aspect: How to display the base map
 * **Alternative 1 (current choice):** Use separate web page, pass the coordinates as parameters.
 ** Pros: Easy to implement. Flexible to add more functions. Many JavaScript libraries can be used.
-** Cons: Unexpected behaviors would happen if the WebEngine cannot display the webpage properly.
+** Cons: Unexpected behaviors would happen if the WebEngine cannot display the web page properly.
 * **Alternative 2:** Use third party JavaFX map libraries.
 ** Pros: No unexpected behaviors, and more consistent running on different platforms.
 ** Cons: Harder to implement, less flexibility, and limit to extensions.
+
+===== Aspect: Which JavaScript Map library to use
+* **Alternative 1 (current choice):** Use Google Map JavaScript API
+** Pros: Easy to embed other Google Map APIs, and work better with JavaFX built in browser.
+** Cons: Harder to customize the style of map, marker and etc. (Compared to `Alternative 2`)
+* **Alternative 2:** Use MapBox GL JS.
+** Pros: Easy to have customized view, better looking themes.
+** Cons: Works bad in JavaFX default built in browser, and harder to cooperate with Google API.
+
+===== Aspect: Call `Geocoding API` to get coordinates in main application or built in browser
+* **Alternative 1 (current choice):** In main application
+** Pros: Addresses are reusable, i.e. only need to call `Geocoding API` once for each equipment.
+** Cons: Harder to make the function call, and increase the hang up time when many equipments do not have coordinates retrieved.
+* **Alternative 2:** In built in browser with JavaScript
+** Pros: User will get instant response and see the base map after entering the command, although the actual display will come later.
+** Cons: Addresses will not be reusable, each time user enter `display` would call `Geocoding API` for each equipment and incur high API costs.
 // end::display[]
+
+// tag::route[]
+=== Route feature
+The route feature allow users to know the best order to traverse through all equipments listed in the equipment panel. The order will be shown on the map.
+
+The following sequence diagram shows how the display operation works:
+
+image::RouteSequenceDiagram.png[width="800"]
+
+==== Current Implementation
+
+Step 1. The user launches the application, the list of equipments will show in `UI` and stored in the `Model`.
+
+Step 2. The user executes `route` command together with the origin address to display the route starting from the origin address, travel through all equipments, and go back to the origin address. The execution of `route` command will return a `CommandResult` indicating this is an `route` command which can be checked by `CommandResult#isRoute()`. The `CommandResult` also contains start address parameter called `routeAddress` of `Address` type. The `MainWindow` will check if the `CommandResult` is a route command. Then `MainWindow#handleRoute` will be called.
+
+Step 3. `MainWindow#handleRoute` will call `Logic#getFilteredPersonList()` to get the equipments list, and then call `Equipment#getAddress()` on each equipments to get its address.
+
+Step 4. The addresses are constructed to form a URL and call a web page in `BrowserPanel` to display the map. Currently the map is stored as `/docs/staticpages/DisplayRoutes.html` which will be copied and published by Travis CI robot to `github pages`. You may either use your own `github pages` URL by changing `BrowserPanel#MAP_ROUTE_BASE_URL` to your own `github pages` URL, or use the current URL published by `CS2103-AY1819S2-W10-3` team.
+
+Step 5. The web page receive the addresses in parameter form. It will first parse the parameters. The standard form of parameters is `?address=["Address 1", "Address 2"]&start="Origin address"&end="Destination address"`. The order of parameters does not matter.
+
+Step 6. The JavaScript code in the web page will call `Google Map JavaScript API` to calculate the best route to each addresses, and display the route on the map.
+
+[NOTE]
+`Google Map JavaScript API` is not free to use. You need to have your own API key to use the API. You may check link:https://developers.google.com/maps/documentation/javascript/tutorial[`Google Map Platform - Maps JavaScript API`]
+
+==== Design Considerations
+
+===== Aspect: Passing addresses or coordinates to web page
+* **Alternative 1 (current choice):** Passing addresses to web page
+** Pros: Better accuracy, as addresses would interpreted more accurately than coordinates when involving routing.
+** Cons: Worse data reusability, waste API calls, because the data retrieved from the `Google Map JavaScript API` cannot be send back to the main application and stored.
+* **Alternative 2:** Passing coordinates to the web page
+** Pros: Save some API calls.
+** Cons: Worse accuracy.
+
+[NOTE]
+Calling `Google Map JavaScript API` to retrieve the route is much more expensive than calling `Geocoding API` to retrieve the coordinates. Thus, it is fair to prioritize to utilize function of `Google Map JavaScript API` to retrieve the route.
+
+===== Aspect: How to pass the origin address to UI
+* **Alternative 1 (current choice):** Passing as a parameter in `CommandResult`
+** Pros: Minimal code changes.
+** Cons: Need to create more constructor of `CommandResult`, and it may get harder to understand the usage of these constructors.
+* **Alternative 2:** Storing as a field in `Model`
+** Pros: Easier to understand and use.
+** Cons: Require more code changes because changing `Model` interface will break many classes and tests.
+
+===== Aspect: How to pass extra parameters to `CommandResult`
+* **Alternative 1 (current choice):** Use overloading of the constructor
+** Pros: No need to change the caller code of the constructor, decrease the possibility of code conflicts when merging with teammates' code.
+** Cons: As more fields are added to `CommandResult`, more constructors will be added. As a result, it may confuse future developers.
+* **Alternative 2:** Directly modify the `CommandResult` class and its constructor signature
+** Pros: More straightaway and easier to understand.
+** Cons: Changing the constructor signature also need to change all the caller functions. So it requires changes of many classes which may bring code conflicts.
+// end::route[]
 
 // tag::uiug[]
 === User Interface (UI)
@@ -642,8 +719,8 @@ showing our thinking process for the UI in designs considerations section.
 ==== Current implementation
 ===== Launch the Application
 
-.On start of the Equipment Manager application
-image::applaunchUI.png[%autowidth]
+.On start of the Equipment Manager application, UI with labels
+image::ui_labelled.png[width="790"]
 
 The figure above depicts the interface the user see when the user launches the application.
 The user should be greeted by 9 different regions:
@@ -653,26 +730,26 @@ The user should be greeted by 9 different regions:
 | [1] *Menu Bar* | Allow users to click `File` > `Exit` to exit the application and click `Help` to navigate to our User Guide page.
 | [2] *Command Box* | User enters the command in the command box. Refer to *User Guide* to learn all the available commands.
 | [3] *Message box* | The message box that shows the result after a command has been executed.
-| [4] *Status Bar* |
+| [4] *Status Bar* | Show the total number of equipment in the *Equipment Manager*.
 | [5] *Google Map*  | Google map serves as a visual representation for where equipment are at as well as showing user the possible routes to take.
-| [6] *Equipment Result Panel* | This panel shows summarized details on equipment
+| [6] *Equipment details* panel | This panel shows summarized details on equipment
 | [7] *Equipment Details Page* | This is a HTML page where it shows more detailed information on an equipment.
-| [8] *Client Result Panel* | This panel shows specifically information related to client such as the name and how many equipment the client owns.
-| [9] *Work list Result Panel* | This panels shows the work schedule of a person when the user assigns equipment whom the user want to carry out preventive maintenance work.
+| [8] *Client Details* panel | This panel shows specifically information related to client such as the name and how many equipment the client owns.
+| [9] *My Work List* panel | This panels shows the work schedule of a person when the user assigns equipment whom the user want to carry out preventive maintenance work.
 |===
 
-===== Showcase Client details
-To avoid cluttering to many information in *Equipment Result Panel*,
-we decided to categorise information related to clients into *Client Result Panel*
-such as showing the name of the client and how many equipment the client owns as seen in the figure below.
+===== Showcasing Client details
+To avoid cluttering to many information in *Equipment details* panel,
+we decided to categorise information related to clients into *Client details* panel
+such as showing all the unique client names in Equipment Manager as seen in the figure below.
 
-.Outcome of a showing client details when using `add-c` feature
-image:: AddClientDetailsUI.png[%autowidth]
+.Client name listed under Client details panel
+image::AddClientDetailsUI.png[%autowidth]
 
-===== Showcase Equipment details and locations
-Similarly, there are many information to be shown in *Equipment Result Panel*.
+===== Showcasing Equipment details and locations
+Similarly, there are many information to be shown in *Equipment details* panel.
 Hence, as seen in the figure below, we created a HTML page to show more information
-on equipment. This means there are some information not shown in *Equipment Result Panel* but will instead be shown in *Equipment Details Page*.
+on equipment. This means that there are some information not shown in *Equipment details* panel but will instead be shown in *Equipment Details Page*.
 
 .Incorporating HTML in panel to show more equipment details
 image::equipmentdetailsUI.png[%autowidth]
@@ -683,7 +760,7 @@ One of our main feature of *Equipment Manager* is the ability to have a visual r
 image::clientlocationsUI.png[%autowidth]
 
 As seen in the above figure, entering `display` command will allow a visual representation of all equipment locations in the *Equipment Manager* data storage onto *Google Map*.
-This is one of our main feature of *Equipment Manager* where we provide users to view either 1 equipment location at a time by entering `select` INDEX or simply by clicking onto the an equipment in *Equipment Result Panel*.
+This is one of our main feature of *Equipment Manager* where we provide users to view either 1 equipment location at a time by entering `select` INDEX or simply by clicking onto the an equipment in *Equipment details* panel.
 
 ==== Design Considerations
 ===== Aspects: Information to be displayed on respective panels
@@ -1017,17 +1094,15 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |user |add an equipment and its specific details |keep track of the details of an equipment
+|`* * *` |user |create, update, and delete an equipment or its specific details | keep the equipment information full and up-to-date.
 
-|`* * *` |user |delete an equipment or its specific details |remove equipment that is obsolete
+|`* * *` |user |create, update, and delete an worklist | use worklist for tracking progress and tasks
 
-|`* * *` |user |have a work list where I can store the equipment I am working on |keep track of all the equipment that I am assigned to
-
-|`* * *` |user |delete work list |remove work list which indicates work completed and no longer need it for tracking progress
+|`* * *` |user |have a worklist where I can store the equipments I am working on | keep track of all the equipments that I am assigned to
 
 |`* * *` |user |view details of all equipment |know how many equipment there are and what is the individual details of each equipment
 
-|`* * *` |user |know how many clients have the equipment |track equipment in group based on client and how many equipment the client owns
+|`* * *` |user |want to know names of the clients | so that i can get a clear view of my customers and their respective equipments
 |=======================================================================
 
 [discrete]
@@ -1046,7 +1121,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |user |filter the list based on some conditions |remove all irrelevant equipment and work list showing on the list
+|`* * *` |user |filter the list based on some conditions |remove all irrelevant equipments showing on the list
 |=======================================================================
 
 [discrete]
@@ -1062,9 +1137,9 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* *` |user |know how to get to the location where the equipment is at |navigate to the address of the equipment easily
+|`* *` |user |know the location where the equipment is at | have a direct visual sense of the location of the equipment
 
-|`* *` |user |have a visual representation of areas I am visiting |have quick overview on information
+|`* *` |user |have a visual representation of all equipments in the list |have quick overview on information
 
 |`*` |user |plan efficient routes between multiple locations |increase productivity, cut transportation costs, improve maintenance services
 
@@ -1078,8 +1153,6 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`* * *` |new user |learn how to use the application easily | spend less time on learning and more on using it
 
 |`* * *` |new user |be able to understand the UI without much instruction |spend my time on the program features
-
-|`* *` |user |receive notifications on the equipment that is due for preventive maintenance |know which equipment requires preventive maintenance as soon as possible
 
 |`*` |user |see my past commands |keep track of what I have searched on
 

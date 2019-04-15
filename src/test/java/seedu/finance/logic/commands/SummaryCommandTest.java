@@ -1,15 +1,9 @@
 package seedu.finance.logic.commands;
 
 import static org.junit.Assert.assertTrue;
-import static seedu.finance.testutil.TypicalRecords.getTypicalFinanceTracker;
 
 import org.junit.Test;
 
-import seedu.finance.logic.CommandHistory;
-import seedu.finance.logic.parser.exceptions.ParseException;
-import seedu.finance.model.Model;
-import seedu.finance.model.ModelManager;
-import seedu.finance.model.UserPrefs;
 import seedu.finance.testutil.Assert;
 
 /**

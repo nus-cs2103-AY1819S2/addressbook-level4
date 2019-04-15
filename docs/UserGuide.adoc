@@ -86,6 +86,10 @@ application. Unforeseen actions such as moving, renaming and others might result
 in unexpected behaviour by the application. Our application is meant to replace
 the need for you to perform these actions manually on your files yourselves.
 
+[WARNING]
+If your file is open please close it before proceeding to perform ANY other actions in the application.
+If the file is kept open, the application may misbehave as it is sharing access to the file with other unknown applications.
+
 ====
 *Command Format*
 
@@ -238,6 +242,10 @@ your computer. +
 Example:
 
 * `open 3` +
+
+[WARNING]
+Please close the opened file before proceeding to perform ANY other actions in the application.
+If the file is kept open, the application may misbehave as it is sharing access to the file with other unknown applications.
 
 [#command-rename]
 === Renaming a file : `rename`

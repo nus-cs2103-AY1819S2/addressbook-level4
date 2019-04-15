@@ -6,25 +6,23 @@ import java.util.function.Supplier;
 
 import org.testfx.api.FxToolkit;
 
-import guitests.guihandles.MainWindowHandle;
 import javafx.stage.Stage;
-import seedu.address.TestApp;
-import seedu.address.model.ReadOnlyAddressBook;
+import quickdocs.TestApp;
+import quickdocs.model.QuickDocs;
 
 /**
  * Contains helper methods that system tests require.
  */
 public class SystemTestSetupHelper {
     private TestApp testApp;
-    private MainWindowHandle mainWindowHandle;
 
     /**
      * Sets up a new {@code TestApp} and returns it.
      */
-    public TestApp setupApplication(Supplier<ReadOnlyAddressBook> addressBook, Path saveFileLocation) {
+    public TestApp setupApplication(Supplier<QuickDocs> quickDocs, Path saveFileLocation) {
         try {
             FxToolkit.registerStage(Stage::new);
-            FxToolkit.setupApplication(() -> testApp = new TestApp(addressBook, saveFileLocation));
+            FxToolkit.setupApplication(() -> testApp = new TestApp(quickDocs, saveFileLocation));
         } catch (TimeoutException te) {
             throw new AssertionError("Application takes too long to set up.", te);
         }
@@ -42,23 +40,6 @@ public class SystemTestSetupHelper {
         } catch (TimeoutException e) {
             throw new AssertionError(e);
         }
-    }
-
-    /**
-     * Encapsulates the primary stage of {@code TestApp} in a {@code MainWindowHandle} and returns it.
-     */
-    public MainWindowHandle setupMainWindowHandle() {
-        try {
-            FxToolkit.setupStage((stage) -> {
-                mainWindowHandle = new MainWindowHandle(stage);
-                mainWindowHandle.focus();
-            });
-            FxToolkit.showStage();
-        } catch (TimeoutException te) {
-            throw new AssertionError("Stage takes too long to set up.", te);
-        }
-
-        return mainWindowHandle;
     }
 
     /**

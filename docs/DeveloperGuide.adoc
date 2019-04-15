@@ -1,4 +1,4 @@
-= AddressBook Level 4 - Developer Guide
+= QuickDocs - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -13,9 +13,38 @@ ifdef::env-github[]
 :warning-caption: :warning:
 :experimental:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level4/tree/master
+:repoURL: https://github.com/CS2103-AY1819S2-W09-4/main/tree/master
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `W09-4`      Since: `Jan 2019`      Licence: `MIT`
+
+== Introduction
+
+=== What is QuickDocs
+
+QuickDocs is an all in one solution where doctors can have greater control in facilitating patient consultations, organizing appointments,
+and monitoring financial and inventory records in private clinics.
+
+=== Purpose
+
+The developer guide covers the software architecture, design decisions and implementation details of the features in QuickDocs.
+
+=== Audience
+
+This document aims to provide guidance for both software developers and software testers working on QuickDocs.
+
+=== How to use the Developer Guide
+
+Here are the notations used in the document:
+
+[TIP]
+This is a tip. Useful information pertaining to the features will be written here.
+[NOTE]
+This is a note. Additional information that further explains a feature will be written here. +
+[WARNING]
+This is a warning. Special information that requires additional attention to be paid will be written here to prevent operational issues from happening.
+
+`filepath`, `command` and `method` are all formatted with a grey background. Example: `help`, `getCurrentConsultation()`
+and `logic\LogicManager`
 
 == Setting up
 
@@ -47,14 +76,10 @@ Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plu
 . Click `OK` to accept the default settings
 . Open a console and run the command `gradlew processResources` (Mac/Linux: `./gradlew processResources`). It should finish with the `BUILD SUCCESSFUL` message. +
 This will generate all resources required by the application and tests.
-. Open link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow.java`] and check for any code errors
-.. Due to an ongoing https://youtrack.jetbrains.com/issue/IDEA-189060[issue] with some of the newer versions of IntelliJ, code errors may be detected even if the project can be built and run successfully
-.. To resolve this, place your cursor over any of the code section highlighted in red. Press kbd:[ALT + ENTER], and select `Add '--add-modules=...' to module compiler options` for each error
-. Repeat this for the test folder as well (e.g. check link:{repoURL}/src/test/java/seedu/address/ui/HelpWindowTest.java[`HelpWindowTest.java`] for code errors, and if so, resolve it the same way)
 
 === Verifying the setup
 
-. Run the `seedu.address.MainApp` and try a few commands
+. Run the `w09.quickdocs.MainApp` and try a few commands
 . <<Testing,Run the tests>> to ensure they all pass.
 
 === Configurations to do before writing code
@@ -109,14 +134,14 @@ When you are ready to start coding,
 === Architecture
 
 .Architecture Diagram
-image::Architecture.png[width="600"]
+image::Architecture2.png[width="600"]
 
 The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
 
 [TIP]
 The `.pptx` files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder. To update a diagram, modify the diagram in the pptx file, select the objects of the diagram, and choose `Save as picture`.
 
-`Main` has only one class called link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp`]. It is responsible for,
+`Main` has only one class called link:{repoURL}/src/main/java/quickdocs//MainApp.java[`MainApp`]. It is responsible for,
 
 * At app launch: Initializes the components in the correct sequence, and connects them up with each other.
 * At shut down: Shuts down the components and invokes cleanup method where necessary.
@@ -146,10 +171,10 @@ image::LogicClassDiagram.png[width="800"]
 [discrete]
 ==== How the architecture components interact with each other
 
-The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
+The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `padd ...` (values are not added for brevity).
 
-.Component interactions for `delete 1` command
-image::SDforDeletePerson.png[width="800"]
+.Component interactions for `addpat ...` command
+image::SDforAddPatient.png[width="800"]
 
 The sections below give more details of each component.
 
@@ -157,18 +182,37 @@ The sections below give more details of each component.
 === UI component
 
 .Structure of the UI Component
-image::UiClassDiagram.png[width="800"]
+image::QDUiClassDiagram.png[width="800"]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
+*API* : link:{repoURL}/src/main/java/quickdocs/ui/RootLayoutController.java[`RootLayoutController.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI aspect of QuickDocs is controlled by a single `rootLayoutController` that is responsible for handling the user interactions with
+the interface. It is composed of the `resultDisplay`, `userInputField`, `inputFeedbackArea`, `reminderListPanel` and
+the `currentSessionLabel` controls. +
 
-The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
+The `UI` component uses JavaFx UI framework. RootLayout is defined in the matching `.fxml` file that is in link:{repoURL}/src/main/resources/view[src/main/resources/view] folder.
 
-The `UI` component,
+.Overview of QuickDoc's user interface
+image::uioverview.png[width="800"]
 
-* Executes user commands using the `Logic` component.
-* Listens for changes to `Model` data so that the UI can be updated with the modified data.
+1. `resultDisplay` will reflect the results of the command entered
+2. `userInputField` is where the user can enter their commands
+3. Should the command fail due to erroneous command input, instructions to rectify the command will be displayed on the `inputFeedbackArea`
+4. Appointments and Reminders are displayed on the `ReminderListPanel`. Appointments are coloured blue,
+medicine alarms are coloured red and other reminders are coloured beige.
+5. Current consultation sessions will be indicated on the `currentSessionLabel`.
+
+Since the commands entered by the user is done through the user interface, the `UI` component interacts with  the
+`Logic` specifically for the execution of commands. For details pertaining to the execution of commands, please refer to
+the section on the <<Design-Logic>, logic component>>
+
+The flow of how the interaction between the two components are as follows:
+
+1. The user types the command line on the `userInputField` and presses `Enter`
+2. The command line is sent to the `logic` component for execution
+3. Any results or issues encountered during the process of execution will be returned from the `Logic` component to the `UI` component
+4. `UI` will reflect the results or issues faced on the `resultDisplay` and the `inputFeedbackArea` respectively
+
 
 [[Design-Logic]]
 === Logic component
@@ -178,147 +222,1277 @@ The `UI` component,
 image::LogicClassDiagram.png[width="800"]
 
 *API* :
-link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
+link:{repoURL}/src/main/java/quickdocs/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `AddressBookParser` class to parse the user command.
+.  `Logic` uses the `QuickDocsParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
-.  The command execution can affect the `Model` (e.g. adding a person).
+.  The command execution can affect the `Model` (e.g. adding a patient).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 .  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
+Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("statistics 012019")` API call.
 
-.Interactions Inside the Logic Component for the `delete 1` Command
-image::DeletePersonSdForLogic.png[width="800"]
+.Interactions Inside the Logic Component for the `statistics 012019` Command
+image::StatisticsCommandSDForLogic.png[width="800"]
 
 [[Design-Model]]
 === Model component
 
-.Structure of the Model Component
-image::ModelClassDiagram.png[width="800"]
+The figure below describes the architecture of the model component of this application.
 
-*API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
+[[Model_diagram]]
+.Structure of the Model Component
+image::Model_diagram.png[width="800"]
+
+*API* : link:{repoURL}/src/main/java/quickdocs/model/Model.java[`Model.java`]
 
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* consists of a QuickDocs object which contains all the data, and lists of managers of sub-modules retrieved from the QuickDocs object.
 * does not depend on any of the other three components.
 
+The `QuickDocs`,
+
+* is the ultimate unit storing all sub-models and data for this application.
+* is the class in charge of interacting with the storage component responsible for converting application data to files for storage.
+* see <<Design-Storage, Storage Component>> for detailed explanation of the role of `QuickDocs` in Storage component.
+
+The following sections illustrate the design of managers of each sub-module.
+
+[[Design-Model-MedicineManager]]
+==== Model for Medicine module
+
+QuickDocs supports customized organization of medicine inventory. +
+
+The figure below illustrates the implementation of the inventory system for medicine.
+
+[[MedicineManager_diagram]]
+.Structure of the MedicineManager
+image::MedicineManager_diagram.png[width="800"]
+
+In medicine module, information about a medicine is encapsulated into the `Medicine` class. +
+
+`Directory` is a container for medicines, and sub-directories as well. +
+
+The `MedicineManager` keeps a list of reference of all unique medicines in the storage, so that no two medicine in the storage could share the same name to avoid confusion. +
+
 [NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
- +
-image:ModelClassBetterOopDiagram.png[width="800"]
+All occurrences of medicines with the same name across different directories point to the same medicine in the list of unique medicine in MedicineManager.
+
+As the directory-medicine structure resembles the tree data structure, it is possible to support tree-like operations, such as setting the same threshold for the "subtree" of a directory.
+
+[[Design-Model-PatientManager]]
+==== Model for Patient Management
+
+The figure below illustrates how is a patient represented and how are patients are stored in QuickDocs.
+
+[[PatientManager_diagram]]
+.Structure of PatientManager
+image::PatientManager_diagram.png[width='800']
+
+A patient in QuickDocs consists of an address, name, NRIC, Contact, Email, Date of Birth, Gender and any number of tags. +
+
+[NOTE]
+Specially, no two patients in QuickDocs can share the same NRIC number. In other words, the patients in QuickDocs are easily identified with their unique NRIC numbers.
+
+The `PatientManager` keeps a list of patients by chronological order of addition. PatientManager supports searching patients by NRIC, name and tags.
+
+[[Design-Model-ConsultationManager]]
+==== Model for ConsultationManager
+
+The figure below illustrates how consultations with patients are recorded and organized in QuickDocs.
+
+[[ConsultationManager_diagram]]
+.Structure of ConsultationManager
+image::ConsultationManager_diagram.png[width='800']
+
+A `Consultation` in QuickDocs is defined to one patient and it consists of an optional `Diagnosis` and a list of `Prescription` of medicine. +
+
+A diagnosis is then consisting of an assessment, the final conclusion of patient's illness, and a list of symptoms. +
+
+Past consultations are kept as a list in `ConsultationManager`, and the manager supports listing consultations of the same patient by his/her NRIC.
+
+[[Design-Model-RecordManager]]
+==== Model for StatisticsManager
+
+Every monetary transaction happened in the clinic, such as prescriptions to patients, is recorded by QuickDocs, and statistics report could be generated upon user requests. +
+
+The figure below illustrates how such records are organized in QuickDocs, and how the statistics reports are generated. +
+
+[[StatisticsManager_diagram]]
+.Structure of StatisticsManager
+image::StatisticsManager_diagram.png[width='800']
+
+Monetary transactions in the clinics are categorized to two forms, i.e purchasing of medicine and revenue from consulting patients. +
+
+Both forms have corresponding classes to record such transactions. Every successful execution of purchase medicine command and every successful consultation will create its corresponding record. +
+
+`MonthStatistics` holds records of purchases of medicines and consultations happened in a particular month. +
+
+The overall `StatisticsManager` has a list of MonthStatistics arranged in chronological order.
+
+[[Design-Model-AppointmentManager]]
+==== Model for AppointmentManager
+
+The Appointment module manages time slots for appointment requests from the patients. +
+
+The figure below illustrates how AppointmentManager is organized. +
+
+[[AppointmentManager_diagram]]
+.Structure of AppointmentManager
+image::AppointmentManager_diagram.png[width='800]
+
+A `Slot` is used to represent a time block during clinic's opening hour available for appointments. +
+
+`Appointment` extends slot and each appointment is assigned exactly one patient. +
+
+`AppointmentManager` holds a list of appointments which can then be operated on upon user commands.
+
+[[Design-Model-ReminderManager]]
+==== Model for ReminderManager
+
+QuickDocs supports reminding our users about upcoming appointments and warns users about medicines that is low in stock. +
+
+QuickDocs also supports customized reminders that could be set up by the users themselves. +
+
+The figure below illustrates how reminder module is implemented.
+
+[[ReminderManager_diagram]]
+.Structure of ReminderManager
+image::ReminderManager_diagram.png[width='800']
+
+`Reminder` extends from slot, and has a starting date and end date. Users are free to customize reminders' title and comments for user-initiated reminders. +
+
+`ReminderManager` keeps a list of reminders sorted by the date of reminder. Reminders that expires, i.e passed the end date, will automatically be hidden from the panel list of reminders shown to the user. +
+
+Upon every subtraction or addition of medicine quantity in the inventory, the `ModelManager` calls the `ReminderManager` to check the sufficiency of medicine against the set threshold and update the reminder panel accordingly, so that the reminders for medicines in low stock is managed automatically upon every change in medicine quantity.
 
 [[Design-Storage]]
 === Storage component
+The `Storage` component of QuickDocs allows data to be saved and read from a json file.
 
+==== Structure of the Storage Component
 .Structure of the Storage Component
 image::StorageClassDiagram.png[width="800"]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
+*API* : link:{repoURL}/src/main/java/quickdocs/storage/Storage.java[`Storage.java`]
 
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in json format and read it back.
+* can save all the QuickDocs data in json format into a single json file and read it back
+** this json file contains 8 different lists, with each list consisting of only one of the 8 main `JsonAdapted` Class objects.
+
+==== When does QuickDocs read your data?
+All data are stored in a json file, with a default filepath `data/quickdocs.json`. This filepath can be
+customised in the `preferences.json` file.
+
+When QuickDocs is launched, all information in the `quickdocs.json` file will be read. As mentioned in the previous
+section, the json file contains 8 different lists, and each list will have their information converted to their
+corresponding model types by their respective `toModelType()` methods of the 8 different `JsonAdapted` classes.
+
+These converted objects will then be added into their respective class managers.
+As mentioned in the <<Design-Model, Model Component>> section, the `QuickDocs` class is responsible for storing
+all these data as it holds all the different class managers.
+
+Note that there are only 6 managers but there are 8 `JsonAdapted` classes. This is because converted
+`JsonAdaptedStatistics` and `JsonAdaptedMonthStatistics` objects are both stored in the `StatisticsManager`.
+Similarly, both `JsonAdaptedMedicine` and `JsonAdaptedDirectory` objects are stored in `MedicineManager`.
+
+===== Starting QuickDocs with no data
+If the `quickdocs.json` is not found, or contains any errors such that any information cannot be converted to its
+corresponding model type, QuickDocs will be launched in a clean slate. If it is the case that the json file
+is erroneous, it will not be deleted, however it will be overwritten if any saving occurs during the current session.
+
+==== When does QuickDocs save your data?
+QuickDocs saves data whenever there is modification of any information in the current session.
+
+Note that the user mainly interacts with QuickDocs by executing commands, and only some user commands will modify
+its data. For example, commands such as `listmed`, to list medicines, or `listapp`, to list appointments,
+will not affect the data. However, commands such as `editpat`, to edit a patient's particulars, or `addapp`, to add
+an appointment, will change the information stored in QuickDocs.
+
+Hence, only methods that modifies data will indicate to the `QuickDocs` class that a modification occurred. All methods
+that interact with the various class managers are contained in the `ModelManager` class, which holds a reference to
+the main `QuickDocs` object and references to all class managers. The following are the steps taken when one of
+these methods, in this case `Model#addApp()`, is called, which leads to data being saved:
+
+. `Model#addApp()` adds the provided `Appointment` into `AppointmentManager`.
+. `Model#addApp()` then calls `QuickDocs#indicateModification()`, providing the `boolean true` argument. This
+indicates that a change in data has occurred, which did happened since a new `Appointment` object had been added.
+. `LogicManager#execute()` checks if any modification occurred, through the `QuickDocs#isModified()` method, which
+in this case returns `true`.
+. `LogicManager#execute()` then saves the new modified QuickDocs data by calling `Storage#saveQuickDocs()`, providing
+it with the `QuickDocs` object. The new modified data will now overwrite all data stored in the `quickdocs.json` file.
+
+===== Design considerations
+We chose this implementation to ensure that no data will be lost due to any unforeseen circumstances. For example,
+if QuickDocs is closed unexpectedly, no data will be lost as any change in information has already been saved when
+that modification occurred.
 
 [[Design-Commons]]
 === Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+Classes used by multiple components are in the `quickdocs.commons` package.
 
 == Implementation
 
-This section describes some noteworthy details on how certain features are implemented.
+This section describes the details on how certain features are implemented.
 
-// tag::undoredo[]
-=== Undo/Redo feature
-==== Current Implementation
+=== Patient management module
 
-The undo/redo mechanism is facilitated by `VersionedAddressBook`.
-It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
-Additionally, it implements the following operations:
+The patient management module consists of these commands:
 
-* `VersionedAddressBook#commit()` -- Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` -- Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` -- Restores a previously undone address book state from its history.
+1. adding a patient record `addpat`
+2. editing a patient record `editpat`
+3. deleting a patient record `deletepat`
+4. listing a patient record (by name, nric, tags or index) `listpat`
 
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
+The operations involved in the patient management modules involve the use of the `model\Patient\PatientManager.java`
+class. The `PatientManager` maintains a list of patient records, which are loaded from the `quickdocs.json` file through the
+<<Design-Storage, storage>> component.
 
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
+==== Adding a patient
 
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+Patient records consist of `Name`, `NRIC`, `Email`, `Address`, `Contact`, `Gender`, `Dob` (Date of Birth) and `tagList` fields. The `addpat` command
+require users to enter the value of these fields prepended by prefixes. The prefixes are used to separate the parameters and assign the
+values to these fields.
 
-image::UndoRedoStartingStateListDiagram.png[width="800"]
-
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
-
-image::UndoRedoNewCommand1StateListDiagram.png[width="800"]
-
-Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
-
-image::UndoRedoNewCommand2StateListDiagram.png[width="800"]
+image::dg-consultation/patientcreation.png[width="800"]
 
 [NOTE]
-If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
+tagList can contain multiple or no tags at all.
 
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
+==== Editing a patient
 
-image::UndoRedoExecuteUndoStateListDiagram.png[width="800"]
+To edit a patient, a `PatientEditedFields` is first created. It consist of all the fields of a `Patient` object but all its values
+are null initially. This means that only when the user enter a value for a specific field will it be assigned to the `PatientEditedFields`.
+
+A temporary `Patient` object is then created with the values of the existing patient record to be edited. The `PatientEditedFields` will then
+be checked against this temporary patient object and replace the fields which are non-null.
+
+image::dg-consultation/patientediting.png[width="800"]
+
+An additional check for NRIC will be done on the list of patient records to ensure that the editing of NRIC does not cause a conflict
+with existing Patient records. When this additional check is passed, the temporary patient object will replace the existing patient record
+designated for editing.
+
+==== Deleting patient records
+
+Each patient have a unique NRIC value. This is how QuickDocs differentiate between the different patient
+records in the patient list in the `PatientManager` class.
+
+To delete a patient record, the `deletepat` and a nric is specified. The patient list will be iterated and the record whose
+NRIC matches the specified value will be removed.
+
+==== Listing patient records
+
+Since the patient records are stored in a list, their position in the list (index) can be used to view the details of a specific patient record.
+
+The user can narrow down their patient record searches using the names, nric and tags assigned to each patient, and this results in a sublist
+of patient records, with their index reflected to be shown on the main display of QuickDocs. The specific session can then be viewed by calling `listpat` along
+with the index.
+
+Internally, a `ListCommand` can
+be created using four different constructors and each of them have a `constructedBy` field. The constructedBy field will indicate
+whether the search is done by indexing, or filtering by name, nric or tags.
+
+1. If indexing is used, `getPatientAtIndex()` is called during the execution of the List command to simply retrieve the record
+in the patient list, at the position specified.
+
+2. If name is used, `findPatientsByName()` will be called, and patient records whose names containing the sequence that the user entered will be retrieved.
+
+3. If the nric is used, `findPatientsByNric()` is called and all patient records whose NRIC starts with the sequence supplied will be retrieved.
+
+4. If tag is used, `findPatientsByTag` is called, retrieving all patient records tied with the tag specified.
+
+Lastly, if `listpat` is called without any search parameters, QuickDocs will simply list the first 50 patients in the patient list.
+
+=== Consultation management module
+
+The consultation module consists of:
+
+1. *The consultation process*
+2. Listing of past patient <<consultation_records,consultation records>>
+
+The listing of past patient consultation records is similar to the listing of patient records explained earlier, the only difference
+being it can only be filtered down by NRIC and viewed using indexing.
+
+The *consultation process* on the other hand, comprises of four stages: starting, diagnosis, prescribing and ending the consultation session.
+It leverages on the actions done in the patient module and forms the bulk of the processes in the consultation module.
+
+The following section will provide a more in-depth exploration of how the consultation process is implemented. This includes:
+
+* The explanation of the design and mechanism behind the consultation process
+* The decision making process of selecting the current implementation
+
+==== Current Implementation for the consultation process
+
+The consultation process comprises of four stages:
+
+1. starting the consultation with a selected patient
+2. entering the symptoms, assessment of the patient's current condition
+3. entering the medicine to be prescribed
+4. ending the consultation
+
+The consultation process is facilitated by the `ConsultationManager.java` class.
+The ConsultationManager class holds the current consultation session and a list of past
+consultation records for every patients.
+
+Methods in the ConsultationManager comprises of:
+
+* `createConsultation(Patient)` -- Starts a consultation session with the current selected patient
+* `diagnosePatient(Diagnosis)` -- Record symptoms patient mentioned and the assessment of the current condition.
+* `prescribeMedicine(List of Prescriptions)` -- Prescribe the medicine and the quantities to be administered.
+* `endConsultation()` -- Ends the consultation session. No further edits can be made to both prescription and diagnosis.
+
+Both `diagnosePatient` and `prescribeMedicine` are repeatable. The values entered during the repeated command will simply replace
+the existing diagnosis / prescription.
 
 [NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+QuickDocs only permit one ongoing consultation. During diagnosis and prescription, changes are only made to the current consultation
+session. The previous consultations should not be edited to prevent falsification of medical records. The current consultation session
+can only end after both the diagnosis and prescription are finalized.
 
-The following sequence diagram shows how the undo operation works:
+Given below is an example usage scenario:
 
-image::UndoRedoSequenceDiagram.png[width="800"]
 
-The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
+
+*Step 1.* A previously registered patient arrives and the doctor starts the session by
+entering the consult command in this manner: `consult r/NRIC of the patient`. A message to indicate
+the start of the consultation will be shown in the results display.
+
+* if the patient is new and his or her details are not recorded in QuickDocs, the command will not be executed and the doctor will be alerted
+that the consultation cannot continue since no patient records with the entered Nric can be found. An invalid nric entered will also prompt the
+same response
+
+image::dg-consultation/consultation1.png[width="800"]
+
+*Step 2.* The patient will tell the doctor what are his / her ailments. The doctor will record the symptoms
+down. The doctor will then make the assessment of the illness the patient is having and execute the command by clicking
+on the `Enter` on the keyboard.
+
+* The symptoms and assessment have to be prepended by the `s/` and `a/` prefix respectively
+* The command entered by the doctor will look something like this: `diagnose s/constant coughing s/sore throat a/throat infection`
+
+image::dg-consultation/consultation2.png[width="800"]
+
+*Step 3.* Should the patient inform the doctor of additional symptoms after the diagnosis is given, the doctor can simply press
+the up and down key to display the previously entered command on the userInput area. The doctor can then add the new symptom in and
+press `Enter`, replacing the previously recorded diagnosis.
+
+image::dg-consultation/consultation3.png[width="800"]
+
+*Step 4.* The doctor will then add the medicine to the prescription list, followed by the quantities. Medicine are prepended by the `m/` prefix while
+quantities are prefixed by `q/`.The order of the quantity entered corresponds with the order the medicine is added in the command:
+
+* `prescribe m/Dextromethorphan m/ibuprofen q/1 q/2` In this case q/1 represents one unit of Dextromethorphan cough syrup is issued while
+2 units of ibuprofen (inflammatory tablets) are issued to the patient
+* Alternatively, the doctor can enter the quantity right after the medicine: `prescribe m/Dextromethorphan q/1 m/ibuprofen q/2`
+
+If any of the medicine issued are insufficient to complete the prescription, or is simply not in the inventory, a message will be displayed in
+the inputFeedback area. The command will not be executed and remains in the userInput text field. The doctor can then make the changes to the command.
+
+image::dg-consultation/consultation4.png[width="800"]
+
+*Step 5.* Just like the diagnosis command, prescription can be replaced by reentering the command.
+
+image::dg-consultation/consultation5.png[width="800"]
+
+*Step 6.* After explaining the medicine intake to the patient, the doctor can then end the consultation session on QuickDocs by using the command
+`endconsult`. No further changes to the consultation records can be made from this point on.
+
+The following sequence diagrams summarizes what happens when a user perform the entire consultation process, starting with the session initialisation:
+
+image::dg-consultation/consultationSD1.png[width="800"]
+
+Followed by the adding of the diagnosis:
+
+image::dg-consultation/diagnosisSD.png[width="800"]
+
+prescribing the medicine to tackle the patient's condition:
+
+image::dg-consultation/prescriptionSD.png[width="800"]
+
+finally, saving the consultation record into QuickDocs:
+
+image::dg-consultation/endconsultSD.png[width="800"]
+
+
+==== Design considerations
+
+1. In a neighbourhood clinic setting, doctors usually tend to only one patient at a time. This is why QuickDocs only allow a single
+ongoing session in the consultation process.
+
+2. In Singapore, every person is given a unique NRIC / FIN number regardless of their citizenship statuses. As such the NRIC is used to
+search for the patient records to start the consultation session.
+
+3. The prescription and diagnosis commands are made to override their previous states to ease the modification of consultation data.
+Doctors can simply use the command history to navigate to the previous command entered, make the changes and then execute the command. This
+allow them to simply add a few words to change consultation data rather than re-entering the entire command line.
+
+4. Prescription can actually be added before the diagnosis is recorded. The doctor could be expecting a patient for regular checkup and prepare the
+prescription before the patient enters the room. If the condition remains the same as before, the doctor can simply enter the diagnosis to complete the
+consultation session, cutting down the time spent on the consultation session.
+
+==== Alternatives considered
+
+Prior to the current implementation, a few options for the overall consultation process was considered:
+
+[cols="1,2a,1, 1", options="header"]
+|===
+|Alternative |Description |Pros | Cons
+// row 1
+|*Consultation as one single command*
+|Doctor enter `consult` followed by all the symptoms, assessment, prescriptions
+ and then execute
+| Consultation is now restricted to just one class
+
+The consultation creation will truly be one-shot
+|
+
+Input will be verbose, easy for the doctor to make mistakes
+
+Harder to spot and navigate to the erroneous part to make changes
+
+No room for the doctor to make changes as the consultation could have ended with erroneous information recorded
+// row 2
+|*Iterative consultation creation*
+|Doctor enter `consult`.
+
+Doctor get prompted to enter symptoms and assessment.
+
+Doctor get prompted to enter prescription.
+
+Consultation is ended once prescription is recorded
+| Less likely to enter erroneous data as consultation is now broken down to different stages
+
+| The consultation will take a longer time to be completed
+
+Doctor can only diagnose and prescribe during the session, while other related actions
+(such as listing past records) can only be done after the consultation
+
+// row 3
+| *Separate commands for start, diagnose, prescribe and end*
+
+*(Chosen implementation)*
+|
+Doctors begin and end session with `consult` and `endconsult`.
+
+Prescriptions and diagnosis can be added or replaced using the `diagnose` and `prescribe` commands before the session ends.
+| The editing involve the replacement of the current diagnosis or prescription entry, commands can be reused to perform both
+add and edit operations.
+
+Editing remain one shot and fast as users can make use of the command history to make changes to a previously entered command to
+make changes.
+
+Flexibility in recording consultation details, instead of having to go through the start, diagnose, prescribe, end order
+strictly.
+
+Room for other commands to be executed while a session is ongoing.
+
+|
+Potentially more commands will be called when compared to the other options.
+
+diagnosis and prescription commands entered could be verbose and doctors can make mistakes easily.
+
+| *Fragment diagnosis and prescription commands even more*
+| Same as the third alternative, but there are commands specific to the adding of symptoms in diagnosis, adding of medicine in prescription.
+
+Separate commands for editing the symptoms added or medicine prescribed
+|
+Shorter commands to add symptoms or prescribe medicine. Less mistakes will be made.
+
+Doctors only need to edit specific entries instead of retyping or navigating to previously entered command and make changes.
+
+|
+Way more commands to be entered by users.
+
+Even more commands and methods to be written, there will be a higher possibility of bugs arising from the increase in
+code volume.
+
+|===
+
+Although the selected option require more input and lengthier commands, it guarantees the flexibility and efficiency QuickDocs
+aim to deliver for doctors in neighbourhood clinics.
+
+These are some of the considerations taken before the decision was made:
+
+1. Since QuickDocs aim to provide a single interface for doctors to perform clinical operations more efficiently, the consultation
+process will require one shot commands to fulfill the efficiency requirement of the overall product.
+
+2. It is highly possible for doctors to make mistakes with the one-shot commands, especially when there are so many parameters involved
+in a single command. Therefore the implementation must provide a convenient form of error recovery.
+
+3. There could be interleaving operations between the modules, such as viewing past consultation records or
+checking medicine inventory in the midst of the consultation. The implementation must be flexible enough
+to allow cross module commands during a consultation.
+
+Although the selected option require more user input and involve lengthier commands, a doctor with fast typing speed will be able to
+circumvent the issues of slightly more verbose command lines easily.
+
+If the doctor enters an erroneous command or simply want to make changes, the command history can be used in conjunction with the
+one shot commands to make changes quickly.
+
+The selected option also do not restrict doctors to just consultation-related commands. He or she can perform other operations such as checking the inventory
+or view free appointment slots during the consultation itself.
+
+The selected implementation guarantees the flexibility and efficiency that
+QuickDocs aim to deliver for doctors in neighbourhood clinics.
+
+=== Appointment management module
+The Appointment module provides the user with greater control over his/her scheduled appointments by organising them
+neatly and preventing any clash of appointment timings. Listed below are the commands that the appointment module features:
+
+. Adding an appointment, `addapp`
+. Listing appointments, `listapp`
+. Deleting an appointment, `deleteapp`
+. Listing free appointment slots, `freeapp`
+
+These features are supported by the `AppointmentManager` class, which stores all created appointments in an `ArrayList`.
+On QuickDocs launch, existing appointments are read from the `quickdocs.json` file through the <<Design-Storage, storage>> component.
+
+[[app]]
+==== Appointments
+An `Appointment` is a subclass of the `Slot` class, and has the following 5 compulsory fields:
+
+* `Patient patient` - the patient who made this appointment
+* `LocalDate date` - the date of this appointment
+* `LocalTime start` - the time this appointment starts
+* `LocalTime end` - the time this appointment ends
+* `String comment` - any other details for this appointment
+
+[[addapp]]
+==== Adding an appointment
+The user can add an appointment to his/her schedule to keep track of future meetings, by using the `addapp` command.
+All 5 fields of an appointment, as mentioned in the <<app, Appointments>> section, must be specified together with
+the command.
+
+===== Input validation
+These fields are parsed by the `AddAppCommandParser` class, creating an `AddAppCommand` object, which then carries out
+the following steps before adding the appointment into QuickDocs:
+
+. Retrieve the `patient`, if he/she exists, by calling `Model#getPatientByNric()`.
+Note that the user specifies the `patient` of the appointment by providing the patient's NRIC, hence the need for this step.
+. Check if the `start` and `end` timings are valid. The appointment timing has to be within office hours (9am to 6pm)
+and the `start` time must not be after or equal to the `end` time.
+. Create the appointment using the given fields and check if this appointment has any conflict in timing with other
+existing appointments, by calling `Model#hasTimeConflicts()`.
+. Finally, add the appointment into `AppointmentManager` by calling `Model#addApp()`.
 
 [NOTE]
-If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+If any of the steps 1 to 3 fails, a `CommandException` will be thrown and the corresponding exception message will
+be shown to the user.
 
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
+===== Adding the appointment into AppointmentManager
+Listed below are the steps taken when the `Model#addApp()` method is called. Note that
+when an appointment is added, a reminder tailored for this appointment will also be added. This was implemented to
+ensure that the user does not forget about the appointment in the future.
 
-image::UndoRedoNewCommand3StateListDiagram.png[width="800"]
+. Add the given appointment into the `AppointmentManager` by calling its `addAppointment()` method.
+* `AppointmentManager#addAppointment()` takes in the appointment to be added and adds it into the `ArrayList` of
+appointments in its sorted position. This ensures that this list of appointments is always sorted by date and time,
+with the earliest appointment at the start of the list.
+. Create a reminder tailored to this appointment by calling `Model#createRemFromApp()`.
+. Add the newly created reminder into the `ReminderManager` by calling `Model#addRem()`.
 
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
+[NOTE]
+You can learn more about reminders in the <<reminder-module, Reminder management module>> section.
 
-image::UndoRedoNewCommand4StateListDiagram.png[width="800"]
+All these steps that are executed when the `addapp` command is called can be summarized in the
+Sequence Diagrams shown below:
 
-The following activity diagram summarizes what happens when a user executes a new command:
+.Sequence diagram when `addapp` is called
+image::dg-appointment/addapp_SD.png[width="800"]
 
-image::UndoRedoActivityDiagram.png[width="650"]
+{sp} +
 
-==== Design Considerations
+.Sequence diagram reference: add appointment to AppointmentManager
+image::dg-appointment/addapp_SD_ref.png[width="800"]
 
-===== Aspect: How undo & redo executes
+==== Listing appointments
+The user can list his/her past or future appointments using the `listapp` command. The user can either provide a range
+of dates to list out all appointments in those dates, or provide an NRIC to list out all appointments for the patient
+with the given NRIC.
 
-* **Alternative 1 (current choice):** Saves the entire address book.
-** Pros: Easy to implement.
-** Cons: May have performance issues in terms of memory usage.
-* **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
-** Cons: We must ensure that the implementation of each individual command are correct.
+[NOTE]
+If the user does not specify a `FORMAT` and `DATE`, `FORMAT` will default to `week` and `DATE` will default to the
+current date, meaning that the current week's appointments will be displayed.
 
-===== Aspect: Data structure to support the undo/redo commands
+[[listapp]]
+===== Listing by dates
+The user can specify the range of dates by providing a `FORMAT` (`day`, `week`, or `month`) and a `DATE`, which means to
+list all appointments on the `FORMAT` (day/month/week) of `DATE`. The following steps will then be taken:
 
-* **Alternative 1 (current choice):** Use a list to store the history of address book states.
-** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
-* **Alternative 2:** Use `HistoryManager` for undo/redo
-** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
-** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
-// end::undoredo[]
+. The `ListAppCommandParser` class parses these two parameters into `LocalDate start` and `LocalDate end`, and creates a
+`ListAppCommand` object. `start` and `end` represents the start and end dates of the range of dates of appointments
+to be listed.
+. `ListAppCommand` will then be executed, calling `Model#listApp()`, providing it with the `start` and `end` dates.
+. `Model#listApp()` then calls `AppointmentManager#listAppointments()`, with the same 2 arguments, which will return a
+`String` of all appointment information within the given range of dates.
 
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
+===== Listing by patient's NRIC
+In this case, the user only provides the NRIC of a patient together with the `listapp` command. The following steps
+will then be taken:
 
-_{Explain here how the data encryption feature will be implemented}_
+. The `ListAppCommandParser` class parses the user input into an `NRIC` object, creating a `ListAppCommand` object with this
+`NRIC` field.
+. `ListAppCommand` executes:
+* Firstly, it retrieves the patient with the provided `NRIC`, if exists, by calling `Model#getPatientByNric()`.
+* `Model#listApp()` will then be called, providing it with the patient retrieved.
+. `Model#listApp()` then calls `AppointmentManager#listAppointments()`, providing it with the patient, which returns
+a `String` of all the given patient's appointment information.
 
-// end::dataencryption[]
+[NOTE]
+`Model#listApp()` and `AppointmentManager#listAppointments()` are overloaded methods, having different method
+signatures based on their parameters. One implementation takes in two `LocalDate` parameters, `start` and `end`, while
+the other implementation takes in a single `Patient` object. This allows the same method name to be called, and list
+appointments by either providing a range of dates or a valid patient respectively.
+
+[[deleteapp]]
+==== Deleting appointments
+The user can delete any appointments created using the `deleteapp` command. Since there cannot be any clash in timings
+for appointments, any appointment can be identified uniquely by its date and start time. Hence the user can specify
+the appointment to be deleted only with those two fields, after which the following steps are taken:
+
+. The `DeleteAppCommandParser` class parses the two parameters into `LocalDate date` and `LocalTime start` that specifies
+the date and start time of the appointment to be deleted respectively. It then creates a `DeleteAppCommand` object with
+these two fields.
+. `DeleteAppCommand` executes:
+* Firstly, it checks if `start` is a valid timing, checking if it is within office hours (9am to 6pm).
+* Next, it retrieves the specified appointment, if it exists, by calling `Model#getAppointment()`, providing it
+with `date` and `start`.
+* Finally, `Model#deleteAppointment()` is called, providing it with the appointment retrieved.
+. `Model#deleteAppointment()` then calls `AppointmentManager#deleteAppointment()`, providing it with the appointment.
+`AppointmentManager#deleteAppointment()` will then remove the appointment from the `ArrayList` of appointments stored
+in `AppointmentManager`.
+
+==== Free appointment slots
+Before deciding on an appointment timing, the user can execute the `freeapp` command to list out all the timings available for
+a new appointment booking.
+
+===== Command format: `freeapp f/FORMAT d/DATE`
+We can see that the `freeapp` command takes in two parameters: +
+
+. `FORMAT`: can be `day`, `week`, or `month` +
+. `DATE`: a valid date
+
+This command can be roughly translated to: +
+_"Search for free appointment slots on the `FORMAT` (day/month/week) of `DATE`."_
+
+The `FreeAppCommandParser` class will parse these two parameters into two dates, `LocalDate start` and `LocalDate end`,
+representing the start and end dates of the search range for free appointment slots. `FreeAppCommandParser` then
+constructs a `FreeAppCommand` object with the `start` and `end` fields.
+
+[NOTE]
+If the user does not specify a `FORMAT` and `DATE`, `FORMAT` will default to `month` and `DATE` will default to the
+next month's date, meaning that free appointment slots for the whole of the following month will be displayed.
+
+===== Current Implementation
+The search is facilitated by the `AppointmentManager` class which stores all created `Appointments` in an `ArrayList`.
+`AppointmentManager` contains the method `listFreeSlots()` which firstly calls `AppointmentManager#getFreeSlots()`.
+`getFreeSlots()` is the main method that implements the logic behind `freeapp`.
+
+Given below are the steps taken when `listFreeSlots()` is called.
+
+Step 1. The method `listFreeSlots()` takes in the two arguments, `start` and `end`, which have been mentioned previously.
+Firstly, `listFreeSlots()` calls `getFreeSlots()`, providing it with the same two arguments, to retrieve a `List` of
+free `Slots` before it can parse them into a `String`.
+
+.Given search range from start to end date
+image::dg-appointment/freeapp1.png[width="800"]
+
+{sp} +
+Step 2. In `getFreeSlots()`, we first retrieve the existing appointments that are within this given search range
+by using the method `AppointmentManager#getAppointments()`.
+
+.Retrieved appointments in the search range
+image::dg-appointment/freeapp2.png[width="800"]
+
+{sp} +
+Step 3. Next, we look at all the appointments that are present on the `start` date, as shown in the diagram below.
+These appointments are sorted by date and time, with the earliest appointment on the left and the latest on the right.
+
+.Selected appointments on start date
+image::dg-appointment/freeapp3.png[width="800"]
+
+[NOTE]
+Since the appointments are already sorted, we do not need to search through the whole appointment list to
+find appointments present on the `start` date. We can simply go through the list from the beginning
+until we reach an appointment date that is not equals to `start`.
+
+{sp} +
+Step 4. We fill in each empty 'gap' between any two appointments by creating a `Slot` object.
+
+Each `Slot` object represents a single time period on a single date. It has three attributes: +
+
+* `LocalDate date` - the date of this time slot.
+* `LocalTime start` - the start time of this time slot.
+* `LocalTime end` - the end time of this time slot.
+
+In this `freeapp` context, these slots created represents a time period without any scheduled appointments.
+
+.Slots created to fill in empty time slots
+image::dg-appointment/freeapp4.png[width="800"]
+
+[NOTE]
+Slots will only be created for timings during office hours (09:00 to 18:00). This is to prevent any possible
+inconvenience caused if the user accidentally decides on a timing outside of office hours.
+(Even though there will be an office hour constraint when the user eventually creates the appointment.)
+
+{sp} +
+Step 5. We repeat Steps 3 and 4, replacing the `start` date with the remaining dates until the `end` date.
+All slots created will be added into an `ArrayList` of free slots, `freeSlots`.
+
+.All empty time slots filled
+image::dg-appointment/freeapp5.png[width="800"]
+
+{sp} +
+Step 6. After all the slots are added, we return `freeSlots` to the caller function `listFreeSlots()`,
+to generate a `String` that represents all the free slots to be appended onto the main display of the UI.
+
+{sp} +
+
+We can summarize the steps taken after the `freeapp` command is called in the Sequence Diagram below:
+
+.Sequence diagram when `freeapp` is called
+image::dg-appointment/freeapp_SD.png[width="800"]
+
+
+===== Design Considerations
+Listed below are some of the considerations we took when designing the `freeapp` command.
+
+1. This feature was implemented for the convenience of the user in choosing a valid appointment slot with his/her patient.
+It is more intuitive to decide on an appointment slot based on all the empty slots shown, rather than listing out
+all existing appointments using `listapp` and then figuring out what timings are available from there.
+
+2. We require the user to specify the search range by listing the `FORMAT` and `DATE` instead of the the `start` and
+`end` dates directly, to make the command more user friendly. The user does not have to be bothered with the exact
+range of dates to search, and can simply specify a rough date and be provided with information for the neighbouring
+dates if the `FORMAT` given is `week` or `month`. Moreover, if the user wants to list all free slots for the whole
+month, they do not have to check what the last date of the month is in order to specify the end date.
+
+===== Alternatives Considered
+Listed below are the methods considered to implement the `freeapp` command.
+
+[cols="1,2,2,3", options="header"]
+|===
+|Alternative |Description |Pros | Cons
+// row 1
+|*Maintain a permanent list of free slots*
+|Maintain a list of free slots for a pre-determined range (e.g. next three months) instead of creating a new list
+every time `appfree` is called.
+|It will be quicker to search for free slots as the list is already created. We simply need to filter the list
+with the given search range and print out the resulting filtered slots.
+|Tedious work needs to be done to maintain this permanent list of free slots, as it has to be modified whenever an
+appointment is added or deleted.
+
+Also, if the given search range is not within the range of this consistent list of free slots,
+this list will still have to be created from scratch, defeating the purpose of maintaining this permanent list.
+// row 2
+|*Generate free slots only when required*
+
+(Chosen implementation)
+|We will only generate a list of free slots when the `freeapp` command is called. This list will be a one-time use
+only and will not be stored in QuickDocs storage.
+|The user is given the flexibility to specify the range of dates to list the free slots, as this list is generated
+on the spot, and is not limited to the dates of a pre-determined list.
+|Since the generated list of free slots is not stored, extra work will be done in generating the same free slots
+when the next `freeapp` is called, that has a range of dates which overlaps the previous `freeapp` dates.
+|===
+
+We decided to implement the second method, as it is more straightforward. Here are the reasons why: +
+
+. The first implementation is actually just an extension of the chosen implementation as it still requires a way
+to generate a list of free slots, either when QuickDocs is launched or when the user requests a search range outside
+of the pre-determined list.
+. The first implementation additionally requires more effort to maintain this permanent list whenever the
+list of appointments is modified, which is not straightforward to implement. For example, we need a method to merge
+two free slots when an appointment is deleted, and another method to split a free slot into two when an appointment
+is added.
+. The benefit of a permanent list of free slots is the quicker execution time of `freeapp`, which will typically
+only be called a small number of times (around 10) a day, when the user books an appointment slot with his/her patient.
+The total time saved on executing `freeapp` a small number of times is therefore negligible.
+. QuickDocs already has plenty of data to be stored, such as appointments, consultations and medicine records.
+The minimal benefits that a permanent list of free slots provide does not justify its additional storage cost.
+
+[[reminder-module]]
+=== Reminder management module
+The Reminder module provides the user with a way to keep track of future tasks, to-dos, or appointments. The reminders
+will be displayed on the reminder side bar, and are colour coded as such:
+
+* [blue]#Blue#: Reminder for a scheduled appointment
+* [red]#Red#: Reminder to stock up on a medicine
+* [yellow]#Beige#: Any other personal reminders
+
+Listed below are the commands that the reminder module features:
+
+. Adding a reminder, `addrem`
+. Listing reminders, `listrem`
+. Deleting a reminder, `deleterem`
+
+These features are supported by the `ReminderManager` class, which stores all created reminders in an `ArrayList`.
+On QuickDocs launch, existing reminders are read from the `quickdocs.json` file through the
+<<Design-Storage, storage>> component.
+
+[[rem]]
+==== Reminders
+A `Reminder` is a subclass of the `Slot` class, and has the following 5 fields:
+
+* `String title` - the title/header for this reminder
+* `LocalDate date` - the date for this reminder
+* `LocalTime start` - the start time for this reminder
+* `LocalTime end` - the end time for this reminder
+* `String comment` - any other details for this reminder
+
+Only the `title`, `date` and `start` attributes are compulsory fields for a reminder.
+
+==== Adding a reminder
+The user can take note of a task to do by creating a reminder using the `addrem` command. As mentioned in the
+<<rem, Reminders>> section, only the `title`, `date` and `start` attributes are compulsory fields and must be
+specified together with the `addrem` command. Fields `end` and `comment` are optional. Below are the steps taken
+after the user executes the `addrem` command.
+
+. The `AddRemCommandParser` class parses the user input into 3 to 5 `Reminder` fields.
+. The `Reminder` object is constructed by the parser with the given fields.
+. An `AddRemCommand` object is created, providing it with the reminder object to be added.
+. `AddRemCommand` executes:
+* Firstly, it checks if there is a duplicate reminder using the `Model#duplicateRem()` method, which subsequently
+calls `ReminderManager#hasDuplicateReminder()`.
+* If there are no duplicates, `Model#addRem()` is called, providing it with the given reminder.
+. `Model#addRem()` then calls `ReminderManager#addReminder()`, providing it with the given reminder.
+`ReminderManager#addReminder()` will then add the reminder into the `ArrayList` of reminders stored
+in `ReminderManager`.
+
+[NOTE]
+The added reminder will only appear on the reminder sidebar if the date of the reminder is within the range of dates
+that the sidebar is currently displaying. More information can be found in the next section, <<listrem, Listing Reminders>>.
+
+===== Automatic generation of reminders
+Some reminders will be created and added automatically.
+
+. Appointment reminders
+* When an appointment is added, a reminder for this appointment will be generated automatically.
+More information can be found in the <<addapp, adding an appointment>> section.
+. Low medicine alarm reminders
+* The user is able to set a threshold for each medicine in the inventory by using the `alarm` command. When the quantity
+of a medicine drops below its threshold, a reminder will be created to alert the user of the low medicine quantity. More
+information can be found in the <<med, medicine implementation>> section.
+
+[[listrem]]
+==== Listing reminders
+The reminders displayed on the reminder sidebar can be filtered using the `listrem` command.
+
+===== Displaying reminders on the sidebar
+Similar to the <<listapp, `listapp`>> command, the user can specify a range of dates by providing a `FORMAT`
+(`day`, `week`, or `month`) and a `DATE`, which means to display all reminders on the `FORMAT` (day/month/week) of `DATE`.
+The following steps will then be taken:
+
+. The `ListRemCommandParser` class parses these two parameters into `LocalDate start` and `LocalDate end`, and creates a
+`ListRemCommand` object. `start` and `end` represents the start and end dates of the range of dates of reminders
+to be displayed on the sidebar.
+. `ListRemCommand` executes:
+* Firstly, a `ReminderWithinDatesPredicate` object will be created with the given `start` and `end` dates.
+This predicate is used to update the `FilteredList` of reminders contained in the `ModelManager` class.
+* Next, `Model#updateFilteredReminderList()` is called, providing it with the created predicate.
+. The `FilteredList` of reminders will be updated to match the range of dates given and the reminder sidebar is updated.
+
+[NOTE]
+If the user does not specify a `FORMAT` and `DATE`, `FORMAT` will default to `week` and `DATE` will default to the
+current date, meaning that the current week's reminders will be displayed.
+
+[[listrem_single]]
+===== Display a single reminder
+The `listrem` command can also be used to display the details of a single reminder onto the main display. This is useful
+when the `title` or `comment` of a reminder is too long to be displayed fully on the sidebar. The user can do so by
+providing the index of the reminder, as shown in the sidebar, together with the `listrem` command.
+
+. The `ListRemCommandParser` class parses the user input into an `Index` object, and creates a `ListRemCommand` object
+consisting of the `Index` field.
+. `ListRemCommand` executes:
+* Firstly, it retrieves the currently displayed `List` of reminders by calling `Model#getFilteredReminderList()`.
+* Next, it checks if the given `Index` is valid, checking if the `Index` is present in the current `List`
+of reminders.
+* If the `Index` given is valid, the reminder to be displayed is retrieved using the `List#get()` method on the `List`
+of reminders.
+. The information of the selected reminder is then appended onto the main display of the UI.
+
+Displaying a single reminder can also be done by clicking on the reminder in the sidebar with a mouse. This feature
+is supported by the `ReminderListPanel` class which is a UI component for the reminder sidebar. It contains the
+`Node#setOnMouseClicked()` method that takes in an `EventHandler`, which is specified to display the reminder
+details when the reminder is clicked.
+
+==== Deleting a reminder
+Deleting a reminder is simple, as the user only needs to specify the index of the reminder shown on the sidebar,
+together with the `deleterem` command. The process, when `deleterem` is called, described below is similar to the
+process when `listrem` is called to <<listrem_single, display a single reminder>>.
+
+. The `DeleteRemCommandParser` class parses the user input into an `Index` object, and creates a `DeleteRemCommand`
+object consisting of the `Index` field.
+. `DeleteRemCommand` executes:
+* Firstly, it retrieves the currently displayed `List` of reminders by calling `Model#getFilteredReminderList()`.
+* Next, it checks if the given `Index` is valid, checking if the `Index` is present in the current `List`
+of reminders.
+* If the `Index` given is valid, the reminder to be deleted is retrieved using the `List#get()` method on the `List`
+of reminders.
+* `Model#deleteReminder()` is called, providing it with the reminder to be deleted.
+. `Model#deleteReminder()` subsequently calls `ReminderManager#delete()` to delete the given reminder from the
+`ArrayList` of reminders stored in `ReminderManager`.
+
+[NOTE]
+Reminders are automatically created when an appointment is added, as mentioned <<addapp, here>>. However, when the
+reminder of an appointment is deleted, the appointment will NOT be deleted. Use the <<deleteapp, `deleteapp`>> command
+to delete an appointment.
+
+=== Record & Statistics feature ===
+==== Current implementation ====
+The statistics command is started through the command `stats START_MMYY [END_MMYY]`.
+The two MMYY corresponds to a range of dates. The end range is optional,
+
+=== Administrative and Statistics Module
+The administrative and statistics module currently consists of 2 commands: +
+
+1. setting the consultation fee `setconsultfee` +
+2. querying the statistics `statistics` +
+
+This 2 commands makes use of the classes located in filepath `model\record`.
+
+==== Consultation fee
+The consultation fee of the clinic is stored as a BigDecimal in the StatisticsManager of QuickDocs, which is loaded from the
+quickdocs.json file through the <<Design-Storage, storage>> component. The consultation fee is used for calculating
+financial statistics for any ConsultationRecord objects.
+
+==== Querying statistics
+The statistics command is started through the command `stats START_MMYYYY [END_MMYYYY]`.
+The two MMYYYY corresponds to a range of dates. The end range is optional,
+and is defaulted to the start range by the StatisticsCommandParser if it does not exist. +
+
+The start date is not allowed to be before January 2019, and the end date cannot be before the start date. Hence,
+QuickDocs currently does not support adding old records before January 2019 due to the implementation of the
+StatisticsManager. This will be explained in the section below. +
+[NOTE]
+MMYYYY is a string, e.g. "012019", which stands for January 2019. It is parsed by StatisticsCommandParser into a
+YearMonth object. +
+
+==== Statistics and Record - Current Implementation
+
+The statistics class stores 6 types of information: +
+
+1. Number of consultations +
+2. Medicines prescribed +
+3. Symptoms diagnosed +
+4. Revenue +
+5. Expenditure +
+6. Profit +
+
+Number of consultations is stored as an int, while the financial variables are stored using BigDecimals. The number of
+medicines prescribed and symptoms diagnosed are stored by using a HashMap. +
+
+[NOTE]
+Implementation of additional statistics will be done through adding additional relevant variable fields.
+
+The implementation of Statistics and Record has 3 parts: +
+
+1. Creation of the Record +
+2. Adding the Record +
+3. Retrieving the Statistics +
+
+===== 1. Creation of the Record
+In order for the statistics to be keep tracked of, Record objects are used to retrieve information that the
+StatisticsManager will make use of. The Record class is an abstract class that only has 1 abstract method,
+`toStatistics(StatisticsManager sm)`, which will generate a Statistics object.
+Each child class of Record is for a specific operation in QuickDocs, where the implementation
+`toStatistics(StatisticsManager sm)` will generate a Statistics object that stores relevant information pertaining to
+that specific operation. The StatisticsManager is passed in to retrieve the any variable that the Record might require
+to calculate the statistics, e.g., ConsultationRecord requires the consultationFee variable in StatisticsManager.
+
+Currently, there are only 2 child classes of Record, ConsultationRecord and MedicinePurchaseRecord. ConsultationRecords
+are created when the a consultation session ends from the EndConsultCommand, while MedicinePurchaseRecord are created
+when a medicine is purchased via the PurchaseMedicineCommand. The commands will create the Record, and call ModelManager's
+`addRecord(record, clock)` function, which will then result in ModelManager calling StatisticsManager's `record(record, clock)`
+function. The clock used is the system clock, to retrieve the current YearMonth of the Record created. The sequence diagram
+below illustrates an example ConsultationRecord being created.
+
+.Sequence diagram for sample ConsultationRecord creation
+image::RecordCreationSD.png[width="800"]
+
+===== 2. Adding the record
+The StatisticsManager holds an ArrayList of MonthStatistics, where a MonthStatistics object contains the YearMonth, and
+the Statistics object of that YearMonth. Each MonthStatistics object will be initialised with the zero Statistics object,
+where all the variables are 0 or contains no elements (not null). The ArrayList starts with a MonthStatistics with the
+YearMonth 2019 January, and every subsequent index will contain the MonthStatistics with the subsequent month, e.g.,
+the 4th index contains the MonthStatistics with YearMonth 2019 May.
+
+When the StatisticsManager adds a new Record by the `record(record, clock)` function, it will first retrieve the
+YearMonth from the `clock` variable passed in. Next, it will update the size of the ArrayList by calling its own method
+`updateListSize(clock)`, which is a wrapper for `updateListSize(YearMonth)`. Afterwards, StatisticsManager will find the
+correct index of the MonthStatistics ArrayList to add the record in. In the current implementation, the record is not
+actually stored. Instead, the record will be converted to a Statistics object which is then merged with the
+MonthStatistics's own Statistics object. The MonthStatistics's Statistics object will then be reassigned with the newly
+merged Statistics object. The sequence diagram below illustrates an example ConsultationRecord being added.
+
+.Sequence diagram for adding a sample ConsultationRecord
+image::SDForAddingRecords.png[width="800"]
+
+===== 3. Retrieving the Statistics
+
+When the StatisticsCommand queries for the statistics for a range
+of months, Logic will call the ModelManager's `getStatistics(FROM_YEARMONTH, TO_YEARMONTH)`, which then calls
+StatisticsManager's `getStatistics(FROM_YEARMONTH, TO_YEARMONTH)`. StatisticsManager will convert the YearMonth objects to
+their respective indexes with the StatisticsManager's `getYearMonthIndex(YearMonth)` function.
+
+StatisticsManager will then obtain the statistics for each of the queried months, and merge them together into a new
+Statistics object. StatisticsManager will then return the Statistics back to the ModelManager, which would then return
+it to the StatisticsCommand, which would then return the CommandResult with the statistics converted to a String to the
+LogicManager.
+
+==== Statistics and Record - Design considerations
+
+1. The statistics are stored in months as the design only allows the doctor to query within a minimum timespan of 1 month.
+Hence, it was decided that the statistics to be stored in months in a chronological order with an ArrayList for ease of
+retrieval. +
+
+2. Currently, as QuickDOcs is developed in 2019, and there are no plans to allow the doctor to add in past records,
+the first index in the array of MonthStatistics is allocated to January 2019. Any MMYYYY value before 012019 will not be
+allowed.
+
+3. The MonthStatistics objects are stored in an ArrayList as it might be desirable for a MonthStatistics with the zero
+statistics to exist (all variables 0 or no elements). Such a case might happen when the doctor goes on vacation for the
+whole month. In addition, it would be easy to retrieve the MonthStatistics object of a specific MMYYYY by indexing.
+
+==== Statistics and Record - Alternatives Considered
+The following table lists out the alternatives designs considered for implementing the storage of the Records and Statistics.
+[cols="1,2a,1, 1", options="header"]
+|===
+|Alternative |Description |Pros |Cons
+// row 1
+|*Storing of individual records for each month (Alternative chosen)*
+|Individual records are stored within the MonthStatistics, along with the Statistics. When the Statistics for a
+specific month is queried, update the latest statistics and return it.
+|Individual records are kept, which could potentially be used for other calculations or features.
+|Storing of individual records is extremely costly in terms of space
+// row 2
+|*Storing the merged statistics of all the records for each month*
+|When a new record is added, it is coverted to a Statistics object which is then merged with the current Statistics object stored.
+|Only one Statistics object needs to be stored, which saves a lot of storage space.
+|The individual records are unable to be retrieved. However, the current implementation has no need to retrieve individual records.
+|===
+
+[[med]]
+=== Storing medicines in inventory
+
+One essential aspect of clinic management is about managing medicine storage of the clinic. QuickDocs' medicine management module supports customized medicine organization via a browser-like directory format.
+
+==== Current implementation
+
+The current implementation takes a similar form as the Windows file browser. The user is free to determine for himself/herself how he/she wants the medicines to be arranged.
+
+*Code:* {repoURL}/src/main/java/quickdocs/model/medicine/MedicineManager.java[MedicineManager.java]
+
+To organize the inventory, the following methods in `MedicineManager` are used: +
+
+* `addDirectory(new directory's name, path of parent directory)` -- Adds a new directory with the given name to the parent directory corresponding to the path.
+* `addMedicine(name, quantity, path of parent directory, price)` -- Adds a new Medicine with given name, quantity and price to the parent directory corresponding to the path given.
+* `addExistingMedicineToDirectory(medicine, path of parent directory)` -- Assuming the medicine already exists, add a reference of this medicine under the directory corresponding to the path.
+
+[NOTE]
+The current implementation does not allow multiple medicines with the same to exist simultaneously. However, one medicine could be placed in multiple directories.
+
+[NOTE]
+Both directories and medicines' names are case-insensitive.
+
+From the initial empty state of the storage, the users could arrange their storage in these following ways:
+
+1. The initial empty storage consists of an empty directory named as "root". The user can then add directories and medicines into the storage.
+
+2. The `MedicineManager` keeps a list of sorted unique medicine in the inventory.
+
+3. The user could add a new directory via `adddirec` command by specifying the path of the directory he/she wants to add into and the name of new directory.
+
+4. The user could add new/existing medicine to a specific directory via the "addMed" command.
+
+* 1. If there already exists a medicine with the same name in the storage, and the quantity and price is not specified in the command arguments, the existing medicine will be placed in the directory specified.
+
+* 2. Otherwise, a new medicine with the specified name, quantity and price will be created and added to the specified directory.
+
+{nbsp} +
+
+Given below is an example of organizing medicine from an initial empty QuickDocs.
+
+Step 1: Initially, the storage only consists of an empty directory called root. +
+
+The list of unique medicine in `MedicineManager` is empty.
+
+[[medicineModule_example1]]
+image::medicineModule_example1.png[width='800']
+
+{nbsp} +
+
+Step 2: Via `adddirec root Internal`, a new directory called "Internal" is added under root. +
+
+The list of unique medicine is still empty.
+
+[[medicineModule_example2]]
+image::medicineModule_example2.png[width='800']
+
+{nbsp} +
+
+Step 3: Via a few more `adddirec` commands, the figure below is an illustration of a sample inventory's framework. +
+
+The list of unique medicine is still empty.
+
+[[medicineModule_example3.png]]
+image::medicineModule_example3.png[width='800']
+
+{nbsp} +
+
+Step 4: Now the user can add new medicines into the storage via `addmed root\Internal\General paracetamol p/40 q/50`. +
+
+[[medicineModule_example4]]
+image::medicineModule_example4.png[width='800']
+
+The list of unique medicine is also updated.
+
+[[listOfMedicine_example1]]
+image::listOfMedicine_example1.png[width='800']
+
+{nbsp} +
+
+Step 5: Via a few more `addmed` commands, some more new medicines are added to the inventory. The following figure shows the result after that
+
+[[medicineModule_example5]]
+image::medicineModule_example5.png[width='800']
+
+The list of unique medicine is also updated.
+
+[[listOfMedicine_example2]]
+image::listOfMedicine_example2.png[width='800']
+
+{nbsp} +
+
+Step 6: Now, the user found out that aspirin can also be used to treat high blood pressure and decides to put it under "Cardiology" as well. +
+
+Via the `addmed root\Internal\Cardiology aspirin`, a reference to the existing aspirin medicine will be placed under the "Cardiology" directory. +
+
+The figure below shows the result of this command.
+
+[[medicineModule_example6]]
+image::medicineModule_example6.png[width='800']
+
+However, the list of unique medicine is not changed, as now new medicine is added.
+
+[[listOfMedicine_example3]]
+image:listOfMedicine_example2.png[width='800']
+
+This six-step example illustrates the basic implementation of how medicines and directories are organized in QuickDocs.
+
+- - -
+
+When typing the directory path in the command box in the ui, QuickDocs supports intelligent suggestions about the next field. +
+
+After the user entered at least one `\` character to indicate he is inputting a path, the suggestion mode will be turned on. +
+
+The user could press Page Up / Page Down bottom to iterate to the previous or the next valid name of sub-directory or medicine in alphabetical order, given that the path given before the previous `\` character is valid.
+
+Using the above sample inventory as an example: +
+
+[[medicineModule_example7]]
+image::medicineModule_example7.png[width='800']
+
+* When the user types in `addmed root\`, the suggestion mode is turned on. +
+
+* The user may not want to type in the full name of the directories, so when he types in `addmed root\in`, he could then press Page Down to iterate to the next valid name in alphabetical order, which is "Internal". +
+
+* The command box is then automatically filled with `addmed root\Internal` +
+
+* Similarly, if the user decides to traverse to the previous valid name, he could do so by press Page Up. And the command box will automatically be filled with `addmed root\External`. +
+
+The figure below illustrates how this feature is implemented to make user's life more convenient. +
+
+[[suggestion_diagram]]
+.Sequence diagram illustrating the implementation of suggestion mode
+image::suggestion_diagram.png[width='800]
+
+- - -
+
+QuickDocs also supports setting alarm level for medicines. Every time a medicine's storage falls below the designated level, a reminder is thrown. +
+
+To convenient the users, QuickDocs allow not only threshold setting for individual medicines, but also threshold setting for directories. +
+
+Taking the above sample inventory as an example: +
+
+[[medicineModule_example8]]
+image::medicineModule_example7.png[width='800']
+
+Setting a threshold for a directory is effectively the same as setting the threshold for every medicine in the "subtree" of that directory. This is down by a tree-like traversal. +
+
+For example, `alarm root\Internal 400` command sets the alarm level of all medicine in the subtree of "Internal" directory to 400. +
+
+[[medicineModule_example8]]
+image::medicineModule_example8.png[width='800]
+
+==== Design consideration
+
+1. The current implementation takes into consideration that the users may wish to have some freedom in determining the arrangement of medicine.
+
+2. When prescribing medicines, a directory system that step by step leads to the desired medicine is to the convenience of the user.
+
+3. By arranging the medicine by folders, it is then possible to support massive manipulation of medicine by directories.
+
+4. Additionally, it is impossible to expect the doctor to always remember the full name of medicines correctly. There is a need for an easier way to identify medicines to operate on besides requiring the user to type in full names every time.
+
+5. Considering that even a small private clinic may have a considerably large set of medicine available in their storage, massive operation on a large set of medicine should be made possible besides operations on single medicine.
+
+==== Alternatives considered
+
+The table illustrates some of the alternatives I considered during development of this medicine module, the relative advantages they have over the current implementation, and why they are not selected at the end.
+
+[cols="1, 1, 2a, 2a", options="header"]
+|===
+|Alternative |Description |Comparative advantages |Reasons for not adopting
+// row 1
+|*Store medicines as a simple ArrayList*
+|When users add a new medicine, just append a new medicine to the ArrayList. +
+
+During operations on medicines, use name of medicine as a key to select the wanted medicine.
+
+| * Simpler command format: The user could type in less arguments for the same commands.
+
+* No maintainability issue: There is no constraint to the data structure, therefore there is no need to cross check all modules to ensure the constraints are maintained. Less likely to occur bugs.
+
+| * The user must type in full name of medicines correctly to identify the correct medicine, This contradicts our belief that doctors are unlikely to know the full name of all his/her medicine.
+
+* There is no freedom for the user to organize his/her medicine. When the user wants to view or operate on all medicine that share some common traits, he/she is not able to do so.
+
+// row 2
+|*Use a hash map to store the medicines*
+| Use medicine name as the key and the medicine as the value. Search for the key to identify and operate on medicines.
+| * Searching and identifying using names as key is more time-efficient compared to the current implementation, especially when data size is large. +
+
+* Simpler command format, less fields to input per command.
+
+| * There is no room for customized arrangement of medicine. +
+
+* The user need to type in the correct full name of medicines to be able to identify medicines. This adds on extra difficulties for users to use the application.
+
+* Does not support massive operations on similar medicines. Users need to repeat the same operations on many medicines.
+
+//row 3
+|*Store medicines in a list with tags*
+| When adding medicines, require tags from the users so that searching and identifying medicine is easier.
+| * Easier to list all medicines with the same tag. +
+
+* Similar structure with patient module. Less efforts needed on both the developers' side and users' side to familiarise themselves with the data structure.
+| * Potential lengthy commands if a medicine is widely applicable to many situations such that it may have a lot tags. +
+
+* Have to either input the full name of medicine or recall the tag correctly to retrieve correct medicine. When there is a large set of medicines and tags, this alternatives provides little extra convenience as compared to the two alternatives above.
+
+|===
+
+Since QuickDocs aims to provide the most convenient experience given a large set of medicine in a clinic inventory, the medicine management module needs to provide a model that makes both typing commands, identifying the correct medicine and massive operation possible. +
+
+Combined with the <<medicineModule_example7, suggestion mode>>, the current design is the best way to implement all of the three.
 
 === Logging
 
@@ -478,21 +1652,14 @@ We have two types of tests:
 
 .  *GUI Tests* - These are tests involving the GUI. They include,
 .. _System Tests_ that test the entire App by simulating user actions on the GUI. These are in the `systemtests` package.
-.. _Unit tests_ that test the individual components. These are in `seedu.address.ui` package.
+.. _Unit tests_ that test the individual components. These are in `quickdocs.ui` package.
 .  *Non-GUI Tests* - These are tests not involving the GUI. They include,
 ..  _Unit tests_ targeting the lowest level methods/classes. +
-e.g. `seedu.address.commons.StringUtilTest`
+e.g. `quickdocs.model.PatientTest`
 ..  _Integration tests_ that are checking the integration of multiple code units (those code units are assumed to be working). +
-e.g. `seedu.address.storage.StorageManagerTest`
+e.g. `StorageManagerTest`
 ..  Hybrids of unit and integration tests. These test are checking multiple code units as well as how the are connected together. +
-e.g. `seedu.address.logic.LogicManagerTest`
-
-
-=== Troubleshooting Testing
-**Problem: `HelpWindowTest` fails with a `NullPointerException`.**
-
-* Reason: One of its dependencies, `HelpWindow.html` in `src/main/resources/docs` is missing.
-* Solution: Execute Gradle task `processResources`.
+e.g. `LogicManagerTest`
 
 == Dev Ops
 
@@ -515,309 +1682,25 @@ When a pull request has changes to asciidoc files, you can use https://www.netli
 
 Here are the steps to create a new release.
 
-.  Update the version number in link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp.java`].
+.  Update the version number in link:{repoURL}/src/main/java/quickdocs/MainApp.java[`MainApp.java`].
 .  Generate a JAR file <<UsingGradle#creating-the-jar-file, using Gradle>>.
 .  Tag the repo with the version number. e.g. `v0.1`
 .  https://help.github.com/articles/creating-releases/[Create a new release using GitHub] and upload the JAR file you created.
-
-=== Managing Dependencies
-
-A project often depends on third-party libraries. For example, Address Book depends on the https://github.com/FasterXML/jackson[Jackson library] for JSON parsing. Managing these _dependencies_ can be automated using Gradle. For example, Gradle can download the dependencies automatically, which is better than these alternatives:
-
-[loweralpha]
-. Include those libraries in the repo (this bloats the repo size)
-. Require developers to download those libraries manually (this creates extra work for developers)
-
-[[GetStartedProgramming]]
-[appendix]
-== Suggested Programming Tasks to Get Started
-
-Suggested path for new programmers:
-
-1. First, add small local-impact (i.e. the impact of the change does not go beyond the component) enhancements to one component at a time. Some suggestions are given in <<GetStartedProgramming-EachComponent>>.
-
-2. Next, add a feature that touches multiple components to learn how to implement an end-to-end feature across all components. <<GetStartedProgramming-RemarkCommand>> explains how to go about adding such a feature.
-
-[[GetStartedProgramming-EachComponent]]
-=== Improving each component
-
-Each individual exercise in this section is component-based (i.e. you would not need to modify the other components to get it to work).
-
-[discrete]
-==== `Logic` component
-
-*Scenario:* You are in charge of `logic`. During dog-fooding, your team realize that it is troublesome for the user to type the whole command in order to execute a command. Your team devise some strategies to help cut down the amount of typing necessary, and one of the suggestions was to implement aliases for the command words. Your job is to implement such aliases.
-
-[TIP]
-Do take a look at <<Design-Logic>> before attempting to modify the `Logic` component.
-
-. Add a shorthand equivalent alias for each of the individual commands. For example, besides typing `clear`, the user can also type `c` to remove all persons in the list.
-+
-****
-* Hints
-** Just like we store each individual command word constant `COMMAND_WORD` inside `*Command.java` (e.g.  link:{repoURL}/src/main/java/seedu/address/logic/commands/FindCommand.java[`FindCommand#COMMAND_WORD`], link:{repoURL}/src/main/java/seedu/address/logic/commands/DeleteCommand.java[`DeleteCommand#COMMAND_WORD`]), you need a new constant for aliases as well (e.g. `FindCommand#COMMAND_ALIAS`).
-** link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser`] is responsible for analyzing command words.
-* Solution
-** Modify the switch statement in link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser#parseCommand(String)`] such that both the proper command word and alias can be used to execute the same intended command.
-** Add new tests for each of the aliases that you have added.
-** Update the user guide to document the new aliases.
-** See this https://github.com/se-edu/addressbook-level4/pull/785[PR] for the full solution.
-****
-
-[discrete]
-==== `Model` component
-
-*Scenario:* You are in charge of `model`. One day, the `logic`-in-charge approaches you for help. He wants to implement a command such that the user is able to remove a particular tag from everyone in the address book, but the model API does not support such a functionality at the moment. Your job is to implement an API method, so that your teammate can use your API to implement his command.
-
-[TIP]
-Do take a look at <<Design-Model>> before attempting to modify the `Model` component.
-
-. Add a `removeTag(Tag)` method. The specified tag will be removed from everyone in the address book.
-+
-****
-* Hints
-** The link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model`] and the link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`] API need to be updated.
-** Think about how you can use SLAP to design the method. Where should we place the main logic of deleting tags?
-**  Find out which of the existing API methods in  link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`] and link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`] classes can be used to implement the tag removal logic. link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`] allows you to update a person, and link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`] allows you to update the tags.
-* Solution
-** Implement a `removeTag(Tag)` method in link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`]. Loop through each person, and remove the `tag` from each person.
-** Add a new API method `deleteTag(Tag)` in link:{repoURL}/src/main/java/seedu/address/model/ModelManager.java[`ModelManager`]. Your link:{repoURL}/src/main/java/seedu/address/model/ModelManager.java[`ModelManager`] should call `AddressBook#removeTag(Tag)`.
-** Add new tests for each of the new public methods that you have added.
-** See this https://github.com/se-edu/addressbook-level4/pull/790[PR] for the full solution.
-****
-
-[discrete]
-==== `Ui` component
-
-*Scenario:* You are in charge of `ui`. During a beta testing session, your team is observing how the users use your address book application. You realize that one of the users occasionally tries to delete non-existent tags from a contact, because the tags all look the same visually, and the user got confused. Another user made a typing mistake in his command, but did not realize he had done so because the error message wasn't prominent enough. A third user keeps scrolling down the list, because he keeps forgetting the index of the last person in the list. Your job is to implement improvements to the UI to solve all these problems.
-
-[TIP]
-Do take a look at <<Design-Ui>> before attempting to modify the `UI` component.
-
-. Use different colors for different tags inside person cards. For example, `friends` tags can be all in brown, and `colleagues` tags can be all in yellow.
-+
-**Before**
-+
-image::getting-started-ui-tag-before.png[width="300"]
-+
-**After**
-+
-image::getting-started-ui-tag-after.png[width="300"]
-+
-****
-* Hints
-** The tag labels are created inside link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[the `PersonCard` constructor] (`new Label(tag.tagName)`). https://docs.oracle.com/javase/8/javafx/api/javafx/scene/control/Label.html[JavaFX's `Label` class] allows you to modify the style of each Label, such as changing its color.
-** Use the .css attribute `-fx-background-color` to add a color.
-** You may wish to modify link:{repoURL}/src/main/resources/view/DarkTheme.css[`DarkTheme.css`] to include some pre-defined colors using css, especially if you have experience with web-based css.
-* Solution
-** You can modify the existing test methods for `PersonCard` 's to include testing the tag's color as well.
-** See this https://github.com/se-edu/addressbook-level4/pull/798[PR] for the full solution.
-*** The PR uses the hash code of the tag names to generate a color. This is deliberately designed to ensure consistent colors each time the application runs. You may wish to expand on this design to include additional features, such as allowing users to set their own tag colors, and directly saving the colors to storage, so that tags retain their colors even if the hash code algorithm changes.
-****
-
-. Modify link:{repoURL}/src/main/java/seedu/address/commons/events/ui/NewResultAvailableEvent.java[`NewResultAvailableEvent`] such that link:{repoURL}/src/main/java/seedu/address/ui/ResultDisplay.java[`ResultDisplay`] can show a different style on error (currently it shows the same regardless of errors).
-+
-**Before**
-+
-image::getting-started-ui-result-before.png[width="200"]
-+
-**After**
-+
-image::getting-started-ui-result-after.png[width="200"]
-+
-****
-* Hints
-** link:{repoURL}/src/main/java/seedu/address/commons/events/ui/NewResultAvailableEvent.java[`NewResultAvailableEvent`] is raised by link:{repoURL}/src/main/java/seedu/address/ui/CommandBox.java[`CommandBox`] which also knows whether the result is a success or failure, and is caught by link:{repoURL}/src/main/java/seedu/address/ui/ResultDisplay.java[`ResultDisplay`] which is where we want to change the style to.
-** Refer to link:{repoURL}/src/main/java/seedu/address/ui/CommandBox.java[`CommandBox`] for an example on how to display an error.
-* Solution
-** Modify link:{repoURL}/src/main/java/seedu/address/commons/events/ui/NewResultAvailableEvent.java[`NewResultAvailableEvent`] 's constructor so that users of the event can indicate whether an error has occurred.
-** Modify link:{repoURL}/src/main/java/seedu/address/ui/ResultDisplay.java[`ResultDisplay#handleNewResultAvailableEvent(NewResultAvailableEvent)`] to react to this event appropriately.
-** You can write two different kinds of tests to ensure that the functionality works:
-*** The unit tests for `ResultDisplay` can be modified to include verification of the color.
-*** The system tests link:{repoURL}/src/test/java/systemtests/AddressBookSystemTest.java[`AddressBookSystemTest#assertCommandBoxShowsDefaultStyle() and AddressBookSystemTest#assertCommandBoxShowsErrorStyle()`] to include verification for `ResultDisplay` as well.
-** See this https://github.com/se-edu/addressbook-level4/pull/799[PR] for the full solution.
-*** Do read the commits one at a time if you feel overwhelmed.
-****
-
-. Modify the link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] to show the total number of people in the address book.
-+
-**Before**
-+
-image::getting-started-ui-status-before.png[width="500"]
-+
-**After**
-+
-image::getting-started-ui-status-after.png[width="500"]
-+
-****
-* Hints
-** link:{repoURL}/src/main/resources/view/StatusBarFooter.fxml[`StatusBarFooter.fxml`] will need a new `StatusBar`. Be sure to set the `GridPane.columnIndex` properly for each `StatusBar` to avoid misalignment!
-** link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] needs to initialize the status bar on application start, and to update it accordingly whenever the address book is updated.
-* Solution
-** Modify the constructor of link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] to take in the number of persons when the application just started.
-** Use link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter#handleAddressBookChangedEvent(AddressBookChangedEvent)`] to update the number of persons whenever there are new changes to the addressbook.
-** For tests, modify link:{repoURL}/src/test/java/guitests/guihandles/StatusBarFooterHandle.java[`StatusBarFooterHandle`] by adding a state-saving functionality for the total number of people status, just like what we did for save location and sync status.
-** For system tests, modify link:{repoURL}/src/test/java/systemtests/AddressBookSystemTest.java[`AddressBookSystemTest`] to also verify the new total number of persons status bar.
-** See this https://github.com/se-edu/addressbook-level4/pull/803[PR] for the full solution.
-****
-
-[discrete]
-==== `Storage` component
-
-*Scenario:* You are in charge of `storage`. For your next project milestone, your team plans to implement a new feature of saving the address book to the cloud. However, the current implementation of the application constantly saves the address book after the execution of each command, which is not ideal if the user is working on limited internet connection. Your team decided that the application should instead save the changes to a temporary local backup file first, and only upload to the cloud after the user closes the application. Your job is to implement a backup API for the address book storage.
-
-[TIP]
-Do take a look at <<Design-Storage>> before attempting to modify the `Storage` component.
-
-. Add a new method `backupAddressBook(ReadOnlyAddressBook)`, so that the address book can be saved in a fixed temporary location.
-+
-****
-* Hint
-** Add the API method in link:{repoURL}/src/main/java/seedu/address/storage/AddressBookStorage.java[`AddressBookStorage`] interface.
-** Implement the logic in link:{repoURL}/src/main/java/seedu/address/storage/StorageManager.java[`StorageManager`] and link:{repoURL}/src/main/java/seedu/address/storage/JsonAddressBookStorage.java[`JsonAddressBookStorage`] class.
-* Solution
-** See this https://github.com/se-edu/addressbook-level4/pull/594[PR] for the full solution.
-****
-
-[[GetStartedProgramming-RemarkCommand]]
-=== Creating a new command: `remark`
-
-By creating this command, you will get a chance to learn how to implement a feature end-to-end, touching all major components of the app.
-
-*Scenario:* You are a software maintainer for `addressbook`, as the former developer team has moved on to new projects. The current users of your application have a list of new feature requests that they hope the software will eventually have. The most popular request is to allow adding additional comments/notes about a particular contact, by providing a flexible `remark` field for each contact, rather than relying on tags alone. After designing the specification for the `remark` command, you are convinced that this feature is worth implementing. Your job is to implement the `remark` command.
-
-==== Description
-Edits the remark for a person specified in the `INDEX`. +
-Format: `remark INDEX r/[REMARK]`
-
-Examples:
-
-* `remark 1 r/Likes to drink coffee.` +
-Edits the remark for the first person to `Likes to drink coffee.`
-* `remark 1 r/` +
-Removes the remark for the first person.
-
-==== Step-by-step Instructions
-
-===== [Step 1] Logic: Teach the app to accept 'remark' which does nothing
-Let's start by teaching the application how to parse a `remark` command. We will add the logic of `remark` later.
-
-**Main:**
-
-. Add a `RemarkCommand` that extends link:{repoURL}/src/main/java/seedu/address/logic/commands/Command.java[`Command`]. Upon execution, it should just throw an `Exception`.
-. Modify link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser`] to accept a `RemarkCommand`.
-
-**Tests:**
-
-. Add `RemarkCommandTest` that tests that `execute()` throws an Exception.
-. Add new test method to link:{repoURL}/src/test/java/seedu/address/logic/parser/AddressBookParserTest.java[`AddressBookParserTest`], which tests that typing "remark" returns an instance of `RemarkCommand`.
-
-===== [Step 2] Logic: Teach the app to accept 'remark' arguments
-Let's teach the application to parse arguments that our `remark` command will accept. E.g. `1 r/Likes to drink coffee.`
-
-**Main:**
-
-. Modify `RemarkCommand` to take in an `Index` and `String` and print those two parameters as the error message.
-. Add `RemarkCommandParser` that knows how to parse two arguments, one index and one with prefix 'r/'.
-. Modify link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser`] to use the newly implemented `RemarkCommandParser`.
-
-**Tests:**
-
-. Modify `RemarkCommandTest` to test the `RemarkCommand#equals()` method.
-. Add `RemarkCommandParserTest` that tests different boundary values
-for `RemarkCommandParser`.
-. Modify link:{repoURL}/src/test/java/seedu/address/logic/parser/AddressBookParserTest.java[`AddressBookParserTest`] to test that the correct command is generated according to the user input.
-
-===== [Step 3] Ui: Add a placeholder for remark in `PersonCard`
-Let's add a placeholder on all our link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`] s to display a remark for each person later.
-
-**Main:**
-
-. Add a `Label` with any random text inside link:{repoURL}/src/main/resources/view/PersonListCard.fxml[`PersonListCard.fxml`].
-. Add FXML annotation in link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`] to tie the variable to the actual label.
-
-**Tests:**
-
-. Modify link:{repoURL}/src/test/java/guitests/guihandles/PersonCardHandle.java[`PersonCardHandle`] so that future tests can read the contents of the remark label.
-
-===== [Step 4] Model: Add `Remark` class
-We have to properly encapsulate the remark in our link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`] class. Instead of just using a `String`, let's follow the conventional class structure that the codebase already uses by adding a `Remark` class.
-
-**Main:**
-
-. Add `Remark` to model component (you can copy from link:{repoURL}/src/main/java/seedu/address/model/person/Address.java[`Address`], remove the regex and change the names accordingly).
-. Modify `RemarkCommand` to now take in a `Remark` instead of a `String`.
-
-**Tests:**
-
-. Add test for `Remark`, to test the `Remark#equals()` method.
-
-===== [Step 5] Model: Modify `Person` to support a `Remark` field
-Now we have the `Remark` class, we need to actually use it inside link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`].
-
-**Main:**
-
-. Add `getRemark()` in link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`].
-. You may assume that the user will not be able to use the `add` and `edit` commands to modify the remarks field (i.e. the person will be created without a remark).
-. Modify link:{repoURL}/src/main/java/seedu/address/model/util/SampleDataUtil.java/[`SampleDataUtil`] to add remarks for the sample data (delete your `data/addressbook.json` so that the application will load the sample data when you launch it.)
-
-===== [Step 6] Storage: Add `Remark` field to `JsonAdaptedPerson` class
-We now have `Remark` s for `Person` s, but they will be gone when we exit the application. Let's modify link:{repoURL}/src/main/java/seedu/address/storage/JsonAdaptedPerson.java[`JsonAdaptedPerson`] to include a `Remark` field so that it will be saved.
-
-**Main:**
-
-. Add a new JSON field for `Remark`.
-
-**Tests:**
-
-. Fix `invalidAndValidPersonAddressBook.json`, `typicalPersonsAddressBook.json`, `validAddressBook.json` etc., such that the JSON tests will not fail due to a missing `remark` field.
-
-===== [Step 6b] Test: Add withRemark() for `PersonBuilder`
-Since `Person` can now have a `Remark`, we should add a helper method to link:{repoURL}/src/test/java/seedu/address/testutil/PersonBuilder.java[`PersonBuilder`], so that users are able to create remarks when building a link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`].
-
-**Tests:**
-
-. Add a new method `withRemark()` for link:{repoURL}/src/test/java/seedu/address/testutil/PersonBuilder.java[`PersonBuilder`]. This method will create a new `Remark` for the person that it is currently building.
-. Try and use the method on any sample `Person` in link:{repoURL}/src/test/java/seedu/address/testutil/TypicalPersons.java[`TypicalPersons`].
-
-===== [Step 7] Ui: Connect `Remark` field to `PersonCard`
-Our remark label in link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`] is still a placeholder. Let's bring it to life by binding it with the actual `remark` field.
-
-**Main:**
-
-. Modify link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`]'s constructor to bind the `Remark` field to the `Person` 's remark.
-
-**Tests:**
-
-. Modify link:{repoURL}/src/test/java/seedu/address/ui/testutil/GuiTestAssert.java[`GuiTestAssert#assertCardDisplaysPerson(...)`] so that it will compare the now-functioning remark label.
-
-===== [Step 8] Logic: Implement `RemarkCommand#execute()` logic
-We now have everything set up... but we still can't modify the remarks. Let's finish it up by adding in actual logic for our `remark` command.
-
-**Main:**
-
-. Replace the logic in `RemarkCommand#execute()` (that currently just throws an `Exception`), with the actual logic to modify the remarks of a person.
-
-**Tests:**
-
-. Update `RemarkCommandTest` to test that the `execute()` logic works.
-
-==== Full Solution
-
-See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-by-step solution.
 
 [appendix]
 == Product Scope
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
+* doctors operating small neighbourhood clinics in Singapore
+* have minimal assistants or employees to assist with tasks
+* handle the majority of the clinic's operations themselves
 * prefer desktop apps over other types
 * can type fast
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*: allow doctors to accomplish greater management of their clinics with minimal manpower more conveniently.
 
 [appendix]
 == User Stories
@@ -825,64 +1708,262 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
 
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
-|=======================================================================
+
+|===
+
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
+|`* * *` |doctor |allocate appointments for patients |Prevent clashes in schedules
 
-|`* * *` |user |add a new person |
+|`* * *` |doctor |view patient’s contact details |Call and follow up on them
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |doctor |record patient particulars | register new walk-in patients to start a consultation session
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |doctor |record and view patients past medical records |diagnose them better for current and subsequent consultations
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` |doctor |view the available time slots quickly | reserve an appointment slot for my patients requiring long term care.
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
-|=======================================================================
+|`* * *` |doctor |view monthly statistics about patients, finances and inventory|make better decisions on how to run my clinic
 
-_{More to be added}_
+|`* * *` |forgetful or busy doctor |get reminders of when I am expecting patients|prepare to diagnose them
+
+|`* *` |busy doctor | get reminders whe my medicine is running low | refill my medicine and prevent shortages during prescriptions
+
+|`* *` |doctor |view my patients’ appointment details |send reminders to them
+
+|`* *` |doctor handling patients with chronic illnesses|view detailed information about medicine in my storage|give out prescription that tackles the patients’ symptoms better
+
+|`* *` |doctor |encrypt the patient and medical data |Protect sensitive information like medical history from getting stolen
+
+|`* *`|doctor|find out the most common symptom diagnosed|prepare enough medicine to deal with seasonal illnesses
+
+|`*` |doctor |export patient diagnosis and details |facilitate external providers’ medical care
+
+|`*` |doctor |lock the application |Prevent unauthorised accesses to the application
+
+|`*` |forgetful doctor |keep track of my medical license duration |renew it on time
+
+|`*` |newly trained doctor | search for details of a medical condition |explain to my patients better
+
+|===
 
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is `Quickdocs` and the *Actor* is the `doctor`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
+=== Use case: Consultation
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1. User enter consultation command followed by NRIC
+2. Quickdocs show prompt that indicates to user that consultation for that patient started
+3. User enter diagnosis command with symptoms and assessment
+4. Quickdocs indicate to user that the symptoms and assessment are recorded
+5. User enter prescription command with medicine and quantity
+6. Quickdocs indicate to user the medicine and quantity to be administered for current patient
+7. User enter end consultation command
+8. Quickdocs indicate that consultation for current patient ended
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 2a. The list is empty.
+* 1a. User enter invalid NRIC
+[none]
+** 1a1. Quickdocs alert user that no patient with entered NRIC exist to start a consultation session with
++
+Use case ends here.
+[none]
+* 3a. User left out symptoms or assessment when diagnosis patient
+[none]
+** 3a1. Quickdocs alert user that some details are left out and prompt user to modify command
++
+Use case resumes from step 3.
+[none]
+* 5a. User left out quantities for certain medicine
+[none]
+** 5a1.  Quickdocs alert user that some medicine do not have quantities and prompt them to reenter command
++
+Use case resumes from step 5.
++
+[none]
+* 5b. User left out quantities for certain medicine
+[none]
+** 5b1.  Quickdocs alert user that additional quantities are provided and prompt user to reenter command
++
+Use case resumes from step 5.
++
+[none]
+* 7a. User end consultation when diagnosis is not completed
+[none]
+** 7a1.  Quickdocs alert user that the session is missing a diagnosis
+** 7a2.  User will resume perform step 3 and 4 since they were skipped
++
+Use case ends here.
++
+[none]
+* 7b. User end consultation when prescription is not given
+[none]
+** 7b1.  Quickdocs alert user that the session is missing a prescription
+** 7b2.  User will resume perform step 5 and 6 since they were skipped
++
+Use case ends here.
+
+[discrete]
+=== Use case: View patient medical record
+
+*MSS*
+
+1. User enter command to view patient history with search criteria
+2. Quickdocs show list of patient’s consultation records
+3. Quickdocs prompt user to enter index
+4. User enter index of record he or she wants to see
+5. Quickdocs show selected patient record
+6. User enters end to stop looking at record
+7. Use case repeat from case 2 until user enters “end” again after step 6
+8. Quickdocs shows message to inform user he or she is no longer looking at patient records
 +
 Use case ends.
 
-* 3a. The given index is invalid.
-+
+*Extensions*
+
 [none]
-** 3a1. AddressBook shows an error message.
+* 1a. User enter invalid index
+[none]
+** 1a1. Quickdocs alert user that the index is invalid
+** 1a2. Quickdocs exit view patients record
++
+Use case ends here.
+[none]
+* 1b. No patient record created yet
+[none]
+** 1b2. Quickdocs alert user that no patient is created yet, suggest to create a new patient record first
++
+Use case ends.
+[none]
+* 1c. User enter a patient’s name that is unique in the storage
++
+Use case resumes from step 1.
+[none]
+* 1d. User enter a non unique patient’s name
+[none]
+** 1d1.  Quickdocs show list of patients with the same name, and prompt index
+** 1d2. User refine search criteria, either by entering index or full name of the patient
++
+Use case resumes from step 1.
+[none]
+* 4a. User enter invalid medical record index
+[none]
+** 4a1. Quickdocs alert user that index entered was invalid
++
+Use case resumes from step 3.
+[none]
+* 6a. User enter command apart from “end”
+[none]
+** Quickdocs prompt user that command was invalid and inform them that “end” will exit view
++
+Use case resumes from step 5.
+
+[discrete]
+=== Use case: Allocating an appointment slot
+
+*MSS*
+
+1. User enter command to list all free slots, specifying the date and viewing format
+2. User discusses and agrees on an appointment slot with patient
+3. User search for patient’s NRIC by viewing patient records with search criteria
+4. User enter command to add appointment slot, specifying patient's NRIC, date, start and end time
+5. Quickdocs displays a successful message, showing the details of the newly created appointment slot
++
+Use case ends
+
+*Extensions*
+
+[none]
+* 1a. User enters invalid keyword when specifying date or format
+[none]
+** 1a1. Quickdocs displays an error message
++
+Use case resumes from step 1.
+[none]
+* 1b. User does not enter any keywords
+[none]
+** 1b1. Quickdocs displays all free slots for the current week
++
+Use case resumes from step 2.
+[none]
+* 4a. User enters invalid NRIC, date or time
+[none]
+** 4a1. Quickdocs displays an error message
++
+Use case resumes from step 4.
+[none]
+* 5b. Quickdocs displays an error message, showing clashes in timing with another appointment slot
++
+Use case resumes from step 4.
+[none]
+* 5b. Patient wants to change appointment slot timing
+[none]
+** 5b1. User enter command to delete appointment slot, specifying date and start time
+** 5b2. Appointment specified deleted
++
+Use case resumes from step 1.
+
+[discrete]
+=== Use case: Viewing clinic statistics
+
+*MSS*
+
+1. User requests to view statistics, specifying the start and end YearMonths
+2. Quickdocs displays the statistics
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. User requests to view statistics with valid arguments.
 +
 Use case resumes at step 2.
+* 1b. User requests to view statistics with invalid arguments.
+[none]
+** 1b1. Quickdocs shows an error message.
++
+Use case ends.
 
-_{More to be added}_
+[discrete]
+=== Use case: Setting alarm threshold for medicines
+
+*MSS*
+
+1. User enters "alarm" and the path to the interested medicine and the desired alarm quantity.
+2. QuickDcos set the threshold for the medicine accordingly.
+3. QuickDocs refreshes the reminder sidebar if needed.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. User types in a path leading to a directory.
+* 2a. All medicines under the subtree of that directory is set to the desired quantity.
++
+Use case resumes at step 3.
+
 
 [appendix]
 == Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+.  Should be able to hold up to 1000 patients and their consultation records without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-
-_{More to be added}_
+.  Response time for commands should be below 3 seconds so that clinical operations can be expedited
+.  Commands should be easy to pick up for novice users, they can remember it more quickly and start using them immediately
+.  Commands should be made convenient for expert users as well
+.  Data stored can be easily transferred to another device installed with Quickdocs for operation continuation.
+.  Data stored, especially patient records and particulars, need to be encrypted to prevent unauthorised access and misuse.
 
 [appendix]
 == Glossary
@@ -893,22 +1974,13 @@ Windows, Linux, Unix, OS-X
 [[private-contact-detail]] Private contact detail::
 A contact detail that is not meant to be shared with others
 
-[appendix]
-== Product Survey
+[[patient_records]] Patient Records::
+A data entry consisting of a patient's particulars, which includes name, NRIC, email address, home address,
+gender, contact number, date of birth and the list tags assigned to him or her.
 
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
+[[consultation_records]] Consultation Records::
+A data entry consisting of the diagnosis given and medicine prescribed for a single patient during a consultation
+session with the doctor.
 
 [appendix]
 == Instructions for Manual Testing
@@ -918,40 +1990,147 @@ Given below are instructions to test the app manually.
 [NOTE]
 These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
 
-=== Launch and Shutdown
+=== Adding patient records
 
-. Initial launch
+. Add a new <<patient_records, patient record>>
 
-.. Download the jar file and copy into an empty folder
-.. Double-click the jar file +
-   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+.. Prerequisites: patient to be added must not have the same NRIC as an existing patient's NRIC, the
+`listpat` command can be used to check if there are conflicting NRIC
+.. Test case 1: `addpat n/Mohd Hamiru Bin Hamza r/S9876543C a/1 Tampines Street e/mhbh@gmail.com c/92344321 g/M d/1998-07-06` +
+   Expected: Patient with name "Mohd Hamiru Bin Hamza" with NRIC S9876542C added
+.. Test case 2: `add n/Nurul Huda Binte Hamza r/S9876543C a/3 Tampines Street e/nhbh@gmail.com c/93124432 g/F d/1998-11-02` +
+   Expected: Patient will not be added, an error message will be shown to indicate that a patient with the same NRIC existed in the records
+.. Other incorrect `addpat` commands to try: `addpat` with missing parameters such as gender and date of birth, `addpat` with name containing of symbols,
+`addpat` with invalid NRIC values (8 numbers or invalid last letters).
 
-. Saving window preferences
+=== Editing patient records
 
-.. Resize the window to an optimum size. Move the window to a different location. Close the window.
-.. Re-launch the app by double-clicking the jar file. +
-   Expected: The most recent window size and location is retained.
+. Edit the fields of an existing patient record
 
-_{ more test cases ... }_
+.. Prerequisites: use the `listpat` command to check for existing patients to be edited, or simply add one using `addpat`
+if there isn't any. You need at least 2 patients to perform this manual test.
+.. Test case1: `editPat EXISTING_NRIC n/Peter Tan g/M d/1990-09-01` +
+   Expected: selected patient will have his or her name changed to "Peter Tan", gender changed to "M" and date of birth changed
+   to 1990-09-01.
+.. Test case2: `editPat EXISTING_NRIC n/Perry Tan r/ANOTHER_EXISTING_NRIC` +
+   Expected: An error message will be shown to indicate that the edit to the current patient will cause it to have a conflicting NRIC
+   with another patient's NRIC
+.. Test case 3: `editPat EXISTING_NRIC` +
+   Expected: An error message will be shown to indicate that there is nothing to edit for the current selected patient
+.. Other incorrect `editpat` commands to try: name with numbers, `editpat` with a non existent NRIC, `editPat` without an NRIC (without prefix)
 
-=== Deleting a person
+=== Starting a consultation
 
-. Deleting a person while all persons are listed
+. Start a consultation for a registered patient
 
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
-.. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
-   Expected: Similar to previous.
+.. Prerequisites: Existing patients must already be stored in QuickDocs, use `listpat` to check for both existing and non existing
+   patients' NRIC
+.. Test case 1: `consult r/EXISTING_NRIC` +
+   Expected: A message to indicate the start of the consultation session will be shown at the main display. A label will be displayed
+   at the bottom right, displaying the message along with the patient's NRIC as well.
+.. Test case 2: After test case 1, enter `consult r/ANOTHER_EXISTING_NRIC` +
+   Expected: An error message will be shown to alert you that there is already an ongoing consultation session.
+.. Test case 3: exit QuickDocs, and then enter `consult r/NON_EXISTING_NRIC` +
+   Expected: since there are no patients with the NRIC, an error message will be shown to indicate that the consultation session cannot start
+   for a non-existing patient
 
-_{ more test cases ... }_
+=== Ending a consultation
 
-=== Saving data
+. End a consultation session after providing the prescription and diagnosis. A consultation session can only end after
+  both the diagnosis and prescription have been recorded.
 
-. Dealing with missing/corrupted data files
+.. Prerequisites: consultation session must already been started for a patient, medicine to be assigned for prescription is already
+   stored in QuickDocs
+.. Test case 1: after starting a consultation, `endconsult` immediately +
+   Expected: Error message will be shown to alert you that a diagnosis have not been provided.
+.. Test case 2: add the diagnosis and then `endconsult` after test case 1 +
+   Expected: Error message will be shown to alert you that a prescription have not been given to end the consultation session.
+.. Test case 3: add the prescription and then `endconsult` after test case 2 +
+   Expected: A message indicating that the current consultation session have ended. The ongoing session label at the bottom right
+   of QuickDocs is also removed.
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
+=== Adding and removing an appointment
 
-_{ more test cases ... }_
+. Add an appointment for a registered patient
+
+.. Prerequisites:
+... Appointment you are adding must not have conflicting timing with other existing appointments.
+    You can use the `freeapp` command to find an available time slot for any date.
+... The patient allocated to the appointment must be registered in QuickDocs. You can use the `listpat` command to
+    search for existing patients to be allocated the new appointment.
+.. Test case 1: `addapp r/EXISTING_NRIC d/2019-10-23 s/16:00 e/17:00 c/Weekly checkup` +
+   Expected: A message to indicate that the appointment was successfully added will be shown on the main display,
+   together with the appointment details. A reminder for this appointment will also be created and you can see it in the reminder
+   sidebar on the right, if the date of the appointment is in the current week.
+.. Test case 2: After test case 1, enter `addapp r/EXISTING_NRIC d/2019-10-23 s/16:30 e/17:30 c/Weekly checkup` +
+   Expected: since this new appointment a clash in timing with the appointment added in test case 1, an error message will be shown
+   to indicate this conflict and the appointment will not be added.
+.. Test case 3: `addapp r/EXISTING_NRIC d/23-10-2019 s/16:00 e/17:00 c/Weekly checkup` +
+   Expected: Error message will be shown to alert you that the date is in the wrong format, as the correct format is YYYY-MM-DD.
+.. Other incorrect `addapp` commands to try: date without `-` between month and day, invalid start and end time (start time must be before
+   end time; appointment must be within office hours of 9am to 6pm), any missing prefixes, any missing parameters.
+
+. Delete an existing appointment
+.. Prerequisites: appointment to be deleted must already be added in QuickDocs. You can use `listapp` command to list the existing appointments
+   for a given date. We will assume that the appointment in Test case 1 for adding an appointment has been added.
+.. Test case 1: `deleteapp d/2019-10-23 s/16:00` +
+   Expected: A message to indicate that the appointment was successfully deleted will be shown on the main display.
+   The reminder created for this appointment will also be deleted. If this reminder was displayed on the reminder sidebar, it will be removed.
+.. Test case 2: `deleteapp d/2030-10-23 s/16:00` +
+   Expected: Assuming that there is no appointment on the given date and time, you will be informed through the error message shown.
+.. Other incorrect `deleteapp` commands to try: date without `-` between month and day, invalid start time (start time must be
+   within office hours of 9am to 6pm), any missing prefixes, any missing parameters.
+
+=== Querying Statistics
+
+. Querying the statistics
+.. Prerequisites: Your system clock should be synchronised with the current internet time.
+.. Test case 1: `stats 012019` +
+    Expected: The statistics for the month January 2019 should be listed, regardless if there has been any records added.
+.. Test case 2: `stats 122018` +
+    Expected: An error message will be shown, indicating that the command format is wrong.
+.. Test case 3: `stats 012019 022019` +
+    Expected: The statistics for the range of month January 2019 to February 2019 should be listed, regardless if there has been any records added.
+.. Test case 4: `stats 012999` +
+    Expected: An error message will be shown, indicating that the command format is wrong.
+.. Other incorrect `stats` commands to try: end date before start date, invalid MMYYYY numbers (e.g., 000000, 132019).
+    All these commands should lead to an error message being shown.
+
+=== Adding a new directory for medicine storage
+
+[NOTE]
+The following tests assume the tester starts with an empty storage.
+
+. Add a new directory under the root directory
+
+.. Test case 1: `adddirec root NEW_DIRECTORY` +
+   Expected: A success message confirming the successful addition will be shown in the main display. A new directory called 'NEW_DIRECTORY' will be added to root directory, which is verifiable via `listmed root` command.
+.. Test case 2:`adddirec root NEW DIRECTORY` +
+   Expected: As the new directory's name includes a white space which is not allowed, no new directory will be added and an error message will show up.
+.. Test case 3:`adddirec root\Internal NEW_DIRECTORY` +
+   Expected: As the tester starts with an empty storage, there is no existing directory at root\Internal. No new directory will be added, and an error message will show up saying "No directory is found at the given path."
+.. Other incorrect `adddirec` commands to try: commands with missing new directory name
+
+=== Adding a medicine into a directory
+
+[NOTE]
+The following tests assume that `root\Internal\General` is a valid path, i,e there is already a directory 'General' under directory 'Internal' under root directory.
+
+. Add a new medicine into storage
+.. Prerequisites: There is no medicine with the same name as the to-add medicine in the entire storage.
+.. Test case 1: `addmed root\Internal\General paracetamol p/2.4 q/40` +
+   Expected: A new medicine called 'paracetamol' with initial quantity 40 and price 2.4 will be added under 'Flu' directory. A success message confirming this addition will show in the main display.
+.. Test case 2: `addmed root\Internal\General paracetamol p/2.4 q/40` when there is an existing medicne named 'paracetamol' in the storage. +
+   Expected: The addition will fails, as there already exists a medicine with same name. No change will occur and an error message will show up.
+.. Test case 3: `addmed root\Internal\General paracetamol p/2.4 q/34.5` +
+   Expected: The addition will fail. As the quantity in QuickDocs are in terms of units, no fractional number is allowed in the quantity field. An error message will show up.
+.. Other incorrect `addmed` commands to try: missing any prefixes, invalid path
+. Add an existing medicine into a different directory
+.. Prerequisites: There is already an existing medicine called 'paracetamol' somewhere in the storage.
+.. Test case 1: `addmed root\Internal\General paracetamol` +
+   Expected: A new reference to the same medicine will be added to root\Internal\General. A success message will show in the main display.
+.. Test case 2: `addmed root\Internal\General paracetamol` when there is no existing medicine with name 'paracetamol' +
+   Expected: No change will occur. As there is no such existing medicine, an error message will show up.
+.. Test case 3: `addmed root\Internal\General paracetamol` when root\Internal\General already contains a reference to paracetamol. +
+   Expected: As the same medicine cannot be placed into the same directory twice, no change will happen. An error message will show up.
+.. Other incorrect `addmed` command to try: When there is a subdirectory under the same directory with the same name as the to-add medicine.

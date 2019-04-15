@@ -1,0 +1,16 @@
+{
+  "patientList" : [ {
+    "name" : "Patient with invalid name field: I love tests!",
+    "nric" : "S9123456B",
+    "email" : "nice@gmail.com",
+    "address" : "100 Simei Road",
+    "contact" : "99998888",
+    "gender" : "M",
+    "dob" : "1991-01-01",
+    "tagList" : [ "diabetes" ]
+  } ],
+  "consultationList" : [ ],
+  "appointmentList" : [ ],
+  "reminderList" : [ ],
+  "medicineList" : [ ]
+}

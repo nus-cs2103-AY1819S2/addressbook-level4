@@ -1,4 +1,4 @@
-= AddressBook Level 4 - User Guide
+﻿= QuickDocs - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -12,249 +12,1403 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level4
+:repoURL: https://github.com/CS2103-AY1819S2-W09-4/main/tree/master
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `W09-4`      Since: `Feb 2019`      Licence: `MIT`
 
 == Introduction
 
-AddressBook Level 4 (AB4) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB4 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB4 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+QuickDocs is an all in one solution where doctors can have greater control in facilitating patient consultations, organizing appointments, and monitoring financial and inventory records in private clinics.
+
+Let us explore how QuickDocs can facilitate and expedite clinical operations in your neighbourhood clinic.
 
 == Quick Start
 
 .  Ensure you have Java version `9` or later installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
-.  Double-click the file to start the app. The GUI should appear in a few seconds.
-+
-image::Ui.png[width="790"]
-+
-.  Type the command in the command box and press kbd:[Enter] to execute it. +
-e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
-.  Some example commands you can try:
+.  Download the jar file and put it into a folder you desire.
+.  Type a command into the command box and press enter to execute it.
+[NOTE]
+For the full list of commands, you can head to <<Command Summary>>
 
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
-* *`exit`* : exits the app
+=== Interacting with QuickDocs
 
-.  Refer to <<Features>> for details of each command.
+.The user interface for QuickDocs
+image::ui_explanation.png[width="600"]
+
+.   This is the *command input* box , this is where you can type and execute the various commands
+QuickDocs possesses to perform clinical operations.
+.   If you make mistakes and enter an invalid command, instructions on how you can rectify your commands
+will be shown in this *input feedback* box.
+.   After the execution of your command, you can view the results on the *main display* area
+.   You can view your upcoming appointments for the day, or urgent reminders that you made earlier in the
+*reminders and appointments* panel
+* Appointments are coloured blue, medicine alarms are coloured red
+and other reminders are coloured beige.
+.   During a consultation session, QuickDocs will also indicate that a session is ongoing through
+this *current consultation label*
+
+[[Notation]]
+== Notations used
+
+Here are some notations used in this user guide:
+
+[TIP]
+This is a tip. Useful information pertaining to the features will be written here.
+[NOTE]
+This is a note. Additional information that further explains a feature will be written here. +
+
+`command` This is a user input to the application. It is formatted with a gray background. Example: `help`
 
 [[Features]]
 == Features
+*QuickDoc's Command Format* +
 
-====
-*Command Format*
+`command prefix/VALUE [prefix/OPTIONAL VALUE] ...`
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
-====
+//* Commands are in lowercase, you can view all of them using the help command.
+* Command represent the operation you want to perform such as adding patients, listing medicine inventory and so on.
+* Values are the mandatory user input required for the execution of commands.
+* Optional values are non-compulsory values that can be added in certain commands. They can be added multiple times after the command, prefixes and values.
 
-=== Viewing help : `help`
+[TIP]
+All commands have aliases, which can be used to execute the same command with fewer keystrokes e.g. `statistics` can be replaced by `stats`.
+
+{nbsp} +
+
+[[help,Help]]
+=== Viewing help
+
+Whenever you want to find out in-depth explanation on how to execute a specific command, you can always refer to this
+user guide by entering the `help` command on QuickDocs.
 
 Format: `help`
 
-=== Adding a person: `add`
+{nbsp} +
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+'''
+
+=== Patient Management
+The Patient Management module features commands involving the registration, update, searching
+and removal of patient records in QuickDocs.
+
+Using just a few keystrokes, you can manage your patient records in a more organized and efficient manner.
+
+'''
+
+[[addpat, Add patient]]
+==== Adding patient: `addpat`
+
+You can register new patients and start storing their records in QuickDocs using the `addpat` command.
+
+Patient details that can be stored include: name, NRIC, email, address, gender, date of birth, contact number.
 
 [TIP]
-A person can have any number of tags (including 0)
+You can add a tag to a patient to indicate his or her long term illnesses. You can add multiple tags to the patient to ease searching. +
 
-Examples:
+{sp}+
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+*Format:* `addpat n/NAME r/NRIC e/EMAIL a/ADDRESS g/GENDER d/DATE OF BIRTH c/CONTACT  [t/tag]...` +
 
-=== Listing all persons : `list`
+*Alias{nbsp}{nbsp}{nbsp}{nbsp}:* `ap`
+[TIP]
+The order of input does not matter as long as all the necessary fields are captured. +
 
-Shows a list of all persons in the address book. +
-Format: `list`
+{sp}+
 
-=== Editing a person : `edit`
+*Examples:*
 
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+* `addpat n/Gary Goh r/S7332803I g/M d/1973-04-01 a/20 Upper Changi Road c/92347654 e/ggoh@gmail.com t/highbloodpressure t/diabetes`
 
-****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
-****
+* `addpat n/Chan Mei Hua r/S8865281I d/1998-05-09 g/F c/92341221 a/2 Simei Street e/cmh@gmail.com`
 
-Examples:
+{sp}+
+*Result:*
 
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+After entering the `addpat` command, QuickDocs will show the details of the recently added patient on the
+main display as demonstrated in the diagram below:
 
-=== Locating persons by name: `find`
+.The main display after addpat command
+image::ap_after.png[width="600"]
 
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
+'''
 
-****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-****
+[[editpat, Edit patient]]
+==== Editing patient : `editpat`
 
-Examples:
-
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
-
-=== Deleting a person : `delete`
-
-Deletes the specified person from the address book. +
-Format: `delete INDEX`
-
-****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* 1, 2, 3, ...
-****
-
-Examples:
-
-* `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
-
-=== Selecting a person : `select`
-
-Selects the person identified by the index number used in the displayed person list. +
-Format: `select INDEX`
-
-****
-* Selects the person and loads the Google search page the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* `1, 2, 3, ...`
-****
-
-Examples:
-
-* `list` +
-`select 2` +
-Selects the 2nd person in the address book.
-* `find Betsy` +
-`select 1` +
-Selects the 1st person in the results of the `find` command.
-
-=== Listing entered commands : `history`
-
-Lists all the commands that you have entered in reverse chronological order. +
-Format: `history`
+If you made a mistake when registering a patient, fret not! You can always make changes to the patient record with the `editpat` command.
+All the fields in the record can be edited, including the NRIC and tags.
 
 [NOTE]
-====
-Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
-====
+The tags entered during an edit patient command will override all the tags a patient record currently possess.
 
-// tag::undoredo[]
-=== Undoing previous command : `undo`
+{sp} +
+*Format:* `editpat NRIC [n/NAME] [a/Address] [r/NRIC] …` +
 
-Restores the address book to the state before the previous _undoable_ command was executed. +
-Format: `undo`
+*Alias{nbsp}{nbsp}{nbsp}{nbsp}:* `ep` +
 
 [NOTE]
-====
-Undoable commands: those commands that modify the address book's content (`add`, `delete`, `edit` and `clear`).
-====
+The first NRIC to specify the record does not require a prefix. +
+The prefixes used for the `editpat command` is the same as the ones used in the <<addpat>> section. +
 
-Examples:
+{sp} +
 
-* `delete 1` +
-`list` +
-`undo` (reverses the `delete 1` command) +
+*Example:* +
 
-* `select 1` +
-`list` +
-`undo` +
-The `undo` command fails as there are no undoable commands executed previously.
+* `editpat S7332803I n/Gary Doh e/gdoh@gmail.com`  +
+This changes the email and name of the patient with NRIC: S7332803I to Gary Doh and gdoh@gmail.com respectively.
 
-* `delete 1` +
-`clear` +
-`undo` (reverses the `clear` command) +
-`undo` (reverses the `delete 1` command) +
+{sp} +
+*Result:* +
 
-=== Redoing the previously undone command : `redo`
+After the `editpat` is performed, you can view the changes made to the patient record in the main display.
 
-Reverses the most recent `undo` command. +
-Format: `redo`
+.Result of an edit command, on a patient's name and email
+image::ep_after.png[width="600"]
 
-Examples:
+{sp} +
+Since every citizen, permanent residents or foreigners in Singapore have their unique NRIC / FIN numbers, duplicate NRIC are not
+allowed in QuickDocs.
 
-* `delete 1` +
-`undo` (reverses the `delete 1` command) +
-`redo` (reapplies the `delete 1` command) +
+When you edit a patient's NRIC/FIN and there is an existing patient with that NRIC, the current edit
+will not be executed. You will also be notified of the detection of duplicated NRIC entries through the input feedback box,
+in the manner shown in the following picture.
 
-* `delete 1` +
-`redo` +
-The `redo` command fails as there are no `undo` commands executed previously.
+.Error message shown when QuickDocs detected a duplicate NRIC in the patient records
+image::ep_conflict.png[width="600"]
 
-* `delete 1` +
-`clear` +
-`undo` (reverses the `clear` command) +
-`undo` (reverses the `delete 1` command) +
-`redo` (reapplies the `delete 1` command) +
-`redo` (reapplies the `clear` command) +
-// end::undoredo[]
+'''
 
-=== Clearing all entries : `clear`
+[[listpat, List patients]]
+==== List patient details : `listpat`
 
-Clears all entries from the address book. +
-Format: `clear`
+To view a patient's detail, you can use the `listpat` command. You can search and filter patient records
+by their names, NRIC and even their tags.
 
-=== Exiting the program : `exit`
+* QuickDocs only support one filter per search currently.
+* If more than one filter is entered (i.e. `listpat n/NAME r/NRIC`, only the first search criteria will be used
+(in this case, name)
 
-Exits the program. +
-Format: `exit`
+For example, if you want to check the patient's NRIC, you can always turn to `listpat` to help narrow down your search.
+Entering listpat with `r/S92` and QuickDocs will present you with patient records whose NRIC starts with S92.
 
-=== Saving the data
+* You can similarly filter down your search using tags or parts of a patient name in the same manner.
+* A specific patient's record can be displayed by calling `listpat` with the full name or full nric
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
-There is no need to save manually.
+[NOTE]
+Each patient record stored within QuickDocs have a record number, known as an *INDEX*. The
+Index can also be used to narrow down patient searches to a single record.
 
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
+{sp} +
+*Format:* `listpat [PREFIX / KEYWORD] …` +
 
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
+*Alias{nbsp}{nbsp}{nbsp}{nbsp}:* `lp` +
 
-== FAQ
+{sp} +
 
-*Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+*Examples and Results:*
+
+* `listpat` +
+
+If no keywords are entered, `listpat` will simply display the first 50 patients record stored.
+
+.executing the listpat command without any matching criteria
+image::lp_noargs.png[width="600"]
+
+{sp} +
+* `listpat n/P` +
+
+Suppose you want to find a patient record whose name starts with "P", you can use `listpat` along
+with a sequence of characters to search for the specific patient record you are interested in.
+
+.Listing patients with matching name
+image::lp_name_after.png[width="600"]
+
+{sp} +
+* `listpat r/S92` +
+
+You can narrow down your patient search by providing a NRIC sequence as well. For example,
+in the figure below, you can retrieve all the patients whose NRIC starts with "S92".
+
+.Listing patients with matching NRIC
+image::lp_nric_after.png[width="600"]
+
+{sp} +
+After narrowing down your search, you will be able to use the specific NRIC number of a particular patient to view the in-depth
+patient particulars.
+
+.Showing specific patient's record using the full NRIC
+image::lp_nric_specific.png[width="600"]
+
+{sp} +
+* `listpat t/diabetes` +
+
+The tags you assigned to each patient can also be used to expedite the `listpat` command. For example, diabetic patients can be
+listed using the `listpat` command along with "t/diabetes" value.'
+
+[NOTE]
+Tags specified for the search must be full sequences (i.e. Diabetes, highbloodpressure/, etc). QuickDocs do not
+permit partial tag search as of v1.4.
+
+.Listing patients by specific tag
+image::lp_tag_after.png[width="600"]
+
+{sp} +
+* `listpat 5`
+
+Did you notice that when QuickDocs display multiple patient records during filtering, each record starts with
+a number? This is the index of the patient record, indicating the position the record is stored within QuickDoc's patient record storage.
+
+You can make use of the index number to view specific patient records as well.
+
+.Patient search using record index
+image::lp_index.png[width="600"]
+
+'''
+
+[[deletepat, Delete patient]]
+==== Deleting patient `deletepat`
+
+When a patient is no longer visiting your clinic (i.e. moved residency), you can choose to remove their details from QuickDocs.
+
+{sp} +
+*Format:* `deletepat r/NRIC` +
+
+*Alias{nbsp}{nbsp}{nbsp}{nbsp}:* `dp` +
+
+{sp} +
+
+*Example:* `deletepat r/S7338031I`
+
+{sp} +
+*Result:*
+
+By specifying the NRIC along with the `deletepat` command, you will delete the patient with that specific NRIC. If you have difficulty finding the specific NRIC, you can refer to the <<listpat>> command section to help you retrieve the patient's NRIC.
+
+.Deleting patient records using the specific NRIC
+image::dp_after.png[width="600"]
+
+{nbsp} +
+
+'''
+
+
+
+=== Consultation Management
+
+With QuickDocs, you no longer need to navigate to different menus just to record symptoms of the patient's illness, or assigning medicine to tackle
+the patient's current condition.
+
+Using the Consultation Management module, you can now handle the prescription and diagnosis stages of each consultation session
+in one go.
+
+''''
+
+[[consult, Start consultation]]
+==== Start consultation: `consult`
+
+After a patient is registered, whenever he or she visits your clinic, you can start recording the diagnosis and medicine prescribed by starting a
+consultation session on QuickDocs.
+
+Consultation is started after the NRIC of the patient is provided, you can revisit the <<listpat>> section to help identify the NRIC
+of specific patients +
+
+[NOTE]
+QuickDocs only permit one ongoing consultation session at any given time. The
+<<diagnose>> and <<prescribe>> steps must be completed before a consultation can end. Otherwise
+you can always use the <<abort>> command to exit an ongoing session without saving any details recorded.
+
+{sp} +
+*Format:* `consult r/NRIC` +
+
+*Alias{nbsp}{nbsp}{nbsp}{nbsp}:* `c` +
+
+{sp} +
+
+*Example:*
+
+* `consult r/S9876542C` +
+
+*Result:*
+
+Once you started a consultation session for the patient, a message will be displayed on the main display area to indicate that the consultation session
+have started for the current patient.
+
+.Starting a consultation session on QuickDocs
+image::consult_after.png[width="600"]
+
+{sp}+
+A text indicating that the consultation session have started for the particular patient will also
+appear at the bottom right corner of QuickDocs, so that you will be aware that a current consultation session is ongoing even after
+subsequent commands.
+
+{sp}+
+[NOTE]
+While a consultation session is ongoing, It does not mean that you are limited to just entering the consultation commands. You can still enter command that are not within the consultation module (i.e.
+ listing patients, checking the medicine inventory, etc).
+
+
+'''
+
+[[diagnose, Diagnose patient]]
+==== Diagnosing a patient: `diagnose`
+
+After the consultation session has began, you can start recording the patient's ailments. The various symptoms the patients have can be recorded down,
+along with the final assessment of the illness the patient is currently having.
+
+To complete the diagnosis, the record must have one assessment and at least one symptom.
+
+[NOTE]
+This command requires you to have a consultation session already active. See: <<consult>>.
+
+{sp}+
+*Format:* `diagnose s/SYMPTOM [s/SYMPTOM] ... a/ASSESSMENT` +
+
+*Alias{nbsp}{nbsp}{nbsp}{nbsp}:* `d` +
+
+{sp}+
+
+*Example:*
+
+* `diagnose s/runny nose s/sore throat s/phlegmy cough a/influenza` +
+
+The order of symptoms and assessment does not matter here. You record as many symptoms per diagnosis.
+
+{sp} +
+*Results:*
+
+After entering the command, QuickDocs will show the symptoms and assessment recorded on the main display as demonstrated
+in the following diagram.
+
+.Result of the diagnose command
+image::diagnose_after.png[width="600"]
+
+{sp} +
+If you made a mistake when entering the diagnosis, you can always rectify it by re-entering the `diagnose` command with the correct
+symptoms and assessment. This will replace the current erroneous diagnosis with the one you have just entered.
+
+.Editing the diagnosis
+image::diagnose_edit_after.png[width="600"]
+
+{sp}+
+[TIP]
+Whenever you make a mistake entering a command, you can always press the UP and DOWN buttons on your keyboard to cycle through the past
+commands you have entered into QuickDocs. This allow you to easily navigate to the erroneous command you have entered, make changes and then re-enter
+the command again to rectify your errors.
+
+'''
+
+[[prescribe, Prescribe medicine]]
+==== Prescribing medicine for a patient: `prescribe`
+
+After you are done recording the symptoms and assessing the illness of the patient, you can start prescribing medicine to your patient.
+
+For each medicine prescribed, the quantity must be specified. Like the <<diagnose>> command, you can always reenter the command to override
+the current prescription should there be any errors made.
+
+A minimum of one medicine and one quantity is required to record a prescription entry. The order of quantity entered corresponds to the order of the medicine entered. +
+
+[NOTE]
+This command requires you to have a consultation session already active. See: <<consult>>.
+
+[NOTE]
+The medicine to be prescribed must be present in the inventory and its quantity must be sufficient for
+the assignment during the presciption stage. +
+Check out the <<addmed>> section for information on adding medicine to the inventory,
+and <<listmed>> section on the steps to check a medicine's amount.
+
+{sp} +
+*Format:* `prescribe m/MEDICINE [m/MEDICINE] ... q/QUANTITY [q/QUANTITY]` +
+or{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp} *:* `prescribe m/MEDICINE q/QUANTITY [m/MEDICINE] [q/QUANTITY] ...` +
+
+*Alias{nbsp}{nbsp}{nbsp}{nbsp}:* `p` +
+
+{sp} +
+
+*Example:*
+
+* `prescribe m/penicillin q/1 m/Afrin spray q/1 m/ibuprofen q/2` +
+   Prescription now consist of 1 unit of penicillin, 1 unit of afrin spray and 2 units of ibuprofen.
+
+* `prescribe m/penicillin m/Afrin spray m/ibuprofen q/1 q/1 q/2` +
+   Same as above example, quantity ordered based on medicine order.
+
+{sp} +
+*Results:*
+
+After the medicine-quantity pairings are entered, the prescription to address the patient's current condition will be displayed on the main display area of QuickDocs. Changes can still be made to the prescription as long as the consultation session is still ongoing.
+
+.Prescribing medicines to tackle the patient's current conditions
+image::prescription_after.png[width="600"]
+
+'''
+
+[[endconsult, End consultation]]
+==== End consultation: `endconsult`
+
+Once the diagnosis and prescription are finalized, you can end the consultation with a simple `endconsult` command.
+No further changes to the diagnosis and prescription details can be made after this point.
+
+{sp} +
+*Format:* `endconsult` +
+
+*Alias{nbsp}{nbsp}{nbsp}{nbsp}:* `ec`
+
+{sp} +
+*Result:*
+
+Once you entered the `endconsult` command, a message to indicate the end of the consultation session is also shown on the main display area.
+The label for the ongoing consultation session is also removed after the command is entered.
+
+Most importantly, the consultation record (diagnosis and prescription) is now stored.
+
+.Results of an endconsult command
+image::endconsult.png[width="600"]
+
+'''
+
+[[abort, Abort consultation]]
+==== Aborting a consultation session: `abort`
+
+If you started a consultation session by mistake, or the patient does not seemed to require a consultation,
+you can always abort the consultation session without providing the diagnosis and prescription details.
+
+{sp} +
+*Format:* `abort` +
+
+*Alias{nbsp}{nbsp}{nbsp}{nbsp}:* `ab`
+
+{sp} +
+*Result:*
+
+When you enter the `abort` command, a message is also shown on the main display area to indicate that the current session is aborted.
+The label for the ongoing consultation session is also removed.
+
+.Results of an abort command
+image::abortconsult.PNG[width="600"]
+
+'''
+
+[[listconsult, List consultations]]
+==== List consultation: `listconsult`
+
+Whenever you want to revisit a specific consultation record, you can filter it down by the patient before narrowing it down
+to the specific session.
+
+You can use QuickDocs to list out all the past consultation sessions of a single patient by first specifying his or her NRIC,
+and then view the consultation details by passing in the session's index. +
+
+{sp} +
+*Format:* `listconsult INDEX` +
+or{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp} *:* `listconsult r/NRIC` +
+
+*Alias{nbsp}{nbsp}{nbsp}{nbsp}:* `lc` +
+
+{sp} +
+
+*Examples and Results:*
+
+* `listconsult r/S9876542C` +
+
+Specifying the NRIC after the `listconsult` command will display a list of consultation records belonging to
+the patient with the specified NRIC.
+
+Note that the indexes are prepended on each of the past consultation records listed.
+
+.Displaying past visits of a particular patient
+image::listconsult_after.png[width="600"]
+
+{sp}+
+
+* `listconsult 1` +
+
+image::listconsult_index.png[width="600"]
+
+You can then call `listconsult` again with the consultation record's index to view the specific consultation session details. QuickDocs will display the time of the consultation, and also the diagnosis and prescription given to the patient.
+
+.Revisiting a specific consultation session
+image::listconsult_index.png[width="600"]
+
+{sp}+
+
+'''
+
+=== Medicine Management
+You can manage your medicine storage all by your wishes! QuickDocs allows you to organise your medicines in a directory format much like the folders in Windows OS! +
+
+You can design and name your directories by functionalities, pricing, classifications or anything in your mind! +
+
+Initially, the medicine storage only contains one root directory named as "root" by default. All the rest is then up to you to decide!
+
+[TIP]
+Through QuickDocs, you could place the same medicine under different directories. For example, medicine paracetamol could be placed under "fever" and "headache" simultaneously. +
+[TIP]
+Following the same logic, you may not be able to store two different medicine with the same name in QuickDocs. All instances of medicine with the same name will refer to the same medicine.
+
+- - -
+
+==== Suggestion mode in command typing
+
+In QuickDocs, as medicines are stored in directories format, you will need to key in the path to your interested directory/medicine from time to time. +
+
+For your convenience, QuickDocs actually provides a quick cut to key in these paths so that you do not need to type in every character by yourself! +
+
+As long as you are typing a command in medicine module and you have typed the name of the first parent directory followed by a `\` character, the suggestion mode is automatically turn on! +
+
+So what is suggestions mode? Why is that useful? The following example will illustrate the convenience it brings to you.
+
+* Suppose you have a directory 'Flu' under directory 'General' under directory 'Internal' under the root directory 'root' as illustrated below:
+
+[[suggestion_ug1]]
+.Display of detailed information
+image::suggestion_ug1.png[width='600']
+
+* Now you want to type this command `listmed root\Internal\General\Flu` , which is a command to see detailed information about that directory, from scratch.
+
+* What you can do is to first type `listmed root\` to trigger the suggestion mode.
+
+.To trigger the suggestion mode
+image::suggestion_ug2.png[width='600']
+
+* You can then press the page-down key to iterate through all subdirectories under 'root'. The input box will automatically be filled for you.
+
+.After pressing Page Down once
+image::suggestion_ug3.png[width='600']
+
+* In this example, you can arrive at `listmed root\Internal` in just two Page Down keys.
+
+.After pressing Page Down twice
+image::suggestion_ug4.png[width='600']
+
+* Doing this recursively at every stage, you can quickly arrive at the desired `listmed root\Internal\General\Flu`.
+
+* Suppose now you want to view the detailed information about a medicine called 'guaifenesin' under directory 'Flu'. You entered `listmed root\Internal\General\Flu\guai` only to realize that you forget the spelling of guaifenesin.
+
+* Do not worry! You can press page-up / page-down as well. Page up will bring you to the last valid sub-directory / medicine name as compared to your input according to alphabetic order. Page down will bring you to the next valid input.
+
+.Before pressing Page Up / Page Down
+image::suggestion_ug5.png[width='600']
+
+.After pressiong Page Up, brings you to the last valid medicine: diphenhydramine
+image::suggestion_ug6.png[width='600']
+
+.After pressing Page Down, brings you to your desired : guaifenesin
+image::suggestion_ug7.png[width='600']
+
+{nbsp} +
+
+In short, instead of typing out every characters, you can iterate through your directories fast and easy when typing commands using the page-up and page-down keys!
+
+[NOTE]
+In QuickDocs, names of directories and medicines are case-insensitive. So what appears in the suggestions may be in different cases from the actual name, but they will work the same.
+
+- - -
+
+[[adddirec, Add directory]]
+==== Add new directory into storage: `adddirec`
+
+By providing the path pointing to a specific directory, you can add a new directory under that directory. +
+
+The new directory will be an empty directory whose name is up to you to decide.
+
+[NOTE]
+The new directory's name should not contain white spaces or "\" characters.
+
+{sp} +
+*Format:* `adddirec [PATH OF THE PARENT DIRECORY] [NAME OF NEW DIRECTORY]` +
+
+*Alias{nbsp}{nbsp}{nbsp}{nbsp}:* `ad`
+
+{sp} +
+
+*Example:* +
+
+* `adddirec root fever` followed by `adddirec root\fever oral` +
+
+*Result:* +
+
+These commands add a new directory called fever to root, and then add another new directory called oral under fever. +
+
+There will be success messages confirming every successful addition of directories. +
+
+[[adddirec_after]]
+.Result of sample add directory command
+image::adddirec_after.png[width="600"]
+
+- - -
+
+[[addmed, Add medicine]]
+==== Add medicine into storage: `addmed`
+
+Through this command, you can either add a new medicine into the storage, or to place an existing medicine under another directory. +
+
+{sp} +
+
+You can add a new medicine by specifying where it should go to, its initial quantity and its price +
+
+*Format:* `addmed [PATH OF DIRECTORY TO ADD TO] [MEDICINE_NAME] [q/QUANTITY] [p/PRICE]` +
+
+*Alias{nbsp}{nbsp}{nbsp}{nbsp}:* `am`
+
+[NOTE]
+Directories and medicines under the same directory are now allowed to share the same name (case-insensitive).
+
+{sp} +
+
+*Example:* +
+
+`addmed root\fever paracetamol q/50 p/9.99`
+
+*Result:* +
+
+After you enter the command, if it is executed successfully, a confirmation message will appear.
+
+[[addmed_newmedicien_after]]
+.Success message of sample addmed command
+image::addmed_newmedicien_after.png[width="600"]
+
+{sp} +
+
+[NOTE]
+If you entered a medicine name that already exists in the storage in this format, a error message will pop up. +
+
+[[addmed_newMedicine_existing]]
+.Error message of adding an existing medicine in wrong format
+image::addmed_newMedicine_existing.png[width="600"]
+
+{sp} +
+
+You can also place an existing medicine into a directory. +
+
+*Format:* `addmed [PATH] [MEDICINE_NAME]`
+
+{sp} +
+
+*Example:* +
+
+`addmed root\headache paracetamol` +
+
+Assuming there already exists a medicine called paracetamol in the storage, you can place this medicine under root\headache via this command. +
+
+*Result:* +
+
+After you enter the command, if it is executed successfully, a confirmation message showing the detailed information of that medicine will appear.
+
+[[addmed_existing]]
+.Success message of sample addmed command
+image::addmed_existing.png[width="600"]
+
+{sp} +
+
+[NOTE]
+If you entered a medicine name that has not existed in the storage in this format, an error message will pop up.
+
+
+[[addmed_existing_nonExisting]]
+.Error message for adding new medicine in wrong format
+image::addmed_existing_nonExisting.png[width="600"]
+
+In this case, no medicine called aspirin has yet existed in the storage.
+
+- - -
+
+[[listmed, List medicines]]
+==== List medicine storage: `listmed`
+
+Whenever you want to see what is inside your medicine storage, you can always use this command to view the detailed information about any directory or medicine through this command. +
+
+
+{sp} +
+
+*Format:* `listmed [PATH]`
+
+*Alias{nbsp}{nbsp}{nbsp}{nbsp}:* `lm`
+
+{sp} +
+
+*Example:* +
+
+`listmed root\fever`
+
+*Result:* +
+
+You will be able to view a detailed description of all the medicines and directories under root\fever.
+
+[[listmed_after]]
+.Response for a sample listmed command viewing a directory
+image::listmed_after.png[width="600"]
+
+{sp} +
+
+*Example:* +
+
+`listmed root\fever\paracetamol`
+
+*Result:* +
+
+You will be displayed a detailed description of medicine paracetamol which is placed under root\fever.
+
+[[listmed_med_after]]
+.Response for a sample listmed command viewing a medicine
+image::listmed_med_after.png[width="600"]
+
+- - -
+
+[[alarm, Set alert threshold for medicine]]
+==== Setting automatic notification for low stock: `alarm`
+
+To further ease your management of the clinic, QuickDocs could automatically alert you should any of your medicine is running low in storage! +
+
+All you need to do is to set an alarm level for the medicine you are concerned with. +
+
+[TIP]
+In addition, QuickDocs can make your life even easier! You can set an alarm level for a directory so that every medicine placed under that directory and all its sub-directories will immediately have that alarm level.
+
+{sp} +
+
+*Format:* `alarm [PATH OF DIRECTORY OR MEDICINE]` +
+
+{sp} +
+
+*Example:*
+
+`alarm root\fever 60`
+
+{sp} +
+
+*Result:*
+
+As the path points to a medicine, the sample command set the alarm level for aspirin to 60. +
+
+As the storage only has 50 units of aspirin, a reminder is shown on the right.
+
+[[alarm_medicine_after]]
+.Response for the sample alarm command
+image::alarm_medicine_after.png[width='600']
+
+{sp} +
+
+*Example:*
+
+`alarm root\high_blood_pressure\aspirin`
+
+{sp} +
+
+*Result:*
+
+As the path points to a directory, the sample command set the alarm level for all medicine under "fever" directory and all its subdirectories to 60. +
+
+As the medicine paracetamol under "fever" has only 50 units, which is below the limit, a reminder is shown on the right.
+
+[[alarm_directory_after]]
+.Responses for the sample alarm command
+image::alarm_directory_after.png[width='600']
+
+- - -
+
+[[buymed, Buy a medicine]]
+==== Recording purchases of medicine: `buymed`
+
+As a doctor running your own clinic, you will certainly purchase medicine from time to time to keep your medicine storage updated. +
+
+This command allows you to record every purchase you made in the simplest way! +
+
+[TIP]
+You can access the medicine via two ways. You can either provide the full path to the medicine, or provide the name of medicine only.
+
+*Format:* `buymed [MEDICINE_NAME] [AMOUNT] [UNIT_COST]` +
+or{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp} *:* `buymed [PATH_OF_MEDICINE] [AMOUNT] [UNIT_COST]`
+
+*Alias{nbsp}{nbsp}{nbsp}{nbsp}:* `bm`
+
+{sp} +
+
+*Example:*
+
+`buymed aspirin 20 4.3` +
+
+{sp} +
+
+*Result:*
+
+Using this command, you update the amount of aspirin in the storage form 34 to 54. +
+
+As the amount of aspirin now exceed the minimum threshold set, which is 50, the reminder for low storage automatically disappears. +
+
+The following figures illustrates the states of QuickDocs before and after you executing that command.
+
+[[buymed_before]]
+.The state before purchasing medicine
+image::buymed_before.png[width='600']
+
+{sp} +
+
+[[buymed_after]]
+.The state after purchasing medicine. Note that the reminder is gone.
+image::buymed_after.png[width='600']
+
+{sp} +
+
+[NOTE]
+To make your life easier, QuickDocs automatically records every purchase you made via this command so that you can check your clinic's statistics any time.
+
+- - -
+
+[[setprice, Set price for a medicine]]
+==== Setting Price for a medicine: `setprice`
+
+Through QuickDocs, you have hundred percent freedom to set the price of your medicine via this simple command! +
+
+The price you set will be used in your prescriptions.
+
+[TIP]
+Similar to buymed command, you can either provide the full path to your interested medicine or the name of it only.
+
+*Format:* `setprice [PATH_OF_MEDICINE] [PRICE]` +
+or{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp} *:* `setprice [NAME_OF_MEDICINE] [PRICE]`
+
+*Alias{nbsp}{nbsp}{nbsp}{nbsp}:* `sp`
+
+{sp} +
+
+*Example:*
+
+`setprice aspirin 10.50`
+
+{sp} +
+
+*Result:*
+
+This command sets the unit price of aspirin to $10.50. You will then have no need to key in the price during each prescription, this price will automatically be used.
+
+[[setprice_after]]
+.Response for the sample setprice command
+image::setprice_after.png[width='600']
+
+- - -
+
+==== View the detailed information about any medicine: [coming in V2.0]
+Using external APIs, the users could view more detailed information about any medicine.
+
+'''
+=== Appointments and Reminders
+The Appointment and Reminder module give you more control over your busy schedule, featuring commands such as adding, removing,
+and searching appointments and reminders. There is also a command to list out all free appointment timings to help you choose
+your appointment timings more wisely.
+
+You will never forget about any appointments or tasks again! +
+
+'''
+[[addapp]]
+==== Adding appointments: `addapp`
+After a consultation session, you may want to schedule a follow-up appointment with your patient. You can do so
+with `addapp` to create an appointment with an existing patient in QuickDocs to add to your schedule.
+
+[TIP]
+The `<<freeapp, freeapp>>` command may be useful for you to first list out all free appointment timings for a given range of dates
+before choosing an appropriate appointment timing!
+
+[NOTE]
+To ensure that you do not forget about any future appointments, QuickDocs will automatically create a reminder for
+the added appointment. You may not notice this reminder as it will only appear on your reminder sidebar closer to the date
+of the actual appointment (on the week of the appointment date).
+
+{sp} +
+*Format:* `addapp r/NRIC d/DATE s/START e/END c/COMMENT` +
+
+*Alias{nbsp}{nbsp}{nbsp}{nbsp}:* `aa` +
+
+[NOTE]
+The format for a valid date is strictly `YYYY-MM-DD` (including the dashes) and a valid time is strictly `HH:MM` (including the colon).
+If unsure, you may refer to the example below.
+
+{sp} +
+*Example and results:*
+
+* `addapp r/S6394980I d/2019-07-23 s/16:00 e/17:00 c/Weekly checkup` +
+
+This adds an appointment allocated to the patient with NRIC S6394980I, on 23rd July 2019, from 4pm to 5pm. You can
+include any comments or notes you want to this appointment, which is 'Weekly checkup' in this case.
+
+If the addition of the appointment was successful, QuickDocs will show the details of the added appointment on the
+main display as demonstrated in the diagram below:
+
+.The main display after adding an appointment
+image::ug-app_rem/addapp_success.png[width="600"]
+
+{sp} +
+
+The addition of the appointment could have failed as there is a conflict in timing with another existing appointment.
+QuickDocs will display a message in the input feedback box notifying you of this error, as demonstrated in the diagram below.
+
+.Adding an appointment that has conflicting timing with an existing appointment
+image::ug-app_rem/addapp_clash.png[width="600"]
+{sp} +
+
+
+Another reason for failing to add an appointment could be due to the appointment timing being outside of office hours
+which is from 9am to 6pm. QuickDocs will alert you of this error, as demonstrated in the diagram below:
+
+.Adding an appointment that is not within the office hours, from 9am to 6pm
+image::ug-app_rem/addapp_officehour.png[width="600"]
+
+'''
+[[listapp]]
+==== Listing appointments: `listapp`
+You can list all past and future appointments that you have added using the `listapp` command. The appointments will be ordered and
+listed, with the earliest appointment at the top and the latest at the bottom. You can filter the appointments
+you want to see either by specifying a `FORMAT` and a `DATE`, or by specifying an existing patient's `NRIC`.
+
+{sp} +
+*Format:* `listapp f/FORMAT d/DATE` +
+or{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp} *:* `listapp r/NRIC` +
+*Alias{nbsp}{nbsp}{nbsp}{nbsp}:* `la` +
+
+[NOTE]
+The valid keywords for `FORMAT` are only `day`, `week`, or `month`.
+
+{sp} +
+*Examples:*
+
+* `listapp` +
+
+By default, `listapp` will list all appointments scheduled in the current week if there are no keywords provided. +
+{sp} +
+
+* `listapp f/day d/2019-07-23` +
+
+Lists all appointments scheduled on 23rd July 2019. +
+{sp} +
+
+* `listapp f/week d/2019-07-23` +
+
+Lists all appointments scheduled on the given week of 23rd July 2019, which is from 22nd to 28th July. A week starts on a
+Monday and ends on a Sunday. +
+{sp} +
+
+* `listapp f/month d/2019-07-23` +
+
+Lists all appointments scheduled in the month of the given date, July 2019. +
+{sp} +
+
+* `listapp r/S9123456A` +
+
+Lists all appointments allocated to the patient with NRIC S9123456A, if this patient is registered in QuickDocs. +
+{sp} +
+
+*Result:*
+
+The filtered appointments will be ordered by time and listed on the main display of QuickDocs, as demonstrated in the diagram below:
+
+.Listing appointments scheduled on the week of 23rd July 2019.
+image::ug-app_rem/listapp_week.png[width="600"]
+
+'''
+[[deleteapp]]
+==== Deleting appointments: `deleteapp`
+If the patient would like to change the appointment date, or if there is a mistake in the appointment details, you can
+delete the existing scheduled appointment with `deleteapp` and then create a new appointment.
+*Deletion of an appointment is final!*
+
+[NOTE]
+QuickDocs will automatically delete the corresponding reminder created for the deleted appointment, if it still exists,
+so you don't have to worry about any discrepancies with your reminder sidebar!
+
+{sp} +
+*Format:* `deleteapp d/DATE s/START` +
+
+*Alias{nbsp}{nbsp}{nbsp}{nbsp}:* `da` +
+
+[NOTE]
+Since there cannot be any overlapping appointment timings, you are able to uniquely identify any appointment with
+just the `DATE` and `START` time of the appointment.
+
+{sp} +
+*Example and results*:
+
+* `deleteapp d/2019-07-23 s/16:00` +
+
+This command will delete the appointment created on 23rd July 2019 with a start time of 4pm, if it exists. If successful,
+QuickDocs will display the details of the deleted appointment on the main display, as demonstrated in the diagram below:
+
+.Deleting an existing appointment in QuickDocs successfully
+image::ug-app_rem/deleteapp_success.png[width="600"]
+{sp} +
+
+If the given appointment was not found, QuickDocs will display an error message on the input feedback display,
+as demonstrated in the diagram below. Use the `<<listapp, listapp>>` command to find existing appointments for a given date!
+
+.Deleting a non-existent appointment in QuickDocs
+image::ug-app_rem/deleteapp_failure.png[width="600"]
+
+'''
+[[freeapp]]
+==== List free appointment slots: `freeapp`
+[[fa, freeapp]]
+Unsure of what appointment timings are available in your schedule? Instead of using `<<listapp, listapp>>` to display all existing
+appointments, use `freeapp` instead to display a more intuitive list of free appointment slots -
+QuickDocs does the thinking for you!
+
+The free appointment slots will be ordered and listed, with the earliest date at the top and the latest at the bottom.
+You can filter the free slots you want to see by specifying a `FORMAT` and a `DATE`.
+
+{sp} +
+*Format:* `freeapp f/FORMAT d/DATE` +
+
+*Alias{nbsp}{nbsp}{nbsp}{nbsp}:* `fa` +
+
+[NOTE]
+Similar to `<<listapp, listapp>>`, the valid keywords for `FORMAT` are only `day`, `week`, or `month`.
+
+{sp} +
+*Examples:* +
+
+* `freeapp` +
+
+By default, `freeapp` will list all free appointment slots for the next month if there are no keywords provided. +
+{sp} +
+
+* `freeapp f/day d/2019-07-23` +
+
+Lists all free appointment slots on 23rd July 2019. +
+{sp} +
+
+* `freeapp f/week d/2019-07-23` +
+
+Lists all free appointment slots on the given week of 23rd July 2019, which is from 22nd to 28th July. A week starts on a
+Monday and ends on a Sunday. +
+{sp} +
+
+* `freeapp f/month d/2019-07-23` +
+
+Lists all free appointment slots in the month of the given date, July 2019. +
+{sp} +
+
+*Result:* +
+
+The free appointment slots will be ordered by date and time and will be listed on the main display of QuickDocs,
+as demonstrated in the diagram below:
+
+.Listing free appointment slots on the week of 23rd July 2019.
+image::ug-app_rem/freeapp_week.png[width="600"]
+
+'''
+[[addrem]]
+==== Adding reminders: `addrem`
+Need to take note of a task to do in the future? You can create a reminder for an event or task with `addrem`,
+and the reminder will show up on your sidebar closer to the date of the event (the week of the reminder date).
+Never forget about your tasks ever again!
+
+{sp} +
+*Format:* `addrem t/TITLE d/DATE s/START [e/END] [c/COMMENT]` +
+
+*Alias{nbsp}{nbsp}{nbsp}{nbsp}:* `ar` +
+
+[NOTE]
+`END` time and `COMMENT` are optional fields for a reminder.
+
+{sp} +
+*Example:*
+
+* `addrem t/Check financial records d/2019-07-31 s/18:00 e/18:30 c/Monthly check` +
+
+This command will create a reminder to 'Check financial records' which is a 'Monthly check', on 31st July 2019
+from 6pm to 6:30pm.
+{sp} +
+
+*Result:*
+
+If the addition of the reminder was successful, QuickDocs will show the details of the added reminder on the
+main display as demonstrated in the diagram below:
+
+.The main display after adding a reminder
+image::ug-app_rem/addrem_success.png[width="600"]
+
+'''
+[[listrem]]
+==== Listing reminders: `listrem`
+To view your past or future reminders on the sidebar, you can do so using the `listrem` command.
+The reminders will be ordered and listed, with the earliest reminder at the top and the latest at the bottom.
+You can filter the reminders you want to see by specifying a `FORMAT` and a `DATE`.
+
+[NOTE]
+On startup, QuickDocs will automatically display the reminders for the current week on the sidebar.
+
+Are the titles or comments too long to be displayed fully on the sidebar? You can also use `listrem` to display all the
+details of a single reminder by specifying its `INDEX` that is shown on the sidebar.
+
+[TIP]
+If you are tired of typing, you could also click the reminder
+with your mouse and all its details will be displayed as well!
+
+{sp} +
+*Format:* `listrem f/FORMAT d/DATE` +
+or{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp} *:* `listrem i/INDEX` +
+*Alias{nbsp}{nbsp}{nbsp}{nbsp}:* `lr` +
+
+{sp} +
+*Examples and results:*
+
+* `listrem` +
+
+By default, `listrem` will list all reminders in the current week if there are no keywords provided. +
+{sp} +
+
+* `listrem f/day d/2019-07-31` +
+
+Lists all reminders on 31st July 2019. +
+{sp} +
+
+* `listrem f/week d/2019-07-31` +
+
+Lists all reminders on the given week of 31st July 2019, which is from 29th July to 4th August. A week starts on a
+Monday and ends on a Sunday. +
+{sp} +
+
+* `listrem f/month d/2019-07-31` +
+
+Lists all reminders in the month of the given date, July 2019. +
+{sp} +
+
+The filtered reminders will be ordered by date and time and will be listed on the reminder sidebar,
+as demonstrated in the diagram below:
+
+.Listing reminders scheduled on the week of 31st July 2019.
+image::ug-app_rem/listrem_week.png[width="600"]
+
+{sp} +
+
+* `listrem i/3` +
+
+In the screenshot above, the details of the third reminder is not fully displayed!
+Use the above command to display, on the main display, the details of the third reminder listed on the sidebar as
+demonstrated in the diagram below:
+
+.Displaying details of the third reminder.
+image::ug-app_rem/listrem_single.png[width="600"]
+
+
+'''
+[[deleterem]]
+==== Deleting reminders: `deleterem`
+If you would like to clear out your reminder sidebar after a task is completed, you can do so using the `deleterem` command.
+Each reminder on the sidebar are identified with an `INDEX`, which you can use to specify the reminder to be deleted.
+*Deletion of a reminder is final!*
+
+{sp} +
+*Format:* `deleterem INDEX` +
+
+*Alias{nbsp}{nbsp}{nbsp}{nbsp}:* `dr` +
+
+[NOTE]
+We do not need to include the `INDEX` prefix, `i/`, as opposed to the `<<listrem, listrem>>` command. This is
+because `deleterem` only accepts one parameter, `INDEX`, while `<<listem, listrem>>` can accept more than one.
+
+{sp} +
+*Example and results:*
+
+* `deleterem 3` +
+
+This command will delete the third reminder listed on the sidebar, if it exists. If successful, QuickDocs will display
+the details of the deleted reminder on the main display, as demonstrated in the diagram below:
+
+.Deleting an existing reminder in QuickDocs successfully
+image::ug-app_rem/deleterem_success.png[width="600"]
+
+{sp} +
+
+If the given `INDEX` is not present in the sidebar, QuickDocs will display an error message on the input feedback display,
+as demonstrated in the diagram below.
+
+.Invalid index provided to deleterem
+image::ug-app_rem/deleterem_failure.png[width="600"]
+
+'''
+[[ntime]]
+==== Timing of notification: `ntime` [coming in v2.0]
+Did you know that QuickDocs displays a pop-up notification for you when a reminder is approaching?
+You can adjust how long before the actual reminder start time to receive this notification using `ntime`.
+
+{sp} +
+*Format:* `ntime t/TIME` +
+
+*Alias{nbsp}{nbsp}{nbsp}{nbsp}:* `nt` +
+
+[NOTE]
+`TIME` is specified in minutes.
+
+{sp} +
+*Example:*
+
+* `ntime t/30` +
+
+Receives pop-up notifications 30 minutes before the actual reminder start time.
+
+'''
+[[sendemail]]
+==== Sending email reminders to patients: `sendemail` [coming in v2.0]
+With QuickDoc's reminder sidebar, you will never forget about your appointments - however your patients still might!
+To prevent this, `sendemail` allows you to send an auto-generated email reminder to patients regarding an approaching
+appointment date.
+
+{sp} +
+*Format:* `sendemail d/DATE s/START` +
+
+*Alias{nbsp}{nbsp}{nbsp}{nbsp}:* `se` +
+
+{sp} +
+*Example:*
+
+* `sendemail d/2019-07-23 s/16:00` +
+
+Sends an email to the patient allocated to the appointment on 23rd July 2019 at 4pm.
+
+'''
+=== Administration and Statistics
+The Administration and Statistics module feature commands that are related to any Administrative tasks such as setting
+the clinic's consultation fee, and the Statistics command to get information about your clinic recorded through the use of QuickDocs.
+
+'''
+[[setconsultfee, Set consultation fee]]
+==== Setting consultation fee: `setconsultfee`
+This command allows you to change your consultation fee in QuickDocs to what you charge for each consultation.
+Setting up of your consultation fee is necessary for QuickDocs to generate accurate financial statistics pertaining
+to your consultation sessions. Once your consultation fee is set, QuickDocs will remember it for you. Hence, you
+only need to enter this command once, until you decide to change your consultation fee. +
+
+[NOTE]
+The default consultation fee in QuickDocs in S$30.00.
+
+{sp}+
+*Format:* `setconsultfee AMOUNT` +
+
+*Alias{nbsp}{nbsp}{nbsp}{nbsp}:* `setfee`
+
+*Examples:* +
+
+* `setconsultfee 30` +
+Sets the consultation fee to $30.00. +
+* `setconsultfee $32.50` +
+Sets the consultation fee to $32.50. +
+
+'''
+[[statistics, View statistics]]
+==== Viewing statistics: `statistics`
+
+You are able to view the statistics of the clinic for a specific month, or between a range of months. +
+This command will show you 6 items in order: +
+
+. Number of consultations +
+. Most common medicines prescribed +
+. Most common symptoms diagnosed +
+. Revenue +
+. Expenditure +
+. Profit +
+
+[NOTE]
+In order for the calculated statistics pertaining to consultation finances to be accurate, you must have already
+entered your clinic's consultation fee beforehand. See: <<setconsultfee>>. +
+[NOTE]
+When there is a tie between the most commonly prescribed medicine, or most commonly diagnosed symptoms, all of them
+will be listed. +
+
+{empty} +
+*Format:* `statistics FROM_MMYYYY [TO_MMYYYY]` +
+
+*Alias{nbsp}{nbsp}{nbsp}{nbsp}:* `stats` +
+
+[NOTE]
+If `TO_MMYYYY` is not specified, it will be defaulted to be equal to `FROM_MMYYYY`. +
+
+*Examples and Results:*
+
+* `statistics 012019` +
+View the statistics for January 2019. +
+* `stats 012019 042019` +
+View the statistics from January 2019 to April 2019. +
+In the image below, the *display* area will return the statistics of the queried range of months. +
+
+1. The result will show the range of months that were queried, followed by the 6 items mentioned earlier in order.
+2. When there are more than one most common symptom diagnosed, QuickDocs will list them all out.
+
+.Result example for command `statistics 012019 042019`
+image::statistics_sample.png[width="600"]
+
+'''
+
+==== Generate prescription list [coming in v2.0]
+
+The prescription list can be printed out for the pharmacists to expedite medicine preparation. The pharmacists can refer
+to the printed prescription list and prepare the medicines for the patient to collect after payment.
+
+'''
+
+==== Generate medical certificate: [coming in v2.0]
+
+You can print out a customised medical certificate for the patient, listing the symptoms and also the number of sick leave days.
+
+'''
+
+==== Generate invoice: [coming in v2.0]
+
+Generates the invoice for a given prescription. After selecting the patient, select the consultation to view in detail and then select the desired prescription.
+
+{empty} +
+
+== Frequently Asked Questions (FAQ)
+[qanda]
+*How do I save the data after I add or change something?*::
+    Saving is done automatically in QuickDocs. Whenever a command that adds, modifies, or deletes data is executed, the result of the execution is automatically saved. Hence, there is no need to save manually.
+
+{empty} +
 
 == Command Summary
+The *Command Summary* lists down all the possible commands that can be entered in QuickDocs. This section is meant to be
+a reference point for ease of search. The words in `command` format are the input to QuickDocs.
+[NOTE]
+This is the summary of all the possible commands for QuickDocs. For detailed explanations of each command, you should head to <<Features>>, or click on the links of each commands.
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
-* *Help* : `help`
-* *Select* : `select INDEX` +
-e.g.`select 2`
-* *History* : `history`
-* *Undo* : `undo`
-* *Redo* : `redo`
+*General Commands* +
+
+* *<<help>>* : `help` +
+
+*Patient Management* +
+
+* *<<addpat>>* : `addpat` or `ap` +
+* *<<editpat>>* : `editpat` or `ep` +
+* *<<listpat>>* : `listpat` or `lp` +
+* *<<deletepat>>* : `deletepat` or `dp` +
+
+*Consultation Management* +
+
+* *<<consult>>* : `consult` or `c` +
+* *<<diagnose>>* : `diagnose` or `d` +
+* *<<prescribe>>* : `prescribe` or `p` +
+* *<<endconsult>>* : `endconsult` or `ec` +
+* *<<abort>>* : `abort` or `ab` +
+* *<<listconsult>>* : `listconsult` or `lc` +
+
+*Medicine Management* +
+
+* *<<adddirec>>* : `adddirec` or `ad` +
+* *<<addmed>>* : `addmed` or `am` +
+* *<<listmed>>* : `listmed` or `lm` +
+* *<<alarm>>* : `alarm` +
+* *<<buymed>>* : `buymed` or `bm` +
+* *<<setprice>>* : `setprice` or `sp` +
+
+*Appointment and Reminders* +
+
+* *<<addapp, Add appointment>>* : `addapp` or `aa` +
+* *<<listapp, List appointments>>* : `listapp` or `la` +
+* *<<deleteapp, Delete appointment>>* : `deleteapp` or `da` +
+* *<<freeapp, List free appointment slots>>* : `freeapp` or `fa` +
+* *<<addrem, Add reminder>>* : `addrem` or `ar` +
+* *<<listrem, List reminders>>* : `listrem` or `lr` +
+* *<<deleterem, Delete reminder>>* : `deleterem` or `dr` +
+* *<<ntime, Notification timing>>* : `ntime` or `nt` *[coming in v2.0]* +
+* *<<sendemail, Send email reminder>>* : `sendemail` or `se` *[coming in v2.0]* +
+
+*Administration and Statistics* +
+
+* *<<statistics>>* : `statistics` or `stats` +
+* *<<setconsultfee>>* : `setconsultfee` or `setfee` +

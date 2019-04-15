@@ -1,0 +1,321 @@
+= Xue Chenyang - Project Portfolio
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+:xrefstyle: full
+:experimental:
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:highlight-caption: :warning:
+endif::[]
+:repoURL: https://github.com/CS2103-AY1819S2-W09-4/main/tree/master
+
+I am **Xue Chenyang**, a Computer Science undergraduate student from NUS School of Computing. This project portfolio page describes my contribution in my school project: QuickDocs in module CS2103T.
+
+== PROJECT: QuickDocs
+
+== What is QuickDocs?
+
+QuickDocs is a one-user all in one clinic management application developed by my team consisting of 4 students. +
+
+My team was assigned to transform an existing application (of around 10,000 lines of code) to a new application that has real-world applications. +
+
+My team decided to address the problem that private clinics in Singapore are facing conflicts between limited manpower and the enormous amount of trivial but complicated management chores to handle. +
+
+In QuickDocs, doctors can have greater control in facilitating patient consultations, organizing appointments, and monitoring financial and inventory records in private clinics.
+
+== Summary of my contributions
+
+My role in this project is to design and implement the medicine management module. The design of this module includes the data structure of medicine storage and the various commands essential to medicine management. +
+
+The following is a list of notation used in this document and their respective meaning. +
+
+[TIP]
+This is a tip. Useful information pertaining to the features will be written here.
+[NOTE]
+This is a note. Additional information that further explains a feature will be written here. +
+
+`command` This is a user input to the application. It is formatted with a gray background. Example: `help`
+
+
+=== Major enhancements
+
+|===
+|_This section illustrates my major contributions in this project, especially regarding to design and coding of medicine management module._
+|===
+
+* *Enhancement 1:* I designed and implemented the medicine management module. +
+** *What it does:* Medicine management is a key aspect of clinic management. My medicine management module allows the doctors to customize his/her medicine organization. It also supports a variety of commands to facilitate users in clinic management. +
+** *Why is it needed:* With QuickDocs, doctors no longer need to go through tons of paperwork or sheets and sheets of Excel files to keep track of his medicine storage. All additions, modifications, prescriptions, and organizations of medicines could be done on one single interface so that QuickDocs provides its users with the most convenience possible in managing their clinics. +
+** *Highlights:* The medicine module is designed is in a directory format,  which supports quick search of medicines and mass operation of medicines without the need to type in lengthy commands. This will be explained further in details in <<Developer_Guide, Contribution to Developer Guide>>.
+** *Who / what to acknowledge:* My inspiration for organizing medicines in a directory format is adapted from the folder system in most of the common Operating systems such as Windows.
+
+* *Enhancement 2:* I added automatic completion feature to facilitate command typing.
+** *What it does:* With this feature, when typing commands related to medicine storage, the users no longer need to remember and type in the path by themselves; instead, they can press page-up and page-down to iterate through all possible sub-directories. This feature is added to bring maximum convenience to the users. +
+** *Highlights:* This feature requires seamless integration among three components of the product, namely the UI component, Logic component, and the Model component. In my implementation, I followed the principle of abstraction closely, so that this feature is independent of the implementations of lower level modules and will work well with both existing commands and possible future commands. +
+
+* *Code contributed:* [https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#=undefined&search=Xue-Chenyang[Functional code]]
+
+=== Other contributions
+
+|===
+|_This section illustrates some other contributions I made in this project, including minor features added, project management and team collaboration._
+|===
+
+* *Minor features implemented:*
+** I implemented an automatic alarm system so that whenever a medicine's amount falls below a threshold set by the user, an automatic reminder will appear in the sidebar to remind the user to stock up that medicine. +
+** In some commands in medicine management module, to accommodate users who know their medicines really well, I supported identifying medicines by their names only. +
+* *Project management:*
+** I assisted setting up of milestone objectives from v1.2 to v1.4. +
+** Working with my team, I managed issue trackers on GitHub page regarding to medicine management module. +
+* *Team collaboration:*
+** I analyzed the architecture of QuickDocs' prototype application, AddressBook Level 4. With the knowledge, I helped my teammates in understanding how our team should code our product.
+** I removed left over redundant AddressBook code for v1.4 releases to improve the efficiency and readability of the code. Additionally, I also refactored the names of packages in our products to more accurately reflect our product.
+https://github.com/CS2103-AY1819S2-W09-4/main/pull/138[#138],
+https://github.com/CS2103-AY1819S2-W09-4/main/pull/163[#163]
+** I reviewed pull requests https://github.com/CS2103-AY1819S2-W09-4/main/pull/35[#35] and https://github.com/CS2103-AY1819S2-W09-4/main/pull/98[#98] to improve the quality of our code.
+
+== Contribution to the User Guide
+
+|===
+|_In this sections, I will show a sample section of my contribution to the User Guide._ +
+_This sample section will cover the autocompletion feature and the most fundamental commands in medicine management, i.e adding medicines._
+|===
+
+=== Suggestion mode in command typing
+
+In QuickDocs, as medicines are stored in directories format, you will need to key in the path to your interested directory/medicine from time to time. +
+
+For your convenience, QuickDocs actually provides a quick cut to key in these paths so that you do not need to type in every character by yourself! +
+
+As long as you are typing a command in medicine module and you have typed the name of the first parent directory followed by a `\` character, the suggestion mode is automatically turn on! +
+
+So what is suggestions mode? Why is that useful? The following example will illustrate the convenience it brings to you.
+
+* Suppose you have a directory 'Flu' under directory 'General' under directory 'Internal' under the root directory 'root' as illustrated below:
+
+[[suggestion_ug1]]
+.Display of detailed information
+image::suggestion_ug1.png[width='600']
+
+* Now you want to type this command `listmed root\Internal\General\Flu` , which is a command to see detailed information about that directory, from scratch.
+
+* What you can do is to first type `listmed root\` to trigger the suggestion mode.
+
+* You can then press the page-down key to iterate through all subdirectories under 'root'. The input box will automatically be filled for you.
+
+* In this example, you can arrive at `listmed root\Internal` in just two Page Down keys.
+
+* Doing this recursively at every stage, you can quickly arrive at the desired `listmed root\Internal\General\Flu`.
+
+* Suppose now you want to view the detailed information about a medicine called 'guaifenesin' under directory 'Flu'. You entered `listmed root\Internal\General\Flu\guai` only to realize that you forget the spelling of guaifenesin.
+
+* Do not worry! You can press page-up / page-down as well. Page up will bring you to the last valid sub-directory / medicine name as compared to your input according to alphabetic order. Page down will bring you to the next valid input.
+
+.Before pressing Page Up / Page Down
+image::suggestion_ug5.png[width='600']
+
+.After pressiong Page Up, brings you to the last valid medicine: diphenhydramine
+image::suggestion_ug6.png[width='600']
+
+.After pressing Page Down, brings you to your desired : guaifenesin
+image::suggestion_ug7.png[width='600']
+
+{nbsp} +
+
+In short, instead of typing out every characters, you can iterate through your directories fast and easy when typing commands using the page-up and page-down keys!
+
+[NOTE]
+In QuickDocs, names of directories and medicines are case-insensitive. So what appears in the suggestions may be in different cases from the actual name, but they will work the same.
+
+- - -
+
+[[addmed, Add medicine]]
+=== Add medicine into storage: `addmed`
+
+Through this command, you can either add a new medicine into the storage, or to place an existing medicine under another directory. +
+
+You can add a new medicine by specifying where it should go to, its initial quantity and its price +
+
+*Format:* `addmed [PATH OF DIRECTORY TO ADD TO] [MEDICINE_NAME] [q/QUANTITY] [p/PRICE]` +
+
+*Alias{nbsp}{nbsp}{nbsp}{nbsp}:* `am`
+
+[NOTE]
+Directories and medicines under the same directory are now allowed to share the same name (case-insensitive).
+
+*Example:* `addmed root\fever paracetamol q/50 p/9.99`
+
+*Result:* +
+After you enter the command, if it is executed successfully, a confirmation message will appear.
+
+[[addmed_newmedicien_after]]
+.Sucess message of sample addmed command
+image::addmed_newmedicien_after.png[width="600"]
+
+[NOTE]
+If you entered a medicine name that already exists in the storage in this format, a error message will pop up. +
+
+{sp} +
+
+You can also place an existing medicine into a directory. +
+
+*Format:* `addmed [PATH] [MEDICINE_NAME]`
+
+*Example:* `addmed root\headache paracetamol` +
+
+Assuming there already exists a medicine called paracetamol in the storage, you can place this medicine under root\headache via this command. +
+
+*Result:* +
+After you enter the command, if it is executed successfully, a confirmation message showing the detailed information of that medicine will appear.
+
+[[addmed_existing]]
+.Success message of sample addmed command
+image::addmed_existing.png[width="600"]
+
+[NOTE]
+If you entered a medicine name that has not existed in the storage in this format, an error message will pop up.
+
+_Click https://github.com/CS2103-AY1819S2-W09-4/main/blob/master/docs/UserGuide.adoc[here] to see the full User Guide._
+
+== Contribution to the Developer Guide
+
+|===
+|_In this section, I will showcase a sample section of Developer Guide I contributed._ +
+_The sample sections explains the implementations of medicine modules, the auto-completion features and the alarm system._
+|===
+
+[[Develop_Guide]]
+=== Storing medicines in inventory
+
+One essential aspect of clinic management is about managing medicine storage of the clinic. QuickDocs' medicine management module supports customized medicine organization via a browser-like directory format.
+
+==== Current implementation
+
+The current implementation takes a similar form as the Windows file browser. The user is free to determine for himself/herself how he/she wants the medicines to be arranged.
+
+*Code:* {repoURL}/src/main/java/quickdocs/model/medicine/MedicineManager.java[MedicineManager.java]
+
+[TIP]
+The current implementation does not allow multiple medicines with the same to exist simultaneously. However, one medicine could be placed in multiple directories.
+
+[NOTE]
+Both directories and medicines' names are case-insensitive.
+
+From the initial empty state of the storage, the users could arrange their storage in these following ways:
+
+1. The initial empty storage consists of an empty directory named as "root". The user can then add directories and medicines into the storage.
+
+2. The `MedicineManager` keeps a list of sorted unique medicine in the inventory.
+
+3. The user could add a new directory via `adddirec` command by specifying the path of the directory he/she wants to add into and the name of new directory.
+
+4. The user could add new/existing medicine to a specific directory via the "addMed" command.
+
+* 1. If there already exists a medicine with the same name in the storage, and the quantity and price is not specified in the command arguments, the existing medicine will be placed in the directory specified.
+
+* 2. Otherwise, a new medicine with the specified name, quantity and price will be created and added to the specified directory.
+
+- - -
+
+[[suggestion_mode]]
+When typing the directory path in the command box in the ui, QuickDocs supports intelligent suggestions about the next field. +
+
+After the user entered at least one `\` character to indicate he is inputting a path, the suggestion mode will be turned on. +
+
+The user could press Page Up / Page Down bottom to iterate to the previous or the next valid name of sub-directory or medicine in alphabetical order, given that the path given before the previous `\` character is valid.
+
+Using a sample inventory below as an example: +
+
+[[medicineModule_example7]]
+image::medicineModule_example7.png[width='600']
+
+* When the user types in `addmed root\`, the suggestion mode is turned on. +
+
+* The user may not want to type in the full name of the directories, so when he types in `addmed root\in`, he could then press Page Down to iterate to the next valid name in alphabetical order, which is "Internal". +
+
+* The command box is then automatically filled with `addmed root\Internal` +
+
+* Similarly, if the user decides to traverse to the previous valid name, he could do so by press Page Up. And the command box will automatically be filled with `addmed root\External`. +
+
+The figure below illustrates how this feature is implemented to make user's life more convenient. +
+
+[[suggestion_diagram]]
+.Sequence diagram illustrating the implementation of suggestion mode
+image::suggestion_diagram.png[width='600']
+
+- - -
+
+QuickDocs also supports setting alarm level for medicines. Every time a medicine's storage falls below the designated level, a reminder is thrown. +
+
+To convenient the users, QuickDocs allow not only threshold setting for individual medicines, but also threshold setting for directories. +
+
+Taking the same sample inventory as an example: +
+
+Setting a threshold for a directory is effectively the same as setting the threshold for every medicine in the "subtree" of that directory. This is down by a tree-like traversal. +
+
+For example, `alarm root\Internal 400` command sets the alarm level of all medicine in the subtree of "Internal" directory to 400. +
+
+[[medicineModule_example9]]
+image::medicineModule_example8.png[width='600']
+
+==== Design consideration
+
+1. The current implementation takes into consideration that the users may wish to have some freedom in determining the arrangement of medicine.
+
+2. When prescribing medicines, a directory system that step by step leads to the desired medicine is to the convenience of the user.
+
+3. By arranging the medicine by folders, it is then possible to support massive manipulation of medicine by directories.
+
+4. Additionally, it is impossible to expect the doctor to always remember the full name of medicines correctly. There is a need for an easier way to identify medicines to operate on besides requiring the user to type in full names every time.
+
+==== Alternatives considered
+
+The table illustrates some of the alternatives I considered during development of this medicine module, the relative advantages they have over the current implementation, and why they are not selected at the end.
+
+[cols="1, 1, 2a, 2a", options="header"]
+|===
+|Alternative |Description |Comparative advantages |Reasons for not adopting
+// row 1
+|*Store medicines as a simple ArrayList*
+|When users add a new medicine, just append a new medicine to the ArrayList.
+| * Simpler command format: The user could type in less arguments for the same commands.
+
+* No maintainability issue, less likely to occur bugs.
+
+| * Must type in full name of medicines correctly.
+
+* No freedom for the user to organize his/her medicine. Does not support massive operations.
+
+// row 2
+|*Use a hash map to store the medicines*
+| Use medicine name as the key and the medicine as the value.
+| * More time-efficient searching, especially when data size is large. +
+
+* Simpler command format, less fields to input per command.
+
+| * No room for customized arrangement of medicine. +
+
+* Need to type in the correct full name of medicines.
+
+* Does not support massive operations on similar medicines.
+
+//row 3
+|*Store medicines in a list with tags*
+| Users add tags to medicines for searching.
+| * Can list all medicines with the same tag. +
+
+* Similar structure with patient module. Less efforts needed.
+| * Potential lengthy commands if a medicine has many tags. +
+
+* Have to input the full name of medicine or the tag correctly to retrieve correct medicine. When there is a large set of medicines and tags, this is not convenient.
+
+|===
+
+Since QuickDocs aims to provide the most convenient experience given a large set of medicine in a clinic inventory, the medicine management module needs to provide a model that makes both typing commands, identifying the correct medicine and massive operation possible. +
+
+Combined with the <<suggestion_mode, suggestion mode>>, the current design is the best way to implement all of the three.
+
+{nbsp} +
+
+_Click https://github.com/CS2103-AY1819S2-W09-4/main/blob/master/docs/DeveloperGuide.adoc[here] to see the full Developer Guide._

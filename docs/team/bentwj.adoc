@@ -1,0 +1,274 @@
+= Tan Wenjian - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+endif::[]
+:warning-caption: :warning:
+:repoURL: https://github.com/CS2103-AY1819S2-W09-4/main/tree/master
+
+Hello! Welcome to my project portfolio page (PPP). This PPP showcases the software development projects I have been
+involved so far. Currently, there is only 1 project listed — QuickDocs.
+
+== PROJECT: QuickDocs
+
+== Introduction to QuickDocs
+
+QuickDocs is an all-in-one software solution for private clinic doctors facing manpower issues. Private clinics are
+usually small in size, with just a single doctor and 1 or 2 assistants. However, there are many tasks that the clinic
+needs to handle, such as patient consultation and management, organising appointments, keeping track of the medicine
+inventory and keeping track of finances. +
+
+Hence, my team and I have decided to morph an existing AddressBook application into a clinic management application,
+QuickDocs, that allows doctors to perform all the tasks above in a single application.
+
+== Summary of contributions
+
+In this section, the summary of my contributions will be listed out. Contributions includes code, documentation, and
+other miscellaneous tasks that helped the team.
+
+I was responsible for developing the calculation and storage of statistical information in QuickDocs, mainly financial
+and consultations information.
+
+=== Major Enhancements:
+
+* *Code Contributed:* [https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#=undefined&search=bentwj[Functional code]]
+* *Statistics command*
+** *What it does:* Doctors can view statistics related to consultations and finances within a minimum time span of 1 month.
+** *Why is it necessary:*
+*** By viewing the consultation statistics of the clinic, doctors can view the most common
+symptoms diagnosed and medicine prescribed. This allows them to look out for any possible trends in order to prepare
+for the future. The doctors could stock up on frequently prescribed medicines or prepare his clinic to be able to handle
+the most common illness in the past few months.
+*** By viewing the financial statistics of the clinic, doctors can keep track of the revenue, expenditure, and profit
+of the clinic related to consultations and medicines. In addition, they could also use this as a cross-reference to their
+own accountings if desired.
+** *Highlights:* The statistics generated are done automatically whenever the doctor ends a consultation session on
+QuickDocs or adds purchased medicines to the QuickDocs medicine inventory. There is no need to manually save statistical
+information in QuickDocs. The doctor simply needs to enter the `statistics` command with the date to retrieve the statistics.
+
+=== Minor Enhancements:
+
+* *Minor features developed*
+** Developed command for setting the consultation fee in QuickDocs, which is required for accurate financial statistics
+generation.
+* *Miscellaneous tasks*
+** *Team Collaboration:*
+*** Was involved in setting up Travis CI as the integration tool for our project.
+*** Reviewed Pull Requests: [https://github.com/CS2103-AY1819S2-W09-4/main/pull/129[#129]]
+** *Documentation:*
+*** Helped to ensure consistent format for user guide.
+*** Compiled the command summary section for user guide.
+
+== Contributions to the User Guide
+
+|===
+|_The link:{repoURL}/docs/UserGuide.adoc[user guide] is meant to aid users of QuickDocs if they encounter any issues.
+My additions to the user guide includes querying the statistics of the clinic, setting the consultaton fee, the FAQ,
+and the Command Summary. Shown below are the section for querying the statistics and setting the consultation fee._
+|===
+
+[[setconsultfee, Set consultation fee]]
+==== Setting consultation fee: `setconsultfee`
+This command allows you to change your consultation fee in QuickDocs to what you charge for each consultation.
+Setting up of your consultation fee is necessary for QuickDocs to generate accurate financial statistics pertaining
+to your consultation sessions. Once your consultation fee is set, QuickDocs will remember it for you. Hence, you
+only need to enter this command once, until you decide to change your consultation fee. +
+
+[NOTE]
+The default consultation fee in QuickDocs in S$30.00.
+
+
+*Format:* `setconsultfee AMOUNT` +
+
+*Alias{nbsp}{nbsp}{nbsp}{nbsp}:* `setfee`
+
+*Examples:* +
+
+* `setconsultfee 30` +
+Sets the consultation fee to $30.00. +
+* `setconsultfee $32.50` +
+Sets the consultation fee to $32.50. +
+
+{empty} +
+[[statistics, View statistics]]
+==== Viewing statistics: `statistics`
+
+You are able to view the statistics of the clinic for a specific month, or between a range of months. +
+This command will show you 6 items in order: +
+
+. Number of consultations +
+. Most common medicines prescribed +
+. Most common symptoms diagnosed +
+. Revenue +
+. Expenditure +
+. Profit +
+
+[NOTE]
+In order for the calculated statistics pertaining to consultation finances to be accurate, you must have already
+entered your clinic's consultation fee beforehand. See: <<setconsultfee>>. +
+[NOTE]
+When there is a tie between the most commonly prescribed medicine, or most commonly diagnosed symptoms, all of them
+will be listed. +
+
+{empty} +
+*Format:* `statistics FROM_MMYYYY [TO_MMYYYY]` +
+
+*Alias{nbsp}{nbsp}{nbsp}{nbsp}:* `stats` +
+
+[NOTE]
+If `TO_MMYYYY` is not specified, it will be defaulted to be equal to `FROM_MMYYYY`. +
+
+*Examples and Results:*
+
+* `statistics 012019` +
+View the statistics for January 2019. +
+* `stats 012019 042019` +
+View the statistics from January 2019 to April 2019. +
+In the image below, the *display* area will return the statistics of the queried range of months. +
+
+1. The result will show the range of months that were queried, followed by the 6 items mentioned earlier in order.
+2. When there are more than one most common symptom diagnosed, QuickDocs will list them all out.
+
+.Result example for command `statistics 012019 042019`
+image::statistics_sample.png[width="600"]
+{empty} +
+
+== Contributions to the Developer Guide
+
+|===
+|_The link:{repoURL}/docs/DeveloperGuide.adoc[developer guide] is meant to be a starting point for any current or future developers that will be working on QuickDocs.
+My additions to the developer guide includes explaining the Logic component, and the implementation of the Statistics
+and Record feature. The implementation of the Statistics and Records feature will be shown below._
+|===
+
+=== Administrative and Statistics Module
+The administrative and statistics module currently consists of 2 commands: +
+
+1. setting the consultation fee `setconsultfee` +
+2. querying the statistics `statistics` +
+
+This 2 commands makes use of the classes located in filepath `model\record`.
+
+==== Consultation fee
+The consultation fee of the clinic is stored as a BigDecimal in the StatisticsManager of QuickDocs, which is loaded from the
+quickdocs.json file through the <<Design-Storage, storage>> component. The consultation fee is used for calculating
+financial statistics for any ConsultationRecord objects.
+
+==== Querying statistics
+The statistics command is started through the command `stats START_MMYYYY [END_MMYYYY]`.
+The two MMYYYY corresponds to a range of dates. The end range is optional,
+and is defaulted to the start range by the StatisticsCommandParser if it does not exist. +
+
+The start date is not allowed to be before January 2019, and the end date cannot be before the start date. Hence,
+QuickDocs currently does not support adding old records before January 2019 due to the implementation of the
+StatisticsManager. This will be explained in the section below. +
+[NOTE]
+MMYYYY is a string, e.g. "012019", which stands for January 2019. It is parsed by StatisticsCommandParser into a
+YearMonth object. +
+
+==== Statistics and Record - Current Implementation
+
+The statistics class stores 6 types of information: +
+
+1. Number of consultations +
+2. Medicines prescribed +
+3. Symptoms diagnosed +
+4. Revenue +
+5. Expenditure +
+6. Profit +
+
+Number of consultations is stored as an int, while the financial variables are stored using BigDecimals. The number of
+medicines prescribed and symptoms diagnosed are stored by using a HashMap. +
+
+[NOTE]
+Implementation of additional statistics will be done through adding additional relevant variable fields.
+
+The implementation of Statistics and Record has 3 parts: +
+
+1. Creation of the Record +
+2. Adding the Record +
+3. Retrieving the Statistics +
+
+===== 1. Creation of the Record
+In order for the statistics to be keep tracked of, Record objects are used to retrieve information that the
+StatisticsManager will make use of. The Record class is an abstract class that only has 1 abstract method,
+`toStatistics(StatisticsManager sm)`, which will generate a Statistics object.
+Each child class of Record is for a specific operation in QuickDocs, where the implementation
+`toStatistics(StatisticsManager sm)` will generate a Statistics object that stores relevant information pertaining to
+that specific operation. The StatisticsManager is passed in to retrieve the any variable that the Record might require
+to calculate the statistics, e.g., ConsultationRecord requires the consultationFee variable in StatisticsManager.
+
+Currently, there are only 2 child classes of Record, ConsultationRecord and MedicinePurchaseRecord. ConsultationRecords
+are created when the a consultation session ends from the EndConsultCommand, while MedicinePurchaseRecord are created
+when a medicine is purchased via the PurchaseMedicineCommand. The commands will create the Record, and call ModelManager's
+`addRecord(record, clock)` function, which will then result in ModelManager calling StatisticsManager's `record(record, clock)`
+function. The clock used is the system clock, to retrieve the current YearMonth of the Record created. The sequence diagram
+below illustrates an example ConsultationRecord being created.
+
+.Sequence diagram for sample ConsultationRecord creation
+image::RecordCreationSD.png[width="800"]
+
+===== 2. Adding the record
+The StatisticsManager holds an ArrayList of MonthStatistics, where a MonthStatistics object contains the YearMonth, and
+the Statistics object of that YearMonth. Each MonthStatistics object will be initialised with the zero Statistics object,
+where all the variables are 0 or contains no elements (not null). The ArrayList starts with a MonthStatistics with the
+YearMonth 2019 January, and every subsequent index will contain the MonthStatistics with the subsequent month, e.g.,
+the 4th index contains the MonthStatistics with YearMonth 2019 May.
+
+When the StatisticsManager adds a new Record by the `record(record, clock)` function, it will first retrieve the
+YearMonth from the `clock` variable passed in. Next, it will update the size of the ArrayList by calling its own method
+`updateListSize(clock)`, which is a wrapper for `updateListSize(YearMonth)`. Afterwards, StatisticsManager will find the
+correct index of the MonthStatistics ArrayList to add the record in. In the current implementation, the record is not
+actually stored. Instead, the record will be converted to a Statistics object which is then merged with the
+MonthStatistics's own Statistics object. The MonthStatistics's Statistics object will then be reassigned with the newly
+merged Statistics object. The sequence diagram below illustrates an example ConsultationRecord being added.
+
+.Sequence diagram for adding a sample ConsultationRecord
+image::SDForAddingRecords.png[width="800"]
+
+===== 3. Retrieving the Statistics
+
+When the StatisticsCommand queries for the statistics for a range
+of months, Logic will call the ModelManager's `getStatistics(FROM_YEARMONTH, TO_YEARMONTH)`, which then calls
+StatisticsManager's `getStatistics(FROM_YEARMONTH, TO_YEARMONTH)`. StatisticsManager will convert the YearMonth objects to
+their respective indexes with the StatisticsManager's `getYearMonthIndex(YearMonth)` function.
+
+StatisticsManager will then obtain the statistics for each of the queried months, and merge them together into a new
+Statistics object. StatisticsManager will then return the Statistics back to the ModelManager, which would then return
+it to the StatisticsCommand, which would then return the CommandResult with the statistics converted to a String to the
+LogicManager.
+
+==== Statistics and Record - Design considerations
+
+1. The statistics are stored in months as the design only allows the doctor to query within a minimum timespan of 1 month.
+Hence, it was decided that the statistics to be stored in months in a chronological order with an ArrayList for ease of
+retrieval. +
+
+2. Currently, as QuickDOcs is developed in 2019, and there are no plans to allow the doctor to add in past records,
+the first index in the array of MonthStatistics is allocated to January 2019. Any MMYYYY value before 012019 will not be
+allowed.
+
+3. The MonthStatistics objects are stored in an ArrayList as it might be desirable for a MonthStatistics with the zero
+statistics to exist (all variables 0 or no elements). Such a case might happen when the doctor goes on vacation for the
+whole month. In addition, it would be easy to retrieve the MonthStatistics object of a specific MMYYYY by indexing.
+
+==== Statistics and Record - Alternatives Considered
+The following table lists out the alternatives designs considered for implementing the storage of the Records and Statistics.
+[cols="1,2a,1, 1", options="header"]
+|===
+|Alternative |Description |Pros |Cons
+// row 1
+|*Storing of individual records for each month (Alternative chosen)*
+|Individual records are stored within the MonthStatistics, along with the Statistics. When the Statistics for a
+specific month is queried, update the latest statistics and return it.
+|Individual records are kept, which could potentially be used for other calculations or features.
+|Storing of individual records is extremely costly in terms of space
+// row 2
+|*Storing the merged statistics of all the records for each month*
+|When a new record is added, it is coverted to a Statistics object which is then merged with the current Statistics object stored.
+|Only one Statistics object needs to be stored, which saves a lot of storage space.
+|The individual records are unable to be retrieved. However, the current implementation has no need to retrieve individual records.
+|===

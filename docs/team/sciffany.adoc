@@ -83,166 +83,245 @@ or answers.
 
 <start of extract>
 
-=== Study View [[studyview]]
+=== Study View [[studyviewc]]
 
-In this view you can study a deck of cards.
+Study view can be accessed using any of these commands:
 
-- Test your knowledge of the cards in your chosen deck
-- Rate the difficulty of the cards.
-
-image::study_ug_diagrams/study_1.png[width="800"]
+* `study INDEX` from decks view
+* `study` from cards view
 
 
+In order to facilitate your study session,
+Study view presents Flash Cards in two phases, namely <<qnphase, Question Phase>> and <<ansphase, Answer Phase>>.
 
-=== Study View
+==== Question Phase [[qnphase]]
 
-These are commands are only available in study view, after `study INDEX` or `study` command is executed.
+Study view starts off in Question Phase, which displays the question in this user interface:
 
-==== Returning to decks view: `back`
+.Study view's Question Phase
+image::study_ug_diagrams/question.png[width="800"]
+
+
+As seen above, the question you have to answer is displayed in a dark blue flash card.
+
+
+[NOTE]
+Currently, questions are chosen this way: TopDeck shuffles the deck and displays cards one at a time until the entire deck
+has been viewed. Topdeck repeats this endlessly until you choose to <<studyback, end your study session>>.
+
+You may attempt the question by typing your answer into the Command Box,
+which now doubles as an Answer Box.
+ Once you're ready to see the answer, hit kbd:[Enter]. Your attempt will be recorded and
+ TopDeck will enter Answer Phase.
+
+
+
+==== Answer Phase [[ansphase]]
+
+During this phase, you will see the answer to the earlier question in the following
+user interface:
+
+.Study view's Answer Phase
+image::study_ug_diagrams/answer.png[width="800"]
+
+
+As seen from the figure, the correct answer is displayed on a white flash card.
+Your attempt is shown on top next to the card for your own comparison.
+
+Additionally, a prompt asks you to rate the difficulty of that flash card.
+You should input your rating into the Command Box.
+
+Once you've typed in your rating, hit kbd:[Enter]. Your rating will be recorded and this
+value will contribute to average difficulty statistic as seen in cards view.
+At the same time, TopDeck will reenter Question Phase.
+
+During both phases, the following commands are available to end your study session:
+
+==== Returning to decks view: `back` [[studyback]]
 
 **Format**: `back`
 
 **Outcome**: Returns to decks view.
 
-==== Opening the deck in cards view: `deck`
+==== Opening the deck in cards view: `open`
 
-**Format**: `deck`
+**Format**: `open`
 
 **Outcome**: Opens the deck in cards view.
 
-==== Revealing the answer to card: `[any attempt]`
-
-**Format**: `[any attempt]`
-
-**Outcome**: Reveals the answer to card, with your attempt shown beside it.
-
-For example, you can type in `CO2` and hit kbd:[Enter]
-
-image::study_ug_diagrams/study_1.png[width="800"]
-
-The following image is the result of the command.
-
-image::study_ug_diagrams/study_2.png[width="800"]
-
-==== Displaying the next card: `[your difficulty rating]`
-
-**Format**: `[your difficulty rating]`
-
-**Outcome**: Displays another card from the deck. Stores your difficulty rating for the card.
-
-Entering a number 3 indicates that you rate the difficulty as 3.
-
-image::study_ug_diagrams/study_3.png[width="800"]
-
-Submitting this reveals the next question.
-
-image::study_ug_diagrams/study_4.png[width="800"]
 
 == Contributions to Developer Guide
 
+<start of extract>
 
-
-//tag::studysessions[]
 === Study view
 
-==== Current implementation
+==== Stateful implementation [[studystate]]
 
-The purpose of the third view, study view, is to help users retain the knowledge
-of their flash cards.
+The purpose of a study session is to let users
+test their knowledge of flash cards. This is done by randomly generating
+ a card to be shown to users, presenting them with questions followed by answers
+ in an alternating manner.
 
-This is done by consecutively presenting users with random cards from the deck.
-For each card, users are able to see the questions first, and then reveal the answers afterwards.
-
-The functionality above is supported by the `StudyView` class.
-
-**Important Variables**
-
-This `StudyView` class two important variables:
+In order to facilitate the alternation between two states, the `StudyView` class holds two main variables:
 
 * `currentCard` - the card which is currently being shown to the user.
 
-* `currentStudyState` - variable which stores a `studyState` enum. The enum can be either `QUESTION` or `ANSWER`
+* `currentStudyState` - an enum which can be either be `QUESTION` or `ANSWER`
 
-These two important variables are continuously being altered every time the user interacts with the program,
-explained in detail later.
+These two  variables are continuously being altered to change the view
+every time the user interacts with the program.
 
-**Observable Values**
+**User Commands** [[studyusercommands]]
 
-Besides these variables, `StudyView` also makes extensive use of `ReadOnlyProperty` wrapper
+The user can execute two types of commands to toggle value of `currentStudyState`. These are
+`ShowAnswerCommand` and `GenerateQuestionCommand`.
+
+Unlike other commands, the type of command executed is
+inferred on the basis of  `currentStudyState` instead of the command word.
+Upon command execution, `currentStudyState` is evaluated and is toggled to
+ the opposite state. This behaviour is summarised below.
+
+.Alternation of states summary
+image::study_dg_diagrams/cyc.png[width="800"]
+
+Besides toggling state, both commands also call
+ other functions to fully support `StudyView` functionality as detailed below.
+
+==== `ShowAnswerCommand` [[studyshow]]
+
+This command is executed when users enter any string during question state.
+
+This string is also the user's attempt for the question. Thus, `ShowAnswerCommand` has to store this string internally.
+This is done by setting `userAnswer` variable in `StudyView` class.
+
+.How ShowAnswerCommand works
+image::study_dg_diagrams/show.png[width="800"]
+
+Given below is an example usage scenario and how the `ShowAnswer` mechanism behaves at each step.
+
+Step 1. User attempts the question by typing in any command. If in question state, and the command is not a preset command,
+a `ShowAnswerCommand` object containing `userAnswer` is returned.
+
+Step 2. When command is executed, user answer is stored internally in `userAnswer`
+ variable of `StudyView`.
+
+Step 3. `currentStudyState` in  `StudyView` is toggled to `QUESTION`.
+
+Step 4. UI automatically changes to show answer as shown <<studyui,  here.>>
+
+==== `GenerateQuestionCommand`
+
+This command is executed when users enter ratings during answer state.
+
+This represents his rating for the previous flash card shown.
+Thus, `GenerateQuestionCommand` also needs to modify
+ratings inside `Card` object. Besides that, it needs to modify `currentCard` to show a new card as well.
+
+
+.How GenerateQuestionCommand works
+image::study_dg_diagrams/gen.png[width="800"]
+
+
+Given below is an example usage scenario and how the `ShowAnswer` mechanism behaves at each step.
+
+Step 1. User enters a rating. If in answer state, and command is not a preset command,
+and rating is between 1-5, a `GenerateQuestionCommand` object containing `int rating` is returned.
+
+Step 2. When command is executed, `addRating()` is called to modify the difficulty of the
+`currentCard`. This calls `addDifficulty()` in `Difficulty` class <<studydiff, detailed here>>.
+
+Step 3. `generateCard()` in `StudyView` is called. `StudyView` calls its `DeckShuffler` to generate a card <<studyshuffle, detailed here>>.
+`Card` returned by `DeckShuffler` is passed back to `StudyView` and studyView uses this to reset its own `currentCard`.
+
+Step 4. `currentState` is set to QUESTION.
+
+Step 5. UI changes to show question <<studyui, detailed here>>
+
+**Summary of Changes**
+
+The summary of variable changes to `StudyState` after running these commands is detailed below.
+
+image::study_dg_diagrams/cycle.png[width="800"]
+
+==== UI implementation [[studyui]]
+
+
+`StudyView` makes  use of `ReadOnlyProperty` wrapper
 to store variables which the UI has to display. This wrapper is chosen as it implements the `Observable` interface.
-
-
-==== Data structure implementation
-
-This section discusses how the two variables, `currentCard` and `studyState` are continuously modified,
-and also the other variables that change as a result of these two functions.
-
-Given below is an example usage scenario and how the `study` mechanism behaves at each step.
-
-Step 1. User enter study mode using `study 1` command.
-
-A `StudyDeckCommand` is issued.
-
-Upon the execution of this command, Model's `viewState` will now hold a `StudyView` object with 1st deck as active deck.
-
-As part of the execution of `StudyDeckCommand`, step 2 is ran.
-
-Step 2. Generating a question.
-
-In order to present questions to users, these are the functions called by the `GenerateQuestionCommand()`:
-
-* `DeckSuffler#generateCard()` The `DeckShuffler` class has an algorithm (implementation explained later)
-to select a Card object, and passes this reference to `StudyView`.
- * `currentCard` refers now to that card.
-
-* `currentState` is set to QUESTION.
-
-* Consequently, `textShown` property is also modified. In this case, it will contain
-the question  of the chosen card.
-
-Step 2. User executes the `[wildcard]` command to signal that he has come up with the answer.
-
-* User answer, ie whatever the user wrote, is stored as command under the statistics variable.
-
-Step 3. The  command generates a `ShowAnswerCommand()`
-
-The follwing are ran upon execution of the show answer command:
-
-* `currentStudyState` to ANSWER.
-* Similar to the above, we also change the `textShown` property to show user answer instead.
-
-
-Step 4. User enters the difficulty rating "command" to rate how difficult they thought it was to recall
-the answer.
-
-The following things happen:
-
-* Their answer stored under userAnswer variable, which will be displayed later.
-* This is perfect as we do not want users to revert statistics by executing undo command.
-
-* `GenerateQuestionCommand()` is executed once again. Back to Step 2.
-
-
-==== UI implementation
 
 The UI listens for three things: the `studyState`, `userAnswer`, and `textShown`.
 
+.UI Observer-Listener relationship diagram
+image::study_dg_diagrams/ui.png[width="800"]
 
-The first is important because depending on whether it's question or answer, we
-modify the colours of flash cards in the UI. This variables also specifies whether or not we need to display users'
-answers and whether or not we need to prompt them to rate the difficulty.
+The following details the changes to these observable variables.
 
-The second is important to show the users what they answered.
-The last is important to show the contents of the flash card.
+[%header]
+|===
+|observableProperty variable | How this variable is modified | Changes in UI
+|`currentStudyState` | Explained <<studyusercommands, previously>> | `sCard.pseudoClass` (flash card background color)
+ `sQuestion.pseudoClass` (colour of flash card text)
+`status.visibility` (whether or not to `userAnswer` and difficulty rating prompt is seen. Must be seen only during answer state)
+|textShown | Calling `setCurrentCard()` and `setCurrentStudyState()` modifies `textShown` assign it a value which is either
+`Question` or `Answer` of `currentCard`. | `sQuestion.text` (text written on flash card)
+|userAnswer| Explained <<studyshow, previously>>  | `userLabel.text` (displays user's answer to flash card question displayed earlier)
+|===
 
+==== DeckShuffler brief overview
+
+In order to generate a random `Card` object reference, `DeckShuffler` holds 3 variables:
+
+* `activeDeck` - deck that it needs to choose cards from
+* `shuffledDeck` - list of cards in `activeDeck` that has been shuffled by `Collections.shuffle()`
+* `it` - a `Card` iterator that loops through cards in `shuffledDeck`.
+
+When `generateCard()` is called, iterator calls `next`. If none, `shuffledDeck` is shuffled again and
+iterator is set to `shuffledDeck.begin()`.
+
+==== Difficulty class overview
+
+The `Difficulty` object, a property of `Card`, has two variables:
+
+* `totalRating`
+* `numberOfAttempts`
+
+When `addDifficulty(int rating)` is called, `rating` is added to `totalRating` and `noOfAttempts`
+is incremented by 1. Other views can obtain average by obtaining quotient of these variables.
 
 ==== Design considerations
 
-===== Aspect: How to store states within  study view
+===== Aspect: How to store states
 
-* **Alternative 1 (current choice):**
-** Pros: Easy to implement.
-** Cons: UI just changes state based on commands issued.
-* **Alternative 2: (current choice):** Use an event listener to see whether the `textShown` has changed.
-Because it is easy to modify textShown immediately, there is no need for the UI to track this variable as
-that would be costly.
+* **Alternative 1 (current choice): Using enums **
+** Pros: Easy to implement. Makes sense as `QuestionState` and `AnswerState` do
+not have intrinsic properties, besides the UI looks associated with each state.
+
+** Cons: Unused variables in `StudyView`, such as `userAnswer` variable.
+
+* **Alternative 2: polymorphism using `QuestionState` and `AnswerState` classess **
+
+** Pros: Less unused variables. More organised.
+** Cons: Requires larger structural changes.
+
+I chose the first implementation as the problem of unused variables is minimal.
+I do not foresee major changes to the way `QUESTION` and `ANSWER`  works in future.
+There are not many possible reasons to store extra variables associated only with either state.
+
+===== Aspect: How to implement UI modifications
+
+* **Alternative 1 (current choice): Observable Properties **
+** Pros: UI changes automatically. Concerns are separated as we
+no longer need to concern ourselves with sending data to UI during internal state change.
+** Cons: Less control over UI changes.
+
+
+* **Alternative 2: Manual Modification of UI **
+** Pros: Greater control over items to send to UI
+** Cons: `StudyView` now also has to concern itself with UI arrangements
+
+I chose the first implementation as UI changes happen all the time
+but the UI is highly similar in both states. Thus, a few Observable variables
+should suffice to achieve the intended appearance.
+
+<end of extract>

@@ -38,7 +38,7 @@ public class StudyViewParser implements ViewStateParser {
                 if (studyView.isInQuestionState()) {
                     return new ShowAnswerCommand(commandWord + arguments);
                 } else {
-                    return new GenerateQuestionCommandParser().parse(commandWord);
+                    return new GenerateQuestionCommandParser(studyView).parse(commandWord);
                 }
         }
     }

@@ -1,0 +1,88 @@
+= Sergio Vieri - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+:toc:
+:toc-title: Table of Contents
+:sectnums:
+
+image::sergiovieri.png[width="200", align="left"]
+
+== PROJECT: Acquizition
+
+This project portfolio documents my contributions towards Acquizition, a team project under a software engineering module in NUS, known as CS2103T.
+
+The purpose of this portfolio is to summarize the features that I have implemented, as well as some excerpts of the User and Developer Guide that I have written.
+
+---
+
+== Overview
+
+Acquizition is a desktop flashcard application for subject revision and language acquisition.
+
+Using a scientifically-grounded SRS (Spaced Repetition System), Acquizition maximizes memory retention by testing the terms most likely to be forgotten soon.
+
+Created with JavaFX, Acquizition has a sleek and intuitive GUI (Graphical User Interface) to streamline the experience for new users, but also sports a CLI (Command Line Interface) to maximize the efficiency of power users. It is written in Java and has around 14k lines of code.
+
+== Summary of contributions
+
+* *Major enhancement*: added *the complete quiz mode*, including the full GUI and quiz backend commands. +
+The quiz GUI includes the flashcard card view pane on the right, and the quiz panel on the left. +
+The quiz commands includes `quiz`, `good` feedback, `bad` feedback, and smart command.
+
+** What it does: allows the user to conveniently test and keep track their understanding of the flashcards inside the card collection
+** Justification:
+*** This feature improves the product significantly as it is the main feature that Acquizition offers.
+*** It can do seamless swapping between the quiz UI and the card collection UI
+*** It also contains a smart command feature where the user can quickly navigate through the cards without having to type redundant commands.
+** Highlights:
+*** This enhancement required an in-depth analysis of design alternatives, since the quiz mode needs seamless swapping of the card collection GUI and the quiz mode GUI.
+*** The implementation too was challenging as separation of different modes and interaction of logic and dynamic UI parts is needed.
+** Credits: I learned and applied concepts from CS2103T and the existing codebase.
+** Related code: https://github.com/CS2103-AY1819S2-T12-2/main/pull/46[Advanced Quiz Mode], https://github.com/CS2103-AY1819S2-T12-2/main/pull/27[Flashcard Card View]
+
+* *Minor enhancement*:
+** Replaces the menu bar with a much more intuitive toolbar. Since menu bar only supports exit and help, moving it to the toolbar with just those two buttons is more reasonable.
+*** Related code: https://github.com/CS2103-AY1819S2-T12-2/main/pull/49[Toolbar]
+** Modifies the existing person model to flashcard model, including all of its components.
+*** Related code: https://github.com/CS2103-AY1819S2-T12-2/main/pull/22[Refactor Flashcard Fields]
+
+* *Other contributions*:
+
+** Project management:
+*** Set up Github repository and https://github.com/cs2103-ay1819s2-t12-2/main/issues?utf8=%E2%9C%93&q=is%3Aissue+author%3Asergiovieri[issues]
+*** https://github.com/CS2103-AY1819S2-T12-2/main/pulls?q=is%3Apr+reviewed-by%3Asergiovieri+is%3Aclosed[Reviewed and approved several PRs]
+** Enhancements to existing features:
+*** Updated the GUI color scheme
+*** Wrote additional tests for existing features to increase coverage
+** Code contributed: https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#search=Ser[Reposense]
+** Tools:
+*** Set Up Travis, AppVeyor, Coveralls, and Codacy
+*** Set Up GithubPages
+*** Set the minimum requirements for code to be merged to master.
+
+== Contributions to the User Guide
+
+
+|===
+|These are the excerpts of the User Guide that I have contributed. They reflect what I have learned in writing documentation that targets end-users.
+|===
+
+include::../UserGuide.adoc[tag=quiz]
+
+include::../UserGuide.adoc[tag=command-summary]
+
+== Contributions to the Developer Guide
+
+|===
+|These are the excerpts of the Developer Guide that I have contributed. They reflect what I have learned in writing technical documentation and the technical depth of my contributions to the project.
+|===
+
+include::../DeveloperGuide.adoc[tag=quiz]
+
+include::../DeveloperGuide.adoc[tag=design-ui]
+
+== Learning Outcomes
+* Able to work in a team with responsibilities of different part of code
+* Learned how to implement features based on user stories
+

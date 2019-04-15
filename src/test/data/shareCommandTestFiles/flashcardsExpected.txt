@@ -1,0 +1,5 @@
+ f/Hello b/Halo t/indonesian
+ f/Hola b/Haha t/spanish
+ f/Eat b/吃 t/chinese
+ f/Newton's 3rd Law b/idk t/alevel t/physics
+ f/Robin's email b/robincyu96@gmail.com

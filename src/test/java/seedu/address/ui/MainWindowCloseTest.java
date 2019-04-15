@@ -17,7 +17,7 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import seedu.address.logic.LogicManager;
 import seedu.address.model.ModelManager;
-import seedu.address.storage.JsonAddressBookStorage;
+import seedu.address.storage.JsonCardCollectionStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.StorageManager;
 
@@ -34,14 +34,16 @@ public class MainWindowCloseTest extends GuiUnitTest {
 
     @Before
     public void setUp() throws Exception {
-        JsonAddressBookStorage jsonAddressBookStorage = new JsonAddressBookStorage(temporaryFolder.newFile().toPath());
+        JsonCardCollectionStorage jsonCardCollectionStorage =
+            new JsonCardCollectionStorage(temporaryFolder.newFile().toPath());
         JsonUserPrefsStorage jsonUserPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.newFile().toPath());
-        StorageManager storageManager = new StorageManager(jsonAddressBookStorage, jsonUserPrefsStorage);
+        StorageManager storageManager = new StorageManager(jsonCardCollectionStorage, jsonUserPrefsStorage);
         FxToolkit.setupStage(stage -> {
             this.stage = stage;
             mainWindow = new MainWindow(stage, new LogicManager(new ModelManager(), storageManager));
             mainWindowHandle = new EmptyMainWindowHandle(stage);
             mainWindowHandle.focus();
+            mainWindow.setupListeners();
         });
         FxToolkit.showStage();
     }
@@ -75,8 +77,7 @@ public class MainWindowCloseTest extends GuiUnitTest {
          * Closes the {@code MainWindow} by clicking on the menu bar's exit button.
          */
         private void clickOnMenuExitButton() {
-            guiRobot.clickOn("File");
-            guiRobot.clickOn("Exit");
+            guiRobot.clickOn("#closeButton");
         }
 
         /**
@@ -91,8 +92,7 @@ public class MainWindowCloseTest extends GuiUnitTest {
          * Opens the {@code HelpWindow} by clicking on the menu bar's help button.
          */
         private void clickOnMenuHelpButton() {
-            guiRobot.clickOn("Help");
-            guiRobot.clickOn("F1");
+            guiRobot.clickOn("#helpButton");
         }
     }
 }

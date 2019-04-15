@@ -1,0 +1,24 @@
+{
+  "flashcards": [
+    {
+      "frontFace": "Hello",
+      "backFace": "Halo",
+      "imagePath": "",
+      "statistics": "4 out of 7 attempts.",
+      "proficiency" : "inactive until 0 proficiency level 3",
+      "tagged": [
+        "indonesian"
+      ]
+    },
+    {
+      "frontFace": "Hello",
+      "backFace": "Halo",
+      "imagePath": "",
+      "statistics": "4 out of 7 attempts.",
+      "proficiency" : "inactive until 0 proficiency level 3",
+      "tagged": [
+        "chinese"
+      ]
+    }
+  ]
+}

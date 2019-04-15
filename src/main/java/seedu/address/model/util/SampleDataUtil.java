@@ -1,49 +1,39 @@
 package seedu.address.model.util;
 
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import seedu.address.model.AddressBook;
-import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
+import seedu.address.model.CardCollection;
+import seedu.address.model.ReadOnlyCardCollection;
+import seedu.address.model.flashcard.Face;
+import seedu.address.model.flashcard.Flashcard;
+import seedu.address.model.flashcard.Proficiency;
+import seedu.address.model.flashcard.Statistics;
 import seedu.address.model.tag.Tag;
 
 /**
- * Contains utility methods for populating {@code AddressBook} with sample data.
+ * Contains utility methods for populating {@code CardCollection} with sample data.
  */
 public class SampleDataUtil {
-    public static Person[] getSamplePersons() {
-        return new Person[] {
-            new Person(new Name("Alex Yeoh"), new Phone("87438807"), new Email("alexyeoh@example.com"),
-                new Address("Blk 30 Geylang Street 29, #06-40"),
-                getTagSet("friends")),
-            new Person(new Name("Bernice Yu"), new Phone("99272758"), new Email("berniceyu@example.com"),
-                new Address("Blk 30 Lorong 3 Serangoon Gardens, #07-18"),
-                getTagSet("colleagues", "friends")),
-            new Person(new Name("Charlotte Oliveiro"), new Phone("93210283"), new Email("charlotte@example.com"),
-                new Address("Blk 11 Ang Mo Kio Street 74, #11-04"),
-                getTagSet("neighbours")),
-            new Person(new Name("David Li"), new Phone("91031282"), new Email("lidavid@example.com"),
-                new Address("Blk 436 Serangoon Gardens Street 26, #16-43"),
-                getTagSet("family")),
-            new Person(new Name("Irfan Ibrahim"), new Phone("92492021"), new Email("irfan@example.com"),
-                new Address("Blk 47 Tampines Street 20, #17-35"),
-                getTagSet("classmates")),
-            new Person(new Name("Roy Balakrishnan"), new Phone("92624417"), new Email("royb@example.com"),
-                new Address("Blk 45 Aljunied Street 85, #11-31"),
-                getTagSet("colleagues"))
+    public static Flashcard[] getSampleFlashcards() {
+        Calendar tomorrow = Calendar.getInstance();
+        tomorrow.add(Calendar.DATE, 1);
+        return new Flashcard[]{
+            new Flashcard(new Face("Hello"), new Face("Halo"), new Statistics(), new Proficiency(),
+                getTagSet("indonesian")),
+            new Flashcard(new Face("Hola"), new Face("你好"), new Statistics(5, 7), new Proficiency(tomorrow, 2),
+                getTagSet("chinese", "spanish")),
+            new Flashcard(new Face("Newton's 3rd law"), new Face("idk"), new Statistics(0, 5), new Proficiency(),
+                getTagSet("alevel", "physics"))
         };
     }
 
-    public static ReadOnlyAddressBook getSampleAddressBook() {
-        AddressBook sampleAb = new AddressBook();
-        for (Person samplePerson : getSamplePersons()) {
-            sampleAb.addPerson(samplePerson);
+    public static ReadOnlyCardCollection getSampleCardCollection() {
+        CardCollection sampleAb = new CardCollection();
+        for (Flashcard sampleFlashcard : getSampleFlashcards()) {
+            sampleAb.addFlashcard(sampleFlashcard);
         }
         return sampleAb;
     }

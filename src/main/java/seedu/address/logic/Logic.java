@@ -8,8 +8,8 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.person.Person;
+import seedu.address.model.ReadOnlyCardCollection;
+import seedu.address.model.flashcard.Flashcard;
 
 /**
  * API of the Logic component
@@ -17,22 +17,25 @@ import seedu.address.model.person.Person;
 public interface Logic {
     /**
      * Executes the command and returns the result.
+     *
      * @param commandText The command as entered by the user.
      * @return the result of the command execution.
      * @throws CommandException If an error occurs during command execution.
-     * @throws ParseException If an error occurs during parsing.
+     * @throws ParseException   If an error occurs during parsing.
      */
     CommandResult execute(String commandText) throws CommandException, ParseException;
 
     /**
-     * Returns the AddressBook.
+     * Returns the CardCollection.
      *
-     * @see seedu.address.model.Model#getAddressBook()
+     * @see seedu.address.model.Model#getCardCollection()
      */
-    ReadOnlyAddressBook getAddressBook();
+    ReadOnlyCardCollection getCardCollection();
 
-    /** Returns an unmodifiable view of the filtered list of persons */
-    ObservableList<Person> getFilteredPersonList();
+    /**
+     * Returns an unmodifiable view of the filtered list of flashcards
+     */
+    ObservableList<Flashcard> getFilteredFlashcardList();
 
     /**
      * Returns an unmodifiable view of the list of commands entered by the user.
@@ -41,9 +44,9 @@ public interface Logic {
     ObservableList<String> getHistory();
 
     /**
-     * Returns the user prefs' address book file path.
+     * Returns the user prefs' card collection file path.
      */
-    Path getAddressBookFilePath();
+    Path getCardCollectionFilePath();
 
     /**
      * Returns the user prefs' GUI settings.
@@ -56,17 +59,58 @@ public interface Logic {
     void setGuiSettings(GuiSettings guiSettings);
 
     /**
-     * Selected person in the filtered person list.
-     * null if no person is selected.
+     * Selected flashcard in the filtered flashcard list.
+     * null if no flashcard is selected.
      *
-     * @see seedu.address.model.Model#selectedPersonProperty()
+     * @see seedu.address.model.Model#selectedFlashcardProperty()
      */
-    ReadOnlyProperty<Person> selectedPersonProperty();
+    ReadOnlyProperty<Flashcard> selectedFlashcardProperty();
 
     /**
-     * Sets the selected person in the filtered person list.
+     * Current quiz mode. -1 for front face, 1 for back face, 0 for non-quiz mode.
      *
-     * @see seedu.address.model.Model#setSelectedPerson(Person)
+     * @see seedu.address.model.Model#quizModeProperty()
      */
-    void setSelectedPerson(Person person);
+    ReadOnlyProperty<Integer> quizModeProperty();
+
+    /**
+     * Sets the selected flashcard in the filtered flashcard list.
+     *
+     * @see seedu.address.model.Model#setSelectedFlashcard(Flashcard)
+     */
+    void setSelectedFlashcard(Flashcard flashcard);
+
+    /**
+     * Sets the quiz mode
+     *
+     * @see seedu.address.model.Model#setQuizMode(Integer)
+     */
+    void setQuizMode(Integer quizMode);
+
+    /**
+     * Sets the Spaced Repetition System Model. mode
+     *
+     * @see seedu.address.model.Model#setIsQuizSrs(Boolean)
+     */
+    void setIsQuizSrs(Boolean isQuizSrs);
+
+    ObservableList<Flashcard> getQuizFlashcards();
+
+    /**
+     * @return the number of good feedback in the current quiz
+     * @see seedu.address.model.Model#getQuizGood()
+     */
+    ReadOnlyProperty<Integer> quizGoodProperty();
+
+    /**
+     * @return the number of bad feedback in the current quiz
+     * @see seedu.address.model.Model#getQuizBad()
+     */
+    ReadOnlyProperty<Integer> quizBadProperty();
+
+    /**
+     * @return true if SRS mode activated, else review mode.
+     * @see seedu.address.model.Model#getIsQuizSrs()
+     */
+    ReadOnlyProperty<Boolean> isQuizSrsProperty();
 }

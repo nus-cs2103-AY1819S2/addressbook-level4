@@ -1,0 +1,54 @@
+{
+  "_comment": "CardCollection save file which contains the same Flashcard values as in TypicalFlashcards#getTypicalCardCollection()",
+  "flashcards": [
+    {
+      "frontFace": "Hello",
+      "backFace": "Halo",
+      "imagePath": "",
+      "statistics": "9 out of 10 attempts.",
+      "proficiency" : "inactive until 0 proficiency level 3",
+      "tagged": [
+        "indonesian"
+      ]
+    },
+    {
+      "frontFace": "Hola",
+      "backFace": "Haha",
+      "imagePath": "",
+      "statistics": "4 out of 7 attempts.",
+      "proficiency" : "inactive until 0 proficiency level 3",
+      "tagged": [
+        "spanish"
+      ]
+    },
+    {
+      "frontFace": "Eat",
+      "backFace": "吃",
+      "imagePath": "",
+      "statistics": "0 out of 0 attempts.",
+      "proficiency" : "inactive until 0 proficiency level 0",
+      "tagged": [
+        "chinese"
+      ]
+    },
+    {
+      "frontFace": "Newton's 3rd Law",
+      "backFace": "idk",
+      "imagePath": "",
+      "statistics": "0 out of 10 attempts.",
+      "proficiency" : "inactive until 0 proficiency level 0",
+      "tagged": [
+        "alevel",
+        "physics"
+      ]
+    },
+    {
+      "frontFace": "Robin's email",
+      "backFace": "robincyu96@gmail.com",
+      "imagePath": "",
+      "statistics": "100 out of 100 attempts.",
+      "proficiency" : "inactive until 0 proficiency level 0",
+      "tagged": []
+    }
+  ]
+}

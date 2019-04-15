@@ -1,0 +1,74 @@
+= Kwee Lung Sin - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+:toc: right
+
+== PROJECT: Acquizition
+
+---
+
+== Overview
+
+Acquizition is a desktop flashcard application for subject revision and language acquisition.
+
+Using a scientifically-grounded SRS (Spaced Repetition System), Acquizition maximizes memory retention by testing the terms most likely to be forgotten soon.
+
+Created with JavaFX, Acquizition has a sleek and intuitive GUI (Graphical User Interface) to streamline the experience for new users, but also sports a CLI (Command Line Interface) to maximize the efficiency of power users. It is written in Java and has around 14k LoC.
+
+== Summary of contributions
+
+* *Major enhancement*: added statistics mechanism*
+** What it does: allows each flashcard to have a success rate based on the quiz mode. The statistics can be seen by both the user and the app.
+** Justification: This feature improves the product significantly because it makes the user knows which card they are weak at. By storing statistics, the app becomes smarter in choosing cards to be quizzed.
+** Highlights: This enhancement affects the quiz command and can be used as a backbone of a recommendation system feature.
+** Related code: https://github.com/CS2103-AY1819S2-T12-2/main/pull/13[Statistics Command], https://github.com/CS2103-AY1819S2-T12-2/main/pull/40[Filter on Stats]
+
+* *Major enhancement*: added Spaced Repetition System (SRS) mechanism*
+** What it does: This system is an adaptive recommendation learning system. Here the SRS is designed as follow, each flashcard stores the proficiency level of the user and the time which it can't be reviewed before that time. Each time a user successfully guess a flashcard, the proficiency level of that card is increased by one and the time interval is increased proportionally with proficiency level. If a user fail to guess the flashcard, the proficiency level is decreased to 0. Thus, this system creates an adaptive behaviour, where more hard to remember cards are more often reviewed than the easier one.
+** Justification: This enhancement improves the product significantly because by using Spaced Repetition System, the learning  is more focused on the "more hard to remember" flashcards. Thus the user learns more effectively.
+** Highlights: This system uses a learning technique called Spaced Repetition that incorporates increasing intervals of time between subsequent review of previously learned material in order to exploits the psychological spacing effect.
+** Credits: This feature is inspired by https://en.wikipedia.org/wiki/Leitner_system[Leitner System]
+** Related code: https://github.com/CS2103-AY1819S2-T12-2/main/pull/86[SRS Mode], https://github.com/CS2103-AY1819S2-T12-2/main/pull/91[Time until Review is Displayed in Select]
+
+* *Minor enhancement*:
+** Added a functionality in find command to use substring match instead of word match. This functionality is particularly useful for finding a tedious chinese / japanese sentence.
+*** Related code: https://github.com/CS2103-AY1819S2-T12-2/main/pull/81[Find]
+** added functionality in undo / redo to display the command that it undone / redone. This functionality is particularly useful for if the user wants to keep track what he / she undo or redo.
+*** Related code: https://github.com/CS2103-AY1819S2-T12-2/main/pull/86[Undo/Redo]
+
+* *Other contributions*:
+
+** Project management:
+*** Setup github https://github.com/cs2103-ay1819s2-t12-2/main/issues?utf8=%E2%9C%93&q=is%3Aissue+author%3Alungsin[issues]
+*** https://github.com/CS2103-AY1819S2-T12-2/main/pulls?utf8=%E2%9C%93&q=is%3Apr+reviewed-by%3Alungsin+is%3Aclosed+[Reviewed and approved several PRs]
+** Enhancements to existing features:
+*** Wrote additional tests for existing features to increase coverage
+** Tools:
+*** Integrated a third party library (Reposense) to the project (https://github.com/CS2103-AY1819S2-T12-2/main/pull/42[#42])
+** Code contributed: [https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#search=KWE[Reposense]]
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=stats]
+
+include::../UserGuide.adoc[tag=srs]
+
+include::../UserGuide.adoc[tag=select]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=srs]
+
+include::../DeveloperGuide.adoc[tag=statistics]
+
+

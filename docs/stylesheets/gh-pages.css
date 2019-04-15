@@ -1,4 +1,4 @@
-@import url(https://fonts.googleapis.com/css?family=Montserrat|Open+Sans);
+@import url(https://fonts.googleapis.com/css?family=Heebo|Bitter|Montserrat|Open+Sans);
 @import "asciidoctor.css"; /* Default asciidoc style framework - important */
 
 /* Custom block: details */
@@ -40,7 +40,7 @@ h5,
 h5 > a.link,
 h6,
 h6 > a.link {
-    color: #e46c0a;
+    color: #1565c0;
 }
 
 .subheader,
@@ -62,7 +62,7 @@ table.tableblock > .title,
 .ulist > .title,
 .qlist > .title,
 .hdlist > .title {
-    color: rgb(197, 90, 17);
+    color: rgb(13, 71, 161);
 }
 
 @media screen {
@@ -200,6 +200,10 @@ table.tableblock > .title,
     margin: 0px;
     border: 0px;
     padding: 1rem 1rem;
+}
+
+ol {
+    font-family: "Heebo";
 }
 
 /* Do not display site header on print mediums */

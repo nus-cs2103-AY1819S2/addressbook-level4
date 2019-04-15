@@ -1,11 +1,15 @@
 package seedu.address.ui;
 
+import static seedu.address.logic.commands.SelectCommand.MESSAGE_SELECT_FLASHCARD_SUCCESS;
+
 import java.util.logging.Logger;
 
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
@@ -16,6 +20,7 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.flashcard.Flashcard;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -31,28 +36,40 @@ public class MainWindow extends UiPart<Stage> {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    private BrowserPanel browserPanel;
-    private PersonListPanel personListPanel;
+    private FlashcardListPanel flashcardListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
 
+    private double xOffset = 0;
+    private double yOffset = 0;
+
     @FXML
-    private StackPane browserPlaceholder;
+    private StackPane cardViewPlaceholder;
 
     @FXML
     private StackPane commandBoxPlaceholder;
 
     @FXML
-    private MenuItem helpMenuItem;
-
-    @FXML
-    private StackPane personListPanelPlaceholder;
+    private StackPane flashcardListPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
 
     @FXML
     private StackPane statusbarPlaceholder;
+
+    @FXML
+    private StackPane toolbar;
+
+    @FXML
+    private ImageView closeButton;
+
+    @FXML
+    private ImageView helpButton;
+
+    @FXML
+    private ImageView minimizeButton;
+
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -64,9 +81,22 @@ public class MainWindow extends UiPart<Stage> {
         // Configure the UI
         setWindowDefaultSize(logic.getGuiSettings());
 
+        setupToolbar();
+
         setAccelerators();
 
         helpWindow = new HelpWindow();
+    }
+
+    private void setupToolbar() {
+        toolbar.setOnMousePressed(mouseEvent -> {
+            xOffset = mouseEvent.getSceneX();
+            yOffset = mouseEvent.getSceneY();
+        });
+        toolbar.setOnMouseDragged(mouseEvent -> {
+            getPrimaryStage().setX(mouseEvent.getScreenX() - xOffset);
+            getPrimaryStage().setY(mouseEvent.getScreenY() - yOffset);
+        });
     }
 
     public Stage getPrimaryStage() {
@@ -74,11 +104,12 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     private void setAccelerators() {
-        setAccelerator(helpMenuItem, KeyCombination.valueOf("F1"));
+        // setAccelerator(helpMenuItem, KeyCombination.valueOf("F1"));
     }
 
     /**
      * Sets the accelerator of a MenuItem.
+     *
      * @param keyCombination the KeyCombination value of the accelerator
      */
     private void setAccelerator(MenuItem menuItem, KeyCombination keyCombination) {
@@ -111,21 +142,69 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        browserPanel = new BrowserPanel(logic.selectedPersonProperty());
-        browserPlaceholder.getChildren().add(browserPanel.getRoot());
+        CardViewPanel cardViewPanel = new CardViewPanel(logic.selectedFlashcardProperty(), logic.quizModeProperty());
+        cardViewPlaceholder.getChildren().add(cardViewPanel.getRoot());
 
-        personListPanel = new PersonListPanel(logic.getFilteredPersonList(), logic.selectedPersonProperty(),
-                logic::setSelectedPerson);
-        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+        flashcardListPanel = new FlashcardListPanel(logic.getFilteredFlashcardList(), logic.selectedFlashcardProperty(),
+            this::setSelectedFlashcard);
+        flashcardListPanelPlaceholder.getChildren().add(flashcardListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath(), logic.getAddressBook());
+        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getCardCollectionFilePath(),
+            logic.getCardCollection());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand, logic.getHistory());
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+    }
+
+    private void setSelectedFlashcard(Flashcard flashcard) {
+        ObservableList<Flashcard> filteredFlashcardList = logic.getFilteredFlashcardList();
+        int index = filteredFlashcardList.indexOf(flashcard) + 1;
+        String messageDisplay = String.format(MESSAGE_SELECT_FLASHCARD_SUCCESS, index,
+            flashcard.getSuccessRate(), flashcard.getQuizSrsStatus());
+        resultDisplay.setFeedbackToUser(messageDisplay);
+        logic.setSelectedFlashcard(flashcard);
+    }
+
+    /**
+     * Sets up the listeners needed.
+     */
+    void setupListeners() {
+        logic.quizModeProperty().addListener(((observableValue, oldValue, newValue) -> onQuizModeChanged(newValue)));
+        closeButton.setOnMouseClicked(mouseEvent -> handleExit());
+        helpButton.setOnMouseClicked(mouseEvent -> handleHelp());
+        minimizeButton.setOnMouseClicked(mouseEvent -> primaryStage.setIconified(true));
+    }
+
+    /**
+     * Prepares view when quiz mode changes.
+     *
+     * @param newQuizMode the changed quiz mode
+     */
+    private void onQuizModeChanged(Integer newQuizMode) {
+        if (newQuizMode == 0) {
+            endQuizMode();
+        } else {
+            startQuizMode();
+        }
+    }
+
+    /**
+     * Starts a quiz mode.
+     */
+    private void startQuizMode() {
+        flashcardListPanelPlaceholder.getChildren().clear();
+        QuizPanel quizPanel = new QuizPanel(logic.getQuizFlashcards(),
+            logic.quizGoodProperty(), logic.quizBadProperty(), logic.isQuizSrsProperty());
+        flashcardListPanelPlaceholder.getChildren().add(quizPanel.getRoot());
+    }
+
+    private void endQuizMode() {
+        flashcardListPanelPlaceholder.getChildren().clear();
+        flashcardListPanelPlaceholder.getChildren().add(flashcardListPanel.getRoot());
     }
 
     /**
@@ -162,14 +241,14 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private void handleExit() {
         GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
-                (int) primaryStage.getX(), (int) primaryStage.getY());
+            (int) primaryStage.getX(), (int) primaryStage.getY());
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
         primaryStage.hide();
     }
 
-    public PersonListPanel getPersonListPanel() {
-        return personListPanel;
+    public FlashcardListPanel getFlashcardListPanel() {
+        return flashcardListPanel;
     }
 
     /**

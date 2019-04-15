@@ -1,0 +1,25 @@
+{
+  "authors":
+  [
+    {
+      "githubId": "lungsin",
+      "displayName": "KWE...SIN",
+      "authorNames": ["lungsin", "Lung Sin"]
+    },
+    {
+      "githubId": "lucatriglia",
+      "displayName": "LUC...LIA",
+      "authorNames": ["lucatriglia"]
+    },
+    {
+      "githubId": "robincyu",
+      "displayName": "ROB... YU",
+      "authorNames": ["robincyu"]
+    },
+    {
+      "githubId": "sergiovieri",
+      "displayName": "SER...ERI",
+      "authorNames": ["sergiovieri", "sergio.vieri", "Sergio Vieri"]
+    }
+  ]
+}

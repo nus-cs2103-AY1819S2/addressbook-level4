@@ -6,14 +6,16 @@ import java.util.function.Predicate;
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.person.Person;
+import seedu.address.model.flashcard.Flashcard;
 
 /**
  * The API of the Model component.
  */
 public interface Model {
-    /** {@code Predicate} that always evaluate to true */
-    Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+    /**
+     * {@code Predicate} that always evaluate to true
+     */
+    Predicate<Flashcard> PREDICATE_SHOW_ALL_FLASHCARDS = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -36,95 +38,176 @@ public interface Model {
     void setGuiSettings(GuiSettings guiSettings);
 
     /**
-     * Returns the user prefs' address book file path.
+     * Returns the user prefs' card collection file path.
      */
-    Path getAddressBookFilePath();
+    Path getCardCollectionFilePath();
 
     /**
-     * Sets the user prefs' address book file path.
+     * Sets the user prefs' card collection file path.
      */
-    void setAddressBookFilePath(Path addressBookFilePath);
+    void setCardCollectionFilePath(Path cardCollectionFilePath);
 
     /**
-     * Replaces address book data with the data in {@code addressBook}.
+     * Replaces card collection data with the data in {@code cardCollection}.
      */
-    void setAddressBook(ReadOnlyAddressBook addressBook);
-
-    /** Returns the AddressBook */
-    ReadOnlyAddressBook getAddressBook();
+    void setCardCollection(ReadOnlyCardCollection cardCollection);
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
+     * Returns the CardCollection
      */
-    boolean hasPerson(Person person);
+    ReadOnlyCardCollection getCardCollection();
 
     /**
-     * Deletes the given person.
-     * The person must exist in the address book.
+     * Returns true if a flashcard with the same identity as {@code flashcard} exists in the card collection.
      */
-    void deletePerson(Person target);
+    boolean hasFlashcard(Flashcard flashcard);
 
     /**
-     * Adds the given person.
-     * {@code person} must not already exist in the address book.
+     * Deletes the given flashcard.
+     * The flashcard must exist in the card collection.
      */
-    void addPerson(Person person);
+    void deleteFlashcard(Flashcard target);
 
     /**
-     * Replaces the given person {@code target} with {@code editedPerson}.
-     * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     * Adds the given flashcard.
+     * {@code flashcard} must not already exist in the card collection.
      */
-    void setPerson(Person target, Person editedPerson);
-
-    /** Returns an unmodifiable view of the filtered person list */
-    ObservableList<Person> getFilteredPersonList();
+    void addFlashcard(Flashcard flashcard);
 
     /**
-     * Updates the filter of the filtered person list to filter by the given {@code predicate}.
+     * Replaces the given flashcard {@code target} with {@code editedFlashcard}.
+     * {@code target} must exist in the card collection.
+     * The flashcard identity of {@code editedFlashcard} must not be the same as another existing flashcard in the card
+     * collection.
+     */
+    void setFlashcard(Flashcard target, Flashcard editedFlashcard);
+
+    /**
+     * Returns an unmodifiable view of the filtered flashcard list
+     */
+    ObservableList<Flashcard> getFilteredFlashcardList();
+
+    /**
+     * Updates the filter of the filtered flashcard list to filter by the given {@code predicate}.
+     *
      * @throws NullPointerException if {@code predicate} is null.
      */
-    void updateFilteredPersonList(Predicate<Person> predicate);
+    void updateFilteredFlashcardList(Predicate<Flashcard> predicate);
 
     /**
-     * Returns true if the model has previous address book states to restore.
+     * Returns true if the model has previous card collection states to restore.
      */
-    boolean canUndoAddressBook();
+    boolean canUndoCardCollection();
 
     /**
-     * Returns true if the model has undone address book states to restore.
+     * Returns true if the model has undone card collection states to restore.
      */
-    boolean canRedoAddressBook();
+    boolean canRedoCardCollection();
 
     /**
-     * Restores the model's address book to its previous state.
+     * Restores the model's card collection to its previous state.
+     * @return  the command that makes change before and after undo.
      */
-    void undoAddressBook();
+    String undoCardCollection();
 
     /**
-     * Restores the model's address book to its previously undone state.
+     * Restores the model's card collection to its previously undone state.
+     * @return  the command that makes change before and after redo.
      */
-    void redoAddressBook();
+    String redoCardCollection();
 
     /**
-     * Saves the current address book state for undo/redo.
+     * Saves the current card collection state for undo/redo.
+     * @param command the command that makes the change.
      */
-    void commitAddressBook();
+    void commitCardCollection(String command);
 
     /**
-     * Selected person in the filtered person list.
-     * null if no person is selected.
+     * Saves the current card collection state for undo/redo.
      */
-    ReadOnlyProperty<Person> selectedPersonProperty();
+    void commitCardCollection();
 
     /**
-     * Returns the selected person in the filtered person list.
-     * null if no person is selected.
+     * Selected flashcard in the filtered flashcard list.
+     * null if no flashcard is selected.
      */
-    Person getSelectedPerson();
+    ReadOnlyProperty<Flashcard> selectedFlashcardProperty();
 
     /**
-     * Sets the selected person in the filtered person list.
+     * Current quiz mode. -1 for front face, 1 for back face, 0 for non-quiz mode.
      */
-    void setSelectedPerson(Person person);
+    ReadOnlyProperty<Integer> quizModeProperty();
+
+    /**
+     * Returns the selected flashcard in the filtered flashcard list.
+     * null if no flashcard is selected.
+     */
+    Flashcard getSelectedFlashcard();
+
+    /**
+     * Sets the selected flashcard in the filtered flashcard list.
+     */
+    void setSelectedFlashcard(Flashcard flashcard);
+
+    /**
+     * Returns the quiz mode.
+     */
+    Integer getQuizMode();
+
+    /**
+     * Sets the quiz mode.
+     */
+    void setQuizMode(Integer quizMode);
+
+    /**
+     * Sets the SRS mode.
+     */
+    void setIsQuizSrs(Boolean isQuizSrs);
+
+    /**
+     * Gets the quiz mode flashcards.
+     */
+    ObservableList<Flashcard> getQuizFlashcards();
+
+    /**
+     * Sets the quiz mode flashcards.
+     *
+     * @param flashcards the flashcards that is going to be quizzed
+     */
+    void setQuizFlashcards(ObservableList<Flashcard> flashcards);
+
+    /**
+     * Shows a flashcard for quiz mode from quiz flashcards.
+     */
+    void showNextQuizCard();
+
+    /**
+     * @return the number of good feedback in the current quiz mode
+     */
+    ReadOnlyProperty<Integer> getQuizGood();
+
+    /**
+     * @return the number of bad feedback in the current quiz mode
+     */
+    ReadOnlyProperty<Integer> getQuizBad();
+
+    /**
+     * @return is the current quiz session uses SRS mode.
+     */
+    ReadOnlyProperty<Boolean> getIsQuizSrs();
+
+    /**
+     * Resets the quiz statistics.
+     */
+    void resetQuizStat();
+
+    /**
+     * Adds good feedback.
+     */
+    void addGoodFeedback();
+
+    /**
+     * Adds bad feedback.
+     */
+    void addBadFeedback();
 }

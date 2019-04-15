@@ -1,107 +1,113 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_BACK_FACE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_FRONT_FACE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_IMAGE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_FLASHCARDS;
 
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 
 import seedu.address.commons.core.Messages;
+import seedu.address.commons.core.QuizState;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
+import seedu.address.model.flashcard.Face;
+import seedu.address.model.flashcard.Flashcard;
+import seedu.address.model.flashcard.ImagePath;
+import seedu.address.model.flashcard.Proficiency;
+import seedu.address.model.flashcard.Statistics;
 import seedu.address.model.tag.Tag;
 
 /**
- * Edits the details of an existing person in the address book.
+ * Edits the details of an existing flashcard in the card collection.
  */
 public class EditCommand extends Command {
 
     public static final String COMMAND_WORD = "edit";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the person identified "
-            + "by the index number used in the displayed person list. "
-            + "Existing values will be overwritten by the input values.\n"
-            + "Parameters: INDEX (must be a positive integer) "
-            + "[" + PREFIX_NAME + "NAME] "
-            + "[" + PREFIX_PHONE + "PHONE] "
-            + "[" + PREFIX_EMAIL + "EMAIL] "
-            + "[" + PREFIX_ADDRESS + "ADDRESS] "
-            + "[" + PREFIX_TAG + "TAG]...\n"
-            + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_PHONE + "91234567 "
-            + PREFIX_EMAIL + "johndoe@example.com";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the flashcard identified "
+        + "by the index number used in the displayed flashcard list. "
+        + "Existing values will be overwritten by the input values.\n"
+        + "Parameters: INDEX (must be a positive integer) "
+        + "[" + PREFIX_FRONT_FACE + "FRONT_FACE] "
+        + "[" + PREFIX_BACK_FACE + "BACK_FACE] "
+        + "[" + PREFIX_IMAGE + "IMAGE_NAME] "
+        + "[" + PREFIX_TAG + "TAG]...\n"
+        + "Example: " + COMMAND_WORD + " 1 "
+        + PREFIX_FRONT_FACE + "你好 "
+        + PREFIX_BACK_FACE + "Hello";
 
-    public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Person: %1$s";
+    public static final String MESSAGE_EDIT_FLASHCARD_SUCCESS = "Edited Flashcard: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.";
+    public static final String MESSAGE_DUPLICATE_FLASHCARD = "This flashcard already exists in the card collection.";
+    private static final String MESSAGE_IN_QUIZ = "Cannot edit in quiz mode.";
 
     private final Index index;
-    private final EditPersonDescriptor editPersonDescriptor;
+    private final EditFlashcardDescriptor editFlashcardDescriptor;
 
     /**
-     * @param index of the person in the filtered person list to edit
-     * @param editPersonDescriptor details to edit the person with
+     * @param index                   of the flashcard in the filtered flashcard list to edit
+     * @param editFlashcardDescriptor details to edit the flashcard with
      */
-    public EditCommand(Index index, EditPersonDescriptor editPersonDescriptor) {
+    public EditCommand(Index index, EditFlashcardDescriptor editFlashcardDescriptor) {
         requireNonNull(index);
-        requireNonNull(editPersonDescriptor);
+        requireNonNull(editFlashcardDescriptor);
 
         this.index = index;
-        this.editPersonDescriptor = new EditPersonDescriptor(editPersonDescriptor);
+        this.editFlashcardDescriptor = new EditFlashcardDescriptor(editFlashcardDescriptor);
+    }
+
+    /**
+     * Creates and returns a {@code Flashcard} with the details of {@code flashcardToEdit}
+     * edited with {@code editFlashcardDescriptor}.
+     */
+    private static Flashcard createEditedFlashcard(Flashcard flashcardToEdit,
+                                                   EditFlashcardDescriptor editFlashcardDescriptor) {
+        assert flashcardToEdit != null;
+
+        Face updatedFrontFace = editFlashcardDescriptor.getFrontFace().orElse(flashcardToEdit.getFrontFace());
+        Face updatedBackFace = editFlashcardDescriptor.getBackFace().orElse(flashcardToEdit.getBackFace());
+        ImagePath updatedImagePath = editFlashcardDescriptor.getImagePath().orElse(flashcardToEdit.getImagePath());
+        Set<Tag> updatedTags = editFlashcardDescriptor.getTags().orElse(flashcardToEdit.getTags());
+
+        Statistics statistics = flashcardToEdit.getStatistics(); // statistics cannot be edited
+        Proficiency proficiency = flashcardToEdit.getProficiency(); // proficiency cannot be edited
+        return new Flashcard(updatedFrontFace, updatedBackFace, updatedImagePath, statistics, proficiency, updatedTags);
     }
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
-        List<Person> lastShownList = model.getFilteredPersonList();
+        if (model.getQuizMode() != QuizState.NOT_QUIZ_MODE) {
+            throw new CommandException(MESSAGE_IN_QUIZ);
+        }
+        List<Flashcard> lastShownList = model.getFilteredFlashcardList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_FLASHCARD_DISPLAYED_INDEX);
         }
 
-        Person personToEdit = lastShownList.get(index.getZeroBased());
-        Person editedPerson = createEditedPerson(personToEdit, editPersonDescriptor);
+        Flashcard flashcardToEdit = lastShownList.get(index.getZeroBased());
+        Flashcard editedFlashcard = createEditedFlashcard(flashcardToEdit, editFlashcardDescriptor);
 
-        if (!personToEdit.isSamePerson(editedPerson) && model.hasPerson(editedPerson)) {
-            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+        if (!flashcardToEdit.isSameFlashcard(editedFlashcard) && model.hasFlashcard(editedFlashcard)) {
+            throw new CommandException(MESSAGE_DUPLICATE_FLASHCARD);
         }
 
-        model.setPerson(personToEdit, editedPerson);
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        model.commitAddressBook();
-        return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedPerson));
-    }
-
-    /**
-     * Creates and returns a {@code Person} with the details of {@code personToEdit}
-     * edited with {@code editPersonDescriptor}.
-     */
-    private static Person createEditedPerson(Person personToEdit, EditPersonDescriptor editPersonDescriptor) {
-        assert personToEdit != null;
-
-        Name updatedName = editPersonDescriptor.getName().orElse(personToEdit.getName());
-        Phone updatedPhone = editPersonDescriptor.getPhone().orElse(personToEdit.getPhone());
-        Email updatedEmail = editPersonDescriptor.getEmail().orElse(personToEdit.getEmail());
-        Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
-        Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
-
-        return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags);
+        model.updateFilteredFlashcardList(PREDICATE_SHOW_ALL_FLASHCARDS);
+        model.setFlashcard(flashcardToEdit, editedFlashcard);
+        model.commitCardCollection(EditCommand.COMMAND_WORD);
+        return new CommandResult(String.format(MESSAGE_EDIT_FLASHCARD_SUCCESS, editedFlashcard));
     }
 
     @Override
@@ -119,31 +125,30 @@ public class EditCommand extends Command {
         // state check
         EditCommand e = (EditCommand) other;
         return index.equals(e.index)
-                && editPersonDescriptor.equals(e.editPersonDescriptor);
+            && editFlashcardDescriptor.equals(e.editFlashcardDescriptor);
     }
 
     /**
-     * Stores the details to edit the person with. Each non-empty field value will replace the
-     * corresponding field value of the person.
+     * Stores the details to edit the flashcard with. Each non-empty field value will replace the
+     * corresponding field value of the flashcard.
      */
-    public static class EditPersonDescriptor {
-        private Name name;
-        private Phone phone;
-        private Email email;
-        private Address address;
+    public static class EditFlashcardDescriptor {
+        private Face frontFace;
+        private Face backFace;
+        private ImagePath imagePath;
         private Set<Tag> tags;
 
-        public EditPersonDescriptor() {}
+        public EditFlashcardDescriptor() {
+        }
 
         /**
          * Copy constructor.
          * A defensive copy of {@code tags} is used internally.
          */
-        public EditPersonDescriptor(EditPersonDescriptor toCopy) {
-            setName(toCopy.name);
-            setPhone(toCopy.phone);
-            setEmail(toCopy.email);
-            setAddress(toCopy.address);
+        public EditFlashcardDescriptor(EditFlashcardDescriptor toCopy) {
+            setFrontFace(toCopy.frontFace);
+            setBackFace(toCopy.backFace);
+            setImagePath(toCopy.imagePath);
             setTags(toCopy.tags);
         }
 
@@ -151,47 +156,31 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, email, address, tags);
+            return CollectionUtil.isAnyNonNull(frontFace, backFace, imagePath, tags);
         }
 
-        public void setName(Name name) {
-            this.name = name;
+        public Optional<Face> getFrontFace() {
+            return Optional.ofNullable(frontFace);
         }
 
-        public Optional<Name> getName() {
-            return Optional.ofNullable(name);
+        public void setFrontFace(Face frontFace) {
+            this.frontFace = frontFace;
         }
 
-        public void setPhone(Phone phone) {
-            this.phone = phone;
+        public Optional<Face> getBackFace() {
+            return Optional.ofNullable(backFace);
         }
 
-        public Optional<Phone> getPhone() {
-            return Optional.ofNullable(phone);
+        public void setBackFace(Face backFace) {
+            this.backFace = backFace;
         }
 
-        public void setEmail(Email email) {
-            this.email = email;
+        public Optional<ImagePath> getImagePath() {
+            return Optional.ofNullable(imagePath);
         }
 
-        public Optional<Email> getEmail() {
-            return Optional.ofNullable(email);
-        }
-
-        public void setAddress(Address address) {
-            this.address = address;
-        }
-
-        public Optional<Address> getAddress() {
-            return Optional.ofNullable(address);
-        }
-
-        /**
-         * Sets {@code tags} to this object's {@code tags}.
-         * A defensive copy of {@code tags} is used internally.
-         */
-        public void setTags(Set<Tag> tags) {
-            this.tags = (tags != null) ? new HashSet<>(tags) : null;
+        public void setImagePath(ImagePath imagePath) {
+            this.imagePath = imagePath;
         }
 
         /**
@@ -203,26 +192,58 @@ public class EditCommand extends Command {
             return (tags != null) ? Optional.of(Collections.unmodifiableSet(tags)) : Optional.empty();
         }
 
+        /**
+         * Sets {@code tags} to this object's {@code tags}.
+         * A defensive copy of {@code tags} is used internally.
+         */
+        public void setTags(Set<Tag> tags) {
+            this.tags = (tags != null) ? new HashSet<>(tags) : null;
+        }
+
         @Override
-        public boolean equals(Object other) {
-            // short circuit if same object
-            if (other == this) {
+        public boolean equals(Object o) {
+            if (this == o) {
                 return true;
             }
-
-            // instanceof handles nulls
-            if (!(other instanceof EditPersonDescriptor)) {
+            if (!(o instanceof EditFlashcardDescriptor)) {
                 return false;
             }
+            EditFlashcardDescriptor that = (EditFlashcardDescriptor) o;
 
-            // state check
-            EditPersonDescriptor e = (EditPersonDescriptor) other;
+            // Due to the strange nature of constructing these, it is necessary
+            // to check if the image path actually points to a valid image when
+            // comparing edit commands.
+            if (!getImagePath().isPresent() && !that.getImagePath().isPresent()) {
+                return getFrontFace().equals(that.getFrontFace())
+                    && getBackFace().equals(that.getBackFace())
+                    && getTags().equals(that.getTags());
+            } else if (getImagePath().isPresent() && !that.getImagePath().isPresent()) {
+                if (getImagePath().get().hasImagePath()) {
+                    return false;
+                } else {
+                    return getFrontFace().equals(that.getFrontFace())
+                        && getBackFace().equals(that.getBackFace())
+                        && getTags().equals(that.getTags());
+                }
+            } else if (!getImagePath().isPresent() && that.getImagePath().isPresent()) {
+                if (!that.getImagePath().get().hasImagePath()) {
+                    return false;
+                } else {
+                    return getFrontFace().equals(that.getFrontFace())
+                        && getBackFace().equals(that.getBackFace())
+                        && getTags().equals(that.getTags());
+                }
+            } else {
+                return getFrontFace().equals(that.getFrontFace())
+                    && getBackFace().equals(that.getBackFace())
+                    && getImagePath().equals(that.getImagePath())
+                    && getTags().equals(that.getTags());
+            }
+        }
 
-            return getName().equals(e.getName())
-                    && getPhone().equals(e.getPhone())
-                    && getEmail().equals(e.getEmail())
-                    && getAddress().equals(e.getAddress())
-                    && getTags().equals(e.getTags());
+        @Override
+        public int hashCode() {
+            return Objects.hash(getFrontFace(), getBackFace(), getImagePath(), getTags());
         }
     }
 }

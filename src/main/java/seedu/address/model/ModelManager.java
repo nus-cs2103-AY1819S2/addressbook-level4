@@ -15,50 +15,56 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.exceptions.PersonNotFoundException;
+import seedu.address.commons.core.QuizState;
+import seedu.address.model.flashcard.Flashcard;
+import seedu.address.model.flashcard.exceptions.FlashcardNotFoundException;
 
 /**
- * Represents the in-memory model of the address book data.
+ * Represents the in-memory model of the card collection data.
  */
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final VersionedAddressBook versionedAddressBook;
+    private final VersionedCardCollection versionedCardCollection;
     private final UserPrefs userPrefs;
-    private final FilteredList<Person> filteredPersons;
-    private final SimpleObjectProperty<Person> selectedPerson = new SimpleObjectProperty<>();
+    private final FilteredList<Flashcard> filteredFlashcards;
+    private final SimpleObjectProperty<Flashcard> selectedFlashcard = new SimpleObjectProperty<>();
+    private final SimpleObjectProperty<Integer> quizMode = new SimpleObjectProperty<>(0);
+    private final SimpleObjectProperty<Integer> quizGood = new SimpleObjectProperty<>(0);
+    private final SimpleObjectProperty<Integer> quizBad = new SimpleObjectProperty<>(0);
+    private final SimpleObjectProperty<Boolean> isQuizSrs = new SimpleObjectProperty<>(false);
+    private ObservableList<Flashcard> quizFlashcards;
 
     /**
-     * Initializes a ModelManager with the given addressBook and userPrefs.
+     * Initializes a ModelManager with the given cardCollection and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyCardCollection cardCollection, ReadOnlyUserPrefs userPrefs) {
         super();
-        requireAllNonNull(addressBook, userPrefs);
+        requireAllNonNull(cardCollection, userPrefs);
 
-        logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
+        logger.fine("Initializing with card collection: " + cardCollection + " and user prefs " + userPrefs);
 
-        versionedAddressBook = new VersionedAddressBook(addressBook);
+        versionedCardCollection = new VersionedCardCollection(cardCollection);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
-        filteredPersons.addListener(this::ensureSelectedPersonIsValid);
+        filteredFlashcards = new FilteredList<>(versionedCardCollection.getFlashcardList());
+        filteredFlashcards.addListener(this::ensureSelectedFlashcardIsValid);
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs());
+        this(new CardCollection(), new UserPrefs());
     }
 
     //=========== UserPrefs ==================================================================================
 
     @Override
-    public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
-        requireNonNull(userPrefs);
-        this.userPrefs.resetData(userPrefs);
+    public ReadOnlyUserPrefs getUserPrefs() {
+        return userPrefs;
     }
 
     @Override
-    public ReadOnlyUserPrefs getUserPrefs() {
-        return userPrefs;
+    public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
+        requireNonNull(userPrefs);
+        this.userPrefs.resetData(userPrefs);
     }
 
     @Override
@@ -73,144 +79,227 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Path getAddressBookFilePath() {
-        return userPrefs.getAddressBookFilePath();
+    public Path getCardCollectionFilePath() {
+        return userPrefs.getCardCollectionFilePath();
     }
 
     @Override
-    public void setAddressBookFilePath(Path addressBookFilePath) {
-        requireNonNull(addressBookFilePath);
-        userPrefs.setAddressBookFilePath(addressBookFilePath);
+    public void setCardCollectionFilePath(Path cardCollectionFilePath) {
+        requireNonNull(cardCollectionFilePath);
+        userPrefs.setCardCollectionFilePath(cardCollectionFilePath);
     }
 
-    //=========== AddressBook ================================================================================
+    //=========== CardCollection ================================================================================
 
     @Override
-    public void setAddressBook(ReadOnlyAddressBook addressBook) {
-        versionedAddressBook.resetData(addressBook);
-    }
-
-    @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return versionedAddressBook;
+    public ReadOnlyCardCollection getCardCollection() {
+        return versionedCardCollection;
     }
 
     @Override
-    public boolean hasPerson(Person person) {
-        requireNonNull(person);
-        return versionedAddressBook.hasPerson(person);
+    public void setCardCollection(ReadOnlyCardCollection cardCollection) {
+        versionedCardCollection.resetData(cardCollection);
     }
 
     @Override
-    public void deletePerson(Person target) {
-        versionedAddressBook.removePerson(target);
+    public boolean hasFlashcard(Flashcard flashcard) {
+        requireNonNull(flashcard);
+        return versionedCardCollection.hasFlashcard(flashcard);
     }
 
     @Override
-    public void addPerson(Person person) {
-        versionedAddressBook.addPerson(person);
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+    public void deleteFlashcard(Flashcard target) {
+        versionedCardCollection.removeFlashcard(target);
     }
 
     @Override
-    public void setPerson(Person target, Person editedPerson) {
-        requireAllNonNull(target, editedPerson);
-
-        versionedAddressBook.setPerson(target, editedPerson);
+    public void addFlashcard(Flashcard flashcard) {
+        versionedCardCollection.addFlashcard(flashcard);
+        updateFilteredFlashcardList(PREDICATE_SHOW_ALL_FLASHCARDS);
     }
 
-    //=========== Filtered Person List Accessors =============================================================
+    @Override
+    public void setFlashcard(Flashcard target, Flashcard editedFlashcard) {
+        requireAllNonNull(target, editedFlashcard);
+
+        versionedCardCollection.setFlashcard(target, editedFlashcard);
+    }
+
+    //=========== Filtered Flashcard List Accessors =============================================================
 
     /**
-     * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
-     * {@code versionedAddressBook}
+     * Returns an unmodifiable view of the list of {@code Flashcard} backed by the internal list of
+     * {@code versionedCardCollection}
      */
     @Override
-    public ObservableList<Person> getFilteredPersonList() {
-        return filteredPersons;
+    public ObservableList<Flashcard> getFilteredFlashcardList() {
+        return filteredFlashcards;
     }
 
     @Override
-    public void updateFilteredPersonList(Predicate<Person> predicate) {
+    public void updateFilteredFlashcardList(Predicate<Flashcard> predicate) {
         requireNonNull(predicate);
-        filteredPersons.setPredicate(predicate);
+        filteredFlashcards.setPredicate(predicate);
     }
 
-    //=========== Undo/Redo =================================================================================
+    //=========== Undo/Redo ====================================================================================
 
     @Override
-    public boolean canUndoAddressBook() {
-        return versionedAddressBook.canUndo();
-    }
-
-    @Override
-    public boolean canRedoAddressBook() {
-        return versionedAddressBook.canRedo();
+    public boolean canUndoCardCollection() {
+        return versionedCardCollection.canUndo();
     }
 
     @Override
-    public void undoAddressBook() {
-        versionedAddressBook.undo();
+    public boolean canRedoCardCollection() {
+        return versionedCardCollection.canRedo();
     }
 
     @Override
-    public void redoAddressBook() {
-        versionedAddressBook.redo();
+    public String undoCardCollection() {
+        return versionedCardCollection.undo();
     }
 
     @Override
-    public void commitAddressBook() {
-        versionedAddressBook.commit();
-    }
-
-    //=========== Selected person ===========================================================================
-
-    @Override
-    public ReadOnlyProperty<Person> selectedPersonProperty() {
-        return selectedPerson;
+    public String redoCardCollection() {
+        return versionedCardCollection.redo();
     }
 
     @Override
-    public Person getSelectedPerson() {
-        return selectedPerson.getValue();
+    public void commitCardCollection(String commandText) {
+        versionedCardCollection.commit(commandText);
     }
 
     @Override
-    public void setSelectedPerson(Person person) {
-        if (person != null && !filteredPersons.contains(person)) {
-            throw new PersonNotFoundException();
+    public void commitCardCollection() {
+        versionedCardCollection.commit("");
+    }
+
+    //=========== Selected flashcard ============================================================================
+
+    @Override
+    public ReadOnlyProperty<Flashcard> selectedFlashcardProperty() {
+        return selectedFlashcard;
+    }
+
+    @Override
+    public Flashcard getSelectedFlashcard() {
+        return selectedFlashcard.getValue();
+    }
+
+    @Override
+    public void setSelectedFlashcard(Flashcard flashcard) {
+        if (flashcard != null && !filteredFlashcards.contains(flashcard)) {
+            throw new FlashcardNotFoundException();
         }
-        selectedPerson.setValue(person);
+        selectedFlashcard.setValue(flashcard);
     }
 
     /**
-     * Ensures {@code selectedPerson} is a valid person in {@code filteredPersons}.
+     * Ensures {@code selectedFlashcard} is a valid flashcard in {@code filteredFlashcards}.
      */
-    private void ensureSelectedPersonIsValid(ListChangeListener.Change<? extends Person> change) {
+    private void ensureSelectedFlashcardIsValid(ListChangeListener.Change<? extends Flashcard> change) {
         while (change.next()) {
-            if (selectedPerson.getValue() == null) {
-                // null is always a valid selected person, so we do not need to check that it is valid anymore.
+            if (selectedFlashcard.getValue() == null) {
+                // null is always a valid selected flashcard, so we do not need to check that it is valid anymore.
                 return;
             }
 
-            boolean wasSelectedPersonReplaced = change.wasReplaced() && change.getAddedSize() == change.getRemovedSize()
-                    && change.getRemoved().contains(selectedPerson.getValue());
-            if (wasSelectedPersonReplaced) {
-                // Update selectedPerson to its new value.
-                int index = change.getRemoved().indexOf(selectedPerson.getValue());
-                selectedPerson.setValue(change.getAddedSubList().get(index));
+            boolean wasSelectedFlashcardReplaced =
+                change.wasReplaced() && change.getAddedSize() == change.getRemovedSize()
+                    && change.getRemoved().contains(selectedFlashcard.getValue());
+            if (wasSelectedFlashcardReplaced) {
+                // Update selectedFlashcard to its new value.
+                int index = change.getRemoved().indexOf(selectedFlashcard.getValue());
+                selectedFlashcard.setValue(change.getAddedSubList().get(index));
                 continue;
             }
 
-            boolean wasSelectedPersonRemoved = change.getRemoved().stream()
-                    .anyMatch(removedPerson -> selectedPerson.getValue().isSamePerson(removedPerson));
-            if (wasSelectedPersonRemoved) {
-                // Select the person that came before it in the list,
-                // or clear the selection if there is no such person.
-                selectedPerson.setValue(change.getFrom() > 0 ? change.getList().get(change.getFrom() - 1) : null);
+            boolean wasSelectedFlashcardRemoved = change.getRemoved().stream()
+                .anyMatch(removedFlashcard -> selectedFlashcard.getValue().isSameFlashcard(removedFlashcard))
+                && !change.getAddedSubList().contains(selectedFlashcard.getValue());
+            if (wasSelectedFlashcardRemoved) {
+                // Select the flashcard that came before it in the list,
+                // or clear the selection if there is no such flashcard.
+                selectedFlashcard.setValue(change.getFrom() > 0 ? change.getList().get(change.getFrom() - 1) : null);
             }
         }
     }
+
+    //=========== Quiz Mode =====================================================================================
+
+    @Override
+    public ObservableList<Flashcard> getQuizFlashcards() {
+        return quizFlashcards;
+    }
+
+    @Override
+    public void setQuizFlashcards(ObservableList<Flashcard> flashcards) {
+        quizFlashcards = flashcards;
+    }
+
+    @Override
+    public ReadOnlyProperty<Integer> quizModeProperty() {
+        return quizMode;
+    }
+
+    @Override
+    public Integer getQuizMode() {
+        return quizMode.getValue();
+    }
+
+    @Override
+    public void setQuizMode(Integer quizMode) {
+        this.quizMode.setValue(quizMode);
+    }
+
+    @Override
+    public void showNextQuizCard() {
+        quizMode.setValue(QuizState.QUIZ_MODE_FRONT);
+        Flashcard flashcard = quizFlashcards.get(0);
+        setSelectedFlashcard(flashcard);
+        quizFlashcards.remove(0);
+    }
+
+    @Override
+    public ReadOnlyProperty<Integer> getQuizGood() {
+        return quizGood;
+    }
+
+    @Override
+    public ReadOnlyProperty<Integer> getQuizBad() {
+        return quizBad;
+    }
+
+    @Override
+    public ReadOnlyProperty<Boolean> getIsQuizSrs() {
+        return isQuizSrs;
+    }
+
+    @Override
+    public void setIsQuizSrs(Boolean isQuizSrs) {
+        this.isQuizSrs.setValue(isQuizSrs);
+    }
+
+    @Override
+    public void resetQuizStat() {
+        quizGood.setValue(0);
+        quizBad.setValue(0);
+    }
+
+    @Override
+    public void addGoodFeedback() {
+        Flashcard updatedFlashcard = selectedFlashcard.getValue().quizAttempt(true, isQuizSrs.getValue());
+        setFlashcard(selectedFlashcard.getValue(), updatedFlashcard);
+        quizGood.setValue(quizGood.getValue() + 1);
+    }
+
+    @Override
+    public void addBadFeedback() {
+        Flashcard updatedFlashcard = selectedFlashcard.getValue().quizAttempt(false, isQuizSrs.getValue());
+        setFlashcard(selectedFlashcard.getValue(), updatedFlashcard);
+        quizBad.setValue(quizBad.getValue() + 1);
+    }
+
 
     @Override
     public boolean equals(Object obj) {
@@ -226,10 +315,10 @@ public class ModelManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
-        return versionedAddressBook.equals(other.versionedAddressBook)
-                && userPrefs.equals(other.userPrefs)
-                && filteredPersons.equals(other.filteredPersons)
-                && Objects.equals(selectedPerson.get(), other.selectedPerson.get());
+        return versionedCardCollection.equals(other.versionedCardCollection)
+            && userPrefs.equals(other.userPrefs)
+            && filteredFlashcards.equals(other.filteredFlashcards)
+            && Objects.equals(selectedFlashcard.get(), other.selectedFlashcard.get());
     }
 
 }

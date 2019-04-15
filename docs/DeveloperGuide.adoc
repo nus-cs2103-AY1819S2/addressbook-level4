@@ -411,12 +411,25 @@ Given below is an example usage scenario and how the addBook mechanism behaves a
 
 Step 1. The user launches the application for the first time. The `VersionedBookShelf` will be initialized with the initial bookshelf state, and the `currentStatePointer` pointing to that single bookshelf state.
 
-Step 2. The user executes `addBook n/Alice a/HR m/5 tag/fantasy` command to add the book called Alice, written by HR, with a rating of 5 and tag of fantasy in the Bookshelf. The `addBook` command calls `Model#hasBook()`, checking if the book already exists in the bookshelf.
+Step 2. The user executes `addBook n/Alice a/HR m/5 tag/fantasy` command to add the book called Alice, written by HR, with a rating of 5 and tag of fantasy in the Bookshelf. The `AddBookCommandParser` check if the command is in valid format.
+
+[NOTE]
+If the command is not in valid format, ParseException(MESSAGE_INVALID_COMMAND_FORMAT) will be thrown. The book will not be added to the bookshelf.
+
+Step 3. The `addBook` command calls `Model#hasBook()`, checking if the book already exists in the bookshelf.
 
 [NOTE]
 If the book already exists, CommandException(MESSAGE_DUPLICATE_BOOK) will be thrown. It will not call `Model#commitBookShelf()`, so the bookshelf state will not be saved into the `BookShelfStateList`.
 
 Step 4. The bookshelf now adds the book to the Bookshelf after making sure there are no duplicates, and calls Model#commitBookShelf(), causing the modified state of the Bookshelf after the `addBook` command executes to be saved in the BookShelfStateList
+
+The Sequence Diagram below shows how the components interact with each other for the scenario where the user issues the command `addBook n/Alice a/HR m/5 tag/fantasy`.
+
+image::AddBookHighLevelSequenceDiagrams.png[width="800"]
+
+The following activity diagram summarizes what happens when a user executes an AddBook command:
+
+image::AddBookActivityDiagram.png[width="800"]
 
 ==== Design Considerations
 
@@ -431,12 +444,23 @@ Step 4. The bookshelf now adds the book to the Bookshelf after making sure there
 
 ===== Aspect: Data structure to support the addBook command
 
-* **Alternative 1 (current choice):** Saves the entire book as one object contains different components such as author, rating, etc.
+* **Alternative 1 (current choice):** Saves the entire book as one object contains different fields such as author, rating, etc.
 ** Pros: Easy to implement delete and other features that change an entire book.
-** Cons: Maybe more difficult to implement the summary feature which needs to obtain statistics of all separate components, eg. find the most popular author.
-* **Alternative 2:** Components stored as individual objects.
+** Cons: Maybe more difficult to implement the summary feature which needs to obtain statistics of all separate fields stored in each book, eg. find the most popular author.
+
+[NOTE]
+An example of the current model is given below. +
+ +
+image:BookModelComponentClassOopDiagram.png[width="800"]
+
+* **Alternative 2:** Store a Tag list and an Author List in BookShelf, which Book can reference.
 ** Pros: Easier to obtain statistics regarding each component.
-** Cons: It is hard to manage book object as we need to find a way to connect all components together.
+** Cons: It is harder to manage book object as we need to find a way to connect all components together.
+
+[NOTE]
+An example of the alternative model is given below. +
+ +
+image:BookModelComponentAlternativeClassOopDiagram.png[width="800"]
 
 === EditBook feature
 ==== Current Implementation

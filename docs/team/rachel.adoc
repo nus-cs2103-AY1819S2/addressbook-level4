@@ -89,23 +89,15 @@ The implementation was challenging as this enhancement requires many changes in 
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=quickstart]
-
 include::../UserGuide.adoc[tag=add-e]
 
 include::../UserGuide.adoc[tag=select-c]
-
-include::../UserGuide.adoc[tag=glossary]
-
-include::../UserGuide.adoc[tag=commandsummary]
 
 == Contributions to the Developer Guide
 
 |===
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
-
-include::../DeveloperGuide.adoc[tag=design]
 
 include::../DeveloperGuide.adoc[tag=equipment]
 

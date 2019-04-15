@@ -99,9 +99,9 @@ public class BookShelfParserTest {
         Book book = new BookBuilder().build();
         ListBookCommand command = (ListBookCommand) parser.parseCommand(BookUtil.getListBookCommand(book));
         BookListFilterPredicate predicate = new BookListFilterPredicate(
-                Arrays.asList(book.getBookName().fullName),
-                Arrays.asList(book.getAuthor().fullName),
-                book.getTags().stream().map(x -> x.tagName).collect(Collectors.toList()),
+                Arrays.asList(book.getBookName().fullName.split("\\s+")[0]),
+                Arrays.asList(book.getAuthor().fullName.split("\\s+")[0]),
+                book.getTags().stream().map(x -> x.tagName.split("\\s+")[0]).collect(Collectors.toList()),
                 Arrays.asList(book.getRating().value)
             );
         assertEquals(new ListBookCommand(predicate), command);

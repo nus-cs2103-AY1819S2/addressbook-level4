@@ -4,12 +4,17 @@
 :stylesDir: ../stylesheets
 
 == PROJECT: docX
+This portfolio serves to document my contribution in a Software Engineering team project for CS2103.
+The team comprises of 5 members and we were tasked to develop a working application within 6 weeks.
 
----
+To comply with the module requirements, the project builds on from an existing code base - AddressBook Level 4,
+and the user must be able to interact with the application via Command Line Interface (CLI).
 
 == Overview
 
-docX is a desktop clinic management application designed for receptionists in clinic. It has a GUI but most of user interactions happen using a CLI(Command Line Interface).
+DocX is a desktop application designed for receptionists in clinics.
+The app provide features for patient management, doctor management, medical history management, appointment management and prescription management.
+It is targeted at clinic receptionists who are comfortable with using Command Line Interface (CLI).
 
 == Summary of contributions
 
@@ -17,7 +22,7 @@ docX is a desktop clinic management application designed for receptionists in cl
 ** *Prescription*: Prescription class is linked with Patient, Doctor and Medicine class. The implementation of Prescription allows the receptionist to record all prescriptions that a patient has, to modify them if necessary and to search for them as needed.
 ** *Add Prescription Command*:
 *** Records patient's prescription issued by doctors.
-*** Added prescription contains information about the patient who received it, the doctor who issued it, the medicine involved in that prescription as well as a short description of it.
+*** Added prescription contains information about the patient who received it, the doctor who issued it, the date, the medicine involved in that prescription as well as a short description of it.
 ** *List Prescription Command*:
 *** Shows list of all prescriptions recorded in docX
 *** Shows filtered prescription related to a particular patient with the specified id.
@@ -26,24 +31,26 @@ docX is a desktop clinic management application designed for receptionists in cl
 *** Receptionists can change the prescription if information specified in the description is wrong.
 ** *Search Prescription Command*:
 *** Allows users to find all prescriptions with the description related to specified keywords.
+** *Select Prescription Command*:
+*** Allows users to select a particular prescription to view more details about it
+** *Sort Prescription Command*:
+*** Allows users to sort prescriptions in ascending order or descending order according to the date attribute.
 
 
 * *Justification of Major Feature*: This feature improves the product significantly prescriptions are important in the sense that it can reflect the patients' health condition and all kinds of diseases they have had before. Keeping records for prescriptions will greatly facilitate doctors in knowing more about the patients' health condition history.
 * *Highlights of Major Feature*: Recorded prescriptions contain information about doctors, patients as well as medicine. These four classes are thus very much correlated. Combining them together and making it compatible is not a small challenge.
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
-
+* *Code contributed*:
+Find my code contributed https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#=undefined&search=GongChangda[here].
 * *Other contributions*:
-
 ** Project management:
 *** Submitted documents in milestone
 ** Enhancements to existing features:
 *** Updated the GUI to show prescriptions
-** Documentation:
-*** Update User Guide and Developer Guide: https://github.com[#14]
+*** Add test cases to improve the coverage: Pull requests https://github.com/cs2103-ay1819s2-w13-1/main/pull/216[#216], https://github.com/cs2103-ay1819s2-w13-1/main/pull/208[#208]
 ** Community:
-*** PRs reviewed (with non-trivial review comments):
-*** Reported bugs and suggestions for other teams in the class
+*** PRs reviewed (with non-trivial review comments)(Example: https://github.com/cs2103-ay1819s2-w13-1/main/pull/239#issuecomment-483278985[1])
+*** Reported bugs and suggestions for other teams in the class (https://github.com/nus-cs2103-AY1819S2/pe-dry-run/issues/352[1], https://github.com/nus-cs2103-AY1819S2/pe-dry-run/issues/584[2], https://github.com/nus-cs2103-AY1819S2/pe-dry-run/issues/723[3], https://github.com/nus-cs2103-AY1819S2/pe-dry-run/issues/843[4], https://github.com/nus-cs2103-AY1819S2/pe-dry-run/issues/935[5])
 
 == Contributions to the User Guide
 
@@ -52,9 +59,17 @@ docX is a desktop clinic management application designed for receptionists in cl
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-//include::../UserGuide.adoc[tag=undoredo]
+include::../UserGuide.adoc#Adding-a-prescription-add-presc[tag=add-presc]
 
-//include::../UserGuide.adoc[tag=dataencryption]
+include::../UserGuide.adoc#listing-prescriptions-list-presc[tag=list-presc]
+
+include::../UserGuide.adoc#editing-description-of-a-prescription-edit-presc[tag=edit-presc]
+
+include::../UserGuide.adoc#sorting-prescriptions-by-date-sort-presc[tag=sort-presc]
+
+include::../UserGuide.adoc#searching-prescriptions-search-presc[tag=search-presc]
+
+include::../UserGuide.adoc#viewing-prescriptions-select-presc[tag=select-med-hist]
 
 == Contributions to the Developer Guide
 
@@ -62,9 +77,7 @@ docX is a desktop clinic management application designed for receptionists in cl
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-//include::../DeveloperGuide.adoc[tag=undoredo]
-
-//include::../DeveloperGuide.adoc[tag=dataencryption]
+include::../DeveloperGuide.adoc#Prescriptions[tag=Prescription Features]
 
 
 == PROJECT: PowerPointLabs

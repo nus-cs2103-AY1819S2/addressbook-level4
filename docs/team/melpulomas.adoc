@@ -57,3 +57,4 @@ include::../UserGuide.adoc[tag=importpictures]
 |===
 
 include::../DeveloperGuide.adoc[tag=labelcommand]
+include::../DeveloperGuide.adoc[tag=labeltest]

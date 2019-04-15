@@ -13,7 +13,7 @@ In-Credit-Ble is a Finance Tracker desktop application developed by https://gith
 === Jeremy Loye
 image::jeremyloye.png[width="150", align="left"]
 {empty}[https://github.com/JeremyLoye[github]]
-{empty}[https://cs2103-ay1819s2-w17-3.github.io/main/team/JeremyLoye.html[portfolio]]
+{empty}[https://cs2103-ay1819s2-w17-3.github.io/main/team/jeremyloye.html[portfolio]]
 
 Role: Team Lead, Developer +
 Responsibilities: Code Quality

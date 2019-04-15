@@ -1814,6 +1814,8 @@ lowest scoring flashcard question and hints are displayed. Tester can also be in
    Expected: Enters report display, where the display area enters fullscreen. A graph is displayed showing maximum of
    last ten test scores for this folder. A list, maximum of the three lowest scoring questions, is displayed.
    `Report displayed` is shown on the status message and status bar shows that tester is in report display.
+.. Test case: Other invalid commands such `test`, `add`, or a second `report` command. +
+   Expected: They should not be allowed. An error message will be displayed.
 .. Test case: `end` +
    Expected: Ends the current report session, where the display area exits fullscreen and be back inside the folder. `End
    Report Session` is shown on the status message and status bar shows that tester is back inside the folder.

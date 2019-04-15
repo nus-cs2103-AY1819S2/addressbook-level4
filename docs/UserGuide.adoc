@@ -317,6 +317,27 @@ image::randommap.png[width="300"]
 
 // end::upcomingmap[]
 
+// tag::upcomingQuickStart[]
+=== Quick start
+Randomly deploys the all of your battleships onto the map. +
+
+Format: `quickStart` +
+Example: `quickStart`
+
+// end::upcomingQuickStart[]
+
+// tag::upcomingPattern[]
+=== Save and load pattern of deployed battleships
+Save and load the pattern that you used to deploy your battleships. +
+
+Format: `pattern i/[OPTION] p/[PATTERN]` +
+Examples:
+
+* `pattern i/save`
+* `pattern i/load f/circle`
+
+// end::upcomingPattern[]
+
 == FAQ
 
 *Q*: How are you today? +

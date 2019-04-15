@@ -3,7 +3,7 @@
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-Hello there! My name is Ian and I am one of the developers of the Battleship game. The following document is a Project Portfolio Page of my contributions to Battleship.
+Hello there! My name is Ian and I am one of the developers for the Battleship game. The following document is a Project Portfolio Page of my contributions to Battleship.
 
 == Project Overview
 
@@ -54,6 +54,12 @@ include::../UserGuide.adoc[tag=ship]
 include::../UserGuide.adoc[tag=list]
 include::../UserGuide.adoc[tag=listTags]
 
+== Coming in v2.0
+
+
+include::../UserGuide.adoc[tag=upcomingQuickStart]
+include::../UserGuide.adoc[tag=upcomingPattern]
+
 == Contributions to the Developer Guide
 
 |===
@@ -72,9 +78,13 @@ The head coordinates are the coordinates of the top-most and left-most cell of a
 
 image:BattleshipHeadExample.png[width=400, align="center"]
 ====
+
 include::../DeveloperGuide.adoc[tag=putShip2]
 include::../DeveloperGuide.adoc[tag=listTags]
 include::../DeveloperGuide.adoc[tag=listShips]
+
+=== Design Considerations
+
 include::../DeveloperGuide.adoc[tag=ship_aspect_1]
 include::../DeveloperGuide.adoc[tag=ship_aspect_2]
 

@@ -387,7 +387,7 @@ The following operations are called when the `put` command is called.
 * `performChecks()` - Performs checks to ensure that the ship can be put on the map.
 * `putShip()` - Puts the ship into the cell.
 
-The boundary checks are essential to the functionality of both the human and computer player. This is because `BoundaryValueChecker` is used by the human player in the `put` command, while the computer player when it is deploying its own ships after the human player has ended his or her turn. `BoundaryValueChecker` relies on four separate methods to perform its checks. They are:
+The boundary checks are essential to the functionality of both the human and computer player. This is because `BoundaryValueChecker` is used by the human player in the `put` command and when the computer player deploying its own ships after the human player's turn has ended. `BoundaryValueChecker` relies on four separate methods to perform its checks. They are:
 
 1. `isHeadWithinBounds()` - Checks if the head coordinates falls within the map grid.
 1. `isBodyWithinBounds()` - Checks if the body of the ship falls within the map grid.
@@ -396,7 +396,7 @@ The boundary checks are essential to the functionality of both the human and com
 
 These methods check both the horizontal and vertical boundaries when a ship is being deployed. They also distinguish between the head and body of a ship in order to provide more specific feedback for the user. For the methods `isBattleshipAbsent()` and `isClear()`, `BoundaryValueChecker` calls the `getCellStatus()` method of the `mapGrid` object to obtain the status of `Cell` to carry out its checks.
 
-Once `BoundaryValueChecker` has finished its checks and if there are no exceptions thrown, the `put` command proceeds to call the `putShip()` method of the `mapGrid` object to put the ship on the map grid. It then updates the `Fleet` in the human player. The following sequence diagram illustrates what happens when the `put` command is called.
+Once `BoundaryValueChecker` has finished its checks and there are no exceptions thrown, the `put` command proceeds to call the `putShip()` method of the `mapGrid` object to put the ship on the map grid. It then updates the `Fleet` in the human player. The following sequence diagram illustrates what happens when the `put` command is called.
 
 .Sequence diagram of putting a battleship on the map.
 image::PutShipSequenceDiagram.png[width=800, align="center"]
@@ -449,9 +449,11 @@ image::ShipManagementActivityDiagram.png[height=400, align="center"]
 
 // end::ship_activity[]
 
-// tag::ship_aspect_1[]
 
 ==== Design Considerations
+
+// tag::ship_aspect_1[]
+
 ===== Aspect: How a ship is placed on the map
 * **Current choice:** +
  The same `Battleship` object is put in multiple cells. Each cell contains a reference to the same `Battleship` object. When a battleship on the `Cell` needs to be modified, the `Battleship` attribute in the `Cell` is accessed.

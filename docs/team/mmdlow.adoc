@@ -59,7 +59,7 @@ Useful information for a deeper understanding of the command.
 +
 image:ExampleMcqTest.png[width="250"]
 
-* *Code contributed*: [https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#search=mmdlow[Collated code]]
+* *Code contributed*: An overview of my contributed code to the project can be found https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#search=mmdlow[here].
 
 * *Other contributions*:
 

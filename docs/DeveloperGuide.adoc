@@ -1,4 +1,4 @@
-= AddressBook Level 4 - Developer Guide
+= The Infinity Machine - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -15,7 +15,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/se-edu/addressbook-level4/tree/master
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
 
 == Setting up
 
@@ -114,7 +114,8 @@ image::Architecture.png[width="600"]
 The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
 
 [TIP]
-The `.pptx` files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder. To update a diagram, modify the diagram in the pptx file, select the objects of the diagram, and choose `Save as picture`.
+The `.pptx` files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder.
+To update a diagram, modify the diagram in the pptx file, select the objects of the diagram, and choose `Save as picture`.
 
 `Main` has only one class called link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp`]. It is responsible for,
 
@@ -161,7 +162,8 @@ image::UiClassDiagram.png[width="800"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `SourceListPanel`, `StatusBarFooter`, `BrowserPanel` etc.
+All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
@@ -180,7 +182,7 @@ image::LogicClassDiagram.png[width="800"]
 *API* :
 link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `AddressBookParser` class to parse the user command.
+.  `Logic` uses the `SourceManagerParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
 .  The command execution can affect the `Model` (e.g. adding a person).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
@@ -202,7 +204,7 @@ image::ModelClassDiagram.png[width="800"]
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
+* stores the Source Manager data.
 * exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
@@ -222,69 +224,328 @@ image::StorageClassDiagram.png[width="800"]
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in json format and read it back.
+* can save the Source Manager data in json format and read it back.
 
 [[Design-Commons]]
 === Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+Classes used by multiple components are in the `seedu.address.commons` package.
 
 == Implementation
 
 This section describes some noteworthy details on how certain features are implemented.
 
+// tag::recyclebin[]
+=== Recycle Bin Mode feature
+The recycle bin mode allows users to access and manage the research data that they previously deleted.
+
+Users may do one of the following:
+1. Restore a previously delete source
+2. Permanently delete a source from the recycle bin
+3. Clear all sources from the recycle bin
+4. Undo and Redo any action in the recycle bin mode
+5. Exit the recycle bin and return to the source manager mode
+
+==== Overview
+The restore feature is facilitated by `Infinity Machine`. It extends `Infinity Machine` with a recycle bin feature, allowing user to delete and restore source from a persistent deleted sources list.
+The Recycle Bin was extended from interactions with the delete command. Our rationale to create an entire mode is so that users can safely delete sources
+and have a place to access and retrieve them even after exiting the application accidentally or intentionally. Previously, this feature was implemented seperatedly
+as a restore and delete feature in the source manager however, after testing it, it proved to be very messy and confusing for our users if they did not had a mode that
+specifically allows them to interact with the deleted sources.
+
+==== Implementation
+
+===== Logic Component
+* In the Recycle bin, a `RecycleBinParser` was created which is a now child of `SourceManagerParser` in the logic component.
+Through the separation of different commands to different parsers, it allows us to enable or disable certain commands for Source Manager mode or
+Recycle Bin mode which helps to increase the usability of our application.
+* A listener has also been added in the `LogicManager` so that operations regarding the Recycle Bin can be detected accordingly.
+
+===== Model Component
+* In the Model Component, a `ParserMode` enum class was added which consists of two different modes `RECYCLE_BIN` and `SOURCE_MANAGER`.
+* A `DeletedSources` class which implements a `ReadonlyDeletedSources` class and is extended by `VersionedDeletedSources` is created. This class contains operations that allow commands to interact
+with the model such as adding a deleted source to `deletedsources.json` data folder, deleting a source from the json file mentioned and committing any
+changes to the DeletedSources state to name a few.
+* The file path for the deletedsource.json data file was also added to the UserPrefs class in order to save the file path of the recycle bin database.
+
+===== Storage Component
+* A `JsonDeletedSourcesStorage` class was created so that Recycle Bin operations can interact with the `deletedsources.json` data storage.
+It consists of reading and writing operations implemented to manage the adding, updating and removing of json data.
+* A `JsonSerializableDeletedSources` is also created as is it necessary in assisting the generation of sources structured in Json data format.
+
+==== Operation
+
+image::RecycleBinSequenceDiagram.png[width="800"]
+
+This sequence diagram shows what happens when a source is deleted pertaining to the recycle bin.
+
+Given below is an example usage scenario and how the recycle bin mode behaves at each step when a user deletes and restores a source.
+
+Step 1. The user launches the application for the first time. The `Infinity Machine` will be initialized with the initial source database state, by default listing all the sources
+in an indexed fashion, with all details and in order of their addition.
+
+Step 2. The user executes `delete 1` command and only one entry, the first one, is deleted.
+
+Step 3. The user executes `recycle-bin` command and the `Infinity Machine` switches from the Source Manager mode to the Recycle Bin mode.
+A list of sources that was previously deleted in the Recycle Bin is shown.
+
+Step 4. The user executes `restore 1` and only one entry will be deleted, which is the source recently deleted in the Source Manager mode.
+
+Step 5. The user executes `exit-bin` and only switches the Source Manager mode.
+
+[NOTE]
+`restore` alone, without any arguments, will result in error. See `restore` command for enumerating all database entries.
+
+==== Design Considerations
+
+* **Alternative 1 :** Using a simple read and write class in the storage.
+** Pros: Easy to implement.
+** Cons: May have performance issues in terms of time usage as well as limited usability in terms of operations.
+
+* **Alternative 2 (current choice):** Using a full DeletedSource interaction structure
+** Pros: High usability and little to none performance issues.
+** Cons: Highly complex structure and since implementation touches on many components of the application there is a high chance of breaking other components or commands.
+
+==== Additional Considerations
+* **Deleting a source from the Source Manager mode that already exists in the Recycle Bin mode:**
+Previously this issue caused a bug. When the user tried to delete a source from the Source Manager mode that already exists in the Recycle Bin mode.
+To guard against this, we deleted the source that the user is trying to delete from the source manager permanently if it already exists in the Recycle Bin
+so that it will not cause any conflicts this is one of the many solutions available and we chose it because this was the most efficient and logic solution to implement.
+* **Restoring a source from the Recycle Bin mode that already exists in the Source Manager mode:**
+We also considered this case as it may also cause conflicts and resolved it by displaying an advising error message that the source that the user is trying to restore already exists
+in the Source Manager. This is a better solution in this case compared to deleting it permanently as the user may want to do additional changes to this source.
+
+// end::recyclebin[]
+
+// tag::panic[]
+=== Panic Mode feature
+The panic mode feature allows the user to temporarily hide user data and replace it with dummy data.
+
+==== Overview
+The user's original data is replaced by dummy data for the duration that panic mode is enabled.
+Enabling panic mode can be thought of as "stashing" the user's data temporarily in memory.
+This is reflected both on-screen and on-disk.
+On the screen, the list of sources is replaced by an empty dummy list.
+On disk, the contents of the JSON file storing the user's sources is replaced by dummy content that tracks and reflects the dummy data.
+
+==== Implementation
+This is implemented by "swapping" the source manager with an empty dummy source manager.
+This "swap" is carried out by storing the original source manager in a private variable `sourceManagerBackup`, and then resetting the original source manager with a new empty source manager instance.
+We also set the boolean variable `panicMode = true`.
+
+When the user disables panic mode, we restore the original source manager, and reset `panicMode = false`.
+
+==== Elaboration
+We use a boolean variable `panicMode` to keep track of whether panic mode has been activated.
+This is to guard against the scenario of entering panic mode while already in panic mode, which results in permanent data loss.
+
+This is because when panic mode is activated, we store the original source manager in the private variable `sourceManagerBackup`, and reset the original source manager, as described above.
+
+Therefore, should panic mode be activated while already in panic mode, `sourceManagerBackup` will now store the dummy source manager, and the original source manager will be deallocated and eventually purged from memory by Java's garbage collector.
+
+Since the JSON file on disk automatically tracks the source manager through the observer pattern, it automatically updates to track and reflect the data in the dummy source manager.
+// end::panic[]
+
+// tag::alias[]
+=== Command Alias feature
+The command alias feature allows users to use shorthand commands to rapidly "get things done", for instance using `a` instead of `add`, or `c` instead of `count`.
+
+Users may do one of the following:
+
+1. Add a new alias
+2. Remove an existing alias
+3. List all aliases
+4. Clear all aliases
+
+In designing and implementing this feature, the overarching principle is to maximize transparency and compatibility.
+This means that it should be transparent to future developers/maintainers (they should not need to understand how this feature works, or be subject to any design constraints).
+It should also be backwards-compatible with existing commands (existing code should not be modified).
+This allows for maximum extensibility and maintainability.
+
+==== Overview
+
+This feature is backed by an in-memory database implemented as a Java `HashMap<String, String>`.
+A HashMap is chosen for the following reasons:
+
+* Adding and removing an alias is straightforward (using Java HashMap API) and efficient (`O(1)` time)
+* Checking whether an alias exists (membership) is efficient (`O(1)` time)
+* HashMaps naturally facilitate the process of associating a key-value pair
+
+*Alternative*: No reasonable alternative implementations exist.
+For instance, using a Java `ArrayList` adds additional code complexity, as there needs to be a way of associating a key with a value.
+For instance, we could create an `ArrayList<AliasWrapper>`, where `AliasWrapper` is a wrapper class to associate 2 strings.
+However, that is inelegant and inefficient, as opposed to a `HashMap` solution.
+Furthermore, checking for membership in an `ArrayList` is an `O(N)` operation in an unsorted list, or `O(log(N))` in a sorted list.
+
+image::AliasManagerClassDiagram.png[width="800"]
+
+==== Aliasing feature: implementation
+Meta-commands are not implemented as regular commands.
+Regular commands inherit `Command`, and operate on the model (their main method is `public CommandResult execute(Model model, CommandHistory history) throws CommandException {}`).
+On the other hand, meta-commands operate on an AliasManager object.
+Therefore, it is desirable to draw a distinction between regular commands and meta-commands throughout the codebase.
+
+To implement aliasing, we first create an AliasManager interface to practice design by contract.
+AliasManager is command-agnostic.
+It operates through its API (specified in the interface), and is not concerned with the choice of meta-commands (e.g. `alias-rm` vs `alias-remove`).
+We also created a class ConcreteAliasManager to implement the AliasManager interface.
+
+As for SourceManagerParser, we created an alternative constructor to accept an AliasManager object to support dependency injection.
+Otherwise, the default constructor instantiates ConcreteAliasManager.
+
+[NOTE]
+We chose to create the AliasManager interface to decouple SourceManagerParser and ConcreteAliasManager.
+In normal operation, we would always use ConcreteAliasManager.
+However, working through an interface (and implementing an alternative constructor) provides the flexibility to swap out ConcreteAliasManager for an alternative AliasManager implementation, such as a stub, for unit testing. This improves testability, maintainability, and extensibility.
+
+To implement the meta-commands, we create an abstract superclass `AliasMetaCommandParser` that implements `Parser<DummyCommand>`.
+This serves as an alternative class of command parsers (for meta-commands), in contrast to the regular ones which are of the type `Parser<? extends Command>`.
+(As mentioned above,  meta-commands are fundamentally different from regular commands, and it is desirable to maintain this distinction.)
+The key difference between the two is that an AliasMetaCommandParser has a field storing a reference to the AliasManager object which it requires to interact with (e.g. when adding/removing an alias).
+
+[NOTE]
+Parsers are expected to return a Command object which SourceManagerParser returns in its `parseCommand(String userInput)` method.
+Typically, a Command object operates on the Model (e.g. AddCommand calls `model.addSource()`).
+However, meta-commands operate on the AliasManager, and not the model.
+Therefore, for this purpose, we created a class `DummyCommand` which nominally extends `Command`, but actually does nothing except return a CommandResult object to display feedback to the user. This promotes transparency and compatibility.
+
+Finally, we create a `CommandValidator` interface.
+AliasManager uses the CommandValidator for two purposes:
+
+1. Validate a command before registering an alias to it
+2. Ensure that a command isn't designated as an un-aliasable command
+
+We chose this implementation and design pattern for several reasons:
+
+1. By designating an object as a CommandValidator, we are able to avoid hardcoding the list of valid and un-aliasable commands into AliasManager.
+This makes for a more reusable component and improves testability and maintainability. It also embodies the Open-Closed Principle.
+
+2. Typically, the SourceManagerParser (which by definition should know about the various valid commands) is the designated CommandValidator.
+However, the SourceManagerParser also has an association with the AliasManager.
+By creating an interface, we avoid a situation of circular dependency whereby both components are tightly coupled to each other.
+
+==== Aliasing feature: operation
+===== Meta-commands
+When a meta-command is detected to have been entered, SourceManagerParser delegates it to the appropriate AliasMetaCommandParser to handle.
+For instance, `alias FOO BAR` is delegated to the AliasAddMetaCommandParser (a concrete subclass of AliasMetaCommandParser) with the arguments "FOO BAR".
+The appropriate AliasMetaCommandParser parses the arguments and returns a DummyCommand response object.
+
+The following sequence diagram illustrates the operation of the "add alias" meta-command (assuming that valid user input is provided).
+
+image::AliasManagerMetaCommandSequenceDiagram.png[width="800"]
+
+[NOTE]
+
+This delegation design pattern is chosen for 2 reasons:
+Firstly, it hides complexity in SourceManagerParser by abstracting the logic of interacting with AliasManager away.
+This makes SourceManagerParser more readable, declarative, and maintainable.
+This also allows us to practice the Single Responsibility Principle and Single Layer of Abstraction Principle, among others.
+Secondly, it improves testability by facilitating unit testing of smaller blocks of logic, rather than a single giant block.
+
+If user input is valid, the AliasMetaCommandParser, which stores a reference to the AliasManager object, operates on it through the AliasManager API.
+
+===== Aliases
+In normal operation, when the user enters an alias, SourceManagerParser parses the user input to extract the "command word".
+It checks whether the "command word" is a pre-existing alias using AliasManager's `isAlias()` method.
+If so, it fetches the original command that the alias is associated to using AliasManager's `getCommand()` method.
+
+Finally, SourceManagerParser recursively calls itself once using the original command retrieved from AliasManager to execute the original command that the alias is associated with.
+
+This sequence diagram provides a high-level overview of this operation. Finer-level details have been omitted.
+
+image::AliasManagerSequenceDiagram.png[width="800"]
+
+[NOTE]
+AliasManager doesn't allow the aliasing of invalid commands, nor the aliasing of an alias.
+This is to guard against the risk of an infinite loop, e.g. where `alias1` is the alias of `alias2`, which is the alias of `alias1`.
+With the current implementation, we can be assured that the recursion depth is at most 2.
+
+==== Persistence feature: implementation
+The usefulness of aliases would be significantly diminished if they do not persist between sessions.
+Therefore, we want aliases to be stored on disk and automatically loaded in future sessions on application startup.
+
+To accomplish this, we create an `AliasStorage` interface, and an implementing class `ConcreteAliasStorage`.
+We also modify ConcreteAliasManager to accept an AliasStorage object during its instantiation.
+To facilitate unit testing, we allow a `null` AliasStorage object which disables data persistence.
+
+[NOTE]
+The motivations for this design pattern is similar to the discussion above for creating the AliasManager interface.
+Essentially, we want to decouple components as much as possible, support dependency injection, and improve testability and maintainability.
+
+ConcreteAliasStorage is responsible for reading/writing from/to disk,
+and therefore converting the in-memory database (HashMap object) of aliases into/from an encoded representation.
+When AliasManager's aliases database is mutated (i.e. create or remove alias), it calls ConcreteAliasStorage's `saveAliases()` method.
+
+[NOTE]
+**Alternative:** A more elegant implementation would be to apply the observer pattern,
+with the observer observing the aliases HashMap database, and calling `saveAliases()` when it is mutated.
+However, given the simplicity of AliasManager, we believe that applying the observer pattern will result in unnecessary overhead,
+with minimal (or no) tangible benefits.
+
+Within ConcreteAliasStorage, its `saveAliases()` method encodes aliases and commands into a string,
+in the following format: `alias1:command1;alias2:command2;alias3:command3`.
+Conversely, `readAliases()` parses this string and reconstructs the aliases HashMap database.
+
+[NOTE]
+
+**Alternative:** We opted to use our own very simple encoding scheme instead of JSON.
+JSON is more suited for "document-like" objects with different properties, some of which are possibly nested multiple layers.
+However, in our case, we only have a series of key:value pairs, in a predictable form, with no nesting.
+Therefore, we thought that a simple semicolon-separated key:value pair encoding scheme would suffice.
+// end::alias[]
+
 // tag::undoredo[]
 === Undo/Redo feature
 ==== Current Implementation
 
-The undo/redo mechanism is facilitated by `VersionedAddressBook`.
-It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
+The undo/redo mechanism is facilitated by `VersionedSourceManager`.
+It extends `SourceManager` with an undo/redo history, stored internally as an `sourceManagerStateList` and `currentStatePointer`.
 Additionally, it implements the following operations:
 
-* `VersionedAddressBook#commit()` -- Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` -- Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` -- Restores a previously undone address book state from its history.
+* `VersionedSourceManager#commit()` -- Saves the current source manager state in its history.
+* `VersionedSourceManager#undo()` -- Restores the previous source manager state from its history.
+* `VersionedSourceManager#redo()` -- Restores a previously undone source manager state from its history.
 
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
+These operations are exposed in the `Model` interface as `Model#commitSourceManager()`, `Model#undoSourceManager()` and `Model#redoSourceManager()` respectively.
 
 Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
 
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+Step 1. The user launches the application for the first time. The `VersionedSourceManager` will be initialized with the initial source manager state, and the `currentStatePointer` pointing to that single source manager state.
 
 image::UndoRedoStartingStateListDiagram.png[width="800"]
 
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+Step 2. The user executes `delete 5` command to delete the 5th source in the source manager. The `delete` command calls `Model#commitSourceManager()`, causing the modified state of the source manager after the `delete 5` command executes to be saved in the `sourceManagerStateList`, and the `currentStatePointer` is shifted to the newly inserted source manager state.
 
 image::UndoRedoNewCommand1StateListDiagram.png[width="800"]
 
-Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
+Step 3. The user executes `add i/algorithm ...` to add a new source. The `add` command also calls `Model#commitSourceManager()`, causing another modified source manager state to be saved into the `sourceManagerStateList`.
 
 image::UndoRedoNewCommand2StateListDiagram.png[width="800"]
 
 [NOTE]
-If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
+If a command fails its execution, it will not call `Model#commitSourceManager()`, so the source manager state will not be saved into the `sourceManagerStateList`.
 
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
+Step 4. The user now decides that adding the source was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoSourceManager()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous source manager state, and restores the source manager to that state.
 
 image::UndoRedoExecuteUndoStateListDiagram.png[width="800"]
 
 [NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+If the `currentStatePointer` is at index 0, pointing to the initial source manager state, then there are no previous source manager states to restore. The `undo` command uses `Model#canUndoSourceManager()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
 
 The following sequence diagram shows how the undo operation works:
 
 image::UndoRedoSequenceDiagram.png[width="800"]
 
-The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
+The `redo` command does the opposite -- it calls `Model#redoSourceManager()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the source manager to that state.
 
 [NOTE]
-If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+If the `currentStatePointer` is at index `sourceManagerStateList.size() - 1`, pointing to the latest source manager state, then there are no undone source manager states to restore. The `redo` command uses `Model#canRedoSourceManager()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
 
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
+Step 5. The user then decides to execute the command `list`. Commands that do not modify the source manager, such as `list`, will usually not call `Model#commitSourceManager()`, `Model#undoSourceManager()` or `Model#redoSourceManager()`. Thus, the `sourceManagerStateList` remains unchanged.
 
 image::UndoRedoNewCommand3StateListDiagram.png[width="800"]
 
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
+Step 6. The user executes `clear`, which calls `Model#commitSourceManager()`. Since the `currentStatePointer` is not pointing at the end of the `sourceManagerStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add i/algorithm ...` command. This is the behavior that most modern desktop applications follow.
 
 image::UndoRedoNewCommand4StateListDiagram.png[width="800"]
 
@@ -296,29 +557,577 @@ image::UndoRedoActivityDiagram.png[width="650"]
 
 ===== Aspect: How undo & redo executes
 
-* **Alternative 1 (current choice):** Saves the entire address book.
+* **Alternative 1 (current choice):** Saves the entire source manager.
 ** Pros: Easy to implement.
 ** Cons: May have performance issues in terms of memory usage.
 * **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
+** Pros: Will use less memory (e.g. for `delete`, just save the source being deleted).
 ** Cons: We must ensure that the implementation of each individual command are correct.
 
 ===== Aspect: Data structure to support the undo/redo commands
 
-* **Alternative 1 (current choice):** Use a list to store the history of address book states.
+* **Alternative 1 (current choice):** Use a list to store the history of source manager states.
 ** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
+** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedSourceManager`.
 * **Alternative 2:** Use `HistoryManager` for undo/redo
 ** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
+// tag::search[]
+=== Search feature
+==== Current Implementation
+Format: `search [n/TITLE] [y/TYPE] [d/DETAILS] [t/TAG] [t/TAG]...`
 
-_{Explain here how the data encryption feature will be implemented}_
+The search feature is facilitated by `Infinity Machine`.
+It extends `Infinity Machine` with an find feature, allowing user to search through source entries by the title, type, detail and/or tags, with substring matching.
 
-// end::dataencryption[]
+This search function now has an added functionality of being able to take in multiple
+arguments of the type of source fields [i.e. title, type, detail and tags], and search for sources based on that.
+It searches in conjunction using multiple fields including title, type, detail and tag(s) input by the user,
+listing only those sources that satisfy all the input constraints of the matching fields, with all there corresponding field values.
+
+Another addition to its functionality is that this search feature is enabled with substring matching as against exact field matching.
+This renders this feature more powerful as the user may not always be able to remember exactly the title or tag of the source.
+It's major usage is in the fact that the user will store the bulk of their data in the details field, and it is unintuitive to have them
+list the entire contents of the source in order to match and search it. Thus now, the user is only required to `search` using
+as many consecutive words they are able to recall to narrow the listings.
+
+How it works is, it allows the user to search through all the entries in the database through various fields at a time, and display
+source entries that satisfy all of the entered tags in conjunction, by checking if the source value contains these parameters.
+It allows compound searches to be made, allowing user to narrow down their search, hence helping in efficient retrieval
+of the sources, and making working on the database more efficient.
+
+Lastly, the search is able to find string matches with minor typing errors in the spelling. This feature renders the search more
+powerful by accommodating any minor typing error user may make when keying in their search argument. This includes minor flips of two characters
+or a missing character or few extra characters etc. The implementation current accounts for less than 5 character swaps needed to transform between the strings.
+
+[NOTE]
+Auto-correction feature only works when entire field value is entered and not for substring matching.
+
+i.e. misspelling a single word in the title will not be caught unless the entire title is entered, then the
+user entry will be matched against the entire title to see if there are less than 5 corrections needed to transform
+between the two strings.
+
+However, it may seem that such an additional renders the search feature a bit too general, thus making the search output space
+broadened by including more sources that would have otherwise been ignored. But, one may see this as an advantage as:
+
+1. Obviously, this is targeted at accounting for the slightest chance that the user may have made a typo.
+2. If not, this feature at the very least shows user _'similar'_ or _'other related'_ entries that may be useful in their
+research project as they search for a particular entry. This can help in giving user more ideas about related sources in the same field.
+
+This distance is know as the Levenshtein distance or the edit distance,
+after the Russian scientist Vladimir Levenshtein who devised the algorithm in 1965. This algorithm is used to determine how different
+two strings are from each other by outputing the integer number of transformations (insertions, deletions and substitutions) needed to transform
+one string to the other.
+
+The algorithm implementation for this section of the code was inspired from https://www.baeldung.com/java-levenshtein-distance[Baeldung].
+
+[NOTE]
+If any seemingly unwanted results are displayed after a search command is executed, it should not be seen as a bug and this is
+the intended behaviour because of the reasons and rationale explained above. Rest assured, the intended results will never be missed out.
+
+Additionally, it uses:
+
+* `SourceContainsKeywordsPredicate.java` -- Here, the logic of running through all the respective fields of all the sources and matching it with the user inputs
+(trimmed by space, case insensitive and take as substring) is implemented. It is split by the CLI prefixes and implements conjunction logic, by only returning `true`
+for those sources that satisfy all the constraints, i.e. have all the fields matching as entered by the user, where matching is checked by if the string
+contains the keywords entered by the user (case insensitive).
+* `checkAllEmpty` -- method inside SourceContainsKeywordsPredicate which checks if all the entries of all the tags is empty, and returns true thus showing all sources.
+* `levenshtienDist` -- returns the number of swaps needed to transform one string to the other
+* `checkLevenshtienSimilarity` -- returns true if the number of swaps needed, as returned by `levenshtienDist` above is less than the
+`LEVENSHTIEN_DISTANCE_CONSTANT` below
+* `LEVENSHTIEN_DISTANCE_CONSTANT` -- a positive integer which determines the number of swaps a string can have for it to pass the similarity test
+as per the `checkLevenshtienSimilarity` method. Currently set to 5, thus if less than 5 swaps are needed to convert between the user entered string and the entire string value fo the source field.
+
+Given below is a sequence diagram representation of the search command of the Infinity Machine:
+
+image::SearchCommandSequenceDiagram.png[width="800"]
+
+This feature improves the product significantly because a user can now search an entry with a particular title AND a particular type and so on.
+Not only that, the user can now just input whatever they are able to recall and the `search` returns all super strings instead of
+carrying out an exact matching.
+It helps user greatly narrow down their search should they be looking for a specific source entry with particular values,
+instead of cluttering the screen with all those sources with share the same title as the one the user searches using the command.
+It renders the search more powerful by resulting all super-strings should the user have meant something else or to prompt them about other similar
+source entries containing what they are looking for.
+It also allows user to search sources based on other fields and not just title, such as type, tags and details, and even their
+logical combination.
+
+Given below is an example usage scenario and how the search mechanism behaves at each step.
+
+Step 1. The user launches the application for the first time. The `Infinity Machine` will be initialized with the initial source database state, by default listing all the sources
+in an indexed fashion, with all details and in order of their addition.
+
+Step 2. The user executes `search i/algorithms` command and only those sources that have their title as `algorithms` are displayed.
+
+Step 3. The user executes `search i/homework y/website` and only those entries are listed that have both their title as `homeowork` and type as `website`.
+
+Step 4. The user executes `search t/CS` and all those sources that have any of their tags having 'CS' in it listed, including `CS2030`, `CS2040` and `CS2103`
+
+[NOTE]
+`search` alone, without any arguments, will result in error. However search with empty CLI tags will output all sources. Thus, a shortcut
+to display all sources is to search `search i/` and a source with *any* title will be displayed.
+
+Step 5. The user executes `search i/algorihtm` as a typing error, the command still displays all those sources that have their title as
+`algorithms` or other related words exactly [not contains].
+
+Step 6. The user executes `search d/training an intelligent agent t/CS2039`, the search displays all sources with
+having the exact sentence 'training an intelligent agent' or any of its related similar strings in it's body, and those with
+tag 'CS2039' or any of the related modules such as 'CS2030', 'CS2040'.
+
+==== Design Considerations
+
+===== Aspect: How search executes
+
+* **Alternative 1 (current choice):** Runs through all entries and matches the arguments, field by field, and uing `&&` operation
+to combine the results.
+** Pros: Easy to implement as exact String matching can be done in Java using streams and `StringUtil.containsWordIgnoreCase(str1, str2)`.
+** Cons: May have performance issues in terms of time usage.
+
+===== Aspect: Data structure to support the undo/redo commands
+
+* **Alternative 1 (current choice):** Using streams and StringUtil functions.
+** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
+** Cons: May not be the most efficient implementation.
+// end::search[]
+
+=== Count feature
+==== Current Implementation
+
+The count command is facilitated by `Infinity Machine`.
+It extends `Infinity Machine with a count functionality calculating the total number of sources retrieved from the database.`
+Additionally, it uses:
+
+* `FilteredSourceList` --
+
+Given below is an example usage scenario and how the count mechanism behaves at each step.
+
+Step 1. The user launches the application for the first time. The `Infinity Machine` will be initialized with the initial source database state, by default listing all the sources
+in an indexed fashion, with all details and in order of their addition.
+
+Step 2. The user executes `count` command. All entries retrieved using the command entered will be counted.
+
+[NOTE]
+`list` does not take any arguments. If given, it will ignore it.
+
+Step 3. The user executes a 'search' command to search for all entries matching a certain keyword.
+
+Step 4. The user executes `count` command again. The count of the total number of entries retrieved through the `search`
+command will be returned.
+
+Alternative: It can be implemented in the Model and ModelManager instead of directly in the execute command however, this is an inefficient implementation and thus
+is not used.
+
+// tag::list[]
+=== List feature
+==== Current Implementation
+
+The list command is facilitated by `Infinity Machine`.
+It extends `Infinity Machine` with a list functionality, enumerating all or a specific number of
+entries in the source database and their all their details, in the order of their addition, or custom order
+as may be supported by the application.
+
+The four main formats and their usages are described below:
+
+===== 1. list: (no arguments)
+When no arguments are passed to `list`, it works same way as in the original AB4 logic, listing *all* the sources in the entire database with all their title, type, author, detail and tag values.
+The sources are unfiltered and listed in entirety, with indexes 1, 2.. so on.
+
+Example: `list` +
+Lists all the sources indexed from 1 onwards with all their details.
+
+===== 2. list N: (one positive argument)
+When one positive integer is passed to `list`, it lists the first N sources from the top, again listing all their title, type, author, detail and tag values.
+Top N sources are listed with respect to the original source database list with indexes 1, 2 ... till N.
+The number N must be a positive, non-zero number for the command logic to work. A negative N alludes to the 3rd case below.
+
+Example: `list 5` +
+Lists top 5 sources from the entire database indexed from 1, 2 .. 5 with all their details.
+
+===== 3. list -N: (one negative argument)
+When one negative integer is passed to `list`, it lists the last N resources from the top or first N sources from the bottom, again listing all their title, type, author, detail and tag values.
+Bottom N sources are listed with respect to the original source database list with indexes 1, 2 ... till N.
+The number after the negative sign but be a non-zero positive number for the command logic to work.
+
+Example: `list -5` +
+Lists the last 5 sources from the entire database indexed from 1, 2 .. 5 with all their details.
+
+===== 4. list N M: (two positive arguments)
+When two positive integers are passed to `list`, it lists the sources between N and M (included) from the top, again listing all their title, type, author, detail and tag values.
+N to M sources are listed with respect to the original source database list with indexes 1, 2 ... till (M-N+1).
+For valid functioning of the command, the two numbers passed must be positive and the first number must not be greater than the second number.
+I.e. both numbers should be non-zero and the second number can only be same or greater than the first number to produce a valid listing of the sources.
+
+Example: `list 6 9` +
+Lists the 4 sources from index 6 to 9 from the entire database list, indexed from 1, 2 .. till 4 with all their details.
+
+Some salient features which affect the command's working are discussed below:
+
+1. An argument passed which more than the current number of sources in the list is reduced to the index of the last source [i.e. the maximum number of sources].
+For example, executing `list 100` when the database has only 50 entries will automatically cap its display to 50 instead of throwing an error.
+Similarly, for other command formats too, the listing is capped by the total number of sources and the success message is too altered appropriately.
+
+2. Any number of arbitrary spaces between the list command word and its argument is accepted. The `command parser` will look for the valid command word and
+when `list command` is called, then the numbers will be plucked out in the right order and the appropriate command format will be executed.
+For example, 'list 2 3', ' <n spaces> list <x spaces> 2 <y spaces> 3 <z spaces> ' all commands work in the same, intended fashion for all values of n and z and all
+non-zero values of x and y.
+
+3. More than two arguments are ignored and only the first two arguments are evaluated as per the 4th case above.
+Thus, `list 2 3 4` and `list 2 3 4 ...` all are executed as `list 2 3` only.
+
+4. This list feature controls how many sources [based on indices passed] are displayed, *with respect to the original source list* only, and not the one
+currently being displayed to the user.
+Thus, if   `list 2 4` is carried out after `list 7 10` then the list index 2, 3 and 4 of the original list will be outputted and not of this currently displaying list.
+Similarly, if a user executes `list 3` post an operation, say search, then the first three sources of the entire databae are shown and *not* the first three sources of the filtered
+list of the resulting search operation.
+
+5. Having said (4), the new displayed list of sources after the executing of any list operation will update the internally maintained current list displayed, thus any operation [such as `edit`, `delete`]
+which are based on the indexes of the current displaying list will *still function as per normal* after a list command is executed.
+For example, after displaying `list 3 5`, if a user executes `delete 1`, it is akin to deleting the 3rd source in the entire list database.
+
+The sequence diagram of the working of the list command is as below:
+
+image::ListCommandSequenceDiagram.png[width="800"]
+
+Motivation for such an enhancement is that one may feel that such act of populating *all* the sources on the GUI may be cluttering the view unnecessarily.
+Now, what could be the parameters a user may want to limit the list by? Limiting merely by their field values is akin to search,
+which would make the logic redundant. In contrast, the user may want to control the number of sources he wants to view, or be able to limit by some sense
+of the time at which it was added.
+
+This could be helpful in:
+
+1. Iteratively examining all the sources by restricting how many are shown at one time. The user may begin with listing `list 10`, then `list 11 20` and so on to analyze
+all the source entries 10 at a time.
+2. Making more effective use of the GUI display to the user by not unnecessarily enumerating all sources, but rendering it more powerful by allowing the user to control what and how many sources
+he wants to see the details of.
+3. Enabling a pseudo-filtering by time-of-addition of the sources, something the application logic does not support currently [e.g. TimeAdded field]. This is possible because the list command alway alludes
+to the original databse list of all the sources, which are by defaul maintained in the order of their addition [with most recent at the end].
+
+Thus, the new modification to the command changes its format optionally, allowing user to be able to pass either one, two or no parameters
+and list only those sources which have their indices falling in the range entered [as covered by the cases above].
+This may be intuitively useful when say you want to perform certain operations in this new list of sources that are displayed by their time of addition,
+since the sources are by default arranged in descending order of their time of addition.
+
+Example, a user wants to delete all of the sources that were added yesterday. And if 10 entries were added yesterday,
+the user could just execute `list 10` to access those entries and then perform a `delete <INDEX>` accordingly.
+
+The original working of the `list` command showing all entries is still intact, when the command is called without any parameter, thus
+this modification just appends extra functionality which renders the command more useful and powerful than it was before in AB4.
+
+Additionally, it uses:
+
+* `PREDICATE_SHOW_ALL_SOURCES` -- when the user does not pass an argument to the list command, all sources must be displayed.
+This predicate results `true` for every source tested. Also, this filtering mode is internally called before *any* list operation so the
+command is able to utilize the entire database list in its filtering logic and not just the one currently displayed.
+* `makePredicateForTopN` -- when the user passes a positive argument, only first N sources must be listed.
+This method returns a new object of type `Predicate<Source>` that keeps track of the `count` of sources,
+evaluating `true` for the first N sources and `false` for all the rest.
+* `makePredicateForLastN` -- when the user passes a negative argument, the last N sources must be listed.
+This method returns a new object of the type `Predicate<Source>` that keeps track of the `count` of the sources,
+evaluating `true` for the las N sources an `false` for all others.
+* `makePredicateForXToY` -- when the user passes two positive arguments, the sources between the two indices (included) must be listed.
+This method returns a new object of the type `Predicate<Source>` that keeps track of the `count` of the sources,
+evaluating `true` for all sources between indices N and M included, and `false` for all others.
+* `targetIndex` -- the number N up to which the most recent sources are to be displayed to the user, in both the positive N and negative N case (case 2 and 3).
+It is maintained internally. Set to the current size of the database if the value input is more that this current size.
+* `fromIndex` -- in the case of two arguments, this is the first index, must be non-zero positive number not greater than the `toIndex` below.
+* `toIndex` -- in the case of two arguments, this is the second index, must be non-zero positive number not less than the `fromIndex` above.
+* `posFlag` -- internally maintained, passed as `true` for positive single argument N and `false` for negative single argument N.
+
+This feature improves the product significantly because a user can now list only as many item he wants and need not clutter the screen by displaying all.
+It helps him to narrow down his search, say should he want to view the N first or last added sources. This ensures more effective retrieval and
+operations on the sources, such as following it by index dependent operations such as `edit` and `delete` for instance.
+
+Some points to note:
+- This enhancement does not affect existing commands and commands to be added in future.
+- It required an in-depth analysis of design alternatives. Especially when it came to adding the ability
+for the command to be able to work both with 1 parameter and no parameters.
+Some design considerations were
+** Using variable arguments: in `parser` method of `ListCommandParser` class, but this would require changing the
+Interface `Parser<T>`. This technique did not work for making `ListCommand` objects for the same reason.
+** Using method overloading: This did not work for `parser` method because of the interface restrictions, however
+this was used in the constructor of `LogicCommand` class, creating two objects depending on whether a `targetIndex` was passed
+or not, and whether two indexes where passed or none.
+** Using args.length(): Ultimately used in `parse` method for a simple check whether an
+argument is passed and how many are passed.
+- The implementation too was challenging, as the current format of `list` command had to be changed and be prepared to accept and parse optional arguments, with the choice of
+ either one or two parameters, ie. implementing overloading functionality
+for the list command logic based on whether the number of arguments passed by the user if any.
+
+Given below is an example usage scenario and how the list mechanism behaves.
+
+Step 1. The user launches the application for the first time. The `Infinity Machine` will be initialized with the initial source database state, by default listing all the sources
+in an indexed fashion, with all details and in order of their addition.
+
+Step 2. The user executes an `add` command to add another source entry to the database.
+
+Step 3. The user executes `list` command (with no arguments). All the entries in the database are listed again, showing all the details and
+in the order of their addition.
+
+Step 4. The user now executes `delete` to delete an entry.
+
+Step 5. The user executes `list` command again. All the updated entries in the database, leaving out the last deleted one,  are listed again, showing all the details and
+in the order of their addition.
+
+Step 6. The user now executes `list 2` command. The first 2 entries akin to the previous output are displayed.
+
+Step 7. The user now executes `list 3 5` command. The source entries 3, 4 and 5 are shown, indexed as 1, 2 and 3, with all their details.
+
+Step 8. The user now executes `list 3` command. The first 3 entries of the entire source database are listed with all their details, and not the first three of the currently
+showcased list.
+
+Step 9. The user now executes `list -2` and the last two sources from the entire database list (and not the currently displayed list) are shown.
+
+Step 10. The user now executes `delete 1` and the first entry of the current list or the second last entry of the entire database is deleted.
+
+==== Design Considerations
+
+===== Aspect: How list, list N, and list N M executes
+
+* **List (current choice):** Filters using predicate that returns `true` for every source.
+** Pros: Easy to implement.
+** Cons: May have performance issues in terms of time usage.
+
+* **List N (current choice):** Filters using predicate that returns `true` for first/last N sources.
+** Pros: Easy to implement. Intuitive to understand
+** Cons: Can be made faster and cleaner using List operations or streams.
+
+* **List N (current choice):** Filters using predicate that returns `true` for sources between N and M included.
+** Pros: Easy to implement. Intuitive to understand
+** Cons: Can be made faster and cleaner using List operations or streams.
+
+===== Aspect: Data structure to support the list/list N/list N M commands
+
+* **Alternative 1 (current choice):** Forms predicates based on the input parameter, maintain targetIndex, fromIndex, toIndex and posFlag.
+** Pros: Uses simple `count` parameter initialized to 0 or 1 and incremented each time a source is evaluated returning `true/false` depending on the format of the list command.
+Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
+** Cons: Maybe not the best implementation in terms of the number of internal flags and indices maintained.
+
+// end::list[]
+
+=== Pin and Unpin Features
+==== Current Implementation
+The concept of pinned sources works on an index bases system rather than a separate list or any additional implementation. This allows pinned sources to function just like ordinary sources in that they can be searched and listed as normal.
+
+[NOTE]
+Pinned sources can be deleted with the delete command but cannot be swapped.
+
+Essentially, the pinned sources are governed by a single number within the `ModelManager` and is managed through a separate class called the `PinnedSourcesCoordinationCenter`. This coordination center is responsible for all operations which modify the number of pinned sources.
+
+image::pinUnpinStructure.png[width="900"]
+
+When a new source is pinned using the `pin INDEX` command, the coordination center will increment the number of pinned sources by 1 as well as bring the newly pinned source to the top of the list.
+
+image::pinSequence.png[width="900"]
+
+When a pinned source is unpinned using the `unpin INDEX` command, the coordination center will decrement the numer of pinned sources by 1 and move the unpinned source down to the position of the first unpinned source.
+
+image::unpinSequence.png[width="900"]
+
+==== Operational Process
+When a source is unpinned and there are other pinned sources, the recently unpinned source will be pushed back to the position of the first unpinned source.
+
+An example of this could be `unpin 1` command in a database with 3 pinned sources.
+
+image::unpin1.PNG[width="400"]
+
+The first source will be unpinned and moved to the position of the first unpinned source, in this case position 3.
+
+image::unpin2.PNG[width="400"]
+
+==== Source Checks
+When checking to see if a source can be pinned or unpinned, the command will call on the coordination center to check if a source is already pinned or unpinned respectively. An already pinned source cannot be pinned again and an unpinned source cannot be unpinned.
+
+These very same source checks will also be called during the `delete` and `order` commands.  For the `delete` command, the coordination center will check if the source to be deleted is a pinned source. If so, then the number of pinned sources will decrement by 1. If not, it just carries on with the deletion as usual. For the `order` command, the coordination center will check both the source being moved as well as the move location. If either of these indexes are of pinned sources, the `order` command will fail.
+
+==== Pinned Source Persistence
+For the pinned sources to be persistent, the number of pinned sources is updated into an external text file whenever a change is made to the number. This is consistent with the source database itself so the reordering of the sources when something is pinned or unpinned will occur together with the update to the number of pinned sources.
+
+The external storage is handled by a simple class called the `PinnedSourcesStorageOperationsCenter` which contains the path of the file which the number will be saved to.
+
+Dynamic pathing was necessary because when testing the function using a default file path, changes made during the test were saved to the actual file and that caused major problems for the program. Dynamic pathing ensured that for testing, a separate test file is written to thus maintaining the integrity of the actual file.
+
+==== Pinned Source UI Tag
+Pinned sources are denoted by a little golden badge on top of the source that says "Pinned". This is kept updated vis a flag set in the source object itself.
+
+At the start of the program, the `ModelManager` will use the number of pinned sources retrieved from the external storage to assign the flags accordingly. Every time a function affects the pinned sources, namely `delete`, `pin` and `unpin`, is called, the flag will be appropriately updated as well for consistency.
+
+It is important to note that the flag itself is not stored externally and is not persistent. It is assigned at the start of every session and modified accordingly as the functions are called. The rationale behind this implementation choice is to ensure that the external source storage is kept as clean and minimalist as possible.
+
+// tag::devorder[]
+=== Custom Order Feature
+==== Current Implementation
+The function is currently implemented using the functionality of the source model. It allows users to designate a source they want to move and a location they want to move it to.
+
+The primary uses of this feature are to facilitate source management and ordering sources by some user defined metric like personal importance.
+
+Given the function works purely on the parameters the user enters, a parser file was necessary to filter out invalid inputs like alphabets or special characters.
+
+Further consideration was necessary because of nature of the inputs. The inputs are array indexes which are very prone to being out or bounds that can result in system failures. Therefore, in addition to traditional exception handling, the function also implements its own checks for invalid user indexes.
+
+These check include the following:
+
+* Checking for inputs which are 0 or smaller
+** The user entered input follows traditional listing which starts from 1.  However array indexes in Java start from 0.  Therefore, 1 is always subtracted from any input added.
+** This means that any user input less than 1 are automatically invalid since that index cannot possibly exist
+
+* Checking for inputs which are larger than the size of the list of sources
+** The classic out of bounds exception occurs when a function attempts to extract an index from a point larger than the list's current size.
+** The function therefore checks the user input to ensure that it is always within the size of the list.
+
+Once the inputs are deemed as valid, the actual moving can begin. The model uses a list implementation for its primary storage model. This means that when a source is moved to a location, every source around it will need to be shifted to the front or the back depending on where the original source originated at.
+
+Thankfully, the Java List implementation does come with the function to add an item to the lest at a particular index, pushing everything aside automatically. The function called `addSourceAtIndex` was added to the model which took in the source to add as well as an index which the source should be added at.
+
+The function takes the following steps to make the swap:
+
+* Step 1 -- The function stores a copy of the source to be moved locally
+** The source to be moved is found using the index entered by the user and the `List.get` function that takes in an index and returns the source to be moved
+
+* Step 2 -- The function then deletes the source to be moved from the list
+** The `deleteSource` function automatically moves sources up to fill up the void left by the deleted source
+** A deletion is necessary in this step because the model does not accept duplicate sources. Therefore, adding the source to be moved first before deleting it would result in the function failing.
+
+* Step 3 -- The `addSourceAtIndex` function is used to place the recently deleted source back into the list at the designated location.
+
+* Step 4 -- The function then commits the database to save the recent changes.
+
+image::customOrderSequence.png[width="900"]
+
+==== Swapping process
+The process for swapping is slightly different for each type of swap, namely forward swapping and backwards swapping.
+
+===== Forward Swapping
+Forward swapping means that the index of the source to be moved is smaller than the index of the position it is to be moved to.
+
+An example of such a command could be `order 2 5`.
+
+image::forward1.PNG[width="400"]
+
+Once the source to be moved and the position it is to be moved to have been identified and validated, the source to be moved will be deleted from the list and stored separately. Notice that for forward swapping the initial source at the move position, in this case position 5, changes.
+
+image::forward2.PNG[width="400"]
+
+The source to be moved is then inserted into the current position 5, displacing all other sources after that and pushing them back.
+
+image::forward3.PNG[width="400"]
+
+===== Backward Swapping
+Backward swapping means that the index of the source to be moved is larger than the index of the position it is to be moved to.
+
+An example of such a command could be `order 5 2`.
+
+image::backward1.PNG[width="400"]
+
+Once the source to be moved and the position it is to be moved to have been identified and validated, the source to be moved will be deleted from the list and stored separately. Notice that for backward swapping the initial source at the move position, in this case position 2, does not change.
+
+image::backward2.PNG[width="400"]
+
+The source to be moved is then inserted into the current position 2, displacing all other sources after that and pushing them back.
+
+image::backward3.PNG[width="400"]
+
+// end::devorder[]
+
+// tag::biblio[]
+=== Biblio feature
+
+==== Overview
+
+Given that the `Infinity Machine` is used to manage sources, a user might reasonably expect to use the information stored to generate usable bibligraphy entries.
+This functionality is implemented by the `biblio` command and the `biblioEdit` command.
+
+==== BiblioFields
+When a `Source` object is created, in addition to the compulsory fields of `Title`, `Author`, `Type`, and `Detail`, it is also created with a set of `BiblioFields` for storing additional information that might be needed for creating a bibliography entry.
+
+`BiblioFields` is used to store information under the following headers:
+"City", "Journal", "Medium", "Pages", "Publisher", "URL", "Website", "Day", "Month", "Year"
+
+`BiblioFields` is empty by default.
+
+==== Biblio Command Implementation
+
+The biblio command extends `Infinity Machine` with a bibliography generating functionality.
+
+It is currently implemented with the following syntax: `biblio INDEX FORMAT`
+
+* `INDEX` -- Indicates the index of the source to generate a bibliography entry for.
+* `FORMAT` -- Indicates the format which the bibliography entry should follow.
+** Currently only APA and MLA formats are supported.
+
+An example would be `biblio 1 APA`.
+
+When the command is entered, the following occurs:
+
+* The associated parser, `BiblioCommandParser`, checks the validity of the entered arguments.
+* The indicated source is fetched from the SourceManager.
+* A check is performed on the source to ensure that it is of a supported type.
+** Currently only Book, Journal Article and Website sources are supported. These are chosen as they are the most likely to be used.
+* Based on the type of the source and the requested format, a bibliography entry is generated by accessing each of the source's relevant fields.
+** If any of the necessary fields is empty, a placeholder value is used instead.
+** The empty field is noted for feedback to user later.
+* The bibliography entry is returned to the user along with feedback on empty fields.
+
+*Extensions*: Future implementations can include additional supported source types.
+
+==== BiblioEdit Command Implementation
+
+The biblioEdit command is a supporting command for the Biblio feature. It is responsible for changing the information stored in the `BiblioFields` of a source.
+
+It is currently implemented with the following syntax: `biblioEdit INDEX HEADER BODY`
+
+* `INDEX` -- Indicates the index of the source to generate a bibliography entry for.
+* `HEADER` -- Indicates the header for the information which the user wishes to change.
+** As mention in relation to `BiblioFields` above, valid headers are
+"City", "Journal", "Medium", "Pages", "Publisher", "URL", "Website", "Day", "Month", "Year"
+* `BODY` -- Indicates the new value that should stored under the relevant header.
+
+image::BiblioEditCommand.png[width="800"]
+
+An example would be `biblioEdit 1 City London`
+
+*Alternative*: The bibliofields of a source can be set at object creation with the add command. However, this makes using the add command excessively onerous. The current implementation allows the user to change each field as needed and preserves the information stored under the other headers in `Bibliofields`.
+
+*Extensions*: A future implementation may allow information under multiple headers to be edited at once. Additionally, checks can be introduced to ensure the entered field bodies are appropriate e.g. the Month bibliofield should only accept values matching the English name of months.
+
+==== Example Usage Scenario
+
+Given below is an example usage scenario and how the BiblioEdit mechanism behaves.
+
+* Step 1 -- The user launches `Infinity Machine` for the first time.
+
+* Step 2 -- The user clears the database of sample sources using the clear command.
+
+* Step 3 -- The user executes an `add` command to add a source entry to the database. The source has type "Textbook".
+** `BiblioFields` is empty
+
+* Step 4 -- The user executes a `biblio` command with the following arguments: `1` `APA`
+** The user is informed that "Textbook" is not a supported source type
+
+* Step 5 -- The user executes an `Edit` command with the following arguments:
+`1` `y/Journal Article`
+** The source type is changed to "Book"
+
+* Step 6 -- The user executes a `biblio` command with the following arguments: `1` `APA`
+** A bibliography entry is generated with placeholder values as the requisite biblio fields are empty.
+** The user receives the bibliography entry along with a warning that some required fields are empty
+** The warning is appended with a list of empty but recommened fields: "Year", "City", "Publisher"
+
+* Step 7 -- The user executes a `biblioEdit` command with the following arguments:
+`1` `City` `London`
+
+* Step 8 -- The user executes a `biblioEdit` command with the following arguments:
+`1` `Publisher` `Penguin`
+
+* Step 9 -- The user executes a `biblioEdit` command with the following arguments:
+`1` `Year` `2001`
+
+* Step 10 -- The user executes a `biblio` command with the following arguments:
+`1` `APA`
+** The user receives an appropriately formatted bibliography entry
+
+// end::biblio[]
 
 === Logging
 
@@ -546,16 +1355,21 @@ Each individual exercise in this section is component-based (i.e. you would not 
 [discrete]
 ==== `Logic` component
 
-*Scenario:* You are in charge of `logic`. During dog-fooding, your team realize that it is troublesome for the user to type the whole command in order to execute a command. Your team devise some strategies to help cut down the amount of typing necessary, and one of the suggestions was to implement aliases for the command words. Your job is to implement such aliases.
+*Scenario:* You are in charge of `logic`. During dog-fooding, your team realize that it is troublesome for the user to type the whole
+command in order to execute a command. Your team devise some strategies to help cut down the amount of typing necessary, and one of the
+suggestions was to implement aliases for the command words. Your job is to implement such aliases.
 
 [TIP]
 Do take a look at <<Design-Logic>> before attempting to modify the `Logic` component.
 
-. Add a shorthand equivalent alias for each of the individual commands. For example, besides typing `clear`, the user can also type `c` to remove all persons in the list.
+. Add a shorthand equivalent alias for each of the individual commands. For example, besides typing `clear`,
+the user can also type `c` to remove all sources in the list.
 +
 ****
 * Hints
-** Just like we store each individual command word constant `COMMAND_WORD` inside `*Command.java` (e.g.  link:{repoURL}/src/main/java/seedu/address/logic/commands/FindCommand.java[`FindCommand#COMMAND_WORD`], link:{repoURL}/src/main/java/seedu/address/logic/commands/DeleteCommand.java[`DeleteCommand#COMMAND_WORD`]), you need a new constant for aliases as well (e.g. `FindCommand#COMMAND_ALIAS`).
+** Just like we store each individual command word constant `COMMAND_WORD` inside `*Command.java`
+(e.g.  link:{repoURL}/src/main/java/seedu/address/logic/commands/FindCommand.java[`FindCommand#COMMAND_WORD`],
+link:{repoURL}/src/main/java/seedu/address/logic/commands/DeleteCommand.java[`DeleteCommand#COMMAND_WORD`]), you need a new constant for aliases as well (e.g. `FindCommand#COMMAND_ALIAS`).
 ** link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser`] is responsible for analyzing command words.
 * Solution
 ** Modify the switch statement in link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser#parseCommand(String)`] such that both the proper command word and alias can be used to execute the same intended command.
@@ -567,21 +1381,24 @@ Do take a look at <<Design-Logic>> before attempting to modify the `Logic` compo
 [discrete]
 ==== `Model` component
 
-*Scenario:* You are in charge of `model`. One day, the `logic`-in-charge approaches you for help. He wants to implement a command such that the user is able to remove a particular tag from everyone in the address book, but the model API does not support such a functionality at the moment. Your job is to implement an API method, so that your teammate can use your API to implement his command.
+*Scenario:* You are in charge of `model`. One day, the `logic`-in-charge approaches you for help.
+He wants to implement a command such that the user is able to remove a particular tag from everyone
+in the SourceManager, but the model API does not support such a functionality at the moment. Your
+job is to implement an API method, so that your teammate can use your API to implement his command.
 
 [TIP]
 Do take a look at <<Design-Model>> before attempting to modify the `Model` component.
 
-. Add a `removeTag(Tag)` method. The specified tag will be removed from everyone in the address book.
+. Add a `removeTag(Tag)` method. The specified tag will be removed from everyone in the SourceManager.
 +
 ****
 * Hints
 ** The link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model`] and the link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`] API need to be updated.
 ** Think about how you can use SLAP to design the method. Where should we place the main logic of deleting tags?
-**  Find out which of the existing API methods in  link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`] and link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`] classes can be used to implement the tag removal logic. link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`] allows you to update a person, and link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`] allows you to update the tags.
+**  Find out which of the existing API methods in  link:{repoURL}/src/main/java/seedu/address/model/SourceManager.java[`SourceManager`] and link:{repoURL}/src/main/java/seedu/address/model/source/Source.java[`Source`] classes can be used to implement the tag removal logic. link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`] allows you to update a person, and link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`] allows you to update the tags.
 * Solution
-** Implement a `removeTag(Tag)` method in link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`]. Loop through each person, and remove the `tag` from each person.
-** Add a new API method `deleteTag(Tag)` in link:{repoURL}/src/main/java/seedu/address/model/ModelManager.java[`ModelManager`]. Your link:{repoURL}/src/main/java/seedu/address/model/ModelManager.java[`ModelManager`] should call `AddressBook#removeTag(Tag)`.
+** Implement a `removeTag(Tag)` method in link:{repoURL}/src/main/java/seedu/address/model/SourceManager.java[`SourceManager`]. Loop through each source, and remove the `tag` from each source.
+** Add a new API method `deleteTag(Tag)` in link:{repoURL}/src/main/java/seedu/address/model/ModelManager.java[`ModelManager`]. Your link:{repoURL}/src/main/java/seedu/address/model/ModelManager.java[`ModelManager`] should call `SourceManager#removeTag(Tag)`.
 ** Add new tests for each of the new public methods that you have added.
 ** See this https://github.com/se-edu/addressbook-level4/pull/790[PR] for the full solution.
 ****
@@ -589,12 +1406,16 @@ Do take a look at <<Design-Model>> before attempting to modify the `Model` compo
 [discrete]
 ==== `Ui` component
 
-*Scenario:* You are in charge of `ui`. During a beta testing session, your team is observing how the users use your address book application. You realize that one of the users occasionally tries to delete non-existent tags from a contact, because the tags all look the same visually, and the user got confused. Another user made a typing mistake in his command, but did not realize he had done so because the error message wasn't prominent enough. A third user keeps scrolling down the list, because he keeps forgetting the index of the last person in the list. Your job is to implement improvements to the UI to solve all these problems.
+*Scenario:* You are in charge of `ui`. During a beta testing session, your team is observing how the users use your SourceManager application.
+You realize that one of the users occasionally tries to delete non-existent tags from a contact, because the tags all look the same visually,
+and the user got confused. Another user made a typing mistake in his command, but did not realize he had done so because the error message
+wasn't prominent enough. A third user keeps scrolling down the list, because he keeps forgetting the index of the last source in the list.
+Your job is to implement improvements to the UI to solve all these problems.
 
 [TIP]
 Do take a look at <<Design-Ui>> before attempting to modify the `UI` component.
 
-. Use different colors for different tags inside person cards. For example, `friends` tags can be all in brown, and `colleagues` tags can be all in yellow.
+. Use different colors for different tags inside source cards. For example, `CS2030` tags can be all in brown, and `CS2040` tags can be all in yellow.
 +
 **Before**
 +
@@ -606,11 +1427,11 @@ image::getting-started-ui-tag-after.png[width="300"]
 +
 ****
 * Hints
-** The tag labels are created inside link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[the `PersonCard` constructor] (`new Label(tag.tagName)`). https://docs.oracle.com/javase/8/javafx/api/javafx/scene/control/Label.html[JavaFX's `Label` class] allows you to modify the style of each Label, such as changing its color.
+** The tag labels are created inside link:{repoURL}/src/main/java/seedu/address/ui/SourceCard.java[the `PersonCard` constructor] (`new Label(tag.tagName)`). https://docs.oracle.com/javase/8/javafx/api/javafx/scene/control/Label.html[JavaFX's `Label` class] allows you to modify the style of each Label, such as changing its color.
 ** Use the .css attribute `-fx-background-color` to add a color.
 ** You may wish to modify link:{repoURL}/src/main/resources/view/DarkTheme.css[`DarkTheme.css`] to include some pre-defined colors using css, especially if you have experience with web-based css.
 * Solution
-** You can modify the existing test methods for `PersonCard` 's to include testing the tag's color as well.
+** You can modify the existing test methods for `SourceCard` 's to include testing the tag's color as well.
 ** See this https://github.com/se-edu/addressbook-level4/pull/798[PR] for the full solution.
 *** The PR uses the hash code of the tag names to generate a color. This is deliberately designed to ensure consistent colors each time the application runs. You may wish to expand on this design to include additional features, such as allowing users to set their own tag colors, and directly saving the colors to storage, so that tags retain their colors even if the hash code algorithm changes.
 ****
@@ -664,17 +1485,20 @@ image::getting-started-ui-status-after.png[width="500"]
 [discrete]
 ==== `Storage` component
 
-*Scenario:* You are in charge of `storage`. For your next project milestone, your team plans to implement a new feature of saving the address book to the cloud. However, the current implementation of the application constantly saves the address book after the execution of each command, which is not ideal if the user is working on limited internet connection. Your team decided that the application should instead save the changes to a temporary local backup file first, and only upload to the cloud after the user closes the application. Your job is to implement a backup API for the address book storage.
+*Scenario:* You are in charge of `storage`. For your next project milestone, your team plans to implement a new feature of saving the source manager to the cloud.
+However, the current implementation of the application constantly saves the source manager after the execution of each command, which is not ideal if the user is working on limited internet connection.
+Your team decided that the application should instead save the changes to a temporary local backup file first, and only upload to the cloud after the user closes the application.
+Your job is to implement a backup API for the source manager storage.
 
 [TIP]
 Do take a look at <<Design-Storage>> before attempting to modify the `Storage` component.
 
-. Add a new method `backupAddressBook(ReadOnlyAddressBook)`, so that the address book can be saved in a fixed temporary location.
+. Add a new method `backupSourceManager(ReadOnlySourceManager)`, so that the address book can be saved in a fixed temporary location.
 +
 ****
 * Hint
-** Add the API method in link:{repoURL}/src/main/java/seedu/address/storage/AddressBookStorage.java[`AddressBookStorage`] interface.
-** Implement the logic in link:{repoURL}/src/main/java/seedu/address/storage/StorageManager.java[`StorageManager`] and link:{repoURL}/src/main/java/seedu/address/storage/JsonAddressBookStorage.java[`JsonAddressBookStorage`] class.
+** Add the API method in link:{repoURL}/src/main/java/seedu/address/storage/SourceManagerStorage.java[`SourceManagerStorage`] interface.
+** Implement the logic in link:{repoURL}/src/main/java/seedu/address/storage/StorageManager.java[`StorageManager`] and link:{repoURL}/src/main/java/seedu/address/storage/JsonSourceManagerStorage.java[`JsonSourceManagerStorage`] class.
 * Solution
 ** See this https://github.com/se-edu/addressbook-level4/pull/594[PR] for the full solution.
 ****
@@ -684,18 +1508,22 @@ Do take a look at <<Design-Storage>> before attempting to modify the `Storage` c
 
 By creating this command, you will get a chance to learn how to implement a feature end-to-end, touching all major components of the app.
 
-*Scenario:* You are a software maintainer for `addressbook`, as the former developer team has moved on to new projects. The current users of your application have a list of new feature requests that they hope the software will eventually have. The most popular request is to allow adding additional comments/notes about a particular contact, by providing a flexible `remark` field for each contact, rather than relying on tags alone. After designing the specification for the `remark` command, you are convinced that this feature is worth implementing. Your job is to implement the `remark` command.
+*Scenario:* You are a software maintainer for `source manager`, as the former developer team has moved on to new projects.
+ The current users of your application have a list of new feature requests that they hope the software will eventually have.
+ The most popular request is to allow adding additional comments/notes about a particular contact, by providing a flexible `remark` field for each contact,
+ rather than relying on tags alone. After designing the specification for the `remark` command, you are convinced that this feature is worth implementing.
+ Your job is to implement the `remark` command.
 
 ==== Description
-Edits the remark for a person specified in the `INDEX`. +
+Edits the remark for a source specified in the `INDEX`. +
 Format: `remark INDEX r/[REMARK]`
 
 Examples:
 
-* `remark 1 r/Likes to drink coffee.` +
-Edits the remark for the first person to `Likes to drink coffee.`
+* `remark 1 r/Due tomorrow.` +
+Edits the remark for the first source.
 * `remark 1 r/` +
-Removes the remark for the first person.
+Removes the remark for the first source.
 
 ==== Step-by-step Instructions
 
@@ -705,15 +1533,15 @@ Let's start by teaching the application how to parse a `remark` command. We will
 **Main:**
 
 . Add a `RemarkCommand` that extends link:{repoURL}/src/main/java/seedu/address/logic/commands/Command.java[`Command`]. Upon execution, it should just throw an `Exception`.
-. Modify link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser`] to accept a `RemarkCommand`.
+. Modify link:{repoURL}/src/main/java/seedu/address/logic/parser/SourceManagerParser.java[`SourceManagerParser`] to accept a `RemarkCommand`.
 
 **Tests:**
 
 . Add `RemarkCommandTest` that tests that `execute()` throws an Exception.
-. Add new test method to link:{repoURL}/src/test/java/seedu/address/logic/parser/AddressBookParserTest.java[`AddressBookParserTest`], which tests that typing "remark" returns an instance of `RemarkCommand`.
+. Add new test method to link:{repoURL}/src/test/java/seedu/address/logic/parser/SourceManagerParserTest.java[`AddressBookParserTest`], which tests that typing "remark" returns an instance of `RemarkCommand`.
 
 ===== [Step 2] Logic: Teach the app to accept 'remark' arguments
-Let's teach the application to parse arguments that our `remark` command will accept. E.g. `1 r/Likes to drink coffee.`
+Let's teach the application to parse arguments that our `remark` command will accept. E.g. `1 r/due tomorrow`
 
 **Main:**
 
@@ -728,24 +1556,24 @@ Let's teach the application to parse arguments that our `remark` command will ac
 for `RemarkCommandParser`.
 . Modify link:{repoURL}/src/test/java/seedu/address/logic/parser/AddressBookParserTest.java[`AddressBookParserTest`] to test that the correct command is generated according to the user input.
 
-===== [Step 3] Ui: Add a placeholder for remark in `PersonCard`
-Let's add a placeholder on all our link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`] s to display a remark for each person later.
+===== [Step 3] Ui: Add a placeholder for remark in `SourceCard`
+Let's add a placeholder on all our link:{repoURL}/src/main/java/seedu/address/ui/SourceCard.java[`SourceCard`] s to display a remark for each source later.
 
 **Main:**
 
-. Add a `Label` with any random text inside link:{repoURL}/src/main/resources/view/PersonListCard.fxml[`PersonListCard.fxml`].
-. Add FXML annotation in link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`] to tie the variable to the actual label.
+. Add a `Label` with any random text inside link:{repoURL}/src/main/resources/view/SourceListCard.fxml[`SourceListCard.fxml`].
+. Add FXML annotation in link:{repoURL}/src/main/java/seedu/address/ui/SourceCard.java[`SourceCard`] to tie the variable to the actual label.
 
 **Tests:**
 
-. Modify link:{repoURL}/src/test/java/guitests/guihandles/PersonCardHandle.java[`PersonCardHandle`] so that future tests can read the contents of the remark label.
+. Modify link:{repoURL}/src/test/java/guitests/guihandles/SourceCardHandle.java[`SourceCardHandle`] so that future tests can read the contents of the remark label.
 
 ===== [Step 4] Model: Add `Remark` class
-We have to properly encapsulate the remark in our link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`] class. Instead of just using a `String`, let's follow the conventional class structure that the codebase already uses by adding a `Remark` class.
+We have to properly encapsulate the remark in our link:{repoURL}/src/main/java/seedu/address/model/Source/Source.java[`Source`] class. Instead of just using a `String`, let's follow the conventional class structure that the codebase already uses by adding a `Remark` class.
 
 **Main:**
 
-. Add `Remark` to model component (you can copy from link:{repoURL}/src/main/java/seedu/address/model/person/Address.java[`Address`], remove the regex and change the names accordingly).
+. Add `Remark` to model component (you can copy from link:{repoURL}/src/main/java/seedu/address/model/Source/Address.java[`Address`], remove the regex and change the names accordingly).
 . Modify `RemarkCommand` to now take in a `Remark` instead of a `String`.
 
 **Tests:**
@@ -753,16 +1581,16 @@ We have to properly encapsulate the remark in our link:{repoURL}/src/main/java/s
 . Add test for `Remark`, to test the `Remark#equals()` method.
 
 ===== [Step 5] Model: Modify `Person` to support a `Remark` field
-Now we have the `Remark` class, we need to actually use it inside link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`].
+Now we have the `Remark` class, we need to actually use it inside link:{repoURL}/src/main/java/seedu/address/model/Source/Source.java[`Source`].
 
 **Main:**
 
-. Add `getRemark()` in link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`].
-. You may assume that the user will not be able to use the `add` and `edit` commands to modify the remarks field (i.e. the person will be created without a remark).
-. Modify link:{repoURL}/src/main/java/seedu/address/model/util/SampleDataUtil.java/[`SampleDataUtil`] to add remarks for the sample data (delete your `data/addressbook.json` so that the application will load the sample data when you launch it.)
+. Add `getRemark()` in link:{repoURL}/src/main/java/seedu/address/model/Source/Source.java[`Source`].
+. You may assume that the user will not be able to use the `add` and `edit` commands to modify the remarks field (i.e. the Source will be created without a remark).
+. Modify link:{repoURL}/src/main/java/seedu/address/model/util/SampleDataUtil.java/[`SampleDataUtil`] to add remarks for the sample data (delete your `data/sourcemanager.json` so that the application will load the sample data when you launch it.)
 
 ===== [Step 6] Storage: Add `Remark` field to `JsonAdaptedPerson` class
-We now have `Remark` s for `Person` s, but they will be gone when we exit the application. Let's modify link:{repoURL}/src/main/java/seedu/address/storage/JsonAdaptedPerson.java[`JsonAdaptedPerson`] to include a `Remark` field so that it will be saved.
+We now have `Remark` s for `Source` s, but they will be gone when we exit the application. Let's modify link:{repoURL}/src/main/java/seedu/address/storage/JsonAdaptedSource.java[`JsonAdaptedSource`] to include a `Remark` field so that it will be saved.
 
 **Main:**
 
@@ -773,7 +1601,7 @@ We now have `Remark` s for `Person` s, but they will be gone when we exit the ap
 . Fix `invalidAndValidPersonAddressBook.json`, `typicalPersonsAddressBook.json`, `validAddressBook.json` etc., such that the JSON tests will not fail due to a missing `remark` field.
 
 ===== [Step 6b] Test: Add withRemark() for `PersonBuilder`
-Since `Person` can now have a `Remark`, we should add a helper method to link:{repoURL}/src/test/java/seedu/address/testutil/PersonBuilder.java[`PersonBuilder`], so that users are able to create remarks when building a link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`].
+Since `Source` can now have a `Remark`, we should add a helper method to link:{repoURL}/src/test/java/seedu/address/testutil/SourceBuilder.java[`SourceBuilder`], so that users are able to create remarks when building a link:{repoURL}/src/main/java/seedu/address/model/Source/Source.java[`Source`].
 
 **Tests:**
 
@@ -785,7 +1613,7 @@ Our remark label in link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.jav
 
 **Main:**
 
-. Modify link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`]'s constructor to bind the `Remark` field to the `Person` 's remark.
+. Modify link:{repoURL}/src/main/java/seedu/address/ui/SourceCard.java[`SourceCard`]'s constructor to bind the `Remark` field to the `Source` 's remark.
 
 **Tests:**
 
@@ -796,7 +1624,7 @@ We now have everything set up... but we still can't modify the remarks. Let's fi
 
 **Main:**
 
-. Replace the logic in `RemarkCommand#execute()` (that currently just throws an `Exception`), with the actual logic to modify the remarks of a person.
+. Replace the logic in `RemarkCommand#execute()` (that currently just throws an `Exception`), with the actual logic to modify the remarks of a Source.
 
 **Tests:**
 
@@ -811,13 +1639,11 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
-* can type fast
-* prefers typing over mouse input
-* is reasonably comfortable using CLI apps
+* has a need to manage a significant number of research data
+* needs efficient search and retrieval of research data
+* wants a safe place to save and store information
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*: manage research data faster than a typical mouse/GUI driven app
 
 [appendix]
 == User Stories
@@ -827,62 +1653,602 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
+|`* * *` |user |be able to add a new source |store my research materials
 
-|`* * *` |user |add a new person |
+|`* * *` |user |be able to remove sources I do not want |have a clean and updated database
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |user |edit an existing source |change a source without deleting it
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |user |be able to tag my sources |easily determine what this source is about
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` |user |be able to search for sources by type, name and tags |easily navigate through my sources
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* * *` |user |see all the sources that I have stored |have an overview of what I have at the moment
+
+|`* * *` |new user |have access to all the commands available |have a guide in case I forget how to use the application
+
+|`* *` |user |be able to hide sensitive data |maintain the privacy of my research materials
+
+|`* *` |user |my incorrect searches to show me the closest search terms |still find what I want even if I do not know what it is
+
+|`* *` |user |be able to customise the application commands to my own linking |have easy to use aliases for my commands
+
+|`* *` |user |be able to view past commands |easily trace back what I added, removed or modified
+
+|`* *` |user who is prone to making mistakes |be able to undo previous commands |retrieve lost sources if I accidentally deleted them
+
+|`* *` |user |be able to order the sources in the application however I like |put important sources on top or group them together
+
+|`*` |very picky user |be able to customise the word colour in the application |make the application personalized to me
+
+|`*` |user |see some ASCII art representations in the application |have nicer things to look at other than just text
 |=======================================================================
-
-_{More to be added}_
 
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `Infinity Machine` and the *Actor* is the `User`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
+=== Use case: Add a source
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  User requests to add a specified source to the database
+2.  The Infinity Machine adds the source to the database
+3.  User requests to list all sources in the database
+4.  The Infinity Machine displays all sources in the database including the newly added one
++
+Use case ends.
+
+*Extensions*
+
+* 1b. The command entered is invalid. Either it is misspelled or does not have the correct arguments and parameters.
++
+[none]
+** 1b1. The Infinity Machine shows an error message together with a help text to guide the user along.
++
+Use case resumes at step 0.
+
+[discrete]
+=== Use case: Delete a source
+
+*MSS*
+
+1.  User requests to list all sources
+2.  The Infinity Machine shows a list of the sources currently in the database
+3.  User requests to delete a specific source in the list
+4.  The Infinity Machine deletes that source as per the user's request
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 2a. The list is empty.
+* 2a. There are no sources in the list. The database is empty.
 +
 Use case ends.
 
-* 3a. The given index is invalid.
+* 3a. The given index is invalid. Either it is a negative number or exceeds the current list total.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 3a1. The Infinity Machine shows an error message.
 +
 Use case resumes at step 2.
 
-_{More to be added}_
+* 3b. The command entered is invalid. Either it is misspelled or does not have the correct arguments and parameters.
++
+[none]
+** 3b1. The Infinity Machine shows an error message together with a help text to guide the user along.
++
+Use case resumes at step 2.
+
+[discrete]
+=== Use case: Edit a source
+
+*MSS*
+
+1.  User requests to list all sources
+2.  The Infinity Machine shows a list of the sources currently in the database
+3.  User requests to edit a specific source in the list with some parameters
+4.  The Infinity Machine modifies that source as per the user's request
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. There are no sources in the list. The database is empty.
++
+Use case ends.
+
+* 3a. The given index is invalid. Either it is a negative number or exceeds the current list total.
++
+[none]
+** 3a1. The Infinity Machine shows an error message.
++
+Use case resumes at step 2.
+
+* 3b. The command entered is invalid. Either it is misspelled or does not have the correct arguments and parameters.
++
+[none]
+** 3b1. The Infinity Machine shows an error message together with a help text to guide the user along.
++
+Use case resumes at step 2.
+
+[discrete]
+=== Use case: Search for a source
+
+*MSS*
+
+1.  User requests to search for a source with specific keywords and values of CLI prefixes.
+2.  The Infinity Machine shows a list of the sources currently in the database that match the user's keywords
++
+Use case ends.
+
+*Extensions*
+
+* 1a. The command entered is invalid. Either it is misspelled or does not have any keywords.
++
+[none]
+** 1a1. The Infinity Machine shows an error message together with a help text to guide the user along.
++
+Use case resumes at step 0.
+
+[none]
+* 2a. There are no sources in the list. The database is empty.
++
+Use case ends with nothing being displayed.
+
+[none]
+* 2b. There are no sources in the list that match the user's keywords.
++
+Use case ends with nothing being displayed.
+
+[discrete]
+=== Use case: List the sources in the database
+
+*MSS*
+
+1.  User requests to list all sources, or sources of specific indices
+2.  The Infinity Machine shows a list of the sources currently in the database,
+as per the index entered by the user [optionally].
++
+Use case ends.
+
+*Extensions*
+
+* 1a. The command entered is invalid. The command was misspelled.
++
+[none]
+** 1a1. The Infinity Machine shows an error message together with a help text to guide the user along.
++
+Use case resumes at step 0.
+
+[none]
+* 2a. There are no sources in the list. The database is empty.
++
+Use case ends with nothing being displayed.
+
+[discrete]
+=== Use case: Reorder sources in the database
+
+*MSS*
+
+1.  User requests to list all sources
+2.  The Infinity Machine shows a list of the sources currently in the database
+3.  User requests to move a specific source in the list to another position either further up or below
+4.  The Infinity Machine moves that source to the targeted location as per the user's request
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. There are no sources in the list. The database is empty.
++
+Use case ends.
+
+* 3a. The given source index is invalid. Either it is a negative number or exceeds the current list total.
++
+[none]
+** 3a1. The Infinity Machine shows an error message.
++
+Use case resumes at step 2.
+
+* 3b. The given location index is invalid. Either it is a negative number or exceeds the current list total.
++
+[none]
+** 3b1. The Infinity Machine shows an error message.
++
+Use case resumes at step 2.
+
+* 3c. The command entered is invalid. Either it is misspelled or does not have the correct arguments and parameters.
++
+[none]
+** 3c1. The Infinity Machine shows an error message together with a help text to guide the user along.
++
+Use case resumes at step 2.
+
+* 3d. The source index and the location index are the same.
++
+[none]
+** 3d1. The Infinity Machine performs the move but nothing changes.
++
+Use case ends with no change to the database.
+
+[discrete]
+=== Use case: Generate bibliography entry of a source
+
+*MSS*
+
+1.  User requests to list all sources
+2.  The Infinity Machine shows a list of the sources currently in the database
+3.  User requests to generate a bibliography entry of a specific source in the list
+4.  The Infinity Machine generates a bibliography entry of that source as per the user's request in a predefined citation standard
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. There are no sources in the list. The database is empty.
++
+Use case ends.
+
+* 3a. The given index is invalid. Either it is a negative number or exceeds the current list total.
++
+[none]
+** 3a1. The Infinity Machine shows an error message.
++
+Use case resumes at step 2.
+
+* 3b. The command entered is invalid. Either it is misspelled or does not have the correct arguments and parameters.
++
+[none]
+** 3b1. The Infinity Machine shows an error message together with a help text to guide the user along.
++
+Use case resumes at step 2.
+
+[discrete]
+=== Use case: List the history of entered commands
+
+*MSS*
+
+1.  User requests to list all previously entered commands
+2.  The Infinity Machine shows a list of the commands entered previously
++
+Use case ends.
+
+*Extensions*
+
+* 1a. The command entered is invalid. The command was misspelled.
++
+[none]
+** 1a1. The Infinity Machine shows an error message together with a help text to guide the user along.
++
+Use case resumes at step 0.
+
+[none]
+* 2a. There are no previous commands.
++
+Use case ends with nothing being displayed.
+
+[discrete]
+=== Use case: Creating an alias of a command
+
+*MSS*
+
+1.  User requests to create an alias of a command
+2.  The Infinity Machine creates and assigns the user defined alias to the command
+3.  User executes that command with the alias
+4.  The Infinity Machine executes the user requested command as though the original command was entered
++
+Use case ends.
+
+*Extensions*
+
+* 1a. The command entered is invalid. Either the command was misspelled or the parameters entered were incorrect.
++
+[none]
+** 1a1. The Infinity Machine shows an error message together with a help text to guide the user along.
++
+Use case resumes at step 0.
+
+* 1b. The alias the user is assigning already exists.
++
+[none]
+** 1b1. The Infinity Machine will override the original aliased command with the new command entered.
++
+Use case ends.
+
+* 1b. The command the user is attempting to alias is already an alias.
++
+[none]
+** 1b1. The Infinity Machine shows an error message.
++
+Use case resumes at step 0.
+
+[none]
+* 3a. The alias creation was not successful.
++
+[none]
+** 3a1. The Infinity Machine shows an error message since the command is invalid.
++
+Use case ends.
+
+[discrete]
+=== Use case: Removing an alias of a command
+
+*MSS*
+
+1.  User requests to remove an alias of a command
+2.  The Infinity Machine removes the alias to the command
+3.  User executes that command with the now removed alias
+4.  The Infinity Machine will not execute the command since it is no longer an alias and instead displays an error
++
+Use case ends.
+
+*Extensions*
+
+* 1a. The command entered is invalid. Either the command was misspelled or the parameters entered were incorrect.
++
+[none]
+** 1a1. The Infinity Machine shows an error message together with a help text to guide the user along.
++
+Use case resumes at step 0.
+
+* 1b. The alias the user is attempting to remove does not exist.
++
+[none]
+** 1b1. The Infinity Machine will not perform any action.
++
+Use case resumes at step 2 with no change.
+
+[none]
+* 3a. The alias was not successful removed.
++
+[none]
+** 3a1. The Infinity Machine will execute the command when the alias is used.
++
+Use case ends.
+
+[discrete]
+=== Use case: List all the aliases currently active
+
+*MSS*
+
+1.  User requests to list all active aliases
+2.  The Infinity Machine shows a list of the active aliases for the various commands
++
+Use case ends.
+
+*Extensions*
+
+* 1a. The command entered is invalid. The command was misspelled.
++
+[none]
+** 1a1. The Infinity Machine shows an error message together with a help text to guide the user along.
++
+Use case resumes at step 0.
+
+[none]
+* 2a. There are no aliases in the application.
++
+Use case ends with nothing being displayed.
+
+[discrete]
+=== Use case: Count the total number of sources in the database
+
+*MSS*
+
+1.  User requests to count how many sources there are in the database
+2.  The Infinity Machine shows the number of sources in the database
++
+Use case ends.
+
+*Extensions*
+
+* 1a. The command entered is invalid. The command was misspelled.
++
+[none]
+** 1a1. The Infinity Machine shows an error message together with a help text to guide the user along.
++
+Use case resumes at step 0.
+
+[discrete]
+=== Use case: Undo a previous command
+
+*MSS*
+
+1.  User requests to undo a previous command
+2.  The Infinity Machine undoes the previous command and sets the database to its state before the command
++
+Use case ends.
+
+*Extensions*
+
+* 1a. The command entered is invalid. The command was misspelled.
++
+[none]
+** 1a1. The Infinity Machine shows an error message together with a help text to guide the user along.
++
+Use case resumes at step 0.
+
+[none]
+* 1b. There are no previous commands.
++
+Use case ends with no changes to the database.
+
+* 1c. All previous commands are not "undoable" (they do not modify the sources or are valid redo commands)
++
+[none]
+** 1c1. The Infinity Machine will not undo anything and the sources will be unchanged.
++
+Use case ends with no changes to the database.
+
+[discrete]
+=== Use case: Redo a previous command
+
+*MSS*
+
+1.  User requests to redo a previous command
+2.  The Infinity Machine redoes the previous command and sets the database to its state after the command
++
+Use case ends.
+
+*Extensions*
+
+* 1a. The command entered is invalid. The command was misspelled.
++
+[none]
+** 1a1. The Infinity Machine shows an error message together with a help text to guide the user along.
++
+Use case resumes at step 0.
+
+[none]
+* 1b. There are no previous commands.
++
+Use case ends with no changes to the database.
+
+* 1c. All previous commands are not "redoable" (they do not modify the sources or are valid undo commands)
++
+[none]
+** 1c1. The Infinity Machine will not undo anything and the sources will be unchanged.
++
+Use case ends with no changes to the database.
+
+[discrete]
+=== Use case: Enable panic mode
+
+*MSS*
+
+1.  User requests to enable panic mode
+2.  The Infinity Machine goes into panic mode and hides all sources
+3.  User requests to list all sources
+4.  The Infinity Machine will display nothing since it is in panic mode
++
+Use case ends.
+
+*Extensions*
+
+* 1a. The command entered is invalid. The command is misspelled.
++
+[none]
+** 1a1. The Infinity Machine shows an error message together with a help text to guide the user along.
++
+Use case resumes at step 0.
+
+* 1b. The system is already in panic mode.
++
+[none]
+** 1b1. The Infinity Machine does not perform any action since it is already in panic mode.
++
+Use case continues at step 3.
+
+* 3a. The earlier enable panic command is invalid.
++
+[none]
+** 3a1. The Infinity Machine displays all sources since it did not enter panic mode.
++
+Use case ends.
+
+[discrete]
+=== Use case: Disable panic mode
+
+*MSS*
+
+1.  User requests to disable panic mode
+2.  The Infinity Machine goes into normal mode and reveals all sources
+3.  User requests to list all sources
+4.  The Infinity Machine will display all sources since it is no longer in panic mode
++
+Use case ends.
+
+*Extensions*
+
+* 1a. The command entered is invalid. The command is misspelled.
++
+[none]
+** 1a1. The Infinity Machine shows an error message together with a help text to guide the user along.
++
+Use case resumes at step 0.
+
+* 1b. The system is already in normal mode.
++
+[none]
+** 1b1. The Infinity Machine does not perform any action since it is already in panic mode.
++
+Use case continues at step 3.
+
+* 3a. The earlier enable panic command is invalid.
++
+[none]
+** 3a1. The Infinity Machine displays nothing since it is still in panic mode.
++
+Use case ends.
+
+* 3b. There are no sources in the list. The database is empty.
++
+[none]
+** 3b1. The Infinity Machine displays nothing since there are no sources.
++
+Use case ends.
+
+[discrete]
+=== Use case: Clear all sources in the database
+
+*MSS*
+
+1.  User requests to clear all sources in the database
+2.  The Infinity Machine clears all the sources in the database making it empty
+3.  User requests to list all sources
+4.  The Infinity Machine will display nothing since all the sources have been removed
++
+Use case ends.
+
+*Extensions*
+
+* 1a. The command entered is invalid. The command was misspelled.
++
+[none]
+** 1a1. The Infinity Machine shows an error message together with a help text to guide the user along.
++
+Use case resumes at step 0.
+
+* 3a. The earlier clear command is invalid.
++
+[none]
+** 3a1. The Infinity Machine displays all sources it has since it did not lose any sources.
++
+Use case ends.
+
+[discrete]
+=== Use case: Exit application
+
+*MSS*
+
+1.  User requests exit application
+2.  The infinity machine saves and shuts down
++
+Use case ends.
+
+*Extensions*
+
+* 1a. The command entered is invalid. The command was misspelled.
++
+[none]
+** 1a1. The Infinity Machine shows an error message together with a help text to guide the user along.
++
+Use case resumes at step 0.
 
 [appendix]
 == Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
-.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-
-_{More to be added}_
+.  Should be able to hold up to 1000 sources without a noticeable sluggishness in performance for typical usage.
+.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands)
+should be able to accomplish most of the tasks faster using commands than using the mouse.
 
 [appendix]
 == Glossary
@@ -892,23 +2258,6 @@ Windows, Linux, Unix, OS-X
 
 [[private-contact-detail]] Private contact detail::
 A contact detail that is not meant to be shared with others
-
-[appendix]
-== Product Survey
-
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
 
 [appendix]
 == Instructions for Manual Testing
@@ -924,7 +2273,7 @@ These instructions only provide a starting point for testers to work on; testers
 
 .. Download the jar file and copy into an empty folder
 .. Double-click the jar file +
-   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+   Expected: Shows the GUI with a set of sample sources. The window size may not be optimum.
 
 . Saving window preferences
 
@@ -932,26 +2281,66 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-_{ more test cases ... }_
+. Shutdown:
 
-=== Deleting a person
+.. Execute command `exit` on the command line (or)
+.. Click on dropdown menu 'file' and press 'exit' button +
+    Expected: The GUI should disappear.
 
-. Deleting a person while all persons are listed
 
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+=== Deleting a source
+
+. Deleting a source while all sources are listed
+
+.. Prerequisites: List all sources using the `list` command. Multiple sources in the list.
 .. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+   Expected: First source is deleted from the list. Details of the deleted source shown in the status message.
+   Timestamp in the status bar is updated.
 .. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
+   Expected: No source is deleted. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) +
    Expected: Similar to previous.
 
-_{ more test cases ... }_
+// tag::searchMT[]
+=== Searching a source
 
-=== Saving data
+. Searches through the entire database of sources
 
-. Dealing with missing/corrupted data files
+.. Prerequisites: Pass values with the appropriate CLI tags to search the sources against
+.. Test case: `search i/Algorithm` +
+    Expected: the source(s) with the word 'algorithm' (case insensitive and minor typo accounted for) in their entire title
+    string will be showed, with all its details.
+.. Test case: `search i/AlGo i/dataa t/CS` +
+    Expected: the source(s) with their title containing both the words 'algo', 'data' and tags contain 'cs' will
+    be displayed with all their details.
+.. Test case: `search i/` +
+    Expected: list all sources as title can be anything [does not throw an error].
+.. Test case: `search y/web y/` +
+    Expected:  the source(s) with their types containing the word 'web' will be displayed with
+    all their details. Here, the empty tag implies the type can be anything, thus after conjunction, the 'web' constraint
+    dominates the result.
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
+// end::searchMT[]
 
-_{ more test cases ... }_
+// tag::listMT[]
+=== Listing sources
+
+. Lists sources based on the indices passed by the user
+
+.. Prerequisites: Lists all sources when no argument passed, list top N sources when one positive integer passed,
+lists last N sources when one negative integer passed, lists sources from N to M (inclusive) when two positive arguments N and M are passed
+with N not greater than M.
+.. Test case: `list`
+    Expected: lists all sources with their details
+.. Test case: `list 5`
+    Expected: lists top 5 sources with their details
+.. Test case: `list -4`
+    Expected: lists last 4 sources with their details
+.. Test case: `list 3 5`
+    Expected: lists sources 3, 4 and 5 with their details
+.. Test case: `list 5 3`
+    Expected: error because range is invalid
+.. Test case: `list 0`
+    Expected: error because all indices must be positive
+
+// end::listMT[]

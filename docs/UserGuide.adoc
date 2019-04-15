@@ -1,6 +1,7 @@
-= AddressBook Level 4 - User Guide
+= The Infinity Machine - User Guide
 :site-section: UserGuide
 :toc:
+:toclevels: 3
 :toc-title:
 :toc-placement: preamble
 :sectnums:
@@ -12,33 +13,49 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level4
+:repoURL: https://github.com/CS2103-AY1819S2-W13-3/main
 
 By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
 
 == Introduction
 
-AddressBook Level 4 (AB4) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB4 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB4 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+"To understand matters rightly we should understand their details; and as that knowledge is almost infinite, our knowledge is always superficial and imperfect." - Francois de La Rochefoucauld
+
+The knowledge in the universe is infinite and there exists many things that are still beyond our comprehension. However, that does not mean that the process of learning what we have discovered should be a difficult one.
+
+Introducing the Infinity Machine, an application for efficient storing and retrieving of textual information on research material by allowing users to apply to it custom made tags and type for easy search and retrieval.
+Intended for tech-savvy university students who are able to use CLI and wish to organize and tag research information or any other data that they may wish to store.
+
+No longer will you miss out on important sources or developments in your field of interest.  No longer will you forget where you read something and struggle to find it again.
 
 == Quick Start
 
 .  Ensure you have Java version `9` or later installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
+.  Download the latest `infinitymachine.jar` link:{repoURL}/releases[here].
+.  Copy the file to the folder you want to use as the home folder for your Infinity Machine.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
-+
-image::Ui.png[width="790"]
-+
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
-* *`exit`* : exits the app
+* *`list`* : lists all sources currently in the Infinity Machine
+* **`add`**`i/Algorithms Wikipedia y/Website d/Basic definitions and history of algorithms t/Algorithms t/Computer Science` : adds a source named `Wikipedia Algorithms` to the Infinity Machine.
+* **`delete`**`3` : deletes the 3rd source shown in the current list
+* *`exit`* : exits the the Infinity Machine
 
 .  Refer to <<Features>> for details of each command.
+
+== Modes
+
+==== Source Manager
+
+The default mode that you will start with. This mode allows you to perform the main interactions with the Infinity Machine
+such as managing your research data through the adding of sources, adding of a bibliography to a source as well as removing of sources.
+
+==== Recycle Bin
+
+Worried about accidentally deleting important data? Rest assured, we have created a mode call the Recycle Bin where
+you can recover your deleted sources.
 
 [[Features]]
 == Features
@@ -46,140 +63,526 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add i/TITLE`, `TITLE` is a parameter which can be used as `add i/Wikipedia Algorithms`.
+* Items in square brackets are optional e.g `i/TITLE [t/TAG]` can be used as `i/Wikipedia Algorithms t/Wikipedia` or as `i/Wikipedia Algorithms`.
+* Items with `…`​ after them can be used multiple times including zero times e.g `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/Computer Science`, `t/Computer Science t/Algorithms` etc.
+* Parameters can be in any order e.g. if the command specifies `i/TITLE y/TYPE`, `y/TYPE i/TITLE` is also acceptable.
 ====
 
-=== Viewing help : `help`
+=== Source Manager Commands
+
+==== Viewing help : `help`
 
 Format: `help`
 
-=== Adding a person: `add`
+Displays the User Guide for a quick reference.
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+==== Selecting a Source : `select`
+
+Format: `select INDEX`
+Displays the source selected.
+
+****
+* Selects the source at the specified `INDEX`.
+* The index refers to the index number shown in the displayed source list.
+* The index *must be a positive integer* 1, 2, 3, ...
+* Displays all details of the source on the right hand side of the UI window.
+****
+
+==== Adding a source: `add`
+
+Adds a new source to the list of sources +
+Format: `add i/TITLE y/TYPE a/AUTHOR d/DETAILS [t/TAG]...`
+
+****
+* Multiple of each type of source information can be entered into a single add command.
+* The system will only take the last entered bit of information as the final one
+** If there are multiple titles entered like `i/Algorithms Wikipedia i/General Algorithms i/Algorithms Basic`, only the last one will be taken. In this case it will be `Algorithms Basic`.
+* The above rule is applicable to all information fields except Tag.
+****
+
+[NOTE]
+=====
+The entry fields for the various source information have the following limitations:
+
+* TITLE
+** A mantatory field.
+** Cannot have special characters but can include numbers and spaces.
+
+* TYPE
+** A mantatory field.
+** Cannot have special characters but can include numbers and spaces.
+
+* AUTHOR
+** A mantatory field.
+** No limitation on the characters to be entered.
+** For the purposes of generating an accurate bibliography entry later, it is recommended to enter the full name of an Author in the following way: `Last name, First name`.
+
+* DETAIL
+** A mantatory field.
+** No limitation on the characters to be entered.
+
+* TAG
+** An optional field.
+** Cannot have special characters but can include numbers and spaces.
+** Can have any number including 0.
+
+// tag::biblio[]
+[Tip]
+The created source comes with an empty set of biblio fields, used for storing information for creating a bibliography entry. Refer to `biblio` and `biblioEdit` for more information.
+// end::biblio[]
+
+=====
 
 [TIP]
-A person can have any number of tags (including 0)
+You cannot add a source with the same `i/TITLE` and `d/DETAILS` as another source in the database.
 
 Examples:
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* `add i/Algorithms Wikipedia y/Website a/Jason Mills d/Basic definitions and history of algorithms t/Algorithm t/Wikipedia`
+* `add i/Artificial Intelligence IEEE y/Journal Article a/Yueyang d/introductory facts on artificial intelligence t/Science Journal t/AI`
 
-=== Listing all persons : `list`
+// tag::delete[]
+==== Deleting a source : `delete`
 
-Shows a list of all persons in the address book. +
-Format: `list`
-
-=== Editing a person : `edit`
-
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
-
-****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
-****
-
-Examples:
-
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
-
-=== Locating persons by name: `find`
-
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
-
-****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-****
-
-Examples:
-
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
-
-=== Deleting a person : `delete`
-
-Deletes the specified person from the address book. +
+Deletes the specified source. +
 Format: `delete INDEX`
 
 ****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
+* Deletes the source at the specified `INDEX`.
+* The index refers to the index number shown in the displayed source list.
 * The index *must be a positive integer* 1, 2, 3, ...
+* Deleted source is added to Recycle Bin mode.
+* If source to delete is already in the Recycle Bin, it will be permanently deleted.
 ****
 
 Examples:
 
 * `list` +
 `delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
+Deletes the 2nd source in the database.
+* `search i/algorithms` +
 `delete 1` +
-Deletes the 1st person in the results of the `find` command.
+Deletes the 1st source in the results of the `search` command.
+* `add i/Wikipedia Algorithms y/Website a/Tom Show d/Basic definitions of algorithms t/Algorithms t/Introduction` +
+`delete 1` +
+`add i/Wikipedia Algorithms y/Website a/Tom Show d/Basic definitions of algorithms t/Algorithms t/Introduction` +
+`delete 1` +
+Permanently deletes the 1st source that is exactly the same source as the source that was previously deleted.
+// end::delete[]
 
-=== Selecting a person : `select`
+==== Editing a source : `edit`
 
-Selects the person identified by the index number used in the displayed person list. +
-Format: `select INDEX`
+Edits an existing source in the database. +
+Format: `edit INDEX [i/TITLE] [y/TYPE] [a/AUTHOR] [d/DETAILS] [t/TAG]...`
+
+[NOTE]
+=====
+The maximum possible index that will be processed by the system is limited to the largest positive value for a 32-bit signed binary integer.
+
+Any number larger than 2,147,483,647 will not be parsed as an integer and will be rejected.
+=====
 
 ****
-* Selects the person and loads the Google search page the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* `1, 2, 3, ...`
+* Edits the source at the specified `INDEX`. The index refers to the index number shown in the displayed source list. The index *must be a positive integer* 1, 2, 3, ...
+* At least one of the optional fields must be provided.
+* For the editing of tags, any existing tags to be kept must be re-entered.
+* If the existing tags are `Algorithm` and `Wikipedia` and the user wants to keep only `Algorithm`, they must enter the command `edit 1 t/Algorithm`.
+* Entering just `t/` without any thing after that will simply delete all tags for that entry.
+****
+
+[NOTE]
+=====
+The entry fields for the various source information have the following limitations:
+
+* TITLE
+** A mantatory field.
+** Cannot have special characters but can include numbers and spaces.
+
+* TYPE
+** A mantatory field.
+** Cannot have special characters but can include numbers and spaces.
+
+* AUTHOR
+** A mantatory field.
+** No limitation on the characters to be entered.
+
+* DETAIL
+** A mantatory field.
+** No limitation on the characters to be entered.
+
+* TAG
+** An optional field.
+** Cannot have special characters but can include numbers and spaces.
+** Can have any number including 0.
+=====
+
+[TIP]
+You cannot edit a source to have the same `i/TITLE` and `d/DETAILS` as another source in the database.
+
+Examples:
+
+* `edit 2 i/Photosynthesis Wikipedia t/Photosynthesis t/Biology` +
+Edits the 2nd source, changing the title and tags of the source to be `Photosynthesis Wikipedia` and `Photosynthesis, Biology` respectively.
+* `edit 3 y/Journal a/Gerard DuGalle` +
+Edits the 3rd source, changing the type and author of the source to be `Journal` and `Gerard DuGalle` respectively.
+* `edit 5 t/` +
+Edits the 5th source and clears all its existing tags.
+
+// tag::search[]
+
+==== Searching a source: `search`
+
+Searches for entries amongst the list of sources. +
+Able to search by title, type, detail and tags as specified by the CLI prefixes [author field not included].
+Able to perform substring matching. Able to implement autocorrect by searching for _'similar'_ strings,
+where similarity is defined by a pre-set Levenshtein distance as against the entire field value (and not substring)
+
+Finds all entries with a (case insensitive) field value that contains the value as specified by the user. +
+Searches with multiple arguments are taken as conjunction searches, i.e all those sources
+that satisfy all the keyword values are shown (logical `and` operation).
+Enables substring matching for a more powerful retrieval of sources. Also able
+to take in multiple arguments of each prefix and search
+in conjunction such as all those fields are matched with the corresponding fields of the resulting sources.
+Similar fields are also shown, allowing for room should the user have made a typing mistake, or the user meant something
+else, or the user just wants to see other related sources with similar field values.
+If any seemingly unwanted results are displayed after a search command is executed, it should not be seen as a bug and this is
+the intended behaviour because of the reasons and rationale explained above or in the Developer Guide.
+Rest assured, the intended results will never be missed out.
+
+Format: `search [i/TITLE] [y/TYPE] [d/DETAILS] [t/TAG]...`
+
+****
+* Search by author name is not accounted for yet. Look forward in v2.0.
+* The search is case insensitive. e.g `hans` will match `Hans`
+* The search implements substring matching. e.g. `algo` will match algorithm, algorithms, algo trading, etc.
+* There can have any number of tags but minimally 1 (just `search` results in error. To enumerate all entries, pass an empty CLI prefix to search or check out `list` command instead)
+* There can be multiple tags with same prefix and the result must satisfy all, eg. `search i/algo i/data` will result in `data struc. and algorithms`
+because it is a super-string of both the entered field values.
+* Closely related strings are matched even if the value is not exactly same, implemented using
+edit distance of the two strings. Only checked against the entire field value and not substring.
+* Search implemented as a logical AND. eg. `search i/algorithm y/website` results in all those sources
+that have title `algorithm` AND type `website`.
 ****
 
 Examples:
 
-* `list` +
-`select 2` +
-Selects the 2nd person in the address book.
-* `find Betsy` +
-`select 1` +
-Selects the 1st person in the results of the `find` command.
+* `search i/Algorithms` +
+Returns the source(s) with the title `algorithms`
+* `search i/wiki y/web d/intelligence t/ML` +
+Returns any source(s) having tags `ML` and having the word `intelligence` somewhere in their content
+(detail) and having a type of `website` or `web series`.
+* `search i/data i/algo` +
+Returns the source(s) with both substrings 'data' and 'algo' included in them.
+* `search y/wesbite`
+Returns the source(s) of type 'website' [and other similar strings, if any]
+// end::search[]
+// tag::list[]
 
-=== Listing entered commands : `history`
+==== Listing all sources : `list`
+
+Displays a list of sources currently in the database, filtering by number and position depending on the [optional] parameters passed. +
+Takes 1 or 2 optional argument which are used to list only the top/bottom N sources or the sources between N and M (included) indices respectively. +
+With one parameter passed, a positive N lists top N sources from the top, a negative N lists top N sources from the bottom [bottom N sources]. +
+With two parameters, the range must have both N and M as positive indices and N must not be smaller than M. +
+None of the values can ever be 0. The listing feature is always relative to the original list of the entire database.
+
+Format: `list [N] [M]`
+where argument N and M in [ ] are optional [either enter none, N, or (N and M)]
+
+The four main formats and their usages are described below:
+
+===== list: (no arguments)
+When no arguments are passed to `list`, it works same way as in the original AB4 logic, listing *all* the sources in the entire database with all their title, type, author, detail and tag values.
+The sources are unfiltered and listed in entirety, with indexes 1, 2.. so on.
+
+Example: `list` +
+Lists all the sources indexed from 1 onwards with all their details.
+
+===== list N: (one positive argument)
+When one positive integer is passed to `list`, it lists the first N sources from the top, again listing all their title, type, author, detail and tag values.
+Top N sources are listed with respect to the original source database list with indexes 1, 2 ... till N.
+
+Example: `list 5` +
+Lists top 5 sources from the entire database indexed from 1, 2 .. 5 with all their details.
+
+===== list -N: (one negative argument)
+When one negative integer is passed to `list`, it lists the last N resources from the top or first N sources from the bottom, again listing all their title, type, author, detail and tag values.
+Bottom N sources are listed with respect to the original source database list with indexes 1, 2 ... till N.
+
+Example: `list -5` +
+Lists the last 5 sources from the entire database indexed from 1, 2 .. 5 with all their details.
+
+===== list N, M: (two positive arguments)
+When two positive integers are passed to `list`, it lists the sources between N and M (included) from the top, again listing all their title, type, author, detail and tag values.
+N to M sources are listed with respect to the original source database list with indexes 1, 2 ... till (M-N+1).
+
+Example: `list 6, 9` +
+Lists the 4 sources from index 6 to 9 from the entire database list, indexed from 1, 2 .. till 4 with all their details.
+
+[NOTE]
+=====
+The maximum possible index that will be processed by the system is limited to the largest positive value for a 32-bit signed binary integer.
+
+Any number larger than 2,147,483,647 will not be parsed as an integer and will be rejected.
+=====
+
+****
+* More than 2 parameters passed will be ignored, and the first two will be tested for the fourth case of range(N,M) listing.
+* In single parameter, the integer can be positive or negative but not 0.
+* In two parameter, the two integers must both be positive, with second greater than or equal to the first (both non-zero).
+* Any number of spaces in between the number is accepted, they are trimed away and integers are used to determine the list command type.
+* Tags, Details, Type are also displayed along with the sources
+****
+
+// end::list[]
+
+==== Organisational Tools : `order` and `pin`
+The Infinity Machine offers users functionality that allows them to customise the way their sources are ordered and displayed to their liking.
+
+Pinned sources are saved between sessions, allowing users to retain whatever edits they have made.
+
+===== Pinning important sources : `pin`
+Marks a source as pinned and moves it to the top of the list where it will remain.
+
+Format: `pin INDEX`
+
+[NOTE]
+=====
+The maximum possible index that will be processed by the system is limited to the largest positive value for a 32-bit signed binary integer.
+
+Any number larger than 2,147,483,647 will not be parsed as an integer and will be rejected.
+=====
+
+****
+* The `INDEX` refers to the index number shown in the displayed source list.
+* The `INDEX` *must be a positive integer* 1, 2, 3, ...
+* The specified source to be pinned will move up and replace the source at the first position, pushing all sources after that down by 1 position.
+****
+
+[NOTE]
+=====
+You can delete a pinned source with no issue by entering the `delete` command followed by the index of the pinned source.
+
+However, do note that deleting a pinned source will remove the source from the list.
+=====
+
+[TIP]
+The maximum number of pinned sources you can have at a single time is 5.
+
+Examples:
+
+* `pin 4` +
+Marks source number 4 as pinned and moves it to the top of the list.
+
+==== Unpinning sources : `unpin`
+Reverts a pinned source back to its unpinned state, moving the source down to the first position of an unpinned source in the event there are pinned sources after the source to be unpinned.
+
+Format: `unpin INDEX`
+
+[NOTE]
+=====
+The maximum possible index that will be processed by the system is limited to the largest positive value for a 32-bit signed binary integer.
+
+Any number larger than 2,147,483,647 will not be parsed as an integer and will be rejected.
+=====
+
+****
+* The `INDEX` refers to the index number shown in the displayed source list.
+* The `INDEX` *must be a positive integer* 1, 2, 3, ...
+* The specified source to be unpinned will be moved down to the position of the first unpinned source if there are pinned sources after the source to be unpinned.
+* If the source to be unpinned is the only or the last pinned source, then its position does not change.
+****
+
+[TIP]
+Pinning and unpinning a source is not considered an undoable command and therefore will not be undone or redone with the `undo` or `redo` commands respectively.
+
+Examples:
+
+* `unpin 4` +
+Reverts source 4, which was originally pinned, to its unpinned state and moves it down to the first unpinned source's position.
+
+==== Reordering sources to your liking : `order`
+Moves the specified source from one position to another as defined by the user.
+
+Format: `order ORIGINAL_INDEX NEW_INDEX`
+
+[NOTE]
+====
+The maximum possible index that will be processed by the system is limited to the largest positive value for a 32-bit signed binary integer.
+
+Any number larger than 2,147,483,647 will not be parsed as an integer and will be rejected.
+====
+
+****
+* Obtains the source at the specified `ORIGINAL_INDEX` and moves it to the `NEW_INDEX`.
+* The indexes refers to the index numbers shown in the displayed source list.
+* The indexes *must be positive integers* 1, 2, 3, ...
+* The specified source will replace the original source at that index.
+** If the souce was shifted forward, sources before the `NEW_INDEX` will be shifted back and the source designated by `ORIGINAL_INDEX` will take the position of `NEW_INDEX`.
+** If the souce was shifted backwards, sources after the `NEW_INDEX` will be shifted forward and the source designated by `ORIGINAL_INDEX` will take the position of `NEW_INDEX`.
+****
+
+[TIP]
+You cannot swap a source that is pinned or swap a source to the location of a pinned source.
+
+Examples:
+
+* `order 1 4` +
+Moves the source located at index 1 to index 4.
+
+* `order 1 6` +
+If there are only 6 sources in the database, the command moves the source located at index 1 to last position in the list.
+
+
+// tag::biblio[]
+==== Generating a bibliography entry : `biblio`
+
+Generates an bibliographical entry from the source at the specified. +
+Format: `biblio INDEX FORMAT`
+
+****
+* Generates a bibliographical entry of the appropriate style from the source at the specified `INDEX`.
+* The index refers to the index number shown in the displayed source list.
+* The index *must be valid (between the indexes of the first source and the last source inclusive.
+* The format must be APA or MLA
+****
+
+[Note]
+Currently, only source types of "Book", "Journal Article" and "Website" are supported.
+If any suggested fields for a given source type are not populated, they will be reflected to the user when `biblio` is used.
+
+Examples:
+
+* `biblio 1 APA` +
+Generates an APA style bibliography entry for the first source.
+
+* `biblio 2 MLA` +
+Generates an MLA style bibliography entry for the second source.
+
+=== Editing a bibliography related field (bibliofield): `biblioEdit`
+
+Replaces the information stored under the indicated header in the indicated source.
+
+Format: `biblioEdit INDEX HEADER BODY`
+
+****
+* Replaces a bibliofield of matching `HEADER` of the source at the specified `INDEX` with `BODY`.
+* The index refers to the index number shown in the displayed source list.
+* The index *must be valid (between the indexes of the first source and the last source inclusive.
+* The header must be one of the following:
+*   "City", "Journal", "Medium", "Pages", "Publisher", "URL", "Website", "Day", "Month", "Year"
+****
+
+[Note]
+To ensure the accuracy of the bibliography generated, please ensure the accuracy of entered `BODY`.
+
+[Tip]
+The <i></i> braces indicate that the text between should be italicized.
+
+Examples:
+
+* `biblioEdit 1 City London` +
+Replaces the "City" bibliofield in the first source with "London".
+
+* `biblioEdit 2 Publisher Penguin` +
+Replaces the "Publisher" bibliofield in the second source with "Penguin".
+// end::biblio[]
+
+==== Listing entered commands : `history`
 
 Lists all the commands that you have entered in reverse chronological order. +
 Format: `history`
 
-[NOTE]
-====
-Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
-====
+// tag::alias[]
+==== Command aliases : `alias`
+Note: Aliases do not work in recycle-bin mode.
 
-// tag::undoredo[]
-=== Undoing previous command : `undo`
-
-Restores the address book to the state before the previous _undoable_ command was executed. +
-Format: `undo`
-
-[NOTE]
-====
-Undoable commands: those commands that modify the address book's content (`add`, `delete`, `edit` and `clear`).
-====
+===== Creating an alias: `alias`
+Allows the user to create aliases create aliases for commands. +
+Format: `alias COMMAND ALIAS`
 
 Examples:
 
-* `delete 1` +
+* `alias count c` (`c` is now a valid pseudo-command that works exactly like `count`)
+* `alias invalid i` (this doesn't work because `invalid` is not a valid command)
+
+As the above examples demonstrate, aliases may only be created for valid commands.
+
+If the user attempts to add an alias that has already been added, the old one will be overwritten. For example:
+
+* `alias count c`
+* `alias invalid c`
+
+`c` is now an alias for the invalid command `invalid`.
+
+The command may not be another alias. The alias may not be a command.
+
+* `alias count ct` (`ct` is now an alias for `count`)
+* `alias ct c` (this is invalid because `ct` is another alias)
+* `alias count list` (this is invalid because `list` is a command)
+
+The alias must be syntatically valid. A valid syntax may only contain alphabets.
+
+* `alias list l` (valid)
+* `alias count ct` (valid)
+* `alias clear $` (invalid)
+
+===== Removing an alias: `alias-rm`
+Allows the user to remove previously-defined aliases. +
+Format: `alias-rm ALIAS`
+
+Examples:
+
+* `alias count c` (`c` is now an alias for `count`)
+* `alias-rm c` (`c` is no longer an alias for `count`)
+
+If the user attempts to remove a non-existent alias, nothing happens.
+`alias-rm` only guarantees that after it is performed, the alias argument does not exist.
+
+===== Listing all aliases: `alias-ls`
+Lists all defined aliases and their associated commands. +
+Format: `alias-ls`
+
+===== Clearing all aliases: `alias-clear`
+Clears all defined aliases and their associaetd commands. +
+Format: `alias-clear`
+
+===== Alias persistence
+Aliases are persistent across usage sessions.
+When an alias is created or removed, this is recorded to disk.
+No action is required on the user's part.
+// end::alias[]
+
+// tag::count[]
+==== Counting total number of sources: `count`
+
+Counts and returns the total number of source entries retrieved from Source Manager. +
+Format: `count`
+
+Examples:
+
+* `count` +
+Result: `Total number of source(s): 6` +
+Counts the total number of sources retrieved from Source Manager.
+// end::count[]
+
+// tag::undoredo[]
+==== Undoing previous command : `undo`
+
+Allows the user to reverse the last performed undoable action. +
+Format: `undo`
+
+[NOTE]
+=====
+Undoable commands: those commands that modify the source's content (`add`, `delete`, `edit` and `clear`).
+=====
+
+Examples:
+
+* `delete Algorithms` +
 `list` +
-`undo` (reverses the `delete 1` command) +
+`undo` (reverses the `delete Algorithms` command) +
 
 * `select 1` +
 `list` +
@@ -191,9 +594,9 @@ The `undo` command fails as there are no undoable commands executed previously.
 `undo` (reverses the `clear` command) +
 `undo` (reverses the `delete 1` command) +
 
-=== Redoing the previously undone command : `redo`
+==== Redoing the previously undone command : `redo`
 
-Reverses the most recent `undo` command. +
+Allows user to redo the last performed action. +
 Format: `redo`
 
 Examples:
@@ -214,47 +617,314 @@ The `redo` command fails as there are no `undo` commands executed previously.
 `redo` (reapplies the `clear` command) +
 // end::undoredo[]
 
-=== Clearing all entries : `clear`
+// tag::panic[]
+==== Enabling panic mode : `panic`
 
-Clears all entries from the address book. +
+Allows the user to temporarily hide data. +
+Format: `panic`
+
+Research data may be sensitive.
+Panic mode is a privacy-focused feature that swaps out the user's data store with an empty dummy data store.
+
+When it is enabled, the application window replaces the original list of sources with an empty list.
+This change is reflected on disk too; the JSON file of sources is replaced by an empty dummy file that tracks the dummy data store.
+The original data store exists only in memory, until panic mode is disabled.
+This feature protects user data against spying, both from shoulder-surfing and more sophisticated spyware that may be monitoring the user's disk.
+
+In panic mode, the dummy data store behaves exactly like a real one.
+Therefore, all commands (e.g. add, remove, etc.) operate on the dummy data store (and the dummy JSON file), **without affecting the actual data store.** After exiting panic mode, all data created while in panic mode will be purged permanently. Therefore, dummy data created in panic mode will not persist between panic mode sessions.
+
+[NOTE]
+=====
+If the user exits the application in panic mode (using the `exit` command), the application automatically restores the user's original data from memory and saves it to disk before exiting, to prevent permanent data loss.
+
+However, if the application is closed directly **while in panic mode**, **permanent data loss** will occur.
+=====
+// end::panic[]
+
+// tag::unpanic[]
+==== Disabling panic mode : `unpanic`
+
+Restores the user's original data. +
+Format: `unpanic`
+
+This reverses the effect of panic mode by restoring the user's original data.
+The restorated is reflected on the disk too; the JSON file is reset to its original state and will now track the original data store.
+// end::unpanic[]
+
+==== Clearing all entries : `clear`
+
+Clears all entries from the source manager. +
 Format: `clear`
 
-=== Exiting the program : `exit`
+==== Exiting the program : `exit`
 
 Exits the program. +
 Format: `exit`
 
-=== Saving the data
+==== Saving the data
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
+Source Manager data are saved in the hard disk automatically after any command that changes the data. +
+
 There is no need to save manually.
 
 // tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
+==== Encrypting data files `[coming in v2.0]`
 
-_{explain how the user can enable/disable data encryption}_
+Research materials can be very sensitive and private especially for high profile researchers. The Infinity Machine hopes to be able to help researchers by encrypting their data for only authorised viewers to access.
+
+Will allow users to generate simple encryption keys which will help keep their research materials secure.
 // end::dataencryption[]
+
+// tag::recyclebin[]
+[[RecycleBin]]
+=== Recycle Bin Commands
+
+====
+Note that Recycle Bin only support the following commands necessary to manage the deletion and restoration of a source.
+====
+
+// tag::recyclebinlist[]
+==== Listing a deleted source : `recycle-bin`
+
+Switches to Recycle Bin mode and lists all the sources deleted in Source Manager. +
+Format: `recycle-bin`
+
+****
+* Switches modes from Source Manager to Recycle Bin.
+* Lists all sources previously deleted in the Source Manager.
+* Using this command in the Recycle Bin mode will list all sources deleted in the Source Manager.
+****
+
+Examples:
+
+* Test switching to Recycle Bin with deleted source: +
+1. Delete 1st source in the source manager database +
+`delete 1` +
+2. use recycle-bin to switch to Recycle Bin mode +
+`recycle-bin` +
+3. Deleted source is listed. +
+* Test using the command in Recycle Bin mode: +
+1. Lists all deleted sources +
+`recycle-bin` +
+// end::recyclebinlist[]
+
+// tag::recyclebindelete[]
+==== Deleting a source : `delete`
+
+Deletes the specified source permanently. +
+Format: `delete INDEX`
+
+****
+* Deletes the source at the specified `INDEX`.
+* The index refers to the index number shown in the displayed source list.
+* The index *must be a positive integer* 1, 2, 3, ...
+* Deleted source is added to Recycle Bin mode.
+* If source to delete is already in the Recycle Bin, it will be permanently deleted.
+****
+
+Examples:
+
+* `list` +
+`delete 2` +
+Deletes the 2nd source in the database.
+* `search algorithms` +
+`delete 1` +
+Deletes the 1st source in the results of the `search` command.
+* `add i/Wikipedia Algorithms y/Website a/Tom Show d/Basic definitions of algorithms t/Algorithms t/Introduction` +
+`delete 1` +
+`add i/Wikipedia Algorithms y/Website a/Tom Show d/Basic definitions of algorithms t/Algorithms t/Introduction` +
+`delete 1` +
+Permanently deletes the 1st source that is exactly the same source as the source that was previously deleted.
+// end::recyclebindelete[]
+
+// tag::restore[]
+==== Restoring a source : `restore`
+
+Restores the specified source from Recycle Bin back to Source Manager. +
+Format: `restore INDEX`
+
+****
+* Restores the source at the specified `INDEX`.
+* The index refers to the index number shown in the displayed source list.
+* The index *must be a positive integer* 1, 2, 3, ...
+* Restored source is added back to Source Manager mode.
+* If source to restore already exists in the Source Manager, an error message advising the removing of the source will be thrown.
+****
+
+Examples:
+
+* Test restoring sources:
+1. Delete 1st source in the source manager database +
+`delete 1` +
+2. use recycle-bin to switch to Recycle Bin mode +
+`recycle-bin` +
+3. restores the 2nd source in the recycle bin database. +
+`restore 1` +
+* Test restoring duplicate sources:
+1. Add a source +
+`add i/Wikipedia Algorithms y/Website a/Tom Show d/Basic definitions of algorithms t/Algorithms t/Introduction` +
+2. Delete the source +
+`delete 1` +
+3. Add the same source +
+`add i/Wikipedia Algorithms y/Website a/Tom Show d/Basic definitions of algorithms t/Algorithms t/Introduction` +
+4. Switch to Recycle Bin +
+`recycle-bin` +
+5. Restore the deleted source +
+`restore 1` +
+6. An error message is thrown advising the removing of the source since it already exists in the source manager database.
+// end::restore[]
+
+// tag::emptybin[]
+==== Clears the Recycle Bin : `empty-bin`
+
+Clears all sources in Recycle Bin. +
+Format: `empty-bin`
+
+****
+* All sources in Recycle Bin will be removed.
+* Will not clear sources in Source Manager.
+****
+// end::emptybin[]
+
+// tag::exitbin[]
+==== Exits the Recycle Bin : `exit-bin`
+
+Switches modes from Recycle Bin to Source Manager. Lists all sources in Source Manager+
+Format: `exit-bin`
+// end::exitbin[]
+
+// tag::countrb[]
+==== Counting total number of sources: `count`
+
+Counts and returns the total number of deleted sources in the Recycle Bin. +
+Format: `count`
+
+Examples:
+
+* `count` +
+Result: `Total number of source(s): 6` +
+Counts the total number of sources retrieved from Recycle Bin.
+// end::countrb[]
+
+// tag::undoredorb[]
+==== Undoing previous command : `undo`
+
+Allows the user to reverse the last performed undoable action. +
+Format: `undo`
+
+[NOTE]
+=====
+Undoable commands: those commands that modify the source's content (`add`, `delete`, `edit` and `clear`).
+=====
+
+Examples:
+
+* `delete Algorithms` +
+`list` +
+`undo` (reverses the `delete Algorithms` command) +
+
+* `select 1` +
+`list` +
+`undo` +
+The `undo` command fails as there are no undoable commands executed previously.
+
+* `delete 1` +
+`clear` +
+`undo` (reverses the `clear` command) +
+`undo` (reverses the `delete 1` command) +
+
+==== Redoing the previously undone command : `redo`
+
+Allows user to redo the last performed action. +
+Format: `redo`
+
+Examples:
+
+* `delete 1` +
+`undo` (reverses the `delete 1` command) +
+`redo` (reapplies the `delete 1` command) +
+
+* `delete 1` +
+`redo` +
+The `redo` command fails as there are no `undo` commands executed previously.
+
+* `delete 1` +
+`empty-bin` +
+`undo` (reverses the `empty-bin` command) +
+`undo` (reverses the `delete 1` command) +
+`redo` (reapplies the `delete 1` command) +
+`redo` (reapplies the `empty-bin` command) +
+// end::undoredorb[]
+
+==== Viewing help : `help`
+
+Format: `help`
+
+Displays the User Guide for a quick reference.
+
+==== Selecting a Source : `select`
+
+Format: `select INDEX`
+
+Displays the source selected.
+
+****
+* Selects the source at the specified `INDEX`.
+* The index refers to the index number shown in the displayed source list.
+* The index *must be a positive integer* 1, 2, 3, ...
+****
+
+// end::recyclebin[]
 
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Infinity Machine folder.
+
+*Q*: What is a duplicate source? +
+*A*: A duplicate source is a source that has the exact same *title*, *author* and *details* as another existing source in the database.
+This is because if a research data has the exact same title, author and details it would mean that it is the exact same research data.
 
 == Command Summary
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
+* *Add* `add i/TITLE y/TYPE d/DETAILS [t/TAG]...` +
+e.g. `add i/Artificial Intelligence IEEE y/Journal Article a/Hugh Johnson d/Landmark paper on perils of artificial intelligence t/Science Journal t/AI`
 * *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
+* *Edit* : `edit INDEX i/TITLE y/TYPE d/DETAILS [t/TAG]...` +
+e.g. `edit 2 i/Photosynthesis Wikipedia t/Photosynthesis t/Biology`
+* *Search* : `search [i/TITLE] [y/TYPE] [d/DETAILS] [t/TAG]...` +
+e.g. `search i/algorithm y/journal`
+* *List* : `list [N] [M]`  +
+N M non 0 and M>=N if both passed.
+* *Pin* : `pin INDEX` +
+e.g. `pin 3`
+* *Unpin* : `unpin INDEX` +
+e.g. `unpin 3`
+* *Custom Order* : `order ORIGINAL_INDEX NEW_INDEX` +
+e.g. `order 3 5`
 * *Help* : `help`
-* *Select* : `select INDEX` +
-e.g.`select 2`
+* *Select* : `select`
+* *Count* : `count`
+* *Biblio* : `biblio INDEX FORMAT` +
+e.g. `biblio 1 APA`
+* *Biblio* : `biblioEdit INDEX HEADER BODY` +
+e.g. `biblioEdit 1 City London`
 * *History* : `history`
+* *Adding an alias* : `alias COMMAND ALIAS` +
+e.g. `alias list ls`
+* *Removing an alias* : `alias-rm ALIAS` +
+e.g. `alias-rm ls`
+* *Listing all aliases* : `alias-ls`
+* *Clearing all aliases* : `alias-clear`
 * *Undo* : `undo`
 * *Redo* : `redo`
+* *Panic* : `panic`
+* *Unpanic* : `unpanic`
+* *Delete* : `delete INDEX` +
+e.g. `delete 3`
+* *Restore* : `restore INDEX` +
+e.g. `restore 3`
+* *Recycle Bin* : `recycle-bin`
+* *Empty Bin* : `empty-bin`
+* *Exit Bin* : `exit-bin`

@@ -6,14 +6,16 @@ import java.util.function.Predicate;
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.person.Person;
+import seedu.address.logic.commands.PanicMode;
+import seedu.address.model.source.Source;
+import seedu.address.storage.PinnedSourcesStorageOperationsCenter;
 
 /**
  * The API of the Model component.
  */
-public interface Model {
+public interface Model extends PanicMode {
     /** {@code Predicate} that always evaluate to true */
-    Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+    Predicate<Source> PREDICATE_SHOW_ALL_SOURCES = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -36,95 +38,223 @@ public interface Model {
     void setGuiSettings(GuiSettings guiSettings);
 
     /**
-     * Returns the user prefs' address book file path.
+     * Returns the user prefs' source manager file path.
      */
-    Path getAddressBookFilePath();
+    Path getSourceManagerFilePath();
 
     /**
-     * Sets the user prefs' address book file path.
+     * Returns the user prefs' source manager file path.
      */
-    void setAddressBookFilePath(Path addressBookFilePath);
+    Path getDeletedSourceFilePath();
 
     /**
-     * Replaces address book data with the data in {@code addressBook}.
+     * Sets the user prefs' source manager file path.
      */
-    void setAddressBook(ReadOnlyAddressBook addressBook);
-
-    /** Returns the AddressBook */
-    ReadOnlyAddressBook getAddressBook();
+    void setSourceManagerFilePath(Path sourceManagerFilePath);
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
+     * Sets the user prefs' source manager file path.
      */
-    boolean hasPerson(Person person);
+    void setDeletedSourceFilePath(Path deletedSourceFilePath);
 
     /**
-     * Deletes the given person.
-     * The person must exist in the address book.
+     * Replaces source manager data with the data in {@code sourceManager}.
      */
-    void deletePerson(Person target);
+    void setSourceManager(ReadOnlySourceManager sourceManager);
+
+    /** Returns the SourceManager */
+    ReadOnlySourceManager getSourceManager();
 
     /**
-     * Adds the given person.
-     * {@code person} must not already exist in the address book.
+     * Replaces source manager data with the data in {@code sourceManager}.
      */
-    void addPerson(Person person);
+    void setDeletedSources(ReadOnlyDeletedSources deletedSources);
+
+    /** Returns the SourceManager */
+    ReadOnlyDeletedSources getDeletedSources();
 
     /**
-     * Replaces the given person {@code target} with {@code editedPerson}.
-     * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     * Returns true if a source with the same identity as {@code source} exists in the source manager.
      */
-    void setPerson(Person target, Person editedPerson);
-
-    /** Returns an unmodifiable view of the filtered person list */
-    ObservableList<Person> getFilteredPersonList();
+    boolean hasSource(Source source);
 
     /**
-     * Updates the filter of the filtered person list to filter by the given {@code predicate}.
+     * Returns true if a source with the same identity as {@code source} exists in the source manager.
+     */
+    boolean hasDeletedSource(Source source);
+
+    /**
+     * Deletes the given source.
+     * The source must exist in the source manager.
+     */
+    void deleteSource(Source target);
+
+    /**
+     * Deletes the given source.
+     * The source must exist in the source manager.
+     */
+    void removeDeletedSource(Source target);
+
+    /**
+     * Adds the given source.
+     * {@code source} must not already exist in the source manager.
+     */
+    void addSource(Source source);
+
+    /**
+     * Adds the given source.
+     * {@code source} must not already exist in the source manager.
+     */
+    void addDeletedSource(Source source);
+
+    /**
+     * Adds the given source to an index.
+     * {@code source} must not already exist in the source manager.
+     */
+    void addSourceAtIndex(Source source, int index);
+
+    /**
+     * Adds the given source to an index.
+     * {@code source} must not already exist in the source manager.
+     */
+    void addDeletedSourceAtIndex(Source source, int index);
+
+    /**
+     * Replaces the given source {@code target} with {@code editedSource}.
+     * {@code target} must exist in the source manager.
+     * The source identity of {@code editedSource} must not be the same
+     * as another existing source in the source manager.
+     */
+    void setSource(Source target, Source editedSource);
+
+    /**
+     * Replaces the given source {@code target} with {@code editedSource}.
+     * {@code target} must exist in the source manager.
+     * The source identity of {@code editedSource} must not be the same
+     * as another existing source in the source manager.
+     */
+    void setDeletedSource(Source target, Source editedSource);
+
+    /** Returns an unmodifiable view of the filtered source list */
+    ObservableList<Source> getFilteredSourceList();
+
+    /**
+     * Updates the filter of the filtered source list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
-    void updateFilteredPersonList(Predicate<Person> predicate);
+    void updateFilteredSourceList(Predicate<Source> predicate);
 
     /**
-     * Returns true if the model has previous address book states to restore.
+     * Returns true if the model has previous source manager states to restore.
      */
-    boolean canUndoAddressBook();
+    boolean canUndoSourceManager();
 
     /**
-     * Returns true if the model has undone address book states to restore.
+     * Returns true if the model has previous source manager states to restore.
      */
-    boolean canRedoAddressBook();
+    boolean canUndoDeletedSources();
 
     /**
-     * Restores the model's address book to its previous state.
+     * Returns true if the model has undone source manager states to restore.
      */
-    void undoAddressBook();
+    boolean canRedoSourceManager();
 
     /**
-     * Restores the model's address book to its previously undone state.
+     * Returns true if the model has undone source manager states to restore.
      */
-    void redoAddressBook();
+    boolean canRedoDeletedSources();
 
     /**
-     * Saves the current address book state for undo/redo.
+     * Restores the model's source manager to its previous state.
      */
-    void commitAddressBook();
+    void undoSourceManager();
 
     /**
-     * Selected person in the filtered person list.
-     * null if no person is selected.
+     * Restores the model's source manager to its previous state.
      */
-    ReadOnlyProperty<Person> selectedPersonProperty();
+    void undoDeletedSources();
 
     /**
-     * Returns the selected person in the filtered person list.
-     * null if no person is selected.
+     * Restores the model's source manager to its previously undone state.
      */
-    Person getSelectedPerson();
+    void redoSourceManager();
 
     /**
-     * Sets the selected person in the filtered person list.
+     * Restores the model's source manager to its previously undone state.
      */
-    void setSelectedPerson(Person person);
+    void redoDeletedSources();
+
+    /**
+     * Saves the current source manager state for undo/redo.
+     */
+    void commitSourceManager();
+
+    /**
+     * Saves the current source manager state for undo/redo.
+     */
+    void commitDeletedSources();
+
+    /**
+     * Selected source in the filtered source list.
+     * null if no source is selected.
+     */
+    ReadOnlyProperty<Source> selectedSourceProperty();
+
+    /**
+     * Returns the selected source in the filtered source list.
+     * null if no source is selected.
+     */
+    Source getSelectedSource();
+
+    /**
+     * Sets the selected source in the filtered source list.
+     */
+    void setSelectedSource(Source source);
+
+    /**
+     * Switch the list in the filtered source list to deleted sources.
+     */
+    void switchToDeletedSources();
+
+    /**
+     * Switch the list in the filtered source list to sources.
+     */
+    void switchToSources();
+
+    /**
+     * Default implementation to prevent compilation errors when implementors of Model
+     * do not implement PanicMode.
+     */
+    default void enablePanicMode() {}
+
+    /**
+     * Default implementation to prevent compilation errors when implementors of Model
+     * do not implement PanicMode.
+     */
+    default void disablePanicMode() {}
+
+    /**
+     * Gets the number of pinned sources.
+     */
+    int getNumberOfPinnedSources();
+
+    /**
+     * Sets the number of pinned sources.
+     */
+    void setNumberOfPinnedSources(int newNumber);
+
+    /**
+     * Sets the current parser to SourceManagerParser or RecycleBinParser.
+     */
+    void setParserMode(ParserMode mode);
+
+    /**
+     * Gets the parser currently being used.
+     */
+    ParserMode getParserMode();
+
+    /**
+     * Gets the storage operations center for pinned sources.
+     */
+    PinnedSourcesStorageOperationsCenter getStorageOperationsCenter();
 }

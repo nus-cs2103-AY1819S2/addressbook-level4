@@ -8,7 +8,8 @@ import java.util.Date;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyDeletedSources;
+import seedu.address.model.ReadOnlySourceManager;
 
 /**
  * A ui for the status bar that is displayed at the footer of the application.
@@ -30,17 +31,21 @@ public class StatusBarFooter extends UiPart<Region> {
 
     private static final String FXML = "StatusBarFooter.fxml";
 
+    private static final String SOURCE_MANAGER = "SourceManager";
+    private static final String DELETED_SOURCES = "DeletedSources";
+
     @FXML
     private Label syncStatus;
     @FXML
     private Label saveLocationStatus;
 
 
-    public StatusBarFooter(Path saveLocation, ReadOnlyAddressBook addressBook) {
+    public StatusBarFooter(Path sourceManagerPath, Path deletedSourcesPath,
+                           ReadOnlySourceManager sourceManager, ReadOnlyDeletedSources deletedSources) {
         super(FXML);
-        addressBook.addListener(observable -> updateSyncStatus());
+        sourceManager.addListener(observable -> updateSyncStatus(SOURCE_MANAGER, sourceManagerPath));
+        deletedSources.addListener(observable -> updateSyncStatus(DELETED_SOURCES, deletedSourcesPath));
         syncStatus.setText(SYNC_STATUS_INITIAL);
-        saveLocationStatus.setText(Paths.get(".").resolve(saveLocation).toString());
     }
 
     /**
@@ -60,10 +65,20 @@ public class StatusBarFooter extends UiPart<Region> {
     /**
      * Updates "last updated" status to the current time.
      */
-    private void updateSyncStatus() {
+    private void updateSyncStatus(String managerType, Path path) {
         long now = clock.millis();
         String lastUpdated = new Date(now).toString();
         syncStatus.setText(String.format(SYNC_STATUS_UPDATED, lastUpdated));
+        switch(managerType) {
+        case SOURCE_MANAGER:
+            saveLocationStatus.setText(Paths.get(".").resolve(path).toString());
+            break;
+        case DELETED_SOURCES:
+            saveLocationStatus.setText(Paths.get(".").resolve(path).toString());
+            break;
+        default:
+            // do nothing
+        }
     }
 
 }

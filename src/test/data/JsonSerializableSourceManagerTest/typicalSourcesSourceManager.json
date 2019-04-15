@@ -1,0 +1,53 @@
+{
+  "_comment": "SourceManager save file which contains the same Source values as in TypicalSources#getTypicalSourceManager()",
+  "sources" : [ {
+    "title" : "Algorithm Researchers",
+    "type" : "Article",
+    "author" : "Fredrick Poznan",
+    "detail" : "A research about researchers on algorithms.",
+    "fieldBodies" : [ "", "", "", "", "", "", "", "", "", "" ],
+    "tagged" : [ "research" ]
+  }, {
+    "title" : "Sensor Research",
+    "type" : "Website",
+    "author" : "John Markson",
+    "detail" : "A research about sensors.",
+    "fieldBodies" : [ "", "", "", "", "", "", "", "", "", "" ],
+    "tagged" : [ "sensor", "research" ]
+  }, {
+    "title" : "Smart Computers 101",
+    "type" : "Website",
+    "author" : "David Kim",
+    "detail" : "How to build smart computers",
+    "fieldBodies" : [ "FooCity", "FooJournal", "FooMedium", "FooPages", "FooPublisher", "FooURL", "FooWebsite", "FooDay", "FooMonth", "FooYear" ],
+    "tagged" : [ ]
+  }, {
+    "title" : "Virtual Reality Research",
+    "type" : "Journal Article",
+    "author" : "Johann Johnson",
+    "detail" : "A research about virtual reality.",
+    "fieldBodies" : [ "", "", "", "", "", "", "", "", "", "" ],
+    "tagged" : [ "research" ]
+  }, {
+    "title" : "Augmented Reality Research",
+    "type" : "Journal Article",
+    "author" : "Joseph Jackson",
+    "detail" : "A research about augmented reality.",
+    "fieldBodies" : [ "FooCity", "FooJournal", "FooMedium", "FooPages", "FooPublisher", "FooURL", "FooWebsite", "FooDay", "FooMonth", "FooYear" ],
+    "tagged" : [ ]
+  }, {
+    "title" : "Game Development",
+    "type" : "Book",
+    "author" : "Selena Macro",
+    "detail" : "How to develop games for today's market.",
+    "fieldBodies" : [ "", "", "", "", "", "", "", "", "", "" ],
+    "tagged" : [ ]
+  }, {
+    "title" : "Artificial Intelligence Research",
+    "type" : "Book",
+    "author" : "Joana Micro",
+    "detail" : "A research about artificial intelligence.",
+    "fieldBodies" : [ "FooCity", "FooJournal", "FooMedium", "FooPages", "FooPublisher", "FooURL", "FooWebsite", "FooDay", "FooMonth", "FooYear" ],
+    "tagged" : [ ]
+  } ]
+}

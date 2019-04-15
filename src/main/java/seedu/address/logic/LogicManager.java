@@ -11,11 +11,14 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.parser.AddressBookParser;
+import seedu.address.logic.parser.RecycleBinParser;
+import seedu.address.logic.parser.SourceManagerParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
-import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.person.Person;
+import seedu.address.model.ParserMode;
+import seedu.address.model.ReadOnlyDeletedSources;
+import seedu.address.model.ReadOnlySourceManager;
+import seedu.address.model.source.Source;
 import seedu.address.storage.Storage;
 
 /**
@@ -28,36 +31,65 @@ public class LogicManager implements Logic {
     private final Model model;
     private final Storage storage;
     private final CommandHistory history;
-    private final AddressBookParser addressBookParser;
-    private boolean addressBookModified;
+    private final SourceManagerParser sourceManagerParser;
+    private final RecycleBinParser recycleBinParser;
+    private SourceManagerParser mainParser;
+    private boolean sourceManagerModified;
+    private boolean deletedSourcesModified;
 
     public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.storage = storage;
         history = new CommandHistory();
-        addressBookParser = new AddressBookParser();
+        sourceManagerParser = new SourceManagerParser();
+        recycleBinParser = new RecycleBinParser();
+        model.setParserMode(ParserMode.SOURCE_MANAGER); // starts with source manager parser
 
-        // Set addressBookModified to true whenever the models' address book is modified.
-        model.getAddressBook().addListener(observable -> addressBookModified = true);
+        // Set sourceManagerModified to true whenever the models' source manager is modified.
+        model.getSourceManager().addListener(observable -> sourceManagerModified = true);
+        model.getDeletedSources().addListener(observable -> deletedSourcesModified = true);
     }
 
     @Override
     public CommandResult execute(String commandText) throws CommandException, ParseException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
-        addressBookModified = false;
+        sourceManagerModified = false;
+        deletedSourcesModified = false;
+
+        switch(model.getParserMode()) {
+        case RECYCLE_BIN:
+            mainParser = recycleBinParser;
+            break;
+        case SOURCE_MANAGER:
+            mainParser = sourceManagerParser;
+            break;
+        default:
+            mainParser = sourceManagerParser;
+            break;
+
+        }
 
         CommandResult commandResult;
         try {
-            Command command = addressBookParser.parseCommand(commandText);
+            Command command = mainParser.parseCommand(commandText);
             commandResult = command.execute(model, history);
         } finally {
             history.add(commandText);
         }
 
-        if (addressBookModified) {
-            logger.info("Address book modified, saving to file.");
+        if (sourceManagerModified) {
+            logger.info("Source manager modified, saving to file.");
             try {
-                storage.saveAddressBook(model.getAddressBook());
+                storage.saveSourceManager(model.getSourceManager());
+            } catch (IOException ioe) {
+                throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
+            }
+        }
+
+        if (deletedSourcesModified) {
+            logger.info("Delete Sources modified, saving to file.");
+            try {
+                storage.saveDeletedSources(model.getDeletedSources());
             } catch (IOException ioe) {
                 throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
             }
@@ -67,13 +99,18 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return model.getAddressBook();
+    public ReadOnlySourceManager getSourceManager() {
+        return model.getSourceManager();
     }
 
     @Override
-    public ObservableList<Person> getFilteredPersonList() {
-        return model.getFilteredPersonList();
+    public ReadOnlyDeletedSources getDeletedSources() {
+        return model.getDeletedSources();
+    }
+
+    @Override
+    public ObservableList<Source> getFilteredSourceList() {
+        return model.getFilteredSourceList();
     }
 
     @Override
@@ -82,8 +119,13 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public Path getAddressBookFilePath() {
-        return model.getAddressBookFilePath();
+    public Path getSourceManagerFilePath() {
+        return model.getSourceManagerFilePath();
+    }
+
+    @Override
+    public Path getDeletedSourceFilePath() {
+        return model.getDeletedSourceFilePath();
     }
 
     @Override
@@ -97,12 +139,12 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ReadOnlyProperty<Person> selectedPersonProperty() {
-        return model.selectedPersonProperty();
+    public ReadOnlyProperty<Source> selectedSourceProperty() {
+        return model.selectedSourceProperty();
     }
 
     @Override
-    public void setSelectedPerson(Person person) {
-        model.setSelectedPerson(person);
+    public void setSelectedSource(Source source) {
+        model.setSelectedSource(source);
     }
 }

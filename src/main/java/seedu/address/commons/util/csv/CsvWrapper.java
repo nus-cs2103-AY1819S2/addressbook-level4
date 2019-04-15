@@ -36,6 +36,17 @@ public class CsvWrapper {
     public static final String DEFAULT_EXPIRING_SOON_NOTIFICATION = "[EXPIRING SOON]";
     public static final String DEFAULT_EXPIRED_NOTIFICATION = "[EXPIRED]";
     public static final String DEFAULT_LOW_STOCK_NOTIFICATION = "[LOW STOCK]";
+    // The reason for the limitation of maximum 255 characters for file name is due to the limitations
+    // set by Windows (MAX_PATH limitation
+    // in Windows https://docs.microsoft.com/en-us/windows/desktop/fileio/naming-a-file#maximum-path-length-limitation)
+    // and also different file systems support up to different number of characters.
+    // There is no universal way of solving this problem to
+    // allow portability between different operating systems such as Windows, Linux and macOS due to this limitation,
+    // hence based on the comparison charts and most common length limitation shown in the comparison chart in
+    // https://en.wikipedia.org/wiki/Filename#Comparison_of_filename_limitations, the MAX_FILE_NAME_LENGTH is
+    // set to 255 though it might not be a method to solve portability of file name length completely but it is
+    // a general agreed limit by programmers when programming to set the file name to 255 characters.
+    public static final int MAX_FILE_NAME_LENGTH = 255;
     private static String[] defaultHeading = {"Name", "Batch Number", "Quantity", "Expiry Date", "Company", "Tags",
                                               "Notifications"};
     private static final String DEFAULT_EXPORT_FOLDER_NAME = "exported";
@@ -75,6 +86,13 @@ public class CsvWrapper {
     private void createCsvFile(String csvFileName) throws CommandException {
         createIfExportDirectoryMissing();
         try {
+            if (csvFileName.length() > MAX_FILE_NAME_LENGTH) {
+                throw new CommandException((FILE_OPS_ERROR_MESSAGE + "The file name is too long, try to reduce"
+                        + " the specified file name length to be within 255 characters.\n"
+                        + "Note: This is just a standardise file name length and a FileSystemException exception might"
+                        + " still occur during file creation depending on your current"
+                        + " operating system's file system."));
+            }
             csvFilePath = Files.createFile(Paths.get(DEFAULT_EXPORT_FOLDER_NAME, csvFileName + ".csv"));
         } catch (FileAlreadyExistsException fae) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + csvFileName + ".csv" + " already exists in \""

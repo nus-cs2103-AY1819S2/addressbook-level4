@@ -165,7 +165,7 @@ Example: `init 10`
 
 ****
 * The `init` command can be used at any point in time during gameplay. When used in the middle of a game, the `init` command functions like a "new game" command and will reset the board to a clean state.
-* Each cell is represented by its coordinates e.g "b1". The coordinates will be used by the other commands to refere to a cell.
+* Each cell is represented by its coordinates e.g "b1". The coordinates will be used by the other commands to refer to a cell.
 ****
 
 _Figure 1_ below shows how the maps will be displayed in the UI.

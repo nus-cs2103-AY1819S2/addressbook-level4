@@ -108,9 +108,6 @@ them understand the commands.
 
 [lime]#Start of Extract (from User Guide)#
 
-include::../UserGuide.adoc[tag=generation-bill-commands]
-include::../UserGuide.adoc[tag=generation-bill-commands2]
-include::../UserGuide.adoc[tag=generation-bill-commands3]
 include::../UserGuide.adoc[tag=generation-bill-commands4]
 
 [lime]#End of Extract (from User Guide)#
@@ -151,61 +148,6 @@ has been implemented and make it easier for them to extend its features if they 
 [lime]#Start of Extract (from Developer Guide)#
 
 include::../DeveloperGuide.adoc[tag=find-reservation]
-
-[lime]#End of Extract (from Developer Guide)#
-
-[appendix]
-== Other sections in the User Guide
-
-This section contains all my other additions to User Guide which will help the user understand the software and use it
-more efficiently.
-
-=== A.1 Prefix List
-
-The Prefix List was added by me keeping in mind that our software has a large number of prefixes and it might become confusing
-for the user as to which prefix to use when. This list will help the users understand which prefix to use when and the constraints
-that each of the prefixes have.
-
-The extract shown below is just an excerpt from the Prefix List and not the entire glossary. To see the full list refer to
-https://github.com/cs2103-ay1819s2-t12-1/main/blob/master/docs/UserGuide.adoc#5-prefix-list[Prefix List in User Guide].
-
-[lime]#Start of Extract (from User Guide)#
-
-include::../UserGuide.adoc[tag=prefixlist]
-
-[lime]#End of Extract (from User Guide)#
-
-[appendix]
-== Other sections in the Developer Guide
-
-This section contains all my other additions to the Developer Guide which will help the incoming developers understand the
-motives behind the software and how they all fit well together into a single product. This well help them dive into the software
-with full preparation and work on it in an efficient manner.
-
-=== B.1 Glossary
-
-The Glossary section was added by me to help the developers understand the different terms used in the Developer Guide.
-In case, a developer is unsure about a specific term he/she can easily refer to it in the glossary and understand what it means.
-
-The extract shown below is just an excerpt from the Glossary and not the entire list. To see the full list refer to
-https://github.com/cs2103-ay1819s2-t12-1/main/blob/master/docs/DeveloperGuide.adoc#appendix-f-glossary[Glossary in Developer Guide].
-
-[lime]#Start of Extract (from Developer Guide)#
-
-include::../DeveloperGuide.adoc[tag=glossary]
-
-[lime]#End of Extract (from Developer Guide)#
-
-=== B.2 Other Additions
-
-==== Storage Component Diagram
-
-I also updated the `Storage Component Diagram` to make it represent the current stage of Storage. The current stage of Storage
-can be seen below:
-
-[lime]#Start of Extract (from Developer Guide)#
-
-include::../DeveloperGuide.adoc[tag=storage-diagram]
 
 [lime]#End of Extract (from Developer Guide)#
 

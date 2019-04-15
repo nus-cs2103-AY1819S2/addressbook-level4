@@ -75,7 +75,7 @@ image::rohan_patient_profile.PNG[]
 ** Documentation:
 *** Added detailed implementation documentation for the statistics feature in the User Guide and the Developer Guide, including diagrams
 ** Community:
-*** Reviewed and gave feedback to team members. PRs reviewed: https://github.com[#80], https://github.com[#107], https://github.com[#142]
+*** Reviewed and gave feedback to team members. PRs reviewed: https://github.com/CS2103-AY1819S2-W09-2/main/pull/80[#80], https://github.com/CS2103-AY1819S2-W09-2/main/pull/107[#107], https://github.com/CS2103-AY1819S2-W09-2/main/pull/142[#142]
 ** Tools:
 *** Setup Codacy and Coveralls badges to perform automated testing of test cases and auto-publishing of documentation and reports on overall overage score of the application software.
 

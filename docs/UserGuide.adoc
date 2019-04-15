@@ -73,6 +73,10 @@ Examples:
 
 * `addBook n/Alice in Wonderland a/Lewis Carroll m/5 t/fantasy t/fairy tale` +
 Adds a book named Alice in Wonderland to the record. The book is written by Lewis Carroll, rated 5 stars, and labeled with tags ‘fantasy’ and ‘fairy tale’.
+
+image::AddBookDisplay.png[width="800"]
+Figure 1. Result display after successful execution of `addBook n/Alice in Wonderland a/Lewis Carroll m/5 t/fantasy t/fairy tale`.
+
 * `addBook n/Structure and Interpretation of Computer Programs a/Jerry Sussman m/4 t/textbook` +
 Adds a book named Structure and Interpretation of Computer Programs to the record. The book is written by Jerry Sussman, rated 4 stars, and labeled with tag ‘textbook’.
 

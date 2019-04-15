@@ -191,6 +191,7 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
 .Interactions Inside the Logic Component for the `delete 1` Command
 image::DeletePersonSdForLogic.png[width="800"]
 
+// tag::model[]
 [[Design-Model]]
 === Model component
 
@@ -205,11 +206,21 @@ The `Model`,
 * stores the Address Book data.
 * exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
+* InterviewScores stores the scores of the applicant and is used in considering an applicant for hiring.
+* NRIC is used as a unique identifier for an applicant.
+* School of the applicant (no restrictions on the input for this).
+* Race and Gender can only take specific values as spelled out in the user guide and it is used in the analytics portion of the app.
+* JobsApply should always be present when a for a person.
+* PastJobs, KnownProgLang and InterviewScores are optional.
+* PastJobs, KnownProgLang and Major stores values as strings therefore, "Engineer, Data Scientist" are stored as one PastJobs.
+
 
 [NOTE]
 As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
  +
 image:ModelClassBetterOopDiagram.png[width="800"]
+
+// end::model[]
 
 [[Design-Storage]]
 === Storage component
@@ -293,7 +304,6 @@ The following activity diagram summarizes what happens when a user executes a ne
 image::UndoRedoActivityDiagram.png[width="650"]
 
 ==== Design Considerations
-
 ===== Aspect: How undo & redo executes
 
 * **Alternative 1 (current choice):** Saves the entire address book.
@@ -461,6 +471,7 @@ image::AnalyticsDiagram.png[width="790"]
 The interviews and its functionalities are facilitated by the Interviews class.
 It is a field present in the versionedAddressBook, therefore it works naturally with the implemented undo/redo operation in slaveFinder().
 (Show is not counted as an operation and hence it is not saved as a state).
+The reason for using Calendar over LocalDate is that in v2.0, the app can be upgrade to schedule interviews for any time instead of only scheduling by days.
 The Interview class acts as an association class between calendar and person.
 
 image::InterviewsAssociationClass.png[width="650"]
@@ -479,7 +490,7 @@ An example of generateInterviews:
 
 Step 1. User launches the application. The blockOutDates field in the interviews class is currently empty.
 
-Step 2. User sets the block out dates with the respective command. User does not change the max interviews a day and it it set to a default value.
+Step 2. User sets the block out dates with setBlockOutDates command. User does not change the max interviews a day and it is set to a default value of 2.
 
 Step 3. User request for interviews to be generated.
 
@@ -487,6 +498,22 @@ Step 4. Interviews are generated with the restriction based on the parameters an
 
 // end::interviews[]
 
+===== Aspect: How interviews is integrated with delete Person command
+
+* When a person is removed, naturally he/she should also be removed from the scheduled interviews. A remove person function is implemented in interviews which potentially could be used by the v2.0 reschedule command to remove or reschedule persons for interviews.
+
+===== Aspect: How interviews is integrated with existing undo/redo
+
+* **Alternative 1 (current choice):** In order to hinge on the existing undo/redo command, interviews was implemented as a field in AddressBook.java. In the event that undo and redo is called, the data is reset to that of a previous state.
+In the current implementation, the data is copied over and could take up a lot of time if there is a large amount of dates to copy over.
+
+** Pros: Easy to implement.
+** Cons: Performance issues may arise in terms of memory usage
+
+* **Alternative 2:** Implement a function that keeps track of what the user does to interviews and each time a undo is called, the previous command's inverse function is called.
+
+** Pros: Less memory is used
+** Cons: Need to consider all possible commands, when adding new command, need to include an inverse command.
 
 // tag::dataencryption[]
 === [Proposed] Data Encryption
@@ -745,8 +772,11 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`* * *` |HR |look at the analytics of the job applicants | to review the quality of job applicants and ensure a better hiring process
 
 |`* * *` |HR |easily store all txt resumes in slaveFinder() |be more efficient
-
+// tag::interviewsUserStories[]
 |`* * *` |HR |arrange interview dates quickly |to be more efficient in finding the right person for the job
+
+|`* * *` |HR |include block out dates in before scheduling interviews |to be more efficient in finding the right person for the job
+// end::interviewsUserStories[]
 
 |`* *` |HR |delete a job posting |maintain a cleaner interface
 
@@ -857,7 +887,7 @@ Use case ends.
 Use case resumes at step 2.
 
 * 1b. User wants to set maximum interviews a day
-** 1b1. Max interviews a day set by using
+** 1b1. Max interviews a day set by using the command
 +
 Use case resumes at step 2.
 

@@ -10,7 +10,7 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.activity.Activity;
-
+//@@author minernchan
 /**
  * Deletes an activity identified using it's displayed index from the address book.
  */

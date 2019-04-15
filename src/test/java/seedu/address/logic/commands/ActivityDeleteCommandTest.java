@@ -42,7 +42,7 @@ public class ActivityDeleteCommandTest {
 
         assertCommandSuccess(activityDeleteCommand, model, commandHistory, expectedMessage, expectedModel);
     }
-
+    //@@author minernchan
     @Test
     public void execute_invalidIndexUnfilteredList_throwsCommandException() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredActivityList().size() + 1);
@@ -51,7 +51,7 @@ public class ActivityDeleteCommandTest {
         assertCommandFailure(activityDeleteCommand, model, commandHistory,
                 Messages.MESSAGE_INVALID_ACTIVITY_DISPLAYED_INDEX);
     }
-
+    //@@author
     @Test
     public void execute_validIndexFilteredList_success() {
         showActivityAtIndex(model, INDEX_FIRST_ACTIVITY);
@@ -68,7 +68,7 @@ public class ActivityDeleteCommandTest {
 
         assertCommandSuccess(activityDeleteCommand, model, commandHistory, expectedMessage, expectedModel);
     }
-
+    //@@author minernchan
     @Test
     public void execute_invalidIndexFilteredList_throwsCommandException() {
         showActivityAtIndex(model, INDEX_FIRST_ACTIVITY);
@@ -125,7 +125,7 @@ public class ActivityDeleteCommandTest {
      * unfiltered list is different from the index at the filtered list.
      * 4. Redo the deletion. This ensures {@code RedoCommand} deletes the activity object regardless of indexing.
      */
-
+    //@@author
     @Test
     public void executeUndoRedo_validIndexFilteredList_sameActivityDeleted() throws Exception {
         ActivityDeleteCommand activityDeleteCommand = new ActivityDeleteCommand(INDEX_FIRST_ACTIVITY);
@@ -140,7 +140,7 @@ public class ActivityDeleteCommandTest {
         activityDeleteCommand.execute(model, commandHistory);
 
     }
-
+    //@@author minernchan
     @Test
     public void equals() {
         ActivityDeleteCommand deleteFirstCommand = new ActivityDeleteCommand(INDEX_FIRST_ACTIVITY);

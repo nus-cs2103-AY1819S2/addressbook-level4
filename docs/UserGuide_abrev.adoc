@@ -17,7 +17,6 @@ endif::[]
 
 By: `W13-2`      Since: `Jan 2019`      Licence: `MIT`
 
-//tag::introduction[]
 == Introduction
 
 ClubManager is for Co-Curricular Activities (CCAs) leaders who *prefer to use a desktop app for managing their members
@@ -25,7 +24,6 @@ and activities*. More importantly, ClubManager is *optimized for those who prefe
 (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, ClubManager can get
 your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get
 started. Enjoy!
-//end::introduction[]
 
 == Quick Start
 
@@ -50,7 +48,6 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 .  Refer to <<Features>> for details of each command.
 
-//tag::userinterface[]
 == User Interface Walkthrough
 
 This section is designed to guide you through how the user interface and components in Club Manager works.
@@ -63,14 +60,31 @@ Here is an example of how Club Manager in activity mode looks like:
 
 image::activityUiWalkthrough.png[width="100%"]
 
-//end::userinterface[]
-
 In total, there are:
 
-* *5 General Parts:* <<#Menu-Bar, Menu Bar>>, <<#Result-Display, Result Display>>, <<#Command-Box, Command Box>>, <<#SSB, Sync Status Bar>>, <<#Mode-Status, Mode Status>>
-* *3 Member Mode-specific Parts:* <<#Member-List, List of Members>>, <<#Member-Display, Member Information Display Panel>>, <<#Member-Activities, List of Activities Attended By Selected Member>>
+* *5 General Parts:*
 
-* *4 Activity Mode-specific Parts:* <<#Activity-List, List of Activities>>, <<#Activity-Display, Activity Information Display Panel>>, <<#Activity-Members, List of Members Attending Selected Activity>>, and <<#Activity-Nonmembers, List of Members Not Attending Selected Activity>>
+** <<#Menu-Bar, Menu Bar>>
+
+** <<#Result-Display, Result Display>>
+
+** <<#Command-Box, Command Box>>
+
+** <<#SSB, Sync Status Bar>>
+
+** Mode Status.
+
+* *3 Member Mode-specific Parts:*
+
+** List of Members
+** Member Information Display Panel
+** List of Activities Attended By Selected Member.
+
+* *4 Activity Mode-specific Parts:*
+** List of Activities
+** Activity Information Display Panel
+** List of Members Attending Selected Activity
+** List of Members Not Attending Selected Activity.
 
 [[Menu-Bar]]
 === Menu Bar
@@ -95,50 +109,6 @@ The *Command Box* is the place where you can input the commands.
 === Result Display
 
 The *Result Display* shows information relating to the result of the command.
-
-[[SSB]]
-=== Sync Status Bar
-
-The *Sync Status Bar* displays the last updated date and time of any changes to the data.
-
-[[Mode-Status]]
-=== Mode Status
-
-Displays the *current mode* of Club Manager. There are only 2 modes, namely: `mode member` and `mode activity`
-
-[[Member-List]]
-=== List of Members
-
-Displays latest *list of all members* in Club Manager.
-
-[[Member-Display]]
-=== Member Information Display Panel
-
-Displays the *selected member's information.*
-
-[[Member-Activities]]
-=== List of Activities Attended By Selected Member
-
-Displays the *list of Activities attended by selected member*. This include both completed and ongoing activities.
-
-[[Activity-List]]
-=== List of Activities
-
-Displays latest *list of all activities* in Club Manager.
-
-[[Activity-Display]]
-=== Activity Information Display Panel
-
-Displays the *selected activity's information.*
-
-[[Activity-Members]]
-=== List of Members Attending Selected Activity
-
-Displays the *list of Members who is attending or have attended* the selected activity.
-
-[[Activity-Nonmembers]]
-=== List of Members Not Attending Selected Activity
-Displays the *list of Members who is not attending or have not attended* the selected activity.
 
 [[Features]]
 == Features
@@ -219,11 +189,10 @@ Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and 
 
 image::memberCommands.png[width="100%"]
 
-//tag::memberadd[]
 ==== Adding a member: `memberAdd` or `mAdd`
 
 You can add members to ClubManager. +
-[width="100%",cols="10%,85%, 5%",options="header",]
+[width="100%",cols="30%,<50%, <50%",options="header",]
 |=======================================================================
 |Information of Member| Definition | Example
 |`Name`| NAME refers to the name of the member.
@@ -270,14 +239,8 @@ A member can have any number of tags (including 0).|Swimming
 
 *Examples:*
 
-* `memberAdd n/Jon Lim mn/A0123456J p/98765432 e/johnl@example.com a/123, Woodlands Drive 12, #12-34 g/Male y/2 m/Chemistry t/Swimming`
-
-image::memberAdd_added.png[width="1000"]
-
 * `memberAdd n/James Ong mn/A0123456J p/98765432 e/jamesong@example.com a/123, Jurong West Ave 6, #08-111 g/male y/2 m/mathematics`
 * `memberAdd n/Jane Lim mn/A0654321J p/91324756 e/janelim@example.com a/123, Sengkang Ave 6, #02-123 g/Female y/3  m/physics t/Swimming`
-
-//end::memberadd[]
 
 ==== Deleting a member : `memberDelete` or `mDelete`
 
@@ -311,7 +274,6 @@ The index *must be a positive integer* 1, 2, 3, ...
 * Existing values will be updated to the input values.
 * NOTE: Matriculation Number cannot be edited
 * You can remove all the member's tags by typing `t/` without specifying any tags after it.
-* You cannot change a member's Matriculation Number
 ****
 
 Examples:
@@ -321,29 +283,6 @@ Edits the phone number and email address of the 1st member to be `91234567` and 
 
 * `memberEdit 2 n/Betsy Crower t/` +
 Edits the name of the 2nd member to be `Betsy Crower` and clears all existing tags.
-
-//tag::memberfilter
-==== Filtering member's list: `memberFilter or mFilter`
-****
-* Filter the member's list based on a filter criteria.
-* Keywords pertaining to the filter criteria have to be provided.
-* Criteria could be: Gender, Major and yearOfStudy.
-* Filter criteria and keywords are case-insensitive.
-* Keywords have to be an exact match.
-****
-Format: `memberFilter yearOfStudy`
-
-Examples:
-
-* `memberFilter yearOfStudy 2`
-
-image::memberFilter1.png[width=70%]
-
-* `memberFilter gender male`
-
-image::memberFilter.png[width=70%]
-
-//end::memberfilter[]
 
 ==== Locating members by name: `memberFind` or `mFind`
 
@@ -367,17 +306,11 @@ Returns any member having names `Betsy`, `Tim`, or `John`
 * `memberFind matricnum A0` +
 Returns all members (matric num starts with A0)
 
-//tag::memberlist[]
-==== Listing members : `memberList` or `mList`
+==== Listing members : `memberList` or mList`
 
 Shows a list of all members in ClubManager. +
 Format: `memberList`
 
-//end::memberlist[]
-
-image::MemberList.png[width=20%]
-
-//tag::memberselect[]
 ==== Selecting a member : `memberSelect`
 
 Selects the member identified by the index number used in the displayed member list. +
@@ -391,12 +324,11 @@ Format: `memberSelect INDEX`
 
 Examples:
 
-* `memberList` +
+* `list` +
 `memberSelect 2` +
 Selects the 2nd person in the club manager.
 
-image::memberSelectCommand.png[width=100%]
-//end::memberselect[]
+image::memberSelectCommand.png[width="790"]
 
 //tag::membersort[]
 ==== Sort members’ list : `memberSort` or `mSort`
@@ -432,12 +364,13 @@ Example:
 `memberSort name` +
 Sorts the list by name.
 
-image::MemberSortCommand_sortby_name.png[width=50%]
+image::MemberSortCommand_sortby_name.png[width="790"]
 
 * `memberList` +
 `memberSort yearOfStudy` +
 Sorts the list by year of study.
 
+image::MemberSortCommand_sortby_yearofstudy.png[width="790"]
 
 //end::membersort[]
 
@@ -481,10 +414,8 @@ Adds a new activity to the activity list +
 |=======================================================================
 |Information of Activity| Definition | Example
 |`ActivityName`| ACTIVITY_NAME refers to the name of the activity.
-
  Only alphabets are accepted. | Sentosa Outing
 |`ActivityDateTime`| DATETIME refers to the date and time of the activity
-
 Activity Date and time should be in "dd/MM/YYYY HHMM" format, where dd, MM, YYYY refers
 to day of month, month and year respectively. HH refers to the hour in 24 hour format (
 0-23). | 28/02/2019 2359
@@ -508,7 +439,7 @@ Example:
 * `activityAdd n/Sentosa Outing d/16/02/2019 1000 l/Harbour Front MRT de/Bring swim suits.`
 * `activityAdd n/HTML workshop d/14/02/2019 l/ICube Auditorium`
 
-image::ActivityAddCommand.png[width="790"]
+(image omitted) +
 Adding activity to the correct position based on the time.
 // end::activityAdd[]
 
@@ -643,7 +574,7 @@ If the status of some activities have changed from `ONGOING` to `COMPLETED`, the
 `activityList` command will automatically update the status of these activities.
 ****
 
-image::ActivityListCommand.png[width="790"]
+(image omitted)
 
 ==== Selecting an activity : `activitySelect` or `aSelect`
 
@@ -708,7 +639,6 @@ There is no need to save manually.
 *Q*: How do I transfer my data to another Computer? +
 *A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
 
-//tag::commandsummary
 == Command Summary
 This section provides a comprehensive list of commands that ClubManager offers.
 
@@ -725,7 +655,8 @@ e.g. `mode member`
 e.g. `memberAdd n/James Ong mn/A0123456Y p/98765432 e/jamesong@example.com g/male yos/1 m/mathematics`
 * *Delete a member* : `memberDelete INDEX` +
 e.g. `memberDelete 3`
-* *Edit a member* : `memberEdit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [yos/YEAR_OF_STUDY] [m/MAJOR] [t/TAG]...` +
+* *Edit a member* : `memberEdit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS]
+[mn/MATRIC_NUMBER] [yos/YEAR_OF_STUDY] [m/MAJOR] [t/TAG]...` +
 e.g. `memberEdit 2 n/James Lee e/jameslee@example.com`
 * *Find a member* : `memberFind CRITERIA KEYWORD [MORE_CRITERIA] [MORE_KEYWORDS]` +
 e.g. `memberFind name John`
@@ -767,7 +698,6 @@ Alias for command keywords can be used in place of full text commands.
 ** `memberAdd` or `mAdd`
 ** `memberDelete` or 'mDelete'
 ** `memberEdit` or `mEdit`
-** `memberFilter` or `mFilter`
 ** `memberFind` or `mFind`
 ** `memberList` or `mList`
 ** `memberSelect` or `mSelect`
@@ -784,4 +714,3 @@ Alias for command keywords can be used in place of full text commands.
 ** `activityList` or `aList`
 ** `activitySelect` or `aSelect`
 ** `activityExport` or `aExport`
-//end::commandsummary

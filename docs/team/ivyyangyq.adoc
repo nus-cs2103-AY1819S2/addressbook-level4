@@ -12,17 +12,14 @@
 This portfolio documents the features and enhancements that I have made to the project and the contributions I have made to
 the User and Developer guide.
 
-ClubManager is a desktop application for CCA management. It comes with a GUI but most of the user interactions
-takes place on the CLI (Command Line Interface) provided.
-
-ClubManager is specially designed for *CCA main committee members* to manage their CCA data. It is the g
-o-to application for CCA leaders who are looking for a software that allows them to *manage their members and activities*.
+ClubManager is a desktop application for NUS CCA management. It is specially designed for *CCA main committee members* to manage their CCA data. It is the
+go-to application for CCA leaders who are looking for a software that allows them to *manage their members and activities*.
 
 === Summary of contributions
 
 * *Major enhancement*: added *Activity List Management feature*
 ** What it does: Manages the list of activities that a club has. This feacture includes functions such as: +
-*** Adding activities to (`activityAdd`) and removing activities from (`activityDelete`) from the activity list.
+*** Adding activities to (`activityAdd`) and removing activities from (`activityDelete`) the activity list.
 *** Finding activities that match some given criteria (`activityFind`) and filtering the activities based on the how recent
 the activities are (`activityFilter`).
 *** Listing all activities (`activityList`)
@@ -42,8 +39,7 @@ The order is from Ongoing to Completed, within the same status the activities ar
 * *Other contributions*:
 
 ** Project management:
-*** Managed releases `v1.1` - `v1.4` (4 releases) on GitHub
-*** Tagged releases, compiled binary (JAR) files and published releases on GitHub
+*** Compiled binary (JAR) files and managed releases `v1.1` - `v1.4` (4 releases) on GitHub
 *** Managed milestones `v1.1` - `v1.4`
 *** Setting up issue tracker, contributed to issues (https://github.com/cs2103-ay1819s2-w13-2/main/issues?utf8=✓&q=is%3Aissue+author%3Aivyyangyq+label%3Atype.Task[Issues])
 and 6 user stories (https://github.com/cs2103-ay1819s2-w13-2/main/issues?utf8=✓&q=is%3Aissue+author%3Aivyyangyq+label%3Atype.Story[User Stories]).
@@ -58,8 +54,8 @@ https://github.com/cs2103-ay1819s2-w13-2/main/pull/102[#102]
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=activityAdd]
-include::../UserGuide.adoc[tag=activityFilter]
+include::../UserGuide_abrev.adoc[tag=activityAdd]
+include::../UserGuide_abrev.adoc[tag=activityFilter]
 
 
 == Contributions to the Developer Guide
@@ -68,6 +64,9 @@ include::../UserGuide.adoc[tag=activityFilter]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=activity_list]
+include::../DeveloperGuide_abrev.adoc[tag=activity_list]
 
-
+|===
+|_Some of the contributions to the user guide and developer guide have been omitted for brevity.
+Please visit W13-2 user guide and developer guide for full details._
+|===

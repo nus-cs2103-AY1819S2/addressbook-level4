@@ -5,7 +5,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GENDER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MAJOR;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_MATRICNUMBER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
@@ -28,7 +27,6 @@ import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Gender;
 import seedu.address.model.person.Major;
-import seedu.address.model.person.MatricNumber;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
@@ -45,10 +43,10 @@ public class MemberEditCommand extends MemberCommand {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the person identified "
             + "by the index number used in the displayed person list. "
-            + "Existing values will be overwritten by the input values.\n"
+            + "Existing values will be overwritten by the input values. "
+            + "NOTE: Matriculation Number CANNOT be edited. \n"
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_NAME + "NAME] "
-            + "[" + PREFIX_MATRICNUMBER + "MATRICNUMBER] "
             + "[" + PREFIX_PHONE + "PHONE] "
             + "[" + PREFIX_EMAIL + "EMAIL] "
             + "[" + PREFIX_ADDRESS + "ADDRESS] "
@@ -63,7 +61,6 @@ public class MemberEditCommand extends MemberCommand {
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Person: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.";
-    public static final String MESSAGE_DUPLICATE_MATRICNUMBER = "This matricNumber already exists in Club Manager";
 
     private final Index index;
     private final EditPersonDescriptor editPersonDescriptor;
@@ -94,9 +91,6 @@ public class MemberEditCommand extends MemberCommand {
 
         if (!personToEdit.isSamePerson(editedPerson) && model.hasPerson(editedPerson)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
-        } else if (model.hasMatricNumber(editedPerson.getMatricNumber())
-                && !model.getPersonWithMatricNumber(editedPerson.getMatricNumber()).isSamePerson(personToEdit)) {
-            throw new CommandException(MESSAGE_DUPLICATE_MATRICNUMBER);
         }
 
         model.setPerson(personToEdit, editedPerson);
@@ -113,8 +107,6 @@ public class MemberEditCommand extends MemberCommand {
         assert personToEdit != null;
 
         Name updatedName = editPersonDescriptor.getName().orElse(personToEdit.getName());
-        MatricNumber updatedMatricNumber =
-                editPersonDescriptor.getMatricNumber().orElse(personToEdit.getMatricNumber());
         Phone updatedPhone = editPersonDescriptor.getPhone().orElse(personToEdit.getPhone());
         Email updatedEmail = editPersonDescriptor.getEmail().orElse(personToEdit.getEmail());
         Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
@@ -123,8 +115,8 @@ public class MemberEditCommand extends MemberCommand {
         Major updatedMajor = editPersonDescriptor.getMajor().orElse(personToEdit.getMajor());
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
 
-        return new Person(updatedName, updatedMatricNumber, updatedPhone, updatedEmail, updatedAddress, updatedGender,
-                updatedYearOfStudy, updatedMajor, updatedTags);
+        return new Person(updatedName, personToEdit.getMatricNumber(), updatedPhone, updatedEmail, updatedAddress,
+                updatedGender, updatedYearOfStudy, updatedMajor, updatedTags);
     }
 
     @Override
@@ -151,7 +143,6 @@ public class MemberEditCommand extends MemberCommand {
      */
     public static class EditPersonDescriptor {
         private Name name;
-        private MatricNumber matricNumber;
         private Phone phone;
         private Email email;
         private Address address;
@@ -169,7 +160,6 @@ public class MemberEditCommand extends MemberCommand {
          */
         public EditPersonDescriptor(EditPersonDescriptor toCopy) {
             setName(toCopy.name);
-            setMatricNumber(toCopy.matricNumber);
             setPhone(toCopy.phone);
             setEmail(toCopy.email);
             setAddress(toCopy.address);
@@ -183,7 +173,7 @@ public class MemberEditCommand extends MemberCommand {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, email, address, tags, major, yearOfStudy, matricNumber);
+            return CollectionUtil.isAnyNonNull(name, phone, email, address, tags, major, gender, yearOfStudy);
         }
 
         public void setName(Name name) {
@@ -192,14 +182,6 @@ public class MemberEditCommand extends MemberCommand {
 
         public Optional<Name> getName() {
             return Optional.ofNullable(name);
-        }
-
-        public void setMatricNumber(MatricNumber matricNumber) {
-            this.matricNumber = matricNumber;
-        }
-
-        public Optional<MatricNumber> getMatricNumber() {
-            return Optional.ofNullable(matricNumber);
         }
 
         public void setPhone(Phone phone) {
@@ -283,7 +265,6 @@ public class MemberEditCommand extends MemberCommand {
             EditPersonDescriptor e = (EditPersonDescriptor) other;
 
             return getName().equals(e.getName())
-                    && getMatricNumber().equals((e.getMatricNumber()))
                     && getPhone().equals(e.getPhone())
                     && getEmail().equals(e.getEmail())
                     && getAddress().equals(e.getAddress())

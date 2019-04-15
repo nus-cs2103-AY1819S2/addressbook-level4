@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.function.Predicate;
 
 import seedu.address.commons.util.StringUtil;
-
+//@@author minernchan
 /**
  * Tests that a {@code Activity}'s {@code ActivityName} matches any of the keywords given.
  */

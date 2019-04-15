@@ -15,20 +15,9 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/cs2103-ay1819s2-w13-2/main
 
-Welcome Developers! Thank you for your interest to contribute to Club Manager!
+By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
 
-By: `W13-2`      Since: `Jan 2019`      Licence: `MIT`
-
-= About This Guide
-This guide provides a technical overview of Club Manager and walks you through the installation process.
-Furthermore, this guide documents all of the features available in Club Manager, and covers everything that you need to know before you begin contributing to Club Manager.
-
-== Introduction
-Club Manager is a desktop application that enables CCA leaders to manage their members and activities effectively and efficiently.
-To learn more about installation, proceed to Section 2 (Installation Guide).
-
-== Installation Guide
-This section serves to guide you through the setting up process of Club Manager's development environment.
+== Setting up
 
 === Prerequisites
 
@@ -249,7 +238,7 @@ This section describes some noteworthy details on how certain features are imple
 ==== Current Implementation
 
 ClubManager is designed to manage members and activities and allow the user to link members to the activities.
-To synchronize the user interface to show appropriate information when users are doing different operation and to minimize confusion the following feature has been added.
+To syncronize the user interface to show appropriate information when users are doing different operation and to minimize confusion the following feature has been added.
 With the implementation of modes of operations which only allows commands to be executed in their respective modes.
 
 For example when ClubManager is in Member Mode, only member commands can be called (for example memberAdd, memberEdit etc.)
@@ -367,166 +356,19 @@ image::UndoRedoActivityDiagram.png[width="650"]
 
 // end::undoredo[]
 
-//tag::memberlistfeature
-=== Member List Feature
-The Member's List is a core feature that underpins Club Manager's role as a CCA management system.
-To ensure versatility and enhance the usefulness of this list, a number of commands have been introduced to facilitate the management of members. These commands include: `MemberAdd`, `MemberDelete`, `MemberEdit`, `MemberFilter`, `MemberFind`, `MemberList`, `MemberSelect`, and `MemberSort`.
-
-==== Current Implementation
-===== Model Component
-
-image::person-attributes.png[width=100%]
-
-// end::memberlistfeature
-
-// tag::memberadd[]
-===== `memberAdd` Command
-This command takes in a number of parameters that are contact and student information pertaining to the member. The `MemberAddCommandParser` requires that all field are present, in the required format, with the exception of tags which are optional.
-
-image::memberadd_validation.png[width=70%]
-
-Below is a step-by-step process on how the memberAdd command works on execution:
-
-* *Step 1:* The User executes the `memberAdd` command
-* *Step 2:* The `memberAdd` command calls the `Model#hasPerson()` to prevent duplicated members from being added to the member's list.
-* *Step 3:* Then, the `memberAdd` call `Model#hasMatricNumber` to prevent duplication of matric number within the member's list. This is because matric number are unique and no two students can have the same matric number.
-* *Step 4:* Once these verification have been completed, the `memberAdd` command calls `Model#addPerson` to proceed with adding the member to the member's list.
-* *Step 5:* The `memberAdd` calls `Model#commitAddressBook()` to finalise the changes made to the patient record.
-* *Step 6:* Finally, the `memberAdd` command provides a success message to indicate that the member has been successfully added to Club Manager.
-
-The following code snippet shows how the `memberAdd` command is executed:
-[source,java]
-----
-    @Override
-    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
-        requireNonNull(model);
-
-        if (model.hasPerson(toAdd)) { # <1>
-            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
-        } else if (model.hasMatricNumber(toAdd.getMatricNumber())) { # <2>
-            throw new CommandException(MESSAGE_DUPLICATE_MATRICNUMBER);
-        }
-        model.addPerson(toAdd); # <3>
-        model.commitAddressBook();
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
-    }
-----
-<1> Check if member already exists in Club Manager.
-<2> Check if the matric number entered is unique.
-<3> Add member to Club Manager.
-
-// end::memberadd[]
-
-// tag:memberfilter[]
-===== `memberFilter` Command
-*Logic Component*
-
-image::MemberFilter_Logic.png[width=100%]
-
-*Model Component*
-
-image::MemberFilter_Model.png[width=100%]
-
-The `memberFilter` command retrieves members (based on a filter criteria) from the `UniquePersonList` and displays these members on the `PersonListPanel`.
-
-Below is a step-by-step process on how the `memberFilter` command works on execution:
-
-* Step 1: The user executes the `memberFilter` command.
-* Step 2: The `memberFilter` command parser will check if the filter category entered by the user is valid. Note that this is case-insensitive.
-* Step 3: Thereafter, the `memberFilter` command parser will concatenate the keywords (if there are more than one keyword). This will allow users to filter majors with multiple words.
-* Step 4: The `memberFilter` command will then call `Model#updateFilteredPersonList` to filter the member's list based on the given criteria.
-* Step 4 (Continued): In this process, based on the criteria provided, the relevant predicate class
-(e.g. `YearOfStudyContainsKeywordsPredicate`) will be used and its test method will be called to test if the member in the member's list has an exact match of the given keyword. This gradually filters the member's list. Do note, however,
-the list generated will given as it is (no sorting carried out). Depending on the initial ordering of the member's list, the list may or may not appear to be sorted.
-* Step 5: The `memberFilter` command will then call `Model#getFilteredPersonList()` to get the filtered member's list.
-* Step 6: Finally, the memberFilter command provides a success message to indicate that the member's list has been successfully filtered.
-
-====== Design Considerations
-*Aspect:* Predicate Classes
-
-To check if the user input matches the correct criteria, there are various ways. Below are some options:
-
-* *Alternative 1 (current choice)*: Check through MemberFilterCommandParser Class
-
-** Pros : More organised and logical as parser classes handle the user input.
-** Cons : May be less efficient as check has to be done through looping through the criteria one by one.
-
-* *Alternative 2*: Check through individual predicate classes.
-
-** Pros: More time efficient as only one check is required.
-** Cons: Less logical and could prove to be confusing to the developer.
-
-==== Future Implementation
-For future implementation, the `memberFilter` command could allow more than one filter, which will further allow the user to target a specific subset of members.
-
-// end::memberfilter[]
-
-// tag::memberlist[]
-===== `memberList` Command
-The `memberList` command retrieves all the members in the `UniquePersonList` and displays all these members on the `PersonListPanel`.
-
-Below is a step-by-step process on how the `memberList` command works on execution:
-
-* Step 1: The user executes the `memberList` command.
-* Step 2: The `memberList` command will then call the `Model#UpdateFilteredPersonList()` to retrieve all the members in the UniquePersonList.
-* Step 3: The `memberList` provide the command success message to indicate that the member list has been successfully listed.
-//end::memberlist[]
-
-// tag::memberselect[]
-==== `memberSelect` Command
-
-The `memberSelect` command selects a member (based on index) on the `UniquePersonList`.
-
-Below is a step-by-step process on how the `memberSelect` command works on execution:
-
-* *Step 1:* The user executes the `memberSelect` command by specifying the index of the member that the user would like to select.
-* *Step 2:* The `memberSelect` command will call `model#getFilteredPersonList` to retrieve the member's list.
-* *Step 3:* Next, the `memberSelect` command will call `model#setSelectedPerson` from which the given index will be used to pin point the specific
-member in the `filteredPersonList`.
-* *Step 4:* Finally, the `memberSelect` command will show a command success message to indicate the member at the specified index has been successfully selected.
-
-The `memberSelect` command is naturally tied with the User Interface.
-
-image::updatedUIcomponent.png[width=50%]
-
-When a member is selected, the `memberDetailPanel` will populate the information of the selected person. The `ActivitiesAttendedByMemberPanel` will also populate the activities that are attended by member.
-For the population of member statistics, it is less straightforward. The calling flow is UI to Logic to Model. This is illustrated in the diagram below.
-
-image::memberselect_sequence.png[width=50%]
-
-===== Design Considerations
-*Aspect:* UI calling methods from the AddressBook class
-
-There are various ways to cal the statistics methods from UI. Below are some options:
-
-* *Alternative 1 (current choice):* Go through the calling flow of UI to logic to model.
-** Pros: Abstraction principle is observed.
-** Cons: More tedious for the developer to implement methods that UI requires.
-
-* *Aternative 2:* Go through Model directly.
-** Pros: Abstraction principle is violated.
-** Cons: Less tedious to implement.
-
-//end::memberselect[]
-
-// tag::membersort[]
+//tag::membersort[]
 === MemberSort
 
 ==== Current Implementation
+image::MemberSortCommand_LogicComponentSequenceDiagram.png[width="800"]
+* The `memberSort` command extends from command, and modifies the uniquePersonList which is an observable list.
 
-The `memberSort` command extends from `MemberCommand`, and modifies the `uniquePersonList` which is an observable list. The user will provide a sorting criteria,
-and the `memberSort` command will sort the members in the `uniquePersonList` based on the sorting criteria.
+* It takes in a criteria from the user, and checks if the input from the user matches any of the available
+sorting criteria provided.
 
-If the sorting criteria is not name, the `memberSort` command will
-will conduct an additional sort (by name). For example, `memberSort yearOfStudy 2` will be sorted by member's yearOfStudy, followed by member's name.
-
-image::MemberSortCommand_LogicComponentSequenceDiagram.png[width=50%]
-
-* *Step 1:* The user executes the `memberSort` command by specifying the sorting criteria in which the user would like to sort the list.
-* *Step 2:* The `memberSort` command will call `model#sortAddressBook` to retrieve the member's list.
-* *Step 3:* Finally, the `memberSort` command will show a command success message to indicate that the member's list has been successfully sorted.
-
-// end::membersort[]
+* If the user input matches, the uniquePersonList will be sorted based on that criteria
+If the user input does not match, then an error message will be prompted to the user.
+//end::membersort[]
 
 // tag::memberexport[]
 === MemberExport
@@ -569,15 +411,12 @@ activities that the club has. `activityAdd` , `activityList` , `activityFilter` 
 [discrete]
 ===== Updated Model Component to Store Activity List
 .Structure of the Activity Model Component
-image::ModelComponentWithActivityList.png[width="800"]
+image::ModelComponentWithActivityList_copy.png[width="600"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
 
 The updated `Model`,
 
-* stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * exposes an unmodifiable `ObservableList<Activity>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * Each activity can have a `List` of `MatricNumber` Object for attendance.
 
@@ -598,7 +437,7 @@ add the new `Activity` to `Model` by calling `Model#addActivity` +
 Whether the `Activity` can be added to `Model` would be checked in this step.
 
 .Sequence of Checks for Adding Activity
-image::ActivityAddChecks.png[width="600" height="300"]
+image::ActivityAddChecks.png[width="500", height="300"]
 
 
 [discrete]
@@ -637,9 +476,6 @@ The structure and sequence of events after `activityFind` command is called is v
 `ActivityFindCommandParser` would parse the input into a `Map` of `Prefix` mapped to a `List` of `String`(keywords)
  and pass the map to generate an `ActivityContainsKeywordPredicate`.
 
-To avoid redundancy and repeating diagrams with minor details, the sequence of events could refer to the steps and
-sequence diagram for `ActivityFilterCommand` given above.
-
 The key component of `ActivityFindCommand` is the `ActivityContainsKeywordsPredicate#test` function. The snippet
 of code below is to show how it is implemented.
 
@@ -649,26 +485,21 @@ public boolean test(Activity activity) {
     // all attribute fields are searched.
     if (keywords.containsKey(PREFIX_ALL)) {
         return keywords.get(PREFIX_ALL).stream()
-            .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(activity.getName().fullActivityName, keyword)
-                || StringUtil.containsWordIgnoreCase(activity.getDescription().value, keyword)
-                || StringUtil.containsWordIgnoreCase(activity.getLocation().value, keyword));
-    }
+            .anyMatch(...); //String util to check if keywords in ActivityName or ActivityDescription
+    }                       // or ActivityLocation
 
      // OR search for a single boolean
    boolean isNameMatched = keywords.get(PREFIX_ACTIVITYNAME) == null
        || keywords.get(PREFIX_ACTIVITYNAME).stream()
            .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(activity.getName().fullActivityName, keyword));
 
-   boolean isDescriptionMatched = keywords.get(PREFIX_ADESCRIPTION) == null
-       || keywords.get(PREFIX_ADESCRIPTION).stream()
-           .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(activity.getDescription().value, keyword));
 
-   boolean isLocationMatched = keywords.get(PREFIX_LOCATION) == null
-       || keywords.get(PREFIX_LOCATION).stream()
-           .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(activity.getLocation().value, keyword));
+   boolean isDescriptionMatched = ... //checking if keywords in description
+
+   boolean isLocationMatched =  ... // checking if keywords in location
 
    // AND search between prefixes
-        return isNameMatched && isDescriptionMatched && isLocationMatched;
+   return isNameMatched && isDescriptionMatched && isLocationMatched;
 }
 ----
 
@@ -1214,8 +1045,6 @@ We now have everything set up... but we still can't modify the remarks. Let's fi
 See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-by-step solution.
 
 [appendix]
-
-//tag::productscope
 == Product Scope
 
 *Target user profile*:
@@ -1236,10 +1065,7 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
 
 . Improve the data collection accuracy and efficiency in the member management process.
 
-//end::productscope
-
 [appendix]
-//tag::userstories
 == User Stories
 
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
@@ -1283,7 +1109,8 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |CCA main committee member |create an activity list |see the upcoming events
 |=======================================================================
-//end::userstories
+
+_{More to be added}_
 
 [appendix]
 == Use Cases
@@ -1675,7 +1502,6 @@ Use case ends.
 _{More to be added}_
 
 [appendix]
-//tag::non-functional-requirements
 == Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
@@ -1683,10 +1509,8 @@ _{More to be added}_
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 
 _{More to be added}_
-//end::non-functional-requirements
-[appendix]
 
-//tag::glossary
+[appendix]
 == Glossary
 
 This section is designed to provide you with definitions for
@@ -1714,9 +1538,7 @@ Windows, Linux, Unix, OS-X
 
 [[Sub-Committee-Member]] Sub-Committee Member::
 A person who is an active member of the CCA, but do not play any organiser role.
-//end::glossary
 
-//tag::product-survey
 [appendix]
 == Product Survey
 
@@ -1737,7 +1559,6 @@ Cons:
 * Interface could be more intuitive e.g. allowing preview of corporate members.
 
 * No training document provided. Users have to contact the support manager for “how to” questions.
-//end::product-survey
 
 [appendix]
 == Instructions for Manual Testing

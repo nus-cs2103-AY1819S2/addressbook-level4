@@ -8,7 +8,7 @@ import seedu.address.logic.commands.ActivityDeleteCommand;
 import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
-
+//@@author minernchan
 
 /**
  * Parses input arguments and creates a new ActivityDeleteCommandParser object

@@ -1,6 +1,7 @@
 package seedu.address.logic;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -79,7 +80,7 @@ public class StatisticsTest {
 
     @Test
     public void execute_getEnemyShipsDestroyed_success() {
-        assertEquals(0, (int) p1.getEnemyShipsDestroyed());
+        assertEquals(0, p1.getEnemyShipsDestroyed());
     }
 
     @Test
@@ -102,6 +103,13 @@ public class StatisticsTest {
         p1.addResultToStats(res);
         assertEquals(p1.getHitCount(), 1);
         assertEquals(p1.getEnemyShipsDestroyed(), 1);
+    }
+
+    @Test
+    public void generateData() {
+        //TODO: STUB TEST
+        p1.generateData();
+        assertTrue(true);
     }
 
     // STORAGE COMPONENT FOR STATS //

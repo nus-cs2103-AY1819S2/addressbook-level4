@@ -363,11 +363,7 @@ separate tags featured on different lines instead of the current List of tags th
 * The new view will improve the UI design to make the tags more organized and clear.
 
 
-image::filterDiagram.png[width="800"]
-.Sequence Diagram of the Filtering Command
-=======
 === Filter or/and/clear/reverse feature
-
 
 *Usage Format Regarding Current Implementation:*
 
@@ -532,6 +528,7 @@ The testing methods for filtering is written for 3 different parts:
 * Each test case at least contains filtering with `or - success` or `and - success`, `clear - success` and `clear - failure`, `reverse - success` and `reverse - failure`.
 * Also for every interacting command, *failure* and *success* cases are both investigated.
 // end::filter[]
+
 
 // tag::sort[]
 === Sort Commands

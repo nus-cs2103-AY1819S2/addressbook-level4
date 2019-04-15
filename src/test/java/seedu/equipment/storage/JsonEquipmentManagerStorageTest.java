@@ -69,7 +69,7 @@ public class JsonEquipmentManagerStorageTest {
     }
 
     @Test
-    public void readEquipmentManager_invalidAndValidEquipmentEquipmentManager_throwDataConversionException() throws Exception {
+    public void readEquipmentManager_invalidAndValidEquipment_throwDataConversionException() throws Exception {
         thrown.expect(DataConversionException.class);
         readEquipmentManager("invalidAndValidEquipmentEM.json");
     }

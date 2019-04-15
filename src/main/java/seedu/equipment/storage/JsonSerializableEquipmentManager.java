@@ -36,7 +36,8 @@ class JsonSerializableEquipmentManager {
      * @param source future changes to this will not affect the created {@code JsonSerializableEquipmentManager}.
      */
     public JsonSerializableEquipmentManager(ReadOnlyEquipmentManager source) {
-        equipment.addAll(source.getEquipmentList().stream().map(JsonAdaptedEquipment::new).collect(Collectors.toList()));
+        equipment.addAll(source.getEquipmentList().stream()
+                .map(JsonAdaptedEquipment::new).collect(Collectors.toList()));
     }
 
     /**

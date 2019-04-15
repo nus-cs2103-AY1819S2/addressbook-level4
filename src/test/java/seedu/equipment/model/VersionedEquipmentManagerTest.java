@@ -18,9 +18,9 @@ import seedu.equipment.testutil.EquipmentManagerBuilder;
 
 public class VersionedEquipmentManagerTest {
 
-    private final ReadOnlyEquipmentManager equipmentManagerWithAmy = new EquipmentManagerBuilder().withPerson(AMY).build();
-    private final ReadOnlyEquipmentManager equipmentManagerWithBob = new EquipmentManagerBuilder().withPerson(BOB).build();
-    private final ReadOnlyEquipmentManager equipmentManagerWithCarl = new EquipmentManagerBuilder()
+    private final ReadOnlyEquipmentManager equipManagerWithAmy = new EquipmentManagerBuilder().withPerson(AMY).build();
+    private final ReadOnlyEquipmentManager equipManagerWithBob = new EquipmentManagerBuilder().withPerson(BOB).build();
+    private final ReadOnlyEquipmentManager equipManagerWithCarl = new EquipmentManagerBuilder()
             .withPerson(TECKGHEECC).build();
     private final ReadOnlyEquipmentManager emptyEquipmentManager = new EquipmentManagerBuilder().build();
 
@@ -38,19 +38,19 @@ public class VersionedEquipmentManagerTest {
     @Test
     public void commit_multipleEquipmentManagerPointerAtEndOfStateList_noStatesRemovedCurrentStateSaved() {
         VersionedEquipmentManager versionedEquipmentManager = prepareEquipmentManagerList(
-                emptyEquipmentManager, equipmentManagerWithAmy, equipmentManagerWithBob);
+                emptyEquipmentManager, equipManagerWithAmy, equipManagerWithBob);
 
         versionedEquipmentManager.commit();
         assertEquipmentManagerListStatus(versionedEquipmentManager,
-                Arrays.asList(emptyEquipmentManager, equipmentManagerWithAmy, equipmentManagerWithBob),
-                equipmentManagerWithBob,
+                Arrays.asList(emptyEquipmentManager, equipManagerWithAmy, equipManagerWithBob),
+                equipManagerWithBob,
                 Collections.emptyList());
     }
 
     @Test
     public void commit_multipleEquipmentManagerPointerNotAtEndOfStateList_statesAfterPointerRemovedCurrentStateSaved() {
         VersionedEquipmentManager versionedEquipmentManager = prepareEquipmentManagerList(
-                emptyEquipmentManager, equipmentManagerWithAmy, equipmentManagerWithBob);
+                emptyEquipmentManager, equipManagerWithAmy, equipManagerWithBob);
         shiftCurrentStatePointerLeftwards(versionedEquipmentManager, 2);
 
         versionedEquipmentManager.commit();
@@ -63,7 +63,7 @@ public class VersionedEquipmentManagerTest {
     @Test
     public void canUndo_multipleEquipmentManagerPointerAtEndOfStateList_returnsTrue() {
         VersionedEquipmentManager versionedEquipmentManager = prepareEquipmentManagerList(
-                emptyEquipmentManager, equipmentManagerWithAmy, equipmentManagerWithBob);
+                emptyEquipmentManager, equipManagerWithAmy, equipManagerWithBob);
 
         assertTrue(versionedEquipmentManager.canUndo());
     }
@@ -71,7 +71,7 @@ public class VersionedEquipmentManagerTest {
     @Test
     public void canUndo_multipleEquipmentManagerPointerAtStartOfStateList_returnsTrue() {
         VersionedEquipmentManager versionedEquipmentManager = prepareEquipmentManagerList(
-                emptyEquipmentManager, equipmentManagerWithAmy, equipmentManagerWithBob);
+                emptyEquipmentManager, equipManagerWithAmy, equipManagerWithBob);
         shiftCurrentStatePointerLeftwards(versionedEquipmentManager, 1);
 
         assertTrue(versionedEquipmentManager.canUndo());
@@ -87,7 +87,7 @@ public class VersionedEquipmentManagerTest {
     @Test
     public void canUndo_multipleEquipmentManagerPointerAtStartOfStateList_returnsFalse() {
         VersionedEquipmentManager versionedEquipmentManager = prepareEquipmentManagerList(
-                emptyEquipmentManager, equipmentManagerWithAmy, equipmentManagerWithBob);
+                emptyEquipmentManager, equipManagerWithAmy, equipManagerWithBob);
         shiftCurrentStatePointerLeftwards(versionedEquipmentManager, 2);
 
         assertFalse(versionedEquipmentManager.canUndo());
@@ -96,7 +96,7 @@ public class VersionedEquipmentManagerTest {
     @Test
     public void canRedo_multipleEquipmentManagerPointerNotAtEndOfStateList_returnsTrue() {
         VersionedEquipmentManager versionedEquipmentManager = prepareEquipmentManagerList(
-                emptyEquipmentManager, equipmentManagerWithAmy, equipmentManagerWithBob);
+                emptyEquipmentManager, equipManagerWithAmy, equipManagerWithBob);
         shiftCurrentStatePointerLeftwards(versionedEquipmentManager, 1);
 
         assertTrue(versionedEquipmentManager.canRedo());
@@ -105,7 +105,7 @@ public class VersionedEquipmentManagerTest {
     @Test
     public void canRedo_multipleEquipmentManagerPointerAtStartOfStateList_returnsTrue() {
         VersionedEquipmentManager versionedEquipmentManager = prepareEquipmentManagerList(
-                emptyEquipmentManager, equipmentManagerWithAmy, equipmentManagerWithBob);
+                emptyEquipmentManager, equipManagerWithAmy, equipManagerWithBob);
         shiftCurrentStatePointerLeftwards(versionedEquipmentManager, 2);
 
         assertTrue(versionedEquipmentManager.canRedo());
@@ -121,7 +121,7 @@ public class VersionedEquipmentManagerTest {
     @Test
     public void canRedo_multipleEquipmentManagerPointerAtEndOfStateList_returnsFalse() {
         VersionedEquipmentManager versionedEquipmentManager = prepareEquipmentManagerList(
-                emptyEquipmentManager, equipmentManagerWithAmy, equipmentManagerWithBob);
+                emptyEquipmentManager, equipManagerWithAmy, equipManagerWithBob);
 
         assertFalse(versionedEquipmentManager.canRedo());
     }
@@ -129,26 +129,26 @@ public class VersionedEquipmentManagerTest {
     @Test
     public void undo_multipleEquipmentManagerPointerAtEndOfStateList_success() {
         VersionedEquipmentManager versionedEquipmentManager = prepareEquipmentManagerList(
-                emptyEquipmentManager, equipmentManagerWithAmy, equipmentManagerWithBob);
+                emptyEquipmentManager, equipManagerWithAmy, equipManagerWithBob);
 
         versionedEquipmentManager.undo();
         assertEquipmentManagerListStatus(versionedEquipmentManager,
                 Collections.singletonList(emptyEquipmentManager),
-                equipmentManagerWithAmy,
-                Collections.singletonList(equipmentManagerWithBob));
+                equipManagerWithAmy,
+                Collections.singletonList(equipManagerWithBob));
     }
 
     @Test
     public void undo_multipleEquipmentManagerPointerNotAtStartOfStateList_success() {
         VersionedEquipmentManager versionedEquipmentManager = prepareEquipmentManagerList(
-                emptyEquipmentManager, equipmentManagerWithAmy, equipmentManagerWithBob);
+                emptyEquipmentManager, equipManagerWithAmy, equipManagerWithBob);
         shiftCurrentStatePointerLeftwards(versionedEquipmentManager, 1);
 
         versionedEquipmentManager.undo();
         assertEquipmentManagerListStatus(versionedEquipmentManager,
                 Collections.emptyList(),
                 emptyEquipmentManager,
-                Arrays.asList(equipmentManagerWithAmy, equipmentManagerWithBob));
+                Arrays.asList(equipManagerWithAmy, equipManagerWithBob));
     }
 
     @Test
@@ -161,7 +161,7 @@ public class VersionedEquipmentManagerTest {
     @Test
     public void undo_multipleEquipmentManagerPointerAtStartOfStateList_throwsNoUndoableStateException() {
         VersionedEquipmentManager versionedEquipmentManager = prepareEquipmentManagerList(
-                emptyEquipmentManager, equipmentManagerWithAmy, equipmentManagerWithBob);
+                emptyEquipmentManager, equipManagerWithAmy, equipManagerWithBob);
         shiftCurrentStatePointerLeftwards(versionedEquipmentManager, 2);
 
         assertThrows(VersionedEquipmentManager.NoUndoableStateException.class, versionedEquipmentManager::undo);
@@ -170,27 +170,27 @@ public class VersionedEquipmentManagerTest {
     @Test
     public void redo_multipleEquipmentManagerPointerNotAtEndOfStateList_success() {
         VersionedEquipmentManager versionedEquipmentManager = prepareEquipmentManagerList(
-                emptyEquipmentManager, equipmentManagerWithAmy, equipmentManagerWithBob);
+                emptyEquipmentManager, equipManagerWithAmy, equipManagerWithBob);
         shiftCurrentStatePointerLeftwards(versionedEquipmentManager, 1);
 
         versionedEquipmentManager.redo();
         assertEquipmentManagerListStatus(versionedEquipmentManager,
-                Arrays.asList(emptyEquipmentManager, equipmentManagerWithAmy),
-                equipmentManagerWithBob,
+                Arrays.asList(emptyEquipmentManager, equipManagerWithAmy),
+                equipManagerWithBob,
                 Collections.emptyList());
     }
 
     @Test
     public void redo_multipleEquipmentManagerPointerAtStartOfStateList_success() {
         VersionedEquipmentManager versionedEquipmentManager = prepareEquipmentManagerList(
-                emptyEquipmentManager, equipmentManagerWithAmy, equipmentManagerWithBob);
+                emptyEquipmentManager, equipManagerWithAmy, equipManagerWithBob);
         shiftCurrentStatePointerLeftwards(versionedEquipmentManager, 2);
 
         versionedEquipmentManager.redo();
         assertEquipmentManagerListStatus(versionedEquipmentManager,
                 Collections.singletonList(emptyEquipmentManager),
-                equipmentManagerWithAmy,
-                Collections.singletonList(equipmentManagerWithBob));
+                equipManagerWithAmy,
+                Collections.singletonList(equipManagerWithBob));
     }
 
     @Test
@@ -203,18 +203,18 @@ public class VersionedEquipmentManagerTest {
     @Test
     public void redo_multipleEquipmentManagerPointerAtEndOfStateList_throwsNoRedoableStateException() {
         VersionedEquipmentManager versionedEquipmentManager = prepareEquipmentManagerList(
-                emptyEquipmentManager, equipmentManagerWithAmy, equipmentManagerWithBob);
+                emptyEquipmentManager, equipManagerWithAmy, equipManagerWithBob);
 
         assertThrows(VersionedEquipmentManager.NoRedoableStateException.class, versionedEquipmentManager::redo);
     }
 
     @Test
     public void equals() {
-        VersionedEquipmentManager versionedEquipmentManager = prepareEquipmentManagerList(equipmentManagerWithAmy,
-                equipmentManagerWithBob);
+        VersionedEquipmentManager versionedEquipmentManager = prepareEquipmentManagerList(equipManagerWithAmy,
+                equipManagerWithBob);
 
         // same values -> returns true
-        VersionedEquipmentManager copy = prepareEquipmentManagerList(equipmentManagerWithAmy, equipmentManagerWithBob);
+        VersionedEquipmentManager copy = prepareEquipmentManagerList(equipManagerWithAmy, equipManagerWithBob);
         assertTrue(versionedEquipmentManager.equals(copy));
 
         // same object -> returns true
@@ -227,13 +227,13 @@ public class VersionedEquipmentManagerTest {
         assertFalse(versionedEquipmentManager.equals(1));
 
         // different state list -> returns false
-        VersionedEquipmentManager differentEquipmentManagerList = prepareEquipmentManagerList(equipmentManagerWithBob,
-                equipmentManagerWithCarl);
+        VersionedEquipmentManager differentEquipmentManagerList = prepareEquipmentManagerList(equipManagerWithBob,
+                equipManagerWithCarl);
         assertFalse(versionedEquipmentManager.equals(differentEquipmentManagerList));
 
         // different current pointer index -> returns false
         VersionedEquipmentManager differentCurrentStatePointer = prepareEquipmentManagerList(
-                equipmentManagerWithAmy, equipmentManagerWithBob);
+                equipManagerWithAmy, equipManagerWithBob);
         shiftCurrentStatePointerLeftwards(versionedEquipmentManager, 1);
         assertFalse(versionedEquipmentManager.equals(differentCurrentStatePointer));
     }
@@ -276,7 +276,8 @@ public class VersionedEquipmentManagerTest {
     }
 
     /**
-     * Creates and returns a {@code VersionedEquipmentManager} with the {@code equipmentManagerStates} added into it, and the
+     * Creates and returns a {@code VersionedEquipmentManager} with the {@code equipmentManagerStates} added into it,
+     * and the
      * {@code VersionedEquipmentManager#currentStatePointer} at the end of list.
      */
     private VersionedEquipmentManager prepareEquipmentManagerList(ReadOnlyEquipmentManager... equipmentManagerStates) {

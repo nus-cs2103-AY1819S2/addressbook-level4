@@ -114,8 +114,6 @@ public class Equipment {
 
         } finally {
             return coordiantes;
-
-            
         }
     }
 

@@ -120,9 +120,9 @@ public class EditCommandTest {
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
 
         // edit equipment in filtered list into a duplicate in equipment book
-        Equipment equipmentInList = model.getEquipmentManager().getEquipmentList().get(INDEX_SECOND_PERSON.getZeroBased());
+        Equipment equipInList = model.getEquipmentManager().getEquipmentList().get(INDEX_SECOND_PERSON.getZeroBased());
         EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON,
-                new EditEquipmentDescriptorBuilder(equipmentInList).build());
+                new EditEquipmentDescriptorBuilder(equipInList).build());
 
         assertCommandFailure(editCommand, model, commandHistory, EditCommand.MESSAGE_DUPLICATE_EQUIPMENT);
     }

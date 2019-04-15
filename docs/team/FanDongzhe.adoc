@@ -32,6 +32,10 @@ https://github.com/CS2103-AY1819S2-W16-3/main/blob/master/src/main/java/seedu/ad
 https://github.com/CS2103-AY1819S2-W16-3/main/blob/master/src/main/java/seedu/address/logic/commands/FindmaxCommand.java[FindmaxCommand.java] +
 https://github.com/CS2103-AY1819S2-W16-3/main/blob/master/src/main/java/seedu/address/logic/commands/FindminCommand.java[FindminCommand.java]
 
+* *Test contributed* +
+https://github.com/CS2103-AY1819S2-W16-3/main/blob/master/src/test/java/seedu/address/logic/commands/SortPersonCommandTest.java[SortPersonCommandTest.java] +
+https://github.com/CS2103-AY1819S2-W16-3/main/blob/master/src/test/java/seedu/address/logic/parser/SortPersonCommandParserTest.java[SortPersonCommandParser.java]
+
 
 
 * *Other contributions*:
@@ -72,6 +76,17 @@ include::../UserGuide.adoc[tag=findmin]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-https://github.com/CS2103-AY1819S2-W16-3/main/blob/master/docs/DeveloperGuide.adoc[tag=Sort Person]
+== Sort Person
 
+. Sort clients by some attributes
+
+.. Prerequisites: Must exist a list of clients and each of them has the attribute to be sorted.
+.. Test case: `sortper name seq`
+   Expected: Sort the list of clients by their name in sequence order.
+.. Test case: `sortper salary seq`
+   Expected: Sort the list of clients by their salary in reverse order.
+.. Test case: `sortper name rev`
+   Expected: Sort the list of clients by their name in sequence order.
+.. Test case: `sortper salary rev`
+   Expected: Sort the list of clients by their salary in reverse order.
 

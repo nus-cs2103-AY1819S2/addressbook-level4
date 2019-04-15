@@ -17,15 +17,17 @@ My major roles included the report feature and ability to record score. To see d
 |_Below is a summary of my coding, documentation, and other helpful contributions to the team project._
 |===
 
-* *Major enhancement*: added the *ability to generate scoring report for card folder*
-** What it does: Averages the card scores of all cards in the folder after a test session, called the folder score, and generates a report for that folder that shows the change in past folder scores.
-There is also a line showing percentage change in folder score as well as the lowest scoring questions in the current folder. An example is shown below.
+* *Major enhancement*: added the *ability to generate test scoring report for card folder*
+** What it does: Records the number of questions correctly answered after a test session, called the test score, and generates a report for that folder that shows the change in (past) test scores.
+There is also a line showing percentage change in test score as well as the lowest individual scoring cards in the current folder.
+ Test scores are only recorded if at least 1/4 of the questions in the folder are attempted. An example is shown below.
 
 image::ReportDisplay.png[width="790"]
 
 ** Justification: This feature improves the product significantly because a user can see the outcome of the spaced-repetition technique employed by Know-It-All. They are able to track their average score over time, per folder, so that
 they are able tell which folders they score well and not so well for. This lets them know which folder they need to practice more on.
-** Highlights: This enhancement has a graph showing the last 10 test session scores. The color of the folder score change
+ Also, the minimum number of questions required to be answered is so that the user do not get their accidental test attempts recorded.
+** Highlights: This enhancement has a graph showing a maximum of the 10 test session scores. The color of the folder score change
 also changes based on whether it was a positive, same or negative change.
 
 * *Major enhancement*: added *the ability to sort by scoring performance*
@@ -74,6 +76,7 @@ to the project, namely how to pass results from Model into Ui and Model state th
 
 include::../DeveloperGuide.adoc[tag=report]
 include::../DeveloperGuide.adoc[tag=state]
+=== Manual testing
 include::../DeveloperGuide.adoc[tag=reportmanualtest]
 include::../DeveloperGuide.adoc[tag=sortmanualtest]
 include::../DeveloperGuide.adoc[tag=reportusecase]

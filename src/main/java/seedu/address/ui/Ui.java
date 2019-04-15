@@ -10,4 +10,6 @@ public interface Ui {
     /** Starts the UI (and the App).  */
     void start(Stage primaryStage);
 
+    /** Starts the UI just for testing */
+    void startTest(Stage primaryStage, NricUserPair nricUserPair);
 }

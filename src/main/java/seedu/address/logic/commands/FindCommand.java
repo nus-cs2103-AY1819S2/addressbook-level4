@@ -25,13 +25,24 @@ public class FindCommand extends Command {
     public FindCommand(NameContainsKeywordsPredicate predicate) {
         this.predicate = predicate;
     }
-
-    @Override
+    /**
+     * Executes the command
+     */
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
         model.updateFilteredPersonList(predicate);
         return new CommandResult(
                 String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, model.getFilteredPersonList().size()));
+    }
+
+    @Override
+    public CommandResult executeGeneral(Model model, CommandHistory history) {
+        return execute(model, history);
+    }
+
+    @Override
+    public CommandResult executeAdmin(Model model, CommandHistory history) {
+        return execute(model, history);
     }
 
     @Override

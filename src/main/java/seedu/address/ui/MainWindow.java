@@ -4,14 +4,19 @@ import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Accordion;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
+import javafx.scene.control.TitledPane;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.core.UiCommandInteraction;
+import seedu.address.commons.core.UserType;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -22,19 +27,24 @@ import seedu.address.logic.parser.exceptions.ParseException;
  * a menu bar and space where other JavaFX elements can be placed.
  */
 public class MainWindow extends UiPart<Stage> {
-
     private static final String FXML = "MainWindow.fxml";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
-
+    //Clearance of the user
+    private final UserType user;
+    private final String userName;
     private Stage primaryStage;
     private Logic logic;
+    //Whether the window is of current month or not
+    private boolean isCurrentMonth;
 
     // Independent Ui parts residing in this Ui container
     private BrowserPanel browserPanel;
     private PersonListPanel personListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+
+    private CalendarView calendarView;
 
     @FXML
     private StackPane browserPlaceholder;
@@ -54,12 +64,26 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private StackPane statusbarPlaceholder;
 
-    public MainWindow(Stage primaryStage, Logic logic) {
+    @FXML
+    private VBox calendarViewPlaceholder;
+
+    @FXML
+    private Accordion accordion;
+
+    @FXML
+    private TitledPane contactList;
+
+    @FXML
+    private TitledPane calendarPane;
+
+    public MainWindow(Stage primaryStage, Logic logic, UserType user, String userName) {
         super(FXML, primaryStage);
 
         // Set dependencies
         this.primaryStage = primaryStage;
         this.logic = logic;
+        this.user = user;
+        this.userName = userName;
 
         // Configure the UI
         setWindowDefaultSize(logic.getGuiSettings());
@@ -111,7 +135,8 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        browserPanel = new BrowserPanel(logic.selectedPersonProperty());
+        browserPanel = new BrowserPanel(logic.getPersonnelDatabase().getRequestList());
+        // Originally logic.selectedPersonProperty()
         browserPlaceholder.getChildren().add(browserPanel.getRoot());
 
         personListPanel = new PersonListPanel(logic.getFilteredPersonList(), logic.selectedPersonProperty(),
@@ -121,10 +146,15 @@ public class MainWindow extends UiPart<Stage> {
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath(), logic.getAddressBook());
+        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getPersonnelDatabaseFilePath(),
+                logic.getPersonnelDatabase());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
-        CommandBox commandBox = new CommandBox(this::executeCommand, logic.getHistory());
+        CalendarView calendarView = new CalendarView(logic.getCurrentDutyMonth());
+        calendarViewPlaceholder.getChildren().add(calendarView.getRoot());
+        isCurrentMonth = true;
+
+        CommandBox commandBox = new CommandBox(this::executeCommand, user, userName, logic.getHistory());
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
     }
 
@@ -168,6 +198,40 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
+    /**
+     * Displays the personnel list accordion
+     */
+    @FXML
+    public void handleList() {
+        accordion.setExpandedPane(contactList);
+    }
+
+    /**
+     * Displays the calendarView accordion
+     */
+    @FXML
+    public void handleCalendar() {
+        accordion.setExpandedPane(calendarPane);
+    }
+    /**
+     * Refreshes current calendar view
+     */
+    public void refreshCalendarCurrent() {
+        CalendarView calendarView = new CalendarView(logic.getCurrentDutyMonth());
+        calendarViewPlaceholder.getChildren().clear();
+        calendarViewPlaceholder.getChildren().add(calendarView.getRoot());
+        isCurrentMonth = true;
+    }
+    /**
+     * Refreshes next month calendar view
+     */
+    public void refreshCalendarNext() {
+        CalendarView calendarView = new CalendarView(logic.getNextDutyMonth());
+        calendarViewPlaceholder.getChildren().clear();
+        calendarViewPlaceholder.getChildren().add(calendarView.getRoot());
+        isCurrentMonth = false;
+    }
+
     public PersonListPanel getPersonListPanel() {
         return personListPanel;
     }
@@ -175,22 +239,21 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Executes the command and returns the result.
      *
-     * @see seedu.address.logic.Logic#execute(String)
+     * @see seedu.address.logic.Logic#execute(String, UserType, String)
      */
-    private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
+    private CommandResult executeCommand(String commandText, UserType user, String userName)
+            throws CommandException, ParseException {
         try {
-            CommandResult commandResult = logic.execute(commandText);
+            CommandResult commandResult = logic.execute(commandText, user, userName);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
-
-            if (commandResult.isShowHelp()) {
-                handleHelp();
+            UiCommandInteraction uiCommand = commandResult.getUiCommandInteraction();
+            refreshCalendar(uiCommand);
+            if (uiCommand != null) {
+                handleUiCommand(uiCommand);
             }
 
-            if (commandResult.isExit()) {
-                handleExit();
-            }
-
+            browserPanel.refreshRequestListDisplay();
             return commandResult;
         } catch (CommandException | ParseException e) {
             logger.info("Invalid command: " + commandText);
@@ -198,4 +261,46 @@ public class MainWindow extends UiPart<Stage> {
             throw e;
         }
     }
+    /**
+     * Handles command inputs
+     */
+    public void handleUiCommand(UiCommandInteraction uiCommand) {
+        switch (uiCommand) {
+        case EXIT:
+            handleExit();
+            break;
+        case HELP:
+            handleHelp();
+            break;
+        case PEOPLE_LIST:
+            handleList();
+            break;
+        case CALENDAR_CURRENT:
+            handleCalendar();
+            refreshCalendarCurrent();
+            break;
+        case CALENDAR_NEXT:
+            handleCalendar();
+            refreshCalendarNext();
+            break;
+        default: //do nothing
+            break;
+        }
+    }
+    /**
+     * Refreshes calendar
+     */
+    public void refreshCalendar(UiCommandInteraction uiCommandInteraction) {
+        if (uiCommandInteraction == UiCommandInteraction.CALENDAR_NEXT) {
+            return;
+        } else if (uiCommandInteraction == UiCommandInteraction.CALENDAR_CURRENT) {
+            return;
+        }
+        if (isCurrentMonth) {
+            refreshCalendarCurrent();
+        } else {
+            refreshCalendarNext();
+        }
+    }
+
 }

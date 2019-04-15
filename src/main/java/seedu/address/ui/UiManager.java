@@ -9,6 +9,7 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import seedu.address.MainApp;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.core.UserType;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
 
@@ -38,7 +39,30 @@ public class UiManager implements Ui {
         primaryStage.getIcons().add(getImage(ICON_APPLICATION));
 
         try {
-            mainWindow = new MainWindow(primaryStage, logic);
+            LoginBox loginBox = new LoginBox(this::findAccount);
+            NricUserPair nricUserPair = loginBox.display();
+            mainWindow = new MainWindow(primaryStage, logic, nricUserPair.userType, nricUserPair.userName);
+            mainWindow.show(); //This should be called before creating other UI parts
+            mainWindow.fillInnerParts();
+
+        } catch (Throwable e) {
+            logger.severe(StringUtil.getDetails(e));
+            showFatalErrorDialogAndShutdown("Fatal error during initializing", e);
+        }
+    }
+
+    /**
+     * Stricly only for testing purposes
+     */
+    @Override
+    public void startTest(Stage primaryStage, NricUserPair nricUserPair) {
+        logger.info("Starting UI...");
+
+        //Set the application icon.
+        primaryStage.getIcons().add(getImage(ICON_APPLICATION));
+
+        try {
+            mainWindow = new MainWindow(primaryStage, logic, nricUserPair.userType, nricUserPair.userName);
             mainWindow.show(); //This should be called before creating other UI parts
             mainWindow.fillInnerParts();
 
@@ -81,6 +105,14 @@ public class UiManager implements Ui {
         showAlertDialogAndWait(Alert.AlertType.ERROR, title, e.getMessage(), e.toString());
         Platform.exit();
         System.exit(1);
+    }
+
+    /**
+     * Finds UserType of account given username and password.
+     * Returns null if account not found.
+     */
+    private UserType findAccount(String userName, String password) {
+        return logic.findAccount(userName, password);
     }
 
 }

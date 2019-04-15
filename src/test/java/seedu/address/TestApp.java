@@ -8,15 +8,17 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.commons.core.UserType;
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.PersonnelDatabase;
+import seedu.address.model.ReadOnlyPersonnelDatabase;
 import seedu.address.model.UserPrefs;
-import seedu.address.storage.JsonAddressBookStorage;
+import seedu.address.storage.JsonPersonnelDatabaseStorage;
 import seedu.address.storage.UserPrefsStorage;
 import seedu.address.testutil.TestUtil;
+import seedu.address.ui.NricUserPair;
 import systemtests.ModelHelper;
 
 /**
@@ -29,22 +31,27 @@ public class TestApp extends MainApp {
 
     protected static final Path DEFAULT_PREF_FILE_LOCATION_FOR_TESTING =
             TestUtil.getFilePathInSandboxFolder("pref_testing.json");
-    protected Supplier<ReadOnlyAddressBook> initialDataSupplier = () -> null;
+    protected Supplier<ReadOnlyPersonnelDatabase> initialDataSupplier = () -> null;
     protected Path saveFileLocation = SAVE_LOCATION_FOR_TESTING;
+    private NricUserPair nricUserPair = new NricUserPair(UserType.ADMIN, UserType.DEFAULT_ADMIN_USERNAME);
 
-    public TestApp() {
+    public TestApp(Supplier<ReadOnlyPersonnelDatabase> initialDataSupplier,
+                   Path saveFileLocation, NricUserPair nricUserPair) {
+        this(initialDataSupplier, saveFileLocation);
+        this.nricUserPair = nricUserPair;
     }
 
-    public TestApp(Supplier<ReadOnlyAddressBook> initialDataSupplier, Path saveFileLocation) {
+    public TestApp(Supplier<ReadOnlyPersonnelDatabase> initialDataSupplier, Path saveFileLocation) {
         super();
         this.initialDataSupplier = initialDataSupplier;
         this.saveFileLocation = saveFileLocation;
 
         // If some initial local data has been provided, write those to the file
         if (initialDataSupplier.get() != null) {
-            JsonAddressBookStorage jsonAddressBookStorage = new JsonAddressBookStorage(saveFileLocation);
+            JsonPersonnelDatabaseStorage jsonPersonnelDatabaseStorage =
+                    new JsonPersonnelDatabaseStorage(saveFileLocation);
             try {
-                jsonAddressBookStorage.saveAddressBook(initialDataSupplier.get());
+                jsonPersonnelDatabaseStorage.savePersonnelDatabase(initialDataSupplier.get());
             } catch (IOException ioe) {
                 throw new AssertionError(ioe);
             }
@@ -64,18 +71,18 @@ public class TestApp extends MainApp {
         double x = Screen.getPrimary().getVisualBounds().getMinX();
         double y = Screen.getPrimary().getVisualBounds().getMinY();
         userPrefs.setGuiSettings(new GuiSettings(600.0, 600.0, (int) x, (int) y));
-        userPrefs.setAddressBookFilePath(saveFileLocation);
+        userPrefs.setPersonnelDatabaseFilePath(saveFileLocation);
         return userPrefs;
     }
 
     /**
-     * Returns a defensive copy of the address book data stored inside the storage file.
+     * Returns a defensive copy of the personnel database data stored inside the storage file.
      */
-    public AddressBook readStorageAddressBook() {
+    public PersonnelDatabase readStoragePersonnelDatabase() {
         try {
-            return new AddressBook(storage.readAddressBook().get());
+            return new PersonnelDatabase(storage.readPersonnelDatabase().get());
         } catch (DataConversionException dce) {
-            throw new AssertionError("Data is not in the AddressBook format.", dce);
+            throw new AssertionError("Data is not in the PersonnelDatabase format.", dce);
         } catch (IOException ioe) {
             throw new AssertionError("Storage file cannot be found.", ioe);
         }
@@ -85,21 +92,21 @@ public class TestApp extends MainApp {
      * Returns the file path of the storage file.
      */
     public Path getStorageSaveLocation() {
-        return storage.getAddressBookFilePath();
+        return storage.getPersonnelDatabaseFilePath();
     }
 
     /**
      * Returns a defensive copy of the model.
      */
     public Model getModel() {
-        Model copy = new ModelManager((model.getAddressBook()), new UserPrefs());
+        Model copy = new ModelManager((model.getPersonnelDatabase()), new UserPrefs());
         ModelHelper.setFilteredList(copy, model.getFilteredPersonList());
         return copy;
     }
 
     @Override
     public void start(Stage primaryStage) {
-        ui.start(primaryStage);
+        ui.startTest(primaryStage, nricUserPair);
     }
 
     public static void main(String[] args) {

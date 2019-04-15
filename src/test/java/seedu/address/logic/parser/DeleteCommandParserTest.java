@@ -1,13 +1,18 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.commons.core.Messages.MESSAGE_NO_AUTHORITY_PARSE;
+import static seedu.address.logic.parser.CommandParserTestUtil.GENERAL_USER;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 
 import org.junit.Test;
 
+import seedu.address.commons.core.UserType;
 import seedu.address.logic.commands.DeleteCommand;
+import seedu.address.testutil.TypicalPersons;
 
 /**
  * As we are only doing white-box testing, our test cases do not cover path variations
@@ -22,11 +27,28 @@ public class DeleteCommandParserTest {
 
     @Test
     public void parse_validArgs_returnsDeleteCommand() {
-        assertParseSuccess(parser, "1", new DeleteCommand(INDEX_FIRST_PERSON));
+        assertParseSuccess(parser, "1",
+                new DeleteCommand(INDEX_FIRST_PERSON, UserType.DEFAULT_ADMIN_USERNAME));
+    }
+
+    @Test
+    public void parseValidArgsSpecificAdminReturnsDeleteCommand() {
+        assertParseSuccess(parser, "2", new DeleteCommand(INDEX_SECOND_PERSON,
+                TypicalPersons.ADMIN_TAN_USERNAME), UserType.ADMIN, TypicalPersons.ADMIN_TAN_USERNAME);
     }
 
     @Test
     public void parse_invalidArgs_throwsParseException() {
         assertParseFailure(parser, "a", String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
+    }
+
+    @Test
+    public void parse_invalidUser_throwsParseException() {
+        assertParseFailure(parser, "1", MESSAGE_NO_AUTHORITY_PARSE, UserType.GENERAL, GENERAL_USER);
+    }
+
+    @Test
+    public void parseNoUserThrowsParseException() {
+        assertParseFailure(parser, "1", MESSAGE_NO_AUTHORITY_PARSE, null, GENERAL_USER);
     }
 }

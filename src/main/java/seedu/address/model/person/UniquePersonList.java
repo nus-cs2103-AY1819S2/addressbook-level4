@@ -31,14 +31,17 @@ public class UniquePersonList implements Iterable<Person> {
     /**
      * Returns true if the list contains an equivalent person as the given argument.
      */
+
     public boolean contains(Person toCheck) {
         requireNonNull(toCheck);
         return internalList.stream().anyMatch(toCheck::isSamePerson);
     }
 
+
     /**
-     * Adds a person to the list.
+     *
      * The person must not already exist in the list.
+     *
      */
     public void add(Person toAdd) {
         requireNonNull(toAdd);
@@ -46,6 +49,11 @@ public class UniquePersonList implements Iterable<Person> {
             throw new DuplicatePersonException();
         }
         internalList.add(toAdd);
+    }
+
+    // Sort the list by name
+    public void sort() {
+        this.internalList.sort((p1, p2) -> p1.getName().fullName.compareToIgnoreCase(p2.getName().fullName));
     }
 
     /**

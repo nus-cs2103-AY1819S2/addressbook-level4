@@ -17,11 +17,14 @@ import guitests.guihandles.PersonListPanelHandle;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
+import seedu.address.model.person.Company;
 import seedu.address.model.person.Name;
+import seedu.address.model.person.Nric;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.Rank;
+import seedu.address.model.person.Section;
+
 
 public class PersonListPanelTest extends GuiUnitTest {
     private static final ObservableList<Person> TYPICAL_PERSONS =
@@ -68,8 +71,10 @@ public class PersonListPanelTest extends GuiUnitTest {
 
         assertTimeoutPreemptively(ofMillis(CARD_CREATION_AND_DELETION_TIMEOUT), () -> {
             initUi(backingList);
-            guiRobot.interact(backingList::clear);
-        }, "Creation and deletion of person cards exceeded time limit");
+            guiRobot.interact(backingList::clear
+            );
+        }, "Creation and deletion of "
+                + "person cards exceeded time limit");
     }
 
     /**
@@ -79,11 +84,14 @@ public class PersonListPanelTest extends GuiUnitTest {
     private ObservableList<Person> createBackingList(int personCount) {
         ObservableList<Person> backingList = FXCollections.observableArrayList();
         for (int i = 0; i < personCount; i++) {
+            Nric nric = new Nric("S1234567A");
+            Company company = new Company("Alpha");
+            Section section = new Section("1");
+            Rank rank = new Rank("CPL");
             Name name = new Name(i + "a");
             Phone phone = new Phone("000");
-            Email email = new Email("a@aa");
-            Address address = new Address("a");
-            Person person = new Person(name, phone, email, address, Collections.emptySet());
+
+            Person person = new Person(nric, company, section, rank, name, phone, Collections.emptySet());
             backingList.add(person);
         }
         return backingList;

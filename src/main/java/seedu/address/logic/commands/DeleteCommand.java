@@ -5,10 +5,13 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import seedu.address.commons.core.Messages;
+import seedu.address.commons.core.UiCommandInteraction;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.duty.DutyMonth;
+import seedu.address.model.duty.DutyStorage;
 import seedu.address.model.person.Person;
 
 /**
@@ -23,16 +26,19 @@ public class DeleteCommand extends Command {
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted Person: %1$s";
+    public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted Person: %1$s\n"
+            + "Please run \"schedule\" again.";
 
     private final Index targetIndex;
+    private final String userName;
 
-    public DeleteCommand(Index targetIndex) {
+    public DeleteCommand(Index targetIndex, String userName) {
         this.targetIndex = targetIndex;
+        this.userName = userName;
     }
 
     @Override
-    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
+    public CommandResult executeAdmin(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
         List<Person> lastShownList = model.getFilteredPersonList();
 
@@ -41,9 +47,29 @@ public class DeleteCommand extends Command {
         }
 
         Person personToDelete = lastShownList.get(targetIndex.getZeroBased());
+        String userNameDeleted = personToDelete.getNric().value;
         model.deletePerson(personToDelete);
-        model.commitAddressBook();
+
+        DutyMonth dutyMonth = model.getDutyCalendar().getNextMonth();
+        DutyStorage dutyStorage = model.getDutyStorage();
+        dutyMonth.clearAllDuties();
+        dutyStorage.removePerson(personToDelete);
+        dutyMonth.unconfirm();
+        dutyStorage.undo();
+
+        model.deleteRequestsWithPerson(personToDelete);
+
+        model.commitPersonnelDatabase();
+        if (userNameDeleted.equals(userName)) {
+            return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, personToDelete),
+                    UiCommandInteraction.EXIT);
+        }
         return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, personToDelete));
+    }
+
+    @Override
+    public CommandResult executeGeneral(Model model, CommandHistory history) throws CommandException {
+        throw new CommandException(Messages.MESSAGE_NO_AUTHORITY);
     }
 
     @Override

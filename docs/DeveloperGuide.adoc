@@ -1,4 +1,5 @@
-= AddressBook Level 4 - Developer Guide
+﻿
+= Duty Planner - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -13,9 +14,9 @@ ifdef::env-github[]
 :warning-caption: :warning:
 :experimental:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level4/tree/master
+:repoURL: https://github.com/CS2103-AY1819S2-W15-4/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `CS2103 W15-4`      Since: `Jun 2016`      Licence: `MIT`
 
 == Setting up
 
@@ -191,6 +192,7 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
 .Interactions Inside the Logic Component for the `delete 1` Command
 image::DeletePersonSdForLogic.png[width="800"]
 
+// tag::modeldiagram[]
 [[Design-Model]]
 === Model component
 
@@ -202,15 +204,19 @@ image::ModelClassDiagram.png[width="800"]
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
+* stores the Duty Personnel data.
+* stores the implementation of the Calendar and DutyDates.
+* stores the implementation of a Duty Personnel.
 * exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
 [NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
+As a more OOP model, we can store a `Tag` list in `Personnel Database`, which `Person` can reference. This would allow `Personnel Database` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
  +
 image:ModelClassBetterOopDiagram.png[width="800"]
+// end::modeldiagram[]
 
+// tag::storagediagram[]
 [[Design-Storage]]
 === Storage component
 
@@ -222,7 +228,8 @@ image::StorageClassDiagram.png[width="800"]
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in json format and read it back.
+* can save the Personnel Database data in json format and read it back.
+// end::storagediagram[]
 
 [[Design-Commons]]
 === Common classes
@@ -232,6 +239,92 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 == Implementation
 
 This section describes some noteworthy details on how certain features are implemented.
+
+//tag::blockDates[]
+=== Block Dates Feature
+==== Current Implementation
+
+The block dates feature is facilitated by PersonnelDatabase and was implemented for general users as they cannot be expected to do duties any time during the upcoming month.
+They may have certain dates that are busy or do not wish to do duties and as such they can block the dates in the PersonnelDatabase.
+
+Block Dates was done by adding 3 new commands to the `Logic` which are `BlockDateCommand`, `ViewBlockCommand`, `RemoveBlockCommand`.
+Modifications and methods were also added in `Model` and `Storage` to implement the blocking of dates in Duty planning and storage.
+
+`BlockDateCommand` works like other commands in the Duty Planner. The command is read a text string from the MainWindow in UI.
+The sequence diagram for the interaction is below.
+
+image::BlockDateStateDiagram.png[width="800"]
+
+
+Step 1 : +
+As seen in the diagram above. The MainWindow calls the execute Command in Logic and passes in the command text, userName and userType of the logged in user.
+
+Step 2 : +
+The LogicManager then passes the command text, userName and userType to PersonnelDatabaseParser and it determines the type of command by parsing the String input.
+Using certain command words, the PersonnelDatabase Parser determines what the command is and then passes the parsed commandText, userName and userType to the BlockDateCommandParser.
+
+Step 3 : +
+The BlockDateCommandParser takes in the dates list as a String and parses it into a Integer List which is used in the model.
+The BlockDateCommandParser then passes in the Integer List, userType and userName to BlockDateCommand.
+It checks for valid Integer inputs for days in the next month and will throw an exception if the dates entered are not valid
+
+Step 4 : +
+The logic for BlockDateCommand follows the activity diagram below.
+
+image::BlockDateActivityDiagram.png[width="800"]
+
+****
+* The first check is the userType, if you are an Admin you will not be able to access this command
+* The second check is to see the schedule has already been confirmed for nex month. If so the user cannot block any dates for the upcoming month
+* The third check is to see the number of dates blocked and if they are more than 15, an exception will be thrown.
+This is to ensure that commander have enough people to schedule duties. You can change this number if you wish to do so by updating the
+MAX_BLOCKS_NUMBER in BlockDateCommand
+* If the user passes all check the Command will enter Step 5
+****
+
+Step 5 : +
+The BlockDateCommand then passes the Integer List to the model where it is stored in a Hashmap in DutyMonth.
+DutyMonth has a Hashmap<Person, List<Integer>> blockedDays object to allow it to store the blockedDays of every person for the upcoming month.
+
+Step 6 : +
+The algorithm for scheduling was then modified to prevent the user from not doing duties on their blockedDays. This was done with the assistance of the HashMap.
+During scheduling when a person is assigned to a day the model checks the list of blocked dates. If the person has a blocked day on the assigned duty, they are assigned a new one.
+Someone else will then replace them in the previously assigned duty.
+A more detailed explanation of the scheduling algorithm is in <<Duty Settings>>.
+
+==== Additional Commands
+Commands `viewblock` and removeblock` were added for the users convenience. This helps the users to find and modify the Blocked Dates for the upcoming Month.
+These two commands access the HashMap in the Model associated with blockedDates and either view or remove the blockedDates for the current user.
+The Hashmap uses a Person object as a key. The logged in user's NRIC is used to obtain the current User person object and that is used as the key to retrieve the information from the Hashmap.
+All this is done through the model with methods such as `getBlockedDates` and `removeBlockedDays respectively for view and remove.
+
+These two commands complete the suite of blocking which allows users to experience more flexibility in their duty planning.
+
+
+==== Design Considerations:
+* Alternative 1 (current implementation): BlockDateCommand takes in a few dates they are then stored in the personnel database as a Hashmap.
+** Pros :
+*** Easy to implement as a new Command. Parsers have already been set up in address book and adding a new command is relatively easy to implement.
+***The command storing the Integer List in the PersonnelDatabase in a HashMap is also convenient for the other commands such as `viewblock` and `removeblock.
+***The Hashmap allows easy referencing for these commands. The Hashmap also allows for easier scheduling when the scheduler is run.
+
+** Cons :
+*** The BlockDateCommand would directly modify the HashMap in the PersonnelDatabase and this would go against the n-tier architecture of the PersonnelDatabase Program. This would break the abstraction principle
+
+** Implemented Fix for Cons :
+*** To combat the above issue, Model was given methods to add the blockedDates into the Personnel Database rather than the command itself.
+This allows the logic to pass the dates to the model which would then integrate it into the Personnel Database.
+
+ * Alternative 2 (current implementation): BlockDateCommand takes in a few dates they are then stored as a new Class called BlockedDates
+** Pros :
+*** Easy to implement as a new Command. Parsers have already been set up in address book and adding a new command is relatively easy to implement.
+*** Would be clear what the BlockedDate Class does and also if other forms of dates such as AppointmentDates have to be added in later this would help with integrating them.
+
+** Cons :
+*** The implementation of a BlockedDate Class would complicated the process of integrating into the schedule much harder.
+Implementing the BlockedDate into the algorithm would be a lot harder and would take more time and effort.
+
+
 
 // tag::undoredo[]
 === Undo/Redo feature
@@ -313,13 +406,6 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
-
-_{Explain here how the data encryption feature will be implemented}_
-
-// end::dataencryption[]
-
 === Logging
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
@@ -339,6 +425,280 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 === Configuration
 
 Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
+
+// tag::dutyDiagram[]
+=== Duty Package
+
+==== Implementation
+
+
+image::DutyPackage.png[width:"600"]
+
+The diagram above shows the high-level structure of the duty components.
+// end::dutyDiagram[]
+
+// tag::dutyCalendar[]
+==== Duty Calendar
+
+`DutyCalendar` is an attribute of `PersonalDatabase`. It comprises of three `DutyMonth` objects -- namely `currentMonth`, `nextMonth` and `dummyNextMonth` and a `DutyStorage` object -- `dutyStorage`.
+
+* `currentMonth` represents the current month.
+* `nextMonth` represents the upcoming month.
+* `dummyNextMonth` is a dummy `DutyMonth` object that mirrors the contents of `nextMonth`.
+** It is instantiated each time `schedule` command is called. The scheduling alogorithm is invoked to produce a viable duty schedule in `dummyNextMonth`.
+** When `confirm` command is called, `nextMonth` will point to the `dummyNextMonth`.
+* `dutyStorage` stores the accumulated duty points and duty records of each person.
+
+`DutyCalendar` implements the following operations:
+
+* `DutyCalendar#rollover()` -- replaces `currentMonth` with `nextMonth` and a new `nextMonth` object will be instantiated. `rollover()` will be called automatically when the application begins and the `currentMonth` object no longer correspond to the actual current month in real time.
+
+* `DutyCalendar#scheduleDutyForNextMonth()` -- instantiates `dummyNextMonth` and runs the scheduling algorithm on it.
+
+* `DutyCalendar#confirm()` -- confirms the latest duty schedule by allowing `nextMonth` to point to the current instantiation of `dummyNextMonth`.
+// end::dutyCalendar[]
+
+// tag::dutyMonth[]
+==== Duty Month
+
+`DutyMonth` class represents all duty-related information for a particular month. It contains the following key information:
+
+* The blocked days of every person for duties in the month.
+* A list of scheduled duties implemented as a `Duty` object list
+** At the construction of the `DutyMonth`, the list is empty.
+** When the `schedule` method is called, `Duty` objects are be instantiated and appended to the list. The list will contain the same number of `Duty` objects as the number of days in the month.
+* A boolean `confirm` state -- denoting whether the duty allocation for the month is confimed.
+
+`DutyMonth` class contains the following key operations:
+
+* `DutyMonth#addBlockedDay(person, day)` -- adds a blocked day to a particular person, indicating that the person cannot be assigned duty on that particular day of the month.
+* `DutyMonth#removeBlockedDays(person)` -- remove all blocked days for a particular person, indicating that the person can now be assigned duty on any day of the month.
+* `DutyMonth#schedule(personList, dutySettings, dutyStorage)` -- invokes the scheduling alogorithm. Generate all duties for the particular month and assign person from personList to the duties.
+* `DutyMonth#confirm()` -- sets the state of the `DutyMonth` to confirmed. Duty allocation is finalized.
+// end::dutyMonth[]
+
+// tag::duty[]
+==== Duty
+
+`Duty` class represents a duty for a day. It contains the following information:
+
+* List of `Person` allocated to the duty.
+* Capacity -- number of persons needed for the duty.
+* Points -- number of  points to be rewarded to each person assigned to the duty.
+// end::duty[]
+
+// tag::dutyStorage[]
+==== Duty Storage
+
+`DutyMonth` class stores the accumulated duty points and duty records of every person. It has the following key operations:
+
+* `DutyStorage#update(dutieslist)` -- updates the duty points and records from a list of scheduled duties. Used when schedules are confirmed and finalized.
+* `DutyStorage#undo(dutieslist)` -- restore to previous state of duty points and records. Used when previous confirmed duty schedule has to be undone.
+* `DutyStorage#reward(person, point)` -- adds duty points to a particular person.
+* `DutyStorage#penalize(person, point)` -- deducts duty points from a particular person.
+// end::dutyStorage[]
+
+// tag::dutySettings[]
+==== Duty Settings
+
+`DutySettings` class is an attribute under `UserPrefs`. It stores information regarding the manpower needed and duty points to be rewarded for each duty based on the day of the week.
+
+
+It is accessed when duties are generated to ensure the appropriate attributes (capacity and points) given to each duty.
+// end::dutySettings[]
+
+// tag::scheduleCommand[]
+==== Schedule Command
+
+The `schedule` command is called by the admin to generate a viable duty schedule for the upcoming month.
+
+image::ScheduleCommand.png[width="1000"]
+
+The sequence diagram above shows how the `schedule` operation works.
+
+It is worth noting that `schedule` operation does not finalize the duty schedule for next month. Therefore, `dutyCalendar` has to instantiates a new  `dummyNextMonth` for the operation.
+
+Subsequent calling of the `confirm` operation will allow the `nextMonth` object to point to the latest `dummyNextMonth`, and invoke `dutyStorage` to update duty points and records.
+// end::scheduleCommand[]
+
+// tag::scheduleAlgorithm[]
+==== Schedule Algorithm
+
+image::ScheduleAlgorithm.jpg[width = "600"]
+
+The sequence diagram above provides a simplified illustration of the `schedule` method in `DutyMonth`.
+
+To ensure a system where duties are allocated fairly,
+
+* We employ a point system where each person can gain points by doing duties.
+* The points awarded are cumulative -- can be carried over to the next month. Duty points accumulated are stored in `DutyStorage`.
+* Each duty is worth a certain number of points and a person gains that amount of points by doing that duty. The points allocated to each duty is retrieved from `DutySettings`.
+* Before the `schedule` command is called, each person has the opportunity to indicate the days he are unavailable for duty.
+
+Approach
+
+* Generate a list of `Duty` objects sorted by their points in descending order.
+* Generate a priority queue of all `Person` objects, queued based on their accumulated duty points with the lowest at the head of the queue.
+* Iterate through the list of `Duty` objects. At each iteration,
+** Poll the priority queue of `Person` continuously until an instance of a compatible duty-person pairing.
+** A compatible pairing consists of conditions such as the `Person` not having blocked the day of the `Duty` and the `Duty` does not already contain the `Person`.
+** Iteration continues after the `Duty` is filled or priority queue of `Person` becomes empty (cannot find compatible `Person`).
+* The algorithm ensures that a person with low accumulated duty points will be assigned to duties that rewards higher points and assigned to more duties. This allows the scheduler to automatically balance the duty points of each person by the end of the month.
+// end::scheduleAlgorithm[]
+
+// tag::dutyAlternative[]
+==== Design Considerations
+
+===== Aspect: Storage of Duty issues
+
+* **Alternative 1 (current choice):** `Duty` class also plays the role of `DutyDate` class
+** Pros: one less layer for simplicity
+** Cons: less flexible for extension of the project, hard to ensure that each `DutyMonth` contains the correct number of `Duty` objects
+* **Alternative 2:** create a separate `DutyDate` class that contains `Duty` as an attribute
+** Pros: Easy indexing and reference for UI and other purposes
+** Cons: `DutyDate` class does not have other roles, can be redundant
+
+
+===== Aspect: Storing duty points of each person
+
+* **Alternative 1 (current choice):** Stored in external `DutyStorage` object with HashMap attribute.
+** Pros: Reduce number of  dependencies -- `Person` class is completely freed from any duty information. Duty package operates independently.
+** Cons: A lot of inefficiencies when querying duty points.
+
+* **Alternative 2:** Enable `Person` class to contain duty related information. For example, adding a duty point attribute to `Person`.
+** Pros: Simple and efficient indexing and referencing.
+** Cons: Increase level of dependencies. Could potentially result in circular dependencies between `Duty` and `Person`.
+// end::dutyAlternative[]
+
+// tag::swap[]
+=== Request for swapping of duties
+==== Current Implementation
+
+*Swap Request Creation*
+
+image::SwapRequestSequenceDiagram.png[width="800"]
+
+There is currently a Java class called Request in the request folder in the model package. This request represents a swap request that a duty personnel submits using the 'swap' command. It has 4 fields, the requester Person object, the allocated date (out of which the requester wants to swap) as a java.time.LocalDate object, the requested date (into which the requester wants to swap) also as a LocalDate object, and the accepter Person object, which could be null.
+
+A Request object is created when the 'swap' command is entered by a non-master-admin user. Since he is an actual human user with an associated Person object and NRIC, he is able to request a swap if he is unwilling or unable to do his current allocated duty. This must happen after the duties are scheduled. Otherwise, the list of duties associated with the user is empty and a swap request cannot be made.
+
+The swap command is wrapped in a SwapCommand object that extends the abstract class Command, just like any other command. The user inputs 2 dates, his allocated and requested date, and the 2 dates are parsed as LocalDate objects, from which the Request object is made.
+
+Thereafter, the Request object is added to the personnel database through the model so the personnel database now contains the request in a list.
+
+After this, the new personnel database is committed (making it undoable) and the listener in LogicManager is informed. As a result, the new personnel database is saved into the JSON file. Finally, the browser panel is refreshed to reflect the newest request list.
+
+The browser panel was transformed from implementing FXML WebView to FXML TextArea. After the request list is updated, a new string is passed to the TextArea field for it to display in the browser panel.
+
+*Accept Swap Command*
+
+Next, there is a command 'acceptSwap' that allows a non-master-admin user to accept a swap that another user has requested (we call this an open swap.) The list of open swaps would be on the list in the browser panel and the 'acceptSwap' command takes in a positive integer as argument and this integer refers to the index number of the request in the request list.
+
+Again, this is encapsulated in an AcceptSwapCommand object, which extends the abstract Command class. An AcceptSwapCommand constructor takes in the index mentioned above and the username (i.e NRIC) of the current user. It sets the accepter Person in the relevant Request object to be the current user.
+
+*View Swaps Command*
+
+The 'viewSwaps' command is only for admin users. It takes in no arguments and it is for admin users to view all the swap requests which have found an accepter (From now on we call these paired requests.) This command is encapsulated in the ViewSwapsCommand object. When this ViewSwapsCommand object is executed by the LogicManager, a string showing all the paired requests pending approval is generated and passed into the TextArea of the ResultDisplay. This allows the admin user to view the requests and then proceed to approve or reject them.
+
+*Approve / Reject Swap Command*
+
+The admin user can then use 'approveSwap' or 'rejectSwap' to approve or reject a paired swap in the list displayed in the ResultDisplay after executing the viewSwaps command. These are encapsulated in the ApproveSwapCommand and RejectSwapCommand classes.
+
+==== Design Considerations
+
+===== Aspect : Nature of swap request
+
+Alternative 1 (current choice):
+
+* Allow users to submit an open swap request, giving only their allocated date and requested date. This is then broadcast onto the app for other users to view.
+** Pros: Everything is done on the app and the user doesn't have to go around asking everyone if they are available to swap.
+** Cons: More steps in the process. 3 step process: request swap, accept swap, approve/reject swap.
+
+Alternative 2:
+
+* Users are to find a swap partner offline before requesting a swap, keying in the 2 dates and the partner's NRIC. This request will then go straight to the admin for approval.
+** Pros:  Simpler implementation
+** Cons: The admin needs to verify with the accepter if he really accepted the swap.
+
+==== Aspect: Container for Requests
+
+Alternative 1 (current choice):
+
+* Requests are contained in a list in the personnel database, with each request containing its requester's Person object and its accepter's Person object, if present.
+** Pros: The requests can be easily looked up and the persons found within them.
+** Cons: When the edit command is executed, the program needs to iterate through the entire list of requests to update the relevant person to a new Person object.
+
+Alternative 2:
+
+* Requests are stored inside a Person object, presumably the requester's Person object.
+** Pros: This eliminates the need for the Request object to store the requester and a person's requests can be easily looked up. When a person is deleted, their requests will be deleted along with it, which is very convenient.
+** Cons: If the accepter Person does not contain the request that he accepted, it would be even more complicated to find his request. The program would need to look through every person, in which every request is looked up to find the right accepter.
+
+==== Aspect: Viewing of Open Swap Requests
+
+Alternative 1 (current choice):
+
+* Display the list of open swap requests in the browser panel for all to see.
+** Pros: Wide viewership. A user can easily advertise his swap request.
+** Cons: -
+
+Alternative 2:
+
+* Create a command for personnel to view open swap requests
+** Pros: The browser panel can be used for something else.
+** Cons: No incentive for users to view open swap requests.
+
+// end::swap[]
+
+// tag::authentication[]
+
+=== Logging in and account authority feature
+==== Current Implementation
+* Note that in this segment, NRIC and Username may be used interchangeably, since the username is always the NRIC, unless using the default Admin account.
+
+image::LoginSequenceDiagramDG.png[width="800"]
+
+There are currently 2 UserTypes found in commons.core.index: UserType.ADMIN and UserType.General. Each NRIC account will be assigned to one of these user types that correspond to different authorities.
+Note that Admin type user accounts are not only have access to more commands, but some commands (such as edit) have more functionalities as well. The Command class implements AdminCommand and GeneralCommand interfaces.
+
+Upon entering the username and password into the LoginBox, the LogicManager searches the list of personnel until it finds a personnel with the same username and (hashed) password.
+This returns the username and UserType of the account, and initializes the MainWindow with the username and Usertype as fields. The MainWindow then initializes the commandbox with these fields as well: the usertype so that the commands are executed using executeAdmin() or executeGeneral(), and the nric for several commands that require it to execute (for example, using the "Edit" command as a general account, since the account can only affect its own information.
+
+image::DeleteCommandFinalDG.png[width="900"]
+
+The execute Command in logic will decide to initialize the commands as either AdminCommand or GeneralCommand,
+to ensure the user does not have access to the wrong authority level.
+
+==== Design Considerations
+===== Aspect: handling logging in and UserType
+
+* **Alternative 1 (current choice):** LogIn box handles logic of finding account, MainWindow has UserType and NRIC field.
+** Pros: MainWindow initialized with a final UserType and NRIC field, which in turn creates a commandbox with a final UserType and NRIC field, which is safer for the commands, making sure the commands will be created as an AdminCommand or GeneralCommand correctly.
+** Cons: UI best not to handle logic, UserType or NRIC of user might be might be changed, but since the UserType and NRIC fields in the MainWindow are final, they cannot be changed. This might mess up some commands or functionalities that target the admin's own account.
+** Implemented fix for cons: Login Box does not store Logic, but rather logic has a method to find the account given the NRIC and password, but LoginBox has a functional interface of the method as a field.
+To handle security concerns of the user changing his own NRIC or UserType, the program automatically exits once an admin account changes his own UserType or NRIC, or an admin deletes his own account.
+* **Alternative 2:** Logging in is now a command, where LoginCommand extends Command. After which the MainWindow creates the initializes the CommandBox with UserType and NRIC.
+** Pros: This is easier to implement, since the command functionality has already been set up. Logic operations now handled by Logic class, UserType and NRIC can be final attribute of CommandBox as well. After the admin changes his own UserType or NRIC, a new commandbox may be initialized with the new fields, instead of exiting the program.
+** Cons: Difficult to hide the password text this way, as we have to change how the command box textArea functions to hide password text. We also have to change the command in such a way that the logger does not save the command, since we do not want the the username and password being shown in the logger.
+
+==== Aspect: handling commands that require UI changes
+For example, the ExitCommand, HelpCommand, ListCommand, ViewNextCommand.
+
+* **Alternative 1 (current choice):** An enum type (UiCommandInteraction.java) exists for each kind of possible UI change in the program. For example, there is a UiCommandInteraction.EXIT and UiCOmmandInteraction.CALENDAR_CURRENT.
+When ViewCurrentCommand is executed, a CommandResult will have a field that contains the enum type, and the Ui change will be executed based on this enum type.
+** Pros: Easy to implement, especially for this iteration of Duty Planner, where there aren't many UI changes.
+** Cons: More tedious to implement if there are commands that use more UI changes, due to the possible number of permutations.
+For example, if you want a command to update the calendar to the next month, but also show the personnel list view, while bringing up a help window. The switch case can get very huge quickly the more commands there are.
+
+* **Alternative 2 (previous iteration of AB4):** CommandResult has boolean fields "exit" and "showHelp", as well as methods "isExit()" and "isShowHelp()".
+After executing the command, the CommandResult is checked for each off these fields, and the relevant UI change is executed for each of the boolean fields.
+** Pros: Easy to implement, does not have the downside of the previous alternative, since each field only needs to be checked once, so the number of checks only grows linearly with the possible number of UI changes.
+** Cons: Very tedious and more prone to error. For example, in AB4, the ExitCommand returns new CommandResult(message, false, true). If there are many fields like DutyPlanner 1.4, it will be CommandResult(message, false, true, false, false, false), which is both tedious for most commands, and prone to error in the long run, especially if even more UI changes are implemented.
+** Possible fix for cons: Similar to how a PersonBuilder is used to AB4, testcases, create a CommandResultBuilder class, with UI fields being the same as Command Result, but all UI fields false by default.
+To create a command result that shows help and shows the list, simply use: new CommandResultBuilder().withHelp().withList().build().
+This should reduce tediousness and results in less errors.
+
+// end::authentication[]
 
 == Documentation
 
@@ -441,7 +801,7 @@ These template files are written in a mixture of https://www.ruby-lang.org[Ruby]
 ====
 Modifying the template files in link:{repoURL}/docs/templates[`docs/templates`] requires some knowledge and experience with Ruby and Asciidoctor's API.
 You should only modify them if you need greater control over the site's layout than what stylesheets can provide.
-The SE-EDU team does not provide support for modified template files.
+The [W15 - 4] team does not provide support for modified template files.
 ====
 
 [[Testing]]
@@ -556,15 +916,16 @@ Do take a look at <<Design-Logic>> before attempting to modify the `Logic` compo
 ****
 * Hints
 ** Just like we store each individual command word constant `COMMAND_WORD` inside `*Command.java` (e.g.  link:{repoURL}/src/main/java/seedu/address/logic/commands/FindCommand.java[`FindCommand#COMMAND_WORD`], link:{repoURL}/src/main/java/seedu/address/logic/commands/DeleteCommand.java[`DeleteCommand#COMMAND_WORD`]), you need a new constant for aliases as well (e.g. `FindCommand#COMMAND_ALIAS`).
-** link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser`] is responsible for analyzing command words.
+** link:{repoURL}/blob/master/src/main/java/seedu/address/logic/parser/PersonnelDatabaseParser.java[`PersonnelDatabaseParser`] is responsible for analyzing command words.
 * Solution
-** Modify the switch statement in link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser#parseCommand(String)`] such that both the proper command word and alias can be used to execute the same intended command.
+** Modify the switch statement in link:{repoURL}/blob/master/src/main/java/seedu/address/logic/parser/PersonnelDatabaseParser.java[`PersonnelDatabaseParser#parseCommand(String)`] such that both the proper command word and alias can be used to execute the same intended command.
 ** Add new tests for each of the aliases that you have added.
 ** Update the user guide to document the new aliases.
 ** See this https://github.com/se-edu/addressbook-level4/pull/785[PR] for the full solution.
 ****
 
 [discrete]
+
 ==== `Model` component
 
 *Scenario:* You are in charge of `model`. One day, the `logic`-in-charge approaches you for help. He wants to implement a command such that the user is able to remove a particular tag from everyone in the address book, but the model API does not support such a functionality at the moment. Your job is to implement an API method, so that your teammate can use your API to implement his command.
@@ -576,12 +937,12 @@ Do take a look at <<Design-Model>> before attempting to modify the `Model` compo
 +
 ****
 * Hints
-** The link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model`] and the link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`] API need to be updated.
+** The link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model`] and the link:{repoURL}/blob/master/src/main/java/seedu/address/model/PersonnelDatabase.java[`PersonnelDatabase`] API need to be updated.
 ** Think about how you can use SLAP to design the method. Where should we place the main logic of deleting tags?
-**  Find out which of the existing API methods in  link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`] and link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`] classes can be used to implement the tag removal logic. link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`] allows you to update a person, and link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`] allows you to update the tags.
+**  Find out which of the existing API methods in  link:{repoURL}/blob/master/src/main/java/seedu/address/model/PersonnelDatabase.java[`PersonnelDatabase`] and link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`] classes can be used to implement the tag removal logic. link:{repoURL}/src/main/java/seedu/address/model/PersonnelDatabase.java[`PersonnelDatabase`] allows you to update a person, and link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`] allows you to update the tags.
 * Solution
-** Implement a `removeTag(Tag)` method in link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`]. Loop through each person, and remove the `tag` from each person.
-** Add a new API method `deleteTag(Tag)` in link:{repoURL}/src/main/java/seedu/address/model/ModelManager.java[`ModelManager`]. Your link:{repoURL}/src/main/java/seedu/address/model/ModelManager.java[`ModelManager`] should call `AddressBook#removeTag(Tag)`.
+** Implement a `removeTag(Tag)` method in link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`PersonnelDatabase`]. Loop through each person, and remove the `tag` from each person.
+** Add a new API method `deleteTag(Tag)` in link:{repoURL}/src/main/java/seedu/address/model/ModelManager.java[`ModelManager`]. Your link:{repoURL}/src/main/java/seedu/address/model/ModelManager.java[`ModelManager`] should call `PersonnelDatabase#removeTag(Tag)`.
 ** Add new tests for each of the new public methods that you have added.
 ** See this https://github.com/se-edu/addressbook-level4/pull/790[PR] for the full solution.
 ****
@@ -589,7 +950,7 @@ Do take a look at <<Design-Model>> before attempting to modify the `Model` compo
 [discrete]
 ==== `Ui` component
 
-*Scenario:* You are in charge of `ui`. During a beta testing session, your team is observing how the users use your address book application. You realize that one of the users occasionally tries to delete non-existent tags from a contact, because the tags all look the same visually, and the user got confused. Another user made a typing mistake in his command, but did not realize he had done so because the error message wasn't prominent enough. A third user keeps scrolling down the list, because he keeps forgetting the index of the last person in the list. Your job is to implement improvements to the UI to solve all these problems.
+*Scenario:* You are in charge of `ui`. During a beta testing session, your team is observing how the users use your personnel database application. You realize that one of the users occasionally tries to delete non-existent tags from a contact, because the tags all look the same visually, and the user got confused. Another user made a typing mistake in his command, but did not realize he had done so because the error message wasn't prominent enough. A third user keeps scrolling down the list, because he keeps forgetting the index of the last person in the list. Your job is to implement improvements to the UI to solve all these problems.
 
 [TIP]
 Do take a look at <<Design-Ui>> before attempting to modify the `UI` component.
@@ -634,7 +995,7 @@ image::getting-started-ui-result-after.png[width="200"]
 ** Modify link:{repoURL}/src/main/java/seedu/address/ui/ResultDisplay.java[`ResultDisplay#handleNewResultAvailableEvent(NewResultAvailableEvent)`] to react to this event appropriately.
 ** You can write two different kinds of tests to ensure that the functionality works:
 *** The unit tests for `ResultDisplay` can be modified to include verification of the color.
-*** The system tests link:{repoURL}/src/test/java/systemtests/AddressBookSystemTest.java[`AddressBookSystemTest#assertCommandBoxShowsDefaultStyle() and AddressBookSystemTest#assertCommandBoxShowsErrorStyle()`] to include verification for `ResultDisplay` as well.
+*** The system tests link:{repoURL}/src/test/java/systemtests/PersonnelDatabaseSystemTest.java[`PersonnelDatabaseSystemTest#assertCommandBoxShowsDefaultStyle() and PersonnelDatabaseSystemTest#assertCommandBoxShowsErrorStyle()`] to include verification for `ResultDisplay` as well.
 ** See this https://github.com/se-edu/addressbook-level4/pull/799[PR] for the full solution.
 *** Do read the commits one at a time if you feel overwhelmed.
 ****
@@ -655,26 +1016,26 @@ image::getting-started-ui-status-after.png[width="500"]
 ** link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] needs to initialize the status bar on application start, and to update it accordingly whenever the address book is updated.
 * Solution
 ** Modify the constructor of link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] to take in the number of persons when the application just started.
-** Use link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter#handleAddressBookChangedEvent(AddressBookChangedEvent)`] to update the number of persons whenever there are new changes to the addressbook.
+** Use link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter#handlePersonnelDatabaseChangedEvent(PersonnelDatabaseChangedEvent)`] to update the number of persons whenever there are new changes to the personnel database.
 ** For tests, modify link:{repoURL}/src/test/java/guitests/guihandles/StatusBarFooterHandle.java[`StatusBarFooterHandle`] by adding a state-saving functionality for the total number of people status, just like what we did for save location and sync status.
-** For system tests, modify link:{repoURL}/src/test/java/systemtests/AddressBookSystemTest.java[`AddressBookSystemTest`] to also verify the new total number of persons status bar.
+** For system tests, modify link:{repoURL}/src/test/java/systemtests/PersonnelDatabaseSystemTest.java[`PersonnelDatabaseSystemTest`] to also verify the new total number of persons status bar.
 ** See this https://github.com/se-edu/addressbook-level4/pull/803[PR] for the full solution.
 ****
 
 [discrete]
 ==== `Storage` component
 
-*Scenario:* You are in charge of `storage`. For your next project milestone, your team plans to implement a new feature of saving the address book to the cloud. However, the current implementation of the application constantly saves the address book after the execution of each command, which is not ideal if the user is working on limited internet connection. Your team decided that the application should instead save the changes to a temporary local backup file first, and only upload to the cloud after the user closes the application. Your job is to implement a backup API for the address book storage.
+*Scenario:* You are in charge of `storage`. For your next project milestone, your team plans to implement a new feature of saving the personnel database to the cloud. However, the current implementation of the application constantly saves the address book after the execution of each command, which is not ideal if the user is working on limited internet connection. Your team decided that the application should instead save the changes to a temporary local backup file first, and only upload to the cloud after the user closes the application. Your job is to implement a backup API for the personnel database storage.
 
 [TIP]
 Do take a look at <<Design-Storage>> before attempting to modify the `Storage` component.
 
-. Add a new method `backupAddressBook(ReadOnlyAddressBook)`, so that the address book can be saved in a fixed temporary location.
+. Add a new method `backupPersonnelDatabase(ReadOnlyPersonnelDatabase)`, so that the personnel database can be saved in a fixed temporary location.
 +
 ****
 * Hint
-** Add the API method in link:{repoURL}/src/main/java/seedu/address/storage/AddressBookStorage.java[`AddressBookStorage`] interface.
-** Implement the logic in link:{repoURL}/src/main/java/seedu/address/storage/StorageManager.java[`StorageManager`] and link:{repoURL}/src/main/java/seedu/address/storage/JsonAddressBookStorage.java[`JsonAddressBookStorage`] class.
+** Add the API method in link:{repoURL}/src/main/java/seedu/address/storage/PersonnelDatabaseStorage.java[`PersonnelDatabaseStorage`] interface.
+** Implement the logic in link:{repoURL}/src/main/java/seedu/address/storage/StorageManager.java[`StorageManager`] and link:{repoURL}/src/main/java/seedu/address/storage/JsonPersonnelDatabaseStorage.java[`JsonPersonnelDatabaseStorage`] class.
 * Solution
 ** See this https://github.com/se-edu/addressbook-level4/pull/594[PR] for the full solution.
 ****
@@ -684,7 +1045,7 @@ Do take a look at <<Design-Storage>> before attempting to modify the `Storage` c
 
 By creating this command, you will get a chance to learn how to implement a feature end-to-end, touching all major components of the app.
 
-*Scenario:* You are a software maintainer for `addressbook`, as the former developer team has moved on to new projects. The current users of your application have a list of new feature requests that they hope the software will eventually have. The most popular request is to allow adding additional comments/notes about a particular contact, by providing a flexible `remark` field for each contact, rather than relying on tags alone. After designing the specification for the `remark` command, you are convinced that this feature is worth implementing. Your job is to implement the `remark` command.
+*Scenario:* You are a software maintainer for `personneldatabase`, as the former developer team has moved on to new projects. The current users of your application have a list of new feature requests that they hope the software will eventually have. The most popular request is to allow adding additional comments/notes about a particular contact, by providing a flexible `remark` field for each contact, rather than relying on tags alone. After designing the specification for the `remark` command, you are convinced that this feature is worth implementing. Your job is to implement the `remark` command.
 
 ==== Description
 Edits the remark for a person specified in the `INDEX`. +
@@ -705,12 +1066,12 @@ Let's start by teaching the application how to parse a `remark` command. We will
 **Main:**
 
 . Add a `RemarkCommand` that extends link:{repoURL}/src/main/java/seedu/address/logic/commands/Command.java[`Command`]. Upon execution, it should just throw an `Exception`.
-. Modify link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser`] to accept a `RemarkCommand`.
+. Modify link:{repoURL}/src/main/java/seedu/address/logic/parser/PersonnelDatabaseParser.java[`PersonnelDatabaseParser`] to accept a `RemarkCommand`.
 
 **Tests:**
 
 . Add `RemarkCommandTest` that tests that `execute()` throws an Exception.
-. Add new test method to link:{repoURL}/src/test/java/seedu/address/logic/parser/AddressBookParserTest.java[`AddressBookParserTest`], which tests that typing "remark" returns an instance of `RemarkCommand`.
+. Add new test method to link:{repoURL}/src/test/java/seedu/address/logic/parser/PersonnelDatabaseParserTest.java[`PersonnelDatabaseParserTest`], which tests that typing "remark" returns an instance of `RemarkCommand`.
 
 ===== [Step 2] Logic: Teach the app to accept 'remark' arguments
 Let's teach the application to parse arguments that our `remark` command will accept. E.g. `1 r/Likes to drink coffee.`
@@ -719,14 +1080,14 @@ Let's teach the application to parse arguments that our `remark` command will ac
 
 . Modify `RemarkCommand` to take in an `Index` and `String` and print those two parameters as the error message.
 . Add `RemarkCommandParser` that knows how to parse two arguments, one index and one with prefix 'r/'.
-. Modify link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser`] to use the newly implemented `RemarkCommandParser`.
+. Modify link:{repoURL}/src/main/java/seedu/address/logic/parser/PersonnelDatabaseParser.java[`PersonnelDatabaseParser`] to use the newly implemented `RemarkCommandParser`.
 
 **Tests:**
 
 . Modify `RemarkCommandTest` to test the `RemarkCommand#equals()` method.
 . Add `RemarkCommandParserTest` that tests different boundary values
 for `RemarkCommandParser`.
-. Modify link:{repoURL}/src/test/java/seedu/address/logic/parser/AddressBookParserTest.java[`AddressBookParserTest`] to test that the correct command is generated according to the user input.
+. Modify link:{repoURL}/src/test/java/seedu/address/logic/parser/PersonnelDatabaseParserTest.java[`PersonnelDatabaseParserTest`] to test that the correct command is generated according to the user input.
 
 ===== [Step 3] Ui: Add a placeholder for remark in `PersonCard`
 Let's add a placeholder on all our link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`] s to display a remark for each person later.
@@ -770,7 +1131,7 @@ We now have `Remark` s for `Person` s, but they will be gone when we exit the ap
 
 **Tests:**
 
-. Fix `invalidAndValidPersonAddressBook.json`, `typicalPersonsAddressBook.json`, `validAddressBook.json` etc., such that the JSON tests will not fail due to a missing `remark` field.
+. Fix `invalidAndValidPersonPersonnelDatabase.json`, `typicalPersonsPersonnelDatabase.json`, `validPersonnelDatabase.json` etc., such that the JSON tests will not fail due to a missing `remark` field.
 
 ===== [Step 6b] Test: Add withRemark() for `PersonBuilder`
 Since `Person` can now have a `Remark`, we should add a helper method to link:{repoURL}/src/test/java/seedu/address/testutil/PersonBuilder.java[`PersonBuilder`], so that users are able to create remarks when building a link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`].
@@ -818,7 +1179,7 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
 * is reasonably comfortable using CLI apps
 
 *Value proposition*: manage contacts faster than a typical mouse/GUI driven app
-
+// tag::userstories[]
 [appendix]
 == User Stories
 
@@ -826,36 +1187,61 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
-|Priority |As a ... |I want to ... |So that I can...
+|Priority |As a(an) ... |I want to ... |So that I can...
+|`* * *` |admin |see Admin Help |refer to instructions specific to the administrator privileges
+
+|`* * *` |admin |choose 2 users to swap duties |allow them to have their desired duty slot
+
+|`* * *` |admin |schedule the duties automatically |save time on scheduling
+
+|`* * *` |admin |make sure that the scheduling is correct and fair |
+
+|`* *` |admin |promote a general user to an admin |let the user do admin work
+
+|`* * *` |admin |add a new person |
+
+|`* * *` |admin |delete a person |remove entries that I no longer need
+
+|`* * *` |admin |let only admins to use certain commands |the database will be protected
+
+|`* * *` |user |log in |access my information
+
 |`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
-
-|`* * *` |user |add a new person |
-
-|`* * *` |user |delete a person |remove entries that I no longer need
 
 |`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
 
+|`* * *` |user |request an administrator to swap duty with another person |get my desired duty
+
 |`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`*` |user with many persons in the personnel database |sort persons by name |locate a person easily
+
+|`* * *` |user |block certain dates |choose not to do duty on certain dates
+
+|`*` |user with duties |see my own duties |
+
+|`* * *` |visual user |see all the duties in a user-friendly form |understand the whole better
+
+|`* * *` |general user |edit my own details |
+
+|`* *`|general user |view my blocked dates|
+
 |=======================================================================
-
-_{More to be added}_
-
+// end::userstories[]
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
-
+(For all use cases below, the *System* is the `PersonnelDatabase` and the *Actor* is the `user`, unless specified otherwise)
+// tag::usecase1[]
 [discrete]
-=== Use case: Delete person
+=== Use case 1 (Admin): Delete person
 
 *MSS*
 
 1.  User requests to list persons
-2.  AddressBook shows a list of persons
+2.  PersonnelDatabase shows a list of persons
 3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+4.  PersonnelDatabase deletes the person
 +
 Use case ends.
 
@@ -869,11 +1255,218 @@ Use case ends.
 * 3a. The given index is invalid.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 3a1. PersonnelDatabase shows an error message.
 +
 Use case resumes at step 2.
+// end::usecase1[]
 
-_{More to be added}_
+// tag::usecase2[]
+
+[discrete]
+=== Use case 2 (Admin): Delete person after schedule for next month is confirmed
+
+*MSS*
+
+
+1. PersonnelDatabase already has confirmed duty schedule
+2. User requests to list persons
+3. PersonnelDatabase shows a list of persons
+2. User requests to delete a specific person in the list
+3. PersonnelDatabase deletes the person
+4. PersonnelDatabase deletes the confirmed duty schedule
+5. PersonnelDatabase asks the user to schedule the duties again
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The given index is invalid.
++
+[none]
+** 2a1. PersonnelDatabase shows an error message.
++
+Use case resumes at step 3.
+
+// end::usecase2[]
+
+// tag::usecase3[]
+[discrete]
+=== Use case 3 (Admin): See all duties planned for current and next month in the calendar
+
+*MSS*
+
+1. Admin requests to see duties planned for this month by entering viewCurrent.
+2. Calendar UI shows the current month's duties.
+3. Admin requests to see duties planned for the next month by entering viewNext.
+4. Calendar UI shows the next month's duties. +
+Use case ends.
+
+*Extensions*
+[none]
+* 2a. There are no duties planned for the current month.
++
+[none]
+** 2a1. PersonnelDatabase still shows the calendar of the current month, but without the duties.
++
+Use case resumes at step 3.
+// end::usecase3[]
+
+// tag::usecase4[]
+[discrete]
+=== Use case 4 (Admin): See duties assigned to specific user
+
+*MSS*
+
+1. Admin requests to see the duties assigned to a specific person for the next month.
+2. MainWindow UI shows the user the person duties for the nextMonth. +
+Use case ends.
+
+*Extensions*
+// end::usecase4[]
+
+// tag::usecase5[]
+[discrete]
+=== Use case 5 (Admin): Schedule duties
+
+*MSS*
+
+1. User requests to schedule duties for the upcoming month.
+2. PersonnelDatabase shows the list of duty personnel and duties for the upcoming month.
+
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The user does not exist.
++
+[none]
+** 2a1. PersonnelDatabase shows an error message indicating that no such user is found.
++
+Use case ends.
+
+* 2b. The user does not have any duties.
++
+[none]
+** 2b1. PersonnelDatabase shows an error message indicating that the user is not assigned to any duties.
++
+Use case ends.
+*Extensions*
+
+
+
+[discrete]
+=== Use case 6 (Admin): Clear all the database, including duties
+
+*MSS*
+
+
+1. Admin requests to clear all personnel and duties from database.
+2. All data including personnel and upcoming duties is wiped and shown on the MainWindow UI.
+
+
+
+
+[discrete]
+=== Use case 7 (Admin): Approve swapping of duties
+
+*MSS*
+
+1. The user logs into the system.
+2. PersonnelDatabase shows a list of swap requests.
+3. The user approves a swap request.
+4. PersonnelDatabase swaps the corresponding persons in respective duties.
+5. PersonnelDatabase deletes the request from the system.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. There are no duty swap requests.
++
+Use case ends.
+
+[discrete]
+=== Use case 8 (General user): See own duties
+
+*MSS*
+
+1. User requests to see his own duties.
+2. PersonnelDatabase shows all the duties the user is assigned to.
+
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The user is the master admin.
++
+[none]
+** 2a1. PersonnelDatabase reminds the user that the master admin cannot be assigned to duties.
++
+Use case ends.
+
+* 2b. The user is not assigned to any duties.
++
+[none]
+** 2b1. PersonnelDatabase shows an error message indicating that the user is not assigned to any duties.
++
+Use case ends
+
+// end::usecase5[]
+
+[discrete]
+=== Use case 9 (General user): Block some dates for duties next month
+
+*MSS*
+
+1. User requests to block certain dates in the upcoming month of duties.
+2. PersonnelDatabase takes in the given dates and shows a success message.
+3. User will then not be scheduled for duties in the upcoming month when schedule is run.
++
+Use case ends.
+
+*Extensions*
+
+[discrete]
+=== Use case 10 (General user): Log into the system
+
+*MSS*
+
+1. A general user requests to log in to the system.
+2. The general use has not changed their password and so enters their NRIC as the username and password.
+3. The user is logged into the database.
+
+[discrete]
+=== Use case 11 (General user): Exit the system
+
+*MSS*
+
+1. A user requests to close the system and types exit.
+2. The Application closes.
++
+Use case ends.
+
+*Extensions*
+
+[discrete]
+=== Use case 12 (General user): remove my own blocked dates
+
+*MSS*
+
+1. User requests to see the blocked dates in the upcoming month.
+2. PersonnelDatabase shows the use the blocked days he had entered previously.
+3. User requests to remove the blocked dates in the upcoming month.
+4. PersonnelDatabase deletes all blocked dates for the user.
++
+Use case ends.
+
+*Extensions*
+
 
 [appendix]
 == Non Functional Requirements
@@ -885,6 +1478,8 @@ _{More to be added}_
 _{More to be added}_
 
 [appendix]
+
+
 == Glossary
 
 [[mainstream-os]] Mainstream OS::
@@ -934,6 +1529,28 @@ These instructions only provide a starting point for testers to work on; testers
 
 _{ more test cases ... }_
 
+=== Authentication
+
+. Using another account, and with the correct authority level.
+
+.. Prerequisites: Password and UserType are changed. Add 2 people using the `add` command, edit the second person's password and UserType using the `edit` command:
+`edit 2 pw/pass u/A`. Then exit the program.
+.. Test case: log back in with the first person's NRIC as username and password. +
+Expected: logs in.
+.. Test case: use command `clear`. +
+Expected: User cannot use the clear command.
+.. Test case: use `edit` command on any field. Eg: `edit n/John` +
+Expected: user will change own account fields.
+.. Test case: use exit the program, then log in with second person's NRIC as username, and 'pass' as password. +
+Expected: Able to log in.
+.. Test case: use an admin type command, like `add`. +
+Expected: able to add.
+.. Test case: edit own NRIC or usertype. Example: `edit INDEX nr/S9676543K`, where INDEX corresponds to your own account. +
+Expected: program will exit by itself, user edited (Can check by logging back in using "Admin" as username and password).
+.. Test case: login to another admin account (besides the one with "Admin" as a username and password), and delete own account using `delete INDEX`.
+Expected: program will exit by itself.
+.. Add more admin and general accounts, and try using both admin and general commands to see if they can use the correct commands based on their authority.
+
 === Deleting a person
 
 . Deleting a person while all persons are listed
@@ -955,3 +1572,81 @@ _{ more test cases ... }_
 .. _{explain how to simulate a missing/corrupted file and the expected behavior}_
 
 _{ more test cases ... }_
+
+// tag::scheduleManualTest[]
+=== Schedule duties for next month
+
+. Schedule duties for the next month.
+
+.. Prerequisites: Multiple persons in the list.
+.. Test case: `schedule` +
+   Expected: The schedule for the next month should be generated. +
+   Scroll down to see the duty roster and points to be awarded to the persons.
+// end::scheduleManualTest[]
+
+// tag::confirmScheduleManualTest[]
+=== Confirm schedule for next month
+
+. Confirm a schedule for next month.
+
+.. Prerequisites: `schedule` has just been called.
+.. Test case: `confirm` +
+   Expected: Schedule has been successfully confirmed. +
+   Scroll down to see the duty roster and total points accumulated for the persons. +
+   Call `viewNext` to see the confirmed schedule on the calendar.
+// end::confirmScheduleManualTest[]
+
+// tag::rewardManualTest[]
+=== Reward points to persons
+
+. Rewards points to a person or a list of persons
+
+.. Prerequisites: Multiple persons in the list. Call `points` to view current duty points of the persons.
+.. Test case: `reward i/1 p/10` +
+   Expected: 1st person on the contact list has his duty points increase by 10. Call `points` again to verify. +
+.. Test case: `reward i/1 2 4 p/30` +
+   Expected: 1st, 3nd and 4th persons on the contact list have their duty points increase by 30 each. Call `points` again to verify. +
+// end::rewardManualTest[]
+
+// tag::penalizeManualTest[]
+=== Penalize points to persons
+
+. Penalize points to a person or a list of persons
+
+.. Prerequisites: Multiple persons in the list. Call `points` to view current duty points of the persons.
+.. Test case: `penalize i/1 p/15` +
+   Expected: 1st person on the contact list has his duty points decrease by 15. Call `points` again to verify. +
+.. Test case: `penalize i/2 3 p/5` +
+   Expected: 2nd and 3rd persons on the contact list have their duty points decrease by 5 each. Call `points` again to verify. +
+// end::penalizeManualTest[]
+
+// tag::settingsManualTest[]
+=== Change duty settings
+
+. Change duty settings
+
+.. Prerequisites: Multiple persons in the list. Duty schedule for next month not confirmed. Call `schedule` to get a duty allocation. When viewing the duty roster result from the scheduling, take note of the points awarded by each duty and the number of persons allocated to each duty based on which day of the week it is.
+.. Test case: `settings` +
+   Expected: Duty settings get displayed, indicating the manpower needed and points rewarded for duties based on which day of the week the duty falls on. These numbers should tally with the observations from calling `schedule` previously. +
+.. Test case: `settings d/sun p/10 m/5` +
+   Expected: Sunday duties now require 5 persons and worth 10 points each. Call `schedule` again and observe the duty roster result. The new duty roster should provide information that tallies with the changed duty settings +
+// end::settingsManualTest[]
+
+=== BlockDateCommand Tests
+
+. Prerequisites: You need to be logged in as a general user before you can block dates. If there are no personnel Database you can add some by login in as an Admin first
+
+.. Test case : block 1 5 6
+Expected : The person has successfully blocked days in the upcoming month and when schedule is run he will not be assigned duties on those days.
+
+.. Test case : block -1
+Expected : CommandException will be thrown to show invalid date. No dates will be blocked.
+
+.. Test case : block 33
+Expected : CommandException will be thrown to show invalid date. No dates will be blocked.
+
+.. Test case : block 6 (Logged in as an Admin)
+Expected : CommandException will be thrown to show invalid authority. No dates will be blocked.
+
+.. Test case : block 6 (Schedule already confirmed)
+Expected : CommandException will be thrown to show confirmed schedule. No dates will be blocked.

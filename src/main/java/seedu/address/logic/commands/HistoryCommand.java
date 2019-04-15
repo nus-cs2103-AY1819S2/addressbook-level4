@@ -16,8 +16,9 @@ public class HistoryCommand extends Command {
     public static final String COMMAND_WORD = "history";
     public static final String MESSAGE_SUCCESS = "Entered commands (from most recent to earliest):\n%1$s";
     public static final String MESSAGE_NO_HISTORY = "You have not yet entered any commands.";
-
-    @Override
+    /**
+     * Executes the command
+     */
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(history);
         ArrayList<String> previousCommands = new ArrayList<>(history.getHistory());
@@ -28,6 +29,16 @@ public class HistoryCommand extends Command {
 
         Collections.reverse(previousCommands);
         return new CommandResult(String.format(MESSAGE_SUCCESS, String.join("\n", previousCommands)));
+    }
+
+    @Override
+    public CommandResult executeGeneral(Model model, CommandHistory history) {
+        return execute(model, history);
+    }
+
+    @Override
+    public CommandResult executeAdmin(Model model, CommandHistory history) {
+        return execute(model, history);
     }
 
 }

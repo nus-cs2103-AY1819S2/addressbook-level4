@@ -8,13 +8,18 @@ import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.logic.commands.Command;
+import seedu.address.commons.core.Messages;
+import seedu.address.commons.core.UserType;
+import seedu.address.logic.commands.AdminCommand;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.GeneralCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.parser.AddressBookParser;
+import seedu.address.logic.parser.PersonnelDatabaseParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyPersonnelDatabase;
+import seedu.address.model.duty.DutyMonth;
+import seedu.address.model.duty.DutySettings;
 import seedu.address.model.person.Person;
 import seedu.address.storage.Storage;
 
@@ -28,36 +33,45 @@ public class LogicManager implements Logic {
     private final Model model;
     private final Storage storage;
     private final CommandHistory history;
-    private final AddressBookParser addressBookParser;
-    private boolean addressBookModified;
+    private final PersonnelDatabaseParser personnelDatabaseParser;
+    private boolean personnelDatabaseModified;
 
     public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.storage = storage;
         history = new CommandHistory();
-        addressBookParser = new AddressBookParser();
+        personnelDatabaseParser = new PersonnelDatabaseParser();
 
-        // Set addressBookModified to true whenever the models' address book is modified.
-        model.getAddressBook().addListener(observable -> addressBookModified = true);
+        // Set personnelDatabaseModified to true whenever the models' personnel database is modified.
+        model.getPersonnelDatabase().addListener(observable -> personnelDatabaseModified = true);
     }
 
     @Override
-    public CommandResult execute(String commandText) throws CommandException, ParseException {
+    public CommandResult execute(String commandText, UserType user, String userName)
+            throws CommandException, ParseException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
-        addressBookModified = false;
+        personnelDatabaseModified = false;
 
         CommandResult commandResult;
         try {
-            Command command = addressBookParser.parseCommand(commandText);
-            commandResult = command.execute(model, history);
+            if (user == UserType.ADMIN) {
+                AdminCommand command = personnelDatabaseParser.parseCommand(commandText, user, userName);
+                commandResult = command.executeAdmin(model, history);
+            } else if (user == UserType.GENERAL) {
+                GeneralCommand command = personnelDatabaseParser.parseCommand(commandText, user, userName);
+                commandResult = command.executeGeneral(model, history);
+            } else {
+                throw new CommandException(Messages.MESSAGE_NO_USER);
+            }
         } finally {
             history.add(commandText);
         }
 
-        if (addressBookModified) {
-            logger.info("Address book modified, saving to file.");
+        if (personnelDatabaseModified) {
+            logger.info("Personnel database modified, saving to file.");
             try {
-                storage.saveAddressBook(model.getAddressBook());
+                storage.savePersonnelDatabase(model.getPersonnelDatabase());
+                storage.saveUserPrefs(model.getUserPrefs());
             } catch (IOException ioe) {
                 throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
             }
@@ -67,8 +81,8 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return model.getAddressBook();
+    public ReadOnlyPersonnelDatabase getPersonnelDatabase() {
+        return model.getPersonnelDatabase();
     }
 
     @Override
@@ -76,19 +90,32 @@ public class LogicManager implements Logic {
         return model.getFilteredPersonList();
     }
 
+    //@Override
+    //public ObservableList<Person> getDutyForDates() {return model.getDutyForDates(); }
+
     @Override
     public ObservableList<String> getHistory() {
         return history.getHistory();
     }
 
     @Override
-    public Path getAddressBookFilePath() {
-        return model.getAddressBookFilePath();
+    public Path getPersonnelDatabaseFilePath() {
+        return model.getPersonnelDatabaseFilePath();
     }
 
     @Override
     public GuiSettings getGuiSettings() {
         return model.getGuiSettings();
+    }
+
+    @Override
+    public void setDutySettings(DutySettings dutySettings) {
+        model.setDutySettings(dutySettings);
+    }
+
+    @Override
+    public DutySettings getDutySettings() {
+        return model.getDutySettings();
     }
 
     @Override
@@ -104,5 +131,20 @@ public class LogicManager implements Logic {
     @Override
     public void setSelectedPerson(Person person) {
         model.setSelectedPerson(person);
+    }
+
+    @Override
+    public UserType findAccount(String userName, String password) {
+        return model.findAccount(userName, password);
+    }
+
+    @Override
+    public DutyMonth getCurrentDutyMonth() {
+        return model.getCurrentDutyMonth();
+    }
+
+    @Override
+    public DutyMonth getNextDutyMonth() {
+        return model.getNextDutyMonth();
     }
 }

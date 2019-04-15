@@ -30,8 +30,9 @@ public class SelectCommand extends Command {
     public SelectCommand(Index targetIndex) {
         this.targetIndex = targetIndex;
     }
-
-    @Override
+    /**
+     * Executes the command
+     */
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
@@ -44,6 +45,16 @@ public class SelectCommand extends Command {
         model.setSelectedPerson(filteredPersonList.get(targetIndex.getZeroBased()));
         return new CommandResult(String.format(MESSAGE_SELECT_PERSON_SUCCESS, targetIndex.getOneBased()));
 
+    }
+
+    @Override
+    public CommandResult executeGeneral(Model model, CommandHistory history) throws CommandException {
+        return execute(model, history);
+    }
+
+    @Override
+    public CommandResult executeAdmin(Model model, CommandHistory history) throws CommandException {
+        return execute(model, history);
     }
 
     @Override

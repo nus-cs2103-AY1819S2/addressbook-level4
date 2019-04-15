@@ -1,0 +1,283 @@
+= Valavan Rajarajan - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: Duty Planner
+
+---
+
+== Overview
+
+Duty Planner is a desktop application used to organise and plan duties for army personnel with various functions for commanders as well as duty personnel. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10kLoC
+
+
+== Summary of contributions
+
+* *Major enhancement*: Added Block Date Commands
+** What it does: Allows the user to block dates of duty for the upcoming month allowing them not to be scheduled for duties on those particular days
+** Justification: This features allows personnel to have some flexibility on the days the do duties and to ensure that they can attend other events or not do duties when they are busy
+** Highlights: This enhancement affected the scheduling algorithm and the algorithm and Duty system had to be modified to allow personnel to block Dates
+** Credits: Thanks to my other group members for helping to figure out the block date command
+
+* *Minor enhancement*: Added a command to view and remove blocked Dates
+
+* *Code contributed*: [https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#search=valatheking&sort=displayName&since=2019-02-10&until=2019-04-03&timeframe=day&reverse=false&repoSort=true[Code]]
+
+* *Other contributions*: +
+
+** Did testing the parsers for the different commands
+
+** Project management:
+*** Managed milestones and issue tracker for the project.
+***Ensured that the build passed at certain stages and improved coverage during testing.
+
+** Enhancements to existing features:
+*** Edited the person class with NRIC and Rank (Pull requests https://github.com/CS2103-AY1819S2-W15-4/main/pull/31[#31])
+** Documentation:
+*** Did cosmetic tweaks to existing contents of the User Guide to modify it to a Duty Planner
+*** Updated User and Developer Guide with the new commands that were added in
+*** Modified AddressBook Diagrams to suit Personnel Database in Developer Guide
+*** Added in Block Dates section in Developer Guide
+** Community:
+*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com/nus-cs2103-AY1819S2/pe-dry-run/issues/830[#1],
+https://github.com/nus-cs2103-AY1819S2/pe-dry-run/issues/609[2], https://github.com/nus-cs2103-AY1819S2/pe-dry-run/issues/697[3])
+** Tools:
+*** Integrated Codacy and Appveyor to the team repo
+
+
+== Contributions to the User Guide
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+== Introduction
+
+MINDEF Duty Planner is a platform to assist military units in the SAF in the assignment of daily guard duties amongst the servicemen. +
+The application is optimized for those who prefer to work with a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI).
+The software is designed to automate the process of fairly assigning duties to available servicemen for an entire month. +
+The application can be used by both Commanders and servicemen to plan and view duties with various specific commands for each type of user. +
+To start using MINDEF Duty Planner you can go to <<Quick Start>> +
+To see a summary list of commands you can go to <<Command Summary>>
+
+== Notation
+
+* Words that are highlighted with a grey background
+represent a  `command` that is present or used in the
+application.
+
+* Words that are highlighted in white represent a kbd:[keyboard] button that
+can be pressed to invoke a described function.
+
+==== *Command Format*
+
+==== View all duties for current month: `viewCurrent`
+Brings up calendar view, with all duties for the current month. +
+Format: `viewCurrent`
+
+==== View all duties for next month: `viewNext`
+Brings up calendar view, with all duties for the next month. +
+Format: `viewNext`
+
+==== Block dates : `block` +
+The user can block dates and set which dates they are unavailable to duties for the upcoming month. A user can block up to 15 days. +
+Format: `block DATE DATE DATE ...`
+
+[NOTE]
+====
+The date entered must be a valid number for the upcoming month. For example if the next month is February, block 30 is an invalid input.
+====
+
+[WARNING]
+====
+This command can only be entered if next month's duty schedule has not been confirmed yet.
+If it has been confirmed please request a swap on the day you wish to duties.
+====
+
+If the user has successfully blocked dates they will not be scheduled for duties on the blocked days in the upcoming month. +
+
+Example:
+
+* `block 3 6 15 21 30`
+
+
+==== View blocked dates : `viewblock` +
+
+The user can view the dates they have blocked for the upcoming month. +
+The blocked dates for the upcoming month will then be printed out for the user to see. +
+
+Format: `viewblock`
+
+==== Remove blocked dates : `removeblock` +
+
+The user can remove the dates they have blocked for the upcoming month. This will remove all blocked days from the upcoming month. +
+
+Format: `removeblock`
+
+[NOTE]
+====
+A specific date cannot be removed from the list of blocked dates. If a user wishes to remove only a certain day he can removeblock and run the block command again.
+====
+
+== Contributions to the Developer Guide
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+.Component interactions for `delete 1` command
+image::SDforDeletePerson.png[width="800"]
+
+.Structure of the Model Component
+image::ModelClassDiagram.png[width="800"]
+
+The sections below give more details of each component.
+
+=== Block Dates Feature
+
+==== Current Implementation
+
+The block dates feature is facilitated by PersonnelDatabase and was implemented for general users as they cannot be expected to do duties any time during the upcoming month.
+They may have certain dates that are busy or do not wish to do duties and as such they can block the dates in the PersonnelDatabase.
+
+Block Dates was done by adding 3 new commands to the `Logic` which are `BlockDateCommand`, `ViewBlockCommand`, `RemoveBlockCommand`.
+Modifications and methods were also added in `Model` and `Storage` to implement the blocking of dates in Duty planning and storage.
+
+`BlockDateCommand` works like other commands in the Duty Planner. The command is read a text string from the MainWindow in UI.
+The sequence diagram for the interaction is below.
+
+image::BlockDateStateDiagram.png[width="800"]
+
+
+Step 1 : +
+As seen in the diagram above. The MainWindow calls the execute Command in Logic and passes in the command text, userName and userType of the logged in user.
+
+Step 2 : +
+The LogicManager then passes the command text, userName and userType to PersonnelDatabaseParser and it determines the type of command by parsing the String input.
+Using certain command words, the PersonnelDatabase Parser determines what the command is and then passes the parsed commandText, userName and userType to the BlockDateCommandParser.
+
+Step 3 : +
+The BlockDateCommandParser
+The BlockDateCommandParser takes in the dates list as a String and parses it into a Integer List which is used in the model.
+The BlockDateCommandParser then passes in the Integer List, userType and userName to BlockDateCommand.
+It checks for valid Integer inputs for days in the next month and will throw an exception if the dates entered are not valid
+
+Step 4 : +
+The logic for BlockDateCommand follows the activity diagram below.
+
+image::BlockDateActivityDiagram.png[width="800"]
+
+****
+* The first check is the userType, if you are an Admin you will not be able to access this command
+* The second check is to see the schedule has already been confirmed for nex month. If so the user cannot block any dates for the upcoming month
+* The third check is to see the number of dates blocked and if they are more than 15, an exception will be thrown.
+This is to ensure that commander have enough people to schedule duties. You can change this number if you wish to do so by updating the
+MAX_BLOCKS_NUMBER in BlockDateCommand
+* If the user passes all check the Command will enter Step 5
+****
+
+Step 5 : +
+The BlockDateCommand then passes the Integer List to the model where it is stored in a Hashmap in DutyMonth.
+DutyMonth has a Hashmap<Person, List<Integer>> blockedDays object to allow it to store the blockedDays of every person for the upcoming month.
+
+Step 6 : +
+The algorithm for scheduling was then modified to prevent the user from not doing duties on their blockedDays. This was done with the assistance of the HashMap.
+During scheduling when a person is assigned to a day the model checks the list of blocked dates. If the person has a blocked day on the assigned duty, they are assigned a new one.
+Someone else will then replace them in the previously assigned duty.
+A more detailed explanation of the scheduling algorithm is in <<Duty Settings>>.
+
+==== Additional Commands
+Commands `viewblock` and removeblock` were added for the users convenience. This helps the users to find and modify the Blocked Dates for the upcoming Month.
+These two commands access the HashMap in the Model associated with blockedDates and either view or remove the blockedDates for the current user.
+The Hashmap uses a Person object as a key. The logged in user's NRIC is used to obtain the current User person object and that is used as the key to retrieve the information from the Hashmap.
+All this is done through the model with methods such as `getBlockedDates` and `removeBlockedDays respectively for view and remove.
+
+These two commands complete the suite of blocking which allows users to experience more flexibility in their duty planning.
+==== Design Considerations:
+
+Alternative 1 (current implementation): BlockDateCommand takes in a few dates they are then stored in the personnel database as a Hashmap. +
+* Pros :
+** Easy to implement as a new Command. Parsers have already been set up in address book and adding a new command is relatively easy to implement.
+** The command storing the Integer List in the PersonnelDatabase in a HashMap is also convenient for the other commands such as `viewblock` and `removeblock.
+** The Hashmap allows easy referencing for these commands. The Hashmap also allows for easier scheduling when the scheduler is run.
+
+* Cons :
+** The BlockDateCommand would directly modify the HashMap in the PersonnelDatabase and this would go against the n-tier architecture of the PersonnelDatabase Program. This would break the abstraction principle.
+
+* Implemented Fix for Cons :
+** To combat the above issue, Model was given methods to add the blockedDates into the Personnel Database rather than the command itself.
+This allows the logic to pass the dates to the model which would then integrate it into the Personnel Database. +
+
+Alternative 2 (current implementation): BlockDateCommand takes in a few dates they are then stored as a new Class called BlockedDates
+* Pros :
+** Easy to implement as a new Command. Parsers have already been set up in address book and adding a new command is relatively easy to implement.
+** Would be clear what the BlockedDate Class does and also if other forms of dates such as AppointmentDates have to be added in later this would help with integrating them.
+
+* Cons :
+** The implementation of a BlockedDate Class would complicated the process of integrating into the schedule much harder.
+Implementing the BlockedDate into the algorithm would be a lot harder and would take more time and effort
+
+=== Use case 3 (Admin): See all duties planned for current and next month in the calendar
+
+*MSS*
+
+1. Admin requests to see duties planned for this month by entering viewCurrent.
+2. Calendar UI shows the current month's duties.
+3. Admin requests to see duties planned for the next month by entering viewNext.
+4. Calendar UI shows the next month's duties. +
+Use case ends.
+
+*Extensions*
+
+[discrete]
+=== Use case 4 (Admin): See duties assigned to specific user
+
+*MSS*
+
+1. Admin requests to see the duties assigned to a specific person for the next month.
+3. MainWindow UI shows the user the person duties for the nextMonth. +
+Use case ends.
+
+*Extensions*
+
+=== Use case 11 (General user): Block some dates for duties next month
+
+*MSS*
+
+1. User requests to block certain dates in the upcoming month of duties.
+2. PersonnelDatabase takes in the given dates and shows a success message.
+3. User will then not be scheduled for duties in the upcoming month when schedule is run.
++
+Use case ends.
+
+*Extensions*
+
+[discrete]
+=== Use case 14 (General user): remove my own blocked dates
+
+*MSS*
+
+1. User requests to see the blocked dates in the upcoming month.
+2. PersonnelDatabase shows the use the blocked days he had entered previously.
+3. User requests to remove the blocked dates in the upcoming month.
+4. PersonnelDatabase deletes all blocked dates for the user.
++
+Use case ends.
+
+=== BlockDateCommand Tests
+
+. Prerequisites: You need to be logged in as a general user before you can block dates. If there are no personnel Database you can add some by loggin in as an Admin first
+
+.. Test case : block 1 5 6
+Expected : The person has succesfully blocked days in the upcoming month and when schedule is run he will not be assigned duties on those days.
+
+.. Test case : block -1
+Expected : CommandException will be thrown to show invalid date. No dates will be blocked.
+
+.. Test case : block 33
+Expected : CommandException will be thrown to show invalid date. No dates will be blocked.
+
+.. Test case : block 6 (Logged in as an Admin)
+Expected : CommandException will be thrown to show invalid authority. No dates will be blocked.
+
+.. Test case : block 6 (Schedule already confirmed)
+Expected : CommandException will be thrown to show confirmed schedule. No dates will be blocked.

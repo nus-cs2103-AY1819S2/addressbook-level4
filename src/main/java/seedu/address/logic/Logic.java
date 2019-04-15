@@ -5,10 +5,13 @@ import java.nio.file.Path;
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.commons.core.UserType;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyPersonnelDatabase;
+import seedu.address.model.duty.DutyMonth;
+import seedu.address.model.duty.DutySettings;
 import seedu.address.model.person.Person;
 
 /**
@@ -22,17 +25,20 @@ public interface Logic {
      * @throws CommandException If an error occurs during command execution.
      * @throws ParseException If an error occurs during parsing.
      */
-    CommandResult execute(String commandText) throws CommandException, ParseException;
+    CommandResult execute(String commandText, UserType user, String userName) throws CommandException, ParseException;
 
     /**
-     * Returns the AddressBook.
+     * Returns the PersonnelDatabase.
      *
-     * @see seedu.address.model.Model#getAddressBook()
+     * @see seedu.address.model.Model#getPersonnelDatabase()
      */
-    ReadOnlyAddressBook getAddressBook();
+    ReadOnlyPersonnelDatabase getPersonnelDatabase();
 
     /** Returns an unmodifiable view of the filtered list of persons */
     ObservableList<Person> getFilteredPersonList();
+
+    /** returns an unmodifiable view of duty for dates */
+    //ObservableList<Person> getDutyForDates();
 
     /**
      * Returns an unmodifiable view of the list of commands entered by the user.
@@ -43,7 +49,7 @@ public interface Logic {
     /**
      * Returns the user prefs' address book file path.
      */
-    Path getAddressBookFilePath();
+    Path getPersonnelDatabaseFilePath();
 
     /**
      * Returns the user prefs' GUI settings.
@@ -54,6 +60,16 @@ public interface Logic {
      * Set the user prefs' GUI settings.
      */
     void setGuiSettings(GuiSettings guiSettings);
+
+    /**
+     * Returns the user prefs' GUI settings.
+     */
+    DutySettings getDutySettings();
+
+    /**
+     * Set the user prefs' GUI settings.
+     */
+    void setDutySettings(DutySettings dutySettings);
 
     /**
      * Selected person in the filtered person list.
@@ -69,4 +85,19 @@ public interface Logic {
      * @see seedu.address.model.Model#setSelectedPerson(Person)
      */
     void setSelectedPerson(Person person);
+
+    /**
+     * Returns UserType of User if valid username and password, null otherwise.
+     */
+    UserType findAccount(String userName, String password);
+
+    /**
+     * Returns dutyMonth for current month
+     */
+    DutyMonth getCurrentDutyMonth();
+
+    /**
+     * Returns DutyMonth for next month
+     */
+    DutyMonth getNextDutyMonth();
 }

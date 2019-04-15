@@ -194,7 +194,7 @@ link:{repoURL}/src/main/java/seedu/pdf/logic/Logic.java[`Logic.java`]
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
 
 .Interactions Inside the Logic Component for the `delete 1` Command
-image::SDforDeletePdf.png[width="800"]
+image::DeleteCommandSequenceDiagram.png[width="800"]
 
 [[Design-Model]]
 === Model component
@@ -213,9 +213,15 @@ The `Model`,
 
 [NOTE]
 As a more OOP model, we can store a `Tag` list in `Pdf Book`, which `Pdf` can reference. This would allow `Pdf Book` to only require one `Tag` object per unique `Tag`, instead of each `Pdf` needing their own `Tag` object. An example of how such a model may look like is given below. +
- +
+
 .OOP Diagram
-image:ModelClassBetterOopDiagram.png[width="800"]
+image::ModelClassBetterOopDiagram.png[width="800"]
+
+The Pdf Class Diagram below shows the structure of the Pdf class,
+which is the most used class throughout the application.
+
+.Pdf Class Diagram
+image::PdfClassDiagram.png[width="300"]
 
 [[Design-Storage]]
 === Storage component
@@ -459,6 +465,7 @@ This sequence diagram demonstrates the interactions involved from start of *Merg
 .Merge Command Sequence Diagram
 image::MergeCommandSequenceDiagram.png[width="600"]
 
+
 ==== Considerations
 
 The default directory of the merged file is currently set to the directory of the first index of the files to be merged. There were considerations to make flexibility in the merge command input
@@ -485,6 +492,10 @@ https://pdfbox.apache.org/docs/2.0.1/javadocs/org/apache/pdfbox/multipdf/PDFMerg
 The `delete` feature is facilitated by both *DeleteCommand* and *DeleteCommandParser*.
 This feature performs either a _soft_ or _hard_ remove operation on a file in the application
 based on the index provided.
+
+The implementation of the *DeleteCommand* execution can be summarised in the following activity diagram:
+
+image::DeleteCommandActivityDiagram.png[width="600"]
 
 * _Soft_ delete is defined as removing a file from the application but not from the local filesystem;
 the physical file is left intact within the user's operating system, but the user will not be able to access or
@@ -528,6 +539,9 @@ Step 3: The *DeleteCommand* is then executed. Successful execution will return a
 
 .Delete Command Activity Diagram
 image::DeleteCommandActivityDiagram.png[width="600"]
+
+.Delete Command Sequence Diagram
+image::DeleteCommandSequenceDiagram.png[width="800"]
 
 // end::delete[]
 

@@ -970,7 +970,7 @@ Sort the tasks ascendingly or descendingly in some order.
 
 Format : `tasksort PARAMETER [asc/desc]` or `tsort PARAMETER [asc/desc]`
 
-Note : 
+Note :
 
 * `PATAMETER` can be `starttime`, `endtime` or  `priority`
 * The `asc/desc` is optional. It's sorted `ascendingly` by default
@@ -1208,7 +1208,7 @@ e.g. `recordedit 1 ic/S1234657H`
 e.g. `recordclear`
 
 * *Record MC creation* : `recordmc INDEX [daysToRest]` +
-e.g. `recordmc 1` 
+e.g. `recordmc 1`
 
 * *Patient List* : `list`
 

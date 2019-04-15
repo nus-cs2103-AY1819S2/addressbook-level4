@@ -209,7 +209,7 @@ image:ModelClassBetterOopDiagram.png[width="800"]
 === Storage component
 
 .Structure of the Storage Component
-image::StorageClassDiagram.png[width="800"]
+image::StorageClassDiagram.png[width="600"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
 
@@ -639,7 +639,7 @@ the `select` command download un-downloaded articles in the background.
 
 Here is a sequence diagram showing how the interaction works:
 
-image::SelectRefreshSdForStorage.png[width="800"]
+image::SelectRefreshSdForStorage.png[width="600"]
 
 Notice that when returning from the async network call,
 we wrap our code in `Platform.runLater(...)` to ensure that the rest of the
@@ -719,7 +719,7 @@ This is described in section xref:Design-Storage[]
 As an example, what happens when viewing an entry with offline mode enabled?
 This is summarised by the activity diagram below:
 
-image::OfflineModeViewEntryActivityDiagram.png[width="800"]
+image::OfflineModeViewEntryActivityDiagram.png[width="600"]
 
 // end::offline-mode[]
 

@@ -124,15 +124,9 @@ Some enhancements are done over several pull requests, so all relevant ones are 
   They showcase my ability to write documentation targeting end-users._
 |===
 
----
-
 include::../UserGuide.adoc[tag=archiveallcommand]
 
 include::../UserGuide.adoc[tag=refreshcommand]
-
----
-
-// include::../UserGuide.adoc[tag=offlinecommand]
 
 == Contributions to the Developer Guide
 
@@ -141,10 +135,13 @@ include::../UserGuide.adoc[tag=refreshcommand]
   They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
+include::../DeveloperGuide.adoc[tag=network-design]
+
 ---
 
 include::../DeveloperGuide.adoc[tag=storagecomponent]
 
-include::../DeveloperGuide.adoc[tag=network-design]
+---
 
 include::../DeveloperGuide.adoc[tag=offline-mode]
+

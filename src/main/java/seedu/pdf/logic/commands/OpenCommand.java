@@ -26,8 +26,8 @@ public class OpenCommand extends Command {
             + "Existing values will be overwritten by the input values.\n"
             + "Example: " + COMMAND_WORD + " 1 ";
 
-    public static final String MESSAGE_OPEN_PDF_SUCCESS = "Opened PDF:\n%1$s";
-    public static final String MESSAGE_OPEN_PDF_FAILIUE = "Unable to Open PDF.";
+    public static final String MESSAGE_PDF_OPEN_SUCCESS = "Opened PDF:\n%1$s";
+    public static final String MESSAGE_PDF_OPEN_FAILURE = "Unable to Open PDF.";
 
     private final Index index;
 
@@ -57,10 +57,10 @@ public class OpenCommand extends Command {
                     pdfToOpen.getName().getFullName()).toAbsolutePath().toFile());
 
         } catch (IOException e) {
-            throw new CommandException(MESSAGE_OPEN_PDF_FAILIUE, e);
+            throw new CommandException(MESSAGE_PDF_OPEN_FAILURE, e);
         }
 
-        return new CommandResult(String.format(MESSAGE_OPEN_PDF_SUCCESS, pdfToOpen.toString()));
+        return new CommandResult(String.format(MESSAGE_PDF_OPEN_SUCCESS, pdfToOpen.toString()));
     }
 
     @Override

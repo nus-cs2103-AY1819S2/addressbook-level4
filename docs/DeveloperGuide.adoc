@@ -275,8 +275,6 @@ The following features are implemented for patients of docX:
 * Delete patients
 * Select patient
 
-=== Features
-
 ==== Add Patient feature
 When a user executes 'add-p n/John Doe g/Male a/21 p/98765432 adr/Utown College 2'
 
@@ -374,7 +372,6 @@ It follows the following rules:
 // tag::doctorcommands[]
 === CRUD of Doctors
 
-
 Doctor is one of the two valid types of Persons to be stored in the docX record.
 The following features are implemented or will be implemented for doctors of docX:
 
@@ -415,7 +412,6 @@ Step4. LogicManager calls execute() of ListDoctorCommand.
 
 Step5. execute() checks if the DoctorContainsPredicate equals to null. If it equals to null, it calls updateFilteredDoctorList() of Model to show all doctors.
         If it is not null, it calls updateFilteredDoctorList() of ModelManager.
-
 
 Step6. test(Doctor) of DoctorContainsKeywordsPredicate will be called. It will check if any of the field matches "acupu" in full or part. If it matches, the doctor will be shown.
 
@@ -489,10 +485,30 @@ Step7. Then, execute() will get the filtered list of appointments and the desire
         execute() calls updateFilteredDoctorList(DoctorHasAppointmentPredicate) to filter the list of doctors whose specialisation matches and are available on the date and timing inputted.
 // end::doctorcommands[]
 
+=== Medical History Management Features
 
-=== Sort Medical History Features
 ==== Current Implementation
-The sort medical history feature is enable bt the classes: `MedicalHistory`, `ValidDate`, `SortMedHistCommand`, `SortMedHistCommandParser`
+`Medical History` is one of the core aspects of the application. It is used to track patients' medical records of seeing doctors.
+`Medical History` and it's management features enable the build of relationships between `Patient` and `Doctor`.
+
+The following features are implemented in current version of docX. The main classes and methods in *Logic* and *Model* components used to implement these features are shown below:
+
+* Add medical history command: enabled by `MedicalHistory`, `AddMedHistCommand`, `AddMedHistCommandParser`, `Model#addMedHist`
+* List medical history command: enabled by `ListMedHistCommand`, `ListMedHistCommandParser`, `Model#updateFilteredMedHistList`
+* Sort medical history command: enabled by `ValidDate`, `SortMedHistCommand`, `SortMedHistCommandParser`, `Model#sortFilteredMedHistList`
+* Edit medical history command: enabled by `EditMedHistCommand`, `EditMedHistCommandParser`, `Model#setMedHist`
+* Search medical history command: enabled by `SearchMedHistCommand`, `SearchMedHistCommandParser`, `Model#updateFilteredMedHistList`
+* Select medical history command: enabled by `SelectMedHistCommand`, `SelectMedHistCommandParser`, `Model#setSelectedMedHist`
+
+
+==== Example Command: Sort Medical History Command
+Sort medical history command enable users to sort medical history list by date of occurrence. This part will explain the workflow and implementation of sort medical history command in details.
+
+Given below is the Activity Diagram for sort medical history command. It shows the workflow on a high level:
+
+image::SortMedHistActivityDiagram.png[width="800"]
+
+The implementation of sort medical history feature involving these classes: `MedicalHistory`, `ValidDate`, `SortMedHistCommand`, `SortMedHistCommandParser`
 
 * `MedicalHistory` - This is an entity class used to store information regarding patients' medical histories of seeing doctors.
 An Medical History object stores patient id, doctor id, corresponding patient, corresponding doctor, date, and writeup.
@@ -506,7 +522,7 @@ This class checks if the user's input string is valid ("", "ASC" or "DESC") befo
 * `SortMedHistCommand` - This is a class where the execution of sort medical history command happens.
 It interacts with Model components to execute sorting of `UniqueMedHistList` object stored in `docX` object.
 
-Given below is the Sequence Diagram for interactions within the Logic and Model components for the "sort-med-hist" command:
+Given below is the Sequence Diagram for interactions within the Logic and Model components for the "sort-med-hist ..." command:
 
 image::SortMedHistSequenceDiagram.png[width="800"]
 
@@ -520,60 +536,6 @@ Here, `SortMedHistCommandParser` checks the argument string is either "" or "ASC
 
 . The `LogicManager` then calls the execution of `SortMedHistCommand`, which interacts with Model component. In Model component, the internal list of medical histories in `UniqueMedHistList` is sorted.
 Through a `ListChangeListener`, Ui component is updated the changes of medical history list order. Then the sorted list of medical histories will be displayed in user interface.
-
-=== Medical History of patients
-
-Medical History is used to track a patient's history of coming to the clinic and seeing doctors.
-The following features are implemented or will be implemented for users of docX:
-
-* Add medical history of patient: the medical history contains information of patient, doctor, time and a prescription
-* List all medical history of a specified patient
-* Edit medical history
-* Search medical history by keywords
-* View a specified medical history
-
-==== Add Medical History feature
-
-===== Current(Proposed) Implementation
-
-When a user executes 'add-med-hist n/patientName n/doctorName sw/shortWriteUp'
-
-Step1. LogicManager calls parseCommand("add-med-hist") in AddressBookParser.
-
-Step2. Based on the COMMAND_WORD, AddressBookParser builds a new AddMedHistCommandParser() and call function parse(arguments) of AddMedHistCommandParser;
-
-Step3. AddMedHistCommandParser parses the argument and get patient name, doctor name, time and a short write up. AddMedHistCommandParser calls constructors of Patient, Doctor, Date and WriteUp and then calls the constructor of MedicalHistory. Then, AddMedHistCommandParser calls AddMedHistCommand(medicalHistory).
-
-Step4. LogicManager calls execute() of AddMedHistCommand.
-
-Step5. execute() calls hasMedHist() of Model. If medical history doesn't exist, call addMedHist() of Model.
-
-==== List Medical History feature
-
-{Explain here how list medical history will be implemented}
-
-==== Edit Medical History feature
-
-{Explain here how edit medical history will be implemented}
-
-==== Search Medical History feature
-
-{Explain here how search medical history will be implemented}
-
-==== View Medical History feature
-
-{Explain here how view medical history will be implemented}
-
-
-==== Appointment Status Display feature
-The patient card will show the appointment status of a patient. It will display any one of the four enum values: `ACTIVE, COMPLETED, CANCELLED, MISSED`.
-When an appointment is added, or marked, the execution of the command will cascade and alter the status display of the patient.
-It follows the following rules:
-. If the patient still has any other active appointments, a patient status will show `ACTIVE`
-. Else, a patient status will reflect the latest status change to any of his appointment.
-
-The UML diagram will illustrate the `updatePatient` method call in `MarkAppointmentCommand`.
-
 
 
 === Add Appointment Feature
@@ -1324,11 +1286,11 @@ Use case resumes at step 1.
 
 
 [discrete]
-=== Use case: Add New Medical History to Patient
+=== Use case: Add New Medical History
 
 *MSS*
 
-1.  User add a new medical history entry to a patient ID.
+1.  User adds a new medical history entry to a patient ID.
 2.  docX shows the details of the new medical history entry added.
 +
 Use case ends.

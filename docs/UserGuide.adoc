@@ -440,7 +440,7 @@ Sort medical history by date in ascending order or descending order. +
 Format: `sort-med-hist [ASC/DESC]`
 
 ****
-* To view the sorted list, execute `list-med-hist` command.
+* If the list of medical history is not yet shown. Before sorting, `list-med-hist` command should be executed.
 * When a new medical history is added to docX, it will be added to *the end of list*. You can sort again to make the list be in order.
 * If "ASC" or "DESC" is not specified in the command, the default order will be descending order(DESC). Medical histories will be listed from newest date to oldest date.
 * If "DESC" is specified, the order will be descending order. Medical histories will be listed from newest date to oldest date.

@@ -1108,11 +1108,17 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new player |see usage instructions |refer to instructions when I forget how to use the App
+|`* * *` |new player |see usage instructions |know how to begin using the App
 
-|`* * *` | player |initialise a new game board / map|start a new game
+|`* * *` |existing player |see usage instructions |refer to instructions when I forget how to use the App
 
-|`* * *` | player | put a battleship on the map |play the game
+|`* * *` | player | initialise a new game board / map| start a new game
+
+|`* * *` | player | initialise a new game board / map| play again after I finish
+
+|`* * *` | player | put a battleship on the map | play the game
+
+|`* * *` | player | see where my battleships are on the map |have a visual representation of the game
 
 |`* * *` | player | tag my battleships | manage my battleships during the game
 
@@ -1120,17 +1126,15 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` | player | list my battleships by tag | check the status of specific battleships during the game
 
+|`* * *` | player | begin the battle | fight the enemy
+
+|`* * *` | player | attack the enemy | destroy the enemy's ships and win
+
 |`* *` | player | see how many enemy ships I have destroyed | know how many more enemy ships to find
 
 |`* *` | player | see game statistics | know how i am performing in the game
 
 |`* *` | player | compare scores with previous games | know if i am getting better at winning the game
-
-|`* * *` | user | see where my battleships are on the map |have a visual representation of the game
-
-|`* * *` | user | list my battleships |know the status of my fleet
-
-|`* * *` | player | end my turn |the enemy can start its turn
 
 |=======================================================================
 
@@ -1340,6 +1344,52 @@ These instructions only provide a starting point for testers to work on; testers
 
 // end::shiptest[]
 
+// tag::battletest[]
+
+=== Battling
+
+. To test `begin`, we will test that it is only able to be executed at certain times.
+  Please follow the following steps in order.
+
+.. Start the application, then execute `begin`. +
+   Expected result: The battle does not begin, and an error message is displayed in the result box.
+.. Execute `init 6`, then execute `begin`. +
+   Expected result: The battle does not begin, and an error message is displayed in the result box.
+.. Place one or more ships using `put`, then execute `begin`. +
+   Expected result: the battle successfully begins and a message stating as such is displayed.
+.. Execute `begin` again.
+   Expected result: an error message is displayed in the result box.
+
+=== Attacking
+
+. To test `attack`, we will need to play through the game.
+  Please follow the following steps in order.
+
+.. Start the application, then execute `attack`. +
+   Expected result: no attack is executed, and an error message is displayed.
+.. Execute `init 6`, and place your ships on the board.
+.. Execute `begin`.
+.. Make an attack on a square that is out of bounds, e.g. `attack a9`. +
+   Expected result: no attack is executed, and
+   a prompt to select another cell is displayed.
+.. Make an attack on a valid square that **misses**. +
+   Expected result: the attacked square on the enemy map turns dark blue, and
+   a "miss" message is displayed. The enemy also makes one or more moves.
+.. Make an attack on a square you have already attacked.
+   Expected result: no attack is executed, and
+   a prompt to select another cell is displayed.
+.. Make an attack on a valid square that **hits**.  +
+   Expected result: the attacked square on the enemy map turns orange, and
+   a "hit" message is displayed.
+.. Make an attack that **destroys a ship**. +
+   Expected result: the destroyed ship on the enemy map turns red, and
+   a "destroy" message is displayed.
+.. Destroy all the enemy's ships. +
+   Expected result: a "win" message is displayed.
+.. Have all your ships be destroyed by the enemy. +
+   Expected result: a "lose" message is displayed.
+
+// end::battletest[]
 
 // tag::statstest[]
 === Viewing the statistics

@@ -101,9 +101,11 @@ parameter which can be something like `Human Anatomy`.
 * Items in square brackets are optional e.g `HINTS` in `add q/QUESTION a/ANSWER [h/HINTS]`.
 * Items with `…​` after them can be used multiple times including zero times e.g. in `add q/QUESTION a/ANSWER [i/INCORRECT_OPTION]...`, you can include zero or more `i/INCORRECT_OPTIONs`.
 * Parameters can be in any order e.g. if the command specifies `q/QUESTION a/ANSWER`, `a/ANSWER q/QUESTION` is also acceptable.
-* Commands can only be input with Unicode characters compatible with XML. In general, most characters visible on your keyboard are supported!
-Please refer to https://www.w3.org/TR/unicode-xml/#Suitable[here for more details on incompatible characters].
 ====
+
+[Note]
+This application only supports Unicode characters compatible with XML. In general, most characters visible on your keyboard are supported!
+Please refer to https://www.w3.org/TR/unicode-xml/#Suitable[here for more details on incompatible characters].
 
 //tag::folderoperations[]
 === Folder Operations

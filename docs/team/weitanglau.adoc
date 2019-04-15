@@ -32,16 +32,16 @@ endif::[]
 
 == [underline]#Introduction#
 Welcome to my Project Portfolio. This document provides you with an
-overview to my contributions to the project I have worked on, {uri-pdfplusplus}[((PDF++))]
+overview of my contributions to the project I have worked on, {uri-pdfplusplus}[((PDF++))]
 
 == [underline]#About PDF++#
 
 // Background info
 Most university students have one thing in common, messy desktop.
 As a student, I have to manage multiple new documents weekly.
-Furthermore, each file is categorised differently or has different unique purpose.
+Furthermore, each file is categorised differently or has a different unique purpose.
 For instance, I would look for files from my programming modules on certain algorithm
-concepts or look from my language module for files with writing tips. However, current
+concepts or look from my language module for files with writing tips. However, the current
 File Management System (FMS), such as File Explorer in Windows, has its limitations
 in the categorisation of files. Even for organised users, it is ineffective to
 make a constant effort maintaining the documents in an orderly manner, and inefficient
@@ -52,7 +52,7 @@ recognised this limitation and decided to work on building an elaborated FMS, PD
 //Project scope
 For the team project, we were provided with an existing {uri-addressbook}[AddressBook]
 application. We decided to morph the application into PDF++, a sophisticated FMS
-targeting students who prefer working with command line interface (CLI). However,
+targeting students who prefer working with Command Line Interface (CLI). However,
 given the limitation of the project, our application currently supports PDF
 files only, and thus the name.
 
@@ -93,21 +93,21 @@ PDF++ not only supports several essential features, such as {uri-add}[add] and
 {uri-fileprotection}[File Protection System] (FPS).
 
 For FPS, I have incorporated both `encrypt` and
-`decrypt` features and other improvements that enforces the security of the application.
+`decrypt` features and other improvements that enforce the security of the application.
 
-This allows the users to protect sensitive data such that only authorised personnel have access to.
+This allows the users to protect sensitive data such that only authorised personnel to have access to.
 Similarly, users can remove the security of the document with the password that was previously set.
 During this process of file protection, we have disabled some features, such as `history` and pressing up
 on the command box that will potentially reveal the password of the documents.
 
 Though this system, users can safely rely on PDF++ for the protection of their files, without the fear of
-exposing the passwords which compromises their privacy.
+exposing their passwords which compromise their privacy.
 
 Credit to {uri-youtube}[Java Mitra] for the tutorial guide in implementing the encrypt feature
 
 === Test Cases for Logic Component
 
-PDF++ offers many advanced features that has complex implementation. Due to the complexity of the code,
+PDF++ offers many advanced features that have a complex implementation. Due to the complexity of the code,
 it is ideally that we have the comprehensive {uri-remainingautotests}[test cases] for each command before the actual implementation of the features.
 This requires an in-depth knowledge of our code base and discussion with my team on how the feature should be implemented.
 
@@ -117,7 +117,7 @@ This requires an in-depth knowledge of our code base and discussion with my team
 //Show examples of code for team to reuse
 
 For this project, we decided to make a complete overhaul from the existing code that works with imaginary data
-to support for actual file manipulation. This would require much initial adjustments in enabling our application to accept
+to support actual file manipulation. This would require many initial adjustments in enabling our application to accept
 PDF documents. I have made significant contributions to the {uri-refactorpdf}[refactoring] of *Person* class to *Pdf* class.
 Furthermore, for future expansion of features, I have implemented the {uri-addcommand}[add command]. These initial ground work
 allows my team to test their code using the GUI with the pdf files they have added.
@@ -165,7 +165,7 @@ image:{imagesDir}/warning-icon.png[width="30"]
 "encrypt" feature will not work on files that are already encrypted.
 ----
 
-Illustrated below is a sample usage scenario that provides a clear view to the inner workings
+Illustrated below is a sample usage scenario that provides a clear view of the inner workings
 of the Encrypt feature.
 
 Step 1: Launch the application by double clicking the `pdfplusplus.jar`.
@@ -199,7 +199,7 @@ image::{imagesDir}/EncryptFeatureStep6Open.png[width="300"]
 [#steps-decrypt]
 ==== Decryption Guide
 
-Illustrate below is a sample usage scenario that provides a clear view to the inner workings
+Illustrate below is a sample usage scenario that provides a clear view of the inner workings
 of the Decrypt feature.
 
 image:{imagesDir}/lightbulb.png[width="30"]
@@ -277,7 +277,7 @@ image::EncryptCommandActivityDiagram.png[width="500"]
 which is an indicator that the `File` is a *PDF* document that is uncorrupted and
 not protected with a password.
 .. Error in loading Pdf as *PDDocument* would throw an *IOException*. Common reasons of error are:
-... File not found in location
+... File not found in the location
 ... Lack of user permissions to open File
 ... Protected, corrupted File
 .. Thrown IOException is intercepted, a *CommandException* will be thrown and the execution ends.
@@ -311,7 +311,7 @@ as the current version *PDF++* does not support `Forget Password` feature.
 
 ** However, this process is inefficient as you will need to enter 2 commands instead of 1.
 
-* Alternative 2: Change password of an encrypted file
+* Alternative 2: Change the password of an encrypted file
 
 ** This minimised the number of commands to be executed, but there are several security concerns as mentioned above.
 
@@ -353,7 +353,7 @@ image::DecryptCommandActivityDiagram.png[width="600"]
 . The `File` will be loaded as https://pdfbox.apache.org/docs/2.0.1/javadocs/org/apache/pdfbox/pdmodel/PDDocument.html[_PDDocument_]
 with the specified password, which is an indicator that the `File` is a *PDF* document that is uncorrupted, protected and the password
 provided is valid *.
-.. Error in loading Pdf as *PDDocument* would throw an *IOException* and invalid password would throw an *CommandException*.
+.. Error in loading Pdf as *PDDocument* would throw an *IOException* and invalid password would throw a *CommandException*.
 Common reasons of error are:
 ... File not found in location
 ... Lack of user permissions to open File

@@ -12,7 +12,8 @@ import seedu.address.model.UserPrefs;
 import seedu.address.model.statistics.PlayerStatistics;
 
 /**
- * Manages storage of MapGrid data in local storage.
+ * Manages storage of Player Statistics data in local storage.
+ * @author bos10
  */
 public class StorageManager implements Storage {
 
@@ -20,11 +21,17 @@ public class StorageManager implements Storage {
     private UserPrefsStorage userPrefsStorage;
     private StatisticsStorage statisticsStorage;
 
+    /**
+     * Initializes the StorageManager object.
+     * @param userPrefsStorage
+     * @param statisticsStorage
+     */
     public StorageManager(UserPrefsStorage userPrefsStorage,
                           StatisticsStorage statisticsStorage) {
         super();
         this.statisticsStorage = statisticsStorage;
         this.userPrefsStorage = userPrefsStorage;
+        logger.info("Initialized StorageManager");
     }
 
     // ================ UserPrefs methods ==============================
@@ -54,7 +61,6 @@ public class StorageManager implements Storage {
 
     @Override
     public void saveStatisticsData(PlayerStatistics statisticsData) throws IOException {
-        //System.out.println("Inside Storage Manager, Saving Stats Data");
         saveStatisticsData(statisticsData, statisticsStorage.getStatisticsFilePath());
     }
 
@@ -66,7 +72,6 @@ public class StorageManager implements Storage {
      * @throws IOException
      */
     public void saveStatisticsData(PlayerStatistics statisticsData, Path filePath) throws IOException {
-        //System.out.println("Inside Storage Manager, Saving Stats Data with FilePath");
         logger.fine("Attempting to save statistics to file: " + filePath);
         statisticsStorage.saveStatisticsData(statisticsData, filePath);
     }

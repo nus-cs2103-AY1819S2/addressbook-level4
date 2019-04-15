@@ -38,7 +38,6 @@ public class MainWindow extends UiPart<Stage> {
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private StatusBarFooter statusBarFooter;
-    private StatsPane statsPane;
 
     @FXML
     private StackPane browserPlaceholder;
@@ -136,12 +135,6 @@ public class MainWindow extends UiPart<Stage> {
 
         statusBarFooter = new StatusBarFooter();
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
-
-        //STATS PANE DISABLED FOR NOW
-        //statsPane = new StatsPane(); //StatsPane(model.getStatistics());
-        //statusbarPlaceholder2.getChildren().add(statsPane.getRoot());
-        //statsPane = new StatsPane();
-        //statspanePlaceholder.getChildren().add(statsPane.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand, logic.getHistory());
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());

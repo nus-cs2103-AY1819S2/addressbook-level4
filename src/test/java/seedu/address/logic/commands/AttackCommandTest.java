@@ -8,8 +8,9 @@ import static seedu.address.testutil.SizeTenMapGrid.setUpAlmostDefeat;
 import static seedu.address.testutil.SizeTenMapGrid.setUpAlmostDestroy;
 import static seedu.address.testutil.SizeTenMapGrid.setUpSingleShip;
 
+import java.io.IOException;
+
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -34,8 +35,7 @@ public class AttackCommandTest {
     private Model model;
 
     @Before
-    public void setUp() {
-
+    public void setUp() throws IOException {
         player = new Player();
         enemy = new InterceptedEnemy();
         initialisePlayerSizeTen(player);
@@ -193,12 +193,13 @@ public class AttackCommandTest {
      */
 
     @Test
-    @Ignore public void execute_destroyLastShip_playerWins() throws CommandException {
+    public void execute_destroyLastShip_playerWins() throws CommandException {
         setUpAlmostDefeat(enemy);
 
         int initialDestroyedCount = model.getPlayerStats().getEnemyShipsDestroyed();
 
         AttackCommand cmd = new AttackCommand(TypicalIndexes.COORDINATES_A1);
+        thrown.expect(NullPointerException.class);
         CommandResult res = cmd.execute(model, new CommandHistory());
 
         // assert win

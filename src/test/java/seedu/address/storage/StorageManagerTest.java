@@ -5,7 +5,6 @@ import static org.junit.Assert.assertEquals;
 import java.nio.file.Path;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
@@ -45,44 +44,4 @@ public class StorageManagerTest {
         UserPrefs retrieved = storageManager.readUserPrefs().get();
         assertEquals(original, retrieved);
     }
-
-    @Ignore
-    @Test
-    public void addressBookReadSave() throws Exception {
-        /*
-         * Note: This is an integration test that verifies the StorageManager is properly wired to the
-         * {@link JsonAddressBookStorage} class.
-         * More extensive testing of UserPref saving/reading is done in {@link JsonMapGridStorageTest} class.
-         */
-        /**
-        MapGrid original = getTypicalAddressBook();
-        storageManager.saveAddressBook(original);
-        ReadOnlyAddressBook retrieved = storageManager.readAddressBook().get();
-        assertEquals(original, new MapGrid(retrieved));
-         */
-    }
-    @Ignore
-    @Test
-    public void addressBookBackup() throws Exception {
-        /*
-         * Note: This is an integration test that verifies the StorageManager is properly wired to the
-         * {@link JsonAddressBookStorage} class.
-         * More extensive testing of UserPref saving/reading is done in {@link JsonMapGridStorageTest} class.
-         */
-        /**
-        try {
-            MapGrid original = getTypicalAddressBook();
-            storageManager.backupAddressBook(original);
-            assertTrue(true);
-        } catch (IOException ex) {
-            fail("Storage manager failed to backup file");
-        }
-         */
-    }
-
-    //@Test
-    //public void getAddressBookFilePath() {
-    //    assertNotNull(storageManager.getAddressBookFilePath());
-    //}
-
 }

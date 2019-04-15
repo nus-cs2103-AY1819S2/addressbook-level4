@@ -15,6 +15,7 @@ import seedu.address.model.statistics.PlayerStatistics;
 
 /**
  * A class to access MapGrid data stored as a json file on the hard disk.
+ * @author bos10
  */
 public class JsonStatisticsStorage implements StatisticsStorage {
 
@@ -48,6 +49,7 @@ public class JsonStatisticsStorage implements StatisticsStorage {
         Optional<JsonSerializableStatistics> jsonStatisticsData = JsonUtil.readJsonFile(
                 filePath, JsonSerializableStatistics.class);
         if (!(jsonStatisticsData.isPresent())) {
+            logger.info("No previous statistics found.");
             return Optional.empty();
         }
 
@@ -60,7 +62,7 @@ public class JsonStatisticsStorage implements StatisticsStorage {
     }
 
     /**
-     *
+     * Saves statistics data to specified filePath.
      * @param filePath location of the data. Cannot be null.
      */
     public void saveStatisticsData(PlayerStatistics statisticsData, Path filePath) throws IOException {

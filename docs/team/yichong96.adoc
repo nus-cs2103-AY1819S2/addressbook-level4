@@ -56,7 +56,7 @@ were used within each card field as well, there was a need to ensure that the co
 part of the "commas" within the card field itself.
 
 
-* *Code contributed*: [https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#search=yichong96[Collated code]]
+* *Code contributed*: Here is the link to the code I contributed [https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#search=yichong96[Collated code]]
 
 * *Other contributions*:
 ** Enhancements to existing features:

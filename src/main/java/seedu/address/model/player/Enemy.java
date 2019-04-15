@@ -18,8 +18,11 @@ import seedu.address.model.exceptions.BoundaryValueException;
 
 
 /**
- * Represents an Enemy player in the game.
- * Enemy will always be a computerised player.
+ * This class implements an {@code Enemy} {@code Player} in the game.
+ * The {@code Enemy} has {@code Player} as a parent.
+ * @author lucydotc
+ * @version 1.4
+ * @since 2019-03-05
  */
 public class Enemy extends Player {
 

@@ -492,6 +492,21 @@ image::updatedUIcomponent.png[width=100%]
 When a member is selected, the `memberDetailPanel` will populate the information of the selected person. The `ActivitiesAttendedByMemberPanel` will also populate the activities that are attended by member.
 For the population of member statistics, it is less straightforward. The calling flow is UI to Logic to Model. This is illustrated in the diagram below.
 
+image::memberselect_sequence.png[width=100%]
+
+===== Design Considerations
+*Aspect:* UI calling methods from the AddressBook class
+
+There are various ways to cal the statistics methods from UI. Below are some options:
+
+* *Alternative 1 (current choice):* Go through the calling flow of UI to logic to model.
+** Pros: Abstraction principle is observed.
+** Cons: More tedious for the developer to implement methods that UI requires.
+
+* *Aternative 2:* Go through Model directly.
+** Pros: Abstraction principle is violated.
+** Cons: Less tedious to implement.
+
 //end::memberselect[]
 
 // tag::membersort[]
@@ -509,20 +524,6 @@ sorting criteria provided.
 * If the user input matches, the uniquePersonList will be sorted based on that criteria
 If the user input does not match, then an error message will be prompted to the user.
 // end::membersort[]
-
-==== Design Considerations
-*Aspect:* List Management
-To execute command, there are various ways. Below are some options:
-
-* *Alternative 1 (current choice)*: Go through Model Component
-
-** Pros : Reduce reliance on logic for heavy data management.
-** Cons : Could be challenging to implement necessary methods at the model component.
-
-* *Alternative 2*: Go through Logic Component
-
-** Pros: Easy to implement by retrieving the `UniquePersonList` to perform data management.
-** Cons: Defeats the purpose of having logic and model components. The model component will be underused, while the logic component will be overused.
 
 // tag::memberexport[]
 === MemberExport

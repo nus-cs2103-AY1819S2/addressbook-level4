@@ -79,7 +79,7 @@ Adds a book named Structure and Interpretation of Computer Programs to the recor
 ****
 * The book name is case sensitive
 * Two books with same book name are considered the same book
-* Trying to add a book which is already present in the bookshelf will result in duplicate book error, and the addBook command will fail
+* Trying to add a book which is already present on the bookshelf will result in duplicate book error, and the addBook command will fail
 * Take a look at <<Command-Format>> to see the valid format for each parameter
 ****
 
@@ -90,7 +90,7 @@ Format: `editBook INDEX [n/BOOKNAME] [a/AUTHOR] [m/RATING] [t/TAG]...`
 
 ****
 * Edit the book at the specified INDEX. The index refers to the index number shown in the displayed Bookshelf. The index must be a positive integer 1, 2, 3, …​
-* Edit a book with a new name that  already exists in the bookshelf is not allowed
+* Edit a book with a new name that  already exists on the bookshelf is not allowed
 * At least one of the optional fields must be provided.
 * Take a look at <<Command Format>> to see the valid format for each parameter
 * Existing values will be updated to the input values
@@ -131,12 +131,12 @@ Shows a list of all book entries, with the specified keywords of bookname, autho
 Format: `listBook [n/BOOKNAME] [a/AUTHOR] [t/TAG] [m/RATING]`
 
 ****
-* If no search criteria are given, the command will give the complete list of the books
-* Keywords should be single word, or will be rejected as invalid input.
+* If no parameters are given, the command will give the complete list of all the books
+* Keywords should be single word, or will be rejected as an invalid input.
 * Keywords for every type should comply with the constraint enforced for this type.
-* Prefixes should be provided for every keyword. For example, `n/Madame Ham` will not be recognized as two separate book name keywords 'Madame' and 'Ham'. but will be treated as a whole.
+* Prefixes should be provided for every keyword. For example, `n/Madame Ham` will not be recognized as two separate book name keywords 'Madame' and 'Ham', but will be read as a whole.
 * The search is case insensitive. e.g `hans` will match `Hans`
-* There are no limits to the number of keywords of one type.
+* There are no limits of the number of keywords of one type.
 * The order of the keywords does not matter. e.g. `Alice Wonderland` will match `Wonderland Alice`
 * Only full words will be matched e.g. `Han` will not match `Hans`
 * Only books match at least one criteria for all kinds will be returned. For example, if two book name keywords and two tag keywords are provided, book that matches at least one name keyword and at least one tag keyword will be displayed. Books contain only one name keyword provided and no tag keyword provided will not be selected.
@@ -154,7 +154,9 @@ Books with the rating _5_ or the tag _textbook_ will be displayed.
 Books whose name contains the keyword _CS2104T_ or tags include _textbook_ will be displayed.
 * `listBook m/5 m/6` +
 Books whose rating is _5_ or _6_ wil be displayed.
-
+* `listBook n/Madame n/Prejudice m/6 m/8` +
+_Madame Bovary_ and _Pride and Prejudice_ will be displayed
+image:ListBookScreenShot.png[width="800"]
 
 // end::list[]
 
@@ -329,9 +331,9 @@ Format: `summary`
 
 ****
 * The summary will list out how many books you've read.
-* The summary will also list out authors appear more than once in your bookshelf.
+* The summary will also list out authors appear more than once on your bookshelf.
 * The summary will also list out books of the highest score.
-* The summary will also list out tags appear more than once in your bookshelf.
+* The summary will also list out tags appear more than once on your bookshelf.
 ****
 
 Examples:

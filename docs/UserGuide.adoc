@@ -187,7 +187,7 @@ This feature can be improved to support medical databases of different countries
 Due to the nature of medical inventories, the integrity of data stored is of utmost importance. The next release will feature data encryption to keep your inventory safe and keep unauthorised users away. With this feature, you will be required to log in with a password to view and edit your inventory. This feature can be disabled if it is not required for your needs.
 // end::dataencryption[]
 
-// tag::previewresults
+// tag::previewresults[]
 ==== Preview of results
 
 . Preview of results for Export and Label Commands to be available in the UI.
@@ -196,13 +196,13 @@ Due to the nature of medical inventories, the integrity of data stored is of utm
 - Below is a mock up on how the UI may look like with the features integrated.
 
 image::MockUp.png[width="790"]
-// end::previewresults
+// end::previewresults[]
 
-// tag::importpictures
+// tag::importpictures[]
 ==== Importing pictures
 . Import of pictures to aid in the medicine identification.
 - Pictures and snapshot of the medicine may be added to MediTabs such that it is easier for you to identify what the physical medicine looks like.
-// end::importpictures
+// end::importpictures[]
 
 [[Commands]]
 == Commands

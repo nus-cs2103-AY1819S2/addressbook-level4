@@ -4,11 +4,9 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 import java.util.Objects;
-import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.index.Index;
 
 /**
@@ -35,9 +33,6 @@ public class Coordinates {
     private final Index rowIndex;
     private final Index colIndex;
 
-    // logging
-    private final Logger logger = LogsCenter.getLogger(Coordinates.class);
-
     /**
      * Constructor for a {@code Coordinates} object with String parameter.
      * @param coordinate a valid coordinate, as defined by {@code ROW_PART_REGEX}
@@ -48,7 +43,6 @@ public class Coordinates {
         requireNonNull(coordinate);
         checkArgument(isValidCoordinates(coordinate), MESSAGE_CONSTRAINTS);
 
-        logger.info("COORDINATES INITIALISED.");
         String value = coordinate;
 
         // use regex to extract alphabetical row and numeric col
@@ -79,7 +73,6 @@ public class Coordinates {
      * @param colZeroBased valid {@code int} representing the column.
      */
     public Coordinates(int rowZeroBased, int colZeroBased) {
-        logger.info("COORDINATES INITIALISED.");
         this.rowIndex = Index.fromZeroBased(rowZeroBased);
         this.colIndex = Index.fromZeroBased(colZeroBased);
     }
@@ -92,7 +85,6 @@ public class Coordinates {
      * @param colIndex valid {@code Index} representing the column.
      */
     public Coordinates(Index rowIndex, Index colIndex) {
-        logger.info("COORDINATES INITIALISED.");
         this.rowIndex = rowIndex;
         this.colIndex = colIndex;
     }

@@ -5,6 +5,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
 
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -18,6 +19,7 @@ import seedu.address.model.battleship.Name;
 import seedu.address.model.battleship.Orientation;
 import seedu.address.model.cell.Coordinates;
 import seedu.address.model.tag.Tag;
+import seedu.address.testutil.TypicalIndexes;
 
 
 public class FleetTest {
@@ -262,5 +264,36 @@ public class FleetTest {
         assertEquals(testFleet.getByName(new Name("cruiser")).size(), 1);
         assertEquals(testFleet.getByName(new Name("aircraft carrier")).size(), 1);
 
+    }
+
+    @Test
+    public void fleetEntryEquals() {
+        Fleet.FleetEntry entry1 = new Fleet.FleetEntry(
+            new DestroyerBattleship(Collections.emptySet()),
+            TypicalIndexes.COORDINATES_A1,
+            new Orientation("v"));
+        Fleet.FleetEntry entry2 = new Fleet.FleetEntry(
+            new DestroyerBattleship(Collections.emptySet()),
+            TypicalIndexes.COORDINATES_A1,
+            new Orientation("v"));
+        Fleet.FleetEntry entry3 = new Fleet.FleetEntry(
+            new DestroyerBattleship(Collections.emptySet()),
+            TypicalIndexes.COORDINATES_A1,
+            new Orientation("h"));
+
+        // check null
+        assertFalse(entry1.equals(null));
+
+        // check different type
+        assertFalse(entry1.equals(5));
+
+        // check same object
+        assertTrue(entry1.equals(entry1));
+
+        // check equal object
+        assertTrue(entry1.equals(entry2));
+
+        // check different object
+        assertFalse(entry1.equals(entry3));
     }
 }

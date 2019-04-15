@@ -46,10 +46,6 @@ public enum BattleState {
      * Gets a human-readable description of the battle state.
      * @return a human-readable description of the battle state
      */
-    public String getDescription() {
-        return description;
-    }
-
     @Override
     public String toString() {
         return description;

@@ -26,6 +26,8 @@ public class ParserUtil {
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
     public static final String MESSAGE_INVALID_SIZE = "Map size is not a non-zero unsigned integer";
 
+    private ParserUtil() {}
+
     /**
      * Parses mapSize into an int and returns it.
      * Leading and trailing whitespaces will be trimmed

@@ -35,7 +35,7 @@ public class UniqueNameList implements Iterable<Name> {
     }
 
     /**
-     * Adds a WorkList to the list.
+     * Adds a name to the list.
      * The WorkList must not already exist in the list.
      */
     public void add(Name toAdd) {

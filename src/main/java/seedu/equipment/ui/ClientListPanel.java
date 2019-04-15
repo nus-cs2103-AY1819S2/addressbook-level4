@@ -23,8 +23,8 @@ public class ClientListPanel extends UiPart<Region> {
 
     private final Logger logger = LogsCenter.getLogger(ClientListPanel.class);
 
-    private ArrayList<Name> nameArrayList = new ArrayList<>();
-    private ObservableList<Name> nameObservableList = FXCollections.observableArrayList();
+//    private ArrayList<Name> nameArrayList = new ArrayList<>();
+//    private ObservableList<Name> nameObservableList = FXCollections.observableArrayList();
 
 
     @FXML
@@ -33,13 +33,15 @@ public class ClientListPanel extends UiPart<Region> {
     public ClientListPanel(ObservableList<Name> nameList, ObservableValue<Name> selectedClient,
                            Consumer<Name> onSelectedClientChange) {
         super(FXML);
-        for (int i = 0; i < nameList.size(); i++) {
-            if (!nameArrayList.contains(nameList.get(i))) {
-                nameArrayList.add(nameList.get(i));
-            }
-        }
-        nameObservableList.addAll(nameArrayList);
-        clientListView.setItems(nameObservableList);
+//        for (int i = 0; i < nameList.size(); i++) {
+//            if (!nameArrayList.contains(nameList.get(i))) {
+//                nameArrayList.add(nameList.get(i));
+//            }
+//        }
+//        nameObservableList.addAll(nameArrayList);
+//        clientListView.setItems(nameObservableList);
+
+        clientListView.setItems(nameList);
         clientListView.setCellFactory(listView -> new ClientListViewCell());
 
         clientListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {

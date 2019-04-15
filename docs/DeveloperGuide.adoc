@@ -181,16 +181,19 @@ image::LogicClassDiagram.png[width="800"]
 *API* :
 link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `AddressBookParser` class to parse the user command.
+.  `Logic` uses the `DocXParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
-.  The command execution can affect the `Model` (e.g. adding a person).
+.  The command execution can affect the `Model` (e.g. adding a new appointment).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
-.  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
+.  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions,
+such as displaying help to the user or showing a different panel (appointment panel).
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
+Given below is the Sequence Diagram for interactions within the `Logic` component for the
+`execute("add-appt pid/1 did/7 d/2019-06-01 t/09:00")` API call. Interactions with other components such as
+UI or Model is omitted or simplified for clarity.
 
-.Interactions Inside the Logic Component for the `delete 1` Command
-image::DeletePersonSdForLogic.png[width="800"]
+.Interactions Inside the Logic Component for the `add-appt ...` Command
+image::AddAppointmentSequenceDiagramForLogic.png[width="800"]
 
 [[Design-Model]]
 === Model component
@@ -232,14 +235,9 @@ The `Storage` component,
 
 Classes used by multiple components are in the `seedu.addressbook.commons` package.
 
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
+== Implementation
 
-The data encryption feature will be implemented using the built-in JDK API javax.crypto.Cipher, without the need of
-adding any external libraries or dependencies. We will look into whether to stick to the JSON file format or
-something else.
-
-// end::dataencryption[]
+This section describes some noteworthy details on how certain features are implemented.
 
 === Logging
 
@@ -276,8 +274,6 @@ The following features are implemented for patients of docX:
 * Various search patients by keywords
 * Delete patients
 * Select patient
-
-=== Features
 
 ==== Add Patient feature
 When a user executes 'add-p n/John Doe g/Male a/21 p/98765432 adr/Utown College 2'
@@ -376,7 +372,6 @@ It follows the following rules:
 // tag::doctorcommands[]
 === CRUD of Doctors
 
-
 Doctor is one of the two valid types of Persons to be stored in the docX record.
 The following features are implemented or will be implemented for doctors of docX:
 
@@ -404,6 +399,14 @@ Step5. execute() calls hasDoctor() of Model. If doctor does not exist, call addD
 
 ==== List Doctor feature
 
+Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("list-d")` API call.
+
+.The Sequence Diagram of the creation of the list doctor command.
+image::ListDoctorCreationSequenceDiagram.png[width="700"]
+
+.The Sequence Diagram of the execution of the list doctor command.
+image::ListDoctorExecutionSequenceDiagram.png[width="700"]
+
 When a user executes `list-doctor acupu`
 
 Step1. LogicManager calls parseCommand("list-d") in docXParser.
@@ -418,8 +421,8 @@ Step4. LogicManager calls execute() of ListDoctorCommand.
 Step5. execute() checks if the DoctorContainsPredicate equals to null. If it equals to null, it calls updateFilteredDoctorList() of Model to show all doctors.
         If it is not null, it calls updateFilteredDoctorList() of ModelManager.
 
-
 Step6. test(Doctor) of DoctorContainsKeywordsPredicate will be called. It will check if any of the field matches "acupu" in full or part. If it matches, the doctor will be shown.
+
 
 ==== Edit Doctor feature
 
@@ -491,10 +494,30 @@ Step7. Then, execute() will get the filtered list of appointments and the desire
         execute() calls updateFilteredDoctorList(DoctorHasAppointmentPredicate) to filter the list of doctors whose specialisation matches and are available on the date and timing inputted.
 // end::doctorcommands[]
 
+=== Medical History Management Features
 
-=== Sort Medical History Features
 ==== Current Implementation
-The sort medical history feature is enable bt the classes: `MedicalHistory`, `ValidDate`, `SortMedHistCommand`, `SortMedHistCommandParser`
+`Medical History` is one of the core aspects of the application. It is used to track patients' medical records of seeing doctors.
+`Medical History` and it's management features enable the build of relationships between `Patient` and `Doctor`.
+
+The following features are implemented in current version of docX. The main classes and methods in *Logic* and *Model* components used to implement these features are shown below:
+
+* Add medical history command: enabled by `MedicalHistory`, `AddMedHistCommand`, `AddMedHistCommandParser`, `Model#addMedHist`
+* List medical history command: enabled by `ListMedHistCommand`, `ListMedHistCommandParser`, `Model#updateFilteredMedHistList`
+* Sort medical history command: enabled by `ValidDate`, `SortMedHistCommand`, `SortMedHistCommandParser`, `Model#sortFilteredMedHistList`
+* Edit medical history command: enabled by `EditMedHistCommand`, `EditMedHistCommandParser`, `Model#setMedHist`
+* Search medical history command: enabled by `SearchMedHistCommand`, `SearchMedHistCommandParser`, `Model#updateFilteredMedHistList`
+* Select medical history command: enabled by `SelectMedHistCommand`, `SelectMedHistCommandParser`, `Model#setSelectedMedHist`
+
+
+==== Example Command: Sort Medical History Command
+Sort medical history command enable users to sort medical history list by date of occurrence. This part will explain the workflow and implementation of sort medical history command in details.
+
+Given below is the Activity Diagram for sort medical history command. It shows the workflow on a high level:
+
+image::SortMedHistActivityDiagram.png[width="800"]
+
+The implementation of sort medical history feature involving these classes: `MedicalHistory`, `ValidDate`, `SortMedHistCommand`, `SortMedHistCommandParser`
 
 * `MedicalHistory` - This is an entity class used to store information regarding patients' medical histories of seeing doctors.
 An Medical History object stores patient id, doctor id, corresponding patient, corresponding doctor, date, and writeup.
@@ -508,7 +531,7 @@ This class checks if the user's input string is valid ("", "ASC" or "DESC") befo
 * `SortMedHistCommand` - This is a class where the execution of sort medical history command happens.
 It interacts with Model components to execute sorting of `UniqueMedHistList` object stored in `docX` object.
 
-Given below is the Sequence Diagram for interactions within the Logic and Model components for the "sort-med-hist" command:
+Given below is the Sequence Diagram for interactions within the Logic and Model components for the "sort-med-hist ..." command:
 
 image::SortMedHistSequenceDiagram.png[width="800"]
 
@@ -523,60 +546,6 @@ Here, `SortMedHistCommandParser` checks the argument string is either "" or "ASC
 . The `LogicManager` then calls the execution of `SortMedHistCommand`, which interacts with Model component. In Model component, the internal list of medical histories in `UniqueMedHistList` is sorted.
 Through a `ListChangeListener`, Ui component is updated the changes of medical history list order. Then the sorted list of medical histories will be displayed in user interface.
 
-=== Medical History of patients
-
-Medical History is used to track a patient's history of coming to the clinic and seeing doctors.
-The following features are implemented or will be implemented for users of docX:
-
-* Add medical history of patient: the medical history contains information of patient, doctor, time and a prescription
-* List all medical history of a specified patient
-* Edit medical history
-* Search medical history by keywords
-* View a specified medical history
-
-==== Add Medical History feature
-
-===== Current(Proposed) Implementation
-
-When a user executes 'add-med-hist n/patientName n/doctorName sw/shortWriteUp'
-
-Step1. LogicManager calls parseCommand("add-med-hist") in AddressBookParser.
-
-Step2. Based on the COMMAND_WORD, AddressBookParser builds a new AddMedHistCommandParser() and call function parse(arguments) of AddMedHistCommandParser;
-
-Step3. AddMedHistCommandParser parses the argument and get patient name, doctor name, time and a short write up. AddMedHistCommandParser calls constructors of Patient, Doctor, Date and WriteUp and then calls the constructor of MedicalHistory. Then, AddMedHistCommandParser calls AddMedHistCommand(medicalHistory).
-
-Step4. LogicManager calls execute() of AddMedHistCommand.
-
-Step5. execute() calls hasMedHist() of Model. If medical history doesn't exist, call addMedHist() of Model.
-
-==== List Medical History feature
-
-{Explain here how list medical history will be implemented}
-
-==== Edit Medical History feature
-
-{Explain here how edit medical history will be implemented}
-
-==== Search Medical History feature
-
-{Explain here how search medical history will be implemented}
-
-==== View Medical History feature
-
-{Explain here how view medical history will be implemented}
-
-
-==== Appointment Status Display feature
-The patient card will show the appointment status of a patient. It will display any one of the four enum values: `ACTIVE, COMPLETED, CANCELLED, MISSED`.
-When an appointment is added, or marked, the execution of the command will cascade and alter the status display of the patient.
-It follows the following rules:
-. If the patient still has any other active appointments, a patient status will show `ACTIVE`
-. Else, a patient status will reflect the latest status change to any of his appointment.
-
-The UML diagram will illustrate the `updatePatient` method call in `MarkAppointmentCommand`.
-
-
 
 === Add Appointment Feature
 Appointments are created to facilitate future appointments between patients and doctors.
@@ -584,6 +553,7 @@ A patient can have none or multiple appointments, a doctor can have none or mult
 An appointment cannot overlap with a patient's or doctor's existing appointments.
 This is determined if the date and time overlaps.
 An appointment must specify a patient ID, doctor ID, date and time.
+
 ==== Current Implementation
 The add appointment feature is enabled by the classes: `Appointment`, `FutureAppointment`,
 `AddAppointmentCommandParser`, `AddAppointmentCommand` and `JsonAdaptedAppointment`.
@@ -624,55 +594,6 @@ The appointment object is then sent to the Model layer.
 The Storage layer will convert the appointment Java object into the JSON file format using the format specified in `JsonAdaptedAppointment`.
 The next time the application is opened, the Storage layer will use `JsonAdaptedAppointment` again to convert appointments in the JSON file back into appointment objects.
 
-
-=== Appointments
-
-Appointments are created to facilitate future appointments between patients and doctors. A patient can have none or multiple appointments, a doctor can have none or multiple appointments. An appointment cannot overlap with a patient's or doctor's existing appointments. This is determined if the date and time overlaps. An appointment must specify a date, time, patient, doctor, and short write-up.
-
-The following features are implemented or will be implemented:
-
-* Add appointment
-* Complete appointment
-* Cancel appointment
-* List all appointments of a doctor
-* List available timings of a doctor
-* List available appointments of all doctors
-
-==== Add Appointment
-
-===== Current (partial) Implementation
-
-The user types 'add-appt p/patientID d/doctorID t/dateAndTime /w writeUp'
-
-Step 1. The command is parsed by AddAppointmentCommandParser and a AddAppointmentCommand is returned.
-
-Step 2. The AddAppointmentCommand contains an appointment object. The appointment object is an entity object that holds the details for that particular appointment. i.e. patient, doctor, dateAndTime, writeUp.
-
-Step 3. Within execute(), the actual logic of the AddAppointment operation is being performed. Firstly, it will retrieve the list of existing appointments of the patient and the doctor. Secondly, it will create a new appointment object, check if the dateAndTime overlaps with the patient's existing appointments, and check if the dateAndTime overlaps with the doctor's existing appointments. If the appointment is not overlapping, the appointment object will be added to the list of appointments in both the patient and doctor object.
-
-Step 4. Once the above logic is successfully executed, the UI is updated by the UI layer and the save file is updated by the Storage layer. The storage layer will convert the appointments in the patient and doctor objects into JSON and saves it to file. (to be further explained when implemented)
-
-==== Complete Appointment
-
-{todo}
-
-==== Cancel Appointment
-
-{todo}
-
-==== List all appointments of a doctor
-
-{todo}
-
-==== List available timings of a doctor
-
-{todo}
-
-==== List available appointments of all doctors
-
-{todo}
-
-
 === Prescriptions
 Prescriptions are used to keep track of what kind of medicine a doctor suggest a particular patient to take. they
 are useful because sometimes patients may want to know what medicine they took before. There are three functionalities
@@ -710,6 +631,14 @@ To be updated later
 
 To be updated later
 
+// tag::dataencryption[]
+=== [Proposed] Data Encryption
+
+The data encryption feature will be implemented using the built-in JDK API javax.crypto.Cipher, without the need of
+adding any external libraries or dependencies. We will look into whether to stick to the JSON file format or
+something else.
+
+// end::dataencryption[]
 
 == Documentation
 
@@ -1241,8 +1170,6 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |=======================================================================
 
-_{More to be added}_
-
 [appendix]
 == Use Cases
 
@@ -1368,11 +1295,11 @@ Use case resumes at step 1.
 
 
 [discrete]
-=== Use case: Add New Medical History to Patient
+=== Use case: Add New Medical History
 
 *MSS*
 
-1.  User add a new medical history entry to a patient ID.
+1.  User adds a new medical history entry to a patient ID.
 2.  docX shows the details of the new medical history entry added.
 +
 Use case ends.
@@ -1742,16 +1669,13 @@ Use case ends.
 Use case resumes at step 1.
 
 
-_{More to be added}_
-
 [appendix]
 == Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
 .  Should be able to hold up to 1000 patients/doctors without a noticeable sluggishness in performance for typical usage.
-.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-
-_{More to be added}_
+.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be
+able to accomplish most of the tasks faster using commands than using the mouse.
 
 [appendix]
 == Glossary
@@ -1761,23 +1685,6 @@ Windows, Linux, Unix, OS-X
 
 [[private-contact-detail]] Private contact detail::
 A contact detail that is not meant to be shared with others
-
-[appendix]
-== Product Survey
-
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
 
 [appendix]
 == Instructions for Manual Testing
@@ -1801,8 +1708,6 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-_{ more test cases ... }_
-
 === Adding a patient/doctor
 
 . Adding a patient/doctor while all patients/doctors are listed
@@ -1812,24 +1717,14 @@ _{ more test cases ... }_
    Expected: New patient/doctor is added to the end of the list with a unique ID generated for the contact. Details of the added contact shown in the status message. Timestamp in the status bar is updated.
 .. Test case:
 
-=== Deleting a person
+=== Appointment
 
-. Deleting a person while all persons are listed
+. Marking an appointment as "CANCELLED"
 
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
-.. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
+.. Prerequisites: List all appointments using the `list-appt` command. All appointments are in the list.
+.. Test case: `mark-appt 1 s/CANCELLED` +
+   Expected: First appointment in the list is marked as "CANCELLED".
+.. Test case: `mark-appt 1 s/ASDF` +
+   Expected: No appointment is changed. A list of valid appointment status that can be input is shown.
+.. Other incorrect mark-appt commands to try: `mark-appt`, `mark-appt 1 s/123`. +
    Expected: Similar to previous.
-
-_{ more test cases ... }_
-
-=== Saving data
-
-. Dealing with missing/corrupted data files
-
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
-
-_{ more test cases ... }_

@@ -382,6 +382,12 @@ same time in one command. To implement the function without changing the base ab
 to check whether the payer of the booking is the customer we are selecting instead of using the index of a customer.
 The reason we use identification number(ID) instead of name or other factors is that the ID of one customer is unique.
 
+The `FindBookingCommand` involves the use of multiple components of the HMS+ application. The figure below shows the
+high level [underline]#Sequence Diagram# for the `FindBookingCommand`.
+
+.High Level Sequence Diagram for the  `find-booking id/A0176684J` command
+image::FindBookingSequenceDiagram.png[width="600"]
+
 ==== Design Considerations
 
 ===== Aspect: How should the customer be stressed

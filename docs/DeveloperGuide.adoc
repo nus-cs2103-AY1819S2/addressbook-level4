@@ -1020,13 +1020,40 @@ _{More to be added}_
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the *Equipment Manager* and the *Actor* is the `user`, unless specified otherwise)
+For all use cases below, the *System* is the *Equipment Manager* and the *Actor* is the `user`, unless specified otherwise.
 
+[discrete]
+// tag::selectClientUC[]
 === Use Case: Select Client
 
 *MSS*
 
-[discrete]
+image::SelectClientUC.png[%autowidth]
+
+1.  User selects the client name under Client details panel
+2.  The client name under Client details panel is selected
+3.  Equipment details panel shows a list of equipment that is owned by the client name
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The client name is listed in CLient details panel
++
+Use case ends.
+
+[none]
+* 2b. The given index is empty.
++
+Use case ends.
+
+[none]
+* 3a. The client does not own any equipment (as of now). Zero equipment listed.
++
+Use case ends.
+// end::selectClientUC[]
+
 === Use case: Delete equipment
 
 *MSS*

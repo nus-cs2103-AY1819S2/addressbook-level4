@@ -225,9 +225,9 @@ Allows you to add a card with blanks for multiple answers to be given during a t
 
 Format: ``add q/QUESTION_WITH_BLANKS a/ANSWER_1/ANSWER_2/ANSWER_3...`
 
-Example:
+Example: +
 
-`add q/The quick brown _ jumps over the lazy _. a/fox/dog`
+* `add q/The quick brown _ jumps over the lazy _. a/fox/dog`
 
 **Adding images to cards** `Coming in v2.0`
 
@@ -235,8 +235,9 @@ Allows you to add images to cards to supplement the text content of the card.
 
 Format: `add q/QUESTION a/ANSWER [img/IMAGE_FILE_PATH]...`
 
-Example:
-`add q/Hello? a/World img/diagram.jpg`
+Example: +
+
+* `add q/Hello? a/World img/diagram.jpg`
 // end::add[]
 
 // tag::edit[]

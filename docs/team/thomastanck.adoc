@@ -146,3 +146,5 @@ include::../UserGuide.adoc[tag=refreshcommand]
 include::../DeveloperGuide.adoc[tag=storagecomponent]
 
 include::../DeveloperGuide.adoc[tag=network-design]
+
+include::../DeveloperGuide.adoc[tag=offline-mode]

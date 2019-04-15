@@ -654,6 +654,7 @@ to the v2.0 milestone.
 
 // end::network-design[]
 
+// tag::offline-mode[]
 === Offline mode
 
 Offline mode requires many changes to the architecture as a whole.
@@ -719,6 +720,8 @@ As an example, what happens when viewing an entry with offline mode enabled?
 This is summarised by the activity diagram below:
 
 image::OfflineModeViewEntryActivityDiagram.png[width="800"]
+
+// end::offline-mode[]
 
 === Logging
 

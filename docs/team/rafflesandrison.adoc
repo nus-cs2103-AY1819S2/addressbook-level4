@@ -47,10 +47,7 @@ You will find many commands implemented to manipulate the arrangement of the app
 ** _Justification_: This command is a fundamental feature to allow the user to change the swap the apparels and the changes will be persisted even if the user close and open this application again.
 ** _Highlights_: This command takes in the index of two apparels to be swapped and proceed to swap the position of these apparels.
 [[minorEnhancement]]
-. *Minor Enhancement*: added *safety mechanism for clear command*.
-** _What it does_: <To Be Added>.
-** _Justification_: <To Be Added>.
-** _Highlights_: <To Be Added>.
+. *Minor Enhancement to be added in v2*: pending *safety mechanism for clear command*.
 [[otherContributions]]
 . *Other Contributions*:
 ** _Project Management_: <To Be Added>.
@@ -79,6 +76,9 @@ You will find many commands implemented to manipulate the arrangement of the app
 *ClothingType*: [https://github.com/CS2103-AY1819S2-W15-1/main/blob/master/src/main/java/seedu/address/model/apparel/ClothingType.java[Functional code]]
 *ClothingTypeTest*: [https://github.com/CS2103-AY1819S2-W15-1/main/blob/master/src/test/java/seedu/address/model/apparel/ClothingTypeTest.java[Test code]]
 *ClothingTypeValue*: [https://github.com/CS2103-AY1819S2-W15-1/main/blob/master/src/main/java/seedu/address/model/apparel/ClothingType.java[Functional code]]
+*ListCommand*: [https://github.com/CS2103-AY1819S2-W15-1/main/blob/master/src/main/java/seedu/address/logic/commands/ListCommand.java[Functional code]]
+*ListCommandParser*: [https://github.com/CS2103-AY1819S2-W15-1/main/blob/master/src/main/java/seedu/address/logic/parser/ListCommandParser.java[Functional code]]
+*ListCommandTest*: [https://github.com/CS2103-AY1819S2-W15-1/main/blob/master/src/test/java/seedu/address/logic/commands/ListCommandTest.java[Test code]]
 *SortCommand*: [https://github.com/CS2103-AY1819S2-W15-1/main/blob/master/src/main/java/seedu/address/logic/commands/SortCommand.java[Functional code]]
 *SortCommandParser*: [https://github.com/CS2103-AY1819S2-W15-1/main/blob/master/src/main/java/seedu/address/logic/parser/SortCommandParser.java[Functional code]]
 *SortCommandTest*: [https://github.com/CS2103-AY1819S2-W15-1/main/blob/master/src/test/java/seedu/address/logic/commands/SortCommandTest.java[Test code]]
@@ -104,8 +104,8 @@ include::../UserGuide.adoc[tag=swap]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 
 |===
-
 include::../DeveloperGuide.adoc[tag=sort]
+include::../DeveloperGuide.adoc[tag=swap]
 
 
 == PROJECT: PowerPointLabs

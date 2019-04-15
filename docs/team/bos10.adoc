@@ -21,7 +21,7 @@ The following sections will illustrate the feature and its implementation in mor
 
 == Summary of contributions
 
-* *Major enhancement*: added the *ability to view the game score data at any juncture of the game*.
+* *Major enhancement*: added the *ability to view the game statistics*.
 ** What it does: By entering the `stats` command, the player will be given a pop-up display that contains information on
 the number of successful hits, number of misses, number of enemy ships destroyed and even the player's current shooting
 accuracy.
@@ -29,21 +29,18 @@ accuracy.
 
 ** Highlight: This feature can be invoked at any point of the game.
 
-* *Code contributed*: [https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#=undefined&search=bos10[Functional code]]
-
-* *Major enhancement*: added the *ability to compare the game scores between two games.*
+* *Major enhancement*: added the *ability to compare the game statistics between two games.*
 ** What it does: Upon winning a game, the game will automatically save the current game statistics into the storage folder
 of the application. At the same time, the game will perform a comparison with the previous game statistics data (if any)
 and will reflect if there are improvements from the previous game.
 ** Justification: This feature enhances the user experience by giving constructive feedback
-through an analysis the player's past game. This encourage the employment of strategies to be better at the game.
+through an analysis the player's past game. This encourages player to employ different strategies to be better at the game.
 It also demonstrates the application's ability to store game data which is fundamental to a future
-highscore functionality in the game.
-
-* *Code contributed*: [https://github.com[Functional code]]
+highscore feature in the game.
 
 * *Minor enhancement*: added the *elapsed time panel to update the duration of the game in real-time*
 
+* *Code contributed*: View my https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#=undefined&search=bos10[Project Dashboard] and my Github https://github.com/CS2103-AY1819S2-W14-3/main/commits/master?author=bos10[commits].
 
 * *Other contributions*:
 
@@ -54,10 +51,10 @@ highscore functionality in the game.
 (Issue https://github.com/CS2103-AY1819S2-W14-3/main/issues/360[#360])
 
 ** Enhancements to existing features:
-*** Repurposed HistoryCommand into StatsCommand to be used by rest of the team(Pull request https://github.com/CS2103-AY1819S2-W14-3/main/pull/43[#43])
+*** Overhaul of HistoryCommand into StatsCommand to be used by rest of the team(Pull request https://github.com/CS2103-AY1819S2-W14-3/main/pull/43[#43])
 *** Restructured Storage component to accommodate saving of statistics data (Pull request https://github.com/CS2103-AY1819S2-W14-3/main/pull/289[#289])
 *** Introduced an elapsed time functionality in the Graphical User Interface (GUI). (Pull request https://github.com/CS2103-AY1819S2-W14-3/main/pull/108[#108], https://github.com/CS2103-AY1819S2-W14-3/main/pull/123[#123] )
-*** Wrote tests for the statistics feature and storage component and increased coverage by 5.6%. (Pull Requests __)
+*** Wrote tests for the statistics feature and storage component and increased coverage by 5.6%. (Pull Requests https://github.com/CS2103-AY1819S2-W14-3/main/pull/379[#379], https://github.com/CS2103-AY1819S2-W14-3/main/pull/397[#397], https://github.com/CS2103-AY1819S2-W14-3/main/pull/253[#253])
 
 ** Documentation:
 *** Added detailed implementation documentation for the statistics feature in the Developer Guide and User Guide, including screenshots
@@ -77,9 +74,15 @@ and diagrams.
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
+=== Statistics Feature
 include::../UserGuide.adoc[tag=stats]
 
 include::../UserGuide.adoc[tag=commandsummary]
+
+___
+=== Coming in V2.0
+include::../UserGuide.adoc[tag=v2stats]
+
 
 == Contributions to the Developer Guide
 

@@ -57,28 +57,28 @@ Do not disable them. If you have disabled them, go to menu:File[Settings > Plugi
 === Setting up the project in your computer
 {bl}
 
-. Fork this repo, and clone the fork to your computer
-. Open IntelliJ (if you are not in the welcome screen, click menu:File[Close Project] to close the existing project dialog first)
-. Set up the correct JDK version for Gradle
+. Fork this repo, and clone the fork to your computer.
+. Open IntelliJ (if you are not in the welcome screen, click menu:File[Close Project] to close the existing project dialog first).
+. Set up the correct JDK version for Gradle.
 .. Click menu:Configure[Project Defaults > Project Structure]
-.. Click btn:[New...] and find the directory of the JDK
+.. Click btn:[New...] and find the directory of the JDK.
 . Click btn:[Import Project]
 . Locate the `[fuchsia]#build.gradle#` file and select it. Click btn:[OK]
 . Click btn:[Open as Project]
-. Click btn:[OK] to accept the default settings
+. Click btn:[OK] to accept the default settings.
 . Open a console and run the command `[fuchsia]#gradlew processResources#` (Mac/Linux: `[fuchsia]#./gradlew processResources#`). It should finish with the `[fuchsia]#BUILD SUCCESSFUL#` message. +
 This will generate all resources required by the application and tests.
-. Open link:{repoURL}/src/main/java/seedu/finance/ui/MainWindow.java[`[blue]#MainWindow.java#`] and check for any code errors
-.. Due to an ongoing https://youtrack.jetbrains.com/issue/IDEA-189060[[blue]#issue#] with some of the newer versions of IntelliJ, code errors may be detected even if the project can be built and run successfully
-.. To resolve this, place your cursor over any of the code section highlighted in [red]#red#. Press kbd:[ALT + ENTER], and select btn:[Add '--add-modules=...' to module compiler options] for each error
-. Repeat this for the test folder as well ([navy]#e.g.# check link:{repoURL}/src/test/java/seedu/finance/ui/HelpWindowTest.java[`[blue]#HelpWindowTest.java#`] for code errors, and if so, resolve it the same way)
+. Open link:{repoURL}/src/main/java/seedu/finance/ui/MainWindow.java[`[blue]#MainWindow.java#`] and check for any code errors.
+.. Due to an ongoing https://youtrack.jetbrains.com/issue/IDEA-189060[[blue]#issue#] with some of the newer versions of IntelliJ, code errors may be detected even if the project can be built and run successfully.
+.. To resolve this, place your cursor over any of the code section highlighted in [red]#red#. Press kbd:[ALT + ENTER], and select btn:[Add '--add-modules=...' to module compiler options] for each error.
+. Repeat this for the test folder as well ([navy]#e.g.# check link:{repoURL}/src/test/java/seedu/finance/ui/HelpWindowTest.java[`[blue]#HelpWindowTest.java#`] for code errors, and if so, resolve it the same way).
 
 {bl}
 
 === Verifying the setup
 {bl}
 
-. Run `[fuchsia]#seedu.finance.MainApp#` and try a few commands
+. Run `[fuchsia]#seedu.finance.MainApp#` and try a few commands.
 . <<Testing,[underline blue]#Run the tests#>> to ensure they all pass.
 
 {bl}
@@ -91,12 +91,12 @@ This will generate all resources required by the application and tests.
 {bl}
 This project follows https://github.com/oss-generic/process/blob/master/docs/CodingStandards.adoc[[blue]#oss-generic coding standards#]. IntelliJ's default style is mostly compliant with ours but it uses a different import order from ours. To rectify,
 
-. Go to menu:File[Settings...] (Windows/Linux), or menu:IntelliJ IDEA[Preferences...] (macOS)
+. Go to menu:File[Settings...] (Windows/Linux), or menu:IntelliJ IDEA[Preferences...] (macOS).
 . Select menu:Editor[Code Style > Java]
-. Click on the btn:[Imports] tab to set the order
+. Click on the btn:[Imports] tab to set the order.
 
-* For btn:[Class count to use import with '\*'] and btn:[Names count to use static import with '*']: Set to `[fuchsia]#999#` to prevent IntelliJ from contracting the import statements
-* For btn:[Import Layout]: The order is `[fuchsia]#import static all other imports#`, `[fuchsia]#import java.\*#`, `[fuchsia]#import javax.*#`, `[fuchsia]#import org.\*#`, `[fuchsia]#import com.*#`, `[fuchsia]#import all other imports#`. Add a btn:[<blank line>] between each `[fuchsia]#import#`
+* For btn:[Class count to use import with '\*'] and btn:[Names count to use static import with '*']: Set to `[fuchsia]#999#` to prevent IntelliJ from contracting the import statements.
+* For btn:[Import Layout]: The order is `[fuchsia]#import static all other imports#`, `[fuchsia]#import java.\*#`, `[fuchsia]#import javax.*#`, `[fuchsia]#import org.\*#`, `[fuchsia]#import com.*#`, `[fuchsia]#import all other imports#`. Add a btn:[<blank line>] between each `[fuchsia]#import#`.
 
 Optionally, you can follow the <<UsingCheckstyle#, [blue]#UsingCheckstyle.adoc#>> document to configure Intellij to check style-compliance as you write code.
 
@@ -226,7 +226,7 @@ The UI consists of a `[fuchsia]#MainWindow#` that is made up of parts [navy]#e.g
 inherit from the abstract `[fuchsia]#UiPart#` class.
 
 The `[fuchsia]#UI#` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `[fuchsia]#.fxml#` files that are in the `[fuchsia]#src/main/resources/view#` folder.
-For example, the layout of the link:{repoURL}/src/main/java/seedu/finance/ui/MainWindow.java[`[blue]#MainWindow#`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`[blue]#MainWindow.fxml#`]
+For example, the layout of the link:{repoURL}/src/main/java/seedu/finance/ui/MainWindow.java[`[blue]#MainWindow#`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`[blue]#MainWindow.fxml#`].
 
 The `[fuchsia]#UI#` component,
 
@@ -663,7 +663,7 @@ Given below is a sequence diagram and step by step explanation of how Finance Tr
 creates a budget when the user uses the `[fuchsia]#set#` command to set a budget.
 
 .Sequence diagram of user setting a budget
-image::SetSequenceDiagram.jpg[width="800"]
+image::SetSequenceDiagram.png[width="800"]
 
 . The user enters a `[fuchsia]#set command#` ([navy]#e.g.# `[fuchsia]#set $/120#`). The command is passed down and received by the `[fuchsia]#LogicManager#`.
 . The `[fuchsia]#LogicManger#` calls the `[fuchsia]#FinanceTrackerParser#ParseCommand()#` method which creates a `[fuchsia]#SetCommandParser#`
@@ -680,9 +680,25 @@ The `[fuchsia]#Budget#` object (labelled p) is then passed to the `[fuchsia]#Mod
 . `[fuchsia]#ModelManager#addBudget()#` calls `[fuchsia]#FinanceTracker#addBudget()#` to update the budget of the current instance of the
 Finance Tracker. `[fuchsia]#FinanceTracker#addBudget()#` updates the `[fuchsia]#TotalBudget#` object field (labelled q) in `[fuchsia]#FinanceTracker#`
 by calling `[fuchsia]#TotalBudget#updateBudget()#` and passing the `[fuchsia]#Budget p#` and the records stored in the `[fuchsia]#FinanceTracker#`.
-. `[fuchsia]#TotalBudget#updateBudget()#` first gets the budget data (totalBudget, currentBudget) from `[fuchsia]#Budget p#` and sets it using
+. `[fuchsia]#TotalBudget#updateBudget()#` first checks whether the new budget set is more than or equal to the sum of the category budgets and throws an
+ exception if it is not. It then gets the budget data (`[fuchsia]#totalBudget#`, `[fuchsia]#currentBudget#`) from `[fuchsia]#Budget p#` and sets it using
 `[fuchsia]#TotalBudget#set()#` (total budget of app is now 120 in example). It then updates the current budget and spending based on
-the records that was stored and passed in by the `[fuchsia]#FinanceTracker#`.
+the records that was stored and passed in by the `[fuchsia]#FinanceTracker#`. This is shown in the code snippet below:
+
+    public void updateBudget(Budget budget, ObservableList<Record> records) throws
+                CategoryBudgetExceedTotalBudgetException {
+            Double totalCategoryBudget = 0.0;
+            for (CategoryBudget cb: this.categoryBudgets) {
+                totalCategoryBudget += cb.getTotalBudget();
+            }
+            if (budget.getTotalBudget() < totalCategoryBudget) {
+                throw new CategoryBudgetExceedTotalBudgetException(budget, totalCategoryBudget);
+            }
+            set(budget.getTotalBudget(), budget.getCurrentBudget());
+            updateBudget(records);
+        }
+
+
 . Once `[fuchsia]#TotalBudget q#` has finished updating, control is passed all the way back to `[fuchsia]#SetCommand#execute()#` which will create
 a `[fuchsia]#CommandResult#` (labelled result). The result is passed back to `[fuchsia]#LogicManager#execute#` and all the way to the user to show
 that the budget has been set (Budget set to 120 in example).
@@ -695,7 +711,7 @@ covered in [underline blue]#<<Updating the UI with Budget Data>>#.
 
 ===== Aspect: Updating budget data after Record updates
 
-* *Solution 1*: Maintaining one updateBudget method to update current expenditure and budget left based on
+* *Solution 1*: Maintaining one `updateBudget` method to update current expenditure and budget left based on
 iterating through changed record list.
 ** Pros: Easier to implement and manage a single method.
 ** Cons: Updates for even single addition/edit/deletion of record could be slow if record list gets too large.
@@ -710,7 +726,7 @@ iterating through changed record list.
 <<<
 // tag::categorybudget[]
 ==== Allocating a budget to category
-This feature allows user to set a category budget after the total budget is set
+This feature allows user to set a category budget after the total budget is set.
 
 Given below is a sequence diagram and step by step explanation of how Finance Tracker
 executes when a user sets a category budget.
@@ -734,7 +750,7 @@ is transferred to `[fuchsia]#ModelManager#` which is in the `[fuchsia]#Model#` C
 . `[fuchsia]#ModelManager#addCategoryBudget()#` then calls `[fuchsia]#FinanceTracker#addCategoryBudget()#` which then
 calls `[fuchsia]#TotalBudget#setNewCategoryBudget()#`.
 . `[fuchsia]#TotalBudget#setNewCategoryBudget()#` takes into account if there are any previous budget
-allocated to a category and if so, adds the expenses to the new budget assigned to the category
+allocated to a category and if so, adds the expenses to the new budget assigned to the category.
 
 {bl}
 
@@ -744,13 +760,13 @@ allocated to a category and if so, adds the expenses to the new budget assigned 
 
 * *Alternative 1 (current choice)*: Allocating Category Budget is done with only one command `[fuchsia]#allocate#`
 ** Pros: User only needs to make use of one command to control the budget of the category and will
-not be confused with too many other commands
+not be confused with too many other commands.
 ** Cons: Requires the developer to ensure the application checks that if there is a current budget
 allocated to the same category, it should be reflected accordingly.
 
 * *Alternative 2*: Have two other commands `[fuchsia]#increaseCatBudget#` and `[fuchsia]#decreaseCatBudget#` to allow user
 to control the budget of the category
-** Pros: User is able to adjust the budget by increasing/decreasing the budget and error message will be shown
+** Pros: User is able to adjust the budget by increasing/decreasing the budget and error message will be shown.
 if the category was not previously allocated with a budget
 ** Cons: User might be confused with too many commands and not intuitive.
 // end::categorybudget[]
@@ -768,9 +784,9 @@ categories after category budgets are allocated.
 ==== Implementation
 . User enters command `[fuchsia]#show#` in Command Box.
 . `[fuchsia]#ShowCategoryBudgetCommand#execute()#` is executed and the method first checks whether there are any allocated category
-budgets
-. If there are no allocated category budgets, a message will be printed in the ResultDisplay
-. If there are allocated category budgets, `[fuchsia]#Model#getCatBudget()#` is called to obtain the set of `[fuchsia]#CategoryBudget#`
+budgets.
+. If there are no allocated category budgets, a message will be printed in the ResultDisplay.
+. If there are allocated category budgets, `[fuchsia]#Model#getCatBudget()#` is called to obtain the set of `[fuchsia]#CategoryBudget#`.
 . An `[fuchsia]#Iterator#` is then used to iterate through the set of `[fuchsia]#CategoryBudgets#` and the `[fuchsia]#currentSpending#` is printed with
 the `[fuchsia]#totalBudget#` allocated to the `[fuchsia]#CategoryBudget#`.
 // end::show[]
@@ -778,6 +794,7 @@ the `[fuchsia]#totalBudget#` allocated to the `[fuchsia]#CategoryBudget#`.
 {bl}
 
 //tag::budgetupdateui[]
+
 ==== Updating the UI with Budget Data
 Previous sections have covered how the budget of the Finance Tracker is updated within the App. This section aims
 to give a overview of the logic for updating the User Interface of the App to reflect the budget updates to the
@@ -787,7 +804,7 @@ To explain the update, an Activity Diagram accompanied with a step-by-step walk-
 methods to update the budget UI.
 
 .Activity diagram of the UI being updated after budget data changes
-image::BudgetUiUpdateActivityDiagram.png[]
+image::BudgetUiUpdateActivityDiagram.png[wdith="800"]
 
 . The command is first executed by the `[fuchsia]#LogicManager#`. The execution of commands will update the budget data
 in the Finance Tracker as specified in previous sections. The success message of the command is then displayed to the user
@@ -887,7 +904,7 @@ ii)	Else, `[fuchsia]#SummaryPanel#setSummaryData()#` will be called, which gener
 ==== Design Consideration
 ===== Aspect: Representation for Summary of Expenditure
 
-*Alternative 1 (current choice)*: Represent summary of expenses using a pie chart
+*Alternative 1 (current choice)*: Represent summary of expenses using a pie chart.
 
 .Current Implementation of Summary Panel using JavaFX's `[fuchsia]#PieChart#`
 image::summaryPanel.png[width="450"]
@@ -895,7 +912,7 @@ image::summaryPanel.png[width="450"]
 ** Pros: Labels can act as a legend as well as there might be categories with similar colours. This will help the user to easily identify the expenditures in different categories.
 ** Cons: If there are too many categories, the labels may not show up as it will clash with the other labels. The data presented may also become too cluttered as well.
 
-*Alternative 2 (planned for `[yellow]#[v2.0]#`)*: Represent summary of expenses using an Aster Plot graph
+*Alternative 2 (planned for `[yellow]#[v2.0]#`)*: Represent summary of expenses using an Aster Plot graph.
 
 In `[yellow]#v2.0#` of _In-Credit-Ble_, the summary feature intends to use a [fuchsia]#D3.js Aster Plot# graph to display the summary of expenditures instead of the current pie chart. This will help contribute to the aesthetics and user-friendliness of displaying the data in _In-Credit-Ble_.
 
@@ -918,13 +935,13 @@ them with some customisation.
 {bl}
 
 ==== Implementation
-. User enters command `[fuchsia]#theme COLOUR#` in Command Box, where `[fuchsia]#COLOUR#` is either `[fuchsia]#dark#`, `[fuchsia]#light#`, `[fuchsia]#blue#` or `[fuchsia]#pink#`
+. User enters command `[fuchsia]#theme COLOUR#` in Command Box, where `[fuchsia]#COLOUR#` is either `[fuchsia]#dark#`, `[fuchsia]#light#`, `[fuchsia]#blue#` or `[fuchsia]#pink#`.
 . `[fuchsia]#ThemeCommand#formatTheme()#` is executed to change the user input of `[fuchsia]#COLOUR#` to a word that has
 first character in uppercase and the rest of the characters in lowercase.
 . `[fuchsia]#ThemeCommand#isValidTheme()#` is then used to check if the `[fuchsia]#COLOUR#` is one of the four specified above.
-. `[fuchsia]#ThemeCommand#` then returns a `[fuchsia]#CommandResult#` that sets the boolean field `[fuchsia]#changeTheme#` to true
+. `[fuchsia]#ThemeCommand#` then returns a `[fuchsia]#CommandResult#` that sets the boolean field `[fuchsia]#changeTheme#` to true.
 . `[fuchsia]#MainWindow#handleSwitchTheme()#` is then executed to call the appropriate method to switch the theme of the application
-to the user-specified input
+to the user-specified input.
 // end::theme[]
 
 {bl}
@@ -933,8 +950,8 @@ to the user-specified input
 
 We are using `[fuchsia]#java.util.logging#` package for logging. The `[fuchsia]#LogsCenter#` class is used to manage the logging levels and logging destinations.
 
-* The logging level can be controlled using the `[fuchsia]#logLevel#` setting in the configuration file (See [underline blue]#<<Implementation-Configuration>>#)
-* The `[fuchsia]#Logger#` for a class can be obtained using `[fuchsia]#LogsCenter.getLogger(Class)#` which will log messages according to the specified logging level
+* The logging level can be controlled using the `[fuchsia]#logLevel#` setting in the configuration file (See [underline blue]#<<Implementation-Configuration>>#).
+* The `[fuchsia]#Logger#` for a class can be obtained using `[fuchsia]#LogsCenter.getLogger(Class)#` which will log messages according to the specified logging level.
 * Currently log messages are output through: `[fuchsia]#Console#` and to a `[fuchsia]#.log#` file.
 
 {bl}
@@ -1090,13 +1107,13 @@ The most reliable way to run tests is the 3rd one. The first two methods might f
 {bl}
 *Method 1: Using IntelliJ JUnit test runner*
 
-* To run all tests, right-click on the `[fuchsia]#src/test/java`# folder and choose `[fuchsia]#Run 'All Tests'#`
-* To run a subset of tests, you can right-click on a test package, test class, or a test and choose `[fuchsia]#Run 'ABC'#`
+* To run all tests, right-click on the `[fuchsia]#src/test/java`# folder and choose `[fuchsia]#Run 'All Tests'#`.
+* To run a subset of tests, you can right-click on a test package, test class, or a test and choose `[fuchsia]#Run 'ABC'#`.
 
 {bl}
 *Method 2: Using Gradle*
 
-* Open a console and run the command `[fuchsia]#gradlew clean allTests#` (Mac/Linux: `[fuchsia]#./gradlew clean allTests#`)
+* Open a console and run the command `[fuchsia]#gradlew clean allTests#` (Mac/Linux: `[fuchsia]#./gradlew clean allTests#`).
 
 [NOTE]
 See <<UsingGradle#, [blue]#UsingGradle.adoc#>> for more info on how to run tests using Gradle.
@@ -1106,7 +1123,7 @@ See <<UsingGradle#, [blue]#UsingGradle.adoc#>> for more info on how to run tests
 
 Thanks to the https://github.com/TestFX/TestFX[[blue]#TestFX#] library we use, our GUI tests can be run in the _headless_ mode. In the headless mode, GUI tests do not show up on the screen. That means the developer can do other things on the Computer while the tests are running.
 
-To run tests in headless mode, open a console and run the command `[fuchsia]#gradlew clean headless allTests#` (Mac/Linux: `./[fuchsia]#gradlew clean headless allTests#`)
+To run tests in headless mode, open a console and run the command `[fuchsia]#gradlew clean headless allTests#` (Mac/Linux: `./[fuchsia]#gradlew clean headless allTests#`).
 
 <<<
 === Types of tests
@@ -1589,8 +1606,8 @@ These instructions only provide a starting point for testers to work on; testers
 
 . Initial launch
 
-.. Download the [fuchsia]#JAR# file and copy into an empty folder
-.. Double-click the [fuchsia]#JAR# file +
+.. Download the [fuchsia]#JAR# file and copy into an empty folder.
+.. Double-click the [fuchsia]#JAR# file. +
    Expected: Shows the [fuchsia]#GUI# with a set of sample records. The window size may not be optimum.
 
 . Saving window preferences
@@ -1614,9 +1631,9 @@ These instructions only provide a starting point for testers to work on; testers
 .. Test case: `[fuchsia]#set $/$500#` +
    Expected: The budget is not changed. Error details shown in status message about amount.
 .. Test case: `[fuchsia]#set $/-1#` +
-   Expected: Similar to previous
+   Expected: Similar to previous.
 .. Test case: `[fuchsia]#set $/0#` +
-   Expected: Similar to previous
+   Expected: Similar to previous.
 
 {bl}
 
@@ -1625,13 +1642,13 @@ These instructions only provide a starting point for testers to work on; testers
 
 . Allocating category budget (no spending in category; we assume that total budget set is $500)
 .. Test case: `[fuchsia]#allocate $/50 c/Shopping#`, then `[fuchsia]#show#` +
-   Expected: Category Budget is allocated in `[fuchsia]#Shopping#` category. Result Display shows current spending over budget
+   Expected: Category Budget is allocated in `[fuchsia]#Shopping#` category. Result Display shows current spending over budget.
    for allocated category budgets
 .. Test case: `[fuchsia]#allo $/30 c/Transport#`, then `[fuchsia]#show#` +
-   Expected: Category Budget is allocated in `[fuchsia]#Transport#` category. Result Display shows current spending over budget
+   Expected: Category Budget is allocated in `[fuchsia]#Transport#` category. Result Display shows current spending over budget.
    for allocated category budgets
 .. Test case: `[fuchsia]#allocate $/30 c/Books c/Movies#`, then `[fuchsia]#show#` +
-   Expected: Category Budget allocated in `[fuchsia]#Movies#` category. Result Display current spending over budget
+   Expected: Category Budget allocated in `[fuchsia]#Movies#` category. Result Display current spending over budget.
    for allocated category budgets
 .. Test case: `[fuchsia]#allocate $/$30 c/Holiday#` +
    Expected: Category Budget not allocated. Error details shown in status message.
@@ -1644,7 +1661,7 @@ These instructions only provide a starting point for testers to work on; testers
 Assume that `[fuchsia]#Food#` category has $16.50 spent so far
 .. Test case: `[fuchsia]#allocate $/17 c/Food#` +
    Expected: Category Budget allocated in Food category. Result Display shows current spending over budget for allocated
-   category budgets
+   category budgets.
 .. Test case: `[fuchsia]#allocate $/10 c/Food#` +
    Expected: Category Budget not allocated. Current Spending in category more than user input for category budget.
    Error details shown in status message.
@@ -1821,9 +1838,9 @@ finance tracker. +
 === Obtaining a summary of entries
 {bl}
 
-. Entering `[fuchsia]#summary#` command when _In-Credit-Ble_ is empty
+. Entering `[fuchsia]#summary#` command when _In-Credit-Ble_ is empty.
 
-.. Prerequisites: No existing entries in _In-Credit-Ble_
+.. Prerequisites: No existing entries in _In-Credit-Ble_.
 .. Test case: `[fuchsia]#summary#` +
    Expected: Error message is shown.
 .. Test case: `[fuchsia]#summary #/6 p/d#` +
@@ -1851,15 +1868,19 @@ On the other hand, if there are no existing entries in the specified report peri
 {bl}
 
 === Changing the Finance Tracker data storage location
-{bl}
 
 [NOTE]
 In order to test this command, please take note the name of the [fuchsia]#json# file you are currently on. The name of the file can
 be seen at the right side of the status bar. By default, the json file is "[fuchsia]#finance.json#".
 
-. Changing the file name
+. Changing the file when the filename does not belong to a file that exists or the file is wrongly formatted.
+.. Prerequisites: The filename does not belong to an existing [fuchsia]#json# file with stored Finance Tracker data. The user is currently using [fuchsia]#finance.json# file.
 .. Test case: `[fuchsia]#setfile f/testfile#` +
    Expected: A new finance tracker file will be created with no records in the records list and the budget will be shown
-   as $0.00. You can type in the command `[fuchsia]#setfile f/finance#` (or the name of the previous file) to retrieve the original
-   finance tracker that you were previously on.
-
+   as $0.00.
+. Changing the file when the filename belongs to a file with existing data added by the _In-Credit-Ble_.
+.. Prerequisites: The filename belongs to a file that already exists with data added by _In-Credit-Ble_ or data that is correctly formatted.
+.. Test case: `[fuchsia]#setfile f/testfile#` +
+   Expected: The data previously added to [fuchsia]#testfile.json# will be loaded into _In-Credit-Ble_.
+.. Test case: `[fuchsia]#setfile f/finance#` +
+   Expected: No apparent change as the same file the user is currently on will be loaded again.

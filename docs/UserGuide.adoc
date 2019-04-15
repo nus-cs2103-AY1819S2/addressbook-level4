@@ -120,6 +120,7 @@ The menu bar can be used to:
 
 {bl}
 // tag::userinterface3[]
+
 === Records List Panel
 // end::userinterface3[]
 {bl}
@@ -290,11 +291,11 @@ be used to set the budget (`[fuchsia]#$/50#` in the example). Only the last amou
 amount ([navy]#e.g.# `[fuchsia]#set $/1a $/10#` works while `[fuchsia]#set $/10 $/1a#` does not).
 * If a budget was previously set, the old budget will be overwritten by the new budget specified
 by the `[fuchsia]#set#` command.
-* The budget you set and current spending will be displayed in the <<Budget Panel>>.
+* The budget you set and current spending will be displayed in the https://github.com/CS2103-AY1819S2-W17-3/main/blob/master/docs/UserGuide.adoc#budget-panel[Budget Panel].
 * You can only work with one budget for each instance of Finance Tracker. You are able
  to adjust this budget using the `[fuchsia]#set#` command again by indicating a different amount.
 * If you want to have a new budget for a different month, you can use the `[fuchsia]#setfile#` command
-detailed in <<Changing FinanceTracker data storage location: `[fuchsia]#setfile#`>>.
+detailed in https://github.com/CS2103-AY1819S2-W17-3/main/blob/master/docs/UserGuide.adoc#changing-financetracker-data-storage-location-setfile[Changing FinanceTracker data storage location: `setfile`].
 * The rationale is to keep the
 UI as clean as possible without extra panels for past budgets.
 * You can use `[fuchsia]#allocate#` to set various category sub-budgets for categories.
@@ -739,7 +740,7 @@ Shows summary of expenses in the past 7 months.
 // tag::setfile[]
 ==== Changing FinanceTracker data storage location: `[fuchsia]#setfile#`
 [navy]#You can change the file used to store the data of the application.# Essentially,
-you can maintain multiple sets of expenditure and budget data for multiple users
+you can maintain multiple sets of expenditure and budget data for different users
 or profiles. +
 
 In addition, one user can also have multiple files for a recurring period (weeks, months etc.)
@@ -765,9 +766,14 @@ contain any special characters or be left blank.
 filename provided will be taken in as the filename (`[fuchsia]#file2#` in this example).
 Only the last filename needs to be a valid filename
 ([navy]#e.g.# `[fuchsia]#setfile f/$file f/file#` works while `[fuchsia]#set f/file f/$file#` does not).
-* If the file specified by the filename does not already exist, a new blank file
+* If the file specified by the filename is the same as the current file, nothing will happen as the same file
+will be loaded. Refer to Figuere 22 if you are unsure of what your current file is.
+* If the file specified by the filename does not already exist or is corrupted, a new blank file
 will be created with no data in the Finance Tracker. Otherwise, the data stored
-in the file will be loaded into the Finance Tracker.
+in the file will be loaded into the Finance Tracker. The example below illustrates this.
+
+.Example of what happens when a existing file is loaded and when a new file is created.
+image::setFileExample.png[width ="800"]
 ====
 
 //end::setfile[]

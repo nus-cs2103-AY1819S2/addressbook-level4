@@ -519,7 +519,7 @@ The image filters feature is facilitated by `CurrentEdit`. It uses the following
 
 * `CurrentEdit#getTempImage` - Retrieves the temporary image `tempImage` which stores the filepath of the temporary image, its history of edits [`List<Command>`] and its metadata.
 
-* `CurrentEdit#updateTempImage` - Replaces the temporary image in the `temp` directory with the newly edited image and update the `tempImage` instance in the class.
+* `CurrentEdit#updateTempImage` - Replaces the temporary image in the `temp` directory with the newly edited image and updates the `tempImage` instance in the class.
 
 * `CurrentEdit#addCommand` - Adds this command to the edit history [`List<Command>`] in `tempImage` for the `undo/redo` command.
 
@@ -550,7 +550,7 @@ Step 2. When the user enters the command (e.g. `contrast 0.3`), the entered comm
 [NOTE]
 If an invalid command is provided, a reminder of how to use the command will be given to the user and no command will be executed.
 
-Step 3. During execution, the `execute` method in the `ContrastCommand` class first invokes `CurrentEdit#tempImageDoNotExist` to check if an image is opened. If no image is opened, it will throw an error message to tell the user to open an image for editing first. Else, the `execute` method will invoke `CurrentEdit#getTempImage()` to get the `tempImage` from `CurrentEdit`.
+Step 3. During execution, the `execute` method in the `ContrastCommand` class first invokes `CurrentEdit#tempImageDoNotExist` to check if an image is opened. If no image is opened, it will throw an error message to inform the user to open an image for editing first. Else, the `execute` method will invoke `CurrentEdit#getTempImage()` to get the `tempImage` from `CurrentEdit`.
 
 Step 4. Upon retrieving the `tempImage`, the `execute` method creates a `ContrastFilter` instance provided by the external library [`scrimage`] which takes in a `double` contrast ratio value. This `ContrastFilter` will then be applied to the image retrieved from the file path of `tempImage`.
 
@@ -564,7 +564,7 @@ Step 8. `CurrentEdit#addCommand(this)` is invoked to add this command to the `Li
 
 ===== Design Considerations
 
- * Intermediate images that are still being edited have to be stored in a temp folder first due to our `undo/redo` implementation.
+ * Intermediate images that are still being edited have to be stored in a temporary folder first due to our `undo/redo` implementation.
 
 ==== Brightness Command
 This command calls for an adjustment of brightness on an opened image. After adjusting the brightness, it adds this specific command called by the user to the `List<Commands>` belonging to the `tempImage` found in `currentEdit` which saves the editing history of the opened image.

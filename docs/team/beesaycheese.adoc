@@ -88,37 +88,60 @@ Code Dashboard]]
 *** Use buffers to set deadlines and ensure everyone are informed and on task.
 
 ** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote tests for bill and statistics features (Pull requests https://github.com[#36], https://github.com[#38])
+*** Updated the GUI color scheme (Pull requests https://github.com[#33])
+*** Wrote tests for bill and statistics features
 
 ** Documentation:
 *** Reorganise the User Guide according to modes: https://github.com/cs2103-ay1819s2-w09-3/main/pull/123[#123]
 
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com/cs2103-ay1819s2-w09-3/main/pull/167[#167],
-https://github.comcs2103-ay1819s2-w09-3/main/pull/121[#121], https://github.comcs2103-ay1819s2-w09-3/main/pull/121[#108]
+*** Reported bugs for other teams in the class [Examples: https://github.com/nus-cs2103-AY1819S2/pe-dry-run/issues/827[1], https://github.com/nus-cs2103-AY1819S2/pe-dry-run/issues/791[2]]
 
 == Contributions to the User Guide
 
+This section shows the contributions that I have made to the User Guide. I have included information about how
+the bill and Statistics features work.
+
 |===
-|_Given below are sections I contributed to the User Guide._
+|_Even though `bill` is used in Table Mode, its implementation is under the Statistics feature._
 |===
+
+include::../UserGuide.adoc[tag=bill]
+
+You may refer to <<DG, contributions to Developer Guide>> to have a better understanding of `bill` command.
 
 include::../UserGuide.adoc[tag=smintro]
 Here are the commands that you can use in this mode to study the statistical data of your restaurant.
 
-include::../UserGuide.adoc[tag=bill]
+include::../UserGuide.adoc[tag=daily]
 
+`monthly` and `yearly` commands also work similarly. +
+
+
+include::../UserGuide.adoc[tag=revenue]
+
+[[DG]]
 == Contributions to the Developer Guide
 
+Given below are sections I contributed to the Developer Guide.
+
 |===
-|_Given below are sections I contributed to the Developer Guide._
+|_ Since `bill` command is an essential feature in the application, I choose to present it
+ in the section below._
 |===
 
 include::../DeveloperGuide.adoc[tag=statisticsclasses]
+
+[NOTE]
+Before elaborating on the bill feature, we have to understand the design considerations for statistics storage.
 
 include::../DeveloperGuide.adoc[tag=statisticsstorage]
 
 include::../DeveloperGuide.adoc[tag=bill]
 
+|===
+|_I have decided to include a brief description of the following commands' implementation as they make up the main
+crux of the Statistics Mode._
+|===
 
+include::../DeveloperGuide.adoc[tag=trends]

@@ -351,7 +351,7 @@ the Nric is stored instead. At load time, the UniqueJobList is only created afte
 
 With the filter feature, users can input specific parameters that act as conditions for slaveFinder() to conditionally update the `UniqueFilterList` and filter the `UniquePeronList`. Using these parameters, slaveFinder() shows applicants contains the specified parameters. Filter is visble and can combine or be deleted.
 
-Command Format: 
+Command Format:
 **`filter [FILTERLISTNAME] fn/FILTERNAME [<prefix>/<parameter>]...`
 **`deleteFilter [FILTERLISTNAME] fn/FILTERNAME`
 **`clearFilter [FILTERLISTNAME]`
@@ -413,7 +413,7 @@ If valid inputs are provided, `ClearFilterCommandParser` will return a `ClearFil
 ===== Aspect: How to parse parameters in filter command
 
 * **Alternative 1 (current choice):** `FilterCommandParse` Create a `predicatePersonDescriptor` object and parse it to `FilterCommand`
-** Pros: 
+** Pros:
 *** Make filterCommand more comparable. We can compare `predicatePersonDescriptor` to say whether two filter Command is same.
 *** Have better contol on a Filtercommand.
 ** Cons: Logic is indirect.
@@ -424,7 +424,7 @@ If valid inputs are provided, `ClearFilterCommandParser` will return a `ClearFil
 ===== Aspect: How to design a filter name restricted format
 
 * **Alternative 1 (current choice):** Filter name can be any String.
-** Pros: 
+** Pros:
 *** Make Filter name more flexible.
 *** A filter may include many information. But user can only see this filter by it's Filter name label. So it should allow user make a more detailed name for memory and control.
 ** Cons: Because user can take unpredictable signas their filter name, so it may cause unpredictable bugs.
@@ -435,7 +435,7 @@ If valid inputs are provided, `ClearFilterCommandParser` will return a `ClearFil
 ===== Aspect: How to handle filter grade and interview scores
 
 * **Alternative 1 (current choice):** Filter parameter become a value range and person's score in this range will be returned.
-** Pros: 
+** Pros:
 *** Make more sense on filtering value related field.
 *** HR manager like to know peron's score in a range, not exactly in a specified value.
 ** Cons: May add additional logic and error handling.

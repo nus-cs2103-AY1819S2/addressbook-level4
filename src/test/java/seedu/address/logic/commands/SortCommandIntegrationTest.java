@@ -1,6 +1,10 @@
 package seedu.address.logic.commands;
 
 import org.junit.Test;
+
+import java.util.Arrays;
+import java.util.List;
+
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.parser.SortWord;
 import seedu.address.model.Model;
@@ -10,13 +14,8 @@ import seedu.address.model.person.Person;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 import seedu.address.testutil.PersonBuilder;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BENSON;
 import static seedu.address.testutil.TypicalPersons.CARL;
 import static seedu.address.testutil.TypicalPersons.DANIEL;
@@ -32,7 +31,6 @@ public class SortCommandIntegrationTest {
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
     private Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
-    private List<Person> correctPersonOrder = new ArrayList<>();
 
     /**
      * Method for modifying the expected model from a list sorted as per input
@@ -49,7 +47,7 @@ public class SortCommandIntegrationTest {
      * Use The sort by name method, since they are already ordered, after a trivial edit
      */
     @Test
-    public void execute_sortNames_After_Edit_success() {
+    public void execute_sortNamesAfterEdit_success() {
         // First make trivial edit to the first person
         Person editedPerson = new PersonBuilder().build();
         EditCommand.EditPersonDescriptor descriptorOne = new EditPersonDescriptorBuilder(editedPerson).build();

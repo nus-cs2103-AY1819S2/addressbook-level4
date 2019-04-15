@@ -3,8 +3,8 @@ package seedu.address.logic.commands;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
-import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SEVENTH_PERSON;
+import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_PERSON;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BENSON;
 import static seedu.address.testutil.TypicalPersons.CARL;
@@ -113,11 +113,11 @@ public class SortCommandTest {
      */
     @Test
     public void execute_sortSurnames_success() {
-        String Surname  = GEORGE.surnameToString();
+        String surname = GEORGE.surnameToString();
         Person editedAlice = new PersonBuilder()
-                .withName(model.getFilteredPersonList().get(0).firstNameToString() + " " + Surname).build();
+                .withName(model.getFilteredPersonList().get(0).firstNameToString() + " " + surname).build();
         Person editedBenson = new PersonBuilder()
-                .withName(model.getFilteredPersonList().get(1).firstNameToString() + " " + Surname).build();
+                .withName(model.getFilteredPersonList().get(1).firstNameToString() + " " + surname).build();
 
         // Edit the first person to have George's surname
         EditCommand.EditPersonDescriptor descriptorOne = new EditPersonDescriptorBuilder(editedAlice).build();

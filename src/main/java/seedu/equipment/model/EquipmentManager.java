@@ -5,12 +5,10 @@ import static java.util.Objects.requireNonNull;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashSet;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
 import javafx.beans.InvalidationListener;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.equipment.commons.util.InvalidationListenerManager;
 import seedu.equipment.model.equipment.Equipment;

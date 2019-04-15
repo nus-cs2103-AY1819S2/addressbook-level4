@@ -41,7 +41,9 @@ This section provides the summary of the contributions that I have made to the p
 ** Highlights: The other features (e.g placing ships) rely heavily on the map. It requires careful planning on the design as the other features must be built on top of it and any changes made later on will affect the other features.
 ** Justification: The maps are crucial to the gameplay as it is the basis of all of the game interactions.
 
-* *Code contributed*: [https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#=undefined&search=erjillsison[Functional code]]
+* *Code contributed*:
+** https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#=undefined&search=erjillsison[Code extracts]
+** https://github.com/CS2103-AY1819S2-W14-3/main/commits/master?author=erjillsison[Authored commits]
 
 * *Other contributions*:
 
@@ -93,6 +95,7 @@ image::ModelClassDiagram.png[width="600"]
 include::../DeveloperGuide.adoc[tag=map]
 
 ---
+=== Use Case
 
 include::../DeveloperGuide.adoc[tag=mapuse]
 

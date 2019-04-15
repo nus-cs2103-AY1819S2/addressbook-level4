@@ -136,6 +136,8 @@ time, the program will tell you so.
 
 === General commands
 
+This section describes commands that can be executed at any point of time during the game.
+
 ==== Viewing help : `help`
 Opens a help window that displays this User Guide. +
 Format: `help`
@@ -345,7 +347,7 @@ Examples:
 * `pattern i/load f/circle`
 
 // end::upcomingPattern[]
-// tag::v2stats
+// tag::v2stats[]
 === Statistics can display high score between games
 Display the high score across more than two games. +
 
@@ -357,7 +359,7 @@ Display game data from the game that won in the shortest amount of time
 * `stats highscore t/accuracy` +
 Display game data from the game with the highest accuracy.
 
-// end::v2stats
+// end::v2stats[]
 == FAQ
 
 *Q*: How are you today? +

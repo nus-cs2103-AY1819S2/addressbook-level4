@@ -31,12 +31,13 @@ public class VersionedCardFolder extends CardFolder {
     }
 
     /**
-     * Resets the state history of the {@code VersionedCardFolder).
+     * Resets the state history of the VersionedCardFolder.
      */
     public void resetStates() {
         currentStatePointer = 0;
         cardFolderStateList.clear();
         cardFolderStateList.add(new CardFolder(this));
+        indicateModified();
     }
 
     private void removeStatesAfterCurrentPointer() {

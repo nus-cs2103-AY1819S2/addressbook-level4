@@ -318,4 +318,4 @@ Combined with the <<suggestion_mode, suggestion mode>>, the current design is th
 
 {nbsp} +
 
-Click https://github.com/CS2103-AY1819S2-W09-4/main/blob/master/docs/DeveloperGuide.adoc[here] to see the full Developer Guide.
+_Click https://github.com/CS2103-AY1819S2-W09-4/main/blob/master/docs/DeveloperGuide.adoc[here] to see the full Developer Guide._

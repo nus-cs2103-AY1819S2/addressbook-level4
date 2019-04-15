@@ -584,24 +584,21 @@ e.g. `delete 3`
 * *Edit* : `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS]
 [g/GENDER] [r/RACE] [s/SCHOOL] [pj/PAST_JOBS] ` +
 e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *Search* : `search [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS]
-[g/GENDER] [r/RACE] [s/SCHOOL] [pj/PAST_JOBS] ` +
-e.g. `search s/NUS`
 * *List* : `list`
 * *Help* : `help`
-* *Select* : `select INDEX` +
-e.g.`select 2`
 * *History* : `history`
 * *Undo* : `undo`
 * *Redo* : `redo`
 * *Arrange Interviews* : `arrangeInterviews`
 * *Read to slaveFinder()* : `readAll`
 * *Get ranked list* : `getRankedList`
-* *Filter search results* : `filter [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS]
+* *Filter search results* : `filter [FILTERLISTNAME] [fn/FILterName] [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS]
 [g/GENDER] [r/RACE] [s/SCHOOL] [pj/PAST_JOBS] ` +
-e.g. `filter r/Chinese`
+e.g. `filter fn/Chinese r/Chinese`
+* *Delete Filter search results* : `deleteFilter [FILTERLISTNAME] [fn/FILterName] ` +
+e.g. `deleteFilter fn/Chinese `
+* *Clear Filter search results* : `clearFilter [FILTERLISTNAME] ` +
+e.g. `clearFilter `
 * *Display Hiring Process* : `displayProcess`
 * *Display Analytics* : `analytics LISTNAME` or `analytics`
 * *Create Job* : `createJob [jn/JOBNAME]`

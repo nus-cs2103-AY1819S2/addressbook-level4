@@ -19,10 +19,11 @@ We decided to morph it into RestOrRant (ROR), a restaurant management applicatio
  Command Line Interface (CLI).
 
 RestOrRant is split into 4 main features: Tables, Orders, Menu and Statistics. To cater to needs of the user, modes
-were created to make the application user-friendly.*Restaurant Mode*, *Table Mode*, *Menu Mode* and *Statistics Mode*
- are modes meant to handle these 4 features respectively. Each of my teammates are in
-charge of one feature and mine was Statistics. In the following sections, I will be elaborating more on my
-contributions and extract relevant parts from the User and Developer Guides that I wrote for the Statistics feature.+
+are created to make the application user-friendly. *Restaurant Mode*, *Table Mode*, *Menu Mode* and *Statistics Mode*
+ are modes meant to handle these 4 features respectively. Each of my teammates are in charge of one feature and mine
+ was Statistics. In the following sections, I will elaborate on my
+contributions and extract relevant parts from the User Guide and Developer Guide that I wrote for the Statistics
+feature.+
 
 You may find it useful to refer to the table below for the different symbols and formatting used in this portfolio.
 
@@ -43,15 +44,15 @@ endif::[]
 
 == Summary of contributions
 
-Overall, my role in this project encompasses managing the UI components, Statistics feature, documentation, project
-deadline and deliverable. The following provides a detailed summary of the coding, documentation and other helpful
-contributions
- I have contributed to the team project.
+Overall, my role in this project encompasses managing the documentation of the project, keeping track the
+deadlines and deliverable, enhancing and cleaning up the UI components and Statistics feature.
+ You may refer below for a detailed summary of the coding, documentation and other helpful
+contributions I have contributed to the team project.
 
-. *Major Commands implemented*
+. *Major enhancements:* I add *_Statistics feature_* and it relevant commands.
 
-.. *Calling for bill*: added the ability to *calculate and record the bill* of a specific table.
-** What it does: allows users to calculate and record the total bill accumulated from the table's orders.
+.. *Calling for bill*: `bill` command
+** What it does: It allows users to calculate and record the total bill accumulated from the table's orders.
 ** Justification: This feature is necessary to update the restaurant revenue, status of the specified tables and the
 popularity of the menu items that were ordered.
 ** Highlights: This command is only usable in Table Mode.

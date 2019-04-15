@@ -1801,6 +1801,25 @@ lowest scoring flashcard question and hints are displayed. Tester can also be in
    remains the same.
 // end::testmanualtesting[]
 
+//tag::reportmanualtest[]
+
+=== Viewing a report display
+
+. View report display
+
+.. Prerequisites: Enter a folder. The tester may want to ensure that they have at least two
+ test attempts on this folder, as a line graph requires at least two points to be drawn. (If there are fewer than two
+  attempts, it is not a bug if no line is drawn.)
+.. Test case: `report` +
+   Expected: Enters report display, where the display area enters fullscreen. A graph is displayed showing maximum of
+   last ten test scores for this folder. A list, maximum of the three lowest scoring questions, is displayed.
+   `Report displayed` is shown on the status message and status bar shows that tester is in report display.
+.. Test case: `end` +
+   Expected: Ends the current report session, where the display area exits fullscreen and be back inside the folder. `End
+   Report Session` is shown on the status message and status bar shows that tester is back inside the folder.
+
+// end::reportmanualtest[]
+
 //tag::foldermanualtesting[]
 === Folder operations
 

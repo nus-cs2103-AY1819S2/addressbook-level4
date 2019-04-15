@@ -5,8 +5,6 @@
 
 == PROJECT: FomoFoto
 
----
-
 == Overview
 
 My team and I were tasked with enhancing a basic command line addressbook for our Software Engineering project. We decided to morph the project into an image editor. +
@@ -37,9 +35,6 @@ This section provides a summary of my coding, documentation and other contributi
 ** Justification: This feature improves the product significantly because multiple image filters and manipulations are frequently applied simultaneously. With this feature, users can save multiple image-editing commands as one preset command and use them for other images.  This makes image-editing more efficient as the user can now apply multiple image filters or manipulations on other images with just a command instead of executing the commands one by one.
 
 ** Highlights: This feature requires an in-depth understanding of how the image-editing commands (e.g. image filters and image manipulations) are executed as it has to execute a few of them at a go. Furthermore, as a  preset list of commands might not work on another image (e.g. the cropping command depends on the size of the image), it is necessary to display the exact command in the preset list of commands that cannot be applied on the image to guide the user.
-
-* *Minor enhancement*: I added
-
 
 * *Code contributed*:
 ** https://github.com/CS2103-AY1819S2-W14-2/main/commits?author=thamsimun[List of commits]
@@ -86,7 +81,6 @@ https://github.com/CS2103-AY1819S2-W14-2/main/issues/148[#148],
 
 
 == Contributions to the User Guide
-
 
 |===
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._

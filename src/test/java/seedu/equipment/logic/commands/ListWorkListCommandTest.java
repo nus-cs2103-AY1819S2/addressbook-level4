@@ -2,7 +2,7 @@ package seedu.equipment.logic.commands;
 
 import static seedu.equipment.logic.commands.CommandTestUtil.assertCommandSuccess;
 //import static seedu.equipment.logic.commands.CommandTestUtil.showPersonAtIndex;
-import static seedu.equipment.testutil.TypicalEquipments.getTypicalAddressBook;
+import static seedu.equipment.testutil.TypicalEquipments.getTypicalEquipmentManager;
 //import static seedu.equipment.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
 import org.junit.Before;
@@ -24,7 +24,7 @@ public class ListWorkListCommandTest {
 
     @Before
     public void setUp() {
-        model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        model = new ModelManager(getTypicalEquipmentManager(), new UserPrefs());
         expectedModel = new ModelManager(model.getEquipmentManager(), new UserPrefs());
     }
 

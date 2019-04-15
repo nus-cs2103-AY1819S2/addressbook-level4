@@ -21,12 +21,12 @@ public interface Storage extends EquipmentManagerStorage, UserPrefsStorage {
     void saveUserPrefs(ReadOnlyUserPrefs userPrefs) throws IOException;
 
     @Override
-    Path getAddressBookFilePath();
+    Path getEquipmentManagerFilePath();
 
     @Override
-    Optional<ReadOnlyEquipmentManager> readAddressBook() throws DataConversionException, IOException;
+    Optional<ReadOnlyEquipmentManager> readEquipmentManager() throws DataConversionException, IOException;
 
     @Override
-    void saveAddressBook(ReadOnlyEquipmentManager addressBook) throws IOException;
+    void saveEquipmentManager(ReadOnlyEquipmentManager equipmentManager) throws IOException;
 
 }

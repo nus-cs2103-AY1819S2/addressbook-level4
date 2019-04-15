@@ -2,7 +2,7 @@ package seedu.equipment.storage;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static seedu.equipment.testutil.TypicalEquipments.getTypicalAddressBook;
+import static seedu.equipment.testutil.TypicalEquipments.getTypicalEquipmentManager;
 
 import java.nio.file.Path;
 
@@ -25,10 +25,10 @@ public class StorageManagerTest {
 
     @Before
     public void setUp() {
-        JsonEquipmentManagerStorage addressBookStorage = new JsonEquipmentManagerStorage(
+        JsonEquipmentManagerStorage equipmentManagerStorage = new JsonEquipmentManagerStorage(
                 getTempFilePath("ab"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
-        storageManager = new StorageManager(addressBookStorage, userPrefsStorage);
+        storageManager = new StorageManager(equipmentManagerStorage, userPrefsStorage);
     }
 
     private Path getTempFilePath(String fileName) {
@@ -51,21 +51,21 @@ public class StorageManagerTest {
     }
 
     @Test
-    public void addressBookReadSave() throws Exception {
+    public void equipmentManagerReadSave() throws Exception {
         /*
          * Note: This is an integration test that verifies the StorageManager is properly wired to the
          * {@link JsonEquipmentManagerStorage} class.
          * More extensive testing of UserPref saving/reading is done in {@link JsonEquipmentManagerStorageTest} class.
          */
-        EquipmentManager original = getTypicalAddressBook();
-        storageManager.saveAddressBook(original);
-        ReadOnlyEquipmentManager retrieved = storageManager.readAddressBook().get();
+        EquipmentManager original = getTypicalEquipmentManager();
+        storageManager.saveEquipmentManager(original);
+        ReadOnlyEquipmentManager retrieved = storageManager.readEquipmentManager().get();
         assertEquals(original, new EquipmentManager(retrieved));
     }
 
     @Test
-    public void getAddressBookFilePath() {
-        assertNotNull(storageManager.getAddressBookFilePath());
+    public void getEquipmentManagerFilePath() {
+        assertNotNull(storageManager.getEquipmentManagerFilePath());
     }
 
 }

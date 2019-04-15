@@ -10,7 +10,7 @@ import static seedu.equipment.testutil.TypicalEquipments.AYERRAJAHCC;
 import static seedu.equipment.testutil.TypicalEquipments.BUKITGCC;
 import static seedu.equipment.testutil.TypicalEquipments.HWIYOHCC;
 import static seedu.equipment.testutil.TypicalEquipments.JURONGREENCC;
-import static seedu.equipment.testutil.TypicalEquipments.getTypicalAddressBook;
+import static seedu.equipment.testutil.TypicalEquipments.getTypicalEquipmentManager;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -29,8 +29,8 @@ import seedu.equipment.model.equipment.EquipmentContainsKeywordsPredicate;
  * Contains integration tests (interaction with the Model) for {@code FilterCommand}.
  */
 public class FilterCommandTest {
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-    private Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalEquipmentManager(), new UserPrefs());
+    private Model expectedModel = new ModelManager(getTypicalEquipmentManager(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test

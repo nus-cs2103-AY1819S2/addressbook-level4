@@ -41,7 +41,7 @@ public class StatusBarFooter extends UiPart<Region> {
 
     public StatusBarFooter(Path saveLocation, ReadOnlyEquipmentManager equipmentManager) {
         super(FXML);
-        equipmentManager.addListener(observable -> updateSyncStatus(equipmentManager.getPersonList().size()));
+        equipmentManager.addListener(observable -> updateSyncStatus(equipmentManager.getEquipmentList().size()));
         syncStatus.setText(SYNC_STATUS_INITIAL);
         saveLocationStatus.setText(Paths.get(".").resolve(saveLocation).toString());
 

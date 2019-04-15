@@ -16,7 +16,7 @@ public interface EquipmentManagerStorage {
     /**
      * Returns the file path of the data file.
      */
-    Path getAddressBookFilePath();
+    Path getEquipmentManagerFilePath();
 
     /**
      * Returns EquipmentManager data as a {@link ReadOnlyEquipmentManager}.
@@ -24,22 +24,22 @@ public interface EquipmentManagerStorage {
      * @throws DataConversionException if the data in storage is not in the expected format.
      * @throws IOException if there was any problem when reading from the storage.
      */
-    Optional<ReadOnlyEquipmentManager> readAddressBook() throws DataConversionException, IOException;
+    Optional<ReadOnlyEquipmentManager> readEquipmentManager() throws DataConversionException, IOException;
 
     /**
-     * @see #getAddressBookFilePath()
+     * @see #getEquipmentManagerFilePath()
      */
-    Optional<ReadOnlyEquipmentManager> readAddressBook(Path filePath) throws DataConversionException, IOException;
+    Optional<ReadOnlyEquipmentManager> readEquipmentManager(Path filePath) throws DataConversionException, IOException;
 
     /**
      * Saves the given {@link ReadOnlyEquipmentManager} to the storage.
-     * @param addressBook cannot be null.
+     * @param equipmentManager cannot be null.
      * @throws IOException if there was any problem writing to the file.
      */
-    void saveAddressBook(ReadOnlyEquipmentManager addressBook) throws IOException;
+    void saveEquipmentManager(ReadOnlyEquipmentManager equipmentManager) throws IOException;
 
     /**
-     * @see #saveAddressBook(ReadOnlyEquipmentManager)
+     * @see #saveEquipmentManager(ReadOnlyEquipmentManager)
      */
-    void saveAddressBook(ReadOnlyEquipmentManager addressBook, Path filePath) throws IOException;
+    void saveEquipmentManager(ReadOnlyEquipmentManager equipmentManager, Path filePath) throws IOException;
 }

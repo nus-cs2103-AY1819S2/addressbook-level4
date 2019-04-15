@@ -90,7 +90,7 @@ public class EditCommandSystemTest extends EquipmentManagerSystemTest {
         /* Case: edit an equipment with new values same as another equipment's values but with
          * different serial number -> edited
          */
-        assertTrue(getModel().getEquipmentManager().getPersonList().contains(BOB));
+        assertTrue(getModel().getEquipmentManager().getEquipmentList().contains(BOB));
         index = INDEX_SECOND_PERSON;
         assertNotEquals(getModel().getFilteredPersonList().get(index.getZeroBased()), BOB);
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB + DATE_DESC_BOB
@@ -130,7 +130,7 @@ public class EditCommandSystemTest extends EquipmentManagerSystemTest {
          * -> rejected
          */
         showPersonsWithName(KEYWORD_MATCHING_CC);
-        int invalidIndex = getModel().getEquipmentManager().getPersonList().size();
+        int invalidIndex = getModel().getEquipmentManager().getEquipmentList().size();
         assertCommandFailure(EditCommand.COMMAND_WORD + " " + invalidIndex + NAME_DESC_BOB,
                 Messages.MESSAGE_INVALID_EQUIPMENT_DISPLAYED_INDEX);
 

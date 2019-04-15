@@ -53,12 +53,12 @@ public interface Model {
     /**
      * Sets the user prefs' equipment book file path.
      */
-    void setEquipmentManagerFilePath(Path addressBookFilePath);
+    void setEquipmentManagerFilePath(Path equipmentManagerFilePath);
 
     /**
-     * Replaces equipment book data with the data in {@code addressBook}.
+     * Replaces equipment book data with the data in {@code equipmentManager}.
      */
-    void setEquipmentManager(ReadOnlyEquipmentManager addressBook);
+    void setEquipmentManager(ReadOnlyEquipmentManager equipmentManager);
 
     /** Returns the EquipmentManager */
     ReadOnlyEquipmentManager getEquipmentManager();

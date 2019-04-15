@@ -11,10 +11,10 @@ import seedu.equipment.model.equipment.Name;
 public interface ReadOnlyEquipmentManager extends Observable {
 
     /**
-     * Returns an unmodifiable view of the persons list.
-     * This list will not contain any duplicate persons.
+     * Returns an unmodifiable view of the equipment list.
+     * This list will not contain any duplicate equipment.
      */
-    ObservableList<Equipment> getPersonList();
+    ObservableList<Equipment> getEquipmentList();
 
     /**
      * Returns an unmodifiable view of the WorkList list.

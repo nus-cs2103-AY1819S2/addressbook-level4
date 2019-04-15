@@ -9,7 +9,7 @@ import static seedu.equipment.testutil.TypicalEquipments.CHENGSANCC;
 import static seedu.equipment.testutil.TypicalEquipments.HWIYOHCC;
 import static seedu.equipment.testutil.TypicalEquipments.JURONGREENCC;
 import static seedu.equipment.testutil.TypicalEquipments.TECKGHEECC;
-import static seedu.equipment.testutil.TypicalEquipments.getTypicalAddressBook;
+import static seedu.equipment.testutil.TypicalEquipments.getTypicalEquipmentManager;
 
 import java.util.Arrays;
 
@@ -29,7 +29,7 @@ import seedu.equipment.model.UserPrefs;
  * Contains integration tests (interaction with the Model) and unit tests for ListEquipmentCommand.
  */
 public class SortCommandTest {
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalEquipmentManager(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
 

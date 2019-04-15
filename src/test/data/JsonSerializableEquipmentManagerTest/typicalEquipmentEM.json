@@ -1,6 +1,6 @@
 {
-  "_comment": "AddressBook save file which contains the same Person values as in TypicalPersons#getTypicalAddressBook()",
-  "persons" : [ {
+  "_comment": "EquipmentManager save file which contains the same Equipment values as in TypicalEquipments#getTypicalEquipmentManager()",
+  "equipment": [ {
     "name" : "Anchorvale CC",
     "phone" : "64894959",
     "date": "22-04-2019",

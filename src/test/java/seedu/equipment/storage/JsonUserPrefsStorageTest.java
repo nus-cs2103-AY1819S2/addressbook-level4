@@ -81,10 +81,11 @@ public class JsonUserPrefsStorageTest {
         assertEquals(expected, actual);
     }
 
+
     private UserPrefs getTypicalUserPrefs() {
         UserPrefs userPrefs = new UserPrefs();
         userPrefs.setGuiSettings(new GuiSettings(1000, 500, 300, 100));
-        userPrefs.setEquipmentManagerFilePath(Paths.get("addressbook.json"));
+        userPrefs.setEquipmentManagerFilePath(Paths.get("equipmentmanager.json"));
         return userPrefs;
     }
 

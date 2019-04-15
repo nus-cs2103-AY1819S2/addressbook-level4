@@ -133,7 +133,7 @@ public class AddWorkListCommandTest {
         }
 
         @Override
-        public void setEquipmentManagerFilePath(Path addressBookFilePath) {
+        public void setEquipmentManagerFilePath(Path equipmentManagerFilePath) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -156,7 +156,7 @@ public class AddWorkListCommandTest {
         }
 
         @Override
-        public void setEquipmentManager(ReadOnlyEquipmentManager newData) {
+        public void setEquipmentManager(ReadOnlyEquipmentManager equipmentManager) {
             throw new AssertionError("This method should not be called.");
         }
 

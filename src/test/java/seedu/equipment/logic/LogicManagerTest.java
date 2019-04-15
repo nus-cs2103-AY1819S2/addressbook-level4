@@ -50,10 +50,10 @@ public class LogicManagerTest {
 
     @Before
     public void setUp() throws Exception {
-        JsonEquipmentManagerStorage addressBookStorage = new JsonEquipmentManagerStorage(
+        JsonEquipmentManagerStorage equipmentManagerStorage = new JsonEquipmentManagerStorage(
                 temporaryFolder.newFile().toPath());
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.newFile().toPath());
-        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        StorageManager storage = new StorageManager(equipmentManagerStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
     }
 
@@ -81,10 +81,10 @@ public class LogicManagerTest {
     @Test
     public void execute_storageThrowsIoException_throwsCommandException() throws Exception {
         // Setup LogicManager with JsonEquipmentManagerIoExceptionThrowingStub
-        JsonEquipmentManagerStorage addressBookStorage =
+        JsonEquipmentManagerStorage equipmentManagerStorage =
                 new JsonEquipmentManagerIoExceptionThrowingStub(temporaryFolder.newFile().toPath());
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.newFile().toPath());
-        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        StorageManager storage = new StorageManager(equipmentManagerStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
 
         // Execute add command
@@ -191,7 +191,7 @@ public class LogicManagerTest {
         }
 
         @Override
-        public void saveAddressBook(ReadOnlyEquipmentManager addressBook, Path filePath) throws IOException {
+        public void saveEquipmentManager(ReadOnlyEquipmentManager equipmentManager, Path filePath) throws IOException {
             throw DUMMY_IO_EXCEPTION;
         }
     }

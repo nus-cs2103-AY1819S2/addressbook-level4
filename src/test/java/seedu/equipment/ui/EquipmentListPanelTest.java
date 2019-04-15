@@ -3,7 +3,7 @@ package seedu.equipment.ui;
 import static java.time.Duration.ofMillis;
 import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTimeoutPreemptively;
-import static seedu.equipment.testutil.TypicalEquipments.getTypicalPersons;
+import static seedu.equipment.testutil.TypicalEquipments.getTypicalEquipment;
 import static seedu.equipment.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static seedu.equipment.ui.testutil.GuiTestAssert.assertCardDisplaysPerson;
 import static seedu.equipment.ui.testutil.GuiTestAssert.assertCardEquals;
@@ -26,7 +26,7 @@ import seedu.equipment.model.equipment.SerialNumber;
 
 public class EquipmentListPanelTest extends GuiUnitTest {
     private static final ObservableList<Equipment> TYPICAL_EQUIPMENTS =
-            FXCollections.observableList(getTypicalPersons());
+            FXCollections.observableList(getTypicalEquipment());
 
     private static final long CARD_CREATION_AND_DELETION_TIMEOUT = 2500;
 
@@ -61,7 +61,7 @@ public class EquipmentListPanelTest extends GuiUnitTest {
     }
 
     /**
-     * Verifies that creating and deleting large number of persons in {@code EquipmentListPanel} requires lesser than
+     * Verifies that creating and deleting large number of equipment in {@code EquipmentListPanel} requires lesser than
      * {@code CARD_CREATION_AND_DELETION_TIMEOUT} milliseconds to execute.
      */
     @Test
@@ -75,7 +75,7 @@ public class EquipmentListPanelTest extends GuiUnitTest {
     }
 
     /**
-     * Returns a list of persons containing {@code personCount} persons that is used to populate the
+     * Returns a list of equipment containing {@code personCount} equipment that is used to populate the
      * {@code EquipmentListPanel}.
      */
     private ObservableList<Equipment> createBackingList(int personCount) {

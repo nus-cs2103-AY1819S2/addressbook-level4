@@ -74,7 +74,7 @@ public class EquipmentManager implements ReadOnlyEquipmentManager {
     public void resetData(ReadOnlyEquipmentManager newData) {
         requireNonNull(newData);
 
-        setEquipment(newData.getPersonList());
+        setEquipment(newData.getEquipmentList());
     }
 
     //// equipment-level operations
@@ -82,7 +82,7 @@ public class EquipmentManager implements ReadOnlyEquipmentManager {
     /**
      * Returns true if a equipment with the same identity as {@code equipment} exists in the equipment book.
      */
-    public boolean hasPerson(Equipment equipment) {
+    public boolean hasEquipment(Equipment equipment) {
         requireNonNull(equipment);
         return this.equipment.contains(equipment);
     }
@@ -280,7 +280,7 @@ public class EquipmentManager implements ReadOnlyEquipmentManager {
     }
 
     @Override
-    public ObservableList<Equipment> getPersonList() {
+    public ObservableList<Equipment> getEquipmentList() {
         return equipment.asUnmodifiableObservableList();
     }
 

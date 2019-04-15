@@ -6,7 +6,7 @@ import seedu.equipment.model.Model;
 
 
 /**
- * Finds and lists all persons in equipment book whose name contains any of the argument keywords.
+ * Finds and lists all equipment in equipment book whose name contains any of the argument keywords.
  * Keyword matching is case insensitive.
  */
 public class DisplayCommand extends Command {

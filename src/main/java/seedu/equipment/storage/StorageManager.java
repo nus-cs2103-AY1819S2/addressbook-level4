@@ -48,30 +48,30 @@ public class StorageManager implements Storage {
     // ================ EquipmentManager methods ==============================
 
     @Override
-    public Path getAddressBookFilePath() {
-        return equipmentManagerStorage.getAddressBookFilePath();
+    public Path getEquipmentManagerFilePath() {
+        return equipmentManagerStorage.getEquipmentManagerFilePath();
     }
 
     @Override
-    public Optional<ReadOnlyEquipmentManager> readAddressBook() throws DataConversionException, IOException {
-        return readAddressBook(equipmentManagerStorage.getAddressBookFilePath());
+    public Optional<ReadOnlyEquipmentManager> readEquipmentManager() throws DataConversionException, IOException {
+        return readEquipmentManager(equipmentManagerStorage.getEquipmentManagerFilePath());
     }
 
     @Override
-    public Optional<ReadOnlyEquipmentManager> readAddressBook(Path filePath) throws DataConversionException,
+    public Optional<ReadOnlyEquipmentManager> readEquipmentManager(Path filePath) throws DataConversionException,
             IOException {
         logger.fine("Attempting to read data from file: " + filePath);
-        return equipmentManagerStorage.readAddressBook(filePath);
+        return equipmentManagerStorage.readEquipmentManager(filePath);
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyEquipmentManager addressBook) throws IOException {
-        saveAddressBook(addressBook, equipmentManagerStorage.getAddressBookFilePath());
+    public void saveEquipmentManager(ReadOnlyEquipmentManager equipmentManager) throws IOException {
+        saveEquipmentManager(equipmentManager, equipmentManagerStorage.getEquipmentManagerFilePath());
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyEquipmentManager addressBook, Path filePath) throws IOException {
+    public void saveEquipmentManager(ReadOnlyEquipmentManager equipmentManager, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
-        equipmentManagerStorage.saveAddressBook(addressBook, filePath);
+        equipmentManagerStorage.saveEquipmentManager(equipmentManager, filePath);
     }
 }

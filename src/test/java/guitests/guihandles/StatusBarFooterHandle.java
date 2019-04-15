@@ -37,7 +37,7 @@ public class StatusBarFooterHandle extends NodeHandle<Node> {
     }
 
     /**
-     * Returns the text of the 'total persons' portion of the status bar.
+     * Returns the text of the 'total equipment' portion of the status bar.
      */
     public String getTotalEquipmentsStatus() {
         return totalEquipmentsStatus.getText();
@@ -73,7 +73,7 @@ public class StatusBarFooterHandle extends NodeHandle<Node> {
     }
 
     /**
-     * Returns true if the current content of the 'total persons' is different from the value remembered by the
+     * Returns true if the current content of the 'total equipment' is different from the value remembered by the
      * most recent {@code rememberTotalPersonsStatus()} call.
      */
     public boolean isTotalPersonsStatusChanged() {

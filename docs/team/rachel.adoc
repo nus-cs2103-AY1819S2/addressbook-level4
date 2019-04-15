@@ -45,7 +45,6 @@ In this section, I have put together a summary of my coding, documentation and o
 ** Highlights: This enhancement was done as I realized the possible lack of flexibility and confusion since user was initially only given the choice to view all the equipment individually under equipment details panel but is interested to know how many clients there are and how many equipment they actually owns.
 Under time constraint, I made use of the existing `filter` command and panel labelled under *Equipment details* to incorporate the ability to view all equipment the selected client owns.
 
-** Codes contributed: https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#search=E0191632&sort=searchPath&since=2019-02-10&until=2019-04-05&timeframe=day&reverse=false&repoSort=true[Click here] to view my code on the CS2103T Project Code Dashboard.
 
 * *Enhancement 2*: I enhanced the a Person model from initial Address Book 4 application  to *Equipment model* in our own *Equipment Manager* application.
 ** What it does: All the `commands` carried out by user require details of an Equipment and/or Client. Specifically, equipment will now have a serial number and a due date to carry out preventive maintenance. The name, phone, address and where the equipment is located at (address) refer to client's details.
@@ -56,10 +55,11 @@ Under time constraint, I made use of the existing `filter` command and panel lab
 ** Highlights: This enhancement provides the ability for my team mates to use the relevant details of equipment and client to build a feature for *Equipment Manager*. An in-depth analysis of design alteratives was necessary to ensure all enhancement of equipment or client details played a part in providing user with details to keep track of the equipment.
 The implementation was challenging as this enhancement requires many changes in all logic, ui, storage, model components as well as writing new system testings for it.
 
-** Codes contributed:
-
 [TIP]
 `commands`: add-e, edit-e, filter, list-e, delete-e, display, select, put
+
+* Codes contributed: https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#search=e0&sort=displayName&since=2019-02-10&until=2019-04-15&timeframe=day&reverse=false&repoSort=true[Collated code]
+
 
 * *Other contributions*:
 
@@ -89,15 +89,9 @@ The implementation was challenging as this enhancement requires many changes in 
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=quickstart]
-
 include::../UserGuide.adoc[tag=add-e]
 
 include::../UserGuide.adoc[tag=select-c]
-
-include::../UserGuide.adoc[tag=glossary]
-
-include::../UserGuide.adoc[tag=commandsummary]
 
 == Contributions to the Developer Guide
 
@@ -105,13 +99,14 @@ include::../UserGuide.adoc[tag=commandsummary]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=design]
-
 include::../DeveloperGuide.adoc[tag=equipment]
 
 include::../DeveloperGuide.adoc[tag=client]
 
 include::../DeveloperGuide.adoc[tag=uidg]
+
+include::../DeveloperGuide.adoc[tag=selectClientUC]
+
 
 == PROJECT: PowerPointLabs
 

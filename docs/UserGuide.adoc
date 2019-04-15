@@ -102,7 +102,7 @@ Type the command in the Command Box and press kbd:[Enter] to execute it. +
 
 * *`help`*: opens up user guide
 * *`list-e`*: lists all equipment details
-* **`add-e`**`n/Clementi CC p/6776 2517 d/01-05-2019 a/220 Clementi Ave 4, Singapore 129880 Rd s/X14DH9283` : adds a contact named `Clementi CC` to the *Equipment Manager*.
+* **`add-e`**`n/Clementi CC p/67762517 pm/01-05-2019 a/220 Clementi Ave 4, Singapore 129880 Rd s/X14DH9283` : adds a contact named `Clementi CC` to the *Equipment Manager*.
 * **`delete-e`**`3`: deletes the 3rd equipment detail shown in the current list
 * *`exit`*: exits the app
 

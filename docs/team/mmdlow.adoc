@@ -53,6 +53,8 @@ The section below shows a summary of my coding, documentation and other helpful 
 
 ** Highlights:
 *** In a test session, the card color changes to reflect if a user has answered correctly or not. Green signifies a correct answer, while red signifies a wrong answer.
++
+image:ExampleMcqTest.png[width="250"]
 
 * *Code contributed*: [https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#search=mmdlow[Collated code]]
 
@@ -63,7 +65,7 @@ The section below shows a summary of my coding, documentation and other helpful 
 
 ** Community:
 *** PRs reviewed (with non-trivial review comments): https://github.com/cs2103-ay1819s2-w10-4/main/pull/54[#54], https://github.com/cs2103-ay1819s2-w10-4/main/pull/73[#73], https://github.com/cs2103-ay1819s2-w10-4/main/pull/142[#142]
-*** Reported bugs and issues involving our team's application: https://github.com/cs2103-ay1819s2-w10-4/main/issues/184[#184]
+*** Reported bugs and issues involving our team's application: https://github.com/cs2103-ay1819s2-w10-4/main/issues/184[#184], https://github.com/cs2103-ay1819s2-w10-4/main/issues/188[#188]
 *** Reported bugs and issues involving other teams' applications: https://github.com/CS2103-AY1819S2-W15-2/main/issues/248[#248], https://github.com/CS2103-AY1819S2-W15-2/main/issues/253[#253]
 
 [[contributionsToUserGuide]]

@@ -39,7 +39,7 @@ import seedu.pdf.model.pdf.Pdf;
 import seedu.pdf.testutil.PdfBuilder;
 
 public class MergeCommandTest {
-    private static final String MESSAGE_MERGE_PDF_SUCCESS = "Merged PDFs into new PDF: %1$s";
+    private static final String MESSAGE_MERGE_PDF_SUCCESS = "Merged PDFs into new PDF:\n%1$s";
     private static final String MESSAGE_MERGE_PDF_ENCRYPT = "One or more of selected PDFs is encrypted.";
 
     @Rule

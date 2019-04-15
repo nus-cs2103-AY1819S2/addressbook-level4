@@ -33,7 +33,6 @@ Windows developers are highly recommended to use JDK `9`.
 IntelliJ by default has Gradle and JavaFx plugins installed. +
 Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plugins` to re-enable them.
 
-
 === Setting up the project in your computer
 
 . Fork this repo, and clone the fork to your computer
@@ -340,7 +339,7 @@ Additionally, it implements the following operations:
 These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
 
 [NOTE]
-The archiveBook and pinBook use the VersionedAddressBook as well to facilitate the undo/redo mechanism by running in parallel with Address Book.
+The archiveBook and pinBook use the VersionedAddressBook as well to facilitate the undo/redo mechanism by running in parallel with addressBook.
 
 Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
 
@@ -471,27 +470,33 @@ When `pin` and `unpin` are performed, the pinned/unpinned contact is being selec
 // end::pinunpinfeatures[]
 
 // tag::archive[]
-=== Archive feature
+=== Archive features
 
 ==== Current Implementation
+
 This section explains the implementation of all archive related features.
 
+To implement the archive features, an `archiveBook` is created in the `Model` and `Storage` to facilitate the archiving of contacts. The `archiveBook` implements the `AddressBook` class in the `Model` since it works similarly, and has its own `ArchiveBookStorage` class in the `Storage` to facilitate the storage of a separate data file.
+
 ===== Archive/Unarchive
-The following sequence diagram shows how the archive operation works:
+
+The following sequence diagram shows how the `archive` command operation works:
 
 image::ArchiveSequenceDiagram.png[width="800"]
 
-The `unarchive` command does the opposite -- it calls `addPerson(p)` of the `versionedArchiveBook` and `removePerson(p)` of the `versionedAddressBook` instead.
+The `unarchive` command does the opposite -- it calls `addPerson(p)` of the `versionedAddressBook` and `removePerson(p)` of the `versionedArchiveBook` instead.
 
 ===== Archive List
-The `archivelist` command displays the archive list. This has to be carefully implemented to work hand-in-hand  with `list`. More importantly, to implement a separate archive list that can be swapped with the main list requires careful designing.  _{To be added}_
+
+The `archivelist` command displays the list of persons in the `archiveBook`. This has to be carefully implemented to work hand-in-hand with the list of persons in the `addressBook`, as well as the `list` command.
+
+More importantly, to have a separate archive list that can be swapped back and forth with the main list in the UI display requires careful designs and implementations in the `Logic` and `Ui` components.
 
 ===== Archive Select
+
 The `archiveselect` command is implemented the same as 'select'.
 
 When `unarchive` is performed on a person that has been selected by `archiveselect`, `archiveselect` is set to be `null`, so no person will be selected.
-
-_{To be added}_
 
 ===== Archive Clear
 The `archiveclear` command is implemented the same as `clear` where a new empty `archiveBook` is created by calling `Model#setArchiveBook(new AddressBook())`.
@@ -501,6 +506,25 @@ The `archiveclear` command is implemented the same as `clear` where a new empty 
 
 // tag::select[]
 === Select feature
+
+==== Current Implementation
+
+The select feature requires careful implementation:
+
+* As there are 3 separate lists (main contact list, archive list, pin list) that can be selected from, having a unique command for each list (i.e. `select`, `archiveselect`, `pinselect`) ensures that the person is selected from the correct list.
+
+* Only at most 1 person can be selected at any point in time from each list.
+** However, having 3 separate lists means that there will be overlapping selections which will cause errors in the `Ui` component in displaying the browser panel.
+** To avoid overlapping of selections from each of the select commands, previous selections from another list are set to null.
+
+* Adding and editing a person will select that person.
+
+* Deleting, archiving and unarchiving a selected contact will set the selection to null.
+
+* Changing lists will set the selected person in the list that is swapped away to be set to null.
+
+* Selection of a pinned person will remain regardless of which of the two lists are displayed.
+
 // end::select[]
 
 === Logging
@@ -1452,23 +1476,99 @@ These instructions only provide a starting point for testers to work on; testers
    Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
 .. Test case: `delete 0` +
    Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size), `delete James`, `delete list` +
+.. Other incorrect delete commands to try: `delete`, `delete one`, `delete x` (where x is larger than the list size), `delete n` (where n is a name of an existing contact), `delete .`, `delete list` +
    Expected: Similar to previous.
 
 // tag::selectmanualtesting[]
 === Selecting a person
 
-_{ more test cases ... }_
+. Selecting a person while all persons are listed
+
+.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+.. Test case: `select 2` +
+   Expected: 2nd contact in the list is selected. Address location of the selected contact is displayed on the Google Maps(TM) browser window panel (if applicable).
+.. Test case: `select 0` +
+   Expected: No person is selected. Error details shown in the status message.
+.. Other incorrect select commands to try: `select`, `select one`, `select x` (where x is larger than the list size), `select n` (where n is a name of an existing contact), `select .` +
+   Expected: Similar to previous.
+
+. Selecting a person from a search command result
+
+.. Prerequisites: Enter `list`. Search for persons using the `search` command. Persons that match the search are displayed in the list.
+.. Test case: `select 1` +
+   Expected: 1st contact in the list is selected. Address location of the selected contact is displayed on the Google Maps(TM) browser window panel (if applicable).
+.. Test case: `select 0` +
+   Expected: No person is selected. Error details shown in the status message.
+.. Other incorrect select commands to try: `select`, `select one`, `select x` (where x is larger than the list size), `select n` (where n is a name of an existing contact), `select .` +
+   Expected: Similar to previous.
 // end::selectmanualtesting[]
 
 // tag::archivemanualtesting[]
 === Archiving a person
 
-_{ more test cases ... }_
+. Archiving a person while all persons are listed
+
+.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+.. Test case: `archive 2` +
+   Expected: 2nd contact in the list is selected. Details of the archived contact shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `archive 0` +
+   Expected: No person is archived. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect archive commands to try: `archive`, `archive one`, `archive x` (where x is larger than the list size), `archive n` (where n is a name of an existing contact), `archive .` +
+   Expected: Similar to previous.
+
+. Archiving a person from a search command result
+
+.. Prerequisites: Enter `list`. Search for persons using the `search` command. Persons that match the search are displayed in the list.
+.. Test case: `archive 1` +
+   Expected: 1st contact in the list is archived. Details of the archived contact shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `archive 0` +
+   Expected: No person is archived. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect archive commands to try: `archive`, `archive one`, `archive x` (where x is larger than the list size), `archive n` (where n is a name of an existing contact), `archive .` +
+   Expected: Similar to previous.
+
+=== Selecting an archived person
+
+. Selecting a person while all *archived* persons are listed
+
+.. Prerequisites: List all archived persons using the `archivelist` command. Multiple persons in the list.
+.. Test case: `archiveselect 2` +
+   Expected: 2nd contact in the list is selected. Address location of the selected contact is displayed on the Google Maps(TM) browser window panel (if applicable).
+.. Test case: `archiveselect 0` +
+   Expected: No person is selected. Error details shown in the status message.
+.. Other incorrect archiveselect commands to try: `archiveselect`, `archiveselect one`, `archiveselect x` (where x is larger than the list size), `archiveselect n` (where n is a name of an existing archived contact), `archiveselect .` +
+   Expected: Similar to previous.
+
+. Selecting a person from an archivesearch command result
+
+.. Prerequisites: Enter `archivelist`. Search for archived persons using the `archivesearch` command. Persons that match the search are displayed in the list.
+.. Test case: `archiveselect 1` +
+   Expected: 1st contact in the list is selected. Address location of the selected contact is displayed on the Google Maps(TM) browser window panel (if applicable).
+.. Test case: `archiveselect 0` +
+   Expected: No person is selected. Error details shown in the status message.
+.. Other incorrect archiveselect commands to try: `archiveselect`, `archiveselect one`, `archiveselect x` (where x is larger than the list size), `archiveselect n` (where n is a name of an existing archived contact), `archiveselect .` +
+   Expected: Similar to previous.
 
 === Unarchiving a person
 
-_{ more test cases ... }_
+. Unrchiving a person while all *archived* persons are listed
+
+.. Prerequisites: List all archived persons using the `archivelist` command. Multiple persons in the list.
+.. Test case: `unarchive 2` +
+   Expected: 2nd contact in the list is unarchived. Details of the unarchived contact shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `unarchive 0` +
+   Expected: No person is unarchived. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect unarchive commands to try: `unarchive`, `unarchive x` (where x is larger than the list size), `unarchive n` (where n is a name of an existing contact), `unarchive .` +
+   Expected: Similar to previous.
+
+. Unarchiving a person from an archivesearch command result
+
+.. Prerequisites: Enter `archivelist`. Search for archived persons using the `archivesearch` command. Persons that match the search are displayed in the list.
+.. Test case: `unarchive 1` +
+   Expected: 1st contact in the list is unarchived. Details of the unarchived contact shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `unarchive 0` +
+   Expected: No person is unarchived. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect unarchive commands to try: `unarchive`, `unarchive x` (where x is larger than the list size), `unarchive n` (where n is a name of an existing contact), `unarchive .` +
+   Expected: Similar to previous.
 // end::archivemanualtesting[]
 
 // tag::pinmanualtesting[]

@@ -18,6 +18,19 @@ endif::[]
 
 By: `Team BrainTrain`      Since: `Jan 2019`      Licence: `MIT`
 
+== Introduction +
+
+This is the Developer Guide for BrainTrain. This assumes you're already familiar with the User Guide, and are interested in contributing to this project. +
+
+Other skills useful for contributing to BrainTrain are as follows: +
+
+. Good Java knowledge
+. Familiarity with Object-Oriented Programming (OOP)
+. Familiarity with Github
+. Experience with Command Line Interface based applications
+
+Whether you have any, none or all of the skills above, you will first need to set up a few things before being able to start work on the project.
+
 == Setting up +
 
 === Prerequisites +

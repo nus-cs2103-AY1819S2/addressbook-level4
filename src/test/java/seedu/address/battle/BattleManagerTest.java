@@ -16,6 +16,7 @@ import org.junit.rules.ExpectedException;
 
 import seedu.address.battle.result.AttackDefeatedEnemy;
 import seedu.address.battle.result.AttackDestroyedShip;
+import seedu.address.battle.result.AttackFailed;
 import seedu.address.battle.result.AttackHit;
 import seedu.address.battle.result.AttackMissed;
 import seedu.address.battle.result.AttackResult;

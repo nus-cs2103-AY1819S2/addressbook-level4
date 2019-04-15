@@ -47,11 +47,13 @@ public class BookingList implements Iterable<Booking> {
     }
 
     /**
-     * Checks if service is full during requested hours
+     * Checks if service is full during requested hours after adding the booking
      */
-    private Optional<TimeRange> isServiceFull(Booking booking) {
+    private Optional<TimeRange> isMakingServiceFull(Booking booking) {
         for (TimeRange bookingHour : booking.getTiming().getHourlySlots()) {
-            if (getOverlappingBookings(bookingHour).stream().mapToInt(Booking::numOfCustomers).sum()
+            if (getOverlappingBookings(bookingHour).stream().filter(tested -> tested.getService()
+                    .equals(booking.getService())).mapToInt(Booking::numOfCustomers).sum()
+                    + booking.numOfCustomers()
                 > booking.getService().getCapacity()) {
                 return Optional.of(bookingHour);
             }
@@ -112,7 +114,7 @@ public class BookingList implements Iterable<Booking> {
         if (!duringOperation(toAdd)) {
             throw new ServiceUnavailableException();
         }
-        Optional<TimeRange> overlapping = isServiceFull(toAdd);
+        Optional<TimeRange> overlapping = isMakingServiceFull(toAdd);
         if (overlapping.isPresent()) {
             throw new ServiceFullException(overlapping.get());
         }
@@ -133,7 +135,7 @@ public class BookingList implements Iterable<Booking> {
         if (!duringOperation(editedBooking)) {
             throw new ServiceUnavailableException();
         }
-        Optional<TimeRange> overlapping = isServiceFull(editedBooking);
+        Optional<TimeRange> overlapping = isMakingServiceFull(editedBooking);
         if (overlapping.isPresent()) {
             throw new ServiceFullException(overlapping.get());
         }

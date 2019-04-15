@@ -15,7 +15,7 @@ public class ClearCommand extends Command {
 
     public static final String COMMAND_WORD = "clear";
     public static final String MESSAGE_SUCCESS = "Card collection has been cleared!";
-    private static final String MESSAGE_IN_QUIZ = "Cannot clear in quiz mode";
+    private static final String MESSAGE_IN_QUIZ = "Cannot clear in quiz mode.";
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {

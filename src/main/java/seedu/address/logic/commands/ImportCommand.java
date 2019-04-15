@@ -26,7 +26,7 @@ public class ImportCommand extends Command {
         + "Parameters: "
         + "FILE_PATH (optional - leaving path empty will prompt the File Explorer)";
 
-    public static final String MESSAGE_IMPORT_SUCCESS = " flashcards successfully imported from files";
+    public static final String MESSAGE_IMPORT_SUCCESS = " flashcards successfully imported from files.";
     public static final String MESSAGE_IMPORT_PARTIAL_SUCCESS_INFO = "*Unsuccessfully imported flashcards may "
             + "have already existed locally OR may be corrupted*";
     public static final String MESSAGE_IMPORT_ERROR = "Unable to import flashcards from ";

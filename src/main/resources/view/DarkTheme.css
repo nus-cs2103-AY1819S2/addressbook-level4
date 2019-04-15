@@ -97,14 +97,15 @@
     -fx-label-padding: 0 0 0 0;
     -fx-graphic-text-gap : 0;
     -fx-padding: 0 0 0 0;
-}
-
-.list-cell:filled:even {
     -fx-background-color: derive(#1a1f27, 20%);
 }
 
-.list-cell:filled:odd {
+.list-cell:filled:even {
     -fx-background-color: derive(#1a1f27, 30%);
+}
+
+.list-cell:filled:odd {
+    -fx-background-color: derive(#1a1f27, 22%);
 }
 
 .list-cell:filled:selected {

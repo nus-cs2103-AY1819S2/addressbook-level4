@@ -33,7 +33,7 @@ public class FindCommand extends Command {
             + PREFIX_TAG + "Chinese "
             + PREFIX_TAG + "Spanish \n";
 
-    private static final String MESSAGE_IN_QUIZ = "Cannot find in quiz mode";
+    private static final String MESSAGE_IN_QUIZ = "Cannot find in quiz mode.";
 
     private final FlashcardContainsKeywordsPredicate predicate;
 

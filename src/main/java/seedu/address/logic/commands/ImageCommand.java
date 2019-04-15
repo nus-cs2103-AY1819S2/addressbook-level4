@@ -55,7 +55,7 @@ public class ImageCommand extends Command {
         File workingDirectoryFile = imageDirectory.resolve(fileName).toFile();
 
         if (workingDirectoryFile.exists()) {
-            throw new CommandException(MESSAGE_DUPLICATE_NAME);
+            throw new CommandException(String.format(MESSAGE_DUPLICATE_NAME, fileName));
         }
 
         imageDirectory.toFile().mkdirs();

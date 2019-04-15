@@ -39,18 +39,18 @@ public class EditCommand extends Command {
         + "by the index number used in the displayed flashcard list. "
         + "Existing values will be overwritten by the input values.\n"
         + "Parameters: INDEX (must be a positive integer) "
-        + "[" + PREFIX_FRONT_FACE + "FRONTFACE] "
-        + "[" + PREFIX_BACK_FACE + "BACKFACE] "
-        + "[" + PREFIX_IMAGE + "IMAGE] "
+        + "[" + PREFIX_FRONT_FACE + "FRONT_FACE] "
+        + "[" + PREFIX_BACK_FACE + "BACK_FACE] "
+        + "[" + PREFIX_IMAGE + "IMAGE_NAME] "
         + "[" + PREFIX_TAG + "TAG]...\n"
         + "Example: " + COMMAND_WORD + " 1 "
-        + PREFIX_FRONT_FACE + "Hola "
-        + PREFIX_BACK_FACE + "你好";
+        + PREFIX_FRONT_FACE + "你好 "
+        + PREFIX_BACK_FACE + "Hello";
 
     public static final String MESSAGE_EDIT_FLASHCARD_SUCCESS = "Edited Flashcard: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_FLASHCARD = "This flashcard already exists in the card collection.";
-    private static final String MESSAGE_IN_QUIZ = "Cannot edit in quiz mode";
+    private static final String MESSAGE_IN_QUIZ = "Cannot edit in quiz mode.";
 
     private final Index index;
     private final EditFlashcardDescriptor editFlashcardDescriptor;

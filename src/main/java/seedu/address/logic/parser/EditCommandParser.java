@@ -1,6 +1,7 @@
 package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Config.IMAGE_DIRECTORY;
 import static seedu.address.commons.core.Messages.MESSAGE_IMAGE_NOT_FOUND;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_BACK_FACE;
@@ -8,6 +9,9 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_FRONT_FACE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_IMAGE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Optional;
@@ -52,16 +56,21 @@ public class EditCommandParser implements Parser<EditCommand> {
             editFlashcardDescriptor.setBackFace(ParserUtil.parseFace(argMultimap.getValue(PREFIX_BACK_FACE).get()));
         }
         if (argMultimap.getValue(PREFIX_IMAGE).isPresent()) {
-            String imagePathString = argMultimap.getValue(PREFIX_IMAGE).get();
-            ImagePath imagePath = new ImagePath(Optional.of(imagePathString));
-            if (!imagePath.getImagePath().isEmpty() && !imagePath.imageExistsAtPath()) {
-                throw new ParseException(MESSAGE_IMAGE_NOT_FOUND);
+            String imageFileName = argMultimap.getValue(PREFIX_IMAGE).get();
+            if (imageFileName.equals("")) {
+                editFlashcardDescriptor.setImagePath(new ImagePath(Optional.empty()));
             } else {
-                if (imagePath.getImagePath().isEmpty()) {
-                    editFlashcardDescriptor.setImagePath(new ImagePath(Optional.empty()));
-                } else {
-                    editFlashcardDescriptor.setImagePath(imagePath);
+                Path imageDirectoryPath = Paths.get(IMAGE_DIRECTORY);
+                Path imageFileNamePath = Paths.get(imageFileName);
+                if (!Files.exists(imageDirectoryPath.resolve(imageFileNamePath))) {
+                    throw new ParseException(String.format(MESSAGE_IMAGE_NOT_FOUND, EditCommand.MESSAGE_USAGE));
                 }
+                ImagePath imagePath = new ImagePath(Optional.of((imageDirectoryPath.resolve(imageFileNamePath))
+                    .toString()));
+                if (!imagePath.imageExistsAtPath()) {
+                    throw new ParseException(String.format(MESSAGE_IMAGE_NOT_FOUND, EditCommand.MESSAGE_USAGE));
+                }
+                editFlashcardDescriptor.setImagePath(imagePath);
             }
         }
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editFlashcardDescriptor::setTags);

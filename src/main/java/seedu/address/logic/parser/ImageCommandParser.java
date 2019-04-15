@@ -2,6 +2,7 @@ package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
@@ -23,7 +24,10 @@ public class ImageCommandParser implements Parser<ImageCommand> {
      */
     private boolean fileIsValidImage(File file) {
         try {
-            ImageIO.read(file);
+            BufferedImage imageRead = ImageIO.read(file);
+            if (imageRead == null) {
+                throw new IOException();
+            }
         } catch (IOException e) {
             return false;
         }
@@ -45,6 +49,9 @@ public class ImageCommandParser implements Parser<ImageCommand> {
 
         File file = new File(trimmedArgs);
 
+        if (file.isDirectory() || !file.exists()) {
+            throw new ParseException(PATH_MESSAGE_CONSTRAINT);
+        }
         if (!fileIsValidImage(file)) {
             throw new ParseException(FILE_MESSAGE_CONSTRAINT);
         }

@@ -14,7 +14,7 @@ public class GoodCommand extends Command {
     public static final String COMMAND_WORD = "good";
 
     public static final String MESSAGE_GOOD = "Great!";
-    public static final String MESSAGE_FAILURE_NOT_QUIZ_MODE = "Cannot give feedback outside quiz mode";
+    public static final String MESSAGE_FAILURE_NOT_QUIZ_MODE = "Cannot give feedback outside quiz mode.";
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {

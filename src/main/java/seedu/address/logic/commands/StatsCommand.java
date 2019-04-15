@@ -35,7 +35,7 @@ public class StatsCommand extends Command {
             + PREFIX_BACK_FACE + "Hola "
             + PREFIX_TAG + "Chinese "
             + PREFIX_TAG + "Spanish \n";
-    private static final String MESSAGE_IN_QUIZ = "Cannot stats in quiz mode";
+    private static final String MESSAGE_IN_QUIZ = "Cannot stats in quiz mode.";
 
     private final Optional<FlashcardContainsKeywordsPredicate> optPredicate;
 

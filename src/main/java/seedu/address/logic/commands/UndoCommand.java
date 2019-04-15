@@ -17,7 +17,7 @@ public class UndoCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Undo success!\n"
             + "Undo %s command";
     public static final String MESSAGE_FAILURE = "No more commands to undo!";
-    private static final String MESSAGE_IN_QUIZ = "Cannot undo in quiz mode";
+    private static final String MESSAGE_IN_QUIZ = "Cannot undo in quiz mode.";
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {

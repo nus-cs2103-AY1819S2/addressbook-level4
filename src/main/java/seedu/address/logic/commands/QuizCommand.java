@@ -23,13 +23,13 @@ public class QuizCommand extends Command {
     public static final String REVIEW_MODE = "review";
     public static final String SRS_MODE = "srs";
 
-    public static final String MESSAGE_QUIZ_REVIEW_START = "Review mode started. Good luck :)";
-    public static final String MESSAGE_QUIZ_SRS_START = "Quiz mode started. Good luck :)";
-    public static final String MESSAGE_QUIZ_NO_SCHEDULED_CARD = "You have done well! There is no card to review, "
+    public static final String MESSAGE_QUIZ_REVIEW_START = "Review mode started. Good luck! :)";
+    public static final String MESSAGE_QUIZ_SRS_START = "Quiz mode started. Good luck! :)";
+    public static final String MESSAGE_QUIZ_NO_SCHEDULED_CARD = "You have done well! There are no cards to review, "
             + "come back later.";
-    public static final String MESSAGE_QUIZ_FAILURE_EMPTY = "Cannot start quiz mode on empty list";
-    public static final String MESSAGE_QUIZ_FAILURE_UNKNOWN_MODE = "Cannot start quiz mode on empty list";
-    public static final String MESSAGE_QUIZ_FAILURE_IN_QUIZ = "Already in quiz mode";
+    public static final String MESSAGE_QUIZ_FAILURE_EMPTY = "Cannot start quiz mode on empty list.";
+    public static final String MESSAGE_QUIZ_FAILURE_UNKNOWN_MODE = "Cannot start quiz mode on empty list.";
+    public static final String MESSAGE_QUIZ_FAILURE_IN_QUIZ = "Already in quiz mode.";
 
     public final boolean isQuizSrs;
 

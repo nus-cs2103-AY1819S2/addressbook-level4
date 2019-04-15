@@ -17,7 +17,7 @@ public class RedoCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Redo success!\n"
             + "Redo %s command";
     public static final String MESSAGE_FAILURE = "No more commands to redo!";
-    private static final String MESSAGE_IN_QUIZ = "Cannot redo in quiz mode";
+    private static final String MESSAGE_IN_QUIZ = "Cannot redo in quiz mode.";
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {

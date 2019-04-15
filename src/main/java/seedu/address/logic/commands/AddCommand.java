@@ -21,19 +21,19 @@ public class AddCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a flashcard to the card collection. \n"
         + "Parameters: "
-        + PREFIX_FRONT_FACE + "FRONTFACE "
-        + PREFIX_BACK_FACE + "BACKFACE "
-        + "[" + PREFIX_IMAGE + "IMAGE] "
+        + PREFIX_FRONT_FACE + "FRONT_FACE "
+        + PREFIX_BACK_FACE + "BACK_FACE "
+        + "[" + PREFIX_IMAGE + "IMAGE_NAME] "
         + "[" + PREFIX_TAG + "TAG]...\n"
         + "Example: " + COMMAND_WORD + " "
         + PREFIX_FRONT_FACE + "Hello "
-        + PREFIX_BACK_FACE + "Halo "
-        + PREFIX_TAG + "friends "
-        + PREFIX_TAG + "owesMoney";
+        + PREFIX_BACK_FACE + "你好 "
+        + PREFIX_TAG + "Chinese "
+        + PREFIX_TAG + "Greetings";
 
     public static final String MESSAGE_SUCCESS = "New flashcard added: %1$s";
     public static final String MESSAGE_DUPLICATE_FLASHCARD = "This flashcard already exists in the card collection";
-    private static final String MESSAGE_IN_QUIZ = "Cannot add in quiz mode";
+    private static final String MESSAGE_IN_QUIZ = "Cannot add in quiz mode.";
 
     private final Flashcard toAdd;
 

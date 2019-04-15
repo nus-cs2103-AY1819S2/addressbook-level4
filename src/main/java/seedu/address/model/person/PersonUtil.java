@@ -51,15 +51,15 @@ public class PersonUtil {
      */
     public static int getEducationValue(String education) {
         int value;
-        if (education.equals("high school")) {
+        if ("high school".equals(education)) {
             value = 1;
-        } else if (education.equals("associates")) {
+        } else if ("associates".equals(education)) {
             value = 2;
-        } else if (education.equals("bachelors")) {
+        } else if ("bachelors".equals(education)) {
             value = 3;
-        } else if (education.equals("masters")) {
+        } else if ("masters".equals(education)) {
             value = 4;
-        } else if (education.equals("phd")) {
+        } else if ("phd".equals(education)) {
             value = 5;
         } else {
             value = 0;

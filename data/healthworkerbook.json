@@ -1,69 +1,45 @@
 {
   "healthWorkers" : [ {
-    "name" : "myname",
-    "phone" : "98765432",
-    "nric" : "S4567893M",
-    "organization" : "SGH",
+    "name" : "Andy Tan",
+    "phone" : "94358253",
+    "nric" : "S8312942G",
+    "organization" : "NUH",
+    "skills" : "GENERAL_PRACTICE PHYSIOTHERAPY "
+  }, {
+    "name" : "Betty Meier",
+    "phone" : "98761232",
+    "nric" : "S8176952L",
+    "organization" : "CGH",
     "skills" : "GENERAL_PRACTICE ORTHOPAEDIC "
   }, {
-    "name" : "David Dev",
-    "phone" : "89047389",
-    "nric" : "S8876901H",
+    "name" : "Carlie Kurz",
+    "phone" : "95358463",
+    "nric" : "S9312942G",
     "organization" : "NUH",
-    "skills" : "GYNAECOLOGY "
+    "skills" : "GYNAECOLOGY GENERAL_PRACTICE "
   }, {
-    "name" : "Lukaz Livingston",
-    "phone" : "90098264",
-    "nric" : "S7491023J",
+    "name" : "Paniel Meier",
+    "phone" : "87652133",
+    "nric" : "S9701568T",
     "organization" : "SGH",
-    "skills" : "GENERAL_PRACTICE ORTHOPAEDIC "
+    "skills" : "HAEMATOLOGY PHYSIOTHERAPY "
   }, {
-    "name" : "Jin Stackoverflow",
-    "phone" : "88888888",
-    "nric" : "S9999999A",
-    "organization" : "Google",
-    "skills" : "NEUROLOGY "
+    "name" : "Ella Meyer",
+    "phone" : "94824524",
+    "nric" : "S9112942G",
+    "organization" : "SGH",
+    "skills" : "PHYSIOTHERAPY ANAESTHESIOLOGY "
   }, {
-    "name" : "Algo Reedum",
-    "phone" : "89276458",
-    "nric" : "S1133445H",
-    "organization" : "NUS SOC",
-    "skills" : "CARDIOLOGY "
+    "name" : "Fione Kunz",
+    "phone" : "94822373",
+    "nric" : "S7812942G",
+    "organization" : "TTSH",
+    "skills" : "OCCUPATIONAL_THERAPY CARDIOLOGY "
   }, {
-    "name" : "Marie Kondo",
-    "phone" : "89571824",
-    "nric" : "F1234567A",
-    "organization" : "Japan",
-    "skills" : "PHYSIOTHERAPY "
-  }, {
-    "name" : "Toto",
-    "phone" : "98164782",
-    "nric" : "F9876543Z",
-    "organization" : "Africa",
-    "skills" : "PHYSIOTHERAPY ENDOCRINOLOGY "
-  }, {
-    "name" : "Terence Sim",
-    "phone" : "91238894",
-    "nric" : "S1874810J",
-    "organization" : "NUS",
-    "skills" : "NEUROLOGY CARDIOLOGY "
-  }, {
-    "name" : "Aaron Tan",
-    "phone" : "81940213",
-    "nric" : "S8917409P",
-    "organization" : "HAND",
-    "skills" : "PATHOLOGY "
-  }, {
-    "name" : "Adi Yoga",
-    "phone" : "88274819",
-    "nric" : "S9174920G",
-    "organization" : "COM2",
-    "skills" : "HAEMATOLOGY "
-  }, {
-    "name" : "Dog Terr",
-    "phone" : "93750182",
-    "nric" : "S1111222G",
-    "organization" : "NUH",
-    "skills" : "ORTHOPAEDIC PHYSIOTHERAPY "
+    "name" : "George Best",
+    "phone" : "94824424",
+    "nric" : "S8812942G",
+    "organization" : "TTSH",
+    "skills" : "UROLOGY PAEDIATRIC "
   } ]
 }

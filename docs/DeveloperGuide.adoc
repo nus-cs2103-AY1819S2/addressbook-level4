@@ -142,18 +142,14 @@ Each of the four components
 * Defines its _API_ in an `interface` with the same name as the Component.
 * Exposes its functionality using a `{Component Name}Manager` class.
 
-For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
-
-.Class Diagram of the Logic Component
-image::LogicClassDiagram.png[width="800"]
 
 [discrete]
 ==== How the architecture components interact with each other
 
 The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
 
-.Component interactions for `delete 1` command
-image::SDforDeletePerson.png[width="800"]
+.Component interactions for `delete request 1` command
+image::logicseqdiagram.png[width="800"]
 
 The sections below give more details of each component.
 
@@ -175,29 +171,27 @@ The `UI` component uses the JavaFX UI framework. The layout of these UI parts ar
 The `UI` component,
 
 * Executes user commands using the `Logic` component.
-* Listens for changes to `Model` data so that the UI can be updated with the modified data dynamically.
+* Listens for changes to the `Model` data so that the UI can be updated with the modified data dynamically.
 // end::ui-header[]
 
+// tag::logic-header[]
 [[Design-Logic]]
 === Logic component
 
 [[fig-LogicClassDiagram]]
 .Structure of the Logic Component
-image::LogicClassDiagram.png[width="800"]
+image::logicclassdiag.png[width="800"]
 
 *API* :
 link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `AddressBookParser` class to parse the user command.
+.  `Logic` uses the `HealthHubParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
-.  The command execution can affect the `Model` (e.g. adding a person).
+.  The command execution can affect the `Model` (e.g. adding a request) or sometimes only affecting the display (eg. listing all requests).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
-.  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
+.  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as printing out the result message in the command line.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
-
-.Interactions Inside the Logic Component for the `delete 1` Command
-image::DeletePersonSdForLogic.png[width="800"]
+// end::logic-header[]
 
 [[Design-Model]]
 === Model component
@@ -236,6 +230,10 @@ The `Storage` component,
 * can save `UserPref` objects in json format and read it back.
 * can save the Request, HealthWorker Book data in json format and read it back.
 
+[NOTE]
+The storage class converts the object data of `Request` and `HealthWorker` by converting the objects
+into a json object of strings which will be stored in the `.json` file. When reading the file, the json library passes the respective strings into
+their java object constructors to recreate the objects.
 // end::storage[]
 
 [[Design-Commons]]
@@ -918,6 +916,19 @@ image::mchafterundo.png[width="800"]
 [NOTE]
 If the `currentStatePointer` of both `VersionedHealthWorkerBook` and `VersionedRequestBook` is at index 0, pointing to the initial book state for both books, then there are no previous states to restore. The `undo` command uses `Model#canUndo()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
 
+[NOTE]
+As of version 1.4, the only command that has modifies both the health worker book and the request book is `EditHealthWorkerCommand`.
+It is the only command that has `CommandType.HEALTHWORKER_AND_REQUEST_COMMAND`.
+
+
+
+The user first enters the `undo` command in the command line interface. The logic manager processes the command as a string
+and checks using the `AddressBookParser` is the string is a valid command. In this case, the parser sees that the command string
+matches the `undo` command string and hence returns an `undo` command to the `LogicManager` which then calls `execute()` to execute the command.
+The `execute()` method calls `Model#undo()` in which the model checks the `ModifyCommandHistory` for the correct `VersionedBook` that needs to be undone
+and then calls `VersionedBook#undo()`. Upon a successful undo, the `UndoCommand` will return a successful result to the `LogicManager`
+which will then the "Undo Success!" message will be displayed on the command line interface.
+
 The following sequence diagram shows how the undo operation works:
 
 image::UndoRedoSeqDiagram.png[width="800"]
@@ -982,27 +993,167 @@ and extra cases for switch statements.| Supports commands that change multiple b
 === Set Reminder Feature
 
 The `setreminder` command gives the user an option to set a reminder with a customised message.
-The reminder is in the form of an `AlertDialog` and is scheduled to show on the UI by a `TimerTask` at time
-`t + current time`. +
+The reminder is in the form of an `AlertDialog` and is scheduled to display on the UI by a `TimerTask` at time
+`t + current time`, where `t` is time in the format `hh:mm:ss`. +
 
-The alert only pop ups when the application is running in the background.
+==== Current Implementation
+
+The following sequence diagram shows the sequence flow from when the `SetReminderCommandParser` receives the command and
+parses it to a `SetReminderCommand`.
+
+image::SetReminderSequenceDiagram.png[width="800"]
 // end::setreminder[]
 
+// tag::statistics[]
+=== Statistics Feature
 
-=== Get Statistics Feature
+The statistics mechanism is facilitated by Statistics class, which is a public Java class containing a private static
+TreeMap data structure and a private static LinkedHashMap data structure. The TreeMap contains key-value pairs, with the
+names of health conditions as keys and the number of occurrences of each health condition as corresponding values. The
+key-value pairs in the TreeMap are ordered in lexicographical order, whereas the LinkedHashMap is ordered in descending
+order by value.
 
-The `statistics` command gives the user the ability to view the health conditions and their respective number of
-occurrences shown in the display panel in descending order, as shown in the picture below.
+The statistics feature is called every time the user decides to use any request-related commands (such as `add request`,
+`edit r`, `delete r`, `undo`, `redo`, `clr`) since statistics need to keep track of every change in the frequency of all health
+conditions. Therefore, the Statistics class also carries out the following operations:
 
-image::statistics_command_desc.png[]
+•	updateStatistics(): updates statistics with new health condition-related data after add or edit commands are called
+by the user.
+•	deleteStatistics(): updates statistics by specifically removing the health condition-related data that need to be
+removed after the user calls the delete function.
+•	sortStatistics(): sorts statistics by value in descending order of the number of occurrences of each health
+conditions, and puts the ordered key-value pairs into sortedMap
+•	undoRedoStatistics(): clears statistics and sortedMap completely and uses an ObservableList of all requests in the
+request book to extract all the health conditions and their related number of occurrences. These health conditions and
+their statistics are then added back to statistics and sortedMap
+•	clearStatistics(): renders both statistics and sortedMap empty after the user calls for the clr operation
+•	getConditionStatistics(): when the user specifically wants to know the number of occurrences for a particular health
+condition
 
-The statistics are stored in a TreeMap data structure, ensuring consistently efficient run time when computing
-statistics for each individual health condition.
+Given below is an example of a usage scenario and how the statistics command is executed at each step:
 
-Since the statistics are only derived from existing requests, if there are no requests for homecare added on HealthHub,
-an error message will be shown: `Conditions and their related occurrences are not available`, as shown below
+1.	Starting up HealthHub: The user launches HealthHub for the first time. The `statistics` and `sortedMap` will be
+initialized as an empty TreeMap and an empty LinkedHashMap respectively.
 
-image::empty_statistics.PNG[]
+2.	Issuing Add Request Command: The user executes `add request n/John Doe i/S8974421C p/98765432 a/123 Brick Road,
+#01-01 dt/01-01-2019 14:50:00 c/Diabetes c/Physiotherapy` command to add John Doe to the request book. The
+aforementioned command also calls updateStatistics(), which takes in a Set<Condition> containing Diabetes Condition and
+Physiotherapy Condition, and adds an occurrence of one each to  statistics. sortStatistics() is then subsequently called
+to order the health conditions by value in sortedMap.
+
+3.	Issuing Edit Request Command: The user executes `edit r 1 c/Diabetes` command to make changes to the first request
+on the request panel in HealthHub. The aforementioned command also calls deleteStatistics(), which removes the
+statistics of health conditions of the first request in  statistics. updateStatistics() is then subsequently called to
+add the new health condition (which in this case is just Diabetes) to statistics.  sortStatistics() is lastly called to
+order the health conditions by value in sortedMap.
+4.	Issuing Undo Request Command: The user executes `undo` command to reverse his earlier `edit r 1 c/Diabetes` command.
+The aforementioned commands calls undoRedoStatistics(). This method first clears statistics and sortedMap, and then
+takes an ObservableList of all requests from the request book. All health conditions are retrieved from the requests,
+and are used to update statistics and sortedMap.
+
+The following sequence shows how the statistics operation works when called by LogicManager:
+
+image::statistics_command_sequence.png[]
+
+The following activity diagram summarizes what happens when a HealthHub user executes a new command:
+
+image::statistics_activity_diagram.png[]
+
+==== Design Considerations
+
+[width="100%",cols="1, 5, 5",options="header"]
+|=======================================================================
+| Aspect
+| Alternative 1
+| Alternative 2
+
+| Choice of data structure for statistics and sortedMap
+| statistics: use TreeMap
+
+  sortedMap: use LinkedHashMap
+
+*Advantages*:
+
+1.	Very fast retrieval of information with the TreeMap; guaranteed O(lgn) time complexity for containsKey, get, put,
+remove operations.
+
+2.	TreeMap entries are sorted in the natural ordering of its keys.
+
+3.	Having 2 separate data structures (1 to contain alphabetically arranged health conditions and 1 to contain sorted
+conditions by value) aids in the quicker retrieval of data
+
+
+*Disadvantages*:
+
+1.	Space costly to have 2 separate data structures containing the same information but in different orders
+
+| Use any other reasonable data structure like an ArrayList or a LinkedList
+
+*Advantages*:
+
+1.	Very easy to implement and understand
+
+2.	Space-efficient to have only 1 list of health conditions and their corresponding number of occurrences
+
+*Disadvantages*:
+
+1.	Will need to create another wrapper class around Conditions and their number of occurrences since lists do not allow
+for key-value pairing
+
+2.	Retrieval of information for common operations like getting statistics for a particular condition may not be very
+fast
+
+|=======================================================================
+
+Decision to go with Alternative 1: The team prioritized speed over space since in hospitals, should they want to
+implement HealthHub, will not have an issue with having memory constraints. But they would definitely want to retrieve
+data as fast as possible. Moreover, Alternative 1 seems far more scalable for future developments
+
+[width="100%",cols="1, 5, 5",options="header"]
+|=======================================================================
+| Aspect
+| Alternative 1
+| Alternative 2
+
+| How `statistics` executes
+| The system saves an internal copy of statistics in its storage like a StatisticsBook, modelled after RequestBook or
+HealthWorkerBook
+
+*Advantages*:
+
+  1.	When HealthHub is closed and reopened, the old statistics will still exist.
+
+*Disadvantages*:
+
+  1.	Takes up memory space since statistics will now need to be stored as .json files
+
+  2.	Speed of retrieval will be lower since HealthHub will need to dig into its storage for data
+
+| Make the statistics class a static class.
+
+*Advantages*:
+
+1.	Easier to implement; entirely removes the need for making storage files
+
+2.	Speed of retrieval of data will be faster since it does not constantly need to keep digging into storage files
+
+*Disadvantages*:
+
+1.	When HealthHub is closed and reopened, the old statistics will disappear since they have not been stored.
+
+|=======================================================================
+
+Decision to go with Alternative 2:  Since RequestBook was already being stored in the storage component of HealthHub,
+I found it redundant and space-inefficient to have to create another StatisticsBook to store statistical data, since all
+of my statistical information can be found from the requests stored in RequestBook. I made sure that whenever
+request-related commands were being executed (add, edit, delete, undo, redo, clr) statistics was also being updated in
+tandem so that the statistical data was always accurate in real-time.
+
+To address the issue of losing statistical data upon closing down and reopening HealthHub, I have ensured that
+statistics and sortedMap are initialized with latest data from the RequestBook during the init() method in the MainApp.
+
+// end::statistics[]
+
 
 // tag::autocomplete[]
 === Autocomplete Feature for CommandBox
@@ -1024,14 +1175,7 @@ against the user's input if any of the suggestions starts with the user's text.
 A detailed interaction diagram for the autocomplete behaviour is created previously under <insert section>.
 // end::autocomplete[]
 
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
-
-_{Explain here how the data encryption feature will be implemented}_
-
-// end::dataencryption[]
-
-=== Logging
+== Logging
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
 
@@ -1569,6 +1713,8 @@ variants of the `filter healthworker` command may be used in place of this.
 .. If any of the data is corrupted, the app will start with empty books, adding a health worker
 or request will overwrite the corrupted file.
 
+// tag::undoredo[]
+
 === Undoing a command
 . Undo a command that has been executed
 .. Prerequisites: A command that modifies the data has been executed already, for example `delete r 1`.
@@ -1582,7 +1728,8 @@ Expected: The application will show an error message: No more commands to undo!
 .. Prerequisites: A successful undo command have to be executed already.
 .. Test case: `redo` +
 Expected: The application will redo the undone command.
-.. Test case: `redo` without prerequisites+
+.. Test case: `redo` without prerequisites +
 Expected: The application will show an error message: No more commands to redo!
 
 
+// end::undoredo[]

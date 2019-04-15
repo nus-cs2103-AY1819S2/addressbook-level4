@@ -3,63 +3,167 @@
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-== Project: Health Hub
-
 == Introduction
 
-Hello there! I am Rohan Dev, a Year 2 Computer Science undergraduate from the National University of Singapore (NUS). This portfolio documents the contributions I have made to Project HealthHub over the course of 1 semester. HealthHub has exposed me and my team to making contributions to a pre-existing code base and morphing it into a desktop application of our choice. I have picked up many relevant skills and software engineering principles en route to completing this project.
+Hello there! I am Rohan Dev, a Year 2 Computer Science undergraduate from the National University of Singapore (NUS).
+This portfolio documents the contributions I have made to Project HealthHub over the course of an academic semester.
+HealthHub has exposed me to making contributions to a pre-existing code base and morphing it into a desktop application
+of our choice. I have picked up many relevant skills and software engineering principles en route to completing this
+project.
 
-== Overview
+== HealthHub
 
-Health Hub is a desktop application designed for hospital administrative staff. With many people requiring Intermediate and Long-Term Care (ILTC) services, there is a growing need
-for health care professionals to tend to these people. Yet, the current messy system requires a lot of manual work from the admin's perspective. Health Hub aims to eradicate all of these.
+=== Problem needing to be solved
 
-The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+With the number of elderly slated to reach 900,000 by 2030 resulting in an increasing need for Intermediate and
+Long-Term Care (ILTC) services, it comes as no surprise that the amount of documentation for these patients is also
+increasing rapidly. Furthermore, from our research, it had been brought to our attention that almost all records for
+homecare patients are being done on pen and paper, resulting in slower assignment of homecare jobs to the health
+professionals. The hospital administrative staff we spoke to even mentioned that the excessive paperwork contributes to
+an excessive number of binders being used and a permanent state of chaos and clutter on their desks. My team and I saw
+this as an opportunity to really come up with something relevant and helpful to the healthcare scene in Singapore and
+thus, HealthHub was born.
+
+== Brief Overview of HealthHub
+
+image::rohan_brief_overview.PNG[]
+
+HealthHub is a robust desktop application designed to be a centralized platform for hospital administrative staff to
+efficiently manage the assignment of health workers (doctors/nurses/volunteers with relevant certification) to homecare
+patients and monitor their statuses at their respective jobs. The digitization of the homecare job assignment process
+significantly reduces paperwork and allows for far more organization of information.
+
+HealthHub users interact through the Command Line Interface (CLI) and receive visual feedback through a User Interface
+(UI) created with JavaFX. It is written in Java. The features and implementations are well documented in guides for
+users and developers respectively. HealthHub has been well maintained with high code quality and coverage as it is
+covered by rigorous tests and checks.
+
+=== My Role
+
+My role was to facilitate the computation and display of statistics related to the occurrences of all health conditions
+on the HealthHub platform. Since the statistics feature needs to calculate each health condition’s frequency across all
+users on HealthHub, I also constructed the base Java class for Condition, such that the administrator can type in a
+patient’s health condition or homecare requirement (for e.g. ‘Cancer’, ‘Palliative’, ‘Physiotherapy’ and more) when
+adding a request for homecare, and the statistics feature adds to its specific number of occurrences. In addition, I
+wrote rigorous tests and test utilities to ensure reliability and simple maintenance.
 
 == Summary of contributions
 
 * *Major enhancement*: Adding the *ability to view the most common health conditions* amongst patients registered on HealthHub
-** What it does: allows the administrative staff to call for the frequencies of all health conditions registered on HealthHub. It can also call the frequency of a specific health condition.
-** Justification: It is imperative for the health administrators to know which health conditions have been seeing an increasing trend, as well as take note of those which have been experiencing a decline. Upon collating such data, the administrative staff can feedback and make suggestions to the hospital to increase or decrease training in certain departments. The staff can even suggest to the government to ramp up efforts in its Work Skills Qualification certification for certain healthcare skills to be taught to new aspiring healthcare professionals.
-** Highlights: The statistics feature needs to be able to ensure that the administrative staff can extract relevant information as fast as possible. Therefore, the TreeMap data structure was used to contain all occurrences of health conditions on HealthHub for the best overall performance for speed. Calling the statistics command will display a formatted list of all health conditions registered and its related frequencies in descending order. Calling the statistics command specific to a particular condition will likewise display the number of occurrences of that health condition.
+
+image::rohan_first_stats_display.PNG[]
+
+** *What it does*: allows the administrative staff to call for the frequencies of all health conditions registered on HealthHub. It can also call the frequency of a specific health condition in descending order. Calling the statistics command specific to a particular condition will likewise display the number of occurrences of that health condition.
+** *Justification*: It is imperative for the health administrators to know which health conditions have been seeing an increasing trend, as well as take note of those which have been experiencing a decline. Upon collating such data, the administrative staff can feedback and make suggestions to the hospital to increase or decrease training in certain departments. The staff can even suggest to the government to ramp up efforts in its Work Skills Qualification certification for certain healthcare skills to be taught to new aspiring healthcare professionals.
+** *Highlights*: The statistics feature needs to be able to ensure that the administrative staff can extract relevant information as fast as possible. Therefore, the TreeMap data structure was used to contain all occurrences of health conditions on HealthHub for the best overall performance for speed. I have had to overcome the difficulty of having to coordinate with all HealthHub commands and sync my statistical data with the data in the application. For example, when the `undo` command is made, my statistics data must also go back to the state prior to the `undo` call.
 
 * *Minor enhancement*: Incorporated a patient’s set of health conditions into requests for home care.
-** What it does: When adding a request for home care in HealthHub, instead of merely typing in 1 health condition per request, the administrative staff can now add in a set of all health conditions the particular patient may suffer from.
-** Justification: Health practitioners, before attempting treatment on any patient, would want to know all health conditions the particular patient might be suffering from. There have been plenty of cases in the past where the administered treatment by the health care professional on a patient had triggered other health conditions in the patient, which the healthcare professionals were completely unaware of. Therefore, instead of just adding a request for a particular treatment, administrators can add a request with multiple health conditions.
-** Highlights: When the administrator adds a request for home care on the HealthHub platform, it takes in all the patient’s particulars (name, NRIC, phone number, home address) and a set of health conditions the patient suffers from. I made use of the hashset data structure to contain the set of health conditions inside it for each patient. The set of conditions guarantees no duplicate health condition being found inside and it can also speedily access any specific health condition the administrative staff may be looking for or may be interested in for further investigation.
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+image::rohan_patient_profile.PNG[]
+
+** *What it does*: When adding a request for home care in HealthHub, instead of merely typing in 1 health condition per request, the administrative staff can now add in a set of all health conditions the particular patient may suffer from.
+** *Justification*: Health practitioners, before attempting treatment on any patient, would want to know all health conditions the particular patient might be suffering from. There have been plenty of cases in the past where the administered treatment by the health care professional on a patient had triggered other health conditions in the patient, which the healthcare professionals were completely unaware of. Therefore, instead of just adding a request for a particular treatment, administrators can add a request with multiple health conditions.
+** *Highlights*: When the administrator adds a request for home care on the HealthHub platform, it takes in all the patient’s particulars (name, NRIC, phone number, home address) and a set of health conditions the patient suffers from. I made use of the hashset data structure to contain the set of health conditions inside it for each patient. The set of conditions guarantees no duplicate health condition being found inside and it can also speedily access any specific health condition the administrative staff may be looking for or may be interested in for further investigation.
 
 * *Other contributions*:
 
 ** Project management:
-*** Setup codacy and coveralls badges for the team on GitHub:
+*** Setup codacy and coveralls badges for the team on GitHub
 ** Enhancements to existing features:
 *** Wrote Conditions class based off Tag class from Address Book 4, and incorporated additional functionality for it to accept more than just 1 string input.
-*** Wrote tests for Condition class and condition-related features in Request class, including various test utility classes to assist other team members in their testing (Pull requests #105, #110)
+*** Wrote tests for Condition class and condition-related features in Request class, including various test utility classes to assist other team members in their testing
 ** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+*** Added detailed implementation documentation for the statistics feature in the User Guide and the Developer Guide, including diagrams
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
+*** Reviewed and gave feedback to team members. PRs reviewed: https://github.com/CS2103-AY1819S2-W09-2/main/pull/80[#80], https://github.com/CS2103-AY1819S2-W09-2/main/pull/107[#107], https://github.com/CS2103-AY1819S2-W09-2/main/pull/142[#142]
 ** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
+*** Setup Codacy and Coveralls badges to perform automated testing of test cases and auto-publishing of documentation and reports on overall overage score of the application software.
 
 _{you can add/remove categories in the list above}_
 
 == Contributions to the User Guide
 
-
 |===
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-//include::../UserGuide.adoc[tag=undoredo]
-//
-//include::../UserGuide.adoc[tag=dataencryption]
+=== Getting health condition statistics: `statistics`
+
+We understand that it is imperative for you to know which health conditions have been seeing an increasing trend, as
+well as take note of those which have been experiencing a decline. The `statistics` command allows you to view all
+health conditions that have been registered on HealthHub, and also their respective numbers of occurrences.
+
+Format: `statistics` -> this command displays a list of all health conditions that you have typed into HealthHub, and
+shows each health condition’s related number of occurrences.
+
+[NOTE]
+====
+`statistics` will only show any useful information related to frequency of health conditions after you have added at least
+1 request for homecare on HealthHub. If there are no homecare requests made, the statistics panel will display the
+following:
+====
+
+image::empty_statistics.PNG[]
+
+Example of usage:
+
+Let’s say that no commands have been issued yet and HealthHub is on a clean slate with no prior records of requests.
+Suppose as an administrative staff, you input the following commands as your first 2 requests for home care into
+HealthHub:
+
+`add request n/John Doe i/S8974421C p/98765432 a/123 Brick Road, #01-01 dt/01-01-2019 14:50:00 c/Diabetes
+c/Physiotherapy`
+
+`add request n/Dohn Joe i/S9874421C p/98675432 a/Sheares Hall, #01-01 dt/06-05-2019 10:10:00 c/AIDS c/Physiotherapy`
+
+You can then subsequently type in the following command:
+
+`statistics`
+
+Voila! A list of health conditions (namely, the ones which were typed in the 2 abovementioned requests Physiotherapy,
+Diabetes, AIDS) will be generated and will be displayed in descending order of occurrences. The following screen is what
+you can expect to see after typing in the 3 commands.
+
+image::normal_statistics.PNG[]
+
+==== Updating of statistics
+
+Every time you decide to add a request, edit a request, delete a request or even undo and redo a request, it is
+important that the statistics display automatically keeps updating itself so that real-time accurate data is always
+showed whenever you type in `statistics`
+
+Example of usage:
+
+Let’s assume you still have the requests of John Doe and Dohn Joe (requests that you had placed into HealthHub from the
+previous section) in the request panel. You just received news that John Doe’s mobility has miraculously improved and
+you no longer need to tag him with the ‘Physiotherapy’ health condition in his health request record. You, thus, decided
+to edit John Doe’s health conditions from Diabetes and Physiotherapy to just Diabetes by issuing the following command:
+
+`edit r 1 c/Diabetes`
+
+image::statistics_before_edit.PNG[]
+
+You can then subsequently type in the following command to gather accurate statistical data,
+which reflects the deletion of one of the ‘Physiotherapy’ health conditions:
+
+`statistics`
+
+image::statistics_after_edit.PNG[]
+
+After issuing the aforementioned commands, you now receive news that John Doe had not really recovered entirely yet,
+and he still requires Physiotherapy treatment. Fret not! You can always issue the `undo` command to revert your changes to
+John’s earlier set of health conditions (Physiotherapy and Diabetes) and then the `statistics` command to view the new
+data.
+
+In essence, the `statistics` command is fully integrated with all request-related commands (`add`, `edit`, `delete`,
+`undo`, `redo`, `clr`) in its pursuit of always providing accurate, real-time statistical information.
+
+==== Application of `statistics` in the workplace
+
+Upon collating such data, you can feedback and make suggestions to the hospital to increase or decrease training in
+certain departments. Furthermore, you can even use this data as a basis for the health sector to ramp up efforts in its
+Work Skills Qualification certification for certain healthcare skills to be taught to new aspiring healthcare
+professionals.
 
 == Contributions to the Developer Guide
 
@@ -67,13 +171,150 @@ _{you can add/remove categories in the list above}_
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=undoredo]
+=== Statistics Feature
 
-include::../DeveloperGuide.adoc[tag=dataencryption]
+The statistics mechanism is facilitated by Statistics class, which is a public Java class containing a private static
+TreeMap data structure and a private static LinkedHashMap data structure. The TreeMap contains key-value pairs, with the
+names of health conditions as keys and the number of occurrences of each health condition as corresponding values. The
+key-value pairs in the TreeMap are ordered in lexicographical order, whereas the LinkedHashMap is ordered in descending
+order by value.
+
+The statistics feature is called every time the user decides to use any request-related commands (such as `add request`,
+`edit r`, `delete r`, `undo`, `redo`, `clr`) since statistics need to keep track of every change in the frequency of all health
+conditions. Therefore, the Statistics class also carries out the following operations:
+
+•	updateStatistics(): updates statistics with new health condition-related data after add or edit commands are called
+by the user.
+•	deleteStatistics(): updates statistics by specifically removing the health condition-related data that need to be
+removed after the user calls the delete function.
+•	sortStatistics(): sorts statistics by value in descending order of the number of occurrences of each health
+conditions, and puts the ordered key-value pairs into sortedMap
+•	undoRedoStatistics(): clears statistics and sortedMap completely and uses an ObservableList of all requests in the
+request book to extract all the health conditions and their related number of occurrences. These health conditions and
+their statistics are then added back to statistics and sortedMap
+•	clearStatistics(): renders both statistics and sortedMap empty after the user calls for the clr operation
+•	getConditionStatistics(): when the user specifically wants to know the number of occurrences for a particular health
+condition
+
+Given below is an example of a usage scenario and how the statistics command is executed at each step:
+
+1.	Starting up HealthHub: The user launches HealthHub for the first time. The `statistics` and `sortedMap` will be
+initialized as an empty TreeMap and an empty LinkedHashMap respectively.
+
+2.	Issuing Add Request Command: The user executes `add request n/John Doe i/S8974421C p/98765432 a/123 Brick Road,
+#01-01 dt/01-01-2019 14:50:00 c/Diabetes c/Physiotherapy` command to add John Doe to the request book. The
+aforementioned command also calls updateStatistics(), which takes in a Set<Condition> containing Diabetes Condition and
+Physiotherapy Condition, and adds an occurrence of one each to  statistics. sortStatistics() is then subsequently called
+to order the health conditions by value in sortedMap.
+
+3.	Issuing Edit Request Command: The user executes `edit r 1 c/Diabetes` command to make changes to the first request
+on the request panel in HealthHub. The aforementioned command also calls deleteStatistics(), which removes the
+statistics of health conditions of the first request in  statistics. updateStatistics() is then subsequently called to
+add the new health condition (which in this case is just Diabetes) to statistics.  sortStatistics() is lastly called to
+order the health conditions by value in sortedMap.
+4.	Issuing Undo Request Command: The user executes `undo` command to reverse his earlier `edit r 1 c/Diabetes` command.
+The aforementioned commands calls undoRedoStatistics(). This method first clears statistics and sortedMap, and then
+takes an ObservableList of all requests from the request book. All health conditions are retrieved from the requests,
+and are used to update statistics and sortedMap.
+
+The following sequence shows how the statistics operation works when called by LogicManager:
+
+image::statistics_command_sequence.png[]
+
+The following activity diagram summarizes what happens when a HealthHub user executes a new command:
+
+image::statistics_activity_diagram.png[]
+
+==== Design Considerations
+
+[width="100%",cols="1, 5, 5",options="header"]
+|=======================================================================
+| Aspect
+| Alternative 1
+| Alternative 2
+
+| Choice of data structure for statistics and sortedMap
+| statistics: use TreeMap
+
+  sortedMap: use LinkedHashMap
+
+*Advantages*:
+
+1.	Very fast retrieval of information with the TreeMap; guaranteed O(lgn) time complexity for containsKey, get, put,
+remove operations.
+
+2.	TreeMap entries are sorted in the natural ordering of its keys.
+
+3.	Having 2 separate data structures (1 to contain alphabetically arranged health conditions and 1 to contain sorted
+conditions by value) aids in the quicker retrieval of data
 
 
-== PROJECT: PowerPointLabs
+*Disadvantages*:
 
----
+1.	Space costly to have 2 separate data structures containing the same information but in different orders
 
-_{Optionally, you may include other projects in your portfolio.}_
+| Use any other reasonable data structure like an ArrayList or a LinkedList
+
+*Advantages*:
+
+1.	Very easy to implement and understand
+
+2.	Space-efficient to have only 1 list of health conditions and their corresponding number of occurrences
+
+*Disadvantages*:
+
+1.	Will need to create another wrapper class around Conditions and their number of occurrences since lists do not allow
+for key-value pairing
+
+2.	Retrieval of information for common operations like getting statistics for a particular condition may not be very
+fast
+
+|=======================================================================
+
+Decision to go with Alternative 1: The team prioritized speed over space since in hospitals, should they want to
+implement HealthHub, will not have an issue with having memory constraints. But they would definitely want to retrieve
+data as fast as possible. Moreover, Alternative 1 seems far more scalable for future developments
+
+[width="100%",cols="1, 5, 5",options="header"]
+|=======================================================================
+| Aspect
+| Alternative 1
+| Alternative 2
+
+| How `statistics` executes
+| The system saves an internal copy of statistics in its storage like a StatisticsBook, modelled after RequestBook or
+HealthWorkerBook
+
+*Advantages*:
+
+  1.	When HealthHub is closed and reopened, the old statistics will still exist.
+
+*Disadvantages*:
+
+  1.	Takes up memory space since statistics will now need to be stored as .json files
+
+  2.	Speed of retrieval will be lower since HealthHub will need to dig into its storage for data
+
+| Make the statistics class a static class.
+
+*Advantages*:
+
+1.	Easier to implement; entirely removes the need for making storage files
+
+2.	Speed of retrieval of data will be faster since it does not constantly need to keep digging into storage files
+
+*Disadvantages*:
+
+1.	When HealthHub is closed and reopened, the old statistics will disappear since they have not been stored.
+
+|=======================================================================
+
+Decision to go with Alternative 2:  Since RequestBook was already being stored in the storage component of HealthHub,
+I found it redundant and space-inefficient to have to create another StatisticsBook to store statistical data, since all
+of my statistical information can be found from the requests stored in RequestBook. I made sure that whenever
+request-related commands were being executed (add, edit, delete, undo, redo, clr) statistics was also being updated in
+tandem so that the statistical data was always accurate in real-time.
+
+To address the issue of losing statistical data upon closing down and reopening HealthHub, I have ensured that
+statistics and sortedMap are initialized with latest data from the RequestBook during the init() method in the MainApp.
+

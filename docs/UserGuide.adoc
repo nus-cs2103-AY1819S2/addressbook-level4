@@ -171,21 +171,21 @@ With the release of version 1.4, we decided to improve our current features by m
 // tag::releasenotes-2.0[]
 === v2.0 Release Notes
 
-After the release of v1.4, the team have planned for future enhancements to Health Hub to improve its existing functionalities,
-by also considering different aspects such as the ethical part of handling sensititve patient information within and outside of the app.
+After the release of v1.4, the team have planned for future enhancements to Health Hub to improve its existing
+functionalities, by also considering different aspects such as the ethical part of handling sensitive patient information within and outside of the app.
 
-For data management, it will be upgraded to an even higher level of encryption by professional standards to ensure that sensitive
+For *data management*, it will be upgraded to an even higher level of encryption by professional standards to ensure that sensitive
 information is handled cautiously to prevent data leaks.
 
-For account management, hospital administrative staff will have to start logging in to their accounts (accounts which are given to them when they
+For *account management*, hospital administrative staff will have to start logging in to their accounts (accounts which are given to them when they
 first joined the department) in order to use the app. These accounts are created and managed by a higher authority personnel, to add a
 second layer of security.
 
 So far, with the releases of v1.2 to v1.4, the focus is on registering the requests into the system and assigning them. In v2.0, there will be additional details
-added to health workers such as their availability to visit the home care patients, that will add value to when the user is assigning an open request.
+added to health workers such as their *availability to visit the home care patients*, that will add value to when the user is assigning an open request.
 
 Last but not least, it is important that we gather our users' feedback from time to time to understand their frustrations and needs with the app. As such,
-there will be a "Feedback" option in v2.0 for users to submit their feedback to the developers of Health Hub.
+there will be a *"Feedback"* option in v2.0 for users to submit their feedback to the developers of Health Hub.
 // end::releasenotes-2.0[]
 
 [[Features]]
@@ -827,24 +827,33 @@ request.
 // tag::setreminder[]
 === Setting Reminder Alerts: `setreminder`
 
-Sometimes, it can be difficult to keep track of multiple tasks and specific
-details for different requests. In addition to the already expressive
-function of keying in the description of a request upon registering, the
-`setreminder` command now also allows you to set customised reminder alerts
-to aid you so that you do not have to cram a large amount of details in memory.
+Sometimes when you have too many tasks at hand, it can be quite cumbersome to remember what tasks you need to
+complete for the day. You might want to phone up a patient to remind him of an appointment before the health worker
+visits his home, because you recall that this patient was not at home the last time the health worker visited. The
+phone call from you can prepare him to be at his home when the health worker arrives, so he can provide the necessary
+health care services. It can also remind you when it is lunch time, so you can avoid the peak period!
 
 Format: `setreminder t/<hh:mm:ss> m/<customised_message>` +
 
-Using the `setreminder` command, you can set a reminder alert to notify you at a certain time
-of the day, with your own message that you can customise to remind youself. The alert only shows
-for when Health Hub is running in the background process.
+Using the `setreminder` command, you can set a reminder alert to notify you at a certain time of the day, with your
+own message that you can customise to remind yourself.
 
-In the example below, a reminder has been set to notify the user at 1.30PM with
-the customised message to "to call patient John Doe for his appointment".
+[NOTE]
+====
+The alert only shows for when Health Hub is running in the background process.
+====
 
-image::reminder_command.png[]
+In the example below, a reminder has been set to notify the user at 6.30PM with
+the customised message to "to call patient Tan Ah Hock for his appointment later at night".
+
+image::SetReminderCommandTextField.png[]
+Figure 5.14.1 shows the format of the `setreminder` command in the text field.
+
+image::SetReminderResult.png[]
+Figure 5.14.2 shows the result of the reminder alert in the GUI after it is time for the app to notify the user.
 // end::setreminder[]
 
+// tag::statistics[]
 === Getting health condition statistics: `statistics`
 
 We understand that it is imperative for you to know which health conditions have been seeing an increasing trend, as
@@ -856,17 +865,17 @@ shows each health condition’s related number of occurrences.
 
 [NOTE]
 ====
-statistics will only show any useful information related to frequency of health conditions after you have added at least
+`statistics` will only show any useful information related to frequency of health conditions after you have added at least
 1 request for homecare on HealthHub. If there are no homecare requests made, the statistics panel will display the
 following:
 ====
 
-image::empty_statistics.png[]
+image::empty_statistics.PNG[]
 
 Example of usage:
 
 Let’s say that no commands have been issued yet and HealthHub is on a clean slate with no prior records of requests.
-Suppose as an administrative staff, you input the following commands as your first 2 requests for homecare into
+Suppose as an administrative staff, you input the following commands as your first 2 requests for home care into
 HealthHub:
 
 `add request n/John Doe i/S8974421C p/98765432 a/123 Brick Road, #01-01 dt/01-01-2019 14:50:00 c/Diabetes
@@ -882,19 +891,48 @@ Voila! A list of health conditions (namely, the ones which were typed in the 2 a
 Diabetes, AIDS) will be generated and will be displayed in descending order of occurrences. The following screen is what
 you can expect to see after typing in the 3 commands.
 
-image::normal_statistics.png[]
+image::normal_statistics.PNG[]
 
-As you can see, based on the requests already registered in the request panel on the left, the statistics command shows
-that the health condition Physiotherapy has showed up twice, whereas both Diabetes and AIDS have showed up once each.
-It is also worth noting that `statistics` is fully integrated with all request-related commands. This means that
-regardless of how many commands you may decide to employ (such as `add`, `edit`, `delete`, `undo`, `redo`, `clr`),
-`statistics` will automatically update itself and always provide real-time accurate statistical data of the health
-conditions.
+==== Updating of statistics
+
+Every time you decide to add a request, edit a request, delete a request or even undo and redo a request, it is
+important that the statistics display automatically keeps updating itself so that real-time accurate data is always
+showed whenever you type in `statistics`
+
+Example of usage:
+
+Let’s assume you still have the requests of John Doe and Dohn Joe (requests that you had placed into HealthHub from the
+previous section) in the request panel. You just received news that John Doe’s mobility has miraculously improved and
+you no longer need to tag him with the ‘Physiotherapy’ health condition in his health request record. You, thus, decided
+to edit John Doe’s health conditions from Diabetes and Physiotherapy to just Diabetes by issuing the following command:
+
+`edit r 1 c/Diabetes`
+
+image::statistics_before_edit.PNG[]
+
+You can then subsequently type in the following command to gather accurate statistical data,
+which reflects the deletion of one of the ‘Physiotherapy’ health conditions:
+
+`statistics`
+
+image::statistics_after_edit.PNG[]
+
+After issuing the aforementioned commands, you now receive news that John Doe had not really recovered entirely yet,
+and he still requires Physiotherapy treatment. Fret not! You can always issue the `undo` command to revert your changes to
+John’s earlier set of health conditions (Physiotherapy and Diabetes) and then the `statistics` command to view the new
+data.
+
+In essence, the `statistics` command is fully integrated with all request-related commands (`add`, `edit`, `delete`,
+`undo`, `redo`, `clr`) in its pursuit of always providing accurate, real-time statistical information.
+
+==== Application of `statistics` in the workplace
 
 Upon collating such data, you can feedback and make suggestions to the hospital to increase or decrease training in
 certain departments. Furthermore, you can even use this data as a basis for the health sector to ramp up efforts in its
 Work Skills Qualification certification for certain healthcare skills to be taught to new aspiring healthcare
 professionals.
+
+// end::statistics[]
 
 === Exiting the program : `exit`
 
@@ -913,6 +951,9 @@ Changes to the data in the application are also saved that any command that
 modifies application parameters, making sure that minimal data is lost should
 any unforeseen circumstances happen.
 
+Attempting to read a corrupted data file will show an empty book.
+If the application is unable to find any data files, it will create books based on its sample data.
+
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
@@ -922,42 +963,98 @@ to the `\data` folder of the app directory.
 // tag::summary[]
 == Command Summary
 
-[%header, cols=2*]
+[%header, cols=4*]
 |===
-|Command
+|Base Command
+|Additional Parameters
 |Description
+|Remarks
 
 |`help`
-|opens the user guide
-|`list`
-|lists all the requests or health workers
+|_not applicable_
+|opens the user guide in a new window
+|_none_
+|`list healthworker/h/1` +
+
+`list request/r/2`
+|_not applicable_
+|lists all the health workers or requests
+|_none_
 |`add healthworker/h/1`
+|`n/ (name)` - required +
+ `i/ (nric)` - required +
+ `p/ (phone)` - required +
+ `o/ (organisation)` - required +
+ `s/ (specialisations)` - required
 |registers a health worker into the system
+|_none_
 |`add request/r/2`
+|`n/ (name)` - required +
+ `i/ (nric)` - required +
+ `p/ (phone)` - required +
+ `a/ (address)` - required +
+ `dt/ (request date)` - required +
+ `c/ (patient conditions)` - required
 |registers a request into the system
+|_none_
 |`edit`
+|any of the tags above (i.e. edit `n/` or `dt/` or `c/`)
 |edits the details of a request or a health worker
-|`filter`
-|filters the list of requests or health workers by a condition
-|`delete`
-|deletes a request or a health worker
+|_none_
+|`filter healthworker/h/1`
+|any of the tags above belonging to health worker (i.e. filter by `n/` or `o/` or `s/`)
+|filters through the list of health workers by a criteria
+|_none_
+|`filter request/r/2`
+|any of the tags above belonging to request (i.e. filter by `n/` or `dt/` or `c/`). +
+
+new filterable tag after request is added - `st/ (request status)`
+|filters through the list of requests by a criteria
+|_none_
+|`delete request`
+|`INDEX` of  request to delete
+|deletes a request
+|_none_
 |`assign`
-|assigns a health worker to a request
-|`clr`
-|clears all requests from the list
+|`hw/<index>` - `INDEX` of the health worker to be assigned, required +
+
+`r/<index>` - `INDEX` of the request, required
+|assigns a health worker to an open request
+|should a health worker be assigned to requests on the same date and time, it should be at least 2 hours apart.
 |`complete`
-|closes a pending or ongoing request after it has been done
+|`INDEX` of the request to close
+|closes an ongoing request after it has been completed by the assigned staff
+|only used for requests that have the *ONGOING* status
+
+|`clr`
+|_not applicable_
+|clears all *COMPLETED* requests from the list
+|_none_
 |`history`
-|lists the previous commands entered
+|_not applicable_
+|lists the previous commands entered in chronological order
+|_none_
 |`sr`
-|selects a request and view its details on the UI
+|`INDEX` of request to display
+|selects a request and display its details on the UI
+|_none_
 |`setreminder`
-|sets a reminder alert to notify the user at a certain time
+|`t/<hh:mm:ss>` - time to schedule, required +
+
+`m/` - customised message, required
+|sets a reminder alert to notify the user at a certain time of the day
+|the alert will show only if Health Hub is still running
 |`statistics`
+|_not applicable_
 |shows the occurences of the different requests by conditions
+|_none_
 |`undo`
+|_not applicable_
 |undos the previous action
+|_none_
 |`redo`
+|_not applicable_
 |redos the previous undone command
+|_none_
 |===
 // end::summary[]

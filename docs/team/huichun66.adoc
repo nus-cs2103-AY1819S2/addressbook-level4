@@ -2,6 +2,7 @@
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
+:icons: font
 
 == Project: Health Hub
 My team and I were tasked with enhancing a basic command line interface addressbook application for one of our modules CS2103
@@ -47,23 +48,19 @@ rewriting the same commands (e.g. adding 10 requests).
 
 * *Other Contributions*:
 
-** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
+** Project Management:
+*** Assigned the relevant issues to my teammates and suggested solutions for them to resolve it (Issues https://github.com/CS2103-AY1819S2-W09-2/main/issues/188[#188],
+https://github.com/CS2103-AY1819S2-W09-2/main/issues/190[#190],
+https://github.com/CS2103-AY1819S2-W09-2/main/issues/195[#195])
 ** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
+*** Wrote the system tests that integrate newly implemented features to increase coverage from 82% to 90% (Pull requests https://github.com/CS2103-AY1819S2-W09-2/main/pull/209[#209],
+https://github.com/CS2103-AY1819S2-W09-2/main/pull/217[#217],
+https://github.com/CS2103-AY1819S2-W09-2/main/pull/219[#219])
 ** Documentation:
 *** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
 ** Community:
 *** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
-** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
-
-_{you can add/remove categories in the list above}_
+*** Reported bugs and suggestions for other teams in the class (examples: https://github.com/nus-cs2103-AY1819S2/pe-dry-run/issues/785[1], https://github.com/nus-cs2103-AY1819S2/pe-dry-run/issues/221[2])
 
 == Contributions to the User Guide
 
@@ -90,8 +87,7 @@ include::../DeveloperGuide.adoc[tag=setreminder]
 include::../DeveloperGuide.adoc[tag=autocomplete]
 
 
-== Project: PowerPointLabs
+== Project: PayMe
 
 ---
 
-_{Optionally, you may include other projects in your portfolio.}_

@@ -3,17 +3,16 @@ package seedu.address.logic.commands.request;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
-import java.util.Set;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.DeleteCommand;
+import seedu.address.logic.commands.Statistics;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.request.Request;
-import seedu.address.model.tag.Condition;
 
 /**
  * Deletes a request identified using it's displayed index from the request book.
@@ -51,8 +50,7 @@ public class DeleteRequestCommand extends DeleteCommand implements RequestComman
         }
 
         Request requestToDelete = lastShownList.get(index.getZeroBased());
-        Set<Condition> conditionSetToDelete = requestToDelete.getConditions();
-        // Statistics.deleteStatistics(conditionSetToDelete);
+        Statistics.deleteStatistics(requestToDelete.getConditions());
         delete(model, requestToDelete);
         return new CommandResult(String.format(MESSAGE_DELETE_REQUEST_SUCCESS, requestToDelete));
     }

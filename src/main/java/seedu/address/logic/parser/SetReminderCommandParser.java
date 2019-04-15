@@ -10,6 +10,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
  * Parses input arguments and creates a new SetReminderCommand object
+ * @author Hui Chun
  */
 public class SetReminderCommandParser implements Parser<SetReminderCommand> {
 

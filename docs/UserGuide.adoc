@@ -102,7 +102,7 @@ You can specify the name you want to reflect in your patients' dental record whe
 
 * If there is no dentist name specified, the program will prompt you to enter one.
 
-* This should only happen once, during the first startup of the application.
+* This should only happen once, during the first start-up of the application.
 // end::dentist_kyler[]
 
 ==== history
@@ -218,7 +218,7 @@ You can also use `exit!` to forcefully exit the application
 
 === File Management
 
-TeethHub automatically saves all data in TeethHub.json when you close the program.
+TeethHub automatically saves all data to TeethHub.json when you close the program.
 However, you can manage them manually with `open`, `save`, `import` and `export`. +
  +
 *When we mention "data", we mean the patients list and their respective records plus the task list.* +
@@ -258,6 +258,8 @@ You can use commas (no space) to choose multiple individual indexes. e.g. `1,3,5
 You can use dash (no space) to choose a range of indexes. e.g. `3-5` for 3 to 5. `1-3-5` is not allowed, just use `1-5`. +
 You can use a combination of commas and dashes to choose a range as well. e.g. `1-3,5` for 1 to 3 and 5. +
 You can also type `all` instead to import/export everything.
+*If you input a range that includes indexes that do not exist, the File Management commands will still run, but the indexes that do not exist will be ignored.* +
+e.g. `import test.json 10-40` when there are only 30 patients in test.json. Patients 10 to 30 will be imported.
 ============================================================
 
 ==== open
@@ -272,10 +274,10 @@ Format: `open FILE_PATH`
 Examples:
 
 * `open data1.json` +
-This replaces the current data of TeethHub with the data in "data1.json".
+This replaces the current data of TeethHub with the contents of "data1.json".
 
 * `open february/data2.json` +
-This replaces the current data of TeethHub with the data in "data2.json" found in the "february" folder.
+This replaces the current data of TeethHub with the contents of "data2.json" found in the "february" folder.
 
 
 ==== save
@@ -418,10 +420,8 @@ Format: `patientdelete INDEX` or `pdelete INDEX`
 
 Examples:
 
-* `delete 1` -- Deletes the patient shown with index 1 from the displayed list.
-
-[NOTE]
-If the patient index is invalid, the application will display an error message to the user.
+* `delete 1` +
+Deletes the patient shown with index 1 from the displayed list.
 
 ==== Patient Edit
 
@@ -457,7 +457,8 @@ Parameters that can be edited:
 
 Example:
 
-* `patientedit 1 ic/S1234567A` -- Edits the `NRIC` of the first patient in the patient list.
+* `patientedit 1 ic/S1234567A` +
+Edits the `NRIC` of the first patient in the patient list.
 
 ==== Patient Copy
 
@@ -508,34 +509,47 @@ Example:
 Show all the patients with an address containing the keyword Yishun.
 
 ==== Patient Clear
+
 Clears all patients, from TeethHub.
 
 * You will be prompted to confirm.
+
 * Input `y` to proceed to the patientclear all records or `n` to abort.
 
 Format: `patientclear`
 
-==== Go To
+==== Records Mode
 
-The goto command specifies a patient by index, and brings the user to the records mode, where all dental records of the specified patient are listed.
+The records mode allows users to access the dental records of a specified patient.
+In this mode, users can modify their patients' dental records and teeth information.
 
-Record-related commands can then be executed in this mode.
+===== Entering the Records Mode of a specified patient
 
-Format: `goto 1`
+Format: `goto INDEX`
 
-* Goes into records mode and displays all dental records of patient 1.
+* If the user is not in records mode, the goto command brings the user into records mode.
 
-* The given index must be a positive integer (e.g 1, 2 or 3…)
+* All dental records of the patient at the indicated index will be displayed.
 
-==== Back
+Example:
 
-The back command can only be run in records mode.
-It brings the user back to the patients mode, where all patients will be listed.
+* `goto 1` +
+Go into records mode with the patient at index 1.
 
-Format: `back` -- Brings the user back to patient mode.
+===== Exiting the Records Mode
 
-[NOTE]
-The `back` command will work with parameters, but they will be ignored.
+Format: `back`
+
+* If the user is in records mode, the back command will bring the user out of records mode.
+
+Example:
+
+* `back` +
+Brings the user back to patient mode.
+
+===== Visual Example
+
+image::RecordsModeTransition.png[width=""]
 
 ==== Record Add
 
@@ -546,11 +560,29 @@ This command adds a new dental record to the patient.
 
 Format: `recordadd pro/PROCEDURE desc/DETAILS or `radd pro/PROCEDURE desc/DETAILS`
 
-* The program assigns the name of the dentist stored in the dentist information
+* Procedures should be in the format of `Type-Subtype`.
 
-* The program assigns the date of record as the date the record is created.
+* While there is a list of valid procedure types, procedure subtypes are user defined.
 
-* When records of a patient is accessed, the stored records are sorted from newest to oldest.
+* Valid Procedure Types:
+
+[cols="4",options=""]
+|===
+|Consultation
+|Preventive
+|Filling
+|Crown Gum
+|Extraction
+|Replacement
+|Braces
+|Aesthetic
+|Implant
+|Other
+|===
+
+* Description allows our users to describe the dental session, and is also user defined.
+
+* The stored records are sorted from newest to oldest.
 
 * New dental records will appear on the top of the list upon entry.
 
@@ -558,7 +590,7 @@ Example
 
 * `<<goto, goto>> 1` - Displays dental records of the first patient in the list and hides the patient list.
 
-* `recordadd desc/Mouth was noticeably smelly, might have halitosis` - Adds a new dental record.
+* `recordadd pro/Other-Checkup desc/Mouth was noticeably smelly, might have halitosis` - Adds a new dental record.
 
 * `<<back, back>>` - Go back to the patient list.
 
@@ -1057,13 +1089,11 @@ image::SuggestionFeatureAddRecordMode.png[width="236"]
 == Planned Implementations
 
 === Patient Teeth per record [Coming in v1.5]
-
 Currently, TeethHub stores and displays the latest teeth image of each patient.
 We understand that you may want to see teeth changes over time.
 In v1.5, TeethHub will be able to store and display a teeth image for each record.
 
 === Adding images to records [Coming in v1.6]
-
 Currently, TeethHub is not equipped to accept images from you.
 We understand that you may want to store x-rays of teeth or other relevant images you have taken.
 In v1.6, TeethHub will have a new command for you to upload images.

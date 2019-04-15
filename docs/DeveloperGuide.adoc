@@ -295,7 +295,7 @@ If the `back` command is entered while the window is already showing patients, a
 
 The following activity diagram summarizes what happens when a user executes the `goto` or `back` command:
 
-image::GotoActivityDiagram.png[width="800"]
+image::GotoActivityDiagram.png[width=""]
 {nbsp}
 
 ==== Patient's Teeth Feature
@@ -426,18 +426,6 @@ However, the patient class is mutable, and accidental changes to its attributes 
 *** Alternative Cons: Can be hard to understand by other programmers as integers are used to represent teeth statuses. Additionally, this is violating object-oriented principles.
 ** **Choice Justification:** An straightforward object-oriented solution and easy to understand by other collaborating programmers who are familiar with object-oriented programming.
 However, `Tooth` and `Teeth` objects, as well as their relevant methods takes a significant amount of time to be created. They will also require proper test cases to be implemented.
-
-===== Aspect: Implementing the Dentist class
-
-* **Current implementation:** Use a patient variable to store the patient specified by the command.
-** **Alternative:** Create a new immutable patient variable to store the specified patient.
-*** Alternative Pros: Ensures the the specified patient cannot be edited by other classes or methods.
-*** Alternative Cons: Major changes to the patient class would require the immutable patient class to be changed too.
-Furthermore, every time any record of the specified patient is modified, a new immutable patient needs to be created to update the currently stored immutable patient.
-** **Choice Justification:** An intuitive solution, as the specified patient is stored as an exact same class as a patient.
-Additionally, attributes of the specified patient can be accessed just like any other patient class.
-Changes to the patient class does not significantly affect the goto command.
-However, the patient class is mutable, and accidental changes to its attributes by other classes or methods can occur.
 // end::patient_kyler[]
 
 //tag::aspectDB[]
@@ -533,7 +521,7 @@ The class `CalendarWindow` uses a `HashMap` with the date, as the key and priori
 The UI components of this feature are implemented using classes from `JavaFX` with the most important component being `DatePicker` which allows a calendar to be drawn up and displayed to the user. The implementation overrides the `updateItem()` method from `DatePicker` to enable modifications to be done to the date cells in the calendar.
 
 [NOTE]
-Color sceheme and certain font sizes of the Calendar are done using Cascading Style Sheets (CSS) in a `Calendar.CSS` file found under resources. Changes can be made to the CSS file to change color schemes of the calendar if needed
+Color scheme and certain font sizes of the Calendar are done using Cascading Style Sheets (CSS) in a `Calendar.CSS` file found under resources. Changes can be made to the CSS file to change color schemes of the calendar if needed
 
 The following swimlane activity diagram illustrates the process in which the application goes through to create and display the interactive calendar for the user:
 
@@ -1502,6 +1490,9 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`* * *` |user |clear all dental records of a patient | protect the privacy of my patients
 // end::patient_user_stories_kyler[]
 
+
+// tag::task_user_stories_cchj1995[]
+
 |`* * *` |user |add a new task |keep track of what I need to do
 
 |`* * *` |user |delete a task |remove tasks that I have already completed or no longer need to do
@@ -1516,7 +1507,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |user | view tasks in a calendar | see all the dates in which I have tasks starting or ending, keeping better track of urgency of tasks and deadlines
 
-end::task_user_stories_cchj1995[]
+// end::task_user_stories_cchj1995[]
 
 |`* * *` |user |see a statistics report on each patient's dental history |have an easier time understanding their potential problems
 
@@ -1904,6 +1895,10 @@ are not allowed." is shown in message box. No file is created/overwritten.
    Expected: A .json file named *test.json* is created/overwritten in the "data" folder. When opened in text viewer (like Notepad), only the patients that correspond to index 1, index 3 *and* index 5 in TeethHub should be present, along with all tasks.
 ... Test case: `export test.json 1,3-5` +
    Expected: A .json file named *test.json* is created/overwritten in the "data" folder. When opened in text viewer (like Notepad), only the patient that corresponds to index 1 *and* index 3 *to* index 5 in TeethHub should be present, along with all tasks.
+... Test case: `export test.json 1-3-5` +
+   Expected: Error message "Invalid index range! Please input a positive unsigned index range." is shown in message box. No file is created/overwritten.
+... Test case: `export test.json 1,,5` +
+   Expected: Error message "Invalid index range! Please input a positive unsigned index range." is shown in message box. No file is created/overwritten.
 ... Test case: `export test.json all` +
    Expected: A .json file named *test.json* is created/overwritten in the "data" folder. When opened in text viewer (like Notepad), all in TeethHub should be present, along with all tasks. Result should be the same as using `save test.json`.
 

@@ -54,7 +54,13 @@ You can find out more about the Battleship application https://cs2103-ay1819s2-w
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._.
 |===
 include::../UserGuide.adoc[tag=intro]
-include::../UserGuide.adoc[tag=ship]
+include::../UserGuide.adoc[tag=ship1]
+
+.The coordinates of the `put` command refer to the coordinates of the ship head.
+image::BattleshipHeadExample2.png[width=400, align="left"]
+
+include::../UserGuide.adoc[tag=ship2]
+
 include::../UserGuide.adoc[tag=list]
 include::../UserGuide.adoc[tag=listTags]
 
@@ -84,8 +90,24 @@ image:BattleshipHeadExample.png[width=400, align="left"]
 ====
 
 include::../DeveloperGuide.adoc[tag=putShip2]
+
+.Use case diagram for Ship Management
+image::ShipManagementUseCaseDiagram.png[width=400, align="left"]
+
+include::../DeveloperGuide.adoc[tag=putShip3]
+
+.Sequence diagram of putting a ship on the map.
+image::PutShipSequenceDiagram.png[align="left"]
+
 include::../DeveloperGuide.adoc[tag=listTags]
 include::../DeveloperGuide.adoc[tag=listShips]
+
+.Sequence diagram of listing ships deployed on the map.
+image::ListShipSequenceDiagram.png[ align="left"]
+
+include::../DeveloperGuide.adoc[tag=ship_activity]
+.Activity diagram of ship management throughout the game.
+image::ShipManagementActivityDiagram.png[height=400, align="left"]
 
 === Design Considerations
 

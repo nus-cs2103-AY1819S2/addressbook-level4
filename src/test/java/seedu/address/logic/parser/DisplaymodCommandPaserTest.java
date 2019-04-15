@@ -13,13 +13,16 @@ public class DisplaymodCommandPaserTest {
 
     @Test
     public void parse_emptyArgs_throwsParseException() {
-        assertParseFailure(parser, "     ", String.format(MESSAGE_INVALID_COMMAND_FORMAT, DisplaymodCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, "     ", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                DisplaymodCommand.MESSAGE_USAGE));
     }
 
     @Test
     public void parse_nonEmptyPreamble_failure() {
-        assertParseFailure(parser, "1", String.format(MESSAGE_INVALID_COMMAND_FORMAT, DisplaymodCommand.MESSAGE_USAGE));
-        assertParseFailure(parser, "cs", String.format(MESSAGE_INVALID_COMMAND_FORMAT, DisplaymodCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, "1", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                DisplaymodCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, "cs", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                DisplaymodCommand.MESSAGE_USAGE));
     }
 
     @Test

@@ -14,10 +14,7 @@ In Battleship, however, players have the opportunity to use both a Command Line 
 
 My role in the team was to design and implement the Ship Management feature. The feature allows players to manage their ships during the game. The Ship Manager feature consists of the commands `put`, `list` and `listTags`. Together, these three commands provide an intuitive way for players to interact with their own ships. The following sections illustrate the feature in more detail, as well as the relevant sections I have added to the user and developer guides in relation to this feature.
 
-[TIP]
-====
-You can find out more about the Battleship application https://cs2103-ay1819s2-w14-3.github.io/main/[here.]
-====
+_You can find out more about the Battleship application https://cs2103-ay1819s2-w14-3.github.io/main/[here]_.
 
 == Summary of contributions
 
@@ -45,14 +42,14 @@ You can find out more about the Battleship application https://cs2103-ay1819s2-w
 ** Community:
 *** Contributed actively in issue tracking: https://github.com/CS2103-AY1819S2-W14-3/main/issues/created_by/iwle[issues] created by me.
 *** Contributed actively in forum discussions: https://github.com/nus-cs2103-AY1819S2/forum/issues/created_by/iwle[discussions] raised by me.
-*** Reported bugs and suggestions for other teams in the class: https://bit.ly/2v4qari[bugs] found by me.
+*** Reported bugs and suggestions for other teams: https://bit.ly/2v4qari[bugs] found by me.
 ** Tools: Integrated Travis CI Bot and Coveralls Checker with team repository.
 
 == Contributions to the User Guide
 
 
 |===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._.
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
 === Introduction
@@ -68,8 +65,8 @@ image::BattleshipHeadExample2.png[width=400, align="left"]
 
 include::../UserGuide.adoc[tag=ship2]
 
-include::../UserGuide.adoc[tag=list]
-include::../UserGuide.adoc[tag=listTags]
+//include::../UserGuide.adoc[tag=list]
+//include::../UserGuide.adoc[tag=listTags]
 
 == Contributions to the Developer Guide
 
@@ -77,19 +74,17 @@ include::../UserGuide.adoc[tag=listTags]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-_I co-authored the class diagram for the `Model` component with my team mate Erjill._
-
-.Model diagram
+.Model diagram that I co-authored with team member Erjill Sison.
 image::ModelClassDiagram.png[width="400", align="left"]
 
 include::../DeveloperGuide.adoc[tag=putShip1]
-====
-*__What are the head coordinates?__*
-
-The head coordinates are the coordinates of the top-most and left-most cell of a ship. When coordinates are specified in the `put` command, they refer to the head coordinates of the ship.
-
-image:BattleshipHeadExample.png[width=400, align="left"]
-====
+// ====
+// *__What are the head coordinates?__*
+//
+// The head coordinates are the coordinates of the top-most and left-most cell of a ship. // // When coordinates are specified in the `put` command, they refer to the head coordinates of the ship.
+//
+//image:BattleshipHeadExample.png[width=400, align="left"]
+//====
 
 include::../DeveloperGuide.adoc[tag=putShip2]
 
@@ -109,10 +104,10 @@ image::ListShipSequenceDiagram.png[ align="left"]
 
 include::../DeveloperGuide.adoc[tag=ship_activity]
 .Activity diagram of ship management throughout the game.
-image::ShipManagementActivityDiagram.png[height=400, align="left"]
+image::ShipManagementActivityDiagram.png[width=600, align="left"]
 
 include::../DeveloperGuide.adoc[tag=ship_aspect_1]
-include::../DeveloperGuide.adoc[tag=ship_aspect_2]
+// include::../DeveloperGuide.adoc[tag=ship_aspect_2]
 
 == Instructions for Manual Testing
 include::../DeveloperGuide.adoc[tag=shiptest]

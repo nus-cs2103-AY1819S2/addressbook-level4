@@ -38,7 +38,7 @@ through an analysis the player's past game. This encourages player to employ dif
 It also demonstrates the application's ability to store game data which is fundamental to a future
 highscore feature in the game.
 
-* *Minor enhancement*: added the *elapsed time panel to update the duration of the game in real-time*
+* *Minor enhancement*: added the *elapsed time panel to update the duration of the game in real-time*.
 
 
 * *Code contributed*: View my https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#=undefined&search=bos10[Project Dashboard] and my Github https://github.com/CS2103-AY1819S2-W14-3/main/commits/master?author=bos10[commits].

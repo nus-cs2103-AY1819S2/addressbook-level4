@@ -10,7 +10,7 @@ We are a team of software engineers from http://www.comp.nus.edu.sg[School of Co
 
 === Yong Xin Shen
 image::amuletxheart.png[width="150", align="left"]
-{empty}[https://github.com/amuletxheart[github]]
+{empty}[https://github.com/amuletxheart[github]][<<amuletxheart#, portfolio>>]
 
 Role: Team lead
 
@@ -18,7 +18,7 @@ Role: Team lead
 
 === Ong Si Ying
 image::siyingpoof.png[width="150", align="left"]
-{empty}[http://github.com/siyingpoof[github]]
+{empty}[http://github.com/siyingpoof[github]][<<siyingpoof#, portfolio>>]
 
 Role: Documentation
 
@@ -26,7 +26,7 @@ Role: Documentation
 
 === Liu Yiyang
 image::liuyy99.png[width="150", align="left"]
-{empty}[http://github.com/Liuyy99[github]]
+{empty}[http://github.com/Liuyy99[github]][<<liuyy99#, portfolio>>]
 
 Role: Testing
 
@@ -34,7 +34,7 @@ Role: Testing
 
 === Seah Wei Quan
 image::wayneswq.png[width="150", align="left"]
-{empty}[http://github.com/wayneswq[github]]
+{empty}[http://github.com/wayneswq[github]][<<wayneswq#, portfolio>>]
 
 Role: Code quality
 
@@ -42,7 +42,7 @@ Role: Code quality
 
 === Gong Changda
 image::gongchangda.png[width="150", align="left"]
-{empty}[http://github.com/GongChangda[github]]
+{empty}[http://github.com/GongChangda[github]][<<gongchangda#, portfolio>>]
 
 Role: Deliverables and deadlines
 

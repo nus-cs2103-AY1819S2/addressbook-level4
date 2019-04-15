@@ -30,17 +30,22 @@ endif::[]
 This document serves to highlight my contributions to *TravelBuddy*, a travel journalling application. +
 
 TravelBuddy gives travelers simple tools to pen down their trip details. As every journal entry
-in *TravelBuddy* is a *Place*, travelers can also include a photo, rate the place out of 5 stars, tag the Place with custom tags,
+in *TravelBuddy* is a Place, travelers can also include a photo, rate the place out of 5 stars, tag the Place with custom tags,
 and pen down other personal information about the place, breathing life into an otherwise lifeless application.
 
-TravelBuddy also gives travelers the means to make sense of their data, via simple data visualisation. Together with robust and intuitive search
-functionality, TravelBuddy not only serves as a digital journal, but also gives travelers new insights about their adventures.
-A traveller can then utilise the knowledge and experience gleaned from previous trips in planning for future trips.
+TravelBuddy also gives travelers the means to make sense of their data, via simple data visualisation. Together with intuitive search
+functionality, TravelBuddy also gives travelers new insights about their adventures.
 
 *TravelBuddy* was built as part of the CS2103 Software Engineering module in the National University of Singapore, in which link:https://cs2103-ay1819s2-w11-3.github.io/main/AboutUs.html[my team and I] were tasked to
 morph an existing link:https://se-education.org/addressbook-level4/[Address Book] software product, and turn it into a new product -- *TravelBuddy*. The full source code for *TravelBuddy* is available link:https://github.com/CS2103-AY1819S2-W11-3/main[here].
 
-== *Major Enhancement*: Photo Functionality
+== *Summary of Contributions*
+
+This section gives an overview of my contributions to the development and testing
+of the software. A more detailed sample of my contributions to the User Guide and Developer Guide
+can be found below in <<User Guide Contributions>> and <<Developer Guide Contributions>> .
+
+=== *Major Enhancement*: Photo Functionality
 Photo functionality refers to the ability to include an image file with a user-defined Place. This functionality includes the ability to:
 
 * *Add a photo* to a Place +
@@ -71,7 +76,7 @@ s
 
 *Code contributed to major enhancement*: [link:https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#search=shaun&sort=displayName&since=2019-02-10&timeframe=day&reverse=false&repoSort=true[RepoSense]] [link:{repoURL}/pulls?utf8=✓&q=is%3Apr+author%3Ashaungohsc+label%3Atype.Enhancement+[Functional code]]
 
-== *Minor Enhancement*: View Switching between Place view and Chart view
+=== *Minor Enhancement*: View Switching between Place view and Chart view
 
 On calling the `generate` command, the Chart view is displayed to the user. On calling the `select` command, the expanded Place view is displayed to the user.
 
@@ -93,10 +98,10 @@ It also needs to be responsible for view switching.
 
 *Code Contributed*: [link:https://github.com/CS2103-AY1819S2-W11-3/main/pulls?utf8=%E2%9C%93&q=is%3Apr+author%3Ashaungohsc+label%3Atype.MinorEnhancement+label%3Apriority.High[Functional code]]
 
-== Other Contributions:
+=== Other Contributions:
 
 * *Project management*:
-** Managed releases `v1.4.2` (1 release) on GitHub
+** Managed release `v1.4` (1 release) on GitHub
 * *Enhancements to existing features*:
 ** Update `PlaceCard` for new data fields (Pull requests https://github.com/CS2103-AY1819S2-W11-3/main/pull/71[#71], https://github.com/CS2103-AY1819S2-W11-3/main/pull/107[#107])
 ** Updated the UI CSS so all UI components are inline with the color palette (Pull request https://github.com/CS2103-AY1819S2-W11-3/main/pull/186[#186])
@@ -109,35 +114,25 @@ It also needs to be responsible for view switching.
 ** PRs reviewed (with non-trivial review comments): https://github.com/CS2103-AY1819S2-W11-3/main/pull/190[#190], https://github.com/CS2103-AY1819S2-W11-3/main/pull/187[#187]
 ** Reported bugs on TravelBuddy (examples:  https://github.com/CS2103-AY1819S2-W11-3/main/issues/66[#66], https://github.com/CS2103-AY1819S2-W11-3/main/issues/172[172])
 ** Reported bugs and gave suggestions for other teams (Examples:
-https://github.com/CS2103-AY1819S2-W16-1/main/issues/161[Report 1],
-https://github.com/CS2103-AY1819S2-W16-1/main/issues/181[Report 2],
-https://github.com/CS2103-AY1819S2-W16-1/main/issues/171[Report 3],
+https://github.com/CS2103-AY1819S2-W16-1/main/issues/161[Report 1], https://github.com/CS2103-AY1819S2-W16-1/main/issues/181[Report 2], https://github.com/CS2103-AY1819S2-W16-1/main/issues/171[Report 3],
 https://github.com/CS2103-AY1819S2-W16-1/main/issues/144[Report 4]
 
-== *User Guide* Contributions
+== User Guide Contributions
 
 |===
-|_Given below are my contributions to the User Guide. They showcase my ability to write documentation targeting end-users._
+| Given below are my contributions to the User Guide. They showcase my ability to write documentation targeting end-users.
 |===
-
-=== Including a photo when adding a place with `p/`
 
 include::../UserGuide.adoc[tag=addphoto]
 
 === Replacing the photo of a place with `edit p/`
 
-include::../UserGuide.adoc[tag=editphoto]
-
-== *Developer Guide* Contributions
+== Developer Guide Contributions
 
 |===
-|Given below are my contributions to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+| Given below are my contributions to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project.
 |===
-
-=== UI Architecture
 
 include::../DeveloperGuide.adoc[tag=uiArchitecture]
-
-=== Photos Feature
 
 include::../DeveloperGuide.adoc[tag=photosFeature]

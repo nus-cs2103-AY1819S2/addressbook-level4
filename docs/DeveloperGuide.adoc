@@ -826,8 +826,6 @@ Suggested path for new programmers:
 
 [appendix]
 
-// end::product[]
-
 == User Stories
 
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
@@ -1471,7 +1469,7 @@ Use case ends.
 2. PFT closes itself and exits
 +
 Use case ends.
-//end::product
+//end::product[]
 // tag::nfr[]
 
 [appendix]

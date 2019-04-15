@@ -16,7 +16,6 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.hms.model.booking.Booking;
-import seedu.hms.model.booking.serviceType.ServiceType;
 import seedu.hms.testutil.BookingBuilder;
 
 public class BookingListPanelTest extends GuiUnitTest {
@@ -28,7 +27,6 @@ public class BookingListPanelTest extends GuiUnitTest {
     private static final long CARD_CREATION_AND_DELETION_TIMEOUT = 2500; //was 2500 initly changed to 300 to pass
 
     private final SimpleObjectProperty<Booking> selectedBooking = new SimpleObjectProperty<>();
-    private final SimpleObjectProperty<ServiceType> selectedServiceType = new SimpleObjectProperty<>();
     private BookingListPanelHandle bookingListPanelHandle;
 
     @Test

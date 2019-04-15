@@ -2,7 +2,6 @@ package guitests.guihandles;
 
 import javafx.scene.Node;
 import javafx.scene.control.Label;
-import javafx.scene.layout.FlowPane;
 import seedu.hms.model.booking.Booking;
 
 /**
@@ -25,7 +24,7 @@ public class BookingCardHandle extends NodeHandle<Node> {
     private Label phoneLabel;
     private Label identificationNoLabel;
     private Label commentsLabel;
-    private FlowPane allUsers;
+    //private FlowPane allUsers;
 
     public BookingCardHandle(Node cardNode) {
         super(cardNode);

@@ -52,12 +52,8 @@ public class StudyPanel extends MainPanel {
         super(FXML);
 
         sQuestion.setText(textShown.getValue());
-        userAnswerLabel.setVisible(false);
         status.setVisible(false);
-        sCard.pseudoClassStateChanged(ANSWER, false);
-        sQuestion.pseudoClassStateChanged(ANSWER, false);
         rateDifficulty.setText(DIFFICULTY_QUESTION);
-
 
         textShown.addListener((observable, oldValue, newValue) -> {
             logger.info("textShown changed to: " + newValue);
@@ -68,7 +64,6 @@ public class StudyPanel extends MainPanel {
             logger.info("color changed for: " + newValue);
             sCard.pseudoClassStateChanged(ANSWER, studyState.getValue() == StudyView.StudyState.ANSWER);
             sQuestion.pseudoClassStateChanged(ANSWER, studyState.getValue() == StudyView.StudyState.ANSWER);
-            userAnswerLabel.setVisible(studyState.getValue() == StudyView.StudyState.ANSWER);
             status.setVisible(studyState.getValue() == StudyView.StudyState.ANSWER);
         });
 

@@ -234,6 +234,7 @@ Format: `clear`
 * This command can only be used when All Jobs Screen shows. You can clear all applicants in All Aplicants list
 ****
 
+// tag::jobs[]
 === Job Related Features
 
 

@@ -56,6 +56,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 Format: `help`
 
+// tag::add[]
 === Adding a person : `add`
 
 Adds a person to the consumer list. +
@@ -68,6 +69,8 @@ Examples:
 
 * `add n/Jane Doe p/23456789 e/janed@example.com a/113, Clementi Ave 2, #02-24 s/5000 o/teacher r/single`
 * `add n/John Doe p/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 s/100000 o/banker r/single t/friends t/owesMoney`
+
+// end::add[]
 
 // tag::addcpny[]
 === Adding a company : `addcpny`
@@ -376,7 +379,7 @@ Examples:
 `sortcpny` phone rev            (list all companies by their phone number in reverse order)
 // end::sortcpny[]
 
-=== Find clients: `findCli` `[coming in v1.4]`
+=== Find clients: `findCli` `[coming in v2.0]`
 
 Lists all persons deemed capable of affording a specific product based on salary
 
@@ -389,7 +392,7 @@ findCli 100
 findCli 20
 
 
-=== Find shops: `findShops` `[coming in v1.4]`
+=== Find shops: `findShops` `[coming in v2.0]`
 
 
 Lists all stores a person is deemed capable of visiting based on salary and store pricing
@@ -461,7 +464,7 @@ image::listFav.png[width="200"]
 
 // end::favorite[]
 
-=== Create group: `group` `[coming in v1.4]`
+=== Create group: `group` `[coming in v2.0]`
 
 Creates a group of persons
 

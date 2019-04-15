@@ -1,4 +1,4 @@
-= AddressBook Level 4 - Developer Guide
+= Marketing Morph - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -15,7 +15,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/se-edu/addressbook-level4/tree/master
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team W16-3`      Since: `Jan 2019`      Licence: `MIT`
 
 == Setting up
 
@@ -1100,7 +1100,6 @@ Cons:
 * ...
 
 [appendix]
-// tag::manualTesting[]
 
 == Instructions for Manual Testing
 
@@ -1211,6 +1210,7 @@ _{ more test cases ... }_
 .. Test Case: `find Burger` +
    Expected: May return `Burger Spot` and `Burger King` if both exist as companies
    
+// tag::manualJiayu[]
 === Finding a person by occupation
 
 . Finding a person by occupation
@@ -1226,6 +1226,8 @@ _{ more test cases ... }_
 .. Prerequisites: The company that is searched for must exist
 .. Test Case: `findSector Bank` +
    Expected: May return `DSS` and `OCCC` if both exist as companies whose sector is bank
+
+// end::manualJiayu[]
 
 === Deleting a company
 

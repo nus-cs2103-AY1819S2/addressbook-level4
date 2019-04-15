@@ -12,7 +12,6 @@
 Marketing Morph is a desktop marketing application. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface). It is meant to be utilized by a marketing company in order to effectively organize potential targets and potential clients.
 
 == Summary of contributions
-
 * *Major enhancement*: added *the ability to store and manipulate salary, occupation and relationship features for persons in the Addressbook*
 ** How I did it: I extended the architecture of the Person class and have connected them to the main application.
 ** What it does: allows the user to record salary, occupation, and relationship attributes for persons, the user can analyze the data for the three attributes.
@@ -36,7 +35,7 @@ Marketing Morph is a desktop marketing application. It has a GUI but most of the
 ** Documentation:
 *** Extensive additions to the User Guide that document the functionality of the `Person` objects
 *** Updates to the application architecture in the Developer Guide with respect to the addition of the Person structure
-*** Detailed user stories added in the appendix of the Developer Guide
+*** Added manual testing instructions in the appendix of the Developer Guide
 
 
 == Contributions to the User Guide
@@ -60,7 +59,6 @@ include::../UserGuide.adoc[tag=findOccupation]
 
 include::../UserGuide.adoc[tag=findSector]
 
-
 == Contributions to the Developer Guide
 
 |===
@@ -69,5 +67,4 @@ include::../UserGuide.adoc[tag=findSector]
 
 include::../DeveloperGuide.adoc[tag=users]
 
-include::../DeveloperGuide.adoc[tag=manualTesting]
-
+include::../DeveloperGuide.adoc[tag=manualJiayu]

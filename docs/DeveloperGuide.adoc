@@ -384,8 +384,8 @@ image::person-attributes.png[width=100%]
 ===== `memberAdd` Command
 This command takes in a number of parameters that are contact and student information pertaining to the member. The `MemberAddCommandParser` requires that all field are present, in the required format, with the exception of tags which are optional.
 
-.Sequence of Validations and Checks for MemberAddCommand
-image::memberadd_validation.png[width=40%]
+.Activity Diagram of Validations and Checks for MemberAddCommand
+image::memberadd_validation.png[width=100%]
 
 Below is a step-by-step process on how the memberAdd command works on execution:
 

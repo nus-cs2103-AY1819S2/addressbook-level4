@@ -8,18 +8,6 @@
 :sourceDir: https://cs2103-ay1819s2-w09-1.github.io/main/
 :xrefstyle: short
 
-image::ngweixin.png[width="100", align="left"]
-{empty}[https://github.com/ngweixin[GitHub]]
-
-Hi there! I am Ng Wei Xin (Xavier), a Year 2 Undergraduate of NUS majoring in Computer Science.
-The purpose of this portfolio is to document my contributions to _UltiStudent_, a software
-engineering project under CS2103T Software Engineering module in NUS.
-UltiStudent would not be possible without my peers:
-[underline]#{sourceDir}team/andrewscw.html[Andrew Sim]#,
-[underline]#{sourceDir}team/limzhengjiebenjamin.html[Benjamin Lim]# and
-[underline]#{sourceDir}team/shimeilee.html[Lee Shi Mei]#.
-
----
 == PROJECT: UltiStudent
 ---
 toc::[]

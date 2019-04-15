@@ -340,6 +340,8 @@ Step 4: Upon receiving the necessary information from the parser, the *OpenComma
 retrieves the directory of the Pdf listed in the Pdf Book. It then launches the Pdf
 with the user-default Pdf reader.
 
+The implementation of the *OpenCommand* execution can be summarised in the following activity diagram:
+
 .Open Command Activity Diagram
 image::OpenCommandActivityDiagram.png[width="600"]
 
